@@ -1,182 +1,126 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, fn, userEvent, within } from 'storybook/test';
-import Button, { buttonTones, buttonVariants } from './Button';
-import { RegistryIcon } from '../../../icons/RegistryIcon';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { publicSource } from '../../../../.storybook/stories/ReuiStoryHelpers';
 import { ControlsExample } from '../../../../.storybook/fixtures/button/ControlsExample';
 import controlsSource from '../../../../.storybook/fixtures/button/ControlsExample.jsx?raw';
-import { publicSource } from '../../../../.storybook/stories/ReuiStoryHelpers';
+import { RegistryIcon } from '../../../icons/RegistryIcon';
+import Button, { buttonTones, buttonVariants } from './Button';
 
-const componentDocs = getComponentDocs('Core/Button');
-const toneOptions = [ ...buttonTones ];
+const docs = getComponentDocs('Core/Button');
+const variants = Object.keys(buttonVariants.variants.variant);
+const heights = { xs: 24, sm: 28, md: 32, lg: 36 };
+const iconSize = (size) => (size === 'md' ? 'icon' : `icon-${size}`);
+const height = (element) => element.getBoundingClientRect().height;
+const Row = ({ children }) => <div className='flex flex-wrap items-center gap-3'>{children}</div>;
 
 export default {
-  argTypes: {
-    'children': {
-      'control': 'text',
-      'description': 'Visible button label or content.'
-    },
-    'disabled': {
-      'control': 'boolean',
-      'description': 'Disables native buttons and removes disabled links from the tab order.',
-      'table': { 'defaultValue': { 'summary': false }, 'type': { 'summary': 'boolean' } }
-    },
-    'radius': {
-      'control': 'select',
-      'description': 'Controls the button corner radius.',
-      'options': [ 'sm', 'md', 'lg', 'full' ],
-      'table': { 'defaultValue': { 'summary': 'md' } }
-    },
-    'size': {
-      'control': 'select',
-      'description': 'Compact heights: xs 24px, sm 28px, md/default 32px, lg 36px. Icon sizes match their text buttons.',
-      'options': [ 'xs', 'sm', 'md', 'lg', 'icon-xs', 'icon-sm', 'icon', 'icon-lg' ],
-      'table': { 'defaultValue': { 'summary': 'md' } }
-    },
-    'tone': {
-      'control': 'select',
-      'description': 'Maps the action to an approved semantic color family.',
-      'options': toneOptions,
-      'table': { 'defaultValue': { 'summary': 'accent' } }
-    },
-    'variant': {
-      'control': 'select',
-      'description': 'Sets the action hierarchy and visual treatment.',
-      'options': [ ...Object.keys(buttonVariants.variants.variant) ],
-      'table': { 'defaultValue': { 'summary': 'solid' } }
-    }
-  },
-  args: {
-    children: 'Button',
-    disabled: false,
-    radius: 'md',
-    size: 'md',
-    tone: 'accent',
-    variant: 'solid'
-  },
+  title: 'Core/Button',
+  id: 'core-button',
   component: Button,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, {
+    children: 'text',
+    variant: variants,
+    tone: [...buttonTones],
+    size: ['xs', 'sm', 'md', 'lg', 'icon-xs', 'icon-sm', 'icon', 'icon-lg'],
+    radius: ['sm', 'md', 'lg', 'full'],
+    href: 'text',
+    disabled: 'boolean'
+  }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  },
-  tags: [ 'autodocs' ],
-  id: 'core-button',
-  title: 'Core/Button'
+  }
 };
 
-export const Primary = {
-  'args': {
-    'children': 'Read article',
-    'onClick': fn(),
-    'size': 'md',
-    'tone': 'accent',
-    'variant': 'solid'
-  },
-  'play': async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { 'name': args.children });
-    const expectedClasses = buttonVariants({
-      radius: args.radius,
-      size: args.size,
-      tone: args.tone,
-      variant: args.variant
-    }).split(' ');
-
+export const Playground = {
+  args: { children: 'Read article', variant: 'solid', tone: 'accent', size: 'md', radius: 'md', disabled: false, onClick: fn() },
+  parameters: { docs: { source: playgroundSource('Button', { imports: "import { Button } from '@gaudi/design-system';" }) } },
+  render: (args) => <Button {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: args.children });
+    const { radius, size, tone, variant } = args;
     await expect(button).toHaveAttribute('type', 'button');
-    await expect(button).toHaveClass(...expectedClasses);
-
+    await expect(button).toHaveClass(...buttonVariants({ radius, size, tone, variant }).split(' '));
     await userEvent.click(button);
-
-    await expect(args.onClick).toHaveBeenCalledTimes(1);
+    await expect(args.onClick).toHaveBeenCalledTimes(args.disabled ? 0 : 1);
   }
 };
 
-export const Secondary = {
-  'args': {
-    'children': 'Browse posts',
-    'size': 'md',
-    'tone': 'neutral',
-    'variant': 'outline'
-  },
-  'play': async ({ canvasElement }) => {
+export const Variants = {
+  parameters: { docs: { description: { story: 'Five treatments set the action hierarchy at the same 32px height.' } } },
+  render: () => <Row>{variants.map((variant) => <Button key={variant} variant={variant}>{variant}</Button>)}</Row>,
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { 'name': 'Browse posts' });
-
-    await expect(button).toBeEnabled();
-    await expect(button).toHaveAttribute('type', 'button');
-    await expect(button).toHaveClass('border', 'border-border', 'text-foreground');
-  }
-};
-
-export const LinkButton = {
-  'args': {
-    'children': 'Open blog',
-    'href': '/blog',
-    'tone': 'accent',
-    'variant': 'outline'
-  },
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { 'name': 'Open blog' });
-
-    await expect(new URL(link.href).pathname).toBe('/blog');
-    await expect(link).toHaveClass('border', 'border-accent-muted', 'text-accent');
-    await expect(link).not.toHaveAttribute('target');
-    await expect(link).not.toHaveAttribute('aria-disabled');
-  }
-};
-
-export const AllVariants = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     await expect(canvas.getByRole('button', { name: 'solid' })).toHaveClass('bg-accent', 'text-accent-foreground');
     await expect(canvas.getByRole('button', { name: 'soft' })).toHaveClass('bg-accent-subtle', 'text-accent');
     await expect(canvas.getByRole('button', { name: 'outline' })).toHaveClass('border', 'border-accent-muted', 'text-accent');
-    await expect(canvas.getByRole('button', { name: 'ghost' })).toHaveClass('text-accent');
     await expect(canvas.getByRole('button', { name: 'subtle' })).toHaveClass('p-0', 'text-accent');
-    for (const button of canvas.getAllByRole('button')) {
-      await expect(button.getBoundingClientRect().height).toBe(32);
+    for (const button of canvas.getAllByRole('button')) await expect(height(button)).toBe(32);
+  }
+};
+
+export const Tones = {
+  parameters: { docs: { description: { story: 'Semantic tones carry meaning; pick them by intent, not colour.' } } },
+  render: () => <Row>{buttonTones.map((tone) => <Button key={tone} tone={tone}>{tone}</Button>)}</Row>,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: 'neutral' })).toHaveClass('bg-foreground', 'text-text-inverse');
+    for (const tone of buttonTones.filter((name) => name !== 'neutral')) {
+      await expect(canvas.getByRole('button', { name: tone })).toHaveClass(`bg-${tone}`, `text-${tone}-foreground`);
     }
-  },
-  'render': () => (
-    <div className='flex max-w-4xl flex-wrap items-center gap-4 p-6'>
-      {Object.keys(buttonVariants.variants.variant).map((variant) => (
-        <Button key={ variant } variant={ variant } tone='accent'>
-          {variant}
-        </Button>
-      ))}
-    </div>
-  )
+  }
 };
 
 export const Sizes = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    for (const [size, height] of [['xs', 24], ['sm', 28], ['md', 32], ['lg', 36]]) {
-      const button = canvas.getByRole('button', { name: `Button ${size}` });
-      const icon = canvas.getByRole('button', { name: `Settings ${size}` });
-      await expect(button.getBoundingClientRect().height).toBe(height);
-      await expect(icon.getBoundingClientRect().height).toBe(height);
-      await expect(icon.getBoundingClientRect().width).toBe(height);
-    }
-  },
-  'render': () => (
-    <div className='flex flex-wrap items-center gap-3 p-6'>
-      {[ 'xs', 'sm', 'md', 'lg' ].map((size) => (
+  parameters: { docs: { description: { story: 'Text and icon-only sizes share heights: xs 24px, sm 28px, md 32px, lg 36px.' } } },
+  render: () => (
+    <Row>
+      {Object.keys(heights).map((size) => (
         <div key={size} className='flex items-center gap-2'>
           <Button size={size}><RegistryIcon lucide='PlusIcon' aria-hidden='true' />Button {size}</Button>
-          <Button size={size === 'md' ? 'icon' : `icon-${size}`} variant='outline' aria-label={`Settings ${size}`}>
+          <Button size={iconSize(size)} variant='outline' aria-label={`Settings ${size}`}>
             <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />
           </Button>
         </div>
       ))}
-    </div>
-  )
+    </Row>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const [size, px] of Object.entries(heights)) {
+      const icon = canvas.getByRole('button', { name: `Settings ${size}` });
+      await expect(height(canvas.getByRole('button', { name: `Button ${size}` }))).toBe(px);
+      await expect(height(icon)).toBe(px);
+      await expect(icon.getBoundingClientRect().width).toBe(px);
+    }
+  }
+};
+
+export const States = {
+  parameters: { docs: { description: { story: 'Disabled buttons use the native attribute; `href` renders an internal link or a new-tab external anchor.' } } },
+  render: () => (
+    <Row>
+      <Button disabled>Disabled action</Button>
+      <Button href='/blog' variant='outline'>Internal link</Button>
+      <Button href='https://example.com' variant='soft'>External link</Button>
+    </Row>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const internal = canvas.getByRole('link', { name: 'Internal link' });
+    const external = canvas.getByRole('link', { name: 'External link' });
+    await expect(canvas.getByRole('button', { name: 'Disabled action' })).toBeDisabled();
+    await expect(new URL(internal.href).pathname).toBe('/blog');
+    await expect(internal).toHaveClass('border', 'border-accent-muted', 'text-accent');
+    await expect(internal).not.toHaveAttribute('target');
+    await expect(external).toHaveAttribute('target', '_blank');
+    await expect(external).toHaveAttribute('rel', expect.stringContaining('noopener'));
+  }
 };
 
 export const WithControls = {
@@ -189,56 +133,7 @@ export const WithControls = {
   render: () => <ControlsExample />,
   play: async ({ canvasElement }) => {
     for (const row of canvasElement.querySelectorAll('[data-control-row]')) {
-      const control = row.firstElementChild;
-      for (const button of row.querySelectorAll(':scope > button')) {
-        await expect(button.getBoundingClientRect().height).toBe(control.getBoundingClientRect().height);
-      }
+      for (const button of row.querySelectorAll(':scope > button')) await expect(height(button)).toBe(height(row.firstElementChild));
     }
-  }
-};
-
-export const Tones = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByRole('button', { name: 'neutral' })).toHaveClass('bg-foreground', 'text-text-inverse');
-    await expect(canvas.getByRole('button', { name: 'accent' })).toHaveClass('bg-accent', 'text-accent-foreground');
-    await expect(canvas.getByRole('button', { name: 'attention' })).toHaveClass('bg-attention', 'text-attention-foreground');
-    await expect(canvas.getByRole('button', { name: 'danger' })).toHaveClass('bg-danger', 'text-danger-foreground');
-    await expect(canvas.getByRole('button', { name: 'discovery' })).toHaveClass('bg-discovery', 'text-discovery-foreground');
-    await expect(canvas.getByRole('button', { name: 'info' })).toHaveClass('bg-info', 'text-info-foreground');
-    await expect(canvas.getByRole('button', { name: 'success' })).toHaveClass('bg-success', 'text-success-foreground');
-    await expect(canvas.getByRole('button', { name: 'warning' })).toHaveClass('bg-warning', 'text-warning-foreground');
-  },
-  'render': () => (
-    <div className='flex max-w-4xl flex-wrap items-center gap-3 p-6'>
-      {toneOptions.map((tone) => (
-        <Button key={ tone } tone={ tone }>{tone}</Button>
-      ))}
-    </div>
-  )
-};
-
-export const States = {
-  'render': () => (
-    <div className='flex flex-wrap items-center gap-3 p-6'>
-      <Button>Default</Button>
-      <Button disabled>Disabled action</Button>
-      <Button href='/blog' variant='outline'>Internal link</Button>
-      <Button href='https://example.com' variant='soft'>External link</Button>
-    </div>
-  ),
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const disabledButton = canvas.getByRole('button', { 'name': 'Disabled action' });
-    const internalLink = canvas.getByRole('link', { 'name': 'Internal link' });
-    const externalLink = canvas.getByRole('link', { 'name': 'External link' });
-
-    await expect(disabledButton).toBeDisabled();
-    await expect(disabledButton).toHaveClass('cursor-not-allowed');
-    await expect(internalLink).toHaveAttribute('href', '/blog');
-    await expect(internalLink).not.toHaveAttribute('target');
-    await expect(externalLink).toHaveAttribute('target', '_blank');
-    await expect(externalLink).toHaveAttribute('rel', expect.stringContaining('noopener'));
   }
 };

@@ -1,34 +1,35 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import LatexText from './LatexText';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/LatexText');
+const docs = getComponentDocs('MDX/LatexText');
 
 export default {
+  title: 'MDX/LatexText',
+  id: 'mdx-latextext',
+  component: LatexText,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { children: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-latextext',
-  title: 'MDX/LatexText'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
+export const Playground = {
+  args: { children: '11$^{th}$ International Conference' },
+  parameters: { docs: { source: playgroundSource('LatexText', { imports: "import LatexText from '@gaudi/design-system/mdx/LatexText';" }) } },
+  render: (args) => <p>Ordinal text stays readable: <LatexText {...args} /></p>,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const paragraph = canvas.getByText(/Ordinal text stays readable:/i);
-
-    await expect(paragraph).toBeVisible();
+    const paragraph = within(canvasElement).getByText(/Ordinal text stays readable:/);
     await expect(paragraph).toHaveTextContent('International Conference');
     await expect(paragraph).not.toHaveTextContent('$^{th}$');
     await expect(canvasElement.querySelector('.katex')).toBeInTheDocument();
-  },
-  'render': () => renderComponentExample('MDX/LatexText', componentModule)
+  }
 };

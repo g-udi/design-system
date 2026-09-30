@@ -10,22 +10,18 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Stepper', tags: ['autodocs'], ...catalogueMeta('stepper') };
 
-export const ReuiStepper1 = {
-  name: 'Basic stepper',
-  ...pattern(1),
-  play: catalogueInteractions['stepper-1']
-};
-export const ReuiStepper2 = { name: 'Stepper with completed state', ...pattern(2) };
-export const ReuiStepper3 = { name: 'Stepper with loading state', ...pattern(3) };
-export const ReuiStepper4 = { name: 'Controlled stepper', ...pattern(4) };
-export const ReuiStepper5 = { name: 'Stepper with title and indicator', ...pattern(5) };
-export const ReuiStepper6 = { name: 'Stepper with progress bar indicator', ...pattern(6) };
-export const ReuiStepper7 = { name: 'Stepper with icons and badges', ...pattern(7) };
-export const ReuiStepper8 = { name: 'Stepper with descriptions', ...pattern(8) };
-export const ReuiStepper9 = { name: 'Stepper with inline titles', ...pattern(9) };
-export const ReuiStepper10 = { name: 'Stepper with content for each step', ...pattern(10) };
-export const ReuiStepper11 = { name: 'Stepper with progress bar and titles', ...pattern(11) };
-export const ReuiStepper12 = { name: 'Stepper with segmented progress bar', ...pattern(12) };
-export const ReuiStepper13 = { name: 'Stepper with vertical orientation and descriptions', ...pattern(13) };
-export const ReuiStepper14 = { name: 'Stepper with vertical orientation', ...pattern(14) };
-export const ReuiStepper15 = { name: 'Stepper with vertical orientation and titles', ...pattern(15) };
+export const ReuiStepper1 = { name: 'Basic stepper', ...pattern(1), play: catalogueInteractions['stepper-1'] };
+export const ReuiStepper2 = { name: 'Completed state', ...pattern(2) };
+export const ReuiStepper3 = { name: 'Loading state', ...pattern(3) };
+export const ReuiStepper4 = { name: 'Controlled', ...pattern(4) };
+export const ReuiStepper5 = { name: 'Title and indicator', ...pattern(5) };
+export const ReuiStepper6 = { name: 'Progress bar indicator', ...pattern(6) };
+export const ReuiStepper7 = { name: 'Icons and badges', ...pattern(7) };
+export const ReuiStepper8 = { name: 'Descriptions', ...pattern(8) };
+export const ReuiStepper9 = { name: 'Inline titles', ...pattern(9) };
+export const ReuiStepper10 = { name: 'Content for each step', ...pattern(10) };
+export const ReuiStepper11 = { name: 'Progress bar and titles', ...pattern(11) };
+export const ReuiStepper12 = { name: 'Segmented progress bar', ...pattern(12) };
+export const ReuiStepper13 = { name: 'Vertical with descriptions', ...pattern(13) };
+export const ReuiStepper14 = { name: 'Vertical orientation', ...pattern(14) };
+export const ReuiStepper15 = { name: 'Vertical with titles', ...pattern(15) };

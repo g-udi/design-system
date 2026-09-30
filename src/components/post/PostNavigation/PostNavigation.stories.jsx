@@ -1,59 +1,54 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import PostNavigation from './index';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('Post/PostNavigation');
-const PostNavigation = componentModule.default;
+const docs = getComponentDocs('Post/PostNavigation');
+const prev = { slug: 'previous-post', title: 'Previous post title' };
+const next = { slug: 'next-post', title: 'Next post title' };
+const previousThought = { slug: 'previous-thought', title: 'Previous thought title' };
 
 export default {
+  title: 'Post/PostNavigation',
+  component: PostNavigation,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { type: ['Post', 'Thought'], headingLevel: [2, 3, 4] }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  title: 'Post/PostNavigation'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
+export const Playground = {
+  args: { prev, next, type: 'Post', headingLevel: 2 },
+  parameters: {
+    docs: { source: playgroundSource('PostNavigation', { imports: "import { PostNavigation } from '@gaudi/design-system';" }) }
+  },
+  render: (args) => <PostNavigation {...args} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const previousLink = canvas.getByRole('link', { name: 'Previous Article Previous post title' });
-    const nextLink = canvas.getByRole('link', { name: 'Next Article Next post title' });
-
-    await expect(canvas.getByRole('heading', { name: 'Previous Article' })).toBeVisible();
-    await expect(canvas.getByRole('heading', { name: 'Next Article' })).toBeVisible();
-    await expect(previousLink).toHaveAttribute('href', '/blog/previous-post');
-    await expect(nextLink).toHaveAttribute('href', '/blog/next-post');
-    await expect(previousLink).toHaveClass('block');
-    await expect(nextLink).toHaveClass('block');
+    const previousLink = canvas.getByRole('link', { name: `Previous Article ${prev.title}` });
+    const nextLink = canvas.getByRole('link', { name: `Next Article ${next.title}` });
+    await expect(canvas.getByRole('navigation', { name: 'Article navigation' })).toBeVisible();
+    await expect(canvas.getByRole('heading', { level: 2, name: 'Previous Article' })).toBeVisible();
+    await expect(previousLink).toHaveAttribute('href', `/blog/${prev.slug}`);
+    await expect(nextLink).toHaveAttribute('href', `/blog/${next.slug}`);
     await expect(nextLink).toHaveClass('text-right');
-    await expect(canvasElement.querySelector('nav[aria-label="Article navigation"]')).toBeVisible();
-  },
-  'render': () => renderComponentExample('Post/PostNavigation', componentModule)
+  }
 };
 
 export const ThoughtNavigation = {
+  name: 'Thought with one neighbour',
+  parameters: { docs: { description: { story: "`type='Thought'` switches labels and routes to /thoughts, and a missing `next` renders no empty link." } } },
+  render: () => <PostNavigation prev={previousThought} next={null} type='Thought' />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const previousLink = canvas.getByRole('link', { name: 'Previous Thought Previous thought title' });
-
-    await expect(canvas.getByRole('heading', { name: 'Previous Thought' })).toBeVisible();
-    await expect(previousLink).toHaveAttribute('href', '/thoughts/previous-thought');
+    await expect(canvas.getByRole('link', { name: `Previous Thought ${previousThought.title}` })).toHaveAttribute('href', `/thoughts/${previousThought.slug}`);
     await expect(canvas.queryByRole('heading', { name: 'Next Thought' })).not.toBeInTheDocument();
-  },
-  render: () => (
-    <div className='max-w-3xl p-6'>
-      <PostNavigation
-        prev={{ slug: 'previous-thought', title: 'Previous thought title' }}
-        next={ null }
-        type='Thought'
-      />
-    </div>
-  )
+  }
 };

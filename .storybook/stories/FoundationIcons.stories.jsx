@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { expect, fireEvent, spyOn, userEvent, waitFor, within } from 'storybook/test';
 
 import Icon from '../../src/components/core/Icon';
 
@@ -292,5 +293,49 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' src 
         </div>
       </Section>
     </Page>
-  )
+  ),
+  // Search, paging, preview, copy, and filtering in the animated icon gallery.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search animated icons' });
+    await expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24);
+    await userEvent.click(canvas.getByRole('button', { name: 'Next', exact: true }));
+    await expect(canvas.getByText(/Page 2 of/)).toBeVisible();
+    search.focus();
+    fireEvent.change(search, { target: { value: 'Bell' } });
+    const bell = canvas.getByRole('button', { name: 'Copy Bell animated icon', exact: true });
+    await waitFor(() => expect(bell.querySelector('[data-icon-artwork]')).toBeInTheDocument());
+    await userEvent.hover(bell);
+    await waitFor(() => expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true'));
+    await userEvent.unhover(bell);
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'false');
+    search.focus();
+    await userEvent.tab();
+    // Style, preview toggle, then the first result.
+    await userEvent.tab();
+    await userEvent.tab();
+    await expect(bell).toHaveFocus();
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true');
+    // The headless runner cannot access the system clipboard. Verify the payload
+    // and feedback here; the real clipboard is checked in the live gallery.
+    const writeText = spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+    try {
+      await userEvent.keyboard('{Enter}');
+      await waitFor(() => expect(canvas.getByRole('status', { name: 'Icon copy status' })).toHaveTextContent('Copied Bell usage.'));
+      await expect(writeText).toHaveBeenCalledWith('import { AnimatedIcon } from \'@gaudi/design-system/icons\';\n\n<AnimatedIcon name="Bell" active={isActive} size="md" decorative />');
+    } finally { writeText.mockRestore(); }
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Animate previews' }));
+    await userEvent.hover(bell);
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'false');
+    await userEvent.unhover(bell);
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Animate previews' }));
+    await userEvent.selectOptions(canvas.getByRole('combobox', { name: 'Animation style' }), 'gaudi-draw');
+    await expect(canvas.queryByRole('button', { name: 'Copy Bell animated icon', exact: true })).not.toBeInTheDocument();
+    fireEvent.change(search, { target: { value: 'not-an-icon' } });
+    await expect(canvas.getByText('No animated icons match “not-an-icon”.')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Reset search' }));
+    await expect(search).toHaveValue('');
+    await expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24);
+    window.scrollTo(0, 0);
+  }
 };

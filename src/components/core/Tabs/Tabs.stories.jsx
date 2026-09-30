@@ -1,69 +1,93 @@
-import { expect, userEvent, within } from 'storybook/test';
-import {
-  applicationDocs,
-  ExampleFrame
-} from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import Tabs, { TabsList, TabsTrigger, TabsContent } from './Tabs';
+import { expect, fn, userEvent, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Tabs, { TabsContent, TabsList, TabsTrigger } from './Tabs';
 
-export default {
-  tags: ['autodocs'],
-  title: 'Core/Tabs',
-  component: Tabs,
-  ...applicationDocs(
-    'Composable tabs for views within the same page. Supports controlled value, defaultValue, horizontal/vertical orientation and manual activation.',
-    "import { Tabs, TabsList, TabsTrigger, TabsContent } from '@gaudi/design-system/core/Tabs';\n\n<Tabs defaultValue='overview'><TabsList aria-label='Article'><TabsTrigger value='overview'>Overview</TabsTrigger><TabsTrigger value='history'>History</TabsTrigger></TabsList><TabsContent value='overview'>Article details</TabsContent><TabsContent value='history'>Revision history</TabsContent></Tabs>",
-    'Radix connects tabs to their panels and implements arrow, Home and End navigation. For route navigation, use links rather than tab roles.'
-  )
-};
-function ArticleTabs({
-  orientation = 'horizontal',
-  activationMode = 'automatic'
-}) {
+const docs = getComponentDocs('Core/Tabs');
+const listLabel = 'Article details';
+const panels = [
+  { value: 'overview', label: 'Overview', content: 'A practical guide to knowledge graphs.' },
+  { value: 'references', label: 'References', content: 'Three references support this article.' },
+  { value: 'history', label: 'History', content: 'The latest revision was saved yesterday.' },
+  { value: 'analytics', label: 'Analytics', disabled: true }
+];
+const tab = (canvas, index) => canvas.getByRole('tab', { name: panels[index].label });
+const children = [
+  `  <TabsList aria-label='${listLabel}'>`,
+  ...panels.map(({ value, label, disabled }) => `    <TabsTrigger value='${value}'${disabled ? ' disabled' : ''}>${label}</TabsTrigger>`),
+  '  </TabsList>',
+  ...panels.filter((panel) => panel.content).map(({ value, content }) => `  <TabsContent value='${value}'>${content}</TabsContent>`)
+].join('\n');
+
+function ArticleTabs(props) {
   return (
-    <ExampleFrame>
-      <Tabs
-        defaultValue='overview'
-        orientation={orientation}
-        activationMode={activationMode}
-      >
-        <TabsList aria-label='Article details'>
-          <TabsTrigger value='overview'>Overview</TabsTrigger>
-          <TabsTrigger value='references'>References</TabsTrigger>
-          <TabsTrigger value='history'>History</TabsTrigger>
-          <TabsTrigger value='analytics' disabled>
-            Analytics
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent value='overview'>
-          A practical guide to knowledge graphs.
-        </TabsContent>
-        <TabsContent value='references'>
-          Three references support this article.
-        </TabsContent>
-        <TabsContent value='history'>
-          The latest revision was saved yesterday.
-        </TabsContent>
-      </Tabs>
-    </ExampleFrame>
+    <Tabs defaultValue='overview' {...props}>
+      <TabsList aria-label={listLabel}>
+        {panels.map(({ value, label, disabled }) => (
+          <TabsTrigger key={value} value={value} disabled={disabled}>{label}</TabsTrigger>
+        ))}
+      </TabsList>
+      {panels.filter((panel) => panel.content).map(({ value, content }) => (
+        <TabsContent key={value} value={value}>{content}</TabsContent>
+      ))}
+    </Tabs>
   );
 }
-export const ArticleDetails = {
-  render: () => <ArticleTabs />,
-  play: async ({ canvasElement }) => {
+
+export default {
+  title: 'Core/Tabs',
+  component: Tabs,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { orientation: ['horizontal', 'vertical'], activationMode: ['automatic', 'manual'] }),
+  parameters: {
+    docs: {
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
+    }
+  },
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
+};
+
+export const Playground = {
+  args: { defaultValue: 'overview', orientation: 'horizontal', activationMode: 'automatic', onValueChange: fn() },
+  parameters: {
+    docs: {
+      source: playgroundSource('Tabs', {
+        imports: "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system';",
+        children
+      })
+    }
+  },
+  render: (args) => <ArticleTabs key={`${args.orientation}-${args.activationMode}`} {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('tab', { name: 'Overview' }));
-    await userEvent.keyboard('{ArrowRight}');
-    await expect(
-      canvas.getByRole('tab', { name: 'References' })
-    ).toHaveAttribute('aria-selected', 'true');
-    await expect(canvas.getByRole('tabpanel')).toHaveTextContent(
-      'Three references'
-    );
+    const next = args.orientation === 'vertical' ? '{ArrowDown}' : '{ArrowRight}';
+    await userEvent.click(tab(canvas, 0));
+    await userEvent.keyboard(next);
+    await expect(tab(canvas, 1)).toHaveFocus();
+    if (args.activationMode === 'manual') await userEvent.keyboard('{Enter}');
+    await expect(tab(canvas, 1)).toHaveAttribute('aria-selected', 'true');
+    await expect(args.onValueChange).toHaveBeenLastCalledWith('references');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent(panels[1].content);
+    await userEvent.keyboard(`${next}${next}`);
+    await expect(tab(canvas, 0)).toHaveFocus();
+    await expect(tab(canvas, 3)).toBeDisabled();
   }
 };
-export const Vertical = {
-  render: () => <ArticleTabs orientation='vertical' />
-};
+
 export const ManualActivation = {
-  render: () => <ArticleTabs activationMode='manual' />
+  parameters: { docs: { description: { story: '`activationMode="manual"` moves focus with the arrow keys and waits for Enter or Space to switch panels.' } } },
+  render: () => <ArticleTabs activationMode='manual' />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(tab(canvas, 0));
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(tab(canvas, 1)).toHaveFocus();
+    await expect(tab(canvas, 0)).toHaveAttribute('aria-selected', 'true');
+    await userEvent.keyboard(' ');
+    await expect(tab(canvas, 1)).toHaveAttribute('aria-selected', 'true');
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent(panels[1].content);
+  }
 };

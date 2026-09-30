@@ -2,10 +2,13 @@ import { useId, useMemo, useRef } from 'react';
 import { expect, waitFor } from 'storybook/test';
 
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 
 import TableOfContents from './index';
 
-const componentDocs = getComponentDocs('Post/TableOfContents');
+const docs = getComponentDocs('Post/TableOfContents');
 
 const toc = [
   {
@@ -68,7 +71,7 @@ const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
     return scope(args.toc || toc);
   }, [args.toc, scopeId]);
   return (
-  <div className='grid min-w-0 grid-cols-1 gap-8 p-4 lg:grid-cols-12 lg:p-6'>
+  <div className='grid min-w-0 grid-cols-1 gap-8 lg:grid-cols-12'>
     <article ref={articleRef} className='min-w-0 space-y-12 lg:col-span-8'>
       {articleSections.map((section) => {
         const Heading = section.depth === 1 ? 'h2' : 'h3';
@@ -124,56 +127,57 @@ const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
   );
 };
 
+const tocLink = (canvasElement, id) => canvasElement.querySelector(`aside a[href$="-${id}"]`);
+
 export default {
-  args: {
-    toc
-  },
+  title: 'Post/TableOfContents',
   component: TableOfContents,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { toc: 'object' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  title: 'Post/TableOfContents'
+  decorators: [(Story) => <ExampleFrame wide><Story /></ExampleFrame>]
 };
 
-export const Example = {
+export const Playground = {
+  args: { toc },
+  parameters: {
+    docs: { source: playgroundSource('TableOfContents', { imports: "import { TableOfContents } from '@gaudi/design-system';" }) }
+  },
   render: (args) => <TableOfContentsFixture { ...args } />,
   play: async ({ canvasElement }) => {
-    const foundationsLink = canvasElement.querySelector('aside a[href$="-foundations"]');
+    const foundationsLink = tocLink(canvasElement, 'foundations');
 
-    await expect(foundationsLink).toHaveAttribute('href', expect.stringMatching(/-foundations$/));
-    await expect(canvasElement.querySelector('aside a[href$="-design-tokens"]')).not.toBeInTheDocument();
+    await expect(foundationsLink).toBeInTheDocument();
+    await expect(tocLink(canvasElement, 'design-tokens')).not.toBeInTheDocument();
 
     foundationsLink.addEventListener('click', (event) => event.preventDefault(), { once: true });
     foundationsLink.click();
 
-    await waitFor(() => expect(canvasElement.querySelector('aside a[href$="-design-tokens"]')).toBeInTheDocument());
-    await expect(canvasElement.querySelector('aside a[href$="-semantic-scales"]')).toHaveAttribute('href', expect.stringMatching(/-semantic-scales$/));
+    await waitFor(() => expect(tocLink(canvasElement, 'design-tokens')).toBeInTheDocument());
+    await expect(tocLink(canvasElement, 'semantic-scales')).toBeInTheDocument();
     await waitFor(() => expect(foundationsLink.closest('li')).toHaveClass('text-blue-600!'));
   }
 };
 
 export const CompactToc = {
-  args: {
-    toc: toc.slice(0, 4)
-  },
+  name: 'Four or fewer sections',
+  args: { toc: toc.slice(0, 4) },
+  parameters: { docs: { description: { story: 'With four or fewer top-level headings every branch stays expanded.' } } },
   render: (args) => <TableOfContentsFixture { ...args } />,
   play: async ({ canvasElement }) => {
-    await expect(canvasElement.querySelector('aside a[href$="-design-tokens"]')).toBeInTheDocument();
-    await expect(canvasElement.querySelector('aside a[href$="-component-contracts"]')).toHaveAttribute('href', expect.stringMatching(/-component-contracts$/));
-    await expect(canvasElement.querySelector('aside a[href$="-documentation"]')).toHaveAttribute('href', expect.stringMatching(/-documentation$/));
+    for (const id of [ 'design-tokens', 'component-contracts', 'documentation' ])
+      await expect(tocLink(canvasElement, id)).toBeInTheDocument();
   }
 };
 
 export const VisualIndex = {
-  args: {
-    showVisuals: true
-  },
+  args: { showVisuals: true, toc },
+  parameters: { docs: { description: { story: 'Captioned figures and tables in the article are indexed below the headings with a count summary.' } } },
   render: (args) => <TableOfContentsFixture { ...args } />,
   play: async ({ canvasElement }) => {
     await waitFor(() => expect(canvasElement.querySelector('aside a[href="#visual-diagram-token-relationship-map"]')).toBeInTheDocument());

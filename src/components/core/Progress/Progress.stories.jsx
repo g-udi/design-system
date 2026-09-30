@@ -1,75 +1,47 @@
-import { previewSource } from '../../../../.storybook/stories/previewSource';
-import {
-  applicationDocs,
-  ExampleFrame
-} from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Progress from './Progress';
 
+const docs = getComponentDocs('Core/Progress');
+const bar = (canvasElement, name) => within(canvasElement).getByRole('progressbar', { name });
+
 export default {
-  tags: ['autodocs'],
   title: 'Core/Progress',
   component: Progress,
-  ...applicationDocs(
-    'Native determinate and indeterminate progress. Values are clamped to a finite positive max. Supply valueText for meaningful units and a label for the task.',
-    "import Progress from '@gaudi/design-system/core/Progress';\n\n<Progress label='Uploading references' value={62} valueText='62%' />",
-    'The native progress element exposes its value; omitted or non-finite values stay indeterminate rather than inventing a percentage.'
-  )
-};
-
-export const Upload = {
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { label: 'text', value: 'number', max: 'number', valueText: 'text', tone: ['accent', 'success', 'warning', 'danger'] }),
   parameters: {
     docs: {
-      source: {
-        code: "<Progress label='Uploading references' value={62} valueText='62%' />"
-      }
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  render: () => (
-    <ExampleFrame>
-      <Progress label='Uploading references' value={62} valueText='62%' />
-    </ExampleFrame>
-  )
-};
-
-export const Indeterminate = {
-  parameters: {
-    docs: {
-      source: {
-        code: "<Progress label='Preparing the export' valueText='Please wait' />"
-      }
-    }
-  },
-  render: () => (
-    <ExampleFrame>
-      <Progress label='Preparing the export' valueText='Please wait' />
-    </ExampleFrame>
-  )
-};
-
-export const Completed = {
-  parameters: {
-    docs: {
-      source: {
-        code: "<Progress label='Files processed' value={8} max={8} valueText='8 of 8' tone='success' />"
-      }
-    }
-  },
-  render: () => (
-    <ExampleFrame>
-      <Progress
-        label='Files processed'
-        value={8}
-        max={8}
-        valueText='8 of 8'
-        tone='success'
-      />
-    </ExampleFrame>
-  )
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
 export const Playground = {
-  args: { label: 'Uploading references', value: 62, max: 100, tone: 'accent' },
-  argTypes: { label: { control: 'text' }, value: { control: { type: 'range', min: 0, max: 100 } }, max: { control: { type: 'number', min: 1 } }, tone: { control: 'select', options: ['accent', 'success', 'danger'] } },
-  render: (args) => (<ExampleFrame><Progress {...args} /></ExampleFrame>),
-  parameters: { docs: { description: { story: 'Adjust the controls to explore the component. The examples below cover complete usage patterns.' }, source: { type: 'dynamic', transform: (_, context) => previewSource('Progress', context.args, { imports: "import Progress from '@gaudi/design-system/core/Progress';" }) } } }
+  args: { label: 'Uploading references', value: 62, max: 100, valueText: '62%', tone: 'accent' },
+  parameters: {
+    docs: {
+      source: playgroundSource('Progress', { imports: "import Progress from '@gaudi/design-system/core/Progress';" })
+    }
+  },
+  render: (args) => <Progress {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const progress = bar(canvasElement, args.label);
+    await expect(progress).toHaveAttribute('max', String(args.max));
+    await expect(progress).toHaveAttribute('value', String(Math.min(args.max, Math.max(0, args.value))));
+    await expect(progress).toHaveAttribute('aria-valuetext', args.valueText);
+  }
+};
+
+export const Indeterminate = {
+  parameters: { docs: { description: { story: 'Omit `value` when the amount of work is unknown. The bar stays indeterminate instead of inventing a percentage.' } } },
+  render: () => <Progress label='Preparing the export' valueText='Please wait' />,
+  play: async ({ canvasElement }) => {
+    await expect(bar(canvasElement, 'Preparing the export')).not.toHaveAttribute('value');
+  }
 };

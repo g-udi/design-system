@@ -98,7 +98,8 @@ export default function FileUpload({
         </Button>
       </div>
       {rejections.length > 0 && (
-        <ul role='alert' className='ds-error'>
+        <div role='alert'>
+        <ul className='ds-error'>
           {rejections.map(({ file, reason }, i) => (
             <li key={i}>
               {file.name}:{' '}
@@ -111,6 +112,7 @@ export default function FileUpload({
             </li>
           ))}
         </ul>
+        </div>
       )}
       {files.length > 0 && (
         <ul className='ds-upload-list' aria-label={label}>

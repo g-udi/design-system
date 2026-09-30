@@ -1,138 +1,81 @@
-import { expect, userEvent, within } from 'storybook/test';
-
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { categories, posts } from '../../../../.storybook/fixtures/site/navigationContent';
 import Menu from './Menu';
 
-import * as componentModule from './index';
+const docs = getComponentDocs('Navigation/Menu');
+const page = within(document.body);
+// Below `lg` the desktop links collapse behind the mobile menu trigger.
+const mobileTrigger = (canvas) => canvas.queryByRole('button', { name: 'Open main menu' });
 
-const componentDocs = getComponentDocs('Navigation/Menu');
-
-const categories = [
-  {
-    'description': 'Patterns for building accessible interfaces.',
-    'id': 'web-development',
-    'title': 'web-development'
-  },
-  {
-    'description': 'Notes on product and engineering leadership.',
-    'id': 'management',
-    'title': 'management'
-  }
-];
-
-const posts = [
-  {
-    'date': '2026-05-20',
-    'slug': 'design-systems-keep-editorial-rhythm-predictable',
-    'title': 'Design systems keep editorial rhythm predictable'
-  },
-  {
-    'date': '2026-04-02',
-    'slug': 'accessible-navigation-patterns',
-    'title': 'Accessible navigation patterns'
-  }
-];
-
-const projects = [
-  {
-    'date': '2026-05-12',
-    'description': 'Reusable interface foundations for editorial software.',
-    'slug': 'gaudi',
-    'title': 'Gaudi'
-  }
-];
-
-const publications = [
-  {
-    'href': 'https://example.com/paper',
-    'id': 1,
-    'title': 'Capability-centric knowledge graphs',
-    'venue': 'ESWC'
-  }
-];
-
-const tags = [
-  {
-    'count': 2,
-    'id': 'accessibility',
-    'slug': 'accessibility',
-    'title': 'Accessibility'
-  }
-];
-
-const thoughts = [
-  {
-    'date': '2026-04-18',
-    'description': 'Notes on making product decisions legible.',
-    'slug': 'making-decisions',
-    'title': 'Making decisions'
-  }
-];
+const openMobileMenu = async (canvas) => {
+  await userEvent.click(mobileTrigger(canvas));
+  return within(await page.findByRole('dialog', { name: 'Mobile navigation' }));
+};
 
 export default {
-  args: {
-    categories,
-    posts,
-    projects,
-    publications,
-    tags,
-    thoughts
-  },
+  title: 'Navigation/Menu',
+  id: 'navigation-menu',
   component: Menu,
-  excludeStories: [ 'Example' ],
+  tags: ['autodocs'],
+  args: { categories, posts },
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
+  }
+};
+
+export const Playground = {
+  parameters: {
+    docs: { source: playgroundSource('Menu', { imports: "import { Menu } from '@gaudi/design-system';" }) }
   },
-  tags: [ '!autodocs' ],
-  title: 'Navigation/Menu'
-};
-
-export const Example = {
-  'render': () => renderComponentExample('Navigation/Menu', componentModule)
-};
-
-export const PrimaryNavigation = {
-  render: (args) => <Menu { ...args } />,
+  render: (args) => <Menu {...args} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const mobileTrigger = canvas.queryByRole('button', { name: 'Open main menu' });
-
     await expect(canvas.getByRole('link', { name: 'Ahmad Assaf' })).toHaveAttribute('href', '/');
 
-    if (mobileTrigger) {
-      await userEvent.click(mobileTrigger);
-
-      const page = within(document.body);
-      const dialog = await page.findByRole('dialog', { name: 'Mobile navigation' });
-      const mobileNavigation = within(dialog);
-
-      await expect(mobileNavigation.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/blog/projects');
-      await userEvent.click(mobileNavigation.getByRole('button', { name: 'Close menu' }));
-      await expect(page.queryByRole('dialog', { name: 'Mobile navigation' })).not.toBeInTheDocument();
-
+    if (mobileTrigger(canvas)) {
+      const dialog = await openMobileMenu(canvas);
+      await expect(dialog.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/blog/projects');
+      await userEvent.click(dialog.getByRole('button', { name: 'Close menu' }));
+      await waitFor(() => expect(page.queryByRole('dialog', { name: 'Mobile navigation' })).not.toBeInTheDocument());
       return;
     }
 
-    await expect(canvas.getByRole('button', { name: 'Open search' })).toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Toggle Dark Mode' })).toBeInTheDocument();
+    const blog = canvas.getByRole('button', { name: 'Blog' });
     await expect(canvas.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/blog/projects');
-
-    const blogTrigger = canvas.getByRole('button', { name: 'Blog' });
-
-    await userEvent.click(blogTrigger);
-
-    await expect(blogTrigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('link', { name: /web development/i })).toHaveAttribute('href', '/blog/categories/web-development');
-    await expect(canvas.getByText('Design systems keep editorial rhythm predictable')).toBeInTheDocument();
-
+    await userEvent.click(blog);
+    await expect(blog).toHaveAttribute('aria-expanded', 'true');
+    await expect(canvas.getByRole('link', { name: posts[0].title })).toHaveAttribute('href', `/blog/${posts[0].slug}`);
     await userEvent.click(document.body);
+    await expect(blog).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(canvas.getByRole('button', { name: 'Open search' }));
+    await expect(await page.findByRole('dialog')).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+  }
+};
 
-    await expect(blogTrigger).toHaveAttribute('aria-expanded', 'false');
+export const BlogRoute = {
+  parameters: {
+    nextjs: { navigation: { pathname: '/blog/' } },
+    docs: { description: { story: 'Inside `/blog`, the Blog link becomes the current page and a Categories dropdown replaces the Blog panel.' } }
+  },
+  render: (args) => <Menu {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    if (mobileTrigger(canvas)) {
+      const dialog = await openMobileMenu(canvas);
+      await expect(dialog.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog/');
+      await userEvent.keyboard('{Escape}');
+      return;
+    }
+
+    await expect(canvas.getByRole('link', { name: 'Blog' })).toHaveAttribute('aria-current', 'page');
+    await expect(canvas.queryByRole('button', { name: 'Blog' })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Categories' }));
+    await expect(canvas.getByRole('link', { name: new RegExp(categories[0].title, 'i') })).toHaveAttribute('href', `/blog/categories/${categories[0].id}`);
   }
 };

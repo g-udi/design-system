@@ -10,8 +10,8 @@ const pattern = reuiPatterns(
 export default { title: 'Core/Textarea', tags: ['autodocs'], ...catalogueMeta('textarea') };
 
 export const ReuiTextarea1 = { name: 'Basic textarea', ...pattern(1) };
-export const ReuiTextarea2 = { name: 'Invalid textarea', ...pattern(2) };
-export const ReuiTextarea3 = { name: 'Textarea with label', ...pattern(3) };
-export const ReuiTextarea4 = { name: 'Textarea with description', ...pattern(4) };
-export const ReuiTextarea5 = { name: 'Disabled textarea', ...pattern(5) };
-export const ReuiTextarea6 = { name: 'Auto-resize textarea with character count', ...pattern(6) };
+export const ReuiTextarea2 = { name: 'Invalid', ...pattern(2) };
+export const ReuiTextarea3 = { name: 'With label', ...pattern(3) };
+export const ReuiTextarea4 = { name: 'With description', ...pattern(4) };
+export const ReuiTextarea5 = { name: 'Disabled', ...pattern(5) };
+export const ReuiTextarea6 = { name: 'Auto-resize with character count', ...pattern(6) };

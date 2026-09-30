@@ -1,42 +1,40 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, userEvent, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Details from './Details';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Details');
+const docs = getComponentDocs('MDX/Details');
 
 export default {
+  title: 'MDX/Details',
+  id: 'mdx-details',
+  component: Details,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { title: 'text', headingLevel: [2, 3, 4, 5, 6], children: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-details',
-  title: 'MDX/Details'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
+export const Playground = {
+  args: { title: 'Implementation detail', headingLevel: 2, children: 'Details are keyboard accessible and preserve article flow.' },
+  parameters: { docs: { source: playgroundSource('Details', { imports: "import { Details } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <Details {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'Implementation detail' });
-
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.queryByText('Details are keyboard accessible and preserve article flow.')).not.toBeInTheDocument();
-
+    const trigger = canvas.getByRole('button', { name: args.title });
+    await expect(trigger.parentElement.tagName).toBe(`H${args.headingLevel}`);
+    await expect(canvas.queryByText(args.children)).not.toBeInTheDocument();
     await userEvent.click(trigger);
-
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByText('Details are keyboard accessible and preserve article flow.')).toBeVisible();
-
+    await expect(canvas.getByText(args.children)).toBeVisible();
     await userEvent.click(trigger);
-
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(canvas.queryByText('Details are keyboard accessible and preserve article flow.')).not.toBeInTheDocument();
-  },
-  'render': () => renderComponentExample('MDX/Details', componentModule)
+    await expect(canvas.queryByText(args.children)).not.toBeInTheDocument();
+  }
 };

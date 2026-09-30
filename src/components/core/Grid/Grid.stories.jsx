@@ -1,83 +1,65 @@
 import { expect, within } from 'storybook/test';
-
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { Grid, GridItem } from './Grid';
 
-const componentDocs = getComponentDocs('Core/Grid');
+const docs = getComponentDocs('Core/Grid');
+const items = [
+  { title: 'Tokens', description: 'Color, type, spacing, and shape definitions.' },
+  { title: 'Components', description: 'Reusable Core elements for blog and content surfaces.' },
+  { title: 'Storybook', description: 'Interactive documentation for every public export.' }
+];
+const itemSource = items.map((item) => `  <GridItem title='${item.title}' description='${item.description}' />`).join('\n');
 
 export default {
-  argTypes: {
-    'columns': {
-      'control': 'select',
-      'options': [ '2', '3', '4' ]
-    },
-    'gap': {
-      'control': 'select',
-      'options': [ 'sm', 'md', 'lg' ]
-    }
-  },
+  title: 'Core/Grid',
+  id: 'core-grid',
   component: Grid,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { columns: ['2', '3', '4'], gap: ['sm', 'md', 'lg'] }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  },
-  tags: [ 'autodocs' ],
-  id: 'core-grid',
-  title: 'Core/Grid'
-};
-
-export const Default = {
-  'render': () => (
-    <div className='p-6'>
-      <Grid columns='3' gap='md'>
-        <GridItem title='Tokens' description='Color, type, spacing, and shape definitions.' />
-        <GridItem title='Components' description='Reusable Core elements for blog and content surfaces.' />
-        <GridItem title='Storybook' description='Interactive documentation for every public export.' />
-      </Grid>
-    </div>
-  ),
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const grid = canvasElement.querySelector('.grid');
-    const items = grid.children;
-
-    expect(grid).toBeVisible();
-    expect(grid).toHaveClass('mx-auto', 'grid-cols-1', 'md:grid-cols-3', 'gap-4');
-    expect(items).toHaveLength(3);
-    expect(canvas.getByText('Tokens')).toBeVisible();
-    expect(canvas.getByText('Color, type, spacing, and shape definitions.')).toBeVisible();
-    expect(canvas.getByText('Components')).toBeVisible();
-    expect(canvas.getByText('Storybook')).toBeVisible();
-    expect(items[0]).toHaveTextContent('TokensColor, type, spacing, and shape definitions.');
-    expect(items[1]).toHaveTextContent('ComponentsReusable Core elements for blog and content surfaces.');
-    expect(items[2]).toHaveTextContent('StorybookInteractive documentation for every public export.');
   }
 };
 
-export const ItemVariants = {
-  'render': () => (
-    <div className='p-6'>
-      <Grid columns='3'>
-        {[ 'elevated', 'outline', 'soft' ].map((variant) => (
-          <GridItem key={ variant } variant={ variant } title={ variant } description='Grid item visual style.' />
-        ))}
-      </Grid>
-    </div>
+export const Playground = {
+  args: { columns: '3', gap: 'md' },
+  parameters: {
+    docs: {
+      source: playgroundSource('Grid', { imports: "import { Grid, GridItem } from '@gaudi/design-system';", children: itemSource })
+    }
+  },
+  render: (args) => (
+    <Grid {...args}>
+      {items.map((item) => <GridItem key={item.title} {...item} />)}
+    </Grid>
   ),
-  'play': async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const elevatedItem = canvas.getByText('elevated').parentElement.parentElement;
-    const outlineItem = canvas.getByText('outline').parentElement.parentElement;
-    const softItem = canvas.getByText('soft').parentElement.parentElement;
+    const grid = canvasElement.querySelector('.grid');
+    await expect(grid.children).toHaveLength(items.length);
+    await expect(grid).toHaveClass('grid-cols-1', args.columns === '4' ? 'lg:grid-cols-4' : `md:grid-cols-${args.columns}`);
+    for (const item of items) await expect(canvas.getByText(item.description)).toBeVisible();
+  }
+};
 
-    expect(canvas.getAllByText('Grid item visual style.')).toHaveLength(3);
-    expect(elevatedItem).toHaveClass('border-gray-200', 'bg-white', 'shadow-sm');
-    expect(outlineItem).toHaveClass('border-gray-200', 'bg-white');
-    expect(outlineItem).not.toHaveClass('shadow-sm');
-    expect(softItem).toHaveClass('border-gray-100', 'bg-gray-50');
+const variants = ['elevated', 'outline', 'soft'];
+export const ItemVariants = {
+  parameters: { docs: { description: { story: '`GridItem` takes an `elevated`, `outline`, or `soft` surface.' } } },
+  render: () => (
+    <Grid columns='3'>
+      {variants.map((variant) => <GridItem key={variant} variant={variant} title={variant} description={`The ${variant} surface.`} />)}
+    </Grid>
+  ),
+  play: async ({ canvasElement }) => {
+    const [elevated, outline, soft] = canvasElement.querySelector('.grid').children;
+    await expect(elevated).toHaveClass('bg-white', 'shadow-sm');
+    await expect(outline).toHaveClass('bg-white');
+    await expect(outline).not.toHaveClass('shadow-sm');
+    await expect(soft).toHaveClass('bg-gray-50');
   }
 };

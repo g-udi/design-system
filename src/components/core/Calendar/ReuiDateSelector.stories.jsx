@@ -9,7 +9,7 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Calendar', tags: ['autodocs'], ...catalogueMeta('date-selector') };
 
-export const ReuiDateSelector1 = { name: 'Date Selector: Basic date selector', ...pattern(1) };
-export const ReuiDateSelector2 = { name: 'Date Selector: Date selector with popover', ...pattern(2) };
-export const ReuiDateSelector3 = { name: 'Date Selector: Date selector with dialog', ...pattern(3) };
-export const ReuiDateSelector4 = { name: 'Date Selector: Date selector with dropdown menu', ...pattern(4) };
+export const ReuiDateSelector1 = { name: 'Date selector: Basic', ...pattern(1) };
+export const ReuiDateSelector2 = { name: 'Date selector: In a popover', ...pattern(2) };
+export const ReuiDateSelector3 = { name: 'Date selector: In a dialog', ...pattern(3) };
+export const ReuiDateSelector4 = { name: 'Date selector: In a dropdown menu', ...pattern(4) };

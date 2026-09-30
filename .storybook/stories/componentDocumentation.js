@@ -218,6 +218,8 @@ const componentDocs = {
       [ 'shape / surface', 'circle | square | tile / solid | tinted | plain | bare', 'square / solid', 'Identity crop and background treatment.' ],
       [ 'indicator', '{ label, tone?, icon?, position? }', '-', 'Host-provided presence or verification; positions follow reading direction.' ],
       [ 'imageProps / imageClassName / fallbackClassName', 'object / string / string', '-', 'Image attributes and per-layer appearance.' ],
+      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'gray', 'Fallback colour family.' ],
+      [ 'grayscale', 'boolean', 'false', 'Desaturates the image.' ],
       [ 'onLoadingStatusChange', '(status) => void', '-', 'Receives loading, loaded or error; source changes recover automatically.' ],
       [ 'AvatarGroup', 'avatars, max, size, shape, label, renderAvatar, renderOverflow', '-', 'Accepts data-driven identities or existing compound children.' ]
     ]
@@ -243,7 +245,7 @@ const componentDocs = {
     'overview': 'Use Disclaimer at the end of posts, project write-ups, or editorial pages that need a consistent disclaimer treatment. The default copy covers personal opinions and employer affiliation; pass children when a page needs a more specific notice.',
     'props': [
       [ 'children', 'ReactNode', 'default disclaimer text', 'Custom disclaimer content. Leave empty to use the standard blog disclaimer.' ],
-      [ 'type', 'Callout type', 'info', 'Tone forwarded to the underlying Callout component.' ]
+      [ 'type', 'info | warning | error', 'info', 'Tone forwarded to the underlying Callout component.' ]
     ]
   },
   'Core/Breadcrumb': {
@@ -555,7 +557,6 @@ const componentDocs = {
       [ 'label', 'ReactNode', '-', 'Visible label text.' ],
       [ 'checked', 'boolean', '-', 'Controlled checked state.' ],
       [ 'defaultChecked', 'boolean', 'false', 'Initial checked state for uncontrolled usage.' ],
-      [ 'size', 'sm | md | lg', 'md', 'Controls track, thumb, and label scale.' ],
       [ 'disabled', 'boolean', 'false', 'Prevents changes and lowers visual emphasis.' ],
       [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
@@ -811,6 +812,7 @@ const componentDocs = {
       [ 'label', 'ReactNode', '-', 'Visible label text.' ],
       [ 'checked', 'boolean', '-', 'Controlled checked state.' ],
       [ 'defaultChecked', 'boolean', 'false', 'Initial checked state for uncontrolled usage.' ],
+      [ 'size', 'sm | md | lg', 'md', 'Controls track, thumb, and label scale.' ],
       [ 'disabled', 'boolean', 'false', 'Prevents changes and lowers visual emphasis.' ],
       [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
       [ 'className', 'string', '-', 'Root class override.' ]

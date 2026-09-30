@@ -9,5 +9,5 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Scrollspy', tags: ['autodocs'], ...catalogueMeta('scrollspy') };
 
-export const ReuiScrollspy1 = { name: 'Basic scrollspy', ...pattern(1) };
-export const ReuiScrollspy2 = { name: 'Basic scroll area', ...pattern(2) };
+export const ReuiScrollspy1 = { name: 'Side navigation', ...pattern(1, 'Anchors beside a scroll area mark the section in view.') };
+export const ReuiScrollspy2 = { name: 'Top navigation', ...pattern(2, 'Wrapping anchors above the content for narrow layouts.') };

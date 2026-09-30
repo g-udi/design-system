@@ -1,50 +1,47 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Tooltip from './Tooltip';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Tooltip');
+const docs = getComponentDocs('MDX/Tooltip');
 
 export default {
+  title: 'MDX/Tooltip',
+  id: 'mdx-tooltip',
+  component: Tooltip,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { message: 'text', children: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-tooltip',
-  title: 'MDX/Tooltip'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  'play': async ({ canvasElement }) => {
+export const Playground = {
+  args: { message: 'A compact explanation attached to inline text.', children: 'editorial term' },
+  parameters: { docs: { source: playgroundSource('Tooltip', { imports: "import { Tooltip } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <p>An <Tooltip {...args} /> can carry a short explanation.</p>,
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const triggerText = canvas.getByText('Hover this editorial term');
-    const tooltip = canvas.getByText('A compact explanation attached to inline text.');
-    const tooltipTrigger = tooltip.parentElement;
-    const icon = tooltipTrigger.querySelector('svg');
+    const trigger = canvas.getByRole('button', { name: 'More information' });
+    const tooltip = canvas.getByRole('tooltip', { hidden: true });
+    const expectOpen = (open) => waitFor(() => (open ? expect(tooltip).toBeVisible() : expect(tooltip).not.toBeVisible()));
 
-    await expect(triggerText).toBeVisible();
-    await expect(tooltip).not.toBeVisible();
-    await expect(icon).toHaveAttribute('aria-hidden', 'true');
-    await expect(tooltip).toHaveClass('pointer-events-none', 'whitespace-normal', 'text-center');
-
-    await userEvent.hover(tooltipTrigger);
-    await waitFor(() => expect(tooltip).toBeVisible());
-    await expect(tooltipTrigger).toHaveAttribute('aria-describedby', tooltip.id);
-
-    await userEvent.unhover(tooltipTrigger);
-    await waitFor(() => expect(tooltip).not.toBeVisible());
-
-    tooltipTrigger.focus();
-    await waitFor(() => expect(tooltip).toBeVisible());
-
-    tooltipTrigger.blur();
-    await waitFor(() => expect(tooltip).not.toBeVisible());
-  },
-  'render': () => renderComponentExample('MDX/Tooltip', componentModule)
+    await expect(trigger).toHaveAttribute('aria-describedby', tooltip.id);
+    await expectOpen(false);
+    await userEvent.hover(trigger);
+    await expectOpen(true);
+    await userEvent.keyboard('{Escape}');
+    await expectOpen(false);
+    await userEvent.unhover(trigger);
+    trigger.focus();
+    await expectOpen(true);
+    trigger.blur();
+    await expectOpen(false);
+  }
 };

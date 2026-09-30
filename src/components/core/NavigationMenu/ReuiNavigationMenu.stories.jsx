@@ -10,6 +10,6 @@ const pattern = reuiPatterns(
 export default { title: 'Blocks/Navigation/Navigation Menu', tags: ['autodocs'], ...catalogueMeta('navigation-menu') };
 
 export const ReuiNavigationMenu1 = { name: 'Basic navigation menu', ...pattern(1) };
-export const ReuiNavigationMenu2 = { name: 'Navigation menu with grid layout', ...pattern(2) };
-export const ReuiNavigationMenu3 = { name: 'Navigation menu with icons', ...pattern(3) };
-export const ReuiNavigationMenu4 = { name: 'Navigation menu with grid layout and learn more button', ...pattern(4) };
+export const ReuiNavigationMenu2 = { name: 'Grid layout', ...pattern(2) };
+export const ReuiNavigationMenu3 = { name: 'With icons', ...pattern(3) };
+export const ReuiNavigationMenu4 = { name: 'Grid layout with a call to action', ...pattern(4) };

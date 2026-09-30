@@ -1,42 +1,37 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Table from './Table';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Table');
+const docs = getComponentDocs('MDX/Table');
 
 export default {
+  title: 'MDX/Table',
+  id: 'mdx-table',
+  component: Table,
+  tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-table',
-  title: 'MDX/Table'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  'play': async ({ canvasElement }) => {
+export const Playground = {
+  render: () => (
+    <Table>
+      <thead><tr><th>Component</th><th>Status</th></tr></thead>
+      <tbody><tr><td>Callout</td><td>Documented</td></tr><tr><td>Table</td><td>Accessible</td></tr></tbody>
+    </Table>
+  ),
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const table = canvas.getByRole('table');
-    const statusHeader = canvas.getByRole('columnheader', { 'name': 'Status' });
-    const componentHeader = canvas.getByRole('columnheader', { 'name': 'Component' });
-    const rows = canvas.getAllByRole('row');
-    const scrollRegion = canvas.getByRole('region', { 'name': 'Scrollable table' });
-
-    await expect(table).toBeVisible();
-    await expect(table).toHaveClass('w-full', 'table-auto');
-    await expect(scrollRegion).toHaveAttribute('tabindex', '0');
-    await expect(rows).toHaveLength(3);
-    await expect(componentHeader).toBeVisible();
-    await expect(statusHeader).toBeVisible();
-    await expect(canvas.getByRole('cell', { 'name': 'Callout' })).toBeVisible();
-    await expect(canvas.getByRole('cell', { 'name': 'Accessible' })).toBeVisible();
-  },
-  'render': () => renderComponentExample('MDX/Table', componentModule)
+    await expect(canvas.getByRole('region', { name: 'Scrollable table' })).toHaveAttribute('tabindex', '0');
+    await expect(canvas.getByRole('table')).toHaveClass('w-full', 'table-auto');
+    await expect(canvas.getAllByRole('row')).toHaveLength(3);
+    for (const name of ['Component', 'Status']) await expect(canvas.getByRole('columnheader', { name })).toBeVisible();
+    await expect(canvas.getByRole('cell', { name: 'Accessible' })).toBeVisible();
+  }
 };

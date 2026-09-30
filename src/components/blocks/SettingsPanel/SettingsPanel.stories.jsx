@@ -1,56 +1,67 @@
 import { expect, userEvent, within } from 'storybook/test';
-import {
-  applicationDocs,
-  ExampleFrame
-} from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { Preferences } from '../../../../.storybook/fixtures/application/Workspace';
-import SettingsPanel from './SettingsPanel';
-import Field, { FieldLabel, FieldDescription } from '../../core/Field';
+import Button from '../../core/Button';
+import Field, { FieldDescription, FieldLabel } from '../../core/Field';
 import Input from '../../core/Input';
+import SettingsPanel from './SettingsPanel';
+
+const docs = getComponentDocs('Blocks/Application/SettingsPanel');
+
 export default {
-  tags: ['autodocs'],
   title: 'Blocks/Application/SettingsPanel',
   component: SettingsPanel,
-  ...applicationDocs(
-    'Responsive settings sections with title, description, field area and footer. Compose related sections within one host-owned form. Labels sit beside fields on wide screens and above them on phones.',
-    "import { Button, Field, FieldLabel, Input, SettingsPanel } from '@gaudi/design-system';\n\nexport function ProfileSettings({ onSave }) {\n  return (\n    <form onSubmit={(event) => {\n      event.preventDefault();\n      onSave(new FormData(event.currentTarget));\n    }}>\n      <SettingsPanel\n        title='Profile'\n        description='How readers see you.'\n        footer={<Button type='submit'>Save</Button>}\n      >\n        <Field>\n          <FieldLabel>Name</FieldLabel>\n          <Input name='name' />\n        </Field>\n      </SettingsPanel>\n    </form>\n  );\n}",
-    'Each section is labelled by its heading. Fields retain their own label and description wiring; submission and announcements belong to the host.'
-  )
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { title: 'text', description: 'text' }),
+  parameters: {
+    docs: {
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
+    }
+  },
+  decorators: [(Story) => <ExampleFrame wide><Story /></ExampleFrame>]
 };
-export const ProfileAndPreferences = {
-  render: () => (
-    <ExampleFrame wide>
-      <Preferences />
-    </ExampleFrame>
+
+export const Playground = {
+  args: { title: 'Workspace identity', description: 'How readers find your workspace.' },
+  parameters: {
+    docs: {
+      source: playgroundSource('SettingsPanel', {
+        imports: "import { Button, Field, FieldLabel, Input, SettingsPanel } from '@gaudi/design-system';",
+        children: "  <Field>\n    <FieldLabel>Workspace URL</FieldLabel>\n    <Input name='url' />\n  </Field>"
+      })
+    }
+  },
+  render: (args) => (
+    <SettingsPanel {...args} footer={<Button size='sm'>Save</Button>}>
+      <Field>
+        <FieldLabel>Workspace URL</FieldLabel>
+        <Input name='url' defaultValue='https://example.com/research' />
+        <FieldDescription>Readers use this address to reach your workspace.</FieldDescription>
+      </Field>
+    </SettingsPanel>
   ),
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { name: args.title })).toBeVisible();
+    await expect(canvas.getByRole('textbox', { name: 'Workspace URL' })).toHaveAccessibleDescription(
+      'Readers use this address to reach your workspace.'
+    );
+  }
+};
+
+export const ProfileAndPreferences = {
+  parameters: { docs: { description: { story: 'Several panels share one host-owned form. The last panel carries the save action and its status message.' } } },
+  render: () => <Preferences />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const name = canvas.getByRole('textbox', { name: 'Display name' });
     await userEvent.clear(name);
     await userEvent.type(name, 'Alex Morgan');
-    await userEvent.click(
-      canvas.getByRole('button', { name: 'Save preferences' })
-    );
-    await expect(canvas.getByRole('status')).toHaveTextContent(
-      'Preferences saved'
-    );
+    await userEvent.click(canvas.getByRole('button', { name: 'Save preferences' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Preferences saved');
   }
-};
-export const ReadOnly = {
-  render: () => (
-    <ExampleFrame wide>
-      <SettingsPanel
-        title='Workspace identity'
-        description='Managed by your workspace owner.'
-      >
-        <Field>
-          <FieldLabel>Workspace URL</FieldLabel>
-          <Input readOnly value='https://example.com/research' />
-          <FieldDescription>
-            Contact the owner to change this address.
-          </FieldDescription>
-        </Field>
-      </SettingsPanel>
-    </ExampleFrame>
-  )
 };

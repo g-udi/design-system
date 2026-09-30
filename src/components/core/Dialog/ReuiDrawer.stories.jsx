@@ -9,8 +9,8 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('drawer') };
 
-export const ReuiDrawer1 = { name: 'Drawer: A basic drawer with scrollable content', ...pattern(1) };
-export const ReuiDrawer2 = { name: 'Drawer: A drawer that opens from the right side', ...pattern(2) };
-export const ReuiDrawer3 = { name: 'Drawer: A drawer that opens from the left side', ...pattern(3) };
-export const ReuiDrawer4 = { name: 'Drawer: A drawer that opens from the top side', ...pattern(4) };
-export const ReuiDrawer5 = { name: 'Drawer: Drawers opening from different sides', ...pattern(5) };
+export const ReuiDrawer1 = { name: 'Drawer with scrollable content', ...pattern(1) };
+export const ReuiDrawer2 = { name: 'Drawer from the right', ...pattern(2) };
+export const ReuiDrawer3 = { name: 'Drawer from the left', ...pattern(3) };
+export const ReuiDrawer4 = { name: 'Drawer from the top', ...pattern(4) };
+export const ReuiDrawer5 = { name: 'Drawer sides', ...pattern(5) };

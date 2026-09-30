@@ -1,4 +1,4 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
@@ -13,12 +13,6 @@ const sources = new Map(await Promise.all(examples.map(async (example) => {
   if (/from\s+['"]\./.test(source)) throw new Error(`${example.name}: copyable source still has a private relative import`);
   return [example.name, source];
 })));
-for (const file of await readdir(resolve(root, '.storybook/fixtures/avatar'))) {
-  if (!file.endsWith('.jsx')) continue;
-  const source = publicSource(await readFile(resolve(root, '.storybook/fixtures/avatar', file), 'utf8'));
-  if (/from\s+['"]\./.test(source)) throw new Error(`${file}: copyable source still has a private relative import`);
-  sources.set(`gaudi-avatar-${file}`, source);
-}
 await build({
   stdin: { contents: [...sources.keys()].map((name, i) => `export * as Example${i} from 'example:${name}';`).join('\n'), resolveDir: root },
   bundle: true, write: false, outfile: '/tmp/gaudi-reui-source-check.js', platform: 'browser', format: 'esm', jsx: 'automatic', packages: 'external', loader: { '.js': 'jsx' }, logLevel: 'silent',

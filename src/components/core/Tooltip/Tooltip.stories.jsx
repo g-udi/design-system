@@ -1,74 +1,69 @@
-import {
-  applicationDocs,
-  ExampleFrame
-} from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import Tooltip from './Tooltip';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Button from '../Button';
-import Icon from '../Icon';
+import Tooltip from './Tooltip';
+
+const docs = getComponentDocs('Core/Tooltip');
+const trigger = 'Copy link';
+const page = (canvasElement) => within(canvasElement.ownerDocument.body);
+const focusTooltip = async (canvasElement, name) => {
+  await userEvent.tab();
+  await expect(within(canvasElement).getByRole('button', { name })).toHaveFocus();
+  return waitFor(() => page(canvasElement).getByRole('tooltip'));
+};
 
 export default {
-  tags: ['autodocs'],
   title: 'Core/Tooltip',
   component: Tooltip,
-  ...applicationDocs(
-    'Short, supplementary hints for named controls. Pass content and a single ref-forwarding trigger. Never put interactive content in a tooltip.',
-    "import Tooltip from '@gaudi/design-system/core/Tooltip';\nimport { Button } from '@gaudi/design-system';\n\n<Tooltip content='Copy a link to this article'><Button variant='outline' tone='neutral'>Copy link</Button></Tooltip>",
-    'Available on focus and hover, dismisses with Escape. The trigger still needs its own accessible name; use Dialog or Popover for interactive details.'
-  )
-};
-
-export const ActionHint = {
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { content: 'text', side: ['top', 'right', 'bottom', 'left'], delayDuration: 'number' }),
   parameters: {
     docs: {
-      source: {
-        code: "<Tooltip content='Copy a link to this article'><Button variant='outline' tone='neutral'>Copy link</Button></Tooltip>"
-      }
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  render: () => (
-    <ExampleFrame>
-      <Tooltip content='Copy a link to this article'>
-        <Button variant='outline' tone='neutral'>
-          Copy link
-        </Button>
-      </Tooltip>
-    </ExampleFrame>
-  )
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const KeyboardHint = {
+export const Playground = {
+  args: { content: 'Copy a link to this article', side: 'top', delayDuration: 300 },
   parameters: {
     docs: {
-      source: {
-        code: "<Tooltip content='Search articles, topics and references'><Button variant='outline' tone='neutral'><Icon name='Search' decorative size='xs' />Search</Button></Tooltip>"
-      }
+      source: playgroundSource('Tooltip', {
+        imports: "import { Button, Tooltip } from '@gaudi/design-system';",
+        children: `  <Button variant='outline' tone='neutral'>${trigger}</Button>`
+      })
     }
   },
-  render: () => (
-    <ExampleFrame>
-      <Tooltip content='Search articles, topics and references'>
-        <Button variant='outline' tone='neutral'>
-          <Icon name='Search' decorative size='xs' />
-          Search
-        </Button>
-      </Tooltip>
-    </ExampleFrame>
-  )
+  render: (args) => (
+    <Tooltip {...args}>
+      <Button variant='outline' tone='neutral'>{trigger}</Button>
+    </Tooltip>
+  ),
+  play: async ({ args, canvasElement }) => {
+    const tooltip = await focusTooltip(canvasElement, trigger);
+    await expect(tooltip).toHaveTextContent(args.content);
+    await expect(within(canvasElement).getByRole('button', { name: trigger })).toHaveAccessibleDescription(args.content);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page(canvasElement).queryByRole('tooltip')).not.toBeInTheDocument());
+  }
 };
 
 export const LongHint = {
-  parameters: {
-    docs: {
-      source: {
-        code: "<Tooltip content='This explanation wraps within the viewport, including on narrow phones.'><Button variant='ghost'>About this collection</Button></Tooltip>"
-      }
-    }
-  },
+  parameters: { docs: { description: { story: 'Longer hints wrap within the viewport, including on narrow phones.' } } },
   render: () => (
-    <ExampleFrame>
-      <Tooltip content='This explanation wraps within the viewport, including on narrow phones.'>
-        <Button variant='ghost'>About this collection</Button>
-      </Tooltip>
-    </ExampleFrame>
-  )
+    <Tooltip content='This explanation wraps within the viewport, including on narrow phones.'>
+      <Button variant='ghost'>About this collection</Button>
+    </Tooltip>
+  ),
+  play: async ({ canvasElement }) => {
+    const tooltip = await focusTooltip(canvasElement, 'About this collection');
+    const bubble = tooltip.parentElement.getBoundingClientRect();
+    await expect(bubble.width).toBeLessThanOrEqual(canvasElement.ownerDocument.documentElement.clientWidth);
+    await userEvent.keyboard('{Escape}');
+  }
 };

@@ -9,8 +9,8 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/ScrollArea', tags: ['autodocs'], ...catalogueMeta('scroll-area') };
 
-export const ReuiScrollArea1 = { name: 'Basic scroll area', ...pattern(1) };
-export const ReuiScrollArea2 = { name: 'Scroll area with horizontal scrollbar', ...pattern(2) };
-export const ReuiScrollArea3 = { name: 'Scroll area with both scrollbars', ...pattern(3) };
-export const ReuiScrollArea4 = { name: 'Scroll area with fade effect', ...pattern(4) };
-export const ReuiScrollArea5 = { name: 'Scroll area with scrollbar gutter', ...pattern(5) };
+export const ReuiScrollArea1 = { name: 'Vertical list', ...pattern(1) };
+export const ReuiScrollArea2 = { name: 'Horizontal gallery', ...pattern(2, 'Add a horizontal `ScrollBar` for content wider than the frame.') };
+export const ReuiScrollArea3 = { name: 'Wide table', ...pattern(3, 'A table that overflows both axes keeps its scrollbars inside the frame.') };
+export const ReuiScrollArea4 = { name: 'Edge fade', ...pattern(4, 'Masks fade the edges that still have content to scroll to.') };
+export const ReuiScrollArea5 = { name: 'Scrollbar gutter', ...pattern(5, 'Padding appears only on an axis that overflows, so the scrollbar never covers content.') };

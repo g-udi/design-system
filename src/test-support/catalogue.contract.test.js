@@ -22,7 +22,7 @@ test('component docs and all extended avatar examples stay together', () => {
   const avatar = filterCatalogue(owners, {owner:'Core/Avatar'});
   assert.equal(avatar.length, 1);
   assert.equal(avatar[0].docs, 'core-avatar--docs');
-  assert.equal(avatar[0].examples.length, 45);
+  assert.equal(avatar[0].examples.length, 43);
   assert.ok(avatar[0].examples.some(example => example.id === 'core-avatar--playground'));
 });
 

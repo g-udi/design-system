@@ -4,14 +4,14 @@ import { CheckList, Page, QuickLink, Section, Table, Td, Th } from './StoryDocs'
 
 const blockGroups = [
   [ 'Application workspace', 'A working content library, editorial board, activity feed and settings screen.', 'blocks-application-appshell--content-workspace-example' ],
-  [ 'Setup and onboarding', 'Sequential validation, review, asynchronous completion and recovery.', 'blocks-application-wizard--collection-setup' ],
+  [ 'Setup and onboarding', 'Sequential validation, review, asynchronous completion and recovery.', 'blocks-application-wizard--playground' ],
   [ 'Settings and profile', 'Editable preferences built from reusable fields and responsive sections.', 'blocks-application-settingspanel--profile-and-preferences' ],
   [ 'Blog content recipes', 'Reference compositions for article shells, series context, table of contents, banners, and FAQs.', 'blocks-blog-content-sections--default' ],
   [ 'Blog listing recipes', 'Reference compositions for featured content, lists, pagination, and search.', 'blocks-blog-sections--default' ],
   [ 'FAQ recipes', 'Reference compositions built from the exported MDX Faq primitive.', 'blocks-faqs--default' ],
   [ 'Footer recipes', 'Reference compositions built from the exported Footer component.', 'blocks-footers--default' ],
   [ 'Stats recipes', 'Reference metric compositions for evidence, outcomes, and supporting context.', 'blocks-stats-sections--default' ],
-  [ 'ThoughtsSection', 'The package-exported block for recent editorial cards and archive states.', 'blocks-thoughts--recent-thoughts' ]
+  [ 'ThoughtsSection', 'The package-exported block for recent editorial cards and archive states.', 'blocks-thoughts--playground' ]
 ];
 
 const compositionRules = [

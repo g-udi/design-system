@@ -19,6 +19,8 @@ export function Pattern() {
           <button
             key={item.value}
             type='button'
+            aria-label={item.label}
+            aria-pressed={selected === item.value}
             onClick={() => setSelected(item.value)}
             className={cn(
               'rounded-lg flex size-10 items-center justify-center border-2 text-2xl transition-all',

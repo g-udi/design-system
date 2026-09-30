@@ -1,88 +1,87 @@
-import { expect, userEvent, within } from 'storybook/test';
-
+import { useState } from 'react';
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Switch from './Switch';
 
-const componentDocs = getComponentDocs('Core/Switch');
+const docs = getComponentDocs('Core/Switch');
+const label = 'Email notifications';
+const sizes = ['sm', 'md', 'lg'];
+const control = (canvas, name = label) => canvas.getByRole('switch', { name });
 
 export default {
+  title: 'Core/Switch',
+  id: 'core-switch',
   component: Switch,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { label: 'text', size: sizes, defaultChecked: 'boolean', disabled: 'boolean' }),
   parameters: {
     docs: {
-      description: { component: componentDocs.description },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  },
-  tags: [ 'autodocs' ],
-  id: 'core-switch',
-  title: 'Core/Switch'
+  }
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const switchControl = canvas.getByRole('switch', { name: 'Email notifications' });
-
-    expect(switchControl).toHaveAttribute('aria-checked', 'true');
-    expect(switchControl).toHaveClass('bg-blue-600');
-
-    await userEvent.click(switchControl);
-    expect(switchControl).toHaveAttribute('aria-checked', 'false');
-    expect(switchControl).not.toHaveClass('bg-blue-600');
-
-    await userEvent.click(canvas.getByText('Email notifications'));
-    expect(switchControl).toHaveAttribute('aria-checked', 'true');
-    expect(switchControl).toHaveClass('bg-blue-600');
+export const Playground = {
+  args: { label, size: 'md', defaultChecked: true, disabled: false, onCheckedChange: fn() },
+  parameters: {
+    docs: { source: playgroundSource('Switch', { imports: "import { Switch } from '@gaudi/design-system';" }) }
   },
-  render: () => <div className='flex items-center p-6'><Switch label='Email notifications' defaultChecked /></div>
+  render: (args) => <Switch key={`${args.defaultChecked}`} {...args} />,
+  play: async ({ args, canvasElement }) => {
+    if (args.disabled) return;
+    const canvas = within(canvasElement);
+    const initial = Boolean(args.defaultChecked);
+    await expect(control(canvas, args.label)).toHaveAttribute('aria-checked', `${initial}`);
+    await userEvent.click(control(canvas, args.label));
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(!initial);
+    await userEvent.click(canvas.getByText(args.label));
+    await expect(control(canvas, args.label)).toHaveAttribute('aria-checked', `${initial}`);
+  }
 };
 
-export const States = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const offSwitch = canvas.getByRole('switch', { name: 'Off preference' });
-    const onSwitch = canvas.getByRole('switch', { name: 'On preference' });
-    const disabledSwitch = canvas.getByRole('switch', { name: 'Disabled preference' });
-    const disabledEnabledSwitch = canvas.getByRole('switch', { name: 'Disabled enabled preference' });
-
-    expect(offSwitch).toHaveAttribute('aria-checked', 'false');
-    expect(onSwitch).toHaveAttribute('aria-checked', 'true');
-    expect(disabledSwitch).toBeDisabled();
-    expect(disabledEnabledSwitch).toBeDisabled();
-    expect(disabledEnabledSwitch).toHaveAttribute('aria-checked', 'true');
-
-    await userEvent.click(disabledEnabledSwitch);
-    expect(disabledEnabledSwitch).toHaveAttribute('aria-checked', 'true');
-  },
-  render: () => (
-    <div className='grid gap-4 p-6'>
-      <Switch label='Off preference' />
-      <Switch label='On preference' defaultChecked />
-      <Switch label='Disabled preference' disabled />
-      <Switch label='Disabled enabled preference' defaultChecked disabled />
+function ControlledExample({ onCheckedChange }) {
+  const [checked, setChecked] = useState(false);
+  const update = (next) => {
+    setChecked(next);
+    onCheckedChange(next);
+  };
+  return (
+    <div className='grid gap-2'>
+      <Switch label={label} checked={checked} onCheckedChange={update} />
+      <p className='text-sm text-text-muted'>{checked ? 'You will receive email updates.' : 'Email updates are off.'}</p>
     </div>
-  )
+  );
+}
+export const Controlled = {
+  args: { onCheckedChange: fn() },
+  parameters: { docs: { description: { story: 'The host owns `checked` and updates it from `onCheckedChange`.' } } },
+  render: (args) => <ControlledExample {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(control(canvas));
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(true);
+    await expect(control(canvas)).toHaveAttribute('aria-checked', 'true');
+    await expect(canvas.getByText('You will receive email updates.')).toBeVisible();
+    control(canvas).focus();
+    await userEvent.keyboard(' ');
+    await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
+  }
 };
 
 export const Sizes = {
+  parameters: { docs: { description: { story: '`size` scales the track and thumb; the label keeps the same type size.' } } },
+  render: () => (
+    <div className='grid gap-4'>
+      {sizes.map((size) => <Switch key={size} label={`Size ${size}`} size={size} defaultChecked />)}
+    </div>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const smallSwitch = canvas.getByRole('switch', { name: 'Small switch' });
-    const mediumSwitch = canvas.getByRole('switch', { name: 'Medium switch' });
-    const largeSwitch = canvas.getByRole('switch', { name: 'Large switch' });
-
-    expect(smallSwitch.getBoundingClientRect().width).toBeLessThan(mediumSwitch.getBoundingClientRect().width);
-    expect(mediumSwitch.getBoundingClientRect().width).toBeLessThan(largeSwitch.getBoundingClientRect().width);
-    expect(smallSwitch).toHaveAttribute('aria-checked', 'true');
-    expect(mediumSwitch).toHaveAttribute('aria-checked', 'true');
-    expect(largeSwitch).toHaveAttribute('aria-checked', 'true');
-  },
-  render: () => (
-    <div className='grid gap-4 p-6'>
-      <Switch label='Small switch' size='sm' defaultChecked />
-      <Switch label='Medium switch' size='md' defaultChecked />
-      <Switch label='Large switch' size='lg' defaultChecked />
-    </div>
-  )
+    const widths = sizes.map((size) => control(canvas, `Size ${size}`).getBoundingClientRect().width);
+    await expect(widths[0]).toBeLessThan(widths[1]);
+    await expect(widths[1]).toBeLessThan(widths[2]);
+  }
 };

@@ -1,69 +1,48 @@
-import { expect, userEvent, within } from 'storybook/test';
-
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { categories } from '../../../../.storybook/fixtures/site/navigationContent';
 import MenuBlog from './MenuBlog';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('Navigation/MenuBlog');
-
-const categories = [
-  {
-    'description': 'Patterns for building accessible interfaces.',
-    'id': 'web-development',
-    'title': 'web-development'
-  },
-  {
-    'description': 'Applied AI notes and production data work.',
-    'id': 'data',
-    'title': 'data'
-  }
-];
+const docs = getComponentDocs('Navigation/MenuBlog');
 
 export default {
-  args: {
-    categories
-  },
+  title: 'Navigation/MenuBlog',
+  id: 'navigation-menublog',
   component: MenuBlog,
-  excludeStories: [ 'Example' ],
+  tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
+  }
+};
+
+export const Playground = {
+  args: { categories },
+  parameters: {
+    docs: { source: playgroundSource('MenuBlog', { imports: "import { MenuBlog } from '@gaudi/design-system';" }) }
   },
-  tags: [ '!autodocs' ],
-  title: 'Navigation/MenuBlog'
-};
-
-export const Example = {
-  'render': () => renderComponentExample('Navigation/MenuBlog', componentModule)
-};
-
-export const CategoryDisclosure = {
-  render: (args) => (
-    <ul className='flex p-8'>
-      <MenuBlog categories={ args.categories } />
-    </ul>
-  ),
-  play: async ({ canvasElement }) => {
+  // MenuBlog renders an <li>, so it sits in the host navigation list.
+  render: (args) => <ul className='flex'><MenuBlog {...args} /></ul>,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Categories' });
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    const links = canvas.getAllByRole('link');
+    await expect(links).toHaveLength(args.categories.length);
+    await expect(links[0]).toHaveAttribute('href', `/blog/categories/${args.categories[0].id}`);
 
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(links[0]).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await waitFor(() => expect(trigger).toHaveFocus());
 
     await userEvent.click(trigger);
-
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('link', { name: /web development/i })).toHaveAttribute('href', '/blog/categories/web-development');
-    await expect(canvas.getByText('Patterns for building accessible interfaces.')).toBeInTheDocument();
-    await expect(canvas.getByRole('link', { name: /data/i })).toHaveAttribute('href', '/blog/categories/data');
-
     await userEvent.click(document.body);
-
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   }
 };

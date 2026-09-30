@@ -385,6 +385,18 @@
   .ds-progress[data-tone='success'] progress::-moz-progress-bar {
     background: var(--ds-color-success);
   }
+  .ds-progress[data-tone='warning'] progress::-webkit-progress-value {
+    background: var(--ds-color-warning);
+  }
+  .ds-progress[data-tone='warning'] progress::-moz-progress-bar {
+    background: var(--ds-color-warning);
+  }
+  .ds-progress[data-tone='danger'] progress::-webkit-progress-value {
+    background: var(--ds-color-danger);
+  }
+  .ds-progress[data-tone='danger'] progress::-moz-progress-bar {
+    background: var(--ds-color-danger);
+  }
   .ds-progress progress:indeterminate {
     opacity: 0.65;
   }

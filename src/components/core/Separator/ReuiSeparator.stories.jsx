@@ -9,9 +9,9 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Separator', tags: ['autodocs'], ...catalogueMeta('separator') };
 
-export const ReuiSeparator1 = { name: 'Horizontal separator for content sections', ...pattern(1) };
-export const ReuiSeparator2 = { name: 'Vertical separator for inline elements', ...pattern(2) };
-export const ReuiSeparator3 = { name: 'Vertical separator groups related menu items', ...pattern(3) };
-export const ReuiSeparator4 = { name: 'Horizontal separator between items in a list', ...pattern(4) };
-export const ReuiSeparator5 = { name: 'Separator with centered text label', ...pattern(5) };
-export const ReuiSeparator6 = { name: 'Order summary with separators', ...pattern(6) };
+export const ReuiSeparator1 = { name: 'Between sections', ...pattern(1) };
+export const ReuiSeparator2 = { name: 'Inline links', ...pattern(2, 'Vertical rules stretch to the height of a flex row.') };
+export const ReuiSeparator3 = { name: 'Grouped menu items', ...pattern(3, 'A fixed height keeps vertical rules shorter than two-line items.') };
+export const ReuiSeparator4 = { name: 'List dividers', ...pattern(4) };
+export const ReuiSeparator5 = { name: 'Text label', ...pattern(5, 'A label on the page background interrupts the rule.') };
+export const ReuiSeparator6 = { name: 'Order summary', ...pattern(6) };

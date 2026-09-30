@@ -7,9 +7,7 @@ export function Pattern() {
   const [productRating, setProductRating] = useState(0);
   const handleRatingChange = (rating) => {
     setProductRating(rating);
-    toast.success('Rated {rating} out of 5', {
-      description: `Rated ${rating} out of 5`
-    });
+    toast.success(`Rated ${rating} out of 5`);
   };
   return (
     <div className='space-y-8'>

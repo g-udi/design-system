@@ -15,12 +15,12 @@ export const ReuiDialog1 = {
   ...pattern(1),
   play: catalogueInteractions['dialog-1']
 };
-export const ReuiDialog2 = { name: 'Dialog with scrollable content', ...pattern(2) };
-export const ReuiDialog3 = { name: 'Dialog with scrollable content and sticky footer', ...pattern(3) };
-export const ReuiDialog4 = { name: 'Dialog without a close button', ...pattern(4) };
-export const ReuiDialog5 = { name: 'Dialog with custom close button', ...pattern(5) };
-export const ReuiDialog6 = { name: 'Full-screen fluid dialog with sticky header and footer', ...pattern(6) };
-export const ReuiDialog7 = { name: 'Confirmation dialog with destructive action', ...pattern(7) };
-export const ReuiDialog8 = { name: 'Cookie consent dialog', ...pattern(8) };
-export const ReuiDialog9 = { name: 'Dialog with keyboard shortcuts list', ...pattern(9) };
-export const ReuiDialog10 = { name: 'Dialog with full width button', ...pattern(10) };
+export const ReuiDialog2 = { name: 'Scrollable content', ...pattern(2) };
+export const ReuiDialog3 = { name: 'Scrollable content with sticky footer', ...pattern(3) };
+export const ReuiDialog4 = { name: 'Without a close button', ...pattern(4) };
+export const ReuiDialog5 = { name: 'Custom close button', ...pattern(5) };
+export const ReuiDialog6 = { name: 'Full-screen with sticky header and footer', ...pattern(6) };
+export const ReuiDialog7 = { name: 'Destructive confirmation', ...pattern(7) };
+export const ReuiDialog8 = { name: 'Cookie consent', ...pattern(8) };
+export const ReuiDialog9 = { name: 'Keyboard shortcuts list', ...pattern(9) };
+export const ReuiDialog10 = { name: 'Full-width button', ...pattern(10) };

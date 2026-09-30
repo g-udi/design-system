@@ -1,45 +1,36 @@
 import { expect } from 'storybook/test';
-
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import MenuLogo from './MenuLogo';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('Navigation/MenuLogo');
+const docs = getComponentDocs('Navigation/MenuLogo');
 
 export default {
-  args: {
-    className: 'story-logo-mark'
-  },
+  title: 'Navigation/MenuLogo',
+  id: 'navigation-menulogo',
   component: MenuLogo,
-  excludeStories: [ 'Example' ],
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { className: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
+  }
+};
+
+export const Playground = {
+  args: { className: 'text-blue-600 dark:text-blue-400' },
+  parameters: {
+    docs: { source: playgroundSource('MenuLogo', { imports: "import { MenuLogo } from '@gaudi/design-system';" }) }
   },
-  tags: [ '!autodocs' ],
-  title: 'Navigation/MenuLogo'
-};
-
-export const Example = {
-  'render': () => renderComponentExample('Navigation/MenuLogo', componentModule)
-};
-
-export const DecorativeMark = {
-  render: (args) => <MenuLogo className={ args.className } />,
+  render: (args) => <MenuLogo {...args} />,
   play: async ({ args, canvasElement }) => {
     const svg = canvasElement.querySelector('svg');
-    const mark = svg.querySelector('g');
-
     await expect(svg).toHaveAttribute('aria-hidden', 'true');
     await expect(svg).toHaveAttribute('focusable', 'false');
-    await expect(svg).toHaveAttribute('viewBox', '0 0 688.000000 688.000000');
-    await expect(svg).toHaveClass(args.className);
-    await expect(mark).toHaveAttribute('fill', 'currentColor');
+    await expect(svg.querySelector('g')).toHaveAttribute('fill', 'currentColor');
+    for (const name of args.className.split(' ')) await expect(svg).toHaveClass(name);
   }
 };

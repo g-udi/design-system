@@ -9,9 +9,9 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Icon', tags: ['autodocs'], ...catalogueMeta('icon-stack') };
 
-export const ReuiIconStack1 = { name: 'Icon Stack: Isometric icon stack', ...pattern(1, 'Layered isometric icon') };
-export const ReuiIconStack2 = { name: 'Icon Stack: Icon stack sizes', ...pattern(2, 'Responsive icon stack sizes') };
-export const ReuiIconStack3 = { name: 'Icon Stack: Icon stack colors', ...pattern(3, 'Semantic icon stack colors') };
-export const ReuiIconStack4 = { name: 'Icon Stack: Icon badge stack', ...pattern(4, 'Icon stack with badge overlay') };
-export const ReuiIconStack5 = { name: 'Icon Stack: Empty state illustration', ...pattern(5, 'Shadcn empty state illustration') };
-export const ReuiIconStack6 = { name: 'Icon Stack: Item media stack', ...pattern(6, 'Icon stack in shadcn item') };
+export const ReuiIconStack1 = { name: 'Isometric icon stack', ...pattern(1) };
+export const ReuiIconStack2 = { name: 'Icon stack sizes', ...pattern(2) };
+export const ReuiIconStack3 = { name: 'Icon stack colors', ...pattern(3) };
+export const ReuiIconStack4 = { name: 'Icon stack with badge', ...pattern(4) };
+export const ReuiIconStack5 = { name: 'Icon stack in an empty state', ...pattern(5) };
+export const ReuiIconStack6 = { name: 'Icon stack in an item', ...pattern(6) };

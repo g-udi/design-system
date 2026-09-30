@@ -1,110 +1,95 @@
 import { expect, userEvent, within } from 'storybook/test';
-
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { Field, FieldDescription, FieldError, FieldInput, FieldLabel } from './Field';
 
-const componentDocs = getComponentDocs('Core/Field');
+const docs = getComponentDocs('Core/Field');
+const email = { label: 'Email', description: 'Used for article updates only.' };
 
 export default {
+  title: 'Core/Field',
+  id: 'core-field',
   component: Field,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { type: ['email', 'text', 'url'], placeholder: 'text', disabled: 'boolean' }),
   parameters: {
     docs: {
-      description: { component: componentDocs.description },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'core-field',
-  title: 'Core/Field'
+  decorators: [(Story) => <ExampleFrame className='max-w-sm'><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  args: {
-    description: 'Used for article updates only.',
-    disabled: false,
-    label: 'Email',
-    placeholder: 'you@example.com',
-    type: 'email'
+export const Playground = {
+  args: { type: 'email', placeholder: 'you@example.com', disabled: false },
+  parameters: {
+    docs: {
+      source: playgroundSource('FieldInput', {
+        imports: "import { Field, FieldDescription, FieldInput, FieldLabel } from '@gaudi/design-system';",
+        before: `<Field>\n<FieldLabel>${email.label}</FieldLabel>\n`,
+        after: `\n<FieldDescription>${email.description}</FieldDescription>\n</Field>`
+      })
+    }
   },
-  argTypes: {
-    description: { control: 'text' },
-    disabled: { control: 'boolean' },
-    label: { control: 'text' },
-    placeholder: { control: 'text' },
-    type: { control: 'select', options: [ 'email', 'text', 'url' ] }
-  },
-  render: ({ description, disabled, label, placeholder, type }) => (
-    <div className='max-w-sm p-6'>
-      <Field>
-        <FieldLabel htmlFor='email'>{label}</FieldLabel>
-        <FieldInput id='email' type={ type } placeholder={ placeholder } disabled={ disabled } />
-        <FieldDescription>{description}</FieldDescription>
-      </Field>
-    </div>
+  render: (args) => (
+    <Field>
+      <FieldLabel>{email.label}</FieldLabel>
+      <FieldInput {...args} />
+      <FieldDescription>{email.description}</FieldDescription>
+    </Field>
   ),
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Email');
-    const description = canvas.getByText('Used for article updates only.');
-
-    expect(input).toHaveAttribute('type', 'email');
-    expect(input).toHaveAttribute('placeholder', 'you@example.com');
-    expect(description.tagName).toBe('P');
-    expect(description).toBeVisible();
-
-    await userEvent.click(canvas.getByText('Email'));
-    expect(input).toHaveFocus();
-
+    const input = canvas.getByLabelText(email.label);
+    await expect(input).toHaveAttribute('type', args.type);
+    await expect(input).toHaveAccessibleDescription(email.description);
+    await userEvent.click(canvas.getByText(email.label));
+    await expect(input).toHaveFocus();
     await userEvent.type(input, 'reader@example.com');
-    expect(input).toHaveValue('reader@example.com');
+    await expect(input).toHaveValue('reader@example.com');
   }
 };
 
 export const Error = {
+  parameters: {
+    docs: { description: { story: '`FieldError` marks the input invalid and joins its message to the accessible description, keeping the entered value.' } }
+  },
   render: () => (
-    <div className='max-w-sm p-6'>
-      <Field>
-        <FieldLabel htmlFor='slug'>Article slug</FieldLabel>
-        <FieldInput id='slug' aria-invalid='true' defaultValue='Design Systems' />
-        <FieldError>Use lowercase letters and hyphens only.</FieldError>
-      </Field>
-    </div>
+    <Field>
+      <FieldLabel>Article slug</FieldLabel>
+      <FieldInput defaultValue='Design Systems' />
+      <FieldError>Use lowercase letters and hyphens only.</FieldError>
+    </Field>
   ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Article slug');
-    const error = canvas.getByText('Use lowercase letters and hyphens only.');
-
-    expect(input).toHaveAttribute('aria-invalid', 'true');
-    expect(input).toHaveValue('Design Systems');
-    expect(error.tagName).toBe('P');
-    expect(error).toBeVisible();
-    expect(error).toHaveClass('font-medium', 'text-red-600');
+    const input = within(canvasElement).getByLabelText('Article slug');
+    await expect(input).toHaveAttribute('aria-invalid', 'true');
+    await expect(input).toHaveAccessibleDescription('Use lowercase letters and hyphens only.');
+    await expect(input).toHaveValue('Design Systems');
   }
 };
 
 export const Disabled = {
+  parameters: {
+    docs: { description: { story: 'A disabled, read-only value stays labelled and described but cannot be focused or edited.' } }
+  },
   render: () => (
-    <div className='max-w-sm p-6'>
-      <Field>
-        <FieldLabel htmlFor='readonly-email'>Email</FieldLabel>
-        <FieldInput id='readonly-email' type='email' value='editor@example.com' disabled readOnly />
-        <FieldDescription>This value is managed by account settings.</FieldDescription>
-      </Field>
-    </div>
+    <Field>
+      <FieldLabel>{email.label}</FieldLabel>
+      <FieldInput type='email' value='editor@example.com' disabled readOnly />
+      <FieldDescription>This value is managed by account settings.</FieldDescription>
+    </Field>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByLabelText('Email');
-
-    expect(input).toBeDisabled();
-    expect(input).toHaveAttribute('readonly');
-    expect(input).toHaveValue('editor@example.com');
-
-    await userEvent.click(canvas.getByText('Email'));
-    expect(input).not.toHaveFocus();
+    const input = canvas.getByLabelText(email.label);
+    await expect(input).toBeDisabled();
+    await userEvent.click(canvas.getByText(email.label));
+    await expect(input).not.toHaveFocus();
     await userEvent.type(input, 'changed@example.com');
-    expect(input).toHaveValue('editor@example.com');
+    await expect(input).toHaveValue('editor@example.com');
   }
 };

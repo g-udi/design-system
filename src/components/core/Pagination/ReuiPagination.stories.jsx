@@ -9,18 +9,18 @@ const pattern = reuiPatterns(
 
 export default { title: 'Blocks/Navigation/Pagination', tags: ['autodocs'], ...catalogueMeta('pagination') };
 
-export const ReuiPagination1 = { name: 'Basic pagination', ...pattern(1) };
-export const ReuiPagination2 = { name: 'Pagination without labels', ...pattern(2) };
-export const ReuiPagination3 = { name: 'Pagination with hover effect', ...pattern(3) };
-export const ReuiPagination4 = { name: 'Pagination with circle buttons', ...pattern(4) };
-export const ReuiPagination5 = { name: 'Pagination with go-to-page input', ...pattern(5) };
-export const ReuiPagination6 = { name: 'Numbered pagination in card', ...pattern(6) };
-export const ReuiPagination7 = { name: 'Pagination with arrows buttons', ...pattern(7) };
-export const ReuiPagination8 = { name: 'Pagination with page info on center', ...pattern(8) };
-export const ReuiPagination9 = { name: 'Pagination with page info on left', ...pattern(9) };
-export const ReuiPagination10 = { name: 'Pagination with ellipsis indicator', ...pattern(10) };
-export const ReuiPagination11 = { name: 'Pagination with outline style buttons', ...pattern(11) };
-export const ReuiPagination12 = { name: 'Rows per page select with range info and first/prev/next/last icons', ...pattern(12) };
-export const ReuiPagination13 = { name: 'Pagination with page select dropdown and first/last navigation', ...pattern(13) };
-export const ReuiPagination14 = { name: 'Numbered pagination with go-to-page input', ...pattern(14) };
-export const ReuiPagination15 = { name: 'Pagination with page info, numbered pages, ellipsis, and per-page select', ...pattern(15) };
+export const ReuiPagination1 = { name: 'Basic', ...pattern(1) };
+export const ReuiPagination2 = { name: 'Icon-only arrows', ...pattern(2) };
+export const ReuiPagination3 = { name: 'Hover effect', ...pattern(3) };
+export const ReuiPagination4 = { name: 'Circle buttons', ...pattern(4) };
+export const ReuiPagination5 = { name: 'Go-to-page input', ...pattern(5) };
+export const ReuiPagination6 = { name: 'Numbered in a card', ...pattern(6) };
+export const ReuiPagination7 = { name: 'Arrow buttons', ...pattern(7) };
+export const ReuiPagination8 = { name: 'Centered page info', ...pattern(8) };
+export const ReuiPagination9 = { name: 'Page info on the left', ...pattern(9) };
+export const ReuiPagination10 = { name: 'Ellipsis', ...pattern(10) };
+export const ReuiPagination11 = { name: 'Outline buttons', ...pattern(11) };
+export const ReuiPagination12 = { name: 'Rows per page and range info', ...pattern(12) };
+export const ReuiPagination13 = { name: 'Page select with first and last', ...pattern(13) };
+export const ReuiPagination14 = { name: 'Numbered with go-to-page input', ...pattern(14) };
+export const ReuiPagination15 = { name: 'Page info, ellipsis, and per-page select', ...pattern(15) };

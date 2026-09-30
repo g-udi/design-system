@@ -1,37 +1,35 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Quote from './Quote';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Quote');
+const docs = getComponentDocs('MDX/Quote');
 
 export default {
+  title: 'MDX/Quote',
+  id: 'mdx-quote',
+  component: Quote,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { text: 'text', author: 'text', title: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-quote',
-  title: 'MDX/Quote'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
+export const Playground = {
+  args: { text: 'Good component systems make product code calmer.', author: 'Design System', title: 'Internal principle' },
+  parameters: { docs: { source: playgroundSource('Quote', { imports: "import { Quote } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <Quote {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const figure = canvasElement.querySelector('figure');
-    const quoteText = canvas.getByText(/Good component systems make product code calmer\./i);
-    const author = canvas.getByText('Design System');
-    const title = canvas.getByText('Internal principle');
-
-    await expect(figure).toBeInTheDocument();
-    await expect(figure?.querySelector('blockquote')).toContainElement(quoteText);
-    await expect(author.tagName.toLowerCase()).toBe('cite');
-    await expect(title.tagName.toLowerCase()).toBe('span');
-  },
-  'render': () => renderComponentExample('MDX/Quote', componentModule)
+    await expect(canvasElement.querySelector('figure blockquote')).toContainElement(canvas.getByText(args.text));
+    await expect(canvas.getByText(args.author).tagName).toBe('CITE');
+    await expect(canvas.getByText(args.title)).toBeVisible();
+  }
 };

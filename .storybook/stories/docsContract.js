@@ -53,12 +53,29 @@ export function displayedPreviewArgs(rows, args) {
 }
 
 /**
+ * Resolves one prop from the props reference. Grouped rows such as `min / max / step`
+ * share a description; type and default segments are picked when they line up.
+ */
+export function findPropRow(rows = [], name) {
+  for (const [names, type, value, description] of rows) {
+    const parts = names.split(' / ').map((part) => part.replace(/^\w+\./, ''));
+    const index = parts.indexOf(name);
+    if (index < 0) continue;
+    const pick = (text) => {
+      const segments = String(text).split(' / ');
+      return segments.length === parts.length ? segments[index] : text;
+    };
+    return [name, pick(type), pick(value), description];
+  }
+}
+
+/**
  * Playground argTypes described by the authored props reference.
  * `controls` maps a prop to a control type, or to an options array for a select.
  */
 export function docsArgTypes(docs, controls) {
   return Object.fromEntries(Object.entries(controls).map(([name, control]) => {
-    const [, summary, defaultValue, description] = docs.props.find(([prop]) => prop === name) || [];
+    const [, summary, defaultValue, description] = findPropRow(docs.props, name) || [];
     const [type, options] = Array.isArray(control) ? ['select', control] : [control];
     return [name, {
       control: type,

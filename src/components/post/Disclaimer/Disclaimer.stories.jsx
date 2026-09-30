@@ -1,61 +1,50 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Disclaimer from './index';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('Post/Disclaimer');
-const Disclaimer = componentModule.default;
-
-export default {
-  parameters: {
-    docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
-    }
-  },
-  tags: [ 'autodocs' ],
-  title: 'Post/Disclaimer'
+const docs = getComponentDocs('Post/Disclaimer');
+const warningCopy = 'This post includes forward-looking implementation notes.';
+const expectTone = async (copy, tone) => {
+  const callout = copy.closest('aside');
+  await expect(copy).toBeVisible();
+  await expect(callout).toHaveClass(`border-${tone}-border`, `bg-${tone}-subtle`);
+  await expect(callout.querySelector('div')).toHaveClass(`text-${tone}`);
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const defaultCopy = canvas.getByText(/opinions and views expressed on this blog are solely my own/u);
-    const customCopy = canvas.getByText('Research notes are provided for context and should not be treated as advice.');
-    const defaultCallout = defaultCopy.closest('aside');
-    const customCallout = customCopy.closest('aside');
-    const defaultBody = defaultCallout?.querySelector('div');
-    const customBody = customCallout?.querySelector('div');
-
-    await expect(defaultCopy).toBeVisible();
-    await expect(customCopy).toBeVisible();
-    await expect(defaultCallout).toHaveClass('border-info-border', 'bg-info-subtle');
-    await expect(customCallout).toHaveClass('border-info-border', 'bg-info-subtle');
-    await expect(defaultBody).toHaveClass('text-info');
-    await expect(customBody).toHaveClass('text-info');
+export default {
+  title: 'Post/Disclaimer',
+  component: Disclaimer,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { type: ['info', 'warning', 'error'], children: 'text' }),
+  parameters: {
+    docs: {
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
+    }
   },
-  'render': () => renderComponentExample('Post/Disclaimer', componentModule)
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
+};
+
+export const Playground = {
+  args: { type: 'info' },
+  parameters: {
+    docs: { source: playgroundSource('Disclaimer', { imports: "import { Disclaimer } from '@gaudi/design-system';" }) }
+  },
+  render: (args) => <Disclaimer {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const copy = within(canvasElement).getByText(/opinions and views expressed on this blog are solely my own/u);
+    await expectTone(copy, args.type);
+  }
 };
 
 export const Warning = {
+  name: 'Custom copy and tone',
+  parameters: { docs: { description: { story: 'Children replace the default copy, and `type` sets the callout tone.' } } },
+  render: () => <Disclaimer type='warning'>{warningCopy}</Disclaimer>,
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const warningCopy = canvas.getByText('This post includes forward-looking implementation notes.');
-    const warningCallout = warningCopy.closest('aside');
-    const warningBody = warningCallout?.querySelector('div');
-
-    await expect(warningCopy).toBeVisible();
-    await expect(warningCallout).toHaveClass('border-warning-border', 'bg-warning-subtle');
-    await expect(warningBody).toHaveClass('text-warning');
-  },
-  render: () => (
-    <div className='p-6'>
-      <Disclaimer type='warning'>
-        This post includes forward-looking implementation notes.
-      </Disclaimer>
-    </div>
-  )
+    await expectTone(within(canvasElement).getByText(warningCopy), 'warning');
+  }
 };

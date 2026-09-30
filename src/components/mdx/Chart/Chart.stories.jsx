@@ -1,16 +1,11 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, waitFor, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { BarChart, Chart, DonutChart, RadialBarChart, ScatterChart } from './Chart';
 
-import { AreaChart,
-  BarChart,
-  Chart,
-  ComposedChart,
-  DonutChart,
-  LineChart,
-  PieChart,
-  RadialBarChart,
-  ScatterChart } from './Chart';
-
+const docs = getComponentDocs('MDX/Chart');
 const trafficData = [
   { label: 'Mon', readTime: 6, subscribers: 8, views: 124 },
   { label: 'Tue', readTime: 8, subscribers: 12, views: 168 },
@@ -20,197 +15,117 @@ const trafficData = [
   { label: 'Sat', readTime: 12, subscribers: 18, views: 248 }
 ];
 
-const contentMixData = [
-  { label: 'Data', value: 42 },
-  { label: 'Engineering', value: 28 },
-  { label: 'Productivity', value: 18 },
-  { label: 'Management', value: 12 }
-];
-
-const scatterData = [
-  { title: 'Short note', x: 800, y: 4 },
-  { title: 'Tutorial', x: 1500, y: 8 },
-  { title: 'Deep dive', x: 2600, y: 14 },
-  { title: 'Reference', x: 3400, y: 17 },
-  { title: 'Series guide', x: 4200, y: 22 }
-];
-
-const radialData = [{ label: 'Read completion', value: 78 }];
-
-const componentDocs = getComponentDocs('MDX/Chart');
-
-const expectChartStory = async (canvasElement, { ariaLabel, description, title }) => {
+/** Every chart renders a labelled figure once Recharts has mounted. */
+const expectChart = async (canvasElement, ariaLabel) => {
   const canvas = within(canvasElement);
-
-  await expect(canvas.getByText(title)).toBeVisible();
-  await expect(canvas.getByText(description)).toBeVisible();
-  await expect(canvas.queryByText('Chart renderer unavailable. Recharts did not load correctly.')).not.toBeInTheDocument();
-
-  await waitFor(() => {
-    expect(canvas.getAllByRole('img', { name: ariaLabel }).length).toBeGreaterThanOrEqual(1);
-  });
+  await expect(canvas.queryByText(/Chart renderer unavailable/)).not.toBeInTheDocument();
+  await waitFor(() => expect(canvas.getAllByRole('img', { name: ariaLabel }).length).toBeGreaterThan(1));
 };
 
 export default {
+  title: 'MDX/Chart',
+  id: 'mdx-chart',
   component: Chart,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, {
+    type: ['bar', 'line', 'area', 'composed'],
+    yKey: ['views', 'subscribers', 'readTime'],
+    title: 'text',
+    description: 'text',
+    ariaLabel: 'text',
+    height: 'number',
+    showGrid: 'boolean',
+    showLegend: 'boolean',
+    showTooltip: 'boolean'
+  }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-chart',
-  title: 'MDX/Chart'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Bar = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Article views by day',
-      description: 'Use bars for discrete comparisons such as views, counts, or category totals.',
-      title: 'Article views'
-    });
+export const Playground = {
+  args: {
+    type: 'bar',
+    data: trafficData,
+    yKey: 'views',
+    title: 'Article views',
+    description: 'Daily views for the latest article.',
+    ariaLabel: 'Article views by day',
+    height: 320,
+    showGrid: true,
+    showLegend: false,
+    showTooltip: true
   },
+  parameters: { docs: { source: playgroundSource('Chart', { imports: "import { Chart } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <Chart {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByText(args.title)).toBeVisible();
+    await expect(canvas.getByText(args.description)).toBeVisible();
+    await expectChart(canvasElement, args.ariaLabel);
+  }
+};
+
+export const MultipleSeries = {
+  parameters: { docs: { description: { story: '`series` plots several keys on one axis. Add `showLegend` so readers can tell the series apart.' } } },
   render: () => (
     <BarChart
-      ariaLabel='Article views by day'
-      data={ trafficData }
-      title='Article views'
-      description='Use bars for discrete comparisons such as views, counts, or category totals.'
-      yKey='views'
+      ariaLabel='Subscribers and read time by day'
+      data={trafficData}
+      title='Subscribers and read time'
+      series={[{ key: 'subscribers', label: 'Subscribers' }, { key: 'readTime', label: 'Read time (min)' }]}
+      showLegend
     />
-  )
+  ),
+  play: async ({ canvasElement }) => {
+    await expectChart(canvasElement, 'Subscribers and read time by day');
+    await waitFor(() => expect(within(canvasElement).getByText('Read time (min)')).toBeVisible());
+  }
 };
 
-export const Line = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Subscriber trend by day',
-      description: 'Use lines for trends across a continuous sequence.',
-      title: 'Subscriber trend'
-    });
-  },
-  render: () => (
-    <LineChart
-      ariaLabel='Subscriber trend by day'
-      data={ trafficData }
-      title='Subscriber trend'
-      description='Use lines for trends across a continuous sequence.'
-      yKey='subscribers'
-    />
-  )
-};
-
-export const Area = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Article views area chart',
-      description: 'Use area charts when the volume under a trend matters.',
-      title: 'Reading activity'
-    });
-  },
-  render: () => (
-    <AreaChart
-      ariaLabel='Article views area chart'
-      data={ trafficData }
-      title='Reading activity'
-      description='Use area charts when the volume under a trend matters.'
-      yKey='views'
-    />
-  )
-};
-
-export const Pie = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Content mix by category',
-      description: 'Use pie charts sparingly for a small number of parts of a whole.',
-      title: 'Content mix'
-    });
-  },
-  render: () => (
-    <PieChart
-      ariaLabel='Content mix by category'
-      data={ contentMixData }
-      title='Content mix'
-      description='Use pie charts sparingly for a small number of parts of a whole.'
-    />
-  )
-};
-
-export const Donut = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Content mix by category as donut chart',
-      description: 'Donut charts work best for compact proportional summaries.',
-      title: 'Content mix'
-    });
-  },
+export const PartsOfWhole = {
+  parameters: { docs: { description: { story: '`DonutChart` and `PieChart` read `label` and `value` from each record. Keep them to a few slices.' } } },
   render: () => (
     <DonutChart
-      ariaLabel='Content mix by category as donut chart'
-      data={ contentMixData }
+      ariaLabel='Content mix by category'
       title='Content mix'
-      description='Donut charts work best for compact proportional summaries.'
+      data={[
+        { label: 'Data', value: 42 },
+        { label: 'Engineering', value: 28 },
+        { label: 'Productivity', value: 18 },
+        { label: 'Management', value: 12 }
+      ]}
     />
-  )
-};
-
-export const Composed = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Views and read time by day',
-      description: 'Use composed charts when two related measures need to share one timeline.',
-      title: 'Views and read time'
-    });
-  },
-  render: () => (
-    <ComposedChart
-      ariaLabel='Views and read time by day'
-      data={ trafficData }
-      title='Views and read time'
-      description='Use composed charts when two related measures need to share one timeline.'
-    />
-  )
+  ),
+  play: async ({ canvasElement }) => expectChart(canvasElement, 'Content mix by category')
 };
 
 export const Scatter = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Post length against read time',
-      description: 'Use scatter charts to show correlation between two numeric dimensions.',
-      title: 'Post length and read time'
-    });
-  },
+  parameters: { docs: { description: { story: '`ScatterChart` plots two numeric fields, set with `xKey` and `yKey`, to show correlation.' } } },
   render: () => (
     <ScatterChart
       ariaLabel='Post length against read time'
-      data={ scatterData }
       title='Post length and read time'
-      description='Use scatter charts to show correlation between two numeric dimensions.'
-      xKey='x'
-      yKey='y'
+      data={[
+        { words: 800, minutes: 4 },
+        { words: 1500, minutes: 8 },
+        { words: 2600, minutes: 14 },
+        { words: 3400, minutes: 17 },
+        { words: 4200, minutes: 22 }
+      ]}
+      xKey='words'
+      yKey='minutes'
     />
-  )
+  ),
+  play: async ({ canvasElement }) => expectChart(canvasElement, 'Post length against read time')
 };
 
 export const Radial = {
-  play: async ({ canvasElement }) => {
-    await expectChartStory(canvasElement, {
-      ariaLabel: 'Read completion progress',
-      description: 'Use radial charts for one compact progress-style measure.',
-      title: 'Read completion'
-    });
-  },
-  render: () => (
-    <RadialBarChart
-      ariaLabel='Read completion progress'
-      data={ radialData }
-      title='Read completion'
-      description='Use radial charts for one compact progress-style measure.'
-    />
-  )
+  parameters: { docs: { description: { story: '`RadialBarChart` shows one compact progress measure against a full track.' } } },
+  render: () => <RadialBarChart ariaLabel='Read completion progress' title='Read completion' data={[{ label: 'Read completion', value: 78 }]} />,
+  play: async ({ canvasElement }) => expectChart(canvasElement, 'Read completion progress')
 };

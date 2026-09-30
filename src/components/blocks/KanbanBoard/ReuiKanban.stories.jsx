@@ -9,9 +9,9 @@ const pattern = reuiPatterns(
 
 export default { title: 'Blocks/KanbanBoard', tags: ['autodocs'], ...catalogueMeta('kanban') };
 
-export const ReuiKanban1 = { name: 'Kanban: Kanban board with placeholder overlay', ...pattern(1) };
-export const ReuiKanban2 = { name: 'Kanban: Kanban board with dynamic overlay', ...pattern(2) };
-export const ReuiKanban3 = { name: 'Kanban: Kanban board with frame columns', ...pattern(3) };
-export const ReuiKanban4 = { name: 'Kanban: Minimal kanban with stacked frame', ...pattern(4) };
-export const ReuiKanban5 = { name: 'Kanban: Feature roadmap kanban with progress', ...pattern(5) };
-export const ReuiKanban6 = { name: 'Kanban: Kanban board persisted to a backend', ...pattern(6, 'Persist moves with onValueCommit, optimistic updates, and Sonner rollback') };
+export const ReuiKanban1 = { name: 'Placeholder drag overlay', ...pattern(1) };
+export const ReuiKanban2 = { name: 'Dynamic drag overlay', ...pattern(2) };
+export const ReuiKanban3 = { name: 'Framed columns', ...pattern(3) };
+export const ReuiKanban4 = { name: 'Minimal stacked frame', ...pattern(4) };
+export const ReuiKanban5 = { name: 'Roadmap with progress', ...pattern(5) };
+export const ReuiKanban6 = { name: 'Persisted to a backend', ...pattern(6, 'Persist moves with onValueCommit, optimistic updates, and a Sonner rollback.') };

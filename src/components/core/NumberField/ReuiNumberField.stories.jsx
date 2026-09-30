@@ -15,8 +15,8 @@ export const ReuiNumberField1 = {
   ...pattern(1),
   play: catalogueInteractions['number-field-1']
 };
-export const ReuiNumberField2 = { name: 'Basic number field', ...pattern(2) };
-export const ReuiNumberField3 = { name: 'Basic number field', ...pattern(3) };
-export const ReuiNumberField4 = { name: 'Number filed wiith buttons on right', ...pattern(4) };
-export const ReuiNumberField5 = { name: 'Number field with spinner buttons', ...pattern(5) };
-export const ReuiNumberField6 = { name: 'Number field in form', ...pattern(6) };
+export const ReuiNumberField2 = { name: 'Small size', ...pattern(2) };
+export const ReuiNumberField3 = { name: 'Large size', ...pattern(3) };
+export const ReuiNumberField4 = { name: 'Buttons on the right', ...pattern(4) };
+export const ReuiNumberField5 = { name: 'Spinner buttons', ...pattern(5) };
+export const ReuiNumberField6 = { name: 'Form validation', ...pattern(6) };

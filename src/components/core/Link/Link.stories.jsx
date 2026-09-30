@@ -1,137 +1,88 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Link from './Link';
 
-const componentDocs = getComponentDocs('Core/Link');
-const toneOptions = [ 'gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo' ];
+const docs = getComponentDocs('Core/Link');
+const variants = ['inline', 'muted', 'nav', 'bare'];
+const tones = {
+  gray: 'text-gray-700',
+  neutral: 'text-gray-950',
+  blue: 'text-blue-600',
+  teal: 'text-teal-700',
+  green: 'text-green-700',
+  amber: 'text-amber-700',
+  yellow: 'text-yellow-800',
+  red: 'text-red-700',
+  rose: 'text-rose-700',
+  indigo: 'text-indigo-700'
+};
+const link = (canvasElement, name) => within(canvasElement).getByRole('link', { name });
 
 export default {
-  argTypes: {
-    'tone': {
-      'control': 'select',
-      'options': toneOptions
-    },
-    'variant': {
-      'control': 'select',
-      'options': [ 'inline', 'muted', 'nav', 'bare' ]
-    }
-  },
+  title: 'Core/Link',
+  id: 'core-link',
   component: Link,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { children: 'text', href: 'text', variant: variants, tone: Object.keys(tones) }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'core-link',
-  title: 'Core/Link'
+  decorators: [(Story) => <div className='flex flex-wrap items-center gap-4'><Story /></div>]
 };
 
-export const Internal = {
-  'args': {
-    'children': 'Read the blog',
-    'href': '/blog',
-    'tone': 'blue',
-    'variant': 'inline'
-  },
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { 'name': 'Read the blog' });
-
-    await expect(link).toHaveAttribute('href', '/blog');
-    await expect(link).not.toHaveAttribute('target');
-    await expect(link).toHaveClass('font-medium', 'text-blue-600');
+export const Playground = {
+  args: { children: 'Read the blog', href: '/blog', variant: 'inline', tone: 'blue' },
+  parameters: { docs: { source: playgroundSource('Link', { imports: "import { Link } from '@gaudi/design-system';" }) } },
+  render: (args) => <Link {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const element = link(canvasElement, args.children);
+    await expect(element).toHaveAttribute('href', args.href);
+    await expect(element).toBeVisible();
   }
 };
 
-export const External = {
-  'args': {
-    'children': 'Visit GitHub',
-    'href': 'https://github.com/ahmadassaf',
-    'tone': 'blue',
-    'variant': 'inline'
-  },
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { 'name': 'Visit GitHub' });
-
-    await expect(link).toHaveAttribute('href', 'https://github.com/ahmadassaf');
-    await expect(link).toHaveAttribute('target', '_blank');
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+export const LinkTypes = {
+  parameters: { docs: { description: { story: 'Internal routes and fragments stay in the tab, external URLs open safely in a new one, and a missing `href` renders plain text.' } } },
+  render: () => (
+    <>
+      <Link href='/blog'>Internal route</Link>
+      <Link href='#examples'>Page anchor</Link>
+      <Link href='https://github.com/ahmadassaf'>External site</Link>
+      <Link>Plain text fallback</Link>
+    </>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(link(canvasElement, 'Internal route')).toHaveAttribute('href', '/blog');
+    await expect(link(canvasElement, 'Page anchor')).not.toHaveAttribute('target');
+    const external = link(canvasElement, 'External site');
+    await expect(external).toHaveAttribute('target', '_blank');
+    await expect(external).toHaveAttribute('rel', 'noopener noreferrer');
+    const fallback = within(canvasElement).getByText('Plain text fallback');
+    await expect(fallback.tagName).toBe('SPAN');
+    await expect(within(canvasElement).queryByRole('link', { name: 'Plain text fallback' })).toBeNull();
   }
 };
 
 export const Variants = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const inlineLink = canvas.getByRole('link', { 'name': 'inline' });
-    const mutedLink = canvas.getByRole('link', { 'name': 'muted' });
-    const navLink = canvas.getByRole('link', { 'name': 'nav' });
-    const bareLink = canvas.getByRole('link', { 'name': 'bare' });
-
-    await expect(inlineLink).toHaveClass('font-medium', 'no-underline');
-    await expect(mutedLink).toHaveClass('font-medium', 'text-neutral-600');
-    await expect(navLink).toHaveClass('font-semibold');
-    await expect(bareLink).toHaveClass('text-current');
-  },
-  'render': () => (
-    <div className='flex flex-wrap items-center gap-4 p-6'>
-      {[ 'inline', 'muted', 'nav', 'bare' ].map((variant) => (
-        <Link key={ variant } href='/blog' variant={ variant }>{variant}</Link>
-      ))}
-    </div>
-  )
+  parameters: { docs: { description: { story: 'Use `inline` in prose, `muted` for secondary links, `nav` in navigation, and `bare` to inherit the parent color.' } } },
+  render: () => variants.map((variant) => <Link key={variant} href='/blog' variant={variant}>{variant}</Link>),
+  play: async ({ canvasElement }) => {
+    await expect(link(canvasElement, 'inline')).toHaveClass('font-medium', 'no-underline');
+    await expect(link(canvasElement, 'muted')).toHaveClass('text-neutral-600');
+    await expect(link(canvasElement, 'nav')).toHaveClass('font-semibold');
+    await expect(link(canvasElement, 'bare')).toHaveClass('text-current');
+  }
 };
 
 export const Tones = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    await expect(canvas.getByRole('link', { 'name': 'gray' })).toHaveClass('text-gray-700');
-    await expect(canvas.getByRole('link', { 'name': 'neutral' })).toHaveClass('text-gray-950');
-    await expect(canvas.getByRole('link', { 'name': 'blue' })).toHaveClass('text-blue-600');
-    await expect(canvas.getByRole('link', { 'name': 'teal' })).toHaveClass('text-teal-700');
-    await expect(canvas.getByRole('link', { 'name': 'green' })).toHaveClass('text-green-700');
-    await expect(canvas.getByRole('link', { 'name': 'amber' })).toHaveClass('text-amber-700');
-    await expect(canvas.getByRole('link', { 'name': 'yellow' })).toHaveClass('text-yellow-800');
-    await expect(canvas.getByRole('link', { 'name': 'red' })).toHaveClass('text-red-700');
-    await expect(canvas.getByRole('link', { 'name': 'rose' })).toHaveClass('text-rose-700');
-    await expect(canvas.getByRole('link', { 'name': 'indigo' })).toHaveClass('text-indigo-700');
-  },
-  'render': () => (
-    <div className='flex flex-wrap items-center gap-4 p-6'>
-      {toneOptions.map((tone) => (
-        <Link key={ tone } href='/blog' tone={ tone }>{tone}</Link>
-      ))}
-    </div>
-  )
-};
-
-export const LinkTypes = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const internalLink = canvas.getByRole('link', { 'name': 'Internal blog link' });
-    const anchorLink = canvas.getByRole('link', { 'name': 'Anchor link' });
-    const externalLink = canvas.getByRole('link', { 'name': 'External documentation link' });
-    const fallback = canvas.getByText('Non-link fallback text');
-
-    await expect(internalLink).toHaveAttribute('href', '/blog');
-    await expect(anchorLink).toHaveAttribute('href', '#examples');
-    await expect(anchorLink).not.toHaveAttribute('target');
-    await expect(externalLink).toHaveAttribute('target', '_blank');
-    await expect(fallback.tagName).toBe('SPAN');
-    await expect(fallback).not.toHaveAttribute('href');
-    await expect(canvas.queryByRole('link', { 'name': 'Non-link fallback text' })).toBeNull();
-  },
-  'render': () => (
-    <div className='grid gap-3 p-6'>
-      <Link href='/blog'>Internal blog link</Link>
-      <Link href='#examples'>Anchor link</Link>
-      <Link href='https://example.com'>External documentation link</Link>
-      <Link>Non-link fallback text</Link>
-    </div>
-  )
+  parameters: { docs: { description: { story: '`tone` sets the color family of an `inline` link.' } } },
+  render: () => Object.keys(tones).map((tone) => <Link key={tone} href='/blog' tone={tone}>{tone}</Link>),
+  play: async ({ canvasElement }) => {
+    for (const [tone, className] of Object.entries(tones)) await expect(link(canvasElement, tone)).toHaveClass(className);
+  }
 };

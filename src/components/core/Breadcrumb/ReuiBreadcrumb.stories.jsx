@@ -9,18 +9,18 @@ const pattern = reuiPatterns(
 
 export default { title: 'Blocks/Navigation/Breadcrumb', tags: ['autodocs'], ...catalogueMeta('breadcrumb') };
 
-export const ReuiBreadcrumb1 = { name: 'Basic breadcrumb', ...pattern(1) };
-export const ReuiBreadcrumb2 = { name: 'Breadcrumb with dropdown menu', ...pattern(2) };
-export const ReuiBreadcrumb3 = { name: 'Breadcrumb with Next.js link', ...pattern(3) };
-export const ReuiBreadcrumb4 = { name: 'Breadcrumb with a custom slash separator', ...pattern(4) };
-export const ReuiBreadcrumb5 = { name: 'Breadcrumb with icons for each item', ...pattern(5) };
-export const ReuiBreadcrumb6 = { name: 'Breadcrumb with ellipsis for long paths', ...pattern(6) };
-export const ReuiBreadcrumb7 = { name: 'Breadcrumb items with avatars', ...pattern(7) };
-export const ReuiBreadcrumb8 = { name: 'Breadcrumb with double chevron separators', ...pattern(8) };
-export const ReuiBreadcrumb9 = { name: 'Breadcrumb inside card', ...pattern(9) };
-export const ReuiBreadcrumb10 = { name: 'Pill-style breadcrumb inside frame', ...pattern(10) };
-export const ReuiBreadcrumb11 = { name: 'Breadcrumb items containing badge with count', ...pattern(11) };
-export const ReuiBreadcrumb12 = { name: 'Breadcrumb starting with home icon item', ...pattern(12) };
-export const ReuiBreadcrumb13 = { name: 'Breadcrumb with a custom separator', ...pattern(13) };
-export const ReuiBreadcrumb14 = { name: 'Button-style breadcrumb', ...pattern(14) };
-export const ReuiBreadcrumb15 = { name: 'Breadcrumb with project, user and document info', ...pattern(15) };
+export const ReuiBreadcrumb1 = { name: 'Basic', ...pattern(1) };
+export const ReuiBreadcrumb2 = { name: 'With dropdown menu', ...pattern(2) };
+export const ReuiBreadcrumb3 = { name: 'With Next.js links', ...pattern(3) };
+export const ReuiBreadcrumb4 = { name: 'Slash separator', ...pattern(4) };
+export const ReuiBreadcrumb5 = { name: 'Icons on each item', ...pattern(5) };
+export const ReuiBreadcrumb6 = { name: 'Ellipsis for long paths', ...pattern(6) };
+export const ReuiBreadcrumb7 = { name: 'Items with avatars', ...pattern(7) };
+export const ReuiBreadcrumb8 = { name: 'Double chevron separators', ...pattern(8) };
+export const ReuiBreadcrumb9 = { name: 'Inside a card', ...pattern(9) };
+export const ReuiBreadcrumb10 = { name: 'Pills inside a frame', ...pattern(10) };
+export const ReuiBreadcrumb11 = { name: 'Items with count badges', ...pattern(11) };
+export const ReuiBreadcrumb12 = { name: 'Home icon first', ...pattern(12) };
+export const ReuiBreadcrumb13 = { name: 'Custom separator', ...pattern(13) };
+export const ReuiBreadcrumb14 = { name: 'Button style', ...pattern(14) };
+export const ReuiBreadcrumb15 = { name: 'Project, user, and document', ...pattern(15) };

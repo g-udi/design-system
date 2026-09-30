@@ -1,207 +1,246 @@
-import { previewSource } from '../../../../.storybook/stories/previewSource';
-import { IdentityFallbacks } from '../../../../.storybook/fixtures/avatar/IdentityFallbacks.jsx';
-import IdentityFallbacksSource from '../../../../.storybook/fixtures/avatar/IdentityFallbacks.jsx?raw';
-import { PresenceIndicators } from '../../../../.storybook/fixtures/avatar/PresenceIndicators.jsx';
-import PresenceIndicatorsSource from '../../../../.storybook/fixtures/avatar/PresenceIndicators.jsx?raw';
-import { TeamRoster } from '../../../../.storybook/fixtures/avatar/TeamRoster.jsx';
-import TeamRosterSource from '../../../../.storybook/fixtures/avatar/TeamRoster.jsx?raw';
-import { ImageRecovery } from '../../../../.storybook/fixtures/avatar/ImageRecovery.jsx';
-import ImageRecoverySource from '../../../../.storybook/fixtures/avatar/ImageRecovery.jsx?raw';
-import { AccountMenu } from '../../../../.storybook/fixtures/avatar/AccountMenu.jsx';
-import AccountMenuSource from '../../../../.storybook/fixtures/avatar/AccountMenu.jsx?raw';
-import { IdentityOverview } from '../../../../.storybook/fixtures/avatar/IdentityOverview.jsx';
-import IdentityOverviewSource from '../../../../.storybook/fixtures/avatar/IdentityOverview.jsx?raw';
-import { getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { useState } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
-import Avatar from './Avatar';
-import { ApplicationDocsPage, ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import { publicSource } from '../../../../.storybook/stories/ReuiStoryHelpers';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Button from '../Button';
+import Dialog from '../Dialog';
+import Icon from '../Icon';
+import { Avatar, AvatarBadge, AvatarGroup } from './index';
 
-const componentDocs = getComponentDocs('Core/Avatar');
-const toneOptions = [ 'gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo' ];
+const docs = getComponentDocs('Core/Avatar');
+const sizes = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'];
+const tones = ['gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo'];
+const people = [
+  { id: 'maya', name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg', tone: 'teal' },
+  { id: 'alex', name: 'Alex Johnson', src: 'https://randomuser.me/api/portraits/men/32.jpg', tone: 'blue' },
+  { id: 'sam', name: 'Sam Rivera', src: 'https://randomuser.me/api/portraits/men/11.jpg', tone: 'indigo' },
+  { id: 'lina', name: 'Lina Ahmed', src: 'https://randomuser.me/api/portraits/women/12.jpg', tone: 'rose' },
+  { id: 'jules', name: 'Jules Martin', src: 'https://randomuser.me/api/portraits/men/75.jpg', tone: 'amber' },
+  { id: 'jo', name: 'Jo Morgan', src: 'https://randomuser.me/api/portraits/women/68.jpg', tone: 'green' }
+];
+const [maya, alex] = people;
+const brokenImage = 'data:image/png;base64,broken';
+const avatar = (canvas, name) => canvas.getByRole('img', { name });
+const imagesLoaded = (avatars) =>
+  waitFor(() => expect(avatars.every((node) => node.querySelector('img')?.naturalWidth > 0)).toBe(true), { timeout: 10000 });
 
 export default {
-  args: { onLoadingStatusChange: fn() },
-  argTypes: {
-    'shape': {
-      'control': 'select',
-      'options': [ 'square', 'circle', 'tile' ]
-    },
-    'size': {
-      'control': 'select',
-      'options': [ '2xs', 'xs', 'sm', 'md', 'lg', 'xl' ]
-    },
-    surface: { control: 'select', options: ['solid', 'tinted', 'plain', 'bare'] },
-    name: { control: 'text', description: 'Full identity; generates Unicode-aware initials when no image is available.' },
-    indicator: { control: 'object', description: 'Labelled presence or verification badge, including tone, icon and logical position.' },
-    onLoadingStatusChange: { control: false, description: 'Reports loading, loaded or error for host-owned feedback.' },
-    'tone': {
-      'control': 'select',
-      'options': toneOptions
-    }
-  },
+  title: 'Core/Avatar',
+  id: 'core-avatar',
   component: Avatar,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, {
+    name: 'text',
+    src: 'text',
+    alt: 'text',
+    size: sizes,
+    shape: ['circle', 'square', 'tile'],
+    surface: ['solid', 'tinted', 'plain', 'bare'],
+    tone: tones,
+    grayscale: 'boolean'
+  }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: ApplicationDocsPage
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'core-avatar',
-  title: 'Core/Avatar'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Initials = {
-  'args': {
-    'label': 'AA',
-    'shape': 'circle',
-    'size': 'lg',
-    'tone': 'blue'
+export const Playground = {
+  args: {
+    name: maya.name,
+    src: maya.src,
+    size: 'lg',
+    shape: 'circle',
+    surface: 'solid',
+    tone: 'blue',
+    grayscale: false,
+    onLoadingStatusChange: fn()
   },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const avatar = canvas.getByRole('img', { name: 'AA avatar' });
-
-    await expect(avatar).toBeVisible();
-    await expect(avatar).toHaveClass('rounded-full');
-    await expect(avatar).toHaveClass('size-14');
-    await expect(avatar).toHaveClass('bg-blue-600');
-    await expect(avatar.querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
-    await expect(avatar).toHaveAccessibleName('AA avatar');
+  parameters: { docs: { source: playgroundSource('Avatar', { imports: "import { Avatar } from '@gaudi/design-system';" }) } },
+  render: (args) => <Avatar {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const node = avatar(within(canvasElement), args.name);
+    await waitFor(() => expect(args.onLoadingStatusChange).toHaveBeenCalledWith('loaded'), { timeout: 10000 });
+    await imagesLoaded([node]);
   }
 };
 
 export const Sizes = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const avatars = canvas.getAllByRole('img', { name: 'Alex Johnson' });
-
-    await expect(avatars).toHaveLength(6);
-    await expect(avatars[0]).toHaveClass('size-4');
-    await expect(avatars[1]).toHaveClass('size-5', 'text-xs');
-    await expect(avatars[2]).toHaveClass('size-8', 'text-xs');
-    await expect(avatars[3]).toHaveClass('size-10', 'text-sm');
-    await expect(avatars[4]).toHaveClass('size-14', 'text-base');
-    await expect(avatars[5]).toHaveClass('size-20', 'text-2xl');
-    await expect(avatars.every((avatar) => avatar.classList.contains('rounded-full'))).toBe(true);
-    await waitFor(() => expect(avatars.every((avatar) => avatar.querySelector('img')?.naturalWidth > 0)).toBe(true), { timeout: 10000 });
-  },
-  'render': () => (
+  parameters: { docs: { description: { story: 'Six sizes from 16px to 80px; text scales with the frame.' } } },
+  render: () => (
     <div className='flex flex-wrap items-center gap-4'>
-      {[ '2xs', 'xs', 'sm', 'md', 'lg', 'xl' ].map((size) => (
-        <Avatar key={ size } name='Alex Johnson' src='https://randomuser.me/api/portraits/men/32.jpg' tone='blue' shape='circle' size={ size } />
-      ))}
+      {sizes.map((size) => <Avatar key={size} {...alex} shape='circle' size={size} />)}
     </div>
-  )
+  ),
+  play: async ({ canvasElement }) => {
+    const avatars = within(canvasElement).getAllByRole('img', { name: alex.name });
+    const classes = ['size-4', 'size-5', 'size-8', 'size-10', 'size-14', 'size-20'];
+    await expect(avatars).toHaveLength(sizes.length);
+    for (const [index, node] of avatars.entries()) await expect(node).toHaveClass(classes[index], 'rounded-full');
+    await imagesLoaded(avatars);
+  }
 };
 
-export const Colors = {
+export const Tones = {
+  parameters: { docs: { description: { story: 'Tones colour the fallback; `label` keeps explicit legacy initials and names the avatar "<label> avatar".' } } },
+  render: () => (
+    <div className='flex flex-wrap items-center gap-4'>
+      {tones.map((tone) => <Avatar key={tone} label='AA' tone={tone} shape='circle' size='lg' />)}
+    </div>
+  ),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const avatars = canvas.getAllByRole('img', { name: 'AA avatar' });
-
-    await expect(avatars).toHaveLength(10);
-    await expect(avatars[0]).toHaveClass('bg-gray-600');
-    await expect(avatars[1]).toHaveClass('bg-neutral-600');
+    const avatars = within(canvasElement).getAllByRole('img', { name: 'AA avatar' });
+    await expect(avatars).toHaveLength(tones.length);
     await expect(avatars[2]).toHaveClass('bg-blue-600');
-    await expect(avatars[3]).toHaveClass('bg-teal-700');
-    await expect(avatars[4]).toHaveClass('bg-green-700');
-    await expect(avatars[5]).toHaveClass('bg-amber-700');
     await expect(avatars[6]).toHaveClass('bg-yellow-500', 'text-yellow-950');
-    await expect(avatars[7]).toHaveClass('bg-red-600');
-    await expect(avatars[8]).toHaveClass('bg-rose-700');
-    await expect(avatars[9]).toHaveClass('bg-indigo-600');
-  },
-  'render': () => (
-    <div className='flex flex-wrap items-center gap-4'>
-      {toneOptions.map((tone) => (
-        <Avatar key={ tone } label='AA' tone={ tone } shape='circle' size='lg' />
-      ))}
+    await expect(avatars[0].querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
+  }
+};
+
+const indicators = [
+  { label: 'Online', tone: 'success' },
+  { label: 'Away', tone: 'warning', position: 'top-end' },
+  { label: 'Do not disturb', tone: 'danger', icon: 'Minus' },
+  { label: 'Offline', tone: 'neutral', position: 'bottom-start' },
+  { label: 'Verified', tone: 'primary', icon: 'Check', position: 'top-start' }
+];
+export const Indicators = {
+  parameters: { docs: { description: { story: '`indicator` adds a host-provided presence or verification badge whose label joins the accessible name. Children add custom badges.' } } },
+  render: () => (
+    <div className='flex flex-wrap items-center gap-6'>
+      {indicators.map((indicator) => <Avatar key={indicator.label} {...maya} size='lg' shape='circle' indicator={indicator} />)}
+      <Avatar {...alex} size='lg' shape='circle' aria-label={`${alex.name}, online, 3 unread messages`} indicator={indicators[0]}>
+        <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-red-600 text-[10px] text-white' aria-hidden='true'>3</AvatarBadge>
+      </Avatar>
     </div>
-  )
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const { label } of indicators) await expect(avatar(canvas, `${maya.name}, ${label}`)).toBeVisible();
+    await expect(avatar(canvas, `${alex.name}, online, 3 unread messages`)).toBeVisible();
+  }
 };
 
-export const IdentityOverviewExample = {
-  name: 'Account and collaboration',
-  render: () => <ExampleFrame><IdentityOverview /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(IdentityOverviewSource) + '\n\n<IdentityOverview />', language: 'jsx' } } }
+const names = [
+  ['Élodie Brontë', 'ÉB'],
+  ['李明', '李明'],
+  ['Alexandria Cassandra Montgomery-Wellington', 'AM']
+];
+export const Fallbacks = {
+  parameters: { docs: { description: { story: 'Without an image, `name` yields Unicode-aware initials, `fallback` takes custom artwork, and `fallback` set to true shows the guest silhouette. Surfaces set the background.' } } },
+  render: () => (
+    <div className='flex flex-wrap items-center gap-4'>
+      <Avatar name='Research library' surface='plain' size='lg' shape='tile' fallback={<Icon name='BookOpen' decorative size='lg' />} />
+      <Avatar name='External source' surface='bare' size='lg' fallback={<Icon name='Globe' decorative size='lg' />} />
+      <Avatar name='Guest account' surface='tinted' size='lg' shape='circle' fallback />
+      {names.map(([name]) => <Avatar key={name} name={name} surface='tinted' size='lg' shape='circle' />)}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const [name, initials] of names) await expect(avatar(canvas, name)).toHaveTextContent(initials);
+    await expect(avatar(canvas, 'Guest account').querySelector('svg')).toBeInTheDocument();
+  }
 };
 
-export const AccountMenuExample = {
-  name: 'Account menu',
-  render: () => <ExampleFrame><AccountMenu /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(AccountMenuSource) + '\n\n<AccountMenu />', language: 'jsx' } } }
+function ImageRecoveryExample() {
+  const [source, setSource] = useState(brokenImage);
+  const [status, setStatus] = useState('loading');
+  return (
+    <div className='grid justify-items-start gap-4'>
+      <div className='flex items-center gap-4'>
+        <Avatar name={maya.name} src={source} size='xl' shape='tile' tone={maya.tone} onLoadingStatusChange={setStatus} />
+        <p role='status' className='text-sm text-ui-muted-foreground'>
+          {{ loaded: 'Image loaded', error: 'Image unavailable, initials shown' }[status] ?? 'Loading image, initials shown'}
+        </p>
+      </div>
+      <div className='flex flex-wrap gap-2'>
+        <Button variant='outline' onClick={() => setSource(maya.src)}>Load sample photo</Button>
+        <Button variant='outline' tone='neutral' onClick={() => setSource(brokenImage)}>Use broken image</Button>
+        <Button variant='ghost' tone='neutral' onClick={() => setSource('')}>Remove image</Button>
+      </div>
+    </div>
+  );
+}
+export const ImageRecovery = {
+  parameters: { docs: { description: { story: 'Failed and pending images keep the initials visible; `onLoadingStatusChange` reports each state and a new `src` recovers automatically.' } } },
+  render: () => <ImageRecoveryExample />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const node = avatar(canvas, maya.name);
+    const status = canvas.getByRole('status');
+    const click = (name) => userEvent.click(canvas.getByRole('button', { name }));
+    await waitFor(() => expect(status).toHaveTextContent('Image unavailable'));
+    await expect(within(node).getByText('MC')).toBeVisible();
+    await click('Load sample photo');
+    await waitFor(() => expect(status).toHaveTextContent('Image loaded'), { timeout: 10000 });
+    await imagesLoaded([node]);
+    await click('Use broken image');
+    await waitFor(() => expect(status).toHaveTextContent('Image unavailable'));
+    await expect(within(node).getByText('MC')).toBeVisible();
+    await click('Load sample photo');
+    await waitFor(() => expect(status).toHaveTextContent('Image loaded'), { timeout: 10000 });
+    await click('Remove image');
+    await waitFor(() => expect(within(node).getByText('MC')).toBeVisible());
+  }
 };
 
-export const ImageRecoveryExample = {
-  name: 'Image failure and recovery',
-  render: () => <ExampleFrame><ImageRecovery /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(ImageRecoverySource) + '\n\n<ImageRecovery />', language: 'jsx' } } }
+export const GroupOverflow = {
+  parameters: { docs: { description: { story: '`AvatarGroup` shows `max` identities; `renderOverflow` turns the remainder into a real control, here a dialog listing everyone beside decorative avatars.' } } },
+  render: () => (
+    <AvatarGroup
+      avatars={people}
+      max={3}
+      label='Review team'
+      renderOverflow={(count, total) => (
+        <Dialog
+          title='Review team'
+          description='Everyone assigned to this review.'
+          trigger={
+            <Button variant='ghost' tone='neutral' size='icon' radius='full' className='size-10 min-h-10 p-0' aria-label={`View ${total} more reviewers`}>
+              <span aria-hidden='true'>{count}</span>
+            </Button>
+          }
+        >
+          <ul className='grid gap-4'>
+            {people.map((person) => (
+              <li key={person.id} className='flex items-center gap-3'>
+                <Avatar {...person} shape='circle' alt='' />
+                <span>{person.name}</span>
+              </li>
+            ))}
+          </ul>
+        </Dialog>
+      )}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const trigger = canvas.getByRole('button', { name: 'View 3 more reviewers' });
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole('dialog', { name: 'Review team' });
+    await expect(within(dialog).getAllByRole('listitem')).toHaveLength(people.length);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    await expect(trigger).toHaveFocus();
+  }
 };
 
-export const TeamRosterExample = {
-  name: 'Reviewer group with full roster',
-  render: () => <ExampleFrame><TeamRoster /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(TeamRosterSource) + '\n\n<TeamRoster />', language: 'jsx' } } }
-};
-
-export const PresenceIndicatorsExample = {
-  name: 'Presence and custom badges',
-  render: () => <ExampleFrame><PresenceIndicators /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(PresenceIndicatorsSource) + '\n\n<PresenceIndicators />', language: 'jsx' } } }
-};
-
-export const IdentityFallbacksExample = {
-  name: 'Workspace identities and international names',
-  render: () => <ExampleFrame><IdentityFallbacks /></ExampleFrame>,
-  parameters: { docs: { source: { code: publicSource(IdentityFallbacksSource) + '\n\n<IdentityFallbacks />', language: 'jsx' } } }
-};
-
-AccountMenuExample.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const body = within(canvasElement.ownerDocument.body);
-  const trigger = canvas.getByRole('button', { name: 'Account menu for Maya Chen' });
-  await userEvent.click(trigger);
-  await userEvent.click(await body.findByRole('menuitem', { name: 'View profile' }));
-  await expect(canvas.getByRole('status')).toHaveTextContent('Profile selected for Maya Chen.');
-  await expect(trigger).toHaveFocus();
-};
-TeamRosterExample.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const body = within(canvasElement.ownerDocument.body);
-  const trigger = canvas.getByRole('button', { name: 'View 3 more reviewers' });
-  await userEvent.click(trigger);
-  const dialog = await body.findByRole('dialog', { name: 'Review team' });
-  await expect(within(dialog).getAllByRole('listitem')).toHaveLength(6);
-  await userEvent.keyboard('{Escape}');
-  await waitFor(() => expect(dialog).not.toBeInTheDocument());
-  await expect(trigger).toHaveFocus();
-};
-ImageRecoveryExample.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const avatar = canvas.getByTestId('recovering-avatar');
-  await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Image unavailable'));
-  await expect(avatar).toHaveAccessibleName('Maya Chen');
-  await expect(within(avatar).getByText('MC')).toBeVisible();
-  await userEvent.click(canvas.getByRole('button', { name: 'Load sample photo' }));
-  await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Image loaded'), { timeout: 10000 });
-  await expect(avatar.querySelector('img')).toBeVisible();
-  await expect(avatar.querySelector('img').naturalWidth).toBeGreaterThan(0);
-  await userEvent.click(canvas.getByRole('button', { name: 'Use broken image' }));
-  await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Image unavailable'));
-  await expect(within(avatar).getByText('MC')).toBeVisible();
-  await userEvent.click(canvas.getByRole('button', { name: 'Load sample photo' }));
-  await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Image loaded'), { timeout: 10000 });
-  await userEvent.click(canvas.getByRole('button', { name: 'Remove image' }));
-  await waitFor(() => expect(within(avatar).getByText('MC')).toBeVisible());
-};
-
-export const Playground = {
-  args: { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg', size: 'lg', shape: 'circle', surface: 'solid', tone: 'blue', grayscale: false },
-  argTypes: { name: { control: 'text' }, src: { control: 'text' }, grayscale: { control: 'boolean' } },
-  render: (args) => (<ExampleFrame><Avatar {...args} /></ExampleFrame>),
-  parameters: { docs: { description: { story: 'Adjust the controls to explore the component. The examples below cover complete usage patterns.' }, source: { type: 'dynamic', transform: (_, context) => previewSource('Avatar', context.args, { imports: "import Avatar from '@gaudi/design-system/core/Avatar';" }) } } }
+export const RightToLeft = {
+  parameters: { docs: { description: { story: 'Indicator positions are logical, so `top-start` follows the reading direction; Arabic names produce Arabic initials.' } } },
+  render: () => (
+    <div dir='rtl' className='flex items-center gap-3'>
+      <Avatar name='محمد أحمد' size='lg' shape='circle' tone='teal' indicator={{ label: 'موثّق', tone: 'primary', icon: 'Check', position: 'top-start' }} />
+      <span className='text-sm'>محمد أحمد</span>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(avatar(within(canvasElement), 'محمد أحمد, موثّق')).toHaveTextContent('مأ');
+  }
 };

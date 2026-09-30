@@ -1,85 +1,70 @@
-import {
-  applicationDocs,
-  ExampleFrame
-} from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Stepper from './Stepper';
 
+const docs = getComponentDocs('Core/Stepper');
+const steps = [
+  { id: 'details', label: 'Details', description: 'Name and summary' },
+  { id: 'audience', label: 'Audience', description: 'Who can read this?' },
+  { id: 'review', label: 'Review', description: 'Confirm and publish' }
+];
+const items = (canvas) => canvas.getAllByRole('listitem');
+
 export default {
-  tags: ['autodocs'],
   title: 'Core/Stepper',
   component: Stepper,
-  ...applicationDocs(
-    'Sequential progress with stable step IDs, labels and optional descriptions. activeStep is zero-based; set it to steps.length for completion. Use Wizard for guarded navigation.',
-    "import Stepper from '@gaudi/design-system/core/Stepper';\n\n<Stepper activeStep={1} steps={[{id:'details',label:'Details',description:'Name and summary'},{id:'audience',label:'Audience',description:'Who can read this?'},{id:'review',label:'Review',description:'Confirm and publish'}]} />",
-    'The active item uses aria-current=step and completed items include a text alternative. This component does not create fake tab semantics.'
-  )
-};
-
-export const InProgress = {
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { activeStep: 'number', label: 'text' }),
   parameters: {
     docs: {
-      source: {
-        code: "<Stepper activeStep={1} steps={[{id:'details',label:'Details',description:'Name and summary'},{id:'audience',label:'Audience',description:'Who can read this?'},{id:'review',label:'Review',description:'Confirm and publish'}]} />"
-      }
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  render: () => (
-    <ExampleFrame>
-      <Stepper
-        activeStep={1}
-        steps={[
-          { id: 'details', label: 'Details', description: 'Name and summary' },
-          {
-            id: 'audience',
-            label: 'Audience',
-            description: 'Who can read this?'
-          },
-          { id: 'review', label: 'Review', description: 'Confirm and publish' }
-        ]}
-      />
-    </ExampleFrame>
-  )
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
+};
+
+export const Playground = {
+  args: { activeStep: 1, label: 'Publishing progress' },
+  parameters: {
+    docs: {
+      source: playgroundSource('Stepper', {
+        imports: `import { Stepper } from '@gaudi/design-system';\n\nconst steps = ${JSON.stringify(steps, null, 2)};`
+      })
+    }
+  },
+  render: (args) => <Stepper steps={steps} {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('list', { name: args.label })).toBeInTheDocument();
+    const current = items(canvas)[args.activeStep];
+    if (current) await expect(current).toHaveAttribute('aria-current', 'step');
+    await expect(canvas.queryAllByText('Completed')).toHaveLength(Math.min(args.activeStep, steps.length));
+  }
 };
 
 export const Completed = {
-  parameters: {
-    docs: {
-      source: {
-        code: "<Stepper activeStep={3} steps={[{id:'one',label:'Details'},{id:'two',label:'Audience'},{id:'three',label:'Review'}]} />"
-      }
-    }
-  },
-  render: () => (
-    <ExampleFrame>
-      <Stepper
-        activeStep={3}
-        steps={[
-          { id: 'one', label: 'Details' },
-          { id: 'two', label: 'Audience' },
-          { id: 'three', label: 'Review' }
-        ]}
-      />
-    </ExampleFrame>
-  )
+  parameters: { docs: { description: { story: 'Set `activeStep` to `steps.length` to mark every step complete; no item is current.' } } },
+  render: () => <Stepper steps={steps} activeStep={steps.length} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const item of items(canvas)) await expect(item).not.toHaveAttribute('aria-current');
+    await expect(canvas.getAllByText('Completed')).toHaveLength(steps.length);
+  }
 };
 
 export const LongLabels = {
-  parameters: {
-    docs: {
-      source: {
-        code: "<Stepper steps={[{id:'one',label:'Configure your publication preferences'},{id:'two',label:'Invite reviewers to your workspace'},{id:'three',label:'Confirm the details and finish setup'}]} />"
-      }
-    }
-  },
+  parameters: { docs: { description: { story: 'Long labels wrap inside their step instead of overflowing the sequence.' } } },
   render: () => (
-    <ExampleFrame>
-      <Stepper
-        steps={[
-          { id: 'one', label: 'Configure your publication preferences' },
-          { id: 'two', label: 'Invite reviewers to your workspace' },
-          { id: 'three', label: 'Confirm the details and finish setup' }
-        ]}
-      />
-    </ExampleFrame>
+    <Stepper
+      steps={[
+        { id: 'preferences', label: 'Configure your publication preferences' },
+        { id: 'reviewers', label: 'Invite reviewers to your workspace' },
+        { id: 'confirm', label: 'Confirm the details and finish setup' }
+      ]}
+    />
   )
 };

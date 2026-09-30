@@ -18,8 +18,8 @@ export const Default = {
     await expect(canvas.getByRole('heading', { name: 'MDX Components' })).toBeVisible();
     await expect(canvas.getAllByText('CitationTracker').length).toBeGreaterThanOrEqual(2);
     await expect(canvas.getAllByText('CodeGroupTabs').length).toBeGreaterThanOrEqual(1);
-    await expect(canvas.getByRole('link', { name: /Callout/ })).toHaveAttribute('href', './?path=/story/mdx-callout--example');
-    await expect(canvas.getByRole('link', { name: /Citation/ })).toHaveAttribute('href', './?path=/story/mdx-citation--example');
+    await expect(canvas.getByRole('link', { name: /Callout/ })).toHaveAttribute('href', './?path=/story/mdx-callout--playground');
+    await expect(canvas.getByRole('link', { name: /Citation/ })).toHaveAttribute('href', './?path=/story/mdx-citation--playground');
   },
   render: () => (
     <Page
@@ -146,10 +146,10 @@ Use <Highlight>inline emphasis</Highlight> sparingly inside prose.
 
       <Section title='Component Docs' description='Use the individual MDX pages for props, accessibility notes, and focused examples.'>
         <div className='grid gap-3 md:grid-cols-2 xl:grid-cols-3'>
-          <QuickLink title='Callout' description='Article notices and supporting context.' storyId='mdx-callout--example' />
-          <QuickLink title='Chart' description='Recharts-powered article data visualization.' storyId='mdx-chart--bar' />
-          <QuickLink title='Video' description='Thumbnail-triggered article video embeds.' storyId='mdx-video--example' />
-          <QuickLink title='Citation' description='Reference markers, source popovers, and tracked back-links.' storyId='mdx-citation--example' />
+          <QuickLink title='Callout' description='Article notices and supporting context.' storyId='mdx-callout--playground' />
+          <QuickLink title='Chart' description='Recharts-powered article data visualization.' storyId='mdx-chart--playground' />
+          <QuickLink title='Video' description='Thumbnail-triggered article video embeds.' storyId='mdx-video--playground' />
+          <QuickLink title='Citation' description='Reference markers, source popovers, and tracked back-links.' storyId='mdx-citation--playground' />
         </div>
       </Section>
     </Page>

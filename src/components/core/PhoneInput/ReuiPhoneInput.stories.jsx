@@ -9,11 +9,11 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/PhoneInput', tags: ['autodocs'], ...catalogueMeta('phone-input') };
 
-export const ReuiPhoneInput1 = { name: 'Basic phone input', ...pattern(1) };
-export const ReuiPhoneInput2 = { name: 'Small phone input', ...pattern(2) };
-export const ReuiPhoneInput3 = { name: 'Large phone input', ...pattern(3) };
-export const ReuiPhoneInput4 = { name: 'Disabled phone input', ...pattern(4) };
-export const ReuiPhoneInput5 = { name: 'Phone input with preset value', ...pattern(5) };
-export const ReuiPhoneInput6 = { name: 'Phone input with error state', ...pattern(6) };
-export const ReuiPhoneInput7 = { name: 'Phone input with specific default country', ...pattern(7) };
-export const ReuiPhoneInput8 = { name: 'Read-only phone input', ...pattern(8) };
+export const ReuiPhoneInput1 = { name: 'Basic', ...pattern(1) };
+export const ReuiPhoneInput2 = { name: 'Small', ...pattern(2) };
+export const ReuiPhoneInput3 = { name: 'Large', ...pattern(3) };
+export const ReuiPhoneInput4 = { name: 'Disabled', ...pattern(4) };
+export const ReuiPhoneInput5 = { name: 'Preset value', ...pattern(5) };
+export const ReuiPhoneInput6 = { name: 'Error state', ...pattern(6) };
+export const ReuiPhoneInput7 = { name: 'Default country', ...pattern(7) };
+export const ReuiPhoneInput8 = { name: 'Read-only', ...pattern(8) };

@@ -44,6 +44,9 @@ export const Playground = {
 
 - `Playground` comes first, renders from `args`, and its scalar args become the preview controls.
   Controls use `docsArgTypes`, so descriptions, types, and defaults come from the authored props reference.
+  Grouped rows (`min / max / step`) and part rows (`ResizableHandle.withHandle`) resolve per prop.
+- `playgroundSource` serializes scalar args. Pass `attributes: ['open={open}', 'trigger={<Button>Open</Button>}']`
+  for state wiring and slots, and `before`/`after` for surrounding setup. String `children` print as JSX children.
 - Other native stories cover only API or behaviour that no pattern shows: controlled state, multiple mode,
   states, keyboard, RTL, legacy APIs. Give each a one-sentence `docs.description.story`. Add a `play` test
   whenever the story is interactive.

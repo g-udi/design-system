@@ -9,9 +9,9 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('native-select') };
 
-export const ReuiNativeSelect1 = { name: 'Native Select: Basic native select', ...pattern(1) };
-export const ReuiNativeSelect2 = { name: 'Native Select: Native select with options grouped', ...pattern(2) };
-export const ReuiNativeSelect3 = { name: 'Native Select: Small native select', ...pattern(3) };
-export const ReuiNativeSelect4 = { name: 'Native Select: Native select embedded within a field', ...pattern(4) };
-export const ReuiNativeSelect5 = { name: 'Native Select: Disabled native select', ...pattern(5) };
-export const ReuiNativeSelect6 = { name: 'Native Select: Invalid native select', ...pattern(6) };
+export const ReuiNativeSelect1 = { name: 'Basic native select', ...pattern(1) };
+export const ReuiNativeSelect2 = { name: 'Grouped native select', ...pattern(2) };
+export const ReuiNativeSelect3 = { name: 'Small native select', ...pattern(3) };
+export const ReuiNativeSelect4 = { name: 'Native select in a field', ...pattern(4) };
+export const ReuiNativeSelect5 = { name: 'Disabled native select', ...pattern(5) };
+export const ReuiNativeSelect6 = { name: 'Invalid native select', ...pattern(6) };

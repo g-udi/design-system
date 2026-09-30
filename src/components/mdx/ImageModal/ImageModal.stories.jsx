@@ -1,53 +1,76 @@
+import { useState } from 'react';
+import { expect, fn, screen, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
-import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Button from '../../core/Button';
+import ImageModal from './ImageModal';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/ImageModal');
+const docs = getComponentDocs('MDX/ImageModal');
 
 export default {
+  title: 'MDX/ImageModal',
+  id: 'mdx-imagemodal',
+  component: ImageModal,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { isOpen: 'boolean', src: 'text', alt: 'text', caption: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-imagemodal',
-  title: 'MDX/ImageModal'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const openButton = canvas.getByRole('button', { name: 'Open image modal' });
+/** The host owns `isOpen`; the control sets its initial value. */
+function HostedModal({ isOpen, onClose, ...args }) {
+  const [open, setOpen] = useState(isOpen);
+  const close = () => {
+    setOpen(false);
+    onClose();
+  };
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open image modal</Button>
+      <ImageModal {...args} isOpen={open} onClose={close} />
+    </>
+  );
+}
 
-    await expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+export const Playground = {
+  args: {
+    isOpen: false,
+    src: '/static/images/og-card.jpg',
+    alt: 'Gaudi design system article preview',
+    caption: 'Accessible image preview with focus management.',
+    onClose: fn()
+  },
+  parameters: {
+    docs: {
+      source: playgroundSource('ImageModal', {
+        imports: "import { ImageModal } from '@gaudi/design-system/mdx';\n\n// The host owns isOpen and closes the modal from onClose."
+      })
+    }
+  },
+  render: (args) => <HostedModal key={String(args.isOpen)} {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const openButton = within(canvasElement).getByRole('button', { name: 'Open image modal' });
+    const openDialog = async () => {
+      await userEvent.click(openButton);
+      return screen.findByRole('dialog', { name: args.caption });
+    };
 
-    await userEvent.click(openButton);
-
-    const dialog = await screen.findByRole('dialog', {
-      name: 'Accessible image preview with focus management.'
-    });
-
-    await waitFor(() => expect(screen.getByRole('button', { name: 'Close modal' })).toHaveFocus());
-    await expect(within(dialog).getByRole('img', { name: 'Gaudi design system article preview' })).toBeVisible();
-    await expect(within(dialog).getByText('Accessible image preview with focus management.')).toBeVisible();
-
+    const dialog = await openDialog();
+    await waitFor(() => expect(within(dialog).getByRole('button', { name: 'Close modal' })).toHaveFocus());
+    await expect(within(dialog).getByRole('img', { name: args.alt })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(openButton).toHaveFocus();
 
-    await userEvent.click(openButton);
-    const reopenedDialog = await screen.findByRole('dialog', {
-      name: 'Accessible image preview with focus management.'
-    });
-
-    await userEvent.click(reopenedDialog);
+    await userEvent.click(await openDialog());
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
-  },
-  'render': () => renderComponentExample('MDX/ImageModal', componentModule)
+    await expect(args.onClose).toHaveBeenCalledTimes(2);
+  }
 };

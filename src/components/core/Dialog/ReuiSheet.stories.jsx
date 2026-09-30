@@ -9,7 +9,7 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('sheet') };
 
-export const ReuiSheet1 = { name: 'Sheet: Sheet containing a form for editing profile information', ...pattern(1) };
-export const ReuiSheet2 = { name: 'Sheet: Sheet containing a form for editing profile information', ...pattern(2) };
-export const ReuiSheet3 = { name: 'Sheet: Sheets that open from any side', ...pattern(3) };
-export const ReuiSheet4 = { name: 'Sheet: Sheet with scrollable content', ...pattern(4) };
+export const ReuiSheet1 = { name: 'Sheet with profile form', ...pattern(1) };
+export const ReuiSheet2 = { name: 'Sheet without a close button', ...pattern(2) };
+export const ReuiSheet3 = { name: 'Sheet sides', ...pattern(3) };
+export const ReuiSheet4 = { name: 'Sheet with scrollable content', ...pattern(4) };

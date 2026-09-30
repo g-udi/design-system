@@ -13,14 +13,14 @@ export default { title: 'Core/FileUpload', tags: ['autodocs'], ...catalogueMeta(
 export const ReuiFileUpload1 = { name: 'Basic file upload', ...pattern(1) };
 export const ReuiFileUpload2 = { name: 'Avatar upload', ...pattern(2) };
 export const ReuiFileUpload3 = {
-  name: 'Basic drag and drop file upload',
+  name: 'Drag and drop',
   ...pattern(3),
   play: catalogueInteractions['file-upload-3']
 };
-export const ReuiFileUpload4 = { name: 'Gallery file upload', ...pattern(4) };
-export const ReuiFileUpload5 = { name: 'Progress file upload', ...pattern(5) };
-export const ReuiFileUpload6 = { name: 'Table file upload', ...pattern(6) };
+export const ReuiFileUpload4 = { name: 'Upload gallery', ...pattern(4) };
+export const ReuiFileUpload5 = { name: 'Upload progress', ...pattern(5) };
+export const ReuiFileUpload6 = { name: 'Upload table', ...pattern(6) };
 export const ReuiFileUpload7 = { name: 'Image upload', ...pattern(7) };
 export const ReuiFileUpload8 = { name: 'Image upload with sorting', ...pattern(8) };
-export const ReuiFileUpload9 = { name: 'Card file upload', ...pattern(9) };
+export const ReuiFileUpload9 = { name: 'Upload card', ...pattern(9) };
 export const ReuiFileUpload10 = { name: 'Cover image upload', ...pattern(10) };

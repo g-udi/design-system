@@ -1,34 +1,34 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Highlight from './Highlight';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Highlight');
+const docs = getComponentDocs('MDX/Highlight');
 
 export default {
+  title: 'MDX/Highlight',
+  id: 'mdx-highlight',
+  component: Highlight,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { children: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-highlight',
-  title: 'MDX/Highlight'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const highlightedText = canvas.getByText('highlight');
-    const highlight = highlightedText.closest('strong');
-
-    await expect(highlightedText).toBeVisible();
-    await expect(highlight).toHaveClass('font-bold');
-    await expect(highlight).toHaveClass('bg-gradient-to-r');
-  },
-  'render': () => renderComponentExample('MDX/Highlight', componentModule)
+export const Playground = {
+  args: { children: 'inline emphasis' },
+  parameters: { docs: { source: playgroundSource('Highlight', { imports: "import { Highlight } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <p>Use <Highlight {...args} /> inside normal article prose.</p>,
+  play: async ({ args, canvasElement }) => {
+    const highlight = within(canvasElement).getByText(args.children);
+    await expect(highlight.tagName).toBe('STRONG');
+    await expect(highlight).toHaveClass('font-bold', 'bg-gradient-to-r');
+  }
 };

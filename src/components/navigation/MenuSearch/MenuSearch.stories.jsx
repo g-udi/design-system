@@ -1,44 +1,38 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, fn, userEvent, within } from 'storybook/test';
-
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import MenuSearch from './MenuSearch';
 
-const componentDocs = getComponentDocs('Navigation/MenuSearch');
+const docs = getComponentDocs('Navigation/MenuSearch');
 
 export default {
-  args: {
-    className: 'storybook-menu-search',
-    setOpen: fn()
-  },
+  title: 'Navigation/MenuSearch',
+  id: 'navigation-menusearch',
   component: MenuSearch,
+  tags: ['autodocs'],
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ '!autodocs' ],
-  title: 'Navigation/MenuSearch'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: 'Open search' });
-
-    await expect(button).toBeVisible();
-    await expect(button).toHaveTextContent('Search');
-    await expect(button.parentElement).toHaveClass('storybook-menu-search');
-
-    await userEvent.click(button);
-
-    await expect(args.setOpen).toHaveBeenCalledWith(true);
+export const Playground = {
+  args: { setOpen: fn() },
+  parameters: {
+    docs: { source: playgroundSource('MenuSearch', { imports: "import { MenuSearch } from '@gaudi/design-system';" }) }
   },
-  render: (args) => (
-    <div className='max-w-sm p-6'>
-      <MenuSearch { ...args } />
-    </div>
-  )
+  render: (args) => <MenuSearch {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const button = within(canvasElement).getByRole('button', { name: 'Open search' });
+    await expect(button).toHaveTextContent('Search');
+    await userEvent.click(button);
+    await expect(args.setOpen).toHaveBeenCalledWith(true);
+    button.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(args.setOpen).toHaveBeenCalledTimes(2);
+  }
 };

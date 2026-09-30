@@ -1,169 +1,107 @@
 import { useState } from 'react';
-import { expect, userEvent, within } from 'storybook/test';
-
+import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-
-import { Pagination,
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import {
   PaginationBar,
+  Pagination,
   PaginationContent,
   PaginationEllipsis,
   PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationStatus } from './Pagination';
+  PaginationLink
+} from './Pagination';
 
-const componentDocs = getComponentDocs('Core/Pagination');
-const getPageHref = (page) => `/blog/page/${page}`;
+const docs = getComponentDocs('Core/Pagination');
+const getHref = (page) => `/blog/page/${page}`;
+const nav = (canvasElement, name = 'Pagination') => within(within(canvasElement).getByRole('navigation', { name }));
+const status = (navigation) => navigation.getByText('of').parentElement;
 
 export default {
+  title: 'Core/Pagination',
+  id: 'core-pagination',
   component: PaginationBar,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { currentPage: 'number', totalPages: 'number' }),
   parameters: {
     docs: {
-      description: { component: componentDocs.description },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'core-pagination',
-  title: 'Core/Pagination'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Pagination' });
-    const previousButton = within(navigation).getByRole('button', { name: 'Previous' });
-    const nextLink = within(navigation).getByRole('link', { name: 'Next' });
-    const currentPage = within(navigation).getByRole('link', { name: '1' });
-
-    await expect(previousButton).toBeDisabled();
-    await expect(nextLink).toHaveAttribute('href', '/blog/page/2');
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
+export const Playground = {
+  args: { currentPage: 3, totalPages: 5 },
+  parameters: {
+    docs: {
+      source: playgroundSource('PaginationBar', {
+        imports: "import { PaginationBar } from '@gaudi/design-system';\n\nconst getHref = (page) => `/blog/page/${page}`;"
+      })
+    }
   },
-  render: () => <div className='p-6'><PaginationBar currentPage={ 1 } getHref={ getPageHref } totalPages={ 4 } /></div>
-};
-
-export const MiddlePage = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Pagination' });
-
-    await expect(within(navigation).getByRole('link', { name: 'Previous' })).toHaveAttribute('href', '/blog/page/2');
-    await expect(within(navigation).getByRole('link', { name: 'Next' })).toHaveAttribute('href', '/blog/page/4');
-    await expect(within(navigation).getByText('of').parentElement).toHaveTextContent(/3\s*of\s*5/);
-    await expect(within(navigation).getByRole('link', { name: '3' })).toHaveAttribute('aria-current', 'page');
-  },
-  render: () => <div className='p-6'><PaginationBar currentPage={ 3 } getHref={ getPageHref } totalPages={ 5 } /></div>
-};
-
-export const Interactive = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Interactive pages' });
-    const getStatus = () => within(navigation).getByText('of').parentElement;
-
-    await expect(getStatus()).toHaveTextContent(/2\s*of\s*4/);
-
-    await userEvent.click(within(navigation).getByRole('button', { name: 'Next' }));
-    await expect(getStatus()).toHaveTextContent(/3\s*of\s*4/);
-
-    // The shortcut layer reveals on hover or focus-within; drive it via focus,
-    // which is also the real keyboard path (synthetic hover can't trigger CSS :hover).
-    const pageFourButton = within(navigation).getByRole('button', { name: '4' });
-
-    pageFourButton.focus();
-    await userEvent.click(pageFourButton);
-
-    await expect(getStatus()).toHaveTextContent(/4\s*of\s*4/);
-    await expect(within(navigation).getByRole('button', { name: 'Next' })).toBeDisabled();
-    await expect(within(navigation).getByRole('button', { name: 'Previous' })).not.toBeDisabled();
-  },
-  render: function InteractivePagination() {
-    const [ page, setPage ] = useState(2);
-    const totalPages = 4;
-
-    return (
-      <div className='p-6'>
-        <Pagination label='Interactive pages' className='border-t border-gray-200 pt-6 dark:border-gray-800'>
-          <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
-            <div className='flex justify-start'>
-              <PaginationPrevious disabled={ page <= 1 } onClick={ () => setPage(page - 1) } />
-            </div>
-            <PaginationStatus currentPage={ page } getHref={ getPageHref } onPageChange={ setPage } totalPages={ totalPages } />
-            <div className='flex justify-end'>
-              <PaginationNext disabled={ page >= totalPages } onClick={ () => setPage(page + 1) } />
-            </div>
-          </div>
-        </Pagination>
-      </div>
-    );
+  render: (args) => <PaginationBar getHref={getHref} {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const navigation = nav(canvasElement);
+    const { currentPage, totalPages } = args;
+    await expect(status(navigation)).toHaveTextContent(new RegExp(`${currentPage}\\s*of\\s*${totalPages}`));
+    await expect(navigation.getByRole('link', { name: String(currentPage) })).toHaveAttribute('aria-current', 'page');
+    if (currentPage > 1) await expect(navigation.getByRole('link', { name: 'Previous' })).toHaveAttribute('href', getHref(currentPage - 1));
+    else await expect(navigation.getByRole('button', { name: 'Previous' })).toBeDisabled();
+    if (currentPage < totalPages) await expect(navigation.getByRole('link', { name: 'Next' })).toHaveAttribute('href', getHref(currentPage + 1));
+    else await expect(navigation.getByRole('button', { name: 'Next' })).toBeDisabled();
   }
 };
 
-export const Numbered = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Numbered pages' });
-    const items = within(navigation).getAllByRole('listitem');
-    const activePage = within(navigation).getByText('3');
-
-    await expect(items).toHaveLength(4);
-    await expect(activePage).toHaveAttribute('aria-current', 'page');
-    await expect(activePage.tagName).toBe('SPAN');
-    await expect(within(navigation).getByRole('list')).toBeVisible();
-  },
-  render: () => (
-    <div className='p-6'>
-      <Pagination label='Numbered pages'>
-        <PaginationContent className='rounded-2xl border border-gray-200 bg-white p-2 shadow-lg shadow-gray-950/10 dark:border-gray-800 dark:bg-gray-950'>
-          {[ 1, 2, 3, 4 ].map((page) => (
-            <PaginationItem key={ page }>
-              <PaginationLink href='' isActive={ page === 3 }>{page}</PaginationLink>
-            </PaginationItem>
-          ))}
-        </PaginationContent>
-      </Pagination>
-    </div>
-  )
+function ControlledExample({ onPageChange }) {
+  const [page, setPage] = useState(2);
+  const update = (next) => {
+    setPage(next);
+    onPageChange(next);
+  };
+  return <PaginationBar currentPage={page} totalPages={4} getHref={getHref} onPageChange={update} />;
+}
+export const Controlled = {
+  args: { onPageChange: fn() },
+  parameters: { docs: { description: { story: '`onPageChange` switches every control to a button for client-side paging, and the host owns `currentPage`.' } } },
+  render: (args) => <ControlledExample {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const navigation = nav(canvasElement);
+    await userEvent.click(navigation.getByRole('button', { name: 'Next' }));
+    await expect(args.onPageChange).toHaveBeenLastCalledWith(3);
+    await expect(status(navigation)).toHaveTextContent(/3\s*of\s*4/);
+    // The shortcut layer reveals on focus-within, which is also the keyboard path.
+    const lastPage = navigation.getByRole('button', { name: '4' });
+    lastPage.focus();
+    await userEvent.click(lastPage);
+    await expect(args.onPageChange).toHaveBeenLastCalledWith(4);
+    await expect(navigation.getByRole('button', { name: 'Next' })).toBeDisabled();
+    await expect(navigation.getByRole('button', { name: 'Previous' })).toBeEnabled();
+  }
 };
 
+const numberedPages = [1, 2, 3, null, 8];
 export const Composed = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const blogPagination = canvas.getByRole('navigation', { name: 'Blog pages' });
-    const numberedPagination = canvas.getByRole('navigation', { name: 'Numbered pages' });
-    const blogPrevious = within(blogPagination).getByText('Previous');
-    const activeNumberedPage = within(numberedPagination).getByText('3');
-
-    await expect(blogPrevious).toBeVisible();
-    await expect(blogPrevious.tagName).toBe('SPAN');
-    await expect(within(blogPagination).getByText('of').parentElement).toHaveTextContent(/3\s*of\s*5/);
-    await expect(activeNumberedPage).toHaveAttribute('aria-current', 'page');
-    await expect(within(numberedPagination).getByText('...')).toBeVisible();
-  },
+  parameters: { docs: { description: { story: 'Compose `Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, and `PaginationEllipsis` for numbered layouts.' } } },
   render: () => (
-    <div className='p-6'>
-      <Pagination label='Blog pages' className='border-t border-gray-200 pt-6 dark:border-gray-800'>
-        <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
-          <div className='flex justify-start'>
-            <PaginationPrevious href='' />
-          </div>
-          <PaginationStatus currentPage={ 3 } getHref={ () => '' } totalPages={ 5 } />
-          <div className='flex justify-end'>
-            <PaginationNext href='' />
-          </div>
-        </div>
-      </Pagination>
-      <Pagination label='Numbered pages' className='mt-8'>
-        <PaginationContent className='rounded-2xl border border-gray-200 bg-white p-2 shadow-lg shadow-gray-950/10 dark:border-gray-800 dark:bg-gray-950'>
-          <PaginationItem><PaginationLink href=''>1</PaginationLink></PaginationItem>
-          <PaginationItem><PaginationLink href=''>2</PaginationLink></PaginationItem>
-          <PaginationItem><PaginationLink href='' isActive>3</PaginationLink></PaginationItem>
-          <PaginationItem><PaginationEllipsis /></PaginationItem>
-          <PaginationItem><PaginationLink href=''>8</PaginationLink></PaginationItem>
-        </PaginationContent>
-      </Pagination>
-    </div>
-  )
+    <Pagination label='Numbered pages'>
+      <PaginationContent>
+        {numberedPages.map((page) => (
+          <PaginationItem key={page ?? 'ellipsis'}>
+            {page ? <PaginationLink href={getHref(page)} isActive={page === 3}>{page}</PaginationLink> : <PaginationEllipsis />}
+          </PaginationItem>
+        ))}
+      </PaginationContent>
+    </Pagination>
+  ),
+  play: async ({ canvasElement }) => {
+    const navigation = nav(canvasElement, 'Numbered pages');
+    const active = navigation.getByText('3');
+    await expect(navigation.getAllByRole('listitem')).toHaveLength(numberedPages.length);
+    await expect(active).toHaveAttribute('aria-current', 'page');
+    await expect(navigation.getByRole('link', { name: '8' })).toHaveAttribute('href', getHref(8));
+    await expect(navigation.getByText('...')).toBeVisible();
+  }
 };

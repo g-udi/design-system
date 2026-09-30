@@ -1,101 +1,60 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Video, { videoAnimationStyles } from './Video';
 
-import * as componentModule from './index';
-import Video from './Video';
-
-const componentDocs = getComponentDocs('MDX/Video');
-
-const sharedArgs = {
-  'thumbnailAlt': 'Knowledge graph article video preview',
-  'thumbnailSrc': '/static/images/og-card.jpg',
-  'title': 'Knowledge graph walkthrough',
-  'videoSrc': 'https://www.youtube.com/embed/qh3NGpYRG3I'
-};
+const docs = getComponentDocs('MDX/Video');
 
 export default {
-  argTypes: {
-    animationStyle: {
-      control: 'select',
-      options: [ 'from-center', 'from-bottom', 'from-top', 'from-left', 'from-right', 'fade', 'top-in-bottom-out', 'left-in-right-out' ]
-    },
-    classNames: { table: { disable: true } }
-  },
-  args: {
-    ...sharedArgs,
-    'animationStyle': 'from-center'
-  },
+  title: 'MDX/Video',
+  id: 'mdx-video',
   component: Video,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, {
+    videoSrc: 'text',
+    thumbnailSrc: 'text',
+    thumbnailAlt: 'text',
+    title: 'text',
+    animationStyle: Object.keys(videoAnimationStyles),
+    autoplay: 'boolean'
+  }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-video',
-  title: 'MDX/Video'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { 'name': 'Play video' });
-
-    await expect(trigger).toBeVisible();
-    await expect(canvas.getByAltText('Knowledge graph article video preview')).toBeVisible();
-
+export const Playground = {
+  args: {
+    videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I',
+    thumbnailSrc: '/static/images/og-card.jpg',
+    thumbnailAlt: 'Knowledge graph article video preview',
+    title: 'Knowledge graph walkthrough',
+    animationStyle: 'from-center',
+    autoplay: true
+  },
+  parameters: { docs: { source: playgroundSource('Video', { imports: "import { Video } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <Video {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const trigger = within(canvasElement).getByRole('button', { name: 'Play video' });
+    await expect(within(trigger).getByAltText(args.thumbnailAlt)).toBeVisible();
     await userEvent.click(trigger);
 
-    const dialog = await screen.findByRole('dialog', { 'name': 'Knowledge graph walkthrough' });
-    const closeButtons = within(dialog).getAllByRole('button', { 'name': 'Close video dialog' });
-    const closeButton = closeButtons.at(-1);
-    const iframe = within(dialog).getByTitle('Knowledge graph walkthrough');
-
+    const dialog = await screen.findByRole('dialog', { name: args.title });
+    const panel = within(dialog).getByRole('heading', { name: args.title }).closest('[data-open]');
     await expect(dialog).toHaveAttribute('aria-modal', 'true');
-    await waitFor(() => expect(closeButton).toHaveFocus());
-    await expect(document.body).toHaveStyle({ 'overflow': 'hidden' });
-    await expect(iframe).toHaveAttribute('src', expect.stringContaining('https://www.youtube.com/embed/qh3NGpYRG3I?autoplay=1'));
+    await expect(panel).toHaveClass(...videoAnimationStyles[args.animationStyle].split(' '));
+    await waitFor(() => expect(within(dialog).getAllByRole('button', { name: 'Close video dialog' }).at(-1)).toHaveFocus());
+    await expect(document.body).toHaveStyle({ overflow: 'hidden' });
+    await expect(within(dialog).getByTitle(args.title)).toHaveAttribute('src', `${args.videoSrc}${args.autoplay ? '?autoplay=1' : ''}`);
 
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(screen.queryByRole('dialog', { 'name': 'Knowledge graph walkthrough' })).not.toBeInTheDocument());
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();
-  },
-  'render': () => renderComponentExample('MDX/Video', componentModule)
-};
-
-export const AnimationStyles = {
-  'play': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const fadeExample = canvas.getByText('fade').closest('.space-y-2');
-    const fadeTrigger = within(fadeExample).getByRole('button', { 'name': 'Play video' });
-
-    await userEvent.click(fadeTrigger);
-
-    const dialog = await screen.findByRole('dialog', { 'name': 'Video dialog: fade' });
-    const panel = within(dialog).getByText('Video dialog: fade').closest('[data-open]');
-
-    await expect(panel).toHaveClass('opacity-0', 'data-open:opacity-100');
-
-    await userEvent.click(within(dialog).getAllByRole('button', { 'name': 'Close video dialog' }).at(-1));
-    await waitFor(() => expect(screen.queryByRole('dialog', { 'name': 'Video dialog: fade' })).not.toBeInTheDocument());
-  },
-  'render': () => (
-    <div className='grid max-w-5xl gap-5 p-6 md:grid-cols-2'>
-      {[
-        'from-center',
-        'from-bottom',
-        'top-in-bottom-out',
-        'fade'
-      ].map((animationStyle) => (
-        <div key={ animationStyle } className='space-y-2'>
-          <p className='text-sm font-semibold text-gray-700 dark:text-gray-200'>{animationStyle}</p>
-          <Video { ...sharedArgs } animationStyle={ animationStyle } title={ `Video dialog: ${animationStyle}` } />
-        </div>
-      ))}
-    </div>
-  )
+  }
 };

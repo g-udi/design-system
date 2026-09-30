@@ -11,7 +11,7 @@ const pattern = reuiPatterns(
 export default { title: 'Core/CmdLauncher', tags: ['autodocs'], ...catalogueMeta('command') };
 
 export const ReuiCommand1 = {
-  name: 'Command: Basic command',
+  name: 'Basic command',
   ...pattern(1),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -25,10 +25,10 @@ export const ReuiCommand1 = {
     await userEvent.clear(search);
   }
 };
-export const ReuiCommand2 = { name: 'Command: Command with shortcuts', ...pattern(2) };
-export const ReuiCommand3 = { name: 'Command: Command with groups', ...pattern(3) };
-export const ReuiCommand4 = { name: 'Command: Command with many groups', ...pattern(4) };
-export const ReuiCommand5 = { name: 'Command: File search command palette', ...pattern(5) };
-export const ReuiCommand6 = { name: 'Command: User search command with avatars', ...pattern(6) };
-export const ReuiCommand7 = { name: 'Command: Action palette with keyboard shortcuts', ...pattern(7) };
-export const ReuiCommand8 = { name: 'Command: Command with recent and favorites sections', ...pattern(8) };
+export const ReuiCommand2 = { name: 'With shortcuts', ...pattern(2) };
+export const ReuiCommand3 = { name: 'With groups', ...pattern(3) };
+export const ReuiCommand4 = { name: 'With many groups', ...pattern(4) };
+export const ReuiCommand5 = { name: 'File search', ...pattern(5) };
+export const ReuiCommand6 = { name: 'User search with avatars', ...pattern(6) };
+export const ReuiCommand7 = { name: 'Action palette with shortcuts', ...pattern(7) };
+export const ReuiCommand8 = { name: 'Recent and favorites', ...pattern(8) };

@@ -1,99 +1,74 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, within } from 'storybook/test';
-
-import { Breadcrumb,
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import {
+  Breadcrumb,
   BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-  BreadcrumbTrail } from './Breadcrumb';
+  BreadcrumbTrail
+} from './Breadcrumb';
 
-const componentDocs = getComponentDocs('Core/Breadcrumb');
+const docs = getComponentDocs('Core/Breadcrumb');
+const items = [
+  { href: '/', label: 'Home' },
+  { href: '/blog', label: 'Blog' },
+  { current: true, label: 'Design Systems' }
+];
+const trail = (canvasElement, name) => within(within(canvasElement).getByRole('navigation', { name }));
 
 export default {
+  title: 'Core/Breadcrumb',
+  id: 'core-breadcrumb',
   component: BreadcrumbTrail,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { label: 'text', items: 'object' }),
   parameters: {
     docs: {
-      description: { component: componentDocs.description },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  },
-  tags: [ 'autodocs' ],
-  id: 'core-breadcrumb',
-  title: 'Core/Breadcrumb'
+  }
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Breadcrumb' });
-    const trail = within(navigation);
-    const homeLink = trail.getByRole('link', { name: 'Home' });
-    const blogLink = trail.getByRole('link', { name: 'Blog' });
-    const currentPage = trail.getByText('Design Systems');
-
-    await expect(trail.getByRole('list')).toBeVisible();
-    await expect(homeLink).toHaveAttribute('href', '/');
-    await expect(blogLink).toHaveAttribute('href', '/blog');
-    await expect(currentPage).toHaveAttribute('aria-current', 'page');
-    await expect(currentPage).toHaveClass('font-medium', 'text-gray-950');
-    await expect(trail.getAllByRole('listitem')).toHaveLength(3);
-    await expect(trail.queryByRole('link', { name: 'Design Systems' })).not.toBeInTheDocument();
-  },
-  render: () => <div className='p-6'><BreadcrumbTrail items={ [{ href: '/', label: 'Home' }, { href: '/blog', label: 'Blog' }, { current: true, label: 'Design Systems' }] } /></div>
-};
-
-export const LongTrail = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Breadcrumb' });
-    const trail = within(navigation);
-
-    await expect(trail.getAllByRole('listitem')).toHaveLength(5);
-    await expect(trail.getByRole('link', { name: 'Tags' })).toHaveAttribute('href', '/blog/tags');
-    await expect(trail.getByText('Core components')).toHaveAttribute('aria-current', 'page');
-    await expect(trail.queryByRole('link', { name: 'Core components' })).not.toBeInTheDocument();
-  },
-  render: () => (
-    <div className='p-6'>
-      <BreadcrumbTrail
-        items={ [
-          { href: '/', label: 'Home' },
-          { href: '/blog', label: 'Blog' },
-          { href: '/blog/tags', label: 'Tags' },
-          { href: '/blog/tags/design-systems', label: 'Design Systems' },
-          { current: true, label: 'Core components' }
-        ] }
-      />
-    </div>
-  )
+export const Playground = {
+  args: { label: 'Breadcrumb', items },
+  parameters: { docs: { source: playgroundSource('BreadcrumbTrail', { imports: "import { BreadcrumbTrail } from '@gaudi/design-system';" }) } },
+  render: (args) => <BreadcrumbTrail {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const nav = trail(canvasElement, args.label);
+    const current = args.items.find((item) => item.current);
+    await expect(nav.getAllByRole('listitem')).toHaveLength(args.items.length);
+    for (const { href, label } of args.items.filter((item) => !item.current)) {
+      await expect(nav.getByRole('link', { name: label })).toHaveAttribute('href', href);
+    }
+    await expect(nav.getByText(current.label)).toHaveAttribute('aria-current', 'page');
+    await expect(nav.queryByRole('link', { name: current.label })).not.toBeInTheDocument();
+  }
 };
 
 export const Composed = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const navigation = canvas.getByRole('navigation', { name: 'Article breadcrumb' });
-    const trail = within(navigation);
-
-    await expect(trail.getByRole('link', { name: 'Home' })).toHaveAttribute('href', '/');
-    await expect(trail.getByLabelText('More pages')).toBeVisible();
-    await expect(trail.queryByRole('link', { name: 'More pages' })).not.toBeInTheDocument();
-    await expect(trail.getByText('Current article')).toHaveAttribute('aria-current', 'page');
-    await expect(trail.getAllByRole('listitem')).toHaveLength(3);
-  },
+  parameters: { docs: { description: { story: 'Compose `Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`, `BreadcrumbEllipsis`, and `BreadcrumbPage` to collapse long paths or customise each part.' } } },
   render: () => (
-    <div className='p-6'>
-      <Breadcrumb label='Article breadcrumb'>
-        <BreadcrumbList>
-          <BreadcrumbItem><BreadcrumbLink href='/'>Home</BreadcrumbLink></BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem><BreadcrumbPage>Current article</BreadcrumbPage></BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-    </div>
-  )
+    <Breadcrumb label='Article breadcrumb'>
+      <BreadcrumbList>
+        <BreadcrumbItem><BreadcrumbLink href='/'>Home</BreadcrumbLink></BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem><BreadcrumbPage>Current article</BreadcrumbPage></BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  ),
+  play: async ({ canvasElement }) => {
+    const nav = trail(canvasElement, 'Article breadcrumb');
+    await expect(nav.getAllByRole('listitem')).toHaveLength(3);
+    await expect(nav.getByLabelText('More pages')).toBeVisible();
+    await expect(nav.queryByRole('link', { name: 'More pages' })).not.toBeInTheDocument();
+    await expect(nav.getByText('Current article')).toHaveAttribute('aria-current', 'page');
+  }
 };

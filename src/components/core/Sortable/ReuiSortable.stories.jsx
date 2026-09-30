@@ -10,15 +10,11 @@ const pattern = reuiPatterns(
 
 export default { title: 'Core/Sortable', tags: ['autodocs'], ...catalogueMeta('sortable') };
 
-export const ReuiSortable1 = {
-  name: 'Sortable list of items with drag-and-drop',
-  ...pattern(1),
-  play: catalogueInteractions['sortable-1']
-};
-export const ReuiSortable2 = { name: 'Sortable list of items with grid layout', ...pattern(2) };
-export const ReuiSortable3 = { name: 'Sortable list of items with nested layout', ...pattern(3) };
-export const ReuiSortable4 = { name: 'Sortable playlist with frame', ...pattern(4) };
-export const ReuiSortable5 = { name: 'Sortable settings priority with frame', ...pattern(5) };
-export const ReuiSortable6 = { name: 'Sortable sidebar navigation with frame', ...pattern(6) };
-export const ReuiSortable7 = { name: 'Sortable image gallery grid with frame', ...pattern(7) };
-export const ReuiSortable8 = { name: 'Sortable list persisted to a backend', ...pattern(8, 'Persist the new order with onValueCommit, optimistic updates, and Sonner rollback') };
+export const ReuiSortable1 = { name: 'File list', ...pattern(1), play: catalogueInteractions['sortable-1'] };
+export const ReuiSortable2 = { name: 'Grid', ...pattern(2) };
+export const ReuiSortable3 = { name: 'Nested lists', ...pattern(3, 'Groups and the values inside each group reorder independently.') };
+export const ReuiSortable4 = { name: 'Playlist', ...pattern(4) };
+export const ReuiSortable5 = { name: 'Settings priority', ...pattern(5) };
+export const ReuiSortable6 = { name: 'Sidebar navigation', ...pattern(6) };
+export const ReuiSortable7 = { name: 'Image gallery', ...pattern(7) };
+export const ReuiSortable8 = { name: 'Persisted order', ...pattern(8, 'Persist the new order with `onValueCommit`, update optimistically, and roll back with a toast on failure.') };

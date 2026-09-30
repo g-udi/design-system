@@ -8,17 +8,17 @@ export const blockCoverage = [
   [
     'Auth',
     'AuthForm: password, email link and failed submission',
-    'blocks-application-authform--password'
+    'blocks-application-authform--playground'
   ],
   [
     'Card / List / Profile',
     'ResourceList + Card, Avatar, Pill and SettingsPanel',
-    'blocks-application-resourcelist--recent-articles'
+    'blocks-application-resourcelist--playground'
   ],
   [
     'Dashboard / Stats / Chart',
     'Editorial workspace + StatGroup; MDX charts remain isolated',
-    'blocks-application-statgroup--editorial-summary'
+    'blocks-application-statgroup--playground'
   ],
   [
     'Dialog / Sheet',
@@ -38,16 +38,16 @@ export const blockCoverage = [
   [
     'Kanban Board',
     'Controlled editorial board with explicit move actions',
-    'blocks-application-kanbanboard--editorial-workflow'
+    'blocks-application-kanbanboard--playground'
   ],
   [
     'Onboarding / Wizard',
     'Wizard: validation, review, completion and failed save',
-    'blocks-application-wizard--collection-setup'
+    'blocks-application-wizard--playground'
   ],
   [
     'Timeline',
-    'Timeline activity and publication milestones',
-    'core-timeline--editorial-activity'
+    'Timeline activity with icons and actions',
+    'core-timeline--playground'
   ]
 ];

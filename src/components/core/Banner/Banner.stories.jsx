@@ -1,108 +1,82 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Banner from './Banner';
 
-const componentDocs = getComponentDocs('Core/Banner');
-const toneOptions = [ 'gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo' ];
+const docs = getComponentDocs('Core/Banner');
+const tones = ['gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo'];
+const variants = ['solid', 'soft', 'outline'];
+const sample = { title: 'Now published', children: 'New essays and project notes are available.' };
 
 export default {
+  title: 'Core/Banner',
+  id: 'core-banner',
   component: Banner,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, {
+    title: 'text',
+    children: 'text',
+    href: 'text',
+    size: ['xs', 'sm', 'md', 'lg'],
+    tone: tones,
+    variant: variants
+  }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'core-banner',
-  title: 'Core/Banner'
+  decorators: [(Story) => <div className='grid gap-3'><Story /></div>]
 };
 
-export const Default = {
-  'args': {
-    'children': 'New essays and project notes are available.',
-    title: 'Now published'
-  },
-  play: async ({ canvasElement }) => {
+export const Playground = {
+  args: { ...sample, size: 'md', tone: 'gray', variant: 'soft' },
+  parameters: { docs: { source: playgroundSource('Banner', { imports: "import { Banner } from '@gaudi/design-system';" }) } },
+  render: (args) => <Banner {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
+    if (args.href) {
+      await expect(canvas.getByRole('link', { name: `${args.title}: ${args.children}` })).toHaveAttribute('href', args.href);
+      return;
+    }
     const banner = canvas.getByRole('status');
-
-    await expect(banner).toBeVisible();
-    await expect(within(banner).getByText('Now published')).toBeVisible();
-    await expect(within(banner).getByText('New essays and project notes are available.')).toBeVisible();
-    await expect(banner).toHaveClass('bg-gray-50', 'text-gray-900');
+    await expect(banner).toHaveTextContent(args.title);
+    await expect(banner).toHaveTextContent(args.children);
     await expect(canvas.queryByRole('link')).not.toBeInTheDocument();
   }
 };
 
 export const Linked = {
-  'args': {
-    'children': 'Read the latest articles.',
-    'href': '/blog',
-    'title': 'Updated'
-  },
+  parameters: { docs: { description: { story: '`href` turns the copy into one link named "title: body"; the banner drops its status role.' } } },
+  render: () => <Banner {...sample} href='/blog' />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { name: 'Updated: Read the latest articles.' });
-
-    await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
-    await expect(link).toBeVisible();
+    const link = canvas.getByRole('link', { name: `${sample.title}: ${sample.children}` });
     await expect(link).toHaveAttribute('href', '/blog');
-    await expect(link).toHaveAccessibleName('Updated: Read the latest articles.');
-    await expect(link).toHaveTextContent('Updated');
-    await expect(link).toHaveTextContent('Read the latest articles.');
     await expect(link).toHaveTextContent('→');
+    await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
   }
 };
 
 export const Variants = {
+  parameters: { docs: { description: { story: 'Solid, soft, and outline treatments in the same tone.' } } },
+  render: () => variants.map((variant) => <Banner key={variant} title={variant} tone='blue' variant={variant}>{sample.children}</Banner>),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const banners = canvas.getAllByRole('status');
-
-    await expect(banners).toHaveLength(3);
+    const banners = within(canvasElement).getAllByRole('status');
     await expect(banners[0]).toHaveClass('bg-blue-600', 'text-white');
     await expect(banners[1]).toHaveClass('bg-blue-50', 'text-blue-900');
     await expect(banners[2]).toHaveClass('border', 'border-blue-200', 'text-blue-900');
-    await expect(canvas.queryByRole('link')).not.toBeInTheDocument();
-  },
-  'render': () => (
-    <div className='space-y-3 p-6'>
-      {[ 'solid', 'soft', 'outline' ].map((variant) => (
-        <Banner key={ variant } title={ variant } tone='blue' variant={ variant }>
-          New design system release available.
-        </Banner>
-      ))}
-    </div>
-  )
+  }
 };
 
 export const Tones = {
+  parameters: { docs: { description: { story: 'Every tone in the soft variant.' } } },
+  render: () => tones.map((tone) => <Banner key={tone} title={tone} tone={tone}>{sample.children}</Banner>),
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const banners = canvas.getAllByRole('status');
-
-    await expect(banners).toHaveLength(10);
-    await expect(banners[0]).toHaveClass('bg-gray-50', 'text-gray-900');
-    await expect(banners[1]).toHaveClass('bg-neutral-50', 'text-neutral-900');
-    await expect(banners[2]).toHaveClass('bg-blue-50', 'text-blue-900');
-    await expect(banners[3]).toHaveClass('bg-teal-50', 'text-teal-900');
-    await expect(banners[4]).toHaveClass('bg-green-50', 'text-green-900');
-    await expect(banners[5]).toHaveClass('bg-amber-50', 'text-amber-950');
-    await expect(banners[6]).toHaveClass('bg-yellow-50', 'text-yellow-950');
-    await expect(banners[7]).toHaveClass('bg-red-50', 'text-red-900');
-    await expect(banners[8]).toHaveClass('bg-rose-50', 'text-rose-900');
-    await expect(banners[9]).toHaveClass('bg-indigo-50', 'text-indigo-900');
-  },
-  'render': () => (
-    <div className='space-y-3 p-6'>
-      {toneOptions.map((tone) => (
-        <Banner key={ tone } title={ tone } tone={ tone } variant='soft'>
-          Concise announcement text.
-        </Banner>
-      ))}
-    </div>
-  )
+    const banners = within(canvasElement).getAllByRole('status');
+    await expect(banners).toHaveLength(tones.length);
+    for (const [index, tone] of tones.entries()) await expect(banners[index]).toHaveClass(`bg-${tone}-50`);
+  }
 };

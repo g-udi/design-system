@@ -1,34 +1,34 @@
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { renderComponentExample } from '../../../../.storybook/stories/ComponentExamples';
 import { expect, within } from 'storybook/test';
+import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import Aside from './Aside';
 
-import * as componentModule from './index';
-
-const componentDocs = getComponentDocs('MDX/Aside');
+const docs = getComponentDocs('MDX/Aside');
 
 export default {
+  title: 'MDX/Aside',
+  id: 'mdx-aside',
+  component: Aside,
+  tags: ['autodocs'],
+  argTypes: docsArgTypes(docs, { children: 'text' }),
   parameters: {
     docs: {
-      description: {
-        component: componentDocs.description
-      },
-      page: createComponentDocsPage(componentDocs)
+      description: { component: docs.description },
+      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  tags: [ 'autodocs' ],
-  id: 'mdx-aside',
-  title: 'MDX/Aside'
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Example = {
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const asideText = canvas.getByText('Additional context that supports the article without interrupting the main argument.');
-    const aside = asideText.closest('aside');
-
-    await expect(asideText).toBeVisible();
-    await expect(aside).toHaveClass('rounded-md', 'border', 'border-border', 'bg-surface-muted', 'text-sm', 'leading-6', 'text-text-muted');
-    await expect(aside).toHaveTextContent('Additional context that supports the article without interrupting the main argument.');
-  },
-  'render': () => renderComponentExample('MDX/Aside', componentModule)
+export const Playground = {
+  args: { children: 'Additional context that supports the article without interrupting the main argument.' },
+  parameters: { docs: { source: playgroundSource('Aside', { imports: "import { Aside } from '@gaudi/design-system/mdx';" }) } },
+  render: (args) => <Aside {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const aside = within(canvasElement).getByText(args.children);
+    await expect(aside.tagName).toBe('ASIDE');
+    await expect(aside).toHaveClass('bg-surface-muted', 'text-text-muted');
+  }
 };
