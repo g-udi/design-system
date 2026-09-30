@@ -1,7 +1,6 @@
 // Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 'use client';
 import { useState } from 'react';
-import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Command,
@@ -24,6 +23,14 @@ const files = [
   { name: 'package.json', path: 'package.json', type: 'json' },
   { name: 'README.md', path: 'README.md', type: 'md' }
 ];
+// The name already carries the extension, so the type shows as a tinted glyph instead of a badge.
+const fileIcons = {
+  css: { icon: 'PaletteIcon', tone: 'text-ui-primary' },
+  json: { icon: 'FileJsonIcon', tone: 'text-success' },
+  md: { icon: 'FileTextIcon', tone: 'text-ui-muted-foreground' },
+  ts: { icon: 'FileCodeIcon', tone: 'text-info' },
+  tsx: { icon: 'FileCodeIcon', tone: 'text-info' }
+};
 export function Pattern() {
   const [open, setOpen] = useState(false);
   return (
@@ -40,19 +47,15 @@ export function Pattern() {
             <CommandEmpty>No files found.</CommandEmpty>
             <CommandGroup heading='Files'>
               {files.map((file) => (
-                <CommandItem key={file.path} className='gap-2.5'>
-                  <RegistryIcon lucide='FileIcon' className='size-4 shrink-0' />
-                  <div className='flex flex-1 items-center gap-2'>
-                    <span className='font-medium'>{file.name}</span>
-                    <span className='text-ui-muted-foreground truncate text-xs'>
-                      {file.path}
-                    </span>
-                  </div>
-                  <div className='ml-auto' data-slot='command-shortcut'>
-                    <Badge variant='outline' size='sm'>
-                      {file.type}
-                    </Badge>
-                  </div>
+                <CommandItem key={file.path} value={file.path} className='gap-2.5'>
+                  <RegistryIcon
+                    lucide={fileIcons[file.type].icon}
+                    className={`size-4 shrink-0 ${fileIcons[file.type].tone}`}
+                  />
+                  <span className='flex-1 truncate font-medium'>{file.name}</span>
+                  <span className='text-ui-muted-foreground truncate text-xs'>
+                    {file.path.split('/').slice(0, -1).join('/') || 'root'}
+                  </span>
                 </CommandItem>
               ))}
             </CommandGroup>

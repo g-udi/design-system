@@ -130,7 +130,7 @@ function CommandItem({ className, children, ...props }) {
       {children}
       <RegistryIcon
         lucide='CheckIcon'
-        className='ds-part-command-item-indicator ml-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100'
+        className='ds-part-command-item-indicator ml-auto hidden group-data-[checked=true]/command-item:block group-has-data-[slot=command-shortcut]/command-item:hidden'
       />
     </CommandPrimitive.Item>
   );
