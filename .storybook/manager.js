@@ -1,12 +1,33 @@
 import { createElement } from 'react';
 import { addons } from 'storybook/manager-api';
 import { create } from 'storybook/theming';
+import { GLOBALS_UPDATED, SET_GLOBALS } from 'storybook/internal/core-events';
 
 import './manager.css';
 import { isSidebarEntry } from './navigation';
 
+// The Storybook chrome follows the toolbar theme switch, using Gaudi's surface, text and border tokens.
+const managerThemes = {
+  light: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
+  dark: create({
+    base: 'dark',
+    appBorderRadius: 0,
+    inputBorderRadius: 0,
+    appBg: '#1a1a1a',
+    appContentBg: '#1a1a1a',
+    appPreviewBg: '#1a1a1a',
+    barBg: '#1a1a1a',
+    appBorderColor: '#303030',
+    inputBg: '#262626',
+    inputBorder: '#303030',
+    textColor: '#d4d4d4',
+    textMutedColor: '#a3a3a3',
+    barTextColor: '#a3a3a3'
+  })
+};
+
 const panelConfig = {
-  theme: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
+  theme: managerThemes.light,
   layout: {
     initialActive: 'canvas',
     showPanel: false
@@ -32,6 +53,17 @@ const panelConfig = {
 };
 
 addons.setConfig(panelConfig);
+
+addons.register('gaudi/theme-sync', (api) => {
+  const apply = ({ globals }) => {
+    const theme = globals?.theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    api.setOptions({ theme: managerThemes[theme] });
+  };
+  const channel = api.getChannel();
+  channel.on(SET_GLOBALS, apply);
+  channel.on(GLOBALS_UPDATED, apply);
+});
 
 const MOBILE_QUERY = '(max-width: 768px)';
 const RESPONSIVE_VIEWPORT = '100pct-100pct';
