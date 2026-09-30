@@ -26,7 +26,7 @@ const ROW_GUTTER_CLASS =
 const INDICATOR_CLASS =
   'pointer-events-none absolute flex items-center justify-center size-4 end-[var(--cascader-row-inset,8px)]! rtl:right-auto!';
 const ROW_THEME_CLASS =
-  "data-highlighted:bg-ui-accent data-highlighted:text-ui-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-ui-accent-foreground [&_svg:not([class*='size-'])]:size-4 rounded-md py-1";
+  "data-highlighted:bg-ui-accent data-highlighted:text-ui-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-ui-accent-foreground [&_svg:not([class*='size-'])]:size-4 min-h-8 rounded-md py-1.5";
 const ROW_GAP_CLASS = 'gap-2';
 const ROW_TEXT_CLASS = 'text-sm';
 const ROW_SHELL_CLASS = `${ROW_THEME_CLASS} relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${ROW_INSET_CLASS}`;

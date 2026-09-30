@@ -72,7 +72,7 @@ function CascaderColumns({
     </div>
   );
 }
-const PANEL_CLASS = `flex w-(--cascader-column-width) shrink-0 flex-col overscroll-contain not-first:w-[calc(var(--cascader-column-width)_+_1px)] not-first:border-ui-border/60 not-first:border-s ${CASCADER_LIST_HEIGHT_CLASS}`;
+const PANEL_CLASS = `flex w-(--cascader-column-width) shrink-0 last:grow flex-col overscroll-contain not-first:w-[calc(var(--cascader-column-width)_+_1px)] not-first:border-ui-border/60 not-first:border-s ${CASCADER_LIST_HEIGHT_CLASS}`;
 function CascaderColumnPanel({ column, children, virtualized }) {
   const {
     labels,
