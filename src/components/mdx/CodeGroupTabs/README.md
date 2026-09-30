@@ -1,6 +1,6 @@
 # CodeGroupTabs
 
-This Gaudi owner includes **code-block**, with **27 practical examples**.
+This Gaudi owner includes **code-block**, with **10 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/mdx/CodeGroupTabs`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

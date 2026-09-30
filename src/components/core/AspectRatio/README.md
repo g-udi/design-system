@@ -1,6 +1,6 @@
 # AspectRatio
 
-This Gaudi owner includes **aspect-ratio**, with **8 practical examples**.
+This Gaudi owner includes **aspect-ratio**, with **1 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/AspectRatio`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

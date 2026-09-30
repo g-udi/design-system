@@ -82,35 +82,18 @@ export const Playground = {
     }
     if (args.suffix) await expect(canvas.getByText(args.suffix)).toBeVisible();
     await expect(canvas.getByRole('textbox', { name: 'Username' })).toHaveValue('amira');
+    // Adornments are presentational: the value excludes the prefix and suffix.
+    await expect(canvas.getByRole('spinbutton', { name: 'Monthly budget' })).toHaveValue(120);
+    const website = canvas.getByRole('textbox', { name: 'Website' });
+    await userEvent.type(website, 'gaudi.dev');
+    await expect(website).toHaveValue('gaudi.dev');
+    await expect(canvas.getByText('https://')).toBeVisible();
+    await userEvent.clear(website);
     if (args.disabled) return expect(input).toBeDisabled();
     await userEvent.type(input, 'amira@example.com');
     await expect(input).toHaveValue('amira@example.com');
     // Leave the preview on its placeholder so `placeholder` stays visible.
     await userEvent.clear(input);
     await expect(input).toHaveValue('');
-  }
-};
-
-export const Adornments = {
-  parameters: { docs: { description: { story: '`prefix` and `suffix` add fixed text or icons inside the field. They are presentational, so the value excludes them.' } } },
-  render: () => (
-    <div className='ds-stack'>
-      <Field>
-        <FieldLabel>Website</FieldLabel>
-        <Input prefix='https://' name='website' placeholder='example.com' />
-      </Field>
-      <Field>
-        <FieldLabel>Reading goal</FieldLabel>
-        <Input type='number' min={1} max={60} defaultValue={20} suffix='minutes' />
-      </Field>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const website = canvas.getByRole('textbox', { name: 'Website' });
-    await userEvent.type(website, 'gaudi.dev');
-    await expect(website).toHaveValue('gaudi.dev');
-    await expect(canvas.getByText('https://')).toBeVisible();
-    await expect(canvas.getByRole('spinbutton', { name: 'Reading goal' })).toHaveValue(20);
   }
 };

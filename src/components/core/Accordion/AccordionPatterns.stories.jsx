@@ -9,9 +9,7 @@ const pattern = patternStories(
 
 export default { title: 'Core/Accordion', tags: ['autodocs'], ...catalogueMeta('accordion') };
 
-export const AccordionPattern1 = { name: 'Basic disclosure', ...pattern(1, 'Single expansion with quiet dividers.') };
-export const AccordionPattern2 = { name: 'Plus and minus', ...pattern(2, 'Plus becomes minus when expanded; both icons are decorative.') };
-export const AccordionPattern3 = { name: 'Bordered items', ...pattern(3, 'Individually bordered items with space between questions.') };
+export const AccordionPattern1 = { name: 'Variants and indicators', ...pattern(1, 'Flush dividers with chevron, plus-minus and leading-arrow indicators, beside the outline, separated and framed variants.') };
 export const AccordionPattern4 = {
   name: 'Inside a card',
   ...pattern(4, 'The card supplies the heading. Links and actions belong inside the content, outside the trigger.'),
@@ -48,7 +46,6 @@ export const AccordionPattern5 = {
   }
 };
 export const AccordionPattern6 = { name: 'Icons and badges', ...pattern(6, 'Icons and pills fill the noninteractive header slots.') };
-export const AccordionPattern7 = { name: 'Framed panels', ...pattern(7, 'A muted outer frame groups related settings.') };
 export const AccordionPattern8 = {
   name: 'Nested sections',
   ...pattern(8, 'Nested accordions keep independent values, IDs, and arrow-key navigation. Inner sections use the next heading level.'),
@@ -71,7 +68,6 @@ export const AccordionPattern8 = {
   }
 };
 export const AccordionPattern9 = { name: 'Member directory', ...pattern(9, 'Decorative avatars beside visible names, with roles and secondary details.') };
-export const AccordionPattern10 = { name: 'Leading arrow', ...pattern(10, 'A leading arrow beside the title rotates on expansion.') };
 export const AccordionPattern11 = {
   name: 'Guided setup',
   ...pattern(11, 'Completing a step advances the controlled accordion and unlocks the next one. The form saves locally for this demonstration.'),

@@ -1,6 +1,6 @@
 # Field
 
-This Gaudi owner includes **field**, **label**, with **24 practical examples**.
+This Gaudi owner includes **field**, **label**, with **7 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Field`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

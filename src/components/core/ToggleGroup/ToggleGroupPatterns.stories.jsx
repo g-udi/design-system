@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -8,19 +9,26 @@ const pattern = patternStories(
 
 export default { title: 'Core/ToggleGroup', tags: ['autodocs'], ...catalogueMeta('toggle-group') };
 
-export const ToggleGroupPattern1 = { name: 'Basic toggle group', ...pattern(1) };
-export const ToggleGroupPattern2 = { name: 'Outline variant', ...pattern(2) };
-export const ToggleGroupPattern3 = { name: 'Sizes', ...pattern(3) };
-export const ToggleGroupPattern4 = { name: 'Custom spacing', ...pattern(4) };
-export const ToggleGroupPattern5 = { name: 'Filter control', ...pattern(5) };
-export const ToggleGroupPattern6 = { name: 'Vertical orientation', ...pattern(6) };
-export const ToggleGroupPattern7 = { name: 'Text alignment', ...pattern(7) };
-export const ToggleGroupPattern8 = { name: 'View mode switching', ...pattern(8) };
-export const ToggleGroupPattern9 = { name: 'Vertical settings', ...pattern(9) };
-export const ToggleGroupPattern10 = { name: 'Color theme', ...pattern(10) };
-export const ToggleGroupPattern11 = { name: 'Font size', ...pattern(11) };
-export const ToggleGroupPattern12 = { name: 'Time range filter', ...pattern(12) };
-export const ToggleGroupPattern13 = { name: 'Notification channels', ...pattern(13) };
-export const ToggleGroupPattern14 = { name: 'Layout columns', ...pattern(14) };
-export const ToggleGroupPattern15 = { name: 'Sort direction', ...pattern(15) };
-export const ToggleGroupPattern16 = { name: 'Pricing tier', ...pattern(16) };
+export const ToggleGroupPattern2 = {
+  name: 'Group variants, spacing, sizes and orientation',
+  ...pattern(2, 'Default and outline groups, attached (`spacing={0}`) and spaced items, three sizes, and vertical stacks.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const group of canvas.getAllByRole('toolbar', { name: 'Formatting' }).slice(0, 2)) await expect(group).toHaveAttribute('data-orientation', 'horizontal');
+    await expect(canvas.getAllByRole('toolbar', { name: 'Formatting' })[2]).toHaveAttribute('data-orientation', 'vertical');
+  }
+};
+export const ToggleGroupPattern8 = { name: 'Icon and label switchers', ...pattern(8, 'Single-choice switches for alignment, view, columns, theme and sort order.') };
+export const ToggleGroupPattern12 = {
+  name: 'Filters',
+  ...pattern(12, 'Single-choice status and time-range filters, and a multiple-choice channel picker where each item toggles independently.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const channels = within(canvas.getByRole('toolbar', { name: 'Notification channels' }));
+    await userEvent.click(channels.getByRole('button', { name: 'SMS' }));
+    await expect(channels.getByRole('button', { name: 'SMS' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(channels.getByRole('button', { name: 'Email' }));
+    await expect(channels.getByRole('button', { name: 'Email' })).toHaveAttribute('aria-pressed', 'false');
+    await expect(channels.getByRole('button', { name: 'Push' })).toHaveAttribute('aria-pressed', 'true');
+  }
+};

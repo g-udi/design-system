@@ -1,6 +1,6 @@
 # InputOtp
 
-This Gaudi owner includes **input-otp**, with **6 practical examples**.
+This Gaudi owner includes **input-otp**, with **1 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/InputOtp`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

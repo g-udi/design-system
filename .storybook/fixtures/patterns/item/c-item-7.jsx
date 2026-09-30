@@ -1,55 +1,62 @@
+import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
   Item,
   ItemActions,
   ItemContent,
+  ItemGroup,
   ItemMedia,
+  ItemSeparator,
   ItemTitle
 } from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
 import { Kbd } from '../../../../src/components/core/Kbd/parts/kbd.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const commands = [
-  {
-    icon: <RegistryIcon lucide='SearchIcon' />,
-    label: 'Search',
-    shortcut: '\u2318K'
-  },
-  {
-    icon: <RegistryIcon lucide='PlusIcon' />,
-    label: 'New File',
-    shortcut: '\u2318N'
-  },
-  {
-    icon: <RegistryIcon lucide='SaveIcon' />,
-    label: 'Save',
-    shortcut: '\u2318S'
-  },
-  {
-    icon: <RegistryIcon lucide='SettingsIcon' />,
-    label: 'Settings',
-    shortcut: '\u2318,'
-  },
-  {
-    icon: <RegistryIcon lucide='LogOutIcon' />,
-    label: 'Sign Out',
-    shortcut: '\u2318Q'
-  }
+
+// Compact link rows whose trailing slot is a count badge or a keyboard shortcut.
+const folders = [
+  { icon: 'InboxIcon', label: 'Inbox', count: 12 },
+  { icon: 'FileIcon', label: 'Drafts', count: 3 },
+  { icon: 'SendIcon', label: 'Sent' },
+  { icon: 'ArchiveIcon', label: 'Archive' }
 ];
+const commands = [
+  { icon: 'SearchIcon', label: 'Search', shortcut: '⌘K' },
+  { icon: 'PlusIcon', label: 'New message', shortcut: '⌘N' },
+  { icon: 'SettingsIcon', label: 'Settings', shortcut: '⌘,' },
+  { icon: 'LogOutIcon', label: 'Sign out', shortcut: '⌘Q' }
+];
+
+function Row({ icon, label, children }) {
+  return (
+    <Item asChild size='xs'>
+      <a href='#'>
+        <ItemMedia variant='icon'>
+          <RegistryIcon lucide={icon} />
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>{label}</ItemTitle>
+        </ItemContent>
+        {children ? <ItemActions>{children}</ItemActions> : null}
+      </a>
+    </Item>
+  );
+}
+
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-64 flex-col gap-0.5'>
-      {commands.map((cmd) => (
-        <Item key={cmd.label} asChild size='xs'>
-          <a href='#'>
-            <ItemMedia variant='icon'>{cmd.icon}</ItemMedia>
-            <ItemContent>
-              <ItemTitle>{cmd.label}</ItemTitle>
-            </ItemContent>
-            <ItemActions>
-              <Kbd>{cmd.shortcut}</Kbd>
-            </ItemActions>
-          </a>
-        </Item>
-      ))}
+    <div className='mx-auto flex w-full max-w-64 flex-col'>
+      <ItemGroup className='gap-0.5'>
+        {folders.map(({ icon, label, count }) => (
+          <Row key={label} icon={icon} label={label}>
+            {count ? <Badge variant='success-light' size='xs' className='rounded-control'>{count}</Badge> : null}
+          </Row>
+        ))}
+        <ItemSeparator className='my-1' />
+        {commands.map(({ icon, label, shortcut }) => (
+          <Row key={label} icon={icon} label={label}>
+            <Kbd>{shortcut}</Kbd>
+          </Row>
+        ))}
+      </ItemGroup>
     </div>
   );
 }

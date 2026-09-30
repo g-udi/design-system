@@ -28,7 +28,7 @@ export function Pattern() {
             <div className='flex items-center justify-between gap-4'>
               <div className='space-y-0.75'>
                 <Label className='text-sm font-medium'>Essential Cookies</Label>
-                <p className='text-ui-muted-foreground text-xs'>
+                <p className='text-text-muted text-xs'>
                   Required for the website to function properly. Cannot be
                   disabled.
                 </p>
@@ -43,7 +43,7 @@ export function Pattern() {
                 >
                   Analytics Cookies
                 </Label>
-                <p className='text-ui-muted-foreground text-xs'>
+                <p className='text-text-muted text-xs'>
                   Help us understand how visitors interact with our website.
                 </p>
               </div>
@@ -57,7 +57,7 @@ export function Pattern() {
                 >
                   Marketing Cookies
                 </Label>
-                <p className='text-ui-muted-foreground text-xs'>
+                <p className='text-text-muted text-xs'>
                   Used to deliver personalized advertisements and track ad
                   campaign performance.
                 </p>

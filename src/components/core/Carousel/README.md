@@ -1,6 +1,6 @@
 # Carousel
 
-This Gaudi owner includes **carousel**, with **11 practical examples**.
+This Gaudi owner includes **carousel**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Carousel`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

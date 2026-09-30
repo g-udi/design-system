@@ -27,7 +27,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className='h-54 w-full max-w-xs'>
+    <div className='mx-auto h-54 w-full max-w-xs'>
       <Card size='sm'>
         <CardHeader>
           <CardTitle>Unit Pricing</CardTitle>

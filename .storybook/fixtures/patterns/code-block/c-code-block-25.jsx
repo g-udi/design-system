@@ -62,6 +62,7 @@ function AddToChat({ line, onAdd }) {
 export function Pattern() {
   const [refs, setRefs] = useState([]);
   const [highlighted, setHighlighted] = useState(null);
+  const [selected, setSelected] = useState([]);
   const addLines = (lines) =>
     setRefs((current) =>
       [.../* @__PURE__ */ new Set([...current, ...lines])].sort((a, b) => a - b)
@@ -73,13 +74,28 @@ export function Pattern() {
         language='typescript'
         showLineNumbers
         selectable
+        selectedLines={selected}
+        onSelectedLinesChange={setSelected}
         highlightedLines={highlighted === null ? void 0 : [highlighted]}
       >
         <CodeBlockHeader>
           <CodeBlockTitle>{FILE}</CodeBlockTitle>
-          <span className='text-ui-muted-foreground ml-auto text-xs'>
-            Press + on a line to reference it
-          </span>
+          <div className='ml-auto flex items-center gap-1.5'>
+            {selected.length > 0 ? (
+              <>
+                <Badge variant='primary-light'>
+                  {selected.length} selected
+                </Badge>
+                <Button size='xs' variant='ghost' onClick={() => setSelected([])}>
+                  Clear
+                </Button>
+              </>
+            ) : (
+              <span className='text-ui-muted-foreground text-xs'>
+                Click a line, shift-click to extend, + to reference
+              </span>
+            )}
+          </div>
         </CodeBlockHeader>
 
         <CodeBlockLineActions side='gutter'>

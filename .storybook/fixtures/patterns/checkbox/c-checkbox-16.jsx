@@ -90,7 +90,7 @@ export function Pattern() {
     );
   };
   return (
-    <div className='mx-auto flex flex-col gap-3'>
+    <div className='mx-auto flex w-full max-w-xs flex-col gap-3'>
       {data.map((item) => renderItem(item))}
     </div>
   );

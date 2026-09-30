@@ -6,13 +6,17 @@ import {
   AutocompleteItem,
   AutocompleteList
 } from '../../../../src/components/core/Select/parts/autocomplete-extended.jsx';
-export function Pattern() {
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+
+// Free-text search with suggestions. Each field below changes one input option.
+function TagAutocomplete({ id, label, inputProps, ...props }) {
   return (
-    <div className='w-full max-w-xs'>
-      <Autocomplete items={items}>
-        <AutocompleteInput placeholder='Search items' />
+    <div className='flex flex-col gap-2'>
+      <Label htmlFor={id}>{label}</Label>
+      <Autocomplete items={items} {...props}>
+        <AutocompleteInput id={id} placeholder='e.g. feature' {...inputProps} />
         <AutocompleteContent>
-          <AutocompleteEmpty>No items found.</AutocompleteEmpty>
+          <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
           <AutocompleteList>
             {(item) => (
               <AutocompleteItem key={item.id} value={item.value}>
@@ -22,6 +26,21 @@ export function Pattern() {
           </AutocompleteList>
         </AutocompleteContent>
       </Autocomplete>
+    </div>
+  );
+}
+
+export function Pattern() {
+  return (
+    <div className='mx-auto grid w-full max-w-xl gap-3 sm:grid-cols-2'>
+      <TagAutocomplete id='autocomplete-basic' label='Tag' />
+      <TagAutocomplete id='autocomplete-highlight' label='Auto highlight' autoHighlight />
+      <TagAutocomplete id='autocomplete-clear' label='Clear button' defaultValue='Feature' inputProps={{ showClear: true }} />
+      <TagAutocomplete id='autocomplete-trigger' label='Trigger button' inputProps={{ showTrigger: true }} />
+      <TagAutocomplete id='autocomplete-both' label='Clear and trigger' defaultValue='Docs' inputProps={{ showTrigger: true, showClear: true }} />
+      <TagAutocomplete id='autocomplete-disabled' label='Disabled' disabled defaultValue='Bug' />
+      <TagAutocomplete id='autocomplete-sm' label='Small' inputProps={{ size: 'sm', showTrigger: true, showClear: true }} />
+      <TagAutocomplete id='autocomplete-lg' label='Large' inputProps={{ size: 'lg', showTrigger: true, showClear: true }} />
     </div>
   );
 }

@@ -61,19 +61,19 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
             as='button'
             type='button'
             size='xs'
-            className='group/folder-trigger hover:bg-ui-accent data-[state=open]:bg-ui-accent h-8 min-w-0 flex-nowrap rounded-none cursor-pointer py-0.5'
+            className='group/folder-trigger hover:bg-surface-muted data-[state=open]:bg-surface-muted h-8 min-w-0 flex-nowrap rounded-none cursor-pointer py-0.5'
             style={{ paddingLeft: `${level * 12 + 8}px` }}
           >
             <ItemMedia variant='icon'>
               <RegistryIcon
                 lucide='ChevronRightIcon'
                 aria-hidden='true'
-                className='text-ui-muted-foreground size-3 transition-transform group-data-[state=open]/folder-trigger:rotate-90'
+                className='text-text-muted size-3 transition-transform group-data-[state=open]/folder-trigger:rotate-90'
               />
               <RegistryIcon
                 lucide='FolderIcon'
                 aria-hidden='true'
-                className='text-ui-muted-foreground group-hover/item:text-ui-foreground size-3.5'
+                className='text-text-muted group-hover/item:text-text size-3.5'
               />
             </ItemMedia>
             <ItemTitle className='min-w-0 truncate text-sm'>{item.name}</ItemTitle>
@@ -99,7 +99,7 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
   return (
     <Item
       size='xs'
-      className='group/item hover:bg-ui-accent data-[active=true]:bg-ui-accent h-8 min-w-0 flex-nowrap rounded-none py-0.5'
+      className='group/item hover:bg-surface-muted data-[active=true]:bg-accent-subtle h-8 min-w-0 flex-nowrap rounded-none py-0.5'
       data-active={isSelected}
       style={{ paddingLeft: `${level * 12 + 8}px` }}
     >
@@ -107,7 +107,7 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
         <RegistryIcon
           lucide='FileIcon'
           aria-hidden='true'
-          className='text-ui-muted-foreground group-hover/item:text-ui-foreground group-data-[active=true]/item:text-ui-foreground size-3.5'
+          className='text-text-muted group-hover/item:text-text group-data-[active=true]/item:text-text size-3.5'
         />
       </ItemMedia>
       <button
@@ -149,11 +149,11 @@ export function Pattern() {
     explorerRef.current?.focus();
   }
   return (
-    <div className='w-full max-w-72'>
+    <div className='mx-auto w-full max-w-72'>
       <Tabs defaultValue='explorer'>
         <Card size='sm' className='gap-0 rounded-none p-0'>
           <CardHeader className='rounded-none p-0'>
-            <TabsList aria-label='File explorer views' className='bg-ui-accent min-h-8 w-full px-1'>
+            <TabsList aria-label='File explorer views' className='bg-surface-muted min-h-8 w-full px-1'>
               <TabsTrigger ref={explorerRef} value='explorer' className='text-sm'>
                 Explorer
               </TabsTrigger>
@@ -175,13 +175,13 @@ export function Pattern() {
               ))}
             </TabsContent>
             <TabsContent value='outline' className='p-2'>
-              <p className='text-sm text-ui-muted-foreground'>
+              <p className='text-sm text-text-muted'>
                 {selectedId ? `${selectedId} has no symbols in this demo.` : 'Select a file to view its outline.'}
               </p>
             </TabsContent>
           </CardContent>
           {removedFile && (
-            <div className='flex min-w-0 items-center justify-between gap-2 border-t border-ui-border px-2 py-1 text-xs'>
+            <div className='flex min-w-0 items-center justify-between gap-2 border-t border-border px-2 py-1 text-xs'>
               <span role='status' className='min-w-0 truncate'>{removedFile} removed.</span>
               <Button size='xs' variant='subtle' className='shrink-0' onClick={() => {
                 setItems(fileTree);

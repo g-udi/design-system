@@ -17,19 +17,24 @@ import {
   Card,
   CardContent
 } from '../../../../src/components/core/Card/parts/card.jsx';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
+} from '../../../../src/components/core/Dialog/parts/dialog.jsx';
 import { Progress } from '../../../../src/components/core/Progress/parts/progress.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern({
   maxFiles = 5,
-  // Changed to 5 as per UI reference
   maxSize = 10 * 1024 * 1024,
-  // 10MB as per UI reference
   accept = 'image/*',
   className,
   onImagesChange,
   onUploadComplete
 }) {
   const [images, setImages] = useState([]);
+  const [preview, setPreview] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [errors, setErrors] = useState([]);
   const [allImages, setAllImages] = useState([
@@ -238,9 +243,9 @@ export function Pattern({
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
   };
   return (
-    <div className={cn('w-full max-w-4xl', className)}>
+    <div className={cn('mx-auto w-full max-w-2xl', className)}>
       {/* Instructions */}
-      <div className='mb-4 text-center'>
+      <div className='mb-3 text-center'>
         <p className='text-ui-muted-foreground text-sm'>
           Upload up to {maxFiles} images (JPG, PNG, GIF, WebP, max{' '}
           {formatBytes(maxSize)} each). <br />
@@ -250,7 +255,7 @@ export function Pattern({
       </div>
 
       {/* Image Grid with Sortable */}
-      <div className='mb-6'>
+      <div className='mb-3'>
         {/* Combined Images Sortable */}
         <Sortable
           value={allImages.map((item) => item.id)}
@@ -275,14 +280,14 @@ export function Pattern({
           }}
           getItemValue={(item) => item}
           strategy='grid'
-          className='grid auto-rows-fr grid-cols-5 gap-2.5'
+          className='grid auto-rows-fr grid-cols-3 gap-2 sm:grid-cols-5'
         >
           {allImages.map((item) => (
             <SortableItem key={item.id} value={item.id}>
               <div className='bg-ui-accent/50 group/item border-ui-border hover:bg-ui-accent/70 relative flex shrink-0 items-center justify-center rounded-md border shadow-none transition-all duration-200 hover:z-10 data-[dragging=true]:z-50'>
                 <img
                   src={item.src}
-                  className='pointer-events-none h-[120px] w-full rounded-md object-cover'
+                  className='pointer-events-none h-24 w-full rounded-md object-cover'
                   alt={item.alt}
                 />
 
@@ -295,7 +300,7 @@ export function Pattern({
                     aria-label='Reorder'
                     variant='outline'
                     size='icon'
-                    className='size-6 rounded-control dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                    className='size-6 rounded-control'
                   >
                     <RegistryIcon
                       lucide='GripVerticalIcon'
@@ -304,16 +309,27 @@ export function Pattern({
                   </Button>
                 </SortableItemHandle>
 
-                {/* Remove Button Overlay */}
-                <Button
-                  aria-label='Close'
-                  onClick={() => removeImage(item.id)}
-                  variant='outline'
-                  size='icon'
-                  className='absolute end-2 top-2 size-6 rounded-control opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
-                >
-                  <RegistryIcon lucide='XIcon' className='size-3.5' />
-                </Button>
+                {/* Preview and remove buttons */}
+                <div className='absolute end-2 top-2 flex gap-1 opacity-0 group-hover/item:opacity-100 focus-within:opacity-100'>
+                  <Button
+                    aria-label={`Preview ${item.alt}`}
+                    onClick={() => setPreview(item)}
+                    variant='outline'
+                    size='icon'
+                    className='size-6 rounded-control shadow-sm'
+                  >
+                    <RegistryIcon lucide='ZoomInIcon' className='size-3.5' />
+                  </Button>
+                  <Button
+                    aria-label={`Remove ${item.alt}`}
+                    onClick={() => removeImage(item.id)}
+                    variant='outline'
+                    size='icon'
+                    className='size-6 rounded-control shadow-sm'
+                  >
+                    <RegistryIcon lucide='XIcon' className='size-3.5' />
+                  </Button>
+                </div>
               </div>
             </SortableItem>
           ))}
@@ -340,7 +356,7 @@ export function Pattern({
           <h3 className='text-ui-foreground mb-0.5 text-sm font-medium'>
             Choose a file or drag & drop here.
           </h3>
-          <span className='text-ui-secondary-foreground mb-3 block text-xs font-normal'>
+          <span className='text-ui-muted-foreground mb-3 block text-xs font-normal'>
             JPEG, PNG, up to {formatBytes(maxSize)}.
           </span>
           <Button size='sm' onClick={openFileDialog}>
@@ -351,7 +367,7 @@ export function Pattern({
 
       {/* Upload Progress Cards */}
       {images.length > 0 && (
-        <div className='mt-6 space-y-3'>
+        <div className='mt-3 space-y-2'>
           {images.map((imageFile) => (
             <Card key={imageFile.id} className='rounded-md shadow-none'>
               <CardContent className='flex items-center gap-2 p-2.5'>
@@ -362,7 +378,7 @@ export function Pattern({
                   />
                 </div>
                 <div className='flex w-full flex-col gap-1.5'>
-                  <div className='-mt-2 flex w-full items-center justify-between gap-2.5'>
+                  <div className='flex w-full items-center justify-between gap-2'>
                     <div className='flex items-center gap-2.5'>
                       <span className='text-ui-foreground text-xs leading-none font-medium'>
                         {imageFile.file.name}
@@ -377,6 +393,7 @@ export function Pattern({
                       )}
                     </div>
                     <Button
+                      aria-label={`Cancel ${imageFile.file.name}`}
                       onClick={() => removeImage(imageFile.id)}
                       variant='ghost'
                       size='icon'
@@ -388,10 +405,7 @@ export function Pattern({
 
                   <Progress
                     value={imageFile.progress}
-                    className={cn(
-                      'h-1 transition-all duration-300',
-                      '[&>div]:bg-zinc-950 dark:[&>div]:bg-zinc-50'
-                    )}
+                    className='h-1 transition-all duration-300'
                   />
                 </div>
               </CardContent>
@@ -402,7 +416,7 @@ export function Pattern({
 
       {/* Error Messages */}
       {errors.length > 0 && (
-        <Alert variant='destructive' className='mt-5'>
+        <Alert variant='destructive' className='mt-3'>
           <RegistryIcon lucide='CircleAlertIcon' />
           <AlertTitle>File upload error(s)</AlertTitle>
           <AlertDescription>
@@ -414,6 +428,17 @@ export function Pattern({
           </AlertDescription>
         </Alert>
       )}
+      {/* Image preview */}
+      <Dialog open={!!preview} onOpenChange={(open) => !open && setPreview(null)}>
+        <DialogContent className='sm:max-w-xl'>
+          <DialogHeader>
+            <DialogTitle>{preview?.alt}</DialogTitle>
+          </DialogHeader>
+          {preview && (
+            <img src={preview.src} alt={preview.alt} className='max-h-96 w-full rounded-lg object-contain' />
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

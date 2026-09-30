@@ -7,7 +7,10 @@ import {
   DialogTitle,
   DialogTrigger
 } from '../../../../src/components/core/Dialog/parts/dialog.jsx';
-import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import {
+  Field,
+  FieldLabel
+} from '../../../../src/components/core/Field/parts/field.jsx';
 import {
   Select,
   SelectContent,
@@ -16,35 +19,34 @@ import {
   SelectTrigger,
   SelectValue
 } from '../../../../src/components/core/Select/parts/select.jsx';
-const items = [
-  { label: 'Select a fruit', value: null },
-  { label: 'Apple', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Blueberry', value: 'blueberry' },
-  { label: 'Grapes', value: 'grapes' },
-  { label: 'Pineapple', value: 'pineapple' }
+
+const roles = [
+  { label: 'Viewer', value: 'viewer' },
+  { label: 'Editor', value: 'editor' },
+  { label: 'Admin', value: 'admin' }
 ];
+
+// The popup layers above the dialog and stays inside its focus trap.
 export function Pattern() {
   return (
-    <Field className='max-w-xs'>
-      <Dialog>
-        <DialogTrigger asChild>
-          <Button>Open Dialog</Button>
-        </DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Select Example</DialogTitle>
-            <DialogDescription>
-              Use the select below to choose a fruit.
-            </DialogDescription>
-          </DialogHeader>
-          <Select>
-            <SelectTrigger aria-label='Select a fruit' className='w-full'>
-              <SelectValue placeholder='Select a fruit' />
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Invite member</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Invite member</DialogTitle>
+          <DialogDescription>Choose the role they join with.</DialogDescription>
+        </DialogHeader>
+        <Field>
+          <FieldLabel htmlFor='select-dialog-role'>Role</FieldLabel>
+          <Select defaultValue='editor'>
+            <SelectTrigger id='select-dialog-role' className='w-full'>
+              <SelectValue />
             </SelectTrigger>
             <SelectContent position='popper'>
               <SelectGroup>
-                {items.map((item) => (
+                {roles.map((item) => (
                   <SelectItem key={item.value} value={item.value}>
                     {item.label}
                   </SelectItem>
@@ -52,8 +54,8 @@ export function Pattern() {
               </SelectGroup>
             </SelectContent>
           </Select>
-        </DialogContent>
-      </Dialog>
-    </Field>
+        </Field>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -1,6 +1,6 @@
 # Table
 
-This Gaudi owner includes **table**, with **17 practical examples**.
+This Gaudi owner includes **table**, with **7 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/mdx/Table`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

@@ -2,171 +2,73 @@
 import { useState } from 'react';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
+  Frame,
+  FrameDescription,
+  FrameHeader,
+  FramePanel,
+  FrameTitle
+} from '../../../../src/components/core/Card/parts/frame-extended.jsx';
+import {
   Sortable,
   SortableItem,
   SortableItemHandle
 } from '../../../../src/components/core/Sortable/parts/sortable-extended.jsx';
-import { toast } from 'sonner';
 import { cn } from '../../../../src/utilities/cn/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const defaultGridItems = [
-  {
-    id: '1',
-    title: 'Hero Image',
-    description: 'Main banner image',
-    type: 'image',
-    size: '2.4 MB',
-    priority: 'high'
-  },
-  {
-    id: '2',
-    title: 'Product Specs',
-    description: 'Technical documentation',
-    type: 'document',
-    size: '1.2 MB',
-    priority: 'medium'
-  },
-  {
-    id: '3',
-    title: 'Demo Video',
-    description: 'Product demonstration',
-    type: 'video',
-    size: '15.7 MB',
-    priority: 'high'
-  },
-  {
-    id: '4',
-    title: 'Audio Guide',
-    description: 'Voice instructions',
-    type: 'audio',
-    size: '8.3 MB',
-    priority: 'low'
-  },
-  {
-    id: '5',
-    title: 'Gallery Photo 1',
-    description: 'Product view 1',
-    type: 'image',
-    size: '3.1 MB',
-    priority: 'medium'
-  },
-  {
-    id: '6',
-    title: 'Gallery Photo 2',
-    description: 'Product view 2',
-    type: 'image',
-    size: '2.8 MB',
-    priority: 'medium'
-  },
-  {
-    id: '7',
-    title: 'User Manual',
-    description: 'Installation guide',
-    type: 'document',
-    size: '4.2 MB',
-    priority: 'high'
-  },
-  {
-    id: '8',
-    title: 'Background Music',
-    description: 'Ambient soundtrack',
-    type: 'audio',
-    size: '12.1 MB',
-    priority: 'low'
-  },
-  {
-    id: '9',
-    title: 'Feature Highlight',
-    description: 'Key product features',
-    type: 'featured',
-    size: 'N/A',
-    priority: 'high'
-  }
+
+// A media library on the grid strategy. The featured tile spans two cells, and
+// each handle appears on hover so the thumbnails stay clean.
+const defaultImages = [
+  { id: '1', name: 'hero-banner.jpg', dimensions: '1920×1080', size: '2.4 MB', featured: true },
+  { id: '2', name: 'product-shot.png', dimensions: '800×600', size: '1.8 MB' },
+  { id: '3', name: 'team-photo.jpg', dimensions: '1200×800', size: '3.2 MB' },
+  { id: '4', name: 'logo-dark.svg', dimensions: '240×60', size: '12 KB' },
+  { id: '5', name: 'og-image.png', dimensions: '1200×630', size: '890 KB' },
+  { id: '6', name: 'detail-shot.jpg', dimensions: '1024×1024', size: '1.1 MB' },
+  { id: '7', name: 'lifestyle.jpg', dimensions: '1600×900', size: '2.9 MB' }
 ];
-const getTypeColor = (type) => {
-  switch (type) {
-    case 'image':
-      return 'primary-light';
-    case 'document':
-      return 'success-light';
-    case 'audio':
-      return 'destructive-light';
-    case 'video':
-      return 'info-light';
-    case 'featured':
-      return 'warning-light';
-  }
-};
-const getItemSize = (type) => {
-  switch (type) {
-    case 'featured':
-      return 'col-span-2 row-span-2';
-    case 'image':
-    case 'video':
-      return 'col-span-1 row-span-1';
-    case 'document':
-    case 'audio':
-      return 'col-span-1 row-span-1';
-    default:
-      return 'col-span-1 row-span-1';
-  }
-};
+
 export function Pattern() {
-  const [items, setItems] = useState(defaultGridItems);
-  const handleValueChange = (newItems) => {
-    setItems(newItems);
-    toast.success('Grid items reordered successfully!', {
-      description: `New order: ${newItems.map((item, index) => `${index + 1}. ${item.title}`).join(', ')}`
-    });
-  };
-  const getItemValue = (item) => item.id;
+  const [images, setImages] = useState(defaultImages);
   return (
-    <div className='mx-auto w-full max-w-2xl space-y-4'>
-      <Sortable
-        value={items}
-        onValueChange={handleValueChange}
-        getItemValue={getItemValue}
-        strategy='grid'
-        className='grid auto-rows-fr grid-cols-3 gap-3'
-      >
-        {items.map((item) => (
-          <SortableItem key={item.id} value={item.id}>
-            <div
-              className={cn(
-                'group bg-ui-background border-ui-border hover:bg-ui-accent/50 rounded-md relative cursor-pointer border p-3 transition-colors',
-                getItemSize(item.type),
-                'flex min-h-[100px] flex-col'
-              )}
-              onClick={() => {}}
-            >
-              <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground absolute end-1.5 top-2.5 z-10 opacity-0 transition-opacity group-hover:opacity-100'>
-                <RegistryIcon
-                  lucide='GripVerticalIcon'
-                  className='h-3.5 w-3.5'
-                />
-              </SortableItemHandle>
-
-              <div className='min-w-0 flex-1'>
-                <h4 className='truncate text-sm font-medium'>{item.title}</h4>
-                <p className='text-ui-muted-foreground mt-0.5 truncate text-xs'>
-                  {item.description}
-                </p>
-              </div>
-
-              <div className='mt-2 flex items-center justify-between'>
-                <Badge variant={getTypeColor(item.type)} size='sm'>
-                  {item.type}
-                </Badge>
-                {item.type !== 'featured' && (
-                  <span className='text-ui-muted-foreground text-xs'>
-                    {item.size}
-                  </span>
-                )}
-              </div>
-            </div>
-          </SortableItem>
-        ))}
-      </Sortable>
+    <div className='mx-auto w-full max-w-lg'>
+      <Frame spacing='xs'>
+        <FrameHeader>
+          <FrameTitle>Media library</FrameTitle>
+          <FrameDescription>Drag to set the display order</FrameDescription>
+        </FrameHeader>
+        <FramePanel className='p-2!'>
+          <Sortable
+            value={images}
+            onValueChange={setImages}
+            getItemValue={(item) => item.id}
+            strategy='grid'
+            className='grid grid-cols-3 gap-2'
+          >
+            {images.map((image, index) => (
+              <SortableItem key={image.id} value={image.id} className={cn(image.featured && 'col-span-2 row-span-2')}>
+                <figure className='group relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>
+                  <img
+                    src={`static/images/art/${index % 12}.svg`}
+                    alt={image.name}
+                    className={cn('w-full rounded-md object-cover', image.featured ? 'h-44' : 'h-16')}
+                  />
+                  <SortableItemHandle className='absolute top-2.5 end-2.5 rounded-md bg-ui-background/90 p-0.5 text-ui-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-ui-foreground focus-visible:opacity-100'>
+                    <RegistryIcon lucide='GripVerticalIcon' className='size-3.5' />
+                  </SortableItemHandle>
+                  <figcaption className='min-w-0 px-0.5'>
+                    <p className='flex items-center gap-1.5 text-xs font-medium'>
+                      <span className='truncate'>{image.name}</span>
+                      {image.featured && <Badge variant='warning-light' size='xs'>Featured</Badge>}
+                    </p>
+                    <p className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} · {image.size}</p>
+                  </figcaption>
+                </figure>
+              </SortableItem>
+            ))}
+          </Sortable>
+        </FramePanel>
+      </Frame>
     </div>
   );
 }

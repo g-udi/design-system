@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Popover,
@@ -7,96 +8,87 @@ import {
   PopoverTrigger
 } from '../../../../src/components/core/Popover/parts/popover.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const steps = [
+const releases = [
   {
-    title: 'Invite Your Team',
+    version: 'v3.2.0',
+    date: 'Feb 5, 2026',
+    tag: 'Latest',
+    tone: 'success',
     description:
-      'Add team members by email to collaborate on projects in real time. Assign roles and manage permissions from the team settings.'
+      'Real-time collaboration cursors, a faster markdown editor, and fixed PDF export layouts.'
   },
   {
-    title: 'Create a Project',
+    version: 'v3.1.4',
+    date: 'Jan 22, 2026',
+    tag: 'Patch',
+    tone: 'destructive',
     description:
-      'Set up your first project with a name, description, and timeline. Choose from templates or start from scratch.'
+      'Fixed a memory leak in dashboard widgets and patched a file upload vulnerability.'
   },
   {
-    title: 'Connect Integrations',
+    version: 'v3.1.0',
+    date: 'Jan 10, 2026',
+    tag: 'Minor',
+    tone: 'info',
     description:
-      'Link tools like GitHub, Slack, and Figma to streamline your workflow and keep everything in sync.'
+      'A rate limiting dashboard, webhook retry settings, and new audit log filters.'
   },
   {
-    title: 'Set Up Notifications',
+    version: 'v3.0.0',
+    date: 'Dec 15, 2025',
+    tag: 'Major',
+    tone: 'warning',
     description:
-      'Customize which events trigger alerts \u2014 mentions, due dates, status changes, and deployment updates.'
+      'A redesigned interface, the edge runtime, and multi-tenant workspaces.'
   }
 ];
 export function Pattern() {
-  const [currentStep, setCurrentStep] = useState(0);
-  const handleNext = () => {
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-  const handlePrev = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-  const isFirst = currentStep === 0;
-  const isLast = currentStep === steps.length - 1;
+  const [current, setCurrent] = useState(0);
+  const release = releases[current];
   return (
-    <div className='flex min-h-[100px] items-center justify-center'>
+    <div className='flex items-center justify-center'>
       <Popover>
         <PopoverTrigger asChild>
           <Button variant='outline'>
-            <RegistryIcon lucide='CompassIcon' aria-hidden='true' />
-            Feature Tour
+            <RegistryIcon lucide='SparklesIcon' aria-hidden='true' />
+            What&apos;s new
           </Button>
         </PopoverTrigger>
-        <PopoverContent
-          className='w-72 gap-2 px-3 pt-3 pb-2'
-          side='top'
-          sideOffset={8}
-        >
-          <div className='space-y-2'>
-            <p className='leading-tight font-medium'>
-              {steps[currentStep].title}
-            </p>
-            <p className='text-ui-muted-foreground'>
-              {steps[currentStep].description}
-            </p>
+        <PopoverContent className='w-72 gap-2 px-3 pt-3 pb-2' sideOffset={8}>
+          <div className='flex items-center justify-between gap-2'>
+            <div className='flex items-center gap-2'>
+              <span className='font-semibold'>{release.version}</span>
+              <Badge variant={release.tone} size='xs'>
+                {release.tag}
+              </Badge>
+            </div>
+            <span className='text-text-muted'>{release.date}</span>
           </div>
+          <p className='text-text-muted'>{release.description}</p>
           <div className='flex items-center justify-between'>
-            <span className='text-ui-muted-foreground'>
-              {currentStep + 1} of {steps.length}
+            <span className='text-text-muted tabular-nums' aria-live='polite'>
+              {current + 1} of {releases.length}
             </span>
             <div className='flex gap-0.5'>
               <Button
-                aria-label='Previous step'
+                aria-label='Previous release'
                 className='size-6'
-                disabled={isFirst}
-                onClick={handlePrev}
+                disabled={current === 0}
+                onClick={() => setCurrent(current - 1)}
                 size='icon'
                 variant='ghost'
               >
-                <RegistryIcon
-                  lucide='ArrowLeftIcon'
-                  className='size-3.5'
-                  aria-hidden='true'
-                />
+                <RegistryIcon lucide='ArrowLeftIcon' className='size-3.5' aria-hidden='true' />
               </Button>
               <Button
-                aria-label='Next step'
+                aria-label='Next release'
                 className='size-6'
-                disabled={isLast}
-                onClick={handleNext}
+                disabled={current === releases.length - 1}
+                onClick={() => setCurrent(current + 1)}
                 size='icon'
                 variant='ghost'
               >
-                <RegistryIcon
-                  lucide='ArrowRightIcon'
-                  className='size-3.5'
-                  aria-hidden='true'
-                />
+                <RegistryIcon lucide='ArrowRightIcon' className='size-3.5' aria-hidden='true' />
               </Button>
             </div>
           </div>

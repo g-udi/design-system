@@ -61,12 +61,12 @@ export function Pattern() {
           <Field orientation='horizontal'>
             <FieldContent>
               <FieldTitle className='flex items-start gap-2'>
-                <div className='bg-ui-background border-ui-border flex shrink-0 items-center justify-center rounded-md border p-1.5 shadow-xs shadow-black/5'>
+                <div className='bg-surface border-border flex shrink-0 items-center justify-center rounded-md border p-1.5 shadow-xs shadow-black/5'>
                   {feature.icon}
                 </div>
                 <div className='flex flex-col items-start gap-0.5'>
                   <span className='text-sm font-semibold'>{feature.title}</span>
-                  <span className='text-ui-muted-foreground text-xs'>
+                  <span className='text-text-muted text-xs'>
                     {feature.description}
                   </span>
                 </div>

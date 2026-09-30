@@ -19,17 +19,22 @@ const chartData = [
   { name: 'desktop', score: 76, fill: 'url(#chart28-desktop)' },
   { name: 'api', score: 92, fill: 'url(#chart28-api)' }
 ];
+// Bars use gradient fills, so legend swatches read the solid series colour instead.
+const swatch = (key) => {
+  const Swatch = () => <span className='size-2 shrink-0 rounded-sm' style={{ backgroundColor: `var(--color-${key})` }} />;
+  return Swatch;
+};
 const chartConfig = {
   score: { label: 'Score' },
-  mobile: { label: 'Mobile', color: 'var(--chart-4)' },
-  desktop: { label: 'Desktop', color: 'var(--chart-2)' },
-  api: { label: 'API', color: 'var(--chart-1)' }
+  mobile: { icon: swatch('mobile'), label: 'Mobile', color: 'var(--chart-4)' },
+  desktop: { icon: swatch('desktop'), label: 'Desktop', color: 'var(--chart-2)' },
+  api: { icon: swatch('api'), label: 'API', color: 'var(--chart-1)' }
 };
 export function Pattern() {
   return (
-    <Card className='w-full max-w-xs'>
+    <Card className='mx-auto w-full max-w-xs'>
       <CardHeader className='items-center pb-0'>
-        <CardTitle>Lighthouse Scores</CardTitle>
+        <CardTitle>Lighthouse scores</CardTitle>
         <CardDescription>Performance audit by platform</CardDescription>
       </CardHeader>
       <CardContent className='flex-1 pb-0'>
@@ -90,11 +95,11 @@ export function Pattern() {
                             '--color-bg': `var(--color-${name})`
                           }}
                         />
-                        <span className='text-ui-muted-foreground'>
+                        <span className='text-text-muted'>
                           {chartConfig[name]?.label || name}
                         </span>
                       </div>
-                      <span className='text-ui-foreground font-semibold tabular-nums'>
+                      <span className='text-text font-semibold tabular-nums'>
                         {Number(value)}/100
                       </span>
                     </div>

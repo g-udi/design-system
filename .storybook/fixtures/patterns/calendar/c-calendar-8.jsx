@@ -1,10 +1,9 @@
 'use client';
 import { useState } from 'react';
+import { addDays } from 'date-fns';
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+import { Card, CardContent } from '../../../../src/components/core/Card/parts/card.jsx';
 import { Calendar } from '../../../../src/components/core/Calendar/parts/calendar.jsx';
-import {
-  Card,
-  CardContent
-} from '../../../../src/components/core/Card/parts/card.jsx';
 import {
   Select,
   SelectContent,
@@ -12,77 +11,128 @@ import {
   SelectTrigger,
   SelectValue
 } from '../../../../src/components/core/Select/parts/select.jsx';
-export function Pattern() {
-  const [date, setDate] = useState(/* @__PURE__ */ new Date());
-  const handleCalendarChange = (_value, _e) => {
-    const _event = {
-      target: {
-        value: String(_value)
-      }
-    };
-    _e(_event);
-  };
+import {
+  ToggleGroup,
+  ToggleGroupItem
+} from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
+
+// react-day-picker hands each dropdown an onChange that expects a change event.
+function CaptionSelect({ label, value, options, onChange }) {
   return (
-    <Card className='p-0'>
-      <CardContent className='p-0'>
-        <Calendar
-          captionLayout='dropdown'
-          classNames={{
-            month_caption: 'mx-0'
-          }}
-          components={{
-            Dropdown: (props) => {
-              return (
-                <Select
-                  onValueChange={(value) => {
-                    if (props.onChange && value !== null) {
-                      handleCalendarChange(value, props.onChange);
-                    }
-                  }}
-                  value={String(props.value)}
-                >
-                  <SelectTrigger
-                    aria-label='Choose an option'
-                    className='first:grow'
-                  >
-                    <SelectValue>
-                      {
-                        props.options?.find(
-                          (option) => option.value === props.value
-                        )?.label
-                      }
-                    </SelectValue>
-                  </SelectTrigger>
-                  <SelectContent align='start'>
-                    {props.options?.map((option) => (
-                      <SelectItem
-                        disabled={option.disabled}
-                        key={option.value}
-                        value={String(option.value)}
-                      >
-                        {option.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              );
-            },
-            DropdownNav: (props) => {
-              return (
-                <div className='flex w-full items-center gap-2'>
-                  {props.children}
-                </div>
-              );
-            }
-          }}
-          defaultMonth={/* @__PURE__ */ new Date()}
-          hideNavigation
-          mode='single'
-          onSelect={setDate}
-          selected={date}
-          startMonth={new Date(1980, 6)}
-        />
-      </CardContent>
-    </Card>
+    <Select
+      value={String(value)}
+      onValueChange={(next) => next != null && onChange?.({ target: { value: String(next) } })}
+    >
+      <SelectTrigger size='sm' aria-label={label}>
+        <SelectValue>{options?.find((option) => option.value === value)?.label}</SelectValue>
+      </SelectTrigger>
+      <SelectContent align='start'>
+        {options?.map((option) => (
+          <SelectItem key={option.value} value={String(option.value)} disabled={option.disabled}>
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
+
+const layouts = {
+  centered: { label: 'Centered' },
+  end: {
+    label: 'Arrows at end',
+    props: {
+      classNames: {
+        month_caption: 'ms-2.5 justify-start',
+        nav: 'absolute inset-x-0 top-0 flex w-full items-center justify-end'
+      }
+    }
+  },
+  dropdowns: {
+    label: 'Month and year',
+    props: {
+      captionLayout: 'dropdown',
+      hideNavigation: true,
+      components: {
+        MonthsDropdown: (props) => <CaptionSelect label='Month' {...props} />,
+        YearsDropdown: (props) => <CaptionSelect label='Year' {...props} />,
+        DropdownNav: ({ children }) => (
+          <div className='flex w-full items-center gap-2 [&>*]:flex-1'>{children}</div>
+        )
+      }
+    }
+  },
+  year: {
+    label: 'Year',
+    props: {
+      captionLayout: 'dropdown-years',
+      classNames: {
+        nav: 'pointer-events-none absolute inset-x-0 top-0 flex w-full items-center justify-between [&>button]:pointer-events-auto'
+      },
+      components: {
+        YearsDropdown: (props) => <CaptionSelect label='Year' {...props} />,
+        DropdownNav: ({ children }) => (
+          <div className='flex items-center justify-center gap-2 text-sm font-medium'>
+            {children}
+          </div>
+        )
+      }
+    }
+  }
+};
+
+export function Pattern() {
+  const today = new Date();
+  const [layout, setLayout] = useState('dropdowns');
+  const [date, setDate] = useState(addDays(today, -40));
+  const [month, setMonth] = useState(date);
+  return (
+    <div className='mx-auto flex w-fit max-w-full flex-col gap-3'>
+      <ToggleGroup
+        type='single'
+        variant='outline'
+        size='sm'
+        spacing={0}
+        value={layout}
+        onValueChange={(value) => value && setLayout(value)}
+        aria-label='Caption layout'
+      >
+        {Object.entries(layouts).map(([value, item]) => (
+          <ToggleGroupItem key={value} value={value}>
+            {item.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+      <Card className='w-fit gap-0 p-0'>
+        <CardContent className='flex flex-col gap-2 p-0 pb-2'>
+          <Calendar
+            key={layout}
+            mode='single'
+            selected={date}
+            onSelect={setDate}
+            month={month}
+            onMonthChange={setMonth}
+            startMonth={new Date(1980, 0)}
+            endMonth={new Date(today.getFullYear() + 5, 11)}
+            {...layouts[layout].props}
+          />
+          <div className='flex gap-2 px-2'>
+            <Button size='sm' variant='outline' onClick={() => setMonth(today)}>
+              This month
+            </Button>
+            <Button
+              size='sm'
+              variant='outline'
+              onClick={() => {
+                setDate(today);
+                setMonth(today);
+              }}
+            >
+              Today
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

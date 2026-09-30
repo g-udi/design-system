@@ -1,6 +1,6 @@
 # Message
 
-This Gaudi owner includes **bubble**, **message**, **message-scroller**, with **20 practical examples**.
+This Gaudi owner includes **bubble**, **message**, **message-scroller**, with **11 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Message`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

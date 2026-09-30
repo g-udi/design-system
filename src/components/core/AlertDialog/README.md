@@ -2,7 +2,7 @@
 
 AlertDialog is now the confirmation variant of [Dialog](../Dialog/README.md). Existing imports remain compatible. Use `Dialog` for new code.
 
-[Open the Dialog Docs page](http://localhost:6007/?path=/docs/core-dialog--docs) for all 39 examples, including the 17 confirmation workflows and patterns.
+[Open the Dialog Docs page](http://localhost:6007/?path=/docs/core-dialog--docs) for every dialog, sheet, drawer and confirmation example.
 
 ## Usage
 

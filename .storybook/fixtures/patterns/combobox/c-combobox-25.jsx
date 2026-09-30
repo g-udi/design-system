@@ -63,8 +63,8 @@ function DateTriggerLabel({ value, placeholder }) {
   if (!value) {
     return (
       <span className='flex min-w-0 items-center gap-2'>
-        <CalendarGlyph className='text-ui-muted-foreground' />
-        <span className='text-ui-muted-foreground truncate'>{placeholder}</span>
+        <CalendarGlyph className='text-text-muted' />
+        <span className='text-text-muted truncate'>{placeholder}</span>
       </span>
     );
   }
@@ -72,7 +72,7 @@ function DateTriggerLabel({ value, placeholder }) {
     value.type === 'custom' ? format(value.date, 'MMM d') : value.label;
   return (
     <span className='flex min-w-0 items-center gap-2'>
-      <CalendarGlyph className='text-ui-muted-foreground' />
+      <CalendarGlyph className='text-text-muted' />
       <span className='truncate'>{displayLabel}</span>
     </span>
   );
@@ -81,7 +81,7 @@ function DateOptionRow({ option }) {
   if (option.type === 'none') {
     return (
       <span className='flex min-w-0 items-center gap-2'>
-        <CalendarGlyph className='text-ui-muted-foreground' />
+        <CalendarGlyph className='text-text-muted' />
         <span className='truncate'>{option.label}</span>
       </span>
     );
@@ -89,7 +89,7 @@ function DateOptionRow({ option }) {
   if (option.type === 'custom') {
     return (
       <span className='flex min-w-0 items-center gap-2'>
-        <CalendarSearchGlyph className='text-ui-muted-foreground' />
+        <CalendarSearchGlyph className='text-text-muted' />
         <span className='truncate'>{option.label}</span>
       </span>
     );
@@ -97,10 +97,10 @@ function DateOptionRow({ option }) {
   return (
     <span className='flex w-full min-w-0 items-center justify-between gap-3'>
       <span className='flex min-w-0 items-center gap-2'>
-        <CalendarGlyph className='text-ui-muted-foreground' />
+        <CalendarGlyph className='text-text-muted' />
         <span className='truncate'>{option.label}</span>
       </span>
-      <span className='text-ui-muted-foreground shrink-0 text-sm tabular-nums'>
+      <span className='text-text-muted shrink-0 text-sm tabular-nums'>
         {format(option.date, 'dd/MM/yyyy')}
       </span>
     </span>
@@ -219,6 +219,7 @@ function DateSelectionCombobox({ value, onValueChange }) {
             <Button
               type='button'
               variant='outline'
+              tone='neutral'
               className='w-full justify-between font-normal'
             />
           }

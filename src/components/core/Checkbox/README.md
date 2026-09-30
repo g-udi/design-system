@@ -1,6 +1,6 @@
 # Checkbox
 
-This Gaudi owner includes **checkbox**, with **22 practical examples**.
+This Gaudi owner includes **checkbox**, with **6 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Checkbox`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

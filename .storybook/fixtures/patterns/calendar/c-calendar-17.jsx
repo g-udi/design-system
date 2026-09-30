@@ -18,7 +18,7 @@ export function Pattern() {
       selected={date}
       onSelect={setDate}
       showOutsideDays={false}
-      className='rounded-lg border [--cell-size:clamp(2rem,6vw,3rem)]'
+      className='mx-auto rounded-lg border border-border [--cell-size:clamp(2rem,6vw,3rem)]'
       components={{
         DayButton: ({ children, modifiers, day, ...props }) => {
           const price = getPriceForDate(day.date);
@@ -30,7 +30,7 @@ export function Pattern() {
                 <span
                   className={
                     isGreen && !modifiers.selected
-                      ? 'text-green-700 dark:text-green-400'
+                      ? 'text-ui-success-ink'
                       : ''
                   }
                 >

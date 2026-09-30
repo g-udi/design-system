@@ -29,7 +29,7 @@ export function Pattern() {
         <div className='flex items-center justify-between'>
           <FieldLabel htmlFor='auto-resize-textarea'>Bio</FieldLabel>
           <span
-            className={`text-xs tabular-nums ${isAtLimit ? 'text-ui-destructive font-semibold' : isNearLimit ? 'text-warning' : 'text-ui-muted-foreground'}`}
+            className={`text-xs tabular-nums ${isAtLimit ? 'text-danger font-semibold' : isNearLimit ? 'text-warning' : 'text-text-muted'}`}
           >
             {value.length}/{MAX_CHARS}
           </span>

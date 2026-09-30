@@ -1,6 +1,6 @@
 # Sortable
 
-This Gaudi owner includes **sortable**, with **8 practical examples**.
+This Gaudi owner includes **sortable**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Sortable`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

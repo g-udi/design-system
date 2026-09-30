@@ -9,7 +9,7 @@ const pattern = patternStories(
 
 export default { title: 'Core/Attachment', tags: ['autodocs'], ...catalogueMeta('attachment') };
 
-export const AttachmentPattern1 = { name: 'Single file in an assistant reply', ...pattern(1) };
+export const AttachmentPattern4 = { name: 'Files in an assistant reply', ...pattern(4, 'The default, `sm` and `xs` sizes as the deliverable, working files and cited snippets of one reply, with a download action.') };
 export const AttachmentPattern2 = {
   name: 'Composer tray with removable files',
   ...pattern(2),
@@ -22,7 +22,5 @@ export const AttachmentPattern2 = {
     await expect(within(tray).getByText('pricing-tiers-v4.xlsx')).toBeVisible();
   }
 };
-export const AttachmentPattern3 = { name: 'Image thumbnail strip', ...pattern(3) };
-export const AttachmentPattern4 = { name: 'Three sizes', ...pattern(4) };
-export const AttachmentPattern5 = { name: 'Upload queue in every state', ...pattern(5) };
-export const AttachmentPattern6 = { name: 'File picker that fills a tray', ...pattern(6) };
+export const AttachmentPattern6 = { name: 'File picker that fills a tray', ...pattern(6, 'An idle attachment acts as the picker, and each chosen file lands below it with a preview.') };
+export const AttachmentPattern3 = { name: 'Image thumbnail strip', ...pattern(3, 'Vertical image cards scroll in a strip, and a full-card trigger selects one.') };

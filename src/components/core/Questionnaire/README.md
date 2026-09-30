@@ -1,6 +1,6 @@
 # Questionnaire
 
-This Gaudi owner includes **questionnaire**, with **7 practical examples**.
+This Gaudi owner includes **questionnaire**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Questionnaire`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

@@ -120,8 +120,9 @@ const accounts = [
           {
             value: 'travel.airfare.changes',
             label: 'Change fees',
-            description: '$1,180',
-            data: { code: '6113' }
+            description: 'Closed to new spend',
+            data: { code: '6113' },
+            disabled: true
           }
         ]
       },

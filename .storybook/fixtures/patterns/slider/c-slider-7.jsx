@@ -24,7 +24,7 @@ export function Pattern() {
             max={100}
             className='h-8 w-16 text-center text-sm tabular-nums'
           />
-          <span className='text-ui-muted-foreground text-xs'>%</span>
+          <span className='text-text-muted text-xs'>%</span>
         </div>
       </div>
       <Slider

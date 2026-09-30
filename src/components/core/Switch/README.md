@@ -1,6 +1,6 @@
 # Switch
 
-This Gaudi owner includes **switch**, with **14 practical examples**.
+This Gaudi owner includes **switch**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Switch`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

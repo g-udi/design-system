@@ -1,6 +1,6 @@
 # Chart
 
-This Gaudi owner includes **chart**, with **25 practical examples**.
+This Gaudi owner includes **chart**, with **7 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/mdx/Chart`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

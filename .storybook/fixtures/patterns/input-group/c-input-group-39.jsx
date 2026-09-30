@@ -32,7 +32,7 @@ export function Pattern() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState([]);
   return (
-    <Field className='max-w-sm'>
+    <Field className='mx-auto w-full max-w-sm'>
       <InputGroup>
         <InputGroupAddon align='inline-start'>
           <RegistryIcon lucide='SearchIcon' aria-hidden='true' />
@@ -70,13 +70,12 @@ export function Pattern() {
                   className='size-3.5'
                   aria-hidden='true'
                 />
+                Status
                 {selectedStatuses.length > 0 ? (
-                  <span className='tabular-nums'>
+                  <span className='tabular-nums text-text-muted'>
                     {selectedStatuses.length}
                   </span>
-                ) : (
-                  'Status'
-                )}
+                ) : null}
               </InputGroupButton>
             </PopoverTrigger>
             <PopoverContent align='end' className='w-44 p-3'>
@@ -99,7 +98,7 @@ export function Pattern() {
                       className='flex grow items-center justify-between gap-1.5 font-normal'
                     >
                       {status}
-                      <span className='text-ui-muted-foreground text-xs'>
+                      <span className='text-text-muted text-xs'>
                         {statusCounts[status]}
                       </span>
                     </Label>

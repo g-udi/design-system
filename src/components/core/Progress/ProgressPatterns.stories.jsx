@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -8,11 +9,17 @@ const pattern = patternStories(
 
 export default { title: 'Core/Progress', tags: ['autodocs'], ...catalogueMeta('progress') };
 
-export const ProgressPattern1 = { name: 'Basic', ...pattern(1) };
-export const ProgressPattern2 = { name: 'Small', ...pattern(2) };
-export const ProgressPattern3 = { name: 'Large', ...pattern(3) };
+export const ProgressPattern1 = {
+  name: 'Sizes and colors',
+  ...pattern(1, 'A slider drives every bar: three heights and indicator colors from the semantic tones or a custom class.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const thumb = canvas.getByRole('slider', { name: 'Progress value' });
+    thumb.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(canvas.getByRole('progressbar', { name: 'Large progress' })).toHaveAttribute('aria-valuenow', '57');
+  }
+};
 export const ProgressPattern4 = { name: 'Status messages', ...pattern(4) };
 export const ProgressPattern5 = { name: 'File upload list', ...pattern(5) };
-export const ProgressPattern6 = { name: 'Driven by a slider', ...pattern(6) };
 export const ProgressPattern7 = { name: 'Multi-step', ...pattern(7) };
-export const ProgressPattern8 = { name: 'Custom colors', ...pattern(8) };

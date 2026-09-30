@@ -59,7 +59,7 @@ export function Pattern() {
                     items={group.items}
                     className='py-0'
                   >
-                    <AutocompleteGroupLabel className='bg-ui-background text-ui-muted-foreground sticky top-0 z-10 me-1.5 py-2.5 text-xs font-medium'>
+                    <AutocompleteGroupLabel className='bg-surface text-text-muted sticky top-0 z-10 me-1.5 py-2.5 text-xs font-medium'>
                       {group.group}
                     </AutocompleteGroupLabel>
                     <AutocompleteCollection>
@@ -69,7 +69,7 @@ export function Pattern() {
                           value={item}
                           className='flex items-center gap-2.5 rounded-lg'
                         >
-                          <Avatar className='size-9'>
+                          <Avatar className='size-7'>
                             <AvatarImage
                               src={item.avatar}
                               alt={item.name || 'User'}
@@ -85,7 +85,7 @@ export function Pattern() {
                             <div className='truncate font-medium'>
                               {item.name || 'Unknown'}
                             </div>
-                            <div className='text-ui-muted-foreground truncate text-sm'>
+                            <div className='text-text-muted truncate text-xs'>
                               {item.position || 'No position available'}
                             </div>
                           </div>

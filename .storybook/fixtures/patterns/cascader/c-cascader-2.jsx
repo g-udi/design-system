@@ -12,9 +12,19 @@ import {
 } from '../../../../src/components/core/Cascader/parts/cascader-extended.jsx';
 import {
   CascaderAction,
-  CascaderFooter
+  CascaderFooter,
+  CascaderSubmenu,
+  CascaderSubmenuContent,
+  CascaderSubmenuTrigger,
+  useCascaderSubmenu
 } from '../../../../src/components/core/Cascader/parts/cascader-footer-extended.jsx';
-import { CascaderItems } from '../../../../src/components/core/Cascader/parts/cascader-item-extended.jsx';
+import {
+  CascaderGroup,
+  CascaderItems,
+  CascaderLabel,
+  CascaderSeparator
+} from '../../../../src/components/core/Cascader/parts/cascader-item-extended.jsx';
+import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
   CascaderBreadcrumb,
   CascaderInput,
@@ -61,6 +71,22 @@ const certificateIcon = (
 const rotateIcon = <RegistryIcon lucide='RefreshCwIcon' className='size-4' />;
 const replyIcon = <RegistryIcon lucide='CornerUpLeftIcon' className='size-4' />;
 const clearIcon = <RegistryIcon lucide='CircleXIcon' className='size-4' />;
+const presetIcon = <RegistryIcon lucide='CopyIcon' className='size-4' />;
+const presetRoleIcon = <RegistryIcon lucide='ShieldIcon' className='size-4' />;
+const teamIcon = <RegistryIcon lucide='UsersRoundIcon' className='size-4' />;
+const MAX = 5;
+// Presets fill the selection in one step from the footer flyout.
+const presets = {
+  roles: [
+    { label: 'Viewer', value: ['billing.read', 'members.read', 'projects.read', 'deployments.read', 'audit.read'] },
+    { label: 'Developer', value: ['projects.read', 'projects.write', 'deployments.read', 'deployments.ship', 'secrets.read'] },
+    { label: 'Billing admin', value: ['billing.read', 'billing.write', 'billing.refund', 'billing.tax', 'audit.export'] }
+  ],
+  teams: [
+    { label: 'Support', value: ['support.read', 'support.reply', 'members.read'] },
+    { label: 'Platform', value: ['deployments.ship', 'deployments.rollback', 'domains.certs', 'secrets.write'] }
+  ]
+};
 const permissions = [
   {
     value: 'billing',
@@ -180,75 +206,135 @@ function ClearAction() {
     </CascaderAction>
   );
 }
+function PresetMenu({ onApply }) {
+  const { close } = useCascaderSubmenu();
+  const apply = (value) => () => {
+    onApply(value);
+    close();
+  };
+  return (
+    <>
+      <CascaderGroup className='gap-0.5'>
+        <CascaderLabel>Roles</CascaderLabel>
+        {presets.roles.map((preset) => (
+          <CascaderAction key={preset.label} icon={presetRoleIcon} onSelect={apply(preset.value)}>
+            {preset.label}
+          </CascaderAction>
+        ))}
+      </CascaderGroup>
+      <CascaderSeparator />
+      <CascaderGroup className='gap-0.5'>
+        <CascaderLabel>Teams</CascaderLabel>
+        {presets.teams.map((preset) => (
+          <CascaderAction key={preset.label} icon={teamIcon} onSelect={apply(preset.value)}>
+            {preset.label}
+          </CascaderAction>
+        ))}
+      </CascaderGroup>
+    </>
+  );
+}
+// Chips live outside the popup and read the selection from context. Each carries its full path, so two
+// leaves with the same name in different branches stay distinct.
+function PermissionChips() {
+  const { paths, isEmpty, remove } = useCascaderSelection();
+  if (isEmpty) {
+    return <p className='text-xs text-ui-muted-foreground'>No permissions yet. Pick up to {MAX}.</p>;
+  }
+  return (
+    <div className='flex flex-wrap items-center gap-1.5'>
+      {paths.map((path) => {
+        const node = path[path.length - 1];
+        if (!node) return null;
+        const label = path.map((ancestor) => ancestor.label).join(' / ');
+        return (
+          <Badge key={node.value} variant='secondary' className='gap-0.5'>
+            {label}
+            <Button
+              variant='ghost'
+              size='icon'
+              aria-label={`Remove ${label}`}
+              onClick={() => remove(node.value)}
+              className='size-3 hover:bg-transparent'
+            >
+              <RegistryIcon lucide='XIcon' />
+            </Button>
+          </Badge>
+        );
+      })}
+    </div>
+  );
+}
 export function Pattern() {
   const [value, setValue] = useState([]);
   const hasSelection = value.length > 0;
   return (
     <div className='flex w-full justify-center p-4'>
-      <Cascader
-        multiple
-        max={5}
-        items={permissions}
-        value={value}
-        onValueChange={setValue}
-      >
-        <div className='relative w-72'>
-          <CascaderTrigger
-            aria-label='Permissions'
-            showIcon={!hasSelection}
-            render={
-              <Button
-                variant='outline'
-                className={cn(
-                  /* `transition-colors`, not the Button's own `transition-all`:
-           the gutter below toggles `pe-8`, and `all` animates that
-           padding over 150ms, so clearing slid the label and chevron
-           sideways under the vanishing clear button. Colour still
-           eases for hover and focus. */
-                  'w-full justify-between gap-2 font-normal transition-colors',
-                  hasSelection && 'pe-8'
-                )}
-              />
-            }
-          >
-            <CascaderValue placeholder='Select permissions' />
-          </CascaderTrigger>
-
-          {hasSelection ? (
-            <Button
-              variant='ghost'
-              size='icon-xs'
-              aria-label='Clear all permissions'
-              onClick={() => setValue([])}
-              className='absolute end-1 top-1/2 -translate-y-1/2 transition-none'
+      <div className='flex w-full max-w-sm flex-col gap-2'>
+        <Cascader
+          multiple
+          max={MAX}
+          items={permissions}
+          value={value}
+          onValueChange={setValue}
+        >
+          <div className='relative w-full'>
+            <CascaderTrigger
+              aria-label='Permissions'
+              showIcon={!hasSelection}
+              render={
+                <Button
+                  variant='outline'
+                  className={cn(
+                    /* `transition-colors`, not `transition-all`: the clear gutter toggles `pe-8`, and
+                       animating the padding would slide the label under the vanishing button. */
+                    'w-full justify-between gap-2 font-normal transition-colors',
+                    hasSelection && 'pe-8'
+                  )}
+                />
+              }
             >
-              <RegistryIcon lucide='XIcon' />
-            </Button>
-          ) : null}
-        </div>
-
-        <CascaderContent className='w-80'>
-          <CascaderPanel>
-            <CascaderNav>
-              <CascaderInput />
-            </CascaderNav>
-            <CascaderBreadcrumb />
-            <CascaderEmpty />
-            <CascaderList>
-              <CascaderItems />
-            </CascaderList>
-
-            {/* A SIBLING of the list, never a child of it: `CascaderList`'s own
-       Enter handler clicks whatever it contains, so a command living
-       inside the rows would fire on the keystroke that commits one. */}
-            <CascaderFooter>
-              <ClearAction />
-            </CascaderFooter>
-
-            <CascaderStatus />
-          </CascaderPanel>
-        </CascaderContent>
-      </Cascader>
+              <CascaderValue placeholder='Select permissions' display='count' />
+            </CascaderTrigger>
+            {hasSelection ? (
+              <Button
+                variant='ghost'
+                size='icon-xs'
+                aria-label='Clear all permissions'
+                onClick={() => setValue([])}
+                className='absolute end-1 top-1/2 -translate-y-1/2 transition-none'
+              >
+                <RegistryIcon lucide='XIcon' />
+              </Button>
+            ) : null}
+          </div>
+          <CascaderContent className='w-80'>
+            <CascaderPanel>
+              <CascaderNav>
+                <CascaderInput />
+              </CascaderNav>
+              <CascaderBreadcrumb />
+              <CascaderEmpty />
+              <CascaderList>
+                <CascaderItems />
+              </CascaderList>
+              {/* A sibling of the list, never a child: the list's Enter handler clicks whatever it
+                  contains, so a command inside the rows would fire on the keystroke that commits one. */}
+              <CascaderFooter>
+                <CascaderSubmenu>
+                  <CascaderSubmenuTrigger icon={presetIcon}>Start from a preset</CascaderSubmenuTrigger>
+                  <CascaderSubmenuContent>
+                    <PresetMenu onApply={setValue} />
+                  </CascaderSubmenuContent>
+                </CascaderSubmenu>
+                <ClearAction />
+              </CascaderFooter>
+              <CascaderStatus />
+            </CascaderPanel>
+          </CascaderContent>
+          <PermissionChips />
+        </Cascader>
+      </div>
     </div>
   );
 }

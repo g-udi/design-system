@@ -19,7 +19,7 @@ const leaders = [
     name: 'Sarah Chen',
     handle: '@sarahchen',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'https://randomuser.me/api/portraits/women/44.jpg',
     score: 12840,
     change: '+320',
     changeUp: true,
@@ -31,7 +31,7 @@ const leaders = [
     name: 'Marcus Johnson',
     handle: '@marcusj',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     score: 11250,
     change: '+180',
     changeUp: true,
@@ -43,7 +43,7 @@ const leaders = [
     name: 'Emily Park',
     handle: '@emilyp',
     avatar:
-      'static/images/art/1.svg',
+      'https://randomuser.me/api/portraits/women/90.jpg',
     score: 10890,
     change: '-45',
     changeUp: false,
@@ -55,7 +55,7 @@ const leaders = [
     name: 'David Kim',
     handle: '@davidk',
     avatar:
-      'static/images/art/5.svg',
+      'https://randomuser.me/api/portraits/men/41.jpg',
     score: 9420,
     change: '+520',
     changeUp: true,
@@ -67,7 +67,7 @@ const leaders = [
     name: 'Sofia Davis',
     handle: '@sofiad',
     avatar:
-      'static/images/art/7.svg',
+      'https://randomuser.me/api/portraits/women/33.jpg',
     score: 8750,
     change: '+90',
     changeUp: true,
@@ -107,7 +107,7 @@ export function Pattern() {
                   </Avatar>
                   <div className='flex flex-col'>
                     <span className='text-sm font-medium'>{leader.name}</span>
-                    <span className='text-ui-muted-foreground text-xs'>
+                    <span className='text-text-muted text-xs'>
                       {leader.handle}
                     </span>
                   </div>
@@ -133,12 +133,12 @@ export function Pattern() {
                     <RegistryIcon
                       lucide='TrendingDownIcon'
                       aria-hidden='true'
-                      className='text-ui-destructive size-3.5'
+                      className='text-danger size-3.5'
                     />
                   )}
                   <span
                     className={
-                      leader.changeUp ? 'text-success' : 'text-ui-destructive'
+                      leader.changeUp ? 'text-success' : 'text-danger'
                     }
                   >
                     {leader.change}

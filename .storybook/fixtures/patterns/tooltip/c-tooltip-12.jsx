@@ -11,7 +11,7 @@ export function Pattern() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <span className='cursor-not-allowed'>
+            <span className='cursor-not-allowed' tabIndex={0}>
               <Button variant='outline' disabled>
                 Delete Project
               </Button>

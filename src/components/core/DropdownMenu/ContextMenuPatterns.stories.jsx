@@ -1,4 +1,5 @@
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
+import { expect, userEvent, within } from 'storybook/test';
 
 const pattern = patternStories(
   'context-menu',
@@ -8,13 +9,16 @@ const pattern = patternStories(
 
 export default { title: 'Core/DropdownMenu', tags: ['autodocs'], ...catalogueMeta('context-menu') };
 
-export const ContextMenuPattern1 = { name: 'Basic context menu', ...pattern(1) };
-export const ContextMenuPattern2 = { name: 'Context menu with icons', ...pattern(2) };
-export const ContextMenuPattern3 = { name: 'Context menu with shortcuts', ...pattern(3) };
-export const ContextMenuPattern4 = { name: 'Context menu with submenus', ...pattern(4) };
-export const ContextMenuPattern5 = { name: 'Context menu labels and separators', ...pattern(5) };
-export const ContextMenuPattern6 = { name: 'Context menu with checkboxes', ...pattern(6) };
-export const ContextMenuPattern7 = { name: 'Context menu with radio items', ...pattern(7) };
-export const ContextMenuPattern8 = { name: 'Context menu with destructive actions', ...pattern(8) };
-export const ContextMenuPattern9 = { name: 'Context menu alignment', ...pattern(9) };
+export const ContextMenuPattern5 = {
+  name: 'Context menu',
+  ...pattern(5, 'Right click the area: labels, icons, shortcuts, a disabled item, a submenu, checkbox and radio items, and a destructive action.'),
+  play: async ({ canvasElement }) => {
+    const target = within(canvasElement).getByText('Right click here');
+    await userEvent.pointer({ keys: '[MouseRight]', target });
+    const menu = within(await within(canvasElement.ownerDocument.body).findByRole('menu'));
+    await expect(menu.getByRole('menuitem', { name: /Paste/ })).toHaveAttribute('aria-disabled', 'true');
+    await expect(menu.getByRole('menuitemradio', { name: '100%' })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.keyboard('{Escape}');
+  }
+};
 export const ContextMenuPattern10 = { name: 'Context menu inside a dialog', ...pattern(10) };

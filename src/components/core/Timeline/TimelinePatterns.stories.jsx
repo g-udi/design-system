@@ -8,15 +8,8 @@ const pattern = patternStories(
 
 export default { title: 'Core/Timeline', tags: ['autodocs'], ...catalogueMeta('timeline') };
 
-export const TimelinePattern1 = { name: 'Basic timeline', ...pattern(1) };
-export const TimelinePattern2 = { name: 'Roadmap', ...pattern(2) };
-export const TimelinePattern3 = { name: 'Order status', ...pattern(3) };
-export const TimelinePattern4 = { name: 'Git activity', ...pattern(4) };
-export const TimelinePattern5 = { name: 'Milestones', ...pattern(5) };
-export const TimelinePattern6 = { name: 'Pipeline steps', ...pattern(6) };
-export const TimelinePattern7 = { name: 'Roadmap items', ...pattern(7) };
-export const TimelinePattern8 = { name: 'Vertical timeline', ...pattern(8) };
-export const TimelinePattern9 = { name: 'Horizontal with leading labels', ...pattern(9) };
-export const TimelinePattern10 = { name: 'Deployment log', ...pattern(10) };
-export const TimelinePattern11 = { name: 'Activity feed with avatars', ...pattern(11) };
-export const TimelinePattern12 = { name: 'Compact horizontal milestones', ...pattern(12) };
+export const TimelinePattern3 = { name: 'Vertical progress', ...pattern(3, 'Switch the indicator between a dot, a check and an icon, move dates into a leading column, or hide descriptions for a compact log.') };
+export const TimelinePattern12 = { name: 'Horizontal releases', ...pattern(12, 'Status indicators and a current badge on a horizontal rail, with dates below or above it.') };
+export const TimelinePattern11 = { name: 'Activity feed with avatars', ...pattern(11, 'Avatars replace the indicator; deploy events carry a status badge.') };
+export const TimelinePattern6 = { name: 'Pipeline steps', ...pattern(6, 'Each step shows its status and duration and folds its details into a collapsible panel.') };
+export const TimelinePattern5 = { name: 'Alternating milestones', ...pattern(5) };

@@ -1,4 +1,8 @@
-import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import { Fragment } from 'react';
+import {
+  Field,
+  FieldLabel
+} from '../../../../src/components/core/Field/parts/field.jsx';
 import {
   Select,
   SelectContent,
@@ -9,83 +13,58 @@ import {
   SelectTrigger,
   SelectValue
 } from '../../../../src/components/core/Select/parts/select.jsx';
-const americas = [
-  { value: 'est', label: 'EST', offset: 'UTC-5' },
-  { value: 'cst', label: 'CST', offset: 'UTC-6' },
-  { value: 'pst', label: 'PST', offset: 'UTC-8' }
+
+const regions = [
+  {
+    label: 'Americas',
+    zones: [
+      { value: 'est', label: 'Eastern', offset: 'UTC-5' },
+      { value: 'cst', label: 'Central', offset: 'UTC-6' },
+      { value: 'pst', label: 'Pacific', offset: 'UTC-8' }
+    ]
+  },
+  {
+    label: 'Europe',
+    zones: [
+      { value: 'gmt', label: 'Greenwich', offset: 'UTC+0' },
+      { value: 'cet', label: 'Central European', offset: 'UTC+1' }
+    ]
+  },
+  {
+    label: 'Asia',
+    zones: [
+      { value: 'ist', label: 'India', offset: 'UTC+5:30' },
+      { value: 'jst', label: 'Japan', offset: 'UTC+9' }
+    ]
+  }
 ];
-const europe = [
-  { value: 'gmt', label: 'GMT', offset: 'UTC+0' },
-  { value: 'cet', label: 'CET', offset: 'UTC+1' }
-];
-const asia = [
-  { value: 'ist', label: 'IST', offset: 'UTC+5:30' },
-  { value: 'jst', label: 'JST', offset: 'UTC+9' }
-];
-const _allItems = [
-  { label: 'Select a timezone', value: null },
-  ...americas.map((tz) => ({
-    label: `${tz.label} (${tz.offset})`,
-    value: tz.value
-  })),
-  ...europe.map((tz) => ({
-    label: `${tz.label} (${tz.offset})`,
-    value: tz.value
-  })),
-  ...asia.map((tz) => ({
-    label: `${tz.label} (${tz.offset})`,
-    value: tz.value
-  }))
-];
+
+// Labelled groups split by separators, each option with a muted offset.
 export function Pattern() {
   return (
-    <Field className='max-w-xs'>
-      <Select>
-        <SelectTrigger aria-label='Select a timezone'>
-          <SelectValue placeholder='Select a timezone' />
+    <Field className='mx-auto w-full max-w-xs'>
+      <FieldLabel htmlFor='select-timezone'>Time zone</FieldLabel>
+      <Select defaultValue='cet'>
+        <SelectTrigger id='select-timezone' className='w-full'>
+          <SelectValue placeholder='Select a time zone' />
         </SelectTrigger>
         <SelectContent position='popper'>
-          <SelectGroup>
-            <SelectLabel>Americas</SelectLabel>
-            {americas.map((tz) => (
-              <SelectItem key={tz.value} value={tz.value}>
-                <span className='flex items-center justify-between gap-3'>
-                  <span>{tz.label}</span>
-                  <span className='text-ui-muted-foreground text-xs'>
-                    {tz.offset}
-                  </span>
-                </span>
-              </SelectItem>
-            ))}
-          </SelectGroup>
-          <SelectSeparator />
-          <SelectGroup>
-            <SelectLabel>Europe</SelectLabel>
-            {europe.map((tz) => (
-              <SelectItem key={tz.value} value={tz.value}>
-                <span className='flex items-center justify-between gap-3'>
-                  <span>{tz.label}</span>
-                  <span className='text-ui-muted-foreground text-xs'>
-                    {tz.offset}
-                  </span>
-                </span>
-              </SelectItem>
-            ))}
-          </SelectGroup>
-          <SelectSeparator />
-          <SelectGroup>
-            <SelectLabel>Asia</SelectLabel>
-            {asia.map((tz) => (
-              <SelectItem key={tz.value} value={tz.value}>
-                <span className='flex items-center justify-between gap-3'>
-                  <span>{tz.label}</span>
-                  <span className='text-ui-muted-foreground text-xs'>
-                    {tz.offset}
-                  </span>
-                </span>
-              </SelectItem>
-            ))}
-          </SelectGroup>
+          {regions.map((region, index) => (
+            <Fragment key={region.label}>
+              {index > 0 && <SelectSeparator />}
+              <SelectGroup>
+                <SelectLabel>{region.label}</SelectLabel>
+                {region.zones.map((zone) => (
+                  <SelectItem key={zone.value} value={zone.value}>
+                    <span className='flex items-center gap-2'>
+                      <span>{zone.label}</span>
+                      <span className='text-xs text-text-muted'>{zone.offset}</span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </Fragment>
+          ))}
         </SelectContent>
       </Select>
     </Field>

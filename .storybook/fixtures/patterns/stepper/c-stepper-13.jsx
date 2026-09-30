@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import {
   Stepper,
   StepperContent,
@@ -11,6 +12,8 @@ import {
   StepperTitle,
   StepperTrigger
 } from '../../../../src/components/core/Stepper/parts/stepper-extended.jsx';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const steps = [
   { title: 'Account', description: 'Create your account' },
@@ -18,8 +21,13 @@ const steps = [
   { title: 'Review', description: 'Confirm your details' }
 ];
 export function Pattern() {
+  const [descriptions, setDescriptions] = useState(true);
   return (
-    <div className='flex items-center justify-center'>
+    <div className='flex flex-col items-center gap-4'>
+      <Label className='gap-2 text-sm font-normal'>
+        <Switch size='sm' checked={descriptions} onCheckedChange={setDescriptions} />
+        Descriptions
+      </Label>
       <Stepper
         className='flex flex-col items-center justify-center gap-6'
         defaultValue={2}
@@ -41,13 +49,13 @@ export function Pattern() {
               step={index + 1}
               className='relative items-start not-last:flex-1'
             >
-              <StepperTrigger className='items-start gap-2.5 pb-12 last:pb-0'>
+              <StepperTrigger className='items-start gap-2.5 pb-8 last:pb-0'>
                 <StepperIndicator className='data-[state=completed]:bg-success data-[state=completed]:text-white'>
                   {index + 1}
                 </StepperIndicator>
                 <div className='mt-0.5 text-left'>
                   <StepperTitle>{step.title}</StepperTitle>
-                  <StepperDescription>{step.description}</StepperDescription>
+                  {descriptions && <StepperDescription>{step.description}</StepperDescription>}
                 </div>
               </StepperTrigger>
               {index < steps.length - 1 && (

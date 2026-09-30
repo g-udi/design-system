@@ -1,68 +1,64 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
-import { format, formatDistanceToNow } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger
 } from '../../../../src/components/core/Popover/parts/hover-card.jsx';
 import { Separator } from '../../../../src/components/core/Separator/parts/separator.jsx';
+const localZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+const zones = [
+  { label: 'UTC', timeZone: 'UTC' },
+  { label: localZone.split('/').pop().replace('_', ' '), timeZone: localZone }
+];
+const formatIn = (date, timeZone, options) =>
+  new Intl.DateTimeFormat('en-US', { timeZone, ...options }).format(date);
 export function Pattern() {
-  const [now, setNow] = useState(/* @__PURE__ */ new Date());
+  const [now, setNow] = useState(() => new Date());
   useEffect(() => {
-    const timer = setInterval(() => setNow(/* @__PURE__ */ new Date()), 1e3);
+    const timer = setInterval(() => setNow(new Date()), 1e3);
     return () => clearInterval(timer);
   }, []);
-  const referenceTime = new Date(now.getTime() - 1e3 * 60 * 120);
+  const deployedAt = new Date(now.getTime() - 1e3 * 60 * 120);
+  const relative = formatDistanceToNow(deployedAt, { addSuffix: true });
   return (
-    <div className='flex min-h-[100px] items-center justify-center'>
-      <p className='text-ui-muted-foreground text-sm'>
+    <div className='flex items-center justify-center'>
+      <p className='text-sm text-text-muted'>
         Last deployed{' '}
         <HoverCard openDelay={100} closeDelay={100}>
-          <HoverCardTrigger className='text-ui-foreground cursor-default underline decoration-dashed decoration-1 underline-offset-4'>
-            {formatDistanceToNow(referenceTime, { addSuffix: true })}
+          <HoverCardTrigger asChild>
+            <button
+              type='button'
+              className='cursor-default text-text underline decoration-dashed decoration-1 underline-offset-4'
+            >
+              {relative}
+            </button>
           </HoverCardTrigger>
-          <HoverCardContent className='w-78 p-0'>
-            <p className='text-ui-foreground px-2 py-1 font-medium'>
-              {formatDistanceToNow(referenceTime, { addSuffix: true })}
-            </p>
+          <HoverCardContent className='w-auto p-0' align='start'>
+            <p className='px-2 py-1 font-medium text-text'>{relative}</p>
             <Separator />
-            <div className='px-2 py-1.5'>
-              <table>
-                <tbody>
-                  <tr>
-                    <td className='pr-4 pb-1.5'>
-                      <Badge variant='outline'>UTC</Badge>
-                    </td>
-                    <td className='pr-6 pb-1.5'>
-                      {format(referenceTime, 'MMM d, yyyy')}
-                    </td>
-                    <td className='text-ui-muted-foreground pb-1.5'>
-                      {format(referenceTime, 'hh:mm:ss a')}
-                    </td>
-                  </tr>
-                  <tr>
+            <table className='mx-2 my-1.5 border-separate border-spacing-y-1 whitespace-nowrap'>
+              <tbody>
+                {zones.map(({ label, timeZone }) => (
+                  <tr key={label}>
                     <td className='pr-4'>
-                      <span className='bg-ui-muted rounded px-1.5 py-0.5 font-medium'>
-                        {Intl.DateTimeFormat()
-                          .resolvedOptions()
-                          .timeZone.split('/')
-                          .pop()
-                          ?.replace('_', ' ') || 'Local'}
-                      </span>
+                      <Badge variant='outline'>{label}</Badge>
                     </td>
-                    <td className='pr-6'>{format(now, 'MMM d, yyyy')}</td>
-                    <td className='text-ui-muted-foreground w-28'>
-                      {format(now, 'hh:mm:ss a')}
+                    <td className='pr-6'>
+                      {formatIn(deployedAt, timeZone, { dateStyle: 'medium' })}
+                    </td>
+                    <td className='text-text-muted tabular-nums'>
+                      {formatIn(deployedAt, timeZone, { timeStyle: 'medium' })}
                     </td>
                   </tr>
-                </tbody>
-              </table>
-            </div>
+                ))}
+              </tbody>
+            </table>
           </HoverCardContent>
         </HoverCard>{' '}
-        by CI/CD pipeline.
+        by the deploy pipeline.
       </p>
     </div>
   );

@@ -8,6 +8,11 @@ import {
   DialogTrigger
 } from '../../../../src/components/core/Dialog/parts/dialog.jsx';
 import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger
+} from '../../../../src/components/core/Popover/parts/hover-card.jsx';
+import {
   Popover,
   PopoverContent,
   PopoverDescription,
@@ -20,31 +25,48 @@ export function Pattern() {
     <div className='flex items-center justify-center'>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant='outline'>Open Dialog</Button>
+          <Button variant='outline'>Open dialog</Button>
         </DialogTrigger>
         <DialogContent className='p-4'>
           <DialogHeader>
-            <DialogTitle>Popover Example</DialogTitle>
+            <DialogTitle>Overlays in a dialog</DialogTitle>
             <DialogDescription>
-              Click the button below to see the popover.
+              Popovers and hover cards stack above the dialog and keep focus
+              inside it.
             </DialogDescription>
           </DialogHeader>
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant='outline' className='w-fit'>
-                Open Popover
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent align='start' className='w-auto'>
-              <PopoverHeader>
-                <PopoverTitle>Popover in Dialog</PopoverTitle>
-                <PopoverDescription>
-                  This popover appears inside a dialog. Click the button to open
-                  it.
-                </PopoverDescription>
-              </PopoverHeader>
-            </PopoverContent>
-          </Popover>
+          <div className='flex gap-2'>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button variant='outline' size='sm'>
+                  Open popover
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align='start' className='w-64'>
+                <PopoverHeader>
+                  <PopoverTitle>Popover in a dialog</PopoverTitle>
+                  <PopoverDescription>
+                    Escape closes the popover first, then the dialog.
+                  </PopoverDescription>
+                </PopoverHeader>
+              </PopoverContent>
+            </Popover>
+            <HoverCard openDelay={100} closeDelay={100}>
+              <HoverCardTrigger asChild>
+                <Button variant='outline' size='sm'>
+                  Hover me
+                </Button>
+              </HoverCardTrigger>
+              <HoverCardContent className='w-64'>
+                <div className='flex flex-col gap-1'>
+                  <p className='font-medium'>Hover card in a dialog</p>
+                  <p className='text-text-muted'>
+                    Opens on hover or focus without taking focus.
+                  </p>
+                </div>
+              </HoverCardContent>
+            </HoverCard>
+          </div>
         </DialogContent>
       </Dialog>
     </div>

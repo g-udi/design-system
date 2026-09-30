@@ -10,58 +10,35 @@ import {
   ItemTitle
 } from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+
+// Icon rows whose trailing slot carries a status, an action, or both.
+const integrations = [
+  { icon: 'DatabaseIcon', title: 'Database', description: 'Sync records from your data warehouse', status: ['Connected', 'success-light'], action: ['Configure', 'outline'] },
+  { icon: 'WebhookIcon', title: 'Webhooks', description: 'Push realtime events to your endpoints', status: ['Connected', 'success-light'] },
+  { icon: 'MailIcon', title: 'Email notifications', description: 'Receive a digest every morning', status: ['Paused', 'warning-light'], action: ['Resume', 'outline'] },
+  { icon: 'BellIcon', title: 'Push notifications', description: 'Get notified on your devices', action: ['Enable', 'default'] },
+  { icon: 'CodeIcon', title: 'API access', description: 'Build custom integrations with the REST API', action: ['Connect', 'outline'] }
+];
+
 export function Pattern() {
   return (
     <div className='mx-auto flex w-full max-w-md flex-col'>
       <ItemGroup>
-        <Item variant='outline' size='xs'>
-          <ItemMedia variant='icon'>
-            <RegistryIcon lucide='DatabaseIcon' />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>Database</ItemTitle>
-            <ItemDescription>
-              Sync records from your data warehouse
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <Badge variant='success-light' size='sm'>
-              Connected
-            </Badge>
-          </ItemActions>
-        </Item>
-        <Item variant='outline' size='xs'>
-          <ItemMedia variant='icon'>
-            <RegistryIcon lucide='WebhookIcon' />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>Webhooks</ItemTitle>
-            <ItemDescription>
-              Push realtime events to your endpoints
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <Badge variant='success-light' size='sm'>
-              Connected
-            </Badge>
-          </ItemActions>
-        </Item>
-        <Item variant='outline' size='xs'>
-          <ItemMedia variant='icon'>
-            <RegistryIcon lucide='CodeIcon' />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>API access</ItemTitle>
-            <ItemDescription>
-              Build custom integrations with the REST API
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <Button variant='outline' size='sm'>
-              Connect
-            </Button>
-          </ItemActions>
-        </Item>
+        {integrations.map(({ icon, title, description, status, action }) => (
+          <Item key={title} variant='outline' size='xs'>
+            <ItemMedia variant='icon'>
+              <RegistryIcon lucide={icon} />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>{title}</ItemTitle>
+              <ItemDescription>{description}</ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              {status ? <Badge variant={status[1]} size='sm'>{status[0]}</Badge> : null}
+              {action ? <Button variant={action[1]} size='sm'>{action[0]}</Button> : null}
+            </ItemActions>
+          </Item>
+        ))}
       </ItemGroup>
     </div>
   );

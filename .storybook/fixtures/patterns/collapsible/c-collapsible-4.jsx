@@ -15,7 +15,7 @@ import { Progress } from '../../../../src/components/core/Progress/parts/progres
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <div className='h-72 w-full max-w-xs'>
+    <div className='mx-auto h-72 w-full max-w-xs'>
       <Collapsible className='relative'>
         <Card>
           <CardHeader className='flex items-center justify-between'>
@@ -27,12 +27,12 @@ export function Pattern() {
             </CardAction>
           </CardHeader>
           <CardContent className='space-y-4'>
-            <div className='bg-ui-muted/60 border-ui-border rounded-lg space-y-2 border p-3'>
+            <div className='bg-surface-muted/60 border-border rounded-lg space-y-2 border p-3'>
               <div className='flex justify-between text-sm font-medium'>
                 <span>$18.08 / $20</span>
                 <span>$200</span>
               </div>
-              <Progress value={90} className='bg-ui-primary/20 h-1.5' />
+              <Progress value={90} className='bg-accent/20 h-1.5' />
             </div>
 
             <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down'>
@@ -47,7 +47,7 @@ export function Pattern() {
                     key={item.label}
                     className='flex justify-between text-xs'
                   >
-                    <span className='text-ui-muted-foreground font-medium'>
+                    <span className='text-text-muted font-medium'>
                       {item.label}
                     </span>
                     <span className='font-medium'>{item.value}</span>
@@ -63,7 +63,7 @@ export function Pattern() {
             <Button
               variant='outline'
               size='icon-sm'
-              className='bg-ui-background! rounded-control shadow-sm'
+              className='bg-surface! rounded-control shadow-sm'
             >
               <RegistryIcon
                 lucide='ChevronDownIcon'

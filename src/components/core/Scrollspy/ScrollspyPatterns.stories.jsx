@@ -8,5 +8,4 @@ const pattern = patternStories(
 
 export default { title: 'Core/Scrollspy', tags: ['autodocs'], ...catalogueMeta('scrollspy') };
 
-export const ScrollspyPattern1 = { name: 'Side navigation', ...pattern(1, 'Anchors beside a scroll area mark the section in view.') };
-export const ScrollspyPattern2 = { name: 'Top navigation', ...pattern(2, 'Wrapping anchors above the content for narrow layouts.') };
+export const ScrollspyPattern2 = { name: 'Top navigation', ...pattern(2, 'Wrapping section tabs above the content for layouts too narrow for a side rail.') };

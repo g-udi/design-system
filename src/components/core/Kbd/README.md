@@ -1,6 +1,6 @@
 # Kbd
 
-This Gaudi owner includes **kbd**, with **6 practical examples**.
+This Gaudi owner includes **kbd**, with **2 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Kbd`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

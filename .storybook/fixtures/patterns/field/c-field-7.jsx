@@ -19,7 +19,7 @@ export function Pattern() {
       <FieldGroup>
         <Field>
           <FieldLabel htmlFor='settings-name'>
-            Display Name <span className='text-ui-destructive'>*</span>
+            Display Name <span className='text-danger'>*</span>
           </FieldLabel>
           <Input id='settings-name' defaultValue='Alex Johnson' />
           <FieldDescription>This is your public display name.</FieldDescription>
@@ -34,7 +34,7 @@ export function Pattern() {
         <Field>
           <div className='flex items-center justify-between'>
             <FieldLabel htmlFor='settings-bio'>Bio</FieldLabel>
-            <span className='text-ui-muted-foreground text-xs'>24/160</span>
+            <span className='text-text-muted text-xs'>24/160</span>
           </div>
           <Textarea
             id='settings-bio'

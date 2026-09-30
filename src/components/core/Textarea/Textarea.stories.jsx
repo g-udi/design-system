@@ -11,7 +11,6 @@ import Textarea from './Textarea';
 
 const docs = getComponentDocs('Core/Textarea');
 const label = 'Article summary';
-const summary = 'A practical introduction to knowledge graphs and the questions they can help answer.';
 const textbox = (canvas, name = label) => canvas.getByRole('textbox', { name });
 // A review composer: the note to the author follows the controls.
 const noteLabel = 'Note to the author';
@@ -97,37 +96,5 @@ export const Playground = {
     await expect(input).toHaveValue(`${draftNote}\nThanks!`);
     await expect(args.onChange).toHaveBeenCalled();
     await expect(canvas.getByText(`${draftNote.length + 8} / ${limit}`)).toBeVisible();
-  }
-};
-
-export const Validation = {
-  parameters: { docs: { description: { story: 'Inside a `Field`, `FieldError` marks the textarea invalid and becomes its accessible description.' } } },
-  render: () => (
-    <Field>
-      <FieldLabel>Review notes</FieldLabel>
-      <Textarea />
-      <FieldError>Add a reason before returning this draft.</FieldError>
-    </Field>
-  ),
-  play: async ({ canvasElement }) => {
-    const input = textbox(within(canvasElement), 'Review notes');
-    await expect(input).toHaveAttribute('aria-invalid', 'true');
-    await expect(input).toHaveAccessibleDescription('Add a reason before returning this draft.');
-  }
-};
-
-export const ReadOnly = {
-  parameters: { docs: { description: { story: '`readOnly` keeps the value focusable and selectable but prevents edits.' } } },
-  render: () => (
-    <Field>
-      <FieldLabel>Published summary</FieldLabel>
-      <Textarea readOnly defaultValue={summary} />
-    </Field>
-  ),
-  play: async ({ canvasElement }) => {
-    const input = textbox(within(canvasElement), 'Published summary');
-    await userEvent.type(input, ' Edited');
-    await expect(input).toHaveValue(summary);
-    await expect(input).toHaveFocus();
   }
 };

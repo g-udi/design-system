@@ -9,18 +9,15 @@ const sides = ['top', 'right', 'bottom', 'left'];
 export function Pattern() {
   return (
     <TooltipProvider>
-      <div className='grid max-w-xs grid-cols-2 gap-2'>
+      <div className='mx-auto grid w-full max-w-sm grid-cols-4 gap-2'>
         {sides.map((side) => (
           <Tooltip key={side}>
             <TooltipTrigger asChild>
-              <Button variant='outline' className='w-full'>
-                {side.replace('-', ' ')[0].toUpperCase() +
-                  side.replace('-', ' ').slice(1)}
+              <Button variant='outline' size='sm' className='w-full capitalize'>
+                {side}
               </Button>
             </TooltipTrigger>
-            <TooltipContent side={side}>
-              <p className='text-sm'>Add to library</p>
-            </TooltipContent>
+            <TooltipContent side={side}>Add to library</TooltipContent>
           </Tooltip>
         ))}
       </div>

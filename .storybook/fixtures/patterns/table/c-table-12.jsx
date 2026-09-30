@@ -72,13 +72,13 @@ export function Pattern() {
                 <TableCell>
                   <div className='flex flex-col'>
                     <span className='text-sm font-medium'>{key.name}</span>
-                    <span className='text-ui-muted-foreground text-xs'>
+                    <span className='text-text-muted text-xs'>
                       Last used: {key.lastUsed}
                     </span>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <code className='bg-ui-muted rounded px-1.5 py-0.5 font-mono text-xs'>
+                  <code className='bg-surface-muted rounded px-1.5 py-0.5 font-mono text-xs'>
                     {key.token}
                   </code>
                 </TableCell>

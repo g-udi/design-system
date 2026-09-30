@@ -17,10 +17,10 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <div className='flex items-center justify-center p-4'>
+    <div className='mx-auto w-full max-w-md'>
       <Card className='w-full max-w-md'>
         <CardHeader>
-          <CardTitle>Team Members</CardTitle>
+          <CardTitle>Team members</CardTitle>
           <CardDescription>
             Manage your team and their permissions.
           </CardDescription>
@@ -39,7 +39,7 @@ export function Pattern() {
             <EmptyContent>
               <Button size='sm'>
                 <RegistryIcon lucide='UserPlusIcon' data-icon='inline-start' />
-                Invite People
+                Invite people
               </Button>
             </EmptyContent>
           </Empty>

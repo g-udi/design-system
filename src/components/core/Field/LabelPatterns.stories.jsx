@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -8,16 +9,27 @@ const pattern = patternStories(
 
 export default { title: 'Core/Field', tags: ['autodocs'], ...catalogueMeta('label') };
 
-export const LabelPattern1 = { name: 'Basic label', ...pattern(1) };
-export const LabelPattern2 = { name: 'Label with a checkbox', ...pattern(2) };
-export const LabelPattern3 = { name: 'Label for a textarea', ...pattern(3) };
-export const LabelPattern4 = { name: 'Disabled label', ...pattern(4) };
-export const LabelPattern5 = { name: 'Label with required indicator', ...pattern(5) };
-export const LabelPattern6 = { name: 'Label with optional indicator', ...pattern(6) };
-export const LabelPattern7 = { name: 'Label with info tooltip', ...pattern(7) };
-export const LabelPattern8 = { name: 'Label with badge', ...pattern(8) };
-export const LabelPattern9 = { name: 'Label with character counter', ...pattern(9) };
-export const LabelPattern10 = { name: 'Label with helper text', ...pattern(10) };
-export const LabelPattern11 = { name: 'Label with error state', ...pattern(11) };
-export const LabelPattern12 = { name: 'Label with inline edit', ...pattern(12) };
-export const LabelPattern13 = { name: 'Label with status dot', ...pattern(13) };
+export const LabelPattern1 = {
+  name: 'Label accessories',
+  ...pattern(1, 'Required and optional markers, an info tooltip, a status badge, helper text, a live status dot, a character counter, and a label beside a checkbox.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.type(canvas.getByRole('textbox', { name: /^Bio/ }), 'Designer');
+    await expect(canvas.getByText('8/200')).toBeVisible();
+    await userEvent.click(canvas.getByText('Accept terms and conditions'));
+    await expect(canvas.getByRole('checkbox', { name: 'Accept terms and conditions' })).toHaveAttribute('aria-checked', 'true');
+  }
+};
+export const LabelPattern12 = {
+  name: 'Inline edit',
+  ...pattern(12, 'A label action swaps a read-only value for an input and back.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: /edit/i }));
+    const input = canvas.getByRole('textbox');
+    await userEvent.clear(input);
+    await userEvent.type(input, 'Atlas');
+    await userEvent.click(canvas.getByRole('button', { name: /save/i }));
+    await expect(canvas.getByText('Atlas')).toBeVisible();
+  }
+};

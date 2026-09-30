@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../test-support/renderComponent.js';
 
 const publicAPI = await loadComponent(new URL('./index.js', import.meta.url));
-const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/resizable/c-resizable-1.jsx', import.meta.url));
+const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/resizable/c-resizable-9.jsx', import.meta.url));
 
 test('Resizable publishes its composition and supports server rendering', () => {
   assert.ok(publicAPI.ResizablePanelGroup, 'The documented public entry must stay available');

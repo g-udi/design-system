@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -8,24 +9,34 @@ const pattern = patternStories(
 
 export default { title: 'Core/Checkbox', tags: ['autodocs'], ...catalogueMeta('checkbox') };
 
-export const CheckboxPattern1 = { name: 'With label', ...pattern(1) };
-export const CheckboxPattern2 = { name: 'Disabled', ...pattern(2) };
-export const CheckboxPattern3 = { name: 'Invalid', ...pattern(3) };
-export const CheckboxPattern4 = { name: 'Indeterminate', ...pattern(4) };
-export const CheckboxPattern5 = { name: 'Label and description', ...pattern(5) };
-export const CheckboxPattern6 = { name: 'Custom colour', ...pattern(6) };
-export const CheckboxPattern7 = { name: 'Circle', ...pattern(7) };
-export const CheckboxPattern8 = { name: 'Group', ...pattern(8) };
-export const CheckboxPattern9 = { name: 'Card group', ...pattern(9) };
-export const CheckboxPattern10 = { name: 'Group in a frame', ...pattern(10) };
-export const CheckboxPattern11 = { name: 'Stacked card group', ...pattern(11) };
-export const CheckboxPattern12 = { name: 'Stacked card group with icons', ...pattern(12) };
-export const CheckboxPattern13 = { name: 'Corner badge cards', ...pattern(13) };
-export const CheckboxPattern14 = { name: 'Corner checkbox cards with icons', ...pattern(14) };
-export const CheckboxPattern15 = { name: 'Avatar cards', ...pattern(15) };
-export const CheckboxPattern16 = { name: 'Nested group', ...pattern(16) };
-export const CheckboxPattern17 = { name: 'Payment method cards', ...pattern(17) };
-export const CheckboxPattern18 = { name: 'Label with info tooltip', ...pattern(18) };
-export const CheckboxPattern19 = { name: 'Group with badges', ...pattern(19) };
-export const CheckboxPattern21 = { name: 'Inline horizontal group', ...pattern(21) };
-export const CheckboxPattern22 = { name: 'Feature badge', ...pattern(22) };
+export const CheckboxPattern1 = {
+  name: 'States',
+  ...pattern(1, 'Unchecked, checked with a description, indeterminate, disabled and invalid.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('checkbox', { name: 'Some files selected' })).toHaveAttribute('aria-checked', 'mixed');
+    await expect(canvas.getByRole('checkbox', { name: 'Managed by your admin' })).toBeDisabled();
+    await expect(canvas.getByRole('checkbox', { name: 'Confirm you are over 18' })).toHaveAttribute('aria-invalid', 'true');
+    const basic = canvas.getByRole('checkbox', { name: 'Remember this device' });
+    await userEvent.click(canvas.getByText('Remember this device'));
+    await expect(basic).toHaveAttribute('aria-checked', 'true');
+  }
+};
+export const CheckboxPattern22 = { name: 'Label extras and styles', ...pattern(22, 'A tooltip hint, New and Beta badges, a round to-do checkbox that strikes its label, and checked boxes in status colours.') };
+export const CheckboxPattern10 = { name: 'Groups', ...pattern(10, 'Short options inline under a legend, and a framed stacked list where each row is one click target.') };
+export const CheckboxPattern9 = { name: 'Row cards', ...pattern(9, 'Bordered rows with a leading checkbox and description, or a trailing checkbox beside a person.') };
+export const CheckboxPattern14 = { name: 'Corner-check cards', ...pattern(14, 'Icon cards and a payment method with a round check in the corner, and compact tag chips.') };
+export const CheckboxPattern16 = {
+  name: 'Nested group',
+  ...pattern(16, 'Parents check every child and show the indeterminate state when only some are checked.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const users = canvas.getByRole('checkbox', { name: 'User Management' });
+    await expect(canvas.getByRole('checkbox', { name: 'Administration' })).toHaveAttribute('aria-checked', 'mixed');
+    await expect(users).toHaveAttribute('aria-checked', 'mixed');
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Edit Users' }));
+    await expect(users).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(users);
+    await expect(canvas.getByRole('checkbox', { name: 'View Users' })).toHaveAttribute('aria-checked', 'false');
+  }
+};

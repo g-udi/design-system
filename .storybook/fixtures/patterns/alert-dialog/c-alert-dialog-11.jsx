@@ -12,39 +12,57 @@ import {
 } from '../../../../src/components/core/Dialog/parts/dialog-confirmation.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+
+// The same notice layout in two tones: a status badge under the title, the details on a muted panel.
+const NOTICES = [
+  {
+    trigger: 'System update',
+    icon: 'ShieldAlertIcon',
+    media: 'bg-info-muted text-info',
+    title: 'System update available',
+    badge: { variant: 'success-light', label: 'Release v28.1.0 (2026-01-12)' },
+    description: 'A new version is ready. Restarting now applies the latest security patches and features.',
+    action: 'Update now'
+  },
+  {
+    trigger: 'Subscription expiring',
+    icon: 'BellIcon',
+    media: 'bg-danger-muted text-danger',
+    title: 'Subscription expiring soon',
+    badge: { variant: 'destructive-light', label: 'Expires in 2 days' },
+    description: 'Update your payment method now to keep uninterrupted access to your Pro features.',
+    action: 'Update payment'
+  }
+];
+
 export function Pattern() {
   return (
-    <DialogConfirmation>
-      <DialogConfirmationTrigger asChild>
-        <Button variant='outline'>System Update</Button>
-      </DialogConfirmationTrigger>
-      <DialogConfirmationContent className='gap-0 p-0 sm:max-w-sm'>
-        <div className='mx-auto flex flex-col items-center justify-center gap-2 p-8'>
-          <DialogConfirmationMedia className='bg-info/10 text-info dark:bg-info/20 size-12 rounded-full'>
-            <RegistryIcon lucide='ShieldAlertIcon' className='size-6' />
-          </DialogConfirmationMedia>
-          <DialogConfirmationTitle className='text-center'>
-            System Update Available!
-          </DialogConfirmationTitle>
-          <Badge variant='success-light'>Release v28.1.0 (2026-01-12)</Badge>
-        </div>
-
-        <div className='bg-ui-muted/60 flex flex-col items-center justify-center gap-5 rounded-b-2xl p-6'>
-          <DialogConfirmationDescription className='text-ui-muted-foreground text-center'>
-            A new version of the application is ready. Restarting now will apply
-            the latest security patches and features.
-          </DialogConfirmationDescription>
-          {/* The footer sits inside this `p-6` section, not directly in the
-       content, so its breakout has to cancel THAT padding (`-mx-6
-       -mb-6`) to reach the edges. `self-stretch` is required because the
-       section is `items-center`, which would otherwise shrink the bar to
-       its content width and leave the top border floating short. */}
-          <DialogConfirmationFooter className='-mx-6 -mb-6 gap-4 self-stretch rounded-b-2xl p-6'>
-            <DialogConfirmationCancel>Remind Me Later</DialogConfirmationCancel>
-            <DialogConfirmationAction>Update Now</DialogConfirmationAction>
-          </DialogConfirmationFooter>
-        </div>
-      </DialogConfirmationContent>
-    </DialogConfirmation>
+    <div className='flex flex-wrap items-center justify-center gap-2'>
+      {NOTICES.map((notice) => (
+        <DialogConfirmation key={notice.trigger}>
+          <DialogConfirmationTrigger asChild>
+            <Button size='sm' variant='outline'>{notice.trigger}</Button>
+          </DialogConfirmationTrigger>
+          <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>
+            <div className='flex flex-col items-center gap-2 p-6 text-center'>
+              <DialogConfirmationMedia className={`size-10 rounded-full ${notice.media}`}>
+                <RegistryIcon lucide={notice.icon} className='size-5' />
+              </DialogConfirmationMedia>
+              <DialogConfirmationTitle>{notice.title}</DialogConfirmationTitle>
+              <Badge variant={notice.badge.variant}>{notice.badge.label}</Badge>
+            </div>
+            <div className='grid gap-3 border-t border-border bg-surface-muted p-4'>
+              <DialogConfirmationDescription className='text-center'>
+                {notice.description}
+              </DialogConfirmationDescription>
+              <DialogConfirmationFooter className='mx-0 mb-0 border-0 bg-transparent p-0'>
+                <DialogConfirmationCancel>Remind me later</DialogConfirmationCancel>
+                <DialogConfirmationAction>{notice.action}</DialogConfirmationAction>
+              </DialogConfirmationFooter>
+            </div>
+          </DialogConfirmationContent>
+        </DialogConfirmation>
+      ))}
+    </div>
   );
 }

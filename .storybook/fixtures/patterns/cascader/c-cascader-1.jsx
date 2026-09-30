@@ -7,7 +7,8 @@ import {
   CascaderList,
   CascaderPanel,
   CascaderStatus,
-  CascaderTrigger
+  CascaderTrigger,
+  useCascaderSelection
 } from '../../../../src/components/core/Cascader/parts/cascader-extended.jsx';
 import { CascaderItems } from '../../../../src/components/core/Cascader/parts/cascader-item-extended.jsx';
 import {
@@ -16,113 +17,518 @@ import {
   CascaderNav,
   CascaderValue
 } from '../../../../src/components/core/Cascader/parts/cascader-nav-extended.jsx';
+import { Discord } from '../../../../src/icons/brands/discord.jsx';
+import { Dropbox } from '../../../../src/icons/brands/dropbox.jsx';
+import { GithubDark } from '../../../../src/icons/brands/githubDark.jsx';
+import { GithubLight } from '../../../../src/icons/brands/githubLight.jsx';
+import { GoogleDrive } from '../../../../src/icons/brands/googleDrive.jsx';
+import { Loom } from '../../../../src/icons/brands/loom.jsx';
+import { Slack } from '../../../../src/icons/brands/slack.jsx';
+import { Stripe } from '../../../../src/icons/brands/stripe.jsx';
+import { Zoom } from '../../../../src/icons/brands/zoom.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
+import {
+  ToggleGroup,
+  ToggleGroupItem
+} from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const textIcon = <RegistryIcon lucide='TypeIcon' className='size-4' />;
-const hashIcon = <RegistryIcon lucide='HashIcon' className='size-4' />;
-const usersIcon = <RegistryIcon lucide='UsersIcon' className='size-4' />;
-const mailIcon = <RegistryIcon lucide='AtSignIcon' className='size-4' />;
-const checkIcon = <RegistryIcon lucide='SquareCheckIcon' className='size-4' />;
-const clockIcon = (
-  <RegistryIcon lucide='CalendarClockIcon' className='size-4' />
+const slackLogo = <Slack className='size-4' aria-hidden='true' />;
+const githubLogo = (
+  <>
+    <GithubLight className='size-4 dark:hidden' aria-hidden='true' />
+    <GithubDark className='hidden size-4 dark:block' aria-hidden='true' />
+  </>
 );
-const userIcon = <RegistryIcon lucide='UserIcon' className='size-4' />;
-const attributes = [
-  { value: 'record-id', label: 'Record ID', icon: hashIcon },
+const driveLogo = <GoogleDrive className='size-4' aria-hidden='true' />;
+const dropboxLogo = <Dropbox className='size-4' aria-hidden='true' />;
+const stripeLogo = <Stripe className='size-4' aria-hidden='true' />;
+const zoomLogo = <Zoom className='size-4' aria-hidden='true' />;
+const loomLogo = <Loom className='size-4' aria-hidden='true' />;
+const discordLogo = <Discord className='size-4' aria-hidden='true' />;
+const channelIcon = <RegistryIcon lucide='HashIcon' className='size-4' />;
+const messageIcon = (
+  <RegistryIcon lucide='MessageSquareIcon' className='size-4' />
+);
+const folderIcon = <RegistryIcon lucide='FolderIcon' className='size-4' />;
+const pullRequestIcon = (
+  <RegistryIcon lucide='GitPullRequestArrowIcon' className='size-4' />
+);
+const issueIcon = <RegistryIcon lucide='BugIcon' className='size-4' />;
+const documentIcon = <RegistryIcon lucide='FileTextIcon' className='size-4' />;
+const paymentIcon = <RegistryIcon lucide='CreditCardIcon' className='size-4' />;
+const customerIcon = <RegistryIcon lucide='UsersIcon' className='size-4' />;
+const invoiceIcon = <RegistryIcon lucide='ReceiptIcon' className='size-4' />;
+const meetingIcon = <RegistryIcon lucide='CalendarIcon' className='size-4' />;
+const videoIcon = <RegistryIcon lucide='VideoIcon' className='size-4' />;
+const rawSources = [
   {
-    value: 'person',
-    label: 'Person',
-    icon: usersIcon,
-    count: 24,
+    value: 'slack',
+    label: 'Slack',
+    icon: slackLogo,
     children: [
-      { value: 'person.name', label: 'Name', icon: textIcon },
       {
-        value: 'person.email',
-        label: 'Email addresses',
-        icon: mailIcon,
-        keywords: ['mail']
-      },
-      { value: 'person.title', label: 'Job title', icon: textIcon },
-      {
-        value: 'person.company',
-        label: 'Company',
-        icon: usersIcon,
-        count: 8,
+        value: 'slack.channels',
+        label: 'Channels',
+        icon: channelIcon,
         children: [
           {
-            value: 'person.company.name',
-            label: 'Company name',
-            icon: textIcon
+            value: 'slack.channels.product-launch',
+            label: '#product-launch',
+            icon: slackLogo
           },
-          { value: 'person.company.domain', label: 'Domain', icon: textIcon },
           {
-            value: 'person.company.employees',
-            label: 'Employees',
-            icon: hashIcon
+            value: 'slack.channels.design-review',
+            label: '#design-review',
+            icon: slackLogo
+          },
+          {
+            value: 'slack.channels.incidents',
+            label: '#incidents',
+            icon: slackLogo
+          }
+        ]
+      },
+      {
+        value: 'slack.messages',
+        label: 'Direct messages',
+        icon: messageIcon,
+        keywords: ['dm', 'chat'],
+        children: [
+          {
+            value: 'slack.messages.mentions',
+            label: 'Mentions',
+            icon: slackLogo
+          },
+          {
+            value: 'slack.messages.saved',
+            label: 'Saved items',
+            icon: slackLogo
           }
         ]
       }
     ]
   },
   {
-    value: 'email',
-    label: 'Primary email address',
-    icon: mailIcon,
-    keywords: ['mail']
-  },
-  { value: 'user-id', label: 'User ID', icon: textIcon },
-  {
-    value: 'workspaces',
-    label: 'Workspaces',
-    icon: usersIcon,
-    count: 9,
+    value: 'github',
+    label: 'GitHub',
+    icon: githubLogo,
     children: [
-      { value: 'workspaces.name', label: 'Name', icon: textIcon },
-      { value: 'workspaces.plan', label: 'Plan', icon: textIcon },
-      { value: 'workspaces.seats', label: 'Seats', icon: hashIcon }
+      {
+        value: 'github.repositories',
+        label: 'Repositories',
+        icon: folderIcon,
+        children: [
+          {
+            value: 'github.repositories.web',
+            label: 'gaudi/web',
+            icon: githubLogo
+          },
+          {
+            value: 'github.repositories.registry',
+            label: 'gaudi/registry',
+            icon: githubLogo
+          }
+        ]
+      },
+      {
+        value: 'github.pull-requests',
+        label: 'Pull requests',
+        icon: pullRequestIcon,
+        keywords: ['pr'],
+        children: [
+          {
+            value: 'github.pull-requests.review',
+            label: 'Awaiting review',
+            icon: githubLogo
+          },
+          {
+            value: 'github.pull-requests.merge',
+            label: 'Ready to merge',
+            icon: githubLogo
+          }
+        ]
+      },
+      {
+        value: 'github.issues',
+        label: 'Issues',
+        icon: issueIcon,
+        children: [
+          {
+            value: 'github.issues.assigned',
+            label: 'Assigned to me',
+            icon: githubLogo
+          },
+          {
+            value: 'github.issues.triage',
+            label: 'Triage backlog',
+            icon: githubLogo
+          }
+        ]
+      }
     ]
   },
   {
-    value: 'next-task',
-    label: 'Next due task',
-    icon: checkIcon,
-    count: 1,
-    children: [{ value: 'next-task.due', label: 'Due date', icon: clockIcon }]
+    value: 'drive',
+    label: 'Google Drive',
+    icon: driveLogo,
+    children: [
+      {
+        value: 'drive.shared',
+        label: 'Shared drives',
+        icon: folderIcon,
+        children: [
+          { value: 'drive.shared.design', label: 'Design', icon: driveLogo },
+          {
+            value: 'drive.shared.marketing',
+            label: 'Marketing',
+            icon: driveLogo
+          }
+        ]
+      },
+      {
+        value: 'drive.documents',
+        label: 'Documents',
+        icon: documentIcon,
+        children: [
+          {
+            value: 'drive.documents.checklist',
+            label: 'Launch checklist',
+            icon: driveLogo
+          },
+          {
+            value: 'drive.documents.guidelines',
+            label: 'Brand guidelines',
+            icon: driveLogo
+          }
+        ]
+      }
+    ]
   },
-  { value: 'created-at', label: 'Created at', icon: clockIcon },
-  { value: 'created-by', label: 'Created by', icon: userIcon }
+  {
+    value: 'dropbox',
+    label: 'Dropbox',
+    icon: dropboxLogo,
+    children: [
+      {
+        value: 'dropbox.folders',
+        label: 'Team folders',
+        icon: folderIcon,
+        children: [
+          {
+            value: 'dropbox.folders.contracts',
+            label: 'Contracts',
+            icon: dropboxLogo
+          },
+          {
+            value: 'dropbox.folders.photography',
+            label: 'Photography',
+            icon: dropboxLogo
+          }
+        ]
+      },
+      {
+        value: 'dropbox.paper',
+        label: 'Paper docs',
+        icon: documentIcon,
+        children: [
+          {
+            value: 'dropbox.paper.weekly',
+            label: 'Weekly notes',
+            icon: dropboxLogo
+          },
+          {
+            value: 'dropbox.paper.retro',
+            label: 'Retro board',
+            icon: dropboxLogo
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: 'stripe',
+    label: 'Stripe',
+    icon: stripeLogo,
+    children: [
+      {
+        value: 'stripe.payments',
+        label: 'Payments',
+        icon: paymentIcon,
+        children: [
+          {
+            value: 'stripe.payments.charges',
+            label: 'Recent charges',
+            icon: stripeLogo
+          },
+          {
+            value: 'stripe.payments.disputes',
+            label: 'Disputes',
+            icon: stripeLogo
+          }
+        ]
+      },
+      {
+        value: 'stripe.customers',
+        label: 'Customers',
+        icon: customerIcon,
+        children: [
+          {
+            value: 'stripe.customers.subscribers',
+            label: 'Subscribers',
+            icon: stripeLogo
+          },
+          {
+            value: 'stripe.customers.trials',
+            label: 'Trials',
+            icon: stripeLogo
+          }
+        ]
+      },
+      {
+        value: 'stripe.invoices',
+        label: 'Invoices',
+        icon: invoiceIcon,
+        children: [
+          {
+            value: 'stripe.invoices.drafts',
+            label: 'Drafts',
+            icon: stripeLogo
+          },
+          {
+            value: 'stripe.invoices.overdue',
+            label: 'Past due',
+            icon: stripeLogo
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: 'zoom',
+    label: 'Zoom',
+    icon: zoomLogo,
+    children: [
+      {
+        value: 'zoom.meetings',
+        label: 'Meetings',
+        icon: meetingIcon,
+        children: [
+          {
+            value: 'zoom.meetings.upcoming',
+            label: 'Upcoming',
+            icon: zoomLogo
+          },
+          {
+            value: 'zoom.meetings.recurring',
+            label: 'Recurring',
+            icon: zoomLogo
+          }
+        ]
+      },
+      {
+        value: 'zoom.recordings',
+        label: 'Recordings',
+        icon: videoIcon,
+        children: [
+          {
+            value: 'zoom.recordings.cloud',
+            label: 'Cloud recordings',
+            icon: zoomLogo
+          },
+          {
+            value: 'zoom.recordings.transcripts',
+            label: 'Transcripts',
+            icon: zoomLogo
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: 'loom',
+    label: 'Loom',
+    icon: loomLogo,
+    children: [
+      {
+        value: 'loom.videos',
+        label: 'Videos',
+        icon: videoIcon,
+        children: [
+          {
+            value: 'loom.videos.recent',
+            label: 'Recent recordings',
+            icon: loomLogo
+          },
+          {
+            value: 'loom.videos.shared',
+            label: 'Shared with me',
+            icon: loomLogo
+          }
+        ]
+      },
+      {
+        value: 'loom.spaces',
+        label: 'Spaces',
+        icon: folderIcon,
+        children: [
+          {
+            value: 'loom.spaces.engineering',
+            label: 'Engineering',
+            icon: loomLogo
+          },
+          { value: 'loom.spaces.sales', label: 'Sales', icon: loomLogo }
+        ]
+      }
+    ]
+  },
+  {
+    value: 'discord',
+    label: 'Discord',
+    icon: discordLogo,
+    children: [
+      {
+        value: 'discord.channels',
+        label: 'Channels',
+        icon: channelIcon,
+        children: [
+          {
+            value: 'discord.channels.announcements',
+            label: '#announcements',
+            icon: discordLogo
+          },
+          {
+            value: 'discord.channels.help',
+            label: '#help',
+            icon: discordLogo
+          }
+        ]
+      },
+      {
+        value: 'discord.members',
+        label: 'Members',
+        icon: customerIcon,
+        children: [
+          {
+            value: 'discord.members.moderators',
+            label: 'Moderators',
+            icon: discordLogo
+          },
+          {
+            value: 'discord.members.joiners',
+            label: 'New joiners',
+            icon: discordLogo
+          }
+        ]
+      }
+    ]
+  }
 ];
+// `count` overrides the default child count: each source shows every item beneath it.
+const leaves = (node) => (node.children ? node.children.reduce((sum, child) => sum + leaves(child), 0) : 1);
+const sources = rawSources.map((source) => ({ ...source, count: leaves(source) }));
+function ResourceValue() {
+  const { firstPath, isEmpty } = useCascaderSelection();
+  if (isEmpty) {
+    return <span className='text-ui-muted-foreground'>Select a resource</span>;
+  }
+  const brand = firstPath[0];
+  const leaf = firstPath[firstPath.length - 1];
+  const slug = leaf?.value.split('.').join('/');
+  return (
+    <span className='flex min-w-0 items-center gap-2'>
+      <span className='flex shrink-0 items-center'>{brand?.icon}</span>
+      <span className='flex min-w-0 flex-col items-start leading-tight'>
+        <span className='truncate text-sm font-medium'>{leaf?.label}</span>
+        <span className='text-ui-muted-foreground truncate font-mono text-xs'>
+          {slug}
+        </span>
+      </span>
+    </span>
+  );
+}
 export function Pattern() {
   const [value, setValue] = useState('');
+  const [format, setFormat] = useState('collapsed');
+  const [deep, setDeep] = useState(false);
   return (
-    <div className='flex w-full justify-center p-4'>
-      <Cascader items={attributes} value={value} onValueChange={setValue}>
-        <CascaderTrigger
-          aria-label='Attribute'
-          render={
-            <Button
-              variant='outline'
-              className='w-72 justify-between gap-2 font-normal'
-            />
-          }
-        >
-          <CascaderValue placeholder='Select an attribute' maxSegments={3} />
-        </CascaderTrigger>
-
-        <CascaderContent className='w-80'>
-          <CascaderPanel>
-            <CascaderNav>
-              <CascaderInput />
-            </CascaderNav>
-            <CascaderBreadcrumb />
-            <CascaderEmpty />
-            <CascaderList>
-              <CascaderItems />
-            </CascaderList>
-            <CascaderStatus />
-          </CascaderPanel>
-        </CascaderContent>
-      </Cascader>
+    <div className='flex w-full flex-col items-center p-4'>
+      <div className='flex w-full max-w-sm flex-col gap-3'>
+        <div className='min-h-12 w-full'>
+          <Cascader
+            items={sources}
+            value={value}
+            onValueChange={setValue}
+            searchScope={deep ? 'deep' : 'level'}
+          >
+            <CascaderTrigger
+              aria-label='Resource'
+              render={
+                <Button
+                  variant='outline'
+                  className='h-auto min-h-9 w-full justify-between gap-2 py-1.5 font-normal'
+                />
+              }
+            >
+              {format === 'custom' ? (
+                <ResourceValue />
+              ) : (
+                <CascaderValue
+                  placeholder='Select a resource'
+                  display={format === 'leaf' ? 'leaf' : 'path'}
+                  collapse={
+                    format === 'full'
+                      ? 'none'
+                      : format === 'tail'
+                        ? 'start'
+                        : 'middle'
+                  }
+                  maxSegments={2}
+                />
+              )}
+            </CascaderTrigger>
+            <CascaderContent className='w-72'>
+              <CascaderPanel>
+                <CascaderNav>
+                  <CascaderInput
+                    placeholder={deep ? 'Search every level...' : 'Search...'}
+                  />
+                </CascaderNav>
+                <CascaderBreadcrumb />
+                <CascaderEmpty />
+                <CascaderList>
+                  <CascaderItems />
+                </CascaderList>
+                <CascaderStatus />
+              </CascaderPanel>
+            </CascaderContent>
+          </Cascader>
+        </div>
+        <div className='flex flex-wrap items-center justify-center gap-3'>
+          <ToggleGroup
+            variant='outline'
+            size='sm'
+            type='single'
+            value={format}
+            onValueChange={(next) => next && setFormat(next)}
+            aria-label='Trigger format'
+            className='max-w-full overflow-x-auto'
+          >
+            <ToggleGroupItem value='collapsed'>Collapsed</ToggleGroupItem>
+            <ToggleGroupItem value='full'>Full</ToggleGroupItem>
+            <ToggleGroupItem value='tail'>Tail</ToggleGroupItem>
+            <ToggleGroupItem value='leaf'>Leaf</ToggleGroupItem>
+            <ToggleGroupItem value='custom'>Headless</ToggleGroupItem>
+          </ToggleGroup>
+          <div className='flex items-center gap-2'>
+            <Switch id='cascader-deep-search' size='sm' checked={deep} onCheckedChange={setDeep} />
+            <Label htmlFor='cascader-deep-search' className='text-xs'>
+              Search every level
+            </Label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

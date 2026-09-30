@@ -24,8 +24,8 @@ export function Pattern() {
             className={cn(
               'rounded-lg flex size-10 items-center justify-center border-2 text-2xl transition-all',
               selected === item.value
-                ? 'border-ui-border bg-ui-muted scale-110'
-                : 'hover:bg-ui-muted border-transparent'
+                ? 'border-border bg-surface-muted scale-110'
+                : 'hover:bg-surface-muted border-transparent'
             )}
           >
             {item.emoji}
@@ -33,7 +33,7 @@ export function Pattern() {
         ))}
       </div>
       {selected && (
-        <p className='text-ui-muted-foreground text-sm'>
+        <p className='text-text-muted text-sm'>
           {emojis.find((e) => e.value === selected)?.label}
         </p>
       )}

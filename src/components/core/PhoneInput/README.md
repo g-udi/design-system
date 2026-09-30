@@ -1,6 +1,6 @@
 # PhoneInput
 
-This Gaudi owner includes **phone-input**, with **8 practical examples**.
+This Gaudi owner includes **phone-input**, with **1 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/PhoneInput`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

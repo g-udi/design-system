@@ -19,36 +19,49 @@ import {
   DropdownMenuTrigger
 } from '../../../../src/components/core/DropdownMenu/parts/dropdown-menu.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+const panels = [
+  { id: 'statusBar', label: 'Status bar', icon: 'LayoutIcon' },
+  { id: 'activityBar', label: 'Activity bar', icon: 'ActivityIcon', disabled: true },
+  { id: 'sidePanel', label: 'Side panel', icon: 'PanelLeftIcon' }
+];
+const positions = [
+  { value: 'top', label: 'Top', icon: 'ArrowUpIcon' },
+  { value: 'bottom', label: 'Bottom', icon: 'ArrowDownIcon' },
+  { value: 'right', label: 'Right', icon: 'ArrowRightIcon', disabled: true }
+];
+// Every item kind in one menu: labels, icons, shortcuts, a submenu, checkboxes, a radio group, disabled and destructive items.
 export function Pattern() {
-  const [notifications, setNotifications] = useState({
-    email: true,
-    sms: false,
-    push: true
-  });
-  const [theme, setTheme] = useState('light');
+  const [visible, setVisible] = useState({ statusBar: true, activityBar: false, sidePanel: true });
+  const [position, setPosition] = useState('bottom');
   return (
     <div className='flex items-center justify-center'>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant='outline' className='w-fit'>
-            Complex Menu
+            <RegistryIcon lucide='FileIcon' aria-hidden='true' />
+            File
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-56'>
+        <DropdownMenuContent className='w-56' align='start'>
           <DropdownMenuGroup>
             <DropdownMenuLabel>File</DropdownMenuLabel>
             <DropdownMenuItem>
-              <RegistryIcon lucide='FileIcon' />
-              New File
+              <RegistryIcon lucide='FileIcon' aria-hidden='true' />
+              New file
               <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <RegistryIcon lucide='CopyIcon' aria-hidden='true' />
+              Duplicate
+              <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
-                <RegistryIcon lucide='FolderOpenIcon' />
-                Open Recent
+                <RegistryIcon lucide='FolderOpenIcon' aria-hidden='true' />
+                Open recent
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
-                <DropdownMenuSubContent>
+                <DropdownMenuSubContent className='w-40'>
                   <DropdownMenuItem>Project Alpha</DropdownMenuItem>
                   <DropdownMenuItem>Project Beta</DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -56,47 +69,42 @@ export function Pattern() {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
+            <DropdownMenuItem disabled>
+              <RegistryIcon lucide='SendIcon' aria-hidden='true' />
+              Publish
+            </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
             <DropdownMenuLabel>Appearance</DropdownMenuLabel>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <RegistryIcon lucide='PaletteIcon' />
-                Theme
-              </DropdownMenuSubTrigger>
-              <DropdownMenuPortal>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup
-                    value={theme}
-                    onValueChange={setTheme}
-                  >
-                    <DropdownMenuRadioItem value='light'>
-                      Light
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='dark'>
-                      Dark
-                    </DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='system'>
-                      System
-                    </DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuPortal>
-            </DropdownMenuSub>
-            <DropdownMenuCheckboxItem
-              checked={notifications.email}
-              onCheckedChange={(checked) =>
-                setNotifications((prev) => ({ ...prev, email: checked }))
-              }
-            >
-              <RegistryIcon lucide='MailIcon' />
-              Email Notifications
-            </DropdownMenuCheckboxItem>
+            {panels.map((panel) => (
+              <DropdownMenuCheckboxItem
+                key={panel.id}
+                checked={visible[panel.id]}
+                disabled={panel.disabled}
+                onCheckedChange={(checked) => setVisible((prev) => ({ ...prev, [panel.id]: checked }))}
+                onSelect={(event) => event.preventDefault()}
+              >
+                <RegistryIcon lucide={panel.icon} aria-hidden='true' />
+                {panel.label}
+              </DropdownMenuCheckboxItem>
+            ))}
+          </DropdownMenuGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuGroup>
+            <DropdownMenuLabel>Panel position</DropdownMenuLabel>
+            <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+              {positions.map((item) => (
+                <DropdownMenuRadioItem key={item.value} value={item.value} disabled={item.disabled}>
+                  <RegistryIcon lucide={item.icon} aria-hidden='true' />
+                  {item.label}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuItem variant='destructive'>
-            <RegistryIcon lucide='TrashIcon' />
+            <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
             Delete
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
           </DropdownMenuItem>

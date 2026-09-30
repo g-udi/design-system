@@ -76,7 +76,7 @@ export function Pattern() {
           <DropdownMenuGroup>
             <DropdownMenuLabel className='flex items-center justify-between'>
               <span>Notifications</span>
-              <button className='text-ui-foreground text-xs font-normal underline-offset-2 hover:underline'>
+              <button className='text-text text-xs font-normal underline-offset-2 hover:underline'>
                 Mark all as read
               </button>
             </DropdownMenuLabel>
@@ -97,17 +97,17 @@ export function Pattern() {
                   <div className='flex flex-1 flex-col gap-px'>
                     <p className='leading-snug'>
                       <span className='font-medium'>{notification.user}</span>{' '}
-                      <span className='text-ui-muted-foreground'>
+                      <span className='text-text-muted'>
                         {notification.action}
                       </span>{' '}
                       <span className='font-medium'>{notification.target}</span>
                     </p>
-                    <span className='text-ui-muted-foreground'>
+                    <span className='text-text-muted'>
                       {notification.time}
                     </span>
                   </div>
                   {notification.unread && (
-                    <span className='bg-ui-primary mt-2 size-1.5 shrink-0 rounded-full' />
+                    <span className='bg-accent mt-2 size-1.5 shrink-0 rounded-full' />
                   )}
                 </DropdownMenuItem>
               ))}

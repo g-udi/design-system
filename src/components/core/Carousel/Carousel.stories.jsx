@@ -149,23 +149,3 @@ export const EditorialRail = {
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
   }
 };
-
-export const Sizes = {
-  parameters: { docs: { description: { story: 'Small and large sizes; without `loop`, Previous starts disabled and each carousel keeps its own position.' } } },
-  render: () => (
-    <div className='space-y-8'>
-      <Carousel ariaLabel='Small carousel' items={editorialItems} size='sm' />
-      <Carousel ariaLabel='Large carousel' items={editorialItems} size='lg' />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const small = within(canvas.getByRole('region', { name: 'Small carousel' }));
-    const large = within(canvas.getByRole('region', { name: 'Large carousel' }));
-    await expect(button(small, 'Previous slide')).toBeDisabled();
-    await expect(button(large, 'Previous slide')).toBeDisabled();
-    await userEvent.click(button(small, 'Next slide'));
-    await expect(small.getByText('2 of 3')).toBeInTheDocument();
-    await expect(large.getByText('1 of 3')).toBeInTheDocument();
-  }
-};

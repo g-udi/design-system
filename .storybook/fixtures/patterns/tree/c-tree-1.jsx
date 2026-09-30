@@ -6,6 +6,10 @@ import {
 } from '../../../../src/components/core/Tree/parts/tree-extended.jsx';
 import { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
+import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+import { useState } from 'react';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
 const items = {
   crm: {
     name: 'CRM',
@@ -67,7 +71,18 @@ const items = {
   'closed-tickets': { name: 'Closed Tickets' }
 };
 const indent = 20;
+// Display options on one tree: indent guides, folder icons, and plus and minus toggles.
+const guides =
+  'relative before:absolute before:inset-0 before:-ms-1.25 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]';
+const optionLabels = { guides: 'Indent guides', icons: 'Folder icons', plusMinus: 'Plus and minus' };
+
+function ItemIcon({ item }) {
+  const icon = item.isFolder() ? (item.isExpanded() ? 'FolderOpenIcon' : 'FolderIcon') : 'FileIcon';
+  return <RegistryIcon lucide={icon} aria-hidden='true' className='pointer-events-none size-4 text-ui-muted-foreground' />;
+}
+
 export function Pattern() {
+  const [options, setOptions] = useState({ guides: true, icons: true, plusMinus: false });
   const tree = useTree({
     initialState: {
       expandedItems: ['leads', 'accounts', 'activities']
@@ -83,15 +98,35 @@ export function Pattern() {
     features: [syncDataLoaderFeature, hotkeysCoreFeature]
   });
   return (
-    <div className='mx-auto w-full grow place-self-start lg:w-xs'>
-      <Tree indent={indent} tree={tree}>
-        {tree.getItems().map((item) => {
-          return (
-            <TreeItem key={item.getId()} item={item}>
-              <TreeItemLabel />
-            </TreeItem>
-          );
-        })}
+    <div className='mx-auto grid w-full max-w-sm gap-3'>
+      <div className='flex flex-wrap gap-x-3 gap-y-2'>
+        {Object.entries(optionLabels).map(([key, label]) => (
+          <Label key={key} className='flex items-center gap-2 text-xs font-normal'>
+            <Switch
+              size='sm'
+              checked={options[key]}
+              onCheckedChange={(checked) => setOptions((current) => ({ ...current, [key]: checked }))}
+            />
+            {label}
+          </Label>
+        ))}
+      </div>
+      <Tree
+        className={options.guides ? guides : undefined}
+        indent={indent}
+        tree={tree}
+        toggleIconType={options.plusMinus ? 'plus-minus' : 'chevron'}
+      >
+        {tree.getItems().map((item) => (
+          <TreeItem key={item.getId()} item={item}>
+            <TreeItemLabel className='before:bg-ui-background relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:-z-10'>
+              <span className='ms-1 flex items-center gap-2'>
+                {options.icons && <ItemIcon item={item} />}
+                {item.getItemName()}
+              </span>
+            </TreeItemLabel>
+          </TreeItem>
+        ))}
       </Tree>
     </div>
   );

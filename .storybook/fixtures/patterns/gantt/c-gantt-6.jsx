@@ -55,7 +55,8 @@ function buildBars(anchor, titles) {
     plannedOffset,
     plannedDays,
     color,
-    progress
+    progress,
+    dependencies
   ) => ({
     id: `bar-${resourceId}`,
     title: titles.get(resourceId) ?? resourceId,
@@ -66,21 +67,22 @@ function buildBars(anchor, titles) {
     allDay: true,
     color,
     resourceId,
-    progress
+    progress,
+    dependencies
   });
   return [
     // delivered exactly to plan
     bar('kickoff', -9, 2, -9, 2, 'var(--color-blue-500)', 100),
     // ran a day over its planned window
-    bar('requirements', -7, 4, -7, 3, 'var(--color-sky-500)', 100),
+    bar('requirements', -7, 4, -7, 3, 'var(--color-sky-500)', 100, ['bar-kickoff']),
     // started a day late and carried the slip through
-    bar('integration', -2, 5, -3, 5, 'var(--color-violet-500)', 60),
+    bar('integration', -2, 5, -3, 5, 'var(--color-violet-500)', 60, ['bar-requirements']),
     // tracking a day ahead of plan
-    bar('migration', 1, 3, 1, 4, 'var(--color-emerald-500)', 30),
-    // slipped on both ends
-    bar('hardening', 4, 4, 3, 3, 'var(--color-teal-500)', 0),
-    // planned milestone (diamond) vs the day the handover actually took
-    bar('handover', 9, 1, 8, 0, 'var(--color-amber-500)')
+    bar('migration', 1, 3, 1, 4, 'var(--color-emerald-500)', 30, ['bar-requirements']),
+    // waits on BOTH tracks, so two arrows land on its start; slipped on both ends
+    bar('hardening', 4, 4, 3, 3, 'var(--color-teal-500)', 0, ['bar-integration', 'bar-migration']),
+    // a zero-length milestone (diamond) that landed a day after its planned date
+    bar('handover', 9, 0, 8, 0, 'var(--color-amber-500)', void 0, ['bar-hardening'])
   ];
 }
 export function Pattern() {
@@ -96,11 +98,13 @@ export function Pattern() {
     <div className='w-full p-4'>
       <Card className='w-full py-0'>
         <CardContent className='p-0'>
-          {/* baselineBars is on by default: any event carrying baselineStart
-       and baselineEnd ghosts its planned window behind the bar, and
-       dragging a bar re-times the actual dates while the plan holds
-       still. Bars expose data-baseline-variance="early|late|on-time"
-       for consumer styling, and the tooltip names the planned range. */}
+          {/* baselineBars and dependencyLines are on by default: an event
+       carrying baselineStart and baselineEnd ghosts its planned window
+       behind the bar (data-baseline-variance="early|late|on-time"), and
+       one naming `dependencies` gets a finish-to-start arrow from each
+       predecessor. Dragging re-times the actual dates and re-anchors the
+       arrows while the plan holds still; the milestone diamond moves
+       like any bar but has no resize edges. */}
           <Gantt
             defaultEvents={bars}
             resources={resources}

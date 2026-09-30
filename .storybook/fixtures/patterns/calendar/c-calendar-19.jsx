@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { addDays, format } from 'date-fns';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { Calendar } from '../../../../src/components/core/Calendar/parts/calendar.jsx';
 import {
@@ -11,90 +12,77 @@ import {
 } from '../../../../src/components/core/Card/parts/card.jsx';
 import { ScrollArea } from '../../../../src/components/core/ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+
+const today = new Date();
+// The next three days are fully booked; past days cannot be picked.
+const booked = [1, 2, 3].map((offset) => addDays(today, offset));
+// Half-hour slots from 09:00 to 17:30; a few are taken on every day.
+const taken = new Set(['09:00', '09:30', '12:00', '14:30', '15:00']);
+const slots = Array.from({ length: 18 }, (_, i) => {
+  const minutes = 9 * 60 + i * 30;
+  return `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+});
+
 export function Pattern() {
-  const [date, setDate] = useState(/* @__PURE__ */ new Date());
-  const [selectedTime, setSelectedTime] = useState('10:00');
-  const timeSlots = Array.from({ length: 37 }, (_, i) => {
-    const totalMinutes = i * 15;
-    const hour = Math.floor(totalMinutes / 60) + 9;
-    const minute = totalMinutes % 60;
-    return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-  });
-  const bookedDates = Array.from(
-    { length: 3 },
-    (_, i) =>
-      new Date(
-        /* @__PURE__ */ new Date().getFullYear(),
-        /* @__PURE__ */ new Date().getMonth(),
-        /* @__PURE__ */ new Date().getDate() + i
-      )
-  );
+  const [date, setDate] = useState(addDays(today, 4));
+  const [time, setTime] = useState(null);
   return (
-    <Card className='gap-0 p-0'>
-      <CardHeader className='flex h-max items-center justify-start border-b px-4! py-3!'>
-        <CardTitle>Book your appointment</CardTitle>
+    <Card className='mx-auto w-fit max-w-full gap-0 p-0'>
+      <CardHeader className='border-b border-border px-4 py-3'>
+        <CardTitle>Book an appointment</CardTitle>
       </CardHeader>
-      <CardContent className='relative p-0 md:pr-48'>
-        <div className='p-4'>
-          <Calendar
-            mode='single'
-            selected={date}
-            onSelect={setDate}
-            defaultMonth={date}
-            disabled={bookedDates}
-            showOutsideDays={false}
-            modifiers={{
-              booked: bookedDates
-            }}
-          />
-        </div>
-        <div className='inset-y-0 right-0 flex w-full flex-col gap-4 border-t max-md:h-60 md:absolute md:w-48 md:border-t-0 md:border-l'>
-          <ScrollArea className='h-full'>
-            <div className='flex flex-col gap-2 p-4'>
-              {timeSlots.map((time) => (
-                <Button
-                  key={time}
-                  variant={selectedTime === time ? 'default' : 'outline'}
-                  onClick={() => setSelectedTime(time)}
-                  className='w-full shadow-none'
-                >
-                  {time}
-                </Button>
-              ))}
-            </div>
-          </ScrollArea>
+      <CardContent className='flex p-0 max-sm:flex-col'>
+        <Calendar
+          mode='single'
+          selected={date}
+          defaultMonth={date}
+          onSelect={(next) => {
+            if (!next) return;
+            setDate(next);
+            setTime(null);
+          }}
+          disabled={[{ before: today }, ...booked]}
+          showOutsideDays={false}
+          fixedWeeks
+        />
+        <div className='relative w-full max-sm:h-48 sm:w-36'>
+          <div className='absolute inset-0 border-border max-sm:border-t sm:border-s'>
+            <ScrollArea className='h-full'>
+              <div className='flex flex-col gap-2 p-3'>
+                <p className='text-sm font-medium'>{format(date, 'EEEE, d')}</p>
+                <div className='grid gap-1.5 max-sm:grid-cols-3'>
+                  {slots.map((slot) => (
+                    <Button
+                      key={slot}
+                      className='w-full'
+                      disabled={taken.has(slot)}
+                      onClick={() => setTime(slot)}
+                      size='sm'
+                      variant={time === slot ? 'default' : 'outline'}
+                    >
+                      {slot}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </ScrollArea>
+          </div>
         </div>
       </CardContent>
-      <CardFooter className='flex flex-col gap-4 border-t px-4 py-3! md:flex-row'>
-        <div className='flex max-w-64 items-center gap-2 text-sm'>
-          {date && selectedTime ? (
+      <CardFooter className='flex items-center gap-3 border-t border-border px-4 py-3'>
+        <p className='flex min-w-0 items-center gap-2 text-sm'>
+          {time ? (
             <>
-              <RegistryIcon
-                lucide='CircleCheckIcon'
-                className='size-4 shrink-0'
-              />
-              <span className='text-sm'>
-                Your meeting is booked for{' '}
-                <span className='font-medium'>
-                  {' '}
-                  {date?.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long'
-                  })}{' '}
-                </span>
-                at <span className='font-medium'>{selectedTime}</span>
+              <RegistryIcon lucide='CircleCheckIcon' className='size-4 shrink-0 text-success' />
+              <span>
+                {format(date, 'EEEE, MMMM d')} at <span className='font-medium'>{time}</span>
               </span>
             </>
           ) : (
-            <>Select a date and time for your meeting.</>
+            <span className='text-text-muted'>Pick a date and a free slot.</span>
           )}
-        </div>
-        <Button
-          disabled={!date || !selectedTime}
-          className='w-full md:ml-auto md:w-auto'
-          variant='outline'
-        >
+        </p>
+        <Button className='ms-auto' size='sm' disabled={!time}>
           Confirm
         </Button>
       </CardFooter>

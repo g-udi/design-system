@@ -1,9 +1,9 @@
 'use client';
 import { useId, useState } from 'react';
+import { cn } from '../../../../src/utilities/cn/index.js';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -28,6 +28,7 @@ import {
 const QUESTIONS = [
   {
     name: 'usage',
+    step: 'Use',
     title: 'What will you use the workspace for?',
     description: 'This picks the default views. Nothing here is permanent.',
     choices: [
@@ -50,6 +51,7 @@ const QUESTIONS = [
   },
   {
     name: 'size',
+    step: 'Team',
     title: 'How many people will join you?',
     description: 'Seats stay flexible. This only sets a starting layout.',
     choices: [
@@ -68,6 +70,7 @@ const QUESTIONS = [
   },
   {
     name: 'first',
+    step: 'First view',
     title: 'What should we set up first?',
     description: 'The rest can be added from the sidebar at any point.',
     choices: [
@@ -155,6 +158,27 @@ export function Pattern() {
       shortcuts='letters'
       onSubmit={handleSubmit}
     >
+      {/*
+       * A segmented bar built from the progress render state. It sits outside
+       * every question, because only the active fieldset has a layout box.
+       */}
+      <QuestionnaireProgress
+        className='w-full'
+        render={(props, state) => {
+          const label = `Step ${state.current} of ${state.total} - ${QUESTIONS[state.current - 1]?.step}`;
+          return (
+            <div {...props} aria-valuetext={label} className='grid gap-1.5 text-xs text-ui-muted-foreground'>
+              {/* Hidden: the wrapper already announces the position as a progressbar. */}
+              <div aria-hidden='true' className='flex gap-1.5'>
+                {Array.from({ length: state.total }, (_, index) => (
+                  <span key={index} className={cn('h-1.5 flex-1 rounded-full', index < state.current ? 'bg-ui-primary' : 'bg-ui-muted')} />
+                ))}
+              </div>
+              <span>{label}</span>
+            </div>
+          );
+        }}
+      />
       <Card>
         {QUESTIONS.map((question) => (
           // CardHeader sits between each fieldset and its legend, which stops
@@ -180,9 +204,6 @@ export function Pattern() {
               <QuestionnaireDescription render={<CardDescription />}>
                 {question.description}
               </QuestionnaireDescription>
-              <CardAction>
-                <QuestionnaireProgress />
-              </CardAction>
             </CardHeader>
             <CardContent>
               <QuestionnaireChoices>

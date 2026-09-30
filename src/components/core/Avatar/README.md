@@ -2,7 +2,7 @@
 
 Avatar now shares its image, fallback and badge primitives with the curated compositions. The existing component supports real identity, source and collaborator use cases; its previous label, tone, size and shape API remains available.
 
-[Open Avatar Docs](http://localhost:6007/?path=/docs/core-avatar--docs) for **44 examples**: all 35 curated patterns, the existing initials/size/color recipes and six complete account, collaboration, recovery, presence and international-identity examples. Each preview includes public, copyable source.
+[Open Avatar Docs](http://localhost:6007/?path=/docs/core-avatar--docs) for every example: curated patterns, initials, size and colour recipes, and complete account, collaboration, recovery and presence examples. Each preview includes public, copyable source.
 
 Photo examples use fixed [Random User](https://randomuser.me/) portrait URLs with fictional demo identities. The same portraits appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/fixtures/PORTRAITS.md).
 

@@ -9,11 +9,9 @@ const pattern = patternStories(
 
 export default { title: 'Core/Marker', tags: ['autodocs'], ...catalogueMeta('marker') };
 
-export const MarkerPattern1 = { name: 'Default, separator, and border', ...pattern(1) };
-export const MarkerPattern2 = { name: 'Tool call log with icons', ...pattern(2) };
-export const MarkerPattern3 = { name: 'Run status with a live step', ...pattern(3) };
-export const MarkerPattern4 = { name: 'Run log grouped by phase', ...pattern(4) };
-export const MarkerPattern5 = { name: 'Changed files with border markers', ...pattern(5) };
+export const MarkerPattern4 = { name: 'Run log grouped by phase', ...pattern(4, 'Separator markers name each phase; default markers with icons list its steps.') };
+export const MarkerPattern3 = { name: 'Run status with a live step', ...pattern(3, 'Settled, failed, and in-progress steps, with a spinner on the live one.') };
+export const MarkerPattern5 = { name: 'Changed files with border markers', ...pattern(5, 'Border markers divide rows that carry trailing badges and counts.') };
 export const MarkerPattern6 = {
   name: 'Links and an action button',
   ...pattern(6),

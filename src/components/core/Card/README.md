@@ -1,6 +1,6 @@
 # Card
 
-This Gaudi owner includes **card**, **frame**, with **37 practical examples**.
+This Gaudi owner includes **card**, **frame**, with **8 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Card`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

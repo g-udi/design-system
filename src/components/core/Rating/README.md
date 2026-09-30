@@ -1,6 +1,6 @@
 # Rating
 
-This Gaudi owner includes **rating**, with **9 practical examples**.
+This Gaudi owner includes **rating**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Rating`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

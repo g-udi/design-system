@@ -11,7 +11,7 @@ import {
 } from '../../../../src/components/core/Tabs/index.js';
 export function Pattern() {
   return (
-    <div className='flex w-full max-w-md flex-col gap-6'>
+    <div className='mx-auto flex w-full max-w-md flex-col gap-6'>
       <Tabs defaultValue='inbox'>
         <TabsList variant='line' className='mb-3.5 w-full'>
           <TabsTrigger value='inbox' className='gap-2'>

@@ -4,15 +4,17 @@ import {
   CodeBlock,
   CodeBlockContent,
   CodeBlockCopyButton,
+  CodeBlockExpandButton,
   CodeBlockHeader,
-  CodeBlockTitle
+  CodeBlockTitle,
+  useCodeBlockConfig
 } from '../../../../src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   ScrollArea,
   ScrollBar
 } from '../../../../src/components/core/ScrollArea/parts/scroll-area.jsx';
-import { Separator } from '../../../../src/components/core/Separator/parts/separator.jsx';
+import { cn } from '../../../../src/utilities/cn/index.js';
 const code = `export async function syncWorkspace(workspaceId: string) {
   const workspace = await db.workspace.findUnique({ where: { id: workspaceId } })
 
@@ -33,27 +35,45 @@ const code = `export async function syncWorkspace(workspaceId: string) {
 
   return { synced: members.length }
 }`;
+/* Fold regions are detected from indentation; these are their first lines,
+   counted from the top of the snippet whatever startLine says. Folding
+   something drops the line budget, since the file is already short. */
 const REGION_STARTS = [1, 4, 10, 11, 12];
+function CollapsibleArea({ children }) {
+  const { expanded } = useCodeBlockConfig('CollapsibleArea');
+  return (
+    <ScrollArea
+      className={cn(
+        'rounded-[inherit]',
+        /* overflow-hidden makes collapsed mean collapsed: without it the
+         reader could wheel through everything under the "Show more" fade. */
+        !expanded &&
+          '**:data-[slot=scroll-area-viewport]:max-h-56 **:data-[slot=scroll-area-viewport]:overflow-hidden'
+      )}
+    >
+      {children}
+      <ScrollBar orientation='horizontal' />
+    </ScrollArea>
+  );
+}
 export function Pattern() {
-  const [folded, setFolded] = useState([11]);
+  const [folded, setFolded] = useState([]);
   return (
     <CodeBlock
       code={code}
       language='typescript'
       showLineNumbers
+      startLine={40}
+      maxLines={folded.length ? undefined : 10}
       className='w-full max-w-2xl'
       foldable
       folded={folded}
       onFoldedChange={setFolded}
     >
       <CodeBlockHeader className='gap-1.5'>
-        <CodeBlockTitle>sync-workspace.ts</CodeBlockTitle>
+        <CodeBlockTitle>lib/sync-workspace.ts</CodeBlockTitle>
         <div className='ml-auto flex items-center gap-1'>
-          <Button
-            size='xs'
-            variant='ghost'
-            onClick={() => setFolded(REGION_STARTS)}
-          >
+          <Button size='xs' variant='ghost' onClick={() => setFolded(REGION_STARTS)}>
             Fold all
           </Button>
           <Button
@@ -64,14 +84,13 @@ export function Pattern() {
           >
             Unfold all
           </Button>
-          <Separator orientation='vertical' className='h-4' />
           <CodeBlockCopyButton />
         </div>
       </CodeBlockHeader>
-      <ScrollArea className='rounded-[inherit] **:data-[slot=scroll-area-viewport]:max-h-72'>
+      <CollapsibleArea>
         <CodeBlockContent />
-        <ScrollBar orientation='horizontal' />
-      </ScrollArea>
+      </CollapsibleArea>
+      <CodeBlockExpandButton />
     </CodeBlock>
   );
 }

@@ -7,7 +7,6 @@ import { activity } from '../../../../.storybook/fixtures/application/data';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { AvatarGroup } from '../Avatar';
 import Button from '../Button';
-import Icon from '../Icon';
 import Timeline from './Timeline';
 
 const docs = getComponentDocs('Core/Timeline');
@@ -105,23 +104,6 @@ export const Playground = {
     await expect(within(list).getAllByRole('listitem').filter((item) => item.parentElement === list)).toHaveLength(events.length);
     await expect(within(list).getByText(events[0].time)).toHaveAttribute('datetime', events[0].dateTime);
     await expect(within(list).getByRole('button', { name: 'Open review' })).toBeVisible();
-  }
-};
-
-export const CustomContent = {
-  parameters: { docs: { description: { story: 'An item `icon` fills the decorative marker, and `children` add host-owned content such as an action below the description.' } } },
-  render: () => (
-    <Timeline
-      items={activity.map((item, index) => ({
-        ...item,
-        icon: <Icon name={index ? 'Check' : 'Clock'} decorative size='xs' />,
-        children: index ? null : <Button size='sm' variant='outline'>Open review</Button>
-      }))}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'Open review' })).toBeVisible();
     for (const mark of canvasElement.querySelectorAll('.ds-timeline-mark')) await expect(mark).toHaveAttribute('aria-hidden', 'true');
   }
 };

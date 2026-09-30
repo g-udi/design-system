@@ -10,11 +10,11 @@ const distribution = [
 ];
 export function Pattern() {
   return (
-    <div className='mx-auto w-full max-w-xs space-y-4'>
+    <div className='mx-auto w-full max-w-xs space-y-3'>
       <div className='flex flex-col items-center gap-2'>
         <span className='text-3xl font-semibold'>4.6</span>
         <Rating rating={4.6} size='sm' />
-        <span className='text-ui-muted-foreground text-xs'>
+        <span className='text-text-muted text-xs'>
           Based on 200 reviews
         </span>
       </div>
@@ -22,14 +22,14 @@ export function Pattern() {
       <div className='space-y-2'>
         {distribution.map((row) => (
           <div key={row.stars} className='flex items-center gap-3 text-sm'>
-            <span className='text-ui-muted-foreground w-3 text-right text-xs'>
+            <span className='text-text-muted w-3 text-right text-xs'>
               {row.stars}
             </span>
             <Progress
               value={row.percentage}
               className='h-1.5 flex-1 **:data-[slot=progress-indicator]:bg-yellow-400'
             />
-            <span className='text-ui-muted-foreground w-7 text-right text-xs'>
+            <span className='text-text-muted w-7 text-right text-xs'>
               {row.count}
             </span>
           </div>

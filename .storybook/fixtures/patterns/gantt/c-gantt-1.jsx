@@ -495,6 +495,7 @@ function SettingsMenu({
 export function Pattern() {
   const bars = useMemo(() => buildBars(/* @__PURE__ */ new Date()), []);
   const apiRef = useRef(null);
+  const [resources, setResources] = useState(RESOURCES);
   const [rowCheckboxes, setRowCheckboxes] = useState(
     SETTINGS_DEFAULTS.rowCheckboxes
   );
@@ -567,7 +568,8 @@ export function Pattern() {
         <CardContent className='p-0'>
           <Gantt
             defaultEvents={bars}
-            resources={RESOURCES}
+            resources={resources}
+            onResourceReorder={(proposal) => setResources(proposal.resources)}
             defaultScale='month'
             apiRef={apiRef}
             locale={activeLocale.locale}

@@ -1,5 +1,6 @@
 'use client';
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from 'recharts';
+import { useId, useState } from 'react';
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from 'recharts';
 import {
   Card,
   CardContent,
@@ -9,53 +10,47 @@ import {
 } from '../../../../src/components/core/Card/parts/card.jsx';
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '../../../../src/components/mdx/Chart/parts/chart.jsx';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
 const chartData = [
-  { skill: 'Frontend', score: 92 },
-  { skill: 'Backend', score: 78 },
-  { skill: 'DevOps', score: 68 },
-  { skill: 'Design', score: 74 },
-  { skill: 'Testing', score: 85 },
-  { skill: 'Security', score: 62 }
+  { skill: 'Frontend', team: 92, target: 85 },
+  { skill: 'Backend', team: 78, target: 85 },
+  { skill: 'DevOps', team: 68, target: 80 },
+  { skill: 'Design', team: 74, target: 70 },
+  { skill: 'Testing', team: 85, target: 80 },
+  { skill: 'Security', team: 62, target: 85 }
 ];
 const chartConfig = {
-  score: { label: 'Proficiency', color: 'var(--chart-1)' }
+  team: { label: 'Team', color: 'var(--chart-1)' },
+  target: { label: 'Target', color: 'var(--chart-2)' }
 };
 export function Pattern() {
+  const uid = useId().replace(/:/g, '');
+  const [compare, setCompare] = useState(false);
   return (
-    <Card className='w-full max-w-xs'>
-      <CardHeader className='items-center pb-0'>
-        <CardTitle>Skill Assessment</CardTitle>
-        <CardDescription>Team proficiency across key areas</CardDescription>
+    <Card className='mx-auto w-full max-w-sm'>
+      <CardHeader className='pb-0'>
+        <CardTitle>Skill assessment</CardTitle>
+        <CardDescription>Team proficiency across key areas, out of 100</CardDescription>
       </CardHeader>
-      <CardContent className='flex-1 pb-0'>
-        <ChartContainer
-          config={chartConfig}
-          className='mx-auto aspect-square max-h-[280px]'
-        >
+      <CardContent className='grid gap-3'>
+        <Label className='gap-2 text-sm font-normal'>
+          <Switch size='sm' checked={compare} onCheckedChange={setCompare} />
+          Compare with target
+        </Label>
+        <ChartContainer config={chartConfig} className='mx-auto aspect-square max-h-72 w-full'>
           <RadarChart accessibilityLayer data={chartData}>
             <defs>
-              <linearGradient id='chart24-fill' x1='0' y1='0' x2='0' y2='1'>
-                <stop
-                  offset='0%'
-                  stopColor='var(--color-score)'
-                  stopOpacity={0.5}
-                />
-                <stop
-                  offset='100%'
-                  stopColor='var(--color-score)'
-                  stopOpacity={0.08}
-                />
+              <linearGradient id={`${uid}-fill`} x1='0' y1='0' x2='0' y2='1'>
+                <stop offset='0%' stopColor='var(--color-team)' stopOpacity={0.5} />
+                <stop offset='100%' stopColor='var(--color-team)' stopOpacity={0.08} />
               </linearGradient>
-              <filter
-                id='chart24-glow'
-                x='-20%'
-                y='-20%'
-                width='140%'
-                height='140%'
-              >
+              <filter id={`${uid}-glow`} x='-20%' y='-20%' width='140%' height='140%'>
                 <feGaussianBlur stdDeviation='6' result='blur' />
                 <feComposite in='SourceGraphic' in2='blur' operator='over' />
               </filter>
@@ -63,14 +58,27 @@ export function Pattern() {
             <ChartTooltip content={<ChartTooltipContent />} />
             <PolarAngleAxis dataKey='skill' tick={{ fontSize: 12 }} />
             <PolarGrid strokeDasharray='3 3' />
+            {/* A fixed domain keeps the shape honest when scores cluster high. */}
+            <PolarRadiusAxis angle={90} domain={[0, 100]} tick={false} axisLine={false} />
+            {compare ? (
+              <Radar
+                dataKey='target'
+                fill='none'
+                stroke='var(--color-target)'
+                strokeWidth={2}
+                strokeDasharray='4 3'
+                dot={{ r: 3.5, fill: 'var(--background)', strokeWidth: 2, stroke: 'var(--color-target)' }}
+              />
+            ) : null}
             <Radar
-              dataKey='score'
-              fill='url(#chart24-fill)'
-              stroke='var(--color-score)'
+              dataKey='team'
+              fill={`url(#${uid}-fill)`}
+              stroke='var(--color-team)'
               strokeWidth={2}
-              filter='url(#chart24-glow)'
-              dot={{ r: 4, fill: 'var(--color-score)', strokeWidth: 0 }}
+              filter={`url(#${uid}-glow)`}
+              dot={{ r: 4, fill: 'var(--color-team)', strokeWidth: 0 }}
             />
+            {compare ? <ChartLegend content={<ChartLegendContent />} /> : null}
           </RadarChart>
         </ChartContainer>
       </CardContent>

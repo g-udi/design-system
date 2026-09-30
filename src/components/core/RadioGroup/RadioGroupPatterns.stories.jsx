@@ -1,3 +1,4 @@
+import { expect, userEvent, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -8,20 +9,20 @@ const pattern = patternStories(
 
 export default { title: 'Core/RadioGroup', tags: ['autodocs'], ...catalogueMeta('radio-group') };
 
-export const RadioGroupPattern1 = { name: 'Basic', ...pattern(1) };
-export const RadioGroupPattern2 = { name: 'Disabled', ...pattern(2) };
-export const RadioGroupPattern3 = { name: 'With descriptions', ...pattern(3) };
-export const RadioGroupPattern4 = { name: 'Invalid', ...pattern(4) };
-export const RadioGroupPattern5 = { name: 'Colored', ...pattern(5) };
-export const RadioGroupPattern6 = { name: 'Legend and description', ...pattern(6) };
-export const RadioGroupPattern7 = { name: 'Cards with descriptions', ...pattern(7) };
-export const RadioGroupPattern8 = { name: 'Card with separators', ...pattern(8) };
-export const RadioGroupPattern9 = { name: 'Card with icons', ...pattern(9) };
-export const RadioGroupPattern10 = { name: 'In a frame', ...pattern(10) };
-export const RadioGroupPattern11 = { name: 'Grid layout', ...pattern(11) };
-export const RadioGroupPattern12 = { name: 'Avatar cards', ...pattern(12) };
-export const RadioGroupPattern13 = { name: 'Payment method cards', ...pattern(13) };
-export const RadioGroupPattern14 = { name: 'Tooltip info', ...pattern(14) };
-export const RadioGroupPattern15 = { name: 'With badges', ...pattern(15) };
-export const RadioGroupPattern16 = { name: 'Inline horizontal', ...pattern(16) };
-export const RadioGroupPattern17 = { name: 'Pricing plan cards', ...pattern(17) };
+export const RadioGroupPattern6 = {
+  name: 'Fieldset, descriptions and states',
+  ...pattern(6, 'A legend and description over options with their own descriptions and a disabled option, and an invalid group with its error.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const option = (name) => canvas.getByRole('radio', { name });
+    await expect(option('Comfortable')).toHaveAttribute('aria-checked', 'true');
+    await expect(option('Compact')).toBeDisabled();
+    await userEvent.click(canvas.getByText('Default'));
+    await expect(option('Default')).toHaveAttribute('aria-checked', 'true');
+    await expect(option('Email only')).toHaveAttribute('aria-invalid', 'true');
+  }
+};
+export const RadioGroupPattern15 = { name: 'Label extras and layouts', ...pattern(15, 'Tooltip hints, Recommended and New badges, an inline horizontal group, and radios in status colours.') };
+export const RadioGroupPattern10 = { name: 'Framed lists', ...pattern(10, 'Titled frames of rows, each row one click target, with the radio leading or trailing an icon.') };
+export const RadioGroupPattern17 = { name: 'Row cards', ...pattern(17, 'Pricing plans with a leading radio and a person picker with a trailing radio.') };
+export const RadioGroupPattern11 = { name: 'Corner-radio cards', ...pattern(11, 'Icon cards in a grid and saved payment methods with the radio in the corner.') };

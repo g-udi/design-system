@@ -22,70 +22,36 @@ import {
   FieldDescription,
   FieldLabel
 } from '../../../../src/components/core/Field/parts/field.jsx';
+// Flat rows, as they come from a database table: `getParent` rebuilds the tree, in any row order.
 const topics = [
-  {
-    value: 'billing',
-    label: 'Billing',
-    children: [
-      { value: 'billing.invoice', label: 'Invoice question' },
-      { value: 'billing.refund', label: 'Refund request' },
-      { value: 'billing.plan', label: 'Change plan' },
-      { value: 'billing.tax', label: 'Tax details' }
-    ]
-  },
-  {
-    value: 'technical',
-    label: 'Technical',
-    children: [
-      {
-        value: 'technical.api',
-        label: 'API',
-        children: [
-          { value: 'technical.api.auth', label: 'Authentication' },
-          { value: 'technical.api.limits', label: 'Rate limits' },
-          { value: 'technical.api.webhooks', label: 'Webhooks' }
-        ]
-      },
-      { value: 'technical.bug', label: 'Bug report' },
-      { value: 'technical.performance', label: 'Performance' }
-    ]
-  },
-  {
-    value: 'account',
-    label: 'Account',
-    children: [
-      { value: 'account.login', label: 'Cannot sign in' },
-      { value: 'account.email', label: 'Change email' },
-      { value: 'account.delete', label: 'Delete account' }
-    ]
-  },
-  {
-    value: 'team',
-    label: 'Team',
-    children: [
-      { value: 'team.invite', label: 'Invites' },
-      { value: 'team.seats', label: 'Seats' },
-      { value: 'team.roles', label: 'Roles' }
-    ]
-  },
-  {
-    value: 'licensing',
-    label: 'Licensing',
-    children: [
-      { value: 'licensing.key', label: 'License key' },
-      { value: 'licensing.transfer', label: 'Transfer a license' }
-    ]
-  },
-  {
-    value: 'security',
-    label: 'Security',
-    children: [
-      { value: 'security.report', label: 'Report a vulnerability' },
-      { value: 'security.sso', label: 'SSO setup' }
-    ]
-  },
-  { value: 'feedback', label: 'Product feedback' },
-  { value: 'other', label: 'Something else' }
+  { value: 'billing', label: 'Billing', parentId: null },
+  { value: 'billing.invoice', label: 'Invoice question', parentId: 'billing' },
+  { value: 'billing.refund', label: 'Refund request', parentId: 'billing' },
+  { value: 'billing.plan', label: 'Change plan', parentId: 'billing' },
+  { value: 'billing.tax', label: 'Tax details', parentId: 'billing' },
+  { value: 'technical.api.auth', label: 'Authentication', parentId: 'technical.api' },
+  { value: 'technical', label: 'Technical', parentId: null },
+  { value: 'technical.api', label: 'API', parentId: 'technical' },
+  { value: 'technical.api.limits', label: 'Rate limits', parentId: 'technical.api' },
+  { value: 'technical.api.webhooks', label: 'Webhooks', parentId: 'technical.api' },
+  { value: 'technical.bug', label: 'Bug report', parentId: 'technical' },
+  { value: 'technical.performance', label: 'Performance', parentId: 'technical' },
+  { value: 'account', label: 'Account', parentId: null },
+  { value: 'account.login', label: 'Cannot sign in', parentId: 'account' },
+  { value: 'account.email', label: 'Change email', parentId: 'account' },
+  { value: 'account.delete', label: 'Delete account', parentId: 'account' },
+  { value: 'team.invite', label: 'Invites', parentId: 'team' },
+  { value: 'team', label: 'Team', parentId: null },
+  { value: 'team.seats', label: 'Seats', parentId: 'team' },
+  { value: 'team.roles', label: 'Roles', parentId: 'team' },
+  { value: 'licensing', label: 'Licensing', parentId: null },
+  { value: 'licensing.key', label: 'License key', parentId: 'licensing' },
+  { value: 'licensing.transfer', label: 'Transfer a license', parentId: 'licensing' },
+  { value: 'security', label: 'Security', parentId: null },
+  { value: 'security.report', label: 'Report a vulnerability', parentId: 'security' },
+  { value: 'security.sso', label: 'SSO setup', parentId: 'security' },
+  { value: 'feedback', label: 'Product feedback', parentId: null },
+  { value: 'other', label: 'Something else', parentId: null }
 ];
 export function Pattern() {
   const [submitted, setSubmitted] = useState(null);
@@ -103,7 +69,7 @@ export function Pattern() {
           <FieldLabel htmlFor='topic-trigger'>
             What do you need help with?
           </FieldLabel>
-          <Cascader items={topics} name='topic'>
+          <Cascader items={topics} getParent={(node) => node.parentId} name='topic'>
             <CascaderTrigger
               id='topic-trigger'
               render={

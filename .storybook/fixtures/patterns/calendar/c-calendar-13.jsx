@@ -115,7 +115,7 @@ function MonthGrid({
     <div className='relative'>
       <table className={className}>{children}</table>
       {isYearView && (
-        <div className='bg-ui-background absolute inset-0 z-20 -m-2'>
+        <div className='bg-surface absolute inset-0 z-20 -m-2'>
           <div className='h-full' ref={scrollAreaRef}>
             <ScrollArea className='h-full'>
               <div className='px-3 pt-1 pb-3'>
@@ -195,7 +195,7 @@ function CaptionLabel({ children, isYearView, setIsYearView }) {
   return (
     <Button
       aria-label='Show options'
-      className='data-[state=open]:text-ui-muted-foreground -ms-2 flex items-center gap-2 text-sm font-medium hover:bg-transparent [&[data-state=open]>svg]:rotate-180'
+      className='data-[state=open]:text-text-muted -ms-2 flex items-center gap-2 text-sm font-medium hover:bg-transparent [&[data-state=open]>svg]:rotate-180'
       data-state={isYearView ? 'open' : 'closed'}
       onClick={() => setIsYearView((prev) => !prev)}
       size='sm'
@@ -205,7 +205,7 @@ function CaptionLabel({ children, isYearView, setIsYearView }) {
       <RegistryIcon
         lucide='ChevronDownIcon'
         aria-hidden='true'
-        className='text-ui-muted-foreground shrink-0 transition-transform duration-200'
+        className='text-text-muted shrink-0 transition-transform duration-200'
       />
     </Button>
   );

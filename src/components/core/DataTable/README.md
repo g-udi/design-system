@@ -1,6 +1,6 @@
 # DataTable
 
-This Gaudi owner includes **data-grid**, with **34 practical examples**.
+This Gaudi owner includes **data-grid**, with **12 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/DataTable`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

@@ -7,21 +7,19 @@ import {
 const sides = ['top', 'right', 'bottom', 'left'];
 export function Pattern() {
   return (
-    <div className='grid grid-cols-2 gap-2'>
+    <div className='mx-auto grid w-full max-w-sm grid-cols-4 gap-2'>
       {sides.map((side) => (
         <HoverCard key={side} openDelay={100} closeDelay={100}>
           <HoverCardTrigger asChild>
-            <Button variant='outline' className='flex-1 capitalize'>
-              {side.replace('-', ' ')}
+            <Button variant='outline' size='sm' className='w-full capitalize'>
+              {side}
             </Button>
           </HoverCardTrigger>
-
-          <HoverCardContent side={side}>
+          <HoverCardContent side={side} className='w-56'>
             <div className='flex flex-col gap-1'>
-              <h4 className='font-medium'>Hover Card</h4>
-              <p className='text-ui-muted-foreground'>
-                This hover card appears on the {side.replace('-', ' ')} side of
-                the trigger.
+              <p className='font-medium'>Hover card</p>
+              <p className='text-text-muted'>
+                Opens on the {side} after a short hover or on focus.
               </p>
             </div>
           </HoverCardContent>

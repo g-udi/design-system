@@ -40,7 +40,7 @@ const playgroundCode = playgroundSource('DropdownMenu', {
 
 // Toggles keep the menu open so several can be changed in one visit.
 const keepOpen = (event) => event.preventDefault();
-const Shortcut = ({ children }) => <span className='ml-auto ps-6 text-xs text-gray-500 dark:text-gray-400'>{children}</span>;
+const Shortcut = ({ children }) => <span className='ml-auto ps-6 text-xs text-text-muted'>{children}</span>;
 
 // Open and non-modal so the menu stays in the docs flow; the stage reserves its height, and `key` reopens it when `align` changes.
 function ActionsExample(args) {
@@ -49,11 +49,11 @@ function ActionsExample(args) {
   const [inFeed, setInFeed] = useState(false);
   return (
     <div className='mx-auto grid min-h-[27.5rem] w-full max-w-md grid-cols-1 content-start gap-2'>
-      <article className='flex items-center gap-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800'>
+      <article className='flex items-center gap-3 rounded-lg border border-border p-3'>
         <Avatar name={article.author} size='sm' />
         <div className='min-w-0 flex-1'>
-          <p className='truncate text-sm font-medium text-gray-950 dark:text-gray-100'>{article.title}</p>
-          <p className='truncate text-xs text-gray-500 dark:text-gray-400'>{pinned ? 'Pinned · ' : ''}{article.meta}</p>
+          <p className='truncate text-sm font-medium text-text'>{article.title}</p>
+          <p className='truncate text-xs text-text-muted'>{pinned ? 'Pinned · ' : ''}{article.meta}</p>
         </div>
         <DropdownMenu
           key={args.align}
@@ -89,7 +89,7 @@ function ActionsExample(args) {
           </DropdownMenuItem>
         </DropdownMenu>
       </article>
-      <p role='status' className='text-sm text-gray-600 dark:text-gray-400'>{status}</p>
+      <p role='status' className='text-sm text-text-muted'>{status}</p>
     </div>
   );
 }

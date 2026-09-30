@@ -61,6 +61,10 @@ export function Pattern({
       url: '/media/files/package.json'
     }
   ];
+  const seeded = {
+    'default-doc-2': { progress: 100, status: 'error', error: 'Upload failed. Please try again.' },
+    'default-doc-3': { progress: 35, status: 'uploading' }
+  };
   const defaultUploadFiles = defaultFiles.map((file) => ({
     id: file.id,
     file: {
@@ -69,8 +73,8 @@ export function Pattern({
       type: file.type
     },
     preview: file.url,
-    progress: 100,
-    status: 'completed'
+    // Seed one row mid-upload and one failed, so every state shows at rest.
+    ...(seeded[file.id] ?? { progress: 100, status: 'completed' })
   }));
   const [uploadFiles, setUploadFiles] = useState(defaultUploadFiles);
   const [
@@ -187,11 +191,11 @@ export function Pattern({
     return 'File';
   };
   return (
-    <div className={cn('w-full space-y-4', className)}>
+    <div className={cn('w-full space-y-3', className)}>
       {/* Upload Area */}
       <div
         className={cn(
-          'relative rounded-lg border border-dashed p-6 text-center transition-colors',
+          'relative rounded-lg border border-dashed p-4 text-center transition-colors',
           isDragging
             ? 'border-ui-primary bg-ui-primary/5'
             : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/50'
@@ -203,7 +207,7 @@ export function Pattern({
       >
         <input {...getInputProps()} className='sr-only' />
 
-        <div className='flex flex-col items-center gap-4'>
+        <div className='flex flex-col items-center gap-3'>
           <div
             className={cn(
               'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-control transition-colors',
@@ -218,7 +222,7 @@ export function Pattern({
             />
           </div>
 
-          <div className='space-y-2'>
+          <div className='space-y-1'>
             <p className='text-sm font-medium'>
               Drop files here or{' '}
               <button
@@ -239,11 +243,25 @@ export function Pattern({
 
       {/* Files Table */}
       {uploadFiles.length > 0 && (
-        <div className='space-y-4'>
-          <div className='flex items-center justify-between'>
-            <h3 className='text-sm font-medium'>
-              Files ({uploadFiles.length})
-            </h3>
+        <div className='space-y-3'>
+          <div className='flex flex-wrap items-center justify-between gap-2'>
+            <div className='flex flex-wrap items-center gap-2'>
+              <h3 className='text-sm font-medium'>
+                Files ({uploadFiles.length})
+              </h3>
+              {[
+                ['completed', 'Completed', 'success-light'],
+                ['uploading', 'Uploading', 'secondary'],
+                ['error', 'Failed', 'destructive-light']
+              ].map(([status, label, variant]) => {
+                const count = uploadFiles.filter((file) => file.status === status).length;
+                return count > 0 ? (
+                  <Badge key={status} size='sm' variant={variant}>
+                    {label}: {count}
+                  </Badge>
+                ) : null;
+              })}
+            </div>
             <div className='flex gap-2'>
               <Button onClick={openFileDialog} variant='outline' size='sm'>
                 <RegistryIcon lucide='CloudUploadIcon' className='h-4 w-4' />

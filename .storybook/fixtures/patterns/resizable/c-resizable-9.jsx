@@ -1,34 +1,50 @@
 'use client';
+import { useState } from 'react';
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup
 } from '../../../../src/components/core/Resizable/parts/resizable.jsx';
-const pillClasses =
-  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-6 before:w-1 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-control before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:h-10 hover:before:bg-ui-muted-foreground/40 active:before:h-12 active:before:w-1.5 active:before:bg-ui-primary';
-export function Pattern() {
+
+// An editor workspace: three columns, the middle one split into editor and terminal.
+// String sizes are percentages; onLayoutChange reports each panel size by id.
+function Pane({ label, size }) {
   return (
-    <div className='mx-auto w-full max-w-lg'>
+    <div className='flex h-full flex-col items-center justify-center gap-1 p-3 text-center'>
+      <span className='text-sm font-semibold'>{label}</span>
+      <span className='text-xs tabular-nums text-ui-muted-foreground'>{Math.round(size)}%</span>
+    </div>
+  );
+}
+
+export function Pattern() {
+  const [columns, setColumns] = useState({ files: 25, main: 50, preview: 25 });
+  const [rows, setRows] = useState({ editor: 70, terminal: 30 });
+  return (
+    <div className='mx-auto w-full max-w-2xl'>
       <ResizablePanelGroup
         orientation='horizontal'
-        className='rounded-2xl min-h-[200px] border'
+        className='min-h-72 rounded-2xl border border-ui-border'
+        onLayoutChange={setColumns}
       >
-        <ResizablePanel defaultSize={25} minSize={15}>
-          <div className='flex h-full items-center justify-center p-6'>
-            <span className='text-sm font-semibold'>Files</span>
-          </div>
+        <ResizablePanel id='files' defaultSize='25%' minSize='15%'>
+          <Pane label='Files' size={columns.files ?? 25} />
         </ResizablePanel>
-        <ResizableHandle className={pillClasses} />
-        <ResizablePanel defaultSize={50} minSize={25}>
-          <div className='flex h-full items-center justify-center p-6'>
-            <span className='text-sm font-semibold'>Editor</span>
-          </div>
+        <ResizableHandle withHandle />
+        <ResizablePanel id='main' defaultSize='50%' minSize='30%'>
+          <ResizablePanelGroup orientation='vertical' onLayoutChange={setRows}>
+            <ResizablePanel id='editor' defaultSize='70%' minSize='30%'>
+              <Pane label='Editor' size={rows.editor ?? 70} />
+            </ResizablePanel>
+            <ResizableHandle withHandle />
+            <ResizablePanel id='terminal' defaultSize='30%' minSize='20%'>
+              <Pane label='Terminal' size={rows.terminal ?? 30} />
+            </ResizablePanel>
+          </ResizablePanelGroup>
         </ResizablePanel>
-        <ResizableHandle className={pillClasses} />
-        <ResizablePanel defaultSize={25} minSize={15}>
-          <div className='flex h-full items-center justify-center p-6'>
-            <span className='text-sm font-semibold'>Preview</span>
-          </div>
+        <ResizableHandle withHandle />
+        <ResizablePanel id='preview' defaultSize='25%' minSize='15%'>
+          <Pane label='Preview' size={columns.preview ?? 25} />
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>

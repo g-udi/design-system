@@ -17,7 +17,7 @@ const SECURITY_ITEMS = [
     icon: (
       <RegistryIcon
         lucide='LockIcon'
-        className='text-ui-muted-foreground size-4'
+        className='text-text-muted size-4'
       />
     ),
     title: 'Password Policy',
@@ -28,7 +28,7 @@ const SECURITY_ITEMS = [
     icon: (
       <RegistryIcon
         lucide='FingerprintPatternIcon'
-        className='text-ui-muted-foreground size-4'
+        className='text-text-muted size-4'
       />
     ),
     title: 'Biometric Status',
@@ -39,7 +39,7 @@ const SECURITY_ITEMS = [
     icon: (
       <RegistryIcon
         lucide='KeySquareIcon'
-        className='text-ui-muted-foreground size-4'
+        className='text-text-muted size-4'
       />
     ),
     title: 'Active Sessions',
@@ -53,10 +53,10 @@ export function Pattern() {
       <DialogConfirmationTrigger asChild>
         <Button variant='outline'>Advanced Security Check</Button>
       </DialogConfirmationTrigger>
-      <DialogConfirmationContent className='max-w-sm! gap-0 overflow-hidden p-0'>
+      <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>
         {/* Header */}
         <div className='flex flex-col items-center justify-center gap-1.5 px-4 pt-6 pb-5 text-center'>
-          <DialogConfirmationMedia className='size-12 rounded-full bg-green-50 text-green-500 dark:bg-green-950 dark:text-green-400'>
+          <DialogConfirmationMedia className='size-12 rounded-full bg-success-muted text-success'>
             <RegistryIcon lucide='ShieldAlertIcon' className='size-6' />
           </DialogConfirmationMedia>
           <DialogConfirmationTitle className='text-base font-semibold'>
@@ -68,19 +68,19 @@ export function Pattern() {
         </div>
 
         {/* Content */}
-        <div className='space-y-3 p-4'>
+        <div className='grid gap-2 px-4'>
           {SECURITY_ITEMS.map((item) => (
             <div
               key={item.title}
-              className='border-ui-border flex items-center justify-between rounded-md border border-dashed px-3 py-2.5'
+              className='border-border flex items-center justify-between rounded-md border border-dashed px-3 py-2'
             >
               <div className='flex items-center gap-2.5'>
-                <div className='bg-ui-background border-ui-border/80 flex size-8 items-center justify-center rounded-md border shadow-xs'>
+                <div className='bg-surface border-border flex size-7 items-center justify-center rounded-md border shadow-xs'>
                   {item.icon}
                 </div>
-                <div className='flex flex-col gap-0.25'>
+                <div className='flex flex-col gap-0.5'>
                   <span className='text-sm font-medium'>{item.title}</span>
-                  <span className='text-ui-muted-foreground text-xs'>
+                  <span className='text-text-muted text-xs'>
                     {item.description}
                   </span>
                 </div>

@@ -12,38 +12,38 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const events = [
   {
-    title: 'Product Launch',
+    title: 'Product launch',
     start: '2026-01-24T10:00:00',
     end: '2026-01-24T11:30:00',
-    colorful: 'after:bg-green-500'
+    colorful: 'after:bg-success'
   },
   {
-    title: 'Weekly Standup',
+    title: 'Weekly standup',
     start: '2026-01-28T13:00:00',
     end: '2026-01-28T13:30:00',
-    colorful: 'after:bg-yellow-500'
+    colorful: 'after:bg-warning'
   },
   {
-    title: 'Code Review Session',
+    title: 'Code review',
     start: '2026-01-31T15:00:00',
     end: '2026-01-31T16:00:00',
-    colorful: 'after:bg-blue-500'
+    colorful: 'after:bg-info'
   }
 ];
 export function Pattern() {
   const [date, setDate] = useState(/* @__PURE__ */ new Date());
   return (
-    <Card className='w-2xs py-4'>
-      <CardContent className='px-4'>
+    <Card className='mx-auto w-fit gap-3 py-3'>
+      <CardContent className='px-3'>
         <Calendar
           mode='single'
           selected={date}
           onSelect={setDate}
-          className='w-full bg-transparent p-0'
+          className='p-0'
           required
         />
       </CardContent>
-      <CardFooter className='flex flex-col items-start gap-3 border-t px-4! pt-3! pb-0!'>
+      <CardFooter className='flex flex-col items-start gap-2 border-t border-border px-3 pt-3'>
         <div className='flex w-full items-center justify-between px-1'>
           <div className='text-sm font-medium'>
             {date?.toLocaleDateString('en-US', {
@@ -56,10 +56,10 @@ export function Pattern() {
             variant='ghost'
             size='icon'
             className='size-6'
-            title='Add Event'
+            title='Add event'
           >
             <RegistryIcon lucide='PlusIcon' />
-            <span className='sr-only'>Add Event</span>
+            <span className='sr-only'>Add event</span>
           </Button>
         </div>
         <div className='flex w-full flex-col gap-2'>
@@ -67,14 +67,14 @@ export function Pattern() {
             <div
               key={event.title}
               className={cn(
-                'bg-ui-muted relative p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1',
+                'bg-surface-muted relative p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1',
                 'rounded-md',
                 'after:rounded-full',
                 event.colorful
               )}
             >
               <div className='font-medium'>{event.title}</div>
-              <div className='text-ui-muted-foreground text-xs'>
+              <div className='text-text-muted text-xs'>
                 {formatDateRange(new Date(event.start), new Date(event.end))}
               </div>
             </div>

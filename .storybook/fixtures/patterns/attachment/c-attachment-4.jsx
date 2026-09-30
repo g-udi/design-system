@@ -1,5 +1,7 @@
 import {
   Attachment,
+  AttachmentAction,
+  AttachmentActions,
   AttachmentContent,
   AttachmentDescription,
   AttachmentGroup,
@@ -13,9 +15,14 @@ const ICON_SHEET = (
 );
 const ICON_JSON = <RegistryIcon lucide='FileJsonIcon' aria-hidden='true' />;
 const ICON_CODE = <RegistryIcon lucide='CodeIcon' aria-hidden='true' />;
+const ICON_DOWNLOAD = <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />;
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-3'>
+      <p className='text-sm'>
+        Here is the incident write-up, the files I worked from, and the code I
+        cited.
+      </p>
       <div className='flex flex-col gap-2'>
         {/*
          * Each band still says in text what its size is already saying. Size
@@ -37,6 +44,20 @@ export function Pattern() {
               2.3 MB
             </AttachmentDescription>
           </AttachmentContent>
+          <AttachmentActions>
+            {/*
+             * type="button" is spelled out because a bare <button> inside a form
+             * defaults to submit, and this chip is meant to be pasted into one.
+             */}
+            <AttachmentAction
+              type='button'
+              size='icon-sm'
+              variant='secondary'
+              aria-label='Download billing-incident-report.pdf'
+            >
+              {ICON_DOWNLOAD}
+            </AttachmentAction>
+          </AttachmentActions>
         </Attachment>
       </div>
 

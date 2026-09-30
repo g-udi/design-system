@@ -10,17 +10,8 @@ const pattern = patternStories(
 export default { title: 'Core/Stepper', tags: ['autodocs'], ...catalogueMeta('stepper') };
 
 export const StepperPattern1 = { name: 'Basic stepper', ...pattern(1), play: catalogueInteractions['stepper-1'] };
-export const StepperPattern2 = { name: 'Completed state', ...pattern(2) };
+export const StepperPattern8 = { name: 'Titles and descriptions', ...pattern(8, 'Labels centred under the indicator, start-aligned without a rail, or inline beside it, with optional descriptions.') };
+export const StepperPattern7 = { name: 'Controlled with icons and badges', ...pattern(7, 'Previous and Next drive a controlled stepper; icon indicators turn to checks and a badge names each step status.') };
 export const StepperPattern3 = { name: 'Loading state', ...pattern(3) };
-export const StepperPattern4 = { name: 'Controlled', ...pattern(4) };
-export const StepperPattern5 = { name: 'Title and indicator', ...pattern(5) };
-export const StepperPattern6 = { name: 'Progress bar indicator', ...pattern(6) };
-export const StepperPattern7 = { name: 'Icons and badges', ...pattern(7) };
-export const StepperPattern8 = { name: 'Descriptions', ...pattern(8) };
-export const StepperPattern9 = { name: 'Inline titles', ...pattern(9) };
-export const StepperPattern10 = { name: 'Content for each step', ...pattern(10) };
-export const StepperPattern11 = { name: 'Progress bar and titles', ...pattern(11) };
-export const StepperPattern12 = { name: 'Segmented progress bar', ...pattern(12) };
-export const StepperPattern13 = { name: 'Vertical with descriptions', ...pattern(13) };
-export const StepperPattern14 = { name: 'Vertical orientation', ...pattern(14) };
-export const StepperPattern15 = { name: 'Vertical with titles', ...pattern(15) };
+export const StepperPattern12 = { name: 'Progress bar', ...pattern(12, 'A segmented bar with a step counter and Back and Next; switch on titles to label each segment.') };
+export const StepperPattern13 = { name: 'Vertical orientation', ...pattern(13, 'Vertical steps with titles and optional descriptions.') };

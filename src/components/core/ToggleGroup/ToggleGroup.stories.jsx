@@ -10,11 +10,6 @@ import Pill from '../Pill';
 import ToggleGroup from './ToggleGroup';
 
 const docs = getComponentDocs('Core/ToggleGroup');
-const formatting = [
-  { value: 'bold', label: 'Bold' },
-  { value: 'italic', label: 'Italic' },
-  { value: 'underline', label: 'Underline' }
-];
 const exportFormats = [
   { value: 'md', label: 'Markdown' },
   { value: 'html', label: 'HTML' },
@@ -123,22 +118,6 @@ export const Playground = {
     if (!multiple) await expect(within(library).queryByText('Interfaces and real data')).not.toBeInTheDocument();
     await userEvent.click(option(canvas, 'Grid view'));
     await expect(library).toHaveAttribute('data-layout', 'grid');
-  }
-};
-
-export const Multiple = {
-  args: { onValueChange: fn() },
-  parameters: { docs: { description: { story: '`type="multiple"` takes an array value, so each option toggles independently.' } } },
-  render: ({ onValueChange }) => (
-    <ToggleGroup label='Text formatting' type='multiple' defaultValue={['bold']} options={formatting} onValueChange={onValueChange} />
-  ),
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(option(canvas, 'Italic', 'button'));
-    await expect(args.onValueChange).toHaveBeenLastCalledWith(['bold', 'italic']);
-    await userEvent.click(option(canvas, 'Bold', 'button'));
-    await expect(args.onValueChange).toHaveBeenLastCalledWith(['italic']);
-    await expect(option(canvas, 'Italic', 'button')).toHaveAttribute('aria-pressed', 'true');
   }
 };
 

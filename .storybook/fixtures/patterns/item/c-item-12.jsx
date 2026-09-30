@@ -16,8 +16,7 @@ import {
 const activities = [
   {
     name: 'Sarah Chen',
-    avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     action: 'deployed',
     target: 'v2.4.1 to production',
     badge: 'success-light',
@@ -25,8 +24,7 @@ const activities = [
   },
   {
     name: 'Marcus Johnson',
-    avatar:
-      'static/images/art/10.svg',
+    avatar: 'https://randomuser.me/api/portraits/men/46.jpg',
     action: 'merged',
     target: 'feat/dark-mode into main',
     badge: 'info-light',
@@ -34,8 +32,7 @@ const activities = [
   },
   {
     name: 'Emily Park',
-    avatar:
-      'static/images/art/1.svg',
+    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
     action: 'opened',
     target: 'issue #284: Fix mobile nav',
     badge: 'warning-light',

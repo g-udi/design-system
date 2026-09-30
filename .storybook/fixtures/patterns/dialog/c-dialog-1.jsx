@@ -34,14 +34,14 @@ export function Pattern() {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor='name-1'>Name</FieldLabel>
-                <Input id='name-1' name='name' defaultValue='Pedro Duarte' />
+                <Input id='name-1' name='name' defaultValue='Maya Patel' />
               </Field>
               <Field>
                 <FieldLabel htmlFor='username-1'>Username</FieldLabel>
                 <Input
                   id='username-1'
                   name='username'
-                  defaultValue='@peduarte'
+                  defaultValue='@maya'
                 />
               </Field>
             </FieldGroup>

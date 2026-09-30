@@ -4,17 +4,31 @@ import {
   AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
+
+const person = { src: 'https://randomuser.me/api/portraits/men/32.jpg', handle: '@alexjohnson', initials: 'AJ' };
+
+const Face = ({ className }) => (
+  <Avatar className={className}>
+    <AvatarImage src={person.src} alt='' />
+    <AvatarFallback>{person.initials}</AvatarFallback>
+  </Avatar>
+);
+
 export function Pattern() {
   return (
-    <Button variant='outline' size='sm' className='gap-1.5'>
-      <Avatar className='size-5'>
-        <AvatarImage
-          src='https://randomuser.me/api/portraits/men/32.jpg'
-          alt='@nick.bold'
-        />
-        <AvatarFallback>CH</AvatarFallback>
-      </Avatar>
-      <span className='text-xs'>@nick.bold</span>
-    </Button>
+    <div className='mx-auto flex w-fit flex-wrap items-center gap-2'>
+      <Button variant='outline' size='sm' className='gap-1.5'>
+        <Face className='size-5' />
+        <span className='text-xs'>{person.handle}</span>
+      </Button>
+      <Button variant='outline' size='sm' className='gap-1 rounded-control ps-0.5'>
+        <Face className='size-6 border-2 border-ui-background' />
+        <span className='text-xs'>{person.handle}</span>
+      </Button>
+      <Button size='sm' className='gap-1 rounded-control ps-0.5'>
+        <Face className='size-6 border border-ui-primary' />
+        <span className='text-xs'>{person.handle}</span>
+      </Button>
+    </div>
   );
 }

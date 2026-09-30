@@ -100,7 +100,7 @@ export function Pattern() {
                   className='rounded-lg'
                 >
                   <div className='flex items-center gap-2.5 truncate'>
-                    <Avatar className='size-9'>
+                    <Avatar className='size-7'>
                       <AvatarImage
                         src={developer.avatar}
                         alt={developer.name}
@@ -116,7 +116,7 @@ export function Pattern() {
                       <div className='truncate font-medium'>
                         {developer.name}
                       </div>
-                      <div className='text-ui-muted-foreground truncate text-sm'>
+                      <div className='text-text-muted truncate text-xs'>
                         {developer.role} • {developer.location}
                       </div>
                     </div>

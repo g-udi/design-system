@@ -17,7 +17,7 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-lg flex-col'>
       <Frame spacing='sm'>
         <FrameHeader className='px-2!'>
-          <FrameTitle>Droplet Status</FrameTitle>
+          <FrameTitle>Server status</FrameTitle>
           <FrameDescription>
             Primary production server{' '}
             <Badge variant='outline' size='sm'>
@@ -28,92 +28,92 @@ export function Pattern() {
         <FramePanel className='p-0!'>
           <Table>
             <TableBody>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 w-40 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted w-40 py-2 text-sm font-medium'>
                   Status
                 </TableCell>
                 <TableCell className='py-2'>
                   <div className='flex items-center gap-2'>
                     <span className='relative flex size-2'>
-                      <span className='absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75' />
-                      <span className='relative inline-flex size-2 rounded-full bg-green-500' />
+                      <span className='absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75' />
+                      <span className='relative inline-flex size-2 rounded-full bg-success' />
                     </span>
-                    <span className='text-sm font-medium text-green-700 dark:text-green-400'>
+                    <span className='text-sm font-medium text-success'>
                       Operational
                     </span>
                   </div>
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   Instance Type
                 </TableCell>
                 <TableCell className='py-2'>
                   <span className='font-mono text-sm'>c6g.2xlarge</span>
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   Region
                 </TableCell>
                 <TableCell className='py-2 text-sm'>
                   US East (N. Virginia)
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   CPU Usage
                 </TableCell>
                 <TableCell className='py-2'>
                   <div className='flex items-center gap-3'>
-                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-control'>
+                    <div className='bg-surface-muted h-2 w-24 overflow-hidden rounded-control'>
                       <div
-                        className='bg-ui-primary h-full rounded-control'
+                        className='bg-accent h-full rounded-control'
                         style={{ width: '42%' }}
                       />
                     </div>
-                    <span className='text-ui-muted-foreground text-sm'>
+                    <span className='text-text-muted text-sm'>
                       42%
                     </span>
                   </div>
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   Memory
                 </TableCell>
                 <TableCell className='py-2'>
                   <div className='flex items-center gap-3'>
-                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-control'>
+                    <div className='bg-surface-muted h-2 w-24 overflow-hidden rounded-control'>
                       <div
-                        className='h-full rounded-control bg-amber-500'
+                        className='h-full rounded-control bg-warning'
                         style={{ width: '67%' }}
                       />
                     </div>
-                    <span className='text-ui-muted-foreground text-sm'>
+                    <span className='text-text-muted text-sm'>
                       10.7 / 16 GB
                     </span>
                   </div>
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   Uptime
                 </TableCell>
                 <TableCell className='py-2 text-sm'>
                   47 days, 12 hours
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   OS
                 </TableCell>
                 <TableCell className='py-2 text-sm'>
                   Amazon Linux 2023
                 </TableCell>
               </TableRow>
-              <TableRow className='*:border-ui-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
-                <TableCell className='bg-ui-muted/50 py-2 text-sm font-medium'>
+              <TableRow className='*:border-border hover:bg-transparent [&>:not(:last-child)]:border-r'>
+                <TableCell className='bg-surface-muted py-2 text-sm font-medium'>
                   Tags
                 </TableCell>
                 <TableCell className='py-2'>

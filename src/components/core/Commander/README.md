@@ -1,6 +1,6 @@
 # Commander
 
-This Gaudi owner includes **command**, with **8 practical examples**.
+This Gaudi owner includes **command**, with **3 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Commander`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

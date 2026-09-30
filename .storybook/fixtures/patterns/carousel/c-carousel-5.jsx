@@ -15,7 +15,7 @@ export function Pattern() {
           delay: 2e3
         })
       ]}
-      className='w-full max-w-xs'
+      className='mx-auto w-full max-w-xs'
     >
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (

@@ -94,19 +94,19 @@ const features = [
 ];
 export function Pattern() {
   return (
-    <ScrollArea className='rounded-2xl h-76 w-full max-w-96 border'>
+    <ScrollArea className='mx-auto h-64 w-full max-w-md rounded-2xl border border-ui-border'>
       <div className='min-w-[600px]'>
         <table className='w-full'>
           <thead>
             <tr className='bg-ui-muted/50 border-b'>
-              <th className='p-3 text-left text-sm font-medium'>Plan</th>
-              <th className='min-w-36 p-3 text-right text-sm font-medium'>
+              <th className='px-3 py-2 text-left text-sm font-medium'>Plan</th>
+              <th className='min-w-36 px-3 py-2 text-right text-sm font-medium'>
                 Price
               </th>
               {features.map((feature) => (
                 <th
                   key={feature.key}
-                  className='min-w-36 p-3 text-center text-sm font-medium'
+                  className='min-w-36 px-3 py-2 text-center text-sm font-medium'
                 >
                   {feature.label}
                 </th>
@@ -119,10 +119,10 @@ export function Pattern() {
                 key={i}
                 className='hover:bg-ui-muted/30 border-b last:border-0'
               >
-                <td className='p-3 text-sm font-medium'>{product.name}</td>
-                <td className='p-3 text-right text-sm'>{product.price}</td>
+                <td className='px-3 py-2 text-sm font-medium'>{product.name}</td>
+                <td className='px-3 py-2 text-right text-sm'>{product.price}</td>
                 {features.map((feature) => (
-                  <td key={feature.key} className='p-3 text-center text-sm'>
+                  <td key={feature.key} className='px-3 py-2 text-center text-sm'>
                     {product[feature.key]}
                   </td>
                 ))}

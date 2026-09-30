@@ -8,9 +8,4 @@ const pattern = patternStories(
 
 export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('native-select') };
 
-export const NativeSelectPattern1 = { name: 'Basic native select', ...pattern(1) };
-export const NativeSelectPattern2 = { name: 'Grouped native select', ...pattern(2) };
-export const NativeSelectPattern3 = { name: 'Small native select', ...pattern(3) };
-export const NativeSelectPattern4 = { name: 'Native select in a field', ...pattern(4) };
-export const NativeSelectPattern5 = { name: 'Disabled native select', ...pattern(5) };
-export const NativeSelectPattern6 = { name: 'Invalid native select', ...pattern(6) };
+export const NativeSelectPattern4 = { name: 'Native select fields', ...pattern(4, 'Grouped options with a disabled entry, the small size, and disabled and invalid fields.') };

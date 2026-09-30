@@ -19,12 +19,12 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const [visibility, setVisibility] = useState('Personal');
   return (
-    <Field className='max-w-3xl'>
-      <InputGroup className='bg-ui-background h-auto flex-row! flex-wrap items-start p-3 pl-4'>
-        <InputGroupAddon className='border-ui-border bg-ui-muted mt-1.5 inline-flex size-8 items-center justify-center rounded-md border p-0'>
+    <Field className='mx-auto w-full max-w-lg'>
+      <InputGroup className='bg-surface h-auto flex-row! flex-wrap items-start p-3 pl-4'>
+        <InputGroupAddon className='border-border bg-surface-muted mt-1.5 inline-flex size-8 items-center justify-center rounded-md border p-0'>
           <RegistryIcon
             lucide='LayersIcon'
-            className='text-ui-muted-foreground size-4'
+            className='text-text-muted size-4'
           />
         </InputGroupAddon>
 
@@ -37,7 +37,7 @@ export function Pattern() {
           <InputGroupTextarea
             aria-label='Description as multiple lines of text are supported...'
             placeholder='Description as multiple lines of text are supported...'
-            className='text-ui-muted-foreground min-h-16 border-none text-sm shadow-none focus-visible:ring-0'
+            className='text-text-muted min-h-12 border-none text-sm shadow-none focus-visible:ring-0'
           />
         </div>
 
@@ -45,7 +45,7 @@ export function Pattern() {
           align='block-end'
           className='flex-wrap gap-2 border-none'
         >
-          <InputGroupText className='text-ui-muted-foreground text-sm whitespace-nowrap'>
+          <InputGroupText className='text-text-muted text-sm whitespace-nowrap'>
             Save to
           </InputGroupText>
           <DropdownMenu>
@@ -72,7 +72,7 @@ export function Pattern() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className='bg-ui-border mx-1 h-4 w-px self-center' />
+          <div className='bg-border mx-1 h-4 w-px self-center' />
 
           <InputGroupButton variant='secondary' size='sm'>
             Cancel

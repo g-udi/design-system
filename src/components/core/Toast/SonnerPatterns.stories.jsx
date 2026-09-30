@@ -1,4 +1,6 @@
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { toast } from './Toast';
 
 const pattern = patternStories(
   'sonner',
@@ -8,24 +10,63 @@ const pattern = patternStories(
 
 export default { title: 'Core/Toast', tags: ['autodocs'], ...catalogueMeta('sonner') };
 
-export const SonnerPattern1 = { name: 'Basic toast', ...pattern(1) };
-export const SonnerPattern2 = { name: 'With description', ...pattern(2) };
-export const SonnerPattern3 = { name: 'Positions', ...pattern(3) };
-export const SonnerPattern4 = { name: 'Variants with colored icons', ...pattern(4) };
-export const SonnerPattern5 = { name: 'Duration options', ...pattern(5) };
-export const SonnerPattern6 = { name: 'Action button', ...pattern(6) };
-export const SonnerPattern7 = { name: 'Promise with loading state', ...pattern(7) };
-export const SonnerPattern8 = { name: 'Custom close and cancel buttons', ...pattern(8) };
-export const SonnerPattern9 = { name: 'Custom rich content', ...pattern(9) };
-export const SonnerPattern10 = { name: 'Upload progress', ...pattern(10) };
-export const SonnerPattern11 = { name: 'Status alert markup', ...pattern(11) };
-export const SonnerPattern12 = { name: 'Accent border', ...pattern(12) };
-export const SonnerPattern13 = { name: 'Inverted success', ...pattern(13) };
-export const SonnerPattern14 = { name: 'Inverted error with details', ...pattern(14) };
-export const SonnerPattern15 = { name: 'Inverted info with avatar', ...pattern(15) };
-export const SonnerPattern16 = { name: 'Inverted warning with countdown', ...pattern(16) };
-export const SonnerPattern17 = { name: 'Inverted multi-action with avatar group', ...pattern(17) };
-export const SonnerPattern18 = { name: 'Close button on top-right', ...pattern(18) };
-export const SonnerPattern19 = { name: 'Custom icon', ...pattern(19) };
-export const SonnerPattern20 = { name: 'Integration toast', ...pattern(20) };
-export const SonnerPattern21 = { name: 'Updatable toast with ID', ...pattern(21) };
+// Toasts portal to the page, so queries run against the document body.
+const page = (canvasElement) => within(canvasElement.ownerDocument.body);
+const click = (canvasElement, name) => userEvent.click(within(canvasElement).getByRole('button', { name }));
+const appears = (canvasElement, text) => waitFor(() => expect(page(canvasElement).getByText(text)).toBeVisible());
+
+export const SonnerPattern4 = {
+  name: 'Types and options',
+  ...pattern(4, 'Default, success, error, warning, info and loading toasts, with controls for position, duration, description, a close button and a custom icon.'),
+  play: async ({ canvasElement }) => {
+    await click(canvasElement, 'Success');
+    await appears(canvasElement, 'Changes saved');
+    await expect(page(canvasElement).getByText('Your profile is up to date.')).toBeVisible();
+    await userEvent.click(within(canvasElement).getByRole('switch', { name: 'Close button' }));
+    await userEvent.selectOptions(within(canvasElement).getByLabelText('Position'), 'top-center');
+    await click(canvasElement, 'Error');
+    await appears(canvasElement, 'Upload failed');
+    const toaster = canvasElement.ownerDocument.querySelector('[data-sonner-toaster][data-y-position="top"]');
+    await expect(toaster).toHaveAttribute('data-x-position', 'center');
+    await expect(within(toaster).getByRole('button', { name: /close toast/i })).toBeVisible();
+    // Restore the defaults so the story view opens in its resting state.
+    await userEvent.click(within(canvasElement).getByRole('switch', { name: 'Close button' }));
+    await userEvent.selectOptions(within(canvasElement).getByLabelText('Position'), 'bottom-right');
+    toast.dismiss();
+  }
+};
+export const SonnerPattern6 = {
+  name: 'Actions',
+  ...pattern(6, 'An Undo action after archiving, and a Delete and Cancel pair that turns the toast into a lightweight confirmation.'),
+  play: async ({ canvasElement }) => {
+    await click(canvasElement, 'Archive message');
+    await appears(canvasElement, 'Message archived');
+    await userEvent.click(page(canvasElement).getByRole('button', { name: 'Undo' }));
+    await appears(canvasElement, 'Message restored');
+    toast.dismiss();
+  }
+};
+export const SonnerPattern7 = {
+  name: 'Progress and async work',
+  ...pattern(7, '`toast.promise` moves from loading to success; the upload reuses one toast id to update its progress in place.'),
+  play: async ({ canvasElement }) => {
+    await click(canvasElement, 'Deploy');
+    await appears(canvasElement, 'Deploying to production...');
+    await waitFor(() => expect(page(canvasElement).getByText('Deployed to production')).toBeVisible(), { timeout: 4000 });
+    await click(canvasElement, /Upload report/);
+    await waitFor(() => expect(page(canvasElement).getByText('Uploaded')).toBeVisible(), { timeout: 5000 });
+    await expect(page(canvasElement).getAllByText('report-q4-2025.pdf')).toHaveLength(1);
+    toast.dismiss();
+  }
+};
+export const SonnerPattern9 = {
+  name: 'Custom content',
+  ...pattern(9, 'Rich toasts built with `toast.custom`: a message with an avatar, an accent update notice, a session warning, deployment details, a failed build log and a pull request with reviewers. The switch renders them on an inverted surface.'),
+  play: async ({ canvasElement }) => {
+    await click(canvasElement, 'Pull request');
+    await appears(canvasElement, 'Pull request #284');
+    await userEvent.click(page(canvasElement).getByRole('button', { name: 'Merge' }));
+    await appears(canvasElement, 'Merged into main');
+    toast.dismiss();
+  }
+};

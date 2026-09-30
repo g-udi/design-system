@@ -74,7 +74,7 @@ export const Browse = {
     await userEvent.type(search, 'Avatar');
     await expect(canvas.getByRole('link', {name:'Avatar',exact:true})).toHaveAttribute('href','./?path=/docs/core-avatar--docs');
     await userEvent.click(canvas.getByRole('button',{name:'Explore Avatar examples'}));
-    await expect(canvas.getByRole('status')).toHaveTextContent('42 examples');
+    await expect(canvas.getByRole('status')).toHaveTextContent('15 examples');
     await userEvent.click(canvas.getByRole('button',{name:'Clear Avatar filter'}));
     await userEvent.type(search,'spreadsheet editing');
     await expect(canvas.getByRole('link',{name:/Spreadsheet editing/})).toHaveAttribute('href','./?path=/story/core-datatable--data-grid-pattern-31');

@@ -8,14 +8,8 @@ const pattern = patternStories(
 
 export default { title: 'Core/Field', tags: ['autodocs'], ...catalogueMeta('field') };
 
-export const FieldPattern1 = { name: 'Input groups', ...pattern(1) };
-export const FieldPattern2 = { name: 'Input and textarea', ...pattern(2) };
-export const FieldPattern3 = { name: 'Select control', ...pattern(3) };
-export const FieldPattern4 = { name: 'Radio groups and checkboxes', ...pattern(4) };
-export const FieldPattern5 = { name: 'Slider and switch', ...pattern(5) };
-export const FieldPattern6 = { name: 'OTP input', ...pattern(6) };
 export const FieldPattern7 = { name: 'Settings form with validation', ...pattern(7) };
-export const FieldPattern8 = { name: 'Permission checkboxes', ...pattern(8) };
-export const FieldPattern9 = { name: 'Responsive layout', ...pattern(9) };
-export const FieldPattern10 = { name: 'Notification preferences', ...pattern(10) };
-export const FieldPattern11 = { name: 'Validation errors', ...pattern(11) };
+export const FieldPattern1 = { name: 'Controls in fields', ...pattern(1, 'Label, control and description around input groups, selects, a slider, an OTP input and a textarea.') };
+export const FieldPattern10 = { name: 'Fieldsets of choices', ...pattern(10, 'Legends group switches, checkboxes with a disabled option, and a radio group, split by separators.') };
+export const FieldPattern11 = { name: 'Validation errors', ...pattern(11, 'Single and multiple error messages under invalid fields.') };
+export const FieldPattern9 = { name: 'Responsive layout', ...pattern(9, 'Labels sit beside their controls on wide screens and stack on narrow ones.') };

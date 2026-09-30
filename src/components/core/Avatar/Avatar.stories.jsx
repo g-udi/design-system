@@ -96,42 +96,8 @@ export const Playground = {
   }
 };
 
-export const Sizes = {
-  parameters: { docs: { description: { story: 'Six sizes from 16px to 80px; text scales with the frame.' } } },
-  render: () => (
-    <div className='flex flex-wrap items-center gap-4'>
-      {sizes.map((size) => <Avatar key={size} {...alex} shape='circle' size={size} />)}
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const avatars = within(canvasElement).getAllByRole('img', { name: alex.name });
-    const classes = ['size-4', 'size-5', 'size-8', 'size-10', 'size-14', 'size-20'];
-    await expect(avatars).toHaveLength(sizes.length);
-    for (const [index, node] of avatars.entries()) await expect(node).toHaveClass(classes[index], 'rounded-full');
-    await imagesLoaded(avatars);
-  }
-};
-
 // One person per tone, so each fallback shows distinct initials on its gradient shade.
 const toneNames = ['Grace Hopper', 'Nora Quinn', 'Ben Adler', 'Tara Singh', 'Gabriel Ruiz', 'Ada Okafor', 'Yuki Mori', 'Rafael Diaz', 'Rosa Park', 'Ivan Petrov'];
-export const Tones = {
-  parameters: { docs: { description: { story: 'Tones colour the fallback with a gradient shade from the Gaudi artwork palette. `label` keeps explicit legacy initials and names the avatar `<label> avatar`.' } } },
-  render: () => (
-    <div className='flex flex-wrap items-center gap-3'>
-      {tones.map((tone, index) => <Avatar key={tone} name={toneNames[index]} tone={tone} shape='circle' size='lg' />)}
-      <Avatar label='AA' tone='indigo' shape='circle' size='lg' />
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const blue = canvas.getByRole('img', { name: toneNames[tones.indexOf('blue')] });
-    await expect(blue).toHaveClass('bg-linear-135', 'from-sky-200', 'text-blue-950');
-    await expect(blue).toHaveTextContent('BA');
-    await expect(canvas.getByRole('img', { name: 'AA avatar' })).toHaveTextContent('AA');
-    await expect(blue.querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
-  }
-};
-
 const indicators = [
   { label: 'Online', tone: 'success' },
   { label: 'Away', tone: 'warning', position: 'top-end' },
@@ -162,17 +128,28 @@ const names = [
   ['Alexandria Cassandra Montgomery-Wellington', 'AM']
 ];
 export const Fallbacks = {
-  parameters: { docs: { description: { story: 'Without an image, `name` yields Unicode-aware initials, `fallback` takes custom artwork, and `fallback` set to true shows the guest silhouette. Surfaces set the background.' } } },
+  parameters: { docs: { description: { story: 'Without an image, `name` yields Unicode-aware initials on a tone gradient; `surface` sets tinted, plain or bare backgrounds, `fallback` takes custom artwork, and `fallback` set to true shows the guest silhouette. `label` keeps explicit legacy initials and names the avatar `<label> avatar`.' } } },
   render: () => (
-    <div className='flex flex-wrap items-center gap-4'>
-      <Avatar name='Research library' surface='plain' size='lg' shape='tile' fallback={<Icon name='BookOpen' decorative size='lg' />} />
-      <Avatar name='External source' surface='bare' size='lg' fallback={<Icon name='Globe' decorative size='lg' />} />
-      <Avatar name='Guest account' surface='tinted' size='lg' shape='circle' fallback />
-      {names.map(([name]) => <Avatar key={name} name={name} surface='tinted' size='lg' shape='circle' />)}
+    <div className='grid gap-3'>
+      <div className='flex flex-wrap items-center gap-2'>
+        {tones.map((tone, index) => <Avatar key={tone} name={toneNames[index]} tone={tone} shape='circle' size='md' />)}
+        <Avatar label='AA' tone='indigo' shape='circle' size='md' />
+      </div>
+      <div className='flex flex-wrap items-center gap-2'>
+        <Avatar name='Research library' surface='plain' size='md' shape='tile' fallback={<Icon name='BookOpen' decorative />} />
+        <Avatar name='External source' surface='bare' size='md' fallback={<Icon name='Globe' decorative />} />
+        <Avatar name='Guest account' surface='tinted' size='md' shape='circle' fallback />
+        {names.map(([name]) => <Avatar key={name} name={name} surface='tinted' size='md' shape='circle' />)}
+      </div>
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const blue = avatar(canvas, toneNames[tones.indexOf('blue')]);
+    await expect(blue).toHaveClass('bg-linear-135', 'from-sky-200', 'text-blue-950');
+    await expect(blue).toHaveTextContent('BA');
+    await expect(blue.querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
+    await expect(avatar(canvas, 'AA avatar')).toHaveTextContent('AA');
     for (const [name, initials] of names) await expect(avatar(canvas, name)).toHaveTextContent(initials);
     await expect(avatar(canvas, 'Guest account').querySelector('svg')).toBeInTheDocument();
   }

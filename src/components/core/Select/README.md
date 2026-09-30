@@ -1,6 +1,6 @@
 # Select
 
-This Gaudi owner includes **autocomplete**, **combobox**, **native-select**, **select**, with **79 practical examples**.
+This Gaudi owner includes **autocomplete**, **combobox**, **native-select**, **select**, with **20 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Select`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

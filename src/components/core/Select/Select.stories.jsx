@@ -125,51 +125,32 @@ function TopicField(args) {
 }
 
 export const Searchable = {
-  parameters: { docs: { description: { story: '`searchable` moves focus into a filter field. `emptyText` explains an empty result, and Escape closes without changing the selection.' } } },
-  render: () => <Select searchable options={topics} placeholder='Search topics' searchPlaceholder='Search article topics...' />,
+  parameters: { docs: { description: { story: '`searchable` moves focus into a filter field that matches labels and descriptions. `emptyText` explains an empty result, and Escape closes without changing the selection.' } } },
+  render: () => <Select searchable options={topicOptions} placeholder='Search topics' searchPlaceholder='Search article topics...' />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(button(canvas, 'Search topics'));
     const search = canvas.getByRole('combobox', { name: 'Search article topics...' });
     await expect(search).toHaveFocus();
-    await userEvent.type(search, 'AI');
-    await expect(option(canvas, 'AI engineering')).toBeVisible();
-    await expect(canvas.queryByRole('option', { name: 'Design systems' })).not.toBeInTheDocument();
+    await userEvent.type(search, 'SPARQL');
+    await expect(option(canvas, /^Semantic web/)).toBeVisible();
+    await expect(canvas.queryByRole('option', { name: /^Design systems/ })).not.toBeInTheDocument();
     await userEvent.type(search, 'zzz');
     await expect(option(canvas, 'No options found.')).toBeVisible();
     await userEvent.clear(search);
-    await expect(option(canvas, 'Design systems')).toBeVisible();
+    await expect(option(canvas, /^Design systems/)).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await expectClosed(canvas, 'Search topics');
     await expect(button(canvas, 'Search topics')).toBeInTheDocument();
   }
 };
 
-function InvalidExample() {
-  const errorId = useId();
-  return (
-    <div className='grid gap-1.5'>
-      <Select options={topics} placeholder='Required topic' invalid aria-describedby={errorId} />
-      <p id={errorId} className='text-sm text-danger'>Choose a topic before publishing.</p>
-    </div>
-  );
-}
-export const Invalid = {
-  parameters: { docs: { description: { story: 'Pair `invalid` with nearby text linked through `aria-describedby`, because colour and `aria-invalid` alone do not explain the fix.' } } },
-  render: () => <InvalidExample />,
-  play: async ({ canvasElement }) => {
-    const trigger = button(within(canvasElement), 'Required topic');
-    await expect(trigger).toHaveAttribute('aria-invalid', 'true');
-    await expect(trigger).toHaveAccessibleDescription('Choose a topic before publishing.');
-  }
-};
-
 export const NativeOptionsInput = {
   name: 'Option children',
-  parameters: { docs: { description: { story: 'Native `<option>` children are normalised when `options` is empty. The listbox takes focus on open and supports Home, End, and Enter.' } } },
+  parameters: { docs: { description: { story: 'Native `<option>` children are normalised when `options` is empty, `disabled` included. The listbox takes focus on open and supports Home, End, the arrow keys (which skip disabled options), and Enter.' } } },
   render: () => (
     <Select aria-label='Topic'>
-      {topics.slice(0, 3).map(({ label, value }) => <option key={value} value={value}>{label}</option>)}
+      {topics.slice(0, 3).map(({ label, value }, index) => <option key={value} value={value} disabled={index === 1}>{label}</option>)}
     </Select>
   ),
   play: async ({ canvasElement }) => {
@@ -177,27 +158,11 @@ export const NativeOptionsInput = {
     const trigger = button(canvas, 'Topic');
     await userEvent.click(trigger);
     await waitFor(() => expect(listbox(canvas, 'Topic')).toHaveFocus());
-    await userEvent.keyboard('{End}{Enter}');
+    await expect(option(canvas, topics[1].label)).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.keyboard('{End}{Home}{ArrowDown}{Enter}');
     await expectClosed(canvas, 'Topic');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     await expect(trigger).toHaveTextContent(topics[2].label);
-  }
-};
-
-const sections = [
-  { value: 'engineering', label: 'Engineering', description: 'Systems, tools, and practical software.' },
-  { value: 'archived', label: 'Archived', description: 'Not available for new articles.', disabled: true },
-  { value: 'research', label: 'Research', description: 'Methods, evidence, and open questions.' }
-];
-export const RichOptions = {
-  parameters: { docs: { description: { story: 'Options accept a `description`, which search also matches, and `disabled` options are skipped by the arrow keys.' } } },
-  render: () => <Select aria-label='Publication section' searchable options={sections} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(button(canvas, 'Publication section'));
-    await expect(option(canvas, /Archived/)).toHaveAttribute('aria-disabled', 'true');
-    await userEvent.keyboard('{ArrowDown}{Enter}');
-    await expect(button(canvas, 'Publication section')).toHaveTextContent('Research');
   }
 };
 

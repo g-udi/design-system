@@ -9,28 +9,20 @@ const pattern = patternStories(
 
 export default { title: 'Core/InputOtp', tags: ['autodocs'], ...catalogueMeta('input-otp') };
 
-export const InputOtpPattern1 = { name: 'Grouped slots', ...pattern(1) };
-export const InputOtpPattern2 = {
-  name: 'Digits only',
-  ...pattern(2),
+export const InputOtpPattern1 = {
+  name: 'Code formats',
+  ...pattern(1, 'Digit-only and alphanumeric patterns, a four-digit PIN, and a controlled code split into three groups.'),
   play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByLabelText('Digits Only');
-    await userEvent.click(input);
+    const canvas = within(canvasElement);
+    const digits = canvas.getByLabelText('Digits only');
+    await userEvent.click(digits);
     await userEvent.keyboard('a1b2');
-    await expect(input).toHaveValue('12');
-  }
-};
-export const InputOtpPattern3 = {
-  name: 'Controlled with multiple separators',
-  ...pattern(3),
-  play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByLabelText('Multi-Separator');
-    await expect(input).toHaveValue('123456');
-    await userEvent.click(input);
+    await expect(digits).toHaveValue('12');
+    const controlled = canvas.getByLabelText('Controlled');
+    await expect(controlled).toHaveValue('123456');
+    await userEvent.click(controlled);
     await userEvent.keyboard('{End}{Backspace}');
-    await expect(input).toHaveValue('12345');
+    await expect(controlled).toHaveValue('12345');
+    await expect(canvas.getByText('Value: 12345')).toBeVisible();
   }
 };
-export const InputOtpPattern4 = { name: 'Letters and numbers', ...pattern(4) };
-export const InputOtpPattern5 = { name: 'Four-digit PIN', ...pattern(5) };
-export const InputOtpPattern6 = { name: 'Verification card', ...pattern(6) };

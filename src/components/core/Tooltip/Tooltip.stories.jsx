@@ -5,6 +5,7 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Button from '../Button';
+import { KbdRoot as Kbd } from '../Kbd';
 import Tooltip from './Tooltip';
 
 const docs = getComponentDocs('Core/Tooltip');
@@ -59,7 +60,7 @@ export const Playground = {
       </div>
       <div className='flex flex-wrap items-center gap-1'>
         {tools.map(({ label, icon, shortcut }) => (
-          <Tooltip key={label} side='bottom' content={<>{label}{shortcut ? <span className='ms-2 opacity-70'>{shortcut}</span> : null}</>}>
+          <Tooltip key={label} side='bottom' content={<>{label}{shortcut ? <Kbd className='ms-2'>{shortcut}</Kbd> : null}</>}>
             <Button size='icon-sm' variant='ghost' tone='neutral' aria-label={label}>
               <RegistryIcon lucide={icon} />
             </Button>

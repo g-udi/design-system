@@ -1,5 +1,5 @@
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
-import { catalogueInteractions } from '../../../../.storybook/stories/PatternInteractions.js';
+import { expect, userEvent, within } from 'storybook/test';
 
 const pattern = patternStories(
   'combobox',
@@ -9,35 +9,27 @@ const pattern = patternStories(
 
 export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('combobox') };
 
-export const ComboboxPattern1 = {
-  name: 'Basic combobox',
-  ...pattern(1),
-  play: catalogueInteractions['combobox-1']
+// Type to filter, then pick with the keyboard; the popup closes on commit.
+const pickWithKeyboard = async ({ canvasElement }) => {
+  const input = within(canvasElement).getByRole('combobox', { name: 'Framework' });
+  await userEvent.type(input, 'Svelte');
+  await userEvent.keyboard('{ArrowDown}{Enter}');
+  await expect(input).toHaveValue('SvelteKit');
+  await expect(input).toHaveAttribute('aria-expanded', 'false');
 };
-export const ComboboxPattern2 = { name: 'Disabled combobox', ...pattern(2) };
-export const ComboboxPattern3 = { name: 'Invalid combobox', ...pattern(3) };
-export const ComboboxPattern4 = { name: 'Combobox with clear button', ...pattern(4) };
-export const ComboboxPattern5 = { name: 'Combobox with auto highlight', ...pattern(5) };
-export const ComboboxPattern6 = { name: 'Grouped combobox', ...pattern(6) };
-export const ComboboxPattern7 = { name: 'Grouped combobox with separators', ...pattern(7) };
-export const ComboboxPattern8 = { name: 'Combobox with a long list', ...pattern(8) };
-export const ComboboxPattern9 = { name: 'Combobox with icon addon', ...pattern(9) };
-export const ComboboxPattern10 = { name: 'Combobox inside a popup', ...pattern(10) };
+
+export const ComboboxPattern1 = {
+  name: 'Input options',
+  ...pattern(1, 'One field per input option: auto highlight, clear button, icon addon, custom trigger icon, disabled and invalid.'),
+  play: pickWithKeyboard
+};
+export const ComboboxPattern21 = {
+  name: 'Property pickers',
+  ...pattern(21, 'Button triggers with search inside the popup and custom rows: status and priority glyphs, team marks, an assignee list with groups and an invite action, and multiple members or labels summarised in the trigger. Each "No …" option clears its property.')
+};
+export const ComboboxPattern12 = { name: 'Multiple selection with chips', ...pattern(12, 'Removable and fixed chips, plus disabled and invalid states.') };
+export const ComboboxPattern19 = { name: 'Member tags', ...pattern(19, 'Avatar chips in a boxed field and in a borderless one.') };
+export const ComboboxPattern6 = { name: 'Grouped options', ...pattern(6, 'Labelled groups with separators in a list long enough to scroll.') };
+export const ComboboxPattern25 = { name: 'Date presets with a custom picker', ...pattern(25) };
 export const ComboboxPattern11 = { name: 'Combobox in a form', ...pattern(11) };
-export const ComboboxPattern12 = { name: 'Multi-select combobox', ...pattern(12) };
-export const ComboboxPattern13 = { name: 'Disabled multi-select combobox', ...pattern(13) };
-export const ComboboxPattern14 = { name: 'Invalid multi-select combobox', ...pattern(14) };
-export const ComboboxPattern15 = { name: 'Multi-select with fixed chips', ...pattern(15) };
-export const ComboboxPattern16 = { name: 'Combobox with custom items', ...pattern(16) };
 export const ComboboxPattern17 = { name: 'Combobox inside a dialog', ...pattern(17) };
-export const ComboboxPattern18 = { name: 'Combobox with custom trigger icon', ...pattern(18) };
-export const ComboboxPattern19 = { name: 'Multi-select with user tags', ...pattern(19) };
-export const ComboboxPattern20 = { name: 'Invisible combobox with member tags', ...pattern(20) };
-export const ComboboxPattern21 = { name: 'Status combobox', ...pattern(21) };
-export const ComboboxPattern22 = { name: 'Priority combobox', ...pattern(22) };
-export const ComboboxPattern23 = { name: 'Lead combobox', ...pattern(23) };
-export const ComboboxPattern24 = { name: 'Multi-member combobox', ...pattern(24) };
-export const ComboboxPattern25 = { name: 'Date combobox with custom picker', ...pattern(25) };
-export const ComboboxPattern26 = { name: 'Multi-label combobox', ...pattern(26) };
-export const ComboboxPattern27 = { name: 'Team combobox', ...pattern(27) };
-export const ComboboxPattern28 = { name: 'Assignee combobox', ...pattern(28) };

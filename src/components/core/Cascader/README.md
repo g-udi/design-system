@@ -1,6 +1,6 @@
 # Cascader
 
-This Gaudi owner includes **cascader**, with **20 practical examples**.
+This Gaudi owner includes **cascader**, with **12 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Cascader`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

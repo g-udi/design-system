@@ -9,43 +9,38 @@ import {
   DrawerTitle,
   DrawerTrigger
 } from '../../../../src/components/core/Dialog/parts/drawer.jsx';
-const SIDES = [
-  { label: 'Top', direction: 'top' },
-  { label: 'Right', direction: 'right' },
-  { label: 'Bottom', direction: 'bottom' },
-  { label: 'Left', direction: 'left' }
+
+const SIDES = ['bottom', 'right', 'left', 'top'];
+const NOTES = [
+  'Pick a daily target you can keep on a busy day, then raise it once it feels easy.',
+  'Active minutes count any movement that raises your heart rate, including brisk walks.',
+  'Your goal resets at midnight in your local time zone.',
+  'Streaks pause instead of breaking when you log a rest day.',
+  'Reminders arrive an hour before the end of your usual active window.',
+  'Changes apply from tomorrow so today’s progress stays comparable.'
 ];
+
+// The body scrolls between a fixed header and footer, whichever edge the drawer slides from.
 export function Pattern() {
   return (
     <div className='flex flex-wrap items-center justify-center gap-2'>
       {SIDES.map((side) => (
-        <Drawer key={side.label} direction={side.direction}>
+        <Drawer key={side} direction={side}>
           <DrawerTrigger asChild>
-            <Button variant='outline'>{side.label}</Button>
+            <Button size='sm' variant='outline' className='capitalize'>{side}</Button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>Move Goal</DrawerTitle>
-              <DrawerDescription>
-                Set your daily activity goal.
-              </DrawerDescription>
+              <DrawerTitle>Move goal</DrawerTitle>
+              <DrawerDescription>Set your daily activity goal.</DrawerDescription>
             </DrawerHeader>
-            <div className='no-scrollbar overflow-y-auto px-3'>
-              {Array.from({ length: 10 }).map((_, index) => (
-                <p key={index} className='mb-4 leading-normal'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
+            <div className='no-scrollbar grid gap-3 overflow-y-auto px-3 text-sm text-text-muted'>
+              {[...NOTES, ...NOTES].map((note, index) => (
+                <p key={index}>{note}</p>
               ))}
             </div>
             <DrawerFooter>
-              <Button>Submit</Button>
+              <Button>Save goal</Button>
               <DrawerClose asChild>
                 <Button variant='outline'>Cancel</Button>
               </DrawerClose>

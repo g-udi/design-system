@@ -1,6 +1,6 @@
 # Breadcrumb
 
-This Gaudi owner includes **breadcrumb**, with **15 practical examples**.
+This Gaudi owner includes **breadcrumb**, with **5 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Breadcrumb`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

@@ -9,40 +9,13 @@ const pattern = patternStories(
 
 export default { title: 'Core/Avatar', tags: ['autodocs'], ...catalogueMeta('avatar') };
 
-export const AvatarPattern1 = { name: 'Image', ...pattern(1) };
-export const AvatarPattern2 = { name: 'Initials fallback', ...pattern(2) };
-export const AvatarPattern3 = { name: 'Sizes', ...pattern(3) };
-export const AvatarPattern4 = { name: 'Square and circular avatars', ...pattern(4) };
-export const AvatarPattern5 = { name: 'Custom sizes', ...pattern(5) };
-export const AvatarPattern6 = { name: 'Online status badge', ...pattern(6) };
-export const AvatarPattern7 = { name: 'Badge icon', ...pattern(7) };
-export const AvatarPattern8 = { name: 'Badge positions', ...pattern(8) };
-export const AvatarPattern9 = { name: 'Offset badge positions on squares', ...pattern(9) };
-export const AvatarPattern10 = { name: 'Group', ...pattern(10) };
-export const AvatarPattern11 = { name: 'Group with count', ...pattern(11) };
-export const AvatarPattern12 = { name: 'Group with icon count', ...pattern(12) };
-export const AvatarPattern13 = { name: 'Border ring', ...pattern(13) };
-export const AvatarPattern14 = { name: 'Light fallback', ...pattern(14) };
-export const AvatarPattern15 = { name: 'Solid fallback', ...pattern(15) };
+export const AvatarPattern3 = { name: 'Sizes, shapes and fallbacks', ...pattern(3, 'Built-in and custom sizes, corner radii, and initials or icon fallbacks when there is no image.') };
 export const AvatarPattern16 = { name: 'User details and badge', ...pattern(16) };
-export const AvatarPattern17 = { name: 'Grayscale image', ...pattern(17) };
-export const AvatarPattern18 = { name: 'Group with one online status', ...pattern(18) };
-export const AvatarPattern19 = { name: 'Inside an outline button', ...pattern(19) };
-export const AvatarPattern20 = { name: 'Social proof with label', ...pattern(20) };
-export const AvatarPattern21 = { name: 'Compact social proof', ...pattern(21) };
-export const AvatarPattern22 = { name: 'Group with tooltips and lift', ...pattern(22) };
-export const AvatarPattern23 = { name: 'Group that spreads on hover', ...pattern(23) };
-export const AvatarPattern24 = { name: 'Spreading group with tooltips', ...pattern(24) };
-export const AvatarPattern25 = { name: 'Pill group with count', ...pattern(25) };
-export const AvatarPattern26 = { name: 'Pill outline button', ...pattern(26) };
-export const AvatarPattern27 = { name: 'Pill solid button', ...pattern(27) };
-export const AvatarPattern28 = { name: 'Empty state', ...pattern(28) };
-export const AvatarPattern29 = { name: 'Group with count and add button', ...pattern(29) };
-export const AvatarPattern30 = { name: 'Loading overlay', ...pattern(30) };
-export const AvatarPattern31 = { name: 'Custom badge', ...pattern(31) };
-export const AvatarPattern32 = { name: 'Animated ring', ...pattern(32) };
-export const AvatarPattern33 = { name: 'Animated gradient ring', ...pattern(33) };
-export const AvatarPattern34 = { name: 'Status and count badges', ...pattern(34) };
+export const AvatarPattern6 = { name: 'Status and icon badges', ...pattern(6, 'Status dots, icon badges, every corner position on circles and squares, a custom verified mark, and a count badge.') };
+export const AvatarPattern11 = { name: 'Groups', ...pattern(11, 'Stacked groups with a presence badge, a numeric or icon overflow count, and an add action.') };
+export const AvatarPattern20 = { name: 'Social proof', ...pattern(20, 'Avatar stacks with a short claim in a pill, a compact count pill, and a frame.') };
+export const AvatarPattern24 = { name: 'Hover groups with tooltips', ...pattern(24, 'Groups that lift or spread on hover and name each person in a tooltip.') };
+export const AvatarPattern19 = { name: 'Inside buttons', ...pattern(19, 'Profile handles in outline, pill outline, and pill solid buttons.') };
 export const AvatarPattern35 = {
   name: 'Account dropdown menu',
   ...pattern(35),
@@ -56,3 +29,5 @@ export const AvatarPattern35 = {
     await expect(trigger).toHaveFocus();
   }
 };
+export const AvatarPattern13 = { name: 'Rings and activity', ...pattern(13, 'Coloured rings, a pulsing live ring, an animated story ring, an upload spinner overlay, and grayscale for inactive people.') };
+export const AvatarPattern28 = { name: 'Empty state', ...pattern(28) };

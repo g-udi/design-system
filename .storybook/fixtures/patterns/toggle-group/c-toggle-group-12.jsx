@@ -1,18 +1,41 @@
-import {
-  ToggleGroup,
-  ToggleGroupItem
-} from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
+import { ToggleGroup, ToggleGroupItem } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
+import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+
+const statuses = ['All', 'Active', 'Completed', 'Archived'];
+const ranges = ['1H', '6H', '24H', '7D', '30D', 'All'];
+const channels = [
+  { value: 'email', label: 'Email', icon: 'MailIcon' },
+  { value: 'sms', label: 'SMS', icon: 'PhoneIcon' },
+  { value: 'push', label: 'Push', icon: 'BellIcon' },
+  { value: 'chat', label: 'Chat', icon: 'MessageSquareIcon' }
+];
+const Field = ({ label, children }) => (
+  <div className='flex flex-col gap-1.5'>
+    <span className='text-xs font-medium text-text-muted'>{label}</span>
+    {children}
+  </div>
+);
+
 export function Pattern() {
   return (
-    <div className='flex items-center justify-center'>
-      <ToggleGroup type='single' defaultValue='24h' variant='outline' size='sm'>
-        <ToggleGroupItem value='1h'>1H</ToggleGroupItem>
-        <ToggleGroupItem value='6h'>6H</ToggleGroupItem>
-        <ToggleGroupItem value='24h'>24H</ToggleGroupItem>
-        <ToggleGroupItem value='7d'>7D</ToggleGroupItem>
-        <ToggleGroupItem value='30d'>30D</ToggleGroupItem>
-        <ToggleGroupItem value='all'>All</ToggleGroupItem>
-      </ToggleGroup>
+    <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
+      <Field label='Status'>
+        <ToggleGroup type='single' variant='outline' size='sm' spacing={0} defaultValue='Active' aria-label='Status'>
+          {statuses.map((status) => <ToggleGroupItem key={status} value={status}>{status}</ToggleGroupItem>)}
+        </ToggleGroup>
+      </Field>
+      <Field label='Time range'>
+        <ToggleGroup type='single' variant='outline' size='sm' spacing={0} defaultValue='24H' aria-label='Time range'>
+          {ranges.map((range) => <ToggleGroupItem key={range} value={range} className='tabular-nums'>{range}</ToggleGroupItem>)}
+        </ToggleGroup>
+      </Field>
+      <Field label='Notify me by'>
+        <ToggleGroup type='multiple' variant='outline' size='sm' spacing={1} defaultValue={['email', 'push']} aria-label='Notification channels'>
+          {channels.map(({ value, label, icon }) => (
+            <ToggleGroupItem key={value} value={value}><RegistryIcon lucide={icon} />{label}</ToggleGroupItem>
+          ))}
+        </ToggleGroup>
+      </Field>
     </div>
   );
 }

@@ -46,7 +46,7 @@ export function Pattern({
     }
   };
   return (
-    <div className={cn('flex flex-col items-center gap-4', className)}>
+    <div className={cn('flex flex-col items-center gap-3', className)}>
       {/* Avatar Preview */}
       <div className='relative'>
         <div
@@ -87,7 +87,7 @@ export function Pattern({
             size='icon'
             variant='outline'
             onClick={handleRemove}
-            className='absolute end-0.5 top-0.5 z-10 size-6 rounded-control dark:bg-zinc-800 hover:dark:bg-zinc-700'
+            className='absolute end-0.5 top-0.5 z-10 size-6 rounded-control'
             aria-label='Remove avatar'
           >
             <RegistryIcon lucide='XIcon' className='size-3.5' />
@@ -95,19 +95,20 @@ export function Pattern({
         )}
       </div>
 
-      {/* Upload Instructions */}
-      <div className='space-y-0.5 text-center'>
-        <p className='text-sm font-medium'>
-          {currentFile ? 'Avatar uploaded' : 'Upload avatar'}
-        </p>
-        <p className='text-ui-muted-foreground text-xs'>
-          PNG, JPG up to {formatBytes(maxSize)}
+      {/* Picker button, file name, and limits */}
+      <div className='grid justify-items-center gap-1.5 text-center'>
+        <Button size='sm' variant='outline' onClick={openFileDialog} aria-haspopup='dialog'>
+          <RegistryIcon lucide='UploadIcon' className='size-3.5' />
+          {currentFile ? 'Change image' : 'Upload image'}
+        </Button>
+        <p className='max-w-56 truncate text-xs text-ui-muted-foreground' aria-live='polite'>
+          {currentFile ? currentFile.file.name : `PNG or JPG up to ${formatBytes(maxSize)}`}
         </p>
       </div>
 
       {/* Error Messages */}
       {errors.length > 0 && (
-        <Alert variant='destructive' className='mt-5'>
+        <Alert variant='destructive'>
           <RegistryIcon lucide='CircleAlertIcon' />
           <AlertTitle>File upload error(s)</AlertTitle>
           <AlertDescription>

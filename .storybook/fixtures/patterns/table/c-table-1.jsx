@@ -3,6 +3,7 @@ import {
   TableBody,
   TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow
@@ -54,6 +55,12 @@ export function Pattern() {
             </TableRow>
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={3}>Total</TableCell>
+            <TableCell className='text-right font-semibold'>$750.00</TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
     </div>
   );

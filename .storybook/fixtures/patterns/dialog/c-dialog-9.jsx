@@ -47,7 +47,7 @@ export function Pattern() {
                     key={shortcut.action}
                     className='flex items-center justify-between'
                   >
-                    <span className='text-ui-muted-foreground text-sm'>
+                    <span className='text-text-muted text-sm'>
                       {shortcut.action}
                     </span>
                     <div className='flex gap-1'>

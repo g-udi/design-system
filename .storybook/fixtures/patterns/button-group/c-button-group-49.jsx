@@ -1,49 +1,44 @@
 'use client';
 import { useState } from 'react';
-import { cn } from '../../../../src/utilities/cn/index.js';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { ButtonGroup } from '../../../../src/components/core/ButtonGroup/parts/button-group.jsx';
+import { cn } from '../../../../src/utilities/cn/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const navItems = [
-  {
-    id: 'dashboard',
-    label: 'Dashboard',
-    icon: <RegistryIcon lucide='LayoutDashboardIcon' aria-hidden='true' />
-  },
-  {
-    id: 'analytics',
-    label: 'Analytics',
-    icon: <RegistryIcon lucide='BarChart2Icon' aria-hidden='true' />
-  },
-  {
-    id: 'settings',
-    label: 'Settings',
-    icon: <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />
-  },
-  {
-    id: 'help',
-    label: 'Help',
-    icon: <RegistryIcon lucide='CircleHelpIcon' aria-hidden='true' />
-  }
-];
+const Icon = ({ name }) => <RegistryIcon lucide={name} aria-hidden='true' />;
+const nav = [['Dashboard', 'LayoutDashboardIcon'], ['Analytics', 'BarChart2Icon'], ['Settings', 'SettingsIcon'], ['Help', 'CircleHelpIcon']];
+const tools = [['Search', 'SearchIcon'], ['Copy', 'CopyIcon'], ['Share', 'UploadIcon']];
 export function Pattern() {
-  const [active, setActive] = useState('dashboard');
+  const [active, setActive] = useState('Dashboard');
   return (
-    <ButtonGroup orientation='vertical'>
-      {navItems.map((item) => (
-        <Button
-          key={item.id}
-          variant='outline'
-          className={cn(
-            'justify-start',
-            active === item.id ? 'bg-ui-muted' : ''
-          )}
-          onClick={() => setActive(item.id)}
-        >
-          {item.icon}
-          {item.label}
-        </Button>
-      ))}
-    </ButtonGroup>
+    <div className='mx-auto flex w-full max-w-lg flex-wrap items-start justify-center gap-3'>
+      <ButtonGroup orientation='vertical' aria-label='Sections' className='w-40'>
+        {nav.map(([label, icon]) => (
+          <Button
+            key={label}
+            variant='outline'
+            aria-current={active === label ? 'page' : undefined}
+            className={cn('justify-start', active === label && 'bg-surface-muted')}
+            onClick={() => setActive(label)}
+          >
+            <Icon name={icon} />
+            {label}
+          </Button>
+        ))}
+      </ButtonGroup>
+      <ButtonGroup orientation='vertical' aria-label='Quantity'>
+        <Button variant='outline' size='icon' aria-label='Add'><Icon name='PlusIcon' /></Button>
+        <Button variant='outline' size='icon' aria-label='Subtract'><Icon name='MinusIcon' /></Button>
+      </ButtonGroup>
+      <ButtonGroup orientation='vertical' aria-label='Tool palette'>
+        <ButtonGroup orientation='vertical'>
+          {tools.map(([label, icon]) => (
+            <Button key={label} variant='outline' size='icon' aria-label={label}><Icon name={icon} /></Button>
+          ))}
+        </ButtonGroup>
+        <ButtonGroup orientation='vertical'>
+          <Button variant='outline' size='icon' aria-label='Delete'><Icon name='Trash2Icon' /></Button>
+        </ButtonGroup>
+      </ButtonGroup>
+    </div>
   );
 }

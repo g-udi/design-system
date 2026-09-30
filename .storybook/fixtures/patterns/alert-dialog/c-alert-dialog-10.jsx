@@ -16,9 +16,9 @@ export function Pattern() {
       <DialogConfirmationTrigger asChild>
         <Button variant='outline'>View Confirmation</Button>
       </DialogConfirmationTrigger>
-      <DialogConfirmationContent className='gap-8 p-8 sm:max-w-sm'>
+      <DialogConfirmationContent className='gap-4 p-6 sm:max-w-sm'>
         <div className='mx-auto flex flex-col items-center justify-center gap-2'>
-          <DialogConfirmationMedia className='bg-info/10 text-info dark:bg-info/20 size-16 rounded-full'>
+          <DialogConfirmationMedia className='bg-info-muted text-info size-12 rounded-full'>
             <RegistryIcon lucide='CheckIcon' className='size-5' />
           </DialogConfirmationMedia>
           <DialogConfirmationTitle className='text-center'>
@@ -30,7 +30,7 @@ export function Pattern() {
           </DialogConfirmationDescription>
         </div>
 
-        <div className='bg-ui-muted/60 grid gap-4 rounded-xl p-4'>
+        <div className='grid gap-2 rounded-lg bg-surface-muted p-3'>
           {[
             ['Order Number', 'GBD99763JS'],
             ['Order Date', '7 September 2024'],
@@ -42,25 +42,17 @@ export function Pattern() {
               key={label}
               className='flex items-center justify-between text-sm'
             >
-              <span className='text-ui-muted-foreground font-medium'>
+              <span className='text-text-muted font-medium'>
                 {label}
               </span>
-              <span className='text-ui-foreground font-semibold'>{value}</span>
+              <span className='text-text font-semibold'>{value}</span>
             </div>
           ))}
         </div>
 
-        {/* The footer's built-in `-mx-3 -mb-3` cancels the content's DEFAULT
-       `p-3`. This dialog uses `p-8`, so the breakout has to match it -
-       otherwise the bar (and its top border) stops 1.25rem short on each
-       side. `px-8` keeps the button aligned with the body above. */}
-        <DialogConfirmationFooter className='-mx-8 -mb-8 px-8'>
-          <DialogConfirmationCancel
-            size='lg'
-            variant='default'
-            className='w-full sm:w-full'
-          >
-            Back to Home
+        <DialogConfirmationFooter className='-mx-6 -mb-6 px-6'>
+          <DialogConfirmationCancel variant='default' className='w-full sm:w-full'>
+            Back to home
           </DialogConfirmationCancel>
         </DialogConfirmationFooter>
       </DialogConfirmationContent>

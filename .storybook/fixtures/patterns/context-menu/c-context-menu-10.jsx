@@ -21,20 +21,20 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <div className='flex w-full items-center justify-center p-12'>
+    <div className='flex w-full items-center justify-center'>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant='outline'>Open Dialog</Button>
+          <Button variant='outline'>Open dialog</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Context Menu Example</DialogTitle>
+            <DialogTitle>Organise files</DialogTitle>
             <DialogDescription>
-              Right click on the area below to see the context menu.
+              Right click the drop zone to act on the selection without leaving the dialog.
             </DialogDescription>
           </DialogHeader>
           <ContextMenu>
-            <ContextMenuTrigger className='text-ui-muted-foreground rounded-lg flex aspect-[2/0.5] w-full items-center justify-center border border-dashed text-sm'>
+            <ContextMenuTrigger className='text-text-muted border-border flex h-24 w-full items-center justify-center rounded-lg border border-dashed text-sm'>
               Right click here
             </ContextMenuTrigger>
             <ContextMenuContent>
@@ -54,7 +54,7 @@ export function Pattern() {
               </ContextMenuGroup>
               <ContextMenuSeparator />
               <ContextMenuSub>
-                <ContextMenuSubTrigger>More Options</ContextMenuSubTrigger>
+                <ContextMenuSubTrigger>More options</ContextMenuSubTrigger>
                 <ContextMenuSubContent>
                   <ContextMenuGroup>
                     <ContextMenuItem>Save Page...</ContextMenuItem>

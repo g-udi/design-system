@@ -7,6 +7,7 @@ import {
   TimelineItem,
   TimelineSeparator
 } from '../../../../src/components/core/Timeline/parts/timeline-extended.jsx';
+import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
   Avatar,
   AvatarFallback,
@@ -45,12 +46,23 @@ const activities = [
     user: 'Emma Wilson',
     avatar:
       'https://randomuser.me/api/portraits/women/68.jpg',
-    action: 'deployed to',
+    action: 'deployed a1b2c3d to',
     target: 'production',
-    date: '2 hours ago'
+    date: '2 hours ago',
+    status: 'success'
   },
   {
-    id: 5,
+    id: 6,
+    user: 'Sofia Martins',
+    avatar:
+      'https://randomuser.me/api/portraits/women/12.jpg',
+    action: 'deployed i7j8k9l to',
+    target: 'preview',
+    date: '2 hours ago',
+    status: 'failed'
+  },
+  {
+    id: 7,
     user: 'Michael Rodriguez',
     avatar:
       'https://randomuser.me/api/portraits/men/11.jpg',
@@ -62,7 +74,7 @@ const activities = [
 export function Pattern() {
   return (
     <div className='w-full max-w-md'>
-      <Timeline defaultValue={5}>
+      <Timeline defaultValue={7}>
         {activities.map((activity) => (
           <TimelineItem
             key={activity.id}
@@ -90,6 +102,15 @@ export function Pattern() {
                   {activity.action}
                 </span>{' '}
                 <span className='font-medium'>{activity.target}</span>
+                {activity.status && (
+                  <Badge
+                    className='ms-2 align-middle'
+                    variant={activity.status === 'success' ? 'success-light' : 'destructive-light'}
+                    size='sm'
+                  >
+                    {activity.status}
+                  </Badge>
+                )}
               </p>
               <TimelineDate className='mt-0.5 mb-0'>
                 {activity.date}

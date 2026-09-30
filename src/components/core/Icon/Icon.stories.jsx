@@ -101,39 +101,41 @@ export const SocialLink = {
   }
 };
 
+const tokenRow = (label, children) => (
+  <div className='grid grid-cols-[5rem_1fr] items-center gap-3' data-row={label}>
+    <span className='text-xs text-text-muted'>{label}</span>
+    <div className='flex flex-wrap items-center gap-3'>{children}</div>
+  </div>
+);
+const row = (canvasElement, label) => canvasElement.querySelector(`[data-row="${label}"]`);
 export const Sizes = {
-  parameters: { docs: { description: { story: 'Token sizes from `xs` to `2xl`. Decorative icons are hidden from assistive technology.' } } },
-  render: () => sizes.map((size) => <Icon key={size} name='Search' decorative size={size} />),
+  name: 'Sizes, colors and stroke widths',
+  parameters: { docs: { description: { story: 'Token sizes from `xs` to `2xl`, semantic and palette colors (omit `color` to inherit `currentColor`), and `strokeWidth` on line icons; filled icons ignore it. Decorative icons are hidden from assistive technology.' } } },
+  decorators: [(Story) => <div className='grid w-full gap-3'><Story /></div>],
+  render: () => (
+    <>
+      {tokenRow('Size', sizes.map((size) => <Icon key={size} name='Search' decorative size={size} />))}
+      {tokenRow('Color', Object.keys(iconColors).map((color) => <Icon key={color} name='Info' label={color} color={color} size='lg' />))}
+      {tokenRow('Stroke', (
+        <>
+          {strokeWidths.map((strokeWidth) => <Icon key={strokeWidth} name='BookOpen' decorative size='lg' strokeWidth={strokeWidth} />)}
+          <Icon name='Github' label='Filled GitHub mark' size='lg' strokeWidth={3} />
+        </>
+      ))}
+    </>
+  ),
   play: async ({ canvasElement }) => {
-    const icons = svgs(canvasElement);
-    for (const icon of icons) await expect(icon).toHaveAttribute('aria-hidden', 'true');
-    await expect(icons.map((icon) => icon.getAttribute('class').match(/\bh-\d+/)[0])).toEqual(['h-3', 'h-4', 'h-5', 'h-6', 'h-8', 'h-10']);
-  }
-};
-
-export const Colors = {
-  parameters: { docs: { description: { story: 'Semantic and palette color tokens. Omit `color` to inherit `currentColor`.' } } },
-  render: () => Object.keys(iconColors).map((color) => <Icon key={color} name='Info' label={color} color={color} size='lg' />),
-  play: async ({ canvasElement }) => {
-    const icon = (name) => within(canvasElement).getByRole('img', { name });
+    const sized = svgs(row(canvasElement, 'Size'));
+    for (const icon of sized) await expect(icon).toHaveAttribute('aria-hidden', 'true');
+    await expect(sized.map((icon) => icon.getAttribute('class').match(/\bh-\d+/)[0])).toEqual(['h-3', 'h-4', 'h-5', 'h-6', 'h-8', 'h-10']);
+    const icon = (name) => within(row(canvasElement, 'Color')).getByRole('img', { name });
     await expect(icon('danger')).toHaveClass('text-red-600');
     await expect(icon('warning')).toHaveClass('text-amber-700');
     await expect(icon('attention')).toHaveClass('text-rose-700');
     await expect(icon('teal')).toHaveClass('text-teal-700');
-  }
-};
-
-export const StrokeWidths = {
-  parameters: { docs: { description: { story: 'Line icons accept `strokeWidth`; filled icons ignore it.' } } },
-  render: () => (
-    <>
-      {strokeWidths.map((strokeWidth) => <Icon key={strokeWidth} name='BookOpen' decorative size='lg' strokeWidth={strokeWidth} />)}
-      <Icon name='Github' label='Filled GitHub mark' size='lg' strokeWidth={3} />
-    </>
-  ),
-  play: async ({ canvasElement }) => {
-    const [filled, ...line] = [svgs(canvasElement).at(-1), ...svgs(canvasElement).slice(0, -1)];
-    await expect(line.map((icon) => Number(icon.getAttribute('stroke-width')))).toEqual(strokeWidths);
+    const stroked = svgs(row(canvasElement, 'Stroke'));
+    const [filled, ...line] = [stroked.at(-1), ...stroked.slice(0, -1)];
+    await expect(line.map((item) => Number(item.getAttribute('stroke-width')))).toEqual(strokeWidths);
     // A filled brand glyph keeps its own zero stroke, so it stays crisp.
     await expect(filled).toHaveAccessibleName('Filled GitHub mark');
     await expect(filled).toHaveAttribute('stroke-width', '0');

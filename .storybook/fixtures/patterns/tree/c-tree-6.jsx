@@ -16,73 +16,62 @@ const items = {
   ceo: {
     name: 'Sarah Chen',
     role: 'CEO',
-    avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
     children: ['cto', 'coo', 'cfo']
   },
   cto: {
     name: 'Alex Johnson',
     role: 'CTO',
-    avatar:
-      'static/images/art/10.svg',
+    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
     children: ['eng-lead', 'design-lead']
   },
   coo: {
     name: 'Emma Wilson',
     role: 'COO',
-    avatar:
-      'static/images/art/1.svg',
+    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
     children: ['ops-mgr', 'hr-mgr']
   },
   cfo: {
     name: 'David Kim',
     role: 'CFO',
-    avatar:
-      'static/images/art/9.svg',
+    avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
     children: ['finance-mgr']
   },
   'eng-lead': {
     name: 'Michael Rodriguez',
     role: 'Engineering Lead',
-    avatar:
-      'static/images/art/5.svg',
+    avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
     children: ['dev-1', 'dev-2']
   },
   'design-lead': {
     name: 'Lisa Park',
     role: 'Design Lead',
-    avatar:
-      'static/images/art/11.svg'
+    avatar: 'https://randomuser.me/api/portraits/women/12.jpg'
   },
   'ops-mgr': {
     name: 'James Brown',
     role: 'Operations Manager',
-    avatar:
-      'static/images/art/4.svg'
+    avatar: 'https://randomuser.me/api/portraits/men/22.jpg'
   },
   'hr-mgr': {
     name: 'Amy Taylor',
     role: 'HR Manager',
-    avatar:
-      'static/images/art/2.svg'
+    avatar: 'https://randomuser.me/api/portraits/women/33.jpg'
   },
   'finance-mgr': {
     name: 'Robert Davis',
     role: 'Finance Manager',
-    avatar:
-      'static/images/art/9.svg'
+    avatar: 'https://randomuser.me/api/portraits/men/64.jpg'
   },
   'dev-1': {
     name: 'Tom Harris',
     role: 'Senior Developer',
-    avatar:
-      'static/images/art/5.svg'
+    avatar: 'https://randomuser.me/api/portraits/men/18.jpg'
   },
   'dev-2': {
     name: 'Nina Patel',
     role: 'Developer',
-    avatar:
-      'static/images/art/6.svg'
+    avatar: 'https://randomuser.me/api/portraits/women/57.jpg'
   }
 };
 const indent = 24;

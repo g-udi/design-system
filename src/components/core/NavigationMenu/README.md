@@ -1,6 +1,6 @@
 # NavigationMenu
 
-This Gaudi owner includes **navigation-menu**, with **4 practical examples**.
+This Gaudi owner includes **navigation-menu**, with **1 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/NavigationMenu`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

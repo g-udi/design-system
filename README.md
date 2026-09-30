@@ -222,4 +222,4 @@ Run `pnpm catalogue:sync` after adding or renaming stories to refresh the catalo
 
 ## Component catalogue
 
-Gaudi brings together 81 curated component families with 1,149 practical Storybook examples. Matching compositions extend existing owners and preserve their convenience APIs. See [coverage and public imports](PATTERN-COVERAGE.md), [verification](PATTERN-VERIFICATION.md), and [source notices](THIRD_PARTY_NOTICES.md).
+Gaudi brings together 80 component families with 355 examples, one per use case. Matching compositions extend existing owners and preserve their convenience APIs. See [coverage and public imports](PATTERN-COVERAGE.md), [verification](PATTERN-VERIFICATION.md), and [source notices](THIRD_PARTY_NOTICES.md).

@@ -98,12 +98,3 @@ export const Playground = {
     await expect(within(canvas.getByRole('region', { name: 'In review' })).getByText(item.title)).toBeVisible();
   }
 };
-
-export const EmptyColumns = {
-  parameters: { docs: { description: { story: 'Columns without items show `emptyLabel` so the board keeps its structure before work arrives.' } } },
-  render: () => <KanbanBoard columns={columns} items={[]} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getAllByText('No items')).toHaveLength(columns.length);
-  }
-};

@@ -1,6 +1,6 @@
 # Pill
 
-This Gaudi owner includes **badge**, with **25 practical examples**.
+This Gaudi owner includes **badge**, with **4 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Pill`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

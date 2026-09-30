@@ -11,10 +11,10 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <Pagination>
+    <Pagination className='mx-auto max-w-lg'>
       <PaginationContent className='w-full justify-between'>
         <PaginationItem className='flex items-center gap-2'>
-          <span className='text-ui-muted-foreground text-sm whitespace-nowrap'>
+          <span className='text-text-muted text-sm whitespace-nowrap'>
             Rows per page
           </span>
           <NativeSelect
@@ -29,7 +29,7 @@ export function Pattern() {
           </NativeSelect>
         </PaginationItem>
         <PaginationItem className='flex items-center gap-3'>
-          <span className='text-ui-muted-foreground text-sm whitespace-nowrap'>
+          <span className='text-text-muted text-sm whitespace-nowrap'>
             1-25 of 100
           </span>
           <div className='flex gap-1'>

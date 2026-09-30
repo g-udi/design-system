@@ -14,7 +14,7 @@ import { Kbd } from '../../../../src/components/core/Kbd/parts/kbd.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <div className='flex items-center justify-center'>
+    <div className='mx-auto w-full max-w-lg'>
       <Empty className='border'>
         <EmptyHeader>
           <EmptyTitle>404 — Not Found</EmptyTitle>
@@ -30,7 +30,7 @@ export function Pattern() {
               placeholder='Try searching for pages…'
             />
             <InputGroupAddon>
-              <RegistryIcon lucide='CircleDashedIcon' />
+              <RegistryIcon lucide='SearchIcon' />
             </InputGroupAddon>
             <InputGroupAddon align='inline-end'>
               <Kbd>/</Kbd>

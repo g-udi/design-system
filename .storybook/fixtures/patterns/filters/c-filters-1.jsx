@@ -12,6 +12,8 @@ import {
   AvatarGroup,
   AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
+import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
+import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 function Dot({ className }) {
   return <span className={cn('size-2 shrink-0 rounded-full', className)} />;
@@ -50,12 +52,13 @@ function Unassigned() {
   );
 }
 const STATUSES = [
-  { value: 'todo', label: 'To Do', dot: 'bg-zinc-400' },
-  { value: 'in-progress', label: 'In Progress', dot: 'bg-amber-500' },
-  { value: 'review', label: 'In Review', dot: 'bg-sky-500' },
-  { value: 'done', label: 'Done', dot: 'bg-emerald-500' },
-  { value: 'cancelled', label: 'Cancelled', dot: 'bg-ui-destructive' }
+  { value: 'todo', label: 'To Do', dot: 'bg-zinc-400', badge: 'secondary' },
+  { value: 'in-progress', label: 'In Progress', dot: 'bg-amber-500', badge: 'warning-light' },
+  { value: 'review', label: 'In Review', dot: 'bg-sky-500', badge: 'info-light' },
+  { value: 'done', label: 'Done', dot: 'bg-emerald-500', badge: 'success-light' },
+  { value: 'cancelled', label: 'Cancelled', dot: 'bg-ui-destructive', badge: 'destructive-light' }
 ];
+const ROLES = ['Engineering', 'Research', 'Platform', 'Design'];
 const PRIORITIES = [
   { value: 'low', label: 'Low', star: 'text-emerald-500!' },
   { value: 'medium', label: 'Medium', star: 'text-yellow-500!' },
@@ -236,6 +239,12 @@ function searchDirectory(query, signal, cursor) {
     });
   });
 }
+function fetchContacts(ids) {
+  const wanted = new Set(ids);
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(DIRECTORY.filter((option) => wanted.has(option.value))), 240);
+  });
+}
 function StackedDots({ options }) {
   if (options.length === 0) return <>any status</>;
   if (options.length === 1) {
@@ -268,6 +277,20 @@ function StackedDots({ options }) {
       <span className='text-ui-muted-foreground text-xs tabular-nums'>
         {options.length}
       </span>
+    </span>
+  );
+}
+// Up to two picks read as coloured badges; past that the chip falls back to the dot stack.
+const BADGE_LIMIT = 2;
+function BadgesOrStack({ options }) {
+  if (options.length === 0 || options.length > BADGE_LIMIT) return <StackedDots options={options} />;
+  return (
+    <span className='flex items-center gap-1'>
+      {options.map((option) => (
+        <Badge key={option.value} size='sm' variant={STATUSES.find((entry) => entry.value === option.value)?.badge ?? 'secondary'}>
+          {option.label}
+        </Badge>
+      ))}
     </span>
   );
 }
@@ -369,7 +392,7 @@ const fields = [
     // option field so the treatment can be compared on a five row status, a
     // people list with an exclusive row, 120 countries and a paged directory.
     pinSelected: true,
-    renderValue: ({ options }) => <StackedDots options={options} />
+    renderValue: ({ options }) => <BadgesOrStack options={options} />
   },
   {
     id: 'priority',
@@ -409,9 +432,11 @@ const fields = [
     placeholder: 'Search people...',
     icon: <RegistryIcon lucide='UserRoundCheckIcon' />,
     options: [
-      ...TEAM.map((person) => ({
+      ...TEAM.map((person, index) => ({
         value: person.value,
         label: person.label,
+        // Each row carries the person's group beneath the name.
+        description: ROLES[index % ROLES.length],
         icon: <Person img={person.img} name={person.label} />
       })),
       // "Nobody" is a real filter, not the absence of one, and `exclusive` is
@@ -470,6 +495,12 @@ const fields = [
     // loaded page is not a row here at all, stacked or otherwise. The chip
     // still draws it, off the resolved-option cache.
     pinSelected: true,
+    // A restored view holds ids the loader has never returned, so the
+    // primitive asks for exactly those values and caches the answer for
+    // every chip; until it arrives the chip shows a count.
+    resolveValues: (ids) => fetchContacts(ids),
+    renderValue: ({ values, options, labels }) =>
+      options.length === 1 ? options[0].label : labels.valueCount(values.length),
     icon: <RegistryIcon lucide='BookUserIcon' />
   },
   {
@@ -515,38 +546,37 @@ const fields = [
     icon: <RegistryIcon lucide='ArchiveIcon' />
   }
 ];
+// Stacked people, a two-pick status on badges, a single priority star, and
+// "is not empty", whose arity is none, so its chip draws no value at all.
+const SEED = createFilterQuery([
+  createFilterRule({ id: 'seed-1', path: ['assignee'], operator: 'has_any_of', value: ['ada', 'grace', 'alan', 'katherine'] }),
+  createFilterRule({ id: 'seed-2', path: ['status'], operator: 'is_any_of', value: ['in-progress', 'review'] }),
+  createFilterRule({ id: 'seed-3', path: ['priority'], operator: 'is', value: ['urgent'] }),
+  createFilterRule({ id: 'seed-4', path: ['description'], operator: 'not_empty' })
+]);
+// A saved view restores contacts from pages that were never loaded.
+const SAVED_VIEW = createFilterQuery([
+  createFilterRule({ id: 'saved-1', path: ['assignee'], operator: 'has_any_of', value: ['edsger', 'barbara', 'tim'] }),
+  createFilterRule({ id: 'saved-2', path: ['contact'], operator: 'is_any_of', value: ['u-41', 'u-1200', 'u-3311'] })
+]);
 export function Pattern() {
-  const [query, setQuery] = useState(() =>
-    createFilterQuery([
-      // Two chips, because the two stacked treatments are the thing on show and
-      // neither survives a screenshot of an empty bar. Four assignees overflow
-      // the group and print the "+1", two priorities collapse to overlapping
-      // stars and a count, so a reader arriving at the closed bar can already
-      // see both languages and how each one counts.
-      createFilterRule({
-        id: 'seed-1',
-        path: ['assignee'],
-        operator: 'has_any_of',
-        value: ['ada', 'grace', 'alan', 'katherine']
-      }),
-      createFilterRule({
-        id: 'seed-2',
-        path: ['priority'],
-        // `is`, matching the field's own default: a rank a row can only hold
-        // one of reads oddly under a question about a set.
-        operator: 'is',
-        value: ['urgent']
-      })
-    ])
-  );
+  const [query, setQuery] = useState(SEED);
   return (
-    <div className='flex w-full flex-col gap-4'>
+    <div className='flex w-full flex-col gap-3'>
       <Filters
         fields={fields}
         query={query}
         onQueryChange={setQuery}
         showClear
       />
+      <div className='flex flex-wrap items-center gap-2'>
+        <Button variant='outline' size='sm' onClick={() => setQuery(SAVED_VIEW)}>
+          Restore saved view
+        </Button>
+        <Button variant='ghost' size='sm' onClick={() => setQuery(SEED)}>
+          Reset
+        </Button>
+      </div>
 
       {/*
       `max-h-80` is the largest step that still clears the frame. Measured in

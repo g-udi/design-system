@@ -12,12 +12,13 @@ export function Pattern() {
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState('My Awesome Project');
   return (
-    <Field className='w-full max-w-xs'>
+    <Field className='mx-auto w-full max-w-xs'>
       <Label htmlFor='label-inline-edit' className='gap-2'>
-        Project Name
+        Project name
         <Button
           size='icon-xs'
           variant='ghost'
+          aria-label={isEditing ? 'Save project name' : 'Edit project name'}
           onClick={() => setIsEditing(!isEditing)}
         >
           {isEditing ? (

@@ -76,7 +76,12 @@ export const FamilyPattern1 = { name: 'Short use-case name', ...pattern(1) };
 export const FamilyPattern2 = { name: 'Another use case', ...pattern(2, 'Only when it adds more than the name.'), play };
 ```
 
-- Keep `name` literal and export names stable: `coverage.json` and `catalogue.json` track story IDs.
+- One example per use case, never one per prop. Variants that differ only by size, tone, variant, shape,
+  radius, border, density, placement or orientation belong in one example: a tight gallery with small labels, or one
+  rich composition with in-example toggles (see `data-grid/c-data-grid-1.jsx`, which switches every layout flag on
+  one grid). Keep distinct workflows (async, validation, controlled state, keyboard, composition) separate.
+- Keep `name` literal and export names stable: `coverage.json` and `catalogue.json` track story IDs. When examples
+  merge, keep the base example's export and delete the others with their fixtures and coverage entries.
 - Fixtures export `Pattern`, import from `src/` paths that `publicSource` can rewrite, cap their own width
   (`mx-auto w-full max-w-lg` for compact components), and never import relative assets. Put assets in
   `.storybook/public`.

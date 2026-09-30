@@ -1,6 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import {
+  Field,
+  FieldLabel
+} from '../../../../src/components/core/Field/parts/field.jsx';
 import {
   Select,
   SelectContent,
@@ -10,54 +13,55 @@ import {
   SelectValue
 } from '../../../../src/components/core/Select/parts/select.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const items = [
-  { label: 'Apple', value: 'apple' },
-  { label: 'Banana', value: 'banana' },
-  { label: 'Blueberry', value: 'blueberry' },
-  { label: 'Grapes', value: 'grapes' },
-  { label: 'Pineapple', value: 'pineapple' },
-  { label: 'Strawberry', value: 'strawberry' }
+
+const frameworks = [
+  { value: 'next', label: 'Next.js' },
+  { value: 'svelte', label: 'SvelteKit' },
+  { value: 'nuxt', label: 'Nuxt' },
+  { value: 'remix', label: 'Remix' },
+  { value: 'astro', label: 'Astro' }
 ];
+
+// A controlled select that swaps its up-down chevrons for a clear button once a
+// value is picked, with the check indicator moved to the left of each option.
 export function Pattern() {
-  const [value, setValue] = useState('');
-  const handleClear = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setValue('');
+  const [value, setValue] = useState('svelte');
+  const stop = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
   };
   return (
-    <Field className='max-w-xs'>
-      <Select key={value || '__empty__'} value={value} onValueChange={setValue}>
-        <SelectTrigger
-          aria-label='Select an option'
-          className='w-[200px] [&>svg:last-child]:hidden!'
-        >
-          <SelectValue placeholder='Select an option' />
-          {value !== '' ? (
-            <div
+    <Field className='mx-auto w-full max-w-xs'>
+      <FieldLabel htmlFor='select-framework'>Framework</FieldLabel>
+      <Select key={value || 'empty'} value={value} onValueChange={setValue}>
+        <SelectTrigger id='select-framework' className='w-full [&>svg:last-child]:hidden!'>
+          <SelectValue placeholder='Select framework' />
+          {value ? (
+            <span
               role='button'
               tabIndex={-1}
-              onClick={handleClear}
-              onPointerDown={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
+              aria-label='Clear selection'
+              onPointerDown={stop}
+              onClick={(event) => {
+                stop(event);
+                setValue('');
               }}
-              className='text-ui-muted-foreground hover:text-ui-foreground flex size-4 items-center justify-center rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none'
+              className='flex size-4 items-center justify-center rounded-sm text-text-muted hover:text-text'
             >
               <RegistryIcon lucide='XIcon' className='size-4' />
-              <span className='sr-only'>Clear selection</span>
-            </div>
+            </span>
           ) : (
-            <RegistryIcon
-              lucide='ChevronsUpDownIcon'
-              className='text-ui-muted-foreground size-4'
-            />
+            <RegistryIcon lucide='ChevronsUpDownIcon' className='size-4 text-text-muted' />
           )}
         </SelectTrigger>
         <SelectContent position='popper'>
           <SelectGroup>
-            {items.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
+            {frameworks.map((item) => (
+              <SelectItem
+                key={item.value}
+                value={item.value}
+                className='pr-2! pl-8 [&>span:first-child]:right-auto! [&>span:first-child]:left-2!'
+              >
                 {item.label}
               </SelectItem>
             ))}

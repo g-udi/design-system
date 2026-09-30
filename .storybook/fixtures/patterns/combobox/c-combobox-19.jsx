@@ -17,159 +17,80 @@ import {
   ComboboxValue,
   useComboboxAnchor
 } from '../../../../src/components/core/Select/parts/combobox.jsx';
-import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import { Field, FieldLabel } from '../../../../src/components/core/Field/parts/field.jsx';
 import {
   Item,
   ItemContent,
   ItemDescription,
   ItemTitle
 } from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
-const users = [
-  {
-    id: '1',
-    name: 'Alex Johnson',
-    email: 'alex@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
-    initials: 'AJ'
-  },
-  {
-    id: '2',
-    name: 'Sarah Chen',
-    email: 'sarah@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
-    initials: 'SC'
-  },
-  {
-    id: '3',
-    name: 'Michael Rodriguez',
-    email: 'michael@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
-    initials: 'MR'
-  },
-  {
-    id: '4',
-    name: 'Emma Wilson',
-    email: 'emma@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
-    initials: 'EW'
-  },
-  {
-    id: '5',
-    name: 'David Kim',
-    email: 'david@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
-    initials: 'DK'
-  },
-  {
-    id: '6',
-    name: 'Aron Thompson',
-    email: 'lisa@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
-    initials: 'LT'
-  },
-  {
-    id: '7',
-    name: 'James Brown',
-    email: 'james@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
-    initials: 'JB'
-  },
-  {
-    id: '8',
-    name: 'Maria Garcia',
-    email: 'maria@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
-    initials: 'MG'
-  },
-  {
-    id: '9',
-    name: 'Nick Johnson',
-    email: 'nick@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
-    initials: 'NJ'
-  },
-  {
-    id: '10',
-    name: 'Liam Thompson',
-    email: 'liam@example.com',
-    avatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
-    initials: 'LT'
-  }
+import { cn } from '../../../../src/utilities/cn/index.js';
+
+const members = [
+  { id: '1', name: 'Alex Johnson', position: 'Software Engineer', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
+  { id: '2', name: 'Sarah Chen', position: 'Product Manager', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
+  { id: '3', name: 'Michael Rodriguez', position: 'UX Designer', avatar: 'https://randomuser.me/api/portraits/men/11.jpg' },
+  { id: '4', name: 'Emma Wilson', position: 'Technical Lead', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' },
+  { id: '5', name: 'David Kim', position: 'CTO', avatar: 'https://randomuser.me/api/portraits/men/49.jpg' },
+  { id: '6', name: 'Aron Thompson', position: 'Software Engineer', avatar: 'https://randomuser.me/api/portraits/men/75.jpg' },
+  { id: '7', name: 'Maria Garcia', position: 'Product Manager', avatar: 'https://randomuser.me/api/portraits/women/90.jpg' },
+  { id: '8', name: 'Liam Thompson', position: 'UX Designer', avatar: 'https://randomuser.me/api/portraits/women/65.jpg' }
 ];
-const members = users.map((user, index) => ({
-  ...user,
-  position: [
-    'Software Engineer',
-    'Product Manager',
-    'UX Designer',
-    'Technical Lead',
-    'CTO'
-  ][index % 5]
-}));
-export function Pattern() {
+
+const initials = (name) => name.split(' ').map((part) => part[0]).join('');
+
+function MemberAvatar({ member, className }) {
+  return (
+    <Avatar className={className}>
+      <AvatarImage src={member.avatar} alt={member.name} />
+      <AvatarFallback className='text-xs'>{initials(member.name)}</AvatarFallback>
+    </Avatar>
+  );
+}
+
+// `borderless` drops the field chrome so the tags read as inline content, each chip carrying its own border.
+function MemberTags({ id, label, defaultValue, borderless = false }) {
   const anchor = useComboboxAnchor();
   return (
-    <Field className='max-w-xs'>
-      <Combobox
-        multiple
-        items={members}
-        itemToStringValue={(member) => member.name}
-        defaultValue={[members[0], members[1]]}
-      >
+    <Field>
+      <FieldLabel htmlFor={id}>{label}</FieldLabel>
+      <Combobox multiple items={members} itemToStringValue={(member) => member.name} defaultValue={defaultValue}>
         <ComboboxChips
           ref={anchor}
-          className='has-data-[slot=combobox-chip]:pl-1'
+          className={cn(
+            'has-data-[slot=combobox-chip]:pl-1',
+            borderless && 'border-none bg-transparent p-0 shadow-none ring-0 focus-within:ring-0'
+          )}
         >
           <ComboboxValue>
-            {(selectedMembers) => (
+            {(selected) => (
               <Fragment>
-                {selectedMembers.map((member) => (
+                {selected.map((member) => (
                   <ComboboxChip
                     key={member.id}
-                    showRemove={true}
-                    className='rounded-full gap-1.5'
+                    className={cn(
+                      'gap-1.5 rounded-full',
+                      borderless && 'bg-surface border-border h-auto border py-0.5 pl-1 shadow-xs'
+                    )}
                   >
-                    <Avatar className='size-4'>
-                      <AvatarImage src={member.avatar} alt={member.name} />
-                      <AvatarFallback className='text-xs'>
-                        {member.initials.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
+                    <MemberAvatar member={member} className='size-4' />
                     {member.name}
                   </ComboboxChip>
                 ))}
-                <ComboboxChipsInput placeholder='Add members...' />
+                <ComboboxChipsInput id={id} placeholder='Add members...' className='bg-transparent' />
               </Fragment>
             )}
           </ComboboxValue>
         </ComboboxChips>
-        <ComboboxContent
-          anchor={anchor}
-          className='max-w-(--anchor-width) min-w-(--anchor-width)'
-        >
+        <ComboboxContent anchor={anchor} className='max-w-(--anchor-width) min-w-(--anchor-width)'>
           <ComboboxEmpty>No members found.</ComboboxEmpty>
           <ComboboxList>
             {(member) => (
               <ComboboxItem key={member.id} value={member}>
                 <Item size='xs' className='p-0'>
-                  <Avatar className='size-6'>
-                    <AvatarImage src={member.avatar} alt={member.name} />
-                    <AvatarFallback>{member.initials}</AvatarFallback>
-                  </Avatar>
+                  <MemberAvatar member={member} className='size-6' />
                   <ItemContent>
-                    <ItemTitle className='whitespace-nowrap'>
-                      {member.name}
-                    </ItemTitle>
+                    <ItemTitle className='whitespace-nowrap'>{member.name}</ItemTitle>
                     <ItemDescription>{member.position}</ItemDescription>
                   </ItemContent>
                 </Item>
@@ -179,5 +100,19 @@ export function Pattern() {
         </ComboboxContent>
       </Combobox>
     </Field>
+  );
+}
+
+export function Pattern() {
+  return (
+    <div className='mx-auto grid w-full max-w-xs gap-3'>
+      <MemberTags id='member-tags' label='Reviewers' defaultValue={[members[0], members[1]]} />
+      <MemberTags
+        id='member-tags-borderless'
+        label='Watchers (borderless)'
+        borderless
+        defaultValue={[members[5], members[7], members[3]]}
+      />
+    </div>
   );
 }

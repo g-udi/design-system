@@ -95,7 +95,7 @@ export function Pattern() {
     return chartData[activeIndex];
   }, [activeIndex]);
   return (
-    <Card className='w-full max-w-md'>
+    <Card className='mx-auto w-full max-w-md'>
       <CardHeader>
         <CardTitle className='flex items-center gap-2'>
           Conversion Rates
@@ -137,7 +137,7 @@ export function Pattern() {
                   className='min-w-40 gap-2.5'
                   labelFormatter={(value) => {
                     return (
-                      <div className='border-ui-border/50 mb-0.5 flex flex-col gap-0.5 border-b pb-2'>
+                      <div className='border-border/50 mb-0.5 flex flex-col gap-0.5 border-b pb-2'>
                         <span className='text-xs font-medium'>
                           {value} 2024
                         </span>
@@ -153,11 +153,11 @@ export function Pattern() {
                             '--color-bg': `var(--color-${name})`
                           }}
                         />
-                        <span className='text-ui-muted-foreground'>
+                        <span className='text-text-muted'>
                           {chartConfig[name]?.label || name}
                         </span>
                       </div>
-                      <span className='text-ui-foreground font-semibold'>
+                      <span className='text-text font-semibold'>
                         {Number(value).toLocaleString()}
                       </span>
                     </div>

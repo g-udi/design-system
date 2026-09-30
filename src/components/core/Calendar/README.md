@@ -1,6 +1,6 @@
 # Calendar
 
-This Gaudi owner includes **calendar**, **date-selector**, with **34 practical examples**.
+This Gaudi owner includes **calendar**, **date-selector**, with **11 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Calendar`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

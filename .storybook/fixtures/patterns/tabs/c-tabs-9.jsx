@@ -14,22 +14,22 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const [period, setPeriod] = useState('monthly');
   return (
-    <div className='mx-auto flex w-full max-w-xs flex-col items-center gap-6'>
+    <div className='mx-auto flex w-full max-w-sm flex-col items-center gap-6'>
       <Tabs value={period} onValueChange={setPeriod} className='w-full'>
         <TabsList className='w-full'>
-          <TabsTrigger value='daily' className='gap-1.5'>
+          <TabsTrigger value='daily' className='flex-1 gap-1.5'>
             <RegistryIcon lucide='CalendarIcon' className='size-3.5 max-sm:hidden' />
             Daily
           </TabsTrigger>
-          <TabsTrigger value='weekly' className='gap-1.5'>
+          <TabsTrigger value='weekly' className='flex-1 gap-1.5'>
             <RegistryIcon lucide='SquareCheckIcon' className='size-4 max-sm:hidden' />
             Weekly
           </TabsTrigger>
-          <TabsTrigger value='monthly' className='gap-1.5'>
+          <TabsTrigger value='monthly' className='flex-1 gap-1.5'>
             <RegistryIcon lucide='UsersIcon' className='size-4 max-sm:hidden' />
             Monthly
           </TabsTrigger>
-          <TabsTrigger value='yearly' className='gap-1.5'>
+          <TabsTrigger value='yearly' className='flex-1 gap-1.5'>
             <RegistryIcon lucide='CalendarClockIcon' className='size-3.5 max-sm:hidden' />
             Yearly
           </TabsTrigger>
@@ -38,7 +38,7 @@ export function Pattern() {
           <Card>
             <CardContent className='text-center'>
               <p className='text-3xl font-bold'>1,284</p>
-              <p className='text-ui-muted-foreground mt-1 text-sm'>
+              <p className='text-text-muted mt-1 text-sm'>
                 Visitors today
               </p>
             </CardContent>
@@ -48,7 +48,7 @@ export function Pattern() {
           <Card>
             <CardContent className='text-center'>
               <p className='text-3xl font-bold'>8,942</p>
-              <p className='text-ui-muted-foreground mt-1 text-sm'>
+              <p className='text-text-muted mt-1 text-sm'>
                 Visitors this week
               </p>
             </CardContent>
@@ -58,7 +58,7 @@ export function Pattern() {
           <Card>
             <CardContent className='text-center'>
               <p className='text-3xl font-bold'>32,156</p>
-              <p className='text-ui-muted-foreground mt-1 text-sm'>
+              <p className='text-text-muted mt-1 text-sm'>
                 Visitors this month
               </p>
             </CardContent>
@@ -68,7 +68,7 @@ export function Pattern() {
           <Card>
             <CardContent className='text-center'>
               <p className='text-3xl font-bold'>384,721</p>
-              <p className='text-ui-muted-foreground mt-1 text-sm'>
+              <p className='text-text-muted mt-1 text-sm'>
                 Visitors this year
               </p>
             </CardContent>

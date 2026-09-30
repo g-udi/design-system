@@ -15,7 +15,7 @@ export function Pattern() {
     <Card className='mx-auto w-full max-w-xs overflow-hidden p-0'>
       <CardContent className='flex flex-col items-center p-0'>
         {/* Header with gradient */}
-        <div className='flex w-full flex-col items-center justify-center bg-linear-to-b from-fuchsia-50/80 to-transparent py-12'>
+        <div className='flex w-full flex-col items-center justify-center bg-linear-to-b from-fuchsia-50/80 to-transparent dark:from-fuchsia-500/15 py-12'>
           <div className='relative mb-6'>
             <div className='absolute inset-0 scale-150 rounded-full bg-fuchsia-400/10 blur-2xl' />
             <RegistryIcon

@@ -310,7 +310,7 @@ export function Pattern() {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
-              aria-label='Show options'
+              aria-label='Language'
               variant='outline'
               size='sm'
               className='flex items-center gap-2'

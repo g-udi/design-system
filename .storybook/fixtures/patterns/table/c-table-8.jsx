@@ -45,11 +45,11 @@ const projects = [
     statusVariant: 'warning-light',
     team: [
       {
-        src: 'static/images/art/5.svg',
+        src: 'https://randomuser.me/api/portraits/women/65.jpg',
         fallback: 'DK'
       },
       {
-        src: 'static/images/art/7.svg',
+        src: 'https://randomuser.me/api/portraits/men/54.jpg',
         fallback: 'SD'
       }
     ],
@@ -63,7 +63,7 @@ const projects = [
     statusVariant: 'success-light',
     team: [
       {
-        src: 'static/images/art/10.svg',
+        src: 'https://randomuser.me/api/portraits/women/90.jpg',
         fallback: 'MJ'
       }
     ],
@@ -77,15 +77,15 @@ const projects = [
     statusVariant: 'outline',
     team: [
       {
-        src: 'static/images/art/7.svg',
+        src: 'https://randomuser.me/api/portraits/men/41.jpg',
         fallback: 'SC'
       },
       {
-        src: 'static/images/art/5.svg',
+        src: 'https://randomuser.me/api/portraits/women/33.jpg',
         fallback: 'DK'
       },
       {
-        src: 'static/images/art/1.svg',
+        src: 'https://randomuser.me/api/portraits/men/22.jpg',
         fallback: 'EP'
       }
     ],
@@ -110,16 +110,16 @@ export function Pattern() {
             <TableRow key={project.name}>
               <TableCell>
                 <div className='flex items-center gap-3'>
-                  <div className='bg-ui-muted rounded-sm flex size-8 shrink-0 items-center justify-center'>
+                  <div className='bg-surface-muted rounded-sm flex size-8 shrink-0 items-center justify-center'>
                     <RegistryIcon
                       lucide='FolderIcon'
-                      className='text-ui-muted-foreground size-4'
+                      className='text-text-muted size-4'
                       aria-hidden='true'
                     />
                   </div>
                   <div className='flex flex-col'>
                     <span className='text-sm font-medium'>{project.name}</span>
-                    <span className='text-ui-muted-foreground text-xs'>
+                    <span className='text-text-muted text-xs'>
                       {project.description}
                     </span>
                   </div>
@@ -140,14 +140,14 @@ export function Pattern() {
                   ))}
                   {project.extra > 0 && (
                     <AvatarGroupCount>
-                      <span className='text-ui-muted-foreground text-xs'>
+                      <span className='text-text-muted text-xs'>
                         +{project.extra}
                       </span>
                     </AvatarGroupCount>
                   )}
                 </AvatarGroup>
               </TableCell>
-              <TableCell className='text-ui-muted-foreground text-right text-sm'>
+              <TableCell className='text-text-muted text-right text-sm'>
                 {project.dueDate}
               </TableCell>
             </TableRow>

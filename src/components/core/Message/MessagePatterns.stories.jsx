@@ -8,10 +8,5 @@ const pattern = patternStories(
 
 export default { title: 'Core/Message', tags: ['autodocs'], ...catalogueMeta('message') };
 
-export const MessagePattern1 = { name: 'Two-sided conversation', ...pattern(1, 'Incoming and outgoing rows separated by nothing but the align prop.') };
-export const MessagePattern2 = { name: 'Avatars on both sides', ...pattern(2, 'Bottom-anchored avatars that flip with the row, plus a presence dot.') };
-export const MessagePattern3 = { name: 'Sender name and delivery status', ...pattern(3, 'Header for identity, footer for status, and how each one picks its side.') };
-export const MessagePattern4 = { name: 'Reply actions in the footer', ...pattern(4, 'Copy, regenerate and rating controls under an unframed assistant reply.') };
-export const MessagePattern5 = { name: 'Files shared in a thread', ...pattern(5, 'Image and document attachments stacked with the bubble in one message.') };
-export const MessagePattern6 = { name: 'Consecutive messages from one sender', ...pattern(6, 'A run of three messages under a single avatar, using MessageGroup.') };
-export const MessagePattern7 = { name: 'Streaming reply with a pending state', ...pattern(7, 'One assistant row moving from thinking, to typing, to settled.') };
+export const MessagePattern2 = { name: 'Team conversation', ...pattern(2, 'align picks the side, avatars flip with the row and show presence, a MessageGroup runs messages under one avatar, headers carry name and time, footers carry read and edited status, and files stack with the bubble.') };
+export const MessagePattern7 = { name: 'Assistant reply', ...pattern(7, 'An unframed reply moving from thinking, to typing, to settled, with copy, regenerate and rating controls in the footer.') };

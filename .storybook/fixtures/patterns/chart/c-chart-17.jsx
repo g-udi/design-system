@@ -31,7 +31,7 @@ const chartConfig = {
 };
 export function Pattern() {
   return (
-    <Card className='w-full max-w-md'>
+    <Card className='mx-auto w-full max-w-md'>
       <CardHeader>
         <CardTitle>Sales Forecast</CardTitle>
         <CardDescription>
@@ -80,7 +80,7 @@ export function Pattern() {
                   indicator='dot'
                   className='min-w-40 gap-2.5'
                   labelFormatter={(value) => (
-                    <div className='border-ui-border/50 mb-0.5 border-b pb-2'>
+                    <div className='border-border/50 mb-0.5 border-b pb-2'>
                       <span className='text-xs font-medium'>{value} 2024</span>
                     </div>
                   )}
@@ -93,11 +93,11 @@ export function Pattern() {
                             '--color-bg': `var(--color-${name})`
                           }}
                         />
-                        <span className='text-ui-muted-foreground'>
+                        <span className='text-text-muted'>
                           {chartConfig[name]?.label || name}
                         </span>
                       </div>
-                      <span className='text-ui-foreground font-semibold tabular-nums'>
+                      <span className='text-text font-semibold tabular-nums'>
                         {value != null
                           ? `$${Number(value).toLocaleString()}`
                           : '\u2014'}

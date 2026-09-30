@@ -1,6 +1,6 @@
 # Gantt
 
-This Gaudi owner includes **gantt**, with **7 practical examples**.
+This Gaudi owner includes **gantt**, with **5 practical examples**.
 
 Import the documented composition from `@gaudi/design-system/core/Gantt`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 

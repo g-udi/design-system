@@ -8,9 +8,5 @@ const pattern = patternStories(
 
 export default { title: 'Core/Kbd', tags: ['autodocs'], ...catalogueMeta('kbd') };
 
-export const KbdPattern1 = { name: 'Basic keys', ...pattern(1) };
-export const KbdPattern2 = { name: 'Grouped keys', ...pattern(2) };
-export const KbdPattern3 = { name: 'Keys with icons', ...pattern(3) };
-export const KbdPattern4 = { name: 'Key inside an input', ...pattern(4) };
-export const KbdPattern5 = { name: 'Shortcut in a tooltip', ...pattern(5) };
-export const KbdPattern6 = { name: 'Shortcut reference list', ...pattern(6) };
+export const KbdPattern1 = { name: 'Keys, groups and icons', ...pattern(1, 'Single keys, grouped combinations and keys with an icon, built from the Kbd and KbdGroup parts.') };
+export const KbdPattern4 = { name: 'Shortcuts in controls', ...pattern(4, 'A shortcut hint inside a search input, a tooltip and a button.') };

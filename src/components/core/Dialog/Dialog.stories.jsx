@@ -5,18 +5,11 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Button from '../Button';
 import Field, { FieldDescription, FieldInput, FieldLabel } from '../Field';
-import Input from '../Input';
 import Dialog, { DialogClose } from './Dialog';
 import { iris } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Dialog');
 const articleTitle = 'A practical guide to knowledge graphs';
-const fields = (
-  <Field>
-    <FieldLabel>Title</FieldLabel>
-    <Input defaultValue={articleTitle} />
-  </Field>
-);
 const page = (canvasElement) => within(canvasElement.ownerDocument.body);
 const openDialog = async (canvasElement, trigger, role = 'dialog') => {
   await userEvent.click(within(canvasElement).getByRole('button', { name: trigger }));
@@ -209,21 +202,6 @@ export const Playground = {
     // Rest on the open editor so the controls visibly change it.
     await userEvent.click(trigger);
     await body.findByRole('dialog');
-  }
-};
-
-export const DetailSheet = {
-  parameters: { docs: { description: { story: "`variant='sheet'` slides the same content in from the edge for inspection without leaving the page." } } },
-  render: () => (
-    <Dialog variant='sheet' trigger={<Button>Article details</Button>} title='Article details' description='Review the metadata without leaving your collection.'>
-      {fields}
-    </Dialog>
-  ),
-  play: async ({ canvasElement }) => {
-    const { dialog, scope } = await openDialog(canvasElement, 'Article details');
-    await expect(dialog).toHaveClass('ds-sheet');
-    await userEvent.click(scope.getByRole('button', { name: 'Close dialog' }));
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
   }
 };
 

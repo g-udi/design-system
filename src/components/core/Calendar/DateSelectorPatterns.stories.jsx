@@ -8,7 +8,6 @@ const pattern = patternStories(
 
 export default { title: 'Core/Calendar', tags: ['autodocs'], ...catalogueMeta('date-selector') };
 
-export const DateSelectorPattern1 = { name: 'Date selector: Basic', ...pattern(1) };
-export const DateSelectorPattern2 = { name: 'Date selector: In a popover', ...pattern(2) };
-export const DateSelectorPattern3 = { name: 'Date selector: In a dialog', ...pattern(3) };
-export const DateSelectorPattern4 = { name: 'Date selector: In a dropdown menu', ...pattern(4) };
+export const DateSelectorPattern1 = { name: 'Date selector: Options', ...pattern(1, 'Days, months, quarters, half-years and years with is, before, after and between filters; switches toggle ranges and the typed input, and the value is printed below.') };
+export const DateSelectorPattern2 = { name: 'Date selector: In a popover', ...pattern(2, 'Edits a draft in a popover and commits it with Apply.') };
+export const DateSelectorPattern4 = { name: 'Date selector: Translated, in a dialog', ...pattern(4, 'A dialog with Apply and Cancel whose strings, date format and first weekday follow the chosen language.') };

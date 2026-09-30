@@ -1,5 +1,6 @@
 'use client';
-import { Cell, Label, Pie, PieChart } from 'recharts';
+import { useId, useState } from 'react';
+import { Cell, Label as ChartLabel, Pie, PieChart, Sector } from 'recharts';
 import {
   Card,
   CardContent,
@@ -9,172 +10,131 @@ import {
 } from '../../../../src/components/core/Card/parts/card.jsx';
 import {
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent
 } from '../../../../src/components/mdx/Chart/parts/chart.jsx';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
+import {
+  ToggleGroup,
+  ToggleGroupItem
+} from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 const chartData = [
-  { source: 'direct', visits: 4200, fill: 'var(--color-direct)' },
-  { source: 'search', visits: 3600, fill: 'var(--color-search)' },
-  { source: 'social', visits: 2800, fill: 'var(--color-social)' },
-  { source: 'email', visits: 1900, fill: 'var(--color-email)' },
-  { source: 'referral', visits: 1400, fill: 'var(--color-referral)' }
+  { status: 'completed', count: 186, fill: 'var(--color-completed)' },
+  { status: 'inProgress', count: 94, fill: 'var(--color-inProgress)' },
+  { status: 'pending', count: 62, fill: 'var(--color-pending)' },
+  { status: 'cancelled', count: 28, fill: 'var(--color-cancelled)' }
 ];
-const total = chartData.reduce((s, d) => s + d.visits, 0);
-const chartConfig = {
-  visits: { label: 'Visits' },
-  direct: { label: 'Direct', color: 'var(--chart-1)' },
-  search: { label: 'Search', color: 'var(--chart-2)' },
-  social: { label: 'Social', color: 'var(--chart-3)' },
-  email: { label: 'Email', color: 'var(--chart-4)' },
-  referral: { label: 'Referral', color: 'var(--chart-5)' }
+// Legend swatches read the series colour, not the slice fill, so they stay solid under gradients and patterns.
+const swatch = (key) => {
+  const Swatch = () => <span className='size-2 shrink-0 rounded-sm' style={{ backgroundColor: `var(--color-${key})` }} />;
+  return Swatch;
 };
+const total = chartData.reduce((sum, item) => sum + item.count, 0);
+const chartConfig = {
+  count: { label: 'Tasks' },
+  completed: { label: 'Completed', icon: swatch('completed'), color: 'var(--chart-1)' },
+  inProgress: { label: 'In progress', icon: swatch('inProgress'), color: 'var(--chart-2)' },
+  pending: { label: 'Pending', icon: swatch('pending'), color: 'var(--chart-3)' },
+  cancelled: { label: 'Cancelled', icon: swatch('cancelled'), color: 'var(--chart-5)' }
+};
+const fills = ['Solid', 'Gradient', 'Patterns'];
+// Patterns alternate so neighbouring slices differ by texture as well as colour.
+function SliceDefs({ uid }) {
+  return chartData.map(({ status }, index) => {
+    const color = `var(--color-${status})`;
+    return (
+      <g key={status}>
+        <linearGradient id={`${uid}-Gradient-${status}`} x1='0' y1='0' x2='0' y2='1'>
+          <stop offset='0%' stopColor={color} stopOpacity={1} />
+          <stop offset='100%' stopColor={color} stopOpacity={0.7} />
+        </linearGradient>
+        <pattern id={`${uid}-Patterns-${status}`} patternUnits='userSpaceOnUse' width='6' height='6'>
+          <rect width='6' height='6' fill={color} opacity='0.35' />
+          {index % 2 ? (
+            <circle cx='3' cy='3' r='1.3' fill={color} />
+          ) : (
+            <path d='M0,6 L6,0 M-1.5,1.5 L1.5,-1.5 M4.5,7.5 L7.5,4.5' stroke={color} strokeWidth='1.5' />
+          )}
+        </pattern>
+      </g>
+    );
+  });
+}
 export function Pattern() {
+  const uid = useId().replace(/:/g, '');
+  const [shape, setShape] = useState('Donut');
+  const [fill, setFill] = useState('Solid');
+  const [legend, setLegend] = useState(true);
+  const donut = shape === 'Donut';
   return (
-    <Card className='w-full max-w-xs'>
-      <CardHeader className='items-center pb-0'>
-        <CardTitle>Traffic Sources</CardTitle>
-        <CardDescription>Where your visitors come from</CardDescription>
+    <Card className='mx-auto w-full max-w-sm'>
+      <CardHeader className='pb-0'>
+        <CardTitle>Task status</CardTitle>
+        <CardDescription>{Math.round((chartData[0].count / total) * 100)}% of this sprint is done</CardDescription>
       </CardHeader>
-      <CardContent className='flex-1 pb-0'>
-        <ChartContainer
-          config={chartConfig}
-          className='mx-auto aspect-square max-h-[280px]'
-        >
+      <CardContent className='grid gap-3'>
+        <div role='group' aria-label='Chart options' className='flex flex-wrap items-center gap-x-4 gap-y-2'>
+          <ToggleGroup aria-label='Shape' variant='outline' size='sm' spacing={0} type='single' value={shape} onValueChange={(value) => value && setShape(value)}>
+            {['Donut', 'Pie'].map((option) => (
+              <ToggleGroupItem key={option} value={option}>{option}</ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+          <ToggleGroup aria-label='Slice fill' variant='outline' size='sm' spacing={0} type='single' value={fill} onValueChange={(value) => value && setFill(value)}>
+            {fills.map((option) => (
+              <ToggleGroupItem key={option} value={option}>{option}</ToggleGroupItem>
+            ))}
+          </ToggleGroup>
+          <Label className='gap-2 text-sm font-normal'>
+            <Switch size='sm' checked={legend} onCheckedChange={setLegend} />
+            Legend
+          </Label>
+        </div>
+        <ChartContainer config={chartConfig} className='mx-auto aspect-square max-h-72 w-full'>
           <PieChart accessibilityLayer>
             <defs>
-              <filter
-                id='chart19-3d'
-                x='-20%'
-                y='-20%'
-                width='140%'
-                height='140%'
-              >
-                <feDropShadow
-                  dx='0'
-                  dy='8'
-                  stdDeviation='5'
-                  floodOpacity='0.2'
-                />
+              <SliceDefs uid={uid} />
+              <filter id={`${uid}-lift`} x='-20%' y='-20%' width='140%' height='140%'>
+                <feDropShadow dx='0' dy='6' stdDeviation='4' floodOpacity='0.2' />
               </filter>
-              <linearGradient id='gradient-direct' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--chart-1)' stopOpacity={1} />
-                <stop
-                  offset='100%'
-                  stopColor='var(--chart-1)'
-                  stopOpacity={0.8}
-                />
-              </linearGradient>
-              <linearGradient id='gradient-search' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--chart-2)' stopOpacity={1} />
-                <stop
-                  offset='100%'
-                  stopColor='var(--chart-2)'
-                  stopOpacity={0.8}
-                />
-              </linearGradient>
-              <linearGradient id='gradient-social' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--chart-3)' stopOpacity={1} />
-                <stop
-                  offset='100%'
-                  stopColor='var(--chart-3)'
-                  stopOpacity={0.8}
-                />
-              </linearGradient>
-              <linearGradient id='gradient-email' x1='0' y1='0' x2='0' y2='1'>
-                <stop offset='0%' stopColor='var(--chart-4)' stopOpacity={1} />
-                <stop
-                  offset='100%'
-                  stopColor='var(--chart-4)'
-                  stopOpacity={0.8}
-                />
-              </linearGradient>
-              <linearGradient
-                id='gradient-referral'
-                x1='0'
-                y1='0'
-                x2='0'
-                y2='1'
-              >
-                <stop offset='0%' stopColor='var(--chart-5)' stopOpacity={1} />
-                <stop
-                  offset='100%'
-                  stopColor='var(--chart-5)'
-                  stopOpacity={0.8}
-                />
-              </linearGradient>
             </defs>
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className='min-w-40 gap-2.5'
-                  formatter={(value, name) => (
-                    <div className='flex w-full items-center justify-between gap-2'>
-                      <div className='flex items-center gap-1.5'>
-                        <div
-                          className='h-2.5 w-2.5 shrink-0 rounded-xs bg-(--color-bg)'
-                          style={{
-                            '--color-bg': `var(--color-${name})`
-                          }}
-                        />
-                        <span className='text-ui-muted-foreground'>
-                          {chartConfig[name]?.label || name}
-                        </span>
-                      </div>
-                      <span className='text-ui-foreground font-semibold tabular-nums'>
-                        {Number(value).toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-                />
-              }
-            />
+            <ChartTooltip content={<ChartTooltipContent nameKey='status' hideLabel />} />
+            {legend ? <ChartLegend content={<ChartLegendContent nameKey='status' />} /> : null}
             <Pie
-              data={chartData}
-              dataKey='visits'
-              nameKey='source'
-              innerRadius={65}
-              outerRadius={95}
-              cornerRadius={8}
-              paddingAngle={4}
+                            data={chartData}
+              dataKey='count'
+              nameKey='status'
+              innerRadius={donut ? '58%' : 0}
+              outerRadius='80%'
+              cornerRadius={donut ? 5 : 0}
+              paddingAngle={donut ? 3 : 0}
               stroke='var(--background)'
-              strokeWidth={4}
-              style={{ filter: 'url(#chart19-3d)' }}
+              strokeWidth={donut ? 3 : 2}
+              style={fill === 'Gradient' ? { filter: `url(#${uid}-lift)` } : undefined}
+              // The hovered slice grows so it reads as the active segment.
+              activeShape={({ outerRadius = 0, ...props }) => <Sector {...props} outerRadius={outerRadius + 8} />}
             >
-              {chartData.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={`url(#gradient-${entry.source})`}
-                />
+              {chartData.map(({ status }) => (
+                <Cell key={status} fill={fill === 'Solid' ? `var(--color-${status})` : `url(#${uid}-${fill}-${status})`} />
               ))}
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text
-                        x={viewBox.cx}
-                        y={viewBox.cy}
-                        textAnchor='middle'
-                        dominantBaseline='middle'
-                      >
-                        <tspan
-                          x={viewBox.cx}
-                          y={viewBox.cy}
-                          className='fill-ui-foreground text-3xl font-bold tabular-nums'
-                        >
-                          {(total / 1e3).toFixed(1)}k
+              {donut ? (
+                <ChartLabel
+                  content={({ viewBox }) =>
+                    viewBox && 'cx' in viewBox ? (
+                      <text x={viewBox.cx} y={viewBox.cy} textAnchor='middle' dominantBaseline='middle'>
+                        <tspan x={viewBox.cx} y={viewBox.cy} className='fill-text text-2xl font-bold tabular-nums'>
+                          {total}
                         </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 22}
-                          className='fill-ui-muted-foreground text-xs'
-                        >
-                          Total Visits
+                        <tspan x={viewBox.cx} y={(viewBox.cy || 0) + 20} className='fill-text-muted text-xs'>
+                          Tasks
                         </tspan>
                       </text>
-                    );
+                    ) : null
                   }
-                }}
-              />
+                />
+              ) : null}
             </Pie>
           </PieChart>
         </ChartContainer>

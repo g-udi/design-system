@@ -10,12 +10,7 @@ const pattern = patternStories(
 
 export default { title: 'Core/Tree', tags: ['autodocs'], ...catalogueMeta('tree') };
 
-export const TreePattern1 = { name: 'Basic tree', ...pattern(1), play: catalogueInteractions['tree-1'] };
-export const TreePattern2 = { name: 'Indent guides', ...pattern(2, 'A repeating background draws one guide per indent level.') };
-export const TreePattern3 = { name: 'Folder icons', ...pattern(3) };
-export const TreePattern4 = { name: 'Plus and minus toggles', ...pattern(4) };
-export const TreePattern5 = { name: 'File explorer', ...pattern(5, 'Icons reflect each file type.') };
-export const TreePattern6 = { name: 'Organization chart', ...pattern(6) };
+export const TreePattern1 = { name: 'Display options', ...pattern(1, 'Switches toggle indent guides, folder icons and plus and minus toggles on one tree.'), play: catalogueInteractions['tree-1'] };
 export const TreePattern7 = {
   name: 'Permission checkboxes',
   ...pattern(7, 'Checkboxes toggle leaf permissions without expanding or collapsing the tree.'),
@@ -27,3 +22,4 @@ export const TreePattern7 = {
     await expect(checkbox).toHaveAttribute('aria-checked', String(!wasChecked));
   }
 };
+export const TreePattern6 = { name: 'Organization chart', ...pattern(6, 'Rows carry an avatar, a name and a role.') };

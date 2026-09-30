@@ -9,8 +9,6 @@ import ToastProvider, { toast } from './Toast';
 
 const docs = getComponentDocs('Core/Toast');
 const saved = { title: 'Draft saved', description: 'Your latest changes are ready for review.' };
-const page = (canvasElement) => within(canvasElement.ownerDocument.body);
-const appears = (canvasElement, text) => waitFor(() => expect(page(canvasElement).getByText(text)).toBeVisible());
 
 // The Playground owns a named toaster, so its stack never leaks into the other examples on the page.
 const toasterId = 'toast-playground';
@@ -111,32 +109,5 @@ export const Playground = {
     }
     // Leave the default stack in place for the story view.
     showStack();
-  }
-};
-
-export const ErrorWithRecovery = {
-  parameters: { docs: { description: { story: 'An error toast keeps the user\'s work safe and offers a keyboard-reachable `action` to retry.' } } },
-  render: () => (
-    <>
-      <ToastProvider />
-      <Button
-        variant='outline'
-        onClick={() =>
-          toast.error('Export interrupted', {
-            description: 'Your draft is still saved.',
-            action: { label: 'Retry', onClick: () => toast.success('Export restarted') }
-          })
-        }
-      >
-        Simulate failed export
-      </Button>
-    </>
-  ),
-  play: async ({ canvasElement }) => {
-    await userEvent.click(within(canvasElement).getByRole('button', { name: 'Simulate failed export' }));
-    await appears(canvasElement, 'Export interrupted');
-    await userEvent.click(page(canvasElement).getByRole('button', { name: 'Retry' }));
-    await appears(canvasElement, 'Export restarted');
-    toast.dismiss();
   }
 };

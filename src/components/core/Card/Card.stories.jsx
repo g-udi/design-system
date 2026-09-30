@@ -101,28 +101,18 @@ export const Playground = {
 };
 
 export const Variants = {
-  parameters: { docs: { description: { story: 'Elevated, outline, soft, and flat surfaces.' } } },
-  render: () => <Grid>{variants.map((variant) => <Card key={variant} title={variant} subtitle={subtitle} variant={variant} />)}</Grid>,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    for (const variant of variants) await expect(heading(canvas, variant)).toBeVisible();
-  }
-};
-
-export const Padding = {
-  parameters: { docs: { description: { story: 'The padding scale; with `none`, the content supplies its own spacing.' } } },
+  parameters: { docs: { description: { story: 'Elevated, outline, soft, and flat surfaces, plus `padding="none"` where the content supplies its own spacing. The Playground steps through the rest of the padding scale.' } } },
   render: () => (
     <Grid>
-      {paddings.map((padding) => (
-        <Card key={padding} padding={padding} title={padding} variant='outline'>
-          {padding === 'none' ? <p className='mt-3 border-t border-ui-border p-3 text-sm text-ui-muted-foreground'>Content supplies its own spacing.</p> : null}
-        </Card>
-      ))}
+      {variants.map((variant) => <Card key={variant} title={variant} subtitle={subtitle} variant={variant} />)}
+      <Card padding='none' title='none' variant='outline' className='sm:col-span-2' classNames={{ title: 'px-3 pt-3' }}>
+        <p className='mt-3 border-t border-ui-border p-3 text-sm text-ui-muted-foreground'>Content supplies its own spacing.</p>
+      </Card>
     </Grid>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    for (const padding of paddings) await expect(heading(canvas, padding)).toBeVisible();
+    for (const variant of variants) await expect(heading(canvas, variant)).toBeVisible();
     await expect(canvas.getByText('Content supplies its own spacing.')).toBeVisible();
   }
 };

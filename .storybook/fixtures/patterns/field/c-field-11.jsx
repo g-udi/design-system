@@ -18,7 +18,7 @@ export function Pattern() {
       <FieldGroup>
         <Field data-invalid>
           <FieldLabel htmlFor='val-email'>
-            Email <span className='text-ui-destructive'>*</span>
+            Email <span className='text-danger'>*</span>
           </FieldLabel>
           <InputGroup>
             <InputGroupAddon>
@@ -35,7 +35,7 @@ export function Pattern() {
         </Field>
         <Field data-invalid>
           <FieldLabel htmlFor='val-password'>
-            Password <span className='text-ui-destructive'>*</span>
+            Password <span className='text-danger'>*</span>
           </FieldLabel>
           <InputGroup>
             <InputGroupAddon>
