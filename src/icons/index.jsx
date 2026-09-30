@@ -113,6 +113,7 @@ import CatalogueChevronFirst from 'lucide-react/dist/esm/icons/chevron-first.js'
 import CatalogueChevronLast from 'lucide-react/dist/esm/icons/chevron-last.js';
 import CatalogueChevronLeft from 'lucide-react/dist/esm/icons/chevron-left.js';
 import CatalogueChevronUp from 'lucide-react/dist/esm/icons/chevron-up.js';
+import CatalogueChevronsLeft from 'lucide-react/dist/esm/icons/chevrons-left.js';
 import CatalogueChevronsRight from 'lucide-react/dist/esm/icons/chevrons-right.js';
 import CatalogueChevronsUpDown from 'lucide-react/dist/esm/icons/chevrons-up-down.js';
 import CatalogueCircleAlert from 'lucide-react/dist/esm/icons/circle-alert.js';
@@ -489,6 +490,7 @@ export const iconRegistry = {
   'ChevronLast': CatalogueChevronLast,
   'ChevronLeft': CatalogueChevronLeft,
   'ChevronUp': CatalogueChevronUp,
+  'ChevronsLeft': CatalogueChevronsLeft,
   'ChevronsRight': CatalogueChevronsRight,
   'ChevronsUpDown': CatalogueChevronsUpDown,
   'CircleAlert': CatalogueCircleAlert,

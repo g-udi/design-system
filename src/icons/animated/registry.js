@@ -185,6 +185,7 @@ export const animatedIconRegistry = {
   "ChevronLeft": artwork22,
   "ChevronRight": artwork23,
   "ChevronRightIcon": artwork23,
+  "ChevronsLeft": drawIcons["ChevronsLeft"],
   "ChevronsRight": drawIcons["ChevronsRight"],
   "ChevronsUpDown": artwork24,
   "ChevronUp": artwork25,
@@ -858,6 +859,10 @@ export const animatedIconMetadata = {
     "canonical": "ChevronRight",
     "source": "lucide-animated",
     "slug": "chevron-right"
+  },
+  "ChevronsLeft": {
+    "canonical": "ChevronsLeft",
+    "source": "gaudi-draw"
   },
   "ChevronsRight": {
     "canonical": "ChevronsRight",

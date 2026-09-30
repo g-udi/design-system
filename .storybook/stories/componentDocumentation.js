@@ -553,25 +553,34 @@ const componentDocs = {
     ]
   },
   'Core/DataTable': {
-    'accessibility': 'DataTable renders a real table with column headers and an optional caption inside a labelled, keyboard-focusable horizontal scroll region. Use render functions for cells without changing table semantics.',
+    'accessibility': 'DataTable renders a real table: a visually hidden caption, scoped column headers with aria-sort, named selection checkboxes, and a labelled, keyboard-focusable scroll region that pans with the arrow keys. Expand, row-action and group toggles are named buttons with aria-expanded; clickable rows take focus and activate with Enter or Space.',
     'decisionRules': [
       'Use DataTable for actual tabular comparison, not card grids or definition lists.',
-      'Keep captions and column headers meaningful so the table remains understandable out of context.',
-      'Wrap dense tables in the provided scroll region rather than forcing columns to shrink past readability.'
+      'Keep filtering predicates in the host: pass FilterBar state through your own match function and give DataTable the visible rows.',
+      'Right-align numeric columns with align: right so figures line up in tabular numerals.',
+      'Pin at most the identifying column and one summary column; pinning releases on narrow screens so every column stays reachable.'
     ],
-    'description': 'DataTable supports client collections with optional search, sorting, page selection, column visibility, pagination, and loading, empty and error states.',
+    'description': 'DataTable is a TanStack table in the Mav9 anatomy: uppercase tracked headers, hairline rows, synced column and row hover, a tinted wash for selected rows, and declarative column alignment, width and pinning. It adds search with a live count, sorting, selection with bulk actions, expandable rows, row action menus, grouped bands, a totals footer, pagination, and loading, refreshing, empty and error states.',
     'props': [
-      [ 'columns', 'Array<{ key, header, render? }>', '[]', 'Column definitions. render(row) customizes a cell while preserving table semantics.' ],
-      [ 'searchable / sortable / selectable', 'boolean', 'false', 'Enable search, header sorting and page-scoped row selection.' ],
-      [ 'columnVisibility / pagination', 'boolean', 'false', 'Enable column controls and paged rows.' ],
+      [ 'columns', 'Array<{ key, header, render?, align?, width?, sticky?, footer?, sortable?, searchable?, hideable? }>', '[]', 'Column definitions. align: right sets tabular numerals; sticky: left | right pins; footer(rows) renders a total.' ],
+      [ 'rows', 'Array<Record<string, unknown>>', '[]', 'Rows keyed by column key. row.id is used as the stable key when present.' ],
+      [ 'searchable / sortable / selectable', 'boolean', 'false', 'Search with a live count, header sorting, and page-scoped row selection.' ],
+      [ 'columnVisibility / pagination', 'boolean', 'false', 'Column controls and paged rows with first, previous, next and last.' ],
       [ 'pageSize', 'number', '10', 'Rows per page when pagination is enabled.' ],
+      [ 'density', 'compact | normal | comfortable', 'normal', 'Cell padding and header height.' ],
+      [ 'striped / footer', 'boolean', 'false', 'Alternate row wash; a footer row with the record count and column totals.' ],
+      [ 'renderExpanded / canExpand / expandMode', 'function(row) / function(row) / single | multiple', '- / - / single', 'Detail rows under an expand toggle.' ],
+      [ 'getRowActions', 'function(row) => Array<{ label, onSelect, icon?, tone?, disabled? }>', '-', 'An overflow menu at the end of each row.' ],
+      [ 'onRowClick', 'function(row)', '-', 'Makes rows focusable and activatable, ignoring clicks on inner controls.' ],
+      [ 'groupBy', 'function(row) => { key, label }', '-', 'Collapsible group bands with counts.' ],
+      [ 'toolbar', 'ReactNode', '-', 'Extra controls beside the search, such as a FilterBar facet trigger.' ],
       [ 'selection / onSelectionChange', 'Record<string, boolean> / function', '-', 'Controlled selection keyed by stable row IDs.' ],
       [ 'getRowId', 'function', 'row.id or index', 'Supply stable identity for interactive collections.' ],
-      [ 'renderSelectionActions', 'function(rows)', '-', 'Actions for selected rows matching the current filter.' ],
-      [ 'loading / error / onRetry', 'boolean / string / function', '-', 'Request states and host-owned recovery.' ],
-      [ 'rows', 'Array<Record<string, unknown>>', '[]', 'Rows keyed by column key. row.id is used as the stable key when present.' ],
-      [ 'caption', 'ReactNode', '-', 'Optional table caption.' ],
-      [ 'overflowLabel', 'string', 'Scrollable data table', 'Accessible name for the horizontal scroll region when no caption is present.' ],
+      [ 'renderSelectionActions', 'function(rows)', '-', 'Bulk actions for the selected rows.' ],
+      [ 'loading / refreshing / error / onRetry', 'boolean / boolean / string / function', '-', 'Skeleton rows, a floating updating pill over current rows, and host-owned recovery.' ],
+      [ 'caption', 'ReactNode', '-', 'Visually hidden caption that names the table and its scroll region.' ],
+      [ 'overflowLabel', 'string', 'Scrollable data table', 'Accessible name for the scroll region when no caption is present.' ],
+      [ 'labels', 'object', '-', 'Visible and accessible copy overrides.' ],
       [ 'className', 'string', '-', 'Outer table frame class override.' ]
     ]
   },

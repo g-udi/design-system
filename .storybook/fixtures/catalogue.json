@@ -1237,10 +1237,43 @@
       ],
       "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
     },
-    "core-datatable--custom-cells": {
-      "id": "core-datatable--custom-cells",
+    "core-datatable--row-interactions": {
+      "id": "core-datatable--row-interactions",
       "title": "Core/DataTable",
-      "name": "Custom Cells",
+      "name": "Row Interactions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--grouped-rows": {
+      "id": "core-datatable--grouped-rows",
+      "title": "Core/DataTable",
+      "name": "Grouped Rows",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--pinned-columns": {
+      "id": "core-datatable--pinned-columns",
+      "title": "Core/DataTable",
+      "name": "Pinned Columns",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--custom-toolbar": {
+      "id": "core-datatable--custom-toolbar",
+      "title": "Core/DataTable",
+      "name": "Custom Toolbar",
       "type": "story",
       "tags": [
         "autodocs",
@@ -1523,6 +1556,17 @@
       "type": "docs",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
+    },
+    "core-filterbar--applied-filters": {
+      "id": "core-filterbar--applied-filters",
+      "title": "Core/FilterBar",
+      "name": "Applied Filters",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
     },

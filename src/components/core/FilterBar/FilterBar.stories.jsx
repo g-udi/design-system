@@ -3,80 +3,107 @@ import { expect, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
-import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { articles } from '../../../../.storybook/fixtures/application/data';
 import Button from '../Button';
-import EmptyState from '../EmptyState';
+import DataTable from '../DataTable';
 import Icon from '../Icon';
 import Pill from '../Pill';
-import Select from '../Select';
 import FilterBar from './FilterBar';
 
 const docs = getComponentDocs('Core/FilterBar');
-const options = (values) => values.map((value) => ({ value, label: value }));
-const statuses = options(['Draft', 'In review', 'Published']);
-const categories = options(['Design', 'Engineering', 'Research']);
 const statusTone = { Draft: 'gray', 'In review': 'amber', Published: 'green' };
-// The same matching the story renders, so the play test can predict every count.
-const matching = ({ query = '', status, category }) => articles.filter((row) =>
-  (!status || row.status === status) && (!category || row.category === category) && row.title.toLowerCase().includes(query.toLowerCase()));
-const initial = { status: 'Published', category: 'Research' };
+const countBy = (key, value) => articles.filter((row) => row[key] === value).length;
+const optionsFor = (key) => [...new Set(articles.map((row) => row[key]))].sort().map((value) => ({ value, label: value, count: countBy(key, value) }));
+const facetFields = [
+  { id: 'status', label: 'Status', multiple: true },
+  { id: 'category', label: 'Category' },
+  { id: 'author', label: 'Author', multiple: true }
+];
+// The host owns matching: the same predicate the story renders, so the play test can predict every count.
+const matching = ({ query = '', status = [], category = '', author = [] }) =>
+  articles.filter(
+    (row) =>
+      (!status.length || status.includes(row.status)) &&
+      (!category || row.category === category) &&
+      (!author.length || author.includes(row.author)) &&
+      row.title.toLowerCase().includes(query.trim().toLowerCase())
+  );
+const initial = { status: ['Published', 'In review'], category: '', author: [] };
+const columns = [
+  {
+    key: 'title',
+    header: 'Article',
+    render: (row) => (
+      <span className='block min-w-0'>
+        <span className='block max-w-72 truncate font-medium'>{row.title}</span>
+        <span className='block truncate text-xs text-text-muted'>{row.author}</span>
+      </span>
+    )
+  },
+  {
+    key: 'status',
+    header: 'Status',
+    render: (row) => (
+      <Pill tone={statusTone[row.status]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />} className='my-0 mr-0'>
+        {row.status}
+      </Pill>
+    )
+  },
+  { key: 'category', header: 'Category', render: (row) => <span className='text-text-muted'>{row.category}</span> },
+  { key: 'words', header: 'Words', align: 'right', render: (row) => row.words.toLocaleString('en-GB') }
+];
 const source = playgroundSource('FilterBar', {
-  imports: "import { Button, FilterBar, Icon, Select } from '@gaudi/design-system';",
+  imports: "import { Button, DataTable, FilterBar, Icon } from '@gaudi/design-system';",
+  before: 'const visible = articles.filter((row) => matches(row, { query, status, category, author }));\n\n',
   attributes: [
     'query={query}',
     'onQueryChange={setQuery}',
-    'filters={filters}',
-    'onRemoveFilter={removeFilter}',
-    'onClearFilters={clearFilters}',
+    'count={{ shown: visible.length, total: articles.length }}',
+    "facets={[{ id: 'status', label: 'Status', multiple: true, options: statuses, value: status, onChange: setStatus }, { id: 'category', label: 'Category', options: categories, value: category, onChange: setCategory }]}",
+    "onClearFilters={() => setQuery('')}",
     "actions={<Button size='sm'><Icon name='Plus' decorative size='sm' />New article</Button>}"
   ],
-  children: [
-    "  <Select aria-label='Status' value={status} onValueChange={setStatus} placeholder='Any status' options={statuses} />",
-    "  <Select aria-label='Category' value={category} onValueChange={setCategory} placeholder='Any category' options={categories} />"
-  ].join('\n')
+  after: "\n<DataTable caption='Articles' columns={columns} rows={visible} />"
 });
 
-function Collection({ query: initialQuery = '', ...props }) {
-  const [query, setQuery] = useState(initialQuery);
-  const [status, setStatus] = useState(initial.status);
-  const [category, setCategory] = useState(initial.category);
-  const results = matching({ query, status, category });
-  const filters = [status && { id: 'status', label: status }, category && { id: 'category', label: category }].filter(Boolean);
+function Collection({ query: seededQuery = '', ...props }) {
+  const [query, setQuery] = useState(seededQuery);
+  const [state, setState] = useState(initial);
+  const visible = matching({ query, ...state });
+  const facets = facetFields.map((field) => ({
+    ...field,
+    options: optionsFor(field.id),
+    value: state[field.id],
+    onChange: (value) => setState((current) => ({ ...current, [field.id]: value }))
+  }));
   return (
-    <div className='ds-stack'>
+    <div className='space-y-3'>
       <FilterBar
         {...props}
         query={query}
         onQueryChange={setQuery}
-        filters={filters}
-        onRemoveFilter={(id) => (id === 'status' ? setStatus('') : setCategory(''))}
-        onClearFilters={() => {
-          setQuery('');
-          setStatus('');
-          setCategory('');
-        }}
-        actions={<Button size='sm'><Icon name='Plus' decorative size='sm' />New article</Button>}
-      >
-        <Select className='w-auto flex-1 basis-28' aria-label='Status' value={status} onValueChange={setStatus} placeholder='Any status' options={statuses} />
-        <Select className='w-auto flex-1 basis-28' aria-label='Category' value={category} onValueChange={setCategory} placeholder='Any category' options={categories} />
-      </FilterBar>
-      <p role='status' className='ds-description'>{results.length} of {articles.length} articles</p>
-      {results.length ? (
-        <ul className='divide-y divide-border'>
-          {results.map((row) => (
-            <li key={row.id} className='flex items-center justify-between gap-3 py-2'>
-              <div className='min-w-0'>
-                <p className='ds-label truncate'>{row.title}</p>
-                <p className='ds-description text-xs'>{row.author} · {row.category} · {row.updated}</p>
-              </div>
-              <Pill size='sm' variant='soft' tone={statusTone[row.status]}>{row.status}</Pill>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <EmptyState compact title='No matching articles' description='Try changing the search or filters.' />
-      )}
+        count={{ shown: visible.length, total: articles.length }}
+        facets={facets}
+        onClearFilters={() => setQuery('')}
+        actions={
+          <Button size='sm'>
+            <Icon name='Plus' decorative size='sm' />
+            New article
+          </Button>
+        }
+      />
+      <p role='status' className='text-xs text-text-muted'>
+        {visible.length} of {articles.length} articles
+      </p>
+      <DataTable
+        caption='Filtered articles'
+        density='compact'
+        sortable
+        columns={columns}
+        rows={visible}
+        emptyTitle='No matching articles'
+        emptyDescription='Try changing the search or filters.'
+      />
     </div>
   );
 }
@@ -85,22 +112,23 @@ export default {
   title: 'Core/FilterBar',
   component: FilterBar,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { query: 'text', placeholder: 'text' }),
+  argTypes: docsArgTypes(docs, { query: 'text', placeholder: 'text', filterLabel: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  },
-  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
+  }
 };
 
 export const Playground = {
-  args: { query: '', placeholder: 'Search articles…', searchLabel: 'Search articles' },
+  args: { query: '', placeholder: 'Search articles…', filterLabel: 'Filters', searchLabel: 'Search articles' },
   argTypes: { searchLabel: { table: { disable: true } } },
   parameters: {
     docs: {
-      description: { story: 'An article list filtered by search, status, and category, with applied-filter chips, a primary action, and live results. `query` seeds the search; clearing the chips widens the list.' },
+      description: {
+        story: 'An article register. The search shows a live count; Filters opens status, category and author facets with counts; every selected value becomes a removable chip. The host filters the rows with its own predicate and hands the visible ones to DataTable.'
+      },
       source
     }
   },
@@ -108,28 +136,63 @@ export const Playground = {
   render: (args) => <Collection key={args.query} {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const status = canvas.getByRole('status');
+    const page = within(canvasElement.ownerDocument.body);
+    const status = canvas.getByText(/of \d+ articles$/);
     const search = canvas.getByRole('searchbox', { name: args.searchLabel });
-    const count = (filters) => `${matching({ query: args.query, ...filters }).length} of ${articles.length} articles`;
+    const trigger = () => canvas.getByRole('button', { name: new RegExp(`^${args.filterLabel}`) });
+    const count = (filters) => `${matching({ query: args.query, ...initial, ...filters }).length} of ${articles.length} articles`;
     await expect(search).toHaveValue(args.query);
     if (!args.query) await expect(search).toHaveAttribute('placeholder', args.placeholder);
-    await expect(status).toHaveTextContent(count(initial));
+    await expect(status).toHaveTextContent(count({}));
+    await expect(trigger()).toHaveTextContent('2');
+
+    // Pick a category in the facet popover; the chip and the count follow.
+    await userEvent.click(trigger());
+    await userEvent.click(await page.findByRole('tab', { name: 'Category' }));
+    await userEvent.click(page.getByRole('radio', { name: /^Research/ }));
+    await userEvent.click(page.getByRole('button', { name: 'Done' }));
+    await expect(status).toHaveTextContent(count({ category: 'Research' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Remove Research filter' }));
-    await expect(status).toHaveTextContent(count({ status: 'Published' }));
+    await expect(status).toHaveTextContent(count({}));
+
     await userEvent.click(canvas.getByRole('button', { name: 'Clear filters' }));
     await expect(status).toHaveTextContent(`${articles.length} of ${articles.length} articles`);
     await userEvent.type(search, 'knowledge');
     await expect(status).toHaveTextContent(`1 of ${articles.length} articles`);
     await userEvent.type(search, ' nothing');
     await expect(canvas.getByText('No matching articles')).toBeVisible();
-    // Restore the seeded filters through the selects so the preview ends in its rich state.
+
+    // Restore the seeded state so the preview ends rich.
     await userEvent.clear(search);
     if (args.query) await userEvent.type(search, args.query);
-    for (const [name, value] of [['Status', initial.status], ['Category', initial.category]]) {
-      await userEvent.click(canvas.getByRole('button', { name }));
-      await userEvent.click(canvas.getByRole('option', { name: value }));
-    }
-    await expect(status).toHaveTextContent(count(initial));
-    await expect(canvas.getByRole('button', { name: `Remove ${initial.category} filter` })).toBeVisible();
+    await userEvent.click(trigger());
+    await userEvent.click(await page.findByRole('tab', { name: 'Status' }));
+    for (const value of initial.status) await userEvent.click(page.getByRole('checkbox', { name: new RegExp(`^${value}`) }));
+    await userEvent.click(page.getByRole('button', { name: 'Done' }));
+    await expect(status).toHaveTextContent(count({}));
+  }
+};
+
+export const AppliedFilters = {
+  parameters: { docs: { description: { story: 'Without facets, `filters` lists host-applied filters as chips; `onRemoveFilter` and `onClearFilters` remove one or all.' } } },
+  render: function Render() {
+    const [filters, setFilters] = useState([
+      { id: 'published', field: 'Status', label: 'Published' },
+      { id: 'research', field: 'Category', label: 'Research' }
+    ]);
+    return (
+      <FilterBar
+        filters={filters}
+        onRemoveFilter={(id) => setFilters((current) => current.filter((filter) => filter.id !== id))}
+        onClearFilters={() => setFilters([])}
+      />
+    );
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove Research filter' }));
+    await expect(canvas.queryByText('Research')).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear filters' }));
+    await expect(canvas.queryByRole('group', { name: 'Applied filters' })).not.toBeInTheDocument();
   }
 };
