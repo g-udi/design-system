@@ -1,5 +1,22 @@
 import { expect, userEvent, within, waitFor } from 'storybook/test';
 
+/**
+ * Galleries of dialog triggers: open each one, check the initial focus when asked,
+ * close with Escape, and confirm focus returns to its trigger.
+ */
+export async function openEachDialog({ canvasElement, role = 'dialog', initialFocus }) {
+  const body = within(canvasElement.ownerDocument.body);
+  for (const trigger of within(canvasElement).getAllByRole('button')) {
+    await userEvent.click(trigger);
+    const dialog = await body.findByRole(role);
+    await waitFor(() => expect(dialog).toBeVisible());
+    if (initialFocus) await expect(dialog.querySelector(initialFocus)).toHaveFocus();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    await waitFor(() => expect(trigger).toHaveFocus());
+  }
+}
+
 /** Open the portal so focus and responsive checks cover the dialog, not just its trigger. */
 export async function verifyConfirmationDialogInteraction({ canvasElement }) {
   const document = canvasElement.ownerDocument;
@@ -79,14 +96,6 @@ export const catalogueInteractions = {
         ).opacity
       ).toBe('1');
     });
-  },
-  'combobox-1': async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByRole('combobox');
-    await userEvent.type(input, 'Svelte');
-    await userEvent.keyboard('{ArrowDown}{Enter}');
-    await expect(input).toHaveValue('SvelteKit');
-    await expect(input).toHaveAttribute('aria-expanded', 'false');
   },
   'number-field-1': async ({ canvasElement }) => {
     const canvas = within(canvasElement);

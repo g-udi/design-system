@@ -1,6 +1,5 @@
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
-import { verifyConfirmationDialogInteraction } from '../../../../.storybook/stories/PatternInteractions.js';
+import { openEachDialog, verifyConfirmationDialogInteraction } from '../../../../.storybook/stories/PatternInteractions.js';
 
 const pattern = patternStories(
   'alert-dialog',
@@ -9,17 +8,8 @@ const pattern = patternStories(
 );
 
 /** Opens every trigger in a gallery: Cancel takes focus, Escape closes, and focus returns to the trigger. */
-async function verifyEachConfirmation({ canvasElement }) {
-  const body = within(canvasElement.ownerDocument.body);
-  for (const trigger of within(canvasElement).getAllByRole('button')) {
-    await userEvent.click(trigger);
-    const dialog = await body.findByRole('alertdialog');
-    await expect(dialog.querySelector('[data-slot="alert-dialog-cancel"]')).toHaveFocus();
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
-    await expect(trigger).toHaveFocus();
-  }
-}
+const verifyEachConfirmation = ({ canvasElement }) =>
+  openEachDialog({ canvasElement, role: 'alertdialog', initialFocus: '[data-slot="alert-dialog-cancel"]' });
 
 export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('alert-dialog') };
 

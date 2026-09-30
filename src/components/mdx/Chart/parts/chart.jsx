@@ -226,6 +226,10 @@ function ChartLegendContent({
         .map((item, index) => {
           const key = `${nameKey ?? item.dataKey ?? 'value'}`;
           const itemConfig = getPayloadConfigFromPayload(config, item, key);
+          // Gradient and pattern fills arrive as url(#id); the swatch uses the series colour instead.
+          const swatch = String(item.color ?? '').startsWith('url(')
+            ? (itemConfig?.color ?? `var(--color-${key})`)
+            : item.color;
           return (
             <div
               key={index}
@@ -239,7 +243,7 @@ function ChartLegendContent({
                 <div
                   className='h-2 w-2 shrink-0 rounded-sm'
                   style={{
-                    backgroundColor: item.color
+                    backgroundColor: swatch
                   }}
                 />
               )}

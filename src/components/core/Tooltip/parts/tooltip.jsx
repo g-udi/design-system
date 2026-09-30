@@ -15,11 +15,7 @@ function Tooltip({ ...props }) {
 }
 function TooltipTrigger({ ...props }) {
   return (
-    <TooltipPrimitive.Trigger
-      data-slot='tooltip-trigger'
-      aria-label='More information'
-      {...props}
-    />
+    <TooltipPrimitive.Trigger data-slot='tooltip-trigger' {...props} />
   );
 }
 function TooltipContent({ className, sideOffset = 0, children, ...props }) {

@@ -85,7 +85,7 @@ export const FieldInput = ({ as: Control = 'input', 'aria-describedby': ariaDesc
       id={ id || context?.inputId }
       aria-describedby={ describedBy || undefined }
       aria-invalid={ isInvalid || undefined }
-      className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-gray-300 bg-white px-3 py-1 text-base leading-5 text-gray-950 md:text-sm shadow-xs placeholder:text-gray-500 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:focus-visible:border-blue-400 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-950', isInvalid && 'border-danger focus-visible:border-danger focus-visible:ring-danger dark:border-danger dark:focus-visible:border-danger dark:focus-visible:ring-danger', className) }
+      className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-border bg-surface px-3 py-1 text-base leading-5 text-text md:text-sm shadow-xs placeholder:text-text-muted focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50', isInvalid && 'border-danger focus-visible:border-danger focus-visible:ring-danger', className) }
       { ...props }
     />
   );

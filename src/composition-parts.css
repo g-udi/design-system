@@ -270,11 +270,11 @@
 
   /* MARK: Carousel */
   .ds-part-carousel-previous {
-    @apply rounded-control;
+    @apply rounded-control bg-ui-background/90 shadow-xs backdrop-blur-sm;
   }
 
   .ds-part-carousel-next {
-    @apply rounded-control;
+    @apply rounded-control bg-ui-background/90 shadow-xs backdrop-blur-sm;
   }
 
   /* MARK: Chart */
@@ -1372,11 +1372,11 @@
 
   /* MARK: Toggle */
   .ds-part-toggle {
-    @apply hover:text-ui-foreground aria-pressed:bg-ui-muted focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive data-[state=on]:bg-ui-muted gap-1 rounded-lg text-sm font-medium transition-all [&_svg:not([class*='size-'])]:size-4;
+    @apply text-ui-muted-foreground hover:text-ui-foreground aria-pressed:bg-ui-foreground/10 aria-pressed:text-ui-foreground focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive data-[state=on]:bg-ui-foreground/10 data-[state=on]:text-ui-foreground gap-1 rounded-lg text-sm font-medium transition-all [&_svg:not([class*='size-'])]:size-4;
   }
 
   .ds-part-toggle-aria {
-    @apply data-selected:bg-ui-muted;
+    @apply data-selected:bg-ui-foreground/10 data-selected:text-ui-foreground;
   }
 
   .ds-part-toggle-variant-default {
@@ -1480,7 +1480,7 @@
 
   /* MARK: Menu Translucent */
   .ds-part-menu-translucent {
-    @apply animate-none! relative bg-ui-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-ui-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-ui-foreground/10 **:data-[slot$=-separator]:bg-ui-foreground/5 **:data-[slot$=-trigger]:focus:bg-ui-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-ui-foreground/10! **:data-[variant=destructive]:focus:bg-ui-foreground/10! **:data-[variant=destructive]:text-ui-accent-foreground! **:data-[variant=destructive]:**:text-ui-accent-foreground!;
+    @apply animate-none! relative bg-ui-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-ui-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-ui-foreground/10 **:data-[slot$=-separator]:bg-ui-foreground/5 **:data-[slot$=-trigger]:focus:bg-ui-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-ui-foreground/10! **:data-[variant=destructive]:focus:bg-ui-foreground/10! **:data-[variant=destructive]:text-ui-destructive! **:data-[variant=destructive]:**:text-ui-destructive!;
   }
 
   .ds-part-menu-translucent-aria {

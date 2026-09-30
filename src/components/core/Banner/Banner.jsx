@@ -7,7 +7,7 @@ export const bannerVariants = createVariants({
   'compoundVariants': [
     { 'className': 'bg-blue-600 text-white', 'tone': 'blue', 'variant': 'solid' },
     { 'className': 'bg-gray-700 text-white', 'tone': 'gray', 'variant': 'solid' },
-    { 'className': 'bg-green-600 text-white', 'tone': 'green', 'variant': 'solid' },
+    { 'className': 'bg-green-700 text-white', 'tone': 'green', 'variant': 'solid' },
     { 'className': 'bg-indigo-600 text-white', 'tone': 'indigo', 'variant': 'solid' },
     { 'className': 'bg-neutral-700 text-white', 'tone': 'neutral', 'variant': 'solid' },
     { 'className': 'bg-red-600 text-white', 'tone': 'red', 'variant': 'solid' },

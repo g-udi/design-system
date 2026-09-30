@@ -59,7 +59,7 @@ export function Pattern() {
         {solid.map(({ label, icon, menu, items }) => (
           <ButtonGroup key={label} aria-label={label} className='**:data-[slot=button]:border-x-0'>
             <Button>{icon ? <Icon name={icon} /> : null}{label}</Button>
-            <ButtonGroupSeparator className='bg-ui-primary-foreground/20' />
+            <ButtonGroupSeparator className='bg-ui-primary-foreground/35' />
             <Menu label={menu} items={items} />
           </ButtonGroup>
         ))}
@@ -93,7 +93,7 @@ export function Pattern() {
         </ButtonGroup>
         <ButtonGroup aria-label='Release payout' className='**:data-[slot=button]:border-x-0'>
           <Button size='sm'><Icon name='CheckIcon' />Release</Button>
-          <ButtonGroupSeparator className='bg-ui-primary-foreground/20' />
+          <ButtonGroupSeparator className='bg-ui-primary-foreground/35' />
           <Menu size='icon-sm' label='More payout actions' items={[['Schedule for Friday', 'CalendarIcon'], ['Change destination', 'CreditCardIcon'], ['Export receipt', 'FileTextIcon'], ['Cancel payout', 'XIcon', true]]} />
         </ButtonGroup>
       </Row>

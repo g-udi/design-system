@@ -738,9 +738,27 @@
   }
   .ds-toast-action,
   .ds-toast-close {
+    flex-shrink: 0;
     padding: 0.25rem 0.5rem;
     color: var(--ds-color-accent);
     font-size: 0.875rem;
+    white-space: nowrap;
+  }
+  .ds-toast-content {
+    display: grid;
+    flex: 1 1 auto;
+    gap: 2px;
+    min-width: 0;
+  }
+  /* The type icon and the loading spinner share one fixed box at the start of the toast. */
+  .ds-toast [data-icon] {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
   }
   /* The icon-only close keeps the 24px minimum control size. */
   .ds-toast-close {

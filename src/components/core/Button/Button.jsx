@@ -12,7 +12,7 @@ const compoundVariants = Object.entries(buttonToneClasses).flatMap(([ tone, vari
 ));
 
 const resolveButtonVariants = createVariants({
-  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-gray-950',
+  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-gray-950 aria-invalid:border-danger aria-invalid:ring-2 aria-invalid:ring-danger/20',
   compoundVariants,
   'defaultVariants': {
     'radius': 'md',

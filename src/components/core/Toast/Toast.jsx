@@ -12,6 +12,7 @@ export default function ToastProvider(props) {
         unstyled: true,
         classNames: {
           toast: 'ds-toast',
+          content: 'ds-toast-content',
           title: 'ds-label',
           description: 'ds-description',
           actionButton: 'ds-toast-action',

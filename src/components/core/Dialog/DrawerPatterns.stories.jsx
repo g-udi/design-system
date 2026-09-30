@@ -1,5 +1,5 @@
-import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
+import { openEachDialog } from '../../../../.storybook/stories/PatternInteractions.js';
 
 const pattern = patternStories(
   'drawer',
@@ -8,17 +8,7 @@ const pattern = patternStories(
 );
 
 /** Opens each trigger in turn, then closes the dialog with Escape and checks focus returns to it. */
-async function openEach({ canvasElement }) {
-  const body = within(canvasElement.ownerDocument.body);
-  for (const trigger of within(canvasElement).getAllByRole('button')) {
-    await userEvent.click(trigger);
-    const dialog = await body.findByRole('dialog');
-    await waitFor(() => expect(dialog).toBeVisible());
-    await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
-    await waitFor(() => expect(trigger).toHaveFocus());
-  }
-}
+const openEach = openEachDialog;
 
 export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('drawer') };
 

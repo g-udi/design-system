@@ -81,24 +81,22 @@ export const Playground = {
   }
 };
 
-// Solid green (bg-green-600 with white text) misses AA contrast, so the matrix leaves that one cell empty.
-const matrix = tones.flatMap((tone) => variants.map((variant) => ({ tone, variant, skip: tone === 'green' && variant === 'solid' })));
+const matrix = tones.flatMap((tone) => variants.map((variant) => ({ tone, variant })));
 
 export const TonesAndVariants = {
   name: 'Tones and variants',
   parameters: { docs: { description: { story: 'Every tone in the solid, soft and outline treatments.' } } },
   render: () => (
     <div className='grid grid-cols-3 gap-2'>
-      {matrix.map(({ tone, variant, skip }) => (skip
-        ? <span key={`${tone}-${variant}`} aria-hidden='true' />
-        : <Banner key={`${tone}-${variant}`} size='xs' tone={tone} variant={variant} title={tone}>{variant}</Banner>))}
+      {matrix.map(({ tone, variant }) => (
+        <Banner key={`${tone}-${variant}`} size='xs' tone={tone} variant={variant} title={tone}>{variant}</Banner>
+      ))}
     </div>
   ),
   play: async ({ canvasElement }) => {
     const banners = within(canvasElement).getAllByRole('status');
-    const shown = matrix.filter(({ skip }) => !skip);
-    await expect(banners).toHaveLength(shown.length);
-    for (const [index, { tone, variant }] of shown.entries()) {
+    await expect(banners).toHaveLength(matrix.length);
+    for (const [index, { tone, variant }] of matrix.entries()) {
       await expect(banners[index]).toHaveClass(...bannerVariants({ tone, variant, size: 'xs' }).split(' '));
       await expect(banners[index]).toHaveTextContent(tone);
     }

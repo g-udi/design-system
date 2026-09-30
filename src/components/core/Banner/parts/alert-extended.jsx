@@ -21,7 +21,7 @@ const alertVariants = cva(
         success: 'border-success/30 bg-success/4 [&>svg]:text-success',
         warning: 'border-warning/30 bg-warning/4 [&>svg]:text-warning',
         invert:
-          'border-invert bg-invert text-invert-foreground [&_[data-slot=alert-description]]:text-invert-foreground/70'
+          'border-ui-invert bg-ui-invert text-ui-invert-foreground [&_[data-slot=alert-description]]:text-ui-invert-foreground/70'
       }
     },
     defaultVariants: {

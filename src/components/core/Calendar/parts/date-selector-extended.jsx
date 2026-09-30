@@ -633,6 +633,13 @@ function DateSelectorDayPicker({
       return `${i18n.months[monthIndex]} ${year}`;
     }
   };
+  // Two months share the width; a single month keeps its square cells at their natural size.
+  const twoMonths = !isMobile && showTwoMonths;
+  const monthClassNames = {
+    months: cn('flex w-full flex-wrap items-start gap-5', twoMonths ? 'justify-between' : 'justify-center'),
+    month: cn('flex min-w-0 flex-col items-center', twoMonths && 'flex-1'),
+    nav: 'hidden'
+  };
   return (
     <div className={cn('flex w-full items-center justify-between', className)}>
       {isRange ? (
@@ -646,11 +653,7 @@ function DateSelectorDayPicker({
           weekStartsOn={weekStartsOn}
           formatters={formatters}
           className='w-full shrink-0 p-0'
-          classNames={{
-            months: 'flex flex-wrap items-start justify-between gap-5 w-full',
-            month: 'flex flex-col items-center min-w-0 flex-1',
-            nav: 'hidden'
-          }}
+          classNames={monthClassNames}
           components={{
             DayButton: CustomDayButton
           }}
@@ -666,11 +669,7 @@ function DateSelectorDayPicker({
           weekStartsOn={weekStartsOn}
           formatters={formatters}
           className='w-full shrink-0 p-0'
-          classNames={{
-            months: 'flex flex-wrap items-start justify-between gap-5 w-full',
-            month: 'flex flex-col items-center min-w-0 flex-1',
-            nav: 'hidden'
-          }}
+          classNames={monthClassNames}
           components={{
             DayButton: CustomDayButton
           }}
