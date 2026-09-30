@@ -52,7 +52,7 @@ export function Pattern({
       <div className='relative'>
         <div
           className={cn(
-            'group/avatar relative h-24 w-24 cursor-pointer overflow-hidden rounded-full border border-dashed transition-colors',
+            'group/avatar relative h-24 w-24 cursor-pointer overflow-hidden rounded-control border border-dashed transition-colors',
             isDragging
               ? 'border-ui-primary bg-ui-primary/5'
               : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/20',
@@ -88,7 +88,7 @@ export function Pattern({
             size='icon'
             variant='outline'
             onClick={handleRemove}
-            className='absolute end-0.5 top-0.5 z-10 size-6 rounded-full dark:bg-zinc-800 hover:dark:bg-zinc-700'
+            className='absolute end-0.5 top-0.5 z-10 size-6 rounded-control dark:bg-zinc-800 hover:dark:bg-zinc-700'
             aria-label='Remove avatar'
           >
             <RegistryIcon lucide='XIcon' className='size-3.5' />

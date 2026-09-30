@@ -8,7 +8,7 @@ import {
 } from '../../../../src/components/core/Gantt/parts/gantt-nav-extended.jsx';
 import { GanttView } from '../../../../src/components/core/Gantt/parts/gantt-view-extended.jsx';
 import { addDays, startOfDay, startOfWeek } from 'date-fns';
-import { ar, de, es, fr, ja } from 'date-fns/locale';
+import { de, es, fr, ja } from 'date-fns/locale';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Card,
@@ -110,14 +110,12 @@ const LOCALES = [
     id: 'en',
     label: 'English',
     locale: void 0,
-    dir: 'ltr',
     i18n: void 0
   },
   {
     id: 'de',
     label: 'Deutsch',
     locale: de,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: 'Heute',
@@ -137,7 +135,6 @@ const LOCALES = [
     id: 'fr',
     label: 'Fran\xE7ais',
     locale: fr,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: "Aujourd'hui",
@@ -157,7 +154,6 @@ const LOCALES = [
     id: 'es',
     label: 'Espa\xF1ol',
     locale: es,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: 'Hoy',
@@ -177,7 +173,6 @@ const LOCALES = [
     id: 'ja',
     label: '\u65E5\u672C\u8A9E',
     locale: ja,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: '\u4ECA\u65E5',
@@ -190,28 +185,6 @@ const LOCALES = [
           month: '\u6708',
           quarter: '\u56DB\u534A\u671F',
           year: '\u5E74'
-        }
-      }
-    }
-  },
-  {
-    id: 'ar',
-    label: '\u0627\u0644\u0639\u0631\u0628\u064A\u0629',
-    locale: ar,
-    dir: 'rtl',
-    i18n: {
-      labels: {
-        today: '\u0627\u0644\u064A\u0648\u0645',
-        scheduleHint:
-          '\u0627\u0646\u0642\u0631 \u0644\u0625\u0636\u0627\u0641\u0629 \u062C\u062F\u0648\u0644',
-        reorder:
-          '\u0625\u0639\u0627\u062F\u0629 \u062A\u0631\u062A\u064A\u0628',
-        scales: {
-          day: '\u064A\u0648\u0645',
-          week: '\u0623\u0633\u0628\u0648\u0639',
-          month: '\u0634\u0647\u0631',
-          quarter: '\u0631\u0628\u0639 \u0633\u0646\u0648\u064A',
-          year: '\u0633\u0646\u0629'
         }
       }
     }
@@ -497,8 +470,7 @@ function SettingsMenu({
             />
             <p className='text-ui-muted-foreground text-xs leading-relaxed'>
               Language switches the date-fns locale, the scale names, and the
-              week start. Time zone re-anchors every bar. Arabic also flips the
-              chart to right-to-left.
+              week start. Time zone re-anchors every bar.
             </p>
           </TabsContent>
         </Tabs>
@@ -591,7 +563,7 @@ export function Pattern() {
     });
   };
   return (
-    <div className='w-full p-4' dir={activeLocale.dir}>
+    <div className='w-full p-4'>
       <Card className='w-full py-0'>
         <CardContent className='p-0'>
           <Gantt

@@ -56,10 +56,10 @@ typography:
   mono:
     fontFamily: "JetBrains Mono, Menlo, Monaco, monospace"
 rounded:
-  sm: "0.375rem"
-  card: "0.5rem"
-  control: "0.5rem"
-  pill: "0.125rem"
+  sm: "var(--ds-radius)"
+  card: "var(--ds-radius)"
+  control: "var(--ds-radius)"
+  pill: "var(--ds-radius)"
 spacing:
   xs: "0.25rem"
   sm: "0.5rem"
@@ -181,25 +181,25 @@ Gaudi is flat by default with modest structural elevation. Borders define most s
 
 ## Shapes
 
-The form language is compact and mildly rounded. Cards and controls use an 8px radius, smaller chips use a tight 2px pill radius, and focus rings remain visible. Large bubbly radii are avoided unless the component is a small control that benefits from the familiar affordance.
+Gaudi uses a subtle 2px radius for element boundaries. The global CSS variable `--ds-radius` drives cards, controls, badges, icon tiles, menus, overlays, code blocks, and documentation frames through shared tokens. Applications can override it on `:root`, including `0px` for square corners. Storybook’s Corners toolbar previews 0px, 2px, 4px, and 8px. Accordion trigger highlights, text highlights, and internal panel seams stay square regardless of the global setting. Do not hard-code decorative radii. Circular geometry is reserved for intrinsic shapes such as status dots, radio indicators, loading rings, and explicitly circular avatars. Keep keyboard focus rings visible.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** Compact rounded controls using the control radius.
+- **Shape:** Compact controls using the global corner radius.
 - **Primary:** Blue solid fill with white text and balanced horizontal padding.
 - **Hover / Focus:** Hover darkens or tints within the same tone; keyboard focus uses a visible neutral ring.
 - **Secondary / Ghost / Subtle:** Secondary variants use outline, soft, ghost, or text-like emphasis while preserving tone semantics.
 
 ### Chips
 
-- **Style:** Uppercase compact labels with tight radius and strong tone mapping.
+- **Style:** Capitalized compact labels using the global corner radius and strong tone mapping.
 - **State:** Solid variants carry high emphasis; soft and outline variants support metadata, tags, and filters.
 
 ### Cards / Containers
 
-- **Corner Style:** Mildly rounded, not pill-like.
+- **Corner Style:** Subtle 2px corners by default, following `--ds-radius`.
 - **Background:** White or muted neutral in light mode, neutral dark surfaces in dark mode.
 - **Shadow Strategy:** Elevated cards may rest on a small shadow; outline and soft cards stay flatter.
 - **Border:** Border is the default structural separator.

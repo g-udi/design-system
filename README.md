@@ -51,6 +51,20 @@ import Button from '@gaudi/design-system/core/Button';
 import Dialog from '@gaudi/design-system/core/Dialog';
 ```
 
+## Corner radius
+
+Elements use a subtle 2px radius. Set `--ds-radius` on the application root after
+importing Gaudi’s stylesheet to change corners globally, without rebuilding CSS:
+
+```css
+:root {
+  --ds-radius: 2px; /* Use 0px for square corners. */
+}
+```
+
+Accordion highlights, text highlights, and internal panel seams stay square.
+Use Storybook’s **Corners** toolbar to preview the setting across stories.
+
 ## Application interfaces
 
 Application interfaces are a first-class part of Gaudi. Compose controls and blocks for workspaces, settings, onboarding, and data workflows using the same foundations as the blog. See [application coverage](./APPLICATION-COVERAGE.md) for component families, usage boundaries, and Storybook entry points.

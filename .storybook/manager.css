@@ -137,7 +137,7 @@ a[href*='/settings/whats-new'],
     width: 15px;
     height: 11px;
     border: 1.5px solid currentColor;
-    border-radius: 2px;
+    border-radius: 0;
   }
 
   #storybook-mobile-menu {

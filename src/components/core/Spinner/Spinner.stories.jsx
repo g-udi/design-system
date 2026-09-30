@@ -81,9 +81,7 @@ export const Sizes = {
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const widths = statuses(canvasElement, 'Loading').map((spinner) => spinner.getBoundingClientRect().width);
-    await expect(widths).toHaveLength(sizes.length);
-    await expect(widths).toEqual([...widths].sort((first, second) => first - second));
-    await expect(new Set(widths).size).toBe(sizes.length);
+    const widths = statuses(canvasElement, 'Loading').map((spinner) => spinner.offsetWidth);
+    await expect(widths).toEqual(sizes.map((size) => pixels[size]));
   }
 };

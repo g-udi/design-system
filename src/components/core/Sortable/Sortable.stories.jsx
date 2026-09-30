@@ -7,7 +7,7 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Avatar from '../Avatar';
 import { Badge } from '../Pill/index.js';
-import { Sortable, SortableItem, SortableItemHandle } from './index.js';
+import { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './index.js';
 
 const docs = getComponentDocs('Core/Sortable');
 // A publishing checklist: tasks with owners, due dates, and priorities; the launch step is pinned last.
@@ -92,16 +92,17 @@ function SortableExample({ onValueChange, strategy, ...args }) {
   return (
     <Sortable value={value} onValueChange={update} getItemValue={(id) => id} strategy={strategy} className={layouts[strategy]} {...args}>
       {value.map((id) => (
-        <SortableItem
-          key={id}
-          value={id}
-          disabled={byId[id].pinned}
-          // The built-in disabled opacity fails contrast, so the lock icon and badge carry the state.
-          className={`${items[strategy]} data-disabled:bg-ui-muted data-disabled:opacity-100`}
-        >
+        <SortableItem key={id} value={id} disabled={byId[id].pinned} className={`${items[strategy]} data-disabled:bg-ui-muted`}>
           <TaskCard task={byId[id]} strategy={strategy} />
         </SortableItem>
       ))}
+      <SortableOverlay>
+        {({ value: id }) => (
+          <div aria-hidden='true' className={`${items[strategy]} shadow-lg ring-2 ring-ui-primary`}>
+            <TaskCard task={byId[id]} strategy={strategy} />
+          </div>
+        )}
+      </SortableOverlay>
     </Sortable>
   );
 }
@@ -125,9 +126,9 @@ export const Playground = {
   args: { strategy: 'vertical', onValueChange: fn(), onValueCommit: fn() },
   parameters: {
     docs: {
-      description: { story: 'A publishing checklist with owners, due dates, and priorities. `strategy` switches between a list, a horizontal lane of cards, and a grid. The pinned launch step is `disabled`, so its handle stays out of the drag interaction.' },
+      description: { story: 'A publishing checklist with owners, due dates, and priorities. `strategy` switches between a list, a horizontal lane of cards, and a grid. The pinned launch step is `disabled`, so its handle dims and stays out of the drag interaction while the card text keeps full contrast. `SortableOverlay` lifts the dragged card with a shadow.' },
       source: playgroundSource('Sortable', {
-        imports: "import { useState } from 'react';\nimport { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
+        imports: "import { useState } from 'react';\nimport { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
         before: 'const [items, setItems] = useState(tasks);\n\n',
         attributes: ['value={items}', 'onValueChange={setItems}', 'getItemValue={(task) => task.id}'],
         children: [
@@ -138,7 +139,10 @@ export const Playground = {
           '      </SortableItemHandle>',
           '      {task.title}',
           '    </SortableItem>',
-          '  ))}'
+          '  ))}',
+          "  <SortableOverlay className='shadow-lg'>",
+          '    {({ value }) => items.find((task) => task.id === value).title}',
+          '  </SortableOverlay>'
         ].join('\n')
       })
     }
@@ -147,11 +151,17 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const pinned = handleFor(canvasElement, 'publish');
     await expect(pinned).toHaveAttribute('aria-disabled', 'true');
+    // Only the disabled handle dims; the pinned card keeps full contrast.
+    await expect(getComputedStyle(pinned).cursor).toBe('not-allowed');
+    await expect(getComputedStyle(pinned.closest('[data-slot="sortable-item"]')).opacity).toBe('1');
     pinned.focus();
     await userEvent.keyboard(` ${backKeys[args.strategy]} `);
     await expect(args.onValueChange).not.toHaveBeenCalled();
     handleFor(canvasElement, ids[0]).focus();
-    await userEvent.keyboard(` ${moveKeys[args.strategy]} `);
+    await userEvent.keyboard(' ');
+    // Sortable renders one drag overlay, filled by SortableOverlay: the card plus a single lifted copy.
+    await waitFor(() => expect(within(canvasElement.ownerDocument.body).getAllByText(byId[ids[0]].title)).toHaveLength(2));
+    await userEvent.keyboard(`${moveKeys[args.strategy]} `);
     const moved = [ids[1], ids[0], ...ids.slice(2)];
     await waitFor(() => expect(order(canvasElement)).toEqual(moved));
     await expect(args.onValueChange).toHaveBeenLastCalledWith(moved);

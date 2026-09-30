@@ -4,12 +4,13 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Video, { videoAnimationStyles } from './Video';
+import { aurora } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('MDX/Video');
 const videoSrc = 'https://www.youtube.com/embed/qh3NGpYRG3I';
-const thumbnailAlt = 'Knowledge graph article video preview';
-// The second chapter uses a diagram frame as its thumbnail and starts partway into the recording.
-const followUp = { videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I?start=90', title: 'Part 2: querying with SPARQL', thumbnailSrc: '/static/images/posts/everything-rdf-2.svg', thumbnailAlt: 'RDF triple diagram', meta: 'Chapter 2 · from 1:30' };
+const thumbnailAlt = 'Video preview';
+// The second card has no thumbnail, so it shows the labelled fallback, and starts partway into the recording.
+const followUp = { videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I?start=90', title: 'Chapter 2', thumbnailAlt: 'Chapter 2 preview', meta: 'Starts at 1:30' };
 
 export default {
   title: 'MDX/Video',
@@ -44,13 +45,13 @@ function VideoCard({ meta, ...props }) {
 
 export const Playground = {
   args: {
-    title: 'Knowledge graph walkthrough',
-    thumbnailSrc: '/static/images/og-card.jpg',
+    title: 'Video walkthrough',
+    thumbnailSrc: aurora,
     animationStyle: 'from-center'
   },
   parameters: {
     docs: {
-      description: { story: 'A pair of article videos: a walkthrough with a photo thumbnail and a second chapter with a diagram frame. Select either to play it in a modal; the first follows the controls.' },
+      description: { story: 'A pair of article videos: a walkthrough with a photo thumbnail and a second chapter without one, which shows the labelled fallback. Select either to play it in a modal; the first follows the controls.' },
       source: playgroundSource('Video', {
         imports: "import { Video } from '@gaudi/design-system/mdx';",
         attributes: [`videoSrc='${videoSrc}'`, `thumbnailAlt='${thumbnailAlt}'`]
@@ -60,7 +61,7 @@ export const Playground = {
   render: (args) => (
     <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
       <VideoCard videoSrc={videoSrc} thumbnailAlt={thumbnailAlt} meta='Walkthrough · 3 min' {...args} />
-      <VideoCard {...followUp} ariaLabel={`Play ${followUp.title}`} classNames={{ thumbnail: 'bg-white object-contain' }} />
+      <VideoCard {...followUp} ariaLabel={`Play ${followUp.title}`} />
     </div>
   ),
   play: async ({ args, canvasElement }) => {
@@ -68,7 +69,13 @@ export const Playground = {
     const trigger = canvas.getByRole('button', { name: 'Play video' });
     if (args.thumbnailSrc) await expect(within(trigger).getByAltText(thumbnailAlt)).toHaveAttribute('src', args.thumbnailSrc);
     await expect(canvas.getByText(args.title)).toBeVisible();
-    await expect(within(canvas.getByRole('button', { name: `Play ${followUp.title}` })).getByAltText(followUp.thumbnailAlt)).toBeVisible();
+    // Without a thumbnail, the fallback label sits clear of the play button.
+    const fallback = within(canvas.getByRole('button', { name: `Play ${followUp.title}` })).getByText(followUp.thumbnailAlt);
+    const text = document.createRange();
+    text.selectNodeContents(fallback);
+    const label = text.getBoundingClientRect();
+    const play = fallback.closest('button').querySelector('[data-slot=video-play-icon]').getBoundingClientRect();
+    await expect(label.top >= play.bottom || label.bottom <= play.top).toBe(true);
     await userEvent.click(trigger);
 
     const dialog = await screen.findByRole('dialog', { name: args.title });

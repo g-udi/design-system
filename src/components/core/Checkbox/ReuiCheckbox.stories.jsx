@@ -28,6 +28,5 @@ export const ReuiCheckbox16 = { name: 'Nested group', ...pattern(16) };
 export const ReuiCheckbox17 = { name: 'Payment method cards', ...pattern(17) };
 export const ReuiCheckbox18 = { name: 'Label with info tooltip', ...pattern(18) };
 export const ReuiCheckbox19 = { name: 'Group with badges', ...pattern(19) };
-export const ReuiCheckbox20 = { name: 'Label with info tooltip, alternate', ...pattern(20) };
 export const ReuiCheckbox21 = { name: 'Inline horizontal group', ...pattern(21) };
 export const ReuiCheckbox22 = { name: 'Feature badge', ...pattern(22) };

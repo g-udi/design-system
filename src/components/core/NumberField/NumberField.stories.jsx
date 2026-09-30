@@ -88,6 +88,8 @@ export const Playground = {
     const field = input(canvasElement, featured);
     const root = field.closest('[data-slot="number-field"]');
     await expect(root).toHaveAttribute('data-size', args.size);
+    // Heights match the system control scale: sm 28px, default 32px, lg 36px.
+    await expect(root.querySelector('[data-slot="number-field-group"]').getBoundingClientRect().height).toBe({ sm: 28, default: 32, lg: 36 }[args.size]);
     await expect(input(canvasElement, 'Session length')).toHaveValue('25 min');
     await expect(input(canvasElement, 'Monthly budget')).toHaveValue('$12.00');
     await expect(within(root).getByText(rangeHint(args))).toBeVisible();

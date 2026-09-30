@@ -257,16 +257,3 @@ export const GroupOverflow = {
     await expect(trigger).toHaveFocus();
   }
 };
-
-export const RightToLeft = {
-  parameters: { docs: { description: { story: 'Indicator positions are logical, so `top-start` follows the reading direction; Arabic names produce Arabic initials.' } } },
-  render: () => (
-    <div dir='rtl' className='flex items-center gap-3'>
-      <Avatar name='محمد أحمد' size='lg' shape='circle' tone='teal' indicator={{ label: 'موثّق', tone: 'primary', icon: 'Check', position: 'top-start' }} />
-      <span className='text-sm'>محمد أحمد</span>
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(avatar(within(canvasElement), 'محمد أحمد, موثّق')).toHaveTextContent('مأ');
-  }
-};

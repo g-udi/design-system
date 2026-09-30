@@ -99,7 +99,7 @@ export function Pattern({
         <div className='flex flex-col items-center gap-4'>
           <div
             className={cn(
-              'flex h-16 w-16 items-center justify-center rounded-full',
+              'flex h-16 w-16 items-center justify-center rounded-control',
               isDragging ? 'bg-ui-primary/10' : 'bg-ui-muted'
             )}
           >

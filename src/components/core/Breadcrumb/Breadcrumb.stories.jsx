@@ -112,28 +112,11 @@ export const Playground = {
     const visible = collapse(args.items);
     await expect(collapsed.getAllByRole('listitem')).toHaveLength(visible.length);
     await expect(collapsed.queryByLabelText('More pages')).toEqual(visible.includes(null) ? expect.anything() : null);
+    await expect(collapsed.queryByRole('link', { name: 'More pages' })).not.toBeInTheDocument();
+    // The ellipsis is as compact as a separator, so gaps along the trail stay even.
+    const ellipsis = collapsed.queryByRole('img', { name: 'More pages' });
+    const separator = canvasElement.querySelector('[aria-label="Collapsed breadcrumb"] li > span[aria-hidden="true"]');
+    if (ellipsis && separator) await expect(ellipsis.getBoundingClientRect().height).toBeLessThanOrEqual(separator.getBoundingClientRect().height);
     await expect(collapsed.getByText(current.label)).toHaveAttribute('aria-current', 'page');
-  }
-};
-
-export const Composed = {
-  parameters: { docs: { description: { story: 'Compose `Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`, `BreadcrumbEllipsis`, and `BreadcrumbPage` to collapse long paths or customise each part.' } } },
-  render: () => (
-    <Breadcrumb label='Article breadcrumb'>
-      <BreadcrumbList>
-        <BreadcrumbItem><BreadcrumbLink href='/'>Home</BreadcrumbLink></BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem><BreadcrumbPage>Current article</BreadcrumbPage></BreadcrumbItem>
-      </BreadcrumbList>
-    </Breadcrumb>
-  ),
-  play: async ({ canvasElement }) => {
-    const nav = trail(canvasElement, 'Article breadcrumb');
-    await expect(nav.getAllByRole('listitem')).toHaveLength(3);
-    await expect(nav.getByLabelText('More pages')).toBeVisible();
-    await expect(nav.queryByRole('link', { name: 'More pages' })).not.toBeInTheDocument();
-    await expect(nav.getByText('Current article')).toHaveAttribute('aria-current', 'page');
   }
 };

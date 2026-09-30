@@ -7,11 +7,14 @@ export default function Tooltip({
   children,
   content,
   side = 'top',
-  delayDuration = 300
+  delayDuration = 300,
+  open,
+  defaultOpen,
+  onOpenChange
 }) {
   return (
     <Primitive.Provider delayDuration={delayDuration}>
-      <Primitive.Root>
+      <Primitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
         <Primitive.Trigger asChild>{children}</Primitive.Trigger>
         <Primitive.Portal>
           <Primitive.Content

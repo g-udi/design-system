@@ -195,7 +195,7 @@ export function Pattern({
         <div className='flex flex-col items-center gap-4'>
           <div
             className={cn(
-              'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-full transition-colors',
+              'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-control transition-colors',
               isDragging
                 ? 'border-ui-primary bg-ui-primary/10'
                 : 'border-ui-muted-foreground/25'
@@ -254,7 +254,7 @@ export function Pattern({
                   onClick={() => removeUploadFile(fileItem.id)}
                   variant='outline'
                   size='icon'
-                  className='absolute end-1 top-1 z-10 size-6 rounded-full opacity-0 transition-opacity group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                  className='absolute end-1 top-1 z-10 size-6 rounded-control opacity-0 transition-opacity group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
                 >
                   <RegistryIcon lucide='XIcon' className='size-3.5' />
                 </Button>

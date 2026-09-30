@@ -3,6 +3,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Carousel, { carouselVariants } from './Carousel';
+import { aurora, ember, lagoon } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Carousel');
 const editorialItems = [
@@ -12,7 +13,7 @@ const editorialItems = [
     eyebrow: 'Knowledge Graphs',
     href: '/blog',
     id: 'knowledge-graphs',
-    image: 'static/images/posts/linked-data-quality.svg',
+    image: lagoon,
     content: 'Covers entity modelling, linking public datasets, and measuring the quality of the resulting graph.',
     title: 'An Introduction to Knowledge Graphs'
   },
@@ -22,7 +23,7 @@ const editorialItems = [
     eyebrow: 'Design Systems',
     href: '/blog',
     id: 'design-systems',
-    image: 'static/images/posts/gaudi.svg',
+    image: aurora,
     content: 'Walks through how Gaudi tokens, primitives, and editorial components share one source of truth.',
     title: 'Design systems keep editorial rhythm predictable'
   },
@@ -32,7 +33,7 @@ const editorialItems = [
     eyebrow: 'Projects',
     href: '/blog/projects',
     id: 'projects',
-    image: 'static/images/posts/unifiedjs.svg',
+    image: ember,
     content: 'Documents the unified, remark, and rehype pipeline that turns Markdown into these pages.',
     title: 'Project notes for engineering work'
   }

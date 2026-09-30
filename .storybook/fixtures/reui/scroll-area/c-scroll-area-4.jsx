@@ -6,7 +6,7 @@ export function Pattern() {
     <ScrollArea
       className={cn(
         'rounded-2xl h-72 w-48 border',
-        '**:data-[slot=scroll-area-thumb]:bg-ui-foreground/15 **:data-[slot=scroll-area-thumb]:rounded-full',
+        '**:data-[slot=scroll-area-thumb]:bg-ui-foreground/15 **:data-[slot=scroll-area-thumb]:rounded-control',
         '**:data-[slot=scroll-area-viewport]:mask-t-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-start)))]',
         '**:data-[slot=scroll-area-viewport]:mask-r-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-end)))]',
         '**:data-[slot=scroll-area-viewport]:mask-b-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-end)))]',

@@ -62,7 +62,7 @@ export const Playground = {
   args: { children: 'In review', size: 'sm', tone: 'amber', variant: 'soft', radius: 'full', pulse: true },
   parameters: {
     docs: {
-      description: { story: 'A pull-request list mixing status, category, icon, and link pills. The first status pill follows `children`, `tone`, and `pulse`; `size`, `variant`, and `radius` restyle every pill so the treatments compare side by side.' },
+      description: { story: 'A pull-request list mixing status, category, icon, and link pills. The first status pill follows `children`, `tone`, and `pulse`; `size` and `variant` restyle every pill so the treatments compare side by side.' },
       source: playgroundSource('Pill', { imports: "import { Pill } from '@gaudi/design-system';" })
     }
   },

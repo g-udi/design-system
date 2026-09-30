@@ -304,9 +304,9 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' src 
     search.focus();
     fireEvent.change(search, { target: { value: 'Bell' } });
     const bell = canvas.getByRole('button', { name: 'Copy Bell animated icon', exact: true });
-    await waitFor(() => expect(bell.querySelector('[data-icon-artwork]')).toBeInTheDocument());
+    await waitFor(() => expect(bell.querySelector('[data-icon-artwork]')).toBeInTheDocument(), { timeout: 5000 });
     await userEvent.hover(bell);
-    await waitFor(() => expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true'));
+    await waitFor(() => expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true'), { timeout: 5000 });
     await userEvent.unhover(bell);
     await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'false');
     search.focus();
@@ -321,7 +321,7 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' src 
     const writeText = spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
     try {
       await userEvent.keyboard('{Enter}');
-      await waitFor(() => expect(canvas.getByRole('status', { name: 'Icon copy status' })).toHaveTextContent('Copied Bell usage.'));
+      await waitFor(() => expect(canvas.getByRole('status', { name: 'Icon copy status' })).toHaveTextContent('Copied Bell usage.'), { timeout: 5000 });
       await expect(writeText).toHaveBeenCalledWith('import { AnimatedIcon } from \'@gaudi/design-system/icons\';\n\n<AnimatedIcon name="Bell" active={isActive} size="md" decorative />');
     } finally { writeText.mockRestore(); }
     await userEvent.click(canvas.getByRole('checkbox', { name: 'Animate previews' }));

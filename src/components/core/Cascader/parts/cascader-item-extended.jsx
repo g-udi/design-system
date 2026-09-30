@@ -84,9 +84,12 @@ const CascaderItem = React.memo(function CascaderItem2({
     commit,
     virtualized,
     loadMore,
-    retryLevel
+    retryLevel,
+    disabled: rootDisabled
   } = useCascaderActions();
   const { renderItem, renderLabel } = useCascaderRender();
+  // A disabled Cascader disables every option, not just the search input.
+  const disabled = rootDisabled || !!node.disabled;
   const branch = branchProp ?? isBranch(node);
   const selectable = selectableProp ?? isSelectable(node);
   const selected = selectedProp ?? isSelected(node);
@@ -108,31 +111,31 @@ const CascaderItem = React.memo(function CascaderItem2({
   const handleClick = React.useCallback(
     (event) => {
       onClick?.(event);
-      if (node.disabled) return;
+      if (disabled) return;
       if (branch && !selectable) {
         veto(event);
         navigate(node);
       }
     },
-    [onClick, node, branch, selectable, veto, navigate]
+    [onClick, node, disabled, branch, selectable, veto, navigate]
   );
   const handleMouseUp = React.useCallback(
     (event) => {
       onMouseUp?.(event);
-      if (node.disabled) return;
+      if (disabled) return;
       if (branch && !selectable) veto(event);
     },
-    [onMouseUp, node, branch, selectable, veto]
+    [onMouseUp, disabled, branch, selectable, veto]
   );
   const handleExpanderClick = React.useCallback(
     (event) => {
       event.stopPropagation();
       veto(event);
-      if (node.disabled) return;
+      if (disabled) return;
       if (expanded) toggleExpanded(node.value);
       else navigate(node);
     },
-    [veto, node, expanded, toggleExpanded, navigate]
+    [veto, node, disabled, expanded, toggleExpanded, navigate]
   );
   const handleExpanderMouseUp = React.useCallback(
     (event) => {
@@ -145,11 +148,11 @@ const CascaderItem = React.memo(function CascaderItem2({
     (event) => {
       event.stopPropagation();
       veto(event);
-      if (node.disabled) return;
+      if (disabled) return;
       if (as === 'button') navigateAt(node, depth ?? 0);
       else navigate(node);
     },
-    [veto, node, as, navigateAt, depth, navigate]
+    [veto, node, disabled, as, navigateAt, depth, navigate]
   );
   const handleChevronMouseUp = React.useCallback(
     (event) => veto(event),
@@ -161,14 +164,14 @@ const CascaderItem = React.memo(function CascaderItem2({
   const handleButtonClick = React.useCallback(
     (event) => {
       onClick?.(event);
-      if (node.disabled) return;
+      if (disabled) return;
       if (branch && !selectable) {
         navigateAt(node, depth ?? 0);
         return;
       }
       if (selectable) commit(node);
     },
-    [onClick, node, branch, selectable, navigateAt, depth, commit]
+    [onClick, node, disabled, branch, selectable, navigateAt, depth, commit]
   );
   const handleMoreClick = React.useCallback(
     (event) => {
@@ -186,7 +189,7 @@ const CascaderItem = React.memo(function CascaderItem2({
     mode === 'columns' &&
     as === 'option' &&
     branch &&
-    !node.disabled;
+    !disabled;
   const hoverTimerRef = React.useRef(null);
   const cancelHoverNavigate = React.useCallback(() => {
     if (hoverTimerRef.current == null) return;
@@ -288,7 +291,7 @@ const CascaderItem = React.memo(function CascaderItem2({
   const itemState = {
     branch,
     selected,
-    disabled: !!node.disabled,
+    disabled,
     depth: nodeDepth,
     count,
     path: showPath ? getCascaderPath(treeIndex, node.value).slice(0, -1) : []
@@ -310,7 +313,7 @@ const CascaderItem = React.memo(function CascaderItem2({
   const checkbox = (
     <span
       data-slot='cascader-item-checkbox'
-      className='border-ui-input in-data-[selected]:bg-ui-primary in-data-[selected]:border-ui-primary in-data-[selected]:text-ui-primary-foreground in-data-[indeterminate]:bg-ui-primary in-data-[indeterminate]:border-ui-primary in-data-[indeterminate]:text-ui-primary-foreground flex size-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors'
+      className='border-ui-input in-data-[selected]:bg-ui-primary in-data-[selected]:border-ui-primary in-data-[selected]:text-ui-primary-foreground in-data-[indeterminate]:bg-ui-primary in-data-[indeterminate]:border-ui-primary in-data-[indeterminate]:text-ui-primary-foreground flex size-4 shrink-0 items-center justify-center rounded-sm border transition-colors'
     >
       {/* Colour declared ON THE ICON with `!`; see `CHECKBOX_MARK_CLASS`. */}
       {indeterminate ? (
@@ -584,8 +587,8 @@ const CascaderItem = React.memo(function CascaderItem2({
         type='button'
         {...shared}
         tabIndex={-1}
-        disabled={node.disabled}
-        aria-disabled={node.disabled || void 0}
+        disabled={disabled}
+        aria-disabled={disabled || void 0}
         onClick={handleButtonClick}
         onMouseDown={handleButtonMouseDown}
         {...buttonProps}
@@ -599,7 +602,7 @@ const CascaderItem = React.memo(function CascaderItem2({
       {...shared}
       value={node}
       {...(virtualized && index != null ? { index } : null)}
-      disabled={node.disabled}
+      disabled={disabled}
       {...(mode === 'tree'
         ? {
             role: 'treeitem',

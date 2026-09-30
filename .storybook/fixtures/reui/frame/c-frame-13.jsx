@@ -9,7 +9,7 @@ import {
 } from '../../../../src/components/core/Card/parts/frame-extended.jsx';
 export function Pattern() {
   return (
-    <Frame className='w-full max-w-sm [--frame-radius:var(--radius-sm)]'>
+    <Frame className='w-full max-w-sm'>
       <FrameHeader>
         <FrameTitle>Network Diagnostics</FrameTitle>
         <FrameDescription>
@@ -19,8 +19,7 @@ export function Pattern() {
       <FramePanel>
         <h2 className='text-sm font-semibold'>Port Status</h2>
         <p className='text-ui-muted-foreground text-sm'>
-          Small radius gives a sharp, precise look, perfect for technical
-          dashboards and data grids.
+          Review open ports and socket connections before deploying a service.
         </p>
       </FramePanel>
       <FrameFooter>

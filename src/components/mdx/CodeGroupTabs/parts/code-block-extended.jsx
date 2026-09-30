@@ -330,7 +330,7 @@ const CodeBlockLineRow = memo(function CodeBlockLineRow2({
             /* Square, centred in the line box: height matches the width and
          the translate makes up the difference to the 24px line. Open
          regions read darker than folded ones. */
-            'text-ui-muted-foreground hover:bg-ui-muted hover:text-ui-foreground focus-visible:ring-ui-ring/50 sticky z-20 inline-flex size-(--code-block-fold-width) shrink-0 translate-y-[calc((var(--code-block-line-height)-var(--code-block-fold-width))/2)] cursor-pointer items-center justify-center rounded-[4px] align-top outline-none focus-visible:ring-2',
+            'text-ui-muted-foreground hover:bg-ui-muted hover:text-ui-foreground focus-visible:ring-ui-ring/50 sticky z-20 inline-flex size-(--code-block-fold-width) shrink-0 translate-y-[calc((var(--code-block-line-height)-var(--code-block-fold-width))/2)] cursor-pointer items-center justify-center rounded-sm align-top outline-none focus-visible:ring-2',
             /* Margins cancel: -(4px + width) then +4px, so the toggle paints
          in the channel, sits 4px from the code, and the code still
          starts where a row without a toggle does. An uncancelled
@@ -415,7 +415,7 @@ const CodeBlockLineRow = memo(function CodeBlockLineRow2({
           <span
             data-slot='code-block-caret'
             aria-hidden='true'
-            className='ml-0.5 inline-block h-[0.12em] w-[0.55em] translate-y-[0.02em] animate-pulse rounded-[1px] bg-(--code-block-caret-color) motion-reduce:animate-none'
+            className='ml-0.5 inline-block h-[0.12em] w-[0.55em] translate-y-[0.02em] animate-pulse rounded-sm bg-(--code-block-caret-color) motion-reduce:animate-none'
           />
         ) : null}
       </span>

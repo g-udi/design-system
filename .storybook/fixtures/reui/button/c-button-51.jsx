@@ -3,7 +3,7 @@ import { default as Button } from '../../../../src/components/core/Button/index.
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <Button className='group/fab relative flex h-10 w-10 items-center overflow-hidden rounded-full px-3 transition-[width] duration-300 ease-in-out hover:w-32'>
+    <Button className='group/fab relative flex h-10 w-10 items-center overflow-hidden rounded-control px-3 transition-[width] duration-300 ease-in-out hover:w-32'>
       <RegistryIcon
         lucide='PlusIcon'
         aria-hidden='true'

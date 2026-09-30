@@ -13,7 +13,7 @@ export default { title: 'Core/Avatar', tags: ['autodocs'], ...catalogueMeta('ava
 export const ReuiAvatar1 = { name: 'Image', ...pattern(1) };
 export const ReuiAvatar2 = { name: 'Initials fallback', ...pattern(2) };
 export const ReuiAvatar3 = { name: 'Sizes', ...pattern(3) };
-export const ReuiAvatar4 = { name: 'Border radius', ...pattern(4) };
+export const ReuiAvatar4 = { name: 'Square and circular avatars', ...pattern(4) };
 export const ReuiAvatar5 = { name: 'Custom sizes', ...pattern(5) };
 export const ReuiAvatar6 = { name: 'Online status badge', ...pattern(6) };
 export const ReuiAvatar7 = { name: 'Badge icon', ...pattern(7) };

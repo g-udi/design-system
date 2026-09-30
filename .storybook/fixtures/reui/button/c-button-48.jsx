@@ -14,7 +14,7 @@ export function Pattern() {
       <Badge
         variant='destructive'
         size='xs'
-        className='absolute -top-1 -right-1 rounded-full px-1'
+        className='absolute -top-1 -right-1 rounded-control px-1'
         aria-hidden='true'
       >
         8

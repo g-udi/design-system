@@ -78,7 +78,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, slug }) => {
 
           <div className='flex flex-shrink-0 items-center space-x-2'>
             <div
-              className='h-1 w-12 overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700 sm:w-16'
+              className='h-1 w-12 overflow-hidden rounded-control bg-gray-200 dark:bg-gray-700 sm:w-16'
               role='progressbar'
               aria-label='Series progress'
               aria-valuemin='0'
@@ -86,7 +86,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, slug }) => {
               aria-valuenow={ completedCount }
             >
               <div
-                className='h-full rounded-full bg-green-600 transition-[width] duration-300 motion-reduce:transition-none'
+                className='h-full rounded-control bg-green-600 transition-[width] duration-300 motion-reduce:transition-none'
                 style={{ width: `${progressPercentage}%` }}
               />
             </div>

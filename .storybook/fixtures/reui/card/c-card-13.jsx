@@ -83,7 +83,7 @@ export function Pattern() {
         <Button
           variant='outline'
           size='icon-sm'
-          className='bg-ui-background hover:bg-ui-background rounded-full shadow-sm'
+          className='bg-ui-background hover:bg-ui-background rounded-control shadow-sm'
           onClick={() => setIsOpen(!isOpen)}
         >
           <RegistryIcon

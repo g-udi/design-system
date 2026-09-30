@@ -53,6 +53,9 @@ export const Playground = {
     await expect(canvas.getByText(args.caption)).toBeVisible();
     const trigger = canvas.getAllByRole('button', { name: `Open image: ${image.alt}` }).find((button) => button.checkVisibility());
     await expect(within(trigger).getByRole('img')).toHaveAttribute('width', String(args.width));
+    // The image and its centred caption share one axis.
+    const centre = (element) => { const { left, width } = element.getBoundingClientRect(); return left + width / 2; };
+    await expect(Math.abs(centre(trigger) - centre(canvas.getByText(args.caption)))).toBeLessThan(2);
     await userEvent.click(trigger);
     const dialog = await screen.findByRole('dialog', { name: args.caption });
     await expect(within(dialog).getByRole('img', { name: image.alt })).toBeVisible();

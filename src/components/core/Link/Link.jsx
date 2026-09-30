@@ -16,20 +16,7 @@ export const linkVariants = createVariants({
     { 'className': 'text-red-700 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300', 'tone': 'red', 'variant': 'inline' },
     { 'className': 'text-rose-700 hover:text-rose-900 dark:text-rose-300 dark:hover:text-rose-200', 'tone': 'rose', 'variant': 'inline' },
     { 'className': 'text-teal-700 hover:text-teal-900 dark:text-teal-300 dark:hover:text-teal-200', 'tone': 'teal', 'variant': 'inline' },
-    { 'className': 'text-yellow-800 hover:text-yellow-950 dark:text-yellow-400 dark:hover:text-yellow-300', 'tone': 'yellow', 'variant': 'inline' },
-    { 'className': 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-200', 'tone': 'gray', 'variant': 'muted' },
-    { 'className': 'text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200', 'tone': 'neutral', 'variant': 'muted' },
-    { 'className': 'text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400', 'tone': 'blue', 'variant': 'nav' },
-    { 'className': 'text-current', 'tone': 'blue', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'gray', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'green', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'indigo', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'neutral', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'red', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'amber', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'rose', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'teal', 'variant': 'bare' },
-    { 'className': 'text-current', 'tone': 'yellow', 'variant': 'bare' }
+    { 'className': 'text-yellow-800 hover:text-yellow-950 dark:text-yellow-400 dark:hover:text-yellow-300', 'tone': 'yellow', 'variant': 'inline' }
   ],
   'defaultVariants': {
     'tone': 'neutral',
@@ -48,11 +35,12 @@ export const linkVariants = createVariants({
       'teal': '',
       'yellow': ''
     },
+    // `tone` colours `inline` only; the other variants carry a fixed colour of their own.
     'variant': {
-      'bare': '',
+      'bare': 'text-current',
       'inline': 'font-medium no-underline hover:no-underline',
-      'muted': 'font-medium',
-      'nav': 'font-semibold'
+      'muted': 'font-medium text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-200',
+      'nav': 'font-semibold text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-400'
     }
   }
 });

@@ -3,7 +3,7 @@ import { default as Button } from '../../../../src/components/core/Button/index.
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
-    <Button className='group/sliding relative overflow-hidden rounded-full px-6'>
+    <Button className='group/sliding relative overflow-hidden rounded-control px-6'>
       <span className='inline-flex items-center transition-transform duration-300 group-hover/sliding:-translate-x-2'>
         Get Started
       </span>

@@ -9,7 +9,7 @@ import {
 } from '../../../../src/components/core/Card/parts/frame-extended.jsx';
 export function Pattern() {
   return (
-    <Frame className='w-full max-w-sm [--frame-radius:var(--radius-lg)]'>
+    <Frame className='w-full max-w-sm'>
       <FrameHeader>
         <FrameTitle>Team Collaboration</FrameTitle>
         <FrameDescription>Invite and manage workspace members</FrameDescription>
@@ -17,8 +17,7 @@ export function Pattern() {
       <FramePanel>
         <h2 className='text-sm font-semibold'>Active Members</h2>
         <p className='text-ui-muted-foreground text-sm'>
-          Large radius offers a modern, friendly appearance for social and
-          collaborative interfaces.
+          Review active members and manage invitations from one workspace.
         </p>
       </FramePanel>
       <FrameFooter>

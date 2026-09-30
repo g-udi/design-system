@@ -1826,7 +1826,7 @@ function GanttView({
               >
                 {/* today reads as a soft pill, not just tinted text */}
                 {unit.isToday ? (
-                  <span className='bg-ui-primary/10 truncate rounded-full px-1.5 py-px'>
+                  <span className='bg-ui-primary/10 truncate rounded-control px-1.5 py-px'>
                     {unit.label}
                   </span>
                 ) : (
@@ -2104,7 +2104,7 @@ function GanttView({
             <span
               aria-hidden
               data-slot='gantt-splitter-grip'
-              className='bg-ui-primary/60 group-data-resizing/gantt-splitter:bg-ui-primary absolute top-1/2 left-1/2 h-6 w-0.75 -translate-x-1/2 -translate-y-1/2 rounded-full opacity-0 transition-opacity duration-150 group-hover/gantt-splitter:opacity-100 group-focus-visible/gantt-splitter:opacity-100 group-data-resizing/gantt-splitter:opacity-100'
+              className='bg-ui-primary/60 group-data-resizing/gantt-splitter:bg-ui-primary absolute top-1/2 left-1/2 h-6 w-0.75 -translate-x-1/2 -translate-y-1/2 rounded-control opacity-0 transition-opacity duration-150 group-hover/gantt-splitter:opacity-100 group-focus-visible/gantt-splitter:opacity-100 group-data-resizing/gantt-splitter:opacity-100'
             />
           </div>
         ) : (
@@ -2899,7 +2899,7 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
                 {content ??
                   (plan.baseline.milestone ? (
                     // hollow diamond marking the node's planned instant
-                    <span className='size-2.5 rotate-45 rounded-[2px] border border-(--gantt-event-color)/60 bg-(--gantt-event-color)/15' />
+                    <span className='size-2.5 rotate-45 rounded-sm border border-(--gantt-event-color)/60 bg-(--gantt-event-color)/15' />
                   ) : (
                     // fainter than a per-event ghost: a whole-row context
                     // band must never compete with the bars on it
@@ -2955,7 +2955,7 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
               {content ??
                 (plan.baseline.milestone ? (
                   // hollow diamond marking the planned instant
-                  <span className='size-2 rotate-45 rounded-[2px] border border-(--gantt-event-color)/60 bg-(--gantt-event-color)/15' />
+                  <span className='size-2 rotate-45 rounded-sm border border-(--gantt-event-color)/60 bg-(--gantt-event-color)/15' />
                 ) : (
                   // block child (not inset-0) so the px-px padding holds and
                   // the outline lands exactly on the bar's own box
@@ -3077,17 +3077,17 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
                 {/* envelope end caps: the classic PM rollup silhouette, muted */}
                 <span
                   aria-hidden
-                  className='bg-ui-muted-foreground/50 absolute start-0 top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-full'
+                  className='bg-ui-muted-foreground/50 absolute start-0 top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-control'
                 />
                 <span
                   aria-hidden
-                  className='bg-ui-muted-foreground/50 absolute end-0 top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-full'
+                  className='bg-ui-muted-foreground/50 absolute end-0 top-1/2 h-3 w-0.5 -translate-y-1/2 rounded-control'
                 />
-                <div className='bg-ui-muted-foreground/20 relative h-1.5 overflow-hidden rounded-full'>
+                <div className='bg-ui-muted-foreground/20 relative h-1.5 overflow-hidden rounded-control'>
                   {bars.summary.progress !== null && (
                     <div
                       data-slot='gantt-summary-progress'
-                      className='bg-ui-muted-foreground/50 absolute inset-y-0 start-0 rounded-full'
+                      className='bg-ui-muted-foreground/50 absolute inset-y-0 start-0 rounded-control'
                       style={{ width: `${bars.summary.progress}%` }}
                     />
                   )}
@@ -3152,7 +3152,7 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
             {ghost.milestone && (
               <span
                 className={cn(
-                  'size-2.5 rotate-45 rounded-[2px] border border-dashed',
+                  'size-2.5 rotate-45 rounded-sm border border-dashed',
                   ghost.valid
                     ? 'border-(--gantt-event-color)/70 bg-(--gantt-event-color)/10'
                     : 'border-ui-destructive bg-ui-destructive/10'
@@ -3215,7 +3215,7 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
        arrow reads the same weight as the ones above and below. */}
             <span
               aria-hidden
-              className='bg-ui-foreground absolute start-0 top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-[1px]'
+              className='bg-ui-foreground absolute start-0 top-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-sm'
             />
           </span>
         </div>
@@ -3290,7 +3290,7 @@ const GanttTimelineRow = memo(function GanttTimelineRow2({
                 <span
                   aria-hidden
                   className={cn(
-                    'bg-ui-foreground absolute start-1/2 size-2.5 -translate-x-1/2 rotate-45 rounded-[2px]',
+                    'bg-ui-foreground absolute start-1/2 size-2.5 -translate-x-1/2 rotate-45 rounded-sm',
                     rowIndex === 0 ? '-top-1' : '-bottom-1'
                   )}
                 />

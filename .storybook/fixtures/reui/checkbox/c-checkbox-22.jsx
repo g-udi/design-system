@@ -12,7 +12,7 @@ export function Pattern() {
         <Checkbox id='badge-1' defaultChecked />
         <div className='flex items-center gap-2'>
           <FieldLabel htmlFor='badge-1'>AI-powered suggestions</FieldLabel>
-          <Badge className='h-4.5 rounded-full px-1.5 text-[10px] tracking-wider uppercase'>
+          <Badge className='h-4.5 rounded-control px-1.5 text-[10px] tracking-wider uppercase'>
             New
           </Badge>
         </div>
@@ -24,7 +24,7 @@ export function Pattern() {
           <FieldLabel htmlFor='badge-2'>Beta feature access</FieldLabel>
           <Badge
             variant='secondary'
-            className='h-4.5 rounded-full px-1.5 text-[10px] tracking-wider uppercase'
+            className='h-4.5 rounded-control px-1.5 text-[10px] tracking-wider uppercase'
           >
             Beta
           </Badge>

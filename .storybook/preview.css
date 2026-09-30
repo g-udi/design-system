@@ -528,7 +528,7 @@
 .gaudi-guide-anchors a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-color-accent); font-size: var(--ds-docs-font-size); }
 .gaudi-essential-swatches { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); max-width: 64rem; gap: 16px; }
 .gaudi-essential-swatches > div { display: grid; gap: 8px; min-width: 0; }
-.gaudi-essential-swatches span { height: 48px; border: 1px solid var(--ds-color-border); border-radius: 4px; }
+.gaudi-essential-swatches span { height: 48px; border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-sm); }
 .gaudi-essential-swatches strong { font-size: var(--ds-docs-font-size); }
 .gaudi-essential-swatches code { font-size: 12px; overflow-wrap: anywhere; }
 .gaudi-essential-type { display: grid; gap: 12px; }
@@ -538,10 +538,10 @@
 .gaudi-essential-statuses { display: flex; flex-wrap: wrap; gap: 12px; }
 .gaudi-catalogue-controls { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: 16px; }
 .gaudi-catalogue-controls label { display: grid; gap: 8px; min-width: 0; font-size: var(--ds-docs-font-size); font-weight: 600; }
-.gaudi-catalogue-controls select { width: 100%; min-height: 44px; background: var(--ds-color-surface); color: var(--ds-color-text); border: 1px solid var(--ds-color-border); border-radius: 6px; padding: 8px 12px; }
+.gaudi-catalogue-controls select { width: 100%; min-height: 44px; background: var(--ds-color-surface); color: var(--ds-color-text); border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-sm); padding: 8px 12px; }
 .gaudi-catalogue-view { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 .gaudi-catalogue-view [role='group'] { display: flex; gap: 4px; }
-.gaudi-catalogue-view button, .gaudi-catalogue-more { min-height: 44px; padding: 8px 12px; border: 1px solid var(--ds-color-border); border-radius: 6px; background: var(--ds-color-surface); font-size: var(--ds-docs-font-size); cursor: pointer; }
+.gaudi-catalogue-view button, .gaudi-catalogue-more { min-height: 44px; padding: 8px 12px; border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-sm); background: var(--ds-color-surface); font-size: var(--ds-docs-font-size); cursor: pointer; }
 .gaudi-catalogue-view button[aria-pressed='true'] { color: var(--ds-color-accent); border-color: var(--ds-color-accent); background: var(--ds-color-accent-subtle); }
 .gaudi-catalogue-view p { margin-left: auto; font-size: var(--ds-docs-font-size); color: var(--ds-color-text-muted); }
 .gaudi-catalogue-results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; padding: 0; margin: 0; list-style: none; }

@@ -47,10 +47,10 @@ function RevealedMenu(args) {
     <>
       <FloatingMenu {...args} />
       <article aria-hidden='true' className='mx-auto max-w-xl space-y-2 px-4 pb-4 pt-20'>
-        <div className='h-3 w-24 rounded-full bg-blue-100 dark:bg-blue-950' />
-        <div className='h-5 w-4/5 rounded-full bg-gray-200 dark:bg-gray-800' />
-        <div className='h-3 w-full rounded-full bg-gray-100 dark:bg-gray-900' />
-        <div className='h-3 w-11/12 rounded-full bg-gray-100 dark:bg-gray-900' />
+        <div className='h-3 w-24 rounded-control bg-blue-100 dark:bg-blue-950' />
+        <div className='h-5 w-4/5 rounded-control bg-gray-200 dark:bg-gray-800' />
+        <div className='h-3 w-full rounded-control bg-gray-100 dark:bg-gray-900' />
+        <div className='h-3 w-11/12 rounded-control bg-gray-100 dark:bg-gray-900' />
       </article>
     </>
   );

@@ -104,7 +104,7 @@ export const pillVariants = createVariants({
   },
   'variants': {
     'radius': {
-      'full': 'rounded-full',
+      'full': 'rounded-pill',
       'md': 'rounded-md',
       'sm': 'rounded-sm'
     },

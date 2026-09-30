@@ -38,7 +38,7 @@ export default {
   id: 'core-pagination',
   component: PaginationBar,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { currentPage: 'number', totalPages: 'number' }),
+  argTypes: docsArgTypes(docs, { currentPage: 'number', totalPages: 'number', label: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -49,10 +49,10 @@ export default {
 };
 
 export const Playground = {
-  args: { currentPage: 3, totalPages: 8 },
+  args: { currentPage: 3, totalPages: 8, label: 'Archive pages' },
   parameters: {
     docs: {
-      description: { story: 'A blog archive page: the post list, range, and bar all follow `currentPage` and `totalPages`. Previous and Next disable at either end, and hovering or focusing the status reveals page shortcuts, with ellipses past five pages.' },
+      description: { story: 'A blog archive page: the post list, range, and bar all follow `currentPage` and `totalPages`, and `label` names the navigation landmark. Previous and Next disable at either end, and hovering or focusing the status reveals page shortcuts, with ellipses past five pages.' },
       source: playgroundSource('PaginationBar', {
         imports: "import { PaginationBar } from '@gaudi/design-system';\n\nconst getHref = (page) => `/blog/page/${page}`;",
         attributes: ['getHref={getHref}'],
@@ -86,7 +86,7 @@ export const Playground = {
   },
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const navigation = nav(canvasElement);
+    const navigation = nav(canvasElement, args.label);
     const { totalPages } = args;
     const currentPage = clampPage(args);
     await expect(canvas.getByText(rangeLabel(currentPage, totalPages))).toBeVisible();

@@ -93,7 +93,7 @@ const FloatingMenu = ({ className, links }) => {
       aria-hidden={ !visible }
       inert={ !visible }
       className={ cn(
-        'fixed left-1/2 top-3 z-[var(--ds-z-nav)] flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center justify-center gap-3 overflow-x-auto rounded-full border border-white/10 bg-black py-1 pl-4 pr-1 text-white shadow-[var(--ds-shadow-floating)] transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none dark:border-black/10 dark:bg-white dark:text-black sm:gap-5 sm:pl-5', styles.menu, visible ? 'opacity-100 translate-y-0' : 'pointer-events-none -translate-y-full opacity-0', className
+        'fixed left-1/2 top-3 z-[var(--ds-z-nav)] flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center justify-center gap-3 overflow-x-auto rounded-control border border-white/10 bg-black py-1 pl-4 pr-1 text-white shadow-[var(--ds-shadow-floating)] transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none dark:border-black/10 dark:bg-white dark:text-black sm:gap-5 sm:pl-5', styles.menu, visible ? 'opacity-100 translate-y-0' : 'pointer-events-none -translate-y-full opacity-0', className
       ) }
     >
       {navLinks.map((navItem, idx) => (
@@ -101,7 +101,7 @@ const FloatingMenu = ({ className, links }) => {
           <span className='block text-xs font-medium sm:text-sm'>{navItem.title}</span>
         </Link>
       ))}
-      <Button variant='outline' tone='neutral' size='xs' tabIndex={ visible ? undefined : -1 } onClick={ () => handleScrollTop() } className={ cn('relative h-10 min-h-10 shrink-0 gap-1.5 rounded-full border-white/35 px-3 py-1.5 text-xs font-medium text-white hover:border-white/50 hover:bg-white/10 hover:text-white dark:border-black/20 dark:text-black dark:hover:border-black/30 dark:hover:bg-black/[0.06] dark:hover:text-black sm:ml-1', styles.backToTop) } aria-label='Back to top'>
+      <Button variant='outline' tone='neutral' size='xs' tabIndex={ visible ? undefined : -1 } onClick={ () => handleScrollTop() } className={ cn('relative h-10 min-h-10 shrink-0 gap-1.5 rounded-control border-white/35 px-3 py-1.5 text-xs font-medium text-white hover:border-white/50 hover:bg-white/10 hover:text-white dark:border-black/20 dark:text-black dark:hover:border-black/30 dark:hover:bg-black/[0.06] dark:hover:text-black sm:ml-1', styles.backToTop) } aria-label='Back to top'>
         <Icon name='ArrowUpCircle' size='sm' decorative />
         <span className='max-sm:hidden'>Back to top</span>
       </Button>

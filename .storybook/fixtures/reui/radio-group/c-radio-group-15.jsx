@@ -17,7 +17,7 @@ export function Pattern() {
           <FieldLabel htmlFor='ch-stable'>Stable</FieldLabel>
           <Badge
             variant='secondary'
-            className='h-4.5 rounded-full px-1.5 text-[10px] tracking-wider uppercase'
+            className='h-4.5 rounded-control px-1.5 text-[10px] tracking-wider uppercase'
           >
             Recommended
           </Badge>
@@ -27,7 +27,7 @@ export function Pattern() {
         <RadioGroupItem value='beta' id='ch-beta' />
         <div className='flex items-center gap-2'>
           <FieldLabel htmlFor='ch-beta'>Beta</FieldLabel>
-          <Badge className='h-4.5 rounded-full px-1.5 text-[10px] tracking-wider uppercase'>
+          <Badge className='h-4.5 rounded-control px-1.5 text-[10px] tracking-wider uppercase'>
             New
           </Badge>
         </div>

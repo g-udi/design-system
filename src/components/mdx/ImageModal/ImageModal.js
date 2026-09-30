@@ -114,7 +114,7 @@ const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
           tone='gray'
           size='sm'
           onClick={ onClose }
-          className='absolute right-4 top-4 z-10 h-11 w-11 rounded-full bg-white/90 p-0 text-gray-600 hover:bg-white dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white'
+          className='absolute right-4 top-4 z-10 h-11 w-11 rounded-control bg-white/90 p-0 text-gray-600 hover:bg-white dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white'
           aria-label='Close modal'
         >
           <Icon name='X' decorative size='md' />

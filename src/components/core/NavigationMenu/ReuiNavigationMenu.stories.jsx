@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/navigation-menu/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/Navigation/Navigation Menu', tags: ['autodocs'], ...catalogueMeta('navigation-menu') };
+export default { title: 'Core/NavigationMenu', tags: ['autodocs'], ...catalogueMeta('navigation-menu') };
 
 export const ReuiNavigationMenu1 = { name: 'Basic navigation menu', ...pattern(1) };
 export const ReuiNavigationMenu2 = { name: 'Grid layout', ...pattern(2) };

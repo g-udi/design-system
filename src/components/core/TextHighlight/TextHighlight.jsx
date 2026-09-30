@@ -1,7 +1,7 @@
 import { createVariants } from '../../../utilities/variants';
 
 export const textHighlightVariants = createVariants({
-  'base': 'relative inline box-decoration-clone rounded bg-[length:100%_100%] bg-left bg-no-repeat [-webkit-box-decoration-break:clone]',
+  'base': 'relative inline box-decoration-clone rounded-none bg-[length:100%_100%] bg-left bg-no-repeat [-webkit-box-decoration-break:clone]',
   'compoundVariants': [
     { 'className': 'bg-linear-to-r from-amber-100 to-amber-300 dark:from-amber-500 dark:to-amber-800', 'tone': 'amber', 'variant': 'marker' },
     { 'className': 'bg-linear-to-r from-blue-100 to-blue-300 dark:from-neutral-700 dark:to-neutral-800', 'tone': 'blue', 'variant': 'marker' },
@@ -41,9 +41,9 @@ export const textHighlightVariants = createVariants({
   },
   'variants': {
     'radius': {
-      'md': 'rounded-md',
+      'md': 'rounded-none',
       'none': 'rounded-none',
-      'sm': 'rounded-sm'
+      'sm': 'rounded-none'
     },
     'tone': {
       'amber': '',

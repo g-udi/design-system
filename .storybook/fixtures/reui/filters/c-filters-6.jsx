@@ -118,7 +118,7 @@ function MiniTrack({ min, max, from, to }) {
   return (
     <span
       aria-hidden='true'
-      className='bg-ui-muted relative inline-block h-1 w-8 shrink-0 rounded-full'
+      className='bg-ui-muted relative inline-block h-1 w-8 shrink-0 rounded-control'
     >
       <span
         className='bg-ui-primary absolute inset-y-0 rounded-full'

@@ -95,7 +95,7 @@ const CarouselControl = ({ children, className, disabled, label, onClick }) => (
   <button
     aria-label={ label }
     className={ cn(
-      'inline-flex size-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-700 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-950', className
+      'inline-flex size-11 items-center justify-center rounded-control border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-700 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-950', className
     ) }
     disabled={ disabled }
     type='button'
@@ -201,7 +201,7 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
           <button
             ref={ closeButtonRef }
             aria-label='Close carousel card'
-            className='absolute right-4 top-4 inline-flex size-11 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 motion-reduce:transition-none dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
+            className='absolute right-4 top-4 inline-flex size-11 items-center justify-center rounded-control bg-gray-100 text-gray-700 transition hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 motion-reduce:transition-none dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
             type='button'
             onClick={ onClose }
           >
@@ -323,7 +323,7 @@ const Carousel = ({
             aria-label={ `Go to slide ${index + 1}` }
             aria-current={ index === current ? 'true' : undefined }
             className={ cn(
-              'group/indicator inline-flex size-11 items-center justify-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none dark:focus-visible:ring-offset-gray-950', classNames.indicator
+              'group/indicator inline-flex size-11 items-center justify-center rounded-control transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none dark:focus-visible:ring-offset-gray-950', classNames.indicator
             ) }
             type='button'
             onClick={ () => goTo(index) }
@@ -331,7 +331,7 @@ const Carousel = ({
             <span
               aria-hidden='true'
               className={ cn(
-                'h-2.5 rounded-full transition-all motion-reduce:transition-none',
+                'h-2.5 rounded-control transition-all motion-reduce:transition-none',
                 index === current ? 'w-7 bg-blue-600' : 'w-2.5 bg-gray-300 group-hover/indicator:bg-gray-400 dark:bg-gray-700 dark:group-hover/indicator:bg-gray-600'
               ) }
             />

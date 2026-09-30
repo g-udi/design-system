@@ -14,11 +14,12 @@ import {
   AttachmentMedia,
   AttachmentTitle
 } from './index.js';
+import { dusk } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Attachment');
 // A realistic queue: the report follows the `state` control; its neighbours stay settled and failed.
 const files = [
-  { name: 'cover-photo.jpg', size: '1.8 MB', image: 'static/images/og-card.jpg', state: 'done' },
+  { name: 'cover-photo.jpg', size: '1.8 MB', image: dusk, state: 'done' },
   { name: 'quarterly-report.pdf', size: '2.4 MB', icon: 'FileTextIcon' },
   { name: 'subscribers.csv', size: '640 KB', icon: 'SheetIcon', state: 'error' }
 ];

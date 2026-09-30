@@ -18,7 +18,7 @@ export function Pattern() {
             <Badge
               variant='destructive-outline'
               size='sm'
-              className='rounded-full'
+              className='rounded-control'
             >
               3
             </Badge>

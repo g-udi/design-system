@@ -183,7 +183,7 @@ function beginGesture(config) {
       barEl.style.width = `${barWidth}px`;
       barEl.style.height = '100%';
       const diamond = document.createElement('span');
-      diamond.className = 'rotate-45 rounded-[2px] shadow-lg';
+      diamond.className = 'rotate-45 rounded-sm shadow-lg';
       diamond.style.width = '10px';
       diamond.style.height = '10px';
       diamond.style.background = `color-mix(in oklab, ${color} 80%, var(--color-background))`;
@@ -249,7 +249,7 @@ function beginGesture(config) {
     adoptRootTypography(resizeOverlay);
     resizeOverlay.style.height = `${barHeight}px`;
     resizeLine = document.createElement('div');
-    resizeLine.className = 'h-full w-0.5 -translate-x-1/2 rounded-full';
+    resizeLine.className = 'h-full w-0.5 -translate-x-1/2 rounded-control';
     resizeLine.style.background = color;
     resizeOverlay.appendChild(resizeLine);
     const chip = document.createElement('div');
@@ -268,7 +268,7 @@ function beginGesture(config) {
     const chipArrow = document.createElement('span');
     chipArrow.setAttribute('aria-hidden', 'true');
     chipArrow.className =
-      'bg-ui-foreground absolute -bottom-1 left-1/2 size-2.5 -translate-x-1/2 rotate-45 rounded-[2px]';
+      'bg-ui-foreground absolute -bottom-1 left-1/2 size-2.5 -translate-x-1/2 rotate-45 rounded-sm';
     chip.appendChild(chipArrow);
     resizeOverlay.appendChild(chip);
     document.body.appendChild(resizeOverlay);

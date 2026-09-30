@@ -27,7 +27,7 @@ export function Pattern() {
             className='relative flex-1 items-start'
           >
             <StepperTrigger className='flex grow flex-col items-start justify-center gap-3.5'>
-              <StepperIndicator className='bg-ui-border data-[state=active]:bg-ui-primary data-[state=completed]:bg-ui-primary h-1 w-full rounded-full'>
+              <StepperIndicator className='bg-ui-border data-[state=active]:bg-ui-primary data-[state=completed]:bg-ui-primary h-1 w-full rounded-control'>
                 <span className='sr-only'>{index + 1}</span>
               </StepperIndicator>
               <StepperTitle className='group-data-[state=inactive]/step:text-ui-muted-foreground text-start font-semibold'>

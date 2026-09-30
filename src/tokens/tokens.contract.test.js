@@ -9,6 +9,7 @@
 
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
@@ -16,8 +17,23 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const tokens = JSON.parse(readFileSync(path.join(here, 'tokens.json'), 'utf8'));
 const css = readFileSync(path.join(here, '..', 'styles.css'), 'utf8');
+const preset = createRequire(import.meta.url)('../../tailwind-preset.cjs');
 
 const cssValues = (variable) => [ ...css.matchAll(new RegExp(`${variable.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')}:\\s*([^;]+);`, 'g')) ].map((match) => match[1].trim());
+
+test('corner tokens keep a runtime reference to one global radius', () => {
+  assert.equal(tokens.dsVariables.root['--ds-radius'], '2px');
+  assert.equal(cssValues('--ds-radius')[0], '2px');
+  for (const [ name, value ] of Object.entries(tokens.radii)) {
+    assert.equal(value, 'var(--ds-radius)', `${name} must follow the global radius`);
+    assert.equal(cssValues(`--ds-radius-${name}`)[0], value, `${name} CSS radius drifted`);
+  }
+  for (const [ name, value ] of Object.entries(preset.theme.borderRadius)) {
+    // Full is geometric: avatars, status dots, radios, and loading rings.
+    if (name === 'full') continue;
+    assert.equal(value, name === 'none' ? '0px' : 'var(--ds-radius)', `${name} utility must stay adjustable without rebuilding CSS`);
+  }
+});
 
 test('every dsVariables root token matches its styles.css :root value', () => {
   for (const [ variable, value ] of Object.entries(tokens.dsVariables.root)) {

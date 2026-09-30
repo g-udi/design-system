@@ -57,7 +57,7 @@ export const Playground = {
   args: { title: 'Building with tokens', subtitle: 'How one set of design tokens keeps the blog, docs, and product in step.', variant: 'elevated', padding: 'md', radius: 'lg' },
   parameters: {
     docs: {
-      description: { story: 'An article card with an author, reading time, and actions beside a metric card with a goal bar. Title and subtitle drive the article; variant, padding, and radius apply to both cards.' },
+      description: { story: 'An article card with an author, reading time, and actions beside a metric card with a goal bar. Title and subtitle drive the article; variant and padding apply to both cards.' },
       source: playgroundSource('Card', {
         imports: "import { Avatar, Button, Card } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
         children: articleChildren
@@ -81,8 +81,8 @@ export const Playground = {
       <Card {...surface} title={metric.title}>
         <p className='mt-3 text-3xl font-bold tabular-nums text-ui-foreground'>{metric.value}</p>
         <p className='mt-1 text-sm font-medium text-green-700 dark:text-green-400'>{metric.trend}</p>
-        <div className='mt-4 h-2 overflow-hidden rounded-full bg-ui-border' role='img' aria-label={metric.goal}>
-          <div className='h-full rounded-full bg-accent' style={{ width: `${metric.progress}%` }} />
+        <div className='mt-4 h-2 overflow-hidden rounded-control bg-ui-border' role='img' aria-label={metric.goal}>
+          <div className='h-full rounded-control bg-accent' style={{ width: `${metric.progress}%` }} />
         </div>
         <p className='mt-2 text-xs text-ui-muted-foreground'>{metric.goal}</p>
       </Card>

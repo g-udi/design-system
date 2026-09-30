@@ -74,6 +74,9 @@ export const Playground = {
     await expect(canvas.getByRole('list', { name: 'Publishing progress' })).toBeInTheDocument();
     const current = items(canvas)[args.activeStep];
     if (current) await expect(current).toHaveAttribute('aria-current', 'step');
+    // The current marker is an outlined ring; only completed markers are filled.
+    const fill = (item) => getComputedStyle(item.querySelector('.ds-step-number')).backgroundColor;
+    if (current && args.activeStep > 0) await expect(fill(current)).not.toBe(fill(items(canvas)[0]));
     const completed = Math.min(args.activeStep, flow.length);
     await expect(canvas.queryAllByText('Completed')).toHaveLength(completed);
     if (completed) await expect(canvas.getByText(flow[completed - 1].done)).toBeVisible();

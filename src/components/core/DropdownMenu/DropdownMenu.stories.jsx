@@ -128,6 +128,9 @@ export const Playground = {
     await expect(menu.getByRole('menuitemcheckbox', { name: 'Pin to top' })).toHaveAttribute('aria-checked', 'true');
     await userEvent.click(menu.getByRole('menuitemcheckbox', { name: 'Show in feed' }));
     await expect(await body.findByRole('menuitemcheckbox', { name: 'Show in feed' })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(body.getByRole('menuitemcheckbox', { name: 'Pin to top' }));
+    await expect(body.getByRole('menuitemcheckbox', { name: 'Pin to top' })).toHaveAttribute('aria-checked', 'false');
+    await expect(within(canvasElement).getByText(article.meta)).not.toHaveTextContent('Pinned');
 
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(trigger).toHaveFocus());
@@ -139,30 +142,5 @@ export const Playground = {
     await expect(reopened.menu.getByRole('menuitem', { name: /Edit/ })).toHaveFocus();
     await userEvent.click(reopened.menu.getByRole('menuitem', { name: /Duplicate/ }));
     await expect(within(canvasElement).getByRole('status')).toHaveTextContent(actions[1].status);
-  }
-};
-
-function CheckboxExample() {
-  const [shown, setShown] = useState(true);
-  return (
-    <>
-      <DropdownMenu trigger={<Button variant='outline'>Visible columns</Button>}>
-        <DropdownMenuCheckboxItem checked={shown} onCheckedChange={setShown}>Author</DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked disabled>Title</DropdownMenuCheckboxItem>
-      </DropdownMenu>
-      <p className='ds-description'>Author column: {shown ? 'visible' : 'hidden'}</p>
-    </>
-  );
-}
-export const CheckboxItems = {
-  parameters: {
-    docs: { description: { story: '`DropdownMenuCheckboxItem` takes controlled `checked` and `onCheckedChange`, and a disabled item keeps a required choice fixed.' } }
-  },
-  render: () => <CheckboxExample />,
-  play: async ({ canvasElement }) => {
-    const { menu } = await openMenu(canvasElement, 'Visible columns');
-    await expect(menu.getByRole('menuitemcheckbox', { name: 'Title' })).toHaveAttribute('aria-disabled', 'true');
-    await userEvent.click(menu.getByRole('menuitemcheckbox', { name: 'Author' }));
-    await expect(within(canvasElement).getByText('Author column: hidden')).toBeVisible();
   }
 };

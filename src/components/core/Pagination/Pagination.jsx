@@ -125,8 +125,8 @@ export const PaginationStatus = ({ className, currentPage = 1, getHref = (page) 
   </span>
 );
 
-export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, onPageChange, totalPages = 1 }) => (
-  <Pagination className='border-t border-gray-200 pt-6 dark:border-gray-800'>
+export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, label = 'Pagination', onPageChange, totalPages = 1 }) => (
+  <Pagination label={ label } className='border-t border-gray-200 pt-6 dark:border-gray-800'>
     <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
       <div className='flex justify-start'>
         <PaginationPrevious disabled={ currentPage <= 1 } href={ getHref(Math.max(1, currentPage - 1)) } onClick={ onPageChange ? () => onPageChange(currentPage - 1) : undefined } />

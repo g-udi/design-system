@@ -95,6 +95,8 @@ export const Playground = {
     if (!args.multiple) return expectClosed(canvas, 'Choose topics');
     // Multiple mode keeps the popup open and counts the set in the trigger.
     await expect(listbox(canvas, 'Choose topics')).toHaveAttribute('aria-multiselectable', 'true');
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    for (const name of [/^Design systems/, /^Knowledge graphs/]) await expect(option(canvas, name)).toHaveAttribute('aria-selected', 'true');
     await expect(trigger).toHaveTextContent(String(picked.length + 1));
   }
 };
@@ -140,23 +142,6 @@ export const Searchable = {
     await userEvent.keyboard('{Escape}');
     await expectClosed(canvas, 'Search topics');
     await expect(button(canvas, 'Search topics')).toBeInTheDocument();
-  }
-};
-
-export const MultiSelect = {
-  parameters: { docs: { description: { story: '`multiple` takes an array value, keeps the popup open while toggling, and summarises the selection in the trigger.' } } },
-  render: () => <Select multiple searchable defaultValue={[topics[0].value, topics[2].value]} options={topics} placeholder='Choose topics' />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = button(canvas, /Design systems, Semantic web/);
-    await expect(trigger).toHaveTextContent('2');
-    await userEvent.click(trigger);
-    await expect(listbox(canvas, 'Choose topics')).toHaveAttribute('aria-multiselectable', 'true');
-    await expect(option(canvas, 'Design systems')).toHaveAttribute('aria-selected', 'true');
-    await userEvent.click(option(canvas, 'AI engineering'));
-    await expect(option(canvas, 'AI engineering')).toHaveAttribute('aria-selected', 'true');
-    await expect(trigger).toHaveTextContent('3');
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   }
 };
 

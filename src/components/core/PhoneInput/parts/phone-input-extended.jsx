@@ -21,6 +21,7 @@ import { ScrollArea } from '../../ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 const PhoneInputContext = createContext({
   variant: 'default',
+  invalid: false,
   popupClassName: void 0,
   scrollAreaClassName: void 0
 });
@@ -34,17 +35,19 @@ function PhoneInput({
   ...props
 }) {
   const phoneInputSize = variant || 'default';
+  // One invalid flag paints both halves: the country trigger and the number input.
+  const invalid = [true, 'true'].includes(props['aria-invalid']);
   return (
     <PhoneInputContext.Provider
-      value={{ variant: phoneInputSize, popupClassName, scrollAreaClassName }}
+      value={{
+        variant: phoneInputSize,
+        invalid,
+        popupClassName,
+        scrollAreaClassName
+      }}
     >
       <BasePhoneInput.default
-        className={cn(
-          'flex',
-          props['aria-invalid'] &&
-            '[&_*[data-slot=combobox-trigger]]:border-ui-destructive [&_*[data-slot=combobox-trigger]]:ring-ui-destructive/50',
-          className
-        )}
+        className={cn('flex', className)}
         flagComponent={FlagComponent}
         countrySelectComponent={CountrySelect}
         inputComponent={InputComponent}
@@ -57,9 +60,10 @@ function PhoneInput({
   );
 }
 function InputComponent({ className, ...props }) {
-  const { variant } = useContext(PhoneInputContext);
+  const { variant, invalid } = useContext(PhoneInputContext);
   return (
     <Input
+      invalid={invalid}
       className={cn(
         'rounded-s-none focus:z-1',
         variant === 'sm' && 'h-7',
@@ -76,7 +80,7 @@ function CountrySelect({
   options: countryList,
   onChange
 }) {
-  const { variant, popupClassName } = useContext(PhoneInputContext);
+  const { variant, invalid, popupClassName } = useContext(PhoneInputContext);
   const [searchValue, setSearchValue] = useState('');
   const filteredCountries = useMemo(() => {
     if (!searchValue) return countryList;
@@ -101,7 +105,9 @@ function CountrySelect({
             size={variant}
             className={cn(
               'rounded-s-lg flex gap-1 rounded-e-none border-e-0 px-2.5 py-0 leading-none hover:bg-transparent focus:z-10 data-pressed:bg-transparent',
-              disabled && 'opacity-50'
+              disabled && 'opacity-50',
+              // Matches FieldInput's invalid border so both halves read as one control.
+              invalid && 'border-danger dark:border-danger'
             )}
             disabled={disabled}
           >
@@ -165,7 +171,7 @@ function CountrySelect({
 function FlagComponent({ country, countryName }) {
   const Flag = flags[country];
   return (
-    <span className="flex h-4 w-4 items-center justify-center [&_svg:not([class*='size-'])]:size-full! [&_svg:not([class*='size-'])]:rounded-[5px]">
+    <span className="flex h-4 w-4 items-center justify-center [&_svg:not([class*='size-'])]:size-full! [&_svg:not([class*='size-'])]:rounded-sm">
       {Flag ? (
         <Flag title={countryName} />
       ) : (

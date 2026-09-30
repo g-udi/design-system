@@ -123,9 +123,18 @@ export const Colors = {
 
 export const StrokeWidths = {
   parameters: { docs: { description: { story: 'Line icons accept `strokeWidth`; filled icons ignore it.' } } },
-  render: () => strokeWidths.map((strokeWidth) => <Icon key={strokeWidth} name='BookOpen' decorative size='lg' strokeWidth={strokeWidth} />),
+  render: () => (
+    <>
+      {strokeWidths.map((strokeWidth) => <Icon key={strokeWidth} name='BookOpen' decorative size='lg' strokeWidth={strokeWidth} />)}
+      <Icon name='Github' label='Filled GitHub mark' size='lg' strokeWidth={3} />
+    </>
+  ),
   play: async ({ canvasElement }) => {
-    await expect(svgs(canvasElement).map((icon) => Number(icon.getAttribute('stroke-width')))).toEqual(strokeWidths);
+    const [filled, ...line] = [svgs(canvasElement).at(-1), ...svgs(canvasElement).slice(0, -1)];
+    await expect(line.map((icon) => Number(icon.getAttribute('stroke-width')))).toEqual(strokeWidths);
+    // A filled brand glyph keeps its own zero stroke, so it stays crisp.
+    await expect(filled).toHaveAccessibleName('Filled GitHub mark');
+    await expect(filled).toHaveAttribute('stroke-width', '0');
   }
 };
 

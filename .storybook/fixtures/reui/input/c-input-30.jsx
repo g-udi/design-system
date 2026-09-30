@@ -10,7 +10,7 @@ export function Pattern() {
       <FieldLabel htmlFor='pill-input'>Search</FieldLabel>
       <Input
         id='pill-input'
-        className='rounded-full px-4'
+        className='rounded-control px-4'
         placeholder='Search everything...'
       />
     </Field>

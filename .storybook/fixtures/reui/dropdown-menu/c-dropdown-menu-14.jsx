@@ -108,7 +108,7 @@ export function Pattern() {
               <Badge
                 variant='secondary'
                 size='sm'
-                className='rounded-full px-1.5'
+                className='rounded-control px-1.5'
               >
                 12
               </Badge>
@@ -124,7 +124,7 @@ export function Pattern() {
               <Badge
                 variant='secondary'
                 size='sm'
-                className='rounded-full px-1.5'
+                className='rounded-control px-1.5'
               >
                 2
               </Badge>

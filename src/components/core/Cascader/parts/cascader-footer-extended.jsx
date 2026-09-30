@@ -164,10 +164,11 @@ function CascaderAction({
   onSelect,
   onClick,
   onKeyDown,
-  disabled,
+  disabled: disabledProp,
   ...props
 }) {
   const inMenu = React.useContext(CascaderMenuContext);
+  const disabled = useCascaderActions().disabled || disabledProp;
   const handleClick = React.useCallback(
     (event) => {
       if (disabled) {
@@ -271,10 +272,11 @@ function CascaderSubmenuTrigger({
   children,
   onKeyDown,
   onClick,
-  disabled,
+  disabled: disabledProp,
   ...props
 }) {
-  const { labels } = useCascaderActions();
+  const { labels, disabled: rootDisabled } = useCascaderActions();
+  const disabled = rootDisabled || disabledProp;
   const { rowRef, setOpen, triggerId, keyboardRef } = useCascaderSubmenu();
   const direction = useDirection();
   const handleClick = React.useCallback(

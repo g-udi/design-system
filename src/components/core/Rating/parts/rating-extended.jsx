@@ -54,20 +54,23 @@ function Rating({
   const [hoveredRating, setHoveredRating] = useState(null);
   const displayRating =
     editable && hoveredRating !== null ? hoveredRating : rating;
-  const handleStarClick = (starRating) => {
-    if (editable && onRatingChange) {
-      onRatingChange(starRating);
-    }
-  };
-  const handleStarMouseEnter = (starRating) => {
-    if (editable) {
-      setHoveredRating(starRating);
-    }
-  };
-  const handleStarMouseLeave = () => {
-    if (editable) {
-      setHoveredRating(null);
-    }
+  const selected = Math.round(rating ?? 0);
+  const select = (starRating) => onRatingChange?.(starRating);
+  // Radio-group keyboard model: arrows move and select, Home/End jump to the ends.
+  const handleKeyDown = (event, starRating) => {
+    const next = {
+      ArrowRight: starRating + 1,
+      ArrowUp: starRating + 1,
+      ArrowLeft: starRating - 1,
+      ArrowDown: starRating - 1,
+      Home: 1,
+      End: maxRating
+    }[event.key];
+    if (next === undefined) return;
+    event.preventDefault();
+    const target = Math.min(maxRating, Math.max(1, next));
+    event.currentTarget.parentElement.children[target - 1].focus();
+    select(target);
   };
   const renderStars = () => {
     const stars = [];
@@ -77,13 +80,28 @@ function Rating({
       const fillPercentage = partiallyFilled
         ? (displayRating - (i - 1)) * 100
         : 0;
+      const Star = editable ? 'button' : 'span';
+      const control = editable && {
+        type: 'button',
+        role: 'radio',
+        'aria-checked': selected === i,
+        'aria-label': `${i} star${i === 1 ? '' : 's'}`,
+        // Roving tabindex: only the selected star (or the first) is in the tab order.
+        tabIndex: selected === i || (selected < 1 && i === 1) ? 0 : -1,
+        onClick: () => select(i),
+        onKeyDown: (event) => handleKeyDown(event, i),
+        onMouseEnter: () => setHoveredRating(i),
+        onMouseLeave: () => setHoveredRating(null)
+      };
       stars.push(
-        <div
+        <Star
           key={i}
-          className={cn('relative', editable && 'cursor-pointer')}
-          onClick={() => handleStarClick(i)}
-          onMouseEnter={() => handleStarMouseEnter(i)}
-          onMouseLeave={handleStarMouseLeave}
+          className={cn(
+            'relative block',
+            editable &&
+              'cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ui-ring'
+          )}
+          {...control}
         >
           {/* Background star (empty) */}
           <RegistryIcon
@@ -93,7 +111,7 @@ function Rating({
           />
 
           {/* Filled star */}
-          <div
+          <span
             className='absolute inset-0 overflow-hidden'
             style={{
               width: filled ? '100%' : `${fillPercentage}%`
@@ -107,16 +125,21 @@ function Rating({
                 'fill-yellow-400 text-yellow-400'
               )}
             />
-          </div>
-        </div>
+          </span>
+        </Star>
       );
     }
     return stars;
   };
+  // Editable ratings are a radio group; read-only ratings are a single labelled image.
+  const semantics = editable
+    ? { role: 'radiogroup', 'aria-label': 'Rating' }
+    : { role: 'img', 'aria-label': `Rated ${rating ?? 0} out of ${maxRating}` };
   return (
     <div
       data-slot='rating'
       className={cn(ratingVariants({ size }), className)}
+      {...semantics}
       {...props}
     >
       <div className='flex items-center'>{renderStars()}</div>

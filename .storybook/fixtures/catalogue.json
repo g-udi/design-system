@@ -722,16 +722,6 @@
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
-    "core-accordion--right-to-left": {
-      "id": "core-accordion--right-to-left",
-      "title": "Core/Accordion",
-      "name": "Right To Left",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
     "core-aspectratio--playground": {
       "id": "core-aspectratio--playground",
       "title": "Core/AspectRatio",
@@ -861,17 +851,6 @@
       ],
       "importPath": "./src/components/core/Avatar/Avatar.stories.jsx"
     },
-    "core-avatar--right-to-left": {
-      "id": "core-avatar--right-to-left",
-      "title": "Core/Avatar",
-      "name": "Right To Left",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Avatar/Avatar.stories.jsx"
-    },
     "core-banner--playground": {
       "id": "core-banner--playground",
       "title": "Core/Banner",
@@ -890,17 +869,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/core/Banner/Banner.stories.jsx"
-    },
-    "core-banner--linked": {
-      "id": "core-banner--linked",
-      "title": "Core/Banner",
-      "name": "Linked",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/core/Banner/Banner.stories.jsx"
     },
@@ -944,17 +912,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/core/Breadcrumb/Breadcrumb.stories.jsx"
-    },
-    "core-breadcrumb--composed": {
-      "id": "core-breadcrumb--composed",
-      "title": "Core/Breadcrumb",
-      "name": "Composed",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/core/Breadcrumb/Breadcrumb.stories.jsx"
     },
@@ -1194,6 +1151,17 @@
       ],
       "importPath": "./src/components/core/Cascader/Cascader.stories.jsx"
     },
+    "core-cascader--disabled": {
+      "id": "core-cascader--disabled",
+      "title": "Core/Cascader",
+      "name": "Disabled",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Cascader/Cascader.stories.jsx"
+    },
     "core-checkbox--playground": {
       "id": "core-checkbox--playground",
       "title": "Core/Checkbox",
@@ -1212,17 +1180,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/core/Checkbox/Checkbox.stories.jsx"
-    },
-    "core-checkbox--states": {
-      "id": "core-checkbox--states",
-      "title": "Core/Checkbox",
-      "name": "States",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/core/Checkbox/Checkbox.stories.jsx"
     },
@@ -1451,17 +1408,6 @@
       ],
       "importPath": "./src/components/core/DropdownMenu/DropdownMenu.stories.jsx"
     },
-    "core-dropdownmenu--checkbox-items": {
-      "id": "core-dropdownmenu--checkbox-items",
-      "title": "Core/DropdownMenu",
-      "name": "Checkbox Items",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/DropdownMenu/DropdownMenu.stories.jsx"
-    },
     "core-emptystate--playground": {
       "id": "core-emptystate--playground",
       "title": "Core/EmptyState",
@@ -1533,17 +1479,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/core/Field/Field.stories.jsx"
-    },
-    "core-field--error": {
-      "id": "core-field--error",
-      "title": "Core/Field",
-      "name": "Error",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/core/Field/Field.stories.jsx"
     },
@@ -2370,17 +2305,6 @@
       ],
       "importPath": "./src/components/core/Select/Select.stories.jsx"
     },
-    "core-select--multi-select": {
-      "id": "core-select--multi-select",
-      "title": "Core/Select",
-      "name": "Multi Select",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Select/Select.stories.jsx"
-    },
     "core-select--invalid": {
       "id": "core-select--invalid",
       "title": "Core/Select",
@@ -2464,17 +2388,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/core/Skeleton/Skeleton.stories.jsx"
-    },
-    "core-skeleton--loading-region": {
-      "id": "core-skeleton--loading-region",
-      "title": "Core/Skeleton",
-      "name": "Loading Region",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/core/Skeleton/Skeleton.stories.jsx"
     },
@@ -3942,9 +3855,9 @@
       ],
       "importPath": "./src/components/post/TableOfContents/TableOfContents.stories.jsx"
     },
-    "blocks-navigation-sidebar--reui-sidebar-1": {
-      "id": "blocks-navigation-sidebar--reui-sidebar-1",
-      "title": "Blocks/Navigation/Sidebar",
+    "blocks-application-appshell--reui-sidebar-1": {
+      "id": "blocks-application-appshell--reui-sidebar-1",
+      "title": "Blocks/Application/AppShell",
       "name": "Workspace switcher",
       "type": "story",
       "tags": [
@@ -3952,19 +3865,9 @@
       ],
       "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
     },
-    "blocks-navigation-sidebar--docs": {
-      "id": "blocks-navigation-sidebar--docs",
-      "title": "Blocks/Navigation/Sidebar",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
-    },
-    "blocks-navigation-sidebar--reui-sidebar-2": {
-      "id": "blocks-navigation-sidebar--reui-sidebar-2",
-      "title": "Blocks/Navigation/Sidebar",
+    "blocks-application-appshell--reui-sidebar-2": {
+      "id": "blocks-application-appshell--reui-sidebar-2",
+      "title": "Blocks/Application/AppShell",
       "name": "Collapsible icon rail",
       "type": "story",
       "tags": [
@@ -3972,9 +3875,9 @@
       ],
       "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
     },
-    "blocks-navigation-sidebar--reui-sidebar-3": {
-      "id": "blocks-navigation-sidebar--reui-sidebar-3",
-      "title": "Blocks/Navigation/Sidebar",
+    "blocks-application-appshell--reui-sidebar-3": {
+      "id": "blocks-application-appshell--reui-sidebar-3",
+      "title": "Blocks/Application/AppShell",
       "name": "Documentation sub-menus",
       "type": "story",
       "tags": [
@@ -3982,9 +3885,9 @@
       ],
       "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
     },
-    "blocks-navigation-sidebar--reui-sidebar-4": {
-      "id": "blocks-navigation-sidebar--reui-sidebar-4",
-      "title": "Blocks/Navigation/Sidebar",
+    "blocks-application-appshell--reui-sidebar-4": {
+      "id": "blocks-application-appshell--reui-sidebar-4",
+      "title": "Blocks/Application/AppShell",
       "name": "Right-hand inspector",
       "type": "story",
       "tags": [
@@ -3992,9 +3895,9 @@
       ],
       "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
     },
-    "blocks-navigation-sidebar--reui-sidebar-5": {
-      "id": "blocks-navigation-sidebar--reui-sidebar-5",
-      "title": "Blocks/Navigation/Sidebar",
+    "blocks-application-appshell--reui-sidebar-5": {
+      "id": "blocks-application-appshell--reui-sidebar-5",
+      "title": "Blocks/Application/AppShell",
       "name": "Filter, loading and empty states",
       "type": "story",
       "tags": [
@@ -4002,9 +3905,9 @@
       ],
       "importPath": "./src/components/blocks/AppShell/ReuiSidebar.stories.jsx"
     },
-    "blocks-kanbanboard--reui-kanban-1": {
-      "id": "blocks-kanbanboard--reui-kanban-1",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-1": {
+      "id": "blocks-application-kanbanboard--reui-kanban-1",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Placeholder drag overlay",
       "type": "story",
       "tags": [
@@ -4012,19 +3915,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-kanbanboard--docs": {
-      "id": "blocks-kanbanboard--docs",
-      "title": "Blocks/KanbanBoard",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
-    },
-    "blocks-kanbanboard--reui-kanban-2": {
-      "id": "blocks-kanbanboard--reui-kanban-2",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-2": {
+      "id": "blocks-application-kanbanboard--reui-kanban-2",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Dynamic drag overlay",
       "type": "story",
       "tags": [
@@ -4032,9 +3925,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-kanbanboard--reui-kanban-3": {
-      "id": "blocks-kanbanboard--reui-kanban-3",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-3": {
+      "id": "blocks-application-kanbanboard--reui-kanban-3",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Framed columns",
       "type": "story",
       "tags": [
@@ -4042,9 +3935,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-kanbanboard--reui-kanban-4": {
-      "id": "blocks-kanbanboard--reui-kanban-4",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-4": {
+      "id": "blocks-application-kanbanboard--reui-kanban-4",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Minimal stacked frame",
       "type": "story",
       "tags": [
@@ -4052,9 +3945,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-kanbanboard--reui-kanban-5": {
-      "id": "blocks-kanbanboard--reui-kanban-5",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-5": {
+      "id": "blocks-application-kanbanboard--reui-kanban-5",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Roadmap with progress",
       "type": "story",
       "tags": [
@@ -4062,9 +3955,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-kanbanboard--reui-kanban-6": {
-      "id": "blocks-kanbanboard--reui-kanban-6",
-      "title": "Blocks/KanbanBoard",
+    "blocks-application-kanbanboard--reui-kanban-6": {
+      "id": "blocks-application-kanbanboard--reui-kanban-6",
+      "title": "Blocks/Application/KanbanBoard",
       "name": "Persisted to a backend",
       "type": "story",
       "tags": [
@@ -4072,9 +3965,9 @@
       ],
       "importPath": "./src/components/blocks/KanbanBoard/ReuiKanban.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-1": {
-      "id": "blocks-resourcelist--reui-item-1",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-1": {
+      "id": "blocks-application-resourcelist--reui-item-1",
+      "title": "Blocks/Application/ResourceList",
       "name": "Title and description",
       "type": "story",
       "tags": [
@@ -4082,19 +3975,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--docs": {
-      "id": "blocks-resourcelist--docs",
-      "title": "Blocks/ResourceList",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
-    },
-    "blocks-resourcelist--reui-item-2": {
-      "id": "blocks-resourcelist--reui-item-2",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-2": {
+      "id": "blocks-application-resourcelist--reui-item-2",
+      "title": "Blocks/Application/ResourceList",
       "name": "Icon media and actions",
       "type": "story",
       "tags": [
@@ -4102,9 +3985,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-3": {
-      "id": "blocks-resourcelist--reui-item-3",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-3": {
+      "id": "blocks-application-resourcelist--reui-item-3",
+      "title": "Blocks/Application/ResourceList",
       "name": "User with follow button",
       "type": "story",
       "tags": [
@@ -4112,9 +3995,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-4": {
-      "id": "blocks-resourcelist--reui-item-4",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-4": {
+      "id": "blocks-application-resourcelist--reui-item-4",
+      "title": "Blocks/Application/ResourceList",
       "name": "Navigation rows",
       "type": "story",
       "tags": [
@@ -4122,9 +4005,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-5": {
-      "id": "blocks-resourcelist--reui-item-5",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-5": {
+      "id": "blocks-application-resourcelist--reui-item-5",
+      "title": "Blocks/Application/ResourceList",
       "name": "Status badges",
       "type": "story",
       "tags": [
@@ -4132,9 +4015,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-6": {
-      "id": "blocks-resourcelist--reui-item-6",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-6": {
+      "id": "blocks-application-resourcelist--reui-item-6",
+      "title": "Blocks/Application/ResourceList",
       "name": "Files with size and actions",
       "type": "story",
       "tags": [
@@ -4142,9 +4025,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-7": {
-      "id": "blocks-resourcelist--reui-item-7",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-7": {
+      "id": "blocks-application-resourcelist--reui-item-7",
+      "title": "Blocks/Application/ResourceList",
       "name": "Keyboard shortcuts",
       "type": "story",
       "tags": [
@@ -4152,9 +4035,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-8": {
-      "id": "blocks-resourcelist--reui-item-8",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-8": {
+      "id": "blocks-application-resourcelist--reui-item-8",
+      "title": "Blocks/Application/ResourceList",
       "name": "Small size with badges",
       "type": "story",
       "tags": [
@@ -4162,9 +4045,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-9": {
-      "id": "blocks-resourcelist--reui-item-9",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-9": {
+      "id": "blocks-application-resourcelist--reui-item-9",
+      "title": "Blocks/Application/ResourceList",
       "name": "Team members and roles",
       "type": "story",
       "tags": [
@@ -4172,9 +4055,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-10": {
-      "id": "blocks-resourcelist--reui-item-10",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-10": {
+      "id": "blocks-application-resourcelist--reui-item-10",
+      "title": "Blocks/Application/ResourceList",
       "name": "Header and footer",
       "type": "story",
       "tags": [
@@ -4182,9 +4065,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-11": {
-      "id": "blocks-resourcelist--reui-item-11",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-11": {
+      "id": "blocks-application-resourcelist--reui-item-11",
+      "title": "Blocks/Application/ResourceList",
       "name": "Integrations with connect actions",
       "type": "story",
       "tags": [
@@ -4192,9 +4075,9 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ReuiItem.stories.jsx"
     },
-    "blocks-resourcelist--reui-item-12": {
-      "id": "blocks-resourcelist--reui-item-12",
-      "title": "Blocks/ResourceList",
+    "blocks-application-resourcelist--reui-item-12": {
+      "id": "blocks-application-resourcelist--reui-item-12",
+      "title": "Blocks/Application/ResourceList",
       "name": "Activity feed",
       "type": "story",
       "tags": [
@@ -4602,7 +4485,7 @@
     "core-avatar--reui-avatar-4": {
       "id": "core-avatar--reui-avatar-4",
       "title": "Core/Avatar",
-      "name": "Border radius",
+      "name": "Square and circular avatars",
       "type": "story",
       "tags": [
         "autodocs"
@@ -5120,9 +5003,9 @@
       ],
       "importPath": "./src/components/core/Banner/ReuiAlert.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-1": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-1",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-1": {
+      "id": "core-breadcrumb--reui-breadcrumb-1",
+      "title": "Core/Breadcrumb",
       "name": "Basic",
       "type": "story",
       "tags": [
@@ -5130,19 +5013,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--docs": {
-      "id": "blocks-navigation-breadcrumb--docs",
-      "title": "Blocks/Navigation/Breadcrumb",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
-    },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-2": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-2",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-2": {
+      "id": "core-breadcrumb--reui-breadcrumb-2",
+      "title": "Core/Breadcrumb",
       "name": "With dropdown menu",
       "type": "story",
       "tags": [
@@ -5150,9 +5023,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-3": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-3",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-3": {
+      "id": "core-breadcrumb--reui-breadcrumb-3",
+      "title": "Core/Breadcrumb",
       "name": "With Next.js links",
       "type": "story",
       "tags": [
@@ -5160,9 +5033,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-4": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-4",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-4": {
+      "id": "core-breadcrumb--reui-breadcrumb-4",
+      "title": "Core/Breadcrumb",
       "name": "Slash separator",
       "type": "story",
       "tags": [
@@ -5170,9 +5043,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-5": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-5",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-5": {
+      "id": "core-breadcrumb--reui-breadcrumb-5",
+      "title": "Core/Breadcrumb",
       "name": "Icons on each item",
       "type": "story",
       "tags": [
@@ -5180,9 +5053,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-6": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-6",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-6": {
+      "id": "core-breadcrumb--reui-breadcrumb-6",
+      "title": "Core/Breadcrumb",
       "name": "Ellipsis for long paths",
       "type": "story",
       "tags": [
@@ -5190,9 +5063,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-7": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-7",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-7": {
+      "id": "core-breadcrumb--reui-breadcrumb-7",
+      "title": "Core/Breadcrumb",
       "name": "Items with avatars",
       "type": "story",
       "tags": [
@@ -5200,9 +5073,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-8": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-8",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-8": {
+      "id": "core-breadcrumb--reui-breadcrumb-8",
+      "title": "Core/Breadcrumb",
       "name": "Double chevron separators",
       "type": "story",
       "tags": [
@@ -5210,9 +5083,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-9": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-9",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-9": {
+      "id": "core-breadcrumb--reui-breadcrumb-9",
+      "title": "Core/Breadcrumb",
       "name": "Inside a card",
       "type": "story",
       "tags": [
@@ -5220,9 +5093,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-10": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-10",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-10": {
+      "id": "core-breadcrumb--reui-breadcrumb-10",
+      "title": "Core/Breadcrumb",
       "name": "Pills inside a frame",
       "type": "story",
       "tags": [
@@ -5230,9 +5103,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-11": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-11",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-11": {
+      "id": "core-breadcrumb--reui-breadcrumb-11",
+      "title": "Core/Breadcrumb",
       "name": "Items with count badges",
       "type": "story",
       "tags": [
@@ -5240,9 +5113,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-12": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-12",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-12": {
+      "id": "core-breadcrumb--reui-breadcrumb-12",
+      "title": "Core/Breadcrumb",
       "name": "Home icon first",
       "type": "story",
       "tags": [
@@ -5250,9 +5123,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-13": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-13",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-13": {
+      "id": "core-breadcrumb--reui-breadcrumb-13",
+      "title": "Core/Breadcrumb",
       "name": "Custom separator",
       "type": "story",
       "tags": [
@@ -5260,9 +5133,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-14": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-14",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-14": {
+      "id": "core-breadcrumb--reui-breadcrumb-14",
+      "title": "Core/Breadcrumb",
       "name": "Button style",
       "type": "story",
       "tags": [
@@ -5270,9 +5143,9 @@
       ],
       "importPath": "./src/components/core/Breadcrumb/ReuiBreadcrumb.stories.jsx"
     },
-    "blocks-navigation-breadcrumb--reui-breadcrumb-15": {
-      "id": "blocks-navigation-breadcrumb--reui-breadcrumb-15",
-      "title": "Blocks/Navigation/Breadcrumb",
+    "core-breadcrumb--reui-breadcrumb-15": {
+      "id": "core-breadcrumb--reui-breadcrumb-15",
+      "title": "Core/Breadcrumb",
       "name": "Project, user, and document",
       "type": "story",
       "tags": [
@@ -7105,7 +6978,7 @@
     "core-card--reui-frame-13": {
       "id": "core-card--reui-frame-13",
       "title": "Core/Card",
-      "name": "Frame: Small radius",
+      "name": "Frame: Network diagnostics",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7115,7 +6988,7 @@
     "core-card--reui-frame-14": {
       "id": "core-card--reui-frame-14",
       "title": "Core/Card",
-      "name": "Frame: Medium radius",
+      "name": "Frame: Media library",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7125,7 +6998,7 @@
     "core-card--reui-frame-15": {
       "id": "core-card--reui-frame-15",
       "title": "Core/Card",
-      "name": "Frame: Large radius",
+      "name": "Frame: Team collaboration",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7135,7 +7008,7 @@
     "core-card--reui-frame-16": {
       "id": "core-card--reui-frame-16",
       "title": "Core/Card",
-      "name": "Frame: Default radius",
+      "name": "Frame: Workspace settings",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7145,7 +7018,7 @@
     "core-card--reui-frame-17": {
       "id": "core-card--reui-frame-17",
       "title": "Core/Card",
-      "name": "Frame: Extra large radius",
+      "name": "Frame: Project gallery",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7667,16 +7540,6 @@
       "id": "core-checkbox--reui-checkbox-19",
       "title": "Core/Checkbox",
       "name": "Group with badges",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Checkbox/ReuiCheckbox.stories.jsx"
-    },
-    "core-checkbox--reui-checkbox-20": {
-      "id": "core-checkbox--reui-checkbox-20",
-      "title": "Core/Checkbox",
-      "name": "Label with info tooltip, alternate",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10914,9 +10777,9 @@
       ],
       "importPath": "./src/components/core/Message/ReuiMessageScroller.stories.jsx"
     },
-    "blocks-navigation-navigation-menu--reui-navigation-menu-1": {
-      "id": "blocks-navigation-navigation-menu--reui-navigation-menu-1",
-      "title": "Blocks/Navigation/Navigation Menu",
+    "core-navigationmenu--reui-navigation-menu-1": {
+      "id": "core-navigationmenu--reui-navigation-menu-1",
+      "title": "Core/NavigationMenu",
       "name": "Basic navigation menu",
       "type": "story",
       "tags": [
@@ -10924,19 +10787,9 @@
       ],
       "importPath": "./src/components/core/NavigationMenu/ReuiNavigationMenu.stories.jsx"
     },
-    "blocks-navigation-navigation-menu--docs": {
-      "id": "blocks-navigation-navigation-menu--docs",
-      "title": "Blocks/Navigation/Navigation Menu",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/NavigationMenu/ReuiNavigationMenu.stories.jsx"
-    },
-    "blocks-navigation-navigation-menu--reui-navigation-menu-2": {
-      "id": "blocks-navigation-navigation-menu--reui-navigation-menu-2",
-      "title": "Blocks/Navigation/Navigation Menu",
+    "core-navigationmenu--reui-navigation-menu-2": {
+      "id": "core-navigationmenu--reui-navigation-menu-2",
+      "title": "Core/NavigationMenu",
       "name": "Grid layout",
       "type": "story",
       "tags": [
@@ -10944,9 +10797,9 @@
       ],
       "importPath": "./src/components/core/NavigationMenu/ReuiNavigationMenu.stories.jsx"
     },
-    "blocks-navigation-navigation-menu--reui-navigation-menu-3": {
-      "id": "blocks-navigation-navigation-menu--reui-navigation-menu-3",
-      "title": "Blocks/Navigation/Navigation Menu",
+    "core-navigationmenu--reui-navigation-menu-3": {
+      "id": "core-navigationmenu--reui-navigation-menu-3",
+      "title": "Core/NavigationMenu",
       "name": "With icons",
       "type": "story",
       "tags": [
@@ -10954,9 +10807,9 @@
       ],
       "importPath": "./src/components/core/NavigationMenu/ReuiNavigationMenu.stories.jsx"
     },
-    "blocks-navigation-navigation-menu--reui-navigation-menu-4": {
-      "id": "blocks-navigation-navigation-menu--reui-navigation-menu-4",
-      "title": "Blocks/Navigation/Navigation Menu",
+    "core-navigationmenu--reui-navigation-menu-4": {
+      "id": "core-navigationmenu--reui-navigation-menu-4",
+      "title": "Core/NavigationMenu",
       "name": "Grid layout with a call to action",
       "type": "story",
       "tags": [
@@ -10981,7 +10834,8 @@
       "name": "Small size",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/NumberField/ReuiNumberField.stories.jsx"
     },
@@ -10991,7 +10845,8 @@
       "name": "Large size",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/NumberField/ReuiNumberField.stories.jsx"
     },
@@ -11025,9 +10880,9 @@
       ],
       "importPath": "./src/components/core/NumberField/ReuiNumberField.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-1": {
-      "id": "blocks-navigation-pagination--reui-pagination-1",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-1": {
+      "id": "core-pagination--reui-pagination-1",
+      "title": "Core/Pagination",
       "name": "Basic",
       "type": "story",
       "tags": [
@@ -11035,19 +10890,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--docs": {
-      "id": "blocks-navigation-pagination--docs",
-      "title": "Blocks/Navigation/Pagination",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
-    },
-    "blocks-navigation-pagination--reui-pagination-2": {
-      "id": "blocks-navigation-pagination--reui-pagination-2",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-2": {
+      "id": "core-pagination--reui-pagination-2",
+      "title": "Core/Pagination",
       "name": "Icon-only arrows",
       "type": "story",
       "tags": [
@@ -11055,9 +10900,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-3": {
-      "id": "blocks-navigation-pagination--reui-pagination-3",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-3": {
+      "id": "core-pagination--reui-pagination-3",
+      "title": "Core/Pagination",
       "name": "Hover effect",
       "type": "story",
       "tags": [
@@ -11065,9 +10910,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-4": {
-      "id": "blocks-navigation-pagination--reui-pagination-4",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-4": {
+      "id": "core-pagination--reui-pagination-4",
+      "title": "Core/Pagination",
       "name": "Circle buttons",
       "type": "story",
       "tags": [
@@ -11075,9 +10920,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-5": {
-      "id": "blocks-navigation-pagination--reui-pagination-5",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-5": {
+      "id": "core-pagination--reui-pagination-5",
+      "title": "Core/Pagination",
       "name": "Go-to-page input",
       "type": "story",
       "tags": [
@@ -11085,9 +10930,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-6": {
-      "id": "blocks-navigation-pagination--reui-pagination-6",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-6": {
+      "id": "core-pagination--reui-pagination-6",
+      "title": "Core/Pagination",
       "name": "Numbered in a card",
       "type": "story",
       "tags": [
@@ -11095,9 +10940,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-7": {
-      "id": "blocks-navigation-pagination--reui-pagination-7",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-7": {
+      "id": "core-pagination--reui-pagination-7",
+      "title": "Core/Pagination",
       "name": "Arrow buttons",
       "type": "story",
       "tags": [
@@ -11105,9 +10950,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-8": {
-      "id": "blocks-navigation-pagination--reui-pagination-8",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-8": {
+      "id": "core-pagination--reui-pagination-8",
+      "title": "Core/Pagination",
       "name": "Centered page info",
       "type": "story",
       "tags": [
@@ -11115,9 +10960,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-9": {
-      "id": "blocks-navigation-pagination--reui-pagination-9",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-9": {
+      "id": "core-pagination--reui-pagination-9",
+      "title": "Core/Pagination",
       "name": "Page info on the left",
       "type": "story",
       "tags": [
@@ -11125,9 +10970,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-10": {
-      "id": "blocks-navigation-pagination--reui-pagination-10",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-10": {
+      "id": "core-pagination--reui-pagination-10",
+      "title": "Core/Pagination",
       "name": "Ellipsis",
       "type": "story",
       "tags": [
@@ -11135,9 +10980,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-11": {
-      "id": "blocks-navigation-pagination--reui-pagination-11",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-11": {
+      "id": "core-pagination--reui-pagination-11",
+      "title": "Core/Pagination",
       "name": "Outline buttons",
       "type": "story",
       "tags": [
@@ -11145,9 +10990,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-12": {
-      "id": "blocks-navigation-pagination--reui-pagination-12",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-12": {
+      "id": "core-pagination--reui-pagination-12",
+      "title": "Core/Pagination",
       "name": "Rows per page and range info",
       "type": "story",
       "tags": [
@@ -11155,9 +11000,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-13": {
-      "id": "blocks-navigation-pagination--reui-pagination-13",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-13": {
+      "id": "core-pagination--reui-pagination-13",
+      "title": "Core/Pagination",
       "name": "Page select with first and last",
       "type": "story",
       "tags": [
@@ -11165,9 +11010,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-14": {
-      "id": "blocks-navigation-pagination--reui-pagination-14",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-14": {
+      "id": "core-pagination--reui-pagination-14",
+      "title": "Core/Pagination",
       "name": "Numbered with go-to-page input",
       "type": "story",
       "tags": [
@@ -11175,9 +11020,9 @@
       ],
       "importPath": "./src/components/core/Pagination/ReuiPagination.stories.jsx"
     },
-    "blocks-navigation-pagination--reui-pagination-15": {
-      "id": "blocks-navigation-pagination--reui-pagination-15",
-      "title": "Blocks/Navigation/Pagination",
+    "core-pagination--reui-pagination-15": {
+      "id": "core-pagination--reui-pagination-15",
+      "title": "Core/Pagination",
       "name": "Page info, ellipsis, and per-page select",
       "type": "story",
       "tags": [
@@ -11201,7 +11046,8 @@
       "name": "Small",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/PhoneInput/ReuiPhoneInput.stories.jsx"
     },
@@ -11241,7 +11087,8 @@
       "name": "Error state",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/PhoneInput/ReuiPhoneInput.stories.jsx"
     },
@@ -11448,7 +11295,7 @@
     "core-pill--reui-badge-19": {
       "id": "core-pill--reui-badge-19",
       "title": "Core/Pill",
-      "name": "Full-radius badge",
+      "name": "Count and label badges",
       "type": "story",
       "tags": [
         "autodocs"

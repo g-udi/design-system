@@ -106,7 +106,7 @@ export function Pattern() {
                   {item.icon}
                   <span className='flex-1 text-sm'>{item.label}</span>
                   {item.count && (
-                    <Badge variant='outline' size='sm' className='rounded-full'>
+                    <Badge variant='outline' size='sm' className='rounded-control'>
                       {item.count}
                     </Badge>
                   )}

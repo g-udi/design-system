@@ -480,7 +480,12 @@
     font-size: 0.875rem;
     color: var(--ds-color-text-muted);
   }
-  .ds-stepper [aria-current='step'] .ds-step-number,
+  .ds-stepper [aria-current='step'] .ds-step-number {
+    border-color: var(--ds-color-accent);
+    box-shadow: 0 0 0 3px var(--ds-color-accent-subtle);
+    color: var(--ds-color-accent);
+    font-weight: 600;
+  }
   .ds-stepper [data-complete] .ds-step-number {
     background: var(--ds-color-accent);
     border-color: var(--ds-color-accent);

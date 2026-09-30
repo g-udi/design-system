@@ -207,7 +207,7 @@ export function Pattern({
         <div className='flex flex-col items-center gap-4'>
           <div
             className={cn(
-              'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-full transition-colors',
+              'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-control transition-colors',
               isDragging
                 ? 'border-ui-primary bg-ui-primary/10'
                 : 'border-ui-muted-foreground/25'

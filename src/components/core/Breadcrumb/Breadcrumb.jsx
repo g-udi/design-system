@@ -25,7 +25,7 @@ export const BreadcrumbSeparator = ({ children, className }) => (
 );
 
 export const BreadcrumbEllipsis = ({ className }) => (
-  <span className={ cn('inline-flex size-8 items-center justify-center rounded-md text-gray-500', className) } aria-label='More pages'>...</span>
+  <span role='img' aria-label='More pages' className={ cn('inline-flex items-center text-gray-500 dark:text-gray-400', className) }><Icon name='MoreHorizontal' decorative size='xs' /></span>
 );
 
 export const BreadcrumbTrail = ({ items = [], className, label }) => (

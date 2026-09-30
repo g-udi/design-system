@@ -269,11 +269,11 @@
 
   /* MARK: Carousel */
   .ds-part-carousel-previous {
-    @apply rounded-full;
+    @apply rounded-control;
   }
 
   .ds-part-carousel-next {
-    @apply rounded-full;
+    @apply rounded-control;
   }
 
   /* MARK: Chart */
@@ -283,7 +283,7 @@
 
   /* MARK: Checkbox */
   .ds-part-checkbox {
-    @apply border-ui-input dark:bg-ui-input/30 data-checked:bg-ui-primary data-checked:text-ui-primary-foreground dark:data-checked:bg-ui-primary data-checked:border-ui-primary aria-invalid:aria-checked:border-ui-primary aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 flex size-4 items-center justify-center rounded-[4px] border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-ui-input group-has-[:focus-visible]/field-label:data-checked:border-ui-primary;
+    @apply border-ui-input dark:bg-ui-input/30 data-checked:bg-ui-primary data-checked:text-ui-primary-foreground dark:data-checked:bg-ui-primary data-checked:border-ui-primary aria-invalid:aria-checked:border-ui-primary aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 flex size-4 items-center justify-center rounded-sm border transition-colors group-has-disabled/field:opacity-50 focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-ui-input group-has-[:focus-visible]/field-label:data-checked:border-ui-primary;
   }
 
   .ds-part-checkbox-aria {
@@ -504,11 +504,11 @@
   }
 
   .ds-part-drawer-handle {
-    @apply bg-ui-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-full;
+    @apply bg-ui-muted mx-auto mt-4 hidden h-1 w-[100px] shrink-0 rounded-control;
   }
 
   .ds-part-drawer-swipe-handle {
-    @apply after:block after:shrink-0 after:rounded-full after:bg-ui-muted group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-24 group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-24 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end;
+    @apply after:block after:shrink-0 after:rounded-control after:bg-ui-muted group-data-[swipe-axis=y]/drawer-popup:h-3 group-data-[swipe-axis=y]/drawer-popup:w-full group-data-[swipe-axis=y]/drawer-popup:justify-center group-data-[swipe-axis=y]/drawer-popup:after:h-1 group-data-[swipe-axis=y]/drawer-popup:after:w-24 group-data-[swipe-direction=down]/drawer-popup:items-end group-data-[swipe-direction=up]/drawer-popup:items-start group-data-[swipe-axis=x]/drawer-popup:h-full group-data-[swipe-axis=x]/drawer-popup:w-3 group-data-[swipe-axis=x]/drawer-popup:items-center group-data-[swipe-axis=x]/drawer-popup:after:h-24 group-data-[swipe-axis=x]/drawer-popup:after:w-1 group-data-[swipe-direction=left]/drawer-popup:justify-start group-data-[swipe-direction=right]/drawer-popup:justify-end;
   }
 
   .ds-part-drawer-header {
@@ -947,11 +947,11 @@
 
   /* MARK: Progress */
   .ds-part-progress {
-    @apply bg-ui-muted h-1 rounded-full;
+    @apply bg-ui-muted h-1 rounded-control;
   }
 
   .ds-part-progress-track {
-    @apply bg-ui-muted h-1 rounded-full;
+    @apply bg-ui-muted h-1 rounded-control;
   }
 
   .ds-part-progress-indicator {
@@ -998,7 +998,7 @@
   }
 
   .ds-part-scroll-area-thumb {
-    @apply rounded-full;
+    @apply rounded-control;
   }
 
   /* MARK: Select */
@@ -1223,7 +1223,7 @@
 
   /* MARK: Skeleton */
   .ds-part-skeleton {
-    @apply bg-ui-muted rounded-md;
+    @apply bg-ui-border rounded-md;
   }
 
   /* MARK: Slider */
@@ -1232,7 +1232,7 @@
   }
 
   .ds-part-slider-track {
-    @apply bg-ui-muted rounded-full data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1;
+    @apply bg-ui-border rounded-control data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1;
   }
 
   .ds-part-slider-range {
@@ -1250,7 +1250,7 @@
 
   /* MARK: Switch */
   .ds-part-switch {
-    @apply data-checked:bg-ui-primary data-unchecked:bg-ui-input focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 dark:data-unchecked:bg-ui-input/80 shrink-0 rounded-full border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px];
+    @apply data-checked:bg-ui-primary data-unchecked:bg-ui-input focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 dark:data-unchecked:bg-ui-input/80 shrink-0 rounded-control border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px];
   }
 
   .ds-part-switch-aria {
@@ -1258,7 +1258,7 @@
   }
 
   .ds-part-switch-thumb {
-    @apply bg-ui-background dark:data-unchecked:bg-ui-foreground dark:data-checked:bg-ui-primary-foreground rounded-full group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0;
+    @apply bg-ui-background dark:data-unchecked:bg-ui-foreground dark:data-checked:bg-ui-primary-foreground rounded-control group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0;
   }
 
   .ds-part-switch-thumb-aria {
@@ -1388,7 +1388,7 @@
   }
 
   .ds-part-tooltip-arrow {
-    @apply size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px];
+    @apply size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-sm;
   }
 
   .ds-part-tooltip-arrow-logical {
@@ -1401,7 +1401,7 @@
   }
 
   .ds-part-input-group-addon {
-    @apply text-ui-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-[calc(var(--radius)-5px)] [&>svg:not([class*='size-'])]:size-4;
+    @apply text-ui-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-sm [&>svg:not([class*='size-'])]:size-4;
   }
 
   .ds-part-input-group-addon-align-inline-start {
@@ -1425,11 +1425,11 @@
   }
 
   .ds-part-input-group-button-size-xs {
-    @apply h-6 gap-1 rounded-[calc(var(--radius)-3px)] px-1.5 [&>svg:not([class*='size-'])]:size-3.5;
+    @apply h-6 gap-1 rounded-sm px-1.5 [&>svg:not([class*='size-'])]:size-3.5;
   }
 
   .ds-part-input-group-button-size-icon-xs {
-    @apply size-6 rounded-[calc(var(--radius)-3px)] p-0 has-[>svg]:p-0;
+    @apply size-6 rounded-sm p-0 has-[>svg]:p-0;
   }
 
   .ds-part-input-group-button-size-icon-sm {
@@ -1495,7 +1495,7 @@
   }
 
   .ds-part-bubble-reactions {
-    @apply rounded-full ring-3 ring-ui-card bg-ui-muted shrink-0 gap-1 px-1.5 py-0.5 has-[button]:p-0 text-sm;
+    @apply rounded-control ring-3 ring-ui-card bg-ui-muted shrink-0 gap-1 px-1.5 py-0.5 has-[button]:p-0 text-sm;
   }
 
   .ds-part-bubble-reactions-side-top {
@@ -1626,7 +1626,7 @@
   }
 
   .ds-part-questionnaire-choice-indicator {
-    @apply border-ui-input dark:bg-ui-input/30 group-data-checked/questionnaire-choice:bg-ui-primary dark:group-data-checked/questionnaire-choice:bg-ui-primary group-data-checked/questionnaire-choice:text-ui-primary-foreground group-data-checked/questionnaire-choice:border-ui-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-[4px];
+    @apply border-ui-input dark:bg-ui-input/30 group-data-checked/questionnaire-choice:bg-ui-primary dark:group-data-checked/questionnaire-choice:bg-ui-primary group-data-checked/questionnaire-choice:text-ui-primary-foreground group-data-checked/questionnaire-choice:border-ui-primary size-4 translate-y-[--spacing(0.45)] group-has-data-[slot=questionnaire-choice-description]/questionnaire-choice:translate-y-0.5 rounded-sm;
   }
 
   .ds-part-questionnaire-choice-indicator-dot {

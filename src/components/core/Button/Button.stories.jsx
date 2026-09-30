@@ -50,7 +50,7 @@ export const Playground = {
   args: { children: 'Publish article', variant: 'solid', tone: 'accent', size: 'md', radius: 'md', disabled: false, onClick: fn() },
   parameters: {
     docs: {
-      description: { story: 'An editor footer. The primary action follows every control; the icon-only share, Cancel and Save draft actions keep their neutral treatments and share the size and radius, so heights always line up.' },
+      description: { story: 'An editor footer. The primary action follows every control; the icon-only share, Cancel and Save draft actions keep their neutral treatments and share the size, so heights always line up.' },
       source: {
         ...playgroundSource('Button'),
         transform: (_source, { args }) => previewSource('Button', args, {

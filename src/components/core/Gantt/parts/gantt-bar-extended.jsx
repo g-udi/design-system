@@ -166,7 +166,7 @@ function GanttBar({
         >
           <span
             aria-hidden
-            className='bg-ui-foreground/40 h-2.5 w-0.5 rounded-full'
+            className='bg-ui-foreground/40 h-2.5 w-0.5 rounded-control'
           />
         </span>
       )}
@@ -179,7 +179,7 @@ function GanttBar({
         >
           <span
             aria-hidden
-            className='bg-ui-foreground/40 h-2.5 w-0.5 rounded-full'
+            className='bg-ui-foreground/40 h-2.5 w-0.5 rounded-control'
           />
         </span>
       )}
@@ -260,7 +260,7 @@ function GanttBar({
             aria-hidden
             data-slot='gantt-bar-milestone'
             className={cn(
-              'size-2.5 shrink-0 rotate-45 rounded-[2px] border border-(--gantt-event-color) bg-(--gantt-event-color)/80',
+              'size-2.5 shrink-0 rotate-45 rounded-sm border border-(--gantt-event-color) bg-(--gantt-event-color)/80',
               isSelected && 'ring-ui-ring/50 ring-2'
             )}
           />

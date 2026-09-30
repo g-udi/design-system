@@ -7,6 +7,7 @@ import Button from '../Button';
 import Field, { FieldDescription, FieldInput, FieldLabel } from '../Field';
 import Input from '../Input';
 import Dialog, { DialogClose } from './Dialog';
+import { iris } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Dialog');
 const articleTitle = 'A practical guide to knowledge graphs';
@@ -33,7 +34,7 @@ const playgroundCode = playgroundSource('Dialog', {
   ],
   imports: "import { Button, Dialog, DialogClose, Field, FieldDescription, FieldInput, FieldLabel } from '@gaudi/design-system';",
   children: [
-    "  <img src='/images/og-card.jpg' alt='' />",
+    "  <img src='/static/images/art/iris.svg' alt='' />",
     "  <Button size='sm' variant='outline' tone='neutral'>Replace</Button>",
     '  <Field>',
     '    <FieldLabel>Title</FieldLabel>',
@@ -119,10 +120,10 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
           >
             <div className='grid gap-4'>
               <div className='flex items-center gap-3'>
-                <img src='static/images/og-card.jpg' alt='' className='aspect-video w-16 shrink-0 rounded-md object-cover sm:w-24' />
+                <img src={iris} alt='' className='aspect-video w-16 shrink-0 rounded-md object-cover sm:w-24' />
                 <div className='min-w-0 flex-1'>
                   <p className='truncate text-sm font-semibold text-gray-950 dark:text-gray-100'>Cover image</p>
-                  <p className='truncate text-xs text-gray-500 dark:text-gray-400'>og-card.jpg · 1200 × 630</p>
+                  <p className='truncate text-xs text-gray-500 dark:text-gray-400'>iris.svg · 1600 × 900</p>
                 </div>
                 <Button size='sm' variant='outline' tone='neutral'>Replace</Button>
               </div>

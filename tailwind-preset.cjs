@@ -1,4 +1,4 @@
-const { colors, typography } = require('./src/tokens/tokens.cjs');
+const { colors, radii, typography } = require('./src/tokens/tokens.cjs');
 
 /**
  * Prose typography for the `@tailwindcss/typography` plugin, expressed via the
@@ -29,6 +29,23 @@ const proseCss = {
 
 module.exports = {
   theme: {
+    // Keep variable references so changing --ds-radius rethemes compiled utilities.
+    // Full is reserved for
+    // intrinsic circles such as avatars, radio indicators, and status dots.
+    borderRadius: {
+      none: '0px',
+      DEFAULT: radii.control,
+      xs: radii.sm,
+      sm: radii.sm,
+      md: radii.control,
+      lg: radii.card,
+      xl: radii.card,
+      '2xl': radii.card,
+      '3xl': radii.card,
+      '4xl': radii.card,
+      ...radii,
+      full: '9999px'
+    },
     extend: {
       animation: {
         aurora: 'aurora 60s linear infinite',

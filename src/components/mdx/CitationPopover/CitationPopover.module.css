@@ -62,7 +62,7 @@
 
 .entry {
   align-items: flex-start;
-  border-radius: 8px;
+  border-radius: var(--ds-radius-sm);
   display: flex;
   gap: 0.8rem;
   margin: 0;
@@ -72,7 +72,7 @@
 .number {
   align-items: center;
   background: var(--ds-color-citation-badge-bg);
-  border-radius: 50%;
+  border-radius: var(--ds-radius-pill);
   color: var(--ds-color-citation-badge-text);
   display: inline-flex;
   flex-shrink: 0;

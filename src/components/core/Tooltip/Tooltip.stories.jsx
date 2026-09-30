@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react';
-import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -26,24 +25,6 @@ const tools = [
   { label: 'Version history', icon: 'History' }
 ];
 
-/** Hovers Copy link once on mount, so its tooltip opens after `delayDuration` and shows the current args. */
-function CopyLinkTooltip(args) {
-  const ref = useRef(null);
-  useEffect(() => {
-    ref.current?.querySelector('button')?.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, pointerType: 'mouse' }));
-  }, []);
-  return (
-    <span ref={ref} className='ms-auto'>
-      <Tooltip {...args}>
-        <Button size='sm' variant='outline' tone='neutral'>
-          <RegistryIcon lucide='Link' />
-          {trigger}
-        </Button>
-      </Tooltip>
-    </span>
-  );
-}
-
 export default {
   title: 'Core/Tooltip',
   component: Tooltip,
@@ -59,12 +40,13 @@ export default {
 };
 
 export const Playground = {
-  args: { content: 'Copy a link to this article', side: 'top', delayDuration: 300 },
+  args: { content: 'Copy a link to this article', side: 'top', delayDuration: 300, onOpenChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'An editor toolbar where every icon button has a tooltip with its shortcut. The Copy link tooltip follows the controls and opens after `delayDuration` whenever they change, so `content` and `side` show immediately. Hover or focus any other button to compare.' },
+      description: { story: 'An editor toolbar where every icon button has a tooltip with its shortcut. The Copy link tooltip follows the controls and starts open with `defaultOpen`, remounting whenever they change so `content` and `side` show immediately. Hover or focus any other button to compare.' },
       source: playgroundSource('Tooltip', {
         imports: "import { Button, Tooltip } from '@gaudi/design-system';",
+        attributes: ['defaultOpen'],
         children: `  <Button variant='outline' tone='neutral'>${trigger}</Button>`
       })
     }
@@ -83,17 +65,23 @@ export const Playground = {
             </Button>
           </Tooltip>
         ))}
-        <CopyLinkTooltip key={JSON.stringify(args)} {...args} />
+        <Tooltip key={`${args.content}-${args.side}`} defaultOpen {...args}>
+          <Button size='sm' variant='outline' tone='neutral' className='ms-auto'>
+            <RegistryIcon lucide='Link' />
+            {trigger}
+          </Button>
+        </Tooltip>
       </div>
     </div>
   ),
   play: async ({ args, canvasElement }) => {
     const button = within(canvasElement).getByRole('button', { name: trigger });
-    const hovered = await waitFor(() => page(canvasElement).getByRole('tooltip'));
-    await expect(hovered).toHaveTextContent(args.content);
-    await expect(hovered.closest('[data-side]')).toHaveAttribute('data-side', args.side);
+    const initial = await waitFor(() => page(canvasElement).getByRole('tooltip'));
+    await expect(initial).toHaveTextContent(args.content);
+    await expect(initial.closest('[data-side]')).toHaveAttribute('data-side', args.side);
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(page(canvasElement).queryByRole('tooltip')).not.toBeInTheDocument());
+    await expect(args.onOpenChange).toHaveBeenLastCalledWith(false);
     button.focus();
     const focused = await waitFor(() => page(canvasElement).getByRole('tooltip'));
     await expect(focused).toHaveTextContent(args.content);

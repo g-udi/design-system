@@ -163,7 +163,7 @@ const Select = ({
   return (
     <div
       ref={ rootRef }
-      className={ cn('relative w-full max-w-xs', className, classNames.root) }
+      className={ cn('relative w-full min-w-0 max-w-xs', className, classNames.root) }
       onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) updateOpen(false); }}
       onKeyDown={ (event) => {
         if (event.key === 'Escape' && open) {

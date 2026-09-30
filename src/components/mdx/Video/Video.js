@@ -116,14 +116,14 @@ const Video = ({
           {thumbnailSrc ? (
             <img src={ thumbnailSrc } alt={ thumbnailAlt } className={ cn('size-full object-cover transition duration-300 group-hover:scale-[1.02]', classNames.thumbnail) } />
           ) : (
-            <span className={ cn('flex size-full items-center justify-center bg-linear-to-br from-gray-900 via-gray-800 to-blue-950 text-sm text-white/80', classNames.thumbnail) }>
+            <span className={ cn('flex size-full items-end p-4 bg-linear-to-br from-gray-900 via-gray-800 to-blue-950 text-sm text-white/80', classNames.thumbnail) }>
               {thumbnailAlt}
             </span>
           )}
         </span>
         <span className='absolute inset-0 bg-gray-950/20 transition group-hover:bg-gray-950/10' aria-hidden='true' />
         <span className={ cn('absolute inset-0 flex items-center justify-center', classNames.playWrapper) }>
-          <span className={ cn('inline-flex size-16 items-center justify-center rounded-full bg-white/95 text-blue-600 shadow-lg shadow-gray-950/20 transition group-hover:scale-105 dark:bg-white dark:text-blue-600', classNames.playButton) }>
+          <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-white/95 text-blue-600 shadow-lg shadow-gray-950/20 transition group-hover:scale-105 dark:bg-white dark:text-blue-600', classNames.playButton) }>
             <PlayGlyph />
           </span>
         </span>
@@ -146,7 +146,7 @@ const Video = ({
                 variant='ghost'
                 tone='gray'
                 size='sm'
-                className={ cn('inline-flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400', classNames.close) }
+                className={ cn('inline-flex size-11 items-center justify-center rounded-control bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400', classNames.close) }
                 aria-label='Close video dialog'
                 onClick={ () => setOpen(false) }
               >

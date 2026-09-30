@@ -8,6 +8,26 @@
   }
 }
 
+/*
+ * EventCalendar and Gantt colour events and bars at runtime with `var(--color-<name>-500)`. Tailwind
+ * inlines JS-config palette colours and only emits the variables a utility uses, so declare every offered
+ * shade here. Keep this list in step with EVENT_CALENDAR_COLORS and GANTT_COLORS.
+ */
+@layer base {
+  :root {
+    --color-blue-500: theme(colors.blue.500);
+    --color-emerald-500: theme(colors.emerald.500);
+    --color-violet-500: theme(colors.violet.500);
+    --color-rose-500: theme(colors.rose.500);
+    --color-amber-500: theme(colors.amber.500);
+    --color-cyan-500: theme(colors.cyan.500);
+    --color-orange-500: theme(colors.orange.500);
+    --color-pink-500: theme(colors.pink.500);
+    --color-teal-500: theme(colors.teal.500);
+    --color-indigo-500: theme(colors.indigo.500);
+  }
+}
+
 /* Compound controls share Gaudi's palette; ui-accent is a selection surface. */
 @theme inline {
   --color-ui-focus: var(--ds-color-discovery);
@@ -119,7 +139,7 @@
     --muted-foreground: var(--ds-color-text-muted);
     --border: var(--ds-color-border);
     --ring: var(--ds-color-accent);
-    --radius: var(--ds-radius-md, 0.5rem);
+    --radius: var(--ds-radius-control);
     --chart-1: var(--ds-color-accent);
     --chart-2: var(--ds-color-success);
     --chart-3: var(--ds-color-discovery);
@@ -178,7 +198,7 @@
   .ds-catalogue-filters select {
     background: var(--ds-color-surface);
     border: 1px solid var(--ds-color-border);
-    border-radius: var(--ds-radius-md);
+    border-radius: var(--ds-radius-control);
     min-height: 44px;
     padding: 0.5rem;
     width: 100%;

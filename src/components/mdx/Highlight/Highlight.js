@@ -21,7 +21,7 @@
  * <Highlight>This text will be highlighted</Highlight>
  */
 const Highlight = ({ children }) => (
-  <strong className='rounded-[3px] bg-gradient-to-r from-blue-500/25 to-blue-500/55 px-1 py-0.5 font-bold dark:from-blue-300/20 dark:to-blue-300/40 dark:text-blue-300 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]'>
+  <strong className='rounded-none bg-gradient-to-r from-blue-500/25 to-blue-500/55 px-1 py-0.5 font-bold dark:from-blue-300/20 dark:to-blue-300/40 dark:text-blue-300 [box-decoration-break:clone] [-webkit-box-decoration-break:clone]'>
     {children}
   </strong>
 );

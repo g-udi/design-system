@@ -45,7 +45,7 @@ export function Pattern() {
               aria-label='Add'
               variant='outline'
               size='icon'
-              className='rounded-full'
+              className='rounded-control'
             >
               <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
             </Button>

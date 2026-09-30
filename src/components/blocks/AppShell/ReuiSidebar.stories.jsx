@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/sidebar/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/Navigation/Sidebar', tags: ['autodocs'], ...catalogueMeta('sidebar') };
+export default { title: 'Blocks/Application/AppShell', tags: ['autodocs'], ...catalogueMeta('sidebar') };
 
 export const ReuiSidebar1 = { name: 'Workspace switcher', ...pattern(1, 'Grouped navigation with count badges, row menus and a footer account menu.') };
 export const ReuiSidebar2 = { name: 'Collapsible icon rail', ...pattern(2, 'Labels give way to tooltips at 3rem, with a rail and a trigger to drive it.') };

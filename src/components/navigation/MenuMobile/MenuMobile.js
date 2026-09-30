@@ -41,6 +41,7 @@ import { formatCategoryTitle } from '../../../utilities/taxonomy';
  * @param {string} props.links[].title - Display text for the navigation link
  * @param {Function} props.setMobileMenuOpen - Function to close the mobile menu
  * @param {Function} props.setLauncherOpen - Function to open the search/command launcher
+ * @param {HTMLElement} [props.container] - Element the dialog renders into and isolates; defaults to the body
  *
  * @returns {JSX.Element} Full-screen mobile navigation menu overlay
  *
@@ -59,7 +60,7 @@ import { formatCategoryTitle } from '../../../utilities/taxonomy';
  * @example
  * // The parent menu closes this dialog when the desktop breakpoint is reached.
  */
-const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = [], links = [], setMobileMenuOpen, setLauncherOpen }) => {
+const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = [], container, links = [], setMobileMenuOpen, setLauncherOpen }) => {
   const dialogRef = React.useRef(null);
   const closeButtonRef = React.useRef(null);
   const categoriesId = React.useId();
@@ -108,7 +109,7 @@ const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = 
   };
 
   return (
-    <DialogPortal initialFocusRef={ closeButtonRef }>
+    <DialogPortal container={ container } initialFocusRef={ closeButtonRef }>
     <div ref={ dialogRef } role='dialog' aria-modal='true' aria-label='Mobile navigation' className='fixed inset-0 z-[var(--ds-z-overlay)]'>
       <button
         type='button'

@@ -41,10 +41,6 @@ const SortableItemContext = createContext({
   disabled: false
 });
 const IsOverlayContext = createContext(false);
-const SortableInternalContext = createContext({
-  activeId: null,
-  modifiers: void 0
-});
 const animateLayoutChanges = (args) =>
   defaultAnimateLayoutChanges({ ...args, wasDragging: true });
 const dropAnimationConfig = {
@@ -162,12 +158,20 @@ function Sortable({
     }
     return ids;
   }, [value, getItemValue]);
-  const contextValue = useMemo(
-    () => ({ activeId, modifiers }),
-    [activeId, modifiers]
-  );
+  const {
+    children: overlayChildren,
+    className: overlayClassName,
+    ...overlayProps
+  } = Children.toArray(children).find(
+    (child) => isValidElement(child) && child.type === SortableOverlay
+  )?.props ?? {};
   const overlayContent = useMemo(() => {
     if (!activeId) return null;
+    if (overlayChildren) {
+      return typeof overlayChildren === 'function'
+        ? overlayChildren({ value: activeId })
+        : overlayChildren;
+    }
     let result = null;
     Children.forEach(children, (child) => {
       if (isValidElement(child) && child.props.value === activeId) {
@@ -178,47 +182,46 @@ function Sortable({
       }
     });
     return result;
-  }, [activeId, children]);
+  }, [activeId, children, overlayChildren]);
   const Comp = asChild ? Slot.Root : 'div';
   return (
-    <SortableInternalContext.Provider value={contextValue}>
-      <DndContext
-        sensors={sensors}
-        modifiers={modifiers}
-        accessibility={accessibility}
-        measuring={MEASURING_CONFIG}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragCancel={handleDragCancel}
+    <DndContext
+      sensors={sensors}
+      modifiers={modifiers}
+      accessibility={accessibility}
+      measuring={MEASURING_CONFIG}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
+    >
+      <SortableContext
+        items={itemIds}
+        strategy={STRATEGY_MAP[strategy] ?? verticalListSortingStrategy}
       >
-        <SortableContext
-          items={itemIds}
-          strategy={STRATEGY_MAP[strategy] ?? verticalListSortingStrategy}
+        <Comp
+          data-slot='sortable'
+          data-dragging={activeId !== null}
+          className={cn(activeId !== null && 'cursor-grabbing!', className)}
+          {...props}
         >
-          <Comp
-            data-slot='sortable'
-            data-dragging={activeId !== null}
-            className={cn(activeId !== null && 'cursor-grabbing!', className)}
-            {...props}
+          {children}
+        </Comp>
+      </SortableContext>
+      {mounted &&
+        createPortal(
+          <DragOverlay
+            dropAnimation={dropAnimationConfig}
+            modifiers={modifiers}
+            {...overlayProps}
+            className={cn('z-50', activeId && 'cursor-grabbing', overlayClassName)}
           >
-            {children}
-          </Comp>
-        </SortableContext>
-        {mounted &&
-          createPortal(
-            <DragOverlay
-              dropAnimation={dropAnimationConfig}
-              modifiers={modifiers}
-              className={cn('z-50', activeId && 'cursor-grabbing')}
-            >
-              <IsOverlayContext.Provider value={true}>
-                {overlayContent}
-              </IsOverlayContext.Provider>
-            </DragOverlay>,
-            document.body
-          )}
-      </DndContext>
-    </SortableInternalContext.Provider>
+            <IsOverlayContext.Provider value={true}>
+              {overlayContent}
+            </IsOverlayContext.Provider>
+          </DragOverlay>,
+          document.body
+        )}
+    </DndContext>
   );
 }
 function SortableItem({
@@ -284,7 +287,6 @@ function SortableItem({
         style={style}
         className={cn(
           isSortableDragging && 'z-50 opacity-50',
-          disabled && 'opacity-50',
           className
         )}
         {...props}
@@ -313,7 +315,9 @@ function SortableItemHandle({
       data-disabled={disabled}
       {...listeners}
       className={cn(
-        cursor && (isDragging ? 'cursor-grabbing!' : 'cursor-grab!'),
+        disabled
+          ? 'cursor-not-allowed opacity-50'
+          : cursor && (isDragging ? 'cursor-grabbing!' : 'cursor-grab!'),
         className
       )}
       {...props}
@@ -322,32 +326,12 @@ function SortableItemHandle({
     </Comp>
   );
 }
-function SortableOverlay({ children, className, ...props }) {
-  const { activeId, modifiers } = useContext(SortableInternalContext);
-  const mounted = useSyncExternalStore(
-    subscribeToNothing,
-    getIsMounted,
-    getIsMountedOnServer
-  );
-  const content =
-    activeId && children
-      ? typeof children === 'function'
-        ? children({ value: activeId })
-        : children
-      : null;
-  if (!mounted) return null;
-  return createPortal(
-    <DragOverlay
-      dropAnimation={dropAnimationConfig}
-      modifiers={modifiers}
-      className={cn('z-50', activeId && 'cursor-grabbing', className)}
-      {...props}
-    >
-      <IsOverlayContext.Provider value={true}>
-        {content}
-      </IsOverlayContext.Provider>
-    </DragOverlay>,
-    document.body
-  );
+/**
+ * Customises the drag overlay that Sortable always renders. Place it as a direct child of Sortable;
+ * `children` is a node or `({ value }) => node` for the active item, and other props go to DragOverlay.
+ * Without it, the overlay shows a copy of the active SortableItem.
+ */
+function SortableOverlay() {
+  return null;
 }
 export { Sortable, SortableItem, SortableItemHandle, SortableOverlay };

@@ -3,7 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-const DialogPortal = ({ children, initialFocusRef, lockScroll = true, restoreFocus = true, restoreFocusRef }) => {
+/**
+ * Renders modal content into `container` (the document body by default) and isolates the container's other
+ * children: they become inert and hidden, and the container stops scrolling while the portal is mounted.
+ */
+const DialogPortal = ({ children, container, initialFocusRef, lockScroll = true, restoreFocus = true, restoreFocusRef }) => {
   const [ portalNode, setPortalNode ] = useState(null);
   const previouslyFocusedElementRef = useRef(null);
 
@@ -14,30 +18,31 @@ const DialogPortal = ({ children, initialFocusRef, lockScroll = true, restoreFoc
     const node = document.createElement('div');
 
     node.dataset.dialogPortal = 'true';
-    document.body.append(node);
+    (container ?? document.body).append(node);
     setPortalNode(node);
 
     return () => node.remove();
-  }, []);
+  }, [ container ]);
 
   useEffect(() => {
     if (!portalNode) return undefined;
 
-    const backgroundElements = Array.from(document.body.children).filter((element) => element !== portalNode);
+    const root = portalNode.parentElement;
+    const backgroundElements = Array.from(root.children).filter((element) => element !== portalNode);
     const previousStates = backgroundElements.map((element) => ({
       element,
       hadInert: element.hasAttribute('inert'),
       ariaHidden: element.getAttribute('aria-hidden')
     }));
     const fallbackFocusElement = restoreFocusRef?.current;
-    const previousBodyOverflow = document.body.style.overflow;
+    const previousOverflow = root.style.overflow;
 
     backgroundElements.forEach((element) => {
       element.setAttribute('inert', '');
       element.setAttribute('aria-hidden', 'true');
     });
 
-    if (lockScroll) document.body.style.overflow = 'hidden';
+    if (lockScroll) root.style.overflow = 'hidden';
 
     const focusFrame = window.requestAnimationFrame(() => initialFocusRef?.current?.focus());
 
@@ -50,7 +55,7 @@ const DialogPortal = ({ children, initialFocusRef, lockScroll = true, restoreFoc
         else element.setAttribute('aria-hidden', ariaHidden);
       });
 
-      if (lockScroll) document.body.style.overflow = previousBodyOverflow;
+      if (lockScroll) root.style.overflow = previousOverflow;
 
       const previouslyFocusedElement = previouslyFocusedElementRef.current;
       const focusTarget = previouslyFocusedElement instanceof HTMLElement && previouslyFocusedElement.isConnected

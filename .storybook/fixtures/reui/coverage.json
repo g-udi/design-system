@@ -1100,7 +1100,7 @@
           "description": "Basic breadcrumb",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-1.jsx",
           "sha256": "296f9fec89acc9427a09f45b871ae9df896d13b8ed6916f69b17bf3c1b4dadd3",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-1"
+          "storyId": "core-breadcrumb--reui-breadcrumb-1"
         },
         {
           "name": "c-breadcrumb-2",
@@ -1108,7 +1108,7 @@
           "description": "Breadcrumb with dropdown menu",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-2.jsx",
           "sha256": "17579790375797b2c4d40db1c9969485bc8ff40db2ea0dd660a9d3246e00816d",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-2"
+          "storyId": "core-breadcrumb--reui-breadcrumb-2"
         },
         {
           "name": "c-breadcrumb-3",
@@ -1116,7 +1116,7 @@
           "description": "Breadcrumb with Next.js link",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-3.jsx",
           "sha256": "0468a131475ad3ea095e711942bfbe3b71edb5fd72e2bdd2188b7cb6260757ed",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-3"
+          "storyId": "core-breadcrumb--reui-breadcrumb-3"
         },
         {
           "name": "c-breadcrumb-4",
@@ -1124,7 +1124,7 @@
           "description": "Breadcrumb with a custom slash separator",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-4.jsx",
           "sha256": "dbb33674346510f95a143b8e57bfd94da6c40d8134d98b792330a2b780136c05",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-4"
+          "storyId": "core-breadcrumb--reui-breadcrumb-4"
         },
         {
           "name": "c-breadcrumb-5",
@@ -1132,7 +1132,7 @@
           "description": "Breadcrumb with icons for each item",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-5.jsx",
           "sha256": "f369a3730b2e1ffc81f5e24347e71d747b1ea8ac8178b7937a293f4874550cc8",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-5"
+          "storyId": "core-breadcrumb--reui-breadcrumb-5"
         },
         {
           "name": "c-breadcrumb-6",
@@ -1140,7 +1140,7 @@
           "description": "Breadcrumb with ellipsis for long paths",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-6.jsx",
           "sha256": "c87dd97f6105fedbc9f1fb7f34bb2ca9538e43c31bc5f126c1eb4d5c92746fb7",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-6"
+          "storyId": "core-breadcrumb--reui-breadcrumb-6"
         },
         {
           "name": "c-breadcrumb-7",
@@ -1148,7 +1148,7 @@
           "description": "Breadcrumb items with avatars",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-7.jsx",
           "sha256": "b8bd1c47d162ab36472e3359ec809da86231955b7b7ff5e1e7591e682777c945",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-7"
+          "storyId": "core-breadcrumb--reui-breadcrumb-7"
         },
         {
           "name": "c-breadcrumb-8",
@@ -1156,7 +1156,7 @@
           "description": "Breadcrumb with double chevron separators",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-8.jsx",
           "sha256": "5180bc6001e8df7cce0b7b0858bb0e82c69770b23db039e2f4b6ccae77dd2bf9",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-8"
+          "storyId": "core-breadcrumb--reui-breadcrumb-8"
         },
         {
           "name": "c-breadcrumb-9",
@@ -1164,7 +1164,7 @@
           "description": "Breadcrumb inside card",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-9.jsx",
           "sha256": "f118d3af66ca19150cfef15be3eddcc3e853b8da86f85132b2c387b519c79b1d",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-9"
+          "storyId": "core-breadcrumb--reui-breadcrumb-9"
         },
         {
           "name": "c-breadcrumb-10",
@@ -1172,7 +1172,7 @@
           "description": "Pill-style breadcrumb inside frame",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-10.jsx",
           "sha256": "44b4298e7b87ecb19910d927226bc882550ad97f32f48cbf7fb65ef2e87e5d57",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-10"
+          "storyId": "core-breadcrumb--reui-breadcrumb-10"
         },
         {
           "name": "c-breadcrumb-11",
@@ -1180,7 +1180,7 @@
           "description": "Breadcrumb items containing badge with count",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-11.jsx",
           "sha256": "09f050ffdc7184ec84b32adca81e5e723bc4750eaceb19580c0b204e7291fe55",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-11"
+          "storyId": "core-breadcrumb--reui-breadcrumb-11"
         },
         {
           "name": "c-breadcrumb-12",
@@ -1188,7 +1188,7 @@
           "description": "Breadcrumb starting with home icon item",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-12.jsx",
           "sha256": "d6cc69d9483bf1321a06d21500f60297451850220b7b5e0d9b0c2026f267b5ba",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-12"
+          "storyId": "core-breadcrumb--reui-breadcrumb-12"
         },
         {
           "name": "c-breadcrumb-13",
@@ -1196,7 +1196,7 @@
           "description": "Breadcrumb with a custom separator",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-13.jsx",
           "sha256": "f840ddb8463c228373a78e4a7ae21897b4b519cb402f0f82bdab702be52e2877",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-13"
+          "storyId": "core-breadcrumb--reui-breadcrumb-13"
         },
         {
           "name": "c-breadcrumb-14",
@@ -1204,7 +1204,7 @@
           "description": "Button-style breadcrumb",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-14.jsx",
           "sha256": "4d78c066fc150c116f45c7f6dac3629e5b3b9b541d121635c867accee29504e7",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-14"
+          "storyId": "core-breadcrumb--reui-breadcrumb-14"
         },
         {
           "name": "c-breadcrumb-15",
@@ -1212,7 +1212,7 @@
           "description": "Breadcrumb with project, user and document info",
           "file": ".storybook/fixtures/reui/breadcrumb/c-breadcrumb-15.jsx",
           "sha256": "7ec48874a5bc2004b674161767689873ca78cb73633431c3cc8937afe4732124",
-          "storyId": "blocks-navigation-breadcrumb--reui-breadcrumb-15"
+          "storyId": "core-breadcrumb--reui-breadcrumb-15"
         }
       ]
     },
@@ -3242,14 +3242,6 @@
           "file": ".storybook/fixtures/reui/checkbox/c-checkbox-19.jsx",
           "sha256": "7c78000540d9dd71f6d7cb9c97218a5cb44754e6e3717b95ae3546efb2125017",
           "storyId": "core-checkbox--reui-checkbox-19"
-        },
-        {
-          "name": "c-checkbox-20",
-          "title": "Checkbox with label and tooltip info",
-          "description": "Checkbox with label and tooltip info",
-          "file": ".storybook/fixtures/reui/checkbox/c-checkbox-20.jsx",
-          "sha256": "e0cb25841d279d46e313e2b50f66797ee05dec2f32aedd63a03bfb224f0ba055",
-          "storyId": "core-checkbox--reui-checkbox-20"
         },
         {
           "name": "c-checkbox-21",
@@ -6161,7 +6153,7 @@
           "description": "Basic item with title and description",
           "file": ".storybook/fixtures/reui/item/c-item-1.jsx",
           "sha256": "367c868a7142cb062ce76b48c60462f6f8e8df19f737794092eaeb9c2cdac20a",
-          "storyId": "blocks-resourcelist--reui-item-1"
+          "storyId": "blocks-application-resourcelist--reui-item-1"
         },
         {
           "name": "c-item-2",
@@ -6169,7 +6161,7 @@
           "description": "Items with icon media and action buttons",
           "file": ".storybook/fixtures/reui/item/c-item-2.jsx",
           "sha256": "7b6b8646386dcada50abb1df1cbb1997fc06e7ef34615c77ccd52b98759a23ff",
-          "storyId": "blocks-resourcelist--reui-item-2"
+          "storyId": "blocks-application-resourcelist--reui-item-2"
         },
         {
           "name": "c-item-3",
@@ -6177,7 +6169,7 @@
           "description": "User item with avatar, info, and follow button",
           "file": ".storybook/fixtures/reui/item/c-item-3.jsx",
           "sha256": "f9afdfef4ec6aba00709a98bbbb79e652be2807617befe4bff4786562d32c86b",
-          "storyId": "blocks-resourcelist--reui-item-3"
+          "storyId": "blocks-application-resourcelist--reui-item-3"
         },
         {
           "name": "c-item-4",
@@ -6185,7 +6177,7 @@
           "description": "Clickable navigation items with icons and chevron",
           "file": ".storybook/fixtures/reui/item/c-item-4.jsx",
           "sha256": "2df03bc3860b8bb7d71384067670035787594c59b38434abb682c641576352b0",
-          "storyId": "blocks-resourcelist--reui-item-4"
+          "storyId": "blocks-application-resourcelist--reui-item-4"
         },
         {
           "name": "c-item-5",
@@ -6193,7 +6185,7 @@
           "description": "Item group with status badges",
           "file": ".storybook/fixtures/reui/item/c-item-5.jsx",
           "sha256": "e9ab05ae8913a7b67645032857d55dadb780c41d11fcb23da09a3e867c15c4ef",
-          "storyId": "blocks-resourcelist--reui-item-5"
+          "storyId": "blocks-application-resourcelist--reui-item-5"
         },
         {
           "name": "c-item-6",
@@ -6201,7 +6193,7 @@
           "description": "File items with icon media, size, and actions",
           "file": ".storybook/fixtures/reui/item/c-item-6.jsx",
           "sha256": "7fd049e6f85ae37083951ab5b5a9f9981aa2df56a9afe912040d237bc0ccffa6",
-          "storyId": "blocks-resourcelist--reui-item-6"
+          "storyId": "blocks-application-resourcelist--reui-item-6"
         },
         {
           "name": "c-item-7",
@@ -6209,7 +6201,7 @@
           "description": "Items with keyboard shortcuts",
           "file": ".storybook/fixtures/reui/item/c-item-7.jsx",
           "sha256": "aa146536f5cc4f65ca4dd5ce038495b8e38fb36b52b9a5b14c9b0d96c78a0814",
-          "storyId": "blocks-resourcelist--reui-item-7"
+          "storyId": "blocks-application-resourcelist--reui-item-7"
         },
         {
           "name": "c-item-8",
@@ -6217,7 +6209,7 @@
           "description": "Small-size items with badges",
           "file": ".storybook/fixtures/reui/item/c-item-8.jsx",
           "sha256": "8e210e8c83dbc87ad0fa78fa05774c732627fa9e7f4ed469809d126a184a2c44",
-          "storyId": "blocks-resourcelist--reui-item-8"
+          "storyId": "blocks-application-resourcelist--reui-item-8"
         },
         {
           "name": "c-item-9",
@@ -6225,7 +6217,7 @@
           "description": "Team members with roles and multiple actions",
           "file": ".storybook/fixtures/reui/item/c-item-9.jsx",
           "sha256": "ca40b88c53d8933ec7bb2d8ef53f94cd6d27793e070264362e4eb6160153f8e8",
-          "storyId": "blocks-resourcelist--reui-item-9"
+          "storyId": "blocks-application-resourcelist--reui-item-9"
         },
         {
           "name": "c-item-10",
@@ -6233,7 +6225,7 @@
           "description": "Item with header and footer sections",
           "file": ".storybook/fixtures/reui/item/c-item-10.jsx",
           "sha256": "13dd6c068e950424882f8d2a2ee288c667182e22f92cd7b767dc907f16792e8b",
-          "storyId": "blocks-resourcelist--reui-item-10"
+          "storyId": "blocks-application-resourcelist--reui-item-10"
         },
         {
           "name": "c-item-11",
@@ -6241,7 +6233,7 @@
           "description": "Integration items with connect actions",
           "file": ".storybook/fixtures/reui/item/c-item-11.jsx",
           "sha256": "4be1997087941964bb31c3e359bb1b5f71790468189be9c2e2118e3c7bcb0bed",
-          "storyId": "blocks-resourcelist--reui-item-11"
+          "storyId": "blocks-application-resourcelist--reui-item-11"
         },
         {
           "name": "c-item-12",
@@ -6249,7 +6241,7 @@
           "description": "Activity feed items with avatars and actions",
           "file": ".storybook/fixtures/reui/item/c-item-12.jsx",
           "sha256": "e3bc2cf20d09d1a1bba5a45a1aae86192e19ec85a536471111a41f255e8065ce",
-          "storyId": "blocks-resourcelist--reui-item-12"
+          "storyId": "blocks-application-resourcelist--reui-item-12"
         }
       ]
     },
@@ -6262,7 +6254,7 @@
           "description": "Kanban board with placeholder overlay",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-1.jsx",
           "sha256": "5369c39042631a28b3082ec21e3526bb3dd7db9ca23e0d07fbef97d14230c0d0",
-          "storyId": "blocks-kanbanboard--reui-kanban-1"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-1"
         },
         {
           "name": "c-kanban-2",
@@ -6270,7 +6262,7 @@
           "description": "Kanban board with dynamic overlay",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-2.jsx",
           "sha256": "c68b475b56d248fef7ebf1e2ee15a715a107c218b6c6f34c472daf6e71b163f9",
-          "storyId": "blocks-kanbanboard--reui-kanban-2"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-2"
         },
         {
           "name": "c-kanban-3",
@@ -6278,7 +6270,7 @@
           "description": "Kanban board with frame columns",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-3.jsx",
           "sha256": "94fe031d067e26e5eea353f639f71656e4cde8143ea60f8a3f2db2b6d4b97e66",
-          "storyId": "blocks-kanbanboard--reui-kanban-3"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-3"
         },
         {
           "name": "c-kanban-4",
@@ -6286,7 +6278,7 @@
           "description": "Minimal kanban with stacked frame",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-4.jsx",
           "sha256": "64d9f9247dc1aec2044b6c6fd334775e600b861afdb4a7a2c22aa5c764b12301",
-          "storyId": "blocks-kanbanboard--reui-kanban-4"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-4"
         },
         {
           "name": "c-kanban-5",
@@ -6294,7 +6286,7 @@
           "description": "Feature roadmap kanban with progress",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-5.jsx",
           "sha256": "0aa9ffde68fd16b7d720dd7df261b707d1d3d4c65e1200ab65fdd7955e292d09",
-          "storyId": "blocks-kanbanboard--reui-kanban-5"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-5"
         },
         {
           "name": "c-kanban-6",
@@ -6302,7 +6294,7 @@
           "description": "Persist moves with onValueCommit, optimistic updates, and Sonner rollback",
           "file": ".storybook/fixtures/reui/kanban/c-kanban-6.jsx",
           "sha256": "a6f383b781b9959e9bdbaa07a471233598ec8e0694b218da4a48ffa3d872b9a0",
-          "storyId": "blocks-kanbanboard--reui-kanban-6"
+          "storyId": "blocks-application-kanbanboard--reui-kanban-6"
         }
       ]
     },
@@ -6742,7 +6734,7 @@
           "description": "Basic navigation menu.",
           "file": ".storybook/fixtures/reui/navigation-menu/c-navigation-menu-1.jsx",
           "sha256": "eb4750a0c017728e03b69d697cff046472ce3ee752bef497d6b568e179ab573f",
-          "storyId": "blocks-navigation-navigation-menu--reui-navigation-menu-1"
+          "storyId": "core-navigationmenu--reui-navigation-menu-1"
         },
         {
           "name": "c-navigation-menu-2",
@@ -6750,7 +6742,7 @@
           "description": "Navigation menu with grid layout.",
           "file": ".storybook/fixtures/reui/navigation-menu/c-navigation-menu-2.jsx",
           "sha256": "53e73912dc53de824f285551dce58951c2a4c0a3d67099969201b3807bcd7d5a",
-          "storyId": "blocks-navigation-navigation-menu--reui-navigation-menu-2"
+          "storyId": "core-navigationmenu--reui-navigation-menu-2"
         },
         {
           "name": "c-navigation-menu-3",
@@ -6758,7 +6750,7 @@
           "description": "Navigation menu with icons.",
           "file": ".storybook/fixtures/reui/navigation-menu/c-navigation-menu-3.jsx",
           "sha256": "eb9e0552f75f6fd6022b813ae82688a8115ec1502a1c503bbfd00023eb915e96",
-          "storyId": "blocks-navigation-navigation-menu--reui-navigation-menu-3"
+          "storyId": "core-navigationmenu--reui-navigation-menu-3"
         },
         {
           "name": "c-navigation-menu-4",
@@ -6766,7 +6758,7 @@
           "description": "Navigation menu with grid layout and learn more button.",
           "file": ".storybook/fixtures/reui/navigation-menu/c-navigation-menu-4.jsx",
           "sha256": "3659aad74e95edd0fccf5613adeda41de76d28e6c6fa18c96df515ddbd3b2de7",
-          "storyId": "blocks-navigation-navigation-menu--reui-navigation-menu-4"
+          "storyId": "core-navigationmenu--reui-navigation-menu-4"
         }
       ]
     },
@@ -6832,7 +6824,7 @@
           "description": "Basic pagination.",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-1.jsx",
           "sha256": "4904bb24ac1b02723b4b9a4fda684bed3f549ca52371b99f235e8cbc45340087",
-          "storyId": "blocks-navigation-pagination--reui-pagination-1"
+          "storyId": "core-pagination--reui-pagination-1"
         },
         {
           "name": "c-pagination-2",
@@ -6840,7 +6832,7 @@
           "description": "Pagination without labels.",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-2.jsx",
           "sha256": "22f40f169cf62ff1264044036b751d0ad00a4443906411b39d7fb761fc5541ba",
-          "storyId": "blocks-navigation-pagination--reui-pagination-2"
+          "storyId": "core-pagination--reui-pagination-2"
         },
         {
           "name": "c-pagination-3",
@@ -6848,7 +6840,7 @@
           "description": "Pagination with hover effect.",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-3.jsx",
           "sha256": "ca9b1f585f0479043504f284b12dafe547f440529e76ed830bb749b5eb46692c",
-          "storyId": "blocks-navigation-pagination--reui-pagination-3"
+          "storyId": "core-pagination--reui-pagination-3"
         },
         {
           "name": "c-pagination-4",
@@ -6856,7 +6848,7 @@
           "description": "Pagination with circle buttons.",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-4.jsx",
           "sha256": "8078ffac8edd7c7431a36d56a672726df5fca6cbb3e43c626032bdf88b7820c2",
-          "storyId": "blocks-navigation-pagination--reui-pagination-4"
+          "storyId": "core-pagination--reui-pagination-4"
         },
         {
           "name": "c-pagination-5",
@@ -6864,7 +6856,7 @@
           "description": "Pagination with go-to-page input",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-5.jsx",
           "sha256": "75d0929f0c33c8adcdeeadc005d6d577b7f17a5bd6bc1f637b871dcfe6cba678",
-          "storyId": "blocks-navigation-pagination--reui-pagination-5"
+          "storyId": "core-pagination--reui-pagination-5"
         },
         {
           "name": "c-pagination-6",
@@ -6872,7 +6864,7 @@
           "description": "Numbered pagination in card",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-6.jsx",
           "sha256": "0b2765946f524b4d7c07fff165a25fc1b6bffa4879bce3d0dd7c3d34d863edb2",
-          "storyId": "blocks-navigation-pagination--reui-pagination-6"
+          "storyId": "core-pagination--reui-pagination-6"
         },
         {
           "name": "c-pagination-7",
@@ -6880,7 +6872,7 @@
           "description": "Pagination with arrows buttons",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-7.jsx",
           "sha256": "d86b6fa0dd33abe7dbd5bc722c73d1772d10306499975af058acc967d4e146ee",
-          "storyId": "blocks-navigation-pagination--reui-pagination-7"
+          "storyId": "core-pagination--reui-pagination-7"
         },
         {
           "name": "c-pagination-8",
@@ -6888,7 +6880,7 @@
           "description": "Pagination with page info on center",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-8.jsx",
           "sha256": "1dd9bf6d58265a5821951f7527493ca3c172e3d7bb3aaf3c497a2999644c77ff",
-          "storyId": "blocks-navigation-pagination--reui-pagination-8"
+          "storyId": "core-pagination--reui-pagination-8"
         },
         {
           "name": "c-pagination-9",
@@ -6896,7 +6888,7 @@
           "description": "Pagination with page info on left",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-9.jsx",
           "sha256": "fd24b5a539459eb294854945c81d9fed64fcdaa46bc54cbf80fd525dda7db20a",
-          "storyId": "blocks-navigation-pagination--reui-pagination-9"
+          "storyId": "core-pagination--reui-pagination-9"
         },
         {
           "name": "c-pagination-10",
@@ -6904,7 +6896,7 @@
           "description": "Pagination with ellipsis indicator",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-10.jsx",
           "sha256": "7e09872f8ab414b11b6431c02291074a23f1991fe4fd1363371dfc876d933946",
-          "storyId": "blocks-navigation-pagination--reui-pagination-10"
+          "storyId": "core-pagination--reui-pagination-10"
         },
         {
           "name": "c-pagination-11",
@@ -6912,7 +6904,7 @@
           "description": "Pagination with outline style buttons",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-11.jsx",
           "sha256": "a0a7ac71e66f90e5ac06baf5c0f8f254524cd1ed31dac10f17a1c4db1bbcb371",
-          "storyId": "blocks-navigation-pagination--reui-pagination-11"
+          "storyId": "core-pagination--reui-pagination-11"
         },
         {
           "name": "c-pagination-12",
@@ -6920,7 +6912,7 @@
           "description": "Rows per page select with range info and first/prev/next/last icons",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-12.jsx",
           "sha256": "ad7b80f97582080247df51d02b1a17521a1a5e250fd3317b19dabc13f35143bb",
-          "storyId": "blocks-navigation-pagination--reui-pagination-12"
+          "storyId": "core-pagination--reui-pagination-12"
         },
         {
           "name": "c-pagination-13",
@@ -6928,7 +6920,7 @@
           "description": "Pagination with page select dropdown and first/last navigation",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-13.jsx",
           "sha256": "29e4fc1e4ff5eec6b6e018c7924119d4e0769e3fa7d490c879509355546355a5",
-          "storyId": "blocks-navigation-pagination--reui-pagination-13"
+          "storyId": "core-pagination--reui-pagination-13"
         },
         {
           "name": "c-pagination-14",
@@ -6936,7 +6928,7 @@
           "description": "Numbered pagination with go-to-page input",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-14.jsx",
           "sha256": "11b1cd64b0d23f7537d84d39089546695cfc7c1ac8d2b7b3779b1eb9efde85aa",
-          "storyId": "blocks-navigation-pagination--reui-pagination-14"
+          "storyId": "core-pagination--reui-pagination-14"
         },
         {
           "name": "c-pagination-15",
@@ -6944,7 +6936,7 @@
           "description": "Pagination with page info, numbered pages, ellipsis, and per-page select",
           "file": ".storybook/fixtures/reui/pagination/c-pagination-15.jsx",
           "sha256": "4d0d6438d2e1798608daf93334e071838c31b0b82aff818729f1b887f6154c4c",
-          "storyId": "blocks-navigation-pagination--reui-pagination-15"
+          "storyId": "core-pagination--reui-pagination-15"
         }
       ]
     },
@@ -7977,7 +7969,7 @@
           "description": "Grouped navigation with count badges, row menus and a footer account menu.",
           "file": ".storybook/fixtures/reui/sidebar/c-sidebar-1.jsx",
           "sha256": "be6407c2b3b17c75c42a3864a622e5a691b12514cc36187323ec06cd55d55eca",
-          "storyId": "blocks-navigation-sidebar--reui-sidebar-1"
+          "storyId": "blocks-application-appshell--reui-sidebar-1"
         },
         {
           "name": "c-sidebar-2",
@@ -7985,7 +7977,7 @@
           "description": "Labels give way to tooltips at 3rem, with a rail and a trigger to drive it.",
           "file": ".storybook/fixtures/reui/sidebar/c-sidebar-2.jsx",
           "sha256": "b3d21d99ebec2bdd1ff0a0712bc9a075f77afe0b78eb2a9630d5dd3c56684052",
-          "storyId": "blocks-navigation-sidebar--reui-sidebar-2"
+          "storyId": "blocks-application-appshell--reui-sidebar-2"
         },
         {
           "name": "c-sidebar-3",
@@ -7993,7 +7985,7 @@
           "description": "A search field, sections that collapse and a sub-tree under the current page.",
           "file": ".storybook/fixtures/reui/sidebar/c-sidebar-3.jsx",
           "sha256": "1d846df25f179262493abf879ebf02049bed8cccc5605a8dbb215c681d856af2",
-          "storyId": "blocks-navigation-sidebar--reui-sidebar-3"
+          "storyId": "blocks-application-appshell--reui-sidebar-3"
         },
         {
           "name": "c-sidebar-4",
@@ -8001,7 +7993,7 @@
           "description": "A floating off-canvas panel with row actions, linked counts and a status badge.",
           "file": ".storybook/fixtures/reui/sidebar/c-sidebar-4.jsx",
           "sha256": "a469cde6c2be846eff2ebabc3afb9cda67c00abb2764aae700238969f3e442f3",
-          "storyId": "blocks-navigation-sidebar--reui-sidebar-4"
+          "storyId": "blocks-application-appshell--reui-sidebar-4"
         },
         {
           "name": "c-sidebar-5",
@@ -8009,7 +8001,7 @@
           "description": "A filter field, skeleton rows while a refresh runs, and a real empty state.",
           "file": ".storybook/fixtures/reui/sidebar/c-sidebar-5.jsx",
           "sha256": "b495fcd16f9d0a9f96421930d82ccd5df4c7a9589cd4ed9b7e1e9be1c5fb7921",
-          "storyId": "blocks-navigation-sidebar--reui-sidebar-5"
+          "storyId": "blocks-application-appshell--reui-sidebar-5"
         }
       ]
     },

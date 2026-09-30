@@ -9,7 +9,7 @@ import {
 } from '../../../../src/components/core/Card/parts/frame-extended.jsx';
 export function Pattern() {
   return (
-    <Frame className='w-full max-w-sm [--frame-radius:var(--radius-md)]'>
+    <Frame className='w-full max-w-sm'>
       <FrameHeader>
         <FrameTitle>Media Library</FrameTitle>
         <FrameDescription>Manage your assets and downloads</FrameDescription>
@@ -17,8 +17,7 @@ export function Pattern() {
       <FramePanel>
         <h2 className='text-sm font-semibold'>Storage Capacity</h2>
         <p className='text-ui-muted-foreground text-sm'>
-          Medium radius is a versatile middle ground between sharp and rounded
-          aesthetics.
+          Review storage usage and organize assets before uploading more files.
         </p>
       </FramePanel>
       <FrameFooter>

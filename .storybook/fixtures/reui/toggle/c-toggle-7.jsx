@@ -19,7 +19,7 @@ export function Pattern() {
             <Badge
               variant='destructive'
               size='xs'
-              className='absolute -top-2 -right-2 rounded-full!'
+              className='absolute -top-2 -right-2 rounded-control!'
             >
               3
             </Badge>

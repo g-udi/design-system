@@ -30,7 +30,7 @@ Eleven accordion patterns are available together in **Core / Accordion / Pattern
 | --- | --- |
 | Basic single expansion | Basic Disclosure · `variant='flush'` |
 | Plus / minus indicators | Plus Minus · `indicator='plus-minus'` |
-| Borders and rounded corners | Bordered Items · `variant='separated'` |
+| Individually bordered items | Bordered Items · `variant='separated'` |
 | Embedded in a Card | Inside Card · existing Card and panel actions |
 | Disabled items, highlighted state | Disabled And Highlighted · item `disabled`, root `highlight` |
 | Custom icons and badges | Icons And Badges · `leading`, `badge` |

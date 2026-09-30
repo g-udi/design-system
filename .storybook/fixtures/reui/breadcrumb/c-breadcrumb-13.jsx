@@ -9,7 +9,7 @@ import {
 } from '../../../../src/components/core/Breadcrumb/parts/breadcrumb.jsx';
 const BulletSeparator = () => {
   return (
-    <span className='bg-ui-foreground/30 inline-flex h-0.5 w-2 shrink-0 rounded-full' />
+    <span className='bg-ui-foreground/30 inline-flex h-0.5 w-2 shrink-0 rounded-control' />
   );
 };
 export function Pattern() {

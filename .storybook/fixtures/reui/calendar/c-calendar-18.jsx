@@ -33,11 +33,10 @@ export function Pattern() {
           className='p-0 [--cell-size:--spacing(9.5)]'
         />
       </CardContent>
-      <CardFooter className='flex flex-wrap gap-2 border-t'>
+      <CardFooter className='grid grid-cols-2 gap-2 border-t'>
         {[
           { label: 'Today', value: 0 },
           { label: 'Tomorrow', value: 1 },
-          { label: '3 days', value: 3 },
           { label: 'Week', value: 7 },
           { label: '2 weeks', value: 14 }
         ].map((preset) => (
@@ -45,7 +44,6 @@ export function Pattern() {
             key={preset.value}
             variant='outline'
             size='sm'
-            className='flex-1'
             onClick={() => {
               const newDate = addDays(/* @__PURE__ */ new Date(), preset.value);
               setDate(newDate);

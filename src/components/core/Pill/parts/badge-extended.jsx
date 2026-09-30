@@ -56,10 +56,10 @@ const badgeVariants = cva(
         lg: 'px-1.5 py-0.5 text-xs h-5.5 min-w-5.5 gap-1',
         xl: 'px-2 py-0.75 text-sm h-6 min-w-6 gap-1.5'
       },
-      /** `default`: active style radius. `full`: pill radius. */
+      /** Legacy radius names resolve to Gaudi's global corner token. */
       radius: {
         default: 'rounded-sm',
-        full: 'rounded-full'
+        full: 'rounded-control'
       }
     },
     defaultVariants: {

@@ -48,7 +48,7 @@ function CascaderNav({ className, asChild = false, children, ...props }) {
   );
 }
 function CascaderBack({ className, asChild = false, children, ...props }) {
-  const { popLevel, labels, mode } = useCascaderActions();
+  const { popLevel, labels, mode, disabled } = useCascaderActions();
   const { path } = useCascaderState();
   const hidden = mode !== 'drill' || path.length === 0;
   if (hidden) return null;
@@ -58,9 +58,10 @@ function CascaderBack({ className, asChild = false, children, ...props }) {
       data-slot='cascader-back'
       type='button'
       aria-label={labels.back}
+      disabled={disabled}
       onClick={() => popLevel()}
       className={cn(
-        'text-ui-muted-foreground hover:bg-ui-accent hover:text-ui-accent-foreground focus-visible:ring-ui-ring/50 flex shrink-0 items-center justify-center rounded-md outline-hidden transition-colors focus-visible:ring-2',
+        'text-ui-muted-foreground hover:bg-ui-accent hover:text-ui-accent-foreground focus-visible:ring-ui-ring/50 flex shrink-0 items-center justify-center rounded-md outline-hidden transition-colors focus-visible:ring-2 disabled:opacity-50',
         /* A notch under the row height: an affordance, not a second field. */
         'size-6',
         className
@@ -85,7 +86,7 @@ function CascaderBreadcrumb({
   children,
   ...props
 }) {
-  const { goToDepth, mode, labels } = useCascaderActions();
+  const { goToDepth, mode, labels, disabled } = useCascaderActions();
   const { path, index } = useCascaderState();
   const nodes = path.map((value) => index.byValue.get(value)).filter(Boolean);
   const segments = collapseCascaderPath(nodes, { maxSegments, collapse });
@@ -116,6 +117,7 @@ function CascaderBreadcrumb({
         <button
           type='button'
           data-slot='cascader-breadcrumb-item'
+          disabled={disabled}
           onClick={() => goTo(segment.node)}
           className='hover:text-ui-foreground focus-visible:ring-ui-ring/50 max-w-32 truncate rounded-sm outline-hidden transition-colors focus-visible:ring-2'
         >
@@ -144,6 +146,7 @@ function CascaderBreadcrumb({
     'aria-label': labels.breadcrumbLabel,
     className: cn(
       'text-ui-muted-foreground flex min-w-0 shrink-0 items-center gap-0.5 pt-1.5 pb-0.5 text-xs',
+      disabled && 'opacity-50',
       // Lines up with the ROWS, not the header: each style's list padding plus
       // its row inset. vega/mira/rhea `p-1`+`pl-2`, nova `p-1`+`pl-1.5`, maia
       // `p-1`+`pl-3`, lyra `pl-2`, luma/sera `p-1.5`+`pl-3`, per style-*.css.

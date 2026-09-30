@@ -300,23 +300,3 @@ export const RenderFunction = {
     await expect(args.onValueChange).toHaveBeenLastCalledWith(undefined);
   }
 };
-
-export const RightToLeft = {
-  parameters: { docs: { description: { story: 'Logical spacing and indicator position follow the reading direction supplied by the consumer.' } } },
-  render: () => (
-    <AccordionGroup
-      dir='rtl'
-      indicator='arrow'
-      indicatorPosition='start'
-      items={[
-        {
-          value: 'account',
-          title: 'إعدادات الحساب',
-          description: 'إدارة الملف الشخصي والإشعارات',
-          content: 'يمكنك تحديث اسمك وتفضيلات الإشعارات من إعدادات الحساب.'
-        },
-        { value: 'support', title: 'المساعدة والدعم', content: 'تواصل مع مسؤول مساحة العمل للحصول على المساعدة.' }
-      ]}
-    />
-  )
-};

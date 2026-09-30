@@ -61,7 +61,7 @@ const iconTileVariants = cva(
       radius: {
         default:
           '[--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))] [--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))]',
-        full: '[--icon-tile-radius:calc(infinity*1px)]'
+        full: '[--icon-tile-radius:var(--ds-radius-control)]'
       }
     },
     defaultVariants: {

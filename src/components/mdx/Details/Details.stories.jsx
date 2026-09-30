@@ -56,6 +56,9 @@ export const Playground = {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: args.title });
     await expect(trigger.parentElement.tagName).toBe('H2');
+    // The title renders once: the heading wraps the disclosure button.
+    await expect(canvas.getAllByText(args.title)).toHaveLength(1);
+    await expect(canvas.getByRole('heading', { level: 2 })).toHaveAccessibleName(args.title);
     await expect(canvas.queryByText(steps[0])).not.toBeInTheDocument();
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');

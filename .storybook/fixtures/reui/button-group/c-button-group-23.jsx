@@ -8,17 +8,17 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
     <ButtonGroup className='**:data-[slot=button]:border-0'>
-      <Button aria-label='Files'>
+      <Button>
         <RegistryIcon lucide='FileIcon' aria-hidden='true' />
         Files
       </Button>
       <ButtonGroupSeparator className='bg-ui-primary/72' />
-      <Button aria-label='Folder'>
+      <Button>
         <RegistryIcon lucide='FolderIcon' aria-hidden='true' />
         Folder
       </Button>
       <ButtonGroupSeparator className='bg-ui-primary/72' />
-      <Button aria-label='Trash'>
+      <Button>
         <RegistryIcon lucide='ImageIcon' aria-hidden='true' />
         Media
       </Button>

@@ -104,7 +104,7 @@ export function Pattern({
                   onClick={() => removeFile(fileItem.id)}
                   variant='outline'
                   size='icon'
-                  className='absolute -end-2 -top-2 size-5 rounded-full opacity-0 shadow-md transition-opacity group-hover/item:opacity-100'
+                  className='absolute -end-2 -top-2 size-5 rounded-control opacity-0 shadow-md transition-opacity group-hover/item:opacity-100'
                 >
                   <RegistryIcon lucide='XIcon' className='size-3' />
                 </Button>

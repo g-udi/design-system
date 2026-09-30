@@ -834,6 +834,9 @@ export const iconColors = {
 
 export const getIcon = (name) => iconRegistry[name] || null;
 
+// Solid brand glyphs (react-icons) are shapes, not strokes: a stroke width only bloats them.
+const filledIcons = new Set([ FaLinkedin, FaMedium, FaYoutube, HiSquare3Stack3D, RiMailOpenFill, RiTwitterXFill, VscGithub ]);
+
 const Icon = ({
   'aria-hidden': ariaHidden,
   className = '',
@@ -846,6 +849,7 @@ const Icon = ({
   name,
   rel,
   size = 'md',
+  strokeWidth,
   target,
   title,
   ...props
@@ -864,6 +868,7 @@ const Icon = ({
       aria-label={ !safeHref && !isDecorative ? accessibleLabel : undefined }
       role={ !safeHref && !isDecorative ? 'img' : undefined }
       className={ cn('shrink-0', iconSizes[size] || iconSizes.md, color ? iconColors[color] : undefined, className) }
+      { ...(strokeWidth === undefined || filledIcons.has(IconComponent) ? {} : { strokeWidth }) }
       { ...props }
     />
   );

@@ -4,6 +4,7 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Preview, { PreviewLoadingSkeleton } from './Preview';
+import { aurora } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('MDX/Preview');
 const link = (canvasElement, name) => within(canvasElement).findByRole('link', { name });
@@ -43,7 +44,7 @@ export const Playground = {
       siteName: 'assaf.website',
       description: 'Personal website and writing archive for Ahmad Assaf.',
       favicon: '/static/favicons/favicon-32x32.png',
-      image: '/static/images/og-card.jpg',
+      image: aurora,
       type: 'website',
       readingTime: '4 min read'
     },

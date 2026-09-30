@@ -41,6 +41,8 @@ const isExternal = (href) => /^(https?:)?\/\//i.test(href || '');
 
 export const Playground = {
   args: { children: 'Read the release notes', href: '/blog/gaudi-2', variant: 'inline', tone: 'blue' },
+  // `tone` only colours inline links, so its control appears only for that variant.
+  argTypes: { tone: { if: { arg: 'variant', eq: 'inline' } } },
   parameters: {
     docs: {
       description: { story: 'An article card mixing navigation, inline, external, and muted links. The inline link in the paragraph follows the controls; an external `href` adds a new-tab cue.' },
@@ -66,7 +68,7 @@ export const Playground = {
         </Link>.
       </p>
       <p className='m-0 text-xs text-text-muted'>
-        Updated 28 Sep 2026 · <Link href='#edit' variant='muted' tone='gray'>Edit this page</Link>
+        Updated 28 Sep 2026 · <Link href='#edit' variant='muted'>Edit this page</Link>
       </p>
     </article>
   ),
@@ -75,6 +77,7 @@ export const Playground = {
     await expect(element).toHaveAttribute('href', args.href);
     await expect(element).toBeVisible();
     if (args.variant === 'inline') await expect(element).toHaveClass(tones[args.tone]);
+    else await expect(element).not.toHaveClass(tones[args.tone]);
     if (isExternal(args.href)) await expect(element).toHaveAttribute('target', '_blank');
     else await expect(element).not.toHaveAttribute('target');
     await expect(link(canvasElement, 'source on GitHub')).toHaveAttribute('rel', 'noopener noreferrer');
@@ -105,18 +108,26 @@ export const LinkTypes = {
 };
 
 export const Variants = {
-  parameters: { docs: { description: { story: 'Use `inline` in prose, `muted` for secondary links, `nav` in navigation, and `bare` to inherit the parent color.' } } },
-  render: () => variants.map((variant) => <Link key={variant} href='/blog' variant={variant}>{variant}</Link>),
+  parameters: { docs: { description: { story: 'Use `inline` in prose, `muted` for secondary links, `nav` in navigation, and `bare` to inherit the parent color. Only `inline` takes a `tone`; the others ignore it.' } } },
+  render: () => (
+    <>
+      {variants.map((variant) => <Link key={variant} href='/blog' variant={variant}>{variant}</Link>)}
+      <Link href='/blog' variant='muted' tone='red'>muted tone</Link>
+    </>
+  ),
   play: async ({ canvasElement }) => {
     await expect(link(canvasElement, 'inline')).toHaveClass('font-medium', 'no-underline');
     await expect(link(canvasElement, 'muted')).toHaveClass('text-neutral-600');
-    await expect(link(canvasElement, 'nav')).toHaveClass('font-semibold');
+    await expect(link(canvasElement, 'nav')).toHaveClass('font-semibold', 'text-gray-900');
     await expect(link(canvasElement, 'bare')).toHaveClass('text-current');
+    // `tone` is ignored outside `inline`: each of these variants keeps its fixed colour.
+    await expect(link(canvasElement, 'muted tone')).toHaveClass('text-neutral-600');
+    await expect(link(canvasElement, 'muted tone')).not.toHaveClass(tones.red);
   }
 };
 
 export const Tones = {
-  parameters: { docs: { description: { story: '`tone` sets the color family of an `inline` link.' } } },
+  parameters: { docs: { description: { story: '`tone` sets the color family of an `inline` link. The other variants have fixed colors and ignore it.' } } },
   render: () => Object.keys(tones).map((tone) => <Link key={tone} href='/blog' tone={tone}>{tone}</Link>),
   play: async ({ canvasElement }) => {
     for (const [tone, className] of Object.entries(tones)) await expect(link(canvasElement, tone)).toHaveClass(className);

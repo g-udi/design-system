@@ -32,7 +32,7 @@ const Checkbox = ({ checked, className, defaultChecked = false, disabled = false
       >
         {isChecked ? <Icon name='Check' decorative size='xs' /> : null}
       </button>
-      {label ? <label htmlFor={ checkboxId } className='text-sm font-medium text-gray-800 dark:text-gray-200'>{label}</label> : null}
+      {label ? <label htmlFor={ checkboxId } className={ cn('text-sm font-medium text-gray-800 dark:text-gray-200', disabled && 'cursor-not-allowed opacity-50') }>{label}</label> : null}
     </span>
   );
 };

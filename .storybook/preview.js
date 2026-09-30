@@ -1,5 +1,6 @@
 import React from 'react';
 import 'storybook/internal/components';
+import { create } from 'storybook/theming';
 
 import './preview.css';
 
@@ -45,12 +46,13 @@ function makeFocusAccessorPrototypeSafe() {
 }
 
 const STORYBOOK_THEME_CLASSES = [ 'dark' ];
+const CORNER_RADII = [ '0px', '2px', '4px', '8px' ];
 const STORYBOOK_BACKGROUNDS = {
   'dark': tokenData.dsVariables.root['--ds-color-surface-dark'],
   'light': tokenData.dsVariables.root['--ds-color-surface']
 };
 
-function applyStorybookTheme(theme) {
+function applyStorybookTheme(theme, cornerRadius) {
   const isDark = theme === 'dark';
   const roots = [
     document.documentElement,
@@ -64,14 +66,15 @@ function applyStorybookTheme(theme) {
     if (isDark) root.classList.add('dark');
   });
 
+  document.documentElement.style.setProperty('--ds-radius', CORNER_RADII.includes(cornerRadius) ? cornerRadius : tokenData.dsVariables.root['--ds-radius']);
   document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
   document.body.style.backgroundColor = isDark ? STORYBOOK_BACKGROUNDS.dark : STORYBOOK_BACKGROUNDS.light;
 }
 
-function syncStorybookTheme(theme) {
-  applyStorybookTheme(theme);
-  window.requestAnimationFrame(() => applyStorybookTheme(theme));
-  window.setTimeout(() => applyStorybookTheme(theme), 0);
+function syncStorybookTheme(theme, cornerRadius) {
+  applyStorybookTheme(theme, cornerRadius);
+  window.requestAnimationFrame(() => applyStorybookTheme(theme, cornerRadius));
+  window.setTimeout(() => applyStorybookTheme(theme, cornerRadius), 0);
 }
 
 const preview = {
@@ -86,7 +89,7 @@ const preview = {
   },
   decorators: [
     (Story, context) => {
-      syncStorybookTheme(context.globals.theme);
+      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius);
       return React.createElement(
         ThemeProvider,
         { attribute: 'class', defaultTheme: context.globals.theme, enableSystem: false },
@@ -99,6 +102,21 @@ const preview = {
     }
   ],
   globalTypes: {
+    cornerRadius: {
+      name: 'Corners',
+      description: 'Global corner radius for elements. Accordion and text highlights stay square.',
+      toolbar: {
+        title: 'Corners',
+        icon: 'circlehollow',
+        items: [
+          { value: '0px', title: 'Square · 0px' },
+          { value: '2px', title: 'Subtle · 2px' },
+          { value: '4px', title: 'Soft · 4px' },
+          { value: '8px', title: 'Rounded · 8px' }
+        ],
+        dynamicTitle: true
+      }
+    },
     theme: {
       name: 'Theme',
       description: 'Switch the preview between light and dark themes.',
@@ -114,11 +132,13 @@ const preview = {
     }
   },
   initialGlobals: {
+    cornerRadius: tokenData.dsVariables.root['--ds-radius'],
     theme: import.meta.env.VITE_GAUDI_THEME || 'light'
   },
   loaders: [ makeFocusAccessorPrototypeSafe ],
   parameters: {
     docs: {
+      theme: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
       components: { Markdown: DocsMarkdown },
       page: ApplicationDocsPage
     },

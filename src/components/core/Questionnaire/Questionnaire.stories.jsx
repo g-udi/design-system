@@ -144,6 +144,10 @@ export const Playground = {
       // Hidden questions are inert, so the answer only resolves once its question is active.
       const answer = await waitFor(() => canvas.getByRole(question.multiple ? 'checkbox' : 'radio', { name: new RegExp(labelOf(question, question.pick)) }));
       await userEvent.click(answer);
+      // A checked radio shows only its dot and a checked checkbox only its check.
+      const choice = answer.closest('[data-slot="questionnaire-choice"]');
+      const shown = (slot) => choice.querySelector(`[data-slot="questionnaire-choice-indicator-${slot}"]`).checkVisibility();
+      await expect([shown('dot'), shown('check')]).toEqual(question.multiple ? [false, true] : [true, false]);
       if (index < questions.length - 1) {
         await userEvent.click(canvas.getByRole('button', { name: /^Next/ }));
         await expect(args.onItemChange).toHaveBeenLastCalledWith(names[index + 1]);

@@ -80,7 +80,7 @@ export function docsArgTypes(docs, controls) {
     const [, summary, defaultValue, description] = findPropRow(docs.props, name) || [];
     const [type, options] = Array.isArray(control) ? ['select', control] : [control];
     return [name, {
-      control: type,
+      control: name === 'radius' ? false : type,
       // A declared type lets Storybook accept the value from story URLs and args parsing.
       type: options ? { name: 'enum', value: options } : { name: controlTypes[type] || 'other' },
       description,

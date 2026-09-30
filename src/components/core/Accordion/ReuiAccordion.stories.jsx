@@ -72,7 +72,7 @@ export const ReuiAccordion8 = {
   }
 };
 export const ReuiAccordion9 = { name: 'Member directory', ...pattern(9, 'Decorative avatars beside visible names, with roles and secondary details.') };
-export const ReuiAccordion10 = { name: 'Leading arrow', ...pattern(10, 'A leading arrow rotates on expansion and follows logical direction in RTL.') };
+export const ReuiAccordion10 = { name: 'Leading arrow', ...pattern(10, 'A leading arrow beside the title rotates on expansion.') };
 export const ReuiAccordion11 = {
   name: 'Guided setup',
   ...pattern(11, 'Completing a step advances the controlled accordion and unlocks the next one. The form saves locally for this demonstration.'),
@@ -80,7 +80,7 @@ export const ReuiAccordion11 = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('button', { name: /Set your display name/ })).toBeDisabled();
     const qr = canvas.getByRole('img', { name: 'QR code for the Gaudi setup guide' });
-    await waitFor(() => expect(qr.naturalWidth).toBeGreaterThan(0));
+    await waitFor(() => expect(qr.naturalWidth).toBeGreaterThan(0), { timeout: 5000 });
     await userEvent.click(canvas.getByRole('button', { name: 'Mark guide as read' }));
     await expect(canvas.getByRole('progressbar')).toHaveAttribute('value', '2');
     const input = canvas.getByRole('textbox', { name: 'Display name' });

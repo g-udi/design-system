@@ -72,7 +72,7 @@ const usageExamples = {
   'MDX/FAQ': "<Faq questions={[\n  {\n    question: 'Why use FAQ blocks?',\n    answer: 'They structure repeated article answers.'\n  }\n]} />",
   'MDX/FileTree': "<FileTree data={[\n  { name: 'content', isFolder: true, childrenProp: [{ name: 'post.mdx' }] },\n  { name: 'package.json' }\n]} />",
   'MDX/Footnote': "Inline prose can use a normal markdown footnote reference.[^model-note]\n\n[^model-note]: This explanatory note can include links, emphasis, and short supporting context.\n\n<!-- Runtime wiring lives outside the post:\napp layout/page shell: <MDXLayoutRenderer ... />\narticle runtime: <Footnote />\n-->\n\n<!-- The blog pipeline generates anchors with data-footnote-popover, data-footnote-number, and data-footnote-content. -->",
-  'MDX/Video': "<Video\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Knowledge graph article video preview'\n  title='Knowledge graph walkthrough'\n/>",
+  'MDX/Video': "<Video\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Video preview'\n  title='Video walkthrough'\n/>",
   'MDX/GaudiBarLayout': '<GaudiBarLayout />',
   'MDX/Highlight': 'Use <Highlight>inline emphasis</Highlight> inside normal article prose.',
   'MDX/Image': "<Image\n  src='/static/images/posts/gaudi.svg'\n  fallback='/static/images/logo.svg'\n  darkSrc='/static/images/posts/gaudi-dark.svg'\n  alt='Gaudi diagram'\n  caption='Project architecture diagram.'\n  width={420}\n  height={260}\n/>",
@@ -150,6 +150,7 @@ const componentDocs = {
     'props': [
       [ 'blogLink', '{ href, title }', "{ href: '/blog', title: 'Blog' }", 'Explicit primary Blog destination rendered before its categories.' ],
       [ 'categories', 'Array<{ id, title, description }>', '[]', 'Blog category destinations and their supporting descriptions.' ],
+      [ 'container', 'HTMLElement', 'document.body', 'Element the dialog renders into and isolates, for example an embedded preview frame.' ],
       [ 'links', 'Array<{ href, title }>', '[]', 'Additional top-level destinations. No position carries special meaning.' ],
       [ 'setMobileMenuOpen', '(open: boolean) => void', '-', 'Closes the dialog after navigation, search launch, Escape, or the Close action.' ],
       [ 'setLauncherOpen', '(open: boolean) => void', '-', 'Opens the search launcher after the mobile dialog closes.' ]
@@ -274,24 +275,25 @@ const componentDocs = {
       [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Reusable visual treatment.' ],
       [ 'size', 'xs | sm | md | lg | icon | icon-xs | icon-sm | icon-lg', 'md', 'Compact heights: xs 24px, sm 28px, md/default 32px, lg 36px. Icon sizes match their text-button counterparts. Use matching sizes for controls in the same row.' ],
       [ 'tone', 'accent | neutral | success | warning | danger | attention | discovery | info', 'accent', 'Semantic meaning for the action. Legacy hue names remain supported as compatibility aliases.' ],
-      [ 'radius', 'sm | md | lg | full', 'md', 'Button corner radius.' ],
+      [ 'radius', 'sm | md | lg | full', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
       [ 'href', 'string', '-', 'Renders an internal Next link or safe external anchor.' ],
       [ 'disabled', 'boolean', 'false', 'Disables native buttons and removes disabled links from the tab order.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },
   'Core/DialogPortal': {
-    'accessibility': 'DialogPortal isolates body-level background siblings with inert and aria-hidden, locks body scroll by default, moves focus to initialFocusRef, and restores the previously focused trigger on unmount. The dialog content must provide role dialog, aria-modal, a readable name, Escape handling, and its own focus containment.',
+    'accessibility': 'DialogPortal isolates the other children of its container (the body by default) with inert and aria-hidden, locks container scroll by default, moves focus to initialFocusRef, and restores the previously focused trigger on unmount. The dialog content must provide role dialog, aria-modal, a readable name, Escape handling, and its own focus containment.',
     'decisionRules': [
       'Use DialogPortal only for modal content that must isolate the page behind it.',
       'Pass initialFocusRef to the safest action, usually Close or Cancel.',
       'Keep non-modal popovers and disclosures in normal document flow.'
     ],
-    'description': 'DialogPortal renders modal content at the document body and manages page isolation, scroll locking, initial focus, and focus restoration.',
+    'description': 'DialogPortal renders modal content at the document body, or a given container, and manages page isolation, scroll locking, initial focus, and focus restoration.',
     'props': [
-      [ 'children', 'ReactNode', '-', 'The labelled dialog surface rendered into the body-level portal.' ],
+      [ 'children', 'ReactNode', '-', 'The labelled dialog surface rendered into the portal.' ],
+      [ 'container', 'HTMLElement', 'document.body', 'Element the portal renders into; its other children are isolated and it stops scrolling.' ],
       [ 'initialFocusRef', 'RefObject<HTMLElement>', '-', 'Receives focus after the portal mounts.' ],
-      [ 'lockScroll', 'boolean', 'true', 'Locks body scrolling while the portal is mounted.' ],
+      [ 'lockScroll', 'boolean', 'true', 'Locks container scrolling while the portal is mounted.' ],
       [ 'restoreFocus', 'boolean', 'true', 'Returns focus to the previously focused connected element on unmount.' ]
     ],
     'recovery': [
@@ -314,7 +316,7 @@ const componentDocs = {
       [ 'children', 'ReactNode', '-', 'Body content, actions, or nested composition.' ],
       [ 'variant', 'elevated | outline | soft | flat', 'elevated', 'Container surface treatment.' ],
       [ 'padding', 'none | sm | md | lg', 'md', 'Internal spacing.' ],
-      [ 'radius', 'none | sm | md | lg', 'md', 'Corner radius.' ],
+      [ 'radius', 'none | sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
       [ 'interactive', 'boolean', 'false', 'Adds hover elevation for cards containing a real link or button.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, title, subtitle }', '-', 'Slot-level class overrides.' ]
@@ -542,7 +544,7 @@ const componentDocs = {
       [ 'ariaLabel', 'string', 'Carousel', 'Accessible name for the carousel region.' ],
       [ 'variant', 'standard | rail | apple', 'standard', 'Slide format. Use rail for editorial card rails; apple remains a legacy alias.' ],
       [ 'size', 'sm | md | lg', 'md', 'Controls max width and slide/card height.' ],
-      [ 'radius', 'none | sm | md | lg', 'lg', 'Slide/card corner radius.' ],
+      [ 'radius', 'none | sm | md | lg', 'lg', 'Legacy aliases use the global --ds-radius setting; none keeps square corners.' ],
       [ 'controls', 'boolean', 'true', 'Shows previous and next buttons.' ],
       [ 'loop', 'boolean', 'false', 'Wraps previous/next navigation.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
@@ -643,7 +645,7 @@ const componentDocs = {
       [ 'icon', 'ReactNode', '-', 'Optional GridItem icon content.' ],
       [ 'variant', 'elevated | outline | soft', 'elevated', 'GridItem surface treatment.' ],
       [ 'padding', 'sm | md | lg', 'md', 'GridItem internal spacing.' ],
-      [ 'radius', 'sm | md | lg', 'md', 'GridItem corner radius.' ],
+      [ 'radius', 'sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default).' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, title, description }', '-', 'GridItem slot overrides.' ]
     ]
@@ -664,7 +666,7 @@ const componentDocs = {
       [ 'decorative', 'boolean', 'false', 'Hides the SVG from assistive technology when the icon is visual only.' ],
       [ 'size', 'xs | sm | md | lg | xl | 2xl | number', 'md', 'Controls icon dimensions.' ],
       [ 'color', 'neutral | muted | primary | info | success | warning | danger | attention | blue | teal | green | amber | yellow | red | rose | dim', 'currentColor', 'Token color shortcut.' ],
-      [ 'strokeWidth', 'number', 'icon default', 'Adjusts line icon stroke width when the registry entry supports it.' ],
+      [ 'strokeWidth', 'number', 'icon default', 'Adjusts line icon stroke width. Filled brand icons such as Github ignore it.' ],
       [ 'active', 'boolean (AnimatedIcon)', 'false', 'Starts motion when the host is active and visible. Reduced motion and hidden documents keep the resting artwork.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
@@ -687,8 +689,8 @@ const componentDocs = {
       [ 'children', 'ReactNode', '-', 'Visible link label.' ],
       [ 'href', 'internal | anchor | external URL', '-', 'Internal routes use Next Link; anchors and external URLs use native anchors.' ],
       [ 'prefetch', 'boolean', 'true', 'Next.js prefetch behavior for internal links.' ],
-      [ 'variant', 'inline | muted | nav | bare', 'inline', 'Text link style.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'neutral', 'Color family. Default is black/gray and turns blue on hover.' ],
+      [ 'variant', 'inline | muted | nav | bare', 'inline', 'Text link style: inline takes tone, muted is secondary gray, nav is strong gray turning blue on hover, bare inherits the parent color.' ],
+      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'neutral', 'Color family of the inline variant. Default is black/gray and turns blue on hover. muted, nav, and bare have fixed colors and ignore tone.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },
@@ -740,7 +742,7 @@ const componentDocs = {
       [ 'size', 'xs | sm | md | lg', 'md', 'Controls padding and text size.' ],
       [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Semantic tone alias mapped through Gaudi tokens rather than raw palette utilities.' ],
       [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Visual treatment.' ],
-      [ 'radius', 'sm | md | full', 'sm', 'Corner radius.' ],
+      [ 'radius', 'sm | md | full', 'sm', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
       [ 'href', 'string', '-', 'Renders the pill as a navigation link.' ],
       [ 'icon', 'ReactNode', '-', 'Decorative leading icon.' ],
       [ 'pulse', 'boolean', 'false', 'Adds a pulsing status dot.' ],
@@ -791,7 +793,7 @@ const componentDocs = {
   },
   'Core/Skeleton': {
     'accessibility': 'Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement.',
-    'description': 'Skeleton renders non-semantic loading placeholders.',
+    'description': 'Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes.',
     'props': [
       [ 'className', 'string', '-', 'Defines shape, width, height, radius, and layout placement.' ]
     ]
@@ -831,7 +833,7 @@ const componentDocs = {
       [ 'promptSymbol', 'string', '$', 'Prompt separator.' ],
       [ 'variant', 'dark | light | translucent', 'dark', 'Terminal surface treatment.' ],
       [ 'size', 'sm | md | lg', 'md', 'Controls max width, body height, and text size.' ],
-      [ 'radius', 'none | sm | md | lg', 'lg', 'Terminal corner radius.' ],
+      [ 'radius', 'none | sm | md | lg', 'lg', 'Legacy aliases use the global --ds-radius setting; none keeps square corners.' ],
       [ 'showHeader', 'boolean', 'true', 'Shows mac window controls and title.' ],
       [ 'animate', 'boolean', 'true', 'Types commands over time unless reduced motion is preferred.' ],
       [ 'typingSpeed', 'number', '35', 'Milliseconds between typed characters.' ],
@@ -849,7 +851,7 @@ const componentDocs = {
       [ 'children', 'ReactNode', '-', 'Inline text to emphasize.' ],
       [ 'variant', 'marker | soft | underline', 'marker', 'Highlight treatment.' ],
       [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Color family.' ],
-      [ 'radius', 'none | sm | md', 'sm', 'Corner radius for filled variants.' ],
+      [ 'radius', 'none | sm | md', 'sm', 'Legacy aliases remain supported; highlights always have square edges.' ],
       [ 'animate', 'boolean', 'true', 'Enables the marker draw animation.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]

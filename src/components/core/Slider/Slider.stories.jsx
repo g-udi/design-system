@@ -94,6 +94,11 @@ export const Playground = {
     await expect(canvas.getByRole('slider', { name: `${priceLabel} 1` })).toHaveAttribute('aria-valuenow', String(low));
     await expect(canvas.getByRole('slider', { name: `${priceLabel} 2` })).toHaveAttribute('aria-valuenow', String(high));
     await expect(canvas.getByText(formatPrice([low, high]))).toBeVisible();
+    // The unfilled track uses the border token, so it stays visible on the page surface.
+    const track = slider.closest('[data-slot="slider"]').querySelector('[data-slot="slider-track"]');
+    const token = track.appendChild(Object.assign(document.createElement('span'), { style: 'background: var(--ds-color-border)' }));
+    await expect(getComputedStyle(track).backgroundColor).toBe(getComputedStyle(token).backgroundColor);
+    token.remove();
     if (args.disabled) {
       for (const root of canvasElement.querySelectorAll('[data-slot="slider"]')) await expect(root).toHaveAttribute('data-disabled');
       return;

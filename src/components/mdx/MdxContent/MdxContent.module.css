@@ -116,7 +116,7 @@
 .root :global(a.citation-link.citation-group span) {
   align-items: center;
   background: var(--ds-color-citation-badge-bg);
-  border-radius: 50%;
+  border-radius: var(--ds-radius-pill);
   box-sizing: border-box;
   color: var(--ds-color-citation-badge-text);
   cursor: pointer;

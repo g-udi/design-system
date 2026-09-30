@@ -22,7 +22,7 @@ test('component docs and all extended avatar examples stay together', () => {
   const avatar = filterCatalogue(owners, {owner:'Core/Avatar'});
   assert.equal(avatar.length, 1);
   assert.equal(avatar[0].docs, 'core-avatar--docs');
-  assert.equal(avatar[0].examples.length, 43);
+  assert.equal(avatar[0].examples.length, 42);
   assert.ok(avatar[0].examples.some(example => example.id === 'core-avatar--playground'));
 });
 
@@ -38,9 +38,24 @@ test('every curated example participates in its owner documentation page', () =>
 });
 
 test('original component documentation owns merged pages', () => {
-  for (const name of ['Select', 'Skeleton', 'Spinner', 'Switch', 'Button', 'Avatar']) {
+  for (const name of ['Select', 'Skeleton', 'Spinner', 'Switch', 'Button', 'Avatar', 'Breadcrumb', 'Pagination', 'NavigationMenu']) {
     const docs = index.entries[`core-${name.toLowerCase()}--docs`];
     assert.ok(docs.importPath.endsWith(`/${name}.stories.jsx`), docs.importPath);
+  }
+  // Catalogues share their owner's title, so each component has exactly one docs page.
+  const merged = {
+    'core-breadcrumb--reui-breadcrumb-1': 'Core/Breadcrumb',
+    'core-pagination--reui-pagination-1': 'Core/Pagination',
+    'core-navigationmenu--reui-navigation-menu-1': 'Core/NavigationMenu',
+    'blocks-application-kanbanboard--reui-kanban-1': 'Blocks/Application/KanbanBoard',
+    'blocks-application-resourcelist--reui-item-1': 'Blocks/Application/ResourceList',
+    'blocks-application-appshell--reui-sidebar-1': 'Blocks/Application/AppShell'
+  };
+  for (const [id, title] of Object.entries(merged)) assert.equal(index.entries[id]?.title, title, id);
+  const docsTitles = Object.values(index.entries).filter(entry => entry.type === 'docs').map(entry => entry.title);
+  assert.equal(new Set(docsTitles).size, docsTitles.length);
+  for (const title of ['Blocks/KanbanBoard', 'Blocks/ResourceList', 'Blocks/Navigation/Sidebar', 'Blocks/Navigation/Breadcrumb', 'Blocks/Navigation/Pagination', 'Blocks/Navigation/Navigation Menu']) {
+    assert.ok(!docsTitles.includes(title), `Stale catalogue page: ${title}`);
   }
 });
 

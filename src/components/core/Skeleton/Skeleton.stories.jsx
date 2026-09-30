@@ -9,10 +9,20 @@ const docs = getComponentDocs('Core/Skeleton');
 // Comment rows under the article: each second line has its own width so the list reads as text.
 const comments = ['w-5/6', 'w-2/3', 'w-3/4'];
 const placeholders = (canvasElement) => [...canvasElement.querySelectorAll('[aria-hidden="true"]')];
+const borderColor = (element) => {
+  const probe = element.ownerDocument.createElement('span');
+  probe.style.backgroundColor = 'var(--ds-color-border)';
+  element.parentElement.append(probe);
+  const color = getComputedStyle(probe).backgroundColor;
+  probe.remove();
+  return color;
+};
 const expectDecorative = async (elements) => {
   for (const element of elements) {
     await expect(element).not.toHaveAccessibleName();
     await expect(getComputedStyle(element).animationName).not.toBe('none');
+    // Blocks use the theme border token so they read on light and dark surfaces.
+    await expect(getComputedStyle(element).backgroundColor).toBe(borderColor(element));
   }
 };
 
@@ -35,7 +45,7 @@ export const Playground = {
   args: { className: 'aspect-video w-full rounded-xl' },
   parameters: {
     docs: {
-      description: { story: 'An article page while it loads: a cover, headline, and body lines beside a comment list with avatars. `className` shapes the cover, so try `size-24 rounded-full` or `h-40 w-2/3`.' },
+      description: { story: 'An article page while it loads: a cover, headline, and body lines beside a comment list with avatars. Skeletons are hidden from assistive technology, so the page is a labelled busy region with screen-reader text that names what is loading. `className` shapes the cover, so try `size-24 rounded-control` or `h-40 w-2/3`.' },
       source: playgroundSource('Skeleton', {
         imports: "import { Skeleton } from '@gaudi/design-system';",
         before: "<section aria-label='Latest article' aria-busy='true' className='grid gap-3'>\n  <span role='status' className='sr-only'>Loading the latest article</span>\n  ",
@@ -72,28 +82,8 @@ export const Playground = {
     await expect(rest).toHaveLength(3 + comments.length * 3);
     await expect(cover.getBoundingClientRect().width).toBeGreaterThan(0);
     await expect(cover.getBoundingClientRect().height).toBeGreaterThan(0);
-    await expect(within(canvasElement).getByRole('status')).toHaveTextContent('Loading the latest article');
-  }
-};
-
-export const LoadingRegion = {
-  parameters: { docs: { description: { story: 'Skeletons are hidden from assistive technology, so wrap them in a labelled busy region with screen-reader text that names what is loading.' } } },
-  render: () => (
-    <section aria-label='Latest articles' aria-busy='true' className='grid gap-3'>
-      <span role='status' className='sr-only'>Loading latest articles</span>
-      <Skeleton className='h-5 w-2/3' />
-      <Skeleton className='h-4 w-full' />
-      <Skeleton className='h-4 w-5/6' />
-    </section>
-  ),
-  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const lines = placeholders(canvasElement);
-    await expect(canvas.getByRole('region', { name: 'Latest articles' })).toHaveAttribute('aria-busy', 'true');
-    await expect(canvas.getByRole('status')).toHaveTextContent('Loading latest articles');
-    await expect(lines).toHaveLength(3);
-    await expectDecorative(lines);
-    await expect(lines[0].getBoundingClientRect().height).toBeGreaterThan(lines[1].getBoundingClientRect().height);
-    await expect(lines[1].getBoundingClientRect().width).toBeGreaterThan(lines[2].getBoundingClientRect().width);
+    await expect(canvas.getByRole('region', { name: 'Latest article' })).toHaveAttribute('aria-busy', 'true');
+    await expect(canvas.getByRole('status')).toHaveTextContent('Loading the latest article');
   }
 };

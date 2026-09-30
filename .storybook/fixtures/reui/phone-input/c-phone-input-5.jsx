@@ -1,5 +1,19 @@
 // Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+'use client';
+import { useState } from 'react';
 import { PhoneInput } from '../../../../src/components/core/PhoneInput/parts/phone-input-extended.jsx';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 export function Pattern() {
-  return <PhoneInput value='+12125551234' placeholder='Enter phone number' />;
+  const [phone, setPhone] = useState('+12125551234');
+  return (
+    <div className='mx-auto grid w-full max-w-xs gap-1.5'>
+      <Label htmlFor='phone-preset'>Phone number</Label>
+      <PhoneInput
+        id='phone-preset'
+        placeholder='Enter phone number'
+        value={phone}
+        onChange={setPhone}
+      />
+    </div>
+  );
 }

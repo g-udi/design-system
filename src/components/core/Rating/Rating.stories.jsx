@@ -86,6 +86,7 @@ export const Playground = {
     await expect(stars(group)).toHaveLength(args.maxRating);
     await expect(canvasElement.querySelectorAll('[data-slot="rating-value"]')).toHaveLength(args.showValue ? categories.length + 1 : 0);
     await expect(within(group).getByText(hint(args.editable, args.rating, args.maxRating))).toBeVisible();
+    await expect(within(canvasElement).getByRole('img', { name: 'Rated 4.6 out of 5' })).toBeVisible();
     if (!args.editable) return;
     await userEvent.click(stars(group)[args.maxRating - 1]);
     await expect(args.onRatingChange).toHaveBeenLastCalledWith(args.maxRating);
@@ -94,5 +95,17 @@ export const Playground = {
     if (args.showValue) {
       await expect(within(group).getByText(args.maxRating.toFixed(1))).toBeVisible();
     }
+    // Keyboard: the radio group follows the roving-tabindex pattern.
+    const radio = (count) => within(group).getByRole('radio', { name: `${count} star${count === 1 ? '' : 's'}` });
+    await userEvent.keyboard('{Home}');
+    await expect(args.onRatingChange).toHaveBeenLastCalledWith(1);
+    await userEvent.keyboard('{ArrowRight}');
+    await expect(args.onRatingChange).toHaveBeenLastCalledWith(2);
+    await expect(radio(2)).toHaveFocus();
+    await expect(radio(2)).toHaveAttribute('aria-checked', 'true');
+    await expect(radio(2)).toHaveAttribute('tabindex', '0');
+    await expect(radio(1)).toHaveAttribute('tabindex', '-1');
+    await userEvent.keyboard('{End}');
+    await expect(args.onRatingChange).toHaveBeenLastCalledWith(args.maxRating);
   }
 };

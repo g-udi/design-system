@@ -49,7 +49,7 @@ export function Pattern() {
               <ItemActions>
                 <Badge
                   variant='success-light'
-                  className='rounded-full'
+                  className='rounded-control'
                   size='xs'
                 >
                   {item.count}

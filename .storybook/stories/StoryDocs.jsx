@@ -115,7 +115,7 @@ export const Stat = ({ label, value }) => (
 export const PrincipleCard = ({ description, number, title }) => (
   <div className='space-y-3 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900'>
     <div className='flex items-center gap-3'>
-      <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300'>{number}</span>
+      <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-control bg-blue-50 text-xs font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300'>{number}</span>
       <h3 className='text-sm font-bold text-gray-900 dark:text-white'>{title}</h3>
     </div>
     <p className='text-xs leading-6 text-gray-600 dark:text-gray-300'><InlineText>{description}</InlineText></p>

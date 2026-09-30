@@ -1,5 +1,5 @@
 import { useId, useRef } from 'react';
-import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
+import { expect, fn, spyOn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -25,7 +25,7 @@ function ScrollspyExample({ offset, ...args }) {
   const id = (title) => `${prefix}-${title.toLowerCase()}`;
   return (
     <div className='flex gap-3'>
-      <Scrollspy targetRef={targetRef} offset={offset} history={false} className='flex w-32 shrink-0 flex-col gap-0.5 border-s border-ui-border text-sm sm:w-40' {...args}>
+      <Scrollspy targetRef={targetRef} offset={offset} className='flex w-32 shrink-0 flex-col gap-0.5 border-s border-ui-border text-sm sm:w-40' {...args}>
         {sections.map(({ title, icon }) => (
           <button
             key={title}
@@ -82,7 +82,7 @@ export const Playground = {
       source: playgroundSource('Scrollspy', {
         imports: "import { useRef } from 'react';\nimport { ScrollArea, Scrollspy } from '@gaudi/design-system';",
         before: 'const targetRef = useRef(null);\n\n',
-        attributes: ['targetRef={targetRef}', 'history={false}'],
+        attributes: ['targetRef={targetRef}'],
         children: "  <button data-scrollspy-anchor='overview'>Overview</button>\n  <button data-scrollspy-anchor='usage'>Usage</button>",
         after: "\n\n<div ref={targetRef}>\n  <ScrollArea className='h-72'>\n    <header className='sticky top-0'>Guide</header>\n    <section id='overview'>…</section>\n    <section id='usage'>…</section>\n  </ScrollArea>\n</div>"
       })
@@ -94,7 +94,13 @@ export const Playground = {
     const anchor = (name) => canvas.getByRole('button', { name });
     const viewport = canvas.getByRole('region', { name: 'Guide' });
     await waitFor(() => expect(anchor(titles[0])).toHaveAttribute('data-active', 'true'));
+    const url = window.location.href;
+    const scrollTo = spyOn(viewport, 'scrollTo');
     await userEvent.click(anchor('Usage'));
+    // One click runs one handler, and `history` is opt-in, so the page URL is untouched.
+    await expect(scrollTo).toHaveBeenCalledTimes(1);
+    scrollTo.mockRestore();
+    await expect(window.location.href).toBe(url);
     await waitFor(() => expect(anchor('Usage')).toHaveAttribute('data-active', 'true'));
     await expect(anchor(titles[0])).not.toHaveAttribute('data-active');
     await expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor);

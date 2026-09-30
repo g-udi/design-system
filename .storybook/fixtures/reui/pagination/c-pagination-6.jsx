@@ -23,7 +23,7 @@ export function Pattern() {
                 href='#'
                 size='icon'
                 aria-label='Go to previous page'
-                className='hover:bg-ui-muted h-8 w-8 rounded-full'
+                className='hover:bg-ui-muted h-8 w-8 rounded-control'
               >
                 <RegistryIcon lucide='ChevronLeftIcon' className='size-4' />
               </PaginationLink>
@@ -61,7 +61,7 @@ export function Pattern() {
                 href='#'
                 size='icon'
                 aria-label='Go to next page'
-                className='hover:bg-ui-muted h-8 w-8 rounded-full'
+                className='hover:bg-ui-muted h-8 w-8 rounded-control'
               >
                 <RegistryIcon lucide='ChevronRightIcon' className='size-4' />
               </PaginationLink>

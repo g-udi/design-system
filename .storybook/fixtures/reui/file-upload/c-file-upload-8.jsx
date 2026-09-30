@@ -296,7 +296,7 @@ export function Pattern({
                     aria-label='Reorder'
                     variant='outline'
                     size='icon'
-                    className='size-6 rounded-full dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                    className='size-6 rounded-control dark:bg-zinc-800 hover:dark:bg-zinc-700'
                   >
                     <RegistryIcon
                       lucide='GripVerticalIcon'
@@ -311,7 +311,7 @@ export function Pattern({
                   onClick={() => removeImage(item.id)}
                   variant='outline'
                   size='icon'
-                  className='absolute end-2 top-2 size-6 rounded-full opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                  className='absolute end-2 top-2 size-6 rounded-control opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
                 >
                   <RegistryIcon lucide='XIcon' className='size-3.5' />
                 </Button>

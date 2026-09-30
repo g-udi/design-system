@@ -50,7 +50,7 @@ export const Playground = {
   args: { columns: '3', gap: 'md', variant: 'elevated', padding: 'md', radius: 'lg' },
   parameters: {
     docs: {
-      description: { story: 'A product overview: six cards with icons, two with header media. `columns` and `gap` shape the grid; `variant`, `padding`, and `radius` restyle every `GridItem`.' },
+      description: { story: 'A product overview: six cards with icons, two with header media. `columns` and `gap` shape the grid; `variant` and `padding` restyle every `GridItem`.' },
       source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => gridSource(args) }
     }
   },

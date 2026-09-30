@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/kanban/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/KanbanBoard', tags: ['autodocs'], ...catalogueMeta('kanban') };
+export default { title: 'Blocks/Application/KanbanBoard', tags: ['autodocs'], ...catalogueMeta('kanban') };
 
 export const ReuiKanban1 = { name: 'Placeholder drag overlay', ...pattern(1) };
 export const ReuiKanban2 = { name: 'Dynamic drag overlay', ...pattern(2) };

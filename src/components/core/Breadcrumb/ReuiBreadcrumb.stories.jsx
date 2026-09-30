@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/breadcrumb/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/Navigation/Breadcrumb', tags: ['autodocs'], ...catalogueMeta('breadcrumb') };
+export default { title: 'Core/Breadcrumb', tags: ['autodocs'], ...catalogueMeta('breadcrumb') };
 
 export const ReuiBreadcrumb1 = { name: 'Basic', ...pattern(1) };
 export const ReuiBreadcrumb2 = { name: 'With dropdown menu', ...pattern(2) };

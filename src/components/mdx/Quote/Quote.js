@@ -48,7 +48,7 @@ const Quote = ({ author, title, image, imageAlt, text }) => (
     </blockquote>
     {(author || title || image) ? (
       <figcaption className='mt-6 flex items-center justify-center space-x-3 rtl:space-x-reverse'>
-        { image ? <Image className='h-6 w-6 rounded-full' src={ image } alt={ imageAlt || (author ? `${author} portrait` : '') } /> : null }
+        { image ? <Image className='h-6 w-6 rounded-control' src={ image } alt={ imageAlt || (author ? `${author} portrait` : '') } /> : null }
         <div className='flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700 rtl:divide-x-reverse'>
           {author ? <cite className='pe-3 font-medium text-gray-900 dark:text-white'>{author}</cite> : null}
           {title ? <span className='ps-3 text-sm text-gray-500 dark:text-gray-400'>{title}</span> : null}

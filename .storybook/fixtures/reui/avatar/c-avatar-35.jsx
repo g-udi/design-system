@@ -22,7 +22,7 @@ export function Pattern() {
         <Button
           variant='outline'
           size='sm'
-          className='rounded-full h-8 gap-1.5 pr-2.5 pl-1'
+          className='rounded-control h-8 gap-1.5 pr-2.5 pl-1'
         >
           <Avatar className='border-ui-background size-6 border'>
             <AvatarImage

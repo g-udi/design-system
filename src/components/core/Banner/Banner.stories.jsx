@@ -69,25 +69,15 @@ export const Playground = {
     await expect(release).toHaveClass(...bannerVariants({ size, tone, variant }).split(' '));
     await expect(release).toHaveTextContent(args.title);
     if (args.href) {
-      await expect(within(release).getByRole('link')).toHaveAttribute('href', args.href);
+      const link = within(release).getByRole('link');
+      await expect(link).toHaveAttribute('href', args.href);
+      await expect(link).toHaveTextContent('→');
       await expect(release).not.toHaveAttribute('role');
     } else {
       await expect(release).toHaveAttribute('role', 'status');
       await expect(within(release).queryByRole('link')).not.toBeInTheDocument();
     }
     for (const notice of notices) await expect(bannerRoot(canvas, notice)).toHaveClass(...bannerVariants({ ...notice, size }).split(' '));
-  }
-};
-
-export const Linked = {
-  parameters: { docs: { description: { story: '`href` turns the copy into one link named "title: body"; the banner drops its status role.' } } },
-  render: () => <Banner {...sample} href='/blog' />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link', { name: `${sample.title}: ${sample.children}` });
-    await expect(link).toHaveAttribute('href', '/blog');
-    await expect(link).toHaveTextContent('→');
-    await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
   }
 };
 

@@ -4,22 +4,15 @@ import { cn } from '../../../../utilities/cn/index.js';
 const frameVariants = cva(
   [
     'relative flex flex-col bg-ui-muted/50 gap-(--frame-gap) px-(--frame-px) py-(--frame-py) rounded-(--frame-radius)',
-    // Each rung is the radius that style's own .ds-part-card resolves through, so a
-    // Frame and a Card side by side agree. lyra/sera are 0px, NOT
-    // var(--radius-none): no such token exists, and it only reached 0 by being
-    // invalid, which also left --frame-radius empty for anything reading it.
-    '[--frame-radius:var(--radius-xl)]',
+    '[--frame-radius:var(--ds-radius-card)]',
     '[--frame-gap:--spacing(0.75)] [--frame-px:--spacing(0.75)] [--frame-py:--spacing(0.75)] [--frame-panel-header-gap:0rem] [--frame-panel-footer-gap:--spacing(1)]',
     '[--frame-panel-px-adjust:0px] [--frame-panel-py-adjust:0px] [--frame-panel-header-px-adjust:0px] [--frame-panel-header-py-adjust:0px] [--frame-panel-footer-px-adjust:0px] [--frame-panel-footer-py-adjust:0px]',
     '[--frame-panel-px:calc(var(--frame-panel-px-base)+var(--frame-panel-px-adjust))] [--frame-panel-py:calc(var(--frame-panel-py-base)+var(--frame-panel-py-adjust))] [--frame-panel-header-px:calc(var(--frame-panel-header-px-base)+var(--frame-panel-header-px-adjust))] [--frame-panel-header-py:calc(var(--frame-panel-header-py-base)+var(--frame-panel-header-py-adjust))] [--frame-panel-footer-px:calc(var(--frame-panel-footer-px-base)+var(--frame-panel-footer-px-adjust))] [--frame-panel-footer-py:calc(var(--frame-panel-footer-py-base)+var(--frame-panel-footer-py-adjust))]',
     // Luma alone re-times the frame: wider gap and padding, roomier bars.
     '',
     '[--frame-panel-bg:var(--ds-color-surface)] [--frame-panel-border-color:var(--ds-color-border)] [--frame-border-color:var(--ds-color-border)]',
-    // Concentric: the panel nests inside the frame's corner rather than copying
-    // it. It is inset by the 1px border plus --frame-px, so subtracting exactly
-    // that keeps the two arcs parallel. `ghost` drops the border term (no
-    // border), `dense` pins it to the frame radius (panels sit flush).
-    '[--frame-panel-radius:calc(var(--frame-radius)-var(--frame-px)-1px)]'
+    // Insets and panel surfaces share the system's global corner token.
+    '[--frame-panel-radius:var(--frame-radius)]'
   ],
   {
     variants: {
@@ -28,7 +21,7 @@ const frameVariants = cva(
         inverse:
           '[--frame-panel-bg:color-mix(in_oklch,var(--ds-color-surface-muted)_40%,transparent)] border border-[var(--frame-border-color)] bg-ui-background bg-clip-padding',
         ghost:
-          '[--frame-panel-radius:calc(var(--frame-radius)-var(--frame-px))]'
+          '[--frame-panel-radius:var(--frame-radius)]'
       },
       // Bars read as chrome, not a second content block: py runs 0.5/1.5/2/2.5
       // against a body py of 2/3.5/4/5, while px stays level with the body so
@@ -96,7 +89,7 @@ function FramePanel({ className, fit, ...props }) {
         'relative overflow-hidden rounded-(--frame-panel-radius) border border-(--frame-panel-border-color) bg-(--frame-panel-bg) bg-clip-padding shadow-xs',
         // `fit` sizes the panel to its content; otherwise it grows to fill the frame.
         !fit && 'grow',
-        'before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--frame-panel-radius)-1px)] before:shadow-black/5',
+        'before:pointer-events-none before:absolute before:inset-0 before:rounded-(--frame-panel-radius) before:shadow-black/5',
         'dark:bg-clip-border dark:before:shadow-white/5',
         'px-(--frame-panel-px) py-(--frame-panel-py)',
         className

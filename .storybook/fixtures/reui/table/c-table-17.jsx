@@ -67,9 +67,9 @@ export function Pattern() {
                 </TableCell>
                 <TableCell className='py-2'>
                   <div className='flex items-center gap-3'>
-                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-full'>
+                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-control'>
                       <div
-                        className='bg-ui-primary h-full rounded-full'
+                        className='bg-ui-primary h-full rounded-control'
                         style={{ width: '42%' }}
                       />
                     </div>
@@ -85,9 +85,9 @@ export function Pattern() {
                 </TableCell>
                 <TableCell className='py-2'>
                   <div className='flex items-center gap-3'>
-                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-full'>
+                    <div className='bg-ui-muted h-2 w-24 overflow-hidden rounded-control'>
                       <div
-                        className='h-full rounded-full bg-amber-500'
+                        className='h-full rounded-control bg-amber-500'
                         style={{ width: '67%' }}
                       />
                     </div>

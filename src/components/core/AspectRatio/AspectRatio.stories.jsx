@@ -5,17 +5,19 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { AspectRatio } from './index.js';
+import { aurora, dusk, lagoon, iris } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/AspectRatio');
 // Common media shapes, labelled the way editors name them.
 const ratios = { '21:9': 21 / 9, '16:9': 16 / 9, '4:3': 4 / 3, '1:1': 1, '4:5': 4 / 5, '9:16': 9 / 16 };
 const labelOf = (ratio) => Object.keys(ratios).find((label) => Math.abs(ratios[label] - ratio) < 0.01) || `${Number(ratio).toFixed(2)}:1`;
-// A lesson page: the cover follows the `ratio` control; the "Up next" shelf keeps fixed square, 4:3 and portrait frames.
-const cover = { src: '/static/images/og-card.jpg', title: 'Designing with tokens', meta: 'Gaudi Academy · Lesson 3', duration: '12:48' };
+// A lesson page: the cover follows the `ratio` control; the "Up next" shelf keeps one consistent 16:9 frame.
+const cover = { src: aurora, title: 'Designing with tokens', meta: 'Gaudi Academy · Lesson 3', duration: '12:48' };
+const shelfRatio = 16 / 9;
 const upNext = [
-  { title: 'Linked data basics', src: '/static/images/posts/everything-rdf-4.svg', ratio: 1 },
-  { title: 'Graph queries', src: '/static/images/posts/everything-rdf-2.svg', ratio: 4 / 3 },
-  { title: 'Ontology design', src: '/static/images/posts/everything-rdf-3.svg', ratio: 4 / 5 }
+  { title: 'Linked data basics', src: dusk, duration: '8:15' },
+  { title: 'Graph queries', src: lagoon, duration: '10:02' },
+  { title: 'Ontology design', src: iris, duration: '14:37' }
 ];
 const frame = 'overflow-hidden rounded-xl border border-ui-border bg-ui-muted';
 
@@ -42,7 +44,7 @@ export const Playground = {
   args: { ratio: 16 / 9 },
   parameters: {
     docs: {
-      description: { story: 'A lesson page. The cover follows the `ratio` control, from a 21:9 banner to a 9:16 story, while the shelf below keeps square, 4:3 and portrait frames for comparison.' },
+      description: { story: 'A lesson page. The cover follows the `ratio` control, from a 21:9 banner to a 9:16 story, while the shelf below keeps one consistent 16:9 frame.' },
       source: playgroundSource('AspectRatio', {
         imports: "import { AspectRatio } from '@gaudi/design-system';",
         attributes: ["className='overflow-hidden rounded-xl border'"],
@@ -71,11 +73,11 @@ export const Playground = {
         <ul className='grid grid-cols-3 items-start gap-3'>
           {upNext.map((item) => (
             <li key={item.title} className='flex min-w-0 flex-col gap-1'>
-              <AspectRatio ratio={item.ratio} className={frame}>
-                <img src={item.src} alt='' className='size-full bg-white object-contain p-2' />
+              <AspectRatio ratio={shelfRatio} className={`${frame} relative`}>
+                <img src={item.src} alt='' className='size-full object-cover' />
+                <span className='absolute right-1.5 bottom-1.5 rounded bg-black/60 px-1 text-[10px] text-white tabular-nums'>{item.duration}</span>
               </AspectRatio>
               <span className='truncate text-xs text-ui-foreground'>{item.title}</span>
-              <span className='text-xs text-ui-muted-foreground tabular-nums'>{labelOf(item.ratio)}</span>
             </li>
           ))}
         </ul>
@@ -91,7 +93,7 @@ export const Playground = {
     };
     await expect(ratioOf(coverFrame)).toBeCloseTo(args.ratio, 1);
     await expect(within(coverFrame).getByText(labelOf(args.ratio))).toBeVisible();
-    for (const [index, item] of upNext.entries()) await expect(ratioOf(shelf[index])).toBeCloseTo(item.ratio, 1);
+    for (const thumbnail of shelf) await expect(ratioOf(thumbnail)).toBeCloseTo(shelfRatio, 1);
     await expect(canvas.getByText(cover.title)).toBeVisible();
   }
 };

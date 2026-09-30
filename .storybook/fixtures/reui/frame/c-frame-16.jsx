@@ -11,14 +11,13 @@ export function Pattern() {
   return (
     <Frame className='w-full max-w-sm'>
       <FrameHeader>
-        <FrameTitle>Default Layout</FrameTitle>
-        <FrameDescription>Standard component curvature</FrameDescription>
+        <FrameTitle>Workspace settings</FrameTitle>
+        <FrameDescription>Shared workspace preferences</FrameDescription>
       </FrameHeader>
       <FramePanel>
         <h2 className='text-sm font-semibold'>Standard Settings</h2>
         <p className='text-ui-muted-foreground text-sm'>
-          The default radius matches the overall design system for consistent
-          application feel.
+          Keep workspace preferences together in a clearly separated panel.
         </p>
       </FramePanel>
       <FrameFooter>

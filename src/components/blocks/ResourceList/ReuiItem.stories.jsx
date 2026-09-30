@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/item/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/ResourceList', tags: ['autodocs'], ...catalogueMeta('item') };
+export default { title: 'Blocks/Application/ResourceList', tags: ['autodocs'], ...catalogueMeta('item') };
 
 export const ReuiItem1 = { name: 'Title and description', ...pattern(1) };
 export const ReuiItem2 = { name: 'Icon media and actions', ...pattern(2) };

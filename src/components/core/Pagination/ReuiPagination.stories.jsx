@@ -7,7 +7,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/pagination/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/Navigation/Pagination', tags: ['autodocs'], ...catalogueMeta('pagination') };
+export default { title: 'Core/Pagination', tags: ['autodocs'], ...catalogueMeta('pagination') };
 
 export const ReuiPagination1 = { name: 'Basic', ...pattern(1) };
 export const ReuiPagination2 = { name: 'Icon-only arrows', ...pattern(2) };

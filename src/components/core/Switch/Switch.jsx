@@ -48,10 +48,10 @@ const Switch = ({ checked, className, defaultChecked = false, disabled = false, 
         role='switch'
         aria-checked={ isChecked }
         disabled={ disabled }
-        className={ cn('ds-control-hit-target ds-motion-toggle-track relative inline-flex shrink-0 items-center rounded-full border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus-visible:ring-offset-gray-950', sizeConfig.track, isChecked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-800') }
+        className={ cn('ds-control-hit-target ds-motion-toggle-track relative inline-flex shrink-0 items-center rounded-control border border-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:focus-visible:ring-offset-gray-950', sizeConfig.track, isChecked ? 'bg-blue-600' : 'bg-gray-200 dark:bg-gray-800') }
         onClick={ toggle }
       >
-        <span data-checked={ isChecked } className={ cn('ds-motion-toggle-thumb pointer-events-none inline-block translate-x-0 rounded-full bg-white shadow-sm ring-1 ring-gray-950/5', sizeConfig.thumb) } />
+        <span data-checked={ isChecked } className={ cn('ds-motion-toggle-thumb pointer-events-none inline-block translate-x-0 rounded-control bg-white shadow-sm ring-1 ring-gray-950/5', sizeConfig.thumb) } />
       </button>
       {label ? <label htmlFor={ switchId } className={ cn('font-medium leading-none text-gray-800 dark:text-gray-200', sizeConfig.label) }>{label}</label> : null}
     </span>

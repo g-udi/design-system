@@ -14,7 +14,7 @@ export function Pattern() {
           <FieldLabel htmlFor='checkbox-badge-1'>
             AI-powered suggestions
           </FieldLabel>
-          <Badge className='rounded-full uppercase' size='sm'>
+          <Badge className='rounded-control uppercase' size='sm'>
             New
           </Badge>
         </div>
@@ -27,7 +27,7 @@ export function Pattern() {
           </FieldLabel>
           <Badge
             variant='secondary'
-            className='rounded-full uppercase'
+            className='rounded-control uppercase'
             size='sm'
           >
             Beta

@@ -9,7 +9,7 @@ export function Scrollspy({
   offset = 0,
   smooth = true,
   dataAttribute = 'scrollspy',
-  history = true
+  history = false
 }) {
   const selfRef = useRef(null);
   const anchorElementsRef = useRef(null);
@@ -137,10 +137,8 @@ export function Scrollspy({
         selfRef.current.querySelectorAll(`[data-${dataAttribute}-anchor]`)
       );
     }
-    const currentAnchors = anchorElementsRef.current;
-    currentAnchors?.forEach((item) => {
-      item.addEventListener('click', scrollTo(item));
-    });
+    const clickHandlers = (anchorElementsRef.current ?? []).map((item) => [item, scrollTo(item)]);
+    clickHandlers.forEach(([item, handler]) => item.addEventListener('click', handler));
     const onScroll = (event) => {
       const scrollElement =
         targetRef?.current === document ? window : targetRef?.current;
@@ -160,9 +158,7 @@ export function Scrollspy({
     }, 100);
     return () => {
       window.removeEventListener('scroll', onScroll, true);
-      currentAnchors?.forEach((item) => {
-        item.removeEventListener('click', scrollTo(item));
-      });
+      clickHandlers.forEach(([item, handler]) => item.removeEventListener('click', handler));
       clearTimeout(initialTimeout);
     };
   }, [

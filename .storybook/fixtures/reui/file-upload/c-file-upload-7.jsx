@@ -231,7 +231,7 @@ export function Pattern({
                 onClick={() => removeImage(defaultImg.id)}
                 variant='outline'
                 size='icon'
-                className='absolute end-1 top-1 size-6 rounded-full opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                className='absolute end-1 top-1 size-6 rounded-control opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
               >
                 <RegistryIcon lucide='XIcon' className='size-3.5' />
               </Button>
@@ -259,7 +259,7 @@ export function Pattern({
                   onClick={() => removeImage(imageFile.id)}
                   variant='outline'
                   size='icon'
-                  className='absolute end-2 top-2 size-6 rounded-full opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
+                  className='absolute end-2 top-2 size-6 rounded-control opacity-0 shadow-sm group-hover/item:opacity-100 dark:bg-zinc-800 hover:dark:bg-zinc-700'
                 >
                   <RegistryIcon lucide='XIcon' className='size-3.5' />
                 </Button>

@@ -143,3 +143,18 @@ export const Playground = {
     await waitFor(() => expect(canvas.getByText(`Routing to ${routed}`)).toBeVisible());
   }
 };
+
+export const Disabled = {
+  args: { ...Playground.args, mode: 'drill', disabled: true, onValueChange: fn() },
+  parameters: { docs: { description: { story: '`disabled` dims and locks the whole inline panel: the search and every option.' } } },
+  render: Playground.render,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvasElement.querySelector('[data-slot="cascader-panel"]')).toHaveAttribute('aria-disabled', 'true');
+    await expect(canvas.getByPlaceholderText('Search topics')).toBeDisabled();
+    const options = canvas.getAllByRole('option');
+    for (const option of options) await expect(option).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.click(options[0], { pointerEventsCheck: 0 });
+    await expect(args.onValueChange).not.toHaveBeenCalled();
+  }
+};

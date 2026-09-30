@@ -4,33 +4,33 @@ export function Pattern() {
   return (
     <div className='flex flex-col items-center justify-center gap-6'>
       <div className='flex items-center gap-2.5'>
-        <Badge size='sm' radius='full'>
+        <Badge size='sm'>
           3
         </Badge>
-        <Badge size='default' radius='full'>
+        <Badge size='default'>
           3
         </Badge>
-        <Badge size='lg' radius='full'>
+        <Badge size='lg'>
           3
         </Badge>
       </div>
       <div className='flex items-center gap-2.5'>
-        <Badge size='sm' radius='full'>
+        <Badge size='sm'>
           New
         </Badge>
-        <Badge radius='full'>New</Badge>
-        <Badge size='lg' radius='full'>
+        <Badge>New</Badge>
+        <Badge size='lg'>
           New
         </Badge>
       </div>
       <div className='flex items-center gap-2.5'>
-        <Badge size='sm' radius='full' variant='outline'>
+        <Badge size='sm' variant='outline'>
           New
         </Badge>
-        <Badge radius='full' variant='secondary'>
+        <Badge variant='secondary'>
           New
         </Badge>
-        <Badge size='lg' radius='full' variant='success-light'>
+        <Badge size='lg' variant='success-light'>
           New
         </Badge>
       </div>

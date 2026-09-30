@@ -6,9 +6,9 @@ import {
   ResizablePanelGroup
 } from '../../../../src/components/core/Resizable/parts/resizable.jsx';
 const verticalPillClasses =
-  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-6 before:w-1 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:h-10 hover:before:bg-ui-muted-foreground/40 active:before:h-12 active:before:w-1.5 active:before:bg-ui-primary';
+  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-6 before:w-1 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-control before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:h-10 hover:before:bg-ui-muted-foreground/40 active:before:h-12 active:before:w-1.5 active:before:bg-ui-primary';
 const horizontalPillClasses =
-  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-1 before:w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:w-10 hover:before:bg-ui-muted-foreground/40 active:before:h-1.5 active:before:w-12 active:before:bg-ui-primary';
+  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-1 before:w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-control before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:w-10 hover:before:bg-ui-muted-foreground/40 active:before:h-1.5 active:before:w-12 active:before:bg-ui-primary';
 export function Pattern() {
   return (
     <div className='mx-auto w-full max-w-lg'>

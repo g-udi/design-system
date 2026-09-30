@@ -73,6 +73,7 @@ export const Playground = {
     const handle = canvas.getByRole('textbox', { name: 'Handle' });
     await expect(handle).toHaveAttribute('aria-invalid', 'true');
     await expect(handle).toHaveAccessibleDescription(profile.handleError);
+    await expect(handle).toHaveValue(profile.handle);
 
     const input = emailInput(canvas);
     await expect(input).toHaveAttribute('type', 'email');
@@ -92,25 +93,6 @@ export const Playground = {
     await expect(input).toHaveFocus();
     await userEvent.type(input, 'reader@example.com');
     await expect(input).toHaveValue('reader@example.com');
-  }
-};
-
-export const Error = {
-  parameters: {
-    docs: { description: { story: '`FieldError` marks the input invalid and joins its message to the accessible description, keeping the entered value.' } }
-  },
-  render: () => (
-    <Field>
-      <FieldLabel>Article slug</FieldLabel>
-      <FieldInput defaultValue='Design Systems' />
-      <FieldError>Use lowercase letters and hyphens only.</FieldError>
-    </Field>
-  ),
-  play: async ({ canvasElement }) => {
-    const input = within(canvasElement).getByLabelText('Article slug');
-    await expect(input).toHaveAttribute('aria-invalid', 'true');
-    await expect(input).toHaveAccessibleDescription('Use lowercase letters and hyphens only.');
-    await expect(input).toHaveValue('Design Systems');
   }
 };
 

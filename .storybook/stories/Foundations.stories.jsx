@@ -525,6 +525,8 @@ export const Default = {
         <div className='grid gap-4 lg:grid-cols-4'>
           <div className='border-t border-gray-200 pt-4 dark:border-gray-800'>
             <div className='mb-3 font-semibold'>Radius</div>
+            <p className='mb-3'>Elements use a subtle 2px radius. Change <code>--ds-radius</code> globally, or try the Corners toolbar. Accordion and text highlights stay square.</p>
+            <HighlightedCode code={':root { --ds-radius: 2px; }'} language='css' />
             <div className='space-y-3'>
               {Object.entries(radii).map(([ name, value ]) => (
                 <CopyableToken key={ name } value={ value } label={ `radii.${name}` } className='flex w-full items-center justify-between gap-4 rounded-md p-2 hover:bg-gray-50 dark:hover:bg-gray-800'>

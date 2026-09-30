@@ -1,10 +1,12 @@
 import { createElement } from 'react';
 import { addons } from 'storybook/manager-api';
+import { create } from 'storybook/theming';
 
 import './manager.css';
 import { isSidebarEntry } from './navigation';
 
 const panelConfig = {
+  theme: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
   layout: {
     initialActive: 'canvas',
     showPanel: false

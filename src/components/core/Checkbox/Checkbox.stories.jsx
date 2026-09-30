@@ -6,12 +6,6 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Checkbox from './Checkbox';
 
 const docs = getComponentDocs('Core/Checkbox');
-const states = [
-  { label: 'Unchecked option' },
-  { label: 'Checked option', defaultChecked: true },
-  { label: 'Disabled option', disabled: true },
-  { label: 'Disabled checked option', defaultChecked: true, disabled: true }
-];
 const checkbox = (canvas, name) => canvas.getByRole('checkbox', { name });
 
 // A publishing checklist: one task follows the controls; the others show done, open, locked, and blocked tasks.
@@ -78,6 +72,12 @@ export const Playground = {
     await expect(canvas.getByText(doneLabel(initialDone, total))).toBeVisible();
     await expect(control).toHaveAttribute('aria-checked', String(args.defaultChecked));
     await expect(control).toHaveProperty('disabled', args.disabled);
+    for (const { label, defaultChecked = false, disabled = false } of checklist) {
+      await expect(checkbox(canvas, label)).toHaveAttribute('aria-checked', String(defaultChecked));
+      await expect(checkbox(canvas, label)).toHaveProperty('disabled', disabled);
+      // A disabled task dims its label as well as its box.
+      await expect(getComputedStyle(canvas.getByText(label)).opacity).toBe(disabled ? '0.5' : '1');
+    }
     await userEvent.click(locked);
     await expect(locked).toHaveAttribute('aria-checked', 'true');
     await userEvent.click(control);
@@ -91,21 +91,5 @@ export const Playground = {
     await userEvent.click(canvas.getByText(args.label));
     await expect(control).toHaveAttribute('aria-checked', String(args.defaultChecked));
     await expect(args.onCheckedChange).toHaveBeenLastCalledWith(args.defaultChecked);
-  }
-};
-
-export const States = {
-  parameters: { docs: { description: { story: 'Unchecked, checked, and disabled states; disabled checkboxes keep their value when clicked.' } } },
-  render: () => <div className='grid gap-4'>{states.map((state) => <Checkbox key={state.label} {...state} />)}</div>,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    for (const { label, defaultChecked = false, disabled = false } of states) {
-      const control = checkbox(canvas, label);
-      await expect(control).toHaveAttribute('aria-checked', String(defaultChecked));
-      await expect(control).toHaveProperty('disabled', disabled);
-    }
-    const locked = checkbox(canvas, states[3].label);
-    await userEvent.click(locked);
-    await expect(locked).toHaveAttribute('aria-checked', 'true');
   }
 };

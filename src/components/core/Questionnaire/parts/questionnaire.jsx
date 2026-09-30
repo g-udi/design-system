@@ -98,11 +98,11 @@ function QuestionnaireChoice({ children, className, ...props }) {
       >
         <span
           data-slot='questionnaire-choice-indicator-dot'
-          className='ds-part-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=checkbox]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block'
+          className='ds-part-questionnaire-choice-indicator-dot hidden rounded-full group-data-[type=radio]/questionnaire-choice:group-data-checked/questionnaire-choice:block'
         />
         <RegistryIcon
           data-slot='questionnaire-choice-indicator-check'
-          className='ds-part-questionnaire-choice-indicator-check hidden group-data-[type=radio]/questionnaire-choice:hidden group-data-checked/questionnaire-choice:block'
+          className='ds-part-questionnaire-choice-indicator-check hidden group-data-[type=checkbox]/questionnaire-choice:group-data-checked/questionnaire-choice:block'
           lucide='CheckIcon'
         />
       </span>

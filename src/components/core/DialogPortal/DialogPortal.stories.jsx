@@ -6,6 +6,7 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Button from '../Button';
 import Icon from '../Icon';
 import DialogPortal from './DialogPortal';
+import { meadow } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/DialogPortal');
 const title = 'Publish this article?';
@@ -58,7 +59,7 @@ function PortalExample(props) {
   return (
     <div className='mx-auto grid w-full max-w-md gap-3'>
       <article className='flex items-center gap-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800'>
-        <img src='static/images/og-card.jpg' alt='' className='aspect-video w-20 shrink-0 rounded-md object-cover' />
+        <img src={meadow} alt='' className='aspect-video w-20 shrink-0 rounded-md object-cover' />
         <div className='min-w-0 flex-1'>
           <p className='truncate text-sm font-medium text-gray-950 dark:text-gray-100'>{article.title}</p>
           <p className='truncate text-xs text-gray-500 dark:text-gray-400'>{article.meta}</p>

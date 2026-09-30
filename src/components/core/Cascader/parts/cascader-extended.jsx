@@ -1257,6 +1257,7 @@ function Cascader({
       maxHeight,
       inline: !!inline,
       invalid: !!invalid,
+      disabled: !!disabled,
       baseId,
       labels,
       virtualized,
@@ -1304,6 +1305,7 @@ function Cascader({
       maxHeight,
       inline,
       invalid,
+      disabled,
       baseId,
       labels,
       virtualized,
@@ -1673,7 +1675,7 @@ function CascaderPanel({
   onKeyDown,
   ...props
 }) {
-  const { mode } = useCascaderActions();
+  const { mode, disabled } = useCascaderActions();
   const Comp = asChild ? Slot.Root : 'div';
   const handleKeyDown = React.useCallback(
     (event) => {
@@ -1694,8 +1696,13 @@ function CascaderPanel({
     <Comp
       data-slot='cascader-panel'
       data-mode={mode}
+      {...(disabled ? { 'aria-disabled': true, 'data-disabled': '' } : null)}
       onKeyDown={handleKeyDown}
-      className={cn('flex max-h-full min-h-0 w-full flex-col', className)}
+      className={cn(
+        // Each part dims itself when disabled; the panel only blocks the pointer.
+        'flex max-h-full min-h-0 w-full flex-col data-disabled:pointer-events-none',
+        className
+      )}
       {...props}
     >
       {children}

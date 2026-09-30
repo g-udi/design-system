@@ -14,7 +14,7 @@ import {
   startOfDay,
   startOfWeek
 } from 'date-fns';
-import { ar, de, es, fr, ja } from 'date-fns/locale';
+import { de, es, fr, ja } from 'date-fns/locale';
 import {
   Avatar,
   AvatarFallback
@@ -163,14 +163,12 @@ const LOCALES = [
     id: 'en',
     label: 'English',
     locale: void 0,
-    dir: 'ltr',
     i18n: void 0
   },
   {
     id: 'de',
     label: 'Deutsch',
     locale: de,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: 'Heute',
@@ -192,7 +190,6 @@ const LOCALES = [
     id: 'fr',
     label: 'Fran\xE7ais',
     locale: fr,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: "Aujourd'hui",
@@ -214,7 +211,6 @@ const LOCALES = [
     id: 'es',
     label: 'Espa\xF1ol',
     locale: es,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: 'Hoy',
@@ -236,7 +232,6 @@ const LOCALES = [
     id: 'ja',
     label: '\u65E5\u672C\u8A9E',
     locale: ja,
-    dir: 'ltr',
     i18n: {
       labels: {
         today: '\u4ECA\u65E5',
@@ -251,30 +246,6 @@ const LOCALES = [
         days: (count) => `${count}\u65E5\u9593`,
         agenda: '\u4E88\u5B9A',
         resource: '\u30BF\u30A4\u30E0\u30B0\u30EA\u30C3\u30C9'
-      }
-    }
-  },
-  {
-    id: 'ar',
-    label: '\u0627\u0644\u0639\u0631\u0628\u064A\u0629',
-    locale: ar,
-    dir: 'rtl',
-    i18n: {
-      labels: {
-        today: '\u0627\u0644\u064A\u0648\u0645',
-        allDay: '\u0637\u0648\u0627\u0644 \u0627\u0644\u064A\u0648\u0645',
-        noEvents:
-          '\u0644\u0627 \u062A\u0648\u062C\u062F \u0623\u062D\u062F\u0627\u062B',
-        more: (count) => `+${count} \u0627\u0644\u0645\u0632\u064A\u062F`
-      },
-      viewNames: {
-        month: '\u0634\u0647\u0631',
-        week: '\u0623\u0633\u0628\u0648\u0639',
-        day: '\u064A\u0648\u0645',
-        days: (count) => `${count} \u0623\u064A\u0627\u0645`,
-        agenda:
-          '\u062C\u062F\u0648\u0644 \u0627\u0644\u0623\u0639\u0645\u0627\u0644',
-        resource: '\u0634\u0628\u0643\u0629 \u0632\u0645\u0646\u064A\u0629'
       }
     }
   }
@@ -399,7 +370,7 @@ export function Pattern() {
     api.goTo(start);
   };
   return (
-    <div className='w-full p-4' dir={activeLocale.dir}>
+    <div className='w-full p-4'>
       <Card className='w-full py-0'>
         <CardContent className='p-0'>
           <EventCalendar
@@ -660,8 +631,7 @@ export function Pattern() {
                         />
                         <p className='text-ui-muted-foreground text-xs leading-relaxed'>
                           Language switches the date-fns locale and every UI
-                          label. Time zone shifts all event times. Arabic also
-                          flips the calendar to right-to-left.
+                          label. Time zone shifts all event times.
                         </p>
                       </TabsContent>
                     </Tabs>
