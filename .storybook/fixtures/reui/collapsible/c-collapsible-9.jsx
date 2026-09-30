@@ -90,7 +90,7 @@ function NavMenuItem({ item, level = 0, selectedId, onSelect }) {
             as='button'
             type='button'
             size='xs'
-            className='hover:bg-ui-accent data-[state=open]:bg-ui-accent group/item cursor-pointer py-1.25'
+            className='group/folder-trigger hover:bg-ui-accent data-[state=open]:bg-ui-accent group/item cursor-pointer py-1.25'
             style={{ paddingLeft: `${level * 12 + 8}px` }}
           >
             <ItemMedia variant='icon'>
@@ -98,13 +98,13 @@ function NavMenuItem({ item, level = 0, selectedId, onSelect }) {
                 {item.icon}
               </div>
             </ItemMedia>
-            <ItemTitle className='text-sm group-data-[state=open]/collapsible:font-semibold'>
+            <ItemTitle className='text-sm group-data-[state=open]/folder-trigger:font-semibold'>
               {item.name}
             </ItemTitle>
             <RegistryIcon
               lucide='ChevronRightIcon'
               aria-hidden='true'
-              className='text-ui-muted-foreground ml-auto size-4 transition-transform in-data-[state=open]:rotate-90'
+              className='text-ui-muted-foreground ml-auto size-4 transition-transform group-data-[state=open]/folder-trigger:rotate-90'
             />
           </Item>
         </CollapsibleTrigger>

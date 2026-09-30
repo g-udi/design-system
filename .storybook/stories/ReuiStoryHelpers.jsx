@@ -39,3 +39,40 @@ export function CatalogueFrame({ children, family }) {
     </div>
   );
 }
+
+/** Shared meta for a family catalogue; spread it after the literal title and tags. */
+export const catalogueMeta = (family) => ({
+  decorators: [
+    (Story) => (
+      <CatalogueFrame family={family}>
+        <Story />
+      </CatalogueFrame>
+    )
+  ],
+  parameters: { layout: 'padded' }
+});
+
+/**
+ * Turns eagerly globbed `c-<family>-<n>.jsx` fixtures and their raw sources into
+ * one-line stories: `export const X = { name: '…', ...pattern(1) }`.
+ */
+export function reuiPatterns(family, modules, sources) {
+  const fixture = (number) => {
+    const key = Object.keys(modules).find((path) => path.endsWith(`/c-${family}-${number}.jsx`));
+    if (!key) throw new Error(`Missing ${family} fixture ${number}`);
+    return key;
+  };
+  return (number, description) => {
+    const key = fixture(number);
+    const { Pattern } = modules[key];
+    return {
+      render: () => <Pattern />,
+      parameters: {
+        docs: {
+          ...(description ? { description: { story: description } } : {}),
+          source: { code: publicSource(sources[key]), language: 'jsx' }
+        }
+      }
+    };
+  };
+}

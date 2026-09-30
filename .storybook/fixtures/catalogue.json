@@ -611,13 +611,14 @@
       ],
       "importPath": "./src/components/blocks/Wizard/Wizard.stories.jsx"
     },
-    "core-accordion--pattern-overview": {
-      "id": "core-accordion--pattern-overview",
+    "core-accordion--playground": {
+      "id": "core-accordion--playground",
       "title": "Core/Accordion",
-      "name": "Pattern Overview",
+      "name": "Playground",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
@@ -631,43 +632,10 @@
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
-    "core-accordion--example": {
-      "id": "core-accordion--example",
+    "core-accordion--multiple": {
+      "id": "core-accordion--multiple",
       "title": "Core/Accordion",
-      "name": "Example",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--multiple-open": {
-      "id": "core-accordion--multiple-open",
-      "title": "Core/Accordion",
-      "name": "Multiple Open",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--flush": {
-      "id": "core-accordion--flush",
-      "title": "Core/Accordion",
-      "name": "Flush",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--composed": {
-      "id": "core-accordion--composed",
-      "title": "Core/Accordion",
-      "name": "Composed",
+      "name": "Multiple",
       "type": "story",
       "tags": [
         "autodocs",
@@ -686,40 +654,10 @@
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
-    "core-accordion--basic-disclosure": {
-      "id": "core-accordion--basic-disclosure",
+    "core-accordion--always-one-open": {
+      "id": "core-accordion--always-one-open",
       "title": "Core/Accordion",
-      "name": "Basic Disclosure",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--plus-minus": {
-      "id": "core-accordion--plus-minus",
-      "title": "Core/Accordion",
-      "name": "Plus Minus",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--bordered-items": {
-      "id": "core-accordion--bordered-items",
-      "title": "Core/Accordion",
-      "name": "Bordered Items",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--inside-card": {
-      "id": "core-accordion--inside-card",
-      "title": "Core/Accordion",
-      "name": "Inside Card",
+      "name": "Always One Open",
       "type": "story",
       "tags": [
         "autodocs",
@@ -727,72 +665,10 @@
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
-    "core-accordion--disabled-and-highlighted": {
-      "id": "core-accordion--disabled-and-highlighted",
+    "core-accordion--compound": {
+      "id": "core-accordion--compound",
       "title": "Core/Accordion",
-      "name": "Disabled And Highlighted",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--icons-and-badges": {
-      "id": "core-accordion--icons-and-badges",
-      "title": "Core/Accordion",
-      "name": "Icons And Badges",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--framed-panels": {
-      "id": "core-accordion--framed-panels",
-      "title": "Core/Accordion",
-      "name": "Framed Panels",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--nested-sections": {
-      "id": "core-accordion--nested-sections",
-      "title": "Core/Accordion",
-      "name": "Nested Sections",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--member-directory": {
-      "id": "core-accordion--member-directory",
-      "title": "Core/Accordion",
-      "name": "Member Directory",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--leading-arrow": {
-      "id": "core-accordion--leading-arrow",
-      "title": "Core/Accordion",
-      "name": "Leading Arrow",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--guided-setup": {
-      "id": "core-accordion--guided-setup",
-      "title": "Core/Accordion",
-      "name": "Guided Setup",
+      "name": "Compound",
       "type": "story",
       "tags": [
         "autodocs",
@@ -811,46 +687,24 @@
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
-    "core-accordion--multiple-default": {
-      "id": "core-accordion--multiple-default",
+    "core-accordion--custom-indicator": {
+      "id": "core-accordion--custom-indicator",
       "title": "Core/Accordion",
-      "name": "Multiple Default",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--controlled-group": {
-      "id": "core-accordion--controlled-group",
-      "title": "Core/Accordion",
-      "name": "Controlled Group",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--always-one-open": {
-      "id": "core-accordion--always-one-open",
-      "title": "Core/Accordion",
-      "name": "Always One Open",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
-    },
-    "core-accordion--custom-indicator-and-solid": {
-      "id": "core-accordion--custom-indicator-and-solid",
-      "title": "Core/Accordion",
-      "name": "Custom Indicator And Solid",
+      "name": "Custom Indicator",
       "type": "story",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
+    },
+    "core-accordion--render-function": {
+      "id": "core-accordion--render-function",
+      "title": "Core/Accordion",
+      "name": "Render Function",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/Accordion.stories.jsx"
     },
@@ -4187,7 +4041,7 @@
     "core-accordion--reui-accordion-1": {
       "id": "core-accordion--reui-accordion-1",
       "title": "Core/Accordion",
-      "name": "A basic single-expand accordion",
+      "name": "Basic disclosure",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4197,7 +4051,7 @@
     "core-accordion--reui-accordion-2": {
       "id": "core-accordion--reui-accordion-2",
       "title": "Core/Accordion",
-      "name": "Accordion with plus/minus indicators",
+      "name": "Plus and minus",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4207,7 +4061,7 @@
     "core-accordion--reui-accordion-3": {
       "id": "core-accordion--reui-accordion-3",
       "title": "Core/Accordion",
-      "name": "Accordion with borders and rounded corners",
+      "name": "Bordered items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4217,27 +4071,29 @@
     "core-accordion--reui-accordion-4": {
       "id": "core-accordion--reui-accordion-4",
       "title": "Core/Accordion",
-      "name": "Accordion embedded within a Card",
+      "name": "Inside a card",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/ReuiAccordion.stories.jsx"
     },
     "core-accordion--reui-accordion-5": {
       "id": "core-accordion--reui-accordion-5",
       "title": "Core/Accordion",
-      "name": "Accordion with disabled items and highlighted state",
+      "name": "Disabled and highlighted",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/ReuiAccordion.stories.jsx"
     },
     "core-accordion--reui-accordion-6": {
       "id": "core-accordion--reui-accordion-6",
       "title": "Core/Accordion",
-      "name": "Advanced accordion with custom icons and badges",
+      "name": "Icons and badges",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4247,7 +4103,7 @@
     "core-accordion--reui-accordion-7": {
       "id": "core-accordion--reui-accordion-7",
       "title": "Core/Accordion",
-      "name": "Accordion items integrated within Frame and FramePanel",
+      "name": "Framed panels",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4257,17 +4113,18 @@
     "core-accordion--reui-accordion-8": {
       "id": "core-accordion--reui-accordion-8",
       "title": "Core/Accordion",
-      "name": "Nested accordion example with bordered items",
+      "name": "Nested sections",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/ReuiAccordion.stories.jsx"
     },
     "core-accordion--reui-accordion-9": {
       "id": "core-accordion--reui-accordion-9",
       "title": "Core/Accordion",
-      "name": "User list accordion with avatars and role indicators",
+      "name": "Member directory",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4277,7 +4134,7 @@
     "core-accordion--reui-accordion-10": {
       "id": "core-accordion--reui-accordion-10",
       "title": "Core/Accordion",
-      "name": "Accordion with rotating arrow indicator",
+      "name": "Leading arrow",
       "type": "story",
       "tags": [
         "autodocs"
@@ -4287,10 +4144,11 @@
     "core-accordion--reui-accordion-11": {
       "id": "core-accordion--reui-accordion-11",
       "title": "Core/Accordion",
-      "name": "Accordion pattern for onboarding or setup steps with icons, badges, and QR codes",
+      "name": "Guided setup",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/ReuiAccordion.stories.jsx"
     },
@@ -7277,7 +7135,7 @@
     "core-cascader--reui-cascader-1": {
       "id": "core-cascader--reui-cascader-1",
       "title": "Core/Cascader",
-      "name": "Nested attribute picker with drill-down navigation.",
+      "name": "Nested attribute picker with drill-down navigation",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7297,7 +7155,7 @@
     "core-cascader--reui-cascader-2": {
       "id": "core-cascader--reui-cascader-2",
       "title": "Core/Cascader",
-      "name": "Multi-select permissions with checkboxes and a selection cap.",
+      "name": "Multi-select permissions with checkboxes and a selection cap",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7307,7 +7165,7 @@
     "core-cascader--reui-cascader-3": {
       "id": "core-cascader--reui-cascader-3",
       "title": "Core/Cascader",
-      "name": "Deep search across every level with path-annotated results.",
+      "name": "Deep search across every level with path-annotated results",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7317,7 +7175,7 @@
     "core-cascader--reui-cascader-4": {
       "id": "core-cascader--reui-cascader-4",
       "title": "Core/Cascader",
-      "name": "Pinned footer with a side-anchored import flyout.",
+      "name": "Pinned footer with a side-anchored import flyout",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7327,7 +7185,7 @@
     "core-cascader--reui-cascader-5": {
       "id": "core-cascader--reui-cascader-5",
       "title": "Core/Cascader",
-      "name": "Custom rows with avatars and role badges.",
+      "name": "Custom rows with avatars and role badges",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7337,7 +7195,7 @@
     "core-cascader--reui-cascader-6": {
       "id": "core-cascader--reui-cascader-6",
       "title": "Core/Cascader",
-      "name": "Trigger path formatting and collapsing.",
+      "name": "Trigger path formatting and collapsing",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7347,7 +7205,7 @@
     "core-cascader--reui-cascader-7": {
       "id": "core-cascader--reui-cascader-7",
       "title": "Core/Cascader",
-      "name": "Embedded panel without a popover.",
+      "name": "Embedded panel without a popover",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7357,7 +7215,7 @@
     "core-cascader--reui-cascader-8": {
       "id": "core-cascader--reui-cascader-8",
       "title": "Core/Cascader",
-      "name": "Flat adjacency data with a parent pointer.",
+      "name": "Flat adjacency data with a parent pointer",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7367,7 +7225,7 @@
     "core-cascader--reui-cascader-9": {
       "id": "core-cascader--reui-cascader-9",
       "title": "Core/Cascader",
-      "name": "Controlled path, value, query and open state.",
+      "name": "Controlled path, value, query and open state",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7377,7 +7235,7 @@
     "core-cascader--reui-cascader-10": {
       "id": "core-cascader--reui-cascader-10",
       "title": "Core/Cascader",
-      "name": "Translated labels across a country picker.",
+      "name": "Translated labels across a country picker",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7387,7 +7245,7 @@
     "core-cascader--reui-cascader-11": {
       "id": "core-cascader--reui-cascader-11",
       "title": "Core/Cascader",
-      "name": "Two-line rows with descriptions and a disabled option.",
+      "name": "Two-line rows with descriptions and a disabled option",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7397,7 +7255,7 @@
     "core-cascader--reui-cascader-12": {
       "id": "core-cascader--reui-cascader-12",
       "title": "Core/Cascader",
-      "name": "Form field that submits like a native input.",
+      "name": "Form field that submits like a native input",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7407,7 +7265,7 @@
     "core-cascader--reui-cascader-13": {
       "id": "core-cascader--reui-cascader-13",
       "title": "Core/Cascader",
-      "name": "Columns mode with independently scrolling panels.",
+      "name": "Columns mode with independently scrolling panels",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7417,7 +7275,7 @@
     "core-cascader--reui-cascader-14": {
       "id": "core-cascader--reui-cascader-14",
       "title": "Core/Cascader",
-      "name": "Tree mode with inline expand and multi-select scopes.",
+      "name": "Tree mode with inline expand and multi-select scopes",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7427,7 +7285,7 @@
     "core-cascader--reui-cascader-15": {
       "id": "core-cascader--reui-cascader-15",
       "title": "Core/Cascader",
-      "name": "Async drill-down that loads before it navigates.",
+      "name": "Async drill-down that loads before it navigates",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7437,7 +7295,7 @@
     "core-cascader--reui-cascader-16": {
       "id": "core-cascader--reui-cascader-16",
       "title": "Core/Cascader",
-      "name": "Virtualized level with thousands of rows.",
+      "name": "Virtualized level with thousands of rows",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7447,7 +7305,7 @@
     "core-cascader--reui-cascader-17": {
       "id": "core-cascader--reui-cascader-17",
       "title": "Core/Cascader",
-      "name": "Consumer-rendered removable chips with path-aware labels.",
+      "name": "Consumer-rendered removable chips with path-aware labels",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7457,7 +7315,7 @@
     "core-cascader--reui-cascader-18": {
       "id": "core-cascader--reui-cascader-18",
       "title": "Core/Cascader",
-      "name": "Cascading tree multi-select inside a popover.",
+      "name": "Cascading tree multi-select inside a popover",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7467,7 +7325,7 @@
     "core-cascader--reui-cascader-19": {
       "id": "core-cascader--reui-cascader-19",
       "title": "Core/Cascader",
-      "name": "Status and priority colour dots via renderLabel.",
+      "name": "Status and priority colour dots via renderLabel",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7477,7 +7335,7 @@
     "core-cascader--reui-cascader-20": {
       "id": "core-cascader--reui-cascader-20",
       "title": "Core/Cascader",
-      "name": "Expense accounts with a colour inherited down each branch.",
+      "name": "Expense accounts with a colour inherited down each branch",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8303,7 +8161,7 @@
     "core-dialog--reui-dialog-3": {
       "id": "core-dialog--reui-dialog-3",
       "title": "Core/Dialog",
-      "name": "Dialog with scrollable content and sticky footer.",
+      "name": "Dialog with scrollable content and sticky footer",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8313,7 +8171,7 @@
     "core-dialog--reui-dialog-4": {
       "id": "core-dialog--reui-dialog-4",
       "title": "Core/Dialog",
-      "name": "Dialog without a close button.",
+      "name": "Dialog without a close button",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8433,7 +8291,7 @@
     "core-dialog--reui-sheet-1": {
       "id": "core-dialog--reui-sheet-1",
       "title": "Core/Dialog",
-      "name": "Sheet: Sheet containing a form for editing profile information.",
+      "name": "Sheet: Sheet containing a form for editing profile information",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8443,7 +8301,7 @@
     "core-dialog--reui-sheet-2": {
       "id": "core-dialog--reui-sheet-2",
       "title": "Core/Dialog",
-      "name": "Sheet: Sheet containing a form for editing profile information.",
+      "name": "Sheet: Sheet containing a form for editing profile information",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8453,7 +8311,7 @@
     "core-dialog--reui-sheet-3": {
       "id": "core-dialog--reui-sheet-3",
       "title": "Core/Dialog",
-      "name": "Sheet: Sheets that open from any side.",
+      "name": "Sheet: Sheets that open from any side",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8473,7 +8331,7 @@
     "core-dropdownmenu--reui-context-menu-1": {
       "id": "core-dropdownmenu--reui-context-menu-1",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Basic context menu.",
+      "name": "Context Menu: Basic context menu",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8483,7 +8341,7 @@
     "core-dropdownmenu--reui-context-menu-2": {
       "id": "core-dropdownmenu--reui-context-menu-2",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with icons for common actions.",
+      "name": "Context Menu: Context menu with icons for common actions",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8493,7 +8351,7 @@
     "core-dropdownmenu--reui-context-menu-3": {
       "id": "core-dropdownmenu--reui-context-menu-3",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with keyboard shortcuts.",
+      "name": "Context Menu: Context menu with keyboard shortcuts",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8503,7 +8361,7 @@
     "core-dropdownmenu--reui-context-menu-4": {
       "id": "core-dropdownmenu--reui-context-menu-4",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with nested submenus.",
+      "name": "Context Menu: Context menu with nested submenus",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8513,7 +8371,7 @@
     "core-dropdownmenu--reui-context-menu-5": {
       "id": "core-dropdownmenu--reui-context-menu-5",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu labels and separators.",
+      "name": "Context Menu: Context menu labels and separators",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8523,7 +8381,7 @@
     "core-dropdownmenu--reui-context-menu-6": {
       "id": "core-dropdownmenu--reui-context-menu-6",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with checkbox items.",
+      "name": "Context Menu: Context menu with checkbox items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8533,7 +8391,7 @@
     "core-dropdownmenu--reui-context-menu-7": {
       "id": "core-dropdownmenu--reui-context-menu-7",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with radio items.",
+      "name": "Context Menu: Context menu with radio items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8543,7 +8401,7 @@
     "core-dropdownmenu--reui-context-menu-8": {
       "id": "core-dropdownmenu--reui-context-menu-8",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with destructive actions.",
+      "name": "Context Menu: Context menu with destructive actions",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8553,7 +8411,7 @@
     "core-dropdownmenu--reui-context-menu-9": {
       "id": "core-dropdownmenu--reui-context-menu-9",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu with different alignment sides.",
+      "name": "Context Menu: Context menu with different alignment sides",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8563,7 +8421,7 @@
     "core-dropdownmenu--reui-context-menu-10": {
       "id": "core-dropdownmenu--reui-context-menu-10",
       "title": "Core/DropdownMenu",
-      "name": "Context Menu: Context menu used inside a dialog component.",
+      "name": "Context Menu: Context menu used inside a dialog component",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8753,7 +8611,7 @@
     "core-dropdownmenu--reui-menubar-1": {
       "id": "core-dropdownmenu--reui-menubar-1",
       "title": "Core/DropdownMenu",
-      "name": "Menubar: Basic menubar.",
+      "name": "Menubar: Basic menubar",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8763,7 +8621,7 @@
     "core-dropdownmenu--reui-menubar-2": {
       "id": "core-dropdownmenu--reui-menubar-2",
       "title": "Core/DropdownMenu",
-      "name": "Menubar: Menubar with dropdown submenus.",
+      "name": "Menubar: Menubar with dropdown submenus",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8773,7 +8631,7 @@
     "core-dropdownmenu--reui-menubar-3": {
       "id": "core-dropdownmenu--reui-menubar-3",
       "title": "Core/DropdownMenu",
-      "name": "Menubar: Menubar with checkbox & radio items.",
+      "name": "Menubar: Menubar with checkbox & radio items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8783,7 +8641,7 @@
     "core-dropdownmenu--reui-menubar-4": {
       "id": "core-dropdownmenu--reui-menubar-4",
       "title": "Core/DropdownMenu",
-      "name": "Menubar: Menubar with icons.",
+      "name": "Menubar: Menubar with icons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -8793,7 +8651,7 @@
     "core-dropdownmenu--reui-menubar-5": {
       "id": "core-dropdownmenu--reui-menubar-5",
       "title": "Core/DropdownMenu",
-      "name": "Menubar: Menubar for formatting and media.",
+      "name": "Menubar: Menubar for formatting and media",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9173,7 +9031,7 @@
     "core-field--reui-label-1": {
       "id": "core-field--reui-label-1",
       "title": "Core/Field",
-      "name": "Label: Basic label.",
+      "name": "Label: Basic label",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9183,7 +9041,7 @@
     "core-field--reui-label-2": {
       "id": "core-field--reui-label-2",
       "title": "Core/Field",
-      "name": "Label: Label paired with a checkbox.",
+      "name": "Label: Label paired with a checkbox",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9193,7 +9051,7 @@
     "core-field--reui-label-3": {
       "id": "core-field--reui-label-3",
       "title": "Core/Field",
-      "name": "Label: Label for a textarea field.",
+      "name": "Label: Label for a textarea field",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9203,7 +9061,7 @@
     "core-field--reui-label-4": {
       "id": "core-field--reui-label-4",
       "title": "Core/Field",
-      "name": "Label: Label in a disabled state.",
+      "name": "Label: Label in a disabled state",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9374,7 +9232,7 @@
     "core-fileupload--reui-file-upload-8": {
       "id": "core-fileupload--reui-file-upload-8",
       "title": "Core/FileUpload",
-      "name": "Image upload with sorting.",
+      "name": "Image upload with sorting",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9384,7 +9242,7 @@
     "core-fileupload--reui-file-upload-9": {
       "id": "core-fileupload--reui-file-upload-9",
       "title": "Core/FileUpload",
-      "name": "Card file upload.",
+      "name": "Card file upload",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9394,7 +9252,7 @@
     "core-fileupload--reui-file-upload-10": {
       "id": "core-fileupload--reui-file-upload-10",
       "title": "Core/FileUpload",
-      "name": "Cover image upload.",
+      "name": "Cover image upload",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10544,7 +10402,7 @@
     "core-inputotp--reui-input-otp-1": {
       "id": "core-inputotp--reui-input-otp-1",
       "title": "Core/InputOtp",
-      "name": "Basic OTP input.",
+      "name": "Basic OTP input",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10564,7 +10422,7 @@
     "core-inputotp--reui-input-otp-2": {
       "id": "core-inputotp--reui-input-otp-2",
       "title": "Core/InputOtp",
-      "name": "OTP input with numeric digits.",
+      "name": "OTP input with numeric digits",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10574,7 +10432,7 @@
     "core-inputotp--reui-input-otp-3": {
       "id": "core-inputotp--reui-input-otp-3",
       "title": "Core/InputOtp",
-      "name": "OTP input with multiple separators.",
+      "name": "OTP input with multiple separators",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10584,7 +10442,7 @@
     "core-inputotp--reui-input-otp-4": {
       "id": "core-inputotp--reui-input-otp-4",
       "title": "Core/InputOtp",
-      "name": "OTP input with letters and numbers.",
+      "name": "OTP input with letters and numbers",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10594,7 +10452,7 @@
     "core-inputotp--reui-input-otp-5": {
       "id": "core-inputotp--reui-input-otp-5",
       "title": "Core/InputOtp",
-      "name": "OTP input for PIN codes.",
+      "name": "OTP input for PIN codes",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10604,7 +10462,7 @@
     "core-inputotp--reui-input-otp-6": {
       "id": "core-inputotp--reui-input-otp-6",
       "title": "Core/InputOtp",
-      "name": "OTP input verification code.",
+      "name": "OTP input verification code",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10614,7 +10472,7 @@
     "core-kbd--reui-kbd-1": {
       "id": "core-kbd--reui-kbd-1",
       "title": "Core/Kbd",
-      "name": "Basic keyboard keys.",
+      "name": "Basic keyboard keys",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10624,7 +10482,7 @@
     "core-kbd--reui-kbd-2": {
       "id": "core-kbd--reui-kbd-2",
       "title": "Core/Kbd",
-      "name": "Keyboard keys grouped together.",
+      "name": "Keyboard keys grouped together",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10634,7 +10492,7 @@
     "core-kbd--reui-kbd-3": {
       "id": "core-kbd--reui-kbd-3",
       "title": "Core/Kbd",
-      "name": "Keyboard keys combined with icons.",
+      "name": "Keyboard keys combined with icons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10644,7 +10502,7 @@
     "core-kbd--reui-kbd-4": {
       "id": "core-kbd--reui-kbd-4",
       "title": "Core/Kbd",
-      "name": "Keyboard key within an input.",
+      "name": "Keyboard key within an input",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10654,7 +10512,7 @@
     "core-kbd--reui-kbd-5": {
       "id": "core-kbd--reui-kbd-5",
       "title": "Core/Kbd",
-      "name": "Keyboard shortcut in a tooltip.",
+      "name": "Keyboard shortcut in a tooltip",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10955,7 +10813,7 @@
     "blocks-navigation-navigation-menu--reui-navigation-menu-1": {
       "id": "blocks-navigation-navigation-menu--reui-navigation-menu-1",
       "title": "Blocks/Navigation/Navigation Menu",
-      "name": "Basic navigation menu.",
+      "name": "Basic navigation menu",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10975,7 +10833,7 @@
     "blocks-navigation-navigation-menu--reui-navigation-menu-2": {
       "id": "blocks-navigation-navigation-menu--reui-navigation-menu-2",
       "title": "Blocks/Navigation/Navigation Menu",
-      "name": "Navigation menu with grid layout.",
+      "name": "Navigation menu with grid layout",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10985,7 +10843,7 @@
     "blocks-navigation-navigation-menu--reui-navigation-menu-3": {
       "id": "blocks-navigation-navigation-menu--reui-navigation-menu-3",
       "title": "Blocks/Navigation/Navigation Menu",
-      "name": "Navigation menu with icons.",
+      "name": "Navigation menu with icons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -10995,7 +10853,7 @@
     "blocks-navigation-navigation-menu--reui-navigation-menu-4": {
       "id": "blocks-navigation-navigation-menu--reui-navigation-menu-4",
       "title": "Blocks/Navigation/Navigation Menu",
-      "name": "Navigation menu with grid layout and learn more button.",
+      "name": "Navigation menu with grid layout and learn more button",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11066,7 +10924,7 @@
     "blocks-navigation-pagination--reui-pagination-1": {
       "id": "blocks-navigation-pagination--reui-pagination-1",
       "title": "Blocks/Navigation/Pagination",
-      "name": "Basic pagination.",
+      "name": "Basic pagination",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11086,7 +10944,7 @@
     "blocks-navigation-pagination--reui-pagination-2": {
       "id": "blocks-navigation-pagination--reui-pagination-2",
       "title": "Blocks/Navigation/Pagination",
-      "name": "Pagination without labels.",
+      "name": "Pagination without labels",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11096,7 +10954,7 @@
     "blocks-navigation-pagination--reui-pagination-3": {
       "id": "blocks-navigation-pagination--reui-pagination-3",
       "title": "Blocks/Navigation/Pagination",
-      "name": "Pagination with hover effect.",
+      "name": "Pagination with hover effect",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11106,7 +10964,7 @@
     "blocks-navigation-pagination--reui-pagination-4": {
       "id": "blocks-navigation-pagination--reui-pagination-4",
       "title": "Blocks/Navigation/Pagination",
-      "name": "Pagination with circle buttons.",
+      "name": "Pagination with circle buttons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11566,7 +11424,7 @@
     "core-popover--reui-hover-card-1": {
       "id": "core-popover--reui-hover-card-1",
       "title": "Core/Popover",
-      "name": "Hover Card: Basic hover card.",
+      "name": "Hover Card: Basic hover card",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11576,7 +11434,7 @@
     "core-popover--reui-hover-card-2": {
       "id": "core-popover--reui-hover-card-2",
       "title": "Core/Popover",
-      "name": "Hover Card: Hover card with positions.",
+      "name": "Hover Card: Hover card with positions",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11586,7 +11444,7 @@
     "core-popover--reui-hover-card-3": {
       "id": "core-popover--reui-hover-card-3",
       "title": "Core/Popover",
-      "name": "Hover Card: Hover card with profile information.",
+      "name": "Hover Card: Hover card with profile information",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11606,7 +11464,7 @@
     "core-popover--reui-hover-card-5": {
       "id": "core-popover--reui-hover-card-5",
       "title": "Core/Popover",
-      "name": "Hover Card: Hover card with an image and text content.",
+      "name": "Hover Card: Hover card with an image and text content",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11616,7 +11474,7 @@
     "core-popover--reui-hover-card-6": {
       "id": "core-popover--reui-hover-card-6",
       "title": "Core/Popover",
-      "name": "Hover Card: Hover card inside a dialog.",
+      "name": "Hover Card: Hover card inside a dialog",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11646,7 +11504,7 @@
     "core-popover--reui-popover-1": {
       "id": "core-popover--reui-popover-1",
       "title": "Core/Popover",
-      "name": "Basic popover.",
+      "name": "Basic popover",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11656,7 +11514,7 @@
     "core-popover--reui-popover-2": {
       "id": "core-popover--reui-popover-2",
       "title": "Core/Popover",
-      "name": "Popovers opening from different sides.",
+      "name": "Popovers opening from different sides",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11666,7 +11524,7 @@
     "core-popover--reui-popover-3": {
       "id": "core-popover--reui-popover-3",
       "title": "Core/Popover",
-      "name": "Popover with form.",
+      "name": "Popover with form",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11676,7 +11534,7 @@
     "core-popover--reui-popover-4": {
       "id": "core-popover--reui-popover-4",
       "title": "Core/Popover",
-      "name": "Popover alignment positions.",
+      "name": "Popover alignment positions",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11686,7 +11544,7 @@
     "core-popover--reui-popover-5": {
       "id": "core-popover--reui-popover-5",
       "title": "Core/Popover",
-      "name": "Popover within a dialog.",
+      "name": "Popover within a dialog",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11696,7 +11554,7 @@
     "core-popover--reui-popover-6": {
       "id": "core-popover--reui-popover-6",
       "title": "Core/Popover",
-      "name": "Popover with user profile details.",
+      "name": "Popover with user profile details",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11716,7 +11574,7 @@
     "core-popover--reui-popover-8": {
       "id": "core-popover--reui-popover-8",
       "title": "Core/Popover",
-      "name": "Popover with media preview.",
+      "name": "Popover with media preview",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11756,7 +11614,7 @@
     "core-progress--reui-progress-1": {
       "id": "core-progress--reui-progress-1",
       "title": "Core/Progress",
-      "name": "Basic progress.",
+      "name": "Basic progress",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11766,7 +11624,7 @@
     "core-progress--reui-progress-2": {
       "id": "core-progress--reui-progress-2",
       "title": "Core/Progress",
-      "name": "Small progress.",
+      "name": "Small progress",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11776,7 +11634,7 @@
     "core-progress--reui-progress-3": {
       "id": "core-progress--reui-progress-3",
       "title": "Core/Progress",
-      "name": "Large progress.",
+      "name": "Large progress",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11786,7 +11644,7 @@
     "core-progress--reui-progress-4": {
       "id": "core-progress--reui-progress-4",
       "title": "Core/Progress",
-      "name": "Progress bar with status messages.",
+      "name": "Progress bar with status messages",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11796,7 +11654,7 @@
     "core-progress--reui-progress-5": {
       "id": "core-progress--reui-progress-5",
       "title": "Core/Progress",
-      "name": "File upload list with progress & status.",
+      "name": "File upload list with progress & status",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11806,7 +11664,7 @@
     "core-progress--reui-progress-6": {
       "id": "core-progress--reui-progress-6",
       "title": "Core/Progress",
-      "name": "Progress bar with slider.",
+      "name": "Progress bar with slider",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11826,7 +11684,7 @@
     "core-progress--reui-progress-8": {
       "id": "core-progress--reui-progress-8",
       "title": "Core/Progress",
-      "name": "Progress bar with custom colors.",
+      "name": "Progress bar with custom colors",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12087,7 +11945,7 @@
     "core-rating--reui-rating-1": {
       "id": "core-rating--reui-rating-1",
       "title": "Core/Rating",
-      "name": "Basic rating.",
+      "name": "Basic rating",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12107,7 +11965,7 @@
     "core-rating--reui-rating-2": {
       "id": "core-rating--reui-rating-2",
       "title": "Core/Rating",
-      "name": "Rating with decimal value.",
+      "name": "Rating with decimal value",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12117,7 +11975,7 @@
     "core-rating--reui-rating-3": {
       "id": "core-rating--reui-rating-3",
       "title": "Core/Rating",
-      "name": "Rating with show value.",
+      "name": "Rating with show value",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12127,7 +11985,7 @@
     "core-rating--reui-rating-4": {
       "id": "core-rating--reui-rating-4",
       "title": "Core/Rating",
-      "name": "Rating with editable.",
+      "name": "Rating with editable",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12137,7 +11995,7 @@
     "core-rating--reui-rating-5": {
       "id": "core-rating--reui-rating-5",
       "title": "Core/Rating",
-      "name": "Rating with size.",
+      "name": "Rating with size",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12207,7 +12065,7 @@
     "core-resizable--reui-resizable-2": {
       "id": "core-resizable--reui-resizable-2",
       "title": "Core/Resizable",
-      "name": "Vertical resizable layout.",
+      "name": "Vertical resizable layout",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12217,7 +12075,7 @@
     "core-resizable--reui-resizable-3": {
       "id": "core-resizable--reui-resizable-3",
       "title": "Core/Resizable",
-      "name": "Nested mixed-direction resizable layout.",
+      "name": "Nested mixed-direction resizable layout",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12287,7 +12145,7 @@
     "core-resizable--reui-resizable-10": {
       "id": "core-resizable--reui-resizable-10",
       "title": "Core/Resizable",
-      "name": "State-tracked resizable layout.",
+      "name": "State-tracked resizable layout",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12788,7 +12646,7 @@
     "core-select--reui-native-select-1": {
       "id": "core-select--reui-native-select-1",
       "title": "Core/Select",
-      "name": "Native Select: Basic native select.",
+      "name": "Native Select: Basic native select",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12798,7 +12656,7 @@
     "core-select--reui-native-select-2": {
       "id": "core-select--reui-native-select-2",
       "title": "Core/Select",
-      "name": "Native Select: Native select with options grouped.",
+      "name": "Native Select: Native select with options grouped",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12808,7 +12666,7 @@
     "core-select--reui-native-select-3": {
       "id": "core-select--reui-native-select-3",
       "title": "Core/Select",
-      "name": "Native Select: Small native select.",
+      "name": "Native Select: Small native select",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12818,7 +12676,7 @@
     "core-select--reui-native-select-4": {
       "id": "core-select--reui-native-select-4",
       "title": "Core/Select",
-      "name": "Native Select: Native select embedded within a field.",
+      "name": "Native Select: Native select embedded within a field",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12828,7 +12686,7 @@
     "core-select--reui-native-select-5": {
       "id": "core-select--reui-native-select-5",
       "title": "Core/Select",
-      "name": "Native Select: Disabled native select.",
+      "name": "Native Select: Disabled native select",
       "type": "story",
       "tags": [
         "autodocs"
@@ -12838,7 +12696,7 @@
     "core-select--reui-native-select-6": {
       "id": "core-select--reui-native-select-6",
       "title": "Core/Select",
-      "name": "Native Select: Invalid native select.",
+      "name": "Native Select: Invalid native select",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13178,7 +13036,7 @@
     "core-separator--reui-separator-1": {
       "id": "core-separator--reui-separator-1",
       "title": "Core/Separator",
-      "name": "Horizontal separator for content sections.",
+      "name": "Horizontal separator for content sections",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13198,7 +13056,7 @@
     "core-separator--reui-separator-2": {
       "id": "core-separator--reui-separator-2",
       "title": "Core/Separator",
-      "name": "Vertical separator for inline elements.",
+      "name": "Vertical separator for inline elements",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13208,7 +13066,7 @@
     "core-separator--reui-separator-3": {
       "id": "core-separator--reui-separator-3",
       "title": "Core/Separator",
-      "name": "Vertical separator groups related menu items.",
+      "name": "Vertical separator groups related menu items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13218,7 +13076,7 @@
     "core-separator--reui-separator-4": {
       "id": "core-separator--reui-separator-4",
       "title": "Core/Separator",
-      "name": "Horizontal separator between items in a list.",
+      "name": "Horizontal separator between items in a list",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13248,7 +13106,7 @@
     "core-skeleton--reui-skeleton-1": {
       "id": "core-skeleton--reui-skeleton-1",
       "title": "Core/Skeleton",
-      "name": "Skeleton loader for avatars and user info.",
+      "name": "Skeleton loader for avatars and user info",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13258,7 +13116,7 @@
     "core-skeleton--reui-skeleton-2": {
       "id": "core-skeleton--reui-skeleton-2",
       "title": "Core/Skeleton",
-      "name": "Skeleton loader for a card component.",
+      "name": "Skeleton loader for a card component",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13268,7 +13126,7 @@
     "core-skeleton--reui-skeleton-3": {
       "id": "core-skeleton--reui-skeleton-3",
       "title": "Core/Skeleton",
-      "name": "Skeleton loader for text and paragraphs.",
+      "name": "Skeleton loader for text and paragraphs",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13278,7 +13136,7 @@
     "core-skeleton--reui-skeleton-4": {
       "id": "core-skeleton--reui-skeleton-4",
       "title": "Core/Skeleton",
-      "name": "Skeleton loader for a form.",
+      "name": "Skeleton loader for a form",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13288,7 +13146,7 @@
     "core-skeleton--reui-skeleton-5": {
       "id": "core-skeleton--reui-skeleton-5",
       "title": "Core/Skeleton",
-      "name": "Skeleton loader for a data table.",
+      "name": "Skeleton loader for a data table",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13348,7 +13206,7 @@
     "core-slider--reui-slider-1": {
       "id": "core-slider--reui-slider-1",
       "title": "Core/Slider",
-      "name": "Basic slider.",
+      "name": "Basic slider",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13559,7 +13417,7 @@
     "core-spinner--reui-spinner-1": {
       "id": "core-spinner--reui-spinner-1",
       "title": "Core/Spinner",
-      "name": "Basic spinner.",
+      "name": "Basic spinner",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13569,7 +13427,7 @@
     "core-spinner--reui-spinner-2": {
       "id": "core-spinner--reui-spinner-2",
       "title": "Core/Spinner",
-      "name": "Spinners in buttons.",
+      "name": "Spinners in buttons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13579,7 +13437,7 @@
     "core-spinner--reui-spinner-3": {
       "id": "core-spinner--reui-spinner-3",
       "title": "Core/Spinner",
-      "name": "Spinners in badges.",
+      "name": "Spinners in badges",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13589,7 +13447,7 @@
     "core-spinner--reui-spinner-4": {
       "id": "core-spinner--reui-spinner-4",
       "title": "Core/Spinner",
-      "name": "Spinner in input group.",
+      "name": "Spinner in input group",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13599,7 +13457,7 @@
     "core-spinner--reui-spinner-5": {
       "id": "core-spinner--reui-spinner-5",
       "title": "Core/Spinner",
-      "name": "Spinner in empty state.",
+      "name": "Spinner in empty state",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13830,7 +13688,7 @@
     "core-switch--reui-switch-1": {
       "id": "core-switch--reui-switch-1",
       "title": "Core/Switch",
-      "name": "Basic switch.",
+      "name": "Basic switch",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13840,7 +13698,7 @@
     "core-switch--reui-switch-2": {
       "id": "core-switch--reui-switch-2",
       "title": "Core/Switch",
-      "name": "Switch with description.",
+      "name": "Switch with description",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13850,7 +13708,7 @@
     "core-switch--reui-switch-3": {
       "id": "core-switch--reui-switch-3",
       "title": "Core/Switch",
-      "name": "Disabled switch.",
+      "name": "Disabled switch",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13860,7 +13718,7 @@
     "core-switch--reui-switch-4": {
       "id": "core-switch--reui-switch-4",
       "title": "Core/Switch",
-      "name": "Switch in different sizes.",
+      "name": "Switch in different sizes",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13970,7 +13828,7 @@
     "core-tabs--reui-tabs-1": {
       "id": "core-tabs--reui-tabs-1",
       "title": "Core/Tabs",
-      "name": "Basic tabs.",
+      "name": "Basic tabs",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13980,7 +13838,7 @@
     "core-tabs--reui-tabs-2": {
       "id": "core-tabs--reui-tabs-2",
       "title": "Core/Tabs",
-      "name": "Tabs with line variant.",
+      "name": "Tabs with line variant",
       "type": "story",
       "tags": [
         "autodocs"
@@ -13990,7 +13848,7 @@
     "core-tabs--reui-tabs-3": {
       "id": "core-tabs--reui-tabs-3",
       "title": "Core/Tabs",
-      "name": "Tabs with vertical orientation.",
+      "name": "Tabs with vertical orientation",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14000,7 +13858,7 @@
     "core-tabs--reui-tabs-4": {
       "id": "core-tabs--reui-tabs-4",
       "title": "Core/Tabs",
-      "name": "Tabs with vertical orientation and line variant.",
+      "name": "Tabs with vertical orientation and line variant",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14010,7 +13868,7 @@
     "core-tabs--reui-tabs-5": {
       "id": "core-tabs--reui-tabs-5",
       "title": "Core/Tabs",
-      "name": "Tabs with icons.",
+      "name": "Tabs with icons",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14060,7 +13918,7 @@
     "core-textarea--reui-textarea-1": {
       "id": "core-textarea--reui-textarea-1",
       "title": "Core/Textarea",
-      "name": "Basic textarea.",
+      "name": "Basic textarea",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14070,7 +13928,7 @@
     "core-textarea--reui-textarea-2": {
       "id": "core-textarea--reui-textarea-2",
       "title": "Core/Textarea",
-      "name": "Invalid textarea.",
+      "name": "Invalid textarea",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14080,7 +13938,7 @@
     "core-textarea--reui-textarea-3": {
       "id": "core-textarea--reui-textarea-3",
       "title": "Core/Textarea",
-      "name": "Textarea with label.",
+      "name": "Textarea with label",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14090,7 +13948,7 @@
     "core-textarea--reui-textarea-4": {
       "id": "core-textarea--reui-textarea-4",
       "title": "Core/Textarea",
-      "name": "Textarea with description.",
+      "name": "Textarea with description",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14100,7 +13958,7 @@
     "core-textarea--reui-textarea-5": {
       "id": "core-textarea--reui-textarea-5",
       "title": "Core/Textarea",
-      "name": "Disabled textarea.",
+      "name": "Disabled textarea",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14120,7 +13978,7 @@
     "core-timeline--reui-timeline-1": {
       "id": "core-timeline--reui-timeline-1",
       "title": "Core/Timeline",
-      "name": "Basic timeline.",
+      "name": "Basic timeline",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14130,7 +13988,7 @@
     "core-timeline--reui-timeline-2": {
       "id": "core-timeline--reui-timeline-2",
       "title": "Core/Timeline",
-      "name": "Timeline with roadmap.",
+      "name": "Timeline with roadmap",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14140,7 +13998,7 @@
     "core-timeline--reui-timeline-3": {
       "id": "core-timeline--reui-timeline-3",
       "title": "Core/Timeline",
-      "name": "Timeline with order status.",
+      "name": "Timeline with order status",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14150,7 +14008,7 @@
     "core-timeline--reui-timeline-4": {
       "id": "core-timeline--reui-timeline-4",
       "title": "Core/Timeline",
-      "name": "Timeline with git activity.",
+      "name": "Timeline with git activity",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14160,7 +14018,7 @@
     "core-timeline--reui-timeline-5": {
       "id": "core-timeline--reui-timeline-5",
       "title": "Core/Timeline",
-      "name": "Timeline with milestones.",
+      "name": "Timeline with milestones",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14170,7 +14028,7 @@
     "core-timeline--reui-timeline-6": {
       "id": "core-timeline--reui-timeline-6",
       "title": "Core/Timeline",
-      "name": "Timeline with pipeline steps.",
+      "name": "Timeline with pipeline steps",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14180,7 +14038,7 @@
     "core-timeline--reui-timeline-7": {
       "id": "core-timeline--reui-timeline-7",
       "title": "Core/Timeline",
-      "name": "Timeline with roadmap items.",
+      "name": "Timeline with roadmap items",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14240,7 +14098,7 @@
     "core-toast--reui-sonner-1": {
       "id": "core-toast--reui-sonner-1",
       "title": "Core/Toast",
-      "name": "Sonner: Basic toast notification.",
+      "name": "Sonner: Basic toast notification",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14250,7 +14108,7 @@
     "core-toast--reui-sonner-2": {
       "id": "core-toast--reui-sonner-2",
       "title": "Core/Toast",
-      "name": "Sonner: Toast notification with description.",
+      "name": "Sonner: Toast notification with description",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14450,7 +14308,7 @@
     "core-togglegroup--reui-toggle-1": {
       "id": "core-togglegroup--reui-toggle-1",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Basic toggle.",
+      "name": "Toggle: Basic toggle",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14460,7 +14318,7 @@
     "core-togglegroup--reui-toggle-2": {
       "id": "core-togglegroup--reui-toggle-2",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Toggle buttons with outline variant.",
+      "name": "Toggle: Toggle buttons with outline variant",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14470,7 +14328,7 @@
     "core-togglegroup--reui-toggle-3": {
       "id": "core-togglegroup--reui-toggle-3",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Toggle buttons in different sizes.",
+      "name": "Toggle: Toggle buttons in different sizes",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14480,7 +14338,7 @@
     "core-togglegroup--reui-toggle-4": {
       "id": "core-togglegroup--reui-toggle-4",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Toggle with button and icon.",
+      "name": "Toggle: Toggle with button and icon",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14490,7 +14348,7 @@
     "core-togglegroup--reui-toggle-5": {
       "id": "core-togglegroup--reui-toggle-5",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Disabled toggle.",
+      "name": "Toggle: Disabled toggle",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14500,7 +14358,7 @@
     "core-togglegroup--reui-toggle-6": {
       "id": "core-togglegroup--reui-toggle-6",
       "title": "Core/ToggleGroup",
-      "name": "Toggle: Toggle with icon.",
+      "name": "Toggle: Toggle with icon",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14590,7 +14448,7 @@
     "core-togglegroup--reui-toggle-group-1": {
       "id": "core-togglegroup--reui-toggle-group-1",
       "title": "Core/ToggleGroup",
-      "name": "Basic toggle group.",
+      "name": "Basic toggle group",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14600,7 +14458,7 @@
     "core-togglegroup--reui-toggle-group-2": {
       "id": "core-togglegroup--reui-toggle-group-2",
       "title": "Core/ToggleGroup",
-      "name": "Toggle group with outline variant.",
+      "name": "Toggle group with outline variant",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14610,7 +14468,7 @@
     "core-togglegroup--reui-toggle-group-3": {
       "id": "core-togglegroup--reui-toggle-group-3",
       "title": "Core/ToggleGroup",
-      "name": "Toggle groups in different sizes.",
+      "name": "Toggle groups in different sizes",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14620,7 +14478,7 @@
     "core-togglegroup--reui-toggle-group-4": {
       "id": "core-togglegroup--reui-toggle-group-4",
       "title": "Core/ToggleGroup",
-      "name": "Toggle group with custom spacing.",
+      "name": "Toggle group with custom spacing",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14630,7 +14488,7 @@
     "core-togglegroup--reui-toggle-group-5": {
       "id": "core-togglegroup--reui-toggle-group-5",
       "title": "Core/ToggleGroup",
-      "name": "Toggle group with filter control.",
+      "name": "Toggle group with filter control",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14640,7 +14498,7 @@
     "core-togglegroup--reui-toggle-group-6": {
       "id": "core-togglegroup--reui-toggle-group-6",
       "title": "Core/ToggleGroup",
-      "name": "Toggle group with vertical orientation.",
+      "name": "Toggle group with vertical orientation",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14750,7 +14608,7 @@
     "core-tooltip--reui-tooltip-1": {
       "id": "core-tooltip--reui-tooltip-1",
       "title": "Core/Tooltip",
-      "name": "Basic tooltip.",
+      "name": "Basic tooltip",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14760,7 +14618,7 @@
     "core-tooltip--reui-tooltip-2": {
       "id": "core-tooltip--reui-tooltip-2",
       "title": "Core/Tooltip",
-      "name": "Tooltips opening from different sides.",
+      "name": "Tooltips opening from different sides",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14770,7 +14628,7 @@
     "core-tooltip--reui-tooltip-3": {
       "id": "core-tooltip--reui-tooltip-3",
       "title": "Core/Tooltip",
-      "name": "Tooltip with icon trigger.",
+      "name": "Tooltip with icon trigger",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14780,7 +14638,7 @@
     "core-tooltip--reui-tooltip-4": {
       "id": "core-tooltip--reui-tooltip-4",
       "title": "Core/Tooltip",
-      "name": "Tooltip with keyboard shortcut.",
+      "name": "Tooltip with keyboard shortcut",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14931,7 +14789,7 @@
     "core-tree--reui-tree-2": {
       "id": "core-tree--reui-tree-2",
       "title": "Core/Tree",
-      "name": "Tree with indented lines.",
+      "name": "Tree with indented lines",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14941,7 +14799,7 @@
     "core-tree--reui-tree-3": {
       "id": "core-tree--reui-tree-3",
       "title": "Core/Tree",
-      "name": "Tree with custom indent.",
+      "name": "Tree with custom indent",
       "type": "story",
       "tags": [
         "autodocs"
@@ -14951,7 +14809,7 @@
     "core-tree--reui-tree-4": {
       "id": "core-tree--reui-tree-4",
       "title": "Core/Tree",
-      "name": "Tree with custom indent.",
+      "name": "Tree with custom indent",
       "type": "story",
       "tags": [
         "autodocs"
@@ -15511,7 +15369,7 @@
     "mdx-table--reui-table-1": {
       "id": "mdx-table--reui-table-1",
       "title": "MDX/Table",
-      "name": "Basic table.",
+      "name": "Basic table",
       "type": "story",
       "tags": [
         "autodocs"
@@ -15521,7 +15379,7 @@
     "mdx-table--reui-table-2": {
       "id": "mdx-table--reui-table-2",
       "title": "MDX/Table",
-      "name": "Table with footer.",
+      "name": "Table with footer",
       "type": "story",
       "tags": [
         "autodocs"
@@ -15531,7 +15389,7 @@
     "mdx-table--reui-table-3": {
       "id": "mdx-table--reui-table-3",
       "title": "MDX/Table",
-      "name": "Table in card with status badges.",
+      "name": "Table in card with status badges",
       "type": "story",
       "tags": [
         "autodocs"
@@ -15541,7 +15399,7 @@
     "mdx-table--reui-table-4": {
       "id": "mdx-table--reui-table-4",
       "title": "MDX/Table",
-      "name": "Table card with actions column.",
+      "name": "Table card with actions column",
       "type": "story",
       "tags": [
         "autodocs"
@@ -15551,7 +15409,7 @@
     "mdx-table--reui-table-5": {
       "id": "mdx-table--reui-table-5",
       "title": "MDX/Table",
-      "name": "Table with interactive elements.",
+      "name": "Table with interactive elements",
       "type": "story",
       "tags": [
         "autodocs"

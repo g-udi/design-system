@@ -1,168 +1,92 @@
 // ReUI MIT example catalogue. See THIRD_PARTY_NOTICES.md.
-import {
-  CatalogueFrame,
-  publicSource
-} from '../../../../.storybook/stories/ReuiStoryHelpers.jsx';
-import { Pattern as Pattern1 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-1.jsx';
-import source1 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-1.jsx?raw';
-import { Pattern as Pattern2 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-2.jsx';
-import source2 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-2.jsx?raw';
-import { Pattern as Pattern3 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-3.jsx';
-import source3 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-3.jsx?raw';
-import { Pattern as Pattern4 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-4.jsx';
-import source4 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-4.jsx?raw';
-import { Pattern as Pattern5 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-5.jsx';
-import source5 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-5.jsx?raw';
-import { Pattern as Pattern6 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-6.jsx';
-import source6 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-6.jsx?raw';
-import { Pattern as Pattern7 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-7.jsx';
-import source7 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-7.jsx?raw';
-import { Pattern as Pattern8 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-8.jsx';
-import source8 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-8.jsx?raw';
-import { Pattern as Pattern9 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-9.jsx';
-import source9 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-9.jsx?raw';
-import { Pattern as Pattern10 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-10.jsx';
-import source10 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-10.jsx?raw';
-import { Pattern as Pattern11 } from '../../../../.storybook/fixtures/reui/accordion/c-accordion-11.jsx';
-import source11 from '../../../../.storybook/fixtures/reui/accordion/c-accordion-11.jsx?raw';
+import { catalogueMeta, reuiPatterns } from '../../../../.storybook/stories/ReuiStoryHelpers.jsx';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
-export default {
-  title: 'Core/Accordion',
-  tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <CatalogueFrame family='accordion'>
-        <Story />
-      </CatalogueFrame>
-    )
-  ],
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        component:
-          'Accordion compositions owned by Gaudi Accordion. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
-      }
-    }
-  }
-};
+const pattern = reuiPatterns(
+  'accordion',
+  import.meta.glob('../../../../.storybook/fixtures/reui/accordion/*.jsx', { eager: true }),
+  import.meta.glob('../../../../.storybook/fixtures/reui/accordion/*.jsx', { eager: true, query: '?raw', import: 'default' })
+);
 
-export const ReuiAccordion1 = {
-  name: 'A basic single-expand accordion',
-  render: () => <Pattern1 />,
-  parameters: {
-    docs: {
-      description: { story: 'A basic single-expand accordion' },
-      source: { code: publicSource(source1), language: 'jsx' }
-    }
-  }
-};
-export const ReuiAccordion2 = {
-  name: 'Accordion with plus/minus indicators',
-  render: () => <Pattern2 />,
-  parameters: {
-    docs: {
-      description: { story: 'Accordion with plus/minus indicators' },
-      source: { code: publicSource(source2), language: 'jsx' }
-    }
-  }
-};
-export const ReuiAccordion3 = {
-  name: 'Accordion with borders and rounded corners',
-  render: () => <Pattern3 />,
-  parameters: {
-    docs: {
-      description: { story: 'Accordion with borders and rounded corners' },
-      source: { code: publicSource(source3), language: 'jsx' }
-    }
-  }
-};
+export default { title: 'Core/Accordion', tags: ['autodocs'], ...catalogueMeta('accordion') };
+
+export const ReuiAccordion1 = { name: 'Basic disclosure', ...pattern(1, 'Single expansion with quiet dividers.') };
+export const ReuiAccordion2 = { name: 'Plus and minus', ...pattern(2, 'Plus becomes minus when expanded; both icons are decorative.') };
+export const ReuiAccordion3 = { name: 'Bordered items', ...pattern(3, 'Individually bordered items with space between questions.') };
 export const ReuiAccordion4 = {
-  name: 'Accordion embedded within a Card',
-  render: () => <Pattern4 />,
-  parameters: {
-    docs: {
-      description: { story: 'Accordion embedded within a Card' },
-      source: { code: publicSource(source4), language: 'jsx' }
-    }
+  name: 'Inside a card',
+  ...pattern(4, 'The card supplies the heading. Links and actions belong inside the content, outside the trigger.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Compare plans' }));
+    await expect(canvas.getByText('Shared collections and member roles.')).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Which plan is right for my team?' })).toHaveAttribute('aria-expanded', 'true');
   }
 };
 export const ReuiAccordion5 = {
-  name: 'Accordion with disabled items and highlighted state',
-  render: () => <Pattern5 />,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Accordion with disabled items and highlighted state'
-      },
-      source: { code: publicSource(source5), language: 'jsx' }
-    }
+  name: 'Disabled and highlighted',
+  ...pattern(5, 'Unavailable items explain the access requirement and are skipped by arrow keys. Open headers use the accent surface.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = canvas.getByRole('button', { name: 'Account history' });
+    const last = canvas.getByRole('button', { name: 'Email preferences' });
+    await expect(canvas.getByRole('button', { name: /Advanced audit logs/ })).toBeDisabled();
+    first.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(last).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(first).toHaveFocus();
+    await userEvent.keyboard('{End}');
+    await expect(last).toHaveFocus();
+    await userEvent.keyboard('{Home}');
+    await expect(first).toHaveFocus();
+    await userEvent.keyboard('{ArrowUp}');
+    await expect(last).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(last).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard(' ');
+    await expect(last).toHaveAttribute('aria-expanded', 'false');
   }
 };
-export const ReuiAccordion6 = {
-  name: 'Advanced accordion with custom icons and badges',
-  render: () => <Pattern6 />,
-  parameters: {
-    docs: {
-      description: { story: 'Advanced accordion with custom icons and badges' },
-      source: { code: publicSource(source6), language: 'jsx' }
-    }
-  }
-};
-export const ReuiAccordion7 = {
-  name: 'Accordion items integrated within Frame and FramePanel',
-  render: () => <Pattern7 />,
-  parameters: {
-    docs: {
-      description: {
-        story: 'Accordion items integrated within Frame and FramePanel'
-      },
-      source: { code: publicSource(source7), language: 'jsx' }
-    }
-  }
-};
+export const ReuiAccordion6 = { name: 'Icons and badges', ...pattern(6, 'Icons and pills fill the noninteractive header slots.') };
+export const ReuiAccordion7 = { name: 'Framed panels', ...pattern(7, 'A muted outer frame groups related settings.') };
 export const ReuiAccordion8 = {
-  name: 'Nested accordion example with bordered items',
-  render: () => <Pattern8 />,
-  parameters: {
-    docs: {
-      description: { story: 'Nested accordion example with bordered items' },
-      source: { code: publicSource(source8), language: 'jsx' }
-    }
+  name: 'Nested sections',
+  ...pattern(8, 'Nested accordions keep independent values, IDs, and arrow-key navigation. Inner sections use the next heading level.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const parent = canvas.getByRole('button', { name: 'Additional details' });
+    const inner = canvas.getByRole('button', { name: 'Technical specifications' });
+    const sibling = canvas.getByRole('button', { name: 'Compatibility' });
+    inner.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(sibling).toHaveFocus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(inner).toHaveFocus();
+    await userEvent.click(sibling);
+    await expect(parent).toHaveAttribute('aria-expanded', 'true');
+    await expect(sibling).toHaveAttribute('aria-expanded', 'true');
+    parent.focus();
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(canvas.getByRole('button', { name: 'Support options' })).toHaveFocus();
   }
 };
-export const ReuiAccordion9 = {
-  name: 'User list accordion with avatars and role indicators',
-  render: () => <Pattern9 />,
-  parameters: {
-    docs: {
-      description: {
-        story: 'User list accordion with avatars and role indicators'
-      },
-      source: { code: publicSource(source9), language: 'jsx' }
-    }
-  }
-};
-export const ReuiAccordion10 = {
-  name: 'Accordion with rotating arrow indicator',
-  render: () => <Pattern10 />,
-  parameters: {
-    docs: {
-      description: { story: 'Accordion with rotating arrow indicator' },
-      source: { code: publicSource(source10), language: 'jsx' }
-    }
-  }
-};
+export const ReuiAccordion9 = { name: 'Member directory', ...pattern(9, 'Decorative avatars beside visible names, with roles and secondary details.') };
+export const ReuiAccordion10 = { name: 'Leading arrow', ...pattern(10, 'A leading arrow rotates on expansion and follows logical direction in RTL.') };
 export const ReuiAccordion11 = {
-  name: 'Accordion pattern for onboarding or setup steps with icons, badges, and QR codes',
-  render: () => <Pattern11 />,
-  parameters: {
-    docs: {
-      description: {
-        story:
-          'Accordion pattern for onboarding or setup steps with icons, badges, and QR codes'
-      },
-      source: { code: publicSource(source11), language: 'jsx' }
-    }
+  name: 'Guided setup',
+  ...pattern(11, 'Completing a step advances the controlled accordion and unlocks the next one. The form saves locally for this demonstration.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('button', { name: /Set your display name/ })).toBeDisabled();
+    const qr = canvas.getByRole('img', { name: 'QR code for the Gaudi setup guide' });
+    await waitFor(() => expect(qr.naturalWidth).toBeGreaterThan(0));
+    await userEvent.click(canvas.getByRole('button', { name: 'Mark guide as read' }));
+    await expect(canvas.getByRole('progressbar')).toHaveAttribute('value', '2');
+    const input = canvas.getByRole('textbox', { name: 'Display name' });
+    await expect(input).toHaveFocus();
+    await userEvent.type(input, 'Amira');
+    await userEvent.click(canvas.getByRole('button', { name: 'Save display name' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Display name saved in this example.');
   }
 };

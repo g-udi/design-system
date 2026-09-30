@@ -2,7 +2,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Progress } from '../../../../src/components/core/Progress/parts/progress.jsx';
-export function BaseProgressStatus() {
+export function Pattern() {
   const [downloadProgress, setDownloadProgress] = useState(0);
   const getStatusMessage = (progress) => {
     if (progress < 5) return 'Initializing download...';

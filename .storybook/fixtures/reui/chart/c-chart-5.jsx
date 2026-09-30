@@ -33,7 +33,7 @@ const chartConfig = {
     color: 'var(--chart-2)'
   }
 };
-export function ChartBarPattern() {
+export function Pattern() {
   return (
     <Card className='w-full max-w-md'>
       <CardHeader>

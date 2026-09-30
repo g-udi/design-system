@@ -66,7 +66,7 @@ const CustomDuotoneBar = (props) => {
     </>
   );
 };
-export function ChartDuotone() {
+export function Pattern() {
   return (
     <Card className='w-full max-w-md'>
       <CardHeader>

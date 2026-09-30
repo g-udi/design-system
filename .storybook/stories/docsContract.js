@@ -51,3 +51,20 @@ export function displayedPreviewArgs(rows, args) {
     args[name] === undefined ? scalarDefault(rows[name].table?.defaultValue?.summary) : args[name]
   ]));
 }
+
+/**
+ * Playground argTypes described by the authored props reference.
+ * `controls` maps a prop to a control type, or to an options array for a select.
+ */
+export function docsArgTypes(docs, controls) {
+  return Object.fromEntries(Object.entries(controls).map(([name, control]) => {
+    const [, summary, defaultValue, description] = docs.props.find(([prop]) => prop === name) || [];
+    const [type, options] = Array.isArray(control) ? ['select', control] : [control];
+    return [name, {
+      control: type,
+      description,
+      ...(options ? { options } : {}),
+      table: { type: { summary }, defaultValue: { summary: defaultValue } }
+    }];
+  }));
+}

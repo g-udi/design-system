@@ -201,19 +201,18 @@ export const ComponentDocumentation = ({ docs }) => (
 );
 
 export const CatalogueDocsPage = ({ documentation, options = {} }) => {
-    const { stories = true, examples = true, primaryStory, previewControls, overviewStory } = options;
+    const { stories = true, examples = true, primaryStory, previewControls } = options;
     const context = useContext(DocsContext);
     const allStories = context.componentStories();
     const selected = primaryStory ? context.resolveOf(primaryStory(), ['story']).story : selectPreviewStory(allStories);
     const primary = selected?.moduleExport;
-    const overview = overviewStory ? context.resolveOf(overviewStory(), ['story']).story : undefined;
     const authored = documentation || getComponentDocs(selected?.title || allStories[0]?.title || 'Core');
-    const exampleStories = allStories.filter(story => story.tags?.includes('autodocs') && !story.usesMount && story.id !== overview?.id && (
-      // Preserve Accordion's approved catalogue. Elsewhere, mount each example
-      // once so fixed IDs and document-level effects are not duplicated.
-      authored.title === 'Core/Accordion' || !stories || story.id !== selected?.id
-    ));
+    // Mount each example once so fixed IDs and document-level effects are not duplicated.
+    const exampleStories = allStories.filter(story => story.tags?.includes('autodocs') && !story.usesMount && (!stories || story.id !== selected?.id));
     const storyDocs = selected?.parameters.docs || {};
+    // Without an explicit list, the preview exposes the Playground's own scalar args.
+    const argNames = Object.keys(selected?.initialArgs || {}).filter(name => typeof selected.initialArgs[name] !== 'function');
+    const controlNames = previewControls || (argNames.length ? argNames : undefined);
     const previewUsage = storyDocs.source?.type === 'dynamic' && storyDocs.source?.transform
       ? storyDocs.source.transform('', {...context.getStoryContext(selected), args: selected.initialArgs}) : undefined;
     const props = authored.props?.length ? authored.props : referenceFromArgTypes(selected?.argTypes);
@@ -247,7 +246,7 @@ export const CatalogueDocsPage = ({ documentation, options = {} }) => {
               <Canvas of={ primary } withToolbar story={{ __primary: true }} />
               <PreviewControls
                 of={primary}
-                include={previewControls}
+                include={controlNames}
                 hasReference={Boolean(docs.props?.length)}
                 referenceTitle={docs.propsTitle || 'Props'}
               />
@@ -294,15 +293,9 @@ export const CatalogueDocsPage = ({ documentation, options = {} }) => {
             </Section>
           ) : null}
 
-          {examples && overview ? (
-            <div className='ds-docs-examples' data-docs-overview>
-              <DocsStory of={overview.moduleExport} expanded __forceInitialArgs />
-            </div>
-          ) : null}
-
           {examples && exampleStories.length ? (
-            <section className='ds-docs-examples' aria-label='Patterns and use cases'>
-              <h2>Patterns and use cases</h2>
+            <section className='ds-docs-examples' aria-label='Examples'>
+              <h2>Examples</h2>
               {exampleStories.map(story => <DocsStory key={story.id} of={story.moduleExport} expanded __forceInitialArgs />)}
             </section>
           ) : null}

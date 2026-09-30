@@ -82,7 +82,7 @@ const True3DBar = (props) => {
     </g>
   );
 };
-export function Chart3D() {
+export function Pattern() {
   return (
     <Card className='w-full max-w-md'>
       <CardHeader>

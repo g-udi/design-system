@@ -1,51 +1,13 @@
 // ReUI MIT example catalogue. See THIRD_PARTY_NOTICES.md.
-import {
-  CatalogueFrame,
-  publicSource
-} from '../../../../.storybook/stories/ReuiStoryHelpers.jsx';
-import { Pattern as Pattern1 } from '../../../../.storybook/fixtures/reui/scrollspy/c-scrollspy-1.jsx';
-import source1 from '../../../../.storybook/fixtures/reui/scrollspy/c-scrollspy-1.jsx?raw';
-import { Pattern as Pattern2 } from '../../../../.storybook/fixtures/reui/scrollspy/c-scrollspy-2.jsx';
-import source2 from '../../../../.storybook/fixtures/reui/scrollspy/c-scrollspy-2.jsx?raw';
+import { catalogueMeta, reuiPatterns } from '../../../../.storybook/stories/ReuiStoryHelpers.jsx';
 
-export default {
-  title: 'Core/Scrollspy',
-  tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <CatalogueFrame family='scrollspy'>
-        <Story />
-      </CatalogueFrame>
-    )
-  ],
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        component:
-          'Scrollspy compositions owned by Gaudi Scrollspy. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
-      }
-    }
-  }
-};
+const pattern = reuiPatterns(
+  'scrollspy',
+  import.meta.glob('../../../../.storybook/fixtures/reui/scrollspy/*.jsx', { eager: true }),
+  import.meta.glob('../../../../.storybook/fixtures/reui/scrollspy/*.jsx', { eager: true, query: '?raw', import: 'default' })
+);
 
-export const ReuiScrollspy1 = {
-  name: 'Basic scrollspy',
-  render: () => <Pattern1 />,
-  parameters: {
-    docs: {
-      description: { story: 'Basic scrollspy' },
-      source: { code: publicSource(source1), language: 'jsx' }
-    }
-  }
-};
-export const ReuiScrollspy2 = {
-  name: 'Basic scroll area',
-  render: () => <Pattern2 />,
-  parameters: {
-    docs: {
-      description: { story: 'Basic scroll area' },
-      source: { code: publicSource(source2), language: 'jsx' }
-    }
-  }
-};
+export default { title: 'Core/Scrollspy', tags: ['autodocs'], ...catalogueMeta('scrollspy') };
+
+export const ReuiScrollspy1 = { name: 'Basic scrollspy', ...pattern(1) };
+export const ReuiScrollspy2 = { name: 'Basic scroll area', ...pattern(2) };

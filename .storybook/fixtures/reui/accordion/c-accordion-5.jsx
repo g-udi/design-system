@@ -1,58 +1,35 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
-const items = [
-  {
-    value: 'item-1',
-    trigger: 'Can I access my account history?',
-    content:
-      'Yes, you can view your complete account history including all transactions, plan changes, and support tickets in the Account History section of your dashboard.',
-    disabled: false
-  },
-  {
-    value: 'item-2',
-    trigger: 'Premium feature information (Locked)',
-    content:
-      'This section contains information about premium features. Upgrade your plan to access this content.',
-    disabled: true
-  },
-  {
-    value: 'item-3',
-    trigger: 'How do I update my email address?',
-    content:
-      "You can update your email address in your account settings. You'll receive a verification email at your new address to confirm the change.",
-    disabled: false
-  }
-];
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
+import { default as Pill } from '../../../../src/components/core/Pill/index.js';
+
 export function Pattern() {
   return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Accordion
-        type='single'
-        collapsible
-        defaultValue='item-1'
-        className='border-ui-border rounded-lg overflow-hidden border'
-      >
-        {items.map((item) => (
-          <AccordionItem
-            key={item.value}
-            value={item.value}
-            disabled={item.disabled}
-            className='data-[state=open]:bg-ui-muted/50 **:data-[slot=accordion-content]:p-0!'
-          >
-            <AccordionTrigger className='px-4 py-4 hover:no-underline'>
-              {item.trigger}
-            </AccordionTrigger>
-            <AccordionContent className='px-4! pt-0 pb-4'>
-              {item.content}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
+    <AccordionGroup
+      className='mx-auto w-full max-w-lg'
+      highlight
+      items={[
+        {
+          value: 'history',
+          title: 'Account history',
+          content: 'Your account history includes plan changes and workspace activity.'
+        },
+        {
+          value: 'audit',
+          title: 'Advanced audit logs',
+          disabled: true,
+          badge: (
+            <Pill size='xs' tone='gray' variant='soft'>
+              Requires admin
+            </Pill>
+          ),
+          content: 'Detailed audit logs.'
+        },
+        {
+          value: 'email',
+          title: 'Email preferences',
+          content: 'Choose which project updates and weekly summaries you receive.'
+        }
+      ]}
+    />
   );
 }

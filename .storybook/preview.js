@@ -176,10 +176,11 @@ const preview = {
           return pageDelta || a.title.localeCompare(b.title, undefined, { numeric: true });
         }
 
-        // Same component: Docs first, then stories alphabetically
+        // Same component: Docs first, then native stories and each pattern catalogue in declaration order.
         if (a.type !== b.type && (a.type === 'docs' || b.type === 'docs')) return a.type === 'docs' ? -1 : 1;
-
-        return a.name.localeCompare(b.name, undefined, { numeric: true });
+        if (a.importPath === b.importPath) return 0;
+        const catalogue = (path) => Number(/\/Reui[^/]*$/.test(path));
+        return catalogue(a.importPath) - catalogue(b.importPath) || a.importPath.localeCompare(b.importPath);
       }
     }
   }

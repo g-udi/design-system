@@ -1,6 +1,6 @@
 // Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Card,
@@ -51,7 +51,7 @@ const fileTree = [
   { name: 'app.tsx' },
   { name: 'package.json' }
 ];
-function TreeItem({ item, level = 0, selectedId, onSelect }) {
+function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
   const isFolder = 'items' in item;
   const isSelected = selectedId === item.name;
   if (isFolder) {
@@ -62,14 +62,14 @@ function TreeItem({ item, level = 0, selectedId, onSelect }) {
             as='button'
             type='button'
             size='xs'
-            className='hover:bg-ui-accent data-[state=open]:bg-ui-accent cursor-pointer py-1.5'
+            className='group/folder-trigger hover:bg-ui-accent data-[state=open]:bg-ui-accent h-8 min-w-0 flex-nowrap rounded-none cursor-pointer py-0.5'
             style={{ paddingLeft: `${level * 12 + 8}px` }}
           >
             <ItemMedia variant='icon'>
               <RegistryIcon
                 lucide='ChevronRightIcon'
                 aria-hidden='true'
-                className='text-ui-muted-foreground size-3 transition-transform in-data-[state=open]:rotate-90'
+                className='text-ui-muted-foreground size-3 transition-transform group-data-[state=open]/folder-trigger:rotate-90'
               />
               <RegistryIcon
                 lucide='FolderIcon'
@@ -77,11 +77,11 @@ function TreeItem({ item, level = 0, selectedId, onSelect }) {
                 className='text-ui-muted-foreground group-hover/item:text-ui-foreground size-3.5'
               />
             </ItemMedia>
-            <ItemTitle className='text-sm'>{item.name}</ItemTitle>
+            <ItemTitle className='min-w-0 truncate text-[13px]'>{item.name}</ItemTitle>
           </Item>
         </CollapsibleTrigger>
         <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden pt-0.5'>
-          <div className='flex flex-col gap-0.5 ps-1.5'>
+          <div className='flex flex-col gap-0.5'>
             {item.items.map((child) => (
               <TreeItem
                 key={child.name}
@@ -89,6 +89,7 @@ function TreeItem({ item, level = 0, selectedId, onSelect }) {
                 level={level + 1}
                 selectedId={selectedId}
                 onSelect={onSelect}
+                onDelete={onDelete}
               />
             ))}
           </div>
@@ -98,68 +99,98 @@ function TreeItem({ item, level = 0, selectedId, onSelect }) {
   }
   return (
     <Item
-      className='group/item hover:bg-ui-accent data-[active=true]:bg-ui-accent cursor-pointer py-1.5'
+      size='xs'
+      className='group/item hover:bg-ui-accent data-[active=true]:bg-ui-accent h-8 min-w-0 flex-nowrap rounded-none py-0.5'
       data-active={isSelected}
-      style={{ paddingLeft: `${level * 12 + 9}px` }}
+      style={{ paddingLeft: `${level * 12 + 8}px` }}
     >
-      <ItemMedia variant='icon'>
+      <ItemMedia variant='icon' className='ps-5'>
         <RegistryIcon
           lucide='FileIcon'
           aria-hidden='true'
-          className='text-ui-muted-foreground group-hover/item:text-ui-foreground group-data-[active=true]/item:text-ui-foreground size-4'
+          className='text-ui-muted-foreground group-hover/item:text-ui-foreground group-data-[active=true]/item:text-ui-foreground size-3.5'
         />
       </ItemMedia>
       <button
         type='button'
-        className='text-sm text-start flex-1'
+        className='min-w-0 flex-1 self-stretch truncate text-start text-[13px]'
+        title={item.name}
+        aria-pressed={isSelected}
         onClick={() => onSelect?.(item.name)}
       >
         {item.name}
       </button>
-      <ItemActions className='-mr-2 ml-auto gap-0 opacity-0 transition-opacity group-hover/item:opacity-100 group-data-[active=true]/item:opacity-100'>
-        <Button aria-label='Download' size='icon-xs' variant='ghost'>
-          <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
+      <ItemActions className='-mr-1 ml-auto shrink-0 gap-0 opacity-0 transition-opacity group-hover/item:opacity-100 group-focus-within/item:opacity-100 group-data-[active=true]/item:opacity-100 pointer-coarse:opacity-100'>
+        <Button asChild aria-label={`Download ${item.name}`} size='icon-xs' variant='ghost'>
+          <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(`// Demo file: ${item.name}\n`)}`} download={item.name}>
+            <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
+          </a>
         </Button>
-        <Button aria-label='Delete' variant='ghost' size='icon-xs'>
+        <Button aria-label={`Delete ${item.name}`} variant='ghost' size='icon-xs' onClick={() => onDelete(item.name)}>
           <RegistryIcon lucide='TrashIcon' aria-hidden='true' />
         </Button>
       </ItemActions>
     </Item>
   );
 }
+function removeFile(items, name) {
+  return items.filter((item) => item.items || item.name !== name).map((item) => (
+    item.items ? { ...item, items: removeFile(item.items, name) } : item
+  ));
+}
 export function Pattern() {
+  const explorerRef = useRef(null);
+  const [items, setItems] = useState(fileTree);
   const [selectedId, setSelectedId] = useState(null);
+  const [removedFile, setRemovedFile] = useState(null);
+  function handleDelete(name) {
+    setItems((previous) => removeFile(previous, name));
+    setSelectedId((previous) => previous === name ? null : previous);
+    setRemovedFile(name);
+    explorerRef.current?.focus();
+  }
   return (
-    <div className='min-h-64 w-72'>
+    <div className='w-full max-w-72'>
       <Tabs defaultValue='explorer'>
-        <Card size='sm' className='gap-1 p-1'>
-          <CardHeader className='p-0'>
-            <TabsList className='bg-ui-accent h-8 w-full p-1'>
-              <TabsTrigger value='explorer' className='text-xs'>
+        <Card size='sm' className='gap-0 rounded-none p-0'>
+          <CardHeader className='rounded-none p-0'>
+            <TabsList aria-label='File explorer views' className='bg-ui-accent min-h-8 w-full px-1'>
+              <TabsTrigger ref={explorerRef} value='explorer' className='text-[13px]'>
                 Explorer
               </TabsTrigger>
-              <TabsTrigger value='outline' className='text-xs'>
+              <TabsTrigger value='outline' className='text-[13px]'>
                 Outline
               </TabsTrigger>
             </TabsList>
           </CardHeader>
-          <CardContent className='p-0'>
-            <TabsContent value='explorer' className='flex flex-col gap-0.5'>
-              {fileTree.map((item) => (
+          <CardContent className='p-1'>
+            <TabsContent value='explorer' className='flex flex-col gap-0.5 p-0'>
+              {items.map((item) => (
                 <TreeItem
                   key={item.name}
                   item={item}
                   selectedId={selectedId}
                   onSelect={setSelectedId}
+                  onDelete={handleDelete}
                 />
               ))}
             </TabsContent>
-            <TabsContent value='outline'>
-              <p className='p-3 text-sm text-ui-muted-foreground'>
-                Select a file to view its outline.
+            <TabsContent value='outline' className='p-2'>
+              <p className='text-[13px] text-ui-muted-foreground'>
+                {selectedId ? `${selectedId} has no symbols in this demo.` : 'Select a file to view its outline.'}
               </p>
             </TabsContent>
           </CardContent>
+          {removedFile && (
+            <div className='flex min-w-0 items-center justify-between gap-2 border-t border-ui-border px-2 py-1 text-xs'>
+              <span role='status' className='min-w-0 truncate'>{removedFile} removed.</span>
+              <Button size='xs' variant='subtle' className='shrink-0' onClick={() => {
+                setItems(fileTree);
+                setRemovedFile(null);
+                explorerRef.current?.focus();
+              }}>Restore files</Button>
+            </div>
+          )}
         </Card>
       </Tabs>
     </div>

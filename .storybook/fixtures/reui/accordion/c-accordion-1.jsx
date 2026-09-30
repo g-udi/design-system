@@ -1,40 +1,26 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
 const items = [
   {
-    value: 'item-1',
-    trigger: 'Is it accessible ?',
-    content: 'Yes. It adheres to the WAI-ARIA design pattern.'
+    value: 'plans',
+    title: 'Which plan is right for my team?',
+    content:
+      'Start with a personal workspace for individual projects. A team workspace adds shared collections, review workflows, and member permissions.'
   },
   {
-    value: 'item-2',
-    trigger: 'Is it styled?',
+    value: 'billing',
+    title: 'Can I change my billing schedule?',
     content:
-      "Yes. It comes with default styles that matches the other components' aesthetic."
+      'Review your next renewal in billing settings before changing schedules. Your current access continues until that date.'
   },
   {
-    value: 'item-3',
-    trigger: 'Is it animated?',
+    value: 'export',
+    title: 'How do I export my content?',
     content:
-      "Yes. It's animated by default, but you can disable it if you prefer."
+      'Open workspace settings and choose Export. Your download includes articles, collections, and uploaded assets.'
   }
 ];
+
 export function Pattern() {
-  return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Accordion type='single' collapsible defaultValue='item-1'>
-        {items.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger>{item.trigger}</AccordionTrigger>
-            <AccordionContent>{item.content}</AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
-  );
+  return <AccordionGroup className='mx-auto w-full max-w-lg' variant='flush' items={items} />;
 }

@@ -1,90 +1,46 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
-const nestedItems = [
-  {
-    value: 'sub-item-1',
-    trigger: 'Technical Specifications',
-    content:
-      'Detailed technical specs including dimensions, weight, and power requirements.'
-  },
-  {
-    value: 'sub-item-2',
-    trigger: 'Compatibility',
-    content: 'List of supported devices and operating systems for this product.'
-  }
-];
-const mainItems = [
-  {
-    value: 'product-info',
-    trigger: 'Product Overview',
-    content:
-      'This product is designed for high-performance enterprise environments requiring maximum reliability.'
-  },
-  {
-    value: 'details',
-    trigger: 'Additional Details',
-    isNested: true
-  },
-  {
-    value: 'shipping',
-    trigger: 'Shipping & Returns',
-    content:
-      'Free standard shipping on orders over $500. 30-day return policy applies.'
-  }
-];
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
+
 export function Pattern() {
   return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Accordion
-        type='single'
-        collapsible
-        defaultValue='details'
-        className='space-y-2 border-none'
-      >
-        {mainItems.map((item) => (
-          <AccordionItem
-            key={item.value}
-            value={item.value}
-            className='border-ui-border rounded-lg border bg-transparent px-4'
-          >
-            <AccordionTrigger className='items-center py-3 font-medium hover:no-underline'>
-              {item.trigger}
-            </AccordionTrigger>
-            <AccordionContent className='text-ui-muted-foreground h-auto'>
-              {item.isNested ? (
-                <Accordion
-                  type='single'
-                  collapsible
-                  defaultValue='sub-item-1'
-                  className='space-y-2 border-none'
-                >
-                  {nestedItems.map((subItem) => (
-                    <AccordionItem
-                      key={subItem.value}
-                      value={subItem.value}
-                      className='border-ui-border rounded-lg border bg-transparent px-3'
-                    >
-                      <AccordionTrigger className='text-ui-foreground items-center py-3 font-medium hover:no-underline'>
-                        {subItem.trigger}
-                      </AccordionTrigger>
-                      <AccordionContent className='text-sm'>
-                        {subItem.content}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              ) : (
-                item.content
-              )}
-            </AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
+    <AccordionGroup
+      className='mx-auto w-full max-w-lg'
+      variant='separated'
+      defaultValue='details'
+      items={[
+        {
+          value: 'overview',
+          title: 'Product overview',
+          content: 'A shared reading and publishing workspace for editorial teams.'
+        },
+        {
+          value: 'details',
+          title: 'Additional details',
+          content: (
+            <AccordionGroup
+              variant='flush'
+              headingLevel={4}
+              items={[
+                {
+                  value: 'specifications',
+                  title: 'Technical specifications',
+                  content: 'Access your workspace from a current browser on desktop, tablet, or phone.'
+                },
+                {
+                  value: 'compatibility',
+                  title: 'Compatibility',
+                  content: 'Import Markdown content and export articles as portable files.'
+                }
+              ]}
+            />
+          )
+        },
+        {
+          value: 'support',
+          title: 'Support options',
+          content: 'Your workspace owner can help with invitations and access.'
+        }
+      ]}
+    />
   );
 }

@@ -1,92 +1,35 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
-import {
-  Frame,
-  FramePanel
-} from '../../../../src/components/core/Card/parts/frame-extended.jsx';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
-import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
+import { default as Icon } from '../../../../src/components/core/Icon/index.js';
+import { default as Pill } from '../../../../src/components/core/Pill/index.js';
 const items = [
   {
     value: 'account',
-    icon: (
-      <RegistryIcon
-        lucide='SettingsIcon'
-        className='text-ui-muted-foreground size-4'
-      />
+    title: 'Account settings',
+    leading: <Icon name='Settings' decorative />,
+    badge: (
+      <Pill size='xs' variant='soft' tone='green'>
+        New
+      </Pill>
     ),
-    trigger: 'Account Settings',
-    badge: 'New',
-    content:
-      'Manage your account preferences, security settings, and personal information. You can also configure two-factor authentication here.'
+    content: 'Manage your display name, language, and notification preferences.'
   },
   {
-    value: 'privacy',
-    icon: (
-      <RegistryIcon
-        lucide='LockIcon'
-        className='text-ui-muted-foreground size-4'
-      />
-    ),
-    trigger: 'Privacy & Security',
+    value: 'security',
+    title: 'Privacy & security',
+    leading: <Icon name='Fingerprint' decorative />,
     content:
-      'Control who can see your profile and what data we collect. View our latest security audits and transparency reports.'
+      'Review active sessions and configure two-factor authentication in your account.'
   },
   {
     value: 'support',
-    icon: (
-      <RegistryIcon
-        lucide='HelpCircleIcon'
-        className='text-ui-muted-foreground size-4'
-      />
-    ),
-    trigger: 'Help & Support',
+    title: 'Help & support',
+    leading: <Icon name='Info' decorative />,
     content:
-      "Access our help center, community forums, and contact support. We're here to help you 24/7."
+      'Find setup guides, accessibility information, and ways to contact your workspace administrator.'
   }
 ];
+
 export function Pattern() {
-  return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Frame stacked dense spacing='sm'>
-        {items.map((item) => (
-          <FramePanel key={item.value}>
-            <Accordion
-              type='single'
-              collapsible
-              defaultValue={items[0].value}
-              className='border-none'
-            >
-              <AccordionItem
-                value={item.value}
-                className='border-none bg-transparent **:data-[slot=accordion-content]:p-0!'
-              >
-                <AccordionTrigger className='items-center px-1 py-1 font-semibold hover:no-underline'>
-                  <div className='flex items-center gap-3'>
-                    <div className='bg-ui-muted rounded-lg flex size-8 items-center justify-center'>
-                      {item.icon}
-                    </div>
-                    <span>{item.trigger}</span>
-                    {item.badge && (
-                      <Badge variant='success-light' className='ms-1'>
-                        {item.badge}
-                      </Badge>
-                    )}
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className='text-ui-muted-foreground p-0 ps-1!'>
-                  <div className='ps-11! pe-2'>{item.content}</div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          </FramePanel>
-        ))}
-      </Frame>
-    </div>
-  );
+  return <AccordionGroup className='mx-auto w-full max-w-lg' variant='framed' items={items} />;
 }

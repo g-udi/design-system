@@ -1,52 +1,26 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
-import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
 const items = [
   {
-    value: 'security',
-    trigger: 'Data Security',
+    value: 'plans',
+    title: 'Which plan is right for my team?',
     content:
-      'We use industry-standard AES-256 encryption to protect your sensitive information at rest and in transit.'
+      'Start with a personal workspace for individual projects. A team workspace adds shared collections, review workflows, and member permissions.'
   },
   {
-    value: 'integration',
-    trigger: 'API Integration',
+    value: 'billing',
+    title: 'Can I change my billing schedule?',
     content:
-      'Seamlessly connect with your favorite tools using our robust REST API and pre-built connectors.'
+      'Review your next renewal in billing settings before changing schedules. Your current access continues until that date.'
   },
   {
-    value: 'collaboration',
-    trigger: 'Team Collaboration',
+    value: 'export',
+    title: 'How do I export my content?',
     content:
-      'Invite team members, assign roles, and work together in real-time on shared projects and documents.'
+      'Open workspace settings and choose Export. Your download includes articles, collections, and uploaded assets.'
   }
 ];
+
 export function Pattern() {
-  return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Accordion type='multiple' defaultValue={['security']}>
-        {items.map((item) => (
-          <AccordionItem key={item.value} value={item.value}>
-            <AccordionTrigger className='hover:no-underline *:data-[slot=accordion-trigger-icon]:hidden'>
-              <span>{item.trigger}</span>
-              <RegistryIcon
-                lucide='PlusIcon'
-                className='text-ui-muted-foreground ml-auto size-3.5 shrink-0 transition-transform duration-200 group-aria-expanded/accordion-trigger:hidden'
-              />
-              <RegistryIcon
-                lucide='MinusIcon'
-                className='text-ui-muted-foreground ml-auto hidden size-3.5 shrink-0 transition-transform duration-200 group-aria-expanded/accordion-trigger:inline'
-              />
-            </AccordionTrigger>
-            <AccordionContent>{item.content}</AccordionContent>
-          </AccordionItem>
-        ))}
-      </Accordion>
-    </div>
-  );
+  return <AccordionGroup className='mx-auto w-full max-w-lg' variant='flush' indicator='plus-minus' items={items} />;
 }

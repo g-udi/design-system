@@ -1,91 +1,72 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '../../../../src/components/core/Accordion/Accordion.jsx';
+// Gaudi accordion pattern; slot numbering follows the ReUI (MIT) catalogue. See THIRD_PARTY_NOTICES.md.
+import { useState } from 'react';
+import { AccordionGroup } from '../../../../src/components/core/Accordion/index.js';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle
-} from '../../../../src/components/core/Card/parts/card.jsx';
-import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+import { default as Card } from '../../../../src/components/core/Card/index.js';
 const items = [
   {
     value: 'plans',
-    trigger: 'What subscription plans do you offer?',
-    content: (
-      <>
-        <p>
-          <a href='#' className='text-ui-primary underline'>
-            Annual billing is available
-          </a>{' '}
-          with a 20% discount. All plans include a 14-day free trial with no
-          credit card required.
-        </p>
-        <Button size='sm' className='mt-4'>
-          View plans
-          <RegistryIcon lucide='ArrowUpRightIcon' className='size-4' />
-        </Button>
-      </>
-    )
+    title: 'Which plan is right for my team?',
+    content:
+      'Start with a personal workspace for individual projects. A team workspace adds shared collections, review workflows, and member permissions.'
   },
   {
     value: 'billing',
-    trigger: 'How does billing work?',
-    content: (
-      <>
-        <p>
-          Billing occurs automatically at the start of each billing cycle. We
-          accept all major credit cards, PayPal, and ACH transfers for
-          enterprise customers.
-        </p>
-      </>
-    )
+    title: 'Can I change my billing schedule?',
+    content:
+      'Review your next renewal in billing settings before changing schedules. Your current access continues until that date.'
   },
   {
-    value: 'security',
-    trigger: 'Is my data secure?',
-    content: (
-      <>
-        <p>
-          We take security seriously. All data is encrypted at rest using
-          AES-256 and in transit via TLS 1.3. We perform regular third-party
-          security audits and maintain SOC 2 Type II compliance.
-        </p>
-        <p>
-          You can also enable multi-factor authentication (MFA) and single
-          sign-on (SSO) for additional security.
-        </p>
-      </>
-    )
+    value: 'export',
+    title: 'How do I export my content?',
+    content:
+      'Open workspace settings and choose Export. Your download includes articles, collections, and uploaded assets.'
   }
 ];
+
 export function Pattern() {
+  const [showPlans, setShowPlans] = useState(false);
+  const [plans, ...rest] = items;
   return (
-    <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Card>
-        <CardHeader>
-          <CardTitle>Subscription & Billing</CardTitle>
-          <CardDescription>
-            Common questions about your account, plans, and payments
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Accordion type='multiple' defaultValue={['plans']}>
-            {items.map((item) => (
-              <AccordionItem key={item.value} value={item.value}>
-                <AccordionTrigger>{item.trigger}</AccordionTrigger>
-                <AccordionContent>{item.content}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </CardContent>
-      </Card>
-    </div>
+    <Card
+      variant='outline'
+      className='mx-auto h-auto w-full max-w-lg'
+      title='Subscription & billing'
+      titleLevel={3}
+      subtitle='Plans, payments, and workspace access.'
+    >
+      <AccordionGroup
+        variant='flush'
+        headingLevel={4}
+        className='mt-3'
+        items={[
+          {
+            ...plans,
+            content: (
+              <div className='grid gap-3 [&>button]:justify-self-start'>
+                <p>{plans.content}</p>
+                <Button
+                  size='sm'
+                  variant='outline'
+                  aria-expanded={showPlans}
+                  onClick={() => setShowPlans(!showPlans)}
+                >
+                  {showPlans ? 'Hide plan details' : 'Compare plans'}
+                </Button>
+                {showPlans && (
+                  <dl className='grid gap-1'>
+                    <dt className='font-semibold text-text'>Personal</dt>
+                    <dd>One owner, personal collections.</dd>
+                    <dt className='mt-2 font-semibold text-text'>Team</dt>
+                    <dd>Shared collections and member roles.</dd>
+                  </dl>
+                )}
+              </div>
+            )
+          },
+          ...rest
+        ]}
+      />
+    </Card>
   );
 }
