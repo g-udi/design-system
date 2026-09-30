@@ -1,3 +1,8 @@
+@import "./components/core/Accordion/Accordion.css";
+@import './components/core/Avatar/Avatar.css';
+@import './application.css';
+@import './composition.css';
+
 /*
  * Exported foundation tokens mirror `src/tokens/tokens.json` (`dsVariables`).
  * Presentation-only component tokens remain CSS-native in this file because

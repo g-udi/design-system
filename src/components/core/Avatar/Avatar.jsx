@@ -1,10 +1,14 @@
-import Image from 'next/image';
+'use client';
 
+import { forwardRef } from 'react';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
+import Icon from '../Icon';
+import { Avatar as AvatarRoot, AvatarImage, AvatarFallback, AvatarBadge } from './parts/avatar';
+import { getAvatarInitials } from './avatarModel';
 
 export const avatarVariants = createVariants({
-  'base': 'inline-flex shrink-0 items-center justify-center overflow-hidden font-semibold text-white',
+  'base': 'relative inline-flex shrink-0 items-center justify-center font-semibold text-white',
   'defaultVariants': {
     'shape': 'square',
     'size': 'md',
@@ -13,9 +17,12 @@ export const avatarVariants = createVariants({
   'variants': {
     'shape': {
       'circle': 'rounded-full',
-      'square': 'rounded-md'
+      'square': 'rounded-md',
+      'tile': 'rounded-xl'
     },
     'size': {
+      '2xs': 'size-4 text-[8px]',
+      'xl': 'size-20 text-2xl',
       'lg': 'size-14 text-base',
       'md': 'size-10 text-sm',
       'sm': 'size-8 text-xs',
@@ -36,54 +43,65 @@ export const avatarVariants = createVariants({
   }
 });
 
-const pixelSizes = {
-  'lg': 56,
-  'md': 40,
-  'sm': 32,
-  'xs': 20
-};
-
-const isRemoteUrl = (image) => {
-  try {
-    const url = new URL(image);
-
-    return url.protocol === 'http:' || url.protocol === 'https:';
-  } catch {
-    return false;
-  }
-};
-
-const Avatar = ({
-  alt,
-  className,
-  fallback,
-  label,
-  shape,
-  size = 'md',
-  src,
-  tone
-}) => {
-  const classes = avatarVariants({ className, shape, size, tone });
-  const pixelSize = pixelSizes[size] || pixelSizes.md;
-  const accessibleLabel = alt || (label ? `${label} avatar` : undefined);
-
-  if (src && isRemoteUrl(src)) return (
-    <Image alt={ alt || label || '' } src={ src } width={ pixelSize } height={ pixelSize } className={ classes } />
-  );
-
-  if (src || fallback) return (
-    <span className={ cn(classes, 'bg-gray-100 text-gray-300') } role={ accessibleLabel ? 'img' : undefined } aria-label={ accessibleLabel }>
-      <svg fill='currentColor' viewBox='0 0 24 24' className='size-full' aria-hidden='true'>
-        <path d='M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z' />
-      </svg>
-    </span>
-  );
+/** The convenience API composes the same primitives as the richer examples. */
+const Avatar = forwardRef(function Avatar({
+  alt, name, label, className, fallback, shape, size = 'md', src, tone,
+  surface = 'solid', fit, grayscale = false, indicator, children,
+  imageClassName, fallbackClassName, imageProps, onLoadingStatusChange,
+  ...props
+}, ref) {
+  const decorative = alt === '' || props['aria-hidden'] === true || props['aria-hidden'] === 'true';
+  const identity = alt ?? name ?? (label ? `${label} avatar` : 'Avatar');
+  const accessibleLabel = props['aria-label'] ?? [identity, indicator?.label].filter(Boolean).join(', ');
+  const surfaceClass = { tinted: 'bg-ui-muted text-ui-foreground', plain: 'bg-ui-background text-ui-foreground', bare: 'bg-transparent text-ui-foreground' }[surface];
+  const content = fallback === true
+    ? <Icon name='User' decorative className='size-3/5' />
+    : fallback || label || getAvatarInitials(name);
 
   return (
-    <span className={ classes } role={ accessibleLabel ? 'img' : undefined } aria-label={ accessibleLabel }>
-      <span className='leading-none' aria-hidden={ accessibleLabel ? 'true' : undefined }>{label}</span>
-    </span>
+    <AvatarRoot
+      {...props}
+      ref={ref}
+      size={size}
+      data-avatar-size={size}
+      data-surface={surface}
+      data-grayscale={grayscale || undefined}
+      className={cn(avatarVariants({ shape, size, tone }), 'ds-avatar', surfaceClass, className)}
+      role={decorative ? undefined : 'img'}
+      aria-label={decorative ? undefined : accessibleLabel}
+      aria-hidden={decorative || undefined}
+    >
+      <AvatarImage
+        {...imageProps}
+        key={src || 'no-image'}
+        src={src || undefined}
+        alt=''
+        aria-hidden='true'
+        onLoadingStatusChange={onLoadingStatusChange}
+        className={cn('ds-avatar-image', (fit || (surface === 'plain' || surface === 'bare' ? 'contain' : 'cover')) === 'contain' ? 'object-contain' : 'object-cover', imageClassName)}
+      />
+      <AvatarFallback className={cn('ds-avatar-fallback text-[length:inherit]', fallbackClassName)} aria-hidden='true'>
+        <span className='flex size-full items-center justify-center leading-none'>{content}</span>
+      </AvatarFallback>
+      {indicator?.label && (
+        <AvatarBadge
+          className={cn('ds-avatar-indicator', indicator.icon ? 'size-[36%]!' : 'size-1/4!', indicator.className)}
+          data-tone={indicator.tone || 'neutral'}
+          data-position={indicator.position || 'bottom-end'}
+          data-icon={Boolean(indicator.icon)}
+          style={{
+            inset: 'auto',
+            [indicator.position?.endsWith('start') ? 'insetInlineStart' : 'insetInlineEnd']: 0,
+            [indicator.position?.startsWith('top') ? 'insetBlockStart' : 'insetBlockEnd']: 0
+          }}
+          aria-hidden='true'
+        >
+          {indicator.icon && <Icon name={indicator.icon} decorative size='xs' />}
+        </AvatarBadge>
+      )}
+      {children}
+    </AvatarRoot>
   );
-};
+});
 
 export default Avatar;

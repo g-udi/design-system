@@ -1,0 +1,122 @@
+/* Documentation chrome shares one scale; rendered examples keep their public styles. */
+:root {
+  --ds-docs-font-size: 13px;
+  --ds-docs-title-size: 28px;
+  --ds-docs-section-size: 18px;
+  --ds-docs-example-title-size: 16px;
+  --ds-docs-page-gutter: 24px;
+}
+
+:is(.ds-guide-page, .ds-docs-page) {
+  color: var(--ds-color-text);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.6;
+}
+
+.ds-guide-content,
+.ds-docs-page {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin-inline: 0;
+  padding: 24px var(--ds-docs-page-gutter);
+}
+
+.ds-guide-content > * + * { margin-block-start: 24px; }
+.ds-guide-content > header > * + * { margin-block-start: 8px; }
+
+:is(.ds-guide-page, .ds-docs-page) :is(p, li, label, th, td, input, select, textarea, button, .text-sm, .text-base, .text-lg, .text-xl):not(:where(.docs-story *, [data-docs-example], [data-docs-example] *)) {
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.6;
+}
+
+:is(.ds-guide-page, .ds-docs-page) :is(h1, h2, h3, h4):not(:where(.docs-story *, [data-docs-example] *)) {
+  color: var(--ds-color-text);
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+:is(.ds-guide-page, .ds-docs-page) h1:not(:where(.docs-story *, [data-docs-example] *)) {
+  font-size: var(--ds-docs-title-size) !important;
+  font-weight: 700;
+}
+
+:is(.ds-guide-page, .ds-docs-page) h2:not(:where(.docs-story *, [data-docs-example] *)) {
+  font-size: var(--ds-docs-section-size) !important;
+  font-weight: 700;
+}
+
+:is(.ds-guide-page, .ds-docs-page) :is(h3, h4):not(:where(.docs-story *, [data-docs-example] *)) {
+  font-size: var(--ds-docs-example-title-size) !important;
+  font-weight: 600;
+}
+
+:is(.ds-guide-page, .ds-docs-page) :is(p, li):not(:where(.docs-story *, [data-docs-example] *)) {
+  overflow-wrap: anywhere;
+}
+
+/* Inline syntax follows the prose baseline; blocks and component specimens own their styles. */
+.ds-docs-code-value,
+.ds-docs-preview-controls .docblock-argstable tbody td:first-child > span,
+:is(.ds-guide-page, .ds-docs-page) code:not(:where(pre *, .docs-story *, [data-docs-example], [data-docs-example] *)) {
+  display: inline;
+  border: 0;
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-color-code-inline-bg);
+  color: var(--ds-color-code-inline-text);
+  font-family: var(--ds-font-mono);
+  font-size: 0.92em;
+  font-weight: inherit;
+  letter-spacing: 0;
+  line-height: inherit;
+  padding: 0 0.25em;
+  vertical-align: baseline;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.ds-guide-disclosure > summary {
+  align-items: start;
+  gap: 16px;
+  padding-block: 16px;
+}
+
+.ds-guide-disclosure-action {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  color: var(--ds-color-accent);
+  font-size: var(--ds-docs-font-size);
+  font-weight: 600;
+}
+
+.ds-guide-disclosure-hide,
+.ds-guide-disclosure[open] > summary .ds-guide-disclosure-show { display: none; }
+.ds-guide-disclosure[open] > summary .ds-guide-disclosure-hide { display: inline; }
+.ds-guide-disclosure[open] > summary .ds-guide-disclosure-action svg { transform: rotate(180deg); }
+.ds-guide-disclosure > summary::-webkit-details-marker { display: none; }
+
+.ds-docs-page > :is(p, .sbdocs-p) {
+  color: var(--ds-color-text-muted);
+}
+
+.ds-docs-page .sbdocs-preview { border-color: var(--ds-color-border); }
+.ds-docs-page .docs-story,
+.ds-guide-page [data-docs-example] {
+  color: var(--ds-color-text);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  :root { --ds-docs-page-gutter: 16px; }
+  .ds-guide-content { padding-block: 20px; }
+  .ds-guide-disclosure > summary { flex-wrap: wrap; gap: 8px; }
+}

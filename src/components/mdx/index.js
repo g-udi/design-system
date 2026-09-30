@@ -105,3 +105,8 @@ export { AreaChart,
   TableRow,
   Tooltip, Video,
   videoAnimationStyles };
+
+// ReUI composition exports
+export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from './Chart/index.js';
+export { codeBlockLanguages, codeBlockThemes, DEFAULT_CODE_BLOCK_THEMES, resolveCodeBlockLanguage, parseLineSpec, normalizeCode, buildWordDecorations, stripNotationComments, toPlainLines, markdownCodeProps, markdownFences, highlightCode, resetCodeBlockHighlighter, ansiToLines, parseUnifiedDiff, CodeBlock, CodeBlockCopyButton, CodeBlockDownloadButton, CodeBlockExpandButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockLineActions, CodeBlockTitle, CodeBlockContent, CodeBlockWrapToggle, useCodeBlockConfig, useCodeBlockFolding, useCodeBlockSelection } from './CodeGroupTabs/index.js';
+export { TableRoot, TableHeader, TableBodyPrimitive, TableFooter, TableHeadPrimitive, TableRowPrimitive, TableCellPrimitive, TableCaption } from './Table/index.js';

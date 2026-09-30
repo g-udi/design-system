@@ -1,0 +1,59 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from '../../../../src/components/core/Avatar/parts/avatar.jsx';
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+import {
+  Item,
+  ItemActions,
+  ItemContent,
+  ItemDescription,
+  ItemMedia,
+  ItemTitle
+} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+export function Pattern() {
+  return (
+    <div className='mx-auto flex w-full max-w-md flex-col gap-2'>
+      <Item variant='outline' size='xs'>
+        <ItemMedia>
+          <Avatar>
+            <AvatarImage
+              src='https://randomuser.me/api/portraits/men/32.jpg'
+              alt='Alex Johnson'
+            />
+            <AvatarFallback>AJ</AvatarFallback>
+          </Avatar>
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Alex Johnson</ItemTitle>
+          <ItemDescription>Senior Software Engineer</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <Button variant='outline' size='sm'>
+            Follow
+          </Button>
+        </ItemActions>
+      </Item>
+      <Item variant='outline' size='xs'>
+        <ItemMedia>
+          <Avatar>
+            <AvatarImage
+              src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+              alt='Sarah Chen'
+            />
+            <AvatarFallback>SC</AvatarFallback>
+          </Avatar>
+        </ItemMedia>
+        <ItemContent>
+          <ItemTitle>Sarah Chen</ItemTitle>
+          <ItemDescription>Product Designer</ItemDescription>
+        </ItemContent>
+        <ItemActions>
+          <Button size='sm'>Following</Button>
+        </ItemActions>
+      </Item>
+    </div>
+  );
+}

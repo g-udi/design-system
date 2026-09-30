@@ -1,0 +1,26 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader
+} from '../../../../src/components/core/Card/parts/card.jsx';
+import { Skeleton } from '../../../../src/components/core/Skeleton/parts/skeleton.jsx';
+export function Pattern() {
+  return (
+    <Card className='w-full max-w-xs'>
+      <CardHeader>
+        <Skeleton className='aspect-video w-full' />
+      </CardHeader>
+      <CardContent className='space-y-2'>
+        <Skeleton className='h-4 w-3/4' />
+        <Skeleton className='h-3 w-full' />
+        <Skeleton className='h-3 w-2/3' />
+      </CardContent>
+      <CardFooter className='flex justify-between'>
+        <Skeleton className='h-8 w-20 rounded-md' />
+        <Skeleton className='h-8 w-8 rounded-md' />
+      </CardFooter>
+    </Card>
+  );
+}

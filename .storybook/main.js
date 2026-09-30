@@ -89,7 +89,8 @@ const config = {
   'staticDirs': [ './public' ],
   'stories': [
     './stories/**/*.stories.@(js|jsx|mdx)',
-    '../src/components/**/*.stories.@(js|jsx|mdx)'
+    '../src/components/**/!(Reui*).stories.@(js|jsx|mdx)',
+    '../src/components/**/Reui*.stories.@(js|jsx|mdx)'
   ],
   'viteFinal': (viteConfig) => {
     const { rollupOptions = {}, ...buildConfig } = viteConfig.build || {};
@@ -119,6 +120,7 @@ const config = {
         'include': [
           ...(viteConfig.optimizeDeps?.include || []),
           'storybook/internal/components',
+          '@radix-ui/react-accordion',
           ...lucideIconOptimizeDeps,
           ...mermaidOptimizeDeps,
           ...rechartsOptimizeDeps

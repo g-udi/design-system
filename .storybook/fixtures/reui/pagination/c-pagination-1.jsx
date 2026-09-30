@@ -1,0 +1,34 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious
+} from '../../../../src/components/core/Pagination/parts/pagination.jsx';
+export function Pattern() {
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href='#' />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href='#'>1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href='#' isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href='#'>3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href='#' />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}

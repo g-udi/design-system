@@ -8,6 +8,8 @@ import ThemeProvider from '../src/utilities/ThemeProvider';
 import tokenData from '../src/tokens/tokens.json';
 import siteMetadata from './fixtures/site/metadata';
 import navigationMetadata from './fixtures/site/navigationMetadata.mjs';
+import { ApplicationDocsPage } from './stories/ApplicationStoryHelpers';
+import { DocsMarkdown } from './stories/DocsMarkdown';
 
 /*
  * Workaround for a Storybook bug (storybook/test's enhanceContext loader):
@@ -73,6 +75,15 @@ function syncStorybookTheme(theme) {
 }
 
 const preview = {
+  afterEach: async (context) => {
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('./storyAudit.js');
+      await auditStoryLayout(context);
+    } else if (import.meta.env.VITE_GAUDI_RESPONSIVE === '1' && (context.id.includes('--reui-') || context.id === 'overview-component-catalogue--browse')) {
+      const { verifyResponsiveCatalogue } = await import('./responsive.js');
+      await verifyResponsiveCatalogue(context);
+    }
+  },
   decorators: [
     (Story, context) => {
       syncStorybookTheme(context.globals.theme);
@@ -103,10 +114,14 @@ const preview = {
     }
   },
   initialGlobals: {
-    theme: 'light'
+    theme: import.meta.env.VITE_GAUDI_THEME || 'light'
   },
   loaders: [ makeFocusAccessorPrototypeSafe ],
   parameters: {
+    docs: {
+      components: { Markdown: DocsMarkdown },
+      page: ApplicationDocsPage
+    },
     a11y: {
       options: {
         runOnly: {
@@ -142,8 +157,7 @@ const preview = {
        * must stay self-contained (no references to outer variables).
        */
       storySort: (a, b) => {
-        const sectionOrder = [ 'Overview', 'Core', 'Blocks', 'Navigation', 'MDX', 'Post', 'Layout' ];
-        const overviewPageOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography' ];
+        const sectionOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography', 'Core', 'Blocks', 'Navigation', 'MDX', 'Post', 'Layout' ];
         const rank = (list, value) => {
           const index = list.indexOf(value);
           return index === -1 ? list.length : index;
@@ -157,15 +171,9 @@ const preview = {
         }
 
         if (a.title !== b.title) {
-          const pageRank = (page) => (sectionA === 'Overview' ? rank(overviewPageOrder, page) : page === 'Overview' ? -1 : 0);
+          const pageRank = (page) => page === 'Overview' ? -1 : 0;
           const pageDelta = pageRank(pageA) - pageRank(pageB);
           return pageDelta || a.title.localeCompare(b.title, undefined, { numeric: true });
-        }
-
-        // The top-level Overview section is one title whose pages differ by story name
-        if (a.title === 'Overview') {
-          const overviewDelta = rank(overviewPageOrder, a.name) - rank(overviewPageOrder, b.name);
-          if (overviewDelta) return overviewDelta;
         }
 
         // Same component: Docs first, then stories alphabetically

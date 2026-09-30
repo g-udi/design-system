@@ -4,6 +4,7 @@ import Typography, { typographyVariants } from '../../src/foundations/Typography
 import { typography } from '../../src/tokens';
 
 import { HighlightedCode } from './HighlightedCode';
+import { Page } from './StoryDocs';
 
 const groups = [
   { 'label': 'Blog Posts', 'variants': [ 'post-title', 'post-subtitle', 'post-meta', 'prose-lead', 'paragraph-lg', 'paragraph-md' ] },
@@ -19,7 +20,7 @@ const sampleText = {
   'card-subtitle': 'Compact supporting text for cards and previews.',
   'card-title': 'Design-system notes',
   'display-lg': 'Editorial systems need rhythm.',
-  'display-xl': 'A blog should feel calm and readable.',
+  'display-xl': 'Read, build, reuse.',
   'error-title': '404',
   'heading-lg': 'Section heading',
   'heading-md': 'Subsection heading',
@@ -108,9 +109,9 @@ const VariantPreview = ({ variant }) => {
       <div className='grid gap-4 lg:grid-cols-[180px_minmax(0,1fr)]'>
         <div>
           <div className='font-mono text-xs font-semibold text-gray-700 dark:text-gray-300'>{variant}</div>
-          <div className='mt-1 font-mono text-xs text-gray-500'>{config.element}</div>
+          <div className='mt-1 font-mono text-xs text-gray-500 dark:text-gray-400'>{config.element}</div>
         </div>
-        <div className='min-w-0 overflow-hidden'>
+        <div className='min-w-0'>
           <Typography as='p' variant={ variant }>
             {sampleText[variant] || 'The design system keeps editorial rhythm predictable.'}
           </Typography>
@@ -141,29 +142,23 @@ const apiProps = [
 ];
 
 const exportedApis = [
-  [ 'Typography', 'React component used by blog posts, cards, metadata, and Gaudi examples.' ],
+  [ 'Typography', 'React component used by articles, application interfaces, cards, metadata, and Gaudi examples.' ],
   [ 'typographyVariants', 'Variant map containing each element and className contract.' ],
   [ 'TypographyVariants', 'Backwards-compatible alias for typographyVariants.' ],
   [ 'typography', 'Token object for font family and line-height values.' ]
 ];
 
 export default {
+  parameters: { layout: 'fullscreen' },
   id: 'overview-typography',
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Typography'
 };
 
 export const Default = {
   name: 'Typography',
   'render': () => (
-    <div className='max-w-6xl space-y-10 p-6 text-gray-900 dark:bg-gray-950 dark:text-gray-100'>
-      <section className='max-w-5xl space-y-3'>
-        <Typography as='h1' variant='heading-xl'>Typography</Typography>
-        <Typography variant='paragraph-lg'>
-          The Gaudi typography scale is optimized for blog posts first: readable titles, calm subtitles, generous prose line-height, metadata that stays quiet, and compact UI text for cards.
-        </Typography>
-      </section>
-
+    <Page title='Typography' intro='The Gaudi typography scale supports reading and application interfaces: readable titles, generous prose line-height, clear labels, quiet metadata, and compact text for controls and data views.'>
       <section className='grid gap-4 lg:grid-cols-3'>
         <TokenCard label='sans font family' value={ typography.fontFamily.sans.join(', ') }>
           <div className='mb-4 font-semibold'>Sans</div>
@@ -191,7 +186,7 @@ export const Default = {
         </TokenCard>
       </section>
 
-      <section className='rounded-md border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900 md:p-8'>
+      <section data-docs-example className='rounded-md border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900 md:p-8'>
         <div className='mb-8 max-w-5xl space-y-4'>
           <Typography variant='metadata'>Blog Post Composition</Typography>
           <Typography as='h2' variant='post-title'>Design systems keep editorial rhythm predictable</Typography>
@@ -205,7 +200,7 @@ export const Default = {
       </section>
 
       <section className='space-y-4 rounded-md border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900'>
-        <div className='max-w-5xl space-y-3'>
+        <div className='space-y-3'>
           <Typography as='h2' variant='heading-lg'>Canonical Recipes</Typography>
           <Typography variant='paragraph-md'>
             Start with these variants before opening the full catalog: <code>post-title</code> for article titles, <code>paragraph-md</code> for default prose, and <code>metadata</code> for dates, categories, and reading-time rows.
@@ -222,12 +217,12 @@ export const Default = {
       <section className='space-y-4'>
         <Typography as='h2' variant='heading-lg'>Variant Catalog</Typography>
         <div className='space-y-3'>
-          {groups.map((group, index) => (
-            <details key={ group.label } className='overflow-hidden rounded-md border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900' open={ index === 0 }>
+          {groups.map((group) => (
+            <details key={ group.label } className='overflow-hidden rounded-md border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900' open>
               <summary className='cursor-pointer px-4 py-3 text-sm font-semibold text-gray-900 marker:text-gray-500 dark:text-gray-100'>
-                {group.label}
+                <span className='ms-2'>{group.label}</span>
               </summary>
-              <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+              <div data-docs-example className='divide-y divide-gray-200 dark:divide-gray-700'>
                 {group.variants.filter((variant) => typographyVariants[variant]).map((variant) => (
                   <VariantPreview key={ variant } variant={ variant } />
                 ))}
@@ -238,10 +233,10 @@ export const Default = {
       </section>
 
       <section className='space-y-6 rounded-md border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900'>
-        <div className='max-w-5xl space-y-3'>
+        <div className='space-y-3'>
           <Typography as='h2' variant='heading-lg'>Typography Component API</Typography>
           <Typography variant='paragraph-md'>
-            Typography is documented as a foundation because it defines the blog reading system. The importable primitive remains the public rendering API, and this page is the single Storybook source for its variants, tokens, usage, and accessibility expectations.
+            Typography is documented as a foundation because it defines a shared hierarchy for reading and working. The importable primitive remains the public rendering API, and this page is the single Storybook source for its variants, tokens, usage, and accessibility expectations.
           </Typography>
         </div>
 
@@ -255,7 +250,7 @@ export const Default = {
 </Typography>
 
 <Typography as='p' variant='paragraph-lg'>
-  Reusable typography variants keep headings, prose, and metadata consistent across the blog.
+  Reusable typography variants keep headings, prose, and metadata consistent across the blog and applications.
 </Typography>` }
           />
 
@@ -301,11 +296,11 @@ export const Default = {
       </section>
 
       <section className='rounded-md border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-900'>
-        <Typography variant='heading-lg'>Implementation Alignment</Typography>
+        <Typography variant='heading-lg'>Use across products</Typography>
         <div className='mt-4 grid gap-4 text-sm leading-7 text-gray-600 dark:text-gray-300 md:grid-cols-2'>
           <div>
             Typography variants on this page render through the exported <code>Typography</code> component and
-            <code>typographyVariants</code> object. Blog post titles, subtitles, metadata, author headers, cards, and
+            <code>typographyVariants</code> object. Application headings, blog post titles, labels, metadata, cards, and
             long-form prose should use those variants instead of one-off heading styles.
           </div>
           <div>
@@ -314,6 +309,6 @@ export const Default = {
           </div>
         </div>
       </section>
-    </div>
+    </Page>
   )
 };

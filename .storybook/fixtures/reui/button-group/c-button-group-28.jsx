@@ -1,0 +1,52 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+'use client';
+import { useState } from 'react';
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+import { ButtonGroup } from '../../../../src/components/core/ButtonGroup/parts/button-group.jsx';
+import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+export function Pattern() {
+  const [volume, setVolume] = useState(50);
+  const [isMuted, setIsMuted] = useState(false);
+  const increaseVolume = () => {
+    setVolume((prev) => Math.min(prev + 5, 100));
+    setIsMuted(false);
+  };
+  const decreaseVolume = () => {
+    setVolume((prev) => {
+      const next = Math.max(prev - 5, 0);
+      if (next === 0) setIsMuted(true);
+      return next;
+    });
+  };
+  const toggleMute = () => {
+    setIsMuted((prev) => !prev);
+  };
+  return (
+    <ButtonGroup>
+      <Button
+        onClick={decreaseVolume}
+        size='sm'
+        variant='outline'
+        aria-label='Decrease Volume'
+      >
+        <RegistryIcon lucide='MinusIcon' aria-hidden='true' />
+      </Button>
+      <Button
+        onClick={toggleMute}
+        size='sm'
+        variant='outline'
+        className='min-w-20'
+      >
+        {isMuted ? 'Muted' : `${volume}%`}
+      </Button>
+      <Button
+        onClick={increaseVolume}
+        size='sm'
+        variant='outline'
+        aria-label='Increase Volume'
+      >
+        <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
+      </Button>
+    </ButtonGroup>
+  );
+}

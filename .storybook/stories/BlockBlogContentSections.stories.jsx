@@ -310,19 +310,19 @@ export const Default = {
         <ContentVariants />
       </Section>
       <Section title='Full Article Composition' description='Post header, series box, article body, FAQ, and table of contents.'>
-        <FullArticle />
+        <div data-docs-example><FullArticle /></div>
         <CodeBlock code={ variantCode.full } />
       </Section>
       <Section title='Without Table Of Contents' description='Use for shorter posts where a TOC would add noise.'>
-        <WithoutToc />
+        <div data-docs-example><WithoutToc /></div>
         <CodeBlock code={ variantCode.noToc } />
       </Section>
       <Section title='Series Box Only' description='Use when the article is part of a sequence but does not need a TOC.'>
-        <SeriesOnly />
+        <div data-docs-example><SeriesOnly /></div>
         <CodeBlock code={ variantCode.series } />
       </Section>
       <Section title='Composition Parts' description='Concise map of the public primitives used by these long-form article recipes.'>
-        <ContentCards />
+        <div data-docs-example><ContentCards /></div>
         <CodeBlock code={ variantCode.parts } />
       </Section>
       <Section title='Implementation Notes' description='Keep article pages on the design-system contract.'>

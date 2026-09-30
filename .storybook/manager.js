@@ -1,6 +1,8 @@
+import { createElement } from 'react';
 import { addons } from 'storybook/manager-api';
 
 import './manager.css';
+import { isSidebarEntry } from './navigation';
 
 const panelConfig = {
   layout: {
@@ -11,7 +13,15 @@ const panelConfig = {
     showPanel: () => false
   },
   sidebar: {
-    collapsedRoots: []
+    showRoots: true,
+    collapsedRoots: [],
+    renderLabel: ({ name }) => createElement('span', {
+      className: 'gaudi-sidebar-label',
+      title: name
+    }, name),
+    filters: {
+      'gaudi-pages': isSidebarEntry
+    }
   }
 };
 
@@ -68,6 +78,7 @@ const enhanceMobileMenu = () => {
   });
 
   menu.prepend(closeButton);
+  window.requestAnimationFrame(() => closeButton.focus({ preventScroll: true }));
 };
 
 const enhanceMobileToolbar = (api) => {
@@ -164,8 +175,9 @@ addons.register('gaudi/mobile-manager-accessibility', (api) => {
   document.addEventListener('click', (event) => {
     const navigationTarget = event.target.closest("#storybook-mobile-menu :is(a[href*='?path='], [role='option'])");
 
-    if (navigationTarget) closeMobileMenu(false);
-  });
+    // Storybook stops bubbling on story links; close after its navigation handler.
+    if (navigationTarget) queueMicrotask(() => closeMobileMenu(false));
+  }, true);
   window.addEventListener('keydown', (event) => {
     if (event.key !== 'Escape' || !document.querySelector("[role='dialog'][aria-label='Menu']")) return;
 

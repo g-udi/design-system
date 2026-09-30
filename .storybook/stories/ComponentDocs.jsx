@@ -1,854 +1,12 @@
-import { Controls, Description, Primary, Subtitle, Title } from '@storybook/addon-docs/blocks';
+import { Canvas, DocsContext, DocsStory, PureArgsTable, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
+import { useContext, useEffect, useId, useState } from 'react';
+import { RESET_STORY_ARGS, STORY_ARGS_UPDATED, UPDATE_STORY_ARGS } from 'storybook/internal/core-events';
 
 import { HighlightedCode } from './HighlightedCode';
-import { Table } from './StoryDocs';
-
-const groupDocs = {
-  'Blocks': {
-    'accessibility': 'Blocks compose exported Gaudi components into full page sections. They must preserve semantic headings, readable focus order, and links/buttons with accessible names.',
-    'description': 'documents full-section page compositions built from Gaudi primitives and domain components.',
-    'recovery': [
-      'Keep the surrounding page usable when one section cannot load, and provide a local retry or alternate path.',
-      'Preserve the user\'s scroll position and completed work while the failed section recovers.'
-    ]
-  },
-  'Content': {
-    'accessibility': 'Content components should preserve semantic structure, readable labels, image alt text, and keyboard access for modals, search, pagination, and dropdown controls.',
-    'description': 'supports reusable blog browsing, reading, and supporting page composition.',
-    'recovery': [
-      'Keep available content readable when a secondary asset or request fails.',
-      'Name the missing content and provide a retry or direct navigation path without clearing user context.'
-    ]
-  },
-  'Core': {
-    'accessibility': 'Core components set the baseline accessibility contract: semantic elements, visible focus, readable contrast, keyboard support, and correct disabled states.',
-    'description': 'is a reusable UI component exported by the design system package and the canonical core subpath.',
-    'recovery': [
-      'Preserve entered values, selections, and nearby context when validation or an async action fails.',
-      'Name the problem beside its source and provide a direct correction, retry, or safe exit.'
-    ]
-  },
-  'Layout': {
-    'accessibility': 'Layout components should preserve document landmarks, reading order, and form semantics. They must not trap focus or create non-semantic wrappers around interactive content.',
-    'description': 'provides consistent spacing, width, and page shell composition.',
-    'recovery': [
-      'Keep primary landmarks and navigation available when nested content enters an empty or error state.',
-      'Prevent loading or fallback content from shifting the page shell or stealing focus.'
-    ]
-  },
-  'MDX': {
-    'accessibility': 'MDX components must keep article semantics intact: real headings, tables, code blocks, captions, alt text, and keyboard-accessible expandable content.',
-    'description': 'renders long-form article content with consistent editorial structure.',
-    'recovery': [
-      'Keep the surrounding article readable when an embed, citation, diagram, or media asset fails.',
-      'Render a labelled fallback with the original source or retry path instead of removing the failed content silently.'
-    ]
-  },
-  'Navigation': {
-    'accessibility': 'Navigation components must use semantic links, nav landmarks where appropriate, visible focus, readable labels, and Escape behavior for temporary menus.',
-    'description': 'supports shared blog navigation, menu composition, and search entry points.',
-    'recovery': [
-      'Keep the current location and query intact when navigation or search produces no destination.',
-      'Escape should close temporary layers in reverse order and return focus to the trigger.'
-    ]
-  },
-  'Post': {
-    'accessibility': 'Post components must preserve article landmarks, heading hierarchy, readable metadata, and link semantics for breadcrumbs, sharing, series, and table of contents.',
-    'description': 'composes article chrome, metadata, navigation, and reading aids.',
-    'recovery': [
-      'Keep the article body and primary navigation available when optional metadata or related content is missing.',
-      'Use explicit unavailable states for sharing, series, and adjacent-post actions rather than broken or empty controls.'
-    ]
-  }
-};
-
-const usageExamples = {
-  'Core/CmdLauncher': "import { CmdLauncher } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setOpen} />\n<CmdLauncher\n  open={open}\n  setOpen={setOpen}\n  posts={posts}\n  projects={projects}\n  publications={publications}\n  tags={tags}\n  thoughts={thoughts}\n/>",
-  'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
-  'Layout': "import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';\n\n<LayoutContainer>{children}</LayoutContainer>",
-  'MDX/Aside': '<Aside>\n  Additional context for the article that should sit outside the main argument.\n</Aside>',
-  'MDX/Callout': "<Callout type='info'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
-  'MDX/Chart': "<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
-  'MDX/Citation': "---\ntitle: 'An Introduction to Knowledge Graphs'\nbibliography: ['meta/bibliography/references.bib', 'meta/bibliography/kg.bib']\n---\n\nA heterogeneous graph [@HusseinYC18; @WangJSWYCY19; @YangXJWHW20] assigns types to nodes and edges.\n\nThe same source can be cited again later [@HusseinYC18].\n\n<!-- Do not hand-write citation anchors, popover data attributes, or references markup. -->",
-  'MDX/Details': "<Details title='Implementation detail'>\n  Expanded article content that is useful but not required for the main reading path.\n</Details>",
-  'MDX/Faq': "<Faq questions={[\n  {\n    question: 'Why use FAQ blocks?',\n    answer: 'They structure repeated article answers.'\n  }\n]} />",
-  'MDX/FileTree': "<FileTree data={[\n  { name: 'content', isFolder: true, childrenProp: [{ name: 'post.mdx' }] },\n  { name: 'package.json' }\n]} />",
-  'MDX/Footnote': "Inline prose can use a normal markdown footnote reference.[^model-note]\n\n[^model-note]: This explanatory note can include links, emphasis, and short supporting context.\n\n<!-- Runtime wiring lives outside the post:\napp layout/page shell: <MDXLayoutRenderer ... />\narticle runtime: <Footnote />\n-->\n\n<!-- The blog pipeline generates anchors with data-footnote-popover, data-footnote-number, and data-footnote-content. -->",
-  'MDX/Video': "<Video\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Knowledge graph article video preview'\n  title='Knowledge graph walkthrough'\n/>",
-  'MDX/GaudiBarLayout': '<GaudiBarLayout />',
-  'MDX/Highlight': 'Use <Highlight>inline emphasis</Highlight> inside normal article prose.',
-  'MDX/Image': "<Image\n  src='/static/images/posts/gaudi.svg'\n  fallback='/static/images/logo.svg'\n  darkSrc='/static/images/posts/gaudi-dark.svg'\n  alt='Gaudi diagram'\n  caption='Project architecture diagram.'\n  width={420}\n  height={260}\n/>",
-  'MDX/ImageModal': "<ImageModal src='/static/images/diagram.png' alt='Architecture diagram' />",
-  'MDX/LatexText': '<LatexText>11$^{th}$ International Conference</LatexText>',
-  'MDX/LinkedDataQualityFramework': "<LinkedDataQualityFramework\n  title='Roomba’s Linked Data quality architecture'\n  description='A modular path from a public data portal to a validated quality profile and report.'\n/>",
-  'MDX/Mermaid': "<Mermaid\n  id='architecture-flow'\n  description='Draft moves to review before publication.'\n  chart={`flowchart TD\n  A[Draft] --> B[Review]`}\n/>",
-  'MDX/PipelineDiagram': "<PipelineDiagram\n  title='Continuous deployment with Travis CI'\n  description='Changes move from a local workspace through GitHub and an automated build, validation, and deployment pipeline.'\n  source={{ label: 'Local changes', action: 'Push changes' }}\n  platform={{\n    label: 'GitHub',\n    detail: 'Push to a branch or open a pull request',\n    success: 'Build passes',\n    feedback: 'Link to deployed site'\n  }}\n  pipeline={{\n    label: 'Travis CI',\n    trigger: 'Trigger Travis',\n    stages: [\n      { label: 'Build', failure: 'Broken build' },\n      { label: 'Validate', failure: 'Broken build' },\n      { label: 'Deploy', action: 'Upload', output: 'Server' }\n    ]\n  }}\n  destination={{ label: 'Server' }}\n/>",
-  'MDX/Overview': "# Article title\n\nIntroductory prose can use normal markdown.\n\n<Callout type='info'>Article context.</Callout>\n\n<Quote text='Readable examples matter.' author='Gaudi' />",
-  'MDX/Preview': "[assaf.website](https://assaf.website)\n\n[Unavailable link](https://this-link-will-not-work.invalid)\n\n[Internal blog link](/blog/engineering/gaudi-my-bash-framework)\n\n<!-- Generated by the blog pipeline:\n<Preview url='https://assaf.website' title='assaf.website' />\n<Preview url='https://this-link-will-not-work.invalid' title='Unavailable link' />\n<Preview internal url='/blog/engineering/gaudi-my-bash-framework' title='Internal blog link' />\n-->\n\n<!-- Direct component usage is reserved for React pages and deterministic Storybook examples. -->",
-  'MDX/Quote': "<Quote text='Good component systems make product code calmer.' author='Design System' />",
-  'MDX/Table': '| Component | Status |\n| --- | --- |\n| Callout | Documented |\n| Chart | Ready for article embeds |',
-  'MDX/Tooltip': "A <Tooltip message='Compact supporting context.'>technical term</Tooltip> can carry a short explanation.",
-  'Navigation/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n<FloatingMenu />",
-  'Navigation/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
-  'Navigation/Menu': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} />",
-  'Navigation/MenuBlog': "import { MenuBlog } from '@gaudi/design-system';\n\n<MenuBlog categories={categories} />",
-  'Navigation/MenuLogo': "import { MenuLogo } from '@gaudi/design-system';\n\n<MenuLogo />",
-  'Navigation/MenuMain': "import { MenuMain } from '@gaudi/design-system';\n\n<MenuMain categories={categories} allPosts={posts} />",
-  'Navigation/MenuMobile': "import { MenuMobile } from '@gaudi/design-system';\n\n<MenuMobile\n  blogLink={{ href: '/blog', title: 'Blog' }}\n  categories={categories}\n  links={links}\n  setMobileMenuOpen={setOpen}\n  setLauncherOpen={setLauncherOpen}\n/>",
-  'Navigation/MenuSearch': "import { MenuSearch } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setLauncherOpen} />",
-  'Core/Accordion': "import { AccordionGroup } from '@gaudi/design-system';\n\n<AccordionGroup\n  items={[\n    { value: 'usage', title: 'When should I use it?', content: 'Use accordions for compact progressive disclosure.' },\n  ]}\n/>",
-  'Post/Breadcrumbs': "import { Breadcrumbs } from '@gaudi/design-system';\n\n<Breadcrumbs\n  pages={[\n    { name: 'Blog', href: '/blog' },\n    { name: 'Design Systems', href: '/blog/design-systems', current: true },\n  ]}\n/>",
-  'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar label='AA' tone='blue' shape='circle' size='lg' />",
-  'Post/Disclaimer': "import { Disclaimer } from '@gaudi/design-system';\n\n<Disclaimer />\n\n<Disclaimer>\n  Research notes are provided for context and should not be treated as advice.\n</Disclaimer>",
-  'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
-  'Core/Banner': "import { Banner } from '@gaudi/design-system';\n\n<Banner title='Now published' href='/blog'>\n  New essays and project notes are available.\n</Banner>",
-  'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
-  'Core/Breadcrumb': "import { BreadcrumbTrail } from '@gaudi/design-system';\n\n<BreadcrumbTrail\n  items={[\n    { href: '/', label: 'Home' },\n    { href: '/blog', label: 'Blog' },\n    { current: true, label: 'Design Systems' },\n  ]}\n/>",
-  'Core/Button': "import { Button } from '@gaudi/design-system';\n\n<Button variant='solid' tone='accent' size='md'>Read article</Button>",
-  'Core/DialogPortal': "import { DialogPortal } from '@gaudi/design-system';\n\n{open ? (\n  <DialogPortal initialFocusRef={closeButtonRef}>\n    <div role='dialog' aria-modal='true' aria-labelledby='dialog-title'>\n      <h2 id='dialog-title'>Confirm publication</h2>\n      <button ref={closeButtonRef} onClick={() => setOpen(false)}>Close</button>\n    </div>\n  </DialogPortal>\n) : null}",
-  'Post/PostHeader': "import { PostHeader } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
-  'Core/Card': "import { Card } from '@gaudi/design-system';\n\n<Card title='Building with tokens' subtitle='Cards frame reusable content.' />",
-  'Post/PostNavigation': "import { PostNavigation } from '@gaudi/design-system';\n\n<PostNavigation prev={previousPost} next={nextPost} />",
-  'Core/Carousel': "import { Carousel } from '@gaudi/design-system';\n\n<Carousel\n  ariaLabel='Featured articles'\n  items={[\n    { title: 'Design systems keep editorial rhythm predictable', eyebrow: 'Design Systems', description: 'A focused carousel item.', href: '/blog' },\n  ]}\n/>",
-  'Post/PostSeriesBox': "import { PostSeriesBox } from '@gaudi/design-system';\n\n<PostSeriesBox series={seriesPosts} slug='components' />",
-  'Core/Checkbox': "import { Checkbox } from '@gaudi/design-system';\n\n<Checkbox label='Include drafts' defaultChecked />",
-  'Post/PostSharing': "import { PostSharing } from '@gaudi/design-system';\n\n<PostSharing\n  siteMetadata={siteMetadata}\n  slug='design-systems'\n  title={frontMatter.title}\n  tags={frontMatter.tags}\n/>",
-  'Post/TableOfContents': "import { TableOfContents } from '@gaudi/design-system';\n\n<TableOfContents toc={toc} />",
-  'Core/DataTable': "import { DataTable } from '@gaudi/design-system';\n\n<DataTable\n  columns={[{ key: 'component', header: 'Component' }]}\n  rows={[{ component: 'Button' }]}\n/>",
-  'Core/Field': "import { Field, FieldDescription, FieldInput, FieldLabel } from '@gaudi/design-system';\n\n<Field>\n  <FieldLabel htmlFor='email'>Email</FieldLabel>\n  <FieldInput id='email' type='email' />\n  <FieldDescription>Used for article updates only.</FieldDescription>\n</Field>",
-  'Core/Grid': "import { Grid, GridItem } from '@gaudi/design-system';\n\n<Grid columns='3' gap='md'>\n  <GridItem title='Tokens' description='Color, type, spacing, and shape definitions.' />\n</Grid>",
-  'Core/Icon': "import { Icon } from '@gaudi/design-system';\n\n<Icon name='Info' label='More information' color='primary' size='lg' />",
-  'Core/Kbd': "import { Kbd } from '@gaudi/design-system';\n\n<Kbd keys='command,shift,k' size='sm' variant='raised' />",
-  'Core/Link': "import { Link } from '@gaudi/design-system';\n\n<Link href='/blog' variant='inline' tone='blue'>Read the blog</Link>",
-  'Core/NavigationMenu': "import { NavigationMenu, NavigationMenuDropdown, NavigationMenuLink, NavigationMenuList, NavigationMenuPanel } from '@gaudi/design-system';\n\n<NavigationMenu>\n  <NavigationMenuList>\n    <NavigationMenuLink href='' active>Blog</NavigationMenuLink>\n    <NavigationMenuDropdown label='Categories' width='xl'>\n      <NavigationMenuPanel columns={2}>\n        <NavigationMenuLink href='' variant='panel' description='Knowledge graphs, semantic web, and linked data.'>\n          Data\n        </NavigationMenuLink>\n        <NavigationMenuLink href='' variant='panel' description='Implementation notes and developer tooling.'>\n          Engineering\n        </NavigationMenuLink>\n      </NavigationMenuPanel>\n    </NavigationMenuDropdown>\n  </NavigationMenuList>\n</NavigationMenu>",
-  'Core/Pagination': "import { PaginationBar } from '@gaudi/design-system';\n\n<PaginationBar currentPage={1} totalPages={4} getHref={() => ''} />",
-  'Core/Pill': "import { Pill } from '@gaudi/design-system';\n\n<Pill tone='blue' variant='solid' size='sm'>Engineering</Pill>",
-  'Core/Popover': "import { Popover } from '@gaudi/design-system';\n\n<Popover trigger='Open popover'>Compact supporting content.</Popover>",
-  'Core/Select': "import { Select } from '@gaudi/design-system';\n\n<Select\n  searchable\n  multiple\n  placeholder='Choose topics'\n  options={[\n    { label: 'Design systems', value: 'design-systems' },\n    { label: 'Knowledge graphs', value: 'knowledge-graphs' },\n  ]}\n/>",
-  'Core/Skeleton': "import { Skeleton } from '@gaudi/design-system';\n\n<Skeleton className='h-4 w-40' />",
-  'Core/Spinner': "import { Spinner } from '@gaudi/design-system';\n\n<Spinner label='Loading articles' size='md' />",
-  'Core/Switch': "import { Switch } from '@gaudi/design-system';\n\n<Switch label='Email notifications' defaultChecked />",
-  'Core/Terminal': "import { Terminal } from '@gaudi/design-system';\n\n<Terminal\n  title='blog — zsh'\n  username='ahmad'\n  commands={[\n    { command: 'pnpm test:ds-contracts', output: [{ text: '85 component contracts passed.', tone: 'success' }] },\n  ]}\n/>",
-  'Core/TextHighlight': "import { TextHighlight } from '@gaudi/design-system';\n\n<p>Design systems make <TextHighlight>consistency visible</TextHighlight>.</p>"
-};
-
-const componentDocs = {
-  'Navigation/MenuMobile': {
-    'accessibility': 'MenuMobile renders a named modal dialog with initial Close focus, focus containment, Escape dismissal, a labelled navigation landmark, and real lists and links for every destination.',
-    'decisionRules': [
-      'Pass the primary Blog destination through `blogLink`; use `links` only for additional top-level destinations.',
-      'Keep category ids stable because they form `/blog/categories/:id` destinations.',
-      'Mount MenuMobile only while open so DialogPortal can isolate the page and restore focus to the trigger.'
-    ],
-    'description': 'MenuMobile renders the compact navigation dialog, blog categories, search entry point, and newsletter action.',
-    'props': [
-      [ 'blogLink', '{ href, title }', "{ href: '/blog', title: 'Blog' }", 'Explicit primary Blog destination rendered before its categories.' ],
-      [ 'categories', 'Array<{ id, title, description }>', '[]', 'Blog category destinations and their supporting descriptions.' ],
-      [ 'links', 'Array<{ href, title }>', '[]', 'Additional top-level destinations. No position carries special meaning.' ],
-      [ 'setMobileMenuOpen', '(open: boolean) => void', '-', 'Closes the dialog after navigation, search launch, Escape, or the Close action.' ],
-      [ 'setLauncherOpen', '(open: boolean) => void', '-', 'Opens the search launcher after the mobile dialog closes.' ]
-    ],
-    'recovery': [
-      'Keep the current page intact when the menu closes without navigation and restore focus to its trigger.',
-      'If category data is unavailable, retain the primary Blog and top-level destinations instead of rendering broken category links.'
-    ]
-  },
-  'Core/CmdLauncher': {
-    'accessibility': 'CmdLauncher is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
-    'description': 'CmdLauncher provides the blog-wide command palette for navigation, content search, and theme actions.',
-    'overview': 'Use CmdLauncher with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint, so do not render CmdLauncherShortcut beside it in the header example.',
-    'recovery': [
-      'Keep the query and current page intact when a search returns no results; offer a clear route back to all destinations.',
-      'Escape closes the current level first, then the launcher, so keyboard users can recover without losing context.'
-    ],
-    'props': [
-      [ 'open', 'boolean', '-', 'Controlled palette state.' ],
-      [ 'setOpen', '(open: boolean) => void', '-', 'State setter used by the trigger, shortcut, keyboard handler, and close behavior.' ],
-      [ 'posts', 'Array', '[]', 'Searchable post records.' ],
-      [ 'projects', 'Array', '[]', 'Searchable project records.' ],
-      [ 'publications', 'Array', '[]', 'Searchable publication records.' ],
-      [ 'tags', 'Array', '[]', 'Searchable tag records.' ],
-      [ 'thoughts', 'Array', '[]', 'Searchable thought records.' ]
-    ]
-  },
-  'Core/Accordion': {
-    'accessibility': 'Accordion triggers are native buttons with aria-expanded. Content is only rendered when open so the tab order stays predictable.',
-    'description': 'Accordion groups expandable sections for FAQs, settings, and compact supporting content.',
-    'props': [
-      [ 'items', 'Array<{ value, title, content }>', '[]', 'Convenience API for rendering a complete accordion group.' ],
-      [ 'type', 'single | multiple', 'single', 'Controls whether one panel or several panels can be open.' ],
-      [ 'defaultValue', 'string | string[]', 'first item value', 'Initial open item for uncontrolled usage.' ],
-      [ 'className', 'string', '-', 'Root container class override.' ],
-      [ 'children', 'ReactNode | render function', '-', 'Lower-level composition API for custom item markup.' ],
-      [ 'value', 'string | string[]', '-', 'Controlled open state for custom composition or stable item value on AccordionItem.' ],
-      [ 'onValueChange', '(value) => void', '-', 'Called when a trigger changes the open state.' ],
-      [ 'isOpen', 'boolean', '-', 'Open state passed to custom trigger or content primitives.' ],
-      [ 'onClick', '(event) => void', '-', 'Click handler passed to custom trigger composition.' ]
-    ]
-  },
-  'Core/Avatar': {
-    'accessibility': 'Avatar uses alt text for images and role img with a label for initials/fallback avatars.',
-    'description': 'Avatar renders profile images, initials, or fallback silhouettes.',
-    'props': [
-      [ 'src', 'string', '-', 'Remote image URL. Local images currently fall back to the silhouette treatment.' ],
-      [ 'alt', 'string', '-', 'Alt text for image avatars.' ],
-      [ 'label', 'string', '-', 'Initials or readable fallback label.' ],
-      [ 'fallback', 'string | boolean', '-', 'Shows the silhouette fallback when image data is unavailable.' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls rendered avatar dimensions and initials size.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'gray', 'Background token used for initials avatars.' ],
-      [ 'shape', 'square | circle', 'square', 'Controls avatar border radius.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Banner': {
-    'accessibility': 'Static banners use status semantics. Linked banners expose a combined accessible label.',
-    'description': 'Banner renders a compact announcement strip.',
-    'props': [
-      [ 'title', 'ReactNode', '-', 'Optional bold leading text.' ],
-      [ 'children', 'ReactNode', '-', 'Announcement body copy.' ],
-      [ 'href', 'string', '-', 'Turns the banner copy into a navigation link.' ],
-      [ 'ariaLabel', 'string', 'title + children', 'Accessible label for linked banners.' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls vertical and horizontal padding.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'gray', 'Color family for the banner.' ],
-      [ 'variant', 'solid | soft | outline', 'soft', 'Visual treatment.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, body, action }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'Post/Disclaimer': {
-    'accessibility': 'Disclaimer renders through Callout, so text remains visible in the document flow and inherits the callout semantics and contrast rules.',
-    'description': 'Disclaimer renders the default blog disclaimer or custom disclaimer copy inside a Gaudi callout.',
-    'overview': 'Use Disclaimer at the end of posts, project write-ups, or editorial pages that need a consistent disclaimer treatment. The default copy covers personal opinions and employer affiliation; pass children when a page needs a more specific notice.',
-    'props': [
-      [ 'children', 'ReactNode', 'default disclaimer text', 'Custom disclaimer content. Leave empty to use the standard blog disclaimer.' ],
-      [ 'type', 'Callout type', 'info', 'Tone forwarded to the underlying Callout component.' ]
-    ]
-  },
-  'Core/Breadcrumb': {
-    'accessibility': 'Breadcrumb renders a nav landmark, ordered list, real links for ancestors, and aria-current on the current page.',
-    'description': 'Breadcrumb renders hierarchical page trails for navigation context.',
-    'props': [
-      [ 'items', 'Array<{ href, label, current }>', '[]', 'Convenience API for a complete breadcrumb trail.' ],
-      [ 'label', 'string', 'Breadcrumb', 'Accessible name for the nav landmark.' ],
-      [ 'className', 'string', '-', 'Root or slot class override depending on the exported primitive.' ],
-      [ 'children', 'ReactNode', '-', 'Composition API for custom Breadcrumb/List/Item/Link/Page layouts.' ],
-      [ 'href', 'string', '-', 'Link target for ancestor pages.' ],
-      [ 'current', 'boolean', 'false', 'Marks the active page with aria-current.' ]
-    ]
-  },
-  'Core/Button': {
-    'accessibility': 'Button renders native buttons for actions and links for navigation. Disabled link variants are removed from tab order.',
-    'decisionRules': [
-      'Use `solid` with `accent` for the one primary action in a local group.',
-      'Use `outline` or `soft` with `neutral` for secondary actions that still need a visible target.',
-      'Use `ghost`, `subtle`, or inline Link for quiet navigation and toolbar actions.',
-      'Choose semantic tones by meaning: `success`, `warning`, `danger`, `attention`, `discovery`, or `info`.'
-    ],
-    'description': 'Button renders the Gaudi action and link-button variants.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Visible button label or content.' ],
-      [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Reusable visual treatment.' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls spacing and text size.' ],
-      [ 'tone', 'accent | neutral | success | warning | danger | attention | discovery | info', 'accent', 'Semantic meaning for the action. Legacy hue names remain supported as compatibility aliases.' ],
-      [ 'radius', 'sm | md | lg | full', 'md', 'Button corner radius.' ],
-      [ 'href', 'string', '-', 'Renders an internal Next link or safe external anchor.' ],
-      [ 'disabled', 'boolean', 'false', 'Disables native buttons and removes disabled links from the tab order.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/DialogPortal': {
-    'accessibility': 'DialogPortal isolates body-level background siblings with inert and aria-hidden, locks body scroll by default, moves focus to initialFocusRef, and restores the previously focused trigger on unmount. The dialog content must provide role dialog, aria-modal, a readable name, Escape handling, and its own focus containment.',
-    'decisionRules': [
-      'Use DialogPortal only for modal content that must isolate the page behind it.',
-      'Pass initialFocusRef to the safest action, usually Close or Cancel.',
-      'Keep non-modal popovers and disclosures in normal document flow.'
-    ],
-    'description': 'DialogPortal renders modal content at the document body and manages page isolation, scroll locking, initial focus, and focus restoration.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'The labelled dialog surface rendered into the body-level portal.' ],
-      [ 'initialFocusRef', 'RefObject<HTMLElement>', '-', 'Receives focus after the portal mounts.' ],
-      [ 'lockScroll', 'boolean', 'true', 'Locks body scrolling while the portal is mounted.' ],
-      [ 'restoreFocus', 'boolean', 'true', 'Returns focus to the previously focused connected element on unmount.' ]
-    ],
-    'recovery': [
-      'Always provide an explicit Close or Cancel action and support Escape in the dialog implementation.',
-      'Keep destructive confirmation separate from the safe exit and restore focus to the opening control.'
-    ]
-  },
-  'Core/Card': {
-    'accessibility': 'Card is a structural container. Put links or buttons inside it rather than making the whole card a fake control.',
-    'decisionRules': [
-      'Use Card to frame one reusable content unit, not as page scaffolding.',
-      'Put real links and buttons inside the card instead of turning the whole surface into a fake control.',
-      'Avoid nested cards; separate sections with spacing or a table/list pattern instead.'
-    ],
-    'description': 'Card frames reusable content with title, subtitle, and optional children.',
-    'props': [
-      [ 'title', 'ReactNode', '-', 'Optional card heading.' ],
-      [ 'titleLevel', '2 | 3 | 4 | 5 | 6', '3', 'Semantic level for the optional card heading.' ],
-      [ 'subtitle', 'ReactNode', '-', 'Supporting description under the title.' ],
-      [ 'children', 'ReactNode', '-', 'Body content, actions, or nested composition.' ],
-      [ 'variant', 'elevated | outline | soft | flat', 'elevated', 'Container surface treatment.' ],
-      [ 'padding', 'none | sm | md | lg', 'md', 'Internal spacing.' ],
-      [ 'radius', 'none | sm | md | lg', 'md', 'Corner radius.' ],
-      [ 'interactive', 'boolean', 'false', 'Adds hover elevation for cards containing a real link or button.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, body, title, subtitle }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'MDX/Chart': {
-    'accessibility': 'Charts render as labelled figures with role img and deterministic Recharts rendering. Provide ariaLabel, title, and description so the visual has a readable summary in article content.',
-    'description': 'Chart renders Recharts-based article data visualisations for MDX posts.',
-    'overview': 'Use Chart and the named chart exports inside MDX when an article needs inline data visualisation. The components wrap Recharts with Gaudi spacing, borders, tooltips, tokens, and reduced-motion-safe rendering.',
-    'props': [
-      [ 'type', 'bar | line | area | pie | donut | composed | scatter | radial', 'bar', 'Generic Chart type. Named exports are preferred when the chart shape is known.' ],
-      [ 'data', 'Array<Record<string, unknown>>', '[]', 'Recharts data array for the selected chart.' ],
-      [ 'xKey', 'string', 'label', 'Field used for the x axis on axis-based charts.' ],
-      [ 'yKey', 'string', 'value', 'Primary value key for bar, line, and area charts.' ],
-      [ 'series', 'Array<{ key, label }>', '-', 'Multiple data series for bar, line, and area charts.' ],
-      [ 'title', 'ReactNode', '-', 'Figure title shown above the chart.' ],
-      [ 'description', 'ReactNode', '-', 'Supporting caption copy shown above the chart.' ],
-      [ 'ariaLabel', 'string', 'title or Chart', 'Accessible summary for the chart figure.' ],
-      [ 'height', 'number', '320', 'Responsive container height.' ],
-      [ 'colors', 'string[]', 'Gaudi chart palette', 'Optional color sequence for series or slices.' ],
-      [ 'showGrid', 'boolean', 'true', 'Shows chart grid lines on axis-based charts.' ],
-      [ 'showLegend', 'boolean', 'false', 'Shows a Recharts legend when useful.' ],
-      [ 'showTooltip', 'boolean', 'true', 'Shows a token-styled tooltip.' ],
-      [ 'className', 'string', '-', 'Root figure class override.' ]
-    ]
-  },
-  'MDX/Citation': {
-    'accessibility': 'Generated citation links are real anchors with readable labels. Popovers open on hover or focus, grouped references remain individually reachable, and CitationTracker keeps bibliography back-links pointed at the most recent citation instance.',
-    'consumerResponsibilities': [
-      'Keep BibTeX source files in the blog, usually under `data/meta/bibliography`. They do not belong in the design-system package.',
-      'Register `rehypeSimpleCitations` in the blog MDX/content pipeline so citation text is transformed before React renders the article.',
-      'Mount `CitationTracker` once in the app layout and mount `CitationPopover` near the rendered article content.',
-      'Keep citation keys in MDX prose exactly matched to the BibTeX ids in the bibliography files.'
-    ],
-    'description': 'Citation documents the blog citation authoring flow and the Gaudi runtime components that hydrate generated citation links.',
-    'donts': [
-      'Do not hand-write `<sup>`, `citation-link` classes, `data-citation-*` attributes, or References markup in MDX.',
-      'Do not import `CitationPopover` or `CitationTracker` inside individual MDX posts.',
-      'Do not use `CitationPopover` as a manual popover for arbitrary text; it expects generated citation anchors.'
-    ],
-    'dos': [
-      'Add BibTeX files to `data/meta/bibliography` in the blog repo.',
-      'List the BibTeX files in post frontmatter with `bibliography: [\'meta/bibliography/references.bib\', \'meta/bibliography/kg.bib\']`.',
-      'Cite one source with `[@HusseinYC18]` and grouped sources with `[@HusseinYC18; @WangJSWYCY19; @YangXJWHW20]`.',
-      'Let `rehypeSimpleCitations` generate numbered anchors, popover data attributes, and the References section.',
-      'Use `CitationPopover` and `CitationTracker` only as runtime hydration for the generated citation markup.'
-    ],
-    'notes': [
-      'The authoring API is markdown citation syntax, not a React component API.',
-      '`rehypeSimpleCitations` is the blog rehype plugin. It loads BibTeX through `citation-js`, assigns first-use numbers, supports grouped citations, emits citation anchors, and appends the References list.',
-      '`CitationPopover` binds to generated anchors marked with `data-citation-popover` and reads the generated citation keys, numbers, and reference text from data attributes.',
-      '`CitationTracker` updates bibliography back-links so a reference points back to the most recent citation instance the reader used.'
-    ],
-    'overview': 'Use citations in three places. Authors put BibTeX files in the blog, list those files in post frontmatter, and cite keys directly in prose with Pandoc-style brackets. The blog MDX pipeline runs rehypeSimpleCitations, which converts those text markers into numbered anchors plus a generated References section. Gaudi does not parse BibTeX or rewrite MDX; it only provides the runtime CitationPopover and CitationTracker behavior for the generated markup.',
-    'usageTitle': 'Authoring Example'
-  },
-  'MDX/Footnote': {
-    'accessibility': 'Generated footnote references are real anchors, so readers can still jump to the notes list. `Footnote` adds hover and focus previews without replacing the underlying link or removing the accessible footnote relationship.',
-    'consumerResponsibilities': [
-      'Enable markdown footnotes in the blog MDX pipeline with `remarkGfm`.',
-      'Run `remarkFootnoteData` before rehype so footnote definitions are available on `file.data.footnotes`.',
-      'Run `rehypeFootnotePopoverV2` after footnotes are converted to HTML so reference anchors receive `data-footnote-popover`, `data-footnote-number`, and `data-footnote-content`.',
-      'Mount `Footnote` once near the rendered MDX article, not inside the MDX document itself.'
-    ],
-    'description': 'Footnote hydrates generated markdown footnote references with hover and focus popover previews.',
-    'donts': [
-      'Do not hand-write `data-footnote-*` attributes in article MDX.',
-      'Do not use `<Footnote />` as an inline MDX component or wrapper around footnote text.',
-      'Do not hide the underlying footnote references without preserving anchor navigation and focus behavior.'
-    ],
-    'dos': [
-      'Write standard markdown footnotes with `[^id]` references and `[^id]: note text` definitions.',
-      'Let `remarkFootnoteData` extract note content and let `rehypeFootnotePopoverV2` attach popover data to generated reference links.',
-      'Use `Footnote` as a page-level runtime binder after the article has rendered.',
-      'Keep footnote copy short enough for a compact popover; long supporting material belongs in the visible footnotes section.'
-    ],
-    'notes': [
-      '`Footnote` listens for `mouseenter`, `mouseleave`, `focusin`, and `focusout` on generated links marked with `data-footnote-popover="true"`.',
-      'The popover body is read from generated `data-footnote-content`, so the plugin must sanitize and serialize the note content before runtime.',
-      'The component positions the popover next to the reference and flips left when it would overflow the viewport.',
-      'The visible footnotes list remains the source of truth; the popover is a reading convenience.'
-    ],
-    'overview': 'Authors do not write a React component for each footnote. They write standard markdown footnote syntax in the post. The blog MDX pipeline extracts the definitions, enhances the generated footnote reference anchors with `data-footnote-*` attributes, and may visually collapse the bottom notes section. Gaudi only owns the small client runtime that reads those generated attributes and shows the preview popover on hover or keyboard focus.',
-    'usageTitle': 'Authoring Example'
-  },
-  'MDX/Faq': {
-    'accessibility': 'Faq uses a semantic definition list and native disclosure buttons. Choose a headingLevel that follows the surrounding article heading without skipping a level.',
-    'props': [
-      [ 'questions', 'Array<{ question, answer }>', '-', 'Question and answer disclosures.' ],
-      [ 'heading', 'ReactNode', 'FAQ', 'Visible section heading.' ],
-      [ 'headingLevel', '2 | 3 | 4 | 5 | 6', '2', 'Semantic level for the section heading.' ]
-    ]
-  },
-  'MDX/Image': {
-    'accessibility': 'Image keeps article images semantic with alt text, figure captions, and a button trigger for the modal preview.',
-    'description': 'Image renders editorial MDX images with caption, dark-mode source, fallback source, and click-to-open modal behavior.',
-    'recovery': [
-      'Provide a valid fallback source for editorial images that can fail independently of the article.',
-      'Keep useful alt text available when both image sources fail; never replace the article with an empty frame.'
-    ],
-    'props': [
-      [ 'src', 'string', '-', 'Primary image source.' ],
-      [ 'fallback', 'string', '-', 'Fallback image source used after load failure.' ],
-      [ 'darkSrc', 'string', '-', 'Optional image source shown in dark mode.' ],
-      [ 'alt', 'string', 'post-image', 'Accessible alt text for informative images.' ],
-      [ 'caption', 'ReactNode', '-', 'Optional visible figure caption.' ],
-      [ 'width', 'number', '-', 'Image width for Next image rendering unless fill is supplied.' ],
-      [ 'height', 'number', '-', 'Image height for Next image rendering unless fill is supplied.' ],
-      [ 'fill', 'boolean', 'false', 'Uses the parent box instead of explicit dimensions.' ],
-      [ 'sizes', 'string', '-', 'Responsive image sizes hint passed to Next image.' ],
-      [ 'className', 'string', '-', 'Image class override.' ]
-    ]
-  },
-  'MDX/Mermaid': {
-    'accessibility': 'Mermaid exposes the rendered diagram as one labelled figure. Provide a concise description that communicates the diagram meaning without relying on shape, position, or color.',
-    'props': [
-      [ 'chart', 'string', '-', 'Mermaid chart definition.' ],
-      [ 'description', 'string', 'Diagram', 'Accessible text alternative for the rendered diagram.' ],
-      [ 'id', 'string', 'generated', 'Stable Mermaid render identifier.' ],
-      [ 'className', 'string', '-', 'Root figure class override.' ]
-    ],
-    'recovery': [
-      'Render a readable diagram error next to the source context when Mermaid cannot parse the chart.',
-      'Keep the page usable after a rendering failure and let authors correct the chart without losing surrounding article content.'
-    ]
-  },
-  'MDX/GaudiBarLayout': {
-    'accessibility': 'GaudiBarLayout includes a complete text equivalent, six keyboard-accessible region controls, pressed-state semantics, and a live widget readout. The hierarchy remains understandable without colour or pointer input.',
-    'description': 'GaudiBarLayout presents the desktop, its top and bottom primary bars, their left, middle, and right regions, and the flexible widgets inside each region as an interactive compositor.',
-    'props': [
-      [ 'title', 'string', 'How gaudiBar composes the desktop', 'Visible diagram title.' ],
-      [ 'description', 'string', 'Choose any region…', 'Concise explanation of the layout model.' ],
-      [ 'className', 'string', '-', 'Additional root figure class.' ]
-    ],
-    'recovery': [
-      'Keep the region data synchronized with the ordered text equivalent when widgets or layout areas change.',
-      'Prefer a normal image with descriptive alt text if the layout no longer fits the supported two-bar, three-region model.'
-    ]
-  },
-  'MDX/LinkedDataQualityFramework': {
-    'accessibility': 'LinkedDataQualityFramework includes a complete ordered text equivalent, keyboard-accessible subsystem controls, pressed-state semantics, and a live subsystem readout. Meaning never depends on position or colour alone.',
-    'description': 'LinkedDataQualityFramework presents Roomba’s portal, extraction, validation, profiling, and reporting modules as a connected, interactive block architecture for long-form articles.',
-    'props': [
-      [ 'title', 'string', 'Roomba’s Linked Data quality architecture', 'Visible diagram title.' ],
-      [ 'description', 'string', 'A modular path…', 'Concise explanation of the architecture.' ],
-      [ 'className', 'string', '-', 'Additional root figure class.' ]
-    ],
-    'recovery': [
-      'Keep the ordered text equivalent synchronized with every subsystem and module when the architecture changes.',
-      'Prefer a normal image with descriptive alt text if the framework can no longer be represented by the supported subsystem structure.'
-    ]
-  },
-  'MDX/PipelineDiagram': {
-    'accessibility': 'PipelineDiagram includes a complete ordered text equivalent, keyboard-accessible stage controls, and current-step semantics. Meaning never depends on position or colour alone.',
-    'description': 'PipelineDiagram turns a source, shared platform, ordered stages, failure branches, and destination into an interactive, responsive HTML workflow for long-form articles.',
-    'props': [
-      [ 'title', 'string', '-', 'Visible diagram title.' ],
-      [ 'description', 'string', '-', 'Concise explanation of the full workflow.' ],
-      [ 'source', '{ label, action }', '-', 'The workflow origin and action that enters the shared platform.' ],
-      [ 'platform', '{ label, detail?, success?, feedback? }', '-', 'The repository or system of record and the signals returned to it.' ],
-      [ 'pipeline', '{ label, trigger, stages[] }', '-', 'The named pipeline and its ordered stages. Stages can expose failure or output branches.' ],
-      [ 'destination', '{ label }', '-', 'Optional deployment or delivery destination.' ],
-      [ 'className', 'string', '-', 'Additional root figure class.' ]
-    ],
-    'recovery': [
-      'Keep labels and outcomes in the component data so the ordered text equivalent remains complete.',
-      'Prefer a normal image with descriptive alt text when a workflow cannot be expressed with the supported stages and branches.'
-    ]
-  },
-  'MDX/Preview': {
-    'accessibility': 'Preview renders a real link with a readable label. The hover card is supplemental; the target URL remains reachable without JavaScript, images, or preview metadata.',
-    'consumerResponsibilities': [
-      'Register `remarkLinks` in the blog remark pipeline so external markdown links become `Preview` MDX elements.',
-      'Register `rehypeInternalLinks` in the blog rehype pipeline so internal blog anchors become `Preview internal` elements after markdown has become HTML.',
-      'Expose `/api/preview` in the consuming app for external metadata fetching, caching, and failure handling.',
-      'Keep `Preview` in the `MDXComponents` map so generated MDX JSX can resolve at render time.'
-    ],
-    'description': 'Preview renders inline link previews for markdown links transformed by the blog MDX pipeline.',
-    'donts': [
-      'Do not rewrite ordinary article links by hand when markdown syntax can express the link.',
-      'Do not rely on the hover card as the only place a title or destination appears.',
-      'Do not fetch external preview metadata inside the design-system package; the consuming app owns the API route.'
-    ],
-    'dos': [
-      'Write normal markdown links such as `[assaf.website](https://assaf.website)` in MDX posts.',
-      'Use direct `<Preview />` only in React pages, custom layouts, or deterministic docs examples with `previewData`.',
-      'Use `internal` for local blog links that should render internal metadata without remote preview fetching.',
-      'Provide `title` when the source text is not enough or when deterministic rendering matters.'
-    ],
-    'notes': [
-      '`remarkLinks` converts external `http` and `https` markdown links into `Preview` MDX text elements with `url` and optional `title` attributes.',
-      '`rehypeInternalLinks` converts matching internal blog anchors like `/blog/category/slug` into `Preview internal` elements after markdown has become HAST.',
-      'External previews call `/api/preview`; unavailable URLs render a red fallback link instead of breaking article content.',
-      'Internal previews skip remote fetching and can use local metadata supplied by the app or generated pipeline.'
-    ],
-    'overview': 'Authors should usually write normal markdown links. During compilation, the blog turns eligible external markdown links into `Preview` components with `remarkLinks`, then turns eligible internal blog anchors into `Preview internal` components with `rehypeInternalLinks`. Gaudi owns the rendered inline link, fallback state, loading skeleton, and hover card UI; the blog owns the markdown transforms and preview API.',
-    'recovery': [
-      'Preserve the original destination link while preview metadata loads or fails, so navigation never depends on the enrichment API.',
-      'Name the unavailable preview and keep the supplied title visible; a failed hover card must not become an empty interaction.'
-    ],
-    'props': [
-      [ 'url', 'string', '-', 'Target URL to link to and preview.' ],
-      [ 'title', 'string', '-', 'Optional custom title that overrides fetched preview metadata.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'defaultOpen', 'boolean', 'false', 'Starts the hover card open for deterministic demos and visual tests.' ],
-      [ 'internal', 'boolean', 'false', 'Renders a local app link and skips remote preview fetching.' ],
-      [ 'previewData', 'object', 'null', 'Preloaded metadata for deterministic docs, tests, or server-provided previews.' ],
-      [ 'showImage', 'boolean', 'true', 'Controls whether the hover card can show image preview metadata.' ],
-      [ 'timeout', 'number', '10000', 'Preview metadata request timeout in milliseconds.' ],
-      [ 'onLoad', '(data) => void', '-', 'Called when preview metadata loads successfully.' ],
-      [ 'onError', '(error) => void', '-', 'Called when preview metadata fails to load.' ],
-      [ 'fallback', 'ReactNode', '-', 'Custom fallback UI for unavailable preview metadata.' ]
-    ],
-    'usageTitle': 'Authoring Example'
-  },
-  'Core/Carousel': {
-    'accessibility': 'Carousel exposes a labelled carousel region, native previous/next buttons, aria-live status updates, keyboard arrow support, and named indicators.',
-    'description': 'Carousel renders standard feature slides and editorial card rails.',
-    'props': [
-      [ 'items', 'Array<{ id, title, description, eyebrow, image, alt, href, action, content }>', '[]', 'Slide data. Standard uses the active item; apple renders the horizontal rail.' ],
-      [ 'ariaLabel', 'string', 'Carousel', 'Accessible name for the carousel region.' ],
-      [ 'variant', 'standard | rail | apple', 'standard', 'Slide format. Use rail for editorial card rails; apple remains a legacy alias.' ],
-      [ 'size', 'sm | md | lg', 'md', 'Controls max width and slide/card height.' ],
-      [ 'radius', 'none | sm | md | lg', 'lg', 'Slide/card corner radius.' ],
-      [ 'controls', 'boolean', 'true', 'Shows previous and next buttons.' ],
-      [ 'loop', 'boolean', 'false', 'Wraps previous/next navigation.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, header, viewport, track, slide, card, image, content, eyebrow, title, description, action, controls, control, indicators, indicator, dialog, overlay }', '-', 'Slot-level overrides for visual composition.' ]
-    ]
-  },
-  'Core/Checkbox': {
-    'accessibility': 'Checkbox exposes role checkbox, aria-checked, disabled state, and a visible label when provided.',
-    'description': 'Checkbox renders a token-styled binary control.',
-    'props': [
-      [ 'id', 'string', 'generated id', 'Connects the button control to its visible label.' ],
-      [ 'label', 'ReactNode', '-', 'Visible label text.' ],
-      [ 'checked', 'boolean', '-', 'Controlled checked state.' ],
-      [ 'defaultChecked', 'boolean', 'false', 'Initial checked state for uncontrolled usage.' ],
-      [ 'size', 'sm | md | lg', 'md', 'Controls track, thumb, and label scale.' ],
-      [ 'disabled', 'boolean', 'false', 'Prevents changes and lowers visual emphasis.' ],
-      [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/DataTable': {
-    'accessibility': 'DataTable renders a real table with column headers and an optional caption inside a labelled, keyboard-focusable horizontal scroll region. Use render functions for cells without changing table semantics.',
-    'decisionRules': [
-      'Use DataTable for actual tabular comparison, not card grids or definition lists.',
-      'Keep captions and column headers meaningful so the table remains understandable out of context.',
-      'Wrap dense tables in the provided scroll region rather than forcing columns to shrink past readability.'
-    ],
-    'description': 'DataTable renders small tabular datasets with tokenized table chrome.',
-    'props': [
-      [ 'columns', 'Array<{ key, header, render? }>', '[]', 'Column definitions. render(row) customizes a cell while preserving table semantics.' ],
-      [ 'rows', 'Array<Record<string, unknown>>', '[]', 'Rows keyed by column key. row.id is used as the stable key when present.' ],
-      [ 'caption', 'ReactNode', '-', 'Optional table caption.' ],
-      [ 'overflowLabel', 'string', 'Scrollable data table', 'Accessible name for the horizontal scroll region when no caption is present.' ],
-      [ 'className', 'string', '-', 'Outer table frame class override.' ]
-    ]
-  },
-  'MDX/Video': {
-    'accessibility': 'Video uses a native button for the thumbnail trigger, an aria-modal dialog, Escape-to-close behavior, labelled close controls, and returns focus to the trigger when closed.',
-    'description': 'Video renders a video thumbnail that opens an embedded video in an accessible modal dialog.',
-    'overview': 'Use Video inside MDX when an article needs a focused video walkthrough without embedding an always-loaded iframe in the page flow.',
-    'props': [
-      [ 'videoSrc', 'YouTube embed URL or embeddable URL', '-', 'Source URL converted to an embeddable iframe URL when possible.' ],
-      [ 'thumbnailSrc', 'string', '-', 'Optional thumbnail image source.' ],
-      [ 'thumbnailAlt', 'string', 'Video thumbnail', 'Accessible alt text for the thumbnail image or fallback thumbnail label.' ],
-      [ 'animationStyle', 'from-center | from-bottom | from-top | from-left | from-right | fade | top-in-bottom-out | left-in-right-out', 'from-center', 'Dialog entrance animation.' ],
-      [ 'title', 'string', 'Video', 'Dialog heading and iframe title.' ],
-      [ 'ariaLabel', 'string', 'playLabel', 'Accessible label for the thumbnail trigger.' ],
-      [ 'autoplay', 'boolean', 'true', 'Adds autoplay to the iframe URL when the dialog opens.' ],
-      [ 'playLabel', 'string', 'Play video', 'Fallback accessible label for the thumbnail trigger.' ],
-      [ 'className', 'string', '-', 'Thumbnail trigger class override.' ],
-      [ 'classNames', '{ trigger, thumbnail, playWrapper, playButton, dialog, overlay, panel, title, close, video }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'Core/Field': {
-    'accessibility': 'Field keeps label, input, description, and error markup colocated so form controls can be wired with id/htmlFor.',
-    'decisionRules': [
-      'Use a persistent FieldLabel; placeholders are examples, not labels.',
-      'Put requirements and recovery text next to the field before submission.',
-      'Use FieldError and aria-invalid for invalid states instead of relying on red borders alone.'
-    ],
-    'description': 'Field composes form label, description, error, and input building blocks.',
-    'recovery': [
-      'Keep the entered value when validation fails and move the actionable message next to the input.',
-      'State the problem and the correction in plain language, then clear `aria-invalid` as soon as the value becomes valid.'
-    ],
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Composes label, input, description, and error slots or supplies slot text.' ],
-      [ 'htmlFor', 'string', '-', 'Connects the visible label to the input id.' ],
-      [ 'id', 'string', '-', 'Input id paired with FieldLabel htmlFor.' ],
-      [ 'type', 'string', 'text', 'Native input type.' ],
-      [ 'name', 'string', '-', 'Native input name for form submission.' ],
-      [ 'value', 'string', '-', 'Controlled input value.' ],
-      [ 'defaultValue', 'string', '-', 'Initial uncontrolled input value.' ],
-      [ 'placeholder', 'string', '-', 'Native input placeholder.' ],
-      [ 'required', 'boolean', 'false', 'Marks the input as required.' ],
-      [ 'disabled', 'boolean', 'false', 'Disables the input.' ],
-      [ 'onChange', '(event) => void', '-', 'Native input change handler.' ],
-      [ 'className', 'string', '-', 'Class override on each Field slot.' ]
-    ]
-  },
-  'Core/Grid': {
-    'accessibility': 'Grid provides layout only. Its children keep their own headings, links, and controls.',
-    'description': 'Grid and GridItem render responsive feature grids.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Grid items or custom content.' ],
-      [ 'columns', '2 | 3 | 4', '3', 'Responsive column count.' ],
-      [ 'gap', 'sm | md | lg', 'md', 'Space between grid items.' ],
-      [ 'title', 'ReactNode', '-', 'GridItem heading.' ],
-      [ 'description', 'ReactNode', '-', 'GridItem body text.' ],
-      [ 'header', 'ReactNode', '-', 'Optional GridItem header media.' ],
-      [ 'icon', 'ReactNode', '-', 'Optional GridItem icon content.' ],
-      [ 'variant', 'elevated | outline | soft', 'elevated', 'GridItem surface treatment.' ],
-      [ 'padding', 'sm | md | lg', 'md', 'GridItem internal spacing.' ],
-      [ 'radius', 'sm | md | lg', 'md', 'GridItem corner radius.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, body, title, description }', '-', 'GridItem slot overrides.' ]
-    ]
-  },
-  'Core/Icon': {
-    'accessibility': 'Decorative icons are hidden from assistive technology. Informative or icon-only links need a readable label.',
-    'decisionRules': [
-      'Use the Gaudi icon registry; do not import vendor icons directly outside `src/icons/index.jsx`.',
-      'Mark decorative icons as decorative and label meaningful icon-only controls.',
-      'Keep icon size and stroke aligned with the surrounding text or control.'
-    ],
-    'description': 'Icon renders entries from the centralized icon registry.',
-    'props': [
-      [ 'name', 'registry icon name', '-', 'Renders an icon from the Gaudi registry.' ],
-      [ 'kind', 'github | linkedin | twitter | youtube | mail | ...', '-', 'Compatibility alias for social/link icon use.' ],
-      [ 'href', 'string', '-', 'Renders the icon as a safe link when provided.' ],
-      [ 'label', 'string', '-', 'Accessible label for informative icons and icon links.' ],
-      [ 'decorative', 'boolean', 'false', 'Hides the SVG from assistive technology when the icon is visual only.' ],
-      [ 'size', 'xs | sm | md | lg | xl | 2xl | number', 'md', 'Controls icon dimensions.' ],
-      [ 'color', 'neutral | muted | primary | info | success | warning | danger | attention | blue | teal | green | amber | yellow | red | rose | dim', 'currentColor', 'Token color shortcut.' ],
-      [ 'strokeWidth', 'number', 'icon default', 'Adjusts line icon stroke width when the registry entry supports it.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Kbd': {
-    'accessibility': 'Keyboard shortcuts expose readable aria-label text such as Command plus K while keeping visual symbols compact.',
-    'description': 'Kbd renders keyboard keys and multi-key shortcuts.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Single visible key when keys is not provided.' ],
-      [ 'keys', 'string | string[]', '-', 'Shortcut list such as "command,shift,k".' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls key dimensions and text size.' ],
-      [ 'variant', 'raised | outline | flat', 'raised', 'Visual keycap treatment.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Link': {
-    'accessibility': 'Link renders Next links for internal URLs, anchors for fragments, and safe external anchors with noopener noreferrer.',
-    'description': 'Link centralizes navigation semantics for internal, anchor, and external links.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Visible link label.' ],
-      [ 'href', 'internal | anchor | external URL', '-', 'Internal routes use Next Link; anchors and external URLs use native anchors.' ],
-      [ 'prefetch', 'boolean', 'true', 'Next.js prefetch behavior for internal links.' ],
-      [ 'variant', 'inline | muted | nav | bare', 'inline', 'Text link style.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'neutral', 'Color family. Default is black/gray and turns blue on hover.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/NavigationMenu': {
-    'accessibility': 'NavigationMenu renders a nav landmark, real links, native dropdown buttons, aria-expanded triggers, Escape-to-close behavior, outside-click dismissal, and aria-current for active links.',
-    'description': 'NavigationMenu renders grouped site navigation with dropdown panels for categories, sections, and related destinations.',
-    'props': [
-      [ 'label', 'string', 'Main navigation', 'Accessible name for the nav landmark.' ],
-      [ 'children', 'ReactNode', '-', 'Composition API for list, items, links, and dropdowns.' ],
-      [ 'href', 'string', '-', 'NavigationMenuLink destination.' ],
-      [ 'active', 'boolean', 'false', 'Marks a NavigationMenuLink as the current page with aria-current.' ],
-      [ 'variant', 'link | panel', 'link', 'Use link for top-level items and panel for dropdown card links.' ],
-      [ 'description', 'ReactNode', '-', 'Supporting copy shown in panel links.' ],
-      [ 'meta', 'ReactNode', '-', 'Small metadata line for panel links.' ],
-      [ 'trigger', 'ReactNode', 'label', 'Custom dropdown trigger content.' ],
-      [ 'defaultOpen', 'boolean', 'false', 'Initial uncontrolled dropdown state. Useful for demos and persistent nav panels.' ],
-      [ 'align', 'start | center | end', 'start', 'Controls dropdown panel alignment.' ],
-      [ 'width', 'sm | md | lg | xl', 'lg', 'Controls dropdown panel width.' ],
-      [ 'columns', '1 | 2 | 3', '2', 'Responsive panel grid columns.' ],
-      [ 'panelClassName', 'string', '-', 'Dropdown panel class override.' ],
-      [ 'className', 'string', '-', 'Class override on each slot.' ]
-    ]
-  },
-  'Core/Pagination': {
-    'accessibility': 'Pagination renders a nav landmark, disabled button states for unavailable directions, keyboard-focusable status shortcuts, and aria-current on active numbered links.',
-    'description': 'Pagination renders blog-style previous/status/next navigation. Hovering or focusing the center status reveals direct page shortcuts.',
-    'props': [
-      [ 'currentPage', 'number', '1', 'Active page number.' ],
-      [ 'totalPages', 'number', '1', 'Total page count.' ],
-      [ 'getHref', '(page) => string', '?page={page}', 'Builds each page link URL.' ],
-      [ 'onPageChange', '(page) => void', '-', 'Optional client-side page change handler for filtered lists.' ],
-      [ 'label', 'string', 'Pagination', 'Accessible name for the pagination nav.' ],
-      [ 'children', 'ReactNode', '-', 'Composition API for custom PaginationContent/Item/Link layouts.' ],
-      [ 'href', 'string', '#', 'Link destination for previous/next/link slots.' ],
-      [ 'disabled', 'boolean', 'false', 'Disables previous/next or numbered controls.' ],
-      [ 'isActive', 'boolean', 'false', 'Marks a page link as current.' ],
-      [ 'className', 'string', '-', 'Class override on each slot.' ]
-    ]
-  },
-  'Core/Pill': {
-    'accessibility': 'Pill includes visible text so status or category meaning is not color-only.',
-    'decisionRules': [
-      'Use Pill for compact metadata, tags, filters, and status labels.',
-      'Keep the visible label as the source of meaning; color only supports scanning.'
-    ],
-    'description': 'Pill renders compact category and status labels.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Visible category, status, or tag label.' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls padding and text size.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Semantic tone alias mapped through Gaudi tokens rather than raw palette utilities.' ],
-      [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Visual treatment.' ],
-      [ 'radius', 'sm | md | full', 'sm', 'Corner radius.' ],
-      [ 'href', 'string', '-', 'Renders the pill as a navigation link.' ],
-      [ 'icon', 'ReactNode', '-', 'Decorative leading icon.' ],
-      [ 'pulse', 'boolean', 'false', 'Adds a pulsing status dot.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Popover': {
-    'accessibility': 'Popover trigger is a native button and outside pointer interactions close the panel. Keep popover content short and non-modal.',
-    'description': 'Popover renders compact positioned supporting content.',
-    'props': [
-      [ 'trigger', 'ReactNode', '-', 'Button label/content for the default PopoverRoot.' ],
-      [ 'children', 'ReactNode', '-', 'Popover panel content or custom composition.' ],
-      [ 'onClick', '(event) => void', '-', 'Trigger click handler for custom composition.' ],
-      [ 'className', 'string', '-', 'Root, trigger, or content class override depending on slot.' ]
-    ]
-  },
-  'Core/Select': {
-    'accessibility': 'Select uses a native button trigger, listbox semantics, aria-expanded, aria-selected, aria-multiselectable for multi-select, and keyboard support for Arrow keys, Enter, Space, Home, End, and Escape.',
-    'decisionRules': [
-      'Use Select when choices are bounded; use search or command palette when users need discovery across content.',
-      'Enable `searchable` once the list is too long to scan comfortably.',
-      'Use `multiple` only when the user truly needs a set; otherwise keep the decision singular.'
-    ],
-    'description': 'Select renders a styled option picker with searchable combobox behavior and multi-select support.',
-    'recovery': [
-      'Keep the existing selection when filtering returns no matches and expose `emptyText` as the recovery message.',
-      'Invalid state must be paired with nearby text that explains the required correction; color and `aria-invalid` alone are insufficient.'
-    ],
-    'props': [
-      [ 'options', 'Array<{ label, value, disabled }>', '[]', 'Selectable options. Option children are also normalized when options is empty.' ],
-      [ 'value', 'string | string[]', '-', 'Controlled selected value. Arrays are used for multiple mode.' ],
-      [ 'defaultValue', 'string | string[]', '-', 'Initial uncontrolled selected value.' ],
-      [ 'onValueChange', '(value, option) => void', '-', 'Called when selection changes.' ],
-      [ 'multiple', 'boolean', 'false', 'Allows selecting more than one option.' ],
-      [ 'searchable', 'boolean', 'false', 'Shows a search field inside the popup and filters options.' ],
-      [ 'placeholder', 'string', 'Select option', 'Trigger placeholder when nothing is selected.' ],
-      [ 'searchPlaceholder', 'string', 'Search options...', 'Search input placeholder.' ],
-      [ 'emptyText', 'string', 'No options found.', 'Empty result text.' ],
-      [ 'defaultOpen', 'boolean', 'false', 'Initial open state for demos or controlled-looking examples.' ],
-      [ 'disabled', 'boolean', 'false', 'Disables the trigger.' ],
-      [ 'invalid', 'boolean', 'false', 'Applies aria-invalid and error styling.' ],
-      [ 'name', 'string', '-', 'Renders hidden form inputs for selected values.' ],
-      [ 'aria-label', 'string', '-', 'Accessible label for icon-only or unlabeled select controls.' ],
-      [ 'children', 'ReactNode', '-', 'Option children normalized when options is empty.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, trigger, value, placeholder, chevron, popup, search, option, check, empty }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'Core/Skeleton': {
-    'accessibility': 'Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement.',
-    'description': 'Skeleton renders non-semantic loading placeholders.',
-    'props': [
-      [ 'className', 'string', '-', 'Defines shape, width, height, radius, and layout placement.' ]
-    ]
-  },
-  'Core/Spinner': {
-    'accessibility': 'Spinner exposes role status and requires a readable label for the loading operation.',
-    'description': 'Spinner renders compact loading progress.',
-    'props': [
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls spinner dimensions.' ],
-      [ 'label', 'string', 'Loading', 'Accessible status label.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Switch': {
-    'accessibility': 'Switch exposes role switch, aria-checked, disabled state, and a visible label when provided.',
-    'description': 'Switch renders a token-styled boolean preference control.',
-    'props': [
-      [ 'id', 'string', 'generated id', 'Connects the switch to its visible label.' ],
-      [ 'label', 'ReactNode', '-', 'Visible label text.' ],
-      [ 'checked', 'boolean', '-', 'Controlled checked state.' ],
-      [ 'defaultChecked', 'boolean', 'false', 'Initial checked state for uncontrolled usage.' ],
-      [ 'disabled', 'boolean', 'false', 'Prevents changes and lowers visual emphasis.' ],
-      [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  },
-  'Core/Terminal': {
-    'accessibility': 'Terminal renders readable command history inside a labelled region. Motion is disabled when users prefer reduced motion.',
-    'description': 'Terminal renders mac-style shell examples with typed commands and structured output lines.',
-    'props': [
-      [ 'commands', 'Array<string | { command, output, tone }>', 'example commands', 'Command history. output can be strings or { text, tone } lines.' ],
-      [ 'outputs', 'Record<number, output[]>', '{}', 'Legacy output mapping for string command arrays.' ],
-      [ 'ariaLabel', 'string', 'Terminal', 'Accessible name for the terminal region.' ],
-      [ 'title', 'string', 'terminal', 'Header title.' ],
-      [ 'username', 'string', 'ahmad', 'Prompt username segment.' ],
-      [ 'promptSymbol', 'string', '$', 'Prompt separator.' ],
-      [ 'variant', 'dark | light | translucent', 'dark', 'Terminal surface treatment.' ],
-      [ 'size', 'sm | md | lg', 'md', 'Controls max width, body height, and text size.' ],
-      [ 'radius', 'none | sm | md | lg', 'lg', 'Terminal corner radius.' ],
-      [ 'showHeader', 'boolean', 'true', 'Shows mac window controls and title.' ],
-      [ 'animate', 'boolean', 'true', 'Types commands over time unless reduced motion is preferred.' ],
-      [ 'typingSpeed', 'number', '35', 'Milliseconds between typed characters.' ],
-      [ 'initialDelay', 'number', '400', 'Delay before the first command starts.' ],
-      [ 'delayBetweenCommands', 'number', '700', 'Delay after a command before the next command starts.' ],
-      [ 'className', 'string', '-', 'Root class override.' ],
-      [ 'classNames', '{ root, header, controls, title, body, line, prompt, command, output }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'Core/TextHighlight': {
-    'accessibility': 'TextHighlight is inline text emphasis. It must keep the original text readable and must not be the only way meaning is conveyed.',
-    'description': 'TextHighlight emphasizes short inline phrases inside prose.',
-    'overview': 'Use TextHighlight sparingly inside article copy or compact editorial headings when a phrase needs emphasis without becoming a link, button, or badge.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'Inline text to emphasize.' ],
-      [ 'variant', 'marker | soft | underline', 'marker', 'Highlight treatment.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Color family.' ],
-      [ 'radius', 'none | sm | md', 'sm', 'Corner radius for filled variants.' ],
-      [ 'animate', 'boolean', 'true', 'Enables the marker draw animation.' ],
-      [ 'className', 'string', '-', 'Root class override.' ]
-    ]
-  }
-};
-
-const defaultUsage = (title, component) => {
-  const name = title.split('/').at(-1) || component.replaceAll(' ', '');
-
-  if (name.startsWith('use')) return `import { ${name} } from '@gaudi/design-system';\n\nconst result = ${name}();`;
-
-  return `import { ${name} } from '@gaudi/design-system';\n\n<${name} />`;
-};
-
-export const getComponentDocs = (title) => {
-  const [ group, ...rest ] = title.split('/');
-  const component = rest.join(' / ') || group;
-  const docs = groupDocs[group] || groupDocs.Core;
-  const overrides = componentDocs[title] || {};
-  const usage = overrides.usage || usageExamples[title] || defaultUsage(title, component);
-
-  return {
-    ...docs,
-    ...overrides,
-    'component': component,
-    'description': overrides.description || `${component} ${docs.description}`,
-    'decisionRules': overrides.decisionRules || [],
-    'donts': overrides.donts || [],
-    'dos': overrides.dos || [],
-    'group': group,
-    'recovery': overrides.recovery || [],
-    'title': title,
-    'usage': usage,
-    'usageLanguage': overrides.usageLanguage || (group === 'MDX' ? 'mdx' : 'jsx')
-  };
-};
+import { InlineCode as CodeValue, InlineText, Table } from './StoryDocs';
+import { getComponentDocs } from './componentDocumentation';
+export { getComponentDocs } from './componentDocumentation';
+import { acceptsPreviewArgs, displayedPreviewArgs, previewArgTypes, referenceFromArgTypes, selectPreviewStory } from './docsContract';
 
 const toSectionId = (title) => title
   .toLowerCase()
@@ -861,34 +19,6 @@ const Section = ({ children, title }) => (
     {children}
   </section>
 );
-
-const CodeValue = ({ children }) => (
-  <code className='ds-docs-code-value'>{children}</code>
-);
-
-const autoCodePattern = /(@[a-z0-9-]+\/[a-z0-9-/.]+|(?:src|app|data|meta|layouts|lib|scripts|styles|public|contentlayer)(?:\/[A-Za-z0-9_.*-]+)+|\[@[^\]]+\]|<\/?[A-Za-z][A-Za-z0-9]*>?|data-[A-Za-z0-9-*]+|aria-[A-Za-z0-9-]+|[A-Z]?[a-z]+[A-Z][A-Za-z0-9]*|Cmd\/Ctrl \+ K|Cmd\/Ctrl|Next\.js|MDX|JSX|BibTeX|Recharts|React|Tailwind)/g;
-
-const renderAutoCode = (text, keyPrefix) => text.split(autoCodePattern).map((part, index) => {
-  if (!part) return null;
-  autoCodePattern.lastIndex = 0;
-
-  if (autoCodePattern.test(part)) return <CodeValue key={ `${keyPrefix}-auto-${index}` }>{part}</CodeValue>;
-
-  return part;
-});
-
-const InlineText = ({ children }) => {
-  if (typeof children !== 'string') return children;
-
-  return children.split(/(`[^`]+`)/g).map((part, index) => {
-    if (!part) return null;
-    if (part.startsWith('`') && part.endsWith('`')) {
-      return <CodeValue key={ `${part}-${index}` }>{part.slice(1, -1)}</CodeValue>;
-    }
-
-    return renderAutoCode(part, index);
-  });
-};
 
 const List = ({ items }) => (
   <ul>
@@ -915,16 +45,16 @@ const DecisionRules = ({ rules }) => (
 
 const PropsTable = ({ rows }) => (
   <>
-    <dl className='divide-y divide-gray-200 border-y border-gray-200 md:hidden dark:divide-gray-800 dark:border-gray-800'>
+    <dl className='ds-docs-props-list divide-y divide-gray-200 border-y border-gray-200 md:hidden dark:divide-gray-800 dark:border-gray-800'>
       {rows.map(([ name, values, defaultValue, description = '-' ]) => (
-        <div key={ name } className='grid gap-2 py-4'>
-          <dt className='font-semibold text-gray-900 dark:text-gray-100'><InlineText>{name}</InlineText></dt>
+        <div key={ name } className='grid gap-1.5 py-3'>
+          <dt className='font-semibold text-gray-900 dark:text-gray-100'><CodeValue>{name}</CodeValue></dt>
           <dd className='flex flex-wrap items-baseline gap-2 text-xs text-gray-500 dark:text-gray-400'>
-            <span className='font-semibold uppercase'>Type</span>
+            <span className='font-semibold'>Type</span>
             <CodeValue>{values}</CodeValue>
           </dd>
           <dd className='flex flex-wrap items-baseline gap-2 text-xs text-gray-500 dark:text-gray-400'>
-            <span className='font-semibold uppercase'>Default</span>
+            <span className='font-semibold'>Default</span>
             <CodeValue>{defaultValue}</CodeValue>
           </dd>
           <dd className='text-sm leading-6 text-gray-600 dark:text-gray-300'><InlineText>{description}</InlineText></dd>
@@ -944,7 +74,7 @@ const PropsTable = ({ rows }) => (
         <tbody>
           {rows.map(([ name, values, defaultValue, description = '-' ]) => (
             <tr key={ name }>
-              <td><InlineText>{name}</InlineText></td>
+              <td><CodeValue>{name}</CodeValue></td>
               <td><CodeValue>{values}</CodeValue></td>
               <td><CodeValue>{defaultValue}</CodeValue></td>
               <td><InlineText>{description}</InlineText></td>
@@ -957,6 +87,58 @@ const PropsTable = ({ rows }) => (
 );
 
 const hasDistinctOverview = (docs) => Boolean(docs.overview && docs.overview.trim() !== docs.description.trim());
+
+const PreviewControls = ({ of, hasReference, referenceTitle, include }) => {
+  const { story } = useOf(of || 'story', ['story']);
+  const context = useContext(DocsContext);
+  const controlsId = useId();
+  const [args, setArgs] = useState(() => ({...context.getStoryContext(story).args}));
+  const rows = previewArgTypes(story, include);
+
+  useEffect(() => {
+    // Keep externally updated args in sync without retaining a mutable snapshot.
+    const syncArgs = ({ storyId, args: nextArgs }) => {
+      if (storyId === story.id) setArgs({...nextArgs});
+    };
+    context.channel.on(STORY_ARGS_UPDATED, syncArgs);
+    return () => context.channel.off(STORY_ARGS_UPDATED, syncArgs);
+  }, [context.channel, story.id]);
+
+  const updateArgs = (updatedArgs) => {
+    setArgs((current) => ({...current, ...updatedArgs}));
+    context.channel.emit(UPDATE_STORY_ARGS, {storyId: story.id, updatedArgs});
+  };
+  const resetArgs = (argNames) => {
+    setArgs((current) => argNames
+      ? {...current, ...Object.fromEntries(argNames.map((name) => [name, story.initialArgs[name]]))}
+      : {...story.initialArgs});
+    context.channel.emit(RESET_STORY_ARGS, {storyId: story.id, argNames});
+  };
+
+  if (!acceptsPreviewArgs(story) || !Object.keys(rows).length) return null;
+
+  return (
+    <div className='ds-docs-preview-controls' data-compact={hasReference || undefined}>
+      <h3>Preview controls</h3>
+      <p>
+        Change these values to update the example above.
+        {hasReference ? <> See <a href={`#${toSectionId(referenceTitle)}`}>the full props reference</a> for types, defaults, and descriptions.</> : null}
+      </p>
+      <div className='ds-docs-controls-table rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900'>
+        <PureArgsTable
+          compact={hasReference}
+          rows={rows}
+          args={displayedPreviewArgs(rows, args)}
+          globals={context.getStoryContext(story).globals}
+          controlsId={controlsId}
+          storyId={story.id}
+          updateArgs={updateArgs}
+          resetArgs={resetArgs}
+        />
+      </div>
+    </div>
+  );
+};
 
 export const ComponentDocumentation = ({ docs }) => (
   <div className='sb-unstyled ds-docs-page'>
@@ -1018,78 +200,114 @@ export const ComponentDocumentation = ({ docs }) => (
   </div>
 );
 
-export const createComponentDocsPage = (docs, options = {}) => {
-  const { stories = true } = options;
-  const ComponentDocsPage = () => (
-    <>
-      <div className='sb-unstyled ds-docs-page'>
-        <div className='ds-docs-title'>
-          <div className='ds-docs-title-copy'><Title /></div>
+export const CatalogueDocsPage = ({ documentation, options = {} }) => {
+    const { stories = true, examples = true, primaryStory, previewControls } = options;
+    const context = useContext(DocsContext);
+    const allStories = context.componentStories();
+    const selected = primaryStory ? context.resolveOf(primaryStory(), ['story']).story : selectPreviewStory(allStories);
+    const primary = selected?.moduleExport;
+    const authored = documentation || getComponentDocs(selected?.title || allStories[0]?.title || 'Core');
+    const exampleStories = allStories.filter(story => story.tags?.includes('autodocs') && !story.usesMount && (
+      // Preserve Accordion's approved catalogue. Elsewhere, mount each example
+      // once so fixed IDs and document-level effects are not duplicated.
+      authored.title === 'Core/Accordion' || !stories || story.id !== selected?.id
+    ));
+    const storyDocs = selected?.parameters.docs || {};
+    const previewUsage = storyDocs.source?.type === 'dynamic' && storyDocs.source?.transform
+      ? storyDocs.source.transform('', {...context.getStoryContext(selected), args: selected.initialArgs}) : undefined;
+    const props = authored.props?.length ? authored.props : referenceFromArgTypes(selected?.argTypes);
+    const docs = {
+      ...authored,
+      props,
+      usage: authored.hasAuthoredUsage ? authored.usage : (typeof previewUsage === 'string' && previewUsage) || storyDocs.gaudi?.usage || allStories.find(story => story.parameters.docs?.source?.code?.includes('@gaudi/design-system'))?.parameters.docs.source.code || authored.usage,
+      usageLanguage: authored.hasAuthoredUsage ? authored.usageLanguage : storyDocs.source?.language || 'jsx',
+      accessibility: storyDocs.gaudi?.accessibility || authored.accessibility
+    };
+    return (
+      <>
+        <div className='sb-unstyled ds-docs-page'>
+          <div className='ds-docs-title'>
+            <div className='ds-docs-title-copy'><Title /></div>
+          </div>
+          <Subtitle />
+          <p><InlineText>{storyDocs.gaudi?.description || docs.description}</InlineText></p>
+          {hasDistinctOverview(docs) ? <Section title='Overview'>
+            <p><InlineText>{docs.overview || docs.description}</InlineText></p>
+          </Section> : null}
+
+          {docs.decisionRules.length ? (
+            <Section title='Decision Rules'>
+              <DecisionRules rules={ docs.decisionRules } />
+            </Section>
+          ) : null}
+
+          {stories && primary ? (
+            <Section title='Interactive Preview'>
+              <Canvas of={ primary } withToolbar story={{ __primary: true }} />
+              <PreviewControls
+                of={primary}
+                include={previewControls}
+                hasReference={Boolean(docs.props?.length)}
+                referenceTitle={docs.propsTitle || 'Props'}
+              />
+            </Section>
+          ) : null}
+
+          <Section title={ docs.usageTitle || 'Canonical Usage' }>
+            <HighlightedCode code={ docs.usage } language={ docs.usageLanguage } />
+          </Section>
+
+          {docs.dos.length ? <Section title='When To Use'>
+            <List items={ docs.dos } />
+          </Section> : null}
+
+          {docs.donts.length ? <Section title='When Not To Use'>
+            <List items={ docs.donts } />
+          </Section> : null}
+
+          <Section title='Accessibility'>
+            <AccessibilityTable docs={ docs } />
+          </Section>
+
+          {docs.recovery.length ? (
+            <Section title='States & Recovery'>
+              <RecoveryGuidance items={ docs.recovery } />
+            </Section>
+          ) : null}
+
+          {docs.notes?.length ? (
+            <Section title='API Notes'>
+              <List items={ docs.notes } />
+            </Section>
+          ) : null}
+
+          {docs.consumerResponsibilities?.length ? (
+            <Section title='Consumer Responsibilities'>
+              <List items={ docs.consumerResponsibilities } />
+            </Section>
+          ) : null}
+
+          {docs.props?.length ? (
+            <Section title={ docs.propsTitle || 'Props' }>
+              <PropsTable rows={ docs.props } />
+            </Section>
+          ) : null}
+
+          {examples && exampleStories.length ? (
+            <section className='ds-docs-examples' aria-label='Patterns and use cases'>
+              <h2>Patterns and use cases</h2>
+              {exampleStories.map(story => <DocsStory key={story.id} of={story.moduleExport} expanded __forceInitialArgs />)}
+            </section>
+          ) : null}
+
         </div>
-        <Subtitle />
-        <Description />
-        {hasDistinctOverview(docs) ? <Section title='Overview'>
-          <p><InlineText>{docs.overview || docs.description}</InlineText></p>
-        </Section> : null}
 
-        {docs.decisionRules.length ? (
-          <Section title='Decision Rules'>
-            <DecisionRules rules={ docs.decisionRules } />
-          </Section>
-        ) : null}
+      </>
+    );
+};
 
-        {stories ? (
-          <Section title='Interactive Preview'>
-            <Primary />
-            <Controls />
-          </Section>
-        ) : null}
-
-        <Section title={ docs.usageTitle || 'Canonical Usage' }>
-          <HighlightedCode code={ docs.usage } language={ docs.usageLanguage } />
-        </Section>
-
-        {docs.dos.length ? <Section title='When To Use'>
-          <List items={ docs.dos } />
-        </Section> : null}
-
-        {docs.donts.length ? <Section title='When Not To Use'>
-          <List items={ docs.donts } />
-        </Section> : null}
-
-        <Section title='Accessibility'>
-          <AccessibilityTable docs={ docs } />
-        </Section>
-
-        {docs.recovery.length ? (
-          <Section title='States & Recovery'>
-            <RecoveryGuidance items={ docs.recovery } />
-          </Section>
-        ) : null}
-
-        {docs.notes?.length ? (
-          <Section title='API Notes'>
-            <List items={ docs.notes } />
-          </Section>
-        ) : null}
-
-        {docs.consumerResponsibilities?.length ? (
-          <Section title='Consumer Responsibilities'>
-            <List items={ docs.consumerResponsibilities } />
-          </Section>
-        ) : null}
-
-        {docs.props?.length ? (
-          <Section title={ docs.propsTitle || 'Props' }>
-            <PropsTable rows={ docs.props } />
-          </Section>
-        ) : null}
-
-      </div>
-
-    </>
-  );
-
+export const createComponentDocsPage = (docs, options = {}) => {
+  const ComponentDocsPage = () => <CatalogueDocsPage documentation={docs} options={options} />;
   ComponentDocsPage.displayName = 'ComponentDocsPage';
 
   return ComponentDocsPage;

@@ -99,7 +99,7 @@ const Image = ({ alt, caption, darkSrc, fallback, src, ...rest }) => {
 
   return (
     <figure>
-      <Button variant='ghost' tone='neutral' size='sm' className='block max-w-full p-0 hover:bg-transparent dark:hover:bg-transparent' onClick={ () => handleImageClick(getDisplaySrc(src)) } aria-label={ imageAlt ? `Open image: ${imageAlt}` : 'Open image preview' }>
+      <Button variant='ghost' tone='neutral' size='sm' className={ `block max-w-full p-0 hover:bg-transparent dark:hover:bg-transparent${darkSrc ? ' dark:hidden' : ''}` } onClick={ () => handleImageClick(getDisplaySrc(src)) } aria-label={ imageAlt ? `Open image: ${imageAlt}` : 'Open image preview' }>
         {renderImage(src, darkSrc ? `${rest.className || ''} dark:hidden` : rest.className)}
       </Button>
       {darkSrc && (

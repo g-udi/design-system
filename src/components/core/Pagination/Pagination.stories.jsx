@@ -86,7 +86,7 @@ export const Interactive = {
     return (
       <div className='p-6'>
         <Pagination label='Interactive pages' className='border-t border-gray-200 pt-6 dark:border-gray-800'>
-          <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4'>
+          <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
             <div className='flex justify-start'>
               <PaginationPrevious disabled={ page <= 1 } onClick={ () => setPage(page - 1) } />
             </div>
@@ -144,8 +144,8 @@ export const Composed = {
   },
   render: () => (
     <div className='p-6'>
-      <Pagination label='Blog pages' className='border-t border-gray-200 pt-6'>
-        <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4'>
+      <Pagination label='Blog pages' className='border-t border-gray-200 pt-6 dark:border-gray-800'>
+        <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
           <div className='flex justify-start'>
             <PaginationPrevious href='' />
           </div>
@@ -156,7 +156,7 @@ export const Composed = {
         </div>
       </Pagination>
       <Pagination label='Numbered pages' className='mt-8'>
-        <PaginationContent className='rounded-2xl border border-gray-200 bg-white p-2 shadow-lg shadow-gray-950/10'>
+        <PaginationContent className='rounded-2xl border border-gray-200 bg-white p-2 shadow-lg shadow-gray-950/10 dark:border-gray-800 dark:bg-gray-950'>
           <PaginationItem><PaginationLink href=''>1</PaginationLink></PaginationItem>
           <PaginationItem><PaginationLink href=''>2</PaginationLink></PaginationItem>
           <PaginationItem><PaginationLink href='' isActive>3</PaginationLink></PaginationItem>

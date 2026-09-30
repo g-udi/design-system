@@ -1,0 +1,18 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import { FieldInput as Input } from '../../../../src/components/core/Field/index.js';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+export function Pattern() {
+  return (
+    <Field className='w-full max-w-xs'>
+      <Label htmlFor='label-status' className='gap-1.5'>
+        Server Status
+        <span className='relative flex size-2'>
+          <span className='absolute inline-flex size-full animate-ping rounded-full bg-green-400 opacity-75' />
+          <span className='relative inline-flex size-2 rounded-full bg-green-500' />
+        </span>
+      </Label>
+      <Input id='label-status' defaultValue='Online' disabled />
+    </Field>
+  );
+}

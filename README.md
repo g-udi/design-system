@@ -1,16 +1,32 @@
 # Gaudi Design System
 
-Gaudi is the design system for Ahmad Assaf's blog and related editorial interfaces. It contains the shared React components, MDX rendering components, design tokens, Tailwind preset, and Storybook documentation used by the site.
+Gaudi is a curated design system for blogs and applications. It brings reusable React components, design foundations, and practical interface patterns into one coherent system.
+
+It began with the blog and has grown to support application interfaces: forms, data views, navigation, dialogs, dashboards, and complete workflows alongside rich editorial and MDX experiences. Components and patterns discovered across other systems are selected, adapted, and extended for reuse in Gaudi.
 
 The system is called **Gaudi**. The source repository is hosted at [`ahmadassaf/design-system`](https://github.com/ahmadassaf/design-system), and the package import name is `@gaudi/design-system`.
 
+## What belongs in Gaudi
+
+- **Foundations:** shared tokens, typography, colors, icons, motion, and accessibility conventions.
+- **Components:** reusable controls and compositions, with variants and interaction states for real product use.
+- **Patterns and blocks:** application shells, settings, onboarding, collections, and editorial page sections.
+- **Publishing:** post components, reading layouts, and MDX primitives for the blog and other content experiences.
+
+## How the system grows
+
+Start with a useful component or use case, then reconcile it with the catalogue. **When an existing component matches, extend it** with the missing variants, behaviors, and examples. Add a new component only when it fills a distinct gap.
+
+Adapt incoming patterns to Gaudi's tokens, icons, public APIs, accessibility, and responsive behavior. Document practical examples, interaction states, usage boundaries, and copyable imports. Preserve source attribution and licensing. [ReUI](./REUI-COVERAGE.md) is one source in this growing collection; the system remains open to useful patterns discovered elsewhere.
+
 ## For Agents
 
-Coding agents should read [`AGENTS.md`](./AGENTS.md) before changing the package or consuming it from the blog. The short version:
+Coding agents should read [`AGENTS.md`](./AGENTS.md) before changing the package or consuming it from an application. The short version:
 
 - reusable UI, MDX components, post chrome, navigation, blocks, tokens, icons, and shared styling live in Gaudi;
 - route data, content files, bibliography files, Contentlayer output, API routes, and one-off app wiring stay in the consuming app;
-- the blog should import Gaudi instead of copying components or hand-rolling colors, typography, icons, or shared UI patterns.
+- consuming applications import Gaudi instead of copying components or recreating shared styles;
+- matching components are extended in place, with the richer use cases documented under the same owner.
 
 ## Install
 
@@ -23,7 +39,7 @@ The repository name and package name are intentionally different: install from G
 ## Usage
 
 ```js
-import { Button, PostHeader } from '@gaudi/design-system';
+import { Avatar, Button, Dialog } from '@gaudi/design-system';
 import '@gaudi/design-system/global.css';
 ```
 
@@ -32,10 +48,35 @@ so bundlers do not traverse the full convenience barrel:
 
 ```js
 import Button from '@gaudi/design-system/core/Button';
-import PostHeader from '@gaudi/design-system/post/PostHeader';
+import Dialog from '@gaudi/design-system/core/Dialog';
 ```
 
-MDX article components are available individually so consumers do not pull charts,
+## Application interfaces
+
+Application interfaces are a first-class part of Gaudi. Compose controls and blocks for workspaces, settings, onboarding, and data workflows using the same foundations as the blog. See [application coverage](./APPLICATION-COVERAGE.md) for component families, usage boundaries, and Storybook entry points.
+
+```jsx
+import DataTable from '@gaudi/design-system/core/DataTable';
+import '@gaudi/design-system/global.css';
+
+<DataTable
+  caption="Article library"
+  columns={columns}
+  rows={articles}
+  searchable
+  sortable
+  selectable
+  columnVisibility
+  pagination
+  pageSize={10}
+/>
+```
+
+Use stable row IDs for interactive tables. Prefer leaf imports, keep request and persistence logic in the consuming app, and use the public components to compose route-specific screens. Storybook's **Component Catalogue** links to workflow examples and component docs, including the integration boundaries of each composition.
+
+## Blog and content interfaces
+
+Post components are available through `@gaudi/design-system/post` and its leaf entrypoints. MDX article components are available individually so consumers do not pull charts,
 Mermaid, or other heavyweight peers into routes that only render one primitive:
 
 ```js
@@ -158,3 +199,13 @@ When a local Storybook server is already running, prefer lightweight verificatio
 git diff --check
 pnpm test:contracts
 ```
+
+## Storybook navigation
+
+The sidebar starts with seven top-level pages: Getting Started, Accessibility, Colors & Tokens, Icons, Indicators, States & Recovery, and Typography. The component list follows, with its docs and examples. Getting Started introduces Gaudi as a curated design system for blogs and applications and links to the single Component Catalogue, which searches components and use cases across Core, Blocks, Navigation, MDX, Post, and Layout.
+
+Run `pnpm catalogue:sync` after adding or renaming stories to refresh the catalogue fallback. The running catalogue also reads Storybook's current index.
+
+## Component catalogue
+
+Gaudi reconciles all 81 ReUI component families with 1,149 practical Storybook examples. Matching compositions extend existing owners and preserve their convenience APIs. See [coverage and public imports](REUI-COVERAGE.md), [verification](REUI-VERIFICATION.md), and [source notices](THIRD_PARTY_NOTICES.md).

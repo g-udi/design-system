@@ -4,3 +4,4 @@ export { default,
   iconLabels,
   iconRegistry,
   iconSizes } from '../../../icons';
+export { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } from '../../../icons';

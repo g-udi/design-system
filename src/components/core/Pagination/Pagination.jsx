@@ -5,11 +5,11 @@ import { cn } from '../../../utilities/cn';
 export const POSTS_PER_PAGE = 7;
 
 export const Pagination = ({ children, className, label = 'Pagination' }) => <nav aria-label={ label } className={ cn('mx-auto flex w-full justify-center', className) }>{children}</nav>;
-export const PaginationContent = ({ children, className }) => <div role='list' className={ cn('m-0 flex flex-row flex-nowrap items-center gap-1 p-0', className) }>{children}</div>;
+export const PaginationContent = ({ children, className }) => <div role='list' className={ cn('m-0 flex flex-row flex-wrap items-center gap-1 p-0', className) }>{children}</div>;
 export const PaginationItem = ({ children, className }) => <div role='listitem' className={ cn('m-0 p-0', className) }>{children}</div>;
 
-const actionClassName = 'group inline-flex min-h-11 items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 transition-all duration-200 hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none dark:border-border-dark dark:bg-gray-900 dark:text-gray-300 dark:hover:border-blue-600 dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus-visible:ring-offset-gray-950';
-const disabledActionClassName = 'inline-flex min-h-11 cursor-not-allowed items-center rounded-lg border border-gray-200 bg-gray-100 px-4 py-2 text-sm font-medium text-gray-400 dark:border-border-dark dark:bg-gray-800 dark:text-gray-600';
+const actionClassName = 'group inline-flex min-h-11 items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 transition-all duration-200 hover:border-blue-300 hover:bg-gray-50 hover:text-blue-600 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none dark:border-border-dark dark:bg-gray-900 dark:text-gray-300 dark:hover:border-blue-600 dark:hover:bg-gray-800 dark:hover:text-blue-400 dark:focus-visible:ring-offset-gray-950';
+const disabledActionClassName = 'inline-flex min-h-11 cursor-not-allowed items-center rounded-lg border border-gray-200 bg-gray-100 px-3 py-2 text-sm font-medium text-gray-400 dark:border-border-dark dark:bg-gray-800 dark:text-gray-600';
 
 export const PaginationLink = ({ children, className, disabled = false, href, isActive, onClick }) => {
   const classes = cn(
@@ -92,7 +92,7 @@ const getPageShortcuts = (currentPage, totalPages) => {
 
 export const PaginationStatus = ({ className, currentPage = 1, getHref = (page) => `?page=${page}`, onPageChange, totalPages = 1 }) => (
   <span className={ cn('group/pagination-status relative inline-flex justify-center', className) }>
-    <span className='rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm outline-none transition-colors dark:border-border-dark dark:bg-gray-900 dark:text-gray-400'>
+    <span className='rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-500 shadow-sm outline-none transition-colors dark:border-border-dark dark:bg-gray-900 dark:text-gray-400'>
       <span className='font-semibold text-blue-600 dark:text-blue-400'>{currentPage}</span>
       <span className='mx-1.5 text-gray-600 dark:text-gray-300'>of</span>
       <span className='text-gray-600 dark:text-gray-300'>{totalPages}</span>
@@ -100,7 +100,7 @@ export const PaginationStatus = ({ className, currentPage = 1, getHref = (page) 
     <span
       role='list'
       aria-label='Page shortcuts'
-      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 flex -translate-x-1/2 translate-y-0.5 flex-row flex-nowrap items-center gap-3 rounded-2xl border border-gray-200 bg-white p-2 opacity-0 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 transition duration-150 before:absolute before:left-0 before:top-full before:h-3 before:w-full before:content-[''] group-hover/pagination-status:pointer-events-auto group-hover/pagination-status:translate-y-0 group-hover/pagination-status:opacity-100 group-focus-within/pagination-status:pointer-events-auto group-focus-within/pagination-status:translate-y-0 group-focus-within/pagination-status:opacity-100 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10"
+      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 flex -translate-x-1/2 translate-y-0.5 flex-row flex-wrap items-center justify-center gap-1 w-max max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-2 opacity-0 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 transition duration-150 before:absolute before:left-0 before:top-full before:h-3 before:w-full before:content-[''] group-hover/pagination-status:pointer-events-auto group-hover/pagination-status:translate-y-0 group-hover/pagination-status:opacity-100 group-focus-within/pagination-status:pointer-events-auto group-focus-within/pagination-status:translate-y-0 group-focus-within/pagination-status:opacity-100 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10"
     >
       {getPageShortcuts(currentPage, totalPages).map((shortcut) => {
         if (typeof shortcut === 'string') return (
@@ -127,7 +127,7 @@ export const PaginationStatus = ({ className, currentPage = 1, getHref = (page) 
 
 export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, onPageChange, totalPages = 1 }) => (
   <Pagination className='border-t border-gray-200 pt-6 dark:border-gray-800'>
-    <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-4'>
+    <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
       <div className='flex justify-start'>
         <PaginationPrevious disabled={ currentPage <= 1 } href={ getHref(Math.max(1, currentPage - 1)) } onClick={ onPageChange ? () => onPageChange(currentPage - 1) : undefined } />
       </div>

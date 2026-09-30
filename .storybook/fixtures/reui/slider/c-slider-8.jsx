@@ -1,0 +1,40 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+'use client';
+import { useState } from 'react';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Slider } from '../../../../src/components/core/Slider/parts/slider.jsx';
+export function Pattern() {
+  const [temperature, setTemperature] = useState(4500);
+  const getLabel = (temp) => {
+    if (temp <= 3e3) return 'Warm';
+    if (temp <= 4500) return 'Neutral';
+    if (temp <= 5500) return 'Daylight';
+    return 'Cool';
+  };
+  return (
+    <div className='mx-auto grid w-full max-w-sm gap-4'>
+      <div className='flex items-center justify-between'>
+        <Label className='text-sm font-medium'>Color Temperature</Label>
+        <span className='text-ui-muted-foreground text-xs font-medium tabular-nums'>
+          {temperature}K &middot; {getLabel(temperature)}
+        </span>
+      </div>
+      <div
+        className='h-2 rounded-full'
+        style={{
+          background:
+            'linear-gradient(to right, #ff8a2b, #ffd4a3, #fff5e6, #e8f0ff, #a3c9ff)'
+        }}
+      />
+      <Slider
+        value={[temperature]}
+        onValueChange={(val) =>
+          setTemperature(Array.isArray(val) ? (val[0] ?? 4500) : val)
+        }
+        min={2700}
+        max={6500}
+        step={100}
+      />
+    </div>
+  );
+}

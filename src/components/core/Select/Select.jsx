@@ -5,6 +5,8 @@ import { Children, isValidElement, useCallback, useEffect, useId, useMemo, useRe
 import Icon from '../Icon';
 import { cn } from '../../../utilities/cn';
 
+const EMPTY_OPTIONS = [];
+
 const normalizeOptions = (children, options) => {
   const optionList = options || [];
 
@@ -35,6 +37,8 @@ const getInitialValue = ({ defaultValue, multiple, value }) => {
 
 const Select = ({
   'aria-label': ariaLabel,
+  'aria-describedby': ariaDescribedBy,
+  'aria-labelledby': ariaLabelledBy,
   children,
   className,
   classNames = {},
@@ -43,11 +47,15 @@ const Select = ({
   disabled = false,
   emptyText = 'No options found.',
   invalid = false,
+  id: suppliedId,
+  loading = false,
+  loadingText = 'Loading options…',
   multiple = false,
   name,
   onOpenChange,
+  onSearchChange,
   onValueChange,
-  options = [],
+  options = EMPTY_OPTIONS,
   placeholder = 'Select option',
   searchable = false,
   searchPlaceholder = 'Search options...',
@@ -57,7 +65,7 @@ const Select = ({
   const listboxId = `${id}-listbox`;
   const listboxLabel = ariaLabel ? `${ariaLabel} options` : `${placeholder} options`;
   const searchId = `${id}-search`;
-  const triggerId = `${id}-trigger`;
+  const triggerId = suppliedId || `${id}-trigger`;
   const listboxRef = useRef(null);
   const rootRef = useRef(null);
   const searchRef = useRef(null);
@@ -72,12 +80,12 @@ const Select = ({
   let selectedValues = [];
 
   if (multiple) selectedValues = currentValue;
-  if (!multiple && currentValue) selectedValues = [ currentValue ];
+  if (!multiple && currentValue !== '' && currentValue != null) selectedValues = [ currentValue ];
   const selectedOptions = normalizedOptions.filter((option) => selectedValues.includes(option.value));
   const filteredOptions = normalizedOptions.filter((option) => {
     if (!query.trim()) return true;
 
-    return String(option.label).toLowerCase().includes(query.toLowerCase());
+    return `${option.textValue ?? option.label} ${option.description || ''}`.toLowerCase().includes(query.trim().toLowerCase());
   });
 
   const updateOpen = useCallback((nextOpen) => {
@@ -97,7 +105,7 @@ const Select = ({
   }, [ updateOpen ]);
 
   const commitOption = (option) => {
-    if (!option || option.disabled) return;
+    if (!option || option.disabled || loading || disabled) return;
 
     if (multiple) {
       const exists = selectedValues.includes(option.value);
@@ -113,14 +121,14 @@ const Select = ({
   };
 
   const moveActive = (direction) => {
-    if (!filteredOptions.length) return;
+    if (!filteredOptions.some(option => !option.disabled)) return;
 
     setActiveIndex((index) => {
-      let nextIndex = Math.max(index - 1, 0);
-
-      if (direction === 'next') nextIndex = Math.min(index + 1, filteredOptions.length - 1);
-
-      return nextIndex;
+      const step = direction === 'next' ? 1 : -1;
+      for (let nextIndex = index + step; nextIndex >= 0 && nextIndex < filteredOptions.length; nextIndex += step) {
+        if (!filteredOptions[nextIndex].disabled) return nextIndex;
+      }
+      return index;
     });
   };
 
@@ -128,13 +136,13 @@ const Select = ({
     if (!open) return undefined;
 
     const handlePointerDown = (event) => {
-      if (rootRef.current && !rootRef.current.contains(event.target)) closePopup();
+      if (rootRef.current && !rootRef.current.contains(event.target)) updateOpen(false);
     };
 
     document.addEventListener('pointerdown', handlePointerDown);
 
     return () => document.removeEventListener('pointerdown', handlePointerDown);
-  }, [ closePopup, open ]);
+  }, [ updateOpen, open ]);
 
   useEffect(() => {
     if (open && searchable) searchRef.current?.focus();
@@ -142,20 +150,21 @@ const Select = ({
   }, [ open, searchable ]);
 
   useEffect(() => {
-    setActiveIndex(0);
-  }, [ query ]);
+    setActiveIndex(Math.max(0, normalizedOptions.filter(option => !query.trim() || `${option.textValue ?? option.label} ${option.description || ''}`.toLowerCase().includes(query.trim().toLowerCase())).findIndex(option => !option.disabled)));
+  }, [ query, normalizedOptions ]);
 
   let triggerLabel = placeholder;
 
   if (selectedOptions.length && multiple) triggerLabel = selectedOptions.map((option) => option.label).join(', ');
   if (selectedOptions.length && !multiple) triggerLabel = selectedOptions[0].label;
 
-  const activeOptionId = open && filteredOptions.length ? `${id}-option-${activeIndex}` : undefined;
+  const activeOptionId = open && !loading && filteredOptions[activeIndex] && !filteredOptions[activeIndex].disabled ? `${id}-option-${activeIndex}` : undefined;
 
   return (
     <div
       ref={ rootRef }
       className={ cn('relative w-full max-w-xs', className, classNames.root) }
+      onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) updateOpen(false); }}
       onKeyDown={ (event) => {
         if (event.key === 'Escape' && open) {
           event.stopPropagation();
@@ -163,8 +172,8 @@ const Select = ({
         }
       } }
     >
-      {name && multiple ? selectedValues.map((item) => <input key={ item } type='hidden' name={ name } value={ item } />) : null}
-      {name && !multiple ? <input type='hidden' name={ name } value={ currentValue } /> : null}
+      {name && multiple ? selectedValues.map((item) => <input key={ item } type='hidden' name={ name } value={ item } disabled={disabled} />) : null}
+      {name && !multiple ? <input type='hidden' name={ name } value={ currentValue } disabled={disabled} /> : null}
 
       <button
         ref={ triggerRef }
@@ -176,6 +185,8 @@ const Select = ({
         aria-haspopup='listbox'
         aria-invalid={ invalid || undefined }
         aria-label={ ariaLabel }
+        aria-labelledby={ ariaLabelledBy }
+        aria-describedby={ ariaDescribedBy }
         className={ cn(
           'ds-motion-press flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left text-sm font-medium text-gray-950 shadow-xs hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:hover:border-gray-600 dark:disabled:bg-gray-900 dark:disabled:text-gray-600', invalid && 'border-red-500 focus-visible:ring-red-500', classNames.trigger
         ) }
@@ -201,7 +212,7 @@ const Select = ({
       {open ? (
         <div
           className={ cn(
-            'ds-motion-popover absolute left-0 top-full z-50 mt-2 w-full min-w-64 overflow-hidden rounded-xl border border-gray-200 bg-white p-1 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10', classNames.content
+            'ds-motion-popover absolute left-0 top-full z-50 mt-2 w-full min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-white p-1 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10', classNames.content
           ) }
         >
           {searchable ? (
@@ -218,8 +229,8 @@ const Select = ({
                 aria-activedescendant={ activeOptionId }
                 value={ query }
                 placeholder={ searchPlaceholder }
-                className='w-full bg-transparent text-sm text-gray-950 outline-none placeholder:text-gray-400 dark:text-gray-100'
-                onChange={ (event) => setQuery(event.target.value) }
+                className='w-full min-w-0 bg-transparent text-base text-gray-950 outline-none placeholder:text-gray-500 dark:text-gray-100'
+                onChange={ (event) => { setQuery(event.target.value); onSearchChange?.(event.target.value); } }
                 onKeyDown={ (event) => {
                   if (event.key === 'ArrowDown') {
                     event.preventDefault();
@@ -246,6 +257,7 @@ const Select = ({
             role='listbox'
             aria-label={ listboxLabel }
             aria-multiselectable={ multiple || undefined }
+            aria-busy={ loading }
             aria-activedescendant={ searchable ? undefined : activeOptionId }
             className='max-h-64 overflow-y-auto py-1'
             tabIndex={ searchable ? -1 : 0 }
@@ -260,8 +272,8 @@ const Select = ({
                 moveActive('previous');
               }
 
-              if (event.key === 'Home') setActiveIndex(0);
-              if (event.key === 'End') setActiveIndex(filteredOptions.length - 1);
+              if (event.key === 'Home') { event.preventDefault(); setActiveIndex(Math.max(0, filteredOptions.findIndex(option => !option.disabled))); }
+              if (event.key === 'End') { event.preventDefault(); setActiveIndex(filteredOptions.findLastIndex(option => !option.disabled)); }
 
               if (event.key === 'Enter' || event.key === ' ') {
                 event.preventDefault();
@@ -269,7 +281,7 @@ const Select = ({
               }
             } }
           >
-            {filteredOptions.length ? filteredOptions.map((option, index) => {
+            {loading ? <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-6 text-center text-sm text-gray-600 dark:text-gray-300'>{loadingText}</div> : filteredOptions.length ? filteredOptions.map((option, index) => {
               const selected = selectedValues.includes(option.value);
               const active = index === activeIndex;
 
@@ -281,23 +293,25 @@ const Select = ({
                   role='option'
                   tabIndex={ -1 }
                   aria-selected={ selected }
+                  aria-disabled={ option.disabled || undefined }
                   disabled={ option.disabled }
                   className={ cn(
                     'ds-motion-state flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm text-gray-800 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-45 dark:text-gray-200 dark:hover:bg-gray-900', active && 'bg-gray-100 dark:bg-gray-900', selected && 'font-medium text-blue-700 dark:text-blue-300', classNames.option
                   ) }
-                  onMouseEnter={ () => setActiveIndex(index) }
+                  onMouseEnter={ () => { if (!option.disabled) setActiveIndex(index); } }
                   onClick={ () => commitOption(option) }
                 >
                   <span className='flex size-4 shrink-0 items-center justify-center'>
                     {selected ? <Icon name='Check' decorative size='xs' /> : null}
                   </span>
-                  <span className='truncate'>{option.label}</span>
+                  <span className='min-w-0 break-words'>{option.label}{option.description && <span className='block text-sm font-normal text-gray-600 dark:text-gray-300'>{option.description}</span>}</span>
                 </button>
               );
             }) : (
-              <div className='px-3 py-6 text-center text-sm text-gray-500 dark:text-gray-400'>{emptyText}</div>
+              <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-6 text-center text-sm text-gray-500 dark:text-gray-400'>{emptyText}</div>
             )}
           </div>
+          <span role='status' className='sr-only'>{loading ? loadingText : !filteredOptions.length ? emptyText : ''}</span>
         </div>
       ) : null}
     </div>

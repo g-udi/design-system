@@ -44,7 +44,7 @@ export const Default = {
   render: () => (
     <Page
       title='Core Components'
-      intro='Core is the primitive layer: actions, links, forms, feedback, structure, tables, loading, and compact overlays. Use it when a reusable UI job is smaller than a full block but should not become a local one-off.'
+      intro='Core brings together reusable components for the blog and applications: identity, actions, forms, data views, navigation, feedback, and overlays. Curated patterns extend these owners with richer variants and use cases.'
     >
       <Section title='Choose By Job' description='The fastest path is task-first. Pick the row that matches the user need, then open the component docs for exact props and states.'>
         <Table>
@@ -63,7 +63,7 @@ export const Default = {
         </Table>
       </Section>
 
-      <Section title='Decision Rules' description='These rules keep Core usage consistent across blog pages, docs, and agent-generated UI.'>
+      <Section title='Decision Rules' description='These rules keep Core usage consistent across the blog, applications, and documentation.'>
         <CheckList items={ choiceRules } />
       </Section>
 

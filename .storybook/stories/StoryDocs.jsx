@@ -1,4 +1,4 @@
-import { Children, isValidElement } from 'react';
+import { Children, cloneElement, isValidElement } from 'react';
 import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right.js';
 import ArrowUp from 'lucide-react/dist/esm/icons/arrow-up.js';
 
@@ -9,10 +9,10 @@ import Typography from '../../src/foundations/Typography';
 import { HighlightedCode } from './HighlightedCode';
 
 export const InlineCode = ({ children }) => (
-  <code className='rounded bg-gray-100 px-1.5 py-0.5 font-mono text-[0.8em] text-gray-800 dark:bg-gray-800 dark:text-gray-100'>{children}</code>
+  <code className='ds-docs-code-value'>{children}</code>
 );
 
-const autoCodePattern = /(@[a-z0-9-]+\/[a-z0-9-/.]+|(?:src|app|data|meta|layouts|lib|scripts|styles|public|contentlayer)(?:\/[A-Za-z0-9_.*-]+)+|\[@[^\]]+\]|<\/?[A-Za-z][A-Za-z0-9]*>?|data-[A-Za-z0-9-*]+|aria-[A-Za-z0-9-]+|[A-Z]?[a-z]+[A-Z][A-Za-z0-9]*|Cmd\/Ctrl \+ K|Cmd\/Ctrl|Next\.js|MDX|JSX|BibTeX|Recharts|React|Tailwind)/g;
+const autoCodePattern = /([A-Za-z_$][\w$-]*=(?:\{(?:[^{}]|\{[^{}]*\})*\}|"[^"]*"|'[^']*')|\b(?:true|false|null|undefined)\b|\[\]|@[a-z0-9-]+\/[a-z0-9-/.]+|(?:src|app|data|meta|layouts|lib|scripts|styles|public|contentlayer)(?:\/[A-Za-z0-9_.*-]+)+|\[@[^\]]+\]|<\/?[A-Za-z][A-Za-z0-9]*>?|data-[A-Za-z0-9-*]+|aria-[A-Za-z0-9-]+|[A-Z]?[a-z]+[A-Z][A-Za-z0-9]*|Cmd\/Ctrl \+ K|Cmd\/Ctrl|Next\.js|MDX|JSX|BibTeX|Recharts|React|Tailwind)/g;
 
 const renderAutoCode = (text, keyPrefix) => text.split(autoCodePattern).map((part, index) => {
   if (!part) return null;
@@ -23,10 +23,7 @@ const renderAutoCode = (text, keyPrefix) => text.split(autoCodePattern).map((par
   return part;
 });
 
-export const InlineText = ({ children }) => {
-  if (typeof children !== 'string') return children;
-
-  return children.split(/(`[^`]+`)/g).map((part, index) => {
+const renderInlineText = (text) => text.split(/(`[^`]+`)/g).map((part, index) => {
     if (!part) return null;
     if (part.startsWith('`') && part.endsWith('`')) {
       return <InlineCode key={ `${part}-${index}` }>{part.slice(1, -1)}</InlineCode>;
@@ -34,7 +31,14 @@ export const InlineText = ({ children }) => {
 
     return renderAutoCode(part, index);
   });
-};
+
+export const InlineText = ({ children }) => Children.map(children, (child) => {
+  if (typeof child === 'string') return renderInlineText(child);
+  if (isValidElement(child) && typeof child.type === 'string' && child.props.children != null && !['code', 'pre', 'kbd', 'script', 'style'].includes(child.type)) {
+    return cloneElement(child, {}, <InlineText>{child.props.children}</InlineText>);
+  }
+  return child;
+});
 
 export const pageParameters = {
   'layout': 'fullscreen'
@@ -64,10 +68,10 @@ const getTableColumnCount = (children) => {
   return columnCount;
 };
 
-export const Page = ({ children, intro, title }) => (
-  <div id='page-top' className='min-h-screen scroll-mt-4 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100'>
-    <div className='mx-auto w-full space-y-10 px-4 py-8 sm:px-6 lg:px-8'>
-      <header className='max-w-5xl space-y-4'>
+export const Page = ({ children, compact = false, intro, title }) => (
+  <div id='page-top' className='ds-guide-page min-h-screen scroll-mt-4 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100' data-compact={ compact || undefined }>
+    <div className='ds-guide-content'>
+      <header className='space-y-4'>
         <Typography as='h1' variant='heading-xl'>{title}</Typography>
         {intro ? <p className='text-sm leading-7 text-gray-600 dark:text-gray-300'><InlineText>{intro}</InlineText></p> : null}
       </header>
@@ -86,8 +90,8 @@ export const Page = ({ children, intro, title }) => (
 );
 
 export const Section = ({ children, description, id, title }) => (
-  <section id={ id || toSectionId(title) } className='scroll-mt-28 space-y-4'>
-    <div className='max-w-5xl space-y-2'>
+  <section id={ id || toSectionId(title) } className='ds-guide-section scroll-mt-28 space-y-4'>
+    <div className='space-y-2'>
       <Typography variant='heading-lg'>{title}</Typography>
       {description ? <p className='text-sm leading-7 text-gray-600 dark:text-gray-300'><InlineText>{description}</InlineText></p> : null}
     </div>
@@ -95,15 +99,11 @@ export const Section = ({ children, description, id, title }) => (
   </section>
 );
 
-export const CodeBlock = ({ code, language = 'jsx', wide = false }) => {
-  const needsWideMeasure = wide || code.split('\n').some((line) => line.length > 96);
-
-  return (
-    <div className={ needsWideMeasure ? 'max-w-full' : 'max-w-5xl' }>
-      <HighlightedCode code={ code } language={ language } />
-    </div>
-  );
-};
+export const CodeBlock = ({ code, language = 'jsx' }) => (
+  <div className='w-full min-w-0 max-w-full'>
+    <HighlightedCode code={ code } language={ language } />
+  </div>
+);
 
 export const Stat = ({ label, value }) => (
   <div className='rounded-lg border border-gray-200 bg-white p-4 text-center dark:border-gray-800 dark:bg-gray-900'>
@@ -125,6 +125,7 @@ export const PrincipleCard = ({ description, number, title }) => (
 export const QuickLink = ({ description, storyId, title }) => (
   <a
     href={ `./?path=/${storyId.endsWith('--docs') ? 'docs' : 'story'}/${storyId}` }
+    target='_top'
     className='group block h-full rounded-lg border border-gray-200 bg-white p-4 text-left transition-colors hover:border-blue-300 hover:no-underline dark:border-gray-800 dark:bg-gray-900 dark:hover:border-blue-700'
   >
     <div className='mb-1 flex items-center justify-between gap-3'>

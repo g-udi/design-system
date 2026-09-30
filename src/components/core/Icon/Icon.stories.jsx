@@ -1,6 +1,7 @@
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { expect, within } from 'storybook/test';
+import { expect, fireEvent, spyOn, userEvent, waitFor, within } from 'storybook/test';
 import Icon from './Icon';
+import { AnimatedIconActions, AnimatedIconMotion, AnimatedIconsGallery } from '../../../../.storybook/stories/AnimatedIconExamples';
 
 const componentDocs = getComponentDocs('Core/Icon');
 
@@ -12,7 +13,7 @@ export default {
     },
     'name': {
       'control': 'select',
-      'options': [ 'Search', 'BookOpen', 'Github', 'Linkedin', 'Twitter', 'Mail', 'Info', 'Warning', 'CopyIcon', 'CheckIcon', 'FolderOpen', 'javascript' ]
+      'options': [ 'Search', 'BookOpen', 'Github', 'Linkedin', 'Medium', 'Twitter', 'Mail', 'Info', 'Warning', 'CopyIcon', 'CheckIcon', 'FolderOpen', 'javascript' ]
     },
     'size': {
       'control': 'select',
@@ -166,4 +167,145 @@ export const StrokeWidths = {
       ))}
     </div>
   )
+};
+
+export const AnimatedCatalogue = {
+  name: 'Interactive icon catalogue',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Search all animated names, filter by motion style, hover or focus to preview, and copy public usage. Gaudi aliases retain their original artwork.' },
+      source: { code: `import { useState } from 'react';
+import { Button } from '@gaudi/design-system';
+import { AnimatedIcon } from '@gaudi/design-system/icons';
+
+export function SaveArticle() {
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const [saved, setSaved] = useState(false);
+  return (
+    <Button aria-pressed={saved} onClick={() => setSaved(!saved)}
+      onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}>
+      <AnimatedIcon name="Bookmark" active={hovered || focused} size="sm" decorative />
+      {saved ? 'Saved' : 'Save article'}
+    </Button>
+  );
+}` }
+    }
+  },
+  render: () => <AnimatedIconsGallery />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search animated icons' });
+    await expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24);
+    await userEvent.click(canvas.getByRole('button', { name: 'Next', exact: true }));
+    await expect(canvas.getByText(/Page 2 of/)).toBeVisible();
+    search.focus();
+    fireEvent.change(search, { target: { value: 'Bell' } });
+    const bell = canvas.getByRole('button', { name: 'Copy Bell animated icon', exact: true });
+    await waitFor(() => expect(bell.querySelector('[data-icon-artwork]')).toBeInTheDocument());
+    await userEvent.hover(bell);
+    await waitFor(() => expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true'));
+    await userEvent.unhover(bell);
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'false');
+    search.focus();
+    await userEvent.tab();
+    // Style, preview toggle, then the first result.
+    await userEvent.tab();
+    await userEvent.tab();
+    await expect(bell).toHaveFocus();
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'true');
+    // The headless runner cannot access the system clipboard. Verify the payload
+    // and feedback here; the real clipboard is checked in the live gallery.
+    const writeText = spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+    try {
+      await userEvent.keyboard('{Enter}');
+      await waitFor(() => expect(canvas.getByRole('status', { name: 'Icon copy status' })).toHaveTextContent('Copied Bell usage.'));
+      await expect(writeText).toHaveBeenCalledWith('import { AnimatedIcon } from \'@gaudi/design-system/icons\';\n\n<AnimatedIcon name="Bell" active={isActive} size="md" decorative />');
+    } finally { writeText.mockRestore(); }
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Animate previews' }));
+    await userEvent.hover(bell);
+    await expect(bell.querySelector('svg')).toHaveAttribute('data-animated-icon-active', 'false');
+    await userEvent.unhover(bell);
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Animate previews' }));
+    await userEvent.selectOptions(canvas.getByRole('combobox', { name: 'Animation style' }), 'gaudi-draw');
+    await expect(canvas.queryByRole('button', { name: 'Copy Bell animated icon', exact: true })).not.toBeInTheDocument();
+    fireEvent.change(search, { target: { value: 'not-an-icon' } });
+    await expect(canvas.getByText('No animated icons match “not-an-icon”.')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Reset search' }));
+    await expect(search).toHaveValue('');
+    await expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24);
+    window.scrollTo(0, 0);
+  }
+};
+
+export const AnimatedActions = {
+  name: 'Animated actions and status',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Save a reading-list item, start or stop a sync preview, and preserve a disabled export action. Host controls own focus, pressed state, and action callbacks.' },
+      source: { code: `import { useState } from 'react';
+import { Button } from '@gaudi/design-system';
+import { AnimatedIcon } from '@gaudi/design-system/icons';
+
+export function SyncPreview() {
+  const [syncing, setSyncing] = useState(false);
+  return (
+    <Button aria-pressed={syncing} onClick={() => setSyncing(!syncing)}>
+      <AnimatedIcon name="RefreshCw" active={syncing} size="sm" decorative />
+      {syncing ? 'Stop sync preview' : 'Preview sync'}
+    </Button>
+  );
+}` }
+    }
+  },
+  render: () => <AnimatedIconActions />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Save to reading list' }));
+    await expect(canvas.getByRole('button', { name: 'Saved to reading list' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('button', { name: 'Preview sync' }));
+    await waitFor(() => expect(canvasElement.querySelector('[data-animated-icon="RefreshCw"]')).toHaveAttribute('data-animated-icon-active', 'true'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Stop sync preview' }));
+    await expect(canvasElement.querySelector('[data-animated-icon="RefreshCw"]')).toHaveAttribute('data-animated-icon-active', 'false');
+    await expect(canvas.getByRole('button', { name: 'Export unavailable' })).toBeDisabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Saved to reading list' }));
+  }
+};
+
+export const AnimatedMotion = {
+  name: 'Controlled motion and replay',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      description: { story: 'Play and interrupt notification, activity, launch, and original-artwork draw animations. Size and semantic color follow Gaudi’s icon tokens.' },
+      source: { code: `import { useState } from 'react';
+import { Button } from '@gaudi/design-system';
+import { AnimatedIcon } from '@gaudi/design-system/icons';
+
+export function LaunchPreview() {
+  const [active, setActive] = useState(false);
+  return (
+    <div>
+      <Button aria-pressed={active} onClick={() => setActive(!active)}>
+        {active ? 'Stop animation' : 'Play animation'}
+      </Button>
+      <AnimatedIcon name="Rocket" active={active} size="2xl" color="success" label="Launch preview" />
+    </div>
+  );
+}` }
+    }
+  },
+  render: () => <AnimatedIconMotion />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (let replay = 0; replay < 2; replay += 1) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Play animations' }));
+      await waitFor(() => expect(canvasElement.querySelectorAll('[data-animated-icon-active="true"]')).toHaveLength(4));
+      await userEvent.click(canvas.getByRole('button', { name: 'Stop animations' }));
+      await expect(canvasElement.querySelectorAll('[data-animated-icon-active="true"]')).toHaveLength(0);
+    }
+  }
 };

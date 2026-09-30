@@ -108,7 +108,7 @@ const CodeHighlightingDocs = () => (
     <Section title='Tabbed Code' description='Adjacent named fences are grouped by rehype-code-group-next, then CodeGroupTabs hydrates the generated tabs.'>
       <CodeBlock code={ mdxTabbedUsage } language='mdx' />
       <div className='mt-6'>
-        <DemoCodeGroup />
+        <div data-docs-example><DemoCodeGroup /></div>
       </div>
     </Section>
   </Page>

@@ -155,10 +155,10 @@
     }
   ],
   "narrative": {
-    "northStar": "The Editorial Instrument",
-    "overview": "Gaudi is a restrained editorial system for reading, navigating, and composing technical writing. It favors clear hierarchy, compact controls, neutral surfaces, and rare blue accents that signal action, selection, and wayfinding.\n\nThe system should feel precise rather than decorative. Components are practical and reusable, with enough visual detail to support scanning, comparison, and repeated use across blog pages, MDX articles, post chrome, and documentation surfaces.",
+    "northStar": "Clarity for reading and working",
+    "overview": "Gaudi is a curated design system for reading and working on the web. It brings the blog and application interfaces together through clear hierarchy, compact controls, neutral surfaces, and blue accents that signal action, selection, and wayfinding.\n\nComponents and patterns can come from many sources; their integration should feel coherent. Extend existing owners, use shared foundations, and support practical use cases across articles, forms, data views, navigation, and complete workflows. Preserve comfortable reading alongside efficient task completion.",
     "keyCharacteristics": [
-      "Neutral reading surfaces with blue used as a functional accent.",
+      "Neutral reading and working surfaces with blue used as a functional accent.",
       "Compact geometry, visible focus, and restrained elevation.",
       "Separate root, MDX, and runtime entrypoints to keep interfaces lean.",
       "Dark mode is intentionally composed, not mechanically inverted."
@@ -188,9 +188,9 @@
     ],
     "donts": [
       "Don't import consuming app data, generated content, or route-specific files into Gaudi.",
-      "Don't copy components into the blog when an exported Gaudi primitive exists.",
+      "Don't copy components into consuming applications when an exported Gaudi primitive exists.",
       "Don't use color as the only status cue.",
-      "Don't add large decorative shadows, glass effects, or oversized radii to routine editorial surfaces."
+      "Don't add large decorative shadows, glass effects, or oversized radii to routine reading and application surfaces."
     ]
   }
 }

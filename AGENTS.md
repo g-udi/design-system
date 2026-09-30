@@ -1,6 +1,6 @@
 # Agent Instructions For Gaudi
 
-Gaudi is the design system package for Ahmad Assaf's blog and related editorial interfaces. The repository is `ahmadassaf/design-system`; the package import name is `@gaudi/design-system`.
+Gaudi is a curated design system for blogs and applications. It combines shared foundations, reusable components, application patterns, and editorial/MDX interfaces. The repository is `ahmadassaf/design-system`; the package import name is `@gaudi/design-system`.
 
 ## Use The Package
 
@@ -37,18 +37,29 @@ module.exports = {
 
 - Put reusable UI, MDX components, post chrome, navigation, blocks, tokens, icons, and shared styling in this repository.
 - Keep route data, metadata, Contentlayer output, API routes, and one-off page wiring in the consuming app. Keep content files, bibliography files, and article-specific interactive components in the content bundle.
-- Do not copy Gaudi components into the blog. Import from `@gaudi/design-system` or the app's Gaudi-backed alias.
+- Do not copy Gaudi components into consuming applications. Import from `@gaudi/design-system` or the app's Gaudi-backed alias.
 - Do not add app-owned content fixtures such as `app/content`, `data/meta`, or `.contentlayer/generated` to this package.
-- Do not hand-roll colors, typography, spacing, or icons in the blog when Gaudi already exposes a token, variant, component, or icon registry entry.
+- Do not hand-roll colors, typography, spacing, or icons in consuming applications when Gaudi already exposes a token, variant, component, or icon registry entry.
 - Never import consumer files (`@/data/meta/*`, `@/app/content/*`, `@/lib/utils/*`, `contentlayer/generated`) from this package. Site data flows in through `SiteConfigProvider` (metadata, navigation) and component props (`LayoutContainer`'s `metadata`/`navigation`/`jsonLd`/`menuProps`/`footerProps`); generic helpers such as `formatDate`, `sortPosts`, and `coreContent` live in `src/utilities/` and are exported from the root entry.
 - All package-internal imports are relative. Do not introduce `@/` aliases in `src/`.
 - MDX components live only in the `./mdx` entry (not re-exported from the root), and the compiled-MDX runtime lives in `./mdx/runtime`.
 
+## Storybook Navigation
+
+- Start the sidebar with seven flat, top-level pages: Getting Started, Accessibility, Colors & Tokens, Icons, Indicators, States & Recovery, and Typography, in that order. Do not nest them under an Overview group.
+- Keep the component list below those pages, with component docs and examples visible in their existing groups. Do not replace the individual foundation guides with a combined Essentials page or hide the component list.
+- Getting Started is the introductory page and presents Gaudi as a curated design system for blogs and applications. Link the single Component Catalogue from that page. Keep the full story index intact so direct links, examples, and tests continue to work.
+- The catalogue refreshes from Storybook's index. After adding or renaming stories, run `pnpm catalogue:sync` to update the fallback used by tests and offline browsing.
+
 ## Component Work
 
 - Follow the existing folder contract: each public component owns its implementation, `index.js`, Storybook story, and contract test.
-- Prefer existing Core components and variants before adding a new abstraction.
-- Public stories must include practical usage, variants where relevant, code examples, and accessibility notes.
+- Reconcile incoming components and patterns with the existing catalogue. When there is a match, extend the existing owner with the missing variants, behaviors, and use cases; do not skip it or create a parallel implementation.
+- Add a new public component only for a distinct gap. Adapt curated work to Gaudi tokens, icons, APIs, responsive behavior, and accessibility conventions, and preserve source attribution and licensing.
+- Treat blog and application use cases as first-class consumers. Keep domain-specific business logic in the consuming app.
+- Public stories must include practical usage, relevant variants and states, copyable public imports, and accessibility notes. Make those examples discoverable from the component documentation, including examples added by extending an existing owner.
+- Documentation uses the shared 13px body scale in `.storybook/documentation.css`. Keep real component and typography specimens inside `data-docs-example` wrappers on guide pages so documentation styles do not override their public appearance.
+- Load original component stories before curated extensions. Every curated story must retain `autodocs` so merged Docs pages include all examples. Give independent examples unique form and heading IDs, and avoid stealing focus on initial Docs load.
 - Blocks are composed product/editorial sections. Document every variant as a real usage example with its own code.
 - Navigation is documented under `Blocks/Navigation`; low-level navigation pieces stay exported but are not separate docs destinations.
 

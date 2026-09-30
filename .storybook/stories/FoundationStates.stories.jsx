@@ -14,7 +14,7 @@ export default {
     layout: 'fullscreen'
   },
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'States & Recovery'
 };
 
 const stateContract = [
@@ -60,7 +60,7 @@ export const Default = {
       </Section>
 
       <Section title='Working Examples' description='These examples preserve labels, user input, status semantics, and a visible next action.'>
-        <div className='grid gap-5 lg:grid-cols-2'>
+        <div data-docs-example className='grid gap-5 lg:grid-cols-2'>
           <div className='rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-900'>
             <div className='space-y-4'>
               <div className='flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-200'>

@@ -174,19 +174,19 @@ export const Default = {
         <VariantTable />
       </Section>
       <Section title='Accordion FAQ' description='Use when users are scanning a compact list of questions.'>
-        <AccordionFaq />
+        <div data-docs-example><AccordionFaq /></div>
         <CodeBlock code={ variantCode.accordion } />
       </Section>
       <Section title='Grid FAQ' description='Use when all answers should be visible at once.'>
-        <GridFaq />
+        <div data-docs-example><GridFaq /></div>
         <CodeBlock code={ variantCode.grid } />
       </Section>
       <Section title='FAQ With Sidebar' description='Use when an FAQ needs a contact path or framing copy.'>
-        <SidebarFaq />
+        <div data-docs-example><SidebarFaq /></div>
         <CodeBlock code={ variantCode.sidebar } />
       </Section>
       <Section title='FAQ Cards' description='Use for short policy or component-author guidance.'>
-        <CardsFaq />
+        <div data-docs-example><CardsFaq /></div>
         <CodeBlock code={ variantCode.cards } />
       </Section>
       <Section title='Implementation Notes' description='FAQ recipes must keep the exported component semantics and keyboard behavior intact.'>

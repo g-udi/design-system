@@ -1,0 +1,79 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+import {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel
+} from '../../../../src/components/core/Field/parts/field.jsx';
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput
+} from '../../../../src/components/core/Input/parts/input-group.jsx';
+import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+export function Pattern() {
+  return (
+    <div className='mx-auto w-full max-w-xs'>
+      <FieldGroup>
+        <Field data-invalid>
+          <FieldLabel htmlFor='val-email'>
+            Email <span className='text-ui-destructive'>*</span>
+          </FieldLabel>
+          <InputGroup>
+            <InputGroupAddon>
+              <RegistryIcon lucide='MailIcon' aria-hidden='true' />
+            </InputGroupAddon>
+            <InputGroupInput
+              id='val-email'
+              type='email'
+              defaultValue='invalid-email'
+              placeholder='you@example.com'
+            />
+          </InputGroup>
+          <FieldError>Please enter a valid email address.</FieldError>
+        </Field>
+        <Field data-invalid>
+          <FieldLabel htmlFor='val-password'>
+            Password <span className='text-ui-destructive'>*</span>
+          </FieldLabel>
+          <InputGroup>
+            <InputGroupAddon>
+              <RegistryIcon lucide='LockIcon' aria-hidden='true' />
+            </InputGroupAddon>
+            <InputGroupInput
+              id='val-password'
+              type='password'
+              defaultValue='short'
+              placeholder='Enter password'
+            />
+          </InputGroup>
+          <FieldError
+            errors={[
+              { message: 'Must be at least 8 characters.' },
+              { message: 'Must contain at least one number.' }
+            ]}
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor='val-confirm'>Confirm Password</FieldLabel>
+          <InputGroup>
+            <InputGroupAddon>
+              <RegistryIcon lucide='LockIcon' aria-hidden='true' />
+            </InputGroupAddon>
+            <InputGroupInput
+              id='val-confirm'
+              type='password'
+              placeholder='Repeat password'
+            />
+          </InputGroup>
+          <FieldDescription>
+            Re-enter your password to confirm.
+          </FieldDescription>
+        </Field>
+        <Button className='w-full'>Create Account</Button>
+      </FieldGroup>
+    </div>
+  );
+}

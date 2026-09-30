@@ -1,0 +1,19 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import {
+  ToggleGroup,
+  ToggleGroupItem
+} from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
+export function Pattern() {
+  return (
+    <div className='flex flex-col items-center justify-center gap-4'>
+      <ToggleGroup type='single' size='sm' defaultValue='top' variant='outline'>
+        <ToggleGroupItem value='top'>Top</ToggleGroupItem>
+        <ToggleGroupItem value='bottom'>Bottom</ToggleGroupItem>
+      </ToggleGroup>
+      <ToggleGroup type='single' defaultValue='top' variant='outline'>
+        <ToggleGroupItem value='top'>Top</ToggleGroupItem>
+        <ToggleGroupItem value='bottom'>Bottom</ToggleGroupItem>
+      </ToggleGroup>
+    </div>
+  );
+}

@@ -10,7 +10,7 @@ export const NavigationMenu = ({ children, className, label = 'Main navigation' 
 );
 
 export const NavigationMenuList = ({ children, className }) => (
-  <div role='list' className={ cn('m-0 flex w-full flex-row flex-nowrap items-center gap-2 p-0', className) }>{children}</div>
+  <div role='list' className={ cn('m-0 flex w-full flex-row flex-wrap items-center gap-2 p-0', className) }>{children}</div>
 );
 export const NavigationMenuItem = forwardRef(({ children, className }, ref) => <div ref={ ref } role='listitem' className={ cn('relative m-0 p-0', className) }>{children}</div>);
 NavigationMenuItem.displayName = 'NavigationMenuItem';
@@ -54,12 +54,8 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
   const panelRef = useRef(null);
   const triggerRef = useRef(null);
   const [ open, setOpen ] = useState(defaultOpen);
-  const [ resolvedAlign, setResolvedAlign ] = useState(align);
+  const [ panelLeft, setPanelLeft ] = useState(0);
   const ref = useRef(null);
-
-  useEffect(() => {
-    setResolvedAlign(align);
-  }, [ align ]);
 
   useEffect(() => {
     if (!open) return undefined;
@@ -113,19 +109,8 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
       };
       const preferred = preferredPositions[align] || preferredPositions.start;
 
-      if (preferred.left < viewportPadding) {
-        setResolvedAlign('start');
-
-        return;
-      }
-
-      if (preferred.right > viewportWidth - viewportPadding) {
-        setResolvedAlign('end');
-
-        return;
-      }
-
-      setResolvedAlign(align);
+      const left = Math.max(viewportPadding, Math.min(preferred.left, viewportWidth - viewportPadding - panelWidth));
+      setPanelLeft(left - triggerRect.left);
     };
 
     updateAlignment();
@@ -159,8 +144,9 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
         <div
           ref={ panelRef }
           id={ dropdownId }
+          style={ { left: panelLeft } }
           className={ cn(
-            'absolute top-full mt-3 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-3 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:shadow-black/40 dark:ring-white/10', resolvedAlign === 'start' && 'left-0', resolvedAlign === 'center' && 'left-1/2 -translate-x-1/2', resolvedAlign === 'end' && 'right-0', width === 'sm' && 'w-64', width === 'md' && 'w-80', width === 'lg' && 'w-[28rem]', width === 'xl' && 'w-[36rem]', panelClassName
+            'absolute top-full mt-3 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-3 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:shadow-black/40 dark:ring-white/10', width === 'sm' && 'w-64', width === 'md' && 'w-80', width === 'lg' && 'w-[28rem]', width === 'xl' && 'w-[36rem]', panelClassName
           ) }
         >
           {children}

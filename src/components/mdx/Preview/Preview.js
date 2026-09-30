@@ -147,9 +147,18 @@ const Favicon = ({ src, className, fallback = null }) => {
   );
 };
 
-const inlineFaviconFallback = (
-  <Icon name='LinkIcon' size='sm' decorative className='m-0 mr-1 text-blue-500 inline-block align-text-top' />
-);
+const getInlineIconName = (url) => {
+  try {
+    const { hostname } = new URL(url);
+
+    if (hostname === 'medium.com' || hostname.endsWith('.medium.com')) return 'Medium';
+  } catch {
+
+    // Invalid URLs use the generic link icon.
+  }
+
+  return 'LinkIcon';
+};
 
 /**
  * Link preview component with favicon and metadata
@@ -231,6 +240,8 @@ const Preview = memo(function Preview({
   }, [ data?.siteName, url ]);
 
   // All hooks are above this line — conditional returns are safe from here on
+  const inlineIconName = getInlineIconName(url);
+
   if (!url) return <span className='text-gray-500'>No URL provided</span>;
 
   if (loading) return <PreviewLoadingSkeleton className={ className } />;
@@ -243,7 +254,7 @@ const Preview = memo(function Preview({
     return (
       <span className={ `inline-flex items-center align-top ${className}` }>
         <Icon
-          name={ isConfirmedUnavailable ? 'LinkSlashIcon' : 'LinkIcon' }
+          name={ isConfirmedUnavailable ? 'LinkSlashIcon' : inlineIconName }
           size='sm'
           decorative
           className={ `m-0 mr-1 inline-block align-text-top ${isConfirmedUnavailable ? 'text-red-500' : 'text-gray-400'}` }
@@ -261,7 +272,7 @@ const Preview = memo(function Preview({
 
   if (!data) return (
     <span className={ `inline-flex items-center align-top ${className}` }>
-      <Icon name='LinkIcon' size='sm' decorative className='m-0 mr-1 text-gray-400 inline-block align-text-top' />
+      <Icon name={ inlineIconName } size='sm' decorative className='m-0 mr-1 text-gray-400 inline-block align-text-top' />
       <Link href={ url } tone='blue'>
         {title || url}
       </Link>
@@ -271,9 +282,16 @@ const Preview = memo(function Preview({
   const linkContent = (
     <>
       <Favicon
-        src={ normalizedFavicon }
+        src={ inlineIconName === 'Medium' ? null : normalizedFavicon }
         className='h-4 w-4 !m-0 !mr-1 flex-shrink-0 inline-block align-text-top'
-        fallback={ inlineFaviconFallback }
+        fallback={ (
+          <Icon
+            name={ inlineIconName }
+            size='sm'
+            decorative
+            className={ `m-0 mr-1 inline-block align-text-top ${inlineIconName === 'Medium' ? 'text-gray-900 dark:text-gray-100' : 'text-blue-500'}` }
+          />
+        ) }
       />
       <Link
         tone='blue'

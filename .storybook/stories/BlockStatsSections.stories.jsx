@@ -198,19 +198,19 @@ export const Default = {
         <VariantTable />
       </Section>
       <Section title='Metric Grid' description='Use for clear top-level Gaudi or blog metrics.'>
-        <MetricGrid />
+        <div data-docs-example><MetricGrid /></div>
         <CodeBlock code={ variantCode.metric } />
       </Section>
       <Section title='Changelog Stats' description='Use when the numbers are attached to release history.'>
-        <ChangelogStats />
+        <div data-docs-example><ChangelogStats /></div>
         <CodeBlock code={ variantCode.changelog } />
       </Section>
       <Section title='Dark Summary' description='Use sparingly for high-contrast summary panels.'>
-        <GradientStats />
+        <div data-docs-example><GradientStats /></div>
         <CodeBlock code={ variantCode.dark } />
       </Section>
       <Section title='Compact Inline Stats' description='Use inside docs pages where space is limited.'>
-        <CompactStats />
+        <div data-docs-example><CompactStats /></div>
         <CodeBlock code={ variantCode.compact } />
       </Section>
       <Section title='Implementation Notes' description='Stats recipes must remain readable outside the visual treatment.'>

@@ -1,0 +1,41 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+'use client';
+import { useState } from 'react';
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup
+} from '../../../../src/components/core/Resizable/parts/resizable.jsx';
+export function Pattern() {
+  const [sizes, setSizes] = useState({
+    left: 30,
+    right: 70
+  });
+  return (
+    <div className='mx-auto w-full max-w-lg'>
+      <ResizablePanelGroup
+        orientation='horizontal'
+        className='rounded-2xl min-h-[200px] border'
+        onLayoutChange={(layout) => {
+          setSizes(layout);
+        }}
+      >
+        <ResizablePanel id='left' defaultSize={30} minSize={20}>
+          <div className='flex h-full flex-col items-center justify-center gap-2 p-6'>
+            <span className='text-sm font-semibold'>
+              {Math.round(sizes.left ?? 30)}%
+            </span>
+          </div>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel id='right' defaultSize={70} minSize={30}>
+          <div className='flex h-full flex-col items-center justify-center gap-2 p-6'>
+            <span className='text-sm font-semibold'>
+              {Math.round(sizes.right ?? 70)}%
+            </span>
+          </div>
+        </ResizablePanel>
+      </ResizablePanelGroup>
+    </div>
+  );
+}

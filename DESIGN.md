@@ -1,6 +1,6 @@
 ---
 name: Gaudi Design System
-description: Editorial React design system for Ahmad Assaf's blog and related reading interfaces.
+description: Curated React design system for blogs and applications, with shared foundations, components, and interface patterns.
 colors:
   accent: "#2563eb"
   accent-dark: "#1d4ed8"
@@ -93,15 +93,15 @@ components:
 
 ## Overview
 
-**Creative North Star: "The Editorial Instrument"**
+**Creative North Star: "Clarity for reading and working"**
 
-Gaudi is a restrained editorial system for reading, navigating, and composing technical writing. It favors clear hierarchy, compact controls, neutral surfaces, and rare blue accents that signal action, selection, and wayfinding.
+Gaudi is a curated design system for reading and working on the web. It brings the blog and application interfaces together through clear hierarchy, compact controls, neutral surfaces, and blue accents that signal action, selection, and wayfinding.
 
-The system should feel precise rather than decorative. Components are practical and reusable, with enough visual detail to support scanning, comparison, and repeated use across blog pages, MDX articles, post chrome, and documentation surfaces.
+Components and patterns can come from many sources; their integration should feel coherent. Extend existing owners, use shared foundations, and support practical use cases across articles, forms, data views, navigation, and complete workflows. Preserve comfortable reading alongside efficient task completion.
 
 **Key Characteristics:**
 
-- Neutral reading surfaces with blue used as a functional accent.
+- Neutral reading and working surfaces with blue used as a functional accent.
 - Compact geometry, visible focus, and restrained elevation.
 - Separate root, MDX, and runtime entrypoints to keep interfaces lean.
 - Dark mode is intentionally composed, not mechanically inverted.
@@ -213,7 +213,7 @@ The form language is compact and mildly rounded. Cards and controls use an 8px r
 
 ### Navigation
 
-Navigation is responsive and editorial. Desktop navigation is compact with active blue state. Mobile navigation uses a dialog-like overlay, focus management, and clear search access. The command launcher owns cross-site navigation and search-like workflows.
+Navigation supports both content sites and application workspaces. Keep active state visible and adapt the structure to the task: site links and search for reading, workspace navigation and contextual actions for applications. Preserve focus management and keyboard access when navigation moves into a mobile overlay.
 
 ### MDX Article Components
 
@@ -231,6 +231,6 @@ MDX components support reading: citations, previews, callouts, code tabs, charts
 ### Don't:
 
 - **Don't** import consuming app data, generated content, or route-specific files into Gaudi.
-- **Don't** copy components into the blog when an exported Gaudi primitive exists.
+- **Don't** copy components into consuming applications when an exported Gaudi primitive exists.
 - **Don't** use color as the only status cue.
-- **Don't** add large decorative shadows, glass effects, or oversized radii to routine editorial surfaces.
+- **Don't** add large decorative shadows, glass effects, or oversized radii to routine reading and application surfaces.

@@ -2,6 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @config '../tailwind.config.cjs';
 @import '../src/styles.css';
+@import './documentation.css';
 
 @source '../src/**/*.{js,jsx,mdx}';
 @source './**/*.{js,jsx,mdx}';
@@ -18,9 +19,97 @@
   width: 100% !important;
 }
 
-.ds-docs-page {
-  max-width: none;
-  padding: 40px 32px;
+.ds-docs-examples {
+  margin-block-start: 24px;
+  min-width: 0;
+}
+
+.ds-docs-examples > h2 {
+  margin: 0 0 16px !important;
+  color: var(--ds-color-text);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-transform: none;
+}
+
+.ds-docs-examples > .sb-anchor + .sb-anchor {
+  margin-block-start: 24px;
+}
+
+.ds-docs-examples > .sb-anchor > h3 {
+  margin: 0 0 8px;
+  color: var(--ds-color-text);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.ds-docs-examples > .sb-anchor > p {
+  margin: 0 0 8px;
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.7;
+}
+
+.ds-docs-section .sbdocs-preview,
+.ds-docs-examples > .sb-anchor > .sbdocs-preview {
+  margin-block: 12px 0;
+}
+
+/* The Docs canvas owns its inset; story frames only constrain the example width. */
+.ds-docs-page .docs-story .ds-example-frame {
+  margin-inline: 0;
+  padding: 0;
+}
+
+/* Storybook's default negative action margin assumes a 40px preview margin.
+   Keep the actions in normal flow so neither the demo nor source is covered. */
+.ds-docs-page .sbdocs-preview:has(+ .sbdocs-preview-actions) {
+  margin-bottom: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.ds-docs-page .sbdocs-preview-actions {
+  margin: 0;
+  padding: 4px 8px;
+  border: 1px solid var(--ds-color-border);
+  border-top: 0;
+  border-radius: 0 0 var(--ds-radius-sm) var(--ds-radius-sm);
+  background: var(--ds-color-surface-muted);
+}
+
+.ds-docs-page .sbdocs-preview-actions > div {
+  height: auto;
+  min-height: 32px;
+  min-width: 0;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ds-docs-page .sbdocs-preview-actions button {
+  min-height: 32px;
+  height: auto;
+  padding: 6px 10px;
+  border-radius: var(--ds-radius-sm);
+  background: transparent;
+  color: var(--ds-color-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.ds-docs-page .sbdocs-preview-actions button:hover {
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+}
+
+.ds-docs-page .sbdocs-preview-actions button:focus-visible {
+  outline: 2px solid var(--ds-color-info);
+  outline-offset: 2px;
   color: var(--ds-color-text);
 }
 
@@ -34,30 +123,31 @@
 .ds-docs-title h1,
 .ds-docs-title-copy h1 {
   color: var(--ds-color-text) !important;
+  margin-block: 0 8px !important;
 }
 
 .ds-docs-section {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
-.ds-docs-section h2 {
+.ds-docs-section h2:not(:where(.docs-story *)) {
   color: var(--ds-color-text);
   font-size: 20px;
   font-weight: 800;
   letter-spacing: 0;
   line-height: 1.3;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
-.ds-docs-section p,
-.ds-docs-section li,
-.ds-docs-section td {
+.ds-docs-section p:not(:where(.docs-story *)),
+.ds-docs-section li:not(:where(.docs-story *)),
+.ds-docs-section td:not(:where(.docs-story *)) {
   color: var(--ds-color-text-muted);
-  font-size: 14px;
+  font-size: var(--ds-docs-font-size);
   line-height: 1.7;
 }
 
-.ds-docs-section ul {
+.ds-docs-section ul:not(:where(.docs-story *)) {
   display: grid;
   gap: 8px;
   list-style: disc;
@@ -65,7 +155,7 @@
   padding-left: 20px;
 }
 
-.ds-docs-section table {
+.ds-docs-section table:not(:where(.docs-story *)) {
   border-collapse: collapse;
   border: 1px solid var(--ds-color-border);
   border-radius: var(--ds-radius-card);
@@ -73,40 +163,38 @@
   width: 100%;
 }
 
-.ds-docs-section th,
-.ds-docs-section td {
+.ds-docs-page .ds-docs-section :is(.ds-docs-table, .docblock-argstable) :is(th, td) {
   border-bottom: 1px solid var(--ds-color-border);
-  padding: 12px 14px;
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.5;
+  padding: 8px 10px;
   text-align: left;
   vertical-align: top;
 }
 
-.ds-docs-section th {
+.ds-docs-section th:not(:where(.docs-story *)) {
   background: var(--ds-color-surface-muted);
   color: var(--ds-color-text-muted);
-  font-size: 12px;
-  font-weight: 800;
+  font-size: var(--ds-docs-font-size);
+  font-weight: 600;
   letter-spacing: 0;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
-.ds-docs-section td:first-child {
+.ds-docs-section td:not(:where(.docs-story *)):first-child {
   color: var(--ds-color-text);
-  font-weight: 700;
+  font-weight: 600;
   width: 160px;
 }
 
-.ds-docs-code-value {
-  display: inline;
-  border: 1px solid var(--ds-color-border);
-  border-radius: var(--ds-radius-sm);
-  background: var(--ds-color-surface-muted);
-  color: var(--ds-color-text);
-  font-family: var(--ds-font-mono);
-  font-size: 0.875rem;
-  line-height: 1.7;
-  padding: 2px 6px;
-  white-space: pre-wrap;
+.ds-docs-section td:first-child .ds-docs-code-value {
+  overflow-wrap: normal;
+}
+
+.ds-docs-page .ds-docs-props-list :is(dt, dd) {
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
 }
 
 .ds-docs-table-frame {
@@ -129,8 +217,102 @@
 }
 
 .ds-docs-section .docblock-argstable {
+  margin-block: 16px 0 !important;
   min-width: 42rem;
   width: 100%;
+}
+
+.ds-docs-preview-controls {
+  margin-block-start: 16px;
+}
+
+.ds-docs-preview-controls > h3 {
+  margin: 0 0 4px;
+}
+
+.ds-docs-preview-controls > p {
+  margin: 0;
+}
+
+.ds-docs-preview-controls > p a {
+  color: var(--ds-color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ds-docs-controls-table {
+  margin-block-start: 16px;
+}
+
+.ds-docs-page .ds-docs-section .ds-docs-controls-table .docblock-argstable {
+  margin: 0 !important;
+  border: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.ds-docs-page .ds-docs-section .docblock-argstable :is(thead, tbody) tr > :is(th, td) {
+  padding: 8px 10px;
+  border-radius: 0;
+}
+
+.ds-docs-page .ds-docs-section .ds-docs-controls-table .docblock-argstable :is(th, td) {
+  padding: 8px 10px;
+}
+
+/* Storybook sets an important inset on prop-name cells. Match our reference. */
+.ds-docs-page .ds-docs-section .docblock-argstable tbody td:first-child {
+  padding-left: 10px !important;
+}
+
+.ds-docs-page .ds-docs-section .docblock-argstable thead th > span {
+  color: inherit;
+  font: inherit;
+}
+
+.ds-docs-page .ds-docs-section .docblock-argstable thead th {
+  color: var(--ds-color-text-muted);
+}
+
+.ds-docs-page .ds-docs-section .ds-docs-controls-table .docblock-argstable thead th:first-child {
+  border-start-start-radius: var(--ds-radius-card);
+}
+
+.ds-docs-page .ds-docs-section .ds-docs-controls-table .docblock-argstable thead th:last-child {
+  border-start-end-radius: var(--ds-radius-card);
+}
+
+.ds-docs-page .ds-docs-section .ds-docs-controls-table .docblock-argstable tbody td {
+  background: transparent;
+  border-top: 0;
+}
+
+.ds-docs-page .ds-docs-section :is(.ds-docs-table, .docblock-argstable) tbody tr:last-child > td {
+  border-bottom: 0;
+}
+
+/* The complete API is documented once, in Props. Keep this table interactive. */
+.ds-docs-preview-controls[data-compact] .docblock-argstable {
+  min-width: 0;
+  table-layout: fixed;
+}
+
+.ds-docs-preview-controls[data-compact] .docblock-argstable :is(th, td):first-child {
+  width: 40%;
+}
+
+.ds-docs-preview-controls[data-compact] .docblock-argstable :is(th, td):last-child {
+  width: 60%;
+}
+
+@media (max-width: 640px) {
+  .ds-docs-preview-controls[data-compact] .docblock-argstable :is(th, td):first-child {
+    width: 55%;
+  }
+
+  .ds-docs-preview-controls[data-compact] .docblock-argstable :is(th, td):last-child {
+    width: 45%;
+  }
 }
 
 .ds-docs-section .ds-docs-table {
@@ -161,20 +343,26 @@
   }
 
   .ds-docs-page {
-    padding: 32px 16px;
+    padding-block: 20px;
   }
 
   .ds-docs-section .sbdocs-preview > div:first-child button,
-  .ds-docs-section .docblock-code-toggle,
-  .ds-docs-section .docblock-code-toggle + button,
+  .ds-docs-page .docblock-code-toggle,
+  .ds-docs-page .docblock-code-toggle + button,
+  .ds-docs-section .docblock-argstable label:has(> input[role='switch']),
   .ds-docs-section .docblock-argstable :is(button, input, select, textarea) {
     min-height: 44px !important;
     min-width: 44px !important;
   }
 
   .ds-docs-section .sbdocs-preview > div:first-child button,
-  .ds-docs-section .docblock-code-toggle + button {
+  .ds-docs-page .docblock-code-toggle + button {
     min-width: 44px !important;
+  }
+
+  .ds-docs-section .docblock-argstable label:has(> input[role='switch']) {
+    display: inline-flex;
+    align-items: center;
   }
 
   .ds-docs-table[data-columns='2'] {
@@ -211,8 +399,8 @@
 .dark .ds-docs-page,
 .dark .ds-docs-title h1,
 .dark .ds-docs-title-copy h1,
-.dark .ds-docs-section h2,
-.dark .ds-docs-section td:first-child {
+.dark .ds-docs-section h2:not(:where(.docs-story *)),
+.dark .ds-docs-section td:not(:where(.docs-story *)):first-child {
   color: var(--ds-color-text);
 }
 
@@ -226,44 +414,41 @@
   background: var(--ds-color-surface);
 }
 
-.ds-docs-section .docs-story {
-  padding: 16px !important;
+.ds-docs-page .docs-story {
+  padding: 8px !important;
 }
 
 .dark .ds-docs-section .sbdocs-preview,
+.dark .ds-docs-examples .sbdocs-preview,
+.dark .ds-docs-examples .docs-story,
 .dark .ds-docs-section .sbdocs-preview > div:first-child {
   border-color: var(--ds-color-border) !important;
   background: var(--ds-color-surface) !important;
 }
 
-.dark .ds-docs-section .sbdocs-preview > div:first-child button,
-.dark .ds-docs-section .docblock-code-toggle,
-.dark .ds-docs-section .docblock-code-toggle + button {
+.dark .ds-docs-section .sbdocs-preview > div:first-child button {
   color: var(--ds-color-text-muted) !important;
 }
 
 .dark .ds-docs-section .sbdocs-preview > div:first-child button:hover,
-.dark .ds-docs-section .sbdocs-preview > div:first-child button:focus-visible,
-.dark .ds-docs-section .docblock-code-toggle:hover,
-.dark .ds-docs-section .docblock-code-toggle:focus-visible,
-.dark .ds-docs-section .docblock-code-toggle + button:hover,
-.dark .ds-docs-section .docblock-code-toggle + button:focus-visible {
+.dark .ds-docs-section .sbdocs-preview > div:first-child button:focus-visible {
   color: var(--ds-color-text) !important;
 }
 
-.dark .ds-docs-section p,
-.dark .ds-docs-section li,
-.dark .ds-docs-section td {
+.dark .ds-docs-section p:not(:where(.docs-story *)),
+.dark .ds-docs-section li:not(:where(.docs-story *)),
+.dark .ds-docs-section td:not(:where(.docs-story *)) {
   color: var(--ds-color-text-muted);
 }
 
-.dark .ds-docs-section table,
-.dark .ds-docs-section th,
-.dark .ds-docs-section td {
+.dark .ds-docs-section table:not(:where(.docs-story *)),
+.dark .ds-docs-section th:not(:where(.docs-story *)),
+.dark .ds-docs-section td:not(:where(.docs-story *)) {
   border-color: var(--ds-color-border);
 }
 
-.dark .ds-docs-section th {
+.dark .ds-docs-section th:not(:where(.docs-story *)),
+.dark .ds-docs-page .ds-docs-section .docblock-argstable thead th {
   background: var(--ds-color-surface-muted);
   color: var(--ds-color-text);
 }
@@ -283,6 +468,14 @@
   color: var(--ds-color-text) !important;
 }
 
+.dark .ds-docs-controls-table .docblock-argstable :is(tbody tr, tbody td) {
+  background: transparent !important;
+}
+
+.dark .ds-docs-preview-controls .docblock-argstable tbody td:first-child > span {
+  color: var(--ds-color-code-inline-text) !important;
+}
+
 .dark .ds-docs-section .docblock-argstable :where(input:not([type='checkbox']), select, textarea) {
   border-color: var(--ds-color-border) !important;
   background: var(--ds-color-surface) !important;
@@ -294,8 +487,73 @@
   outline-offset: 2px;
 }
 
-.dark .ds-docs-code-value {
-  border-color: var(--ds-color-border);
-  background: var(--ds-color-surface-muted);
-  color: var(--ds-color-text);
+.dark .ds-docs-section .docblock-argstable label:has(> input[role='switch']) {
+  border: 1px solid var(--ds-color-border);
+  background: var(--ds-color-surface);
+}
+
+.dark .ds-docs-section .docblock-argstable label:has(> input[role='switch']) > span {
+  background: transparent;
+  box-shadow: none;
+}
+
+.dark .ds-docs-section .docblock-argstable label:has(> input[role='switch']:checked) > span:last-of-type,
+.dark .ds-docs-section .docblock-argstable label:has(> input[role='switch']:not(:checked)) > span:first-of-type {
+  background: var(--ds-color-accent-subtle);
+  color: var(--ds-color-accent) !important;
+}
+
+/* The four documentation entry pages share a flat, compact navigation. */
+.gaudi-guide-links {
+  display: grid;
+  border-top: 1px solid var(--ds-color-border);
+}
+.gaudi-guide-links a {
+  display: grid;
+  gap: 4px;
+  padding-block: 18px;
+  border-bottom: 1px solid var(--ds-color-border);
+  text-decoration: none;
+}
+.gaudi-guide-links strong { color: var(--ds-color-accent); font-size: 18px; }
+.gaudi-guide-links span, .gaudi-guide-note, .gaudi-guide-list {
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-docs-font-size);
+  line-height: 1.75;
+}
+.gaudi-guide-list { display: grid; gap: 8px; padding-left: 20px; list-style: disc; }
+.gaudi-guide-note { overflow-wrap: anywhere; }
+.gaudi-guide-reference { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-color-accent); font-size: var(--ds-docs-font-size); text-decoration: underline; text-underline-offset: 4px; }
+.gaudi-guide-anchors { display: flex; flex-wrap: wrap; column-gap: 24px; row-gap: 4px; border-bottom: 1px solid var(--ds-color-border); }
+.gaudi-guide-anchors a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-color-accent); font-size: var(--ds-docs-font-size); }
+.gaudi-essential-swatches { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); max-width: 64rem; gap: 16px; }
+.gaudi-essential-swatches > div { display: grid; gap: 8px; min-width: 0; }
+.gaudi-essential-swatches span { height: 48px; border: 1px solid var(--ds-color-border); border-radius: 4px; }
+.gaudi-essential-swatches strong { font-size: var(--ds-docs-font-size); }
+.gaudi-essential-swatches code { font-size: 12px; overflow-wrap: anywhere; }
+.gaudi-essential-type { display: grid; gap: 12px; }
+.gaudi-essential-icons { display: flex; flex-wrap: wrap; gap: 24px; }
+.gaudi-essential-icons > span { display: flex; align-items: center; gap: 8px; }
+.gaudi-essential-icons code { font-size: 12px; }
+.gaudi-essential-statuses { display: flex; flex-wrap: wrap; gap: 12px; }
+.gaudi-catalogue-controls { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: 16px; }
+.gaudi-catalogue-controls label { display: grid; gap: 8px; min-width: 0; font-size: var(--ds-docs-font-size); font-weight: 600; }
+.gaudi-catalogue-controls select { width: 100%; min-height: 44px; background: var(--ds-color-surface); color: var(--ds-color-text); border: 1px solid var(--ds-color-border); border-radius: 6px; padding: 8px 12px; }
+.gaudi-catalogue-view { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
+.gaudi-catalogue-view [role='group'] { display: flex; gap: 4px; }
+.gaudi-catalogue-view button, .gaudi-catalogue-more { min-height: 44px; padding: 8px 12px; border: 1px solid var(--ds-color-border); border-radius: 6px; background: var(--ds-color-surface); font-size: var(--ds-docs-font-size); cursor: pointer; }
+.gaudi-catalogue-view button[aria-pressed='true'] { color: var(--ds-color-accent); border-color: var(--ds-color-accent); background: var(--ds-color-accent-subtle); }
+.gaudi-catalogue-view p { margin-left: auto; font-size: var(--ds-docs-font-size); color: var(--ds-color-text-muted); }
+.gaudi-catalogue-results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; padding: 0; margin: 0; list-style: none; }
+.gaudi-catalogue-results li { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 0; padding-block: 16px; border-bottom: 1px solid var(--ds-color-border); }
+.gaudi-catalogue-results li > div { min-width: 0; }
+.gaudi-catalogue-results a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-color-accent); font-size: 16px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; text-underline-offset: 4px; }
+.gaudi-catalogue-results span { display: block; color: var(--ds-color-text-muted); font-size: 12px; }
+.gaudi-catalogue-results button { flex-shrink: 0; min-height: 44px; padding: 4px; color: var(--ds-color-text-muted); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+:is(.gaudi-guide-links,.gaudi-guide-anchors,.gaudi-catalogue-view,.gaudi-catalogue-results) :is(a,button):focus-visible,
+.gaudi-guide-reference:focus-visible, .gaudi-catalogue-more:focus-visible { outline: 2px solid var(--ds-color-accent); outline-offset: 3px; }
+@media (max-width: 767px) {
+  .gaudi-catalogue-controls, .gaudi-catalogue-results { grid-template-columns: minmax(0,1fr); }
+  .gaudi-essential-swatches { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .gaudi-catalogue-view p { width: 100%; margin-left: 0; }
 }

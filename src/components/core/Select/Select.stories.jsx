@@ -32,6 +32,7 @@ export const Example = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Choose topic' });
+    await userEvent.click(trigger);
     const listbox = canvas.getByRole('listbox', { name: 'Choose topic options' });
 
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -44,7 +45,7 @@ export const Example = {
   },
   render: () => (
     <StoryStage minHeight='min-h-72'>
-      <Select defaultOpen options={ topicOptions.slice(0, 3) } placeholder='Choose topic' />
+      <Select options={ topicOptions.slice(0, 3) } placeholder='Choose topic' />
     </StoryStage>
   )
 };
@@ -52,6 +53,7 @@ export const Example = {
 export const Searchable = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Search topics' }));
     const searchInput = canvas.getByRole('combobox', { name: 'Search article topics...' });
 
     await expect(searchInput).toHaveFocus();
@@ -70,7 +72,6 @@ export const Searchable = {
     <StoryStage minHeight='min-h-80'>
       <Select
         searchable
-        defaultOpen
         options={ topicOptions }
         placeholder='Search topics'
         searchPlaceholder='Search article topics...'
@@ -83,6 +84,7 @@ export const MultiSelect = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: /Design systems, Semantic web/ });
+    await userEvent.click(trigger);
     const listbox = canvas.getByRole('listbox', { name: 'Choose topics options' });
     const selectedTopic = canvas.getByRole('option', { name: 'Design systems' });
     const additionalTopic = canvas.getByRole('option', { name: 'AI engineering' });
@@ -102,7 +104,6 @@ export const MultiSelect = {
       <Select
         multiple
         searchable
-        defaultOpen
         defaultValue={ [ 'design-systems', 'semantic-web' ] }
         options={ topicOptions }
         placeholder='Choose topics'
@@ -142,6 +143,7 @@ export const NativeOptionsInput = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: 'Topic from option children' });
+    await userEvent.click(trigger);
     const listbox = canvas.getByRole('listbox', { name: 'Topic from option children options' });
 
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
@@ -155,7 +157,7 @@ export const NativeOptionsInput = {
   },
   render: () => (
     <StoryStage minHeight='min-h-72'>
-      <Select aria-label='Topic from option children' defaultOpen>
+      <Select aria-label='Topic from option children'>
         <option value='ai'>AI Engineering</option>
         <option value='kg'>Knowledge Graphs</option>
         <option value='ds'>Design Systems</option>
@@ -163,3 +165,6 @@ export const NativeOptionsInput = {
     </StoryStage>
   )
 };
+
+export const RichOptions = { render: () => <StoryStage minHeight='min-h-80'><Select aria-label='Publication topic' searchable options={[{value:'engineering',label:'Engineering',description:'Systems, tools, and practical software.'},{value:'archived',label:'Archived',description:'Not available for new articles.',disabled:true},{value:'research',label:'Research',description:'Methods, evidence, and open questions.'}]} /></StoryStage>, play: async ({canvasElement}) => {const canvas=within(canvasElement);await userEvent.click(canvas.getByRole('button',{name:'Publication topic'}));await userEvent.keyboard('{ArrowDown}{Enter}');await expect(canvas.getByRole('button',{name:'Publication topic'})).toHaveTextContent('Research');} };
+export const LoadingOptions = { render: () => <StoryStage minHeight='min-h-64'><Select aria-label='Remote topics' searchable loading options={[]} /></StoryStage> };

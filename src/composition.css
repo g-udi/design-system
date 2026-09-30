@@ -1,0 +1,274 @@
+@import 'tw-animate-css';
+@import './composition-parts.css';
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Compound controls share Gaudi's palette; ui-accent is a selection surface. */
+@theme inline {
+  --color-ui-focus: var(--ds-color-discovery);
+  --color-ui-focus-ink: color-mix(in srgb, var(--ds-color-discovery) 85%, var(--ds-color-text));
+  --color-ui-focus-foreground: var(--ds-color-discovery-foreground);
+  --color-ui-invert: var(--ds-color-text);
+  --color-ui-invert-foreground: var(--ds-color-surface);
+  --color-ui-background: var(--ds-color-surface);
+  --color-ui-foreground: var(--ds-color-text);
+  --color-ui-card: var(--ds-color-surface);
+  --color-ui-card-foreground: var(--ds-color-text);
+  --color-ui-popover: var(--ds-color-surface);
+  --color-ui-popover-foreground: var(--ds-color-text);
+  --color-ui-primary: var(--ds-color-accent);
+  --color-ui-primary-strong: var(--ds-color-accent-dark);
+  --color-ui-success-ink: color-mix(
+    in srgb,
+    var(--ds-color-success) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-warning-ink: color-mix(
+    in srgb,
+    var(--ds-color-warning) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-info-ink: color-mix(
+    in srgb,
+    var(--ds-color-info) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-danger-ink: color-mix(
+    in srgb,
+    var(--ds-color-danger) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-primary-foreground: var(--ds-color-accent-foreground);
+  --color-ui-secondary: var(--ds-color-surface-muted);
+  --color-ui-secondary-foreground: var(--ds-color-text);
+  --color-ui-muted: var(--ds-color-surface-muted);
+  --color-ui-muted-foreground: var(--ds-color-text-muted);
+  --color-ui-accent: var(--ds-color-surface-muted);
+  --color-ui-accent-foreground: var(--ds-color-text);
+  --color-ui-destructive: var(--ds-color-danger);
+  --color-ui-destructive-foreground: var(--ds-color-danger-foreground);
+  --color-ui-border: var(--ds-color-border);
+  --color-ui-input: var(--ds-color-border);
+  --color-ui-ring: var(--ds-color-accent);
+  --color-ui-sidebar: var(--ds-color-surface-muted);
+  --color-ui-sidebar-foreground: var(--ds-color-text);
+  --color-ui-sidebar-primary: var(--ds-color-accent);
+  --color-ui-sidebar-primary-foreground: var(--ds-color-accent-foreground);
+  --color-ui-sidebar-accent: var(--ds-color-accent-subtle);
+  --color-ui-sidebar-accent-foreground: var(--ds-color-text);
+  --color-ui-sidebar-border: var(--ds-color-border);
+  --color-ui-sidebar-ring: var(--ds-color-accent);
+  --color-ui-chart-1: var(--ds-color-accent);
+  --color-ui-chart-2: var(--ds-color-success);
+  --color-ui-chart-3: var(--ds-color-discovery);
+  --color-ui-chart-4: var(--ds-color-warning);
+  --color-ui-chart-5: var(--ds-color-attention);
+  --animate-accordion-down: accordion-down 180ms ease-out;
+  --animate-accordion-up: accordion-up 180ms ease-out;
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@custom-variant data-open (&:is([data-state='open'], [data-open]));
+@custom-variant data-closed (&:is([data-state='closed'], [data-closed]));
+@custom-variant data-active (&:is([data-state='active'], [data-active]));
+@custom-variant data-inactive (&:is([data-state='inactive'], [data-inactive]));
+@custom-variant data-checked (&:is([data-state='checked'], [data-checked]));
+@custom-variant data-unchecked (&:is([data-state='unchecked'], [data-unchecked]));
+@custom-variant data-on (&:is([data-state='on'], [data-on]));
+@custom-variant data-off (&:is([data-state='off'], [data-off]));
+@custom-variant data-horizontal (&[data-orientation='horizontal']);
+@custom-variant data-vertical (&[data-orientation='vertical']);
+@custom-variant data-selected (&:is([data-selected], [data-state='checked'], [data-state='active'], [data-state='on'], [aria-selected='true']));
+
+@layer base {
+  :root,
+  .dark {
+    --success: var(--ds-color-success);
+    --warning: var(--ds-color-warning);
+    --info: var(--ds-color-info);
+    --destructive: var(--ds-color-danger);
+    --background: var(--ds-color-surface);
+    --foreground: var(--ds-color-text);
+    --card: var(--ds-color-surface);
+    --card-foreground: var(--ds-color-text);
+    --popover: var(--ds-color-surface);
+    --popover-foreground: var(--ds-color-text);
+    --primary: var(--ds-color-accent);
+    --primary-foreground: var(--ds-color-accent-foreground);
+    --muted: var(--ds-color-surface-muted);
+    --muted-foreground: var(--ds-color-text-muted);
+    --border: var(--ds-color-border);
+    --ring: var(--ds-color-accent);
+    --radius: var(--ds-radius-md, 0.5rem);
+    --chart-1: var(--ds-color-accent);
+    --chart-2: var(--ds-color-success);
+    --chart-3: var(--ds-color-discovery);
+    --chart-4: var(--ds-color-warning);
+    --chart-5: var(--ds-color-attention);
+  }
+  :where([data-slot], [data-slot] *, [data-slot]::before, [data-slot]::after) {
+    border-color: var(--ds-color-border);
+  }
+}
+
+@layer components {
+  .ds-catalogue-frame {
+    width: 100%;
+    min-width: 0;
+    max-width: 80rem;
+    margin-inline: auto;
+    color: var(--ds-color-text);
+  }
+  .ds-catalogue-frame > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .ds-catalogue-index {
+    max-width: 72rem;
+    margin: auto;
+    color: var(--ds-color-text);
+  }
+  .ds-catalogue-index h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-block: 1rem;
+  }
+  .ds-catalogue-index h2 {
+    font-size: 1.125rem;
+    font-weight: 650;
+  }
+  .ds-catalogue-index p {
+    color: var(--ds-color-text-muted);
+    margin-block: 0.5rem 1.25rem;
+    line-height: 1.6;
+  }
+  .ds-catalogue-filters {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+    margin-block: 2rem 1rem;
+  }
+  .ds-catalogue-filters label {
+    display: grid;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    min-width: 0;
+  }
+  .ds-catalogue-filters select {
+    background: var(--ds-color-surface);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-md);
+    min-height: 44px;
+    padding: 0.5rem;
+    width: 100%;
+  }
+  .ds-catalogue-family {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 1.5rem;
+    padding-block: 1.5rem;
+    border-top: 1px solid var(--ds-color-border);
+  }
+  .ds-catalogue-family ul {
+    columns: 2;
+    column-gap: 2rem;
+    padding: 0;
+  }
+  .ds-catalogue-family li {
+    break-inside: avoid;
+    margin-bottom: 0.75rem;
+    list-style: none;
+  }
+  .ds-catalogue-family a {
+    color: var(--ds-color-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+  .ds-catalogue-family a:focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: 4px;
+  }
+  @media (max-width: 767px) {
+    .ds-catalogue-filters,
+    .ds-catalogue-family {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ds-catalogue-family {
+      gap: 0.5rem;
+    }
+    .ds-catalogue-family ul {
+      columns: 1;
+    }
+    .ds-catalogue-family a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+    }
+  }
+  .ds-tabs-list-line {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+  }
+  .ds-tabs-list-line [data-slot='tabs-trigger'] {
+    border-radius: 0;
+    box-shadow: none;
+    border-bottom: 2px solid transparent;
+  }
+  .ds-tabs-list-line [data-state='active'] {
+    border-color: var(--ds-color-accent);
+  }
+  [data-slot='dialog-content'],
+  [data-slot='alert-dialog-content'] {
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+  }
+  [data-slot='sheet-content'],
+  [data-slot='drawer-content'] {
+    max-height: 100dvh;
+  }
+  [data-slot='button'] {
+    overflow-wrap: anywhere;
+  }
+  @media (pointer: coarse) {
+    [data-slot='button'],
+    [data-slot='menu-item'],
+    [data-slot='dropdown-menu-item'] {
+      min-height: 44px;
+    }
+    [data-slot='button']:has(> svg:only-child) {
+      min-width: 44px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-slot],
+    [data-slot]::before,
+    [data-slot]::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

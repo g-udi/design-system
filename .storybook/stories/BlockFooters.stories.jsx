@@ -156,19 +156,19 @@ export const Default = {
         <VariantTable />
       </Section>
       <Section title='Current Blog Footer' description='Uses the actual Footer component used by the blog layout.'>
-        <CurrentFooter />
+        <div data-docs-example><CurrentFooter /></div>
         <CodeBlock code={ variantCode.current } />
       </Section>
       <Section title='Editorial Footer' description='Use for content-heavy pages with sitemap navigation.'>
-        <EditorialFooter />
+        <div data-docs-example><EditorialFooter /></div>
         <CodeBlock code={ variantCode.editorial } />
       </Section>
       <Section title='Newsletter Footer' description='Use where the subscription action is the main footer goal.'>
-        <NewsletterFooter />
+        <div data-docs-example><NewsletterFooter /></div>
         <CodeBlock code={ variantCode.newsletter } />
       </Section>
       <Section title='Compact Footer' description='Use for focused pages with minimal navigation needs.'>
-        <CompactFooter />
+        <div data-docs-example><CompactFooter /></div>
         <CodeBlock code={ variantCode.compact } />
       </Section>
       <Section title='Implementation Notes' description='Footer examples must not drift into app-only styling.'>

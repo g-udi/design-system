@@ -161,7 +161,7 @@ const RecommendedToken = ({ name, value }) => (
 );
 
 const CompactToken = ({ name, value }) => (
-  <CopyableToken value={ value } label={ name } className='flex min-h-14 w-full items-center gap-3 border-b border-gray-200 px-2 pr-12 dark:border-gray-800'>
+  <CopyableToken value={ value } label={ name } className='flex min-h-14 min-w-0 w-full items-center gap-3 border-b border-gray-200 px-2 pr-12 dark:border-gray-800'>
     <span className='h-8 w-8 shrink-0 rounded-sm border border-black/10' style={{ 'backgroundColor': value }} />
     <span className='min-w-0'>
       <span className='block truncate font-mono text-xs font-semibold text-gray-900 dark:text-gray-100'>{name}</span>
@@ -181,8 +181,13 @@ const TokenFinder = () => {
   const [ showAll, setShowAll ] = useState(false);
   const [ showRawReferences, setShowRawReferences ] = useState(false);
   const normalizedQuery = query.trim().toLowerCase();
+  const queryTerms = normalizedQuery.split(/\s+/);
   const directMatches = normalizedQuery
-    ? searchableTokens.filter(({ kind, keywords, name, value }) => `${kind} ${keywords} ${name} ${value}`.toLowerCase().includes(normalizedQuery))
+    ? searchableTokens.filter(({ kind, keywords, name, value }) => {
+      const searchableText = `${kind} ${keywords} ${name} ${value}`.toLowerCase();
+
+      return queryTerms.every((term) => searchableText.includes(term));
+    })
     : [];
   const semanticMatches = directMatches.filter(({ kind }) => kind === 'Semantic');
   const relatedFamilies = [ ...new Set(semanticMatches.flatMap(({ group }) => relatedPaletteFamilies[group] || [])) ];
@@ -347,23 +352,27 @@ const TokenFinder = () => {
   );
 };
 
-const Section = ({ children, collapsible = false, description, id, title }) => {
+const Section = ({ children, collapsible = false, description, id, title, defaultOpen = false }) => {
   if (collapsible) return (
-    <details id={ id } className='group scroll-mt-28 border-t border-gray-200 dark:border-gray-800'>
+    <details id={ id } open={ defaultOpen } className='ds-guide-disclosure group scroll-mt-28 border-t border-gray-200 dark:border-gray-800'>
       <summary className='flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600'>
-        <div className='max-w-5xl space-y-2'>
+        <div className='space-y-2'>
           <Typography variant='heading-lg'>{title}</Typography>
           {description && <Typography variant='paragraph-md'><InlineText>{description}</InlineText></Typography>}
         </div>
-        <ChevronDown aria-hidden='true' size={ 20 } className='mt-1 shrink-0 text-gray-500 transition-transform group-open:rotate-180 dark:text-gray-400' />
+        <span className='ds-guide-disclosure-action' aria-hidden='true'>
+          <span className='ds-guide-disclosure-show'>Show</span>
+          <span className='ds-guide-disclosure-hide'>Hide</span>
+          <ChevronDown size={ 16 } />
+        </span>
       </summary>
       <div className='pt-2'>{children}</div>
     </details>
   );
 
   return (
-    <section id={ id } className='scroll-mt-28 space-y-4'>
-      <div className='max-w-5xl space-y-2'>
+    <section id={ id } className='ds-guide-section scroll-mt-28 space-y-4'>
+      <div className='space-y-2'>
         <Typography variant='heading-lg'>{title}</Typography>
         {description && <Typography variant='paragraph-md'><InlineText>{description}</InlineText></Typography>}
       </div>
@@ -373,21 +382,51 @@ const Section = ({ children, collapsible = false, description, id, title }) => {
 };
 
 export default {
+  parameters: { layout: 'fullscreen' },
   id: 'overview-colors-tokens',
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Colors & Tokens'
 };
 
 export const Default = {
   name: 'Colors & Tokens',
   play: async ({ canvasElement }) => {
+    // Finder interactions belong in the test runner, not on guide navigation.
+    if (import.meta.env.MODE !== 'test') return;
+
     const canvas = within(canvasElement);
     const search = canvas.getByRole('searchbox', { name: 'UI job, token name, or value' });
     const grayFamily = canvasElement.querySelector('#palette-gray');
     const semanticReference = canvasElement.querySelector('#semantic-tokens');
 
     await expect(grayFamily).not.toHaveAttribute('open');
+    await expect(semanticReference).toHaveAttribute('open');
+    await expect(canvas.getByRole('button', { name: 'Copy accent.DEFAULT', exact: true })).toBeVisible();
+    await userEvent.click(semanticReference.querySelector('summary'));
     await expect(semanticReference).not.toHaveAttribute('open');
+    await userEvent.click(semanticReference.querySelector('summary'));
+    await expect(semanticReference).toHaveAttribute('open');
+    await userEvent.click(canvas.getByRole('button', { name: 'Body text & labels' }));
+    await expect(search).toHaveValue('body text');
+    const textResults = within(canvasElement.querySelector('[aria-label="Token search results"]'));
+    await expect(textResults.getByRole('button', { name: 'Copy text.DEFAULT', exact: true })).toBeVisible();
+    await expect(textResults.getByRole('button', { name: 'Copy text.muted', exact: true })).toBeVisible();
+    await expect(textResults.queryByRole('heading', { name: 'Related palette values' })).not.toBeInTheDocument();
+    for (const [ value, tokenName ] of [
+      [ '  TEXT   BODY  ', 'text.DEFAULT' ],
+      [ 'text.muted', 'text.muted' ],
+      [ 'var(--ds-color-text)', 'text.DEFAULT' ]
+    ]) {
+      fireEvent.change(search, { target: { value } });
+      await waitFor(() => {
+        const results = within(canvasElement.querySelector('[aria-label="Token search results"]'));
+
+        expect(results.getByRole('button', { name: `Copy ${tokenName}`, exact: true })).toBeVisible();
+      });
+    }
+    fireEvent.change(search, { target: { value: 'body chart' } });
+    await expect(canvas.getByText('No token matches “body chart”.')).toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear token search' }));
     fireEvent.change(search, { target: { value: 'link' } });
     await waitFor(() => expect(canvas.getByRole('status', { name: 'Token search status' })).toHaveTextContent(/default choice/));
     await expect(canvas.getByRole('heading', { name: 'Recommended semantic tokens' })).toBeInTheDocument();
@@ -424,6 +463,7 @@ export const Default = {
       </Section>
       <Section
         collapsible
+        defaultOpen
         id='semantic-tokens'
         title='Semantic tokens'
         description='Semantic names are the stable contract for product UI. Components should consume these instead of hard-coding palette names when the intent is surface, text, border, accent, status, or attention.'
@@ -434,7 +474,7 @@ export const Default = {
               <h3 className='mb-3 font-mono text-sm font-semibold'>{group}</h3>
               <div className='grid gap-2'>
                 {Object.entries(colors[group]).map(([ name, value ]) => (
-                  <Swatch key={ `${group}-${name}` } name={ `${group}.${name}` } value={ value } />
+                  <CompactToken key={ `${group}-${name}` } name={ `${group}.${name}` } value={ value } />
                 ))}
               </div>
             </section>
@@ -562,12 +602,12 @@ export const Default = {
       <Section
         collapsible
         id='implementation-alignment'
-        title='How the blog uses tokens'
-        description='These docs are generated from the Gaudi token exports. The blog consumes the same package through Tailwind, CSS variables, and package imports.'
+        title='Use tokens across products'
+        description='These docs are generated from the Gaudi token exports. The blog and applications consume the same package through Tailwind, CSS variables, and package imports.'
       >
         <div className='grid gap-4 md:grid-cols-2'>
           <div className='rounded-md border border-gray-200 bg-white p-4 text-sm leading-7 dark:border-gray-700 dark:bg-gray-900'>
-            <div className='mb-2 font-semibold'>What the blog uses</div>
+            <div className='mb-2 font-semibold'>What applications use</div>
             <ul className='list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-300'>
               <li><code>tailwind.config.js</code> extends the Gaudi Tailwind preset.</li>
               <li><code>app/layout.js</code> imports <code>@gaudi/design-system/global.css</code> once.</li>
@@ -579,7 +619,7 @@ export const Default = {
             <div className='mb-2 font-semibold'>What stays out</div>
             <ul className='list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-300'>
               <li>No app-root <code>css/overrides.css</code>.</li>
-              <li>No app-root component directory.</li>
+              <li>No copied Gaudi components or duplicate token system.</li>
               <li>No palette families outside the approved token list.</li>
               <li>Raw color values are reserved for token definitions and external data visualization values.</li>
             </ul>

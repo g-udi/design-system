@@ -1,0 +1,17 @@
+// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
+import { toast } from 'sonner';
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+export function Pattern() {
+  const showToast = () => {
+    toast('Event has been created', {
+      description: 'Monday, January 3rd at 6:00pm'
+    });
+  };
+  return (
+    <div className='flex items-center justify-center'>
+      <Button onClick={showToast} variant='outline' className='w-fit'>
+        Show Toast with Description
+      </Button>
+    </div>
+  );
+}

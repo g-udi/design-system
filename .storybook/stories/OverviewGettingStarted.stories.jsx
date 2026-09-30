@@ -8,7 +8,7 @@ export default {
     layout: 'fullscreen'
   },
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Getting Started'
 };
 
 export const Default = {
@@ -16,13 +16,13 @@ export const Default = {
   'render': () => (
     <Page
       title='Gaudi Design System'
-      intro='Gaudi is the design system for the blog and related interface work. The source repository is ahmadassaf/design-system, while the package import name is @gaudi/design-system.'
+      intro='Gaudi is a curated design system for blogs and applications. Shared foundations, rich components, and practical interface patterns are available through @gaudi/design-system.'
     >
       <Section title='Start Here' description='Install once, reuse documented components, and keep application policy outside the package.'>
         <ol aria-label='Gaudi setup workflow' className='grid border-y border-gray-200 md:grid-cols-3 md:divide-x md:divide-gray-200 dark:border-gray-800 dark:md:divide-gray-800'>
           {[
             [ '1', 'Install once', 'Add Gaudi and import its global stylesheet at the application root.' ],
-            [ '2', 'Reuse first', 'Search Storybook for an existing component, block, or page pattern.' ],
+            [ '2', 'Reuse and extend', 'Find an existing component or pattern, then extend it with the variants and use cases you need.' ],
             [ '3', 'Verify the boundary', 'Keep product data and policy in the application, then run the documented checks.' ]
           ].map(([ number, title, description ]) => (
             <li key={ number } className='flex gap-3 px-1 py-4 md:px-5 md:first:pl-0'>
@@ -37,7 +37,7 @@ export const Default = {
       </Section>
 
       <Section title='Install And Import' description='The repository distribution targets React 19 and Next.js 15. Import the stylesheet once at the application root.'>
-        <p className='max-w-5xl text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <p className='text-sm leading-7 text-gray-600 dark:text-gray-300'>
           Package v{packageJson.version} installs from the default GitHub branch and exposes the stable <InlineCode>@gaudi/design-system</InlineCode> import name.
         </p>
         <CodeBlock
@@ -73,7 +73,7 @@ export default function RootLayout({ children }) {
             <tr><Td>Styles</Td><Td>Component styles and one intentional global stylesheet.</Td><Td>Page layout around Gaudi components, without copied components or broad overrides.</Td></tr>
           </tbody>
         </Table>
-        <p className='max-w-5xl text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <p className='text-sm leading-7 text-gray-600 dark:text-gray-300'>
           Contributors and agents should read <InlineCode>AGENTS.md</InlineCode>, search Storybook before adding UI, and run the documented checks before committing.
         </p>
       </Section>
@@ -98,7 +98,7 @@ export default function RootLayout({ children }) {
           <QuickLink title='Accessibility' description='Keyboard, screen-reader, contrast, focus, and testing rules.' storyId='overview-accessibility--default' />
           <QuickLink title='States & Recovery' description='Loading, empty, error, success, disabled, and recovery contracts.' storyId='overview-states-recovery--default' />
           <QuickLink title='Colors & Tokens' description='Palette, semantic tokens, CSS variables, motion, radius, and shadows.' storyId='overview-colors-tokens--default' />
-          <QuickLink title='Core Components' description='Canonical reusable UI APIs.' storyId='core-overview--default' />
+          <QuickLink title='Component Catalogue' description='Browse components, application patterns, and their practical examples.' storyId='overview-component-catalogue--browse' />
         </div>
       </Section>
     </Page>

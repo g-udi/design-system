@@ -1,0 +1,26 @@
+@layer components {
+  .ds-avatar { isolation: isolate; }
+  .ds-avatar::after { border-radius: inherit; pointer-events: none; }
+  .ds-avatar .ds-avatar-image,
+  .ds-avatar .ds-avatar-fallback { border-radius: inherit; overflow: hidden; }
+  .ds-avatar .ds-avatar-fallback { background: inherit; color: inherit; font-size: inherit; }
+  .ds-avatar[data-surface='tinted'] { background: var(--ds-color-surface-muted); color: var(--ds-color-text); }
+  .ds-avatar[data-surface='plain'] { background: var(--ds-color-surface); color: var(--ds-color-text); }
+  .ds-avatar[data-surface='plain'] .ds-avatar-image { padding: 15%; }
+  .ds-avatar[data-surface='bare'] { background: transparent; color: var(--ds-color-text); }
+  .ds-avatar[data-surface='bare']::after { display: none; }
+  .ds-avatar[data-grayscale='true'] .ds-avatar-image { filter: grayscale(1); }
+  .ds-avatar .ds-avatar-indicator { width: 25%; height: 25%; min-width: 6px; min-height: 6px; }
+  .ds-avatar .ds-avatar-indicator[data-icon='true'] { width: 36%; height: 36%; min-width: 12px; min-height: 12px; }
+  .ds-avatar-indicator > svg { width: 75%; height: 75%; }
+  .ds-avatar .ds-avatar-indicator[data-tone='success'] { background: var(--ds-color-success); color: var(--ds-color-success-foreground); }
+  .ds-avatar .ds-avatar-indicator[data-tone='warning'] { background: var(--ds-color-warning); color: var(--ds-color-warning-foreground); }
+  .ds-avatar .ds-avatar-indicator[data-tone='danger'] { background: var(--ds-color-danger); color: var(--ds-color-danger-foreground); }
+  .ds-avatar .ds-avatar-indicator[data-tone='neutral'] { background: var(--ds-color-text-muted); }
+  .ds-avatar .ds-avatar-indicator[data-tone='primary'] { background: var(--ds-color-info); color: var(--ds-color-info-foreground); }
+  .ds-avatar-group-layout { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-width: 0; }
+  .ds-avatar-stack { max-width: 100%; overflow-x: auto; padding: 4px; }
+  .ds-avatar-group-member { display: flex; border-radius: inherit; }
+  .ds-avatar-group-member .ds-avatar { box-shadow: 0 0 0 2px var(--ds-color-surface); }
+  .ds-avatar-overflow { background: var(--ds-color-surface-muted); color: var(--ds-color-text-muted); font-weight: 600; }
+}

@@ -3,6 +3,26 @@
   display: none !important;
 }
 
+#storybook-sidebar-region :is(
+  a,
+  button,
+  input,
+  .search-result-item,
+  .search-result-item--label,
+  .search-result-item--label *
+) {
+  font-size: 13px !important;
+}
+
+.gaudi-sidebar-label {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 button[aria-label='Create a new story'],
 button[title='Create a new story'],
 button[aria-label='Open addon panel'],

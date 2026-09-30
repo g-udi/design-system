@@ -100,7 +100,7 @@ export const Padding = {
     <div className='grid max-w-4xl gap-4 p-6 md:grid-cols-4'>
       {[ 'none', 'sm', 'md', 'lg' ].map((padding) => (
         <Card key={ padding } padding={ padding } title={ padding } subtitle='Padding scale.'>
-          {padding === 'none' ? <div className='mt-3 border-t border-gray-200 p-4 text-sm text-gray-600'>Content supplies its own spacing.</div> : null}
+          {padding === 'none' ? <div className='mt-3 border-t border-gray-200 p-4 text-sm text-gray-600 dark:border-gray-700 dark:text-gray-300'>Content supplies its own spacing.</div> : null}
         </Card>
       ))}
     </div>

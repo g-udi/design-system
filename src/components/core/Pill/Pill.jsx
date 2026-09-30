@@ -94,7 +94,7 @@ const dotToneClasses = {
 };
 
 export const pillVariants = createVariants({
-  'base': 'my-1 mr-1 inline-flex select-none items-center gap-1 whitespace-nowrap font-medium uppercase transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
+  'base': 'my-1 mr-1 inline-flex select-none items-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
   compoundVariants,
   'defaultVariants': {
     'radius': 'sm',

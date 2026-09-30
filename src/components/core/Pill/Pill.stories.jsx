@@ -45,7 +45,8 @@ export const Default = {
     const pill = canvas.getByText('Engineering').parentElement;
 
     await expect(pill.tagName).toBe('SPAN');
-    await expect(pill).toHaveClass('bg-accent', 'text-accent-foreground', 'uppercase');
+    await expect(pill).toHaveClass('bg-accent', 'text-accent-foreground');
+    await expect(getComputedStyle(pill).textTransform).toBe('none');
     await expect(canvas.queryByRole('link', { name: 'Engineering' })).toBeNull();
   }
 };

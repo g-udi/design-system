@@ -244,6 +244,19 @@
   color: var(--ds-color-citation-entry-text);
 }
 
+.root :global(a.citation-source-link) {
+  color: var(--ds-color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+.root :global(a.citation-source-link:hover) {
+  color: var(--ds-color-accent-dark);
+  text-decoration-thickness: 2px;
+}
+
 .root :global(.citation-back-link) {
   align-items: center;
   background: var(--ds-color-citation-back-bg);

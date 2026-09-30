@@ -61,8 +61,8 @@ const getTableLabel = (table, index) => {
   return normalizeVisualLabel(caption || headers, `Table ${index + 1}`);
 };
 
-const collectVisuals = () => {
-  const article = document.querySelector('main article') || document.querySelector('article');
+const collectVisuals = (content) => {
+  const article = content || document.querySelector('main article') || document.querySelector('article');
 
   if (!article) return [];
 
@@ -120,6 +120,7 @@ const collectVisuals = () => {
  * expandable/collapsible nested structure based on heading hierarchy.
  *
  * @param {Object} props - Component props
+ * @param {React.RefObject<HTMLElement>} [props.contentRef] - Article to index when several articles share a page
  * @param {Array<Object>} props.toc - Table of contents data structure
  * @param {string} props.toc[].id - Heading element ID for navigation
  * @param {string} props.toc[].value - Heading text content
@@ -144,7 +145,7 @@ const collectVisuals = () => {
  * // TOC automatically expands when there are 4 or fewer level-1 headings
  * <TableOfContents toc={smallTocData} />
  */
-const TableOfContents = ({ className, toc = [] }) => {
+const TableOfContents = ({ className, contentRef, toc = [] }) => {
   const [ activeSlug, setActiveSlug ] = useState('');
   const [ activeVisualId, setActiveVisualId ] = useState('');
   const [ visuals, setVisuals ] = useState([]);
@@ -180,7 +181,7 @@ const TableOfContents = ({ className, toc = [] }) => {
   }, [ toc ]);
 
   useEffect(() => {
-    const indexedVisuals = collectVisuals();
+    const indexedVisuals = collectVisuals(contentRef?.current);
 
     setVisuals(indexedVisuals);
 
@@ -207,7 +208,7 @@ const TableOfContents = ({ className, toc = [] }) => {
     });
 
     return () => observer.disconnect();
-  }, []);
+  }, [ contentRef ]);
 
   /**
    * Checks if any descendant heading is currently active

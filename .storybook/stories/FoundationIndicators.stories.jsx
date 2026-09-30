@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Pill from '../../src/components/core/Pill';
 import Typography from '../../src/foundations/Typography';
 
-import { CodeBlock, InlineCode, InlineText } from './StoryDocs';
+import { CodeBlock, InlineCode, InlineText, Page } from './StoryDocs';
 
 const statuses = [
   { 'color': 'green', 'description': 'Available, published, complete, or healthy.', 'label': 'Published', 'tone': 'bg-green-500' },
@@ -118,22 +118,15 @@ export default {
     layout: 'fullscreen'
   },
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Indicators'
 };
 
 export const Default = {
   name: 'Indicators',
   'render': () => (
-    <div className='max-w-5xl space-y-8 p-6 text-gray-900 dark:bg-gray-950 dark:text-gray-100'>
-      <section className='max-w-5xl space-y-3'>
-        <Typography as='h1' variant='heading-xl'>Indicators</Typography>
-        <Typography variant='paragraph-lg'>
-          Indicators communicate status. Text carries the meaning; color supports quick scanning.
-        </Typography>
-      </section>
-
+    <Page title='Indicators' intro='Indicators communicate status. Text carries the meaning; color supports quick scanning.'>
       <section className='rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900'>
-        <div className='hidden grid-cols-[minmax(0,160px)_minmax(0,160px)_1fr] gap-4 border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-semibold uppercase text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:grid'>
+        <div className='hidden grid-cols-[minmax(0,160px)_minmax(0,160px)_1fr] gap-4 border-b border-gray-200 bg-gray-50 px-4 py-3 text-xs font-semibold text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 sm:grid'>
           <div>Dot</div>
           <div>Pill</div>
           <div>Use</div>
@@ -197,6 +190,6 @@ import { Pill } from '@gaudi/design-system';
           Pulsing state uses <InlineCode>{ '<Pill pulse>' }</InlineCode> so status motion stays inside the component API.
         </p>
       </section>
-    </div>
+    </Page>
   )
 };

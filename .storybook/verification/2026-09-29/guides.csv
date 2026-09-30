@@ -1,0 +1,17 @@
+story_id,page,theme,widths_checked,body_px,title_px,result
+overview-accessibility--default,Accessibility,dark,20,13,28,pass
+overview-accessibility--default,Accessibility,light,20,13,28,pass
+overview-colors-tokens--default,Colors & Tokens,dark,20,13,28,pass
+overview-colors-tokens--default,Colors & Tokens,light,20,13,28,pass
+overview-component-catalogue--browse,Component Catalogue,dark,20,13,28,pass
+overview-component-catalogue--browse,Component Catalogue,light,20,13,28,pass
+overview-getting-started--default,Getting Started,dark,20,13,28,pass
+overview-getting-started--default,Getting Started,light,20,13,28,pass
+overview-icons--default,Icons,dark,20,13,28,pass
+overview-icons--default,Icons,light,20,13,28,pass
+overview-indicators--default,Indicators,dark,20,13,28,pass
+overview-indicators--default,Indicators,light,20,13,28,pass
+overview-states-recovery--default,States & Recovery,dark,20,13,28,pass
+overview-states-recovery--default,States & Recovery,light,20,13,28,pass
+overview-typography--default,Typography,dark,20,13,28,pass
+overview-typography--default,Typography,light,20,13,28,pass

@@ -27,3 +27,5 @@ vitest.config.js
 **/story-helpers.*
 PRODUCT.md
 DESIGN.md
+
+src/test-support/

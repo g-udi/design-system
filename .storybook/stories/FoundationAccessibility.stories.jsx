@@ -38,7 +38,7 @@ export default {
     options: { 'showToolbar': false }
   },
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Accessibility'
 };
 
 export const Default = {
@@ -205,7 +205,7 @@ export const MyStory = {
         </div>
       </Section>
 
-      <Section title='A11y Testing' description='Gaudi uses a layered testing strategy to catch accessibility regressions before components land in the blog.'>
+      <Section title='A11y Testing' description='Gaudi uses a layered testing strategy to catch accessibility regressions before components reach consuming products.'>
         <div className='grid gap-4 md:grid-cols-2'>
           <InfoCard title='Automated axe-core'>
             <CodeBlock code='pnpm test-storybook -- --run' />

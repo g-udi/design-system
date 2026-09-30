@@ -4,7 +4,7 @@ import { expect, userEvent, within } from 'storybook/test';
 
 import * as componentModule from './index';
 
-const componentDocs = getComponentDocs('MDX/Faq');
+const componentDocs = getComponentDocs('MDX/FAQ');
 
 export default {
   parameters: {

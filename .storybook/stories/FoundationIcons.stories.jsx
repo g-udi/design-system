@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Icon from '../../src/components/core/Icon';
 
 import { CheckList, CodeBlock, InlineCode, Page, Section, Table, Td, Th } from './StoryDocs';
+import { AnimatedIconActions, AnimatedIconsGallery } from './AnimatedIconExamples';
 
 const iconGroups = [
   {
@@ -111,7 +112,7 @@ export default {
     layout: 'fullscreen'
   },
   tags: [ '!autodocs' ],
-  title: 'Overview'
+  title: 'Icons'
 };
 
 export const Default = {
@@ -119,8 +120,24 @@ export const Default = {
   'render': () => (
     <Page
       title='Icons'
-      intro='All icons used across the blog are routed through the design-system icon registry. The registry centralizes vendor imports, aliases legacy names, keeps sizing consistent, and makes accessibility behavior explicit.'
+      intro='Icons used across the blog and applications are routed through the design-system icon registry. The registry centralizes vendor imports, aliases legacy names, keeps sizing consistent, and makes accessibility behavior explicit.'
     >
+      <Section title='Interactive icons' description='Browse animated counterparts, preview their motion, and copy the import and JSX for your application.'>
+        <AnimatedIconsGallery />
+      </Section>
+
+      <Section title='Icons in actions and status' description='The host button or application state controls animation. Keep a visible label for the action or status.'>
+        <AnimatedIconActions />
+        <CodeBlock code={`import { AnimatedIcon } from '@gaudi/design-system/icons';
+import { Button } from '@gaudi/design-system';
+
+<Button onClick={toggleSync} aria-pressed={isSyncing}>
+  <AnimatedIcon name="RefreshCw" active={isSyncing} size="sm" decorative />
+  {isSyncing ? 'Stop sync' : 'Start sync'}
+</Button>`} />
+        <p>Use the same size and color tokens as static icons. Motion stops with reduced motion, while offscreen, and in hidden tabs. <a className='text-blue-600 underline dark:text-blue-400' href='/?path=/docs/core-icon--docs'>Explore the Icon examples and API</a>.</p>
+      </Section>
+
       <Section title='Icon Contract' description='The Gaudi icon component accepts a registry name, an optional size, optional color, and an accessibility mode.'>
         <Table>
           <thead><tr><Th>Use</Th><Th>Requirement</Th><Th>Example</Th></tr></thead>
@@ -129,11 +146,12 @@ export const Default = {
             <tr><Td>Standalone meaning</Td><Td>Provide an accessible label.</Td><Td mono>{ '<Icon name="Info" label="More information" />' }</Td></tr>
             <tr><Td>Social link</Td><Td>Use the same registry component with <InlineCode>href</InlineCode>.</Td><Td mono>{ '<Icon kind="github" href="..." />' }</Td></tr>
             <tr><Td>Legacy alias</Td><Td>Old Heroicon-style names resolve through the registry.</Td><Td mono>{ '<Icon name="BookOpenIcon" />' }</Td></tr>
+            <tr><Td>Interactive artwork</Td><Td>Pass host interaction or status through active.</Td><Td mono>{ '<AnimatedIcon name="Bell" active={isActive} size="sm" />' }</Td></tr>
           </tbody>
         </Table>
       </Section>
 
-      <Section title='Blog Consumption' description='The blog and Gaudi components consume icons through the registry only. Direct vendor imports are limited to src/icons/index.jsx in ahmadassaf/design-system.'>
+      <Section title='Application Consumption' description='Consuming applications and Gaudi components consume icons through the registry only. Direct vendor imports are limited to src/icons/index.jsx in ahmadassaf/design-system.'>
         <CodeBlock code={ `import { Icon } from '@gaudi/design-system';
 
 <Icon name='Search' size='sm' decorative />
@@ -267,7 +285,7 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' src 
               'Do not import lucide, Heroicons, react-icons, or Tabler directly outside the registry.',
               'Do not use color as the only way to distinguish icon states.',
               'Do not use icon-only controls without aria-label or visible text.',
-              'Do not create one-off inline SVGs for reusable blog UI.',
+              'Do not create one-off inline SVGs for reusable UI.',
               'Do not add icons that are not documented in this Storybook page.'
             ] } />
           </div>
