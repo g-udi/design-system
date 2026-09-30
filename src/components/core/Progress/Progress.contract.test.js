@@ -21,3 +21,13 @@ test('non-finite progress stays indeterminate and invalid maxima use a safe rang
   assert.deepEqual(normalizeProgress(-5, 0), { value: 0, max: 100 });
   assert.deepEqual(normalizeProgress(250, 200), { value: 200, max: 200 });
 });
+
+test('an indeterminate composition bar stays visible for its CSS animation', async () => {
+  const { Progress } = await loadComponent(new URL('./parts/progress.jsx', import.meta.url));
+  const { createElement } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const html = renderToStaticMarkup(createElement(Progress));
+  assert.match(html, /data-slot="progress-indicator"[^>]*data-state="indeterminate"|data-state="indeterminate"[^>]*data-slot="progress-indicator"/);
+  // A translateX(-100%) offset would push the bar out of view.
+  assert.doesNotMatch(html, /translateX\(-100%\)/);
+});

@@ -41,7 +41,7 @@ export async function verifyResponsiveCatalogue({ canvasElement, id }) {
       );
       if (window.innerWidth !== width)
         throw new Error(`Viewport did not resize to ${width}px`);
-      const root = canvasElement.querySelector('.ds-catalogue-frame, .ds-catalogue-index');
+      const root = canvasElement.querySelector('.ds-catalogue-frame, .ds-guide-page');
       if (!root) throw new Error(`${id}: catalogue frame did not render`);
       if (document.documentElement.scrollWidth > window.innerWidth + 1) {
         const offenders = [...root.querySelectorAll('*')]

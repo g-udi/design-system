@@ -74,9 +74,19 @@
       scroll-behavior: auto;
     }
 
-    :where(.animate-ping, .animate-pulse, .animate-spin) {
+    /* Ping is decoration, so it stops. Spin and pulse signal loading, so they
+       keep a slow cycle; composition.css applies the same durations. */
+    :where(.animate-ping) {
       animation-duration: 1ms !important;
       animation-iteration-count: 1 !important;
+    }
+
+    :where(.animate-spin) {
+      animation-duration: 2.4s !important;
+    }
+
+    :where(.animate-pulse) {
+      animation-duration: 3s !important;
     }
 
     :where(.transition, .transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {

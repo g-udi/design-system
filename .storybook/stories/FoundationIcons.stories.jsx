@@ -297,8 +297,9 @@ rg 'from ['\\''"](@heroicons|react-icons|lucide-react|@tabler/icons-react)' src 
   // Search, paging, preview, copy, and filtering in the animated icon gallery.
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const search = canvas.getByRole('searchbox', { name: 'Search animated icons' });
-    await expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24);
+    // The gallery loads lazily; wait for it under a busy parallel runner.
+    const search = await canvas.findByRole('searchbox', { name: 'Search animated icons' }, { timeout: 5000 });
+    await waitFor(() => expect(canvas.getAllByRole('button', { name: /^Copy .* animated icon$/ })).toHaveLength(24), { timeout: 5000 });
     await userEvent.click(canvas.getByRole('button', { name: 'Next', exact: true }));
     await expect(canvas.getByText(/Page 2 of/)).toBeVisible();
     search.focus();

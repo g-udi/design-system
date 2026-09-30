@@ -54,7 +54,7 @@ export function Pattern() {
         <Button
           key={item.id}
           variant='outline'
-          className={cn(active === item.id ? 'bg-ui-muted' : '')}
+          className={cn('max-sm:px-2.5', active === item.id && 'bg-ui-muted')}
           onClick={() => setActive(item.id)}
         >
           {item.icon}

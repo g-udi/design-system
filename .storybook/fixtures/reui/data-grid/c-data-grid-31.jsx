@@ -283,10 +283,10 @@ function TeamCell({ team, onChange }) {
                   className='rounded-none! border-0! bg-transparent! p-0!'
                 >
                   <Badge variant='outline'>
-                    <Avatar className='size-3.5'>
+                    <Avatar className='size-4'>
                       <AvatarImage src={member.avatar} alt={member.name} />
-                      <AvatarFallback className='text-[8px]'>
-                        {member.initials}
+                      <AvatarFallback className='text-xs'>
+                        {member.initials.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     {member.name.split(' ')[0]}
@@ -339,7 +339,7 @@ function TeamCell({ team, onChange }) {
             <ComboboxItem key={member.id} value={member}>
               <Avatar className='size-5'>
                 <AvatarImage src={member.avatar} alt={member.name} />
-                <AvatarFallback className='text-[9px]'>
+                <AvatarFallback className='text-xs'>
                   {member.initials}
                 </AvatarFallback>
               </Avatar>

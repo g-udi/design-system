@@ -47,7 +47,7 @@ function Person({ avatar, name }) {
   return (
     <Avatar aria-hidden='true' className='size-4.5 shrink-0'>
       <AvatarImage src={avatar} alt='' />
-      <AvatarFallback className='text-[10px]'>
+      <AvatarFallback className='text-xs'>
         {name
           .split(' ')
           .map((part) => part[0])

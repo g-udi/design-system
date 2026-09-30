@@ -21,9 +21,12 @@ function Progress({ className, value, max = 100, ...props }) {
       <ProgressPrimitive.Indicator
         data-slot='progress-indicator'
         className='ds-part-progress-indicator size-full flex-1 transition-all'
-        style={{
-          transform: `translateX(-${100 - ((current ?? 0) / limit) * 100}%)`
-        }}
+        // Indeterminate progress slides via CSS (data-state='indeterminate').
+        style={
+          current == null
+            ? undefined
+            : { transform: `translateX(-${100 - (current / limit) * 100}%)` }
+        }
       />
     </ProgressPrimitive.Root>
   );

@@ -116,14 +116,14 @@ export function Pattern() {
               <TreeItemLabel className='gap-2 py-1'>
                 <Avatar className='size-6 shrink-0'>
                   <AvatarImage src={data.avatar} alt={data.name} />
-                  <AvatarFallback className='text-[9px]'>
+                  <AvatarFallback className='text-xs'>
                     {initials}
                   </AvatarFallback>
                 </Avatar>
                 <span className='flex flex-col items-start'>
                   <span className='text-sm leading-tight'>{data.name}</span>
                   {data.role && (
-                    <span className='text-ui-muted-foreground text-[10px] leading-tight'>
+                    <span className='text-ui-muted-foreground text-xs leading-tight'>
                       {data.role}
                     </span>
                   )}

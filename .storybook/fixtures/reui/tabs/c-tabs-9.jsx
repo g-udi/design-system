@@ -16,22 +16,22 @@ export function Pattern() {
   const [period, setPeriod] = useState('monthly');
   return (
     <div className='mx-auto flex w-full max-w-xs flex-col items-center gap-6'>
-      <Tabs value={period} onValueChange={setPeriod}>
+      <Tabs value={period} onValueChange={setPeriod} className='w-full'>
         <TabsList className='w-full'>
           <TabsTrigger value='daily' className='gap-1.5'>
-            <RegistryIcon lucide='CalendarIcon' className='size-3.5' />
+            <RegistryIcon lucide='CalendarIcon' className='size-3.5 max-sm:hidden' />
             Daily
           </TabsTrigger>
           <TabsTrigger value='weekly' className='gap-1.5'>
-            <RegistryIcon lucide='SquareCheckIcon' className='size-4' />
+            <RegistryIcon lucide='SquareCheckIcon' className='size-4 max-sm:hidden' />
             Weekly
           </TabsTrigger>
           <TabsTrigger value='monthly' className='gap-1.5'>
-            <RegistryIcon lucide='UsersIcon' className='size-4' />
+            <RegistryIcon lucide='UsersIcon' className='size-4 max-sm:hidden' />
             Monthly
           </TabsTrigger>
           <TabsTrigger value='yearly' className='gap-1.5'>
-            <RegistryIcon lucide='CalendarClockIcon' className='size-3.5' />
+            <RegistryIcon lucide='CalendarClockIcon' className='size-3.5 max-sm:hidden' />
             Yearly
           </TabsTrigger>
         </TabsList>

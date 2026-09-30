@@ -67,7 +67,7 @@ const EVENT_CALENDAR_SLOT_DRAFT = {
    * draft's own overflow-hidden.
    */
   label:
-    'text-ui-primary truncate px-1 py-0.5 text-[0.6875rem] leading-none font-medium'
+    'text-ui-primary truncate px-1 py-0.5 text-xs leading-none font-medium'
 };
 const EventCalendarChipContext = createContext(null);
 function useEventCalendarEventChip() {
@@ -151,11 +151,13 @@ function EventCalendarEvent({
         {event.title}
       </span>
       {/* month cells are narrow: a compact never-shrinking start time keeps
-       the title readable; grids show the full range */}
+       the title readable; grids show the full range. The time is a faded
+       foreground, not the neutral muted gray, so it keeps 4.5:1 on every
+       event tint in both themes */}
       {!occurrence.allDay &&
         segment.isStart &&
         (view === 'month' ? (
-          <span className='text-ui-muted-foreground shrink-0'>
+          <span className='text-ui-foreground/80 shrink-0'>
             {format(
               toZoned(occurrence.start, settings.timeZone),
               settings.i18n.formats.eventTime,
@@ -165,7 +167,7 @@ function EventCalendarEvent({
         ) : (
           <span
             className={cn(
-              'text-ui-muted-foreground hidden @[8rem]:inline',
+              'text-ui-foreground/80 hidden @[8rem]:inline',
               stackedBlock ? EVENT_CALENDAR_FADE_TRUNCATE : 'truncate'
             )}
           >

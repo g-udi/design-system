@@ -64,7 +64,10 @@ export function Pattern({
         <Button
           onClick={openFileDialog}
           size='sm'
-          className={cn(isDragging && 'animate-bounce')}
+          className={cn(
+            'transition-transform duration-200 ease-out motion-reduce:transition-none',
+            isDragging && 'scale-105'
+          )}
         >
           <RegistryIcon lucide='PlusIcon' className='h-4 w-4' />
           Add files

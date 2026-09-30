@@ -50,7 +50,7 @@ const kbdVariantConfig = {
     'variant': 'raised'
   },
   'size': {
-    '3xs': 'h-4 min-w-4 px-0.5 py-0 text-[10px] leading-none',
+    '3xs': 'h-4 min-w-4 px-0.5 py-0 text-xs leading-none',
     '2xs': 'h-5 min-w-5 px-1 py-0 text-xs leading-none',
     'lg': 'min-w-6 px-2.5 py-1.5 text-sm',
     'md': 'min-w-6 px-2 py-1 text-xs',

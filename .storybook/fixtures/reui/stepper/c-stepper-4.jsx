@@ -25,12 +25,12 @@ export function Pattern() {
         {steps.map((step) => (
           <StepperItem key={step} step={step}>
             <StepperTrigger asChild>
-              <StepperIndicator className='data-[state=active]:bg-ui-primary data-[state=active]:text-ui-primary-foreground data-[state=completed]:bg-green-500 data-[state=completed]:text-white data-[state=inactive]:text-gray-500'>
+              <StepperIndicator className='data-[state=active]:bg-ui-primary data-[state=active]:text-ui-primary-foreground data-[state=completed]:bg-(--ds-color-success) data-[state=completed]:text-(--ds-color-success-foreground) data-[state=inactive]:text-ui-muted-foreground'>
                 {step}
               </StepperIndicator>
             </StepperTrigger>
             {steps.length > step && (
-              <StepperSeparator className='group-data-[state=completed]/step:bg-green-500' />
+              <StepperSeparator className='group-data-[state=completed]/step:bg-(--ds-color-success)' />
             )}
           </StepperItem>
         ))}

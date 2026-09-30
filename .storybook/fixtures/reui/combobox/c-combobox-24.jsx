@@ -149,7 +149,7 @@ function MemberAvatar({ member, className, fallbackClassName }) {
         <AvatarImage src={member.avatar} alt={member.label} />
       ) : null}
       <AvatarFallback
-        className={cn('text-ui-foreground text-[9px]', fallbackClassName)}
+        className={cn('text-ui-foreground text-xs', fallbackClassName)}
       >
         {member.initials}
       </AvatarFallback>
@@ -185,7 +185,7 @@ function MembersTriggerSummary({ selectedMembers }) {
             key={member.id}
             member={member}
             className='size-5'
-            fallbackClassName='text-[9px]'
+            fallbackClassName='text-xs'
           />
         ))}
       </AvatarGroup>

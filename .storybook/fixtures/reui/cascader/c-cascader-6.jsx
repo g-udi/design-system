@@ -435,7 +435,7 @@ function ResourceValue() {
       <span className='flex shrink-0 items-center'>{brand?.icon}</span>
       <span className='flex min-w-0 flex-col items-start leading-tight'>
         <span className='truncate text-sm font-medium'>{leaf?.label}</span>
-        <span className='text-ui-muted-foreground truncate font-mono text-[10px]'>
+        <span className='text-ui-muted-foreground truncate font-mono text-xs'>
           {slug}
         </span>
       </span>

@@ -5,11 +5,11 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const showToast = () => {
     toast.custom(() => (
-      <div className='bg-ui-popover text-ui-popover-foreground border-ui-border rounded-md flex w-[356px] items-start gap-3 border border-l-4 border-l-blue-500 p-4 shadow-lg'>
-        <div className='text-blue-500'>
+      <div className='bg-ui-popover text-ui-popover-foreground border-ui-border rounded-md flex w-[356px] items-start gap-3 border border-ui-primary/40 p-4 shadow-lg'>
+        <div className='bg-ui-primary/10 text-ui-primary rounded-md flex size-8 shrink-0 items-center justify-center'>
           <RegistryIcon
             lucide='InfoIcon'
-            className='size-5 shrink-0'
+            className='size-4 shrink-0'
             aria-hidden='true'
           />
         </div>

@@ -82,7 +82,7 @@ export function Pattern() {
               />
               <AvatarFallback>EW</AvatarFallback>
             </Avatar>
-            <AvatarGroupCount className='size-6 border text-[10px]'>
+            <AvatarGroupCount className='size-6 border text-xs'>
               +3
             </AvatarGroupCount>
           </AvatarGroup>

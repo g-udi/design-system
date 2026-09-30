@@ -34,7 +34,7 @@ function TaskCard({ task, asHandle, ...props }) {
           <div className='flex items-center gap-1.5'>
             <Avatar className='size-5'>
               <AvatarImage src={task.assigneeAvatar} alt={task.assignee} />
-              <AvatarFallback className='text-[9px]'>
+              <AvatarFallback className='text-xs'>
                 {task.assignee.charAt(0)}
               </AvatarFallback>
             </Avatar>

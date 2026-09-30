@@ -8,7 +8,7 @@ export function Pattern() {
     toast.custom(() => (
       <div className='bg-ui-popover text-ui-popover-foreground border-ui-border rounded-md flex w-[356px] flex-col gap-3 border p-4 shadow-lg'>
         <div className='flex items-center gap-3'>
-          <div className='rounded-lg flex size-10 shrink-0 items-center justify-center bg-linear-to-br from-violet-500 to-purple-600 text-white shadow-sm'>
+          <div className='rounded-lg flex size-10 shrink-0 items-center justify-center bg-ui-primary/10 text-ui-primary'>
             <RegistryIcon
               lucide='LinkIcon'
               className='size-5'
@@ -21,8 +21,8 @@ export function Pattern() {
               workspace.slack.com
             </p>
           </div>
-          <span className='flex items-center gap-1 text-xs text-green-600'>
-            <span className='size-1.5 rounded-full bg-green-500' />
+          <span className='text-ui-success-ink flex items-center gap-1 text-xs'>
+            <span className='bg-ui-success-ink size-1.5 rounded-full' />
             Active
           </span>
         </div>

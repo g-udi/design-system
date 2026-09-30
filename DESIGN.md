@@ -14,7 +14,7 @@ colors:
   border: "#d4d4d4"
   success: "#15803d"
   warning: "#b45309"
-  danger: "#dc2626"
+  danger: "#b91c1c"
   discovery: "#0f766e"
 typography:
   scale:

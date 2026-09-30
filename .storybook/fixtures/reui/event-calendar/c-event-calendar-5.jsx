@@ -102,14 +102,14 @@ function renderChip({ occurrence, segment }) {
       <span className='flex min-w-0 items-center gap-1.5'>
         <Avatar className='size-5 shrink-0'>
           {data.avatar && <AvatarImage src={data.avatar} alt={data.client} />}
-          <AvatarFallback className='bg-(--ec-event-color)/25 text-[9px] font-semibold text-ui-foreground'>
+          <AvatarFallback className='bg-(--ec-event-color)/25 text-xs font-semibold text-ui-foreground'>
             {data.initials}
           </AvatarFallback>
         </Avatar>
         <span className='truncate font-medium'>{data.client}</span>
       </span>
       {service && minutes >= 45 && (
-        <span className='truncate ps-[1.625rem] text-[11px] font-medium text-ui-foreground'>
+        <span className='truncate ps-[1.625rem] text-xs font-medium text-ui-foreground'>
           {service.label}
         </span>
       )}

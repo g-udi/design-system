@@ -286,5 +286,20 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+    /*
+     * Loading indicators are exempt from the kill switch: a frozen spinner or
+     * skeleton no longer reads as "still working". They keep a slow, steady
+     * cycle in place instead, which is the calm alternative.
+     */
+    .animate-spin,
+    .animate-spin[data-slot] {
+      animation-duration: 2.4s !important;
+      animation-iteration-count: infinite !important;
+    }
+    .animate-pulse,
+    .animate-pulse[data-slot] {
+      animation-duration: 3s !important;
+      animation-iteration-count: infinite !important;
+    }
   }
 }

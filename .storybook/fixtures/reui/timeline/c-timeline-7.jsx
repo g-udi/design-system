@@ -74,7 +74,7 @@ export function Pattern() {
               <TimelineIndicator
                 className={cn('size-2 border-none', item.color)}
               />
-              <TimelineDate className='text-ui-muted-foreground mb-0 text-[10px] font-semibold uppercase'>
+              <TimelineDate className='text-ui-muted-foreground mb-0 text-xs font-semibold uppercase'>
                 {item.date}
               </TimelineDate>
             </TimelineHeader>

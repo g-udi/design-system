@@ -64,12 +64,12 @@ export const Playground = {
   render: (args) => {
     const page = clampPage(args);
     return (
-      <div className='grid gap-4'>
+      <div className='grid grid-cols-1 gap-4'>
         <div className='flex items-baseline justify-between gap-3 text-sm'>
           <span className='font-semibold text-foreground'>Archive</span>
           <span className='text-text-muted'>{rangeLabel(page, args.totalPages)}</span>
         </div>
-        <ol className='m-0 grid list-none gap-1.5 p-0'>
+        <ol className='m-0 grid list-none grid-cols-1 gap-1.5 p-0'>
           {pagePosts(page).map((post) => (
             <li key={post.number} className='flex items-center gap-3 rounded-lg border border-border px-3 py-2.5'>
               <span className='w-6 shrink-0 text-xs font-semibold tabular-nums text-text-muted'>{post.number}</span>

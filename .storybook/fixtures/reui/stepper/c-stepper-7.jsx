@@ -58,7 +58,7 @@ export function Pattern() {
                 {step.icon}
               </StepperIndicator>
               <div className='flex flex-col items-start gap-1'>
-                <div className='text-ui-muted-foreground text-[10px] font-semibold uppercase'>
+                <div className='text-ui-muted-foreground text-xs font-semibold uppercase'>
                   Step {index + 1}
                 </div>
                 <StepperTitle className='group-data-[state=inactive]/step:text-ui-muted-foreground text-start text-base font-semibold'>

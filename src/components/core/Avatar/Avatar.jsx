@@ -21,7 +21,7 @@ export const avatarVariants = createVariants({
       'tile': 'rounded-xl'
     },
     'size': {
-      '2xs': 'size-4 text-[8px]',
+      '2xs': 'size-4 text-xs',
       'xl': 'size-20 text-2xl',
       'lg': 'size-14 text-base',
       'md': 'size-10 text-sm',
@@ -56,7 +56,7 @@ const Avatar = forwardRef(function Avatar({
   const surfaceClass = { tinted: 'bg-ui-muted text-ui-foreground', plain: 'bg-ui-background text-ui-foreground', bare: 'bg-transparent text-ui-foreground' }[surface];
   const content = fallback === true
     ? <Icon name='User' decorative className='size-3/5' />
-    : fallback || label || getAvatarInitials(name);
+    : fallback || label || (size === '2xs' ? Array.from(getAvatarInitials(name))[0] : getAvatarInitials(name));
 
   return (
     <AvatarRoot

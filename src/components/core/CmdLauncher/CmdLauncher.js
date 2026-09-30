@@ -99,7 +99,7 @@ const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subt
 
 const LauncherFooter = () => (
   <div className='border-t border-gray-200 bg-gray-50/80 px-3 py-1.5 dark:border-gray-800 dark:bg-gray-900/80'>
-    <div className='flex min-h-5 items-center text-[11px] leading-none text-gray-500 dark:text-gray-400'>
+    <div className='flex min-h-5 items-center text-xs leading-none text-gray-500 dark:text-gray-400'>
       <div className='flex items-center gap-3.5'>
         <span className='flex items-center gap-1.5'>
           <span className='inline-flex items-center gap-0.5'>

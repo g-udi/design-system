@@ -60,7 +60,7 @@ function TaskCard({ task, asHandle, isOverlay, ...props }) {
             </div>
           )}
           {task.dueDate && (
-            <time className='text-[10px] whitespace-nowrap tabular-nums'>
+            <time className='text-xs whitespace-nowrap tabular-nums'>
               {task.dueDate}
             </time>
           )}

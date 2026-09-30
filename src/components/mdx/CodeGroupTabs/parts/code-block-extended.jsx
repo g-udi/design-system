@@ -1177,7 +1177,7 @@ function CodeBlockLanguage({ className, children, ...props }) {
       data-slot='code-block-language'
       data-unsupported={!resolvedLanguage || void 0}
       className={cn(
-        'border-ui-border bg-ui-muted/60 text-ui-muted-foreground inline-flex shrink-0 items-center rounded-md border px-1.5 py-0.5 font-mono text-[0.6875rem] leading-none uppercase',
+        'border-ui-border bg-ui-muted/60 text-ui-muted-foreground inline-flex shrink-0 items-center rounded-md border px-1.5 py-0.5 font-mono text-xs leading-none uppercase',
         className
       )}
       {...props}

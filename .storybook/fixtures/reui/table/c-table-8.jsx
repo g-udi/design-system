@@ -141,7 +141,7 @@ export function Pattern() {
                   ))}
                   {project.extra > 0 && (
                     <AvatarGroupCount>
-                      <span className='text-ui-muted-foreground text-[0.625rem]'>
+                      <span className='text-ui-muted-foreground text-xs'>
                         +{project.extra}
                       </span>
                     </AvatarGroupCount>

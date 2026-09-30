@@ -69,7 +69,7 @@ export function Pattern() {
                   />
                   <div className='w-full text-center'>
                     <p className='truncate text-xs font-medium'>{image.name}</p>
-                    <p className='text-ui-muted-foreground text-[10px]'>
+                    <p className='text-ui-muted-foreground text-xs'>
                       {image.dimensions} &middot; {image.size}
                     </p>
                   </div>

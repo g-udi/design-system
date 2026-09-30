@@ -275,7 +275,7 @@ export function Pattern() {
                 <MemberAvatar
                   member={node}
                   className='size-6'
-                  fallbackClassName='text-[10px]'
+                  fallbackClassName='text-xs'
                 />
                 <span
                   aria-hidden='true'
@@ -318,7 +318,7 @@ export function Pattern() {
                     <MemberAvatar
                       member={member}
                       className='size-5'
-                      fallbackClassName='text-[9px]'
+                      fallbackClassName='text-xs'
                     />
                   ) : null}
                   <span className='truncate'>{node.label}</span>

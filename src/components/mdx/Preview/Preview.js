@@ -242,7 +242,7 @@ const Preview = memo(function Preview({
   // All hooks are above this line — conditional returns are safe from here on
   const inlineIconName = getInlineIconName(url);
 
-  if (!url) return <span className='text-gray-500'>No URL provided</span>;
+  if (!url) return <span className='text-gray-500 dark:text-gray-400'>No URL provided</span>;
 
   if (loading) return <PreviewLoadingSkeleton className={ className } />;
 
@@ -302,10 +302,10 @@ const Preview = memo(function Preview({
       </Link>
       {getPlatformIcon(url, data?.type, !!normalizedFavicon)}
       {data?.duration && (
-        <span className='text-xs text-gray-500 ml-1'>{data.duration}</span>
+        <span className='text-xs text-gray-500 ml-1 dark:text-gray-400'>{data.duration}</span>
       )}
       {!isInternal && data?.readingTime && (
-        <span className='text-xs text-gray-500 ml-1'>· {data.readingTime}</span>
+        <span className='text-xs text-gray-500 ml-1 dark:text-gray-400'>· {data.readingTime}</span>
       )}
     </>
   );

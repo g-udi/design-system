@@ -75,7 +75,7 @@ export function Pattern() {
               <TimelineIndicator className='size-8 overflow-hidden rounded-full border-none group-data-[orientation=vertical]/timeline:-left-8'>
                 <Avatar className='size-8'>
                   <AvatarImage src={activity.avatar} alt={activity.user} />
-                  <AvatarFallback className='text-[10px]'>
+                  <AvatarFallback className='text-xs'>
                     {activity.user
                       .split(' ')
                       .map((n) => n[0])

@@ -25,15 +25,15 @@ function ScrollspyExample({ offset, ...args }) {
   const id = (title) => `${prefix}-${title.toLowerCase()}`;
   return (
     <div className='flex gap-3'>
-      <Scrollspy targetRef={targetRef} offset={offset} className='flex w-32 shrink-0 flex-col gap-0.5 border-s border-ui-border text-sm sm:w-40' {...args}>
+      <Scrollspy targetRef={targetRef} offset={offset} className='flex w-32 shrink-0 flex-col gap-0.5 text-sm sm:w-40' {...args}>
         {sections.map(({ title, icon }) => (
           <button
             key={title}
             type='button'
             data-scrollspy-anchor={id(title)}
-            className='-ms-px flex items-center gap-2 rounded-e-md border-s-2 border-transparent px-3 py-1.5 text-start text-ui-muted-foreground hover:text-ui-foreground data-[active=true]:border-ui-primary data-[active=true]:bg-ui-accent data-[active=true]:font-medium data-[active=true]:text-ui-foreground'
+            className='group/spy flex items-center gap-2 rounded-md px-3 py-1.5 text-start text-ui-muted-foreground hover:bg-ui-accent/60 hover:text-ui-foreground data-[active=true]:bg-ui-accent data-[active=true]:font-medium data-[active=true]:text-ui-foreground'
           >
-            <RegistryIcon lucide={icon} aria-hidden='true' className='size-4 shrink-0' />
+            <RegistryIcon lucide={icon} aria-hidden='true' className='size-4 shrink-0 group-data-[active=true]/spy:text-ui-primary' />
             <span className='truncate'>{title}</span>
           </button>
         ))}
@@ -101,8 +101,11 @@ export const Playground = {
     await expect(scrollTo).toHaveBeenCalledTimes(1);
     scrollTo.mockRestore();
     await expect(window.location.href).toBe(url);
-    await waitFor(() => expect(anchor('Usage')).toHaveAttribute('data-active', 'true'));
-    await expect(anchor(titles[0])).not.toHaveAttribute('data-active');
+    // Settle both anchors together: the smooth scroll can pass through the first section.
+    await waitFor(() => {
+      expect(anchor('Usage')).toHaveAttribute('data-active', 'true');
+      expect(anchor(titles[0])).not.toHaveAttribute('data-active');
+    });
     await expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor);
     // The clicked section lands `offset` pixels below the top, just under the sticky header.
     const usage = document.getElementById(anchor('Usage').dataset.scrollspyAnchor);

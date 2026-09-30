@@ -142,8 +142,8 @@ export function Pattern() {
                   >
                     <Avatar className='size-4'>
                       <AvatarImage src={member.avatar} alt={member.name} />
-                      <AvatarFallback className='text-[8px]'>
-                        {member.initials}
+                      <AvatarFallback className='text-xs'>
+                        {member.initials.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                     {member.name}

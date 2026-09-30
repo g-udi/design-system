@@ -8,8 +8,10 @@ function InputOTP({ className, containerClassName, ...props }) {
   return (
     <OTPInput
       data-slot='input-otp'
+      // input-otp widens its hidden input 40px past the slots for password-manager badges and only
+      // rechecks the space every second; clipping keeps that reserve from scrolling narrow pages.
       containerClassName={cn(
-        'ds-part-input-otp flex items-center has-disabled:opacity-50',
+        'ds-part-input-otp flex items-center overflow-x-clip [overflow-clip-margin:4px] has-disabled:opacity-50',
         containerClassName
       )}
       spellCheck={false}

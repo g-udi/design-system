@@ -50,7 +50,7 @@ export function Pattern() {
                 className='border-invert size-6 border-2'
               >
                 <AvatarImage src={reviewer.avatar} alt={reviewer.name} />
-                <AvatarFallback className='text-[10px]'>
+                <AvatarFallback className='text-xs'>
                   {reviewer.initials}
                 </AvatarFallback>
               </Avatar>

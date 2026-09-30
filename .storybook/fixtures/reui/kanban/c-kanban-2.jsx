@@ -44,7 +44,7 @@ function TaskCard({ task, asHandle, isOverlay, ...props }) {
                   ? 'primary-outline'
                   : 'warning-outline'
             }
-            className='pointer-events-none h-5 shrink-0 rounded-sm px-1.5 text-[11px] capitalize'
+            className='pointer-events-none h-5 shrink-0 rounded-sm px-1.5 text-xs capitalize'
           >
             {task.priority}
           </Badge>
@@ -60,7 +60,7 @@ function TaskCard({ task, asHandle, isOverlay, ...props }) {
             </div>
           )}
           {task.dueDate && (
-            <time className='text-[10px] whitespace-nowrap tabular-nums'>
+            <time className='text-xs whitespace-nowrap tabular-nums'>
               {task.dueDate}
             </time>
           )}

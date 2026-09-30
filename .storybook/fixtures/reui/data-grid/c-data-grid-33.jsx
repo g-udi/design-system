@@ -254,7 +254,7 @@ export function Pattern() {
                 src={row.original.avatar}
                 alt={row.original.customer}
               />
-              <AvatarFallback className='text-[10px]'>
+              <AvatarFallback className='text-xs'>
                 {row.original.initials}
               </AvatarFallback>
             </Avatar>

@@ -101,7 +101,7 @@ function DateOptionRow({ option }) {
         <CalendarGlyph className='text-ui-muted-foreground' />
         <span className='truncate'>{option.label}</span>
       </span>
-      <span className='text-ui-muted-foreground shrink-0 text-[13px] tabular-nums'>
+      <span className='text-ui-muted-foreground shrink-0 text-sm tabular-nums'>
         {format(option.date, 'dd/MM/yyyy')}
       </span>
     </span>

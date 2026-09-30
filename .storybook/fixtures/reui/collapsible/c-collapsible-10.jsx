@@ -77,7 +77,7 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
                 className='text-ui-muted-foreground group-hover/item:text-ui-foreground size-3.5'
               />
             </ItemMedia>
-            <ItemTitle className='min-w-0 truncate text-[13px]'>{item.name}</ItemTitle>
+            <ItemTitle className='min-w-0 truncate text-sm'>{item.name}</ItemTitle>
           </Item>
         </CollapsibleTrigger>
         <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down overflow-hidden pt-0.5'>
@@ -113,7 +113,7 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
       </ItemMedia>
       <button
         type='button'
-        className='min-w-0 flex-1 self-stretch truncate text-start text-[13px]'
+        className='min-w-0 flex-1 self-stretch truncate text-start text-sm'
         title={item.name}
         aria-pressed={isSelected}
         onClick={() => onSelect?.(item.name)}
@@ -155,10 +155,10 @@ export function Pattern() {
         <Card size='sm' className='gap-0 rounded-none p-0'>
           <CardHeader className='rounded-none p-0'>
             <TabsList aria-label='File explorer views' className='bg-ui-accent min-h-8 w-full px-1'>
-              <TabsTrigger ref={explorerRef} value='explorer' className='text-[13px]'>
+              <TabsTrigger ref={explorerRef} value='explorer' className='text-sm'>
                 Explorer
               </TabsTrigger>
-              <TabsTrigger value='outline' className='text-[13px]'>
+              <TabsTrigger value='outline' className='text-sm'>
                 Outline
               </TabsTrigger>
             </TabsList>
@@ -176,7 +176,7 @@ export function Pattern() {
               ))}
             </TabsContent>
             <TabsContent value='outline' className='p-2'>
-              <p className='text-[13px] text-ui-muted-foreground'>
+              <p className='text-sm text-ui-muted-foreground'>
                 {selectedId ? `${selectedId} has no symbols in this demo.` : 'Select a file to view its outline.'}
               </p>
             </TabsContent>

@@ -128,13 +128,13 @@ function renderEventContent({ occurrence }) {
       <>
         <span className='flex shrink-0 -space-x-1'>
           <Avatar className='ring-ui-background size-4 ring-1'>
-            <AvatarFallback className='bg-violet-500 text-[8px] font-semibold text-white'>
-              MJ
+            <AvatarFallback className='bg-violet-500 text-xs font-semibold text-white'>
+              M
             </AvatarFallback>
           </Avatar>
           <Avatar className='ring-ui-background size-4 ring-1'>
-            <AvatarFallback className='bg-sky-500 text-[8px] font-semibold text-white'>
-              AL
+            <AvatarFallback className='bg-sky-500 text-xs font-semibold text-white'>
+              A
             </AvatarFallback>
           </Avatar>
         </span>
@@ -150,7 +150,7 @@ function renderEventContent({ occurrence }) {
           className='-me-0.5 size-1.5 shrink-0 rounded-full bg-(--ec-event-color)'
         />
         <span className='truncate font-medium'>{event.title}</span>
-        <span className='ms-auto shrink-0 rounded bg-(--ec-event-color)/25 px-1 text-[10px] font-semibold'>
+        <span className='ms-auto shrink-0 rounded bg-(--ec-event-color)/25 px-1 text-xs font-semibold'>
           30m
         </span>
       </span>

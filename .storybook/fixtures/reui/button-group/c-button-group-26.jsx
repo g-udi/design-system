@@ -68,7 +68,7 @@ export function Pattern() {
                 <span className='flex items-center gap-2'>
                   <Avatar className='size-5'>
                     <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className='text-[10px]'>
+                    <AvatarFallback className='text-xs'>
                       {user.initials}
                     </AvatarFallback>
                   </Avatar>

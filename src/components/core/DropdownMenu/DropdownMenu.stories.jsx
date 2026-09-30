@@ -48,7 +48,7 @@ function ActionsExample(args) {
   const [pinned, setPinned] = useState(true);
   const [inFeed, setInFeed] = useState(false);
   return (
-    <div className='mx-auto grid min-h-[27.5rem] w-full max-w-md content-start gap-2'>
+    <div className='mx-auto grid min-h-[27.5rem] w-full max-w-md grid-cols-1 content-start gap-2'>
       <article className='flex items-center gap-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800'>
         <Avatar name={article.author} size='sm' />
         <div className='min-w-0 flex-1'>

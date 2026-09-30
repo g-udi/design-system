@@ -57,7 +57,7 @@ function PortalExample(props) {
   };
 
   return (
-    <div className='mx-auto grid w-full max-w-md gap-3'>
+    <div className='mx-auto grid w-full max-w-md grid-cols-1 gap-3'>
       <article className='flex items-center gap-3 rounded-lg border border-gray-200 p-3 dark:border-gray-800'>
         <img src={meadow} alt='' className='aspect-video w-20 shrink-0 rounded-md object-cover' />
         <div className='min-w-0 flex-1'>

@@ -19,12 +19,10 @@ export function Pattern() {
           {temperature}K &middot; {getLabel(temperature)}
         </span>
       </div>
+      {/* warm-to-cool scale drawn from the palette's orange, amber and blue */}
       <div
-        className='h-2 rounded-full'
-        style={{
-          background:
-            'linear-gradient(to right, #ff8a2b, #ffd4a3, #fff5e6, #e8f0ff, #a3c9ff)'
-        }}
+        aria-hidden='true'
+        className='h-2 rounded-full bg-linear-to-r from-orange-400 via-amber-50 to-blue-300'
       />
       <Slider
         value={[temperature]}

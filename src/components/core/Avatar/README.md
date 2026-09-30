@@ -22,7 +22,7 @@ import { Avatar, AvatarGroup } from '@gaudi/design-system';
 | Prop | Contract |
 | --- | --- |
 | `src` | Remote, local or data image URL. Pending, missing and failed images show fallback content; changing the source resets loading. |
-| `name` / `label` | Name generates Unicode-aware initials from the first and last words; a single word uses up to two characters. Label preserves explicitly supplied initials. |
+| `name` / `label` | Name generates Unicode-aware initials from the first and last words; a single word uses up to two characters. The 16px `2xs` size shows only the first initial so it stays legible at the `text-xs` step. Label preserves explicitly supplied initials. |
 | `alt` | Overrides the accessible identity; `alt=''` makes the avatar decorative beside visible text. |
 | `fallback` | Custom text or noninteractive artwork; `true` renders the guest silhouette. Empty names show `?`. |
 | `size` | `2xs`, `xs`, `sm`, `md`, `lg`, `xl`: 16, 20, 32, 40, 56 and 80px. Existing sizes retain their dimensions. |

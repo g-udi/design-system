@@ -1,0 +1,18 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          ".storybook/fixtures/reui/code-block/c-code-block-15.jsx",
+          ".storybook/fixtures/reui/code-block/c-code-block-21.jsx"
+        ],
+        "createdAt": "2026-09-30T14:10:04.264Z",
+        "reason": "Intentional GitHub light/dark syntax themes demonstrating custom code-block theming"
+      }
+    ]
+  }
+}

@@ -35,7 +35,7 @@ export const NavigationMenuLink = ({ active = false, children, className, descri
     >
       <span className={ cn(variant === 'panel' && 'block text-sm font-medium text-gray-950 group-hover/nav-link:text-blue-600 dark:text-gray-100 dark:group-hover/nav-link:text-blue-400') }>{children}</span>
       {description ? <span className='mt-1 block text-sm leading-6 text-gray-600 dark:text-gray-400'>{description}</span> : null}
-      {meta ? <span className='mt-2 block text-xs font-medium uppercase text-gray-500 dark:text-gray-500'>{meta}</span> : null}
+      {meta ? <span className='mt-2 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400'>{meta}</span> : null}
     </Link>
   );
 

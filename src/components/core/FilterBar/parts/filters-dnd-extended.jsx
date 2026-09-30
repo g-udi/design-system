@@ -220,7 +220,7 @@ function startDrag(event, nodeId, options) {
     badgeEl = document.createElement('span');
     badgeEl.setAttribute('data-slot', 'filters-drag-copy');
     badgeEl.className =
-      'bg-ui-primary text-ui-primary-foreground absolute -end-1.5 -top-1.5 flex size-4 items-center justify-center rounded-full text-[10px] leading-none';
+      'bg-ui-primary text-ui-primary-foreground absolute -end-1.5 -top-1.5 flex size-4 items-center justify-center rounded-full text-xs leading-none';
     badgeEl.textContent = '+';
     badgeEl.hidden = !copy;
     carryEl.appendChild(badgeEl);

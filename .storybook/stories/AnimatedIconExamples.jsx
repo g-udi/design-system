@@ -7,8 +7,8 @@ import { cn } from '../../src/utilities/cn';
 
 const names = Object.keys(animatedIconMetadata).sort((a, b) => a.localeCompare(b));
 const pageSize = 24;
-const labelClasses = 'block text-[13px] font-semibold text-gray-900 dark:text-gray-100';
-const descriptionClasses = 'text-[13px] leading-5 text-gray-600 dark:text-gray-300';
+const labelClasses = 'block text-sm font-semibold text-gray-900 dark:text-gray-100';
+const descriptionClasses = 'text-sm leading-5 text-gray-600 dark:text-gray-300';
 
 async function copyUsage(value) {
   try {
@@ -34,7 +34,7 @@ function AnimatedIconCard({ name, animate, onCopy }) {
   const metadata = animatedIconMetadata[name];
   return (
     <Button variant='outline' tone='neutral' size='sm'
-      className='relative grid min-h-32 min-w-0 w-full content-center justify-items-center gap-3 px-3 py-4 text-[13px] font-normal'
+      className='relative grid min-h-32 min-w-0 w-full content-center justify-items-center gap-3 px-3 py-4 text-sm font-normal'
       aria-label={`Copy ${name} animated icon`}
       onPointerEnter={() => setHovered(true)} onPointerLeave={() => setHovered(false)}
       onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
@@ -77,20 +77,20 @@ export function AnimatedIconsGallery() {
         <div className='min-w-0 flex-1 basis-64 space-y-2'>
           <label className={labelClasses} htmlFor={searchId}>Search animated icons</label>
           <Input id={searchId} type='search' value={query} className='bg-white dark:bg-gray-900'
-            inputClassName='text-[13px] dark:bg-transparent dark:placeholder:text-gray-400' placeholder='Search by name, e.g. Bell or Arrow Up'
+            inputClassName='text-sm dark:bg-transparent dark:placeholder:text-gray-400' placeholder='Search by name, e.g. Bell or Arrow Up'
             prefix={<Icon name='Search' decorative size='sm' />}
             onChange={(event) => { setQuery(event.target.value); setPage(0); }} />
         </div>
         <label className='grid gap-2'>
           <span className={labelClasses}>Animation style</span>
-          <select className='min-h-11 rounded-md border border-gray-300 bg-white px-3 text-[13px] dark:border-gray-700 dark:bg-gray-900'
+          <select className='min-h-11 rounded-md border border-gray-300 bg-white px-3 text-sm dark:border-gray-700 dark:bg-gray-900'
             value={source} onChange={(event) => { setSource(event.target.value); setPage(0); }}>
             <option value='all'>All styles</option>
             <option value='lucide-animated'>Lucide Animated</option>
             <option value='gaudi-draw'>Gaudi draw</option>
           </select>
         </label>
-        <label className='flex min-h-11 cursor-pointer items-center gap-2 text-[13px]'>
+        <label className='flex min-h-11 cursor-pointer items-center gap-2 text-sm'>
           <input type='checkbox' checked={animate} onChange={(event) => setAnimate(event.target.checked)} className='size-4 accent-blue-600' />
           Animate previews
         </label>
@@ -108,13 +108,13 @@ export function AnimatedIconsGallery() {
         <div className='space-y-3 rounded-md border border-gray-200 p-5 dark:border-gray-800'>
           <p className={labelClasses}>No animated icons match “{query}”.</p>
           <p className={descriptionClasses}>Try another name or reset the style filter.</p>
-          <Button variant='outline' size='sm' className='text-[13px]' onClick={() => { setQuery(''); setSource('all'); setPage(0); }}>Reset search</Button>
+          <Button variant='outline' size='sm' className='text-sm' onClick={() => { setQuery(''); setSource('all'); setPage(0); }}>Reset search</Button>
         </div>
       ) : (
         <Pagination label='Animated icon pages' className='items-center justify-between gap-2'>
-          <PaginationPrevious className='text-[13px]' disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)} />
+          <PaginationPrevious className='text-sm' disabled={currentPage === 0} onClick={() => setPage(currentPage - 1)} />
           <span className={cn(descriptionClasses, 'text-center')}>Page {currentPage + 1} of {pages}</span>
-          <PaginationNext className='text-[13px]' disabled={currentPage + 1 >= pages} onClick={() => setPage(currentPage + 1)} />
+          <PaginationNext className='text-sm' disabled={currentPage + 1 >= pages} onClick={() => setPage(currentPage + 1)} />
         </Pagination>
       )}
     </div>
@@ -129,17 +129,17 @@ export function AnimatedIconActions() {
   return (
     <div data-docs-example className='space-y-4'>
       <div className='flex flex-wrap items-center gap-3'>
-        <Button variant={saved ? 'soft' : 'outline'} size='sm' className='text-[13px]' aria-pressed={saved}
+        <Button variant={saved ? 'soft' : 'outline'} size='sm' className='text-sm' aria-pressed={saved}
           onPointerEnter={() => setHot('save')} onPointerLeave={() => setHot(null)}
           onFocus={() => setFocused('save')} onBlur={() => setFocused(null)} onClick={() => setSaved(!saved)}>
           <AnimatedIcon name='Bookmark' size='sm' active={hot === 'save' || focused === 'save'} />
           {saved ? 'Saved to reading list' : 'Save to reading list'}
         </Button>
-        <Button variant='outline' tone='neutral' size='sm' className='text-[13px]' aria-pressed={syncing} onClick={() => setSyncing(!syncing)}>
+        <Button variant='outline' tone='neutral' size='sm' className='text-sm' aria-pressed={syncing} onClick={() => setSyncing(!syncing)}>
           <AnimatedIcon name='RefreshCw' size='sm' active={syncing} />
           {syncing ? 'Stop sync preview' : 'Preview sync'}
         </Button>
-        <Button variant='outline' size='sm' className='text-[13px]' disabled><AnimatedIcon name='Download' size='sm' />Export unavailable</Button>
+        <Button variant='outline' size='sm' className='text-sm' disabled><AnimatedIcon name='Download' size='sm' />Export unavailable</Button>
       </div>
       <p role='status' aria-label='Icon action status' className={descriptionClasses}>
         {syncing ? 'Sync preview running.' : 'Sync preview stopped.'} {saved ? 'Article saved.' : 'Article is not saved.'}
@@ -152,7 +152,7 @@ export function AnimatedIconMotion() {
   const [active, setActive] = useState(false);
   return (
     <div data-docs-example className='space-y-4'>
-      <Button variant='outline' size='sm' className='text-[13px]' aria-pressed={active} onClick={() => setActive(!active)}>{active ? 'Stop animations' : 'Play animations'}</Button>
+      <Button variant='outline' size='sm' className='text-sm' aria-pressed={active} onClick={() => setActive(!active)}>{active ? 'Stop animations' : 'Play animations'}</Button>
       <div className='grid grid-cols-2 gap-6 sm:grid-cols-4'>
         {[
           ['Bell', 'Notification', 'primary'], ['HeartPulse', 'Activity', 'danger'],

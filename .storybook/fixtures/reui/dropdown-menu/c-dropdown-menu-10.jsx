@@ -89,7 +89,7 @@ export function Pattern() {
                 {workspace.avatar && (
                   <Avatar className='size-5 rounded-md'>
                     <AvatarImage src={workspace.avatar} alt={workspace.name} />
-                    <AvatarFallback className='rounded-md text-[10px]'>
+                    <AvatarFallback className='rounded-md text-xs'>
                       {workspace.name.charAt(0)}
                     </AvatarFallback>
                   </Avatar>

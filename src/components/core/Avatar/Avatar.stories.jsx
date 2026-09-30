@@ -141,7 +141,7 @@ export const Indicators = {
     <div className='flex flex-wrap items-center gap-6'>
       {indicators.map((indicator) => <Avatar key={indicator.label} {...maya} size='lg' shape='circle' indicator={indicator} />)}
       <Avatar {...alex} size='lg' shape='circle' aria-label={`${alex.name}, online, 3 unread messages`} indicator={indicators[0]}>
-        <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-red-600 text-[10px] text-white' aria-hidden='true'>3</AvatarBadge>
+        <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-red-600 text-xs text-white' aria-hidden='true'>3</AvatarBadge>
       </Avatar>
     </div>
   ),

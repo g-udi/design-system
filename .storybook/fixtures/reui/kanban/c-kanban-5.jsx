@@ -37,7 +37,7 @@ function FeatureCard({ feature, asHandle, ...props }) {
           </p>
           <Progress value={feature.progress} className='h-1.5' />
           <div className='flex items-center justify-between'>
-            <span className='text-ui-muted-foreground text-[10px] tabular-nums'>
+            <span className='text-ui-muted-foreground text-xs tabular-nums'>
               {feature.progress}% complete
             </span>
             <div className='flex items-center gap-1'>

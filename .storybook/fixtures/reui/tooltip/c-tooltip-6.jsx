@@ -37,7 +37,7 @@ export function Pattern() {
                   Degraded
                 </Badge>
               </div>
-              <p className='text-[10px] opacity-80'>Updated 2 min ago</p>
+              <p className='text-xs opacity-80'>Updated 2 min ago</p>
             </div>
           </TooltipContent>
         </Tooltip>

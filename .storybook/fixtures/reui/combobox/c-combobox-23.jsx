@@ -167,7 +167,7 @@ function LeadTriggerLabel({ option }) {
     <span className='flex min-w-0 items-center gap-2'>
       <Avatar className='size-5'>
         <AvatarImage src={option.avatar} alt={option.label} />
-        <AvatarFallback className='text-[9px]'>
+        <AvatarFallback className='text-xs'>
           {option.initials}
         </AvatarFallback>
       </Avatar>
@@ -189,7 +189,7 @@ function LeadListRow({ option }) {
       <ItemMedia>
         <Avatar className='size-5'>
           <AvatarImage src={option.avatar} alt={option.label} />
-          <AvatarFallback className='text-[9px]'>
+          <AvatarFallback className='text-xs'>
             {option.initials}
           </AvatarFallback>
         </Avatar>

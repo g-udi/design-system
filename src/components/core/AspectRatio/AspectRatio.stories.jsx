@@ -75,7 +75,7 @@ export const Playground = {
             <li key={item.title} className='flex min-w-0 flex-col gap-1'>
               <AspectRatio ratio={shelfRatio} className={`${frame} relative`}>
                 <img src={item.src} alt='' className='size-full object-cover' />
-                <span className='absolute right-1.5 bottom-1.5 rounded bg-black/60 px-1 text-[10px] text-white tabular-nums'>{item.duration}</span>
+                <span className='absolute right-1.5 bottom-1.5 rounded bg-black/60 px-1 text-xs text-white tabular-nums'>{item.duration}</span>
               </AspectRatio>
               <span className='truncate text-xs text-ui-foreground'>{item.title}</span>
             </li>

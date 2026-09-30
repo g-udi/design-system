@@ -56,7 +56,7 @@ function DataGridColumnHeaderInner({
     }
   };
   const headerLabelClassName = cn(
-    'text-ui-secondary-foreground inline-flex h-full items-center gap-1.5 font-normal [&_svg]:opacity-60 text-[0.8125rem] leading-[calc(1.125/0.8125)] [&_svg]:size-3.5',
+    'text-ui-secondary-foreground inline-flex h-full items-center gap-1.5 font-normal [&_svg]:opacity-60 text-sm [&_svg]:size-3.5',
     className
   );
   const headerButtonClassName = cn(

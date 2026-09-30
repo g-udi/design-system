@@ -50,7 +50,7 @@ export function Pattern() {
               src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
               alt='Mira Stone'
             />
-            <AvatarFallback className='text-[10px] font-medium'>
+            <AvatarFallback className='text-xs font-medium'>
               MS
             </AvatarFallback>
           </Avatar>
@@ -59,7 +59,7 @@ export function Pattern() {
 
         <div className='flex gap-3'>
           <Avatar className='size-7 shrink-0 rounded-full'>
-            <AvatarFallback className='bg-ui-muted text-ui-muted-foreground text-[10px] font-medium'>
+            <AvatarFallback className='bg-ui-muted text-ui-muted-foreground text-xs font-medium'>
               AI
             </AvatarFallback>
           </Avatar>

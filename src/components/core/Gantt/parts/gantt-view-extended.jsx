@@ -2044,12 +2044,12 @@ function GanttView({
               className='pointer-events-none absolute inset-x-0 flex items-center'
               style={{ top: reorder.top - 4, zIndex: 110 }}
             >
-              {/* caret head pointing along the insertion line; the whole
-       indicator sits above the row carry overlay (z 100) */}
+              {/* caret head pointing along the insertion line (a clipped
+       square, not a border triangle); the whole indicator sits above the row carry overlay (z 100) */}
               <span
                 className={cn(
-                  'ms-0.5 size-0 shrink-0 border-y-4 border-s-8 border-y-transparent',
-                  reorder.valid ? 'border-s-primary' : 'border-s-destructive'
+                  'ms-0.5 size-2 shrink-0 [clip-path:polygon(0_0,100%_50%,0_100%)] rtl:[clip-path:polygon(100%_0,0_50%,100%_100%)]',
+                  reorder.valid ? 'bg-ui-primary' : 'bg-ui-destructive'
                 )}
               />
               <span
