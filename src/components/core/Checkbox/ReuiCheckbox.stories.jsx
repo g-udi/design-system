@@ -63,7 +63,7 @@ export default {
     docs: {
       description: {
         component:
-          'Checkbox compositions owned by Gaudi Checkbox. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Checkbox compositions owned by Gaudi Checkbox. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

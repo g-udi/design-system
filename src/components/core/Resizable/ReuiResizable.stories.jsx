@@ -39,7 +39,7 @@ export default {
     docs: {
       description: {
         component:
-          'Resizable compositions owned by Gaudi Resizable. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Resizable compositions owned by Gaudi Resizable. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

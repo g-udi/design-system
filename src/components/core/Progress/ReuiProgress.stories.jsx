@@ -35,7 +35,7 @@ export default {
     docs: {
       description: {
         component:
-          'Progress compositions owned by Gaudi Progress. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Progress compositions owned by Gaudi Progress. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

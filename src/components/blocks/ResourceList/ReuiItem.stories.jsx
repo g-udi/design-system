@@ -43,7 +43,7 @@ export default {
     docs: {
       description: {
         component:
-          'Item compositions owned by Gaudi ResourceList. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Item compositions owned by Gaudi ResourceList. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

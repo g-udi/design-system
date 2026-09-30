@@ -1137,6 +1137,17 @@
       ],
       "importPath": "./src/components/core/Button/Button.stories.jsx"
     },
+    "core-button--with-controls": {
+      "id": "core-button--with-controls",
+      "title": "Core/Button",
+      "name": "With Controls",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Button/Button.stories.jsx"
+    },
     "core-button--tones": {
       "id": "core-button--tones",
       "title": "Core/Button",

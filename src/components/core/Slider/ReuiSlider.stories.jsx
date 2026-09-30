@@ -43,7 +43,7 @@ export default {
     docs: {
       description: {
         component:
-          'Slider compositions owned by Gaudi Slider. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Slider compositions owned by Gaudi Slider. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

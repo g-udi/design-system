@@ -120,12 +120,12 @@ const sources = [
         children: [
           {
             value: 'github.repositories.web',
-            label: 'reui/web',
+            label: 'gaudi/web',
             icon: githubLogo
           },
           {
             value: 'github.repositories.registry',
-            label: 'reui/registry',
+            label: 'gaudi/registry',
             icon: githubLogo
           }
         ]

@@ -89,7 +89,7 @@ export default {
     docs: {
       description: {
         component:
-          'Avatar compositions owned by Gaudi Avatar. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Avatar compositions owned by Gaudi Avatar. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

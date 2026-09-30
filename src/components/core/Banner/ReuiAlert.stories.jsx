@@ -59,7 +59,7 @@ export default {
     docs: {
       description: {
         component:
-          'Alert compositions owned by Gaudi Banner. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Alert compositions owned by Gaudi Banner. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

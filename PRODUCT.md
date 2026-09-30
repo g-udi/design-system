@@ -18,7 +18,7 @@ Gaudi is a curated design system for blogs and applications. It brings reusable 
 
 Gaudi began as the blog's design system and has expanded into a design system for reading and working on the web. Application controls, data views, navigation, dialogs, and workflow blocks sit alongside editorial layouts, post components, and MDX experiences. The blog remains a first-class consumer.
 
-Curation is an ongoing practice: useful components and patterns are selected, then integrated into Gaudi's visual language and interaction contracts. ReUI is one source of patterns, and the Mav9 design system informs component ownership and example depth. When a pattern matches an existing component, extend that component. Add a new owner when there is a distinct gap. Breadth should come with practical states, accessible behavior, responsive examples, and honest usage boundaries.
+Curation is an ongoing practice: useful components and patterns are selected, then integrated into Gaudi's visual language and interaction contracts. Patterns come from multiple sources; component ownership and example depth follow a shared contract. When a pattern matches an existing component, extend that component. Add a new owner when there is a distinct gap. Breadth should come with practical states, accessible behavior, responsive examples, and honest usage boundaries.
 
 ## Operating Context
 

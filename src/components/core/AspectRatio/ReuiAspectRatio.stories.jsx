@@ -35,7 +35,7 @@ export default {
     docs: {
       description: {
         component:
-          'Aspect Ratio compositions owned by Gaudi AspectRatio. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Aspect Ratio compositions owned by Gaudi AspectRatio. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

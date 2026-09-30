@@ -444,8 +444,7 @@ export function PatternGallery() {
       <header>
         <h1>Accordion patterns</h1>
         <p>
-          Eleven application patterns inspired by ReUI, using Gaudi’s components
-          and tokens.
+          Eleven application patterns using Gaudi’s components and tokens.
         </p>
       </header>
       <div className='accordion-demo-grid'>

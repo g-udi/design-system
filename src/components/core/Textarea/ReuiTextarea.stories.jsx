@@ -31,7 +31,7 @@ export default {
     docs: {
       description: {
         component:
-          'Textarea compositions owned by Gaudi Textarea. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Textarea compositions owned by Gaudi Textarea. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

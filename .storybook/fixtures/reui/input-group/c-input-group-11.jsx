@@ -14,7 +14,7 @@ export function Pattern() {
       <InputGroup>
         <InputGroupInput
           aria-label='Share link'
-          defaultValue='https://reui.com/share'
+          defaultValue='https://example.com/share'
           readOnly
         />
         <InputGroupAddon align='inline-end'>

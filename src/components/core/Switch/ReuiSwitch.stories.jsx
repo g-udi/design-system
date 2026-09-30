@@ -47,7 +47,7 @@ export default {
     docs: {
       description: {
         component:
-          'Switch compositions owned by Gaudi Switch. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Switch compositions owned by Gaudi Switch. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

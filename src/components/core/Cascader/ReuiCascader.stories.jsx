@@ -59,7 +59,7 @@ export default {
     docs: {
       description: {
         component:
-          'Cascader compositions owned by Gaudi Cascader. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Cascader compositions owned by Gaudi Cascader. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

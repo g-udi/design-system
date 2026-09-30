@@ -34,7 +34,7 @@ export default {
     docs: {
       description: {
         component:
-          'Tree compositions owned by Gaudi Tree. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Tree compositions owned by Gaudi Tree. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

@@ -47,7 +47,7 @@ export function Pattern() {
         </InputGroupAddon>
         <InputGroupInput
           aria-label='Website address'
-          defaultValue='https://reui.com'
+          defaultValue='https://example.com'
           className='pl-0.5!'
           readOnly
         />

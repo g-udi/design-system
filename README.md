@@ -17,7 +17,7 @@ The system is called **Gaudi**. The source repository is hosted at [`ahmadassaf/
 
 Start with a useful component or use case, then reconcile it with the catalogue. **When an existing component matches, extend it** with the missing variants, behaviors, and examples. Add a new component only when it fills a distinct gap.
 
-Adapt incoming patterns to Gaudi's tokens, icons, public APIs, accessibility, and responsive behavior. Document practical examples, interaction states, usage boundaries, and copyable imports. Preserve source attribution and licensing. [ReUI](./REUI-COVERAGE.md) is one source in this growing collection; the system remains open to useful patterns discovered elsewhere.
+Adapt incoming patterns to Gaudi's tokens, icons, public APIs, accessibility, and responsive behavior. Document practical examples, interaction states, usage boundaries, and copyable imports. Preserve source attribution and licensing. The collection remains open to useful patterns discovered across projects and libraries.
 
 ## For Agents
 
@@ -208,4 +208,4 @@ Run `pnpm catalogue:sync` after adding or renaming stories to refresh the catalo
 
 ## Component catalogue
 
-Gaudi reconciles all 81 ReUI component families with 1,149 practical Storybook examples. Matching compositions extend existing owners and preserve their convenience APIs. See [coverage and public imports](REUI-COVERAGE.md), [verification](REUI-VERIFICATION.md), and [source notices](THIRD_PARTY_NOTICES.md).
+Gaudi brings together 81 curated component families with 1,149 practical Storybook examples. Matching compositions extend existing owners and preserve their convenience APIs. See [coverage and public imports](REUI-COVERAGE.md), [verification](REUI-VERIFICATION.md), and [source notices](THIRD_PARTY_NOTICES.md).

@@ -201,13 +201,14 @@ export const ComponentDocumentation = ({ docs }) => (
 );
 
 export const CatalogueDocsPage = ({ documentation, options = {} }) => {
-    const { stories = true, examples = true, primaryStory, previewControls } = options;
+    const { stories = true, examples = true, primaryStory, previewControls, overviewStory } = options;
     const context = useContext(DocsContext);
     const allStories = context.componentStories();
     const selected = primaryStory ? context.resolveOf(primaryStory(), ['story']).story : selectPreviewStory(allStories);
     const primary = selected?.moduleExport;
+    const overview = overviewStory ? context.resolveOf(overviewStory(), ['story']).story : undefined;
     const authored = documentation || getComponentDocs(selected?.title || allStories[0]?.title || 'Core');
-    const exampleStories = allStories.filter(story => story.tags?.includes('autodocs') && !story.usesMount && (
+    const exampleStories = allStories.filter(story => story.tags?.includes('autodocs') && !story.usesMount && story.id !== overview?.id && (
       // Preserve Accordion's approved catalogue. Elsewhere, mount each example
       // once so fixed IDs and document-level effects are not duplicated.
       authored.title === 'Core/Accordion' || !stories || story.id !== selected?.id
@@ -291,6 +292,12 @@ export const CatalogueDocsPage = ({ documentation, options = {} }) => {
             <Section title={ docs.propsTitle || 'Props' }>
               <PropsTable rows={ docs.props } />
             </Section>
+          ) : null}
+
+          {examples && overview ? (
+            <div className='ds-docs-examples' data-docs-overview>
+              <DocsStory of={overview.moduleExport} expanded __forceInitialArgs />
+            </div>
           ) : null}
 
           {examples && exampleStories.length ? (

@@ -3,6 +3,7 @@ import publicNames from '../fixtures/reui/public-names.json';
 /** Source examples use public owner subpaths, preserving explicit Root aliases. */
 export function publicSource(source) {
   return source
+    .replace(/Adapted from ReUI \(MIT\)/g, 'MIT-licensed source')
     .replace(
       /import\s+\{([^}]+)\}\s+from\s+["']([^"']+)["'];?/g,
       (whole, bindings, specifier) => {

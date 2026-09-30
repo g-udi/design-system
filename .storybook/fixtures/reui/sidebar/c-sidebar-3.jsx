@@ -239,7 +239,7 @@ export function Pattern() {
         <SidebarHeader>
           <div className='flex items-center gap-2'>
             <BrandMark />
-            <span className='truncate text-sm font-medium'>ReUI Docs</span>
+            <span className='truncate text-sm font-medium'>Gaudi Docs</span>
             <span className='text-ui-sidebar-foreground ml-auto shrink-0 text-xs'>
               v2.8
             </span>

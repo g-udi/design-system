@@ -161,11 +161,11 @@ function BrandButton() {
   return (
     <SidebarMenu>
       <SidebarMenuItem>
-        <SidebarMenuButton asChild size='lg' tooltip='ReUI Labs'>
+        <SidebarMenuButton asChild size='lg' tooltip='Gaudi Workspace'>
           <a href='#'>
             <BrandMark className='size-8 rounded-lg [&>svg]:size-4' />
             <span className='grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:sr-only'>
-              <span className='truncate text-sm font-medium'>ReUI Labs</span>
+              <span className='truncate text-sm font-medium'>Gaudi Workspace</span>
               <span className='text-ui-sidebar-foreground truncate text-xs'>
                 Production
               </span>

@@ -36,7 +36,7 @@ export default {
     docs: {
       description: {
         component:
-          'Sortable compositions owned by Gaudi Sortable. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Sortable compositions owned by Gaudi Sortable. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

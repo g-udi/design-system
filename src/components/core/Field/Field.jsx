@@ -85,7 +85,7 @@ export const FieldInput = ({ as: Control = 'input', 'aria-describedby': ariaDesc
       id={ id || context?.inputId }
       aria-describedby={ describedBy || undefined }
       aria-invalid={ isInvalid || undefined }
-      className={ cn('ds-motion-state min-h-11 w-full min-w-0 rounded-md border border-gray-300 bg-white px-3 py-2 text-base text-gray-950 shadow-xs placeholder:text-gray-500 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:focus-visible:border-blue-400 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-950', isInvalid && 'border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500 dark:border-red-500 dark:focus-visible:border-red-400 dark:focus-visible:ring-red-400', className) }
+      className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-gray-300 bg-white px-3 py-1 text-base leading-5 text-gray-950 md:text-sm shadow-xs placeholder:text-gray-500 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:focus-visible:border-blue-400 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-950', isInvalid && 'border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500 dark:border-red-500 dark:focus-visible:border-red-400 dark:focus-visible:ring-red-400', className) }
       { ...props }
     />
   );

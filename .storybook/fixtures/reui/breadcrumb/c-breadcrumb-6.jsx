@@ -25,7 +25,7 @@ export function Pattern() {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage>ReUI</BreadcrumbPage>
+          <BreadcrumbPage>Gaudi</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

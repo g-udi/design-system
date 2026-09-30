@@ -59,7 +59,7 @@ export default {
     docs: {
       description: {
         component:
-          'Empty compositions owned by Gaudi EmptyState. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Empty compositions owned by Gaudi EmptyState. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

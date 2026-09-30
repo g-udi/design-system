@@ -29,7 +29,7 @@ export default {
     docs: {
       description: {
         component:
-          'Scroll Area compositions owned by Gaudi ScrollArea. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Scroll Area compositions owned by Gaudi ScrollArea. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

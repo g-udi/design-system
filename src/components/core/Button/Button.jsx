@@ -12,7 +12,7 @@ const compoundVariants = Object.entries(buttonToneClasses).flatMap(([ tone, vari
 ));
 
 const resolveButtonVariants = createVariants({
-  'base': 'ds-motion-press inline-flex min-h-11 items-center justify-center font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-gray-950',
+  'base': 'ds-motion-press inline-flex items-center justify-center font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-gray-950',
   compoundVariants,
   'defaultVariants': {
     'radius': 'md',
@@ -28,14 +28,14 @@ const resolveButtonVariants = createVariants({
       'sm': 'rounded-sm'
     },
     'size': {
-      'lg': 'gap-3 px-8 py-4 text-base',
-      'md': 'gap-2 px-6 py-3 text-sm',
-      'sm': 'gap-2 px-4 py-2 text-sm',
-      'xs': 'gap-1.5 px-3 py-1.5 text-xs',
-      'icon': 'size-11 shrink-0 p-0 [&>svg]:size-4',
-      'icon-xs': 'size-7 min-h-7 shrink-0 p-0 [&>svg]:size-3',
-      'icon-sm': 'size-9 min-h-9 shrink-0 p-0 [&>svg]:size-4',
-      'icon-lg': 'size-12 shrink-0 p-0 [&>svg]:size-5'
+      'lg': "min-h-9 gap-2 px-4 py-1.5 text-sm leading-5 [&_svg:not([class*='size-'])]:size-4",
+      'md': "min-h-8 gap-2 px-3 py-1 text-sm leading-5 [&_svg:not([class*='size-'])]:size-4",
+      'sm': "min-h-7 gap-1.5 px-2.5 py-1 text-xs leading-4 [&_svg:not([class*='size-'])]:size-3.5",
+      'xs': "min-h-6 gap-1 px-2 py-0.5 text-xs leading-4 [&_svg:not([class*='size-'])]:size-3",
+      'icon': 'size-8 shrink-0 p-0 [&>svg]:size-4',
+      'icon-xs': 'size-6 shrink-0 p-0 [&>svg]:size-3',
+      'icon-sm': 'size-7 shrink-0 p-0 [&>svg]:size-3.5',
+      'icon-lg': 'size-9 shrink-0 p-0 [&>svg]:size-4'
     },
     'tone': Object.fromEntries(Object.keys(buttonToneClasses).map((tone) => [ tone, '' ])),
     'variant': {

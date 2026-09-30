@@ -22,11 +22,11 @@ import '@gaudi/design-system/global.css';
 />
 ```
 
-## ReUI parity
+## Pattern coverage
 
-The [ReUI accordion catalogue](https://reui.io/components/accordion) was checked on 29 September 2026. All eleven examples have a Gaudi equivalent, available together in **Core / Accordion / Pattern Overview** and individually with source code.
+Eleven accordion patterns are available together in **Core / Accordion / Pattern Overview** and individually with source code.
 
-| ReUI example | Gaudi story / API |
+| Pattern | Gaudi story / API |
 | --- | --- |
 | Basic single expansion | Basic Disclosure · `variant='flush'` |
 | Plus / minus indicators | Plus Minus · `indicator='plus-minus'` |
@@ -40,7 +40,7 @@ The [ReUI accordion catalogue](https://reui.io/components/accordion) was checked
 | Rotating leading arrow | Leading Arrow · `indicator='arrow'`, `indicatorPosition='start'` |
 | Onboarding with icons, badges, QR, and form | Guided Setup · controlled group, Progress, real QR link, dependent steps |
 
-Gaudi adapts these use cases to its own component API and visual identity. It does not depend on ReUI or introduce duplicate Card, Avatar, Badge, or Frame components. The setup fixture is illustrative: its QR encodes the public package repository; the form saves in local React state. Applications provide their own URLs, requests, and persistence.
+Gaudi adapts these use cases to its own component API and visual identity. It reuses the existing Card, Avatar, Pill, and Frame components. The setup fixture is illustrative: its QR encodes the public package repository; the form saves in local React state. Applications provide their own URLs, requests, and persistence.
 
 ## State and variants
 

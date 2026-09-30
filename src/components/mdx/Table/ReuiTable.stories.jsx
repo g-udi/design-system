@@ -53,7 +53,7 @@ export default {
     docs: {
       description: {
         component:
-          'Table compositions owned by Gaudi Table. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Table compositions owned by Gaudi Table. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

@@ -47,7 +47,7 @@ export default {
     docs: {
       description: {
         component:
-          'Toggle compositions owned by Gaudi ToggleGroup. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Toggle compositions owned by Gaudi ToggleGroup. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

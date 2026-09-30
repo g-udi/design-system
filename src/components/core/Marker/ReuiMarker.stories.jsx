@@ -31,7 +31,7 @@ export default {
     docs: {
       description: {
         component:
-          'Marker compositions owned by Gaudi Marker. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Marker compositions owned by Gaudi Marker. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

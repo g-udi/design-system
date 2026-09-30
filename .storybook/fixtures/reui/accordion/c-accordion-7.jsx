@@ -53,7 +53,7 @@ const items = [
 export function Pattern() {
   return (
     <div className='mx-auto mb-auto w-full max-w-lg'>
-      <Frame stacked spacing='sm'>
+      <Frame stacked dense spacing='sm'>
         {items.map((item) => (
           <FramePanel key={item.value}>
             <Accordion

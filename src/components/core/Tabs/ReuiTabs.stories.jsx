@@ -37,7 +37,7 @@ export default {
     docs: {
       description: {
         component:
-          'Tabs compositions owned by Gaudi Tabs. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Tabs compositions owned by Gaudi Tabs. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

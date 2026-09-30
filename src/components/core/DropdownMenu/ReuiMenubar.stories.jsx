@@ -29,7 +29,7 @@ export default {
     docs: {
       description: {
         component:
-          'Menubar compositions owned by Gaudi DropdownMenu. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Menubar compositions owned by Gaudi DropdownMenu. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

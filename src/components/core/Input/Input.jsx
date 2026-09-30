@@ -18,7 +18,7 @@ export default function Input({
         {...props}
         className={cn(
           (prefix != null || suffix != null) &&
-            'ds-input-adorned border-0 bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-transparent',
+            'ds-input-adorned min-h-0 border-0 bg-transparent dark:bg-transparent shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-transparent',
           inputClassName
         )}
       />

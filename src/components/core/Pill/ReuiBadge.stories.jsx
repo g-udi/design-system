@@ -69,7 +69,7 @@ export default {
     docs: {
       description: {
         component:
-          'Badge compositions owned by Gaudi Pill. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Badge compositions owned by Gaudi Pill. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

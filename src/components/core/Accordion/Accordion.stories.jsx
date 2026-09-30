@@ -101,7 +101,7 @@ export default {
       description: {
         component: componentDocs.description
       },
-      page: createComponentDocsPage(componentDocs, { examples: true, primaryStory: () => BasicDisclosure, previewControls })
+      page: createComponentDocsPage(componentDocs, { examples: true, primaryStory: () => BasicDisclosure, previewControls, overviewStory: () => PatternOverview })
     }
   },
   tags: ['autodocs'],
@@ -116,7 +116,7 @@ export const PatternOverview = {
     docs: {
       description: {
         story:
-          'All eleven ReUI accordion patterns adapted to Gaudi. Each has a focused, copyable story below.'
+          'Explore eleven accordion patterns together, then find individual examples and their code in Patterns and use cases.'
       }
     }
   }

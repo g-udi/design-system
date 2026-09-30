@@ -85,7 +85,7 @@ export default {
     docs: {
       description: {
         component:
-          'Select compositions owned by Gaudi Select. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Select compositions owned by Gaudi Select. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

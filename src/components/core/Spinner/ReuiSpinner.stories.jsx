@@ -43,7 +43,7 @@ export default {
     docs: {
       description: {
         component:
-          'Spinner compositions owned by Gaudi Spinner. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Spinner compositions owned by Gaudi Spinner. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

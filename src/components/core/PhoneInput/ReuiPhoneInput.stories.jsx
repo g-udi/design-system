@@ -35,7 +35,7 @@ export default {
     docs: {
       description: {
         component:
-          'Phone Input compositions owned by Gaudi PhoneInput. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Phone Input compositions owned by Gaudi PhoneInput. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

@@ -49,7 +49,7 @@ export default {
     docs: {
       description: {
         component:
-          'Breadcrumb compositions owned by Gaudi Breadcrumb. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Breadcrumb compositions owned by Gaudi Breadcrumb. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

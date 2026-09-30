@@ -55,8 +55,8 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const WORKSPACES = [
   {
-    id: 'reui-labs',
-    name: 'ReUI Labs',
+    id: 'gaudi-workspace',
+    name: 'Gaudi Workspace',
     plan: 'Pro',
     initials: 'RL',
     avatar:
@@ -334,7 +334,7 @@ function AccountMenu() {
                   Nadia Rahman
                 </span>
                 <span className='text-ui-sidebar-foreground truncate text-xs'>
-                  nadia@reui.io
+                  nadia@example.com
                 </span>
               </span>
               <RegistryIcon

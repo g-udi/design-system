@@ -9,7 +9,7 @@ export function Pattern() {
     <Button
       variant='outline'
       aria-label={isCopied ? 'Copied' : 'Copy'}
-      onClick={() => copyToClipboard('https://reui.io')}
+      onClick={() => copyToClipboard('https://design.assaf.website')}
     >
       {isCopied ? (
         <RegistryIcon lucide='CheckIcon' aria-hidden='true' />

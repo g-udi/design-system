@@ -179,7 +179,7 @@ const componentDocs = {
   },
   'Core/Accordion': {
     'accessibility': 'Radix-backed native buttons expose expanded state and labelled panels. Arrow Up/Down and Home/End navigate enabled headers within the current accordion; Enter/Space toggle. Disabled items are skipped. Headings default to h3 and can follow the document hierarchy. Closed panels are inert during animation and unmounted afterward; forceMount retains hidden, inert content. Reduced motion is respected.',
-    'description': 'Rich disclosure for FAQs, settings, member directories, nested help, and guided setup. Eleven ReUI-inspired patterns use Gaudi tokens, icons, avatars, cards, and pills.',
+    'description': 'Rich disclosure for FAQs, settings, member directories, nested help, and guided setup. Eleven patterns use Gaudi tokens, icons, avatars, cards, and pills.',
     'notes': [
       '`Accordion` and `AccordionGroup` from the package root are the items-based convenience API. Use `AccordionRoot` for compound composition. The named `Accordion` from the `core/Accordion` subpath remains the compound root for compatibility.',
       'Give every item a stable, unique, non-empty string value. Single mode uses a string; multiple mode uses an array. An explicit undefined controlled value collapses every panel.',
@@ -208,7 +208,7 @@ const componentDocs = {
   },
   'Core/Avatar': {
     'accessibility': 'A named Avatar exposes one image label, including host-provided presence. Use alt="" beside visible identity text. Wrap interactive avatars in Button, Tooltip or DropdownMenu; status badges never infer presence from image loading.',
-    'description': 'Profile images, resilient initials, presence, verification, account menus and collaborator groups. The existing Avatar API and all 35 ReUI patterns share the same image and fallback primitives.',
+    'description': 'Profile images, resilient initials, presence, verification, account menus and collaborator groups. The existing Avatar API and all 35 curated patterns share the same image and fallback primitives.',
     'props': [
       [ 'src', 'string', '-', 'Remote, local or data image source; failed and pending images show the fallback.' ],
       [ 'name / label', 'string', '-', 'Name generates Unicode initials; label preserves explicit legacy initials.' ],
@@ -270,7 +270,7 @@ const componentDocs = {
     'props': [
       [ 'children', 'ReactNode', '-', 'Visible button label or content.' ],
       [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Reusable visual treatment.' ],
-      [ 'size', 'xs | sm | md | lg', 'md', 'Controls spacing and text size.' ],
+      [ 'size', 'xs | sm | md | lg | icon | icon-xs | icon-sm | icon-lg', 'md', 'Compact heights: xs 24px, sm 28px, md/default 32px, lg 36px. Icon sizes match their text-button counterparts. Use matching sizes for controls in the same row.' ],
       [ 'tone', 'accent | neutral | success | warning | danger | attention | discovery | info', 'accent', 'Semantic meaning for the action. Legacy hue names remain supported as compatibility aliases.' ],
       [ 'radius', 'sm | md | lg | full', 'md', 'Button corner radius.' ],
       [ 'href', 'string', '-', 'Renders an internal Next link or safe external anchor.' ],

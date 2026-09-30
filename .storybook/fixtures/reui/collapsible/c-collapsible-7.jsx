@@ -73,8 +73,8 @@ function ApiKeyItem({ item, onDelete }) {
   const { isCopied, copyToClipboard } = useCopyToClipboard();
   return (
     <div className='flex items-center justify-between gap-3.5'>
-      <div className='flex items-center gap-3'>
-        <div className='flex items-center gap-1.5'>
+      <div className='flex min-w-0 flex-1 items-center gap-3'>
+        <div className='flex shrink-0 items-center gap-1.5'>
           <div className='bg-ui-muted border-ui-border/60 flex size-5.5 shrink-0 items-center justify-center rounded-sm border-2'>
             <RegistryIcon
               lucide='LockIcon'
@@ -84,7 +84,7 @@ function ApiKeyItem({ item, onDelete }) {
           </div>
           <div className='w-10 truncate text-xs'>{item.name}</div>
         </div>
-        <div className='bg-ui-muted w-40 truncate rounded-md px-2 py-1 text-xs'>
+        <div className='bg-ui-muted min-w-0 max-w-40 flex-1 truncate rounded-md px-2 py-1 text-xs'>
           {item.key}
         </div>
       </div>

@@ -76,7 +76,7 @@ export default {
     docs: {
       description: {
         component:
-          'Combobox compositions owned by Gaudi Select. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Combobox compositions owned by Gaudi Select. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

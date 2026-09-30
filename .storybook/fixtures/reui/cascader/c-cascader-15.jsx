@@ -31,14 +31,14 @@ const TONE_BADGE = {
 };
 const LARGE_ASSET_MB = 5;
 const REPOSITORIES = [
-  { name: 'reui', kind: 'components' },
+  { name: 'gaudi', kind: 'components' },
   { name: 'keenicons', kind: 'icons' },
   { name: 'metronic', kind: 'templates' },
-  { name: 'reui-blocks', kind: 'blocks' },
-  { name: 'reui-icons', kind: 'icons' },
-  { name: 'reui-mcp', kind: 'mcp' },
-  { name: 'reui-templates', kind: 'templates' },
-  { name: 'reui-cli', kind: 'cli' }
+  { name: 'gaudi-blocks', kind: 'blocks' },
+  { name: 'gaudi-icons', kind: 'icons' },
+  { name: 'gaudi-mcp', kind: 'mcp' },
+  { name: 'gaudi-templates', kind: 'templates' },
+  { name: 'gaudi-cli', kind: 'cli' }
 ];
 const RELEASES_PER_REPOSITORY = 4;
 const ASSETS_PER_RELEASE = 20;

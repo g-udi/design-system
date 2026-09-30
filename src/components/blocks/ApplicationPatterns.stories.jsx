@@ -37,26 +37,18 @@ export const Catalogue = {
         description='Gaudi owns visual structure, keyboard/focus behavior, local presentation state and generic validation. Applications supply records, permissions, requests, routing and persistence. Use leaf imports to load the components each route needs.'
       >
         <p className='ds-description'>
-          The design direction follows the local Mav9 system’s component
-          contracts and state coverage. The breadth of examples is informed by{' '}
-          <a href='https://reui.io/components' className='underline'>
-            ReUI components
-          </a>{' '}
-          and{' '}
-          <a href='https://reui.io/blocks/application/' className='underline'>
-            application blocks
-          </a>
-          . Application blocks are authored for Gaudi. MIT-licensed ReUI
-          components are adapted into the catalogue with attribution; no Pro
-          application-block source is redistributed.
+          Gaudi brings curated components and application patterns together
+          through shared tokens, accessible behavior, and reusable APIs.
+          Extend an existing component when it fits; add a new one when there
+          is a distinct gap.
         </p>
       </Section>
       <Section
         title='Build on the component catalogue'
-        description='Application patterns compose the same Gaudi components used across products. The curated ReUI collection adds variants and use cases to matching owners and fills gaps with new components.'
+        description='Application patterns compose the same Gaudi components used across products. The curated collection adds variants and use cases to matching owners and fills gaps with new components.'
       >
         <div className='grid gap-4 md:grid-cols-2'>
-          <QuickLink title='Component catalogue' description='Browse the current ReUI family mapping and its working examples under Gaudi owners.' storyId='overview-component-catalogue--browse' />
+          <QuickLink title='Component catalogue' description='Browse components and their working examples under Gaudi owners.' storyId='overview-component-catalogue--browse' />
           <QuickLink title='Core components' description='Find public APIs and guidance before composing or extending a component.' storyId='core-overview--default' />
         </div>
       </Section>

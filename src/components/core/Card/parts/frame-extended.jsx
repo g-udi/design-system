@@ -57,7 +57,14 @@ const frameVariants = cva(
       dense: {
         // Parent selectors, not CSS vars: these are positional. Panels are
         // pulled flush (-mx-px), so corners align with the frame's own radius.
-        true: 'p-0 gap-0 border-[var(--frame-border-color)] [--frame-panel-radius:var(--frame-radius)] [&_[data-slot=frame-panel]]:-mx-px [&_[data-slot=frame-panel]]:before:hidden [&_[data-slot=frame-panel]:last-child]:-mb-px [&:not(:has([data-slot=frame-panel-header]))_[data-slot=frame-panel]:is(:first-child)]:-mt-px',
+        true: [
+          'p-0 gap-0 border-[var(--frame-border-color)] [--frame-panel-radius:var(--frame-radius)] [&_[data-slot=frame-panel]]:-mx-px [&_[data-slot=frame-panel]]:before:hidden [&_[data-slot=frame-panel]:last-child]:-mb-px [&:not(:has([data-slot=frame-panel-header]))_[data-slot=frame-panel]:is(:first-child)]:-mt-px',
+          // Flush panels meet external headers and footers with straight seams,
+          // including when a collapsible wraps the panel. A panel's own header
+          // or footer does not change its outer corners.
+          '[&:has([data-slot=frame-panel-header]:not([data-slot=frame-panel]_*))_[data-slot=frame-panel]]:rounded-t-none',
+          '[&:has([data-slot=frame-panel-footer]:not([data-slot=frame-panel]_*))_[data-slot=frame-panel]]:rounded-b-none'
+        ],
         false: ''
       }
     },

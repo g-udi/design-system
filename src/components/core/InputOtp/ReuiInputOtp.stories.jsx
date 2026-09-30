@@ -31,7 +31,7 @@ export default {
     docs: {
       description: {
         component:
-          'Input Otp compositions owned by Gaudi InputOtp. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Input Otp compositions owned by Gaudi InputOtp. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

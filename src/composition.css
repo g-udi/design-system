@@ -253,13 +253,9 @@
     overflow-wrap: anywhere;
   }
   @media (pointer: coarse) {
-    [data-slot='button'],
     [data-slot='menu-item'],
     [data-slot='dropdown-menu-item'] {
       min-height: 44px;
-    }
-    [data-slot='button']:has(> svg:only-child) {
-      min-width: 44px;
     }
   }
   @media (prefers-reduced-motion: reduce) {

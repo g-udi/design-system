@@ -43,7 +43,7 @@ export default {
     docs: {
       description: {
         component:
-          'Timeline compositions owned by Gaudi Timeline. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Timeline compositions owned by Gaudi Timeline. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

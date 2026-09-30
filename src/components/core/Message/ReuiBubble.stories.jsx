@@ -33,7 +33,7 @@ export default {
     docs: {
       description: {
         component:
-          'Bubble compositions owned by Gaudi Message. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Bubble compositions owned by Gaudi Message. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

@@ -51,7 +51,7 @@ export default {
     docs: {
       description: {
         component:
-          'Tooltip compositions owned by Gaudi Tooltip. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Tooltip compositions owned by Gaudi Tooltip. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

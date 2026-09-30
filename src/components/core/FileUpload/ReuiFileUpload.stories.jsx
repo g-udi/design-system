@@ -40,7 +40,7 @@ export default {
     docs: {
       description: {
         component:
-          'File Upload compositions owned by Gaudi FileUpload. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'File Upload compositions owned by Gaudi FileUpload. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

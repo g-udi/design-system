@@ -188,7 +188,7 @@ const Select = ({
         aria-labelledby={ ariaLabelledBy }
         aria-describedby={ ariaDescribedBy }
         className={ cn(
-          'ds-motion-press flex min-h-11 w-full items-center justify-between gap-3 rounded-lg border border-gray-300 bg-white px-3 py-2 text-left text-sm font-medium text-gray-950 shadow-xs hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:hover:border-gray-600 dark:disabled:bg-gray-900 dark:disabled:text-gray-600', invalid && 'border-red-500 focus-visible:ring-red-500', classNames.trigger
+          'ds-motion-press flex min-h-8 w-full items-center justify-between gap-3 rounded-lg border border-gray-300 bg-white px-3 py-1 text-left text-sm leading-5 font-medium text-gray-950 shadow-xs hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:hover:border-gray-600 dark:disabled:bg-gray-900 dark:disabled:text-gray-600', invalid && 'border-red-500 focus-visible:ring-red-500', classNames.trigger
         ) }
         onClick={ () => updateOpen(!open) }
         onKeyDown={ (event) => {

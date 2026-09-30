@@ -50,7 +50,7 @@ export default {
     docs: {
       description: {
         component:
-          'Stepper compositions owned by Gaudi Stepper. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Stepper compositions owned by Gaudi Stepper. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

@@ -53,7 +53,7 @@ export default {
     docs: {
       description: {
         component:
-          'Radio Group compositions owned by Gaudi RadioGroup. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Radio Group compositions owned by Gaudi RadioGroup. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }

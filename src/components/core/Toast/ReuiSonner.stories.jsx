@@ -61,7 +61,7 @@ export default {
     docs: {
       description: {
         component:
-          'Sonner compositions owned by Gaudi Toast. Practical patterns adapted from the ReUI MIT catalogue. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
+          'Sonner compositions owned by Gaudi Toast. Accessibility: label controls, preserve keyboard operation and focus return, and announce validation and async states. Example data is illustrative; application callbacks own persistence.'
       }
     }
   }
