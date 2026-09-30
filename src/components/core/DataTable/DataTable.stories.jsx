@@ -144,13 +144,14 @@ export const Playground = {
   parameters: {
     docs: {
       description: {
-        story: 'An article library with statuses, right-aligned figures, a totals footer, expandable excerpts and a row menu. Each control adds or restyles a tool: search with a live count, sortable headers, selection with a bulk action, column visibility, pages, density and stripes. `loading`, `refreshing` and `error` show the request states.'
+        story: 'An article library with statuses, right-aligned figures, a totals footer, expandable excerpts and a row menu. A toolbar slot holds an export action. Each control adds or restyles a tool: search with a live count, sortable headers, selection with a bulk action, column visibility, pages, density and stripes. `loading`, `refreshing` and `error` show the request states.'
       },
       source: playgroundSource('DataTable', {
-        imports: "import { Button, DataTable } from '@gaudi/design-system';",
+        imports: "import { Button, DataTable, Icon } from '@gaudi/design-system';",
         attributes: [
           'columns={columns}',
           'rows={articles}',
+          "toolbar={<Button size='sm' variant='outline' tone='neutral'><Icon name='Download' decorative size='sm' />Export</Button>}",
           'renderExpanded={(row) => <Excerpt article={row} />}',
           "getRowActions={(row) => [{ label: 'Duplicate', icon: 'Copy', onSelect: duplicate }, { label: 'Archive', icon: 'Archive', tone: 'danger', onSelect: archive }]}",
           "renderSelectionActions={(rows) => <Button size='sm' variant='outline' tone='danger' onClick={() => archive(rows)}>Archive {rows.length}</Button>}",
@@ -166,6 +167,12 @@ export const Playground = {
       columns={libraryColumns}
       rows={library}
       labels={{ searchPlaceholder: 'Search articles…' }}
+      toolbar={
+        <Button size='sm' variant='outline' tone='neutral'>
+          <Icon name='Download' decorative size='sm' />
+          Export
+        </Button>
+      }
       renderExpanded={detail}
       getRowActions={(row) => [
         { label: 'Duplicate', icon: 'Copy', onSelect: () => onDuplicate(row.id) },
@@ -199,6 +206,7 @@ export const Playground = {
       return;
     }
     if (args.refreshing) await expect(canvas.getByText('Updating…')).toBeVisible();
+    if (args.searchable || args.columnVisibility) await expect(canvas.getByRole('button', { name: 'Export' })).toBeVisible();
 
     const visible = Math.min(args.pagination ? args.pageSize : library.length, library.length);
     await expect(bodyRows(canvasElement)).toHaveLength(visible);
@@ -364,61 +372,34 @@ export const PinnedColumns = {
   }
 };
 
-export const CustomToolbar = {
-  parameters: { docs: { description: { story: '`toolbar` places host controls beside the search, such as an export action or a FilterBar facet trigger.' } } },
-  render: () => (
-    <DataTable
-      caption={caption}
-      searchable
-      toolbar={
-        <Button size='sm' variant='outline' tone='neutral'>
-          <Icon name='Download' decorative size='sm' />
-          Export
-        </Button>
-      }
-      columns={libraryColumns.slice(0, 3)}
-      rows={library.slice(0, 3)}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByRole('button', { name: 'Export' })).toBeVisible();
-  }
-};
-
-export const Loading = {
-  parameters: { docs: { description: { story: '`loading` keeps the header and fills the body with skeleton rows while announcing progress.' } } },
-  render: () => <DataTable caption={caption} columns={libraryColumns.slice(0, 4)} selectable loading />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('status')).toHaveTextContent('Loading records…');
-    await expect(canvas.getByRole('table').closest('[aria-busy]')).toHaveAttribute('aria-busy', 'true');
-    await expect(canvas.getByRole('checkbox', { name: 'Select this page' })).toBeDisabled();
-  }
-};
-
-export const EmptyCollection = {
-  parameters: { docs: { description: { story: '`emptyTitle` and `emptyDescription` explain an empty collection and what fills it.' } } },
-  render: () => (
-    <DataTable caption={caption} columns={libraryColumns.slice(0, 4)} emptyTitle='No articles yet' emptyDescription='Start a draft to build your collection.' />
-  ),
-  play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByText('No articles yet')).toBeVisible();
-  }
-};
-
-export const FailedRequest = {
+export const RequestStates = {
   args: { onRetry: fn() },
-  parameters: { docs: { description: { story: '`error` replaces the rows with a recovery message, and `onRetry` adds a host-owned retry action.' } } },
+  parameters: {
+    docs: {
+      description: {
+        story: 'The three request states side by side. `loading` keeps the header and fills the body with skeleton rows while announcing progress; `emptyTitle` and `emptyDescription` explain an empty collection; `error` replaces the rows with a recovery message and `onRetry` adds a host-owned retry.'
+      }
+    }
+  },
   render: ({ onRetry }) => (
-    <DataTable
-      caption={caption}
-      columns={libraryColumns.slice(0, 4)}
-      error='Your connection was interrupted. Check your network and try again.'
-      onRetry={onRetry}
-    />
+    <div className='grid gap-4'>
+      <DataTable caption='Loading articles' columns={libraryColumns.slice(0, 4)} selectable loading />
+      <DataTable caption='Empty library' columns={libraryColumns.slice(0, 4)} emptyTitle='No articles yet' emptyDescription='Start a draft to build your collection.' />
+      <DataTable
+        caption='Failed request'
+        columns={libraryColumns.slice(0, 4)}
+        error='Your connection was interrupted. Check your network and try again.'
+        onRetry={onRetry}
+      />
+    </div>
   ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
+    const [loading] = canvas.getAllByRole('table');
+    await expect(within(loading).getByRole('status')).toHaveTextContent('Loading records…');
+    await expect(loading.closest('[aria-busy]')).toHaveAttribute('aria-busy', 'true');
+    await expect(canvas.getByRole('checkbox', { name: 'Select this page' })).toBeDisabled();
+    await expect(canvas.getByText('No articles yet')).toBeVisible();
     await expect(canvas.getByText('Unable to load records')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Try again' }));
     await expect(args.onRetry).toHaveBeenCalledOnce();

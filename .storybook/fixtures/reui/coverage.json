@@ -3955,272 +3955,96 @@
       "examples": [
         {
           "name": "c-data-grid-1",
-          "title": "Data grid with pagination",
-          "description": "Data grid with pagination",
+          "title": "Layout options",
+          "description": "Layout options",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-1.jsx",
           "sha256": "e6272d46e4fe745f394ec78eb646015a303273f828d13f4e1722bb191ca23007",
           "storyId": "core-datatable--reui-data-grid-1"
         },
         {
-          "name": "c-data-grid-2",
-          "title": "Data grid with cell border",
-          "description": "Data grid with cell border",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-2.jsx",
-          "sha256": "4d8626b906e21afbd5dd01e07dbc737dfa7cfe497c3bc6bb91e24d6f8688d9d7",
-          "storyId": "core-datatable--reui-data-grid-2"
-        },
-        {
-          "name": "c-data-grid-3",
-          "title": "Data grid with dense layout",
-          "description": "Data grid with dense layout",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-3.jsx",
-          "sha256": "b73c21915698bd58efdea41c8b4e38c8d842ca53abcdb717ffa7d0e1adc7e759",
-          "storyId": "core-datatable--reui-data-grid-3"
-        },
-        {
-          "name": "c-data-grid-4",
-          "title": "Data grid without table borders",
-          "description": "Data grid without table borders",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-4.jsx",
-          "sha256": "f1d339fe623d5af8b9dd3e8707fee1fa562f45d999c8190f06aaf1951962f131",
-          "storyId": "core-datatable--reui-data-grid-4"
-        },
-        {
-          "name": "c-data-grid-5",
-          "title": "Data grid with striped rows",
-          "description": "Data grid with striped rows",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-5.jsx",
-          "sha256": "7e2cb9545f7de2f5648480fb146dab4f1970e7cdb33d62341637b45135fca854",
-          "storyId": "core-datatable--reui-data-grid-5"
-        },
-        {
-          "name": "c-data-grid-6",
-          "title": "Data grid with auto width table layout",
-          "description": "Data grid with auto width table layout",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-6.jsx",
-          "sha256": "fa093f11b119d9e587ac3c04a3d922429583f8398e559f6967c96d7421d7e6e2",
-          "storyId": "core-datatable--reui-data-grid-6"
-        },
-        {
-          "name": "c-data-grid-7",
-          "title": "Data grid with row selection",
-          "description": "Data grid with row selection",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-7.jsx",
-          "sha256": "2215098d884a11489d6f8d089518c69b315635eb575b8689391acb0251940553",
-          "storyId": "core-datatable--reui-data-grid-7"
-        },
-        {
-          "name": "c-data-grid-8",
-          "title": "Data grid with expandable rows",
-          "description": "Data grid with expandable rows",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-8.jsx",
-          "sha256": "268907786555b4c1217ba47b70020b5fa025c44ec22fe31498f18f3f0b5d69ff",
-          "storyId": "core-datatable--reui-data-grid-8"
-        },
-        {
           "name": "c-data-grid-9",
-          "title": "Data grid with sub table",
-          "description": "Data grid with sub table",
+          "title": "Sub table",
+          "description": "Sub table",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-9.jsx",
           "sha256": "ec19230f7fd124e64dd4929ac59aa9a2b0d5b2d636068eb22751e6d5752dda37",
           "storyId": "core-datatable--reui-data-grid-9"
         },
         {
-          "name": "c-data-grid-10",
-          "title": "Data grid with column icons",
-          "description": "Data grid with column icons",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-10.jsx",
-          "sha256": "b10c5750954b93069fb03c726ee282c09384e37c206e1fa5bc905a4923b1345a",
-          "storyId": "core-datatable--reui-data-grid-10"
-        },
-        {
-          "name": "c-data-grid-11",
-          "title": "Data grid with sortable columns",
-          "description": "Data grid with sortable columns",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-11.jsx",
-          "sha256": "30e5b7b1682751001b2c1928b8e1f94287df6448e31b1efb40de71b386e3346b",
-          "storyId": "core-datatable--reui-data-grid-11"
-        },
-        {
-          "name": "c-data-grid-12",
-          "title": "Data grid with movable columns",
-          "description": "Data grid with movable columns",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-12.jsx",
-          "sha256": "f62a1a0dc9dab3aa1c9d02c14146dabae62b98fb51e17f371b4a3852c3cba541",
-          "storyId": "core-datatable--reui-data-grid-12"
-        },
-        {
-          "name": "c-data-grid-13",
-          "title": "Data grid with draggable columns",
-          "description": "Data grid with draggable columns",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-13.jsx",
-          "sha256": "8f650a491650ccc7eaa1afd02650b660f9853987526c7f2d0be8f65d3f6bf2e9",
-          "storyId": "core-datatable--reui-data-grid-13"
-        },
-        {
           "name": "c-data-grid-14",
-          "title": "Data grid with draggable rows",
-          "description": "Data grid with draggable rows",
+          "title": "Draggable rows and columns",
+          "description": "Draggable rows and columns",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-14.jsx",
           "sha256": "7dbce3479a3ad92def63e8e024ae05a8aa4491fe7728a8498ef3d3e524a6c175",
           "storyId": "core-datatable--reui-data-grid-14"
         },
         {
-          "name": "c-data-grid-15",
-          "title": "Data grid with column resizing",
-          "description": "Data grid with column resizing",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-15.jsx",
-          "sha256": "5246ccc21a775cf7e873c84e8979618c2b8b1e0f699250e435fdf9ffd16467c3",
-          "storyId": "core-datatable--reui-data-grid-15"
-        },
-        {
-          "name": "c-data-grid-16",
-          "title": "Data grid with pinnable columns",
-          "description": "Data grid with pinnable columns",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-16.jsx",
-          "sha256": "c72827c7a45e30ea05da664ef35080887e16894e543193b3400b06316374b337",
-          "storyId": "core-datatable--reui-data-grid-16"
-        },
-        {
-          "name": "c-data-grid-17",
-          "title": "Data grid with sticky header",
-          "description": "Data grid with sticky header",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-17.jsx",
-          "sha256": "78fd6b814dd8f2501d34da4a94dc3cd3f7cc562be15a7854fed4a7ec4cba3138",
-          "storyId": "core-datatable--reui-data-grid-17"
-        },
-        {
-          "name": "c-data-grid-18",
-          "title": "Data grid with column controls",
-          "description": "Data grid with column controls",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-18.jsx",
-          "sha256": "158cffa54e3cfb3643b79cab4dce884baeb2896e527f19e76c09db5b64bf4b9a",
-          "storyId": "core-datatable--reui-data-grid-18"
-        },
-        {
           "name": "c-data-grid-19",
-          "title": "Data grid with card container",
-          "description": "Data grid with card container",
+          "title": "Column controls",
+          "description": "Column controls",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-19.jsx",
           "sha256": "efc81bc6b1f43cd5eef38ddecf9aec41cdc0825be10d0bc8b37215dc9c754db5",
           "storyId": "core-datatable--reui-data-grid-19"
         },
         {
-          "name": "c-data-grid-20",
-          "title": "Data grid with column visibility controls",
-          "description": "Data grid with column visibility controls",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-20.jsx",
-          "sha256": "0b960e799c71d8076cfbaa2130f63b744747e0c4548adaa0b6de95852c828dd0",
-          "storyId": "core-datatable--reui-data-grid-20"
-        },
-        {
-          "name": "c-data-grid-21",
-          "title": "Data grid with loading skeleton",
-          "description": "Data grid with loading skeleton",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-21.jsx",
-          "sha256": "22fb0bdd528876ed5f2a814503bda9c9aca91f30f49e1ff0433936acdd4ed26f",
-          "storyId": "core-datatable--reui-data-grid-21"
-        },
-        {
-          "name": "c-data-grid-22",
-          "title": "Data grid with CRUD features",
-          "description": "Data grid with CRUD features",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-22.jsx",
-          "sha256": "52523e62e2b678896f7ceb723feafdf2da1654fdc561f80bfdf4492a90eba7fe",
-          "storyId": "core-datatable--reui-data-grid-22"
-        },
-        {
           "name": "c-data-grid-23",
-          "title": "Data grid with CRUD in frame container",
-          "description": "Data grid with CRUD in frame container",
+          "title": "CRUD in a frame",
+          "description": "CRUD in a frame",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-23.jsx",
           "sha256": "f0d4731ee5e7a9f9cc99a5710157448965acec37042aeb9f59f6b70bbdd39c63",
           "storyId": "core-datatable--reui-data-grid-23"
         },
         {
-          "name": "c-data-grid-24",
-          "title": "Data grid with column totals footer",
-          "description": "Data grid with column totals footer",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-24.jsx",
-          "sha256": "8634f2731d954217d136930621a714852f4994d2523f8f9ad4038bb3446a8550",
-          "storyId": "core-datatable--reui-data-grid-24"
-        },
-        {
-          "name": "c-data-grid-25",
-          "title": "Data grid with summary stats footer",
-          "description": "Data grid with summary stats footer",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-25.jsx",
-          "sha256": "6c1d13b45c693000442285faed75e601935c4f1cd7596f0cfc7164029226cf48",
-          "storyId": "core-datatable--reui-data-grid-25"
-        },
-        {
           "name": "c-data-grid-26",
-          "title": "Data grid with per-column aggregate footer",
-          "description": "Data grid with per-column aggregate footer",
+          "title": "Footer totals and aggregates",
+          "description": "Footer totals and aggregates",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-26.jsx",
           "sha256": "3fb9f02a874b745add26a690b4ace1a4964149951affc950afaae87fa9c2b3b6",
           "storyId": "core-datatable--reui-data-grid-26"
         },
         {
-          "name": "c-data-grid-27",
-          "title": "Data grid with local infinite scroll",
-          "description": "Data grid with local infinite scroll",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-27.jsx",
-          "sha256": "bc4008085943d735813d65906a48ca547aaae7cf77903620fe6a785454c7a7d8",
-          "storyId": "core-datatable--reui-data-grid-27"
-        },
-        {
           "name": "c-data-grid-28",
-          "title": "Data grid with remote infinite scroll",
-          "description": "Data grid with remote infinite scroll",
+          "title": "Infinite scroll",
+          "description": "Infinite scroll",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-28.jsx",
           "sha256": "7edd683a5dcfe46f71b65ccd7feafaa5b2fde701400e3e5c6c482b8b2930ec66",
           "storyId": "core-datatable--reui-data-grid-28"
         },
         {
           "name": "c-data-grid-29",
-          "title": "Data grid with row pinning support",
-          "description": "Data grid with row pinning support",
+          "title": "Selection, expansion and pinned rows",
+          "description": "Selection, expansion and pinned rows",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-29.jsx",
           "sha256": "875bc3c8c6dc20681117ddd341efbdd584a3f3a0967844af9d340fe36f90c809",
           "storyId": "core-datatable--reui-data-grid-29"
         },
         {
           "name": "c-data-grid-30",
-          "title": "Data grid with tree rows",
-          "description": "Data grid with tree rows",
+          "title": "Tree rows",
+          "description": "Tree rows",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-30.jsx",
           "sha256": "4bb0927bb97cd7cadcec88f7202703664df1ec1be28f2c30be3899928587b49a",
           "storyId": "core-datatable--reui-data-grid-30"
         },
         {
           "name": "c-data-grid-31",
-          "title": "Data grid with spreadsheet editing",
-          "description": "Data grid with spreadsheet editing",
+          "title": "Spreadsheet editing",
+          "description": "Spreadsheet editing",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-31.jsx",
           "sha256": "b27230e41eeb7e47278bd36a2e7838deb862e940ed8d66ec184ca7855d4f939e",
           "storyId": "core-datatable--reui-data-grid-31"
         },
         {
           "name": "c-data-grid-32",
-          "title": "Data grid with column virtualization",
-          "description": "Data grid with column virtualization",
+          "title": "Column virtualization",
+          "description": "Column virtualization",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-32.jsx",
           "sha256": "16b8664b7bc720fb5eafa850dc332de3eef47c85c5b89135ed8559794a177bda",
           "storyId": "core-datatable--reui-data-grid-32"
         },
         {
-          "name": "c-data-grid-33",
-          "title": "Data grid with localized labels",
-          "description": "Data grid with localized labels",
-          "file": ".storybook/fixtures/reui/data-grid/c-data-grid-33.jsx",
-          "sha256": "e3ce50170405e547cb630440adb11614e0a3c1660dc3917c8c288ed4501e223b",
-          "storyId": "core-datatable--reui-data-grid-33"
-        },
-        {
           "name": "c-data-grid-34",
-          "title": "Data grid with server side pagination",
-          "description": "Data grid with server side pagination, sorting, search and status filter",
+          "title": "Server-side pagination",
+          "description": "Server-side pagination",
           "file": ".storybook/fixtures/reui/data-grid/c-data-grid-34.jsx",
           "sha256": "bc0931d7c0b6dfe591a67a54c5f663e05ecad419da72d7912d3daf11f361706d",
           "storyId": "core-datatable--reui-data-grid-34"

@@ -222,6 +222,7 @@ export function Pattern() {
         header: ({ column }) => (
           <DataGridColumnHeader
             title='User'
+            icon={<RegistryIcon lucide='UserIcon' />}
             visibility={true}
             column={column}
           />
@@ -266,6 +267,7 @@ export function Pattern() {
         header: ({ column }) => (
           <DataGridColumnHeader
             title='Location'
+            icon={<RegistryIcon lucide='MapPinIcon' />}
             visibility={true}
             column={column}
           />
@@ -295,6 +297,7 @@ export function Pattern() {
         header: ({ column }) => (
           <DataGridColumnHeader
             title='Status'
+            icon={<RegistryIcon lucide='CircleCheckIcon' />}
             visibility={true}
             column={column}
           />

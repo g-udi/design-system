@@ -14,7 +14,9 @@ import { DataGridPagination } from '../../../../src/components/core/DataTable/pa
 import { DataGridScrollArea } from '../../../../src/components/core/DataTable/parts/data-grid-scroll-area-extended.jsx';
 import {
   DataGridTable,
-  DataGridTableRowPin
+  DataGridTableRowPin,
+  DataGridTableRowSelect,
+  DataGridTableRowSelectAll
 } from '../../../../src/components/core/DataTable/parts/data-grid-table-extended.jsx';
 import { useTable } from '@tanstack/react-table-v9';
 import { toast } from 'sonner';
@@ -218,8 +220,51 @@ export function Pattern() {
     top: [],
     bottom: []
   });
+  const [rowSelection, setRowSelection] = useState({});
+  const selected = Object.keys(rowSelection).length;
   const columns = useMemo(
     () => [
+      {
+        id: 'select',
+        header: () => <DataGridTableRowSelectAll />,
+        cell: ({ row }) => <DataGridTableRowSelect row={row} />,
+        size: 40,
+        enableSorting: false,
+        enableHiding: false,
+        enableResizing: false
+      },
+      {
+        id: 'expand',
+        header: () => null,
+        cell: ({ row }) => (
+          <Button
+            aria-label={row.getIsExpanded() ? `Hide ${row.original.name}` : `Show ${row.original.name}`}
+            aria-expanded={row.getIsExpanded()}
+            className='text-ui-muted-foreground size-6 hover:bg-transparent'
+            onClick={row.getToggleExpandedHandler()}
+            mode='icon'
+            variant='ghost'
+          >
+            <RegistryIcon
+              lucide='ChevronRightIcon'
+              aria-hidden='true'
+              className={row.getIsExpanded() ? 'rotate-90 transition-transform' : 'transition-transform'}
+            />
+          </Button>
+        ),
+        size: 36,
+        enableSorting: false,
+        enableHiding: false,
+        enableResizing: false,
+        meta: {
+          expandedContent: (row) => (
+            <div className='text-ui-muted-foreground ms-24 py-2.5 text-sm'>
+              {row.name} works as {row.role} with a balance of $
+              {row.balance.toFixed(2)}. Pin the row to keep it above the page as you sort or page.
+            </div>
+          )
+        }
+      },
       {
         id: 'pin',
         header: '',
@@ -326,8 +371,11 @@ export function Pattern() {
     getRowId: (row) => row.id,
     enableRowPinning: true,
     keepPinnedRows: true,
-    state: { pagination, sorting, rowPinning },
+    enableRowSelection: true,
+    getRowCanExpand: () => true,
+    state: { pagination, sorting, rowPinning, rowSelection },
     onPaginationChange: setPagination,
+    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onRowPinningChange: setRowPinning
   });
@@ -349,6 +397,11 @@ export function Pattern() {
             {(rowPinning.top?.length ?? 0) > 0 && (
               <Badge variant='primary-outline' size='sm'>
                 {rowPinning.top?.length} pinned
+              </Badge>
+            )}
+            {selected > 0 && (
+              <Badge variant='outline' size='sm'>
+                {selected} selected
               </Badge>
             )}
           </div>

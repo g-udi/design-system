@@ -1270,43 +1270,10 @@
       ],
       "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
     },
-    "core-datatable--custom-toolbar": {
-      "id": "core-datatable--custom-toolbar",
+    "core-datatable--request-states": {
+      "id": "core-datatable--request-states",
       "title": "Core/DataTable",
-      "name": "Custom Toolbar",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
-    },
-    "core-datatable--loading": {
-      "id": "core-datatable--loading",
-      "title": "Core/DataTable",
-      "name": "Loading",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
-    },
-    "core-datatable--empty-collection": {
-      "id": "core-datatable--empty-collection",
-      "title": "Core/DataTable",
-      "name": "Empty Collection",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
-    },
-    "core-datatable--failed-request": {
-      "id": "core-datatable--failed-request",
-      "title": "Core/DataTable",
-      "name": "Failed Request",
+      "name": "Request States",
       "type": "story",
       "tags": [
         "autodocs",
@@ -7410,177 +7377,7 @@
     "core-datatable--reui-data-grid-1": {
       "id": "core-datatable--reui-data-grid-1",
       "title": "Core/DataTable",
-      "name": "Pagination",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-2": {
-      "id": "core-datatable--reui-data-grid-2",
-      "title": "Core/DataTable",
-      "name": "Cell borders",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-3": {
-      "id": "core-datatable--reui-data-grid-3",
-      "title": "Core/DataTable",
-      "name": "Dense layout",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-4": {
-      "id": "core-datatable--reui-data-grid-4",
-      "title": "Core/DataTable",
-      "name": "Without table borders",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-5": {
-      "id": "core-datatable--reui-data-grid-5",
-      "title": "Core/DataTable",
-      "name": "Striped rows",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-6": {
-      "id": "core-datatable--reui-data-grid-6",
-      "title": "Core/DataTable",
-      "name": "Auto width layout",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-7": {
-      "id": "core-datatable--reui-data-grid-7",
-      "title": "Core/DataTable",
-      "name": "Row selection",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-8": {
-      "id": "core-datatable--reui-data-grid-8",
-      "title": "Core/DataTable",
-      "name": "Expandable rows",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-9": {
-      "id": "core-datatable--reui-data-grid-9",
-      "title": "Core/DataTable",
-      "name": "Sub table",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-10": {
-      "id": "core-datatable--reui-data-grid-10",
-      "title": "Core/DataTable",
-      "name": "Column icons",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-11": {
-      "id": "core-datatable--reui-data-grid-11",
-      "title": "Core/DataTable",
-      "name": "Sortable columns",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-12": {
-      "id": "core-datatable--reui-data-grid-12",
-      "title": "Core/DataTable",
-      "name": "Movable columns",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-13": {
-      "id": "core-datatable--reui-data-grid-13",
-      "title": "Core/DataTable",
-      "name": "Draggable columns",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-14": {
-      "id": "core-datatable--reui-data-grid-14",
-      "title": "Core/DataTable",
-      "name": "Draggable rows",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-15": {
-      "id": "core-datatable--reui-data-grid-15",
-      "title": "Core/DataTable",
-      "name": "Column resizing",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-16": {
-      "id": "core-datatable--reui-data-grid-16",
-      "title": "Core/DataTable",
-      "name": "Pinnable columns",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-17": {
-      "id": "core-datatable--reui-data-grid-17",
-      "title": "Core/DataTable",
-      "name": "Sticky header",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-18": {
-      "id": "core-datatable--reui-data-grid-18",
-      "title": "Core/DataTable",
-      "name": "Column controls",
+      "name": "Layout options",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7590,97 +7387,7 @@
     "core-datatable--reui-data-grid-19": {
       "id": "core-datatable--reui-data-grid-19",
       "title": "Core/DataTable",
-      "name": "Card container",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-20": {
-      "id": "core-datatable--reui-data-grid-20",
-      "title": "Core/DataTable",
-      "name": "Column visibility controls",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-21": {
-      "id": "core-datatable--reui-data-grid-21",
-      "title": "Core/DataTable",
-      "name": "Loading skeleton",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-22": {
-      "id": "core-datatable--reui-data-grid-22",
-      "title": "Core/DataTable",
-      "name": "CRUD features",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-23": {
-      "id": "core-datatable--reui-data-grid-23",
-      "title": "Core/DataTable",
-      "name": "CRUD in a frame",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-24": {
-      "id": "core-datatable--reui-data-grid-24",
-      "title": "Core/DataTable",
-      "name": "Column totals footer",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-25": {
-      "id": "core-datatable--reui-data-grid-25",
-      "title": "Core/DataTable",
-      "name": "Summary stats footer",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-26": {
-      "id": "core-datatable--reui-data-grid-26",
-      "title": "Core/DataTable",
-      "name": "Per-column aggregate footer",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-27": {
-      "id": "core-datatable--reui-data-grid-27",
-      "title": "Core/DataTable",
-      "name": "Local infinite scroll",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-28": {
-      "id": "core-datatable--reui-data-grid-28",
-      "title": "Core/DataTable",
-      "name": "Remote infinite scroll",
+      "name": "Column controls",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7690,7 +7397,27 @@
     "core-datatable--reui-data-grid-29": {
       "id": "core-datatable--reui-data-grid-29",
       "title": "Core/DataTable",
-      "name": "Row pinning",
+      "name": "Selection, expansion and pinned rows",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
+    },
+    "core-datatable--reui-data-grid-14": {
+      "id": "core-datatable--reui-data-grid-14",
+      "title": "Core/DataTable",
+      "name": "Draggable rows and columns",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
+    },
+    "core-datatable--reui-data-grid-26": {
+      "id": "core-datatable--reui-data-grid-26",
+      "title": "Core/DataTable",
+      "name": "Footer totals and aggregates",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7707,6 +7434,16 @@
       ],
       "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
     },
+    "core-datatable--reui-data-grid-9": {
+      "id": "core-datatable--reui-data-grid-9",
+      "title": "Core/DataTable",
+      "name": "Sub table",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
+    },
     "core-datatable--reui-data-grid-31": {
       "id": "core-datatable--reui-data-grid-31",
       "title": "Core/DataTable",
@@ -7717,20 +7454,10 @@
       ],
       "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
     },
-    "core-datatable--reui-data-grid-32": {
-      "id": "core-datatable--reui-data-grid-32",
+    "core-datatable--reui-data-grid-23": {
+      "id": "core-datatable--reui-data-grid-23",
       "title": "Core/DataTable",
-      "name": "Column virtualization",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
-    },
-    "core-datatable--reui-data-grid-33": {
-      "id": "core-datatable--reui-data-grid-33",
-      "title": "Core/DataTable",
-      "name": "Localized labels",
+      "name": "CRUD in a frame",
       "type": "story",
       "tags": [
         "autodocs"
@@ -7741,6 +7468,26 @@
       "id": "core-datatable--reui-data-grid-34",
       "title": "Core/DataTable",
       "name": "Server-side pagination",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
+    },
+    "core-datatable--reui-data-grid-28": {
+      "id": "core-datatable--reui-data-grid-28",
+      "title": "Core/DataTable",
+      "name": "Infinite scroll",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/ReuiDataGrid.stories.jsx"
+    },
+    "core-datatable--reui-data-grid-32": {
+      "id": "core-datatable--reui-data-grid-32",
+      "title": "Core/DataTable",
+      "name": "Column virtualization",
       "type": "story",
       "tags": [
         "autodocs"

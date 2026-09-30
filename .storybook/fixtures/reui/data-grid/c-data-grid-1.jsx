@@ -10,6 +10,8 @@ import { DataGridPagination } from '../../../../src/components/core/DataTable/pa
 import { DataGridScrollArea } from '../../../../src/components/core/DataTable/parts/data-grid-scroll-area-extended.jsx';
 import { DataGridTable } from '../../../../src/components/core/DataTable/parts/data-grid-table-extended.jsx';
 import { useTable } from '@tanstack/react-table-v9';
+import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
+import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
 const users = [
   {
     id: '1',
@@ -138,10 +140,31 @@ const demoData = users.map((user, index) => ({
   ][index % 10],
   balance: 5143.03 + index * 100
 }));
+// Every tableLayout flag on one grid: toggle them to compare density, borders, stripes and width.
+const layoutOptions = [
+  { key: 'dense', label: 'Dense' },
+  { key: 'cellBorder', label: 'Cell borders' },
+  { key: 'rowBorder', label: 'Row borders' },
+  { key: 'stripped', label: 'Stripes' },
+  { key: 'rowRounded', label: 'Rounded rows' },
+  { key: 'headerBackground', label: 'Header fill' },
+  { key: 'headerSticky', label: 'Sticky header' },
+  { key: 'autoWidth', label: 'Auto width' }
+];
 export function Pattern() {
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 5
+    pageSize: 10
+  });
+  const [layout, setLayout] = useState({
+    dense: false,
+    cellBorder: false,
+    rowBorder: true,
+    stripped: true,
+    rowRounded: false,
+    headerBackground: true,
+    headerSticky: true,
+    autoWidth: false
   });
   const [sorting, setSorting] = useState([{ id: 'name', desc: true }]);
   const columns = useMemo(
@@ -221,10 +244,28 @@ export function Pattern() {
     onSortingChange: setSorting
   });
   return (
-    <DataGrid table={table} recordCount={demoData?.length || 0}>
+    <DataGrid
+      table={table}
+      recordCount={demoData?.length || 0}
+      tableLayout={{ ...layout, width: layout.autoWidth ? 'auto' : 'fixed' }}
+    >
       <div className='w-full space-y-2.5'>
+        <div role='group' aria-label='Layout options' className='flex flex-wrap gap-x-4 gap-y-2'>
+          {layoutOptions.map((option) => (
+            <Label key={option.key} className='gap-2 text-sm font-normal'>
+              <Switch
+                size='sm'
+                checked={layout[option.key]}
+                onCheckedChange={(checked) =>
+                  setLayout((current) => ({ ...current, [option.key]: checked }))
+                }
+              />
+              {option.label}
+            </Label>
+          ))}
+        </div>
         <DataGridContainer>
-          <DataGridScrollArea>
+          <DataGridScrollArea className={layout.headerSticky ? 'max-h-80' : undefined}>
             <DataGridTable />
           </DataGridScrollArea>
         </DataGridContainer>
