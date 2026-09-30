@@ -21,7 +21,7 @@ export function Pattern() {
         Open Command
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className='**:data-[selected=true]:bg-ui-muted **:data-selected:bg-transparent'>
+        <Command>
           <CommandInput placeholder='Type a command or search...' />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>

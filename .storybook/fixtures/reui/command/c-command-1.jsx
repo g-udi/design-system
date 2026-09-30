@@ -20,7 +20,7 @@ export function Pattern() {
       <CardContent className='p-0'>
         {/* Inline palettes wait for keyboard or search input before selecting an item.
             This also prevents cmdk's initial selection from scrolling the host page. */}
-        <Command defaultValue='__unselected__' className='**:data-[selected=true]:bg-ui-muted **:data-selected:bg-transparent'>
+        <Command defaultValue='__unselected__'>
           <CommandInput placeholder='Type a command or search...' />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>

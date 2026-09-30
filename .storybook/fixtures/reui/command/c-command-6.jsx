@@ -62,7 +62,7 @@ export function Pattern() {
         Search Users
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className='**:data-[selected=true]:bg-ui-muted **:data-selected:bg-transparent'>
+        <Command>
           <CommandInput placeholder='Search by name or email...' />
           <CommandList>
             <CommandEmpty>No users found.</CommandEmpty>

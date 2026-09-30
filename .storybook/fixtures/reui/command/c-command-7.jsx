@@ -22,7 +22,7 @@ export function Pattern() {
         Quick Actions
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className='**:data-[selected=true]:bg-ui-muted **:data-selected:bg-transparent'>
+        <Command>
           <CommandInput placeholder='What do you need?' />
           <CommandList>
             <CommandEmpty>No actions found.</CommandEmpty>

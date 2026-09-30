@@ -357,48 +357,54 @@
   }
 
   /* MARK: Command */
+  /* Matches the CmdLauncher (.gaudi-command-launcher in styles.css): same launcher tokens,
+     flat search row, uppercase group headings, accent-tinted selection. */
   .ds-part-command {
-    @apply bg-ui-popover text-ui-popover-foreground rounded-xl! p-1;
+    @apply rounded-lg bg-(--ds-color-launcher-bg) text-(--ds-color-launcher-text) not-in-data-[slot=dialog-content]:border not-in-data-[slot=dialog-content]:border-(--ds-color-launcher-border);
   }
 
   .ds-part-command-dialog {
-    @apply rounded-xl!;
+    @apply rounded-lg! gap-0 bg-(--ds-color-launcher-bg) shadow-(--ds-shadow-launcher) sm:max-w-2xl!;
   }
 
   .ds-part-command-input-wrapper {
-    @apply p-1 pb-0;
+    @apply border-b border-(--ds-color-launcher-border);
   }
 
   .ds-part-command-input-group {
-    @apply bg-ui-input/30 border-ui-input/30 h-8! rounded-lg! shadow-none! *:data-[slot=input-group-addon]:pl-2!;
+    @apply h-10! rounded-none! border-0! bg-transparent! shadow-none! ring-0! *:data-[slot=input-group-addon]:pl-3!;
   }
 
   .ds-part-command-input-icon {
-    @apply size-4 shrink-0 opacity-50;
+    @apply size-4 shrink-0 text-(--ds-color-launcher-placeholder);
   }
 
   .ds-part-command-input {
-    @apply w-full text-sm;
+    @apply w-full bg-transparent text-sm text-(--ds-color-launcher-input-text) placeholder:text-(--ds-color-launcher-placeholder);
   }
 
   .ds-part-command-list {
-    @apply no-scrollbar max-h-72 scroll-py-1 outline-none;
+    @apply no-scrollbar max-h-80 scroll-py-1 p-1 outline-none;
   }
 
   .ds-part-command-empty {
-    @apply py-6 text-center text-sm;
+    @apply py-6 text-center text-sm text-(--ds-color-launcher-heading);
   }
 
   .ds-part-command-group {
-    @apply text-ui-foreground **:[[cmdk-group-heading]]:text-ui-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium;
+    @apply overflow-hidden text-(--ds-color-launcher-item-text) **:[[cmdk-group-heading]]:px-3 **:[[cmdk-group-heading]]:pt-2 **:[[cmdk-group-heading]]:pb-1 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-semibold **:[[cmdk-group-heading]]:tracking-wider **:[[cmdk-group-heading]]:uppercase **:[[cmdk-group-heading]]:text-(--ds-color-launcher-heading);
   }
 
   .ds-part-command-separator {
-    @apply bg-ui-border -mx-1 h-px;
+    @apply my-1 h-px bg-(--ds-color-launcher-border);
   }
 
   .ds-part-command-item {
-    @apply data-selected:bg-ui-muted data-selected:text-ui-foreground data-selected:*:[svg]:text-ui-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! [&_svg:not([class*='size-'])]:size-4;
+    @apply relative flex min-h-9 cursor-pointer items-center gap-2 rounded-md px-3 py-2 text-sm outline-hidden select-none data-[selected=true]:bg-(--ds-color-launcher-item-selected-bg) data-[selected=true]:text-(--ds-color-launcher-text) [&_svg:not([class*='size-'])]:size-4 [&_svg]:text-(--ds-color-launcher-heading);
+  }
+
+  .ds-part-command-footer {
+    @apply flex min-h-9 items-center gap-3.5 border-t border-border bg-surface-muted px-3 py-2 text-xs leading-none text-text-muted;
   }
 
   .ds-part-command-item-aria {
@@ -406,7 +412,7 @@
   }
 
   .ds-part-command-shortcut {
-    @apply text-ui-muted-foreground group-data-selected/command-item:text-ui-foreground ml-auto text-xs tracking-widest;
+    @apply text-(--ds-color-launcher-heading) group-data-[selected=true]/command-item:text-(--ds-color-launcher-text) ml-auto text-xs tracking-widest;
   }
 
   .ds-part-command-shortcut-aria {

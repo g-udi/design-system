@@ -21,7 +21,7 @@ export function Pattern() {
         Search Everything
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <Command className='**:data-[selected=true]:bg-ui-muted **:data-selected:bg-transparent'>
+        <Command>
           <CommandInput placeholder='Search or jump to...' />
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>

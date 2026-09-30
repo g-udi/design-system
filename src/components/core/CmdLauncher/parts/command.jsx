@@ -11,6 +11,7 @@ import {
 } from '../../Dialog/parts/dialog.jsx';
 import { InputGroup, InputGroupAddon } from '../../Input/parts/input-group.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import Kbd from '../../Kbd/Kbd.jsx';
 function Command({ className, ...props }) {
   return (
     <CommandPrimitive
@@ -29,6 +30,7 @@ function CommandDialog({
   children,
   className,
   showCloseButton = false,
+  footer = <CommandFooter />,
   ...props
 }) {
   return (
@@ -45,6 +47,7 @@ function CommandDialog({
         showCloseButton={showCloseButton}
       >
         {children}
+        {footer}
       </DialogContent>
     </Dialog>
   );
@@ -141,8 +144,35 @@ function CommandShortcut({ className, ...props }) {
     />
   );
 }
+/** Keyboard hints under the list, shared by CommandDialog and CmdLauncher. */
+function CommandFooter({ className, ...props }) {
+  return (
+    <div
+      data-slot='command-footer'
+      className={cn('ds-part-command-footer', className)}
+      {...props}
+    >
+      <span className='flex items-center gap-1.5'>
+        <span className='inline-flex items-center gap-1'>
+          <Kbd keys='up' size='sm' />
+          <Kbd keys='down' size='sm' />
+        </span>
+        Navigate
+      </span>
+      <span className='hidden items-center gap-1.5 sm:flex'>
+        <Kbd keys='enter' size='sm' />
+        Select
+      </span>
+      <span className='ms-auto flex items-center gap-1.5'>
+        <Kbd keys='escape' size='sm' />
+        Close
+      </span>
+    </div>
+  );
+}
 export {
   Command,
+  CommandFooter,
   CommandDialog,
   CommandInput,
   CommandList,

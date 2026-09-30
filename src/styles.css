@@ -150,7 +150,7 @@
     /* Command launcher */
     --ds-color-launcher-bg: #ffffff;
     --ds-color-launcher-border: rgb(229, 231, 235);
-    --ds-color-launcher-heading: rgba(107, 114, 128, 0.9);
+    --ds-color-launcher-heading: rgb(107, 114, 128);
     --ds-color-launcher-input-text: rgba(17, 24, 39, 0.95);
     --ds-color-launcher-item-selected-bg: rgba(37, 99, 235, 0.08);
     --ds-color-launcher-item-text: #374151;
