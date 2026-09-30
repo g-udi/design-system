@@ -95,7 +95,7 @@ const CarouselControl = ({ children, className, disabled, label, onClick }) => (
   <button
     aria-label={ label }
     className={ cn(
-      'inline-flex size-11 items-center justify-center rounded-control border border-gray-200 bg-white text-gray-700 shadow-sm transition hover:border-blue-200 hover:text-blue-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:border-blue-700 dark:hover:text-blue-300 dark:focus-visible:ring-offset-gray-950', className
+      'inline-flex size-8 items-center justify-center rounded-control border border-border bg-surface text-text shadow-xs transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 pointer-coarse:size-11 dark:focus-visible:ring-offset-gray-950', className
     ) }
     disabled={ disabled }
     type='button'

@@ -9,6 +9,7 @@
   .ds-accordion[data-variant='framed'] {
     border: 1px solid var(--ds-color-border);
     background: var(--ds-color-surface);
+    overflow: clip;
   }
   .ds-accordion[data-variant='framed'] {
     padding: 4px;
@@ -37,6 +38,12 @@
   }
   .ds-accordion[data-variant='framed'] > .ds-accordion-item {
     background: var(--ds-color-surface);
+  }
+  /* Clip square row backgrounds to their surface, not the internal divider. */
+  .ds-accordion[data-variant='separated'] > .ds-accordion-item,
+  .ds-accordion[data-variant='solid'] > .ds-accordion-item,
+  .ds-accordion[data-variant='framed'] > .ds-accordion-item {
+    overflow: clip;
   }
   .ds-accordion-item:first-child {
     border-start-start-radius: inherit;

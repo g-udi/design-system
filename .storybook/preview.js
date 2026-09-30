@@ -80,6 +80,8 @@ function syncStorybookTheme(theme, cornerRadius) {
 
 const preview = {
   afterEach: async (context) => {
+    // Interaction tests end wherever they last focused; clear it so previews show no stray focus rings.
+    if (context.canvasElement?.contains(document.activeElement)) document.activeElement.blur();
     if (import.meta.env.VITE_GAUDI_VISUAL === '1') {
       const { auditVisualLayout } = await import('./visualAudit.js');
       await auditVisualLayout(context);
