@@ -75,8 +75,3 @@ export const StateGalleryExample = {
   name: 'Components in use',
   render: () => <StateGallery />
 };
-export const DarkStateGallery = {
-  name: 'Components in use · dark',
-  globals: { theme: 'dark' },
-  render: () => <StateGallery />
-};

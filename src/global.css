@@ -24,13 +24,6 @@
  * color utility to any element that depends on these defaults.
  */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    @apply border-border;
-  }
   
   /*
    * Smooth anchor/TOC scrolling; the prefers-reduced-motion block below

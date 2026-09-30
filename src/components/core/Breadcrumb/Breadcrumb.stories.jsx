@@ -2,17 +2,7 @@ import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
-import {
-  Breadcrumb,
-  BreadcrumbEllipsis,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-  BreadcrumbTrail
-} from './Breadcrumb';
-import { RegistryIcon } from '../../../icons/RegistryIcon';
+import { BreadcrumbTrail } from './Breadcrumb';
 
 const docs = getComponentDocs('Core/Breadcrumb');
 const items = [
@@ -22,51 +12,6 @@ const items = [
   { href: '/docs/components/navigation', label: 'Navigation' },
   { current: true, label: 'Breadcrumb' }
 ];
-const trail = (canvasElement, name) => within(within(canvasElement).getByRole('navigation', { name }));
-// Long paths keep the root and the last two levels; everything between collapses into an ellipsis.
-const collapse = (path) => (path.length > 3 ? [path[0], null, ...path.slice(-2)] : path);
-const collapsedSource = [
-  '',
-  "<Breadcrumb label='Collapsed breadcrumb'>",
-  '  <BreadcrumbList>',
-  "    <BreadcrumbItem><BreadcrumbLink href='/'><RegistryIcon lucide='HouseIcon' aria-hidden='true' /><span className='sr-only'>Home</span></BreadcrumbLink></BreadcrumbItem>",
-  '    <BreadcrumbSeparator>/</BreadcrumbSeparator>',
-  '    <BreadcrumbItem><BreadcrumbEllipsis /></BreadcrumbItem>',
-  '    <BreadcrumbSeparator>/</BreadcrumbSeparator>',
-  "    <BreadcrumbItem><BreadcrumbLink href='/docs/components/navigation'>Navigation</BreadcrumbLink></BreadcrumbItem>",
-  '    <BreadcrumbSeparator>/</BreadcrumbSeparator>',
-  '    <BreadcrumbItem><BreadcrumbPage>Breadcrumb</BreadcrumbPage></BreadcrumbItem>',
-  '  </BreadcrumbList>',
-  '</Breadcrumb>'
-].join('\n');
-
-function CollapsedTrail({ path }) {
-  const visible = collapse(path);
-  return (
-    <Breadcrumb label='Collapsed breadcrumb'>
-      <BreadcrumbList>
-        {visible.map((item, index) => {
-          const current = index === visible.length - 1;
-          let content = <BreadcrumbEllipsis />;
-          if (item && current) content = <BreadcrumbPage>{item.label}</BreadcrumbPage>;
-          else if (item && index === 0) content = (
-            <BreadcrumbLink href={item.href}>
-              <RegistryIcon lucide='HouseIcon' className='size-4' aria-hidden='true' />
-              <span className='sr-only'>{item.label}</span>
-            </BreadcrumbLink>
-          );
-          else if (item) content = <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>;
-          return (
-            <BreadcrumbItem key={item?.label ?? 'ellipsis'}>
-              {index > 0 ? <BreadcrumbSeparator>/</BreadcrumbSeparator> : null}
-              {content}
-            </BreadcrumbItem>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
-  );
-}
 
 export default {
   title: 'Core/Breadcrumb',
@@ -86,21 +31,13 @@ export const Playground = {
   args: { items },
   parameters: {
     docs: {
-      description: { story: 'The same five-level path twice: the full `BreadcrumbTrail`, then a composed trail for tight headers with a home icon, slash separators, and the middle levels collapsed. Edit `items` to change both.' },
-      source: playgroundSource('BreadcrumbTrail', {
-        imports: "import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbTrail } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
-        after: collapsedSource
-      })
+      description: { story: 'A five-level path: every ancestor is a link and the last item marks the current page. Edit `items` to change the trail. Collapsed, icon and dropdown trails are in the examples below.' },
+      source: playgroundSource('BreadcrumbTrail', { imports: "import { BreadcrumbTrail } from '@gaudi/design-system';" })
     }
   },
-  render: (args) => (
-    <div className='grid justify-items-center gap-4'>
-      <BreadcrumbTrail {...args} />
-      <CollapsedTrail path={args.items} />
-    </div>
-  ),
+  render: (args) => <div className='flex justify-center'><BreadcrumbTrail {...args} /></div>,
   play: async ({ args, canvasElement }) => {
-    const nav = trail(canvasElement, 'Breadcrumb');
+    const nav = within(within(canvasElement).getByRole('navigation', { name: 'Breadcrumb' }));
     const current = args.items.at(-1);
     await expect(nav.getAllByRole('listitem')).toHaveLength(args.items.length);
     for (const { href, label } of args.items.slice(0, -1)) {
@@ -108,15 +45,5 @@ export const Playground = {
     }
     await expect(nav.getByText(current.label)).toHaveAttribute('aria-current', 'page');
     await expect(nav.queryByRole('link', { name: current.label })).not.toBeInTheDocument();
-    const collapsed = trail(canvasElement, 'Collapsed breadcrumb');
-    const visible = collapse(args.items);
-    await expect(collapsed.getAllByRole('listitem')).toHaveLength(visible.length);
-    await expect(collapsed.queryByLabelText('More pages')).toEqual(visible.includes(null) ? expect.anything() : null);
-    await expect(collapsed.queryByRole('link', { name: 'More pages' })).not.toBeInTheDocument();
-    // The ellipsis is as compact as a separator, so gaps along the trail stay even.
-    const ellipsis = collapsed.queryByRole('img', { name: 'More pages' });
-    const separator = canvasElement.querySelector('[aria-label="Collapsed breadcrumb"] li > span[aria-hidden="true"]');
-    if (ellipsis && separator) await expect(ellipsis.getBoundingClientRect().height).toBeLessThanOrEqual(separator.getBoundingClientRect().height);
-    await expect(collapsed.getByText(current.label)).toHaveAttribute('aria-current', 'page');
   }
 };

@@ -9,6 +9,15 @@
  * they are not consumed by the JavaScript or Tailwind token APIs.
  */
 @layer base {
+  /* Bare `border` utilities take the design-system border token, never currentColor. */
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--ds-color-border);
+  }
+
   :root {
     --ds-color-accent: #2563eb;
     --ds-color-accent-dark: #1d4ed8;

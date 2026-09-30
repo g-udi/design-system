@@ -62,6 +62,7 @@ export const Playground = {
 - The docs canvas owns spacing. Don't wrap stories in `p-6` or other padding. `ExampleFrame` only caps and
   centres width.
 - Don't add galleries or overview stories that repeat catalogue patterns.
+- Don't add dark-only stories. Every story renders in both themes through the toolbar's Theme switch (and `VITE_GAUDI_THEME=dark` in tests).
 
 ## Catalogue file
 

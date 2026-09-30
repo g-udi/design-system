@@ -327,16 +327,6 @@
       ],
       "importPath": "./src/components/blocks/ApplicationPatterns.stories.jsx"
     },
-    "overview-application-patterns--dark-state-gallery": {
-      "id": "overview-application-patterns--dark-state-gallery",
-      "title": "Overview/Application patterns",
-      "name": "Components in use · dark",
-      "type": "story",
-      "tags": [
-        "!autodocs"
-      ],
-      "importPath": "./src/components/blocks/ApplicationPatterns.stories.jsx"
-    },
     "blocks-application-appshell--playground": {
       "id": "blocks-application-appshell--playground",
       "title": "Blocks/Application/AppShell",

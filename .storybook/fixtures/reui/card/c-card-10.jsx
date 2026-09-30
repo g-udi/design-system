@@ -29,8 +29,8 @@ export function Pattern() {
       <CardContent className='flex items-center gap-5 p-0'>
         <div className='group/card relative flex h-96 w-full flex-col justify-end overflow-hidden'>
           <img
-            src='https://randomuser.me/api/portraits/men/75.jpg'
-            alt='16:9'
+            src='static/images/art/5.svg'
+            alt=''
             width={1e3}
             height={800}
             className='absolute inset-0 size-full object-cover transition-transform duration-500 group-hover/card:scale-110'
@@ -45,10 +45,10 @@ export function Pattern() {
             <div className='relative'>
               <Avatar className='size-10'>
                 <AvatarImage
-                  src='static/images/art/9.svg'
-                  alt='James Brown'
+                  src='https://randomuser.me/api/portraits/men/75.jpg'
+                  alt='Nick Johnson'
                 />
-                <AvatarFallback>JB</AvatarFallback>
+                <AvatarFallback>NJ</AvatarFallback>
               </Avatar>
               <span className='absolute -top-0.5 -right-0.5'>
                 <CustomBadge />
