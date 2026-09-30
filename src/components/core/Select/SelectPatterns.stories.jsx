@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/select/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('select') };
+export default { title: 'Core/Inputs/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('select') };
 
 export const SelectPattern8 = { name: 'Form fields and states', ...pattern(8, 'Label and description, a disabled option, the small trigger, a long list aligned to the selected item, and invalid and disabled fields.') };
 export const SelectPattern18 = { name: 'Rich option content', ...pattern(18, 'Icons, status dots, avatars under a group label, badges behind a trigger prefix, flags and font previews.') };

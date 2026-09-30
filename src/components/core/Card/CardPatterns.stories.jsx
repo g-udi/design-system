@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/card/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Card', tags: ['autodocs'], ...catalogueMeta('card') };
+export default { title: 'Core/Layout & Containers/Card', id: 'core-card', tags: ['autodocs'], ...catalogueMeta('card') };
 
 export const CardPattern1 = { name: 'Sections and dividers', ...pattern(1, 'Header, description, header menu, content link and footer actions; switches toggle the header and footer dividers and a stacked depth effect.') };
 export const CardPattern7 = { name: 'Media cards', ...pattern(7, 'An image card with inset or full-bleed media beside an overlay card with an author header, gradient fades and hover zoom.') };

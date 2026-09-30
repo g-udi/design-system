@@ -14,7 +14,7 @@ const items = [
 ];
 
 export default {
-  title: 'Core/Breadcrumb',
+  title: 'Core/Navigation/Breadcrumb',
   id: 'core-breadcrumb',
   component: BreadcrumbTrail,
   tags: ['autodocs'],

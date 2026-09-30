@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/gantt/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Gantt', tags: ['autodocs'], ...catalogueMeta('gantt') };
+export default { title: 'Core/Planning/Gantt', id: 'core-gantt', tags: ['autodocs'], ...catalogueMeta('gantt') };
 
 export const GanttPattern1 = { name: 'Settings menu, row reordering and scheduling', ...pattern(1, 'A settings menu toggles every display and interaction flag, row handles drag to reorder the tree, and empty rows schedule by drag or click.') };
 export const GanttPattern5 = { name: 'Task table with progress', ...pattern(5) };

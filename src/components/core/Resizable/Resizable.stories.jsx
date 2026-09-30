@@ -76,7 +76,7 @@ function MailClient({ orientation, withHandle }) {
 }
 
 export default {
-  title: 'Core/Resizable',
+  title: 'Core/Layout & Containers/Resizable',
   id: 'core-resizable',
   component: ResizablePanelGroup,
   tags: ['autodocs'],

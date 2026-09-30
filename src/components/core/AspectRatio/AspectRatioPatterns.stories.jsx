@@ -6,6 +6,6 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/aspect-ratio/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/AspectRatio', tags: ['autodocs'], ...catalogueMeta('aspect-ratio') };
+export default { title: 'Core/Layout & Containers/AspectRatio', id: 'core-aspectratio', tags: ['autodocs'], ...catalogueMeta('aspect-ratio') };
 
 export const AspectRatioPattern1 = { name: 'Common ratios', ...pattern(1, 'Eight media shapes side by side, from a 21:9 banner to a 9:16 story.') };

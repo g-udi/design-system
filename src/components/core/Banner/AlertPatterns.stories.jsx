@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/alert/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Banner', tags: ['autodocs'], ...catalogueMeta('alert') };
+export default { title: 'Core/Feedback & States/Banner', id: 'core-banner', tags: ['autodocs'], ...catalogueMeta('alert') };
 
 export const AlertPattern2 = { name: 'Alert: Variants', ...pattern(2, 'Default with and without an icon, then info, success, warning, destructive and invert.') };
 export const AlertPattern3 = { name: 'Alert: Actions and rich content', ...pattern(3, 'Actions beside a title and description, a title alone, or a description alone, plus a destructive alert with a list.') };

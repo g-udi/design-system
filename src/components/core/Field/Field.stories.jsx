@@ -12,7 +12,7 @@ const profile = { name: 'Ada Lovelace', handle: 'ada', handleError: 'That handle
 const emailInput = (canvas) => canvas.getByRole('textbox', { name: new RegExp(`^${email.label}`) });
 
 export default {
-  title: 'Core/Field',
+  title: 'Core/Inputs/Field',
   id: 'core-field',
   component: Field,
   tags: ['autodocs'],

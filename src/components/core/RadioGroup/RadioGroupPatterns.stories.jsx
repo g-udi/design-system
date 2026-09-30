@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/radio-group/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/RadioGroup', tags: ['autodocs'], ...catalogueMeta('radio-group') };
+export default { title: 'Core/Inputs/RadioGroup', id: 'core-radiogroup', tags: ['autodocs'], ...catalogueMeta('radio-group') };
 
 export const RadioGroupPattern6 = {
   name: 'Fieldset, descriptions and states',

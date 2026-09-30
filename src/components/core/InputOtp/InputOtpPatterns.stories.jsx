@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/input-otp/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/InputOtp', tags: ['autodocs'], ...catalogueMeta('input-otp') };
+export default { title: 'Core/Inputs/InputOtp', id: 'core-inputotp', tags: ['autodocs'], ...catalogueMeta('input-otp') };
 
 export const InputOtpPattern1 = {
   name: 'Code formats',

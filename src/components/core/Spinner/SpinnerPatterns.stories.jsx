@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/spinner/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Spinner', tags: ['autodocs'], ...catalogueMeta('spinner') };
+export default { title: 'Core/Feedback & States/Spinner', id: 'core-spinner', tags: ['autodocs'], ...catalogueMeta('spinner') };
 
 export const SpinnerPattern2 = { name: 'In buttons, badges and inputs', ...pattern(2, 'Busy buttons, syncing badges and a searching input addon.') };
 export const SpinnerPattern9 = { name: 'Inline status', ...pattern(9, 'Spinners beside status text take the tone of the message; three dots mark a typing indicator.') };

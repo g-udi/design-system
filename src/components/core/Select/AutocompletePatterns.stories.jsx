@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/autocomplete/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('autocomplete') };
+export default { title: 'Core/Inputs/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('autocomplete') };
 
 export const AutocompletePattern1 = {
   name: 'Input options',

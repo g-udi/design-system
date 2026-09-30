@@ -37,7 +37,7 @@ const roster = [
 const [, , initialsPerson, guest] = roster;
 
 export default {
-  title: 'Core/Avatar',
+  title: 'Core/Data Display/Avatar',
   id: 'core-avatar',
   component: Avatar,
   tags: ['autodocs'],

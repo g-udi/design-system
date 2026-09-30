@@ -27,7 +27,7 @@ const tools = [
 ];
 
 export default {
-  title: 'Core/Tooltip',
+  title: 'Core/Overlays & Menus/Tooltip', id: 'core-tooltip',
   component: Tooltip,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { content: 'text', side: ['top', 'right', 'bottom', 'left'], delayDuration: 'number' }),

@@ -64,7 +64,7 @@ const events = [
 const sourceItems = events.map(({ id, title, description, time, dateTime }) => ({ id, title, description, time, dateTime }));
 
 export default {
-  title: 'Core/Timeline',
+  title: 'Core/Data Display/Timeline', id: 'core-timeline',
   component: Timeline,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { label: 'text' }),

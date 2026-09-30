@@ -56,7 +56,7 @@ function ToastWindow(args) {
 }
 
 export default {
-  title: 'Core/Toast',
+  title: 'Core/Overlays & Menus/Toast', id: 'core-toast',
   component: ToastProvider,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

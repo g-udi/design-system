@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/tooltip/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Tooltip', tags: ['autodocs'], ...catalogueMeta('tooltip') };
+export default { title: 'Core/Overlays & Menus/Tooltip', id: 'core-tooltip', tags: ['autodocs'], ...catalogueMeta('tooltip') };
 
 export const TooltipPattern2 = { name: 'Sides', ...pattern(2) };
 export const TooltipPattern6 = { name: 'Status and metadata', ...pattern(6, 'File details, labels, an inline verified mark, service status and a warning, each on its own trigger.') };

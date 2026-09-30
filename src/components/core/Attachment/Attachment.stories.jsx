@@ -63,7 +63,7 @@ function FileAttachment({ file, state, onRemove, onRetry, ...props }) {
 }
 
 export default {
-  title: 'Core/Attachment',
+  title: 'Core/Messaging/Attachment',
   id: 'core-attachment',
   component: Attachment,
   tags: ['autodocs'],

@@ -11,7 +11,7 @@ const pattern = patternStories(
 /** Opens each trigger in turn, then closes the dialog with Escape and checks focus returns to it. */
 const openEach = openEachDialog;
 
-export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('sheet') };
+export default { title: 'Core/Overlays & Menus/Dialog', id: 'core-dialog', tags: ['autodocs'], ...catalogueMeta('sheet') };
 
 export const SheetPattern1 = {
   name: 'Sheet with a form',

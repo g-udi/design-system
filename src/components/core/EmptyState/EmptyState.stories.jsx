@@ -16,7 +16,7 @@ const docs = getComponentDocs('Core/EmptyState');
 const search = { query: 'quantum annealing', filters: ['Topic: Physics', 'Year: 2024'] };
 
 export default {
-  title: 'Core/EmptyState',
+  title: 'Core/Feedback & States/EmptyState', id: 'core-emptystate',
   component: EmptyState,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { title: 'text', description: 'text', compact: 'boolean' }),

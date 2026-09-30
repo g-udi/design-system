@@ -53,7 +53,7 @@ function CalendarPreview({ mode, ...args }) {
 }
 
 export default {
-  title: 'Core/Calendar',
+  title: 'Core/Inputs/Calendar',
   id: 'core-calendar',
   component: Calendar,
   tags: ['autodocs'],

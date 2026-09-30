@@ -109,7 +109,7 @@ function Collection({ query: seededQuery = '', ...props }) {
 }
 
 export default {
-  title: 'Core/FilterBar',
+  title: 'Core/Data Display/FilterBar', id: 'core-filterbar',
   component: FilterBar,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { query: 'text', placeholder: 'text', filterLabel: 'text' }),

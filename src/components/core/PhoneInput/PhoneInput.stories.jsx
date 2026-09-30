@@ -45,7 +45,7 @@ function ContactNumber({ contact, onChange, disabled, ...args }) {
 }
 
 export default {
-  title: 'Core/PhoneInput',
+  title: 'Core/Inputs/PhoneInput',
   id: 'core-phoneinput',
   component: PhoneInput,
   tags: ['autodocs'],

@@ -844,9 +844,11 @@ const defaultUsage = (title, component) => {
   return `import { ${name} } from '${entry}';\n\n<${name} />`;
 };
 
-export const getComponentDocs = (title) => {
-  const [ group, ...rest ] = title.split('/');
-  const component = rest.join(' / ') || group;
+export const getComponentDocs = (sidebarTitle) => {
+  // Sidebar groups (Core/Actions/Button) resolve to the owner key (Core/Button).
+  const [ group, ...rest ] = sidebarTitle.split('/');
+  const title = rest.length > 1 && !(sidebarTitle in componentDocs) && !(sidebarTitle in componentReference) ? `${group}/${rest.at(-1)}` : sidebarTitle;
+  const component = rest.length > 1 ? rest.at(-1) : rest.join(' / ') || group;
   const docs = groupDocs[group] || groupDocs.Core;
   const overrides = componentDocs[title] || componentReference[title] || {};
   const usage = overrides.usage || usageExamples[title] || defaultUsage(title, component);

@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/command/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Commander', tags: ['autodocs'], ...catalogueMeta('command') };
+export default { title: 'Core/Overlays & Menus/Commander', id: 'core-commander', tags: ['autodocs'], ...catalogueMeta('command') };
 
 const openPalette = async (canvasElement, trigger) => {
   await userEvent.click(within(canvasElement).getByRole('button', { name: trigger }));

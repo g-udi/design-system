@@ -8,7 +8,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/sonner/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Toast', tags: ['autodocs'], ...catalogueMeta('sonner') };
+export default { title: 'Core/Overlays & Menus/Toast', id: 'core-toast', tags: ['autodocs'], ...catalogueMeta('sonner') };
 
 // Toasts portal to the page, so queries run against the document body.
 const page = (canvasElement) => within(canvasElement.ownerDocument.body);

@@ -22,7 +22,7 @@ const upNext = [
 const frame = 'overflow-hidden rounded-xl border border-ui-border bg-ui-muted';
 
 export default {
-  title: 'Core/AspectRatio',
+  title: 'Core/Layout & Containers/AspectRatio',
   id: 'core-aspectratio',
   component: AspectRatio,
   tags: ['autodocs'],

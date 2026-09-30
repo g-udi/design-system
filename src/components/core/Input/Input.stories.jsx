@@ -13,7 +13,7 @@ const label = 'Email address';
 const typeIcons = { text: 'Type', email: 'Mail', search: 'Search', url: 'Globe', tel: 'Phone', password: 'Lock' };
 
 export default {
-  title: 'Core/Input',
+  title: 'Core/Inputs/Input', id: 'core-input',
   component: Input,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

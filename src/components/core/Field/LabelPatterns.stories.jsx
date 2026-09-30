@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/label/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Field', tags: ['autodocs'], ...catalogueMeta('label') };
+export default { title: 'Core/Inputs/Field', id: 'core-field', tags: ['autodocs'], ...catalogueMeta('label') };
 
 export const LabelPattern1 = {
   name: 'Label accessories',

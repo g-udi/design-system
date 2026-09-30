@@ -60,7 +60,7 @@ function ScrollspyExample({ offset, ...args }) {
 }
 
 export default {
-  title: 'Core/Scrollspy',
+  title: 'Core/Navigation/Scrollspy',
   id: 'core-scrollspy',
   component: Scrollspy,
   tags: ['autodocs'],

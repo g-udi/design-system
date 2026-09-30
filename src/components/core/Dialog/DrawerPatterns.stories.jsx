@@ -10,7 +10,7 @@ const pattern = patternStories(
 /** Opens each trigger in turn, then closes the dialog with Escape and checks focus returns to it. */
 const openEach = openEachDialog;
 
-export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('drawer') };
+export default { title: 'Core/Overlays & Menus/Dialog', id: 'core-dialog', tags: ['autodocs'], ...catalogueMeta('drawer') };
 
 export const DrawerPattern5 = {
   name: 'Drawer from each edge',

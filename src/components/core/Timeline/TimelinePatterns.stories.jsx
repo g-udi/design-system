@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/timeline/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Timeline', tags: ['autodocs'], ...catalogueMeta('timeline') };
+export default { title: 'Core/Data Display/Timeline', id: 'core-timeline', tags: ['autodocs'], ...catalogueMeta('timeline') };
 
 export const TimelinePattern3 = { name: 'Vertical progress', ...pattern(3, 'Switch the indicator between a dot, a check and an icon, move dates into a leading column, or hide descriptions for a compact log.') };
 export const TimelinePattern12 = { name: 'Horizontal releases', ...pattern(12, 'Status indicators and a current badge on a horizontal rail, with dates below or above it.') };

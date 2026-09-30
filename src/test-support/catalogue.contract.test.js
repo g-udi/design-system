@@ -14,12 +14,12 @@ test('the flat catalogue preserves every curated example and original component 
   for (const family of Object.values(coverage.categories)) {
     for (const example of family.examples) assert.ok(ids.has(example.storyId), `Missing ${example.storyId}`);
   }
-  for (const name of ['Core/Avatar','Core/Dialog','MDX/Footnote','Blocks/Application/AppShell']) assert.ok(owners.some(owner => owner.key === name), name);
+  for (const name of ['Core/Data Display/Avatar','Core/Overlays & Menus/Dialog','MDX/Footnote','Blocks/Application/AppShell']) assert.ok(owners.some(owner => owner.key === name), name);
   assert.ok(!owners.some(owner => owner.category === 'Overview'));
 });
 
 test('component docs and all extended avatar examples stay together', () => {
-  const avatar = filterCatalogue(owners, {owner:'Core/Avatar'});
+  const avatar = filterCatalogue(owners, {owner:'Core/Data Display/Avatar'});
   assert.equal(avatar.length, 1);
   assert.equal(avatar[0].docs, 'core-avatar--docs');
   assert.equal(avatar[0].examples.length, 15);
@@ -44,9 +44,9 @@ test('original component documentation owns merged pages', () => {
   }
   // Catalogues share their owner's title, so each component has exactly one docs page.
   const merged = {
-    'core-breadcrumb--breadcrumb-pattern-1': 'Core/Breadcrumb',
-    'core-pagination--pagination-pattern-1': 'Core/Pagination',
-    'core-navigationmenu--navigation-menu-pattern-1': 'Core/NavigationMenu',
+    'core-breadcrumb--breadcrumb-pattern-1': 'Core/Navigation/Breadcrumb',
+    'core-pagination--pagination-pattern-1': 'Core/Navigation/Pagination',
+    'core-navigationmenu--navigation-menu-pattern-1': 'Core/Navigation/NavigationMenu',
     'blocks-application-kanbanboard--kanban-pattern-1': 'Blocks/Application/KanbanBoard',
     'blocks-application-resourcelist--item-pattern-1': 'Blocks/Application/ResourceList',
     'blocks-application-appshell--sidebar-pattern-1': 'Blocks/Application/AppShell'

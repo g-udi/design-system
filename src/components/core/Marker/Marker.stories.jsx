@@ -34,7 +34,7 @@ function Step({ step, asChild, ...props }) {
 }
 
 export default {
-  title: 'Core/Marker',
+  title: 'Core/Data Display/Marker',
   id: 'core-marker',
   component: Marker,
   tags: ['autodocs'],

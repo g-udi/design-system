@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/collapsible/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Accordion', tags: ['autodocs'], ...catalogueMeta('collapsible') };
+export default { title: 'Core/Layout & Containers/Accordion', id: 'core-accordion', tags: ['autodocs'], ...catalogueMeta('collapsible') };
 
 export const CollapsiblePattern1 = { name: 'Collapsible: Show more details', ...pattern(1, 'An icon button reveals the rest of an order summary under the always-visible status.') };
 export const CollapsiblePattern7 = {

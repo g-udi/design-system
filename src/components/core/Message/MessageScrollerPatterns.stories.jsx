@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/message-scroller/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Message', tags: ['autodocs'], ...catalogueMeta('message-scroller') };
+export default { title: 'Core/Messaging/Message', id: 'core-message', tags: ['autodocs'], ...catalogueMeta('message-scroller') };
 
 export const MessageScrollerPattern4 = { name: 'Message Scroller: Opening position and jump to latest', ...pattern(4, 'Compare start, end and last-anchor as the place a reopened thread opens at; the jump to latest control appears once the live edge is out of view.') };
 export const MessageScrollerPattern2 = { name: 'Message Scroller: Streaming reply that follows the edge', ...pattern(2, 'autoScroll pins the viewport while tokens arrive, and releases the moment the reader scrolls up.') };

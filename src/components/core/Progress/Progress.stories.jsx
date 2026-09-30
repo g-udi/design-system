@@ -16,7 +16,7 @@ const tasks = [
 ];
 
 export default {
-  title: 'Core/Progress',
+  title: 'Core/Data Display/Progress', id: 'core-progress',
   component: Progress,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { label: 'text', value: 'number', max: 'number', valueText: 'text', tone: tones }),

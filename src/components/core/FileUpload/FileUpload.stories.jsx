@@ -68,7 +68,7 @@ const source = playgroundSource('FileUpload', {
 });
 
 export default {
-  title: 'Core/FileUpload',
+  title: 'Core/Inputs/FileUpload', id: 'core-fileupload',
   component: FileUpload,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

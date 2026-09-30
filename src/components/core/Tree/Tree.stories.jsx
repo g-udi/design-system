@@ -91,7 +91,7 @@ function TreeExample({ indent, toggleIconType }) {
 }
 
 export default {
-  title: 'Core/Tree',
+  title: 'Core/Navigation/Tree',
   id: 'core-tree',
   component: Tree,
   tags: ['autodocs'],

@@ -61,7 +61,7 @@ function OpenOnMount({ children }) {
 const composedContent = 'Use the primitive slots when the trigger lives inside another layout.';
 
 export default {
-  title: 'Core/Popover',
+  title: 'Core/Overlays & Menus/Popover',
   id: 'core-popover',
   component: PopoverRoot,
   tags: ['autodocs'],

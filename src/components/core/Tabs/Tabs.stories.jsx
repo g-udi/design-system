@@ -91,7 +91,7 @@ function ArticleTabs(props) {
 }
 
 export default {
-  title: 'Core/Tabs',
+  title: 'Core/Navigation/Tabs', id: 'core-tabs',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'] }),

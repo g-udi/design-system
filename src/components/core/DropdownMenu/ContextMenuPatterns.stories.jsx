@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/context-menu/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/DropdownMenu', tags: ['autodocs'], ...catalogueMeta('context-menu') };
+export default { title: 'Core/Overlays & Menus/DropdownMenu', id: 'core-dropdownmenu', tags: ['autodocs'], ...catalogueMeta('context-menu') };
 
 export const ContextMenuPattern5 = {
   name: 'Context menu',

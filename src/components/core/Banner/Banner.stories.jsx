@@ -20,7 +20,7 @@ const noticeSource = (size) => notices.map(({ title, children, tone, variant }) 
 )).join('');
 
 export default {
-  title: 'Core/Banner',
+  title: 'Core/Feedback & States/Banner',
   id: 'core-banner',
   component: Banner,
   tags: ['autodocs'],

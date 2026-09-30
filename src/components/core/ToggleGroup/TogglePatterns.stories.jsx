@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/toggle/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/ToggleGroup', tags: ['autodocs'], ...catalogueMeta('toggle') };
+export default { title: 'Core/Actions/ToggleGroup', id: 'core-togglegroup', tags: ['autodocs'], ...catalogueMeta('toggle') };
 
 export const TogglePattern13 = {
   name: 'Toggle variants, sizes and states',

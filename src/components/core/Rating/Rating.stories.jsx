@@ -53,7 +53,7 @@ function RatingExample({ rating, onRatingChange, maxRating, editable, showValue,
 }
 
 export default {
-  title: 'Core/Rating',
+  title: 'Core/Inputs/Rating',
   id: 'core-rating',
   component: Rating,
   tags: ['autodocs'],

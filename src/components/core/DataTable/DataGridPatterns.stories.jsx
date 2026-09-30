@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/data-grid/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/DataTable', tags: ['autodocs'], ...catalogueMeta('data-grid') };
+export default { title: 'Core/Data Display/DataTable', id: 'core-datatable', tags: ['autodocs'], ...catalogueMeta('data-grid') };
 
 export const DataGridPattern1 = { name: 'Layout options', ...pattern(1, 'Every tableLayout flag on one grid: density, cell and row borders, stripes, rounded rows, header fill, sticky header and auto width.') };
 export const DataGridPattern19 = { name: 'Column controls', ...pattern(19, 'Header menus sort, pin, move and hide columns; edges resize them; header icons label each field.') };

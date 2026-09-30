@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/breadcrumb/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Breadcrumb', tags: ['autodocs'], ...catalogueMeta('breadcrumb') };
+export default { title: 'Core/Navigation/Breadcrumb', id: 'core-breadcrumb', tags: ['autodocs'], ...catalogueMeta('breadcrumb') };
 
 export const BreadcrumbPattern1 = { name: 'Separators', ...pattern(1, 'Chevron, slash, double chevron and dash separators. The middle link uses asChild, the hook for a router link.') };
 export const BreadcrumbPattern5 = { name: 'Icons, badges and avatars', ...pattern(5, 'Leading icons, an icon-only home button, a count badge and avatars in the item slots.') };

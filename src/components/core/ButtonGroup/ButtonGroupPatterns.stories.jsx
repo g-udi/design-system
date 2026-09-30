@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/button-group/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/ButtonGroup', tags: ['autodocs'], ...catalogueMeta('button-group') };
+export default { title: 'Core/Actions/ButtonGroup', id: 'core-buttongroup', tags: ['autodocs'], ...catalogueMeta('button-group') };
 
 export const ButtonGroupPattern22 = {
   name: 'Toolbars',

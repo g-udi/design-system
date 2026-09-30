@@ -8,7 +8,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/tree/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Tree', tags: ['autodocs'], ...catalogueMeta('tree') };
+export default { title: 'Core/Navigation/Tree', id: 'core-tree', tags: ['autodocs'], ...catalogueMeta('tree') };
 
 export const TreePattern1 = { name: 'Display options', ...pattern(1, 'Switches toggle indent guides, folder icons and plus and minus toggles on one tree.'), play: catalogueInteractions['tree-1'] };
 export const TreePattern7 = {

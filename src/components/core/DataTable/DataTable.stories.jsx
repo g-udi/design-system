@@ -95,7 +95,7 @@ const archiveLabel = (count) => `Archive ${count}`;
 const bodyRows = (canvasElement) => [...canvasElement.querySelector('tbody').rows].filter((row) => row.classList.contains('ds-table-row'));
 
 export default {
-  title: 'Core/DataTable',
+  title: 'Core/Data Display/DataTable',
   id: 'core-datatable',
   component: DataTable,
   tags: ['autodocs'],

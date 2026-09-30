@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/stepper/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Stepper', tags: ['autodocs'], ...catalogueMeta('stepper') };
+export default { title: 'Core/Navigation/Stepper', id: 'core-stepper', tags: ['autodocs'], ...catalogueMeta('stepper') };
 
 export const StepperPattern1 = { name: 'Basic stepper', ...pattern(1), play: catalogueInteractions['stepper-1'] };
 export const StepperPattern8 = { name: 'Titles and descriptions', ...pattern(8, 'Labels centred under the indicator, start-aligned without a rail, or inline beside it, with optional descriptions.') };

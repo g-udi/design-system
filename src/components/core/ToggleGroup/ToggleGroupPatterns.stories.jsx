@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/toggle-group/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/ToggleGroup', tags: ['autodocs'], ...catalogueMeta('toggle-group') };
+export default { title: 'Core/Actions/ToggleGroup', id: 'core-togglegroup', tags: ['autodocs'], ...catalogueMeta('toggle-group') };
 
 export const ToggleGroupPattern2 = {
   name: 'Group variants, spacing, sizes and orientation',

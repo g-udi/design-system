@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/number-field/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/NumberField', tags: ['autodocs'], ...catalogueMeta('number-field') };
+export default { title: 'Core/Inputs/NumberField', id: 'core-numberfield', tags: ['autodocs'], ...catalogueMeta('number-field') };
 
 const field = (canvasElement, name) => {
   const input = within(canvasElement).getByRole('textbox', { name });

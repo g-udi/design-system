@@ -104,7 +104,7 @@ function HeaderExample(props) {
 }
 
 export default {
-  title: 'Core/Commander',
+  title: 'Core/Overlays & Menus/Commander',
   id: 'core-commander',
   component: Commander,
   tags: ['autodocs'],

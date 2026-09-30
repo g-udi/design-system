@@ -42,7 +42,7 @@ const menuSource = ({ label, columns, ...dropdown }) => `import { Icon, Navigati
 const button = (canvas, name) => canvas.getByRole('button', { name });
 
 export default {
-  title: 'Core/NavigationMenu',
+  title: 'Core/Navigation/NavigationMenu',
   id: 'core-navigationmenu',
   component: NavigationMenu,
   tags: ['autodocs'],

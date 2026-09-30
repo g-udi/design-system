@@ -70,7 +70,7 @@ const labelOf = (question, value) => question.choices.find((choice) => choice.va
 const sourceQuestions = questions.map(({ name, title, required = false, multiple = false, choices }) => ({ name, title, required, multiple, choices: choices.map(({ value, label }) => ({ value, label })) }));
 
 export default {
-  title: 'Core/Questionnaire',
+  title: 'Core/Inputs/Questionnaire',
   id: 'core-questionnaire',
   component: Questionnaire,
   tags: ['autodocs'],

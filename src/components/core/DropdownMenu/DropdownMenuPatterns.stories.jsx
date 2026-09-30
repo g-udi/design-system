@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/dropdown-menu/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/DropdownMenu', tags: ['autodocs'], ...catalogueMeta('dropdown-menu') };
+export default { title: 'Core/Overlays & Menus/DropdownMenu', id: 'core-dropdownmenu', tags: ['autodocs'], ...catalogueMeta('dropdown-menu') };
 
 const body = (canvasElement) => within(canvasElement.ownerDocument.body);
 

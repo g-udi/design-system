@@ -33,7 +33,7 @@ const releases = notes.map(([kind, title], index) => ({
 }));
 
 export default {
-  title: 'Core/ScrollArea',
+  title: 'Core/Layout & Containers/ScrollArea',
   id: 'core-scrollarea',
   component: ScrollArea,
   tags: ['autodocs'],

@@ -108,7 +108,7 @@ function SortableExample({ onValueChange, strategy, ...args }) {
 }
 
 export default {
-  title: 'Core/Sortable',
+  title: 'Core/Layout & Containers/Sortable',
   id: 'core-sortable',
   component: Sortable,
   tags: ['autodocs'],

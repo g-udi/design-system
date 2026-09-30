@@ -36,7 +36,7 @@ const lastOutput = commands.at(-1).output.at(-1).text;
 const line = (scope, text) => within(scope).getByText(text).parentElement;
 
 export default {
-  title: 'Core/Terminal',
+  title: 'Core/Data Display/Terminal',
   id: 'core-terminal',
   component: Terminal,
   tags: ['autodocs'],

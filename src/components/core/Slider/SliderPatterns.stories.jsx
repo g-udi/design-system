@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/slider/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Slider', tags: ['autodocs'], ...catalogueMeta('slider') };
+export default { title: 'Core/Inputs/Slider', id: 'core-slider', tags: ['autodocs'], ...catalogueMeta('slider') };
 
 export const SliderPattern6 = {
   name: 'Thumbs and states',

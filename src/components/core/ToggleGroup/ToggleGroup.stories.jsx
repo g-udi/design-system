@@ -75,7 +75,7 @@ function ContentLibrary({ type, disabled, onValueChange }) {
 }
 
 export default {
-  title: 'Core/ToggleGroup',
+  title: 'Core/Actions/ToggleGroup', id: 'core-togglegroup',
   component: ToggleGroup,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { type: ['single', 'multiple'], disabled: 'boolean' }),

@@ -598,7 +598,7 @@
     },
     "core-accordion--playground": {
       "id": "core-accordion--playground",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -609,7 +609,7 @@
     },
     "core-accordion--docs": {
       "id": "core-accordion--docs",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -619,7 +619,7 @@
     },
     "core-accordion--multiple": {
       "id": "core-accordion--multiple",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Multiple",
       "type": "story",
       "tags": [
@@ -630,7 +630,7 @@
     },
     "core-accordion--controlled": {
       "id": "core-accordion--controlled",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -641,7 +641,7 @@
     },
     "core-accordion--always-one-open": {
       "id": "core-accordion--always-one-open",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Always One Open",
       "type": "story",
       "tags": [
@@ -652,7 +652,7 @@
     },
     "core-accordion--compound": {
       "id": "core-accordion--compound",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Compound",
       "type": "story",
       "tags": [
@@ -663,7 +663,7 @@
     },
     "core-accordion--retained-form": {
       "id": "core-accordion--retained-form",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Retained Form",
       "type": "story",
       "tags": [
@@ -674,7 +674,7 @@
     },
     "core-accordion--custom-indicator": {
       "id": "core-accordion--custom-indicator",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Custom Indicator",
       "type": "story",
       "tags": [
@@ -684,7 +684,7 @@
     },
     "core-accordion--render-function": {
       "id": "core-accordion--render-function",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Render Function",
       "type": "story",
       "tags": [
@@ -695,7 +695,7 @@
     },
     "core-aspectratio--playground": {
       "id": "core-aspectratio--playground",
-      "title": "Core/AspectRatio",
+      "title": "Core/Layout & Containers/AspectRatio",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -706,7 +706,7 @@
     },
     "core-aspectratio--docs": {
       "id": "core-aspectratio--docs",
-      "title": "Core/AspectRatio",
+      "title": "Core/Layout & Containers/AspectRatio",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -716,7 +716,7 @@
     },
     "core-attachment--playground": {
       "id": "core-attachment--playground",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -727,7 +727,7 @@
     },
     "core-attachment--docs": {
       "id": "core-attachment--docs",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -737,7 +737,7 @@
     },
     "core-avatar--playground": {
       "id": "core-avatar--playground",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -748,7 +748,7 @@
     },
     "core-avatar--docs": {
       "id": "core-avatar--docs",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -758,7 +758,7 @@
     },
     "core-avatar--indicators": {
       "id": "core-avatar--indicators",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Indicators",
       "type": "story",
       "tags": [
@@ -769,7 +769,7 @@
     },
     "core-avatar--fallbacks": {
       "id": "core-avatar--fallbacks",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Fallbacks",
       "type": "story",
       "tags": [
@@ -780,7 +780,7 @@
     },
     "core-avatar--image-recovery": {
       "id": "core-avatar--image-recovery",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Image Recovery",
       "type": "story",
       "tags": [
@@ -791,7 +791,7 @@
     },
     "core-avatar--group-overflow": {
       "id": "core-avatar--group-overflow",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Group Overflow",
       "type": "story",
       "tags": [
@@ -802,7 +802,7 @@
     },
     "core-banner--playground": {
       "id": "core-banner--playground",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -813,7 +813,7 @@
     },
     "core-banner--docs": {
       "id": "core-banner--docs",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -823,7 +823,7 @@
     },
     "core-banner--tones-and-variants": {
       "id": "core-banner--tones-and-variants",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Tones and variants",
       "type": "story",
       "tags": [
@@ -834,7 +834,7 @@
     },
     "core-breadcrumb--playground": {
       "id": "core-breadcrumb--playground",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -845,7 +845,7 @@
     },
     "core-breadcrumb--docs": {
       "id": "core-breadcrumb--docs",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -855,7 +855,7 @@
     },
     "core-button--playground": {
       "id": "core-button--playground",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -866,7 +866,7 @@
     },
     "core-button--docs": {
       "id": "core-button--docs",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -876,7 +876,7 @@
     },
     "core-button--variants": {
       "id": "core-button--variants",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -887,7 +887,7 @@
     },
     "core-button--tones": {
       "id": "core-button--tones",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -898,7 +898,7 @@
     },
     "core-button--sizes": {
       "id": "core-button--sizes",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Sizes",
       "type": "story",
       "tags": [
@@ -909,7 +909,7 @@
     },
     "core-button--states": {
       "id": "core-button--states",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "States",
       "type": "story",
       "tags": [
@@ -920,7 +920,7 @@
     },
     "core-button--with-controls": {
       "id": "core-button--with-controls",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "With Controls",
       "type": "story",
       "tags": [
@@ -931,7 +931,7 @@
     },
     "core-buttongroup--playground": {
       "id": "core-buttongroup--playground",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -942,7 +942,7 @@
     },
     "core-buttongroup--docs": {
       "id": "core-buttongroup--docs",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -952,7 +952,7 @@
     },
     "core-calendar--playground": {
       "id": "core-calendar--playground",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -963,7 +963,7 @@
     },
     "core-calendar--docs": {
       "id": "core-calendar--docs",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -973,7 +973,7 @@
     },
     "core-card--playground": {
       "id": "core-card--playground",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -984,7 +984,7 @@
     },
     "core-card--docs": {
       "id": "core-card--docs",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -994,7 +994,7 @@
     },
     "core-card--variants": {
       "id": "core-card--variants",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -1005,7 +1005,7 @@
     },
     "core-card--interactive": {
       "id": "core-card--interactive",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Interactive",
       "type": "story",
       "tags": [
@@ -1016,7 +1016,7 @@
     },
     "core-carousel--playground": {
       "id": "core-carousel--playground",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1027,7 +1027,7 @@
     },
     "core-carousel--docs": {
       "id": "core-carousel--docs",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1037,7 +1037,7 @@
     },
     "core-carousel--editorial-rail": {
       "id": "core-carousel--editorial-rail",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Editorial Rail",
       "type": "story",
       "tags": [
@@ -1048,7 +1048,7 @@
     },
     "core-cascader--playground": {
       "id": "core-cascader--playground",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1059,7 +1059,7 @@
     },
     "core-cascader--docs": {
       "id": "core-cascader--docs",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1069,7 +1069,7 @@
     },
     "core-cascader--disabled": {
       "id": "core-cascader--disabled",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Disabled",
       "type": "story",
       "tags": [
@@ -1080,7 +1080,7 @@
     },
     "core-checkbox--playground": {
       "id": "core-checkbox--playground",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1091,7 +1091,7 @@
     },
     "core-checkbox--docs": {
       "id": "core-checkbox--docs",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1101,7 +1101,7 @@
     },
     "core-commander--playground": {
       "id": "core-commander--playground",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1112,7 +1112,7 @@
     },
     "core-commander--docs": {
       "id": "core-commander--docs",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1122,7 +1122,7 @@
     },
     "core-commander--collection-pages": {
       "id": "core-commander--collection-pages",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Collection Pages",
       "type": "story",
       "tags": [
@@ -1144,7 +1144,7 @@
     },
     "core-datatable--playground": {
       "id": "core-datatable--playground",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1155,7 +1155,7 @@
     },
     "core-datatable--docs": {
       "id": "core-datatable--docs",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1165,7 +1165,7 @@
     },
     "core-datatable--row-interactions": {
       "id": "core-datatable--row-interactions",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Row Interactions",
       "type": "story",
       "tags": [
@@ -1176,7 +1176,7 @@
     },
     "core-datatable--grouped-rows": {
       "id": "core-datatable--grouped-rows",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Grouped Rows",
       "type": "story",
       "tags": [
@@ -1187,7 +1187,7 @@
     },
     "core-datatable--pinned-columns": {
       "id": "core-datatable--pinned-columns",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Pinned Columns",
       "type": "story",
       "tags": [
@@ -1198,7 +1198,7 @@
     },
     "core-datatable--request-states": {
       "id": "core-datatable--request-states",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Request States",
       "type": "story",
       "tags": [
@@ -1209,7 +1209,7 @@
     },
     "core-dialog--playground": {
       "id": "core-dialog--playground",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1220,7 +1220,7 @@
     },
     "core-dialog--docs": {
       "id": "core-dialog--docs",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1230,7 +1230,7 @@
     },
     "core-dialog--confirmation": {
       "id": "core-dialog--confirmation",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Confirmation",
       "type": "story",
       "tags": [
@@ -1241,7 +1241,7 @@
     },
     "core-dialog--pending-action": {
       "id": "core-dialog--pending-action",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Pending Action",
       "type": "story",
       "tags": [
@@ -1252,7 +1252,7 @@
     },
     "core-dialog--bare-surface": {
       "id": "core-dialog--bare-surface",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Bare full-screen surface",
       "type": "story",
       "tags": [
@@ -1263,7 +1263,7 @@
     },
     "core-dropdownmenu--playground": {
       "id": "core-dropdownmenu--playground",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1274,7 +1274,7 @@
     },
     "core-dropdownmenu--docs": {
       "id": "core-dropdownmenu--docs",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1284,7 +1284,7 @@
     },
     "core-emptystate--playground": {
       "id": "core-emptystate--playground",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1295,7 +1295,7 @@
     },
     "core-emptystate--docs": {
       "id": "core-emptystate--docs",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1305,7 +1305,7 @@
     },
     "core-emptystate--first-article": {
       "id": "core-emptystate--first-article",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "First Article",
       "type": "story",
       "tags": [
@@ -1316,7 +1316,7 @@
     },
     "core-eventcalendar--playground": {
       "id": "core-eventcalendar--playground",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1327,7 +1327,7 @@
     },
     "core-eventcalendar--docs": {
       "id": "core-eventcalendar--docs",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1337,7 +1337,7 @@
     },
     "core-field--playground": {
       "id": "core-field--playground",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1348,7 +1348,7 @@
     },
     "core-field--docs": {
       "id": "core-field--docs",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1358,7 +1358,7 @@
     },
     "core-field--disabled": {
       "id": "core-field--disabled",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Disabled",
       "type": "story",
       "tags": [
@@ -1369,7 +1369,7 @@
     },
     "core-fileupload--playground": {
       "id": "core-fileupload--playground",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1380,7 +1380,7 @@
     },
     "core-fileupload--docs": {
       "id": "core-fileupload--docs",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1390,7 +1390,7 @@
     },
     "core-fileupload--file-limits": {
       "id": "core-fileupload--file-limits",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "File Limits",
       "type": "story",
       "tags": [
@@ -1401,7 +1401,7 @@
     },
     "core-fileupload--progress-and-recovery": {
       "id": "core-fileupload--progress-and-recovery",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Progress And Recovery",
       "type": "story",
       "tags": [
@@ -1412,7 +1412,7 @@
     },
     "core-filterbar--playground": {
       "id": "core-filterbar--playground",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1423,7 +1423,7 @@
     },
     "core-filterbar--docs": {
       "id": "core-filterbar--docs",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1433,7 +1433,7 @@
     },
     "core-filterbar--applied-filters": {
       "id": "core-filterbar--applied-filters",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Applied Filters",
       "type": "story",
       "tags": [
@@ -1444,7 +1444,7 @@
     },
     "core-gantt--playground": {
       "id": "core-gantt--playground",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1455,7 +1455,7 @@
     },
     "core-gantt--docs": {
       "id": "core-gantt--docs",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1465,7 +1465,7 @@
     },
     "core-grid--playground": {
       "id": "core-grid--playground",
-      "title": "Core/Grid",
+      "title": "Core/Layout & Containers/Grid",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1476,7 +1476,7 @@
     },
     "core-grid--docs": {
       "id": "core-grid--docs",
-      "title": "Core/Grid",
+      "title": "Core/Layout & Containers/Grid",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1486,7 +1486,7 @@
     },
     "core-grid--item-variants": {
       "id": "core-grid--item-variants",
-      "title": "Core/Grid",
+      "title": "Core/Layout & Containers/Grid",
       "name": "Item Variants",
       "type": "story",
       "tags": [
@@ -1497,7 +1497,7 @@
     },
     "core-icon--playground": {
       "id": "core-icon--playground",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1508,7 +1508,7 @@
     },
     "core-icon--docs": {
       "id": "core-icon--docs",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1518,7 +1518,7 @@
     },
     "core-icon--social-link": {
       "id": "core-icon--social-link",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Social Link",
       "type": "story",
       "tags": [
@@ -1529,7 +1529,7 @@
     },
     "core-icon--sizes": {
       "id": "core-icon--sizes",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Sizes, colors and stroke widths",
       "type": "story",
       "tags": [
@@ -1540,7 +1540,7 @@
     },
     "core-icon--animated-motion": {
       "id": "core-icon--animated-motion",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Animated icons",
       "type": "story",
       "tags": [
@@ -1551,7 +1551,7 @@
     },
     "core-input--playground": {
       "id": "core-input--playground",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1562,7 +1562,7 @@
     },
     "core-input--docs": {
       "id": "core-input--docs",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1572,7 +1572,7 @@
     },
     "core-inputotp--playground": {
       "id": "core-inputotp--playground",
-      "title": "Core/InputOtp",
+      "title": "Core/Inputs/InputOtp",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1583,7 +1583,7 @@
     },
     "core-inputotp--docs": {
       "id": "core-inputotp--docs",
-      "title": "Core/InputOtp",
+      "title": "Core/Inputs/InputOtp",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1593,7 +1593,7 @@
     },
     "core-kbd--playground": {
       "id": "core-kbd--playground",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1604,7 +1604,7 @@
     },
     "core-kbd--docs": {
       "id": "core-kbd--docs",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1614,7 +1614,7 @@
     },
     "core-kbd--key-set": {
       "id": "core-kbd--key-set",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Key Set",
       "type": "story",
       "tags": [
@@ -1625,7 +1625,7 @@
     },
     "core-kbd--variants": {
       "id": "core-kbd--variants",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -1636,7 +1636,7 @@
     },
     "core-kbd--sizes": {
       "id": "core-kbd--sizes",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Sizes",
       "type": "story",
       "tags": [
@@ -1647,7 +1647,7 @@
     },
     "core-link--playground": {
       "id": "core-link--playground",
-      "title": "Core/Link",
+      "title": "Core/Actions/Link",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1658,7 +1658,7 @@
     },
     "core-link--docs": {
       "id": "core-link--docs",
-      "title": "Core/Link",
+      "title": "Core/Actions/Link",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1668,7 +1668,7 @@
     },
     "core-link--link-types": {
       "id": "core-link--link-types",
-      "title": "Core/Link",
+      "title": "Core/Actions/Link",
       "name": "Link Types",
       "type": "story",
       "tags": [
@@ -1679,7 +1679,7 @@
     },
     "core-link--variants": {
       "id": "core-link--variants",
-      "title": "Core/Link",
+      "title": "Core/Actions/Link",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -1690,7 +1690,7 @@
     },
     "core-link--tones": {
       "id": "core-link--tones",
-      "title": "Core/Link",
+      "title": "Core/Actions/Link",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -1701,7 +1701,7 @@
     },
     "core-marker--playground": {
       "id": "core-marker--playground",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1712,7 +1712,7 @@
     },
     "core-marker--docs": {
       "id": "core-marker--docs",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1722,7 +1722,7 @@
     },
     "core-navigationmenu--playground": {
       "id": "core-navigationmenu--playground",
-      "title": "Core/NavigationMenu",
+      "title": "Core/Navigation/NavigationMenu",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1733,7 +1733,7 @@
     },
     "core-navigationmenu--docs": {
       "id": "core-navigationmenu--docs",
-      "title": "Core/NavigationMenu",
+      "title": "Core/Navigation/NavigationMenu",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1743,7 +1743,7 @@
     },
     "core-navigationmenu--compact": {
       "id": "core-navigationmenu--compact",
-      "title": "Core/NavigationMenu",
+      "title": "Core/Navigation/NavigationMenu",
       "name": "Compact",
       "type": "story",
       "tags": [
@@ -1754,7 +1754,7 @@
     },
     "core-numberfield--playground": {
       "id": "core-numberfield--playground",
-      "title": "Core/NumberField",
+      "title": "Core/Inputs/NumberField",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1765,7 +1765,7 @@
     },
     "core-numberfield--docs": {
       "id": "core-numberfield--docs",
-      "title": "Core/NumberField",
+      "title": "Core/Inputs/NumberField",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1775,7 +1775,7 @@
     },
     "core-numberfield--controlled": {
       "id": "core-numberfield--controlled",
-      "title": "Core/NumberField",
+      "title": "Core/Inputs/NumberField",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -1786,7 +1786,7 @@
     },
     "core-pagination--playground": {
       "id": "core-pagination--playground",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1797,7 +1797,7 @@
     },
     "core-pagination--docs": {
       "id": "core-pagination--docs",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1807,7 +1807,7 @@
     },
     "core-pagination--controlled": {
       "id": "core-pagination--controlled",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -1818,7 +1818,7 @@
     },
     "core-pagination--composed": {
       "id": "core-pagination--composed",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Composed",
       "type": "story",
       "tags": [
@@ -1829,7 +1829,7 @@
     },
     "core-phoneinput--playground": {
       "id": "core-phoneinput--playground",
-      "title": "Core/PhoneInput",
+      "title": "Core/Inputs/PhoneInput",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1840,7 +1840,7 @@
     },
     "core-phoneinput--docs": {
       "id": "core-phoneinput--docs",
-      "title": "Core/PhoneInput",
+      "title": "Core/Inputs/PhoneInput",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1850,7 +1850,7 @@
     },
     "core-pill--playground": {
       "id": "core-pill--playground",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1861,7 +1861,7 @@
     },
     "core-pill--docs": {
       "id": "core-pill--docs",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1871,7 +1871,7 @@
     },
     "core-pill--tones": {
       "id": "core-pill--tones",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -1882,7 +1882,7 @@
     },
     "core-pill--variants": {
       "id": "core-pill--variants",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -1893,7 +1893,7 @@
     },
     "core-pill--sizes": {
       "id": "core-pill--sizes",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Sizes",
       "type": "story",
       "tags": [
@@ -1904,7 +1904,7 @@
     },
     "core-pill--linked-and-status": {
       "id": "core-pill--linked-and-status",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Linked And Status",
       "type": "story",
       "tags": [
@@ -1915,7 +1915,7 @@
     },
     "core-popover--playground": {
       "id": "core-popover--playground",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1926,7 +1926,7 @@
     },
     "core-popover--docs": {
       "id": "core-popover--docs",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1936,7 +1936,7 @@
     },
     "core-popover--composed": {
       "id": "core-popover--composed",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Composed",
       "type": "story",
       "tags": [
@@ -1947,7 +1947,7 @@
     },
     "core-progress--playground": {
       "id": "core-progress--playground",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1958,7 +1958,7 @@
     },
     "core-progress--docs": {
       "id": "core-progress--docs",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1968,7 +1968,7 @@
     },
     "core-progress--indeterminate": {
       "id": "core-progress--indeterminate",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Indeterminate",
       "type": "story",
       "tags": [
@@ -1979,7 +1979,7 @@
     },
     "core-questionnaire--playground": {
       "id": "core-questionnaire--playground",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1990,7 +1990,7 @@
     },
     "core-questionnaire--docs": {
       "id": "core-questionnaire--docs",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2000,7 +2000,7 @@
     },
     "core-radiogroup--playground": {
       "id": "core-radiogroup--playground",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2011,7 +2011,7 @@
     },
     "core-radiogroup--docs": {
       "id": "core-radiogroup--docs",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2021,7 +2021,7 @@
     },
     "core-radiogroup--controlled": {
       "id": "core-radiogroup--controlled",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -2032,7 +2032,7 @@
     },
     "core-rating--playground": {
       "id": "core-rating--playground",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2043,7 +2043,7 @@
     },
     "core-rating--docs": {
       "id": "core-rating--docs",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2053,7 +2053,7 @@
     },
     "core-resizable--playground": {
       "id": "core-resizable--playground",
-      "title": "Core/Resizable",
+      "title": "Core/Layout & Containers/Resizable",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2064,7 +2064,7 @@
     },
     "core-resizable--docs": {
       "id": "core-resizable--docs",
-      "title": "Core/Resizable",
+      "title": "Core/Layout & Containers/Resizable",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2074,7 +2074,7 @@
     },
     "core-resizable--collapsible": {
       "id": "core-resizable--collapsible",
-      "title": "Core/Resizable",
+      "title": "Core/Layout & Containers/Resizable",
       "name": "Collapsible",
       "type": "story",
       "tags": [
@@ -2085,7 +2085,7 @@
     },
     "core-scrollarea--playground": {
       "id": "core-scrollarea--playground",
-      "title": "Core/ScrollArea",
+      "title": "Core/Layout & Containers/ScrollArea",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2096,7 +2096,7 @@
     },
     "core-scrollarea--docs": {
       "id": "core-scrollarea--docs",
-      "title": "Core/ScrollArea",
+      "title": "Core/Layout & Containers/ScrollArea",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2106,7 +2106,7 @@
     },
     "core-scrollspy--playground": {
       "id": "core-scrollspy--playground",
-      "title": "Core/Scrollspy",
+      "title": "Core/Navigation/Scrollspy",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2117,7 +2117,7 @@
     },
     "core-scrollspy--docs": {
       "id": "core-scrollspy--docs",
-      "title": "Core/Scrollspy",
+      "title": "Core/Navigation/Scrollspy",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2127,7 +2127,7 @@
     },
     "core-select--playground": {
       "id": "core-select--playground",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2138,7 +2138,7 @@
     },
     "core-select--docs": {
       "id": "core-select--docs",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2148,7 +2148,7 @@
     },
     "core-select--searchable": {
       "id": "core-select--searchable",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Searchable",
       "type": "story",
       "tags": [
@@ -2159,7 +2159,7 @@
     },
     "core-select--native-options-input": {
       "id": "core-select--native-options-input",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Option children",
       "type": "story",
       "tags": [
@@ -2170,7 +2170,7 @@
     },
     "core-select--loading-options": {
       "id": "core-select--loading-options",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Loading Options",
       "type": "story",
       "tags": [
@@ -2181,7 +2181,7 @@
     },
     "core-separator--playground": {
       "id": "core-separator--playground",
-      "title": "Core/Separator",
+      "title": "Core/Layout & Containers/Separator",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2192,7 +2192,7 @@
     },
     "core-separator--docs": {
       "id": "core-separator--docs",
-      "title": "Core/Separator",
+      "title": "Core/Layout & Containers/Separator",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2202,7 +2202,7 @@
     },
     "core-skeleton--playground": {
       "id": "core-skeleton--playground",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2213,7 +2213,7 @@
     },
     "core-skeleton--docs": {
       "id": "core-skeleton--docs",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2223,7 +2223,7 @@
     },
     "core-slider--playground": {
       "id": "core-slider--playground",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2234,7 +2234,7 @@
     },
     "core-slider--docs": {
       "id": "core-slider--docs",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2244,7 +2244,7 @@
     },
     "core-sortable--playground": {
       "id": "core-sortable--playground",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2255,7 +2255,7 @@
     },
     "core-sortable--docs": {
       "id": "core-sortable--docs",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2265,7 +2265,7 @@
     },
     "core-spinner--playground": {
       "id": "core-spinner--playground",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2276,7 +2276,7 @@
     },
     "core-spinner--docs": {
       "id": "core-spinner--docs",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2286,7 +2286,7 @@
     },
     "core-spinner--sizes": {
       "id": "core-spinner--sizes",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "Sizes",
       "type": "story",
       "tags": [
@@ -2297,7 +2297,7 @@
     },
     "core-stepper--playground": {
       "id": "core-stepper--playground",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2308,7 +2308,7 @@
     },
     "core-stepper--docs": {
       "id": "core-stepper--docs",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2318,7 +2318,7 @@
     },
     "core-stepper--completed": {
       "id": "core-stepper--completed",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Completed",
       "type": "story",
       "tags": [
@@ -2329,7 +2329,7 @@
     },
     "core-stepper--long-labels": {
       "id": "core-stepper--long-labels",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Long Labels",
       "type": "story",
       "tags": [
@@ -2339,7 +2339,7 @@
     },
     "core-switch--playground": {
       "id": "core-switch--playground",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2350,7 +2350,7 @@
     },
     "core-switch--docs": {
       "id": "core-switch--docs",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2360,7 +2360,7 @@
     },
     "core-switch--controlled": {
       "id": "core-switch--controlled",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -2371,7 +2371,7 @@
     },
     "core-switch--sizes": {
       "id": "core-switch--sizes",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Sizes",
       "type": "story",
       "tags": [
@@ -2382,7 +2382,7 @@
     },
     "core-tabs--playground": {
       "id": "core-tabs--playground",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2393,7 +2393,7 @@
     },
     "core-tabs--docs": {
       "id": "core-tabs--docs",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2403,7 +2403,7 @@
     },
     "core-tabs--manual-activation": {
       "id": "core-tabs--manual-activation",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Manual Activation",
       "type": "story",
       "tags": [
@@ -2414,7 +2414,7 @@
     },
     "core-terminal--playground": {
       "id": "core-terminal--playground",
-      "title": "Core/Terminal",
+      "title": "Core/Data Display/Terminal",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2425,7 +2425,7 @@
     },
     "core-terminal--docs": {
       "id": "core-terminal--docs",
-      "title": "Core/Terminal",
+      "title": "Core/Data Display/Terminal",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2435,7 +2435,7 @@
     },
     "core-terminal--variants": {
       "id": "core-terminal--variants",
-      "title": "Core/Terminal",
+      "title": "Core/Data Display/Terminal",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -2446,7 +2446,7 @@
     },
     "core-terminal--legacy-outputs": {
       "id": "core-terminal--legacy-outputs",
-      "title": "Core/Terminal",
+      "title": "Core/Data Display/Terminal",
       "name": "Legacy Outputs",
       "type": "story",
       "tags": [
@@ -2457,7 +2457,7 @@
     },
     "core-textarea--playground": {
       "id": "core-textarea--playground",
-      "title": "Core/Textarea",
+      "title": "Core/Inputs/Textarea",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2468,7 +2468,7 @@
     },
     "core-textarea--docs": {
       "id": "core-textarea--docs",
-      "title": "Core/Textarea",
+      "title": "Core/Inputs/Textarea",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2478,7 +2478,7 @@
     },
     "core-texthighlight--playground": {
       "id": "core-texthighlight--playground",
-      "title": "Core/TextHighlight",
+      "title": "Core/Data Display/TextHighlight",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2489,7 +2489,7 @@
     },
     "core-texthighlight--docs": {
       "id": "core-texthighlight--docs",
-      "title": "Core/TextHighlight",
+      "title": "Core/Data Display/TextHighlight",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2499,7 +2499,7 @@
     },
     "core-texthighlight--variants": {
       "id": "core-texthighlight--variants",
-      "title": "Core/TextHighlight",
+      "title": "Core/Data Display/TextHighlight",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -2510,7 +2510,7 @@
     },
     "core-texthighlight--tones": {
       "id": "core-texthighlight--tones",
-      "title": "Core/TextHighlight",
+      "title": "Core/Data Display/TextHighlight",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -2521,7 +2521,7 @@
     },
     "core-timeline--playground": {
       "id": "core-timeline--playground",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2532,7 +2532,7 @@
     },
     "core-timeline--docs": {
       "id": "core-timeline--docs",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2542,7 +2542,7 @@
     },
     "core-timeline--long-content": {
       "id": "core-timeline--long-content",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Long Content",
       "type": "story",
       "tags": [
@@ -2552,7 +2552,7 @@
     },
     "core-toast--playground": {
       "id": "core-toast--playground",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2563,7 +2563,7 @@
     },
     "core-toast--docs": {
       "id": "core-toast--docs",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2573,7 +2573,7 @@
     },
     "core-togglegroup--playground": {
       "id": "core-togglegroup--playground",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2584,7 +2584,7 @@
     },
     "core-togglegroup--docs": {
       "id": "core-togglegroup--docs",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2594,7 +2594,7 @@
     },
     "core-togglegroup--disabled-options": {
       "id": "core-togglegroup--disabled-options",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Disabled Options",
       "type": "story",
       "tags": [
@@ -2605,7 +2605,7 @@
     },
     "core-tooltip--playground": {
       "id": "core-tooltip--playground",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2616,7 +2616,7 @@
     },
     "core-tooltip--docs": {
       "id": "core-tooltip--docs",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2626,7 +2626,7 @@
     },
     "core-tooltip--long-hint": {
       "id": "core-tooltip--long-hint",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Long Hint",
       "type": "story",
       "tags": [
@@ -2637,7 +2637,7 @@
     },
     "core-tree--playground": {
       "id": "core-tree--playground",
-      "title": "Core/Tree",
+      "title": "Core/Navigation/Tree",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2648,7 +2648,7 @@
     },
     "core-tree--docs": {
       "id": "core-tree--docs",
-      "title": "Core/Tree",
+      "title": "Core/Navigation/Tree",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -3729,7 +3729,7 @@
     },
     "core-accordion--accordion-pattern-1": {
       "id": "core-accordion--accordion-pattern-1",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Variants and indicators",
       "type": "story",
       "tags": [
@@ -3739,7 +3739,7 @@
     },
     "core-accordion--accordion-pattern-4": {
       "id": "core-accordion--accordion-pattern-4",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Inside a card",
       "type": "story",
       "tags": [
@@ -3750,7 +3750,7 @@
     },
     "core-accordion--accordion-pattern-5": {
       "id": "core-accordion--accordion-pattern-5",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Disabled and highlighted",
       "type": "story",
       "tags": [
@@ -3761,7 +3761,7 @@
     },
     "core-accordion--accordion-pattern-6": {
       "id": "core-accordion--accordion-pattern-6",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Icons and badges",
       "type": "story",
       "tags": [
@@ -3771,7 +3771,7 @@
     },
     "core-accordion--accordion-pattern-8": {
       "id": "core-accordion--accordion-pattern-8",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Nested sections",
       "type": "story",
       "tags": [
@@ -3782,7 +3782,7 @@
     },
     "core-accordion--accordion-pattern-9": {
       "id": "core-accordion--accordion-pattern-9",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Member directory",
       "type": "story",
       "tags": [
@@ -3792,7 +3792,7 @@
     },
     "core-accordion--accordion-pattern-11": {
       "id": "core-accordion--accordion-pattern-11",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Guided setup",
       "type": "story",
       "tags": [
@@ -3803,7 +3803,7 @@
     },
     "core-accordion--collapsible-pattern-1": {
       "id": "core-accordion--collapsible-pattern-1",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Collapsible: Show more details",
       "type": "story",
       "tags": [
@@ -3813,7 +3813,7 @@
     },
     "core-accordion--collapsible-pattern-7": {
       "id": "core-accordion--collapsible-pattern-7",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Collapsible: Framed sections",
       "type": "story",
       "tags": [
@@ -3824,7 +3824,7 @@
     },
     "core-accordion--collapsible-pattern-4": {
       "id": "core-accordion--collapsible-pattern-4",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Collapsible: Card with bottom trigger",
       "type": "story",
       "tags": [
@@ -3834,7 +3834,7 @@
     },
     "core-accordion--collapsible-pattern-5": {
       "id": "core-accordion--collapsible-pattern-5",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Collapsible: Advanced form fields",
       "type": "story",
       "tags": [
@@ -3844,7 +3844,7 @@
     },
     "core-accordion--collapsible-pattern-10": {
       "id": "core-accordion--collapsible-pattern-10",
-      "title": "Core/Accordion",
+      "title": "Core/Layout & Containers/Accordion",
       "name": "Collapsible: Tree view with file actions",
       "type": "story",
       "tags": [
@@ -3854,7 +3854,7 @@
     },
     "core-aspectratio--aspect-ratio-pattern-1": {
       "id": "core-aspectratio--aspect-ratio-pattern-1",
-      "title": "Core/AspectRatio",
+      "title": "Core/Layout & Containers/AspectRatio",
       "name": "Common ratios",
       "type": "story",
       "tags": [
@@ -3864,7 +3864,7 @@
     },
     "core-attachment--attachment-pattern-4": {
       "id": "core-attachment--attachment-pattern-4",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "Files in an assistant reply",
       "type": "story",
       "tags": [
@@ -3874,7 +3874,7 @@
     },
     "core-attachment--attachment-pattern-2": {
       "id": "core-attachment--attachment-pattern-2",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "Composer tray with removable files",
       "type": "story",
       "tags": [
@@ -3885,7 +3885,7 @@
     },
     "core-attachment--attachment-pattern-6": {
       "id": "core-attachment--attachment-pattern-6",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "File picker that fills a tray",
       "type": "story",
       "tags": [
@@ -3895,7 +3895,7 @@
     },
     "core-attachment--attachment-pattern-3": {
       "id": "core-attachment--attachment-pattern-3",
-      "title": "Core/Attachment",
+      "title": "Core/Messaging/Attachment",
       "name": "Image thumbnail strip",
       "type": "story",
       "tags": [
@@ -3905,7 +3905,7 @@
     },
     "core-avatar--avatar-pattern-3": {
       "id": "core-avatar--avatar-pattern-3",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Sizes, shapes and fallbacks",
       "type": "story",
       "tags": [
@@ -3915,7 +3915,7 @@
     },
     "core-avatar--avatar-pattern-16": {
       "id": "core-avatar--avatar-pattern-16",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "User details and badge",
       "type": "story",
       "tags": [
@@ -3925,7 +3925,7 @@
     },
     "core-avatar--avatar-pattern-6": {
       "id": "core-avatar--avatar-pattern-6",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Status and icon badges",
       "type": "story",
       "tags": [
@@ -3935,7 +3935,7 @@
     },
     "core-avatar--avatar-pattern-11": {
       "id": "core-avatar--avatar-pattern-11",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Groups",
       "type": "story",
       "tags": [
@@ -3945,7 +3945,7 @@
     },
     "core-avatar--avatar-pattern-20": {
       "id": "core-avatar--avatar-pattern-20",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Social proof",
       "type": "story",
       "tags": [
@@ -3955,7 +3955,7 @@
     },
     "core-avatar--avatar-pattern-24": {
       "id": "core-avatar--avatar-pattern-24",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Hover groups with tooltips",
       "type": "story",
       "tags": [
@@ -3965,7 +3965,7 @@
     },
     "core-avatar--avatar-pattern-19": {
       "id": "core-avatar--avatar-pattern-19",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Inside buttons",
       "type": "story",
       "tags": [
@@ -3975,7 +3975,7 @@
     },
     "core-avatar--avatar-pattern-35": {
       "id": "core-avatar--avatar-pattern-35",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Account dropdown menu",
       "type": "story",
       "tags": [
@@ -3986,7 +3986,7 @@
     },
     "core-avatar--avatar-pattern-13": {
       "id": "core-avatar--avatar-pattern-13",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Rings and activity",
       "type": "story",
       "tags": [
@@ -3996,7 +3996,7 @@
     },
     "core-avatar--avatar-pattern-28": {
       "id": "core-avatar--avatar-pattern-28",
-      "title": "Core/Avatar",
+      "title": "Core/Data Display/Avatar",
       "name": "Empty state",
       "type": "story",
       "tags": [
@@ -4006,7 +4006,7 @@
     },
     "core-banner--alert-pattern-2": {
       "id": "core-banner--alert-pattern-2",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Alert: Variants",
       "type": "story",
       "tags": [
@@ -4016,7 +4016,7 @@
     },
     "core-banner--alert-pattern-3": {
       "id": "core-banner--alert-pattern-3",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Alert: Actions and rich content",
       "type": "story",
       "tags": [
@@ -4026,7 +4026,7 @@
     },
     "core-banner--alert-pattern-18": {
       "id": "core-banner--alert-pattern-18",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Alert: Dismissible notices",
       "type": "story",
       "tags": [
@@ -4037,7 +4037,7 @@
     },
     "core-banner--alert-pattern-17": {
       "id": "core-banner--alert-pattern-17",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Alert: Service status summary",
       "type": "story",
       "tags": [
@@ -4047,7 +4047,7 @@
     },
     "core-banner--alert-pattern-19": {
       "id": "core-banner--alert-pattern-19",
-      "title": "Core/Banner",
+      "title": "Core/Feedback & States/Banner",
       "name": "Alert: Message notification",
       "type": "story",
       "tags": [
@@ -4057,7 +4057,7 @@
     },
     "core-breadcrumb--breadcrumb-pattern-1": {
       "id": "core-breadcrumb--breadcrumb-pattern-1",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Separators",
       "type": "story",
       "tags": [
@@ -4067,7 +4067,7 @@
     },
     "core-breadcrumb--breadcrumb-pattern-5": {
       "id": "core-breadcrumb--breadcrumb-pattern-5",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Icons, badges and avatars",
       "type": "story",
       "tags": [
@@ -4077,7 +4077,7 @@
     },
     "core-breadcrumb--breadcrumb-pattern-2": {
       "id": "core-breadcrumb--breadcrumb-pattern-2",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Collapsed path with menu",
       "type": "story",
       "tags": [
@@ -4088,7 +4088,7 @@
     },
     "core-breadcrumb--breadcrumb-pattern-14": {
       "id": "core-breadcrumb--breadcrumb-pattern-14",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Contained and button styles",
       "type": "story",
       "tags": [
@@ -4098,7 +4098,7 @@
     },
     "core-breadcrumb--breadcrumb-pattern-15": {
       "id": "core-breadcrumb--breadcrumb-pattern-15",
-      "title": "Core/Breadcrumb",
+      "title": "Core/Navigation/Breadcrumb",
       "name": "Workspace, user and document",
       "type": "story",
       "tags": [
@@ -4108,7 +4108,7 @@
     },
     "core-button--button-pattern-14": {
       "id": "core-button--button-pattern-14",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Icons, loading and links",
       "type": "story",
       "tags": [
@@ -4119,7 +4119,7 @@
     },
     "core-button--button-pattern-40": {
       "id": "core-button--button-pattern-40",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Counts, badges and shortcuts",
       "type": "story",
       "tags": [
@@ -4129,7 +4129,7 @@
     },
     "core-button--button-pattern-55": {
       "id": "core-button--button-pattern-55",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Avatar and two-line content",
       "type": "story",
       "tags": [
@@ -4139,7 +4139,7 @@
     },
     "core-button--button-pattern-44": {
       "id": "core-button--button-pattern-44",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Async loading and success",
       "type": "story",
       "tags": [
@@ -4150,7 +4150,7 @@
     },
     "core-button--button-pattern-41": {
       "id": "core-button--button-pattern-41",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Copy with feedback",
       "type": "story",
       "tags": [
@@ -4160,7 +4160,7 @@
     },
     "core-button--button-pattern-43": {
       "id": "core-button--button-pattern-43",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Toggling icon and label",
       "type": "story",
       "tags": [
@@ -4171,7 +4171,7 @@
     },
     "core-button--button-pattern-59": {
       "id": "core-button--button-pattern-59",
-      "title": "Core/Button",
+      "title": "Core/Actions/Button",
       "name": "Social sign-in",
       "type": "story",
       "tags": [
@@ -4181,7 +4181,7 @@
     },
     "core-buttongroup--button-group-pattern-22": {
       "id": "core-buttongroup--button-group-pattern-22",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Toolbars",
       "type": "story",
       "tags": [
@@ -4192,7 +4192,7 @@
     },
     "core-buttongroup--button-group-pattern-39": {
       "id": "core-buttongroup--button-group-pattern-39",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Split buttons",
       "type": "story",
       "tags": [
@@ -4202,7 +4202,7 @@
     },
     "core-buttongroup--button-group-pattern-34": {
       "id": "core-buttongroup--button-group-pattern-34",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Segmented choices",
       "type": "story",
       "tags": [
@@ -4213,7 +4213,7 @@
     },
     "core-buttongroup--button-group-pattern-16": {
       "id": "core-buttongroup--button-group-pattern-16",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Inputs and selects",
       "type": "story",
       "tags": [
@@ -4223,7 +4223,7 @@
     },
     "core-buttongroup--button-group-pattern-28": {
       "id": "core-buttongroup--button-group-pattern-28",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Steppers and pagination",
       "type": "story",
       "tags": [
@@ -4234,7 +4234,7 @@
     },
     "core-buttongroup--button-group-pattern-8": {
       "id": "core-buttongroup--button-group-pattern-8",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Counts and labels",
       "type": "story",
       "tags": [
@@ -4244,7 +4244,7 @@
     },
     "core-buttongroup--button-group-pattern-48": {
       "id": "core-buttongroup--button-group-pattern-48",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Collection toolbar",
       "type": "story",
       "tags": [
@@ -4254,7 +4254,7 @@
     },
     "core-buttongroup--button-group-pattern-5": {
       "id": "core-buttongroup--button-group-pattern-5",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Editor header",
       "type": "story",
       "tags": [
@@ -4264,7 +4264,7 @@
     },
     "core-buttongroup--button-group-pattern-49": {
       "id": "core-buttongroup--button-group-pattern-49",
-      "title": "Core/ButtonGroup",
+      "title": "Core/Actions/ButtonGroup",
       "name": "Vertical groups",
       "type": "story",
       "tags": [
@@ -4274,7 +4274,7 @@
     },
     "core-calendar--calendar-pattern-1": {
       "id": "core-calendar--calendar-pattern-1",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Selection and display options",
       "type": "story",
       "tags": [
@@ -4284,7 +4284,7 @@
     },
     "core-calendar--calendar-pattern-24": {
       "id": "core-calendar--calendar-pattern-24",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Date pickers in popovers",
       "type": "story",
       "tags": [
@@ -4294,7 +4294,7 @@
     },
     "core-calendar--calendar-pattern-16": {
       "id": "core-calendar--calendar-pattern-16",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Presets",
       "type": "story",
       "tags": [
@@ -4304,7 +4304,7 @@
     },
     "core-calendar--calendar-pattern-8": {
       "id": "core-calendar--calendar-pattern-8",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Caption and navigation",
       "type": "story",
       "tags": [
@@ -4314,7 +4314,7 @@
     },
     "core-calendar--calendar-pattern-13": {
       "id": "core-calendar--calendar-pattern-13",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Year and month grid",
       "type": "story",
       "tags": [
@@ -4324,7 +4324,7 @@
     },
     "core-calendar--calendar-pattern-19": {
       "id": "core-calendar--calendar-pattern-19",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Appointment booking",
       "type": "story",
       "tags": [
@@ -4334,7 +4334,7 @@
     },
     "core-calendar--calendar-pattern-17": {
       "id": "core-calendar--calendar-pattern-17",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Daily pricing",
       "type": "story",
       "tags": [
@@ -4344,7 +4344,7 @@
     },
     "core-calendar--calendar-pattern-22": {
       "id": "core-calendar--calendar-pattern-22",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Event list",
       "type": "story",
       "tags": [
@@ -4354,7 +4354,7 @@
     },
     "core-calendar--date-selector-pattern-1": {
       "id": "core-calendar--date-selector-pattern-1",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Date selector: Options",
       "type": "story",
       "tags": [
@@ -4364,7 +4364,7 @@
     },
     "core-calendar--date-selector-pattern-2": {
       "id": "core-calendar--date-selector-pattern-2",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Date selector: In a popover",
       "type": "story",
       "tags": [
@@ -4374,7 +4374,7 @@
     },
     "core-calendar--date-selector-pattern-4": {
       "id": "core-calendar--date-selector-pattern-4",
-      "title": "Core/Calendar",
+      "title": "Core/Inputs/Calendar",
       "name": "Date selector: Translated, in a dialog",
       "type": "story",
       "tags": [
@@ -4384,7 +4384,7 @@
     },
     "core-card--card-pattern-1": {
       "id": "core-card--card-pattern-1",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Sections and dividers",
       "type": "story",
       "tags": [
@@ -4394,7 +4394,7 @@
     },
     "core-card--card-pattern-7": {
       "id": "core-card--card-pattern-7",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Media cards",
       "type": "story",
       "tags": [
@@ -4404,7 +4404,7 @@
     },
     "core-card--card-pattern-17": {
       "id": "core-card--card-pattern-17",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Link cards",
       "type": "story",
       "tags": [
@@ -4414,7 +4414,7 @@
     },
     "core-card--card-pattern-15": {
       "id": "core-card--card-pattern-15",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Stat with trend and menu",
       "type": "story",
       "tags": [
@@ -4424,7 +4424,7 @@
     },
     "core-card--card-pattern-16": {
       "id": "core-card--card-pattern-16",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Header badge and actions",
       "type": "story",
       "tags": [
@@ -4434,7 +4434,7 @@
     },
     "core-card--card-pattern-14": {
       "id": "core-card--card-pattern-14",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Deployment status",
       "type": "story",
       "tags": [
@@ -4444,7 +4444,7 @@
     },
     "core-card--card-pattern-13": {
       "id": "core-card--card-pattern-13",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Expandable billing usage",
       "type": "story",
       "tags": [
@@ -4454,7 +4454,7 @@
     },
     "core-card--card-pattern-12": {
       "id": "core-card--card-pattern-12",
-      "title": "Core/Card",
+      "title": "Core/Layout & Containers/Card",
       "name": "Login form",
       "type": "story",
       "tags": [
@@ -4464,7 +4464,7 @@
     },
     "core-carousel--carousel-pattern-1": {
       "id": "core-carousel--carousel-pattern-1",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Layout options",
       "type": "story",
       "tags": [
@@ -4475,7 +4475,7 @@
     },
     "core-carousel--carousel-pattern-11": {
       "id": "core-carousel--carousel-pattern-11",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Content overlays with dots",
       "type": "story",
       "tags": [
@@ -4486,7 +4486,7 @@
     },
     "core-carousel--carousel-pattern-9": {
       "id": "core-carousel--carousel-pattern-9",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Thumbnail navigation",
       "type": "story",
       "tags": [
@@ -4497,7 +4497,7 @@
     },
     "core-carousel--carousel-pattern-5": {
       "id": "core-carousel--carousel-pattern-5",
-      "title": "Core/Carousel",
+      "title": "Core/Layout & Containers/Carousel",
       "name": "Autoplay",
       "type": "story",
       "tags": [
@@ -4507,7 +4507,7 @@
     },
     "core-cascader--cascader-pattern-1": {
       "id": "core-cascader--cascader-pattern-1",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Drill-down picker",
       "type": "story",
       "tags": [
@@ -4518,7 +4518,7 @@
     },
     "core-cascader--cascader-pattern-2": {
       "id": "core-cascader--cascader-pattern-2",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Multi-select with chips and presets",
       "type": "story",
       "tags": [
@@ -4529,7 +4529,7 @@
     },
     "core-cascader--cascader-pattern-12": {
       "id": "core-cascader--cascader-pattern-12",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Form field",
       "type": "story",
       "tags": [
@@ -4540,7 +4540,7 @@
     },
     "core-cascader--cascader-pattern-5": {
       "id": "core-cascader--cascader-pattern-5",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Avatars and role badges",
       "type": "story",
       "tags": [
@@ -4550,7 +4550,7 @@
     },
     "core-cascader--cascader-pattern-20": {
       "id": "core-cascader--cascader-pattern-20",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Two-line rows with branch colours",
       "type": "story",
       "tags": [
@@ -4560,7 +4560,7 @@
     },
     "core-cascader--cascader-pattern-14": {
       "id": "core-cascader--cascader-pattern-14",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Recently used groups",
       "type": "story",
       "tags": [
@@ -4570,7 +4570,7 @@
     },
     "core-cascader--cascader-pattern-13": {
       "id": "core-cascader--cascader-pattern-13",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Columns mode",
       "type": "story",
       "tags": [
@@ -4580,7 +4580,7 @@
     },
     "core-cascader--cascader-pattern-18": {
       "id": "core-cascader--cascader-pattern-18",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Cascading tree in a popover",
       "type": "story",
       "tags": [
@@ -4590,7 +4590,7 @@
     },
     "core-cascader--cascader-pattern-9": {
       "id": "core-cascader--cascader-pattern-9",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Controlled state",
       "type": "story",
       "tags": [
@@ -4600,7 +4600,7 @@
     },
     "core-cascader--cascader-pattern-15": {
       "id": "core-cascader--cascader-pattern-15",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Async drill-down",
       "type": "story",
       "tags": [
@@ -4610,7 +4610,7 @@
     },
     "core-cascader--cascader-pattern-16": {
       "id": "core-cascader--cascader-pattern-16",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Virtualized rows",
       "type": "story",
       "tags": [
@@ -4620,7 +4620,7 @@
     },
     "core-cascader--cascader-pattern-10": {
       "id": "core-cascader--cascader-pattern-10",
-      "title": "Core/Cascader",
+      "title": "Core/Inputs/Cascader",
       "name": "Translated labels",
       "type": "story",
       "tags": [
@@ -4630,7 +4630,7 @@
     },
     "core-checkbox--checkbox-pattern-1": {
       "id": "core-checkbox--checkbox-pattern-1",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "States",
       "type": "story",
       "tags": [
@@ -4641,7 +4641,7 @@
     },
     "core-checkbox--checkbox-pattern-22": {
       "id": "core-checkbox--checkbox-pattern-22",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Label extras and styles",
       "type": "story",
       "tags": [
@@ -4651,7 +4651,7 @@
     },
     "core-checkbox--checkbox-pattern-10": {
       "id": "core-checkbox--checkbox-pattern-10",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Groups",
       "type": "story",
       "tags": [
@@ -4661,7 +4661,7 @@
     },
     "core-checkbox--checkbox-pattern-9": {
       "id": "core-checkbox--checkbox-pattern-9",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Row cards",
       "type": "story",
       "tags": [
@@ -4671,7 +4671,7 @@
     },
     "core-checkbox--checkbox-pattern-14": {
       "id": "core-checkbox--checkbox-pattern-14",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Corner-check cards",
       "type": "story",
       "tags": [
@@ -4681,7 +4681,7 @@
     },
     "core-checkbox--checkbox-pattern-16": {
       "id": "core-checkbox--checkbox-pattern-16",
-      "title": "Core/Checkbox",
+      "title": "Core/Inputs/Checkbox",
       "name": "Nested group",
       "type": "story",
       "tags": [
@@ -4692,7 +4692,7 @@
     },
     "core-commander--command-pattern-1": {
       "id": "core-commander--command-pattern-1",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Inline palette",
       "type": "story",
       "tags": [
@@ -4703,7 +4703,7 @@
     },
     "core-commander--command-pattern-4": {
       "id": "core-commander--command-pattern-4",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Command dialog with groups and shortcuts",
       "type": "story",
       "tags": [
@@ -4714,7 +4714,7 @@
     },
     "core-commander--command-pattern-5": {
       "id": "core-commander--command-pattern-5",
-      "title": "Core/Commander",
+      "title": "Core/Overlays & Menus/Commander",
       "name": "Search everything",
       "type": "story",
       "tags": [
@@ -4725,7 +4725,7 @@
     },
     "core-datatable--data-grid-pattern-1": {
       "id": "core-datatable--data-grid-pattern-1",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Layout options",
       "type": "story",
       "tags": [
@@ -4735,7 +4735,7 @@
     },
     "core-datatable--data-grid-pattern-19": {
       "id": "core-datatable--data-grid-pattern-19",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Column controls",
       "type": "story",
       "tags": [
@@ -4745,7 +4745,7 @@
     },
     "core-datatable--data-grid-pattern-29": {
       "id": "core-datatable--data-grid-pattern-29",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Selection, expansion and pinned rows",
       "type": "story",
       "tags": [
@@ -4755,7 +4755,7 @@
     },
     "core-datatable--data-grid-pattern-14": {
       "id": "core-datatable--data-grid-pattern-14",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Draggable rows and columns",
       "type": "story",
       "tags": [
@@ -4765,7 +4765,7 @@
     },
     "core-datatable--data-grid-pattern-26": {
       "id": "core-datatable--data-grid-pattern-26",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Footer totals and aggregates",
       "type": "story",
       "tags": [
@@ -4775,7 +4775,7 @@
     },
     "core-datatable--data-grid-pattern-30": {
       "id": "core-datatable--data-grid-pattern-30",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Tree rows",
       "type": "story",
       "tags": [
@@ -4785,7 +4785,7 @@
     },
     "core-datatable--data-grid-pattern-9": {
       "id": "core-datatable--data-grid-pattern-9",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Sub table",
       "type": "story",
       "tags": [
@@ -4795,7 +4795,7 @@
     },
     "core-datatable--data-grid-pattern-31": {
       "id": "core-datatable--data-grid-pattern-31",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Spreadsheet editing",
       "type": "story",
       "tags": [
@@ -4805,7 +4805,7 @@
     },
     "core-datatable--data-grid-pattern-23": {
       "id": "core-datatable--data-grid-pattern-23",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "CRUD in a frame",
       "type": "story",
       "tags": [
@@ -4815,7 +4815,7 @@
     },
     "core-datatable--data-grid-pattern-34": {
       "id": "core-datatable--data-grid-pattern-34",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Server-side pagination",
       "type": "story",
       "tags": [
@@ -4825,7 +4825,7 @@
     },
     "core-datatable--data-grid-pattern-28": {
       "id": "core-datatable--data-grid-pattern-28",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Infinite scroll",
       "type": "story",
       "tags": [
@@ -4835,7 +4835,7 @@
     },
     "core-datatable--data-grid-pattern-32": {
       "id": "core-datatable--data-grid-pattern-32",
-      "title": "Core/DataTable",
+      "title": "Core/Data Display/DataTable",
       "name": "Column virtualization",
       "type": "story",
       "tags": [
@@ -4845,7 +4845,7 @@
     },
     "core-dialog--confirmation-pattern-1": {
       "id": "core-dialog--confirmation-pattern-1",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Confirmation layouts",
       "type": "story",
       "tags": [
@@ -4856,7 +4856,7 @@
     },
     "core-dialog--confirmation-pattern-9": {
       "id": "core-dialog--confirmation-pattern-9",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Confirmation with a don't-ask-again option",
       "type": "story",
       "tags": [
@@ -4867,7 +4867,7 @@
     },
     "core-dialog--confirmation-pattern-6": {
       "id": "core-dialog--confirmation-pattern-6",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Confirmation nested in a dialog",
       "type": "story",
       "tags": [
@@ -4878,7 +4878,7 @@
     },
     "core-dialog--confirmation-pattern-11": {
       "id": "core-dialog--confirmation-pattern-11",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Notice with a status badge",
       "type": "story",
       "tags": [
@@ -4889,7 +4889,7 @@
     },
     "core-dialog--confirmation-pattern-10": {
       "id": "core-dialog--confirmation-pattern-10",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Success summary with details",
       "type": "story",
       "tags": [
@@ -4900,7 +4900,7 @@
     },
     "core-dialog--confirmation-pattern-14": {
       "id": "core-dialog--confirmation-pattern-14",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Checklist before an action",
       "type": "story",
       "tags": [
@@ -4911,7 +4911,7 @@
     },
     "core-dialog--dialog-pattern-1": {
       "id": "core-dialog--dialog-pattern-1",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Form dialog",
       "type": "story",
       "tags": [
@@ -4922,7 +4922,7 @@
     },
     "core-dialog--dialog-pattern-6": {
       "id": "core-dialog--dialog-pattern-6",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Scrollable content",
       "type": "story",
       "tags": [
@@ -4933,7 +4933,7 @@
     },
     "core-dialog--dialog-pattern-4": {
       "id": "core-dialog--dialog-pattern-4",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Close button and footer options",
       "type": "story",
       "tags": [
@@ -4944,7 +4944,7 @@
     },
     "core-dialog--dialog-pattern-8": {
       "id": "core-dialog--dialog-pattern-8",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Settings with switches",
       "type": "story",
       "tags": [
@@ -4954,7 +4954,7 @@
     },
     "core-dialog--dialog-pattern-9": {
       "id": "core-dialog--dialog-pattern-9",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Keyboard shortcuts list",
       "type": "story",
       "tags": [
@@ -4964,7 +4964,7 @@
     },
     "core-dialog--drawer-pattern-5": {
       "id": "core-dialog--drawer-pattern-5",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Drawer from each edge",
       "type": "story",
       "tags": [
@@ -4975,7 +4975,7 @@
     },
     "core-dialog--sheet-pattern-1": {
       "id": "core-dialog--sheet-pattern-1",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Sheet with a form",
       "type": "story",
       "tags": [
@@ -4986,7 +4986,7 @@
     },
     "core-dialog--sheet-pattern-3": {
       "id": "core-dialog--sheet-pattern-3",
-      "title": "Core/Dialog",
+      "title": "Core/Overlays & Menus/Dialog",
       "name": "Sheet from each edge",
       "type": "story",
       "tags": [
@@ -4997,7 +4997,7 @@
     },
     "core-dropdownmenu--context-menu-pattern-5": {
       "id": "core-dropdownmenu--context-menu-pattern-5",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Context menu",
       "type": "story",
       "tags": [
@@ -5008,7 +5008,7 @@
     },
     "core-dropdownmenu--context-menu-pattern-10": {
       "id": "core-dropdownmenu--context-menu-pattern-10",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Context menu inside a dialog",
       "type": "story",
       "tags": [
@@ -5018,7 +5018,7 @@
     },
     "core-dropdownmenu--dropdown-menu-pattern-8": {
       "id": "core-dropdownmenu--dropdown-menu-pattern-8",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Item kinds",
       "type": "story",
       "tags": [
@@ -5029,7 +5029,7 @@
     },
     "core-dropdownmenu--dropdown-menu-pattern-2": {
       "id": "core-dropdownmenu--dropdown-menu-pattern-2",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Side and alignment",
       "type": "story",
       "tags": [
@@ -5039,7 +5039,7 @@
     },
     "core-dropdownmenu--dropdown-menu-pattern-14": {
       "id": "core-dropdownmenu--dropdown-menu-pattern-14",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Account and create menus",
       "type": "story",
       "tags": [
@@ -5049,7 +5049,7 @@
     },
     "core-dropdownmenu--dropdown-menu-pattern-10": {
       "id": "core-dropdownmenu--dropdown-menu-pattern-10",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Workspace and model switchers",
       "type": "story",
       "tags": [
@@ -5059,7 +5059,7 @@
     },
     "core-dropdownmenu--dropdown-menu-pattern-11": {
       "id": "core-dropdownmenu--dropdown-menu-pattern-11",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Notifications",
       "type": "story",
       "tags": [
@@ -5069,7 +5069,7 @@
     },
     "core-dropdownmenu--menubar-pattern-1": {
       "id": "core-dropdownmenu--menubar-pattern-1",
-      "title": "Core/DropdownMenu",
+      "title": "Core/Overlays & Menus/DropdownMenu",
       "name": "Application menubar",
       "type": "story",
       "tags": [
@@ -5079,7 +5079,7 @@
     },
     "core-emptystate--empty-pattern-1": {
       "id": "core-emptystate--empty-pattern-1",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Surfaces and actions",
       "type": "story",
       "tags": [
@@ -5089,7 +5089,7 @@
     },
     "core-emptystate--empty-pattern-8": {
       "id": "core-emptystate--empty-pattern-8",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Inside a card",
       "type": "story",
       "tags": [
@@ -5099,7 +5099,7 @@
     },
     "core-emptystate--empty-pattern-3": {
       "id": "core-emptystate--empty-pattern-3",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Not found with search",
       "type": "story",
       "tags": [
@@ -5109,7 +5109,7 @@
     },
     "core-emptystate--empty-pattern-13": {
       "id": "core-emptystate--empty-pattern-13",
-      "title": "Core/EmptyState",
+      "title": "Core/Feedback & States/EmptyState",
       "name": "Illustrated empty states",
       "type": "story",
       "tags": [
@@ -5120,7 +5120,7 @@
     },
     "core-eventcalendar--event-calendar-pattern-1": {
       "id": "core-eventcalendar--event-calendar-pattern-1",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "All views with live settings",
       "type": "story",
       "tags": [
@@ -5130,7 +5130,7 @@
     },
     "core-eventcalendar--event-calendar-pattern-3": {
       "id": "core-eventcalendar--event-calendar-pattern-3",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Create and edit dialog",
       "type": "story",
       "tags": [
@@ -5140,7 +5140,7 @@
     },
     "core-eventcalendar--event-calendar-pattern-4": {
       "id": "core-eventcalendar--event-calendar-pattern-4",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Custom event chips",
       "type": "story",
       "tags": [
@@ -5150,7 +5150,7 @@
     },
     "core-eventcalendar--event-calendar-pattern-5": {
       "id": "core-eventcalendar--event-calendar-pattern-5",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Drag-to-book appointments",
       "type": "story",
       "tags": [
@@ -5160,7 +5160,7 @@
     },
     "core-eventcalendar--event-calendar-pattern-2": {
       "id": "core-eventcalendar--event-calendar-pattern-2",
-      "title": "Core/EventCalendar",
+      "title": "Core/Planning/EventCalendar",
       "name": "Resource view for room bookings",
       "type": "story",
       "tags": [
@@ -5170,7 +5170,7 @@
     },
     "core-field--field-pattern-7": {
       "id": "core-field--field-pattern-7",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Settings form with validation",
       "type": "story",
       "tags": [
@@ -5180,7 +5180,7 @@
     },
     "core-field--field-pattern-1": {
       "id": "core-field--field-pattern-1",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Controls in fields",
       "type": "story",
       "tags": [
@@ -5190,7 +5190,7 @@
     },
     "core-field--field-pattern-10": {
       "id": "core-field--field-pattern-10",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Fieldsets of choices",
       "type": "story",
       "tags": [
@@ -5200,7 +5200,7 @@
     },
     "core-field--field-pattern-11": {
       "id": "core-field--field-pattern-11",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Validation errors",
       "type": "story",
       "tags": [
@@ -5210,7 +5210,7 @@
     },
     "core-field--field-pattern-9": {
       "id": "core-field--field-pattern-9",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Responsive layout",
       "type": "story",
       "tags": [
@@ -5220,7 +5220,7 @@
     },
     "core-field--label-pattern-1": {
       "id": "core-field--label-pattern-1",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Label accessories",
       "type": "story",
       "tags": [
@@ -5231,7 +5231,7 @@
     },
     "core-field--label-pattern-12": {
       "id": "core-field--label-pattern-12",
-      "title": "Core/Field",
+      "title": "Core/Inputs/Field",
       "name": "Inline edit",
       "type": "story",
       "tags": [
@@ -5242,7 +5242,7 @@
     },
     "core-fileupload--file-upload-pattern-3": {
       "id": "core-fileupload--file-upload-pattern-3",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Drag and drop",
       "type": "story",
       "tags": [
@@ -5253,7 +5253,7 @@
     },
     "core-fileupload--file-upload-pattern-6": {
       "id": "core-fileupload--file-upload-pattern-6",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Upload table with progress",
       "type": "story",
       "tags": [
@@ -5263,7 +5263,7 @@
     },
     "core-fileupload--file-upload-pattern-8": {
       "id": "core-fileupload--file-upload-pattern-8",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Image gallery with sorting",
       "type": "story",
       "tags": [
@@ -5273,7 +5273,7 @@
     },
     "core-fileupload--file-upload-pattern-2": {
       "id": "core-fileupload--file-upload-pattern-2",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Avatar upload",
       "type": "story",
       "tags": [
@@ -5283,7 +5283,7 @@
     },
     "core-fileupload--file-upload-pattern-10": {
       "id": "core-fileupload--file-upload-pattern-10",
-      "title": "Core/FileUpload",
+      "title": "Core/Inputs/FileUpload",
       "name": "Cover image upload",
       "type": "story",
       "tags": [
@@ -5293,7 +5293,7 @@
     },
     "core-filterbar--filters-pattern-1": {
       "id": "core-filterbar--filters-pattern-1",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Everything in one filter bar",
       "type": "story",
       "tags": [
@@ -5303,7 +5303,7 @@
     },
     "core-filterbar--filters-pattern-10": {
       "id": "core-filterbar--filters-pattern-10",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Filtering a table with nested groups",
       "type": "story",
       "tags": [
@@ -5313,7 +5313,7 @@
     },
     "core-filterbar--filters-pattern-5": {
       "id": "core-filterbar--filters-pattern-5",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Custom value editors",
       "type": "story",
       "tags": [
@@ -5323,7 +5323,7 @@
     },
     "core-filterbar--filters-pattern-2": {
       "id": "core-filterbar--filters-pattern-2",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Nested attributes at workspace scale",
       "type": "story",
       "tags": [
@@ -5333,7 +5333,7 @@
     },
     "core-filterbar--filters-pattern-11": {
       "id": "core-filterbar--filters-pattern-11",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Nested groups inline, walked back out",
       "type": "story",
       "tags": [
@@ -5343,7 +5343,7 @@
     },
     "core-filterbar--filters-pattern-12": {
       "id": "core-filterbar--filters-pattern-12",
-      "title": "Core/FilterBar",
+      "title": "Core/Data Display/FilterBar",
       "name": "Controlled, sized and translated",
       "type": "story",
       "tags": [
@@ -5353,7 +5353,7 @@
     },
     "core-gantt--gantt-pattern-1": {
       "id": "core-gantt--gantt-pattern-1",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Settings menu, row reordering and scheduling",
       "type": "story",
       "tags": [
@@ -5363,7 +5363,7 @@
     },
     "core-gantt--gantt-pattern-5": {
       "id": "core-gantt--gantt-pattern-5",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Task table with progress",
       "type": "story",
       "tags": [
@@ -5373,7 +5373,7 @@
     },
     "core-gantt--gantt-pattern-3": {
       "id": "core-gantt--gantt-pattern-3",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Quarter roadmap with rollups",
       "type": "story",
       "tags": [
@@ -5383,7 +5383,7 @@
     },
     "core-gantt--gantt-pattern-4": {
       "id": "core-gantt--gantt-pattern-4",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Weekly capacity board",
       "type": "story",
       "tags": [
@@ -5393,7 +5393,7 @@
     },
     "core-gantt--gantt-pattern-6": {
       "id": "core-gantt--gantt-pattern-6",
-      "title": "Core/Gantt",
+      "title": "Core/Planning/Gantt",
       "name": "Baseline, dependencies and milestones",
       "type": "story",
       "tags": [
@@ -5403,7 +5403,7 @@
     },
     "core-icon--icon-stack-pattern-2": {
       "id": "core-icon--icon-stack-pattern-2",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Sizes, colors and badge",
       "type": "story",
       "tags": [
@@ -5413,7 +5413,7 @@
     },
     "core-icon--icon-stack-pattern-5": {
       "id": "core-icon--icon-stack-pattern-5",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "In an empty state and list row",
       "type": "story",
       "tags": [
@@ -5423,7 +5423,7 @@
     },
     "core-icon--icon-tile-pattern-4": {
       "id": "core-icon--icon-tile-pattern-4",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Variants, sizes and shapes",
       "type": "story",
       "tags": [
@@ -5433,7 +5433,7 @@
     },
     "core-icon--icon-tile-pattern-8": {
       "id": "core-icon--icon-tile-pattern-8",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -5443,7 +5443,7 @@
     },
     "core-icon--icon-tile-pattern-11": {
       "id": "core-icon--icon-tile-pattern-11",
-      "title": "Core/Icon",
+      "title": "Core/Data Display/Icon",
       "name": "In a card, list row and empty state",
       "type": "story",
       "tags": [
@@ -5453,7 +5453,7 @@
     },
     "core-input--input-group-pattern-4": {
       "id": "core-input--input-group-pattern-4",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Addon placement",
       "type": "story",
       "tags": [
@@ -5464,7 +5464,7 @@
     },
     "core-input--input-group-pattern-25": {
       "id": "core-input--input-group-pattern-25",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Hints and states",
       "type": "story",
       "tags": [
@@ -5474,7 +5474,7 @@
     },
     "core-input--input-group-pattern-21": {
       "id": "core-input--input-group-pattern-21",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Inline actions",
       "type": "story",
       "tags": [
@@ -5485,7 +5485,7 @@
     },
     "core-input--input-group-pattern-12": {
       "id": "core-input--input-group-pattern-12",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Dropdown selectors",
       "type": "story",
       "tags": [
@@ -5495,7 +5495,7 @@
     },
     "core-input--input-group-pattern-39": {
       "id": "core-input--input-group-pattern-39",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Search with filters",
       "type": "story",
       "tags": [
@@ -5506,7 +5506,7 @@
     },
     "core-input--input-group-pattern-33": {
       "id": "core-input--input-group-pattern-33",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Multi-field composer",
       "type": "story",
       "tags": [
@@ -5516,7 +5516,7 @@
     },
     "core-input--input-group-pattern-19": {
       "id": "core-input--input-group-pattern-19",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "AI prompt inputs",
       "type": "story",
       "tags": [
@@ -5526,7 +5526,7 @@
     },
     "core-input--input-pattern-1": {
       "id": "core-input--input-pattern-1",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Input types",
       "type": "story",
       "tags": [
@@ -5536,7 +5536,7 @@
     },
     "core-input--input-pattern-3": {
       "id": "core-input--input-pattern-3",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Labels and messages",
       "type": "story",
       "tags": [
@@ -5547,7 +5547,7 @@
     },
     "core-input--input-pattern-23": {
       "id": "core-input--input-pattern-23",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Password with strength meter",
       "type": "story",
       "tags": [
@@ -5558,7 +5558,7 @@
     },
     "core-input--input-pattern-26": {
       "id": "core-input--input-pattern-26",
-      "title": "Core/Input",
+      "title": "Core/Inputs/Input",
       "name": "Style variants",
       "type": "story",
       "tags": [
@@ -5568,7 +5568,7 @@
     },
     "core-inputotp--input-otp-pattern-1": {
       "id": "core-inputotp--input-otp-pattern-1",
-      "title": "Core/InputOtp",
+      "title": "Core/Inputs/InputOtp",
       "name": "Code formats",
       "type": "story",
       "tags": [
@@ -5579,7 +5579,7 @@
     },
     "core-kbd--kbd-pattern-1": {
       "id": "core-kbd--kbd-pattern-1",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Keys, groups and icons",
       "type": "story",
       "tags": [
@@ -5589,7 +5589,7 @@
     },
     "core-kbd--kbd-pattern-4": {
       "id": "core-kbd--kbd-pattern-4",
-      "title": "Core/Kbd",
+      "title": "Core/Actions/Kbd",
       "name": "Shortcuts in controls",
       "type": "story",
       "tags": [
@@ -5599,7 +5599,7 @@
     },
     "core-marker--marker-pattern-4": {
       "id": "core-marker--marker-pattern-4",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Run log grouped by phase",
       "type": "story",
       "tags": [
@@ -5609,7 +5609,7 @@
     },
     "core-marker--marker-pattern-3": {
       "id": "core-marker--marker-pattern-3",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Run status with a live step",
       "type": "story",
       "tags": [
@@ -5619,7 +5619,7 @@
     },
     "core-marker--marker-pattern-5": {
       "id": "core-marker--marker-pattern-5",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Changed files with border markers",
       "type": "story",
       "tags": [
@@ -5629,7 +5629,7 @@
     },
     "core-marker--marker-pattern-6": {
       "id": "core-marker--marker-pattern-6",
-      "title": "Core/Marker",
+      "title": "Core/Data Display/Marker",
       "name": "Links and an action button",
       "type": "story",
       "tags": [
@@ -5640,7 +5640,7 @@
     },
     "core-message--bubble-pattern-1": {
       "id": "core-message--bubble-pattern-1",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Bubble: Support thread",
       "type": "story",
       "tags": [
@@ -5650,7 +5650,7 @@
     },
     "core-message--docs": {
       "id": "core-message--docs",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -5660,7 +5660,7 @@
     },
     "core-message--bubble-pattern-2": {
       "id": "core-message--bubble-pattern-2",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Bubble: Bubble variants in a release thread",
       "type": "story",
       "tags": [
@@ -5670,7 +5670,7 @@
     },
     "core-message--bubble-pattern-7": {
       "id": "core-message--bubble-pattern-7",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Bubble: Formatted answer with show more",
       "type": "story",
       "tags": [
@@ -5680,7 +5680,7 @@
     },
     "core-message--bubble-pattern-6": {
       "id": "core-message--bubble-pattern-6",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Bubble: Quick reply bubbles and an action row",
       "type": "story",
       "tags": [
@@ -5690,7 +5690,7 @@
     },
     "core-message--message-pattern-2": {
       "id": "core-message--message-pattern-2",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Team conversation",
       "type": "story",
       "tags": [
@@ -5700,7 +5700,7 @@
     },
     "core-message--message-pattern-7": {
       "id": "core-message--message-pattern-7",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Assistant reply",
       "type": "story",
       "tags": [
@@ -5710,7 +5710,7 @@
     },
     "core-message--message-scroller-pattern-4": {
       "id": "core-message--message-scroller-pattern-4",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Message Scroller: Opening position and jump to latest",
       "type": "story",
       "tags": [
@@ -5720,7 +5720,7 @@
     },
     "core-message--message-scroller-pattern-2": {
       "id": "core-message--message-scroller-pattern-2",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Message Scroller: Streaming reply that follows the edge",
       "type": "story",
       "tags": [
@@ -5730,7 +5730,7 @@
     },
     "core-message--message-scroller-pattern-3": {
       "id": "core-message--message-scroller-pattern-3",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Message Scroller: Anchored turn with a previous peek",
       "type": "story",
       "tags": [
@@ -5741,7 +5741,7 @@
     },
     "core-message--message-scroller-pattern-5": {
       "id": "core-message--message-scroller-pattern-5",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Message Scroller: Load earlier without losing your place",
       "type": "story",
       "tags": [
@@ -5751,7 +5751,7 @@
     },
     "core-message--message-scroller-pattern-6": {
       "id": "core-message--message-scroller-pattern-6",
-      "title": "Core/Message",
+      "title": "Core/Messaging/Message",
       "name": "Message Scroller: Thread navigator for stepping turns",
       "type": "story",
       "tags": [
@@ -5761,7 +5761,7 @@
     },
     "core-navigationmenu--navigation-menu-pattern-1": {
       "id": "core-navigationmenu--navigation-menu-pattern-1",
-      "title": "Core/NavigationMenu",
+      "title": "Core/Navigation/NavigationMenu",
       "name": "Site header menu",
       "type": "story",
       "tags": [
@@ -5772,7 +5772,7 @@
     },
     "core-numberfield--number-field-pattern-1": {
       "id": "core-numberfield--number-field-pattern-1",
-      "title": "Core/NumberField",
+      "title": "Core/Inputs/NumberField",
       "name": "Button layouts",
       "type": "story",
       "tags": [
@@ -5783,7 +5783,7 @@
     },
     "core-numberfield--number-field-pattern-6": {
       "id": "core-numberfield--number-field-pattern-6",
-      "title": "Core/NumberField",
+      "title": "Core/Inputs/NumberField",
       "name": "Form validation",
       "type": "story",
       "tags": [
@@ -5793,7 +5793,7 @@
     },
     "core-pagination--pagination-pattern-1": {
       "id": "core-pagination--pagination-pattern-1",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Numbered page styles",
       "type": "story",
       "tags": [
@@ -5803,7 +5803,7 @@
     },
     "core-pagination--pagination-pattern-8": {
       "id": "core-pagination--pagination-pattern-8",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Previous and next with page info",
       "type": "story",
       "tags": [
@@ -5813,7 +5813,7 @@
     },
     "core-pagination--pagination-pattern-12": {
       "id": "core-pagination--pagination-pattern-12",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Rows per page and range",
       "type": "story",
       "tags": [
@@ -5823,7 +5823,7 @@
     },
     "core-pagination--pagination-pattern-14": {
       "id": "core-pagination--pagination-pattern-14",
-      "title": "Core/Pagination",
+      "title": "Core/Navigation/Pagination",
       "name": "Jump to a page",
       "type": "story",
       "tags": [
@@ -5833,7 +5833,7 @@
     },
     "core-phoneinput--phone-input-pattern-1": {
       "id": "core-phoneinput--phone-input-pattern-1",
-      "title": "Core/PhoneInput",
+      "title": "Core/Inputs/PhoneInput",
       "name": "Field states",
       "type": "story",
       "tags": [
@@ -5844,7 +5844,7 @@
     },
     "core-pill--badge-pattern-1": {
       "id": "core-pill--badge-pattern-1",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Variants",
       "type": "story",
       "tags": [
@@ -5854,7 +5854,7 @@
     },
     "core-pill--badge-pattern-19": {
       "id": "core-pill--badge-pattern-19",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Sizes, counts and labels",
       "type": "story",
       "tags": [
@@ -5864,7 +5864,7 @@
     },
     "core-pill--badge-pattern-20": {
       "id": "core-pill--badge-pattern-20",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Icons, dots, avatars and images",
       "type": "story",
       "tags": [
@@ -5874,7 +5874,7 @@
     },
     "core-pill--badge-pattern-21": {
       "id": "core-pill--badge-pattern-21",
-      "title": "Core/Pill",
+      "title": "Core/Data Display/Pill",
       "name": "Removable filters and links",
       "type": "story",
       "tags": [
@@ -5885,7 +5885,7 @@
     },
     "core-popover--hover-card-pattern-3": {
       "id": "core-popover--hover-card-pattern-3",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Rich hover cards",
       "type": "story",
       "tags": [
@@ -5895,7 +5895,7 @@
     },
     "core-popover--hover-card-pattern-7": {
       "id": "core-popover--hover-card-pattern-7",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Relative timestamp",
       "type": "story",
       "tags": [
@@ -5905,7 +5905,7 @@
     },
     "core-popover--hover-card-pattern-2": {
       "id": "core-popover--hover-card-pattern-2",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Sides",
       "type": "story",
       "tags": [
@@ -5915,7 +5915,7 @@
     },
     "core-popover--popover-pattern-1": {
       "id": "core-popover--popover-pattern-1",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Sides and alignment",
       "type": "story",
       "tags": [
@@ -5925,7 +5925,7 @@
     },
     "core-popover--popover-pattern-3": {
       "id": "core-popover--popover-pattern-3",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Settings form",
       "type": "story",
       "tags": [
@@ -5935,7 +5935,7 @@
     },
     "core-popover--popover-pattern-6": {
       "id": "core-popover--popover-pattern-6",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Rich content",
       "type": "story",
       "tags": [
@@ -5945,7 +5945,7 @@
     },
     "core-popover--popover-pattern-11": {
       "id": "core-popover--popover-pattern-11",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Paged content",
       "type": "story",
       "tags": [
@@ -5955,7 +5955,7 @@
     },
     "core-popover--popover-pattern-5": {
       "id": "core-popover--popover-pattern-5",
-      "title": "Core/Popover",
+      "title": "Core/Overlays & Menus/Popover",
       "name": "Inside a dialog",
       "type": "story",
       "tags": [
@@ -5965,7 +5965,7 @@
     },
     "core-progress--progress-pattern-1": {
       "id": "core-progress--progress-pattern-1",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Sizes and colors",
       "type": "story",
       "tags": [
@@ -5976,7 +5976,7 @@
     },
     "core-progress--progress-pattern-4": {
       "id": "core-progress--progress-pattern-4",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Status messages",
       "type": "story",
       "tags": [
@@ -5986,7 +5986,7 @@
     },
     "core-progress--progress-pattern-5": {
       "id": "core-progress--progress-pattern-5",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "File upload list",
       "type": "story",
       "tags": [
@@ -5996,7 +5996,7 @@
     },
     "core-progress--progress-pattern-7": {
       "id": "core-progress--progress-pattern-7",
-      "title": "Core/Progress",
+      "title": "Core/Data Display/Progress",
       "name": "Multi-step",
       "type": "story",
       "tags": [
@@ -6006,7 +6006,7 @@
     },
     "core-questionnaire--questionnaire-pattern-1": {
       "id": "core-questionnaire--questionnaire-pattern-1",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Guided setup",
       "type": "story",
       "tags": [
@@ -6017,7 +6017,7 @@
     },
     "core-questionnaire--questionnaire-pattern-2": {
       "id": "core-questionnaire--questionnaire-pattern-2",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Answer types",
       "type": "story",
       "tags": [
@@ -6027,7 +6027,7 @@
     },
     "core-questionnaire--questionnaire-pattern-7": {
       "id": "core-questionnaire--questionnaire-pattern-7",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Conditional branch",
       "type": "story",
       "tags": [
@@ -6037,7 +6037,7 @@
     },
     "core-questionnaire--questionnaire-pattern-6": {
       "id": "core-questionnaire--questionnaire-pattern-6",
-      "title": "Core/Questionnaire",
+      "title": "Core/Inputs/Questionnaire",
       "name": "Cross-question validation",
       "type": "story",
       "tags": [
@@ -6047,7 +6047,7 @@
     },
     "core-radiogroup--radio-group-pattern-6": {
       "id": "core-radiogroup--radio-group-pattern-6",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Fieldset, descriptions and states",
       "type": "story",
       "tags": [
@@ -6058,7 +6058,7 @@
     },
     "core-radiogroup--radio-group-pattern-15": {
       "id": "core-radiogroup--radio-group-pattern-15",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Label extras and layouts",
       "type": "story",
       "tags": [
@@ -6068,7 +6068,7 @@
     },
     "core-radiogroup--radio-group-pattern-10": {
       "id": "core-radiogroup--radio-group-pattern-10",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Framed lists",
       "type": "story",
       "tags": [
@@ -6078,7 +6078,7 @@
     },
     "core-radiogroup--radio-group-pattern-17": {
       "id": "core-radiogroup--radio-group-pattern-17",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Row cards",
       "type": "story",
       "tags": [
@@ -6088,7 +6088,7 @@
     },
     "core-radiogroup--radio-group-pattern-11": {
       "id": "core-radiogroup--radio-group-pattern-11",
-      "title": "Core/RadioGroup",
+      "title": "Core/Inputs/RadioGroup",
       "name": "Corner-radio cards",
       "type": "story",
       "tags": [
@@ -6098,7 +6098,7 @@
     },
     "core-rating--rating-pattern-1": {
       "id": "core-rating--rating-pattern-1",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Display options",
       "type": "story",
       "tags": [
@@ -6108,7 +6108,7 @@
     },
     "core-rating--rating-pattern-9": {
       "id": "core-rating--rating-pattern-9",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Review form",
       "type": "story",
       "tags": [
@@ -6119,7 +6119,7 @@
     },
     "core-rating--rating-pattern-6": {
       "id": "core-rating--rating-pattern-6",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Review summary",
       "type": "story",
       "tags": [
@@ -6129,7 +6129,7 @@
     },
     "core-rating--rating-pattern-8": {
       "id": "core-rating--rating-pattern-8",
-      "title": "Core/Rating",
+      "title": "Core/Inputs/Rating",
       "name": "Emoji reactions",
       "type": "story",
       "tags": [
@@ -6140,7 +6140,7 @@
     },
     "core-resizable--resizable-pattern-9": {
       "id": "core-resizable--resizable-pattern-9",
-      "title": "Core/Resizable",
+      "title": "Core/Layout & Containers/Resizable",
       "name": "Editor workspace",
       "type": "story",
       "tags": [
@@ -6150,7 +6150,7 @@
     },
     "core-resizable--resizable-pattern-5": {
       "id": "core-resizable--resizable-pattern-5",
-      "title": "Core/Resizable",
+      "title": "Core/Layout & Containers/Resizable",
       "name": "Handle styles",
       "type": "story",
       "tags": [
@@ -6160,7 +6160,7 @@
     },
     "core-scrollarea--scroll-area-pattern-2": {
       "id": "core-scrollarea--scroll-area-pattern-2",
-      "title": "Core/ScrollArea",
+      "title": "Core/Layout & Containers/ScrollArea",
       "name": "Horizontal gallery",
       "type": "story",
       "tags": [
@@ -6170,7 +6170,7 @@
     },
     "core-scrollarea--scroll-area-pattern-3": {
       "id": "core-scrollarea--scroll-area-pattern-3",
-      "title": "Core/ScrollArea",
+      "title": "Core/Layout & Containers/ScrollArea",
       "name": "Wide table",
       "type": "story",
       "tags": [
@@ -6180,7 +6180,7 @@
     },
     "core-scrollspy--scrollspy-pattern-2": {
       "id": "core-scrollspy--scrollspy-pattern-2",
-      "title": "Core/Scrollspy",
+      "title": "Core/Navigation/Scrollspy",
       "name": "Top navigation",
       "type": "story",
       "tags": [
@@ -6190,7 +6190,7 @@
     },
     "core-select--autocomplete-pattern-1": {
       "id": "core-select--autocomplete-pattern-1",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Input options",
       "type": "story",
       "tags": [
@@ -6200,7 +6200,7 @@
     },
     "core-select--autocomplete-pattern-8": {
       "id": "core-select--autocomplete-pattern-8",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Grouped people search",
       "type": "story",
       "tags": [
@@ -6210,7 +6210,7 @@
     },
     "core-select--autocomplete-pattern-9": {
       "id": "core-select--autocomplete-pattern-9",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Async search results",
       "type": "story",
       "tags": [
@@ -6220,7 +6220,7 @@
     },
     "core-select--autocomplete-pattern-12": {
       "id": "core-select--autocomplete-pattern-12",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Autocomplete in a form",
       "type": "story",
       "tags": [
@@ -6230,7 +6230,7 @@
     },
     "core-select--combobox-pattern-1": {
       "id": "core-select--combobox-pattern-1",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Input options",
       "type": "story",
       "tags": [
@@ -6241,7 +6241,7 @@
     },
     "core-select--combobox-pattern-21": {
       "id": "core-select--combobox-pattern-21",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Property pickers",
       "type": "story",
       "tags": [
@@ -6251,7 +6251,7 @@
     },
     "core-select--combobox-pattern-12": {
       "id": "core-select--combobox-pattern-12",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Multiple selection with chips",
       "type": "story",
       "tags": [
@@ -6261,7 +6261,7 @@
     },
     "core-select--combobox-pattern-19": {
       "id": "core-select--combobox-pattern-19",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Member tags",
       "type": "story",
       "tags": [
@@ -6271,7 +6271,7 @@
     },
     "core-select--combobox-pattern-6": {
       "id": "core-select--combobox-pattern-6",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Grouped options",
       "type": "story",
       "tags": [
@@ -6281,7 +6281,7 @@
     },
     "core-select--combobox-pattern-25": {
       "id": "core-select--combobox-pattern-25",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Date presets with a custom picker",
       "type": "story",
       "tags": [
@@ -6291,7 +6291,7 @@
     },
     "core-select--combobox-pattern-11": {
       "id": "core-select--combobox-pattern-11",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Combobox in a form",
       "type": "story",
       "tags": [
@@ -6301,7 +6301,7 @@
     },
     "core-select--combobox-pattern-17": {
       "id": "core-select--combobox-pattern-17",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Combobox inside a dialog",
       "type": "story",
       "tags": [
@@ -6311,7 +6311,7 @@
     },
     "core-select--native-select-pattern-4": {
       "id": "core-select--native-select-pattern-4",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Native select fields",
       "type": "story",
       "tags": [
@@ -6321,7 +6321,7 @@
     },
     "core-select--select-pattern-8": {
       "id": "core-select--select-pattern-8",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Form fields and states",
       "type": "story",
       "tags": [
@@ -6331,7 +6331,7 @@
     },
     "core-select--select-pattern-18": {
       "id": "core-select--select-pattern-18",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Rich option content",
       "type": "story",
       "tags": [
@@ -6341,7 +6341,7 @@
     },
     "core-select--select-pattern-28": {
       "id": "core-select--select-pattern-28",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Grouped options",
       "type": "story",
       "tags": [
@@ -6351,7 +6351,7 @@
     },
     "core-select--select-pattern-16": {
       "id": "core-select--select-pattern-16",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Options with descriptions",
       "type": "story",
       "tags": [
@@ -6361,7 +6361,7 @@
     },
     "core-select--select-pattern-22": {
       "id": "core-select--select-pattern-22",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Clearable select",
       "type": "story",
       "tags": [
@@ -6371,7 +6371,7 @@
     },
     "core-select--select-pattern-13": {
       "id": "core-select--select-pattern-13",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Select in a toolbar",
       "type": "story",
       "tags": [
@@ -6381,7 +6381,7 @@
     },
     "core-select--select-pattern-11": {
       "id": "core-select--select-pattern-11",
-      "title": "Core/Select",
+      "title": "Core/Inputs/Select",
       "name": "Select inside a dialog",
       "type": "story",
       "tags": [
@@ -6391,7 +6391,7 @@
     },
     "core-separator--separator-pattern-6": {
       "id": "core-separator--separator-pattern-6",
-      "title": "Core/Separator",
+      "title": "Core/Layout & Containers/Separator",
       "name": "Horizontal rules",
       "type": "story",
       "tags": [
@@ -6401,7 +6401,7 @@
     },
     "core-separator--separator-pattern-2": {
       "id": "core-separator--separator-pattern-2",
-      "title": "Core/Separator",
+      "title": "Core/Layout & Containers/Separator",
       "name": "Vertical rules",
       "type": "story",
       "tags": [
@@ -6411,7 +6411,7 @@
     },
     "core-separator--separator-pattern-5": {
       "id": "core-separator--separator-pattern-5",
-      "title": "Core/Separator",
+      "title": "Core/Layout & Containers/Separator",
       "name": "Text label",
       "type": "story",
       "tags": [
@@ -6421,7 +6421,7 @@
     },
     "core-skeleton--skeleton-pattern-7": {
       "id": "core-skeleton--skeleton-pattern-7",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "List with avatars and actions",
       "type": "story",
       "tags": [
@@ -6431,7 +6431,7 @@
     },
     "core-skeleton--skeleton-pattern-8": {
       "id": "core-skeleton--skeleton-pattern-8",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Media card",
       "type": "story",
       "tags": [
@@ -6441,7 +6441,7 @@
     },
     "core-skeleton--skeleton-pattern-6": {
       "id": "core-skeleton--skeleton-pattern-6",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Dashboard stats and table",
       "type": "story",
       "tags": [
@@ -6451,7 +6451,7 @@
     },
     "core-skeleton--skeleton-pattern-4": {
       "id": "core-skeleton--skeleton-pattern-4",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Form",
       "type": "story",
       "tags": [
@@ -6461,7 +6461,7 @@
     },
     "core-skeleton--skeleton-pattern-9": {
       "id": "core-skeleton--skeleton-pattern-9",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Profile page",
       "type": "story",
       "tags": [
@@ -6471,7 +6471,7 @@
     },
     "core-skeleton--skeleton-pattern-10": {
       "id": "core-skeleton--skeleton-pattern-10",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Chat messages",
       "type": "story",
       "tags": [
@@ -6481,7 +6481,7 @@
     },
     "core-slider--slider-pattern-6": {
       "id": "core-slider--slider-pattern-6",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Thumbs and states",
       "type": "story",
       "tags": [
@@ -6492,7 +6492,7 @@
     },
     "core-slider--slider-pattern-7": {
       "id": "core-slider--slider-pattern-7",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Synced with number input",
       "type": "story",
       "tags": [
@@ -6502,7 +6502,7 @@
     },
     "core-slider--slider-pattern-10": {
       "id": "core-slider--slider-pattern-10",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Scale labels and ticks",
       "type": "story",
       "tags": [
@@ -6512,7 +6512,7 @@
     },
     "core-slider--slider-pattern-8": {
       "id": "core-slider--slider-pattern-8",
-      "title": "Core/Slider",
+      "title": "Core/Inputs/Slider",
       "name": "Custom readouts",
       "type": "story",
       "tags": [
@@ -6522,7 +6522,7 @@
     },
     "core-sortable--sortable-pattern-1": {
       "id": "core-sortable--sortable-pattern-1",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "List with row controls",
       "type": "story",
       "tags": [
@@ -6533,7 +6533,7 @@
     },
     "core-sortable--sortable-pattern-2": {
       "id": "core-sortable--sortable-pattern-2",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "Media grid",
       "type": "story",
       "tags": [
@@ -6543,7 +6543,7 @@
     },
     "core-sortable--sortable-pattern-3": {
       "id": "core-sortable--sortable-pattern-3",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "Nested lists",
       "type": "story",
       "tags": [
@@ -6553,7 +6553,7 @@
     },
     "core-sortable--sortable-pattern-8": {
       "id": "core-sortable--sortable-pattern-8",
-      "title": "Core/Sortable",
+      "title": "Core/Layout & Containers/Sortable",
       "name": "Persisted order",
       "type": "story",
       "tags": [
@@ -6563,7 +6563,7 @@
     },
     "core-spinner--spinner-pattern-2": {
       "id": "core-spinner--spinner-pattern-2",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "In buttons, badges and inputs",
       "type": "story",
       "tags": [
@@ -6573,7 +6573,7 @@
     },
     "core-spinner--spinner-pattern-9": {
       "id": "core-spinner--spinner-pattern-9",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "Inline status",
       "type": "story",
       "tags": [
@@ -6583,7 +6583,7 @@
     },
     "core-spinner--spinner-pattern-7": {
       "id": "core-spinner--spinner-pattern-7",
-      "title": "Core/Spinner",
+      "title": "Core/Feedback & States/Spinner",
       "name": "Overlays and empty states",
       "type": "story",
       "tags": [
@@ -6594,7 +6594,7 @@
     },
     "core-stepper--stepper-pattern-1": {
       "id": "core-stepper--stepper-pattern-1",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Basic stepper",
       "type": "story",
       "tags": [
@@ -6605,7 +6605,7 @@
     },
     "core-stepper--stepper-pattern-8": {
       "id": "core-stepper--stepper-pattern-8",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Titles and descriptions",
       "type": "story",
       "tags": [
@@ -6615,7 +6615,7 @@
     },
     "core-stepper--stepper-pattern-7": {
       "id": "core-stepper--stepper-pattern-7",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Controlled with icons and badges",
       "type": "story",
       "tags": [
@@ -6625,7 +6625,7 @@
     },
     "core-stepper--stepper-pattern-3": {
       "id": "core-stepper--stepper-pattern-3",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Loading state",
       "type": "story",
       "tags": [
@@ -6635,7 +6635,7 @@
     },
     "core-stepper--stepper-pattern-12": {
       "id": "core-stepper--stepper-pattern-12",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Progress bar",
       "type": "story",
       "tags": [
@@ -6645,7 +6645,7 @@
     },
     "core-stepper--stepper-pattern-13": {
       "id": "core-stepper--stepper-pattern-13",
-      "title": "Core/Stepper",
+      "title": "Core/Navigation/Stepper",
       "name": "Vertical orientation",
       "type": "story",
       "tags": [
@@ -6655,7 +6655,7 @@
     },
     "core-switch--switch-pattern-1": {
       "id": "core-switch--switch-pattern-1",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Labels and states",
       "type": "story",
       "tags": [
@@ -6666,7 +6666,7 @@
     },
     "core-switch--switch-pattern-8": {
       "id": "core-switch--switch-pattern-8",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Settings panel",
       "type": "story",
       "tags": [
@@ -6676,7 +6676,7 @@
     },
     "core-switch--switch-pattern-14": {
       "id": "core-switch--switch-pattern-14",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Card grid with descriptions",
       "type": "story",
       "tags": [
@@ -6686,7 +6686,7 @@
     },
     "core-switch--switch-pattern-12": {
       "id": "core-switch--switch-pattern-12",
-      "title": "Core/Switch",
+      "title": "Core/Inputs/Switch",
       "name": "Colours and destructive settings",
       "type": "story",
       "tags": [
@@ -6696,7 +6696,7 @@
     },
     "core-tabs--tabs-pattern-1": {
       "id": "core-tabs--tabs-pattern-1",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Settings form tabs",
       "type": "story",
       "tags": [
@@ -6707,7 +6707,7 @@
     },
     "core-tabs--tabs-pattern-7": {
       "id": "core-tabs--tabs-pattern-7",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Badge counts",
       "type": "story",
       "tags": [
@@ -6717,7 +6717,7 @@
     },
     "core-tabs--tabs-pattern-9": {
       "id": "core-tabs--tabs-pattern-9",
-      "title": "Core/Tabs",
+      "title": "Core/Navigation/Tabs",
       "name": "Period switch",
       "type": "story",
       "tags": [
@@ -6727,7 +6727,7 @@
     },
     "core-textarea--textarea-pattern-3": {
       "id": "core-textarea--textarea-pattern-3",
-      "title": "Core/Textarea",
+      "title": "Core/Inputs/Textarea",
       "name": "Field states",
       "type": "story",
       "tags": [
@@ -6738,7 +6738,7 @@
     },
     "core-textarea--textarea-pattern-6": {
       "id": "core-textarea--textarea-pattern-6",
-      "title": "Core/Textarea",
+      "title": "Core/Inputs/Textarea",
       "name": "Auto-resize with character count",
       "type": "story",
       "tags": [
@@ -6748,7 +6748,7 @@
     },
     "core-timeline--timeline-pattern-3": {
       "id": "core-timeline--timeline-pattern-3",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Vertical progress",
       "type": "story",
       "tags": [
@@ -6758,7 +6758,7 @@
     },
     "core-timeline--timeline-pattern-12": {
       "id": "core-timeline--timeline-pattern-12",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Horizontal releases",
       "type": "story",
       "tags": [
@@ -6768,7 +6768,7 @@
     },
     "core-timeline--timeline-pattern-11": {
       "id": "core-timeline--timeline-pattern-11",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Activity feed with avatars",
       "type": "story",
       "tags": [
@@ -6778,7 +6778,7 @@
     },
     "core-timeline--timeline-pattern-6": {
       "id": "core-timeline--timeline-pattern-6",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Pipeline steps",
       "type": "story",
       "tags": [
@@ -6788,7 +6788,7 @@
     },
     "core-timeline--timeline-pattern-5": {
       "id": "core-timeline--timeline-pattern-5",
-      "title": "Core/Timeline",
+      "title": "Core/Data Display/Timeline",
       "name": "Alternating milestones",
       "type": "story",
       "tags": [
@@ -6798,7 +6798,7 @@
     },
     "core-toast--sonner-pattern-4": {
       "id": "core-toast--sonner-pattern-4",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Types and options",
       "type": "story",
       "tags": [
@@ -6809,7 +6809,7 @@
     },
     "core-toast--sonner-pattern-6": {
       "id": "core-toast--sonner-pattern-6",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Actions",
       "type": "story",
       "tags": [
@@ -6820,7 +6820,7 @@
     },
     "core-toast--sonner-pattern-7": {
       "id": "core-toast--sonner-pattern-7",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Progress and async work",
       "type": "story",
       "tags": [
@@ -6831,7 +6831,7 @@
     },
     "core-toast--sonner-pattern-9": {
       "id": "core-toast--sonner-pattern-9",
-      "title": "Core/Toast",
+      "title": "Core/Overlays & Menus/Toast",
       "name": "Custom content",
       "type": "story",
       "tags": [
@@ -6842,7 +6842,7 @@
     },
     "core-togglegroup--toggle-group-pattern-2": {
       "id": "core-togglegroup--toggle-group-pattern-2",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Group variants, spacing, sizes and orientation",
       "type": "story",
       "tags": [
@@ -6853,7 +6853,7 @@
     },
     "core-togglegroup--toggle-group-pattern-8": {
       "id": "core-togglegroup--toggle-group-pattern-8",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Icon and label switchers",
       "type": "story",
       "tags": [
@@ -6863,7 +6863,7 @@
     },
     "core-togglegroup--toggle-group-pattern-12": {
       "id": "core-togglegroup--toggle-group-pattern-12",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Filters",
       "type": "story",
       "tags": [
@@ -6874,7 +6874,7 @@
     },
     "core-togglegroup--toggle-pattern-13": {
       "id": "core-togglegroup--toggle-pattern-13",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Toggle variants, sizes and states",
       "type": "story",
       "tags": [
@@ -6885,7 +6885,7 @@
     },
     "core-togglegroup--toggle-pattern-9": {
       "id": "core-togglegroup--toggle-pattern-9",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Toggle that swaps icon and label",
       "type": "story",
       "tags": [
@@ -6896,7 +6896,7 @@
     },
     "core-togglegroup--toggle-pattern-11": {
       "id": "core-togglegroup--toggle-pattern-11",
-      "title": "Core/ToggleGroup",
+      "title": "Core/Actions/ToggleGroup",
       "name": "Reactions and counts",
       "type": "story",
       "tags": [
@@ -6907,7 +6907,7 @@
     },
     "core-tooltip--tooltip-pattern-2": {
       "id": "core-tooltip--tooltip-pattern-2",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Sides",
       "type": "story",
       "tags": [
@@ -6917,7 +6917,7 @@
     },
     "core-tooltip--tooltip-pattern-6": {
       "id": "core-tooltip--tooltip-pattern-6",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Status and metadata",
       "type": "story",
       "tags": [
@@ -6927,7 +6927,7 @@
     },
     "core-tooltip--tooltip-pattern-11": {
       "id": "core-tooltip--tooltip-pattern-11",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "People",
       "type": "story",
       "tags": [
@@ -6937,7 +6937,7 @@
     },
     "core-tooltip--tooltip-pattern-5": {
       "id": "core-tooltip--tooltip-pattern-5",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Interactive content",
       "type": "story",
       "tags": [
@@ -6947,7 +6947,7 @@
     },
     "core-tooltip--tooltip-pattern-12": {
       "id": "core-tooltip--tooltip-pattern-12",
-      "title": "Core/Tooltip",
+      "title": "Core/Overlays & Menus/Tooltip",
       "name": "Disabled button",
       "type": "story",
       "tags": [
@@ -6957,7 +6957,7 @@
     },
     "core-tree--tree-pattern-1": {
       "id": "core-tree--tree-pattern-1",
-      "title": "Core/Tree",
+      "title": "Core/Navigation/Tree",
       "name": "Display options",
       "type": "story",
       "tags": [
@@ -6968,7 +6968,7 @@
     },
     "core-tree--tree-pattern-7": {
       "id": "core-tree--tree-pattern-7",
-      "title": "Core/Tree",
+      "title": "Core/Navigation/Tree",
       "name": "Permission checkboxes",
       "type": "story",
       "tags": [
@@ -6979,7 +6979,7 @@
     },
     "core-tree--tree-pattern-6": {
       "id": "core-tree--tree-pattern-6",
-      "title": "Core/Tree",
+      "title": "Core/Navigation/Tree",
       "name": "Organization chart",
       "type": "story",
       "tags": [

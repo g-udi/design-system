@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/menubar/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/DropdownMenu', tags: ['autodocs'], ...catalogueMeta('menubar') };
+export default { title: 'Core/Overlays & Menus/DropdownMenu', id: 'core-dropdownmenu', tags: ['autodocs'], ...catalogueMeta('menubar') };
 
 export const MenubarPattern1 = {
   name: 'Application menubar',

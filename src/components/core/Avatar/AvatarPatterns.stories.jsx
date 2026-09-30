@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/avatar/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Avatar', tags: ['autodocs'], ...catalogueMeta('avatar') };
+export default { title: 'Core/Data Display/Avatar', id: 'core-avatar', tags: ['autodocs'], ...catalogueMeta('avatar') };
 
 export const AvatarPattern3 = { name: 'Sizes, shapes and fallbacks', ...pattern(3, 'Built-in and custom sizes, corner radii, and initials or icon fallbacks when there is no image.') };
 export const AvatarPattern16 = { name: 'User details and badge', ...pattern(16) };

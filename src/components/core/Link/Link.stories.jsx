@@ -22,7 +22,7 @@ const tones = {
 const link = (canvasElement, name) => within(canvasElement).getByRole('link', { name });
 
 export default {
-  title: 'Core/Link',
+  title: 'Core/Actions/Link',
   id: 'core-link',
   component: Link,
   tags: ['autodocs'],

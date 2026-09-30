@@ -27,7 +27,7 @@ const expectDecorative = async (elements) => {
 };
 
 export default {
-  title: 'Core/Skeleton',
+  title: 'Core/Feedback & States/Skeleton',
   id: 'core-skeleton',
   component: Skeleton,
   tags: ['autodocs'],

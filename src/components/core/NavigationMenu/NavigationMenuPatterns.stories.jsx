@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/navigation-menu/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/NavigationMenu', tags: ['autodocs'], ...catalogueMeta('navigation-menu') };
+export default { title: 'Core/Navigation/NavigationMenu', id: 'core-navigationmenu', tags: ['autodocs'], ...catalogueMeta('navigation-menu') };
 
 export const NavigationMenuPattern1 = {
   name: 'Site header menu',

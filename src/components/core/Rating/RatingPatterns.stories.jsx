@@ -9,7 +9,7 @@ const pattern = patternStories(
 const star = (canvasElement, index) =>
   canvasElement.querySelectorAll('[data-slot="rating-star-empty"]')[index].parentElement;
 
-export default { title: 'Core/Rating', tags: ['autodocs'], ...catalogueMeta('rating') };
+export default { title: 'Core/Inputs/Rating', id: 'core-rating', tags: ['autodocs'], ...catalogueMeta('rating') };
 
 export const RatingPattern1 = { name: 'Display options', ...pattern(1, 'Whole and fractional scores, the numeric value, and the small and large sizes.') };
 export const RatingPattern9 = {

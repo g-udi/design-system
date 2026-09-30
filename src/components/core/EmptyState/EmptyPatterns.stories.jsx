@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/empty/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/EmptyState', tags: ['autodocs'], ...catalogueMeta('empty') };
+export default { title: 'Core/Feedback & States/EmptyState', id: 'core-emptystate', tags: ['autodocs'], ...catalogueMeta('empty') };
 
 export const EmptyPattern1 = { name: 'Surfaces and actions', ...pattern(1, 'Plain, muted, bordered and dashed upload surfaces, with and without an icon, inline links, and one or two actions.') };
 export const EmptyPattern8 = { name: 'Inside a card', ...pattern(8) };

@@ -56,7 +56,7 @@ function VerificationCard({ onChange, onComplete, ...props }) {
 }
 
 export default {
-  title: 'Core/InputOtp',
+  title: 'Core/Inputs/InputOtp',
   id: 'core-inputotp',
   component: InputOTP,
   tags: ['autodocs'],

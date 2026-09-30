@@ -80,7 +80,7 @@ const showcaseSource = extras.map(({ icon, badge, tone, ...extra }, index) => {
 const showcaseTrigger = (canvas, index) => canvas.getByRole('button', { name: new RegExp(`^${showcase[index].title.replace('?', '\\?')}`) });
 
 export default {
-  title: 'Core/Accordion',
+  title: 'Core/Layout & Containers/Accordion',
   id: 'core-accordion',
   component: AccordionGroup,
   tags: ['autodocs'],

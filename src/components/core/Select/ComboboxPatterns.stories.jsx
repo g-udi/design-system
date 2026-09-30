@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/combobox/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Select', tags: ['autodocs'], ...catalogueMeta('combobox') };
+export default { title: 'Core/Inputs/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('combobox') };
 
 // Type to filter, then pick with the keyboard; the popup closes on commit.
 const pickWithKeyboard = async ({ canvasElement }) => {

@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/carousel/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Carousel', tags: ['autodocs'], ...catalogueMeta('carousel') };
+export default { title: 'Core/Layout & Containers/Carousel', id: 'core-carousel', tags: ['autodocs'], ...catalogueMeta('carousel') };
 
 export const CarouselPattern1 = {
   name: 'Layout options',

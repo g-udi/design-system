@@ -22,7 +22,7 @@ const plans = [
 ];
 
 export default {
-  title: 'Core/RadioGroup',
+  title: 'Core/Inputs/RadioGroup', id: 'core-radiogroup',
   component: RadioGroup,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

@@ -30,7 +30,7 @@ const events = [
 const today = at(15, 9);
 
 export default {
-  title: 'Core/EventCalendar',
+  title: 'Core/Planning/EventCalendar',
   id: 'core-eventcalendar',
   component: EventCalendar,
   tags: ['autodocs'],

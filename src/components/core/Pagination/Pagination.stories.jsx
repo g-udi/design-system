@@ -34,7 +34,7 @@ const pagePosts = (page) => Array.from({ length: perPage }, (_, index) => {
 const rangeLabel = (page, totalPages) => `Posts ${(page - 1) * perPage + 1}–${page * perPage} of ${totalPages * perPage}`;
 
 export default {
-  title: 'Core/Pagination',
+  title: 'Core/Navigation/Pagination',
   id: 'core-pagination',
   component: PaginationBar,
   tags: ['autodocs'],

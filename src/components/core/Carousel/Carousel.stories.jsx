@@ -72,7 +72,7 @@ const button = (canvas, name) => canvas.getByRole('button', { name });
 const status = (canvas, text) => expect(canvas.getByText(text, { selector: '[aria-live]' })).toBeInTheDocument();
 
 export default {
-  title: 'Core/Carousel',
+  title: 'Core/Layout & Containers/Carousel',
   id: 'core-carousel',
   component: Carousel,
   tags: ['autodocs'],

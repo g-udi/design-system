@@ -27,7 +27,7 @@ const statusOf = (activeStep) => activeStep >= flow.length
   : { icon: flow[activeStep].icon, title: `Step ${activeStep + 1} of ${flow.length}: ${flow[activeStep].label}`, detail: flow[activeStep].description };
 
 export default {
-  title: 'Core/Stepper',
+  title: 'Core/Navigation/Stepper', id: 'core-stepper',
   component: Stepper,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { activeStep: 'number' }),

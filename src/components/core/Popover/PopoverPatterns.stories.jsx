@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/popover/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Popover', tags: ['autodocs'], ...catalogueMeta('popover') };
+export default { title: 'Core/Overlays & Menus/Popover', id: 'core-popover', tags: ['autodocs'], ...catalogueMeta('popover') };
 
 export const PopoverPattern1 = { name: 'Sides and alignment', ...pattern(1, 'Each side and each alignment, with a header, title and description.') };
 export const PopoverPattern3 = { name: 'Settings form', ...pattern(3, 'Inputs, switches and a slider in a sectioned panel.') };

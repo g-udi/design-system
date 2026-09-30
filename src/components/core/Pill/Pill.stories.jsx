@@ -40,7 +40,7 @@ const pullRequests = [
 const featured = pullRequests[0].title;
 
 export default {
-  title: 'Core/Pill',
+  title: 'Core/Data Display/Pill',
   id: 'core-pill',
   component: Pill,
   tags: ['autodocs'],

@@ -25,7 +25,7 @@ function Task({ spinner, title, detail }) {
 const statuses = (canvasElement, name) => within(canvasElement).getAllByRole('status', { name });
 
 export default {
-  title: 'Core/Spinner',
+  title: 'Core/Feedback & States/Spinner',
   id: 'core-spinner',
   component: Spinner,
   tags: ['autodocs'],

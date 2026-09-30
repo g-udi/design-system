@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/bubble/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Message', tags: ['autodocs'], ...catalogueMeta('bubble') };
+export default { title: 'Core/Messaging/Message', id: 'core-message', tags: ['autodocs'], ...catalogueMeta('bubble') };
 
 export const BubblePattern1 = { name: 'Bubble: Support thread', ...pattern(1, 'align and variant carry the sender, consecutive turns share a BubbleGroup, and reactions sit above or below a bubble, static or pressable.') };
 export const BubblePattern2 = { name: 'Bubble: Bubble variants in a release thread', ...pattern(2, 'All seven variants doing the job each one is for, in one deploy thread.') };

@@ -30,7 +30,7 @@ const events = [
 const today = day(15);
 
 export default {
-  title: 'Core/Gantt',
+  title: 'Core/Planning/Gantt',
   id: 'core-gantt',
   component: Gantt,
   tags: ['autodocs'],

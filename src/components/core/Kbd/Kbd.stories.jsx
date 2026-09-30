@@ -11,7 +11,7 @@ const shortcut = 'command,k';
 const shortcuts = (canvasElement) => within(canvasElement).getAllByRole('img', { name: 'Command plus K' });
 
 export default {
-  title: 'Core/Kbd',
+  title: 'Core/Actions/Kbd',
   id: 'core-kbd',
   component: Kbd,
   tags: ['autodocs'],

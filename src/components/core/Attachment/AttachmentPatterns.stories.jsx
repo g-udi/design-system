@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/attachment/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Attachment', tags: ['autodocs'], ...catalogueMeta('attachment') };
+export default { title: 'Core/Messaging/Attachment', id: 'core-attachment', tags: ['autodocs'], ...catalogueMeta('attachment') };
 
 export const AttachmentPattern4 = { name: 'Files in an assistant reply', ...pattern(4, 'The default, `sm` and `xs` sizes as the deliverable, working files and cited snippets of one reply, with a download action.') };
 export const AttachmentPattern2 = {

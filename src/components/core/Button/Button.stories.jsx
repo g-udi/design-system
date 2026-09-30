@@ -26,7 +26,7 @@ const supportingSource = ({ size, radius }) => supporting.map(({ label, icon, va
   : `<Button size='${size}' radius='${radius}' variant='${variant}' tone='${tone}'>${label}</Button>\n`)).join('');
 
 export default {
-  title: 'Core/Button',
+  title: 'Core/Actions/Button',
   id: 'core-button',
   component: Button,
   tags: ['autodocs'],

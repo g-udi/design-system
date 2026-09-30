@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/sortable/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Sortable', tags: ['autodocs'], ...catalogueMeta('sortable') };
+export default { title: 'Core/Layout & Containers/Sortable', id: 'core-sortable', tags: ['autodocs'], ...catalogueMeta('sortable') };
 
 export const SortablePattern1 = { name: 'List with row controls', ...pattern(1, 'Rows reorder by their handle while the switch in each row stays clickable; the first row becomes the cover.'), play: catalogueInteractions['sortable-1'] };
 export const SortablePattern2 = { name: 'Media grid', ...pattern(2, 'The grid strategy with a featured tile spanning two cells and handles that appear on hover.') };

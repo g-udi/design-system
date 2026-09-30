@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/filters/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/FilterBar', tags: ['autodocs'], ...catalogueMeta('filters') };
+export default { title: 'Core/Data Display/FilterBar', id: 'core-filterbar', tags: ['autodocs'], ...catalogueMeta('filters') };
 
 export const FiltersPattern1 = { name: 'Everything in one filter bar', ...pattern(1, 'Multi-select with pinned picks, badges or stacked values in the chip, nested fields, async paged options, a restored saved view, and the query it produces.') };
 export const FiltersPattern10 = { name: 'Filtering a table with nested groups', ...pattern(10, 'A popover builder with nested groups, compiled to a row predicate over a data grid that pages, sorts and totals the matches.') };

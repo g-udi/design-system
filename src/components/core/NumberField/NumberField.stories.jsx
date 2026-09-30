@@ -39,7 +39,7 @@ const companions = [
 const rangeHint = ({ min, max, step }) => `${min} to ${max}, steps of ${step}`;
 
 export default {
-  title: 'Core/NumberField',
+  title: 'Core/Inputs/NumberField', id: 'core-numberfield',
   component: NumberField,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

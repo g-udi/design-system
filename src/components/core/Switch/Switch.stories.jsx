@@ -40,7 +40,7 @@ function SettingRow({ setting, size, defaultChecked, disabled, onCheckedChange }
 }
 
 export default {
-  title: 'Core/Switch',
+  title: 'Core/Inputs/Switch',
   id: 'core-switch',
   component: Switch,
   tags: ['autodocs'],

@@ -95,7 +95,7 @@ function ActionsExample(args) {
 }
 
 export default {
-  title: 'Core/DropdownMenu',
+  title: 'Core/Overlays & Menus/DropdownMenu', id: 'core-dropdownmenu',
   component: DropdownMenu,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { align: ['start', 'center', 'end'] }),

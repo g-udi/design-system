@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/switch/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Switch', tags: ['autodocs'], ...catalogueMeta('switch') };
+export default { title: 'Core/Inputs/Switch', id: 'core-switch', tags: ['autodocs'], ...catalogueMeta('switch') };
 
 export const SwitchPattern1 = {
   name: 'Labels and states',

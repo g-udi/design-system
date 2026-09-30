@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/calendar/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Calendar', tags: ['autodocs'], ...catalogueMeta('calendar') };
+export default { title: 'Core/Inputs/Calendar', id: 'core-calendar', tags: ['autodocs'], ...catalogueMeta('calendar') };
 
 export const CalendarPattern1 = { name: 'Selection and display options', ...pattern(1, 'One calendar with every display option: single, multiple or range selection, locale, two months, week numbers, outside days, rounded days, and weekends disabled and excluded from ranges.') };
 export const CalendarPattern24 = { name: 'Date pickers in popovers', ...pattern(24, 'Form fields that open a calendar in a popover: a single date, a two-month stay range, and a date with start and end times.') };

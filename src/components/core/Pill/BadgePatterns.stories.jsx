@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/badge/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Pill', tags: ['autodocs'], ...catalogueMeta('badge') };
+export default { title: 'Core/Data Display/Pill', id: 'core-pill', tags: ['autodocs'], ...catalogueMeta('badge') };
 
 export const BadgePattern1 = { name: 'Variants', ...pattern(1, 'Solid, light and outline treatments for each tone.') };
 export const BadgePattern19 = { name: 'Sizes, counts and labels', ...pattern(19, 'Every size from xs to xl with counts, labels and quieter variants.') };

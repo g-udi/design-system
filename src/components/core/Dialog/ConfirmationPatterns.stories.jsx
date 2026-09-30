@@ -11,7 +11,7 @@ const pattern = patternStories(
 const verifyEachConfirmation = ({ canvasElement }) =>
   openEachDialog({ canvasElement, role: 'alertdialog', initialFocus: '[data-slot="alert-dialog-cancel"]' });
 
-export default { title: 'Core/Dialog', tags: ['autodocs'], ...catalogueMeta('alert-dialog') };
+export default { title: 'Core/Overlays & Menus/Dialog', id: 'core-dialog', tags: ['autodocs'], ...catalogueMeta('alert-dialog') };
 
 export const ConfirmationPattern1 = {
   name: 'Confirmation layouts',

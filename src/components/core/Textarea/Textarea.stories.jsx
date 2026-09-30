@@ -53,7 +53,7 @@ function ReviewComposer({ invalid, onChange, ...args }) {
 }
 
 export default {
-  title: 'Core/Textarea',
+  title: 'Core/Inputs/Textarea', id: 'core-textarea',
   component: Textarea,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { rows: 'number', invalid: 'boolean' }),

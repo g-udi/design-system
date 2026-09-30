@@ -19,7 +19,7 @@ const across = (orientation) => (orientation === 'vertical' ? 'horizontal' : 've
 const iconSize = (orientation) => (orientation === 'vertical' ? 'md' : 'icon');
 
 export default {
-  title: 'Core/ButtonGroup',
+  title: 'Core/Actions/ButtonGroup',
   id: 'core-buttongroup',
   component: ButtonGroup,
   tags: ['autodocs'],

@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/accordion/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Accordion', tags: ['autodocs'], ...catalogueMeta('accordion') };
+export default { title: 'Core/Layout & Containers/Accordion', id: 'core-accordion', tags: ['autodocs'], ...catalogueMeta('accordion') };
 
 export const AccordionPattern1 = { name: 'Variants and indicators', ...pattern(1, 'Flush dividers with chevron, plus-minus and leading-arrow indicators, beside the outline, separated and framed variants.') };
 export const AccordionPattern4 = {

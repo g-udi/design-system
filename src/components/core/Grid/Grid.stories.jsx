@@ -27,7 +27,7 @@ const gridSource = ({ columns, gap, variant, padding, radius }) => previewSource
 });
 
 export default {
-  title: 'Core/Grid',
+  title: 'Core/Layout & Containers/Grid',
   id: 'core-grid',
   component: Grid,
   tags: ['autodocs'],

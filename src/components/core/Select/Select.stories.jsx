@@ -30,7 +30,7 @@ const option = (canvas, name) => canvas.getByRole('option', { name });
 const expectClosed = (canvas, name) => waitFor(() => expect(listbox(canvas, name)).not.toBeInTheDocument());
 
 export default {
-  title: 'Core/Select',
+  title: 'Core/Inputs/Select',
   id: 'core-select',
   component: Select,
   tags: ['autodocs'],

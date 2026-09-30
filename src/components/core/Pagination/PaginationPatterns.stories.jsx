@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/pagination/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Pagination', tags: ['autodocs'], ...catalogueMeta('pagination') };
+export default { title: 'Core/Navigation/Pagination', id: 'core-pagination', tags: ['autodocs'], ...catalogueMeta('pagination') };
 
 export const PaginationPattern1 = { name: 'Numbered page styles', ...pattern(1, 'Text and icon arrows, circle, hover-border, joined and filled pages, each with an ellipsis before the last page.') };
 export const PaginationPattern8 = { name: 'Previous and next with page info', ...pattern(8, 'Compact pagers for small screens: page info centred or leading, or arrows alone.') };

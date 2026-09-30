@@ -33,7 +33,7 @@ const articleChildren = [
 ].join('\n');
 
 export default {
-  title: 'Core/Card',
+  title: 'Core/Layout & Containers/Card',
   id: 'core-card',
   component: Card,
   tags: ['autodocs'],

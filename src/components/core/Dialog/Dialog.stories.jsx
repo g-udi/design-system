@@ -142,7 +142,7 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
 }
 
 export default {
-  title: 'Core/Dialog',
+  title: 'Core/Overlays & Menus/Dialog', id: 'core-dialog',
   component: Dialog,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
