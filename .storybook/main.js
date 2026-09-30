@@ -74,7 +74,8 @@ const mergeCodeSplitting = (codeSplitting) => {
 const config = {
   'addons': [
     '@storybook/addon-docs',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
+    '@storybook/addon-themes'
   ],
   'docs': {
     'autodocs': 'tag'

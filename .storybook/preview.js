@@ -1,6 +1,7 @@
 import React from 'react';
 import 'storybook/internal/components';
 import { create } from 'storybook/theming';
+import { withThemeByClassName } from '@storybook/addon-themes';
 
 import './preview.css';
 
@@ -91,6 +92,8 @@ const preview = {
     }
   },
   decorators: [
+    // The toolbar theme switch (as in the Mav9 system); it toggles the `dark` class on <html>.
+    withThemeByClassName({ themes: { light: '', dark: 'dark' }, defaultTheme: 'light' }),
     (Story, context) => {
       syncStorybookTheme(context.globals.theme, context.globals.cornerRadius);
       return React.createElement(
@@ -120,19 +123,6 @@ const preview = {
         dynamicTitle: true
       }
     },
-    theme: {
-      name: 'Theme',
-      description: 'Switch the preview between light and dark themes.',
-      toolbar: {
-        title: 'Theme',
-        icon: 'mirror',
-        items: [
-          { value: 'light', title: 'Light' },
-          { value: 'dark', title: 'Dark' }
-        ],
-        dynamicTitle: true
-      }
-    }
   },
   initialGlobals: {
     cornerRadius: tokenData.dsVariables.root['--ds-radius'],
