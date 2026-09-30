@@ -11,8 +11,12 @@ const panelConfig = {
     initialActive: 'canvas',
     showPanel: false
   },
+  // The toolbar carries the theme and corner switches, so it always shows, even if a
+  // browser remembered "hide toolbar".
+  showToolbar: true,
   layoutCustomisations: {
-    showPanel: () => false
+    showPanel: () => false,
+    showToolbar: () => true
   },
   sidebar: {
     showRoots: true,
