@@ -18,7 +18,7 @@ import CommandLauncher from '../../core/CmdLauncher';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
-import MenuBlog from '../MenuBlog';
+import MenuDropdownPanel from '../MenuDropdownPanel';
 import ThemeLogo from '../MenuLogo';
 import MenuMain from '../MenuMain';
 import MenuMobile from '../MenuMobile';
@@ -108,7 +108,7 @@ const Menu = ({
         })}
 
         { !path.includes('/blog') && (<MenuMain categories={ menuCategories } allPosts={ posts }></MenuMain>) }
-        { path.includes('/blog') && (<MenuBlog categories={ menuCategories }></MenuBlog>) }
+        { path.includes('/blog') && (<MenuDropdownPanel name='Categories' categories={ menuCategories } />) }
       </ul>
 
       <MenuSearch className='hidden lg:block' setOpen={ LauncherSetOpen }></MenuSearch>

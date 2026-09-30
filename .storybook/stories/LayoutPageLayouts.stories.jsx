@@ -10,7 +10,7 @@ import { AccordionGroup } from '../../src/components/core/Accordion';
 import Aurora from '../../src/components/layout/Aurora';
 import Button from '../../src/components/core/Button';
 import Card from '../../src/components/core/Card';
-import CmdLauncherShortcut from '../../src/components/core/CmdLauncherShortcut';
+import Kbd, { KbdGroup } from '../../src/components/core/Kbd';
 import { FieldInput } from '../../src/components/core/Field';
 import Footer from '../../src/components/layout/Footer';
 import FloatingMenu from '../../src/components/navigation/FloatingMenu';
@@ -482,7 +482,9 @@ const HomePage = () => (
         <Typography variant='paragraph-md'>
           I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link tone='blue' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.
         </Typography>
-        <CmdLauncherShortcut />
+        <p className='flex items-center gap-1.5 text-sm text-text-muted'>
+          Press <KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup> to start
+        </p>
       </div>
       <FeaturedPostsLayout />
       <div className='pb-8'>

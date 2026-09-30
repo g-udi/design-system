@@ -1205,27 +1205,6 @@
       ],
       "importPath": "./src/components/core/CmdLauncher/CmdLauncher.stories.jsx"
     },
-    "core-cmdlaunchershortcut--playground": {
-      "id": "core-cmdlaunchershortcut--playground",
-      "title": "Core/CmdLauncherShortcut",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/CmdLauncherShortcut/CmdLauncherShortcut.stories.jsx"
-    },
-    "core-cmdlaunchershortcut--docs": {
-      "id": "core-cmdlaunchershortcut--docs",
-      "title": "Core/CmdLauncherShortcut",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/CmdLauncherShortcut/CmdLauncherShortcut.stories.jsx"
-    },
     "core-overview--default": {
       "id": "core-overview--default",
       "title": "Core",
@@ -3486,27 +3465,6 @@
       ],
       "importPath": "./src/components/navigation/Menu/Menu.stories.jsx"
     },
-    "navigation-menublog--playground": {
-      "id": "navigation-menublog--playground",
-      "title": "Navigation/MenuBlog",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuBlog/MenuBlog.stories.jsx"
-    },
-    "navigation-menublog--docs": {
-      "id": "navigation-menublog--docs",
-      "title": "Navigation/MenuBlog",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/MenuBlog/MenuBlog.stories.jsx"
-    },
     "navigation-menulogo--playground": {
       "id": "navigation-menulogo--playground",
       "title": "Navigation/MenuLogo",
@@ -3622,48 +3580,6 @@
         "!autodocs"
       ],
       "importPath": "./src/components/navigation/Navigation.stories.jsx"
-    },
-    "post-breadcrumbs--playground": {
-      "id": "post-breadcrumbs--playground",
-      "title": "Post/Breadcrumbs",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/post/Breadcrumbs/Breadcrumbs.stories.jsx"
-    },
-    "post-breadcrumbs--docs": {
-      "id": "post-breadcrumbs--docs",
-      "title": "Post/Breadcrumbs",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/post/Breadcrumbs/Breadcrumbs.stories.jsx"
-    },
-    "post-disclaimer--playground": {
-      "id": "post-disclaimer--playground",
-      "title": "Post/Disclaimer",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/post/Disclaimer/Disclaimer.stories.jsx"
-    },
-    "post-disclaimer--docs": {
-      "id": "post-disclaimer--docs",
-      "title": "Post/Disclaimer",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/post/Disclaimer/Disclaimer.stories.jsx"
     },
     "post-post--playground": {
       "id": "post-post--playground",

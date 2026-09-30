@@ -7,7 +7,6 @@ export { default as Card, cardVariants } from './Card';
 export { default as Carousel, carouselCardVariants, carouselSlideVariants, carouselVariants } from './Carousel';
 export { default as Checkbox } from './Checkbox';
 export { default as CmdLauncher } from './CmdLauncher';
-export { default as CmdLauncherShortcut } from './CmdLauncherShortcut';
 export { default as DataTable } from './DataTable';
 export { default as DialogPortal } from './DialogPortal';
 export { default as Field, FieldDescription, FieldError, FieldInput, FieldLabel } from './Field';

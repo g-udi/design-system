@@ -3,7 +3,7 @@
 /**
  * MenuDropdownPanel Component
  *
- * @description The shared dropdown shell behind MenuBlog and MenuMain: trigger
+ * @description The shared dropdown shell behind the blog Categories menu and MenuMain: trigger
  * button, open/close state, Escape/ArrowDown keyboard handling, viewport-aware
  * alignment, and the category list. An optional aside slot renders a second
  * panel column (MenuMain uses it for recent posts).

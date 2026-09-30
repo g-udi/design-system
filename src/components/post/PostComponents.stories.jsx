@@ -1,7 +1,6 @@
 import { Page, pageParameters, Section } from '../../../.storybook/stories/StoryDocs';
 
-import Breadcrumbs from './Breadcrumbs';
-import Disclaimer from './Disclaimer';
+import Breadcrumb from '../core/Breadcrumb';
 import PostHeader, { PostTimestamps } from './PostHeader';
 import PostNavigation from './PostNavigation';
 import PostSharing from './PostSharing';
@@ -56,9 +55,10 @@ export const Default = {
 
       <Section title='Navigation And Sharing' description='Keep wayfinding and sharing actions adjacent to the article without competing with its content.'>
         <div className='max-w-4xl space-y-8'>
-          <Breadcrumbs pages={ [
-            { 'current': false, 'href': '/blog', 'name': 'Blog' },
-            { 'current': true, 'href': '/blog/design-system', 'name': 'Design System' }
+          <Breadcrumb items={ [
+            { 'href': '/', 'label': 'Home' },
+            { 'href': '/blog', 'label': 'Blog' },
+            { 'current': true, 'href': '/blog/design-system', 'label': 'Design System' }
           ] } />
           <PostTimestamps date='2026-05-20' locale='en-GB' readingTime='6 min read' />
           <PostSharing
@@ -73,7 +73,6 @@ export const Default = {
             prev={{ 'slug': 'previous-post', title: 'Previous post title' }}
             next={{ 'slug': 'next-post', title: 'Next post title' }}
           />
-          <Disclaimer />
         </div>
       </Section>
     </Page>

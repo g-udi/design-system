@@ -89,15 +89,12 @@ const usageExamples = {
   'Navigation/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n<FloatingMenu />",
   'Navigation/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
   'Navigation/Menu': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} />",
-  'Navigation/MenuBlog': "import { MenuBlog } from '@gaudi/design-system';\n\n<MenuBlog categories={categories} />",
   'Navigation/MenuLogo': "import { MenuLogo } from '@gaudi/design-system';\n\n<MenuLogo />",
   'Navigation/MenuMain': "import { MenuMain } from '@gaudi/design-system';\n\n<MenuMain categories={categories} allPosts={posts} />",
   'Navigation/MenuMobile': "import { MenuMobile } from '@gaudi/design-system';\n\n<MenuMobile\n  blogLink={{ href: '/blog', title: 'Blog' }}\n  categories={categories}\n  links={links}\n  setMobileMenuOpen={setOpen}\n  setLauncherOpen={setLauncherOpen}\n/>",
   'Navigation/MenuSearch': "import { MenuSearch } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setLauncherOpen} />",
   'Core/Accordion': "import { AccordionGroup } from '@gaudi/design-system';\n\n<AccordionGroup\n  items={[\n    { value: 'usage', title: 'When should I use it?', content: 'Use accordions for compact progressive disclosure.' },\n  ]}\n/>",
-  'Post/Breadcrumbs': "import { Breadcrumbs } from '@gaudi/design-system';\n\n<Breadcrumbs\n  pages={[\n    { name: 'Blog', href: '/blog' },\n    { name: 'Design Systems', href: '/blog/design-systems', current: true },\n  ]}\n/>",
   'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' shape='circle' indicator={{ label: 'Online', tone: 'success' }} />",
-  'Post/Disclaimer': "import { Disclaimer } from '@gaudi/design-system';\n\n<>\n  <Disclaimer />\n  <Disclaimer>\n    Research notes are provided for context and should not be treated as advice.\n  </Disclaimer>\n</>",
   'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
   'Core/Banner': "import { Banner } from '@gaudi/design-system';\n\n<Banner title='Now published' href='/blog'>\n  New essays and project notes are available.\n</Banner>",
   'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
@@ -163,7 +160,7 @@ const componentDocs = {
   'Core/CmdLauncher': {
     'accessibility': 'CmdLauncher is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
     'description': 'CmdLauncher provides the blog-wide command palette for navigation, content search, and theme actions.',
-    'overview': 'Use CmdLauncher with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint, so do not render CmdLauncherShortcut beside it in the header example.',
+    'overview': 'Use CmdLauncher with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint.',
     'recovery': [
       'Keep the query and current page intact when a search returns no results; offer a clear route back to all destinations.',
       'Escape closes the current level first, then the launcher, so keyboard users can recover without losing context.'
@@ -238,15 +235,6 @@ const componentDocs = {
       [ 'variant', 'solid | soft | outline', 'soft', 'Visual treatment.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, action }', '-', 'Slot-level class overrides.' ]
-    ]
-  },
-  'Post/Disclaimer': {
-    'accessibility': 'Disclaimer renders through Callout, so text remains visible in the document flow and inherits the callout semantics and contrast rules.',
-    'description': 'Disclaimer renders the default blog disclaimer or custom disclaimer copy inside a Gaudi callout.',
-    'overview': 'Use Disclaimer at the end of posts, project write-ups, or editorial pages that need a consistent disclaimer treatment. The default copy covers personal opinions and employer affiliation; pass children when a page needs a more specific notice.',
-    'props': [
-      [ 'children', 'ReactNode', 'default disclaimer text', 'Custom disclaimer content. Leave empty to use the standard blog disclaimer.' ],
-      [ 'type', 'info | warning | error', 'info', 'Tone forwarded to the underlying Callout component.' ]
     ]
   },
   'Core/Breadcrumb': {

@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -64,6 +64,6 @@ export const Playground = {
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await expect(canvas.getAllByRole('listitem')).toHaveLength(steps.length);
     await userEvent.click(trigger);
-    await expect(canvas.queryByText(steps[0])).not.toBeInTheDocument();
+    await waitFor(() => expect(canvas.queryByText(steps[0])).not.toBeInTheDocument());
   }
 };

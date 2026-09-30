@@ -14,7 +14,6 @@ import { categoryHref } from '../../../utilities/taxonomy';
 import formatDate from '../../../utilities/formatDate';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
-import DraftBadge from '../DraftBadge';
 
 /**
  * Enhanced clean post component
@@ -56,7 +55,7 @@ const Post = ({ frontMatter = {}, locale, titleAs = 'h3' }) => {
             {frontMatter.draft && (
               <>
                 <span className='text-gray-300 dark:text-gray-600'>·</span>
-                <DraftBadge />
+                <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>
               </>
             )}
           </div>

@@ -45,7 +45,7 @@ export const Playground = {
     const canvas = within(canvasElement);
     const highlight = canvas.getByText(args.children);
     await expect(highlight.tagName).toBe('STRONG');
-    await expect(highlight).toHaveClass('font-bold', 'bg-gradient-to-r');
+    await expect(highlight).toHaveClass('font-bold', 'bg-linear-to-r');
     await expect(canvasElement.querySelectorAll('p strong')).toHaveLength(2);
   }
 };

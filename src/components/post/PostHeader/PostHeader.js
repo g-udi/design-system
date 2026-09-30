@@ -13,7 +13,6 @@ import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
 import PostSeriesBox from '../PostSeriesBox';
-import DraftBadge from '../DraftBadge';
 import Typography from '../../../foundations/Typography';
 import { cn } from '../../../utilities/cn';
 import { categoryHref, tagHref } from '../../../utilities/taxonomy';
@@ -79,7 +78,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
           <PostDate date={ frontMatter.updated || frontMatter.date } locale={ siteMetadata.locale } />
         </span>
       ) : null}
-      {frontMatter.draft && <DraftBadge />}
+      {frontMatter.draft && <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>}
     </div>
     <div className={ cn('text-left', classNames.body) }>
       <Typography as={ titleElements[titleLevel] || titleElements[1] } variant='post-title' className={ cn('pb-3', classNames.title) }>

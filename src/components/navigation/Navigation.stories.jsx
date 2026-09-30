@@ -264,7 +264,6 @@ const NavigationDocs = () => (
           <tr><Td mono>Menu</Td><Td>Complete site header composition.</Td><Td>Preferred public entry point for the production navigation shell.</Td></tr>
           <tr><Td mono>MenuLogo</Td><Td>Brand mark at the start of the header.</Td><Td>Wrap it in a home link with an accessible label.</Td></tr>
           <tr><Td mono>DropDown</Td><Td>Disclosure trigger used by navigation menus.</Td><Td>Low-level public primitive; wire it to a labelled controlled panel.</Td></tr>
-          <tr><Td mono>MenuBlog</Td><Td>Blog category disclosure.</Td><Td>Use on blog routes when category navigation replaces the broader blog menu.</Td></tr>
           <tr><Td mono>MenuMain</Td><Td>Primary blog navigation menu.</Td><Td>Show it on desktop next to top-level links. The dropdown clamps left, center, or right so it stays visible near viewport edges.</Td></tr>
           <tr><Td mono>MenuSearch</Td><Td>Visible command launcher trigger.</Td><Td>Do not add a second shortcut hint beside it.</Td></tr>
           <tr><Td mono>MenuMobile</Td><Td>Mobile drawer implementation.</Td><Td>Open it from the compact header menu button.</Td></tr>
