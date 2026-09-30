@@ -11,7 +11,7 @@ import {
   useRef
 } from 'react';
 
-import DialogPortal from '../DialogPortal';
+import Dialog from '../Dialog';
 import Icon from '../Icon';
 
 const CommandPaletteContext = createContext(null);
@@ -106,19 +106,6 @@ const isHidden = (element) => {
   return false;
 };
 
-const getFocusableElements = (root) => {
-  if (!root) return [];
-
-  return Array.from(root.querySelectorAll([
-    'a[href]',
-    'button:not([disabled])',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    '[tabindex]:not([tabindex="-1"])'
-  ].join(','))).filter((element) => !isHidden(element));
-};
-
 const CommandPalette = ({
   children,
   className = 'gaudi-command-launcher',
@@ -210,18 +197,6 @@ const CommandPalette = ({
   }, [ getSelectableItems, isOpen, selected, page, search ]);
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Escape') {
-      event.preventDefault();
-
-      if (escapeHandlerRef.current) {
-        escapeHandlerRef.current();
-      } else {
-        close();
-      }
-
-      return;
-    }
-
     if (event.key === 'ArrowDown' || ((event.ctrlKey || event.metaKey) && (event.key === 'j' || event.key === 'n'))) {
       event.preventDefault();
       setSelectedIndex(selected + 1);
@@ -261,32 +236,29 @@ const CommandPalette = ({
 
       return;
     }
-
-    if (event.key === 'Tab') {
-      const focusable = getFocusableElements(dialogRef.current);
-
-      if (!focusable.length) return;
-
-      const activeIndex = focusable.indexOf(document.activeElement);
-      const isFirst = activeIndex <= 0;
-      const isLast = activeIndex === focusable.length - 1;
-
-      if (event.shiftKey && isFirst) {
-        event.preventDefault();
-        focusable[focusable.length - 1].focus();
-      } else if (!event.shiftKey && isLast) {
-        event.preventDefault();
-        focusable[0].focus();
-      }
-    }
   };
 
   if (!isOpen) return null;
 
   return (
     <CommandPaletteContext.Provider value={ contextValue }>
-      <DialogPortal initialFocusRef={ inputRef } restoreFocusRef={ restoreFocusRef }>
-        <div className={ className }>
+      <Dialog
+        variant='bare'
+        open
+        onOpenChange={ (open) => !open && close() }
+        initialFocusRef={ inputRef }
+        restoreFocusRef={ restoreFocusRef }
+        label='Command launcher'
+        className={ className }
+        contentProps={ {
+          // Escape leaves a sub-page before it closes the launcher.
+          onEscapeKeyDown: (event) => {
+            if (!escapeHandlerRef.current) return;
+            event.preventDefault();
+            escapeHandlerRef.current();
+          }
+        } }
+      >
           <div className='command-palette'>
             <div aria-hidden='true' className='command-palette__overlay' />
             <div
@@ -295,14 +267,7 @@ const CommandPalette = ({
                 if (event.target === event.currentTarget) close();
               } }
             >
-              <div
-                ref={ dialogRef }
-                aria-label='Command launcher'
-                aria-modal='true'
-                data-cmdk-root
-                role='dialog'
-                onKeyDown={ handleKeyDown }
-              >
+              <div ref={ dialogRef } data-cmdk-root onKeyDown={ handleKeyDown }>
                 <div className='command-palette__search'>
                   <Icon name='Search' size='sm' decorative className='command-palette__search-icon' />
                   <input
@@ -332,8 +297,7 @@ const CommandPalette = ({
               </div>
             </div>
           </div>
-        </div>
-      </DialogPortal>
+      </Dialog>
     </CommandPaletteContext.Provider>
   );
 };

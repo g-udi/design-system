@@ -15,7 +15,7 @@
 import React from 'react';
 
 import Button from '../../core/Button';
-import DialogPortal from '../../core/DialogPortal';
+import Dialog from '../../core/Dialog';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import MenuSearch from '../MenuSearch';
@@ -61,47 +61,8 @@ import { formatCategoryTitle } from '../../../utilities/taxonomy';
  * // The parent menu closes this dialog when the desktop breakpoint is reached.
  */
 const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = [], container, links = [], setMobileMenuOpen, setLauncherOpen }) => {
-  const dialogRef = React.useRef(null);
   const closeButtonRef = React.useRef(null);
   const categoriesId = React.useId();
-
-  React.useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setMobileMenuOpen(false);
-
-        return;
-      }
-
-      if (event.key !== 'Tab' || !dialogRef.current) return;
-
-      const focusableElements = dialogRef.current.querySelectorAll(
-        'a[href], button:not([disabled]):not([tabindex="-1"]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-      if (!firstFocusableElement || !lastFocusableElement) {
-        event.preventDefault();
-
-        return;
-      }
-
-      if (event.shiftKey && document.activeElement === firstFocusableElement) {
-        event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement.focus();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [ setMobileMenuOpen ]);
 
   const handleSearchOpen = (open) => {
     if (open) setMobileMenuOpen(false);
@@ -109,8 +70,15 @@ const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = 
   };
 
   return (
-    <DialogPortal container={ container } initialFocusRef={ closeButtonRef }>
-    <div ref={ dialogRef } role='dialog' aria-modal='true' aria-label='Mobile navigation' className='fixed inset-0 z-[var(--ds-z-overlay)]'>
+    <Dialog
+      variant='bare'
+      open
+      onOpenChange={ (open) => !open && setMobileMenuOpen(false) }
+      container={ container }
+      initialFocusRef={ closeButtonRef }
+      label='Mobile navigation'
+      className='fixed inset-0 z-[var(--ds-z-overlay)]'
+    >
       <button
         type='button'
         tabIndex={ -1 }
@@ -177,8 +145,7 @@ const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = 
         </nav>
 
       </div>
-    </div>
-    </DialogPortal>
+    </Dialog>
   );
 };
 

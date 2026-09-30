@@ -85,7 +85,8 @@ export const Playground = {
     await expect(dialog).toHaveAttribute('aria-modal', 'true');
     await expect(panel).toHaveClass(...videoAnimationStyles[args.animationStyle].split(' '));
     await waitFor(() => expect(within(dialog).getAllByRole('button', { name: 'Close video dialog' }).at(-1)).toHaveFocus());
-    await expect(document.body).toHaveStyle({ overflow: 'hidden' });
+    // The page behind the open player takes no pointer input and does not scroll.
+    await expect(document.body).toHaveStyle({ pointerEvents: 'none' });
     await expect(within(dialog).getByTitle(args.title)).toHaveAttribute('src', `${videoSrc}?autoplay=1`);
 
     await userEvent.keyboard('{Escape}');

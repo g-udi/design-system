@@ -3,7 +3,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import Button from '../Button';
-import DialogPortal from '../DialogPortal';
+import Dialog from '../Dialog';
 import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
@@ -144,54 +144,20 @@ const AppleCard = ({ classNames, isActive, item, onOpen, radius, size }) => (
 
 const CarouselDialog = ({ classNames, item, onClose }) => {
   const titleId = useId();
-  const dialogRef = useRef(null);
   const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    if (!item) return undefined;
-
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        onClose();
-
-        return;
-      }
-
-      if (event.key !== 'Tab' || !dialogRef.current) return;
-
-      const focusableElements = dialogRef.current.querySelectorAll(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-      if (!firstFocusableElement || !lastFocusableElement) {
-        event.preventDefault();
-
-        return;
-      }
-
-      if (event.shiftKey && document.activeElement === firstFocusableElement) {
-        event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [ item, onClose ]);
 
   if (!item) return null;
 
   return (
-    <DialogPortal initialFocusRef={ closeButtonRef }>
-      <div ref={ dialogRef } className={ cn('fixed inset-0 z-50 flex items-center justify-center p-4', classNames.dialog) } role='dialog' aria-modal='true' aria-labelledby={ titleId }>
+    <Dialog
+      variant='bare'
+      open
+      onOpenChange={ (open) => !open && onClose() }
+      initialFocusRef={ closeButtonRef }
+      label={ item.title }
+      contentProps={ { 'aria-labelledby': titleId } }
+      className={ cn('fixed inset-0 z-50 flex items-center justify-center p-4', classNames.dialog) }
+    >
         <div
           aria-hidden='true'
           className={ cn('absolute inset-0 bg-gray-950/70 backdrop-blur-sm', classNames.overlay) }
@@ -214,8 +180,7 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
           {item.content ? <div className='mt-6 text-sm leading-7 text-gray-700 dark:text-gray-300'>{item.content}</div> : null}
           {item.href ? <Link href={ item.href } className='mt-6 inline-flex font-semibold'>{item.action || 'Read more'}</Link> : null}
         </article>
-      </div>
-    </DialogPortal>
+    </Dialog>
   );
 };
 

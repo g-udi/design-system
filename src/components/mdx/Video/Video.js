@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 
 import Button from '../../core/Button';
-import DialogPortal from '../../core/DialogPortal';
+import Dialog from '../../core/Dialog';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
 
@@ -66,39 +66,6 @@ const Video = ({
   const iframeSrc = getEmbeddableSrc(videoSrc);
   const srcWithAutoplay = autoplay && iframeSrc ? `${iframeSrc}${iframeSrc.includes('?') ? '&' : '?'}autoplay=1` : iframeSrc;
 
-  useEffect(() => {
-    if (!open) return undefined;
-
-    const onKeyDown = (event) => {
-      if (event.key === 'Escape') {
-        setOpen(false);
-
-        return;
-      }
-
-      if (event.key !== 'Tab') return;
-
-      const focusable = Array.from(document.querySelectorAll('[data-video-dialog] button, [data-video-dialog] iframe')).filter((element) => !element.disabled);
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-
-      if (!first || !last) return;
-
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, [ open ]);
-
   return (
     <>
       <Button
@@ -129,9 +96,15 @@ const Video = ({
         </span>
       </Button>
 
-      {open ? (
-        <DialogPortal initialFocusRef={ closeRef }>
-        <div className={ cn('fixed inset-0 z-[var(--ds-z-overlay)] flex items-center justify-center p-4 sm:p-6', classNames.dialog) } role='dialog' aria-modal='true' aria-labelledby={ dialogTitleId } data-video-dialog>
+      <Dialog
+        variant='bare'
+        open={ open }
+        onOpenChange={ setOpen }
+        initialFocusRef={ closeRef }
+        label={ title }
+        contentProps={ { 'aria-labelledby': dialogTitleId, 'data-video-dialog': true } }
+        className={ cn('fixed inset-0 z-[var(--ds-z-overlay)] flex items-center justify-center p-4 sm:p-6', classNames.dialog) }
+      >
           <Button variant='ghost' tone='neutral' size='sm' className={ cn('absolute inset-0 rounded-none bg-gray-950/80 p-0 backdrop-blur-sm hover:bg-gray-950/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
           <div
             className={ cn(
@@ -165,9 +138,7 @@ const Video = ({
               ) : null}
             </div>
           </div>
-        </div>
-        </DialogPortal>
-      ) : null}
+      </Dialog>
     </>
   );
 };

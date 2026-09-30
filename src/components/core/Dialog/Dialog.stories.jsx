@@ -275,3 +275,60 @@ export const PendingAction = {
     await expect(within(canvasElement).getByRole('button', { name: 'Publish article' })).toHaveFocus();
   }
 };
+
+function Lightbox() {
+  const [open, setOpen] = useState(false);
+  const closeRef = useRef(null);
+  return (
+    <>
+      <Button variant='outline' tone='neutral' onClick={() => setOpen(true)}>View artwork</Button>
+      <Dialog
+        variant='bare'
+        open={open}
+        onOpenChange={setOpen}
+        label='Iris artwork'
+        initialFocusRef={closeRef}
+        className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm'
+      >
+        <figure className='relative m-0 w-full max-w-2xl overflow-hidden rounded-lg bg-surface shadow-xl'>
+          <DialogClose asChild>
+            <Button ref={closeRef} variant='ghost' tone='neutral' size='sm' aria-label='Close artwork' className='absolute right-3 top-3 size-8 p-0'>
+              ✕
+            </Button>
+          </DialogClose>
+          <img src={iris} alt='Iris gradient artwork' className='aspect-video w-full object-cover' />
+          <figcaption className='px-4 py-3 text-sm text-text-muted'>Iris, one of the abstract gradients used across the catalogue.</figcaption>
+        </figure>
+      </Dialog>
+    </>
+  );
+}
+
+export const BareSurface = {
+  name: 'Bare full-screen surface',
+  parameters: {
+    docs: {
+      description: {
+        story: '`variant="bare"` drops the dialog chrome for lightboxes, video players, launchers and mobile menus that bring their own layout. The dialog still traps focus, locks scrolling, closes on Escape or a backdrop click, and marks the page behind it inert. `initialFocusRef` chooses the first focus, and focus returns to the opener on close.'
+      }
+    }
+  },
+  render: () => <Lightbox />,
+  play: async ({ canvasElement }) => {
+    const opener = within(canvasElement).getByRole('button', { name: 'View artwork' });
+    const { dialog, scope } = await openDialog(canvasElement, 'View artwork');
+    await expect(dialog).toHaveAccessibleName('Iris artwork');
+    const close = scope.getByRole('button', { name: 'Close artwork' });
+    await waitFor(() => expect(close).toHaveFocus());
+    await userEvent.tab();
+    await expect(dialog.contains(document.activeElement)).toBe(true);
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(dialog).not.toBeInTheDocument());
+    await expect(opener).toHaveFocus();
+    await userEvent.click(opener);
+    const reopened = await page(canvasElement).findByRole('dialog');
+    // A click on the backdrop, outside the figure, closes it.
+    await userEvent.pointer({ keys: '[MouseLeft]', target: reopened, coords: { clientX: 4, clientY: 4 } });
+    await waitFor(() => expect(reopened).not.toBeInTheDocument());
+  }
+};

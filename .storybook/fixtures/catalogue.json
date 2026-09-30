@@ -1250,26 +1250,16 @@
       ],
       "importPath": "./src/components/core/Dialog/Dialog.stories.jsx"
     },
-    "core-dialogportal--playground": {
-      "id": "core-dialogportal--playground",
-      "title": "Core/DialogPortal",
-      "name": "Playground",
+    "core-dialog--bare-surface": {
+      "id": "core-dialog--bare-surface",
+      "title": "Core/Dialog",
+      "name": "Bare full-screen surface",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
       ],
-      "importPath": "./src/components/core/DialogPortal/DialogPortal.stories.jsx"
-    },
-    "core-dialogportal--docs": {
-      "id": "core-dialogportal--docs",
-      "title": "Core/DialogPortal",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/DialogPortal/DialogPortal.stories.jsx"
+      "importPath": "./src/components/core/Dialog/Dialog.stories.jsx"
     },
     "core-dropdownmenu--playground": {
       "id": "core-dropdownmenu--playground",

@@ -4,17 +4,17 @@
  * Image Modal Component
  *
  * @description Full-screen modal component for displaying enlarged images.
- * Features smooth animations, keyboard navigation (ESC to close), and click-outside-to-close.
+ * Built on the bare Dialog: Escape and backdrop clicks close it, and focus stays inside while open.
  * Optimized for both desktop and mobile viewing with proper accessibility support.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
-import { useEffect, useId, useRef } from 'react';
+import { useId, useRef } from 'react';
 
 import Button from '../../core/Button';
-import DialogPortal from '../../core/DialogPortal';
+import Dialog from '../../core/Dialog';
 import Icon from '../../core/Icon';
 
 /**
@@ -39,71 +39,20 @@ import Icon from '../../core/Icon';
  */
 const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
   const captionId = useId();
-  const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
-
-  useEffect(() => {
-    if (!isOpen) return undefined;
-
-    const handleEscape = (event) => {
-      if (event.key === 'Escape')
-        onClose();
-
-    };
-
-    const handleTab = (event) => {
-      if (event.key !== 'Tab' || !modalRef.current) return;
-
-      const focusableElements = modalRef.current.querySelectorAll(
-        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-      );
-      const firstFocusableElement = focusableElements[0];
-      const lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-      if (!firstFocusableElement || !lastFocusableElement) {
-        event.preventDefault();
-
-        return;
-      }
-
-      if (event.shiftKey && document.activeElement === firstFocusableElement) {
-        event.preventDefault();
-        lastFocusableElement.focus();
-      } else if (!event.shiftKey && document.activeElement === lastFocusableElement) {
-        event.preventDefault();
-        firstFocusableElement.focus();
-      }
-    };
-
-    const handleClickOutside = (event) => {
-      if (modalRef.current && event.target === modalRef.current)
-        onClose();
-
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    document.addEventListener('keydown', handleTab);
-    document.addEventListener('click', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('keydown', handleTab);
-      document.removeEventListener('click', handleClickOutside);
-    };
-  }, [ isOpen, onClose ]);
 
   if (!isOpen || !src || typeof document === 'undefined')
     return null;
 
   return (
-    <DialogPortal initialFocusRef={ closeButtonRef }>
-    <div
-      ref={ modalRef }
+    <Dialog
+      variant='bare'
+      open
+      onOpenChange={ (open) => !open && onClose() }
+      initialFocusRef={ closeButtonRef }
+      label={ alt || 'Image preview' }
+      contentProps={ caption ? { 'aria-labelledby': captionId } : undefined }
       className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm dark:bg-black/80 sm:p-8'
-      role='dialog'
-      aria-modal='true'
-      aria-labelledby={ caption ? captionId : undefined }
-      aria-label={ caption ? undefined : alt || 'Image preview' }
     >
       {/* Modal content container */}
       <div className='relative flex max-h-[calc(100dvh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-lg bg-white shadow-2xl dark:bg-gray-900 sm:max-h-[calc(100dvh-4rem)]'>
@@ -139,8 +88,7 @@ const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
           )}
         </div>
       </div>
-    </div>
-    </DialogPortal>
+    </Dialog>
   );
 };
 

@@ -86,9 +86,8 @@ export const Playground = {
     // The sheet starts open; the Close button dismisses it.
     const dialog = await findDialog();
     await expect(page.getByRole('dialog', { name: dialogName })).toHaveAttribute('aria-modal', 'true');
-    // `container` scopes the isolation: the frame's header goes inert, the page around the frame does not.
-    await expect(canvasElement.closest('body > *')).not.toHaveAttribute('inert');
-    await expect(within(canvasElement).getByTestId('phone-frame').querySelector('header')).toHaveAttribute('inert');
+    // `container` renders the menu inside the frame; everything outside the dialog is hidden from assistive technology.
+    await expect(within(canvasElement).getByTestId('phone-frame').querySelector('header').closest('[aria-hidden="true"]')).not.toBeNull();
     await expectFocus(canvasElement, dialog.getByRole('button', { name: 'Close menu' }));
     await expect(dialog.getByRole('link', { name: args.blogLink.title })).toHaveAttribute('href', args.blogLink.href);
     await expect(within(dialog.getByRole('list', { name: 'Blog categories' })).getAllByRole('link')).toHaveLength(args.categories.length);

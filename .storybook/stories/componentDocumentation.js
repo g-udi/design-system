@@ -100,7 +100,6 @@ const usageExamples = {
   'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
   'Core/Breadcrumb': "import { BreadcrumbTrail } from '@gaudi/design-system';\n\n<BreadcrumbTrail\n  items={[\n    { href: '/', label: 'Home' },\n    { href: '/blog', label: 'Blog' },\n    { current: true, label: 'Design Systems' },\n  ]}\n/>",
   'Core/Button': "import { Button } from '@gaudi/design-system';\n\n<Button variant='solid' tone='accent' size='md'>Read article</Button>",
-  'Core/DialogPortal': "import { DialogPortal } from '@gaudi/design-system';\n\n{open ? (\n  <DialogPortal initialFocusRef={closeButtonRef}>\n    <div role='dialog' aria-modal='true' aria-labelledby='dialog-title'>\n      <h2 id='dialog-title'>Confirm publication</h2>\n      <button ref={closeButtonRef} onClick={() => setOpen(false)}>Close</button>\n    </div>\n  </DialogPortal>\n) : null}",
   'Post/PostHeader': "import { PostHeader } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
   'Core/Card': "import { Card } from '@gaudi/design-system';\n\n<Card title='Building with tokens' subtitle='Cards frame reusable content.' />",
   'Post/PostNavigation': "import { PostNavigation } from '@gaudi/design-system';\n\n<PostNavigation prev={previousPost} next={nextPost} />",
@@ -141,7 +140,7 @@ const componentDocs = {
     'decisionRules': [
       'Pass the primary Blog destination through `blogLink`; use `links` only for additional top-level destinations.',
       'Keep category ids stable because they form `/blog/categories/:id` destinations.',
-      'Mount MenuMobile only while open so DialogPortal can isolate the page and restore focus to the trigger.'
+      'Mount MenuMobile only while open so its dialog can isolate the page and restore focus to the trigger.'
     ],
     'description': 'MenuMobile renders the compact navigation dialog, blog categories, search entry point, and newsletter action.',
     'props': [
@@ -269,26 +268,7 @@ const componentDocs = {
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },
-  'Core/DialogPortal': {
-    'accessibility': 'DialogPortal isolates the other children of its container (the body by default) with inert and aria-hidden, locks container scroll by default, moves focus to initialFocusRef, and restores the previously focused trigger on unmount. The dialog content must provide role dialog, aria-modal, a readable name, Escape handling, and its own focus containment.',
-    'decisionRules': [
-      'Use DialogPortal only for modal content that must isolate the page behind it.',
-      'Pass initialFocusRef to the safest action, usually Close or Cancel.',
-      'Keep non-modal popovers and disclosures in normal document flow.'
-    ],
-    'description': 'DialogPortal renders modal content at the document body, or a given container, and manages page isolation, scroll locking, initial focus, and focus restoration.',
-    'props': [
-      [ 'children', 'ReactNode', '-', 'The labelled dialog surface rendered into the portal.' ],
-      [ 'container', 'HTMLElement', 'document.body', 'Element the portal renders into; its other children are isolated and it stops scrolling.' ],
-      [ 'initialFocusRef', 'RefObject<HTMLElement>', '-', 'Receives focus after the portal mounts.' ],
-      [ 'lockScroll', 'boolean', 'true', 'Locks container scrolling while the portal is mounted.' ],
-      [ 'restoreFocus', 'boolean', 'true', 'Returns focus to the previously focused connected element on unmount.' ]
-    ],
-    'recovery': [
-      'Always provide an explicit Close or Cancel action and support Escape in the dialog implementation.',
-      'Keep destructive confirmation separate from the safe exit and restore focus to the opening control.'
-    ]
-  },
+
   'Core/Card': {
     'accessibility': 'Card is a structural container. Put links or buttons inside it rather than making the whole card a fake control.',
     'decisionRules': [
