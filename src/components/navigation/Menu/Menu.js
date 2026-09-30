@@ -14,7 +14,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
-import CommandLauncher from '../../core/CmdLauncher';
+import CommandLauncher from '../../core/Commander';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';

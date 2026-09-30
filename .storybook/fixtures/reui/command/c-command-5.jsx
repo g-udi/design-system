@@ -10,7 +10,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList
-} from '../../../../src/components/core/CmdLauncher/parts/command.jsx';
+} from '../../../../src/components/core/Commander/parts/command.jsx';
 import { Kbd } from '../../../../src/components/core/Kbd/parts/kbd.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const files = [

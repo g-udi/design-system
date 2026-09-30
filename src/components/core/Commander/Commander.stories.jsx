@@ -7,9 +7,9 @@ import Button from '../Button';
 import Icon from '../Icon';
 import Pill from '../Pill';
 import MenuSearch from '../../navigation/MenuSearch';
-import CmdLauncher from './CmdLauncher';
+import Commander from './Commander';
 
-const docs = getComponentDocs('Core/CmdLauncher');
+const docs = getComponentDocs('Core/Commander');
 const collections = {
   posts: [
     { category: 'data', slug: 'knowledge-graphs', title: 'An Introduction to Knowledge Graphs' },
@@ -66,7 +66,7 @@ function LauncherExample(props) {
       <Button variant='outline' tone='neutral' onClick={() => setOpen(true)}>
         Search content
       </Button>
-      <CmdLauncher open={open} setOpen={setOpen} {...props} />
+      <Commander open={open} setOpen={setOpen} {...props} />
     </>
   );
 }
@@ -98,15 +98,15 @@ function HeaderExample(props) {
           );
         })}
       </ul>
-      <CmdLauncher open={open} setOpen={setOpen} {...props} />
+      <Commander open={open} setOpen={setOpen} {...props} />
     </div>
   );
 }
 
 export default {
-  title: 'Core/CmdLauncher',
-  id: 'core-cmdlauncher',
-  component: CmdLauncher,
+  title: 'Core/Commander',
+  id: 'core-commander',
+  component: Commander,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
     posts: 'object',
@@ -130,8 +130,8 @@ export const Playground = {
       description: {
         story: 'A site header whose MenuSearch trigger opens the launcher, with the indexed collections listed underneath. Each collection control adds a page and full-text results; empty one to remove its page. Open with the field, ⌘K, or Ctrl+K.'
       },
-      source: playgroundSource('CmdLauncher', {
-        imports: "import { useState } from 'react';\nimport { CmdLauncher, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);",
+      source: playgroundSource('Commander', {
+        imports: "import { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);",
         attributes: ['open={open}', 'setOpen={setOpen}'],
         before: '<MenuSearch setOpen={setOpen} />\n'
       })

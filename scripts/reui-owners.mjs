@@ -6,7 +6,7 @@ export const owners = {
   button: 'core/Button', 'button-group': 'core/ButtonGroup', calendar: 'core/Calendar',
   card: 'core/Card', carousel: 'core/Carousel', cascader: 'core/Cascader', chart: 'mdx/Chart',
   checkbox: 'core/Checkbox', 'code-block': 'mdx/CodeGroupTabs', collapsible: 'core/Accordion',
-  combobox: 'core/Select', command: 'core/CmdLauncher', 'context-menu': 'core/DropdownMenu',
+  combobox: 'core/Select', command: 'core/Commander', 'context-menu': 'core/DropdownMenu',
   'data-grid': 'core/DataTable', 'date-selector': 'core/Calendar', dialog: 'core/Dialog',
   direction: 'core/Direction', drawer: 'core/Dialog', 'dropdown-menu': 'core/DropdownMenu',
   empty: 'core/EmptyState', 'event-calendar': 'core/EventCalendar', field: 'core/Field',

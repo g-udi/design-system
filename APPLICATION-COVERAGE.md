@@ -18,7 +18,7 @@ The content workspace is one application example: article search, sorting, selec
 
 | Area | Examples in Gaudi |
 | --- | --- |
-| Identity and navigation | Avatar, Breadcrumb, NavigationMenu, CmdLauncher, Tree |
+| Identity and navigation | Avatar, Breadcrumb, NavigationMenu, Commander, Tree |
 | Forms and selection | Input, Field, Select, Checkbox, RadioGroup, InputOtp, PhoneInput, Rating, Cascader |
 | Overlays and feedback | Dialog, DropdownMenu, Popover, Tooltip, Toast, Progress, EmptyState |
 | Data and collections | DataTable and composable data-grid parts, FilterBar, Pagination, ResourceList |

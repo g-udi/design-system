@@ -337,7 +337,7 @@
     "useCodeBlockFolding": "useCodeBlockFolding",
     "useCodeBlockSelection": "useCodeBlockSelection"
   },
-  "src/components/core/CmdLauncher/parts/command.jsx": {
+  "src/components/core/Commander/parts/command.jsx": {
     "Command": "Command",
     "CommandDialog": "CommandDialog",
     "CommandInput": "CommandInput",

@@ -16,7 +16,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList
-} from '../../../../src/components/core/CmdLauncher/parts/command.jsx';
+} from '../../../../src/components/core/Commander/parts/command.jsx';
 const users = [
   {
     name: 'Alex Johnson',

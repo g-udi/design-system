@@ -12,7 +12,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut
-} from '../../../../src/components/core/CmdLauncher/parts/command.jsx';
+} from '../../../../src/components/core/Commander/parts/command.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const [open, setOpen] = useState(false);

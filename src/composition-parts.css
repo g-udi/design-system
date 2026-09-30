@@ -357,7 +357,7 @@
   }
 
   /* MARK: Command */
-  /* Matches the CmdLauncher (.gaudi-command-launcher in styles.css): same launcher tokens,
+  /* Matches the Commander (.gaudi-command-launcher in styles.css): same launcher tokens,
      flat search row, uppercase group headings, accent-tinted selection. */
   .ds-part-command {
     @apply rounded-lg bg-(--ds-color-launcher-bg) text-(--ds-color-launcher-text) not-in-data-[slot=dialog-content]:border not-in-data-[slot=dialog-content]:border-(--ds-color-launcher-border);

@@ -144,7 +144,7 @@ function CommandShortcut({ className, ...props }) {
     />
   );
 }
-/** Keyboard hints under the list, shared by CommandDialog and CmdLauncher. */
+/** Keyboard hints under the list, shared by CommandDialog and Commander. */
 function CommandFooter({ className, ...props }) {
   return (
     <div

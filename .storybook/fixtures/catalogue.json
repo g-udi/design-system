@@ -1173,37 +1173,37 @@
       ],
       "importPath": "./src/components/core/Checkbox/Checkbox.stories.jsx"
     },
-    "core-cmdlauncher--playground": {
-      "id": "core-cmdlauncher--playground",
-      "title": "Core/CmdLauncher",
+    "core-commander--playground": {
+      "id": "core-commander--playground",
+      "title": "Core/Commander",
       "name": "Playground",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
       ],
-      "importPath": "./src/components/core/CmdLauncher/CmdLauncher.stories.jsx"
+      "importPath": "./src/components/core/Commander/Commander.stories.jsx"
     },
-    "core-cmdlauncher--docs": {
-      "id": "core-cmdlauncher--docs",
-      "title": "Core/CmdLauncher",
+    "core-commander--docs": {
+      "id": "core-commander--docs",
+      "title": "Core/Commander",
       "name": "Docs",
       "type": "docs",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/CmdLauncher.stories.jsx"
+      "importPath": "./src/components/core/Commander/Commander.stories.jsx"
     },
-    "core-cmdlauncher--collection-pages": {
-      "id": "core-cmdlauncher--collection-pages",
-      "title": "Core/CmdLauncher",
+    "core-commander--collection-pages": {
+      "id": "core-commander--collection-pages",
+      "title": "Core/Commander",
       "name": "Collection Pages",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
       ],
-      "importPath": "./src/components/core/CmdLauncher/CmdLauncher.stories.jsx"
+      "importPath": "./src/components/core/Commander/Commander.stories.jsx"
     },
     "core-overview--default": {
       "id": "core-overview--default",
@@ -7282,86 +7282,86 @@
       ],
       "importPath": "./src/components/core/Checkbox/ReuiCheckbox.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-1": {
-      "id": "core-cmdlauncher--reui-command-1",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-1": {
+      "id": "core-commander--reui-command-1",
+      "title": "Core/Commander",
       "name": "Basic command",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-2": {
-      "id": "core-cmdlauncher--reui-command-2",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-2": {
+      "id": "core-commander--reui-command-2",
+      "title": "Core/Commander",
       "name": "With shortcuts",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-3": {
-      "id": "core-cmdlauncher--reui-command-3",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-3": {
+      "id": "core-commander--reui-command-3",
+      "title": "Core/Commander",
       "name": "With groups",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-4": {
-      "id": "core-cmdlauncher--reui-command-4",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-4": {
+      "id": "core-commander--reui-command-4",
+      "title": "Core/Commander",
       "name": "With many groups",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-5": {
-      "id": "core-cmdlauncher--reui-command-5",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-5": {
+      "id": "core-commander--reui-command-5",
+      "title": "Core/Commander",
       "name": "File search",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-6": {
-      "id": "core-cmdlauncher--reui-command-6",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-6": {
+      "id": "core-commander--reui-command-6",
+      "title": "Core/Commander",
       "name": "User search with avatars",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-7": {
-      "id": "core-cmdlauncher--reui-command-7",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-7": {
+      "id": "core-commander--reui-command-7",
+      "title": "Core/Commander",
       "name": "Action palette with shortcuts",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
-    "core-cmdlauncher--reui-command-8": {
-      "id": "core-cmdlauncher--reui-command-8",
-      "title": "Core/CmdLauncher",
+    "core-commander--reui-command-8": {
+      "id": "core-commander--reui-command-8",
+      "title": "Core/Commander",
       "name": "Recent and favorites",
       "type": "story",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/core/CmdLauncher/ReuiCommand.stories.jsx"
+      "importPath": "./src/components/core/Commander/ReuiCommand.stories.jsx"
     },
     "core-datatable--reui-data-grid-1": {
       "id": "core-datatable--reui-data-grid-1",

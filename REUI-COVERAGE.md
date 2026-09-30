@@ -55,7 +55,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | [code-block](https://reui.io/components/code-block) | [mdx/CodeGroupTabs](src/components/mdx/CodeGroupTabs/index.js) | 27 |
 | [collapsible](https://reui.io/components/collapsible) | [core/Accordion](src/components/core/Accordion/index.js) | 10 |
 | [combobox](https://reui.io/components/combobox) | [core/Select](src/components/core/Select/index.js) | 28 |
-| [command](https://reui.io/components/command) | [core/CmdLauncher](src/components/core/CmdLauncher/index.js) | 8 |
+| [command](https://reui.io/components/command) | [core/Commander](src/components/core/Commander/index.js) | 8 |
 | [context-menu](https://reui.io/components/context-menu) | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 10 |
 | [data-grid](https://reui.io/components/data-grid) | [core/DataTable](src/components/core/DataTable/index.js) | 34 |
 | [date-selector](https://reui.io/components/date-selector) | [core/Calendar](src/components/core/Calendar/index.js) | 4 |

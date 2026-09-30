@@ -4,7 +4,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 import Icon from '../Icon';
-import Kbd from '../Kbd';
 import { omit } from '../../../utilities/content';
 import { useSiteConfig } from '../../../utilities/SiteConfig';
 import CommandPalette, { filterItems, getItemIndexMap } from './CommandPalette';
@@ -257,7 +256,7 @@ const CommandLauncher = ({
   const rootItems = useMemo(() => filterItems([
     {
       'heading': 'Explore content',
-      'id': 'cmdLauncher',
+      'id': 'commander',
       /* Collection entries only appear when the consumer actually supplied that collection. */
       'items': [
         { 'children': 'Home', 'cmdIcon': 'HomeIcon', 'href': '/', 'id': 'home' },

@@ -61,7 +61,7 @@ const groupDocs = {
 
 const usageExamples = {
   'MDX/CitationTracker': "import { CitationTracker } from '@gaudi/design-system/mdx';\n\n// Mount once alongside the host's generated article markup.\n<CitationTracker />",
-  'Core/CmdLauncher': "import { useState } from 'react';\nimport { Button, CmdLauncher } from '@gaudi/design-system';\n\nexport function ContentSearch({ posts = [], projects = [], publications = [], tags = [], thoughts = [] }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search content</Button>\n      <CmdLauncher\n        open={open}\n        setOpen={setOpen}\n        posts={posts}\n        projects={projects}\n        publications={publications}\n        tags={tags}\n        thoughts={thoughts}\n      />\n    </>\n  );\n}",
+  'Core/Commander': "import { useState } from 'react';\nimport { Button, Commander } from '@gaudi/design-system';\n\nexport function ContentSearch({ posts = [], projects = [], publications = [], tags = [], thoughts = [] }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search content</Button>\n      <Commander\n        open={open}\n        setOpen={setOpen}\n        posts={posts}\n        projects={projects}\n        publications={publications}\n        tags={tags}\n        thoughts={thoughts}\n      />\n    </>\n  );\n}",
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
   'Layout': "import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';\n\n<LayoutContainer>{children}</LayoutContainer>",
   'MDX/Aside': '<Aside>\n  Additional context for the article that should sit outside the main argument.\n</Aside>',
@@ -157,10 +157,10 @@ const componentDocs = {
       'If category data is unavailable, retain the primary Blog and top-level destinations instead of rendering broken category links.'
     ]
   },
-  'Core/CmdLauncher': {
-    'accessibility': 'CmdLauncher is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
-    'description': 'CmdLauncher provides the blog-wide command palette for navigation, content search, and theme actions.',
-    'overview': 'Use CmdLauncher with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint.',
+  'Core/Commander': {
+    'accessibility': 'Commander is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
+    'description': 'Commander provides the blog-wide command palette for navigation, content search, and theme actions.',
+    'overview': 'Use Commander with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint.',
     'recovery': [
       'Keep the query and current page intact when a search returns no results; offer a clear route back to all destinations.',
       'Escape closes the current level first, then the launcher, so keyboard users can recover without losing context.'

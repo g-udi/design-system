@@ -8,7 +8,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/command/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/CmdLauncher', tags: ['autodocs'], ...catalogueMeta('command') };
+export default { title: 'Core/Commander', tags: ['autodocs'], ...catalogueMeta('command') };
 
 export const ReuiCommand1 = {
   name: 'Basic command',

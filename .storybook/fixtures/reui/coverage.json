@@ -3797,7 +3797,7 @@
       ]
     },
     "command": {
-      "owner": "core/CmdLauncher",
+      "owner": "core/Commander",
       "examples": [
         {
           "name": "c-command-1",
@@ -3805,7 +3805,7 @@
           "description": "Basic command",
           "file": ".storybook/fixtures/reui/command/c-command-1.jsx",
           "sha256": "8d88e9c4a2df1ae10670fb589fee16d11aa369a60942d49c14719c48690c3449",
-          "storyId": "core-cmdlauncher--reui-command-1"
+          "storyId": "core-commander--reui-command-1"
         },
         {
           "name": "c-command-2",
@@ -3813,7 +3813,7 @@
           "description": "Command with shortcuts",
           "file": ".storybook/fixtures/reui/command/c-command-2.jsx",
           "sha256": "2ed7bb91e52a633cb10fdca61af629e476a3a3825945d337a1e77f401eb221aa",
-          "storyId": "core-cmdlauncher--reui-command-2"
+          "storyId": "core-commander--reui-command-2"
         },
         {
           "name": "c-command-3",
@@ -3821,7 +3821,7 @@
           "description": "Command with groups",
           "file": ".storybook/fixtures/reui/command/c-command-3.jsx",
           "sha256": "5a2c8c227e3dd13e5a4d18ad761caa59fd0538adc32747367c5d0da9224a1241",
-          "storyId": "core-cmdlauncher--reui-command-3"
+          "storyId": "core-commander--reui-command-3"
         },
         {
           "name": "c-command-4",
@@ -3829,7 +3829,7 @@
           "description": "Command with many groups",
           "file": ".storybook/fixtures/reui/command/c-command-4.jsx",
           "sha256": "b0d63e04f048da368d2ec8ae2fd6546858b45e4f1f78483b480d6e881a4d1c01",
-          "storyId": "core-cmdlauncher--reui-command-4"
+          "storyId": "core-commander--reui-command-4"
         },
         {
           "name": "c-command-5",
@@ -3837,7 +3837,7 @@
           "description": "File search command palette",
           "file": ".storybook/fixtures/reui/command/c-command-5.jsx",
           "sha256": "a6fbf8279a0d9de2fe0aa576eb00a637dd288e4029f64c93ba5ab03b18d60e43",
-          "storyId": "core-cmdlauncher--reui-command-5"
+          "storyId": "core-commander--reui-command-5"
         },
         {
           "name": "c-command-6",
@@ -3845,7 +3845,7 @@
           "description": "User search command with avatars",
           "file": ".storybook/fixtures/reui/command/c-command-6.jsx",
           "sha256": "f3cf467d68bc2d5d53bb5be556a2804c0effcfd76bdd62f74707cf85860d5e11",
-          "storyId": "core-cmdlauncher--reui-command-6"
+          "storyId": "core-commander--reui-command-6"
         },
         {
           "name": "c-command-7",
@@ -3853,7 +3853,7 @@
           "description": "Action palette with keyboard shortcuts",
           "file": ".storybook/fixtures/reui/command/c-command-7.jsx",
           "sha256": "da6cbcd2354ff52eef9fcf13ac0099bf32e58e4fc74ee6d163485e77a54c71e8",
-          "storyId": "core-cmdlauncher--reui-command-7"
+          "storyId": "core-commander--reui-command-7"
         },
         {
           "name": "c-command-8",
@@ -3861,7 +3861,7 @@
           "description": "Command with recent and favorites sections",
           "file": ".storybook/fixtures/reui/command/c-command-8.jsx",
           "sha256": "c8cd8a5fe962a24a869bdb58fa1da241cfca8cf25dcff97f142335e8e267b06b",
-          "storyId": "core-cmdlauncher--reui-command-8"
+          "storyId": "core-commander--reui-command-8"
         }
       ]
     },

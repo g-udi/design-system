@@ -58,9 +58,9 @@ export const Playground = {
     docs: {
       description: { story: 'The search entry in the desktop header, beside the logo and links, and as the full-width row of the mobile sheet. Both call `setOpen(true)`; the status line shows each request.' },
       source: playgroundSource('MenuSearch', {
-        imports: "import { useState } from 'react';\nimport { CmdLauncher, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);",
+        imports: "import { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);",
         attributes: ['setOpen={setOpen}'],
-        after: '\n<CmdLauncher open={open} setOpen={setOpen} />'
+        after: '\n<Commander open={open} setOpen={setOpen} />'
       })
     }
   },

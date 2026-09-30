@@ -1,10 +1,10 @@
-# CmdLauncher
+# Commander
 
 This Gaudi owner includes **command**, with **8 practical examples**.
 
-Import the documented composition from `@gaudi/design-system/core/CmdLauncher`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+Import the documented composition from `@gaudi/design-system/core/Commander`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
 
-[Open the first example](http://localhost:6007/?path=/story/core-cmdlauncher--reui-command-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+[Open the first example](http://localhost:6007/?path=/story/core-commander--reui-command-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
 
 Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
 
