@@ -6,6 +6,7 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import ThoughtsSection from './ThoughtsSection';
 
 const docs = getComponentDocs('Blocks/Thoughts');
+// A realistic mix: featured and regular notes, one without a summary, and the last beside the archive link.
 const thoughts = [
   {
     featured: true,
@@ -18,6 +19,11 @@ const thoughts = [
     slug: 'docs-are-product',
     summary: 'A component story should show the states that teams actually ship.',
     title: 'Docs are part of the product surface'
+  },
+  {
+    featured: false,
+    slug: 'naming-is-design',
+    title: 'Naming a prop is a design decision'
   },
   {
     featured: true,
@@ -46,19 +52,23 @@ export default {
 export const Playground = {
   args: { thoughts },
   parameters: {
-    docs: { source: playgroundSource('ThoughtsSection', { imports: "import { ThoughtsSection } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'Four notes mixing featured and regular entries, with and without summaries. Edit `thoughts` to change the list: `featured` adds the badge and the last note sits beside the archive link.' },
+      source: playgroundSource('ThoughtsSection', { imports: "import { ThoughtsSection } from '@gaudi/design-system';" })
+    }
   },
   render: (args) => <ThoughtsSection {...args} />,
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { level: 2, name: 'Recent Thoughts' })).toBeInTheDocument();
-    await expect(canvas.getAllByRole('article')).toHaveLength(thoughts.length);
-    await expect(canvas.getAllByText('Featured')).toHaveLength(thoughts.filter((thought) => thought.featured).length);
-    for (const thought of thoughts) {
+    await expect(canvas.queryAllByRole('article')).toHaveLength(args.thoughts.length);
+    await expect(canvas.queryAllByText('Featured')).toHaveLength(args.thoughts.filter((thought) => thought.featured).length);
+    for (const thought of args.thoughts) {
       await userEvent.tab();
       await expect(thoughtLink(canvas, thought)).toHaveFocus();
       await expect(thoughtLink(canvas, thought)).toHaveAttribute('href', `/thoughts/${thought.slug}`);
     }
+    if (!args.thoughts.length) return;
     await userEvent.tab();
     await expect(viewAll(canvas)).toHaveFocus();
     await expect(viewAll(canvas)).toHaveAttribute('href', '/thoughts');

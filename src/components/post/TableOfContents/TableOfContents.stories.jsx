@@ -72,14 +72,14 @@ const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
   }, [args.toc, scopeId]);
   return (
   <div className='grid min-w-0 grid-cols-1 gap-8 lg:grid-cols-12'>
-    <article ref={articleRef} className='min-w-0 space-y-12 lg:col-span-8'>
+    <article ref={articleRef} className='min-w-0 space-y-6 lg:col-span-8'>
       {articleSections.map((section) => {
         const Heading = section.depth === 1 ? 'h2' : 'h3';
 
         return (
           <section key={ section.id } className={ section.depth === 1 ? 'scroll-mt-28' : 'scroll-mt-28 pl-8' }>
             <Heading id={ `${scopeId}-${section.id}` }>{section.value}</Heading>
-            <p className='mt-3 text-sm text-gray-600 dark:text-gray-300'>
+            <p className='mt-1 text-sm text-gray-600 dark:text-gray-300'>
               Story fixture copy gives the table of contents real headings to observe and target.
             </p>
           </section>
@@ -92,7 +92,7 @@ const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
             <figcaption>
               <strong>Token relationship map</strong>
             </figcaption>
-            <svg role='img' aria-label='Three design tokens connected in a graph' viewBox='0 0 480 120'>
+            <svg role='img' aria-label='Three design tokens connected in a graph' viewBox='0 0 480 120' className='w-full max-w-sm'>
               <path d='M 110 60 H 220 M 260 60 H 370' stroke='currentColor' />
               <circle cx='80' cy='60' r='28' fill='currentColor' />
               <circle cx='240' cy='60' r='28' fill='currentColor' opacity='0.65' />
@@ -146,13 +146,24 @@ export default {
 export const Playground = {
   args: { toc },
   parameters: {
-    docs: { source: playgroundSource('TableOfContents', { imports: "import { TableOfContents } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'An article with five sections, nested subsections, a captioned diagram, and a table. With more than four top-level headings only the active branch expands, and captioned figures and tables are indexed below the headings with a count summary. Edit `toc` to rename, add, or remove entries.' },
+      source: playgroundSource('TableOfContents', {
+        imports: "import { TableOfContents } from '@gaudi/design-system';",
+        attributes: ['contentRef={articleRef}']
+      })
+    }
   },
-  render: (args) => <TableOfContentsFixture { ...args } />,
-  play: async ({ canvasElement }) => {
-    const foundationsLink = tocLink(canvasElement, 'foundations');
+  render: (args) => <TableOfContentsFixture { ...args } showVisuals />,
+  play: async ({ args, canvasElement }) => {
+    const aside = canvasElement.querySelector('aside');
+    for (const entry of args.toc) await expect(aside).toHaveTextContent(entry.value);
+    await waitFor(() => expect(aside.querySelector('a[href="#visual-diagram-token-relationship-map"]')).toBeInTheDocument());
+    await expect(aside.querySelector('a[href="#visual-table-semantic-token-inventory"]')).toBeInTheDocument();
+    await expect(aside).toHaveTextContent('1 diagram · 1 table');
 
-    await expect(foundationsLink).toBeInTheDocument();
+    const foundationsLink = tocLink(canvasElement, 'foundations');
+    if (!foundationsLink || args.toc.length <= 4) return;
     await expect(tocLink(canvasElement, 'design-tokens')).not.toBeInTheDocument();
 
     foundationsLink.addEventListener('click', (event) => event.preventDefault(), { once: true });
@@ -172,16 +183,5 @@ export const CompactToc = {
   play: async ({ canvasElement }) => {
     for (const id of [ 'design-tokens', 'component-contracts', 'documentation' ])
       await expect(tocLink(canvasElement, id)).toBeInTheDocument();
-  }
-};
-
-export const VisualIndex = {
-  args: { showVisuals: true, toc },
-  parameters: { docs: { description: { story: 'Captioned figures and tables in the article are indexed below the headings with a count summary.' } } },
-  render: (args) => <TableOfContentsFixture { ...args } />,
-  play: async ({ canvasElement }) => {
-    await waitFor(() => expect(canvasElement.querySelector('aside a[href="#visual-diagram-token-relationship-map"]')).toBeInTheDocument());
-    await expect(canvasElement.querySelector('aside a[href="#visual-table-semantic-token-inventory"]')).toBeInTheDocument();
-    await expect(canvasElement.querySelector('aside')).toHaveTextContent('1 diagram · 1 table');
   }
 };

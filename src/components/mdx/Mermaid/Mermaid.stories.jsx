@@ -6,13 +6,25 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Mermaid from './Mermaid';
 
 const docs = getComponentDocs('MDX/Mermaid');
+const description = 'A draft goes to review. Approved drafts are scheduled and published; rejected drafts return for revision.';
+const lead = 'Every post follows the same path from draft to publication, and a rejected review sends it back for another pass.';
+// A real editorial workflow: a decision, a loop back, and a labelled branch.
+const chart = [
+  'flowchart LR',
+  '  A[Draft] --> B[Review]',
+  '  B --> C{Approved?}',
+  '  C -- No --> D[Revise]',
+  '  D --> B',
+  '  C -- Yes --> E[Schedule]',
+  '  E --> F([Publish])'
+].join('\n');
 
 export default {
   title: 'MDX/Mermaid',
   id: 'mdx-mermaid',
   component: Mermaid,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { chart: 'text', description: 'text', id: 'text' }),
+  argTypes: docsArgTypes(docs, { chart: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -23,18 +35,28 @@ export default {
 };
 
 export const Playground = {
-  args: {
-    id: 'publishing-flow',
-    description: 'A publishing workflow moves from draft to review and then publication.',
-    chart: 'flowchart TD\n  A[Draft] --> B[Review]\n  B --> C[Publish]'
+  args: { chart },
+  parameters: {
+    docs: {
+      description: { story: 'An editorial workflow in article context, with a decision, a revision loop, and labelled branches. Edit `chart` to redraw it.' },
+      source: playgroundSource('Mermaid', {
+        imports: "import { Mermaid } from '@gaudi/design-system/mdx';",
+        attributes: ["id='publishing-flow'", `description='${description}'`]
+      })
+    }
   },
-  parameters: { docs: { source: playgroundSource('Mermaid', { imports: "import { Mermaid } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Mermaid {...args} />,
+  render: (args) => (
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p>{lead}</p>
+      <Mermaid id='publishing-flow' description={description} {...args} />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     await waitFor(() => expect(canvasElement.querySelector('.mermaid-diagram svg')).toBeInTheDocument(), { timeout: 10000 });
     const diagram = canvasElement.querySelector('.mermaid-diagram');
     await expect(canvasElement.querySelector('.mermaid-error')).not.toBeInTheDocument();
-    await expect(diagram).toHaveAccessibleName(args.description);
-    for (const label of ['Draft', 'Review', 'Publish']) await expect(diagram).toHaveTextContent(label);
+    await expect(diagram).toHaveAccessibleName(description);
+    // Every node label in the chart source is drawn.
+    for (const [, label] of args.chart.matchAll(/[[{(]+([^\]})]+)[\]})]+/g)) await expect(diagram).toHaveTextContent(label);
   }
 };

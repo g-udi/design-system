@@ -6,10 +6,13 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import PostSeriesBox from './index';
 
 const docs = getComponentDocs('Post/PostSeriesBox');
+// A five-part series read up to part three: finished, current, and upcoming entries all show.
 const series = [
-  { order: 1, series: 'Design Systems', slug: 'foundations', title: 'Foundations' },
-  { order: 2, series: 'Design Systems', slug: 'components', title: 'Components' },
-  { order: 3, series: 'Design Systems', slug: 'documentation', title: 'Documentation' }
+  { order: 1, series: 'Design Systems in Practice', slug: 'foundations', title: 'Foundations: tokens, scales, and themes' },
+  { order: 2, series: 'Design Systems in Practice', slug: 'components', title: 'Components with explicit contracts' },
+  { order: 3, series: 'Design Systems in Practice', slug: 'documentation', title: 'Documentation teams actually read' },
+  { order: 4, series: 'Design Systems in Practice', slug: 'accessibility', title: 'Accessibility as a release gate' },
+  { order: 5, series: 'Design Systems in Practice', slug: 'adoption', title: 'Adoption across product teams' }
 ];
 
 export default {
@@ -27,26 +30,32 @@ export default {
 };
 
 export const Playground = {
-  args: { series, slug: 'components' },
+  args: { series, slug: 'documentation' },
   parameters: {
-    docs: { source: playgroundSource('PostSeriesBox', { imports: "import { PostSeriesBox } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'A five-part series opened on part three. The progress bar and count follow `slug`; expand the box to see finished, current, and upcoming parts. Edit `series` to rename it or change its length.' },
+      source: playgroundSource('PostSeriesBox', { imports: "import { PostSeriesBox } from '@gaudi/design-system';" })
+    }
   },
   render: (args) => <PostSeriesBox {...args} />,
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: /Design Systems/i });
+    const position = args.series.findIndex((entry) => entry.slug === args.slug) + 1;
+    const trigger = canvas.getByRole('button', { name: new RegExp(args.series[0].series, 'u') });
     const progress = canvas.getByRole('progressbar', { name: 'Series progress' });
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(progress).toHaveAttribute('aria-valuenow', '2');
-    await expect(progress).toHaveAttribute('aria-valuemax', String(series.length));
+    await expect(progress).toHaveAttribute('aria-valuenow', String(position));
+    await expect(progress).toHaveAttribute('aria-valuemax', String(args.series.length));
+    await expect(canvas.getByText(`${position}/${args.series.length}`)).toBeVisible();
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByText('Components')).toBeInTheDocument();
-    await expect(canvas.queryByRole('link', { name: 'Components' })).not.toBeInTheDocument();
-    await expect(canvas.getByRole('link', { name: 'Foundations' })).toHaveAttribute('href', '/blog/foundations');
-    await expect(canvas.getByRole('link', { name: 'Documentation' })).toHaveAttribute('href', '/blog/documentation');
-    await userEvent.click(trigger);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    for (const entry of args.series) {
+      if (entry.slug === args.slug) {
+        await expect(canvas.getByText(entry.title)).toHaveAttribute('aria-current', 'step');
+        await expect(canvas.queryByRole('link', { name: entry.title })).not.toBeInTheDocument();
+      } else await expect(canvas.getByRole('link', { name: entry.title })).toHaveAttribute('href', `/blog/${entry.slug}`);
+    }
+    // Left open so the preview shows the full reading path.
   }
 };
 

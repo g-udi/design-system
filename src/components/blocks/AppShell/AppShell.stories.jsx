@@ -1,17 +1,99 @@
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ContentWorkspace } from '../../../../.storybook/fixtures/application/Workspace';
+import Avatar from '../../core/Avatar';
+import Button from '../../core/Button';
+import Icon from '../../core/Icon';
+import Input from '../../core/Input';
+import Pill from '../../core/Pill';
+import StatGroup from '../StatGroup';
 import AppShell from './AppShell';
 
 const docs = getComponentDocs('Blocks/Application/AppShell');
+const views = [
+  { id: 'Overview', icon: 'LayoutDashboard', title: 'Good morning, Maya', description: 'Three drafts need attention before Friday.' },
+  { id: 'Articles', icon: 'FileText', count: 24, title: 'Articles', description: 'Everything you have published, newest first.' },
+  { id: 'Drafts', icon: 'SquarePen', count: 6, title: 'Drafts', description: 'Work in progress, including two pieces in review.' },
+  { id: 'Settings', icon: 'Settings', title: 'Settings', description: 'Profile, reading preferences, and publishing defaults.' }
+];
+const stats = [
+  { id: 'readers', label: 'Monthly readers', value: '48.2k', detail: '▲ 12.4% vs August', tone: 'success' },
+  { id: 'bounce', label: 'Bounce rate', value: '38.6%', detail: '▲ 4.1 pts vs August', tone: 'danger' },
+  { id: 'drafts', label: 'Open drafts', value: '6', detail: '2 awaiting review' }
+];
+
+// A working shell: brand, counted navigation with an active page, a header with search and profile, and a rail footer.
+function WorkspaceShell() {
+  const [active, setActive] = useState('Overview');
+  const view = views.find((entry) => entry.id === active);
+  return (
+    <AppShell
+      brand={
+        <span className='example-brand'>
+          <Icon name='BookOpen' decorative size='sm' />
+          Notebook
+        </span>
+      }
+      navigation={
+        <div className='example-navigation'>
+          {views.map((entry) => (
+            <a
+              key={entry.id}
+              href={`#${entry.id.toLowerCase()}`}
+              aria-current={entry.id === active ? 'page' : undefined}
+              onClick={(event) => {
+                event.preventDefault();
+                setActive(entry.id);
+              }}
+            >
+              <Icon name={entry.icon} decorative size='sm' />
+              <span className='flex-1'>{entry.id}</span>
+              {entry.count ? <Pill size='xs' variant='soft' tone='gray'>{entry.count}</Pill> : null}
+            </a>
+          ))}
+        </div>
+      }
+      header={
+        <>
+          <span className='ds-label'>{active}</span>
+          <span className='example-header-spacer' />
+          <Input type='search' aria-label='Search workspace' placeholder='Search…' className='hidden w-48 sm:block' />
+          <Avatar name='Maya Chen' size='sm' tone='indigo' indicator={{ label: 'Online', tone: 'success' }} />
+        </>
+      }
+      footer={
+        <div className='flex items-center gap-2'>
+          <Avatar name='Maya Chen' size='sm' tone='indigo' />
+          <div className='min-w-0'>
+            <p className='ds-label truncate'>Maya Chen</p>
+            <p className='ds-description truncate'>Pro plan</p>
+          </div>
+        </div>
+      }
+    >
+      <div className='ds-stack'>
+        <div className='example-page-heading'>
+          <div>
+            <h1>{view.title}</h1>
+            <p className='ds-description'>{view.description}</p>
+          </div>
+          <Button size='sm'>
+            <Icon name='Plus' decorative size='xs' />
+            New article
+          </Button>
+        </div>
+        <StatGroup label='September performance' items={stats} />
+      </div>
+    </AppShell>
+  );
+}
 
 export default {
   title: 'Blocks/Application/AppShell',
   component: AppShell,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { navigationLabel: 'text', menuLabel: 'text', skipLabel: 'text' }),
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -22,27 +104,33 @@ export default {
 };
 
 export const Playground = {
-  args: { navigationLabel: 'Workspace navigation', menuLabel: 'Open navigation', skipLabel: 'Skip to content' },
   parameters: {
     docs: {
+      description: { story: 'A writing workspace in the shell: brand, navigation with counts and an active page, a header with search and profile, a rail footer, and a dashboard in the content area. Pick a page to move the active state; below the tablet breakpoint the rail collapses into a menu sheet.' },
       source: playgroundSource('AppShell', {
-        imports: "import { AppShell } from '@gaudi/design-system';",
-        children: '  <h1>Research notes</h1>'
+        imports: "import { AppShell, Avatar, Input, StatGroup } from '@gaudi/design-system';",
+        attributes: [
+          "brand='Notebook'",
+          'navigation={<WorkspaceNavigation active={active} onSelect={setActive} />}',
+          "header={<><span className='ds-label'>{active}</span><Input type='search' aria-label='Search workspace' /><Avatar name='Maya Chen' size='sm' /></>}",
+          "footer={<Avatar name='Maya Chen' size='sm' />}"
+        ],
+        children: "  <h1>Good morning, Maya</h1>\n  <StatGroup label='September performance' items={stats} />"
       })
     }
   },
-  render: (args) => (
-    <AppShell brand='Notebook' navigation={<a href='#notes'>Notes</a>} header={<span className='ds-label'>Notes</span>} {...args}>
-      <h1 className='ds-title'>Research notes</h1>
-      <p className='ds-description'>A small workspace with room to grow.</p>
-    </AppShell>
-  ),
-  play: async ({ args, canvasElement }) => {
+  render: () => <WorkspaceShell />,
+  play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const main = canvas.getByRole('main');
-    await expect(canvas.getAllByRole('navigation', { name: args.navigationLabel }).length).toBeGreaterThan(0);
-    await expect(canvas.getByRole('link', { name: args.skipLabel })).toHaveAttribute('href', `#${main.id}`);
-    await expect(main).toHaveTextContent('Research notes');
+    const [navigation] = canvas.getAllByRole('navigation', { name: 'Workspace navigation' });
+    await expect(canvas.getByRole('link', { name: 'Skip to content' })).toHaveAttribute('href', `#${main.id}`);
+    await expect(within(navigation).getByRole('link', { name: 'Overview' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(within(navigation).getByRole('link', { name: /Drafts/ }));
+    await expect(within(navigation).getByRole('link', { name: /Drafts/ })).toHaveAttribute('aria-current', 'page');
+    await expect(within(main).getByRole('heading', { level: 1, name: 'Drafts' })).toBeVisible();
+    await userEvent.click(within(navigation).getByRole('link', { name: 'Overview' }));
+    await expect(within(main).getByRole('heading', { level: 1, name: 'Good morning, Maya' })).toBeVisible();
   }
 };
 

@@ -2,6 +2,7 @@ import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import Icon from '../Icon';
 import Link from './Link';
 
 const docs = getComponentDocs('Core/Link');
@@ -35,14 +36,49 @@ export default {
   decorators: [(Story) => <div className='flex flex-wrap items-center gap-4'><Story /></div>]
 };
 
+// Mirrors the component's own rule, so an external `href` shows its new-tab cue.
+const isExternal = (href) => /^(https?:)?\/\//i.test(href || '');
+
 export const Playground = {
-  args: { children: 'Read the blog', href: '/blog', variant: 'inline', tone: 'blue' },
-  parameters: { docs: { source: playgroundSource('Link', { imports: "import { Link } from '@gaudi/design-system';" }) } },
-  render: (args) => <Link {...args} />,
+  args: { children: 'Read the release notes', href: '/blog/gaudi-2', variant: 'inline', tone: 'blue' },
+  parameters: {
+    docs: {
+      description: { story: 'An article card mixing navigation, inline, external, and muted links. The inline link in the paragraph follows the controls; an external `href` adds a new-tab cue.' },
+      source: playgroundSource('Link', { imports: "import { Link } from '@gaudi/design-system';" })
+    }
+  },
+  render: ({ children, ...args }) => (
+    <article className='grid w-full max-w-md gap-3 rounded-lg border border-border p-4 text-sm'>
+      <nav aria-label='Sections' className='flex gap-4'>
+        <Link href='/blog' variant='nav' aria-current='page' className='underline decoration-2 underline-offset-8'>Articles</Link>
+        <Link href='/projects' variant='nav'>Projects</Link>
+        <Link href='/about' variant='nav'>About</Link>
+      </nav>
+      <p className='m-0 leading-6 text-text-muted'>
+        Gaudi 2 ships new tokens, 80 components, and interactive docs.{' '}
+        <Link {...args}>
+          {children}
+          {isExternal(args.href) ? <Icon name='ArrowUpRight' decorative size='xs' className='ms-0.5 inline align-baseline' /> : null}
+        </Link>
+        , or browse the{' '}
+        <Link href='https://github.com/ahmadassaf' tone='teal' className='whitespace-nowrap'>
+          source on GitHub<Icon name='ArrowUpRight' decorative size='xs' className='ms-0.5 inline align-baseline' />
+        </Link>.
+      </p>
+      <p className='m-0 text-xs text-text-muted'>
+        Updated 28 Sep 2026 · <Link href='#edit' variant='muted' tone='gray'>Edit this page</Link>
+      </p>
+    </article>
+  ),
   play: async ({ args, canvasElement }) => {
     const element = link(canvasElement, args.children);
     await expect(element).toHaveAttribute('href', args.href);
     await expect(element).toBeVisible();
+    if (args.variant === 'inline') await expect(element).toHaveClass(tones[args.tone]);
+    if (isExternal(args.href)) await expect(element).toHaveAttribute('target', '_blank');
+    else await expect(element).not.toHaveAttribute('target');
+    await expect(link(canvasElement, 'source on GitHub')).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(link(canvasElement, 'Articles')).toHaveClass('font-semibold');
   }
 };
 

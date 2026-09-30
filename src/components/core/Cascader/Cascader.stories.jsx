@@ -2,11 +2,12 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
-import Button from '../Button';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import {
   Cascader,
   CascaderBreadcrumb,
-  CascaderContent,
+  CascaderColumns,
   CascaderEmpty,
   CascaderInput,
   CascaderItems,
@@ -14,42 +15,65 @@ import {
   CascaderNav,
   CascaderPanel,
   CascaderStatus,
-  CascaderTrigger,
-  CascaderValue
+  useCascaderSelection
 } from './index.js';
 
 const docs = getComponentDocs('Core/Cascader');
+// Help-centre routing: icons, descriptions, a disabled enterprise-only topic, and a top-level leaf.
 const topics = [
   {
     value: 'billing',
     label: 'Billing',
+    icon: 'CreditCardIcon',
     children: [
-      { value: 'billing.invoice', label: 'Invoice question' },
-      { value: 'billing.refund', label: 'Refund request' }
+      { value: 'billing.invoice', label: 'Invoice question', icon: 'ReceiptIcon', description: 'Download or correct an invoice' },
+      { value: 'billing.refund', label: 'Refund request', icon: 'ArrowLeftRightIcon', description: 'Money back within 30 days' }
     ]
   },
   {
     value: 'technical',
     label: 'Technical',
+    icon: 'WrenchIcon',
     children: [
-      { value: 'technical.bug', label: 'Bug report' },
-      { value: 'technical.performance', label: 'Performance' }
+      { value: 'technical.bug', label: 'Bug report', icon: 'BugIcon', description: 'Something is broken' },
+      { value: 'technical.performance', label: 'Performance', icon: 'GaugeIcon', description: 'Slow pages or timeouts' },
+      { value: 'technical.api', label: 'API and webhooks', icon: 'CodeIcon', description: 'Tokens, limits and events' }
     ]
   },
-  { value: 'feedback', label: 'Product feedback' }
+  {
+    value: 'account',
+    label: 'Account',
+    icon: 'UsersIcon',
+    children: [
+      { value: 'account.access', label: 'Team access', icon: 'KeyRoundIcon', description: 'Invite or remove members' },
+      { value: 'account.sso', label: 'Single sign-on', icon: 'LockIcon', description: 'Enterprise plans only', disabled: true }
+    ]
+  },
+  { value: 'feedback', label: 'Product feedback', icon: 'LightbulbIcon', description: 'Ideas and feature requests' }
 ];
-const parts = `  <CascaderTrigger aria-label='Topic' render={<Button variant='outline' />}>
-    <CascaderValue placeholder='Select a topic' />
-  </CascaderTrigger>
-  <CascaderContent>
-    <CascaderPanel>
-      <CascaderNav><CascaderInput /></CascaderNav>
-      <CascaderBreadcrumb />
-      <CascaderEmpty />
-      <CascaderList><CascaderItems /></CascaderList>
-      <CascaderStatus />
-    </CascaderPanel>
-  </CascaderContent>`;
+const withIcons = (nodes) => nodes.map(({ icon, children, ...node }) => ({
+  ...node,
+  icon: <RegistryIcon lucide={icon} className='size-4' />,
+  ...(children ? { children: withIcons(children) } : null)
+}));
+const items = withIcons(topics);
+// The panel opens inside Technical with a saved choice: a bug report, or the whole Technical branch
+// when branches are selectable. The test then picks Performance.
+const opened = 'technical';
+const savedFor = (selectable) => (selectable === 'all' ? opened : 'technical.bug');
+const target = 'technical.performance';
+const nodes = topics.flatMap((topic) => [topic, ...(topic.children || [])]);
+const pathOf = (value) => nodes.filter((node) => value === node.value || value.startsWith(`${node.value}.`)).map((node) => node.label).join(' › ');
+const sourceItems = JSON.stringify(topics, null, 2).replace(/"icon": "(\w+)"/g, "\"icon\": <RegistryIcon lucide='$1' />");
+
+function Routing() {
+  const { paths, isEmpty } = useCascaderSelection();
+  return (
+    <p className='border-t border-ui-border px-3 py-2 text-xs text-ui-muted-foreground'>
+      {isEmpty ? 'No topic chosen yet' : `Routing to ${paths.map((path) => path.map((node) => node.label).join(' › ')).join(', ')}`}
+    </p>
+  );
+}
 
 export default {
   title: 'Core/Cascader',
@@ -57,57 +81,65 @@ export default {
   component: Cascader,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    mode: ['drill', 'columns'],
+    mode: ['drill', 'columns', 'tree'],
     selectable: ['leaf', 'all'],
-    multiple: 'boolean',
-    disabled: 'boolean'
+    multiple: 'boolean'
   }),
   parameters: {
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  }
+  },
+  decorators: [(Story) => <ExampleFrame className='max-w-xl'><Story /></ExampleFrame>]
 };
 
 export const Playground = {
-  args: { mode: 'drill', selectable: 'leaf', multiple: false, disabled: false, onValueChange: fn() },
+  args: { mode: 'columns', selectable: 'leaf', multiple: false, onValueChange: fn() },
   parameters: {
     docs: {
+      description: { story: 'An inline help-centre router with icons, descriptions, a disabled enterprise-only topic, and a live summary of the selection. `mode` switches between drill-down, Miller columns and a tree; `multiple` adds checkboxes; `selectable: all` saves the whole Technical branch instead of one leaf.' },
       source: playgroundSource('Cascader', {
-        imports: `import { Button, Cascader, CascaderBreadcrumb, CascaderContent, CascaderEmpty, CascaderInput, CascaderItems, CascaderList, CascaderNav, CascaderPanel, CascaderStatus, CascaderTrigger, CascaderValue } from '@gaudi/design-system';\n\nconst items = ${JSON.stringify(topics, null, 2)};`,
-        children: parts
+        imports: `import { Cascader, CascaderBreadcrumb, CascaderColumns, CascaderEmpty, CascaderInput, CascaderItems, CascaderList, CascaderNav, CascaderPanel, CascaderStatus } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';\n\nconst topics = ${sourceItems};`,
+        attributes: ['inline', 'items={topics}', "defaultValue='technical.bug'"],
+        children: `  <CascaderPanel>
+    <CascaderNav><CascaderInput placeholder='Search topics' /></CascaderNav>
+    <CascaderBreadcrumb />
+    <CascaderEmpty />
+    {mode === 'columns' ? <CascaderColumns maxHeight={240} /> : <CascaderList maxHeight={240}><CascaderItems /></CascaderList>}
+    <CascaderStatus />
+  </CascaderPanel>`
       })
     }
   },
   render: (args) => (
-    <Cascader key={`${args.mode}-${args.multiple}`} items={topics} {...args}>
-      <CascaderTrigger aria-label='Topic' render={<Button variant='outline' className='w-72 justify-between font-normal' />}>
-        <CascaderValue placeholder='Select a topic' />
-      </CascaderTrigger>
-      <CascaderContent className='w-80'>
+    <Cascader
+      key={`${args.mode}-${args.multiple}-${args.selectable}`}
+      inline
+      items={items}
+      defaultValue={args.multiple ? [savedFor(args.selectable)] : savedFor(args.selectable)}
+      {...(args.mode === 'tree' ? { defaultExpanded: [opened] } : { defaultPath: [opened] })}
+      {...args}
+    >
+      <div className='overflow-hidden rounded-xl border border-ui-border bg-ui-background'>
         <CascaderPanel>
-          <CascaderNav><CascaderInput /></CascaderNav>
+          <CascaderNav><CascaderInput placeholder='Search topics' /></CascaderNav>
           <CascaderBreadcrumb />
           <CascaderEmpty />
-          <CascaderList><CascaderItems /></CascaderList>
+          {args.mode === 'columns' ? <CascaderColumns maxHeight={240} /> : <CascaderList maxHeight={240}><CascaderItems /></CascaderList>}
           <CascaderStatus />
         </CascaderPanel>
-      </CascaderContent>
+        <Routing />
+      </div>
     </Cascader>
   ),
   play: async ({ args, canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('combobox', { name: 'Topic' });
-    if (args.disabled) return expect(trigger).toBeDisabled();
-    const page = within(canvasElement.ownerDocument.body);
-    await userEvent.click(trigger);
-    await userEvent.click(await page.findByRole('option', { name: /Technical/ }));
-    await userEvent.click(await page.findByRole('option', { name: /Bug report/ }));
-    await expect(args.onValueChange).toHaveBeenLastCalledWith(args.multiple ? ['technical.bug'] : 'technical.bug', expect.anything());
-    if (args.multiple) await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
-    // The popup unmounts after its exit transition; axe runs once it has gone.
-    await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-base-ui-focus-guard]')).toBeNull());
-    await expect(trigger).toHaveTextContent('Bug report');
+    const canvas = within(canvasElement);
+    const saved = savedFor(args.selectable);
+    await expect(canvas.getByText(`Routing to ${pathOf(saved)}`)).toBeVisible();
+    await userEvent.click(await canvas.findByRole(args.mode === 'tree' ? 'treeitem' : 'option', { name: new RegExp(pathOf(target).split(' › ').pop()) }));
+    await expect(args.onValueChange).toHaveBeenLastCalledWith(args.multiple ? [saved, target] : target, expect.anything());
+    const routed = (args.multiple ? [saved, target] : [target]).map(pathOf).join(', ');
+    await waitFor(() => expect(canvas.getByText(`Routing to ${routed}`)).toBeVisible());
   }
 };

@@ -31,8 +31,8 @@
       "danger": {
         "role": "semantic",
         "displayName": "Red Danger",
-        "canonical": "#dc2626",
-        "tonalRamp": [ "#450a0a", "#7f1d1d", "#991b1b", "#dc2626", "#ef4444", "#fca5a5", "#fee2e2", "#fef2f2" ]
+        "canonical": "#b91c1c",
+        "tonalRamp": [ "#450a0a", "#7f1d1d", "#991b1b", "#b91c1c", "#ef4444", "#fca5a5", "#fee2e2", "#fef2f2" ]
       },
       "discovery": {
         "role": "semantic",

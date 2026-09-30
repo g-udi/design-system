@@ -12,6 +12,8 @@ const editorialItems = [
     eyebrow: 'Knowledge Graphs',
     href: '/blog',
     id: 'knowledge-graphs',
+    image: 'static/images/posts/linked-data-quality.svg',
+    content: 'Covers entity modelling, linking public datasets, and measuring the quality of the resulting graph.',
     title: 'An Introduction to Knowledge Graphs'
   },
   {
@@ -20,6 +22,8 @@ const editorialItems = [
     eyebrow: 'Design Systems',
     href: '/blog',
     id: 'design-systems',
+    image: 'static/images/posts/gaudi.svg',
+    content: 'Walks through how Gaudi tokens, primitives, and editorial components share one source of truth.',
     title: 'Design systems keep editorial rhythm predictable'
   },
   {
@@ -28,6 +32,8 @@ const editorialItems = [
     eyebrow: 'Projects',
     href: '/blog/projects',
     id: 'projects',
+    image: 'static/images/posts/unifiedjs.svg',
+    content: 'Documents the unified, remark, and rehype pipeline that turns Markdown into these pages.',
     title: 'Project notes for engineering work'
   }
 ];
@@ -62,14 +68,15 @@ const overlayText = {
 };
 const button = (canvas, name) => canvas.getByRole('button', { name });
 
+const status = (canvas, text) => expect(canvas.getByText(text, { selector: '[aria-live]' })).toBeInTheDocument();
+
 export default {
   title: 'Core/Carousel',
   id: 'core-carousel',
   component: Carousel,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    ariaLabel: 'text',
-    variant: Object.keys(carouselVariants.variants.variant),
+    variant: ['standard', 'rail'],
     size: Object.keys(carouselVariants.variants.size),
     radius: ['none', 'sm', 'md', 'lg'],
     controls: 'boolean',
@@ -84,28 +91,40 @@ export default {
 };
 
 export const Playground = {
-  args: { ariaLabel: 'Featured articles', variant: 'standard', size: 'md', radius: 'lg', controls: true, loop: true },
+  args: { variant: 'standard', size: 'md', radius: 'lg', controls: true, loop: true },
   parameters: {
     docs: {
+      description: { story: 'Three illustrated articles with an eyebrow, summary, and call to action. Switch `variant` to rail for snapping cards that open their details in a dialog; without `loop`, Previous starts disabled and navigation stops at the ends.' },
       source: playgroundSource('Carousel', {
-        imports: `import { Carousel } from '@gaudi/design-system';\n\nconst items = ${JSON.stringify(editorialItems, null, 2)};`
+        imports: `import { Carousel } from '@gaudi/design-system';\n\nconst items = ${JSON.stringify(editorialItems, null, 2)};`,
+        attributes: ["ariaLabel='Featured articles'", 'items={items}']
       })
     }
   },
-  render: (args) => <Carousel items={editorialItems} classNames={overlayText} {...args} />,
-  play: async ({ canvasElement }) => {
+  render: (args) => <Carousel ariaLabel='Featured articles' items={editorialItems} classNames={overlayText} className='mx-auto' {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const slide = (index) => canvas.getByRole('heading', { level: 3, name: editorialItems[index].title });
+    const [first, second] = editorialItems;
     await expect(canvas.getByRole('region', { name: 'Featured articles' })).toHaveAttribute('aria-roledescription', 'carousel');
-    await expect(slide(0)).toBeInTheDocument();
-    await expect(canvas.getByRole('link', { name: editorialItems[0].action })).toHaveAttribute('href', editorialItems[0].href);
-    await userEvent.click(button(canvas, 'Next slide'));
-    await expect(canvas.getByText('2 of 3')).toBeInTheDocument();
-    await expect(slide(1)).toBeInTheDocument();
+    if (args.variant === 'rail') {
+      for (const item of editorialItems) await expect(button(canvas, `Open ${item.title}`)).toBeInTheDocument();
+    } else {
+      await expect(canvas.getByRole('heading', { level: 3, name: first.title })).toBeInTheDocument();
+      await expect(canvas.getByRole('link', { name: first.action })).toHaveAttribute('href', first.href);
+    }
+    if (args.controls) {
+      await expect(button(canvas, 'Previous slide')).toHaveProperty('disabled', !args.loop);
+      await userEvent.click(button(canvas, 'Next slide'));
+    } else {
+      await expect(canvas.queryByRole('button', { name: 'Next slide' })).not.toBeInTheDocument();
+      await userEvent.click(button(canvas, 'Go to slide 2'));
+    }
+    await status(canvas, '2 of 3');
+    if (args.variant !== 'rail') await expect(canvas.getByRole('heading', { level: 3, name: second.title })).toBeInTheDocument();
     await userEvent.click(button(canvas, 'Go to slide 3'));
     await expect(button(canvas, 'Go to slide 3')).toHaveAttribute('aria-current', 'true');
     await userEvent.keyboard('{ArrowRight}');
-    await expect(canvas.getByText('1 of 3')).toBeInTheDocument();
+    await status(canvas, args.loop ? '1 of 3' : '3 of 3');
   }
 };
 

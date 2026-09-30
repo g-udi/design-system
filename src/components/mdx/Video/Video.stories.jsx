@@ -6,6 +6,10 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Video, { videoAnimationStyles } from './Video';
 
 const docs = getComponentDocs('MDX/Video');
+const videoSrc = 'https://www.youtube.com/embed/qh3NGpYRG3I';
+const thumbnailAlt = 'Knowledge graph article video preview';
+// The second chapter uses a diagram frame as its thumbnail and starts partway into the recording.
+const followUp = { videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I?start=90', title: 'Part 2: querying with SPARQL', thumbnailSrc: '/static/images/posts/everything-rdf-2.svg', thumbnailAlt: 'RDF triple diagram', meta: 'Chapter 2 · from 1:30' };
 
 export default {
   title: 'MDX/Video',
@@ -13,12 +17,9 @@ export default {
   component: Video,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    videoSrc: 'text',
-    thumbnailSrc: 'text',
-    thumbnailAlt: 'text',
     title: 'text',
-    animationStyle: Object.keys(videoAnimationStyles),
-    autoplay: 'boolean'
+    thumbnailSrc: 'text',
+    animationStyle: Object.keys(videoAnimationStyles)
   }),
   parameters: {
     docs: {
@@ -29,20 +30,45 @@ export default {
   decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
+function VideoCard({ meta, ...props }) {
+  return (
+    <figure className='min-w-0'>
+      <Video {...props} />
+      <figcaption className='mt-2 text-sm leading-5'>
+        <span className='block font-medium text-gray-900 dark:text-white'>{props.title}</span>
+        <span className='text-gray-600 dark:text-gray-400'>{meta}</span>
+      </figcaption>
+    </figure>
+  );
+}
+
 export const Playground = {
   args: {
-    videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I',
-    thumbnailSrc: '/static/images/og-card.jpg',
-    thumbnailAlt: 'Knowledge graph article video preview',
     title: 'Knowledge graph walkthrough',
-    animationStyle: 'from-center',
-    autoplay: true
+    thumbnailSrc: '/static/images/og-card.jpg',
+    animationStyle: 'from-center'
   },
-  parameters: { docs: { source: playgroundSource('Video', { imports: "import { Video } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Video {...args} />,
+  parameters: {
+    docs: {
+      description: { story: 'A pair of article videos: a walkthrough with a photo thumbnail and a second chapter with a diagram frame. Select either to play it in a modal; the first follows the controls.' },
+      source: playgroundSource('Video', {
+        imports: "import { Video } from '@gaudi/design-system/mdx';",
+        attributes: [`videoSrc='${videoSrc}'`, `thumbnailAlt='${thumbnailAlt}'`]
+      })
+    }
+  },
+  render: (args) => (
+    <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
+      <VideoCard videoSrc={videoSrc} thumbnailAlt={thumbnailAlt} meta='Walkthrough · 3 min' {...args} />
+      <VideoCard {...followUp} ariaLabel={`Play ${followUp.title}`} classNames={{ thumbnail: 'bg-white object-contain' }} />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    const trigger = within(canvasElement).getByRole('button', { name: 'Play video' });
-    await expect(within(trigger).getByAltText(args.thumbnailAlt)).toBeVisible();
+    const canvas = within(canvasElement);
+    const trigger = canvas.getByRole('button', { name: 'Play video' });
+    if (args.thumbnailSrc) await expect(within(trigger).getByAltText(thumbnailAlt)).toHaveAttribute('src', args.thumbnailSrc);
+    await expect(canvas.getByText(args.title)).toBeVisible();
+    await expect(within(canvas.getByRole('button', { name: `Play ${followUp.title}` })).getByAltText(followUp.thumbnailAlt)).toBeVisible();
     await userEvent.click(trigger);
 
     const dialog = await screen.findByRole('dialog', { name: args.title });
@@ -51,7 +77,7 @@ export const Playground = {
     await expect(panel).toHaveClass(...videoAnimationStyles[args.animationStyle].split(' '));
     await waitFor(() => expect(within(dialog).getAllByRole('button', { name: 'Close video dialog' }).at(-1)).toHaveFocus());
     await expect(document.body).toHaveStyle({ overflow: 'hidden' });
-    await expect(within(dialog).getByTitle(args.title)).toHaveAttribute('src', `${args.videoSrc}${args.autoplay ? '?autoplay=1' : ''}`);
+    await expect(within(dialog).getByTitle(args.title)).toHaveAttribute('src', `${videoSrc}?autoplay=1`);
 
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());

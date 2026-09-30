@@ -2,6 +2,8 @@ import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Pill, { pillVariants } from './Pill';
 
 const docs = getComponentDocs('Core/Pill');
@@ -11,6 +13,29 @@ const expectClasses = async (canvasElement, expected) => {
   for (const [text, classes] of Object.entries(expected)) await expect(pill(canvasElement, text)).toHaveClass(...classes);
 };
 const Row = ({ children }) => <div className='flex flex-wrap items-center gap-2'>{children}</div>;
+const tagIcon = (lucide) => <RegistryIcon lucide={lucide} className='size-3' />;
+// A pull-request list: the first status pill follows every control; size, variant, and radius restyle the whole set.
+const pullRequests = [
+  {
+    title: 'Migrate colour tokens to OKLCH',
+    meta: '#482 · opened 2 hours ago',
+    tags: [
+      { children: 'Design systems', tone: 'teal', icon: tagIcon('PaletteIcon') },
+      { children: 'Breaking', tone: 'rose' },
+      { children: '#tokens', tone: 'gray', href: '/blog/tags/tokens' }
+    ]
+  },
+  {
+    title: 'Raise focus ring contrast',
+    meta: '#479 · merged yesterday',
+    tags: [
+      { children: 'Shipped', tone: 'green', icon: tagIcon('CheckIcon') },
+      { children: 'Accessibility', tone: 'indigo', icon: tagIcon('AccessibilityIcon') },
+      { children: 'v2.4', tone: 'neutral' }
+    ]
+  }
+];
+const featured = pullRequests[0].title;
 
 export default {
   title: 'Core/Pill',
@@ -34,18 +59,41 @@ export default {
 };
 
 export const Playground = {
-  args: { children: 'Engineering', size: 'md', tone: 'blue', variant: 'solid', radius: 'sm', pulse: false },
+  args: { children: 'In review', size: 'sm', tone: 'amber', variant: 'soft', radius: 'full', pulse: true },
   parameters: {
     docs: {
+      description: { story: 'A pull-request list mixing status, category, icon, and link pills. The first status pill follows `children`, `tone`, and `pulse`; `size`, `variant`, and `radius` restyle every pill so the treatments compare side by side.' },
       source: playgroundSource('Pill', { imports: "import { Pill } from '@gaudi/design-system';" })
     }
   },
-  render: (args) => <Pill {...args} />,
+  decorators: [(Story) => <ExampleFrame className='max-w-lg'><Story /></ExampleFrame>],
+  render: ({ children, tone, pulse, ...style }) => (
+    <ul className='m-0 grid list-none gap-2 p-0'>
+      {pullRequests.map((request) => (
+        <li key={request.title} className='grid gap-1 rounded-lg border border-border px-3 py-2.5'>
+          <span className='flex flex-wrap items-baseline justify-between gap-x-3'>
+            <span className='text-sm font-medium text-foreground'>{request.title}</span>
+            <span className='text-xs text-text-muted'>{request.meta}</span>
+          </span>
+          {/* Pills carry their own my-1 mr-1, so the row adds only a little horizontal space. */}
+          <span className='flex flex-wrap items-center gap-x-1'>
+            {request.title === featured ? <Pill {...style} tone={tone} pulse={pulse}>{children}</Pill> : null}
+            {request.tags.map((tag) => <Pill key={tag.children} {...style} {...tag} />)}
+          </span>
+        </li>
+      ))}
+    </ul>
+  ),
   play: async ({ args, canvasElement }) => {
     const element = pill(canvasElement, args.children);
+    const { radius, size, tone, variant } = args;
     await expect(element.tagName).toBe('SPAN');
     await expect(getComputedStyle(element).textTransform).toBe('none');
-    await expect(within(canvasElement).queryByRole('link')).toBeNull();
+    await expect(element.className).toBe(pillVariants({ radius, size, tone, variant }));
+    await expect(Boolean(element.querySelector('.animate-ping'))).toBe(args.pulse);
+    const link = within(canvasElement).getByRole('link', { name: '#tokens' });
+    await expect(link).toHaveAttribute('href', '/blog/tags/tokens');
+    await expect(link).toHaveClass(radii[args.radius]);
   }
 };
 

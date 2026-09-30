@@ -7,7 +7,7 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Button from '../Button';
 import Dialog from '../Dialog';
 import Icon from '../Icon';
-import { Avatar, AvatarBadge, AvatarGroup } from './index';
+import { Avatar, AvatarBadge, AvatarGroup, avatarVariants } from './index';
 
 const docs = getComponentDocs('Core/Avatar');
 const sizes = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'];
@@ -26,15 +26,22 @@ const avatar = (canvas, name) => canvas.getByRole('img', { name });
 const imagesLoaded = (avatars) =>
   waitFor(() => expect(avatars.every((node) => node.querySelector('img')?.naturalWidth > 0)).toBe(true), { timeout: 10000 });
 
+// A team roster: photos with presence, an initials fallback and a guest. Every control applies to each avatar;
+// `tone` and `surface` show on the fallbacks, `grayscale` on the photos, `size` and `shape` everywhere.
+const roster = [
+  { ...maya, indicator: { label: 'Online', tone: 'success' } },
+  { ...alex, indicator: { label: 'Verified', tone: 'primary', icon: 'Check', position: 'top-end' } },
+  { id: 'priya', name: 'Priya Natarajan', indicator: { label: 'Away', tone: 'warning' } },
+  { id: 'guest', name: 'Guest reviewer', fallback: true }
+];
+const [, , initialsPerson, guest] = roster;
+
 export default {
   title: 'Core/Avatar',
   id: 'core-avatar',
   component: Avatar,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    name: 'text',
-    src: 'text',
-    alt: 'text',
     size: sizes,
     shape: ['circle', 'square', 'tile'],
     surface: ['solid', 'tinted', 'plain', 'bare'],
@@ -51,22 +58,41 @@ export default {
 };
 
 export const Playground = {
-  args: {
-    name: maya.name,
-    src: maya.src,
-    size: 'lg',
-    shape: 'circle',
-    surface: 'solid',
-    tone: 'blue',
-    grayscale: false,
-    onLoadingStatusChange: fn()
+  args: { size: 'lg', shape: 'circle', surface: 'solid', tone: 'indigo', grayscale: false, onLoadingStatusChange: fn() },
+  parameters: {
+    docs: {
+      description: { story: 'A review team: photos with presence and verification, an initials fallback, a guest silhouette, and a stacked group with overflow. Tone and surface colour the fallbacks, grayscale desaturates the photos, and size and shape apply to every avatar.' },
+      source: playgroundSource('Avatar', {
+        imports: "import { Avatar, AvatarGroup } from '@gaudi/design-system';",
+        attributes: ['key={person.id}', 'name={person.name}', 'src={person.src}', 'indicator={person.indicator}'],
+        before: '{team.map((person) => (\n',
+        after: "\n))}\n<AvatarGroup avatars={team} max={3} label='Review team' />"
+      })
+    }
   },
-  parameters: { docs: { source: playgroundSource('Avatar', { imports: "import { Avatar } from '@gaudi/design-system';" }) } },
-  render: (args) => <Avatar {...args} />,
+  render: ({ onLoadingStatusChange, ...args }) => (
+    <div className='flex flex-wrap items-center justify-center gap-4'>
+      {roster.map(({ id, ...person }) => (
+        <Avatar key={id} {...person} {...args} onLoadingStatusChange={person.src ? onLoadingStatusChange : undefined} />
+      ))}
+      <AvatarGroup avatars={people} max={3} size={args.size} shape={args.shape} label='Review team' />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    const node = avatar(within(canvasElement), args.name);
+    const canvas = within(canvasElement);
+    const [photo, verified] = roster.map(({ name, indicator }) => avatar(canvas, [name, indicator?.label].filter(Boolean).join(', ')));
+    const fallback = avatar(canvas, `${initialsPerson.name}, ${initialsPerson.indicator.label}`);
+    for (const node of [photo, verified, fallback, avatar(canvas, guest.name)]) {
+      await expect(node).toHaveAttribute('data-avatar-size', args.size);
+      await expect(node).toHaveAttribute('data-surface', args.surface);
+      await expect(node).toHaveClass(...avatarVariants.variants.shape[args.shape].split(' '));
+    }
+    await expect(fallback).toHaveTextContent('PN');
+    if (args.surface === 'solid') await expect(fallback).toHaveClass(avatarVariants.variants.tone[args.tone].split(' ')[0]);
+    await expect(within(canvas.getByRole('group', { name: 'Review team' })).getByLabelText('3 more people')).toHaveTextContent('+3');
     await waitFor(() => expect(args.onLoadingStatusChange).toHaveBeenCalledWith('loaded'), { timeout: 10000 });
-    await imagesLoaded([node]);
+    await imagesLoaded([photo, verified]);
+    if (args.grayscale) await expect(getComputedStyle(photo.querySelector('img')).filter).toBe('grayscale(1)');
   }
 };
 

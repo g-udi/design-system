@@ -624,6 +624,7 @@ const componentDocs = {
       [ 'defaultValue', 'string', '-', 'Initial uncontrolled input value.' ],
       [ 'placeholder', 'string', '-', 'Native input placeholder.' ],
       [ 'required', 'boolean', 'false', 'Marks the input as required.' ],
+      [ 'invalid', 'boolean', 'true when a FieldError is rendered', 'Forces aria-invalid and the error border on FieldInput.' ],
       [ 'disabled', 'boolean', 'false', 'Disables the input.' ],
       [ 'onChange', '(event) => void', '-', 'Native input change handler.' ],
       [ 'className', 'string', '-', 'Class override on each Field slot.' ]

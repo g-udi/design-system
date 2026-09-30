@@ -6,19 +6,32 @@ import Terminal, { terminalVariants } from './Terminal';
 
 const docs = getComponentDocs('Core/Terminal');
 const options = (name) => Object.keys(terminalVariants.variants[name]);
+// A release session: installs, tests and a push, with every output tone in one history.
 const commands = [
   {
     command: 'pnpm add github:ahmadassaf/design-system',
-    output: [{ text: 'Packages resolved, downloaded, and linked.', tone: 'success' }]
+    output: [
+      { text: 'Packages resolved, downloaded, and linked.', tone: 'success' },
+      { text: 'WARN 1 peer dependency expects react@^19.', tone: 'warning' }
+    ]
   },
   {
-    command: 'pnpm test:ds-contracts',
+    command: 'pnpm test:ds-contracts --filter=core',
     output: [
+      { text: 'FAIL Toast.contract.test.js: 1 snapshot is obsolete.', tone: 'error' },
       { text: '85 component contracts passed.', tone: 'success' },
-      { text: 'Public Core exports verified.', tone: 'muted' }
+      { text: 'Done in 4.2s. Public Core exports verified.', tone: 'muted' }
+    ]
+  },
+  {
+    command: 'git push origin main',
+    output: [
+      { text: 'To github.com:ahmadassaf/design-system.git' },
+      { text: '5e7f828..a41c9d2 main -> main', tone: 'success' }
     ]
   }
 ];
+const ariaLabel = 'Design system release';
 const lastOutput = commands.at(-1).output.at(-1).text;
 const line = (scope, text) => within(scope).getByText(text).parentElement;
 
@@ -53,22 +66,23 @@ export const Playground = {
     radius: 'lg',
     showHeader: true,
     animate: true,
-    title: 'design-system — bash',
+    title: 'design-system — release',
     username: 'ahmad',
     promptSymbol: '$',
-    typingSpeed: 35,
-    ariaLabel: 'Design system install'
+    typingSpeed: 35
   },
   parameters: {
     docs: {
+      description: { story: 'A release session that installs, tests and pushes, with success, warning, error and muted output in one history. Every control restyles or replays it: `animate` and `typingSpeed` retype the commands, and `size` sets the width and height.' },
       source: playgroundSource('Terminal', {
-        imports: `import { Terminal } from '@gaudi/design-system';\n\nconst commands = ${JSON.stringify(commands, null, 2)};`
+        imports: `import { Terminal } from '@gaudi/design-system';\n\nconst commands = ${JSON.stringify(commands, null, 2)};`,
+        attributes: ['commands={commands}', `ariaLabel='${ariaLabel}'`]
       })
     }
   },
-  render: (args) => <Terminal key={`${args.animate}`} commands={commands} {...args} />,
+  render: (args) => <Terminal key={`${args.animate}-${args.typingSpeed}`} commands={commands} ariaLabel={ariaLabel} className='mx-auto' {...args} />,
   play: async ({ args, canvasElement }) => {
-    const terminal = within(canvasElement).getByRole('region', { name: args.ariaLabel });
+    const terminal = within(canvasElement).getByRole('region', { name: ariaLabel });
     if (args.showHeader) await expect(within(terminal).getByText(args.title)).toBeInTheDocument();
     await waitFor(() => expect(within(terminal).getByText(lastOutput)).toBeInTheDocument(), { timeout: 10000 });
     await expect(terminal.querySelector('pre')).toHaveTextContent(`${args.username}${args.promptSymbol}${commands[0].command}`);

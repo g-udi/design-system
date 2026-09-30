@@ -15,9 +15,9 @@ import {
 
 const docs = getComponentDocs('Core/NumberField');
 const label = 'Reading goal';
-const parts = (
+const fieldParts = (name) => (
   <>
-    <NumberFieldScrubArea label={label} />
+    <NumberFieldScrubArea label={name} />
     <NumberFieldGroup>
       <NumberFieldDecrement aria-label='Decrease' />
       <NumberFieldInput />
@@ -25,8 +25,18 @@ const parts = (
     </NumberFieldGroup>
   </>
 );
-const input = (canvasElement) => within(canvasElement).getByRole('textbox', { name: label });
+const parts = fieldParts(label);
+const input = (canvasElement, name = label) => within(canvasElement).getByRole('textbox', { name });
 const button = (canvasElement, name) => within(canvasElement).getByRole('button', { name });
+// A reading plan: the articles field follows the controls; its neighbours format units and currency.
+const featured = 'Articles per week';
+const companions = [
+  { name: 'Session length', defaultValue: 25, min: 5, max: 90, step: 5, format: { style: 'unit', unit: 'minute' } },
+  { name: 'Monthly budget', defaultValue: 12, min: 0, max: 50, step: 1, format: { style: 'currency', currency: 'USD' } }
+];
+
+// Spells out `min`, `max`, and `step`, which otherwise only show when the value hits a bound.
+const rangeHint = ({ min, max, step }) => `${min} to ${max}, steps of ${step}`;
 
 export default {
   title: 'Core/NumberField',
@@ -46,26 +56,48 @@ export default {
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  decorators: [(Story) => <ExampleFrame><div className='max-w-48'><Story /></div></ExampleFrame>]
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
 export const Playground = {
-  args: { defaultValue: 5, min: 0, max: 100, step: 1, size: 'default', disabled: false, onValueChange: fn() },
+  args: { defaultValue: 5, min: 0, max: 10, step: 1, size: 'default', disabled: false, onValueChange: fn() },
   parameters: {
     docs: {
+      description: { story: 'A reading plan with a plain count, a minutes field, and a currency field. The articles field follows `defaultValue`, `min`, `max`, `step`, and `disabled`, and each field spells out its range; `size` applies to all three.' },
       source: playgroundSource('NumberField', {
         imports: "import { NumberField, NumberFieldDecrement, NumberFieldGroup, NumberFieldIncrement, NumberFieldInput, NumberFieldScrubArea } from '@gaudi/design-system';",
-        children: `  <NumberFieldScrubArea label='${label}' />\n  <NumberFieldGroup>\n    <NumberFieldDecrement aria-label='Decrease' />\n    <NumberFieldInput />\n    <NumberFieldIncrement aria-label='Increase' />\n  </NumberFieldGroup>`
+        children: `  <NumberFieldScrubArea label='${featured}' />\n  <NumberFieldGroup>\n    <NumberFieldDecrement aria-label='Decrease' />\n    <NumberFieldInput />\n    <NumberFieldIncrement aria-label='Increase' />\n  </NumberFieldGroup>`
       })
     }
   },
-  render: (args) => <NumberField key={args.defaultValue} {...args}>{parts}</NumberField>,
+  render: (args) => (
+    <div className='grid gap-4 sm:grid-cols-3'>
+      <NumberField key={`${args.defaultValue}-${args.min}-${args.max}`} {...args}>
+        {fieldParts(featured)}
+        <p className='text-xs text-text-muted'>{rangeHint(args)}</p>
+      </NumberField>
+      {companions.map(({ name, ...field }) => (
+        <NumberField key={name} {...field} size={args.size} locale='en-US'>
+          {fieldParts(name)}
+          <p className='text-xs text-text-muted'>{rangeHint(field)}</p>
+        </NumberField>
+      ))}
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    if (args.disabled) return expect(input(canvasElement)).toBeDisabled();
-    await userEvent.click(button(canvasElement, 'Increase'));
+    const field = input(canvasElement, featured);
+    const root = field.closest('[data-slot="number-field"]');
+    await expect(root).toHaveAttribute('data-size', args.size);
+    await expect(input(canvasElement, 'Session length')).toHaveValue('25 min');
+    await expect(input(canvasElement, 'Monthly budget')).toHaveValue('$12.00');
+    await expect(within(root).getByText(rangeHint(args))).toBeVisible();
+    if (args.disabled) return expect(field).toBeDisabled();
+    const increase = within(root).getByRole('button', { name: 'Increase' });
+    const decrease = within(root).getByRole('button', { name: 'Decrease' });
+    await userEvent.click(increase);
     await expect(args.onValueChange).toHaveBeenLastCalledWith(Math.min(args.defaultValue + args.step, args.max), expect.anything());
-    await userEvent.click(button(canvasElement, 'Decrease'));
-    await expect(input(canvasElement)).toHaveValue(String(args.defaultValue));
+    await userEvent.click(decrease);
+    await expect(field).toHaveValue(String(Math.min(args.defaultValue + args.step, args.max) - args.step));
   }
 };
 
@@ -76,9 +108,11 @@ function ControlledExample({ onValueChange }) {
     onValueChange(next);
   };
   return (
-    <NumberField value={value} onValueChange={update} min={5} max={60} step={5} format={{ style: 'unit', unit: 'minute' }} locale='en-US'>
-      {parts}
-    </NumberField>
+    <div className='max-w-48'>
+      <NumberField value={value} onValueChange={update} min={5} max={60} step={5} format={{ style: 'unit', unit: 'minute' }} locale='en-US'>
+        {parts}
+      </NumberField>
+    </div>
   );
 }
 export const Controlled = {

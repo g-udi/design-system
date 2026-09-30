@@ -21,10 +21,50 @@ function Controlled({ onFilesChange, ...props }) {
   return <FileUpload files={files} onFilesChange={update} {...props} />;
 }
 
+// A realistic queue: a finished photo, a brief mid-upload, and a spreadsheet that failed.
+// Sized files so each row shows a realistic weight.
+const sized = (name, type, kilobytes) => new File([new Uint8Array(kilobytes * 1024)], name, { type });
+const photo = sized('hero-photo.png', 'image/png', 1840);
+const brief = sized('design-brief.pdf', 'application/pdf', 2460);
+const budget = sized('budget-2026.xlsx', 'application/vnd.ms-excel', 640);
+const added = sized('meeting-notes.md', 'text/markdown', 12);
+const queue = [
+  [photo, { status: 'success' }],
+  [brief, { status: 'uploading', progress: 64 }],
+  [budget, { status: 'error', error: 'Connection dropped. Try again.' }]
+];
+
+function UploadQueue({ multiple, onFilesChange, onRetry, onCancel, ...props }) {
+  // A single-file picker keeps one file; a multiple picker holds the whole queue.
+  const [files, setFiles] = useState(() => queue.slice(0, multiple ? queue.length : 1).map(([item]) => item));
+  const [states, setStates] = useState(() => new Map(queue));
+  const update = (next) => {
+    setFiles(next);
+    onFilesChange?.(next);
+  };
+  return (
+    <FileUpload
+      {...props}
+      multiple={multiple}
+      files={files}
+      onFilesChange={update}
+      getFileState={(item) => states.get(item)}
+      onRetry={(item) => {
+        setStates((current) => new Map(current).set(item, { status: 'uploading', progress: 12 }));
+        onRetry?.(item);
+      }}
+      onCancel={(item) => {
+        update(files.filter((entry) => entry !== item));
+        onCancel?.(item);
+      }}
+    />
+  );
+}
+
 const source = playgroundSource('FileUpload', {
   imports: "import { useState } from 'react';\nimport { FileUpload } from '@gaudi/design-system';",
-  attributes: ['files={files}', 'onFilesChange={setFiles}'],
-  before: 'const [files, setFiles] = useState([]);\n\n'
+  attributes: ['files={files}', 'onFilesChange={setFiles}', 'getFileState={(file) => uploads[file.name]}', 'onRetry={uploadFile}', 'onCancel={cancelUpload}'],
+  before: "const [files, setFiles] = useState([]);\n// Transport is host-owned: uploadFile and cancelUpload update { [file.name]: { status, progress, error } }.\nconst [uploads, setUploads] = useState({});\n\n"
 });
 
 export default {
@@ -34,10 +74,7 @@ export default {
   argTypes: docsArgTypes(docs, {
     label: 'text',
     description: 'text',
-    accept: 'text',
     multiple: 'boolean',
-    maxFiles: 'number',
-    maxSize: 'number',
     disabled: 'boolean'
   }),
   parameters: {
@@ -50,18 +87,42 @@ export default {
 };
 
 export const Playground = {
-  args: { label: 'Attachments', multiple: true, disabled: false, onFilesChange: fn() },
-  parameters: { docs: { source } },
-  render: (args) => <Controlled {...args} />,
+  args: {
+    label: 'Project files',
+    description: 'Drop images, PDFs, or spreadsheets up to 10 MB.',
+    multiple: true,
+    disabled: false,
+    onFilesChange: fn(),
+    onRetry: fn(),
+    onCancel: fn()
+  },
+  parameters: {
+    docs: {
+      description: { story: 'An upload queue with a finished photo, a brief mid-upload, and a failed spreadsheet. `multiple` switches between a single file and the whole queue; `disabled` locks the drop zone and every row action.' },
+      source
+    }
+  },
+  // Remount when `multiple` flips so the seeded queue matches the picker mode.
+  render: (args) => <UploadQueue key={String(args.multiple)} {...args} />,
   play: async ({ args, canvasElement }) => {
-    const input = picker(canvasElement, args.label);
-    if (args.disabled) return expect(input).toBeDisabled();
     const canvas = within(canvasElement);
-    await userEvent.upload(input, notes);
-    await expect(args.onFilesChange).toHaveBeenLastCalledWith([notes]);
-    await expect(canvas.getByText('notes.md')).toBeVisible();
-    await userEvent.click(canvas.getByRole('button', { name: 'Remove notes.md' }));
-    await expect(args.onFilesChange).toHaveBeenLastCalledWith([]);
+    const input = picker(canvasElement, args.label);
+    await expect(canvas.getByText(photo.name)).toBeVisible();
+    await expect(canvas.getByText('Uploaded')).toBeVisible();
+    if (args.multiple) {
+      await expect(canvas.getByRole('progressbar')).toBeVisible();
+      await expect(canvas.getByText('Connection dropped. Try again.')).toBeVisible();
+    }
+    if (args.disabled) {
+      await expect(input).toBeDisabled();
+      return expect(canvas.getByRole('button', { name: `Remove ${photo.name}` })).toBeDisabled();
+    }
+    if (args.multiple) await expect(canvas.getByRole('button', { name: 'Retry' })).toBeEnabled();
+    await userEvent.upload(input, added);
+    await expect(args.onFilesChange).toHaveBeenLastCalledWith(expect.arrayContaining([added]));
+    await expect(canvas.getByText(added.name)).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: `Remove ${added.name}` }));
+    await expect(canvas.queryByText(added.name)).not.toBeInTheDocument();
   }
 };
 

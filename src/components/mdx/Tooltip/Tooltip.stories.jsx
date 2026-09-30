@@ -6,6 +6,7 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Tooltip from './Tooltip';
 
 const docs = getComponentDocs('MDX/Tooltip');
+const neighbour = { message: 'Resource Description Framework: the W3C model for describing data as subject, predicate, object triples.', children: 'RDF' };
 
 export default {
   title: 'MDX/Tooltip',
@@ -23,16 +24,33 @@ export default {
 };
 
 export const Playground = {
-  args: { message: 'A compact explanation attached to inline text.', children: 'editorial term' },
-  parameters: { docs: { source: playgroundSource('Tooltip', { imports: "import { Tooltip } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <p>An <Tooltip {...args} /> can carry a short explanation.</p>,
-  play: async ({ canvasElement }) => {
+  args: { message: 'A query language for RDF graphs, standardised by the W3C in 2008.', children: 'SPARQL' },
+  parameters: {
+    docs: {
+      description: { story: 'Two technical terms in one sentence, each with its own explanation. Hover, focus, or select the info icon after a term; the second term follows the controls.' },
+      source: playgroundSource('Tooltip', {
+        imports: "import { Tooltip } from '@gaudi/design-system/mdx';",
+        before: `<p>\n  Linked data is published as <Tooltip message='${neighbour.message}'>${neighbour.children}</Tooltip> and queried with\n  `,
+        after: ', so any client can join datasets it has never seen before.\n</p>'
+      })
+    }
+  },
+  render: (args) => (
+    <p className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      Linked data is published as <Tooltip {...neighbour} /> and queried with <Tooltip {...args} />, so any client can join
+      datasets it has never seen before.
+    </p>
+  ),
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: 'More information' });
-    const tooltip = canvas.getByRole('tooltip', { hidden: true });
+    const [first, trigger] = canvas.getAllByRole('button', { name: 'More information' });
+    const tooltip = within(trigger).getByRole('tooltip', { hidden: true });
     const expectOpen = (open) => waitFor(() => (open ? expect(tooltip).toBeVisible() : expect(tooltip).not.toBeVisible()));
 
+    await expect(trigger.parentElement).toHaveTextContent(args.children);
+    await expect(tooltip).toHaveTextContent(args.message);
     await expect(trigger).toHaveAttribute('aria-describedby', tooltip.id);
+    await expect(first).not.toHaveAttribute('aria-describedby', tooltip.id);
     await expectOpen(false);
     await userEvent.hover(trigger);
     await expectOpen(true);

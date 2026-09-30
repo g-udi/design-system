@@ -13,7 +13,13 @@ const options = [
   { value: 'monthly', label: 'Monthly', description: 'The highlights, once a month.' },
   { value: 'off', label: 'Off', description: 'Requires an administrator.', disabled: true }
 ];
-const radio = (canvasElement, index) => within(canvasElement).getByRole('radio', { name: new RegExp(`^${options[index].label}`) });
+const radio = (canvasElement, index, choices = options) => within(canvasElement).getByRole('radio', { name: new RegExp(`^${choices[index].label}`) });
+// A billing plan picker: a free tier, the recommended plan, and a plan the account cannot choose yet.
+const plans = [
+  { value: 'hobby', label: 'Hobby', description: 'Free · one site and community support.' },
+  { value: 'pro', label: 'Pro', description: '$12 a month · custom domains and five editors.' },
+  { value: 'enterprise', label: 'Enterprise', description: 'Needs an annual contract · SSO and audit logs.', disabled: true }
+];
 
 export default {
   title: 'Core/RadioGroup',
@@ -23,8 +29,7 @@ export default {
     label: 'text',
     description: 'text',
     variant: ['list', 'cards'],
-    disabled: 'boolean',
-    required: 'boolean'
+    disabled: 'boolean'
   }),
   parameters: {
     docs: {
@@ -37,32 +42,41 @@ export default {
 
 export const Playground = {
   args: {
-    label: 'Reading digest',
-    description: 'Choose how often we email you.',
-    variant: 'list',
+    label: 'Plan',
+    description: 'You can switch plans at any time; changes apply from the next invoice.',
+    variant: 'cards',
     disabled: false,
-    required: false,
     onValueChange: fn()
   },
   parameters: {
     docs: {
+      description: { story: 'A billing plan picker with a free tier, the selected plan, and an unavailable plan. `variant` switches between compact rows and bordered cards that highlight the choice, and `disabled` locks the whole fieldset.' },
       source: playgroundSource('RadioGroup', {
-        imports: `import RadioGroup from '@gaudi/design-system/core/RadioGroup';\n\nconst options = ${JSON.stringify(options, null, 2)};`
+        imports: `import RadioGroup from '@gaudi/design-system/core/RadioGroup';\n\nconst plans = ${JSON.stringify(plans, null, 2)};`,
+        attributes: ["name='plan'", "defaultValue='pro'", 'options={plans}']
       })
     }
   },
-  render: (args) => <RadioGroup name='digest' defaultValue='weekly' options={options} {...args} />,
+  render: (args) => <RadioGroup name='plan' defaultValue='pro' options={plans} {...args} />,
   play: async ({ args, canvasElement }) => {
-    await expect(within(canvasElement).getByRole('group', { name: args.label })).toBeInTheDocument();
-    await expect(radio(canvasElement, 2)).toBeDisabled();
-    if (args.disabled) return expect(radio(canvasElement, 0)).toBeDisabled();
-    await expect(radio(canvasElement, 0)).toBeChecked();
-    await userEvent.click(radio(canvasElement, 1));
-    await expect(args.onValueChange).toHaveBeenLastCalledWith('monthly');
-    // Native radios skip disabled options and wrap with the arrow keys.
+    const group = within(canvasElement).getByRole('group', { name: args.label });
+    const choice = (index) => radio(canvasElement, index, plans);
+    await expect(group.querySelector('.ds-radio-options').classList.contains('ds-radio-cards')).toBe(args.variant === 'cards');
+    await expect(within(group).getByText(args.description)).toBeVisible();
+    await expect(choice(2)).toBeDisabled();
+    await expect(choice(1)).toBeChecked();
+    if (args.disabled) return expect(choice(0)).toBeDisabled();
+    await userEvent.click(choice(0));
+    await expect(args.onValueChange).toHaveBeenLastCalledWith('hobby');
+    // Native radios move with the arrow keys and skip the disabled plan.
     await userEvent.keyboard('{ArrowDown}');
-    await expect(radio(canvasElement, 0)).toHaveFocus();
-    await expect(args.onValueChange).toHaveBeenLastCalledWith('weekly');
+    await expect(choice(1)).toHaveFocus();
+    await expect(args.onValueChange).toHaveBeenLastCalledWith('pro');
+    await userEvent.keyboard('{ArrowDown}');
+    await expect(choice(0)).toHaveFocus();
+    // Leave the recommended plan selected, as the preview loads.
+    await userEvent.click(choice(1));
+    await expect(choice(1)).toBeChecked();
   }
 };
 

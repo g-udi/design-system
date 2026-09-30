@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -28,12 +29,26 @@ export default {
   }
 };
 
+// On desktop the Blog panel starts open, so the categories and recent posts are visible without a click.
+function OpenBlogPanel(args) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const blog = ref.current.querySelector('[aria-haspopup]');
+    if (blog?.checkVisibility()) blog.click();
+  }, []);
+  return <div ref={ref} className='lg:min-h-[25rem]'><Menu {...args} /></div>;
+}
+
 export const Playground = {
   parameters: {
-    docs: { source: playgroundSource('Menu', { imports: "import { Menu } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'The full header: logo, primary links, the Blog panel (open on desktop), search, and theme switch. Below `lg` the links collapse behind the mobile menu. `categories` fills the Blog panel and the mobile menu; the newest three `posts` become Recent posts.' },
+      source: playgroundSource('Menu', { imports: "import { Menu } from '@gaudi/design-system';" })
+    }
   },
-  render: (args) => <Menu {...args} />,
-  play: async ({ canvasElement }) => {
+  // Remount when the data changes so the panel reopens with it.
+  render: (args) => <OpenBlogPanel key={JSON.stringify([args.categories, args.posts])} {...args} />,
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('link', { name: 'Ahmad Assaf' })).toHaveAttribute('href', '/');
 
@@ -47,14 +62,17 @@ export const Playground = {
 
     const blog = canvas.getByRole('button', { name: 'Blog' });
     await expect(canvas.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/blog/projects');
-    await userEvent.click(blog);
-    await expect(blog).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByRole('link', { name: posts[0].title })).toHaveAttribute('href', `/blog/${posts[0].slug}`);
+    await waitFor(() => expect(blog).toHaveAttribute('aria-expanded', 'true'));
+    await expect(canvas.getByRole('link', { name: args.posts[0].title })).toHaveAttribute('href', `/blog/${args.posts[0].slug}`);
+    await expect(canvas.getByRole('link', { name: new RegExp(args.categories[0].title, 'i') })).toBeVisible();
     await userEvent.click(document.body);
     await expect(blog).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(canvas.getByRole('button', { name: 'Open search' }));
     await expect(await page.findByRole('dialog')).toBeVisible();
     await userEvent.keyboard('{Escape}');
+    // Leave the Blog panel open, as the preview starts.
+    await userEvent.click(blog);
+    await expect(blog).toHaveAttribute('aria-expanded', 'true');
   }
 };
 

@@ -4,37 +4,53 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import Button from '../Button';
+import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { ScrollArea } from '../ScrollArea/index.js';
 import { Scrollspy } from './index.js';
 
 const docs = getComponentDocs('Core/Scrollspy');
-const sections = ['Overview', 'Installation', 'Usage', 'Accessibility'];
+// A guide page: icon links on the left, and a scroll area whose sticky header is exactly `offset` pixels tall.
+const sections = [
+  { title: 'Overview', icon: 'BookOpenIcon', body: 'Scrollspy marks the link for the section at the top of the scroll container.' },
+  { title: 'Installation', icon: 'DownloadIcon', body: 'Install the package, then import Scrollspy with the ScrollArea it observes.', code: 'pnpm add @gaudi/design-system' },
+  { title: 'Usage', icon: 'CodeIcon', body: 'Point targetRef at the container and give each link a data-scrollspy-anchor.', code: '<Scrollspy targetRef={ref}>…</Scrollspy>' },
+  { title: 'API', icon: 'BracesIcon', body: 'offset reserves room for sticky chrome, and smooth animates the jump.' },
+  { title: 'Accessibility', icon: 'AccessibilityIcon', body: 'Links stay buttons in the tab order, and the active one is marked with data-active.' }
+];
+const titles = sections.map((section) => section.title);
 
-function ScrollspyExample(args) {
+function ScrollspyExample({ offset, ...args }) {
   const prefix = useId();
   const targetRef = useRef(null);
-  const id = (section) => `${prefix}-${section.toLowerCase()}`;
+  const id = (title) => `${prefix}-${title.toLowerCase()}`;
   return (
-    <div className='flex gap-4'>
-      <Scrollspy targetRef={targetRef} className='flex w-36 shrink-0 flex-col gap-2' {...args}>
-        {sections.map((section) => (
-          <Button
-            key={section}
-            variant='outline'
-            data-scrollspy-anchor={id(section)}
-            className='data-[active=true]:bg-ui-primary data-[active=true]:text-ui-primary-foreground'
+    <div className='flex gap-3'>
+      <Scrollspy targetRef={targetRef} offset={offset} history={false} className='flex w-32 shrink-0 flex-col gap-0.5 border-s border-ui-border text-sm sm:w-40' {...args}>
+        {sections.map(({ title, icon }) => (
+          <button
+            key={title}
+            type='button'
+            data-scrollspy-anchor={id(title)}
+            className='-ms-px flex items-center gap-2 rounded-e-md border-s-2 border-transparent px-3 py-1.5 text-start text-ui-muted-foreground hover:text-ui-foreground data-[active=true]:border-ui-primary data-[active=true]:bg-ui-accent data-[active=true]:font-medium data-[active=true]:text-ui-foreground'
           >
-            {section}
-          </Button>
+            <RegistryIcon lucide={icon} aria-hidden='true' className='size-4 shrink-0' />
+            <span className='truncate'>{title}</span>
+          </button>
         ))}
       </Scrollspy>
       <div ref={targetRef} className='min-w-0 flex-1'>
-        <ScrollArea aria-label='Guide' className='h-72 rounded-2xl border'>
-          {sections.map((section) => (
-            <section key={section} id={id(section)} className='space-y-2 p-4'>
-              <h3 className='text-base font-semibold'>{section}</h3>
-              <div className='h-56 rounded-2xl bg-ui-muted' />
+        <ScrollArea aria-label='Guide' className='h-72 rounded-2xl border border-ui-border'>
+          {offset > 0 && (
+            <div style={{ height: offset }} className='sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-ui-border bg-ui-background px-4 text-xs text-ui-muted-foreground'>
+              <span className='truncate font-medium text-ui-foreground'>Guide</span>
+              <span className='shrink-0 tabular-nums'>offset {offset}px</span>
+            </div>
+          )}
+          {sections.map(({ title, body, code }) => (
+            <section key={title} id={id(title)} className='grid min-h-44 content-start gap-2 p-4 text-sm'>
+              <h3 className='text-base font-semibold'>{title}</h3>
+              <p className='text-ui-muted-foreground'>{body}</p>
+              {code && <code className='rounded-md bg-ui-muted px-2 py-1.5 font-mono text-xs break-all'>{code}</code>}
             </section>
           ))}
         </ScrollArea>
@@ -48,7 +64,7 @@ export default {
   id: 'core-scrollspy',
   component: Scrollspy,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { offset: 'number', smooth: 'boolean', history: 'boolean' }),
+  argTypes: docsArgTypes(docs, { offset: 'number', smooth: 'boolean' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -59,15 +75,16 @@ export default {
 };
 
 export const Playground = {
-  args: { offset: 0, smooth: true, history: false, onUpdate: fn() },
+  args: { offset: 44, smooth: true, onUpdate: fn() },
   parameters: {
     docs: {
+      description: { story: 'A guide page. `offset` is the height of the sticky header, so a clicked section lands just below it and the active link switches at that line. `smooth` animates the jump.' },
       source: playgroundSource('Scrollspy', {
-        imports: "import { useRef } from 'react';\nimport { Button, ScrollArea, Scrollspy } from '@gaudi/design-system';",
+        imports: "import { useRef } from 'react';\nimport { ScrollArea, Scrollspy } from '@gaudi/design-system';",
         before: 'const targetRef = useRef(null);\n\n',
-        attributes: ['targetRef={targetRef}'],
-        children: "  <Button data-scrollspy-anchor='overview'>Overview</Button>\n  <Button data-scrollspy-anchor='usage'>Usage</Button>",
-        after: "\n\n<div ref={targetRef}>\n  <ScrollArea className='h-72'>\n    <section id='overview'>…</section>\n    <section id='usage'>…</section>\n  </ScrollArea>\n</div>"
+        attributes: ['targetRef={targetRef}', 'history={false}'],
+        children: "  <button data-scrollspy-anchor='overview'>Overview</button>\n  <button data-scrollspy-anchor='usage'>Usage</button>",
+        after: "\n\n<div ref={targetRef}>\n  <ScrollArea className='h-72'>\n    <header className='sticky top-0'>Guide</header>\n    <section id='overview'>…</section>\n    <section id='usage'>…</section>\n  </ScrollArea>\n</div>"
       })
     }
   },
@@ -75,10 +92,16 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const anchor = (name) => canvas.getByRole('button', { name });
-    await waitFor(() => expect(anchor('Overview')).toHaveAttribute('data-active', 'true'));
+    const viewport = canvas.getByRole('region', { name: 'Guide' });
+    await waitFor(() => expect(anchor(titles[0])).toHaveAttribute('data-active', 'true'));
     await userEvent.click(anchor('Usage'));
     await waitFor(() => expect(anchor('Usage')).toHaveAttribute('data-active', 'true'));
-    await expect(anchor('Overview')).not.toHaveAttribute('data-active');
+    await expect(anchor(titles[0])).not.toHaveAttribute('data-active');
     await expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor);
+    // The clicked section lands `offset` pixels below the top, just under the sticky header.
+    const usage = document.getElementById(anchor('Usage').dataset.scrollspyAnchor);
+    const target = Math.min(usage.offsetTop - args.offset, viewport.scrollHeight - viewport.clientHeight);
+    await waitFor(() => expect(Math.abs(viewport.scrollTop - target)).toBeLessThanOrEqual(1));
+    anchor('Usage').blur();
   }
 };

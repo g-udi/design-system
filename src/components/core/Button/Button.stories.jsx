@@ -1,7 +1,7 @@
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
-import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { playgroundSource, previewSource } from '../../../../.storybook/stories/previewSource';
 import { publicSource } from '../../../../.storybook/stories/ReuiStoryHelpers';
 import { ControlsExample } from '../../../../.storybook/fixtures/button/ControlsExample';
 import controlsSource from '../../../../.storybook/fixtures/button/ControlsExample.jsx?raw';
@@ -15,6 +15,16 @@ const iconSize = (size) => (size === 'md' ? 'icon' : `icon-${size}`);
 const height = (element) => element.getBoundingClientRect().height;
 const Row = ({ children }) => <div className='flex flex-wrap items-center gap-3'>{children}</div>;
 
+// An editor footer: the primary action follows every control; the supporting actions share its size and radius.
+const supporting = [
+  { label: 'Share draft', icon: 'Share2Icon', variant: 'outline', tone: 'neutral' },
+  { label: 'Cancel', variant: 'ghost', tone: 'neutral' },
+  { label: 'Save draft', variant: 'outline', tone: 'neutral' }
+];
+const supportingSource = ({ size, radius }) => supporting.map(({ label, icon, variant, tone }) => (icon
+  ? `<Button size='${iconSize(size)}' radius='${radius}' variant='${variant}' tone='${tone}' aria-label='${label}'>\n  <RegistryIcon lucide='${icon}' aria-hidden='true' />\n</Button>\n`
+  : `<Button size='${size}' radius='${radius}' variant='${variant}' tone='${tone}'>${label}</Button>\n`)).join('');
+
 export default {
   title: 'Core/Button',
   id: 'core-button',
@@ -24,9 +34,8 @@ export default {
     children: 'text',
     variant: variants,
     tone: [...buttonTones],
-    size: ['xs', 'sm', 'md', 'lg', 'icon-xs', 'icon-sm', 'icon', 'icon-lg'],
+    size: Object.keys(heights),
     radius: ['sm', 'md', 'lg', 'full'],
-    href: 'text',
     disabled: 'boolean'
   }),
   parameters: {
@@ -38,14 +47,37 @@ export default {
 };
 
 export const Playground = {
-  args: { children: 'Read article', variant: 'solid', tone: 'accent', size: 'md', radius: 'md', disabled: false, onClick: fn() },
-  parameters: { docs: { source: playgroundSource('Button', { imports: "import { Button } from '@gaudi/design-system';" }) } },
-  render: (args) => <Button {...args} />,
+  args: { children: 'Publish article', variant: 'solid', tone: 'accent', size: 'md', radius: 'md', disabled: false, onClick: fn() },
+  parameters: {
+    docs: {
+      description: { story: 'An editor footer. The primary action follows every control; the icon-only share, Cancel and Save draft actions keep their neutral treatments and share the size and radius, so heights always line up.' },
+      source: {
+        ...playgroundSource('Button'),
+        transform: (_source, { args }) => previewSource('Button', args, {
+          imports: "import { Button } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
+          before: supportingSource(args)
+        })
+      }
+    }
+  },
+  render: ({ size, radius, ...args }) => (
+    <div className='flex flex-wrap items-center justify-center gap-2'>
+      {supporting.map(({ label, icon, ...props }) => (icon ? (
+        <Button key={label} {...props} size={iconSize(size)} radius={radius} aria-label={label}>
+          <RegistryIcon lucide={icon} aria-hidden='true' />
+        </Button>
+      ) : <Button key={label} {...props} size={size} radius={radius}>{label}</Button>))}
+      <Button {...args} size={size} radius={radius} />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    const button = within(canvasElement).getByRole('button', { name: args.children });
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: args.children });
     const { radius, size, tone, variant } = args;
     await expect(button).toHaveAttribute('type', 'button');
     await expect(button).toHaveClass(...buttonVariants({ radius, size, tone, variant }).split(' '));
+    for (const { label } of supporting) await expect(height(canvas.getByRole('button', { name: label }))).toBe(heights[size]);
+    await expect(height(button)).toBe(heights[size]);
     await userEvent.click(button);
     await expect(args.onClick).toHaveBeenCalledTimes(args.disabled ? 0 : 1);
   }

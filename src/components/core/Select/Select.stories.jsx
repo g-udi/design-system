@@ -14,6 +14,16 @@ const topics = [
   { label: 'Linked data', value: 'linked-data' },
   { label: 'AI engineering', value: 'ai-engineering' }
 ];
+// An article's topic field: two topics already picked, descriptions to scan, and a retired topic.
+const topicOptions = [
+  { label: 'Design systems', value: 'design-systems', description: 'Tokens, components, and docs.' },
+  { label: 'Knowledge graphs', value: 'knowledge-graphs', description: 'Ontologies and linked entities.' },
+  { label: 'AI engineering', value: 'ai-engineering', description: 'Retrieval, evals, and agents.' },
+  { label: 'Linked data', value: 'linked-data', description: 'Merged into Semantic web.', disabled: true },
+  { label: 'Semantic web', value: 'semantic-web', description: 'RDF, SPARQL, and open data.' }
+];
+const picked = ['design-systems', 'ai-engineering'];
+const topicHint = (invalid) => invalid ? 'Design systems needs editor approval before you publish.' : 'Readers follow these topics from the article footer.';
 const button = (canvas, name) => canvas.getByRole('button', { name });
 const listbox = (canvas, name) => canvas.queryByRole('listbox', { name: `${name} options` });
 const option = (canvas, name) => canvas.getByRole('option', { name });
@@ -25,9 +35,9 @@ export default {
   component: Select,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    placeholder: 'text',
-    searchable: 'boolean',
     multiple: 'boolean',
+    searchable: 'boolean',
+    defaultOpen: 'boolean',
     disabled: 'boolean',
     invalid: 'boolean'
   }),
@@ -43,34 +53,74 @@ export default {
 
 export const Playground = {
   args: {
-    placeholder: 'Choose topic',
-    searchable: false,
-    multiple: false,
+    multiple: true,
+    searchable: true,
+    defaultOpen: true,
     disabled: false,
     invalid: false,
     onValueChange: fn()
   },
   parameters: {
     docs: {
+      description: { story: 'An article topic field, open on load with two topics picked, option descriptions, and a retired topic. `multiple` summarises the set with a count, `searchable` adds the filter field, and `invalid` pairs the red border with the error text below.' },
       source: playgroundSource('Select', {
-        imports: `import { Select } from '@gaudi/design-system';\n\nconst options = ${JSON.stringify(topics, null, 2)};`
+        imports: `import { Select } from '@gaudi/design-system';\n\nconst options = ${JSON.stringify(topicOptions, null, 2)};`,
+        attributes: ["aria-labelledby='topics-label'", "aria-describedby='topics-hint'", "placeholder='Choose topics'", 'options={options}', `defaultValue={${JSON.stringify(picked)}}`],
+        before: "<>\n  <span id='topics-label'>Topics</span>\n",
+        after: `\n  <p id='topics-hint'>${topicHint(false)}</p>\n</>`
       })
     }
   },
-  render: (args) => <Select key={String(args.multiple)} options={topics} {...args} />,
+  decorators: [(Story) => <div className='min-h-[23rem]'><Story /></div>],
+  render: (args) => <TopicField {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const trigger = button(canvas, args.placeholder);
-    if (args.disabled) return expect(trigger).toBeDisabled();
+    const trigger = button(canvas, 'Topics');
+    const summary = args.multiple ? 'Design systems, AI engineering' : 'Design systems';
+    await expect(trigger).toHaveTextContent(summary);
+    await expect(trigger).toHaveAccessibleDescription(topicHint(args.invalid));
     if (args.invalid) await expect(trigger).toHaveAttribute('aria-invalid', 'true');
-    await userEvent.click(trigger);
+    else await expect(trigger).not.toHaveAttribute('aria-invalid');
+    if (args.disabled) {
+      await expect(trigger).toBeDisabled();
+      return expect(listbox(canvas, 'Choose topics')).not.toBeInTheDocument();
+    }
+    if (!args.defaultOpen) await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.click(option(canvas, topics[1].label));
-    await expect(args.onValueChange.mock.lastCall[0]).toEqual(args.multiple ? [topics[1].value] : topics[1].value);
-    await expect(trigger).toHaveTextContent(topics[1].label);
-    if (!args.multiple) await expectClosed(canvas, args.placeholder);
+    await expect(Boolean(canvas.queryByRole('combobox'))).toBe(args.searchable);
+    await expect(option(canvas, /^Linked data/)).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.click(option(canvas, /^Knowledge graphs/));
+    await expect(args.onValueChange.mock.lastCall[0]).toEqual(args.multiple ? [...picked, 'knowledge-graphs'] : 'knowledge-graphs');
+    await expect(trigger).toHaveTextContent('Knowledge graphs');
+    if (!args.multiple) return expectClosed(canvas, 'Choose topics');
+    // Multiple mode keeps the popup open and counts the set in the trigger.
+    await expect(listbox(canvas, 'Choose topics')).toHaveAttribute('aria-multiselectable', 'true');
+    await expect(trigger).toHaveTextContent(String(picked.length + 1));
   }
 };
+
+function TopicField(args) {
+  const labelId = useId();
+  const hintId = useId();
+  // A disabled trigger never opens, so the preview does not show an unreachable popup.
+  const open = args.defaultOpen && !args.disabled;
+  return (
+    <div className='grid gap-1.5'>
+      <span id={labelId} className='text-sm font-medium text-foreground'>Topics</span>
+      <Select
+        key={`${args.multiple}-${open}`}
+        aria-labelledby={labelId}
+        aria-describedby={hintId}
+        placeholder='Choose topics'
+        options={topicOptions}
+        defaultValue={picked}
+        {...args}
+        defaultOpen={open}
+      />
+      <p id={hintId} className={args.invalid ? 'm-0 text-sm text-danger' : 'm-0 text-sm text-text-muted'}>{topicHint(args.invalid)}</p>
+    </div>
+  );
+}
 
 export const Searchable = {
   parameters: { docs: { description: { story: '`searchable` moves focus into a filter field. `emptyText` explains an empty result, and Escape closes without changing the selection.' } } },

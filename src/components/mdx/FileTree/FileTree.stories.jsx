@@ -6,17 +6,32 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import FileTree from './FileTree';
 
 const docs = getComponentDocs('MDX/FileTree');
+// A real blog repository: nested folders, a collapsed dependency folder, and files whose icons differ by type.
 const data = [
   {
-    name: 'design-system',
+    name: 'assaf.website',
     isFolder: true,
     childrenProp: [
-      { name: 'src', isFolder: true, childrenProp: [{ name: 'Callout.jsx' }, { name: 'tokens.js' }] },
+      {
+        name: 'app',
+        isFolder: true,
+        childrenProp: [
+          { name: 'blog', isFolder: true, childrenProp: [{ name: '[slug]', isFolder: true, childrenProp: [{ name: 'page.tsx' }] }] }
+        ]
+      },
+      { name: 'components', isFolder: true, isOpen: false, childrenProp: [{ name: 'MDXComponents.jsx' }] },
+      {
+        name: 'content',
+        isFolder: true,
+        childrenProp: [
+          { name: 'posts', isFolder: true, childrenProp: [{ name: 'knowledge-graphs.mdx' }] }
+        ]
+      },
       { name: 'node_modules', isFolder: true, isOpen: false, childrenProp: [{ name: 'react' }] },
-      { name: 'README.md' }
+      { name: 'Dockerfile' },
+      { name: 'package.json' }
     ]
-  },
-  { name: 'package.json' }
+  }
 ];
 
 export default {
@@ -36,13 +51,20 @@ export default {
 
 export const Playground = {
   args: { data },
-  parameters: { docs: { source: playgroundSource('FileTree', { imports: "import { FileTree } from '@gaudi/design-system/mdx';" }) } },
+  parameters: {
+    docs: {
+      description: { story: 'A blog repository four levels deep. Folders open by default; `isOpen: false` collapses `components` and `node_modules`, and each file type gets its own icon.' },
+      source: playgroundSource('FileTree', { imports: "import { FileTree } from '@gaudi/design-system/mdx';" })
+    }
+  },
   render: (args) => <FileTree {...args} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    for (const name of ['design-system', 'Callout.jsx', 'tokens.js', 'node_modules', 'package.json'])
+    for (const name of ['assaf.website', '[slug]', 'knowledge-graphs.mdx', 'node_modules', 'Dockerfile', 'package.json'])
       await expect(canvas.getByText(name)).toBeVisible();
+    // Nesting indents each level by 20px from the root row.
+    await expect(canvas.getByText('[slug]').parentElement).toHaveStyle({ paddingLeft: '68px' });
     // `isOpen: false` collapses a folder and skips rendering its children.
-    await expect(canvas.queryByText('react')).not.toBeInTheDocument();
+    for (const hidden of ['react', 'MDXComponents.jsx']) await expect(canvas.queryByText(hidden)).not.toBeInTheDocument();
   }
 };

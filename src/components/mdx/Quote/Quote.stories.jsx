@@ -6,6 +6,8 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Quote from './Quote';
 
 const docs = getComponentDocs('MDX/Quote');
+const before = 'We rebuilt the blog three times before the components settled. The version that stuck treated every article element as part of one system.';
+const after = 'That principle shaped the rest of the migration: fewer one-off styles, and components that read well in any post.';
 
 export default {
   title: 'MDX/Quote',
@@ -23,9 +25,28 @@ export default {
 };
 
 export const Playground = {
-  args: { text: 'Good component systems make product code calmer.', author: 'Design System', title: 'Internal principle' },
-  parameters: { docs: { source: playgroundSource('Quote', { imports: "import { Quote } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Quote {...args} />,
+  args: {
+    text: 'Good component systems make product code calmer. You stop deciding how things look and start deciding what they mean.',
+    author: 'Gaudi team',
+    title: 'Design principles'
+  },
+  parameters: {
+    docs: {
+      description: { story: 'A pull quote between two article paragraphs, with the quotation, author, and role all driven by the controls.' },
+      source: playgroundSource('Quote', {
+        imports: "import { Quote } from '@gaudi/design-system/mdx';",
+        before: `<p>${before}</p>\n\n`,
+        after: `\n\n<p>${after}</p>`
+      })
+    }
+  },
+  render: (args) => (
+    <div className='space-y-8 text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p>{before}</p>
+      <Quote {...args} />
+      <p>{after}</p>
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvasElement.querySelector('figure blockquote')).toContainElement(canvas.getByText(args.text));

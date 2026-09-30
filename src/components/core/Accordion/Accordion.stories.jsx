@@ -6,6 +6,8 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Button from '../Button';
 import Input from '../Input';
+import { Badge } from '../Pill/index.js';
+import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import {
   Accordion,
   AccordionContent,
@@ -34,6 +36,48 @@ const items = [
   }
 ];
 const trigger = (canvas, index) => canvas.getByRole('button', { name: items[index].title });
+// The Playground adds a leading icon, a description, and a badge to each FAQ, plus a locked Enterprise item.
+const extras = [
+  { icon: 'SparklesIcon', badge: 'Popular', tone: 'primary-light', description: 'Compare Free, Team, and Enterprise.' },
+  { icon: 'CalendarClockIcon', description: 'Switch between monthly and yearly renewals.' },
+  { icon: 'DownloadIcon', badge: 'New', tone: 'success-light', description: 'Markdown, HTML, or a full JSON archive.' },
+  {
+    value: 'sso',
+    title: 'Can we sign in with SSO?',
+    content: 'SAML single sign-on is part of the Enterprise plan.',
+    icon: 'ShieldCheckIcon',
+    badge: 'Enterprise',
+    tone: 'invert-light',
+    description: 'Upgrade to Enterprise to enable SAML.',
+    disabled: true
+  }
+];
+const showcase = extras.map(({ icon, badge, tone, ...extra }, index) => ({
+  ...items[index],
+  ...extra,
+  leading: (
+    <span className='flex size-8 items-center justify-center rounded-md bg-ui-muted'>
+      <RegistryIcon lucide={icon} className='size-4' />
+    </span>
+  ),
+  badge: badge && <Badge variant={tone} size='sm'>{badge}</Badge>
+}));
+const showcaseSource = extras.map(({ icon, badge, tone, ...extra }, index) => {
+  const { value, title, description, content, disabled } = { ...items[index], ...extra };
+  return [
+    '  {',
+    `    value: '${value}',`,
+    `    title: '${title}',`,
+    `    description: '${description}',`,
+    `    leading: <RegistryIcon lucide='${icon}' />,`,
+    badge ? `    badge: <Badge variant='${tone}' size='sm'>${badge}</Badge>,` : null,
+    disabled ? '    disabled: true,' : null,
+    `    content: '${content}'`,
+    '  }'
+  ].filter(Boolean).join('\n');
+}).join(',\n');
+// Badges join the accessible name, so showcase triggers are matched by their title prefix.
+const showcaseTrigger = (canvas, index) => canvas.getByRole('button', { name: new RegExp(`^${showcase[index].title.replace('?', '\\?')}`) });
 
 export default {
   title: 'Core/Accordion',
@@ -61,28 +105,44 @@ export default {
 export const Playground = {
   args: {
     type: 'single',
-    variant: 'flush',
+    variant: 'separated',
     collapsible: true,
     disabled: false,
-    highlight: false,
+    highlight: true,
     indicator: 'chevron',
     indicatorPosition: 'end',
     onValueChange: fn()
   },
   parameters: {
     docs: {
+      description: { story: 'A help centre FAQ with leading icons, descriptions, and badges, plus a locked Enterprise item. `variant` restyles the items, `highlight` tints the open trigger, and the indicator controls swap and move the toggle icon.' },
       source: playgroundSource('AccordionGroup', {
-        imports: `import { AccordionGroup } from '@gaudi/design-system';\n\nconst items = ${JSON.stringify(items, null, 2)};`
+        imports: `import { AccordionGroup, Badge } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';\n\nconst items = [\n${showcaseSource}\n];`,
+        attributes: ['items={items}']
       })
     }
   },
-  render: (args) => <AccordionGroup key={args.type} items={items} {...args} />,
+  render: (args) => <AccordionGroup key={args.type} items={showcase} {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(trigger(canvas, 0)).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.click(trigger(canvas, 1));
+    const root = canvasElement.querySelector('.ds-accordion');
+    await expect(root).toHaveAttribute('data-variant', args.variant);
+    await expect(showcaseTrigger(canvas, 3)).toBeDisabled();
+    if (args.disabled) {
+      await expect(showcaseTrigger(canvas, 0)).toBeDisabled();
+      return;
+    }
+    await expect(showcaseTrigger(canvas, 0)).toHaveAttribute('aria-expanded', 'true');
+    await expect(showcaseTrigger(canvas, 0)).toHaveAccessibleDescription(showcase[0].description);
+    await userEvent.click(showcaseTrigger(canvas, 1));
     await expect(args.onValueChange).toHaveBeenLastCalledWith(args.type === 'multiple' ? ['plans', 'billing'] : 'billing');
-    await expect(canvas.getByText(items[1].content)).toBeVisible();
+    await expect(canvas.getByText(showcase[1].content)).toBeVisible();
+    if (args.highlight) {
+      await expect(root).toHaveAttribute('data-highlight', 'true');
+      // The open trigger fades to the accent tint once its state transition ends.
+      await waitFor(() => expect(getComputedStyle(showcaseTrigger(canvas, 1)).backgroundColor).not.toBe('rgba(0, 0, 0, 0)'));
+    }
+    showcaseTrigger(canvas, 1).blur();
   }
 };
 

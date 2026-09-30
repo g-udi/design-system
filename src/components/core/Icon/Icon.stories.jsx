@@ -5,7 +5,7 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { AnimatedIcon } from '../../../icons';
 import Button from '../Button';
-import Icon from './Icon';
+import Icon, { iconColors, iconSizes } from './Icon';
 
 const docs = getComponentDocs('Core/Icon');
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
@@ -35,17 +35,47 @@ export default {
   decorators: [(Story) => <div className='flex flex-wrap items-center gap-4'><Story /></div>]
 };
 
+// An icon picker: the featured tile follows every control; its neighbours share `size` and `strokeWidth`.
+const companions = [['Search', 'Search', 'muted'], ['AtSign', 'Mention', 'info'], ['CheckIcon', 'Done', 'success'], ['Warning', 'Warning', 'warning'], ['FolderOpen', 'Folder', 'amber']];
+const tile = 'flex min-w-20 flex-col items-center justify-center gap-2 rounded-lg border p-3 text-xs';
+
 export const Playground = {
-  args: { name: 'Info', size: 'lg', color: 'primary', label: 'More information', decorative: false },
-  parameters: { docs: { source: playgroundSource('Icon', { imports: "import { Icon } from '@gaudi/design-system';" }) } },
-  render: (args) => <Icon {...args} />,
+  args: { name: 'Info', size: 'xl', color: 'primary', label: 'More information', decorative: false, strokeWidth: 1.5 },
+  parameters: {
+    docs: {
+      description: { story: 'An icon picker. The highlighted tile follows every control and captions its accessible name, or shows that it is hidden when `decorative`. `size` and `strokeWidth` apply to every tile.' },
+      source: playgroundSource('Icon', { imports: "import { Icon } from '@gaudi/design-system';" })
+    }
+  },
+  render: (args) => (
+    <div className='grid grid-cols-3 gap-2 sm:grid-cols-6'>
+      <figure className={`${tile} m-0 border-accent-muted bg-accent-subtle`}>
+        <Icon {...args} />
+        <figcaption className={args.decorative ? 'italic text-text-muted' : 'font-medium'}>{args.decorative ? 'Decorative' : args.label}</figcaption>
+      </figure>
+      {companions.map(([name, caption, color]) => (
+        <figure key={name} className={`${tile} m-0 border-border text-text-muted`}>
+          <Icon name={name} color={color} size={args.size} strokeWidth={args.strokeWidth} decorative />
+          <figcaption>{caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    const [svg] = svgs(canvasElement);
+    const icons = svgs(canvasElement);
+    const [featured] = icons;
+    await expect(icons).toHaveLength(companions.length + 1);
+    for (const icon of icons) {
+      await expect(icon).toHaveClass(iconSizes[args.size].split(' ')[0]);
+      if (args.strokeWidth) await expect(icon).toHaveAttribute('stroke-width', String(args.strokeWidth));
+    }
+    if (args.color) await expect(featured).toHaveClass(iconColors[args.color].split(' ')[0]);
     if (args.decorative) {
-      await expect(svg).toHaveAttribute('aria-hidden', 'true');
+      await expect(featured).toHaveAttribute('aria-hidden', 'true');
       await expect(within(canvasElement).queryByRole('img')).toBeNull();
+      await expect(within(canvasElement).getByText('Decorative')).toBeVisible();
     } else {
-      await expect(within(canvasElement).getByRole('img', { name: args.label })).toBe(svg);
+      await expect(within(canvasElement).getByRole('img', { name: args.label })).toBe(featured);
     }
   }
 };

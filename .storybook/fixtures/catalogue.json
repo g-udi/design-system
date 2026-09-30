@@ -2520,17 +2520,6 @@
       ],
       "importPath": "./src/components/core/Sortable/Sortable.stories.jsx"
     },
-    "core-sortable--pinned-item": {
-      "id": "core-sortable--pinned-item",
-      "title": "Core/Sortable",
-      "name": "Pinned Item",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Sortable/Sortable.stories.jsx"
-    },
     "core-spinner--playground": {
       "id": "core-spinner--playground",
       "title": "Core/Spinner",
@@ -3039,17 +3028,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/mdx/Chart/Chart.stories.jsx"
-    },
-    "mdx-chart--multiple-series": {
-      "id": "mdx-chart--multiple-series",
-      "title": "MDX/Chart",
-      "name": "Multiple Series",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/mdx/Chart/Chart.stories.jsx"
     },
@@ -3784,17 +3762,6 @@
       ],
       "importPath": "./src/components/post/Disclaimer/Disclaimer.stories.jsx"
     },
-    "post-disclaimer--warning": {
-      "id": "post-disclaimer--warning",
-      "title": "Post/Disclaimer",
-      "name": "Custom copy and tone",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/post/Disclaimer/Disclaimer.stories.jsx"
-    },
     "post-post--playground": {
       "id": "post-post--playground",
       "title": "Post/Post",
@@ -3813,17 +3780,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/post/Post/Post.stories.jsx"
-    },
-    "post-post--draft-thought": {
-      "id": "post-post--draft-thought",
-      "title": "Post/Post",
-      "name": "Draft Thought",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/post/Post/Post.stories.jsx"
     },
@@ -3855,17 +3811,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/post/PostHeader/PostHeader.stories.jsx"
-    },
-    "post-postheader--with-contents-control": {
-      "id": "post-postheader--with-contents-control",
-      "title": "Post/PostHeader",
-      "name": "With Contents Control",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/post/PostHeader/PostHeader.stories.jsx"
     },
@@ -3990,17 +3935,6 @@
       "id": "post-tableofcontents--compact-toc",
       "title": "Post/TableOfContents",
       "name": "Four or fewer sections",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/post/TableOfContents/TableOfContents.stories.jsx"
-    },
-    "post-tableofcontents--visual-index": {
-      "id": "post-tableofcontents--visual-index",
-      "title": "Post/TableOfContents",
-      "name": "Visual Index",
       "type": "story",
       "tags": [
         "autodocs",

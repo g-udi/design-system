@@ -28,8 +28,8 @@ export const BreadcrumbEllipsis = ({ className }) => (
   <span className={ cn('inline-flex size-8 items-center justify-center rounded-md text-gray-500', className) } aria-label='More pages'>...</span>
 );
 
-export const BreadcrumbTrail = ({ items = [], className }) => (
-  <Breadcrumb className={ className }>
+export const BreadcrumbTrail = ({ items = [], className, label }) => (
+  <Breadcrumb className={ className } label={ label }>
     <BreadcrumbList>
       {items.map((item, index) => (
         <BreadcrumbItem key={ item.href || item.label }>

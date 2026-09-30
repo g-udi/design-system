@@ -13,13 +13,15 @@ const image = {
   width: 420,
   height: 260
 };
+const darkSrc = '/static/images/posts/gaudi-dark.svg';
+const lead = 'Gaudi draws two primary bars, one at the top of the screen and one at the bottom. The diagram shows how each bar is divided.';
 
 export default {
   title: 'MDX/Image',
   id: 'mdx-image',
   component: Image,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { src: 'text', darkSrc: 'text', alt: 'text', caption: 'text', width: 'number', height: 'number' }),
+  argTypes: docsArgTypes(docs, { caption: 'text', width: 'number' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -30,15 +32,30 @@ export default {
 };
 
 export const Playground = {
-  args: { ...image, darkSrc: '/static/images/posts/gaudi-dark.svg' },
-  parameters: { docs: { source: playgroundSource('Image', { imports: "import { Image } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Image {...args} />,
+  args: { caption: 'Each primary bar splits into left, middle, and right sections, and every section holds its own widgets.', width: 560 },
+  parameters: {
+    docs: {
+      description: { story: 'An article figure: the diagram swaps to its dark variant with the theme, the caption sits below, and selecting the image opens it in a lightbox.' },
+      source: playgroundSource('Image', {
+        imports: "import { Image } from '@gaudi/design-system/mdx';",
+        attributes: [`src='${image.src}'`, `darkSrc='${darkSrc}'`, `alt='${image.alt}'`, 'height={316}']
+      })
+    }
+  },
+  render: (args) => (
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p className='mb-4'>{lead}</p>
+      <Image {...image} darkSrc={darkSrc} height={316} {...args} />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(args.caption)).toBeVisible();
-    await userEvent.click(canvas.getAllByRole('button', { name: `Open image: ${args.alt}` }).find((button) => button.checkVisibility()));
+    const trigger = canvas.getAllByRole('button', { name: `Open image: ${image.alt}` }).find((button) => button.checkVisibility());
+    await expect(within(trigger).getByRole('img')).toHaveAttribute('width', String(args.width));
+    await userEvent.click(trigger);
     const dialog = await screen.findByRole('dialog', { name: args.caption });
-    await expect(within(dialog).getByRole('img', { name: args.alt })).toBeVisible();
+    await expect(within(dialog).getByRole('img', { name: image.alt })).toBeVisible();
     await userEvent.click(within(dialog).getByRole('button', { name: 'Close modal' }));
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
   }

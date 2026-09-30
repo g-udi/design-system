@@ -25,15 +25,43 @@ export default {
   decorators: [(Story) => <div className='flex flex-wrap items-center gap-3'><Story /></div>]
 };
 
+// A shortcut sheet: the first command follows `keys`; every key shares `size` and `variant`.
+const commands = [
+  ['Search documentation', 'command,k'],
+  ['Toggle sidebar', 'command,b'],
+  ['Next result', 'down'],
+  ['Open in new tab', 'command,enter'],
+  ['Close panel', 'escape']
+];
+
 export const Playground = {
-  args: { keys: 'command,shift,k', size: 'md', variant: 'raised' },
-  parameters: { docs: { source: playgroundSource('Kbd', { imports: "import { Kbd } from '@gaudi/design-system';" }) } },
-  render: (args) => <Kbd {...args} />,
+  args: { keys: 'command,shift,p', size: 'md', variant: 'raised' },
+  parameters: {
+    docs: {
+      description: { story: 'A shortcut sheet mixing combinations, arrows, and named keys. The first command follows `keys`; `size` and `variant` restyle every key.' },
+      source: playgroundSource('Kbd', { imports: "import { Kbd } from '@gaudi/design-system';" })
+    }
+  },
+  render: ({ keys, ...args }) => (
+    <ul className='m-0 w-full max-w-sm list-none divide-y divide-border rounded-lg border border-border p-0'>
+      {[['Open command palette', keys], ...commands].map(([action, shortcut], index) => (
+        <li key={action} className='flex items-center justify-between gap-3 px-3 py-2 text-sm'>
+          <span className={index ? 'text-text-muted' : 'font-medium'}>{action}</span>
+          <Kbd {...args} keys={shortcut} />
+        </li>
+      ))}
+    </ul>
+  ),
   play: async ({ args, canvasElement }) => {
-    const keys = canvasElement.querySelectorAll('kbd');
+    const [featured] = within(canvasElement).getAllByRole('listitem');
+    const keys = featured.querySelectorAll('kbd');
+    const sizes = { xs: 'px-1', sm: 'px-1.5', md: 'px-2', lg: 'px-2.5' };
+    const variants = { raised: 'bg-gradient-to-t', outline: 'bg-transparent', flat: 'bg-gray-50' };
     await expect(keys).toHaveLength(args.keys.split(',').length);
-    await expect(within(canvasElement).getByLabelText(/\S/)).toBeVisible();
+    await expect(within(featured).getByLabelText(/\S/)).toBeVisible();
     if (keys.length > 1) for (const key of keys) await expect(key).toHaveAttribute('aria-hidden', 'true');
+    for (const key of canvasElement.querySelectorAll('kbd')) await expect(key).toHaveClass(sizes[args.size], variants[args.variant]);
+    await expect(within(canvasElement).getByRole('img', { name: 'Command plus K' })).toBeVisible();
   }
 };
 

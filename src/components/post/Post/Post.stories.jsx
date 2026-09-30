@@ -3,47 +3,59 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import formatDate from '../../../utilities/formatDate';
 import Post from './index';
 
 const docs = getComponentDocs('Post/Post');
+const locales = ['en-US', 'en-GB', 'de-DE', 'ja-JP'];
 const frontMatter = {
   category: 'engineering',
-  date: '2026-05-20',
+  date: '2026-09-24',
   slug: 'design-systems',
   subtitle: 'How component ownership keeps a blog interface consistent.',
   title: 'Design systems keep editorial rhythm predictable',
   type: 'Post'
 };
-const draftThought = {
-  category: 'process',
-  date: '2026-06-01',
-  draft: true,
-  slug: 'component-contracts',
-  subtitle: 'Contract tests should protect behavior consumers can observe.',
-  title: 'A short thought about contracts',
-  type: 'Thought'
-};
-const titleLink = (canvas, entry) => canvas.getByRole('link', { name: entry.title });
-const categoryLink = (canvas, entry) => canvas.getByRole('link', { name: entry.category });
+// The featured entry follows the `frontMatter` control; its neighbours show a draft thought and a post without a summary.
+const neighbours = [
+  {
+    category: 'process',
+    date: '2026-09-18',
+    draft: true,
+    slug: 'component-contracts',
+    subtitle: 'Contract tests should protect behaviour consumers can observe.',
+    title: 'A short thought about contracts',
+    type: 'Thought'
+  },
+  {
+    category: 'research',
+    date: '2026-08-30',
+    slug: 'useful-research-questions',
+    title: 'The shape of a useful research question',
+    type: 'Post'
+  }
+];
+const baseUrl = (entry) => (entry.type === 'Thought' ? '/thoughts' : '/blog');
 
 export default {
   title: 'Post/Post',
   component: Post,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { frontMatter: 'object', locale: 'text', titleAs: ['h2', 'h3', 'h4'] }),
+  argTypes: docsArgTypes(docs, { frontMatter: 'object', locale: locales }),
   parameters: {
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  decorators: [(Story) => <ExampleFrame><ul><Story /></ul></ExampleFrame>]
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
 export const Playground = {
-  args: { frontMatter, titleAs: 'h3' },
+  args: { frontMatter, locale: 'en-US' },
   parameters: {
     docs: {
+      description: { story: "A post index: the first entry follows `frontMatter`, followed by a draft thought (`type: 'Thought'` routes under /thoughts and `draft` adds the badge) and a post without a subtitle. `locale` reformats every date." },
       source: playgroundSource('Post', {
         imports: "import { Post } from '@gaudi/design-system';",
         before: '<ul>\n',
@@ -51,24 +63,22 @@ export const Playground = {
       })
     }
   },
-  render: (args) => <Post {...args} />,
-  play: async ({ canvasElement }) => {
+  render: ({ frontMatter: featured, locale }) => (
+    <ul>
+      {[featured, ...neighbours].map((entry) => <Post key={entry.slug} frontMatter={entry} locale={locale} />)}
+    </ul>
+  ),
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(titleLink(canvas, frontMatter)).toHaveAttribute('href', `/blog/${frontMatter.slug}`);
-    await expect(categoryLink(canvas, frontMatter)).toHaveAttribute('href', `/blog/categories/${frontMatter.category}`);
-    await expect(canvas.getByRole('article').querySelector('time')).toHaveAttribute('dateTime', frontMatter.date);
-    await expect(canvas.getByText(frontMatter.subtitle)).toBeVisible();
-    await expect(canvas.queryByText('Draft')).not.toBeInTheDocument();
-  }
-};
-
-export const DraftThought = {
-  parameters: { docs: { description: { story: "`type: 'Thought'` links under /thoughts, and `draft` adds the Draft badge to the metadata row." } } },
-  render: () => <Post frontMatter={draftThought} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(titleLink(canvas, draftThought)).toHaveAttribute('href', `/thoughts/${draftThought.slug}`);
-    await expect(canvas.getByText('Draft')).toBeVisible();
-    await expect(categoryLink(canvas, draftThought)).toHaveAttribute('href', `/blog/categories/${draftThought.category}`);
+    const entries = [args.frontMatter, ...neighbours];
+    await expect(canvas.getAllByRole('article')).toHaveLength(entries.length);
+    for (const entry of entries) {
+      const article = within(canvas.getByRole('link', { name: entry.title }).closest('article'));
+      await expect(article.getByRole('link', { name: entry.title })).toHaveAttribute('href', `${baseUrl(entry)}/${entry.slug}`);
+      await expect(article.getByRole('link', { name: entry.category })).toHaveAttribute('href', `/blog/categories/${entry.category}`);
+      await expect(article.getByText(formatDate(entry.date, args.locale))).toHaveAttribute('dateTime', entry.date);
+      if (entry.subtitle) await expect(article.getByText(entry.subtitle)).toBeVisible();
+      await expect(Boolean(article.queryByText('Draft'))).toBe(Boolean(entry.draft));
+    }
   }
 };

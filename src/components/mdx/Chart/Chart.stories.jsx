@@ -3,17 +3,24 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import { BarChart, Chart, DonutChart, RadialBarChart, ScatterChart } from './Chart';
+import { Chart, DonutChart, RadialBarChart, ScatterChart } from './Chart';
 
 const docs = getComponentDocs('MDX/Chart');
-const trafficData = [
-  { label: 'Mon', readTime: 6, subscribers: 8, views: 124 },
-  { label: 'Tue', readTime: 8, subscribers: 12, views: 168 },
-  { label: 'Wed', readTime: 7, subscribers: 10, views: 141 },
-  { label: 'Thu', readTime: 11, subscribers: 16, views: 226 },
-  { label: 'Fri', readTime: 9, subscribers: 14, views: 194 },
-  { label: 'Sat', readTime: 12, subscribers: 18, views: 248 }
+// Monthly readers by acquisition channel: three series on one scale, so every type reads well.
+const readers = [
+  { label: 'Jan', search: 1840, newsletter: 920, social: 610 },
+  { label: 'Feb', search: 2110, newsletter: 1040, social: 480 },
+  { label: 'Mar', search: 2380, newsletter: 1180, social: 1320 },
+  { label: 'Apr', search: 2260, newsletter: 1310, social: 760 },
+  { label: 'May', search: 2790, newsletter: 1460, social: 890 },
+  { label: 'Jun', search: 3120, newsletter: 1620, social: 1040 }
 ];
+const series = [
+  { key: 'search', label: 'Search' },
+  { key: 'newsletter', label: 'Newsletter' },
+  { key: 'social', label: 'Social' }
+];
+const lead = 'Search still brings in most readers, the newsletter has grown every month, and social spiked with the March launch.';
 
 /** Every chart renders a labelled figure once Recharts has mounted. */
 const expectChart = async (canvasElement, ariaLabel) => {
@@ -28,15 +35,12 @@ export default {
   component: Chart,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    type: ['bar', 'line', 'area', 'composed'],
-    yKey: ['views', 'subscribers', 'readTime'],
+    type: ['bar', 'line', 'area'],
     title: 'text',
     description: 'text',
-    ariaLabel: 'text',
     height: 'number',
     showGrid: 'boolean',
-    showLegend: 'boolean',
-    showTooltip: 'boolean'
+    showLegend: 'boolean'
   }),
   parameters: {
     docs: {
@@ -50,40 +54,40 @@ export default {
 export const Playground = {
   args: {
     type: 'bar',
-    data: trafficData,
-    yKey: 'views',
-    title: 'Article views',
-    description: 'Daily views for the latest article.',
-    ariaLabel: 'Article views by day',
-    height: 320,
+    title: 'Readers by channel',
+    description: 'Monthly unique readers, January to June.',
+    height: 280,
     showGrid: true,
-    showLegend: false,
-    showTooltip: true
+    showLegend: true
   },
-  parameters: { docs: { source: playgroundSource('Chart', { imports: "import { Chart } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Chart {...args} />,
+  parameters: {
+    docs: {
+      description: { story: 'An article paragraph and the chart that backs it: six months of readers across three channels. Switch `type` to compare the same series as bars, lines, or areas.' },
+      source: playgroundSource('Chart', {
+        imports: "import { Chart } from '@gaudi/design-system/mdx';",
+        before: "const readers = [\n  { label: 'Jan', search: 1840, newsletter: 920, social: 610 },\n  { label: 'Feb', search: 2110, newsletter: 1040, social: 480 }\n  // …one record per month\n];\n\n",
+        attributes: [
+          'data={readers}',
+          "series={[{ key: 'search', label: 'Search' }, { key: 'newsletter', label: 'Newsletter' }, { key: 'social', label: 'Social' }]}",
+          "ariaLabel='Monthly readers by channel'"
+        ]
+      })
+    }
+  },
+  render: (args) => (
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p>{lead}</p>
+      <Chart {...args} data={readers} series={series} ariaLabel='Monthly readers by channel' className='mb-0' />
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(args.title)).toBeVisible();
     await expect(canvas.getByText(args.description)).toBeVisible();
-    await expectChart(canvasElement, args.ariaLabel);
-  }
-};
-
-export const MultipleSeries = {
-  parameters: { docs: { description: { story: '`series` plots several keys on one axis. Add `showLegend` so readers can tell the series apart.' } } },
-  render: () => (
-    <BarChart
-      ariaLabel='Subscribers and read time by day'
-      data={trafficData}
-      title='Subscribers and read time'
-      series={[{ key: 'subscribers', label: 'Subscribers' }, { key: 'readTime', label: 'Read time (min)' }]}
-      showLegend
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    await expectChart(canvasElement, 'Subscribers and read time by day');
-    await waitFor(() => expect(within(canvasElement).getByText('Read time (min)')).toBeVisible());
+    await expectChart(canvasElement, 'Monthly readers by channel');
+    const legend = () => canvasElement.querySelector('.recharts-legend-wrapper');
+    if (args.showLegend) await waitFor(() => expect(within(legend()).getByText('Newsletter')).toBeVisible());
+    else await expect(legend()).not.toBeInTheDocument();
   }
 };
 

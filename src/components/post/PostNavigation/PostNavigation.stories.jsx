@@ -6,15 +6,17 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import PostNavigation from './index';
 
 const docs = getComponentDocs('Post/PostNavigation');
-const prev = { slug: 'previous-post', title: 'Previous post title' };
-const next = { slug: 'next-post', title: 'Next post title' };
+const prev = { slug: 'local-first-software', title: 'Notes on local-first software' };
+const next = { slug: 'resilient-components', title: 'A field guide to resilient components that survive real data' };
+const labels = { Post: 'Article', Thought: 'Thought' };
+const baseUrls = { Post: '/blog', Thought: '/thoughts' };
 const previousThought = { slug: 'previous-thought', title: 'Previous thought title' };
 
 export default {
   title: 'Post/PostNavigation',
   component: PostNavigation,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { type: ['Post', 'Thought'], headingLevel: [2, 3, 4] }),
+  argTypes: docsArgTypes(docs, { type: ['Post', 'Thought'], prev: 'object', next: 'object' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -25,20 +27,27 @@ export default {
 };
 
 export const Playground = {
-  args: { prev, next, type: 'Post', headingLevel: 2 },
+  args: { type: 'Post', prev, next },
   parameters: {
-    docs: { source: playgroundSource('PostNavigation', { imports: "import { PostNavigation } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'Both neighbours with realistic titles, one long enough to wrap. `type` switches the labels and routes between articles and thoughts; clear `prev` or `next` to drop that side without leaving an empty link.' },
+      source: playgroundSource('PostNavigation', { imports: "import { PostNavigation } from '@gaudi/design-system';" })
+    }
   },
   render: (args) => <PostNavigation {...args} />,
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const previousLink = canvas.getByRole('link', { name: `Previous Article ${prev.title}` });
-    const nextLink = canvas.getByRole('link', { name: `Next Article ${next.title}` });
-    await expect(canvas.getByRole('navigation', { name: 'Article navigation' })).toBeVisible();
-    await expect(canvas.getByRole('heading', { level: 2, name: 'Previous Article' })).toBeVisible();
-    await expect(previousLink).toHaveAttribute('href', `/blog/${prev.slug}`);
-    await expect(nextLink).toHaveAttribute('href', `/blog/${next.slug}`);
-    await expect(nextLink).toHaveClass('text-right');
+    const label = labels[args.type];
+    await expect(canvas.getByRole('navigation', { name: `${label} navigation` })).toBeVisible();
+    for (const [side, entry] of [['Previous', args.prev], ['Next', args.next]]) {
+      if (!entry) {
+        await expect(canvas.queryByRole('heading', { name: `${side} ${label}` })).not.toBeInTheDocument();
+        continue;
+      }
+      await expect(canvas.getByRole('heading', { level: 2, name: `${side} ${label}` })).toBeVisible();
+      await expect(canvas.getByRole('link', { name: `${side} ${label} ${entry.title}` })).toHaveAttribute('href', `${baseUrls[args.type]}/${entry.slug}`);
+    }
+    if (args.next) await expect(canvas.getByRole('link', { name: new RegExp(`^Next ${label}`, 'u') })).toHaveClass('text-right');
   }
 };
 

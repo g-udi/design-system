@@ -6,13 +6,16 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Details from './Details';
 
 const docs = getComponentDocs('MDX/Details');
+const lead = 'The deploy gate only needs the lockfile re-pinned. The steps below matter only if the build still fails.';
+// Rich panel content: a short explanation and an ordered checklist, as a real article would include.
+const steps = ['Delete node_modules and the pnpm store cache.', 'Run pnpm install --frozen-lockfile.', 'Re-run the build with NEXT_TELEMETRY_DISABLED=1.'];
 
 export default {
   title: 'MDX/Details',
   id: 'mdx-details',
   component: Details,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { title: 'text', headingLevel: [2, 3, 4, 5, 6], children: 'text' }),
+  argTypes: docsArgTypes(docs, { title: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -23,18 +26,41 @@ export default {
 };
 
 export const Playground = {
-  args: { title: 'Implementation detail', headingLevel: 2, children: 'Details are keyboard accessible and preserve article flow.' },
-  parameters: { docs: { source: playgroundSource('Details', { imports: "import { Details } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Details {...args} />,
+  args: { title: 'Troubleshooting a failed build' },
+  parameters: {
+    docs: {
+      description: { story: 'An optional troubleshooting section after the main instruction. Open the disclosure to reveal an explanation and an ordered checklist.' },
+      source: playgroundSource('Details', {
+        imports: "import { Details } from '@gaudi/design-system/mdx';",
+        children: [
+          '  <p>A stale pnpm store can keep the old package after the lockfile changes.</p>',
+          '  <ol>',
+          ...steps.map((step) => `    <li>${step}</li>`),
+          '  </ol>'
+        ].join('\n')
+      })
+    }
+  },
+  render: (args) => (
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p>{lead}</p>
+      <Details {...args}>
+        <p>A stale pnpm store can keep the old package after the lockfile changes.</p>
+        <ol className='mt-2 list-decimal space-y-1 pl-5'>
+          {steps.map((step) => <li key={step}>{step}</li>)}
+        </ol>
+      </Details>
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const trigger = canvas.getByRole('button', { name: args.title });
-    await expect(trigger.parentElement.tagName).toBe(`H${args.headingLevel}`);
-    await expect(canvas.queryByText(args.children)).not.toBeInTheDocument();
+    await expect(trigger.parentElement.tagName).toBe('H2');
+    await expect(canvas.queryByText(steps[0])).not.toBeInTheDocument();
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.getByText(args.children)).toBeVisible();
+    await expect(canvas.getAllByRole('listitem')).toHaveLength(steps.length);
     await userEvent.click(trigger);
-    await expect(canvas.queryByText(args.children)).not.toBeInTheDocument();
+    await expect(canvas.queryByText(steps[0])).not.toBeInTheDocument();
   }
 };

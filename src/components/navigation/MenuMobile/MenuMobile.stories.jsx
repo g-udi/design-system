@@ -5,6 +5,8 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { categories, primaryLinks } from '../../../../.storybook/fixtures/site/navigationContent';
 import Button from '../../core/Button';
+import Icon from '../../core/Icon';
+import MenuLogo from '../MenuLogo';
 import MenuMobile from './MenuMobile';
 
 const docs = getComponentDocs('Navigation/MenuMobile');
@@ -21,7 +23,8 @@ const openMenu = async (canvasElement) => {
   return { dialog: await findDialog(), trigger };
 };
 
-// MenuMobile is mounted only while open, so the host owns the open state and the trigger.
+// MenuMobile is mounted only while open, so the host owns the open state and the trigger: here, a phone-width
+// site header above the start of an article.
 function MobileMenuExample({ setMobileMenuOpen, ...args }) {
   const [open, setOpen] = useState(false);
   const update = (next) => {
@@ -29,10 +32,21 @@ function MobileMenuExample({ setMobileMenuOpen, ...args }) {
     setMobileMenuOpen(next);
   };
   return (
-    <>
-      <Button variant='solid' tone='accent' onClick={() => update(true)}>Open mobile navigation</Button>
+    <div className='mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800'>
+      <header className='flex items-center justify-between border-b border-gray-200 px-3 py-1 dark:border-gray-800'>
+        <MenuLogo className='h-9 w-9' />
+        <Button variant='ghost' tone='neutral' size='sm' className='h-11 w-11 p-0' aria-label='Open mobile navigation' aria-expanded={open} onClick={() => update(true)}>
+          <Icon name='Menu' decorative size='md' />
+        </Button>
+      </header>
+      <div aria-hidden='true' className='space-y-2 p-4'>
+        <div className='h-3 w-20 rounded-full bg-blue-100 dark:bg-blue-950' />
+        <div className='h-5 w-4/5 rounded-full bg-gray-200 dark:bg-gray-800' />
+        <div className='h-3 w-full rounded-full bg-gray-100 dark:bg-gray-900' />
+        <div className='h-3 w-2/3 rounded-full bg-gray-100 dark:bg-gray-900' />
+      </div>
       {open ? <MenuMobile {...args} setMobileMenuOpen={update} /> : null}
-    </>
+    </div>
   );
 }
 
@@ -55,16 +69,25 @@ export default {
 export const Playground = {
   args: { blogLink: { href: '/blog', title: 'Blog' }, categories, links: primaryLinks },
   parameters: {
-    docs: { source: playgroundSource('MenuMobile', { imports: "import { MenuMobile } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'A phone-width header whose menu button opens the sheet: search, the Blog destination with every category and its description, then the other `links`. The canvas leaves the sheet open after its test, so edits to `blogLink`, `categories`, or `links` show at once; on this page, open the menu to see them.' },
+      source: playgroundSource('MenuMobile', {
+        imports: "import { useState } from 'react';\nimport { MenuMobile } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);\nconst [launcherOpen, setLauncherOpen] = useState(false);",
+        attributes: ['setMobileMenuOpen={setOpen}', 'setLauncherOpen={setLauncherOpen}'],
+        before: '{open ? (\n',
+        after: '\n) : null}'
+      })
+    }
   },
   play: async ({ args, canvasElement }) => {
     const { dialog, trigger } = await openMenu(canvasElement);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     const close = dialog.getByRole('button', { name: 'Close menu' });
     await expect(page.getByRole('dialog', { name: dialogName })).toHaveAttribute('aria-modal', 'true');
     await expectFocus(canvasElement, close);
     await expect(dialog.getByRole('link', { name: args.blogLink.title })).toHaveAttribute('href', args.blogLink.href);
     await expect(within(dialog.getByRole('list', { name: 'Blog categories' })).getAllByRole('link')).toHaveLength(args.categories.length);
-    await expect(dialog.getByRole('link', { name: args.links[0].title })).toHaveAttribute('href', args.links[0].href);
+    for (const link of args.links) await expect(dialog.getByRole('link', { name: link.title })).toHaveAttribute('href', link.href);
 
     await userEvent.keyboard('{Escape}');
     await expect(args.setMobileMenuOpen).toHaveBeenLastCalledWith(false);
@@ -74,6 +97,8 @@ export const Playground = {
     await openMenu(canvasElement);
     await userEvent.click((await findDialog()).getByRole('button', { name: 'Close menu' }));
     await expectClosed();
+    // Leave the sheet open in the canvas so control edits show immediately.
+    await openMenu(canvasElement);
   }
 };
 

@@ -61,6 +61,14 @@
     outline: 2px solid var(--ds-color-accent);
     outline-offset: 2px;
   }
+  /* The adorned group owns the border, so it also carries the input's invalid and disabled states. */
+  .ds-input-group:has(.ds-input-adornment):has(input[aria-invalid='true']) {
+    border-color: var(--ds-color-danger);
+  }
+  .ds-input-group:has(.ds-input-adornment):has(input:disabled) {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
   .ds-input-adorned {
     border: 0;
     box-shadow: none;

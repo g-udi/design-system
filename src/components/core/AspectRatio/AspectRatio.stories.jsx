@@ -1,45 +1,97 @@
-import { expect } from 'storybook/test';
+import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
+import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { AspectRatio } from './index.js';
 
 const docs = getComponentDocs('Core/AspectRatio');
-const image = "<img src='/static/images/og-card.jpg' alt='Gaudi design system cover' className='size-full object-cover' />";
+// Common media shapes, labelled the way editors name them.
+const ratios = { '21:9': 21 / 9, '16:9': 16 / 9, '4:3': 4 / 3, '1:1': 1, '4:5': 4 / 5, '9:16': 9 / 16 };
+const labelOf = (ratio) => Object.keys(ratios).find((label) => Math.abs(ratios[label] - ratio) < 0.01) || `${Number(ratio).toFixed(2)}:1`;
+// A lesson page: the cover follows the `ratio` control; the "Up next" shelf keeps fixed square, 4:3 and portrait frames.
+const cover = { src: '/static/images/og-card.jpg', title: 'Designing with tokens', meta: 'Gaudi Academy · Lesson 3', duration: '12:48' };
+const upNext = [
+  { title: 'Linked data basics', src: '/static/images/posts/everything-rdf-4.svg', ratio: 1 },
+  { title: 'Graph queries', src: '/static/images/posts/everything-rdf-2.svg', ratio: 4 / 3 },
+  { title: 'Ontology design', src: '/static/images/posts/everything-rdf-3.svg', ratio: 4 / 5 }
+];
+const frame = 'overflow-hidden rounded-xl border border-ui-border bg-ui-muted';
 
 export default {
   title: 'Core/AspectRatio',
   id: 'core-aspectratio',
   component: AspectRatio,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { ratio: 'number' }),
+  argTypes: (() => {
+    const argTypes = docsArgTypes(docs, { ratio: Object.values(ratios) });
+    argTypes.ratio.control = { type: 'select', labels: Object.fromEntries(Object.entries(ratios).map(([label, value]) => [value, label])) };
+    return argTypes;
+  })(),
   parameters: {
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
+  decorators: [(Story) => <ExampleFrame className='max-w-lg'><Story /></ExampleFrame>]
 };
 
 export const Playground = {
   args: { ratio: 16 / 9 },
   parameters: {
     docs: {
+      description: { story: 'A lesson page. The cover follows the `ratio` control, from a 21:9 banner to a 9:16 story, while the shelf below keeps square, 4:3 and portrait frames for comparison.' },
       source: playgroundSource('AspectRatio', {
         imports: "import { AspectRatio } from '@gaudi/design-system';",
-        children: `  ${image}`
+        attributes: ["className='overflow-hidden rounded-xl border'"],
+        children: `  <img src='${cover.src}' alt='' className='size-full object-cover' />`
       })
     }
   },
   render: (args) => (
-    <AspectRatio {...args} className='overflow-hidden rounded-xl border bg-ui-muted'>
-      <img src='/static/images/og-card.jpg' alt='Gaudi design system cover' className='size-full object-cover' />
-    </AspectRatio>
+    <div className='flex flex-col gap-4'>
+      <figure className={`mx-auto flex w-full flex-col gap-2 ${args.ratio < 1 ? 'max-w-56' : ''}`}>
+        <AspectRatio {...args} className={`${frame} relative`}>
+          <img src={cover.src} alt='' className='size-full object-cover' />
+          <span className='absolute top-2 left-2 rounded-md bg-black/60 px-1.5 py-0.5 text-xs font-medium text-white tabular-nums'>{labelOf(args.ratio)}</span>
+          <span className='absolute right-2 bottom-2 rounded-md bg-black/60 px-1.5 py-0.5 text-xs text-white tabular-nums'>{cover.duration}</span>
+          <span className='absolute inset-0 m-auto flex size-11 items-center justify-center rounded-full bg-white/90 text-black shadow-md'>
+            <RegistryIcon lucide='PlayIcon' className='size-5 fill-current' />
+          </span>
+        </AspectRatio>
+        <figcaption className='flex flex-col'>
+          <span className='text-sm font-medium text-ui-foreground'>{cover.title}</span>
+          <span className='text-xs text-ui-muted-foreground'>{cover.meta}</span>
+        </figcaption>
+      </figure>
+      <div className='flex flex-col gap-2'>
+        <span className='text-xs font-medium text-ui-muted-foreground'>Up next</span>
+        <ul className='grid grid-cols-3 items-start gap-3'>
+          {upNext.map((item) => (
+            <li key={item.title} className='flex min-w-0 flex-col gap-1'>
+              <AspectRatio ratio={item.ratio} className={frame}>
+                <img src={item.src} alt='' className='size-full bg-white object-contain p-2' />
+              </AspectRatio>
+              <span className='truncate text-xs text-ui-foreground'>{item.title}</span>
+              <span className='text-xs text-ui-muted-foreground tabular-nums'>{labelOf(item.ratio)}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   ),
   play: async ({ args, canvasElement }) => {
-    const { width, height } = canvasElement.querySelector('[data-slot="aspect-ratio"]').getBoundingClientRect();
-    await expect(width / height).toBeCloseTo(args.ratio, 1);
+    const canvas = within(canvasElement);
+    const [coverFrame, ...shelf] = canvasElement.querySelectorAll('[data-slot="aspect-ratio"]');
+    const ratioOf = (element) => {
+      const { width, height } = element.getBoundingClientRect();
+      return width / height;
+    };
+    await expect(ratioOf(coverFrame)).toBeCloseTo(args.ratio, 1);
+    await expect(within(coverFrame).getByText(labelOf(args.ratio))).toBeVisible();
+    for (const [index, item] of upNext.entries()) await expect(ratioOf(shelf[index])).toBeCloseTo(item.ratio, 1);
+    await expect(canvas.getByText(cover.title)).toBeVisible();
   }
 };

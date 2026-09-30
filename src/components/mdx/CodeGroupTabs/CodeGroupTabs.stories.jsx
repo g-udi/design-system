@@ -44,26 +44,33 @@ export default {
   decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
+const install = [
+  { title: 'pnpm', code: 'pnpm add @gaudi/design-system\npnpm add katex mermaid recharts' },
+  { title: 'npm', code: 'npm install @gaudi/design-system\nnpm install katex mermaid recharts' },
+  { title: 'yarn', code: 'yarn add @gaudi/design-system\nyarn add katex mermaid recharts' },
+  { title: 'bun', code: 'bun add @gaudi/design-system\nbun add katex mermaid recharts' }
+];
+
 export const Playground = {
+  parameters: { docs: { description: { story: 'Install instructions for four package managers in one generated code group. Select a tab, or use the arrow keys once a tab has focus.' } } },
   render: () => (
-    <CodeGroup
-      label='Code language'
-      blocks={[
-        { title: 'JavaScript', code: "const language = 'js';" },
-        { title: 'TypeScript', code: "const language: string = 'ts';" }
-      ]}
-    />
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p className='mb-4'>Install the package, then the peers the MDX components render with:</p>
+      <CodeGroup label='Package manager' blocks={install} />
+    </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const [js, ts] = ['JavaScript', 'TypeScript'].map((name) => canvas.getByRole('tab', { name }));
+    const [pnpm, npm, yarn] = ['pnpm', 'npm', 'yarn'].map((name) => canvas.getByRole('tab', { name }));
     await initialized(canvasElement);
-    await expect(js).toHaveAttribute('aria-selected', 'true');
-    await userEvent.click(ts);
-    await expect(js).toHaveAttribute('aria-selected', 'false');
-    await expect(ts).toHaveAttribute('aria-selected', 'true');
-    await expect(canvasElement.querySelector('#panel-javascript')).toHaveAttribute('hidden');
-    await expect(canvas.getByRole('tabpanel', { name: 'TypeScript' })).toBeVisible();
+    await expect(pnpm).toHaveAttribute('aria-selected', 'true');
+    await userEvent.click(npm);
+    await expect(pnpm).toHaveAttribute('aria-selected', 'false');
+    await expect(npm).toHaveAttribute('aria-selected', 'true');
+    await expect(canvasElement.querySelector('#panel-pnpm')).toHaveAttribute('hidden');
+    await expect(canvas.getByRole('tabpanel', { name: 'npm' })).toHaveTextContent('npm install katex mermaid recharts');
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(yarn).toHaveAttribute('aria-selected', 'true'));
   }
 };
 

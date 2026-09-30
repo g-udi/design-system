@@ -6,18 +6,21 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import StatGroup from './StatGroup';
 
 const docs = getComponentDocs('Blocks/Application/StatGroup');
+const label = 'September performance';
+// A month of mixed results: growth, a regression, a steady figure and a slower read.
 const items = [
-  { id: 'articles', label: 'Published articles', value: '24', detail: '3 published this month' },
-  { id: 'readers', label: 'Subscribers', value: '1,280', detail: '+86 this month', tone: 'success' },
-  { id: 'drafts', label: 'Open drafts', value: '6', detail: '2 awaiting review' },
-  { id: 'time', label: 'Average reading time', value: '8 min', detail: 'Across published articles' }
+  { id: 'readers', label: 'Monthly readers', value: '48.2k', detail: '▲ 12.4% vs August', tone: 'success' },
+  { id: 'subscribers', label: 'New subscribers', value: '1,284', detail: '▲ 86 this month', tone: 'success' },
+  { id: 'bounce', label: 'Bounce rate', value: '38.6%', detail: '▲ 4.1 pts vs August', tone: 'danger' },
+  { id: 'reading', label: 'Avg. reading time', value: '6m 12s', detail: '▼ 18s vs August', tone: 'danger' },
+  { id: 'drafts', label: 'Open drafts', value: '6', detail: '2 awaiting review' }
 ];
 
 export default {
   title: 'Blocks/Application/StatGroup',
   component: StatGroup,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { label: 'text' }),
+  argTypes: docsArgTypes(docs, { items: 'object' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -28,15 +31,22 @@ export default {
 };
 
 export const Playground = {
-  args: { label: 'Editorial summary', items },
+  args: { items },
   parameters: {
-    docs: { source: playgroundSource('StatGroup', { imports: "import { StatGroup } from '@gaudi/design-system';" }) }
+    docs: {
+      description: { story: 'A monthly summary with rising, falling, and steady figures. Edit `items` to change the values, and set `tone` to `success`, `danger`, or leave it out for a neutral detail line.' },
+      source: playgroundSource('StatGroup', { imports: "import { StatGroup } from '@gaudi/design-system';", attributes: [`label='${label}'`] })
+    }
   },
-  render: (args) => <StatGroup {...args} />,
+  render: (args) => <StatGroup label={label} {...args} />,
   play: async ({ args, canvasElement }) => {
-    const group = canvasElement.querySelector(`dl[aria-label="${args.label}"]`);
-    await expect(group.querySelectorAll('dt')).toHaveLength(items.length);
-    await expect(within(group).getByText(items[1].detail)).toHaveAttribute('data-tone', 'success');
+    const list = canvasElement.querySelector(`dl[aria-label="${label}"]`);
+    const group = within(list);
+    await expect(list.querySelectorAll('dt')).toHaveLength(args.items.length);
+    for (const item of args.items) {
+      await expect(group.getByText(item.value)).toBeVisible();
+      if (item.detail) await expect(group.getByText(item.detail)).toHaveAttribute('data-tone', item.tone || 'neutral');
+    }
   }
 };
 

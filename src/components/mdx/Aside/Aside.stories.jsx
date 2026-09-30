@@ -6,6 +6,9 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Aside from './Aside';
 
 const docs = getComponentDocs('MDX/Aside');
+// The aside sits between two paragraphs of a real article so its contrast with the reading flow shows.
+const before = 'Mermaid renders every flowchart on the client, so the first paint shows a placeholder while the library loads.';
+const after = 'Once the SVG is ready it replaces the placeholder in place, and the surrounding text never shifts.';
 
 export default {
   title: 'MDX/Aside',
@@ -23,12 +26,31 @@ export default {
 };
 
 export const Playground = {
-  args: { children: 'Additional context that supports the article without interrupting the main argument.' },
-  parameters: { docs: { source: playgroundSource('Aside', { imports: "import { Aside } from '@gaudi/design-system/mdx';" }) } },
-  render: (args) => <Aside {...args} />,
+  args: { children: 'Why not render on the server? Mermaid measures text with the DOM, which Node does not have, so a server render would need a headless browser in the build.' },
+  parameters: {
+    docs: {
+      description: { story: 'An aside between two article paragraphs: the supporting note reads as quieter, muted context next to the main argument.' },
+      source: playgroundSource('Aside', {
+        imports: "import { Aside } from '@gaudi/design-system/mdx';",
+        before: `<p>${before}</p>\n\n`,
+        after: `\n\n<p>${after}</p>`
+      })
+    }
+  },
+  render: (args) => (
+    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+      <p>{before}</p>
+      <Aside {...args} />
+      <p>{after}</p>
+    </div>
+  ),
   play: async ({ args, canvasElement }) => {
-    const aside = within(canvasElement).getByText(args.children);
+    const canvas = within(canvasElement);
+    const aside = canvas.getByText(args.children);
     await expect(aside.tagName).toBe('ASIDE');
     await expect(aside).toHaveClass('bg-surface-muted', 'text-text-muted');
+    // The aside stays in document order, between the paragraphs it supports.
+    await expect(aside.previousElementSibling).toHaveTextContent(before);
+    await expect(aside.nextElementSibling).toHaveTextContent(after);
   }
 };

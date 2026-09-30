@@ -69,6 +69,8 @@ export function findPropRow(rows = [], name) {
   }
 }
 
+const controlTypes = { boolean: 'boolean', number: 'number', range: 'number', text: 'string', color: 'string', date: 'number', object: 'object' };
+
 /**
  * Playground argTypes described by the authored props reference.
  * `controls` maps a prop to a control type, or to an options array for a select.
@@ -79,6 +81,8 @@ export function docsArgTypes(docs, controls) {
     const [type, options] = Array.isArray(control) ? ['select', control] : [control];
     return [name, {
       control: type,
+      // A declared type lets Storybook accept the value from story URLs and args parsing.
+      type: options ? { name: 'enum', value: options } : { name: controlTypes[type] || 'other' },
       description,
       ...(options ? { options } : {}),
       table: { type: { summary }, defaultValue: { summary: defaultValue } }

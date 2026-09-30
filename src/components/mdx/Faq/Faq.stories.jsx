@@ -6,9 +6,12 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Faq from './Faq';
 
 const docs = getComponentDocs('MDX/FAQ');
+// The questions readers actually ask at the end of a migration post.
 const questions = [
-  { question: 'Why use FAQ blocks?', answer: 'They keep repeated article explanations structured and accessible.' },
-  { question: 'Can several answers stay open?', answer: 'Yes. Each question toggles independently.' }
+  { question: 'Do I need to rewrite my existing posts?', answer: 'No. Markdown links, footnotes, and citations keep working; only custom imports in layouts change.' },
+  { question: 'Can I upgrade one site at a time?', answer: 'Yes. Each site pins its own package version, so you can migrate the blog before the portfolio.' },
+  { question: 'Which imports change?', answer: 'Only layouts that mount the article runtime. They now import it from @gaudi/design-system/mdx/runtime.' },
+  { question: 'Where do I report a rendering bug?', answer: 'Open an issue with the post slug and a screenshot; the MDX components are covered by visual tests.' }
 ];
 
 export default {
@@ -16,7 +19,7 @@ export default {
   id: 'mdx-faq',
   component: Faq,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { questions: 'object', heading: 'text', headingLevel: [2, 3, 4, 5, 6] }),
+  argTypes: docsArgTypes(docs, { questions: 'object', heading: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -27,13 +30,18 @@ export default {
 };
 
 export const Playground = {
-  args: { questions, heading: 'FAQ', headingLevel: 2 },
-  parameters: { docs: { source: playgroundSource('Faq', { imports: "import { Faq } from '@gaudi/design-system/mdx';" }) } },
+  args: { heading: 'Upgrading Gaudi', questions },
+  parameters: {
+    docs: {
+      description: { story: 'The FAQ that closes a migration post. Each question opens on its own, so readers can compare several answers.' },
+      source: playgroundSource('Faq', { imports: "import { Faq } from '@gaudi/design-system/mdx';" })
+    }
+  },
   render: (args) => <Faq {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const [first, second] = args.questions.map(({ question }) => canvas.getByRole('button', { name: question }));
-    await expect(canvas.getByRole('heading', { name: args.heading, level: args.headingLevel })).toBeVisible();
+    await expect(canvas.getByRole('heading', { name: args.heading, level: 2 })).toBeVisible();
     await userEvent.click(first);
     await userEvent.click(second);
     await expect(first).toHaveAttribute('aria-expanded', 'true');
