@@ -8,6 +8,7 @@ export function previewSource(component, args, {imports = '', attributes = [], c
   const body = children ?? (typeof childArg === 'string' ? `  ${childArg}` : undefined);
   const serialized = Object.entries(props).filter(([, value]) => value !== undefined && typeof value !== 'function').map(([name, value]) => {
     if (value && typeof value === 'object' && '$$typeof' in value) return null;
+    if (typeof value === 'string' && !/['"\\\n]/.test(value)) return `  ${name}='${value}'`;
     return `  ${name}={${JSON.stringify(value)}}`;
   }).filter(Boolean);
   const lines = [...attributes.map((attribute) => `  ${attribute}`), ...serialized];

@@ -42,6 +42,13 @@ export const Playground = {
 };
 ```
 
+- `Playground` is the richest example on the page, not a bare instance. Show a realistic composition that
+  mixes options at once: several items, variants, or states side by side, with real content (icons, media,
+  metadata, actions). See `Core/Attachment`: an upload queue with a settled photo, a failed file, and a
+  file driven by the controls.
+- Every control must visibly change the preview. If a prop only sets an attribute or class the styling
+  barely uses, render what that value means (the media, status text, and actions for `state`) or drop the
+  control. Pick defaults that show the component at its most expressive.
 - `Playground` comes first, renders from `args`, and its scalar args become the preview controls.
   Controls use `docsArgTypes`, so descriptions, types, and defaults come from the authored props reference.
   Grouped rows (`min / max / step`) and part rows (`ResizableHandle.withHandle`) resolve per prop.
