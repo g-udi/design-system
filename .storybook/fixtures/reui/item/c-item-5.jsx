@@ -22,7 +22,7 @@ export function Pattern() {
           <ItemMedia>
             <Avatar>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+                src='https://randomuser.me/api/portraits/men/32.jpg'
                 alt='Sarah Chen'
               />
               <AvatarFallback>SC</AvatarFallback>
@@ -42,7 +42,7 @@ export function Pattern() {
           <ItemMedia>
             <Avatar>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/men/32.jpg'
+                src='static/images/art/10.svg'
                 alt='Alex Johnson'
               />
               <AvatarFallback>AJ</AvatarFallback>
@@ -62,7 +62,7 @@ export function Pattern() {
           <ItemMedia>
             <Avatar>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80'
+                src='static/images/art/5.svg'
                 alt='David Kim'
               />
               <AvatarFallback>DK</AvatarFallback>

@@ -138,7 +138,7 @@ export function Pattern() {
         <MessageScrollerProvider scrollPreviousItemPeek={64} scrollMargin={16}>
           <MessageScroller>
             <MessageScrollerViewport aria-label='Release notes thread'>
-              <MessageScrollerContent className='gap-5 p-(--card-spacing)'>
+              <MessageScrollerContent className='gap-4 p-(--card-spacing)'>
                 {turns.map((turn) => {
                   const isUser = turn.role === 'user';
                   return (

@@ -50,7 +50,7 @@ export const FieldDescription = ({ children, className, id }) => {
   }, [ setHasDescription ]);
 
   return (
-    <p id={ id || context?.descriptionId } className={ cn('text-sm leading-6 text-gray-500 dark:text-gray-400', className) }>{children}</p>
+    <p id={ id || context?.descriptionId } className={ cn('text-sm leading-5 text-gray-500 dark:text-gray-400', className) }>{children}</p>
   );
 };
 

@@ -75,7 +75,7 @@ function AutomationIllustration() {
 export function Pattern() {
   return (
     <div className='flex items-center justify-center p-4'>
-      <Empty className='py-12'>
+      <Empty className='py-8'>
         <EmptyHeader>
           <EmptyMedia>
             <AutomationIllustration />

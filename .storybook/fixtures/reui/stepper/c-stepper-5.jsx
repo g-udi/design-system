@@ -16,7 +16,7 @@ const steps = [{ title: 'Step 1' }, { title: 'Step 2' }, { title: 'Step 3' }];
 export function Pattern() {
   return (
     <Stepper
-      className='w-full max-w-md space-y-8'
+      className='w-full max-w-md space-y-6'
       defaultValue={2}
       indicators={{
         completed: <RegistryIcon lucide='CheckIcon' className='size-3.5' />,

@@ -18,7 +18,7 @@ const activities = [
   {
     name: 'Sarah Chen',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     action: 'deployed',
     target: 'v2.4.1 to production',
     badge: 'success-light',
@@ -27,7 +27,7 @@ const activities = [
   {
     name: 'Marcus Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'static/images/art/10.svg',
     action: 'merged',
     target: 'feat/dark-mode into main',
     badge: 'info-light',
@@ -36,7 +36,7 @@ const activities = [
   {
     name: 'Emily Park',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     action: 'opened',
     target: 'issue #284: Fix mobile nav',
     badge: 'warning-light',

@@ -14,35 +14,35 @@ const SHOTS = [
     id: 'gradient',
     name: 'brand-gradient.png',
     dimensions: '2400 x 1600',
-    src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=120&h=120&dpr=2&q=80',
+    src: 'static/images/art/0.svg',
     alt: 'Purple and orange gradient artwork'
   },
   {
     id: 'mesh',
     name: 'mesh-backdrop.png',
     dimensions: '1800 x 1200',
-    src: 'https://images.unsplash.com/photo-1620121692029-d088224ddc74?w=120&h=120&dpr=2&q=80',
+    src: 'static/images/art/7.svg',
     alt: 'Blue and violet mesh render'
   },
   {
     id: 'spectrum',
     name: 'spectrum-wash.jpg',
     dimensions: '3000 x 2000',
-    src: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=120&h=120&dpr=2&q=80',
+    src: 'static/images/art/5.svg',
     alt: 'Soft rainbow spectrum wash'
   },
   {
     id: 'waves',
     name: 'wave-pattern.png',
     dimensions: '1200 x 1200',
-    src: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=120&h=120&dpr=2&q=80',
+    src: 'static/images/art/1.svg',
     alt: 'Magenta and violet wave pattern'
   },
   {
     id: 'ink',
     name: 'ink-render.png',
     dimensions: '2000 x 1400',
-    src: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=120&h=120&dpr=2&q=80',
+    src: 'static/images/art/10.svg',
     alt: 'Colourful ink dispersing in water'
   }
 ];

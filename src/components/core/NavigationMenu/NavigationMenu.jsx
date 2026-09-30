@@ -24,18 +24,18 @@ export const NavigationMenuLink = ({ active = false, children, className, descri
       className={ cn(
         'group/nav-link transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
         variant === 'link' && [
-          'inline-flex items-center rounded-lg px-3 py-2 text-sm font-medium',
+          'inline-flex min-h-8 items-center rounded-lg px-3 py-1.5 text-sm font-medium pointer-coarse:min-h-11',
           'text-gray-900 hover:bg-gray-100 hover:text-blue-600',
           'dark:text-gray-100 dark:hover:bg-gray-800 dark:hover:text-blue-400'
         ],
-        variant === 'panel' && 'block rounded-xl p-3 text-left hover:bg-gray-50 dark:hover:bg-gray-900',
+        variant === 'panel' && 'block rounded-xl px-3 py-2 text-left hover:bg-gray-50 dark:hover:bg-gray-900',
         active && variant === 'link' && 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300',
         className
       ) }
     >
       <span className={ cn(variant === 'panel' && 'block text-sm font-medium text-gray-950 group-hover/nav-link:text-blue-600 dark:text-gray-100 dark:group-hover/nav-link:text-blue-400') }>{children}</span>
-      {description ? <span className='mt-1 block text-sm leading-6 text-gray-600 dark:text-gray-400'>{description}</span> : null}
-      {meta ? <span className='mt-2 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400'>{meta}</span> : null}
+      {description ? <span className='mt-0.5 block text-xs leading-5 text-gray-600 dark:text-gray-400'>{description}</span> : null}
+      {meta ? <span className='mt-1 block text-xs font-medium uppercase text-gray-500 dark:text-gray-400'>{meta}</span> : null}
     </Link>
   );
 
@@ -127,7 +127,7 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
         ref={ triggerRef }
         type='button'
         className={ cn(
-          'inline-flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
+          'inline-flex min-h-8 items-center gap-1 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors pointer-coarse:min-h-11 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
           'text-gray-900 hover:bg-gray-100 hover:text-blue-600 dark:text-gray-100 dark:hover:bg-gray-800 dark:hover:text-blue-400',
           open && 'bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300'
         ) }
@@ -146,7 +146,7 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
           id={ dropdownId }
           style={ { left: panelLeft } }
           className={ cn(
-            'absolute top-full mt-3 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-3 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:shadow-black/40 dark:ring-white/10', width === 'sm' && 'w-64', width === 'md' && 'w-80', width === 'lg' && 'w-[28rem]', width === 'xl' && 'w-[36rem]', panelClassName
+            'absolute top-full mt-2 max-w-[calc(100vw-2rem)] rounded-2xl border border-gray-200 bg-white p-2 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:shadow-black/40 dark:ring-white/10', width === 'sm' && 'w-64', width === 'md' && 'w-80', width === 'lg' && 'w-[28rem]', width === 'xl' && 'w-[36rem]', panelClassName
           ) }
         >
           {children}
@@ -159,7 +159,7 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
 export const NavigationMenuPanel = ({ children, className, columns = 2 }) => (
   <div
     className={ cn(
-      'grid gap-2', columns === 1 && 'grid-cols-1', columns === 2 && 'grid-cols-1 sm:grid-cols-2', columns === 3 && 'grid-cols-1 sm:grid-cols-3', className
+      'grid gap-1', columns === 1 && 'grid-cols-1', columns === 2 && 'grid-cols-1 sm:grid-cols-2', columns === 3 && 'grid-cols-1 sm:grid-cols-3', className
     ) }
   >
     {children}

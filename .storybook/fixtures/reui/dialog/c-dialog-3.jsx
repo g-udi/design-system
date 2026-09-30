@@ -24,7 +24,7 @@ export function Pattern() {
               This is a dialog with scrollable content.
             </DialogDescription>
           </DialogHeader>
-          <div className='-mx-4 px-4 no-scrollbar max-h-[70vh] overflow-y-auto'>
+          <div className='-mx-3 px-3 no-scrollbar max-h-[70vh] overflow-y-auto'>
             {Array.from({ length: 10 }).map((_, index) => (
               <p key={index} className='mb-4 leading-normal'>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do

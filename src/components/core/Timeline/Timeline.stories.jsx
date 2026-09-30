@@ -90,7 +90,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <section className='mx-auto grid max-w-lg gap-4'>
+    <section className='mx-auto grid max-w-lg gap-3'>
       <div className='flex items-center justify-between gap-2'>
         <h3 className='text-base font-semibold'>{args.label}</h3>
         <span className='text-xs text-text-muted'>{events.length} events</span>

@@ -11,7 +11,7 @@ import {
 } from '../../../../src/components/core/Message/parts/message.jsx';
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-7'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
       <Message>
         <MessageContent>
           {/*

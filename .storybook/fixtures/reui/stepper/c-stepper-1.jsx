@@ -13,7 +13,7 @@ import {
 const steps = [1, 2, 3, 4];
 export function Pattern() {
   return (
-    <Stepper defaultValue={2} className='w-full max-w-md space-y-8'>
+    <Stepper defaultValue={2} className='w-full max-w-md space-y-6'>
       <StepperNav>
         {steps.map((step) => (
           <StepperItem key={step} step={step}>

@@ -16,7 +16,7 @@ export function Pattern() {
   return (
     <div className='flex items-center justify-center'>
       <Stepper
-        className='flex flex-col items-center justify-center gap-10'
+        className='flex flex-col items-center justify-center gap-6'
         defaultValue={2}
         orientation='vertical'
         indicators={{

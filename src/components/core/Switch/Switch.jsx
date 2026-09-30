@@ -7,13 +7,13 @@ import { cn } from '../../../utilities/cn';
 const switchSizes = {
   'lg': {
     'label': 'text-sm',
-    'root': 'gap-3',
+    'root': 'gap-2.5',
     'thumb': 'size-5 data-[checked=true]:translate-x-5',
     'track': 'h-7 w-12 p-1'
   },
   'md': {
     'label': 'text-sm',
-    'root': 'gap-2.5',
+    'root': 'gap-2',
     'thumb': 'size-4 data-[checked=true]:translate-x-5',
     'track': 'h-6 w-11 p-1'
   },

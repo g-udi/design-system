@@ -21,7 +21,7 @@ const activities = [
   {
     user: 'Sarah Chen',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     action: 'Deployed',
     target: 'production',
     badge: 'success',
@@ -30,7 +30,7 @@ const activities = [
   {
     user: 'Marcus Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'https://randomuser.me/api/portraits/women/44.jpg',
     action: 'Merged',
     target: 'feat/auth-flow',
     badge: 'info',
@@ -39,7 +39,7 @@ const activities = [
   {
     user: 'Emily Park',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     action: 'Commented',
     target: 'PR #284',
     badge: 'outline',
@@ -48,7 +48,7 @@ const activities = [
   {
     user: 'David Kim',
     avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     action: 'Reverted',
     target: 'hotfix/api-crash',
     badge: 'destructive',
@@ -57,7 +57,7 @@ const activities = [
   {
     user: 'Sofia Davis',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      'static/images/art/7.svg',
     action: 'Created',
     target: 'issue #512',
     badge: 'secondary',

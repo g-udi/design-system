@@ -94,7 +94,7 @@ export function Pattern() {
         <MessageScrollerProvider defaultScrollPosition={position}>
           <MessageScroller>
             <MessageScrollerViewport aria-label='Saved thread transcript'>
-              <MessageScrollerContent className='gap-5 p-(--card-spacing)'>
+              <MessageScrollerContent className='gap-4 p-(--card-spacing)'>
                 {/*
                  * The day divider gives the start position something to land
                  * on. Without a leading row, start and the first turn resolve

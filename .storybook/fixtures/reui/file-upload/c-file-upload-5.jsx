@@ -32,14 +32,14 @@ export function Pattern({
       name: 'image-1.png',
       size: 42048,
       type: 'image/png',
-      url: 'https://picsum.photos/1000/800?grayscale&random=10'
+      url: 'static/images/art/0.svg'
     },
     {
       id: 'default-4',
       name: 'image-2.png',
       size: 62807,
       type: 'image/png',
-      url: 'https://picsum.photos/1000/800?grayscale&random=11'
+      url: 'static/images/art/4.svg'
     }
   ];
   const defaultUploadFiles = defaultImages.map((image) => ({

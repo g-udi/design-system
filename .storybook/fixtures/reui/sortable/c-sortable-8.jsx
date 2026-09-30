@@ -42,7 +42,7 @@ export function Pattern() {
     });
   };
   return (
-    <div className='mx-auto w-full max-w-xl p-6'>
+    <div className='mx-auto w-full max-w-xl'>
       <Sortable
         value={items}
         onValueChange={setItems}
@@ -53,7 +53,7 @@ export function Pattern() {
       >
         {items.map((item, index) => (
           <SortableItem key={item.id} value={item.id}>
-            <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border p-3'>
+            <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border px-3 py-2'>
               <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
                 <RegistryIcon lucide='GripVerticalIcon' className='h-4 w-4' />
               </SortableItemHandle>

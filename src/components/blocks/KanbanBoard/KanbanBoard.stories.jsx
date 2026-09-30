@@ -24,7 +24,7 @@ const initialItems = [
   { id: 'k5', title: 'A practical guide to knowledge graphs', columnId: 'Published', priority: 'Medium', category: 'Engineering', assignee: 'Maya Chen', tone: 'indigo', due: '4.2k reads' }
 ];
 const renderItem = (item) => (
-  <div className='grid min-w-0 gap-2'>
+  <div className='grid min-w-0 gap-1.5'>
     <div className='flex flex-wrap gap-1'>
       <Pill size='xs' {...priorities[item.priority]}>{item.priority}</Pill>
       <Pill size='xs' variant='outline' tone='gray'>{item.category}</Pill>
@@ -32,7 +32,7 @@ const renderItem = (item) => (
     <p className='ds-label'>{item.title}</p>
     <div className='flex items-center gap-2'>
       <Avatar name={item.assignee} size='2xs' tone={item.tone} />
-      <span className='ds-description'>{item.assignee} · {item.due}</span>
+      <span className='ds-description text-xs'>{item.assignee} · {item.due}</span>
     </div>
   </div>
 );

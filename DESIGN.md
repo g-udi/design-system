@@ -164,6 +164,19 @@ The palette is a cool editorial neutral base with blue as the primary action and
 
 Layouts are responsive, centered, and content-led. Components use Tailwind spacing conventions, with tight internal grouping and clear separation between sections. Navigation and tool surfaces favor scanable density over large marketing-style composition. Horizontal overflow is reserved for data tables and code-like surfaces that deliberately provide scroll containment.
 
+### Density
+
+Gaudi uses compact application density, in the range of reui.io and the Mav9 system.
+
+- **Controls** keep their heights: 24, 28, 32 and 36px (xs, sm, md, lg).
+- **Container inset**: 12px for cards, panels, popovers and dialogs (8px at the small size; 16px only for page-level or modal hero content).
+- **Row padding**: 8 to 10px vertically for list rows, accordion triggers, table cells and menu items (32px menu items, about 40px single-line list rows, about 56px rows with a title and description).
+- **Gaps**: 8px between related items, 12px between groups, 16 to 24px between sections.
+- **Text**: interface text is 14px (`text-sm`); supporting text is 12px (`text-xs`). Article components keep the reading scale.
+
+### Named Rules
+**The Compact Rule.** Size spacing to the content, not to fill the frame. Reach for the density scale before adding padding, and never pad a container to make it look substantial.
+
 ## Elevation & Depth
 
 Gaudi is flat by default with modest structural elevation. Borders define most surfaces; shadows appear for cards, popovers, command launchers, dialogs, and hover states where depth communicates layer or interaction.

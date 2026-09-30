@@ -26,7 +26,7 @@ function PublishingChecklist({ onCheckedChange, ...featured }) {
     if (label === featured.label) onCheckedChange?.(checked);
   };
   return (
-    <fieldset className='mx-auto grid w-full max-w-xs gap-3'>
+    <fieldset className='mx-auto grid w-full max-w-xs gap-2'>
       <legend className='flex w-full items-baseline justify-between gap-4 pb-1 text-sm font-semibold text-ui-foreground'>
         Before you publish
         <span className='text-xs font-normal text-ui-muted-foreground'>{doneLabel(Object.values(done).filter(Boolean).length, tasks.length)}</span>
@@ -57,7 +57,7 @@ export const Playground = {
       description: { story: 'A publishing checklist with done, open, locked, and blocked tasks and a live count. The topic task follows the controls; clicking any open task updates the count.' },
       source: playgroundSource('Checkbox', {
         imports: "import { Checkbox } from '@gaudi/design-system';",
-        before: `<fieldset className='grid gap-3'>\n<legend>Before you publish</legend>\n${checklist.slice(0, 2).map(taskSource).join('')}`,
+        before: `<fieldset className='grid gap-2'>\n<legend>Before you publish</legend>\n${checklist.slice(0, 2).map(taskSource).join('')}`,
         after: `\n${checklist.slice(2).map(taskSource).join('')}</fieldset>`
       })
     }

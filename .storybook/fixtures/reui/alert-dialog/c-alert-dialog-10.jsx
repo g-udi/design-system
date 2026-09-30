@@ -51,9 +51,9 @@ export function Pattern() {
           ))}
         </div>
 
-        {/* The footer's built-in `-mx-4 -mb-4` cancels the content's DEFAULT
-       `p-4`. This dialog uses `p-8`, so the breakout has to match it -
-       otherwise the bar (and its top border) stops 1rem short on each
+        {/* The footer's built-in `-mx-3 -mb-3` cancels the content's DEFAULT
+       `p-3`. This dialog uses `p-8`, so the breakout has to match it -
+       otherwise the bar (and its top border) stops 1.25rem short on each
        side. `px-8` keeps the button aligned with the body above. */}
         <DialogConfirmationFooter className='-mx-8 -mb-8 px-8'>
           <DialogConfirmationCancel

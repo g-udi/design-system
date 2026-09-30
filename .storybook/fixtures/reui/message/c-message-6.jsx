@@ -17,7 +17,7 @@ import {
 } from '../../../../src/components/core/Message/parts/message.jsx';
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-6'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
       {/*
       The gap inside a run belongs to MessageGroup and the gap between runs
       to this column, so the two can differ per style with nothing hardcoded.

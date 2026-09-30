@@ -31,7 +31,7 @@ export function Pattern() {
                 Set your daily activity goal.
               </DrawerDescription>
             </DrawerHeader>
-            <div className='no-scrollbar overflow-y-auto px-4'>
+            <div className='no-scrollbar overflow-y-auto px-3'>
               {Array.from({ length: 10 }).map((_, index) => (
                 <p key={index} className='mb-4 leading-normal'>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

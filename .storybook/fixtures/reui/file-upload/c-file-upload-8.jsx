@@ -36,31 +36,31 @@ export function Pattern({
   const [allImages, setAllImages] = useState([
     {
       id: 'default-1',
-      src: 'https://picsum.photos/1000/800?grayscale&random=6',
+      src: 'static/images/art/2.svg',
       alt: 'Product view 1',
       type: 'default'
     },
     {
       id: 'default-2',
-      src: 'https://picsum.photos/1000/800?grayscale&random=7',
+      src: 'static/images/art/6.svg',
       alt: 'Product view 2',
       type: 'default'
     },
     {
       id: 'default-3',
-      src: 'https://picsum.photos/1000/800?grayscale&random=8',
+      src: 'static/images/art/7.svg',
       alt: 'Product view 3',
       type: 'default'
     },
     {
       id: 'default-4',
-      src: 'https://picsum.photos/1000/800?grayscale&random=9',
+      src: 'static/images/art/9.svg',
       alt: 'Product view 4',
       type: 'default'
     },
     {
       id: 'default-5',
-      src: 'https://picsum.photos/1000/800?grayscale&random=10',
+      src: 'static/images/art/0.svg',
       alt: 'Product view 5',
       type: 'default'
     }

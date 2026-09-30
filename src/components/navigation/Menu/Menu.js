@@ -81,14 +81,14 @@ const Menu = ({
     return () => desktopQuery.removeEventListener('change', closeOnDesktop);
   }, []);
 
-  return (<nav aria-label='Main navigation' className='flex min-h-16 items-center justify-between gap-5 py-5 lg:py-6'>
+  return (<nav aria-label='Main navigation' className='flex min-h-14 items-center justify-between gap-4 py-3 lg:py-4'>
 
     <Link href='/' aria-label={ metadata.author.name || metadata.title || 'Home' } variant='bare' className='shrink-0 text-gray-950 dark:text-white'>
       <ThemeLogo />
     </Link>
 
     <div className='flex min-w-0 items-center gap-3 lg:gap-5'>
-      <ul className='hidden items-center gap-5 lg:flex xl:gap-7'>
+      <ul className='hidden items-center gap-4 lg:flex xl:gap-6'>
         {navigation.links.map((link) => {
           if (!shouldShowLink(link)) return null;
 
@@ -99,7 +99,7 @@ const Menu = ({
               <Link
                 href={ link.href }
                 aria-current={ isActive ? 'page' : undefined }
-                className={ `inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-1.5 py-2 text-sm font-medium ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}` }
+                className={ `inline-flex min-h-9 items-center whitespace-nowrap rounded-md px-1.5 py-1.5 text-sm font-medium pointer-coarse:min-h-11 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}` }
               >
                 {link.title}
               </Link>

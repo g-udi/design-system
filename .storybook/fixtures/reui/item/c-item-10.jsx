@@ -51,21 +51,21 @@ export function Pattern() {
           <AvatarGroup>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+                src='https://randomuser.me/api/portraits/men/32.jpg'
                 alt='SC'
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/men/32.jpg'
+                src='static/images/art/10.svg'
                 alt='AJ'
               />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80'
+                src='static/images/art/1.svg'
                 alt='EP'
               />
               <AvatarFallback>EP</AvatarFallback>

@@ -68,7 +68,7 @@ function Collection({ query: initialQuery = '', ...props }) {
             <li key={row.id} className='flex items-center justify-between gap-3 py-2'>
               <div className='min-w-0'>
                 <p className='ds-label truncate'>{row.title}</p>
-                <p className='ds-description'>{row.author} · {row.category} · {row.updated}</p>
+                <p className='ds-description text-xs'>{row.author} · {row.category} · {row.updated}</p>
               </div>
               <Pill size='sm' variant='soft' tone={statusTone[row.status]}>{row.status}</Pill>
             </li>

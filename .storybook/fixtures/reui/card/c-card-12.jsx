@@ -35,7 +35,7 @@ export function Pattern() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form onSubmit={(e) => e.preventDefault()} className='grid gap-6'>
+        <form onSubmit={(e) => e.preventDefault()} className='grid gap-4'>
           <FieldGroup>
             <Field>
               <FieldLabel htmlFor='email-12'>Email address</FieldLabel>
@@ -79,7 +79,7 @@ export function Pattern() {
               </InputGroup>
             </Field>
           </FieldGroup>
-          <div className='flex flex-col gap-6'>
+          <div className='flex flex-col gap-4'>
             <Button type='submit' className='w-full'>
               Sign in
             </Button>

@@ -41,7 +41,7 @@ const teamMembers = [
     value: 'shuhrat-saipov',
     label: 'Shuhrat Saipov',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     initials: 'SS',
     isCurrentUser: true
   },
@@ -51,7 +51,7 @@ const teamMembers = [
     value: 'nadia-karimova',
     label: 'Nadia Karimova',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'static/images/art/7.svg',
     initials: 'NK'
   },
   {
@@ -60,7 +60,7 @@ const teamMembers = [
     value: 'bekzod-rakhimov',
     label: 'Bekzod Rakhimov',
     avatar:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'BR'
   },
   {
@@ -69,7 +69,7 @@ const teamMembers = [
     value: 'lina-bauer',
     label: 'Lina Bauer',
     avatar:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&dpr=2&q=80',
+      'static/images/art/8.svg',
     initials: 'LB'
   },
   {
@@ -78,7 +78,7 @@ const teamMembers = [
     value: 'omar-haddad',
     label: 'Omar Haddad',
     avatar:
-      'https://images.unsplash.com/photo-1504593811423-6dd665756598?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'OH'
   },
   {
@@ -87,7 +87,7 @@ const teamMembers = [
     value: 'priya-nand',
     label: 'Priya Nand',
     avatar:
-      'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     initials: 'PN'
   },
   {
@@ -96,7 +96,7 @@ const teamMembers = [
     value: 'kenji-watan',
     label: 'Kenji Watan',
     avatar:
-      'https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=96&h=96&dpr=2&q=80',
+      'static/images/art/10.svg',
     initials: 'KW'
   },
   {
@@ -105,7 +105,7 @@ const teamMembers = [
     value: 'ava-sinclair',
     label: 'Ava Sinclair',
     avatar:
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&h=96&dpr=2&q=80',
+      'static/images/art/6.svg',
     initials: 'AS'
   },
   {
@@ -114,7 +114,7 @@ const teamMembers = [
     value: 'nia-okafor',
     label: 'Nia Okafor',
     avatar:
-      'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     initials: 'NO'
   },
   {
@@ -123,7 +123,7 @@ const teamMembers = [
     value: 'matteo-sosa',
     label: 'Matteo Sosa',
     avatar:
-      'https://images.unsplash.com/photo-1506795660185-2f0c6a1c7f6c?w=96&h=96&dpr=2&q=80',
+      'static/images/art/10.svg',
     initials: 'MS'
   },
   {
@@ -132,7 +132,7 @@ const teamMembers = [
     value: 'salma-rahman',
     label: 'Salma Rahman',
     avatar:
-      'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'SR'
   },
   {
@@ -141,7 +141,7 @@ const teamMembers = [
     value: 'jonas-meyer',
     label: 'Jonas Meyer',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     initials: 'JM'
   }
 ];

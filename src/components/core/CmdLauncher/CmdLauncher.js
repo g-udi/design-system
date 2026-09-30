@@ -68,8 +68,8 @@ const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subt
   const showSubtitle = config.showSubtitle && resolvedSubtitle;
 
   return (
-    <div className={ `group flex w-full items-center gap-3 rounded-lg px-4 ${showSubtitle && !inlineMetadata ? 'py-2.5' : 'py-3'}` }>
-      {icon ? <Icon name={ icon } decorative size='md' className='text-gray-600 dark:text-gray-300' /> : null}
+    <div className='group flex w-full items-center gap-2.5 rounded-lg px-3 py-2'>
+      {icon ? <Icon name={ icon } decorative size='sm' className='text-gray-600 dark:text-gray-300' /> : null}
       {inlineMetadata ? (
         <>
           <div className='min-w-0 flex-1 truncate text-sm font-medium text-gray-950 dark:text-gray-100'>{title || children}</div>
@@ -243,7 +243,7 @@ const SocialPage = ({ items = [], page, search, setPage }) => {
 };
 
 const NoResults = ({ search }) => (
-  <div className='flex items-center gap-2.5 p-4 text-sm text-gray-500 dark:text-gray-400'>
+  <div className='flex items-center gap-2 px-3 py-3 text-sm text-gray-500 dark:text-gray-400'>
     <Icon name='FaceIdError' decorative size='sm' />
     <span>No results for “{search}”.</span>
   </div>

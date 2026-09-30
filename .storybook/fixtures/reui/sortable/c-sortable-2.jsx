@@ -122,7 +122,7 @@ export function Pattern() {
   };
   const getItemValue = (item) => item.id;
   return (
-    <div className='mx-auto w-full max-w-2xl space-y-6 p-4'>
+    <div className='mx-auto w-full max-w-2xl space-y-4'>
       <Sortable
         value={items}
         onValueChange={handleValueChange}

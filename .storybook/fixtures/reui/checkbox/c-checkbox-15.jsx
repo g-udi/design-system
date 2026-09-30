@@ -19,7 +19,7 @@ export function Pattern() {
           <FieldTitle className='flex items-center gap-2'>
             <Avatar>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&h=150&auto=format&fit=crop'
+                src='static/images/art/3.svg'
                 alt='Emma Wilson'
               />
               <AvatarFallback>EW</AvatarFallback>

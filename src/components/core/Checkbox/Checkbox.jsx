@@ -20,7 +20,7 @@ const Checkbox = ({ checked, className, defaultChecked = false, disabled = false
   };
 
   return (
-    <span className={ cn('inline-flex items-center gap-3', className) }>
+    <span className={ cn('inline-flex items-center gap-2', className) }>
       <button
         id={ checkboxId }
         type='button'

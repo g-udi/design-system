@@ -30,7 +30,7 @@ export function Pattern() {
           />
         )
       }}
-      className='w-full max-w-lg space-y-8'
+      className='w-full max-w-lg space-y-6'
     >
       <StepperNav className='gap-3'>
         {steps.map((step, index) => (

@@ -133,7 +133,7 @@ const demoData = [
     id: '11',
     name: 'Olivia Martinez',
     avatar:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     role: 'VP of Sales',
     status: 'Active',
     balance: 11234.56
@@ -142,7 +142,7 @@ const demoData = [
     id: '12',
     name: 'Ethan Park',
     avatar:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     role: 'DevOps Lead',
     status: 'Active',
     balance: 8910.33
@@ -151,7 +151,7 @@ const demoData = [
     id: '13',
     name: 'Sophie Taylor',
     avatar:
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=96&h=96&dpr=2&q=80',
+      'static/images/art/6.svg',
     role: 'UX Researcher',
     status: 'Pending',
     balance: 6543.21
@@ -160,7 +160,7 @@ const demoData = [
     id: '14',
     name: 'Ryan Mitchell',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     role: 'Architect',
     status: 'Inactive',
     balance: 7821.44
@@ -169,7 +169,7 @@ const demoData = [
     id: '15',
     name: 'Isabella Wong',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     role: 'QA Manager',
     status: 'Active',
     balance: 5678.9

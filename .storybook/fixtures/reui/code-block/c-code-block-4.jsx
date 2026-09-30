@@ -47,7 +47,7 @@ export function Pattern() {
         <div className='flex gap-3'>
           <Avatar className='size-7 shrink-0 rounded-full'>
             <AvatarImage
-              src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+              src='static/images/art/7.svg'
               alt='Mira Stone'
             />
             <AvatarFallback className='text-xs font-medium'>

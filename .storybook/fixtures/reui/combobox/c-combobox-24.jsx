@@ -40,7 +40,7 @@ const teamMembers = [
     value: 'alex-morgan',
     label: 'Alex Morgan',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     initials: 'AM',
     isCurrentUser: true
   },
@@ -49,7 +49,7 @@ const teamMembers = [
     value: 'emma-carter',
     label: 'Emma Carter',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'static/images/art/7.svg',
     initials: 'EC'
   },
   {
@@ -63,7 +63,7 @@ const teamMembers = [
     value: 'olivia-bennett',
     label: 'Olivia Bennett',
     avatar:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&dpr=2&q=80',
+      'static/images/art/8.svg',
     initials: 'OB'
   },
   {
@@ -71,7 +71,7 @@ const teamMembers = [
     value: 'ethan-brooks',
     label: 'Ethan Brooks',
     avatar:
-      'https://images.unsplash.com/photo-1504593811423-6dd665756598?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'EB'
   },
   {
@@ -79,7 +79,7 @@ const teamMembers = [
     value: 'sophia-reed',
     label: 'Sophia Reed',
     avatar:
-      'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     initials: 'SR'
   },
   {
@@ -87,7 +87,7 @@ const teamMembers = [
     value: 'lucas-hayes',
     label: 'Lucas Hayes',
     avatar:
-      'https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=96&h=96&dpr=2&q=80',
+      'static/images/art/10.svg',
     initials: 'LH'
   },
   {
@@ -101,7 +101,7 @@ const teamMembers = [
     value: 'mia-parker',
     label: 'Mia Parker',
     avatar:
-      'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     initials: 'MP'
   },
   {
@@ -109,7 +109,7 @@ const teamMembers = [
     value: 'noah-foster',
     label: 'Noah Foster',
     avatar:
-      'https://images.unsplash.com/photo-1506795660185-2f0c6a1c7f6c?w=96&h=96&dpr=2&q=80',
+      'static/images/art/10.svg',
     initials: 'NF'
   },
   {
@@ -123,7 +123,7 @@ const teamMembers = [
     value: 'jack-turner',
     label: 'Jack Turner',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     initials: 'JT'
   }
 ];

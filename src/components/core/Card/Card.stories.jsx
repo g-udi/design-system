@@ -13,18 +13,18 @@ const variants = ['elevated', 'outline', 'soft', 'flat'];
 const paddings = ['none', 'sm', 'md', 'lg'];
 const subtitle = 'Reusable content frame with a title, description, and optional actions.';
 const heading = (canvas, name, level = 3) => canvas.getByRole('heading', { level, name });
-const Grid = ({ children }) => <div className='grid gap-4 sm:grid-cols-2'>{children}</div>;
+const Grid = ({ children }) => <div className='grid gap-3 sm:grid-cols-2'>{children}</div>;
 
 // A dashboard pair: the article card takes the text controls; both cards share the surface, padding and radius.
 const author = { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' };
 const metric = { title: 'Weekly readers', value: '12.4k', trend: '+18% on last week', progress: 72, goal: '72% of the 17k goal' };
 const cardRoot = (canvas, name) => heading(canvas, name).closest('[class*="border"]');
 const articleChildren = [
-  "  <div className='mt-4 flex items-center gap-2 text-xs text-ui-muted-foreground'>",
+  "  <div className='mt-3 flex items-center gap-2 text-xs text-ui-muted-foreground'>",
   "    <Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' size='sm' shape='circle' />",
   '    <span>Maya Chen · 6 min read</span>',
   '  </div>',
-  "  <div className='mt-4 flex items-center gap-2'>",
+  "  <div className='mt-3 flex items-center gap-2'>",
   "    <Button href='/blog' size='sm'>Read article</Button>",
   "    <Button variant='ghost' tone='neutral' size='icon-sm' aria-label='Save for later'>",
   "      <RegistryIcon lucide='BookmarkIcon' aria-hidden='true' />",
@@ -67,11 +67,11 @@ export const Playground = {
   render: ({ title, subtitle, ...surface }) => (
     <Grid>
       <Card {...surface} title={title} subtitle={subtitle}>
-        <div className='mt-4 flex items-center gap-2 text-xs text-ui-muted-foreground'>
+        <div className='mt-3 flex items-center gap-2 text-xs text-ui-muted-foreground'>
           <Avatar {...author} size='sm' shape='circle' />
           <span>{author.name} · 6 min read</span>
         </div>
-        <div className='mt-4 flex items-center gap-2'>
+        <div className='mt-3 flex items-center gap-2'>
           <Button href='/blog' size='sm'>Read article</Button>
           <Button variant='ghost' tone='neutral' size='icon-sm' aria-label='Save for later'>
             <RegistryIcon lucide='BookmarkIcon' aria-hidden='true' />
@@ -79,9 +79,9 @@ export const Playground = {
         </div>
       </Card>
       <Card {...surface} title={metric.title}>
-        <p className='mt-3 text-3xl font-bold tabular-nums text-ui-foreground'>{metric.value}</p>
+        <p className='mt-2 text-3xl font-bold tabular-nums text-ui-foreground'>{metric.value}</p>
         <p className='mt-1 text-sm font-medium text-green-700 dark:text-green-400'>{metric.trend}</p>
-        <div className='mt-4 h-2 overflow-hidden rounded-control bg-ui-border' role='img' aria-label={metric.goal}>
+        <div className='mt-3 h-2 overflow-hidden rounded-control bg-ui-border' role='img' aria-label={metric.goal}>
           <div className='h-full rounded-control bg-accent' style={{ width: `${metric.progress}%` }} />
         </div>
         <p className='mt-2 text-xs text-ui-muted-foreground'>{metric.goal}</p>
@@ -115,7 +115,7 @@ export const Padding = {
     <Grid>
       {paddings.map((padding) => (
         <Card key={padding} padding={padding} title={padding} variant='outline'>
-          {padding === 'none' ? <p className='mt-3 border-t border-ui-border p-4 text-sm text-ui-muted-foreground'>Content supplies its own spacing.</p> : null}
+          {padding === 'none' ? <p className='mt-3 border-t border-ui-border p-3 text-sm text-ui-muted-foreground'>Content supplies its own spacing.</p> : null}
         </Card>
       ))}
     </Grid>

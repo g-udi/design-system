@@ -68,7 +68,7 @@ export function Pattern() {
           {channels.map((channel) => (
             <SortableItem key={channel.id} value={channel.id}>
               <FramePanel className='p-0!'>
-                <div className='flex items-center gap-3 px-3 py-2.5'>
+                <div className='flex items-center gap-3 px-3 py-2'>
                   <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon
                       lucide='GripVerticalIcon'

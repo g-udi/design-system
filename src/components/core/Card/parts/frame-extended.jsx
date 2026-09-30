@@ -3,14 +3,15 @@ import { cva } from 'class-variance-authority';
 import { cn } from '../../../../utilities/cn/index.js';
 const frameVariants = cva(
   [
-    'relative flex flex-col bg-ui-muted/50 gap-(--frame-gap) px-(--frame-px) py-(--frame-py) rounded-(--frame-radius)',
+    // The tray is a visible tint (text mixed into the surface) so panels read as inset, not double-bordered.
+    'relative flex flex-col bg-[color-mix(in_oklch,var(--ds-color-text)_4%,var(--ds-color-surface))] gap-(--frame-gap) px-(--frame-px) py-(--frame-py) rounded-(--frame-radius)',
     '[--frame-radius:var(--ds-radius-card)]',
     '[--frame-gap:--spacing(0.75)] [--frame-px:--spacing(0.75)] [--frame-py:--spacing(0.75)] [--frame-panel-header-gap:0rem] [--frame-panel-footer-gap:--spacing(1)]',
     '[--frame-panel-px-adjust:0px] [--frame-panel-py-adjust:0px] [--frame-panel-header-px-adjust:0px] [--frame-panel-header-py-adjust:0px] [--frame-panel-footer-px-adjust:0px] [--frame-panel-footer-py-adjust:0px]',
     '[--frame-panel-px:calc(var(--frame-panel-px-base)+var(--frame-panel-px-adjust))] [--frame-panel-py:calc(var(--frame-panel-py-base)+var(--frame-panel-py-adjust))] [--frame-panel-header-px:calc(var(--frame-panel-header-px-base)+var(--frame-panel-header-px-adjust))] [--frame-panel-header-py:calc(var(--frame-panel-header-py-base)+var(--frame-panel-header-py-adjust))] [--frame-panel-footer-px:calc(var(--frame-panel-footer-px-base)+var(--frame-panel-footer-px-adjust))] [--frame-panel-footer-py:calc(var(--frame-panel-footer-py-base)+var(--frame-panel-footer-py-adjust))]',
     // Luma alone re-times the frame: wider gap and padding, roomier bars.
     '',
-    '[--frame-panel-bg:var(--ds-color-surface)] [--frame-panel-border-color:var(--ds-color-border)] [--frame-border-color:var(--ds-color-border)]',
+    '[--frame-panel-bg:var(--ds-color-surface)] [--frame-panel-border-color:var(--ds-color-border)] [--frame-border-color:color-mix(in_oklch,var(--ds-color-border)_50%,transparent)]',
     // Insets and panel surfaces share the system's global corner token.
     '[--frame-panel-radius:var(--frame-radius)]'
   ],
@@ -23,16 +24,17 @@ const frameVariants = cva(
         ghost:
           '[--frame-panel-radius:var(--frame-radius)]'
       },
-      // Bars read as chrome, not a second content block: py runs 0.5/1.5/2/2.5
-      // against a body py of 2/3.5/4/5, while px stays level with the body so
+      // Compact density: the body inset runs 8/8/12/16px (xs/sm/default/lg).
+      // Bars read as chrome, not a second content block: py runs 0.5/1/1.5/2
+      // against that body inset, while px stays level with the body so
       // header, content and footer left-align. xs floors at 0.5 (2px), below
       // which it stops reading as padding. No style-*.css overrides these.
       spacing: {
         xs: '[--frame-panel-px-base:--spacing(2)] [--frame-panel-py-base:--spacing(2)] [--frame-panel-header-px-base:--spacing(2)] [--frame-panel-header-py-base:--spacing(0.5)] [--frame-panel-footer-px-base:--spacing(2)] [--frame-panel-footer-py-base:--spacing(0.5)]',
-        sm: '[--frame-panel-px-base:--spacing(3)] [--frame-panel-py-base:--spacing(3.5)] [--frame-panel-header-px-base:--spacing(3)] [--frame-panel-header-py-base:--spacing(1.5)] [--frame-panel-footer-px-base:--spacing(3)] [--frame-panel-footer-py-base:--spacing(1.5)]',
+        sm: '[--frame-panel-px-base:--spacing(2)] [--frame-panel-py-base:--spacing(2)] [--frame-panel-header-px-base:--spacing(2)] [--frame-panel-header-py-base:--spacing(1)] [--frame-panel-footer-px-base:--spacing(2)] [--frame-panel-footer-py-base:--spacing(1)]',
         default:
-          '[--frame-panel-px-base:--spacing(4)] [--frame-panel-py-base:--spacing(4)] [--frame-panel-header-px-base:--spacing(4)] [--frame-panel-header-py-base:--spacing(2)] [--frame-panel-footer-px-base:--spacing(4)] [--frame-panel-footer-py-base:--spacing(2)]',
-        lg: '[--frame-panel-px-base:--spacing(5)] [--frame-panel-py-base:--spacing(5)] [--frame-panel-header-px-base:--spacing(5)] [--frame-panel-header-py-base:--spacing(2.5)] [--frame-panel-footer-px-base:--spacing(5)] [--frame-panel-footer-py-base:--spacing(2.5)]'
+          '[--frame-panel-px-base:--spacing(3)] [--frame-panel-py-base:--spacing(3)] [--frame-panel-header-px-base:--spacing(3)] [--frame-panel-header-py-base:--spacing(1.5)] [--frame-panel-footer-px-base:--spacing(3)] [--frame-panel-footer-py-base:--spacing(1.5)]',
+        lg: '[--frame-panel-px-base:--spacing(4)] [--frame-panel-py-base:--spacing(4)] [--frame-panel-header-px-base:--spacing(4)] [--frame-panel-header-py-base:--spacing(2)] [--frame-panel-footer-px-base:--spacing(4)] [--frame-panel-footer-py-base:--spacing(2)]'
       },
       stacked: {
         true: [

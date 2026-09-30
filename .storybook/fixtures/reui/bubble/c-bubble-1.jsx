@@ -51,7 +51,7 @@ export function Pattern() {
       <CardHeader className='flex flex-row items-center gap-3 border-b'>
         <Avatar size='sm'>
           <AvatarImage
-            src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+            src='static/images/art/7.svg'
             alt='Lena Ortiz'
           />
           <AvatarFallback>LO</AvatarFallback>

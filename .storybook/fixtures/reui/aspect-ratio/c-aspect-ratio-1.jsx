@@ -8,7 +8,7 @@ export function Pattern() {
         className='bg-ui-muted rounded-xl overflow-hidden border'
       >
         <img
-          src='https://picsum.photos/1000/800?grayscale&random=1'
+          src='static/images/art/9.svg'
           alt='16:9'
           width={1e3}
           height={800}

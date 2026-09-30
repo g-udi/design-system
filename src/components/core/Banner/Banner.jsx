@@ -43,10 +43,10 @@ export const bannerVariants = createVariants({
   },
   'variants': {
     'size': {
-      'lg': 'px-6 py-3.5 sm:px-4',
-      'md': 'px-6 py-2.5 sm:px-3.5',
-      'sm': 'px-4 py-2',
-      'xs': 'px-3 py-1.5'
+      'lg': 'px-4 py-3',
+      'md': 'px-4 py-2 sm:px-3',
+      'sm': 'px-3 py-1.5',
+      'xs': 'px-2.5 py-1'
     },
     'tone': {
       'amber': '',
@@ -92,7 +92,7 @@ const Banner = ({ ariaLabel, children, className, classNames = {}, href, size, t
 
   return (
     <div className={ bannerVariants({ 'className': cn(className, classNames.root), size, tone, variant }) } role={ href ? undefined : 'status' }>
-      <p className={ cn('text-sm leading-6', solidForeground, classNames.body) }>
+      <p className={ cn('text-sm leading-5', solidForeground, classNames.body) }>
         {href ? (
           <Link href={ href } aria-label={ accessibleLabel } className={ cn('!text-current hover:!text-current', classNames.action) }>
             {content}

@@ -19,7 +19,7 @@ export function Pattern() {
     <Stepper
       value={currentStep}
       onValueChange={setCurrentStep}
-      className='w-full max-w-md space-y-8'
+      className='w-full max-w-md space-y-6'
     >
       <StepperNav>
         {steps.map((step) => (

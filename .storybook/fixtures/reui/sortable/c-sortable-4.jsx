@@ -85,7 +85,7 @@ export function Pattern() {
           {tracks.map((track, _index) => (
             <SortableItem key={track.id} value={track.id}>
               <FramePanel className='p-0!'>
-                <div className='group flex items-center gap-3 px-3 py-2.5'>
+                <div className='group flex items-center gap-3 px-3 py-2'>
                   <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon
                       lucide='GripVerticalIcon'

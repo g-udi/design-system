@@ -68,25 +68,25 @@ const OWNERS = [
     value: 'ada',
     label: 'Ada Lovelace',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+      'static/images/art/7.svg'
   },
   {
     value: 'grace',
     label: 'Grace Hopper',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80'
+      'static/images/art/1.svg'
   },
   {
     value: 'alan',
     label: 'Alan Turing',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80'
+      'static/images/art/4.svg'
   },
   {
     value: 'barbara',
     label: 'Barbara Liskov',
     avatar:
-      'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=96&h=96&dpr=2&q=80'
+      'static/images/art/3.svg'
   }
 ];
 const REGIONS = [

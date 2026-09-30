@@ -20,7 +20,7 @@ const SARAH_AVATAR =
   'https://randomuser.me/api/portraits/women/44.jpg';
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-6'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
       <Message>
         {/*
       MessageAvatar is a circular clip the size of the portrait, so a badge

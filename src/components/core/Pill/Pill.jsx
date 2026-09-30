@@ -110,7 +110,7 @@ export const pillVariants = createVariants({
     },
     'size': {
       'lg': 'px-3 py-1 text-sm leading-5',
-      'md': 'px-2.5 py-0.5 text-xs leading-5 sm:text-sm',
+      'md': 'px-2.5 py-0.5 text-xs leading-5',
       'sm': 'px-2 py-0.5 text-xs leading-4',
       'xs': 'px-1.5 py-px text-xs leading-4'
     },

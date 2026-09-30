@@ -35,7 +35,7 @@ const issues = [
     labelVariant: 'destructive-light',
     assignee: 'Sarah Chen',
     assigneeAvatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     status: 'Open',
     statusVariant: 'info-light'
   },
@@ -55,7 +55,7 @@ const issues = [
     labelVariant: 'info-light',
     assignee: 'Marcus Johnson',
     assigneeAvatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'static/images/art/10.svg',
     status: 'In Progress',
     statusVariant: 'warning-light'
   },
@@ -75,7 +75,7 @@ const issues = [
     labelVariant: 'success-light',
     assignee: 'Emily Park',
     assigneeAvatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     status: 'In Review',
     statusVariant: 'info-light'
   },
@@ -95,7 +95,7 @@ const issues = [
     labelVariant: 'outline',
     assignee: 'David Kim',
     assigneeAvatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     status: 'Closed',
     statusVariant: 'success-light'
   }

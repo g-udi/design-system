@@ -9,10 +9,10 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
     <Card className='w-full max-w-xs p-0'>
-      <CardContent className='flex flex-col gap-5 p-0'>
+      <CardContent className='flex flex-col gap-4 p-0'>
         <div className='relative h-48 w-full overflow-hidden'>
           <img
-            src='https://picsum.photos/1000/800?grayscale&random=52'
+            src='static/images/art/5.svg'
             alt='16:9'
             width={1e3}
             height={800}

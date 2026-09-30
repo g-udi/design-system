@@ -44,7 +44,7 @@ const teamMembers = [
     value: 'alex-morgan',
     label: 'Alex Morgan',
     avatar:
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/4.svg',
     initials: 'AM',
     isCurrentUser: true,
     searchText: 'Alex Morgan current user owner'
@@ -55,7 +55,7 @@ const teamMembers = [
     value: 'emma-carter',
     label: 'Emma Carter',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'static/images/art/7.svg',
     initials: 'EC',
     searchText: 'Emma Carter product design'
   },
@@ -65,7 +65,7 @@ const teamMembers = [
     value: 'ryan-mitchell',
     label: 'Ryan Mitchell',
     avatar:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'RM',
     searchText: 'Ryan Mitchell engineering backend'
   },
@@ -75,7 +75,7 @@ const teamMembers = [
     value: 'olivia-bennett',
     label: 'Olivia Bennett',
     avatar:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=96&h=96&dpr=2&q=80',
+      'static/images/art/8.svg',
     initials: 'OB',
     searchText: 'Olivia Bennett growth marketing'
   },
@@ -85,7 +85,7 @@ const teamMembers = [
     value: 'ethan-brooks',
     label: 'Ethan Brooks',
     avatar:
-      'https://images.unsplash.com/photo-1504593811423-6dd665756598?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     initials: 'EB',
     searchText: 'Ethan Brooks operations'
   }

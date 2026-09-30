@@ -208,7 +208,7 @@ const STAFF = [
     name: 'Olivia Martinez',
     email: 'olivia@vale.br',
     avatar:
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&dpr=2&q=80',
+      'static/images/art/11.svg',
     role: 'Data Scientist',
     priority: 'high',
     status: 'active',
@@ -221,7 +221,7 @@ const STAFF = [
     name: 'Ethan Park',
     email: 'ethan@tata.in',
     avatar:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     role: 'Product Manager',
     priority: 'medium',
     status: 'invited',

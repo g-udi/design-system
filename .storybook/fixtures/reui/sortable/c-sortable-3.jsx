@@ -65,13 +65,13 @@ export function Pattern() {
     });
   };
   return (
-    <div className='mx-auto w-full max-w-sm space-y-6 p-6'>
+    <div className='mx-auto w-full max-w-sm space-y-4'>
       <Sortable
         value={optionGroups}
         onValueChange={handleParentReorder}
         getItemValue={getParentValue}
         strategy='vertical'
-        className='space-y-4'
+        className='space-y-3'
       >
         {optionGroups.map((group) => (
           <SortableItem key={group.id} value={group.id}>

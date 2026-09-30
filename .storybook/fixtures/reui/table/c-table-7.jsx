@@ -19,7 +19,7 @@ const orders = [
     customer: 'Olivia Martin',
     email: 'olivia@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     amount: '$1,999.00',
     status: 'Paid',
     statusVariant: 'success',
@@ -30,7 +30,7 @@ const orders = [
     customer: 'Jackson Lee',
     email: 'jackson@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'https://randomuser.me/api/portraits/women/44.jpg',
     amount: '$39.00',
     status: 'Pending',
     statusVariant: 'warning',
@@ -41,7 +41,7 @@ const orders = [
     customer: 'Isabella Nguyen',
     email: 'isabella@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     amount: '$299.00',
     status: 'Paid',
     statusVariant: 'success',
@@ -52,7 +52,7 @@ const orders = [
     customer: 'William Kim',
     email: 'will@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     amount: '$99.00',
     status: 'Refunded',
     statusVariant: 'destructive-light',
@@ -63,7 +63,7 @@ const orders = [
     customer: 'Sofia Davis',
     email: 'sofia@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      'static/images/art/7.svg',
     amount: '$2,500.00',
     status: 'Paid',
     statusVariant: 'success',

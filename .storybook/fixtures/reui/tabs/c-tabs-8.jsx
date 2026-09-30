@@ -40,7 +40,7 @@ const _plans = [
 export function Pattern() {
   return (
     <div className='flex w-full max-w-lg flex-col gap-6'>
-      <Tabs defaultValue='projects' orientation='vertical' className='gap-5'>
+      <Tabs defaultValue='projects' orientation='vertical' className='gap-3'>
         <TabsList variant='line' className='w-48 shrink-0'>
           <TabsTrigger value='projects' className='justify-start gap-2'>
             <RegistryIcon lucide='FolderIcon' className='size-4' />

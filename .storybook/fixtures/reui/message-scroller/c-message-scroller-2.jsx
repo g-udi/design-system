@@ -133,7 +133,7 @@ export function Pattern() {
                */}
               <MessageScrollerContent
                 aria-busy={!done}
-                className='gap-5 p-(--card-spacing)'
+                className='gap-4 p-(--card-spacing)'
               >
                 {turns.map((turn) => {
                   const isUser = turn.role === 'user';

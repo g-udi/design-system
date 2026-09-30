@@ -38,7 +38,7 @@ export function Pattern() {
     // The group's own gap is tighter than this thread gap around it, and that
     // difference is the entire grouping signal. Equalise the two and the reader
     // sees eight unrelated messages instead of four turns.
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-5'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-3'>
       {handoff.map((group) => (
         // align stays on each Bubble. The group stretches to the column and has
         // no side of its own, so an align passed to it would do nothing at all.

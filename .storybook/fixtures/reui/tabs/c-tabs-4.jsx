@@ -19,7 +19,7 @@ import {
 export function Pattern() {
   return (
     <div className='flex w-full max-w-2xl flex-col gap-6'>
-      <Tabs defaultValue='account' orientation='vertical' className='gap-5'>
+      <Tabs defaultValue='account' orientation='vertical' className='gap-3'>
         <TabsList variant='line' className='w-40 shrink-0'>
           <TabsTrigger value='account'>Account</TabsTrigger>
           <TabsTrigger value='password'>Password</TabsTrigger>

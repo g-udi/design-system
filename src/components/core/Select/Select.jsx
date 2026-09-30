@@ -229,7 +229,7 @@ const Select = ({
                 aria-activedescendant={ activeOptionId }
                 value={ query }
                 placeholder={ searchPlaceholder }
-                className='w-full min-w-0 bg-transparent text-base text-gray-950 outline-none placeholder:text-gray-500 dark:text-gray-100'
+                className='w-full min-w-0 bg-transparent text-base text-gray-950 outline-none md:text-sm placeholder:text-gray-500 dark:text-gray-100'
                 onChange={ (event) => { setQuery(event.target.value); onSearchChange?.(event.target.value); } }
                 onKeyDown={ (event) => {
                   if (event.key === 'ArrowDown') {
@@ -281,7 +281,7 @@ const Select = ({
               }
             } }
           >
-            {loading ? <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-6 text-center text-sm text-gray-600 dark:text-gray-300'>{loadingText}</div> : filteredOptions.length ? filteredOptions.map((option, index) => {
+            {loading ? <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-4 text-center text-sm text-gray-600 dark:text-gray-300'>{loadingText}</div> : filteredOptions.length ? filteredOptions.map((option, index) => {
               const selected = selectedValues.includes(option.value);
               const active = index === activeIndex;
 
@@ -296,7 +296,7 @@ const Select = ({
                   aria-disabled={ option.disabled || undefined }
                   disabled={ option.disabled }
                   className={ cn(
-                    'ds-motion-state flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm text-gray-800 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-45 dark:text-gray-200 dark:hover:bg-gray-900', active && 'bg-gray-100 dark:bg-gray-900', selected && 'font-medium text-blue-700 dark:text-blue-300', classNames.option
+                    'ds-motion-state flex min-h-8 w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm pointer-coarse:min-h-11 text-gray-800 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-45 dark:text-gray-200 dark:hover:bg-gray-900', active && 'bg-gray-100 dark:bg-gray-900', selected && 'font-medium text-blue-700 dark:text-blue-300', classNames.option
                   ) }
                   onMouseEnter={ () => { if (!option.disabled) setActiveIndex(index); } }
                   onClick={ () => commitOption(option) }
@@ -304,11 +304,11 @@ const Select = ({
                   <span className='flex size-4 shrink-0 items-center justify-center'>
                     {selected ? <Icon name='Check' decorative size='xs' /> : null}
                   </span>
-                  <span className='min-w-0 break-words'>{option.label}{option.description && <span className='block text-sm font-normal text-gray-600 dark:text-gray-300'>{option.description}</span>}</span>
+                  <span className='min-w-0 break-words'>{option.label}{option.description && <span className='block text-xs font-normal text-gray-600 dark:text-gray-300'>{option.description}</span>}</span>
                 </button>
               );
             }) : (
-              <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-6 text-center text-sm text-gray-500 dark:text-gray-400'>{emptyText}</div>
+              <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-4 text-center text-sm text-gray-500 dark:text-gray-400'>{emptyText}</div>
             )}
           </div>
           <span role='status' className='sr-only'>{loading ? loadingText : !filteredOptions.length ? emptyText : ''}</span>

@@ -21,7 +21,7 @@ export function Pattern() {
             <div className='p-1'>
               <Card className='relative aspect-square overflow-hidden border-0 p-0'>
                 <img
-                  src={`https://picsum.photos/400/400?grayscale&random=${index + 5}`}
+                  src={`static/images/art/${(index + 5) % 12}.svg`}
                   alt={`Slide ${index + 1}`}
                   width={400}
                   height={400}

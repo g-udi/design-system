@@ -56,15 +56,15 @@ export const Playground = {
   render: ({ activeStep }) => {
     const status = statusOf(activeStep);
     return (
-      <div className='grid gap-4'>
+      <div className='grid gap-3'>
         <Stepper steps={flowSteps(activeStep)} activeStep={activeStep} label='Publishing progress' />
-        <div className='flex items-center gap-3 rounded-lg border border-border px-4 py-3' data-testid='step-status'>
-          <span className={cn('grid size-9 shrink-0 place-items-center rounded-md', activeStep >= flow.length ? 'bg-success-subtle text-success' : 'bg-accent-subtle text-accent')}>
+        <div className='flex items-center gap-3 rounded-lg border border-border px-3 py-2' data-testid='step-status'>
+          <span className={cn('grid size-8 shrink-0 place-items-center rounded-md', activeStep >= flow.length ? 'bg-success-subtle text-success' : 'bg-accent-subtle text-accent')}>
             <RegistryIcon lucide={status.icon} className='size-4' />
           </span>
           <div className='min-w-0'>
             <p className='text-sm font-medium'>{status.title}</p>
-            <p className='text-sm text-text-muted'>{status.detail}</p>
+            <p className='text-xs text-text-muted'>{status.detail}</p>
           </div>
         </div>
       </div>

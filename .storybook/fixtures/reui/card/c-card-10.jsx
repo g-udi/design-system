@@ -29,7 +29,7 @@ export function Pattern() {
       <CardContent className='flex items-center gap-5 p-0'>
         <div className='group/card relative flex h-96 w-full flex-col justify-end overflow-hidden'>
           <img
-            src='https://picsum.photos/1000/800?grayscale&random=76'
+            src='https://randomuser.me/api/portraits/men/75.jpg'
             alt='16:9'
             width={1e3}
             height={800}
@@ -45,7 +45,7 @@ export function Pattern() {
             <div className='relative'>
               <Avatar className='size-10'>
                 <AvatarImage
-                  src='https://randomuser.me/api/portraits/men/75.jpg'
+                  src='static/images/art/9.svg'
                   alt='James Brown'
                 />
                 <AvatarFallback>JB</AvatarFallback>

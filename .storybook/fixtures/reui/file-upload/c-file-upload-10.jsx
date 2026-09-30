@@ -22,7 +22,7 @@ export function Pattern({
     name: 'cover-image.jpg',
     size: 2048e3,
     type: 'image/jpeg',
-    url: 'https://picsum.photos/1000/800?grayscale&random=3'
+    url: 'static/images/art/0.svg'
   };
   const [coverImage, setCoverImage] = useState({
     id: defaultCoverImage.id,

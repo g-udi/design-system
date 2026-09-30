@@ -28,7 +28,7 @@ const members = [
     name: 'Sarah Chen',
     email: 'sarah@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     role: 'Admin',
     roleVariant: 'default'
   },
@@ -36,7 +36,7 @@ const members = [
     name: 'Alex Johnson',
     email: 'alex@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'static/images/art/10.svg',
     role: 'Editor',
     roleVariant: 'info-light'
   },
@@ -44,7 +44,7 @@ const members = [
     name: 'Emily Park',
     email: 'emily@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     role: 'Viewer',
     roleVariant: 'outline'
   }

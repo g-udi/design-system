@@ -89,7 +89,7 @@ const MenuDropDown = ({ className, controlsId, id, name, menuDropDownOpen, outsi
       tone='neutral'
       size='sm'
       className={ cn(
-        'h-11 min-h-11 cursor-pointer gap-1 rounded-md px-1.5 py-2 text-sm font-medium leading-5 text-gray-950 hover:bg-transparent hover:text-blue-600 dark:text-gray-100 dark:hover:bg-transparent dark:hover:text-blue-300', menuDropDownOpen && 'text-blue-600 dark:text-blue-300', className
+        'h-9 min-h-9 cursor-pointer gap-1 rounded-md px-1.5 py-1.5 text-sm pointer-coarse:h-11 pointer-coarse:min-h-11 font-medium leading-5 text-gray-950 hover:bg-transparent hover:text-blue-600 dark:text-gray-100 dark:hover:bg-transparent dark:hover:text-blue-300', menuDropDownOpen && 'text-blue-600 dark:text-blue-300', className
       ) }
       aria-controls={ controlsId }
       aria-expanded={ menuDropDownOpen }

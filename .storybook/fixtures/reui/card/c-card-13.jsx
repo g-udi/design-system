@@ -15,7 +15,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <Card className='relative w-full max-w-md gap-6 overflow-visible pb-1'>
+    <Card className='relative w-full max-w-md gap-4 overflow-visible pb-1'>
       <CardHeader className='flex items-center justify-between'>
         <CardTitle>3 days remaining in cycle</CardTitle>
         <CardAction>
@@ -26,7 +26,7 @@ export function Pattern() {
       </CardHeader>
       <CardContent
         className={cn(
-          'relative space-y-5 overflow-hidden transition-all duration-500 ease-in-out',
+          'relative space-y-4 overflow-hidden transition-all duration-500 ease-in-out',
           isOpen ? 'max-h-[500px]' : 'max-h-48'
         )}
       >

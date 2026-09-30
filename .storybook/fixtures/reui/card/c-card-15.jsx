@@ -23,7 +23,7 @@ export function Pattern() {
   const lastMonth = '$11.0k';
   return (
     <Card className='w-full max-w-xs'>
-      <CardContent className='flex flex-col gap-5'>
+      <CardContent className='flex flex-col gap-4'>
         <div className='flex items-center justify-between gap-3'>
           <h3 className='text-ui-muted-foreground text-sm font-medium'>
             {title}

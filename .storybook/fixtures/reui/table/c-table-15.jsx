@@ -20,7 +20,7 @@ const leaders = [
     name: 'Sarah Chen',
     handle: '@sarahchen',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     score: 12840,
     change: '+320',
     changeUp: true,
@@ -32,7 +32,7 @@ const leaders = [
     name: 'Marcus Johnson',
     handle: '@marcusj',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'https://randomuser.me/api/portraits/women/44.jpg',
     score: 11250,
     change: '+180',
     changeUp: true,
@@ -44,7 +44,7 @@ const leaders = [
     name: 'Emily Park',
     handle: '@emilyp',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     score: 10890,
     change: '-45',
     changeUp: false,
@@ -56,7 +56,7 @@ const leaders = [
     name: 'David Kim',
     handle: '@davidk',
     avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     score: 9420,
     change: '+520',
     changeUp: true,
@@ -68,7 +68,7 @@ const leaders = [
     name: 'Sofia Davis',
     handle: '@sofiad',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      'static/images/art/7.svg',
     score: 8750,
     change: '+90',
     changeUp: true,

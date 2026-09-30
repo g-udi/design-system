@@ -28,7 +28,7 @@ import { useSiteConfig } from '../../../utilities/SiteConfig';
  */
 const RecentPosts = ({ allPosts, locale }) => (
   <div className='bg-gray-50/80 p-2 dark:bg-gray-800/60'>
-    <div className='flex items-center justify-between px-3 py-2.5'>
+    <div className='flex items-center justify-between px-3 py-2'>
       <h3 className='text-sm font-semibold leading-5 text-gray-500 dark:text-gray-400'>Recent posts</h3>
       <Link href={ `/blog` } className='inline-flex items-center gap-1 text-xs font-medium leading-5 text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-300'>
         See all

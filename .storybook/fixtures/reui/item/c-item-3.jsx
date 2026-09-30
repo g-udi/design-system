@@ -40,7 +40,7 @@ export function Pattern() {
         <ItemMedia>
           <Avatar>
             <AvatarImage
-              src='https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80'
+              src='static/images/art/7.svg'
               alt='Sarah Chen'
             />
             <AvatarFallback>SC</AvatarFallback>

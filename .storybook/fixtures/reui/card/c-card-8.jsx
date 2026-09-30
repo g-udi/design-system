@@ -4,7 +4,7 @@ export function Pattern() {
   return (
     <Card className='group/card relative h-96 w-full max-w-xs overflow-hidden border-0 p-0'>
       <img
-        src='https://picsum.photos/1000/800?grayscale&random=62'
+        src='static/images/art/11.svg'
         alt='Background'
         width={1e3}
         height={800}

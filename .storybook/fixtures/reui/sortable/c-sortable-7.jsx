@@ -56,7 +56,7 @@ export function Pattern() {
           >
             {images.map((image) => (
               <SortableItem key={image.id} value={image.id}>
-                <div className='bg-ui-muted group rounded-lg relative flex flex-col items-center justify-center gap-2 border p-4'>
+                <div className='bg-ui-muted group rounded-lg relative flex flex-col items-center justify-center gap-2 border p-3'>
                   <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground absolute top-1.5 right-1.5 opacity-0 transition-opacity group-hover:opacity-100'>
                     <RegistryIcon
                       lucide='GripVerticalIcon'

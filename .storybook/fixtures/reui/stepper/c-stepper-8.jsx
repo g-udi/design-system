@@ -31,7 +31,7 @@ export function Pattern() {
           />
         )
       }}
-      className='w-full max-w-md space-y-8'
+      className='w-full max-w-md space-y-6'
     >
       <StepperNav>
         {steps.map((step, index) => (

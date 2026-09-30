@@ -112,19 +112,23 @@ export const Sizes = {
   }
 };
 
+// One person per tone, so each fallback shows distinct initials on its gradient shade.
+const toneNames = ['Grace Hopper', 'Nora Quinn', 'Ben Adler', 'Tara Singh', 'Gabriel Ruiz', 'Ada Okafor', 'Yuki Mori', 'Rafael Diaz', 'Rosa Park', 'Ivan Petrov'];
 export const Tones = {
-  parameters: { docs: { description: { story: 'Tones colour the fallback; `label` keeps explicit legacy initials and names the avatar "<label> avatar".' } } },
+  parameters: { docs: { description: { story: 'Tones colour the fallback with a gradient shade from the Gaudi artwork palette. `label` keeps explicit legacy initials and names the avatar `<label> avatar`.' } } },
   render: () => (
-    <div className='flex flex-wrap items-center gap-4'>
-      {tones.map((tone) => <Avatar key={tone} label='AA' tone={tone} shape='circle' size='lg' />)}
+    <div className='flex flex-wrap items-center gap-3'>
+      {tones.map((tone, index) => <Avatar key={tone} name={toneNames[index]} tone={tone} shape='circle' size='lg' />)}
+      <Avatar label='AA' tone='indigo' shape='circle' size='lg' />
     </div>
   ),
   play: async ({ canvasElement }) => {
-    const avatars = within(canvasElement).getAllByRole('img', { name: 'AA avatar' });
-    await expect(avatars).toHaveLength(tones.length);
-    await expect(avatars[2]).toHaveClass('bg-blue-600');
-    await expect(avatars[6]).toHaveClass('bg-yellow-500', 'text-yellow-950');
-    await expect(avatars[0].querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
+    const canvas = within(canvasElement);
+    const blue = canvas.getByRole('img', { name: toneNames[tones.indexOf('blue')] });
+    await expect(blue).toHaveClass('bg-linear-135', 'from-sky-200', 'text-blue-950');
+    await expect(blue).toHaveTextContent('BA');
+    await expect(canvas.getByRole('img', { name: 'AA avatar' })).toHaveTextContent('AA');
+    await expect(blue.querySelector('[data-slot="avatar-fallback"]')).toHaveAttribute('aria-hidden', 'true');
   }
 };
 

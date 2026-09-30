@@ -43,7 +43,7 @@ export function Pattern() {
             <CarouselItem key={index}>
               <div className='bg-ui-muted relative aspect-video overflow-hidden rounded-xl'>
                 <img
-                  src={`https://picsum.photos/1000/800?grayscale&random=${index + 20}`}
+                  src={`static/images/art/${(index + 20) % 12}.svg`}
                   alt={`Slide ${index + 1}`}
                   width={1e3}
                   height={800}
@@ -79,7 +79,7 @@ export function Pattern() {
                 )}
               >
                 <img
-                  src={`https://picsum.photos/400/400?grayscale&random=${index + 20}`}
+                  src={`static/images/art/${(index + 20) % 12}.svg`}
                   alt={`Thumb ${index + 1}`}
                   width={400}
                   height={400}

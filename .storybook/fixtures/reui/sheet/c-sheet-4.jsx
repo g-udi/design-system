@@ -26,7 +26,7 @@ export function Pattern() {
             </SheetDescription>
           </SheetHeader>
           <ScrollArea className='h-[calc(100vh-230px)] flex-1 grow'>
-            <div className='space-y-4 px-4'>
+            <div className='space-y-3 px-3'>
               {Array.from({ length: 20 }).map((_, i) => (
                 <p key={i} className='text-ui-muted-foreground text-sm'>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed

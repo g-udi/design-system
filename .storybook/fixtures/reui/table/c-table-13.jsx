@@ -27,7 +27,7 @@ const files = [
     size: '2.4 MB',
     owner: 'Sarah Chen',
     ownerAvatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     sharing: 'Team',
     sharingVariant: 'info-light',
     modified: '2 hours ago'
@@ -44,7 +44,7 @@ const files = [
     size: '\u2014',
     owner: 'Emily Park',
     ownerAvatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/women/44.jpg',
     sharing: 'Public',
     sharingVariant: 'success-light',
     modified: '1 day ago'
@@ -61,7 +61,7 @@ const files = [
     size: '856 KB',
     owner: 'Marcus Johnson',
     ownerAvatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'static/images/art/10.svg',
     sharing: 'Private',
     sharingVariant: 'outline',
     modified: '3 days ago'
@@ -78,7 +78,7 @@ const files = [
     size: '48.2 MB',
     owner: 'David Kim',
     ownerAvatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     sharing: 'Team',
     sharingVariant: 'info-light',
     modified: '1 week ago'
@@ -95,7 +95,7 @@ const files = [
     size: '12.8 MB',
     owner: 'Sofia Davis',
     ownerAvatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      'static/images/art/7.svg',
     sharing: 'Restricted',
     sharingVariant: 'warning-light',
     modified: '2 weeks ago'

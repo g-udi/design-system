@@ -21,7 +21,7 @@ export function Pattern() {
         >
           <div className='bg-ui-muted aspect-video w-full overflow-hidden'>
             <img
-              src='https://picsum.photos/1000/800?grayscale&random=10'
+              src='static/images/art/0.svg'
               alt='Website Template Preview'
               width={320}
               height={180}

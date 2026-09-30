@@ -225,7 +225,7 @@ export const DataTable = ({
         >
           <table className='w-full min-w-[560px] border-collapse bg-white text-left text-sm dark:bg-gray-950'>
             {caption && (
-              <caption className='bg-white px-4 py-3 text-left text-sm font-medium text-gray-600 dark:bg-gray-950 dark:text-gray-300'>
+              <caption className='bg-white px-3 py-2 text-left text-sm font-medium text-gray-600 dark:bg-gray-950 dark:text-gray-300'>
                 {caption}
               </caption>
             )}
@@ -233,7 +233,10 @@ export const DataTable = ({
               {table.getHeaderGroups().map((group) => (
                 <tr key={group.id}>
                   {selectable && (
-                    <th scope='col' className='px-4 py-3'>
+                    <th
+                      scope='col'
+                      className='h-10 border-b border-gray-200 px-3 py-0 dark:border-gray-800'
+                    >
                       <SelectionCheckbox
                         aria-label={labels.selectPage || 'Select this page'}
                         checked={table.getIsAllPageRowsSelected()}
@@ -256,7 +259,7 @@ export const DataTable = ({
                               : 'none'
                           : undefined
                       }
-                      className='border-b border-gray-200 px-4 py-3 text-xs font-semibold uppercase text-gray-600 dark:border-gray-800 dark:text-gray-300'
+                      className='h-10 border-b border-gray-200 px-3 py-0 text-xs font-semibold uppercase text-gray-600 dark:border-gray-800 dark:text-gray-300'
                     >
                       {header.column.getCanSort() ? (
                         <button
@@ -351,7 +354,7 @@ export const DataTable = ({
                     className='border-b border-gray-100 bg-white last:border-b-0 data-[selected]:bg-blue-50 dark:border-gray-800 dark:bg-gray-950 dark:data-[selected]:bg-blue-950'
                   >
                     {selectable && (
-                      <td className='px-4 py-3'>
+                      <td className='px-3 py-2'>
                         <SelectionCheckbox
                           aria-label={`${labels.selectRow || 'Select row'} ${row.id}`}
                           checked={row.getIsSelected()}
@@ -362,7 +365,7 @@ export const DataTable = ({
                     {row.getVisibleCells().map((cell) => (
                       <td
                         key={cell.id}
-                        className='px-4 py-3 text-gray-700 dark:text-gray-300'
+                        className='px-3 py-2 text-gray-700 dark:text-gray-300'
                       >
                         {flexRender(
                           cell.column.columnDef.cell,

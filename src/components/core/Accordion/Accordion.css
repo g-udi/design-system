@@ -23,7 +23,7 @@
   .ds-accordion[data-variant='separated'],
   .ds-accordion[data-variant='solid'] {
     display: grid;
-    gap: 12px;
+    gap: 8px;
   }
   .ds-accordion[data-variant='separated'] > .ds-accordion-item {
     border: 1px solid var(--ds-color-border);
@@ -53,10 +53,11 @@
   .ds-accordion-trigger {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     width: 100%;
-    min-height: 48px;
-    padding: 14px 16px;
+    /* Compact density: 40px single-line rows, 56px with a description. */
+    min-height: 40px;
+    padding: 8px 12px;
     border: 0;
     /* Row highlights meet their content with straight edges. */
     border-radius: 0;
@@ -66,7 +67,7 @@
     font: inherit;
     font-size: 0.875rem;
     font-weight: 600;
-    line-height: 1.5;
+    line-height: 1.25rem;
     cursor: pointer;
   }
   .ds-accordion-trigger:hover:not(:disabled) {
@@ -110,6 +111,8 @@
   .ds-accordion-description {
     display: block;
     margin-block-start: 4px;
+    font-size: 0.75rem;
+    line-height: 1rem;
     font-weight: 400;
     color: var(--ds-color-text-muted);
   }
@@ -158,11 +161,18 @@
     display: none;
   }
   .ds-accordion-content-inner {
-    padding: 4px 16px 16px;
+    padding: 4px 12px 12px;
     font-size: 0.875rem;
-    line-height: 1.65;
+    line-height: 1.5;
     color: var(--ds-color-text-muted);
     overflow-wrap: anywhere;
+  }
+  /* A tinted open trigger needs its own gap before the answer text. */
+  .ds-accordion[data-highlight]
+    > .ds-accordion-item
+    > .ds-accordion-content
+    > .ds-accordion-content-inner {
+    padding-block-start: 8px;
   }
   .ds-accordion[data-variant='flush']
     > .ds-accordion-item

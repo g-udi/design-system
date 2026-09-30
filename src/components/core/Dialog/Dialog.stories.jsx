@@ -34,7 +34,7 @@ const playgroundCode = playgroundSource('Dialog', {
   ],
   imports: "import { Button, Dialog, DialogClose, Field, FieldDescription, FieldInput, FieldLabel } from '@gaudi/design-system';",
   children: [
-    "  <img src='/static/images/art/iris.svg' alt='' />",
+    "  <img src='/static/images/art/5.svg' alt='' />",
     "  <Button size='sm' variant='outline' tone='neutral'>Replace</Button>",
     '  <Field>',
     '    <FieldLabel>Title</FieldLabel>',

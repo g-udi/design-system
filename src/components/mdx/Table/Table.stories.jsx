@@ -32,7 +32,7 @@ export const Playground = {
   parameters: { docs: { description: { story: 'Core Web Vitals per page template from a performance post: a caption, the row and cell parts, numeric metrics, and a status that uses words as well as colour. On narrow screens the table scrolls inside its frame.' } } },
   render: () => (
     <Table>
-      <caption className='caption-bottom px-4 py-3 text-left text-sm text-gray-600 dark:text-gray-400'>75th-percentile field data, last 28 days.</caption>
+      <caption className='caption-bottom px-3 py-2 text-left text-xs text-gray-600 dark:text-gray-400'>75th-percentile field data, last 28 days.</caption>
       <TableHead><TableRow>{columns.map((column) => <TableHeaderCell key={column} scope='col'>{column}</TableHeaderCell>)}</TableRow></TableHead>
       <TableBody>
         {rows.map(([template, ...metrics]) => (

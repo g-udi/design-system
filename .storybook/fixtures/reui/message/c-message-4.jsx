@@ -33,7 +33,7 @@ export function Pattern() {
     return () => window.clearTimeout(id);
   }, [copied]);
   return (
-    <div className='mx-auto flex w-full max-w-2xl flex-col gap-6'>
+    <div className='mx-auto flex w-full max-w-2xl flex-col gap-4'>
       <Message align='end'>
         <MessageContent>
           <Bubble variant='muted'>

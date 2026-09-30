@@ -42,7 +42,7 @@ export function Pattern({
       name: 'image-01.jpg',
       size: 1536e3,
       type: 'image/jpeg',
-      url: 'https://picsum.photos/1000/800?grayscale&random=3'
+      url: 'static/images/art/0.svg'
     },
     {
       id: 'default-card-3',

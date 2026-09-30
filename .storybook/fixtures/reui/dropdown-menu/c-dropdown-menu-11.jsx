@@ -32,7 +32,7 @@ const notifications = [
     id: '2',
     user: 'James Wilson',
     avatar:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=96&h=96&dpr=2&q=80',
+      'static/images/art/9.svg',
     initials: 'JW',
     action: 'shared',
     target: 'Q4 Report',
@@ -43,7 +43,7 @@ const notifications = [
     id: '3',
     user: 'Emily Davis',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     initials: 'ED',
     action: 'invited you to',
     target: 'Project Alpha',

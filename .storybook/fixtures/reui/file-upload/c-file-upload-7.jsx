@@ -29,22 +29,22 @@ export function Pattern({
   const [visibleDefaultImages, setVisibleDefaultImages] = useState([
     {
       id: 'default-1',
-      src: 'https://picsum.photos/1000/800?grayscale&random=4',
+      src: 'static/images/art/3.svg',
       alt: 'Product view 1'
     },
     {
       id: 'default-2',
-      src: 'https://picsum.photos/1000/800?grayscale&random=5',
+      src: 'static/images/art/2.svg',
       alt: 'Product view 2'
     },
     {
       id: 'default-3',
-      src: 'https://picsum.photos/1000/800?grayscale&random=6',
+      src: 'static/images/art/2.svg',
       alt: 'Product view 3'
     },
     {
       id: 'default-4',
-      src: 'https://picsum.photos/1000/800?grayscale&random=7',
+      src: 'static/images/art/6.svg',
       alt: 'Product view 4'
     }
   ]);

@@ -12,7 +12,7 @@ export function Pattern() {
       <CardContent className='flex flex-col gap-4'>
         <div className='relative h-48 w-full overflow-hidden rounded-lg'>
           <img
-            src='https://picsum.photos/1000/800?grayscale&random=18'
+            src='static/images/art/4.svg'
             alt='16:9'
             width={1e3}
             height={800}

@@ -14,7 +14,7 @@ export function Pattern() {
         </HoverCardTrigger>
         <HoverCardContent className='w-[320px] overflow-hidden p-0'>
           <img
-            src='https://picsum.photos/1000/800?grayscale&random=1'
+            src='static/images/art/9.svg'
             alt='Card Image'
             className='aspect-video w-full object-cover'
           />

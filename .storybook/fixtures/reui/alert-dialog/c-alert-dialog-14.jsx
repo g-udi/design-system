@@ -99,7 +99,7 @@ export function Pattern() {
 
         {/* Footer */}
         {/* The content is `p-0`, so there is no padding to escape: the footer's
-       built-in `-mx-4 -mb-4` pushed the bar OUTSIDE the dialog, where
+       built-in `-mx-3 -mb-3` pushed the bar OUTSIDE the dialog, where
        `overflow-hidden` clipped it - which is why it looked like it had no
        padding. Cancelling the breakout puts it flush edge-to-edge with its
        own `p-4` intact. */}

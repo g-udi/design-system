@@ -18,8 +18,8 @@ const steps = [
 ];
 export function Pattern() {
   return (
-    <Stepper defaultValue={2} className='w-full max-w-lg space-y-8'>
-      <StepperNav className='mb-10 gap-5'>
+    <Stepper defaultValue={2} className='w-full max-w-lg space-y-6'>
+      <StepperNav className='mb-6 gap-4'>
         {steps.map((step, index) => (
           <StepperItem
             key={index}

@@ -81,12 +81,7 @@
   border-bottom: 0;
 }
 
+/* Compact rows: 10px block, 12px inline, about 40px for single-line cells. */
 .cellPadding {
-  padding: 0.75rem;
-}
-
-@media (min-width: 640px) {
-  .cellPadding {
-    padding: 1rem;
-  }
+  padding: 0.625rem 0.75rem;
 }

@@ -26,7 +26,7 @@ function ReviewComposer({ invalid, onChange, ...args }) {
     onChange(event);
   };
   return (
-    <div className='grid gap-3 rounded-lg border border-border p-4'>
+    <div className='grid gap-3 rounded-lg border border-border p-3'>
       <div className='flex items-center gap-3'>
         <Avatar name='Sam Rivera' size='sm' />
         <div className='min-w-0 flex-1'>

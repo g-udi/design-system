@@ -41,7 +41,7 @@ function NavigationMenuItem({ className, ...props }) {
   );
 }
 const navigationMenuTriggerStyle = cva(
-  'ds-part-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none'
+  'ds-part-navigation-menu-trigger group/navigation-menu-trigger inline-flex h-8 w-max items-center justify-center outline-none disabled:pointer-events-none'
 );
 function NavigationMenuTrigger({ className, children, ...props }) {
   return (

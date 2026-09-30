@@ -18,7 +18,7 @@ export function Pattern() {
           <div className='flex cursor-pointer items-center gap-2'>
             <Avatar className='size-8'>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&dpr=2&q=80'
+                src='static/images/art/11.svg'
                 alt='Elena Soroka'
               />
               <AvatarFallback>ES</AvatarFallback>
@@ -35,7 +35,7 @@ export function Pattern() {
           <div className='flex space-x-2'>
             <Avatar className='size-10 shrink-0'>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&dpr=2&q=80'
+                src='static/images/art/11.svg'
                 alt='Elena Soroka'
               />
               <AvatarFallback>ES</AvatarFallback>

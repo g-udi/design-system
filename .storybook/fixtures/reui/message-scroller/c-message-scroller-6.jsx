@@ -169,7 +169,7 @@ export function Pattern() {
         <CardContent className='min-h-0 flex-1 p-0'>
           <MessageScroller>
             <MessageScrollerViewport aria-label='Incident review transcript'>
-              <MessageScrollerContent className='gap-5 p-(--card-spacing)'>
+              <MessageScrollerContent className='gap-4 p-(--card-spacing)'>
                 {TURNS.map((turn) => {
                   const isUser = turn.role === 'user';
                   return (

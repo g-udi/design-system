@@ -12,7 +12,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (
     <div className='flex items-center justify-center p-4'>
-      <Empty className='border py-12'>
+      <Empty className='border py-8'>
         <EmptyHeader>
           <EmptyMedia variant='icon'>
             <RegistryIcon lucide='BarChart3Icon' />

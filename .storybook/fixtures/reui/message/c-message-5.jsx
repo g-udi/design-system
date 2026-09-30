@@ -24,10 +24,10 @@ import {
 } from '../../../../src/components/core/Message/parts/message.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const HERO_ARTWORK =
-  'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=448&h=448&q=80';
+  'static/images/art/0.svg';
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-6'>
+    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
       <Message align='end'>
         <MessageAvatar>
           <Avatar>

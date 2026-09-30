@@ -31,7 +31,7 @@ export function Pattern() {
               done.
             </SheetDescription>
           </SheetHeader>
-          <div className='p-4'>
+          <div className='p-3'>
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor='name'>Name</FieldLabel>

@@ -24,13 +24,13 @@ const lockedNote = 'Locked by your workspace admin.';
 function SettingRow({ setting, size, defaultChecked, disabled, onCheckedChange }) {
   const id = `switch-${setting.id}`;
   return (
-    <li className='flex items-center gap-3 px-4 py-3'>
-      <span className='grid size-9 shrink-0 place-items-center rounded-md bg-surface-muted text-text-muted' aria-hidden='true'>
+    <li className='flex items-center gap-3 px-3 py-2.5'>
+      <span className='grid size-8 shrink-0 place-items-center rounded-md bg-surface-muted text-text-muted' aria-hidden='true'>
         <RegistryIcon lucide={setting.icon} className='size-4' />
       </span>
       <div className='min-w-0 flex-1'>
         <label htmlFor={id} className='block text-sm font-medium'>{setting.title}</label>
-        <p className='flex items-center gap-1 text-sm text-text-muted'>
+        <p className='flex items-center gap-1 text-xs text-text-muted'>
           {disabled && setting === featured ? <><RegistryIcon lucide='Lock' className='size-3.5 shrink-0' />{lockedNote}</> : setting.description}
         </p>
       </div>

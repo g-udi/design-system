@@ -10,10 +10,10 @@ export const cardVariants = createVariants({
   },
   'variants': {
     'padding': {
-      'lg': 'p-6',
-      'md': 'p-4',
+      'lg': 'p-4',
+      'md': 'p-3',
       'none': 'p-0',
-      'sm': 'p-3'
+      'sm': 'p-2'
     },
     'radius': {
       'lg': 'rounded-lg',
@@ -56,12 +56,12 @@ const Card = ({
   >
     <div className={ cn('relative z-10', classNames.body) }>
       {title ? (
-        <Title className={ cn('mt-1 text-base font-bold text-gray-950 dark:text-white', classNames.title) }>
+        <Title className={ cn('text-base font-bold text-gray-950 dark:text-white', classNames.title) }>
           {title}
         </Title>
       ) : null}
       {subtitle ? (
-        <p className={ cn('mt-2 text-sm leading-relaxed text-gray-700 dark:text-gray-300', classNames.subtitle) }>
+        <p className={ cn('mt-1 text-sm leading-normal text-gray-700 dark:text-gray-300', classNames.subtitle) }>
           {subtitle}
         </p>
       ) : null}

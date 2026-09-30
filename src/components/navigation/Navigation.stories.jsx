@@ -102,7 +102,7 @@ const HeaderRow = ({ launcherLabel = 'Search opened', mobile = false, onMenuClic
 
   return (
     <div className='space-y-3'>
-      <header className='flex min-h-16 items-center justify-between gap-4'>
+      <header className='flex min-h-14 items-center justify-between gap-4'>
         <Link href='/' aria-label='Ahmad Assaf' variant='bare' className='shrink-0 text-gray-950 dark:text-white'>
           <MenuLogo className={ mobile ? 'h-10 w-10' : 'h-12 w-12' } />
         </Link>

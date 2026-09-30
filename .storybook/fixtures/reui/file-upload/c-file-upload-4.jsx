@@ -38,21 +38,21 @@ export function Pattern({
       name: 'avatar-1.png',
       size: 44608,
       type: 'image/png',
-      url: 'https://picsum.photos/1000/800?random=1'
+      url: 'static/images/art/4.svg'
     },
     {
       id: 'default-2',
       name: 'avatar-2.png',
       size: 42144,
       type: 'image/png',
-      url: 'https://picsum.photos/1000/800?random=2'
+      url: 'static/images/art/6.svg'
     },
     {
       id: 'default-3',
       name: 'avatar-2.png',
       size: 42144,
       type: 'image/png',
-      url: 'https://picsum.photos/1000/800?random=3'
+      url: 'static/images/art/2.svg'
     }
   ];
   const [

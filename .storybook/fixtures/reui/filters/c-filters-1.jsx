@@ -541,7 +541,7 @@ export function Pattern() {
     ])
   );
   return (
-    <div className='flex w-full flex-col gap-5'>
+    <div className='flex w-full flex-col gap-4'>
       <Filters
         fields={fields}
         query={query}

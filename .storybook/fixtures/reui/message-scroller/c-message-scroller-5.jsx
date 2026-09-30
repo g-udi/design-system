@@ -213,7 +213,7 @@ export function Pattern() {
              * by index loses the behavior without any error.
              */}
             <MessageScrollerViewport aria-label='Support escalation transcript'>
-              <MessageScrollerContent className='gap-5 p-(--card-spacing)'>
+              <MessageScrollerContent className='gap-4 p-(--card-spacing)'>
                 {visible.map((turn) => {
                   const isUser = turn.role === 'user';
                   return (

@@ -22,7 +22,7 @@ const members = [
     name: 'Sarah Chen',
     email: 'sarah@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+      'https://randomuser.me/api/portraits/men/32.jpg',
     role: 'Admin',
     roleVariant: 'default',
     status: 'Active',
@@ -32,7 +32,7 @@ const members = [
     name: 'Marcus Johnson',
     email: 'marcus@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      'static/images/art/10.svg',
     role: 'Developer',
     roleVariant: 'info-light',
     status: 'Active',
@@ -42,7 +42,7 @@ const members = [
     name: 'Emily Park',
     email: 'emily@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+      'static/images/art/1.svg',
     role: 'Designer',
     roleVariant: 'warning-light',
     status: 'Away',
@@ -52,7 +52,7 @@ const members = [
     name: 'David Kim',
     email: 'david@example.com',
     avatar:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+      'static/images/art/5.svg',
     role: 'Viewer',
     roleVariant: 'outline',
     status: 'Offline',

@@ -21,16 +21,16 @@ import Link from '../../core/Link';
  */
 export default function ThoughtsSection({ thoughts }) {
   return (
-    <div className='py-8'>
+    <div className='py-6'>
       {/* Section Header */}
-      <div className='mb-6'>
+      <div className='mb-4'>
         <h2 className='text-3xl font-bold text-gray-900 dark:text-gray-100 md:text-4xl'>
           Recent Thoughts
         </h2>
       </div>
 
       {/* Thoughts List */}
-      <div className='space-y-6'>
+      <div className='space-y-4'>
         {thoughts.slice(0, -1).map((thought) => (
           <article key={ thought.slug } className='group'>
             <Link
@@ -62,7 +62,7 @@ export default function ThoughtsSection({ thoughts }) {
 
       {/* Last Thought with View All Button */}
       {thoughts.length > 0 && (
-        <div className='flex flex-col gap-4 pt-6 md:flex-row md:items-start md:justify-between'>
+        <div className='flex flex-col gap-4 pt-4 md:flex-row md:items-start md:justify-between'>
           <article className='group flex-1'>
             <Link
               href={ `/thoughts/${thoughts[thoughts.length - 1].slug}` }

@@ -21,7 +21,7 @@ export function Pattern() {
             className='rounded-2xl relative h-36 w-40 shrink-0 overflow-hidden border'
           >
             <img
-              src={`https://picsum.photos/400/300?random=${i + 1}`}
+              src={`static/images/art/${(i + 1) % 12}.svg`}
               alt={`Image ${i + 1}`}
               className='h-full w-full object-cover'
             />

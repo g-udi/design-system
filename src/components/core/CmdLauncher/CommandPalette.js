@@ -416,7 +416,7 @@ const ListItem = ({
 };
 
 const FreeSearchAction = () => (
-  <div data-cmdk-empty className='px-5 py-4 text-sm'>
+  <div data-cmdk-empty className='px-3 py-3 text-sm'>
     No matching commands.
   </div>
 );

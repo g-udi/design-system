@@ -16,9 +16,9 @@ export default function ResourceList({
     <div className={cn('ds-resource-list', className)} aria-busy={loading}>
       {loading ? (
         <div role='status' aria-label={`Loading ${label}`} className='ds-stack'>
-          <Skeleton className='h-16 w-full' />
-          <Skeleton className='h-16 w-full' />
-          <Skeleton className='h-16 w-full' />
+          <Skeleton className='h-14 w-full' />
+          <Skeleton className='h-14 w-full' />
+          <Skeleton className='h-14 w-full' />
         </div>
       ) : items.length ? (
         <ul aria-label={label}>

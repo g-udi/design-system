@@ -114,7 +114,7 @@ const MenuDropdownPanel = ({ aside, categories, name }) => {
           <div className='p-2'>
 
             {categories.map((category) => (
-              <div key={ category.id } className='group relative flex rounded-lg px-3 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800'>
+              <div key={ category.id } className='group relative flex rounded-lg px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800'>
                 <div>
                   <Link href={ `/blog/categories/${category.id}` } className='text-sm font-semibold capitalize text-gray-900 hover:text-blue-600 dark:text-gray-100 dark:hover:text-blue-300'>
                     {formatCategoryTitle(category.title)}

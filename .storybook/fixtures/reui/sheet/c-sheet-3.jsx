@@ -31,7 +31,7 @@ export function Pattern() {
                 This sheet opens from the {side} side of the screen.
               </SheetDescription>
             </SheetHeader>
-            <div className='text-ui-muted-foreground p-4 text-sm'>
+            <div className='text-ui-muted-foreground p-3 text-sm'>
               {Array.from({ length: 5 }).map((_, i) => (
                 <p key={i} className='mb-2'>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit.

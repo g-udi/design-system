@@ -24,15 +24,15 @@ const projects = [
     statusVariant: 'info-light',
     team: [
       {
-        src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+        src: 'https://randomuser.me/api/portraits/men/32.jpg',
         fallback: 'SC'
       },
       {
-        src: 'https://randomuser.me/api/portraits/men/32.jpg',
+        src: 'https://randomuser.me/api/portraits/women/44.jpg',
         fallback: 'MJ'
       },
       {
-        src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+        src: 'https://randomuser.me/api/portraits/men/32.jpg',
         fallback: 'EP'
       }
     ],
@@ -46,11 +46,11 @@ const projects = [
     statusVariant: 'warning-light',
     team: [
       {
-        src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+        src: 'static/images/art/5.svg',
         fallback: 'DK'
       },
       {
-        src: 'https://randomuser.me/api/portraits/women/44.jpg',
+        src: 'static/images/art/7.svg',
         fallback: 'SD'
       }
     ],
@@ -64,7 +64,7 @@ const projects = [
     statusVariant: 'success-light',
     team: [
       {
-        src: 'https://randomuser.me/api/portraits/men/32.jpg',
+        src: 'static/images/art/10.svg',
         fallback: 'MJ'
       }
     ],
@@ -78,15 +78,15 @@ const projects = [
     statusVariant: 'outline',
     team: [
       {
-        src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=96&h=96&dpr=2&q=80',
+        src: 'static/images/art/7.svg',
         fallback: 'SC'
       },
       {
-        src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=96&h=96&dpr=2&q=80',
+        src: 'static/images/art/5.svg',
         fallback: 'DK'
       },
       {
-        src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=96&h=96&dpr=2&q=80',
+        src: 'static/images/art/1.svg',
         fallback: 'EP'
       }
     ],

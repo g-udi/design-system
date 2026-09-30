@@ -127,7 +127,7 @@ function AutocompleteItem({ className, ...props }) {
         'data-highlighted:before:rounded-md',
         // Icon sizing mirrors .ds-part-select-item. Rhea tracks nova, matching its
         // .ds-part-input metrics; the row radius above follows .cn-*-item at xl.
-        "px-1.5 py-1 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex cursor-default items-center outline-hidden transition-colors select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([role=img]):not([class*=text-])]:opacity-60",
+        "px-2 py-1.5 text-sm [&_svg:not([class*='size-'])]:size-4 relative flex cursor-default items-center outline-hidden transition-colors select-none data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:relative data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-0 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([role=img]):not([class*=text-])]:opacity-60",
         className
       )}
       {...props}
@@ -181,7 +181,7 @@ function AutocompleteGroupLabel({ className, ...props }) {
     <AutocompletePrimitive.GroupLabel
       data-slot='autocomplete-group-label'
       className={cn(
-        'text-ui-muted-foreground px-1.5 py-1 text-xs font-medium',
+        'text-ui-muted-foreground px-2 py-1.5 text-xs font-medium',
         className
       )}
       {...props}

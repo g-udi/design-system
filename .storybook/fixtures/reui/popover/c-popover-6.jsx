@@ -18,7 +18,7 @@ export function Pattern() {
           <Button variant='outline' className='h-auto justify-start py-1.5'>
             <Avatar className='size-8'>
               <AvatarImage
-                src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=96&h=96&dpr=2&q=80'
+                src='static/images/art/9.svg'
                 alt='Marcus Chen'
               />
               <AvatarFallback>MC</AvatarFallback>
@@ -34,7 +34,7 @@ export function Pattern() {
             <div className='flex items-start justify-between'>
               <Avatar className='size-12'>
                 <AvatarImage
-                  src='https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=112&h=112&dpr=2&q=80'
+                  src='static/images/art/7.svg'
                   alt='Marcus Chen'
                 />
                 <AvatarFallback>MC</AvatarFallback>
