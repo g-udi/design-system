@@ -12,8 +12,8 @@ const keyMap = {
   'down': '↓',
   'end': 'End',
   'enter': '↵',
-  'esc': 'esc',
-  'escape': 'esc',
+  'esc': 'Esc',
+  'escape': 'Esc',
   'fn': 'fn',
   'help': '?',
   'home': 'Home',
@@ -44,23 +44,21 @@ const keyLabelMap = {
 };
 
 const kbdVariantConfig = {
-  'base': 'inline-flex items-center justify-center border font-semibold shadow-[0_2px_0_0_rgba(0,0,0,0.08)] dark:shadow-[0_2px_0_0_rgba(0,0,0,0.5)]',
+  'base': 'inline-flex shrink-0 select-none items-center justify-center rounded-sm border font-sans font-medium leading-none tabular-nums',
   'defaults': {
     'size': 'md',
     'variant': 'raised'
   },
   'size': {
-    '3xs': 'h-4 min-w-4 px-0.5 py-0 text-xs leading-none',
-    '2xs': 'h-5 min-w-5 px-1 py-0 text-xs leading-none',
-    'lg': 'min-w-6 px-2.5 py-1.5 text-sm',
-    'md': 'min-w-6 px-2 py-1 text-xs',
-    'sm': 'min-w-6 px-1.5 py-0.5 text-xs',
-    'xs': 'min-w-6 px-1 py-0.5 text-xs'
+    'xs': 'h-4 min-w-4 px-1 text-xs',
+    'sm': 'h-5 min-w-5 px-1 text-xs',
+    'md': 'h-6 min-w-6 px-1.5 text-xs',
+    'lg': 'h-7 min-w-7 px-2 text-sm'
   },
   'variant': {
-    'flat': 'rounded-md border-gray-200 bg-gray-50 text-gray-800 shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200',
-    'outline': 'rounded-md border-gray-300 bg-transparent text-gray-800 shadow-none dark:border-gray-600 dark:text-gray-200',
-    'raised': 'rounded-md border-gray-300 bg-gradient-to-t from-gray-100 to-gray-50 text-gray-800 dark:border-gray-600 dark:from-gray-800 dark:to-gray-700 dark:text-gray-200'
+    'flat': 'border-transparent bg-surface-muted text-text-muted',
+    'outline': 'border-border bg-transparent text-text-muted',
+    'raised': 'border-border bg-surface text-text shadow-[inset_0_-1px_0_var(--ds-color-border)]'
   }
 };
 
@@ -96,7 +94,7 @@ const Kbd = ({ children, className, keys, size, variant }) => {
 
     if (symbols.length > 1)
       return (
-        <span className='inline-flex items-center gap-0.5' aria-label={ accessibleLabel } role='img'>
+        <span className='inline-flex items-center gap-1' aria-label={ accessibleLabel } role='img'>
           {symbols.map((symbol, index) => (
             <kbd key={ `${symbol}-${index}` } className={ classes } aria-hidden='true'>
               {symbol}

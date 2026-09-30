@@ -98,23 +98,23 @@ const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subt
 };
 
 const LauncherFooter = () => (
-  <div className='border-t border-gray-200 bg-gray-50/80 px-3 py-1.5 dark:border-gray-800 dark:bg-gray-900/80'>
-    <div className='flex min-h-5 items-center text-xs leading-none text-gray-500 dark:text-gray-400'>
+  <div className='border-t border-border bg-surface-muted px-3 py-2'>
+    <div className='flex min-h-5 items-center text-xs leading-none text-text-muted'>
       <div className='flex items-center gap-3.5'>
         <span className='flex items-center gap-1.5'>
-          <span className='inline-flex items-center gap-0.5'>
-            <Kbd keys='up' size='3xs' variant='flat' />
-            <Kbd keys='down' size='3xs' variant='flat' />
+          <span className='inline-flex items-center gap-1'>
+            <Kbd keys='up' size='sm' />
+            <Kbd keys='down' size='sm' />
           </span>
           <span>Navigate</span>
         </span>
         <span className='hidden items-center gap-1.5 sm:flex'>
-          <Kbd keys='enter' size='3xs' variant='flat' />
+          <Kbd keys='enter' size='sm' />
           <span>Select</span>
         </span>
       </div>
       <span className='ml-auto flex items-center gap-1.5'>
-        <Kbd keys='escape' size='3xs' variant='flat' />
+        <Kbd keys='escape' size='sm' />
         <span>Close</span>
       </span>
     </div>

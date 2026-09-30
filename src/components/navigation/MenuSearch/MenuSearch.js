@@ -49,8 +49,8 @@ const MenuSearch = ({ className, setOpen }) => (
     >
       <span className='truncate'>Search</span>
       <span className='hidden shrink-0 items-center gap-1 lg:flex' aria-hidden='true'>
-        <Kbd keys='command' size='2xs' variant='flat' />
-        <Kbd keys='k' size='2xs' variant='flat' />
+        <Kbd keys='command' size='sm' variant='flat' />
+        <Kbd keys='k' size='sm' variant='flat' />
       </span>
     </Button>
   </div>

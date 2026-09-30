@@ -55,8 +55,8 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const [featured] = within(canvasElement).getAllByRole('listitem');
     const keys = featured.querySelectorAll('kbd');
-    const sizes = { xs: 'px-1', sm: 'px-1.5', md: 'px-2', lg: 'px-2.5' };
-    const variants = { raised: 'bg-gradient-to-t', outline: 'bg-transparent', flat: 'bg-gray-50' };
+    const sizes = { xs: 'h-4', sm: 'h-5', md: 'h-6', lg: 'h-7' };
+    const variants = { raised: 'bg-surface', outline: 'bg-transparent', flat: 'bg-surface-muted' };
     await expect(keys).toHaveLength(args.keys.split(',').length);
     await expect(within(featured).getByLabelText(/\S/)).toBeVisible();
     if (keys.length > 1) for (const key of keys) await expect(key).toHaveAttribute('aria-hidden', 'true');
@@ -77,7 +77,7 @@ export const KeySet = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('K').tagName).toBe('KBD');
     await expect(canvas.getByText('K')).not.toHaveAttribute('aria-label');
-    await expect(canvas.getByLabelText('Escape')).toHaveTextContent('esc');
+    await expect(canvas.getByLabelText('Escape')).toHaveTextContent('Esc');
     await expect(canvas.getByLabelText('Enter')).toHaveTextContent('↵');
     await expect(canvas.getByRole('img', { name: 'Shift plus Tab' })).toBeVisible();
     await expect(canvas.getByLabelText('Option')).toHaveTextContent('⌥');
@@ -85,13 +85,13 @@ export const KeySet = {
 };
 
 export const Variants = {
-  parameters: { docs: { description: { story: '`raised` keeps the keycap shadow; `outline` and `flat` sit quieter in dense UI.' } } },
+  parameters: { docs: { description: { story: '`raised` has a keycap edge; `outline` and `flat` sit quieter in dense UI.' } } },
   render: () => variants.map((variant) => <Kbd key={variant} keys={shortcut} variant={variant} />),
   play: async ({ canvasElement }) => {
     const [raised, outline, flat] = shortcuts(canvasElement).map((item) => within(item).getByText('⌘'));
-    await expect(raised).toHaveClass('bg-gradient-to-t');
-    await expect(outline).toHaveClass('bg-transparent', 'shadow-none');
-    await expect(flat).toHaveClass('bg-gray-50', 'shadow-none');
+    await expect(raised).toHaveClass('bg-surface', 'border-border');
+    await expect(outline).toHaveClass('bg-transparent', 'border-border');
+    await expect(flat).toHaveClass('bg-surface-muted', 'border-transparent');
   }
 };
 
@@ -100,6 +100,6 @@ export const Sizes = {
   render: () => sizes.map((size) => <Kbd key={size} keys={shortcut} size={size} />),
   play: async ({ canvasElement }) => {
     const keys = shortcuts(canvasElement).map((item) => within(item).getByText('K'));
-    await expect(keys.map((key) => key.className.match(/\bpx-[\d.]+/)[0])).toEqual(['px-1', 'px-1.5', 'px-2', 'px-2.5']);
+    await expect(keys.map((key) => key.getBoundingClientRect().height)).toEqual([16, 20, 24, 28]);
   }
 };
