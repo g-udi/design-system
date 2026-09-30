@@ -1,4 +1,4 @@
-// ReUI composition exports
+// Composition exports
 export { useCascaderLoader, useCascaderLoadState } from './parts/cascader-async-extended.jsx';
 export { CascaderColumnPanel, CascaderColumns } from './parts/cascader-columns-extended.jsx';
 export { useCascaderState, useCascaderActions, useCascaderRender, createCascaderHighlightStore, useCascaderHighlight, CascaderActionsContext, CascaderHighlightContext, CascaderRenderContext, CascaderStateContext } from './parts/cascader-context-extended.jsx';

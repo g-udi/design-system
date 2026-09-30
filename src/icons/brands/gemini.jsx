@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 const Gemini = (props) => <svg {...props} viewBox="0 0 296 298" fill="none">
     <mask
   id="gemini-a"

@@ -19,7 +19,7 @@ import DropdownMenu, { DropdownMenuCheckboxItem, DropdownMenuItem } from '../Dro
 import { cn } from '../../../utilities/cn';
 
 /*
- * Anatomy follows the Mav9 data table: uppercase tracked headers on the surface,
+ * Anatomy: uppercase tracked headers on the surface,
  * hairline rows, a synced column + row hover, a tinted wash for selected rows,
  * declarative `align` / `width` / `sticky` columns, and host-owned filtering.
  */
@@ -211,7 +211,7 @@ export const DataTable = ({
 
   const pinStyle = (id) => (pins[id] ? { position: 'sticky', [pins[id].side]: pins[id].offset } : undefined);
   const pinClass = (id, header) =>
-    pins[id] && cn(header ? 'z-20 bg-surface' : 'z-10 bg-inherit', pins[id].edge && (pins[id].side === 'left' ? 'ds-table-pin-left' : 'ds-table-pin-right'));
+    pins[id] && cn('ds-table-pinned', header ? 'z-20' : 'z-10', pins[id].edge && (pins[id].side === 'left' ? 'ds-table-pin-left' : 'ds-table-pin-right'));
   const align = (column) => ({ right: 'text-right', center: 'text-center' })[column.columnDef.meta?.align] || 'text-left';
   const numeric = (column) => column.columnDef.meta?.align === 'right' && 'tabular-nums';
   const toggleIn = (setter, key, single) =>

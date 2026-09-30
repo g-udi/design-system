@@ -1,5 +1,5 @@
 export { default } from './Checkbox';
 export * from './Checkbox';
 
-// ReUI composition exports
+// Composition exports
 export { Checkbox as CheckboxRoot } from './parts/checkbox.jsx';

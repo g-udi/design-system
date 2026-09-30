@@ -1,6 +1,6 @@
 export { default } from './FilterBar';
 
-// ReUI composition exports
+// Composition exports
 export { FilterAdvancedRow, FiltersAdvancedPanel, FiltersAdvanced } from './parts/filters-advanced-extended.jsx';
 export { FilterFieldPicker, FiltersBuilder, toCascaderNodes } from './parts/filters-builder-extended.jsx';
 export { useFilterRuleDisplay, FilterValuePopover, FilterOperatorPopover, FilterMoveToMenuItems, FilterRuleMenuItems, FilterChip } from './parts/filters-chip-extended.jsx';

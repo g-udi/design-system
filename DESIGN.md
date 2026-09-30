@@ -166,7 +166,7 @@ Layouts are responsive, centered, and content-led. Components use Tailwind spaci
 
 ### Density
 
-Gaudi uses compact application density, in the range of reui.io and the Mav9 system.
+Gaudi uses compact application density.
 
 - **Controls** keep their heights: 24, 28, 32 and 36px (xs, sm, md, lg).
 - **Container inset**: 12px for cards, panels, popovers and dialogs (8px at the small size; 16px only for page-level or modal hero content).

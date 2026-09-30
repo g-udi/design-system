@@ -2,7 +2,7 @@ import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource, previewSource } from '../../../../.storybook/stories/previewSource';
-import { publicSource } from '../../../../.storybook/stories/ReuiStoryHelpers';
+import { publicSource } from '../../../../.storybook/stories/PatternStoryHelpers';
 import { ControlsExample } from '../../../../.storybook/fixtures/button/ControlsExample';
 import controlsSource from '../../../../.storybook/fixtures/button/ControlsExample.jsx?raw';
 import { RegistryIcon } from '../../../icons/RegistryIcon';

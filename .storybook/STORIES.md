@@ -1,7 +1,7 @@
 # Story conventions
 
 Every component page follows the Accordion structure
-(`src/components/core/Accordion/Accordion.stories.jsx` and `ReuiAccordion.stories.jsx`).
+(`src/components/core/Accordion/Accordion.stories.jsx` and `AccordionPatterns.stories.jsx`).
 Each use case is shown exactly once, in a tight layout.
 
 ## Files per component
@@ -9,7 +9,7 @@ Each use case is shown exactly once, in a tight layout.
 | File | Holds |
 | --- | --- |
 | `<Name>.stories.jsx` | Meta, `Playground`, and API or behaviour stories |
-| `Reui<Family>.stories.jsx` | One pattern per use case, built from `.storybook/fixtures/reui/<family>/c-<family>-<n>.jsx` |
+| `<Family>Patterns.stories.jsx` | One pattern per use case, built from `.storybook/fixtures/patterns/<family>/c-<family>-<n>.jsx` |
 
 Both files share the same literal `title`. The docs page renders the Interactive Preview (`Playground` with
 controls), the authored guidance from `componentDocumentation.js`, then **Examples**: native stories in
@@ -67,13 +67,13 @@ export const Playground = {
 ## Catalogue file
 
 ```jsx
-const pattern = reuiPatterns('family', import.meta.glob('…/family/*.jsx', { eager: true }),
+const pattern = patternStories('family', import.meta.glob('…/family/*.jsx', { eager: true }),
   import.meta.glob('…/family/*.jsx', { eager: true, query: '?raw', import: 'default' }));
 
 export default { title: 'Core/Name', tags: ['autodocs'], ...catalogueMeta('family') };
 
-export const ReuiFamily1 = { name: 'Short use-case name', ...pattern(1) };
-export const ReuiFamily2 = { name: 'Another use case', ...pattern(2, 'Only when it adds more than the name.'), play };
+export const FamilyPattern1 = { name: 'Short use-case name', ...pattern(1) };
+export const FamilyPattern2 = { name: 'Another use case', ...pattern(2, 'Only when it adds more than the name.'), play };
 ```
 
 - Keep `name` literal and export names stable: `coverage.json` and `catalogue.json` track story IDs.
@@ -82,7 +82,7 @@ export const ReuiFamily2 = { name: 'Another use case', ...pattern(2, 'Only when 
   `.storybook/public`.
 
 After changing stories, run `pnpm catalogue:sync`, `pnpm test:contracts`,
-`node scripts/verify-reui-sources.mjs`, and `pnpm test-storybook <path>`. Then check the rendered
+`node scripts/verify-pattern-sources.mjs`, and `pnpm test-storybook <path>`. Then check the rendered
 layout with the audit modes: `VITE_GAUDI_VISUAL=1` (content spilling out of its container, or a
 bordered container far wider than its content), `VITE_GAUDI_AUDIT=1` (page overflow at 20 widths),
 and `VITE_GAUDI_THEME=dark` (accessibility in the dark theme). With Storybook running,

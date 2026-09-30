@@ -1,5 +1,5 @@
 export { default } from './Kbd';
 export * from './Kbd';
 
-// ReUI composition exports
+// Composition exports
 export { Kbd as KbdRoot, KbdGroup } from './parts/kbd.jsx';

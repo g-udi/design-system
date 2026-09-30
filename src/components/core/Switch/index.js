@@ -1,5 +1,5 @@
 export { default } from './Switch';
 export * from './Switch';
 
-// ReUI composition exports
+// Composition exports
 export { Switch as SwitchRoot } from './parts/switch.jsx';

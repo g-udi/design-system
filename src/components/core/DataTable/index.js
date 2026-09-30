@@ -1,7 +1,7 @@
 export { default } from './DataTable';
 export * from './DataTable';
 
-// ReUI composition exports
+// Composition exports
 export { DataGridCellSelection, DataGridSelectionBar, buildDataGridClearDetails, buildDataGridPasteDetails, getDataGridActiveRegionGrid, getDataGridVisibleSelectedCellCount, invertDataGridCellsChange, parseDataGridClipboardText, serializeDataGridClipboardText, tileDataGridClipboardBlock } from './parts/data-grid-cell-selection-extended.jsx';
 export { DataGridColumnFilter } from './parts/data-grid-column-filter-extended.jsx';
 export { DataGridColumnHeader } from './parts/data-grid-column-header-extended.jsx';

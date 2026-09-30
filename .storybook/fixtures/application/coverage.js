@@ -1,4 +1,4 @@
-// Application workflow entry points. Component coverage lives in ../reui/coverage.json.
+// Application workflow entry points. Component coverage lives in ../patterns/coverage.json.
 export const blockCoverage = [
   [
     'App Shell / Navbar',

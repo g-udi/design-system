@@ -42,7 +42,7 @@ export { default as ToastProvider, toast } from './Toast';
 export { default as FileUpload } from './FileUpload';
 export { default as FilterBar } from './FilterBar';
 
-// ReUI composition exports
+// Composition exports
 export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './Accordion/index.js';
 export { Alert, AlertTitle, AlertDescription, AlertAction, AlertRoot, AlertTitlePrimitive, AlertDescriptionPrimitive, AlertActionPrimitive } from './Banner/index.js';
 export { AlertDialogRoot, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogMedia, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger } from './AlertDialog/index.js';

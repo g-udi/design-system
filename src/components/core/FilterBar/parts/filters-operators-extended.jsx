@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 export const DEFAULT_FILTER_OPERATOR_LABELS = {
   contains: 'contains',
   not_contains: 'does not contain',

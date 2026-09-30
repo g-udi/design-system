@@ -1,2 +1,2 @@
-// ReUI composition exports
+// Composition exports
 export { Slider } from './parts/slider.jsx';

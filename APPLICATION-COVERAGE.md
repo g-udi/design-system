@@ -2,7 +2,7 @@
 
 Application interfaces are a first-class part of Gaudi's curated design system, alongside the blog and editorial experiences. Shared foundations support controls, data views, navigation, feedback, and complete workflows that can be reused across products.
 
-The local Mav9 design system informed component ownership, controlled state, recovery, and example depth. ReUI's public [components](https://reui.io/components) and [application blocks](https://reui.io/blocks/application/) informed the category audit and use cases. The component collection adapts MIT-licensed ReUI source into Gaudi owners; see [REUI-COVERAGE.md](REUI-COVERAGE.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Application blocks are authored for Gaudi. No Mav9 implementation or Pro application-block source was copied.
+Components and application blocks are authored for Gaudi; see [PATTERN-COVERAGE.md](PATTERN-COVERAGE.md) for the family inventory and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for licenses.
 
 ## Explore the system
 
@@ -26,7 +26,7 @@ The content workspace is one application example: article search, sorting, selec
 | Files and communication | FileUpload, Attachment, Message |
 | Composition and workflows | Tabs, Resizable, Sortable, AppShell, SettingsPanel, Wizard, KanbanBoard |
 
-This is a navigation guide, not a feature guarantee for every component. Use the owner documentation and working examples to check the specific API, states, and interactions you need. The ReUI coverage manifest is the source for that collection's family and example inventory.
+This is a navigation guide, not a feature guarantee for every component. Use the owner documentation and working examples to check the specific API, states, and interactions you need. The pattern coverage manifest is the source for the family and example inventory.
 
 ## Integration boundaries
 
@@ -38,4 +38,4 @@ This is a navigation guide, not a feature guarantee for every component. Use the
 
 ## Verification
 
-Run `pnpm lint`, `pnpm test:contracts`, and the changed Storybook interaction/axe suite. Verify affected layouts across phones, tablets, laptops, wide desktops, and nearby breakpoints. [APPLICATION-VERIFICATION.md](APPLICATION-VERIFICATION.md) records the initial application pass; [REUI-VERIFICATION.md](REUI-VERIFICATION.md) records the later catalogue expansion and component follow-ups. Read their scope and dates when assessing coverage.
+Run `pnpm lint`, `pnpm test:contracts`, and the changed Storybook interaction/axe suite. Verify affected layouts across phones, tablets, laptops, wide desktops, and nearby breakpoints. [APPLICATION-VERIFICATION.md](APPLICATION-VERIFICATION.md) records the initial application pass; [PATTERN-VERIFICATION.md](PATTERN-VERIFICATION.md) records the later catalogue expansion and component follow-ups. Read their scope and dates when assessing coverage.

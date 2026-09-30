@@ -9,7 +9,7 @@ const entries = {};
 for (const directory of ['.storybook/stories', 'src/components']) {
   const files = await readdir(resolve(root, directory), { recursive: true });
   const storyFiles = files.filter(name => /\.stories\.(js|jsx)$/.test(name)).sort((a, b) =>
-    Number(/(?:^|\/)Reui/.test(a)) - Number(/(?:^|\/)Reui/.test(b)) || a.localeCompare(b));
+    Number(/Patterns\.stories/.test(a)) - Number(/Patterns\.stories/.test(b)) || a.localeCompare(b));
   for (const name of storyFiles) {
     const file = resolve(root, directory, name);
     const csf = loadCsf(await readFile(file, 'utf8'), { fileName: file, makeTitle: title => title }).parse();

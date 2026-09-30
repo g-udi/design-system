@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../test-support/renderComponent.js';
 
 const publicAPI = await loadComponent(new URL('./index.js', import.meta.url));
-const example = await loadComponent(new URL('../../../../.storybook/fixtures/reui/sortable/c-sortable-1.jsx', import.meta.url));
+const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/sortable/c-sortable-1.jsx', import.meta.url));
 
 test('Sortable publishes its composition and supports server rendering', () => {
   assert.ok(publicAPI.Sortable, 'The documented public entry must stay available');

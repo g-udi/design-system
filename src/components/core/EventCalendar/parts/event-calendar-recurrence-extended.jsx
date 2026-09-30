@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 import { TZDate } from '@date-fns/tz';
 import { addDays, addMonths, addWeeks, addYears } from 'date-fns';
 const MAX_OCCURRENCES = 1e3;

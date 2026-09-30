@@ -555,7 +555,7 @@
   .ds-upload-file .ds-label {
     overflow-wrap: anywhere;
   }
-  /* FilterBar: the Mav9 collection toolbar on Gaudi tokens. */
+  /* FilterBar: the collection toolbar. */
   .ds-filter-bar {
     display: grid;
     gap: 8px;
@@ -940,7 +940,7 @@
   .ds-board-item > :first-child {
     min-width: 0;
   }
-  /* DataTable: the Mav9 table anatomy on Gaudi tokens. */
+  /* DataTable: the data table anatomy. */
   .ds-table-frame {
     position: relative;
     isolation: isolate;
@@ -1091,6 +1091,22 @@
     font-size: 0.75rem;
     font-weight: 500;
     padding-block: 8px;
+  }
+  /* Pinned cells stay opaque in every state so scrolled columns never show through. */
+  .ds-table-pinned {
+    background: var(--ds-color-surface);
+  }
+  .ds-table-row > .ds-table-pinned {
+    background: inherit;
+  }
+  .ds-table-row:is(:hover, :focus-visible) > .ds-table-pinned {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-foot.ds-table-pinned {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-pinned[data-column-hover] {
+    background: color-mix(in oklab, var(--ds-color-accent) 5%, var(--ds-color-surface));
   }
   .ds-table-pin-left {
     box-shadow: inset -1px 0 0 var(--ds-color-border);

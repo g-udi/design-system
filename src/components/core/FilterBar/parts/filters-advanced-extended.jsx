@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 'use client';
 import * as React from 'react';
 import { FilterFieldPicker } from './filters-builder-extended.jsx';

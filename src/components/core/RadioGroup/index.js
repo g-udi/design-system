@@ -1,4 +1,4 @@
 export { default } from './RadioGroup';
 
-// ReUI composition exports
+// Composition exports
 export { RadioGroup as RadioGroupRoot, RadioGroupItem } from './parts/radio-group.jsx';

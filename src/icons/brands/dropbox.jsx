@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 const Dropbox = (props) => <svg {...props} fill="none" viewBox="0 0 128 128">
     <path fill="#0061FE" d="M0 0h128v128H0z" />
     <path

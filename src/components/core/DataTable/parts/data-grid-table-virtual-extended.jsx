@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 'use client';
 const EMPTY_VIRTUAL_ITEMS = Object.freeze([]);
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';

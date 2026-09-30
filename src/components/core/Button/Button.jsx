@@ -48,7 +48,7 @@ const resolveButtonVariants = createVariants({
   }
 });
 
-/** ReUI vocabulary resolves through the existing Gaudi tones and variants. */
+/** Composition vocabulary resolves through the existing Gaudi tones and variants. */
 export const buttonVariants = Object.assign((options = {}) => {
   const { variant, size, tone, ...rest } = options;
   const aliases = { default: 'solid', secondary: 'soft', destructive: 'solid', link: 'subtle' };

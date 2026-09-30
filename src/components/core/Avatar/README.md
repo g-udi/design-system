@@ -50,4 +50,4 @@ The 35 patterns cover images and fallbacks, standard/custom sizes and radii, rin
 
 Tests cover accessible and decorative identities, Unicode initials, empty and limited groups, source failure/recovery/removal, account actions, roster focus return, legacy consumers and responsive layouts. Apps own identity data, presence, translations, permissions, networking and persistence.
 
-See [Pattern coverage](../../../../REUI-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+See [Pattern coverage](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).

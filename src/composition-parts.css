@@ -1,4 +1,4 @@
-/* ReUI MIT structural styles, adapted to Gaudi tokens. See THIRD_PARTY_NOTICES.md. */
+/* Structural styles for composition parts, on Gaudi tokens. See THIRD_PARTY_NOTICES.md. */
 @layer components {
   /* MARK: Accordion */
   .ds-part-accordion-item {

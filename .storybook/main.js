@@ -90,8 +90,8 @@ const config = {
   'staticDirs': [ './public' ],
   'stories': [
     './stories/**/*.stories.@(js|jsx|mdx)',
-    '../src/components/**/!(Reui*).stories.@(js|jsx|mdx)',
-    '../src/components/**/Reui*.stories.@(js|jsx|mdx)'
+    '../src/components/**/!(*Patterns).stories.@(js|jsx|mdx)',
+    '../src/components/**/*Patterns.stories.@(js|jsx|mdx)'
   ],
   'viteFinal': (viteConfig) => {
     const { rollupOptions = {}, ...buildConfig } = viteConfig.build || {};

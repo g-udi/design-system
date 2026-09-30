@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 export const codeBlockLanguages = {
   bash: () => import('shiki/langs/bash.mjs'),
   c: () => import('shiki/langs/c.mjs'),

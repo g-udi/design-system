@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 export const CASCADER_ROOT_KEY = '\0root';
 export const CASCADER_MORE_PREFIX = '\0more:';
 export const CASCADER_LIST_HEIGHT_CLASS =

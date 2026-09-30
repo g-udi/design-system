@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../Popover/parts/popove
 import { cn } from '../../../utilities/cn';
 
 /*
- * The Mav9 collection toolbar: a search with a live result count, a Filters trigger
+ * The collection toolbar: a search with a live result count, a Filters trigger
  * whose two-pane popover lists each facet's options with counts, and removable
  * "Field: Value" chips. It only presents state: the host owns matching and persistence.
  */

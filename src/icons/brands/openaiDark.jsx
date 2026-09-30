@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 const OpenaiDark = (props) => <svg {...props} preserveAspectRatio="xMidYMid" viewBox="0 0 256 260">
     <path
   fill="#fff"

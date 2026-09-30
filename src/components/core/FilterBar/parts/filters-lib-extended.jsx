@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 import { collapseCascaderPath } from '../../Cascader/parts/cascader-lib-extended.jsx';
 export const FILTER_MENU_CLASS =
   'w-max min-w-32 max-w-[min(24rem,calc(100vw-2rem))] [&_[data-slot=dropdown-menu-item]]:min-w-0';

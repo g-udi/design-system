@@ -1,0 +1,32 @@
+import { default as Button } from '../../../../src/components/core/Button/index.js';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger
+} from '../../../../src/components/core/Tooltip/parts/tooltip.jsx';
+import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+export function Pattern() {
+  return (
+    <div className='flex items-center justify-center'>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant='outline' size='icon' aria-label='Warning'>
+              <RegistryIcon lucide='AlertTriangleIcon' />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <div className='flex items-center gap-2 text-sm'>
+              <RegistryIcon
+                lucide='AlertTriangleIcon'
+                className='size-4 shrink-0'
+              />
+              This action cannot be undone
+            </div>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </div>
+  );
+}

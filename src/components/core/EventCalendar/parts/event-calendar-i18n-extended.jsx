@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 import { format, isSameMonth, isSameYear, subMilliseconds } from 'date-fns';
 const DEFAULT_LABELS = {
   today: 'Today',

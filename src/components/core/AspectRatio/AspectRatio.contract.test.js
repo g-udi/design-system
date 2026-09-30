@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../test-support/renderComponent.js';
 
 const publicAPI = await loadComponent(new URL('./index.js', import.meta.url));
-const example = await loadComponent(new URL('../../../../.storybook/fixtures/reui/aspect-ratio/c-aspect-ratio-1.jsx', import.meta.url));
+const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/aspect-ratio/c-aspect-ratio-1.jsx', import.meta.url));
 
 test('AspectRatio publishes its composition and supports server rendering', () => {
   assert.ok(publicAPI.AspectRatio, 'The documented public entry must stay available');

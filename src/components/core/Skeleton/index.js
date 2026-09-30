@@ -1,5 +1,5 @@
 export { default } from './Skeleton';
 export * from './Skeleton';
 
-// ReUI composition exports
+// Composition exports
 export { Skeleton as SkeletonRoot } from './parts/skeleton.jsx';

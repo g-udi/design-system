@@ -342,30 +342,29 @@ export const GroupedRows = {
   }
 };
 
-const channels = ['Search', 'Newsletter', 'Social', 'Referral', 'Direct', 'Podcast'];
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+// A year of reads per article: wide enough to scroll, so the pinned title and total stay in view.
 const traffic = library.slice(0, 6).map((row, index) => {
-  const reads = Object.fromEntries(channels.map((channel, column) => [channel, (((index + 3) * (column + 5) * 97) % 4200) + 180]));
-  return { id: row.id, title: row.title, ...reads, total: channels.reduce((total, channel) => total + reads[channel], 0) };
+  const reads = Object.fromEntries(months.map((month, column) => [month, (((index + 3) * (column + 5) * 97) % 2400) + 180]));
+  return { id: row.id, title: row.title, ...reads, total: months.reduce((total, month) => total + reads[month], 0) };
 });
 const trafficColumns = [
   { key: 'title', header: 'Article', sticky: 'left', render: (row) => <span className='block w-56 truncate font-medium'>{row.title}</span> },
-  ...channels.map((channel) => ({ key: channel, header: channel, align: 'right', render: (row) => number.format(row[channel]), footer: (rows) => number.format(sum(rows, channel)) })),
+  ...months.map((month) => ({ key: month, header: month, align: 'right', width: 88, render: (row) => number.format(row[month]), footer: (rows) => number.format(sum(rows, month)) })),
   { key: 'total', header: 'Total', align: 'right', sticky: 'right', render: (row) => <span className='font-semibold'>{number.format(row.total)}</span>, footer: (rows) => number.format(sum(rows, 'total')) }
 ];
 
 export const PinnedColumns = {
   parameters: {
-    docs: { description: { story: '`sticky: left` and `sticky: right` pin the identifying and summary columns while the channels scroll. Chevrons at the edges fade in where more columns wait, and the region pans with the arrow keys. Pinning releases when pinned columns would cover most of a narrow viewport.' } },
+    docs: { description: { story: '`sticky: left` and `sticky: right` pin the identifying and summary columns while the months scroll. Chevrons at the edges fade in where more columns wait, and the region pans with the arrow keys. Pinning releases when pinned columns would cover most of a narrow viewport.' } },
     visualAudit: { wide: 'A wide analytics table scrolls horizontally inside its frame by design.' }
   },
-  render: () => (
-    <div className='max-w-3xl'>
-      <DataTable caption='Reads by channel' footer sortable density='compact' columns={trafficColumns} rows={traffic} />
-    </div>
-  ),
+  render: () => <DataTable caption='Reads by month' footer sortable density='compact' columns={trafficColumns} rows={traffic} />,
   play: async ({ canvasElement }) => {
-    const region = within(canvasElement).getByRole('region', { name: 'Reads by channel scrollable table' });
+    const region = within(canvasElement).getByRole('region', { name: 'Reads by month scrollable table' });
     await waitFor(() => expect(region.querySelector('th[style*="sticky"]')).not.toBeNull());
+    // Arrow keys pan only when the months overflow the frame.
+    if (region.scrollWidth <= region.clientWidth) return;
     region.focus();
     await userEvent.keyboard('{ArrowRight}');
     await waitFor(() => expect(region.scrollLeft).toBeGreaterThan(0));

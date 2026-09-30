@@ -29,6 +29,6 @@ Actual CSS viewport widths checked: **320, 390, 639, 640, 641, 768, 1023, 1024, 
 
 ## Scope and limits
 
-Use [APPLICATION-COVERAGE.md](./APPLICATION-COVERAGE.md) and **Overview / Application patterns** for the exact ReUI mapping and unimplemented specialist categories. Tests cover Chromium; this is not a Safari/Firefox certification. No new Storybook server or production build was started, and no deployment was made.
+Use [APPLICATION-COVERAGE.md](./APPLICATION-COVERAGE.md) and **Overview / Application patterns** for the family mapping and unimplemented specialist categories. Tests cover Chromium; this is not a Safari/Firefox certification. No new Storybook server or production build was started, and no deployment was made.
 
 The Impeccable detector's radius, type-size and shadow advisories were resolved by reusing Gaudi's existing token scale. Its existing `.impeccable/design.json` sidecar predates DESIGN.md; an Impeccable `document` refresh can synchronize that metadata separately.

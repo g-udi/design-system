@@ -1,0 +1,29 @@
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList
+} from '../../../../src/components/core/Select/parts/combobox.jsx';
+import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+const largeListItems = Array.from({ length: 100 }, (_, i) => `Item ${i + 1}`);
+export function Pattern() {
+  return (
+    <Field className='max-w-xs'>
+      <Combobox items={largeListItems}>
+        <ComboboxInput placeholder='Search from 100 items' />
+        <ComboboxContent>
+          <ComboboxEmpty>No items found.</ComboboxEmpty>
+          <ComboboxList>
+            {(item) => (
+              <ComboboxItem key={item} value={item}>
+                {item}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+    </Field>
+  );
+}

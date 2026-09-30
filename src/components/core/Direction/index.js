@@ -1,2 +1,2 @@
-// ReUI composition exports
+// Composition exports
 export { DirectionProvider, useDirection } from './parts/direction.jsx';

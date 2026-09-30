@@ -1,5 +1,5 @@
 export { default } from './Spinner';
 export * from './Spinner';
 
-// ReUI composition exports
+// Composition exports
 export { Spinner as SpinnerRoot } from './parts/spinner.jsx';

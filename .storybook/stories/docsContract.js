@@ -9,7 +9,7 @@ export function selectPreviewStory(stories) {
     const name = story.name.toLowerCase();
     return (acceptsPreviewArgs(story) ? 100 : 0)
       + (name === 'playground' ? 40 : /^(default|primary|basic|initials|email)$/.test(name) ? 30 : 0)
-      + (!story.exportName?.startsWith('Reui') ? 10 : 0);
+      + (!/Pattern\d+$/.test(story.exportName || '') ? 10 : 0);
   };
   return candidates.reduce((best, story) => !best || rank(story) > rank(best) ? story : best, undefined);
 }

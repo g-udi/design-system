@@ -1,4 +1,4 @@
-// ReUI composition exports
+// Composition exports
 export { GANTT_COLORS, GanttBar, useGanttBarContext } from './parts/gantt-bar-extended.jsx';
 export { cancelActiveGanttGestures, GANTT_ACTIVATION, markGestureEnd, useGanttGestures, useGanttGestureTeardown, wasRecentDrag } from './parts/gantt-dnd-extended.jsx';
 export { DEFAULT_GANTT_I18N, mergeGanttI18n } from './parts/gantt-i18n-extended.jsx';

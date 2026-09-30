@@ -1,6 +1,6 @@
 export { default, DialogClose } from './Dialog';
 
-// ReUI composition exports
+// Composition exports
 export { Dialog as DialogRoot, DialogClose as DialogClosePrimitive, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger } from './parts/dialog.jsx';
 export { Drawer, DrawerPortal, DrawerOverlay, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription } from './parts/drawer.jsx';
 export { Sheet, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription } from './parts/sheet.jsx';

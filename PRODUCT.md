@@ -34,7 +34,7 @@ The system name is Gaudi. The package name is `@gaudi/design-system`. The source
 
 ## Evidence on Hand
 
-Repository evidence includes `README.md`, `AGENTS.md`, `package.json`, `src/tokens/tokens.json`, `src/styles.css`, Storybook stories, and component source under `src/components/`. `REUI-COVERAGE.md` and `THIRD_PARTY_NOTICES.md` record curated source coverage and attribution. Verification records describe what was checked. Storybook fixtures demonstrate local state and illustrative data; they do not establish a working backend or provider integration.
+Repository evidence includes `README.md`, `AGENTS.md`, `package.json`, `src/tokens/tokens.json`, `src/styles.css`, Storybook stories, and component source under `src/components/`. `PATTERN-COVERAGE.md` and `THIRD_PARTY_NOTICES.md` record curated source coverage and attribution. Verification records describe what was checked. Storybook fixtures demonstrate local state and illustrative data; they do not establish a working backend or provider integration.
 
 ## Product Principles
 

@@ -560,7 +560,7 @@ const componentDocs = {
       'Right-align numeric columns with align: right so figures line up in tabular numerals.',
       'Pin at most the identifying column and one summary column; pinning releases on narrow screens so every column stays reachable.'
     ],
-    'description': 'DataTable is a TanStack table in the Mav9 anatomy: uppercase tracked headers, hairline rows, synced column and row hover, a tinted wash for selected rows, and declarative column alignment, width and pinning. It adds search with a live count, sorting, selection with bulk actions, expandable rows, row action menus, grouped bands, a totals footer, pagination, and loading, refreshing, empty and error states.',
+    'description': 'DataTable is a TanStack table with a compact data anatomy: uppercase tracked headers, hairline rows, synced column and row hover, a tinted wash for selected rows, and declarative column alignment, width and pinning. It adds search with a live count, sorting, selection with bulk actions, expandable rows, row action menus, grouped bands, a totals footer, pagination, and loading, refreshing, empty and error states.',
     'props': [
       [ 'columns', 'Array<{ key, header, render?, align?, width?, sticky?, footer?, sortable?, searchable?, hideable? }>', '[]', 'Column definitions. align: right sets tabular numerals; sticky: left | right pins; footer(rows) renders a total.' ],
       [ 'rows', 'Array<Record<string, unknown>>', '[]', 'Rows keyed by column key. row.id is used as the stable key when present.' ],

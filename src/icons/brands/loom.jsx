@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 const Loom = (props) => <svg {...props} viewBox="0 0 256 256" preserveAspectRatio="xMidYMid">
     <path
   fill="#625DF5"

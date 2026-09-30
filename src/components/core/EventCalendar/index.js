@@ -1,4 +1,4 @@
-// ReUI composition exports
+// Composition exports
 export { EventCalendarAgendaView } from './parts/event-calendar-agenda-view-extended.jsx';
 export { DEFAULT_VIEW_COMPONENTS, EventCalendarContent } from './parts/event-calendar-content-extended.jsx';
 export { EVENT_CALENDAR_ACTIVATION, cancelActiveEventCalendarGestures, markChipPress, useEventCalendarGestures, wasRecentChipPress, wasRecentDrag } from './parts/event-calendar-dnd-extended.jsx';

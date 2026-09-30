@@ -11,7 +11,7 @@ async function collect(directory) {
   return result.flat();
 }
 test('every catalogue icon resolves through the central Gaudi registry', async () => {
-  const sources = await collect(fileURLToPath(new URL('../../.storybook/fixtures/reui', import.meta.url)));
+  const sources = await collect(fileURLToPath(new URL('../../.storybook/fixtures/patterns', import.meta.url)));
   const names = new Set(sources.flatMap((source) => [...source.matchAll(/lucide=['"]([^'"]+)['"]/g)].map((match) => match[1])));
   assert.ok(names.size > 100);
   for (const name of names) assert.ok(getIcon(name.replace(/Icon$/, '')) || getIcon(name), `Missing icon: ${name}`);

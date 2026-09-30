@@ -1,0 +1,14 @@
+import { Field } from '../../../../src/components/core/Field/parts/field.jsx';
+import { FieldInput as Input } from '../../../../src/components/core/Field/index.js';
+export function Pattern() {
+  return (
+    <Field className='max-w-xs'>
+      <Input
+        aria-label='Basic Input'
+        id='basic-input'
+        type='text'
+        placeholder='Basic Input'
+      />
+    </Field>
+  );
+}

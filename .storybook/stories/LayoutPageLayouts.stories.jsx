@@ -477,7 +477,7 @@ const HomePage = () => (
         </Typography>
         <Typography variant='subtitle-md' className='max-sm:py-3'>{siteMetadata.description}</Typography>
         <Typography variant='paragraph-md'>
-          A driven AI and Machine Learning (ML) leader with a passion for building intelligent systems and turning complex technology into useful products through my current role as <strong>CTO <Link tone='blue' href='https://mav9.com' className='font-bold'>@Mav9</Link></strong>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering; previously, as <strong>VP of AI and Data <Link tone='blue' href='https://beamery.com' className='font-bold'>@Beamery</Link></strong>, I built and scaled engineering, AI, and data science teams and helped the company become one of the latest tech unicorns.
+          A driven AI and Machine Learning (ML) leader with a passion for building intelligent systems and turning complex technology into useful products through my current role as <strong>CTO <Link tone='blue' href='https://example.com' className='font-bold'>@Northwind</Link></strong>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering; previously, as <strong>VP of AI and Data <Link tone='blue' href='https://beamery.com' className='font-bold'>@Beamery</Link></strong>, I built and scaled engineering, AI, and data science teams and helped the company become one of the latest tech unicorns.
         </Typography>
         <Typography variant='paragraph-md'>
           I am a Knowledge Graph and Semantic Web Enthusiast (<strong>PhD in Semantic Web and Information Retrieval</strong>) with <Link tone='blue' href='/blog/publications'>publications</Link> on Linked Data, Data Quality and Recommender Systems.
@@ -946,7 +946,7 @@ const AboutPage = () => {
                       Artificial Intelligence Leader, Advisor and Mentor
                     </Typography>
                     <Typography variant='paragraph-lg' className='relative mt-6 sm:max-w-md lg:max-w-none'>
-                      Ahmad is CTO at Mav9 and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
+                      Ahmad is CTO at Northwind and a seasoned AI and data leader with more than a decade of experience scaling SaaS and technology businesses across engineering, data, and AI. He has a proven track record in engineering leadership, encompassing engineering operations, innovation strategy, and product development.
                     </Typography>
                   </div>
                 </div>
@@ -959,7 +959,7 @@ const AboutPage = () => {
               <div className='mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row'>
                 <div className='lg:w-full lg:max-w-2xl lg:flex-auto'>
                   <Typography variant='paragraph-lg'>
-                    I am currently CTO at <Link href='https://mav9.com' tone='blue'>Mav9</Link>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Mav9, as a founding engineer at <Link href='https://beamery.com' tone='blue'>Beamery</Link>, I had the unique opportunity to shape the company's technological journey from its inception.
+                    I am currently CTO at <Link href='https://example.com' tone='blue'>Northwind</Link>, where I lead technology strategy across AI, data, knowledge graphs, and product engineering. Before Northwind, as a founding engineer at <Link href='https://beamery.com' tone='blue'>Beamery</Link>, I had the unique opportunity to shape the company's technological journey from its inception.
                   </Typography>
                   <div className='mt-10 max-w-xl'>
                     <Typography variant='paragraph-md'>
@@ -973,7 +973,7 @@ const AboutPage = () => {
                 <div className='lg:flex lg:flex-auto lg:justify-center'>
                   <dl className='w-auto space-y-6 xl:w-72'>
                     {[
-                      [ 'CTO', 'Mav9', 'https://mav9.com' ],
+                      [ 'CTO', 'Northwind', 'https://example.com' ],
                       [ 'VP AI and Data', 'Beamery', 'https://beamery.com' ],
                       [ 'Research Scientist', 'SAP', 'https://sap.com' ]
                     ].map(([ role, company, href ]) => (

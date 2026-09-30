@@ -1,0 +1,39 @@
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from '../../../../src/components/core/Avatar/parts/avatar.jsx';
+export function Pattern() {
+  return (
+    <div className='flex items-center gap-2'>
+      <Avatar className='size-4'>
+        <AvatarImage
+          src='https://randomuser.me/api/portraits/men/11.jpg'
+          alt='Michael Rodriguez'
+        />
+        <AvatarFallback>MR</AvatarFallback>
+      </Avatar>
+      <Avatar className='size-8'>
+        <AvatarImage
+          src='https://randomuser.me/api/portraits/men/11.jpg'
+          alt='Michael Rodriguez'
+        />
+        <AvatarFallback>MR</AvatarFallback>
+      </Avatar>
+      <Avatar className='size-12'>
+        <AvatarImage
+          src='https://randomuser.me/api/portraits/men/11.jpg'
+          alt='Michael Rodriguez'
+        />
+        <AvatarFallback>MR</AvatarFallback>
+      </Avatar>
+      <Avatar className='size-16'>
+        <AvatarImage
+          src='https://randomuser.me/api/portraits/men/11.jpg'
+          alt='Michael Rodriguez'
+        />
+        <AvatarFallback>MR</AvatarFallback>
+      </Avatar>
+    </div>
+  );
+}

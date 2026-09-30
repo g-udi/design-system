@@ -6,7 +6,7 @@ import { catalogueFromIndex, filterCatalogue } from '../../.storybook/stories/ca
 import { navigationPages, isNavigationPage, isSidebarEntry } from '../../.storybook/navigation.js';
 
 const index = JSON.parse(await readFile(new URL('../../.storybook/fixtures/catalogue.json', import.meta.url)));
-const coverage = JSON.parse(await readFile(new URL('../../.storybook/fixtures/reui/coverage.json', import.meta.url)));
+const coverage = JSON.parse(await readFile(new URL('../../.storybook/fixtures/patterns/coverage.json', import.meta.url)));
 const owners = catalogueFromIndex(index);
 
 test('the flat catalogue preserves every curated example and original component families', () => {
@@ -44,12 +44,12 @@ test('original component documentation owns merged pages', () => {
   }
   // Catalogues share their owner's title, so each component has exactly one docs page.
   const merged = {
-    'core-breadcrumb--reui-breadcrumb-1': 'Core/Breadcrumb',
-    'core-pagination--reui-pagination-1': 'Core/Pagination',
-    'core-navigationmenu--reui-navigation-menu-1': 'Core/NavigationMenu',
-    'blocks-application-kanbanboard--reui-kanban-1': 'Blocks/Application/KanbanBoard',
-    'blocks-application-resourcelist--reui-item-1': 'Blocks/Application/ResourceList',
-    'blocks-application-appshell--reui-sidebar-1': 'Blocks/Application/AppShell'
+    'core-breadcrumb--breadcrumb-pattern-1': 'Core/Breadcrumb',
+    'core-pagination--pagination-pattern-1': 'Core/Pagination',
+    'core-navigationmenu--navigation-menu-pattern-1': 'Core/NavigationMenu',
+    'blocks-application-kanbanboard--kanban-pattern-1': 'Blocks/Application/KanbanBoard',
+    'blocks-application-resourcelist--item-pattern-1': 'Blocks/Application/ResourceList',
+    'blocks-application-appshell--sidebar-pattern-1': 'Blocks/Application/AppShell'
   };
   for (const [id, title] of Object.entries(merged)) assert.equal(index.entries[id]?.title, title, id);
   const docsTitles = Object.values(index.entries).filter(entry => entry.type === 'docs').map(entry => entry.title);
@@ -61,7 +61,7 @@ test('original component documentation owns merged pages', () => {
 
 test('use-case search finds matching examples and respects area filters', () => {
   const results = filterCatalogue(owners, {query:'spreadsheet editing'});
-  assert.ok(results.some(owner => owner.examples.some(example=>example.id === 'core-datatable--reui-data-grid-31')));
+  assert.ok(results.some(owner => owner.examples.some(example=>example.id === 'core-datatable--data-grid-pattern-31')));
   assert.equal(filterCatalogue(owners, {query:'spreadsheet editing',category:'MDX'}).length, 0);
 });
 

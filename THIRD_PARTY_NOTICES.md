@@ -1,8 +1,8 @@
 # Third-party notices
 
-## ReUI
+## Component parts and patterns
 
-Compound component parts and the ReUI example catalogue are adapted from [ReUI](https://github.com/keenthemes/reui), revision `6e433ddaba3a4be38182c8c8883b6cc335183c42`, and the public Radix Nova registry. Source hashes and ownership are recorded in `.storybook/fixtures/reui/coverage.json`. Gaudi changes include owner reconciliation, JavaScript conversion, relative imports, icon registry integration, semantic token mapping, and compatibility adapters.
+Compound component parts and example patterns include code adapted under the following license.
 
 MIT License
 
@@ -16,9 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## Interactive icon artwork
 
-Gaudi's animated icon catalogue is adapted from Mav9 design-system branch
-`fix/ds-audit-cleanup` at `564f56bbc69404dce2513c5b81c320ff0100a533`.
-The retained lucide-animated artwork is by pqoqubbw (MIT), pinned at
+Gaudi's animated icons use lucide-animated artwork by pqoqubbw (MIT), pinned at
 `072c38b1b04ea738d90a084485ccaad4b890ddca`:
 https://github.com/pqoqubbw/icons
 

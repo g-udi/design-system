@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 const ROOT_LEVEL = 'Top level';
 const itemCount = (count) => `${count} ${count === 1 ? 'item' : 'items'}`;
 export const CASCADER_LABELS = {

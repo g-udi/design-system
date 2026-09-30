@@ -1,8 +1,4 @@
 {
-  "mav9": {
-    "branch": "fix/ds-audit-cleanup",
-    "commit": "564f56bbc69404dce2513c5b81c320ff0100a533"
-  },
   "upstream": {
     "url": "https://github.com/pqoqubbw/icons",
     "commit": "072c38b1b04ea738d90a084485ccaad4b890ddca"

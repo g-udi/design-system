@@ -1,4 +1,3 @@
-// Adapted from ReUI (MIT), copyright 2025 Keenthemes Inc. See THIRD_PARTY_NOTICES.md.
 export const DEFAULT_FILTER_LABELS = {
   addFilter: 'Add filter',
   advancedFilter: 'Advanced filter',

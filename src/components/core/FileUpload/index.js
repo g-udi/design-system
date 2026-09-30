@@ -1,4 +1,4 @@
 export { default } from './FileUpload';
 
-// ReUI composition exports
+// Composition exports
 export { useFileUpload, formatBytes } from './use-file-upload.js';

@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../test-support/renderComponent.js';
 
 const publicAPI = await loadComponent(new URL('./index.js', import.meta.url));
-const example = await loadComponent(new URL('../../../../.storybook/fixtures/reui/number-field/c-number-field-1.jsx', import.meta.url));
+const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/number-field/c-number-field-1.jsx', import.meta.url));
 
 test('NumberField publishes its composition and supports server rendering', () => {
   assert.ok(publicAPI.NumberField, 'The documented public entry must stay available');

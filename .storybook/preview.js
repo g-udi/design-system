@@ -88,13 +88,13 @@ const preview = {
     } else if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
       const { auditStoryLayout } = await import('./storyAudit.js');
       await auditStoryLayout(context);
-    } else if (import.meta.env.VITE_GAUDI_RESPONSIVE === '1' && (context.id.includes('--reui-') || context.id === 'overview-component-catalogue--browse')) {
+    } else if (import.meta.env.VITE_GAUDI_RESPONSIVE === '1' && (/-pattern-\d+$/.test(context.id) || context.id === 'overview-component-catalogue--browse')) {
       const { verifyResponsiveCatalogue } = await import('./responsive.js');
       await verifyResponsiveCatalogue(context);
     }
   },
   decorators: [
-    // The toolbar theme switch (as in the Mav9 system); it toggles the `dark` class on <html>.
+    // The toolbar theme switch toggles the `dark` class on <html>.
     withThemeByClassName({ themes: { light: '', dark: 'dark' }, defaultTheme: 'light' }),
     (Story, context) => {
       syncStorybookTheme(context.globals.theme, context.globals.cornerRadius);
@@ -194,7 +194,7 @@ const preview = {
         // Same component: Docs first, then native stories and each pattern catalogue in declaration order.
         if (a.type !== b.type && (a.type === 'docs' || b.type === 'docs')) return a.type === 'docs' ? -1 : 1;
         if (a.importPath === b.importPath) return 0;
-        const catalogue = (path) => Number(/\/Reui[^/]*$/.test(path));
+        const catalogue = (path) => Number(/Patterns\.stories\.jsx$/.test(path));
         return catalogue(a.importPath) - catalogue(b.importPath) || a.importPath.localeCompare(b.importPath);
       }
     }
