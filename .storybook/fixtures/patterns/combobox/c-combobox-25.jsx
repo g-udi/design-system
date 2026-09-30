@@ -117,7 +117,7 @@ function getUpcomingMonthEnd(today) {
     : monthEnd;
 }
 function DateSelectionCombobox({ value, onValueChange }) {
-  const today = React.useMemo(() => startOfDay(/* @__PURE__ */ new Date()), []);
+  const today = React.useMemo(() => startOfDay(new Date()), []);
   const [pickerOpen, setPickerOpen] = React.useState(false);
   const [draftDate, setDraftDate] = React.useState(
     value?.date ?? addDays(today, 1)

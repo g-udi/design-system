@@ -1,6 +1,6 @@
 'use client';
 
-import * as Primitive from '@radix-ui/react-tooltip';
+import { Tooltip as TooltipRoot, TooltipContent, TooltipProvider, TooltipTrigger } from './parts/tooltip.jsx';
 
 /** The child must forward its ref and have an accessible name of its own. */
 export default function Tooltip({
@@ -13,21 +13,14 @@ export default function Tooltip({
   onOpenChange
 }) {
   return (
-    <Primitive.Provider delayDuration={delayDuration}>
-      <Primitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
-        <Primitive.Trigger asChild>{children}</Primitive.Trigger>
-        <Primitive.Portal>
-          <Primitive.Content
-            side={side}
-            sideOffset={6}
-            collisionPadding={12}
-            className='ds-tooltip'
-          >
-            {content}
-            <Primitive.Arrow className='ds-tooltip-arrow' />
-          </Primitive.Content>
-        </Primitive.Portal>
-      </Primitive.Root>
-    </Primitive.Provider>
+    <TooltipProvider delayDuration={delayDuration}>
+      <TooltipRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange}>
+        <TooltipTrigger asChild>{children}</TooltipTrigger>
+        {/* Above the convenience Dialog's layer, so hints inside a dialog stay visible. */}
+        <TooltipContent side={side} sideOffset={6} collisionPadding={12} className='z-[calc(var(--ds-z-overlay)+20)] max-w-[min(20rem,calc(100vw-1.5rem))] wrap-anywhere'>
+          {content}
+        </TooltipContent>
+      </TooltipRoot>
+    </TooltipProvider>
   );
 }

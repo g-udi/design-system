@@ -20,67 +20,47 @@ export default function KanbanBoard({
   return (
     <div className='ds-board-wrap'>
       <div className='ds-board' role='region' aria-label={label} tabIndex={0}>
-        {columns.map((column) => (
-          <section
-            key={column.id}
-            className='ds-board-column'
-            aria-label={column.label}
-          >
-            <header>
-              <h3 className='ds-label'>{column.label}</h3>
-              <span className='ds-description'>
-                {items.filter((item) => item.columnId === column.id).length}
-              </span>
-            </header>
-            <ul>
-              {items
-                .filter((item) => item.columnId === column.id)
-                .map((item) => (
+        {columns.map((column) => {
+          const columnItems = items.filter((item) => item.columnId === column.id);
+          const targets = columns.filter((target) => target.id !== column.id);
+          return (
+            <section key={column.id} className='ds-board-column' aria-label={column.label}>
+              <header>
+                <h3 className='ds-label'>{column.label}</h3>
+                <span className='ds-description'>{columnItems.length}</span>
+              </header>
+              <ul>
+                {columnItems.map((item) => (
                   <li key={item.id} className='ds-board-item'>
-                    {renderItem ? (
-                      renderItem(item)
-                    ) : (
-                      <p className='ds-label'>{item.title}</p>
-                    )}
+                    {renderItem ? renderItem(item) : <p className='ds-label'>{item.title}</p>}
                     {onMove && (
                       <DropdownMenu
                         trigger={
-                          <Button
-                            size='xs'
-                            tone='neutral'
-                            variant='ghost'
-                            disabled={disabled}
-                            aria-label={`${moveLabel} ${item.title}`}
-                          >
+                          <Button size='xs' tone='neutral' variant='ghost' disabled={disabled} aria-label={`${moveLabel} ${item.title}`}>
                             <Icon name='MoreHorizontal' decorative size='xs' />
                           </Button>
                         }
                       >
-                        {columns
-                          .filter((target) => target.id !== column.id)
-                          .map((target) => (
-                            <DropdownMenuItem
-                              key={target.id}
-                              onSelect={() => {
-                                onMove(item.id, target.id);
-                                setAnnouncement(
-                                  `${item.title}: ${target.label}`
-                                );
-                              }}
-                            >
-                              {target.label}
-                            </DropdownMenuItem>
-                          ))}
+                        {targets.map((target) => (
+                          <DropdownMenuItem
+                            key={target.id}
+                            onSelect={() => {
+                              onMove(item.id, target.id);
+                              setAnnouncement(`${item.title}: ${target.label}`);
+                            }}
+                          >
+                            {target.label}
+                          </DropdownMenuItem>
+                        ))}
                       </DropdownMenu>
                     )}
                   </li>
                 ))}
-            </ul>
-            {!items.some((item) => item.columnId === column.id) && (
-              <p className='ds-description'>{emptyLabel}</p>
-            )}
-          </section>
-        ))}
+              </ul>
+              {!columnItems.length && <p className='ds-description'>{emptyLabel}</p>}
+            </section>
+          );
+        })}
       </div>
       <span role='status' className='sr-only'>
         {announcement}

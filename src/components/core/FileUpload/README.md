@@ -27,6 +27,8 @@ const [files, setFiles] = useState([]);
 | `getFileState`          | function(file)             | Supplies status, measured progress and error text.                               |
 | `onRetry / onCancel`    | function(file)             | Host-owned transport actions; the component starts no requests.                  |
 | `labels`                | object                     | Overrides chooser, rejection, progress, success and action copy.                 |
+| `useFileUpload`         | hook                       | Headless state (previews, drag, errors) for custom upload surfaces; same `accept` rules. |
+| `formatBytes`           | function(bytes, decimals)  | Formats a size such as `1.8MB`; FileUpload uses it for each row.                 |
 
 ## Ownership and verification
 

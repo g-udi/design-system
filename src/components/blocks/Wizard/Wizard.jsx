@@ -5,8 +5,13 @@ import Stepper from '../../core/Stepper';
 import Button from '../../core/Button';
 import EmptyState from '../../core/EmptyState';
 
-/** State belongs above the wizard so fields survive step changes. */
-export default function Wizard({
+/** State belongs above the wizard so fields survive step changes. Changing the step IDs restarts the flow. */
+export default function Wizard(props) {
+  const signature = JSON.stringify((props.steps || []).map((step) => step.id));
+  return <WizardFlow key={signature} {...props} />;
+}
+
+function WizardFlow({
   title,
   description,
   steps = [],
@@ -19,42 +24,6 @@ export default function Wizard({
   errorMessage = 'We could not save your changes. Please try again.',
   validationMessage = 'Check the fields in this step before continuing.',
   labels = {}
-}) {
-  const signature = JSON.stringify(steps.map((step) => step.id));
-  return (
-    <WizardFlow
-      key={signature}
-      {...{
-        title,
-        description,
-        steps,
-        children,
-        validateStep,
-        onComplete,
-        completeLabel,
-        completionTitle,
-        completionDescription,
-        errorMessage,
-        validationMessage,
-        labels
-      }}
-    />
-  );
-}
-
-function WizardFlow({
-  title,
-  description,
-  steps,
-  children,
-  validateStep,
-  onComplete,
-  completeLabel,
-  completionTitle,
-  completionDescription,
-  errorMessage,
-  validationMessage,
-  labels
 }) {
   const [active, setActive] = useState(0);
   const [pending, setPending] = useState(false);

@@ -1,6 +1,6 @@
 # Accordion
 
-Accessible disclosure with controlled or uncontrolled state, single or multiple expansion, and rich application content. Styling uses Gaudi tokens in both themes; the behavior uses Radix Accordion.
+Stacked sections whose headers expand and collapse their content. Use it for FAQs, settings groups, and long reference content that readers scan before opening one part. For a single show-more toggle, use `Collapsible`.
 
 ```jsx
 import { AccordionGroup, Icon, Pill } from '@gaudi/design-system';
@@ -21,26 +21,6 @@ import '@gaudi/design-system/global.css';
   ]}
 />
 ```
-
-## Pattern coverage
-
-Eleven accordion patterns are available together in **Core / Accordion / Pattern Overview** and individually with source code.
-
-| Pattern | Gaudi story / API |
-| --- | --- |
-| Basic single expansion | Basic Disclosure · `variant='flush'` |
-| Plus / minus indicators | Plus Minus · `indicator='plus-minus'` |
-| Individually bordered items | Bordered Items · `variant='separated'` |
-| Embedded in a Card | Inside Card · existing Card and panel actions |
-| Disabled items, highlighted state | Disabled And Highlighted · item `disabled`, root `highlight` |
-| Custom icons and badges | Icons And Badges · `leading`, `badge` |
-| Frame / FramePanel | Framed Panels · `variant='framed'` |
-| Nested bordered accordions | Nested Sections · independent roots and heading levels |
-| User list with avatars and roles | Member Directory · existing Avatar and Pill, `description` |
-| Rotating leading arrow | Leading Arrow · `indicator='arrow'`, `indicatorPosition='start'` |
-| Onboarding with icons, badges, QR, and form | Guided Setup · controlled group, Progress, real QR link, dependent steps |
-
-Gaudi adapts these use cases to its own component API and visual identity. It reuses the existing Card, Avatar, Pill, and Frame components. The setup fixture is illustrative: its QR encodes the public package repository; the form saves in local React state. Applications provide their own URLs, requests, and persistence.
 
 ## State and variants
 
@@ -86,15 +66,3 @@ Each header is a native button inside a heading, with unique IDs associating the
 Tab follows the normal document order. Enter/Space toggles a header. Arrow Up/Down navigates enabled headers with wrapping; Home/End moves to the first/last. Nested groups maintain separate navigation. Disabled items are skipped. Open/close height and indicator motion respects reduced-motion preferences.
 
 Closed content is inert during its exit animation, then unmounted. `forceMount` retains content while hiding it visually and from keyboard/screen-reader navigation, preserving form drafts. Hidden retained inputs still participate in native form submission: applications own validation and submission scope. Avoid unnecessary region proliferation in very large multiple-open groups; set `role={undefined}` on compound content when appropriate.
-
-## Verification
-
-The stories cover all eleven patterns plus legacy composition, controlled clearing, multiple defaults, keyboard navigation, nested focus isolation, disabled sections, retained forms, RTL, and non-collapsible groups. Server-render contracts verify initial state, stable ARIA associations, rich composition, controlled emptiness, retained markup, and disabled roots.
-
-Verified on 29 September 2026:
-
-- 23 Accordion Storybook interaction and axe tests passed; the complete suite passed 277 tests across 109 story files.
-- All 51 repository contract tests, lint, and `git diff --check` passed.
-- The eleven-pattern gallery was checked in light and dark at 320, 390, 639, 640, 641, 768, 1023, 1024, 1025, 1280, 1536, and 1920 CSS pixels (900px height), including adjacent widths at its 640px and 1024px breakpoints. No page overflow, clipped headers/content, or overlapping example sections remained.
-- Basic/nested interactions and disabled states were exercised at 320, 768, and 1536px; setup submission and focus transfer at 320px. RTL was checked at 320, 768, and 1536px. Solid/custom indicators were checked at all twelve widths.
-- The visual pass fixed a card-height overlap and the Storybook image-import shape. Temporary viewport and theme overrides were restored.

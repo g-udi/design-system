@@ -11,14 +11,14 @@ const tones = options('tone');
 const variants = options('variant');
 const phrase = 'consistency visible';
 const supporting = ['fewer regressions', 'what changed'];
-const prose = 'text-2xl font-semibold text-gray-900 dark:text-gray-100';
+const prose = 'text-2xl font-semibold text-text';
 
 export default {
   title: 'Core/Data Display/TextHighlight',
   id: 'core-texthighlight',
   component: TextHighlight,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { variant: variants, tone: tones, radius: options('radius'), animate: 'boolean' }),
+  argTypes: docsArgTypes(docs, { variant: variants, tone: tones, animate: 'boolean' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -28,7 +28,7 @@ export default {
 };
 
 export const Playground = {
-  args: { variant: 'marker', tone: 'blue', radius: 'sm', animate: true },
+  args: { variant: 'marker', tone: 'blue', animate: true },
   parameters: {
     docs: {
       description: { story: 'An essay pull quote. The headline phrase follows the controls and replays its sweep on every change; the body keeps a soft green and an underlined amber highlight for contrast.' },
@@ -63,48 +63,32 @@ export const Playground = {
     await expect(highlight.tagName).toBe('SPAN');
     await expect(highlight.classList.contains('ds-text-highlight-animate')).toBe(Boolean(args.animate));
     await expect(highlight).toHaveClass(...textHighlightVariants.variants.variant[args.variant].split(' '));
-    if (args.variant !== 'underline') await expect(highlight).toHaveClass(textHighlightVariants.variants.radius[args.radius]);
-    await expect(canvas.getByText(supporting[0])).toHaveClass('bg-green-50');
-    await expect(canvas.getByText(supporting[1])).toHaveClass('underline', 'decoration-amber-300');
-  }
-};
-
-export const Variants = {
-  parameters: { docs: { description: { story: '`marker` draws a gradient sweep, `soft` tints the phrase, and `underline` adds a heavy text decoration.' } } },
-  render: () => (
-    <div className={`grid gap-4 ${prose}`}>
-      {variants.map((variant) => (
-        <p key={variant}>
-          Design systems make <TextHighlight variant={variant} tone='green'>{variant} emphasis</TextHighlight> reusable.
-        </p>
-      ))}
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByText('marker emphasis')).toHaveClass('bg-linear-to-r', 'from-green-100', 'to-green-300', 'px-1', 'pb-0.5');
-    await expect(canvas.getByText('soft emphasis')).toHaveClass('bg-green-50', 'text-green-900', 'px-1');
-    await expect(canvas.getByText('underline emphasis')).toHaveClass('underline', 'decoration-4', 'underline-offset-2', 'decoration-green-300', 'bg-none');
+    await expect(highlight).toHaveClass(...textHighlightVariants({ tone: args.tone, variant: args.variant }).split(' '));
+    await expect(canvas.getByText(supporting[0])).toHaveClass('bg-success-muted', 'text-text');
+    await expect(canvas.getByText(supporting[1])).toHaveClass('underline', 'decoration-warning-border');
   }
 };
 
 export const Tones = {
-  parameters: { docs: { description: { story: 'Every `tone` of the marker variant, rendered with `animate={false}` so the static result is stable for visual tests.' } } },
+  parameters: { docs: { description: { story: 'Every tone in each variant, static (`animate={false}`). Tone names map to semantic colours, so `yellow` matches `amber` and `gray` matches `neutral`.' } } },
   render: () => (
-    <div className='grid gap-3 text-xl font-semibold text-gray-900 dark:text-gray-100'>
+    <div className='grid w-fit grid-cols-[auto_repeat(3,auto)] items-baseline gap-x-6 gap-y-2 text-base font-medium text-text'>
+      <span />
+      {variants.map((variant) => <span key={variant} className='text-xs font-normal text-text-muted'>{variant}</span>)}
       {tones.map((tone) => (
-        <p key={tone}>
-          <TextHighlight tone={tone} animate={false}>{tone}</TextHighlight> highlight tone
-        </p>
+        <div key={tone} className='contents'>
+          <span className='text-xs font-normal text-text-muted'>{tone}</span>
+          {variants.map((variant) => <span key={variant}><TextHighlight tone={tone} variant={variant} animate={false}>{`${tone} ${variant}`}</TextHighlight></span>)}
+        </div>
       ))}
     </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    for (const tone of tones.filter((name) => name !== 'indigo')) {
-      await expect(canvas.getByText(tone)).toHaveClass(`from-${tone}-100`, `to-${tone}-300`);
-    }
-    await expect(canvas.getByText('indigo')).toHaveClass('from-sky-100', 'to-blue-300');
-    await expect(canvas.getByText('blue')).not.toHaveClass('ds-text-highlight-animate');
+    await expect(canvas.getByText('green marker')).toHaveClass('bg-linear-to-r', 'from-success-muted', 'to-success-border', 'px-1', 'pb-0.5');
+    await expect(canvas.getByText('amber soft')).toHaveClass('bg-warning-muted', 'text-text');
+    await expect(canvas.getByText('yellow soft')).toHaveClass('bg-warning-muted');
+    await expect(canvas.getByText('red underline')).toHaveClass('underline', 'decoration-4', 'decoration-danger-border', 'bg-none');
+    await expect(canvas.getByText('blue marker')).not.toHaveClass('ds-text-highlight-animate');
   }
 };

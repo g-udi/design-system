@@ -1,41 +1,20 @@
 import { IconTile } from '../../../../src/components/core/Icon/parts/icon-tile-extended.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+// Tiles take their tone from text and background tokens, so each tone switches with the theme.
+const tint = 'border-current/20 bg-current/10';
 const tones = [
-  {
-    label: 'Soft',
-    variant: 'soft',
-    icon: 'StarIcon',
-    classes: [
-      '',
-      'text-info-foreground dark:text-info',
-      'text-success-foreground dark:text-success',
-      'text-warning-foreground dark:text-warning',
-      'text-ui-destructive-foreground dark:text-ui-destructive'
-    ]
-  },
+  { label: 'Soft', variant: 'soft', icon: 'StarIcon', classes: ['', 'text-info', 'text-success', 'text-warning', 'text-danger'] },
   {
     label: 'Solid',
     variant: 'solid',
     icon: 'CircleCheckIcon',
-    classes: [
-      '',
-      'bg-info text-white',
-      'bg-success text-white',
-      'bg-warning text-white',
-      'bg-ui-destructive text-white'
-    ]
+    classes: ['', 'bg-info text-info-foreground', 'bg-success text-success-foreground', 'bg-warning text-warning-foreground', 'bg-danger text-danger-foreground']
   },
   {
     label: 'Tinted',
     variant: 'outline',
     icon: 'ClockIcon',
-    classes: [
-      'border-ui-primary/10 bg-ui-primary/10 text-ui-primary dark:border-ui-primary/25 dark:bg-ui-primary/15',
-      'border-info/15 bg-info/10 text-info-foreground dark:border-info/25 dark:bg-info/15 dark:text-info',
-      'border-success/15 bg-success/10 text-success-foreground dark:border-success/25 dark:bg-success/15 dark:text-success',
-      'border-warning/15 bg-warning/10 text-warning-foreground dark:border-warning/25 dark:bg-warning/15 dark:text-warning',
-      'border-ui-destructive/15 bg-ui-destructive/10 text-ui-destructive-foreground dark:border-ui-destructive/25 dark:bg-ui-destructive/15 dark:text-ui-destructive'
-    ]
+    classes: [`${tint} text-accent`, `${tint} text-info`, `${tint} text-success`, `${tint} text-warning`, `${tint} text-danger`]
   },
   {
     label: 'Custom fill',

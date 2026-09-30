@@ -6,6 +6,13 @@ import Icon from '../Icon';
 import Progress from '../Progress';
 import { cn } from '../../../utilities/cn';
 import { selectFiles } from './fileSelection';
+import { formatBytes } from './use-file-upload';
+
+const REJECTION_TEXT = {
+  type: 'file type is not supported.',
+  size: 'file exceeds the size limit.',
+  count: 'file count limit reached.'
+};
 
 /** Selects local files. Transport, persisted attachments and preview URLs are host-owned. */
 export default function FileUpload({
@@ -99,19 +106,13 @@ export default function FileUpload({
       </div>
       {rejections.length > 0 && (
         <div role='alert'>
-        <ul className='ds-error'>
-          {rejections.map(({ file, reason }, i) => (
-            <li key={i}>
-              {file.name}:{' '}
-              {labels[reason] ||
-                {
-                  type: 'file type is not supported.',
-                  size: 'file exceeds the size limit.',
-                  count: 'file count limit reached.'
-                }[reason]}
-            </li>
-          ))}
-        </ul>
+          <ul className='ds-error'>
+            {rejections.map(({ file, reason }, i) => (
+              <li key={i}>
+                {file.name}: {labels[reason] || REJECTION_TEXT[reason]}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
       {files.length > 0 && (
@@ -124,13 +125,7 @@ export default function FileUpload({
                 <Icon name='FileText' decorative size='sm' />
                 <div className='ds-upload-file'>
                   <span className='ds-label'>{file.name}</span>
-                  <span className='ds-description'>
-                    {new Intl.NumberFormat(undefined, {
-                      style: 'unit',
-                      unit: 'kilobyte',
-                      maximumFractionDigits: 1
-                    }).format(file.size / 1024)}
-                  </span>
+                  <span className='ds-description'>{formatBytes(file.size, 1)}</span>
                   {uploading && (
                     <Progress
                       label={labels.uploading || 'Uploading'}

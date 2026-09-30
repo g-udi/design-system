@@ -1,11 +1,15 @@
 # ScrollArea
 
-This Gaudi owner includes **scroll-area**, with **2 practical examples**.
+A fixed-size region with styled scrollbars, for content that must scroll inside a card or panel instead of stretching the page.
 
-Import the documented composition from `@gaudi/design-system/core/ScrollArea`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { ScrollArea, ScrollBar } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-scrollarea--scroll-area-pattern-2) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<ScrollArea aria-label='Changelog' className='h-72 rounded-lg border'>
+  {releases}
+</ScrollArea>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- `type` controls when scrollbars show: `hover` (default), `auto`, `always`, or `scroll`.
+- Add `<ScrollBar orientation='horizontal' />` inside for content wider than the frame.
+- The viewport is focusable so keyboard users can scroll it. Give it an `aria-label` that names the content.

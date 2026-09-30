@@ -3,28 +3,43 @@
 import { createContext, useContext, useEffect, useId, useMemo, useState } from 'react';
 
 import { cn } from '../../../utilities/cn';
+import {
+  Field as FieldPart,
+  FieldDescription as FieldDescriptionPart,
+  FieldError as FieldErrorPart,
+  FieldLabel as FieldLabelPart
+} from './parts/field.jsx';
 
+// The convenience Field wires ids between its parts: the label targets the control,
+// and the control is described by whichever description and error are mounted.
 const FieldContext = createContext(null);
+
+// Registers a mounted description or error so FieldInput only references ids that exist.
+const useRegister = (register) => {
+  useEffect(() => {
+    if (!register) return undefined;
+    register(true);
+    return () => register(false);
+  }, [ register ]);
+};
 
 export const Field = ({ children, className }) => {
   const id = useId();
   const [ hasDescription, setHasDescription ] = useState(false);
   const [ hasError, setHasError ] = useState(false);
-  const context = useMemo(() => {
-    return {
-      'descriptionId': `${id}-description`,
-      'errorId': `${id}-error`,
-      hasDescription,
-      hasError,
-      'inputId': `${id}-input`,
-      setHasDescription,
-      setHasError
-    };
-  }, [ hasDescription, hasError, id ]);
+  const context = useMemo(() => ({
+    'descriptionId': `${id}-description`,
+    'errorId': `${id}-error`,
+    hasDescription,
+    hasError,
+    'inputId': `${id}-input`,
+    setHasDescription,
+    setHasError
+  }), [ hasDescription, hasError, id ]);
 
   return (
     <FieldContext.Provider value={ context }>
-      <div className={ cn('grid gap-2', className) }>{children}</div>
+      <FieldPart className={ className }>{children}</FieldPart>
     </FieldContext.Provider>
   );
 };
@@ -32,44 +47,25 @@ export const Field = ({ children, className }) => {
 export const FieldLabel = ({ children, className, htmlFor }) => {
   const context = useContext(FieldContext);
 
-  return (
-    <label htmlFor={ htmlFor || context?.inputId } className={ cn('text-sm font-semibold text-gray-900 dark:text-gray-100', className) }>{children}</label>
-  );
+  return <FieldLabelPart htmlFor={ htmlFor || context?.inputId } className={ className }>{children}</FieldLabelPart>;
 };
 
 export const FieldDescription = ({ children, className, id }) => {
   const context = useContext(FieldContext);
-  const setHasDescription = context?.setHasDescription;
+  useRegister(context?.setHasDescription);
 
-  useEffect(() => {
-    if (!setHasDescription) return undefined;
-
-    setHasDescription(true);
-
-    return () => setHasDescription(false);
-  }, [ setHasDescription ]);
-
-  return (
-    <p id={ id || context?.descriptionId } className={ cn('text-sm leading-5 text-gray-500 dark:text-gray-400', className) }>{children}</p>
-  );
+  return <FieldDescriptionPart id={ id || context?.descriptionId } className={ className }>{children}</FieldDescriptionPart>;
 };
 
-export const FieldError = ({ children, className, id }) => {
+const MountedError = ({ children, className, id }) => {
   const context = useContext(FieldContext);
-  const setHasError = context?.setHasError;
+  useRegister(context?.setHasError);
 
-  useEffect(() => {
-    if (!setHasError) return undefined;
-
-    setHasError(true);
-
-    return () => setHasError(false);
-  }, [ setHasError ]);
-
-  return (
-    <p id={ id || context?.errorId } className={ cn('text-sm font-medium text-red-600 dark:text-red-400', className) }>{children}</p>
-  );
+  return <FieldErrorPart id={ id || context?.errorId } className={ className }>{children}</FieldErrorPart>;
 };
+
+// An empty error renders nothing and leaves the control valid.
+export const FieldError = (props) => (props.children ? <MountedError { ...props } /> : null);
 
 export const FieldInput = ({ as: Control = 'input', 'aria-describedby': ariaDescribedBy, className, id, invalid, ...props }) => {
   const context = useContext(FieldContext);

@@ -1,3 +1,4 @@
+import StatGroup from '../../src/components/blocks/StatGroup';
 import Card from '../../src/components/core/Card';
 import Icon from '../../src/components/core/Icon';
 import Pill from '../../src/components/core/Pill';
@@ -6,164 +7,93 @@ import Typography from '../../src/foundations/Typography';
 import { CodeBlock, InlineCode, Page, pageParameters, Section, Table, Td, Th } from './StoryDocs';
 
 const metricStats = [
-  [ '86', 'component contracts', 'Folder-level ownership checks across the Gaudi package.' ],
-  [ '10', 'token families', 'Neutral, action, status, review, and attention colors.' ],
-  [ '0', 'local component dirs', 'Reusable UI now resolves from the Gaudi package.' ]
+  { 'detail': 'Folder-level ownership checks across the Gaudi package.', 'id': 'contracts', 'label': 'Component contracts', 'value': '86' },
+  { 'detail': 'Neutral, action, status, review, and attention colors.', 'id': 'tokens', 'label': 'Token families', 'value': '10' },
+  { 'detail': '▼ 14 since April: reusable UI resolves from the package.', 'id': 'local', 'label': 'Local component folders', 'tone': 'success', 'value': '0' }
 ];
 
 const changelog = [
-  [ 'May 2026', 'Gaudi package boundary', 'Components, tokens, icons, docs, and Storybook share one package surface.' ],
-  [ 'May 2026', 'Primitive API cleanup', 'Button, Pill, Card, Avatar, Carousel, and Terminal expose named customization props.' ],
-  [ 'May 2026', 'A11y documentation pass', 'Overview docs now describe screen reader, keyboard, contrast, and testing expectations.' ]
+  [ '2026-05-28', 'Gaudi package boundary', 'Components, tokens, icons, docs, and Storybook share one package surface.' ],
+  [ '2026-05-14', 'Primitive API cleanup', 'Button, Pill, Card, Avatar, Carousel, and Terminal expose named customization props.' ],
+  [ '2026-05-02', 'A11y documentation pass', 'Overview docs now describe screen reader, keyboard, contrast, and testing expectations.' ]
 ];
 
-const healthStats = [
-  { 'change': '+18', 'label': 'documented stories', 'tone': 'green', 'value': '142' },
-  { 'change': '+2', 'label': 'new Core components', 'tone': 'blue', 'value': '2' },
-  { 'change': '0', 'label': 'fake links', 'tone': 'gray', 'value': '0' },
-  { 'change': 'AA', 'label': 'contrast target', 'tone': 'teal', 'value': '4.5:1' }
-];
+const formatMonth = (date) => new Date(date).toLocaleDateString('en-GB', { 'day': 'numeric', 'month': 'short', 'year': 'numeric' });
 
-const toneClasses = {
-  'amber': 'bg-amber-50 text-amber-800 dark:bg-amber-950 dark:text-amber-300',
-  'blue': 'bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300',
-  'gray': 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
-  'green': 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300',
-  'indigo': 'bg-indigo-50 text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300',
-  'rose': 'bg-rose-50 text-rose-700 dark:bg-rose-950 dark:text-rose-300',
-  'teal': 'bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300'
-};
-
-const MetricGrid = () => (
-  <dl className='grid gap-px overflow-hidden rounded-lg border border-gray-200 bg-gray-200 dark:border-gray-800 dark:bg-gray-800 md:grid-cols-3'>
-    {metricStats.map(([ value, label, description ]) => (
-      <div key={ label } className='bg-white p-6 dark:bg-gray-950'>
-        <dt className='text-sm font-medium text-gray-500 dark:text-gray-400'>{label}</dt>
-        <dd className='mt-3'>
-          <span className='block text-4xl font-extrabold text-gray-950 dark:text-white'>{value}</span>
-          <span className='mt-3 block text-sm leading-6 text-gray-600 dark:text-gray-300'>{description}</span>
-        </dd>
-      </div>
-    ))}
-  </dl>
-);
+const MetricGrid = () => <StatGroup label='Package health' items={ metricStats } />;
 
 const ChangelogStats = () => (
-  <div className='overflow-hidden rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950'>
+  <Card variant='outline' padding='none'>
     {changelog.map(([ date, title, body ], index) => (
-      <article key={ title } className='grid gap-4 border-b border-gray-100 p-5 last:border-b-0 dark:border-gray-800 md:grid-cols-[9rem_1fr]'>
-        <time className='text-xs font-semibold uppercase text-blue-600 dark:text-blue-400'>{date}</time>
+      <article key={ title } className='grid gap-4 border-b border-border p-5 last:border-b-0 md:grid-cols-[9rem_1fr]'>
+        <time dateTime={ date } className='text-xs font-semibold uppercase text-accent'>{formatMonth(date)}</time>
         <div>
           <div className='flex flex-wrap items-center gap-2'>
-            <Typography variant='heading-sm'>{title}</Typography>
-            {index === 0 ? <Pill size='xs' tone='green' variant='soft'>current</Pill> : null}
+            <Typography as='h3' variant='heading-sm'>{title}</Typography>
+            {index === 0 ? <Pill size='xs' tone='green' variant='soft' className='m-0'>Current</Pill> : null}
           </div>
-          <p className='mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300'>{body}</p>
+          <p className='mt-2 text-sm leading-6 text-text-muted'>{body}</p>
         </div>
       </article>
     ))}
-  </div>
-);
-
-const GradientStats = () => (
-  <section className='overflow-hidden rounded-lg bg-gray-950 p-8 text-white'>
-    <div className='max-w-2xl'>
-      <Pill tone='teal' variant='soft'>system health</Pill>
-      <h3 className='mt-4 text-3xl font-extrabold'>Design-system coverage without local overrides.</h3>
-      <p className='mt-3 text-sm leading-6 text-white/80'>Use this treatment when numbers need to anchor a release note, migration recap, or quality report.</p>
-    </div>
-    <div className='mt-8 grid gap-4 md:grid-cols-4'>
-      {healthStats.map((item) => (
-        <Card key={ item.label } variant='flat' className='border-white/10 bg-white/5 text-white'>
-          <div className='flex items-start justify-between gap-4'>
-            <div>
-              <p className='text-3xl font-extrabold'>{item.value}</p>
-              <p className='mt-2 text-xs leading-5 text-white/70'>{item.label}</p>
-            </div>
-            <span className={ `rounded px-2 py-1 text-xs font-semibold ${toneClasses[item.tone]}` }>{item.change}</span>
-          </div>
-        </Card>
-      ))}
-    </div>
-  </section>
+  </Card>
 );
 
 const CompactStats = () => (
   <div className='grid gap-4 md:grid-cols-3'>
-    {metricStats.map(([ value, label, description ]) => (
-      <div key={ label } className='flex gap-4 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950'>
-        <Icon name='Check' decorative className='mt-1 text-green-600 dark:text-green-400' />
+    {metricStats.map((item) => (
+      <Card key={ item.id } variant='outline' padding='lg' classNames={{ 'body': 'flex gap-4' }}>
+        <Icon name='Check' decorative className='mt-1 shrink-0 text-success' />
         <div>
-          <p className='text-2xl font-bold text-gray-950 dark:text-white'>{value}</p>
-          <p className='text-sm font-semibold text-gray-800 dark:text-gray-100'>{label}</p>
-          <p className='mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400'>{description}</p>
+          <p className='text-2xl font-bold text-text'>{item.value}</p>
+          <p className='text-sm font-semibold text-text'>{item.label}</p>
+          <p className='mt-1 text-xs leading-5 text-text-muted'>{item.detail}</p>
         </div>
-      </div>
+      </Card>
     ))}
   </div>
 );
 
-const usageCode = `import { Card, Pill, Typography } from '@gaudi/design-system';
+const usageCode = `import { StatGroup } from '@gaudi/design-system';
 
-<section aria-labelledby='system-health'>
-  <Typography id='system-health' variant='heading-lg' as='h2'>
-    System health
-  </Typography>
-  <Card variant='outline'>
-    <Pill tone='green' size='xs' variant='soft'>current</Pill>
-    <p>76 component contracts</p>
-  </Card>
-</section>`;
+const items = [
+  { id: 'contracts', label: 'Component contracts', value: '86', detail: 'Ownership checks across the package.' },
+  { id: 'local', label: 'Local component folders', value: '0', detail: '▼ 14 since April', tone: 'success' }
+];
+
+<StatGroup label='Package health' items={items} />`;
 
 const variantRows = [
-  [ 'Metric Grid', 'Top-level numbers.', 'Use real labels and descriptions for every metric.' ],
+  [ 'Metric Grid', 'Top-level numbers.', 'Use StatGroup; give every value a label and a text explanation.' ],
   [ 'Changelog Stats', 'Release or migration timelines.', 'Tie metrics to dated changes.' ],
-  [ 'Dark Summary', 'High-emphasis summaries.', 'Use sparingly and keep contrast readable.' ],
   [ 'Compact Inline Stats', 'Docs pages and dense reports.', 'Use icon plus text where space is limited.' ]
 ];
 
 const variantCode = {
-  'changelog': `<div className='rounded-lg border bg-white'>
+  'changelog': `<Card variant='outline' padding='none'>
   {changelog.map(([date, title, body]) => (
-    <article key={title} className='grid gap-4 border-b p-5 md:grid-cols-[9rem_1fr]'>
-      <time>{date}</time>
+    <article key={title} className='grid gap-4 border-b border-border p-5 md:grid-cols-[9rem_1fr]'>
+      <time dateTime={date} className='text-xs font-semibold uppercase text-accent'>{formatMonth(date)}</time>
       <div>
-        <Typography variant='heading-sm'>{title}</Typography>
-        <p>{body}</p>
+        <Typography as='h3' variant='heading-sm'>{title}</Typography>
+        <p className='text-sm text-text-muted'>{body}</p>
       </div>
     </article>
   ))}
-</div>`,
+</Card>`,
   'compact': `<div className='grid gap-4 md:grid-cols-3'>
-  {metricStats.map(([value, label, description]) => (
-    <div key={label} className='flex gap-4 rounded-lg border p-5'>
-      <Icon name='Check' decorative />
+  {items.map((item) => (
+    <Card key={item.id} variant='outline' padding='lg' classNames={{ body: 'flex gap-4' }}>
+      <Icon name='Check' decorative className='text-success' />
       <div>
-        <p>{value}</p>
-        <p>{label}</p>
-        <p>{description}</p>
+        <p className='text-2xl font-bold'>{item.value}</p>
+        <p className='text-sm font-semibold'>{item.label}</p>
+        <p className='text-xs text-text-muted'>{item.detail}</p>
       </div>
-    </div>
+    </Card>
   ))}
 </div>`,
-  'dark': `<section className='rounded-lg bg-gray-950 p-8 text-white'>
-  <Pill tone='teal' variant='soft'>system health</Pill>
-  <Typography variant='heading-lg'>Design-system coverage.</Typography>
-  <div className='grid gap-4 md:grid-cols-4'>
-    {healthStats.map((item) => (
-      <Card key={item.label} variant='flat'>{item.value}</Card>
-    ))}
-  </div>
-</section>`,
-  'metric': `<dl className='grid gap-px rounded-lg border md:grid-cols-3'>
-  {metricStats.map(([value, label, description]) => (
-    <div key={label} className='bg-white p-6'>
-      <dt>{label}</dt>
-      <dd>{value}</dd>
-      <p>{description}</p>
-    </div>
-  ))}
-</dl>`
+  'metric': `<StatGroup label='Package health' items={items} />`
 };
 
 const VariantTable = () => (
@@ -189,15 +119,15 @@ export const Default = {
   'render': () => (
     <Page
       title='Stats Sections'
-      intro='Reference stats recipes for release notes, migration summaries, system-health snapshots, and compact editorial metrics.'
+      intro='Metric compositions for release notes, migration summaries, and compact editorial reports.'
     >
-      <Section title='Usage' description='These stats examples are reference recipes, not package exports. Keep metric labels visible and pair numbers with explanatory text.'>
+      <Section title='Usage' description='StatGroup is the exported metric block; the changelog and compact layouts are reference recipes built from Card and Typography. Keep metric labels visible and pair numbers with explanatory text.'>
         <CodeBlock code={ usageCode } />
       </Section>
       <Section title='Variant Rules' description='Choose the presentation from the density and importance of the metrics.'>
         <VariantTable />
       </Section>
-      <Section title='Metric Grid' description='Use for clear top-level Gaudi or blog metrics.'>
+      <Section title='Metric Grid' description='The exported StatGroup: labelled values with a supporting line, toned only when the text also explains the trend.'>
         <div data-docs-example><MetricGrid /></div>
         <CodeBlock code={ variantCode.metric } />
       </Section>
@@ -205,18 +135,14 @@ export const Default = {
         <div data-docs-example><ChangelogStats /></div>
         <CodeBlock code={ variantCode.changelog } />
       </Section>
-      <Section title='Dark Summary' description='Use sparingly for high-contrast summary panels.'>
-        <div data-docs-example><GradientStats /></div>
-        <CodeBlock code={ variantCode.dark } />
-      </Section>
       <Section title='Compact Inline Stats' description='Use inside docs pages where space is limited.'>
         <div data-docs-example><CompactStats /></div>
         <CodeBlock code={ variantCode.compact } />
       </Section>
       <Section title='Implementation Notes' description='Stats recipes must remain readable outside the visual treatment.'>
-        <ul className='grid gap-2 text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <ul className='grid gap-2 text-sm leading-7 text-text-muted'>
           <li>Use semantic sections with labelled headings.</li>
-          <li>Use <InlineCode>Card</InlineCode>, <InlineCode>Pill</InlineCode>, and token color classes instead of bespoke surfaces.</li>
+          <li>Use <InlineCode>StatGroup</InlineCode>, <InlineCode>Card</InlineCode>, <InlineCode>Pill</InlineCode>, and token color classes instead of bespoke surfaces.</li>
           <li>Do not rely on large numbers alone; include supporting labels and descriptions.</li>
         </ul>
       </Section>

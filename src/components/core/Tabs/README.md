@@ -1,8 +1,6 @@
 # Tabs
 
-Composable tabs for views within the same page. Supports controlled value, defaultValue, horizontal/vertical orientation and manual activation.
-
-## Usage
+Switches between related panels on the same page. Use it for views of one thing (overview, history, settings); use `NavigationMenu` or links when each view has its own URL.
 
 ```jsx
 <Tabs defaultValue='overview'>
@@ -15,16 +13,12 @@ Composable tabs for views within the same page. Supports controlled value, defau
 </Tabs>
 ```
 
-## API
+| Prop / export | Type | Contract |
+| --- | --- | --- |
+| `value / defaultValue / onValueChange` | string / string / function | Controlled or uncontrolled active panel. |
+| `orientation` | horizontal or vertical | List direction and arrow keys. |
+| `activationMode` | automatic or manual | Select on focus, or wait for Enter/Space. |
+| `TabsList variant` | default or line | `line` drops the rule under the list. |
+| `TabsTrigger / TabsContent` | components | Match their `value`; triggers accept `disabled`. |
 
-| Prop / export                          | Type                       | Contract                                            |
-| -------------------------------------- | -------------------------- | --------------------------------------------------- |
-| `value / defaultValue / onValueChange` | string / string / function | Controlled or uncontrolled active panel.            |
-| `orientation`                          | horizontal or vertical     | Keyboard and list direction.                        |
-| `activationMode`                       | automatic or manual        | Select on focus or require Enter/Space.             |
-| `TabsList`                             | component                  | Provide an aria-label identifying the group.        |
-| `TabsTrigger / TabsContent`            | components                 | Match their value props; triggers support disabled. |
-
-## Ownership and verification
-
-The host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.
+Label each `TabsList`. Use manual activation when a panel is expensive to load.

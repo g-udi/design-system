@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -42,12 +42,14 @@ export const Playground = {
     const canvas = within(canvasElement);
     const [first, second] = args.questions.map(({ question }) => canvas.getByRole('button', { name: question }));
     await expect(canvas.getByRole('heading', { name: args.heading, level: 2 })).toBeVisible();
+    // Each question is a heading one level below the section heading.
+    await expect(canvas.getAllByRole('heading', { level: 3 })).toHaveLength(args.questions.length);
     await userEvent.click(first);
     await userEvent.click(second);
     await expect(first).toHaveAttribute('aria-expanded', 'true');
     await expect(canvas.getByText(args.questions[1].answer)).toBeVisible();
     await userEvent.click(first);
-    await expect(canvas.queryByText(args.questions[0].answer)).not.toBeInTheDocument();
+    await waitFor(() => expect(canvas.queryByText(args.questions[0].answer)).not.toBeInTheDocument());
     await expect(second).toHaveAttribute('aria-expanded', 'true');
   }
 };

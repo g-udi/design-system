@@ -103,13 +103,13 @@ function renderTooltip({ occurrence }) {
   );
 }
 export function Pattern() {
-  const events = useMemo(() => buildEvents(/* @__PURE__ */ new Date()), []);
+  const events = useMemo(() => buildEvents(new Date()), []);
   const apiRef = useRef(null);
   const counter = useRef(0);
   const addProject = () => {
     const api = apiRef.current;
     if (!api) return;
-    const start = startOfDay(/* @__PURE__ */ new Date());
+    const start = startOfDay(new Date());
     api.addEvent({
       id: `project-${counter.current++}`,
       title: 'New project',
@@ -124,7 +124,7 @@ export function Pattern() {
   const addMilestone = () => {
     const api = apiRef.current;
     if (!api) return;
-    const start = startOfDay(/* @__PURE__ */ new Date());
+    const start = startOfDay(new Date());
     api.addEvent({
       id: `milestone-${counter.current++}`,
       title: 'Milestone',

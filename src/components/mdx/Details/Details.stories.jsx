@@ -42,7 +42,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <div className='text-base leading-7 text-text'>
       <p>{lead}</p>
       <Details {...args}>
         <p>A stale pnpm store can keep the old package after the lockfile changes.</p>

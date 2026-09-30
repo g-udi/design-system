@@ -1,23 +1,21 @@
-import { cva } from 'class-variance-authority';
 import { cn } from '../../../../utilities/cn/index.js';
+import { createVariants } from '../../../../utilities/variants/index.js';
 import { Slot } from 'radix-ui';
 import { default as Button } from '../../Button/index.js';
-const attachmentVariants = cva(
-  'ds-part-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-ui-card text-ui-card-foreground transition-colors has-[>a,>button]:hover:bg-ui-muted/50 data-[state=error]:border-ui-destructive/30 data-[state=idle]:border-dashed',
-  {
-    variants: {
-      size: {
-        default: 'ds-part-attachment-size-default',
-        sm: 'ds-part-attachment-size-sm',
-        xs: 'ds-part-attachment-size-xs'
-      },
-      orientation: {
-        horizontal: 'ds-part-attachment-orientation-horizontal items-center',
-        vertical: 'ds-part-attachment-orientation-vertical flex-col'
-      }
+const attachmentVariants = createVariants({
+  base: 'ds-part-attachment group/attachment relative flex max-w-full min-w-0 shrink-0 flex-wrap border bg-ui-card text-ui-card-foreground transition-colors has-[>a,>button]:hover:bg-ui-muted/50 data-[state=error]:border-ui-destructive/30 data-[state=idle]:border-dashed',
+  variants: {
+    size: {
+      default: 'ds-part-attachment-size-default',
+      sm: 'ds-part-attachment-size-sm',
+      xs: 'ds-part-attachment-size-xs'
+    },
+    orientation: {
+      horizontal: 'ds-part-attachment-orientation-horizontal items-center',
+      vertical: 'ds-part-attachment-orientation-vertical flex-col'
     }
   }
-);
+});
 function Attachment({
   className,
   state = 'done',
@@ -31,32 +29,30 @@ function Attachment({
       data-state={state}
       data-size={size}
       data-orientation={orientation}
-      className={cn(attachmentVariants({ size, orientation }), className)}
+      className={attachmentVariants({ size, orientation, className })}
       {...props}
     />
   );
 }
-const attachmentMediaVariants = cva(
-  'ds-part-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-ui-destructive/10 group-data-[state=error]/attachment:text-ui-destructive [&_svg]:pointer-events-none',
-  {
-    variants: {
-      variant: {
-        icon: 'ds-part-attachment-media-variant-icon',
-        image:
-          'ds-part-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover'
-      }
-    },
-    defaultVariants: {
-      variant: 'icon'
+const attachmentMediaVariants = createVariants({
+  base: 'ds-part-attachment-media relative flex aspect-square shrink-0 items-center justify-center overflow-hidden group-data-[state=error]/attachment:bg-ui-destructive/10 group-data-[state=error]/attachment:text-ui-destructive [&_svg]:pointer-events-none',
+  variants: {
+    variant: {
+      icon: 'ds-part-attachment-media-variant-icon',
+      image:
+        'ds-part-attachment-media-variant-image *:[img]:aspect-square *:[img]:w-full *:[img]:object-cover'
     }
+  },
+  defaultVariants: {
+    variant: 'icon'
   }
-);
+});
 function AttachmentMedia({ className, variant = 'icon', ...props }) {
   return (
     <div
       data-slot='attachment-media'
       data-variant={variant}
-      className={cn(attachmentMediaVariants({ variant }), className)}
+      className={attachmentMediaVariants({ variant, className })}
       {...props}
     />
   );

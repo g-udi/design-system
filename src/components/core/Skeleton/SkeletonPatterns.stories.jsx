@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/skeleton/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Feedback & States/Skeleton', id: 'core-skeleton', tags: ['autodocs'], ...catalogueMeta('skeleton') };
+export default { title: 'Core/Skeleton', id: 'core-skeleton', tags: ['autodocs'], ...catalogueMeta('skeleton') };
 
 export const SkeletonPattern7 = { name: 'List with avatars and actions', ...pattern(7) };
 export const SkeletonPattern8 = { name: 'Media card', ...pattern(8) };

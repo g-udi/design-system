@@ -1,11 +1,13 @@
 # Separator
 
-This Gaudi owner includes **separator**, with **3 practical examples**.
+A thin rule that divides content horizontally or vertically.
 
-Import the documented composition from `@gaudi/design-system/core/Separator`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Separator } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-separator--separator-pattern-6) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Separator />
+<Separator orientation='vertical' />
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- Separators are decorative by default and hidden from assistive technology. Set `decorative={false}` when the rule marks a real change of section, so it is announced as a separator.
+- Vertical separators stretch to the height of their flex row; give them a height to keep them shorter.

@@ -37,8 +37,8 @@ export const canonicalButtonToneClasses = {
   'neutral': {
     'ghost': 'text-foreground hover:bg-surface-muted',
     'outline': 'border-border text-foreground hover:bg-surface-muted',
-    'soft': 'bg-surface-muted text-foreground hover:bg-border-muted dark:hover:bg-surface-muted',
-    'solid': 'bg-foreground text-text-inverse hover:bg-text-muted dark:bg-text dark:text-surface',
+    'soft': 'bg-surface-muted text-foreground hover:bg-ui-secondary',
+    'solid': 'bg-text text-surface hover:bg-text-muted',
     'subtle': 'p-0 text-text-muted hover:bg-transparent hover:text-foreground'
   },
   'success': {

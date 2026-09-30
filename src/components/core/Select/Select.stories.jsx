@@ -7,13 +7,6 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import Select from './Select';
 
 const docs = getComponentDocs('Core/Select');
-const topics = [
-  { label: 'Design systems', value: 'design-systems' },
-  { label: 'Knowledge graphs', value: 'knowledge-graphs' },
-  { label: 'Semantic web', value: 'semantic-web' },
-  { label: 'Linked data', value: 'linked-data' },
-  { label: 'AI engineering', value: 'ai-engineering' }
-];
 // An article's topic field: two topics already picked, descriptions to scan, and a retired topic.
 const topicOptions = [
   { label: 'Design systems', value: 'design-systems', description: 'Tokens, components, and docs.' },
@@ -30,7 +23,7 @@ const option = (canvas, name) => canvas.getByRole('option', { name });
 const expectClosed = (canvas, name) => waitFor(() => expect(listbox(canvas, name)).not.toBeInTheDocument());
 
 export default {
-  title: 'Core/Inputs/Select',
+  title: 'Core/Select',
   id: 'core-select',
   component: Select,
   tags: ['autodocs'],
@@ -39,7 +32,8 @@ export default {
     searchable: 'boolean',
     defaultOpen: 'boolean',
     disabled: 'boolean',
-    invalid: 'boolean'
+    invalid: 'boolean',
+    loading: 'boolean'
   }),
   parameters: {
     docs: {
@@ -58,11 +52,12 @@ export const Playground = {
     defaultOpen: true,
     disabled: false,
     invalid: false,
+    loading: false,
     onValueChange: fn()
   },
   parameters: {
     docs: {
-      description: { story: 'An article topic field, open on load with two topics picked, option descriptions, and a retired topic. `multiple` summarises the set with a count, `searchable` adds the filter field, and `invalid` pairs the red border with the error text below.' },
+      description: { story: 'An article topic field, open on load with two topics picked, option descriptions, and a retired topic. `multiple` summarises the set with a count, `searchable` adds the filter field, `invalid` pairs the red border with the error text below, and `loading` marks the list busy while remote options arrive.' },
       source: playgroundSource('Select', {
         imports: `import { Select } from '@gaudi/design-system';\n\nconst options = ${JSON.stringify(topicOptions, null, 2)};`,
         attributes: ["aria-labelledby='topics-label'", "aria-describedby='topics-hint'", "placeholder='Choose topics'", 'options={options}', `defaultValue={${JSON.stringify(picked)}}`],
@@ -88,6 +83,10 @@ export const Playground = {
     if (!args.defaultOpen) await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await expect(Boolean(canvas.queryByRole('combobox'))).toBe(args.searchable);
+    if (args.loading) {
+      await expect(listbox(canvas, 'Choose topics')).toHaveAttribute('aria-busy', 'true');
+      return expect(canvas.getByRole('status')).toHaveTextContent('Loading options…');
+    }
     await expect(option(canvas, /^Linked data/)).toHaveAttribute('aria-disabled', 'true');
     await userEvent.click(option(canvas, /^Knowledge graphs/));
     await expect(args.onValueChange.mock.lastCall[0]).toEqual(args.multiple ? [...picked, 'knowledge-graphs'] : 'knowledge-graphs');
@@ -108,9 +107,9 @@ function TopicField(args) {
   const open = args.defaultOpen && !args.disabled;
   return (
     <div className='grid gap-1.5'>
-      <span id={labelId} className='text-sm font-medium text-foreground'>Topics</span>
+      <span id={labelId} className='text-sm font-medium text-text'>Topics</span>
       <Select
-        key={`${args.multiple}-${open}`}
+        key={`${args.multiple}-${open}-${args.loading}`}
         aria-labelledby={labelId}
         aria-describedby={hintId}
         placeholder='Choose topics'
@@ -150,7 +149,7 @@ export const NativeOptionsInput = {
   parameters: { docs: { description: { story: 'Native `<option>` children are normalised when `options` is empty, `disabled` included. The listbox takes focus on open and supports Home, End, the arrow keys (which skip disabled options), and Enter.' } } },
   render: () => (
     <Select aria-label='Topic'>
-      {topics.slice(0, 3).map(({ label, value }, index) => <option key={value} value={value} disabled={index === 1}>{label}</option>)}
+      {topicOptions.slice(0, 3).map(({ label, value }, index) => <option key={value} value={value} disabled={index === 1}>{label}</option>)}
     </Select>
   ),
   play: async ({ canvasElement }) => {
@@ -158,21 +157,10 @@ export const NativeOptionsInput = {
     const trigger = button(canvas, 'Topic');
     await userEvent.click(trigger);
     await waitFor(() => expect(listbox(canvas, 'Topic')).toHaveFocus());
-    await expect(option(canvas, topics[1].label)).toHaveAttribute('aria-disabled', 'true');
+    await expect(option(canvas, topicOptions[1].label)).toHaveAttribute('aria-disabled', 'true');
     await userEvent.keyboard('{End}{Home}{ArrowDown}{Enter}');
     await expectClosed(canvas, 'Topic');
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
-    await expect(trigger).toHaveTextContent(topics[2].label);
-  }
-};
-
-export const LoadingOptions = {
-  parameters: { docs: { description: { story: '`loading` marks the listbox busy and announces `loadingText` while remote options arrive.' } } },
-  render: () => <Select aria-label='Remote topics' searchable loading options={[]} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(button(canvas, 'Remote topics'));
-    await expect(listbox(canvas, 'Remote topics')).toHaveAttribute('aria-busy', 'true');
-    await expect(canvas.getByRole('status')).toHaveTextContent('Loading options…');
+    await expect(trigger).toHaveTextContent(topicOptions[2].label);
   }
 };

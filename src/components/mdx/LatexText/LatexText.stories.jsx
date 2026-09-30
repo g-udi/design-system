@@ -37,8 +37,8 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <section aria-label='References' className='text-sm leading-6 text-gray-700 dark:text-gray-300'>
-      <h2 className='mb-2 text-base font-semibold text-gray-900 dark:text-white'>References</h2>
+    <section aria-label='References' className='text-sm leading-6 text-text'>
+      <h2 className='mb-2 text-base font-semibold text-text'>References</h2>
       <ol className='list-decimal space-y-2 pl-5'>
         {references.map((entry) => <li key={entry || 'controlled'}>{entry ? <LatexText>{entry}</LatexText> : <LatexText {...args} />}</li>)}
       </ol>

@@ -54,7 +54,8 @@ const Avatar = forwardRef(function Avatar({
   const decorative = alt === '' || props['aria-hidden'] === true || props['aria-hidden'] === 'true';
   const identity = alt ?? name ?? (label ? `${label} avatar` : 'Avatar');
   const accessibleLabel = props['aria-label'] ?? [identity, indicator?.label].filter(Boolean).join(', ');
-  const surfaceClass = { tinted: 'bg-ui-muted text-ui-foreground', plain: 'bg-ui-background text-ui-foreground', bare: 'bg-transparent text-ui-foreground' }[surface];
+  // Only the solid surface paints the tone gradient; the others use surface tokens.
+  const surfaceClass = { tinted: 'bg-surface-muted text-text', plain: 'bg-surface text-text', bare: 'bg-transparent text-text' }[surface];
   const content = fallback === true
     ? <Icon name='User' decorative className='size-3/5' />
     : fallback || label || (size === '2xs' ? Array.from(getAvatarInitials(name))[0] : getAvatarInitials(name));
@@ -67,7 +68,7 @@ const Avatar = forwardRef(function Avatar({
       data-avatar-size={size}
       data-surface={surface}
       data-grayscale={grayscale || undefined}
-      className={cn(avatarVariants({ shape, size, tone }), 'ds-avatar', surfaceClass, className)}
+      className={cn(avatarVariants({ shape, size, tone: surface === 'solid' ? tone : null }), 'ds-avatar', surfaceClass, className)}
       role={decorative ? undefined : 'img'}
       aria-label={decorative ? undefined : accessibleLabel}
       aria-hidden={decorative || undefined}

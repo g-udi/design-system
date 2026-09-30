@@ -47,7 +47,7 @@ const openLauncher = async (canvasElement, trigger = 'Search content') => {
   return { dialog, palette };
 };
 const command = (palette, label) =>
-  palette.getAllByText(label).map((node) => node.closest('.command-palette-list-item')).find(Boolean);
+  palette.getAllByText(label).map((node) => node.closest('[cmdk-item]')).find(Boolean);
 const expectClosed = () => waitFor(() => expect(body().queryByRole('dialog')).not.toBeInTheDocument());
 // Each collection prop adds a page to the launcher; the header lists them so editing a control shows up before opening it.
 const collectionLabels = [
@@ -76,9 +76,9 @@ function HeaderExample(props) {
   const [open, setOpen] = useState(false);
   return (
     <div className='mx-auto grid w-full max-w-xl gap-3'>
-      <header className='flex items-center gap-3 rounded-lg border border-gray-200 px-3 py-2 dark:border-gray-800'>
-        <span className='font-semibold text-gray-950 dark:text-gray-100'>Gaudi</span>
-        <nav aria-label='Site' className='hidden gap-3 text-sm text-gray-600 sm:flex dark:text-gray-400'>
+      <header className='flex items-center gap-3 rounded-lg border border-border px-3 py-2'>
+        <span className='font-semibold text-text'>Gaudi</span>
+        <nav aria-label='Site' className='hidden gap-3 text-sm text-text-muted sm:flex'>
           <span>Blog</span>
           <span>Projects</span>
           <span>About</span>
@@ -143,8 +143,8 @@ export const Playground = {
     for (const [key, label] of collectionLabels) await expect(canvas.getByText(indexedLabel(label, args[key]?.length || 0))).toBeInTheDocument();
 
     const { dialog, palette } = await openLauncher(canvasElement, 'Open search');
-    const search = palette.getByRole('textbox');
-    const visibleItems = () => [...dialog.querySelectorAll('.command-palette-list-item')].filter((item) => item.offsetParent !== null);
+    const search = palette.getByRole('combobox', { name: 'Search commands' });
+    const items = () => [...dialog.querySelectorAll('[cmdk-item]')];
     for (const [key, label] of collectionLabels) {
       if (args[key]?.length) await expect(command(palette, label)).toBeTruthy();
     }
@@ -152,9 +152,9 @@ export const Playground = {
     await expect(palette.getByText('Navigate')).toBeInTheDocument();
     await expect(palette.getByText('Select')).toBeInTheDocument();
     await userEvent.keyboard('{End}');
-    await expect(visibleItems().at(-1)).toHaveAttribute('aria-selected', 'true');
+    await expect(items().at(-1)).toHaveAttribute('aria-selected', 'true');
     await userEvent.keyboard('{Home}');
-    await expect(visibleItems()[0]).toHaveAttribute('aria-selected', 'true');
+    await expect(items()[0]).toHaveAttribute('aria-selected', 'true');
 
     const [tag] = args.tags || [];
     if (tag) {
@@ -192,13 +192,16 @@ export const CollectionPages = {
     };
 
     await userEvent.click(command(palette, 'Posts'));
-    const post = (await palette.findByText('An Introduction to Knowledge Graphs')).closest('.command-palette-list-item');
+    const post = (await palette.findByText('An Introduction to Knowledge Graphs')).closest('[cmdk-item]');
     await expect(post.querySelector('[data-cmdk-item-meta]')).toHaveTextContent('data');
+    // A page opens with its first entry selected and the search field focused.
+    await expect(post).toHaveAttribute('aria-selected', 'true');
+    await expect(palette.getByRole('combobox', { name: 'Search commands' })).toHaveFocus();
     await back();
 
     await userEvent.click(command(palette, 'Projects'));
-    await expect(await palette.findByRole('heading', { name: 'Projects' })).toBeVisible();
-    await expect(dialog.querySelector('[data-cmdk-list]')).toHaveProperty('scrollTop', 0);
+    await expect(await palette.findByRole('group', { name: 'Projects' })).toBeVisible();
+    await expect(dialog.querySelector('[cmdk-list]')).toHaveProperty('scrollTop', 0);
     await expect(palette.getByText(collections.projects[0].subtitle)).toBeInTheDocument();
     await expect(palette.queryByText(collections.projects[0].description)).not.toBeInTheDocument();
     await back();

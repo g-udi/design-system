@@ -1,8 +1,9 @@
-import Button from '../../src/components/core/Button';
-import Field, { FieldInput } from '../../src/components/core/Field';
+import Card from '../../src/components/core/Card';
 import Link from '../../src/components/core/Link';
 import Pill from '../../src/components/core/Pill';
 import Footer from '../../src/components/layout/Footer';
+import NewsletterForm from '../../src/components/layout/NewsletterForm';
+import Typography from '../../src/foundations/Typography';
 
 import { CodeBlock, InlineCode, Page, pageParameters, Section, Table, Td, Th } from './StoryDocs';
 
@@ -37,47 +38,54 @@ const editorialSocialLinks = [
   { 'href': 'https://twitter.com/ahmadaassaf', 'kind': 'twitter' }
 ];
 
+const FooterSurface = ({ children }) => <Card variant='outline' padding='none' className='px-6'>{children}</Card>;
+
 const CurrentFooter = () => (
-  <div className='rounded-lg border border-gray-200 bg-white px-6 dark:border-gray-800 dark:bg-gray-950'>
-    <Footer copyrightName='Ahmad Assaf' />
-  </div>
+  <FooterSurface>
+    <Footer copyrightName='Ahmad Assaf' newsletterProps={{ 'endpoint': '#newsletter' }} />
+  </FooterSurface>
 );
 
 const EditorialFooter = () => (
-  <div className='rounded-lg border border-gray-200 bg-white px-6 dark:border-gray-800 dark:bg-gray-950'>
-    <Footer copyrightName='Ahmad Assaf' sections={ editorialSections } socialLinks={ editorialSocialLinks } variant='editorial' />
-  </div>
+  <FooterSurface>
+    <Footer brandTitle='Field notes' copyrightName='Ahmad Assaf' sections={ editorialSections } socialLinks={ editorialSocialLinks } variant='editorial' />
+  </FooterSurface>
 );
 
 const NewsletterFooter = () => (
-  <footer className='overflow-hidden rounded-lg bg-gray-950 text-white'>
-    <div className='grid gap-8 p-8 lg:grid-cols-[1.2fr_1fr]'>
-      <div>
-        <Pill tone='blue' variant='soft'>newsletter</Pill>
-        <h3 className='mt-4 text-3xl font-extrabold'>Notes on AI, data, and engineering systems.</h3>
-        <p className='mt-3 text-sm leading-6 text-white/75'>A footer treatment for pages where subscription is the primary secondary action.</p>
+  <footer>
+    <Card variant='soft' padding='none'>
+      <div className='grid gap-8 p-8 lg:grid-cols-[1.2fr_1fr]'>
+        <div>
+          <Pill tone='blue' variant='soft' className='m-0'>Newsletter</Pill>
+          <Typography as='h3' variant='heading-md' className='mt-4'>Notes on AI, data, and engineering systems.</Typography>
+          <p className='mt-3 text-sm leading-6 text-text-muted'>A footer treatment for pages where subscription is the primary secondary action.</p>
+        </div>
+        <NewsletterForm
+          endpoint='#newsletter'
+          title='Get the monthly issue'
+          className='mt-0 self-end'
+          classNames={{ 'form': 'mt-4 flex flex-col gap-3 sm:flex-row', 'input': 'min-h-11', 'title': 'text-sm font-semibold' }}
+        />
       </div>
-      <form className='flex flex-col gap-3 self-end sm:flex-row'>
-        <Field className='flex-1'>
-          <label className='sr-only' htmlFor='footer-email'>Email address</label>
-          <FieldInput id='footer-email' type='email' placeholder='you@example.com' className='min-h-11 border-white/10 bg-white/10 text-white placeholder:text-white/50 focus:ring-blue-500' />
-        </Field>
-        <Button type='submit' tone='accent' variant='solid'>Subscribe</Button>
-      </form>
-    </div>
-    <div className='border-t border-white/10 px-8 py-5 text-sm text-white/60'>No spam. No fake urgency. Just useful notes.</div>
+      <p className='border-t border-border px-8 py-5 text-sm text-text-muted'>No spam. No fake urgency. Just useful notes.</p>
+    </Card>
   </footer>
 );
 
+const compactLinks = [
+  { 'href': '/blog', 'label': 'Blog' },
+  { 'href': '/blog/projects', 'label': 'Projects' },
+  { 'href': '/about', 'label': 'About' }
+];
+
 const CompactFooter = () => (
-  <footer className='flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-gray-950 sm:flex-row sm:items-center sm:justify-between'>
-    <p className='text-sm text-gray-500 dark:text-gray-400'>&copy; 2026 Ahmad Assaf</p>
+  <Card variant='outline' padding='lg' classNames={{ 'body': 'flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between' }}>
+    <p className='text-sm text-text-muted'>&copy; 2026 Ahmad Assaf</p>
     <nav className='flex flex-wrap gap-4' aria-label='Compact footer navigation'>
-      <Link href='' tone='gray' variant='muted' className='font-normal'>Blog</Link>
-      <Link href='' tone='gray' variant='muted' className='font-normal'>Projects</Link>
-      <Link href='' tone='gray' variant='muted' className='font-normal'>About</Link>
+      {compactLinks.map((link) => <Link key={ link.href } href={ link.href } variant='muted' className='font-normal'>{link.label}</Link>)}
     </nav>
-  </footer>
+  </Card>
 );
 
 const usageCode = `import { Footer } from '@gaudi/design-system';
@@ -97,30 +105,30 @@ const variantRows = [
 ];
 
 const variantCode = {
-  'compact': `<footer className='flex flex-col gap-4 rounded-lg border p-5 sm:flex-row sm:items-center sm:justify-between'>
-  <p>&copy; 2026 Ahmad Assaf</p>
+  'compact': `<Card variant='outline' padding='lg' classNames={{ body: 'flex items-center justify-between gap-4' }}>
+  <p className='text-sm text-text-muted'>&copy; 2026 Ahmad Assaf</p>
   <nav aria-label='Compact footer navigation'>
-    <Link href='/blog'>Blog</Link>
-    <Link href='/blog/projects'>Projects</Link>
-    <Link href='/about'>About</Link>
+    {links.map((link) => <Link key={link.href} href={link.href} variant='muted'>{link.label}</Link>)}
   </nav>
-</footer>`,
-  'current': `<Footer copyrightName='Ahmad Assaf' />`,
+</Card>`,
+  'current': `<Footer copyrightName='Ahmad Assaf' newsletterProps={{ endpoint: '/api/buttondown' }} />`,
   'editorial': `<Footer
+  brandTitle='Field notes'
   copyrightName='Ahmad Assaf'
   sections={editorialSections}
   socialLinks={editorialSocialLinks}
   variant='editorial'
 />`,
-  'newsletter': `<footer className='rounded-lg bg-gray-950 text-white'>
-  <Pill tone='blue' variant='soft'>newsletter</Pill>
-  <h3>Notes on AI, data, and engineering systems.</h3>
-  <form>
-    <Field>
-      <FieldInput type='email' placeholder='you@example.com' />
-    </Field>
-    <Button type='submit'>Subscribe</Button>
-  </form>
+  'newsletter': `<footer>
+  <Card variant='soft' padding='none'>
+    <div className='grid gap-8 p-8 lg:grid-cols-[1.2fr_1fr]'>
+      <div>
+        <Pill tone='blue' variant='soft'>Newsletter</Pill>
+        <Typography as='h3' variant='heading-md'>Notes on AI, data, and engineering systems.</Typography>
+      </div>
+      <NewsletterForm title='Get the monthly issue' />
+    </div>
+  </Card>
 </footer>`
 };
 
@@ -172,10 +180,10 @@ export const Default = {
         <CodeBlock code={ variantCode.compact } />
       </Section>
       <Section title='Implementation Notes' description='Footer examples must not drift into app-only styling.'>
-        <ul className='grid gap-2 text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <ul className='grid gap-2 text-sm leading-7 text-text-muted'>
           <li>Use <InlineCode>Footer</InlineCode> for production blog layouts.</li>
           <li>Pass links as data; do not bake app routes into the component package.</li>
-          <li>Newsletter controls should use <InlineCode>Field</InlineCode>, <InlineCode>FieldInput</InlineCode>, and <InlineCode>Button</InlineCode>.</li>
+          <li>Reuse <InlineCode>NewsletterForm</InlineCode> for subscription; it already handles validation, pending, and result messages.</li>
         </ul>
       </Section>
     </Page>

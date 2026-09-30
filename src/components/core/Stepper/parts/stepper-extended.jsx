@@ -135,6 +135,7 @@ function Stepper({
   );
 }
 function StepperItem({
+  asChild = false,
   step,
   completed = false,
   disabled = false,
@@ -151,11 +152,12 @@ function StepperItem({
         ? 'active'
         : 'inactive';
   const isLoading = loading && step === activeStep;
+  const Item = asChild ? Slot.Root : 'div';
   return (
     <StepItemContext.Provider
       value={{ step, state, isDisabled: disabled, isLoading }}
     >
-      <div
+      <Item
         data-slot='stepper-item'
         className={cn(
           'group/step flex items-center justify-center not-last:flex-1 group-data-[orientation=horizontal]/stepper-nav:flex-row group-data-[orientation=vertical]/stepper-nav:flex-col',
@@ -166,7 +168,7 @@ function StepperItem({
         {...props}
       >
         {children}
-      </div>
+      </Item>
     </StepItemContext.Provider>
   );
 }
@@ -263,16 +265,7 @@ function StepperIndicator({ children, className }) {
       )}
     >
       <div className='absolute'>
-        {indicators &&
-        ((isLoading && indicators.loading) ||
-          (state === 'completed' && indicators.completed) ||
-          (state === 'active' && indicators.active) ||
-          (state === 'inactive' && indicators.inactive))
-          ? (isLoading && indicators.loading) ||
-            (state === 'completed' && indicators.completed) ||
-            (state === 'active' && indicators.active) ||
-            (state === 'inactive' && indicators.inactive)
-          : children}
+        {(isLoading && indicators?.loading) || indicators?.[state] || children}
       </div>
     </div>
   );
@@ -290,16 +283,17 @@ function StepperSeparator({ className }) {
     />
   );
 }
-function StepperTitle({ children, className }) {
+function StepperTitle({ asChild = false, children, className }) {
   const { state } = useStepItem();
+  const Title = asChild ? Slot.Root : 'h3';
   return (
-    <h3
+    <Title
       data-slot='stepper-title'
       data-state={state}
       className={cn('text-sm leading-none font-medium', className)}
     >
       {children}
-    </h3>
+    </Title>
   );
 }
 function StepperDescription({ children, className }) {
@@ -314,10 +308,11 @@ function StepperDescription({ children, className }) {
     </div>
   );
 }
-function StepperNav({ children, className }) {
+function StepperNav({ asChild = false, children, className }) {
   const { activeStep, orientation } = useStepper();
+  const Nav = asChild ? Slot.Root : 'nav';
   return (
-    <nav
+    <Nav
       data-slot='stepper-nav'
       data-state={activeStep}
       data-orientation={orientation}
@@ -327,7 +322,7 @@ function StepperNav({ children, className }) {
       )}
     >
       {children}
-    </nav>
+    </Nav>
   );
 }
 function StepperPanel({ children, className }) {

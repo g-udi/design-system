@@ -12,8 +12,7 @@
 /**
  * Renders the site logo as an SVG element with subtle hover effect
  *
- * @description Custom vector logo that uses currentColor to inherit text color from parent elements,
- * making it theme-aware and adaptable to different navigation contexts (light/dark modes).
+ * @description Custom vector logo drawn in currentColor on the text token, so it follows the theme.
  * The logo maintains aspect ratio and is optimized for a compact 44x44px display size.
  * Features a gentle pulse effect on hover.
  *
@@ -24,10 +23,8 @@
  * <MenuLogo />
  *
  * @example
- * // Logo inherits color from parent
- * <div className="text-blue-600">
- *   <MenuLogo />
- * </div>
+ * // Recolour or resize through className
+ * <MenuLogo className='size-8 text-accent' />
  */
 import { cn } from '../../../utilities/cn';
 
@@ -39,7 +36,7 @@ const Logo = ({ className }) => (
     height='44px'
     viewBox='0 0 688.000000 688.000000'
     preserveAspectRatio='xMidYMid meet'
-    className={ cn('block h-11 w-11 text-gray-950 transition-transform duration-300 ease-out hover:scale-105 dark:text-white', className) }
+    className={ cn('block h-11 w-11 text-text transition-transform duration-300 ease-out hover:scale-105 motion-reduce:transition-none', className) }
     aria-hidden='true'
     focusable='false'
   >

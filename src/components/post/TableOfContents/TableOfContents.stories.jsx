@@ -79,7 +79,7 @@ const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
         return (
           <section key={ section.id } className={ section.depth === 1 ? 'scroll-mt-28' : 'scroll-mt-28 pl-8' }>
             <Heading id={ `${scopeId}-${section.id}` }>{section.value}</Heading>
-            <p className='mt-1 text-sm text-gray-600 dark:text-gray-300'>
+            <p className='mt-1 text-sm text-text-muted'>
               Story fixture copy gives the table of contents real headings to observe and target.
             </p>
           </section>
@@ -171,7 +171,7 @@ export const Playground = {
 
     await waitFor(() => expect(tocLink(canvasElement, 'design-tokens')).toBeInTheDocument());
     await expect(tocLink(canvasElement, 'semantic-scales')).toBeInTheDocument();
-    await waitFor(() => expect(foundationsLink.closest('li')).toHaveClass('text-blue-600!'));
+    await waitFor(() => expect(foundationsLink.closest('li')).toHaveClass('text-accent!'));
   }
 };
 

@@ -1,10 +1,11 @@
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
-import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { previewSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Avatar from '../Avatar';
+import { Badge } from '../Pill/index.js';
 import Tabs, { TabsContent, TabsList, TabsTrigger } from './Tabs';
 
 const docs = getComponentDocs('Core/Tabs');
@@ -61,22 +62,22 @@ const bodies = {
     </ul>
   )
 };
-const children = [
-  `  <TabsList aria-label='${listLabel}'>`,
+const children = (variant) => [
+  `  <TabsList aria-label='${listLabel}'${variant === 'line' ? " variant='line'" : ''}>`,
   ...panels.map(({ value, label, disabled }) => `    <TabsTrigger value='${value}'${disabled ? ' disabled' : ''}>${label}</TabsTrigger>`),
   '  </TabsList>',
   ...panels.filter((panel) => panel.summary).map(({ value, summary }) => `  <TabsContent value='${value}'>${summary}</TabsContent>`)
 ].join('\n');
 
-function ArticleTabs(props) {
+function ArticleTabs({ variant, ...props }) {
   return (
     <Tabs defaultValue='overview' {...props}>
-      <TabsList aria-label={listLabel}>
+      <TabsList aria-label={listLabel} variant={variant}>
         {panels.map(({ value, label, icon, count, disabled }) => (
           <TabsTrigger key={value} value={value} disabled={disabled} className='gap-1.5'>
             <RegistryIcon lucide={icon} className='size-4' />
             {label}
-            {count ? <> <span className='rounded-full bg-surface-muted px-1.5 text-xs text-text-muted'>{count}</span></> : null}
+            {count ? <Badge variant='secondary' size='sm'>{count}</Badge> : null}
           </TabsTrigger>
         ))}
       </TabsList>
@@ -91,10 +92,10 @@ function ArticleTabs(props) {
 }
 
 export default {
-  title: 'Core/Navigation/Tabs', id: 'core-tabs',
+  title: 'Core/Tabs', id: 'core-tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'] }),
+  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['default', 'line'] }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -105,14 +106,19 @@ export default {
 };
 
 export const Playground = {
-  args: { defaultValue: 'overview', orientation: 'horizontal', onValueChange: fn() },
+  args: { defaultValue: 'overview', orientation: 'horizontal', variant: 'default', onValueChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel and `orientation` moves the list to the side.' },
-      source: playgroundSource('Tabs', {
-        imports: "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system';",
-        children
-      })
+      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel, `orientation` moves the list to the side, and `variant` (on `TabsList`) drops the rule under the list for `line`.' },
+      // `variant` belongs to TabsList, so it prints there rather than on the root.
+      source: {
+        type: 'dynamic',
+        language: 'jsx',
+        transform: (_code, { args: { variant, ...args } }) => previewSource('Tabs', args, {
+          imports: "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system';",
+          children: children(variant)
+        })
+      }
     }
   },
   render: (args) => <ArticleTabs key={`${args.orientation}-${args.defaultValue}`} {...args} />,

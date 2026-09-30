@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/tabs/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Navigation/Tabs', id: 'core-tabs', tags: ['autodocs'], ...catalogueMeta('tabs') };
+export default { title: 'Core/Tabs', id: 'core-tabs', tags: ['autodocs'], ...catalogueMeta('tabs') };
 
 export const TabsPattern1 = {
   name: 'Settings form tabs',

@@ -1,9 +1,9 @@
 import Card from '../../src/components/core/Card';
-import { Grid, GridItem } from '../../src/components/core/Grid';
-import Icon from '../../src/components/core/Icon';
 import Link from '../../src/components/core/Link';
 import Pill from '../../src/components/core/Pill';
 import Post from '../../src/components/post/Post';
+import { PostTimestamps } from '../../src/components/post/PostHeader/PostHeader';
+import { categoryHref, tagHref } from '../../src/utilities/taxonomy';
 import Typography from '../../src/foundations/Typography';
 
 import { CodeBlock, InlineCode, Page, pageParameters, Section, Table, Td, Th } from './StoryDocs';
@@ -41,84 +41,75 @@ const posts = [
   }
 ];
 
+const postHref = (post) => `/blog/${post.slug}`;
+
 const FeaturedBlog = () => {
   const [ featured, ...rest ] = posts;
 
   return (
     <div className='grid gap-6 lg:grid-cols-[1.35fr_1fr]'>
       <Card variant='outline' padding='lg'>
-        <Pill tone='green' variant='subtle' size='sm'>Data</Pill>
-        <Typography variant='heading-xl' className='mt-4'>{featured.title}</Typography>
-        <p className='mt-4 max-w-2xl text-lg leading-8 text-gray-600 dark:text-gray-300'>{featured.subtitle}</p>
-        <div className='mt-5 flex flex-wrap items-center gap-3 text-sm text-gray-500 dark:text-gray-400'>
-          <time dateTime={ featured.date }>Nov 29, 2024</time>
-          <Icon name='BookOpen' decorative size='xs' className='text-gray-400' />
-          <span>{featured.readingTime.text}</span>
-        </div>
+        <Pill href={ categoryHref(featured.category) } tone='green' variant='soft' size='sm' className='m-0 capitalize'>{featured.category}</Pill>
+        <Typography as='h3' variant='heading-xl' className='mt-4'>
+          <Link href={ postHref(featured) } variant='bare' className='hover:text-accent'>{featured.title}</Link>
+        </Typography>
+        <p className='mt-4 max-w-2xl text-lg leading-8 text-text-muted'>{featured.subtitle}</p>
+        <PostTimestamps date={ featured.date } locale='en-US' readingTime={ featured.readingTime.text } className='mt-5 text-sm' />
         <div className='mt-6 flex flex-wrap gap-2'>
-          {featured.tags.map((tag) => <Pill key={ tag } tone='gray' variant='soft' size='sm' className='my-0 mr-0 normal-case tracking-normal'>{tag}</Pill>)}
+          {featured.tags.map((tag) => <Pill key={ tag } href={ tagHref(tag) } tone='gray' variant='soft' size='sm' className='m-0'>{tag}</Pill>)}
         </div>
       </Card>
       <div className='grid content-start gap-4'>
-        {rest.map((post) => (
-          <Card key={ post.slug } variant='outline' interactive className='h-auto'>
-            <Pill tone='blue' variant='subtle' size='xs' className='my-0 mr-0 normal-case tracking-normal capitalize'>{post.category}</Pill>
-            <Typography variant='heading-sm' className='mt-3'>{post.title}</Typography>
-            <p className='mt-2 text-sm leading-6 text-gray-600 dark:text-gray-300'>{post.subtitle}</p>
-          </Card>
-        ))}
+        {rest.map((post) => <PostCard key={ post.slug } post={ post } />)}
       </div>
     </div>
   );
 };
 
+const PostCard = ({ post, showReadingTime = false }) => (
+  <Card variant='outline' interactive className='h-auto'>
+    <div className='flex items-center justify-between gap-3'>
+      <Pill tone='blue' variant='soft' size='xs' className='m-0 capitalize'>{post.category}</Pill>
+      {showReadingTime ? <span className='text-xs text-text-muted'>{post.readingTime.text}</span> : null}
+    </div>
+    <Typography as='h3' variant='heading-sm' className='mt-3'>
+      <Link href={ postHref(post) } variant='bare' className='hover:text-accent'>{post.title}</Link>
+    </Typography>
+    <p className='mt-2 text-sm leading-6 text-text-muted'>{post.subtitle}</p>
+  </Card>
+);
+
 const ListBlog = () => (
-  <ul className='rounded-lg border border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-gray-950'>
-    {posts.map((post) => <Post key={ post.slug } frontMatter={ post } />)}
-  </ul>
+  <Card variant='outline' padding='none' className='px-5'>
+    <ul>
+      {posts.map((post) => <Post key={ post.slug } frontMatter={ post } />)}
+    </ul>
+  </Card>
 );
 
 const CardBlog = () => (
   <div className='grid gap-4 md:grid-cols-3'>
-    {posts.map((post) => (
-      <Card key={ post.slug } variant='outline' interactive className='group'>
-        <div className='flex items-center justify-between gap-3'>
-          <Pill tone='blue' variant='soft' size='xs' className='my-0 mr-0 normal-case tracking-normal capitalize'>{post.category}</Pill>
-          <span className='text-xs text-gray-500 dark:text-gray-400'>{post.readingTime.text}</span>
-        </div>
-        <Typography variant='heading-sm' className='mt-4 group-hover:text-blue-600 dark:group-hover:text-blue-400'>{post.title}</Typography>
-        <p className='mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300'>{post.subtitle}</p>
-        <Link href='' className='mt-5 inline-flex items-center gap-2 text-sm font-semibold' variant='inline'>
-          Read article
-          <Icon name='ArrowRight' decorative size='sm' />
-        </Link>
-      </Card>
-    ))}
+    {posts.map((post) => <PostCard key={ post.slug } post={ post } showReadingTime />)}
   </div>
 );
 
 const ArchiveBlog = () => (
-  <div className='rounded-lg border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950'>
-    {posts.map((post) => (
-      <Link key={ post.slug } href='' className='grid gap-3 border-b border-gray-100 p-4 last:border-b-0 hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-gray-900 md:grid-cols-[8rem_1fr_auto]'>
-        <time className='text-xs font-semibold uppercase text-gray-500 dark:text-gray-400'>{post.date.slice(0, 4)}</time>
-        <span className='text-sm font-semibold text-gray-950 dark:text-white'>{post.title}</span>
-        <span className='text-xs capitalize text-gray-500 dark:text-gray-400'>{post.category}</span>
-      </Link>
-    ))}
-  </div>
+  <Card variant='outline' padding='none'>
+    <ul>
+      {posts.map((post) => (
+        <li key={ post.slug } className='border-b border-border last:border-b-0'>
+          <Link href={ postHref(post) } variant='bare' className='grid gap-3 p-4 hover:bg-surface-muted md:grid-cols-[8rem_1fr_auto]'>
+            <time dateTime={ post.date } className='text-xs font-semibold uppercase text-text-muted'>{post.date.slice(0, 4)}</time>
+            <span className='text-sm font-semibold text-text'>{post.title}</span>
+            <span className='text-xs capitalize text-text-muted'>{post.category}</span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </Card>
 );
 
-const BlogSectionVariants = () => (
-  <Grid columns='4' gap='md'>
-    <GridItem variant='soft' title='Featured Lead' description='One article anchors an index or topic page.' icon={ <Icon name='NewspaperIcon' decorative className='text-blue-600 dark:text-blue-400' /> } />
-    <GridItem variant='soft' title='Current List' description='The production post preview used in blog listings.' icon={ <Icon name='List' decorative className='text-green-600 dark:text-green-400' /> } />
-    <GridItem variant='soft' title='Card Grid' description='Three-column browsing when summaries need stronger separation.' icon={ <Icon name='Grid' decorative className='text-indigo-600 dark:text-indigo-400' /> } />
-    <GridItem variant='soft' title='Archive Rows' description='Dense year/category/tag views with compact metadata.' icon={ <Icon name='Calendar' decorative className='text-gray-600 dark:text-gray-400' /> } />
-  </Grid>
-);
-
-const usageCode = `import { Post, Card, Pill, Typography } from '@gaudi/design-system';
+const usageCode = `import { Post, Typography } from '@gaudi/design-system';
 
 const [featuredPost, ...posts] = sortedPosts;
 
@@ -126,8 +117,9 @@ const [featuredPost, ...posts] = sortedPosts;
   <Typography id='featured-posts' variant='heading-lg' as='h2'>
     Featured posts
   </Typography>
-  <Post frontMatter={featuredPost} />
-  {posts.map((post) => <Post key={post.slug} frontMatter={post} />)}
+  <ul>
+    {[featuredPost, ...posts].map((post) => <Post key={post.slug} frontMatter={post} />)}
+  </ul>
 </section>`;
 
 const variantRows = [
@@ -138,22 +130,27 @@ const variantRows = [
 ];
 
 const variantCode = {
-  'archive': `<div className='rounded-lg border border-gray-200 bg-white'>
-  {posts.map((post) => (
-    <Link key={post.slug} href={\`/blog/\${post.slug}\`} className='grid gap-3 border-b p-4 md:grid-cols-[8rem_1fr_auto]'>
-      <time>{post.date.slice(0, 4)}</time>
-      <span>{post.title}</span>
-      <span>{post.category}</span>
-    </Link>
-  ))}
-</div>`,
+  'archive': `<Card variant='outline' padding='none'>
+  <ul>
+    {posts.map((post) => (
+      <li key={post.slug} className='border-b border-border last:border-b-0'>
+        <Link href={\`/blog/\${post.slug}\`} variant='bare' className='grid gap-3 p-4 hover:bg-surface-muted md:grid-cols-[8rem_1fr_auto]'>
+          <time dateTime={post.date}>{post.date.slice(0, 4)}</time>
+          <span>{post.title}</span>
+          <span>{post.category}</span>
+        </Link>
+      </li>
+    ))}
+  </ul>
+</Card>`,
   'cards': `<div className='grid gap-4 md:grid-cols-3'>
   {posts.map((post) => (
     <Card key={post.slug} variant='outline' interactive>
       <Pill tone='blue' variant='soft' size='xs'>{post.category}</Pill>
-      <Typography variant='heading-sm'>{post.title}</Typography>
-      <p>{post.subtitle}</p>
-      <Link href={\`/blog/\${post.slug}\`} variant='inline'>Read article</Link>
+      <Typography as='h3' variant='heading-sm'>
+        <Link href={\`/blog/\${post.slug}\`} variant='bare'>{post.title}</Link>
+      </Typography>
+      <p className='text-sm text-text-muted'>{post.subtitle}</p>
     </Card>
   ))}
 </div>`,
@@ -161,17 +158,19 @@ const variantCode = {
 
 <div className='grid gap-6 lg:grid-cols-[1.35fr_1fr]'>
   <Card variant='outline' padding='lg'>
-    <Pill tone='green' variant='subtle' size='sm'>{featured.category}</Pill>
-    <Typography variant='heading-xl'>{featured.title}</Typography>
-    <p>{featured.subtitle}</p>
+    <Pill tone='green' variant='soft' size='sm'>{featured.category}</Pill>
+    <Typography as='h3' variant='heading-xl'>
+      <Link href={\`/blog/\${featured.slug}\`} variant='bare'>{featured.title}</Link>
+    </Typography>
+    <PostTimestamps date={featured.date} readingTime={featured.readingTime.text} />
   </Card>
-  {rest.map((post) => <Card key={post.slug} variant='outline' interactive>{post.title}</Card>)}
+  {rest.map((post) => <PostCard key={post.slug} post={post} />)}
 </div>`,
-  'list': `<ul className='rounded-lg border border-gray-200 bg-white px-5'>
-  {posts.map((post) => (
-    <Post key={post.slug} frontMatter={post} />
-  ))}
-</ul>`
+  'list': `<Card variant='outline' padding='none' className='px-5'>
+  <ul>
+    {posts.map((post) => <Post key={post.slug} frontMatter={post} />)}
+  </ul>
+</Card>`
 };
 
 const VariantTable = () => (
@@ -205,9 +204,6 @@ export const Default = {
       <Section title='Variant Rules' description='Choose the layout from reading intent, not decoration.'>
         <VariantTable />
       </Section>
-      <Section title='Available Variants' description='The recipe shapes currently documented for blog listing pages.'>
-        <BlogSectionVariants />
-      </Section>
       <Section title='Featured Lead' description='Use for index pages where one article should lead the page.'>
         <FeaturedBlog />
         <CodeBlock code={ variantCode.featured } />
@@ -225,7 +221,7 @@ export const Default = {
         <CodeBlock code={ variantCode.archive } />
       </Section>
       <Section title='Implementation Notes' description='These examples should stay aligned with the blog production model.'>
-        <ul className='grid gap-2 text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <ul className='grid gap-2 text-sm leading-7 text-text-muted'>
           <li>Use <InlineCode>Post</InlineCode> for the current list treatment.</li>
           <li>Use <InlineCode>Pill</InlineCode> for categories and tags; avoid local badge CSS.</li>
           <li>Keep titles as real headings and wrap only the interactive text in links.</li>

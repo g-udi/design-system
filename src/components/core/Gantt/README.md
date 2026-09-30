@@ -1,11 +1,21 @@
 # Gantt
 
-This Gaudi owner includes **gantt**, with **5 practical examples**.
+A timeline of tasks against a resource tree, with day to year scales, progress, dependencies, baselines, milestones, drag to move and resize, and row reordering. Use it to plan work over weeks or months; use an EventCalendar for hour-level schedules.
 
-Import the documented composition from `@gaudi/design-system/core/Gantt`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Gantt, GanttNav, GanttView } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-gantt--gantt-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Gantt defaultEvents={tasks} resources={teams} defaultScale='month' treePanel={{ width: 200 }} className='h-[580px]'>
+  <GanttNav />
+  <GanttView />
+</Gantt>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- Tasks are `{ id, title, resourceId, start, end, progress?, dependencies?, baselineStart?, baselineEnd?, color? }`; a zero-length task renders as a milestone. `GANTT_COLORS` matches the EventCalendar colours.
+- `resources` is a tree of `{ id, title, children? }`; `treePanel` configures the left panel, such as its `width`.
+- `defaultScale` / `scale` zoom between `GANTT_SCALES`; `interactions` turns drag, resize and slot selection on or off; `apiRef` and `onEventsChange` connect edits to your data.
+- Time-zone, lane and recurrence helpers are shared with EventCalendar, so both components read dates and RRULEs the same way.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Accessibility
+
+Navigation and row controls are labelled buttons, and bars scrolled out of view get labelled jump buttons at the edge of the timeline. Every visible string comes from `i18n`.

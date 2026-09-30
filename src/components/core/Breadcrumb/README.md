@@ -1,11 +1,19 @@
 # Breadcrumb
 
-This Gaudi owner includes **breadcrumb**, with **5 practical examples**.
+A trail of links from the site root to the current page. Use it on nested pages (docs, categories, settings) so readers can see where they are and step back up a level.
 
-Import the documented composition from `@gaudi/design-system/core/Breadcrumb`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { BreadcrumbTrail } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-breadcrumb--breadcrumb-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<BreadcrumbTrail
+  items={[
+    { href: '/', label: 'Home' },
+    { href: '/blog', label: 'Blog' },
+    { label: 'Design systems' }
+  ]}
+/>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+`BreadcrumbTrail` (the default export) renders a labelled `nav`, an ordered list, router-aware links for ancestors and `aria-current="page"` on the last item (or the item marked `current`). `label` names the landmark.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+For icons, collapsed paths or menus in the trail, compose the parts: `Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`, `BreadcrumbPage`, `BreadcrumbSeparator` and `BreadcrumbEllipsis`. The convenience names are the same parts with a labelled landmark and Gaudi `Link` for internal routes; `BreadcrumbLinkPrimitive` and friends are the raw parts (`asChild` on the link accepts a router link).

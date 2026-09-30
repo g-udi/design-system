@@ -16,9 +16,9 @@ const NO_STATE = {
 const NO_RESULTS = [];
 function createStore() {
   return {
-    pages: /* @__PURE__ */ new Map(),
-    states: /* @__PURE__ */ new Map(),
-    detached: /* @__PURE__ */ new Map()
+    pages: new Map(),
+    states: new Map(),
+    detached: new Map()
   };
 }
 function sameLoadState(a, b) {
@@ -123,12 +123,12 @@ export function useCascaderLoader({
       path
     };
   });
-  const controllers = React.useRef(/* @__PURE__ */ new Map());
-  const requestIds = React.useRef(/* @__PURE__ */ new Map());
-  const inflight = React.useRef(/* @__PURE__ */ new Map());
-  const moreLatch = React.useRef(/* @__PURE__ */ new Map());
-  const attempted = React.useRef(/* @__PURE__ */ new Set());
-  const known = React.useRef(/* @__PURE__ */ new Map());
+  const controllers = React.useRef(new Map());
+  const requestIds = React.useRef(new Map());
+  const inflight = React.useRef(new Map());
+  const moreLatch = React.useRef(new Map());
+  const attempted = React.useRef(new Set());
+  const known = React.useRef(new Map());
   const timers = React.useRef({ prefetch: null });
   const epoch = React.useRef(0);
   const remember = React.useCallback((nodes) => {

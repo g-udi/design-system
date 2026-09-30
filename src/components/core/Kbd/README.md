@@ -1,11 +1,14 @@
 # Kbd
 
-This Gaudi owner includes **kbd**, with **2 practical examples**.
+A keyboard key or shortcut hint, such as "Press ⌘ K to search".
 
-Import the documented composition from `@gaudi/design-system/core/Kbd`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Kbd } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-kbd--kbd-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+Press <Kbd keys='command,k' size='sm' /> to search
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- `keys` takes comma-separated key names (`command`, `shift`, `enter`, `escape`, `up`…). Named keys show as symbols, and a combination is announced as one label ("Command plus K").
+- `children` render one literal key with no extra label.
+- `variant`: `raised` (default) for standalone hints, `outline` or `flat` inside dense UI. `size`: `xs`, `sm`, `md`, `lg`.
+- For custom content such as icons, compose `KbdRoot` and `KbdGroup`; inside a tooltip they pick up its colours.

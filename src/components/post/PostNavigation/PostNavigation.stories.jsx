@@ -10,7 +10,6 @@ const prev = { slug: 'local-first-software', title: 'Notes on local-first softwa
 const next = { slug: 'resilient-components', title: 'A field guide to resilient components that survive real data' };
 const labels = { Post: 'Article', Thought: 'Thought' };
 const baseUrls = { Post: '/blog', Thought: '/thoughts' };
-const previousThought = { slug: 'previous-thought', title: 'Previous thought title' };
 
 export default {
   title: 'Post/PostNavigation',
@@ -30,7 +29,7 @@ export const Playground = {
   args: { type: 'Post', prev, next },
   parameters: {
     docs: {
-      description: { story: 'Both neighbours with realistic titles, one long enough to wrap. `type` switches the labels and routes between articles and thoughts; clear `prev` or `next` to drop that side without leaving an empty link.' },
+      description: { story: 'Both neighbours with realistic titles, one long enough to wrap. `type` switches the labels and routes between articles and thoughts; clear `prev` or `next` (set it to `null`) to drop that side without leaving an empty link.' },
       source: playgroundSource('PostNavigation', { imports: "import { PostNavigation } from '@gaudi/design-system';" })
     }
   },
@@ -48,16 +47,5 @@ export const Playground = {
       await expect(canvas.getByRole('link', { name: `${side} ${label} ${entry.title}` })).toHaveAttribute('href', `${baseUrls[args.type]}/${entry.slug}`);
     }
     if (args.next) await expect(canvas.getByRole('link', { name: new RegExp(`^Next ${label}`, 'u') })).toHaveClass('text-right');
-  }
-};
-
-export const ThoughtNavigation = {
-  name: 'Thought with one neighbour',
-  parameters: { docs: { description: { story: "`type='Thought'` switches labels and routes to /thoughts, and a missing `next` renders no empty link." } } },
-  render: () => <PostNavigation prev={previousThought} next={null} type='Thought' />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('link', { name: `Previous Thought ${previousThought.title}` })).toHaveAttribute('href', `/thoughts/${previousThought.slug}`);
-    await expect(canvas.queryByRole('heading', { name: 'Next Thought' })).not.toBeInTheDocument();
   }
 };

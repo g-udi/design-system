@@ -1,11 +1,17 @@
 # PhoneInput
 
-This Gaudi owner includes **phone-input**, with **1 practical examples**.
+A phone number field with a searchable country picker that stores the number in international (E.164) format.
 
-Import the documented composition from `@gaudi/design-system/core/PhoneInput`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-phoneinput--phone-input-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { PhoneInput } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<PhoneInput id='phone' defaultCountry='US' value={phone} onChange={setPhone} />;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`variant` (`sm`, `default`, `lg`) sets the height, and `international` shows the calling code in the input.
+
+## Accessibility
+
+Label the input with a `Label` or `aria-label`. Setting `aria-invalid` marks the country picker and the number together.

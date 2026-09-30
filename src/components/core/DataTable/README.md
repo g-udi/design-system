@@ -1,11 +1,29 @@
 # DataTable
 
-This Gaudi owner includes **data-grid**, with **12 practical examples**.
+A table for client collections up to a few hundred rows: search with a live count, sortable headers, round row
+selection, column visibility, paging, grouped and expandable rows, row actions, pinned columns, a totals footer, and
+loading, refreshing, empty and error states. It is built on TanStack Table and composes the DS Button, Input, Checkbox,
+DropdownMenu, Skeleton, Spinner and EmptyState.
 
-Import the documented composition from `@gaudi/design-system/core/DataTable`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import DataTable from '@gaudi/design-system/core/DataTable';
 
-[Open the first example](http://localhost:6007/?path=/story/core-datatable--data-grid-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<DataTable
+  caption='Article library'
+  columns={[{ key: 'title', header: 'Article' }, { key: 'words', header: 'Words', align: 'right' }]}
+  rows={articles}
+  searchable
+  sortable
+  selectable
+  pagination
+  pageSize={10}
+  density='compact'
+/>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`left` or `right`), `footer`, and
+  `sortable`, `searchable` or `hideable` set to `false` to opt out.
+- `selection` with `onSelectionChange` controls selection; `renderSelectionActions` fills the toolbar while rows are selected.
+- Filtering predicates, remote fetching and persistence stay in the host; pair it with `FilterBar` for facets.
+- Use the `DataGrid` parts (`DataGrid`, `DataGridContainer`, `DataGridTable`, `DataGridPagination`, …) for resizable,
+  draggable, virtualised, editable or server-driven grids.

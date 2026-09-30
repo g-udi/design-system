@@ -3,7 +3,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Carousel, { carouselVariants } from './Carousel';
-import { aurora, ember, lagoon } from '../../../../.storybook/fixtures/site/artwork';
+import { aurora, ember, iris, lagoon, rose, sky } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Carousel');
 const editorialItems = [
@@ -45,6 +45,7 @@ const railItems = [
     description: 'A larger card format for feature collections.',
     eyebrow: 'Artificial Intelligence',
     id: 'ai',
+    image: rose,
     title: 'You can do more with AI.'
   },
   {
@@ -52,6 +53,7 @@ const railItems = [
     description: 'Dense but readable cards for grouped content.',
     eyebrow: 'Productivity',
     id: 'productivity',
+    image: sky,
     title: 'Enhance your productivity.'
   },
   {
@@ -59,14 +61,10 @@ const railItems = [
     description: 'An editorial rail card treatment.',
     eyebrow: 'Product',
     id: 'product',
+    image: iris,
     title: 'Launching a focused component system.'
   }
 ];
-const overlayText = {
-  description: '!text-white/95 drop-shadow-sm',
-  eyebrow: '!text-white/85 drop-shadow-sm',
-  title: '!text-white drop-shadow-sm'
-};
 const button = (canvas, name) => canvas.getByRole('button', { name });
 
 const status = (canvas, text) => expect(canvas.getByText(text, { selector: '[aria-live]' })).toBeInTheDocument();
@@ -102,7 +100,7 @@ export const Playground = {
       })
     }
   },
-  render: (args) => <Carousel ariaLabel='Featured articles' items={editorialItems} classNames={overlayText} className='mx-auto' {...args} />,
+  render: (args) => <Carousel ariaLabel='Featured articles' items={editorialItems} className='mx-auto' {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const [first, second] = editorialItems;
@@ -131,7 +129,7 @@ export const Playground = {
 
 export const EditorialRail = {
   parameters: { docs: { description: { story: 'The rail variant snaps cards horizontally; opening a card shows its `content` in a modal dialog that closes with Escape.' } } },
-  render: () => <Carousel ariaLabel='Featured cards' variant='rail' items={railItems} classNames={overlayText} loop />,
+  render: () => <Carousel ariaLabel='Featured cards' variant='rail' items={railItems} loop />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const [, second, third] = railItems;

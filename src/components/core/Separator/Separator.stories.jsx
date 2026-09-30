@@ -20,7 +20,7 @@ const layouts = {
 const statRules = (canvasElement) => canvasElement.querySelectorAll('[data-slot="separator"][data-stat]');
 
 export default {
-  title: 'Core/Layout & Containers/Separator',
+  title: 'Core/Separator',
   id: 'core-separator',
   component: Separator,
   tags: ['autodocs'],

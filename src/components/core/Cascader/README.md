@@ -1,11 +1,25 @@
 # Cascader
 
-This Gaudi owner includes **cascader**, with **12 practical examples**.
+Pick a value from a nested tree: a help topic, a folder, a region and its markets. Use it when options only make sense within their parent; use a Select for a flat list.
 
-Import the documented composition from `@gaudi/design-system/core/Cascader`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Cascader, CascaderTrigger, CascaderValue, CascaderContent, CascaderPanel, CascaderList, CascaderItems } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-cascader--cascader-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Cascader items={topics} onValueChange={setTopic}>
+  <CascaderTrigger aria-label='Topic'><CascaderValue /></CascaderTrigger>
+  <CascaderContent>
+    <CascaderPanel>
+      <CascaderList><CascaderItems /></CascaderList>
+    </CascaderPanel>
+  </CascaderContent>
+</Cascader>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- `items` are `{ value, label, children?, description?, icon?, disabled? }`. `mode` shows the tree as a drill-down list, Miller columns (`CascaderColumns`) or an expanding tree.
+- `selectable='all'` lets branches be picked, not only leaves; `multiple` adds checkboxes and chips.
+- `inline` renders the panel in the page instead of a popup. `CascaderInput`, `CascaderBreadcrumb`, `CascaderEmpty`, `CascaderStatus` and `CascaderFooter` add search, a path, empty and async states, and footer actions.
+- `useCascaderLoader` fetches children on demand; `CascaderVirtualItems` windows long levels.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Accessibility
+
+The trigger is a combobox. Up and Down move through a level, the inline-end and inline-start arrow keys open and leave a branch, and Enter picks. A live region announces changes, and every visible or announced string comes from `labels`.

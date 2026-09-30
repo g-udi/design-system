@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/field/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Field', id: 'core-field', tags: ['autodocs'], ...catalogueMeta('field') };
+export default { title: 'Core/Field', id: 'core-field', tags: ['autodocs'], ...catalogueMeta('field') };
 
 export const FieldPattern7 = { name: 'Settings form with validation', ...pattern(7) };
 export const FieldPattern1 = { name: 'Controls in fields', ...pattern(1, 'Label, control and description around input groups, selects, a slider, an OTP input and a textarea.') };

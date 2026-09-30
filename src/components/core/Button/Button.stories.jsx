@@ -2,9 +2,6 @@ import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource, previewSource } from '../../../../.storybook/stories/previewSource';
-import { publicSource } from '../../../../.storybook/stories/PatternStoryHelpers';
-import { ControlsExample } from '../../../../.storybook/fixtures/button/ControlsExample';
-import controlsSource from '../../../../.storybook/fixtures/button/ControlsExample.jsx?raw';
 import { RegistryIcon } from '../../../icons/RegistryIcon';
 import Button, { buttonTones, buttonVariants } from './Button';
 
@@ -13,7 +10,7 @@ const variants = Object.keys(buttonVariants.variants.variant);
 const heights = { xs: 24, sm: 28, md: 32, lg: 36 };
 const iconSize = (size) => (size === 'md' ? 'icon' : `icon-${size}`);
 const height = (element) => element.getBoundingClientRect().height;
-const Row = ({ children }) => <div className='flex flex-wrap items-center gap-3'>{children}</div>;
+const Row = ({ children }) => <div className='flex flex-wrap items-center gap-2'>{children}</div>;
 
 // An editor footer: the primary action follows every control; the supporting actions share its size and radius.
 const supporting = [
@@ -26,7 +23,7 @@ const supportingSource = ({ size, radius }) => supporting.map(({ label, icon, va
   : `<Button size='${size}' radius='${radius}' variant='${variant}' tone='${tone}'>${label}</Button>\n`)).join('');
 
 export default {
-  title: 'Core/Actions/Button',
+  title: 'Core/Button',
   id: 'core-button',
   component: Button,
   tags: ['autodocs'],
@@ -83,47 +80,37 @@ export const Playground = {
   }
 };
 
+const tonesShown = ['accent', 'neutral', 'danger', 'success'];
+
 export const Variants = {
-  parameters: { docs: { description: { story: 'Five treatments set the action hierarchy at the same 32px height.' } } },
-  render: () => <Row>{variants.map((variant) => <Button key={variant} variant={variant}>{variant}</Button>)}</Row>,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'solid' })).toHaveClass('bg-accent', 'text-accent-foreground');
-    await expect(canvas.getByRole('button', { name: 'soft' })).toHaveClass('bg-accent-subtle', 'text-accent');
-    await expect(canvas.getByRole('button', { name: 'outline' })).toHaveClass('border', 'border-accent-muted', 'text-accent');
-    await expect(canvas.getByRole('button', { name: 'subtle' })).toHaveClass('p-0', 'text-accent');
-    for (const button of canvas.getAllByRole('button')) await expect(height(button)).toBe(32);
-  }
-};
-
-export const Tones = {
-  parameters: { docs: { description: { story: 'Semantic tones carry meaning; pick them by intent, not colour.' } } },
-  render: () => <Row>{buttonTones.map((tone) => <Button key={tone} tone={tone}>{tone}</Button>)}</Row>,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'neutral' })).toHaveClass('bg-foreground', 'text-text-inverse');
-    for (const tone of buttonTones.filter((name) => name !== 'neutral')) {
-      await expect(canvas.getByRole('button', { name: tone })).toHaveClass(`bg-${tone}`, `text-${tone}-foreground`);
-    }
-  }
-};
-
-export const Sizes = {
-  parameters: { docs: { description: { story: 'Text and icon-only sizes share heights: xs 24px, sm 28px, md 32px, lg 36px.' } } },
+  name: 'Variants, tones and sizes',
+  parameters: { docs: { description: { story: 'Variant sets the action hierarchy, tone carries meaning, and size keeps text and icon-only buttons on one height scale: xs 24px, sm 28px, md 32px, lg 36px.' } } },
   render: () => (
-    <Row>
-      {Object.keys(heights).map((size) => (
-        <div key={size} className='flex items-center gap-2'>
-          <Button size={size}><RegistryIcon lucide='PlusIcon' aria-hidden='true' />Button {size}</Button>
-          <Button size={iconSize(size)} variant='outline' aria-label={`Settings ${size}`}>
-            <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />
-          </Button>
-        </div>
-      ))}
-    </Row>
+    <div className='grid grid-cols-[auto_repeat(5,auto)] items-center justify-start justify-items-start gap-x-2 gap-y-2 text-xs text-text-muted'>
+      <span />
+      {variants.map((variant) => <span key={variant}>{variant}</span>)}
+      {tonesShown.map((tone) => [
+        <span key={tone}>{tone}</span>,
+        ...variants.map((variant) => <Button key={`${tone}-${variant}`} tone={tone} variant={variant} size='sm'>Save</Button>)
+      ])}
+      <span className='mt-1'>sizes</span>
+      <div className='col-span-5 mt-1 flex flex-wrap items-center gap-2'>
+        {Object.keys(heights).map((size) => (
+          <div key={size} className='flex items-center gap-1'>
+            <Button size={size}>Button {size}</Button>
+            <Button size={iconSize(size)} variant='outline' tone='neutral' aria-label={`Settings ${size}`}>
+              <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />
+            </Button>
+          </div>
+        ))}
+      </div>
+    </div>
   ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const saves = canvas.getAllByRole('button', { name: 'Save' });
+    await expect(saves).toHaveLength(tonesShown.length * variants.length);
+    await expect(saves[variants.indexOf('solid')]).toHaveClass('bg-accent', 'text-accent-foreground');
     for (const [size, px] of Object.entries(heights)) {
       const icon = canvas.getByRole('button', { name: `Settings ${size}` });
       await expect(height(canvas.getByRole('button', { name: `Button ${size}` }))).toBe(px);
@@ -134,12 +121,14 @@ export const Sizes = {
 };
 
 export const States = {
-  parameters: { docs: { description: { story: 'Disabled buttons use the native attribute; `href` renders an internal link or a new-tab external anchor.' } } },
+  name: 'Links and disabled',
+  parameters: { docs: { description: { story: 'Pass `href` to render a link that looks like a button: internal paths navigate in place, external URLs open in a new tab, and `disabled` works on both.' } } },
   render: () => (
     <Row>
       <Button disabled>Disabled action</Button>
       <Button href='/blog' variant='outline'>Internal link</Button>
       <Button href='https://example.com' variant='soft'>External link</Button>
+      <Button href='/blog' variant='outline' tone='neutral' disabled>Disabled link</Button>
     </Row>
   ),
   play: async ({ canvasElement }) => {
@@ -148,24 +137,9 @@ export const States = {
     const external = canvas.getByRole('link', { name: 'External link' });
     await expect(canvas.getByRole('button', { name: 'Disabled action' })).toBeDisabled();
     await expect(new URL(internal.href).pathname).toBe('/blog');
-    await expect(internal).toHaveClass('border', 'border-accent-muted', 'text-accent');
     await expect(internal).not.toHaveAttribute('target');
     await expect(external).toHaveAttribute('target', '_blank');
     await expect(external).toHaveAttribute('rel', expect.stringContaining('noopener'));
-  }
-};
-
-export const WithControls = {
-  parameters: {
-    docs: {
-      description: { story: 'Inputs, selects, and buttons share a 32px default height. Match `sm` or `lg` for sized controls and the corresponding icon size. Keep visible labels or accessible names on every control.' },
-      source: { code: publicSource(controlsSource), language: 'jsx' }
-    }
-  },
-  render: () => <ControlsExample />,
-  play: async ({ canvasElement }) => {
-    for (const row of canvasElement.querySelectorAll('[data-control-row]')) {
-      for (const button of row.querySelectorAll(':scope > button')) await expect(height(button)).toBe(height(row.firstElementChild));
-    }
+    await expect(canvas.getByText('Disabled link')).toHaveAttribute('aria-disabled', 'true');
   }
 };

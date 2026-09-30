@@ -68,9 +68,9 @@ import {
 } from '../../Tooltip/parts/tooltip.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 function useNow(intervalMs = 3e4) {
-  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
+  const [now, setNow] = useState(() => new Date());
   useEffect(() => {
-    const tick = () => setNow(/* @__PURE__ */ new Date());
+    const tick = () => setNow(new Date());
     const id = setInterval(tick, intervalMs);
     document.addEventListener('visibilitychange', tick);
     window.addEventListener('focus', tick);
@@ -84,12 +84,12 @@ function useNow(intervalMs = 3e4) {
 }
 function useTodayKey(timeZone) {
   const [key, setKey] = useState(() =>
-    getDayKey(/* @__PURE__ */ new Date(), timeZone)
+    getDayKey(new Date(), timeZone)
   );
   useEffect(() => {
     const tick = () =>
       setKey((prev) => {
-        const next = getDayKey(/* @__PURE__ */ new Date(), timeZone);
+        const next = getDayKey(new Date(), timeZone);
         return next === prev ? prev : next;
       });
     tick();
@@ -107,7 +107,7 @@ function useTodayKey(timeZone) {
 function lowestFreeLane(segments, startMs, endMs) {
   const padMs = MIN_PACK_SLOT * 6e4;
   const to = Math.max(endMs, startMs + padMs);
-  const busy = /* @__PURE__ */ new Set();
+  const busy = new Set();
   for (const segment of segments) {
     const segStart = segment.occurrence.start.getTime();
     const segEnd = Math.max(segment.occurrence.end.getTime(), segStart + padMs);
@@ -154,7 +154,7 @@ const DEFAULT_COLUMN_WIDTH = 96;
 const DEFAULT_ZOOM_RANGE = { min: 0.5, max: 3 };
 const MIN_TIMELINE_WIDTH = 200;
 const INFINITE_EDGE_PX = 160;
-const EMPTY_ID_SET = /* @__PURE__ */ new Set();
+const EMPTY_ID_SET = new Set();
 function getPaneViewport(pane) {
   return pane?.querySelector('[data-slot=scroll-area-viewport]') ?? null;
 }
@@ -231,7 +231,7 @@ function GanttView({
     const units2 = [];
     const groups2 = [];
     const todayStartMs = zonedStartOfDay(
-      /* @__PURE__ */ new Date(),
+      new Date(),
       timeZone
     ).getTime();
     if (scale === 'day') {
@@ -450,7 +450,7 @@ function GanttView({
     return fractions;
   }, [groups, totalWeight]);
   const descendantIds = useMemo(() => {
-    const map = /* @__PURE__ */ new Map();
+    const map = new Map();
     const walk = (resource) => {
       const ids = (resource.children ?? []).flatMap((child) => [
         child.id,
@@ -465,14 +465,14 @@ function GanttView({
   const allEvents = useGanttSelector((state) => state.events);
   const subtreeProgress = useMemo(() => {
     if (viewConfig.getSummaryProgress) {
-      const byResource = /* @__PURE__ */ new Map();
+      const byResource = new Map();
       for (const ev of allEvents) {
         if (!ev.resourceId) continue;
         const list = byResource.get(ev.resourceId);
         if (list) list.push(ev);
         else byResource.set(ev.resourceId, [ev]);
       }
-      const map2 = /* @__PURE__ */ new Map();
+      const map2 = new Map();
       for (const row of rows) {
         if (!row.isGroup) continue;
         const events = [];
@@ -487,7 +487,7 @@ function GanttView({
       }
       return map2;
     }
-    const perResource = /* @__PURE__ */ new Map();
+    const perResource = new Map();
     for (const ev of allEvents) {
       if (!ev.resourceId) continue;
       let agg = perResource.get(ev.resourceId);
@@ -502,7 +502,7 @@ function GanttView({
         agg.weighted += ev.progress * dur;
       }
     }
-    const map = /* @__PURE__ */ new Map();
+    const map = new Map();
     for (const row of rows) {
       if (!row.isGroup) continue;
       let weighted = 0;
@@ -526,7 +526,7 @@ function GanttView({
     }
     return map;
   }, [rows, allEvents, descendantIds, viewConfig]);
-  const laneMemory = useRef(/* @__PURE__ */ new Map());
+  const laneMemory = useRef(new Map());
   const scheduleMode = viewConfig.scheduleMode;
   const draftLayout = useGanttSelector(
     (state) => {
@@ -549,12 +549,12 @@ function GanttView({
     }
   );
   const baseRowBars = useMemo(() => {
-    const map = /* @__PURE__ */ new Map();
+    const map = new Map();
     const previousLanes = laneMemory.current;
-    const nextLanes = /* @__PURE__ */ new Map();
+    const nextLanes = new Map();
     const totalMin = (rangeEndMs - rangeStartMs) / 6e4;
-    const byResource = /* @__PURE__ */ new Map();
-    const envelopes = /* @__PURE__ */ new Map();
+    const byResource = new Map();
+    const envelopes = new Map();
     for (const occ of occurrences) {
       const rid = occ.event.resourceId;
       if (!rid) continue;
@@ -574,8 +574,8 @@ function GanttView({
         env.toMin = Math.max(env.toMin, toMin);
       }
     }
-    const baselinesByResource = /* @__PURE__ */ new Map();
-    const latestEndByResource = /* @__PURE__ */ new Map();
+    const baselinesByResource = new Map();
+    const latestEndByResource = new Map();
     if (viewConfig.baselineBars) {
       for (const event of allEvents) {
         if (!event.resourceId) continue;
@@ -830,7 +830,7 @@ function GanttView({
     for (const event of allEvents) {
       if (!event.dependencies?.length) continue;
       for (const id of event.dependencies) {
-        if (!ids) ids = /* @__PURE__ */ new Set();
+        if (!ids) ids = new Set();
         ids.add(id);
       }
     }
@@ -841,7 +841,7 @@ function GanttView({
     if (!viewConfig.dependencyLines) return none;
     const totalMin = (rangeEndMs - rangeStartMs) / 6e4;
     if (totalMin <= 0) return none;
-    const anchors = /* @__PURE__ */ new Map();
+    const anchors = new Map();
     const pending = [];
     let topRem = 0;
     for (const row of rows) {
@@ -3422,12 +3422,15 @@ function GanttOffscreenChips({ paneRef, occurrences, locale, refreshKey }) {
         {chips.map((chip) => (
           <Tooltip key={`${chip.id}-${chip.side}`}>
             <TooltipTrigger asChild>
-              <button
-                type='button'
+              <Button
+                variant='outline'
+                tone='neutral'
+                size='icon-xs'
+                radius='full'
                 data-slot='gantt-offscreen-chip'
                 data-side={chip.side}
                 aria-label={settings.i18n.labels.jumpToBar(chip.label)}
-                className='bg-ui-background text-ui-muted-foreground hover:text-ui-foreground pointer-events-auto absolute flex size-5 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border shadow-xs'
+                className='bg-ui-background text-ui-muted-foreground hover:text-ui-foreground pointer-events-auto absolute size-5 min-h-5 -translate-y-1/2 shadow-xs'
                 style={{
                   top: chip.top,
                   ...(chip.side === 'start'
@@ -3454,7 +3457,7 @@ function GanttOffscreenChips({ paneRef, occurrences, locale, refreshKey }) {
                   className='ring-ui-background absolute -end-px -top-px size-1.5 rounded-full ring-1'
                   style={{ background: chip.color ?? 'var(--color-primary)' }}
                 />
-              </button>
+              </Button>
             </TooltipTrigger>
             <TooltipContent side={chip.side === 'start' ? 'right' : 'left'}>
               <div className='font-medium'>{chip.label}</div>

@@ -4,7 +4,9 @@ import { useId, useMemo, useState } from 'react';
 import Input from '../Input';
 import Button from '../Button';
 import Icon from '../Icon';
+import { Badge } from '../Pill/parts/badge-extended.jsx';
 import { Popover, PopoverContent, PopoverTrigger } from '../Popover/parts/popover.jsx';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs';
 import { cn } from '../../../utilities/cn';
 
 /*
@@ -16,7 +18,16 @@ import { cn } from '../../../utilities/cn';
 const selectedValues = (facet) => (facet.multiple ? facet.value || [] : facet.value ? [facet.value] : []);
 const removeValue = (facet, value) =>
   facet.onChange(facet.multiple ? (facet.value || []).filter((item) => item !== value) : '');
+const bodyHeight = 'h-[min(340px,calc(100dvh-160px))]';
 const clearFacet = (facet) => facet.onChange(facet.multiple ? [] : '');
+
+const CountBadge = ({ children }) => (
+  <Badge variant='secondary' size='sm' radius='full' className='tabular-nums'>{children}</Badge>
+);
+
+const ClearButton = ({ children, onClick }) => (
+  <Button variant='ghost' tone='neutral' size='xs' className='text-text-muted' onClick={onClick}>{children}</Button>
+);
 
 function FacetOptions({ facet, labels }) {
   const [search, setSearch] = useState('');
@@ -33,11 +44,7 @@ function FacetOptions({ facet, labels }) {
     <div className='ds-facet-pane'>
       <div className='flex min-h-6 items-center justify-between gap-2'>
         <p className='text-xs font-semibold text-text-muted'>{facet.label}</p>
-        {values.length > 0 && (
-          <button type='button' className='ds-filter-link' onClick={() => clearFacet(facet)}>
-            {labels.clear || 'Clear'}
-          </button>
-        )}
+        {values.length > 0 && <ClearButton onClick={() => clearFacet(facet)}>{labels.clear || 'Clear'}</ClearButton>}
       </div>
       {facet.options.length > 6 && (
         <Input
@@ -88,7 +95,7 @@ function FacetPopover({ facets, labels, filterLabel, activeCount }) {
         <Button variant='outline' tone='neutral' size='sm' className='ds-filter-trigger'>
           <Icon name='Funnel' decorative size='sm' />
           {filterLabel}
-          {activeCount > 0 && <span className='ds-filter-badge'>{activeCount}</span>}
+          {activeCount > 0 && <CountBadge>{activeCount}</CountBadge>}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -99,29 +106,32 @@ function FacetPopover({ facets, labels, filterLabel, activeCount }) {
         className='ds-facet-popover w-[min(520px,calc(100vw-24px))] gap-0 p-0'
       >
         <h2 id={titleId} className='sr-only'>{filterLabel}</h2>
-        <div className={cn('ds-facet-body', facets.length > 1 && 'ds-facet-body-split')}>
-          {facets.length > 1 && (
-            <div role='tablist' aria-orientation='vertical' aria-label={filterLabel} className='ds-facet-rail'>
+        {facets.length > 1 ? (
+          // The facet rail is the DS vertical Tabs, so arrow keys move between facets.
+          <Tabs orientation='vertical' value={facet.id} onValueChange={setCurrent} className={cn(bodyHeight, 'gap-0 max-[420px]:flex-col')}>
+            <TabsList
+              aria-label={filterLabel}
+              className='w-38 shrink-0 overflow-y-auto group-data-[orientation=vertical]/tabs:h-auto border-e border-border bg-surface-muted p-2 max-[420px]:w-auto max-[420px]:flex-row max-[420px]:border-e-0 max-[420px]:border-b'
+            >
               {facets.map((item) => {
                 const selected = selectedValues(item).length;
                 return (
-                  <button
-                    key={item.id}
-                    type='button'
-                    role='tab'
-                    aria-selected={item.id === facet.id}
-                    onClick={() => setCurrent(item.id)}
-                    className='ds-facet-tab'
-                  >
+                  <TabsTrigger key={item.id} value={item.id} className='gap-2 px-2'>
                     <span className='min-w-0 flex-1 truncate text-start'>{item.label}</span>
-                    {selected > 0 && <span className='ds-filter-badge'>{selected}</span>}
-                  </button>
+                    {selected > 0 && <CountBadge>{selected}</CountBadge>}
+                  </TabsTrigger>
                 );
               })}
-            </div>
-          )}
-          {facet && <FacetOptions key={facet.id} facet={facet} labels={labels} />}
-        </div>
+            </TabsList>
+            {facets.map((item) => (
+              <TabsContent key={item.id} value={item.id} className='grid min-h-0 min-w-0 flex-1'>
+                <FacetOptions facet={item} labels={labels} />
+              </TabsContent>
+            ))}
+          </Tabs>
+        ) : (
+          facet && <div className={cn(bodyHeight, 'grid')}><FacetOptions facet={facet} labels={labels} /></div>
+        )}
         <div className='ds-facet-footer'>
           <Button variant='ghost' tone='neutral' size='sm' disabled={!activeCount} onClick={() => facets.forEach(clearFacet)}>
             {labels.clearAll || 'Clear all'}
@@ -195,32 +205,32 @@ export default function FilterBar({
       {chips.length > 0 && (
         <div className='ds-filter-chips' role='group' aria-label={labels.applied || 'Applied filters'}>
           {chips.map((chip) => (
-            <span key={chip.id} className='ds-filter-chip'>
+            <Badge key={chip.id} variant='outline' className='h-7 max-w-full gap-0.5 ps-2 pe-0.5 font-normal text-text'>
               <span className='min-w-0 truncate'>
                 {chip.field && <span className='text-text-muted'>{chip.field}: </span>}
                 {chip.label}
               </span>
-              <button
-                type='button'
+              <Button
+                variant='ghost'
+                tone='neutral'
+                size='icon-xs'
                 onClick={chip.remove}
                 aria-label={`${labels.remove || 'Remove'} ${chip.label} filter`}
-                className='ds-filter-chip-remove'
+                className='text-text-muted hover:text-danger'
               >
                 <Icon name='X' decorative size='xs' />
-              </button>
-            </span>
+              </Button>
+            </Badge>
           ))}
           {canClear && (
-            <button
-              type='button'
-              className='ds-filter-link'
+            <ClearButton
               onClick={() => {
                 facets.forEach(clearFacet);
                 onClearFilters?.();
               }}
             >
               {labels.clearFilters || 'Clear filters'}
-            </button>
+            </ClearButton>
           )}
         </div>
       )}

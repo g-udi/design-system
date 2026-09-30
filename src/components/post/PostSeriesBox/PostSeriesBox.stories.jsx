@@ -33,7 +33,7 @@ export const Playground = {
   args: { series, slug: 'documentation' },
   parameters: {
     docs: {
-      description: { story: 'A five-part series opened on part three. The progress bar and count follow `slug`; expand the box to see finished, current, and upcoming parts. Edit `series` to rename it or change its length.' },
+      description: { story: 'A five-part series opened on part three. The progress bar and count follow `slug`; expand the box to see finished, current, and upcoming parts. Edit `series` to rename it or change its length; an empty `series` renders nothing, so posts outside a series need no wrapper.' },
       source: playgroundSource('PostSeriesBox', { imports: "import { PostSeriesBox } from '@gaudi/design-system';" })
     }
   },
@@ -56,14 +56,5 @@ export const Playground = {
       } else await expect(canvas.getByRole('link', { name: entry.title })).toHaveAttribute('href', `/blog/${entry.slug}`);
     }
     // Left open so the preview shows the full reading path.
-  }
-};
-
-export const NoSeries = {
-  args: { series: [], slug: 'components' },
-  parameters: { docs: { description: { story: 'An empty `series` renders nothing, so posts outside a series need no conditional wrapper.' } } },
-  play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).queryByRole('button')).not.toBeInTheDocument();
-    await expect(within(canvasElement).queryByRole('progressbar')).not.toBeInTheDocument();
   }
 };

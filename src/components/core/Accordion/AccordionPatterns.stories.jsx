@@ -77,7 +77,9 @@ export const AccordionPattern11 = {
     const qr = canvas.getByRole('img', { name: 'QR code for the Gaudi setup guide' });
     await waitFor(() => expect(qr.naturalWidth).toBeGreaterThan(0), { timeout: 5000 });
     await userEvent.click(canvas.getByRole('button', { name: 'Mark guide as read' }));
-    await expect(canvas.getByRole('progressbar')).toHaveAttribute('value', '2');
+    // Works for a native <progress> (value) and an ARIA progressbar (aria-valuenow).
+    const progress = canvas.getByRole('progressbar');
+    await expect(progress.getAttribute('aria-valuenow') ?? progress.getAttribute('value')).toBe('2');
     const input = canvas.getByRole('textbox', { name: 'Display name' });
     await expect(input).toHaveFocus();
     await userEvent.type(input, 'Amira');

@@ -4,6 +4,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Button from '../Button';
+import Icon from '../Icon';
 import Field, { FieldDescription, FieldInput, FieldLabel } from '../Field';
 import Dialog, { DialogClose } from './Dialog';
 import { iris } from '../../../../.storybook/fixtures/site/artwork';
@@ -89,10 +90,10 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
     onOpenChange(next);
   };
   return (
-    <div ref={stageRef} className='relative mx-auto h-[30rem] w-full max-w-3xl overflow-hidden rounded-lg border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900'>
-      <div className='grid gap-3 p-4'>
+    <div ref={stageRef} className='relative mx-auto h-[30rem] w-full max-w-3xl overflow-hidden rounded-lg border border-border bg-surface-muted'>
+      <div className='grid gap-2 p-3'>
         <div className='flex items-center justify-between gap-3'>
-          <p className='text-sm font-semibold text-gray-950 dark:text-gray-100'>Drafts</p>
+          <p className='text-sm font-semibold text-text'>Drafts</p>
           <Dialog
             {...args}
             modal={false}
@@ -115,8 +116,8 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
               <div className='flex items-center gap-3'>
                 <img src={iris} alt='' className='aspect-video w-16 shrink-0 rounded-md object-cover sm:w-24' />
                 <div className='min-w-0 flex-1'>
-                  <p className='truncate text-sm font-semibold text-gray-950 dark:text-gray-100'>Cover image</p>
-                  <p className='truncate text-xs text-gray-500 dark:text-gray-400'>iris.svg · 1600 × 900</p>
+                  <p className='truncate text-sm font-semibold text-text'>Cover image</p>
+                  <p className='truncate text-xs text-text-muted'>iris.svg · 1600 × 900</p>
                 </div>
                 <Button size='sm' variant='outline' tone='neutral'>Replace</Button>
               </div>
@@ -133,10 +134,10 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
           </Dialog>
         </div>
         {[articleTitle, ...library].map((title) => (
-          <div key={title} className='rounded-md border border-gray-200 bg-white p-3 text-sm text-gray-700 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-300'>{title}</div>
+          <div key={title} className='rounded-md border border-border bg-surface p-3 text-sm text-text-muted'>{title}</div>
         ))}
       </div>
-      {open ? <div aria-hidden='true' className='absolute inset-0 bg-gray-950/50' /> : null}
+      {open ? <div aria-hidden='true' className='absolute inset-0 bg-(--ds-color-launcher-overlay-bg)' /> : null}
     </div>
   );
 }
@@ -205,6 +206,7 @@ export const Playground = {
   }
 };
 
+// The first attempt fails so the retry path shows; the retry takes a moment so the pending state shows too.
 function ConfirmExample() {
   const [attempts, setAttempts] = useState(0);
   const [archived, setArchived] = useState(false);
@@ -216,63 +218,42 @@ function ConfirmExample() {
         title='Archive this draft?'
         description='The draft will leave your active collection. You can restore it from the archive.'
         confirmLabel='Archive draft'
+        pendingLabel='Archiving…'
         onConfirm={async () => {
           setAttempts((count) => count + 1);
           if (attempts === 0) throw new Error('Example failure');
+          await new Promise((resolve) => setTimeout(resolve, 600));
           setArchived(true);
         }}
       />
-      <p role='status'>{archived ? 'Draft archived in this example.' : ''}</p>
+      <p role='status' className='text-sm text-text-muted'>{archived ? 'Draft archived in this example.' : ''}</p>
     </>
   );
 }
 export const Confirmation = {
+  name: 'Async confirmation',
   parameters: {
     docs: {
       description: {
-        story: 'Confirmation focuses Cancel. A rejected `onConfirm` keeps the dialog open with an error so the user can retry; resolving closes it and restores focus.'
+        story: 'Confirmation focuses Cancel. A rejected `onConfirm` keeps the dialog open with an error so the user can retry; while the retry is pending both actions are disabled and Escape cannot dismiss it; resolving closes it and restores focus.'
       }
     }
   },
   render: () => <ConfirmExample />,
   play: async ({ canvasElement }) => {
     const { dialog, scope } = await openDialog(canvasElement, 'Archive draft', 'alertdialog');
-    const confirm = () => scope.getByRole('button', { name: 'Archive draft' });
     await expect(scope.getByRole('button', { name: 'Cancel' })).toHaveFocus();
-    await userEvent.click(confirm());
+    await userEvent.click(scope.getByRole('button', { name: 'Archive draft' }));
     await expect(await scope.findByRole('alert')).toHaveTextContent('The action could not be completed');
-    await userEvent.click(confirm());
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
-    await expect(within(canvasElement).getByRole('status')).toHaveTextContent('Draft archived in this example.');
-    await expect(within(canvasElement).getByRole('button', { name: 'Archive draft' })).toHaveFocus();
-  }
-};
-
-export const PendingAction = {
-  parameters: {
-    docs: { description: { story: 'While the `onConfirm` promise is pending, both actions are disabled and Escape cannot dismiss the dialog.' } }
-  },
-  render: () => (
-    <Dialog
-      variant='confirmation'
-      trigger={<Button>Publish article</Button>}
-      title='Publish this article?'
-      description='This example simulates a short save.'
-      tone='accent'
-      confirmLabel='Publish'
-      onConfirm={() => new Promise((resolve) => setTimeout(resolve, 800))}
-    />
-  ),
-  play: async ({ canvasElement }) => {
-    const { dialog, scope } = await openDialog(canvasElement, 'Publish article', 'alertdialog');
-    await userEvent.click(scope.getByRole('button', { name: 'Publish', exact: true }));
+    await userEvent.click(scope.getByRole('button', { name: 'Archive draft' }));
     await expect(dialog).toHaveAttribute('aria-busy', 'true');
-    await expect(scope.getByRole('button', { name: 'Working…' })).toBeDisabled();
+    await expect(scope.getByRole('button', { name: 'Archiving…' })).toBeDisabled();
     await expect(scope.getByRole('button', { name: 'Cancel' })).toBeDisabled();
     await userEvent.keyboard('{Escape}');
     await expect(dialog).toBeInTheDocument();
     await waitFor(() => expect(dialog).not.toBeInTheDocument(), { timeout: 2000 });
-    await expect(within(canvasElement).getByRole('button', { name: 'Publish article' })).toHaveFocus();
+    await expect(within(canvasElement).getByRole('status')).toHaveTextContent('Draft archived in this example.');
+    await expect(within(canvasElement).getByRole('button', { name: 'Archive draft' })).toHaveFocus();
   }
 };
 
@@ -292,8 +273,8 @@ function Lightbox() {
       >
         <figure className='relative m-0 w-full max-w-2xl overflow-hidden rounded-lg bg-surface shadow-xl'>
           <DialogClose asChild>
-            <Button ref={closeRef} variant='ghost' tone='neutral' size='sm' aria-label='Close artwork' className='absolute right-3 top-3 size-8 p-0'>
-              ✕
+            <Button ref={closeRef} variant='ghost' tone='neutral' size='icon' aria-label='Close artwork' className='absolute end-3 top-3'>
+              <Icon name='X' decorative size='sm' />
             </Button>
           </DialogClose>
           <img src={iris} alt='Iris gradient artwork' className='aspect-video w-full object-cover' />

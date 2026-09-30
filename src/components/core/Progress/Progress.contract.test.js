@@ -7,9 +7,10 @@ test('Progress preserves its server-rendered public contract', async () => {
     new URL('./Progress.jsx', import.meta.url),
     { label: 'Upload', value: 150, max: 100 }
   );
-  assert.match(html, /<progress/);
-  assert.match(html, /value="100"/);
-  assert.match(html, /max="100"/);
+  assert.match(html, /role="progressbar"/);
+  assert.match(html, /aria-valuenow="100"/);
+  assert.match(html, /aria-valuemax="100"/);
+  assert.match(html, /aria-labelledby="[^"]+"/);
 });
 
 import { loadComponent } from '../../../test-support/renderComponent.js';

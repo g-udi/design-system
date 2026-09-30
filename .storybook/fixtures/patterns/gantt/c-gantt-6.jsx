@@ -87,11 +87,11 @@ function buildBars(anchor, titles) {
 }
 export function Pattern() {
   const resources = useMemo(
-    () => buildResources(/* @__PURE__ */ new Date()),
+    () => buildResources(new Date()),
     []
   );
   const bars = useMemo(
-    () => buildBars(/* @__PURE__ */ new Date(), leafTitles(resources)),
+    () => buildBars(new Date(), leafTitles(resources)),
     [resources]
   );
   return (

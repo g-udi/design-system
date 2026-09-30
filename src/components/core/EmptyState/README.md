@@ -1,28 +1,20 @@
 # EmptyState
 
-Empty collection, failed search, permission and recovery presentation. Supply prepared title, description, icon and action slots; compact reduces padding.
-
-## Usage
+An empty state explains why a list, search or panel has nothing to show and offers the next step: create the first item, clear filters, or go elsewhere.
 
 ```jsx
-import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { Button, EmptyState, Icon } from '@gaudi/design-system';
 
 <EmptyState
   title='Make room for your first idea'
   description='Start a draft and build it into something worth sharing.'
-  icon={<Icon name='FileText' decorative size='lg' />}
-  actions={
-    <Button onClick={() => onCreateDraft()}>
-      Write an article
-    </Button>
-  }
-/>;
+  icon={<Icon name='FileText' decorative size='sm' />}
+  actions={<Button onClick={createDraft}>Write an article</Button>}
+/>
 ```
 
-## Accessibility
-
-Uses ordinary prose without forcing a live region. Hosts can pass role=status or role=alert when the state changes dynamically.
-
-## Examples
-
-FirstArticle, NoResults, ReadOnly in Storybook. All examples support light and dark themes.
+- `icon` sits in a small muted tile and is hidden from assistive tech.
+- `actions` takes one or two buttons; lead with the action that fixes the situation.
+- `compact` tightens the padding for cards and side panels.
+- It is plain content, not a live region. Pass `role='status'` when it appears in response to a user action.
+- For custom layouts (illustrations, search fields, inline links), compose `Empty`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `EmptyDescription` and `EmptyContent`.

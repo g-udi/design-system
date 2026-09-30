@@ -39,10 +39,10 @@ export const Default = {
         </Table>
       </Section>
 
-      <details id='pipeline-internals' className='group scroll-mt-28 rounded-lg border border-gray-200 bg-gray-50/60 p-4 open:bg-white dark:border-gray-800 dark:bg-gray-900/60 dark:open:bg-gray-950'>
-        <summary className='cursor-pointer text-sm font-semibold text-gray-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 dark:text-white'>
+      <details id='pipeline-internals' className='group scroll-mt-28 rounded-lg border border-border bg-surface-muted p-4 open:bg-surface'>
+        <summary className='cursor-pointer text-sm font-semibold text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent'>
           Pipeline internals
-          <span className='ml-2 font-normal text-gray-500 dark:text-gray-400'>Compilation stages and citation hydration</span>
+          <span className='ml-2 font-normal text-text-muted'>Compilation stages and citation hydration</span>
         </summary>
         <div className='pt-2'>
       <Section title='Rendering Pipeline' description='The blog uses Contentlayer and the unified ecosystem. Authors write MDX; remark works on the markdown tree, rehype works on the HTML tree, and Gaudi components hydrate the final article UI.'>

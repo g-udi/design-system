@@ -95,7 +95,7 @@ function buildBars(anchor) {
   ];
 }
 export function Pattern() {
-  const bars = useMemo(() => buildBars(/* @__PURE__ */ new Date()), []);
+  const bars = useMemo(() => buildBars(new Date()), []);
   const apiRef = useRef(null);
   const [resources, setResources] = useState(INITIAL_RESOURCES);
   const [meta, setMeta] = useState(INITIAL_META);
@@ -164,7 +164,7 @@ export function Pattern() {
       ...prev,
       [id]: { owner: 'Unassigned', status: 'Not started' }
     }));
-    const week = startOfWeek(startOfDay(/* @__PURE__ */ new Date()), {
+    const week = startOfWeek(startOfDay(new Date()), {
       weekStartsOn: 0
     });
     const start = addDays(week, (n % 6) - 2);

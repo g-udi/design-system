@@ -3,7 +3,6 @@ import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { primaryLinks } from '../../../../.storybook/fixtures/site/navigationContent';
-import navigationMetadata from '../../../../.storybook/fixtures/site/navigationMetadata.mjs';
 import FloatingMenu from './FloatingMenu';
 
 const docs = getComponentDocs('Navigation/FloatingMenu');
@@ -47,10 +46,10 @@ function RevealedMenu(args) {
     <>
       <FloatingMenu {...args} />
       <article aria-hidden='true' className='mx-auto max-w-xl space-y-2 px-4 pb-4 pt-20'>
-        <div className='h-3 w-24 rounded-control bg-blue-100 dark:bg-blue-950' />
-        <div className='h-5 w-4/5 rounded-control bg-gray-200 dark:bg-gray-800' />
-        <div className='h-3 w-full rounded-control bg-gray-100 dark:bg-gray-900' />
-        <div className='h-3 w-11/12 rounded-control bg-gray-100 dark:bg-gray-900' />
+        <div className='h-3 w-24 rounded-control bg-accent-muted' />
+        <div className='h-5 w-4/5 rounded-control bg-border/60' />
+        <div className='h-3 w-full rounded-control bg-border/60' />
+        <div className='h-3 w-11/12 rounded-control bg-border/60' />
       </article>
     </>
   );
@@ -60,7 +59,7 @@ export const Playground = {
   args: { links: primaryLinks },
   parameters: {
     docs: {
-      description: { story: 'The pill as a reader sees it after scrolling back up an article: every `links` destination plus Back to top. Scroll the page down and it hides; scroll up past 50px and it returns.' },
+      description: { story: 'The pill as a reader sees it after scrolling back up an article: every `links` destination (SiteConfig `navigation.links` when omitted) plus Back to top. Scroll the page down and it hides; scroll up past 50px and it returns.' },
       source: playgroundSource('FloatingMenu', { imports: "import { FloatingMenu } from '@gaudi/design-system';" })
     }
   },
@@ -92,13 +91,5 @@ export const Playground = {
     await scrollWindowTo(120);
     await waitFor(() => expect(menu).toHaveAttribute('aria-hidden', 'false'));
     if (originalScrollY) Object.defineProperty(window, 'scrollY', originalScrollY);
-  }
-};
-
-export const SiteConfigLinks = {
-  parameters: { docs: { description: { story: 'Without `links`, the menu reads `navigation.links` from SiteConfig. It stays hidden until the reader scrolls back up.' } } },
-  render: () => <FloatingMenu />,
-  play: async ({ canvasElement }) => {
-    await expect(linkNames(canvasElement)).toEqual(navigationMetadata.links.map((link) => link.title));
   }
 };

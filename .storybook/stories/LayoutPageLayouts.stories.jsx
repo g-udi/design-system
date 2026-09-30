@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { expect, within } from 'storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 
 import categories from '../fixtures/site/categories.json';
 import publications from '../fixtures/site/publications.json';
@@ -11,11 +11,12 @@ import Aurora from '../../src/components/layout/Aurora';
 import Button from '../../src/components/core/Button';
 import Card from '../../src/components/core/Card';
 import Kbd from '../../src/components/core/Kbd';
-import { FieldInput } from '../../src/components/core/Field';
+import Dialog from '../../src/components/core/Dialog';
 import Footer from '../../src/components/layout/Footer';
 import FloatingMenu from '../../src/components/navigation/FloatingMenu';
 import { Grid } from '../../src/components/core/Grid';
 import Icon from '../../src/components/core/Icon';
+import Input from '../../src/components/core/Input';
 import Link from '../../src/components/core/Link';
 import Menu from '../../src/components/navigation/Menu';
 import { PaginationBar, POSTS_PER_PAGE } from '../../src/components/core/Pagination';
@@ -25,6 +26,7 @@ import { TextHighlight } from '../../src/components/core/TextHighlight';
 import Post from '../../src/components/post/Post';
 import ThoughtsSection from '../../src/components/blocks/ThoughtsSection';
 import Typography from '../../src/foundations/Typography';
+import { tagHref } from '../../src/utilities/taxonomy';
 
 const siteMetadata = {
   author: 'Ahmad Assaf',
@@ -305,7 +307,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-US', {
 });
 
 const PageShell = ({ children }) => (
-  <div className='bg-white text-black antialiased dark:bg-neutral-950 dark:text-white'>
+  <div className='bg-background text-foreground antialiased'>
     <Aurora>
       <div className='relative isolate w-full px-4 dark:z-10 sm:w-[95%] sm:px-8 xl:max-w-6xl'>
         <div className='flex min-h-screen flex-col justify-between'>
@@ -348,7 +350,7 @@ const FeaturedPostsLayout = ({ hideTitle = false }) => {
               href={ `/blog/${featuredPost.slug}` }
               variant='bare'
               tone='neutral'
-              className='no-underline hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'
+              className='hover:text-accent'
             >
               {featuredPost.title}
             </Link>
@@ -365,7 +367,7 @@ const FeaturedPostsLayout = ({ hideTitle = false }) => {
             </Link>
             <div className='flex flex-wrap gap-2'>
               {featuredPost.tags.slice(0, 4).map((tag) => (
-                <Pill key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } tone='gray' variant='soft' size='sm' className='capitalize'>
+                <Pill key={ tag } href={ tagHref(tag) } tone='gray' variant='soft' size='sm' className='capitalize'>
                   {tag}
                 </Pill>
               ))}
@@ -390,7 +392,7 @@ const FeaturedPostsLayout = ({ hideTitle = false }) => {
                   href={ `/blog/${post.slug}` }
                   tone='neutral'
                   variant='bare'
-                  className='no-underline hover:text-blue-600 hover:no-underline dark:hover:text-blue-400'
+                  className='hover:text-accent'
                 >
                   {post.title}
                 </Link>
@@ -400,7 +402,7 @@ const FeaturedPostsLayout = ({ hideTitle = false }) => {
               </Typography>
               <div className='flex flex-wrap gap-2'>
                 {post.tags.slice(0, 3).map((tag) => (
-                  <Pill key={ tag } href={ `/blog/tags/${tag.toLowerCase().replace(/\s+/g, '-')}` } tone='gray' variant='soft' size='sm' className='capitalize'>
+                  <Pill key={ tag } href={ tagHref(tag) } tone='gray' variant='soft' size='sm' className='capitalize'>
                     {tag}
                   </Pill>
                 ))}
@@ -445,7 +447,7 @@ const BlogListLayout = ({ filter = true, posts: listPosts = sortedPosts }) => {
       <div>
         {filter ? <Search setSearchValue={ handleSearchChange } /> : null}
         <ul className='pt-6'>
-          {!filteredBlogPosts.length ? 'No posts found' : null}
+          {!filteredBlogPosts.length ? <li className='py-3 text-sm text-text-muted'>No posts found</li> : null}
           {displayPosts.map((frontMatter) => (
             <Post key={ frontMatter.slug } frontMatter={ frontMatter } />
           ))}
@@ -465,13 +467,13 @@ const BlogListLayout = ({ filter = true, posts: listPosts = sortedPosts }) => {
 
 const HomePage = () => (
   <PageShell>
-    <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+    <div className='divide-y divide-border'>
       <div className='mb-8 space-y-3 pb-6 pt-8 md:space-y-4'>
         <Typography variant='title-xl' className='uppercase'>
           {siteMetadata.author}
         </Typography>
         <Typography variant='heading-lg' as='h2'>
-          <TextHighlight className='text-black dark:text-white'>
+          <TextHighlight className='text-text'>
             AI and Machine Learning Leader, Mentor and Advisor
           </TextHighlight>
         </Typography>
@@ -590,11 +592,11 @@ const CategoriesPageView = () => {
           </Grid>
           <div className='mb-8 flex justify-end'>
             <div className='inline-flex gap-2'>
-              <Button onClick={ () => setViewMode('cards') } variant={ viewMode === 'cards' ? 'solid' : 'outline' } tone={ viewMode === 'cards' ? 'accent' : 'neutral' } size='sm'>
+              <Button aria-pressed={ viewMode === 'cards' } onClick={ () => setViewMode('cards') } variant={ viewMode === 'cards' ? 'solid' : 'outline' } tone={ viewMode === 'cards' ? 'accent' : 'neutral' } size='sm'>
                 <Icon name='Grid3X3' size='sm' decorative />
                 Cards
               </Button>
-              <Button onClick={ () => setViewMode('list') } variant={ viewMode === 'list' ? 'solid' : 'outline' } tone={ viewMode === 'list' ? 'accent' : 'neutral' } size='sm'>
+              <Button aria-pressed={ viewMode === 'list' } onClick={ () => setViewMode('list') } variant={ viewMode === 'list' ? 'solid' : 'outline' } tone={ viewMode === 'list' ? 'accent' : 'neutral' } size='sm'>
                 <Icon name='List' size='sm' decorative />
                 List
               </Button>
@@ -703,75 +705,51 @@ const TagsPageView = () => {
             <StatCard icon='FileText' value={ totalArticles } label='Articles' />
             <StatCard icon='Flame' value={ mostPopularTag?.count || 0 } label='Most popular' />
           </Grid>
-          <div className='relative mb-8'>
-            <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
-              <Icon name='Search' size='sm' decorative />
-            </div>
-            <FieldInput
-              type='text'
-              placeholder='Search topics...'
-              value={ searchQuery }
-              onChange={ (event) => setSearchQuery(event.target.value) }
-              className='pl-10'
-            />
-          </div>
+          <Input
+            type='search'
+            aria-label='Search topics'
+            placeholder='Search topics...'
+            value={ searchQuery }
+            onChange={ (event) => setSearchQuery(event.target.value) }
+            prefix={ <Icon name='Search' size='sm' decorative /> }
+            className='mb-8'
+          />
         </div>
         <div className='flex flex-wrap gap-3'>
           {filteredAndSortedTags.map((tag) => (
-            <Button key={ tag.id } onClick={ () => loadTagPosts(tag) } variant='outline' tone='gray' size='sm'>
+            <Button key={ tag.id } onClick={ () => loadTagPosts(tag) } variant='outline' tone='neutral' size='sm'>
               {tag.display}
               <Pill tone='gray' variant='soft' size='xs'>{tag.count}</Pill>
             </Button>
           ))}
         </div>
       </div>
-      {sidebarOpen ? (
-        <div className='fixed inset-0 z-50 overflow-hidden'>
-          <div className='absolute inset-0 bg-black/20' onClick={ () => setSidebarOpen(false) } />
-          <Card variant='outline' radius='none' padding='none' className='absolute right-0 top-0 h-full w-full max-w-lg shadow-lg'>
-            <div className='flex h-full flex-col'>
-              <Card variant='flat' radius='none' className='border-x-0 border-t-0 p-6'>
-                <div className='flex items-center justify-between'>
-                  <div>
-                    <div className='flex items-center gap-2'>
-                      <Icon name='Tags' size='md' decorative />
-                      <Typography variant='heading-sm' as='h2'>
-                        {selectedTag?.display}
-                      </Typography>
-                    </div>
-                    <Typography variant='paragraph-sm' className='mt-1'>
-                      {selectedTag?.count} {selectedTag?.count === 1 ? 'article' : 'articles'}
-                    </Typography>
-                  </div>
-                  <Button onClick={ () => setSidebarOpen(false) } variant='ghost' tone='gray' size='xs' aria-label='Close topics panel'>
-                    <Icon name='X' size='md' decorative />
-                  </Button>
-                </div>
-              </Card>
-              <div className='flex-1 overflow-y-auto'>
-                {tagPosts.length > 0 ? (
-                  <div>
-                    {tagPosts.map((post) => (
-                      <Link key={ post.slug } href={ `/blog/${post.slug}` } onClick={ () => setSidebarOpen(false) } variant='bare' className='block p-6'>
-                        <PostSummary post={ post } />
-                      </Link>
-                    ))}
-                  </div>
-                ) : (
-                  <div className='py-12 text-center'>
-                    <Typography variant='paragraph-sm'>No articles found</Typography>
-                  </div>
-                )}
-              </div>
-              <Card variant='flat' radius='none' className='border-x-0 border-b-0 p-6'>
-                <Button href={ `/blog/tags/${selectedTag?.slug}` } onClick={ () => setSidebarOpen(false) } variant='outline' tone='gray' className='w-full'>
-                  View All Articles →
-                </Button>
-              </Card>
-            </div>
-          </Card>
-        </div>
-      ) : null}
+      <Dialog
+        variant='sheet'
+        open={ sidebarOpen }
+        onOpenChange={ setSidebarOpen }
+        title={ selectedTag?.display }
+        description={ `${selectedTag?.count} ${selectedTag?.count === 1 ? 'article' : 'articles'}` }
+        closeLabel='Close topics panel'
+        footer={ (
+          <Button href={ `/blog/tags/${selectedTag?.slug}` } variant='outline' tone='neutral' className='w-full'>
+            View all articles
+            <Icon name='ArrowRight' size='xs' decorative />
+          </Button>
+        ) }
+      >
+        {tagPosts.length > 0 ? (
+          <div className='divide-y divide-border'>
+            {tagPosts.map((post) => (
+              <Link key={ post.slug } href={ `/blog/${post.slug}` } variant='bare' className='block py-4'>
+                <PostSummary post={ post } />
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <Typography variant='paragraph-sm' className='py-12 text-center'>No articles found</Typography>
+        )}
+      </Dialog>
     </PageShell>
   );
 };
@@ -804,7 +782,7 @@ const ProjectCard = ({ project }) => (
 
 const ProjectsPageView = () => (
   <PageShell>
-    <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+    <div className='divide-y divide-border'>
       <div className='space-y-2 pb-8 pt-6 md:space-y-5'>
         <Typography variant='title-xl'>
           Projects
@@ -867,7 +845,7 @@ const PublicationsPageView = () => {
 
   return (
     <PageShell>
-      <div className='divide-y divide-gray-200 dark:divide-gray-700'>
+      <div className='divide-y divide-border'>
         <div className='space-y-2 pb-8 pt-6 md:space-y-5'>
           <Typography variant='title-xl'>
             Publications
@@ -1036,8 +1014,11 @@ export default {
   title: 'Layout/Examples'
 };
 
+const story = (description, extra = {}) => ({ ...extra, parameters: { docs: { description: { story: description } } } });
+
 export const MainPage = {
   name: 'Main Page',
+  ...story('The home page: author introduction, featured posts, the latest posts list, and recent thoughts inside the full site shell.'),
   render: () => <HomePage />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1052,10 +1033,12 @@ export const MainPage = {
 
 export const BlogMainPage = {
   name: 'Blog Main Page',
+  ...story('The blog index: a featured lead with two companions above the filterable, paginated post list.'),
   render: () => <BlogPage />
 };
 
 export const CategoryPageWithPostsAndPagination = {
+  ...story('A single category: the article filter above its posts, with pagination once the list outgrows a page.'),
   render: () => <CategoryPostsPage />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -1066,22 +1049,48 @@ export const CategoryPageWithPostsAndPagination = {
 };
 
 export const CategoriesPage = {
-  render: () => <CategoriesPageView />
+  ...story('Every category with its counts and sample posts, switchable between cards and a compact list.'),
+  render: () => <CategoriesPageView />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const list = canvas.getByRole('button', { name: 'List' });
+
+    await userEvent.click(list);
+    await expect(list).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('button', { name: 'Cards' }));
+    await expect(list).toHaveAttribute('aria-pressed', 'false');
+  }
 };
 
 export const TagsPage = {
-  render: () => <TagsPageView />
+  ...story('Topics ranked by use, with a search field; choosing a topic opens its latest articles in a sheet.'),
+  render: () => <TagsPageView />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const [ firstTopic ] = canvas.getAllByRole('button', { name: /\d+$/ });
+
+    await userEvent.click(firstTopic);
+    const sheet = await body.findByRole('dialog');
+    await expect(sheet).toBeVisible();
+    await userEvent.click(within(sheet).getByRole('button', { name: 'Close topics panel' }));
+    await expect(body.queryByRole('dialog')).not.toBeInTheDocument();
+  }
 };
 
 export const ProjectsPage = {
+  ...story('Open-source projects as cards with stars, forks, and language.'),
   render: () => <ProjectsPageView />
 };
 
 export const PublicationsPage = {
+  ...story('Publications grouped by year in an accordion, newest year open.'),
   render: () => <PublicationsPageView />
 };
 
 export const AboutMePage = {
   name: 'About Me Page',
+  ...story('The biography page: introduction, career history, and the services on offer.'),
   render: () => <AboutPage />
 };

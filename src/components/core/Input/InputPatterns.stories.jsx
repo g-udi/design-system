@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/input/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Input', id: 'core-input', tags: ['autodocs'], ...catalogueMeta('input') };
+export default { title: 'Core/Input', id: 'core-input', tags: ['autodocs'], ...catalogueMeta('input') };
 
 export const InputPattern1 = { name: 'Input types', ...pattern(1, 'Native types side by side: text, email, password, phone, URL, number, date, time, file, colour and range.') };
 export const InputPattern3 = {

@@ -76,7 +76,7 @@ function resolveSettings(options) {
     getOccurrences: options.getOccurrences
   };
 }
-const warned = /* @__PURE__ */ new Set();
+const warned = new Set();
 function warnOnce(key, message) {
   if (process.env.NODE_ENV !== 'production' && !warned.has(key)) {
     warned.add(key);
@@ -87,10 +87,10 @@ function createGanttStore(initial) {
   let options = initial;
   let settings = resolveSettings(initial);
   let settingsVersion = 0;
-  const listeners = /* @__PURE__ */ new Set();
+  const listeners = new Set();
   const internal = {
     scale: initial.defaultScale ?? 'day',
-    date: initial.defaultDate ?? /* @__PURE__ */ new Date(),
+    date: initial.defaultDate ?? new Date(),
     events: initial.defaultEvents ?? [],
     selection: initial.defaultSelection ?? EMPTY_SELECTION,
     interactions: { ...DEFAULT_INTERACTIONS, ...initial.defaultInteractions },
@@ -275,7 +275,7 @@ function createGanttStore(initial) {
       );
     },
     today() {
-      setField('date', clampToBounds(/* @__PURE__ */ new Date()));
+      setField('date', clampToBounds(new Date()));
     },
     goTo(date) {
       setField('date', clampToBounds(date));
@@ -605,7 +605,7 @@ function useGanttNavigation() {
     }
   );
   useGanttSettingsVersion(instance);
-  const now = /* @__PURE__ */ new Date();
+  const now = new Date();
   const titleDate = slice.viewportCenter ?? slice.date;
   const titleActive = slice.viewportCenter
     ? getGanttDateRange(slice.scale, slice.viewportCenter, {

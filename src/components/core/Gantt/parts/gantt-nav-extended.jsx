@@ -37,6 +37,8 @@ function useNavButtonProps() {
   const viewConfig = useGanttViewConfig();
   return {
     variant: viewConfig.navButtonVariant,
+    // Ghost and outline nav buttons read as neutral chrome; a filled variant keeps the accent.
+    tone: ['default', 'solid'].includes(viewConfig.navButtonVariant) ? undefined : 'neutral',
     size: viewConfig.navButtonSize,
     iconSize: viewConfig.navButtonSize === 'sm' ? 'icon-sm' : 'icon'
   };
@@ -61,7 +63,7 @@ function GanttNavToday({
   const settings = useGanttSettings();
   const nav = useNavButtonProps();
   const defaultTooltip = format(
-    toZoned(/* @__PURE__ */ new Date(), settings.timeZone),
+    toZoned(new Date(), settings.timeZone),
     settings.i18n.formats.dayTitle,
     { locale: settings.locale }
   );
@@ -69,6 +71,7 @@ function GanttNavToday({
     <NavTooltip content={tooltip === void 0 ? defaultTooltip : tooltip}>
       <Button
         variant={nav.variant}
+        tone={nav.tone}
         size={nav.size}
         data-slot='gantt-nav-today'
         data-active={isToday || void 0}
@@ -98,6 +101,7 @@ function GanttNavPrev({
     >
       <Button
         variant={nav.variant}
+        tone={nav.tone}
         size={nav.iconSize}
         data-slot='gantt-nav-prev'
         aria-label={settings.i18n.labels.previous}
@@ -133,6 +137,7 @@ function GanttNavNext({
     >
       <Button
         variant={nav.variant}
+        tone={nav.tone}
         size={nav.iconSize}
         data-slot='gantt-nav-next'
         aria-label={settings.i18n.labels.next}
@@ -209,6 +214,7 @@ function GanttScaleSwitcher({
           <TooltipTrigger asChild onFocus={(e) => e.preventDefault()}>
             <Button
               variant={nav.variant}
+              tone={nav.tone}
               size={nav.size}
               data-slot='gantt-scale-switcher'
               aria-label={labels.selectView}
@@ -265,6 +271,7 @@ function GanttDatePicker({ className }) {
       <PopoverTrigger asChild>
         <Button
           variant={nav.variant}
+          tone={nav.tone}
           size={nav.iconSize}
           data-slot='gantt-date-picker'
           aria-label={settings.i18n.labels.goToDate}

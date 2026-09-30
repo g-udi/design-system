@@ -2,6 +2,7 @@ import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
+import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { BreadcrumbTrail } from './Breadcrumb';
 
 const docs = getComponentDocs('Core/Breadcrumb');
@@ -24,18 +25,25 @@ export default {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
-  }
+  },
+  decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
 export const Playground = {
   args: { items },
   parameters: {
     docs: {
-      description: { story: 'A five-level path: every ancestor is a link and the last item marks the current page. Edit `items` to change the trail. Collapsed, icon and dropdown trails are in the examples below.' },
+      description: { story: 'A docs page header: a five-level trail above the page title. Every ancestor is a link and the last item marks the current page; edit `items` to change the trail and the title. Collapsed, icon and dropdown trails are in the examples below.' },
       source: playgroundSource('BreadcrumbTrail', { imports: "import { BreadcrumbTrail } from '@gaudi/design-system';" })
     }
   },
-  render: (args) => <div className='flex justify-center'><BreadcrumbTrail {...args} /></div>,
+  render: (args) => (
+    <header className='grid gap-2'>
+      <BreadcrumbTrail {...args} />
+      <h1 className='text-2xl font-semibold text-text'>{args.items.at(-1)?.label}</h1>
+      <p className='text-sm text-text-muted'>A trail of links from the site root to the page you are on.</p>
+    </header>
+  ),
   play: async ({ args, canvasElement }) => {
     const nav = within(within(canvasElement).getByRole('navigation', { name: 'Breadcrumb' }));
     const current = args.items.at(-1);

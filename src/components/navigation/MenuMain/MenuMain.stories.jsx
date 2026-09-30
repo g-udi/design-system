@@ -4,6 +4,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { categories, posts } from '../../../../.storybook/fixtures/site/navigationContent';
+import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from '../../core/NavigationMenu';
 import MenuLogo from '../MenuLogo';
 import MenuMain from './MenuMain';
 
@@ -15,6 +16,8 @@ export default {
   component: MenuMain,
   tags: ['autodocs'],
   parameters: {
+    // An open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
+    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } },
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -24,21 +27,24 @@ export default {
 };
 
 const links = ['Publications', 'Projects', 'Thoughts'];
+const escape = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 // The site header with the Blog panel open: categories on the left, the three newest posts on the right.
 function SiteHeader({ allPosts, categories }) {
   const ref = useRef(null);
   useEffect(() => {
-    ref.current.querySelector('[aria-haspopup]').click();
+    ref.current.querySelector('[data-slot="navigation-menu-trigger"]').click();
   }, []);
   return (
-    <nav ref={ref} aria-label='Site' className='min-h-[22rem]'>
-      <ul className='flex items-center justify-center gap-3 border-b border-gray-200 pb-2 text-sm font-medium dark:border-gray-800'>
-        <li className='mr-auto'><MenuLogo className='h-8 w-8' /></li>
-        {links.map((link) => <li key={link} className='hidden text-gray-700 sm:block dark:text-gray-300'>{link}</li>)}
-        <MenuMain categories={categories} allPosts={allPosts} />
-      </ul>
-    </nav>
+    <div ref={ref} className='flex min-h-[22rem] items-start gap-3'>
+      <MenuLogo className='h-9 w-9 shrink-0' />
+      <NavigationMenu label='Site' className='w-auto flex-1 justify-end'>
+        <NavigationMenuList>
+          {links.map((link) => <NavigationMenuLink key={link} href={`/${link.toLowerCase()}`} className='max-sm:hidden'>{link}</NavigationMenuLink>)}
+          <MenuMain categories={categories} allPosts={allPosts} />
+        </NavigationMenuList>
+      </NavigationMenu>
+    </div>
   );
 }
 
@@ -47,10 +53,10 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'The site header with the Blog panel open. `categories` fills the left column; the first three `allPosts` become Recent posts on the right.' },
-      source: playgroundSource('MenuMain', { imports: "import { MenuMain } from '@gaudi/design-system';", before: '<ul>\n', after: '\n</ul>' })
+      source: playgroundSource('MenuMain', { imports: "import { MenuMain, NavigationMenu, NavigationMenuList } from '@gaudi/design-system';", before: '<NavigationMenu>\n  <NavigationMenuList>\n', after: '\n  </NavigationMenuList>\n</NavigationMenu>' })
     }
   },
-  // MenuMain renders an <li>, so it sits in the host navigation list. Remount when the data changes.
+  // MenuMain is a NavigationMenu dropdown, so it sits in the host NavigationMenuList. Remount when the data changes.
   render: (args) => <SiteHeader key={JSON.stringify([args.categories, args.allPosts])} {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
@@ -60,13 +66,13 @@ export const Playground = {
 
     const heading = canvas.getByRole('heading', { name: 'Recent posts' });
     await expect(canvas.getByRole('link', { name: /See all/ })).toHaveAttribute('href', '/blog');
-    for (const post of args.allPosts.slice(0, 3)) await expect(canvas.getByRole('link', { name: post.title })).toHaveAttribute('href', `/blog/${post.slug}`);
+    for (const post of args.allPosts.slice(0, 3)) await expect(canvas.getByRole('link', { name: new RegExp(escape(post.title)) })).toHaveAttribute('href', `/blog/${post.slug}`);
     for (const post of args.allPosts.slice(3)) await expect(canvas.queryByText(post.title)).not.toBeInTheDocument();
 
     await userEvent.click(heading);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(trigger);
-    await expect(heading).not.toBeInTheDocument();
+    await waitFor(() => expect(heading).not.toBeInTheDocument());
     await userEvent.click(trigger);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   }

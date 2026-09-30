@@ -15,7 +15,7 @@ import { Popover as PopoverPrimitive } from '@base-ui/react';
 import { useDirection } from '@base-ui/react/direction-provider';
 import { cn } from '../../../../utilities/cn/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-const FOOTER_SWALLOWED_KEYS = /* @__PURE__ */ new Set([
+const FOOTER_SWALLOWED_KEYS = new Set([
   'Enter',
   ' ',
   'ArrowUp',
@@ -322,9 +322,8 @@ function CascaderSubmenuTrigger({
       onKeyDown={handleKeyDown}
       className={cn(
         CASCADER_ACTION_CLASS,
-        /* Painted while the flyout is open, as shadcn paints a SubTrigger.
-         Keyed off `aria-expanded`, not shadcn's `data-[state=open]`: the
-         popover trigger carries `aria-expanded` in both states. */
+        /* Painted while the flyout is open, like a menu sub-trigger. Keyed off
+         `aria-expanded`: the popover trigger carries it in both states. */
         'aria-expanded:bg-ui-accent aria-expanded:text-ui-accent-foreground',
         className
       )}

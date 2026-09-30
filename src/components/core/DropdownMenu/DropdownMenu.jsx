@@ -1,48 +1,36 @@
 'use client';
 
-import * as Primitive from '@radix-ui/react-dropdown-menu';
-import { cn } from '../../../utilities/cn';
-import Icon from '../Icon';
+import {
+  DropdownMenu as DropdownMenuRoot,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem as DropdownMenuItemPart,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from './parts/dropdown-menu.jsx';
 
-export const DropdownMenuItem = ({ className, destructive, ...props }) => (
-  <Primitive.Item
-    {...props}
-    className={cn('ds-menu-item', destructive && 'ds-error', className)}
-  />
+export { DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator };
+
+/** `destructive` is the convenience name for the part's `variant='destructive'`. */
+export const DropdownMenuItem = ({ destructive, variant, ...props }) => (
+  <DropdownMenuItemPart variant={destructive ? 'destructive' : variant} {...props} />
 );
-export const DropdownMenuCheckboxItem = ({ className, children, ...props }) => (
-  <Primitive.CheckboxItem {...props} className={cn('ds-menu-item', className)}>
-    <span className='ds-menu-check' aria-hidden='true'>
-      {props.checked ? <Icon name='Check' decorative size='xs' /> : null}
-    </span>
-    {children}
-  </Primitive.CheckboxItem>
-);
-export const DropdownMenuLabel = ({ className, ...props }) => (
-  <Primitive.Label {...props} className={cn('ds-menu-label', className)} />
-);
-export const DropdownMenuSeparator = () => (
-  <Primitive.Separator className='ds-separator' />
-);
-export default function DropdownMenu({
-  trigger,
-  children,
-  align = 'end',
-  ...props
-}) {
+
+/** A trigger and its menu in one component, built on the DropdownMenu parts. */
+export default function DropdownMenu({ trigger, children, align = 'end', ...props }) {
   return (
-    <Primitive.Root {...props}>
-      <Primitive.Trigger asChild>{trigger}</Primitive.Trigger>
-      <Primitive.Portal>
-        <Primitive.Content
-          align={align}
-          sideOffset={6}
-          collisionPadding={12}
-          className='ds-menu'
-        >
-          {children}
-        </Primitive.Content>
-      </Primitive.Portal>
-    </Primitive.Root>
+    <DropdownMenuRoot {...props}>
+      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+      {/* Sized to its items rather than the trigger, and above the convenience Dialog's layer. */}
+      <DropdownMenuContent
+        align={align}
+        sideOffset={6}
+        collisionPadding={12}
+        className='z-[calc(var(--ds-z-overlay)+10)] w-max max-w-[calc(100vw-1.5rem)] min-w-48'
+      >
+        {children}
+      </DropdownMenuContent>
+    </DropdownMenuRoot>
   );
 }

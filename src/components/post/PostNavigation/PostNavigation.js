@@ -11,6 +11,7 @@
 
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
+import { cn } from '../../../utilities/cn';
 
 /**
  * Renders navigation links to adjacent blog posts
@@ -42,6 +43,8 @@ import Link from '../../core/Link';
  * <PostNavigation next={null} prev={prevPost} />
  */
 const headingElements = { 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
+const labelClasses = 'mb-1 flex items-center gap-1.5 text-xs uppercase tracking-wide text-text-muted';
+const titleClasses = 'block font-semibold text-text transition-colors group-hover:text-accent';
 
 const PostNavigation = ({ headingLevel = 2, next, prev, type = 'Post' }) => {
   const isThought = type === 'Thought';
@@ -60,11 +63,11 @@ const PostNavigation = ({ headingLevel = 2, next, prev, type = 'Post' }) => {
             href={ `${baseUrl}/${prev.slug}` }
             variant='bare'
           >
-            <Heading className='mb-1 flex items-center gap-1.5 text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400'>
+            <Heading className={ labelClasses }>
               <Icon name='ArrowLeft' decorative size='xs' className='transition-transform group-hover:-translate-x-0.5 motion-reduce:transition-none' />
               Previous {label}
             </Heading>
-            <span className='block font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400'>
+            <span className={ titleClasses }>
               {prev.title}
             </span>
           </Link>
@@ -75,11 +78,11 @@ const PostNavigation = ({ headingLevel = 2, next, prev, type = 'Post' }) => {
             href={ `${baseUrl}/${next.slug}` }
             variant='bare'
           >
-            <Heading className='mb-1 flex items-center justify-end gap-1.5 text-xs uppercase tracking-wide text-gray-500 max-sm:justify-start dark:text-gray-400'>
+            <Heading className={ cn(labelClasses, 'justify-end max-sm:justify-start') }>
               Next {label}
               <Icon name='ArrowRight' decorative size='xs' className='transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none' />
             </Heading>
-            <span className='block font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400'>
+            <span className={ titleClasses }>
               {next.title}
             </span>
           </Link>

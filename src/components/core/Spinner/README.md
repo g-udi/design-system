@@ -1,11 +1,16 @@
 # Spinner
 
-This Gaudi owner includes **spinner**, with **3 practical examples**.
+A spinner shows that something is working: a save, a search, a page loading. It is announced as a status with its `label`.
 
-Import the documented composition from `@gaudi/design-system/core/Spinner`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Button, Spinner } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-spinner--spinner-pattern-2) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Button disabled>
+  <Spinner size='xs' label='Saving draft' className='text-current' />
+  Saving draft
+</Button>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- `size`: `xs` 12px for inline text and buttons, `sm` 16px, `md` 20px, `lg` 32px for panels and page states.
+- It uses the accent colour; pass `className='text-current'` to follow the surrounding text, or a tone class such as `text-text-muted`.
+- Give it a `label` that says what is happening. Use `Skeleton` instead when the shape of the coming content is known.

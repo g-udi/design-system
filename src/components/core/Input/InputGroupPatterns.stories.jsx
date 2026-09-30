@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/input-group/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Input', id: 'core-input', tags: ['autodocs'], ...catalogueMeta('input-group') };
+export default { title: 'Core/Input', id: 'core-input', tags: ['autodocs'], ...catalogueMeta('input-group') };
 
 export const InputGroupPattern4 = {
   name: 'Addon placement',

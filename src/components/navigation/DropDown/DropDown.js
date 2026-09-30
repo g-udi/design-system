@@ -3,76 +3,52 @@
 /**
  * Menu Dropdown Component
  *
- * @description A reusable dropdown menu component that provides toggle functionality with outside click detection.
- * Features proper accessibility attributes and visual indicators for the dropdown state. Includes a custom hook
- * for handling clicks outside the component boundary.
+ * @description A header-style disclosure trigger: a ghost Button with a rotating chevron that toggles a
+ * host-owned panel and closes it on Escape or a click outside `outsideClickRef`. The site header's own
+ * dropdowns use NavigationMenuDropdown; reach for this only to wire a custom panel.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
-import React from 'react';
+import { useEffect, useRef } from 'react';
 
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
 
 /**
- * Detects clicks outside a boundary element and invokes the callback
+ * Dropdown trigger with outside-click and Escape dismissal
  *
- * @param {Function} callback - Function to call when an outside click is detected
- * @param {React.RefObject} boundaryRef - Ref marking the component boundary
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Extra classes for the trigger
+ * @param {string} [props.controlsId] - Id of the panel the trigger controls
+ * @param {string} [props.id] - Trigger id, for aria-labelledby on the panel
+ * @param {string} props.name - Trigger label
+ * @param {boolean} props.menuDropDownOpen - Whether the panel is open
+ * @param {React.RefObject} [props.outsideClickRef] - Boundary for outside clicks; defaults to the trigger
+ * @param {Function} props.setMenuDropDownOpen - Sets the open state
+ *
+ * @returns {JSX.Element} The trigger button
+ *
+ * @example
+ * <MenuDropDown name='Categories' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} controlsId='categories-panel' />
  */
-const useOutsideClick = (callback, boundaryRef) => {
-  React.useEffect(() => {
+const MenuDropDown = ({ className, controlsId, id, name, menuDropDownOpen, outsideClickRef, setMenuDropDownOpen }) => {
+  const triggerRef = useRef(null);
+
+  useEffect(() => {
+    if (!menuDropDownOpen) return undefined;
+
+    const boundary = outsideClickRef || triggerRef;
     const handleClick = (event) => {
-      if (boundaryRef.current && !boundaryRef.current.contains(event.target)) callback();
+      if (boundary.current && !boundary.current.contains(event.target)) setMenuDropDownOpen(false);
     };
 
     document.addEventListener('click', handleClick);
 
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, [ boundaryRef, callback ]);
-};
-
-/**
- * Dropdown menu component with outside click detection
- *
- * @description Renders a dropdown button with toggle functionality and automatic closing when clicking outside.
- * Uses a custom hook to detect outside clicks and manage the dropdown state.
- *
- * @param {Object} props - Component props
- * @param {string} props.name - The text to display on the dropdown button
- * @param {boolean} props.menuDropDownOpen - Whether the dropdown is currently open
- * @param {Function} props.setMenuDropDownOpen - Function to toggle the dropdown state
- *
- * @returns {JSX.Element} The rendered dropdown menu component
- *
- * @example
- * <MenuDropDown
- *   name="Menu Options"
- *   menuDropDownOpen={isOpen}
- *   setMenuDropDownOpen={setIsOpen}
- * />
- */
-const MenuDropDown = ({ className, controlsId, id, name, menuDropDownOpen, outsideClickRef, setMenuDropDownOpen }) => {
-  const triggerRef = React.useRef(null);
-
-  /**
-   * Handles toggling the dropdown open/closed state
-   */
-  const handlemenuDropDownOpen = () => {
-    setMenuDropDownOpen(!menuDropDownOpen);
-  };
-
-  /**
-   * Handles closing the dropdown when clicking outside
-   */
-  const handleClickOutside = () => {
-    setMenuDropDownOpen(false);
-  };
+    return () => document.removeEventListener('click', handleClick);
+  }, [ menuDropDownOpen, outsideClickRef, setMenuDropDownOpen ]);
 
   const handleKeyDown = (event) => {
     if (event.key !== 'Escape' || !menuDropDownOpen) return;
@@ -80,33 +56,25 @@ const MenuDropDown = ({ className, controlsId, id, name, menuDropDownOpen, outsi
     setMenuDropDownOpen(false);
   };
 
-  useOutsideClick(handleClickOutside, outsideClickRef || triggerRef);
-
   return (
     <Button
       ref={ triggerRef }
       variant='ghost'
       tone='neutral'
-      size='sm'
-      className={ cn(
-        'h-9 min-h-9 cursor-pointer gap-1 rounded-md px-1.5 py-1.5 text-sm pointer-coarse:h-11 pointer-coarse:min-h-11 font-medium leading-5 text-gray-950 hover:bg-transparent hover:text-blue-600 dark:text-gray-100 dark:hover:bg-transparent dark:hover:text-blue-300', menuDropDownOpen && 'text-blue-600 dark:text-blue-300', className
-      ) }
+      className={ cn('gap-1 px-1.5 hover:bg-transparent hover:text-accent pointer-coarse:min-h-11', menuDropDownOpen && 'text-accent', className) }
       aria-controls={ controlsId }
       aria-expanded={ menuDropDownOpen }
       aria-haspopup='true'
       id={ id }
-      onClick={ handlemenuDropDownOpen }
+      onClick={ () => setMenuDropDownOpen(!menuDropDownOpen) }
       onKeyDown={ handleKeyDown }
     >
-      { name }
+      {name}
       <Icon
         name='ChevronDown'
         decorative
         size='xs'
-        className={ cn(
-          'flex-none text-gray-400 transition-transform duration-200 motion-reduce:transition-none',
-          menuDropDownOpen && 'rotate-180 text-blue-500 dark:text-blue-300'
-        ) }
+        className={ cn('flex-none text-text-subtle transition-transform duration-200 motion-reduce:transition-none', menuDropDownOpen && 'rotate-180 text-current') }
       />
     </Button>
   );

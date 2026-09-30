@@ -90,7 +90,7 @@ function buildBars(anchor) {
   ];
 }
 export function Pattern() {
-  const bars = useMemo(() => buildBars(/* @__PURE__ */ new Date()), []);
+  const bars = useMemo(() => buildBars(new Date()), []);
   const apiRef = useRef(null);
   const [scheduled, setScheduled] = useState(0);
   const addInitiative = () => {
@@ -102,7 +102,7 @@ export function Pattern() {
     );
     if (index === -1) return;
     const item = BACKLOG[index];
-    const week = startOfWeek(startOfDay(/* @__PURE__ */ new Date()), {
+    const week = startOfWeek(startOfDay(new Date()), {
       weekStartsOn: 0
     });
     const start = addDays(week, 12 + index * 20);

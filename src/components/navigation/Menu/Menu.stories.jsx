@@ -22,6 +22,8 @@ export default {
   tags: ['autodocs'],
   args: { categories, posts },
   parameters: {
+    // An open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
+    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } },
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -33,7 +35,7 @@ export default {
 function OpenBlogPanel(args) {
   const ref = useRef(null);
   useEffect(() => {
-    const blog = ref.current.querySelector('[aria-haspopup]');
+    const blog = ref.current.querySelector('[data-slot="navigation-menu-trigger"]');
     if (blog?.checkVisibility()) blog.click();
   }, []);
   return <div ref={ref} className='lg:min-h-[25rem]'><Menu {...args} /></div>;
@@ -63,8 +65,8 @@ export const Playground = {
     const blog = canvas.getByRole('button', { name: 'Blog' });
     await expect(canvas.getByRole('link', { name: 'Projects' })).toHaveAttribute('href', '/blog/projects');
     await waitFor(() => expect(blog).toHaveAttribute('aria-expanded', 'true'));
-    await expect(canvas.getByRole('link', { name: args.posts[0].title })).toHaveAttribute('href', `/blog/${args.posts[0].slug}`);
-    await expect(canvas.getByRole('link', { name: new RegExp(args.categories[0].title, 'i') })).toBeVisible();
+    await expect(canvas.getByRole('link', { name: new RegExp(args.posts[0].title) })).toHaveAttribute('href', `/blog/${args.posts[0].slug}`);
+    await waitFor(() => expect(canvas.getByRole('link', { name: new RegExp(args.categories[0].title, 'i') })).toBeVisible());
     await userEvent.click(document.body);
     await expect(blog).toHaveAttribute('aria-expanded', 'false');
     await userEvent.click(canvas.getByRole('button', { name: 'Open search' }));

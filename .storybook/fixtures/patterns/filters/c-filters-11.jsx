@@ -41,16 +41,16 @@ function Person({ img, name }) {
   );
 }
 const STATUSES = [
-  { value: 'todo', label: 'To do', dot: 'bg-zinc-400' },
-  { value: 'in-progress', label: 'In progress', dot: 'bg-amber-500' },
+  { value: 'todo', label: 'To do', dot: 'bg-text-muted' },
+  { value: 'in-progress', label: 'In progress', dot: 'bg-warning' },
   { value: 'blocked', label: 'Blocked', dot: 'bg-ui-destructive' },
-  { value: 'done', label: 'Done', dot: 'bg-emerald-500' }
+  { value: 'done', label: 'Done', dot: 'bg-success' }
 ];
 const PRIORITIES = [
-  { value: 'low', label: 'Low', tone: 'bg-emerald-500' },
-  { value: 'medium', label: 'Medium', tone: 'bg-yellow-500' },
-  { value: 'high', label: 'High', tone: 'bg-orange-500' },
-  { value: 'urgent', label: 'Urgent', tone: 'bg-rose-500' }
+  { value: 'low', label: 'Low', tone: 'bg-success' },
+  { value: 'medium', label: 'Medium', tone: 'bg-warning' },
+  { value: 'high', label: 'High', tone: 'bg-attention' },
+  { value: 'urgent', label: 'Urgent', tone: 'bg-danger' }
 ];
 const TEAM = [
   { value: 'ada', label: 'Ada Lovelace', img: 'women/1' },

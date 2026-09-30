@@ -52,24 +52,21 @@ const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
       initialFocusRef={ closeButtonRef }
       label={ alt || 'Image preview' }
       contentProps={ caption ? { 'aria-labelledby': captionId } : undefined }
-      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm dark:bg-black/80 sm:p-8'
+      className='fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8'
     >
-      {/* Modal content container */}
-      <div className='relative flex max-h-[calc(100dvh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-lg bg-white shadow-2xl dark:bg-gray-900 sm:max-h-[calc(100dvh-4rem)]'>
-        {/* Close button */}
+      <div className='relative flex max-h-[calc(100dvh-2rem)] w-full max-w-5xl flex-col overflow-hidden rounded-lg bg-surface shadow-2xl sm:max-h-[calc(100dvh-4rem)]'>
         <Button
           ref={ closeButtonRef }
           variant='ghost'
-          tone='gray'
+          tone='neutral'
           size='sm'
           onClick={ onClose }
-          className='absolute right-4 top-4 z-10 h-11 w-11 rounded-control bg-white/90 p-0 text-gray-600 hover:bg-white dark:bg-gray-800/90 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white'
+          className='absolute right-4 top-4 z-10 size-11 rounded-control bg-surface/90 p-0 text-text-muted hover:bg-surface-muted hover:text-text'
           aria-label='Close modal'
         >
           <Icon name='X' decorative size='md' />
         </Button>
 
-        {/* Image container */}
         <div className='flex min-h-0 flex-1 flex-col items-center overflow-auto p-4 pt-16 sm:p-6 sm:pt-16'>
           <img
             src={ src }
@@ -81,7 +78,7 @@ const ImageModal = ({ isOpen, onClose, src, alt, caption }) => {
           {caption && (
             <p
               id={ captionId }
-              className='mt-4 text-center text-sm text-gray-700 dark:text-gray-300 max-w-2xl'
+              className='mt-4 max-w-2xl text-center text-sm text-text-muted'
             >
               {caption}
             </p>

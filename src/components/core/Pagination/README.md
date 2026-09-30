@@ -1,11 +1,13 @@
 # Pagination
 
-This Gaudi owner includes **pagination**, with **4 practical examples**.
+Moves between pages of a long list. Use `PaginationBar` under a post archive or search results; compose the parts for numbered, compact or table-footer pagers.
 
-Import the documented composition from `@gaudi/design-system/core/Pagination`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { PaginationBar } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-pagination--pagination-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+`PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; hovering or focusing the status reveals page shortcuts, with ellipses past five pages. Pass `onPageChange` for client-side paging: every control becomes a button and the host owns `currentPage`. `label` names the landmark.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.

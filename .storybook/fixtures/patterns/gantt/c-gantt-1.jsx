@@ -493,7 +493,7 @@ function SettingsMenu({
   );
 }
 export function Pattern() {
-  const bars = useMemo(() => buildBars(/* @__PURE__ */ new Date()), []);
+  const bars = useMemo(() => buildBars(new Date()), []);
   const apiRef = useRef(null);
   const [resources, setResources] = useState(RESOURCES);
   const [rowCheckboxes, setRowCheckboxes] = useState(

@@ -1,11 +1,21 @@
 # Sortable
 
-This Gaudi owner includes **sortable**, with **4 practical examples**.
+Drag-and-drop reordering for lists, lanes, and grids, with keyboard support. Use it when the order of items matters to the reader, such as a checklist or a gallery cover.
 
-Import the documented composition from `@gaudi/design-system/core/Sortable`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-sortable--sortable-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Sortable value={tasks} onValueChange={setTasks} getItemValue={(task) => task.id}>
+  {tasks.map((task) => (
+    <SortableItem key={task.id} value={task.id}>
+      <SortableItemHandle aria-label={`Reorder ${task.title}`}>⋮⋮</SortableItemHandle>
+      {task.title}
+    </SortableItem>
+  ))}
+</Sortable>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- `strategy`: `vertical` (default), `horizontal`, or `grid`.
+- `onValueCommit` fires once per completed move, which is where you persist the new order.
+- `disabled` on an item pins it in place. `SortableOverlay` customises the lifted copy shown while dragging.
+- Handles are buttons: Space picks up an item, arrow keys move it, Space drops it, and Escape cancels.

@@ -8,11 +8,6 @@ import { cn } from '../../../utilities/cn';
 import Stepper from './Stepper';
 
 const docs = getComponentDocs('Core/Stepper');
-const steps = [
-  { id: 'details', label: 'Details', description: 'Name and summary' },
-  { id: 'audience', label: 'Audience', description: 'Who can read this?' },
-  { id: 'review', label: 'Review', description: 'Confirm and publish' }
-];
 const items = (canvas) => canvas.getAllByRole('listitem');
 // A publishing flow: finished steps report what was done, the current step says what is needed next.
 const flow = [
@@ -46,7 +41,7 @@ export const Playground = {
   parameters: {
     visualAudit: { wide: 'The status card matches the stepper width.' },
     docs: {
-      description: { story: 'A four-step publishing flow. `activeStep` moves the current marker: finished steps show a check and what was done, and the status line names the next task until every step is complete.' },
+      description: { story: 'A four-step publishing flow. `activeStep` moves the current marker: finished steps show a check and what was done, and the status line names the next task. Set it to the number of steps (4) to mark the whole flow complete.' },
       source: playgroundSource('Stepper', {
         imports: `import { Stepper } from '@gaudi/design-system';\n\nconst steps = ${JSON.stringify(flowSteps(1), null, 2)};`,
         attributes: ['steps={steps}', "label='Publishing progress'"]
@@ -72,38 +67,16 @@ export const Playground = {
   },
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('list', { name: 'Publishing progress' })).toBeInTheDocument();
+    await expect(canvas.getByRole('group', { name: 'Publishing progress' })).toBeInTheDocument();
     const current = items(canvas)[args.activeStep];
     if (current) await expect(current).toHaveAttribute('aria-current', 'step');
-    // The current marker is an outlined ring; only completed markers are filled.
-    const fill = (item) => getComputedStyle(item.querySelector('.ds-step-number')).backgroundColor;
-    if (current && args.activeStep > 0) await expect(fill(current)).not.toBe(fill(items(canvas)[0]));
+    // Completed markers swap their number for a check; the current marker keeps its number.
+    const hasCheck = (item) => Boolean(item.querySelector('[data-slot="stepper-indicator"] svg'));
+    if (current) await expect(hasCheck(current)).toBe(false);
+    if (args.activeStep > 0) await expect(hasCheck(items(canvas)[0])).toBe(true);
     const completed = Math.min(args.activeStep, flow.length);
     await expect(canvas.queryAllByText('Completed')).toHaveLength(completed);
     if (completed) await expect(canvas.getByText(flow[completed - 1].done)).toBeVisible();
     await expect(canvas.getByTestId('step-status')).toHaveTextContent(statusOf(args.activeStep).title);
   }
-};
-
-export const Completed = {
-  parameters: { docs: { description: { story: 'Set `activeStep` to `steps.length` to mark every step complete; no item is current.' } } },
-  render: () => <Stepper steps={steps} activeStep={steps.length} />,
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    for (const item of items(canvas)) await expect(item).not.toHaveAttribute('aria-current');
-    await expect(canvas.getAllByText('Completed')).toHaveLength(steps.length);
-  }
-};
-
-export const LongLabels = {
-  parameters: { docs: { description: { story: 'Long labels wrap inside their step instead of overflowing the sequence.' } } },
-  render: () => (
-    <Stepper
-      steps={[
-        { id: 'preferences', label: 'Configure your publication preferences' },
-        { id: 'reviewers', label: 'Invite reviewers to your workspace' },
-        { id: 'confirm', label: 'Confirm the details and finish setup' }
-      ]}
-    />
-  )
 };

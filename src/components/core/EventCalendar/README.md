@@ -1,11 +1,21 @@
 # EventCalendar
 
-This Gaudi owner includes **event-calendar**, with **5 practical examples**.
+A scheduling calendar with month, week, day, agenda and resource views, drag to move and resize, slot selection, recurring events and time zones. Use it for bookings and team schedules; use a Calendar to pick dates and a Gantt to plan work over weeks or months.
 
-Import the documented composition from `@gaudi/design-system/core/EventCalendar`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { EventCalendar, EventCalendarNav, EventCalendarContent } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-eventcalendar--event-calendar-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<EventCalendar defaultEvents={events} defaultView='week' onEventsChange={save} className='h-[600px]'>
+  <EventCalendarNav />
+  <EventCalendarContent />
+</EventCalendar>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- Events are `{ id, title, start, end, allDay?, color?, recurrence?, resourceId? }`. `EVENT_CALENDAR_COLORS` lists the offered colours.
+- `defaultView` / `view` pick the view; `interactions` turns drag, resize and slot selection on or off; `apiRef` adds, updates and removes events from outside.
+- `renderEvent` and `renderEventTooltip` customise chips. `timeZone`, `weekStartsOn`, `locale` and `i18n` localise every view.
+- `recurrence` repeats an event daily, weekly, monthly or yearly (`FREQ`, `INTERVAL`, `COUNT`, `UNTIL`, `BYDAY`, `BYMONTHDAY`, `BYMONTH`, `WKST`), with excluded and extra dates. `parseRRuleString` and `formatRRuleString` convert RRULE text. Gantt uses the same engine.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Accessibility
+
+Navigation buttons are labelled, and the month view is a grid with column and row headers. Every visible string, including button labels and date formats, comes from `i18n`.

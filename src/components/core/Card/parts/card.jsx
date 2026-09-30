@@ -21,18 +21,18 @@ function CardHeader({ className, ...props }) {
     />
   );
 }
-function CardTitle({ className, ...props }) {
+function CardTitle({ as: Component = 'div', className, ...props }) {
   return (
-    <div
+    <Component
       data-slot='card-title'
-      className={cn('ds-part-card-title ds-part-font-heading', className)}
+      className={cn('ds-part-card-title', className)}
       {...props}
     />
   );
 }
-function CardDescription({ className, ...props }) {
+function CardDescription({ as: Component = 'div', className, ...props }) {
   return (
-    <div
+    <Component
       data-slot='card-description'
       className={cn('ds-part-card-description', className)}
       {...props}

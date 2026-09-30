@@ -1,11 +1,18 @@
 # Rating
 
-This Gaudi owner includes **rating**, with **4 practical examples**.
+Shows a score as stars, or lets people choose one. Use it for reviews and feedback.
 
-Import the documented composition from `@gaudi/design-system/core/Rating`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-rating--rating-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Rating } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Rating rating={4.5} showValue />
+<Rating rating={score} editable onRatingChange={setScore} />;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`size` is `sm`, `default` or `lg`, `maxRating` sets the number of stars, and `starClassName` restyles the stars.
+
+## Accessibility
+
+A read-only rating is one image named "Rated 4.5 out of 5". An editable rating is a radio group: arrow keys move and select, Home and End jump to the ends.

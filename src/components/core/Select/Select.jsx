@@ -3,27 +3,21 @@
 import { Children, isValidElement, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 
 import Icon from '../Icon';
+import { Badge } from '../Pill/parts/badge-extended.jsx';
 import { cn } from '../../../utilities/cn';
 
 const EMPTY_OPTIONS = [];
 
+// `options` wins; otherwise native `<option>` children become option objects.
 const normalizeOptions = (children, options) => {
-  const optionList = options || [];
-
-  if (optionList.length) return optionList;
+  if (options?.length) return options;
 
   return Children.toArray(children)
     .filter((child) => isValidElement(child) && child.type === 'option')
-    .map((child) => {
-      return {
-        'disabled': child.props.disabled,
-        'label': child.props.children,
-        'value': child.props.value
-      };
-    });
+    .map((child) => ({ disabled: child.props.disabled, label: child.props.children, value: child.props.value }));
 };
 
-const getInitialValue = ({ defaultValue, multiple, value }) => {
+const toValue = ({ defaultValue, multiple, value }) => {
   const incoming = value ?? defaultValue;
 
   if (multiple) {
@@ -35,6 +29,18 @@ const getInitialValue = ({ defaultValue, multiple, value }) => {
   return Array.isArray(incoming) ? incoming[0] ?? '' : incoming ?? '';
 };
 
+const matches = (option, query) => {
+  const needle = query.trim().toLowerCase();
+
+  return !needle || `${option.textValue ?? option.label} ${option.description || ''}`.toLowerCase().includes(needle);
+};
+
+const firstEnabled = (list) => Math.max(0, list.findIndex((option) => !option.disabled));
+
+/**
+ * A listbox select with optional search and multiple selection. It shares the trigger, popup and item
+ * styling of the `SelectTrigger`, `SelectContent` and `SelectItem` parts, so both read as one control.
+ */
 const Select = ({
   'aria-label': ariaLabel,
   'aria-describedby': ariaDescribedBy,
@@ -63,8 +69,7 @@ const Select = ({
 }) => {
   const id = useId();
   const listboxId = `${id}-listbox`;
-  const listboxLabel = ariaLabel ? `${ariaLabel} options` : `${placeholder} options`;
-  const searchId = `${id}-search`;
+  const listboxLabel = `${ariaLabel || placeholder} options`;
   const triggerId = suppliedId || `${id}-trigger`;
   const listboxRef = useRef(null);
   const rootRef = useRef(null);
@@ -72,21 +77,18 @@ const Select = ({
   const triggerRef = useRef(null);
   const isControlled = value !== undefined;
   const normalizedOptions = useMemo(() => normalizeOptions(children, options), [ children, options ]);
-  const [ internalValue, setInternalValue ] = useState(() => getInitialValue({ defaultValue, multiple, value }));
+  const [ internalValue, setInternalValue ] = useState(() => toValue({ defaultValue, multiple, value }));
   const [ open, setOpen ] = useState(defaultOpen);
   const [ query, setQuery ] = useState('');
   const [ activeIndex, setActiveIndex ] = useState(0);
-  const currentValue = isControlled ? getInitialValue({ multiple, value }) : internalValue;
+  const currentValue = isControlled ? toValue({ multiple, value }) : internalValue;
   let selectedValues = [];
 
   if (multiple) selectedValues = currentValue;
-  if (!multiple && currentValue !== '' && currentValue != null) selectedValues = [ currentValue ];
-  const selectedOptions = normalizedOptions.filter((option) => selectedValues.includes(option.value));
-  const filteredOptions = normalizedOptions.filter((option) => {
-    if (!query.trim()) return true;
+  else if (currentValue !== '' && currentValue != null) selectedValues = [ currentValue ];
 
-    return `${option.textValue ?? option.label} ${option.description || ''}`.toLowerCase().includes(query.trim().toLowerCase());
-  });
+  const selectedOptions = normalizedOptions.filter((option) => selectedValues.includes(option.value));
+  const filteredOptions = useMemo(() => normalizedOptions.filter((option) => matches(option, query)), [ normalizedOptions, query ]);
 
   const updateOpen = useCallback((nextOpen) => {
     setOpen(nextOpen);
@@ -94,91 +96,107 @@ const Select = ({
     if (!nextOpen) setQuery('');
   }, [ onOpenChange ]);
 
-  const updateValue = (nextValue, option) => {
-    if (!isControlled) setInternalValue(nextValue);
-    onValueChange?.(nextValue, option);
-  };
-
   const closePopup = useCallback(() => {
     updateOpen(false);
     triggerRef.current?.focus();
   }, [ updateOpen ]);
 
+  const updateValue = (nextValue, option) => {
+    if (!isControlled) setInternalValue(nextValue);
+    onValueChange?.(nextValue, option);
+  };
+
   const commitOption = (option) => {
     if (!option || option.disabled || loading || disabled) return;
 
-    if (multiple) {
-      const exists = selectedValues.includes(option.value);
-      const nextValue = exists ? selectedValues.filter((item) => item !== option.value) : [ ...selectedValues, option.value ];
-
-      updateValue(nextValue, option);
+    if (!multiple) {
+      updateValue(option.value, option);
+      closePopup();
 
       return;
     }
 
-    updateValue(option.value, option);
-    closePopup();
+    const exists = selectedValues.includes(option.value);
+
+    updateValue(exists ? selectedValues.filter((item) => item !== option.value) : [ ...selectedValues, option.value ], option);
   };
 
-  const moveActive = (direction) => {
-    if (!filteredOptions.some(option => !option.disabled)) return;
-
+  const moveActive = (step) => {
     setActiveIndex((index) => {
-      const step = direction === 'next' ? 1 : -1;
-      for (let nextIndex = index + step; nextIndex >= 0 && nextIndex < filteredOptions.length; nextIndex += step) {
-        if (!filteredOptions[nextIndex].disabled) return nextIndex;
+      for (let next = index + step; next >= 0 && next < filteredOptions.length; next += step) {
+        if (!filteredOptions[next].disabled) return next;
       }
+
       return index;
     });
+  };
+
+  // Shared by the search field and the listbox; the listbox alone adds Home, End and Space.
+  const handleListKeys = (event, { listbox = false } = {}) => {
+    const keys = {
+      ArrowDown: () => moveActive(1),
+      ArrowUp: () => moveActive(-1),
+      Enter: () => commitOption(filteredOptions[activeIndex]),
+      ...(listbox && {
+        ' ': () => commitOption(filteredOptions[activeIndex]),
+        End: () => setActiveIndex(filteredOptions.findLastIndex((option) => !option.disabled)),
+        Home: () => setActiveIndex(firstEnabled(filteredOptions))
+      })
+    };
+
+    if (!keys[event.key]) return;
+    event.preventDefault();
+    keys[event.key]();
   };
 
   useEffect(() => {
     if (!open) return undefined;
 
-    const handlePointerDown = (event) => {
-      if (rootRef.current && !rootRef.current.contains(event.target)) updateOpen(false);
-    };
+    const closeOutside = (event) => { if (!rootRef.current?.contains(event.target)) updateOpen(false); };
 
-    document.addEventListener('pointerdown', handlePointerDown);
+    document.addEventListener('pointerdown', closeOutside);
 
-    return () => document.removeEventListener('pointerdown', handlePointerDown);
-  }, [ updateOpen, open ]);
+    return () => document.removeEventListener('pointerdown', closeOutside);
+  }, [ open, updateOpen ]);
 
   useEffect(() => {
-    if (open && searchable) searchRef.current?.focus();
-    if (open && !searchable) listboxRef.current?.focus();
+    if (!open) return;
+    (searchable ? searchRef : listboxRef).current?.focus();
   }, [ open, searchable ]);
 
   useEffect(() => {
-    setActiveIndex(Math.max(0, normalizedOptions.filter(option => !query.trim() || `${option.textValue ?? option.label} ${option.description || ''}`.toLowerCase().includes(query.trim().toLowerCase())).findIndex(option => !option.disabled)));
-  }, [ query, normalizedOptions ]);
+    setActiveIndex(firstEnabled(filteredOptions));
+  }, [ filteredOptions ]);
 
-  let triggerLabel = placeholder;
+  const triggerLabel = selectedOptions.length ? selectedOptions.map((option) => option.label).join(', ') : placeholder;
+  const activeOption = filteredOptions[activeIndex];
+  const activeOptionId = open && !loading && activeOption && !activeOption.disabled ? `${id}-option-${activeIndex}` : undefined;
+  let status = '';
 
-  if (selectedOptions.length && multiple) triggerLabel = selectedOptions.map((option) => option.label).join(', ');
-  if (selectedOptions.length && !multiple) triggerLabel = selectedOptions[0].label;
-
-  const activeOptionId = open && !loading && filteredOptions[activeIndex] && !filteredOptions[activeIndex].disabled ? `${id}-option-${activeIndex}` : undefined;
+  if (loading) status = loadingText;
+  else if (!filteredOptions.length) status = emptyText;
 
   return (
     <div
       ref={ rootRef }
       className={ cn('relative w-full min-w-0 max-w-xs', className, classNames.root) }
-      onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) updateOpen(false); }}
+      onBlur={ (event) => { if (!event.currentTarget.contains(event.relatedTarget)) updateOpen(false); } }
       onKeyDown={ (event) => {
-        if (event.key === 'Escape' && open) {
-          event.stopPropagation();
-          closePopup();
-        }
+        if (event.key !== 'Escape' || !open) return;
+        event.stopPropagation();
+        closePopup();
       } }
     >
-      {name && multiple ? selectedValues.map((item) => <input key={ item } type='hidden' name={ name } value={ item } disabled={disabled} />) : null}
-      {name && !multiple ? <input type='hidden' name={ name } value={ currentValue } disabled={disabled} /> : null}
+      {name && multiple ? selectedValues.map((item) => <input key={ item } type='hidden' name={ name } value={ item } disabled={ disabled } />) : null}
+      {name && !multiple ? <input type='hidden' name={ name } value={ currentValue } disabled={ disabled } /> : null}
 
       <button
         ref={ triggerRef }
         id={ triggerId }
         type='button'
+        data-slot='select-trigger'
+        data-size='default'
+        data-placeholder={ selectedOptions.length ? undefined : '' }
         disabled={ disabled }
         aria-expanded={ open }
         aria-controls={ listboxId }
@@ -187,40 +205,30 @@ const Select = ({
         aria-label={ ariaLabel }
         aria-labelledby={ ariaLabelledBy }
         aria-describedby={ ariaDescribedBy }
-        className={ cn(
-          'ds-motion-press flex min-h-8 w-full items-center justify-between gap-3 rounded-lg border border-gray-300 bg-white px-3 py-1 text-left text-sm leading-5 font-medium text-gray-950 shadow-xs hover:border-gray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:hover:border-gray-600 dark:disabled:bg-gray-900 dark:disabled:text-gray-600', invalid && 'border-red-500 focus-visible:ring-red-500', classNames.trigger
-        ) }
+        className={ cn('ds-part-select-trigger ds-motion-press flex w-full items-center justify-between text-left outline-none disabled:cursor-not-allowed disabled:opacity-50', classNames.trigger) }
         onClick={ () => updateOpen(!open) }
         onKeyDown={ (event) => {
-          if ([ 'ArrowDown', 'Enter', ' ' ].includes(event.key)) {
-            event.preventDefault();
-            updateOpen(true);
-          }
+          if (![ 'ArrowDown', 'Enter', ' ' ].includes(event.key)) return;
+          event.preventDefault();
+          updateOpen(true);
         } }
       >
-        <span className={ cn('min-w-0 truncate', !selectedOptions.length && 'text-gray-500 dark:text-gray-400', classNames.value) }>
-          {triggerLabel}
-        </span>
-        {multiple && selectedOptions.length ? (
-          <span className='ml-auto rounded-md bg-blue-50 px-1.5 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-950/50 dark:text-blue-300'>
-            {selectedOptions.length}
-          </span>
-        ) : null}
-        <Icon name='ChevronDown' decorative size='xs' className={ cn('ds-motion-icon shrink-0 text-gray-500', open && 'rotate-180') } />
+        <span className={ cn('min-w-0 flex-1 truncate', classNames.value) }>{triggerLabel}</span>
+        {multiple && selectedOptions.length ? <Badge variant='primary-light' size='sm'>{selectedOptions.length}</Badge> : null}
+        <Icon name='ChevronDown' decorative size='xs' className={ cn('ds-part-select-trigger-icon ds-motion-icon', open && 'rotate-180') } />
       </button>
 
       {open ? (
         <div
-          className={ cn(
-            'ds-motion-popover absolute left-0 top-full z-50 mt-2 w-full min-w-0 overflow-hidden rounded-lg border border-gray-200 bg-white p-1 shadow-xl shadow-gray-950/10 ring-1 ring-gray-950/5 dark:border-gray-800 dark:bg-gray-950 dark:ring-white/10', classNames.content
-          ) }
+          data-slot='select-content'
+          className={ cn('ds-part-select-content ds-motion-popover absolute inset-x-0 top-full z-50 mt-1 min-w-0 overflow-hidden', classNames.content) }
         >
           {searchable ? (
-            <div className='flex items-center gap-2 border-b border-gray-200 px-2 py-2 dark:border-gray-800'>
-              <Icon name='Search' decorative size='xs' className='text-gray-400' />
+            <div className='flex items-center gap-2 border-b border-ui-border px-2.5 py-1.5 text-ui-muted-foreground'>
+              <Icon name='Search' decorative size='xs' />
               <input
                 ref={ searchRef }
-                id={ searchId }
+                id={ `${id}-search` }
                 role='combobox'
                 aria-label={ searchPlaceholder }
                 aria-autocomplete='list'
@@ -229,24 +237,9 @@ const Select = ({
                 aria-activedescendant={ activeOptionId }
                 value={ query }
                 placeholder={ searchPlaceholder }
-                className='w-full min-w-0 bg-transparent text-base text-gray-950 outline-none md:text-sm placeholder:text-gray-500 dark:text-gray-100'
+                className='h-6 w-full min-w-0 bg-transparent text-base text-ui-popover-foreground outline-none placeholder:text-ui-muted-foreground md:text-sm'
                 onChange={ (event) => { setQuery(event.target.value); onSearchChange?.(event.target.value); } }
-                onKeyDown={ (event) => {
-                  if (event.key === 'ArrowDown') {
-                    event.preventDefault();
-                    moveActive('next');
-                  }
-
-                  if (event.key === 'ArrowUp') {
-                    event.preventDefault();
-                    moveActive('previous');
-                  }
-
-                  if (event.key === 'Enter') {
-                    event.preventDefault();
-                    commitOption(filteredOptions[activeIndex]);
-                  }
-                } }
+                onKeyDown={ (event) => handleListKeys(event) }
               />
             </div>
           ) : null}
@@ -259,31 +252,12 @@ const Select = ({
             aria-multiselectable={ multiple || undefined }
             aria-busy={ loading }
             aria-activedescendant={ searchable ? undefined : activeOptionId }
-            className='max-h-64 overflow-y-auto py-1'
+            className='ds-part-select-group max-h-64 overflow-y-auto outline-none'
             tabIndex={ searchable ? -1 : 0 }
-            onKeyDown={ (event) => {
-              if (event.key === 'ArrowDown') {
-                event.preventDefault();
-                moveActive('next');
-              }
-
-              if (event.key === 'ArrowUp') {
-                event.preventDefault();
-                moveActive('previous');
-              }
-
-              if (event.key === 'Home') { event.preventDefault(); setActiveIndex(Math.max(0, filteredOptions.findIndex(option => !option.disabled))); }
-              if (event.key === 'End') { event.preventDefault(); setActiveIndex(filteredOptions.findLastIndex(option => !option.disabled)); }
-
-              if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                commitOption(filteredOptions[activeIndex]);
-              }
-            } }
+            onKeyDown={ (event) => handleListKeys(event, { listbox: true }) }
           >
-            {loading ? <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-4 text-center text-sm text-gray-600 dark:text-gray-300'>{loadingText}</div> : filteredOptions.length ? filteredOptions.map((option, index) => {
+            {!loading && filteredOptions.map((option, index) => {
               const selected = selectedValues.includes(option.value);
-              const active = index === activeIndex;
 
               return (
                 <button
@@ -292,26 +266,26 @@ const Select = ({
                   type='button'
                   role='option'
                   tabIndex={ -1 }
+                  data-slot='select-item'
+                  data-highlighted={ index === activeIndex && !option.disabled ? '' : undefined }
                   aria-selected={ selected }
                   aria-disabled={ option.disabled || undefined }
                   disabled={ option.disabled }
-                  className={ cn(
-                    'ds-motion-state flex min-h-8 w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-sm pointer-coarse:min-h-11 text-gray-800 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-45 dark:text-gray-200 dark:hover:bg-gray-900', active && 'bg-gray-100 dark:bg-gray-900', selected && 'font-medium text-blue-700 dark:text-blue-300', classNames.option
-                  ) }
+                  className={ cn('ds-part-select-item ds-motion-state flex w-full cursor-pointer items-center text-left pointer-coarse:min-h-11 data-highlighted:bg-ui-accent data-highlighted:text-ui-accent-foreground disabled:cursor-not-allowed disabled:opacity-50', classNames.option) }
                   onMouseEnter={ () => { if (!option.disabled) setActiveIndex(index); } }
                   onClick={ () => commitOption(option) }
                 >
-                  <span className='flex size-4 shrink-0 items-center justify-center'>
-                    {selected ? <Icon name='Check' decorative size='xs' /> : null}
+                  <span className='min-w-0 break-words'>
+                    {option.label}
+                    {option.description ? <span className='block text-xs text-ui-muted-foreground'>{option.description}</span> : null}
                   </span>
-                  <span className='min-w-0 break-words'>{option.label}{option.description && <span className='block text-xs font-normal text-gray-600 dark:text-gray-300'>{option.description}</span>}</span>
+                  <span className='ds-part-select-item-indicator'>{selected ? <Icon name='Check' decorative size='xs' /> : null}</span>
                 </button>
               );
-            }) : (
-              <div role='option' aria-selected={false} aria-disabled='true' className='px-3 py-4 text-center text-sm text-gray-500 dark:text-gray-400'>{emptyText}</div>
-            )}
+            })}
+            {status ? <div role='option' aria-selected={ false } aria-disabled='true' className='px-3 py-4 text-center text-sm text-ui-muted-foreground'>{status}</div> : null}
           </div>
-          <span role='status' className='sr-only'>{loading ? loadingText : !filteredOptions.length ? emptyText : ''}</span>
+          <span role='status' className='sr-only'>{status}</span>
         </div>
       ) : null}
     </div>

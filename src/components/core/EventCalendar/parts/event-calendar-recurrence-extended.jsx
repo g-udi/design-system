@@ -94,10 +94,10 @@ function parseRRuleDate(value, timeZone) {
   if (!match) throw new EventCalendarRecurrenceError(`UNTIL=${value}`);
   const [, y, m, d, hh = '23', mm = '59', ss = '59', z] = match;
   const date = z
-    ? /* @__PURE__ */ new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`)
+    ? new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}Z`)
     : timeZone
       ? new Date(new TZDate(+y, +m - 1, +d, +hh, +mm, +ss, timeZone).getTime())
-      : /* @__PURE__ */ new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}`);
+      : new Date(`${y}-${m}-${d}T${hh}:${mm}:${ss}`);
   if (Number.isNaN(date.getTime())) {
     throw new EventCalendarRecurrenceError(`UNTIL=${value}`);
   }
@@ -133,12 +133,13 @@ function resolveRule(recurrence, timeZone) {
 }
 function expandRecurrence(event, range, ctx) {
   const allDay = event.allDay ?? false;
+  // A zero-length occurrence (a milestone) is visible when its instant falls inside the range.
+  const isVisible = (start, end) =>
+    start < range.end &&
+    (end > range.start ||
+      (end.getTime() === start.getTime() && start >= range.start));
   if (!event.recurrence) {
-    const isPoint = event.end.getTime() === event.start.getTime();
-    if (
-      event.start < range.end &&
-      (event.end > range.start || (isPoint && event.start >= range.start))
-    ) {
+    if (isVisible(event.start, event.end)) {
       return [
         {
           key: `${event.id}::${event.start.toISOString()}`,
@@ -375,7 +376,7 @@ function expandRecurrence(event, range, ctx) {
     const start = new Date(rawStart.getTime());
     if (exTimes.has(start.getTime())) return;
     const end = endFor(start);
-    if (start < range.end && end > range.start) {
+    if (isVisible(start, end)) {
       occurrences.push({
         key: `${event.id}::${start.toISOString()}`,
         eventId: event.id,
@@ -422,7 +423,7 @@ function expandRecurrence(event, range, ctx) {
       const start = new Date(rDate.getTime());
       if (seen.has(start.getTime()) || exTimes.has(start.getTime())) continue;
       const end = endFor(start);
-      if (start >= range.end || end <= range.start) continue;
+      if (!isVisible(start, end)) continue;
       seen.add(start.getTime());
       occurrences.push({
         key: `${event.id}::${start.toISOString()}`,

@@ -1,6 +1,8 @@
 # Input
 
-Text, search, numeric and date fields with prefix/suffix slots. Native attributes and refs reach the control; compose Field for labels, help and errors.
+A single-line text field for names, emails, URLs, numbers and dates. `prefix` and `suffix` add text or icons inside the border (they render as InputGroup addons); every native attribute and the ref reach the input itself. Wrap it in a Field for its label, help and error.
+
+For buttons, menus or several addons inside the border, compose `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupText` and `InputGroupInput` directly.
 
 ## Usage
 
@@ -25,4 +27,4 @@ Visible labels are connected through Field. Inputs retain native validation, aut
 
 ## Examples
 
-Email, Adornments, InvalidAndDisabled, DateAndTime in Storybook. All examples support light and dark themes.
+The Playground shows icon and text adornments with the invalid and disabled states; the catalogue adds native types, password strength and every addon placement.

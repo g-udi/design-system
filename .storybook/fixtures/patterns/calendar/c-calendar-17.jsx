@@ -11,7 +11,7 @@ function getPriceForDate(date) {
   return Math.floor(50 + (val / 233280) * 200);
 }
 export function Pattern() {
-  const [date, setDate] = useState(/* @__PURE__ */ new Date());
+  const [date, setDate] = useState(new Date());
   return (
     <Calendar
       mode='single'

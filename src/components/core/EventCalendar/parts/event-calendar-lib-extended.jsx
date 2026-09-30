@@ -183,7 +183,7 @@ function packTimedSegments(segments) {
   }
   for (const cluster of clusters) {
     const colEnds = [];
-    const byColumn = /* @__PURE__ */ new Map();
+    const byColumn = new Map();
     for (const item of cluster) {
       let col = colEnds.findIndex((end) => end <= item.startMin);
       if (col === -1) {
@@ -229,7 +229,7 @@ function packWeekRowLanes(segments, rowIndex, rowStart, timeZone) {
       lane: 0
     };
   });
-  const merged = /* @__PURE__ */ new Map();
+  const merged = new Map();
   for (const bar of bars) {
     const key = bar.seg.occurrence.key;
     const existing = merged.get(key);
@@ -298,14 +298,14 @@ function defaultEventOrder(a, b) {
 function buildEventIndex(events, visibleRange, opts) {
   const { timeZone, weekStartsOn } = opts;
   const order = opts.eventOrder ?? defaultEventOrder;
-  const overrideTimes = /* @__PURE__ */ new Map();
+  const overrideTimes = new Map();
   for (const event of events) {
     if (!event.recurringEventId || !event.originalStart) continue;
     let times = overrideTimes.get(event.recurringEventId);
     if (!times)
       overrideTimes.set(
         event.recurringEventId,
-        (times = /* @__PURE__ */ new Set())
+        (times = new Set())
       );
     times.add(event.originalStart.getTime());
   }
@@ -339,8 +339,8 @@ function buildEventIndex(events, visibleRange, opts) {
     );
   }
   occurrences.sort(order);
-  const byDay = /* @__PURE__ */ new Map();
-  const barSegmentsByRow = /* @__PURE__ */ new Map();
+  const byDay = new Map();
+  const barSegmentsByRow = new Map();
   const firstRowStart = startOfWeek(toZoned(visibleRange.start, timeZone), {
     weekStartsOn
   });

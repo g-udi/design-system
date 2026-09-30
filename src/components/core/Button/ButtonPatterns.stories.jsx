@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/button/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Actions/Button', id: 'core-button', tags: ['autodocs'], ...catalogueMeta('button') };
+export default { title: 'Core/Button', id: 'core-button', tags: ['autodocs'], ...catalogueMeta('button') };
 
 export const ButtonPattern14 = {
   name: 'Icons, loading and links',

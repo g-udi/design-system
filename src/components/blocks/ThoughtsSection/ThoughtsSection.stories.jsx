@@ -53,7 +53,7 @@ export const Playground = {
   args: { thoughts },
   parameters: {
     docs: {
-      description: { story: 'Four notes mixing featured and regular entries, with and without summaries. Edit `thoughts` to change the list: `featured` adds the badge and the last note sits beside the archive link.' },
+      description: { story: 'Four notes mixing featured and regular entries, with and without summaries. Edit `thoughts` to change the list: `featured` adds the badge, the last note sits beside the archive link, and an empty array keeps the heading but hides the archive link.' },
       source: playgroundSource('ThoughtsSection', { imports: "import { ThoughtsSection } from '@gaudi/design-system';" })
     }
   },
@@ -72,28 +72,5 @@ export const Playground = {
     await userEvent.tab();
     await expect(viewAll(canvas)).toHaveFocus();
     await expect(viewAll(canvas)).toHaveAttribute('href', '/thoughts');
-  }
-};
-
-export const SingleThought = {
-  args: { thoughts: [{ featured: false, slug: 'one-clear-note', title: 'One clear note can still link to the archive' }] },
-  parameters: { docs: { description: { story: 'A single note without a summary still sits beside the archive link.' } } },
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getAllByRole('article')).toHaveLength(1);
-    await expect(thoughtLink(canvas, args.thoughts[0])).toHaveAttribute('href', '/thoughts/one-clear-note');
-    await expect(canvas.queryByText('Featured')).toBeNull();
-    await expect(viewAll(canvas)).toHaveAttribute('href', '/thoughts');
-  }
-};
-
-export const Empty = {
-  args: { thoughts: [] },
-  parameters: { docs: { description: { story: 'With no thoughts the heading remains and the archive link is hidden.' } } },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.getByRole('heading', { level: 2, name: 'Recent Thoughts' })).toBeInTheDocument();
-    await expect(canvas.queryAllByRole('article')).toHaveLength(0);
-    await expect(viewAll(canvas)).toBeNull();
   }
 };

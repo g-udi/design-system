@@ -87,13 +87,13 @@ function buildBookings(anchor) {
   ];
 }
 export function Pattern() {
-  const events = useMemo(() => buildBookings(/* @__PURE__ */ new Date()), []);
+  const events = useMemo(() => buildBookings(new Date()), []);
   const apiRef = useRef(null);
   const bookingCount = useRef(0);
   const addBooking = () => {
     const api = apiRef.current;
     if (!api) return;
-    const start = setHours(startOfDay(/* @__PURE__ */ new Date()), 12);
+    const start = setHours(startOfDay(new Date()), 12);
     const end = addMinutes(start, 60);
     api.addEvent({
       id: `booking-${bookingCount.current++}`,

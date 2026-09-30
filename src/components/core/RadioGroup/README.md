@@ -1,36 +1,27 @@
 # RadioGroup
 
-Native single-choice groups with list and card layouts. Options accept value, label, description and disabled. Supports controlled value or defaultValue.
+A set of options where people pick exactly one, such as a plan or a delivery speed. Use a Select when there are more than about seven options.
 
 ## Usage
 
 ```jsx
-import RadioGroup from '@gaudi/design-system/core/RadioGroup';
+import { RadioGroup } from '@gaudi/design-system';
 
 <RadioGroup
   label='Reading digest'
   name='digest'
   defaultValue='weekly'
+  variant='cards'
   options={[
-    {
-      value: 'weekly',
-      label: 'Weekly',
-      description: 'A concise update every Friday.'
-    },
-    {
-      value: 'monthly',
-      label: 'Monthly',
-      description: 'The highlights, once a month.'
-    },
-    { value: 'off', label: 'Off' }
+    { value: 'weekly', label: 'Weekly', description: 'A concise update every Friday.' },
+    { value: 'monthly', label: 'Monthly', description: 'The highlights, once a month.' },
+    { value: 'off', label: 'Off', disabled: true }
   ]}
 />;
 ```
 
+`variant='list'` shows compact rows; `cards` makes each option a bordered card. For custom layouts, compose `RadioGroupRoot` and `RadioGroupItem` with the Field parts.
+
 ## Accessibility
 
-Fieldset and legend name the group. Native radio navigation, disabled behavior, required validation and form submission are retained.
-
-## Examples
-
-DeliveryFrequency, ChoiceCards, Disabled in Storybook. All examples support light and dark themes.
+A fieldset and legend name the group. Arrow keys move the selection and skip disabled options, and `name` and `required` take part in native form submission.

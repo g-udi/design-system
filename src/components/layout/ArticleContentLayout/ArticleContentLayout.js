@@ -10,6 +10,24 @@ const prosePadding = {
   'md': 'pt-8 pb-8'
 };
 
+/**
+ * Article body grid with an optional aside (usually the table of contents).
+ *
+ * @param {Object} props - Component props
+ * @param {React.ReactNode} props.children - Article prose
+ * @param {React.ReactNode} [props.aside] - Supporting column content
+ * @param {boolean} [props.hasAside=Boolean(aside)] - Reserve the aside column
+ * @param {boolean} [props.collapsibleAside=false] - Add a show/hide toggle above the aside
+ * @param {boolean} [props.asideOpen] - Controlled aside visibility
+ * @param {boolean} [props.defaultAsideOpen=true] - Initial visibility when uncontrolled
+ * @param {Function} [props.onAsideOpenChange] - Called with the next visibility
+ * @param {boolean} [props.showAsideToggleControl=true] - Render the built-in toggle
+ * @param {string} [props.asideToggleLabel='Table of contents'] - Toggle accessible name suffix
+ * @param {'md'|'lg'} [props.padding='md'] - Vertical prose padding
+ * @param {string} [props.className] - Root classes
+ * @param {string} [props.contentClassName] - Prose container classes
+ * @returns {JSX.Element} Article layout
+ */
 const ArticleContentLayout = ({
   aside,
   asideToggleLabel = 'Table of contents',
@@ -40,28 +58,28 @@ const ArticleContentLayout = ({
     <div className={ cn('pb-8', className) }>
       <div
         className={ cn(
-          'flex flex-col divide-y divide-gray-200 dark:divide-gray-700 lg:grid lg:gap-x-6 lg:divide-y-0', reserveAsideRail ? 'lg:grid-cols-9' : 'lg:grid-cols-1'
+          'flex flex-col divide-y divide-border lg:grid lg:gap-x-6 lg:divide-y-0', reserveAsideRail ? 'lg:grid-cols-9' : 'lg:grid-cols-1'
         ) }
         style={{ 'gridTemplateRows': 'auto 1fr' }}
       >
-        <div className={ cn('order-2 divide-y divide-gray-200 dark:divide-gray-700 lg:order-none lg:row-span-2 lg:pb-0', reserveAsideRail && 'lg:col-span-6') }>
+        <div className={ cn('order-2 lg:order-none lg:row-span-2', reserveAsideRail && 'lg:col-span-6') }>
           <div className={ cn('prose max-w-none dark:prose-invert', prosePadding[padding], contentClassName) }>
             {children}
           </div>
         </div>
         {showAsideRail && reserveAsideRail ? (
-          <div className='order-1 border-b border-gray-100 py-3 dark:border-gray-800 lg:order-none lg:col-span-3 lg:border-b-0 lg:pt-8'>
+          <div className='order-1 border-b border-border py-3 lg:order-none lg:col-span-3 lg:border-b-0 lg:pt-8'>
             {showAsideToggle ? (
               <Button
                 variant='subtle'
-                tone='gray'
+                tone='neutral'
                 size='xs'
                 aria-expanded={ isAsideOpen }
                 aria-label={ `${isAsideOpen ? 'Hide' : 'Show'} ${asideToggleLabel}` }
                 className='gap-2 rounded-sm py-1 text-xs font-medium'
                 onClick={ () => setIsAsideOpen(!isAsideOpen) }
               >
-                <span className={ cn('h-1.5 w-1.5 rounded-full transition-colors', isAsideOpen ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-600') } />
+                <span className={ cn('size-1.5 rounded-full transition-colors', isAsideOpen ? 'bg-accent' : 'bg-border') } />
                 <span>{isAsideOpen ? 'Hide contents' : 'Show contents'}</span>
               </Button>
             ) : null}

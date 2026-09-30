@@ -73,7 +73,7 @@ export const Playground = {
   },
   parameters: {
     docs: {
-      description: { story: 'A release session that installs, tests and pushes, with success, warning, error and muted output in one history. Every control restyles or replays it: `animate` and `typingSpeed` retype the commands, and `size` sets the width and height.' },
+      description: { story: 'A release session that installs, tests and pushes, with success, warning, error and muted output in one history. Every control restyles or replays it: `variant` switches between the dark code surface, a translucent one and the page surface, `animate` and `typingSpeed` retype the commands, and `size` sets the width and height.' },
       source: playgroundSource('Terminal', {
         imports: `import { Terminal } from '@gaudi/design-system';\n\nconst commands = ${JSON.stringify(commands, null, 2)};`,
         attributes: ['commands={commands}', `ariaLabel='${ariaLabel}'`]
@@ -86,27 +86,8 @@ export const Playground = {
     if (args.showHeader) await expect(within(terminal).getByText(args.title)).toBeInTheDocument();
     await waitFor(() => expect(within(terminal).getByText(lastOutput)).toBeInTheDocument(), { timeout: 10000 });
     await expect(terminal.querySelector('pre')).toHaveTextContent(`${args.username}${args.promptSymbol}${commands[0].command}`);
-  }
-};
-
-export const Variants = {
-  parameters: { docs: { description: { story: 'Each `variant` retunes the surface and output tones. `animate={false}` renders the full history at once.' } } },
-  render: () => (
-    <div className='grid gap-4'>
-      {options('variant').map((variant) => (
-        <Terminal key={variant} animate={false} size='sm' commands={commands} title={variant} ariaLabel={`${variant} terminal`} variant={variant} />
-      ))}
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const terminal = (variant) => canvas.getByRole('region', { name: `${variant} terminal` });
-    await expect(terminal('dark')).toHaveClass('bg-gray-950', 'text-gray-100');
-    await expect(terminal('translucent')).toHaveClass('bg-gray-950/90', 'backdrop-blur');
-    await expect(terminal('light')).toHaveClass('bg-white', 'text-gray-950');
-    await expect(line(terminal('dark'), commands[0].output[0].text)).toHaveClass('text-green-300');
-    await expect(line(terminal('light'), commands[0].output[0].text)).toHaveClass('text-green-700');
-    await expect(line(terminal('dark'), lastOutput)).toBeInTheDocument();
+    await expect(terminal).toHaveClass(...terminalVariants({ variant: args.variant, size: args.size, radius: args.radius }).split(' '));
+    await expect(line(terminal, commands[0].output[0].text)).toHaveClass('text-success');
   }
 };
 
@@ -125,6 +106,6 @@ export const LegacyOutputs = {
   play: async ({ canvasElement }) => {
     const terminal = within(canvasElement).getByRole('region', { name: 'Terminal' });
     await expect(terminal.querySelector('pre')).toHaveTextContent('ahmad$pnpm content');
-    await expect(line(terminal, 'Build completed.')).toHaveClass('text-green-300');
+    await expect(line(terminal, 'Build completed.')).toHaveClass('text-success');
   }
 };

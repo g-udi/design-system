@@ -1,4 +1,5 @@
 import { cn } from '../../../utilities/cn';
+import { Kbd as KbdRoot, KbdGroup } from './parts/kbd.jsx';
 
 const keyMap = {
   'alt': '⌥',
@@ -80,36 +81,24 @@ kbdVariants.variants = {
 };
 kbdVariants.defaultVariants = kbdVariantConfig.defaults;
 
-const Kbd = ({ children, className, keys, size, variant }) => {
-  let content = children;
-  let accessibleLabel;
+/** Keys from `keys` ('command,k') render as symbols with a spoken label; `children` render one literal key. */
+const Kbd = ({ children, className, keys, size, variant, ...rest }) => {
   const classes = kbdVariants({ className, size, variant });
 
-  if (keys) {
-    const keyList = keys.split(',').map((key) => key.trim().toLowerCase());
-    const symbols = keyList.map((key) => keyMap[key] || key.toUpperCase());
-    const labels = keyList.map((key) => keyLabelMap[key] || key.charAt(0).toUpperCase() + key.slice(1));
+  if (!keys) return <KbdRoot className={ classes } { ...rest }>{children}</KbdRoot>;
 
-    accessibleLabel = labels.join(' plus ');
+  const keyList = keys.split(',').map((key) => key.trim().toLowerCase());
+  const symbols = keyList.map((key) => keyMap[key] || key.toUpperCase());
+  const label = keyList.map((key) => keyLabelMap[key] || key.charAt(0).toUpperCase() + key.slice(1)).join(' plus ');
 
-    if (symbols.length > 1)
-      return (
-        <span className='inline-flex items-center gap-1' aria-label={ accessibleLabel } role='img'>
-          {symbols.map((symbol, index) => (
-            <kbd key={ `${symbol}-${index}` } className={ classes } aria-hidden='true'>
-              {symbol}
-            </kbd>
-          ))}
-        </span>
-      );
-
-    [ content ] = symbols;
-  }
+  if (symbols.length === 1) return <KbdRoot className={ classes } aria-label={ label } { ...rest }>{symbols[0]}</KbdRoot>;
 
   return (
-    <kbd className={ classes } aria-label={ accessibleLabel }>
-      {content}
-    </kbd>
+    <KbdGroup role='img' aria-label={ label } { ...rest }>
+      {symbols.map((symbol, index) => (
+        <KbdRoot key={ `${symbol}-${index}` } className={ classes } aria-hidden='true'>{symbol}</KbdRoot>
+      ))}
+    </KbdGroup>
   );
 };
 

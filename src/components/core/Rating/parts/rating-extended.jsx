@@ -102,14 +102,12 @@ function Rating({
           )}
           {...control}
         >
-          {/* Background star (empty) */}
           <RegistryIcon
             lucide='StarIcon'
             data-slot='rating-star-empty'
-            className={cn(starVariants({ size }), 'text-ui-muted-foreground')}
+            className={cn(starVariants({ size }), 'text-ui-muted-foreground', starClassName)}
           />
 
-          {/* Filled star */}
           <span
             className='absolute inset-0 overflow-hidden'
             style={{
@@ -121,7 +119,8 @@ function Rating({
               data-slot='rating-star-filled'
               className={cn(
                 starVariants({ size }),
-                'fill-yellow-400 text-yellow-400'
+                'fill-warning text-warning',
+                starClassName
               )}
             />
           </span>
@@ -145,9 +144,9 @@ function Rating({
       {showValue && (
         <span
           data-slot='rating-value'
-          className={cn(valueVariants({ size }), starClassName)}
+          className={valueVariants({ size })}
         >
-          {displayRating.toFixed(1)}
+          {(displayRating ?? 0).toFixed(1)}
         </span>
       )}
     </div>

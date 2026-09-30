@@ -44,22 +44,9 @@ const iconTileVariants = cva(
         lg: '[--icon-tile-size:--spacing(12)] [--icon-tile-icon-size:--spacing(5.5)] [--icon-tile-inset:--spacing(0.75)]',
         xl: '[--icon-tile-size:--spacing(14)] [--icon-tile-icon-size:--spacing(7)] [--icon-tile-inset:--spacing(1)]'
       },
-      /**
-       * `default`: active style radius. `full`: circular.
-       * The plain value is the fallback outside a style scope; the `style-*`
-       * tokens win by specificity inside one, and survive the registry
-       * transform as the single resolved value per generated style.
-       *
-       * Each style token is clamped to a fraction of the tile. A flat radius
-       * is a circle once it reaches half the box, so the soft styles used to
-       * render `xs` (24px) and `sm` (32px) as plain circles and swallow the
-       * `full` variant's meaning. Clamping keeps one corner ratio at every
-       * size instead, so a tile still reads as the same shape when it scales.
-       * Luma and Rhea take the gentler quarter ratio; Maia stays at a third.
-       */
+      /** `default`: the global corner radius, capped at a third of the tile so small tiles keep their shape. `full`: the control radius. */
       radius: {
-        default:
-          '[--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))] [--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))]',
+        default: '[--icon-tile-radius:min(var(--radius-md),calc(var(--icon-tile-size)/3))]',
         full: '[--icon-tile-radius:var(--ds-radius-control)]'
       }
     },

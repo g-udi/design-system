@@ -1,11 +1,17 @@
 # Switch
 
-This Gaudi owner includes **switch**, with **4 practical examples**.
+A toggle for a setting that takes effect immediately, such as notifications or dark mode. Use a Checkbox when the choice is only saved with a form.
 
-Import the documented composition from `@gaudi/design-system/core/Switch`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-switch--switch-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Switch } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Switch label='Email notifications' size='md' checked={enabled} onCheckedChange={setEnabled} />;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`size` is `sm`, `md` or `lg`. For rows with icons and descriptions, compose `SwitchRoot` (sizes `sm`, `default`, `lg`) with the Field parts.
+
+## Accessibility
+
+The control is a `switch` with `aria-checked`, toggled by Space or a click on its label.

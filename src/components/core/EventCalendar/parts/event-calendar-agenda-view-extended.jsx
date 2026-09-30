@@ -53,7 +53,7 @@ function EventCalendarAgendaView({ className, asChild = false, ...props }) {
     });
   const isToday = (day) =>
     getDayKey(day, settings.timeZone) ===
-    getDayKey(/* @__PURE__ */ new Date(), settings.timeZone);
+    getDayKey(new Date(), settings.timeZone);
   const native = viewConfig.scrollbars === 'native';
   const body = (
     <>

@@ -63,7 +63,7 @@ function OverlayCard() {
             <AvatarImage src='https://randomuser.me/api/portraits/men/75.jpg' alt='' />
             <AvatarFallback>NJ</AvatarFallback>
           </Avatar>
-          <RegistryIcon lucide='BadgeCheckIcon' aria-label='Verified' className='absolute -top-1 -right-1 size-4 fill-blue-500 text-white' />
+          <RegistryIcon lucide='BadgeCheckIcon' aria-label='Verified' className='absolute -top-1 -right-1 size-4 fill-info text-info-foreground' />
         </div>
         <div className='min-w-0 flex-1 text-sm'>
           <a href='#' className='block font-medium text-white'>Nick Johnson</a>

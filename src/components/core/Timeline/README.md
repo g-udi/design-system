@@ -1,19 +1,20 @@
 # Timeline
 
-Chronological activity, milestones and audit entries. Items use stable IDs, title, description, time and machine-readable dateTime; custom content stays host-owned.
-
-## Usage
+A dated activity feed or a set of milestones. `Timeline` takes an `items` array and renders an ordered list built from
+the Timeline parts; compose `TimelineRoot`, `TimelineItem`, `TimelineIndicator`, `TimelineSeparator`, `TimelineHeader`,
+`TimelineTitle`, `TimelineDate` and `TimelineContent` directly for steps, horizontal rails or avatars.
 
 ```jsx
 import Timeline from '@gaudi/design-system/core/Timeline';
 
-<Timeline items={activity} />;
+<Timeline
+  label='Editorial activity'
+  items={[{ id: 'published', title: 'Article published', time: '2 days ago', dateTime: '2026-09-27T09:00:00Z', icon: <Icon name='CircleCheck' decorative /> }]}
+/>
 ```
 
-## Accessibility
-
-Renders an ordered list and semantic time elements. Icons are decorative; all meaning is present in text.
-
-## Examples
-
-EditorialActivity, Milestones, LongContent in Storybook. All examples support light and dark themes.
+- Each item needs a stable `id` and a `title`; `description`, `time` with a machine-readable `dateTime`, a decorative `icon`
+  and `children` (actions, quotes, files) are optional.
+- `label` names the list. Icons are decorative, so keep the meaning in the text.
+- `TimelineRoot` tracks the active step (`value`, `defaultValue`, `onValueChange`, `orientation`); `TimelineRoot`,
+  `TimelineItem` and `TimelineTitle` accept `asChild` to render your own element, such as `<ol>`, `<li>` or a heading level.

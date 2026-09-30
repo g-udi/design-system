@@ -1,11 +1,18 @@
 # Pill
 
-This Gaudi owner includes **badge**, with **4 practical examples**.
+A small label for a status, category, tag or count. Use `Pill` when you want a named tone (`blue`, `green`, `amber`…) with a
+`variant` for emphasis; use `Badge` when you compose with the semantic variants (`success-light`, `destructive-outline`…).
+Both render the same Badge element, and Pill tones read from the shared Button tone scale, so they switch with the theme.
 
-Import the documented composition from `@gaudi/design-system/core/Pill`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Badge, Pill } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-pill--badge-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Pill tone='green' variant='soft' size='sm' pulse>Live</Pill>
+<Pill href='/blog/tags/tokens' tone='gray' variant='soft'>#tokens</Pill>
+<Badge variant='success-light'>Shipped</Badge>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- `tone`: `blue` (default), `green`, `amber`, `red`, `indigo`, `teal`, `rose`, `neutral`, `gray`; `yellow` is an alias of `amber`.
+- `variant`: `solid` (default), `soft`, `outline`, `ghost`, `subtle`. `size`: `xs`, `sm`, `md` (default), `lg`. `radius`: `sm` (default), `md`, `full`.
+- `href` renders a link with a comfortable hit target; `icon` adds a decorative leading icon; `pulse` adds a decorative live dot, so keep the meaning in the text.
+- `BadgeRoot` and `badgeVariantsPrimitive` are kept as aliases of `Badge` and `badgeVariants`.

@@ -71,5 +71,8 @@ export const Playground = {
     await userEvent.click(canvas.getByRole('button', { name: 'Next' }));
     await expect(args.onDateChange).toHaveBeenCalled();
     await expect(args.onDateChange.mock.lastCall[0].getTime()).toBeGreaterThan(today.getTime());
+    // Step back so the preview ends on the seeded schedule.
+    await userEvent.click(canvas.getByRole('button', { name: 'Previous' }));
+    await expect(args.onDateChange.mock.lastCall[0].getTime()).toBeLessThanOrEqual(today.getTime());
   }
 };

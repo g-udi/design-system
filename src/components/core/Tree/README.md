@@ -1,11 +1,21 @@
 # Tree
 
-This Gaudi owner includes **tree**, with **3 practical examples**.
+An expandable hierarchy such as a file explorer, an org chart or nested permissions. Use it when readers need to open branches and pick items; use `Accordion` for a flat list of sections.
 
-Import the documented composition from `@gaudi/design-system/core/Tree`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { useTree } from '@headless-tree/react';
+import { selectionFeature, syncDataLoaderFeature } from '@headless-tree/core';
+import { Tree, TreeItem, TreeItemLabel } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-tree--tree-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+const tree = useTree({ rootItemId: 'root', dataLoader, getItemName, isItemFolder, features: [syncDataLoaderFeature, selectionFeature] });
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Tree tree={tree} indent={20}>
+  {tree.getItems().map((item) => (
+    <TreeItem key={item.getId()} item={item}>
+      <TreeItemLabel />
+    </TreeItem>
+  ))}
+</Tree>
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+Headless Tree owns state, selection and keyboard navigation (arrows, Home/End, type-ahead); Gaudi renders the rows. `indent` spaces each level, `toggleIconType` switches the folder chevron for plus and minus, and `TreeDragLine` shows the drop position while dragging. Keep item names stable and announce loading or failed child fetches.

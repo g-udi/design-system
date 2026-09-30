@@ -19,7 +19,7 @@ const across = (orientation) => (orientation === 'vertical' ? 'horizontal' : 've
 const iconSize = (orientation) => (orientation === 'vertical' ? 'md' : 'icon');
 
 export default {
-  title: 'Core/Actions/ButtonGroup',
+  title: 'Core/ButtonGroup',
   id: 'core-buttongroup',
   component: ButtonGroup,
   tags: ['autodocs'],
@@ -68,7 +68,7 @@ export const Playground = {
         <Button variant='outline' size={iconSize(orientation)} aria-label='Previous page' onClick={() => onAction('Previous page')}>
           <RegistryIcon lucide={orientation === 'vertical' ? 'ChevronUpIcon' : 'ChevronLeftIcon'} aria-hidden='true' />
         </Button>
-        <ButtonGroupText className='justify-center border border-ui-border px-3 py-1.5 text-xs text-ui-muted-foreground tabular-nums'>Page 2 of 26</ButtonGroupText>
+        <ButtonGroupText className='justify-center text-xs text-ui-muted-foreground tabular-nums'>Page 2 of 26</ButtonGroupText>
         <Button variant='outline' size={iconSize(orientation)} aria-label='Next page' onClick={() => onAction('Next page')}>
           <RegistryIcon lucide={orientation === 'vertical' ? 'ChevronDownIcon' : 'ChevronRightIcon'} aria-hidden='true' />
         </Button>

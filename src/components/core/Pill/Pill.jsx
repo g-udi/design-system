@@ -2,100 +2,32 @@ import Link from 'next/link';
 
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
+import { buttonToneAliases, canonicalButtonToneClasses } from '../Button/Button.tones';
+import { Badge } from './parts/badge-extended.jsx';
 
-const semanticToneClasses = {
-  'amber': {
-    'ghost': 'text-warning hover:bg-warning-subtle',
-    'outline': 'border-warning-border text-warning hover:bg-warning-subtle',
-    'soft': 'bg-warning-subtle text-warning hover:bg-warning-muted',
-    'solid': 'bg-warning text-warning-foreground hover:brightness-95',
-    'subtle': 'text-warning hover:bg-warning-subtle'
-  },
-  'blue': {
-    'ghost': 'text-accent hover:bg-accent-subtle',
-    'outline': 'border-accent-muted text-accent hover:bg-accent-subtle',
-    'soft': 'bg-accent-subtle text-accent hover:bg-accent-muted',
-    'solid': 'bg-accent text-accent-foreground hover:bg-accent-dark',
-    'subtle': 'text-accent hover:bg-accent-subtle'
-  },
-  'gray': {
-    'ghost': 'text-text-muted hover:bg-surface-muted hover:text-foreground',
-    'outline': 'border-border text-text-muted hover:bg-surface-muted hover:text-foreground',
-    'soft': 'bg-surface-muted text-text-muted hover:bg-border-muted dark:hover:bg-surface-muted',
-    'solid': 'bg-foreground text-text-inverse hover:bg-text-muted dark:bg-text dark:text-surface',
-    'subtle': 'text-text-muted hover:bg-surface-muted hover:text-foreground'
-  },
-  'green': {
-    'ghost': 'text-success hover:bg-success-subtle',
-    'outline': 'border-success-border text-success hover:bg-success-subtle',
-    'soft': 'bg-success-subtle text-success hover:bg-success-muted',
-    'solid': 'bg-success text-success-foreground hover:brightness-95',
-    'subtle': 'text-success hover:bg-success-subtle'
-  },
-  'indigo': {
-    'ghost': 'text-info hover:bg-info-subtle',
-    'outline': 'border-info-border text-info hover:bg-info-subtle',
-    'soft': 'bg-info-subtle text-info hover:bg-info-muted',
-    'solid': 'bg-info text-info-foreground hover:brightness-95',
-    'subtle': 'text-info hover:bg-info-subtle'
-  },
-  'neutral': {
-    'ghost': 'text-foreground hover:bg-surface-muted',
-    'outline': 'border-border text-foreground hover:bg-surface-muted',
-    'soft': 'bg-surface-muted text-foreground hover:bg-border-muted dark:hover:bg-surface-muted',
-    'solid': 'bg-foreground text-text-inverse hover:bg-text-muted dark:bg-text dark:text-surface',
-    'subtle': 'text-text-muted hover:bg-surface-muted hover:text-foreground'
-  },
-  'red': {
-    'ghost': 'text-danger hover:bg-danger-subtle',
-    'outline': 'border-danger-border text-danger hover:bg-danger-subtle',
-    'soft': 'bg-danger-subtle text-danger hover:bg-danger-muted',
-    'solid': 'bg-danger text-danger-foreground hover:brightness-95',
-    'subtle': 'text-danger hover:bg-danger-subtle'
-  },
-  'rose': {
-    'ghost': 'text-attention hover:bg-attention-subtle',
-    'outline': 'border-attention-border text-attention hover:bg-attention-subtle',
-    'soft': 'bg-attention-subtle text-attention hover:bg-attention-muted',
-    'solid': 'bg-attention text-attention-foreground hover:brightness-95',
-    'subtle': 'text-attention hover:bg-attention-subtle'
-  },
-  'teal': {
-    'ghost': 'text-discovery hover:bg-discovery-subtle',
-    'outline': 'border-discovery-border text-discovery hover:bg-discovery-subtle',
-    'soft': 'bg-discovery-subtle text-discovery hover:bg-discovery-muted',
-    'solid': 'bg-discovery text-discovery-foreground hover:brightness-95',
-    'subtle': 'text-discovery hover:bg-discovery-subtle'
-  },
-  'yellow': {
-    'ghost': 'text-warning hover:bg-warning-subtle',
-    'outline': 'border-warning-border text-warning hover:bg-warning-subtle',
-    'soft': 'bg-warning-subtle text-warning hover:bg-warning-muted',
-    'solid': 'bg-warning text-warning-foreground hover:brightness-95',
-    'subtle': 'text-warning hover:bg-warning-subtle'
-  }
+const toneNames = [ 'amber', 'blue', 'gray', 'green', 'indigo', 'neutral', 'red', 'rose', 'teal', 'yellow' ];
+
+// Gray is the quiet metadata tone: muted text in every variant except solid.
+const grayClasses = {
+  'ghost': 'text-text-muted hover:bg-surface-muted hover:text-foreground',
+  'outline': 'border-border text-text-muted hover:bg-surface-muted hover:text-foreground',
+  'soft': 'bg-surface-muted text-text-muted hover:bg-ui-secondary',
+  'solid': canonicalButtonToneClasses.neutral.solid,
+  'subtle': 'text-text-muted hover:bg-surface-muted hover:text-foreground'
 };
 
-const compoundVariants = Object.entries(semanticToneClasses).flatMap(([ tone, variants ]) => (
-  Object.entries(variants).map(([ variant, className ]) => ({ className, tone, variant }))
-));
-
-const dotToneClasses = {
-  'amber': 'bg-warning',
-  'blue': 'bg-accent',
-  'gray': 'bg-text-muted',
-  'green': 'bg-success',
-  'indigo': 'bg-info',
-  'neutral': 'bg-foreground',
-  'red': 'bg-danger',
-  'rose': 'bg-attention',
-  'teal': 'bg-discovery',
-  'yellow': 'bg-warning'
+// Pill shares the Button tone scale; `subtle` is the ghost treatment because a pill keeps its padding.
+const toneClasses = (tone, variant) => {
+  if (tone === 'gray') return grayClasses[variant];
+  const classes = canonicalButtonToneClasses[buttonToneAliases[tone] || tone];
+  return variant === 'subtle' ? classes.ghost : classes[variant];
 };
+
+const variantNames = [ 'ghost', 'outline', 'soft', 'solid', 'subtle' ];
 
 export const pillVariants = createVariants({
-  'base': 'my-1 mr-1 inline-flex select-none items-center gap-1 whitespace-nowrap font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-gray-950',
-  compoundVariants,
+  'base': 'my-1 mr-1 select-none gap-1 transition-colors duration-200',
+  'compoundVariants': toneNames.flatMap((tone) => variantNames.map((variant) => ({ 'className': toneClasses(tone, variant), tone, variant }))),
   'defaultVariants': {
     'radius': 'sm',
     'size': 'md',
@@ -114,40 +46,29 @@ export const pillVariants = createVariants({
       'sm': 'px-2 py-0.5 text-xs leading-4',
       'xs': 'px-1.5 py-px text-xs leading-4'
     },
-    'tone': {
-      'amber': '',
-      'blue': '',
-      'gray': '',
-      'green': '',
-      'indigo': '',
-      'neutral': '',
-      'red': '',
-      'rose': '',
-      'teal': '',
-      'yellow': ''
-    },
+    'tone': Object.fromEntries(toneNames.map((tone) => [ tone, '' ])),
     'variant': {
-      'ghost': '',
+      'ghost': 'border-0',
       'outline': 'border',
-      'soft': '',
-      'solid': '',
-      'subtle': ''
+      'soft': 'border-0',
+      'solid': 'border-0',
+      'subtle': 'border-0'
     }
   }
 });
 
-export const pillTones = Object.keys(pillVariants.variants.tone);
+export const pillTones = toneNames;
 export const pillSizes = Object.keys(pillVariants.variants.size);
 
-const PulseDot = ({ tone }) => (
+// The live dot takes the pill's text colour, so it stays visible on every variant.
+const PulseDot = () => (
   <span className='relative flex size-1.5' aria-hidden='true'>
-    <span className={ cn('absolute inline-flex size-full animate-ping rounded-full opacity-75', dotToneClasses[tone] || dotToneClasses.blue) }
-    />
-    <span className={ cn('relative inline-flex size-1.5 rounded-full', dotToneClasses[tone] || dotToneClasses.blue) }
-    />
+    <span className='absolute inline-flex size-full animate-ping rounded-full bg-current opacity-75' />
+    <span className='relative inline-flex size-1.5 rounded-full bg-current' />
   </span>
 );
 
+/** A compact status, category, or tag label on the Badge element, with named tones and an optional link. */
 const Pill = ({
   children,
   className,
@@ -159,25 +80,20 @@ const Pill = ({
   tone = 'blue',
   variant
 }) => {
-  const classes = pillVariants({ className, radius, size, tone, variant });
   const content = (
     <>
-      {pulse ? <PulseDot tone={ tone } /> : null}
+      {pulse ? <PulseDot /> : null}
       {icon ? <span aria-hidden='true'>{icon}</span> : null}
       <span>{children}</span>
     </>
   );
+  const classes = cn(pillVariants({ radius, size, tone, variant }), href && 'ds-control-hit-target', className);
 
-  if (href) return (
-    <Link href={ href } className={ cn(classes, 'ds-control-hit-target relative') }>
-      {content}
-    </Link>
-  );
-
+  // Badge's own size and radius scales are switched off; the pill scale above replaces them.
   return (
-    <span className={ classes }>
-      {content}
-    </span>
+    <Badge variant={ null } size={ null } radius={ null } data-variant={ variant || 'solid' } asChild={ Boolean(href) } className={ classes }>
+      {href ? <Link href={ href }>{content}</Link> : content}
+    </Badge>
   );
 };
 

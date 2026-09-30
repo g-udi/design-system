@@ -30,7 +30,7 @@ function wasRecentDrag() {
 function markGestureEnd() {
   lastGestureEndedAt = performance.now();
 }
-const activeGestureCancels = /* @__PURE__ */ new Set();
+const activeGestureCancels = new Set();
 function cancelActiveGanttGestures() {
   for (const cancel of [...activeGestureCancels]) cancel();
 }

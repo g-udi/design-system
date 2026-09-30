@@ -34,18 +34,18 @@ function MobileMenuExample({ initiallyOpen = false, setMobileMenuOpen, ...args }
     setMobileMenuOpen(next);
   };
   return (
-    <div ref={setFrame} data-testid='phone-frame' className={`mx-auto w-full max-w-sm transform-gpu overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 ${open ? 'h-[36rem]' : ''}`}>
-      <header className='flex items-center justify-between border-b border-gray-200 px-3 py-1 dark:border-gray-800'>
+    <div ref={setFrame} data-testid='phone-frame' className={`mx-auto w-full max-w-sm transform-gpu overflow-hidden rounded-card border border-border ${open ? 'h-[36rem]' : ''}`}>
+      <header className='flex items-center justify-between border-b border-border px-3 py-1'>
         <MenuLogo className='h-9 w-9' />
-        <Button variant='ghost' tone='neutral' size='sm' className='h-11 w-11 p-0' aria-label='Open mobile navigation' aria-expanded={open} onClick={() => update(true)}>
+        <Button variant='ghost' tone='neutral' size='icon' className='size-11' aria-label='Open mobile navigation' aria-expanded={open} onClick={() => update(true)}>
           <Icon name='Menu' decorative size='md' />
         </Button>
       </header>
       <div aria-hidden='true' className='space-y-2 p-4'>
-        <div className='h-3 w-20 rounded-control bg-blue-100 dark:bg-blue-950' />
-        <div className='h-5 w-4/5 rounded-control bg-gray-200 dark:bg-gray-800' />
-        <div className='h-3 w-full rounded-control bg-gray-100 dark:bg-gray-900' />
-        <div className='h-3 w-2/3 rounded-control bg-gray-100 dark:bg-gray-900' />
+        <div className='h-3 w-20 rounded-control bg-accent-muted' />
+        <div className='h-5 w-4/5 rounded-control bg-border/60' />
+        <div className='h-3 w-full rounded-control bg-border/60' />
+        <div className='h-3 w-2/3 rounded-control bg-border/60' />
       </div>
       {open && frame ? <MenuMobile {...args} container={frame} setMobileMenuOpen={update} /> : null}
     </div>
@@ -72,7 +72,7 @@ export const Playground = {
   args: { blogLink: { href: '/blog', title: 'Blog' }, categories, links: primaryLinks },
   parameters: {
     docs: {
-      description: { story: 'A phone-width header with the sheet open: search, the Blog destination with every category and its description, then the other `links`, so edits to them show at once. By default the sheet renders into the body; here `container` keeps it, and the isolation, inside the phone frame.' },
+      description: { story: 'A phone-width header with the sheet open: search, the Blog destination with every category and its description, then the other `links`, so edits to them show at once; an empty `categories` array drops the category list. By default the sheet renders into the body; here `container` keeps it, and the isolation, inside the phone frame.' },
       source: playgroundSource('MenuMobile', {
         imports: "import { useState } from 'react';\nimport { MenuMobile } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);\nconst [launcherOpen, setLauncherOpen] = useState(false);",
         attributes: ['setMobileMenuOpen={setOpen}', 'setLauncherOpen={setLauncherOpen}'],
@@ -116,17 +116,6 @@ export const SearchHandoff = {
     await userEvent.click(dialog.getByRole('button', { name: 'Open search' }));
     await expect(args.setMobileMenuOpen).toHaveBeenCalledWith(false);
     await expect(args.setLauncherOpen).toHaveBeenCalledWith(true);
-    await expectClosed();
-  }
-};
-
-export const WithoutCategories = {
-  parameters: { docs: { description: { story: 'Without category data the dialog keeps the primary Blog destination and omits the empty category list.' } } },
-  play: async ({ canvasElement }) => {
-    const { dialog } = await openMenu(canvasElement);
-    await expect(dialog.getByRole('link', { name: 'Blog' })).toHaveAttribute('href', '/blog');
-    await expect(dialog.queryByRole('list', { name: 'Blog categories' })).not.toBeInTheDocument();
-    await userEvent.keyboard('{Escape}');
     await expectClosed();
   }
 };

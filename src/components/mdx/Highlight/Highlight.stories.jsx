@@ -36,7 +36,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <p className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <p className='text-base leading-7 text-text'>
       What makes a knowledge graph different is that <Highlight>{fixed}</Highlight>, and <Highlight {...args} />. A relational schema
       stores the same facts, but it hides those relationships inside foreign keys.
     </p>

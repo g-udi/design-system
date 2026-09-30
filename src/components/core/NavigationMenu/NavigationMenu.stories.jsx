@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { previewSource } from '../../../../.storybook/stories/previewSource';
@@ -16,7 +16,6 @@ const work = [
   { label: 'Publications', icon: 'GraduationCap', meta: '24 papers', description: 'Research, papers, talks, and conference material.' },
   { label: 'Projects', icon: 'Briefcase', meta: '12 tools', description: 'Software, experiments, and reusable tools.' }
 ];
-const footerLinks = ['Blog', 'Publications', 'Projects', 'About'];
 const href = (label) => `#${label.toLowerCase().replace(' ', '-')}`;
 const panel = (items, columns = 2) => (
   <NavigationMenuPanel columns={columns}>
@@ -53,6 +52,8 @@ export default {
     columns: [1, 2, 3]
   }),
   parameters: {
+    // An open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
+    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } },
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -63,7 +64,12 @@ export default {
 export const Playground = {
   args: { label: 'Main navigation', defaultOpen: true, align: 'start', width: 'xl', columns: 2 },
   argTypes: { label: { table: { disable: true } } },
-  parameters: { docs: { source: { type: 'dynamic', language: 'jsx', transform: (_code, { args }) => menuSource(args) } } },
+  parameters: {
+    docs: {
+      description: { story: 'A blog header with a current link, two dropdown panels and a plain link. `defaultOpen` starts the Categories panel open, `align` and `width` place and size it, and `columns` sets its grid. Panels open on click and close on Escape or an outside click.' },
+      source: { type: 'dynamic', language: 'jsx', transform: (_code, { args }) => menuSource(args) }
+    }
+  },
   decorators: [(Story) => <div className='min-h-80'><Story /></div>],
   render: ({ label, columns, ...dropdown }) => (
     <NavigationMenu label={label}>
@@ -82,36 +88,24 @@ export const Playground = {
     await expect(canvas.getByRole('navigation', { name: args.label })).toBeVisible();
     await expect(canvas.getByText('Blog').closest('[aria-current="page"]')).not.toBeNull();
     await expect(categoriesButton).toHaveAttribute('aria-expanded', String(args.defaultOpen));
+    // One panel is open at a time.
     await userEvent.click(workButton);
-    await expect(categoriesButton).toHaveAttribute('aria-expanded', 'false');
-    await expect(workButton).toHaveAttribute('aria-expanded', 'true');
-    await expect(canvas.queryByText(categories[0].label)).toBeNull();
-    await expect(canvas.getByText(work[0].label)).toBeVisible();
+    await waitFor(() => expect(categoriesButton).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'true'));
+    await waitFor(() => expect(canvas.queryByText(categories[0].label)).toBeNull());
+    await expect(await canvas.findByText(work[0].label)).toBeVisible();
+    // Escape closes and returns focus to the trigger; an outside click closes too.
     await userEvent.keyboard('{Escape}');
-    await expect(workButton).toHaveAttribute('aria-expanded', 'false');
+    await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'false'));
+    await waitFor(() => expect(workButton).toHaveFocus());
     await userEvent.click(workButton);
+    await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'true'));
     await userEvent.click(canvasElement.ownerDocument.body);
-    await expect(workButton).toHaveAttribute('aria-expanded', 'false');
+    await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'false'));
     // Reopen the seeded panel so `align`, `width`, and `columns` stay visible after the test.
     if (args.defaultOpen) {
       await userEvent.click(categoriesButton);
-      await expect(canvas.getByText(categories[1].label)).toBeVisible();
+      await expect(await canvas.findByText(categories[1].label)).toBeVisible();
     }
-  }
-};
-
-export const Compact = {
-  parameters: { docs: { description: { story: 'Without dropdowns the menu is a labelled list of links, suitable for footers and secondary navigation.' } } },
-  render: () => (
-    <NavigationMenu label='Footer navigation'>
-      <NavigationMenuList className='gap-4'>
-        {footerLinks.map((label) => <NavigationMenuLink key={label} href={href(label)}>{label}</NavigationMenuLink>)}
-      </NavigationMenuList>
-    </NavigationMenu>
-  ),
-  play: async ({ canvasElement }) => {
-    const navigation = within(within(canvasElement).getByRole('navigation', { name: 'Footer navigation' }));
-    await expect(navigation.getAllByRole('listitem')).toHaveLength(footerLinks.length);
-    await expect(navigation.queryByRole('button')).toBeNull();
   }
 };

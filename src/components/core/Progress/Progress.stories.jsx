@@ -16,7 +16,7 @@ const tasks = [
 ];
 
 export default {
-  title: 'Core/Data Display/Progress', id: 'core-progress',
+  title: 'Core/Progress', id: 'core-progress',
   component: Progress,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { label: 'text', value: 'number', max: 'number', valueText: 'text', tone: tones }),
@@ -45,14 +45,14 @@ export const Playground = {
   ),
   play: async ({ args, canvasElement }) => {
     const progress = bar(canvasElement, args.label);
-    const root = progress.closest('.ds-progress');
+    const root = progress.closest('[data-tone]');
     const limit = args.max > 0 ? args.max : 100;
-    await expect(progress).toHaveAttribute('max', String(limit));
-    await expect(progress).toHaveAttribute('value', String(Math.min(limit, Math.max(0, args.value))));
+    await expect(progress).toHaveAttribute('aria-valuemax', String(limit));
+    await expect(progress).toHaveAttribute('aria-valuenow', String(Math.min(limit, Math.max(0, args.value))));
     await expect(progress).toHaveAttribute('aria-valuetext', args.valueText);
     await expect(within(root).getByText(args.valueText)).toBeVisible();
     await expect(root).toHaveAttribute('data-tone', args.tone);
-    for (const task of tasks) await expect(bar(canvasElement, task.label).closest('.ds-progress')).toHaveAttribute('data-tone', task.tone);
+    for (const task of tasks) await expect(bar(canvasElement, task.label).closest('[data-tone]')).toHaveAttribute('data-tone', task.tone);
   }
 };
 
@@ -60,6 +60,8 @@ export const Indeterminate = {
   parameters: { docs: { description: { story: 'Omit `value` when the amount of work is unknown. The bar stays indeterminate instead of inventing a percentage.' } } },
   render: () => <Progress label='Preparing the export' valueText='Please wait' />,
   play: async ({ canvasElement }) => {
-    await expect(bar(canvasElement, 'Preparing the export')).not.toHaveAttribute('value');
+    const progress = bar(canvasElement, 'Preparing the export');
+    await expect(progress).not.toHaveAttribute('aria-valuenow');
+    await expect(progress).toHaveAttribute('data-state', 'indeterminate');
   }
 };

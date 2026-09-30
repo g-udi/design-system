@@ -14,5 +14,5 @@ test('Timeline preserves its server-rendered public contract', async () => {
   );
   assert.match(html, /<ol/);
   assert.match(html, /aria-label="History"/);
-  assert.match(html, /<time dateTime="2026-09-29"/);
+  assert.match(html, /<time[^>]*dateTime="2026-09-29"/);
 });

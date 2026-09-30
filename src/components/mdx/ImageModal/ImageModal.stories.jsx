@@ -44,13 +44,13 @@ function Gallery({ isOpen, onClose, ...featured }) {
         <figure key={figure.alt} className='min-w-0'>
           <button
             type='button'
-            className='block w-full overflow-hidden rounded-lg border border-gray-200 bg-white p-1 transition sm:p-2 hover:border-gray-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-gray-800 dark:bg-gray-900'
+            className='block w-full overflow-hidden rounded-lg border border-border bg-surface p-1 transition sm:p-2 hover:border-text-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
             aria-label={`Open image: ${figure.alt}`}
             onClick={() => setOpen(index)}
           >
             <img src={figure.src} alt='' className='aspect-[4/3] w-full object-contain' />
           </button>
-          <figcaption className='mt-2 text-xs leading-4 text-gray-600 sm:text-sm sm:leading-5 dark:text-gray-400'>{figure.caption}</figcaption>
+          <figcaption className='mt-2 text-xs leading-4 text-text-muted sm:text-sm sm:leading-5'>{figure.caption}</figcaption>
         </figure>
       ))}
       {figures.map((figure, index) => <ImageModal key={figure.alt} {...figure} isOpen={open === index} onClose={close} />)}

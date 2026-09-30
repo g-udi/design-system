@@ -24,6 +24,7 @@ import {
 import {
   arrayMove,
   defaultAnimateLayoutChanges,
+  horizontalListSortingStrategy,
   rectSortingStrategy,
   SortableContext,
   sortableKeyboardCoordinates,
@@ -65,7 +66,7 @@ const MEASURING_CONFIG = {
   droppable: { strategy: MeasuringStrategy.Always }
 };
 const STRATEGY_MAP = {
-  horizontal: rectSortingStrategy,
+  horizontal: horizontalListSortingStrategy,
   grid: rectSortingStrategy,
   vertical: verticalListSortingStrategy
 };
@@ -144,7 +145,7 @@ function Sortable({
   const itemIds = useMemo(() => {
     const ids = value.map(getItemValue);
     if (process.env.NODE_ENV !== 'production') {
-      const seen = /* @__PURE__ */ new Set();
+      const seen = new Set();
       for (const id of ids) {
         if (seen.has(id)) {
           console.warn(
@@ -255,7 +256,7 @@ function SortableItem({
           data-value={value}
           data-dragging={true}
           aria-hidden='true'
-          className={cn(className)}
+          className={className}
           {...props}
         >
           {children}

@@ -3,13 +3,11 @@
 /**
  * FloatingMenu Component
  *
- * @description Floating/sticky navigation component that appears and disappears based on scroll behavior.
- * This component provides quick access to main navigation links and a "scroll to top" button.
- * Features smooth animations, responsive design, and intelligent scroll-based visibility logic.
- * The menu appears when scrolling up and hides when scrolling down, with a minimum scroll threshold.
+ * @description An inverted pill of site links plus Back to top that slides in when the reader scrolls
+ * back up past 50px and hides again on the way down.
  *
  * @author Ahmad Assaf
- * @version 1.0.0
+ * @version 2.0.0
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -19,33 +17,18 @@ import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import { cn } from '../../../utilities/cn';
 import { useSiteConfig } from '../../../utilities/SiteConfig';
-import styles from './FloatingMenu.module.css';
 
 /**
- * Renders a floating navigation menu with scroll-based visibility
- *
- * @description Simple floating menu that tracks scroll position and direction to show/hide intelligently.
- * Displays main navigation links and a scroll-to-top button. Adapts its styling for both light and dark themes.
- * Mobile responsive with adjusted sizing and spacing.
+ * Renders the scroll-aware quick navigation
  *
  * @param {Object} props - Component props
- * @param {string} [props.className] - Additional CSS classes to apply to the menu container
+ * @param {string} [props.className] - Extra classes for the pill
+ * @param {Array<{ href: string, title: string }>} [props.links] - Destinations; defaults to SiteConfig `navigation.links`
  *
- * @returns {JSX.Element} Floating navigation menu with scroll-based visibility
- *
- * @example
- * // Basic usage
- * <FloatingMenu />
+ * @returns {JSX.Element} The floating navigation
  *
  * @example
- * // With custom styling
- * <FloatingMenu className="custom-floating-menu" />
- *
- * @example
- * // The menu automatically shows/hides based on scroll:
- * // - Hidden when at top of page
- * // - Shows when scrolling up
- * // - Hides when scrolling down
+ * <FloatingMenu links={[{ href: '/blog', title: 'Blog' }]} />
  */
 const FloatingMenu = ({ className, links }) => {
   const { navigation } = useSiteConfig();
@@ -74,14 +57,7 @@ const FloatingMenu = ({ className, links }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  /**
-   * Scrolls the page to the top smoothly
-   *
-   * @description Handler function that smoothly scrolls the page to the top when the
-   * "Back Top" button is clicked. Uses the native window.scrollTo method.
-   *
-   * @returns {void}
-   */
+  // Honour reduced motion when jumping back to the top.
   const handleScrollTop = () => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -89,23 +65,34 @@ const FloatingMenu = ({ className, links }) => {
   };
 
   return (
-    <div
+    <nav
+      aria-label='Quick navigation'
       aria-hidden={ !visible }
       inert={ !visible }
       className={ cn(
-        'fixed left-1/2 top-3 z-[var(--ds-z-nav)] flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center justify-center gap-3 overflow-x-auto rounded-control border border-white/10 bg-black py-1 pl-4 pr-1 text-white shadow-[var(--ds-shadow-floating)] transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none dark:border-black/10 dark:bg-white dark:text-black sm:gap-5 sm:pl-5', styles.menu, visible ? 'opacity-100 translate-y-0' : 'pointer-events-none -translate-y-full opacity-0', className
+        'fixed left-1/2 top-3 z-[var(--ds-z-nav)] flex max-w-[calc(100vw-1.5rem)] -translate-x-1/2 items-center justify-center gap-3 overflow-x-auto rounded-control bg-text py-1 pl-4 pr-1 text-surface shadow-[var(--ds-shadow-floating)] transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none sm:gap-5 sm:pl-5 max-[1100px]:px-4 sm:max-[1100px]:px-5',
+        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-full opacity-0',
+        className
       ) }
     >
-      {navLinks.map((navItem, idx) => (
-        <Link key={ `link=${idx}` } href={ navItem.href } tabIndex={ visible ? undefined : -1 } className={ cn('relative flex min-h-10 shrink-0 items-center text-white hover:text-blue-400 dark:text-black dark:hover:text-blue-600') }>
-          <span className='block text-xs font-medium sm:text-sm'>{navItem.title}</span>
+      {navLinks.map((navItem) => (
+        <Link key={ navItem.href } href={ navItem.href } variant='bare' tabIndex={ visible ? undefined : -1 } className='flex min-h-10 shrink-0 items-center text-xs font-medium hover:opacity-75 sm:text-sm'>
+          {navItem.title}
         </Link>
       ))}
-      <Button variant='outline' tone='neutral' size='xs' tabIndex={ visible ? undefined : -1 } onClick={ () => handleScrollTop() } className={ cn('relative h-10 min-h-10 shrink-0 gap-1.5 rounded-control border-white/35 px-3 py-1.5 text-xs font-medium text-white hover:border-white/50 hover:bg-white/10 hover:text-white dark:border-black/20 dark:text-black dark:hover:border-black/30 dark:hover:bg-black/[0.06] dark:hover:text-black sm:ml-1', styles.backToTop) } aria-label='Back to top'>
+      <Button
+        variant='outline'
+        tone='neutral'
+        size='xs'
+        tabIndex={ visible ? undefined : -1 }
+        onClick={ handleScrollTop }
+        className='h-10 shrink-0 gap-1.5 rounded-control border-surface/35 px-3 text-surface hover:border-surface/50 hover:bg-surface/10 sm:ml-1 max-[1100px]:hidden'
+        aria-label='Back to top'
+      >
         <Icon name='ArrowUpCircle' size='sm' decorative />
         <span className='max-sm:hidden'>Back to top</span>
       </Button>
-    </div>
+    </nav>
   );
 };
 

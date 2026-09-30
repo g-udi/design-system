@@ -37,7 +37,7 @@ const roster = [
 const [, , initialsPerson, guest] = roster;
 
 export default {
-  title: 'Core/Data Display/Avatar',
+  title: 'Core/Avatar',
   id: 'core-avatar',
   component: Avatar,
   tags: ['autodocs'],
@@ -111,7 +111,7 @@ export const Indicators = {
     <div className='flex flex-wrap items-center gap-6'>
       {indicators.map((indicator) => <Avatar key={indicator.label} {...maya} size='lg' shape='circle' indicator={indicator} />)}
       <Avatar {...alex} size='lg' shape='circle' aria-label={`${alex.name}, online, 3 unread messages`} indicator={indicators[0]}>
-        <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-red-600 text-xs text-white' aria-hidden='true'>3</AvatarBadge>
+        <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-danger text-xs text-danger-foreground' aria-hidden='true'>3</AvatarBadge>
       </Avatar>
     </div>
   ),
@@ -162,7 +162,7 @@ function ImageRecoveryExample() {
     <div className='grid justify-items-start gap-4'>
       <div className='flex items-center gap-4'>
         <Avatar name={maya.name} src={source} size='xl' shape='tile' tone={maya.tone} onLoadingStatusChange={setStatus} />
-        <p role='status' className='text-sm text-ui-muted-foreground'>
+        <p role='status' className='text-sm text-text-muted'>
           {{ loaded: 'Image loaded', error: 'Image unavailable, initials shown' }[status] ?? 'Loading image, initials shown'}
         </p>
       </div>

@@ -16,7 +16,7 @@ const strokeWidths = [1, 1.5, 2, 2.5, 3];
 const svgs = (canvasElement) => Array.from(canvasElement.querySelectorAll('svg'));
 
 export default {
-  title: 'Core/Data Display/Icon',
+  title: 'Core/Icon',
   id: 'core-icon',
   component: Icon,
   tags: ['autodocs'],

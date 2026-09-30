@@ -22,7 +22,7 @@ const upNext = [
 const frame = 'overflow-hidden rounded-xl border border-ui-border bg-ui-muted';
 
 export default {
-  title: 'Core/Layout & Containers/AspectRatio',
+  title: 'Core/AspectRatio',
   id: 'core-aspectratio',
   component: AspectRatio,
   tags: ['autodocs'],
@@ -57,9 +57,9 @@ export const Playground = {
       <figure className={`mx-auto flex w-full flex-col gap-2 ${args.ratio < 1 ? 'max-w-56' : ''}`}>
         <AspectRatio {...args} className={`${frame} relative`}>
           <img src={cover.src} alt='' className='size-full object-cover' />
-          <span className='absolute top-2 left-2 rounded-md bg-black/60 px-1.5 py-0.5 text-xs font-medium text-white tabular-nums'>{labelOf(args.ratio)}</span>
-          <span className='absolute right-2 bottom-2 rounded-md bg-black/60 px-1.5 py-0.5 text-xs text-white tabular-nums'>{cover.duration}</span>
-          <span className='absolute inset-0 m-auto flex size-11 items-center justify-center rounded-full bg-white/90 text-black shadow-md'>
+          <span className='absolute top-2 left-2 rounded-md bg-surface-dark/70 px-1.5 py-0.5 text-xs font-medium text-text-inverse tabular-nums'>{labelOf(args.ratio)}</span>
+          <span className='absolute right-2 bottom-2 rounded-md bg-surface-dark/70 px-1.5 py-0.5 text-xs text-text-inverse tabular-nums'>{cover.duration}</span>
+          <span className='absolute inset-0 m-auto flex size-11 items-center justify-center rounded-full bg-surface/90 text-text shadow-md'>
             <RegistryIcon lucide='PlayIcon' className='size-5 fill-current' />
           </span>
         </AspectRatio>
@@ -75,7 +75,7 @@ export const Playground = {
             <li key={item.title} className='flex min-w-0 flex-col gap-1'>
               <AspectRatio ratio={shelfRatio} className={`${frame} relative`}>
                 <img src={item.src} alt='' className='size-full object-cover' />
-                <span className='absolute right-1.5 bottom-1.5 rounded bg-black/60 px-1 text-xs text-white tabular-nums'>{item.duration}</span>
+                <span className='absolute right-1.5 bottom-1.5 rounded bg-surface-dark/70 px-1 text-xs text-text-inverse tabular-nums'>{item.duration}</span>
               </AspectRatio>
               <span className='truncate text-xs text-ui-foreground'>{item.title}</span>
             </li>

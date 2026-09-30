@@ -1,11 +1,23 @@
 # Scrollspy
 
-This Gaudi owner includes **scrollspy**, with **1 practical examples**.
+Highlights the link for the section currently in view and scrolls to a section when its link is clicked. Use it for a table of contents beside a long document or a scrollable panel.
 
-Import the documented composition from `@gaudi/design-system/core/Scrollspy`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { useRef } from 'react';
+import { ScrollArea, Scrollspy } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-scrollspy--scrollspy-pattern-2) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+const targetRef = useRef(null);
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Scrollspy targetRef={targetRef} offset={44}>
+  <button data-scrollspy-anchor='overview'>Overview</button>
+  <button data-scrollspy-anchor='usage'>Usage</button>
+</Scrollspy>
+<div ref={targetRef}>
+  <ScrollArea className='h-72'>
+    <section id='overview'>…</section>
+    <section id='usage'>…</section>
+  </ScrollArea>
+</div>
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+Each anchor names the id of its section; the active anchor gets `data-active="true"` for styling and `onUpdate` receives its id. `offset` reserves room for a sticky header, `smooth` animates the jump, and `history` (off by default) writes the active section to the URL hash. Point `targetRef` at `document` to follow the page scroll.

@@ -34,18 +34,18 @@ function SearchPlacements({ setOpen }) {
   };
   return (
     <div className='grid gap-3'>
-      <header className='flex items-center gap-4 rounded-xl border border-gray-200 px-3 py-1 dark:border-gray-800'>
+      <header className='flex items-center gap-4 rounded-card border border-border px-3 py-1'>
         <MenuLogo className='h-8 w-8' />
-        <nav aria-label='Header' className='hidden flex-1 gap-4 text-sm font-medium text-gray-700 sm:flex dark:text-gray-300'>
+        <nav aria-label='Header' className='hidden flex-1 gap-4 text-sm font-medium text-text-muted sm:flex'>
           {links.map((link) => <span key={link}>{link}</span>)}
         </nav>
         <MenuSearch className='ml-auto w-44 sm:w-48 lg:w-48 xl:w-48' setOpen={open} />
       </header>
-      <div className='mx-auto flex w-full max-w-sm items-center gap-2 rounded-xl border border-gray-200 p-3 dark:border-gray-800'>
+      <div className='mx-auto flex w-full max-w-sm items-center gap-2 rounded-card border border-border p-3'>
         <MenuSearch className='w-full sm:w-full lg:w-full xl:w-full' setOpen={open} />
-        <span className='flex size-11 shrink-0 items-center justify-center text-gray-500'><Icon name='X' decorative size='sm' /></span>
+        <span className='flex size-11 shrink-0 items-center justify-center text-text-muted'><Icon name='X' decorative size='sm' /></span>
       </div>
-      <p role='status' className='text-center text-xs text-gray-500 dark:text-gray-400'>
+      <p role='status' className='text-center text-xs text-text-muted'>
         {requests ? `Command launcher requested ${requests === 1 ? 'once' : `${requests} times`}` : 'Click either entry or press Enter on it to request the launcher.'}
       </p>
     </div>

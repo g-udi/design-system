@@ -77,25 +77,28 @@ export const Playground = {
   }
 };
 
-export const Loading = {
-  parameters: { docs: { description: { story: '`loading` swaps the rows for skeletons, marks the list busy, and announces a status message.' } } },
-  render: () => <ResourceList label='Recent articles' loading />,
-  play: async ({ canvasElement }) => {
-    const status = within(canvasElement).getByRole('status', { name: 'Loading Recent articles' });
-    await expect(status.parentElement).toHaveAttribute('aria-busy', 'true');
-  }
-};
-
-export const Empty = {
-  parameters: { docs: { description: { story: 'With no items, `emptyTitle` and `emptyDescription` explain the state and suggest the next step.' } } },
+export const States = {
+  parameters: { docs: { description: { story: '`loading` swaps the rows for skeletons, marks the list busy, and announces a status; with no items, `emptyTitle` and `emptyDescription` explain the state and suggest the next step.' } } },
   render: () => (
-    <ResourceList
-      label='Saved articles'
-      emptyTitle='Your reading list is open'
-      emptyDescription='Save an article and come back to it when you have time.'
-    />
+    <div className='grid gap-6 sm:grid-cols-2'>
+      <section className='grid gap-2' aria-label='Loading example'>
+        <p className='ds-description'>Loading</p>
+        <ResourceList label='Recent articles' loading />
+      </section>
+      <section className='grid gap-2' aria-label='Empty example'>
+        <p className='ds-description'>Empty</p>
+        <ResourceList
+          label='Saved articles'
+          emptyTitle='Your reading list is open'
+          emptyDescription='Save an article and come back to it when you have time.'
+        />
+      </section>
+    </div>
   ),
   play: async ({ canvasElement }) => {
-    await expect(within(canvasElement).getByText('Your reading list is open')).toBeVisible();
+    const canvas = within(canvasElement);
+    const status = canvas.getByRole('status', { name: 'Loading Recent articles' });
+    await expect(status.parentElement).toHaveAttribute('aria-busy', 'true');
+    await expect(canvas.getByText('Your reading list is open')).toBeVisible();
   }
 };

@@ -37,7 +37,7 @@ function PublishingChecklist({ onCheckedChange, ...featured }) {
 }
 
 export default {
-  title: 'Core/Inputs/Checkbox',
+  title: 'Core/Checkbox',
   id: 'core-checkbox',
   component: Checkbox,
   tags: ['autodocs'],

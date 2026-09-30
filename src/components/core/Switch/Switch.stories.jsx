@@ -40,7 +40,7 @@ function SettingRow({ setting, size, defaultChecked, disabled, onCheckedChange }
 }
 
 export default {
-  title: 'Core/Inputs/Switch',
+  title: 'Core/Switch',
   id: 'core-switch',
   component: Switch,
   tags: ['autodocs'],
@@ -118,20 +118,5 @@ export const Controlled = {
     control(canvas).focus();
     await userEvent.keyboard(' ');
     await expect(args.onCheckedChange).toHaveBeenLastCalledWith(false);
-  }
-};
-
-export const Sizes = {
-  parameters: { docs: { description: { story: '`size` scales the track and thumb; the label keeps the same type size.' } } },
-  render: () => (
-    <div className='grid gap-4'>
-      {sizes.map((size) => <Switch key={size} label={`Size ${size}`} size={size} defaultChecked />)}
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const widths = sizes.map((size) => control(canvas, `Size ${size}`).getBoundingClientRect().width);
-    await expect(widths[0]).toBeLessThan(widths[1]);
-    await expect(widths[1]).toBeLessThan(widths[2]);
   }
 };

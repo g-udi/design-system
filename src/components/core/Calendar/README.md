@@ -1,11 +1,22 @@
 # Calendar
 
-This Gaudi owner includes **calendar**, **date-selector**, with **11 practical examples**.
+A month grid for picking one date, several dates or a range. Use it inline or inside a Popover for a date field; use `DateSelector` when people filter by day, month, quarter, half-year or year.
 
-Import the documented composition from `@gaudi/design-system/core/Calendar`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Calendar } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-calendar--calendar-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Calendar mode='range' selected={range} onSelect={setRange} numberOfMonths={2} disabled={{ before: new Date() }} />
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- `mode` is `single`, `multiple` or `range`. `disabled` takes dates, ranges or matchers, and `footer` shows a summary under the grid.
+- `captionLayout` switches the header between a label and month or year dropdowns; `showOutsideDays`, `showWeekNumber` and `numberOfMonths` shape the grid.
+- Day cells are squares of `--cell-size` (32px, 40px on touch screens). Set the variable on the calendar to fit custom day content; the month never stretches to fill its container.
+- `CalendarDayButton` is the default day cell, for custom `components.DayButton` renderers.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## DateSelector
+
+`DateSelector` combines an is/before/after/between filter, period tabs and a calendar or period grid, with optional typed input. Pass `value` / `onChange` and translate every string with `i18n`.
+
+## Accessibility
+
+Days are buttons in a grid with the full date as their name. Arrow keys move by day and week, Page Up and Page Down by month, and disabled days cannot be picked.

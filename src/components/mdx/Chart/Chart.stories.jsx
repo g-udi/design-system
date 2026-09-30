@@ -75,7 +75,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <div className='text-base leading-7 text-text'>
       <p>{lead}</p>
       <Chart {...args} data={readers} series={series} ariaLabel='Monthly readers by channel' className='mb-0' />
     </div>
@@ -91,45 +91,48 @@ export const Playground = {
   }
 };
 
-export const PartsOfWhole = {
-  parameters: { docs: { description: { story: '`DonutChart` and `PieChart` read `label` and `value` from each record. Keep them to a few slices.' } } },
-  render: () => (
-    <DonutChart
-      ariaLabel='Content mix by category'
-      title='Content mix'
-      data={[
-        { label: 'Data', value: 42 },
-        { label: 'Engineering', value: 28 },
-        { label: 'Productivity', value: 18 },
-        { label: 'Management', value: 12 }
-      ]}
-    />
-  ),
-  play: async ({ canvasElement }) => expectChart(canvasElement, 'Content mix by category')
-};
+const shapes = [
+  {
+    Component: DonutChart,
+    note: 'DonutChart and PieChart read label and value; keep them to a few slices.',
+    props: {
+      ariaLabel: 'Content mix by category',
+      title: 'Content mix',
+      data: [{ label: 'Data', value: 42 }, { label: 'Engineering', value: 28 }, { label: 'Productivity', value: 18 }, { label: 'Management', value: 12 }]
+    }
+  },
+  {
+    Component: ScatterChart,
+    note: 'ScatterChart plots the two numeric fields named by xKey and yKey.',
+    props: {
+      ariaLabel: 'Post length against read time',
+      title: 'Length and read time',
+      xKey: 'words',
+      yKey: 'minutes',
+      data: [{ words: 800, minutes: 4 }, { words: 1500, minutes: 8 }, { words: 2600, minutes: 14 }, { words: 3400, minutes: 17 }, { words: 4200, minutes: 22 }]
+    }
+  },
+  {
+    Component: RadialBarChart,
+    note: 'RadialBarChart shows one progress measure against a full track.',
+    props: { ariaLabel: 'Read completion progress', title: 'Read completion', data: [{ label: 'Read completion', value: 78 }] }
+  }
+];
 
-export const Scatter = {
-  parameters: { docs: { description: { story: '`ScatterChart` plots two numeric fields, set with `xKey` and `yKey`, to show correlation.' } } },
+export const ChartTypes = {
+  name: 'Part-to-whole, correlation and progress',
+  parameters: { docs: { description: { story: 'The chart types whose data shape differs from the Playground series: a donut for parts of a whole, a scatter for correlation, and a radial bar for one progress measure.' } } },
   render: () => (
-    <ScatterChart
-      ariaLabel='Post length against read time'
-      title='Post length and read time'
-      data={[
-        { words: 800, minutes: 4 },
-        { words: 1500, minutes: 8 },
-        { words: 2600, minutes: 14 },
-        { words: 3400, minutes: 17 },
-        { words: 4200, minutes: 22 }
-      ]}
-      xKey='words'
-      yKey='minutes'
-    />
+    <div className='grid gap-4 sm:grid-cols-3'>
+      {shapes.map(({ Component, note, props }) => (
+        <figure key={props.ariaLabel} className='min-w-0'>
+          <Component {...props} height={220} className='my-0' />
+          <figcaption className='mt-2 text-xs leading-5 text-text-muted'>{note}</figcaption>
+        </figure>
+      ))}
+    </div>
   ),
-  play: async ({ canvasElement }) => expectChart(canvasElement, 'Post length against read time')
-};
-
-export const Radial = {
-  parameters: { docs: { description: { story: '`RadialBarChart` shows one compact progress measure against a full track.' } } },
-  render: () => <RadialBarChart ariaLabel='Read completion progress' title='Read completion' data={[{ label: 'Read completion', value: 78 }]} />,
-  play: async ({ canvasElement }) => expectChart(canvasElement, 'Read completion progress')
+  play: async ({ canvasElement }) => {
+    for (const { props } of shapes) await expectChart(canvasElement, props.ariaLabel);
+  }
 };

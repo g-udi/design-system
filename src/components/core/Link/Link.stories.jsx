@@ -3,44 +3,33 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Icon from '../Icon';
-import Link from './Link';
+import Link, { linkTones } from './Link';
 
 const docs = getComponentDocs('Core/Link');
 const variants = ['inline', 'muted', 'nav', 'bare'];
-const tones = {
-  gray: 'text-gray-700',
-  neutral: 'text-gray-950',
-  blue: 'text-blue-600',
-  teal: 'text-teal-700',
-  green: 'text-green-700',
-  amber: 'text-amber-700',
-  yellow: 'text-yellow-800',
-  red: 'text-red-700',
-  rose: 'text-rose-700',
-  indigo: 'text-indigo-700'
-};
+const toneClass = (tone) => (tone === 'neutral' ? 'text-text' : `text-${tone}`);
 const link = (canvasElement, name) => within(canvasElement).getByRole('link', { name });
 
 export default {
-  title: 'Core/Actions/Link',
+  title: 'Core/Link',
   id: 'core-link',
   component: Link,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { children: 'text', href: 'text', variant: variants, tone: Object.keys(tones) }),
+  argTypes: docsArgTypes(docs, { children: 'text', href: 'text', variant: variants, tone: [...linkTones] }),
   parameters: {
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
     }
   },
-  decorators: [(Story) => <div className='flex flex-wrap items-center gap-4'><Story /></div>]
+  decorators: [(Story) => <div className='flex flex-wrap items-center gap-3'><Story /></div>]
 };
 
 // Mirrors the component's own rule, so an external `href` shows its new-tab cue.
 const isExternal = (href) => /^(https?:)?\/\//i.test(href || '');
 
 export const Playground = {
-  args: { children: 'Read the release notes', href: '/blog/gaudi-2', variant: 'inline', tone: 'blue' },
+  args: { children: 'Read the release notes', href: '/blog/gaudi-2', variant: 'inline', tone: 'accent' },
   // `tone` only colours inline links, so its control appears only for that variant.
   argTypes: { tone: { if: { arg: 'variant', eq: 'inline' } } },
   parameters: {
@@ -63,7 +52,7 @@ export const Playground = {
           {isExternal(args.href) ? <Icon name='ArrowUpRight' decorative size='xs' className='ms-0.5 inline align-baseline' /> : null}
         </Link>
         , or browse the{' '}
-        <Link href='https://github.com/ahmadassaf' tone='teal' className='whitespace-nowrap'>
+        <Link href='https://github.com/ahmadassaf' tone='discovery' className='whitespace-nowrap'>
           source on GitHub<Icon name='ArrowUpRight' decorative size='xs' className='ms-0.5 inline align-baseline' />
         </Link>.
       </p>
@@ -76,8 +65,8 @@ export const Playground = {
     const element = link(canvasElement, args.children);
     await expect(element).toHaveAttribute('href', args.href);
     await expect(element).toBeVisible();
-    if (args.variant === 'inline') await expect(element).toHaveClass(tones[args.tone]);
-    else await expect(element).not.toHaveClass(tones[args.tone]);
+    if (args.variant === 'inline') await expect(element).toHaveClass(toneClass(args.tone));
+    else if (args.tone !== 'neutral') await expect(element).not.toHaveClass(toneClass(args.tone));
     if (isExternal(args.href)) await expect(element).toHaveAttribute('target', '_blank');
     else await expect(element).not.toHaveAttribute('target');
     await expect(link(canvasElement, 'source on GitHub')).toHaveAttribute('rel', 'noopener noreferrer');
@@ -108,28 +97,22 @@ export const LinkTypes = {
 };
 
 export const Variants = {
-  parameters: { docs: { description: { story: 'Use `inline` in prose, `muted` for secondary links, `nav` in navigation, and `bare` to inherit the parent color. Only `inline` takes a `tone`; the others ignore it.' } } },
+  name: 'Variants and tones',
+  parameters: { docs: { description: { story: 'Use `inline` in prose, `muted` for secondary links, `nav` in navigation, and `bare` to inherit the parent colour. Only `inline` takes a `tone`, picked by meaning.' } } },
   render: () => (
-    <>
-      {variants.map((variant) => <Link key={variant} href='/blog' variant={variant}>{variant}</Link>)}
-      <Link href='/blog' variant='muted' tone='red'>muted tone</Link>
-    </>
+    <div className='grid gap-2 text-sm'>
+      <div className='flex flex-wrap items-center gap-3'>
+        {variants.map((variant) => <Link key={variant} href='/blog' variant={variant}>{variant}</Link>)}
+      </div>
+      <div className='flex flex-wrap items-center gap-3'>
+        {linkTones.map((tone) => <Link key={tone} href='/blog' tone={tone}>{tone}</Link>)}
+      </div>
+    </div>
   ),
   play: async ({ canvasElement }) => {
-    await expect(link(canvasElement, 'inline')).toHaveClass('font-medium', 'no-underline');
-    await expect(link(canvasElement, 'muted')).toHaveClass('text-neutral-600');
-    await expect(link(canvasElement, 'nav')).toHaveClass('font-semibold', 'text-gray-900');
+    await expect(link(canvasElement, 'muted')).toHaveClass('text-text-muted');
+    await expect(link(canvasElement, 'nav')).toHaveClass('font-semibold');
     await expect(link(canvasElement, 'bare')).toHaveClass('text-current');
-    // `tone` is ignored outside `inline`: each of these variants keeps its fixed colour.
-    await expect(link(canvasElement, 'muted tone')).toHaveClass('text-neutral-600');
-    await expect(link(canvasElement, 'muted tone')).not.toHaveClass(tones.red);
-  }
-};
-
-export const Tones = {
-  parameters: { docs: { description: { story: '`tone` sets the color family of an `inline` link. The other variants have fixed colors and ignore it.' } } },
-  render: () => Object.keys(tones).map((tone) => <Link key={tone} href='/blog' tone={tone}>{tone}</Link>),
-  play: async ({ canvasElement }) => {
-    for (const [tone, className] of Object.entries(tones)) await expect(link(canvasElement, tone)).toHaveClass(className);
+    for (const tone of linkTones) await expect(link(canvasElement, tone)).toHaveClass(toneClass(tone));
   }
 };

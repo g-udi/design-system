@@ -48,6 +48,7 @@ export default {
 };
 
 export const Playground = {
+  parameters: { docs: { description: { story: 'A paragraph with a single citation and a grouped one, above the generated reference list. Hover or focus a marker to read the source; select a source in the group to jump to it and reveal its back-link.' } } },
   render: () => (
     <>
       <p>

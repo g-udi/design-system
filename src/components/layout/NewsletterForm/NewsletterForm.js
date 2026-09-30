@@ -14,6 +14,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 import Button from '../../core/Button';
+import { FieldInput } from '../../core/Field';
 import { cn } from '../../../utilities/cn';
 
 /**
@@ -25,7 +26,9 @@ import { cn } from '../../../utilities/cn';
  *
  * @param {Object} props - Component props
  * @param {string} [props.endpoint='/api/buttondown'] - Subscription API endpoint to POST the email to
- * @param {string} [props.title='Subscribe to the newsletter'] - Form title (currently unused in display)
+ * @param {string} [props.title='Subscribe to the newsletter'] - Form heading
+ * @param {string} [props.className] - Root classes
+ * @param {Object} [props.classNames] - Part classes (root, title, description, form, input, action, button, message)
  *
  * @returns {JSX.Element} Newsletter subscription form
  *
@@ -112,7 +115,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
       if (inputEl.current) inputEl.current.value = '';
       setError(false);
       setSubscribed(true);
-      setMessage('Successfully! 🎉 You are now subscribed.');
+      setMessage('You are now subscribed.');
     } catch (err) {
       if (err?.name === 'AbortError' || !mountedRef.current) return;
 
@@ -126,26 +129,26 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
 
   return (
     <div className={ cn('mt-8 xl:col-span-2 xl:mt-0', className, classNames.root) }>
-      <h3 className={ cn('text-base font-medium text-gray-900 dark:text-white', classNames.title) }>{title}</h3>
-      <p className={ cn('mt-4 text-base text-gray-600 md:text-sm dark:text-gray-300', classNames.description) }>
-        The latest articles, readings, and resources, sent to your inbox monthly
+      <h3 className={ cn('text-base font-medium text-text', classNames.title) }>{title}</h3>
+      <p className={ cn('mt-4 text-base text-text-muted md:text-sm', classNames.description) }>
+        The latest articles, readings, and resources, sent to your inbox monthly.
       </p>
       <form className={ cn('mt-4 sm:flex sm:max-w-md', classNames.form) } onSubmit={ subscribe }>
         <label htmlFor={ inputId } className='sr-only'>
           Email address
         </label>
-        <input
+        <FieldInput
           autoComplete='email'
           id={ inputId }
           name='email'
-          placeholder={ subscribed ? "You're subscribed !  🎉" : 'Enter your email' }
+          placeholder={ subscribed ? 'You are subscribed' : 'Enter your email' }
           ref={ inputEl }
           required
           type='email'
           disabled={ subscribed }
-          aria-invalid={ error || undefined }
+          invalid={ error }
           aria-describedby={ message ? messageId : undefined }
-          className={ cn('min-h-11 w-full min-w-0 appearance-none rounded-sm border border-gray-300 bg-white px-4 py-2 text-base text-gray-900 shadow-xs placeholder-gray-500 focus-visible:border-blue-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 md:text-sm dark:border-gray-700 dark:bg-gray-950 dark:text-gray-100 dark:placeholder-gray-400 dark:focus-visible:border-blue-400 dark:focus-visible:ring-blue-400 dark:focus-visible:ring-offset-gray-900', classNames.input) }
+          className={ cn('min-h-11 px-4 py-2', classNames.input) }
         />
         <div className={ cn('mt-3 sm:ml-3 sm:mt-0 sm:shrink-0', classNames.action) }>
           <Button
@@ -160,7 +163,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
           </Button>
         </div>
       </form>
-      {message ? <p id={ messageId } role={ error ? 'alert' : 'status' } className={ cn('mt-3 text-sm', error ? 'text-red-600 dark:text-red-400' : 'text-green-700 dark:text-green-400', classNames.message) }>{message}</p> : null}
+      {message ? <p id={ messageId } role={ error ? 'alert' : 'status' } className={ cn('mt-3 text-sm', error ? 'text-danger' : 'text-success', classNames.message) }>{message}</p> : null}
     </div>
   );
 };
@@ -183,7 +186,7 @@ export default NewsletterForm;
  */
 export const BlogNewsletterForm = ({ classNames = {}, title }) => (
   <div className={ cn('flex items-center justify-center', classNames.root) }>
-    <div className={ cn('bg-gray-100 p-6 dark:bg-gray-800 sm:px-14 sm:py-8', classNames.frame) }>
+    <div className={ cn('rounded-card bg-surface-muted p-6 sm:px-14 sm:py-8', classNames.frame) }>
       <NewsletterForm title={ title } classNames={ classNames.form } />
     </div>
   </div>

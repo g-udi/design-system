@@ -226,15 +226,15 @@ const CHANGE_LABELS = {
   ja: (count) => `\u5909\u66F4${count}\u4EF6`
 };
 const TONES = {
-  todo: 'bg-zinc-400',
-  'in-progress': 'bg-amber-500',
-  review: 'bg-sky-500',
-  done: 'bg-emerald-500',
+  todo: 'bg-text-muted',
+  'in-progress': 'bg-warning',
+  review: 'bg-info',
+  done: 'bg-success',
   cancelled: 'bg-ui-destructive',
-  low: 'bg-emerald-500',
-  medium: 'bg-yellow-500',
-  high: 'bg-violet-500',
-  urgent: 'bg-orange-500',
+  low: 'bg-success',
+  medium: 'bg-warning',
+  high: 'bg-attention',
+  urgent: 'bg-danger',
   critical: 'bg-ui-destructive'
 };
 const STATUSES = ['todo', 'in-progress', 'review', 'done', 'cancelled'];

@@ -2,15 +2,15 @@ import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource, previewSource } from '../../../../.storybook/stories/previewSource';
-import Banner, { bannerVariants } from './Banner';
+import Banner, { bannerTones, bannerVariants } from './Banner';
 
 const docs = getComponentDocs('Core/Banner');
-const tones = ['gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo'];
+const tones = [...bannerTones];
 const variants = ['solid', 'soft', 'outline'];
 // A notification stack: the release banner follows the controls; its neighbours keep their own tone and treatment.
 const notices = [
-  { title: 'Scheduled maintenance', children: 'Search is read-only on Sunday, 02:00–04:00 UTC.', tone: 'amber', variant: 'soft' },
-  { title: 'Payment failed', children: 'Update your card to keep publishing.', tone: 'red', variant: 'outline' }
+  { title: 'Scheduled maintenance', children: 'Search is read-only on Sunday, 02:00–04:00 UTC.', tone: 'warning', variant: 'soft' },
+  { title: 'Payment failed', children: 'Update your card to keep publishing.', tone: 'danger', variant: 'outline' }
 ];
 const bannerRoot = (canvas, { title, children, href }) => (href
   ? canvas.getByRole('link', { name: `${title}: ${children}` }).closest('p').parentElement
@@ -43,7 +43,7 @@ export default {
 };
 
 export const Playground = {
-  args: { title: 'Gaudi 2.0 is out', children: 'New tokens, 40 components and a faster docs site.', href: '/changelog', size: 'md', tone: 'indigo', variant: 'solid' },
+  args: { title: 'Gaudi 2.0 is out', children: 'New tokens, 40 components and a faster docs site.', href: '/changelog', size: 'md', tone: 'accent', variant: 'solid' },
   parameters: {
     docs: {
       description: { story: 'A notification stack. The linked release banner follows every control; the maintenance and billing notices keep their own tone and treatment and share the size. Clear `href` to turn the release banner into a static status.' },
@@ -85,7 +85,7 @@ const matrix = tones.flatMap((tone) => variants.map((variant) => ({ tone, varian
 
 export const TonesAndVariants = {
   name: 'Tones and variants',
-  parameters: { docs: { description: { story: 'Every tone in the solid, soft and outline treatments.' } } },
+  parameters: { docs: { description: { story: 'Pick the tone by meaning and the treatment by urgency: solid for the one announcement that matters most, soft or outline for routine notices.' } } },
   render: () => (
     <div className='grid grid-cols-3 gap-2'>
       {matrix.map(({ tone, variant }) => (

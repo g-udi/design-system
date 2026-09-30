@@ -17,31 +17,6 @@
     @apply pt-0 pb-2.5;
   }
 
-  /* MARK: Alert */
-  .ds-part-alert {
-    @apply grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4;
-  }
-
-  .ds-part-alert-variant-default {
-    @apply bg-ui-card text-ui-card-foreground;
-  }
-
-  .ds-part-alert-variant-destructive {
-    @apply text-ui-destructive bg-ui-card *:data-[slot=alert-description]:text-ui-destructive/90 *:[svg]:text-current;
-  }
-
-  .ds-part-alert-title {
-    @apply font-medium group-has-[>svg]/alert:col-start-2;
-  }
-
-  .ds-part-alert-description {
-    @apply text-ui-muted-foreground text-sm text-balance md:text-pretty [&_p:not(:last-child)]:mb-2;
-  }
-
-  .ds-part-alert-action {
-    @apply absolute top-2 right-2;
-  }
-
   /* MARK: Alert Dialog */
   .ds-part-alert-dialog-overlay {
     @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;
@@ -91,35 +66,6 @@
 
   .ds-part-avatar-group-count {
     @apply bg-ui-muted text-ui-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3;
-  }
-
-  /* MARK: Badge */
-  .ds-part-badge {
-    @apply h-5 gap-1 rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium transition-all has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&>svg]:size-3!;
-  }
-
-  .ds-part-badge-variant-default {
-    @apply bg-ui-primary text-ui-primary-foreground [a]:hover:bg-ui-primary/80;
-  }
-
-  .ds-part-badge-variant-secondary {
-    @apply bg-ui-secondary text-ui-secondary-foreground [a]:hover:bg-ui-secondary/80;
-  }
-
-  .ds-part-badge-variant-outline {
-    @apply border-ui-border text-ui-foreground [a]:hover:bg-ui-muted [a]:hover:text-ui-muted-foreground;
-  }
-
-  .ds-part-badge-variant-destructive {
-    @apply bg-ui-destructive/10 [a]:hover:bg-ui-destructive/20 focus-visible:ring-ui-destructive/20 dark:focus-visible:ring-ui-destructive/40 text-ui-destructive dark:bg-ui-destructive/20;
-  }
-
-  .ds-part-badge-variant-ghost {
-    @apply hover:bg-ui-muted hover:text-ui-muted-foreground dark:hover:bg-ui-muted/50;
-  }
-
-  .ds-part-badge-variant-link {
-    @apply text-ui-primary underline-offset-4 hover:underline;
   }
 
   /* MARK: Breadcrumb */
@@ -357,8 +303,8 @@
   }
 
   /* MARK: Command */
-  /* Matches the Commander (.gaudi-command-launcher in styles.css): same launcher tokens,
-     flat search row, uppercase group headings, accent-tinted selection. */
+  /* Launcher tokens, a flat search row, uppercase group headings and an accent-tinted selection.
+     Commander renders these parts inside its launcher shell (.ds-command-launcher in styles.css). */
   .ds-part-command {
     @apply rounded-lg bg-(--ds-color-launcher-bg) text-(--ds-color-launcher-text) not-in-data-[slot=dialog-content]:border not-in-data-[slot=dialog-content]:border-(--ds-color-launcher-border);
   }
@@ -957,10 +903,6 @@
     @apply bg-ui-muted h-1 rounded-control;
   }
 
-  .ds-part-progress-track {
-    @apply bg-ui-muted h-1 rounded-control;
-  }
-
   .ds-part-progress-indicator {
     @apply bg-ui-primary;
   }
@@ -986,14 +928,6 @@
       animation: none !important;
       transform: none;
     }
-  }
-
-  .ds-part-progress-label {
-    @apply text-sm font-medium;
-  }
-
-  .ds-part-progress-value {
-    @apply text-ui-muted-foreground ml-auto text-sm tabular-nums;
   }
 
   /* MARK: Radio Group */
@@ -1280,7 +1214,7 @@
 
   /* MARK: Switch */
   .ds-part-switch {
-    @apply data-checked:bg-ui-primary data-unchecked:bg-ui-input focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 dark:data-unchecked:bg-ui-input/80 shrink-0 rounded-control border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px];
+    @apply data-checked:bg-ui-primary data-unchecked:bg-ui-input focus-visible:border-ui-ring focus-visible:ring-ui-ring/50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 dark:data-unchecked:bg-ui-input/80 shrink-0 rounded-control border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] data-[size=lg]:h-[22px] data-[size=lg]:w-[40px];
   }
 
   .ds-part-switch-aria {
@@ -1288,11 +1222,11 @@
   }
 
   .ds-part-switch-thumb {
-    @apply bg-ui-background dark:data-unchecked:bg-ui-foreground dark:data-checked:bg-ui-primary-foreground rounded-control group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0;
+    @apply bg-ui-background dark:data-unchecked:bg-ui-foreground dark:data-checked:bg-ui-primary-foreground rounded-control group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 group-data-[size=lg]/switch:size-5 group-data-[size=lg]/switch:data-checked:translate-x-[calc(100%-2px)] group-data-[size=lg]/switch:data-unchecked:translate-x-0;
   }
 
   .ds-part-switch-thumb-aria {
-    @apply dark:not-data-selected:bg-ui-foreground dark:data-selected:bg-ui-primary-foreground group-data-[size=default]/switch:data-selected:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-selected:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:not-data-selected:translate-x-0 group-data-[size=sm]/switch:not-data-selected:translate-x-0;
+    @apply dark:not-data-selected:bg-ui-foreground dark:data-selected:bg-ui-primary-foreground group-data-[size=default]/switch:data-selected:translate-x-[calc(100%-2px)] group-data-[size=sm]/switch:data-selected:translate-x-[calc(100%-2px)] group-data-[size=default]/switch:not-data-selected:translate-x-0 group-data-[size=sm]/switch:not-data-selected:translate-x-0 group-data-[size=lg]/switch:data-selected:translate-x-[calc(100%-2px)] group-data-[size=lg]/switch:not-data-selected:translate-x-0;
   }
 
   /* MARK: Table */

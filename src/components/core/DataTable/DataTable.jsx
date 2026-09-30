@@ -16,6 +16,7 @@ import Skeleton from '../Skeleton';
 import Spinner from '../Spinner';
 import EmptyState from '../EmptyState';
 import DropdownMenu, { DropdownMenuCheckboxItem, DropdownMenuItem } from '../DropdownMenu';
+import { Checkbox as CheckboxRoot } from '../Checkbox/parts/checkbox.jsx';
 import { cn } from '../../../utilities/cn';
 
 /*
@@ -24,13 +25,19 @@ import { cn } from '../../../utilities/cn';
  * declarative `align` / `width` / `sticky` columns, and host-owned filtering.
  */
 
-function SelectionCheckbox({ mixed, ...props }) {
-  const ref = useRef(null);
-  useEffect(() => {
-    if (ref.current) ref.current.indeterminate = Boolean(mixed);
-  }, [mixed]);
-  return <input {...props} ref={ref} type='checkbox' className='ds-table-check' />;
-}
+// The DS checkbox in the table's round treatment, filled with the text colour when checked or mixed.
+const selectionClass =
+  'rounded-full align-middle border-text-muted/45 data-checked:border-text data-checked:bg-text data-checked:text-surface data-[state=indeterminate]:border-text data-[state=indeterminate]:bg-text data-[state=indeterminate]:text-surface';
+const SelectionCheckbox = ({ checked, mixed, onCheckedChange, ...props }) => (
+  <CheckboxRoot
+    {...props}
+    checked={mixed && !checked ? 'indeterminate' : checked}
+    onCheckedChange={(value) => onCheckedChange(value === true)}
+    className={selectionClass}
+  />
+);
+// Expand and row-action triggers: a quiet icon button that stays tinted while its panel or menu is open.
+const iconButtonClass = 'text-text-muted aria-expanded:bg-surface-muted aria-expanded:text-text';
 
 const densities = {
   compact: { cell: 'px-3 py-1.5', head: 'h-9 px-3', skeleton: 3 },
@@ -263,22 +270,24 @@ export const DataTable = ({
                 aria-label={`${labels.selectRow || 'Select row'} ${row.id}`}
                 checked={row.getIsSelected()}
                 disabled={!row.getCanSelect()}
-                onChange={row.getToggleSelectedHandler()}
+                onCheckedChange={(value) => row.toggleSelected(value)}
               />
             </td>
           )}
           {expandable && (
             <td style={pinStyle('__expand')} className={cn('ds-table-cell w-9 px-0', pinClass('__expand'))}>
               {expandAllowed && (
-                <button
-                  type='button'
+                <Button
+                  variant='ghost'
+                  tone='neutral'
+                  size='icon-sm'
                   aria-expanded={isExpanded}
                   aria-label={`${labels.expand || 'Details for'} ${row.id}`}
                   onClick={() => toggleIn(setExpanded, row.id, expandMode === 'single')}
-                  className='ds-table-icon-button'
+                  className={iconButtonClass}
                 >
                   <Icon name='ChevronDown' decorative size='sm' className={cn('ds-motion-icon', !isExpanded && '-rotate-90')} />
-                </button>
+                </Button>
               )}
             </td>
           )}
@@ -298,9 +307,9 @@ export const DataTable = ({
               {actions.length > 0 && (
                 <DropdownMenu
                   trigger={
-                    <button type='button' aria-label={`${labels.rowActions || 'Actions for'} ${row.id}`} className='ds-table-icon-button'>
+                    <Button variant='ghost' tone='neutral' size='icon-sm' aria-label={`${labels.rowActions || 'Actions for'} ${row.id}`} className={iconButtonClass}>
                       <Icon name='MoreHorizontal' decorative size='sm' />
-                    </button>
+                    </Button>
                   }
                 >
                   {actions.map((action) => (
@@ -487,7 +496,7 @@ export const DataTable = ({
                         checked={table.getIsAllPageRowsSelected()}
                         mixed={table.getIsSomePageRowsSelected()}
                         disabled={!rows.length || loading}
-                        onChange={table.getToggleAllPageRowsSelectedHandler()}
+                        onCheckedChange={(value) => table.toggleAllPageRowsSelected(value)}
                       />
                     </th>
                   )}

@@ -1,9 +1,8 @@
 /**
  * Aurora Background Component
  *
- * @description A visually striking background component that creates an animated aurora borealis effect.
- * Features gradient animations, blur effects, and theme-aware styling that adapts to light/dark modes.
- * Used as a decorative background element to enhance the visual appeal of pages.
+ * @description Decorative, theme-aware aurora gradient behind page content. The animation pauses when
+ * the aurora is off screen or the tab is hidden, and respects reduced motion.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -30,9 +29,9 @@ import { cn } from '../../../utilities/cn';
  * @returns {JSX.Element} The rendered aurora background component
  *
  * @example
- * <AuroraBackground showRadialGradient={true}>
+ * <Aurora showRadialGradient={false}>
  *   <h1>Content over aurora background</h1>
- * </AuroraBackground>
+ * </Aurora>
  */
 const AuroraBackground = ({
   className,
@@ -65,21 +64,20 @@ const AuroraBackground = ({
   }, []);
 
   return (
-    <div>
-      <div className={ cn('relative flex min-h-dvh flex-col items-center justify-center transition-colors motion-reduce:transition-none', className) }
-        { ...props }
+    <div
+      className={ cn('relative flex min-h-dvh flex-col items-center justify-center transition-colors motion-reduce:transition-none', className) }
+      { ...props }
+    >
+      <div
+        aria-hidden='true'
+        className='aurora absolute inset-x-0 top-0 h-[48rem] overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_62%,transparent_100%)]'
+        data-animated={ isActive ? 'true' : 'false' }
+        data-radial-gradient={ showRadialGradient ? 'true' : 'false' }
+        ref={ auroraRef }
       >
-        <div
-          aria-hidden='true'
-          className='aurora absolute inset-x-0 top-0 h-[48rem] overflow-hidden [mask-image:linear-gradient(to_bottom,black_0%,black_62%,transparent_100%)]'
-          data-animated={ isActive ? 'true' : 'false' }
-          data-radial-gradient={ showRadialGradient ? 'true' : 'false' }
-          ref={ auroraRef }
-        >
-          <div className='aurora-field pointer-events-none absolute'></div>
-        </div>
-        {children}
+        <div className='aurora-field pointer-events-none absolute'></div>
       </div>
+      {children}
     </div>
   );
 };

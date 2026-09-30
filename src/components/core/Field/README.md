@@ -1,11 +1,22 @@
 # Field
 
-This Gaudi owner includes **field**, **label**, with **7 practical examples**.
+Wraps a form control with its label, help text and error, and connects them for assistive technology. Use it around every Input, Textarea or `FieldInput`.
 
-Import the documented composition from `@gaudi/design-system/core/Field`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-field--field-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Field, FieldDescription, FieldError, FieldInput, FieldLabel } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Field>
+  <FieldLabel>Email</FieldLabel>
+  <FieldInput type='email' name='email' />
+  <FieldDescription>Used for article updates only.</FieldDescription>
+  {error ? <FieldError>{error}</FieldError> : null}
+</Field>;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+A `FieldError` marks the control invalid and adds itself to its description. For fieldsets, horizontal rows and choice cards, use the layout parts: `FieldSet`, `FieldLegend`, `FieldGroup`, `FieldContent`, `FieldTitle`, `FieldSeparator` and `Label`.
+
+## Accessibility
+
+The label targets the control, and the description and error are read with it through `aria-describedby`. Errors are announced as alerts.

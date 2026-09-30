@@ -1,11 +1,19 @@
 # Banner
 
-This Gaudi owner includes **alert**, with **5 practical examples**.
+A banner is a full-width strip for a site-wide message: a release, maintenance, or a billing problem. For a message inside the page, next to the content it is about, compose `Alert`.
 
-Import the documented composition from `@gaudi/design-system/core/Banner`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Banner } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-banner--alert-pattern-2) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Banner title='Gaudi 2.0 is out' href='/changelog' tone='accent' variant='solid'>
+  New tokens and a faster docs site.
+</Banner>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- `tone` carries meaning (`neutral`, `accent`, `info`, `success`, `warning`, `danger`, `attention`, `discovery`); older hue names still work.
+- `variant`: `solid` for the one announcement that matters most, `soft` or `outline` for routine notices. `size` sets the padding.
+- With `href` the whole message is one link; without it the banner is announced as a status.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Alert
+
+`Alert`, `AlertTitle`, `AlertDescription` and `AlertAction` build an inline message with an icon, text and actions. `variant` is `default`, `info`, `success`, `warning`, `destructive` or `invert`. `AlertRoot` and the `*Primitive` names are aliases of the same parts.

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useMemo, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import Button from '../Button';
 import Dialog from '../Dialog';
@@ -8,6 +8,18 @@ import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
+import { Carousel as CarouselRoot, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './parts/carousel.jsx';
+
+const focusRing = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-subtle focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
+const radiusVariants = {
+  'lg': 'rounded-lg',
+  'md': 'rounded-md',
+  'none': 'rounded-none',
+  'sm': 'rounded-sm'
+};
+// Slides sit on artwork, so their surface and text use the theme-stable dark surface and inverse text.
+const mediaSurface = 'relative isolate overflow-hidden border border-border bg-surface-dark text-text-inverse shadow-sm';
+const overlayText = 'text-text-inverse drop-shadow-md';
 
 export const carouselVariants = createVariants({
   'base': 'relative w-full',
@@ -30,18 +42,13 @@ export const carouselVariants = createVariants({
 });
 
 export const carouselSlideVariants = createVariants({
-  'base': 'relative isolate overflow-hidden border bg-gray-950 text-white shadow-sm dark:border-gray-800',
+  'base': mediaSurface,
   'defaultVariants': {
     'radius': 'lg',
     'size': 'md'
   },
   'variants': {
-    'radius': {
-      'lg': 'rounded-lg',
-      'md': 'rounded-md',
-      'none': 'rounded-none',
-      'sm': 'rounded-sm'
-    },
+    'radius': radiusVariants,
     'size': {
       'lg': 'min-h-[420px]',
       'md': 'min-h-[340px]',
@@ -51,18 +58,13 @@ export const carouselSlideVariants = createVariants({
 });
 
 export const carouselCardVariants = createVariants({
-  'base': 'group relative isolate flex shrink-0 snap-start overflow-hidden border bg-gray-950 text-white shadow-sm transition duration-200 focus-within:ring-2 focus-within:ring-gray-400 focus-within:ring-offset-2 dark:border-gray-800 dark:focus-within:ring-offset-gray-950',
+  'base': `group flex ${mediaSurface} transition duration-200 focus-within:ring-2 focus-within:ring-text-subtle focus-within:ring-offset-2 focus-within:ring-offset-surface`,
   'defaultVariants': {
     'radius': 'lg',
     'size': 'md'
   },
   'variants': {
-    'radius': {
-      'lg': 'rounded-lg',
-      'md': 'rounded-md',
-      'none': 'rounded-none',
-      'sm': 'rounded-sm'
-    },
+    'radius': radiusVariants,
     'size': {
       'lg': 'min-h-[460px] w-[320px] md:w-[380px]',
       'md': 'min-h-[400px] w-[280px] md:w-[340px]',
@@ -74,45 +76,22 @@ export const carouselCardVariants = createVariants({
 const getItemKey = (item, index) => item.id ?? `${item.title}-${index}`;
 const getItemImageAlt = (item) => item.alt ?? item.imageAlt ?? item.title ?? 'Carousel item image';
 
-const getNextIndex = (current, direction, count, loop) => {
-  if (!count) return 0;
-  const next = current + direction;
+const CarouselImage = ({ alt, className, image }) => (image
+  ? <img src={ image } alt={ alt ?? '' } loading='lazy' className={ cn('absolute inset-0 size-full object-cover', className) } />
+  : <div className={ cn('absolute inset-0 bg-linear-to-br from-surface-dark to-accent-dark', className) } aria-hidden='true' />);
 
-  if (loop) return (next + count) % count;
-
-  return Math.min(Math.max(next, 0), count - 1);
-};
-
-const CarouselImage = ({ alt, className, image }) => {
-  if (!image) return (
-    <div className={ cn('absolute inset-0 bg-linear-to-br from-gray-900 via-gray-800 to-blue-950', className) } aria-hidden='true' />
-  );
-
-  return <img src={ image } alt={ alt ?? '' } loading='lazy' className={ cn('absolute inset-0 size-full object-cover', className) } />;
-};
-
-const CarouselControl = ({ children, className, disabled, label, onClick }) => (
-  <button
-    aria-label={ label }
-    className={ cn(
-      'inline-flex size-8 items-center justify-center rounded-control border border-border bg-surface text-text shadow-xs transition hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-40 pointer-coarse:size-11 dark:focus-visible:ring-offset-gray-950', className
-    ) }
-    disabled={ disabled }
-    type='button'
-    onClick={ onClick }
-  >
-    {children}
-  </button>
+const Scrim = ({ className }) => (
+  <div className={ cn('absolute inset-0 bg-linear-to-t from-surface-dark', className) } aria-hidden='true' />
 );
 
 const StandardSlide = ({ classNames, item, radius, size }) => (
   <article className={ carouselSlideVariants({ 'className': classNames.slide, radius, size }) }>
     <CarouselImage image={ item.image } alt={ getItemImageAlt(item) } className={ classNames.image } />
-    <div className='absolute inset-0 bg-linear-to-t from-gray-950 via-gray-950/70 to-gray-950/20' aria-hidden='true' />
+    <Scrim className='via-surface-dark/70 to-surface-dark/20' />
     <div className={ cn('relative z-10 flex min-h-[inherit] max-w-2xl flex-col justify-end p-6 sm:p-8', classNames.content) }>
-      {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase !text-white/80 drop-shadow-md', classNames.eyebrow) }>{item.eyebrow}</p> : null}
-      <h3 className={ cn('mt-2 text-2xl font-bold leading-tight !text-white drop-shadow-md sm:text-4xl', classNames.title) }>{item.title}</h3>
-      {item.description ? <p className={ cn('mt-3 max-w-xl text-sm leading-6 !text-white/95 drop-shadow-md sm:text-base', classNames.description) }>{item.description}</p> : null}
+      {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
+      <h3 className={ cn('mt-2 text-2xl font-bold leading-tight sm:text-4xl', overlayText, classNames.title) }>{item.title}</h3>
+      {item.description ? <p className={ cn('mt-3 max-w-xl text-sm leading-6 sm:text-base', overlayText, classNames.description) }>{item.description}</p> : null}
       {item.href ? (
         <div className={ cn('mt-5', classNames.action) }>
           <Button href={ item.href } size='sm' tone='accent' variant='solid'>{item.action || 'Read more'}</Button>
@@ -122,22 +101,22 @@ const StandardSlide = ({ classNames, item, radius, size }) => (
   </article>
 );
 
-const AppleCard = ({ classNames, isActive, item, onOpen, radius, size }) => (
-  <article className={ carouselCardVariants({ 'className': cn(isActive && 'bg-blue-950 shadow-md', classNames.card), radius, size }) }>
-    <CarouselImage image={ item.image } alt={ getItemImageAlt(item) } className={ cn(isActive && !item.image && 'from-blue-950 via-blue-900 to-indigo-950', classNames.image) } />
-    <div className={ cn('absolute inset-0 bg-linear-to-t', isActive ? 'from-blue-950/95 via-blue-950/55 to-blue-900/10' : 'from-gray-950 via-gray-950/60 to-gray-950/15') } aria-hidden='true' />
+const RailCard = ({ classNames, isActive, item, onOpen, radius, size }) => (
+  <article className={ carouselCardVariants({ 'className': cn(isActive && 'border-accent shadow-md', classNames.card), radius, size }) }>
+    <CarouselImage image={ item.image } alt={ getItemImageAlt(item) } className={ classNames.image } />
+    <Scrim className='via-surface-dark/60 to-surface-dark/15' />
     <button
       aria-label={ `Open ${item.title}` }
       className='absolute inset-0 z-20 cursor-pointer focus-visible:outline-none'
       type='button'
       onClick={ onOpen }
     />
-    <div className={ cn('relative z-10 flex size-full flex-col justify-between p-5 sm:p-6', classNames.content) }>
+    <div className={ cn('relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6', classNames.content) }>
       <div>
-        {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase !text-white/80 drop-shadow-md', classNames.eyebrow) }>{item.eyebrow}</p> : null}
-        <h3 className={ cn('mt-2 text-xl font-bold leading-tight !text-white drop-shadow-md sm:text-2xl', classNames.title) }>{item.title}</h3>
+        {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
+        <h3 className={ cn('mt-2 text-xl font-bold leading-tight sm:text-2xl', overlayText, classNames.title) }>{item.title}</h3>
       </div>
-      {item.description ? <p className={ cn('max-w-[18rem] text-sm leading-6 !text-white/95 drop-shadow-md', classNames.description) }>{item.description}</p> : null}
+      {item.description ? <p className={ cn('max-w-[18rem] text-sm leading-6', overlayText, classNames.description) }>{item.description}</p> : null}
     </div>
   </article>
 );
@@ -156,34 +135,32 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
       initialFocusRef={ closeButtonRef }
       label={ item.title }
       contentProps={ { 'aria-labelledby': titleId } }
-      className={ cn('fixed inset-0 z-50 flex items-center justify-center p-4', classNames.dialog) }
+      className={ cn('fixed inset-0 z-50 flex items-center justify-center bg-surface-dark/70 p-4 backdrop-blur-sm', classNames.overlay, classNames.dialog) }
     >
-        <div
-          aria-hidden='true'
-          className={ cn('absolute inset-0 bg-gray-950/70 backdrop-blur-sm', classNames.overlay) }
+      <article className='relative max-h-[85vh] w-full max-w-3xl overflow-auto rounded-lg border border-border bg-surface p-6 text-text shadow-xl sm:p-8'>
+        <Button
+          ref={ closeButtonRef }
+          aria-label='Close carousel card'
+          className='absolute right-4 top-4'
+          size='icon-sm'
+          tone='neutral'
+          variant='ghost'
           onClick={ onClose }
-        />
-        <article className='relative z-10 max-h-[85vh] w-full max-w-3xl overflow-auto rounded-lg bg-white p-6 shadow-xl dark:bg-gray-950 sm:p-8'>
-          <button
-            ref={ closeButtonRef }
-            aria-label='Close carousel card'
-            className='absolute right-4 top-4 inline-flex size-11 items-center justify-center rounded-control bg-gray-100 text-gray-700 transition hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 motion-reduce:transition-none dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700'
-            type='button'
-            onClick={ onClose }
-          >
-            <Icon name='X' decorative size='sm' />
-          </button>
-          {item.image ? <img src={ item.image } alt={ getItemImageAlt(item) } loading='lazy' className='mb-6 aspect-video w-full rounded-md object-cover' /> : null}
-          {item.eyebrow ? <p className='text-xs font-semibold uppercase text-blue-600 dark:text-blue-400'>{item.eyebrow}</p> : null}
-          <h2 id={ titleId } className='mt-2 text-3xl font-bold text-gray-950 dark:text-white'>{item.title}</h2>
-          {item.description ? <p className='mt-4 text-base leading-7 text-gray-700 dark:text-gray-300'>{item.description}</p> : null}
-          {item.content ? <div className='mt-6 text-sm leading-7 text-gray-700 dark:text-gray-300'>{item.content}</div> : null}
-          {item.href ? <Link href={ item.href } className='mt-6 inline-flex font-semibold'>{item.action || 'Read more'}</Link> : null}
-        </article>
+        >
+          <Icon name='X' decorative size='sm' />
+        </Button>
+        {item.image ? <img src={ item.image } alt={ getItemImageAlt(item) } loading='lazy' className='mb-6 aspect-video w-full rounded-md object-cover' /> : null}
+        {item.eyebrow ? <p className='text-xs font-semibold uppercase text-accent'>{item.eyebrow}</p> : null}
+        <h2 id={ titleId } className='mt-2 pr-10 text-3xl font-bold'>{item.title}</h2>
+        {item.description ? <p className='mt-4 text-base leading-7 text-text-muted'>{item.description}</p> : null}
+        {item.content ? <div className='mt-6 text-sm leading-7 text-text-muted'>{item.content}</div> : null}
+        {item.href ? <Link href={ item.href } className='mt-6 inline-flex font-semibold'>{item.action || 'Read more'}</Link> : null}
+      </article>
     </Dialog>
   );
 };
 
+/** The convenience carousel: items rendered as slides or rail cards on top of the CarouselRoot parts. */
 const Carousel = ({
   ariaLabel = 'Carousel',
   className,
@@ -195,91 +172,71 @@ const Carousel = ({
   size,
   variant
 }) => {
+  const [ api, setApi ] = useState();
   const [ current, setCurrent ] = useState(0);
   const [ openItem, setOpenItem ] = useState(null);
-  const headingId = useId();
-  const itemRefs = useRef([]);
-  const itemCount = items.length;
-  const activeItem = items[current] || items[0];
-  const canGoPrevious = loop || current > 0;
-  const canGoNext = loop || current < itemCount - 1;
   const normalizedVariant = variant || carouselVariants.defaultVariants.variant;
-  const isApple = normalizedVariant === 'apple' || normalizedVariant === 'rail';
-  const status = useMemo(() => (itemCount ? `${current + 1} of ${itemCount}` : 'No carousel items'), [ current, itemCount ]);
-
-  const goTo = (index) => setCurrent(Math.min(Math.max(index, 0), itemCount - 1));
-  const move = (direction) => setCurrent((value) => getNextIndex(value, direction, itemCount, loop));
+  const isRail = normalizedVariant === 'apple' || normalizedVariant === 'rail';
+  const itemCount = items.length;
 
   useEffect(() => {
-    if (!isApple) return;
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    itemRefs.current[current]?.scrollIntoView({
-      'behavior': reduceMotion ? 'auto' : 'smooth',
-      'block': 'nearest',
-      'inline': 'center'
-    });
-  }, [ current, isApple ]);
+    if (!api) return undefined;
+    const sync = () => setCurrent(api.selectedScrollSnap());
+    sync();
+    api.on('select', sync);
+    api.on('reInit', sync);
+    return () => {
+      api.off('select', sync);
+      api.off('reInit', sync);
+    };
+  }, [ api ]);
 
   if (!itemCount) return null;
 
   return (
-    <section
+    <CarouselRoot
       aria-label={ ariaLabel }
-      aria-roledescription='carousel'
-      role='region'
+      // Rail cards keep one snap per card, so every card can become the active one.
+      opts={ { 'align': 'start', 'containScroll': isRail ? 'keepSnaps' : 'trimSnaps', loop } }
+      setApi={ setApi }
       tabIndex={ 0 }
-      className={ carouselVariants({ 'className': cn('focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400', className, classNames.root), size, 'variant': normalizedVariant }) }
-      onKeyDown={ (event) => {
-        if (event.key === 'ArrowLeft') move(-1);
-        if (event.key === 'ArrowRight') move(1);
-      } }
+      className={ carouselVariants({ 'className': cn(focusRing, className, classNames.root), size, 'variant': normalizedVariant }) }
     >
-      <p className='sr-only' aria-live='polite'>{status}</p>
-      <div className={ cn('flex items-center justify-between gap-4', classNames.header) }>
-        <h2 id={ headingId } className='sr-only'>{ariaLabel}</h2>
-        {controls ? (
-          <div className={ cn('ml-auto flex items-center gap-2', classNames.controls) }>
-            <CarouselControl label='Previous slide' disabled={ !canGoPrevious } className={ classNames.control } onClick={ () => move(-1) }>
-              <Icon name='ArrowLeft' decorative size='sm' />
-            </CarouselControl>
-            <CarouselControl label='Next slide' disabled={ !canGoNext } className={ classNames.control } onClick={ () => move(1) }>
-              <Icon name='ArrowRight' decorative size='sm' />
-            </CarouselControl>
-          </div>
-        ) : null}
-      </div>
+      <p className='sr-only' aria-live='polite'>{`${current + 1} of ${itemCount}`}</p>
+      {controls ? (
+        <div className={ cn('mb-4 flex items-center justify-end gap-2', classNames.header, classNames.controls) }>
+          <CarouselPrevious className={ cn('static', classNames.control) } />
+          <CarouselNext className={ cn('static', classNames.control) } />
+        </div>
+      ) : null}
 
-      <div className={ cn('mt-4', classNames.viewport) } aria-labelledby={ headingId }>
-        {isApple ? (
-          <div className={ cn('flex snap-x gap-4 overflow-x-auto pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden', classNames.track) }>
-            {items.map((item, index) => (
-              <div
-                key={ getItemKey(item, index) }
-                className='shrink-0'
-                ref={ (node) => {
-                  itemRefs.current[index] = node;
+      <CarouselContent className={ cn(isRail && 'pb-1', classNames.track) }>
+        {items.map((item, index) => (
+          <CarouselItem
+            key={ getItemKey(item, index) }
+            aria-label={ `${index + 1} of ${itemCount}` }
+            className={ isRail ? 'basis-auto' : undefined }
+            // Off-screen slides leave the tab order and the accessibility tree.
+            inert={ !isRail && index !== current ? true : undefined }
+          >
+            {isRail ? (
+              <RailCard
+                classNames={ classNames }
+                isActive={ index === current }
+                item={ item }
+                radius={ radius }
+                size={ size }
+                onOpen={ () => {
+                  api?.scrollTo(index);
+                  setOpenItem(item);
                 } }
-              >
-                <AppleCard
-                  classNames={ classNames }
-                  isActive={ index === current }
-                  item={ item }
-                  radius={ radius }
-                  size={ size }
-                  onOpen={ () => {
-                    goTo(index);
-                    setOpenItem(item);
-                  } }
-                />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <StandardSlide item={ activeItem } classNames={ classNames } radius={ radius } size={ size } />
-        )}
-      </div>
+              />
+            ) : (
+              <StandardSlide item={ item } classNames={ classNames } radius={ radius } size={ size } />
+            )}
+          </CarouselItem>
+        ))}
+      </CarouselContent>
 
       <div className={ cn('mt-4 flex items-center justify-center gap-1 sm:gap-2', classNames.indicators) }>
         {items.map((item, index) => (
@@ -287,25 +244,23 @@ const Carousel = ({
             key={ getItemKey(item, index) }
             aria-label={ `Go to slide ${index + 1}` }
             aria-current={ index === current ? 'true' : undefined }
-            className={ cn(
-              'group/indicator inline-flex size-11 items-center justify-center rounded-control transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 motion-reduce:transition-none dark:focus-visible:ring-offset-gray-950', classNames.indicator
-            ) }
+            className={ cn('group/indicator inline-flex size-11 items-center justify-center rounded-control', focusRing, classNames.indicator) }
             type='button'
-            onClick={ () => goTo(index) }
+            onClick={ () => api?.scrollTo(index) }
           >
             <span
               aria-hidden='true'
               className={ cn(
                 'h-2.5 rounded-control transition-all motion-reduce:transition-none',
-                index === current ? 'w-7 bg-blue-600' : 'w-2.5 bg-gray-300 group-hover/indicator:bg-gray-400 dark:bg-gray-700 dark:group-hover/indicator:bg-gray-600'
+                index === current ? 'w-7 bg-accent' : 'w-2.5 bg-border group-hover/indicator:bg-text-subtle'
               ) }
             />
           </button>
         ))}
       </div>
 
-      {isApple ? <CarouselDialog item={ openItem } classNames={ classNames } onClose={ () => setOpenItem(null) } /> : null}
-    </section>
+      {isRail ? <CarouselDialog item={ openItem } classNames={ classNames } onClose={ () => setOpenItem(null) } /> : null}
+    </CarouselRoot>
   );
 };
 

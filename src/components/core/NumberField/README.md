@@ -1,11 +1,24 @@
 # NumberField
 
-This Gaudi owner includes **number-field**, with **2 practical examples**.
+A numeric input with step buttons, for quantities, durations and prices within a known range. Use a Slider when an approximate value is enough.
 
-Import the documented composition from `@gaudi/design-system/core/NumberField`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-numberfield--number-field-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { NumberField, NumberFieldDecrement, NumberFieldGroup, NumberFieldIncrement, NumberFieldInput, NumberFieldScrubArea } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<NumberField defaultValue={5} min={0} max={10} step={1}>
+  <NumberFieldScrubArea label='Articles per week' />
+  <NumberFieldGroup>
+    <NumberFieldDecrement aria-label='Decrease' />
+    <NumberFieldInput />
+    <NumberFieldIncrement aria-label='Increase' />
+  </NumberFieldGroup>
+</NumberField>;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`size` (`sm`, `default`, `lg`) sets the control height, and `format` takes `Intl.NumberFormat` options for units and currency.
+
+## Accessibility
+
+Arrow keys step the value, Home and End jump to `min` and `max`, and typed values clamp on blur. Give the step buttons an `aria-label`.

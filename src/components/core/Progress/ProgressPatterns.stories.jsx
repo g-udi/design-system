@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/progress/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Data Display/Progress', id: 'core-progress', tags: ['autodocs'], ...catalogueMeta('progress') };
+export default { title: 'Core/Progress', id: 'core-progress', tags: ['autodocs'], ...catalogueMeta('progress') };
 
 export const ProgressPattern1 = {
   name: 'Sizes and colors',

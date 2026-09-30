@@ -39,7 +39,7 @@ export const Playground = {
   },
   render: (args) => (
     <div className='text-base leading-7'>
-      <p className='mb-4 text-gray-700 dark:text-gray-300'>Upgrading the blog to the latest Gaudi takes two changes.</p>
+      <p className='mb-4 text-text'>Upgrading the blog to the latest Gaudi takes two changes.</p>
       <Callout type='info'>{tip}</Callout>
       <Callout {...args} className='mb-0' />
     </div>

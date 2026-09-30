@@ -23,7 +23,7 @@ export function useCascaderRender() {
 const NO_HIGHLIGHT = { index: -1, value: null };
 export function createCascaderHighlightStore() {
   let snapshot = NO_HIGHLIGHT;
-  const listeners = /* @__PURE__ */ new Set();
+  const listeners = new Set();
   return {
     subscribe(onStoreChange) {
       listeners.add(onStoreChange);

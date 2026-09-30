@@ -18,7 +18,7 @@ import {
 import { ScrollArea } from '../../../../src/components/core/ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
-  const today = /* @__PURE__ */ new Date();
+  const today = new Date();
   const [month, setMonth] = useState(today);
   const [date, setDate] = useState(today);
   const [isYearView, setIsYearView] = useState(false);
@@ -74,7 +74,7 @@ export function Pattern() {
               );
             }
           }}
-          defaultMonth={/* @__PURE__ */ new Date()}
+          defaultMonth={new Date()}
           endMonth={endDate}
           mode='single'
           month={month}

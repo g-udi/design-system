@@ -43,7 +43,7 @@ const layouts = [
 const initialStatus = (type) => (type === 'multiple' ? ['draft', 'review'] : 'review');
 const statusName = (value) => new RegExp(`^${statusOf[value].label}`);
 
-function ContentLibrary({ type, disabled, onValueChange }) {
+function ContentLibrary({ type, disabled, size, variant, onValueChange }) {
   const [status, setStatus] = useState(() => initialStatus(type));
   const [layout, setLayout] = useState('list');
   const selected = [].concat(status).filter(Boolean);
@@ -55,8 +55,8 @@ function ContentLibrary({ type, disabled, onValueChange }) {
   return (
     <div className='grid gap-3'>
       <div className='flex flex-wrap items-center justify-between gap-2'>
-        <ToggleGroup label='Status' type={type} disabled={disabled} options={statusOptions} value={status} onValueChange={change} />
-        <ToggleGroup label='Layout' options={layouts} value={layout} onValueChange={(next) => next && setLayout(next)} />
+        <ToggleGroup label='Status' type={type} disabled={disabled} size={size} variant={variant} options={statusOptions} value={status} onValueChange={change} />
+        <ToggleGroup label='Layout' size={size} variant={variant} options={layouts} value={layout} onValueChange={(next) => next && setLayout(next)} />
       </div>
       <ul data-testid='library' data-layout={layout} className={layout === 'grid' ? 'grid grid-cols-2 gap-2' : 'grid divide-y divide-border rounded-lg border border-border'}>
         {visible.map(({ title, status: value, author, updated }) => (
@@ -75,10 +75,10 @@ function ContentLibrary({ type, disabled, onValueChange }) {
 }
 
 export default {
-  title: 'Core/Actions/ToggleGroup', id: 'core-togglegroup',
+  title: 'Core/ToggleGroup', id: 'core-togglegroup',
   component: ToggleGroup,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { type: ['single', 'multiple'], disabled: 'boolean' }),
+  argTypes: docsArgTypes(docs, { type: ['single', 'multiple'], variant: ['outline', 'default'], size: ['sm', 'default', 'lg'], disabled: 'boolean' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -89,10 +89,10 @@ export default {
 };
 
 export const Playground = {
-  args: { type: 'multiple', disabled: false, onValueChange: fn() },
+  args: { type: 'multiple', variant: 'outline', size: 'default', disabled: false, onValueChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'A content library. The status filter follows the controls and filters the list below: `type="multiple"` combines statuses, `single` keeps one, and `disabled` locks the filter. The icon-only layout switch beside it toggles list and grid.' },
+      description: { story: 'A content library. The status filter follows the controls and filters the list below: `type="multiple"` combines statuses, `single` keeps one, `variant` and `size` restyle both groups, and `disabled` locks the filter. The icon-only layout switch beside it toggles list and grid.' },
       source: playgroundSource('ToggleGroup', {
         imports: `import { ToggleGroup } from '@gaudi/design-system';\n\nconst options = ${JSON.stringify(statuses.map(({ value, label, disabled }) => ({ value, label, ...(disabled ? { disabled } : {}) })), null, 2)};`,
         attributes: ["label='Status'", 'options={options}', 'value={status}', 'onValueChange={setStatus}']
@@ -122,7 +122,7 @@ export const Playground = {
 };
 
 export const DisabledOptions = {
-  parameters: { docs: { description: { story: 'A disabled option stays visible but is skipped by arrow-key focus, which wraps while `loop` is on.' } } },
+  parameters: { docs: { description: { story: 'A disabled option stays visible but arrow keys skip it; focus wraps from the last option to the first.' } } },
   render: () => <ToggleGroup label='Export format' defaultValue='md' options={exportFormats} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

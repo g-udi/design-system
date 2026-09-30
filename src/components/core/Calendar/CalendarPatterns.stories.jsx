@@ -15,4 +15,4 @@ export const CalendarPattern8 = { name: 'Caption and navigation', ...pattern(8, 
 export const CalendarPattern13 = { name: 'Year and month grid', ...pattern(13, 'The caption opens a year grid, then a month grid, for jumping far from the current month.') };
 export const CalendarPattern19 = { name: 'Appointment booking', ...pattern(19, 'Past and fully booked days are disabled; taken slots are disabled and the chosen slot resets when the day changes.') };
 export const CalendarPattern17 = { name: 'Daily pricing', ...pattern(17, 'A custom day button shows a price under each date, with larger cells to fit it.') };
-export const CalendarPattern22 = { name: 'Event list', ...pattern(22) };
+export const CalendarPattern22 = { name: 'Event list', ...pattern(22, 'A calendar in a card with the chosen day\'s events listed below it.') };

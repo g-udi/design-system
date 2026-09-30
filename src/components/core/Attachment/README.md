@@ -1,11 +1,35 @@
 # Attachment
 
-This Gaudi owner includes **attachment**, with **4 practical examples**.
+A file row or tile with media, a name, a status line and actions. Use it in composer trays, upload queues and messages; `state` drives the idle, uploading, processing, done and error styling.
 
-Import the documented composition from `@gaudi/design-system/core/Attachment`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-attachment--attachment-pattern-4) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Attachment, AttachmentAction, AttachmentActions, AttachmentContent, AttachmentDescription, AttachmentMedia, AttachmentTitle } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Attachment state='error'>
+  <AttachmentMedia><RegistryIcon lucide='SheetIcon' aria-hidden='true' /></AttachmentMedia>
+  <AttachmentContent>
+    <AttachmentTitle>subscribers.csv</AttachmentTitle>
+    <AttachmentDescription>Failed · connection dropped</AttachmentDescription>
+  </AttachmentContent>
+  <AttachmentActions>
+    <AttachmentAction aria-label='Retry subscribers.csv'><RegistryIcon lucide='RotateCwIcon' aria-hidden='true' /></AttachmentAction>
+  </AttachmentActions>
+</Attachment>
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Parts
+
+| Part | Contract |
+| --- | --- |
+| `Attachment` | `state`, `size` (default, sm, xs) and `orientation` (horizontal, vertical). |
+| `AttachmentMedia` | `variant` icon or image. |
+| `AttachmentTitle`, `AttachmentDescription` | File name and status line; both truncate. |
+| `AttachmentActions`, `AttachmentAction` | Icon buttons built on Button (`size='icon-xs'`, ghost by default). |
+| `AttachmentTrigger` | A full-card button or link, for selectable tiles. |
+| `AttachmentGroup` | A horizontally scrolling strip. |
+
+## Accessibility
+
+Name every icon-only action after its file ("Remove report.pdf") so a list of buttons stays distinguishable.

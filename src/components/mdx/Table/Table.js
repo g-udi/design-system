@@ -13,6 +13,8 @@
 
 import { useEffect, useRef } from 'react';
 
+import { cn } from '../../../utilities/cn';
+
 import styles from './Table.module.css';
 
 /**
@@ -44,60 +46,45 @@ import styles from './Table.module.css';
  *   </tbody>
  * </Table>
  */
-const Table = ({ children, className = '', ...rest }) => {
-  const scrollContainerRef = useRef(null);
+const Table = ({ children, className, ...rest }) => {
+  const tableRef = useRef(null);
 
+  // Highlight the hovered cell's column across every row.
   useEffect(() => {
-    const scrollContainer = scrollContainerRef.current;
+    const table = tableRef.current;
 
-    if (!scrollContainer) return;
+    if (!table) return undefined;
 
-    // Enhanced column highlighting
-    const table = scrollContainer.querySelector('table');
+    const handleCellHover = (event) => {
+      const cell = event.target.closest?.('td, th');
 
-    if (table) {
-      const handleCellHover = (event) => {
-        if (event.target.tagName === 'TD' || event.target.tagName === 'TH') {
-          const cellIndex = Array.from(event.target.parentNode.children).indexOf(event.target);
-          const rows = table.querySelectorAll('tr');
+      if (!cell || !table.contains(cell)) return;
 
-          rows.forEach((row) => {
-            const cell = row.children[cellIndex];
+      const cellIndex = Array.from(cell.parentNode.children).indexOf(cell);
 
-            if (cell) if (event.type === 'mouseover') cell.classList.add(styles.columnHover);
-            else cell.classList.remove(styles.columnHover);
+      table.querySelectorAll('tr').forEach((row) => row.children[cellIndex]?.classList.toggle(styles.columnHover, event.type === 'mouseover'));
+    };
 
-          });
-        }
-      };
+    table.addEventListener('mouseover', handleCellHover);
+    table.addEventListener('mouseout', handleCellHover);
 
-      table.addEventListener('mouseover', handleCellHover);
-      table.addEventListener('mouseout', handleCellHover);
-
-      return () => {
-        table.removeEventListener('mouseover', handleCellHover);
-        table.removeEventListener('mouseout', handleCellHover);
-      };
-    }
+    return () => {
+      table.removeEventListener('mouseover', handleCellHover);
+      table.removeEventListener('mouseout', handleCellHover);
+    };
   }, []);
 
   return (
-    <div className={ `not-prose ${styles.root}` }>
-      {/* Article-width container. Wide tables scroll inside the frame. */}
+    <div className={ cn('not-prose', styles.root) }>
       <div className={ styles.breakout }>
-        {/* Enhanced responsive table container with horizontal scroll */}
         <div
-          ref={ scrollContainerRef }
-          className={ `${styles.scroll} ${styles.frame}` }
+          className={ cn(styles.scroll, styles.frame) }
           role='region'
           tabIndex={ 0 }
           aria-label='Scrollable table'
         >
           <div className='inline-block min-w-full align-middle'>
-            <table
-              className={ `w-full table-auto ${className}` }
-              { ...rest }
-            >
+            <table ref={ tableRef } className={ cn('w-full table-auto', className) } { ...rest }>
               {children}
             </table>
           </div>
@@ -107,61 +94,23 @@ const Table = ({ children, className = '', ...rest }) => {
   );
 };
 
-/**
- * Enhanced table header component
- */
-const TableHead = ({ children, className = '', ...rest }) => (
-  <thead className={ `bg-gray-50 dark:bg-gray-800 ${className}` } { ...rest }>
-    {children}
-  </thead>
+// Header, row-hover and column-hover colours come from Table.module.css tokens, so the parts only set type.
+const TableHead = ({ className, ...rest }) => <thead className={ className } { ...rest } />;
+
+const TableBody = ({ className, ...rest }) => <tbody className={ className } { ...rest } />;
+
+const TableRow = ({ className, ...rest }) => <tr className={ cn('transition-colors duration-150', className) } { ...rest } />;
+
+const TableHeaderCell = ({ className, ...rest }) => (
+  <th className={ cn(styles.cellPadding, 'text-left text-xs font-semibold uppercase text-text', className) } { ...rest } />
 );
 
-/**
- * Enhanced table body component
- */
-const TableBody = ({ children, className = '', ...rest }) => (
-  <tbody className={ `bg-white dark:bg-gray-900 ${className}` } { ...rest }>
-    {children}
-  </tbody>
-);
-
-/**
- * Enhanced table row component
- */
-const TableRow = ({ children, className = '', ...rest }) => (
-  <tr className={ `hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150 ${className}` } { ...rest }>
-    {children}
-  </tr>
-);
-
-/**
- * Enhanced table header cell component
- */
-const TableHeaderCell = ({ children, className = '', ...rest }) => (
-  <th
-    className={ `${styles.cellPadding} text-left text-xs font-semibold text-gray-900 dark:text-gray-100 uppercase ${className}` }
-    { ...rest }
-  >
-    {children}
-  </th>
-);
-
-/**
- * Enhanced table data cell component
- */
-const TableCell = ({ children, className = '', ...rest }) => (
-  <td
-    className={ `${styles.cellPadding} text-sm text-gray-900 dark:text-gray-100 align-top ${className}` }
-    { ...rest }
-  >
-    <div className='overflow-hidden'>
-      {children}
-    </div>
+const TableCell = ({ children, className, ...rest }) => (
+  <td className={ cn(styles.cellPadding, 'align-top text-sm text-text', className) } { ...rest }>
+    <div className='overflow-hidden'>{children}</div>
   </td>
 );
 
-// Export the main table component as default
 export default Table;
 
-// Export individual components for granular control
 export { TableBody, TableCell, TableHead, TableHeaderCell, TableRow };

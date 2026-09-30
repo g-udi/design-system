@@ -7,7 +7,7 @@ const TreeContext = createContext({
   indent: 20,
   currentItem: void 0,
   tree: void 0,
-  toggleIconType: 'plus-minus'
+  toggleIconType: 'chevron'
 });
 function useTreeContext() {
   return useContext(TreeContext);
@@ -104,11 +104,7 @@ function TreeItemLabel({
     <Comp
       data-slot='tree-item-label'
       className={cn(
-        'in-focus-visible:ring-ui-ring/50 bg-ui-background hover:bg-ui-accent in-data-[selected=true]:bg-ui-accent in-data-[selected=true]:text-ui-accent-foreground in-data-[drag-target=true]:bg-ui-accent flex items-center gap-1 transition-colors not-in-data-[folder=true]:ps-7 in-focus-visible:ring-[3px] in-data-[search-match=true]:bg-blue-50! [&_svg]:pointer-events-none [&_svg]:shrink-0',
-        'rounded-md',
-        'py-1.5',
-        'px-2',
-        'text-sm',
+        'in-focus-visible:ring-ui-ring/50 bg-ui-background hover:bg-ui-accent in-data-[selected=true]:bg-ui-accent in-data-[selected=true]:text-ui-accent-foreground in-data-[drag-target=true]:bg-ui-accent flex items-center gap-1 rounded-md px-2 py-1.5 text-sm transition-colors not-in-data-[folder=true]:ps-7 in-focus-visible:ring-[3px] in-data-[search-match=true]:bg-accent-subtle! [&_svg]:pointer-events-none [&_svg]:shrink-0',
         className
       )}
       {...props}
@@ -116,21 +112,12 @@ function TreeItemLabel({
       <Fragment>
         {item.isFolder() &&
           (toggleIconType === 'plus-minus' ? (
-            item.isExpanded() ? (
-              <RegistryIcon
-                lucide='MinusIcon'
-                className='text-ui-muted-foreground size-3.5'
-                stroke='currentColor'
-                strokeWidth='1'
-              />
-            ) : (
-              <RegistryIcon
-                lucide='PlusIcon'
-                className='text-ui-muted-foreground size-3.5'
-                stroke='currentColor'
-                strokeWidth='1'
-              />
-            )
+            <RegistryIcon
+              lucide={item.isExpanded() ? 'MinusIcon' : 'PlusIcon'}
+              className='text-ui-muted-foreground size-3.5'
+              stroke='currentColor'
+              strokeWidth='1'
+            />
           ) : (
             <RegistryIcon
               lucide='ChevronDownIcon'
@@ -156,8 +143,7 @@ function TreeDragLine({ className, ...props }) {
     <div
       style={dragLine}
       className={cn(
-        'bg-ui-primary before:bg-ui-background before:border-ui-primary absolute z-30 -mt-px h-0.5 w-[unset] before:absolute before:-top-[3px] before:left-0 before:size-2 before:border-2',
-        'before:rounded-full',
+        'bg-ui-primary before:bg-ui-background before:border-ui-primary absolute z-30 -mt-px h-0.5 w-[unset] before:absolute before:-top-[3px] before:left-0 before:size-2 before:rounded-full before:border-2',
         className
       )}
       {...props}

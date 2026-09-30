@@ -14,7 +14,7 @@ export default {
   id: 'mdx-quote',
   component: Quote,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { text: 'text', author: 'text', title: 'text' }),
+  argTypes: docsArgTypes(docs, { text: 'text', author: 'text', title: 'text', image: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -27,12 +27,13 @@ export default {
 export const Playground = {
   args: {
     text: 'Good component systems make product code calmer. You stop deciding how things look and start deciding what they mean.',
-    author: 'Gaudi team',
-    title: 'Design principles'
+    author: 'Maya Chen',
+    title: 'Design systems lead',
+    image: 'https://randomuser.me/api/portraits/women/44.jpg'
   },
   parameters: {
     docs: {
-      description: { story: 'A pull quote between two article paragraphs, with the quotation, author, and role all driven by the controls.' },
+      description: { story: 'A pull quote between two article paragraphs, with the quotation, author, role, and portrait all driven by the controls.' },
       source: playgroundSource('Quote', {
         imports: "import { Quote } from '@gaudi/design-system/mdx';",
         before: `<p>${before}</p>\n\n`,
@@ -41,7 +42,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <div className='space-y-8 text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <div className='space-y-8 text-base leading-7 text-text'>
       <p>{before}</p>
       <Quote {...args} />
       <p>{after}</p>
@@ -52,5 +53,6 @@ export const Playground = {
     await expect(canvasElement.querySelector('figure blockquote')).toContainElement(canvas.getByText(args.text));
     await expect(canvas.getByText(args.author).tagName).toBe('CITE');
     await expect(canvas.getByText(args.title)).toBeVisible();
+    if (args.image) await expect(canvas.getByRole('img', { name: `${args.author} portrait` })).toBeVisible();
   }
 };

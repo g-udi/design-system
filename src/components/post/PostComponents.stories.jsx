@@ -1,7 +1,8 @@
 import { Page, pageParameters, Section } from '../../../.storybook/stories/StoryDocs';
 
 import Breadcrumb from '../core/Breadcrumb';
-import PostHeader, { PostTimestamps } from './PostHeader';
+import Typography from '../../foundations/Typography';
+import PostHeader from './PostHeader';
 import PostNavigation from './PostNavigation';
 import PostSharing from './PostSharing';
 
@@ -12,26 +13,21 @@ const siteMetadata = {
   'siteUrl': 'https://ahmadassaf.com'
 };
 
-const series = [
-  { 'order': 1, 'series': 'Design Systems', 'slug': 'foundations', title: 'Foundations' },
-  { 'order': 2, 'series': 'Design Systems', 'slug': 'components', title: 'Components' },
-  { 'order': 3, 'series': 'Design Systems', 'slug': 'documentation', title: 'Documentation' }
-];
-
 const frontMatter = {
   'category': 'engineering',
   'date': '2026-05-20',
   'externalLink': 'engineering/design-systems',
-  'fileName': 'design-systems.mdx',
   'readingTime': { 'text': '6 min read' },
-  'seriesPosts': series,
+  'seriesPosts': [
+    { 'order': 1, 'series': 'Design Systems', 'slug': 'foundations', 'title': 'Foundations' },
+    { 'order': 2, 'series': 'Design Systems', 'slug': 'components', 'title': 'Building a Complete Blog Design System' },
+    { 'order': 3, 'series': 'Design Systems', 'slug': 'documentation', 'title': 'Documentation' }
+  ],
   'slug': 'components',
   'subtitle': 'A practical structure for local package-driven UI.',
-  'tableOfContents': true,
-  tags: [ 'design systems', 'react', 'storybook' ],
-  title: 'Building a Complete Blog Design System'
+  'tags': [ 'design systems', 'react', 'storybook' ],
+  'title': 'Building a Complete Blog Design System'
 };
-
 
 export default {
   id: 'post-overview',
@@ -45,35 +41,32 @@ export const Default = {
   'render': () => (
     <Page
       title='Post'
-      intro='Post components compose article identity, chronology, wayfinding, sharing, series context, and supporting editorial notes.'
+      intro='Post components frame an article from top to bottom: wayfinding, the header with its series, sharing, and links to the neighbouring posts.'
     >
-      <Section title='Article Header' description='Start with the article identity, publication metadata, reading time, and table-of-contents context.'>
-        <div className='max-w-5xl'>
-          <PostHeader frontMatter={ frontMatter } siteMetadata={ siteMetadata } titleLevel={ 3 } />
-        </div>
-      </Section>
-
-      <Section title='Navigation And Sharing' description='Keep wayfinding and sharing actions adjacent to the article without competing with its content.'>
-        <div className='max-w-4xl space-y-8'>
+      <Section title='Article Chrome' description='Every post component in reading order around a short article body.'>
+        <article data-docs-example className='max-w-4xl space-y-6'>
           <Breadcrumb items={ [
             { 'href': '/', 'label': 'Home' },
             { 'href': '/blog', 'label': 'Blog' },
-            { 'current': true, 'href': '/blog/design-system', 'label': 'Design System' }
+            { 'current': true, 'href': `/blog/${frontMatter.slug}`, 'label': frontMatter.title }
           ] } />
-          <PostTimestamps date='2026-05-20' locale='en-GB' readingTime='6 min read' />
+          <PostHeader frontMatter={ frontMatter } siteMetadata={ siteMetadata } titleLevel={ 3 } classNames={{ 'root': 'pt-0' }} />
+          <Typography variant='paragraph-md'>
+            A design system earns its keep when the next article looks like it belongs with the last one. Ownership, contracts, and documentation keep that promise as the blog grows.
+          </Typography>
           <PostSharing
             siteMetadata={ siteMetadata }
-            slug='design-system'
-            title='Building a Complete Blog Design System'
-            tags={ [ 'design systems', 'react' ] }
-            externalLink='engineering/design-system'
+            slug={ frontMatter.slug }
+            title={ frontMatter.title }
+            tags={ frontMatter.tags }
+            externalLink={ frontMatter.externalLink }
           />
           <PostNavigation
-            headingLevel={ 3 }
-            prev={{ 'slug': 'previous-post', title: 'Previous post title' }}
-            next={{ 'slug': 'next-post', title: 'Next post title' }}
+            headingLevel={ 4 }
+            prev={{ 'slug': 'foundations', 'title': 'Foundations' }}
+            next={{ 'slug': 'documentation', 'title': 'Documentation' }}
           />
-        </div>
+        </article>
       </Section>
     </Page>
   )

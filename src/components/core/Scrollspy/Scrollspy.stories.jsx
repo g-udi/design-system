@@ -5,6 +5,7 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
+import Button from '../Button';
 import { ScrollArea } from '../ScrollArea/index.js';
 import { Scrollspy } from './index.js';
 
@@ -25,32 +26,34 @@ function ScrollspyExample({ offset, ...args }) {
   const id = (title) => `${prefix}-${title.toLowerCase()}`;
   return (
     <div className='flex gap-3'>
-      <Scrollspy targetRef={targetRef} offset={offset} className='flex w-32 shrink-0 flex-col gap-0.5 text-sm sm:w-40' {...args}>
+      <Scrollspy targetRef={targetRef} offset={offset} className='flex w-32 shrink-0 flex-col gap-0.5 sm:w-40' {...args}>
         {sections.map(({ title, icon }) => (
-          <button
+          <Button
             key={title}
-            type='button'
+            variant='ghost'
+            tone='neutral'
+            size='sm'
             data-scrollspy-anchor={id(title)}
-            className='group/spy flex items-center gap-2 rounded-md px-3 py-1.5 text-start text-ui-muted-foreground hover:bg-ui-accent/60 hover:text-ui-foreground data-[active=true]:bg-ui-accent data-[active=true]:font-medium data-[active=true]:text-ui-foreground'
+            className='group/spy justify-start text-text-muted hover:text-text data-[active=true]:bg-surface-muted data-[active=true]:text-text'
           >
-            <RegistryIcon lucide={icon} aria-hidden='true' className='size-4 shrink-0 group-data-[active=true]/spy:text-ui-primary' />
+            <RegistryIcon lucide={icon} aria-hidden='true' className='group-data-[active=true]/spy:text-accent' />
             <span className='truncate'>{title}</span>
-          </button>
+          </Button>
         ))}
       </Scrollspy>
       <div ref={targetRef} className='min-w-0 flex-1'>
-        <ScrollArea aria-label='Guide' className='h-72 rounded-2xl border border-ui-border'>
+        <ScrollArea aria-label='Guide' className='h-72 rounded-card border border-border'>
           {offset > 0 && (
-            <div style={{ height: offset }} className='sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-ui-border bg-ui-background px-4 text-xs text-ui-muted-foreground'>
-              <span className='truncate font-medium text-ui-foreground'>Guide</span>
+            <div style={{ height: offset }} className='sticky top-0 z-10 flex items-center justify-between gap-2 border-b border-border bg-surface px-4 text-xs text-text-muted'>
+              <span className='truncate font-medium text-text'>Guide</span>
               <span className='shrink-0 tabular-nums'>offset {offset}px</span>
             </div>
           )}
           {sections.map(({ title, body, code }) => (
             <section key={title} id={id(title)} className='grid min-h-44 content-start gap-2 p-4 text-sm'>
               <h3 className='text-base font-semibold'>{title}</h3>
-              <p className='text-ui-muted-foreground'>{body}</p>
-              {code && <code className='rounded-md bg-ui-muted px-2 py-1.5 font-mono text-xs break-all'>{code}</code>}
+              <p className='text-text-muted'>{body}</p>
+              {code && <code className='rounded-md bg-surface-muted px-2 py-1.5 font-mono text-xs break-all'>{code}</code>}
             </section>
           ))}
         </ScrollArea>
@@ -77,7 +80,7 @@ export default {
 export const Playground = {
   args: { offset: 44, smooth: true, onUpdate: fn() },
   parameters: {
-    // Visible while interacting (scrolling to a section, opening the video), not in the resting preview.
+    // Smoothing only shows while a clicked section scrolls into view, not in the resting preview.
     controlAudit: { interaction: ['smooth'] },
     docs: {
       description: { story: 'A guide page. `offset` is the height of the sticky header, so a clicked section lands just below it and the active link switches at that line. `smooth` animates the jump.' },

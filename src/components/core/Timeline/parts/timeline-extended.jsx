@@ -15,10 +15,12 @@ function Timeline({
   value,
   onValueChange,
   orientation = 'vertical',
+  asChild = false,
   className,
   children,
   ...props
 }) {
+  const Comp = asChild ? Slot.Root : 'div';
   const [activeStep, setInternalStep] = useState(defaultValue);
   const setActiveStep = useCallback(
     (step) => {
@@ -34,7 +36,7 @@ function Timeline({
     <TimelineContext.Provider
       value={{ activeStep: currentStep, setActiveStep }}
     >
-      <div
+      <Comp
         className={cn(
           'group/timeline flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-row data-[orientation=vertical]:flex-col',
           className
@@ -44,7 +46,7 @@ function Timeline({
         {...props}
       >
         {children}
-      </div>
+      </Comp>
     </TimelineContext.Provider>
   );
 }
@@ -91,10 +93,11 @@ function TimelineIndicator({ asChild = false, className, children, ...props }) {
     </Comp>
   );
 }
-function TimelineItem({ step, className, ...props }) {
+function TimelineItem({ step, asChild = false, className, ...props }) {
   const { activeStep } = useTimeline();
+  const Comp = asChild ? Slot.Root : 'div';
   return (
-    <div
+    <Comp
       className={cn(
         'group/timeline-item has-[+[data-completed]]:**:data-[slot=timeline-separator]:bg-ui-primary relative flex flex-1 flex-col gap-0.5 group-data-[orientation=horizontal]/timeline:mt-8 group-data-[orientation=horizontal]/timeline:not-last:pe-8 group-data-[orientation=vertical]/timeline:ms-8 group-data-[orientation=vertical]/timeline:not-last:pb-4',
         className
@@ -118,9 +121,10 @@ function TimelineSeparator({ className, ...props }) {
     />
   );
 }
-function TimelineTitle({ className, ...props }) {
+function TimelineTitle({ asChild = false, className, ...props }) {
+  const Comp = asChild ? Slot.Root : 'h3';
   return (
-    <h3
+    <Comp
       className={cn('text-sm font-medium', className)}
       data-slot='timeline-title'
       {...props}

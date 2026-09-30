@@ -46,7 +46,7 @@ export const Playground = {
     }
   },
   render: (args) => (
-    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <div className='text-base leading-7 text-text'>
       <p>{lead}</p>
       <Mermaid id='publishing-flow' description={description} {...args} />
     </div>

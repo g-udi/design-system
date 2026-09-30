@@ -81,7 +81,7 @@ function buildBars(anchor) {
   ];
 }
 export function Pattern() {
-  const bars = useMemo(() => buildBars(/* @__PURE__ */ new Date()), []);
+  const bars = useMemo(() => buildBars(new Date()), []);
   const apiRef = useRef(null);
   const addedRef = useRef(0);
   const addAssignment = () => {
@@ -90,7 +90,7 @@ export function Pattern() {
     const n = addedRef.current++;
     const person = PEOPLE[n % PEOPLE.length];
     const task = TASK_POOL[n % TASK_POOL.length];
-    const week = startOfWeek(startOfDay(/* @__PURE__ */ new Date()), {
+    const week = startOfWeek(startOfDay(new Date()), {
       weekStartsOn: 0
     });
     const start = addDays(week, (n % 5) + 1);

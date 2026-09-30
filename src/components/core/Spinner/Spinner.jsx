@@ -1,14 +1,16 @@
 import { cn } from '../../../utilities/cn';
+import { Spinner as SpinnerRoot } from './parts/spinner.jsx';
 
 const spinnerSizes = {
-  'lg': 'size-8 border-2',
-  'md': 'size-5 border-2',
-  'sm': 'size-4 border-2',
-  'xs': 'size-3 border'
+  'lg': 'size-8',
+  'md': 'size-5',
+  'sm': 'size-4',
+  'xs': 'size-3'
 };
 
-const Spinner = ({ className, label = 'Loading', size = 'md' }) => (
-  <span role='status' aria-label={ label } className={ cn('inline-block animate-spin rounded-full border-current border-r-transparent text-blue-600', spinnerSizes[size], className) } />
+/** A labelled loading indicator in the accent colour; pass `className='text-current'` to follow the text. */
+const Spinner = ({ className, label = 'Loading', size = 'md', ...props }) => (
+  <SpinnerRoot aria-label={ label } className={ cn('text-accent', spinnerSizes[size], className) } { ...props } />
 );
 
 export default Spinner;

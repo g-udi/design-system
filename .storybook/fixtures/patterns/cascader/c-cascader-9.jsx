@@ -86,7 +86,7 @@ const menu = [
   },
   { value: 'water', label: 'Still water' }
 ];
-const LABELS = /* @__PURE__ */ new Map();
+const LABELS = new Map();
 function indexLabels(nodes) {
   for (const node of nodes) {
     LABELS.set(node.value, node.label);

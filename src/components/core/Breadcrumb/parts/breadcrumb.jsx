@@ -49,8 +49,6 @@ function BreadcrumbPage({ className, ...props }) {
   return (
     <span
       data-slot='breadcrumb-page'
-      role='link'
-      aria-disabled='true'
       aria-current='page'
       className={cn('ds-part-breadcrumb-page', className)}
       {...props}
@@ -67,7 +65,7 @@ function BreadcrumbSeparator({ children, className, ...props }) {
       {...props}
     >
       {children ?? (
-        <RegistryIcon lucide='ChevronRightIcon' className='ds-part-rtl-flip' />
+        <RegistryIcon lucide='ChevronRightIcon' className='rtl:-scale-x-100' />
       )}
     </li>
   );

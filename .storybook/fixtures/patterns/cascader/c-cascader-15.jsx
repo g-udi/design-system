@@ -31,8 +31,8 @@ const TONE_BADGE = {
 const LARGE_ASSET_MB = 5;
 const REPOSITORIES = [
   { name: 'gaudi', kind: 'components' },
-  { name: 'keenicons', kind: 'icons' },
-  { name: 'metronic', kind: 'templates' },
+  { name: 'gaudi-tokens', kind: 'tokens' },
+  { name: 'gaudi-docs', kind: 'docs' },
   { name: 'gaudi-blocks', kind: 'blocks' },
   { name: 'gaudi-icons', kind: 'icons' },
   { name: 'gaudi-mcp', kind: 'mcp' },

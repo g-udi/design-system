@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/checkbox/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Checkbox', id: 'core-checkbox', tags: ['autodocs'], ...catalogueMeta('checkbox') };
+export default { title: 'Core/Checkbox', id: 'core-checkbox', tags: ['autodocs'], ...catalogueMeta('checkbox') };
 
 export const CheckboxPattern1 = {
   name: 'States',

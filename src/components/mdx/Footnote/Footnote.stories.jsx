@@ -52,7 +52,7 @@ export const Playground = {
         A fresh shell starts in under 50 ms<Ref number={1} />, because the core loads nothing until a command
         asks for it<Ref number={2} />.
       </p>
-      <section aria-label='Footnotes' className='mt-4 border-t border-gray-200 pt-3 text-sm dark:border-gray-800'>
+      <section aria-label='Footnotes' className='mt-4 border-t border-border pt-3 text-sm'>
         <ol className='list-decimal space-y-1 pl-5'>
           {notes.map(({ number, text }) => (
             <li key={number} id={`user-content-fn-${number}`}>{text} <a href={`#fnref-${number}`} aria-label={`Back to reference ${number}`}>{'\u21a9\ufe0e'}</a></li>

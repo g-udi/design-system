@@ -40,7 +40,7 @@ const steps = [
 ];
 function Section({ title, children }) {
   return (
-    <section className='ds-stack min-w-0 border-b border-gray-200 py-8 dark:border-gray-800'>
+    <section className='ds-stack min-w-0 border-b border-border py-8'>
       <h2 className='ds-title'>{title}</h2>
       {children}
     </section>

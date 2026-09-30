@@ -36,9 +36,9 @@ import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
 import { ScrollArea } from '../../ScrollArea/parts/scroll-area.jsx';
 function useNow(intervalMs = 3e4) {
-  const [now, setNow] = useState(() => /* @__PURE__ */ new Date());
+  const [now, setNow] = useState(() => new Date());
   useEffect(() => {
-    const tick = () => setNow(/* @__PURE__ */ new Date());
+    const tick = () => setNow(new Date());
     const id = setInterval(tick, intervalMs);
     document.addEventListener('visibilitychange', tick);
     window.addEventListener('focus', tick);
@@ -323,7 +323,7 @@ function useEventCalendarAllDayBars(days) {
   return useEventCalendarSelector(
     () => {
       const byDay = instance.internals.getIndex().byDay;
-      const merged = /* @__PURE__ */ new Map();
+      const merged = new Map();
       days.forEach((day, col) => {
         for (const seg of byDay.get(getDayKey(day, settings.timeZone))
           ?.allDay ?? []) {
@@ -682,7 +682,7 @@ function EventCalendarAllDayCell({ day }) {
 function EventCalendarTimeGutter({ days, slots, startHour, interval }) {
   const settings = useEventCalendarSettings();
   const viewConfig = useEventCalendarViewConfig();
-  const referenceDay = days[0] ?? /* @__PURE__ */ new Date();
+  const referenceDay = days[0] ?? new Date();
   const labelFormat =
     interval % 60 === 0
       ? settings.i18n.formats.timeGutter

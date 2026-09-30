@@ -3,9 +3,9 @@
 /**
  * Main Navigation Menu Component
  *
- * @description The primary navigation component that renders the main menu bar with logo, navigation links,
- * theme switcher, search functionality, and mobile menu. Adapts its content based on the current route
- * and provides access to the command launcher interface.
+ * @description The site header: logo, the primary NavigationMenu (links plus the Blog or Categories
+ * dropdown), search, theme switch, and the mobile menu below `lg`. Adapts its content to the current route
+ * and opens the command launcher.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -18,6 +18,7 @@ import CommandLauncher from '../../core/Commander';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
+import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from '../../core/NavigationMenu';
 import MenuDropdownPanel from '../MenuDropdownPanel';
 import ThemeLogo from '../MenuLogo';
 import MenuMain from '../MenuMain';
@@ -28,16 +29,13 @@ import { coreContent, sortPosts } from '../../../utilities/content';
 import { useSiteConfig } from '../../../utilities/SiteConfig';
 
 /**
- * Main navigation menu component
+ * Renders the site header
  *
- * @description Renders the primary navigation bar with responsive design, including logo, navigation links,
- * theme switcher, search functionality, and mobile menu. The component adapts its menu items based on
- * the current route and integrates with the command launcher for enhanced navigation.
- *
- * @returns {JSX.Element} The rendered navigation menu component
+ * @param {Object} props - Searchable content collections for the Blog panel and the command launcher
+ * @returns {JSX.Element} The site header
  *
  * @example
- * <Menu />
+ * <Menu categories={categories} posts={posts} />
  */
 const Menu = ({
   categories: categoriesProp,
@@ -64,6 +62,8 @@ const Menu = ({
     return !link.hideInPath || !path.includes(link.hideInPath);
   };
   const mobileLinks = navigation.links.filter((link) => link !== blogLink && shouldShowLink(link));
+  const isActivePath = (href) => path === href || (href !== '/' && path.startsWith(`${href}/`));
+  const onBlogRoute = path.includes('/blog');
 
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
   const [ LauncherOpen, LauncherSetOpen ] = useState(false);
@@ -81,68 +81,56 @@ const Menu = ({
     return () => desktopQuery.removeEventListener('change', closeOnDesktop);
   }, []);
 
-  return (<nav aria-label='Main navigation' className='flex min-h-14 items-center justify-between gap-4 py-3 lg:py-4'>
+  return (
+    <header className='flex min-h-14 items-center justify-between gap-4 py-3 lg:py-4'>
+      <Link href='/' aria-label={ metadata.author.name || metadata.title || 'Home' } variant='bare' className='shrink-0 text-text'>
+        <ThemeLogo />
+      </Link>
 
-    <Link href='/' aria-label={ metadata.author.name || metadata.title || 'Home' } variant='bare' className='shrink-0 text-gray-950 dark:text-white'>
-      <ThemeLogo />
-    </Link>
-
-    <div className='flex min-w-0 items-center gap-3 lg:gap-5'>
-      <ul className='hidden items-center gap-4 lg:flex xl:gap-6'>
-        {navigation.links.map((link) => {
-          if (!shouldShowLink(link)) return null;
-
-          const isActive = path === link.href || (link.href !== '/' && path.startsWith(`${link.href}/`));
-
-          return (
-            <li key={ link.href }>
-              <Link
-                href={ link.href }
-                aria-current={ isActive ? 'page' : undefined }
-                className={ `inline-flex min-h-9 items-center whitespace-nowrap rounded-md px-1.5 py-1.5 text-sm font-medium pointer-coarse:min-h-11 ${isActive ? 'text-blue-600 dark:text-blue-400' : ''}` }
-              >
+      <div className='flex min-w-0 items-center gap-3 lg:gap-5'>
+        <NavigationMenu label='Main navigation' className='hidden w-auto lg:flex'>
+          <NavigationMenuList className='gap-2 xl:gap-4'>
+            {navigation.links.filter(shouldShowLink).map((link) => (
+              <NavigationMenuLink key={ link.href } href={ link.href } active={ isActivePath(link.href) } className='whitespace-nowrap'>
                 {link.title}
-              </Link>
-            </li>
-          );
-        })}
+              </NavigationMenuLink>
+            ))}
+            {onBlogRoute
+              ? <MenuDropdownPanel name='Categories' categories={ menuCategories } />
+              : <MenuMain categories={ menuCategories } allPosts={ posts } />}
+          </NavigationMenuList>
+        </NavigationMenu>
 
-        { !path.includes('/blog') && (<MenuMain categories={ menuCategories } allPosts={ posts }></MenuMain>) }
-        { path.includes('/blog') && (<MenuDropdownPanel name='Categories' categories={ menuCategories } />) }
-      </ul>
+        <MenuSearch className='hidden lg:block' setOpen={ LauncherSetOpen } />
 
-      <MenuSearch className='hidden lg:block' setOpen={ LauncherSetOpen }></MenuSearch>
+        <ThemeSwitch />
 
-      <ThemeSwitch />
-
-      <div className='flex lg:hidden'>
-        <Button ref={ mobileMenuTriggerRef } variant='ghost' tone='neutral' size='sm' className='h-11 w-11 p-0' onClick={ () => setMobileMenuOpen(true) }>
+        <Button ref={ mobileMenuTriggerRef } variant='ghost' tone='neutral' size='icon' className='size-11 lg:hidden' onClick={ () => setMobileMenuOpen(true) }>
           <span className='sr-only'>Open main menu</span>
           <Icon name='Menu' decorative size='md' />
         </Button>
-      </div>
 
-      {mobileMenuOpen ? (
-        <MenuMobile
-          blogLink={ blogLink }
-          categories={ menuCategories }
-          links={ mobileLinks }
-          setMobileMenuOpen={ setMobileMenuOpen }
-          setLauncherOpen={ LauncherSetOpen }
+        {mobileMenuOpen ? (
+          <MenuMobile
+            blogLink={ blogLink }
+            categories={ menuCategories }
+            links={ mobileLinks }
+            setMobileMenuOpen={ setMobileMenuOpen }
+            setLauncherOpen={ LauncherSetOpen }
+          />
+        ) : null}
+        <CommandLauncher
+          tags={ menuTags }
+          projects={ projects }
+          posts={ posts }
+          thoughts={ thoughts }
+          publications={ menuPublications }
+          open={ LauncherOpen }
+          restoreFocusRef={ mobileMenuTriggerRef }
+          setOpen={ LauncherSetOpen }
         />
-      ) : null}
-      <CommandLauncher
-        tags={ menuTags }
-        projects={ projects }
-        posts={ posts }
-        thoughts={ thoughts }
-        publications={ menuPublications }
-        open={ LauncherOpen }
-        restoreFocusRef={ mobileMenuTriggerRef }
-        setOpen={ LauncherSetOpen }
-      />
-    </div>
-  </nav>
+      </div>
+    </header>
   );
 };
 

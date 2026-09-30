@@ -1,11 +1,18 @@
 # ButtonGroup
 
-This Gaudi owner includes **button-group**, with **9 practical examples**.
+A button group joins related buttons into one control: a toolbar, a split button, a pager, or an input with its action.
 
-Import the documented composition from `@gaudi/design-system/core/ButtonGroup`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Button, ButtonGroup, ButtonGroupSeparator } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-buttongroup--button-group-pattern-22) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<ButtonGroup aria-label='Reply'>
+  <Button>Reply all</Button>
+  <ButtonGroupSeparator />
+  <Button size='icon' aria-label='More reply options'>…</Button>
+</ButtonGroup>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- Give each group an `aria-label` so assistive tech announces what the buttons do together.
+- `orientation='vertical'` stacks the buttons; turn any `ButtonGroupSeparator` to `horizontal` with it.
+- `ButtonGroupText` holds a label or value (such as "Page 2 of 26") inside the group.
+- Groups can hold inputs and selects, and can nest to keep a small gap between sets.

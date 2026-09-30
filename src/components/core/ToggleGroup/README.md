@@ -1,11 +1,9 @@
 # ToggleGroup
 
-Single or multiple selection for view modes and formatting. Pass label, options, type, controlled value and onValueChange, or defaultValue. Single selection can be cleared.
-
-## Usage
+A toggle group lets people pick one option (a view mode) or several (filters, formatting) from a short set of buttons.
 
 ```jsx
-import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
+import { ToggleGroup } from '@gaudi/design-system';
 
 <ToggleGroup
   label='Collection view'
@@ -13,15 +11,13 @@ import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
   options={[
     { value: 'list', label: 'List' },
     { value: 'grid', label: 'Grid' },
-    { value: 'board', label: 'Board' }
+    { value: 'board', label: 'Board', disabled: true }
   ]}
-/>;
+/>
 ```
 
-## Accessibility
-
-Radix owns roving focus and pressed/checked semantics. Every option has readable text or an explicit ariaLabel.
-
-## Examples
-
-ViewMode, Multiple, DisabledOptions in Storybook. All examples support light and dark themes.
+- `type='single'` (default) keeps one value and allows clearing it; `type='multiple'` keeps an array.
+- `variant` (`outline` or `default`), `size` (`sm`, `default`, `lg`) and `spacing` (0 attaches the items) change the look.
+- Icon-only options need an `ariaLabel`.
+- For custom item content, compose `ToggleGroupRoot` and `ToggleGroupItem`; use `Toggle` for a single on/off button.
+- Arrow keys move between options and skip disabled ones.

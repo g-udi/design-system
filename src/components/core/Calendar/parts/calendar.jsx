@@ -4,6 +4,9 @@ import { cn } from '../../../../utilities/cn/index.js';
 import { DayPicker, getDefaultClassNames } from 'react-day-picker';
 import { default as Button, buttonVariants } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+
+const CHEVRONS = { left: 'ChevronLeftIcon', right: 'ChevronRightIcon', down: 'ChevronDownIcon' };
+
 function Calendar({
   className,
   classNames,
@@ -45,12 +48,12 @@ function Calendar({
           defaultClassNames.nav
         ),
         button_previous: cn(
-          buttonVariants({ variant: buttonVariant }),
+          buttonVariants({ variant: buttonVariant, tone: 'neutral' }),
           'size-(--cell-size) p-0 select-none aria-disabled:opacity-50',
           defaultClassNames.button_previous
         ),
         button_next: cn(
-          buttonVariants({ variant: buttonVariant }),
+          buttonVariants({ variant: buttonVariant, tone: 'neutral' }),
           'size-(--cell-size) p-0 select-none aria-disabled:opacity-50',
           defaultClassNames.button_next
         ),
@@ -124,55 +127,26 @@ function Calendar({
         ...classNames
       }}
       components={{
-        Root: ({ className: className2, rootRef, ...props2 }) => {
-          return (
-            <div
-              data-slot='calendar'
-              ref={rootRef}
-              className={cn(className2)}
-              {...props2}
-            />
-          );
-        },
-        Chevron: ({ className: className2, orientation, ...props2 }) => {
-          if (orientation === 'left') {
-            return (
-              <RegistryIcon
-                lucide='ChevronLeftIcon'
-                className={cn('ds-part-rtl-flip size-4', className2)}
-                {...props2}
-              />
-            );
-          }
-          if (orientation === 'right') {
-            return (
-              <RegistryIcon
-                lucide='ChevronRightIcon'
-                className={cn('ds-part-rtl-flip size-4', className2)}
-                {...props2}
-              />
-            );
-          }
-          return (
-            <RegistryIcon
-              lucide='ChevronDownIcon'
-              className={cn('size-4', className2)}
-              {...props2}
-            />
-          );
-        },
+        Root: ({ rootRef, ...props2 }) => (
+          <div data-slot='calendar' ref={rootRef} {...props2} />
+        ),
+        Chevron: ({ className: className2, orientation = 'down', ...props2 }) => (
+          <RegistryIcon
+            lucide={CHEVRONS[orientation] || CHEVRONS.down}
+            className={cn('size-4', className2)}
+            {...props2}
+          />
+        ),
         DayButton: ({ ...props2 }) => (
           <CalendarDayButton locale={locale} {...props2} />
         ),
-        WeekNumber: ({ children, ...props2 }) => {
-          return (
-            <td {...props2}>
-              <div className='flex size-(--cell-size) items-center justify-center text-center'>
-                {children}
-              </div>
-            </td>
-          );
-        },
+        WeekNumber: ({ children, ...props2 }) => (
+          <td {...props2}>
+            <div className='flex size-(--cell-size) items-center justify-center text-center'>
+              {children}
+            </div>
+          </td>
+        ),
         ...components
       }}
       {...props}
@@ -189,6 +163,7 @@ function CalendarDayButton({ className, day, modifiers, locale, ...props }) {
     <Button
       ref={ref}
       variant='ghost'
+      tone='neutral'
       size='icon'
       data-day={day.date.toLocaleDateString(locale?.code)}
       data-selected-single={
@@ -201,7 +176,7 @@ function CalendarDayButton({ className, day, modifiers, locale, ...props }) {
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'ds-part-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ui-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ui-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-ui-primary data-[range-end=true]:text-ui-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-ui-muted data-[range-middle=true]:text-ui-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-ui-primary data-[range-start=true]:text-ui-primary-foreground data-[selected-single=true]:bg-ui-primary data-[selected-single=true]:text-ui-primary-foreground dark:hover:text-ui-foreground [&>span]:text-xs',
+        'ds-part-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ui-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ui-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-ui-primary data-[range-end=true]:text-ui-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-ui-muted data-[range-middle=true]:text-ui-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-ui-primary data-[range-start=true]:text-ui-primary-foreground data-[selected-single=true]:bg-ui-primary data-[selected-single=true]:text-ui-primary-foreground text-sm [&>span]:text-xs',
         defaultClassNames.day,
         className
       )}

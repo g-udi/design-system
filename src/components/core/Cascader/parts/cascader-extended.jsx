@@ -49,6 +49,7 @@ import {
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
+import { default as Button } from '../../Button/index.js';
 import { ScrollArea } from '../../ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 const EMPTY = [];
@@ -463,7 +464,7 @@ function Cascader({
     },
     [loadStates, mode]
   );
-  const labelCacheRef = React.useRef(/* @__PURE__ */ new Map());
+  const labelCacheRef = React.useRef(new Map());
   for (const selected of selectedValues) {
     const node = index.byValue.get(selected);
     if (node) labelCacheRef.current.set(selected, node);
@@ -537,7 +538,7 @@ function Cascader({
   }, [mode, path, index, levelRendered, needsMoreRow]);
   const treeSentinels = React.useMemo(() => {
     if (mode !== 'tree') return void 0;
-    const keys = /* @__PURE__ */ new Set();
+    const keys = new Set();
     const consider = (key) => {
       if (needsMoreRow(key, index.childrenOf.get(key)?.length ?? 0)) {
         keys.add(key);
@@ -552,7 +553,7 @@ function Cascader({
     const rows = flattenCascaderTree(index, expanded, treeSentinels);
     const normalized = normalizeCascaderQuery(query);
     if (!normalized) return rows;
-    const keep = /* @__PURE__ */ new Set();
+    const keep = new Set();
     for (const node of index.all) {
       if (
         !(filter
@@ -567,7 +568,7 @@ function Cascader({
     }
     return flattenCascaderTree(
       index,
-      /* @__PURE__ */ new Set([...expanded, ...keep])
+      new Set([...expanded, ...keep])
     ).filter((row) => keep.has(row.node.value));
   }, [mode, index, expanded, treeSentinels, query, filter]);
   const renderedItems = React.useMemo(
@@ -694,7 +695,7 @@ function Cascader({
     [index, selectable]
   );
   const branchesSelectable = selectable !== 'leaf';
-  const openFlyoutsRef = React.useRef(/* @__PURE__ */ new Set());
+  const openFlyoutsRef = React.useRef(new Set());
   const setFlyoutOpen = React.useCallback((key, open2) => {
     if (open2) openFlyoutsRef.current.add(key);
     else openFlyoutsRef.current.delete(key);
@@ -1783,14 +1784,15 @@ function CascaderEmpty({
         className='flex flex-col items-center gap-1.5'
       >
         <span>{labels.error}</span>
-        <button
-          type='button'
+        <Button
+          variant='ghost'
+          tone='neutral'
+          size='xs'
           data-slot='cascader-retry'
           onClick={() => retryLevel(levelKey)}
-          className='text-ui-foreground hover:bg-ui-accent focus-visible:ring-ui-ring/50 rounded-md px-2 py-0.5 font-medium outline-hidden transition-colors focus-visible:ring-2'
         >
           {labels.retry}
-        </button>
+        </Button>
       </span>
     );
   } else if (state?.loading) {

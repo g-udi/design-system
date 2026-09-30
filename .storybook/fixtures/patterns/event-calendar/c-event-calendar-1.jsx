@@ -340,7 +340,7 @@ function SettingsTextSelect({ id, label, value, options, onValueChange }) {
   );
 }
 export function Pattern() {
-  const events = useMemo(() => buildEvents(/* @__PURE__ */ new Date()), []);
+  const events = useMemo(() => buildEvents(new Date()), []);
   const apiRef = useRef(null);
   const newEventCount = useRef(0);
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
@@ -356,7 +356,7 @@ export function Pattern() {
   const addEvent = () => {
     const api = apiRef.current;
     if (!api) return;
-    const start = setHours(startOfDay(/* @__PURE__ */ new Date()), 12);
+    const start = setHours(startOfDay(new Date()), 12);
     const end = addMinutes(start, 60);
     api.addEvent({
       id: `new-event-${newEventCount.current++}`,

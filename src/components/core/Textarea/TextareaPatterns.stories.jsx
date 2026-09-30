@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/textarea/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Textarea', id: 'core-textarea', tags: ['autodocs'], ...catalogueMeta('textarea') };
+export default { title: 'Core/Textarea', id: 'core-textarea', tags: ['autodocs'], ...catalogueMeta('textarea') };
 
 export const TextareaPattern3 = {
   name: 'Field states',

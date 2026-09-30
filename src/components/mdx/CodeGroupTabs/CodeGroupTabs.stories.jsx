@@ -54,7 +54,7 @@ const install = [
 export const Playground = {
   parameters: { docs: { description: { story: 'Install instructions for four package managers in one generated code group. Select a tab, or use the arrow keys once a tab has focus.' } } },
   render: () => (
-    <div className='text-base leading-7 text-gray-700 dark:text-gray-300'>
+    <div className='text-base leading-7 text-text'>
       <p className='mb-4'>Install the package, then the peers the MDX components render with:</p>
       <CodeGroup label='Package manager' blocks={install} />
     </div>

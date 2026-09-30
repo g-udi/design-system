@@ -13,7 +13,7 @@ const label = 'Email address';
 const typeIcons = { text: 'Type', email: 'Mail', search: 'Search', url: 'Globe', tel: 'Phone', password: 'Lock' };
 
 export default {
-  title: 'Core/Inputs/Input', id: 'core-input',
+  title: 'Core/Input', id: 'core-input',
   component: Input,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
@@ -50,7 +50,7 @@ export const Playground = {
   render: ({ prefix, suffix, ...args }) => (
     <div className='ds-stack'>
       <Field>
-        <FieldLabel>{label}{args.required ? <span aria-hidden='true' className='text-red-600'> *</span> : null}</FieldLabel>
+        <FieldLabel>{label}{args.required ? <span aria-hidden='true' className='text-danger'>*</span> : null}</FieldLabel>
         <Input {...args} prefix={prefix || <Icon name={typeIcons[args.type]} decorative size='sm' />} suffix={suffix || undefined} />
         {args.invalid ? <FieldError>Enter an address like name@example.com.</FieldError> : <FieldDescription>{args.disabled ? 'Locked by your workspace admin.' : 'Receipts and sign-in links go here.'}</FieldDescription>}
       </Field>

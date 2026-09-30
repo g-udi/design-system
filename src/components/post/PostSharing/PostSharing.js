@@ -2,7 +2,7 @@
  * Post Sharing Component
  *
  * @description A component that provides social sharing functionality for blog posts, including
- * Twitter sharing and GitHub repository links. It generates appropriate URLs for sharing and
+ * X sharing and GitHub repository links. It generates appropriate URLs for sharing and
  * viewing the post source code on GitHub.
  *
  * @author Ahmad Assaf
@@ -10,7 +10,7 @@
  */
 
 
-import SocialIcon from '../../core/Icon';
+import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import { cn } from '../../../utilities/cn';
 
@@ -65,7 +65,7 @@ const buildShareUrl = ({ externalLink, siteMetadata, slug, tags, title }) => {
 /**
  * Post sharing component with social media and GitHub integration
  *
- * @description Renders sharing buttons and links for blog posts, including Twitter share functionality
+ * @description Renders sharing buttons and links for blog posts, including X share functionality
  * with hashtags and a direct link to view the post source on GitHub. Handles URL encoding and
  * provides proper social media integration.
  *
@@ -92,16 +92,12 @@ const PostSharing = ({ className, classNames = {}, siteMetadata, slug, title, ta
   const shareUrl = buildShareUrl({ externalLink, siteMetadata, slug, tags, title });
 
   return (
-    <div className={ cn('my-4 flex pt-4 text-sm text-gray-700 max-sm:text-xs dark:text-gray-300', className, classNames.root) }>
-      <div className={ cn('mr-2 flex space-x-2 hover:text-blue-700', classNames.action) }>
-        <SocialIcon
-          kind='twitter'
-          href={ shareUrl }
-          label='Share post on X'
-        />
+    <div className={ cn('my-4 flex pt-4 text-sm text-text-muted max-sm:text-xs', className, classNames.root) }>
+      <div className={ cn('mr-2 flex gap-2 hover:text-accent', classNames.action) }>
+        <Icon kind='twitter' href={ shareUrl } label='Share post on X' />
       </div>
-      <div className={ cn('mr-4 flex space-x-2 hover:text-blue-700', classNames.source) }>
-        <SocialIcon kind='github' href={ siteMetadata?.github } />
+      <div className={ cn('mr-4 flex items-center gap-2 hover:text-accent', classNames.source) }>
+        <Icon kind='github' href={ siteMetadata?.github } />
         {editUrl ? <Link href={ editUrl } className={ classNames.link }>View on GitHub</Link> : null}
       </div>
     </div>

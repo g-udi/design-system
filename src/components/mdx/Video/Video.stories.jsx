@@ -36,8 +36,8 @@ function VideoCard({ meta, ...props }) {
     <figure className='min-w-0'>
       <Video {...props} />
       <figcaption className='mt-2 text-sm leading-5'>
-        <span className='block font-medium text-gray-900 dark:text-white'>{props.title}</span>
-        <span className='text-gray-600 dark:text-gray-400'>{meta}</span>
+        <span className='block font-medium text-text'>{props.title}</span>
+        <span className='text-text-muted'>{meta}</span>
       </figcaption>
     </figure>
   );

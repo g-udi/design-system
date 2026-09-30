@@ -72,10 +72,10 @@ export function getCascaderMoreParent(node) {
   return node.value.slice(CASCADER_MORE_PREFIX.length);
 }
 export function buildCascaderIndex(items, getParent) {
-  const byValue = /* @__PURE__ */ new Map();
-  const childrenOf = /* @__PURE__ */ new Map();
-  const parentOf = /* @__PURE__ */ new Map();
-  const depthOf = /* @__PURE__ */ new Map();
+  const byValue = new Map();
+  const childrenOf = new Map();
+  const parentOf = new Map();
+  const depthOf = new Map();
   const all = [];
   const push = (parentKey, node) => {
     const bucket = childrenOf.get(parentKey);
@@ -110,7 +110,7 @@ export function buildCascaderIndex(items, getParent) {
     for (const node of all) {
       let depth = 0;
       let cursor = parentOf.get(node.value) ?? null;
-      const seen = /* @__PURE__ */ new Set([node.value]);
+      const seen = new Set([node.value]);
       while (cursor != null && !seen.has(cursor)) {
         seen.add(cursor);
         depth += 1;
@@ -156,7 +156,7 @@ export function mergeCascaderIndex(base, pages, detached) {
   const childrenOf = new Map(base.childrenOf);
   const parentOf = new Map(base.parentOf);
   const depthOf = new Map(base.depthOf);
-  const copied = /* @__PURE__ */ new Set();
+  const copied = new Set();
   const append = (parentKey, node) => {
     let bucket = childrenOf.get(parentKey);
     if (!copied.has(parentKey)) {
@@ -183,7 +183,7 @@ export function mergeCascaderIndex(base, pages, detached) {
     if (depthOf.has(value)) continue;
     let depth = 0;
     let cursor = parentOf.get(value) ?? null;
-    const seen = /* @__PURE__ */ new Set([value]);
+    const seen = new Set([value]);
     while (cursor != null && !seen.has(cursor)) {
       seen.add(cursor);
       depth += 1;
@@ -193,7 +193,7 @@ export function mergeCascaderIndex(base, pages, detached) {
   }
   const roots = childrenOf.get(CASCADER_ROOT_KEY) ?? [];
   const all = [];
-  const visited = /* @__PURE__ */ new Set();
+  const visited = new Set();
   const walk = (nodes) => {
     for (const node of nodes) {
       if (visited.has(node.value)) continue;
@@ -232,7 +232,7 @@ export function isCascaderSelectable(index, node, selectable) {
   if (isCascaderMoreNode(node)) return false;
   if (node.disabled) return false;
   {
-    const seen = /* @__PURE__ */ new Set([node.value]);
+    const seen = new Set([node.value]);
     let cursor = index.parentOf.get(node.value) ?? null;
     while (cursor != null && !seen.has(cursor)) {
       seen.add(cursor);
@@ -247,7 +247,7 @@ export function isCascaderSelectable(index, node, selectable) {
 export function getCascaderPath(index, value) {
   if (value == null) return [];
   const chain = [];
-  const seen = /* @__PURE__ */ new Set();
+  const seen = new Set();
   let cursor = value;
   while (cursor != null && !seen.has(cursor)) {
     seen.add(cursor);
@@ -288,7 +288,7 @@ export function searchCascaderDeep(index, query, options = {}) {
   if (!normalized) return [];
   const { within, limit = 200, matches = matchesCascaderQuery } = options;
   const results = [];
-  const ancestry = within == null ? null : /* @__PURE__ */ new Map();
+  const ancestry = within == null ? null : new Map();
   const isWithin = (node) => {
     if (within == null || !ancestry) return true;
     const trail = [];
@@ -378,7 +378,7 @@ export function collectCascaderSubtree(index, value) {
   const root = index.byValue.get(value);
   if (!root) return [];
   const out = [];
-  const seen = /* @__PURE__ */ new Set();
+  const seen = new Set();
   const walk = (node) => {
     if (seen.has(node.value)) return;
     seen.add(node.value);
@@ -407,7 +407,7 @@ export function applyCascadeSelection(
     if (select) next.add(node.value);
     else next.delete(node.value);
   }
-  const seen = /* @__PURE__ */ new Set([value]);
+  const seen = new Set([value]);
   let cursor = index.parentOf.get(value) ?? null;
   while (cursor != null && !seen.has(cursor)) {
     seen.add(cursor);
@@ -427,9 +427,9 @@ export function applyCascadeSelection(
   return Array.from(next);
 }
 export function getCascaderSelectedDescendants(index, selected) {
-  const counts = /* @__PURE__ */ new Map();
+  const counts = new Map();
   for (const value of selected) {
-    const seen = /* @__PURE__ */ new Set([value]);
+    const seen = new Set([value]);
     let cursor = index.parentOf.get(value) ?? null;
     while (cursor != null && !seen.has(cursor)) {
       seen.add(cursor);
@@ -441,7 +441,7 @@ export function getCascaderSelectedDescendants(index, selected) {
 }
 export function getCascaderIndeterminateFrom(counts, selected) {
   const selectedSet = new Set(selected);
-  const partial = /* @__PURE__ */ new Set();
+  const partial = new Set();
   for (const [value, count] of counts) {
     if (count > 0 && !selectedSet.has(value)) partial.add(value);
   }
@@ -469,8 +469,8 @@ export function getCascaderCheckedValues(index, selected, strategy) {
   });
 }
 export function findAmbiguousCascaderLabels(nodes) {
-  const firstByLabel = /* @__PURE__ */ new Map();
-  const ambiguous = /* @__PURE__ */ new Set();
+  const firstByLabel = new Map();
+  const ambiguous = new Set();
   for (const node of nodes) {
     const first = firstByLabel.get(node.label);
     if (first === void 0) {
@@ -482,7 +482,7 @@ export function findAmbiguousCascaderLabels(nodes) {
   }
   return ambiguous;
 }
-const CASCADER_WARNED = /* @__PURE__ */ new Set();
+const CASCADER_WARNED = new Set();
 export function warnCascaderOnce(key, message) {
   if (process.env.NODE_ENV === 'production') return;
   if (CASCADER_WARNED.has(key)) return;
@@ -493,8 +493,8 @@ export function resetCascaderWarnings() {
   CASCADER_WARNED.clear();
 }
 export function findCascaderDataIssues(items, getParent) {
-  const seen = /* @__PURE__ */ new Set();
-  const duplicates = /* @__PURE__ */ new Set();
+  const seen = new Set();
+  const duplicates = new Set();
   const flat = [];
   const visit = (nodes) => {
     for (const node of nodes ?? []) {
@@ -508,14 +508,14 @@ export function findCascaderDataIssues(items, getParent) {
   visit(items);
   const cycles = [];
   if (getParent) {
-    const parentOf = /* @__PURE__ */ new Map();
+    const parentOf = new Map();
     for (const node of flat) {
       if (parentOf.has(node.value)) continue;
       const raw = getParent(node);
       parentOf.set(node.value, raw != null && seen.has(raw) ? raw : null);
     }
     for (const node of flat) {
-      const walked = /* @__PURE__ */ new Set([node.value]);
+      const walked = new Set([node.value]);
       let cursor = parentOf.get(node.value) ?? null;
       while (cursor != null) {
         if (walked.has(cursor)) {

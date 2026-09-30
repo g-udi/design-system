@@ -43,7 +43,7 @@ function SliderField({ label, icon, format, defaultValue, orientation, onValueCh
 }
 
 export default {
-  title: 'Core/Inputs/Slider', id: 'core-slider',
+  title: 'Core/Slider', id: 'core-slider',
   component: Slider,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

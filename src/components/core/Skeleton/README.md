@@ -1,11 +1,17 @@
 # Skeleton
 
-This Gaudi owner includes **skeleton**, with **6 practical examples**.
+A skeleton is a grey placeholder in the shape of content that is still loading, so the layout does not jump when it arrives.
 
-Import the documented composition from `@gaudi/design-system/core/Skeleton`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Skeleton } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-skeleton--skeleton-pattern-7) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<section aria-label='Latest article' aria-busy='true' className='grid gap-3'>
+  <span role='status' className='sr-only'>Loading the latest article</span>
+  <Skeleton className='aspect-video w-full' />
+  <Skeleton className='h-4 w-2/3' />
+</section>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+- Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.
+- Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.
+- Use a skeleton when the layout is known; use `Spinner` for short waits or when the shape is unknown.

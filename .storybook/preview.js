@@ -187,6 +187,9 @@ const preview = {
 
         if (a.title !== b.title) {
           const pageRank = (page) => page === 'Overview' ? -1 : 0;
+          // Primitives sit directly under their section; grouped families follow in folders.
+          const depthDelta = a.title.split('/').length - b.title.split('/').length;
+          if (depthDelta) return depthDelta;
           const pageDelta = pageRank(pageA) - pageRank(pageB);
           return pageDelta || a.title.localeCompare(b.title, undefined, { numeric: true });
         }

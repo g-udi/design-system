@@ -36,7 +36,7 @@ function ReviewComposer({ invalid, onChange, ...args }) {
       <Field>
         <FieldLabel>
           {noteLabel}
-          {args.required ? <span className='ms-1 text-danger' aria-hidden='true'>*</span> : <span className='ms-1 font-normal text-text-muted'>(optional)</span>}
+          {args.required ? <span className='text-danger' aria-hidden='true'>*</span> : <span className='font-normal text-text-muted'>(optional)</span>}
         </FieldLabel>
         <Textarea {...args} invalid={invalid} maxLength={limit} value={value} onChange={update} />
         {invalid ? <FieldError>{errorText}</FieldError> : <FieldDescription>Visible to the author and co-editors.</FieldDescription>}
@@ -53,7 +53,7 @@ function ReviewComposer({ invalid, onChange, ...args }) {
 }
 
 export default {
-  title: 'Core/Inputs/Textarea', id: 'core-textarea',
+  title: 'Core/Textarea', id: 'core-textarea',
   component: Textarea,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { rows: 'number', invalid: 'boolean' }),

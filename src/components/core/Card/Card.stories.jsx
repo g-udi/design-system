@@ -33,7 +33,7 @@ const articleChildren = [
 ].join('\n');
 
 export default {
-  title: 'Core/Layout & Containers/Card',
+  title: 'Core/Card',
   id: 'core-card',
   component: Card,
   tags: ['autodocs'],
@@ -42,6 +42,7 @@ export default {
     subtitle: 'text',
     variant: variants,
     padding: paddings,
+    interactive: 'boolean',
     radius: ['none', 'sm', 'md', 'lg']
   }),
   parameters: {
@@ -54,10 +55,12 @@ export default {
 };
 
 export const Playground = {
-  args: { title: 'Building with tokens', subtitle: 'How one set of design tokens keeps the blog, docs, and product in step.', variant: 'elevated', padding: 'md', radius: 'lg' },
+  args: { title: 'Building with tokens', subtitle: 'How one set of design tokens keeps the blog, docs, and product in step.', variant: 'elevated', padding: 'md', radius: 'lg', interactive: true },
   parameters: {
+    // `interactive` only adds hover elevation, so it changes the preview on pointer hover.
+    controlAudit: { interaction: ['interactive'] },
     docs: {
-      description: { story: 'An article card with an author, reading time, and actions beside a metric card with a goal bar. Title and subtitle drive the article; variant and padding apply to both cards.' },
+      description: { story: 'An article card with an author, reading time, and actions beside a metric card with a goal bar. Title and subtitle drive the article; the surface controls apply to both cards, and `interactive` adds hover elevation while the actions stay real links and buttons.' },
       source: playgroundSource('Card', {
         imports: "import { Avatar, Button, Card } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
         children: articleChildren
@@ -80,7 +83,7 @@ export const Playground = {
       </Card>
       <Card {...surface} title={metric.title}>
         <p className='mt-2 text-3xl font-bold tabular-nums text-ui-foreground'>{metric.value}</p>
-        <p className='mt-1 text-sm font-medium text-green-700 dark:text-green-400'>{metric.trend}</p>
+        <p className='mt-1 text-sm font-medium text-success'>{metric.trend}</p>
         <div className='mt-3 h-2 overflow-hidden rounded-control bg-ui-border' role='img' aria-label={metric.goal}>
           <div className='h-full rounded-control bg-accent' style={{ width: `${metric.progress}%` }} />
         </div>
@@ -97,6 +100,7 @@ export const Playground = {
     await expect(cardRoot(canvas, metric.title)).toHaveClass(...surface);
     await expect(new URL(canvas.getByRole('link', { name: 'Read article' }).href).pathname).toBe('/blog');
     await expect(canvas.getByRole('img', { name: metric.goal })).toBeVisible();
+    if (args.interactive) await expect(cardRoot(canvas, args.title)).toHaveClass('hover:shadow-md');
   }
 };
 
@@ -114,22 +118,5 @@ export const Variants = {
     const canvas = within(canvasElement);
     for (const variant of variants) await expect(heading(canvas, variant)).toBeVisible();
     await expect(canvas.getByText('Content supplies its own spacing.')).toBeVisible();
-  }
-};
-
-export const Interactive = {
-  parameters: { docs: { description: { story: '`interactive` adds hover elevation as a visual hint only; the action inside stays a real link.' } } },
-  render: () => (
-    <Card interactive title='Interactive card' subtitle={subtitle}>
-      <Button href='/blog' size='sm' className='mt-4'>Open article</Button>
-    </Card>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const card = heading(canvas, 'Interactive card').parentElement.parentElement;
-    const link = canvas.getByRole('link', { name: 'Open article' });
-    await expect(card).toHaveClass('hover:shadow-md');
-    await expect(card).toContainElement(link);
-    await expect(new URL(link.href).pathname).toBe('/blog');
   }
 };

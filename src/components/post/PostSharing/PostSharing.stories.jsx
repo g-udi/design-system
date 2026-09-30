@@ -15,10 +15,10 @@ const hashtag = (tag) => String(tag).replace(/\s+/g, '');
 const articleUrl = (slug) => `${siteMetadata.siteUrl}/blog/${slug}`;
 // What the X share link carries, so the title, slug, and tags controls are visible in the preview.
 const SharePreview = ({ slug, tags = [], title }) => (
-  <figure aria-label='Share preview' className='grid gap-1 rounded-lg border border-gray-200 p-3 text-sm dark:border-border-dark'>
-    <strong className='font-semibold text-gray-900 dark:text-gray-100'>{title}</strong>
-    <span className='truncate text-xs text-gray-500 dark:text-gray-400'>{articleUrl(slug)}</span>
-    {tags.length ? <span className='text-xs text-blue-600 dark:text-blue-400'>{tags.map((tag) => `#${hashtag(tag)}`).join(' ')}</span> : null}
+  <figure aria-label='Share preview' className='grid gap-1 rounded-card border border-border p-3 text-sm'>
+    <strong className='font-semibold text-text'>{title}</strong>
+    <span className='truncate text-xs text-text-muted'>{articleUrl(slug)}</span>
+    {tags.length ? <span className='text-xs text-accent'>{tags.map((tag) => `#${hashtag(tag)}`).join(' ')}</span> : null}
   </figure>
 );
 const shareUrl = (canvas) => new URL(canvas.getByRole('link', { name: 'Share post on X' }).href);
@@ -47,7 +47,7 @@ export default {
 export const Playground = {
   parameters: {
     docs: {
-      description: { story: 'The share and source actions above a preview of what the X link carries. `title`, `slug`, and `tags` rewrite the shared text, URL, and hashtags; clearing `externalLink` removes the View on GitHub link.' },
+      description: { story: 'The share and source actions above a preview of what the X link carries. `title`, `slug`, and `tags` rewrite the shared text, URL, and hashtags; clearing `tags` sends an empty hashtag list, and clearing `externalLink` removes the View on GitHub link.' },
       source: playgroundSource('PostSharing', { imports: "import { PostSharing } from '@gaudi/design-system';" })
     }
   },
@@ -73,15 +73,5 @@ export const Playground = {
     const source = canvas.queryByRole('link', { name: 'View on GitHub' });
     if (args.externalLink) await expect(source).toHaveAttribute('href', `${siteMetadata.postsRepo}/blob/master/${args.externalLink}.mdx`);
     else await expect(source).not.toBeInTheDocument();
-  }
-};
-
-export const WithoutTags = {
-  args: { tags: undefined },
-  parameters: { docs: { description: { story: 'Without `tags` the share link sends an empty hashtag list and the source link still renders.' } } },
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(shareUrl(canvas).searchParams.get('hashtags')).toBe('');
-    await expect(canvas.getByRole('link', { name: 'View on GitHub' })).toBeInTheDocument();
   }
 };

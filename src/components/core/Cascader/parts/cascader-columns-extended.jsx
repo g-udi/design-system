@@ -18,6 +18,7 @@ import {
 } from './cascader-lib-extended.jsx';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import { cn } from '../../../../utilities/cn/index.js';
+import { default as Button } from '../../Button/index.js';
 import { ScrollArea } from '../../ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 function CascaderColumns({
@@ -90,14 +91,15 @@ function CascaderColumnPanel({ column, children, virtualized }) {
     emptyBody = (
       <>
         {labels.error}{' '}
-        <button
-          type='button'
+        <Button
+          variant='ghost'
+          tone='neutral'
+          size='xs'
           data-slot='cascader-retry'
           onClick={() => retryLevel(columnKey)}
-          className='text-ui-foreground hover:bg-ui-accent focus-visible:ring-ui-ring/50 rounded-md px-1 font-medium outline-hidden transition-colors focus-visible:ring-2'
         >
           {labels.retry}
-        </button>
+        </Button>
       </>
     );
   } else if (loadState?.loading) {

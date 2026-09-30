@@ -1,11 +1,22 @@
 # NavigationMenu
 
-This Gaudi owner includes **navigation-menu**, with **1 practical examples**.
+A site navigation bar with plain links and dropdown panels of related destinations. Use it for a header's primary navigation; use `DropdownMenu` for actions and `Tabs` for views within one page.
 
-Import the documented composition from `@gaudi/design-system/core/NavigationMenu`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { NavigationMenu, NavigationMenuDropdown, NavigationMenuLink, NavigationMenuList, NavigationMenuPanel } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-navigationmenu--navigation-menu-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<NavigationMenu label='Main navigation'>
+  <NavigationMenuList>
+    <NavigationMenuLink href='/blog' active>Blog</NavigationMenuLink>
+    <NavigationMenuDropdown label='Categories' align='start' width='lg'>
+      <NavigationMenuPanel columns={2}>
+        <NavigationMenuLink variant='panel' href='/blog/categories/data' description='Knowledge graphs and retrieval'>Data</NavigationMenuLink>
+      </NavigationMenuPanel>
+    </NavigationMenuDropdown>
+  </NavigationMenuList>
+</NavigationMenu>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+Dropdowns open on click, close on Escape (focus returns to the trigger) or an outside click, and only one is open at a time. `align` and `width` place and size a panel, which is nudged back inside the viewport near an edge; `defaultOpen` starts one open. `active` marks the current page with `aria-current="page"`. Links close the open panel when followed.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+The convenience components are built on the composition parts (`NavigationMenuRoot`, `NavigationMenuTrigger`, `NavigationMenuContent`, `NavigationMenuLinkPrimitive`, `NavigationMenuViewport`, `NavigationMenuIndicator`), which add hover-to-open and a shared animated viewport for custom menus.

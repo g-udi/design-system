@@ -39,6 +39,7 @@ import {
 import { addDays, format, getWeek } from 'date-fns';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
+import { default as Button } from '../../Button/index.js';
 import {
   Popover,
   PopoverContent,
@@ -193,7 +194,7 @@ function EventCalendarMonthView({
                 view: 'month',
                 isToday:
                   getDayKey(day, settings.timeZone) ===
-                  getDayKey(/* @__PURE__ */ new Date(), settings.timeZone)
+                  getDayKey(new Date(), settings.timeZone)
               }) ?? (
                 <>
                   <span className='@max-[36rem]:hidden'>
@@ -747,12 +748,13 @@ function EventCalendarMonthCell({
         )}
       >
         {viewConfig.showDayAddButton && !isInteracting && (
-          <button
-            type='button'
+          <Button
+            size='icon-xs'
+            radius='sm'
             data-slot='event-calendar-day-add'
             aria-label={settings.i18n.labels.addEvent}
             className={cn(
-              'bg-ui-primary text-ui-primary-foreground flex size-5 cursor-pointer items-center justify-center rounded-sm opacity-0 transition-opacity group-hover/ec-cell:opacity-100 focus-visible:opacity-100',
+              'size-5 min-h-5 opacity-0 transition-opacity group-hover/ec-cell:opacity-100 focus-visible:opacity-100',
               viewConfig.classNames?.dayAddButton
             )}
             onClick={(e) => {
@@ -768,7 +770,7 @@ function EventCalendarMonthCell({
               className='size-3.5'
               aria-hidden='true'
             />
-          </button>
+          </Button>
         )}
         <span
           data-slot='event-calendar-month-day-number'

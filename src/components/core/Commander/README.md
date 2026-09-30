@@ -1,11 +1,32 @@
 # Commander
 
-This Gaudi owner includes **command**, with **3 practical examples**.
+The site-wide command launcher: navigation, full-text search across posts, projects, thoughts, publications and tags, contact links and a theme switch. Open it from a visible trigger such as `MenuSearch`, or with ⌘K / Ctrl+K.
 
-Import the documented composition from `@gaudi/design-system/core/Commander`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-commander--command-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { useState } from 'react';
+import { Commander, MenuSearch } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+const [open, setOpen] = useState(false);
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+<MenuSearch setOpen={setOpen} />
+<Commander open={open} setOpen={setOpen} posts={posts} projects={projects} tags={tags} />
+```
+
+## API
+
+| Prop                                            | Type                     | Contract                                                              |
+| ----------------------------------------------- | ------------------------ | --------------------------------------------------------------------- |
+| `open / setOpen`                                | boolean / function       | Controlled visibility; ⌘K / Ctrl+K toggles it through `setOpen`.      |
+| `posts / projects / thoughts / publications / tags` | Array                | Each non-empty collection adds a page and full-text results.          |
+| `social`                                        | Array                    | Contact entries; defaults to the links in the site metadata.          |
+| `restoreFocusRef`                               | Ref                      | Where focus returns when the element that opened the launcher is gone. |
+
+## Composition
+
+Commander is built on the Command parts it exports: `Command`, `CommandInput`, `CommandList`, `CommandGroup`, `CommandItem`, `CommandEmpty`, `CommandSeparator`, `CommandShortcut`, `CommandFooter` and `CommandDialog`. Use them for inline palettes or your own command dialog; `CommandInput` renders its children at the end of the search row.
+
+## Accessibility
+
+The search field is a combobox that controls a listbox. Arrow keys, Home and End move the selection, Enter runs it, and Escape leaves a sub-page before it closes the launcher. Focus returns to the trigger on close.

@@ -908,7 +908,7 @@ function FilterAdvancedGroup({ group, position }) {
             aria-label={actions.labels.addToGroup}
             className={cn(
               /* `shrink` and not merely `min-w-0`: `shrink-0` is baked into
-         the shadcn button's own base class. */
+         the DS Button's own base class. */
               'min-w-0 shrink font-normal',
               'overflow-hidden',
               CELL_INVALID_CLASS

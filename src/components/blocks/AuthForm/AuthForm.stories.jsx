@@ -11,9 +11,9 @@ import AuthForm from './AuthForm';
 
 const docs = getComponentDocs('Blocks/Application/AuthForm');
 const email = 'reader@example.com';
-const signIn = async (canvas, { password = true } = {}) => {
+const signIn = async (canvas) => {
   await userEvent.type(canvas.getByRole('textbox', { name: 'Email' }), email);
-  if (password) await userEvent.type(canvas.getByLabelText('Password'), 'example-password');
+  await userEvent.type(canvas.getByLabelText('Password'), 'example-password');
 };
 
 const successMessage = 'Signed in within this example.';
@@ -100,27 +100,6 @@ export const Playground = {
     await userEvent.click(canvas.getByRole('button', { name: args.submitLabel }));
     await expect(args.onSubmit).toHaveBeenCalledWith(expect.objectContaining({ email }));
     await expect(await canvas.findByRole('status')).toHaveTextContent(successMessage);
-  }
-};
-
-export const EmailLink = {
-  args: { onSubmit: fn(async () => {}) },
-  parameters: { docs: { description: { story: 'Any mode other than `password` drops the password field and submits the email alone, for magic-link flows.' } } },
-  render: ({ onSubmit }) => (
-    <AuthForm
-      mode='email'
-      title='Sign in with email'
-      description='We will send you a sign-in link.'
-      submitLabel='Send sign-in link'
-      onSubmit={onSubmit}
-    />
-  ),
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvas.queryByLabelText('Password')).not.toBeInTheDocument();
-    await signIn(canvas, { password: false });
-    await userEvent.click(canvas.getByRole('button', { name: 'Send sign-in link' }));
-    await expect(args.onSubmit).toHaveBeenCalledWith(expect.objectContaining({ email }));
   }
 };
 

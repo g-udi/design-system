@@ -52,18 +52,18 @@ function Unassigned() {
   );
 }
 const STATUSES = [
-  { value: 'todo', label: 'To Do', dot: 'bg-zinc-400', badge: 'secondary' },
-  { value: 'in-progress', label: 'In Progress', dot: 'bg-amber-500', badge: 'warning-light' },
-  { value: 'review', label: 'In Review', dot: 'bg-sky-500', badge: 'info-light' },
-  { value: 'done', label: 'Done', dot: 'bg-emerald-500', badge: 'success-light' },
+  { value: 'todo', label: 'To Do', dot: 'bg-text-muted', badge: 'secondary' },
+  { value: 'in-progress', label: 'In Progress', dot: 'bg-warning', badge: 'warning-light' },
+  { value: 'review', label: 'In Review', dot: 'bg-info', badge: 'info-light' },
+  { value: 'done', label: 'Done', dot: 'bg-success', badge: 'success-light' },
   { value: 'cancelled', label: 'Cancelled', dot: 'bg-ui-destructive', badge: 'destructive-light' }
 ];
 const ROLES = ['Engineering', 'Research', 'Platform', 'Design'];
 const PRIORITIES = [
-  { value: 'low', label: 'Low', star: 'text-emerald-500!' },
-  { value: 'medium', label: 'Medium', star: 'text-yellow-500!' },
-  { value: 'high', label: 'High', star: 'text-orange-500!' },
-  { value: 'urgent', label: 'Urgent', star: 'text-rose-500!' }
+  { value: 'low', label: 'Low', star: 'text-success!' },
+  { value: 'medium', label: 'Medium', star: 'text-warning!' },
+  { value: 'high', label: 'High', star: 'text-attention!' },
+  { value: 'urgent', label: 'Urgent', star: 'text-danger!' }
 ];
 const TEAM = [
   { value: 'ada', label: 'Ada Lovelace', img: 'women/1' },

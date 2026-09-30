@@ -1213,14 +1213,14 @@ function DataGridTableBodyRow({
         'data-[state=selected]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--muted)_50%,var(--background))]',
         props.onRowClick && 'cursor-pointer',
         // Optional CRUD indications, active only when getRowStatus is
-        // wired; the warning-muted defaults yield to tableClassNames
+        // wired; the warning and success tints yield to tableClassNames
         // overrides per status. Pinned cells must stay OPAQUE (they hide
         // scrolled content), so they get the same tint pre-mixed over the
         // background instead of inheriting the translucent row fill.
         props.getRowStatus &&
-          'data-[row-status=deleted]:bg-ui-destructive/5 data-[row-status=deleted]:opacity-60 data-[row-status=dirty]:bg-amber-500/5 data-[row-status=new]:bg-green-500/5 data-[row-status=deleted]:[&_td]:line-through',
+          'data-[row-status=deleted]:bg-ui-destructive/5 data-[row-status=deleted]:opacity-60 data-[row-status=dirty]:bg-warning/5 data-[row-status=new]:bg-success/5 data-[row-status=deleted]:[&_td]:line-through',
         props.getRowStatus &&
-          'data-[row-status=deleted]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] data-[row-status=dirty]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--color-amber-500)_5%,var(--background))] data-[row-status=new]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--color-green-500)_5%,var(--background))]',
+          'data-[row-status=deleted]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))] data-[row-status=dirty]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--ds-color-warning)_5%,var(--background))] data-[row-status=new]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--ds-color-success)_5%,var(--background))]',
         rowStatus === 'new' && props.tableClassNames?.rowNew,
         rowStatus === 'dirty' && props.tableClassNames?.rowDirty,
         rowStatus === 'deleted' && props.tableClassNames?.rowDeleted,
@@ -1564,50 +1564,20 @@ function DataGridTableRowPin({ row }) {
   const { i18n } = useDataGrid();
   const isPinned = row.getIsPinned();
   return (
-    <button
-      type='button'
+    <Button
+      variant='ghost'
+      tone='neutral'
+      size='icon-sm'
       aria-label={isPinned ? i18n.labels.unpinRow : i18n.labels.pinRow}
+      aria-pressed={Boolean(isPinned)}
       onClick={(event) => {
         event.stopPropagation();
-        if (isPinned) {
-          row.pin(false);
-        } else {
-          row.pin('top');
-        }
+        row.pin(isPinned ? false : 'top');
       }}
-      className={cn(
-        'text-ui-muted-foreground hover:text-ui-foreground rounded-lg inline-flex size-7 items-center justify-center transition-colors',
-        isPinned && 'text-ui-primary hover:text-ui-primary'
-      )}
+      className={cn('text-ui-muted-foreground hover:text-ui-foreground', isPinned && 'text-ui-primary hover:text-ui-primary')}
     >
-      {isPinned ? (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          viewBox='0 0 24 24'
-          fill='currentColor'
-          stroke='none'
-        >
-          <path d='M16 2l4.585 4.586-2.122 2.121L17.05 7.293l-3.535 3.536 1.413 5.658-2.12 2.121-4.244-4.243L4.322 18.6l-1.414-1.41 4.242-4.244-4.243-4.243 2.122-2.121 5.656 1.414 3.536-3.536-1.414-1.414z' />
-        </svg>
-      ) : (
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width='16'
-          height='16'
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth='2'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-        >
-          <line x1='12' y1='17' x2='12' y2='22' />
-          <path d='M5 17h14v-1.76a2 2 0 00-1.11-1.79l-1.78-.9A2 2 0 0115 10.76V6h1a2 2 0 000-4H8a2 2 0 000 4h1v4.76a2 2 0 01-1.11 1.79l-1.78.9A2 2 0 005 15.24z' />
-        </svg>
-      )}
-    </button>
+      <RegistryIcon lucide='Pin' className={cn('size-4', isPinned && 'fill-current')} />
+    </Button>
   );
 }
 function DataGridTableRowSelect({ row }) {
@@ -1661,7 +1631,6 @@ function DataGridTableRowSelectAll() {
 function DataGridTableRowExpand({ row, indent = 20, className, children }) {
   const { i18n, props } = useDataGrid();
   const isExpanded = row.getIsExpanded();
-  const controlSize = props.tableLayout?.dense ? 'size-6' : 'size-7';
   return (
     <span
       data-slot='data-grid-table-row-expand'
@@ -1672,8 +1641,10 @@ function DataGridTableRowExpand({ row, indent = 20, className, children }) {
       )}
     >
       {row.getCanExpand() ? (
-        <button
-          type='button'
+        <Button
+          variant='ghost'
+          tone='neutral'
+          size={props.tableLayout?.dense ? 'icon-xs' : 'icon-sm'}
           aria-expanded={isExpanded}
           aria-label={
             isExpanded ? i18n.labels.collapseRow : i18n.labels.expandRow
@@ -1682,29 +1653,15 @@ function DataGridTableRowExpand({ row, indent = 20, className, children }) {
             event.stopPropagation();
             row.toggleExpanded();
           }}
-          className={cn(
-            'text-ui-muted-foreground hover:text-ui-foreground rounded-lg inline-flex items-center justify-center transition-colors',
-            controlSize
-          )}
+          className='text-ui-muted-foreground hover:text-ui-foreground'
         >
           {children ?? (
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='16'
-              height='16'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              aria-hidden='true'
-              className='transition-transform duration-200 in-aria-[expanded=false]:-rotate-90 rtl:in-aria-[expanded=false]:rotate-90'
-            >
-              <path d='m6 9 6 6 6-6' />
-            </svg>
+            <RegistryIcon
+              lucide='ChevronDown'
+              className='size-4 transition-transform duration-200 in-aria-[expanded=false]:-rotate-90 rtl:in-aria-[expanded=false]:rotate-90'
+            />
           )}
-        </button>
+        </Button>
       ) : (
         // Leaf spacer: compact by design so leaf content sits near the
         // parent label instead of a full toggle width deeper.

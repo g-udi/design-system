@@ -189,7 +189,7 @@ function DataGridPagination(props) {
                       {item.index + 1}
                     </Button>
                   ) : (
-                    /* Clickable, unlike the shadcn PaginationEllipsis, which is
+                    /* Clickable, unlike the Pagination part's ellipsis, which is
          an aria-hidden span. This one MOVES the user, so it needs
          a name saying where. */
                     <Button

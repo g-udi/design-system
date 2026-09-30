@@ -1,137 +1,88 @@
 /**
  * File Tree Component
  *
- * @description Displays a beautiful file and folder structure with icons and proper indentation.
- * Perfect for showing directory structures in documentation and blog posts.
+ * @description A static file and folder listing for technical articles. Each file type gets its own
+ * icon and a semantic tint; folders open by default and `isOpen: false` collapses one.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
  */
 
 import Icon from '../../core/Icon';
+import { cn } from '../../../utilities/cn';
 
-/**
- * Get the appropriate icon for a file based on its extension or name
- * @param {string} name - The file or folder name
- * @param {boolean} isFolder - Whether this is a folder
- * @param {boolean} isOpen - Whether the folder is open (only applies to folders)
- * @returns {JSX.Element} The appropriate icon component
- */
-const getFileIcon = (name, isFolder = false, isOpen = false) => {
-  if (isFolder)
-    return isOpen ? <Icon name='folder-open' decorative className='text-blue-500' /> : <Icon name='folder' decorative className='text-blue-400' />;
+const INDENT = 20;
 
-  // Get file extension
-  const ext = name.toLowerCase().split('.').pop();
-  const filename = name.toLowerCase();
-
-  // Special files
-  if ([ 'package.json', 'package-lock.json' ].includes(filename))
-    return <Icon name='node' decorative className='text-green-600' />;
-
-  if ([ 'dockerfile', '.dockerignore' ].includes(filename))
-    return <Icon name='docker' decorative className='text-blue-600' />;
-
-  if ([ '.gitignore', '.gitattributes' ].includes(filename))
-    return <Icon name='git' decorative className='text-red-600' />;
-
-  if ([ 'readme.md', 'changelog.md' ].includes(filename))
-    return <Icon name='markdown' decorative className='text-blue-700' />;
-
-  // By extension
-  switch (ext) {
-  case 'js':
-  case 'mjs':
-  case 'cjs':
-    return <Icon name='javascript' decorative className='text-yellow-500' />;
-  case 'ts':
-  case 'tsx':
-    return <Icon name='typescript' decorative className='text-blue-600' />;
-  case 'jsx':
-    return <Icon name='react' decorative className='text-blue-500' />;
-  case 'py':
-    return <Icon name='python' decorative className='text-yellow-600' />;
-  case 'json':
-    return <Icon name='json' decorative className='text-yellow-600' />;
-  case 'css':
-    return <Icon name='css' decorative className='text-blue-500' />;
-  case 'html':
-    return <Icon name='html' decorative className='text-red-500' />;
-  case 'md':
-  case 'mdx':
-    return <Icon name='markdown' decorative className='text-gray-600 dark:text-gray-400' />;
-  default:
-    return <Icon name='file' decorative className='text-gray-500' />;
+// Special file names first, then extensions. Tints use status tokens so they follow the theme.
+const fileIcons = {
+  'names': {
+    '.dockerignore': [ 'docker', 'text-info' ],
+    '.gitattributes': [ 'git', 'text-danger' ],
+    '.gitignore': [ 'git', 'text-danger' ],
+    'changelog.md': [ 'markdown', 'text-info' ],
+    'dockerfile': [ 'docker', 'text-info' ],
+    'package-lock.json': [ 'node', 'text-success' ],
+    'package.json': [ 'node', 'text-success' ],
+    'readme.md': [ 'markdown', 'text-info' ]
+  },
+  'extensions': {
+    'cjs': [ 'javascript', 'text-warning' ],
+    'css': [ 'css', 'text-info' ],
+    'html': [ 'html', 'text-danger' ],
+    'js': [ 'javascript', 'text-warning' ],
+    'json': [ 'json', 'text-warning' ],
+    'jsx': [ 'react', 'text-info' ],
+    'md': [ 'markdown', 'text-text-muted' ],
+    'mdx': [ 'markdown', 'text-text-muted' ],
+    'mjs': [ 'javascript', 'text-warning' ],
+    'py': [ 'python', 'text-warning' ],
+    'ts': [ 'typescript', 'text-info' ],
+    'tsx': [ 'typescript', 'text-info' ]
   }
 };
 
-/**
- * File Tree Item Component
- * @param {Object} props
- * @param {string} props.name - Name of the file/folder
- * @param {boolean} props.isFolder - Whether this is a folder
- * @param {number} props.level - Indentation level
- * @param {Array} props.childrenProp - Child items (for folders)
- * @param {boolean} props.isOpen - Whether the folder is open
- * @returns {JSX.Element}
- */
-const FileTreeItem = ({ name, isFolder = false, level = 0, childrenProp = [], isOpen = true }) => {
-  const indent = level * 20;
-  const icon = getFileIcon(name, isFolder, isOpen && isFolder);
+const getFileIcon = (name, isFolder, isOpen) => {
+  if (isFolder) return [ isOpen ? 'folder-open' : 'folder', 'text-accent' ];
+
+  const filename = name.toLowerCase();
+
+  return fileIcons.names[filename] || fileIcons.extensions[filename.split('.').pop()] || [ 'file', 'text-text-subtle' ];
+};
+
+const FileTreeItem = ({ name, isFolder = false, level, childrenProp = [], isOpen = true }) => {
+  const [ icon, tint ] = getFileIcon(name, isFolder, isOpen);
 
   return (
-    <div>
-      <div
-        className='flex items-center py-1 text-sm hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors'
-        style={{ 'paddingLeft': `${indent + 8}px` }}
-      >
-        <span className='mr-2 flex-shrink-0 w-4 h-4 flex items-center justify-center'>
-          {icon}
-        </span>
-        <span className={ `${isFolder ? 'font-medium text-gray-900 dark:text-gray-100' : 'text-gray-700 dark:text-gray-300'}` }>
-          {name}
-        </span>
+    <li className='m-0 p-0'>
+      <div className='flex items-center gap-2 rounded py-1 pe-2 transition-colors hover:bg-surface-muted' style={{ 'paddingLeft': `${(level * INDENT) + 8}px` }}>
+        <Icon name={ icon } decorative className={ cn('size-4 shrink-0', tint) } />
+        <span className={ isFolder ? 'font-medium text-text' : 'text-text-muted' }>{name}</span>
       </div>
-
-      {isFolder && isOpen && childrenProp.length > 0 && (
-        <div>
-          {childrenProp.map((child, index) => (
-            <FileTreeItem
-              key={ `${child.name}-${index}` }
-              name={ child.name }
-              isFolder={ child.isFolder }
-              level={ level + 1 }
-              childrenProp={ child.childrenProp || [] }
-              isOpen={ child.isOpen !== false }
-            />
-          ))}
-        </div>
-      )}
-    </div>
+      {isFolder && isOpen && childrenProp.length > 0 ? <FileTreeList items={ childrenProp } level={ level + 1 } /> : null}
+    </li>
   );
 };
 
+const FileTreeList = ({ items, level }) => (
+  <ul className='m-0 list-none p-0'>
+    {items.map((item, index) => (
+      <FileTreeItem key={ `${item.name}-${index}` } { ...item } isOpen={ item.isOpen !== false } level={ level } />
+    ))}
+  </ul>
+);
+
 /**
- * Main File Tree Component
  * @param {Object} props
- * @param {Array} props.data - Tree structure data
- * @param {string} props.className - Additional CSS classes
+ * @param {Array<{ name: string, isFolder?: boolean, isOpen?: boolean, childrenProp?: Array }>} props.data - Tree records
+ * @param {string} [props.className] - Additional CSS classes
  * @returns {JSX.Element}
+ *
+ * @example
+ * <FileTree data={[{ name: 'content', isFolder: true, childrenProp: [{ name: 'post.mdx' }] }, { name: 'package.json' }]} />
  */
-const FileTree = ({ data = [], className = '' }) => (
-  <div className={ `bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 font-mono text-sm max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-gray-800 ${className}` }>
-    <div className='space-y-0'>
-      {data.map((item, index) => (
-        <FileTreeItem
-          key={ `${item.name}-${index}` }
-          name={ item.name }
-          isFolder={ item.isFolder }
-          level={ 0 }
-          childrenProp={ item.childrenProp || [] }
-          isOpen={ item.isOpen !== false }
-        />
-      ))}
-    </div>
+const FileTree = ({ data = [], className }) => (
+  <div className={ cn('not-prose max-h-96 overflow-y-auto rounded-lg border border-border bg-surface p-4 font-mono text-sm', className) }>
+    <FileTreeList items={ data } level={ 0 } />
   </div>
 );
 

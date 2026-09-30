@@ -1,6 +1,6 @@
 # Toast
 
-Sonner notifications styled with Gaudi tokens. Mount one ToastProvider per app. toast.success, toast.error and action callbacks provide non-blocking feedback.
+Short, non-blocking notifications for finished actions, errors and background work. Mount one `ToastProvider` per app and call `toast()` from anywhere. The toast surface uses Gaudi tokens and its action, cancel and close buttons use the Button variants.
 
 ## Usage
 
@@ -13,7 +13,7 @@ Sonner notifications styled with Gaudi tokens. Mount one ToastProvider per app. 
 
 | Prop / export   | Type             | Contract                                                                          |
 | --------------- | ---------------- | --------------------------------------------------------------------------------- |
-| `ToastProvider` | component        | Mount once; forwards Sonner configuration including position, duration and theme. |
+| `ToastProvider` | component        | Mount once; forwards Sonner configuration including position, duration and theme. `toastOptions.classNames` are merged with the Gaudi classes. |
 | `toast`         | function         | Use toast(), toast.success(), toast.error(), toast.promise() and toast.dismiss(). |
 | `action`        | {label, onClick} | Optional recovery or undo action on a notification.                               |
 

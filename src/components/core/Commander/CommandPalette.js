@@ -1,33 +1,17 @@
 'use client';
 
-import {
-  Children,
-  createContext,
-  isValidElement,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef
-} from 'react';
+import { createContext, isValidElement, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 
+import Button from '../Button';
 import Dialog from '../Dialog';
 import Icon from '../Icon';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './parts/command.jsx';
 
 const CommandPaletteContext = createContext(null);
 
 const normalizeSearchValue = (value) => String(value || '').trim().toLowerCase();
 
-const itemSearchFields = [
-  'children',
-  'title',
-  'subtitle',
-  'category',
-  'display',
-  'name',
-  'id',
-  'type'
-];
+const itemSearchFields = [ 'children', 'title', 'subtitle', 'category', 'display', 'name', 'id', 'type' ];
 
 const getTextFromNode = (node) => {
   if (typeof node === 'string' || typeof node === 'number') return String(node);
@@ -54,6 +38,7 @@ const getItemSearchText = (item) => {
     .toLowerCase();
 };
 
+/** Substring search over item text; a list whose heading matches keeps all of its items when `filterOnListHeading` is set. */
 export const filterItems = (lists = [], search = '') => {
   const query = normalizeSearchValue(search);
 
@@ -62,9 +47,7 @@ export const filterItems = (lists = [], search = '') => {
   return lists.reduce((result, list) => {
     const items = Array.isArray(list.items) ? list.items : [];
     const headingMatches = list.options?.filterOnListHeading && normalizeSearchValue(list.heading).includes(query);
-    const filteredItems = headingMatches
-      ? items
-      : items.filter((item) => getItemSearchText(item).includes(query));
+    const filteredItems = headingMatches ? items : items.filter((item) => getItemSearchText(item).includes(query));
 
     if (filteredItems.length) result.push({ ...list, 'items': filteredItems });
 
@@ -72,171 +55,29 @@ export const filterItems = (lists = [], search = '') => {
   }, []);
 };
 
-export const getItemIndexMap = (lists = [], startIndex = 0) => {
-  const indexById = new Map();
-  let index = startIndex;
-
-  for (const list of lists)
-    for (const item of list.items || []) {
-      if (!indexById.has(item.id)) indexById.set(item.id, index);
-
-      index += 1;
-    }
-
-  return indexById;
-};
-
-const isHidden = (element) => {
-  if (!element || element.hidden || element.getAttribute('aria-hidden') === 'true') return true;
-
-  if (typeof window === 'undefined') return false;
-
-  let current = element;
-
-  while (current && current !== document.body) {
-    if (current.hidden || current.getAttribute('aria-hidden') === 'true') return true;
-
-    const style = window.getComputedStyle(current);
-
-    if (style.display === 'none' || style.visibility === 'hidden') return true;
-
-    current = current.parentElement;
-  }
-
-  return false;
-};
-
-const CommandPalette = ({
-  children,
-  className = 'gaudi-command-launcher',
-  footer,
-  isOpen,
-  onChangeOpen,
-  onChangeSearch,
-  onChangeSelected,
-  page = 'root',
-  restoreFocusRef,
-  search = '',
-  selected = 0
-}) => {
-  const dialogRef = useRef(null);
+/*
+ * The launcher is the Command parts inside a bare Dialog. The Dialog owns the portal, focus trap, scroll lock and
+ * Escape; cmdk owns the listbox, selection and keyboard navigation. Filtering stays here (shouldFilter={false}) so
+ * list headings can match and sub-pages can filter their own collections.
+ */
+const CommandPalette = ({ children, footer, isOpen, onChangeOpen, onChangeSearch, page = 'root', restoreFocusRef, search = '' }) => {
   const inputRef = useRef(null);
   const escapeHandlerRef = useRef(null);
 
-  const close = useCallback(() => {
-    onChangeOpen?.(false);
-  }, [ onChangeOpen ]);
+  const close = useCallback(() => onChangeOpen?.(false), [ onChangeOpen ]);
 
-  const getSelectableItems = useCallback(() => {
-    if (!dialogRef.current) return [];
-
-    return Array.from(dialogRef.current.querySelectorAll('.command-palette-list-item'))
-      .filter((element) => {
-        return !element.hasAttribute('disabled') &&
-          element.getAttribute('aria-disabled') !== 'true' &&
-          !isHidden(element);
-      });
-  }, []);
-
-  const setSelectedIndex = useCallback((nextIndex) => {
-    const items = getSelectableItems();
-
-    if (!items.length) {
-      onChangeSelected?.(0);
-
-      return;
+  const contextValue = useMemo(() => ({
+    close,
+    page,
+    'setEscapeHandler': (handler) => {
+      escapeHandlerRef.current = handler || null;
     }
+  }), [ close, page ]);
 
-    const normalizedIndex = ((nextIndex % items.length) + items.length) % items.length;
-
-    onChangeSelected?.(normalizedIndex);
-    items[normalizedIndex]?.scrollIntoView({ 'block': 'nearest' });
-  }, [ getSelectableItems, onChangeSelected ]);
-
-  const contextValue = useMemo(() => {
-    return {
-      close,
-      onChangeSelected,
-      page,
-      selected,
-      setEscapeHandler: (handler) => {
-        escapeHandlerRef.current = handler || null;
-      }
-    };
-  }, [ close, onChangeSelected, page, selected ]);
-
+  // A new page keeps the search field focused.
   useEffect(() => {
-    if (!isOpen) return;
-
-    window.requestAnimationFrame(() => inputRef.current?.focus());
+    if (isOpen) inputRef.current?.focus();
   }, [ isOpen, page ]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    onChangeSelected?.(0);
-  }, [ isOpen, onChangeSelected, page, search ]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
-    const items = getSelectableItems();
-
-    if (!items.length) return;
-
-    const normalizedSelected = Math.min(Math.max(selected, 0), items.length - 1);
-    const list = dialogRef.current?.querySelector('[data-cmdk-list]');
-
-    if (normalizedSelected === 0 && list) {
-      list.scrollTop = 0;
-
-      return;
-    }
-
-    items[normalizedSelected]?.scrollIntoView({ 'block': 'nearest' });
-  }, [ getSelectableItems, isOpen, selected, page, search ]);
-
-  const handleKeyDown = (event) => {
-    if (event.key === 'ArrowDown' || ((event.ctrlKey || event.metaKey) && (event.key === 'j' || event.key === 'n'))) {
-      event.preventDefault();
-      setSelectedIndex(selected + 1);
-
-      return;
-    }
-
-    if (event.key === 'ArrowUp' || ((event.ctrlKey || event.metaKey) && (event.key === 'k' || event.key === 'p'))) {
-      event.preventDefault();
-      setSelectedIndex(selected - 1);
-
-      return;
-    }
-
-    if (event.key === 'Home') {
-      event.preventDefault();
-      setSelectedIndex(0);
-
-      return;
-    }
-
-    if (event.key === 'End') {
-      event.preventDefault();
-      setSelectedIndex(getSelectableItems().length - 1);
-
-      return;
-    }
-
-    if (event.key === 'Enter' && event.target === inputRef.current && !event.isComposing) {
-      const items = getSelectableItems();
-      const item = items[selected] || items[0];
-
-      if (item) {
-        event.preventDefault();
-        item.click();
-      }
-
-      return;
-    }
-  };
 
   if (!isOpen) return null;
 
@@ -249,54 +90,32 @@ const CommandPalette = ({
         initialFocusRef={ inputRef }
         restoreFocusRef={ restoreFocusRef }
         label='Command launcher'
-        className={ className }
+        className='ds-command-launcher'
         contentProps={ {
           // Escape leaves a sub-page before it closes the launcher.
-          onEscapeKeyDown: (event) => {
+          'onEscapeKeyDown': (event) => {
             if (!escapeHandlerRef.current) return;
             event.preventDefault();
             escapeHandlerRef.current();
           }
         } }
       >
-          <div className='command-palette'>
-            <div aria-hidden='true' className='command-palette__overlay' />
-            <div
-              className='command-palette__viewport'
-              onClick={ (event) => {
-                if (event.target === event.currentTarget) close();
-              } }
-            >
-              <div ref={ dialogRef } data-cmdk-root onKeyDown={ handleKeyDown }>
-                <div className='command-palette__search'>
-                  <Icon name='Search' size='sm' decorative className='command-palette__search-icon' />
-                  <input
-                    ref={ inputRef }
-                    aria-label='Search commands'
-                    autoComplete='off'
-                    data-cmdk-input
-                    placeholder='Search'
-                    spellCheck={ false }
-                    type='text'
-                    value={ search }
-                    onChange={ (event) => onChangeSearch?.(event.target.value) }
-                  />
-                  <button
-                    type='button'
-                    className='command-palette__close'
-                    aria-label='Close command launcher'
-                    onClick={ close }
-                  >
-                    <Icon name='X' size='sm' decorative />
-                  </button>
-                </div>
-                <div data-cmdk-list>
-                  {children}
-                </div>
-                {footer}
-              </div>
-            </div>
-          </div>
+        {/* A fresh Command per page selects its first item, as the root does. */}
+        <Command key={ page } shouldFilter={ false } loop label='Search commands' className='ds-command-launcher-panel h-auto w-full max-w-[46rem]'>
+          <CommandInput
+            ref={ inputRef }
+            placeholder='Search'
+            spellCheck={ false }
+            value={ search }
+            onValueChange={ onChangeSearch }
+          >
+            <Button variant='ghost' tone='neutral' size='icon-sm' aria-label='Close command launcher' onClick={ close }>
+              <Icon name='X' size='sm' decorative />
+            </Button>
+          </CommandInput>
+          <CommandList className='ds-command-launcher-list'>{children}</CommandList>
+          {footer}
+        </Command>
       </Dialog>
     </CommandPaletteContext.Provider>
   );
@@ -314,80 +133,33 @@ const Page = ({ children, id, onEscape }) => {
     return () => context?.setEscapeHandler(null);
   }, [ context, isCurrentPage, onEscape ]);
 
-  if (!isCurrentPage) return null;
-
-  return <>{children}</>;
+  return isCurrentPage ? children : null;
 };
 
-const List = ({ children, heading }) => {
-  const items = Children.toArray(children).filter(Boolean);
+const List = ({ children, heading }) => <CommandGroup heading={ heading }>{children}</CommandGroup>;
 
-  if (!items.length) return null;
+const ListItem = ({ children, closeOnSelect = true, disabled = false, href, onClick, value }) => {
+  const context = useContext(CommandPaletteContext);
+
+  // Pointer and Enter both select; links navigate the same way the address bar would.
+  const handleSelect = () => {
+    onClick?.();
+    if (closeOnSelect) context?.close();
+    if (href) window.location.assign(href);
+  };
 
   return (
-    <section data-cmdk-group>
-      {heading ? <h3 data-cmdk-group-heading>{heading}</h3> : null}
-      <div>{items}</div>
-    </section>
+    <CommandItem value={ value } disabled={ disabled } onSelect={ handleSelect } data-close-on-select={ closeOnSelect ? 'true' : 'false' }>
+      {children}
+    </CommandItem>
   );
 };
 
-const ListItem = ({
-  children,
-  className,
-  closeOnSelect = true,
-  disabled = false,
-  href,
-  index = 0,
-  onClick,
-  ...props
-}) => {
-  const context = useContext(CommandPaletteContext);
-  const isSelected = context?.selected === index;
-  const Component = href ? 'a' : 'button';
-  const { 'showType': ignoredShowType, ...domProps } = props;
-
-  void ignoredShowType;
-
-  const handleClick = (event) => {
-    if (disabled) {
-      event.preventDefault();
-
-      return;
-    }
-
-    onClick?.(event);
-
-    if (!event.defaultPrevented && closeOnSelect) context?.close();
-  };
-
-  const itemProps = {
-    ...domProps,
-    'aria-disabled': disabled || undefined,
-    'aria-selected': isSelected ? 'true' : 'false',
-    'className': [ 'command-palette-list-item', className ].filter(Boolean).join(' '),
-    'data-close-on-select': closeOnSelect ? 'true' : 'false',
-    'data-cmdk-item': '',
-    'href': href || undefined,
-    'onClick': handleClick,
-    'onMouseMove': () => context?.onChangeSelected?.(index)
-  };
-
-  if (!href) itemProps.type = 'button';
-  if (disabled) itemProps.disabled = true;
-
-  return <Component { ...itemProps }>{children}</Component>;
-};
-
-const FreeSearchAction = () => (
-  <div data-cmdk-empty className='px-3 py-3 text-sm'>
-    No matching commands.
-  </div>
-);
+const Empty = ({ children = 'No matching commands.' }) => <CommandEmpty className='flex items-center justify-center gap-2'>{children}</CommandEmpty>;
 
 CommandPalette.Page = Page;
 CommandPalette.List = List;
 CommandPalette.ListItem = ListItem;
-CommandPalette.FreeSearchAction = FreeSearchAction;
+CommandPalette.Empty = Empty;
 
 export default CommandPalette;

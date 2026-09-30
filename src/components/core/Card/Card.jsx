@@ -1,5 +1,6 @@
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
+import { CardDescription, CardTitle } from './parts/card.jsx';
 
 export const cardVariants = createVariants({
   'base': 'h-full w-full overflow-hidden border transition-shadow duration-200',
@@ -22,14 +23,17 @@ export const cardVariants = createVariants({
       'sm': 'rounded-sm'
     },
     'variant': {
-      'elevated': 'border-gray-200 bg-white shadow-sm dark:border-white/[0.2] dark:bg-gray-900',
+      'elevated': 'border-border bg-surface text-text shadow-sm',
       'flat': 'border-transparent bg-transparent shadow-none',
-      'outline': 'border-gray-200 bg-white shadow-none dark:border-gray-700 dark:bg-gray-950',
-      'soft': 'border-gray-100 bg-gray-50 shadow-none dark:border-gray-800 dark:bg-gray-900'
+      'outline': 'border-border bg-surface text-text shadow-none',
+      'soft': 'border-border bg-surface-muted text-text shadow-none'
     }
   }
 });
 
+const headingLevels = { 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
+
+// The convenience card: a variant surface whose title and subtitle reuse the CardTitle and CardDescription parts.
 const Card = ({
   children,
   className,
@@ -42,10 +46,8 @@ const Card = ({
   titleLevel = 3,
   variant,
   ...props
-}) => {
-  const Title = ({ 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' })[titleLevel] || 'h3';
-
-  return <div
+}) => (
+  <div
     className={ cardVariants({
       'className': cn(interactive && 'hover:shadow-md', className, classNames.root),
       padding,
@@ -56,18 +58,18 @@ const Card = ({
   >
     <div className={ cn('relative z-10', classNames.body) }>
       {title ? (
-        <Title className={ cn('text-base font-bold text-gray-950 dark:text-white', classNames.title) }>
+        <CardTitle as={ headingLevels[titleLevel] || 'h3' } className={ classNames.title }>
           {title}
-        </Title>
+        </CardTitle>
       ) : null}
       {subtitle ? (
-        <p className={ cn('mt-1 text-sm leading-normal text-gray-700 dark:text-gray-300', classNames.subtitle) }>
+        <CardDescription as='p' className={ cn('mt-1', classNames.subtitle) }>
           {subtitle}
-        </p>
+        </CardDescription>
       ) : null}
       {children}
     </div>
-  </div>;
-};
+  </div>
+);
 
 export default Card;

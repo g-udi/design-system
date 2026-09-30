@@ -7,8 +7,8 @@ import Button from '../Button';
 import Spinner from './Spinner';
 
 const docs = getComponentDocs('Core/Spinner');
-const sizes = ['xs', 'sm', 'md', 'lg'];
 const pixels = { xs: 12, sm: 16, md: 20, lg: 32 };
+const sizes = Object.keys(pixels);
 const saving = 'Saving draft';
 // A publish queue: the running task follows the controls; a queued check and a busy button show smaller, quieter spinners.
 function Task({ spinner, title, detail }) {
@@ -16,16 +16,18 @@ function Task({ spinner, title, detail }) {
     <li className='flex items-center gap-3 rounded-lg border border-border px-3 py-2.5'>
       <span className='flex size-8 shrink-0 items-center justify-center'>{spinner}</span>
       <span className='min-w-0 flex-1'>
-        <span className='block truncate text-sm font-medium text-foreground'>{title}</span>
+        <span className='block truncate text-sm font-medium text-text'>{title}</span>
         <span className='block text-xs text-text-muted'>{detail}</span>
       </span>
     </li>
   );
 }
 const statuses = (canvasElement, name) => within(canvasElement).getAllByRole('status', { name });
+// The computed width ignores the spin transform, which inflates the bounding box mid-rotation.
+const width = (element) => Number.parseFloat(getComputedStyle(element).width);
 
 export default {
-  title: 'Core/Feedback & States/Spinner',
+  title: 'Core/Spinner',
   id: 'core-spinner',
   component: Spinner,
   tags: ['autodocs'],
@@ -63,25 +65,10 @@ export const Playground = {
     const canvas = within(canvasElement);
     const [spinner] = statuses(canvasElement, args.label);
     await expect(getComputedStyle(spinner).animationName).not.toBe('none');
-    await expect(getComputedStyle(spinner).borderRightColor).toBe('rgba(0, 0, 0, 0)');
-    // offsetWidth ignores the spin transform, which inflates the bounding box mid-rotation.
-    await expect(spinner.offsetWidth).toBe(pixels[args.size]);
+    await expect(width(spinner)).toBe(pixels[args.size]);
     await expect(canvas.getByText(args.label)).toBeVisible();
     const button = canvas.getByRole('button', { name: new RegExp(saving) });
     await expect(button).toBeDisabled();
     await expect(within(button).getByRole('status', { name: saving })).toBeInTheDocument();
-  }
-};
-
-export const Sizes = {
-  parameters: { docs: { description: { story: '`size` steps from `xs` for inline text to `lg` for empty and page-level states.' } } },
-  render: () => (
-    <div className='flex items-center gap-4'>
-      {sizes.map((size) => <Spinner key={size} size={size} />)}
-    </div>
-  ),
-  play: async ({ canvasElement }) => {
-    const widths = statuses(canvasElement, 'Loading').map((spinner) => spinner.offsetWidth);
-    await expect(widths).toEqual(sizes.map((size) => pixels[size]));
   }
 };

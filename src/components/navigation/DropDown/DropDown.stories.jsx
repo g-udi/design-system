@@ -1,5 +1,5 @@
 import { useId, useRef, useState } from 'react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fireEvent, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -9,7 +9,6 @@ import Link from '../../core/Link';
 import DropDown from './DropDown';
 
 const docs = getComponentDocs('Navigation/DropDown');
-const panelText = 'Design, engineering, and research notes.';
 // The featured menu follows the controls; its neighbours are ordinary closed triggers.
 const topics = [
   { href: '/blog/categories/data', icon: 'Database', title: 'Data', description: 'Everything AI, ML and data' },
@@ -18,36 +17,6 @@ const topics = [
   { href: '/blog/categories/productivity', icon: 'Zap', title: 'Productivity', description: 'Tools, habits and tips' }
 ];
 const neighbours = ['Projects', 'About'];
-
-function DisclosureExample({ bounded = false, name, setMenuDropDownOpen }) {
-  const [open, setOpen] = useState(false);
-  const boundaryRef = useRef(null);
-  const id = useId();
-  const update = (next) => {
-    setOpen(next);
-    setMenuDropDownOpen(next);
-  };
-  return (
-    <div ref={boundaryRef} className='inline-block'>
-      <DropDown
-        id={`${id}-trigger`}
-        controlsId={`${id}-panel`}
-        name={name}
-        menuDropDownOpen={open}
-        setMenuDropDownOpen={update}
-        outsideClickRef={bounded ? boundaryRef : undefined}
-      />
-      <div
-        id={`${id}-panel`}
-        aria-labelledby={`${id}-trigger`}
-        hidden={!open}
-        className='mt-2 rounded-lg border border-gray-200 px-3 py-2 text-sm dark:border-gray-800'
-      >
-        {panelText}
-      </div>
-    </div>
-  );
-}
 
 function NeighbourMenu({ name }) {
   const [open, setOpen] = useState(false);
@@ -64,8 +33,8 @@ function TopicsMenu({ menuDropDownOpen, name, setMenuDropDownOpen }) {
     setMenuDropDownOpen(next);
   };
   return (
-    <div ref={boundaryRef} className='overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950'>
-      <nav aria-label='Site' className='flex flex-wrap items-center gap-x-2 border-b border-gray-200 px-3 dark:border-gray-800'>
+    <div ref={boundaryRef} className='overflow-hidden rounded-card border border-border bg-surface'>
+      <nav aria-label='Site' className='flex flex-wrap items-center gap-x-2 border-b border-border px-3'>
         <DropDown
           id={`${id}-trigger`}
           controlsId={`${id}-panel`}
@@ -78,13 +47,13 @@ function TopicsMenu({ menuDropDownOpen, name, setMenuDropDownOpen }) {
       </nav>
       <div id={`${id}-panel`} aria-labelledby={`${id}-trigger`} hidden={!open} className='grid gap-1 p-2 sm:grid-cols-2'>
         {topics.map((topic) => (
-          <Link key={topic.href} href={topic.href} variant='bare' className='flex items-start gap-3 rounded-lg p-2.5 hover:bg-gray-50 dark:hover:bg-gray-900'>
-            <span className='flex size-9 shrink-0 items-center justify-center rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-300'>
+          <Link key={topic.href} href={topic.href} variant='bare' className='flex items-start gap-3 rounded-md p-2.5 hover:bg-surface-muted'>
+            <span className='flex size-9 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-accent'>
               <Icon name={topic.icon} decorative size='sm' />
             </span>
             <span>
-              <span className='block text-sm font-semibold text-gray-950 dark:text-gray-100'>{topic.title}</span>
-              <span className='block text-xs text-gray-600 dark:text-gray-400'>{topic.description}</span>
+              <span className='block text-sm font-semibold text-text'>{topic.title}</span>
+              <span className='block text-xs text-text-muted'>{topic.description}</span>
             </span>
           </Link>
         ))}
@@ -113,7 +82,7 @@ export const Playground = {
   args: { name: 'Topics', menuDropDownOpen: true },
   parameters: {
     docs: {
-      description: { story: 'A site header with three menus. The featured trigger follows the controls: `name` sets its label and `menuDropDownOpen` opens its topic panel, turns the trigger blue, and flips the chevron.' },
+      description: { story: 'A site header with three menus. The featured trigger follows the controls: `name` sets its label and `menuDropDownOpen` opens its topic panel, turns the trigger accent, and flips the chevron. `outsideClickRef` spans the bar and the panel, so clicks inside the panel keep it open.' },
       source: playgroundSource('DropDown', {
         imports: "import { useState } from 'react';\nimport { DropDown } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);",
         attributes: ["controlsId='topics-panel'", 'setMenuDropDownOpen={setOpen}'],
@@ -139,23 +108,12 @@ export const Playground = {
     await userEvent.click(trigger);
     await expect(args.setMenuDropDownOpen).toHaveBeenLastCalledWith(true);
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    // Clicks inside the outsideClickRef boundary keep the panel open; clicks outside close it.
+    await fireEvent.click(panel());
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(document.body);
     await expect(trigger).toHaveAttribute('aria-expanded', 'false');
     // Leave the preview in the state the controls describe.
     if (args.menuDropDownOpen) await userEvent.click(trigger);
-  }
-};
-
-export const OutsideClickBoundary = {
-  parameters: { docs: { description: { story: '`outsideClickRef` widens the boundary to the trigger and its panel, so clicks inside the panel keep it open.' } } },
-  render: (args) => <DisclosureExample bounded {...args} />,
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    const trigger = canvas.getByRole('button', { name: args.name });
-    await userEvent.click(trigger);
-    await userEvent.click(canvas.getByText(panelText));
-    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
-    await userEvent.click(document.body);
-    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   }
 };

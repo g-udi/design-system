@@ -1,33 +1,31 @@
 'use client';
 
-import * as Primitive from '@radix-ui/react-toggle-group';
 import { cn } from '../../../utilities/cn';
+import { ToggleGroup as ToggleGroupRoot, ToggleGroupItem } from './parts/toggle-group.jsx';
 
+/** Options-driven toggle group: an attached, outlined set of items built from the composition parts.
+ *  Items wrap in narrow containers instead of overflowing. */
 export default function ToggleGroup({
   label,
   options = [],
-  className,
   type = 'single',
+  variant = 'outline',
+  spacing = 0,
+  className,
   ...props
 }) {
   return (
-    <Primitive.Root
-      {...props}
-      type={type}
-      aria-label={label}
-      className={cn('ds-toggle-group', className)}
-    >
+    <ToggleGroupRoot {...props} type={type} variant={variant} spacing={spacing} aria-label={label} className={cn('max-w-full flex-wrap', className)}>
       {options.map((option) => (
-        <Primitive.Item
+        <ToggleGroupItem
           key={option.value}
           value={option.value}
           disabled={option.disabled}
           aria-label={option.ariaLabel}
-          className='ds-toggle-item'
         >
           {option.label}
-        </Primitive.Item>
+        </ToggleGroupItem>
       ))}
-    </Primitive.Root>
+    </ToggleGroupRoot>
   );
 }

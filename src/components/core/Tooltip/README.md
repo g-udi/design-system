@@ -1,6 +1,6 @@
 # Tooltip
 
-Short, supplementary hints for named controls. Pass content and a single ref-forwarding trigger. Never put interactive content in a tooltip.
+Short, supplementary hints for named controls. Pass content and a single ref-forwarding trigger. Keep it to short text; use a Popover when the content needs a link or a button.
 
 ## Usage
 
@@ -16,8 +16,8 @@ import Tooltip from '@gaudi/design-system/core/Tooltip';
 
 ## Accessibility
 
-Available on focus and hover, dismisses with Escape. The trigger still needs its own accessible name; use Dialog or Popover for interactive details.
+Opens on focus and hover and closes with Escape. The trigger still needs its own accessible name; use Dialog or Popover for interactive details.
 
-## Examples
+## Composition
 
-ActionHint, KeyboardHint, LongHint in Storybook. All examples support light and dark themes.
+`TooltipProvider`, `TooltipRoot`, `TooltipTrigger` and `TooltipContent` build custom tooltips; the `Tooltip` component is those parts with one trigger and one hint. Mount one `TooltipProvider` around a toolbar so moving between buttons skips the delay.

@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import * as Primitive from '@radix-ui/react-alert-dialog';
+import { AlertDialog as Primitive } from 'radix-ui';
 import Button from '../Button';
+import { DialogConfirmation as ConfirmationRoot, DialogConfirmationPortal, DialogConfirmationTrigger } from './parts/dialog-confirmation.jsx';
 
 /** Rejected async actions retain the dialog and provide a retry path. */
 export default function DialogConfirmation({
@@ -54,9 +55,9 @@ export default function DialogConfirmation({
     }
   };
   return (
-    <Primitive.Root open={open ?? internalOpen} onOpenChange={change}>
-      {trigger && <Primitive.Trigger asChild>{trigger}</Primitive.Trigger>}
-      <Primitive.Portal>
+    <ConfirmationRoot open={open ?? internalOpen} onOpenChange={change}>
+      {trigger && <DialogConfirmationTrigger asChild>{trigger}</DialogConfirmationTrigger>}
+      <DialogConfirmationPortal>
         <Primitive.Overlay className='ds-overlay' />
         <Primitive.Content
           className='ds-dialog'
@@ -91,7 +92,7 @@ export default function DialogConfirmation({
             </Button>
           </footer>
         </Primitive.Content>
-      </Primitive.Portal>
-    </Primitive.Root>
+      </DialogConfirmationPortal>
+    </ConfirmationRoot>
   );
 }

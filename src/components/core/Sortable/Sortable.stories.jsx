@@ -19,6 +19,11 @@ const tasks = [
   { id: 'edit', title: 'Copy edit', icon: 'CheckCheckIcon', priority: 'Medium', owner: 'Jonas Weber', due: 'Oct 10' },
   { id: 'publish', title: 'Publish', icon: 'RocketIcon', priority: 'Pinned', owner: 'Lina Sato', due: 'Oct 12', pinned: true }
 ];
+const portraits = {
+  'Amira Haddad': 'https://randomuser.me/api/portraits/women/68.jpg',
+  'Jonas Weber': 'https://randomuser.me/api/portraits/men/32.jpg',
+  'Lina Sato': 'https://randomuser.me/api/portraits/women/65.jpg'
+};
 const byId = Object.fromEntries(tasks.map((task) => [task.id, task]));
 const ids = tasks.map((task) => task.id);
 const priorities = { High: 'destructive-light', Medium: 'warning-light', Low: 'info-light', Pinned: 'invert-light' };
@@ -60,7 +65,7 @@ function TaskCard({ task, strategy }) {
   );
   const meta = (
     <span className='flex items-center gap-1.5 text-xs text-ui-muted-foreground'>
-      <Avatar name={task.owner} size='xs' />
+      <Avatar name={task.owner} src={portraits[task.owner]} size='xs' />
       {task.due}
     </span>
   );

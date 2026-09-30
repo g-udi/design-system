@@ -15,7 +15,7 @@ export default function AvatarGroup({
   const { visible, overflow } = getAvatarGroupState(avatars, max);
   const count = overflow > 0 ? (
     <AvatarGroupCount
-      className={cn(avatarVariants({ size, shape }), 'ds-avatar-overflow bg-ui-muted text-ui-muted-foreground')}
+      className={cn(avatarVariants({ size, shape, tone: null }), 'ds-avatar-overflow bg-surface-muted text-text-muted')}
       aria-label={formatOverflow?.(overflow) || `${overflow} more people`}
     >+{overflow}</AvatarGroupCount>
   ) : null;

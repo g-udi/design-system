@@ -22,4 +22,4 @@ Labels and errors are associated with the textarea. Vertical resizing preserves 
 
 ## Examples
 
-EditorialSummary, Validation, ReadOnly in Storybook. All examples support light and dark themes.
+The Playground shows a review note with a counter and the invalid and disabled states; the catalogue adds field states and auto-resize.

@@ -21,6 +21,7 @@ import * as LegendModule from 'recharts/es6/component/Legend.js';
 import * as ResponsiveContainerModule from 'recharts/es6/component/ResponsiveContainer.js';
 import * as RechartsTooltipModule from 'recharts/es6/component/Tooltip.js';
 import * as PieModule from 'recharts/es6/polar/Pie.js';
+import * as PolarAngleAxisModule from 'recharts/es6/polar/PolarAngleAxis.js';
 import * as RadialBarModule from 'recharts/es6/polar/RadialBar.js';
 
 import { cn } from '../../../utilities/cn';
@@ -34,6 +35,7 @@ const Cell = resolveRechartsExport(CellModule, 'Cell');
 const Legend = resolveRechartsExport(LegendModule, 'Legend');
 const Line = resolveRechartsExport(LineModule, 'Line');
 const Pie = resolveRechartsExport(PieModule, 'Pie');
+const PolarAngleAxis = resolveRechartsExport(PolarAngleAxisModule, 'PolarAngleAxis');
 const RadialBar = resolveRechartsExport(RadialBarModule, 'RadialBar');
 const RechartsAreaChart = resolveRechartsExport(RechartsAreaChartModule, 'AreaChart');
 const RechartsBarChart = resolveRechartsExport(RechartsBarChartModule, 'BarChart');
@@ -55,6 +57,7 @@ const isChartRuntimeReady = [
   Legend,
   Line,
   Pie,
+  PolarAngleAxis,
   RadialBar,
   RechartsAreaChart,
   RechartsBarChart,
@@ -79,7 +82,8 @@ const chartColors = [
   'var(--ds-color-chart-6)'
 ];
 
-const axisClassName = 'fill-gray-500 text-xs dark:fill-gray-400';
+// Supporting-text size and muted ink for axis ticks.
+const axisTick = { 'fill': 'var(--ds-color-text-muted)', 'fontSize': 12 };
 
 const defaultMargins = { 'bottom': 8, 'left': 8, 'right': 16, 'top': 16 };
 
@@ -171,13 +175,13 @@ const ChartFrame = ({
     <figure
       ref={ frameRef }
       aria-label={ ariaLabel || title || 'Chart' }
-      className={ cn('not-prose my-8 rounded-xl border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-800 dark:bg-gray-950', className) }
+      className={ cn('not-prose my-8 rounded-xl border border-border bg-surface p-4 shadow-sm', className) }
       role='img'
     >
       {title || description ? (
         <figcaption className='mb-4 space-y-1'>
-          {title ? <h3 className='text-base font-semibold leading-6 text-gray-950 dark:text-white'>{title}</h3> : null}
-          {description ? <p className='text-sm leading-6 text-gray-600 dark:text-gray-300'>{description}</p> : null}
+          {title ? <h3 className='text-base font-semibold leading-6 text-text'>{title}</h3> : null}
+          {description ? <p className='text-sm leading-6 text-text-muted'>{description}</p> : null}
         </figcaption>
       ) : null}
       <div className='min-w-0 w-full' style={{ height, 'minHeight': height, 'width': '100%' }}>
@@ -189,7 +193,7 @@ const ChartFrame = ({
 
 const ChartRuntimeFallback = ({ ariaLabel, className, description, height, title }) => (
   <ChartFrame ariaLabel={ ariaLabel } className={ className } description={ description } height={ height } title={ title }>
-    <div className='flex h-full min-h-40 items-center justify-center rounded-lg border border-dashed border-red-200 bg-red-50 px-4 text-center text-sm font-medium text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300'>
+    <div className='flex h-full min-h-40 items-center justify-center rounded-lg border border-dashed border-danger-border bg-danger-subtle px-4 text-center text-sm font-medium text-danger'>
       Chart renderer unavailable. Recharts did not load correctly.
     </div>
   </ChartFrame>
@@ -199,13 +203,13 @@ const ChartTooltip = ({ active, label, payload }) => {
   if (!active || !payload?.length) return null;
 
   return (
-    <div className='rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs shadow-lg dark:border-gray-800 dark:bg-gray-950'>
-      {label ? <div className='mb-1 font-semibold text-gray-950 dark:text-white'>{label}</div> : null}
+    <div className='rounded-lg border border-border bg-surface px-3 py-2 text-xs shadow-lg'>
+      {label ? <div className='mb-1 font-semibold text-text'>{label}</div> : null}
       <div className='space-y-1'>
         {payload.map((item) => (
-          <div key={ item.dataKey || item.name } className='flex items-center justify-between gap-5 text-gray-600 dark:text-gray-300'>
+          <div key={ item.dataKey || item.name } className='flex items-center justify-between gap-5 text-text-muted'>
             <span>{item.name || item.dataKey}</span>
-            <span className='font-mono font-semibold text-gray-950 dark:text-white'>{item.value}</span>
+            <span className='font-mono font-semibold text-text'>{item.value}</span>
           </div>
         ))}
       </div>
@@ -216,8 +220,8 @@ const ChartTooltip = ({ active, label, payload }) => {
 const SharedAxes = ({ showGrid, xKey }) => (
   <>
     {showGrid ? <CartesianGrid strokeDasharray='3 3' stroke='var(--ds-color-chart-grid)' vertical={ false } /> : null}
-    <XAxis axisLine={ false } className={ axisClassName } dataKey={ xKey } tickLine={ false } />
-    <YAxis axisLine={ false } className={ axisClassName } tickLine={ false } width={ 38 } />
+    <XAxis axisLine={ false } tick={ axisTick } dataKey={ xKey } tickLine={ false } />
+    <YAxis axisLine={ false } tick={ axisTick } tickLine={ false } width={ 38 } />
   </>
 );
 
@@ -461,8 +465,8 @@ export const ScatterChart = ({
       <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
         <RechartsScatterChart margin={ defaultMargins }>
           {showGrid ? <CartesianGrid strokeDasharray='3 3' stroke='var(--ds-color-chart-grid)' /> : null}
-          <XAxis axisLine={ false } className={ axisClassName } dataKey={ xKey } name={ xKey } tickLine={ false } type='number' />
-          <YAxis axisLine={ false } className={ axisClassName } dataKey={ yKey } name={ yKey } tickLine={ false } type='number' width={ 38 } />
+          <XAxis axisLine={ false } tick={ axisTick } dataKey={ xKey } name={ xKey } tickLine={ false } type='number' />
+          <YAxis axisLine={ false } tick={ axisTick } dataKey={ yKey } name={ yKey } tickLine={ false } type='number' width={ 38 } />
           {showTooltip ? <RechartsTooltip content={ <ChartTooltip /> } cursor={{ 'strokeDasharray': '3 3' }} /> : null}
           <Scatter data={ normalizeScatterData(data, xKey, yKey) } fill={ color || chartColors[0] } isAnimationActive={ false } name='Posts' />
         </RechartsScatterChart>
@@ -486,7 +490,9 @@ export const RadialBarChart = ({
     <ChartFrame ariaLabel={ ariaLabel } className={ className } description={ description } height={ height } title={ title }>
       <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
         <RechartsRadialBarChart barSize={ 18 } cx='50%' cy='50%' data={ normalizePieData(data, nameKey, valueKey) } endAngle={ -270 } innerRadius='42%' outerRadius='88%' startAngle={ 90 }>
-          <RadialBar background cornerRadius={ 16 } dataKey={ valueKey } fill={ color || chartColors[0] } isAnimationActive={ false } nameKey={ nameKey } />
+          {/* Values are percentages: the track is the full 0–100 range. */}
+          <PolarAngleAxis type='number' domain={ [ 0, 100 ] } tick={ false } />
+          <RadialBar background={{ 'fill': 'var(--ds-color-chart-grid)' }} cornerRadius={ 16 } dataKey={ valueKey } fill={ color || chartColors[0] } isAnimationActive={ false } nameKey={ nameKey } />
           <RechartsTooltip content={ <ChartTooltip /> } />
         </RechartsRadialBarChart>
       </ResponsiveContainer>

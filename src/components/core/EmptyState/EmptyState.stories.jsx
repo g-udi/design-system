@@ -43,24 +43,24 @@ export const Playground = {
       source: playgroundSource('EmptyState', {
         imports: "import { Button, EmptyState, Icon } from '@gaudi/design-system';",
         attributes: [
-          "icon={<Icon name='Search' decorative size='lg' />}",
+          "icon={<Icon name='Search' decorative size='sm' />}",
           'actions={<><Button onClick={clearFilters}>Clear filters</Button><Button variant=\'outline\' tone=\'neutral\' onClick={browse}>Browse all articles</Button></>}'
         ]
       })
     }
   },
   render: ({ onClearFilters, onBrowse, ...args }) => (
-    <section aria-label='Article search' className='overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800'>
-      <div className='grid gap-2 border-b border-gray-200 p-3 dark:border-gray-800'>
+    <section aria-label='Article search' className='overflow-hidden rounded-lg border border-border'>
+      <div className='grid gap-2 border-b border-border p-3'>
         <Input type='search' aria-label='Search articles' defaultValue={search.query} />
         <div className='flex flex-wrap items-center gap-1'>
           {search.filters.map((filter) => <Pill key={filter} tone='gray' variant='soft' size='sm' radius='full'>{filter}</Pill>)}
-          <span className='ml-auto text-xs text-gray-500 dark:text-gray-400'>0 results</span>
+          <span className='ml-auto text-xs text-text-muted'>0 results</span>
         </div>
       </div>
       <EmptyState
         {...args}
-        icon={<Icon name='Search' decorative size='lg' />}
+        icon={<Icon name='Search' decorative size='sm' />}
         actions={(
           <>
             <Button onClick={onClearFilters}>Clear filters</Button>
@@ -72,12 +72,10 @@ export const Playground = {
   ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
-    const title = canvas.getByText(args.title);
-    const empty = title.closest('.ds-empty');
-    await expect(title.tagName).toBe('P');
+    const empty = canvas.getByText(args.title).closest('[data-slot=empty]');
     await expect(canvas.getByText(args.description)).toBeVisible();
-    await expect(empty.classList.contains('ds-empty-compact')).toBe(args.compact);
-    await expect(empty.querySelector('.ds-empty-icon')).toHaveAttribute('aria-hidden', 'true');
+    await expect(empty).toHaveClass(args.compact ? 'py-4' : 'py-8');
+    await expect(empty.querySelector('[data-slot=empty-icon]')).toHaveAttribute('aria-hidden', 'true');
     await expect(canvas.getByRole('searchbox', { name: 'Search articles' })).toHaveValue(search.query);
     await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Clear filters' }));
@@ -93,15 +91,15 @@ function FirstArticleExample() {
   const [saved, setSaved] = useState(false);
   if (saved)
     return (
-      <div role='status'>
-        <p className='ds-title'>{title}</p>
-        <p className='ds-description'>Your first draft is ready in this example.</p>
+      <div role='status' className='grid gap-1 rounded-lg border border-border p-3'>
+        <p className='m-0 text-sm font-medium'>{title}</p>
+        <p className='m-0 text-sm text-text-muted'>Your first draft is ready.</p>
       </div>
     );
   if (creating)
     return (
       <form
-        className='ds-stack'
+        className='grid gap-3'
         onSubmit={(event) => {
           event.preventDefault();
           setSaved(true);
@@ -111,9 +109,9 @@ function FirstArticleExample() {
           <FieldLabel>Draft title</FieldLabel>
           <Input required value={title} onChange={(event) => setTitle(event.target.value)} />
         </Field>
-        <div className='ds-actions'>
+        <div className='flex gap-2'>
           <Button type='submit'>Create draft</Button>
-          <Button variant='outline' onClick={() => setCreating(false)}>Cancel</Button>
+          <Button variant='outline' tone='neutral' onClick={() => setCreating(false)}>Cancel</Button>
         </div>
       </form>
     );
@@ -121,7 +119,7 @@ function FirstArticleExample() {
     <EmptyState
       title='Make room for your first idea'
       description='Start a draft and build it into something worth sharing.'
-      icon={<Icon name='FileText' decorative size='lg' />}
+      icon={<Icon name='FileText' decorative size='sm' />}
       actions={<Button onClick={() => setCreating(true)}>Write an article</Button>}
     />
   );
@@ -130,14 +128,14 @@ export const FirstArticle = {
   parameters: {
     docs: {
       description: {
-        story: 'The decorative `icon` is hidden from assistive technology, and `actions` hands the next step to the host, which replaces the empty state when content exists.'
+        story: 'A first-run state whose action hands off to a form; the host replaces the empty state once content exists.'
       }
     }
   },
   render: () => <FirstArticleExample />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvasElement.querySelector('.ds-empty-icon')).toHaveAttribute('aria-hidden', 'true');
+    await expect(canvasElement.querySelector('[data-slot=empty-icon]')).toHaveAttribute('aria-hidden', 'true');
     await userEvent.click(canvas.getByRole('button', { name: 'Write an article' }));
     await userEvent.type(canvas.getByRole('textbox', { name: 'Draft title' }), 'Knowledge graphs');
     await userEvent.click(canvas.getByRole('button', { name: 'Create draft' }));

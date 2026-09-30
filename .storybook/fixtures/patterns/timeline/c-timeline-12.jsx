@@ -24,7 +24,7 @@ const releases = [
 ];
 
 const indicatorTone = {
-  released: 'bg-success text-white',
+  released: 'bg-success text-success-foreground',
   current: 'bg-ui-primary text-ui-primary-foreground',
   upcoming: 'bg-ui-muted text-ui-muted-foreground'
 };

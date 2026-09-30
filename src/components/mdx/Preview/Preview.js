@@ -12,25 +12,27 @@
  */
 
 import { memo, useEffect, useMemo, useState } from 'react';
-import * as HoverCardPrimitive from '@radix-ui/react-hover-card';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../core/Popover';
+import Skeleton from '../../core/Skeleton';
+import { cn } from '../../../utilities/cn';
 import formatDate from '../../../utilities/formatDate';
 
 import { getPreviewImageUrl, NPM_HOSTNAME, usePreviewData } from './usePreviewData';
 
 export { usePreviewData } from './usePreviewData';
 
-const bodyTextClass = 'text-gray-900 dark:text-gray-100';
 const CONFIRMED_UNAVAILABLE_STATUSES = [ 400, 404, 410 ];
+const inlineClass = 'inline-flex items-center align-top';
+const inlineIconClass = 'm-0 mr-1 inline-block align-text-top';
 
-export const PreviewLoadingSkeleton = ({ className = '' }) => (
-  <span className={ `inline-flex items-start ${className}` } aria-hidden='true'>
-    <span className='inline-block h-4 w-4 mr-1 bg-gray-200 rounded animate-pulse flex-shrink-0 dark:bg-gray-700' />
-    <span className='inline-block h-4 w-32 bg-gray-200 rounded animate-pulse dark:bg-gray-700' />
+export const PreviewLoadingSkeleton = ({ className }) => (
+  <span className={ cn('inline-flex items-start gap-1', className) } aria-hidden='true'>
+    <Skeleton className='inline-block size-4 shrink-0' />
+    <Skeleton className='inline-block h-4 w-32' />
   </span>
 );
 
@@ -85,10 +87,6 @@ const formatTitle = (title, url) => {
   return cleanTitle.length > maxLength ? `${cleanTitle.substring(0, maxLength - 3)}...` : cleanTitle;
 };
 
-const formatPreviewDate = (date) => {
-  return formatDate(date);
-};
-
 /**
  * Helper function to get platform-specific icon (only when no favicon is available)
  */
@@ -99,19 +97,19 @@ const getPlatformIcon = (url, type, hasFavicon) => {
     const hostname = new URL(url).hostname.toLowerCase();
 
     if (type === 'video' || hostname.includes('youtube.com') || hostname.includes('youtu.be')) return (
-      <svg className='h-3 w-3 ml-1 text-red-500' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
+      <svg className='ml-1 size-3 text-danger' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
         <path d='M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l4 2A1 1 0 0020 14V6a1 1 0 00-1.447-.894l-4 2z' />
       </svg>
     );
 
     if (type === 'repository' || hostname.includes('github.com')) return (
-      <svg className='h-3 w-3 ml-1 text-gray-600 dark:text-gray-300' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
+      <svg className='ml-1 size-3 text-text-muted' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
         <path fillRule='evenodd' d='M10 0C4.477 0 0 4.477 0 10c0 4.42 2.865 8.17 6.84 9.49.5.09.68-.22.68-.48 0-.24-.01-1.02-.01-1.86-2.78.6-3.37-1.18-3.37-1.18-.45-1.15-1.1-1.46-1.1-1.46-.9-.62.07-.6.07-.6 1 .07 1.52 1.02 1.52 1.02.89 1.52 2.33 1.08 2.9.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.02-2.68-.1-.25-.44-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.58 9.58 0 0110 4.8c.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.54 1.37.2 2.39.1 2.64.64.7 1.02 1.59 1.02 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.02 10.02 0 0020 10c0-5.523-4.477-10-10-10z' clipRule='evenodd' />
       </svg>
     );
 
     if (type === 'package' || hostname.includes(NPM_HOSTNAME)) return (
-      <svg className='h-3 w-3 ml-1 text-red-500' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
+      <svg className='ml-1 size-3 text-danger' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
         <path d='M10 2.5V5h5v10H5V5h2.5V2.5h2.5zm0 5H7.5V10H10V7.5zm0 5H7.5V15H10v-2.5z' />
       </svg>
     );
@@ -191,11 +189,8 @@ const Preview = memo(function Preview({
   fallback
 }) {
   const isInternal = internal || Boolean(url?.startsWith('/'));
-
-  const [ isHoverCardOpen, setIsHoverCardOpen ] = useState(defaultOpen);
   const [ imageLoaded, setImageLoaded ] = useState(false);
   const [ imageError, setImageError ] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
 
   const { data, loading, error } = usePreviewData(url, isInternal ? null : title, { previewData, 'skip': false, timeout });
 
@@ -242,7 +237,7 @@ const Preview = memo(function Preview({
   // All hooks are above this line — conditional returns are safe from here on
   const inlineIconName = getInlineIconName(url);
 
-  if (!url) return <span className='text-gray-500 dark:text-gray-400'>No URL provided</span>;
+  if (!url) return <span className='text-text-muted'>No URL provided</span>;
 
   if (loading) return <PreviewLoadingSkeleton className={ className } />;
 
@@ -252,16 +247,16 @@ const Preview = memo(function Preview({
     const isConfirmedUnavailable = CONFIRMED_UNAVAILABLE_STATUSES.includes(Number(data.status));
 
     return (
-      <span className={ `inline-flex items-center align-top ${className}` }>
+      <span className={ cn(inlineClass, className) }>
         <Icon
           name={ isConfirmedUnavailable ? 'LinkSlashIcon' : inlineIconName }
           size='sm'
           decorative
-          className={ `m-0 mr-1 inline-block align-text-top ${isConfirmedUnavailable ? 'text-red-500' : 'text-gray-400'}` }
+          className={ cn(inlineIconClass, isConfirmedUnavailable ? 'text-danger' : 'text-text-subtle') }
         />
         <Link
           href={ url }
-          tone={ isConfirmedUnavailable ? 'red' : 'blue' }
+          tone={ isConfirmedUnavailable ? 'danger' : 'accent' }
           aria-label={ isConfirmedUnavailable ? `${linkTitle} (link may be unavailable)` : linkTitle }
         >
           {linkTitle}
@@ -271,273 +266,133 @@ const Preview = memo(function Preview({
   }
 
   if (!data) return (
-    <span className={ `inline-flex items-center align-top ${className}` }>
-      <Icon name={ inlineIconName } size='sm' decorative className='m-0 mr-1 text-gray-400 inline-block align-text-top' />
-      <Link href={ url } tone='blue'>
+    <span className={ cn(inlineClass, className) }>
+      <Icon name={ inlineIconName } size='sm' decorative className={ cn(inlineIconClass, 'text-text-subtle') } />
+      <Link href={ url } tone='accent'>
         {title || url}
       </Link>
     </span>
   );
 
+  const meta = [ data.publishedTime && formatDate(data.publishedTime), data.readingTime ].filter(Boolean);
   const linkContent = (
     <>
       <Favicon
         src={ inlineIconName === 'Medium' ? null : normalizedFavicon }
-        className='h-4 w-4 !m-0 !mr-1 flex-shrink-0 inline-block align-text-top'
+        className='!m-0 !mr-1 inline-block size-4 shrink-0 align-text-top'
         fallback={ (
           <Icon
             name={ inlineIconName }
             size='sm'
             decorative
-            className={ `m-0 mr-1 inline-block align-text-top ${inlineIconName === 'Medium' ? 'text-gray-900 dark:text-gray-100' : 'text-blue-500'}` }
+            className={ cn(inlineIconClass, inlineIconName === 'Medium' ? 'text-text' : 'text-accent') }
           />
         ) }
       />
       <Link
-        tone='blue'
+        tone='accent'
         href={ url }
-        aria-label={ `${linkTitle}${data?.siteName ? ` - ${data.siteName}` : ''}` }
+        aria-label={ `${linkTitle}${data.siteName ? ` - ${data.siteName}` : ''}` }
       >
         {linkTitle}
       </Link>
-      {getPlatformIcon(url, data?.type, !!normalizedFavicon)}
-      {data?.duration && (
-        <span className='text-xs text-gray-500 ml-1 dark:text-gray-400'>{data.duration}</span>
-      )}
-      {!isInternal && data?.readingTime && (
-        <span className='text-xs text-gray-500 ml-1 dark:text-gray-400'>· {data.readingTime}</span>
-      )}
+      {getPlatformIcon(url, data.type, !!normalizedFavicon)}
+      {data.duration ? <span className='ml-1 text-xs text-text-muted'>{data.duration}</span> : null}
+      {!isInternal && data.readingTime ? <span className='ml-1 text-xs text-text-muted'>· {data.readingTime}</span> : null}
     </>
   );
 
-  const hasPreviewDetails = !!(
+  const hasPreviewDetails = Boolean(
     previewImageUrl ||
-    data?.description ||
-    data?.excerpt ||
-    data?.publishedTime ||
-    data?.readingTime ||
-    data?.siteName !== 'Internal'
+    data.description ||
+    data.excerpt ||
+    data.publishedTime ||
+    data.readingTime ||
+    data.siteName !== 'Internal'
   );
 
-  const shouldShowHoverCard = showImage && data && !loading && hasPreviewDetails;
-
-  if (!shouldShowHoverCard) return (
-    <span
-      className={ `inline-flex items-center align-top ${className}` }
-      data-preview-url={ url }
-      data-preview-internal={ isInternal ? 'true' : undefined }
-    >
+  const trigger = (
+    <span className={ cn(inlineClass, className) } data-preview-url={ url } data-preview-internal={ isInternal ? 'true' : undefined }>
       {linkContent}
     </span>
   );
 
-  const motionProps = shouldReduceMotion
-    ? {
-      'animate': { 'opacity': 1 },
-      'exit': { 'opacity': 1 },
-      'initial': false
-    }
-    : {
-      'animate': { 'opacity': 1, 'scale': 1, 'transition': { 'duration': 0.15 }, 'y': 0 },
-      'exit': { 'opacity': 1, 'scale': 0.96, 'transition': { 'duration': 0.1 }, 'y': 8 },
-      'initial': { 'opacity': 1, 'scale': 0.96, 'y': 8 }
-    };
+  if (!showImage || !hasPreviewDetails) return trigger;
 
   return (
-    <HoverCardPrimitive.Root
-      open={ isHoverCardOpen }
+    <HoverCard
+      defaultOpen={ defaultOpen }
       openDelay={ 200 }
       closeDelay={ 100 }
       onOpenChange={ (open) => {
-        setIsHoverCardOpen(open);
-
-        if (!open) {
-          setImageLoaded(false);
-          setImageError(false);
-        }
+        if (open) return;
+        setImageLoaded(false);
+        setImageError(false);
       } }
     >
-      <HoverCardPrimitive.Trigger asChild>
-        <span
-          className={ `inline-flex items-center align-top ${className}` }
-          data-preview-url={ url }
-          data-preview-internal={ isInternal ? 'true' : undefined }
-        >
-          {linkContent}
-        </span>
-      </HoverCardPrimitive.Trigger>
-
-      <HoverCardPrimitive.Portal>
-        <HoverCardPrimitive.Content className='z-50' sideOffset={ 8 } align='start'>
-          <AnimatePresence>
-            {isHoverCardOpen && (
-              <motion.div
-                { ...motionProps }
-                className={ `rounded-lg border border-gray-200 bg-white shadow-2xl dark:border-gray-700 dark:bg-gray-900 ${isInternal ? 'p-4' : 'overflow-hidden'}` }
-                style={{
-                  'maxWidth': 'calc(100vw - 2rem)',
-                  'width': isInternal ? '384px' : '320px'
-                }}
-              >
-                {isInternal ? (
-                  <div>
-                    {data?.category && (
-                      <div className='mb-3'>
-                        <span className='inline-block rounded px-2 py-1 text-xs font-medium bg-blue-100 text-blue-950 dark:bg-blue-950 dark:text-blue-100'>
-                          {data.category}
-                        </span>
-                      </div>
-                    )}
-
-                    <h3 className={ `mb-2 line-clamp-2 text-lg font-bold ${bodyTextClass}` }>
-                      {formattedTitle}
-                    </h3>
-
-                    {(data?.summary || data?.description) && (
-                      <p className={ `mb-3 line-clamp-3 text-sm ${bodyTextClass}` }>
-                        {data.summary || data.description}
-                      </p>
-                    )}
-
-                    {(data?.publishedTime || data?.readingTime) && (
-                      <div className={ `mb-3 flex flex-wrap gap-3 text-xs ${bodyTextClass}` }>
-                        {data?.publishedTime && (
-                          <div className='flex items-center gap-1'>
-                            <Icon name='Calendar' size='xs' decorative />
-                            <span>{formatPreviewDate(data.publishedTime)}</span>
-                          </div>
-                        )}
-                        {data?.readingTime && (
-                          <div className='flex items-center gap-1'>
-                            <Icon name='Clock' size='xs' decorative />
-                            <span>{data.readingTime}</span>
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {Array.isArray(data?.tags) && data.tags.length > 0 && (
-                      <div className='flex flex-wrap gap-2'>
-                        {data.tags.slice(0, 5).map((tag) => (
-                          <Pill
-                            key={ tag }
-                            tone='gray'
-                            variant='soft'
-                            size='xs'
-                            radius='md'
-                            className='my-0 mr-0 normal-case tracking-normal !bg-gray-50 !text-gray-900 dark:!bg-gray-800 dark:!text-gray-100'
-                          >
-                            {tag}
-                          </Pill>
-                        ))}
-                        {data.tags.length > 5 && (
-                          <span className={ `self-center text-xs ${bodyTextClass}` }>
-                            +{data.tags.length - 5} more
-                          </span>
-                        )}
-                      </div>
-                    )}
+      <HoverCardTrigger asChild>{trigger}</HoverCardTrigger>
+      <HoverCardContent align='start' sideOffset={ 8 } className={ cn('max-w-[calc(100vw-2rem)] text-text', isInternal ? 'w-96 p-4' : 'w-80 overflow-hidden p-0') }>
+        {isInternal ? (
+          <div className='space-y-3'>
+            {data.category ? <Pill tone='blue' variant='soft' size='xs' radius='md'>{data.category}</Pill> : null}
+            <h3 className='line-clamp-2 text-lg font-bold'>{formattedTitle}</h3>
+            {data.summary || data.description ? <p className='line-clamp-3 text-sm'>{data.summary || data.description}</p> : null}
+            {data.publishedTime || data.readingTime ? (
+              <div className='flex flex-wrap gap-3 text-xs text-text-muted'>
+                {data.publishedTime ? <span className='flex items-center gap-1'><Icon name='Calendar' size='xs' decorative />{formatDate(data.publishedTime)}</span> : null}
+                {data.readingTime ? <span className='flex items-center gap-1'><Icon name='Clock' size='xs' decorative />{data.readingTime}</span> : null}
+              </div>
+            ) : null}
+            {Array.isArray(data.tags) && data.tags.length > 0 ? (
+              <div className='flex flex-wrap gap-2'>
+                {data.tags.slice(0, 5).map((tag) => (
+                  <Pill key={ tag } tone='gray' variant='soft' size='xs' radius='md' className='normal-case tracking-normal'>{tag}</Pill>
+                ))}
+                {data.tags.length > 5 ? <span className='self-center text-xs text-text-muted'>+{data.tags.length - 5} more</span> : null}
+              </div>
+            ) : null}
+          </div>
+        ) : data.type === 'wikipedia' && data.excerpt ? (
+          // Wikipedia shows its excerpt in place of an image.
+          <div className='space-y-2 bg-surface-muted p-6'>
+            <p className='flex items-center gap-2 text-sm font-semibold text-text-muted'>
+              <Icon name='BookOpen' size='sm' decorative />
+              Wikipedia Article
+            </p>
+            <h4 className='text-base font-bold'>{data.articleName || formattedTitle}</h4>
+            {data.description ? <p className='text-sm font-medium text-text-muted'>{data.description}</p> : null}
+            <p className='text-xs leading-relaxed'>{data.excerpt}</p>
+          </div>
+        ) : (
+          <>
+            {previewImageUrl && !imageError ? (
+              <div className='relative h-48 w-full bg-surface-muted'>
+                {imageLoaded ? null : (
+                  <div className='absolute inset-0 flex animate-pulse items-center justify-center'>
+                    <Icon name='PhotoIcon' size='xl' decorative className='text-text-subtle' />
                   </div>
-                ) : (
-                  <>
-                    {/* Special content display for Wikipedia instead of image */}
-                    {data?.type === 'wikipedia' && data?.excerpt ? (
-                      <div className='bg-gradient-to-br from-gray-50 to-gray-100 p-6 dark:from-gray-800 dark:to-gray-900'>
-                        <div className='flex items-center gap-2 mb-3'>
-                          <svg className={ `h-5 w-5 ${bodyTextClass}` } fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
-                            <path d='M9 4.804A1 1 0 017.53 5.02L5.032 9.513a1 1 0 00.268 1.537l2.5 1.5a1 1 0 001.2-.268l2.5-3.5a1 1 0 00-.134-1.366l-2-1.612zM11 4.804a1 1 0 011.47.216l2.498 4.493a1 1 0 01-.268 1.537l-2.5 1.5a1 1 0 01-1.2-.268l-2.5-3.5a1 1 0 01.134-1.366l2-1.612z' />
-                          </svg>
-                          <span className='text-sm font-semibold text-gray-700 dark:text-gray-300'>Wikipedia Article</span>
-                        </div>
-                        <div className='space-y-2'>
-                          <h4 className='text-base font-bold text-gray-900 dark:text-gray-100'>
-                            {data.articleName || formattedTitle}
-                          </h4>
-                          {data.description && (
-                            <p className='text-sm font-medium text-gray-700 dark:text-gray-300'>
-                              {data.description}
-                            </p>
-                          )}
-                          <p className={ `text-xs leading-relaxed ${bodyTextClass}` }>
-                            {data.excerpt}
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-
-                    /* Regular image preview for other sites */
-                      previewImageUrl && !imageError && (
-                        <div className='relative w-full h-48 bg-gray-100 dark:bg-gray-800'>
-                          {!imageLoaded && (
-                            <div className='absolute inset-0 flex items-center justify-center'>
-                              <div className='animate-pulse'>
-                                <Icon name='PhotoIcon' size='xl' decorative className='text-gray-500' />
-                              </div>
-                            </div>
-                          )}
-                          <img
-                            src={ previewImageUrl }
-                            alt={ formattedTitle }
-                            className='h-full w-full object-cover'
-                            onLoad={ () => {
-                              setImageLoaded(true);
-                              setImageError(false);
-                            } }
-                            onError={ () => {
-                              setImageError(true);
-                              setImageLoaded(false);
-                            } }
-                          />
-                        </div>
-                      )
-                    )}
-
-                    {/* Content Footer - Skip for Wikipedia since content is shown above */}
-                    {data?.type !== 'wikipedia' && (
-                      <div className='p-4'>
-                        <div className='flex items-start gap-2'>
-                          <Favicon
-                            src={ normalizedFavicon }
-                            className='h-4 w-4 mt-0.5 flex-shrink-0'
-                          />
-                          <div className='flex-1 min-w-0'>
-                            <h3 className='font-medium text-sm text-gray-900 line-clamp-2 dark:text-gray-100'>
-                              {formattedTitle}
-                            </h3>
-
-                            {data?.description && (
-                              <p className={ `mt-1 line-clamp-2 text-xs ${bodyTextClass}` }>
-                                {data.description}
-                              </p>
-                            )}
-
-                            <div className={ `flex items-center gap-2 mt-2 text-xs ${bodyTextClass}` }>
-                              <span>{siteName}</span>
-                              {data?.publishedTime && (
-                                <>
-                                  <span>·</span>
-                                  <span>{formatPreviewDate(data.publishedTime)}</span>
-                                </>
-                              )}
-                              {data?.readingTime && (
-                                <>
-                                  <span>·</span>
-                                  <span>{data.readingTime}</span>
-                                </>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </>
                 )}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </HoverCardPrimitive.Content>
-      </HoverCardPrimitive.Portal>
-    </HoverCardPrimitive.Root>
+                <img
+                  src={ previewImageUrl }
+                  alt={ formattedTitle }
+                  className='size-full object-cover'
+                  onLoad={ () => setImageLoaded(true) }
+                  onError={ () => setImageError(true) }
+                />
+              </div>
+            ) : null}
+            <div className='flex items-start gap-2 p-4'>
+              <Favicon src={ normalizedFavicon } className='mt-0.5 size-4 shrink-0' />
+              <div className='min-w-0 flex-1'>
+                <h3 className='line-clamp-2 text-sm font-medium'>{formattedTitle}</h3>
+                {data.description ? <p className='mt-1 line-clamp-2 text-xs text-text-muted'>{data.description}</p> : null}
+                <p className='mt-2 text-xs text-text-muted'>{[ siteName, ...meta ].filter(Boolean).join(' · ')}</p>
+              </div>
+            </div>
+          </>
+        )}
+      </HoverCardContent>
+    </HoverCard>
   );
 });
 

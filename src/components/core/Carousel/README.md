@@ -1,11 +1,23 @@
 # Carousel
 
-This Gaudi owner includes **carousel**, with **4 practical examples**.
+Shows one item at a time, or a scrolling rail of cards, with previous and next buttons, dot indicators, and arrow-key navigation. Use it for featured content that readers browse in order; use a grid when every item should be visible at once.
 
-Import the documented composition from `@gaudi/design-system/core/Carousel`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Carousel } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-carousel--carousel-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Carousel
+  ariaLabel='Featured articles'
+  loop
+  items={[
+    { id: 'graphs', title: 'An Introduction to Knowledge Graphs', eyebrow: 'Knowledge Graphs', image: '/images/art/2.svg', href: '/blog', action: 'Read article' }
+  ]}
+/>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+- `variant='standard'` shows one slide with its call to action. `variant='rail'` shows snapping cards; selecting a card opens its `content` in a dialog.
+- `loop` wraps navigation at the ends. `controls={false}` hides the previous and next buttons; the indicators stay.
+- `size` (`sm`, `md`, `lg`) sets the maximum width and slide height; `radius` sets the corners.
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+## Parts
+
+`Carousel` is built on the `CarouselRoot`, `CarouselContent`, `CarouselItem`, `CarouselPrevious`, and `CarouselNext` parts. Compose them directly for custom layouts such as thumbnails, multiple slides per view, vertical carousels, or autoplay (pass Embla `opts` and `plugins` to `CarouselRoot`). `useCarousel` exposes the Embla API inside the root.

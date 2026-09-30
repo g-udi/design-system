@@ -1,9 +1,20 @@
 'use client';
 
 import { useId } from 'react';
-import { cn } from '../../../utilities/cn';
 
-/** Native radios preserve keyboard navigation, required validation and FormData. */
+import { cn } from '../../../utilities/cn';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+  FieldTitle
+} from '../Field/parts/field.jsx';
+import { RadioGroup as RadioGroupRoot, RadioGroupItem } from './parts/radio-group.jsx';
+
+/** A labelled single-choice group built from the RadioGroup and Field parts. */
 export default function RadioGroup({
   label,
   description,
@@ -18,39 +29,50 @@ export default function RadioGroup({
   className
 }) {
   const id = useId();
+  const cards = variant === 'cards';
+
   return (
-    <fieldset disabled={disabled} className={cn('ds-radio-group', className)}>
-      <legend className='ds-label'>{label}</legend>
-      {description && <p className='ds-description'>{description}</p>}
-      <div
-        className={cn(
-          'ds-radio-options',
-          variant === 'cards' && 'ds-radio-cards'
-        )}
+    <FieldSet disabled={disabled} className={cn('gap-2', className)}>
+      <FieldLegend variant='label' className='mb-0'>{label}</FieldLegend>
+      {description && <FieldDescription>{description}</FieldDescription>}
+      <RadioGroupRoot
+        aria-label={label}
+        name={name || id}
+        value={value}
+        defaultValue={defaultValue}
+        onValueChange={onValueChange}
+        disabled={disabled}
+        required={required}
+        data-variant={variant}
+        className={cn('mt-1', cards && 'grid-cols-[repeat(auto-fit,minmax(min(100%,12rem),1fr))]')}
       >
-        {options.map((option) => (
-          <label key={option.value} className='ds-radio-option'>
-            <input
-              type='radio'
-              name={name || id}
-              value={option.value}
-              required={required}
-              disabled={option.disabled}
-              checked={value === undefined ? undefined : value === option.value}
-              defaultChecked={
-                value === undefined ? defaultValue === option.value : undefined
-              }
-              onChange={() => onValueChange?.(option.value)}
-            />
-            <span>
-              <span className='ds-label'>{option.label}</span>
-              {option.description && (
-                <span className='ds-description'>{option.description}</span>
-              )}
-            </span>
-          </label>
-        ))}
-      </div>
-    </fieldset>
+        {options.map((option) => {
+          const optionId = `${id}-${option.value}`;
+          const item = <RadioGroupItem value={option.value} id={optionId} disabled={option.disabled} />;
+          const optionDescription = option.description && <FieldDescription>{option.description}</FieldDescription>;
+
+          // Cards make the whole bordered label the click target; list rows label the radio beside it.
+          return cards ? (
+            <FieldLabel key={option.value} htmlFor={optionId}>
+              <Field orientation='horizontal' data-disabled={option.disabled || undefined}>
+                {item}
+                <FieldContent>
+                  <FieldTitle>{option.label}</FieldTitle>
+                  {optionDescription}
+                </FieldContent>
+              </Field>
+            </FieldLabel>
+          ) : (
+            <Field key={option.value} orientation='horizontal' data-disabled={option.disabled || undefined}>
+              {item}
+              <FieldContent>
+                <FieldLabel htmlFor={optionId}>{option.label}</FieldLabel>
+                {optionDescription}
+              </FieldContent>
+            </Field>
+          );
+        })}
+      </RadioGroupRoot>
+    </FieldSet>
   );
 }

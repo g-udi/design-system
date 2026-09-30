@@ -106,7 +106,7 @@ function CountrySelect({
               'rounded-s-lg flex gap-1 rounded-e-none border-e-0 px-2.5 py-0 leading-none hover:bg-transparent focus:z-10 data-pressed:bg-transparent',
               disabled && 'opacity-50',
               // Matches FieldInput's invalid border so both halves read as one control.
-              invalid && 'border-danger dark:border-danger'
+              invalid && 'border-danger'
             )}
             disabled={disabled}
           >

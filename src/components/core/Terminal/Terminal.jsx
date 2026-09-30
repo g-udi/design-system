@@ -5,8 +5,12 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
 
+/*
+ * The dark and translucent terminals scope the dark theme (`dark`), so every token inside, from the text to the
+ * output tones, resolves to its dark value on the code surface whatever the page theme is.
+ */
 export const terminalVariants = createVariants({
-  'base': 'overflow-hidden border bg-gray-950 text-gray-100 shadow-sm',
+  'base': 'overflow-hidden border border-border text-text shadow-sm',
   'defaultVariants': {
     'radius': 'lg',
     'size': 'md',
@@ -25,9 +29,9 @@ export const terminalVariants = createVariants({
       'sm': 'max-w-2xl text-xs'
     },
     'variant': {
-      'dark': 'border-gray-800 bg-gray-950 text-gray-100',
-      'light': 'border-gray-200 bg-white text-gray-950',
-      'translucent': 'border-white/10 bg-gray-950/90 text-gray-100 backdrop-blur'
+      'dark': 'dark bg-(--ds-color-code-block-bg)',
+      'light': 'bg-surface',
+      'translucent': 'dark bg-(--ds-color-code-block-bg)/90 backdrop-blur'
     }
   }
 });
@@ -53,11 +57,11 @@ export const terminalLineVariants = createVariants({
   },
   'variants': {
     'tone': {
-      'default': 'text-gray-200',
-      'error': 'text-red-300',
-      'muted': 'text-gray-300',
-      'success': 'text-green-300',
-      'warning': 'text-yellow-200'
+      'default': 'text-text',
+      'error': 'text-danger',
+      'muted': 'text-text-muted',
+      'success': 'text-success',
+      'warning': 'text-warning'
     }
   }
 });
@@ -102,37 +106,21 @@ const normalizeOutput = (output) => {
   });
 };
 
-const lightTerminalToneClasses = {
-  'default': 'text-gray-800',
-  'error': 'text-red-700',
-  'muted': 'text-gray-700',
-  'success': 'text-green-700',
-  'warning': 'text-yellow-800'
-};
-
-const getTerminalLineToneClassName = (variant, tone = 'default') => {
-  if (variant !== 'light') return undefined;
-
-  return lightTerminalToneClasses[tone] || lightTerminalToneClasses.default;
-};
-
-const HighlightedCommand = ({ command, variant }) => {
-  const isLight = variant === 'light';
+const HighlightedCommand = ({ command }) => {
   const parts = command.match(/\s+|\S+/gu) || [];
 
   return parts.map((part, index) => {
-    if (!part.trim()) return <span key={ `${part}-${index}` } className={ cn(isLight && 'text-gray-800') }>{part}</span>;
+    if (!part.trim()) return <span key={ `${part}-${index}` }>{part}</span>;
 
     const className = cn(
-      isLight && 'text-gray-800',
-      index === 0 && (isLight ? 'text-green-700' : 'text-green-300'),
-      part.startsWith('-') && (isLight ? 'text-yellow-800' : 'text-yellow-200'),
-      (part.startsWith('./') || part.startsWith('/') || part.includes('/')) && (isLight ? 'text-blue-700' : 'text-blue-300'),
-      (part.startsWith('"') || part.startsWith("'")) && (isLight ? 'text-indigo-700' : 'text-indigo-200'),
-      part.includes('=') && (isLight ? 'text-purple-700' : 'text-purple-200')
+      index === 0 && 'text-success',
+      part.startsWith('-') && 'text-warning',
+      (part.startsWith('./') || part.startsWith('/') || part.includes('/')) && 'text-accent',
+      (part.startsWith('"') || part.startsWith("'")) && 'text-info',
+      part.includes('=') && 'text-discovery'
     );
 
-    return <span key={ `${part}-${index}` } className={ className }>{part}</span>;
+    return <span key={ `${part}-${index}` } className={ className || undefined }>{part}</span>;
   });
 };
 
@@ -145,9 +133,9 @@ const Cursor = ({ visible }) => (
 
 const WindowControls = ({ className }) => (
   <div className={ cn('flex items-center gap-2', className) } aria-hidden='true'>
-    <span className='size-3 rounded-full bg-red-500' />
-    <span className='size-3 rounded-full bg-yellow-400' />
-    <span className='size-3 rounded-full bg-green-500' />
+    <span className='size-3 rounded-full bg-danger' />
+    <span className='size-3 rounded-full bg-warning' />
+    <span className='size-3 rounded-full bg-success' />
   </div>
 );
 
@@ -236,9 +224,9 @@ const Terminal = ({
       className={ terminalVariants({ 'className': cn(className, classNames.root), radius, size, variant }) }
     >
       {showHeader ? (
-        <div className={ cn('flex items-center gap-3 border-b border-white/10 px-4 py-3 dark:border-white/10', variant === 'light' && 'border-gray-200', classNames.header) }>
+        <div className={ cn('flex items-center gap-3 border-b border-border px-4 py-3', classNames.header) }>
           <WindowControls className={ classNames.controls } />
-          <p className={ cn('min-w-0 truncate text-xs font-medium text-gray-400', variant === 'light' && 'text-gray-500', classNames.title) }>
+          <p className={ cn('min-w-0 truncate text-xs font-medium text-text-muted', classNames.title) }>
             {title}
           </p>
         </div>
@@ -256,11 +244,11 @@ const Terminal = ({
 
             return (
               <span key={ `${item.command}-${index}` } className='block'>
-                <span className={ terminalLineVariants({ 'className': cn(classNames.line, getTerminalLineToneClassName(variant, item.tone)), 'tone': item.tone }) }>
-                  <span className={ cn('shrink-0 text-blue-300', variant === 'light' && 'text-blue-700', classNames.prompt) }>{username}</span>
-                  <span className={ cn('shrink-0 text-gray-300', variant === 'light' && 'text-gray-600') }>{promptSymbol}</span>
+                <span className={ terminalLineVariants({ 'className': classNames.line, 'tone': item.tone }) }>
+                  <span className={ cn('shrink-0 text-accent', classNames.prompt) }>{username}</span>
+                  <span className='shrink-0 text-text-muted'>{promptSymbol}</span>
                   <span className={ cn('min-w-0 whitespace-pre-wrap break-words', classNames.command) }>
-                    <HighlightedCommand command={ command } variant={ variant } />
+                    <HighlightedCommand command={ command } />
                     <Cursor visible={ isActive } />
                   </span>
                 </span>
@@ -268,7 +256,7 @@ const Terminal = ({
                 {showOutput ? normalizeOutput(item.output).map((line, outputIndex) => (
                   <span
                     key={ `${item.command}-output-${outputIndex}` }
-                    className={ terminalLineVariants({ 'className': cn('pl-0', classNames.output, getTerminalLineToneClassName(variant, line.tone)), 'tone': line.tone }) }
+                    className={ terminalLineVariants({ 'className': classNames.output, 'tone': line.tone }) }
                   >
                     <span className='whitespace-pre-wrap break-words'>{line.text}</span>
                   </span>

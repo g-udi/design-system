@@ -36,7 +36,7 @@ function markChipPress() {
 function wasRecentChipPress() {
   return performance.now() - lastChipPressAt < 300;
 }
-const activeGestureCancels = /* @__PURE__ */ new Set();
+const activeGestureCancels = new Set();
 function cancelActiveEventCalendarGestures() {
   for (const cancel of [...activeGestureCancels]) cancel();
 }

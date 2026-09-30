@@ -1,11 +1,17 @@
 # Checkbox
 
-This Gaudi owner includes **checkbox**, with **6 practical examples**.
+A box people tick to turn one option on or off, or to pick several options from a list. Use a Switch instead when the change applies straight away.
 
-Import the documented composition from `@gaudi/design-system/core/Checkbox`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-checkbox--checkbox-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Checkbox } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Checkbox label='Email me when someone replies' defaultChecked onCheckedChange={setReplies} />;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`Checkbox` pairs the box with a clickable label. For descriptions, cards, nested groups or the indeterminate state, compose `CheckboxRoot` with the Field parts (`Field`, `FieldLabel`, `FieldContent`, `FieldDescription`).
+
+## Accessibility
+
+The box is a `checkbox` with `aria-checked` (`mixed` when indeterminate), toggled by Space or a click on its label. A disabled checkbox dims its label too.

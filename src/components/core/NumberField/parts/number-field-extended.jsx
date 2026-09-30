@@ -10,9 +10,7 @@ const numberFieldGroupVariants = cva(
   'relative flex w-full justify-between border border-ui-input data-disabled:pointer-events-none data-disabled:opacity-50 aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive focus-within:has-aria-invalid:border-ui-destructive focus-within:has-aria-invalid:ring-ui-destructive/20 dark:focus-within:has-aria-invalid:ring-ui-destructive/40 rounded-lg bg-transparent dark:bg-ui-input/30 transition-colors focus-within:border-ui-ring focus-within:ring-ui-ring/50 focus-within:ring-3',
   {
     variants: {
-      // Ladders restored from the pre-rename source. Rhea was added after they
-      // were written, so its rungs are new: rhea tracks nova here because
-      // .ds-part-input is h-8 px-2.5 in both sheets, where luma is h-9 px-3.
+      // Heights follow the control scale: 28, 32 and 36px.
       size: {
         sm: 'h-7 text-sm',
         default: 'h-8 text-sm',

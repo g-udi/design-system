@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/separator/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Layout & Containers/Separator', id: 'core-separator', tags: ['autodocs'], ...catalogueMeta('separator') };
+export default { title: 'Core/Separator', id: 'core-separator', tags: ['autodocs'], ...catalogueMeta('separator') };
 
 export const SeparatorPattern6 = { name: 'Horizontal rules', ...pattern(6, 'Rules split a header from its content, divide list rows, and set off a total.') };
 export const SeparatorPattern2 = { name: 'Vertical rules', ...pattern(2, 'Vertical rules stretch to the height of a flex row; a fixed height keeps them shorter than two-line items.') };

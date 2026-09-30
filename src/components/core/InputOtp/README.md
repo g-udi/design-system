@@ -1,11 +1,29 @@
 # InputOtp
 
-This Gaudi owner includes **input-otp**, with **1 practical examples**.
+Separate boxes for a one-time code, such as a sign-in or verification code sent by email or text.
 
-Import the documented composition from `@gaudi/design-system/core/InputOtp`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-inputotp--input-otp-pattern-1) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<InputOTP maxLength={6} aria-label='Verification code' value={code} onChange={setCode}>
+  <InputOTPGroup>
+    <InputOTPSlot index={0} />
+    <InputOTPSlot index={1} />
+    <InputOTPSlot index={2} />
+  </InputOTPGroup>
+  <InputOTPSeparator />
+  <InputOTPGroup>
+    <InputOTPSlot index={3} />
+    <InputOTPSlot index={4} />
+    <InputOTPSlot index={5} />
+  </InputOTPGroup>
+</InputOTP>;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`pattern` limits which characters are accepted, and `onComplete` fires once every slot is filled.
+
+## Accessibility
+
+One real input sits behind the slots, so pasting, autofill and screen readers treat the code as a single field. Give it an `aria-label` or a visible label.

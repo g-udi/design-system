@@ -56,10 +56,10 @@ function Person({ avatar, name }) {
   );
 }
 const STAGES = [
-  { value: 'discovery', label: 'Discovery', tone: 'bg-zinc-400' },
-  { value: 'evaluation', label: 'Evaluation', tone: 'bg-sky-500' },
-  { value: 'negotiation', label: 'Negotiation', tone: 'bg-amber-500' },
-  { value: 'closed-won', label: 'Closed won', tone: 'bg-emerald-500' },
+  { value: 'discovery', label: 'Discovery', tone: 'bg-text-muted' },
+  { value: 'evaluation', label: 'Evaluation', tone: 'bg-info' },
+  { value: 'negotiation', label: 'Negotiation', tone: 'bg-warning' },
+  { value: 'closed-won', label: 'Closed won', tone: 'bg-success' },
   { value: 'closed-lost', label: 'Closed lost', tone: 'bg-ui-destructive' }
 ];
 const OWNERS = [

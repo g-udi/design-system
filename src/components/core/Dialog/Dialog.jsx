@@ -1,13 +1,14 @@
 'use client';
 
 import { useRef } from 'react';
-import * as Primitive from '@radix-ui/react-dialog';
+import { Dialog as Primitive } from 'radix-ui';
 import Icon from '../Icon';
 import Button from '../Button';
 import DialogConfirmation from './DialogConfirmation';
+import { Dialog as DialogRoot, DialogClose, DialogPortal, DialogTrigger } from './parts/dialog.jsx';
 import { cn } from '../../../utilities/cn';
 
-export const DialogClose = Primitive.Close;
+export { DialogClose };
 
 /*
  * Full-screen surfaces (lightboxes, players, palettes, mobile menus) bring their own layout;
@@ -18,9 +19,9 @@ function BareDialog({ trigger, title, label, children, open, defaultOpen, onOpen
   const previousFocus = useRef(null);
   const labelledBy = contentProps?.['aria-labelledby'];
   return (
-    <Primitive.Root open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange} {...props}>
-      {trigger && <Primitive.Trigger asChild>{trigger}</Primitive.Trigger>}
-      <Primitive.Portal container={container}>
+    <DialogRoot open={open} defaultOpen={defaultOpen} onOpenChange={onOpenChange} {...props}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogPortal container={container}>
         <Primitive.Content
           aria-describedby={undefined}
           aria-modal='true'
@@ -53,8 +54,8 @@ function BareDialog({ trigger, title, label, children, open, defaultOpen, onOpen
           <Primitive.Title className='sr-only' aria-hidden={labelledBy ? true : undefined}>{title || label}</Primitive.Title>
           {children}
         </Primitive.Content>
-      </Primitive.Portal>
-    </Primitive.Root>
+      </DialogPortal>
+    </DialogRoot>
   );
 }
 
@@ -111,14 +112,14 @@ export default function Dialog({
     );
   }
   return (
-    <Primitive.Root
+    <DialogRoot
       open={open}
       defaultOpen={defaultOpen}
       onOpenChange={onOpenChange}
       {...props}
     >
-      {trigger && <Primitive.Trigger asChild>{trigger}</Primitive.Trigger>}
-      <Primitive.Portal>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      <DialogPortal>
         <Primitive.Overlay className='ds-overlay' />
         <Primitive.Content
           {...(!description ? { 'aria-describedby': undefined } : {})}
@@ -136,7 +137,7 @@ export default function Dialog({
                 {description}
               </Primitive.Description>
             )}
-            <Primitive.Close asChild>
+            <DialogClose asChild>
               <Button
                 variant='ghost'
                 tone='neutral'
@@ -146,12 +147,12 @@ export default function Dialog({
               >
                 <Icon name='X' decorative size='sm' />
               </Button>
-            </Primitive.Close>
+            </DialogClose>
           </header>
           <div className='ds-dialog-body'>{children}</div>
           {footer && <footer className='ds-dialog-footer'>{footer}</footer>}
         </Primitive.Content>
-      </Primitive.Portal>
-    </Primitive.Root>
+      </DialogPortal>
+    </DialogRoot>
   );
 }

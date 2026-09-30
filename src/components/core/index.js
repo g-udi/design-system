@@ -1,6 +1,6 @@
 export { default as Accordion, AccordionContent, AccordionGroup, AccordionRoot, AccordionItem, AccordionTrigger } from './Accordion';
 export { default as Avatar, avatarVariants, getAvatarInitials } from './Avatar';
-export { default as Banner, bannerVariants } from './Banner';
+export { default as Banner, bannerTones, bannerVariants } from './Banner';
 export { default as Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbTrail } from './Breadcrumb';
 export { default as Button, buttonSizes, buttonToneAliases, buttonTones, buttonVariants } from './Button';
 export { default as Card, cardVariants } from './Card';
@@ -13,7 +13,7 @@ export { Grid, GridItem, gridItemVariants, gridVariants } from './Grid';
 export { default as Icon } from './Icon';
 export { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } from './Icon';
 export { default as Kbd, kbdVariants } from './Kbd';
-export { default as Link, linkVariants } from './Link';
+export { default as Link, linkTones, linkVariants } from './Link';
 export { default as NavigationMenu, NavigationMenuDropdown, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuPanel } from './NavigationMenu';
 export { default as Pagination, PaginationBar, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationStatus, POSTS_PER_PAGE } from './Pagination';
 export { default as Pill, pillSizes, pillTones, pillVariants } from './Pill';

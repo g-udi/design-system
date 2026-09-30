@@ -1,5 +1,7 @@
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
+import Card, { cardVariants } from '../Card/Card';
+import { CardDescription, CardTitle } from '../Card/parts/card.jsx';
 
 export const gridVariants = createVariants({
   'base': 'mx-auto grid grid-cols-1',
@@ -21,31 +23,8 @@ export const gridVariants = createVariants({
   }
 });
 
-export const gridItemVariants = createVariants({
-  'base': 'group/grid row-span-1 flex flex-col justify-between space-y-4 border transition duration-200',
-  'defaultVariants': {
-    'padding': 'md',
-    'radius': 'md',
-    'variant': 'elevated'
-  },
-  'variants': {
-    'padding': {
-      'lg': 'p-6',
-      'md': 'p-4',
-      'sm': 'p-3'
-    },
-    'radius': {
-      'lg': 'rounded-lg',
-      'md': 'rounded-md',
-      'sm': 'rounded-sm'
-    },
-    'variant': {
-      'elevated': 'border-gray-200 bg-white shadow-sm hover:shadow-md dark:border-white/[0.2] dark:bg-black dark:shadow-none',
-      'outline': 'border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-950',
-      'soft': 'border-gray-100 bg-gray-50 dark:border-gray-800 dark:bg-gray-900'
-    }
-  }
-});
+// GridItem is a Card laid out for grids, so both share one surface scale.
+export const gridItemVariants = cardVariants;
 
 export const Grid = ({ children, className, columns, gap }) => (
   <div className={ gridVariants({ className, columns, gap }) }>
@@ -53,17 +32,20 @@ export const Grid = ({ children, className, columns, gap }) => (
   </div>
 );
 
-export const GridItem = ({ className, classNames = {}, description, header, icon, padding, radius, title, variant }) => (
-  <div className={ gridItemVariants({ 'className': cn(className, classNames.root), padding, radius, variant }) }>
+export const GridItem = ({ className, classNames = {}, description, header, icon, padding, radius, title, variant = 'elevated' }) => (
+  <Card
+    className={ cn('group/grid', className, classNames.root) }
+    classNames={ { 'body': 'flex h-full flex-col justify-between gap-4' } }
+    interactive={ variant === 'elevated' }
+    padding={ padding }
+    radius={ radius }
+    variant={ variant }
+  >
     {header}
-    <div className={ cn('transition duration-200 group-hover/grid:translate-x-2', classNames.body) }>
+    <div className={ cn('transition duration-200 group-hover/grid:translate-x-2 motion-reduce:transition-none', classNames.body) }>
       {icon}
-      <div className={ cn('mb-2 mt-2 font-sans font-bold text-gray-700 dark:text-gray-200', classNames.title) }>
-        {title}
-      </div>
-      <div className={ cn('text-xs font-normal text-gray-600 dark:text-gray-300', classNames.description) }>
-        {description}
-      </div>
+      <CardTitle className={ cn('my-2', classNames.title) }>{title}</CardTitle>
+      <CardDescription className={ cn('text-xs', classNames.description) }>{description}</CardDescription>
     </div>
-  </div>
+  </Card>
 );

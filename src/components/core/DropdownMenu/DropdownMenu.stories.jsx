@@ -7,6 +7,7 @@ import Avatar from '../Avatar';
 import Button from '../Button';
 import Icon from '../Icon';
 import DropdownMenu, { DropdownMenuCheckboxItem, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator } from './DropdownMenu';
+import { DropdownMenuShortcut } from './parts/dropdown-menu.jsx';
 
 const docs = getComponentDocs('Core/DropdownMenu');
 const page = (canvasElement) => within(canvasElement.ownerDocument.body);
@@ -16,7 +17,7 @@ const openMenu = async (canvasElement, name) => {
   return { trigger, menu: within(await page(canvasElement).findByRole('menu')) };
 };
 // One article's action menu: icons and shortcuts, two toggles, an unavailable action, and a destructive one.
-const article = { title: 'A practical guide to knowledge graphs', author: 'Ada Lovelace', meta: 'Draft · edited 2 hours ago' };
+const article = { title: 'A practical guide to knowledge graphs', author: 'Ada Lovelace', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', meta: 'Draft · edited 2 hours ago' };
 const actions = [
   { label: 'Edit', icon: 'Pencil', shortcut: '⌘E', status: 'Editing the article in this example.' },
   { label: 'Duplicate', icon: 'Copy', shortcut: '⌘D', status: 'Article duplicated in this example.' },
@@ -25,10 +26,10 @@ const actions = [
 const triggerLabel = 'Article actions';
 const playgroundCode = playgroundSource('DropdownMenu', {
   attributes: [`trigger={<Button variant='ghost' tone='neutral' size='sm' aria-label='${triggerLabel}'><Icon name='EllipsisVertical' decorative /></Button>}`],
-  imports: "import { Button, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, Icon } from '@gaudi/design-system';",
+  imports: "import { Button, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuShortcut, Icon } from '@gaudi/design-system';",
   children: [
     '  <DropdownMenuLabel>Manage article</DropdownMenuLabel>',
-    "  <DropdownMenuItem onSelect={edit}><Icon name='Pencil' decorative size='sm' />Edit</DropdownMenuItem>",
+    "  <DropdownMenuItem onSelect={edit}><Icon name='Pencil' decorative size='sm' />Edit<DropdownMenuShortcut>⌘E</DropdownMenuShortcut></DropdownMenuItem>",
     "  <DropdownMenuItem onSelect={duplicate}><Icon name='Copy' decorative size='sm' />Duplicate</DropdownMenuItem>",
     '  <DropdownMenuSeparator />',
     '  <DropdownMenuCheckboxItem checked={pinned} onCheckedChange={setPinned}>Pin to top</DropdownMenuCheckboxItem>',
@@ -40,7 +41,6 @@ const playgroundCode = playgroundSource('DropdownMenu', {
 
 // Toggles keep the menu open so several can be changed in one visit.
 const keepOpen = (event) => event.preventDefault();
-const Shortcut = ({ children }) => <span className='ml-auto ps-6 text-xs text-text-muted'>{children}</span>;
 
 // Open and non-modal so the menu stays in the docs flow; the stage reserves its height, and `key` reopens it when `align` changes.
 function ActionsExample(args) {
@@ -50,7 +50,7 @@ function ActionsExample(args) {
   return (
     <div className='mx-auto grid min-h-[27.5rem] w-full max-w-md grid-cols-1 content-start gap-2'>
       <article className='flex items-center gap-3 rounded-lg border border-border p-3'>
-        <Avatar name={article.author} size='sm' />
+        <Avatar src={article.avatar} name={article.author} size='sm' shape='circle' alt='' />
         <div className='min-w-0 flex-1'>
           <p className='truncate text-sm font-medium text-text'>{article.title}</p>
           <p className='truncate text-xs text-text-muted'>{pinned ? 'Pinned · ' : ''}{article.meta}</p>
@@ -71,7 +71,7 @@ function ActionsExample(args) {
             <DropdownMenuItem key={action.label} onSelect={() => setStatus(action.status)}>
               <Icon name={action.icon} decorative size='sm' />
               {action.label}
-              <Shortcut>{action.shortcut}</Shortcut>
+              <DropdownMenuShortcut className='ps-6'>{action.shortcut}</DropdownMenuShortcut>
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />
@@ -80,7 +80,7 @@ function ActionsExample(args) {
           <DropdownMenuItem disabled>
             <Icon name='Send' decorative size='sm' />
             Publish
-            <Shortcut>Needs review</Shortcut>
+            <DropdownMenuShortcut className='ps-6 tracking-normal'>Needs review</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem destructive onSelect={() => setStatus('Article archived in this example.')}>

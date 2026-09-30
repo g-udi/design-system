@@ -1,7 +1,6 @@
-import { cn } from '../../../utilities/cn';
+import { Skeleton as SkeletonRoot } from './parts/skeleton.jsx';
 
-const Skeleton = ({ className, ...props }) => (
-  <div className={ cn('animate-pulse rounded-md bg-border', className) } aria-hidden='true' { ...props } />
-);
+/** A decorative loading placeholder; the surrounding region announces what is loading. */
+const Skeleton = (props) => <SkeletonRoot aria-hidden='true' { ...props } />;
 
 export default Skeleton;

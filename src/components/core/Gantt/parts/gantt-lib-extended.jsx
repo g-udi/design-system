@@ -1,38 +1,29 @@
 import { expandRecurrence } from './gantt-recurrence-extended.jsx';
-import { TZDate } from '@date-fns/tz';
+// Time-zone, lane and resource helpers are shared with EventCalendar; Gantt adds its scale, baseline and dependency logic.
+import {
+  MIN_PACK_SLOT,
+  toZoned,
+  zonedStartOfDay,
+  getDayKey,
+  getDayTotalMinutes,
+  snapMinutes,
+  rangesIntersect,
+  eventsOverlap,
+  defaultEventOrder,
+  getRangeKey,
+  flattenResources
+} from '../../EventCalendar/parts/event-calendar-lib-extended.jsx';
 import {
   addDays,
   addMonths,
   addWeeks,
   addYears,
-  differenceInMinutes,
-  format,
   startOfDay,
   startOfMonth,
   startOfQuarter,
   startOfWeek,
   startOfYear
 } from 'date-fns';
-const MIN_PACK_SLOT = 30;
-function toZoned(date, timeZone) {
-  return new TZDate(date.getTime(), timeZone);
-}
-function zonedStartOfDay(date, timeZone) {
-  return startOfDay(toZoned(date, timeZone));
-}
-function getDayKey(date, timeZone) {
-  return format(toZoned(date, timeZone), 'yyyy-MM-dd');
-}
-function getDayTotalMinutes(dayStart, timeZone) {
-  const next = zonedStartOfDay(
-    addDays(toZoned(dayStart, timeZone), 1),
-    timeZone
-  );
-  return differenceInMinutes(next, dayStart);
-}
-function snapMinutes(minutes, snap) {
-  return Math.round(minutes / snap) * snap;
-}
 function getGanttDateRange(scale, date, opts) {
   const { timeZone, weekStartsOn } = opts;
   const zoned = toZoned(date, timeZone);
@@ -73,12 +64,6 @@ function stepGanttDate(scale, date, direction, opts) {
   if (scale === 'quarter') return addMonths(zoned, direction * 3);
   if (scale === 'year') return addYears(zoned, direction);
   return addDays(zoned, direction);
-}
-function rangesIntersect(a, b) {
-  return a.start < b.end && a.end > b.start;
-}
-function eventsOverlap(a, b) {
-  return a.start < b.end && a.end > b.start;
 }
 function occurrenceIntersects(occ, range) {
   if (occ.end.getTime() === occ.start.getTime()) {
@@ -244,26 +229,17 @@ function packTimedSegments(segments, options = {}) {
     }
   }
 }
-function defaultEventOrder(a, b) {
-  return (
-    a.start.getTime() - b.start.getTime() ||
-    b.end.getTime() -
-      b.start.getTime() -
-      (a.end.getTime() - a.start.getTime()) ||
-    a.key.localeCompare(b.key)
-  );
-}
 function buildEventIndex(events, visibleRange, opts) {
   const { timeZone } = opts;
   const order = opts.eventOrder ?? defaultEventOrder;
-  const overrideTimes = /* @__PURE__ */ new Map();
+  const overrideTimes = new Map();
   for (const event of events) {
     if (!event.recurringEventId || !event.originalStart) continue;
     let times = overrideTimes.get(event.recurringEventId);
     if (!times)
       overrideTimes.set(
         event.recurringEventId,
-        (times = /* @__PURE__ */ new Set())
+        (times = new Set())
       );
     times.add(event.originalStart.getTime());
   }
@@ -303,19 +279,6 @@ function buildEventIndex(events, visibleRange, opts) {
   }
   occurrences.sort(order);
   return { occurrences };
-}
-function getRangeKey(range) {
-  return `${range.start.getTime()}-${range.end.getTime()}`;
-}
-function flattenResources(resources, depth = 0) {
-  const rows = [];
-  for (const resource of resources) {
-    rows.push({ resource, depth });
-    if (resource.children?.length) {
-      rows.push(...flattenResources(resource.children, depth + 1));
-    }
-  }
-  return rows;
 }
 function findResource(resources, id) {
   for (const resource of resources) {

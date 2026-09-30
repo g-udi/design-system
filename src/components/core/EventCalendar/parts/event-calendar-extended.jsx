@@ -35,7 +35,7 @@ const EMPTY_SELECTION = { eventKeys: [], slot: null };
 const DEFAULT_WEEKEND_DAYS = [0, 6];
 const EMPTY_RESOURCES = [];
 const DEFAULT_EVENT_PRIORITY = (event) => event.priority ?? 0;
-const priorityOrderCache = /* @__PURE__ */ new WeakMap();
+const priorityOrderCache = new WeakMap();
 function priorityEventOrder(getEventPriority) {
   const cached = priorityOrderCache.get(getEventPriority);
   if (cached) return cached;
@@ -94,7 +94,7 @@ function resolveSettings(options) {
     activation: options.activation
   };
 }
-const warned = /* @__PURE__ */ new Set();
+const warned = new Set();
 function warnOnce(key, message) {
   if (process.env.NODE_ENV !== 'production' && !warned.has(key)) {
     warned.add(key);
@@ -105,7 +105,7 @@ function createEventCalendarStore(initial) {
   let options = initial;
   let settings = resolveSettings(initial);
   let settingsVersion = 0;
-  const listeners = /* @__PURE__ */ new Set();
+  const listeners = new Set();
   const resolveView = (view) => {
     if (settings.views.includes(view)) return view;
     const fallback = settings.views[0] ?? 'month';
@@ -117,7 +117,7 @@ function createEventCalendarStore(initial) {
   };
   const internal = {
     view: resolveView(initial.defaultView ?? 'month'),
-    date: initial.defaultDate ?? /* @__PURE__ */ new Date(),
+    date: initial.defaultDate ?? new Date(),
     dayCount: initial.defaultDayCount ?? 3,
     events: initial.defaultEvents ?? [],
     selection: initial.defaultSelection ?? EMPTY_SELECTION,
@@ -312,7 +312,7 @@ function createEventCalendarStore(initial) {
       );
     },
     today() {
-      setField('date', /* @__PURE__ */ new Date());
+      setField('date', new Date());
     },
     goTo(date) {
       setField('date', date);
@@ -425,7 +425,7 @@ function createEventCalendarStore(initial) {
     getOccurrencesForDay(day) {
       const bucket = getIndex().byDay.get(getDayKey(day, settings.timeZone));
       if (!bucket) return [];
-      const seen = /* @__PURE__ */ new Set();
+      const seen = new Set();
       const result = [];
       for (const seg of [...bucket.allDay, ...bucket.timed]) {
         if (seen.has(seg.occurrence.key)) continue;
@@ -634,13 +634,13 @@ function useEventCalendarView() {
     setView: instance.api.setView
   };
 }
-const midnightTicker = /* @__PURE__ */ (() => {
-  const zones = /* @__PURE__ */ new Map();
+const midnightTicker = (() => {
+  const zones = new Map();
   let version = 0;
   const arm = (timeZone) => {
     const entry = zones.get(timeZone);
     if (!entry) return;
-    const now = /* @__PURE__ */ new Date();
+    const now = new Date();
     const next = zonedStartOfDay(
       addDays(toZoned(now, timeZone), 1),
       timeZone
@@ -658,7 +658,7 @@ const midnightTicker = /* @__PURE__ */ (() => {
     subscribe(timeZone, listener) {
       let entry = zones.get(timeZone);
       if (!entry) {
-        entry = { listeners: /* @__PURE__ */ new Set(), timer: null };
+        entry = { listeners: new Set(), timer: null };
         zones.set(timeZone, entry);
         entry.listeners.add(listener);
         arm(timeZone);
@@ -706,7 +706,7 @@ function useEventCalendarNavigation() {
   );
   useEventCalendarSettingsVersion(instance);
   useMidnightTick(settings.timeZone);
-  const now = /* @__PURE__ */ new Date();
+  const now = new Date();
   return {
     date: slice.date,
     title: settings.i18n.functions.formatTitle(slice.view, {
@@ -781,7 +781,7 @@ function useEventCalendarDay(day) {
   const dayStart = zonedStartOfDay(day, timeZone);
   return {
     segments: bucket,
-    isToday: getDayKey(/* @__PURE__ */ new Date(), timeZone) === dayKey,
+    isToday: getDayKey(new Date(), timeZone) === dayKey,
     isOutside: dayStart < activeRange.start || dayStart >= activeRange.end
   };
 }

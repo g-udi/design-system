@@ -5,10 +5,10 @@ import { CheckList, CodeBlock, InlineCode, Page, QuickLink, Section, Table, Td, 
 const layoutApis = [
   [ 'ArticleContentLayout', 'Article body with an optional, controlled or uncontrolled aside.', 'aside, children, collapsibleAside, asideOpen, defaultAsideOpen, padding', 'Keep the aside toggle named and expose aria-expanded.' ],
   [ 'Aurora', 'Theme-aware decorative page background.', 'children, className, showRadialGradient', 'Decoration is aria-hidden and motion reduces with the user preference.' ],
-  [ 'Footer', 'Responsive footer navigation, newsletter, social links, and copyright.', 'sections, socialLinks, newsletterProps, variant', 'Retain the footer landmark, named navigation, and visible subscription feedback.' ],
+  [ 'Footer', 'Responsive footer navigation, newsletter, social links, and copyright.', 'sections, socialLinks, newsletterProps, variant, brandTitle, brandDescription, copyrightName', 'Retain the footer landmark, named navigation, and visible subscription feedback.' ],
   [ 'LayoutWrapper', 'Client-safe menu, main, and footer page shell.', 'children, footerProps', 'Use one main landmark and avoid nesting it inside another application shell.' ],
   [ 'NewsletterForm / BlogNewsletterForm', 'Subscription form with validation, pending, success, and failure feedback.', 'endpoint, title, className, classNames', 'Preserve the entered address on failure and announce the result beside the field.' ],
-  [ 'Search', 'Compact controlled filter for article collections.', 'setSearchValue', 'Keep the programmatic label and update results without moving keyboard focus.' ],
+  [ 'Search', 'Compact controlled filter for article collections.', 'label, resultsId, setSearchValue, value', 'Keep the programmatic label and update results without moving keyboard focus.' ],
   [ 'LayoutContainer', 'Server-owned root shell with theme, navigation, JSON-LD, analytics, and skip link.', 'children, footerProps, jsonLd, menuProps, metadata, navigation', 'Import directly so next/headers never enters client bundles.' ]
 ];
 
@@ -97,7 +97,7 @@ export const Default = {
 } from '@gaudi/design-system';
 
 import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';` } />
-        <p className='max-w-5xl text-sm leading-7 text-gray-600 dark:text-gray-300'>
+        <p className='max-w-5xl text-sm leading-7 text-text-muted'>
           Do not add <InlineCode>LayoutContainer</InlineCode> to the shared barrel: it imports <InlineCode>next/headers</InlineCode> and would make otherwise client-safe exports server-only.
         </p>
       </Section>

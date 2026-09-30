@@ -12,6 +12,7 @@
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import NewsletterForm from '../NewsletterForm';
+import { cn } from '../../../utilities/cn';
 
 const defaultSections = [
   {
@@ -49,7 +50,7 @@ const defaultSocialLinks = [
 
 const FooterSection = ({ links = [], title }) => (
   <div>
-    <h3 className='text-sm font-semibold leading-5 text-gray-950 dark:text-white'>{title}</h3>
+    <h3 className='text-sm font-semibold leading-5 text-text'>{title}</h3>
     <ul role='list' className='mt-3 space-y-2'>
       {links.map((link) => (
         <li key={ `${title}-${link.href}-${link.label}` }>
@@ -70,46 +71,55 @@ const resolveCopyrightName = (value) => {
   return 'Ahmad Assaf';
 };
 
-const socialIconLinks = (links = defaultSocialLinks) => links.filter((link) => link.href);
+const SocialLinks = ({ className, iconProps, links = defaultSocialLinks }) => (
+  <div className={ cn('flex gap-4', className) }>
+    {links.filter((link) => link.href).map((link) => (
+      <Icon key={ link.kind } kind={ link.kind } href={ link.href } { ...iconProps } />
+    ))}
+  </div>
+);
+
+const FooterNavigation = ({ sections }) => (
+  <nav aria-label='Footer navigation' className='grid gap-6 sm:grid-cols-3'>
+    {sections.filter((section) => section.links?.length).map((section) => (
+      <FooterSection key={ section.title } links={ section.links } title={ section.title } />
+    ))}
+  </nav>
+);
+
+const Copyright = ({ className, name }) => (
+  <p className={ cn('text-xs leading-5 text-text-muted', className) }>
+    &copy; {new Date().getFullYear()} {resolveCopyrightName(name)}. All rights reserved.
+  </p>
+);
+
+const FooterFrame = ({ children }) => (
+  <footer aria-labelledby='footer-heading' className='border-t border-border'>
+    <h2 id='footer-heading' className='sr-only'>Footer</h2>
+    <div className='mx-auto py-6 lg:py-8'>{children}</div>
+  </footer>
+);
 
 const StandardFooter = ({ copyrightName, newsletterProps, sections, socialLinks }) => (
-  <footer aria-labelledby='footer-heading' className='border-t border-gray-200 dark:border-border-dark'>
-    <h2 id='footer-heading' className='sr-only'>Footer</h2>
-    <div className='mx-auto py-6 lg:py-8'>
-      <div className='grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,28rem)] lg:items-start'>
-        <nav aria-label='Footer navigation' className='grid gap-6 sm:grid-cols-3'>
-          {sections.filter((section) => section.links?.length).map((section) => (
-            <FooterSection key={ section.title } links={ section.links } title={ section.title } />
-          ))}
-        </nav>
-
-        <NewsletterForm
-          { ...newsletterProps }
-          className='mt-0'
-          classNames={{
-            ...newsletterProps.classNames,
-            'form': 'mt-5 flex flex-col gap-3 sm:flex-row',
-            'input': 'min-h-11',
-            'root': `xl:col-span-1! ${newsletterProps.classNames?.root || ''}`,
-            'title': 'text-sm font-semibold text-gray-950 dark:text-white'
-          }}
-        />
-      </div>
-      <div className='mt-6 border-t border-gray-200 dark:border-border-dark pt-6 md:flex md:items-center md:justify-between'>
-
-        <div className='flex gap-4 md:order-2 sm:justify-center'>
-          {socialIconLinks(socialLinks).map((link) => (
-            <Icon key={ link.kind } kind={ link.kind } href={ link.href } />
-          ))}
-        </div>
-
-        <p className='mt-6 text-xs leading-5 text-gray-500 md:order-1 md:mt-0 sm:text-center dark:text-gray-400'>
-          &copy; {new Date().getFullYear()} {resolveCopyrightName(copyrightName)}. All rights reserved.
-        </p>
-
-      </div>
+  <FooterFrame>
+    <div className='grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,28rem)] lg:items-start'>
+      <FooterNavigation sections={ sections } />
+      <NewsletterForm
+        { ...newsletterProps }
+        className='mt-0'
+        classNames={{
+          ...newsletterProps.classNames,
+          'form': 'mt-5 flex flex-col gap-3 sm:flex-row',
+          'input': 'min-h-11',
+          'title': 'text-sm font-semibold text-text'
+        }}
+      />
     </div>
-  </footer>
+    <div className='mt-6 border-t border-border pt-6 md:flex md:items-center md:justify-between'>
+      <SocialLinks links={ socialLinks } className='sm:justify-center md:order-2' />
+      <Copyright name={ copyrightName } className='mt-6 sm:text-center md:order-1 md:mt-0' />
+    </div>
+  </FooterFrame>
 );
 
 const EditorialFooter = ({
@@ -119,50 +129,38 @@ const EditorialFooter = ({
   sections,
   socialLinks
 }) => (
-  <footer aria-labelledby='footer-heading' className='border-t border-gray-200 dark:border-border-dark'>
-    <h2 id='footer-heading' className='sr-only'>Footer</h2>
-    <div className='mx-auto py-6 lg:py-8'>
-      <div className='grid gap-8 lg:grid-cols-[1.2fr_2fr]'>
-        <div>
-          {brandTitle ? (
-            <h3 className='text-xl font-semibold leading-7 text-gray-950 dark:text-white'>{brandTitle}</h3>
-          ) : null}
-          <p className={ `${brandTitle ? 'mt-3 ' : ''}max-w-md text-xs leading-5 text-gray-600 dark:text-gray-300` }>{brandDescription}</p>
-          <div className='mt-4 flex gap-4'>
-            {socialIconLinks(socialLinks).map((link) => (
-              <Icon
-                key={ link.kind }
-                kind={ link.kind }
-                size='md'
-                className='h-[1.125rem] w-[1.125rem]'
-                href={ link.href }
-                linkClassName='text-gray-950 hover:text-blue-600 dark:text-white dark:hover:text-blue-400'
-              />
-            ))}
-          </div>
-        </div>
-
-        <nav aria-label='Footer navigation' className='grid gap-6 sm:grid-cols-3'>
-          {sections.filter((section) => section.links?.length).map((section) => (
-            <FooterSection key={ section.title } links={ section.links } title={ section.title } />
-          ))}
-        </nav>
+  <FooterFrame>
+    <div className='grid gap-8 lg:grid-cols-[1.2fr_2fr]'>
+      <div>
+        {brandTitle ? <h3 className='text-xl font-semibold leading-7 text-text'>{brandTitle}</h3> : null}
+        <p className={ cn('max-w-md text-xs leading-5 text-text-muted', brandTitle && 'mt-3') }>{brandDescription}</p>
+        <SocialLinks
+          links={ socialLinks }
+          className='mt-4'
+          iconProps={{ 'className': 'size-[1.125rem]', 'linkClassName': 'text-text hover:text-accent', 'size': 'md' }}
+        />
       </div>
-
-      <p className='mt-8 border-t border-gray-200 pt-5 text-xs leading-5 text-gray-500 dark:border-border-dark dark:text-gray-400'>
-        &copy; {new Date().getFullYear()} {resolveCopyrightName(copyrightName)}. All rights reserved.
-      </p>
+      <FooterNavigation sections={ sections } />
     </div>
-  </footer>
+    <Copyright name={ copyrightName } className='mt-8 border-t border-border pt-5' />
+  </FooterFrame>
 );
 
 /**
- * Footer component with navigation and social links
+ * Site footer with navigation sections, social links, and copyright.
  *
- * @returns {JSX.Element} Complete footer with responsive grid layout
+ * @param {Object} props - Component props
+ * @param {'standard'|'editorial'} [props.variant='standard'] - `standard` adds the newsletter form; `editorial` leads with the brand
+ * @param {Array<{ title: string, links: Array<{ href: string, label: string }> }>} [props.sections] - Link columns
+ * @param {Array<{ kind: string, href: string }>} [props.socialLinks] - Social icon links; entries without `href` are skipped
+ * @param {string|Object} [props.copyrightName='Ahmad Assaf'] - Name, or an object with `name` or `author`
+ * @param {string} [props.brandTitle] - Editorial brand heading
+ * @param {string} [props.brandDescription] - Editorial brand summary
+ * @param {Object} [props.newsletterProps] - Props for the standard footer's NewsletterForm
+ * @returns {JSX.Element} Footer landmark
  *
  * @example
- * <Footer />
+ * <Footer variant='editorial' brandTitle='Field notes' sections={sections} />
  */
 const Footer = ({
   brandDescription,

@@ -117,7 +117,7 @@ function renderChip({ occurrence, segment }) {
 }
 export function Pattern() {
   const events = useMemo(
-    () => buildAppointments(/* @__PURE__ */ new Date()),
+    () => buildAppointments(new Date()),
     []
   );
   const apiRef = useRef(null);
@@ -144,7 +144,7 @@ export function Pattern() {
   const addAppointment = () => {
     const api = apiRef.current;
     if (!api) return;
-    const base = startOfDay(/* @__PURE__ */ new Date());
+    const base = startOfDay(new Date());
     for (let minutes = 9 * 60; minutes + 45 <= 18 * 60; minutes += 30) {
       const start = addMinutes(base, minutes);
       const end = addMinutes(start, 45);

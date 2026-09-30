@@ -169,98 +169,56 @@ function QuestionnaireActions({ className, ...props }) {
     />
   );
 }
-function QuestionnairePrevious({
-  children,
-  className,
-  size = 'default',
-  variant = 'outline',
-  ...props
-}) {
-  return (
-    <QuestionnairePrimitive.Previous
-      data-slot='questionnaire-previous'
-      data-size={size}
-      data-variant={variant}
-      className={cn(
-        buttonVariants({ size, variant }),
-        'ds-part-questionnaire-previous col-start-1 row-start-1 min-h-11 justify-self-start sm:min-h-0',
-        className
-      )}
-      {...props}
-    >
-      {children ?? 'Previous'}
-    </QuestionnairePrimitive.Previous>
-  );
+// Previous, Skip, Next and Submit share one Button-styled action; each sits in its own actions-grid column.
+function createQuestionnaireAction(Primitive, slot, { label, variant, tone, placement }) {
+  function QuestionnaireAction({
+    children,
+    className,
+    size = 'default',
+    variant: variantProp = variant,
+    ...props
+  }) {
+    return (
+      <Primitive
+        data-slot={`questionnaire-${slot}`}
+        data-size={size}
+        data-variant={variantProp}
+        className={cn(
+          buttonVariants({ size, variant: variantProp, tone }),
+          `ds-part-questionnaire-${slot} row-start-1 min-h-11 sm:min-h-0`,
+          placement,
+          className
+        )}
+        {...props}
+      >
+        {children ?? label}
+      </Primitive>
+    );
+  }
+  return QuestionnaireAction;
 }
-function QuestionnaireSkip({
-  children,
-  className,
-  size = 'default',
-  variant = 'outline',
-  ...props
-}) {
-  return (
-    <QuestionnairePrimitive.Skip
-      data-slot='questionnaire-skip'
-      data-size={size}
-      data-variant={variant}
-      className={cn(
-        buttonVariants({ size, variant }),
-        'ds-part-questionnaire-skip col-start-2 row-start-1 min-h-11 justify-self-end sm:min-h-0',
-        className
-      )}
-      {...props}
-    >
-      {children ?? 'Skip'}
-    </QuestionnairePrimitive.Skip>
-  );
-}
-function QuestionnaireNext({
-  children,
-  className,
-  size = 'default',
-  variant = 'default',
-  ...props
-}) {
-  return (
-    <QuestionnairePrimitive.Next
-      data-slot='questionnaire-next'
-      data-size={size}
-      data-variant={variant}
-      className={cn(
-        buttonVariants({ size, variant }),
-        'ds-part-questionnaire-next col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0',
-        className
-      )}
-      {...props}
-    >
-      {children ?? 'Next'}
-    </QuestionnairePrimitive.Next>
-  );
-}
-function QuestionnaireSubmit({
-  children,
-  className,
-  size = 'default',
-  variant = 'default',
-  ...props
-}) {
-  return (
-    <QuestionnairePrimitive.Submit
-      data-slot='questionnaire-submit'
-      data-size={size}
-      data-variant={variant}
-      className={cn(
-        buttonVariants({ size, variant }),
-        'ds-part-questionnaire-submit col-start-3 row-start-1 min-h-11 justify-self-end sm:min-h-0',
-        className
-      )}
-      {...props}
-    >
-      {children ?? 'Submit'}
-    </QuestionnairePrimitive.Submit>
-  );
-}
+const QuestionnairePrevious = createQuestionnaireAction(QuestionnairePrimitive.Previous, 'previous', {
+  label: 'Previous',
+  variant: 'outline',
+  tone: 'neutral',
+  placement: 'col-start-1 justify-self-start'
+});
+const QuestionnaireSkip = createQuestionnaireAction(QuestionnairePrimitive.Skip, 'skip', {
+  label: 'Skip',
+  variant: 'outline',
+  tone: 'neutral',
+  placement: 'col-start-2 justify-self-end'
+});
+const QuestionnaireNext = createQuestionnaireAction(QuestionnairePrimitive.Next, 'next', {
+  label: 'Next',
+  variant: 'default',
+  placement: 'col-start-3 justify-self-end'
+});
+const QuestionnaireSubmit = createQuestionnaireAction(QuestionnairePrimitive.Submit, 'submit', {
+  label: 'Submit',
+  variant: 'default',
+  placement: 'col-start-3 justify-self-end'
+});
 export {
   Questionnaire,
   QuestionnaireActions,

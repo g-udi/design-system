@@ -104,7 +104,7 @@ export const Playground = {
     await expect(within(list).getAllByRole('listitem').filter((item) => item.parentElement === list)).toHaveLength(events.length);
     await expect(within(list).getByText(events[0].time)).toHaveAttribute('datetime', events[0].dateTime);
     await expect(within(list).getByRole('button', { name: 'Open review' })).toBeVisible();
-    for (const mark of canvasElement.querySelectorAll('.ds-timeline-mark')) await expect(mark).toHaveAttribute('aria-hidden', 'true');
+    for (const mark of canvasElement.querySelectorAll('[data-slot="timeline-indicator"]')) await expect(mark).toHaveAttribute('aria-hidden', 'true');
   }
 };
 

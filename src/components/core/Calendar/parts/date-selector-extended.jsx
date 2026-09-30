@@ -170,7 +170,7 @@ export function useDateSelector({
   maxYear,
   periodTypes
 }) {
-  const currentYear = baseYear ?? /* @__PURE__ */ new Date().getFullYear();
+  const currentYear = baseYear ?? new Date().getFullYear();
   const validDefaultPeriodType = useMemo(() => {
     if (!periodTypes || periodTypes.length === 0) return defaultPeriodType;
     if (periodTypes.includes(defaultPeriodType)) return defaultPeriodType;
@@ -185,7 +185,7 @@ export function useDateSelector({
   const [selectedDate, setSelectedDate] = useState(value?.startDate);
   const [selectedEndDate, setSelectedEndDate] = useState(value?.endDate);
   const [calendarMonth, setCalendarMonth] = useState(
-    value?.startDate || /* @__PURE__ */ new Date()
+    value?.startDate || new Date()
   );
   const [selectedYear, setSelectedYear] = useState(value?.year);
   const [selectedMonth, setSelectedMonth] = useState(value?.month);
@@ -524,43 +524,35 @@ function DateSelectorPeriodTabs({
         calendarMonth &&
         onMonthChange && (
           <div className='flex items-center'>
-            {(() => {
-              const today = /* @__PURE__ */ new Date();
-              const isCurrentMonth = isSameMonth(calendarMonth, today);
-              if (isCurrentMonth) {
-                return null;
-              }
-              const isFuture = calendarMonth > today;
-              return (
-                <Button
-                  variant='ghost'
-                  className='size-8.5'
-                  onClick={() => onMonthChange(/* @__PURE__ */ new Date())}
-                  title={i18n.today}
-                >
-                  {isFuture ? (
-                    <RegistryIcon lucide='CornerUpLeftIcon' />
-                  ) : (
-                    <RegistryIcon lucide='CornerUpRightIcon' />
-                  )}
-                </Button>
-              );
-            })()}
+            {!isSameMonth(calendarMonth, new Date()) && (
+              <Button
+                variant='ghost'
+                tone='neutral'
+                size='icon'
+                aria-label={i18n.today}
+                title={i18n.today}
+                onClick={() => onMonthChange(new Date())}
+              >
+                <RegistryIcon lucide={calendarMonth > new Date() ? 'CornerUpLeftIcon' : 'CornerUpRightIcon'} />
+              </Button>
+            )}
             <Button
               aria-label='Previous period'
               variant='ghost'
-              className='size-8.5'
+              tone='neutral'
+              size='icon'
               onClick={() => onMonthChange(subMonths(calendarMonth, 1))}
             >
-              <RegistryIcon lucide='ChevronLeftIcon' className='size-4' />
+              <RegistryIcon lucide='ChevronLeftIcon' />
             </Button>
             <Button
               aria-label='Next period'
               variant='ghost'
-              className='size-8.5'
+              tone='neutral'
+              size='icon'
               onClick={() => onMonthChange(addMonths(calendarMonth, 1))}
             >
-              <RegistryIcon lucide='ChevronRightIcon' className='size-4' />
+              <RegistryIcon lucide='ChevronRightIcon' />
             </Button>
           </div>
         )}
@@ -712,31 +704,32 @@ function DateSelectorPeriodGrid({
                 rangeEnd?.year === year && rangeEnd?.value === index;
               const inRange = isInRange(year, index);
               return (
-                <Button
+                <DateSelectorCell
                   key={item}
-                  size='sm'
-                  variant={
-                    isSelected || isRangeStart || isRangeEnd
-                      ? 'default'
-                      : 'outline'
-                  }
-                  className={cn(
-                    inRange &&
-                      !isSelected &&
-                      !isRangeStart &&
-                      !isRangeEnd &&
-                      'bg-ui-accent dark:bg-ui-accent/60'
-                  )}
+                  selected={isSelected || isRangeStart || isRangeEnd}
+                  inRange={inRange}
                   onClick={() => onSelect(year, index)}
                 >
                   {item}
-                </Button>
+                </DateSelectorCell>
               );
             })}
           </div>
         </div>
       ))}
     </div>
+  );
+}
+// One month, quarter, half-year or year button: filled when it is an end of the selection, tinted inside a range.
+function DateSelectorCell({ selected, inRange, ...props }) {
+  return (
+    <Button
+      size='sm'
+      variant={selected ? 'default' : 'outline'}
+      tone={selected ? undefined : 'neutral'}
+      className={cn(inRange && !selected && 'bg-ui-accent')}
+      {...props}
+    />
   );
 }
 function DateSelectorYearList({
@@ -756,23 +749,14 @@ function DateSelectorYearList({
         const isRangeEnd = rangeEnd?.year === year;
         const inRange = isYearInRange(year);
         return (
-          <Button
+          <DateSelectorCell
             key={year}
-            size='sm'
-            variant={
-              isSelected || isRangeStart || isRangeEnd ? 'default' : 'outline'
-            }
-            className={cn(
-              inRange &&
-                !isSelected &&
-                !isRangeStart &&
-                !isRangeEnd &&
-                'bg-ui-accent dark:bg-ui-accent/60'
-            )}
+            selected={isSelected || isRangeStart || isRangeEnd}
+            inRange={inRange}
             onClick={() => onSelect(year)}
           >
             {year}
-          </Button>
+          </DateSelectorCell>
         );
       })}
     </div>
@@ -888,7 +872,7 @@ export function DateSelector({
         const quarter = parseInt(quarterMatch[1]) - 1;
         const year = quarterMatch[2]
           ? parseInt(quarterMatch[2])
-          : /* @__PURE__ */ new Date().getFullYear();
+          : new Date().getFullYear();
         if (year >= 1900 && year <= 2100) {
           return {
             period: 'quarter',
@@ -900,7 +884,7 @@ export function DateSelector({
       }
       for (const dateFormat of dateFormats) {
         try {
-          const parsed = parse(trimmed, dateFormat, /* @__PURE__ */ new Date());
+          const parsed = parse(trimmed, dateFormat, new Date());
           if (!isNaN(parsed.getTime())) {
             return {
               period: 'day',
@@ -965,20 +949,16 @@ export function DateSelector({
               onChange={handleInputChange}
             />
             {(inputHint ? inputValue : displayValue) && (
-              <button
-                type='button'
+              <Button
+                variant='ghost'
+                tone='neutral'
+                size='icon-xs'
+                aria-label={mergedI18n.clear}
                 onClick={clearSelection}
-                className={cn(
-                  // Base Styles
-                  'rounded-xs absolute end-2.5 top-1/2 size-4 -translate-y-1/2 cursor-pointer',
-                  // Visual States
-                  'opacity-70 transition-opacity hover:opacity-100',
-                  // Focus States
-                  'ring-offset-background focus:ring-ui-ring focus:ring-2 focus:ring-offset-2 focus:outline-none'
-                )}
+                className='absolute end-1 top-1/2 -translate-y-1/2'
               >
-                <RegistryIcon lucide='XIcon' className='size-4' />
-              </button>
+                <RegistryIcon lucide='XIcon' />
+              </Button>
             )}
           </div>
         )}

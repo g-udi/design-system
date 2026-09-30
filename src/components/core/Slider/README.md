@@ -1,11 +1,17 @@
 # Slider
 
-This Gaudi owner includes **slider**, with **4 practical examples**.
+Picks a value, or a range with two thumbs, by dragging along a track. Use it for approximate settings such as volume or a price range; use a NumberField when the exact number matters.
 
-Import the documented composition from `@gaudi/design-system/core/Slider`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+## Usage
 
-[Open the first example](http://localhost:6007/?path=/story/core-slider--slider-pattern-6) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+```jsx
+import { Slider } from '@gaudi/design-system';
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
+<Slider aria-label='Volume' defaultValue={[50]} min={0} max={100} step={5} onValueChange={setVolume} />;
+```
 
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+Pass two values for a range. `orientation` is `horizontal` or `vertical`.
+
+## Accessibility
+
+Each thumb is a `slider` named from `aria-label` (numbered for ranges). Arrow keys step the value, Home and End jump to the ends. Show the current value as text next to the slider.

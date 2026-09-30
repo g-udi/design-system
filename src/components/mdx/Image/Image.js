@@ -16,9 +16,14 @@ import NextImageModule from 'next/image';
 
 import ImageModal from '../ImageModal';
 import Button from '../../core/Button';
+import { cn } from '../../../utilities/cn';
 import resolveNextImage from '../../../utilities/resolveNextImage';
 
 const NextImage = resolveNextImage(NextImageModule);
+
+// A 1x1 blur placeholder for next/image while the real image loads.
+const BLUR_DATA_URL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=';
+const SIZES = '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw';
 
 /**
  * Renders an optimized image using Next.js Image component with modal functionality
@@ -36,83 +41,53 @@ const NextImage = resolveNextImage(NextImageModule);
  * // In MDX content:
  * <Image src="/static/images/example.jpg" width={500} height={300} />
  */
-const Image = ({ alt, caption, darkSrc, fallback, src, ...rest }) => {
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ currentSrc, setCurrentSrc ] = useState(src);
+const Image = ({ alt, caption, className, darkSrc, fallback, src, ...rest }) => {
+  const [ modalSrc, setModalSrc ] = useState(null);
   const [ erroredSources, setErroredSources ] = useState({});
   const imageAlt = alt ?? caption ?? '';
+  const openLabel = imageAlt ? `Open image: ${imageAlt}` : 'Open image preview';
 
   useEffect(() => {
-    setCurrentSrc(src);
     setErroredSources({});
   }, [ darkSrc, fallback, src ]);
 
-  const getDisplaySrc = (imageSrc) => (fallback && erroredSources[imageSrc] ? fallback : imageSrc);
+  const displaySrc = (imageSrc) => (fallback && erroredSources[imageSrc] ? fallback : imageSrc);
 
-  const handleImageClick = (imageSrc) => {
-    setCurrentSrc(imageSrc);
-    setIsModalOpen(true);
-  };
+  // One trigger per theme source: the light image hides in dark mode when a dark variant exists.
+  const renderTrigger = (imageSrc, themeClassName) => {
+    const resolvedSrc = displaySrc(imageSrc);
 
-  const createImageProps = (imageSrc, className) => {
-    return {
+    if (!resolvedSrc) return null;
+
+    const imageProps = {
       ...rest,
       'alt': imageAlt,
-      'blurDataURL': 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k=',
-      className,
+      'className': cn('cursor-pointer transition-opacity duration-200 hover:opacity-90', className),
       'loading': 'lazy',
       'onError': () => {
         if (fallback && imageSrc !== fallback) setErroredSources((sources) => ({ ...sources, [imageSrc]: true }));
       },
-      'placeholder': 'blur',
-      'priority': false,
-      'sizes': '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw',
-      'src': imageSrc
+      'sizes': SIZES,
+      'src': resolvedSrc
     };
-  };
 
-  const renderImage = (imageSrc, className = '') => {
-    const displaySrc = getDisplaySrc(imageSrc);
-
-    if (!displaySrc) return null;
-
-    const imageProps = createImageProps(displaySrc, `cursor-pointer hover:opacity-90 transition-opacity duration-200 ${className || rest.className || ''}`);
-    const {
-      alt: nativeAlt,
-      blurDataURL,
-      className: nativeClassName,
-      loading,
-      onError,
-      placeholder,
-      priority,
-      sizes,
-      src: nativeSrc,
-      ...nativeImageProps
-    } = imageProps;
-
-    void blurDataURL;
-    void placeholder;
-    void priority;
-
-    return NextImage ? <NextImage { ...imageProps } /> : <img { ...nativeImageProps } alt={ nativeAlt } className={ nativeClassName } loading={ loading } onError={ onError } sizes={ sizes } src={ nativeSrc } />;
+    return (
+      <Button variant='ghost' tone='neutral' size='sm' className={ cn('mx-auto block h-auto max-w-full p-0 hover:bg-transparent', themeClassName) } onClick={ () => setModalSrc(resolvedSrc) } aria-label={ openLabel }>
+        {NextImage ? <NextImage { ...imageProps } blurDataURL={ BLUR_DATA_URL } placeholder='blur' /> : <img { ...imageProps } src={ resolvedSrc } alt={ imageAlt } />}
+      </Button>
+    );
   };
 
   return (
     <figure>
-      <Button variant='ghost' tone='neutral' size='sm' className={ `mx-auto block max-w-full p-0 hover:bg-transparent dark:hover:bg-transparent${darkSrc ? ' dark:hidden' : ''}` } onClick={ () => handleImageClick(getDisplaySrc(src)) } aria-label={ imageAlt ? `Open image: ${imageAlt}` : 'Open image preview' }>
-        {renderImage(src, darkSrc ? `${rest.className || ''} dark:hidden` : rest.className)}
-      </Button>
-      {darkSrc && (
-        <Button variant='ghost' tone='neutral' size='sm' className='mx-auto hidden max-w-full p-0 hover:bg-transparent dark:block dark:hover:bg-transparent' onClick={ () => handleImageClick(getDisplaySrc(darkSrc)) } aria-label={ imageAlt ? `Open image: ${imageAlt}` : 'Open image preview' }>
-          {renderImage(darkSrc, rest.className)}
-        </Button>
-      )}
-      {caption && <figcaption className='mt-3 text-center text-sm text-gray-500 dark:text-gray-400'>{caption}</figcaption>}
+      {renderTrigger(src, darkSrc ? 'dark:hidden' : undefined)}
+      {darkSrc ? renderTrigger(darkSrc, 'hidden dark:block') : null}
+      {caption ? <figcaption className='mt-3 text-center text-sm text-text-muted'>{caption}</figcaption> : null}
 
       <ImageModal
-        isOpen={ isModalOpen }
-        onClose={ () => setIsModalOpen(false) }
-        src={ currentSrc }
+        isOpen={ Boolean(modalSrc) }
+        onClose={ () => setModalSrc(null) }
+        src={ modalSrc }
         alt={ imageAlt }
         caption={ caption }
       />

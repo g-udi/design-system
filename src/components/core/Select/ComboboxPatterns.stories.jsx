@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/combobox/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('combobox') };
+export default { title: 'Core/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('combobox') };
 
 // Type to filter, then pick with the keyboard; the popup closes on commit.
 const pickWithKeyboard = async ({ canvasElement }) => {
@@ -30,6 +30,6 @@ export const ComboboxPattern21 = {
 export const ComboboxPattern12 = { name: 'Multiple selection with chips', ...pattern(12, 'Removable and fixed chips, plus disabled and invalid states.') };
 export const ComboboxPattern19 = { name: 'Member tags', ...pattern(19, 'Avatar chips in a boxed field and in a borderless one.') };
 export const ComboboxPattern6 = { name: 'Grouped options', ...pattern(6, 'Labelled groups with separators in a list long enough to scroll.') };
-export const ComboboxPattern25 = { name: 'Date presets with a custom picker', ...pattern(25) };
-export const ComboboxPattern11 = { name: 'Combobox in a form', ...pattern(11) };
-export const ComboboxPattern17 = { name: 'Combobox inside a dialog', ...pattern(17) };
+export const ComboboxPattern25 = { name: 'Date presets with a custom picker', ...pattern(25, 'Relative due-date presets, plus a Custom date option that opens a calendar.') };
+export const ComboboxPattern11 = { name: 'Combobox in a form', ...pattern(11, 'A required, named combobox that submits with its form.') };
+export const ComboboxPattern17 = { name: 'Combobox inside a dialog', ...pattern(17, 'The popup layers above the dialog and keeps focus inside it.') };

@@ -11,7 +11,7 @@ const shortcut = 'command,k';
 const shortcuts = (canvasElement) => within(canvasElement).getAllByRole('img', { name: 'Command plus K' });
 
 export default {
-  title: 'Core/Actions/Kbd',
+  title: 'Core/Kbd',
   id: 'core-kbd',
   component: Kbd,
   tags: ['autodocs'],
@@ -54,13 +54,13 @@ export const Playground = {
   ),
   play: async ({ args, canvasElement }) => {
     const [featured] = within(canvasElement).getAllByRole('listitem');
-    const keys = featured.querySelectorAll('kbd');
+    const keys = featured.querySelectorAll('[data-slot=kbd]');
     const sizes = { xs: 'h-4', sm: 'h-5', md: 'h-6', lg: 'h-7' };
     const variants = { raised: 'bg-surface', outline: 'bg-transparent', flat: 'bg-surface-muted' };
     await expect(keys).toHaveLength(args.keys.split(',').length);
     await expect(within(featured).getByLabelText(/\S/)).toBeVisible();
     if (keys.length > 1) for (const key of keys) await expect(key).toHaveAttribute('aria-hidden', 'true');
-    for (const key of canvasElement.querySelectorAll('kbd')) await expect(key).toHaveClass(sizes[args.size], variants[args.variant]);
+    for (const key of canvasElement.querySelectorAll('[data-slot=kbd]')) await expect(key).toHaveClass(sizes[args.size], variants[args.variant]);
     await expect(within(canvasElement).getByRole('img', { name: 'Command plus K' })).toBeVisible();
   }
 };
@@ -85,21 +85,23 @@ export const KeySet = {
 };
 
 export const Variants = {
-  parameters: { docs: { description: { story: '`raised` has a keycap edge; `outline` and `flat` sit quieter in dense UI.' } } },
-  render: () => variants.map((variant) => <Kbd key={variant} keys={shortcut} variant={variant} />),
-  play: async ({ canvasElement }) => {
-    const [raised, outline, flat] = shortcuts(canvasElement).map((item) => within(item).getByText('⌘'));
-    await expect(raised).toHaveClass('bg-surface', 'border-border');
-    await expect(outline).toHaveClass('bg-transparent', 'border-border');
-    await expect(flat).toHaveClass('bg-surface-muted', 'border-transparent');
-  }
-};
-
-export const Sizes = {
-  parameters: { docs: { description: { story: 'Match the key size to the surrounding text or control.' } } },
-  render: () => sizes.map((size) => <Kbd key={size} keys={shortcut} size={size} />),
+  name: 'Variants and sizes',
+  parameters: { docs: { description: { story: '`raised` has a keycap edge for standalone hints; `outline` and `flat` sit quieter in dense UI. Match the size to the text or control beside it.' } } },
+  render: () => (
+    <div className='grid grid-cols-[auto_repeat(4,auto)] items-center justify-start justify-items-start gap-x-3 gap-y-2 text-xs text-text-muted'>
+      <span />
+      {sizes.map((size) => <span key={size}>{size}</span>)}
+      {variants.map((variant) => [
+        <span key={variant}>{variant}</span>,
+        ...sizes.map((size) => <Kbd key={`${variant}-${size}`} keys={shortcut} variant={variant} size={size} />)
+      ])}
+    </div>
+  ),
   play: async ({ canvasElement }) => {
     const keys = shortcuts(canvasElement).map((item) => within(item).getByText('K'));
-    await expect(keys.map((key) => key.getBoundingClientRect().height)).toEqual([16, 20, 24, 28]);
+    await expect(keys.slice(0, 4).map((key) => key.getBoundingClientRect().height)).toEqual([16, 20, 24, 28]);
+    await expect(keys[0]).toHaveClass('bg-surface', 'border-border');
+    await expect(keys[4]).toHaveClass('bg-transparent', 'border-border');
+    await expect(keys[8]).toHaveClass('bg-surface-muted', 'border-transparent');
   }
 };

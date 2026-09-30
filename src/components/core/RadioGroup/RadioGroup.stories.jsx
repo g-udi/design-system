@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
@@ -13,6 +13,12 @@ const options = [
   { value: 'monthly', label: 'Monthly', description: 'The highlights, once a month.' },
   { value: 'off', label: 'Off', description: 'Requires an administrator.', disabled: true }
 ];
+// Radix moves focus a tick after keydown and selects only while the arrow is held, so hold it until focus lands.
+const pressArrow = async (target) => {
+  await userEvent.keyboard('{ArrowDown>}');
+  await waitFor(() => expect(target).toHaveFocus());
+  await userEvent.keyboard('{/ArrowDown}');
+};
 const radio = (canvasElement, index, choices = options) => within(canvasElement).getByRole('radio', { name: new RegExp(`^${choices[index].label}`) });
 // A billing plan picker: a free tier, the recommended plan, and a plan the account cannot choose yet.
 const plans = [
@@ -22,7 +28,7 @@ const plans = [
 ];
 
 export default {
-  title: 'Core/Inputs/RadioGroup', id: 'core-radiogroup',
+  title: 'Core/RadioGroup', id: 'core-radiogroup',
   component: RadioGroup,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
@@ -61,19 +67,17 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const group = within(canvasElement).getByRole('group', { name: args.label });
     const choice = (index) => radio(canvasElement, index, plans);
-    await expect(group.querySelector('.ds-radio-options').classList.contains('ds-radio-cards')).toBe(args.variant === 'cards');
+    await expect(within(group).getByRole('radiogroup')).toHaveAttribute('data-variant', args.variant);
     await expect(within(group).getByText(args.description)).toBeVisible();
     await expect(choice(2)).toBeDisabled();
     await expect(choice(1)).toBeChecked();
     if (args.disabled) return expect(choice(0)).toBeDisabled();
     await userEvent.click(choice(0));
     await expect(args.onValueChange).toHaveBeenLastCalledWith('hobby');
-    // Native radios move with the arrow keys and skip the disabled plan.
-    await userEvent.keyboard('{ArrowDown}');
-    await expect(choice(1)).toHaveFocus();
+    // Arrow keys move the selection and skip the disabled plan.
+    await pressArrow(choice(1));
     await expect(args.onValueChange).toHaveBeenLastCalledWith('pro');
-    await userEvent.keyboard('{ArrowDown}');
-    await expect(choice(0)).toHaveFocus();
+    await pressArrow(choice(0));
     // Leave the recommended plan selected, as the preview loads.
     await userEvent.click(choice(1));
     await expect(choice(1)).toBeChecked();

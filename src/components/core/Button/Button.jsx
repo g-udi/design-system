@@ -12,7 +12,7 @@ const compoundVariants = Object.entries(buttonToneClasses).flatMap(([ tone, vari
 ));
 
 const resolveButtonVariants = createVariants({
-  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-gray-950 aria-invalid:border-danger aria-invalid:ring-2 aria-invalid:ring-danger/20',
+  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-subtle focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-2 aria-invalid:ring-danger/20',
   compoundVariants,
   'defaultVariants': {
     'radius': 'md',
@@ -48,13 +48,14 @@ const resolveButtonVariants = createVariants({
   }
 });
 
-/** Composition vocabulary resolves through the existing Gaudi tones and variants. */
+// Composition vocabulary (default, secondary, destructive, link) resolves to Gaudi variants and tones.
+const variantAliases = { default: 'solid', secondary: 'soft', destructive: 'solid', link: 'subtle' };
+
 export const buttonVariants = Object.assign((options = {}) => {
   const { variant, size, tone, ...rest } = options;
-  const aliases = { default: 'solid', secondary: 'soft', destructive: 'solid', link: 'subtle' };
   return resolveButtonVariants({
     ...rest,
-    variant: aliases[variant] || variant,
+    variant: variantAliases[variant] || variant,
     size: size === 'default' ? 'md' : size,
     tone: tone || (variant === 'destructive' ? 'danger' : variant === 'secondary' ? 'neutral' : undefined)
   });
@@ -95,13 +96,13 @@ const Button = forwardRef(function Button({
   );
 
   if (href && !rendersAsExternalAnchor(href)) return (
-    <Link ref={ ref } href={ href } className={ classes } { ...rest } { ...disabledLinkProps }>
+    <Link ref={ ref } data-slot='button' href={ href } className={ classes } { ...rest } { ...disabledLinkProps }>
       {children}
     </Link>
   );
 
   if (href) return (
-    <a ref={ ref } href={ href } className={ classes } target='_blank' rel='noopener noreferrer' { ...rest } { ...disabledLinkProps }>
+    <a ref={ ref } data-slot='button' href={ href } className={ classes } target='_blank' rel='noopener noreferrer' { ...rest } { ...disabledLinkProps }>
       {children}
     </a>
   );

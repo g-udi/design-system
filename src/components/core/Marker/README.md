@@ -1,11 +1,16 @@
 # Marker
 
-This Gaudi owner includes **marker**, with **4 practical examples**.
+A row that pairs a small icon with a line of content, for run logs, change lists and status steps. `variant` sets the
+look: `default` (plain row), `separator` (a labelled divider between groups) or `border` (rows divided by rules).
 
-Import the documented composition from `@gaudi/design-system/core/Marker`. Existing convenience names are preserved; compound roots use explicit aliases where needed.
+```jsx
+import { Marker, MarkerContent, MarkerIcon } from '@gaudi/design-system';
 
-[Open the first example](http://localhost:6007/?path=/story/core-marker--marker-pattern-4) for the complete JSX and public imports. The Storybook catalogue lists every variant and use case under this owner.
+<Marker variant='separator'><MarkerContent>Editing</MarkerContent></Marker>
+<Marker variant='border'>
+  <MarkerIcon><Icon name='SquarePen' decorative /></MarkerIcon>
+  <MarkerContent>Edited src/billing/invoice.ts</MarkerContent>
+</Marker>
+```
 
-Provide visible labels for controls, preserve heading order, and connect controlled values to application state. The examples exercise keyboard and accessibility behavior; application networking and persistence remain consumer responsibilities.
-
-See [reconciliation and compatibility details](../../../../PATTERN-COVERAGE.md) and [source notices](../../../../THIRD_PARTY_NOTICES.md).
+`MarkerIcon` is decorative, so keep the meaning in the content. `asChild` renders the marker as your own element, such as a link.

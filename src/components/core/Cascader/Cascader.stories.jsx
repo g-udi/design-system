@@ -83,7 +83,8 @@ export default {
   argTypes: docsArgTypes(docs, {
     mode: ['drill', 'columns', 'tree'],
     selectable: ['leaf', 'all'],
-    multiple: 'boolean'
+    multiple: 'boolean',
+    disabled: 'boolean'
   }),
   parameters: {
     docs: {
@@ -95,10 +96,10 @@ export default {
 };
 
 export const Playground = {
-  args: { mode: 'columns', selectable: 'leaf', multiple: false, onValueChange: fn() },
+  args: { mode: 'columns', selectable: 'leaf', multiple: false, disabled: false, onValueChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'An inline help-centre router with icons, descriptions, a disabled enterprise-only topic, and a live summary of the selection. `mode` switches between drill-down, Miller columns and a tree; `multiple` adds checkboxes; `selectable: all` saves the whole Technical branch instead of one leaf.' },
+      description: { story: 'An inline help-centre router with icons, descriptions, a disabled enterprise-only topic, and a live summary of the selection. `mode` switches between drill-down, Miller columns and a tree; `multiple` adds checkboxes; `selectable: all` saves the whole Technical branch instead of one leaf; `disabled` dims and locks the search and every option.' },
       source: playgroundSource('Cascader', {
         imports: `import { Cascader, CascaderBreadcrumb, CascaderColumns, CascaderEmpty, CascaderInput, CascaderItems, CascaderList, CascaderNav, CascaderPanel, CascaderStatus } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';\n\nconst topics = ${sourceItems};`,
         attributes: ['inline', 'items={topics}', "defaultValue='technical.bug'"],
@@ -137,24 +138,17 @@ export const Playground = {
     const canvas = within(canvasElement);
     const saved = savedFor(args.selectable);
     await expect(canvas.getByText(`Routing to ${pathOf(saved)}`)).toBeVisible();
+    if (args.disabled) {
+      await expect(canvasElement.querySelector('[data-slot="cascader-panel"]')).toHaveAttribute('aria-disabled', 'true');
+      await expect(canvas.getByPlaceholderText('Search topics')).toBeDisabled();
+      const role = args.mode === 'tree' ? 'treeitem' : 'option';
+      for (const option of canvas.getAllByRole(role)) await expect(option).toHaveAttribute('aria-disabled', 'true');
+      await userEvent.click(canvas.getAllByRole(role)[0], { pointerEventsCheck: 0 });
+      return expect(args.onValueChange).not.toHaveBeenCalled();
+    }
     await userEvent.click(await canvas.findByRole(args.mode === 'tree' ? 'treeitem' : 'option', { name: new RegExp(pathOf(target).split(' › ').pop()) }));
     await expect(args.onValueChange).toHaveBeenLastCalledWith(args.multiple ? [saved, target] : target, expect.anything());
     const routed = (args.multiple ? [saved, target] : [target]).map(pathOf).join(', ');
     await waitFor(() => expect(canvas.getByText(`Routing to ${routed}`)).toBeVisible());
-  }
-};
-
-export const Disabled = {
-  args: { ...Playground.args, mode: 'drill', disabled: true, onValueChange: fn() },
-  parameters: { docs: { description: { story: '`disabled` dims and locks the whole inline panel: the search and every option.' } } },
-  render: Playground.render,
-  play: async ({ args, canvasElement }) => {
-    const canvas = within(canvasElement);
-    await expect(canvasElement.querySelector('[data-slot="cascader-panel"]')).toHaveAttribute('aria-disabled', 'true');
-    await expect(canvas.getByPlaceholderText('Search topics')).toBeDisabled();
-    const options = canvas.getAllByRole('option');
-    for (const option of options) await expect(option).toHaveAttribute('aria-disabled', 'true');
-    await userEvent.click(options[0], { pointerEventsCheck: 0 });
-    await expect(args.onValueChange).not.toHaveBeenCalled();
   }
 };

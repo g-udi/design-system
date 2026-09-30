@@ -108,7 +108,7 @@ function buildEvents(anchor) {
   ];
 }
 export function Pattern() {
-  const events = useMemo(() => buildEvents(/* @__PURE__ */ new Date()), []);
+  const events = useMemo(() => buildEvents(new Date()), []);
   const apiRef = useRef(null);
   const counter = useRef(0);
   const [open, setOpen] = useState(false);
@@ -190,7 +190,7 @@ export function Pattern() {
               <EventCalendarToolbar>
                 <Button
                   size='sm'
-                  onClick={() => seedCreate(/* @__PURE__ */ new Date())}
+                  onClick={() => seedCreate(new Date())}
                 >
                   <RegistryIcon
                     lucide='PlusIcon'

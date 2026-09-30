@@ -1,103 +1,56 @@
 /**
  * Thoughts Section Component
  *
- * @description Special display component for thoughts on the homepage.
- * Shows thoughts in a minimal, tweet-like list layout.
+ * @description Homepage list of short editorial notes with an archive link beside the last note.
  *
  * @author Ahmad Assaf
  * @version 2.0.0
  */
 
 import Button from '../../core/Button';
+import Icon from '../../core/Icon';
 import Link from '../../core/Link';
+import Pill from '../../core/Pill';
+import Typography from '../../../foundations/Typography';
+import { cn } from '../../../utilities/cn';
+
+const ThoughtEntry = ({ className, thought }) => (
+  <article className={ cn('group', className) }>
+    <Link href={ `/thoughts/${thought.slug}` } variant='bare' className='block'>
+      <div className='mb-1 flex items-start gap-2'>
+        <h3 className='text-lg font-semibold text-text transition-colors group-hover:text-accent'>{thought.title}</h3>
+        {thought.featured && <Pill tone='blue' variant='soft' size='sm' radius='full' className='my-0 mr-0 shrink-0'>Featured</Pill>}
+      </div>
+      {thought.summary && <p className='text-base leading-7 text-text-muted'>{thought.summary}</p>}
+    </Link>
+  </article>
+);
 
 /**
- * Renders a special thoughts section for the homepage
+ * Renders the recent thoughts section
  *
  * @param {Object} props - Component props
- * @param {Array} props.thoughts - Array of thought objects to display
- *
- * @returns {JSX.Element} Thoughts section with minimal list layout
+ * @param {Array<{ slug: string, title: string, summary?: string, featured?: boolean }>} [props.thoughts=[]] - Notes to list, newest first
+ * @returns {JSX.Element} Thoughts section
  */
-export default function ThoughtsSection({ thoughts }) {
+export default function ThoughtsSection({ thoughts = [] }) {
+  const last = thoughts.at(-1);
+
   return (
     <div className='py-6'>
-      {/* Section Header */}
-      <div className='mb-4'>
-        <h2 className='text-3xl font-bold text-gray-900 dark:text-gray-100 md:text-4xl'>
-          Recent Thoughts
-        </h2>
-      </div>
+      <Typography as='h2' variant='heading-lg' className='mb-4'>Recent Thoughts</Typography>
 
-      {/* Thoughts List */}
       <div className='space-y-4'>
-        {thoughts.slice(0, -1).map((thought) => (
-          <article key={ thought.slug } className='group'>
-            <Link
-              href={ `/thoughts/${thought.slug}` }
-              variant='bare'
-              className='block'
-            >
-              <div className='flex items-start gap-2 mb-1'>
-                <h3 className='text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400'>
-                  {thought.title}
-                </h3>
-                {thought.featured && (
-                  <span className='flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'>
-                    Featured
-                  </span>
-                )}
-              </div>
-
-              {/* Summary */}
-              {thought.summary && (
-                <p className='text-base leading-7 text-gray-600 dark:text-gray-400'>
-                  {thought.summary}
-                </p>
-              )}
-            </Link>
-          </article>
-        ))}
+        {thoughts.slice(0, -1).map((thought) => <ThoughtEntry key={ thought.slug } thought={ thought } />)}
       </div>
 
-      {/* Last Thought with View All Button */}
-      {thoughts.length > 0 && (
+      {last && (
         <div className='flex flex-col gap-4 pt-4 md:flex-row md:items-start md:justify-between'>
-          <article className='group flex-1'>
-            <Link
-              href={ `/thoughts/${thoughts[thoughts.length - 1].slug}` }
-              variant='bare'
-              className='block'
-            >
-              <div className='flex items-start gap-2 mb-1'>
-                <h3 className='text-lg font-semibold text-gray-900 transition-colors group-hover:text-blue-600 dark:text-gray-100 dark:group-hover:text-blue-400'>
-                  {thoughts[thoughts.length - 1].title}
-                </h3>
-                {thoughts[thoughts.length - 1].featured && (
-                  <span className='flex-shrink-0 rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'>
-                    Featured
-                  </span>
-                )}
-              </div>
-
-              {/* Summary */}
-              {thoughts[thoughts.length - 1].summary && (
-                <p className='text-base leading-7 text-gray-600 dark:text-gray-400'>
-                  {thoughts[thoughts.length - 1].summary}
-                </p>
-              )}
-            </Link>
-          </article>
-
-          {/* View All Button */}
-          <div className='flex justify-end md:flex-shrink-0 md:pt-1'>
-            <Button variant='outline' tone='accent' size='md' href='/thoughts' aria-label='View all thoughts'>
-              View All Thoughts
-              <svg className='h-4 w-4 transition-transform group-hover:translate-x-1' fill='none' stroke='currentColor' viewBox='0 0 24 24' aria-hidden='true'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={ 2 } d='M9 5l7 7-7 7' />
-              </svg>
-            </Button>
-          </div>
+          <ThoughtEntry thought={ last } className='flex-1' />
+          <Button variant='outline' tone='accent' href='/thoughts' className='group/archive self-end md:mt-1 md:self-start'>
+            View all thoughts
+            <Icon name='ChevronRight' decorative size='sm' className='transition-transform group-hover/archive:translate-x-1 motion-reduce:transition-none' />
+          </Button>
         </div>
       )}
     </div>

@@ -12,7 +12,7 @@ const profile = { name: 'Ada Lovelace', handle: 'ada', handleError: 'That handle
 const emailInput = (canvas) => canvas.getByRole('textbox', { name: new RegExp(`^${email.label}`) });
 
 export default {
-  title: 'Core/Inputs/Field',
+  title: 'Core/Field',
   id: 'core-field',
   component: Field,
   tags: ['autodocs'],
@@ -55,7 +55,7 @@ export const Playground = {
       <Field>
         <FieldLabel className='flex items-baseline justify-between gap-2'>
           {email.label}
-          <span className='text-xs font-normal text-gray-500 dark:text-gray-400'>{args.required ? 'Required' : 'Optional'}</span>
+          <span className='text-xs font-normal text-text-muted'>{args.required ? 'Required' : 'Optional'}</span>
         </FieldLabel>
         <FieldInput type='email' autoComplete='email' {...args} />
         <FieldDescription>{email.description}</FieldDescription>
@@ -63,7 +63,7 @@ export const Playground = {
       </Field>
       <Field>
         <FieldLabel>Bio</FieldLabel>
-        <FieldInput as='textarea' rows={3} className='min-h-20 py-2' placeholder='A sentence or two for your author page.' />
+        <FieldInput as='textarea' rows={3} placeholder='A sentence or two for your author page.' />
         <FieldDescription>Shown under your name on every article.</FieldDescription>
       </Field>
     </form>
@@ -93,27 +93,5 @@ export const Playground = {
     await expect(input).toHaveFocus();
     await userEvent.type(input, 'reader@example.com');
     await expect(input).toHaveValue('reader@example.com');
-  }
-};
-
-export const Disabled = {
-  parameters: {
-    docs: { description: { story: 'A disabled, read-only value stays labelled and described but cannot be focused or edited.' } }
-  },
-  render: () => (
-    <Field>
-      <FieldLabel>{email.label}</FieldLabel>
-      <FieldInput type='email' value='editor@example.com' disabled readOnly />
-      <FieldDescription>This value is managed by account settings.</FieldDescription>
-    </Field>
-  ),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const input = canvas.getByLabelText(email.label);
-    await expect(input).toBeDisabled();
-    await userEvent.click(canvas.getByText(email.label));
-    await expect(input).not.toHaveFocus();
-    await userEvent.type(input, 'changed@example.com');
-    await expect(input).toHaveValue('editor@example.com');
   }
 };

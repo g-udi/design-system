@@ -31,7 +31,7 @@ const events = [
   }
 ];
 export function Pattern() {
-  const [date, setDate] = useState(/* @__PURE__ */ new Date());
+  const [date, setDate] = useState(new Date());
   return (
     <Card className='mx-auto w-fit gap-3 py-3'>
       <CardContent className='px-3'>

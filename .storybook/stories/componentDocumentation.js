@@ -95,12 +95,12 @@ const usageExamples = {
   'Navigation/MenuSearch': "import { MenuSearch } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setLauncherOpen} />",
   'Core/Accordion': "import { AccordionGroup } from '@gaudi/design-system';\n\n<AccordionGroup\n  items={[\n    { value: 'usage', title: 'When should I use it?', content: 'Use accordions for compact progressive disclosure.' },\n  ]}\n/>",
   'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' shape='circle' indicator={{ label: 'Online', tone: 'success' }} />",
-  'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
+  'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} tocControl={tocControl} />",
   'Core/Banner': "import { Banner } from '@gaudi/design-system';\n\n<Banner title='Now published' href='/blog'>\n  New essays and project notes are available.\n</Banner>",
   'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
   'Core/Breadcrumb': "import { BreadcrumbTrail } from '@gaudi/design-system';\n\n<BreadcrumbTrail\n  items={[\n    { href: '/', label: 'Home' },\n    { href: '/blog', label: 'Blog' },\n    { current: true, label: 'Design Systems' },\n  ]}\n/>",
   'Core/Button': "import { Button } from '@gaudi/design-system';\n\n<Button variant='solid' tone='accent' size='md'>Read article</Button>",
-  'Post/PostHeader': "import { PostHeader } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} toc={toc} />",
+  'Post/PostHeader': "import { PostHeader } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} tocControl={tocControl} />",
   'Core/Card': "import { Card } from '@gaudi/design-system';\n\n<Card title='Building with tokens' subtitle='Cards frame reusable content.' />",
   'Post/PostNavigation': "import { PostNavigation } from '@gaudi/design-system';\n\n<PostNavigation prev={previousPost} next={nextPost} />",
   'Core/Carousel': "import { Carousel } from '@gaudi/design-system';\n\n<Carousel\n  ariaLabel='Featured articles'\n  items={[\n    { title: 'Design systems keep editorial rhythm predictable', eyebrow: 'Design Systems', description: 'A focused carousel item.', href: '/blog' },\n  ]}\n/>",
@@ -230,7 +230,7 @@ const componentDocs = {
       [ 'href', 'string', '-', 'Turns the banner copy into a navigation link.' ],
       [ 'ariaLabel', 'string', 'title + children', 'Accessible label for linked banners.' ],
       [ 'size', 'xs | sm | md | lg', 'md', 'Controls vertical and horizontal padding.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'gray', 'Color family for the banner.' ],
+      [ 'tone', 'neutral | accent | info | success | warning | danger | attention | discovery', 'neutral', 'Semantic tone. Hue names (blue, green, amber…) still resolve to these.' ],
       [ 'variant', 'solid | soft | outline', 'soft', 'Visual treatment.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, action }', '-', 'Slot-level class overrides.' ]
@@ -667,7 +667,7 @@ const componentDocs = {
       [ 'href', 'internal | anchor | external URL', '-', 'Internal routes use Next Link; anchors and external URLs use native anchors.' ],
       [ 'prefetch', 'boolean', 'true', 'Next.js prefetch behavior for internal links.' ],
       [ 'variant', 'inline | muted | nav | bare', 'inline', 'Text link style: inline takes tone, muted is secondary gray, nav is strong gray turning blue on hover, bare inherits the parent color.' ],
-      [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'neutral', 'Color family of the inline variant. Default is black/gray and turns blue on hover. muted, nav, and bare have fixed colors and ignore tone.' ],
+      [ 'tone', 'accent | attention | danger | discovery | info | neutral | success | warning', 'neutral', 'Color family of the inline variant. Default is black/gray and turns blue on hover. muted, nav, and bare have fixed colors and ignore tone.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },
@@ -727,13 +727,15 @@ const componentDocs = {
     ]
   },
   'Core/Popover': {
-    'accessibility': 'Popover trigger is a native button and outside pointer interactions close the panel. Keep popover content short and non-modal.',
-    'description': 'Popover renders compact positioned supporting content.',
+    'accessibility': 'The trigger is a DS button with aria-expanded; the panel is portalled, dismisses on Escape or an outside click, and returns focus to the trigger. Keep popover content short and non-modal.',
+    'description': 'Popover renders compact positioned supporting content next to its trigger.',
     'props': [
-      [ 'trigger', 'ReactNode', '-', 'Button label/content for the default PopoverRoot.' ],
-      [ 'children', 'ReactNode', '-', 'Popover panel content or custom composition.' ],
-      [ 'onClick', '(event) => void', '-', 'Trigger click handler for custom composition.' ],
-      [ 'className', 'string', '-', 'Root, trigger, or content class override depending on slot.' ]
+      [ 'trigger', 'ReactNode', '-', 'Label or content of the outline trigger button.' ],
+      [ 'children', 'ReactNode', '-', 'Panel content.' ],
+      [ 'side / align', 'top | right | bottom | left / start | center | end', 'bottom / center', 'Placement of the panel relative to the trigger.' ],
+      [ 'open / defaultOpen / onOpenChange / modal', 'boolean / boolean / function / boolean', '-', 'Controlled or initial open state, and whether outside content is inert while open.' ],
+      [ 'contentClassName', 'string', '-', 'Panel class override.' ],
+      [ 'className', 'string', '-', 'Trigger button class override.' ]
     ]
   },
   'Core/Select': {
@@ -828,7 +830,6 @@ const componentDocs = {
       [ 'children', 'ReactNode', '-', 'Inline text to emphasize.' ],
       [ 'variant', 'marker | soft | underline', 'marker', 'Highlight treatment.' ],
       [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Color family.' ],
-      [ 'radius', 'none | sm | md', 'sm', 'Legacy aliases remain supported; highlights always have square edges.' ],
       [ 'animate', 'boolean', 'true', 'Enables the marker draw animation.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]

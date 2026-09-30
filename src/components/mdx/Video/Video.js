@@ -7,15 +7,20 @@ import Dialog from '../../core/Dialog';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
 
-export const videoAnimationStyles = {
-  'fade': 'opacity-0 data-open:opacity-100',
+const slideIn = {
   'from-bottom': 'translate-y-8 opacity-0 data-open:translate-y-0 data-open:opacity-100',
-  'from-center': 'scale-95 opacity-0 data-open:scale-100 data-open:opacity-100',
   'from-left': '-translate-x-8 opacity-0 data-open:translate-x-0 data-open:opacity-100',
   'from-right': 'translate-x-8 opacity-0 data-open:translate-x-0 data-open:opacity-100',
-  'from-top': '-translate-y-8 opacity-0 data-open:translate-y-0 data-open:opacity-100',
-  'left-in-right-out': '-translate-x-8 opacity-0 data-open:translate-x-0 data-open:opacity-100',
-  'top-in-bottom-out': '-translate-y-8 opacity-0 data-open:translate-y-0 data-open:opacity-100'
+  'from-top': '-translate-y-8 opacity-0 data-open:translate-y-0 data-open:opacity-100'
+};
+
+/** Panel entrance per `animationStyle`; the two legacy names alias their `from-*` equivalents. */
+export const videoAnimationStyles = {
+  'fade': 'opacity-0 data-open:opacity-100',
+  ...slideIn,
+  'from-center': 'scale-95 opacity-0 data-open:scale-100 data-open:opacity-100',
+  'left-in-right-out': slideIn['from-left'],
+  'top-in-bottom-out': slideIn['from-top']
 };
 
 const getEmbeddableSrc = (src) => {
@@ -46,6 +51,13 @@ const PlayGlyph = () => (
   <span className='ml-0.5 size-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-current' aria-hidden='true' />
 );
 
+/**
+ * Article video: a thumbnail button that plays the video in a modal player. YouTube watch and short
+ * links are converted to embed URLs.
+ *
+ * @example
+ * <Video videoSrc='https://www.youtube.com/watch?v=qh3NGpYRG3I' thumbnailSrc='/static/images/og-card.jpg' title='Walkthrough' />
+ */
 const Video = ({
   animationStyle = 'from-center',
   ariaLabel,
@@ -60,7 +72,6 @@ const Video = ({
 }) => {
   const [ open, setOpen ] = useState(false);
   const dialogTitleId = useId();
-  const triggerRef = useRef(null);
   const closeRef = useRef(null);
   const panelAnimation = videoAnimationStyles[animationStyle] || videoAnimationStyles['from-center'];
   const iframeSrc = getEmbeddableSrc(videoSrc);
@@ -69,12 +80,11 @@ const Video = ({
   return (
     <>
       <Button
-        ref={ triggerRef }
         variant='ghost'
-        tone='gray'
+        tone='neutral'
         size='sm'
         className={ cn(
-          'group relative block w-full overflow-hidden rounded-lg bg-gray-950 p-0 text-left shadow-sm ring-1 ring-gray-200 transition hover:bg-gray-950 hover:shadow-md dark:ring-gray-800', className, classNames.trigger
+          'group relative block h-auto w-full overflow-hidden rounded-lg bg-surface-dark p-0 text-left shadow-sm ring-1 ring-border transition hover:bg-surface-dark hover:shadow-md', className, classNames.trigger
         ) }
         aria-label={ ariaLabel || playLabel }
         onClick={ () => setOpen(true) }
@@ -83,14 +93,14 @@ const Video = ({
           {thumbnailSrc ? (
             <img src={ thumbnailSrc } alt={ thumbnailAlt } className={ cn('size-full object-cover transition duration-300 group-hover:scale-[1.02]', classNames.thumbnail) } />
           ) : (
-            <span className={ cn('flex size-full items-end p-4 bg-linear-to-br from-gray-900 via-gray-800 to-blue-950 text-sm text-white/80', classNames.thumbnail) }>
+            <span className={ cn('flex size-full items-end bg-surface-muted p-4 text-sm text-text-muted', classNames.thumbnail) }>
               {thumbnailAlt}
             </span>
           )}
         </span>
-        <span className='absolute inset-0 bg-gray-950/20 transition group-hover:bg-gray-950/10' aria-hidden='true' />
+        <span className='absolute inset-0 bg-black/20 transition group-hover:bg-black/10' aria-hidden='true' />
         <span className={ cn('absolute inset-0 flex items-center justify-center', classNames.playWrapper) }>
-          <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-white/95 text-blue-600 shadow-lg shadow-gray-950/20 transition group-hover:scale-105 dark:bg-white dark:text-blue-600', classNames.playButton) }>
+          <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-surface/95 text-accent shadow-lg transition group-hover:scale-105', classNames.playButton) }>
             <PlayGlyph />
           </span>
         </span>
@@ -105,21 +115,21 @@ const Video = ({
         contentProps={ { 'aria-labelledby': dialogTitleId, 'data-video-dialog': true } }
         className={ cn('fixed inset-0 z-[var(--ds-z-overlay)] flex items-center justify-center p-4 sm:p-6', classNames.dialog) }
       >
-          <Button variant='ghost' tone='neutral' size='sm' className={ cn('absolute inset-0 rounded-none bg-gray-950/80 p-0 backdrop-blur-sm hover:bg-gray-950/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
+          <Button variant='ghost' tone='neutral' size='sm' className={ cn('absolute inset-0 h-auto rounded-none bg-black/80 p-0 backdrop-blur-sm hover:bg-black/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
           <div
             className={ cn(
-              'relative z-10 w-full max-w-5xl overflow-hidden rounded-lg bg-black shadow-2xl transition duration-200 data-open:translate-x-0 data-open:translate-y-0 data-open:scale-100 data-open:opacity-100', panelAnimation, classNames.panel
+              'relative z-10 w-full max-w-5xl overflow-hidden rounded-lg bg-black shadow-2xl transition duration-200', panelAnimation, classNames.panel
             ) }
             data-open
           >
-            <div className='flex items-center justify-between border-b border-white/10 bg-gray-950 px-4 py-3'>
-              <h2 id={ dialogTitleId } className={ cn('text-sm font-semibold text-white', classNames.title) }>{title}</h2>
+            <div className='flex items-center justify-between border-b border-text-inverse/10 bg-surface-dark px-4 py-3'>
+              <h2 id={ dialogTitleId } className={ cn('text-sm font-semibold text-text-inverse', classNames.title) }>{title}</h2>
               <Button
                 ref={ closeRef }
                 variant='ghost'
-                tone='gray'
+                tone='neutral'
                 size='sm'
-                className={ cn('inline-flex size-11 items-center justify-center rounded-control bg-white/10 text-white transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gray-400', classNames.close) }
+                className={ cn('size-11 rounded-control bg-text-inverse/10 p-0 text-text-inverse hover:bg-text-inverse/20 hover:text-text-inverse', classNames.close) }
                 aria-label='Close video dialog'
                 onClick={ () => setOpen(false) }
               >

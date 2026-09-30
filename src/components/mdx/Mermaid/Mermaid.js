@@ -10,8 +10,11 @@
  * @version 1.0.0
  */
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 
+import Icon from '../../core/Icon';
+import Skeleton from '../../core/Skeleton';
+import { cn } from '../../../utilities/cn';
 import sanitizeHtml from '../../../utilities/sanitizeHtml';
 
 // Lazy load mermaid only when component is used
@@ -40,21 +43,15 @@ const getThemeColor = (name) => {
  * @example
  * <Mermaid chart="graph TD; A-->B; B-->C;" description="A flows to B, then B flows to C." />
  */
-const Mermaid = ({ chart, className = '', description = 'Diagram', id }) => {
-  const elementRef = useRef(null);
+const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
   const generatedDescriptionId = useId();
   const descriptionId = id ? `${id}-description` : generatedDescriptionId;
   const [ svg, setSvg ] = useState('');
   const [ error, setError ] = useState('');
-  const [ isClient, setIsClient ] = useState(false);
 
-  // Only run on client side
+  // Effects only run in the browser, so the server render keeps the placeholder.
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isClient || !chart) return undefined;
+    if (!chart) return undefined;
 
     // Cancellation flag so a stale render never wins over a newer chart
     // and no setState happens after unmount.
@@ -93,7 +90,7 @@ const Mermaid = ({ chart, className = '', description = 'Diagram', id }) => {
           }
         });
 
-        const diagramId = id || `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+        const diagramId = id || `mermaid-${Math.random().toString(36).slice(2, 11)}`;
         const renderContainer = document.createElement('div');
         renderContainer.setAttribute('aria-hidden', 'true');
         renderContainer.style.left = '-9999px';
@@ -125,60 +122,33 @@ const Mermaid = ({ chart, className = '', description = 'Diagram', id }) => {
     return () => {
       cancelled = true;
     };
-  }, [ chart, id, isClient ]);
-
-  if (!isClient)
-    return (
-      <div className={ `mermaid-placeholder bg-gray-100 dark:bg-gray-800 rounded-lg p-6 my-4 ${className}` }>
-        <div className='animate-pulse flex space-x-4'>
-          <div className='flex-1 space-y-2 py-1'>
-            <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4'></div>
-            <div className='space-y-2'>
-              <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded'></div>
-              <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded w-5/6'></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  }, [ chart, id ]);
 
   if (error)
     return (
-      <div className={ `mermaid-error bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4 my-4 ${className}` }>
-        <div className='flex items-center'>
-          <svg className='h-5 w-5 text-red-500 mr-2' fill='currentColor' viewBox='0 0 20 20' aria-hidden='true'>
-            <path fillRule='evenodd' d='M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z' clipRule='evenodd' />
-          </svg>
-          <span className='text-red-700 dark:text-red-300 text-sm font-medium'>
-            Mermaid Diagram Error: {error}
-          </span>
-        </div>
-        <pre className='mt-2 text-xs text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/40 p-2 rounded overflow-x-auto'>
-          {chart}
-        </pre>
+      <div role='alert' className={ cn('mermaid-error my-4 rounded-lg border border-danger-border bg-danger-subtle p-4', className) }>
+        <p className='flex items-center gap-2 text-sm font-medium text-danger'>
+          <Icon name='CircleAlert' decorative size='sm' />
+          Mermaid Diagram Error: {error}
+        </p>
+        <pre className='mt-2 overflow-x-auto rounded bg-surface p-2 text-xs text-text'>{chart}</pre>
       </div>
     );
 
+  // Placeholder for the server render and while Mermaid loads.
   if (!svg)
     return (
-      <div className={ `mermaid-loading bg-gray-100 dark:bg-gray-800 rounded-lg p-6 my-4 ${className}` }>
-        <div className='animate-pulse flex space-x-4'>
-          <div className='flex-1 space-y-2 py-1'>
-            <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded w-3/4'></div>
-            <div className='space-y-2'>
-              <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded'></div>
-              <div className='h-4 bg-gray-300 dark:bg-gray-600 rounded w-5/6'></div>
-            </div>
-          </div>
-        </div>
+      <div className={ cn('mermaid-loading my-4 space-y-2 rounded-lg bg-surface-muted p-6', className) }>
+        <Skeleton className='h-4 w-3/4' />
+        <Skeleton className='h-4' />
+        <Skeleton className='h-4 w-5/6' />
       </div>
     );
 
   return (
     <figure
-      ref={ elementRef }
       aria-labelledby={ descriptionId }
-      className={ `mermaid-diagram bg-white dark:bg-gray-900 rounded-lg p-4 my-6 border border-gray-200 dark:border-gray-700 overflow-x-auto ${className}` }
+      className={ cn('mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-4', className) }
       role='img'
     >
       <div aria-hidden='true' dangerouslySetInnerHTML={{ '__html': svg }} />

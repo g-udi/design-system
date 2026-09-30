@@ -63,6 +63,6 @@ export const CascaderPattern14 = { name: 'Recently used groups', ...pattern(14, 
 export const CascaderPattern13 = { name: 'Columns mode', ...pattern(13, 'A media library in Miller columns where all three panes overflow and each scrolls on its own.') };
 export const CascaderPattern18 = { name: 'Cascading tree in a popover', ...pattern(18, 'A cascading tree with indeterminate branches in a popover, bounded by the positioner\'s available height.') };
 export const CascaderPattern9 = { name: 'Controlled state', ...pattern(9, 'External buttons jump the panel to a level, reset it to the root and clear the selection, with all four controlled props printed under the control.') };
-export const CascaderPattern15 = { name: 'Async drill-down', ...pattern(15) };
+export const CascaderPattern15 = { name: 'Async drill-down', ...pattern(15, 'Releases and assets load page by page as each branch opens.') };
 export const CascaderPattern16 = { name: 'Virtualized rows', ...pattern(16, 'Six unevenly sized regions of country markets, windowed so only the visible rows ever mount.') };
 export const CascaderPattern10 = { name: 'Translated labels', ...pattern(10, 'A German country picker where every string the primitive renders comes from labels, including the live-region announcements, with each flag in an IconTile.') };

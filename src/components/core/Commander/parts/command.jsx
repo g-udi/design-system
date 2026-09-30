@@ -51,7 +51,8 @@ function CommandDialog({
     </Dialog>
   );
 }
-function CommandInput({ className, ...props }) {
+/** `children` render at the end of the search row, for example a close button. */
+function CommandInput({ className, children, ...props }) {
   return (
     <div
       data-slot='command-input-wrapper'
@@ -72,6 +73,7 @@ function CommandInput({ className, ...props }) {
             className='ds-part-command-input-icon'
           />
         </InputGroupAddon>
+        {children ? <InputGroupAddon align='inline-end' className='pr-1'>{children}</InputGroupAddon> : null}
       </InputGroup>
     </div>
   );

@@ -14,7 +14,7 @@ const log = [
   { id: 'search', icon: 'SearchIcon', label: 'Searched for invoiceTotal', meta: '6 matches' },
   { phase: 'Editing' },
   { id: 'edit', icon: 'SquarePenIcon', label: 'Edited src/billing/invoice.ts', meta: '+42 −8' },
-  { id: 'test', icon: 'CircleCheckIcon', label: 'Ran pnpm test', meta: '128 passed', tone: 'text-emerald-600 dark:text-emerald-400' }
+  { id: 'test', icon: 'CircleCheckIcon', label: 'Ran pnpm test', meta: '128 passed', tone: 'text-success' }
 ];
 const steps = log.filter((entry) => entry.id);
 
