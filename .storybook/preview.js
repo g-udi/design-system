@@ -79,7 +79,10 @@ function syncStorybookTheme(theme, cornerRadius) {
 
 const preview = {
   afterEach: async (context) => {
-    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+    if (import.meta.env.VITE_GAUDI_VISUAL === '1') {
+      const { auditVisualLayout } = await import('./visualAudit.js');
+      await auditVisualLayout(context);
+    } else if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
       const { auditStoryLayout } = await import('./storyAudit.js');
       await auditStoryLayout(context);
     } else if (import.meta.env.VITE_GAUDI_RESPONSIVE === '1' && (context.id.includes('--reui-') || context.id === 'overview-component-catalogue--browse')) {

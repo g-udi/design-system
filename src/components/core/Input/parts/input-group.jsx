@@ -104,7 +104,7 @@ function InputGroupInput({ className, ...props }) {
     <Input
       data-slot='input-group-control'
       className={cn(
-        'ds-part-input-group-input w-0 min-w-0 min-h-0 flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent',
+        'ds-part-input-group-input min-w-0 min-h-0 flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent',
         className
       )}
       {...props}

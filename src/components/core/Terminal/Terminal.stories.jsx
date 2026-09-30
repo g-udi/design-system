@@ -111,7 +111,8 @@ export const Variants = {
 };
 
 export const LegacyOutputs = {
-  parameters: { docs: { description: { story: 'String `commands` with an `outputs` map keyed by command index remain supported for existing consumers.' } } },
+  parameters: {
+    visualAudit: { wide: 'Terminals keep a fixed reading width.' }, docs: { description: { story: 'String `commands` with an `outputs` map keyed by command index remain supported for existing consumers.' } } },
   render: () => (
     <Terminal
       animate={false}

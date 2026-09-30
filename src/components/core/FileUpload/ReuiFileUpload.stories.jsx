@@ -8,7 +8,7 @@ const pattern = reuiPatterns(
   import.meta.glob('../../../../.storybook/fixtures/reui/file-upload/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/FileUpload', tags: ['autodocs'], ...catalogueMeta('file-upload') };
+export default { title: 'Core/FileUpload', tags: ['autodocs'], ...catalogueMeta('file-upload'), parameters: { layout: 'padded', visualAudit: { wide: 'Drop zones span the width of their container.' } } };
 
 export const ReuiFileUpload1 = { name: 'Basic file upload', ...pattern(1) };
 export const ReuiFileUpload2 = { name: 'Avatar upload', ...pattern(2) };

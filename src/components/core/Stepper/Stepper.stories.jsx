@@ -44,6 +44,7 @@ export const Playground = {
   args: { activeStep: 1 },
   argTypes: { activeStep: { control: { type: 'range', min: 0, max: flow.length, step: 1 } } },
   parameters: {
+    visualAudit: { wide: 'The status card matches the stepper width.' },
     docs: {
       description: { story: 'A four-step publishing flow. `activeStep` moves the current marker: finished steps show a check and what was done, and the status line names the next task until every step is complete.' },
       source: playgroundSource('Stepper', {

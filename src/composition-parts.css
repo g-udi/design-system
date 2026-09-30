@@ -230,8 +230,9 @@
   }
 
   /* MARK: Calendar */
+  /* 32px cells match the md control height; touch screens get 40px targets. */
   .ds-part-calendar {
-    @apply p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(7)];
+    @apply p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)] pointer-coarse:[--cell-size:--spacing(10)];
   }
 
   .ds-part-calendar-dropdown-root {

@@ -5,7 +5,7 @@ import {
 } from '../../../../src/components/core/ScrollArea/parts/scroll-area.jsx';
 export function Pattern() {
   return (
-    <ScrollArea className='rounded-2xl h-auto max-w-96 border'>
+    <ScrollArea className='rounded-2xl h-auto w-full max-w-96 border'>
       <div className='flex w-max gap-4 p-4'>
         {Array.from({ length: 10 }).map((_, i) => (
           <div

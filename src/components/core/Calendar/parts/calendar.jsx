@@ -39,8 +39,8 @@ function Calendar({
           'relative flex flex-col gap-4 md:flex-row',
           defaultClassNames.months
         ),
-        // Seven 44px targets at normal widths; shrink the columns in narrow panels.
-        month: cn('flex w-77 max-w-full flex-col gap-4', defaultClassNames.month),
+        // Cells are squares of --cell-size, so patterns can size them for their content.
+        month: cn('flex w-full flex-col gap-4', defaultClassNames.month),
         nav: cn(
           'absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1',
           defaultClassNames.nav
@@ -84,7 +84,7 @@ function Calendar({
           'flex-1 rounded-(--cell-radius) text-xs font-normal text-ui-muted-foreground select-none',
           defaultClassNames.weekday
         ),
-        week: cn('mt-2 flex w-full', defaultClassNames.week),
+        week: cn('mt-1 flex w-full', defaultClassNames.week),
         week_number_header: cn(
           'w-(--cell-size) select-none',
           defaultClassNames.week_number_header
@@ -94,7 +94,7 @@ function Calendar({
           defaultClassNames.week_number
         ),
         day: cn(
-          'group/day relative min-h-11 w-full min-w-0 rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)',
+          'group/day relative aspect-square h-full w-full rounded-(--cell-radius) p-0 text-center select-none [&:last-child[data-selected=true]_button]:rounded-r-(--cell-radius)',
           props.showWeekNumber
             ? '[&:nth-child(2)[data-selected=true]_button]:rounded-l-(--cell-radius)'
             : '[&:first-child[data-selected=true]_button]:rounded-l-(--cell-radius)',
@@ -202,7 +202,7 @@ function CalendarDayButton({ className, day, modifiers, locale, ...props }) {
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        'ds-part-calendar-day-button relative isolate z-10 flex aspect-auto size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ui-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ui-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-ui-primary data-[range-end=true]:text-ui-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-ui-muted data-[range-middle=true]:text-ui-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-ui-primary data-[range-start=true]:text-ui-primary-foreground data-[selected-single=true]:bg-ui-primary data-[selected-single=true]:text-ui-primary-foreground dark:hover:text-ui-foreground [&>span]:text-xs',
+        'ds-part-calendar-day-button relative isolate z-10 flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ui-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ui-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-r-(--cell-radius) data-[range-end=true]:bg-ui-primary data-[range-end=true]:text-ui-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-ui-muted data-[range-middle=true]:text-ui-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-l-(--cell-radius) data-[range-start=true]:bg-ui-primary data-[range-start=true]:text-ui-primary-foreground data-[selected-single=true]:bg-ui-primary data-[selected-single=true]:text-ui-primary-foreground dark:hover:text-ui-foreground [&>span]:text-xs',
         defaultClassNames.day,
         className
       )}

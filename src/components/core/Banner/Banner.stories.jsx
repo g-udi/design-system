@@ -34,6 +34,7 @@ export default {
     variant: variants
   }),
   parameters: {
+    visualAudit: { wide: 'Banners span the width of their container.' },
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })

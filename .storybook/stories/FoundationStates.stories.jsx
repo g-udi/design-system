@@ -11,6 +11,7 @@ import { CheckList, Page, QuickLink, Section, Table, Td, Th } from './StoryDocs'
 export default {
   id: 'overview-states-recovery',
   parameters: {
+    visualAudit: { wide: 'State galleries lay cards on a full-width grid.' },
     layout: 'fullscreen'
   },
   tags: [ '!autodocs' ],

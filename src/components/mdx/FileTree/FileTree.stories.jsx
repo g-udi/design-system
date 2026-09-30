@@ -52,6 +52,7 @@ export default {
 export const Playground = {
   args: { data },
   parameters: {
+    visualAudit: { wide: 'The tree panel spans the article column.' },
     docs: {
       description: { story: 'A blog repository four levels deep. Folders open by default; `isOpen: false` collapses `components` and `node_modules`, and each file type gets its own icon.' },
       source: playgroundSource('FileTree', { imports: "import { FileTree } from '@gaudi/design-system/mdx';" })

@@ -10,7 +10,8 @@ export default {
   title: 'Overview/Application patterns',
   id: 'overview-application-patterns',
   tags: ['!autodocs'],
-  parameters: { layout: 'fullscreen' }
+  parameters: {
+    visualAudit: { wide: 'State galleries lay cards on a full-width grid.' }, layout: 'fullscreen' }
 };
 export const Catalogue = {
   render: () => (

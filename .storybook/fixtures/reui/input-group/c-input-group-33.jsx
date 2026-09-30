@@ -21,7 +21,7 @@ export function Pattern() {
   const [visibility, setVisibility] = useState('Personal');
   return (
     <Field className='max-w-3xl'>
-      <InputGroup className='bg-ui-background h-auto flex-wrap items-start p-3 pl-4'>
+      <InputGroup className='bg-ui-background h-auto flex-row! flex-wrap items-start p-3 pl-4'>
         <InputGroupAddon className='border-ui-border bg-ui-muted mt-1.5 inline-flex size-8 items-center justify-center rounded-md border p-0'>
           <RegistryIcon
             lucide='LayersIcon'

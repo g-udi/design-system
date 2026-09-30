@@ -78,6 +78,7 @@ export default {
     disabled: 'boolean'
   }),
   parameters: {
+    visualAudit: { wide: 'Drop zones span the width of their container.' },
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })

@@ -108,10 +108,11 @@
 }
 
 .ds-docs-page .sbdocs-preview { border-color: var(--ds-color-border); }
+/* Examples render at the 14px interface size; components that set their own size keep it. */
 .ds-docs-page .docs-story,
 .ds-guide-page [data-docs-example] {
   color: var(--ds-color-text);
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
 }
 

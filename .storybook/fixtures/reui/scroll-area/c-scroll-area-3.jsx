@@ -95,7 +95,7 @@ const features = [
 ];
 export function Pattern() {
   return (
-    <ScrollArea className='rounded-2xl h-76 max-w-96 border'>
+    <ScrollArea className='rounded-2xl h-76 w-full max-w-96 border'>
       <div className='min-w-[600px]'>
         <table className='w-full'>
           <thead>

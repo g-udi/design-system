@@ -152,7 +152,11 @@
 }
 
 @layer components {
+  /* Like the source previews: examples centre and fit their content unless they set a width. */
   .ds-catalogue-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     min-width: 0;
     max-width: 80rem;
