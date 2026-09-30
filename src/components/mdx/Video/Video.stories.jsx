@@ -50,6 +50,8 @@ export const Playground = {
     animationStyle: 'from-center'
   },
   parameters: {
+    // Visible while interacting (scrolling to a section, opening the video), not in the resting preview.
+    controlAudit: { interaction: ['animationStyle'] },
     docs: {
       description: { story: 'A pair of article videos: a walkthrough with a photo thumbnail and a second chapter without one, which shows the labelled fallback. Select either to play it in a modal; the first follows the controls.' },
       source: playgroundSource('Video', {

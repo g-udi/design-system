@@ -77,6 +77,8 @@ export default {
 export const Playground = {
   args: { offset: 44, smooth: true, onUpdate: fn() },
   parameters: {
+    // Visible while interacting (scrolling to a section, opening the video), not in the resting preview.
+    controlAudit: { interaction: ['smooth'] },
     docs: {
       description: { story: 'A guide page. `offset` is the height of the sticky header, so a clicked section lands just below it and the active link switches at that line. `smooth` animates the jump.' },
       source: playgroundSource('Scrollspy', {

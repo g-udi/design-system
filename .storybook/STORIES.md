@@ -85,6 +85,8 @@ After changing stories, run `pnpm catalogue:sync`, `pnpm test:contracts`,
 `node scripts/verify-reui-sources.mjs`, and `pnpm test-storybook <path>`. Then check the rendered
 layout with the audit modes: `VITE_GAUDI_VISUAL=1` (content spilling out of its container, or a
 bordered container far wider than its content), `VITE_GAUDI_AUDIT=1` (page overflow at 20 widths),
-and `VITE_GAUDI_THEME=dark` (accessibility in the dark theme). A deliberately full-width container
+and `VITE_GAUDI_THEME=dark` (accessibility in the dark theme). With Storybook running,
+`pnpm audit:controls` changes every Playground control and fails if any leaves the preview unchanged;
+controls visible only while interacting declare `parameters.controlAudit.interaction`. A deliberately full-width container
 declares `parameters.visualAudit.wide = 'reason'`. The audits are evidence, not a substitute for
 looking: screenshot what you changed.

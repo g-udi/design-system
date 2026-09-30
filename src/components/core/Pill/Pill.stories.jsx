@@ -1,6 +1,6 @@
 import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { distinctOptions, docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
@@ -8,6 +8,8 @@ import Pill, { pillVariants } from './Pill';
 
 const docs = getComponentDocs('Core/Pill');
 const { radius: radii, size: sizes, tone: tones, variant: variants } = pillVariants.variants;
+// Aliases such as `yellow` render like `amber` in every variant; offer each look once.
+const distinctTones = distinctOptions(Object.keys(tones), (tone) => Object.keys(variants).map((variant) => pillVariants({ tone, variant })).join('|'));
 const pill = (canvasElement, text) => within(canvasElement).getByText(text).parentElement;
 const expectClasses = async (canvasElement, expected) => {
   for (const [text, classes] of Object.entries(expected)) await expect(pill(canvasElement, text)).toHaveClass(...classes);
@@ -45,7 +47,7 @@ export default {
   argTypes: docsArgTypes(docs, {
     children: 'text',
     size: Object.keys(sizes),
-    tone: Object.keys(tones),
+    tone: distinctTones,
     variant: Object.keys(variants),
     radius: Object.keys(radii),
     pulse: 'boolean'

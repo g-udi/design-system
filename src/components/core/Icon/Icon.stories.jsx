@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
-import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
+import { distinctOptions, docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { AnimatedIcon } from '../../../icons';
 import Button from '../Button';
@@ -9,7 +9,9 @@ import Icon, { iconColors, iconSizes } from './Icon';
 
 const docs = getComponentDocs('Core/Icon');
 const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-const colors = ['neutral', 'muted', 'primary', 'info', 'success', 'warning', 'danger', 'attention', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'dim'];
+// Aliases such as `info` and `blue` render like `primary`; offer each look once.
+const semanticColors = ['neutral', 'muted', 'primary', 'success', 'warning', 'danger', 'attention'];
+const colors = distinctOptions([...new Set([...semanticColors, ...Object.keys(iconColors)])], (color) => iconColors[color]);
 const strokeWidths = [1, 1.5, 2, 2.5, 3];
 const svgs = (canvasElement) => Array.from(canvasElement.querySelectorAll('svg'));
 
@@ -111,7 +113,7 @@ export const Sizes = {
 
 export const Colors = {
   parameters: { docs: { description: { story: 'Semantic and palette color tokens. Omit `color` to inherit `currentColor`.' } } },
-  render: () => colors.map((color) => <Icon key={color} name='Info' label={color} color={color} size='lg' />),
+  render: () => Object.keys(iconColors).map((color) => <Icon key={color} name='Info' label={color} color={color} size='lg' />),
   play: async ({ canvasElement }) => {
     const icon = (name) => within(canvasElement).getByRole('img', { name });
     await expect(icon('danger')).toHaveClass('text-red-600');

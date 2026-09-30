@@ -206,6 +206,9 @@ export const Playground = {
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(reopened).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();
+    // Rest on the open editor so the controls visibly change it.
+    await userEvent.click(trigger);
+    await body.findByRole('dialog');
   }
 };
 

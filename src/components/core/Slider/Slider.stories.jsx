@@ -36,6 +36,8 @@ function SliderField({ label, icon, format, defaultValue, orientation, onValueCh
         }}
         {...props}
       />
+      {/* The range and step are otherwise only felt while dragging; show them. */}
+      <p className='text-xs tabular-nums text-text-muted'>{props.min}–{props.max} · steps of {props.step}</p>
     </div>
   );
 }

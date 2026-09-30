@@ -114,6 +114,7 @@
     }
   },
   "scripts": {
+    "audit:controls": "node scripts/audit-controls.mjs",
     "catalogue:sync": "node scripts/sync-story-catalogue.mjs",
     "build-storybook": "storybook build",
     "lint": "eslint .",

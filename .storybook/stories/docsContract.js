@@ -89,3 +89,14 @@ export function docsArgTypes(docs, controls) {
     }];
   }));
 }
+
+/** Control options without aliases: keeps the first option for each distinct rendered result. */
+export function distinctOptions(options, render) {
+  const seen = new Set();
+  return options.filter((option) => {
+    const key = render(option);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
