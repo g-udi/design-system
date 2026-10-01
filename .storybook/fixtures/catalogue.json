@@ -2157,6 +2157,17 @@
       ],
       "importPath": "./src/components/core/Tabs/Tabs.stories.jsx"
     },
+    "core-tabs--variants": {
+      "id": "core-tabs--variants",
+      "title": "Core/Tabs",
+      "name": "Variants",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Tabs/Tabs.stories.jsx"
+    },
     "core-terminal--playground": {
       "id": "core-terminal--playground",
       "title": "Core/Data Display/Terminal",

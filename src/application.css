@@ -53,42 +53,99 @@
     align-items: center;
     border-radius: var(--ds-radius-sm);
   }
+  /* Tabs: transparent triggers, no full-width rule. Variants mark the active tab differently. */
   .ds-tabs-list {
     display: flex;
-    align-items: stretch;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.25rem);
     max-width: 100%;
     overflow-x: auto;
-    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
-    border-bottom: 1px solid var(--ds-color-border);
+    padding: calc(var(--ds-space-scale, 1) * 2px) calc(var(--ds-space-scale, 1) * 1px);
+    scrollbar-width: thin;
   }
   .ds-tabs-trigger {
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.4375rem);
     flex-shrink: 0;
-    min-height: 2rem;
-    padding: calc(var(--ds-space-scale, 1) * 0.25rem) calc(var(--ds-space-scale, 1) * 0.5rem);
-    border-bottom: 2px solid transparent;
+    height: calc(var(--ds-space-scale, 1) * 2rem);
+    padding-inline: calc(var(--ds-space-scale, 1) * 0.5625rem);
+    border: 1px solid transparent;
+    border-radius: var(--ds-radius-control);
     color: var(--ds-color-text-muted);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1.25rem;
+    white-space: nowrap;
+    transition: color 140ms ease-out, border-color 140ms ease-out;
   }
+  .ds-tabs-trigger > svg {
+    width: 14px;
+    height: 14px;
+  }
+  .ds-tabs-trigger:hover,
   .ds-tabs-trigger[data-state='active'] {
-    border-bottom-color: var(--ds-color-accent);
-    color: var(--ds-color-accent);
-  }
-  .ds-tabs-trigger:hover {
     color: var(--ds-color-text);
   }
-  .ds-tabs-trigger:focus-visible {
-    outline: 2px solid var(--ds-color-accent);
-    outline-offset: -2px;
+  .ds-tabs-trigger[data-state='active'] {
+    font-weight: 500;
   }
   .ds-tabs-trigger:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
+
+  /* Underline: a short bar under the label; a faint one on hover. */
+  [data-variant='underline'] > .ds-tabs-trigger::after {
+    content: '';
+    position: absolute;
+    right: calc(var(--ds-space-scale, 1) * 0.5625rem);
+    bottom: -1px;
+    left: calc(var(--ds-space-scale, 1) * 0.5625rem);
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    opacity: 0;
+    transition: opacity 140ms ease-out;
+  }
+  [data-variant='underline'] > .ds-tabs-trigger[data-state='active']::after {
+    opacity: 1;
+  }
+  [data-variant='underline'] > .ds-tabs-trigger:not([data-state='active']):hover::after {
+    opacity: 0.25;
+  }
+  [data-variant='underline'][data-orientation='vertical'] > .ds-tabs-trigger::after {
+    top: 8px;
+    right: auto;
+    bottom: 8px;
+    left: -1px;
+    width: 2px;
+    height: auto;
+  }
+
+  /* Outline: a fine border around the selected tab; a lighter one on hover. */
+  [data-variant='outline'] > .ds-tabs-trigger[data-state='active'] {
+    border-color: color-mix(in oklab, var(--ds-color-text-muted) 55%, var(--ds-color-surface));
+  }
+  [data-variant='outline'] > .ds-tabs-trigger:not([data-state='active']):hover {
+    border-color: var(--ds-color-border);
+  }
+
+  /* Type only: weight and a heavier icon carry selection; hover underlines the label. */
+  [data-variant='type'] > .ds-tabs-trigger[data-state='active'] {
+    font-weight: 600;
+  }
+  [data-variant='type'] > .ds-tabs-trigger[data-state='active'] > svg {
+    stroke-width: 2.1;
+  }
+  [data-variant='type'] > .ds-tabs-trigger:not([data-state='active']):hover {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--ds-color-text-muted) 55%, var(--ds-color-surface));
+    text-underline-offset: 4px;
+  }
+
   .ds-tabs-content {
     /* With the root's 8px gap, content sits a 12px group gap below the list. */
     padding-block: calc(var(--ds-space-scale, 1) * 0.25rem) 0;
@@ -99,19 +156,12 @@
   }
   .ds-tabs-list[data-orientation='vertical'] {
     flex-direction: column;
-    border-bottom: 0;
+    align-items: stretch;
     gap: calc(var(--ds-space-scale, 1) * 0.25rem);
   }
   .ds-tabs-list[data-orientation='vertical'] .ds-tabs-trigger {
     justify-content: flex-start;
     text-align: start;
-    padding-inline: calc(var(--ds-space-scale, 1) * 0.75rem);
-    border: 0;
-    border-radius: var(--ds-radius-sm);
-  }
-  .ds-tabs-list[data-orientation='vertical']
-    .ds-tabs-trigger[data-state='active'] {
-    background: var(--ds-color-accent-subtle);
   }
   .ds-overlay {
     position: fixed;

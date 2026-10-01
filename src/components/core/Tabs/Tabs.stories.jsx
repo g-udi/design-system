@@ -6,7 +6,7 @@ import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHel
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Avatar from '../Avatar';
 import { Badge } from '../Pill/index.js';
-import Tabs, { TabsContent, TabsList, TabsTrigger } from './Tabs';
+import Tabs, { TabsContent, TabsList, TabsTrigger, tabsVariants } from './Tabs';
 
 const docs = getComponentDocs('Core/Tabs');
 const listLabel = 'Article details';
@@ -63,7 +63,7 @@ const bodies = {
   )
 };
 const children = (variant) => [
-  `  <TabsList aria-label='${listLabel}'${variant === 'line' ? " variant='line'" : ''}>`,
+  `  <TabsList aria-label='${listLabel}'${variant && variant !== 'underline' ? ` variant='${variant}'` : ''}>`,
   ...panels.map(({ value, label, disabled }) => `    <TabsTrigger value='${value}'${disabled ? ' disabled' : ''}>${label}</TabsTrigger>`),
   '  </TabsList>',
   ...panels.filter((panel) => panel.summary).map(({ value, summary }) => `  <TabsContent value='${value}'>${summary}</TabsContent>`)
@@ -95,7 +95,7 @@ export default {
   title: 'Core/Tabs', id: 'core-tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['default', 'line'] }),
+  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['underline', 'outline', 'type'] }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -106,10 +106,10 @@ export default {
 };
 
 export const Playground = {
-  args: { defaultValue: 'overview', orientation: 'horizontal', variant: 'default', onValueChange: fn() },
+  args: { defaultValue: 'overview', orientation: 'horizontal', variant: 'underline', onValueChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel, `orientation` moves the list to the side, and `variant` (on `TabsList`) drops the rule under the list for `line`.' },
+      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel, `orientation` moves the list to the side, and `variant` (on `TabsList`) chooses how the active tab is marked: a short underline, a fine outline, or weight alone.' },
       // `variant` belongs to TabsList, so it prints there rather than on the root.
       source: {
         type: 'dynamic',
@@ -151,5 +151,56 @@ export const ManualActivation = {
     await userEvent.keyboard(' ');
     await expect(tab(canvas, 1)).toHaveAttribute('aria-selected', 'true');
     await expect(canvas.getByRole('tabpanel')).toHaveTextContent(panels[1].summary);
+  }
+};
+
+const sections = [
+  ['articles', 'Articles', 'FileText', '42 published, 3 drafts'],
+  ['series', 'Series', 'BookOpen', '4 series in progress'],
+  ['tags', 'Tags', 'Tag', '28 tags, 6 unused'],
+  ['media', 'Media', 'Image', '312 images and diagrams'],
+  ['sources', 'Sources', 'Database', '87 cited references']
+];
+const variantNotes = {
+  underline: 'A short bar under the active label. Familiar, clear and light; the default.',
+  outline: 'A fine border gives the selected tab a clear boundary.',
+  type: 'Selection lives in text weight and icon contrast. The quietest option.'
+};
+
+export const Variants = {
+  parameters: { docs: { description: { story: 'The three ways to mark the active tab, on the same transparent triggers with no rule under the list.' } } },
+  render: () => (
+    <div className='grid gap-6'>
+      {tabsVariants.map((variant) => (
+        <div key={variant} className='grid min-w-0 gap-2'>
+          <div>
+            <p className='text-sm font-medium text-text'>{variant[0].toUpperCase() + variant.slice(1)}</p>
+            <p className='text-xs text-text-muted'>{variantNotes[variant]}</p>
+          </div>
+          <Tabs defaultValue='articles'>
+            <TabsList variant={variant} aria-label={`${variant} sections`}>
+              {sections.map(([value, label, icon]) => (
+                <TabsTrigger key={value} value={value}>
+                  <RegistryIcon lucide={icon} aria-hidden='true' />
+                  {label}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+            {sections.map(([value, , , summary]) => (
+              <TabsContent key={value} value={value} className='text-xs text-text-muted'>{summary}</TabsContent>
+            ))}
+          </Tabs>
+        </div>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    for (const variant of tabsVariants) {
+      const list = canvas.getByRole('tablist', { name: `${variant} sections` });
+      await expect(list).toHaveAttribute('data-variant', variant);
+      await userEvent.click(within(list).getByRole('tab', { name: 'Tags' }));
+      await expect(within(list).getByRole('tab', { name: 'Tags' })).toHaveAttribute('aria-selected', 'true');
+    }
   }
 };
