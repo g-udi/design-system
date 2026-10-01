@@ -33,23 +33,23 @@ typography:
     "7xl": "4.5rem"
     "8xl": "6rem"
   display:
-    fontFamily: "var(--font-space-inter), Inter Variable, system-ui, sans-serif"
+    fontFamily: "var(--font-space-inter, Inter Variable), Inter Variable, system-ui, sans-serif"
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: "0"
   headline:
-    fontFamily: "var(--font-space-inter), Inter Variable, system-ui, sans-serif"
+    fontFamily: "var(--font-space-inter, Inter Variable), Inter Variable, system-ui, sans-serif"
     fontWeight: 700
     lineHeight: 1.15
     letterSpacing: "0"
   body:
-    fontFamily: "var(--font-space-inter), Inter Variable, system-ui, sans-serif"
+    fontFamily: "var(--font-space-inter, Inter Variable), Inter Variable, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
     letterSpacing: "0"
   label:
-    fontFamily: "var(--font-space-inter), Inter Variable, system-ui, sans-serif"
+    fontFamily: "var(--font-space-inter, Inter Variable), Inter Variable, system-ui, sans-serif"
     fontWeight: 600
     lineHeight: 1.2
     letterSpacing: "0"

@@ -8,7 +8,7 @@
  */
 
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -32,6 +32,35 @@ test('corner tokens keep a runtime reference to one global radius', () => {
     // Full is geometric: avatars, status dots, radios, and loading rings.
     if (name === 'full') continue;
     assert.equal(value, name === 'none' ? '0px' : 'var(--ds-radius)', `${name} utility must stay adjustable without rebuilding CSS`);
+  }
+});
+
+test('inner spacing follows one global --ds-space-scale', () => {
+  assert.equal(tokens.dsVariables.root['--ds-space-scale'], '1');
+  assert.equal(cssValues('--ds-space-scale')[0], '1');
+  assert.equal(tokens.spaceScales.default, 1, 'the default preset must be the unscaled layout');
+  assert.match(css, /@import '\.\/spacing\.css';/, 'styles.css must load the spacing utilities');
+
+  // Every padding and gap utility re-declares itself against the scale.
+  const spacing = readFileSync(path.join(here, '..', 'spacing.css'), 'utf8');
+  for (const utility of [ 'p', 'px', 'py', 'ps', 'pe', 'pt', 'pr', 'pb', 'pl', 'gap', 'gap-x', 'gap-y' ]) {
+    assert.match(spacing, new RegExp(`@utility ${utility}-\\* \\{[^}]*var\\(--ds-space-scale, 1\\) \\* var\\(--spacing\\)`), `${utility}-* must follow --ds-space-scale`);
+  }
+
+  // Component CSS must not hard-code inner spacing. Prose rhythm (MdxContent)
+  // and styles.css (prose tokens, overlay viewport insets) are editorial, not inner spacing.
+  const editorial = new Set([ 'styles.css', 'MdxContent.module.css' ]);
+  const cssFiles = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return cssFiles(full);
+    return entry.name.endsWith('.css') && !editorial.has(entry.name) ? [ full ] : [];
+  });
+  for (const file of cssFiles(path.join(here, '..'))) {
+    const source = readFileSync(file, 'utf8');
+    for (const [ , property, value ] of source.matchAll(/^\s*(padding[a-z-]*|gap|row-gap|column-gap)\s*:\s*([^;]+);/gm)) {
+      const raw = value.replace(/calc\(var\(--ds-space-scale, 1\) \* [^)]+\)/g, '').match(/(?<![\w.(-])(?!0(?:rem|px|em)\b)\d*\.?\d+(rem|px|em)\b/);
+      assert.equal(raw, null, `${path.relative(here, file)}: ${property}: ${value} must scale with --ds-space-scale`);
+    }
   }
 });
 

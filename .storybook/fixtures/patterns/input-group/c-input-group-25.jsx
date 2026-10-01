@@ -23,7 +23,7 @@ function Cell({ id, label, children, ...props }) {
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Cell id='ig-shortcut' label='Keyboard shortcut'>
         <InputGroup>
           <InputGroupInput id='ig-shortcut' placeholder='Search documentation…' />

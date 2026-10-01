@@ -49,7 +49,7 @@ function List({ title, defaultValue, items, trailing }) {
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <List title='Language' defaultValue='en' items={languages} />
       <List title='Contact channel' defaultValue='email' items={channels} trailing />
     </div>

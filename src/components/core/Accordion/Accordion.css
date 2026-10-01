@@ -12,7 +12,7 @@
     overflow: clip;
   }
   .ds-accordion[data-variant='framed'] {
-    padding: 4px;
+    padding: calc(var(--ds-space-scale, 1) * 4px);
     background: var(--ds-color-surface-muted);
   }
   .ds-accordion-item {
@@ -24,7 +24,7 @@
   .ds-accordion[data-variant='separated'],
   .ds-accordion[data-variant='solid'] {
     display: grid;
-    gap: 8px;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
   }
   .ds-accordion[data-variant='separated'] > .ds-accordion-item {
     border: 1px solid var(--ds-color-border);
@@ -60,11 +60,11 @@
   .ds-accordion-trigger {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
     width: 100%;
     /* Compact density: 40px single-line rows, 56px with a description. */
     min-height: 40px;
-    padding: 8px 12px;
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 12px);
     border: 0;
     /* Row highlights meet their content with straight edges. */
     border-radius: 0;
@@ -104,7 +104,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 8px;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
   }
   .ds-accordion-badge {
     display: inline-flex;
@@ -168,7 +168,7 @@
     display: none;
   }
   .ds-accordion-content-inner {
-    padding: 4px 12px 12px;
+    padding: calc(var(--ds-space-scale, 1) * 4px) calc(var(--ds-space-scale, 1) * 12px) calc(var(--ds-space-scale, 1) * 12px);
     font-size: 0.875rem;
     line-height: 1.5;
     color: var(--ds-color-text-muted);
@@ -179,7 +179,7 @@
     > .ds-accordion-item
     > .ds-accordion-content
     > .ds-accordion-content-inner {
-    padding-block-start: 8px;
+    padding-block-start: calc(var(--ds-space-scale, 1) * 8px);
   }
   .ds-accordion[data-variant='flush']
     > .ds-accordion-item

@@ -3,7 +3,7 @@ import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <div className='grid gap-1.5'>
         <Label htmlFor='phone-empty'>Phone number</Label>
         <PhoneInput id='phone-empty' defaultCountry='NL' placeholder='Enter phone number' />

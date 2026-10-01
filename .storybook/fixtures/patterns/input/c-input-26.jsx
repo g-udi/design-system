@@ -18,7 +18,7 @@ const styles = [
 export function Pattern() {
   const [focused, setFocused] = useState(false);
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       {styles.map((style) => (
         <Field key={style.id}>
           <FieldLabel htmlFor={`input-style-${style.id}`}>{style.label}</FieldLabel>

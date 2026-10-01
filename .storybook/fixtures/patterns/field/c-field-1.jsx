@@ -34,7 +34,7 @@ import { default as Textarea } from '../../../../src/components/core/Textarea/in
 export function Pattern() {
   const [cpu, setCpu] = useState([75]);
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-4 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Field>
         <FieldLabel htmlFor='field-username'>Username</FieldLabel>
         <InputGroup>

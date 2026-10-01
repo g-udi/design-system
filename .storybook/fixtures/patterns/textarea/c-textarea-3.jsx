@@ -8,7 +8,7 @@ import { default as Textarea } from '../../../../src/components/core/Textarea/in
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg items-start gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl items-start gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Field>
         <FieldLabel htmlFor='textarea-feedback'>Feedback</FieldLabel>
         <Textarea id='textarea-feedback' placeholder='Type your message here…' rows={3} />

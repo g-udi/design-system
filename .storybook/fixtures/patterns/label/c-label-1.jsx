@@ -18,7 +18,7 @@ export function Pattern() {
   const [bio, setBio] = useState(0);
   return (
     <TooltipProvider>
-      <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
         <Field>
           <Label htmlFor='label-required'>
             Email address

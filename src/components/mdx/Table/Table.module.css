@@ -83,5 +83,5 @@
 
 /* Compact rows: 10px block, 12px inline, about 40px for single-line cells. */
 .cellPadding {
-  padding: 0.625rem 0.75rem;
+  padding: calc(var(--ds-space-scale, 1) * 0.625rem) calc(var(--ds-space-scale, 1) * 0.75rem);
 }

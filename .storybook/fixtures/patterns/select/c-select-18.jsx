@@ -91,7 +91,7 @@ function Picker({ id, label, defaultValue, prefix, groupLabel, items, render }) 
 // avatar, a badge, a flag or a live font preview. The trigger repeats it.
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Picker
         id='select-category'
         label='Category'

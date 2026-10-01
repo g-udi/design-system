@@ -19,7 +19,7 @@ import tailwindColors from 'tailwindcss/colors';
  */
 import data from './tokens.json';
 
-const { dsVariables, motion, paletteNames, paletteShades, radii, semanticColors, shadows, typography } = data;
+const { dsVariables, motion, paletteNames, paletteShades, radii, semanticColors, shadows, spaceScales, typography } = data;
 
 const pickShades = (color) => Object.fromEntries(paletteShades.map((shade) => [ shade, color[shade] ]));
 const palette = Object.fromEntries(paletteNames.map((name) => [ name, pickShades(tailwindColors[name]) ]));
@@ -36,7 +36,8 @@ const tokens = {
   radii,
   semanticColors,
   shadows,
+  spaceScales,
   typography
 };
 
-export { colors, dsVariables, motion, palette, radii, semanticColors, shadows, tokens, typography };
+export { colors, dsVariables, motion, palette, radii, semanticColors, shadows, spaceScales, tokens, typography };

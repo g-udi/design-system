@@ -189,12 +189,12 @@
   .ds-catalogue-filters {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: 1rem;
+    gap: calc(var(--ds-space-scale, 1) * 1rem);
     margin-block: 2rem 1rem;
   }
   .ds-catalogue-filters label {
     display: grid;
-    gap: 0.5rem;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
     font-size: 0.875rem;
     font-weight: 600;
     min-width: 0;
@@ -204,19 +204,19 @@
     border: 1px solid var(--ds-color-border);
     border-radius: var(--ds-radius-control);
     min-height: 44px;
-    padding: 0.5rem;
+    padding: calc(var(--ds-space-scale, 1) * 0.5rem);
     width: 100%;
   }
   .ds-catalogue-family {
     display: grid;
     grid-template-columns: 15rem minmax(0, 1fr);
-    gap: 1.5rem;
-    padding-block: 1.5rem;
+    gap: calc(var(--ds-space-scale, 1) * 1.5rem);
+    padding-block: calc(var(--ds-space-scale, 1) * 1.5rem);
     border-top: 1px solid var(--ds-color-border);
   }
   .ds-catalogue-family ul {
     columns: 2;
-    column-gap: 2rem;
+    column-gap: calc(var(--ds-space-scale, 1) * 2rem);
     padding: 0;
   }
   .ds-catalogue-family li {
@@ -240,7 +240,7 @@
       grid-template-columns: minmax(0, 1fr);
     }
     .ds-catalogue-family {
-      gap: 0.5rem;
+      gap: calc(var(--ds-space-scale, 1) * 0.5rem);
     }
     .ds-catalogue-family ul {
       columns: 1;

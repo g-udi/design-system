@@ -14,7 +14,7 @@ import {
 // disabled entry, the small size, a disabled field and an invalid field.
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Field>
         <FieldLabel htmlFor='native-select-country'>Country</FieldLabel>
         <NativeSelect id='native-select-country' className='w-full' defaultValue=''>

@@ -32,7 +32,7 @@ function TagAutocomplete({ id, label, inputProps, ...props }) {
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-xl gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <TagAutocomplete id='autocomplete-basic' label='Tag' />
       <TagAutocomplete id='autocomplete-highlight' label='Auto highlight' autoHighlight />
       <TagAutocomplete id='autocomplete-clear' label='Clear button' defaultValue='Feature' inputProps={{ showClear: true }} />

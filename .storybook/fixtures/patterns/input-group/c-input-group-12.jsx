@@ -71,7 +71,7 @@ export function Pattern() {
   const [method, setMethod] = useState('GET');
   const [visibility, setVisibility] = useState('Private');
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       <Cell id='ig-phone' label='Leading country code'>
         <InputGroup>
           <InputGroupAddon>

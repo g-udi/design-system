@@ -55,6 +55,8 @@ module.exports = {
 
 - Gaudi uses a subtle 2px corner radius, controlled globally by --ds-radius. Cards, controls, badges, icon tiles, menus, and overlays must use the shared tokens so applications can change this setting (including 0px). Accordion trigger highlights, text highlights, and internal panel seams stay square. Do not hard-code decorative radii. Reserve circular geometry for intrinsic shapes such as status dots, radio indicators, loading rings, and explicitly circular avatars.
 
+- Inner spacing follows one multiplier, --ds-space-scale (default 1; presets in `tokens.spaceScales`: tight 0.75 → spacious 1.5). Tailwind `p-*`/`px-*`/`py-*`/`pt|pr|pb|pl|ps|pe-*` and `gap-*`/`gap-x|y-*` utilities are re-declared in `src/spacing.css` to scale with it; component CSS writes padding and gaps as `calc(var(--ds-space-scale, 1) * <length>)`. Margins, sizes, layout widths, and prose rhythm stay fixed. Use `gap-*` rather than `space-x|y-*` for spacing that should follow the scale (space utilities cannot be overridden). The tokens contract test fails on raw padding/gap lengths in component CSS.
+
 - Follow the existing folder contract: each public component owns its implementation, `index.js`, Storybook story, and contract test.
 - Reconcile incoming components and patterns with the existing catalogue. When there is a match, extend the existing owner with the missing variants, behaviors, and use cases; do not skip it or create a parallel implementation.
 - Add a new public component only for a distinct gap. Adapt curated work to Gaudi tokens, icons, APIs, responsive behavior, and accessibility conventions, and preserve source attribution and licensing.

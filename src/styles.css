@@ -2,6 +2,7 @@
 @import './components/core/Avatar/Avatar.css';
 @import './application.css';
 @import './composition.css';
+@import './spacing.css';
 
 /*
  * Exported foundation tokens mirror `src/tokens/tokens.json` (`dsVariables`).
@@ -167,7 +168,7 @@
     --ds-z-overlay: 1000;
     --ds-z-max: 9999;
 
-    --ds-font-sans: var(--font-space-inter), "Inter Variable", system-ui, sans-serif;
+    --ds-font-sans: var(--font-space-inter, "Inter Variable"), "Inter Variable", system-ui, sans-serif;
     --ds-font-mono: "JetBrains Mono", Menlo, Monaco, monospace;
     --ds-line-height-body: 1.6;
     --ds-line-height-prose: 1.7;
@@ -190,6 +191,8 @@
     --ds-prose-h4-margin-bottom: 0.5em;
     /* One application-wide corner setting; highlights keep their own flat edges. */
     --ds-radius: 2px;
+    /* Global inner-spacing multiplier for padding and gap (see spacing.css). */
+    --ds-space-scale: 1;
     --ds-radius-card: var(--ds-radius);
     --ds-radius-control: var(--ds-radius);
     --ds-radius-pill: var(--ds-radius);

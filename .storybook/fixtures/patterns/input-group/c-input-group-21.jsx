@@ -52,7 +52,7 @@ export function Pattern() {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <TooltipProvider>
-      <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
         <Cell id='ig-button' label='Text button'>
           <InputGroup>
             <InputGroupInput id='ig-button' placeholder='Query…' />

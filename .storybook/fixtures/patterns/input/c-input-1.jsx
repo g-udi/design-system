@@ -20,7 +20,7 @@ const types = [
 export function Pattern() {
   const [volume, setVolume] = useState(50);
   return (
-    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
       {types.map(({ type, label, placeholder }) => (
         <Field key={type}>
           <FieldLabel htmlFor={`input-type-${type}`}>{label}</FieldLabel>

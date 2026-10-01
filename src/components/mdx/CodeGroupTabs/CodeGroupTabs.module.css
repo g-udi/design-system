@@ -12,12 +12,12 @@
   background: var(--ds-color-code-chrome-bg);
   border-bottom: 1px solid var(--ds-color-code-chrome-border);
   display: flex;
-  gap: 0.25rem;
+  gap: calc(var(--ds-space-scale, 1) * 0.25rem);
   margin: 0;
   max-width: 100%;
   overscroll-behavior-inline: contain;
   overflow-x: auto;
-  padding: 0.5rem 0.75rem 0;
+  padding: calc(var(--ds-space-scale, 1) * 0.5rem) calc(var(--ds-space-scale, 1) * 0.75rem) 0;
   position: relative;
   scrollbar-color: var(--ds-color-code-tab-text) transparent;
   scrollbar-width: thin;
@@ -37,7 +37,7 @@
   justify-content: center;
   margin: 0;
   min-height: 2.75rem;
-  padding: 0.5rem 0.75rem 0.625rem;
+  padding: calc(var(--ds-space-scale, 1) * 0.5rem) calc(var(--ds-space-scale, 1) * 0.75rem) calc(var(--ds-space-scale, 1) * 0.625rem);
   position: relative;
   transition: background-color 0.15s ease, color 0.15s ease;
   white-space: nowrap;
@@ -96,7 +96,7 @@
   margin: 0 !important;
   max-width: 100%;
   overflow-x: auto;
-  padding: 1rem !important;
+  padding: calc(var(--ds-space-scale, 1) * 1rem) !important;
 }
 
 .root :global(.rcg-block pre code) {
