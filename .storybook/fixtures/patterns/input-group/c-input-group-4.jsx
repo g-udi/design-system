@@ -98,7 +98,7 @@ export function Pattern() {
           </InputGroupAddon>
         </InputGroup>
       </Cell>
-      <Cell id='ig-block-start' label='Block-start header'>
+      <Cell id='ig-block-start' label='Block-start header' className='sm:col-span-2'>
         <InputGroup className='h-auto'>
           <InputGroupInput id='ig-block-start' placeholder='First name' />
           <InputGroupAddon align='block-start'>
@@ -107,7 +107,7 @@ export function Pattern() {
           </InputGroupAddon>
         </InputGroup>
       </Cell>
-      <Cell id='ig-block-end' label='Block-end footer'>
+      <Cell id='ig-block-end' label='Block-end footer' className='sm:col-span-2'>
         <InputGroup>
           <InputGroupTextarea
             id='ig-block-end'
