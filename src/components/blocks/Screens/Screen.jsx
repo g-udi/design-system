@@ -1,0 +1,107 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { cn } from '../../../utilities/cn';
+import { CarouselContent, CarouselItem, CarouselRoot } from '../../core/Carousel';
+import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/parts/avatar.jsx';
+import { Rating } from '../../core/Rating/parts/rating-extended.jsx';
+
+/**
+ * A screen frame: the main column (a form, wizard or settings) beside an optional
+ * `aside` panel such as an image, a testimonial or a logo wall. The aside sits at the
+ * `end` or `start` and hides below md so the form always comes first on phones.
+ */
+export default function Screen({ aside, asideSide = 'end', asideClassName, header, footer, children, className }) {
+  return (
+    <div data-slot='screen' className={cn('bg-surface grid min-h-[34rem] w-full overflow-hidden rounded-xl border', aside && 'md:grid-cols-2', className)}>
+      <div className='flex min-w-0 flex-col'>
+        {header ? <div data-slot='screen-header' className='flex items-center justify-between gap-3 px-6 py-4'>{header}</div> : null}
+        <div className='grid flex-1 place-items-center px-6 py-8 sm:px-10'>
+          <div className='w-full max-w-sm'>{children}</div>
+        </div>
+        {footer ? <div data-slot='screen-footer' className='text-text-muted flex flex-wrap items-center justify-between gap-3 px-6 py-4 text-xs'>{footer}</div> : null}
+      </div>
+      {aside ? (
+        <div data-slot='screen-aside' className={cn('relative hidden min-w-0 overflow-hidden md:block', asideSide === 'start' && 'md:order-first', asideClassName)}>
+          {aside}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+const initials = (name) => name.split(' ').map((part) => part[0]).join('');
+const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Customer quotes for an aside. With more than one quote it rotates every `interval`
+ * milliseconds, pausing while hovered or focused and when reduced motion is preferred;
+ * the dots move between quotes by hand.
+ */
+export function ScreenTestimonial({ quotes = [], rating, interval = 6000, className }) {
+  const [api, setApi] = useState();
+  const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    if (!api) return undefined;
+    const sync = () => setCurrent(api.selectedScrollSnap());
+    sync();
+    api.on('select', sync);
+    return () => api.off('select', sync);
+  }, [api]);
+  useEffect(() => {
+    if (!api || paused || quotes.length < 2 || prefersReducedMotion()) return undefined;
+    const timer = setInterval(() => api.scrollNext(), interval);
+    return () => clearInterval(timer);
+  }, [api, paused, quotes.length, interval]);
+  return (
+    <figure
+      data-slot='screen-testimonial'
+      className={cn('grid gap-4', className)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+    >
+      {rating ? <Rating rating={rating} size='sm' /> : null}
+      <CarouselRoot setApi={setApi} opts={{ loop: true }} aria-label='Customer quotes'>
+        <CarouselContent>
+          {quotes.map((quote) => (
+            <CarouselItem key={quote.name}>
+              <blockquote className='text-lg leading-relaxed font-medium text-balance'>“{quote.quote}”</blockquote>
+              <div className='mt-4 flex items-center gap-3'>
+                <Avatar className='size-9'>
+                  {quote.avatar ? <AvatarImage src={quote.avatar} alt={quote.name} /> : null}
+                  <AvatarFallback className='text-xs'>{initials(quote.name)}</AvatarFallback>
+                </Avatar>
+                <span className='grid text-sm'>
+                  <span className='font-medium'>{quote.name}</span>
+                  <span className='text-text-muted'>{quote.role}</span>
+                </span>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </CarouselRoot>
+      {quotes.length > 1 ? (
+        <div className='-ms-1.5 flex'>
+          {quotes.map((quote, index) => (
+            // A 24px hit area around a slim bar keeps the dots easy to press.
+            <button
+              key={quote.name}
+              type='button'
+              aria-label={`Show quote from ${quote.name}`}
+              aria-current={index === current || undefined}
+              onClick={() => api?.scrollTo(index)}
+              className='grid h-6 min-w-6 cursor-pointer place-items-center px-1.5'
+            >
+              <span aria-hidden='true' className={cn('h-1.5 rounded-full transition-all', index === current ? 'bg-text w-5' : 'bg-text-muted/40 w-1.5')} />
+            </button>
+          ))}
+        </div>
+      ) : null}
+    </figure>
+  );
+}
+
+export { Screen };

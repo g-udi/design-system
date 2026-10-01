@@ -433,6 +433,27 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ResourceList.stories.jsx"
     },
+    "blocks-screens--playground": {
+      "id": "blocks-screens--playground",
+      "title": "Blocks/Screens",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/Screens.stories.jsx"
+    },
+    "blocks-screens--docs": {
+      "id": "blocks-screens--docs",
+      "title": "Blocks/Screens",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Screens/Screens.stories.jsx"
+    },
     "blocks-application-settingspanel--playground": {
       "id": "blocks-application-settingspanel--playground",
       "title": "Blocks/To Sort/SettingsPanel",
@@ -3360,6 +3381,280 @@
         "autodocs"
       ],
       "importPath": "./src/components/blocks/ResourceList/ItemPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-1": {
+      "id": "blocks-screens--screens-pattern-1",
+      "title": "Blocks/Screens",
+      "name": "Profile · Account settings",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-2": {
+      "id": "blocks-screens--screens-pattern-2",
+      "title": "Blocks/Screens",
+      "name": "Profile · Organisation tabs",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-3": {
+      "id": "blocks-screens--screens-pattern-3",
+      "title": "Blocks/Screens",
+      "name": "Profile · Billing",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-4": {
+      "id": "blocks-screens--screens-pattern-4",
+      "title": "Blocks/Screens",
+      "name": "Profile · Referral rewards",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-5": {
+      "id": "blocks-screens--screens-pattern-5",
+      "title": "Blocks/Screens",
+      "name": "Profile · Inbox and meeting capture",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-6": {
+      "id": "blocks-screens--screens-pattern-6",
+      "title": "Blocks/Screens",
+      "name": "Settings · Preferences",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-7": {
+      "id": "blocks-screens--screens-pattern-7",
+      "title": "Blocks/Screens",
+      "name": "Settings · Notifications",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-8": {
+      "id": "blocks-screens--screens-pattern-8",
+      "title": "Blocks/Screens",
+      "name": "Settings · Integrations",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-9": {
+      "id": "blocks-screens--screens-pattern-9",
+      "title": "Blocks/Screens",
+      "name": "Settings · Developer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-10": {
+      "id": "blocks-screens--screens-pattern-10",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Plan upgrade",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-11": {
+      "id": "blocks-screens--screens-pattern-11",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Send an invoice",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-12": {
+      "id": "blocks-screens--screens-pattern-12",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Vendor onboarding",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-13": {
+      "id": "blocks-screens--screens-pattern-13",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Invite your team",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-14": {
+      "id": "blocks-screens--screens-pattern-14",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Add a product",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-15": {
+      "id": "blocks-screens--screens-pattern-15",
+      "title": "Blocks/Screens",
+      "name": "Wizard · Send money",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-16": {
+      "id": "blocks-screens--screens-pattern-16",
+      "title": "Blocks/Screens",
+      "name": "Onboarding · Workspace setup",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-17": {
+      "id": "blocks-screens--screens-pattern-17",
+      "title": "Blocks/Screens",
+      "name": "Onboarding · Create a publication",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-18": {
+      "id": "blocks-screens--screens-pattern-18",
+      "title": "Blocks/Screens",
+      "name": "Onboarding · Tour in a dialog",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-19": {
+      "id": "blocks-screens--screens-pattern-19",
+      "title": "Blocks/Screens",
+      "name": "Onboarding · Connect a coding agent",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-20": {
+      "id": "blocks-screens--screens-pattern-20",
+      "title": "Blocks/Screens",
+      "name": "Auth · Split with imagery",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-21": {
+      "id": "blocks-screens--screens-pattern-21",
+      "title": "Blocks/Screens",
+      "name": "Auth · Split with testimonials",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-22": {
+      "id": "blocks-screens--screens-pattern-22",
+      "title": "Blocks/Screens",
+      "name": "Auth · Magic link with logos",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-23": {
+      "id": "blocks-screens--screens-pattern-23",
+      "title": "Blocks/Screens",
+      "name": "Auth · Centred card",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-24": {
+      "id": "blocks-screens--screens-pattern-24",
+      "title": "Blocks/Screens",
+      "name": "Auth · Free trial sign-up",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
+    },
+    "blocks-screens--screens-pattern-25": {
+      "id": "blocks-screens--screens-pattern-25",
+      "title": "Blocks/Screens",
+      "name": "Auth · Choose a sign-in method",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Screens/ScreensPatterns.stories.jsx"
     },
     "blocks-stat-cards--stat-cards-pattern-1": {
       "id": "blocks-stat-cards--stat-cards-pattern-1",

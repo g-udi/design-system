@@ -13,7 +13,7 @@ export const owners = {
   'file-upload': 'core/FileUpload', filters: 'core/FilterBar', frame: 'core/Card',
   gantt: 'core/Gantt', 'hover-card': 'core/Popover', 'icon-stack': 'core/Icon',
   'icon-tile': 'core/Icon', input: 'core/Input', 'input-group': 'core/Input',
-  'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'blocks/KanbanBoard', 'stat-cards': 'blocks/StatCard',
+  'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'blocks/KanbanBoard', 'stat-cards': 'blocks/StatCard', screens: 'blocks/Screens',
   kbd: 'core/Kbd', label: 'core/Field', marker: 'core/Marker', menubar: 'core/DropdownMenu',
   message: 'core/Message', 'message-scroller': 'core/Message', 'native-select': 'core/Select',
   'navigation-menu': 'core/NavigationMenu', 'number-field': 'core/NumberField',

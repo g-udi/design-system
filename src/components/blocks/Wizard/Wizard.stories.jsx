@@ -92,7 +92,7 @@ export default {
   title: 'Blocks/To Sort/Wizard', id: 'blocks-application-wizard',
   component: Wizard,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { title: 'text', description: 'text', labels: 'object' }),
+  argTypes: docsArgTypes(docs, { title: 'text', description: 'text', labels: 'object', indicator: ['steps', 'progress', 'vertical'] }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -107,11 +107,12 @@ export const Playground = {
     title: 'Create a collection',
     description: 'Give related ideas a place of their own.',
     labels: { back: 'Back', continue: 'Continue' },
+    indicator: 'steps',
     onComplete: fn(async () => {})
   },
   parameters: {
     docs: {
-      description: { story: 'A three-step flow with described steps, a validated name, a topic select, audience cards, and a review summary. `labels` renames the navigation buttons.' },
+      description: { story: 'A three-step flow with described steps, a validated name, a topic select, audience cards, and a review summary. `labels` renames the navigation buttons and `indicator` shows progress as numbered steps, a progress bar or a vertical step list beside the form.' },
       source: playgroundSource('Wizard', {
         imports: "import { Wizard } from '@gaudi/design-system';",
         attributes: ['steps={steps}', 'validateStep={validateStep}', `completeLabel='${completion.completeLabel}'`, `completionTitle='${completion.completionTitle}'`, 'onComplete={createCollection}'],
@@ -120,7 +121,7 @@ export const Playground = {
     }
   },
   // Changing a control restarts the flow so new labels and copy show on the first step.
-  render: (args) => <CollectionWizard key={JSON.stringify([args.title, args.description, args.labels])} {...completion} {...args} />,
+  render: (args) => <CollectionWizard key={JSON.stringify([args.title, args.description, args.labels, args.indicator])} {...completion} {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const next = (count) => continueTo(canvas, count, args.labels?.continue || 'Continue');

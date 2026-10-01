@@ -16,7 +16,7 @@ const iconGroups = [
     'name': 'Content'
   },
   {
-    'icons': [ 'Github', 'Linkedin', 'Twitter', 'Youtube', 'Mail', 'Star', 'Fork' ],
+    'icons': [ 'Github', 'Linkedin', 'Twitter', 'Youtube', 'Mail', 'Star', 'Fork', 'Google', 'Apple', 'Microsoft' ],
     'name': 'Social & Repositories'
   },
   {
