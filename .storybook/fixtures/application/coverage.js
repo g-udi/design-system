@@ -38,7 +38,7 @@ export const blockCoverage = [
   [
     'Kanban Board',
     'Controlled editorial board with explicit move actions',
-    'blocks-application-kanbanboard--playground'
+    'core-kanban--playground'
   ],
   [
     'Onboarding / Wizard',

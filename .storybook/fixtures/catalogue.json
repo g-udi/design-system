@@ -390,27 +390,6 @@
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
     },
-    "blocks-application-kanbanboard--playground": {
-      "id": "blocks-application-kanbanboard--playground",
-      "title": "Blocks/To Sort/KanbanBoard",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/KanbanBoard/KanbanBoard.stories.jsx"
-    },
-    "blocks-application-kanbanboard--docs": {
-      "id": "blocks-application-kanbanboard--docs",
-      "title": "Blocks/To Sort/KanbanBoard",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/KanbanBoard/KanbanBoard.stories.jsx"
-    },
     "overview-component-catalogue--browse": {
       "id": "overview-component-catalogue--browse",
       "title": "Component Catalogue",
@@ -1553,6 +1532,27 @@
       ],
       "importPath": "./src/components/core/InputOtp/InputOtp.stories.jsx"
     },
+    "core-kanban--playground": {
+      "id": "core-kanban--playground",
+      "title": "Core/Planning/Kanban",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanBoard.stories.jsx"
+    },
+    "core-kanban--docs": {
+      "id": "core-kanban--docs",
+      "title": "Core/Planning/Kanban",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanBoard.stories.jsx"
+    },
     "core-kbd--playground": {
       "id": "core-kbd--playground",
       "title": "Core/Kbd",
@@ -1887,6 +1887,17 @@
       "id": "core-progress--indeterminate",
       "title": "Core/Progress",
       "name": "Indeterminate",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Progress/Progress.stories.jsx"
+    },
+    "core-progress--ring": {
+      "id": "core-progress--ring",
+      "title": "Core/Progress",
+      "name": "Progress ring",
       "type": "story",
       "tags": [
         "autodocs",
@@ -3433,26 +3444,6 @@
         "play-fn"
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthPatterns.stories.jsx"
-    },
-    "blocks-application-kanbanboard--kanban-pattern-1": {
-      "id": "blocks-application-kanbanboard--kanban-pattern-1",
-      "title": "Blocks/To Sort/KanbanBoard",
-      "name": "Board options",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/KanbanBoard/KanbanPatterns.stories.jsx"
-    },
-    "blocks-application-kanbanboard--kanban-pattern-6": {
-      "id": "blocks-application-kanbanboard--kanban-pattern-6",
-      "title": "Blocks/To Sort/KanbanBoard",
-      "name": "Persisted to a backend",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/blocks/KanbanBoard/KanbanPatterns.stories.jsx"
     },
     "blocks-application-resourcelist--item-pattern-1": {
       "id": "blocks-application-resourcelist--item-pattern-1",
@@ -5896,6 +5887,114 @@
         "play-fn"
       ],
       "importPath": "./src/components/core/InputOtp/InputOtpPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-1": {
+      "id": "core-kanban--kanban-pattern-1",
+      "title": "Core/Planning/Kanban",
+      "name": "Board options",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-2": {
+      "id": "core-kanban--kanban-pattern-2",
+      "title": "Core/Planning/Kanban",
+      "name": "Issue tracking",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-3": {
+      "id": "core-kanban--kanban-pattern-3",
+      "title": "Core/Planning/Kanban",
+      "name": "Workflow with collapsible columns",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-4": {
+      "id": "core-kanban--kanban-pattern-4",
+      "title": "Core/Planning/Kanban",
+      "name": "Pipeline and access review",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-5": {
+      "id": "core-kanban--kanban-pattern-5",
+      "title": "Core/Planning/Kanban",
+      "name": "Feature roadmap",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-6": {
+      "id": "core-kanban--kanban-pattern-6",
+      "title": "Core/Planning/Kanban",
+      "name": "Persisted to a backend",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-7": {
+      "id": "core-kanban--kanban-pattern-7",
+      "title": "Core/Planning/Kanban",
+      "name": "Support escalations",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-8": {
+      "id": "core-kanban--kanban-pattern-8",
+      "title": "Core/Planning/Kanban",
+      "name": "Renewals risk",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-9": {
+      "id": "core-kanban--kanban-pattern-9",
+      "title": "Core/Planning/Kanban",
+      "name": "Release readiness",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
+    },
+    "core-kanban--kanban-pattern-10": {
+      "id": "core-kanban--kanban-pattern-10",
+      "title": "Core/Planning/Kanban",
+      "name": "Recruiting pipeline",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/KanbanBoard/KanbanPatterns.stories.jsx"
     },
     "core-kbd--kbd-pattern-1": {
       "id": "core-kbd--kbd-pattern-1",
