@@ -106,7 +106,7 @@
     left: calc(var(--ds-space-scale, 1) * 0.5625rem);
     height: 2px;
     border-radius: 1px;
-    background: currentColor;
+    background: var(--ds-tabs-indicator, currentColor);
     opacity: 0;
     transition: opacity 140ms ease-out;
   }
@@ -127,7 +127,7 @@
 
   /* Outline: a fine border around the selected tab; a lighter one on hover. */
   [data-variant='outline'] > .ds-tabs-trigger[data-state='active'] {
-    border-color: color-mix(in oklab, var(--ds-color-text-muted) 55%, var(--ds-color-surface));
+    border-color: var(--ds-tabs-indicator, color-mix(in oklab, var(--ds-color-text-muted) 55%, var(--ds-color-surface)));
   }
   [data-variant='outline'] > .ds-tabs-trigger:not([data-state='active']):hover {
     border-color: var(--ds-color-border);
@@ -135,6 +135,7 @@
 
   /* Type only: weight and a heavier icon carry selection; hover underlines the label. */
   [data-variant='type'] > .ds-tabs-trigger[data-state='active'] {
+    color: var(--ds-tabs-indicator, var(--ds-color-text));
     font-weight: 600;
   }
   [data-variant='type'] > .ds-tabs-trigger[data-state='active'] > svg {

@@ -62,17 +62,17 @@ const bodies = {
     </ul>
   )
 };
-const children = (variant) => [
-  `  <TabsList aria-label='${listLabel}'${variant && variant !== 'underline' ? ` variant='${variant}'` : ''}>`,
+const children = (variant, tone) => [
+  `  <TabsList aria-label='${listLabel}'${variant && variant !== 'underline' ? ` variant='${variant}'` : ''}${tone && tone !== 'neutral' ? ` tone='${tone}'` : ''}>`,
   ...panels.map(({ value, label, disabled }) => `    <TabsTrigger value='${value}'${disabled ? ' disabled' : ''}>${label}</TabsTrigger>`),
   '  </TabsList>',
   ...panels.filter((panel) => panel.summary).map(({ value, summary }) => `  <TabsContent value='${value}'>${summary}</TabsContent>`)
 ].join('\n');
 
-function ArticleTabs({ variant, ...props }) {
+function ArticleTabs({ variant, tone, ...props }) {
   return (
     <Tabs defaultValue='overview' {...props}>
-      <TabsList aria-label={listLabel} variant={variant}>
+      <TabsList aria-label={listLabel} variant={variant} tone={tone}>
         {panels.map(({ value, label, icon, count, disabled }) => (
           <TabsTrigger key={value} value={value} disabled={disabled} className='gap-1.5'>
             <RegistryIcon lucide={icon} className='size-4' />
@@ -95,7 +95,7 @@ export default {
   title: 'Core/Tabs', id: 'core-tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['underline', 'outline', 'type'] }),
+  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['underline', 'outline', 'type'], tone: ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'] }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -106,17 +106,17 @@ export default {
 };
 
 export const Playground = {
-  args: { defaultValue: 'overview', orientation: 'horizontal', variant: 'underline', onValueChange: fn() },
+  args: { defaultValue: 'overview', orientation: 'horizontal', variant: 'underline', tone: 'neutral', onValueChange: fn() },
   parameters: {
     docs: {
-      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel, `orientation` moves the list to the side, and `variant` (on `TabsList`) chooses how the active tab is marked: a short underline, a fine outline, or weight alone.' },
+      description: { story: 'An article dashboard with icon triggers, counts, a locked Analytics tab, and panels holding stats, references and revisions. `defaultValue` picks the open panel, `orientation` moves the list to the side, and `variant` (on `TabsList`) chooses how the active tab is marked: a short underline, a fine outline, or weight alone; `tone` colours that underline or outline.' },
       // `variant` belongs to TabsList, so it prints there rather than on the root.
       source: {
         type: 'dynamic',
         language: 'jsx',
-        transform: (_code, { args: { variant, ...args } }) => previewSource('Tabs', args, {
+        transform: (_code, { args: { variant, tone, ...args } }) => previewSource('Tabs', args, {
           imports: "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system';",
-          children: children(variant)
+          children: children(variant, tone)
         })
       }
     }
