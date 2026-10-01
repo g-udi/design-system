@@ -3638,6 +3638,147 @@
           "storyId": "blocks-screens--screens-pattern-25"
         }
       ]
+    },
+    "forms": {
+      "owner": "blocks/Forms",
+      "examples": [
+        {
+          "name": "c-forms-1",
+          "title": "Contact · Message with error summary",
+          "description": "Contact · Message with error summary",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-1.jsx",
+          "sha256": "97fdd2e113c3a38278ef9f8cfbce5c661c8475efd0e004dc3e0b584b97ff523b",
+          "storyId": "blocks-forms--forms-pattern-1"
+        },
+        {
+          "name": "c-forms-2",
+          "title": "Newsletter · Signup and preferences",
+          "description": "Newsletter · Signup and preferences",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-2.jsx",
+          "sha256": "ebd2f468c7525b08994e30d87546199d78a047867156e92be04ea965287ccee5",
+          "storyId": "blocks-forms--forms-pattern-2"
+        },
+        {
+          "name": "c-forms-3",
+          "title": "Feedback · Article survey",
+          "description": "Feedback · Article survey",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-3.jsx",
+          "sha256": "c1a5a21bfb282084d06dd39c19665f05c094c7a551b7a48d3e83b8d35a5f4e84",
+          "storyId": "blocks-forms--forms-pattern-3"
+        },
+        {
+          "name": "c-forms-4",
+          "title": "Checkout · Address and payment",
+          "description": "Checkout · Address and payment",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-4.jsx",
+          "sha256": "1475d5ceb36efbe260c315b79db63264a5515bab955de1f9480fb8919b6d1c6f",
+          "storyId": "blocks-forms--forms-pattern-4"
+        },
+        {
+          "name": "c-forms-5",
+          "title": "Events · Registration with email code",
+          "description": "Events · Registration with email code",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-5.jsx",
+          "sha256": "f7128702955340951cdede0f0e7d36c210177acdb4dd825be376ac83e8c850bf",
+          "storyId": "blocks-forms--forms-pattern-5"
+        },
+        {
+          "name": "c-forms-6",
+          "title": "Profile · Card with completion and office hours",
+          "description": "Profile · Card with completion and office hours",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-6.jsx",
+          "sha256": "abdf326b7cc603763eae7bb164ece8965ce5b965c90054ac03312a6f6d1f728c",
+          "storyId": "blocks-forms--forms-pattern-6"
+        },
+        {
+          "name": "c-forms-7",
+          "title": "Profile · Tabs with audit rail",
+          "description": "Profile · Tabs with audit rail",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-7.jsx",
+          "sha256": "0eb2c2941cfa189aac6ff1d349c7af48e6fab97ed5eea1da1b69faa34a8ae8fb",
+          "storyId": "blocks-forms--forms-pattern-7"
+        },
+        {
+          "name": "c-forms-8",
+          "title": "Security · Sign-in policy",
+          "description": "Security · Sign-in policy",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-8.jsx",
+          "sha256": "d6093d0d3d16916d262056f04d51e5b5c1d13843c8bee52c3896cbde098ac899",
+          "storyId": "blocks-forms--forms-pattern-8"
+        },
+        {
+          "name": "c-forms-9",
+          "title": "Team · Invite with permissions",
+          "description": "Team · Invite with permissions",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-9.jsx",
+          "sha256": "fbb63d28944dbb959960c144990854ed8a75ab52b09782b5a1317ed580291b77",
+          "storyId": "blocks-forms--forms-pattern-9"
+        },
+        {
+          "name": "c-forms-10",
+          "title": "Developer · Create an API key",
+          "description": "Developer · Create an API key",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-10.jsx",
+          "sha256": "4f3d12e09d5dcff6e8e39eb907df8c781f6a940e762b198b357d6793add8a5f3",
+          "storyId": "blocks-forms--forms-pattern-10"
+        },
+        {
+          "name": "c-forms-11",
+          "title": "Billing · Hosted checkout setup",
+          "description": "Billing · Hosted checkout setup",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-11.jsx",
+          "sha256": "fd76f40a98985f8b8c10d406ff4d9cb06ef4924c5a9a0a6077e9a034a59e44e7",
+          "storyId": "blocks-forms--forms-pattern-11"
+        },
+        {
+          "name": "c-forms-12",
+          "title": "Billing · Invoice with line items",
+          "description": "Billing · Invoice with line items",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-12.jsx",
+          "sha256": "f2c88dc7cab69c6fdcaa6993a682d5707e3c6a98ac773bd8b77a43c634fa8336",
+          "storyId": "blocks-forms--forms-pattern-12"
+        },
+        {
+          "name": "c-forms-13",
+          "title": "Commerce · New product",
+          "description": "Commerce · New product",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-13.jsx",
+          "sha256": "abe93336bcff7a2798734440cb19f77c298e34e73875866ffaaebb2a12926202",
+          "storyId": "blocks-forms--forms-pattern-13"
+        },
+        {
+          "name": "c-forms-14",
+          "title": "Compliance · Business verification",
+          "description": "Compliance · Business verification",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-14.jsx",
+          "sha256": "26e08b59e3207caafb5089619370352097b77ed60e199509dec9d37a59f5d472",
+          "storyId": "blocks-forms--forms-pattern-14"
+        },
+        {
+          "name": "c-forms-15",
+          "title": "Support · Ticket details",
+          "description": "Support · Ticket details",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-15.jsx",
+          "sha256": "ed9aeac829504134c8a245a001a5303eeb6123bfac3c46ae27c79321516a180a",
+          "storyId": "blocks-forms--forms-pattern-15"
+        },
+        {
+          "name": "c-forms-16",
+          "title": "Onboarding · Customer intake",
+          "description": "Onboarding · Customer intake",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-16.jsx",
+          "sha256": "4fc7c0a38f4cf88bd88aeab3872f19677162ce451062e3883ba38a5199f9910b",
+          "storyId": "blocks-forms--forms-pattern-16"
+        },
+        {
+          "name": "c-forms-17",
+          "title": "Launch · New app with live summary",
+          "description": "Launch · New app with live summary",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-17.jsx",
+          "sha256": "a93904e7f45c6cecf6815c5f4ee5fe89ae83baab38ca3b0970348035e4c3114c",
+          "storyId": "blocks-forms--forms-pattern-17"
+        }
+      ]
     }
   }
 }
