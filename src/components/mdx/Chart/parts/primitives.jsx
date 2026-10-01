@@ -1,0 +1,184 @@
+'use client';
+
+/*
+ * Recharts building blocks styled with Gaudi tokens. Render them inside any Recharts chart
+ * (including the shadcn-style ChartContainer parts): axes and grid, a tooltip built from rows,
+ * reference lines with labels, point annotations, an area gradient, and the marker that draws
+ * the frame's active point.
+ */
+import { CartesianGrid, ReferenceDot, ReferenceLine, XAxis, YAxis } from './runtime.js';
+import { useChartFrame } from './frame.jsx';
+
+/** Supporting-text size and muted ink for axis ticks. */
+export const chartAxisTick = { 'fill': 'var(--ds-color-text-muted)', 'fontSize': 12 };
+
+/** Reference, annotation and status tones mapped to chart tokens. */
+export const chartTones = {
+  'accent': 'var(--ds-color-accent)',
+  'danger': 'var(--ds-color-chart-negative)',
+  'neutral': 'var(--ds-color-chart-baseline)',
+  'success': 'var(--ds-color-chart-positive)',
+  'warning': 'var(--ds-color-warning)'
+};
+
+/** Horizontal grid lines; pass `vertical` for a full grid. */
+export function ChartGrid({ vertical = false, ...props }) {
+  return <CartesianGrid stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' vertical={ vertical } { ...props } />;
+}
+
+/** Category or number axis along the bottom, without axis or tick lines. */
+export function ChartXAxis(props) {
+  return <XAxis axisLine={ false } minTickGap={ 12 } tick={ chartAxisTick } tickLine={ false } { ...props } />;
+}
+
+/** Value axis on the left, sized to its longest label; pass `ticks` from niceTicks for round values. */
+export function ChartYAxis(props) {
+  return <YAxis axisLine={ false } tick={ chartAxisTick } tickLine={ false } width='auto' { ...props } />;
+}
+
+/**
+ * Build a Recharts tooltip `content` from rows.
+ *
+ * @param {(context: { label: unknown, payload: object[] }) => Array<{ label: React.ReactNode, value: React.ReactNode, color?: string }>} getRows
+ * @param {{ title?: (label: unknown, payload: object[]) => React.ReactNode }} [options]
+ * @returns {React.ComponentType} Pass as `<Tooltip content={<Rows />} />` or `content={Rows}`.
+ */
+export function createRowsTooltip(getRows, { title } = {}) {
+  function RowsTooltip({ active, label, payload }) {
+    if (!active || !payload?.length) return null;
+    const rows = getRows({ label, payload }).filter(Boolean);
+    const heading = title ? title(label, payload) : label;
+
+    return <ChartTooltipRows rows={ rows } title={ heading } />;
+  }
+
+  return RowsTooltip;
+}
+
+/** The tooltip panel: an optional title and label/value rows with colour swatches. */
+export function ChartTooltipRows({ rows = [], title }) {
+  return (
+    <div className='min-w-36 rounded-lg border border-border bg-surface px-3 py-2 text-xs shadow-lg' data-slot='chart-tooltip'>
+      {title != null && title !== '' ? <div className='mb-1 font-semibold text-text'>{title}</div> : null}
+      <div className='grid gap-1'>
+        {rows.map((row, index) => (
+          <div key={ `${row.label}-${index}` } className='flex items-center justify-between gap-5 text-text-muted'>
+            <span className='flex items-center gap-1.5'>
+              {row.color ? <span aria-hidden='true' className='size-2 shrink-0 rounded-sm' data-slot='chart-mark' style={{ 'background': row.color }} /> : null}
+              {row.label}
+            </span>
+            <span className='font-mono font-semibold tabular-nums text-text'>{row.value}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** The SVG label Recharts places on a reference line or dot. */
+export function ChartReferenceLabel({ fill = 'var(--ds-color-text-muted)', position = 'insideTopRight', value, viewBox }) {
+  if (!viewBox || value == null) return null;
+  const { height = 0, width = 0, x = 0, y = 0 } = viewBox;
+  const isVertical = width === 0 || width == null;
+  const atStart = String(position).includes('Left');
+  const tx = isVertical ? x + 4 : atStart ? x + 4 : x + width - 4;
+  const ty = isVertical ? y + 12 : y - 6;
+
+  return (
+    // A halo in the surface colour keeps the label readable where it crosses a line or an area.
+    <text dominantBaseline='auto' fill={ fill } fontSize={ 11 } fontWeight={ 500 } paintOrder='stroke' stroke='var(--ds-color-surface)' strokeLinejoin='round' strokeWidth={ 3 } textAnchor={ isVertical || atStart ? 'start' : 'end' } x={ tx } y={ ty + (isVertical ? 0 : height) }>
+      {value}
+    </text>
+  );
+}
+
+/**
+ * A labelled reference line at a value (`y`) or category (`x`): targets, averages, launches.
+ *
+ * @param {{ x?: unknown, y?: number, label?: string, tone?: keyof chartTones, dashed?: boolean }} props
+ */
+export function ChartReferenceLine({ dashed = true, label, tone = 'neutral', ...props }) {
+  const color = chartTones[tone] || tone;
+
+  return (
+    <ReferenceLine
+      ifOverflow='extendDomain'
+      label={ label ? <ChartReferenceLabel fill={ color } value={ label } /> : undefined }
+      stroke={ color }
+      strokeDasharray={ dashed ? '4 4' : undefined }
+      strokeWidth={ 1.5 }
+      { ...props }
+    />
+  );
+}
+
+/**
+ * Point annotations: a ringed dot and a short note at data coordinates.
+ *
+ * @param {{ annotations?: Array<{ x: unknown, y: number, label: string, tone?: keyof chartTones }> }} props
+ */
+export function ChartAnnotations({ annotations = [] }) {
+  return annotations.map((note) => (
+    <ReferenceDot
+      key={ `${note.x}-${note.y}-${note.label}` }
+      fill='var(--ds-color-surface)'
+      ifOverflow='extendDomain'
+      label={ <ChartReferenceLabel fill={ chartTones[note.tone] || chartTones.neutral } position='insideTopLeft' value={ note.label } /> }
+      r={ 5 }
+      stroke={ chartTones[note.tone] || chartTones.neutral }
+      strokeWidth={ 2 }
+      x={ note.x }
+      y={ note.y }
+    />
+  ));
+}
+
+/** Vertical gradient for an area fill; reference it as `fill='url(#id)'`. */
+export function ChartAreaGradient({ color, from = 0.28, id, to = 0 }) {
+  return (
+    <defs>
+      <linearGradient id={ id } x1='0' x2='0' y1='0' y2='1'>
+        <stop offset='5%' stopColor={ color } stopOpacity={ from } />
+        <stop offset='95%' stopColor={ color } stopOpacity={ to } />
+      </linearGradient>
+    </defs>
+  );
+}
+
+/**
+ * Draws the frame's active point on a category chart: a guide at its x and a dot per series.
+ *
+ * @param {{ data: object[], xKey: string, series: Array<{ key: string, color: string, yAxisId?: string }> }} props
+ */
+export function ChartActiveMarker({ data, series, xKey }) {
+  const frame = useChartFrame();
+  const index = frame?.activeIndex;
+  if (index == null || !data[index]) return null;
+  const point = data[index];
+
+  return (
+    <>
+      <ReferenceLine stroke='var(--ds-color-chart-baseline)' strokeDasharray='3 3' x={ point[xKey] } />
+      {series.map((item) => (typeof point[item.key] === 'number' ? (
+        <ReferenceDot key={ item.key } fill={ item.color } r={ 5 } stroke='var(--ds-color-surface)' strokeWidth={ 2 } x={ point[xKey] } y={ point[item.key] } yAxisId={ item.yAxisId } />
+      ) : null))}
+    </>
+  );
+}
+
+/** Recharts mouse handlers that keep the frame's active point in sync with the pointer. */
+export function useRechartsActive() {
+  const frame = useChartFrame();
+
+  return {
+    'onMouseLeave': () => {
+      if (!frame?.keyboard) frame?.setActive(null);
+    },
+    'onMouseMove': (state) => {
+      const index = state?.activeTooltipIndex;
+      if (index == null || index === '') return;
+      const number = Number(index);
+      if (Number.isInteger(number)) frame?.setActive(number);
+    }
+  };
+}

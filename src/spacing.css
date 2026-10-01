@@ -45,8 +45,8 @@
 
 /*
  * Intrinsic shapes keep their geometry at every density. Icons, toggles,
- * checkboxes, radios, sliders, avatars, keys, badges, stars, spinners and
- * calendar day cells are drawn shapes rather than padded text, so scaling their
+ * checkboxes, radios, sliders, avatars, keys, badges, stars, spinners,
+ * calendar day cells and chart marks (swatches, bar tracks) are drawn shapes rather than padded text, so scaling their
  * height without their width would squash them. Resetting the multiplier on the
  * part also fixes everything inside it, such as a switch thumb.
  */
@@ -65,6 +65,7 @@
   [data-slot='spinner'],
   [data-slot='marker-icon'],
   [data-slot^='rating-star'],
+  [data-slot='chart-mark'],
   .ds-part-calendar-day-button,
   .rdp-nav,
   .ds-part-resizable-handle-icon

@@ -173,6 +173,38 @@
     --ds-color-chart-6: #64748b;
     --ds-color-chart-cursor: rgba(37, 99, 235, 0.08);
     --ds-color-chart-grid: rgba(148, 163, 184, 0.35);
+    /* Charts: categorical 7–8, neutrals, status, and the sequential, diverging and heatmap ramps (low → high). */
+    --ds-color-chart-7: #9333ea;
+    --ds-color-chart-8: #15803d;
+    --ds-color-chart-muted: #8a8a8a;
+    --ds-color-chart-baseline: #737373;
+    --ds-color-chart-track: #ececec;
+    --ds-color-chart-positive: #15803d;
+    --ds-color-chart-negative: #be123c;
+    --ds-color-chart-total: #404040;
+    --ds-color-chart-seq-1: #dbeafe;
+    --ds-color-chart-seq-2: #93c5fd;
+    --ds-color-chart-seq-3: #3b82f6;
+    --ds-color-chart-seq-4: #1d4ed8;
+    --ds-color-chart-seq-5: #1e3a8a;
+    --ds-color-chart-div-neg-2: #be123c;
+    --ds-color-chart-div-neg-1: #fb7185;
+    --ds-color-chart-div-mid: #e5e5e5;
+    --ds-color-chart-div-pos-1: #60a5fa;
+    --ds-color-chart-div-pos-2: #1d4ed8;
+    --ds-color-chart-div-ink: #ffffff;
+    --ds-color-chart-heat-0: #f5f5f5;
+    --ds-color-chart-heat-1: #e0e7ff;
+    --ds-color-chart-heat-2: #a5b4fc;
+    --ds-color-chart-heat-3: #4f46e5;
+    --ds-color-chart-heat-4: #3730a3;
+    --ds-color-chart-heat-5: #1e1b4b;
+    --ds-color-chart-heat-ink-0: #171717;
+    --ds-color-chart-heat-ink-1: #171717;
+    --ds-color-chart-heat-ink-2: #171717;
+    --ds-color-chart-heat-ink-3: #ffffff;
+    --ds-color-chart-heat-ink-4: #ffffff;
+    --ds-color-chart-heat-ink-5: #ffffff;
 
     /* Table component */
     --ds-color-scrollbar-thumb: #d1d5db;
@@ -438,6 +470,38 @@
     --ds-color-chart-6: #94a3b8;
     --ds-color-chart-cursor: rgba(59, 130, 246, 0.16);
     --ds-color-chart-grid: rgba(148, 163, 184, 0.26);
+    /* Charts: dark ramps run from near the surface to bright, so higher values read stronger. */
+    --ds-color-chart-7: #c084fc;
+    --ds-color-chart-8: #4ade80;
+    --ds-color-chart-muted: #737373;
+    --ds-color-chart-baseline: #8a8a8a;
+    --ds-color-chart-track: #2e2e2e;
+    --ds-color-chart-positive: #4ade80;
+    --ds-color-chart-negative: #fb7185;
+    --ds-color-chart-total: #d4d4d4;
+    --ds-color-chart-seq-1: #1e3a8a;
+    --ds-color-chart-seq-2: #1d4ed8;
+    --ds-color-chart-seq-3: #3b82f6;
+    --ds-color-chart-seq-4: #93c5fd;
+    --ds-color-chart-seq-5: #dbeafe;
+    --ds-color-chart-div-neg-2: #fb7185;
+    --ds-color-chart-div-neg-1: #9f1239;
+    --ds-color-chart-div-mid: #404040;
+    --ds-color-chart-div-pos-1: #1d4ed8;
+    --ds-color-chart-div-pos-2: #93c5fd;
+    --ds-color-chart-div-ink: #171717;
+    --ds-color-chart-heat-0: #262626;
+    --ds-color-chart-heat-1: #1e1b4b;
+    --ds-color-chart-heat-2: #3730a3;
+    --ds-color-chart-heat-3: #4f46e5;
+    --ds-color-chart-heat-4: #a5b4fc;
+    --ds-color-chart-heat-5: #e0e7ff;
+    --ds-color-chart-heat-ink-0: #e5e5e5;
+    --ds-color-chart-heat-ink-1: #ffffff;
+    --ds-color-chart-heat-ink-2: #ffffff;
+    --ds-color-chart-heat-ink-3: #ffffff;
+    --ds-color-chart-heat-ink-4: #171717;
+    --ds-color-chart-heat-ink-5: #171717;
 
     /* Table component */
     --ds-color-scrollbar-thumb: #6b7280;

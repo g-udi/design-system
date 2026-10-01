@@ -13,7 +13,28 @@ import CustomLink from '../core/Link';
 import { BlogNewsletterForm } from '../layout/NewsletterForm';
 import Aside from './Aside';
 import Callout from './Callout';
-import Chart, { AreaChart, BarChart, ComposedChart, DonutChart, LineChart, PieChart, RadialBarChart, ScatterChart } from './Chart';
+import Chart, {
+  AreaChart,
+  BarChart,
+  BoxPlotChart,
+  BubbleChart,
+  ComposedChart,
+  DonutChart,
+  FunnelChart,
+  GaugeChart,
+  HeatmapChart,
+  HistogramChart,
+  LineChart,
+  PieChart,
+  RadialBarChart,
+  RangeChart,
+  SankeyChart,
+  ScatterChart,
+  Sparkline,
+  StackedBarList,
+  TreemapChart,
+  WaterfallChart
+} from './Chart';
 import CitationPopover from './CitationPopover';
 import CitationTracker from './CitationTracker';
 import { CodeFence, CodeGroup } from './Code';
@@ -40,6 +61,8 @@ export const MDXComponents = {
   Aside,
   BarChart,
   BlogNewsletterForm,
+  BoxPlotChart,
+  BubbleChart,
   Callout,
   Chart,
   CitationPopover,
@@ -52,7 +75,11 @@ export const MDXComponents = {
   Faq,
   FileTree,
   Footnote,
+  FunnelChart,
+  GaugeChart,
+  HeatmapChart,
   Highlight,
+  HistogramChart,
   Image,
   ImageModal,
   LineChart,
@@ -61,10 +88,16 @@ export const MDXComponents = {
   Preview,
   Quote,
   RadialBarChart,
+  RangeChart,
+  SankeyChart,
   ScatterChart,
+  Sparkline,
+  StackedBarList,
   Table,
   Tooltip,
+  TreemapChart,
   Video,
+  WaterfallChart,
   'a': CustomLink,
   'pre': CodeFence,
   'table': Table,
@@ -72,12 +105,14 @@ export const MDXComponents = {
   'td': TableCell,
   'th': TableHeaderCell,
   'thead': TableHead,
-  'tr': TableRow
-};
+  'tr': TableRow};
 
-export { AreaChart,
+export {
+  AreaChart,
   Aside,
   BarChart,
+  BoxPlotChart,
+  BubbleChart,
   Callout,
   Chart,
   CitationPopover,
@@ -90,7 +125,11 @@ export { AreaChart,
   Faq,
   FileTree,
   Footnote,
+  FunnelChart,
+  GaugeChart,
+  HeatmapChart,
   Highlight,
+  HistogramChart,
   Image,
   ImageModal,
   LineChart,
@@ -99,15 +138,23 @@ export { AreaChart,
   Preview,
   Quote,
   RadialBarChart,
+  RangeChart,
+  SankeyChart,
   ScatterChart,
+  Sparkline,
+  StackedBarList,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeaderCell,
   TableRow,
-  Tooltip, Video,
-  videoAnimationStyles };
+  Tooltip,
+  TreemapChart,
+  Video,
+  videoAnimationStyles,
+  WaterfallChart
+};
 
 // Composition exports
 export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from './Chart/index.js';
