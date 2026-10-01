@@ -9,8 +9,10 @@ import {
 } from 'react';
 import { mergeDataGridI18n } from './data-grid-i18n-extended.jsx';
 import {
+  aggregationFns,
   cellSelectionFeature,
   columnFacetingFeature,
+  columnGroupingFeature,
   columnFilteringFeature,
   columnOrderingFeature,
   columnPinningFeature,
@@ -21,10 +23,12 @@ import {
   createFacetedRowModel,
   createFacetedUniqueValues,
   createFilteredRowModel,
+  createGroupedRowModel,
   createPaginatedRowModel,
   createSortedRowModel,
   globalFilteringFeature,
   metaHelper,
+  rowAggregationFeature,
   rowExpandingFeature,
   rowPaginationFeature,
   rowPinningFeature,
@@ -63,6 +67,13 @@ export const dataGridFeatures = tableFeatures({
   // prototype methods but binds no DOM handlers, so grids without
   // `tableLayout.cellSelection` render and behave exactly as before.
   cellSelectionFeature,
+  // Grouping is inert until `grouping` state names a column; grouped rows then
+  // carry aggregated values from each column's `aggregationFn`, and the same
+  // registry powers `column.getAggregationValue()` for footer totals.
+  columnGroupingFeature,
+  rowAggregationFeature,
+  groupedRowModel: createGroupedRowModel(),
+  aggregationFns,
   sortedRowModel: createSortedRowModel(),
   filteredRowModel: createFilteredRowModel(),
   paginatedRowModel: createPaginatedRowModel(),
@@ -371,6 +382,7 @@ function DataGridProvider({ children, table, ...props }) {
       tableState.rowSelection,
       tableState.rowPinning,
       tableState.expanded,
+      tableState.grouping,
       tableState.columnVisibility,
       tableState.columnOrder,
       tableState.columnPinning,
@@ -406,6 +418,7 @@ function DataGrid({ children, table, ...props }) {
       // columnsResizeMode has no default on purpose: when unset, the
       // consumer's tanstack columnResizeMode (default "onEnd") is honored.
       columnsPinnable: false,
+      columnsGroupable: false,
       columnsMovable: false,
       columnsDraggable: false,
       rowsDraggable: false,

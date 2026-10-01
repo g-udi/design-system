@@ -745,6 +745,74 @@
   .ds-table-pin-right {
     box-shadow: inset 1px 0 0 var(--ds-color-border);
   }
+  /*
+   * One stacking ladder for everything that sticks: pinned columns, pinned
+   * rows where they cross, the header, then the sticky header above all of it.
+   */
+  .ds-table-cell.ds-table-pinned,
+  .ds-table-foot.ds-table-pinned {
+    z-index: 2;
+  }
+  .ds-table-head.ds-table-pinned {
+    z-index: 5;
+  }
+  .ds-table[data-sticky] > thead .ds-table-head {
+    position: sticky;
+    top: var(--ds-table-sticky-top, 0px);
+    z-index: 6;
+  }
+  .ds-table[data-sticky] > thead .ds-table-head.ds-table-pinned {
+    z-index: 7;
+  }
+  /* Container mode scrolls the table in place; page mode lets the page scroll so the header can stick under app chrome. */
+  .ds-table-scroll[data-sticky='container'] {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  .ds-table-frame[data-sticky='page'],
+  .ds-table-scroll[data-sticky='page'] {
+    overflow: visible;
+  }
+  .ds-table-frame[data-sticky='page'] .ds-table {
+    min-width: 0;
+  }
+  /* Pinned rows: an opaque band that stays at the top or bottom while the other rows scroll. */
+  .ds-table-row[data-row-pinned] {
+    background: color-mix(in oklab, var(--ds-color-surface-muted) 55%, var(--ds-color-surface));
+  }
+  .ds-table-row[data-row-pinned] > .ds-table-cell {
+    background: inherit;
+  }
+  .ds-table-row[data-row-stuck] > .ds-table-cell {
+    position: sticky;
+    z-index: 3;
+  }
+  .ds-table-row[data-row-stuck] > .ds-table-cell.ds-table-pinned {
+    z-index: 4;
+  }
+  .ds-table-row[data-row-stuck='top'] > .ds-table-cell {
+    top: var(--ds-table-row-top, 0px);
+  }
+  .ds-table-row[data-row-stuck='bottom'] > .ds-table-cell {
+    bottom: var(--ds-table-row-bottom, 0px);
+  }
+  .ds-table-row[data-pin-edge='top'] > .ds-table-cell {
+    border-bottom-color: color-mix(in oklab, var(--ds-color-text) 22%, var(--ds-color-border));
+  }
+  .ds-table-row[data-pin-edge='bottom'] > .ds-table-cell {
+    border-top: 1px solid color-mix(in oklab, var(--ds-color-text) 22%, var(--ds-color-border));
+  }
+  .ds-table-sort-order {
+    display: inline-grid;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    place-items: center;
+    border-radius: var(--ds-radius-pill);
+    background: var(--ds-color-surface-muted);
+    color: var(--ds-color-text);
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
   /* Edge chevrons replace scroll shadows: they fade in on hover where more columns wait. */
   .ds-table-edge {
     position: absolute;

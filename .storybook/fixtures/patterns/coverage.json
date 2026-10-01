@@ -1235,7 +1235,7 @@
           "title": "Layout options",
           "description": "Layout options",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-1.jsx",
-          "sha256": "e6272d46e4fe745f394ec78eb646015a303273f828d13f4e1722bb191ca23007",
+          "sha256": "eaed8569ddd0a0ca6883cfbde9b10419156263fde81458da878595d29f0fefcf",
           "storyId": "core-datatable--data-grid-pattern-1"
         },
         {
@@ -1243,7 +1243,7 @@
           "title": "Sub table",
           "description": "Sub table",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-9.jsx",
-          "sha256": "ec19230f7fd124e64dd4929ac59aa9a2b0d5b2d636068eb22751e6d5752dda37",
+          "sha256": "31139e02c9133ea083f3d44e9e7894c6077f198c7a07c7bd7c9c3ba3a1867e51",
           "storyId": "core-datatable--data-grid-pattern-9"
         },
         {
@@ -1251,7 +1251,7 @@
           "title": "Draggable rows and columns",
           "description": "Draggable rows and columns",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-14.jsx",
-          "sha256": "7dbce3479a3ad92def63e8e024ae05a8aa4491fe7728a8498ef3d3e524a6c175",
+          "sha256": "0c65fbdf209d32b79b7c5f3c343e97a6d42eec08aba9da7b1426a3967dc46088",
           "storyId": "core-datatable--data-grid-pattern-14"
         },
         {
@@ -1259,7 +1259,7 @@
           "title": "Column controls",
           "description": "Column controls",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-19.jsx",
-          "sha256": "efc81bc6b1f43cd5eef38ddecf9aec41cdc0825be10d0bc8b37215dc9c754db5",
+          "sha256": "b0c4c69eef3699d871364ee3607845a6b66659e56f2ccf259167e06f1d475964",
           "storyId": "core-datatable--data-grid-pattern-19"
         },
         {
@@ -1267,15 +1267,15 @@
           "title": "CRUD in a frame",
           "description": "CRUD in a frame",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-23.jsx",
-          "sha256": "f0d4731ee5e7a9f9cc99a5710157448965acec37042aeb9f59f6b70bbdd39c63",
+          "sha256": "039949f902e73eed5b32683d2a3613e0f9d29cc74fe63df432ed0531c797012a",
           "storyId": "core-datatable--data-grid-pattern-23"
         },
         {
           "name": "c-data-grid-26",
-          "title": "Footer totals and aggregates",
-          "description": "Footer totals and aggregates",
+          "title": "Grouping and aggregation",
+          "description": "Grouping and aggregation",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-26.jsx",
-          "sha256": "3fb9f02a874b745add26a690b4ace1a4964149951affc950afaae87fa9c2b3b6",
+          "sha256": "ed4c4c93e3535a8820915199a0f6c6112198a9d7feb94441f3814feebe52637d",
           "storyId": "core-datatable--data-grid-pattern-26"
         },
         {
@@ -1283,7 +1283,7 @@
           "title": "Infinite scroll",
           "description": "Infinite scroll",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-28.jsx",
-          "sha256": "7edd683a5dcfe46f71b65ccd7feafaa5b2fde701400e3e5c6c482b8b2930ec66",
+          "sha256": "bca39ebf355baeeb4990ef39993cd7a3b2f4b2e3748e2f33c65994aff78afd61",
           "storyId": "core-datatable--data-grid-pattern-28"
         },
         {
@@ -1291,7 +1291,7 @@
           "title": "Selection, expansion and pinned rows",
           "description": "Selection, expansion and pinned rows",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-29.jsx",
-          "sha256": "875bc3c8c6dc20681117ddd341efbdd584a3f3a0967844af9d340fe36f90c809",
+          "sha256": "252b68e3a7776c4efda3b96db5f4f216e5a7fbd4f579e886cf661477dd863d03",
           "storyId": "core-datatable--data-grid-pattern-29"
         },
         {
@@ -1299,7 +1299,7 @@
           "title": "Tree rows",
           "description": "Tree rows",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-30.jsx",
-          "sha256": "4bb0927bb97cd7cadcec88f7202703664df1ec1be28f2c30be3899928587b49a",
+          "sha256": "4fdcd2fd50d0bfa727aab5b3f9d3ebab54b1ee16707ec740d305b4047ebd2b51",
           "storyId": "core-datatable--data-grid-pattern-30"
         },
         {
@@ -1307,7 +1307,7 @@
           "title": "Spreadsheet editing",
           "description": "Spreadsheet editing",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-31.jsx",
-          "sha256": "b27230e41eeb7e47278bd36a2e7838deb862e940ed8d66ec184ca7855d4f939e",
+          "sha256": "02885038e208e19708b46cccd97696ecb605f4bec30f542568a7e09c25163102",
           "storyId": "core-datatable--data-grid-pattern-31"
         },
         {
@@ -1315,7 +1315,7 @@
           "title": "Column virtualization",
           "description": "Column virtualization",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-32.jsx",
-          "sha256": "16b8664b7bc720fb5eafa850dc332de3eef47c85c5b89135ed8559794a177bda",
+          "sha256": "430e3bc8f8b5a5e15b01af4c30cb3d97c267e950e60c14ec0699092a3a759fde",
           "storyId": "core-datatable--data-grid-pattern-32"
         },
         {
@@ -1323,8 +1323,16 @@
           "title": "Server-side pagination",
           "description": "Server-side pagination",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-34.jsx",
-          "sha256": "bc0931d7c0b6dfe591a67a54c5f663e05ecad419da72d7912d3daf11f361706d",
+          "sha256": "d442a1b5f18d40e0cdf229c0d0f581dd4e67bb1e24f6703186f6806ac411bf18",
           "storyId": "core-datatable--data-grid-pattern-34"
+        },
+        {
+          "name": "c-data-grid-35",
+          "title": "Export to CSV",
+          "description": "Export to CSV",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-35.jsx",
+          "sha256": "4f4d18f95f66b6d2a2c61e3595b7f8da07a0eb3ee4425fa83f14ef6147ff7fcd",
+          "storyId": "core-datatable--data-grid-pattern-35"
         }
       ]
     },

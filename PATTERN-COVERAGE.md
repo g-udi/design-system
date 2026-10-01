@@ -56,7 +56,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | combobox | [core/Select](src/components/core/Select/index.js) | 8 |
 | command | [core/Commander](src/components/core/Commander/index.js) | 3 |
 | context-menu | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 2 |
-| data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 12 |
+| data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 13 |
 | date-selector | [core/Calendar](src/components/core/Calendar/index.js) | 3 |
 | dialog | [core/Dialog](src/components/core/Dialog/index.js) | 5 |
 | drawer | [core/Dialog](src/components/core/Dialog/index.js) | 1 |
