@@ -34,7 +34,7 @@ import { default as Textarea } from '../../../../src/components/core/Textarea/in
 export function Pattern() {
   const [cpu, setCpu] = useState([75]);
   return (
-    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
       <Field>
         <FieldLabel htmlFor='field-username'>Username</FieldLabel>
         <InputGroup>
@@ -86,7 +86,7 @@ export function Pattern() {
         <Slider id='field-cpu' aria-label='CPU allocation' value={cpu} onValueChange={setCpu} max={100} step={5} />
         <FieldDescription>Caps the resources the app can use.</FieldDescription>
       </Field>
-      <Field>
+      <Field className='sm:col-span-2'>
         <FieldLabel htmlFor='field-code'>Security code</FieldLabel>
         <InputOTP id='field-code' maxLength={6}>
           <InputOTPGroup>

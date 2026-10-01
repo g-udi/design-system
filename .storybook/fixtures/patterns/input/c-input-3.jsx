@@ -27,8 +27,8 @@ export function Pattern() {
   const [description, setDescription] = useState('');
   return (
     <TooltipProvider>
-      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
-        <Field>
+      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
+        <Field className='sm:col-span-2'>
           <div className='flex items-center gap-1.5'>
             <FieldLabel htmlFor='input-username'>Username</FieldLabel>
             <Tooltip>

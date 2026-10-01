@@ -41,7 +41,7 @@ export const Playground = {
   },
   render: (args) => (
     <form className='grid gap-5' onSubmit={(event) => event.preventDefault()}>
-      <div className='grid items-start gap-5 sm:grid-cols-2'>
+      <div className='grid gap-5'>
         <Field>
           <FieldLabel>Display name</FieldLabel>
           <FieldInput defaultValue={profile.name} autoComplete='name' />

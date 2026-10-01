@@ -9,9 +9,9 @@ import {
 import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 
 // Free-text search with suggestions. Each field below changes one input option.
-function TagAutocomplete({ id, label, inputProps, ...props }) {
+function TagAutocomplete({ id, label, inputProps, className, ...props }) {
   return (
-    <div className='flex flex-col gap-2'>
+    <div className={`flex flex-col gap-2 ${className || ''}`}>
       <Label htmlFor={id}>{label}</Label>
       <Autocomplete items={items} {...props}>
         <AutocompleteInput id={id} placeholder='e.g. feature' {...inputProps} />
@@ -32,7 +32,7 @@ function TagAutocomplete({ id, label, inputProps, ...props }) {
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
       <TagAutocomplete id='autocomplete-basic' label='Tag' />
       <TagAutocomplete id='autocomplete-highlight' label='Auto highlight' autoHighlight />
       <TagAutocomplete id='autocomplete-clear' label='Clear button' defaultValue='Feature' inputProps={{ showClear: true }} />
@@ -40,7 +40,7 @@ export function Pattern() {
       <TagAutocomplete id='autocomplete-both' label='Clear and trigger' defaultValue='Docs' inputProps={{ showTrigger: true, showClear: true }} />
       <TagAutocomplete id='autocomplete-disabled' label='Disabled' disabled defaultValue='Bug' />
       <TagAutocomplete id='autocomplete-sm' label='Small' inputProps={{ size: 'sm', showTrigger: true, showClear: true }} />
-      <TagAutocomplete id='autocomplete-lg' label='Large' inputProps={{ size: 'lg', showTrigger: true, showClear: true }} />
+      <TagAutocomplete id='autocomplete-lg' label='Large' className='sm:col-span-2' inputProps={{ size: 'lg', showTrigger: true, showClear: true }} />
     </div>
   );
 }

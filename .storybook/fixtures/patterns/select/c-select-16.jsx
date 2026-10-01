@@ -36,7 +36,7 @@ function TwoLine({ item }) {
 // one line; the plan trigger grows to show both lines.
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-sm gap-y-6'>
       <Field>
         <FieldLabel htmlFor='select-access'>Access level</FieldLabel>
         <Select defaultValue='edit'>

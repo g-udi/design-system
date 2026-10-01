@@ -80,6 +80,9 @@ export const FamilyPattern2 = { name: 'Another use case', ...pattern(2, 'Only wh
   radius, border, density, placement or orientation belong in one example: a tight gallery with small labels, or one
   rich composition with in-example toggles (see `data-grid/c-data-grid-1.jsx`, which switches every layout flag on
   one grid). Keep distinct workflows (async, validation, controlled state, keyboard, composition) separate.
+- In a gallery grid, examples in one row match in height. An example that is taller (a description, an error,
+  a larger size, a multi-line control) takes its own full row (`sm:col-span-2`), and the grid uses
+  `sm:grid-flow-dense` so the remaining examples pair up.
 - Keep `name` literal and export names stable: `coverage.json` and `catalogue.json` track story IDs. When examples
   merge, keep the base example's export and delete the others with their fixtures and coverage entries.
 - Fixtures export `Pattern`, import from `src/` paths that `publicSource` can rewrite, cap their own width

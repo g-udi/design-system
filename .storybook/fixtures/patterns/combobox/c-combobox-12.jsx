@@ -20,10 +20,10 @@ import {
 
 const frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];
 
-function FrameworkChips({ id, label, removable = true, error, disabled, defaultValue }) {
+function FrameworkChips({ id, label, removable = true, error, disabled, defaultValue, className }) {
   const anchor = useComboboxAnchor();
   return (
-    <Field data-invalid={error ? true : undefined}>
+    <Field data-invalid={error ? true : undefined} className={className}>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <Combobox multiple autoHighlight items={frameworks} defaultValue={defaultValue} disabled={disabled}>
         <ComboboxChips ref={anchor}>
@@ -62,7 +62,7 @@ function FrameworkChips({ id, label, removable = true, error, disabled, defaultV
 
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-full max-w-xl gap-3 sm:grid-cols-2'>
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
       <FrameworkChips id='chips-removable' label='Removable chips' defaultValue={[frameworks[0]]} />
       <FrameworkChips
         id='chips-fixed'
@@ -79,6 +79,7 @@ export function Pattern() {
       <FrameworkChips
         id='chips-invalid'
         label='Invalid'
+        className='sm:col-span-2'
         defaultValue={[frameworks[3]]}
         error='Pick at least two frameworks.'
       />

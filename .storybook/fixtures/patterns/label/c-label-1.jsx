@@ -18,7 +18,7 @@ export function Pattern() {
   const [bio, setBio] = useState(0);
   return (
     <TooltipProvider>
-      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>
+      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
         <Field>
           <Label htmlFor='label-required'>
             Email address
@@ -52,7 +52,7 @@ export function Pattern() {
           </Label>
           <Input id='label-badge' type='url' defaultValue='https://api.example.com/hooks' className='font-mono text-xs' />
         </Field>
-        <Field>
+        <Field className='sm:col-span-2'>
           <div className='flex flex-col gap-1'>
             <Label htmlFor='label-helper'>Project key</Label>
             <FieldDescription>Used in issue IDs, like GDS-42.</FieldDescription>
