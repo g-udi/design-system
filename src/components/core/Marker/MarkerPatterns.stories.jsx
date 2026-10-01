@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/marker/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Data Display/Marker', id: 'core-marker', tags: ['autodocs'], ...catalogueMeta('marker') };
+export default { title: 'Core/Marker', id: 'core-marker', tags: ['autodocs'], ...catalogueMeta('marker') };
 
 export const MarkerPattern4 = { name: 'Run log grouped by phase', ...pattern(4, 'Separator markers name each phase; default markers with icons list its steps.') };
 export const MarkerPattern3 = { name: 'Run status with a live step', ...pattern(3, 'Settled, failed, and in-progress steps, with a spinner on the live one.') };

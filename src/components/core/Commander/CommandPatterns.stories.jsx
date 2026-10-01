@@ -39,8 +39,8 @@ export const CommandPattern4 = {
   play: async ({ canvasElement }) => {
     const palette = await openPalette(canvasElement, 'Quick Actions');
     await userEvent.keyboard('zoom');
-    await expect(palette.getByRole('option', { name: /Zoom In/ })).toBeVisible();
-    await expect(palette.queryByRole('option', { name: /New Project/ })).not.toBeInTheDocument();
+    await expect(await palette.findByRole('option', { name: /Zoom In/ })).toBeVisible();
+    await waitFor(() => expect(palette.queryByRole('option', { name: /New Project/ })).not.toBeInTheDocument());
     await closePalette();
   }
 };
@@ -50,8 +50,8 @@ export const CommandPattern5 = {
   play: async ({ canvasElement }) => {
     const palette = await openPalette(canvasElement, /Search/);
     await userEvent.keyboard('sarah@');
-    await expect(palette.getByRole('option', { name: /Sarah Chen/ })).toBeVisible();
-    await expect(palette.queryByRole('option', { name: /page\.tsx/ })).not.toBeInTheDocument();
+    await expect(await palette.findByRole('option', { name: /Sarah Chen/ })).toBeVisible();
+    await waitFor(() => expect(palette.queryByRole('option', { name: /page\.tsx/ })).not.toBeInTheDocument());
     await closePalette();
     await userEvent.keyboard('{Meta>}k{/Meta}');
     await expect(await within(document.body).findByRole('dialog')).toBeVisible();

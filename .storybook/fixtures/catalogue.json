@@ -1534,7 +1534,7 @@
     },
     "core-marker--playground": {
       "id": "core-marker--playground",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1545,7 +1545,7 @@
     },
     "core-marker--docs": {
       "id": "core-marker--docs",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2223,7 +2223,7 @@
     },
     "core-texthighlight--playground": {
       "id": "core-texthighlight--playground",
-      "title": "Core/Data Display/TextHighlight",
+      "title": "Core/TextHighlight",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2234,7 +2234,7 @@
     },
     "core-texthighlight--docs": {
       "id": "core-texthighlight--docs",
-      "title": "Core/Data Display/TextHighlight",
+      "title": "Core/TextHighlight",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -2244,7 +2244,7 @@
     },
     "core-texthighlight--tones": {
       "id": "core-texthighlight--tones",
-      "title": "Core/Data Display/TextHighlight",
+      "title": "Core/TextHighlight",
       "name": "Tones",
       "type": "story",
       "tags": [
@@ -5202,7 +5202,7 @@
     },
     "core-marker--marker-pattern-4": {
       "id": "core-marker--marker-pattern-4",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Run log grouped by phase",
       "type": "story",
       "tags": [
@@ -5212,7 +5212,7 @@
     },
     "core-marker--marker-pattern-3": {
       "id": "core-marker--marker-pattern-3",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Run status with a live step",
       "type": "story",
       "tags": [
@@ -5222,7 +5222,7 @@
     },
     "core-marker--marker-pattern-5": {
       "id": "core-marker--marker-pattern-5",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Changed files with border markers",
       "type": "story",
       "tags": [
@@ -5232,7 +5232,7 @@
     },
     "core-marker--marker-pattern-6": {
       "id": "core-marker--marker-pattern-6",
-      "title": "Core/Data Display/Marker",
+      "title": "Core/Marker",
       "name": "Links and an action button",
       "type": "story",
       "tags": [

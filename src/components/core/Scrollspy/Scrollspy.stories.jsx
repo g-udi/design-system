@@ -111,11 +111,11 @@ export const Playground = {
       expect(anchor('Usage')).toHaveAttribute('data-active', 'true');
       expect(anchor(titles[0])).not.toHaveAttribute('data-active');
     });
-    await expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor);
     // The clicked section lands `offset` pixels below the top, just under the sticky header.
     const usage = document.getElementById(anchor('Usage').dataset.scrollspyAnchor);
     const target = Math.min(usage.offsetTop - args.offset, viewport.scrollHeight - viewport.clientHeight);
     await waitFor(() => expect(Math.abs(viewport.scrollTop - target)).toBeLessThanOrEqual(1));
+    await waitFor(() => expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor));
     anchor('Usage').blur();
   }
 };

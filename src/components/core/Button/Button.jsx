@@ -51,13 +51,17 @@ const resolveButtonVariants = createVariants({
 // Composition vocabulary (default, secondary, destructive, link) resolves to Gaudi variants and tones.
 const variantAliases = { default: 'solid', secondary: 'soft', destructive: 'solid', link: 'subtle' };
 
+// Only primary actions and links carry the accent by default; quiet variants stay neutral so screens don't turn blue.
+const quietVariants = new Set([ 'outline', 'ghost', 'soft', 'secondary' ]);
+const defaultTone = (variant) => (variant === 'destructive' ? 'danger' : quietVariants.has(variant) ? 'neutral' : undefined);
+
 export const buttonVariants = Object.assign((options = {}) => {
   const { variant, size, tone, ...rest } = options;
   return resolveButtonVariants({
     ...rest,
     variant: variantAliases[variant] || variant,
     size: size === 'default' ? 'md' : size,
-    tone: tone || (variant === 'destructive' ? 'danger' : variant === 'secondary' ? 'neutral' : undefined)
+    tone: tone || defaultTone(variant)
   });
 }, { variants: resolveButtonVariants.variants, defaultVariants: resolveButtonVariants.defaultVariants });
 

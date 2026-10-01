@@ -14,7 +14,7 @@ const supporting = ['fewer regressions', 'what changed'];
 const prose = 'text-2xl font-semibold text-text';
 
 export default {
-  title: 'Core/Data Display/TextHighlight',
+  title: 'Core/TextHighlight',
   id: 'core-texthighlight',
   component: TextHighlight,
   tags: ['autodocs'],

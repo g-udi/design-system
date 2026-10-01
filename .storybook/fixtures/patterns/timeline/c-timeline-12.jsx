@@ -41,7 +41,7 @@ export function Pattern() {
         <Switch size='sm' checked={datesAbove} onCheckedChange={setDatesAbove} />
         Dates above the rail
       </Label>
-      <Timeline defaultValue={3} orientation='horizontal' className='overflow-x-auto'>
+      <Timeline defaultValue={3} orientation='horizontal' className='overflow-x-auto pt-3'>
         {releases.map((release) => (
           <TimelineItem
             key={release.id}

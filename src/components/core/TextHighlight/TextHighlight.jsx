@@ -32,7 +32,7 @@ export const textHighlightVariants = createVariants({
     'variant': {
       'marker': 'bg-linear-to-r px-1 pb-0.5',
       'soft': 'px-1 text-text',
-      'underline': 'bg-none px-0 pb-0 underline decoration-4 underline-offset-2'
+      'underline': 'bg-none px-0 pb-0 underline decoration-4 underline-offset-2 [text-decoration-skip-ink:none]'
     }
   }
 });
