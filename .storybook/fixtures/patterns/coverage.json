@@ -1982,23 +1982,87 @@
       ]
     },
     "kanban": {
-      "owner": "blocks/KanbanBoard",
+      "owner": "core/KanbanBoard",
       "examples": [
         {
           "name": "c-kanban-1",
           "title": "Board options",
           "description": "Board options",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-1.jsx",
-          "sha256": "5369c39042631a28b3082ec21e3526bb3dd7db9ca23e0d07fbef97d14230c0d0",
-          "storyId": "blocks-application-kanbanboard--kanban-pattern-1"
+          "sha256": "b588a572dc94b1801f5cf73ca86063173e1c77c4c37c112600ccb1181bfbd57c",
+          "storyId": "core-kanban--kanban-pattern-1"
+        },
+        {
+          "name": "c-kanban-2",
+          "title": "Issue tracking",
+          "description": "Issue tracking",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-2.jsx",
+          "sha256": "afffbcb69a5cc5389e50eade9d95a88f3d00622d0dd3392a293e789eec25f5db",
+          "storyId": "core-kanban--kanban-pattern-2"
+        },
+        {
+          "name": "c-kanban-3",
+          "title": "Workflow with collapsible columns",
+          "description": "Workflow with collapsible columns",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-3.jsx",
+          "sha256": "1e06887896a5c9c9b0f7aabe0af3563a9acc5e61bb2fe2ffbc538833f08d6de7",
+          "storyId": "core-kanban--kanban-pattern-3"
+        },
+        {
+          "name": "c-kanban-4",
+          "title": "Pipeline and access review",
+          "description": "Pipeline and access review",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-4.jsx",
+          "sha256": "ec10a635f916bae27530e8803b6339d18e1628b56879d656dff0406897ca7df8",
+          "storyId": "core-kanban--kanban-pattern-4"
+        },
+        {
+          "name": "c-kanban-5",
+          "title": "Feature roadmap",
+          "description": "Feature roadmap",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-5.jsx",
+          "sha256": "e21104cac32c9eac6cd70b897742cff6953f0741d4be658154f3e43d637bc798",
+          "storyId": "core-kanban--kanban-pattern-5"
         },
         {
           "name": "c-kanban-6",
           "title": "Persisted to a backend",
           "description": "Persisted to a backend",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-6.jsx",
-          "sha256": "a6f383b781b9959e9bdbaa07a471233598ec8e0694b218da4a48ffa3d872b9a0",
-          "storyId": "blocks-application-kanbanboard--kanban-pattern-6"
+          "sha256": "9cd341ebe742e4a0b9cd03628ff53828d95cdcbc3141eaa4fa39e11e99da8dd1",
+          "storyId": "core-kanban--kanban-pattern-6"
+        },
+        {
+          "name": "c-kanban-7",
+          "title": "Support escalations",
+          "description": "Support escalations",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-7.jsx",
+          "sha256": "5daa7392601544b3fe18c0fc41099bbd17e313c7048c6a18b389cb55db0ad3c2",
+          "storyId": "core-kanban--kanban-pattern-7"
+        },
+        {
+          "name": "c-kanban-8",
+          "title": "Renewals risk",
+          "description": "Renewals risk",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-8.jsx",
+          "sha256": "836389ab034d9e1b5ee8e3fce90138227f0ced8bf718e53080f02de7dfb0aafa",
+          "storyId": "core-kanban--kanban-pattern-8"
+        },
+        {
+          "name": "c-kanban-9",
+          "title": "Release readiness",
+          "description": "Release readiness",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-9.jsx",
+          "sha256": "aa075c8f5b3c008cb4345810022b8e25c409449b0cf10a7e4d39434708463a84",
+          "storyId": "core-kanban--kanban-pattern-9"
+        },
+        {
+          "name": "c-kanban-10",
+          "title": "Recruiting pipeline",
+          "description": "Recruiting pipeline",
+          "file": ".storybook/fixtures/patterns/kanban/c-kanban-10.jsx",
+          "sha256": "11dc2699bd5da0136a4fc40e450d3d6c3f16f32f9ed8738edc4dace50962a728",
+          "storyId": "core-kanban--kanban-pattern-10"
         }
       ]
     },

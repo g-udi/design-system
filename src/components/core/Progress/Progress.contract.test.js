@@ -32,3 +32,17 @@ test('an indeterminate composition bar stays visible for its CSS animation', asy
   // A translateX(-100%) offset would push the bar out of view.
   assert.doesNotMatch(html, /translateX\(-100%\)/);
 });
+
+test('ProgressRing clamps its value and exposes progressbar semantics', async () => {
+  const { ProgressRing } = await loadComponent(new URL('./parts/progress-ring.jsx', import.meta.url));
+  const { createElement } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const html = renderToStaticMarkup(createElement(ProgressRing, { value: 140, label: 'Upload', tone: 'success', size: 'md', showValue: true }));
+  assert.match(html, /role="progressbar"/);
+  assert.match(html, /aria-label="Upload"/);
+  assert.match(html, /aria-valuenow="100"/);
+  assert.match(html, /aria-valuetext="100%"/);
+  assert.match(html, /data-tone="success"/);
+  const small = renderToStaticMarkup(createElement(ProgressRing, { value: 30, size: 'xs', showValue: true }));
+  assert.doesNotMatch(small, />30</, 'xs rings are too small to print the value');
+});

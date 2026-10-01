@@ -47,7 +47,7 @@ test('original component documentation owns merged pages', () => {
     'core-breadcrumb--breadcrumb-pattern-1': 'Core/Navigation/Breadcrumb',
     'core-pagination--pagination-pattern-1': 'Core/Navigation/Pagination',
     'core-navigationmenu--navigation-menu-pattern-1': 'Core/Navigation/NavigationMenu',
-    'blocks-application-kanbanboard--kanban-pattern-1': 'Blocks/To Sort/KanbanBoard',
+    'core-kanban--kanban-pattern-1': 'Core/Planning/Kanban',
     'blocks-application-resourcelist--item-pattern-1': 'Blocks/To Sort/ResourceList',
     'blocks-application-appshell--sidebar-pattern-1': 'Blocks/To Sort/AppShell'
   };

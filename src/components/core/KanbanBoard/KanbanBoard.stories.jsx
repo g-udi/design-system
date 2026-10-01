@@ -4,12 +4,12 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import Avatar from '../../core/Avatar';
-import Icon from '../../core/Icon';
-import Pill from '../../core/Pill';
+import Avatar from '../Avatar';
+import Icon from '../Icon';
+import Pill from '../Pill';
 import KanbanBoard from './KanbanBoard';
 
-const docs = getComponentDocs('Blocks/KanbanBoard');
+const docs = getComponentDocs('Core/Kanban');
 const label = 'Editorial workflow';
 const moveLabel = 'Move';
 // "Scheduled" starts empty so the board shows `emptyLabel` beside busy columns.
@@ -37,8 +37,10 @@ const renderItem = (item) => (
   </div>
 );
 
-function Board({ onMove, disabled, ...args }) {
+function Board({ onMove, disabled, reviewLimit, ...args }) {
   const [items, setItems] = useState(initialItems);
+  // A column may carry a work-in-progress limit; the count shows it and warns once it runs over.
+  const boardColumns = columns.map((column) => (column.id === 'In review' && reviewLimit > 0 ? { ...column, limit: reviewLimit } : column));
   const move = (id, columnId) => {
     setItems((current) => current.map((item) => (item.id === id ? { ...item, columnId } : item)));
     onMove(id, columnId);
@@ -50,16 +52,19 @@ function Board({ onMove, disabled, ...args }) {
           Read-only: moves are locked
         </Pill>
       ) : null}
-      <KanbanBoard label={label} moveLabel={moveLabel} columns={columns} items={items} renderItem={renderItem} onMove={move} disabled={disabled} {...args} />
+      <KanbanBoard label={label} moveLabel={moveLabel} columns={boardColumns} items={items} renderItem={renderItem} onMove={move} disabled={disabled} {...args} />
     </div>
   );
 }
 
 export default {
-  title: 'Blocks/To Sort/KanbanBoard', id: 'blocks-application-kanbanboard',
+  title: 'Core/Planning/Kanban', id: 'core-kanban',
   component: KanbanBoard,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { emptyLabel: 'text', disabled: 'boolean' }),
+  argTypes: {
+    ...docsArgTypes(docs, { emptyLabel: 'text', disabled: 'boolean' }),
+    reviewLimit: { control: { type: 'number', min: 0, max: 5, step: 1 }, description: 'Work-in-progress limit on the In review column (`columns[i].limit`); 0 removes it.' }
+  },
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -70,10 +75,10 @@ export default {
 };
 
 export const Playground = {
-  args: { emptyLabel: 'Nothing scheduled yet', disabled: false, onMove: fn() },
+  args: { emptyLabel: 'Nothing scheduled yet', disabled: false, reviewLimit: 2, onMove: fn() },
   parameters: {
     docs: {
-      description: { story: 'An editorial board with cards at different priorities, categories, and assignees, plus an empty column. Move a card from its menu; `disabled` locks every move.' },
+      description: { story: 'An editorial board with cards at different priorities, categories, and assignees, plus an empty column. Move a card from its menu; `disabled` locks every move, and a column `limit` shows its work-in-progress count, warning once a move takes it over.' },
       source: playgroundSource('KanbanBoard', {
         imports: "import { KanbanBoard } from '@gaudi/design-system';",
         before: '// columns, items and renderItem come from the host; onMove updates items.\n',
@@ -96,5 +101,8 @@ export const Playground = {
     await userEvent.click(await body.findByRole('menuitem', { name: 'In review' }));
     await expect(args.onMove).toHaveBeenCalledWith(item.id, 'In review');
     await expect(within(canvas.getByRole('region', { name: 'In review' })).getByText(item.title)).toBeVisible();
+    if (args.reviewLimit > 0 && args.reviewLimit < 3) {
+      await expect(within(canvas.getByRole('region', { name: 'In review' })).getByText(`3 of ${args.reviewLimit} cards, over the limit`)).toBeInTheDocument();
+    }
   }
 };

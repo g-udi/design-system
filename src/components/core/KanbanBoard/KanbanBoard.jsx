@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '../../core/Button';
-import DropdownMenu, { DropdownMenuItem } from '../../core/DropdownMenu';
-import Icon from '../../core/Icon';
+import Button from '../Button';
+import DropdownMenu, { DropdownMenuItem } from '../DropdownMenu';
+import Icon from '../Icon';
+import { KanbanColumnCount } from './parts/kanban-extended.jsx';
 
 /** All moves have a keyboard and touch action. Hosts own ordering and persistence. */
 export default function KanbanBoard({
@@ -27,7 +28,11 @@ export default function KanbanBoard({
             <section key={column.id} className='ds-board-column' aria-label={column.label}>
               <header>
                 <h3 className='ds-label'>{column.label}</h3>
-                <span className='ds-description'>{columnItems.length}</span>
+                {Number.isFinite(column.limit) ? (
+                  <KanbanColumnCount count={columnItems.length} limit={column.limit} />
+                ) : (
+                  <span className='ds-description'>{columnItems.length}</span>
+                )}
               </header>
               <ul>
                 {columnItems.map((item) => (
