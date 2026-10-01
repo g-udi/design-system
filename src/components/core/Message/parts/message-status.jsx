@@ -1,0 +1,37 @@
+import { cn } from '../../../../utilities/cn/index.js';
+import { Badge } from '../../Pill/parts/badge-extended.jsx';
+import { Spinner } from '../../Spinner/parts/spinner.jsx';
+import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+
+/*
+ * One status vocabulary for tools, reasoning steps, delegations and plans:
+ * pending (queued), running (in progress), done and failed. `cancelled` reads as a skipped step.
+ */
+const messageStatuses = Object.freeze({
+  pending: { label: 'Queued', icon: 'CircleDashed', tone: 'text-text-muted', badge: 'outline' },
+  running: { label: 'Running', icon: null, tone: 'text-accent', badge: 'info-light' },
+  done: { label: 'Done', icon: 'CircleCheck', tone: 'text-success', badge: 'success-light' },
+  failed: { label: 'Failed', icon: 'CircleX', tone: 'text-danger', badge: 'destructive-light' },
+  cancelled: { label: 'Skipped', icon: 'Circle', tone: 'text-text-muted', badge: 'outline' }
+});
+
+const statusOf = (status) => messageStatuses[status] || messageStatuses.pending;
+
+function MessageStatusIcon({ status = 'pending', className }) {
+  const meta = statusOf(status);
+  if (!meta.icon) return <Spinner aria-hidden='true' aria-label={undefined} role={undefined} className={cn('size-3.5 shrink-0', meta.tone, className)} />;
+  return <RegistryIcon lucide={meta.icon} className={cn('size-3.5 shrink-0', meta.tone, className)} />;
+}
+
+/** A labelled status badge; `labels` overrides the words for each status. */
+function MessageStatus({ status = 'pending', labels, className }) {
+  const meta = statusOf(status);
+  return (
+    <Badge data-slot='message-status' data-status={status} variant={meta.badge} size='sm' className={cn('gap-1', className)}>
+      <MessageStatusIcon status={status} className='size-3' />
+      {labels?.[status] || meta.label}
+    </Badge>
+  );
+}
+
+export { MessageStatus, MessageStatusIcon, messageStatuses };

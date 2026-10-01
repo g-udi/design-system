@@ -390,6 +390,27 @@
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
     },
+    "blocks-chat--playground": {
+      "id": "blocks-chat--playground",
+      "title": "Blocks/Chat",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Chat/Chat.stories.jsx"
+    },
+    "blocks-chat--docs": {
+      "id": "blocks-chat--docs",
+      "title": "Blocks/Chat",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Chat/Chat.stories.jsx"
+    },
     "blocks-forms--playground": {
       "id": "blocks-forms--playground",
       "title": "Blocks/Forms",
@@ -3553,6 +3574,50 @@
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthPatterns.stories.jsx"
     },
+    "blocks-chat--chat-pattern-1": {
+      "id": "blocks-chat--chat-pattern-1",
+      "title": "Blocks/Chat",
+      "name": "Full page: Reviewing a pull request",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Chat/ChatPatterns.stories.jsx"
+    },
+    "blocks-chat--chat-pattern-2": {
+      "id": "blocks-chat--chat-pattern-2",
+      "title": "Blocks/Chat",
+      "name": "Sidebar: Writing assistant beside the editor",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Chat/ChatPatterns.stories.jsx"
+    },
+    "blocks-chat--chat-pattern-3": {
+      "id": "blocks-chat--chat-pattern-3",
+      "title": "Blocks/Chat",
+      "name": "New chat: Welcome and suggestions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Chat/ChatPatterns.stories.jsx"
+    },
+    "blocks-chat--chat-pattern-4": {
+      "id": "blocks-chat--chat-pattern-4",
+      "title": "Blocks/Chat",
+      "name": "Agent at work: Plan and activity",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Chat/ChatPatterns.stories.jsx"
+    },
     "blocks-forms--forms-pattern-1": {
       "id": "blocks-forms--forms-pattern-1",
       "title": "Blocks/Forms",
@@ -6228,6 +6293,38 @@
       ],
       "importPath": "./src/components/core/Input/InputPatterns.stories.jsx"
     },
+    "core-input--prompt-composer-pattern-1": {
+      "id": "core-input--prompt-composer-pattern-1",
+      "title": "Core/Input",
+      "name": "Chat composer: Mentions, commands and attachments",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
+    },
+    "core-input--prompt-composer-pattern-2": {
+      "id": "core-input--prompt-composer-pattern-2",
+      "title": "Core/Input",
+      "name": "Chat composer: Queue follow-ups while a reply streams",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
+    },
+    "core-input--prompt-composer-pattern-3": {
+      "id": "core-input--prompt-composer-pattern-3",
+      "title": "Core/Input",
+      "name": "Chat composer: Model and effort",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
+    },
     "core-inputotp--input-otp-pattern-1": {
       "id": "core-inputotp--input-otp-pattern-1",
       "title": "Core/Advanced Inputs/InputOtp",
@@ -6407,6 +6504,71 @@
         "play-fn"
       ],
       "importPath": "./src/components/core/Marker/MarkerPatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-1": {
+      "id": "core-message--ai-message-pattern-1",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Drafting a post",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-2": {
+      "id": "core-message--ai-message-pattern-2",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Research with citations",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-3": {
+      "id": "core-message--ai-message-pattern-3",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Running tools",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-4": {
+      "id": "core-message--ai-message-pattern-4",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Handing work to another agent",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-5": {
+      "id": "core-message--ai-message-pattern-5",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Delivered files and data",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
+    },
+    "core-message--ai-message-pattern-6": {
+      "id": "core-message--ai-message-pattern-6",
+      "title": "Core/Messaging/Message",
+      "name": "Assistant reply: Error, retry and suggestions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
     },
     "core-message--bubble-pattern-1": {
       "id": "core-message--bubble-pattern-1",
