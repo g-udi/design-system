@@ -1,0 +1,275 @@
+/* React Flow's structural rules (viewport, panes, handles) sit in the base layer so Gaudi wins. */
+@import '@xyflow/react/dist/base.css' layer(base);
+
+@layer components {
+  .ds-flow {
+    position: relative;
+    isolation: isolate;
+    container-type: inline-size;
+    width: 100%;
+    min-width: 0;
+    height: 30rem;
+    overflow: hidden;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface-muted);
+    color: var(--ds-color-text);
+    --ds-flow-stroke: color-mix(in srgb, var(--ds-color-text) 32%, transparent);
+    --xy-background-color: transparent;
+    --xy-background-pattern-color: color-mix(in srgb, var(--ds-color-text) 16%, transparent);
+    --xy-edge-stroke: var(--ds-flow-stroke);
+    --xy-edge-stroke-selected: var(--ds-color-accent);
+    --xy-edge-stroke-width: 1.5;
+    --xy-connectionline-stroke: var(--ds-color-accent);
+    --xy-connectionline-stroke-width: 1.5;
+    --xy-handle-background-color: var(--ds-color-surface);
+    --xy-selection-background-color: color-mix(in srgb, var(--ds-color-accent) 8%, transparent);
+    --xy-selection-border: 1px dashed var(--ds-color-accent);
+    --xy-minimap-background-color: var(--ds-color-surface);
+    --xy-minimap-mask-background-color: color-mix(in srgb, var(--ds-color-surface-muted) 72%, transparent);
+    --xy-minimap-mask-stroke-color: var(--ds-color-border);
+    --xy-minimap-node-background-color: color-mix(in srgb, var(--ds-color-text) 20%, transparent);
+  }
+
+  .ds-flow .react-flow__node:focus-visible {
+    outline: none;
+  }
+  .ds-flow .react-flow__node:focus-visible > .ds-flow-node,
+  .ds-flow .react-flow__node:focus-visible > .ds-flow-pill {
+    box-shadow: 0 0 0 2px var(--ds-color-surface), 0 0 0 4px var(--ds-color-accent);
+  }
+  .ds-flow .react-flow__edge:focus-visible .ds-flow-edge {
+    stroke: var(--ds-color-accent);
+    stroke-width: 2.5;
+  }
+
+  /* Step card */
+  .ds-flow-node {
+    width: 15rem;
+    box-shadow: var(--ds-shadow-card);
+    transition: box-shadow 150ms ease, opacity 150ms ease;
+  }
+  .ds-flow-node[data-selected] {
+    box-shadow: 0 0 0 2px var(--ds-color-accent);
+  }
+  .ds-flow-node[data-status='running'] {
+    --tw-ring-color: var(--ds-color-info-border);
+  }
+  .ds-flow-node[data-status='failed'] {
+    --tw-ring-color: var(--ds-color-danger-border);
+  }
+  .ds-flow-node[data-status='waiting'] {
+    --tw-ring-color: var(--ds-color-warning-border);
+  }
+  .ds-flow-node[data-emphasis='muted'] {
+    opacity: 0.55;
+  }
+  .ds-flow-node[data-emphasis='primary'] {
+    --tw-ring-color: var(--ds-color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ds-color-accent) 18%, transparent);
+  }
+  .ds-flow-fact + .ds-flow-fact::before {
+    content: '·';
+    margin-inline-end: 0.375rem;
+    color: var(--ds-color-text-subtle);
+  }
+  .ds-flow-progress {
+    height: 0.25rem;
+    overflow: hidden;
+    border-radius: var(--ds-radius-sm);
+    background: color-mix(in srgb, var(--ds-color-text) 10%, transparent);
+  }
+  .ds-flow-progress > span {
+    display: block;
+    height: 100%;
+    background: var(--ds-color-accent);
+    transform-origin: left center;
+    transition: transform 200ms ease;
+  }
+  [dir='rtl'] .ds-flow-progress > span {
+    transform-origin: right center;
+  }
+
+  /* Trigger and end pills */
+  .ds-flow-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 6px);
+    max-width: 15rem;
+    padding: calc(var(--ds-space-scale, 1) * 6px) calc(var(--ds-space-scale, 1) * 12px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-control);
+    background: var(--ds-color-surface);
+    font-size: 0.75rem;
+    font-weight: 500;
+    box-shadow: var(--ds-shadow-card);
+  }
+  .ds-flow-pill[data-selected] {
+    box-shadow: 0 0 0 2px var(--ds-color-accent);
+  }
+
+  /* Handles are intrinsic connection dots, so they stay circular. */
+  .ds-flow .ds-flow-handle {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 1.5px solid var(--ds-flow-stroke);
+    border-radius: 9999px;
+    background: var(--ds-color-surface);
+  }
+  .ds-flow .ds-flow-handle[data-port='true'] {
+    border-style: dashed;
+    border-color: var(--ds-color-text-subtle);
+  }
+  .ds-flow .ds-flow-handle.connectingto,
+  .ds-flow .ds-flow-handle.valid {
+    border-color: var(--ds-color-accent);
+    background: var(--ds-color-accent);
+  }
+  .ds-flow-handle-label {
+    position: absolute;
+    white-space: nowrap;
+    pointer-events: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ds-color-text-muted);
+  }
+  .ds-flow-handle-label[data-side='bottom'] {
+    top: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ds-flow-handle-label[data-side='top'] {
+    bottom: 0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .ds-flow-handle-label[data-side='right'] {
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .ds-flow-handle-label[data-side='left'] {
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /* Edges */
+  .ds-flow-edge[data-tone='accent'] { stroke: var(--ds-color-accent); }
+  .ds-flow-edge[data-tone='info'] { stroke: var(--ds-color-info); }
+  .ds-flow-edge[data-tone='success'] { stroke: var(--ds-color-success); }
+  .ds-flow-edge[data-tone='warning'] { stroke: var(--ds-color-warning); }
+  .ds-flow-edge[data-tone='danger'] { stroke: var(--ds-color-danger); }
+  .ds-flow-edge[data-tone='discovery'] { stroke: var(--ds-color-discovery); }
+  .ds-flow-edge[data-tone='attention'] { stroke: var(--ds-color-attention); }
+  .ds-flow-edge[data-dashed] {
+    stroke-dasharray: 4 4;
+  }
+  .ds-flow-edge[data-emphasis='muted'] {
+    opacity: 0.4;
+  }
+  .ds-flow-edge[data-emphasis='primary'] {
+    stroke-width: 2.5;
+  }
+  .ds-flow-edge-animated {
+    stroke-dasharray: 6 4;
+    animation: ds-flow-dash 0.6s linear infinite;
+  }
+  .ds-flow .react-flow__edge.selected .ds-flow-edge {
+    stroke: var(--ds-color-accent);
+  }
+  @keyframes ds-flow-dash {
+    to { stroke-dashoffset: -10; }
+  }
+
+  .ds-flow-edge-labels {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 4px);
+    pointer-events: all;
+  }
+  .ds-flow-edge-label {
+    padding: calc(var(--ds-space-scale, 1) * 2px) calc(var(--ds-space-scale, 1) * 6px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-color-surface);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: var(--ds-color-text-muted);
+  }
+  .ds-flow-edge-label[data-tone='success'] { color: var(--ds-color-success); border-color: var(--ds-color-success-border); }
+  .ds-flow-edge-label[data-tone='danger'] { color: var(--ds-color-danger); border-color: var(--ds-color-danger-border); }
+  .ds-flow-edge-label[data-tone='info'] { color: var(--ds-color-info); border-color: var(--ds-color-info-border); }
+  .ds-flow-edge-label[data-tone='warning'] { color: var(--ds-color-warning); border-color: var(--ds-color-warning-border); }
+  .ds-flow-edge-label[data-tone='discovery'] { color: var(--ds-color-discovery); border-color: var(--ds-color-discovery-border); }
+  .ds-flow-edge-label[data-tone='attention'] { color: var(--ds-color-attention); border-color: var(--ds-color-attention-border); }
+  .ds-flow-edge-label[data-tone='accent'] { color: var(--ds-color-accent); border-color: var(--ds-color-accent); }
+  .ds-flow-edge-insert {
+    background: var(--ds-color-surface);
+    opacity: 0;
+    transition: opacity 150ms ease;
+  }
+  .ds-flow-edge-labels[data-active] .ds-flow-edge-insert,
+  .ds-flow-edge-insert:focus-visible {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    .ds-flow-edge-insert {
+      opacity: 1;
+    }
+  }
+
+  /* Panels, controls and the overview map */
+  .ds-flow .ds-flow-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 6px);
+    margin: 0.75rem;
+  }
+  .ds-flow-controls > * {
+    background: var(--ds-color-surface);
+  }
+  .ds-flow .ds-flow-minimap {
+    margin: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+  }
+  .ds-flow-minimap-node.is-running { fill: var(--ds-color-info); }
+  .ds-flow-minimap-node.is-success { fill: var(--ds-color-success); }
+  .ds-flow-minimap-node.is-failed { fill: var(--ds-color-danger); }
+  .ds-flow-minimap-node.is-waiting { fill: var(--ds-color-warning); }
+  .ds-flow-minimap-node.is-blocked { fill: var(--ds-color-attention); }
+  @container (max-width: 40rem) {
+    .ds-flow .ds-flow-minimap {
+      display: none;
+    }
+  }
+
+  .ds-flow-node-toolbar {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 2px);
+    padding: calc(var(--ds-space-scale, 1) * 3px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-control);
+    background: var(--ds-color-surface);
+    box-shadow: var(--ds-shadow-floating);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-flow-edge-animated {
+      animation: none;
+    }
+    .ds-flow-node,
+    .ds-flow-progress > span,
+    .ds-flow-edge-insert {
+      transition: none;
+    }
+  }
+}

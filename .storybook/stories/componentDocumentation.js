@@ -60,6 +60,7 @@ const groupDocs = {
 };
 
 const usageExamples = {
+  'Core/Flow': "import '@gaudi/design-system/flow.css';\nimport { Flow, layoutFlow } from '@gaudi/design-system/core/Flow';\n\nconst edges = [{ id: 'start-review', source: 'start', target: 'review' }];\nconst nodes = layoutFlow([\n  { id: 'start', type: 'pill', data: { title: 'Draft ready', icon: 'FileText', target: false } },\n  { id: 'review', type: 'step', data: { title: 'Editor review', status: 'running', meta: ['Due today'] } }\n], edges);\n\n<Flow label='Publishing pipeline' nodes={nodes} edges={edges} className='h-[32rem]' />",
   'MDX/CitationTracker': "import { CitationTracker } from '@gaudi/design-system/mdx';\n\n// Mount once alongside the host's generated article markup.\n<CitationTracker />",
   'Core/Commander': "import { useState } from 'react';\nimport { Button, Commander } from '@gaudi/design-system';\n\nexport function ContentSearch({ posts = [], projects = [], publications = [], tags = [], thoughts = [] }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search content</Button>\n      <Commander\n        open={open}\n        setOpen={setOpen}\n        posts={posts}\n        projects={projects}\n        publications={publications}\n        tags={tags}\n        thoughts={thoughts}\n      />\n    </>\n  );\n}",
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",

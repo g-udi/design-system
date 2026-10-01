@@ -2,6 +2,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 @config '../tailwind.config.cjs';
 @import '../src/styles.css';
+@import '../src/components/core/Flow/Flow.css';
 @import './documentation.css';
 
 @source '../src/**/*.{js,jsx,mdx}';

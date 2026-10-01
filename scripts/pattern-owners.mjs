@@ -11,7 +11,7 @@ export const owners = {
   direction: 'core/Direction', drawer: 'core/Dialog', 'dropdown-menu': 'core/DropdownMenu',
   empty: 'core/EmptyState', 'event-calendar': 'core/EventCalendar', field: 'core/Field',
   'file-upload': 'core/FileUpload', filters: 'core/FilterBar', frame: 'core/Card',
-  gantt: 'core/Gantt', 'hover-card': 'core/Popover', 'icon-stack': 'core/Icon',
+  flow: 'core/Flow', gantt: 'core/Gantt', 'hover-card': 'core/Popover', 'icon-stack': 'core/Icon',
   'icon-tile': 'core/Icon', input: 'core/Input', 'input-group': 'core/Input',
   'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'core/KanbanBoard', 'stat-cards': 'blocks/StatCard', scheduling: 'blocks/Scheduling', screens: 'blocks/Screens', forms: 'blocks/Forms',
   kbd: 'core/Kbd', label: 'core/Field', marker: 'core/Marker', menubar: 'core/DropdownMenu',

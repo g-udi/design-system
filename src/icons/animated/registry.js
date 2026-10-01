@@ -293,6 +293,7 @@ export const animatedIconRegistry = {
   "HelpCircle": drawIcons["CircleQuestionMark"],
   "History": artwork50,
   "Home": artwork51,
+  "Hourglass": drawIcons["Hourglass"],
   "House": artwork51,
   "html": drawIcons["FileCode"],
   "IdCard": artwork52,
@@ -337,6 +338,7 @@ export const animatedIconRegistry = {
   "LoaderCircle": artwork57,
   "Lock": artwork58,
   "LogOut": drawIcons["LogOut"],
+  "Magnet": drawIcons["Magnet"],
   "MagnifyingGlassIcon": artwork59,
   "MailOutline": drawIcons["Mail"],
   "MapPin": artwork60,
@@ -372,6 +374,7 @@ export const animatedIconRegistry = {
   "PanelRightOpen": artwork69,
   "Panels": drawIcons["PanelsTopLeft"],
   "Paperclip": drawIcons["Paperclip"],
+  "Pause": drawIcons["Pause"],
   "PauseCircle": drawIcons["CirclePause"],
   "Pencil": drawIcons["Pencil"],
   "PencilSparkles": drawIcons["PencilSparkles"],
@@ -398,6 +401,7 @@ export const animatedIconRegistry = {
   "RadioTower": artwork75,
   "react": drawIcons["Atom"],
   "Receipt": drawIcons["Receipt"],
+  "Redo": drawIcons["Redo"],
   "RefreshCw": artwork76,
   "Repeat": drawIcons["Repeat"],
   "Repeat2": drawIcons["Repeat2"],
@@ -468,6 +472,7 @@ export const animatedIconRegistry = {
   "Underline": artwork89,
   "Undo": artwork90,
   "Ungroup": drawIcons["Ungroup"],
+  "Unlink": drawIcons["Unlink"],
   "Upload": artwork91,
   "User": drawIcons["User"],
   "UserCheck": artwork92,
@@ -493,6 +498,7 @@ export const animatedIconRegistry = {
   "Waypoints": drawIcons["Waypoints"],
   "Webhook": drawIcons["Webhook"],
   "Wifi": drawIcons["Wifi"],
+  "Workflow": drawIcons["Workflow"],
   "Wrench": artwork95,
   "X": artwork96,
   "XCircle": drawIcons["CircleX"],
@@ -1324,6 +1330,10 @@ export const animatedIconMetadata = {
     "source": "lucide-animated",
     "slug": "home"
   },
+  "Hourglass": {
+    "canonical": "Hourglass",
+    "source": "gaudi-draw"
+  },
   "House": {
     "canonical": "House",
     "source": "lucide-animated",
@@ -1510,6 +1520,10 @@ export const animatedIconMetadata = {
     "canonical": "LogOut",
     "source": "gaudi-draw"
   },
+  "Magnet": {
+    "canonical": "Magnet",
+    "source": "gaudi-draw"
+  },
   "MagnifyingGlassIcon": {
     "canonical": "Search",
     "source": "lucide-animated",
@@ -1663,6 +1677,10 @@ export const animatedIconMetadata = {
     "canonical": "Paperclip",
     "source": "gaudi-draw"
   },
+  "Pause": {
+    "canonical": "Pause",
+    "source": "gaudi-draw"
+  },
   "PauseCircle": {
     "canonical": "CirclePause",
     "source": "gaudi-draw"
@@ -1772,6 +1790,10 @@ export const animatedIconMetadata = {
   },
   "Receipt": {
     "canonical": "Receipt",
+    "source": "gaudi-draw"
+  },
+  "Redo": {
+    "canonical": "Redo",
     "source": "gaudi-draw"
   },
   "RefreshCw": {
@@ -2073,6 +2095,10 @@ export const animatedIconMetadata = {
     "canonical": "Ungroup",
     "source": "gaudi-draw"
   },
+  "Unlink": {
+    "canonical": "Unlink",
+    "source": "gaudi-draw"
+  },
   "Upload": {
     "canonical": "Upload",
     "source": "lucide-animated",
@@ -2176,6 +2202,10 @@ export const animatedIconMetadata = {
   },
   "Wifi": {
     "canonical": "Wifi",
+    "source": "gaudi-draw"
+  },
+  "Workflow": {
+    "canonical": "Workflow",
     "source": "gaudi-draw"
   },
   "Wrench": {

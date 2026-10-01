@@ -1415,6 +1415,27 @@
       ],
       "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
     },
+    "core-flow--playground": {
+      "id": "core-flow--playground",
+      "title": "Core/Planning/Flow",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/Flow.stories.jsx"
+    },
+    "core-flow--docs": {
+      "id": "core-flow--docs",
+      "title": "Core/Planning/Flow",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Flow/Flow.stories.jsx"
+    },
     "core-gantt--playground": {
       "id": "core-gantt--playground",
       "title": "Core/Planning/Gantt",
@@ -5835,6 +5856,50 @@
         "autodocs"
       ],
       "importPath": "./src/components/core/FilterBar/FiltersPatterns.stories.jsx"
+    },
+    "core-flow--flow-pattern-1": {
+      "id": "core-flow--flow-pattern-1",
+      "title": "Core/Planning/Flow",
+      "name": "Automation workflow editor",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
+    },
+    "core-flow--flow-pattern-2": {
+      "id": "core-flow--flow-pattern-2",
+      "title": "Core/Planning/Flow",
+      "name": "Agent tree with test run",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
+    },
+    "core-flow--flow-pattern-3": {
+      "id": "core-flow--flow-pattern-3",
+      "title": "Core/Planning/Flow",
+      "name": "Pipeline run monitor",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
+    },
+    "core-flow--flow-pattern-4": {
+      "id": "core-flow--flow-pattern-4",
+      "title": "Core/Planning/Flow",
+      "name": "Growth impact map",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
     },
     "core-gantt--gantt-pattern-1": {
       "id": "core-gantt--gantt-pattern-1",
