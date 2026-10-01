@@ -22,7 +22,7 @@ export function Pattern() {
         <div className='flex h-full flex-col justify-between gap-8 p-10'>
           <span className='flex items-center gap-2 font-semibold'>
             <RegistryIcon lucide='PencilIcon' className='size-5' />
-            Quill
+            Gaudi
           </span>
           <ScreenTestimonial quotes={quotes} rating={4.8} />
           <p className='text-text-muted text-xs'>Rated 4.8 out of 5 by 2,140 writers</p>
@@ -45,7 +45,7 @@ export function Pattern() {
         successMessage='Signed in. Opening your drafts…'
         footer={
           <p className='text-text-muted text-center text-sm'>
-            New to Quill? <a href='#signup' className='text-text font-medium underline-offset-4 hover:underline'>Create an account</a>
+            New to Gaudi? <a href='#signup' className='text-text font-medium underline-offset-4 hover:underline'>Create an account</a>
           </p>
         }
       />

@@ -45,13 +45,13 @@ const TURNS = [
   {
     id: 'th_8n4d7s_2',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'It ran from 09:42 to 11:06. One workspace saw empty exports and nobody saw an error.\n\nThe trigger was a saved view whose date range excluded everything recent, and an export inherits the active view.'
   },
   {
     id: 'th_8n4d7s_3',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'No data was lost, and no other workspace was affected.'
   },
   {
@@ -63,7 +63,7 @@ const TURNS = [
   {
     id: 'th_8n4d7s_5',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Because every signal read healthy. The jobs completed, the queue drained, and the error rate never moved.\n\nWe found it when support tied the ticket to the view change, not from an alert.'
   },
   {
@@ -75,13 +75,13 @@ const TURNS = [
   {
     id: 'th_8n4d7s_7',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'A zero row export from a workspace that exported thousands the day before. That is the signal we do not have yet.\n\nIt is cheap to add, because the job already records the row count it wrote.'
   },
   {
     id: 'th_8n4d7s_8',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'I drafted the threshold as a ratio rather than an absolute, so a genuinely small workspace never pages anyone.'
   },
   {
@@ -93,7 +93,7 @@ const TURNS = [
   {
     id: 'th_8n4d7s_10',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Yes, and it stands on its own next to the alert. The dialog renders its row count after the request, so a zero currently reads as loading.\n\nShowing the active filter with a settled count turns a silent wrong answer into an obvious one.'
   },
   {
@@ -105,7 +105,7 @@ const TURNS = [
   {
     id: 'th_8n4d7s_12',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Written. Timeline, contributing factors, and the two actions with owners and dates.\n\nI kept the blameless framing and moved the raw timeline into an appendix, so the meeting can stay on the actions.'
   }
 ];

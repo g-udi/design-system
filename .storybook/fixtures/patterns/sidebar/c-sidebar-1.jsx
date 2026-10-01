@@ -63,9 +63,9 @@ const WORKSPACES = [
   },
   {
     id: 'acme',
-    name: 'Acme Robotics',
+    name: 'Gaudi',
     plan: 'Team',
-    initials: 'AR',
+    initials: 'GA',
     avatar:
       'https://randomuser.me/api/portraits/women/44.jpg'
   },

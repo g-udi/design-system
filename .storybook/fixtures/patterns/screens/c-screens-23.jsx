@@ -35,7 +35,7 @@ export function Pattern() {
         className={cn('relative isolate', backdrop === 'photo' && 'bg-surface-muted')}
         footer={
           <>
-            <span>© 2026 Kiln Labs</span>
+            <span>© 2026 Gaudi</span>
             <nav aria-label='Legal' className='flex gap-4'>
               {links.map((link) => <a key={link} href={`#${link.toLowerCase()}`} className='hover:text-text underline-offset-4 hover:underline'>{link}</a>)}
             </nav>
@@ -53,7 +53,7 @@ export function Pattern() {
             </span>
             <AuthForm
               key={mode}
-              title='Sign in to Kiln'
+              title='Sign in to Gaudi'
               mode={mode}
               identifier={mode === 'password' ? 'username' : 'email'}
               emailLabel={mode === 'password' ? 'Email or username' : 'Email'}

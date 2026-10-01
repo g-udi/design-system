@@ -49,7 +49,7 @@ const SEEDED = [
   {
     id: 'th_4b8t2v_2',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Here is a first pass, grouped the way the changelog already reads.\n\nTwo entries need a decision from you. The webhook acknowledgement change is breaking for anyone parsing the 500, and the export worker change moves a default.'
   },
   {
@@ -61,13 +61,13 @@ const SEEDED = [
   {
     id: 'th_4b8t2v_4',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Moved. Breaking changes lead, then features, then fixes.\n\nI also pulled the migration note out of the fix list, because the people who skip that section are the ones who need it.'
   },
   {
     id: 'th_4b8t2v_5',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'The draft is in the shared doc. Ask for any section and I will rewrite it in place.'
   }
 ];
@@ -110,7 +110,7 @@ export function Pattern() {
         {
           id: `th_4b8t2v_a${round}`,
           role: 'assistant',
-          author: 'Nimbus',
+          author: 'Gaudi',
           text: REPLIES[round % REPLIES.length]
         }
       ]);
@@ -208,7 +208,7 @@ export function Pattern() {
         <form className='w-full' onSubmit={handleSubmit}>
           <InputGroup>
             <InputGroupInput
-              aria-label='Message Nimbus'
+              aria-label='Message Gaudi'
               placeholder='Ask about the 3.4 release notes'
               value={draft}
               onChange={(event) => setDraft(event.target.value)}

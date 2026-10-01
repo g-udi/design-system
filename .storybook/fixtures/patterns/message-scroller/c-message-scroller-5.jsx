@@ -52,7 +52,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_2',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Empty, not failing. Every job in that window finished with a zero row result.'
   },
   {
@@ -64,7 +64,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_4',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'One workspace, ws_3311. No other account shows the pattern.'
   },
   {
@@ -76,7 +76,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_6',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'They moved their default view onto a saved filter whose date range ends last Thursday.'
   },
   {
@@ -88,7 +88,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_8',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Right for the filter, yes. The export inherits the active view, and that view now excludes everything recent.'
   },
   {
@@ -100,7 +100,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_10',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Only inside the filter chip, which is collapsed by default at their screen width.'
   },
   {
@@ -112,7 +112,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_12',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'It is at least why nobody caught it. The export dialog does show a row count, but it renders after the request, so a zero reads as loading.'
   },
   {
@@ -124,7 +124,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_14',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Clear the saved range on the view, or export from the unfiltered table. Either one gives them Friday onward straight away.'
   },
   {
@@ -136,7 +136,7 @@ const HISTORY = [
   {
     id: 'th_5p3w9k_16',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Sent, and the dialog is on the review list with a screenshot attached.\n\nI left a note on the ticket too, so the next person reads the filter before they open the worker logs.'
   }
 ];

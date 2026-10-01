@@ -47,7 +47,7 @@ const SETTLED = [
   {
     id: 'th_7c1x8p_2',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'Point the Stripe CLI at your local endpoint and trigger charge.refunded.\n\nA dashboard style refund arrives with no payment_intent, which is the exact shape production is failing on.'
   },
   {
@@ -59,7 +59,7 @@ const SETTLED = [
   {
     id: 'th_7c1x8p_4',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'That is the default fixture. Override the field to null and the handler takes the branch you care about.\n\nThe rest of the fixture can stay as it is, the failing helper reads that one field and nothing else.'
   },
   {
@@ -71,7 +71,7 @@ const SETTLED = [
   {
     id: 'th_7c1x8p_6',
     role: 'assistant',
-    author: 'Nimbus',
+    author: 'Gaudi',
     text: 'That log line is the lookup helper throwing, three frames above the response.'
   },
   {
@@ -96,7 +96,7 @@ export function Pattern() {
     {
       id: REPLY_ID,
       role: 'assistant',
-      author: 'Nimbus',
+      author: 'Gaudi',
       text: REPLY.slice(0, length)
     }
   ];
@@ -196,7 +196,7 @@ export function Pattern() {
               </MessageScrollerContent>
             </MessageScrollerViewport>
             <p role='status' aria-live='polite' className='sr-only'>
-              {done ? 'Reply complete' : 'Nimbus is replying'}
+              {done ? 'Reply complete' : 'Gaudi is replying'}
             </p>
             <MessageScrollerButton
               variant='outline'

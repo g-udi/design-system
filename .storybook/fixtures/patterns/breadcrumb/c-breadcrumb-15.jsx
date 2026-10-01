@@ -24,7 +24,7 @@ export function Pattern() {
           <BreadcrumbList className='gap-3'>
             <BreadcrumbItem>
               <BreadcrumbLink
-                aria-label='Acme workspace'
+                aria-label='Gaudi workspace'
                 href='#'
                 className='text-text flex items-center gap-2'
               >

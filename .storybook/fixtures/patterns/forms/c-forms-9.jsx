@@ -155,7 +155,7 @@ function PermissionTree({ form, query }) {
 
 export function Pattern() {
   const form = useFormValidation({
-    initialValues: { emails: ['sam@northwind.dev', 'alex@northwnd'], role: 'editor', granted: presets.editor, workspace: 'publishing', expiry: '7', sso: true, message: '' },
+    initialValues: { emails: ['sam@gaudi.dev', 'alex@northwnd'], role: 'editor', granted: presets.editor, workspace: 'publishing', expiry: '7', sso: true, message: '' },
     rules,
     validateOn: 'submit'
   });

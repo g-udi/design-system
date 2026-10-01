@@ -66,7 +66,7 @@ const rows = [
           <AvatarImage src='static/images/art/4.svg' alt='' />
           <AvatarFallback>AC</AvatarFallback>
         </Avatar>
-        Acme
+        Gaudi
       </Item>,
       <Item key='b'>
         <Avatar className='size-5'>

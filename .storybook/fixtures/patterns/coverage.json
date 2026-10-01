@@ -392,7 +392,7 @@
           "title": "Icons, badges and avatars",
           "description": "Icons, badges and avatars",
           "file": ".storybook/fixtures/patterns/breadcrumb/c-breadcrumb-5.jsx",
-          "sha256": "f369a3730b2e1ffc81f5e24347e71d747b1ea8ac8178b7937a293f4874550cc8",
+          "sha256": "3595f6e4439d49a5c6e535f8be564c892e33a532721653deeb555d041a06317a",
           "storyId": "core-breadcrumb--breadcrumb-pattern-5"
         },
         {
@@ -408,7 +408,7 @@
           "title": "Workspace, user and document",
           "description": "Workspace, user and document",
           "file": ".storybook/fixtures/patterns/breadcrumb/c-breadcrumb-15.jsx",
-          "sha256": "7ec48874a5bc2004b674161767689873ca78cb73633431c3cc8937afe4732124",
+          "sha256": "994bce3aa05f0084623f2c317b9e0001e89fe938a304b4e96d2ca513f66227e8",
           "storyId": "core-breadcrumb--breadcrumb-pattern-15"
         }
       ]
@@ -1439,7 +1439,7 @@
           "title": "Workspace and model switchers",
           "description": "Workspace and model switchers",
           "file": ".storybook/fixtures/patterns/dropdown-menu/c-dropdown-menu-10.jsx",
-          "sha256": "2a3ee70435fe8c41f9b7cb2c67c81300e2541284342a1cf8c9354285013125f3",
+          "sha256": "2860483d4d04051e279896c316418de86b6712d0ce1db38f23bb8e81ad1814ba",
           "storyId": "core-dropdownmenu--dropdown-menu-pattern-10"
         },
         {
@@ -2211,7 +2211,7 @@
           "title": "Message Scroller: Streaming reply that follows the edge",
           "description": "Message Scroller: Streaming reply that follows the edge",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-2.jsx",
-          "sha256": "56bd470c6448e23da8bbd4f3a59c7968988a0365a90393bbb6d7a8266c53e901",
+          "sha256": "374527174d1d66df49556e491b382adf7fd7e065778084151de8c3338a960b5f",
           "storyId": "core-message--message-scroller-pattern-2"
         },
         {
@@ -2219,7 +2219,7 @@
           "title": "Message Scroller: Anchored turn with a previous peek",
           "description": "Message Scroller: Anchored turn with a previous peek",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-3.jsx",
-          "sha256": "f854da5859ca3eb60b7194f6ba1f324f9e7c1362687bdbabfc47f018249df66c",
+          "sha256": "767b8421e84556f1cceacce4b98889e9255618f5eab6ec80b449f04cf4b925a4",
           "storyId": "core-message--message-scroller-pattern-3"
         },
         {
@@ -2235,7 +2235,7 @@
           "title": "Message Scroller: Load earlier without losing your place",
           "description": "Message Scroller: Load earlier without losing your place",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-5.jsx",
-          "sha256": "2c5ceb3a3b60fdb257039cc9e3c29025eafae660b3bfb40039f267095fc9efb1",
+          "sha256": "13a08788e4781e6bc7e240f9664742fc418d2232643300c7b1c1c220c4d9e0a7",
           "storyId": "core-message--message-scroller-pattern-5"
         },
         {
@@ -2243,7 +2243,7 @@
           "title": "Message Scroller: Thread navigator for stepping turns",
           "description": "Message Scroller: Thread navigator for stepping turns",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-6.jsx",
-          "sha256": "af13d86b742d07ffe691396c7490cc8b8c404199a3aa28bc3c986dd2d7f61e39",
+          "sha256": "9c817b0f9cc0866b5d5663d045bc7efbfcfc4ac2ed557c7b229af52d71b037b0",
           "storyId": "core-message--message-scroller-pattern-6"
         }
       ]
@@ -2768,7 +2768,7 @@
           "title": "Workspace switcher",
           "description": "Workspace switcher",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-1.jsx",
-          "sha256": "be6407c2b3b17c75c42a3864a622e5a691b12514cc36187323ec06cd55d55eca",
+          "sha256": "bbe4c1b42d11254b41919d12804349aed38b06a09c29d7dc5cb3bc5a17cd11b0",
           "storyId": "blocks-application-appshell--sidebar-pattern-1"
         },
         {
@@ -3530,7 +3530,7 @@
           "title": "Account settings",
           "description": "Account settings",
           "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
-          "sha256": "8a6a2c503560e7801155d8958779325190dc1ebfdad6203592168716e2cc0d4c",
+          "sha256": "0dd22017fbcc3acc00b4bf02d100f0f0cd75071ebe47308ed4175325319b5301",
           "storyId": "blocks-profile--screens-pattern-1"
         },
         {
@@ -3538,7 +3538,7 @@
           "title": "Organisation tabs",
           "description": "Organisation tabs",
           "file": ".storybook/fixtures/patterns/screens/c-screens-2.jsx",
-          "sha256": "9eaecbd71dcc1dbfe09af6b173f4e4ea1d01605b99b50ecdc5dbd5c6563f5bd5",
+          "sha256": "aecbfdd8eb9d8fe37f479c41b8273ef868b35949ca55cfbb4716a7ef2f9a6540",
           "storyId": "blocks-profile--screens-pattern-2"
         },
         {
@@ -3602,7 +3602,7 @@
           "title": "Plan upgrade",
           "description": "Plan upgrade",
           "file": ".storybook/fixtures/patterns/screens/c-screens-10.jsx",
-          "sha256": "9cad41a47b766e7ebcd501617151b9659ff256702e2dfa040c65ca0d55c95e19",
+          "sha256": "ec98d33c2cc43e921a2cf5fd3cd431b143b539a4429c73db0ae43dd5b849b65c",
           "storyId": "blocks-application-wizard--screens-pattern-10"
         },
         {
@@ -3626,7 +3626,7 @@
           "title": "Invite your team",
           "description": "Invite your team",
           "file": ".storybook/fixtures/patterns/screens/c-screens-13.jsx",
-          "sha256": "7fe6498306999be3037d32c675255b10ad1fea99611c404b6abb1eee77126e17",
+          "sha256": "50179eb0d4fb7fb36a237c226c52b6f5e394dc7ff2b3125b3afaf13b3aef5af2",
           "storyId": "blocks-application-wizard--screens-pattern-13"
         },
         {
@@ -3682,7 +3682,7 @@
           "title": "Split with imagery",
           "description": "Split with imagery",
           "file": ".storybook/fixtures/patterns/screens/c-screens-20.jsx",
-          "sha256": "087ab46117c2675c78005bb9ad366ffecaaeec262df699b56b6385b14aac3cba",
+          "sha256": "08ca3da63ebab8bd5af2b5ddab38814bdcb8d23dff6c8dcb54fa607bed7f5b4d",
           "storyId": "blocks-application-authform--screens-pattern-20"
         },
         {
@@ -3690,7 +3690,7 @@
           "title": "Split with testimonials",
           "description": "Split with testimonials",
           "file": ".storybook/fixtures/patterns/screens/c-screens-21.jsx",
-          "sha256": "7f8102510bd71797b5701bc749ac10768eef8f6ae38396f42ecf37d6339fd8e6",
+          "sha256": "8d2be5c2865c85d79686057bd98c281bf7b2231cff9fd444c577077bd5ac8399",
           "storyId": "blocks-application-authform--screens-pattern-21"
         },
         {
@@ -3698,7 +3698,7 @@
           "title": "Magic link with logos",
           "description": "Magic link with logos",
           "file": ".storybook/fixtures/patterns/screens/c-screens-22.jsx",
-          "sha256": "7a9727b282335393d94ca7441e23cdc6679b244c9ef76e741c82f8f93ce4ef48",
+          "sha256": "506fbdfd70df2bfe2ce5a2c8846dcd2a6bd8bda327d11391b817792295cda651",
           "storyId": "blocks-application-authform--screens-pattern-22"
         },
         {
@@ -3706,7 +3706,7 @@
           "title": "Centred card",
           "description": "Centred card",
           "file": ".storybook/fixtures/patterns/screens/c-screens-23.jsx",
-          "sha256": "c833109f8ac29ff24a40d053ae9cb7c00a050eb76a8a933cf0e9ceac66e591c0",
+          "sha256": "57b17c4bd608452ef9bdba3854df4e81f935e34e9ce12b4f964ed158079e418c",
           "storyId": "blocks-application-authform--screens-pattern-23"
         },
         {
@@ -3722,7 +3722,7 @@
           "title": "Choose a sign-in method",
           "description": "Choose a sign-in method",
           "file": ".storybook/fixtures/patterns/screens/c-screens-25.jsx",
-          "sha256": "050c337a6d529cdecc88c421dd73778cb271ac8a2bc44b04cec4a33e78dd6e2f",
+          "sha256": "b3076cd5604a822b64460686bf458ab4df34669dea613ff9445f2e3ace203042",
           "storyId": "blocks-application-authform--screens-pattern-25"
         }
       ]
@@ -3783,7 +3783,7 @@
           "title": "Profile · Tabs with audit rail",
           "description": "Profile · Tabs with audit rail",
           "file": ".storybook/fixtures/patterns/forms/c-forms-7.jsx",
-          "sha256": "0eb2c2941cfa189aac6ff1d349c7af48e6fab97ed5eea1da1b69faa34a8ae8fb",
+          "sha256": "7f176a4f4c38a967c1e8913ba57c93431d4e5683be6f9ae45ac3b7894e62d77c",
           "storyId": "blocks-forms--forms-pattern-7"
         },
         {
@@ -3791,7 +3791,7 @@
           "title": "Security · Sign-in policy",
           "description": "Security · Sign-in policy",
           "file": ".storybook/fixtures/patterns/forms/c-forms-8.jsx",
-          "sha256": "d6093d0d3d16916d262056f04d51e5b5c1d13843c8bee52c3896cbde098ac899",
+          "sha256": "346d9521c6a75ff86d12b7bfa982309390711f8d0815c62fa904f398cc0fd2c1",
           "storyId": "blocks-forms--forms-pattern-8"
         },
         {
@@ -3799,7 +3799,7 @@
           "title": "Team · Invite with permissions",
           "description": "Team · Invite with permissions",
           "file": ".storybook/fixtures/patterns/forms/c-forms-9.jsx",
-          "sha256": "fbb63d28944dbb959960c144990854ed8a75ab52b09782b5a1317ed580291b77",
+          "sha256": "1d7ee1a330b00afd540a1a1c82fd48dae5cc7eb5729934aff4cb4c7d585ea528",
           "storyId": "blocks-forms--forms-pattern-9"
         },
         {
@@ -3839,7 +3839,7 @@
           "title": "Compliance · Business verification",
           "description": "Compliance · Business verification",
           "file": ".storybook/fixtures/patterns/forms/c-forms-14.jsx",
-          "sha256": "26e08b59e3207caafb5089619370352097b77ed60e199509dec9d37a59f5d472",
+          "sha256": "70ec2ae95348d574758f3cd790bf0f9c907dc3f26f52f10f97c92af5dd84b7d4",
           "storyId": "blocks-forms--forms-pattern-14"
         },
         {

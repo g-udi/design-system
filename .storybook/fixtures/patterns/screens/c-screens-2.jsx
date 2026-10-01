@@ -94,7 +94,7 @@ export function Pattern() {
     <Tabs defaultValue='members' className='bg-surface w-full max-w-3xl rounded-xl border p-5'>
       <div className='grid gap-1'>
         <h2 className='text-lg font-semibold'>Organisation</h2>
-        <p className='text-text-muted text-sm'>Northwind · 4 members</p>
+        <p className='text-text-muted text-sm'>Gaudi · 4 members</p>
       </div>
       <TabsList aria-label='Organisation settings' className='mt-2 w-full justify-start border-b'>
         <TabsTrigger value='profile'>Profile</TabsTrigger>
@@ -105,7 +105,7 @@ export function Pattern() {
       <TabsContent value='profile' className='grid gap-4 pt-3 sm:grid-cols-2'>
         <Field>
           <FieldLabel htmlFor='org-name'>Organisation name</FieldLabel>
-          <Input id='org-name' defaultValue='Northwind' />
+          <Input id='org-name' defaultValue='Gaudi' />
         </Field>
         <Field>
           <FieldLabel htmlFor='org-domain'>Email domain</FieldLabel>

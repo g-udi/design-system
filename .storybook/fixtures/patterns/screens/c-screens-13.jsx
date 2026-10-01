@@ -22,7 +22,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const parse = (text) => [...new Set(text.split(/[\s,;]+/).map((item) => item.trim().toLowerCase()).filter(Boolean))];
 
 export function Pattern() {
-  const [text, setText] = useState('ana@northwind.dev, li.wei@northwind.dev\nsam@fabrikam');
+  const [text, setText] = useState('ana@gaudi.dev, li.wei@gaudi.dev\nsam@fabrikam');
   const [people, setPeople] = useState([]);
   const [checked, setChecked] = useState(false);
   const [note, setNote] = useState(true);

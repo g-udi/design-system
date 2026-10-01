@@ -53,7 +53,7 @@ export function Pattern() {
   const [plan, setPlan] = useState('team');
   const [period, setPeriod] = useState('yearly');
   const [seats, setSeats] = useState('12');
-  const [card, setCard] = useState({ name: '', number: '', email: 'billing@northwind.dev' });
+  const [card, setCard] = useState({ name: '', number: '', email: 'billing@gaudi.dev' });
   const [checked, setChecked] = useState(false);
   const seatsValid = Number(seats) >= 1 && Number(seats) <= 200;
   const cardValid = card.name.trim() && card.number.replace(/\s/g, '').length >= 12;

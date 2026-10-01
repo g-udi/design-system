@@ -89,8 +89,8 @@ export const ScreenFrame = {
       {...args}
       aside={asides[aside]}
       asideClassName={aside === 'image' ? undefined : 'bg-surface-muted'}
-      header={header ? <span className='flex items-center gap-2 font-semibold'><Icon name='BookOpen' decorative size='sm' />Field Notes</span> : null}
-      footer={footer ? <><span>© 2026 Field Notes</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></> : null}
+      header={header ? <span className='flex items-center gap-2 font-semibold'><Icon name='BookOpen' decorative size='sm' />Gaudi</span> : null}
+      footer={footer ? <><span>© 2026 Gaudi</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></> : null}
     >
       <AuthForm
         key={mode}

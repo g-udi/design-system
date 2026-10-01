@@ -41,7 +41,7 @@ const sections = {
   }
 };
 const initial = {
-  legal: { company: 'Field Notes Press Ltd', number: '12345678', type: 'Private limited company', address: '4 Old Street, London EC1V 9AA' },
+  legal: { company: 'Gaudi Ltd', number: '12345678', type: 'Private limited company', address: '4 Old Street, London EC1V 9AA' },
   ownership: { owner: 'Maya Chen', share: '', born: '' },
   compliance: { activity: '', regions: 'UK and EU', volume: 'Under £50k' }
 };

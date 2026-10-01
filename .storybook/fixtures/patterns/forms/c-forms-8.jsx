@@ -77,7 +77,7 @@ export function Pattern() {
     <form noValidate aria-labelledby='auth-policy-title' onSubmit={form.handleSubmit((data) => setSaved(data))} className='mx-auto grid w-full max-w-3xl gap-4 rounded-lg border p-5 sm:p-6'>
       <div className='grid gap-1'>
         <h2 id='auth-policy-title' className='text-lg font-semibold'>Sign-in policy</h2>
-        <p className='text-text-muted text-sm'>Applies to every member of Northwind Labs. Changes take effect on the next sign-in.</p>
+        <p className='text-text-muted text-sm'>Applies to every member of Gaudi. Changes take effect on the next sign-in.</p>
       </div>
       {errors.emailEnabled ? (
         <Alert variant='destructive'>

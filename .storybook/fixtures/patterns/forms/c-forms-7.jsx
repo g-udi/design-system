@@ -13,7 +13,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 import { cn } from '../../../../src/utilities/cn/index.js';
 
 const organisations = [
-  { id: 'northwind', name: 'Northwind Labs', members: 48, role: 'admin' },
+  { id: 'northwind', name: 'Gaudi', members: 48, role: 'admin' },
   { id: 'fieldnotes', name: 'Field Notes Press', members: 6, role: 'editor' }
 ];
 const audit = [
@@ -55,7 +55,7 @@ function Heatmap() {
 }
 
 export function Pattern() {
-  const profile = useFormValidation({ initialValues: { name: 'Maya Chen', email: 'maya@northwind.dev', language: 'en-GB' }, rules: { name: validators.required('Enter your name.'), email: [validators.required('Enter your email.'), validators.email()] } });
+  const profile = useFormValidation({ initialValues: { name: 'Maya Chen', email: 'maya@gaudi.dev', language: 'en-GB' }, rules: { name: validators.required('Enter your name.'), email: [validators.required('Enter your email.'), validators.email()] } });
   const password = useFormValidation({ initialValues: { current: '', next: '', confirm: '' }, rules: passwordRules });
   const [roles, setRoles] = useState(Object.fromEntries(organisations.map((org) => [org.id, org.role])));
   const [twoFactor, setTwoFactor] = useState(true);

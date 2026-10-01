@@ -43,7 +43,7 @@ export function Pattern() {
       className='max-w-4xl'
       header={
         <>
-          <span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='LayersIcon' className='size-5' />Stack</span>
+          <span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='LayersIcon' className='size-5' />Gaudi</span>
           <span className='text-text-muted text-sm'>New here? <a href='#signup' className='text-text font-medium underline-offset-4 hover:underline'>Create a workspace</a></span>
         </>
       }
@@ -125,7 +125,7 @@ export function Pattern() {
       ) : (
         <section aria-labelledby='methods-title' className='grid gap-5'>
           <div className='grid gap-1 text-center'>
-            <h2 id='methods-title' className='text-xl font-semibold'>Sign in to Stack</h2>
+            <h2 id='methods-title' className='text-xl font-semibold'>Sign in to Gaudi</h2>
             <p className='text-text-muted text-sm'>Choose how you want to sign in.</p>
           </div>
           <div className='grid gap-2'>

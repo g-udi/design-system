@@ -44,7 +44,7 @@ export function Pattern() {
           </div>
         </div>
       }
-      header={<span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='MailIcon' className='size-5' />Ledger</span>}
+      header={<span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='MailIcon' className='size-5' />Gaudi</span>}
     >
       <Frame>
         <FramePanel className='p-6'>

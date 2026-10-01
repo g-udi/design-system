@@ -41,9 +41,9 @@ const groups = [
   { label: 'Workspace', items: [['general', 'General', 'SettingsIcon'], ['team', 'Team', 'UsersIcon'], ['billing', 'Billing', 'CreditCardIcon']] }
 ];
 const members = [
-  ['Maya Lopez', 'women/65', 'maya@northwind.io', 'Owner'],
-  ['Omar Haddad', 'men/41', 'omar@northwind.io', 'Admin'],
-  ['Priya Nair', 'women/23', 'priya@northwind.io', 'Member']
+  ['Maya Lopez', 'women/65', 'maya@gaudi.dev', 'Owner'],
+  ['Omar Haddad', 'men/41', 'omar@gaudi.dev', 'Admin'],
+  ['Priya Nair', 'women/23', 'priya@gaudi.dev', 'Member']
 ];
 
 function Row({ id, label, description, children }) {
@@ -87,7 +87,7 @@ function ProfilePanel() {
         <Field>
           <FieldLabel htmlFor='shell-email'>Email</FieldLabel>
           <InputGroup>
-            <InputGroupInput id='shell-email' type='email' defaultValue='maya@northwind.io' />
+            <InputGroupInput id='shell-email' type='email' defaultValue='maya@gaudi.dev' />
             <InputGroupAddon align='inline-end'>
               <Badge variant='success-light' size='sm'>
                 <RegistryIcon lucide='CheckIcon' aria-hidden='true' className='size-3' />
@@ -168,7 +168,7 @@ const panels = {
       <FieldGroup className='gap-4'>
         <Field>
           <FieldLabel htmlFor='shell-workspace'>Workspace name</FieldLabel>
-          <Input id='shell-workspace' defaultValue='Northwind' />
+          <Input id='shell-workspace' defaultValue='Gaudi' />
         </Field>
         <Field>
           <FieldLabel htmlFor='shell-url'>Workspace URL</FieldLabel>

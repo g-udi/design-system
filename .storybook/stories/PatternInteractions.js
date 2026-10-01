@@ -152,7 +152,7 @@ export const catalogueInteractions = {
   },
   'message-scroller-3': async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const input = canvas.getByRole('textbox', { name: 'Message Nimbus' });
+    const input = canvas.getByRole('textbox', { name: 'Message Gaudi' });
     await expect(
       canvas.getByRole('button', { name: 'Send', exact: true })
     ).toBeDisabled();

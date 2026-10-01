@@ -2,11 +2,10 @@
 import { useState } from 'react';
 import { default as AuthForm } from '../../../../src/components/blocks/AuthForm/index.js';
 import { Screen } from '../../../../src/components/blocks/Screens/Screen.jsx';
+import { default as Aurora } from '../../../../src/components/layout/Aurora/index.js';
 import { ToggleGroup, ToggleGroupItem } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-// A faint grid behind the form, drawn from the border token so it follows the theme.
-const gridBackdrop = 'bg-[linear-gradient(var(--ds-color-border)_1px,transparent_1px),linear-gradient(90deg,var(--ds-color-border)_1px,transparent_1px)] bg-[size:2rem_2rem]';
 const wait = () => new Promise((resolve) => setTimeout(resolve, 500));
 const providers = [
   { id: 'google', label: 'Google', icon: <RegistryIcon lucide='Google' className='size-4' /> },
@@ -20,7 +19,7 @@ function Media() {
       <img src='static/images/art/3.svg' alt='' className='absolute top-10 right-10 w-1/2 rotate-3 rounded-lg border shadow-md' />
       <img src='static/images/art/7.svg' alt='' className='relative w-3/4 -rotate-2 rounded-lg border shadow-lg' />
       <p className='absolute right-8 bottom-8 left-8 text-sm text-balance'>
-        <span className='font-medium'>The Atlas issue.</span> <span className='text-text-muted'>Eleven essays on maps, edited in Gaudi by a team of four.</span>
+        <span className='font-medium'>The maps issue.</span> <span className='text-text-muted'>Eleven essays, edited in Gaudi by a team of four.</span>
       </p>
     </div>
   );
@@ -41,12 +40,14 @@ export function Pattern() {
           <ToggleGroupItem value='end'>Image right</ToggleGroupItem>
         </ToggleGroup>
       </div>
+      {/* The aurora sits behind the form column; the Screen surface stays clear so it shows through. */}
+      <Aurora className='min-h-0 items-stretch overflow-hidden rounded-xl'>
       <Screen
         aside={<Media />}
         asideSide={side}
-        className={gridBackdrop}
-        header={<span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='BookOpenIcon' className='size-5' />Atlas</span>}
-        footer={<><span>© 2026 Atlas Press</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></>}
+        className='relative bg-transparent'
+        header={<span className='flex items-center gap-2 font-semibold'><RegistryIcon lucide='BookOpenIcon' className='size-5' />Gaudi</span>}
+        footer={<><span>© 2026 Gaudi</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></>}
       >
         <div className='bg-surface rounded-lg border p-6 shadow-xs'>
           <AuthForm
@@ -55,7 +56,7 @@ export function Pattern() {
             description={mode === 'password' ? 'Use your work account.' : 'We email you a link that signs you in.'}
             mode={mode}
             submitLabel={mode === 'password' ? 'Sign in' : 'Email me a link'}
-            emailPlaceholder='you@atlas.press'
+            emailPlaceholder='you@gaudi.dev'
             passwordAction={<a href='#reset' className='text-text-muted text-xs underline-offset-4 hover:underline'>Forgot password?</a>}
             providers={providers}
             onProvider={wait}
@@ -64,6 +65,7 @@ export function Pattern() {
           />
         </div>
       </Screen>
+      </Aurora>
     </div>
   );
 }
