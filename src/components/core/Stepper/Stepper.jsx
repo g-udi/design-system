@@ -1,3 +1,4 @@
+import { cn } from '../../../utilities/cn';
 import Icon from '../Icon';
 import {
   Stepper as StepperRoot,
@@ -13,16 +14,21 @@ const indicators = { completed: <Icon name='Check' decorative size='xs' /> };
 /**
  * Read-only progress built from the Stepper parts. `activeStep` is zero-based; set it to
  * `steps.length` when every step is done. Sequential guards and navigation belong to Wizard or the host.
+ * `orientation='vertical'` stacks the steps for a sidebar. With `onStepSelect`, completed steps become
+ * buttons so people can go back and review them; steps ahead stay locked.
  */
 export default function Stepper({
   steps = [],
   activeStep = 0,
   label = 'Progress',
+  orientation = 'horizontal',
+  onStepSelect,
   className
 }) {
+  const vertical = orientation === 'vertical';
   return (
-    <StepperRoot value={activeStep + 1} indicators={indicators} aria-label={label} className={className}>
-      <StepperNav asChild className='flex-wrap gap-x-6 gap-y-3'>
+    <StepperRoot value={activeStep + 1} indicators={indicators} orientation={orientation} aria-label={label} className={className}>
+      <StepperNav asChild className={cn(vertical ? 'flex-col items-stretch gap-4' : 'flex-wrap gap-x-6 gap-y-3')}>
         <ol className='m-0 list-none p-0'>
           {steps.map((step, index) => (
             <StepperItem
@@ -30,13 +36,23 @@ export default function Stepper({
               key={step.id}
               step={index + 1}
               aria-current={index === activeStep ? 'step' : undefined}
-              className='min-w-32 flex-1 items-start justify-start gap-2'
+              className={cn('items-start justify-start gap-2', vertical ? 'flex-row!' : 'min-w-32 flex-1')}
             >
               <li>
                 <StepperIndicator className='data-[state=active]:ring-3 data-[state=active]:ring-accent-subtle'>{index + 1}</StepperIndicator>
                 <div className='grid min-w-0 gap-1 pt-1'>
                   <StepperTitle asChild className='group-data-[state=inactive]/step:text-text-muted'>
-                    <span>{step.label}</span>
+                    {onStepSelect && index < activeStep ? (
+                      <button
+                        type='button'
+                        onClick={() => onStepSelect(index)}
+                        className='cursor-pointer text-start underline-offset-4 hover:underline focus-visible:underline'
+                      >
+                        {step.label}
+                      </button>
+                    ) : (
+                      <span>{step.label}</span>
+                    )}
                   </StepperTitle>
                   {step.description ? <StepperDescription className='text-xs'>{step.description}</StepperDescription> : null}
                   {index < activeStep ? <span className='sr-only'>Completed</span> : null}

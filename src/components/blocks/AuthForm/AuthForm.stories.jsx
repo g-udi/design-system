@@ -52,7 +52,7 @@ export default {
   component: AuthForm,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    mode: ['password', 'email'],
+    mode: ['password', 'email', 'signup'],
     title: 'text',
     description: 'text',
     submitLabel: 'text',
@@ -83,7 +83,7 @@ export const Playground = {
   },
   parameters: {
     docs: {
-      description: { story: 'A complete sign-in screen: credentials, a reset link, social and passkey alternatives, and a sign-up prompt. Switch `mode` to `email` for a magic-link form without the password field or reset link.' },
+      description: { story: 'A complete sign-in screen: credentials, a reset link, social and passkey alternatives, and a sign-up prompt. Switch `mode` to `email` for a magic-link form without the password field or reset link, or to `signup` for a name, email and new password. The eye button reveals the password.' },
       source: playgroundSource('AuthForm', {
         imports: "import { AuthForm } from '@gaudi/design-system';",
         attributes: [`successMessage='${successMessage}'`, 'onSubmit={signIn}', 'footer={<AuthFooter />}']
@@ -95,11 +95,17 @@ export const Playground = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: args.title })).toBeVisible();
     await expect(canvas.getByRole('textbox', { name: args.emailLabel })).toBeVisible();
-    const password = args.mode === 'password';
-    if (password) await expect(canvas.getByRole('link', { name: 'Forgot password?' })).toBeVisible();
-    else await expect(canvas.queryByLabelText(args.passwordLabel)).not.toBeInTheDocument();
+    const password = args.mode !== 'email';
+    if (args.mode === 'password') await expect(canvas.getByRole('link', { name: 'Forgot password?' })).toBeVisible();
+    if (!password) await expect(canvas.queryByLabelText(args.passwordLabel)).not.toBeInTheDocument();
+    if (args.mode === 'signup') await userEvent.type(canvas.getByRole('textbox', { name: 'Full name' }), 'Maya Lopez');
     await userEvent.type(canvas.getByRole('textbox', { name: args.emailLabel }), email);
-    if (password) await userEvent.type(canvas.getByLabelText(args.passwordLabel), 'example-password');
+    if (password) {
+      await userEvent.type(canvas.getByLabelText(args.passwordLabel), 'example-password');
+      // The reveal button turns the field into plain text without losing the value.
+      await userEvent.click(canvas.getByRole('button', { name: 'Show password' }));
+      await expect(canvas.getByRole('textbox', { name: args.passwordLabel })).toHaveValue('example-password');
+    }
     await userEvent.click(canvas.getByRole('button', { name: args.submitLabel }));
     await expect(args.onSubmit).toHaveBeenCalledWith(expect.objectContaining({ email }));
     await expect(await canvas.findByRole('status')).toHaveTextContent(successMessage);

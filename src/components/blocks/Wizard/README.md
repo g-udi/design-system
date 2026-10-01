@@ -40,6 +40,10 @@ const [name, setName] = useState('');
 | `title / description`                                       | ReactNode                                      | Flow context.                                                                          |
 | `completionTitle / completionDescription`                   | ReactNode                                      | Success content after the callback resolves.                                           |
 | `labels / completeLabel / errorMessage / validationMessage` | object / string                                | Localized action and state copy.                                                       |
+| `indicator`                                                 | steps, progress, dots or vertical              | Numbered steps, a progress bar, compact dots or a vertical list beside the form.       |
+| `aside`                                                     | ReactNode or function(index, complete)         | A live summary or preview beside the form.                                             |
+| `navigable`                                                 | boolean                                        | Completed steps become buttons that go back; steps ahead stay behind validation.       |
+| `completion`                                                | ReactNode                                      | Replaces the default finished state, for example a celebration with next actions.      |
 
 ## Ownership and verification
 

@@ -16,3 +16,17 @@ test('Stepper preserves its server-rendered public contract', async () => {
   assert.match(html, /aria-current="step"/);
   assert.match(html, /Completed/);
 });
+
+test('Stepper turns only completed steps into buttons when onStepSelect is set', async () => {
+  const steps = [
+    { id: 'a', label: 'Details' },
+    { id: 'b', label: 'Billing' },
+    { id: 'c', label: 'Review' }
+  ];
+  const html = await renderComponent(new URL('./Stepper.jsx', import.meta.url), { activeStep: 2, steps, orientation: 'vertical', onStepSelect: () => {} });
+  assert.equal(html.match(/<button/g)?.length, 2);
+  assert.match(html, /<button[^>]*>Details<\/button>/);
+  assert.doesNotMatch(html, /<button[^>]*>Review<\/button>/);
+  const readOnly = await renderComponent(new URL('./Stepper.jsx', import.meta.url), { activeStep: 2, steps });
+  assert.doesNotMatch(readOnly, /<button/);
+});

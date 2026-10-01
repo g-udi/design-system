@@ -285,7 +285,8 @@ import CatalogueWrench from 'lucide-react/dist/esm/icons/wrench.js';
 import CatalogueZap from 'lucide-react/dist/esm/icons/zap.js';
 import CatalogueZoomIn from 'lucide-react/dist/esm/icons/zoom-in.js';
 import CatalogueZoomOut from 'lucide-react/dist/esm/icons/zoom-out.js';
-import { FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { FaApple, FaLinkedin, FaMicrosoft, FaYoutube } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import { FaMedium } from 'react-icons/fa6';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
 import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
@@ -720,6 +721,9 @@ export const iconRegistry = {
   'FolderOpen': FolderOpen,
   'Fork': GitFork,
   'Github': VscGithub,
+  'Google': FcGoogle,
+  'Apple': FaApple,
+  'Microsoft': FaMicrosoft,
   'Gauge': Gauge,
   'Grid': Grid3X3,
   'Grid3X3': Grid3X3,
@@ -837,7 +841,7 @@ export const iconColors = {
 export const getIcon = (name) => iconRegistry[name] || null;
 
 // Solid brand glyphs (react-icons) are shapes, not strokes: a stroke width only bloats them.
-const filledIcons = new Set([ FaLinkedin, FaMedium, FaYoutube, HiSquare3Stack3D, RiMailOpenFill, RiTwitterXFill, VscGithub ]);
+const filledIcons = new Set([ FaApple, FaMicrosoft, FcGoogle, FaLinkedin, FaMedium, FaYoutube, HiSquare3Stack3D, RiMailOpenFill, RiTwitterXFill, VscGithub ]);
 
 const Icon = ({
   'aria-hidden': ariaHidden,

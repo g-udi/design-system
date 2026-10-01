@@ -3433,6 +3433,211 @@
           "storyId": "blocks-scheduling--scheduling-pattern-7"
         }
       ]
+    },
+    "screens": {
+      "owner": "blocks/Screens",
+      "examples": [
+        {
+          "name": "c-screens-1",
+          "title": "Account settings",
+          "description": "Account settings",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
+          "sha256": "8a6a2c503560e7801155d8958779325190dc1ebfdad6203592168716e2cc0d4c",
+          "storyId": "blocks-screens--screens-pattern-1"
+        },
+        {
+          "name": "c-screens-2",
+          "title": "Organisation tabs",
+          "description": "Organisation tabs",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-2.jsx",
+          "sha256": "9eaecbd71dcc1dbfe09af6b173f4e4ea1d01605b99b50ecdc5dbd5c6563f5bd5",
+          "storyId": "blocks-screens--screens-pattern-2"
+        },
+        {
+          "name": "c-screens-3",
+          "title": "Billing",
+          "description": "Billing",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-3.jsx",
+          "sha256": "dd020eff787d2865ef153903eb75fc86dc7a1110db7d077f3be0c550146993f8",
+          "storyId": "blocks-screens--screens-pattern-3"
+        },
+        {
+          "name": "c-screens-4",
+          "title": "Referral rewards",
+          "description": "Referral rewards",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-4.jsx",
+          "sha256": "51d15b00902be163a5b47e03e1cabfcfa35cf42a8e53bf1d9a94eedf13bb3deb",
+          "storyId": "blocks-screens--screens-pattern-4"
+        },
+        {
+          "name": "c-screens-5",
+          "title": "Inbox and meeting capture",
+          "description": "Inbox and meeting capture",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-5.jsx",
+          "sha256": "bbc2dfafcbde3aae792d2e5a6e864c577f1ac9ef0934a6a7f856942511c24795",
+          "storyId": "blocks-screens--screens-pattern-5"
+        },
+        {
+          "name": "c-screens-6",
+          "title": "Preferences",
+          "description": "Preferences",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-6.jsx",
+          "sha256": "35b8f94dc4657b478cc8e92d146ec06560c006bfd885a369be6c4a74d7383a8d",
+          "storyId": "blocks-screens--screens-pattern-6"
+        },
+        {
+          "name": "c-screens-7",
+          "title": "Notifications",
+          "description": "Notifications",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-7.jsx",
+          "sha256": "59d5de4e58d02b07a9d5ef6da1b66d7726dba47231ff8bd5b0865df91abf9719",
+          "storyId": "blocks-screens--screens-pattern-7"
+        },
+        {
+          "name": "c-screens-8",
+          "title": "Integrations",
+          "description": "Integrations",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-8.jsx",
+          "sha256": "32c79dae8c025aab261bb3facd11462d5977aef52649f4c4eeb13cdb8e60324c",
+          "storyId": "blocks-screens--screens-pattern-8"
+        },
+        {
+          "name": "c-screens-9",
+          "title": "Developer",
+          "description": "Developer",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-9.jsx",
+          "sha256": "2a54fd1d6eef87edda450b60a4cc1db2ea2914a1c11810ee2584a18ac6628eb0",
+          "storyId": "blocks-screens--screens-pattern-9"
+        },
+        {
+          "name": "c-screens-10",
+          "title": "Plan upgrade",
+          "description": "Plan upgrade",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-10.jsx",
+          "sha256": "9cad41a47b766e7ebcd501617151b9659ff256702e2dfa040c65ca0d55c95e19",
+          "storyId": "blocks-screens--screens-pattern-10"
+        },
+        {
+          "name": "c-screens-11",
+          "title": "Send an invoice",
+          "description": "Send an invoice",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-11.jsx",
+          "sha256": "f087fdb9f9cc47254c0af561e808d48efebc331ff8dde00f2fec6d153060320c",
+          "storyId": "blocks-screens--screens-pattern-11"
+        },
+        {
+          "name": "c-screens-12",
+          "title": "Vendor onboarding",
+          "description": "Vendor onboarding",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-12.jsx",
+          "sha256": "4acbaa646ed56ca5023ba71cc5900af3110db797bf496213146310b2882b2fc2",
+          "storyId": "blocks-screens--screens-pattern-12"
+        },
+        {
+          "name": "c-screens-13",
+          "title": "Invite your team",
+          "description": "Invite your team",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-13.jsx",
+          "sha256": "7fe6498306999be3037d32c675255b10ad1fea99611c404b6abb1eee77126e17",
+          "storyId": "blocks-screens--screens-pattern-13"
+        },
+        {
+          "name": "c-screens-14",
+          "title": "Add a product",
+          "description": "Add a product",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-14.jsx",
+          "sha256": "c94fcab41f5b0ce750be1cc07011229a11d84539983da0c154aefef003998299",
+          "storyId": "blocks-screens--screens-pattern-14"
+        },
+        {
+          "name": "c-screens-15",
+          "title": "Send money",
+          "description": "Send money",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-15.jsx",
+          "sha256": "a5d295b947c89f122aec7af0fc91c766e181ad60e6b59c2050f4054e541e1956",
+          "storyId": "blocks-screens--screens-pattern-15"
+        },
+        {
+          "name": "c-screens-16",
+          "title": "Workspace setup",
+          "description": "Workspace setup",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-16.jsx",
+          "sha256": "69926ec95ab49222618de170f2647f8536522111b721438c89f65258bb7140ae",
+          "storyId": "blocks-screens--screens-pattern-16"
+        },
+        {
+          "name": "c-screens-17",
+          "title": "Create a publication",
+          "description": "Create a publication",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-17.jsx",
+          "sha256": "d2356166e3f9ba2dfe061d800f6733a913dddee0223aa61155c59f6911350355",
+          "storyId": "blocks-screens--screens-pattern-17"
+        },
+        {
+          "name": "c-screens-18",
+          "title": "Tour in a dialog",
+          "description": "Tour in a dialog",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-18.jsx",
+          "sha256": "1e4c99063b8c61ba2190cae6fa103fa5afd4507cd778c84d64b0dde43bf0082b",
+          "storyId": "blocks-screens--screens-pattern-18"
+        },
+        {
+          "name": "c-screens-19",
+          "title": "Connect a coding agent",
+          "description": "Connect a coding agent",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-19.jsx",
+          "sha256": "986ee771aa5ec5e009459ee027593bf44583b7e4faf3d56ce16d5fbb864dc24d",
+          "storyId": "blocks-screens--screens-pattern-19"
+        },
+        {
+          "name": "c-screens-20",
+          "title": "Split with imagery",
+          "description": "Split with imagery",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-20.jsx",
+          "sha256": "087ab46117c2675c78005bb9ad366ffecaaeec262df699b56b6385b14aac3cba",
+          "storyId": "blocks-screens--screens-pattern-20"
+        },
+        {
+          "name": "c-screens-21",
+          "title": "Split with testimonials",
+          "description": "Split with testimonials",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-21.jsx",
+          "sha256": "7f8102510bd71797b5701bc749ac10768eef8f6ae38396f42ecf37d6339fd8e6",
+          "storyId": "blocks-screens--screens-pattern-21"
+        },
+        {
+          "name": "c-screens-22",
+          "title": "Magic link with logos",
+          "description": "Magic link with logos",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-22.jsx",
+          "sha256": "7a9727b282335393d94ca7441e23cdc6679b244c9ef76e741c82f8f93ce4ef48",
+          "storyId": "blocks-screens--screens-pattern-22"
+        },
+        {
+          "name": "c-screens-23",
+          "title": "Centred card",
+          "description": "Centred card",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-23.jsx",
+          "sha256": "c833109f8ac29ff24a40d053ae9cb7c00a050eb76a8a933cf0e9ceac66e591c0",
+          "storyId": "blocks-screens--screens-pattern-23"
+        },
+        {
+          "name": "c-screens-24",
+          "title": "Free trial sign-up",
+          "description": "Free trial sign-up",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-24.jsx",
+          "sha256": "57bc5395b6d0ba639e8b955bb5458468a1dbe58b915428dedf2f12e33ba513b2",
+          "storyId": "blocks-screens--screens-pattern-24"
+        },
+        {
+          "name": "c-screens-25",
+          "title": "Choose a sign-in method",
+          "description": "Choose a sign-in method",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-25.jsx",
+          "sha256": "050c337a6d529cdecc88c421dd73778cb271ac8a2bc44b04cec4a33e78dd6e2f",
+          "storyId": "blocks-screens--screens-pattern-25"
+        }
+      ]
     }
   }
 }

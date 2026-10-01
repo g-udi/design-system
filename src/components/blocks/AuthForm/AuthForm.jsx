@@ -1,56 +1,101 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import Field, { FieldLabel, FieldDescription } from '../../core/Field';
 import Input from '../../core/Input';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../core/Input/parts/input-group.jsx';
 import Button from '../../core/Button';
+import Icon from '../../core/Icon';
 
-/** Form layout and pending/error presentation; the host owns authentication. */
+// The reveal button swaps the input type; the value and autofill stay with the same field. The input sits in an
+// InputGroup, so it takes its id and description explicitly instead of from the Field context.
+function PasswordInput({ id, describedBy, autoComplete, minLength, placeholder }) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <InputGroup>
+      <InputGroupInput id={id} aria-describedby={describedBy} type={visible ? 'text' : 'password'} name='password' autoComplete={autoComplete} minLength={minLength} placeholder={placeholder} required />
+      <InputGroupAddon align='inline-end'>
+        <InputGroupButton size='icon-xs' aria-label={visible ? 'Hide password' : 'Show password'} aria-pressed={visible} onClick={() => setVisible((current) => !current)}>
+          <Icon name={visible ? 'EyeOff' : 'Eye'} decorative size='sm' />
+        </InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
+  );
+}
+
+const pendingLabels = { password: 'Signing in…', email: 'Sending link…', signup: 'Creating account…' };
+const passwordHints = { password: 'Use the password for your account.', signup: 'At least 8 characters.' };
+
+/**
+ * Form layout and pending/error presentation; the host owns authentication.
+ * `mode` is `password` (email and password), `email` (a magic link) or `signup` (name, email and a new password).
+ * `providers` adds a row of single sign-on buttons above the form; `onProvider(id)` runs the host's redirect or popup.
+ */
 export default function AuthForm({
   title = 'Sign in',
   description,
   mode = 'password',
   onSubmit,
   submitLabel = 'Sign in',
+  pendingLabel = pendingLabels[mode],
   successMessage = 'Check your inbox for the next step.',
   errorMessage = 'Sign-in failed. Check your details and try again.',
   footer,
+  children,
+  identifier = 'email',
+  nameLabel = 'Full name',
   emailLabel = 'Email',
   passwordLabel = 'Password',
   emailPlaceholder,
   passwordPlaceholder,
-  passwordHint = 'Use the password for your account.',
-  pendingLabel = 'Signing in…'
+  passwordHint = passwordHints[mode],
+  passwordAction,
+  providers = [],
+  onProvider,
+  providerLayout = 'grid',
+  dividerLabel = 'or'
 }) {
   const [pending, setPending] = useState(false);
+  const [provider, setProvider] = useState('');
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const busy = useRef(false);
   const mounted = useRef(true);
+  const passwordId = useId();
   useEffect(() => {
     mounted.current = true;
     return () => {
       mounted.current = false;
     };
   }, []);
-  const submit = async (event) => {
-    event.preventDefault();
+  // Form submission and provider sign-in share one pending guard so only one request runs at a time.
+  const run = async (request, providerId = '') => {
     if (busy.current) return;
-    const values = Object.fromEntries(new FormData(event.currentTarget));
     busy.current = true;
     setPending(true);
+    setProvider(providerId);
     setError(false);
     setSuccess(false);
     try {
-      await onSubmit(values);
-      if (mounted.current) setSuccess(true);
+      await request();
+      if (mounted.current && !providerId) setSuccess(true);
     } catch {
       if (mounted.current) setError(true);
     } finally {
       busy.current = false;
-      if (mounted.current) setPending(false);
+      if (mounted.current) {
+        setPending(false);
+        setProvider('');
+      }
     }
   };
+  const submit = (event) => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(event.currentTarget));
+    run(() => onSubmit(values));
+  };
+  const username = identifier === 'username';
+  const showHint = passwordHint !== false && passwordHint != null && passwordHint !== '';
   return (
     <form
       className='ds-auth-form'
@@ -63,27 +108,64 @@ export default function AuthForm({
         {description && <p className='ds-description'>{description}</p>}
       </header>
       <fieldset disabled={pending} className='ds-stack'>
-        <Field>
-          <FieldLabel>{emailLabel}</FieldLabel>
-          <Input type='email' name='email' autoComplete='email' placeholder={emailPlaceholder} required />
-        </Field>
-        {mode === 'password' && (
+        {providers.length ? (
+          <>
+            <div data-slot='auth-providers' className={providerLayout === 'stack' || providers.length === 1 ? 'grid gap-2' : 'grid gap-2 sm:grid-cols-2'}>
+              {providers.map((item) => (
+                <Button key={item.id} type='button' variant='outline' tone='neutral' onClick={() => run(() => onProvider?.(item.id), item.id)}>
+                  {item.icon}
+                  {provider === item.id ? 'Redirecting…' : item.label}
+                </Button>
+              ))}
+            </div>
+            {dividerLabel ? (
+              <div data-slot='auth-divider' className='text-text-muted flex items-center gap-3 text-xs'>
+                <span aria-hidden='true' className='bg-border h-px flex-1' />
+                {dividerLabel}
+                <span aria-hidden='true' className='bg-border h-px flex-1' />
+              </div>
+            ) : null}
+          </>
+        ) : null}
+        {mode === 'signup' && (
           <Field>
-            <FieldLabel>{passwordLabel}</FieldLabel>
-            <Input
-              type='password'
-              name='password'
-              autoComplete='current-password'
-              placeholder={passwordPlaceholder}
-              required
-            />
-            {passwordHint !== false && passwordHint != null && passwordHint !== '' && (
-              <FieldDescription>{passwordHint}</FieldDescription>
-            )}
+            <FieldLabel>{nameLabel}</FieldLabel>
+            <Input name='name' autoComplete='name' required />
           </Field>
         )}
+        <Field>
+          <FieldLabel>{emailLabel}</FieldLabel>
+          <Input
+            type={username ? 'text' : 'email'}
+            name={username ? 'username' : 'email'}
+            autoComplete={username ? 'username' : 'email'}
+            placeholder={emailPlaceholder}
+            required
+          />
+        </Field>
+        {mode !== 'email' && (
+          <Field>
+            {passwordAction ? (
+              <div className='flex items-center justify-between gap-3'>
+                <FieldLabel htmlFor={`${passwordId}-input`}>{passwordLabel}</FieldLabel>
+                {passwordAction}
+              </div>
+            ) : (
+              <FieldLabel htmlFor={`${passwordId}-input`}>{passwordLabel}</FieldLabel>
+            )}
+            <PasswordInput
+              id={`${passwordId}-input`}
+              describedBy={showHint ? `${passwordId}-hint` : undefined}
+              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+              minLength={mode === 'signup' ? 8 : undefined}
+              placeholder={passwordPlaceholder}
+            />
+            {showHint && <FieldDescription id={`${passwordId}-hint`}>{passwordHint}</FieldDescription>}
+          </Field>
+        )}
+        {children}
         <Button type='submit' disabled={pending}>
-          {pending ? pendingLabel : submitLabel}
+          {pending && !provider ? pendingLabel : submitLabel}
         </Button>
       </fieldset>
       {error && (
