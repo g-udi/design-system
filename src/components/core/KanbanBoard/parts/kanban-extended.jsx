@@ -33,6 +33,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { Slot } from 'radix-ui';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../../utilities/cn/index.js';
+import { Badge } from '../../Pill/parts/badge-extended.jsx';
 const KanbanContext = createContext({
   columns: {},
   setColumns: () => {},
@@ -430,7 +431,8 @@ function Kanban({
         <Comp
           data-slot='kanban'
           data-dragging={activeId !== null}
-          className={cn(activeId !== null && 'cursor-grabbing!', className)}
+          // min-w-0 lets a scrolling board inside a grid or flex parent scroll in place instead of widening it.
+          className={cn('min-w-0', activeId !== null && 'cursor-grabbing!', className)}
           {...props}
         >
           {children}
@@ -439,14 +441,27 @@ function Kanban({
     </KanbanContext.Provider>
   );
 }
-function KanbanBoard({ className, asChild = false, children, ...props }) {
+// `grid` fits a few columns to the width; `scroll` keeps every column at a fixed width inside its own
+// horizontally scrolling, keyboard-focusable region (name it with aria-label), so wide boards never
+// widen the page. It is positioned so visually hidden text inside it is clipped with it. Collapsed
+// columns shrink to their rail.
+const boardLayouts = {
+  grid: 'grid auto-rows-fr gap-4 sm:grid-cols-3',
+  scroll:
+    'relative flex min-w-0 max-w-full items-stretch gap-3 overflow-x-auto overscroll-x-contain pb-2 *:data-[slot=kanban-column]:shrink-0 *:data-[slot=kanban-column]:not-data-[collapsed=true]:w-72'
+};
+function KanbanBoard({ className, asChild = false, layout = 'grid', children, ...props }) {
   const { columnIds } = useContext(KanbanContext);
   const Comp = asChild ? Slot.Root : 'div';
+  const scroll = layout === 'scroll';
   return (
     <SortableContext items={columnIds} strategy={rectSortingStrategy}>
       <Comp
         data-slot='kanban-board'
-        className={cn('grid auto-rows-fr gap-4 sm:grid-cols-3', className)}
+        data-layout={layout}
+        role={scroll ? 'region' : undefined}
+        tabIndex={scroll ? 0 : undefined}
+        className={cn(boardLayouts[layout] ?? boardLayouts.grid, className)}
         {...props}
       >
         {children}
@@ -459,6 +474,7 @@ function KanbanColumn({
   className,
   asChild = false,
   disabled,
+  collapsed = false,
   children,
   ...props
 }) {
@@ -496,6 +512,7 @@ function KanbanColumn({
           data-slot='kanban-column'
           data-value={value}
           data-dragging={true}
+          data-collapsed={collapsed || undefined}
           className={cn('group/kanban-column flex flex-col', className)}
           {...props}
         >
@@ -513,6 +530,7 @@ function KanbanColumn({
         data-value={value}
         data-dragging={isSortableDragging}
         data-disabled={disabled}
+        data-collapsed={collapsed || undefined}
         ref={setNodeRef}
         style={style}
         className={cn(
@@ -561,6 +579,7 @@ function KanbanItem({
   className,
   asChild = false,
   disabled,
+  withHandle = false,
   children,
   ...props
 }) {
@@ -601,9 +620,11 @@ function KanbanItem({
       </ItemContext.Provider>
     );
   }
+  // With `withHandle`, the sortable role and keyboard focus move to KanbanItemHandle, so a card can hold
+  // its own buttons and menus without nesting them inside an interactive element.
   return (
     <ItemContext.Provider
-      value={{ listeners, isDragging: isItemDragging, disabled }}
+      value={{ listeners, isDragging: isItemDragging, disabled, attributes: withHandle ? attributes : undefined }}
     >
       <Comp
         data-slot='kanban-item'
@@ -612,7 +633,7 @@ function KanbanItem({
         data-disabled={disabled}
         ref={setNodeRef}
         style={style}
-        {...attributes}
+        {...(withHandle ? {} : attributes)}
         className={cn(
           isSortableDragging && 'z-50 opacity-50',
           disabled && 'opacity-50',
@@ -632,13 +653,14 @@ function KanbanItemHandle({
   children,
   ...props
 }) {
-  const { listeners, isDragging, disabled } = useContext(ItemContext);
+  const { listeners, isDragging, disabled, attributes } = useContext(ItemContext);
   const Comp = asChild ? Slot.Root : 'div';
   return (
     <Comp
       data-slot='kanban-item-handle'
       data-dragging={isDragging}
       data-disabled={disabled}
+      {...attributes}
       {...listeners}
       className={cn(
         cursor && (isDragging ? 'cursor-grabbing!' : 'cursor-grab!'),
@@ -709,9 +731,65 @@ function KanbanOverlay({ children, className, ...props }) {
     document.body
   );
 }
+/**
+ * The number of cards in a column, with an optional work-in-progress limit. Over the limit the count
+ * turns to the warning tone and says so to assistive tech; the visible text stays compact (3/4).
+ */
+function KanbanColumnCount({
+  count,
+  limit,
+  className,
+  formatLabel = (value, max, over) =>
+    max == null
+      ? `${value} ${value === 1 ? 'card' : 'cards'}`
+      : `${value} of ${max} cards${over ? ', over the limit' : ''}`,
+  ...props
+}) {
+  const hasLimit = Number.isFinite(limit);
+  const over = hasLimit && count > limit;
+  return (
+    <Badge
+      data-slot='kanban-column-count'
+      data-over-limit={over || undefined}
+      variant={over ? 'warning-light' : 'outline'}
+      size='sm'
+      className={cn('tabular-nums', className)}
+      {...props}
+    >
+      <span aria-hidden='true'>{hasLimit ? `${count}/${limit}` : count}</span>
+      <span className='sr-only'>{formatLabel(count, hasLimit ? limit : null, over)}</span>
+    </Badge>
+  );
+}
+/**
+ * A collapsed column drawn as a narrow vertical rail. It is a button that expands the column, and,
+ * because it sits inside the KanbanColumn, cards dropped on it still land in that column.
+ */
+function KanbanColumnRail({ label, count, icon, onExpand, expandLabel = 'Expand', className, ...props }) {
+  return (
+    <button
+      type='button'
+      data-slot='kanban-column-rail'
+      aria-expanded={false}
+      aria-label={`${expandLabel} ${label}${count == null ? '' : `, ${count} ${count === 1 ? 'card' : 'cards'}`}`}
+      onClick={onExpand}
+      className={cn(
+        'flex h-full min-h-40 w-10 flex-col items-center gap-2 rounded-lg border border-border bg-surface-muted py-3 text-xs font-medium text-text transition-colors hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent',
+        className
+      )}
+      {...props}
+    >
+      {icon}
+      <span className='[writing-mode:vertical-rl] rotate-180 whitespace-nowrap'>{label}</span>
+      {count == null ? null : <span className='tabular-nums text-text-muted'>{count}</span>}
+    </button>
+  );
+}
 export {
   Kanban,
   KanbanBoard,
+  KanbanColumnCount,
+  KanbanColumnRail,
   KanbanColumn,
   KanbanColumnHandle,
   KanbanItem,

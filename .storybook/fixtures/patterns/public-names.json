@@ -915,7 +915,9 @@
     "spansMultipleDays": "spansMultipleDays",
     "stepGanttDate": "stepGanttDate",
     "toZoned": "toZoned",
-    "zonedStartOfDay": "zonedStartOfDay"
+    "zonedStartOfDay": "zonedStartOfDay",
+    "checkDependencies": "checkDependencies",
+    "getCriticalPath": "getCriticalPath"
   },
   "src/components/core/Gantt/parts/gantt-nav-extended.jsx": {
     "GANTT_SCALES": "GANTT_SCALES",
@@ -1007,7 +1009,7 @@
     "ItemHeader": "ItemHeader",
     "ItemFooter": "ItemFooter"
   },
-  "src/components/blocks/KanbanBoard/parts/kanban-extended.jsx": {
+  "src/components/core/KanbanBoard/parts/kanban-extended.jsx": {
     "Kanban": "Kanban",
     "KanbanBoard": "KanbanBoardPrimitive",
     "KanbanColumn": "KanbanColumn",
@@ -1015,7 +1017,9 @@
     "KanbanItem": "KanbanItem",
     "KanbanItemHandle": "KanbanItemHandle",
     "KanbanColumnContent": "KanbanColumnContent",
-    "KanbanOverlay": "KanbanOverlay"
+    "KanbanOverlay": "KanbanOverlay",
+    "KanbanColumnCount": "KanbanColumnCount",
+    "KanbanColumnRail": "KanbanColumnRail"
   },
   "src/components/core/Kbd/parts/kbd.jsx": {
     "Kbd": "KbdRoot",
@@ -1211,5 +1215,8 @@
     "DialogConfirmationPortal": "DialogConfirmationPortal",
     "DialogConfirmationTitle": "DialogConfirmationTitle",
     "DialogConfirmationTrigger": "DialogConfirmationTrigger"
+  },
+  "src/components/core/Progress/parts/progress-ring.jsx": {
+    "ProgressRing": "ProgressRing"
   }
 }

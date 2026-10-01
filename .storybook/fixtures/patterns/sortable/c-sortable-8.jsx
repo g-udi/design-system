@@ -54,7 +54,7 @@ export function Pattern() {
           <SortableItem key={item.id} value={item.id}>
             <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border px-3 py-2'>
               <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
-                <RegistryIcon lucide='GripVerticalIcon' className='h-4 w-4' />
+                <RegistryIcon lucide='GripVerticalIcon' className='size-4' />
               </SortableItemHandle>
               <Badge variant='outline' className='tabular-nums'>
                 {index + 1}

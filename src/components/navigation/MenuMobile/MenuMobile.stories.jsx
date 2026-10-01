@@ -36,7 +36,7 @@ function MobileMenuExample({ initiallyOpen = false, setMobileMenuOpen, ...args }
   return (
     <div ref={setFrame} data-testid='phone-frame' className={`mx-auto w-full max-w-sm transform-gpu overflow-hidden rounded-card border border-border ${open ? 'h-[36rem]' : ''}`}>
       <header className='flex items-center justify-between border-b border-border px-3 py-1'>
-        <MenuLogo className='h-9 w-9' />
+        <MenuLogo className='size-9' />
         <Button variant='ghost' tone='neutral' size='icon' className='size-11' aria-label='Open mobile navigation' aria-expanded={open} onClick={() => update(true)}>
           <Icon name='Menu' decorative size='md' />
         </Button>

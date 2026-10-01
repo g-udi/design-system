@@ -348,14 +348,64 @@ function resolveOffDay(day, timeZone, config) {
   }
   return resolved.isOffDay?.(day) ?? false;
 }
+/*
+ * Finish-to-start dependency check for a proposed move or resize. `update`
+ * carries the event and its proposed start/end (the shape canDropEvent
+ * receives); `events` is the current list. A task may not start before any
+ * predecessor finishes, nor finish after any successor starts.
+ */
+function checkDependencies(update, events) {
+  const id = update.event?.id ?? update.id;
+  const start = new Date(update.start).getTime();
+  const end = new Date(update.end).getTime();
+  const byId = new Map(events.map((event) => [event.id, event]));
+  const self = byId.get(id) ?? update.event ?? {};
+  const blockedBy = (self.dependencies ?? [])
+    .map((dep) => byId.get(dep))
+    .filter((dep) => dep && new Date(dep.end).getTime() > start);
+  const blocking = events.filter(
+    (event) =>
+      event.id !== id &&
+      (event.dependencies ?? []).includes(id) &&
+      new Date(event.start).getTime() < end
+  );
+  return { ok: blockedBy.length === 0 && blocking.length === 0, blockedBy, blocking };
+}
+/*
+ * The critical path: from the task that finishes last, walk back through the
+ * predecessor that finishes latest (the one driving each start). Returns the
+ * task ids in order; any delay on them moves the finish date.
+ */
+function getCriticalPath(events) {
+  const byId = new Map(events.map((event) => [event.id, event]));
+  const endOf = (event) => new Date(event.end).getTime();
+  // Start from the last-finishing task nothing else waits on, so a milestone
+  // that lands on its predecessor's finish still ends the path.
+  const waitedOn = new Set(events.flatMap((event) => event.dependencies ?? []));
+  const ends = events.filter((event) => !waitedOn.has(event.id));
+  let current = (ends.length ? ends : events).reduce((latest, event) => (!latest || endOf(event) > endOf(latest) ? event : latest), null);
+  const path = [];
+  const seen = new Set();
+  while (current && !seen.has(current.id)) {
+    seen.add(current.id);
+    path.unshift(current.id);
+    current = (current.dependencies ?? [])
+      .map((dep) => byId.get(dep))
+      .filter(Boolean)
+      .reduce((latest, dep) => (!latest || endOf(dep) > endOf(latest) ? dep : latest), null);
+  }
+  return path;
+}
 export {
   buildDependencyPath,
   buildEventIndex,
+  checkDependencies,
   defaultEventOrder,
   eventsOverlap,
   findResource,
   flattenResources,
   getBaselineVariance,
+  getCriticalPath,
   getDayKey,
   getDayTotalMinutes,
   getGanttDateRange,

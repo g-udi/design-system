@@ -210,7 +210,7 @@ export function Pattern({
         <div className='flex flex-col items-center gap-3'>
           <div
             className={cn(
-              'bg-ui-muted flex h-12 w-12 items-center justify-center rounded-control transition-colors',
+              'bg-ui-muted flex size-12 items-center justify-center rounded-control transition-colors',
               isDragging
                 ? 'border-ui-primary bg-ui-primary/10'
                 : 'border-ui-muted-foreground/25'
@@ -218,7 +218,7 @@ export function Pattern({
           >
             <RegistryIcon
               lucide='UploadIcon'
-              className='text-ui-muted-foreground h-5 w-5'
+              className='text-ui-muted-foreground size-5'
             />
           </div>
 
@@ -264,11 +264,11 @@ export function Pattern({
             </div>
             <div className='flex gap-2'>
               <Button onClick={openFileDialog} variant='outline' size='sm'>
-                <RegistryIcon lucide='CloudUploadIcon' className='h-4 w-4' />
+                <RegistryIcon lucide='CloudUploadIcon' className='size-4' />
                 Add files
               </Button>
               <Button onClick={clearFiles} variant='outline' size='sm'>
-                <RegistryIcon lucide='Trash2Icon' className='h-4 w-4' />
+                <RegistryIcon lucide='Trash2Icon' className='size-4' />
                 Remove all
               </Button>
             </div>

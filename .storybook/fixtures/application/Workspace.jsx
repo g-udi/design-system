@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AppShell from '../../../src/components/blocks/AppShell';
 import StatGroup from '../../../src/components/blocks/StatGroup';
 import SettingsPanel from '../../../src/components/blocks/SettingsPanel';
-import KanbanBoard from '../../../src/components/blocks/KanbanBoard';
+import KanbanBoard from '../../../src/components/core/KanbanBoard';
 import DataTable from '../../../src/components/core/DataTable';
 import Field, {
   FieldLabel,

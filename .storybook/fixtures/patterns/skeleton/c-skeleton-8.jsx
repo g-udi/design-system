@@ -18,7 +18,7 @@ export function Pattern() {
       </CardContent>
       <CardFooter className='flex justify-between'>
         <Skeleton className='h-8 w-20 rounded-md' />
-        <Skeleton className='h-8 w-8 rounded-md' />
+        <Skeleton className='size-8 rounded-md' />
       </CardFooter>
     </Card>
   );

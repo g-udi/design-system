@@ -4,6 +4,7 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Progress from './Progress';
+import { ProgressRing } from './parts/progress-ring.jsx';
 
 const docs = getComponentDocs('Core/Progress');
 const bar = (canvasElement, name) => within(canvasElement).getByRole('progressbar', { name });
@@ -63,5 +64,38 @@ export const Indeterminate = {
     const progress = bar(canvasElement, 'Preparing the export');
     await expect(progress).not.toHaveAttribute('aria-valuenow');
     await expect(progress).toHaveAttribute('data-state', 'indeterminate');
+  }
+};
+
+const rings = [
+  { label: 'Draft review', value: 12, tone: 'danger', size: 'xs' },
+  { label: 'API integration', value: 42, tone: 'warning', size: 'sm' },
+  { label: 'Navigation fix', value: 66, tone: 'success', size: 'md' },
+  { label: 'Release checklist', value: 83, tone: 'info', size: 'lg' }
+];
+export const Ring = {
+  name: 'Progress ring',
+  parameters: {
+    docs: {
+      description: { story: 'The circular form for board cards and table cells, at four sizes. It keeps the progressbar role, so each ring names the work it measures; md and lg can print the percentage with `showValue`.' },
+      source: { code: "import { ProgressRing } from '@gaudi/design-system';\n\n<ProgressRing value={66} tone='success' size='md' showValue label='Navigation fix' />" }
+    }
+  },
+  render: () => (
+    <div className='flex flex-wrap items-center gap-6'>
+      {rings.map((ring) => (
+        <span key={ring.label} className='inline-flex items-center gap-2 text-sm text-text'>
+          <ProgressRing {...ring} showValue />
+          {ring.label}
+        </span>
+      ))}
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    for (const ring of rings) {
+      const progress = bar(canvasElement, ring.label);
+      await expect(progress).toHaveAttribute('aria-valuenow', String(ring.value));
+      await expect(progress).toHaveAttribute('data-tone', ring.tone);
+    }
   }
 };

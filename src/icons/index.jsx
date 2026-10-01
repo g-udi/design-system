@@ -823,12 +823,12 @@ export const iconLabels = {
 };
 
 export const iconSizes = {
-  '2xl': 'h-10 w-10',
-  'lg': 'h-6 w-6',
-  'md': 'h-5 w-5',
-  'sm': 'h-4 w-4',
-  'xl': 'h-8 w-8',
-  'xs': 'h-3 w-3'
+  '2xl': 'size-10',
+  'lg': 'size-6',
+  'md': 'size-5',
+  'sm': 'size-4',
+  'xl': 'size-8',
+  'xs': 'size-3'
 };
 
 export const iconColors = {

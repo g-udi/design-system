@@ -81,7 +81,7 @@ export function Pattern() {
                   <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
                     <RegistryIcon
                       lucide='GripVerticalIcon'
-                      className='h-4 w-4'
+                      className='size-4'
                     />
                   </SortableItemHandle>
                   <h3 className='text-sm font-semibold'>{group.name}</h3>
@@ -103,7 +103,7 @@ export function Pattern() {
                         <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
                           <RegistryIcon
                             lucide='GripVerticalIcon'
-                            className='h-4 w-4'
+                            className='size-4'
                           />
                         </SortableItemHandle>
                         <span className='flex-1 text-sm'>{value.value}</span>

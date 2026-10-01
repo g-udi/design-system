@@ -109,20 +109,20 @@ function DataGridColumnFilter({ column, title, options }) {
                   >
                     <div
                       className={cn(
-                        'border-ui-primary rounded-sm flex h-4 w-4 items-center justify-center border',
+                        'border-ui-primary rounded-sm flex size-4 items-center justify-center border',
                         isSelected
                           ? 'bg-ui-primary text-ui-primary-foreground'
                           : 'opacity-50 [&_svg]:invisible'
                       )}
                     >
-                      <RegistryIcon lucide='CheckIcon' className='h-4 w-4' />
+                      <RegistryIcon lucide='CheckIcon' className='size-4' />
                     </div>
                     {option.icon && (
-                      <option.icon className='text-ui-muted-foreground h-4 w-4' />
+                      <option.icon className='text-ui-muted-foreground size-4' />
                     )}
                     <span>{option.label}</span>
                     {facetCount !== void 0 && (
-                      <span className='ms-auto flex h-4 w-4 items-center justify-center font-mono text-xs'>
+                      <span className='ms-auto flex size-4 items-center justify-center font-mono text-xs'>
                         {facetCount}
                       </span>
                     )}

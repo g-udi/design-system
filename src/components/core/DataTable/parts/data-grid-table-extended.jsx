@@ -1715,7 +1715,7 @@ function DataGridTableBodyRows({ table }) {
         >
           <div className='flex items-center justify-center'>
             <svg
-              className='text-ui-muted-foreground mr-3 -ml-1 h-5 w-5 animate-spin'
+              className='text-ui-muted-foreground mr-3 -ml-1 size-5 animate-spin'
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
               viewBox='0 0 24 24'

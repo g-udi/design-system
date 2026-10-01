@@ -37,7 +37,7 @@ function SiteHeader({ allPosts, categories }) {
   }, []);
   return (
     <div ref={ref} className='flex min-h-[22rem] items-start gap-3'>
-      <MenuLogo className='h-9 w-9 shrink-0' />
+      <MenuLogo className='size-9 shrink-0' />
       <NavigationMenu label='Site' className='w-auto flex-1 justify-end'>
         <NavigationMenuList>
           {links.map((link) => <NavigationMenuLink key={link} href={`/${link.toLowerCase()}`} className='max-sm:hidden'>{link}</NavigationMenuLink>)}

@@ -10,7 +10,7 @@ import {
   KanbanItem,
   KanbanItemHandle,
   KanbanOverlay
-} from '../../../../src/components/blocks/KanbanBoard/parts/kanban-extended.jsx';
+} from '../../../../src/components/core/KanbanBoard/parts/kanban-extended.jsx';
 import { toast } from 'sonner';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {

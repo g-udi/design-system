@@ -107,7 +107,7 @@ function NavigationMenuIndicator({ className, ...props }) {
       )}
       {...props}
     >
-      <div className='ds-part-navigation-menu-indicator-arrow relative top-[60%] h-2 w-2 rotate-45' />
+      <div className='ds-part-navigation-menu-indicator-arrow relative top-[60%] size-2 rotate-45' />
     </NavigationMenuPrimitive.Indicator>
   );
 }

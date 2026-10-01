@@ -35,7 +35,7 @@ function SearchPlacements({ setOpen }) {
   return (
     <div className='grid gap-3'>
       <header className='flex items-center gap-4 rounded-card border border-border px-3 py-1'>
-        <MenuLogo className='h-8 w-8' />
+        <MenuLogo className='size-8' />
         <nav aria-label='Header' className='hidden flex-1 gap-4 text-sm font-medium text-text-muted sm:flex'>
           {links.map((link) => <span key={link}>{link}</span>)}
         </nav>
