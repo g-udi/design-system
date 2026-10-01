@@ -1,5 +1,5 @@
 import { expect, fn, userEvent, within } from 'storybook/test';
-import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
+import { getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { previewSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
@@ -37,8 +37,8 @@ const asideSource = {
 };
 
 export default {
-  title: 'Blocks/Screens',
-  id: 'blocks-screens',
+  title: 'Blocks/Auth',
+  id: 'blocks-application-authform',
   component: Screen,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
@@ -48,16 +48,11 @@ export default {
     footer: 'boolean',
     mode: ['password', 'email', 'signup']
   }),
-  parameters: {
-    docs: {
-      description: { component: docs.description },
-      page: createComponentDocsPage(docs, { primaryStory: () => Playground })
-    }
-  },
   decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-export const Playground = {
+export const ScreenFrame = {
+  name: 'Screen frame',
   args: {
     aside: 'testimonial',
     asideSide: 'end',

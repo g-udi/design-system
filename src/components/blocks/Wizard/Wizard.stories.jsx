@@ -89,7 +89,7 @@ const completeFlow = async (canvas, completeLabel) => {
 };
 
 export default {
-  title: 'Blocks/To Sort/Wizard', id: 'blocks-application-wizard',
+  title: 'Blocks/Wizard', id: 'blocks-application-wizard',
   component: Wizard,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { title: 'text', description: 'text', labels: 'object', indicator: ['steps', 'progress', 'vertical'] }),
