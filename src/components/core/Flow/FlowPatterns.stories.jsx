@@ -71,4 +71,3 @@ export const FlowPattern4 = {
     await waitFor(() => expect(canvas.getAllByText('North star')).toHaveLength(1));
   }
 };
-
