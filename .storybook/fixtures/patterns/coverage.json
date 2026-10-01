@@ -3638,6 +3638,43 @@
           "storyId": "blocks-screens--screens-pattern-25"
         }
       ]
+    },
+    "flow": {
+      "owner": "core/Flow",
+      "examples": [
+        {
+          "name": "c-flow-1",
+          "title": "Automation workflow editor",
+          "description": "Automation workflow editor",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-1.jsx",
+          "sha256": "98744187e9dca68726a4ee62b8d45081b620f4dc45fd1343847d0d2ddf3d32ba",
+          "storyId": "core-flow--flow-pattern-1"
+        },
+        {
+          "name": "c-flow-2",
+          "title": "Agent tree with test run",
+          "description": "Agent tree with test run",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-2.jsx",
+          "sha256": "efffbdbe2879ea1ca9e5e3bad9d4d174df5632367b6f3708e95d6509dac1f257",
+          "storyId": "core-flow--flow-pattern-2"
+        },
+        {
+          "name": "c-flow-3",
+          "title": "Pipeline run monitor",
+          "description": "Pipeline run monitor",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-3.jsx",
+          "sha256": "6bc751b9797b8b4226616825014bc8afd7ac604d9b4c50c0717d45df90a6eb8a",
+          "storyId": "core-flow--flow-pattern-3"
+        },
+        {
+          "name": "c-flow-4",
+          "title": "Growth impact map",
+          "description": "Growth impact map",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-4.jsx",
+          "sha256": "2fe16a850a4ade11e26c6f894939a8e67e9b57514e0e3cf9da7fa68736f8b369",
+          "storyId": "core-flow--flow-pattern-4"
+        }
+      ]
     }
   }
 }

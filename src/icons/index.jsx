@@ -284,6 +284,12 @@ import CatalogueWebhook from 'lucide-react/dist/esm/icons/webhook.js';
 import CatalogueWrench from 'lucide-react/dist/esm/icons/wrench.js';
 import CatalogueZap from 'lucide-react/dist/esm/icons/zap.js';
 import CatalogueZoomIn from 'lucide-react/dist/esm/icons/zoom-in.js';
+import CatalogueHourglass from 'lucide-react/dist/esm/icons/hourglass.js';
+import CatalogueMagnet from 'lucide-react/dist/esm/icons/magnet.js';
+import CataloguePause from 'lucide-react/dist/esm/icons/pause.js';
+import CatalogueRedo from 'lucide-react/dist/esm/icons/redo.js';
+import CatalogueUnlink from 'lucide-react/dist/esm/icons/unlink.js';
+import CatalogueWorkflow from 'lucide-react/dist/esm/icons/workflow.js';
 import CatalogueZoomOut from 'lucide-react/dist/esm/icons/zoom-out.js';
 import { FaApple, FaLinkedin, FaMicrosoft, FaYoutube } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
@@ -670,6 +676,12 @@ export const iconRegistry = {
   'Zap': CatalogueZap,
   'ZoomIn': CatalogueZoomIn,
   'ZoomOut': CatalogueZoomOut,
+  'Hourglass': CatalogueHourglass,
+  'Magnet': CatalogueMagnet,
+  'Pause': CataloguePause,
+  'Redo': CatalogueRedo,
+  'Unlink': CatalogueUnlink,
+  'Workflow': CatalogueWorkflow,
   'ArrowUpDown': ArrowUpDown,
   'MoreHorizontal': MoreHorizontal,
   'Settings': Settings,

@@ -28,6 +28,10 @@ const iconGroups = [
     'name': 'File Types'
   },
   {
+    'icons': [ 'Workflow', 'Undo', 'Redo', 'Magnet', 'Pause', 'Hourglass', 'Unlink', 'ZoomIn', 'ZoomOut' ],
+    'name': 'Canvas & Workflow'
+  },
+  {
     'icons': [ 'ChessKnight', 'HandshakeLine', 'ChartArea', 'Cubes', 'Codepen', 'Robot' ],
     'name': 'About Page'
   }

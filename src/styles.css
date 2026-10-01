@@ -1,5 +1,6 @@
 @import "./components/core/Accordion/Accordion.css";
 @import './components/core/Avatar/Avatar.css';
+@import './components/core/Flow/Flow.css';
 @import './application.css';
 @import './composition.css';
 @import './spacing.css';
