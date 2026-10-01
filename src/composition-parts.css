@@ -1659,6 +1659,27 @@
     @apply gap-2;
   }
 
+  /* MARK: Message parts (assistant replies) */
+  .ds-part-message-markdown-code {
+    @apply bg-surface-muted rounded-sm px-1 py-0.5 font-mono text-xs;
+  }
+
+  /* The "Thinking" label breathes while the model works; it holds still for readers who reduce motion. */
+  .ds-part-message-shimmer {
+    animation: ds-message-shimmer 1.6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-part-message-shimmer {
+      animation: none;
+    }
+  }
+
+  @keyframes ds-message-shimmer {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
   /* MARK: React Aria */
   .ds-part-alert-dialog-overlay-aria {
     @apply data-entering:animate-in data-exiting:animate-out data-exiting:fade-out-0 data-entering:fade-in-0 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs;

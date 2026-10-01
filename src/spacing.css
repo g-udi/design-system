@@ -64,6 +64,7 @@
   [data-slot='badge'],
   [data-slot='spinner'],
   [data-slot='marker-icon'],
+  [data-slot='message-citation'],
   [data-slot^='rating-star'],
   .ds-part-calendar-day-button,
   .rdp-nav,

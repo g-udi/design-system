@@ -3904,6 +3904,125 @@
           "storyId": "core-flow--flow-pattern-4"
         }
       ]
+    },
+    "ai-message": {
+      "owner": "core/Message",
+      "examples": [
+        {
+          "name": "c-ai-message-1",
+          "title": "Drafting a post",
+          "description": "Drafting a post",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-1.jsx",
+          "sha256": "7e25469a8b928c0030760159a2ffdc92786b1769b822a86c3f351b51cbbbaf11",
+          "storyId": "core-message--ai-message-pattern-1"
+        },
+        {
+          "name": "c-ai-message-2",
+          "title": "Research with citations",
+          "description": "Research with citations",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-2.jsx",
+          "sha256": "86f380a46792ac3b1ba9cbde992a23a83841b05f283ebf7851d5482dc61f2161",
+          "storyId": "core-message--ai-message-pattern-2"
+        },
+        {
+          "name": "c-ai-message-3",
+          "title": "Running tools",
+          "description": "Running tools",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-3.jsx",
+          "sha256": "5ade0f0032872ca9a80214219f225a20c05549514428de7c491298947a9130be",
+          "storyId": "core-message--ai-message-pattern-3"
+        },
+        {
+          "name": "c-ai-message-4",
+          "title": "Handing work to another agent",
+          "description": "Handing work to another agent",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-4.jsx",
+          "sha256": "230a80bf281e29be79ab2fafb5036982f20abebd55fda29b455353c8f9d404d5",
+          "storyId": "core-message--ai-message-pattern-4"
+        },
+        {
+          "name": "c-ai-message-5",
+          "title": "Delivered files and data",
+          "description": "Delivered files and data",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-5.jsx",
+          "sha256": "bf21f1292b5bb8f6e3680bd550b7057589ba1c4b9b16fe9e1930787a83c9f2c9",
+          "storyId": "core-message--ai-message-pattern-5"
+        },
+        {
+          "name": "c-ai-message-6",
+          "title": "Error, retry and suggestions",
+          "description": "Error, retry and suggestions",
+          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-6.jsx",
+          "sha256": "1445f6e5ef8b63eeacc2707ab31401194d90fe6ec8cf266c3eeec8c2e76665b2",
+          "storyId": "core-message--ai-message-pattern-6"
+        }
+      ]
+    },
+    "prompt-composer": {
+      "owner": "core/Input",
+      "examples": [
+        {
+          "name": "c-prompt-composer-1",
+          "title": "Mentions, commands and attachments",
+          "description": "Mentions, commands and attachments",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-1.jsx",
+          "sha256": "04914b803ed4a995b624bcafca61c56a73c39595a3eed6e16fbeebe810e9bcf9",
+          "storyId": "core-input--prompt-composer-pattern-1"
+        },
+        {
+          "name": "c-prompt-composer-2",
+          "title": "Queue follow-ups while a reply streams",
+          "description": "Queue follow-ups while a reply streams",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-2.jsx",
+          "sha256": "6e72f00ed5458acf8a54ab5842dfe09f34451e326f45053bb88b0bc8f1efaf38",
+          "storyId": "core-input--prompt-composer-pattern-2"
+        },
+        {
+          "name": "c-prompt-composer-3",
+          "title": "Model and effort",
+          "description": "Model and effort",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-3.jsx",
+          "sha256": "c1e21eb141f2051a158f8617ee673b467e84dce6e8e318f25ded892dd6024650",
+          "storyId": "core-input--prompt-composer-pattern-3"
+        }
+      ]
+    },
+    "chat": {
+      "owner": "blocks/Chat",
+      "examples": [
+        {
+          "name": "c-chat-1",
+          "title": "Reviewing a pull request",
+          "description": "Reviewing a pull request",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-1.jsx",
+          "sha256": "65cb1c660d95a7ad0d00e88671f30b72b22e08fbb2627779c0a149aa063a0151",
+          "storyId": "blocks-chat--chat-pattern-1"
+        },
+        {
+          "name": "c-chat-2",
+          "title": "Writing assistant beside the editor",
+          "description": "Writing assistant beside the editor",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-2.jsx",
+          "sha256": "5c29fa5b34cfebc64e1fbb82894f9c8026c13b5946860d64c9f01bf52ac86059",
+          "storyId": "blocks-chat--chat-pattern-2"
+        },
+        {
+          "name": "c-chat-3",
+          "title": "Welcome and suggestions",
+          "description": "Welcome and suggestions",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-3.jsx",
+          "sha256": "f29a680409b00c7c3701b52466b17b85228d05b16f821b56f81eabf74e126378",
+          "storyId": "blocks-chat--chat-pattern-3"
+        },
+        {
+          "name": "c-chat-4",
+          "title": "Agent at work: plan and activity",
+          "description": "Agent at work: plan and activity",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-4.jsx",
+          "sha256": "6b0938f858dfa678769a577654f1b36b4b94cff10239d039dcf3f944b679c506",
+          "storyId": "blocks-chat--chat-pattern-4"
+        }
+      ]
     }
   }
 }

@@ -9,6 +9,7 @@ export { default as StatCard, StatDelta, StatIcon, StatMeter } from './StatCard'
 export { ScheduleCalendar, TimeSlots, timeSlots, formatTime, formatDuration, addMinutes, minutesBetween, dayKey } from './Scheduling';
 export { default as Screen, ScreenTestimonial } from './Screens';
 export { FormErrorSummary, EditableField, CharacterCount, useFormValidation, validators } from './Forms';
+export { ChatShell, ChatThreadNav, ChatWelcome, ChatSessionList, ChatFileExplorer, ChatActivity, ChatPlan } from './Chat';
 
 // Composition exports
 export { Item, ItemMedia, ItemContent, ItemActions, ItemGroup, ItemSeparator, ItemTitle, ItemDescription, ItemHeader, ItemFooter } from './ResourceList/index.js';

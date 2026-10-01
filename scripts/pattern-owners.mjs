@@ -15,7 +15,7 @@ export const owners = {
   'icon-tile': 'core/Icon', input: 'core/Input', 'input-group': 'core/Input',
   'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'core/KanbanBoard', 'stat-cards': 'blocks/StatCard', scheduling: 'blocks/Scheduling', screens: 'blocks/Screens', forms: 'blocks/Forms',
   kbd: 'core/Kbd', label: 'core/Field', marker: 'core/Marker', menubar: 'core/DropdownMenu',
-  message: 'core/Message', 'message-scroller': 'core/Message', 'native-select': 'core/Select',
+  message: 'core/Message', 'message-scroller': 'core/Message', 'ai-message': 'core/Message', 'prompt-composer': 'core/Input', chat: 'blocks/Chat', 'native-select': 'core/Select',
   'navigation-menu': 'core/NavigationMenu', 'number-field': 'core/NumberField',
   pagination: 'core/Pagination', 'phone-input': 'core/PhoneInput', popover: 'core/Popover',
   progress: 'core/Progress', questionnaire: 'core/Questionnaire', 'radio-group': 'core/RadioGroup',
