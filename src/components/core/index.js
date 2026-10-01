@@ -6,6 +6,7 @@ export { default as Button, buttonSizes, buttonToneAliases, buttonTones, buttonV
 export { default as Card, cardVariants } from './Card';
 export { default as Carousel, carouselCardVariants, carouselSlideVariants, carouselVariants } from './Carousel';
 export { default as Checkbox } from './Checkbox';
+export * from './CodeBlock';
 export { default as Commander } from './Commander';
 export { default as DataTable } from './DataTable';
 export { default as Field, FieldDescription, FieldError, FieldInput, FieldLabel } from './Field';

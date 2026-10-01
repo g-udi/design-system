@@ -987,6 +987,27 @@
       ],
       "importPath": "./src/components/core/Checkbox/Checkbox.stories.jsx"
     },
+    "core-codeblock--playground": {
+      "id": "core-codeblock--playground",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlock.stories.jsx"
+    },
+    "core-codeblock--docs": {
+      "id": "core-codeblock--docs",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlock.stories.jsx"
+    },
     "core-commander--playground": {
       "id": "core-commander--playground",
       "title": "Core/Overlays & Menus/Commander",
@@ -2495,37 +2516,26 @@
       ],
       "importPath": "./src/components/mdx/CitationTracker/CitationTracker.stories.jsx"
     },
-    "mdx-codegrouptabs--playground": {
-      "id": "mdx-codegrouptabs--playground",
-      "title": "MDX/CodeGroupTabs",
+    "mdx-code--playground": {
+      "id": "mdx-code--playground",
+      "title": "MDX/Code",
       "name": "Playground",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
       ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeGroupTabs.stories.jsx"
+      "importPath": "./src/components/mdx/Code/Code.stories.jsx"
     },
-    "mdx-codegrouptabs--docs": {
-      "id": "mdx-codegrouptabs--docs",
-      "title": "MDX/CodeGroupTabs",
+    "mdx-code--docs": {
+      "id": "mdx-code--docs",
+      "title": "MDX/Code",
       "name": "Docs",
       "type": "docs",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeGroupTabs.stories.jsx"
-    },
-    "mdx-codegrouptabs--long-labels-in-narrow-column": {
-      "id": "mdx-codegrouptabs--long-labels-in-narrow-column",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Long Labels In Narrow Column",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeGroupTabs.stories.jsx"
+      "importPath": "./src/components/mdx/Code/Code.stories.jsx"
     },
     "mdx-details--playground": {
       "id": "mdx-details--playground",
@@ -4292,6 +4302,111 @@
         "play-fn"
       ],
       "importPath": "./src/components/core/Checkbox/CheckboxPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-1": {
+      "id": "core-codeblock--code-block-pattern-1",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Code block options",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-7": {
+      "id": "core-codeblock--code-block-pattern-7",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Line states",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-14": {
+      "id": "core-codeblock--code-block-pattern-14",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Tabbed code",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-9": {
+      "id": "core-codeblock--code-block-pattern-9",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Terminal output",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-23": {
+      "id": "core-codeblock--code-block-pattern-23",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Long file with folding",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-13": {
+      "id": "core-codeblock--code-block-pattern-13",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Search in file",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-18": {
+      "id": "core-codeblock--code-block-pattern-18",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Patch review",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-4": {
+      "id": "core-codeblock--code-block-pattern-4",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Streaming assistant reply",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-24": {
+      "id": "core-codeblock--code-block-pattern-24",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Diagnostics with fixes",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
+    },
+    "core-codeblock--code-block-pattern-25": {
+      "id": "core-codeblock--code-block-pattern-25",
+      "title": "Core/Data Display/CodeBlock",
+      "name": "Reference lines in chat",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/CodeBlock/CodeBlockPatterns.stories.jsx"
     },
     "core-commander--command-pattern-1": {
       "id": "core-commander--command-pattern-1",
@@ -6362,7 +6477,18 @@
     "core-timeline--timeline-pattern-11": {
       "id": "core-timeline--timeline-pattern-11",
       "title": "Core/Data Display/Timeline",
-      "name": "Activity feed with avatars",
+      "name": "Activity stream",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Timeline/TimelinePatterns.stories.jsx"
+    },
+    "core-timeline--timeline-pattern-13": {
+      "id": "core-timeline--timeline-pattern-13",
+      "title": "Core/Data Display/Timeline",
+      "name": "Release changelog",
       "type": "story",
       "tags": [
         "autodocs"
@@ -6653,110 +6779,6 @@
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-1": {
-      "id": "mdx-codegrouptabs--code-block-pattern-1",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Code block options",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-7": {
-      "id": "mdx-codegrouptabs--code-block-pattern-7",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Line states",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-14": {
-      "id": "mdx-codegrouptabs--code-block-pattern-14",
-      "title": "MDX/CodeGroupTabs",
-      "name": "File tabs in a dense frame",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-9": {
-      "id": "mdx-codegrouptabs--code-block-pattern-9",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Terminal output",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-23": {
-      "id": "mdx-codegrouptabs--code-block-pattern-23",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Long file with folding",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-13": {
-      "id": "mdx-codegrouptabs--code-block-pattern-13",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Search in file",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-18": {
-      "id": "mdx-codegrouptabs--code-block-pattern-18",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Patch review",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-4": {
-      "id": "mdx-codegrouptabs--code-block-pattern-4",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Streaming assistant reply",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-24": {
-      "id": "mdx-codegrouptabs--code-block-pattern-24",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Diagnostics with fixes",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
-    },
-    "mdx-codegrouptabs--code-block-pattern-25": {
-      "id": "mdx-codegrouptabs--code-block-pattern-25",
-      "title": "MDX/CodeGroupTabs",
-      "name": "Reference lines in chat",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/CodeGroupTabs/CodeBlockPatterns.stories.jsx"
     },
     "mdx-table--table-pattern-1": {
       "id": "mdx-table--table-pattern-1",

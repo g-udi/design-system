@@ -16,7 +16,7 @@ import Callout from './Callout';
 import Chart, { AreaChart, BarChart, ComposedChart, DonutChart, LineChart, PieChart, RadialBarChart, ScatterChart } from './Chart';
 import CitationPopover from './CitationPopover';
 import CitationTracker from './CitationTracker';
-import CodeGroupTabs from './CodeGroupTabs';
+import { CodeFence, CodeGroup } from './Code';
 import Details from './Details';
 import Faq from './Faq';
 import FileTree from './FileTree';
@@ -44,7 +44,8 @@ export const MDXComponents = {
   Chart,
   CitationPopover,
   CitationTracker,
-  CodeGroupTabs,
+  CodeFence,
+  CodeGroup,
   ComposedChart,
   Details,
   DonutChart,
@@ -65,6 +66,7 @@ export const MDXComponents = {
   Tooltip,
   Video,
   'a': CustomLink,
+  'pre': CodeFence,
   'table': Table,
   'tbody': TableBody,
   'td': TableCell,
@@ -80,7 +82,8 @@ export { AreaChart,
   Chart,
   CitationPopover,
   CitationTracker,
-  CodeGroupTabs,
+  CodeFence,
+  CodeGroup,
   ComposedChart,
   Details,
   DonutChart,
@@ -108,5 +111,4 @@ export { AreaChart,
 
 // Composition exports
 export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from './Chart/index.js';
-export { codeBlockLanguages, codeBlockThemes, DEFAULT_CODE_BLOCK_THEMES, resolveCodeBlockLanguage, parseLineSpec, normalizeCode, buildWordDecorations, stripNotationComments, toPlainLines, markdownCodeProps, markdownFences, highlightCode, resetCodeBlockHighlighter, ansiToLines, parseUnifiedDiff, CodeBlock, CodeBlockCopyButton, CodeBlockDownloadButton, CodeBlockExpandButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockLineActions, CodeBlockTitle, CodeBlockContent, CodeBlockWrapToggle, useCodeBlockConfig, useCodeBlockFolding, useCodeBlockSelection } from './CodeGroupTabs/index.js';
 export { TableRoot, TableHeader, TableBodyPrimitive, TableFooter, TableHeadPrimitive, TableRowPrimitive, TableCellPrimitive, TableCaption } from './Table/index.js';

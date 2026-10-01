@@ -23,7 +23,7 @@ import {
   toPlainLines
 } from './code-block-highlight-extended.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
-import { default as Button } from '../../../core/Button/index.js';
+import { default as Button } from '../../Button/index.js';
 const CodeBlockConfigContext = createContext(null);
 const CodeBlockDocumentContext = createContext(null);
 const CodeBlockHeaderContext = createContext(false);

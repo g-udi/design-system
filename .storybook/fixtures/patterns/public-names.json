@@ -301,7 +301,7 @@
   "src/components/core/Checkbox/parts/checkbox.jsx": {
     "Checkbox": "CheckboxRoot"
   },
-  "src/components/mdx/CodeGroupTabs/parts/code-block-highlight-extended.jsx": {
+  "src/components/core/CodeBlock/parts/code-block-highlight-extended.jsx": {
     "codeBlockLanguages": "codeBlockLanguages",
     "codeBlockThemes": "codeBlockThemes",
     "DEFAULT_CODE_BLOCK_THEMES": "DEFAULT_CODE_BLOCK_THEMES",
@@ -318,7 +318,7 @@
     "ansiToLines": "ansiToLines",
     "parseUnifiedDiff": "parseUnifiedDiff"
   },
-  "src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx": {
+  "src/components/core/CodeBlock/parts/code-block-extended.jsx": {
     "markdownCodeProps": "markdownCodeProps",
     "markdownFences": "markdownFences",
     "ansiToLines": "ansiToLines",

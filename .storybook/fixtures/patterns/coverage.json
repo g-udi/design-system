@@ -979,87 +979,87 @@
       ]
     },
     "code-block": {
-      "owner": "mdx/CodeGroupTabs",
+      "owner": "core/CodeBlock",
       "examples": [
         {
           "name": "c-code-block-1",
           "title": "Code block options",
           "description": "Code block options",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-1.jsx",
-          "sha256": "ccf367c6f3564024e47ba396540777f6634d86e917f0e34a29b3a2e6af63df7b",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-1"
+          "sha256": "eaa6f1f2d09ebf14fb84c2c417c462634481ad7184d1563e660ff638bf92f486",
+          "storyId": "core-codeblock--code-block-pattern-1"
         },
         {
           "name": "c-code-block-4",
           "title": "Streaming assistant reply",
           "description": "Streaming assistant reply",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-4.jsx",
-          "sha256": "1f3c8871f6ab5d0414c3e5f5fbdcb5ce76c68e0a937aa4d67e05d76d8ca2dfcf",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-4"
+          "sha256": "e491e2aac5e8fc202b3117f64ad10d5e5e9110c9a42eb2dd768ffe7855dafc4c",
+          "storyId": "core-codeblock--code-block-pattern-4"
         },
         {
           "name": "c-code-block-7",
           "title": "Line states",
           "description": "Line states",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-7.jsx",
-          "sha256": "11c99094ac4058960bb8db2829cfbb3d9e546cbceca74ec515ee7532700b6a9f",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-7"
+          "sha256": "6ee92979c013ec9e95067687881cc018c2ab43205a1183671d7398f2886d9e4e",
+          "storyId": "core-codeblock--code-block-pattern-7"
         },
         {
           "name": "c-code-block-9",
           "title": "Terminal output",
           "description": "Terminal output",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-9.jsx",
-          "sha256": "ddef79f29b64f45b28649536e73e6e00daa112b90a9809b0ef405b47957a9e85",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-9"
+          "sha256": "a26fd6b60a513deee13ab2d84a42414afe4b23f3d69c10a1e0614b6ba5190457",
+          "storyId": "core-codeblock--code-block-pattern-9"
         },
         {
           "name": "c-code-block-13",
           "title": "Search in file",
           "description": "Search in file",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-13.jsx",
-          "sha256": "1ba1020aed47186d38ea0e2e4a074b9b0b8b3e17e20050a2d401e93783b34c5d",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-13"
+          "sha256": "78fe71f56518a8a842794cd13f7373a196cebe5fe84790b54f2039d4c5a2db38",
+          "storyId": "core-codeblock--code-block-pattern-13"
         },
         {
           "name": "c-code-block-14",
-          "title": "File tabs in a dense frame",
-          "description": "File tabs in a dense frame",
+          "title": "Tabbed code",
+          "description": "Tabbed code",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-14.jsx",
-          "sha256": "c4620baa6924fd9e6433294b537019fc19c69a99c6ef8e55756a0be056ba740c",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-14"
+          "sha256": "47c8c50dc94df0e3527fc02ec2b43967762285a2aa7ca0c42389df72cecc1bab",
+          "storyId": "core-codeblock--code-block-pattern-14"
         },
         {
           "name": "c-code-block-18",
           "title": "Patch review",
           "description": "Patch review",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-18.jsx",
-          "sha256": "dbb78e350d009f40b5dfdc3ba03cb414a6bac124d1e67dead39faa865f2bb546",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-18"
+          "sha256": "3d08d9f37bd81c5ec79c2ece63d98143b934e3c7493ddb755ab17a28bccdebfe",
+          "storyId": "core-codeblock--code-block-pattern-18"
         },
         {
           "name": "c-code-block-23",
           "title": "Long file with folding",
           "description": "Long file with folding",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-23.jsx",
-          "sha256": "7361932ece6e37ac173229cb92092a7c1425cc4936d70bfa65883edd0c290039",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-23"
+          "sha256": "6a88fb5d6daf42217e10959161b96cc546a5a42164d6acb4201d45fc4a726aff",
+          "storyId": "core-codeblock--code-block-pattern-23"
         },
         {
           "name": "c-code-block-24",
           "title": "Diagnostics with fixes",
           "description": "Diagnostics with fixes",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-24.jsx",
-          "sha256": "99a196a93466a26b2f26493af1268f603918d05b01eb992031ed10ef254774b2",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-24"
+          "sha256": "f5572987b7a46be238b90ee6d0a4b286146ff207a5d784d5321c911b04707b7e",
+          "storyId": "core-codeblock--code-block-pattern-24"
         },
         {
           "name": "c-code-block-25",
           "title": "Reference lines in chat",
           "description": "Reference lines in chat",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-25.jsx",
-          "sha256": "adac4fbd1572a14bc83fcf8928d1468d3d31b391a1f89275fa0d04e98c421251",
-          "storyId": "mdx-codegrouptabs--code-block-pattern-25"
+          "sha256": "6bb0b98bcc90f2a5a8474ac7d2433d96c0eb5287d3fe8db9436305ce1125a3cd",
+          "storyId": "core-codeblock--code-block-pattern-25"
         }
       ]
     },
@@ -3071,7 +3071,7 @@
           "title": "Vertical progress",
           "description": "Vertical progress",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-3.jsx",
-          "sha256": "89e334dbbfacec23bf2f5e78d46c9e2cafddde4ae08cdc45667275e0bd0c01d4",
+          "sha256": "6aa5bb70d30373efca073a3407bdb10c3cfae49c9bbc0737e837fd82d4e10624",
           "storyId": "core-timeline--timeline-pattern-3"
         },
         {
@@ -3079,7 +3079,7 @@
           "title": "Alternating milestones",
           "description": "Alternating milestones",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-5.jsx",
-          "sha256": "05d37460f45b0be4b4ea37b00ceb035502e416b7470e546d60f7c3631cc885cc",
+          "sha256": "24f78fb6799c4cc9975f35e927265c6f0f700ddaee3a7a476c026ddf4d6a5d64",
           "storyId": "core-timeline--timeline-pattern-5"
         },
         {
@@ -3087,15 +3087,15 @@
           "title": "Pipeline steps",
           "description": "Pipeline steps",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-6.jsx",
-          "sha256": "eb07fd42bf21aa6febb224c9fd517aa9c2aed33baaaa1432534ede0c054db215",
+          "sha256": "11e2096397a02f00d6b7ad33bb91064a0a166595e9436c8774bc8aaa36778cc2",
           "storyId": "core-timeline--timeline-pattern-6"
         },
         {
           "name": "c-timeline-11",
-          "title": "Activity feed with avatars",
-          "description": "Activity feed with avatars",
+          "title": "Activity stream",
+          "description": "Activity stream",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-11.jsx",
-          "sha256": "cdeffa888c59e0b7b596657f36c007cacf34ef5262973af301eb9df8f38ce847",
+          "sha256": "6c76c5b617de5ed974730b2ca8853695c99854decd768eacfb21aa15a42424f2",
           "storyId": "core-timeline--timeline-pattern-11"
         },
         {
@@ -3103,8 +3103,16 @@
           "title": "Horizontal releases",
           "description": "Horizontal releases",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-12.jsx",
-          "sha256": "bf770a1344e4ca6d53a9bdf07b93ec9afca73a4724a887bdde7f3faaad05525f",
+          "sha256": "4e75da0c1eca596b2ea1534475cf6053e0c3389b5c2b7bcb8b186873d7bec5cb",
           "storyId": "core-timeline--timeline-pattern-12"
+        },
+        {
+          "name": "c-timeline-13",
+          "title": "Release changelog",
+          "description": "Release changelog",
+          "file": ".storybook/fixtures/patterns/timeline/c-timeline-13.jsx",
+          "sha256": "b2b305c21a533cc8d730ff59545234719a4c5040be660093981d709911a139ab",
+          "storyId": "core-timeline--timeline-pattern-13"
         }
       ]
     },

@@ -7,7 +7,7 @@ import {
   CodeBlockHeader,
   CodeBlockLanguage,
   CodeBlockTitle
-} from '../../../../src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx';
+} from '../../../../src/components/core/CodeBlock/parts/code-block-extended.jsx';
 import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 import {
   ScrollArea,

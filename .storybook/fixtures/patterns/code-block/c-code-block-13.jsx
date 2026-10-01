@@ -8,7 +8,7 @@ import {
   CodeBlockHeader,
   CodeBlockTitle,
   useCodeBlockConfig
-} from '../../../../src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx';
+} from '../../../../src/components/core/CodeBlock/parts/code-block-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { ButtonGroup } from '../../../../src/components/core/ButtonGroup/parts/button-group.jsx';
 import { FieldInput as Input } from '../../../../src/components/core/Field/index.js';

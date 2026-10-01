@@ -1,6 +1,4 @@
-export { default } from './CodeGroupTabs';
-export * from './CodeGroupTabs';
-
-// Composition exports
+export { CodeBlock as default } from './parts/code-block-extended.jsx';
 export { codeBlockLanguages, codeBlockThemes, DEFAULT_CODE_BLOCK_THEMES, resolveCodeBlockLanguage, parseLineSpec, normalizeCode, buildWordDecorations, stripNotationComments, toPlainLines, markdownCodeProps, markdownFences, highlightCode, resetCodeBlockHighlighter, ansiToLines, parseUnifiedDiff } from './parts/code-block-highlight-extended.jsx';
 export { CodeBlock, CodeBlockCopyButton, CodeBlockDownloadButton, CodeBlockExpandButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockLineActions, CodeBlockTitle, CodeBlockContent, CodeBlockWrapToggle, useCodeBlockConfig, useCodeBlockFolding, useCodeBlockSelection } from './parts/code-block-extended.jsx';
+export { CodeBlockGroup, codeChromeClassName } from './parts/code-block-group.jsx';

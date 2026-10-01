@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../.storybook/stories/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/code-block/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'MDX/CodeGroupTabs', tags: ['autodocs'], ...catalogueMeta('code-block') };
+export default { title: 'Core/Data Display/CodeBlock', id: 'core-codeblock', tags: ['autodocs'], ...catalogueMeta('code-block') };
 
 export const CodeBlockPattern1 = {
   name: 'Code block options',
@@ -34,7 +34,22 @@ export const CodeBlockPattern7 = {
     await expect(session).toHaveAttribute('aria-checked', 'true');
   }
 };
-export const CodeBlockPattern14 = { name: 'File tabs in a dense frame', ...pattern(14, 'A framed file switcher loading one grammar chunk per selected language.') };
+export const CodeBlockPattern14 = {
+  name: 'Tabbed code',
+  ...pattern(14, 'The code group from articles, built from Tabs and CodeBlock: mono tabs on the dark code chrome, one copyable block per tab, for package-manager commands and the same snippet in several languages.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const install = canvas.getByRole('tablist', { name: 'Install' });
+    // Highlighting splits code into token spans, so assert on the selected panel's text.
+    const panelOf = async (name) => {
+      await userEvent.click(canvas.getByRole('tab', { name }));
+      return canvas.getByRole('tabpanel', { name });
+    };
+    await waitFor(async () => expect(await panelOf('bun')).toHaveTextContent('bun add @gaudi/design-system'));
+    await waitFor(async () => expect(await panelOf('greeting.py')).toHaveTextContent('def greeting(name: str)'));
+    await expect(install).toBeVisible();
+  }
+};
 export const CodeBlockPattern9 = {
   name: 'Terminal output',
   ...pattern(9, 'An always-dark terminal fed by ANSI stdout, pre-coloured token lines, or plain unhighlighted text, with a wrap toggle.'),

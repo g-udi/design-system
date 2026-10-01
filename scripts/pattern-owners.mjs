@@ -5,7 +5,7 @@ export const owners = {
   avatar: 'core/Avatar', badge: 'core/Pill', breadcrumb: 'core/Breadcrumb', bubble: 'core/Message',
   button: 'core/Button', 'button-group': 'core/ButtonGroup', calendar: 'core/Calendar',
   card: 'core/Card', carousel: 'core/Carousel', cascader: 'core/Cascader', chart: 'mdx/Chart',
-  checkbox: 'core/Checkbox', 'code-block': 'mdx/CodeGroupTabs', collapsible: 'core/Accordion',
+  checkbox: 'core/Checkbox', 'code-block': 'core/CodeBlock', collapsible: 'core/Accordion',
   combobox: 'core/Select', command: 'core/Commander', 'context-menu': 'core/DropdownMenu',
   'data-grid': 'core/DataTable', 'date-selector': 'core/Calendar', dialog: 'core/Dialog',
   direction: 'core/Direction', drawer: 'core/Dialog', 'dropdown-menu': 'core/DropdownMenu',

@@ -65,6 +65,7 @@ const usageExamples = {
   'Blocks/Thoughts': "import { ThoughtsSection } from '@gaudi/design-system';\n\n<ThoughtsSection thoughts={thoughts} />",
   'Layout': "import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';\n\n<LayoutContainer>{children}</LayoutContainer>",
   'MDX/Aside': '<Aside>\n  Additional context for the article that should sit outside the main argument.\n</Aside>',
+  'MDX/Code': "```tsx title=\"app/page.tsx\" {2} showLineNumbers\nexport default function Page() {\n  return <main>Article</main>;\n}\n```\n\n::: code-group labels=[pnpm, npm]\n\n```bash\npnpm add @gaudi/design-system\n```\n\n```bash\nnpm install @gaudi/design-system\n```\n\n:::",
   'MDX/Callout': "<Callout type='info'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
   'MDX/Chart': "<BarChart\n  title='Article views'\n  ariaLabel='Article views by day'\n  data={[\n    { label: 'Mon', views: 124 },\n    { label: 'Tue', views: 168 },\n  ]}\n  yKey='views'\n/>\n\n<LineChart\n  title='Subscriber trend'\n  ariaLabel='Subscribers by day'\n  data={[\n    { label: 'Mon', subscribers: 8 },\n    { label: 'Tue', subscribers: 12 },\n  ]}\n  yKey='subscribers'\n/>",
   'MDX/Citation': "---\ntitle: 'An Introduction to Knowledge Graphs'\nbibliography: ['meta/bibliography/references.bib', 'meta/bibliography/kg.bib']\n---\n\nA heterogeneous graph [@HusseinYC18; @WangJSWYCY19; @YangXJWHW20] assigns types to nodes and edges.\n\nThe same source can be cited again later [@HusseinYC18].\n\n<!-- Do not hand-write citation anchors, popover data attributes, or references markup. -->",
@@ -122,6 +123,7 @@ const usageExamples = {
   'Core/Skeleton': "import { Skeleton } from '@gaudi/design-system';\n\n<Skeleton className='h-4 w-40' />",
   'Core/Spinner': "import { Spinner } from '@gaudi/design-system';\n\n<Spinner label='Loading articles' size='md' />",
   'Core/Switch': "import { Switch } from '@gaudi/design-system';\n\n<Switch label='Email notifications' defaultChecked />",
+  'Core/CodeBlock': "import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle } from '@gaudi/design-system';\n\n<CodeBlock code={code} language='typescript' showLineNumbers highlightedLines='3-5'>\n  <CodeBlockHeader>\n    <CodeBlockTitle>hooks/use-cart.ts</CodeBlockTitle>\n    <CodeBlockLanguage />\n    <CodeBlockCopyButton className='ml-auto' />\n  </CodeBlockHeader>\n</CodeBlock>",
   'Core/Terminal': "import { Terminal } from '@gaudi/design-system';\n\n<Terminal\n  title='blog — zsh'\n  username='ahmad'\n  commands={[\n    { command: 'pnpm test:ds-contracts', output: [{ text: '85 component contracts passed.', tone: 'success' }] },\n  ]}\n/>",
   'Core/TextHighlight': "import { TextHighlight } from '@gaudi/design-system';\n\n<p>Design systems make <TextHighlight>consistency visible</TextHighlight>.</p>"
 };
@@ -797,6 +799,27 @@ const componentDocs = {
       [ 'size', 'sm | md | lg', 'md', 'Controls track, thumb, and label scale.' ],
       [ 'disabled', 'boolean', 'false', 'Prevents changes and lowers visual emphasis.' ],
       [ 'onCheckedChange', '(checked) => void', '-', 'Called with the next checked state.' ],
+      [ 'className', 'string', '-', 'Root class override.' ]
+    ]
+  },
+  'Core/CodeBlock': {
+    'accessibility': 'The code region is a labelled, keyboard-scrollable region; the copy, wrap, expand and download buttons have accessible names and announce their result. Line numbers, fold markers and decorations are hidden from assistive technology and never copied.',
+    'description': 'CodeBlock renders syntax-highlighted source with an optional header, copy button, line numbers, highlighted and focused lines, diffs, folding and line selection.',
+    'overview': 'Use CodeBlock for any source code in product or article surfaces. Compose the header from CodeBlockTitle, CodeBlockLanguage and the action buttons; pair it with Tabs for grouped files or package-manager commands.',
+    'props': [
+      [ 'code', 'string', '-', 'Source text to render.' ],
+      [ 'language', 'string', '-', 'Grammar name or alias such as tsx, python, bash or sql. Unknown languages render as plain text.' ],
+      [ 'variant', 'default | ghost', 'default', 'default draws the bordered surface; ghost is transparent for use inside another frame.' ],
+      [ 'showLineNumbers', 'boolean', 'false', 'Shows the line-number gutter.' ],
+      [ 'startLine', 'number', '1', 'First line number in the gutter.' ],
+      [ 'wrap / defaultWrap / onWrapChange', 'boolean / (wrap) => void', 'false', 'Controlled or initial soft wrapping of long lines.' ],
+      [ 'highlightedLines', 'string | number[]', '-', 'Lines to emphasise, as a spec like 3-5,9 or an array.' ],
+      [ 'focusedLines', 'string | number[]', '-', 'Lines kept sharp while the rest are dimmed.' ],
+      [ 'maxLines', 'number', '-', 'Collapses longer code to this many lines; add CodeBlockExpandButton to reveal the rest.' ],
+      [ 'diff', 'boolean | diff options', '-', 'Marks added and removed lines.' ],
+      [ 'themes', '{ light, dark }', 'github-light / github-dark', 'Shiki themes per colour scheme; css-variables reads --code-token-* design tokens.' ],
+      [ 'foldable / selectable', 'boolean', 'false', 'Enables fold regions and gutter line selection.' ],
+      [ 'children', 'ReactNode', '-', 'Header and action parts: CodeBlockHeader, CodeBlockTitle, CodeBlockLanguage, CodeBlockCopyButton, CodeBlockWrapToggle, CodeBlockExpandButton, CodeBlockDownloadButton.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
     ]
   },

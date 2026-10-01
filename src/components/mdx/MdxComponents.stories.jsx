@@ -17,7 +17,7 @@ export const Default = {
 
     await expect(canvas.getByRole('heading', { name: 'MDX Components' })).toBeVisible();
     await expect(canvas.getAllByText('CitationTracker').length).toBeGreaterThanOrEqual(2);
-    await expect(canvas.getAllByText('CodeGroupTabs').length).toBeGreaterThanOrEqual(1);
+    await expect(canvas.getAllByText('CodeFence').length).toBeGreaterThanOrEqual(1);
     await expect(canvas.getByRole('link', { name: /Callout/ })).toHaveAttribute('href', './?path=/story/mdx-callout--playground');
     await expect(canvas.getByRole('link', { name: /Citation/ })).toHaveAttribute('href', './?path=/story/mdx-citation--playground');
   },
@@ -54,7 +54,7 @@ export const Default = {
             <tr><Td mono>MDX source</Td><Td>Posts live under the blog content folders with YAML frontmatter, markdown prose, citation keys, and occasional MDX component tags.</Td></tr>
             <tr><Td mono>remark / mdast</Td><Td><InlineCode>remarkExtractFrontmatter</InlineCode>, <InlineCode>remarkGfm</InlineCode>, <InlineCode>remarkFootnoteData</InlineCode>, <InlineCode>remarkMath</InlineCode>, <InlineCode>remarkImgToJsx</InlineCode>, and <InlineCode>remarkLinks</InlineCode> process markdown-level structure.</Td></tr>
             <tr><Td mono>rehype / hast</Td><Td><InlineCode>rehypeSlug</InlineCode>, heading links, KaTeX, tabbed code, citations, footnote popovers, internal links, and code highlighting modify the generated HTML tree.</Td></tr>
-            <tr><Td mono>runtime</Td><Td><InlineCode>MDXLayoutRenderer</InlineCode> receives compiled code and the <InlineCode>MDXComponents</InlineCode> map, while small runtimes such as <InlineCode>CitationPopover</InlineCode>, <InlineCode>CitationTracker</InlineCode>, <InlineCode>Footnote</InlineCode>, and <InlineCode>CodeGroupTabs</InlineCode> bind behavior to generated markup.</Td></tr>
+            <tr><Td mono>runtime</Td><Td><InlineCode>MDXLayoutRenderer</InlineCode> receives compiled code and the <InlineCode>MDXComponents</InlineCode> map, while small runtimes such as <InlineCode>CitationPopover</InlineCode>, <InlineCode>CitationTracker</InlineCode>, and <InlineCode>Footnote</InlineCode> bind behavior to generated markup. Fences map to <InlineCode>CodeFence</InlineCode> and code groups to <InlineCode>CodeGroup</InlineCode>, both rendering the Core CodeBlock.</Td></tr>
           </tbody>
         </Table>
       </Section>

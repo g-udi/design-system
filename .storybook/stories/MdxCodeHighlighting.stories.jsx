@@ -1,115 +1,68 @@
-import { CodeGroupTabs } from '../../src/components/mdx';
+import { CodeFence, CodeGroup } from '../../src/components/mdx';
 
-import { CodeBlock, InlineCode, Page, pageParameters, Section, Table, Td, Th } from './StoryDocs';
+import { InlineCode, Page, pageParameters, Section, Table, Td, Th } from './StoryDocs';
 
-const contentlayerSetup = `import rehypeCodeGroup from 'rehype-code-group-next';
-import rehypePrettyCode from 'rehype-pretty-code';
+const contentlayerSetup = `import { remarkCode } from '@gaudi/design-system/mdx/remark';
 
 export default makeSource({
   mdx: {
-    rehypePlugins: [
-      rehypeCodeGroup,
-      [rehypePrettyCode, { theme: 'aurora-x' }]
-    ]
+    remarkPlugins: [remarkGfm, remarkCode]
   }
 });`;
 
-const layoutSetup = `import { CodeGroupTabs } from '@gaudi/design-system/mdx';
+const rendererSetup = `import { CodeFence, CodeGroup } from '@gaudi/design-system/mdx/Code';
 
-export default function RootLayout({ children }) {
-  return (
-    <html lang='en'>
-      <body>
-        <CodeGroupTabs />
-        {children}
-      </body>
-    </html>
-  );
-}`;
+const components = {
+  CodeGroup,
+  pre: CodeFence
+};`;
 
-const mdxFenceUsage = '```js title="app/page.js" {2}\nimport { Button } from \'@gaudi/design-system\';\n\nexport default function Page() {\n  return <Button>Read article</Button>;\n}\n```';
+const fenceUsage = '```tsx title="app/page.tsx" {4} showLineNumbers /Button/\nimport { Button } from \'@gaudi/design-system\';\n\nexport default function Page() {\n  return <Button>Read article</Button>;\n}\n```';
 
-const mdxTabbedUsage = '```js:app/page.js\nexport default function Page() {\n  return <main>Article</main>;\n}\n```\n\n```tsx:app/page.tsx\nexport default function Page() {\n  return <main>Article</main>;\n}\n```';
+const groupUsage = '::: code-group labels=[JavaScript, TypeScript]\n\n```js\nexport default function Page() {\n  return <main>Article</main>;\n}\n```\n\n```tsx\nexport default function Page(): JSX.Element {\n  return <main>Article</main>;\n}\n```\n\n:::';
 
-const Keyword = ({ children }) => <span className='text-purple-300'>{children}</span>;
-const ComponentToken = ({ children }) => <span className='text-blue-300'>{children}</span>;
-const TagToken = ({ children }) => <span className='text-sky-300'>{children}</span>;
-const StringToken = ({ children }) => <span className='text-green-300'>{children}</span>;
-const PunctuationToken = ({ children }) => <span className='text-gray-300'>{children}</span>;
-
-const DemoPre = ({ children }) => (
-  <pre className='overflow-auto whitespace-pre rounded-b-md bg-gray-950 p-4 text-left text-sm leading-6 text-gray-100'>
-    <code>{children}</code>
-  </pre>
-);
-
-const DemoCodeGroup = () => (
-  <div className='max-w-5xl'>
-    <CodeGroupTabs />
-    <div className='rehype-code-group'>
-      <div className='rcg-tab-container' role='tablist' aria-label='Code language'>
-        <button type='button' className='rcg-tab active' id='demo-tab-js' role='tab' aria-controls='demo-panel-js' aria-selected='true'>JavaScript</button>
-        <button type='button' className='rcg-tab' id='demo-tab-ts' role='tab' aria-controls='demo-panel-ts' aria-selected='false'>TypeScript</button>
-      </div>
-      <div className='rcg-block active' id='demo-panel-js' role='tabpanel' aria-labelledby='demo-tab-js'>
-        <DemoPre>
-          <Keyword>import</Keyword>{' { '}<ComponentToken>Button</ComponentToken>{' } '}<Keyword>from</Keyword>{' '}<StringToken>'@gaudi/design-system'</StringToken><PunctuationToken>;</PunctuationToken>{'\n\n'}
-          <Keyword>export</Keyword>{' '}<Keyword>default</Keyword>{' '}<Keyword>function</Keyword>{' '}<ComponentToken>Page</ComponentToken><PunctuationToken>() {'{'} </PunctuationToken>{'\n'}
-          {'  '}<Keyword>return</Keyword>{' '}<TagToken>{'<Button>'}</TagToken>Read article<TagToken>{'</Button>'}</TagToken><PunctuationToken>;</PunctuationToken>{'\n'}
-          <PunctuationToken>{'}'}</PunctuationToken>
-        </DemoPre>
-      </div>
-      <div className='rcg-block' id='demo-panel-ts' role='tabpanel' aria-labelledby='demo-tab-ts' hidden>
-        <DemoPre>
-          <Keyword>import</Keyword>{' { '}<ComponentToken>Button</ComponentToken>{' } '}<Keyword>from</Keyword>{' '}<StringToken>'@gaudi/design-system'</StringToken><PunctuationToken>;</PunctuationToken>{'\n\n'}
-          <Keyword>export</Keyword>{' '}<Keyword>default</Keyword>{' '}<Keyword>function</Keyword>{' '}<ComponentToken>Page</ComponentToken><PunctuationToken>()</PunctuationToken>{': '}<ComponentToken>JSX</ComponentToken><PunctuationToken>.</PunctuationToken><ComponentToken>Element</ComponentToken>{' '}<PunctuationToken>{'{'}</PunctuationToken>{'\n'}
-          {'  '}<Keyword>return</Keyword>{' '}<TagToken>{'<Button>'}</TagToken>Read article<TagToken>{'</Button>'}</TagToken><PunctuationToken>;</PunctuationToken>{'\n'}
-          <PunctuationToken>{'}'}</PunctuationToken>
-        </DemoPre>
-      </div>
-    </div>
-  </div>
+// The elements MDX produces for a fence once remarkCode has annotated it.
+const fence = (code, language, attributes = {}) => (
+  <CodeFence key={code}>
+    <code className={`language-${language}`} {...attributes}>{code}</code>
+  </CodeFence>
 );
 
 const CodeHighlightingDocs = () => (
   <Page
     title='Code Highlighting'
-    intro='Gaudi code blocks are generated by the MDX pipeline, styled by the MDX content layer, and enhanced by small client runtimes for copy buttons and tabbed code groups.'
+    intro='Article code renders through the same Core CodeBlock as the rest of Gaudi: a remark pass reads the fence meta, and the MDX components map every fence and code group to CodeBlock.'
   >
-    <Section
-      title='Pipeline'
-      description='Keep syntax highlighting in the content pipeline. The design system owns the rendered code surface, but Shiki themes are configured where MDX is compiled.'
-    >
+    <Section title='Pipeline' description='One implementation for product and article code: highlighting, copy, line numbers and tabs all come from CodeBlock.'>
       <Table>
         <thead>
-          <tr><Th>Layer</Th><Th>Responsibility</Th><Th>Current contract</Th></tr>
+          <tr><Th>Layer</Th><Th>Responsibility</Th><Th>Contract</Th></tr>
         </thead>
         <tbody>
-          <tr><Td mono>rehype-pretty-code</Td><Td>Converts fenced code blocks into Shiki-highlighted HTML.</Td><Td><InlineCode>theme: 'aurora-x'</InlineCode></Td></tr>
-          <tr><Td mono>Code HTML</Td><Td>Highlighted <InlineCode>pre</InlineCode> and <InlineCode>code</InlineCode> markup is emitted by the rehype pipeline.</Td><Td>Styled by <InlineCode>MdxContent</InlineCode>; no separate wrapper component is exported.</Td></tr>
-          <tr><Td mono>CodeGroupTabs</Td><Td>Hydrates generated <InlineCode>.rehype-code-group</InlineCode> blocks and switches active tabs.</Td><Td>Mount once in the app layout.</Td></tr>
-          <tr><Td mono>MdxContent</Td><Td>Scopes highlighted lines, highlighted chars, figures, captions, and tabbed-code spacing.</Td><Td>Use the MDX content wrapper around article output.</Td></tr>
+          <tr><Td mono>remarkCode</Td><Td>Turns fence meta into attributes and <InlineCode>::: code-group</InlineCode> blocks into <InlineCode>CodeGroup</InlineCode>.</Td><Td><InlineCode>@gaudi/design-system/mdx/remark</InlineCode></Td></tr>
+          <tr><Td mono>CodeFence</Td><Td>The MDX <InlineCode>pre</InlineCode> mapping; renders each fence as a CodeBlock with title, language and copy button.</Td><Td>Map as <InlineCode>pre</InlineCode>.</Td></tr>
+          <tr><Td mono>CodeGroup</Td><Td>Renders grouped fences as a CodeBlockGroup: one tab per fence on the code chrome.</Td><Td>Map as <InlineCode>CodeGroup</InlineCode>.</Td></tr>
+          <tr><Td mono>CodeBlock</Td><Td>Highlights with Shiki on demand, one grammar per language.</Td><Td>Core component; no build-time highlighter.</Td></tr>
         </tbody>
       </Table>
     </Section>
 
-    <Section title='Theme Setup' description='Theme choice belongs in Contentlayer because syntax tokens are emitted at compile time.'>
-      <CodeBlock code={ contentlayerSetup } language='js' />
+    <Section title='Setup' description='Add the remark plugin where MDX is compiled, then map the two components in the renderer.'>
+      {fence(contentlayerSetup, 'js', { 'data-title': 'contentlayer.config.js' })}
+      {fence(rendererSetup, 'jsx', { 'data-title': 'MDXLayoutRenderer.js' })}
     </Section>
 
-    <Section title='Runtime Setup' description='Tabbed code groups need one client runtime mounted near the app root. Do not mount it per code block.'>
-      <CodeBlock code={ layoutSetup } language='jsx' />
+    <Section title='Fences' description='title= or caption= (or a bare file path) sets the header, {…} highlights lines, showLineNumbers{n} starts the gutter at n and /word/ highlights words.'>
+      {fence(fenceUsage, 'mdx')}
+      {fence("import { Button } from '@gaudi/design-system';\n\nexport default function Page() {\n  return <Button>Read article</Button>;\n}", 'tsx', { 'data-title': 'app/page.tsx', 'data-highlight': '4', 'data-line-numbers': '', 'data-words': JSON.stringify(['Button']) })}
     </Section>
 
-    <Section title='MDX Usage' description='Write normal fenced code in MDX. Titles, line highlights, and character highlights are parsed by rehype-pretty-code.'>
-      <CodeBlock code={ mdxFenceUsage } language='mdx' />
-    </Section>
-
-    <Section title='Tabbed Code' description='Adjacent named fences are grouped by rehype-code-group-next, then CodeGroupTabs hydrates the generated tabs.'>
-      <CodeBlock code={ mdxTabbedUsage } language='mdx' />
-      <div className='mt-6'>
-        <div data-docs-example><DemoCodeGroup /></div>
-      </div>
+    <Section title='Tabbed Code' description='Fences between ::: code-group and ::: become one group, each tab titled by its label unless the fence has its own title.'>
+      {fence(groupUsage, 'mdx')}
+      <CodeGroup label='Code language'>
+        {fence('export default function Page() {\n  return <main>Article</main>;\n}', 'js', { 'data-title': 'JavaScript' })}
+        {fence('export default function Page(): JSX.Element {\n  return <main>Article</main>;\n}', 'tsx', { 'data-title': 'TypeScript' })}
+      </CodeGroup>
     </Section>
   </Page>
 );

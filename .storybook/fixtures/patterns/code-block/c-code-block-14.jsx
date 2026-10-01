@@ -1,82 +1,40 @@
 'use client';
-import {
-  CodeBlock,
-  CodeBlockCopyButton
-} from '../../../../src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx';
-import {
-  Frame,
-  FrameHeader,
-  FramePanel,
-  FrameTitle
-} from '../../../../src/components/core/Card/parts/frame-extended.jsx';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger
-} from '../../../../src/components/core/Tabs/index.js';
-const samples = [
+import { CodeBlockGroup } from '../../../../src/components/core/CodeBlock/parts/code-block-group.jsx';
+
+const install = [
+  { title: 'pnpm', language: 'bash', code: 'pnpm add @gaudi/design-system\npnpm add katex mermaid recharts' },
+  { title: 'npm', language: 'bash', code: 'npm install @gaudi/design-system\nnpm install katex mermaid recharts' },
+  { title: 'yarn', language: 'bash', code: 'yarn add @gaudi/design-system\nyarn add katex mermaid recharts' },
+  { title: 'bun', language: 'bash', code: 'bun add @gaudi/design-system\nbun add katex mermaid recharts' }
+];
+const files = [
   {
-    file: 'greeting.tsx',
+    title: 'greeting.tsx',
     language: 'tsx',
     code: `export function Greeting({ name }: { name: string }) {
   return <p>Hello {name}</p>
 }`
   },
   {
-    file: 'greeting.py',
+    title: 'greeting.py',
     language: 'python',
     code: `def greeting(name: str) -> str:
     return f"Hello {name}"`
   },
   {
-    file: 'greeting.sql',
+    title: 'recent.sql',
     language: 'sql',
     code: `select id, email
 from users
 where created_at > now() - interval '7 days';`
-  },
-  {
-    file: 'greeting.sh',
-    language: 'bash',
-    code: `curl -s https://api.example.com/v1/users \\
-  -H "Authorization: Bearer $TOKEN"`
   }
 ];
+
 export function Pattern() {
   return (
-    <Tabs defaultValue={samples[0].file} className='w-full max-w-2xl'>
-      <Frame dense spacing='sm'>
-        <FrameHeader className='flex-row items-center gap-2'>
-          <FrameTitle>Examples</FrameTitle>
-          <TabsList className='ml-auto bg-transparent'>
-            {samples.map((sample) => (
-              <TabsTrigger key={sample.file} value={sample.file}>
-                {sample.file}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </FrameHeader>
-
-        <FramePanel className='p-0!'>
-          {samples.map((sample) => (
-            <TabsContent key={sample.file} value={sample.file}>
-              <CodeBlock
-                code={sample.code}
-                language={sample.language}
-                variant='ghost'
-                showLineNumbers
-              >
-                <CodeBlockCopyButton
-                  variant='outline'
-                  size='icon-xs'
-                  className='bg-ui-card hover:bg-ui-muted'
-                />
-              </CodeBlock>
-            </TabsContent>
-          ))}
-        </FramePanel>
-      </Frame>
-    </Tabs>
+    <div className='grid w-full max-w-2xl gap-6'>
+      <CodeBlockGroup label='Install' items={install} />
+      <CodeBlockGroup label='Greeting in three languages' items={files} showLineNumbers />
+    </div>
   );
 }

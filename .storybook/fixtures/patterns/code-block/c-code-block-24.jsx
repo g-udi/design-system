@@ -6,7 +6,7 @@ import {
   CodeBlockHeader,
   CodeBlockLineActions,
   CodeBlockTitle
-} from '../../../../src/components/mdx/CodeGroupTabs/parts/code-block-extended.jsx';
+} from '../../../../src/components/core/CodeBlock/parts/code-block-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 /* Each diagnostic carries the line it sits on and the replacement a fix
