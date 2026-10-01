@@ -915,7 +915,9 @@
     "spansMultipleDays": "spansMultipleDays",
     "stepGanttDate": "stepGanttDate",
     "toZoned": "toZoned",
-    "zonedStartOfDay": "zonedStartOfDay"
+    "zonedStartOfDay": "zonedStartOfDay",
+    "checkDependencies": "checkDependencies",
+    "getCriticalPath": "getCriticalPath"
   },
   "src/components/core/Gantt/parts/gantt-nav-extended.jsx": {
     "GANTT_SCALES": "GANTT_SCALES",
