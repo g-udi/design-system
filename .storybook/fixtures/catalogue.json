@@ -465,6 +465,27 @@
       ],
       "importPath": "./src/components/blocks/SettingsPanel/SettingsPanel.stories.jsx"
     },
+    "blocks-stat-cards--playground": {
+      "id": "blocks-stat-cards--playground",
+      "title": "Blocks/Stat Cards",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCard.stories.jsx"
+    },
+    "blocks-stat-cards--docs": {
+      "id": "blocks-stat-cards--docs",
+      "title": "Blocks/Stat Cards",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCard.stories.jsx"
+    },
     "blocks-application-statgroup--playground": {
       "id": "blocks-application-statgroup--playground",
       "title": "Blocks/To Sort/StatGroup",
@@ -3339,6 +3360,98 @@
         "autodocs"
       ],
       "importPath": "./src/components/blocks/ResourceList/ItemPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-1": {
+      "id": "blocks-stat-cards--stat-cards-pattern-1",
+      "title": "Blocks/Stat Cards",
+      "name": "KPI overview",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-2": {
+      "id": "blocks-stat-cards--stat-cards-pattern-2",
+      "title": "Blocks/Stat Cards",
+      "name": "Revenue breakdown",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-3": {
+      "id": "blocks-stat-cards--stat-cards-pattern-3",
+      "title": "Blocks/Stat Cards",
+      "name": "Quota and progress",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-4": {
+      "id": "blocks-stat-cards--stat-cards-pattern-4",
+      "title": "Blocks/Stat Cards",
+      "name": "Leads with a range",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-5": {
+      "id": "blocks-stat-cards--stat-cards-pattern-5",
+      "title": "Blocks/Stat Cards",
+      "name": "Breakdowns",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-6": {
+      "id": "blocks-stat-cards--stat-cards-pattern-6",
+      "title": "Blocks/Stat Cards",
+      "name": "Balance",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-7": {
+      "id": "blocks-stat-cards--stat-cards-pattern-7",
+      "title": "Blocks/Stat Cards",
+      "name": "Team performance",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-8": {
+      "id": "blocks-stat-cards--stat-cards-pattern-8",
+      "title": "Blocks/Stat Cards",
+      "name": "Support metrics",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
+    },
+    "blocks-stat-cards--stat-cards-pattern-9": {
+      "id": "blocks-stat-cards--stat-cards-pattern-9",
+      "title": "Blocks/Stat Cards",
+      "name": "Hero metrics",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/StatCard/StatCardPatterns.stories.jsx"
     },
     "core-accordion--accordion-pattern-1": {
       "id": "core-accordion--accordion-pattern-1",

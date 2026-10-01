@@ -3247,6 +3247,83 @@
           "storyId": "core-tree--tree-pattern-7"
         }
       ]
+    },
+    "stat-cards": {
+      "owner": "blocks/StatCard",
+      "examples": [
+        {
+          "name": "c-stat-cards-1",
+          "title": "KPI overview",
+          "description": "KPI overview",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-1.jsx",
+          "sha256": "c18922f6c9cd68ff55eaee32fde4b68ec9bc8be5e75eeaa6a54af424fba7b539",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-1"
+        },
+        {
+          "name": "c-stat-cards-2",
+          "title": "Revenue breakdown",
+          "description": "Revenue breakdown",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-2.jsx",
+          "sha256": "7c67223cd37c1d0133058d2be89d328df2c96cf32bc9d8cdb5bb8265c337ebf3",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-2"
+        },
+        {
+          "name": "c-stat-cards-3",
+          "title": "Quota and progress",
+          "description": "Quota and progress",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-3.jsx",
+          "sha256": "a3fed221fd888880d1aab117d191e22b9fd18d2fdd5605cf03fd7e0903c1d102",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-3"
+        },
+        {
+          "name": "c-stat-cards-4",
+          "title": "Leads with a range",
+          "description": "Leads with a range",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-4.jsx",
+          "sha256": "29828fa3550af358539725f284eabe2ee803bc097671f88b5ee9a7d9b4e494ca",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-4"
+        },
+        {
+          "name": "c-stat-cards-5",
+          "title": "Breakdowns",
+          "description": "Breakdowns",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-5.jsx",
+          "sha256": "dbb731055b1c3d6faf89d40f01ee5999fbf904aef8c3a8dad6ab9b724be64c38",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-5"
+        },
+        {
+          "name": "c-stat-cards-6",
+          "title": "Balance",
+          "description": "Balance",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-6.jsx",
+          "sha256": "2892ec35b2a6fcc1f367d66b41d38fea44c0ac83199db1b2e2683581b5bff7cd",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-6"
+        },
+        {
+          "name": "c-stat-cards-7",
+          "title": "Team performance",
+          "description": "Team performance",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-7.jsx",
+          "sha256": "e753da462c1c6981d5739ba3fdcbf1cd7c33ec99b0c07bfe602a78dc03da3bdd",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-7"
+        },
+        {
+          "name": "c-stat-cards-8",
+          "title": "Support metrics",
+          "description": "Support metrics",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-8.jsx",
+          "sha256": "3dd49ba97ea121905e5079ce22c35612c613bcaa9d4629259efe86072395cb17",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-8"
+        },
+        {
+          "name": "c-stat-cards-9",
+          "title": "Hero metrics",
+          "description": "Hero metrics",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-9.jsx",
+          "sha256": "792d97065dda8b9009152d1d41f8d82e419d5ece19f3785ec33707a65ae2ada6",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-9"
+        }
+      ]
     }
   }
 }

@@ -6,6 +6,7 @@ export { default as StatGroup } from './StatGroup';
 export { default as Wizard } from './Wizard';
 export { default as AuthForm } from './AuthForm';
 export { default as KanbanBoard } from './KanbanBoard';
+export { default as StatCard, StatDelta, StatIcon, StatMeter } from './StatCard';
 
 // Composition exports
 export { Item, ItemMedia, ItemContent, ItemActions, ItemGroup, ItemSeparator, ItemTitle, ItemDescription, ItemHeader, ItemFooter } from './ResourceList/index.js';
