@@ -25,7 +25,7 @@ test('animated counterparts preserve Gaudi names and their original glyph family
 test('server rendering starts still and supports Gaudi tokens and explicit dimensions', () => {
   const token = renderToStaticMarkup(createElement(AnimatedIcon, { name: 'Rocket', active: true, size: 'lg', color: 'success' }));
   assert.match(token, /data-animated-icon-active="false"/);
-  assert.match(token, /h-6 w-6/);
+  assert.match(token, /size-6/);
   assert.match(token, /text-green-600/);
   const numeric = renderToStaticMarkup(createElement(AnimatedIcon, { name: 'Rocket', size: 32, strokeWidth: 1.5 }));
   assert.match(numeric, /width="32" height="32"/);

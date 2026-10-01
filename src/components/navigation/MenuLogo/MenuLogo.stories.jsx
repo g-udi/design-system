@@ -22,13 +22,13 @@ export default {
 
 // Where the mark ships: a header lockup, a favicon tile, an accent tile, and an inverted badge. The featured mark follows `className`.
 const placements = [
-  { label: 'Favicon', tile: 'bg-surface-muted', className: 'h-6 w-6' },
-  { label: 'Accent', tile: 'bg-accent', className: 'h-8 w-8 text-accent-foreground' },
-  { label: 'Inverted', tile: 'bg-text', className: 'h-8 w-8 text-surface' }
+  { label: 'Favicon', tile: 'bg-surface-muted', className: 'size-6' },
+  { label: 'Accent', tile: 'bg-accent', className: 'size-8 text-accent-foreground' },
+  { label: 'Inverted', tile: 'bg-text', className: 'size-8 text-surface' }
 ];
 
 export const Playground = {
-  args: { className: 'h-14 w-14 text-accent' },
+  args: { className: 'size-14 text-accent' },
   parameters: {
     docs: {
       description: { story: 'The mark in a header lockup, a favicon tile, an accent tile, and an inverted badge. `className` restyles the featured lockup mark: it inherits `currentColor`, so text colour and size classes change it directly.' },

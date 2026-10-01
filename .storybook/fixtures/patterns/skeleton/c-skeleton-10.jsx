@@ -38,7 +38,7 @@ export function Pattern() {
         {/* Input area */}
         <div className='flex items-center gap-2 pt-2'>
           <Skeleton className='h-9 flex-1 rounded-md' />
-          <Skeleton className='h-9 w-9 rounded-md' />
+          <Skeleton className='size-9 rounded-md' />
         </div>
       </CardContent>
     </Card>

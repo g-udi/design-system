@@ -127,7 +127,7 @@ export const Sizes = {
   play: async ({ canvasElement }) => {
     const sized = svgs(row(canvasElement, 'Size'));
     for (const icon of sized) await expect(icon).toHaveAttribute('aria-hidden', 'true');
-    await expect(sized.map((icon) => icon.getAttribute('class').match(/\bh-\d+/)[0])).toEqual(['h-3', 'h-4', 'h-5', 'h-6', 'h-8', 'h-10']);
+    await expect(sized.map((icon) => icon.getAttribute('class').match(/\bsize-\d+/)[0])).toEqual(['size-3', 'size-4', 'size-5', 'size-6', 'size-8', 'size-10']);
     const icon = (name) => within(row(canvasElement, 'Color')).getByRole('img', { name });
     await expect(icon('danger')).toHaveClass('text-red-600');
     await expect(icon('warning')).toHaveClass('text-amber-700');

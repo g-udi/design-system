@@ -42,3 +42,32 @@
  * specificity would beat margins set on the children. Prefer gap-* for
  * spacing that should follow the density scale.
  */
+
+/*
+ * Intrinsic shapes keep their geometry at every density. Icons, toggles,
+ * checkboxes, radios, sliders, avatars, keys, badges, stars, spinners and
+ * calendar day cells are drawn shapes rather than padded text, so scaling their
+ * height without their width would squash them. Resetting the multiplier on the
+ * part also fixes everything inside it, such as a switch thumb.
+ */
+:where(
+  svg,
+  [data-slot='switch'],
+  [data-slot='checkbox'],
+  [data-slot='radio-group-item'],
+  [data-slot='slider'],
+  [data-slot='progress'],
+  [data-slot='avatar'],
+  [data-slot='avatar-group-count'],
+  [data-slot='message-avatar'],
+  [data-slot='kbd'],
+  [data-slot='badge'],
+  [data-slot='spinner'],
+  [data-slot='marker-icon'],
+  [data-slot^='rating-star'],
+  .ds-part-calendar-day-button,
+  .rdp-nav,
+  .ds-part-resizable-handle-icon
+) {
+  --ds-space-scale: 1;
+}

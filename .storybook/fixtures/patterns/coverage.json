@@ -880,7 +880,7 @@
           "title": "Hover to reveal values",
           "description": "Hover to reveal values",
           "file": ".storybook/fixtures/patterns/chart/c-chart-11.jsx",
-          "sha256": "31cde77793e1ec3d6b0a12afda69b20d7e6815ee9bdf113203eba052df913c20",
+          "sha256": "3838049f6802f13e8b65a3b90409b62c65be1bf7360f6e90140a3c281114db2c",
           "storyId": "mdx-chart--chart-pattern-11"
         },
         {
@@ -896,7 +896,7 @@
           "title": "Forecast line with stripe zone",
           "description": "Forecast line with stripe zone",
           "file": ".storybook/fixtures/patterns/chart/c-chart-17.jsx",
-          "sha256": "edf9367dc716e051fee365640a0c01575643973fb94fc75d121a62080240d2d5",
+          "sha256": "0e931e4b6db44321642cea4c596f6d8ae59570b487199d390787f1f298920932",
           "storyId": "mdx-chart--chart-pattern-17"
         },
         {
@@ -920,7 +920,7 @@
           "title": "Radial scores with labels",
           "description": "Radial scores with labels",
           "file": ".storybook/fixtures/patterns/chart/c-chart-25.jsx",
-          "sha256": "acde92c9ca75461e8be694a3dc684fd7b0a8a89ddd1911beb7fad62885a5e9d2",
+          "sha256": "b3fe52db491f8839f09d9f4ef6d237d5bb87ca4adf80b9151c4b9ebe21ed92a0",
           "storyId": "mdx-chart--chart-pattern-25"
         }
       ]
@@ -1595,7 +1595,7 @@
           "title": "Avatar upload",
           "description": "Avatar upload",
           "file": ".storybook/fixtures/patterns/file-upload/c-file-upload-2.jsx",
-          "sha256": "399bc29746d1d7793863ed7c1e8cdaf38b7716a503c1c25fb0693a0bc1256b73",
+          "sha256": "eccb4673414b2289ff88ca181d83eaef1abdc71da49a59472dc70effb25ea24f",
           "storyId": "core-fileupload--file-upload-pattern-2"
         },
         {
@@ -1603,7 +1603,7 @@
           "title": "Drag and drop",
           "description": "Drag and drop",
           "file": ".storybook/fixtures/patterns/file-upload/c-file-upload-3.jsx",
-          "sha256": "e9f7a9e3c5d92a0cb0f420aa68a4a65b90767f37b715289af2a67a3b3805730a",
+          "sha256": "741c0a57d905c6d28b1474a2480ca9c6a4303aa2fd5ddeec1e71b4ccf3fb09a1",
           "storyId": "core-fileupload--file-upload-pattern-3"
         },
         {
@@ -1611,7 +1611,7 @@
           "title": "Upload table with progress",
           "description": "Upload table with progress",
           "file": ".storybook/fixtures/patterns/file-upload/c-file-upload-6.jsx",
-          "sha256": "4fdb49dd932638ff34c20b89e8b401b14fe7646a68b8c2c4b7a4700272d79125",
+          "sha256": "c1e764dcd60cf761fbfde51ca2028557a9fa4bac57b03acab968e4cb167f8c06",
           "storyId": "core-fileupload--file-upload-pattern-6"
         },
         {
@@ -2837,7 +2837,7 @@
           "title": "Media card",
           "description": "Media card",
           "file": ".storybook/fixtures/patterns/skeleton/c-skeleton-8.jsx",
-          "sha256": "07b02fc8593845ba5c758c060286b96e76d5573fa93f6c621c502197d8e7d2a6",
+          "sha256": "75eaa076c4953dbb1f7122e59df6ddec38d1e70fe6626508c56fb2091ff641fd",
           "storyId": "core-skeleton--skeleton-pattern-8"
         },
         {
@@ -2853,7 +2853,7 @@
           "title": "Chat messages",
           "description": "Chat messages",
           "file": ".storybook/fixtures/patterns/skeleton/c-skeleton-10.jsx",
-          "sha256": "fb9e5b48378a2a8d827d26e302e69a98fb949c656153b2b9a6aa3a0a0a71758b",
+          "sha256": "11b01032c5a1b71750e5d346976336dd82102f74d3232f39c31921feec7d9ca5",
           "storyId": "core-skeleton--skeleton-pattern-10"
         }
       ]
@@ -2956,7 +2956,7 @@
           "title": "Nested lists",
           "description": "Nested lists",
           "file": ".storybook/fixtures/patterns/sortable/c-sortable-3.jsx",
-          "sha256": "607f177eba8e138b72f16237781895f51fc2fc69655c88802f809169abc5c7d5",
+          "sha256": "c8377d1400385d4317210460c2ecca0ae19adb627511f2e8f6541d7a95c31486",
           "storyId": "core-sortable--sortable-pattern-3"
         },
         {
@@ -2964,7 +2964,7 @@
           "title": "Persisted order",
           "description": "Persisted order",
           "file": ".storybook/fixtures/patterns/sortable/c-sortable-8.jsx",
-          "sha256": "6843030a6072f48edb556059d5d68845178168982ef9ece1665fb3c2462a30a8",
+          "sha256": "742ede7ea096adb2d779f2b3150e600dd9e770eb3866c9ce910962263c9a9855",
           "storyId": "core-sortable--sortable-pattern-8"
         }
       ]

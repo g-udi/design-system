@@ -51,7 +51,7 @@ export function Pattern({
       <div className='relative'>
         <div
           className={cn(
-            'group/avatar relative h-24 w-24 cursor-pointer overflow-hidden rounded-control border border-dashed transition-colors',
+            'group/avatar relative size-24 cursor-pointer overflow-hidden rounded-control border border-dashed transition-colors',
             isDragging
               ? 'border-ui-primary bg-ui-primary/5'
               : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/20',

@@ -68,7 +68,7 @@ export function Pattern({
             isDragging && 'scale-105'
           )}
         >
-          <RegistryIcon lucide='PlusIcon' className='h-4 w-4' />
+          <RegistryIcon lucide='PlusIcon' className='size-4' />
           Add files
         </Button>
 
@@ -85,17 +85,17 @@ export function Pattern({
                   <img
                     src={fileItem.preview}
                     alt={fileItem.file.name}
-                    className='h-12 w-12 rounded-lg border object-cover'
+                    className='size-12 rounded-lg border object-cover'
                     title={`${fileItem.file.name} (${formatBytes(fileItem.file.size)})`}
                   />
                 ) : (
                   <div
-                    className='bg-ui-muted flex h-12 w-12 items-center justify-center rounded-lg border'
+                    className='bg-ui-muted flex size-12 items-center justify-center rounded-lg border'
                     title={`${fileItem.file.name} (${formatBytes(fileItem.file.size)})`}
                   >
                     <RegistryIcon
                       lucide='FileIcon'
-                      className='text-ui-muted-foreground h-5 w-5'
+                      className='text-ui-muted-foreground size-5'
                     />
                   </div>
                 )}
