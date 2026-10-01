@@ -74,7 +74,8 @@
   --color-ui-destructive-foreground: var(--ds-color-danger-foreground);
   --color-ui-border: var(--ds-color-border);
   --color-ui-input: var(--ds-color-border);
-  --color-ui-ring: var(--ds-color-accent);
+  /* Focus keeps the resting border: no coloured active borders. */
+  --color-ui-ring: var(--ds-color-border);
   --color-ui-sidebar: var(--ds-color-surface-muted);
   --color-ui-sidebar-foreground: var(--ds-color-text);
   --color-ui-sidebar-primary: var(--ds-color-accent);

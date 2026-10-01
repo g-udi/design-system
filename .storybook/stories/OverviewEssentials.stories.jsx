@@ -50,7 +50,7 @@ export const Essentials = {
       <Section id='accessibility' title='Accessibility'>
         <ul className='gaudi-guide-list'>
           <li>Use semantic headings, links, buttons, and persistent field labels.</li>
-          <li>Support keyboard navigation, visible focus, Escape, and focus return.</li>
+          <li>Support keyboard navigation, Escape, and focus return.</li>
           <li>Check contrast, reduced motion, both themes, and narrow screens.</li>
           <li>Verify realistic content and error states alongside the happy path.</li>
         </ul>

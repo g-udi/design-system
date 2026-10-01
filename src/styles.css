@@ -19,6 +19,46 @@
     border-color: var(--ds-color-border);
   }
 
+  button,
+  [role='button'],
+  a {
+    cursor: pointer;
+  }
+
+  /*
+   * No focus or active rings anywhere. Outlines are off in every interaction state. Ring utilities
+   * are reset on interactive elements and on field wrappers holding a focused input; panels
+   * (dialogs, menus, listboxes, popovers) keep the ring they use as a hairline border.
+   */
+  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
+    outline: none !important;
+  }
+
+  :where(a, button, input, textarea, select, summary, [contenteditable], [role], [tabindex]:not([tabindex='-1']))
+    :not([role='dialog'], [role='alertdialog'], [role='menu'], [role='listbox'], [role='tooltip'], [data-slot$='-content'])
+    :where(:focus, :focus-visible, :active),
+  :where(:has(:is(input, textarea, select, [contenteditable]):focus))
+    :not([role='dialog'], [role='alertdialog'], [role='menu'], [role='listbox'], [data-slot$='-content']) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+  }
+
+  :where(
+    [aria-current='page'],
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [data-active='true'],
+    [data-selected='true'],
+    [data-state='active'],
+    [data-state='on']
+  ):not(:focus-visible) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    outline: none !important;
+  }
+
   :root {
     --ds-color-accent: #2563eb;
     --ds-color-accent-dark: #1d4ed8;

@@ -102,7 +102,7 @@ Components and patterns can come from many sources; their integration should fee
 **Key Characteristics:**
 
 - Neutral reading and working surfaces with blue used as a functional accent.
-- Compact geometry, visible focus, and restrained elevation.
+- Compact geometry, no focus rings, and restrained elevation.
 - Separate root, MDX, and runtime entrypoints to keep interfaces lean.
 - Dark mode is intentionally composed, not mechanically inverted.
 
@@ -221,7 +221,7 @@ Gaudi uses a subtle 2px radius for element boundaries. The global CSS variable `
 ### Inputs / Fields
 
 - **Style:** Rounded neutral border, white or dark surface fill, clear placeholder tone.
-- **Focus:** Border change and visible focus treatment without color-only dependency.
+- **Focus:** No outlines, rings or coloured active borders in any state; the resting border stays. Selected and pressed states use fills.
 - **Error / Disabled:** Error state uses red border/text with ARIA invalid wiring; disabled state reduces opacity and blocks pointer interaction when appropriate.
 
 ### Navigation

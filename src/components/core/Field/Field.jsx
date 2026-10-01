@@ -81,7 +81,7 @@ export const FieldInput = ({ as: Control = 'input', 'aria-describedby': ariaDesc
       id={ id || context?.inputId }
       aria-describedby={ describedBy || undefined }
       aria-invalid={ isInvalid || undefined }
-      className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-border bg-surface px-3 py-1 text-base leading-5 text-text md:text-sm shadow-xs placeholder:text-text-muted focus-visible:border-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:cursor-not-allowed disabled:opacity-50', isInvalid && 'border-danger focus-visible:border-danger focus-visible:ring-danger', className) }
+      className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-border bg-surface px-3 py-1 text-base leading-5 text-text md:text-sm shadow-xs placeholder:text-text-muted disabled:cursor-not-allowed disabled:opacity-50', isInvalid && 'border-danger', className) }
       { ...props }
     />
   );

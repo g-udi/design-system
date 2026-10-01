@@ -113,8 +113,8 @@ export const Default = {
           <InfoCard title='Focus Traps'>
             Modal overlays such as command palette, mobile navigation, video, and image previews trap or contain focus when open. Non-modal dropdowns close on Escape and outside interaction without pretending to be dialogs.
           </InfoCard>
-          <InfoCard title='Focus Rings'>
-            All interactive elements show a visible focus ring with <InlineCode>:focus-visible</InlineCode>, hidden for mouse users only when an equivalent keyboard focus treatment remains.
+          <InfoCard title='No Focus Rings'>
+            Gaudi draws no outlines, focus rings or coloured active borders in any state. Focus still moves in a logical order, the text caret marks focused fields, and selected states use fills. Products that need a keyboard focus indicator can add one on <InlineCode>:focus-visible</InlineCode>.
           </InfoCard>
           <InfoCard title='Return Focus'>
             When overlays close, focus returns to the trigger element whenever possible. Do not leave focus on removed DOM nodes.
@@ -239,7 +239,7 @@ export const MyStory = {
               'Make every interactive element reachable by Tab.',
               'Support Arrow keys for custom composite widgets.',
               'Ensure Escape closes overlays and returns focus.',
-              'Provide visible focus rings on keyboard navigation.',
+              'Keep a logical focus order; Gaudi draws no focus rings, so state changes use fills, not outlines.',
               'Give icon-only controls aria-label or sr-only text.',
               'Connect inputs to labels with id and htmlFor.',
               'Use aria-live for dynamic status content.',
