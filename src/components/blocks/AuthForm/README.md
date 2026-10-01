@@ -12,6 +12,21 @@ Password and email-link form recipes with native validation, pending state and r
 />
 ```
 
+Reuse the recipe for other account steps by renaming the copy: a reset request is `mode='email'` with its own `submitLabel`
+and `pendingLabel`.
+
+```jsx
+<AuthForm
+  title='Reset your password'
+  mode='email'
+  submitLabel='Send reset link'
+  pendingLabel='Sending…'
+  emailPlaceholder='you@example.com'
+  successMessage='If that address has an account, a reset link is on its way.'
+  onSubmit={requestReset}
+/>
+```
+
 ## API
 
 | Prop / export                                 | Type                         | Contract                                                              |
@@ -21,6 +36,9 @@ Password and email-link form recipes with native validation, pending state and r
 | `title / description / footer`                | ReactNode                    | Product context and links.                                            |
 | `submitLabel / successMessage / errorMessage` | string                       | Action and outcome copy.                                              |
 | `emailLabel / passwordLabel`                  | string                       | Visible accessible field labels.                                      |
+| `emailPlaceholder / passwordPlaceholder`      | string                       | Optional example text inside the fields. No placeholder by default.   |
+| `passwordHint`                                | ReactNode or false           | Help text under the password. Defaults to a generic hint; `false` hides it. |
+| `pendingLabel`                                | string                       | Submit text while `onSubmit` is pending. Defaults to `Signing in…`.   |
 
 ## Ownership and verification
 

@@ -16,7 +16,11 @@ export default function AuthForm({
   errorMessage = 'Sign-in failed. Check your details and try again.',
   footer,
   emailLabel = 'Email',
-  passwordLabel = 'Password'
+  passwordLabel = 'Password',
+  emailPlaceholder,
+  passwordPlaceholder,
+  passwordHint = 'Use the password for your account.',
+  pendingLabel = 'Signing in…'
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(false);
@@ -61,7 +65,7 @@ export default function AuthForm({
       <fieldset disabled={pending} className='ds-stack'>
         <Field>
           <FieldLabel>{emailLabel}</FieldLabel>
-          <Input type='email' name='email' autoComplete='email' required />
+          <Input type='email' name='email' autoComplete='email' placeholder={emailPlaceholder} required />
         </Field>
         {mode === 'password' && (
           <Field>
@@ -70,15 +74,16 @@ export default function AuthForm({
               type='password'
               name='password'
               autoComplete='current-password'
+              placeholder={passwordPlaceholder}
               required
             />
-            <FieldDescription>
-              Use the password for your account.
-            </FieldDescription>
+            {passwordHint !== false && passwordHint != null && passwordHint !== '' && (
+              <FieldDescription>{passwordHint}</FieldDescription>
+            )}
           </Field>
         )}
         <Button type='submit' disabled={pending}>
-          {pending ? 'Signing in…' : submitLabel}
+          {pending ? pendingLabel : submitLabel}
         </Button>
       </fieldset>
       {error && (

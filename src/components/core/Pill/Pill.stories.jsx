@@ -5,6 +5,7 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import Pill, { pillVariants } from './Pill';
+import { Badge } from './parts/badge-extended.jsx';
 
 const docs = getComponentDocs('Core/Pill');
 const { radius: radii, size: sizes, tone: tones, variant: variants } = pillVariants.variants;
@@ -121,5 +122,53 @@ export const Tones = {
       ['subtle', 'indigo', ['text-info']]
     ];
     for (const [variant, tone, classes] of expected) await expect(inRow(canvasElement, variant, tone)).toHaveClass(...classes);
+  }
+};
+
+const semanticTones = ['info', 'success', 'discovery', 'attention'];
+const treatments = [['solid', ''], ['light', '-light'], ['outline', '-outline']];
+export const SemanticBadges = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The semantic `Badge` variants side by side. `discovery` marks suggested or generated labels, such as tags an assistant proposed; `attention` marks records that need a person to look, such as staged or unreviewed items. Both come in solid, `-light` and `-outline` like `info` and `success`, and keep the meaning in the text.'
+      },
+      source: {
+        code: "import { Badge } from '@gaudi/design-system';\n\n<Badge variant='discovery-light'>Suggested</Badge>\n<Badge variant='attention-light'>Needs review</Badge>\n<Badge variant='discovery'>AI</Badge>\n<Badge variant='attention-outline'>Staging</Badge>"
+      }
+    }
+  },
+  decorators: [(Story) => <ExampleFrame className='max-w-lg'><Story /></ExampleFrame>],
+  render: () => (
+    <div className='grid gap-4'>
+      <div className='grid w-fit grid-cols-[auto_1fr] items-center gap-x-3 gap-y-2'>
+        {treatments.map(([name, suffix]) => (
+          <div key={name} className='contents'>
+            <span className='text-xs text-text-muted'>{name}</span>
+            <div data-row={name} className='flex flex-wrap items-center gap-1.5'>
+              {semanticTones.map((tone) => <Badge key={tone} variant={`${tone}${suffix}`}>{tone}</Badge>)}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className='grid gap-1 rounded-lg border border-border px-3 py-2.5'>
+        <span className='text-sm font-medium text-foreground'>Field notes on knowledge graphs</span>
+        <span className='flex flex-wrap items-center gap-1.5'>
+          <Badge variant='secondary'>research</Badge>
+          <Badge variant='discovery-light'>graphs · suggested</Badge>
+          <Badge variant='discovery-light'>search · suggested</Badge>
+          <Badge variant='attention-light'>Needs review</Badge>
+        </span>
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const badge = (row, tone) => within(canvasElement.querySelector(`[data-row="${row}"]`)).getByText(tone);
+    await expect(badge('solid', 'discovery')).toHaveClass('bg-discovery', 'text-discovery-foreground');
+    await expect(badge('solid', 'attention')).toHaveClass('bg-attention', 'text-attention-foreground');
+    await expect(badge('light', 'discovery')).toHaveAttribute('data-variant', 'discovery-light');
+    await expect(badge('light', 'attention')).toHaveClass('text-ui-attention-ink');
+    await expect(badge('outline', 'discovery')).toHaveClass('text-ui-discovery-ink');
   }
 };

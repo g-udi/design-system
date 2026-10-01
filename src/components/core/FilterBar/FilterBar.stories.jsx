@@ -196,3 +196,68 @@ export const AppliedFilters = {
     await expect(canvas.queryByRole('group', { name: 'Applied filters' })).not.toBeInTheDocument();
   }
 };
+
+const libraryFacets = [
+  {
+    id: 'collection',
+    label: 'Collection',
+    multiple: true,
+    options: [
+      { value: 'reading', label: 'Reading list', count: 42 },
+      { value: 'research', label: 'Research notes on knowledge graphs and semantic search for personal libraries', count: 18 },
+      { value: 'recipes', label: 'Recipes', count: 7 }
+    ]
+  },
+  {
+    id: 'tag',
+    label: 'Tag',
+    multiple: true,
+    options: [
+      'Accessibility', 'Architecture decision records and long-form engineering write-ups', 'Design systems', 'Editorial',
+      'Interaction design', 'Knowledge management', 'Typography', 'Writing'
+    ].map((label, index) => ({ value: label.toLowerCase(), label, count: 30 - index * 3 }))
+  },
+  { id: 'type', label: 'Type', options: ['Article', 'Video', 'Note', 'Image', 'Document'].map((label) => ({ value: label, label })) },
+  { id: 'source', label: 'Source', options: ['Saved by hand', 'Imported from a browser export', 'Suggested'].map((label) => ({ value: label, label })) },
+  { id: 'state', label: 'Reading state', options: ['Unread', 'In progress', 'Finished'].map((label) => ({ value: label, label })) },
+  { id: 'year', label: 'Year saved', options: ['2026', '2025', '2024', 'Earlier'].map((label) => ({ value: label, label })) }
+];
+
+export const LongOptionsAndPhones = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'A library with six facets and long option labels. The option column keeps the popover width and truncates long labels, with the full label in the tooltip. Below the small breakpoint the facet rail becomes a one-line facet select above a scrollable option list, so phones still show a full page of options.'
+      },
+      source: {
+        code: "import { FilterBar } from '@gaudi/design-system';\n\n<FilterBar\n  query={query}\n  onQueryChange={setQuery}\n  facets={facets}\n  labels={{ facet: 'Filter by' }}\n/>"
+      }
+    }
+  },
+  render: function Render() {
+    const [query, setQuery] = useState('');
+    const [state, setState] = useState({ collection: [], tag: ['design systems'], type: '', source: '', state: '', year: '' });
+    const facets = libraryFacets.map((facet) => ({
+      ...facet,
+      value: state[facet.id],
+      onChange: (value) => setState((current) => ({ ...current, [facet.id]: value }))
+    }));
+    return <FilterBar query={query} onQueryChange={setQuery} searchLabel='Search library' facets={facets} labels={{ facet: 'Filter by' }} />;
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    await userEvent.click(canvas.getByRole('button', { name: /^Filters/ }));
+    // Collection is the first facet, so it is open on every viewport (rail on desktop, facet select on phones).
+    const long = await page.findByRole('checkbox', { name: /^Research notes/ });
+    const pane = long.closest('.ds-facet-pane');
+    // The long label truncates inside the pane rather than widening it, and keeps its full text as a tooltip.
+    await expect(long.scrollWidth).toBeLessThanOrEqual(pane.clientWidth);
+    await expect(long.querySelector('[title]')).toHaveAttribute('title', libraryFacets[0].options[1].label);
+    await userEvent.click(long);
+    await expect(long).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(page.getByRole('button', { name: 'Done' }));
+    await expect(canvas.getByRole('button', { name: /^Remove Research notes/ })).toBeVisible();
+  }
+};

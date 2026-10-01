@@ -58,6 +58,16 @@
     var(--ds-color-info) 85%,
     var(--ds-color-text)
   );
+  --color-ui-discovery-ink: color-mix(
+    in srgb,
+    var(--ds-color-discovery) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-attention-ink: color-mix(
+    in srgb,
+    var(--ds-color-attention) 85%,
+    var(--ds-color-text)
+  );
   --color-ui-danger-ink: color-mix(
     in srgb,
     var(--ds-color-danger) 85%,

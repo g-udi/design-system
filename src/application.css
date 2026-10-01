@@ -258,6 +258,7 @@
   /* FilterBar: the collection toolbar. */
   .ds-filter-bar {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: calc(var(--ds-space-scale, 1) * 8px);
     min-width: 0;
   }
@@ -288,18 +289,31 @@
   }
   .ds-facet-pane {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     align-content: start;
     gap: calc(var(--ds-space-scale, 1) * 8px);
+    min-width: 0;
     min-height: 0;
     padding: calc(var(--ds-space-scale, 1) * 12px);
     overflow-y: auto;
   }
+  .ds-facet-picker {
+    flex-shrink: 0;
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 12px);
+    border-bottom: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-facet-picker select {
+    width: 100%;
+  }
   .ds-facet-options {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: calc(var(--ds-space-scale, 1) * 2px);
   }
   .ds-facet-option {
     display: flex;
+    min-width: 0;
     align-items: center;
     gap: calc(var(--ds-space-scale, 1) * 8px);
     min-height: 32px;

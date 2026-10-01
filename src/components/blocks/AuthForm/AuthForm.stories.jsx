@@ -57,7 +57,10 @@ export default {
     description: 'text',
     submitLabel: 'text',
     emailLabel: 'text',
-    passwordLabel: 'text'
+    passwordLabel: 'text',
+    emailPlaceholder: 'text',
+    passwordPlaceholder: 'text',
+    pendingLabel: 'text'
   }),
   parameters: {
     docs: {
@@ -118,5 +121,78 @@ export const FailedSignIn = {
     await userEvent.click(canvas.getByRole('button', { name: 'Sign in' }));
     await expect(await canvas.findByRole('alert')).toHaveTextContent('Sign-in failed');
     await expect(canvas.getByRole('textbox', { name: 'Email' })).toHaveValue(email);
+  }
+};
+
+// A short simulated request so the pending label is visible in the example.
+const requestReset = () => new Promise((resolve) => setTimeout(resolve, 800));
+
+export const ForgotPassword = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'The same recipe as a reset request: `mode=\'email\'` with its own `submitLabel`, a `pendingLabel` shown while the request runs, an `emailPlaceholder`, and a neutral success message that does not reveal whether the address has an account.'
+      },
+      source: {
+        code: "import { AuthForm } from '@gaudi/design-system';\n\n<AuthForm\n  title='Reset your password'\n  description='We will email you a link to choose a new password.'\n  mode='email'\n  submitLabel='Send reset link'\n  pendingLabel='Sending…'\n  emailPlaceholder='you@example.com'\n  successMessage='If that address has an account, a reset link is on its way.'\n  onSubmit={requestReset}\n/>"
+      }
+    }
+  },
+  render: () => (
+    <AuthForm
+      title='Reset your password'
+      description='We will email you a link to choose a new password.'
+      mode='email'
+      submitLabel='Send reset link'
+      pendingLabel='Sending…'
+      emailPlaceholder='you@example.com'
+      successMessage='If that address has an account, a reset link is on its way.'
+      onSubmit={requestReset}
+      footer={<Link href='#sign-in' variant='muted' className='text-sm'>Back to sign in</Link>}
+    />
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const field = canvas.getByRole('textbox', { name: 'Email' });
+    await expect(field).toHaveAttribute('placeholder', 'you@example.com');
+    await userEvent.type(field, email);
+    await userEvent.click(canvas.getByRole('button', { name: 'Send reset link' }));
+    await expect(await canvas.findByRole('button', { name: 'Sending…' })).toBeDisabled();
+    await expect(await canvas.findByRole('status')).toHaveTextContent('reset link is on its way');
+    await expect(canvas.getByRole('button', { name: 'Send reset link' })).toBeEnabled();
+  }
+};
+
+export const PasswordHintAndPlaceholders = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '`passwordHint` replaces the generic help text under the password, or hides it with `false` when the screen already explains itself. `emailPlaceholder` and `passwordPlaceholder` add example text; labels stay visible either way.'
+      },
+      source: {
+        code: "import { AuthForm } from '@gaudi/design-system';\n\n<AuthForm\n  title='Sign in'\n  emailPlaceholder='you@example.com'\n  passwordPlaceholder='Your password'\n  passwordHint='At least 12 characters.'\n  onSubmit={signIn}\n/>\n\n<AuthForm title='Sign in' passwordHint={false} onSubmit={signIn} />"
+      }
+    }
+  },
+  render: () => (
+    <div className='grid gap-8'>
+      <AuthForm
+        title='Sign in with a custom hint'
+        emailPlaceholder='you@example.com'
+        passwordPlaceholder='Your password'
+        passwordHint='At least 12 characters.'
+        onSubmit={async () => {}}
+      />
+      <AuthForm title='Sign in without a hint' passwordHint={false} onSubmit={async () => {}} />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const [custom, hidden] = canvas.getAllByRole('form');
+    await expect(within(custom).getByText('At least 12 characters.')).toBeVisible();
+    await expect(within(custom).getByLabelText('Password')).toHaveAttribute('placeholder', 'Your password');
+    await expect(within(hidden).queryByText(/password for your account/)).not.toBeInTheDocument();
   }
 };

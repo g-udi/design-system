@@ -19,6 +19,9 @@ import FilterBar from '@gaudi/design-system/core/FilterBar';
 
 - A facet is `{ id, label, options: [{ value, label, count?, keywords?, disabled? }], value, onChange, multiple?, disabled? }`.
   Facets with more than six options get a search field.
+- Long option labels truncate to the popover width and keep the full text as a tooltip.
+- Below the small breakpoint the facet rail becomes a one-line facet select (`labels.facet` names it, falling back to
+  `filterLabel`) above a scrollable option list, so phones keep the height for options.
 - `filters` with `onRemoveFilter` shows host-applied filters as chips when you do not use facets; `onClearFilters` clears everything.
 - `children` adds controls beside the search; `labels` translates every visible and accessible string.
 - Use the `Filters` and `FiltersAdvanced` parts for rule builders with operators, groups and drag and drop.

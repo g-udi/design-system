@@ -7,6 +7,7 @@ import Icon from '../Icon';
 import { Badge } from '../Pill/parts/badge-extended.jsx';
 import { Popover, PopoverContent, PopoverTrigger } from '../Popover/parts/popover.jsx';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs';
+import { NativeSelect, NativeSelectOption } from '../Select/parts/native-select.jsx';
 import { cn } from '../../../utilities/cn';
 
 /*
@@ -18,7 +19,10 @@ import { cn } from '../../../utilities/cn';
 const selectedValues = (facet) => (facet.multiple ? facet.value || [] : facet.value ? [facet.value] : []);
 const removeValue = (facet, value) =>
   facet.onChange(facet.multiple ? (facet.value || []).filter((item) => item !== value) : '');
-const bodyHeight = 'h-[min(340px,calc(100dvh-160px))]';
+// Phones get a taller body: the facet picker is a one-line select, so the options keep the room.
+const bodyHeight = 'h-[min(340px,calc(100dvh-160px))] max-sm:h-[min(440px,calc(100dvh-200px))]';
+// A single minmax(0,1fr) track lets long option labels truncate instead of widening the pane.
+const paneTrack = 'grid min-h-0 min-w-0 grid-cols-[minmax(0,1fr)]';
 const clearFacet = (facet) => facet.onChange(facet.multiple ? [] : '');
 
 const CountBadge = ({ children }) => (
@@ -70,7 +74,7 @@ function FacetOptions({ facet, labels }) {
                 onClick={() => toggle(option.value)}
                 className='ds-facet-option'
               >
-                <span className='min-w-0 flex-1 truncate text-start'>{option.label}</span>
+                <span className='min-w-0 flex-1 truncate text-start' title={String(option.label)}>{option.label}</span>
                 {option.count != null && <span className='ds-table-count'>{option.count}</span>}
                 <Icon name='Check' decorative size='sm' className={cn('shrink-0', !checked && 'invisible')} />
               </button>
@@ -107,11 +111,29 @@ function FacetPopover({ facets, labels, filterLabel, activeCount }) {
       >
         <h2 id={titleId} className='sr-only'>{filterLabel}</h2>
         {facets.length > 1 ? (
-          // The facet rail is the DS vertical Tabs, so arrow keys move between facets.
-          <Tabs orientation='vertical' value={facet.id} onValueChange={setCurrent} className={cn(bodyHeight, 'gap-0 max-[420px]:flex-col')}>
+          // The facet rail is the DS vertical Tabs, so arrow keys move between facets. On phones the rail
+          // collapses to a one-line facet select so the option list keeps the height.
+          <Tabs orientation='vertical' value={facet.id} onValueChange={setCurrent} className={cn(bodyHeight, 'gap-0 max-sm:flex-col')}>
+            <div className='ds-facet-picker sm:hidden'>
+              <NativeSelect
+                aria-label={labels.facet || filterLabel}
+                value={facet.id}
+                onChange={(event) => setCurrent(event.target.value)}
+                className='w-full'
+              >
+                {facets.map((item) => {
+                  const selected = selectedValues(item).length;
+                  return (
+                    <NativeSelectOption key={item.id} value={item.id}>
+                      {selected > 0 ? `${item.label} (${selected})` : item.label}
+                    </NativeSelectOption>
+                  );
+                })}
+              </NativeSelect>
+            </div>
             <TabsList
               aria-label={filterLabel}
-              className='w-38 shrink-0 overflow-y-auto group-data-[orientation=vertical]/tabs:h-auto border-e border-border bg-surface-muted p-2 max-[420px]:w-auto max-[420px]:flex-row max-[420px]:border-e-0 max-[420px]:border-b'
+              className='w-38 shrink-0 overflow-y-auto group-data-[orientation=vertical]/tabs:h-auto border-e border-border bg-surface-muted p-2 max-sm:hidden'
             >
               {facets.map((item) => {
                 const selected = selectedValues(item).length;
@@ -124,13 +146,13 @@ function FacetPopover({ facets, labels, filterLabel, activeCount }) {
               })}
             </TabsList>
             {facets.map((item) => (
-              <TabsContent key={item.id} value={item.id} className='grid min-h-0 min-w-0 flex-1'>
+              <TabsContent key={item.id} value={item.id} className={cn(paneTrack, 'flex-1')}>
                 <FacetOptions facet={item} labels={labels} />
               </TabsContent>
             ))}
           </Tabs>
         ) : (
-          facet && <div className={cn(bodyHeight, 'grid')}><FacetOptions facet={facet} labels={labels} /></div>
+          facet && <div className={cn(bodyHeight, paneTrack)}><FacetOptions facet={facet} labels={labels} /></div>
         )}
         <div className='ds-facet-footer'>
           <Button variant='ghost' tone='neutral' size='sm' disabled={!activeCount} onClick={() => facets.forEach(clearFacet)}>

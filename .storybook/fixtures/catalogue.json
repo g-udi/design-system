@@ -368,6 +368,28 @@
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
     },
+    "blocks-application-authform--forgot-password": {
+      "id": "blocks-application-authform--forgot-password",
+      "title": "Blocks/To Sort/AuthForm",
+      "name": "Forgot Password",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
+    },
+    "blocks-application-authform--password-hint-and-placeholders": {
+      "id": "blocks-application-authform--password-hint-and-placeholders",
+      "title": "Blocks/To Sort/AuthForm",
+      "name": "Password Hint And Placeholders",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
+    },
     "blocks-application-kanbanboard--playground": {
       "id": "blocks-application-kanbanboard--playground",
       "title": "Blocks/To Sort/KanbanBoard",
@@ -1371,6 +1393,17 @@
       ],
       "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
     },
+    "core-filterbar--long-options-and-phones": {
+      "id": "core-filterbar--long-options-and-phones",
+      "title": "Core/Data Display/FilterBar",
+      "name": "Long Options And Phones",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
+    },
     "core-gantt--playground": {
       "id": "core-gantt--playground",
       "title": "Core/Planning/Gantt",
@@ -1768,6 +1801,17 @@
       "id": "core-pill--tones",
       "title": "Core/Pill",
       "name": "Tones",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Pill/Pill.stories.jsx"
+    },
+    "core-pill--semantic-badges": {
+      "id": "core-pill--semantic-badges",
+      "title": "Core/Pill",
+      "name": "Semantic Badges",
       "type": "story",
       "tags": [
         "autodocs",

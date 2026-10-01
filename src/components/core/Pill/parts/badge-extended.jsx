@@ -16,6 +16,8 @@ const badgeVariants = cva(
         info: 'bg-info text-info-foreground',
         success: 'bg-success text-success-foreground',
         warning: 'bg-warning text-warning-foreground',
+        discovery: 'bg-discovery text-discovery-foreground',
+        attention: 'bg-attention text-attention-foreground',
         destructive: 'bg-ui-destructive text-ui-destructive-foreground',
         focus: 'bg-ui-focus text-ui-focus-foreground',
         invert: 'bg-ui-invert text-ui-invert-foreground',
@@ -27,6 +29,10 @@ const badgeVariants = cva(
           'border-success/15 bg-success/10 text-ui-success-ink dark:border-success/25 dark:bg-success/15 dark:text-ui-success-ink',
         'info-light':
           'border-info/15 bg-info/10 text-ui-info-ink dark:border-info/25 dark:bg-info/15 dark:text-ui-info-ink',
+        'discovery-light':
+          'border-discovery/15 bg-discovery/10 text-ui-discovery-ink dark:border-discovery/25 dark:bg-discovery/15 dark:text-ui-discovery-ink',
+        'attention-light':
+          'border-attention/15 bg-attention/10 text-ui-attention-ink dark:border-attention/25 dark:bg-attention/15 dark:text-ui-attention-ink',
         'destructive-light':
           'border-ui-destructive/15 bg-ui-destructive/10 text-ui-danger-ink dark:border-ui-destructive/25 dark:bg-ui-destructive/15 dark:text-ui-danger-ink',
         'invert-light':
@@ -41,6 +47,10 @@ const badgeVariants = cva(
           'bg-ui-background border-ui-border text-ui-success-ink dark:bg-ui-input/30',
         'info-outline':
           'bg-ui-background border-ui-border text-ui-info-ink dark:bg-ui-input/30',
+        'discovery-outline':
+          'bg-ui-background border-ui-border text-ui-discovery-ink dark:bg-ui-input/30',
+        'attention-outline':
+          'bg-ui-background border-ui-border text-ui-attention-ink dark:bg-ui-input/30',
         'destructive-outline':
           'bg-ui-background border-ui-border text-ui-danger-ink dark:bg-ui-input/30',
         'invert-outline':
