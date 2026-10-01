@@ -1,7 +1,7 @@
 'use client';
 
 import { useId, useState } from 'react';
-import Dialog from '../../core/Dialog';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../../core/Sheet';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
@@ -34,30 +34,26 @@ export default function AppShell({
       <div className='ds-app-workspace'>
         <header className='ds-app-header'>
           <div className='ds-app-mobile-nav'>
-            <Dialog
-              open={open}
-              onOpenChange={setOpen}
-              variant='sheet'
-              title={navigationLabel}
-              trigger={
-                <Button
-                  size='xs'
-                  tone='neutral'
-                  variant='ghost'
-                  aria-label={menuLabel}
-                >
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger asChild>
+                <Button size='xs' tone='neutral' variant='ghost' aria-label={menuLabel}>
                   <Icon name='Menu' decorative size='sm' />
                 </Button>
-              }
-            >
-              <div
-                onClick={(event) => {
-                  if (event.target.closest('a')) setOpen(false);
-                }}
-              >
-                {nav}
-              </div>
-            </Dialog>
+              </SheetTrigger>
+              <SheetContent side='left' aria-describedby={undefined}>
+                <SheetHeader>
+                  <SheetTitle>{navigationLabel}</SheetTitle>
+                </SheetHeader>
+                <div
+                  className='px-3'
+                  onClick={(event) => {
+                    if (event.target.closest('a')) setOpen(false);
+                  }}
+                >
+                  {nav}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
           {header}
         </header>

@@ -59,7 +59,7 @@ function BareDialog({ trigger, title, label, children, open, defaultOpen, onOpen
   );
 }
 
-/** Modal, sheet, confirmation and bare full-screen surfaces share one public component. */
+/** Modal, confirmation and bare full-screen surfaces share one public component; side panels use Sheet. */
 export default function Dialog({
   trigger,
   title,
@@ -124,11 +124,7 @@ export default function Dialog({
         <Primitive.Content
           {...(!description ? { 'aria-describedby': undefined } : {})}
           {...contentProps}
-          className={cn(
-            'ds-dialog',
-            variant === 'sheet' && 'ds-sheet',
-            className
-          )}
+          className={cn('ds-dialog', className)}
         >
           <header className='ds-dialog-header'>
             <Primitive.Title className='ds-title'>{title}</Primitive.Title>

@@ -3,7 +3,7 @@ import test from 'node:test';
 import { renderComponent } from '../../../test-support/renderComponent.js';
 
 test('Dialog preserves its server-rendered public contract across variants', async () => {
-  for (const variant of ['modal', 'sheet', 'confirmation']) {
+  for (const variant of ['modal', 'confirmation']) {
     const html = await renderComponent(new URL('./Dialog.jsx', import.meta.url), {
       title: 'Details',
       variant,

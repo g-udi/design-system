@@ -66,12 +66,8 @@ function useStageRect(ref) {
   return rect;
 }
 
-const stagePlacement = (variant, rect) => {
+const stagePlacement = (rect) => {
   if (!rect) return { visibility: 'hidden' };
-  if (variant === 'sheet') {
-    const width = Math.min(480, rect.width - 16);
-    return { top: rect.top, left: rect.left + rect.width - width, right: 'auto', bottom: 'auto', width, height: rect.height, maxHeight: rect.height };
-  }
   return { top: rect.top + rect.height / 2, left: rect.left + rect.width / 2, width: Math.min(576, rect.width - 32), maxHeight: rect.height - 32 };
 };
 
@@ -101,7 +97,7 @@ function EditorExample({ onOpenChange, onSave, ...args }) {
             onOpenChange={change}
             trigger={<Button size='sm'>{editTrigger}</Button>}
             contentProps={{
-              style: stagePlacement(args.variant, rect),
+              style: stagePlacement(rect),
               onOpenAutoFocus: (event) => (openedFromTrigger.current ? undefined : event.preventDefault()),
               onInteractOutside: (event) => event.preventDefault()
             }}
@@ -147,7 +143,6 @@ export default {
   component: Dialog,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    variant: ['modal', 'sheet'],
     title: 'text',
     description: 'text'
   }),
@@ -161,7 +156,6 @@ export default {
 
 export const Playground = {
   args: {
-    variant: 'modal',
     title: 'Edit article',
     description: 'Update the cover, title, and summary readers see.',
     onOpenChange: fn(),
@@ -170,7 +164,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: {
-        story: 'An article editor, open over the drafts list: a cover, a title field, and a summary with a hint, with Cancel and Save changes in the footer. `variant` switches between the centred modal and the edge sheet. The confirmation variant has its own examples below.'
+        story: 'An article editor, open over the drafts list: a cover, a title field, and a summary with a hint, with Cancel and Save changes in the footer. Side panels use Sheet; the confirmation variant has its own examples below.'
       },
       source: playgroundCode
     }
@@ -183,7 +177,6 @@ export const Playground = {
     const scope = within(dialog);
     await expect(dialog).toHaveAccessibleName(args.title);
     await expect(dialog).toHaveAccessibleDescription(args.description);
-    await expect(dialog.classList.contains('ds-sheet')).toBe(args.variant === 'sheet');
     await expect(scope.getByRole('textbox', { name: 'Title' })).toHaveValue(articleTitle);
     await expect(scope.getByRole('textbox', { name: 'Summary' })).toHaveAccessibleDescription('Shown in search results and link previews.');
 

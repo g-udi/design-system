@@ -2030,6 +2030,27 @@
       ],
       "importPath": "./src/components/core/Separator/Separator.stories.jsx"
     },
+    "core-sheet--playground": {
+      "id": "core-sheet--playground",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/Sheet.stories.jsx"
+    },
+    "core-sheet--docs": {
+      "id": "core-sheet--docs",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Sheet/Sheet.stories.jsx"
+    },
     "core-skeleton--playground": {
       "id": "core-skeleton--playground",
       "title": "Core/Feedback & States/Skeleton",
@@ -4804,28 +4825,6 @@
       ],
       "importPath": "./src/components/core/Dialog/DrawerPatterns.stories.jsx"
     },
-    "core-dialog--sheet-pattern-1": {
-      "id": "core-dialog--sheet-pattern-1",
-      "title": "Core/Overlays & Menus/Dialog",
-      "name": "Sheet with a form",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Dialog/SheetPatterns.stories.jsx"
-    },
-    "core-dialog--sheet-pattern-3": {
-      "id": "core-dialog--sheet-pattern-3",
-      "title": "Core/Overlays & Menus/Dialog",
-      "name": "Sheet from each edge",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Dialog/SheetPatterns.stories.jsx"
-    },
     "core-dropdownmenu--context-menu-pattern-5": {
       "id": "core-dropdownmenu--context-menu-pattern-5",
       "title": "Core/Overlays & Menus/DropdownMenu",
@@ -6239,6 +6238,93 @@
         "autodocs"
       ],
       "importPath": "./src/components/core/Separator/SeparatorPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-1": {
+      "id": "core-sheet--sheet-pattern-1",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "New project",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-4": {
+      "id": "core-sheet--sheet-pattern-4",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Notifications",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-5": {
+      "id": "core-sheet--sheet-pattern-5",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Settings",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-6": {
+      "id": "core-sheet--sheet-pattern-6",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Help and shortcuts",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-7": {
+      "id": "core-sheet--sheet-pattern-7",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Assistant",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-8": {
+      "id": "core-sheet--sheet-pattern-8",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Comments",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-9": {
+      "id": "core-sheet--sheet-pattern-9",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Record details",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
+    },
+    "core-sheet--sheet-pattern-3": {
+      "id": "core-sheet--sheet-pattern-3",
+      "title": "Core/Overlays & Menus/Sheet",
+      "name": "Sheet from each edge",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Sheet/SheetPatterns.stories.jsx"
     },
     "core-skeleton--skeleton-pattern-7": {
       "id": "core-skeleton--skeleton-pattern-7",

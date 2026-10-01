@@ -212,19 +212,6 @@
     padding: calc(var(--ds-space-scale, 1) * 0.75rem);
     border-top: 1px solid var(--ds-color-border);
   }
-  .ds-sheet {
-    top: 0;
-    bottom: 0;
-    left: auto;
-    right: 0;
-    transform: none;
-    width: min(30rem, calc(100vw - 1rem));
-    max-height: 100dvh;
-    border-radius: 0;
-  }
-  .ds-sheet .ds-dialog-body {
-    flex: 1;
-  }
   .ds-upload {
     display: grid;
     gap: calc(var(--ds-space-scale, 1) * 0.75rem);

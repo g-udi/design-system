@@ -512,7 +512,7 @@
     "DrawerTitle": "DrawerTitle",
     "DrawerDescription": "DrawerDescription"
   },
-  "src/components/core/Dialog/parts/sheet.jsx": {
+  "src/components/core/Sheet/parts/sheet.jsx": {
     "Sheet": "Sheet",
     "SheetTrigger": "SheetTrigger",
     "SheetClose": "SheetClose",

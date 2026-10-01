@@ -13,7 +13,7 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle
-} from '../../../core/Dialog/parts/sheet.jsx';
+} from '../../../core/Sheet/parts/sheet.jsx';
 import { Skeleton } from '../../../core/Skeleton/parts/skeleton.jsx';
 import {
   Tooltip,

@@ -21,7 +21,7 @@ export const owners = {
   progress: 'core/Progress', questionnaire: 'core/Questionnaire', 'radio-group': 'core/RadioGroup',
   rating: 'core/Rating', resizable: 'core/Resizable', 'scroll-area': 'core/ScrollArea',
   scrollspy: 'core/Scrollspy', select: 'core/Select', separator: 'core/Separator',
-  sheet: 'core/Dialog', sidebar: 'blocks/AppShell', skeleton: 'core/Skeleton',
+  sheet: 'core/Sheet', sidebar: 'blocks/AppShell', skeleton: 'core/Skeleton',
   slider: 'core/Slider', sonner: 'core/Toast', sortable: 'core/Sortable', spinner: 'core/Spinner',
   stepper: 'core/Stepper', switch: 'core/Switch', table: 'mdx/Table', tabs: 'core/Tabs',
   textarea: 'core/Textarea', timeline: 'core/Timeline', toggle: 'core/ToggleGroup',

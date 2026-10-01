@@ -2604,23 +2604,71 @@
       ]
     },
     "sheet": {
-      "owner": "core/Dialog",
+      "owner": "core/Sheet",
       "examples": [
         {
           "name": "c-sheet-1",
-          "title": "Sheet with a form",
-          "description": "Sheet with a form",
+          "title": "New project",
+          "description": "New project",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-1.jsx",
-          "sha256": "42dd900747f9ed2eb27c895d5af90a640940a2815b0fd0d9525f38affac41596",
-          "storyId": "core-dialog--sheet-pattern-1"
+          "sha256": "a9118f395eb2b99b3d4d6761c42eb7b29b4acbddc1aa26e537e60b387474e57a",
+          "storyId": "core-sheet--sheet-pattern-1"
         },
         {
           "name": "c-sheet-3",
           "title": "Sheet from each edge",
           "description": "Sheet from each edge",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-3.jsx",
-          "sha256": "10baa0fc5998e31a582736594fcd394c62d679af419772a016f5860d15b82a44",
-          "storyId": "core-dialog--sheet-pattern-3"
+          "sha256": "2907fe6e241ea1fae7481625b00137e3ff2d919c28c79b9804bf6ac7bd0bf008",
+          "storyId": "core-sheet--sheet-pattern-3"
+        },
+        {
+          "name": "c-sheet-4",
+          "title": "Notifications",
+          "description": "Notifications",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-4.jsx",
+          "sha256": "a663b4dbb7c0e985389bead886cab4ce5450031b2922d7a6a1a3c74a13d94d88",
+          "storyId": "core-sheet--sheet-pattern-4"
+        },
+        {
+          "name": "c-sheet-5",
+          "title": "Settings",
+          "description": "Settings",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-5.jsx",
+          "sha256": "0f10698505cf271ff7113a6d476f1835a2bffe33f532e590a0d065ba4e331deb",
+          "storyId": "core-sheet--sheet-pattern-5"
+        },
+        {
+          "name": "c-sheet-6",
+          "title": "Help and shortcuts",
+          "description": "Help and shortcuts",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-6.jsx",
+          "sha256": "8fae3e084b21c07aa91657685254adc48603336a555f89911a6302c066c505cf",
+          "storyId": "core-sheet--sheet-pattern-6"
+        },
+        {
+          "name": "c-sheet-7",
+          "title": "Assistant",
+          "description": "Assistant",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-7.jsx",
+          "sha256": "5302a6ed558ff119cb0d3ca862ca24aadd20640646827bf2ccbc3a5aa12be0a8",
+          "storyId": "core-sheet--sheet-pattern-7"
+        },
+        {
+          "name": "c-sheet-8",
+          "title": "Comments",
+          "description": "Comments",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-8.jsx",
+          "sha256": "b79af7320bdc61592c1f0b3072621212f1d35273db4237fde7651aa0ef00370a",
+          "storyId": "core-sheet--sheet-pattern-8"
+        },
+        {
+          "name": "c-sheet-9",
+          "title": "Record details",
+          "description": "Record details",
+          "file": ".storybook/fixtures/patterns/sheet/c-sheet-9.jsx",
+          "sha256": "87e88e940ab8a39696a583628f1466f4544fa4e7f827edbafe1eee89b0a13bab",
+          "storyId": "core-sheet--sheet-pattern-9"
         }
       ]
     },

@@ -1045,7 +1045,7 @@
 
   /* MARK: Sheet */
   .ds-part-sheet-overlay {
-    @apply bg-black/10 supports-backdrop-filter:backdrop-blur-xs;
+    @apply bg-black/40;
   }
 
   .ds-part-sheet-content {

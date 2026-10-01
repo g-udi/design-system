@@ -9,7 +9,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger
-} from '../../../../src/components/core/Dialog/parts/sheet.jsx';
+} from '../../../../src/components/core/Sheet/parts/sheet.jsx';
 
 const sides = ['right', 'left', 'top', 'bottom'];
 const activity = [
