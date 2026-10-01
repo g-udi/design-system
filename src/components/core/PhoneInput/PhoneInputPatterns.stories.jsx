@@ -8,7 +8,7 @@ const pattern = patternStories(
 );
 
 
-export default { title: 'Core/Inputs/PhoneInput', id: 'core-phoneinput', tags: ['autodocs'], ...catalogueMeta('phone-input') };
+export default { title: 'Core/Advanced Inputs/PhoneInput', id: 'core-phoneinput', tags: ['autodocs'], ...catalogueMeta('phone-input') };
 
 export const PhoneInputPattern1 = {
   name: 'Field states',

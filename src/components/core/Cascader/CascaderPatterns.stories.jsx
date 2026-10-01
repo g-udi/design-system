@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/cascader/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Cascader', id: 'core-cascader', tags: ['autodocs'], ...catalogueMeta('cascader') };
+export default { title: 'Core/Advanced Inputs/Cascader', id: 'core-cascader', tags: ['autodocs'], ...catalogueMeta('cascader') };
 
 // The popup unmounts after its exit transition; axe runs once it has gone.
 const popupGone = (canvasElement) =>

@@ -862,7 +862,7 @@
     },
     "core-calendar--playground": {
       "id": "core-calendar--playground",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -873,7 +873,7 @@
     },
     "core-calendar--docs": {
       "id": "core-calendar--docs",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -947,7 +947,7 @@
     },
     "core-cascader--playground": {
       "id": "core-cascader--playground",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -958,7 +958,7 @@
     },
     "core-cascader--docs": {
       "id": "core-cascader--docs",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1235,7 +1235,7 @@
     },
     "core-fileupload--playground": {
       "id": "core-fileupload--playground",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1246,7 +1246,7 @@
     },
     "core-fileupload--docs": {
       "id": "core-fileupload--docs",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1256,7 +1256,7 @@
     },
     "core-fileupload--file-limits": {
       "id": "core-fileupload--file-limits",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "File Limits",
       "type": "story",
       "tags": [
@@ -1267,7 +1267,7 @@
     },
     "core-fileupload--progress-and-recovery": {
       "id": "core-fileupload--progress-and-recovery",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Progress And Recovery",
       "type": "story",
       "tags": [
@@ -1427,7 +1427,7 @@
     },
     "core-inputotp--playground": {
       "id": "core-inputotp--playground",
-      "title": "Core/Inputs/InputOtp",
+      "title": "Core/Advanced Inputs/InputOtp",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1438,7 +1438,7 @@
     },
     "core-inputotp--docs": {
       "id": "core-inputotp--docs",
-      "title": "Core/Inputs/InputOtp",
+      "title": "Core/Advanced Inputs/InputOtp",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1597,7 +1597,7 @@
     },
     "core-numberfield--playground": {
       "id": "core-numberfield--playground",
-      "title": "Core/Inputs/NumberField",
+      "title": "Core/Advanced Inputs/NumberField",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1608,7 +1608,7 @@
     },
     "core-numberfield--docs": {
       "id": "core-numberfield--docs",
-      "title": "Core/Inputs/NumberField",
+      "title": "Core/Advanced Inputs/NumberField",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1618,7 +1618,7 @@
     },
     "core-numberfield--controlled": {
       "id": "core-numberfield--controlled",
-      "title": "Core/Inputs/NumberField",
+      "title": "Core/Advanced Inputs/NumberField",
       "name": "Controlled",
       "type": "story",
       "tags": [
@@ -1661,7 +1661,7 @@
     },
     "core-phoneinput--playground": {
       "id": "core-phoneinput--playground",
-      "title": "Core/Inputs/PhoneInput",
+      "title": "Core/Advanced Inputs/PhoneInput",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1672,7 +1672,7 @@
     },
     "core-phoneinput--docs": {
       "id": "core-phoneinput--docs",
-      "title": "Core/Inputs/PhoneInput",
+      "title": "Core/Advanced Inputs/PhoneInput",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1778,7 +1778,7 @@
     },
     "core-questionnaire--playground": {
       "id": "core-questionnaire--playground",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1789,7 +1789,7 @@
     },
     "core-questionnaire--docs": {
       "id": "core-questionnaire--docs",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1831,7 +1831,7 @@
     },
     "core-rating--playground": {
       "id": "core-rating--playground",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -1842,7 +1842,7 @@
     },
     "core-rating--docs": {
       "id": "core-rating--docs",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -1990,7 +1990,7 @@
     },
     "core-skeleton--playground": {
       "id": "core-skeleton--playground",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -2001,7 +2001,7 @@
     },
     "core-skeleton--docs": {
       "id": "core-skeleton--docs",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -3877,7 +3877,7 @@
     },
     "core-calendar--calendar-pattern-1": {
       "id": "core-calendar--calendar-pattern-1",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Selection and display options",
       "type": "story",
       "tags": [
@@ -3887,7 +3887,7 @@
     },
     "core-calendar--calendar-pattern-24": {
       "id": "core-calendar--calendar-pattern-24",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Date pickers in popovers",
       "type": "story",
       "tags": [
@@ -3897,7 +3897,7 @@
     },
     "core-calendar--calendar-pattern-16": {
       "id": "core-calendar--calendar-pattern-16",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Presets",
       "type": "story",
       "tags": [
@@ -3907,7 +3907,7 @@
     },
     "core-calendar--calendar-pattern-8": {
       "id": "core-calendar--calendar-pattern-8",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Caption and navigation",
       "type": "story",
       "tags": [
@@ -3917,7 +3917,7 @@
     },
     "core-calendar--calendar-pattern-13": {
       "id": "core-calendar--calendar-pattern-13",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Year and month grid",
       "type": "story",
       "tags": [
@@ -3927,7 +3927,7 @@
     },
     "core-calendar--calendar-pattern-19": {
       "id": "core-calendar--calendar-pattern-19",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Appointment booking",
       "type": "story",
       "tags": [
@@ -3937,7 +3937,7 @@
     },
     "core-calendar--calendar-pattern-17": {
       "id": "core-calendar--calendar-pattern-17",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Daily pricing",
       "type": "story",
       "tags": [
@@ -3947,7 +3947,7 @@
     },
     "core-calendar--calendar-pattern-22": {
       "id": "core-calendar--calendar-pattern-22",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Event list",
       "type": "story",
       "tags": [
@@ -3957,7 +3957,7 @@
     },
     "core-calendar--date-selector-pattern-1": {
       "id": "core-calendar--date-selector-pattern-1",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Date selector: Options",
       "type": "story",
       "tags": [
@@ -3967,7 +3967,7 @@
     },
     "core-calendar--date-selector-pattern-2": {
       "id": "core-calendar--date-selector-pattern-2",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Date selector: In a popover",
       "type": "story",
       "tags": [
@@ -3977,7 +3977,7 @@
     },
     "core-calendar--date-selector-pattern-4": {
       "id": "core-calendar--date-selector-pattern-4",
-      "title": "Core/Inputs/Calendar",
+      "title": "Core/Advanced Inputs/Calendar",
       "name": "Date selector: Translated, in a dialog",
       "type": "story",
       "tags": [
@@ -4110,7 +4110,7 @@
     },
     "core-cascader--cascader-pattern-1": {
       "id": "core-cascader--cascader-pattern-1",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Drill-down picker",
       "type": "story",
       "tags": [
@@ -4121,7 +4121,7 @@
     },
     "core-cascader--cascader-pattern-2": {
       "id": "core-cascader--cascader-pattern-2",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Multi-select with chips and presets",
       "type": "story",
       "tags": [
@@ -4132,7 +4132,7 @@
     },
     "core-cascader--cascader-pattern-12": {
       "id": "core-cascader--cascader-pattern-12",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Form field",
       "type": "story",
       "tags": [
@@ -4143,7 +4143,7 @@
     },
     "core-cascader--cascader-pattern-5": {
       "id": "core-cascader--cascader-pattern-5",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Avatars and role badges",
       "type": "story",
       "tags": [
@@ -4153,7 +4153,7 @@
     },
     "core-cascader--cascader-pattern-20": {
       "id": "core-cascader--cascader-pattern-20",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Two-line rows with branch colours",
       "type": "story",
       "tags": [
@@ -4163,7 +4163,7 @@
     },
     "core-cascader--cascader-pattern-14": {
       "id": "core-cascader--cascader-pattern-14",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Recently used groups",
       "type": "story",
       "tags": [
@@ -4173,7 +4173,7 @@
     },
     "core-cascader--cascader-pattern-13": {
       "id": "core-cascader--cascader-pattern-13",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Columns mode",
       "type": "story",
       "tags": [
@@ -4183,7 +4183,7 @@
     },
     "core-cascader--cascader-pattern-18": {
       "id": "core-cascader--cascader-pattern-18",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Cascading tree in a popover",
       "type": "story",
       "tags": [
@@ -4193,7 +4193,7 @@
     },
     "core-cascader--cascader-pattern-9": {
       "id": "core-cascader--cascader-pattern-9",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Controlled state",
       "type": "story",
       "tags": [
@@ -4203,7 +4203,7 @@
     },
     "core-cascader--cascader-pattern-15": {
       "id": "core-cascader--cascader-pattern-15",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Async drill-down",
       "type": "story",
       "tags": [
@@ -4213,7 +4213,7 @@
     },
     "core-cascader--cascader-pattern-16": {
       "id": "core-cascader--cascader-pattern-16",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Virtualized rows",
       "type": "story",
       "tags": [
@@ -4223,7 +4223,7 @@
     },
     "core-cascader--cascader-pattern-10": {
       "id": "core-cascader--cascader-pattern-10",
-      "title": "Core/Inputs/Cascader",
+      "title": "Core/Advanced Inputs/Cascader",
       "name": "Translated labels",
       "type": "story",
       "tags": [
@@ -4845,7 +4845,7 @@
     },
     "core-fileupload--file-upload-pattern-3": {
       "id": "core-fileupload--file-upload-pattern-3",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Drag and drop",
       "type": "story",
       "tags": [
@@ -4856,7 +4856,7 @@
     },
     "core-fileupload--file-upload-pattern-6": {
       "id": "core-fileupload--file-upload-pattern-6",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Upload table with progress",
       "type": "story",
       "tags": [
@@ -4866,7 +4866,7 @@
     },
     "core-fileupload--file-upload-pattern-8": {
       "id": "core-fileupload--file-upload-pattern-8",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Image gallery with sorting",
       "type": "story",
       "tags": [
@@ -4876,7 +4876,7 @@
     },
     "core-fileupload--file-upload-pattern-2": {
       "id": "core-fileupload--file-upload-pattern-2",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Avatar upload",
       "type": "story",
       "tags": [
@@ -4886,7 +4886,7 @@
     },
     "core-fileupload--file-upload-pattern-10": {
       "id": "core-fileupload--file-upload-pattern-10",
-      "title": "Core/Inputs/FileUpload",
+      "title": "Core/Advanced Inputs/FileUpload",
       "name": "Cover image upload",
       "type": "story",
       "tags": [
@@ -5171,7 +5171,7 @@
     },
     "core-inputotp--input-otp-pattern-1": {
       "id": "core-inputotp--input-otp-pattern-1",
-      "title": "Core/Inputs/InputOtp",
+      "title": "Core/Advanced Inputs/InputOtp",
       "name": "Code formats",
       "type": "story",
       "tags": [
@@ -5365,7 +5365,7 @@
     },
     "core-numberfield--number-field-pattern-1": {
       "id": "core-numberfield--number-field-pattern-1",
-      "title": "Core/Inputs/NumberField",
+      "title": "Core/Advanced Inputs/NumberField",
       "name": "Button layouts",
       "type": "story",
       "tags": [
@@ -5376,7 +5376,7 @@
     },
     "core-numberfield--number-field-pattern-6": {
       "id": "core-numberfield--number-field-pattern-6",
-      "title": "Core/Inputs/NumberField",
+      "title": "Core/Advanced Inputs/NumberField",
       "name": "Form validation",
       "type": "story",
       "tags": [
@@ -5426,7 +5426,7 @@
     },
     "core-phoneinput--phone-input-pattern-1": {
       "id": "core-phoneinput--phone-input-pattern-1",
-      "title": "Core/Inputs/PhoneInput",
+      "title": "Core/Advanced Inputs/PhoneInput",
       "name": "Field states",
       "type": "story",
       "tags": [
@@ -5599,7 +5599,7 @@
     },
     "core-questionnaire--questionnaire-pattern-1": {
       "id": "core-questionnaire--questionnaire-pattern-1",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Guided setup",
       "type": "story",
       "tags": [
@@ -5610,7 +5610,7 @@
     },
     "core-questionnaire--questionnaire-pattern-2": {
       "id": "core-questionnaire--questionnaire-pattern-2",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Answer types",
       "type": "story",
       "tags": [
@@ -5620,7 +5620,7 @@
     },
     "core-questionnaire--questionnaire-pattern-7": {
       "id": "core-questionnaire--questionnaire-pattern-7",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Conditional branch",
       "type": "story",
       "tags": [
@@ -5630,7 +5630,7 @@
     },
     "core-questionnaire--questionnaire-pattern-6": {
       "id": "core-questionnaire--questionnaire-pattern-6",
-      "title": "Core/Inputs/Questionnaire",
+      "title": "Core/Advanced Inputs/Questionnaire",
       "name": "Cross-question validation",
       "type": "story",
       "tags": [
@@ -5691,7 +5691,7 @@
     },
     "core-rating--rating-pattern-1": {
       "id": "core-rating--rating-pattern-1",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Display options",
       "type": "story",
       "tags": [
@@ -5701,7 +5701,7 @@
     },
     "core-rating--rating-pattern-9": {
       "id": "core-rating--rating-pattern-9",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Review form",
       "type": "story",
       "tags": [
@@ -5712,7 +5712,7 @@
     },
     "core-rating--rating-pattern-6": {
       "id": "core-rating--rating-pattern-6",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Review summary",
       "type": "story",
       "tags": [
@@ -5722,7 +5722,7 @@
     },
     "core-rating--rating-pattern-8": {
       "id": "core-rating--rating-pattern-8",
-      "title": "Core/Inputs/Rating",
+      "title": "Core/Advanced Inputs/Rating",
       "name": "Emoji reactions",
       "type": "story",
       "tags": [
@@ -6014,7 +6014,7 @@
     },
     "core-skeleton--skeleton-pattern-7": {
       "id": "core-skeleton--skeleton-pattern-7",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "List with avatars and actions",
       "type": "story",
       "tags": [
@@ -6024,7 +6024,7 @@
     },
     "core-skeleton--skeleton-pattern-8": {
       "id": "core-skeleton--skeleton-pattern-8",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Media card",
       "type": "story",
       "tags": [
@@ -6034,7 +6034,7 @@
     },
     "core-skeleton--skeleton-pattern-6": {
       "id": "core-skeleton--skeleton-pattern-6",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Dashboard stats and table",
       "type": "story",
       "tags": [
@@ -6044,7 +6044,7 @@
     },
     "core-skeleton--skeleton-pattern-4": {
       "id": "core-skeleton--skeleton-pattern-4",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Form",
       "type": "story",
       "tags": [
@@ -6054,7 +6054,7 @@
     },
     "core-skeleton--skeleton-pattern-9": {
       "id": "core-skeleton--skeleton-pattern-9",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Profile page",
       "type": "story",
       "tags": [
@@ -6064,7 +6064,7 @@
     },
     "core-skeleton--skeleton-pattern-10": {
       "id": "core-skeleton--skeleton-pattern-10",
-      "title": "Core/Skeleton",
+      "title": "Core/Feedback & States/Skeleton",
       "name": "Chat messages",
       "type": "story",
       "tags": [

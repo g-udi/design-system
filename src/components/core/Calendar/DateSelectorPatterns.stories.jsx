@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/date-selector/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Calendar', id: 'core-calendar', tags: ['autodocs'], ...catalogueMeta('date-selector') };
+export default { title: 'Core/Advanced Inputs/Calendar', id: 'core-calendar', tags: ['autodocs'], ...catalogueMeta('date-selector') };
 
 export const DateSelectorPattern1 = { name: 'Date selector: Options', ...pattern(1, 'Days, months, quarters, half-years and years with is, before, after and between filters; switches toggle ranges and the typed input, and the value is printed below.') };
 export const DateSelectorPattern2 = { name: 'Date selector: In a popover', ...pattern(2, 'Edits a draft in a popover and commits it with Apply.') };

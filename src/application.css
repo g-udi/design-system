@@ -351,8 +351,17 @@
     color: var(--ds-color-text);
     box-shadow: var(--ds-shadow-popover);
   }
+  /* Sonner only hides the content of collapsed back toasts in its styled mode; do the same for the unstyled Gaudi toast. */
+  .ds-toast > * {
+    transition: opacity 0.2s;
+  }
+  .ds-toast[data-expanded='false'][data-front='false'] > * {
+    opacity: 0;
+  }
   .ds-toast-content {
     display: grid;
+    /* A shrinkable column lets long titles and custom content truncate instead of overflowing the toast. */
+    grid-template-columns: minmax(0, 1fr);
     flex: 1 1 auto;
     gap: calc(var(--ds-space-scale, 1) * 2px);
     min-width: 0;

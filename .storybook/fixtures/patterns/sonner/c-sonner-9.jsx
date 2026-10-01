@@ -117,7 +117,7 @@ const templates = [
   {
     label: 'Build failed',
     render: () => (
-      <div className='flex w-full flex-col gap-2'>
+      <div className='flex w-full min-w-0 flex-col gap-2'>
         <div className='flex items-start gap-3'>
           <StatusIcon icon='XIcon' className='bg-danger text-surface' />
           <Body title='Build failed'>
@@ -125,7 +125,7 @@ const templates = [
           </Body>
         </div>
         <Separator className='opacity-20' />
-        <div className='space-y-1 font-mono text-xs opacity-70'>
+        <div className='min-w-0 space-y-1 font-mono text-xs opacity-70'>
           <p className='truncate'>src/api/auth.ts:42 — TypeError: undefined is not a function</p>
           <p className='truncate'>src/utils/parse.ts:18 — SyntaxError: Unexpected token</p>
         </div>

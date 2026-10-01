@@ -7,7 +7,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/questionnaire/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Core/Inputs/Questionnaire', id: 'core-questionnaire', tags: ['autodocs'], ...catalogueMeta('questionnaire') };
+export default { title: 'Core/Advanced Inputs/Questionnaire', id: 'core-questionnaire', tags: ['autodocs'], ...catalogueMeta('questionnaire') };
 
 export const QuestionnairePattern1 = {
   name: 'Guided setup',

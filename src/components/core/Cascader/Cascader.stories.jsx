@@ -76,7 +76,7 @@ function Routing() {
 }
 
 export default {
-  title: 'Core/Inputs/Cascader',
+  title: 'Core/Advanced Inputs/Cascader',
   id: 'core-cascader',
   component: Cascader,
   tags: ['autodocs'],

@@ -168,6 +168,15 @@
     min-width: 0;
     max-width: 100%;
   }
+  /* Docs blocks are transformed, which traps the fixed toaster; make the frame its containing block with room for the stack. */
+  .ds-catalogue-frame[data-family='sonner'] {
+    min-height: 28rem;
+    transform: translateZ(0);
+  }
+  /* Below 600px Sonner stretches the toaster to 100% plus its inline offsets; keep it inside the frame. */
+  .ds-catalogue-frame[data-family='sonner'] [data-sonner-toaster] {
+    max-width: calc(100% - 2rem);
+  }
   .ds-catalogue-index {
     max-width: 72rem;
     margin: auto;
