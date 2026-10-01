@@ -49,7 +49,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | card | [core/Card](src/components/core/Card/index.js) | 8 |
 | carousel | [core/Carousel](src/components/core/Carousel/index.js) | 4 |
 | cascader | [core/Cascader](src/components/core/Cascader/index.js) | 12 |
-| chart | [mdx/Chart](src/components/mdx/Chart/index.js) | 7 |
+| chart | [mdx/Chart](src/components/mdx/Chart/index.js) | 22 |
 | checkbox | [core/Checkbox](src/components/core/Checkbox/index.js) | 6 |
 | code-block | [mdx/CodeGroupTabs](src/components/mdx/CodeGroupTabs/index.js) | 10 |
 | collapsible | [core/Accordion](src/components/core/Accordion/index.js) | 5 |

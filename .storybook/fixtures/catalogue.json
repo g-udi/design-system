@@ -7767,10 +7767,32 @@
       ],
       "importPath": "./src/components/core/Tree/TreePatterns.stories.jsx"
     },
+    "mdx-chart--chart-pattern-13": {
+      "id": "mdx-chart--chart-pattern-13",
+      "title": "MDX/Chart",
+      "name": "Area · Fills, curves and stacking",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-30": {
+      "id": "mdx-chart--chart-pattern-30",
+      "title": "MDX/Chart",
+      "name": "Area · Annotated traffic with keyboard reading",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
     "mdx-chart--chart-pattern-1": {
       "id": "mdx-chart--chart-pattern-1",
       "title": "MDX/Chart",
-      "name": "Bar chart",
+      "name": "Bar · Fills, comparison and layout",
       "type": "story",
       "tags": [
         "autodocs",
@@ -7781,17 +7803,105 @@
     "mdx-chart--chart-pattern-11": {
       "id": "mdx-chart--chart-pattern-11",
       "title": "MDX/Chart",
-      "name": "Hover to reveal values",
+      "name": "Bar · Hover to reveal values",
       "type": "story",
       "tags": [
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
     },
-    "mdx-chart--chart-pattern-13": {
-      "id": "mdx-chart--chart-pattern-13",
+    "mdx-chart--chart-pattern-40": {
+      "id": "mdx-chart--chart-pattern-40",
       "title": "MDX/Chart",
-      "name": "Area chart",
+      "name": "Bar list · Top posts by source",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-34": {
+      "id": "mdx-chart--chart-pattern-34",
+      "title": "MDX/Chart",
+      "name": "Box plot · Response time by route",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-43": {
+      "id": "mdx-chart--chart-pattern-43",
+      "title": "MDX/Chart",
+      "name": "Bubble · Length, read time and shares",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-19": {
+      "id": "mdx-chart--chart-pattern-19",
+      "title": "MDX/Chart",
+      "name": "Donut · Patterned slices",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-42": {
+      "id": "mdx-chart--chart-pattern-42",
+      "title": "MDX/Chart",
+      "name": "Donut · Select a topic, small slices as Other",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-32": {
+      "id": "mdx-chart--chart-pattern-32",
+      "title": "MDX/Chart",
+      "name": "Funnel · Newsletter signups",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-41": {
+      "id": "mdx-chart--chart-pattern-41",
+      "title": "MDX/Chart",
+      "name": "Gauge · Core Web Vitals",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-35": {
+      "id": "mdx-chart--chart-pattern-35",
+      "title": "MDX/Chart",
+      "name": "Heatmap · Errors by service and hour",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-31": {
+      "id": "mdx-chart--chart-pattern-31",
+      "title": "MDX/Chart",
+      "name": "Histogram · Reading time with median and p90",
       "type": "story",
       "tags": [
         "autodocs",
@@ -7802,28 +7912,17 @@
     "mdx-chart--chart-pattern-17": {
       "id": "mdx-chart--chart-pattern-17",
       "title": "MDX/Chart",
-      "name": "Forecast line with stripe zone",
+      "name": "Line · Forecast with a stripe zone",
       "type": "story",
       "tags": [
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
     },
-    "mdx-chart--chart-pattern-19": {
-      "id": "mdx-chart--chart-pattern-19",
-      "title": "MDX/Chart",
-      "name": "Donut and pie",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
     "mdx-chart--chart-pattern-23": {
       "id": "mdx-chart--chart-pattern-23",
       "title": "MDX/Chart",
-      "name": "Radar chart",
+      "name": "Radar · Scores against a target",
       "type": "story",
       "tags": [
         "autodocs",
@@ -7834,10 +7933,76 @@
     "mdx-chart--chart-pattern-25": {
       "id": "mdx-chart--chart-pattern-25",
       "title": "MDX/Chart",
-      "name": "Radial scores with labels",
+      "name": "Radial · Labelled scores",
       "type": "story",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-33": {
+      "id": "mdx-chart--chart-pattern-33",
+      "title": "MDX/Chart",
+      "name": "Range · Release burn-down forecast",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-36": {
+      "id": "mdx-chart--chart-pattern-36",
+      "title": "MDX/Chart",
+      "name": "Sankey · Where readers go",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-37": {
+      "id": "mdx-chart--chart-pattern-37",
+      "title": "MDX/Chart",
+      "name": "Sparkline · Stat cards with trends",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-44": {
+      "id": "mdx-chart--chart-pattern-44",
+      "title": "MDX/Chart",
+      "name": "States · Loading, empty, invalid, error and locale",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-39": {
+      "id": "mdx-chart--chart-pattern-39",
+      "title": "MDX/Chart",
+      "name": "Treemap · Storage by folder",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
+    },
+    "mdx-chart--chart-pattern-38": {
+      "id": "mdx-chart--chart-pattern-38",
+      "title": "MDX/Chart",
+      "name": "Waterfall · Recurring revenue bridge",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
     },

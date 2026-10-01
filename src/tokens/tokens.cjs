@@ -21,7 +21,7 @@
 
 const tailwindColors = require('tailwindcss/colors');
 
-const { dsVariables, motion, paletteNames, paletteShades, radii, semanticColors, shadows, spaceScales, typography } = require('./tokens.json');
+const { chartPalettes, dsVariables, motion, paletteNames, paletteShades, radii, semanticColors, shadows, spaceScales, typography } = require('./tokens.json');
 
 const pickShades = (color) => Object.fromEntries(paletteShades.map((shade) => [ shade, color[shade] ]));
 const palette = Object.fromEntries(paletteNames.map((name) => [ name, pickShades(tailwindColors[name]) ]));
@@ -32,6 +32,7 @@ const colors = {
 };
 
 const tokens = {
+  chartPalettes,
   colors,
   motion,
   palette,
@@ -43,6 +44,7 @@ const tokens = {
 };
 
 module.exports = {
+  chartPalettes,
   colors,
   dsVariables,
   motion,

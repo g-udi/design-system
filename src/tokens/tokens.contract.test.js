@@ -92,3 +92,45 @@ test('typography.prose mirrors the --ds-prose-* custom properties', () => {
     assert.equal(cssValues(`--ds-prose-${heading}-margin-bottom`)[0], prose.headingMargin[heading].bottom, `${heading} margin-bottom drifted`);
   }
 });
+
+const luminance = (hex) => {
+  const channels = hex.replace('#', '').match(/../g).map((part) => parseInt(part, 16) / 255);
+  const [ r, g, b ] = channels.map((value) => (value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4));
+
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+const contrast = (a, b) => {
+  const [ high, low ] = [ luminance(a), luminance(b) ].sort((x, y) => y - x);
+
+  return (high + 0.05) / (low + 0.05);
+};
+
+test('chart palettes are defined for light and dark and stay readable', () => {
+  const { chartPalettes, dsVariables } = tokens;
+  assert.ok(chartPalettes, 'tokens.json names the chart palettes');
+  for (const [ mode, values ] of Object.entries({ 'dark': dsVariables.dark, 'light': dsVariables.root })) {
+    const surface = values['--ds-color-surface'];
+    for (const [ name, variables ] of Object.entries(chartPalettes)) {
+      for (const variable of variables) assert.match(String(values[variable]), /^#[0-9a-f]{6}$/i, `${variable} (${mode}, ${name}) needs a hex value`);
+    }
+    // Series and status marks are graphics: 3:1 against the chart surface.
+    for (const variable of [ ...chartPalettes.categorical, ...chartPalettes.status, '--ds-color-chart-muted', '--ds-color-chart-baseline' ]) {
+      assert.ok(contrast(values[variable], surface) >= 3, `${variable} (${mode}) is below 3:1 on the surface`);
+    }
+    // Values printed in heatmap cells are text: 4.5:1 against their cell.
+    chartPalettes.heatmap.forEach((variable, step) => {
+      assert.ok(contrast(values[variable], values[chartPalettes.heatmapInk[step]]) >= 4.5, `heatmap step ${step} (${mode}) ink is below 4.5:1`);
+    });
+    const [ negative2, negative1, mid, positive1, positive2 ] = chartPalettes.diverging;
+    for (const variable of [ negative2, positive2 ]) assert.ok(contrast(values[variable], values['--ds-color-chart-div-ink']) >= 4.5, `${variable} (${mode}) ink is below 4.5:1`);
+    for (const variable of [ negative1, mid, positive1 ]) assert.ok(contrast(values[variable], values['--ds-color-text']) >= 4.5, `${variable} (${mode}) text is below 4.5:1`);
+    // Ramps read low → high: away from the surface in light mode, towards bright in dark mode.
+    // Heatmap step 0 is "no data", not the lowest value, so the order starts at step 1.
+    for (const ramp of [ chartPalettes.sequential, chartPalettes.heatmap.slice(1) ]) {
+      const levels = ramp.map((variable) => luminance(values[variable]));
+      levels.slice(1).forEach((level, index) => {
+        assert.ok(mode === 'light' ? level < levels[index] : level > levels[index], `${ramp[index + 1]} (${mode}) breaks the ramp order`);
+      });
+    }
+  }
+});

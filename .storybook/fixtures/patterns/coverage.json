@@ -869,59 +869,179 @@
       "examples": [
         {
           "name": "c-chart-1",
-          "title": "Bar chart",
-          "description": "Bar chart",
+          "title": "Bar · Fills, comparison and layout",
+          "description": "Bar · Fills, comparison and layout",
           "file": ".storybook/fixtures/patterns/chart/c-chart-1.jsx",
-          "sha256": "b7ad1db474460308392a30223482652d845cabc8c60cdce0b0e97105042245d5",
+          "sha256": "3229d75496780769b1bd68cf9f365dda0ecc895273a6e42ece3e99a8892232ab",
           "storyId": "mdx-chart--chart-pattern-1"
         },
         {
           "name": "c-chart-11",
-          "title": "Hover to reveal values",
-          "description": "Hover to reveal values",
+          "title": "Bar · Hover to reveal values",
+          "description": "Bar · Hover to reveal values",
           "file": ".storybook/fixtures/patterns/chart/c-chart-11.jsx",
           "sha256": "3838049f6802f13e8b65a3b90409b62c65be1bf7360f6e90140a3c281114db2c",
           "storyId": "mdx-chart--chart-pattern-11"
         },
         {
           "name": "c-chart-13",
-          "title": "Area chart",
-          "description": "Area chart",
+          "title": "Area · Fills, curves and stacking",
+          "description": "Area · Fills, curves and stacking",
           "file": ".storybook/fixtures/patterns/chart/c-chart-13.jsx",
-          "sha256": "1d014d6b1bdc5f7e28494a450fb3e219620d9c91c716bc26c647bd2a21fc4173",
+          "sha256": "a477371fd36346f3117ef4913df20fa8ffbaf88e625f5723903c2b9ec166b930",
           "storyId": "mdx-chart--chart-pattern-13"
         },
         {
           "name": "c-chart-17",
-          "title": "Forecast line with stripe zone",
-          "description": "Forecast line with stripe zone",
+          "title": "Line · Forecast with a stripe zone",
+          "description": "Line · Forecast with a stripe zone",
           "file": ".storybook/fixtures/patterns/chart/c-chart-17.jsx",
           "sha256": "0e931e4b6db44321642cea4c596f6d8ae59570b487199d390787f1f298920932",
           "storyId": "mdx-chart--chart-pattern-17"
         },
         {
           "name": "c-chart-19",
-          "title": "Donut and pie",
-          "description": "Donut and pie",
+          "title": "Donut · Patterned slices",
+          "description": "Donut · Patterned slices",
           "file": ".storybook/fixtures/patterns/chart/c-chart-19.jsx",
-          "sha256": "8a0150d116222d52427c4ef2a0810599ce6df4744848b267af3188bd8517aa53",
+          "sha256": "15f4fdca68d3bfbe6a44557c550802dc8459f24386e66d572720169fb9dbe280",
           "storyId": "mdx-chart--chart-pattern-19"
         },
         {
           "name": "c-chart-23",
-          "title": "Radar chart",
-          "description": "Radar chart",
+          "title": "Radar · Scores against a target",
+          "description": "Radar · Scores against a target",
           "file": ".storybook/fixtures/patterns/chart/c-chart-23.jsx",
-          "sha256": "2986322e13a784acd8aa5e24d0764f266329e5f555941c6c3bb48bf924788da3",
+          "sha256": "139151f95b4c26904aae43d743505c631b30758f5a6d0efdbb21c374dc58e2f2",
           "storyId": "mdx-chart--chart-pattern-23"
         },
         {
           "name": "c-chart-25",
-          "title": "Radial scores with labels",
-          "description": "Radial scores with labels",
+          "title": "Radial · Labelled scores",
+          "description": "Radial · Labelled scores",
           "file": ".storybook/fixtures/patterns/chart/c-chart-25.jsx",
           "sha256": "b3fe52db491f8839f09d9f4ef6d237d5bb87ca4adf80b9151c4b9ebe21ed92a0",
           "storyId": "mdx-chart--chart-pattern-25"
+        },
+        {
+          "name": "c-chart-30",
+          "title": "Area · Annotated traffic with keyboard reading",
+          "description": "Area · Annotated traffic with keyboard reading",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-30.jsx",
+          "sha256": "8de72c5f6d79b4701e29fc988fd2afd122a3b2d98baea5babe2179a91beea52a",
+          "storyId": "mdx-chart--chart-pattern-30"
+        },
+        {
+          "name": "c-chart-31",
+          "title": "Histogram · Reading time with median and p90",
+          "description": "Histogram · Reading time with median and p90",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-31.jsx",
+          "sha256": "412df23f16c41d909323cca196fb34e069acb28671e4d5f2a766fc363d94660e",
+          "storyId": "mdx-chart--chart-pattern-31"
+        },
+        {
+          "name": "c-chart-32",
+          "title": "Funnel · Newsletter signups",
+          "description": "Funnel · Newsletter signups",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-32.jsx",
+          "sha256": "a3ea544292a6312b911b0be673eb485fc53b2a593db456f0f1476afcdb313cbf",
+          "storyId": "mdx-chart--chart-pattern-32"
+        },
+        {
+          "name": "c-chart-33",
+          "title": "Range · Release burn-down forecast",
+          "description": "Range · Release burn-down forecast",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-33.jsx",
+          "sha256": "75369316d6c2b1ed0d4e670816f449212bd109fea55e4490fc6bcd4fbcd4011f",
+          "storyId": "mdx-chart--chart-pattern-33"
+        },
+        {
+          "name": "c-chart-34",
+          "title": "Box plot · Response time by route",
+          "description": "Box plot · Response time by route",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-34.jsx",
+          "sha256": "53abfbdabd4ee23d337b327497a4f67110f2f33dd7f008d747a6899262a725ef",
+          "storyId": "mdx-chart--chart-pattern-34"
+        },
+        {
+          "name": "c-chart-35",
+          "title": "Heatmap · Errors by service and hour",
+          "description": "Heatmap · Errors by service and hour",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-35.jsx",
+          "sha256": "f695f9f7ba6c241dd1f1f7bf0a84a56944d6036cd1abc836ba2d1543db946131",
+          "storyId": "mdx-chart--chart-pattern-35"
+        },
+        {
+          "name": "c-chart-36",
+          "title": "Sankey · Where readers go",
+          "description": "Sankey · Where readers go",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-36.jsx",
+          "sha256": "cb415879200253cb95b3fe758185f0ca5e26435b317f14d92bd2623336383ab9",
+          "storyId": "mdx-chart--chart-pattern-36"
+        },
+        {
+          "name": "c-chart-37",
+          "title": "Sparkline · Stat cards with trends",
+          "description": "Sparkline · Stat cards with trends",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-37.jsx",
+          "sha256": "1558a163669595bbc0cbe77615ec9e6154f9019609fd7eb0bd00b37a6c0c9cfd",
+          "storyId": "mdx-chart--chart-pattern-37"
+        },
+        {
+          "name": "c-chart-38",
+          "title": "Waterfall · Recurring revenue bridge",
+          "description": "Waterfall · Recurring revenue bridge",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-38.jsx",
+          "sha256": "d80fc357a4f5a8c211f1c96765c7332dad6309f8b2a30479a4b92c64a3a83070",
+          "storyId": "mdx-chart--chart-pattern-38"
+        },
+        {
+          "name": "c-chart-39",
+          "title": "Treemap · Storage by folder",
+          "description": "Treemap · Storage by folder",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-39.jsx",
+          "sha256": "99906f30f2ae8d3cfc9292f6524f6101a209c5f404df6336c488ddb1d86d12b6",
+          "storyId": "mdx-chart--chart-pattern-39"
+        },
+        {
+          "name": "c-chart-40",
+          "title": "Bar list · Top posts by source",
+          "description": "Bar list · Top posts by source",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-40.jsx",
+          "sha256": "2ae9b101c0dbce2e4fd2e8ae376c24c8d7370c30dd8a84ac0de0f884c8dccaaf",
+          "storyId": "mdx-chart--chart-pattern-40"
+        },
+        {
+          "name": "c-chart-41",
+          "title": "Gauge · Core Web Vitals",
+          "description": "Gauge · Core Web Vitals",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-41.jsx",
+          "sha256": "95104db6f4a1995e6404bb5ce869b417fde16c6be3b5aff31f05345e4a18bb75",
+          "storyId": "mdx-chart--chart-pattern-41"
+        },
+        {
+          "name": "c-chart-42",
+          "title": "Donut · Select a topic, small slices as Other",
+          "description": "Donut · Select a topic, small slices as Other",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-42.jsx",
+          "sha256": "9ef334c144fce49e681f309246aa80ebd657ce47c618edd02db7688c8737f41d",
+          "storyId": "mdx-chart--chart-pattern-42"
+        },
+        {
+          "name": "c-chart-43",
+          "title": "Bubble · Length, read time and shares",
+          "description": "Bubble · Length, read time and shares",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-43.jsx",
+          "sha256": "d407b77737607ab15babb994514cdcd8c713a5b8a67ff0f60bc334495060de21",
+          "storyId": "mdx-chart--chart-pattern-43"
+        },
+        {
+          "name": "c-chart-44",
+          "title": "States · Loading, empty, invalid, error and locale",
+          "description": "States · Loading, empty, invalid, error and locale",
+          "file": ".storybook/fixtures/patterns/chart/c-chart-44.jsx",
+          "sha256": "d01b11bdb2e222e021d8af4213ec89a594539f91bd2eff2a11c9286bf9c412f3",
+          "storyId": "mdx-chart--chart-pattern-44"
         }
       ]
     },
