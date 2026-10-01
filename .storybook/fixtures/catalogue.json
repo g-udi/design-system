@@ -1191,6 +1191,72 @@
       ],
       "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
     },
+    "core-datatable--pinned-rows": {
+      "id": "core-datatable--pinned-rows",
+      "title": "Core/Data Display/DataTable",
+      "name": "Pinned Rows",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--sticky-page-header": {
+      "id": "core-datatable--sticky-page-header",
+      "title": "Core/Data Display/DataTable",
+      "name": "Sticky Page Header",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--virtual-scrolling": {
+      "id": "core-datatable--virtual-scrolling",
+      "title": "Core/Data Display/DataTable",
+      "name": "Virtual Scrolling",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--load-more": {
+      "id": "core-datatable--load-more",
+      "title": "Core/Data Display/DataTable",
+      "name": "Load More",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--controlled-state": {
+      "id": "core-datatable--controlled-state",
+      "title": "Core/Data Display/DataTable",
+      "name": "Controlled State",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
+    "core-datatable--export-csv": {
+      "id": "core-datatable--export-csv",
+      "title": "Core/Data Display/DataTable",
+      "name": "Export Csv",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataTable.stories.jsx"
+    },
     "core-dialog--playground": {
       "id": "core-dialog--playground",
       "title": "Core/Overlays & Menus/Dialog",
@@ -5294,10 +5360,11 @@
     "core-datatable--data-grid-pattern-26": {
       "id": "core-datatable--data-grid-pattern-26",
       "title": "Core/Data Display/DataTable",
-      "name": "Footer totals and aggregates",
+      "name": "Grouping and aggregation",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
     },
@@ -5368,6 +5435,17 @@
       "type": "story",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
+    "core-datatable--data-grid-pattern-35": {
+      "id": "core-datatable--data-grid-pattern-35",
+      "title": "Core/Data Display/DataTable",
+      "name": "Export to CSV",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
     },

@@ -1201,6 +1201,7 @@ function DataGridTableBodyRow({
       data-row-pinned={isRowPinned || void 0}
       data-row-pinned-boundary={pinnedBoundary}
       data-row-status={rowStatus}
+      data-row-grouped={row.getIsGrouped?.() || void 0}
       aria-rowindex={props.tableLayout?.cellSelection ? row.index + 2 : void 0}
       onClick={() => props.onRowClick && props.onRowClick(row.original)}
       className={cn(
@@ -1250,7 +1251,10 @@ function DataGridTableBodyRow({
         props.tableLayout?.rowsPinnable &&
           isRowPinned &&
           props.tableClassNames?.rowPinned,
-        props.tableClassNames?.bodyRow
+        // Group bands read as section headers: a muted fill and medium weight.
+        'data-[row-grouped]:bg-ui-muted/40 data-[row-grouped]:hover:bg-ui-muted/60 data-[row-grouped]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--muted)_40%,var(--background))]',
+        props.tableClassNames?.bodyRow,
+        row.getIsGrouped?.() && props.tableClassNames?.groupRow
       )}
     >
       {children}
@@ -1462,6 +1466,94 @@ function DataGridTableBodyRowCell({
     </Subscribe>
   );
 }
+const columnDefId = (def) =>
+  def.id ?? (def.accessorKey === void 0 ? void 0 : String(def.accessorKey).replaceAll('.', '_'));
+// The host's own definition, before the table merges in its defaults.
+function findDataGridColumnDef(defs = [], id) {
+  for (const def of defs) {
+    if (columnDefId(def) === id) return def;
+    const nested = def.columns && findDataGridColumnDef(def.columns, id);
+    if (nested) return nested;
+  }
+  return void 0;
+}
+const formatDataGridAggregate = (value) =>
+  typeof value === 'number'
+    ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+    : Array.isArray(value)
+      ? value.map(formatDataGridAggregate).join(' – ')
+      : value ?? '';
+/* The group band's leading cell: a disclosure for the group, its value
+ rendered by the column's own cell (a status badge stays a badge) and the
+ number of records inside it. */
+function DataGridTableGroupedCell({ cell }) {
+  const { i18n, props } = useDataGrid();
+  const { row } = cell;
+  const expanded = row.getIsExpanded();
+  const meta = cell.column.columnDef.meta;
+  const label = String(row.groupingValue ?? cell.getValue() ?? '');
+  const count = row.leafRows?.length ?? row.subRows.length;
+  return (
+    <span
+      data-slot='data-grid-table-group'
+      style={getDataGridTreeIndentStyle(row)}
+      className='inline-flex max-w-full min-w-0 items-center gap-1.5 ps-(--data-grid-tree-padding) align-middle font-medium'
+    >
+      <Button
+        variant='ghost'
+        tone='neutral'
+        size={props.tableLayout?.dense ? 'icon-xs' : 'icon-sm'}
+        aria-expanded={expanded}
+        aria-label={
+          expanded ? i18n.labels.collapseGroup(label) : i18n.labels.expandGroup(label)
+        }
+        onClick={(event) => {
+          event.stopPropagation();
+          row.toggleExpanded();
+        }}
+        className='text-ui-muted-foreground hover:text-ui-foreground shrink-0'
+      >
+        <RegistryIcon
+          lucide='ChevronDown'
+          className='size-4 transition-transform duration-200 in-aria-[expanded=false]:-rotate-90 rtl:in-aria-[expanded=false]:rotate-90'
+        />
+      </Button>
+      <span className='min-w-0 shrink truncate'>
+        {flexRender(meta?.groupedCell ?? cell.column.columnDef.cell, cell.getContext())}
+      </span>
+      {/* A compact count for the eye; the full phrase for assistive technology. */}
+      <span
+        aria-hidden='true'
+        className='text-ui-muted-foreground bg-ui-muted rounded-pill shrink-0 px-1.5 text-xs leading-5 font-normal tabular-nums'
+      >
+        {count}
+      </span>
+      <span className='sr-only'>{i18n.labels.groupRowCount(count)}</span>
+    </span>
+  );
+}
+/* One renderer for the three grouping cell modes: the grouped column's band
+ cell, aggregated values (a column's `aggregatedCell`, or its formatted
+ aggregate), and empty placeholders for leaf values under a group. */
+function renderDataGridCellContent(cell) {
+  if (cell.getIsGrouped?.()) return <DataGridTableGroupedCell cell={cell} />;
+  if (cell.getIsAggregated?.()) {
+    // The table's built-in aggregatedCell only stringifies the value; columns
+    // that do not render their own get grouping separators instead.
+    if (!findDataGridColumnDef(cell.row.table?.options.columns, cell.column.id)?.aggregatedCell) {
+      return (
+        <span className='font-medium tabular-nums'>
+          {formatDataGridAggregate(cell.getValue())}
+        </span>
+      );
+    }
+    return flexRender(cell.column.columnDef.aggregatedCell, cell.getContext());
+  }
+  // A group band has no record of its own: columns without an aggregate stay
+  // empty there rather than echoing the first record in the group.
+  if (cell.getIsPlaceholder?.() || cell.row.getIsGrouped?.()) return null;
+  return flexRender(cell.column.columnDef.cell, cell.getContext());
+}
 function DataGridTableRenderedRow({
   row,
   pinnedBoundary,
@@ -1491,7 +1583,7 @@ function DataGridTableRenderedRow({
       >
         {startVisibleCells.map((cell) => (
           <DataGridTableBodyRowCell cell={cell} key={cell.id}>
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {renderDataGridCellContent(cell)}
           </DataGridTableBodyRowCell>
         ))}
         {leadingSpacerSpan > 0 && (
@@ -1507,7 +1599,7 @@ function DataGridTableRenderedRow({
             key={cell.id}
             columnIndex={centerWindow ? centerWindow.start + cellIndex : void 0}
           >
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {renderDataGridCellContent(cell)}
           </DataGridTableBodyRowCell>
         ))}
         {trailingSpacerSpan > 0 && (
@@ -1522,7 +1614,7 @@ function DataGridTableRenderedRow({
         ) : null}
         {endVisibleCells.map((cell) => (
           <DataGridTableBodyRowCell cell={cell} key={cell.id}>
-            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            {renderDataGridCellContent(cell)}
           </DataGridTableBodyRowCell>
         ))}
         {props.tableLayout?.columnsResizable && !hasRightPinnedColumns ? (
@@ -1927,6 +2019,7 @@ export {
   DataGridTableBodyRow,
   DataGridTableBodyRowCell,
   DataGridTableBodyRowExpandded,
+  DataGridTableGroupedCell,
   DataGridTableRenderedRow,
   DataGridTableBodyRowSkeleton,
   DataGridTableBodyRowSkeletonCell,
@@ -1954,5 +2047,6 @@ export {
   getDataGridTableResolvedRows,
   getDataGridTableRowSections,
   getDataGridTreeIndentStyle,
-  hasDataGridTableRightPinnedColumns
+  hasDataGridTableRightPinnedColumns,
+  renderDataGridCellContent
 };

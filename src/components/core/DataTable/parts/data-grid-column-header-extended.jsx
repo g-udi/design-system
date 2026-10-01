@@ -41,6 +41,10 @@ function DataGridColumnHeaderInner({
   const isPinned = column.getIsPinned();
   const canSort = column.getCanSort();
   const canPin = column.getCanPin();
+  // Grouping is opt-in per grid (`tableLayout.columnsGroupable`) and per column (`enableGrouping`).
+  const canGroup =
+    !!props.tableLayout?.columnsGroupable && !!column.getCanGroup?.();
+  const isGrouped = !!column.getIsGrouped?.();
   const canResize = column.getCanResize();
   const columnIndex = columnOrder.indexOf(column.id);
   const canMoveLeft = columnIndex > 0;
@@ -87,6 +91,7 @@ function DataGridColumnHeaderInner({
     props.tableLayout?.columnsMovable ||
     (props.tableLayout?.columnsVisibility && visibility) ||
     (props.tableLayout?.columnsPinnable && canPin) ||
+    canGroup ||
     filter;
   const menuItems = useMemo(() => {
     const items = [];
@@ -143,6 +148,24 @@ function DataGridColumnHeaderInner({
               className='text-ui-primary size-4 opacity-100!'
             />
           )}
+        </DropdownMenuItem>
+      );
+      hasPreviousSection = true;
+    }
+    if (canGroup) {
+      if (hasPreviousSection) {
+        items.push(<DropdownMenuSeparator key='sep-group' />);
+      }
+      items.push(
+        <DropdownMenuItem key='group' onClick={() => column.toggleGrouping()}>
+          <RegistryIcon
+            lucide={isGrouped ? 'Ungroup' : 'Layers'}
+            className='size-3.5!'
+            aria-hidden='true'
+          />
+          <span className='grow'>
+            {isGrouped ? i18n.labels.ungroupColumn : i18n.labels.groupByColumn}
+          </span>
         </DropdownMenuItem>
       );
       hasPreviousSection = true;
@@ -277,6 +300,8 @@ function DataGridColumnHeaderInner({
     props.tableLayout?.columnsVisibility,
     canPin,
     isPinned,
+    canGroup,
+    isGrouped,
     canMoveLeft,
     canMoveRight,
     visibility,
@@ -302,7 +327,7 @@ function DataGridColumnHeaderInner({
               {sortIcon}
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className='w-40' align='start'>
+          <DropdownMenuContent className='w-max min-w-40' align='start'>
             {menuItems}
           </DropdownMenuContent>
         </DropdownMenu>
@@ -358,7 +383,8 @@ function DataGridColumnHeader(props) {
         sorting: state.sorting,
         columnPinning: state.columnPinning,
         columnOrder: state.columnOrder,
-        columnVisibility: state.columnVisibility
+        columnVisibility: state.columnVisibility,
+        grouping: state.grouping
       })}
     >
       {(subscribed) => (

@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   flexRender,
   getCoreRowModel,
@@ -9,14 +9,23 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
+import { useVirtualizer } from '@tanstack/react-virtual';
 import Button from '../Button';
 import Input from '../Input';
 import Icon from '../Icon';
 import Skeleton from '../Skeleton';
 import Spinner from '../Spinner';
 import EmptyState from '../EmptyState';
-import DropdownMenu, { DropdownMenuCheckboxItem, DropdownMenuItem } from '../DropdownMenu';
+import DropdownMenu, { DropdownMenuCheckboxItem } from '../DropdownMenu';
+import {
+  DropdownMenu as MenuRoot,
+  DropdownMenuContent as MenuContent,
+  DropdownMenuItem as MenuItem,
+  DropdownMenuSeparator as MenuSeparator,
+  DropdownMenuTrigger as MenuTrigger
+} from '../DropdownMenu/parts/dropdown-menu.jsx';
 import { Checkbox as CheckboxRoot } from '../Checkbox/parts/checkbox.jsx';
+import { downloadCsv, getTableExportRows, tableToCsv } from './parts/table-export.js';
 import { cn } from '../../../utilities/cn';
 
 /*
@@ -40,12 +49,16 @@ const SelectionCheckbox = ({ checked, mixed, onCheckedChange, ...props }) => (
 const iconButtonClass = 'text-text-muted aria-expanded:bg-surface-muted aria-expanded:text-text';
 
 const densities = {
-  compact: { cell: 'px-3 py-1.5', head: 'h-9 px-3', skeleton: 3 },
-  normal: { cell: 'px-4 py-2.5', head: 'h-10 px-4', skeleton: 4 },
-  comfortable: { cell: 'px-5 py-3.5', head: 'h-11 px-5', skeleton: 4 }
+  compact: { cell: 'px-3 py-1.5', head: 'h-9 px-3', skeleton: 3, estimate: 37 },
+  normal: { cell: 'px-4 py-2.5', head: 'h-10 px-4', skeleton: 4, estimate: 45 },
+  comfortable: { cell: 'px-5 py-3.5', head: 'h-11 px-5', skeleton: 4, estimate: 53 }
 };
 const emptyRows = [];
 const emptyColumns = [];
+const emptyIds = [];
+const emptySorting = [];
+const emptySelection = {};
+const emptyPinning = { top: [], bottom: [] };
 const defaultRowId = (row, index) => String(row.id ?? index);
 const interactiveTarget = 'a,button,input,select,textarea,label,[role="menuitem"],[role="checkbox"]';
 const sortState = { asc: 'ascending', desc: 'descending' };
@@ -55,8 +68,28 @@ const pagerButtons = [
   ['Next', 'ChevronRight', 'nextPage', 'getCanNextPage'],
   ['Last page', 'ChevronsRight', 'lastPage', 'getCanNextPage']
 ];
+// Pinned bands give way when they would leave less than this share of the viewport for scrolling rows.
+const PINNED_BAND_LIMIT = 0.6;
 
-/** Client collections up to a few hundred rows. Remote fetching, filter predicates, and persistence stay in the host. */
+/** Controlled when `value` is defined; the host may refuse or replace any change it is offered. */
+function useControllable(value, defaultValue, onChange) {
+  const [inner, setInner] = useState(defaultValue);
+  const controlled = value !== undefined;
+  const current = controlled ? value : inner;
+  const currentRef = useRef(current);
+  currentRef.current = current;
+  const set = useCallback(
+    (updater) => {
+      const next = typeof updater === 'function' ? updater(currentRef.current) : updater;
+      if (!controlled) setInner(next);
+      onChange?.(next);
+    },
+    [controlled, onChange]
+  );
+  return [current, set];
+}
+
+/** Client collections up to a few thousand rows. Remote fetching, filter predicates, and persistence stay in the host. */
 export const DataTable = ({
   caption,
   className,
@@ -66,6 +99,10 @@ export const DataTable = ({
   searchable = false,
   searchLabel = 'Search table',
   sortable = false,
+  multiSort = false,
+  sorting: sortingProp,
+  defaultSorting = emptySorting,
+  onSortingChange,
   selectable = false,
   columnVisibility = false,
   pagination = false,
@@ -76,14 +113,33 @@ export const DataTable = ({
   toolbar,
   getRowId = defaultRowId,
   selection,
+  defaultSelection = emptySelection,
   onSelectionChange,
   renderSelectionActions,
   renderExpanded,
   canExpand,
   expandMode = 'single',
+  expanded: expandedProp,
+  defaultExpanded = emptyIds,
+  onExpandedChange,
   getRowActions,
+  pinnableRows = false,
+  rowPinning: rowPinningProp,
+  defaultRowPinning = emptyPinning,
+  onRowPinningChange,
   onRowClick,
+  canActivateRow,
   groupBy,
+  stickyHeader,
+  stickyOffset = '0px',
+  maxHeight,
+  virtualize = 'auto',
+  virtualThreshold = 100,
+  onLoadMore,
+  hasMore = false,
+  loadingMore = false,
+  loadMoreOnScroll = false,
+  exportable = false,
   loading = false,
   refreshing = false,
   error,
@@ -94,22 +150,33 @@ export const DataTable = ({
 }) => {
   const descriptionId = useId();
   const scrollRef = useRef(null);
+  const tableRef = useRef(null);
   const headerRefs = useRef({});
+  const returnFocusRef = useRef(null);
+  const sentinelRef = useRef(null);
+  const loadRequested = useRef(false);
   const [edges, setEdges] = useState({ left: false, right: false });
   const [pins, setPins] = useState({});
+  const [rowOffsets, setRowOffsets] = useState({ head: 0, rows: {} });
   const [query, setQuery] = useState('');
-  const [sorting, setSorting] = useState([]);
-  const [internalSelection, setInternalSelection] = useState({});
+  const [menuRowId, setMenuRowId] = useState(null);
+  const [status, setStatus] = useState('');
+  const [pageOverflow, setPageOverflow] = useState(false);
+  const [sorting, setSorting] = useControllable(sortingProp, defaultSorting, onSortingChange);
+  const [selected, setSelected] = useControllable(selection, defaultSelection, onSelectionChange);
+  const [expandedIds, setExpandedIds] = useControllable(expandedProp, defaultExpanded, onExpandedChange);
+  const [rowPinning, setRowPinning] = useControllable(rowPinningProp, defaultRowPinning, onRowPinningChange);
   const [visibility, setVisibility] = useState({});
-  const [expanded, setExpanded] = useState(() => new Set());
   const [collapsed, setCollapsed] = useState(() => new Set());
   const [hoverColumn, setHoverColumn] = useState(null);
   const size = Number.isFinite(pageSize) && pageSize > 0 ? Math.floor(pageSize) : 10;
   const [page, setPage] = useState({ pageIndex: 0, pageSize: size });
-  const selected = selection ?? internalSelection;
   const spacing = densities[density] || densities.normal;
   const expandable = typeof renderExpanded === 'function';
-  const withActions = typeof getRowActions === 'function';
+  const pinningOn = pinnableRows || rowPinningProp !== undefined || defaultRowPinning !== emptyPinning;
+  const withActions = typeof getRowActions === 'function' || pinnableRows;
+  const expanded = useMemo(() => new Set(expandedIds), [expandedIds]);
+  const exportOptions = exportable === true ? {} : exportable || null;
 
   const definitions = useMemo(
     () =>
@@ -136,6 +203,7 @@ export const DataTable = ({
       globalFilter: query,
       rowSelection: selected,
       columnVisibility: visibility,
+      rowPinning: pinningOn ? { top: rowPinning?.top || [], bottom: rowPinning?.bottom || [] } : emptyPinning,
       pagination: { ...page, pageSize: size }
     },
     onSortingChange: (updater) => {
@@ -147,13 +215,14 @@ export const DataTable = ({
       resetPage();
     },
     onColumnVisibilityChange: setVisibility,
-    onRowSelectionChange: (updater) => {
-      const next = typeof updater === 'function' ? updater(selected) : updater;
-      if (selection === undefined) setInternalSelection(next);
-      onSelectionChange?.(next);
-    },
+    onRowSelectionChange: setSelected,
+    onRowPinningChange: setRowPinning,
     onPaginationChange: setPage,
     enableRowSelection: selectable,
+    enableRowPinning: pinningOn,
+    // Pinned rows stay in view across sorting, searching and pages.
+    keepPinnedRows: true,
+    enableMultiSort: multiSort,
     globalFilterFn: 'includesString',
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -164,8 +233,44 @@ export const DataTable = ({
   const filteredRows = table.getFilteredRowModel().rows;
   const visibleColumns = table.getVisibleLeafColumns();
   const selectedRows = table.getFilteredSelectedRowModel().rows;
-  const pageRows = table.getRowModel().rows;
+  const topRows = pinningOn ? table.getTopRows() : emptyRows;
+  const bottomRows = pinningOn ? table.getBottomRows() : emptyRows;
+  const centerRows = pinningOn ? table.getCenterRows() : table.getRowModel().rows;
+  const shownRows = topRows.length + centerRows.length + bottomRows.length;
   const count = visibleColumns.length + (selectable ? 1 : 0) + (expandable ? 1 : 0) + (withActions ? 1 : 0);
+
+  const groups = useMemo(() => {
+    if (typeof groupBy !== 'function') return null;
+    const buckets = new Map();
+    for (const row of centerRows) {
+      const group = groupBy(row.original);
+      const key = String(group?.key ?? group ?? '');
+      if (!buckets.has(key)) buckets.set(key, { key, label: group?.label ?? key, rows: [] });
+      buckets.get(key).rows.push(row);
+    }
+    return [...buckets.values()];
+  }, [groupBy, centerRows]);
+
+  // Long flat lists render only the rows in view; grouped and paged tables are already bounded.
+  const virtualOn = !pagination && !groups && !loading && (virtualize === true || (virtualize === 'auto' && centerRows.length > virtualThreshold));
+  const resolvedMaxHeight = maxHeight ?? (virtualOn ? '32rem' : undefined);
+  const requestedSticky = stickyHeader === true ? 'container' : stickyHeader || (resolvedMaxHeight ? 'container' : false);
+  // Page mode needs the table to fit its container; a table too wide for it scrolls sideways in place instead.
+  const stickyMode = requestedSticky === 'page' && pageOverflow ? false : requestedSticky;
+  const virtualizer = useVirtualizer({
+    count: virtualOn ? centerRows.length : 0,
+    getScrollElement: () => scrollRef.current,
+    estimateSize: () => spacing.estimate,
+    getItemKey: (index) => centerRows[index]?.id ?? index,
+    overscan: 8,
+    scrollMargin: rowOffsets.head,
+    // A row and its open detail panel move as one item.
+    measureElement: (element) => {
+      const next = element.nextElementSibling;
+      const detail = next?.dataset.expandedFor === element.dataset.rowId ? next.getBoundingClientRect().height : 0;
+      return element.getBoundingClientRect().height + detail;
+    }
+  });
 
   useEffect(() => {
     if (pagination && page.pageIndex >= pageCount)
@@ -179,8 +284,8 @@ export const DataTable = ({
     if (!element) return undefined;
     const update = () => {
       const next = {
-        left: element.scrollLeft > 1,
-        right: Math.ceil(element.scrollLeft + element.clientWidth) < element.scrollWidth - 1
+        left: stickyMode !== 'page' && element.scrollLeft > 1,
+        right: stickyMode !== 'page' && Math.ceil(element.scrollLeft + element.clientWidth) < element.scrollWidth - 1
       };
       setEdges((current) => (current.left === next.left && current.right === next.right ? current : next));
       const leaves = table.getVisibleLeafColumns();
@@ -214,54 +319,168 @@ export const DataTable = ({
       element.removeEventListener('scroll', update);
       observer.disconnect();
     };
-  }, [rows, visibility, columns, selectable, expandable]);
+    // `table` is a stable instance; the listed inputs are what change its column layout.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows, visibility, columns, selectable, expandable, stickyMode]);
+
+  useLayoutEffect(() => {
+    const element = scrollRef.current;
+    const tableElement = tableRef.current;
+    if (requestedSticky !== 'page' || !element || !tableElement) return undefined;
+    const measure = () => setPageOverflow(tableElement.scrollWidth > element.clientWidth + 1);
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    observer.observe(tableElement);
+    return () => observer.disconnect();
+  }, [requestedSticky, columns, visibility]);
+
+  // Pinned rows stack under the header from measured heights, so rich rows never overlap.
+  const pinnedKey = `${topRows.map((row) => row.id)}|${bottomRows.map((row) => row.id)}`;
+  useLayoutEffect(() => {
+    const element = scrollRef.current;
+    const tableElement = tableRef.current;
+    if (!element || !tableElement) return undefined;
+    const view = element.ownerDocument.defaultView;
+    const measure = () => {
+      const head = tableElement.tHead;
+      const headHeight = head?.getBoundingClientRect().height || 0;
+      const footHeight = tableElement.tFoot?.getBoundingClientRect().height || 0;
+      const pinnedRows = [...tableElement.querySelectorAll(':scope > tbody > tr[data-row-pinned]')];
+      const offsets = {};
+      let top = stickyMode ? headHeight : 0;
+      let bottom = footHeight;
+      for (const row of pinnedRows.filter((node) => node.dataset.rowPinned === 'top')) {
+        offsets[row.dataset.rowId] = { side: 'top', offset: top };
+        top += row.getBoundingClientRect().height;
+      }
+      for (const row of pinnedRows.filter((node) => node.dataset.rowPinned === 'bottom').reverse()) {
+        offsets[row.dataset.rowId] = { side: 'bottom', offset: bottom };
+        bottom += row.getBoundingClientRect().height;
+      }
+      const headerTop = stickyMode === 'page' && head?.rows[0]?.cells[0] ? Number.parseFloat(view.getComputedStyle(head.rows[0].cells[0]).top) || 0 : 0;
+      const viewport = stickyMode === 'page' ? view.innerHeight : resolvedMaxHeight ? element.clientHeight : 0;
+      // Bands that would crowd out the scrolling rows stop sticking and sit in place instead.
+      const crowded = viewport > 0 && top + bottom + headerTop > viewport * PINNED_BAND_LIMIT;
+      const next = { head: headHeight, rows: crowded ? {} : offsets };
+      setRowOffsets((current) => (JSON.stringify(current) === JSON.stringify(next) ? current : next));
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    if (tableElement.tHead) observer.observe(tableElement.tHead);
+    tableElement.querySelectorAll(':scope > tbody > tr[data-row-pinned]').forEach((node) => observer.observe(node));
+    view.addEventListener('resize', measure);
+    return () => {
+      observer.disconnect();
+      view.removeEventListener('resize', measure);
+    };
+  }, [pinnedKey, stickyMode, resolvedMaxHeight, density, footer, loading]);
+
+  // Scroll-triggered loading: a sentinel after the last row asks for the next batch.
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!loadMoreOnScroll || !hasMore || loadingMore || !sentinel || typeof onLoadMore !== 'function') return undefined;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        loadRequested.current = true;
+        onLoadMore();
+      },
+      { root: resolvedMaxHeight ? scrollRef.current : null, rootMargin: '0px 0px 160px 0px' }
+    );
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, [loadMoreOnScroll, hasMore, loadingMore, onLoadMore, resolvedMaxHeight, rows.length]);
+  useEffect(() => {
+    if (loadingMore || !loadRequested.current) return;
+    loadRequested.current = false;
+    setStatus(hasMore ? `${rows.length} ${labels.loaded || 'records loaded'}` : labels.allLoaded || 'All records loaded');
+  }, [loadingMore, hasMore, rows.length, labels.loaded, labels.allLoaded]);
 
   const pinStyle = (id) => (pins[id] ? { position: 'sticky', [pins[id].side]: pins[id].offset } : undefined);
-  const pinClass = (id, header) =>
-    pins[id] && cn('ds-table-pinned', header ? 'z-20' : 'z-10', pins[id].edge && (pins[id].side === 'left' ? 'ds-table-pin-left' : 'ds-table-pin-right'));
+  const pinClass = (id) => pins[id] && cn('ds-table-pinned', pins[id].edge && (pins[id].side === 'left' ? 'ds-table-pin-left' : 'ds-table-pin-right'));
   const align = (column) => ({ right: 'text-right', center: 'text-center' })[column.columnDef.meta?.align] || 'text-left';
   const numeric = (column) => column.columnDef.meta?.align === 'right' && 'tabular-nums';
-  const toggleIn = (setter, key, single) =>
-    setter((current) => {
-      const next = new Set(single && !current.has(key) ? [] : current);
+  const toggleExpanded = (id) =>
+    setExpandedIds((current = emptyIds) => {
+      const open = current.includes(id);
+      if (expandMode === 'single') return open ? [] : [id];
+      return open ? current.filter((value) => value !== id) : [...current, id];
+    });
+  const toggleGroup = (key) =>
+    setCollapsed((current) => {
+      const next = new Set(current);
       next.has(key) ? next.delete(key) : next.add(key);
       return next;
     });
+  const openMenu = (id, fromKeyboardOrPointer) => {
+    const active = scrollRef.current?.ownerDocument.activeElement;
+    // Menus opened from the row (right-click, Shift+F10) hand focus back to where it was.
+    returnFocusRef.current = fromKeyboardOrPointer && active && scrollRef.current?.contains(active) ? active : null;
+    setMenuRowId(id);
+  };
+  const exportCsv = () => {
+    const scope = exportOptions?.scope || 'auto';
+    const exportRows = getTableExportRows(table, scope);
+    const csv = tableToCsv(table, { scope, delimiter: exportOptions?.delimiter });
+    if (exportOptions?.onExport?.(csv, exportRows.map((row) => row.original)) !== false) downloadCsv(csv, exportOptions?.filename || 'table.csv');
+    setStatus(`${labels.exported || 'Exported'} ${exportRows.length} ${labels.records || 'records'}`);
+  };
 
-  const groups = useMemo(() => {
-    if (typeof groupBy !== 'function') return null;
-    const buckets = new Map();
-    for (const row of pageRows) {
-      const group = groupBy(row.original);
-      const key = String(group?.key ?? group ?? '');
-      if (!buckets.has(key)) buckets.set(key, { key, label: group?.label ?? key, rows: [] });
-      buckets.get(key).rows.push(row);
-    }
-    return [...buckets.values()];
-  }, [groupBy, pageRows]);
-
-  const renderRow = (row, index) => {
+  const renderRow = (row, index, { pinned, measureIndex } = {}) => {
     const isExpanded = expandable && expanded.has(row.id);
     const expandAllowed = expandable && (canExpand ? canExpand(row.original) : true);
-    const actions = withActions ? getRowActions(row.original) || [] : [];
-    const activate = onRowClick && (() => onRowClick(row.original));
+    const hostActions = typeof getRowActions === 'function' ? getRowActions(row.original) || [] : [];
+    const pinSide = row.getIsPinned?.();
+    const pinActions = pinnableRows
+      ? pinSide
+        ? [{ label: labels.unpin || 'Unpin row', icon: 'PinOff', onSelect: () => row.pin(false) }]
+        : [
+            { label: labels.pinTop || 'Pin to top', icon: 'ArrowUp', onSelect: () => row.pin('top') },
+            { label: labels.pinBottom || 'Pin to bottom', icon: 'ArrowDown', onSelect: () => row.pin('bottom') }
+          ]
+      : [];
+    const hasMenu = hostActions.length + pinActions.length > 0;
+    const activate = onRowClick && (!canActivateRow || canActivateRow(row.original) !== false) && (() => onRowClick(row.original));
+    const stuck = pinned && rowOffsets.rows[row.id];
+    const edgeRow = pinned === 'top' ? row.id === topRows.at(-1)?.id && centerRows.length > 0 : pinned === 'bottom' ? row.id === bottomRows[0]?.id : false;
     return (
       <Fragment key={row.id}>
         <tr
+          ref={measureIndex !== undefined ? virtualizer.measureElement : undefined}
+          data-index={measureIndex}
+          data-row-id={row.id}
+          aria-rowindex={virtualOn ? index + 2 : undefined}
           data-selected={row.getIsSelected() || undefined}
           data-striped={(striped && index % 2 === 1) || undefined}
           data-expanded={isExpanded || undefined}
           data-interactive={activate ? true : undefined}
+          data-row-pinned={pinned || undefined}
+          data-row-stuck={stuck ? stuck.side : undefined}
+          data-pin-edge={edgeRow ? pinned : undefined}
+          style={stuck ? { [`--ds-table-row-${stuck.side}`]: stickyMode === 'page' && stuck.side === 'top' ? `calc(${stickyOffset} + ${stuck.offset}px)` : `${stuck.offset}px` } : undefined}
           tabIndex={activate ? 0 : undefined}
           onClick={activate && ((event) => !event.target.closest(interactiveTarget) && activate())}
-          onKeyDown={
-            activate &&
-            ((event) => {
-              if (event.target !== event.currentTarget || !['Enter', ' '].includes(event.key)) return;
-              event.preventDefault();
-              activate();
-            })
+          onContextMenu={
+            hasMenu
+              ? (event) => {
+                  if (event.target.closest('input,textarea,select,[contenteditable="true"]')) return;
+                  event.preventDefault();
+                  openMenu(row.id, true);
+                }
+              : undefined
           }
+          onKeyDown={(event) => {
+            if (hasMenu && (event.key === 'ContextMenu' || (event.shiftKey && event.key === 'F10'))) {
+              event.preventDefault();
+              openMenu(row.id, true);
+              return;
+            }
+            if (!activate || event.target !== event.currentTarget || !['Enter', ' '].includes(event.key)) return;
+            event.preventDefault();
+            activate();
+          }}
           className='ds-table-row'
         >
           {selectable && (
@@ -283,7 +502,7 @@ export const DataTable = ({
                   size='icon-sm'
                   aria-expanded={isExpanded}
                   aria-label={`${labels.expand || 'Details for'} ${row.id}`}
-                  onClick={() => toggleIn(setExpanded, row.id, expandMode === 'single')}
+                  onClick={() => toggleExpanded(row.id)}
                   className={iconButtonClass}
                 >
                   <Icon name='ChevronDown' decorative size='sm' className={cn('ds-motion-icon', !isExpanded && '-rotate-90')} />
@@ -304,32 +523,53 @@ export const DataTable = ({
           ))}
           {withActions && (
             <td className='ds-table-cell w-10 px-1 text-right'>
-              {actions.length > 0 && (
-                <DropdownMenu
-                  trigger={
+              {hasMenu && (
+                <MenuRoot open={menuRowId === row.id} onOpenChange={(open) => (open ? openMenu(row.id, false) : setMenuRowId(null))}>
+                  <MenuTrigger asChild>
                     <Button variant='ghost' tone='neutral' size='icon-sm' aria-label={`${labels.rowActions || 'Actions for'} ${row.id}`} className={iconButtonClass}>
-                      <Icon name='MoreHorizontal' decorative size='sm' />
+                      <Icon name={pinSide ? 'Pin' : 'MoreHorizontal'} decorative size='sm' />
                     </Button>
-                  }
-                >
-                  {actions.map((action) => (
-                    <DropdownMenuItem
-                      key={action.label}
-                      destructive={action.tone === 'danger'}
-                      disabled={action.disabled}
-                      onSelect={() => action.onSelect?.(row.original)}
-                    >
-                      {action.icon && <Icon name={action.icon} decorative size='sm' />}
-                      {action.label}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenu>
+                  </MenuTrigger>
+                  <MenuContent
+                    align='end'
+                    sideOffset={6}
+                    collisionPadding={12}
+                    className='z-[calc(var(--ds-z-overlay)+10)] w-max max-w-[calc(100vw-1.5rem)] min-w-48'
+                    onCloseAutoFocus={(event) => {
+                      const target = returnFocusRef.current;
+                      returnFocusRef.current = null;
+                      if (target?.isConnected) {
+                        event.preventDefault();
+                        target.focus();
+                      }
+                    }}
+                  >
+                    {hostActions.map((action) => (
+                      <MenuItem
+                        key={action.label}
+                        variant={action.tone === 'danger' ? 'destructive' : undefined}
+                        disabled={action.disabled}
+                        onSelect={() => action.onSelect?.(row.original)}
+                      >
+                        {action.icon && <Icon name={action.icon} decorative size='sm' />}
+                        {action.label}
+                      </MenuItem>
+                    ))}
+                    {hostActions.length > 0 && pinActions.length > 0 && <MenuSeparator />}
+                    {pinActions.map((action) => (
+                      <MenuItem key={action.label} onSelect={action.onSelect}>
+                        <Icon name={action.icon} decorative size='sm' />
+                        {action.label}
+                      </MenuItem>
+                    ))}
+                  </MenuContent>
+                </MenuRoot>
               )}
             </td>
           )}
         </tr>
         {isExpanded && (
-          <tr className='ds-table-expanded'>
+          <tr className='ds-table-expanded' data-expanded-for={row.id}>
             <td colSpan={count} className={cn('ds-table-cell', spacing.cell)}>
               {renderExpanded(row.original)}
             </td>
@@ -339,6 +579,12 @@ export const DataTable = ({
     );
   };
 
+  const spacer = (key, height) =>
+    height > 0 && (
+      <tr key={key} aria-hidden='true' data-slot='table-virtual-spacer'>
+        <td colSpan={Math.max(1, count)} style={{ height, padding: 0, border: 0 }} />
+      </tr>
+    );
   const emptyBody = (
     <tr>
       <td colSpan={Math.max(1, count)} className='ds-table-empty'>
@@ -378,34 +624,56 @@ export const DataTable = ({
       ))}
     </tr>
   ));
+  const centerBody = () => {
+    if (groups)
+      return groups.map((group) => {
+        const open = !collapsed.has(group.key);
+        return (
+          <Fragment key={group.key}>
+            <tr className='ds-table-group'>
+              <th scope='rowgroup' colSpan={count} className='p-0'>
+                <button type='button' aria-expanded={open} onClick={() => toggleGroup(group.key)} className={cn('ds-table-group-toggle', spacing.head)}>
+                  <Icon name='ChevronDown' decorative size='xs' className={cn('ds-motion-icon', !open && '-rotate-90')} />
+                  {group.label}
+                  <span className='ds-table-count'>{group.rows.length}</span>
+                </button>
+              </th>
+            </tr>
+            {open && group.rows.map((row, index) => renderRow(row, index))}
+          </Fragment>
+        );
+      });
+    if (!virtualOn) return centerRows.map((row, index) => renderRow(row, topRows.length + index));
+    const items = virtualizer.getVirtualItems();
+    const before = items.length ? items[0].start - rowOffsets.head : 0;
+    const after = items.length ? virtualizer.getTotalSize() - (items.at(-1).end - rowOffsets.head) : 0;
+    return [
+      spacer('spacer-start', before),
+      ...items.map((item) => centerRows[item.index] && renderRow(centerRows[item.index], topRows.length + item.index, { measureIndex: item.index })),
+      spacer('spacer-end', after)
+    ];
+  };
   const body = loading
     ? skeletonBody
-    : error || !pageRows.length
+    : error || !shownRows
       ? emptyBody
-      : groups
-        ? groups.map((group) => {
-            const open = !collapsed.has(group.key);
-            return (
-              <Fragment key={group.key}>
-                <tr className='ds-table-group'>
-                  <th scope='rowgroup' colSpan={count} className='p-0'>
-                    <button type='button' aria-expanded={open} onClick={() => toggleIn(setCollapsed, group.key)} className={cn('ds-table-group-toggle', spacing.head)}>
-                      <Icon name='ChevronDown' decorative size='xs' className={cn('ds-motion-icon', !open && '-rotate-90')} />
-                      {group.label}
-                      <span className='ds-table-count'>{group.rows.length}</span>
-                    </button>
-                  </th>
-                </tr>
-                {open && group.rows.map(renderRow)}
-              </Fragment>
-            );
-          })
-        : pageRows.map(renderRow);
-  const hasTools = searchable || columnVisibility || toolbar || selectedRows.length > 0;
+      : [
+          ...topRows.map((row, index) => renderRow(row, index, { pinned: 'top' })),
+          ...[centerBody()].flat(),
+          ...bottomRows.map((row, index) => renderRow(row, topRows.length + centerRows.length + index, { pinned: 'bottom' }))
+        ];
+  const exportButton = exportOptions && (
+    <Button size='sm' variant='outline' tone='neutral' onClick={exportCsv} disabled={loading || !filteredRows.length}>
+      <Icon name='Download' decorative size='sm' />
+      {exportOptions.label || labels.exportCsv || 'Export CSV'}
+    </Button>
+  );
+  const hasTools = searchable || columnVisibility || toolbar || exportOptions || selectedRows.length > 0;
   const firstIndex = page.pageIndex * size;
+  const sortCount = sorting?.length || 0;
 
   return (
-    <div className={cn('ds-table-frame', className)} aria-busy={loading || refreshing}>
+    <div className={cn('ds-table-frame', className)} data-sticky={stickyMode || undefined} aria-busy={loading || refreshing || loadingMore}>
       {hasTools && (
         <div className='ds-table-tools'>
           {selectedRows.length > 0 ? (
@@ -416,7 +684,10 @@ export const DataTable = ({
               <Button size='sm' variant='ghost' tone='neutral' onClick={() => table.resetRowSelection()}>
                 {labels.clearSelection || 'Clear'}
               </Button>
-              <div className='ds-actions ms-auto'>{renderSelectionActions?.(selectedRows.map((row) => row.original))}</div>
+              <div className='ds-actions ms-auto'>
+                {renderSelectionActions?.(selectedRows.map((row) => row.original))}
+                {exportButton}
+              </div>
             </>
           ) : (
             <>
@@ -461,6 +732,7 @@ export const DataTable = ({
                     ))}
                 </DropdownMenu>
               )}
+              {exportButton}
             </>
           )}
         </div>
@@ -472,24 +744,32 @@ export const DataTable = ({
           tabIndex={0}
           aria-label={caption ? `${caption} scrollable table` : overflowLabel}
           aria-describedby={descriptionId}
+          data-sticky={stickyMode || undefined}
+          style={resolvedMaxHeight && stickyMode !== 'page' ? { maxHeight: resolvedMaxHeight } : undefined}
           onKeyDown={(event) => {
-            if (event.target !== event.currentTarget || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+            if (stickyMode === 'page' || event.target !== event.currentTarget || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
             event.preventDefault();
             event.currentTarget.scrollBy({ left: event.key === 'ArrowLeft' ? -80 : 80 });
           }}
           className='ds-table-scroll'
         >
-          <table className='ds-table'>
+          <table
+            ref={tableRef}
+            className='ds-table'
+            data-sticky={stickyMode || undefined}
+            aria-rowcount={virtualOn ? shownRows + 1 : undefined}
+            style={stickyMode === 'page' ? { '--ds-table-sticky-top': stickyOffset } : undefined}
+          >
             {caption && <caption className='sr-only'>{caption}</caption>}
             <thead>
               {table.getHeaderGroups().map((group) => (
-                <tr key={group.id}>
+                <tr key={group.id} aria-rowindex={virtualOn ? 1 : undefined}>
                   {selectable && (
                     <th
                       scope='col'
                       ref={(node) => (headerRefs.current.__select = node)}
                       style={pinStyle('__select')}
-                      className={cn('ds-table-head w-10', spacing.head, expandable && 'pe-1', pinClass('__select', true))}
+                      className={cn('ds-table-head w-10', spacing.head, expandable && 'pe-1', pinClass('__select'))}
                     >
                       <SelectionCheckbox
                         aria-label={labels.selectPage || 'Select this page'}
@@ -505,7 +785,7 @@ export const DataTable = ({
                       scope='col'
                       ref={(node) => (headerRefs.current.__expand = node)}
                       style={pinStyle('__expand')}
-                      className={cn('ds-table-head w-9 px-0', pinClass('__expand', true))}
+                      className={cn('ds-table-head w-9 px-0', pinClass('__expand'))}
                     >
                       <span className='sr-only'>{labels.details || 'Details'}</span>
                     </th>
@@ -513,6 +793,7 @@ export const DataTable = ({
                   {group.headers.map((header) => {
                     const direction = header.column.getIsSorted();
                     const label = flexRender(header.column.columnDef.header, header.getContext());
+                    const order = sortCount > 1 && direction ? header.column.getSortIndex() + 1 : null;
                     return (
                       <th
                         key={header.id}
@@ -522,17 +803,24 @@ export const DataTable = ({
                         aria-sort={header.column.getCanSort() ? sortState[direction] || 'none' : undefined}
                         data-column-hover={hoverColumn === header.column.id || undefined}
                         onMouseEnter={() => setHoverColumn(header.column.id)}
-                        className={cn('ds-table-head', spacing.head, align(header.column), pinClass(header.column.id, true))}
+                        className={cn('ds-table-head', spacing.head, align(header.column), pinClass(header.column.id))}
                       >
                         {header.column.getCanSort() ? (
                           <button
                             type='button'
                             data-sorted={direction || undefined}
+                            title={multiSort ? labels.multiSortHint || 'Shift-click to sort by more than one column' : undefined}
                             className={cn('ds-table-sort', header.column.columnDef.meta?.align === 'right' && 'flex-row-reverse')}
                             onClick={header.column.getToggleSortingHandler()}
                           >
                             {label}
                             <Icon name={direction === 'asc' ? 'ChevronUp' : direction === 'desc' ? 'ChevronDown' : 'ChevronsUpDown'} decorative size='xs' />
+                            {order && (
+                              <span className='ds-table-sort-order'>
+                                <span className='sr-only'>{labels.sortOrder || 'sort order'} </span>
+                                {order}
+                              </span>
+                            )}
                           </button>
                         ) : (
                           label
@@ -548,8 +836,15 @@ export const DataTable = ({
                 </tr>
               ))}
             </thead>
-            <tbody>{body}</tbody>
-            {footer && !loading && !error && pageRows.length > 0 && (
+            <tbody>
+              {body}
+              {loadMoreOnScroll && hasMore && !loading && (
+                <tr ref={sentinelRef} aria-hidden='true' data-slot='table-load-sentinel'>
+                  <td colSpan={Math.max(1, count)} className='p-0' />
+                </tr>
+              )}
+            </tbody>
+            {footer && !loading && !error && shownRows > 0 && (
               <tfoot>
                 <tr>
                   {selectable && <td className={cn('ds-table-foot', spacing.cell)} />}
@@ -591,8 +886,31 @@ export const DataTable = ({
         )}
       </div>
       <span id={descriptionId} className='sr-only'>
-        {labels.scrollHint || 'Scroll horizontally to see all columns.'}
+        {stickyMode === 'page' ? labels.pageScrollHint || 'The header stays in view while the page scrolls.' : labels.scrollHint || 'Scroll horizontally to see all columns.'}
       </span>
+      {/* Only tables that export or load more have something to announce. */}
+      {(exportOptions || typeof onLoadMore === 'function') && (
+        <span role='status' className='sr-only'>
+          {status}
+        </span>
+      )}
+      {typeof onLoadMore === 'function' && !pagination && (hasMore || loadingMore) && !loading && (
+        <div className='ds-table-footer justify-center'>
+          <Button
+            size='sm'
+            variant='outline'
+            tone='neutral'
+            disabled={loadingMore}
+            onClick={() => {
+              loadRequested.current = true;
+              onLoadMore();
+            }}
+          >
+            {loadingMore ? <Spinner size='xs' label='' /> : <Icon name='ChevronDown' decorative size='sm' />}
+            {loadingMore ? labels.loadingMore || 'Loading more…' : labels.loadMore || 'Load more'}
+          </Button>
+        </div>
+      )}
       {pagination && (
         <div className='ds-table-footer'>
           <span role='status' className='text-xs text-text-muted'>

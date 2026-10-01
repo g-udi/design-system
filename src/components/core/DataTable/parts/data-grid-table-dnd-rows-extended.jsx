@@ -28,7 +28,8 @@ import {
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
-  DataGridTableViewport
+  DataGridTableViewport,
+  renderDataGridCellContent
 } from './data-grid-table-extended.jsx';
 import {
   closestCenter,
@@ -161,7 +162,7 @@ function DataGridTableDndRow({
         {row.getVisibleCells().map((cell, index2, cells) => {
           return (
             <DataGridTableBodyRowCell cell={cell} key={cell.id}>
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              {renderDataGridCellContent(cell)}
               {decoration && index2 === cells.length - 1 ? (
                 // Rides inside the last cell rather than in a `td` of its own.
                 // An absolutely positioned `td` is still a cell as far as table

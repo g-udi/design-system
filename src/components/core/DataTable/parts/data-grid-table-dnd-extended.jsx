@@ -26,7 +26,8 @@ import {
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
-  DataGridTableViewport
+  DataGridTableViewport,
+  renderDataGridCellContent
 } from './data-grid-table-extended.jsx';
 import {
   closestCenter,
@@ -126,7 +127,7 @@ function DataGridTableDndCell({ cell }) {
   };
   return (
     <DataGridTableBodyRowCell cell={cell} dndStyle={style} dndRef={setNodeRef}>
-      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+      {renderDataGridCellContent(cell)}
     </DataGridTableBodyRowCell>
   );
 }

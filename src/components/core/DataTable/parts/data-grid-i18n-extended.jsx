@@ -29,7 +29,14 @@ const DEFAULT_DATA_GRID_LABELS = {
   paginationEllipsis: '...',
   filterSelectedCount: (count) => `${count} selected`,
   filterNoResults: 'No results found.',
-  filterClear: 'Clear filters'
+  filterClear: 'Clear filters',
+  groupByColumn: 'Group by this column',
+  ungroupColumn: 'Stop grouping',
+  expandGroup: (value) => `Expand ${value}`,
+  collapseGroup: (value) => `Collapse ${value}`,
+  groupRowCount: (count) => `${count} ${count === 1 ? 'row' : 'rows'}`,
+  exportCsv: 'Export CSV',
+  exported: (count) => `Exported ${count} ${count === 1 ? 'row' : 'rows'}`
 };
 const DEFAULT_DATA_GRID_I18N = Object.freeze({
   labels: Object.freeze(DEFAULT_DATA_GRID_LABELS)
