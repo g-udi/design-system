@@ -188,7 +188,7 @@ const VariantTable = () => (
 
 export default {
   parameters: pageParameters,
-  title: 'Blocks/Blog Sections'
+  title: 'Blocks/To Sort/Blog Sections', id: 'blocks-blog-sections'
 };
 
 export const Default = {

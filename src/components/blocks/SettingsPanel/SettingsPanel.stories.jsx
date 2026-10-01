@@ -14,10 +14,10 @@ import Switch from '../../core/Switch';
 import Textarea from '../../core/Textarea';
 import SettingsPanel from './SettingsPanel';
 
-const docs = getComponentDocs('Blocks/Application/SettingsPanel');
+const docs = getComponentDocs('Blocks/SettingsPanel');
 
 export default {
-  title: 'Blocks/Application/SettingsPanel',
+  title: 'Blocks/To Sort/SettingsPanel', id: 'blocks-application-settingspanel',
   component: SettingsPanel,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { title: 'text', description: 'text' }),

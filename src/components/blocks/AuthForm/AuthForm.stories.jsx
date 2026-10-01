@@ -9,7 +9,7 @@ import Link from '../../core/Link';
 import { Separator } from '../../core/Separator';
 import AuthForm from './AuthForm';
 
-const docs = getComponentDocs('Blocks/Application/AuthForm');
+const docs = getComponentDocs('Blocks/AuthForm');
 const email = 'reader@example.com';
 const signIn = async (canvas) => {
   await userEvent.type(canvas.getByRole('textbox', { name: 'Email' }), email);
@@ -48,7 +48,7 @@ function AuthFooter({ mode }) {
 }
 
 export default {
-  title: 'Blocks/Application/AuthForm',
+  title: 'Blocks/To Sort/AuthForm', id: 'blocks-application-authform',
   component: AuthForm,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {

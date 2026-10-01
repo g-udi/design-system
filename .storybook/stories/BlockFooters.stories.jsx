@@ -147,7 +147,7 @@ const VariantTable = () => (
 
 export default {
   parameters: pageParameters,
-  title: 'Blocks/Footers'
+  title: 'Blocks/To Sort/Footers', id: 'blocks-footers'
 };
 
 export const Default = {

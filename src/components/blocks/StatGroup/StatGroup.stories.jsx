@@ -5,7 +5,7 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import StatGroup from './StatGroup';
 
-const docs = getComponentDocs('Blocks/Application/StatGroup');
+const docs = getComponentDocs('Blocks/StatGroup');
 const label = 'September performance';
 // A month of mixed results: growth, regressions, a steady figure, and a value that is not available yet.
 const items = [
@@ -18,7 +18,7 @@ const items = [
 ];
 
 export default {
-  title: 'Blocks/Application/StatGroup',
+  title: 'Blocks/To Sort/StatGroup', id: 'blocks-application-statgroup',
   component: StatGroup,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { items: 'object' }),

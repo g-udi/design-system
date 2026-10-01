@@ -3,7 +3,7 @@
   "entries": {
     "blocks-blog-content-sections--default": {
       "id": "blocks-blog-content-sections--default",
-      "title": "Blocks/Blog Content Sections",
+      "title": "Blocks/To Sort/Blog Content Sections",
       "name": "Default",
       "type": "story",
       "tags": [],
@@ -11,7 +11,7 @@
     },
     "blocks-blog-sections--default": {
       "id": "blocks-blog-sections--default",
-      "title": "Blocks/Blog Sections",
+      "title": "Blocks/To Sort/Blog Sections",
       "name": "Default",
       "type": "story",
       "tags": [],
@@ -19,7 +19,7 @@
     },
     "blocks-faqs--default": {
       "id": "blocks-faqs--default",
-      "title": "Blocks/FAQs",
+      "title": "Blocks/To Sort/FAQs",
       "name": "Default",
       "type": "story",
       "tags": [],
@@ -27,7 +27,7 @@
     },
     "blocks-footers--default": {
       "id": "blocks-footers--default",
-      "title": "Blocks/Footers",
+      "title": "Blocks/To Sort/Footers",
       "name": "Default",
       "type": "story",
       "tags": [],
@@ -46,7 +46,7 @@
     },
     "blocks-stats-sections--default": {
       "id": "blocks-stats-sections--default",
-      "title": "Blocks/Stats Sections",
+      "title": "Blocks/To Sort/Stats Sections",
       "name": "Default",
       "type": "story",
       "tags": [],
@@ -306,7 +306,7 @@
     },
     "blocks-application-appshell--playground": {
       "id": "blocks-application-appshell--playground",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -317,7 +317,7 @@
     },
     "blocks-application-appshell--docs": {
       "id": "blocks-application-appshell--docs",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -327,7 +327,7 @@
     },
     "blocks-application-appshell--content-workspace-example": {
       "id": "blocks-application-appshell--content-workspace-example",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Content workspace",
       "type": "story",
       "tags": [
@@ -338,7 +338,7 @@
     },
     "blocks-application-authform--playground": {
       "id": "blocks-application-authform--playground",
-      "title": "Blocks/Application/AuthForm",
+      "title": "Blocks/To Sort/AuthForm",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -349,7 +349,7 @@
     },
     "blocks-application-authform--docs": {
       "id": "blocks-application-authform--docs",
-      "title": "Blocks/Application/AuthForm",
+      "title": "Blocks/To Sort/AuthForm",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -359,7 +359,7 @@
     },
     "blocks-application-authform--failed-sign-in": {
       "id": "blocks-application-authform--failed-sign-in",
-      "title": "Blocks/Application/AuthForm",
+      "title": "Blocks/To Sort/AuthForm",
       "name": "Failed Sign In",
       "type": "story",
       "tags": [
@@ -370,7 +370,7 @@
     },
     "blocks-application-kanbanboard--playground": {
       "id": "blocks-application-kanbanboard--playground",
-      "title": "Blocks/Application/KanbanBoard",
+      "title": "Blocks/To Sort/KanbanBoard",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -381,7 +381,7 @@
     },
     "blocks-application-kanbanboard--docs": {
       "id": "blocks-application-kanbanboard--docs",
-      "title": "Blocks/Application/KanbanBoard",
+      "title": "Blocks/To Sort/KanbanBoard",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -403,7 +403,7 @@
     },
     "blocks-application-resourcelist--playground": {
       "id": "blocks-application-resourcelist--playground",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -414,7 +414,7 @@
     },
     "blocks-application-resourcelist--docs": {
       "id": "blocks-application-resourcelist--docs",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -424,7 +424,7 @@
     },
     "blocks-application-resourcelist--states": {
       "id": "blocks-application-resourcelist--states",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "States",
       "type": "story",
       "tags": [
@@ -435,7 +435,7 @@
     },
     "blocks-application-settingspanel--playground": {
       "id": "blocks-application-settingspanel--playground",
-      "title": "Blocks/Application/SettingsPanel",
+      "title": "Blocks/To Sort/SettingsPanel",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -446,7 +446,7 @@
     },
     "blocks-application-settingspanel--docs": {
       "id": "blocks-application-settingspanel--docs",
-      "title": "Blocks/Application/SettingsPanel",
+      "title": "Blocks/To Sort/SettingsPanel",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -456,7 +456,7 @@
     },
     "blocks-application-settingspanel--profile-and-preferences": {
       "id": "blocks-application-settingspanel--profile-and-preferences",
-      "title": "Blocks/Application/SettingsPanel",
+      "title": "Blocks/To Sort/SettingsPanel",
       "name": "Profile And Preferences",
       "type": "story",
       "tags": [
@@ -467,7 +467,7 @@
     },
     "blocks-application-statgroup--playground": {
       "id": "blocks-application-statgroup--playground",
-      "title": "Blocks/Application/StatGroup",
+      "title": "Blocks/To Sort/StatGroup",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -478,7 +478,7 @@
     },
     "blocks-application-statgroup--docs": {
       "id": "blocks-application-statgroup--docs",
-      "title": "Blocks/Application/StatGroup",
+      "title": "Blocks/To Sort/StatGroup",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -488,7 +488,7 @@
     },
     "blocks-thoughts--playground": {
       "id": "blocks-thoughts--playground",
-      "title": "Blocks/Thoughts",
+      "title": "Blocks/To Sort/Thoughts",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -499,7 +499,7 @@
     },
     "blocks-thoughts--docs": {
       "id": "blocks-thoughts--docs",
-      "title": "Blocks/Thoughts",
+      "title": "Blocks/To Sort/Thoughts",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -509,7 +509,7 @@
     },
     "blocks-application-wizard--playground": {
       "id": "blocks-application-wizard--playground",
-      "title": "Blocks/Application/Wizard",
+      "title": "Blocks/To Sort/Wizard",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -520,7 +520,7 @@
     },
     "blocks-application-wizard--docs": {
       "id": "blocks-application-wizard--docs",
-      "title": "Blocks/Application/Wizard",
+      "title": "Blocks/To Sort/Wizard",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -530,7 +530,7 @@
     },
     "blocks-application-wizard--failed-completion": {
       "id": "blocks-application-wizard--failed-completion",
-      "title": "Blocks/Application/Wizard",
+      "title": "Blocks/To Sort/Wizard",
       "name": "Failed Completion",
       "type": "story",
       "tags": [
@@ -3202,7 +3202,7 @@
     },
     "blocks-application-appshell--sidebar-pattern-1": {
       "id": "blocks-application-appshell--sidebar-pattern-1",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Workspace switcher",
       "type": "story",
       "tags": [
@@ -3212,7 +3212,7 @@
     },
     "blocks-application-appshell--sidebar-pattern-2": {
       "id": "blocks-application-appshell--sidebar-pattern-2",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Collapsible icon rail",
       "type": "story",
       "tags": [
@@ -3222,7 +3222,7 @@
     },
     "blocks-application-appshell--sidebar-pattern-3": {
       "id": "blocks-application-appshell--sidebar-pattern-3",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Documentation sub-menus",
       "type": "story",
       "tags": [
@@ -3232,7 +3232,7 @@
     },
     "blocks-application-appshell--sidebar-pattern-4": {
       "id": "blocks-application-appshell--sidebar-pattern-4",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Right-hand inspector",
       "type": "story",
       "tags": [
@@ -3242,7 +3242,7 @@
     },
     "blocks-application-appshell--sidebar-pattern-5": {
       "id": "blocks-application-appshell--sidebar-pattern-5",
-      "title": "Blocks/Application/AppShell",
+      "title": "Blocks/To Sort/AppShell",
       "name": "Filter, loading and empty states",
       "type": "story",
       "tags": [
@@ -3252,7 +3252,7 @@
     },
     "blocks-application-kanbanboard--kanban-pattern-1": {
       "id": "blocks-application-kanbanboard--kanban-pattern-1",
-      "title": "Blocks/Application/KanbanBoard",
+      "title": "Blocks/To Sort/KanbanBoard",
       "name": "Board options",
       "type": "story",
       "tags": [
@@ -3262,7 +3262,7 @@
     },
     "blocks-application-kanbanboard--kanban-pattern-6": {
       "id": "blocks-application-kanbanboard--kanban-pattern-6",
-      "title": "Blocks/Application/KanbanBoard",
+      "title": "Blocks/To Sort/KanbanBoard",
       "name": "Persisted to a backend",
       "type": "story",
       "tags": [
@@ -3272,7 +3272,7 @@
     },
     "blocks-application-resourcelist--item-pattern-1": {
       "id": "blocks-application-resourcelist--item-pattern-1",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Variants and sizes",
       "type": "story",
       "tags": [
@@ -3282,7 +3282,7 @@
     },
     "blocks-application-resourcelist--item-pattern-11": {
       "id": "blocks-application-resourcelist--item-pattern-11",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Settings and integrations",
       "type": "story",
       "tags": [
@@ -3292,7 +3292,7 @@
     },
     "blocks-application-resourcelist--item-pattern-9": {
       "id": "blocks-application-resourcelist--item-pattern-9",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Team members and roles",
       "type": "story",
       "tags": [
@@ -3302,7 +3302,7 @@
     },
     "blocks-application-resourcelist--item-pattern-4": {
       "id": "blocks-application-resourcelist--item-pattern-4",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Navigation rows",
       "type": "story",
       "tags": [
@@ -3312,7 +3312,7 @@
     },
     "blocks-application-resourcelist--item-pattern-7": {
       "id": "blocks-application-resourcelist--item-pattern-7",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Menu with counts and shortcuts",
       "type": "story",
       "tags": [
@@ -3322,7 +3322,7 @@
     },
     "blocks-application-resourcelist--item-pattern-12": {
       "id": "blocks-application-resourcelist--item-pattern-12",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Activity feed",
       "type": "story",
       "tags": [
@@ -3332,7 +3332,7 @@
     },
     "blocks-application-resourcelist--item-pattern-10": {
       "id": "blocks-application-resourcelist--item-pattern-10",
-      "title": "Blocks/Application/ResourceList",
+      "title": "Blocks/To Sort/ResourceList",
       "name": "Header and footer",
       "type": "story",
       "tags": [

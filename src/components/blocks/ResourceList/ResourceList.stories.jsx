@@ -9,7 +9,7 @@ import Icon from '../../core/Icon';
 import Pill from '../../core/Pill';
 import ResourceList from './ResourceList';
 
-const docs = getComponentDocs('Blocks/Application/ResourceList');
+const docs = getComponentDocs('Blocks/ResourceList');
 const label = 'Recent articles';
 const emptyTitle = 'No articles yet';
 // Each status gets its own tone so the list reads at a glance.
@@ -36,7 +36,7 @@ const renderItem = (article) => (
 );
 
 export default {
-  title: 'Blocks/Application/ResourceList',
+  title: 'Blocks/To Sort/ResourceList', id: 'blocks-application-resourcelist',
   component: ResourceList,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { items: 'object', loading: 'boolean' }),

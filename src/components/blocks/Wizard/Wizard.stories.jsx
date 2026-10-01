@@ -12,7 +12,7 @@ import RadioGroup from '../../core/RadioGroup';
 import Select from '../../core/Select';
 import Wizard from './Wizard';
 
-const docs = getComponentDocs('Blocks/Application/Wizard');
+const docs = getComponentDocs('Blocks/Wizard');
 const steps = [
   { id: 'details', label: 'Details', description: 'Name and topic' },
   { id: 'audience', label: 'Audience', description: 'Who can read it' },
@@ -89,7 +89,7 @@ const completeFlow = async (canvas, completeLabel) => {
 };
 
 export default {
-  title: 'Blocks/Application/Wizard',
+  title: 'Blocks/To Sort/Wizard', id: 'blocks-application-wizard',
   component: Wizard,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { title: 'text', description: 'text', labels: 'object' }),

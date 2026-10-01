@@ -36,7 +36,7 @@ const thoughtLink = (canvas, thought) => canvas.getByRole('link', { name: new Re
 const viewAll = (canvas) => canvas.queryByRole('link', { name: 'View all thoughts' });
 
 export default {
-  title: 'Blocks/Thoughts',
+  title: 'Blocks/To Sort/Thoughts', id: 'blocks-thoughts',
   component: ThoughtsSection,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { thoughts: 'object' }),

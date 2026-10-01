@@ -9,7 +9,7 @@ import Icon from '../../core/Icon';
 import Pill from '../../core/Pill';
 import KanbanBoard from './KanbanBoard';
 
-const docs = getComponentDocs('Blocks/Application/KanbanBoard');
+const docs = getComponentDocs('Blocks/KanbanBoard');
 const label = 'Editorial workflow';
 const moveLabel = 'Move';
 // "Scheduled" starts empty so the board shows `emptyLabel` beside busy columns.
@@ -56,7 +56,7 @@ function Board({ onMove, disabled, ...args }) {
 }
 
 export default {
-  title: 'Blocks/Application/KanbanBoard',
+  title: 'Blocks/To Sort/KanbanBoard', id: 'blocks-application-kanbanboard',
   component: KanbanBoard,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { emptyLabel: 'text', disabled: 'boolean' }),

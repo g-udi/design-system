@@ -11,7 +11,7 @@ import Pill from '../../core/Pill';
 import StatGroup from '../StatGroup';
 import AppShell from './AppShell';
 
-const docs = getComponentDocs('Blocks/Application/AppShell');
+const docs = getComponentDocs('Blocks/AppShell');
 const views = [
   { id: 'Overview', icon: 'LayoutDashboard', title: 'Good morning, Maya', description: 'Three drafts need attention before Friday.' },
   { id: 'Articles', icon: 'FileText', count: 24, title: 'Articles', description: 'Everything you have published, newest first.' },
@@ -91,7 +91,7 @@ function WorkspaceShell() {
 }
 
 export default {
-  title: 'Blocks/Application/AppShell',
+  title: 'Blocks/To Sort/AppShell', id: 'blocks-application-appshell',
   component: AppShell,
   tags: ['autodocs'],
   parameters: {
