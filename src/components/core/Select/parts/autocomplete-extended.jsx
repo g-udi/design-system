@@ -75,7 +75,7 @@ function AutocompletePositioner({ className, ...props }) {
   return (
     <AutocompletePrimitive.Positioner
       data-slot='autocomplete-positioner'
-      className={cn('z-50 outline-none', className)}
+      className={cn('z-[calc(var(--ds-z-overlay)+1)] outline-none', className)}
       {...props}
     />
   );

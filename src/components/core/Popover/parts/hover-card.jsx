@@ -22,7 +22,7 @@ function HoverCardContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'ds-part-hover-card-content z-50 origin-(--radix-hover-card-content-transform-origin) outline-hidden',
+          'ds-part-hover-card-content z-[calc(var(--ds-z-overlay)+1)] origin-(--radix-hover-card-content-transform-origin) outline-hidden',
           className
         )}
         {...props}

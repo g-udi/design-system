@@ -221,7 +221,7 @@ const Select = ({
       {open ? (
         <div
           data-slot='select-content'
-          className={ cn('ds-part-select-content ds-motion-popover absolute inset-x-0 top-full z-50 mt-1 min-w-0 overflow-hidden', classNames.content) }
+          className={ cn('ds-part-select-content ds-motion-popover absolute inset-x-0 top-full z-[calc(var(--ds-z-overlay)+1)] mt-1 min-w-0 overflow-hidden', classNames.content) }
         >
           {searchable ? (
             <div className='flex items-center gap-2 border-b border-ui-border px-2.5 py-1.5 text-ui-muted-foreground'>

@@ -41,7 +41,7 @@ function ContextMenuContent({ className, ...props }) {
       <ContextMenuPrimitive.Content
         data-slot='context-menu-content'
         className={cn(
-          'ds-part-context-menu-content ds-part-menu-target ds-part-menu-translucent z-50 max-h-(--radix-context-menu-content-available-height) origin-(--radix-context-menu-content-transform-origin) overflow-x-hidden overflow-y-auto',
+          'ds-part-context-menu-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] max-h-(--radix-context-menu-content-available-height) origin-(--radix-context-menu-content-transform-origin) overflow-x-hidden overflow-y-auto',
           className
         )}
         {...props}
@@ -87,7 +87,7 @@ function ContextMenuSubContent({ className, ...props }) {
     <ContextMenuPrimitive.SubContent
       data-slot='context-menu-sub-content'
       className={cn(
-        'ds-part-context-menu-sub-content ds-part-menu-target ds-part-menu-translucent z-50 origin-(--radix-context-menu-content-transform-origin) overflow-hidden',
+        'ds-part-context-menu-sub-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] origin-(--radix-context-menu-content-transform-origin) overflow-hidden',
         className
       )}
       {...props}

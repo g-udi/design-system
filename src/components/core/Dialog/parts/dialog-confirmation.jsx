@@ -20,7 +20,7 @@ function DialogConfirmationOverlay({ className, ...props }) {
     <DialogConfirmationPrimitive.Overlay
       data-slot='alert-dialog-overlay'
       className={cn(
-        'ds-part-alert-dialog-overlay fixed inset-0 z-50',
+        'ds-part-alert-dialog-overlay fixed inset-0 z-[calc(var(--ds-z-overlay)+1)]',
         className
       )}
       {...props}
@@ -35,7 +35,7 @@ function DialogConfirmationContent({ className, size = 'default', ...props }) {
         data-slot='alert-dialog-content'
         data-size={size}
         className={cn(
-          'ds-part-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-50 grid w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 outline-none',
+          'ds-part-alert-dialog-content group/alert-dialog-content fixed top-1/2 left-1/2 z-[calc(var(--ds-z-overlay)+1)] grid w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 outline-none',
           className
         )}
         {...props}

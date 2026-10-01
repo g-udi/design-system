@@ -20,7 +20,7 @@ function PopoverContent({
         align={align}
         sideOffset={sideOffset}
         className={cn(
-          'ds-part-popover-content z-50 w-72 origin-(--radix-popover-content-transform-origin) outline-hidden',
+          'ds-part-popover-content z-[calc(var(--ds-z-overlay)+1)] w-72 origin-(--radix-popover-content-transform-origin) outline-hidden',
           className
         )}
         {...props}

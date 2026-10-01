@@ -25,13 +25,13 @@ function TooltipContent({ className, sideOffset = 0, children, ...props }) {
         data-slot='tooltip-content'
         sideOffset={sideOffset}
         className={cn(
-          'ds-part-tooltip-content z-50 w-fit max-w-xs origin-(--radix-tooltip-content-transform-origin) bg-ui-foreground text-ui-background',
+          'ds-part-tooltip-content z-[calc(var(--ds-z-overlay)+1)] w-fit max-w-xs origin-(--radix-tooltip-content-transform-origin) bg-ui-foreground text-ui-background',
           className
         )}
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className='ds-part-tooltip-arrow z-50 translate-y-[calc(-50%_-_2px)] bg-ui-foreground fill-ui-foreground' />
+        <TooltipPrimitive.Arrow className='ds-part-tooltip-arrow z-[calc(var(--ds-z-overlay)+1)] translate-y-[calc(-50%_-_2px)] bg-ui-foreground fill-ui-foreground' />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
   );

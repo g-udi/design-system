@@ -54,7 +54,8 @@ export const CommandPattern5 = {
     await waitFor(() => expect(palette.queryByRole('option', { name: /page\.tsx/ })).not.toBeInTheDocument());
     await closePalette();
     await userEvent.keyboard('{Meta>}k{/Meta}');
-    await expect(await within(document.body).findByRole('dialog')).toBeVisible();
+    // The dialog mounts at the start of its fade-in, so wait for it to become visible.
+    await waitFor(() => expect(within(document.body).getByRole('dialog')).toBeVisible());
     await closePalette();
   }
 };

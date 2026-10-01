@@ -31,7 +31,7 @@ function DropdownMenuContent({
         sideOffset={sideOffset}
         align={align}
         className={cn(
-          'ds-part-dropdown-menu-content ds-part-menu-target ds-part-menu-translucent z-50 max-h-(--radix-dropdown-menu-content-available-height) w-(--radix-dropdown-menu-trigger-width) origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto data-[state=closed]:overflow-hidden',
+          'ds-part-dropdown-menu-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] max-h-(--radix-dropdown-menu-content-available-height) w-(--radix-dropdown-menu-trigger-width) origin-(--radix-dropdown-menu-content-transform-origin) overflow-x-hidden overflow-y-auto data-[state=closed]:overflow-hidden',
           className
         )}
         {...props}
@@ -174,7 +174,7 @@ function DropdownMenuSubContent({ className, ...props }) {
     <DropdownMenuPrimitive.SubContent
       data-slot='dropdown-menu-sub-content'
       className={cn(
-        'ds-part-dropdown-menu-sub-content ds-part-menu-target ds-part-menu-translucent z-50 origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden',
+        'ds-part-dropdown-menu-sub-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden',
         className
       )}
       {...props}

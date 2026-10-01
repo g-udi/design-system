@@ -52,7 +52,7 @@ function MenubarContent({
         alignOffset={alignOffset}
         sideOffset={sideOffset}
         className={cn(
-          'ds-part-menubar-content ds-part-menu-target ds-part-menu-translucent z-50 origin-(--radix-menubar-content-transform-origin) overflow-hidden',
+          'ds-part-menubar-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] origin-(--radix-menubar-content-transform-origin) overflow-hidden',
           className
         )}
         {...props}
@@ -176,7 +176,7 @@ function MenubarSubContent({ className, ...props }) {
     <MenubarPrimitive.SubContent
       data-slot='menubar-sub-content'
       className={cn(
-        'ds-part-menubar-sub-content ds-part-menu-target ds-part-menu-translucent z-50 origin-(--radix-menubar-content-transform-origin) overflow-hidden',
+        'ds-part-menubar-sub-content ds-part-menu-target ds-part-menu-translucent z-[calc(var(--ds-z-overlay)+1)] origin-(--radix-menubar-content-transform-origin) overflow-hidden',
         className
       )}
       {...props}

@@ -20,7 +20,7 @@ function DialogOverlay({ className, ...props }) {
     <DialogPrimitive.Overlay
       data-slot='dialog-overlay'
       className={cn(
-        'ds-part-dialog-overlay fixed inset-0 isolate z-50',
+        'ds-part-dialog-overlay fixed inset-0 isolate z-[calc(var(--ds-z-overlay)+1)]',
         className
       )}
       {...props}
@@ -39,7 +39,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot='dialog-content'
         className={cn(
-          'ds-part-dialog-content fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none',
+          'ds-part-dialog-content fixed top-1/2 left-1/2 z-[calc(var(--ds-z-overlay)+1)] w-full -translate-x-1/2 -translate-y-1/2 outline-none',
           className
         )}
         {...props}
