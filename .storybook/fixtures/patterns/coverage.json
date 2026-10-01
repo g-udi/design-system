@@ -3372,6 +3372,67 @@
           "storyId": "blocks-stat-cards--stat-cards-pattern-9"
         }
       ]
+    },
+    "scheduling": {
+      "owner": "blocks/Scheduling",
+      "examples": [
+        {
+          "name": "c-scheduling-1",
+          "title": "Day agenda",
+          "description": "Day agenda",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-1.jsx",
+          "sha256": "c0faa2ea3215180e26b725e87e2594e0d3af45263d80c949a57857f21132c7bd",
+          "storyId": "blocks-scheduling--scheduling-pattern-1"
+        },
+        {
+          "name": "c-scheduling-2",
+          "title": "Month at a glance",
+          "description": "Month at a glance",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-2.jsx",
+          "sha256": "36a955dc096d2f426e8c457e5f5404e530d79866d5932488b62f4fb16b075880",
+          "storyId": "blocks-scheduling--scheduling-pattern-2"
+        },
+        {
+          "name": "c-scheduling-3",
+          "title": "Book a meeting",
+          "description": "Book a meeting",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-3.jsx",
+          "sha256": "ba53b06535ddad618a0465c8a21943e9396a386ef6fd8b9a334a8767b05aa6c9",
+          "storyId": "blocks-scheduling--scheduling-pattern-3"
+        },
+        {
+          "name": "c-scheduling-4",
+          "title": "Plan a meeting",
+          "description": "Plan a meeting",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-4.jsx",
+          "sha256": "896a7730e5ba83cef60f56f249b6a7150db44420d00801378dc0950e1b929c01",
+          "storyId": "blocks-scheduling--scheduling-pattern-4"
+        },
+        {
+          "name": "c-scheduling-5",
+          "title": "Create a schedule",
+          "description": "Create a schedule",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-5.jsx",
+          "sha256": "a63aebeb373d703d5d229d4e8821fac2645446c4de54b009f816814c06da5d30",
+          "storyId": "blocks-scheduling--scheduling-pattern-5"
+        },
+        {
+          "name": "c-scheduling-6",
+          "title": "Webinar details and RSVP",
+          "description": "Webinar details and RSVP",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-6.jsx",
+          "sha256": "c78932361cc5942acec5c2c7db37fdf8f05cedcb2458311bd2a0160de27e4ee2",
+          "storyId": "blocks-scheduling--scheduling-pattern-6"
+        },
+        {
+          "name": "c-scheduling-7",
+          "title": "Date and time popover",
+          "description": "Date and time popover",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-7.jsx",
+          "sha256": "7b3a8785f772e404c34ec7dc98c3d60af120d09e11f39dde9042a42a9baa3103",
+          "storyId": "blocks-scheduling--scheduling-pattern-7"
+        }
+      ]
     }
   }
 }

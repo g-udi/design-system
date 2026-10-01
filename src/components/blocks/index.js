@@ -7,6 +7,7 @@ export { default as Wizard } from './Wizard';
 export { default as AuthForm } from './AuthForm';
 export { default as KanbanBoard } from './KanbanBoard';
 export { default as StatCard, StatDelta, StatIcon, StatMeter } from './StatCard';
+export { ScheduleCalendar, TimeSlots, timeSlots, formatTime, formatDuration, addMinutes, minutesBetween, dayKey } from './Scheduling';
 
 // Composition exports
 export { Item, ItemMedia, ItemContent, ItemActions, ItemGroup, ItemSeparator, ItemTitle, ItemDescription, ItemHeader, ItemFooter } from './ResourceList/index.js';

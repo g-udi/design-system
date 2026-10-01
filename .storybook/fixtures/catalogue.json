@@ -433,6 +433,27 @@
       ],
       "importPath": "./src/components/blocks/ResourceList/ResourceList.stories.jsx"
     },
+    "blocks-scheduling--playground": {
+      "id": "blocks-scheduling--playground",
+      "title": "Blocks/Scheduling",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/Scheduling.stories.jsx"
+    },
+    "blocks-scheduling--docs": {
+      "id": "blocks-scheduling--docs",
+      "title": "Blocks/Scheduling",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/Scheduling.stories.jsx"
+    },
     "blocks-application-settingspanel--playground": {
       "id": "blocks-application-settingspanel--playground",
       "title": "Blocks/To Sort/SettingsPanel",
@@ -3381,6 +3402,82 @@
         "autodocs"
       ],
       "importPath": "./src/components/blocks/ResourceList/ItemPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-1": {
+      "id": "blocks-scheduling--scheduling-pattern-1",
+      "title": "Blocks/Scheduling",
+      "name": "Day agenda",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-2": {
+      "id": "blocks-scheduling--scheduling-pattern-2",
+      "title": "Blocks/Scheduling",
+      "name": "Month at a glance",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-3": {
+      "id": "blocks-scheduling--scheduling-pattern-3",
+      "title": "Blocks/Scheduling",
+      "name": "Book a meeting",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-4": {
+      "id": "blocks-scheduling--scheduling-pattern-4",
+      "title": "Blocks/Scheduling",
+      "name": "Plan a meeting",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-5": {
+      "id": "blocks-scheduling--scheduling-pattern-5",
+      "title": "Blocks/Scheduling",
+      "name": "Create a schedule",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-6": {
+      "id": "blocks-scheduling--scheduling-pattern-6",
+      "title": "Blocks/Scheduling",
+      "name": "Webinar details and RSVP",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
+    },
+    "blocks-scheduling--scheduling-pattern-7": {
+      "id": "blocks-scheduling--scheduling-pattern-7",
+      "title": "Blocks/Scheduling",
+      "name": "Date and time popover",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Scheduling/SchedulingPatterns.stories.jsx"
     },
     "blocks-stat-cards--stat-cards-pattern-1": {
       "id": "blocks-stat-cards--stat-cards-pattern-1",
