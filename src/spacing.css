@@ -1,0 +1,44 @@
+/**
+ * Global inner spacing
+ *
+ * @description Padding, gap, height, min-height and size utilities follow
+ * --ds-space-scale (declared in styles.css :root), the same way corner
+ * utilities follow --ds-radius. Controls therefore get shorter or taller with
+ * their padding. Change the scale at runtime to make every component tighter
+ * or more relaxed without rebuilding CSS:
+ *
+ *   :root { --ds-space-scale: 0.75; }  // tight
+ *
+ * Each override re-declares a Tailwind core utility; Tailwind emits it after
+ * the core declaration, so the scaled value wins while margins, widths, and
+ * arbitrary values (`p-[12px]`, `h-(--x)`) keep their exact lengths.
+ */
+
+@utility p-* { padding: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility px-* { padding-inline: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility py-* { padding-block: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility ps-* { padding-inline-start: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility pe-* { padding-inline-end: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility pt-* { padding-top: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility pr-* { padding-right: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility pb-* { padding-bottom: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility pl-* { padding-left: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+
+@utility gap-* { gap: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility gap-x-* { column-gap: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility gap-y-* { row-gap: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+
+/* Heights follow too, so a denser scale shortens controls instead of squeezing their padding. */
+@utility h-* { height: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility min-h-* { min-height: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number)); }
+@utility size-* {
+  width: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number));
+  height: calc(var(--ds-space-scale, 1) * var(--spacing) * --value(number));
+}
+
+/*
+ * space-x-* / space-y-* are intentionally not scaled: Tailwind emits the core
+ * declarations after any override inside the same :where() rule, and raising
+ * specificity would beat margins set on the children. Prefer gap-* for
+ * spacing that should follow the density scale.
+ */

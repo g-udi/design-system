@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 
 import Typography from '../../src/foundations/Typography';
-import { colors, motion, radii, shadows, tokens, typography } from '../../src/tokens';
+import { colors, motion, radii, shadows, spaceScales, tokens, typography } from '../../src/tokens';
 
 import { HighlightedCode } from './HighlightedCode';
 import { InlineText, Page, QuickLink } from './StoryDocs';
@@ -533,6 +533,17 @@ export const Default = {
                   <div className='font-mono text-xs'>{name}</div>
                   <div className='h-10 w-24 border border-blue-500 bg-blue-50 dark:bg-blue-950' style={{ 'borderRadius': value }} />
                 </CopyableToken>
+              ))}
+            </div>
+            <div className='mb-3 mt-6 font-semibold'>Spacing</div>
+            <p className='mb-3'>Density is one multiplier: padding, gaps, control heights and icon sizes follow <code>--ds-space-scale</code>, from tight (0.75×) to spacious (1.5×). Set it globally, or try the Density toolbar. Margins and layout widths stay fixed.</p>
+            <HighlightedCode code={':root { --ds-space-scale: 1; }'} language='css' />
+            <div className='grid gap-3'>
+              {Object.entries(spaceScales).map(([ name, value ]) => (
+                <TokenValue key={ `space-${name}` } name={ `spaceScales.${name}` } value={ String(value) }>
+                  <div className='font-mono text-xs text-gray-900 dark:text-gray-100'>{name}</div>
+                  <div className='mt-1 font-mono text-xs text-gray-500 dark:text-gray-400'>{value}×</div>
+                </TokenValue>
               ))}
             </div>
           </div>

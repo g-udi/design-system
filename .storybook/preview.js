@@ -48,12 +48,13 @@ function makeFocusAccessorPrototypeSafe() {
 
 const STORYBOOK_THEME_CLASSES = [ 'dark' ];
 const CORNER_RADII = [ '0px', '2px', '4px', '8px' ];
+const SPACE_SCALES = Object.values(tokenData.spaceScales).map(String);
 const STORYBOOK_BACKGROUNDS = {
   'dark': tokenData.dsVariables.root['--ds-color-surface-dark'],
   'light': tokenData.dsVariables.root['--ds-color-surface']
 };
 
-function applyStorybookTheme(theme, cornerRadius) {
+function applyStorybookTheme(theme, cornerRadius, spaceScale) {
   const isDark = theme === 'dark';
   const roots = [
     document.documentElement,
@@ -68,14 +69,15 @@ function applyStorybookTheme(theme, cornerRadius) {
   });
 
   document.documentElement.style.setProperty('--ds-radius', CORNER_RADII.includes(cornerRadius) ? cornerRadius : tokenData.dsVariables.root['--ds-radius']);
+  document.documentElement.style.setProperty('--ds-space-scale', SPACE_SCALES.includes(spaceScale) ? spaceScale : tokenData.dsVariables.root['--ds-space-scale']);
   document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
   document.body.style.backgroundColor = isDark ? STORYBOOK_BACKGROUNDS.dark : STORYBOOK_BACKGROUNDS.light;
 }
 
-function syncStorybookTheme(theme, cornerRadius) {
-  applyStorybookTheme(theme, cornerRadius);
-  window.requestAnimationFrame(() => applyStorybookTheme(theme, cornerRadius));
-  window.setTimeout(() => applyStorybookTheme(theme, cornerRadius), 0);
+function syncStorybookTheme(theme, cornerRadius, spaceScale) {
+  applyStorybookTheme(theme, cornerRadius, spaceScale);
+  window.requestAnimationFrame(() => applyStorybookTheme(theme, cornerRadius, spaceScale));
+  window.setTimeout(() => applyStorybookTheme(theme, cornerRadius, spaceScale), 0);
 }
 
 const preview = {
@@ -97,7 +99,7 @@ const preview = {
     // The toolbar theme switch toggles the `dark` class on <html>.
     withThemeByClassName({ themes: { light: '', dark: 'dark' }, defaultTheme: 'light' }),
     (Story, context) => {
-      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius);
+      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius, context.globals.spaceScale);
       return React.createElement(
         ThemeProvider,
         { attribute: 'class', defaultTheme: context.globals.theme, enableSystem: false },
@@ -125,9 +127,23 @@ const preview = {
         dynamicTitle: true
       }
     },
+    spaceScale: {
+      name: 'Density',
+      description: 'Global density: padding, gaps and control heights scale together. Margins and layout widths stay fixed.',
+      toolbar: {
+        title: 'Density',
+        icon: 'expand',
+        items: Object.entries(tokenData.spaceScales).map(([ name, value ]) => ({
+          value: String(value),
+          title: `${name[0].toUpperCase()}${name.slice(1)} · ${value}×`
+        })),
+        dynamicTitle: true
+      }
+    },
   },
   initialGlobals: {
     cornerRadius: tokenData.dsVariables.root['--ds-radius'],
+    spaceScale: tokenData.dsVariables.root['--ds-space-scale'],
     theme: import.meta.env.VITE_GAUDI_THEME || 'light'
   },
   loaders: [ makeFocusAccessorPrototypeSafe ],
