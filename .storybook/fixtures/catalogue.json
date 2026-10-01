@@ -390,6 +390,27 @@
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthForm.stories.jsx"
     },
+    "blocks-forms--playground": {
+      "id": "blocks-forms--playground",
+      "title": "Blocks/Forms",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/Forms.stories.jsx"
+    },
+    "blocks-forms--docs": {
+      "id": "blocks-forms--docs",
+      "title": "Blocks/Forms",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Forms/Forms.stories.jsx"
+    },
     "overview-component-catalogue--browse": {
       "id": "overview-component-catalogue--browse",
       "title": "Component Catalogue",
@@ -3444,6 +3465,193 @@
         "play-fn"
       ],
       "importPath": "./src/components/blocks/AuthForm/AuthPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-1": {
+      "id": "blocks-forms--forms-pattern-1",
+      "title": "Blocks/Forms",
+      "name": "Contact · Message with error summary",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-2": {
+      "id": "blocks-forms--forms-pattern-2",
+      "title": "Blocks/Forms",
+      "name": "Newsletter · Signup and preferences",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-3": {
+      "id": "blocks-forms--forms-pattern-3",
+      "title": "Blocks/Forms",
+      "name": "Feedback · Article survey",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-4": {
+      "id": "blocks-forms--forms-pattern-4",
+      "title": "Blocks/Forms",
+      "name": "Checkout · Address and payment",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-5": {
+      "id": "blocks-forms--forms-pattern-5",
+      "title": "Blocks/Forms",
+      "name": "Events · Registration with email code",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-6": {
+      "id": "blocks-forms--forms-pattern-6",
+      "title": "Blocks/Forms",
+      "name": "Profile · Card with completion and office hours",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-7": {
+      "id": "blocks-forms--forms-pattern-7",
+      "title": "Blocks/Forms",
+      "name": "Profile · Tabs with audit rail",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-8": {
+      "id": "blocks-forms--forms-pattern-8",
+      "title": "Blocks/Forms",
+      "name": "Security · Sign-in policy",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-9": {
+      "id": "blocks-forms--forms-pattern-9",
+      "title": "Blocks/Forms",
+      "name": "Team · Invite with permissions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-10": {
+      "id": "blocks-forms--forms-pattern-10",
+      "title": "Blocks/Forms",
+      "name": "Developer · Create an API key",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-11": {
+      "id": "blocks-forms--forms-pattern-11",
+      "title": "Blocks/Forms",
+      "name": "Billing · Hosted checkout setup",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-12": {
+      "id": "blocks-forms--forms-pattern-12",
+      "title": "Blocks/Forms",
+      "name": "Billing · Invoice with line items",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-13": {
+      "id": "blocks-forms--forms-pattern-13",
+      "title": "Blocks/Forms",
+      "name": "Commerce · New product",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-14": {
+      "id": "blocks-forms--forms-pattern-14",
+      "title": "Blocks/Forms",
+      "name": "Compliance · Business verification",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-15": {
+      "id": "blocks-forms--forms-pattern-15",
+      "title": "Blocks/Forms",
+      "name": "Support · Ticket details",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-16": {
+      "id": "blocks-forms--forms-pattern-16",
+      "title": "Blocks/Forms",
+      "name": "Onboarding · Customer intake",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
+    },
+    "blocks-forms--forms-pattern-17": {
+      "id": "blocks-forms--forms-pattern-17",
+      "title": "Blocks/Forms",
+      "name": "Launch · New app with live summary",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Forms/FormsPatterns.stories.jsx"
     },
     "blocks-application-resourcelist--item-pattern-1": {
       "id": "blocks-application-resourcelist--item-pattern-1",
