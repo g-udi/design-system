@@ -264,7 +264,7 @@ const componentDocs = {
       [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Reusable visual treatment.' ],
       [ 'size', 'xs | sm | md | lg | icon | icon-xs | icon-sm | icon-lg', 'md', 'Compact heights: xs 24px, sm 28px, md/default 32px, lg 36px. Icon sizes match their text-button counterparts. Use matching sizes for controls in the same row.' ],
       [ 'tone', 'accent | neutral | success | warning | danger | attention | discovery | info', 'accent', 'Semantic meaning for the action. Legacy hue names remain supported as compatibility aliases.' ],
-      [ 'radius', 'sm | md | lg | full', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
+      [ 'radius', 'sm | md | lg | full', 'md', 'Legacy aliases use the global --ds-radius setting (4px by default); none stays square where supported.' ],
       [ 'href', 'string', '-', 'Renders an internal Next link or safe external anchor.' ],
       [ 'disabled', 'boolean', 'false', 'Disables native buttons and removes disabled links from the tab order.' ],
       [ 'className', 'string', '-', 'Root class override.' ]
@@ -286,7 +286,7 @@ const componentDocs = {
       [ 'children', 'ReactNode', '-', 'Body content, actions, or nested composition.' ],
       [ 'variant', 'elevated | outline | soft | flat', 'elevated', 'Container surface treatment.' ],
       [ 'padding', 'none | sm | md | lg', 'md', 'Internal spacing.' ],
-      [ 'radius', 'none | sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
+      [ 'radius', 'none | sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (4px by default); none stays square where supported.' ],
       [ 'interactive', 'boolean', 'false', 'Adds hover elevation for cards containing a real link or button.' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, title, subtitle }', '-', 'Slot-level class overrides.' ]
@@ -624,7 +624,7 @@ const componentDocs = {
       [ 'icon', 'ReactNode', '-', 'Optional GridItem icon content.' ],
       [ 'variant', 'elevated | outline | soft', 'elevated', 'GridItem surface treatment.' ],
       [ 'padding', 'sm | md | lg', 'md', 'GridItem internal spacing.' ],
-      [ 'radius', 'sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (2px by default).' ],
+      [ 'radius', 'sm | md | lg', 'md', 'Legacy aliases use the global --ds-radius setting (4px by default).' ],
       [ 'className', 'string', '-', 'Root class override.' ],
       [ 'classNames', '{ root, body, title, description }', '-', 'GridItem slot overrides.' ]
     ]
@@ -722,7 +722,7 @@ const componentDocs = {
       [ 'size', 'xs | sm | md | lg', 'md', 'Controls padding and text size.' ],
       [ 'tone', 'gray | neutral | blue | teal | green | amber | yellow | red | rose | indigo', 'blue', 'Semantic tone alias mapped through Gaudi tokens rather than raw palette utilities.' ],
       [ 'variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Visual treatment.' ],
-      [ 'radius', 'sm | md | full', 'sm', 'Legacy aliases use the global --ds-radius setting (2px by default); none stays square where supported.' ],
+      [ 'radius', 'sm | md | full', 'sm', 'Legacy aliases use the global --ds-radius setting (4px by default); none stays square where supported.' ],
       [ 'href', 'string', '-', 'Renders the pill as a navigation link.' ],
       [ 'icon', 'ReactNode', '-', 'Decorative leading icon.' ],
       [ 'pulse', 'boolean', 'false', 'Adds a pulsing status dot.' ],

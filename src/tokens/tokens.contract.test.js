@@ -22,8 +22,8 @@ const preset = createRequire(import.meta.url)('../../tailwind-preset.cjs');
 const cssValues = (variable) => [ ...css.matchAll(new RegExp(`${variable.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')}:\\s*([^;]+);`, 'g')) ].map((match) => match[1].trim());
 
 test('corner tokens keep a runtime reference to one global radius', () => {
-  assert.equal(tokens.dsVariables.root['--ds-radius'], '2px');
-  assert.equal(cssValues('--ds-radius')[0], '2px');
+  assert.equal(tokens.dsVariables.root['--ds-radius'], '4px');
+  assert.equal(cssValues('--ds-radius')[0], '4px');
   for (const [ name, value ] of Object.entries(tokens.radii)) {
     assert.equal(value, 'var(--ds-radius)', `${name} must follow the global radius`);
     assert.equal(cssValues(`--ds-radius-${name}`)[0], value, `${name} CSS radius drifted`);

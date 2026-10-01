@@ -230,7 +230,7 @@
     --ds-prose-h4-margin-top: 1.5em;
     --ds-prose-h4-margin-bottom: 0.5em;
     /* One application-wide corner setting; highlights keep their own flat edges. */
-    --ds-radius: 2px;
+    --ds-radius: 4px;
     /* Global inner-spacing multiplier for padding and gap (see spacing.css). */
     --ds-space-scale: 1;
     --ds-radius-card: var(--ds-radius);

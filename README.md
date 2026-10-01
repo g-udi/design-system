@@ -53,12 +53,12 @@ import Dialog from '@gaudi/design-system/core/Dialog';
 
 ## Corner radius
 
-Elements use a subtle 2px radius. Set `--ds-radius` on the application root after
+Elements use a soft 4px radius. Set `--ds-radius` on the application root after
 importing Gaudi’s stylesheet to change corners globally, without rebuilding CSS:
 
 ```css
 :root {
-  --ds-radius: 2px; /* Use 0px for square corners. */
+  --ds-radius: 4px; /* Use 0px for square corners. */
 }
 ```
 
