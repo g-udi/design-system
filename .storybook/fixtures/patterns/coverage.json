@@ -1693,7 +1693,7 @@
           "title": "Settings menu, row reordering and scheduling",
           "description": "Settings menu, row reordering and scheduling",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-1.jsx",
-          "sha256": "f503e5fc546ed2fa74be021e541ffe1f47be06a4d477ef7d1e22e6697543eff8",
+          "sha256": "7bcee425b4eeaadca0d68f475436b3a38d8567dc62caf91749dfc8bf5ad2c6cd",
           "storyId": "core-gantt--gantt-pattern-1"
         },
         {
@@ -1701,15 +1701,15 @@
           "title": "Quarter roadmap with rollups",
           "description": "Quarter roadmap with rollups",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-3.jsx",
-          "sha256": "a5a5026af5882a4db3d72f5cd17b494bae391e919d614bfb74dbcec20894dac3",
+          "sha256": "ff6e898440a9d9928cc951e124874e4deb712744c4a091e8235e3dce68c0d87b",
           "storyId": "core-gantt--gantt-pattern-3"
         },
         {
           "name": "c-gantt-4",
-          "title": "Weekly capacity board",
-          "description": "Weekly capacity board",
+          "title": "Capacity-aware resource planner",
+          "description": "Capacity-aware resource planner",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-4.jsx",
-          "sha256": "e22f8ba1f6e255ded5582af891b370d9e91577909c9f11a0795b9cbc2562a1fc",
+          "sha256": "86800694373a9e9ffdccff5050bf69c4f34f920d1f88e34b229c09aef3952f22",
           "storyId": "core-gantt--gantt-pattern-4"
         },
         {
@@ -1717,7 +1717,7 @@
           "title": "Task table with progress",
           "description": "Task table with progress",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-5.jsx",
-          "sha256": "431d411c14278fd1b4566932c6961cc4d8d3f4ea94a86ea4cf8a8e38e18bdfae",
+          "sha256": "3f604398e29450d06da27ca1a994b5a09a30b9a71e91f72b50fddf13c6f86f83",
           "storyId": "core-gantt--gantt-pattern-5"
         },
         {
@@ -1725,8 +1725,32 @@
           "title": "Baseline, dependencies and milestones",
           "description": "Baseline, dependencies and milestones",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-6.jsx",
-          "sha256": "4a8aa5d0cafc9cc7a90876d87a33b76d3c14c0fde75f68f3b5f3fedbb3a67842",
+          "sha256": "3888921f5bff371f7608906559b44ded54e1b96ad82fb333b443e0f2b3055b60",
           "storyId": "core-gantt--gantt-pattern-6"
+        },
+        {
+          "name": "c-gantt-7",
+          "title": "Project planner with live validation",
+          "description": "Project planner with live validation",
+          "file": ".storybook/fixtures/patterns/gantt/c-gantt-7.jsx",
+          "sha256": "783658897d619c28094d09518c91ceef76c82686a8d4394c956ec35a37deb6aa",
+          "storyId": "core-gantt--gantt-pattern-7"
+        },
+        {
+          "name": "c-gantt-8",
+          "title": "Day dispatch",
+          "description": "Day dispatch",
+          "file": ".storybook/fixtures/patterns/gantt/c-gantt-8.jsx",
+          "sha256": "c21729440fa64f1d78c0f2501d24ed112dd632963e6eb473a2e2fb97a886b824",
+          "storyId": "core-gantt--gantt-pattern-8"
+        },
+        {
+          "name": "c-gantt-9",
+          "title": "Agent playbook",
+          "description": "Agent playbook",
+          "file": ".storybook/fixtures/patterns/gantt/c-gantt-9.jsx",
+          "sha256": "3db9672a2b3134d1fb81aa8e13be4b2949a74ebf73c49d60686904e163af00c6",
+          "storyId": "core-gantt--gantt-pattern-9"
         }
       ]
     },

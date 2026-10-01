@@ -5647,6 +5647,17 @@
       ],
       "importPath": "./src/components/core/Gantt/GanttPatterns.stories.jsx"
     },
+    "core-gantt--gantt-pattern-7": {
+      "id": "core-gantt--gantt-pattern-7",
+      "title": "Core/Planning/Gantt",
+      "name": "Project planner with live validation",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Gantt/GanttPatterns.stories.jsx"
+    },
     "core-gantt--gantt-pattern-5": {
       "id": "core-gantt--gantt-pattern-5",
       "title": "Core/Planning/Gantt",
@@ -5670,10 +5681,33 @@
     "core-gantt--gantt-pattern-4": {
       "id": "core-gantt--gantt-pattern-4",
       "title": "Core/Planning/Gantt",
-      "name": "Weekly capacity board",
+      "name": "Capacity-aware resource planner",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Gantt/GanttPatterns.stories.jsx"
+    },
+    "core-gantt--gantt-pattern-8": {
+      "id": "core-gantt--gantt-pattern-8",
+      "title": "Core/Planning/Gantt",
+      "name": "Day dispatch",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Gantt/GanttPatterns.stories.jsx"
+    },
+    "core-gantt--gantt-pattern-9": {
+      "id": "core-gantt--gantt-pattern-9",
+      "title": "Core/Planning/Gantt",
+      "name": "Agent playbook",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Gantt/GanttPatterns.stories.jsx"
     },
