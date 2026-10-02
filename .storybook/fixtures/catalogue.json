@@ -2843,6 +2843,27 @@
       ],
       "importPath": "./src/components/core/DropdownMenu/DropdownMenu.stories.jsx"
     },
+    "core-embed--playground": {
+      "id": "core-embed--playground",
+      "title": "Core/Media & Previews/Embed",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Embed/Embed.stories.jsx"
+    },
+    "core-embed--docs": {
+      "id": "core-embed--docs",
+      "title": "Core/Media & Previews/Embed",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/Embed/Embed.stories.jsx"
+    },
     "core-emptystate--playground": {
       "id": "core-emptystate--playground",
       "title": "Core/Feedback & States/EmptyState",
@@ -3322,6 +3343,49 @@
         "play-fn"
       ],
       "importPath": "./src/components/core/Link/Link.stories.jsx"
+    },
+    "core-linkpreview--playground": {
+      "id": "core-linkpreview--playground",
+      "title": "Core/Media & Previews/LinkPreview",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/LinkPreview/LinkPreview.stories.jsx"
+    },
+    "core-linkpreview--docs": {
+      "id": "core-linkpreview--docs",
+      "title": "Core/Media & Previews/LinkPreview",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/LinkPreview/LinkPreview.stories.jsx"
+    },
+    "core-linkpreview--link-previews": {
+      "id": "core-linkpreview--link-previews",
+      "title": "Core/Media & Previews/LinkPreview",
+      "name": "Link previews",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/LinkPreview/LinkPreview.stories.jsx"
+    },
+    "core-linkpreview--states": {
+      "id": "core-linkpreview--states",
+      "title": "Core/Media & Previews/LinkPreview",
+      "name": "States",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/LinkPreview/LinkPreview.stories.jsx"
     },
     "core-marker--playground": {
       "id": "core-marker--playground",
@@ -4223,6 +4287,49 @@
         "autodocs"
       ],
       "importPath": "./src/components/core/Tree/Tree.stories.jsx"
+    },
+    "core-webpreview--playground": {
+      "id": "core-webpreview--playground",
+      "title": "Core/Media & Previews/WebPreview",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/WebPreview/WebPreview.stories.jsx"
+    },
+    "core-webpreview--docs": {
+      "id": "core-webpreview--docs",
+      "title": "Core/Media & Previews/WebPreview",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/WebPreview/WebPreview.stories.jsx"
+    },
+    "core-webpreview--ai-message-with-web-preview": {
+      "id": "core-webpreview--ai-message-with-web-preview",
+      "title": "Core/Media & Previews/WebPreview",
+      "name": "AI message with web preview",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/WebPreview/WebPreview.stories.jsx"
+    },
+    "core-webpreview--blocked-embed": {
+      "id": "core-webpreview--blocked-embed",
+      "title": "Core/Media & Previews/WebPreview",
+      "name": "Blocked embed",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/WebPreview/WebPreview.stories.jsx"
     },
     "mdx-aside--playground": {
       "id": "mdx-aside--playground",

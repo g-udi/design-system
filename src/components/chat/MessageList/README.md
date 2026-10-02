@@ -60,7 +60,7 @@ import { MessageCheckpoint } from '@gaudi/design-system/chat';
 <MessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />
 ```
 
-Adapted from the Checkpoint component of [AI SDK Elements](https://elements.ai-sdk.dev/components/checkpoint) (MIT License, Copyright (c) 2023 Vercel, Inc.).
+Adapted from the Checkpoint component of [AI SDK Elements](https://elements.ai-sdk.dev/components/checkpoint) (Apache-2.0, Copyright 2023 Vercel, Inc.).
 
 ### Markdown
 

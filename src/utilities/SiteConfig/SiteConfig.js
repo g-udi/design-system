@@ -26,6 +26,10 @@ export const defaultSiteConfig = {
   'navigation': {
     'categoriesMetadata': {},
     'links': []
+  },
+  // The app-owned link preview endpoint LinkPreview calls; `null` turns enrichment off.
+  'preview': {
+    'endpoint': '/api/preview'
   }
 };
 
@@ -38,6 +42,7 @@ const SiteConfigContext = createContext(defaultSiteConfig);
  * @param {React.ReactNode} props.children - Descendant tree that reads the config
  * @param {Object} [props.metadata] - Site metadata (author, title, locale, theme, …)
  * @param {Object} [props.navigation] - Navigation data (links, categoriesMetadata)
+ * @param {Object} [props.preview] - Link preview settings ({ endpoint: string | (url) => string | null })
  *
  * @returns {JSX.Element} Context provider wrapping children
  *
@@ -46,11 +51,12 @@ const SiteConfigContext = createContext(defaultSiteConfig);
  *   <App />
  * </SiteConfigProvider>
  */
-export function SiteConfigProvider({ children, metadata, navigation }) {
+export function SiteConfigProvider({ children, metadata, navigation, preview }) {
   const value = useMemo(() => ({
     'metadata': { ...defaultSiteConfig.metadata, ...metadata },
-    'navigation': { ...defaultSiteConfig.navigation, ...navigation }
-  }), [ metadata, navigation ]);
+    'navigation': { ...defaultSiteConfig.navigation, ...navigation },
+    'preview': { ...defaultSiteConfig.preview, ...preview }
+  }), [ metadata, navigation, preview ]);
 
   return <SiteConfigContext.Provider value={ value }>{children}</SiteConfigContext.Provider>;
 }
@@ -58,7 +64,7 @@ export function SiteConfigProvider({ children, metadata, navigation }) {
 /**
  * Reads the current site configuration
  *
- * @returns {{ metadata: Object, navigation: Object }} The active site config, or defaults
+ * @returns {{ metadata: Object, navigation: Object, preview: Object }} The active site config, or defaults
  */
 export function useSiteConfig() {
   return useContext(SiteConfigContext);

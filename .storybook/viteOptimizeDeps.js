@@ -280,6 +280,7 @@ export const lucideIconOptimizeDeps = [
   'lucide-react/dist/esm/icons/skip-forward.js',
   'lucide-react/dist/esm/icons/sliders-horizontal.js',
   'lucide-react/dist/esm/icons/smartphone.js',
+  'lucide-react/dist/esm/icons/tablet.js',
   'lucide-react/dist/esm/icons/smile.js',
   'lucide-react/dist/esm/icons/sparkles.js',
   'lucide-react/dist/esm/icons/split.js',

@@ -31,4 +31,4 @@ import { Shimmer } from '@gaudi/design-system';
 - The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.
 - The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.
 
-Adapted from the Shimmer component of [AI SDK Elements](https://elements.ai-sdk.dev/components/shimmer) (MIT License, Copyright (c) 2023 Vercel, Inc.).
+Adapted from the Shimmer component of [AI SDK Elements](https://elements.ai-sdk.dev/components/shimmer) (Apache-2.0, Copyright 2023 Vercel, Inc.).

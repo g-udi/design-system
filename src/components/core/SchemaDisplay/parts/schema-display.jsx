@@ -8,7 +8,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../Accor
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 
 /*
- * Schema display adapted from AI SDK Elements (MIT, Copyright (c) 2023 Vercel, Inc.) onto Gaudi badges,
+ * Schema display adapted from AI SDK Elements (Apache-2.0, Copyright 2023 Vercel, Inc.) onto Gaudi badges,
  * disclosures and CodeBlock. It reads plain JSON Schema (type, properties, required, items, enum, format,
  * description, oneOf/anyOf) and an endpoint's method, path and parameters; it never fetches or validates.
  */

@@ -43,4 +43,4 @@ The trail and every detailed step are disclosure buttons with `aria-expanded`. A
 
 ## Attribution
 
-Reasoning, Chain of Thought and Shimmer behaviour is adapted from [AI SDK Elements](https://elements.ai-sdk.dev/components/chain-of-thought) (MIT License, Copyright (c) 2023 Vercel, Inc.).
+Reasoning, Chain of Thought and Shimmer behaviour is adapted from [AI SDK Elements](https://elements.ai-sdk.dev/components/chain-of-thought) (Apache-2.0, Copyright 2023 Vercel, Inc.).

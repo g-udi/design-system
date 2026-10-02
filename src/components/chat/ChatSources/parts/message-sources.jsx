@@ -10,7 +10,7 @@ import { SourceIcon, siteOf } from '../../shared/source.jsx';
 /*
  * A source is `{ title, url?, kind?: 'web' | 'document', site?, excerpt?, quote?, icon? }`. Citations in the
  * reply are numbered from the same list, so marker [2] and the second row of MessageSources name the same
- * thing. The inline citation's hover card and carousel are adapted from AI SDK Elements (MIT, Copyright (c)
+ * thing. The inline citation's hover card and carousel are adapted from AI SDK Elements (Apache-2.0, Copyright
  * 2023 Vercel, Inc.).
  */
 

@@ -43,4 +43,4 @@ SpeechInput is a real button with `aria-pressed` while listening; Escape stops i
 
 ## Attribution
 
-The APIs adapt the SpeechInput, MicSelector, VoiceSelector and AudioPlayer components of [AI SDK Elements](https://elements.ai-sdk.dev/components/speech-input) (Vercel, MIT) to Gaudi components, tokens and icons. No source was copied; the voice list is example data.
+The APIs adapt the SpeechInput, MicSelector, VoiceSelector and AudioPlayer components of [AI SDK Elements](https://elements.ai-sdk.dev/components/speech-input) (Vercel, Apache-2.0) to Gaudi components, tokens and icons. No source was copied; the voice list is example data.

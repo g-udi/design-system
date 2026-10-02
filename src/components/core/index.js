@@ -108,3 +108,8 @@ export { TooltipRoot, TooltipContent, TooltipProvider, TooltipTrigger } from './
 export { Tree, TreeItem, TreeItemLabel, TreeDragLine } from './Tree/index.js';
 
 export { DialogConfirmationRoot, DialogConfirmationAction, DialogConfirmationCancel, DialogConfirmationContent, DialogConfirmationDescription, DialogConfirmationFooter, DialogConfirmationHeader, DialogConfirmationMedia, DialogConfirmationOverlay, DialogConfirmationPortal, DialogConfirmationTitle, DialogConfirmationTrigger } from './Dialog/index.js';
+
+// Previews: link previews, the framed web preview and the Embed switch.
+export { default as LinkPreview, LinkPreviewFallback, LinkPreviewBody, LinkPreviewCard, LinkPreviewCompact, LinkPreviewFavicon, LinkPreviewMedia, LinkPreviewMeta, LinkPreviewSkeleton, LinkPreviewTags, normalizeLinkPreview, detectLinkKind, hasLinkPreviewDetails, linkPreviewKinds, getPreviewImageUrl, getYouTubeVideoId, getLinkHost, formatLinkTitle, formatLinkCount, formatLinkDuration, usePreviewData, usePreviewEndpoint, resolvePreviewRequest, clearPreviewCache, DEFAULT_PREVIEW_ENDPOINT } from './LinkPreview/index.js';
+export { default as WebPreview, WebPreviewRoot, WebPreviewNavigation, WebPreviewNavigationButton, WebPreviewHistoryButtons, WebPreviewUrl, WebPreviewOpenButton, WebPreviewDevices, WebPreviewBody, WebPreviewConsole, useWebPreview, defaultWebPreviewLabels, webPreviewDevices, normalizeWebPreviewUrl, DEFAULT_WEB_PREVIEW_SANDBOX } from './WebPreview/index.js';
+export { default as Embed, resolveEmbedType, embedTypes } from './Embed/index.js';

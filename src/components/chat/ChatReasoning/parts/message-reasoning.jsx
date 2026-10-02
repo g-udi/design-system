@@ -10,7 +10,7 @@ import { SourceIcon, siteOf } from '../../shared/source.jsx';
 
 /*
  * Reasoning, chain-of-thought steps, search results and image thumbnails adapted from AI SDK Elements
- * (MIT, Copyright (c) 2023 Vercel, Inc.) onto Gaudi's disclosure, status vocabulary and tokens.
+ * (Apache-2.0, Copyright 2023 Vercel, Inc.) onto Gaudi's disclosure, status vocabulary and tokens.
  */
 
 const AUTO_CLOSE_DELAY = 1000;

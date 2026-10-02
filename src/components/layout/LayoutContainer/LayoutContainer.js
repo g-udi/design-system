@@ -63,6 +63,7 @@ const serializeJsonLd = (jsonLd) => {
  * @param {Object} [props.menuProps] - Navigation and command launcher content data
  * @param {Object} [props.metadata] - Site metadata (author, title, locale, theme, …)
  * @param {Object} [props.navigation] - Navigation data (links, categoriesMetadata)
+ * @param {Object} [props.preview] - Link preview settings forwarded to SiteConfigProvider ({ endpoint })
  *
  * @returns {Promise<JSX.Element>} The rendered layout container component
  *
@@ -71,7 +72,7 @@ const serializeJsonLd = (jsonLd) => {
  *   <HomePage />
  * </LayoutContainer>
  */
-export default async function LayoutContainer({ children, footerProps, jsonLd, menuProps, metadata = {}, navigation }) {
+export default async function LayoutContainer({ children, footerProps, jsonLd, menuProps, metadata = {}, navigation, preview }) {
   const themeCookie = await getThemeCookieStore();
   const theme = themeCookie?.get('__theme__')?.value || metadata.theme || 'system';
   const jsonLdMarkup = serializeJsonLd(await resolveJsonLd(jsonLd));
@@ -91,7 +92,7 @@ export default async function LayoutContainer({ children, footerProps, jsonLd, m
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem disableTransitionOnChange>
           <Analytics />
 
-          <SiteConfigProvider metadata={ metadata } navigation={ navigation }>
+          <SiteConfigProvider metadata={ metadata } navigation={ navigation } preview={ preview }>
             <div className='relative w-full sm:w-[95%] xl:w-[90%] isolate xl:max-w-6xl px-4 sm:px-8 dark:z-10'>
               <div className='flex min-h-dvh flex-col'>
                 <FloatingMenu/>

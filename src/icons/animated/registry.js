@@ -469,6 +469,7 @@ export const animatedIconRegistry = {
   "Sun": artwork86,
   "SunFill": artwork86,
   "Table": drawIcons["Table"],
+  "Tablet": drawIcons["Tablet"],
   "Tag": drawIcons["Tag"],
   "Tags": drawIcons["Tags"],
   "Target": drawIcons["Target"],
@@ -2095,6 +2096,10 @@ export const animatedIconMetadata = {
   },
   "Table": {
     "canonical": "Table",
+    "source": "gaudi-draw"
+  },
+  "Tablet": {
+    "canonical": "Tablet",
     "source": "gaudi-draw"
   },
   "Tag": {

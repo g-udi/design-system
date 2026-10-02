@@ -10,7 +10,7 @@ import { MessageStatus } from '../../shared/message-status.jsx';
 import { MessageData } from './message-tool.jsx';
 
 /*
- * Tool approval adapted from the AI SDK Elements Confirmation (MIT, Copyright (c) 2023 Vercel, Inc.).
+ * Tool approval adapted from the AI SDK Elements Confirmation (Apache-2.0, Copyright 2023 Vercel, Inc.).
  * States follow the request: requested → approved (running) → executed, or requested → denied.
  */
 

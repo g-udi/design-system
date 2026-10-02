@@ -62,4 +62,4 @@ The model trigger names the current model. The searchable list is a dialog with 
 
 ## Attribution
 
-The model selector, prompt toolbar and context meter adapt ideas from [AI SDK Elements](https://elements.ai-sdk.dev) (Model Selector, Prompt Input, Context; MIT, Vercel) to Gaudi's parts, tokens and icons.
+The model selector, prompt toolbar and context meter adapt ideas from [AI SDK Elements](https://elements.ai-sdk.dev) (Model Selector, Prompt Input, Context; Apache-2.0, Vercel) to Gaudi's parts, tokens and icons.

@@ -43,4 +43,4 @@ Section titles are real headings. Nested objects open from disclosure buttons wi
 
 ## Attribution
 
-Adapted from the Schema Display component of [AI SDK Elements](https://elements.ai-sdk.dev/components/schema-display) (MIT License, Copyright (c) 2023 Vercel, Inc.).
+Adapted from the Schema Display component of [AI SDK Elements](https://elements.ai-sdk.dev/components/schema-display) (Apache-2.0, Copyright 2023 Vercel, Inc.).

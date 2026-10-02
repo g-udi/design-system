@@ -31,4 +31,4 @@ Each citation is a button named "Source 1: title" (", and 2 more" when grouped).
 
 ## Attribution
 
-The citation card and carousel are adapted from the Inline Citation component of [AI SDK Elements](https://elements.ai-sdk.dev/components/inline-citation) (MIT License, Copyright (c) 2023 Vercel, Inc.).
+The citation card and carousel are adapted from the Inline Citation component of [AI SDK Elements](https://elements.ai-sdk.dev/components/inline-citation) (Apache-2.0, Copyright 2023 Vercel, Inc.).

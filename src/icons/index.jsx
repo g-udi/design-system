@@ -244,6 +244,7 @@ import CatalogueSkipBack from 'lucide-react/dist/esm/icons/skip-back.js';
 import CatalogueSkipForward from 'lucide-react/dist/esm/icons/skip-forward.js';
 import CatalogueSlidersHorizontal from 'lucide-react/dist/esm/icons/sliders-horizontal.js';
 import CatalogueSmartphone from 'lucide-react/dist/esm/icons/smartphone.js';
+import CatalogueTablet from 'lucide-react/dist/esm/icons/tablet.js';
 import CatalogueSmile from 'lucide-react/dist/esm/icons/smile.js';
 import CatalogueSparkles from 'lucide-react/dist/esm/icons/sparkles.js';
 import CatalogueSquareCheck from 'lucide-react/dist/esm/icons/square-check.js';
@@ -663,6 +664,7 @@ export const iconRegistry = {
   'SkipForward': CatalogueSkipForward,
   'SlidersHorizontal': CatalogueSlidersHorizontal,
   'Smartphone': CatalogueSmartphone,
+  'Tablet': CatalogueTablet,
   'Smile': CatalogueSmile,
   'Sparkles': CatalogueSparkles,
   'SquareCheck': CatalogueSquareCheck,
