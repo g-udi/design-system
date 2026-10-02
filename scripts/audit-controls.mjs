@@ -13,7 +13,12 @@ const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 const failures = {};
 
 for (const id of ids) {
-  await page.goto(`${base}/iframe.html?id=${id}&viewMode=story`);
+  // A dev server compiles each story on first visit; retry once so a slow compile is not reported as a crash.
+  try {
+    await page.goto(`${base}/iframe.html?id=${id}&viewMode=story`, { timeout: 60000 });
+  } catch {
+    await page.goto(`${base}/iframe.html?id=${id}&viewMode=story`, { timeout: 90000 });
+  }
   await page.waitForFunction(() => window.__STORYBOOK_PREVIEW__?.storyStoreValue, null, { timeout: 30000 });
   await page.waitForTimeout(2500);
   const dead = await page.evaluate(async (storyId) => {
