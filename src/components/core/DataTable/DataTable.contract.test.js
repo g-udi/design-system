@@ -82,10 +82,7 @@ test('the tree grid renders rollups, cascading checkboxes, grips and a grand tot
 
 // DataGrid view controls. A real TanStack table, built through `useTable` during
 // a static render, exercises the helpers against the registered grid features.
-const { createElement } = await import('react');
-const { renderToStaticMarkup } = await import('react-dom/server');
 const { useTable } = await import('@tanstack/react-table-v9');
-const { loadComponent } = await import('../../../test-support/renderComponent.js');
 const grid = await loadComponent(new URL('./index.js', import.meta.url));
 const heatmap = await loadComponent(new URL('../../charts/HeatmapChart/index.js', import.meta.url));
 const crm = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/data-grid/c-data-grid-50.jsx', import.meta.url));
