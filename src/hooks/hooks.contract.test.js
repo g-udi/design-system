@@ -52,7 +52,7 @@ test('hooks are public from the hooks entry and the package root', () => {
 });
 
 test('the Storybook sidebar places Hooks right after Charts and keeps the hook pages visible', async () => {
-  assert.match(read('../../.storybook/preview.js'), /'Charts', 'Hooks', 'Navigation'/);
+  assert.match(read('../../.storybook/preview.js'), /'Charts', 'Hooks', 'MDX'/);
   const { isSidebarEntry } = await import('../../.storybook/navigation.js');
   assert.ok(isSidebarEntry({ id: 'hooks-overview--default', title: 'Hooks/Overview' }));
   const catalogue = JSON.parse(read('../../.storybook/fixtures/catalogue.json'));

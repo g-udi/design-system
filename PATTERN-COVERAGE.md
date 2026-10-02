@@ -2,7 +2,7 @@
 
 Gaudi's pattern catalogue documents every component family with working examples. New patterns follow one rule: extend a matching Gaudi owner and add a component only for a distinct gap.
 
-The catalogue covers **112 families and 492 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
+The catalogue covers **112 families and 493 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
 
 [Browse the component catalogue](http://localhost:6007/?path=/story/overview-component-catalogue--browse). Each example has copyable JSX with public Gaudi imports, its original use case, and automatic accessibility checks.
 
@@ -101,7 +101,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | message | [chat/Message](src/components/chat/Message/index.js) | 2 |
 | message-scroller | [chat/MessageList](src/components/chat/MessageList/index.js) | 6 |
 | native-select | [core/Select](src/components/core/Select/index.js) | 1 |
-| navigation-menu | [core/NavigationMenu](src/components/core/NavigationMenu/index.js) | 1 |
+| navigation-menu | [core/NavigationMenu](src/components/core/NavigationMenu/index.js) | 2 |
 | number-field | [core/NumberField](src/components/core/NumberField/index.js) | 2 |
 | pagination | [core/Pagination](src/components/core/Pagination/index.js) | 4 |
 | phone-input | [core/PhoneInput](src/components/core/PhoneInput/index.js) | 1 |

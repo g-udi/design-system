@@ -2716,6 +2716,14 @@
           "file": ".storybook/fixtures/patterns/navigation-menu/c-navigation-menu-1.jsx",
           "sha256": "eb4750a0c017728e03b69d697cff046472ce3ee752bef497d6b568e179ab573f",
           "storyId": "core-navigationmenu--navigation-menu-pattern-1"
+        },
+        {
+          "name": "c-navigation-menu-2",
+          "title": "Blog menu with recent posts",
+          "description": "Blog menu with recent posts",
+          "file": ".storybook/fixtures/patterns/navigation-menu/c-navigation-menu-2.jsx",
+          "sha256": "923949227b5d5f46d54e24436c0b6eba8c7a0bf510cd00062c29d55a5b4482f7",
+          "storyId": "core-navigationmenu--navigation-menu-pattern-2"
         }
       ]
     },

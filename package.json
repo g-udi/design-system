@@ -85,14 +85,6 @@
       "import": "./src/components/mdx/runtime.js",
       "default": "./src/components/mdx/runtime.js"
     },
-    "./navigation/*": {
-      "import": "./src/components/navigation/*/index.js",
-      "default": "./src/components/navigation/*/index.js"
-    },
-    "./navigation": {
-      "import": "./src/components/navigation/index.js",
-      "default": "./src/components/navigation/index.js"
-    },
     "./post/*": {
       "import": "./src/components/post/*/index.js",
       "default": "./src/components/post/*/index.js"

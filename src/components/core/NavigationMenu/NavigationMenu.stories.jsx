@@ -48,7 +48,7 @@ export default {
   argTypes: docsArgTypes(docs, {
     defaultOpen: 'boolean',
     align: ['start', 'center', 'end'],
-    width: ['sm', 'md', 'lg', 'xl'],
+    width: ['sm', 'md', 'lg', 'xl', '2xl'],
     columns: [1, 2, 3]
   }),
   parameters: {

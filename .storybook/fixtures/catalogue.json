@@ -413,6 +413,82 @@
       ],
       "importPath": "./src/components/blocks/Forms/Forms.stories.jsx"
     },
+    "blocks-navigation--playground": {
+      "id": "blocks-navigation--playground",
+      "title": "Blocks/Navigation",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--docs": {
+      "id": "blocks-navigation--docs",
+      "title": "Blocks/Navigation",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--blog-route": {
+      "id": "blocks-navigation--blog-route",
+      "title": "Blocks/Navigation",
+      "name": "Blog Route",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--custom-logo-slot": {
+      "id": "blocks-navigation--custom-logo-slot",
+      "title": "Blocks/Navigation",
+      "name": "Custom logo",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--phone-sheet": {
+      "id": "blocks-navigation--phone-sheet",
+      "title": "Blocks/Navigation",
+      "name": "Phone Sheet",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--search-handoff": {
+      "id": "blocks-navigation--search-handoff",
+      "title": "Blocks/Navigation",
+      "name": "Search Handoff",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
+    "blocks-navigation--search-trigger": {
+      "id": "blocks-navigation--search-trigger",
+      "title": "Blocks/Navigation",
+      "name": "Search trigger",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Navigation/Navigation.stories.jsx"
+    },
     "overview-component-catalogue--browse": {
       "id": "overview-component-catalogue--browse",
       "title": "Component Catalogue",
@@ -2830,6 +2906,60 @@
       ],
       "importPath": "./src/components/core/FilterBar/FilterBar.stories.jsx"
     },
+    "core-floatingmenu--playground": {
+      "id": "core-floatingmenu--playground",
+      "title": "Core/Navigation/FloatingMenu",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/FloatingMenu/FloatingMenu.stories.jsx"
+    },
+    "core-floatingmenu--docs": {
+      "id": "core-floatingmenu--docs",
+      "title": "Core/Navigation/FloatingMenu",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/FloatingMenu/FloatingMenu.stories.jsx"
+    },
+    "core-floatingmenu--reveal-past-threshold": {
+      "id": "core-floatingmenu--reveal-past-threshold",
+      "title": "Core/Navigation/FloatingMenu",
+      "name": "Reveal Past Threshold",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/FloatingMenu/FloatingMenu.stories.jsx"
+    },
+    "core-floatingmenu--with-call-to-action": {
+      "id": "core-floatingmenu--with-call-to-action",
+      "title": "Core/Navigation/FloatingMenu",
+      "name": "With Call To Action",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/FloatingMenu/FloatingMenu.stories.jsx"
+    },
+    "core-floatingmenu--keyboard-reveal": {
+      "id": "core-floatingmenu--keyboard-reveal",
+      "title": "Core/Navigation/FloatingMenu",
+      "name": "Keyboard Reveal",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/FloatingMenu/FloatingMenu.stories.jsx"
+    },
     "core-flow--playground": {
       "id": "core-flow--playground",
       "title": "Core/Planning/Flow",
@@ -4428,175 +4558,6 @@
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Video/Video.stories.jsx"
-    },
-    "navigation-dropdown--playground": {
-      "id": "navigation-dropdown--playground",
-      "title": "Navigation/DropDown",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/DropDown/DropDown.stories.jsx"
-    },
-    "navigation-dropdown--docs": {
-      "id": "navigation-dropdown--docs",
-      "title": "Navigation/DropDown",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/DropDown/DropDown.stories.jsx"
-    },
-    "navigation-floatingmenu--playground": {
-      "id": "navigation-floatingmenu--playground",
-      "title": "Navigation/FloatingMenu",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/FloatingMenu/FloatingMenu.stories.jsx"
-    },
-    "navigation-floatingmenu--docs": {
-      "id": "navigation-floatingmenu--docs",
-      "title": "Navigation/FloatingMenu",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/FloatingMenu/FloatingMenu.stories.jsx"
-    },
-    "navigation-menu--playground": {
-      "id": "navigation-menu--playground",
-      "title": "Navigation/Menu",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/Menu/Menu.stories.jsx"
-    },
-    "navigation-menu--docs": {
-      "id": "navigation-menu--docs",
-      "title": "Navigation/Menu",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/Menu/Menu.stories.jsx"
-    },
-    "navigation-menu--blog-route": {
-      "id": "navigation-menu--blog-route",
-      "title": "Navigation/Menu",
-      "name": "Blog Route",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/Menu/Menu.stories.jsx"
-    },
-    "navigation-menulogo--playground": {
-      "id": "navigation-menulogo--playground",
-      "title": "Navigation/MenuLogo",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuLogo/MenuLogo.stories.jsx"
-    },
-    "navigation-menulogo--docs": {
-      "id": "navigation-menulogo--docs",
-      "title": "Navigation/MenuLogo",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/MenuLogo/MenuLogo.stories.jsx"
-    },
-    "navigation-menumain--playground": {
-      "id": "navigation-menumain--playground",
-      "title": "Navigation/MenuMain",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuMain/MenuMain.stories.jsx"
-    },
-    "navigation-menumain--docs": {
-      "id": "navigation-menumain--docs",
-      "title": "Navigation/MenuMain",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/MenuMain/MenuMain.stories.jsx"
-    },
-    "navigation-menumobile--playground": {
-      "id": "navigation-menumobile--playground",
-      "title": "Navigation/MenuMobile",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuMobile/MenuMobile.stories.jsx"
-    },
-    "navigation-menumobile--docs": {
-      "id": "navigation-menumobile--docs",
-      "title": "Navigation/MenuMobile",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/MenuMobile/MenuMobile.stories.jsx"
-    },
-    "navigation-menumobile--search-handoff": {
-      "id": "navigation-menumobile--search-handoff",
-      "title": "Navigation/MenuMobile",
-      "name": "Search Handoff",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuMobile/MenuMobile.stories.jsx"
-    },
-    "navigation-menusearch--playground": {
-      "id": "navigation-menusearch--playground",
-      "title": "Navigation/MenuSearch",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/navigation/MenuSearch/MenuSearch.stories.jsx"
-    },
-    "navigation-menusearch--docs": {
-      "id": "navigation-menusearch--docs",
-      "title": "Navigation/MenuSearch",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/navigation/MenuSearch/MenuSearch.stories.jsx"
     },
     "post-post--playground": {
       "id": "post-post--playground",
@@ -8538,6 +8499,17 @@
       "id": "core-navigationmenu--navigation-menu-pattern-1",
       "title": "Core/Navigation/NavigationMenu",
       "name": "Site header menu",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/NavigationMenu/NavigationMenuPatterns.stories.jsx"
+    },
+    "core-navigationmenu--navigation-menu-pattern-2": {
+      "id": "core-navigationmenu--navigation-menu-pattern-2",
+      "title": "Core/Navigation/NavigationMenu",
+      "name": "Blog menu with recent posts",
       "type": "story",
       "tags": [
         "autodocs",

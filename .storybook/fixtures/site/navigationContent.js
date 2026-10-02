@@ -4,7 +4,7 @@ import navigationMetadata from './navigationMetadata.mjs';
 /** Blog categories in the `{ id, title, description }` shape the navigation menus accept. */
 export const categories = categoryData.map(({ id, title, description }) => ({ id, title, description }));
 
-/** Destinations shown on every route, as consumed by FloatingMenu and MenuMobile. */
+/** Destinations shown on every route, as consumed by FloatingMenu and the site header phone sheet. */
 export const primaryLinks = navigationMetadata.links
   .filter((link) => link.showInPath === '*')
   .map(({ href, title }) => ({ href, title }));

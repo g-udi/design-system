@@ -3,6 +3,7 @@ import { expect, within } from 'storybook/test';
 import { CheckList, Page, QuickLink, Section, Table, Td, Th } from './StoryDocs';
 
 const blockGroups = [
+  [ 'Site navigation', 'The blog site header: primary links, a two-block Blog panel of categories and recent posts, search, theme switch and a phone sheet.', 'blocks-navigation--playground' ],
   [ 'App shells', 'Framed application shells: icon rails, floating and inset sidebars, mail, chat and mission-control layouts.', 'blocks-application-appshell--app-shell-pattern-1' ],
   [ 'Setup and onboarding', 'Sequential validation, review, asynchronous completion and recovery.', 'blocks-application-wizard--playground' ],
   [ 'Settings and profile', 'Preference, notification, integration and developer settings screens built from reusable fields.', 'blocks-settings--screens-pattern-6' ],
@@ -13,7 +14,7 @@ const blockGroups = [
 const compositionRules = [
   'Start with an exported application or editorial block when its composition contract fits your page.',
   'Keep application data, routing policy, and request state outside the block; pass them through documented props.',
-  'Compose blocks from Core, Layout, Navigation, and Post APIs instead of duplicating their behavior.',
+  'Compose blocks from Core, Layout, and Post APIs instead of duplicating their behavior.',
   'Verify sparse, empty, loading, and failure states whenever the block owns a variable collection or action.',
   'Preserve heading order and landmark ownership when placing several blocks on one page.'
 ];

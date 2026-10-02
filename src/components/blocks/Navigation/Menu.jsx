@@ -1,14 +1,11 @@
 'use client';
 
 /**
- * Main Navigation Menu Component
+ * Site header (Blocks/Navigation)
  *
- * @description The site header: logo, the primary NavigationMenu (links plus the Blog or Categories
- * dropdown), search, theme switch, and the mobile menu below `lg`. Adapts its content to the current route
+ * @description The site header: brand mark, the primary NavigationMenu (links plus the Blog or Categories
+ * dropdown), search, theme switch, and the phone sheet below `lg`. Adapts its content to the current route
  * and opens the command launcher.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -18,27 +15,57 @@ import CommandLauncher from '../../core/Commander';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
-import { NavigationMenu, NavigationMenuLink, NavigationMenuList } from '../../core/NavigationMenu';
-import MenuDropdownPanel from '../MenuDropdownPanel';
-import ThemeLogo from '../MenuLogo';
-import MenuMain from '../MenuMain';
-import MenuMobile from '../MenuMobile';
-import MenuSearch from '../MenuSearch';
+import { NavigationMenu, NavigationMenuAside, NavigationMenuDropdown, NavigationMenuLink, NavigationMenuList } from '../../core/NavigationMenu';
+import BrandMark from './parts/BrandMark.jsx';
+import MenuMobile from './parts/MenuMobile.jsx';
+import MenuSearch from './parts/MenuSearch.jsx';
 import ThemeSwitch from '../../../utilities/ThemeSwitcher';
 import { coreContent, sortPosts } from '../../../utilities/content';
+import formatDate from '../../../utilities/formatDate';
 import { useSiteConfig } from '../../../utilities/SiteConfig';
+import { formatCategoryTitle } from '../../../utilities/taxonomy';
+
+/** Category destinations for a Blog or Categories panel. */
+const CategoryLinks = ({ categories }) => (
+  <ul className='m-0 grid list-none content-start gap-0.5 p-0'>
+    {categories.map((category) => (
+      <li key={ category.id }>
+        <NavigationMenuLink variant='panel' href={ `/blog/categories/${category.id}` } description={ category.description }>
+          {formatCategoryTitle(category.title)}
+        </NavigationMenuLink>
+      </li>
+    ))}
+  </ul>
+);
+
+/** The Blog panel's second block: the three most recent posts and a See all link. */
+const RecentPosts = ({ locale, posts }) => (
+  <NavigationMenuAside title='Recent posts' action={{ 'href': '/blog', 'label': 'See all' }}>
+    <ul className='m-0 grid list-none gap-0.5 p-0'>
+      {posts.slice(0, 3).map((post) => (
+        <li key={ post.slug }>
+          <NavigationMenuLink variant='panel' href={ `/blog/${post.slug}` } description={ formatDate(post.date, locale) }>
+            <span className='block truncate'>{post.title}</span>
+          </NavigationMenuLink>
+        </li>
+      ))}
+    </ul>
+  </NavigationMenuAside>
+);
 
 /**
  * Renders the site header
  *
  * @param {Object} props - Searchable content collections for the Blog panel and the command launcher
+ * @param {React.ReactNode} [props.logo] - Brand shown in the home link; defaults to the Gaudi brand mark
  * @returns {JSX.Element} The site header
  *
  * @example
- * <Menu categories={categories} posts={posts} />
+ * <Menu categories={categories} posts={posts} logo={<img src='/logo.svg' alt='' className='size-10' />} />
  */
 const Menu = ({
   categories: categoriesProp,
+  logo,
   posts: postsProp,
   projects: projectsProp,
   publications: publicationsProp,
@@ -83,8 +110,8 @@ const Menu = ({
 
   return (
     <header className='flex min-h-14 items-center justify-between gap-4 py-3 lg:py-4'>
-      <Link href='/' aria-label={ metadata.author.name || metadata.title || 'Home' } variant='bare' className='shrink-0 text-text'>
-        <ThemeLogo />
+      <Link href='/' aria-label={ metadata.author?.name || metadata.title || 'Home' } variant='bare' className='shrink-0 text-text'>
+        {logo ?? <BrandMark />}
       </Link>
 
       <div className='flex min-w-0 items-center gap-3 lg:gap-5'>
@@ -95,9 +122,15 @@ const Menu = ({
                 {link.title}
               </NavigationMenuLink>
             ))}
-            {onBlogRoute
-              ? <MenuDropdownPanel name='Categories' categories={ menuCategories } />
-              : <MenuMain categories={ menuCategories } allPosts={ posts } />}
+            {onBlogRoute ? (
+              <NavigationMenuDropdown label='Categories' align='center' width='md'>
+                <CategoryLinks categories={ menuCategories } />
+              </NavigationMenuDropdown>
+            ) : (
+              <NavigationMenuDropdown label='Blog' align='center' width='2xl' aside={ <RecentPosts posts={ posts } locale={ metadata.locale } /> }>
+                <CategoryLinks categories={ menuCategories } />
+              </NavigationMenuDropdown>
+            )}
           </NavigationMenuList>
         </NavigationMenu>
 

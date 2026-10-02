@@ -6,7 +6,7 @@ import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import Button from '../Button';
 import Icon from '../Icon';
 import Pill from '../Pill';
-import MenuSearch from '../../navigation/MenuSearch';
+import { MenuSearch } from '../../blocks/Navigation';
 import Commander from './Commander';
 
 const docs = getComponentDocs('Core/Commander');

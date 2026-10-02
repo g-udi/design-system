@@ -66,7 +66,7 @@ export const Default = {
             <tr><Td><Key>Tab / Shift+Tab</Key></Td><Td>Move focus between interactive elements.</Td><Td>All components.</Td></tr>
             <tr><Td><Key>Enter / Space</Key></Td><Td>Activate buttons, toggles, and links.</Td><Td>Button, Link, Search, ImageModal.</Td></tr>
             <tr><Td><Key>Arrow Keys</Key></Td><Td>Navigate within composite widgets that implement managed focus.</Td><Td>Command palette, carousel, select, code tabs.</Td></tr>
-            <tr><Td><Key>Escape</Key></Td><Td>Close temporary overlays and return focus when the surface owns focus.</Td><Td>Command palette, ImageModal, Video, MenuMobile, dropdowns.</Td></tr>
+            <tr><Td><Key>Escape</Key></Td><Td>Close temporary overlays and return focus when the surface owns focus.</Td><Td>Command palette, ImageModal, Video, the site header phone sheet, dropdowns.</Td></tr>
             <tr><Td><Key>Home / End</Key></Td><Td>Jump to first or last option where the widget owns a listbox, menu, or tablist pattern.</Td><Td>Command palette, select, code tabs.</Td></tr>
           </tbody>
         </Table>

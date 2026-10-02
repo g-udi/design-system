@@ -1,24 +1,22 @@
 'use client';
 
 /**
- * MenuMobile Component
+ * MenuMobile
  *
- * @description The mobile navigation sheet: search, the Blog destination with its categories, and the
- * other site links. The parent menu closes it when the layout crosses the desktop breakpoint.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
+ * @description The site header's phone sheet (private to Blocks/Navigation): search, the Blog destination
+ * with its categories, and the other site links. The header mounts it below `lg` while open and closes it
+ * when the layout crosses the desktop breakpoint.
  */
 
 import React from 'react';
 
-import Button from '../../core/Button';
-import Dialog from '../../core/Dialog';
-import Icon from '../../core/Icon';
-import Link from '../../core/Link';
-import MenuSearch from '../MenuSearch';
-import { cn } from '../../../utilities/cn';
-import { formatCategoryTitle } from '../../../utilities/taxonomy';
+import Button from '../../../core/Button';
+import Dialog from '../../../core/Dialog';
+import Icon from '../../../core/Icon';
+import Link from '../../../core/Link';
+import MenuSearch from './MenuSearch.jsx';
+import { cn } from '../../../../utilities/cn';
+import { formatCategoryTitle } from '../../../../utilities/taxonomy';
 
 /**
  * Renders a full-screen mobile navigation menu
@@ -57,7 +55,7 @@ import { formatCategoryTitle } from '../../../utilities/taxonomy';
  * @example
  * // The parent menu closes this dialog when the desktop breakpoint is reached.
  */
-const rowClassName = 'block rounded-md px-3 py-2.5 text-sm text-text hover:bg-surface-muted hover:text-accent';
+const rowClassName = 'block rounded-control px-3 py-2.5 text-sm text-text hover:bg-surface-muted hover:text-accent';
 
 const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = [], container, links = [], setMobileMenuOpen, setLauncherOpen }) => {
   const closeButtonRef = React.useRef(null);
@@ -89,14 +87,14 @@ const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = 
           </Button>
         </div>
         <nav aria-label='Mobile navigation links'>
-          <ul className='m-0 list-none space-y-1 p-0'>
+          <ul className='m-0 grid list-none gap-1 p-0'>
             <li>
               <Link href={ blogLink.href } variant='bare' onClick={ close } className={ cn(rowClassName, 'font-semibold') }>
                 {blogLink.title}
               </Link>
               {categories.length ? <>
                 <span className='sr-only' id={ categoriesId }>Blog categories</span>
-                <ul aria-labelledby={ categoriesId } className='m-0 ms-2 mt-1 list-none space-y-0.5 p-0'>
+                <ul aria-labelledby={ categoriesId } className='m-0 ms-2 mt-1 grid list-none gap-0.5 p-0'>
                   {categories.map((category) => (
                     <li key={ category.id }>
                       <Link href={ `/blog/categories/${category.id}` } variant='bare' onClick={ close } className={ cn(rowClassName, 'py-2') }>
@@ -111,7 +109,7 @@ const MenuMobile = ({ blogLink = { href: '/blog', title: 'Blog' }, categories = 
           </ul>
 
           {links.length ? (
-            <ul className='m-0 mt-4 list-none space-y-1 border-t border-border p-0 pt-4'>
+            <ul className='m-0 mt-4 grid list-none gap-1 border-t border-border p-0 pt-4'>
               {links.map((link) => (
                 <li key={ link.href }>
                   <Link href={ link.href } variant='bare' onClick={ close } className={ cn(rowClassName, 'whitespace-nowrap font-medium') }>

@@ -1,19 +1,16 @@
 'use client';
 
 /**
- * MenuSearch Component
+ * MenuSearch
  *
- * @description Search functionality component for the navigation menu that provides a clickable search input
- * with keyboard shortcut indicator. This component opens a command palette/search modal when clicked or
- * when the Cmd+K keyboard shortcut is used. Features responsive design for mobile and desktop layouts.
- *
- * @author Ahmad Assaf
- * @version 2.0.0
+ * @description The site header's search entry (part of Blocks/Navigation): a field-like button with the
+ * Cmd+K hint that asks the host to open the command launcher. Also exported as a visible trigger for
+ * Commander in custom headers.
  */
 
-import Button from '../../core/Button';
-import Kbd from '../../core/Kbd';
-import { cn } from '../../../utilities/cn';
+import Button from '../../../core/Button';
+import Kbd from '../../../core/Kbd';
+import { cn } from '../../../../utilities/cn';
 
 /**
  * Renders a search input button that opens the command palette

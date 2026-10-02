@@ -8,7 +8,6 @@ export * from './components/blocks';
 export * from './components/chat';
 export * from './components/core';
 export * from './components/layout';
-export * from './components/navigation';
 export * from './components/post';
 export * from './hooks';
 export { default as Typography, typographyVariants } from './foundations/Typography';

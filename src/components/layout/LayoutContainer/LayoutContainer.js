@@ -15,8 +15,8 @@ import { cookies } from 'next/headers';
 
 import Aurora from '../Aurora';
 import Footer from '../Footer';
-import FloatingMenu from '../../navigation/FloatingMenu';
-import Menu from '../../navigation/Menu';
+import FloatingMenu from '../../core/FloatingMenu';
+import Menu from '../../blocks/Navigation';
 import { SiteConfigProvider } from '../../../utilities/SiteConfig';
 
 const ThemeProvider = dynamic(() => import('../../../utilities/ThemeProvider'));

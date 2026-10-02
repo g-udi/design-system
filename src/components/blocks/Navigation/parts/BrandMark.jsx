@@ -1,34 +1,13 @@
 /**
- * MenuLogo Component
+ * BrandMark
  *
- * @description Site logo/branding component that renders a custom SVG logo for the navigation header.
- * The logo is a stylized geometric design that adapts to the current theme using 'currentColor' fill.
- * Features a subtle hover effect with gentle scaling.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
+ * @description The site header's default brand mark (private to Blocks/Navigation): a geometric SVG drawn
+ * in currentColor on the text token, so it follows the theme. It is decorative; the header's home link
+ * supplies the accessible name. Apps replace it through the header's `logo` prop.
  */
+import { cn } from '../../../../utilities/cn';
 
-/**
- * Renders the site logo as an SVG element with subtle hover effect
- *
- * @description Custom vector logo drawn in currentColor on the text token, so it follows the theme.
- * The logo maintains aspect ratio and is optimized for a compact 44x44px display size.
- * Features a gentle pulse effect on hover.
- *
- * @returns {JSX.Element} SVG logo element with subtle hover animation
- *
- * @example
- * // Basic usage in navigation header
- * <MenuLogo />
- *
- * @example
- * // Recolour or resize through className
- * <MenuLogo className='size-8 text-accent' />
- */
-import { cn } from '../../../utilities/cn';
-
-const Logo = ({ className }) => (
+const BrandMark = ({ className }) => (
   <svg
     version='1.0'
     xmlns='http://www.w3.org/2000/svg'
@@ -70,4 +49,4 @@ const Logo = ({ className }) => (
   </svg>
 );
 
-export default Logo;
+export default BrandMark;

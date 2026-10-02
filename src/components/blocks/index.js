@@ -6,6 +6,7 @@ export { ScheduleCalendar, TimeSlots, timeSlots, formatTime, formatDuration, add
 export { default as Screen, ScreenTestimonial } from './Screens';
 export { FormErrorSummary, EditableField, CharacterCount, useFormValidation, validators } from './Forms';
 export { ChatShell } from './Chat';
+export { Menu, MenuSearch } from './Navigation';
 export { DashboardGrid, DashboardPanel, DashboardToolbar, dashboardSpan, resolveDashboardPeriod, DEFAULT_DASHBOARD_PERIODS, DEFAULT_DASHBOARD_LABELS } from './Dashboard';
 
 // Composition exports

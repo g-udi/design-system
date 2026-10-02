@@ -77,14 +77,6 @@ const groupDocs = {
       'Render a labelled fallback with the original source or retry path instead of removing the failed content silently.'
     ]
   },
-  'Navigation': {
-    'accessibility': 'Navigation components must use semantic links, nav landmarks where appropriate, visible focus, readable labels, and Escape behavior for temporary menus.',
-    'description': 'supports shared blog navigation, menu composition, and search entry points.',
-    'recovery': [
-      'Keep the current location and query intact when navigation or search produces no destination.',
-      'Escape should close temporary layers in reverse order and return focus to the trigger.'
-    ]
-  },
   'Post': {
     'accessibility': 'Post components must preserve article landmarks, heading hierarchy, readable metadata, and link semantics for breadcrumbs, sharing, series, and table of contents.',
     'description': 'composes article chrome, metadata, navigation, and reading aids.',
@@ -165,13 +157,8 @@ const usageExamples = {
   'MDX/Quote': "<Quote text='Good component systems make product code calmer.' author='Design System' />",
   'MDX/Table': '| Component | Status |\n| --- | --- |\n| Callout | Documented |\n| Chart | Ready for article embeds |',
   'MDX/Tooltip': "A <Tooltip message='Compact supporting context.'>technical term</Tooltip> can carry a short explanation.",
-  'Navigation/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n<FloatingMenu />",
-  'Navigation/DropDown': "import { DropDown } from '@gaudi/design-system';\n\n<DropDown name='Content sections' menuDropDownOpen={open} setMenuDropDownOpen={setOpen} />",
-  'Navigation/Menu': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} />",
-  'Navigation/MenuLogo': "import { MenuLogo } from '@gaudi/design-system';\n\n<MenuLogo />",
-  'Navigation/MenuMain': "import { MenuMain } from '@gaudi/design-system';\n\n<MenuMain categories={categories} allPosts={posts} />",
-  'Navigation/MenuMobile': "import { MenuMobile } from '@gaudi/design-system';\n\n<MenuMobile\n  blogLink={{ href: '/blog', title: 'Blog' }}\n  categories={categories}\n  links={links}\n  setMobileMenuOpen={setOpen}\n  setLauncherOpen={setLauncherOpen}\n/>",
-  'Navigation/MenuSearch': "import { MenuSearch } from '@gaudi/design-system';\n\n<MenuSearch setOpen={setLauncherOpen} />",
+  'Core/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n// Fixed over the window; links default to SiteConfig navigation.links.\n<FloatingMenu links={[{ href: '/blog', title: 'Blog' }, { href: '/about', title: 'About' }]} />",
+  'Blocks/Navigation': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} logo={<img src='/logo.svg' alt='' className='size-10' />} />",
   'Core/Accordion': "import { AccordionGroup } from '@gaudi/design-system';\n\n<AccordionGroup\n  items={[\n    { value: 'usage', title: 'When should I use it?', content: 'Use accordions for compact progressive disclosure.' },\n  ]}\n/>",
   'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' shape='circle' indicator={{ label: 'Online', tone: 'success' }} />",
   'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} tocControl={tocControl} />",
@@ -214,27 +201,6 @@ const componentDocs = {
       ['toc', 'Array<{ id, url, value, depth, children }>', '[]', 'Heading IDs and labels from the article.'],
       ['contentRef', 'RefObject<HTMLElement>', '-', 'Article to index. Defaults to the first article on the page.'],
       ['className', 'string', '-', 'Layout and responsive visibility classes.']
-    ]
-  },
-  'Navigation/MenuMobile': {
-    'accessibility': 'MenuMobile renders a named modal dialog with initial Close focus, focus containment, Escape dismissal, a labelled navigation landmark, and real lists and links for every destination.',
-    'decisionRules': [
-      'Pass the primary Blog destination through `blogLink`; use `links` only for additional top-level destinations.',
-      'Keep category ids stable because they form `/blog/categories/:id` destinations.',
-      'Mount MenuMobile only while open so its dialog can isolate the page and restore focus to the trigger.'
-    ],
-    'description': 'MenuMobile renders the compact navigation dialog, blog categories, search entry point, and newsletter action.',
-    'props': [
-      [ 'blogLink', '{ href, title }', "{ href: '/blog', title: 'Blog' }", 'Explicit primary Blog destination rendered before its categories.' ],
-      [ 'categories', 'Array<{ id, title, description }>', '[]', 'Blog category destinations and their supporting descriptions.' ],
-      [ 'container', 'HTMLElement', 'document.body', 'Element the dialog renders into and isolates, for example an embedded preview frame.' ],
-      [ 'links', 'Array<{ href, title }>', '[]', 'Additional top-level destinations. No position carries special meaning.' ],
-      [ 'setMobileMenuOpen', '(open: boolean) => void', '-', 'Closes the dialog after navigation, search launch, Escape, or the Close action.' ],
-      [ 'setLauncherOpen', '(open: boolean) => void', '-', 'Opens the search launcher after the mobile dialog closes.' ]
-    ],
-    'recovery': [
-      'Keep the current page intact when the menu closes without navigation and restore focus to its trigger.',
-      'If category data is unavailable, retain the primary Blog and top-level destinations instead of rendering broken category links.'
     ]
   },
   'Core/Commander': {
@@ -784,7 +750,9 @@ const componentDocs = {
       [ 'trigger', 'ReactNode', 'label', 'Custom dropdown trigger content.' ],
       [ 'defaultOpen', 'boolean', 'false', 'Initial uncontrolled dropdown state. Useful for demos and persistent nav panels.' ],
       [ 'align', 'start | center | end', 'start', 'Controls dropdown panel alignment.' ],
-      [ 'width', 'sm | md | lg | xl', 'lg', 'Controls dropdown panel width.' ],
+      [ 'width', 'sm | md | lg | xl | 2xl', 'lg', 'Controls dropdown panel width.' ],
+      [ 'aside', 'ReactNode', '-', 'NavigationMenuDropdown second block: turns the panel into two columns (children, then aside), stacked below sm.' ],
+      [ 'NavigationMenuAside title / action', 'ReactNode / { href, label } | ReactNode', '- / -', 'Muted second column with a title that labels its group and an optional See all link.' ],
       [ 'columns', '1 | 2 | 3', '2', 'Responsive panel grid columns.' ],
       [ 'panelClassName', 'string', '-', 'Dropdown panel class override.' ],
       [ 'className', 'string', '-', 'Class override on each slot.' ]

@@ -10,7 +10,7 @@
  */
 
 import Footer from '../Footer';
-import Menu from '../../navigation/Menu';
+import Menu from '../../blocks/Navigation';
 
 /**
  * Renders the main application layout structure

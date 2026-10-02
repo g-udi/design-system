@@ -1,7 +1,8 @@
 'use client';
 
-import { createContext, useCallback, useContext, useId, useLayoutEffect, useState } from 'react';
+import { createContext, isValidElement, useCallback, useContext, useId, useLayoutEffect, useState } from 'react';
 
+import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
 import {
@@ -72,9 +73,20 @@ export const NavigationMenuLink = ({ active = false, children, className, descri
 };
 
 // The content part sizes itself `md:w-auto`; each width restates the breakpoint so it wins there too.
-const panelWidths = { 'lg': 'w-[28rem] md:w-[28rem]', 'md': 'w-80 md:w-80', 'sm': 'w-64 md:w-64', 'xl': 'w-[36rem] md:w-[36rem]' };
+const panelWidths = { '2xl': 'w-[44rem] md:w-[44rem]', 'lg': 'w-[28rem] md:w-[28rem]', 'md': 'w-80 md:w-80', 'sm': 'w-64 md:w-64', 'xl': 'w-[36rem] md:w-[36rem]' };
 const panelAlignment = { 'center': 'left-1/2 -translate-x-1/2', 'end': 'right-0 left-auto', 'start': 'left-0' };
 const VIEWPORT_GUTTER = 16;
+
+// The panel's layout box, ignoring the open animation's scale: the offset parent's position plus the
+// panel's own offset and its alignment translate.
+const layoutBox = (node) => {
+  const parentLeft = node.offsetParent?.getBoundingClientRect().left ?? 0;
+  const [ translateX = '0' ] = getComputedStyle(node).translate.split(' ');
+  const shift = translateX.endsWith('%') ? (parseFloat(translateX) / 100) * node.offsetWidth : parseFloat(translateX) || 0;
+  const left = parentLeft + node.offsetLeft + shift;
+
+  return { 'left': left, 'right': left + node.offsetWidth };
+};
 
 // Nudges an open panel back inside the viewport when its alignment would push it past an edge.
 const keepInViewport = (node) => {
@@ -82,8 +94,9 @@ const keepInViewport = (node) => {
 
   const clamp = () => {
     node.style.marginLeft = '';
-    const { left, right } = node.getBoundingClientRect();
-    const overflowEnd = right - (window.innerWidth - VIEWPORT_GUTTER);
+    const { left, right } = layoutBox(node);
+    const viewport = document.documentElement.clientWidth || window.innerWidth;
+    const overflowEnd = right - (viewport - VIEWPORT_GUTTER);
     const shift = left < VIEWPORT_GUTTER ? VIEWPORT_GUTTER - left : Math.min(0, -overflowEnd);
 
     if (shift) node.style.marginLeft = `${shift}px`;
@@ -95,7 +108,11 @@ const keepInViewport = (node) => {
   return () => window.removeEventListener('resize', clamp);
 };
 
-export const NavigationMenuDropdown = ({ align = 'start', children, className, defaultOpen = false, label, panelClassName, trigger, width = 'lg' }) => {
+/**
+ * A top-level item that opens a panel. Pass `aside` for a two-block panel: the children fill the
+ * first column and the aside (usually a NavigationMenuAside) the second, stacked below `sm`.
+ */
+export const NavigationMenuDropdown = ({ align = 'start', aside, children, className, defaultOpen = false, label, panelClassName, trigger, width = 'lg' }) => {
   const value = useId();
   const openOnMount = useContext(OpenItemContext);
 
@@ -110,13 +127,15 @@ export const NavigationMenuDropdown = ({ align = 'start', children, className, d
         ref={ keepInViewport }
         onPointerLeave={ clickOnly.onPointerLeave }
         className={ cn(
-          'absolute top-full z-50 mt-2 max-w-[calc(100vw-2rem)] p-2',
+          'absolute top-full z-50 mt-2 max-w-[calc(100vw-2rem)]',
+          aside ? 'grid overflow-hidden p-0 sm:grid-cols-2' : 'p-2',
           panelWidths[width],
           panelAlignment[align] || panelAlignment.start,
           panelClassName
         ) }
       >
-        {children}
+        {aside ? <div data-slot='navigation-menu-main' className='min-w-0 p-2'>{children}</div> : children}
+        {aside}
       </NavigationMenuContent>
     </NavigationMenuItemPart>
   );
@@ -127,5 +146,38 @@ export const NavigationMenuPanel = ({ children, className, columns = 2 }) => (
     {children}
   </div>
 );
+
+/**
+ * The secondary column of a two-block panel: a muted surface with a small title, an optional
+ * "See all" style action, and its own links (recent posts, featured items, a changelog).
+ */
+export const NavigationMenuAside = ({ action, children, className, title }) => {
+  const titleId = useId();
+  const actionNode = action && !isValidElement(action) && action.href ? (
+    <NavigationMenuLinkPart asChild className='gap-1 p-0 text-xs hover:bg-transparent focus:bg-transparent'>
+      <Link href={ action.href } variant='muted'>
+        {action.label || 'See all'}
+        <Icon name='ArrowRight' decorative size='xs' />
+      </Link>
+    </NavigationMenuLinkPart>
+  ) : action;
+
+  return (
+    <div
+      data-slot='navigation-menu-aside'
+      role={ title ? 'group' : undefined }
+      aria-labelledby={ title ? titleId : undefined }
+      className={ cn('min-w-0 border-t border-border bg-surface-muted p-2 sm:border-s sm:border-t-0', className) }
+    >
+      {title || actionNode ? (
+        <div className='flex items-center justify-between gap-3 px-3 py-2'>
+          {title ? <p id={ titleId } className='m-0 text-sm font-semibold text-text-muted'>{title}</p> : <span />}
+          {actionNode}
+        </div>
+      ) : null}
+      {children}
+    </div>
+  );
+};
 
 export default NavigationMenu;
