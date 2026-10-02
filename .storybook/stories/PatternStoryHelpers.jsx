@@ -28,6 +28,11 @@ export function publicSource(source) {
     .replace(
       /from ["'][^"']*\/icons\/brands\/([^"']+)\.jsx["']/g,
       "from '@gaudi/design-system/icons/brands/$1'"
+    )
+    // Lazily loaded owners (charts kept out of the first bundle) keep their dynamic import.
+    .replace(
+      /import\(\s*["'][^"']*\/components\/([^/"']+)\/([^/"']+)\/index\.js["']\s*\)/g,
+      "import('@gaudi/design-system/$1/$2')"
     );
 }
 

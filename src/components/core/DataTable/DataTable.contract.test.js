@@ -78,3 +78,128 @@ test('the tree grid renders rollups, cascading checkboxes, grips and a grand tot
   assert.match(html, /All files/);
   assert.match(html, /aria-label="Select all"/);
 });
+
+
+// DataGrid view controls. A real TanStack table, built through `useTable` during
+// a static render, exercises the helpers against the registered grid features.
+const { createElement } = await import('react');
+const { renderToStaticMarkup } = await import('react-dom/server');
+const { useTable } = await import('@tanstack/react-table-v9');
+const { loadComponent } = await import('../../../test-support/renderComponent.js');
+const grid = await loadComponent(new URL('./index.js', import.meta.url));
+const heatmap = await loadComponent(new URL('../../charts/HeatmapChart/index.js', import.meta.url));
+const crm = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/data-grid/c-data-grid-50.jsx', import.meta.url));
+const shipments = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/data-grid/c-data-grid-51.jsx', import.meta.url));
+const records = [
+  { id: 'a', title: 'Alpha', status: 'open', amount: 10, due: new Date('2026-01-02') },
+  { id: 'b', title: 'Beta', status: 'closed', amount: 30, due: new Date('2026-03-04') },
+  { id: 'c', title: 'Gamma', status: 'open', amount: null, due: new Date('2026-02-01') }
+];
+const gridColumns = [
+  { id: 'select', header: 'Select', cell: () => null },
+  { accessorKey: 'title', header: 'Title' },
+  { accessorKey: 'status', header: 'Status', filterFn: grid.dataGridEqualsFilter },
+  { accessorKey: 'amount', header: 'Amount', aggregationFn: 'sum' },
+  { accessorKey: 'due', header: 'Due' },
+  { id: 'actions', header: 'Actions', cell: () => null }
+];
+function makeTable(options = {}) {
+  let table;
+  function Harness() {
+    table = useTable({ features: grid.dataGridFeatures, columns: gridColumns, data: records, getRowId: (row) => row.id, ...options });
+    return null;
+  }
+  renderToStaticMarkup(createElement(Harness));
+  return table;
+}
+const statsOf = (column, options) => Object.fromEntries(grid.getDataGridColumnStats(column, options).map((stat) => [stat.id, stat.value]));
+
+test('column stats count, distinct and empty values and aggregate numbers and dates over filtered rows', () => {
+  const table = makeTable();
+  assert.deepEqual(statsOf(table.getColumn('amount')), { count: 2, distinct: 2, empty: 1, min: 10, max: 30, avg: 20, sum: 40 });
+  assert.deepEqual(Object.keys(statsOf(table.getColumn('due'))), ['count', 'distinct', 'empty', 'min', 'max']);
+  assert.equal(statsOf(table.getColumn('due')).max.toISOString().slice(0, 10), '2026-03-04');
+  assert.deepEqual(statsOf(table.getColumn('status')), { count: 3, distinct: 2, empty: 0 });
+  assert.deepEqual(statsOf(table.getColumn('amount'), { kinds: ['sum', 'max'] }), { sum: 40, max: 30 });
+  // Stats follow the rows a person can see.
+  table.getColumn('status').setFilterValue('open');
+  assert.equal(statsOf(table.getColumn('amount')).sum, 10);
+  // Status tabs count each value from facets that ignore the column's own filter.
+  assert.deepEqual(grid.getDataGridStatusCounts(table.getColumn('status'), [{ value: 'open' }, { value: 'closed' }]), { all: 3, open: 2, closed: 1 });
+});
+
+test('layouts snapshot, compare and restore column order, visibility, sizing and pinning', () => {
+  const table = makeTable();
+  const initial = grid.getDataGridLayout(table, { density: 'comfortable' });
+  assert.deepEqual(initial.columnOrder, ['select', 'title', 'status', 'amount', 'due', 'actions']);
+  const ids = initial.columnOrder;
+  table.getColumn('due').toggleVisibility(false);
+  table.getColumn('title').pin('start');
+  table.setColumnSizing({ title: 220 });
+  assert.deepEqual(grid.moveDataGridColumn(table, 'amount', -1, ['title', 'status', 'amount', 'due']), ['select', 'title', 'amount', 'status', 'due', 'actions']);
+  const changed = grid.getDataGridLayout(table, { density: 'comfortable' });
+  assert.equal(grid.isSameDataGridLayout(initial, changed, ids), false);
+  // A column set visible explicitly equals one visible by default; a partial order is "these first".
+  assert.equal(grid.isSameDataGridLayout({ ...initial, columnVisibility: { due: true } }, initial, ids), true);
+  assert.equal(grid.isSameDataGridLayout({ ...initial, columnOrder: ['select', 'title'] }, initial, ids), true);
+  grid.applyDataGridLayout(table, initial);
+  assert.equal(grid.isSameDataGridLayout(grid.getDataGridLayout(table, { density: 'comfortable' }), initial, ids), true);
+  assert.equal(table.getColumn('due').getIsVisible(), true);
+  assert.equal(table.getColumn('title').getIsPinned(), false);
+  // Moving past either end is refused.
+  assert.equal(grid.moveDataGridColumn(table, 'select', -1), null);
+});
+
+test('cards sort cells into title, actions and labelled fields, and column meta overrides the slots', () => {
+  const table = makeTable();
+  const slots = grid.getDataGridCardSlots(table.getRow('a'));
+  assert.equal(slots.title.column.id, 'title');
+  assert.deepEqual(slots.fields.map((cell) => cell.column.id), ['status', 'amount', 'due']);
+  assert.deepEqual(slots.actions.map((cell) => cell.column.id), ['actions']);
+  const custom = makeTable({ columns: gridColumns.map((column) => (column.accessorKey === 'status' ? { ...column, meta: { card: 'badge' } } : column.accessorKey === 'due' ? { ...column, meta: { card: false } } : column)) });
+  const customSlots = grid.getDataGridCardSlots(custom.getRow('a'));
+  assert.deepEqual(customSlots.badges.map((cell) => cell.column.id), ['status']);
+  assert.deepEqual(customSlots.fields.map((cell) => cell.column.id), ['amount']);
+});
+
+test('the column registry builds Cascader items and column definitions, and disables added columns', () => {
+  const registry = grid.createDataGridColumnRegistry([
+    { id: 'billing', label: 'Billing', children: [{ id: 'mrr', label: 'MRR', column: { accessorKey: 'mrr' } }, { id: 'plan', label: 'Plan', column: { accessorKey: 'plan', meta: { stats: true } } }] }
+  ]);
+  assert.equal(registry.items[0].children.length, 2);
+  assert.deepEqual(registry.getColumn('mrr'), { header: 'MRR', accessorKey: 'mrr', id: 'mrr', meta: { headerTitle: 'MRR' } });
+  assert.equal(registry.getColumn('plan').meta.stats, true);
+  assert.deepEqual(registry.getColumns(['plan', 'missing']).map((column) => column.id), ['plan']);
+  assert.equal(registry.itemsExcept(['mrr'])[0].children[0].disabled, true);
+  assert.equal(registry.itemsExcept(['mrr'])[0].children[1].disabled, undefined);
+});
+
+test('heat cells use the HeatmapChart colour scale from the chart tokens', () => {
+  const cases = [[null, { domain: [0, 10] }], [0, { domain: [0, 10] }], [4, { domain: [0, 10] }], [10, { domain: [0, 10] }], [5, { domain: [5, 5] }], [-5, { domain: [-5, 5], scale: 'diverging' }], [0, { domain: [-5, 5], scale: 'diverging' }], [5, { domain: [-5, 5], scale: 'diverging' }]];
+  for (const [value, options] of cases) {
+    const chart = heatmap.heatmapStep(value, options);
+    const cell = grid.getDataGridHeatmapColor(value, options);
+    assert.deepEqual([cell.background, cell.color], [chart.fill, chart.ink], `${value} on ${JSON.stringify(options)}`);
+  }
+});
+
+test('the CRM workspace renders status tabs with counts, the view controls and heat cells', () => {
+  const html = renderToStaticMarkup(createElement(crm.Pattern));
+  assert.match(html, /aria-label="All, 24"/);
+  assert.match(html, /aria-label="Won, 5"/);
+  assert.match(html, /role="tabpanel"/);
+  assert.match(html, /aria-label="Add column"/);
+  assert.match(html, /aria-label="Layouts: Default"/);
+  assert.match(html, /aria-label="Table"/);
+  assert.match(html, /data-slot="data-grid-heatmap-cell" data-heat-step="[1-5]"/);
+  assert.match(html, /data-row-pinned="top"/);
+  // Charts stay out of the first render: the trend cell is a lazy Sparkline.
+  assert.doesNotMatch(html, /data-slot="chart"/);
+});
+
+test('the shipment grid loads one page of five thousand records with selection controls', () => {
+  const html = renderToStaticMarkup(createElement(shipments.Pattern));
+  assert.match(html, /100 \/ 5,000/);
+  assert.match(html, /aria-label="Select all"/);
+  assert.doesNotMatch(html, /aria-label="Bulk actions"/);
+});

@@ -26,3 +26,13 @@ export { DataGridTableTreeRowSelect, DataGridTableTreeRowSelectAll, DataGridTabl
 export { DataGridTableTreeDnd, DataGridTableTreeDndHandle } from './parts/data-grid-table-tree-dnd-extended.jsx';
 export { DataGridTableHeadRows, DataGridTableSectionSelectAll, DataGridTableSections, dataGridSectionTones, useDataGridSection } from './parts/data-grid-table-sections-extended.jsx';
 export { DataGridTableRowMoveItems, handleDataGridRowMoveKey } from './parts/data-grid-row-move-extended.jsx';
+
+// View controls
+export { DataGridCard, DataGridCardView, DataGridViewToggle, getDataGridCardSlots } from './parts/data-grid-card-view-extended.jsx';
+export { DataGridColumnPicker, createDataGridColumnRegistry } from './parts/data-grid-column-picker-extended.jsx';
+export { DataGridColumnStats, DataGridColumnStatsMenuItems, formatDataGridColumnStat, getDataGridColumnStats } from './parts/data-grid-column-stats-extended.jsx';
+export { DataGridHeatmapCell, getDataGridColumnDomain, getDataGridHeatmapColor } from './parts/data-grid-heatmap-extended.jsx';
+export { DataGridLayouts, applyDataGridLayout, getDataGridLayout, isSameDataGridLayout, useDataGridLayouts } from './parts/data-grid-layouts-extended.jsx';
+export { DATA_GRID_STATUS_ALL, DataGridStatusTabs, dataGridEqualsFilter, getDataGridStatusCounts } from './parts/data-grid-status-tabs-extended.jsx';
+export { DATA_GRID_VIEW_LABELS, resolveDataGridViewLabels } from './parts/data-grid-view-i18n-extended.jsx';
+export { DataGridViewOptions, DataGridViewOptionsColumns, DataGridViewOptionsDensity, DataGridViewOptionsSection, DataGridViewOptionsSwitch, getDataGridColumnOrder, moveDataGridColumn } from './parts/data-grid-view-options-extended.jsx';

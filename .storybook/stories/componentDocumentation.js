@@ -606,7 +606,8 @@ const componentDocs = {
       'Pin at most the identifying column and one summary column; pinning releases on narrow screens so every column stays reachable.',
       'Pin rows for references readers compare against, such as a goal or the current item; pinned bands stop sticking when they would crowd out the scrolling rows.',
       'Give long lists a maxHeight (or let virtualize="auto" pick one) so the header and pinned rows stay in view; use stickyHeader="page" when the table should scroll with the page under app chrome.',
-      'Prefer pagination or load-more for remote collections; client virtualization suits a few thousand rows that are already loaded.'
+      'Prefer pagination or load-more for remote collections; client virtualization suits a few thousand rows that are already loaded.',
+      'For workspaces people shape themselves, compose the DataGrid view controls: DataGridViewOptions, DataGridLayouts with useDataGridLayouts, DataGridCardView, DataGridStatusTabs, header column stats and DataGridColumnPicker (see the CRM workspace and Shipment exceptions examples).'
     ],
     'description': 'DataTable is a TanStack table with a compact data anatomy: uppercase tracked headers, hairline rows, synced column and row hover, a tinted wash for selected rows, and declarative column alignment, width and pinning. It adds search with a live count, single or multi-column sorting, selection with bulk actions, expandable rows, row action menus, pinned rows, grouped bands, a totals footer, sticky headers, automatic virtualization, pagination or load-more, CSV export, and loading, refreshing, empty and error states. Sorting, selection, expansion and pinning work controlled or uncontrolled.',
     'props': [

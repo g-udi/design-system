@@ -1474,6 +1474,22 @@
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-46.jsx",
           "sha256": "ee5b76ba4c6c7c66e450788f0afdc783268959ea533a609130e90f0d3d8fce24",
           "storyId": "core-datatable--data-grid-pattern-46"
+        },
+        {
+          "name": "c-data-grid-50",
+          "title": "CRM workspace",
+          "description": "CRM workspace",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-50.jsx",
+          "sha256": "14e12dd36db82f2931596b222b28b3ba744d888390b65b8d1b8af0091eab4c0b",
+          "storyId": "core-datatable--data-grid-pattern-50"
+        },
+        {
+          "name": "c-data-grid-51",
+          "title": "Shipment exceptions",
+          "description": "Shipment exceptions",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-51.jsx",
+          "sha256": "2c4300bcc7ea0b104a2afc056149b894cb8064c17b8462271e1bce265c508280",
+          "storyId": "core-datatable--data-grid-pattern-51"
         }
       ]
     },

@@ -7656,6 +7656,28 @@
       ],
       "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
     },
+    "core-datatable--data-grid-pattern-50": {
+      "id": "core-datatable--data-grid-pattern-50",
+      "title": "Core/Data Display/DataTable",
+      "name": "CRM workspace",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
+    "core-datatable--data-grid-pattern-51": {
+      "id": "core-datatable--data-grid-pattern-51",
+      "title": "Core/Data Display/DataTable",
+      "name": "Shipment exceptions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
     "core-dialog--confirmation-pattern-1": {
       "id": "core-dialog--confirmation-pattern-1",
       "title": "Core/Overlays & Menus/Dialog",

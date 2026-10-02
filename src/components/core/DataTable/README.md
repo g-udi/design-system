@@ -121,3 +121,70 @@ draggable, virtualised, editable or server-driven grids.
 - **Export.** `DataGridExport` saves the grid's visible columns, filters, sort and selection as CSV; `meta.exportValue`
   formats a cell and `meta.export: false` skips control columns. `toCsv`, `tableToCsv` and `downloadCsv` are exported for
   custom flows.
+
+### View controls
+
+```jsx
+import {
+  DataGrid, DataGridCardView, DataGridColumnPicker, DataGridLayouts, DataGridStatusTabs, DataGridTable,
+  DataGridViewOptions, DataGridViewToggle, createDataGridColumnRegistry, dataGridEqualsFilter, useDataGridLayouts
+} from '@gaudi/design-system/core/DataTable';
+
+const layouts = useDataGridLayouts({ table, density, onDensityChange: setDensity, storageKey: 'deals-layouts' });
+
+<DataGrid table={table} recordCount={rows.length} tableLayout={{ dense: density === 'compact', headerSticky, rowsPinnable: true }}>
+  <DataGridColumnPicker registry={registry} value={addedIds} onAdd={(id) => setAddedIds((ids) => [...ids, id])} />
+  <DataGridLayouts layouts={layouts} />
+  <DataGridViewOptions density={density} onDensityChange={setDensity} headerSticky={headerSticky}
+    onHeaderStickyChange={setHeaderSticky} onReset={layouts.resetLayout} />
+  <DataGridViewToggle value={view} onValueChange={setView} />
+  <DataGridStatusTabs columnId='stage' options={stages}>
+    {view === 'table' ? <DataGridTable /> : <DataGridCardView aria-label='Deals' />}
+  </DataGridStatusTabs>
+</DataGrid>
+```
+
+- **View settings.** `DataGridViewOptions` is one popover for density (`density` / `onDensityChange`, `comfortable` or
+  `compact`), the sticky header (`headerSticky` / `onHeaderStickyChange`), extra `toggles` (`{ id, label, checked,
+  onCheckedChange, description? }`) and the column list: a checkbox per hideable column plus Move up and Move down
+  (or Alt+Arrow keys), with pinned columns held in place. `onReset` adds Reset layout. Pass `children` to compose
+  `DataGridViewOptionsSection`, `DataGridViewOptionsDensity`, `DataGridViewOptionsSwitch` and
+  `DataGridViewOptionsColumns` yourself. `getDataGridColumnOrder(table)` and `moveDataGridColumn(table, id, delta)` are
+  the ordering helpers.
+- **Table or cards.** `DataGridCardView` renders the same row model as the table (sorting, filters, pagination, pinned
+  rows first) as a responsive card grid (`minCardWidth`, default `16rem`), and selection is shared. Columns choose
+  their card slot with `meta.card`: `title`, `subtitle`, `media`, `badge`, `actions`, `field` or `false`
+  (`meta.cardLabel` renames a field). `renderCard({ row, slots, table, isSelected })` replaces the default card.
+  `DataGridViewToggle` switches `'table'` and `'cards'`.
+- **Saved layouts.** `useDataGridLayouts({ table, density?, onDensityChange?, defaultLayout?, layouts?,
+  defaultLayouts?, onLayoutsChange?, storageKey? })` snapshots column order, sizing, visibility and pinning (and
+  density when `onDensityChange` is given) into named layouts `{ id, name, layout }`. Saved layouts are controlled or
+  uncontrolled; `storageKey` also keeps them and the current layout in localStorage, restored after hydration. It
+  returns `layouts`, `activeLayout`, `isDefault`, `saveLayout(name)`, `applyLayout(id)`, `deleteLayout(id)` and
+  `resetLayout()` (back to `defaultLayout`, else the table's initial state). `DataGridLayouts` is the menu for it;
+  `getDataGridLayout`, `applyDataGridLayout` and `isSameDataGridLayout` work on any table.
+- **Column stats.** A header with `stats` (or a column with `meta.stats`) adds a labelled Column stats group to its menu:
+  count, distinct and empty values, and min, max, average and sum for numbers (min and max for dates), over the
+  filtered rows. Each stat is a menu item that copies its value; `DataGridColumnStats` renders the same figures as a
+  definition list outside menus. Pass an array
+  (`['min', 'max', 'avg']`) to pick stats and `meta.statsFormat(value, id)` to format them. `getDataGridColumnStats`
+  reads the column's own `getAggregationValue` first, so a server-backed aggregation supplies its values.
+- **Add columns.** `createDataGridColumnRegistry(entries)` groups addable columns (`{ id, label, icon?, keywords?,
+  children?, column }`) for `DataGridColumnPicker`, a searchable Cascader that disables columns already shown. The host
+  keeps the added ids and builds `columns` with `registry.getColumns(ids)`.
+- **Heat cells.** `DataGridHeatmapCell` colours a number with the HeatmapChart scale and chart tokens (`heatmap`, or
+  `diverging` around `midpoint`), against its column's visible range or a given `domain`;
+  `getDataGridHeatmapColor` returns the fill and ink for custom cells. For trend cells, lazy-load
+  `Sparkline` from `@gaudi/design-system/charts` so the chart runtime stays out of the table's bundle.
+- **Status tabs.** `DataGridStatusTabs` puts an All tab and one tab per status, each with a live count, above the grid,
+  which renders as the tab panel. With `columnId` a tab filters that column (give it `filterFn: dataGridEqualsFilter`)
+  and counts come from its facets, which ignore the column's own filter; otherwise pass `value`, `onValueChange` and
+  `counts`.
+- **Virtualized selection.** Under `DataGridTableVirtual` with `onFetchMore` and `manualPagination`, Select all takes
+  every loaded row and reads as partial when the next page arrives. For "every matching record", keep a flag in the
+  host and derive the selection from it, as the Shipment exceptions example does; bulk actions then target the query,
+  not only loaded rows.
+
+Every string is in `DATA_GRID_VIEW_LABELS` and translates through the grid's `i18n.labels`. The view popovers are
+labelled dialogs that return focus to their trigger; column moves keep focus on the moved row and are announced, and
+layout, column and export changes are announced through status regions.

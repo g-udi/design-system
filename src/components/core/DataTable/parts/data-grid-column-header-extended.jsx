@@ -1,5 +1,5 @@
 'use client';
-import { memo, useMemo } from 'react';
+import { memo, useId, useMemo } from 'react';
 import { getColumnHeaderLabel, useDataGrid } from './data-grid-extended.jsx';
 import { Subscribe } from '@tanstack/react-table-v9';
 import { cn } from '../../../../utilities/cn/index.js';
@@ -18,15 +18,23 @@ import {
   DropdownMenuTrigger
 } from '../../DropdownMenu/parts/dropdown-menu.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { DataGridColumnStatsMenuItems } from './data-grid-column-stats-extended.jsx';
+import { useDataGridViewLabels } from './data-grid-view-i18n-extended.jsx';
 function DataGridColumnHeaderInner({
   column,
   title,
   icon,
   className,
   filter,
-  visibility = false
+  visibility = false,
+  stats
 }) {
   const { i18n, isLoading, table, props } = useDataGrid();
+  const viewLabels = useDataGridViewLabels();
+  // `stats` (or `meta.stats`): true for the column's default stats, or a list of stat ids.
+  const statsKinds = stats ?? column.columnDef.meta?.stats;
+  const showStats = !!statsKinds && typeof column.accessorFn === 'function';
+  const statsLabelId = `${useId()}-stats`;
   const resolvedTitle = title ?? getColumnHeaderLabel(column);
   const columnOrderState = table.state.columnOrder;
   const columnOrder =
@@ -92,6 +100,7 @@ function DataGridColumnHeaderInner({
     (props.tableLayout?.columnsVisibility && visibility) ||
     (props.tableLayout?.columnsPinnable && canPin) ||
     canGroup ||
+    showStats ||
     filter;
   const menuItems = useMemo(() => {
     const items = [];
@@ -286,6 +295,27 @@ function DataGridColumnHeaderInner({
           </DropdownMenuSubContent>
         </DropdownMenuSub>
       );
+      hasPreviousSection = true;
+    }
+    if (showStats) {
+      if (hasPreviousSection) {
+        items.push(<DropdownMenuSeparator key='sep-stats' />);
+      }
+      items.push(
+        <DropdownMenuGroup key='group-stats' aria-labelledby={statsLabelId}>
+          <DropdownMenuLabel
+            id={statsLabelId}
+            className='text-ui-muted-foreground inline-flex items-center gap-1.5 text-xs font-medium'
+          >
+            <RegistryIcon lucide='CalculatorIcon' className='size-3.5' aria-hidden='true' />
+            {viewLabels.columnStats}
+          </DropdownMenuLabel>
+          <DataGridColumnStatsMenuItems
+            column={column}
+            kinds={Array.isArray(statsKinds) ? statsKinds : void 0}
+          />
+        </DropdownMenuGroup>
+      );
     }
     return items;
     // Visibility is a mutable table-store snapshot; its key invalidates menu checks.
@@ -305,6 +335,10 @@ function DataGridColumnHeaderInner({
     canMoveLeft,
     canMoveRight,
     visibility,
+    showStats,
+    statsKinds,
+    statsLabelId,
+    viewLabels.columnStats,
     table,
     columnIndex,
     columnOrder,
