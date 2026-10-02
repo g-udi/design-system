@@ -4391,44 +4391,12 @@
           "storyId": "blocks-application-appshell--app-shell-pattern-6"
         },
         {
-          "name": "c-app-shell-7",
-          "title": "Community · full-width header and glass rail",
-          "description": "Community · full-width header and glass rail",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-7.jsx",
-          "sha256": "3981c3c3372b7b05e45096d7fc4360aeedddf0084ef13cbd278be390b8293570",
-          "storyId": "blocks-application-appshell--app-shell-pattern-7"
-        },
-        {
-          "name": "c-app-shell-8",
-          "title": "Two-level navigation · mini rail and section pages",
-          "description": "Two-level navigation · mini rail and section pages",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-8.jsx",
-          "sha256": "4a3622acb2df12000fa299653e7843a267e591b09871fc1f3b9cc8bab55cc72d",
-          "storyId": "blocks-application-appshell--app-shell-pattern-8"
-        },
-        {
-          "name": "c-app-shell-9",
-          "title": "Assistant · threads, model picker and task panel",
-          "description": "Assistant · threads, model picker and task panel",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-9.jsx",
-          "sha256": "87585b829d3797d9b1366da653d8fbf0a30559e11c7473cbcd55a4a2cc82b9d4",
-          "storyId": "blocks-application-appshell--app-shell-pattern-9"
-        },
-        {
           "name": "c-app-shell-10",
           "title": "Security console · scope tabs and route tree",
           "description": "Security console · scope tabs and route tree",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-10.jsx",
           "sha256": "689f513352e14faaf739199bea8065d5a9bf633dfa4b2af4a262772f0dd5d4b0",
           "storyId": "blocks-application-appshell--app-shell-pattern-10"
-        },
-        {
-          "name": "c-app-shell-11",
-          "title": "Project tracker · switchers, detail rail and status bar",
-          "description": "Project tracker · switchers, detail rail and status bar",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-11.jsx",
-          "sha256": "f91c8f996518f3dadf9f051809c9c7405211afd563fa1c3bf97c0e1666e29814",
-          "storyId": "blocks-application-appshell--app-shell-pattern-11"
         },
         {
           "name": "c-app-shell-12",

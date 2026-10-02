@@ -1,4 +1,15 @@
 <script>
+  // Play functions stay as tests (Vitest and CI run them) but do not autoplay in the
+  // Storybook canvas, where their clicks make stories flicker on open. Storybook skips
+  // autoplay for embedded previews and keeps the flag across story navigation.
+  (() => {
+    const params = new URLSearchParams(window.location.search);
+    if (window.parent === window || !params.has('id') || params.has('embed')) return;
+
+    params.set('embed', 'true');
+    window.history.replaceState(window.history.state, '', `${window.location.pathname}?${params}${window.location.hash}`);
+  })();
+
   (() => {
     const globals = new URLSearchParams(window.location.search).get('globals') || '';
     const isDark = globals.split(';').includes('theme:dark');

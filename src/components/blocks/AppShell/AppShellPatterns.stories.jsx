@@ -101,46 +101,6 @@ export const AppShellPattern6 = {
   }
 };
 
-export const AppShellPattern7 = {
-  name: 'Community · full-width header and glass rail',
-  ...pattern(7, 'A full-width header above a collapsible floating icon rail with a glass finish, a crossfading photo banner (still under reduced motion), pill filters and a feed of posts with likes.'),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Essays' }));
-    await expect(canvas.getByRole('button', { name: 'Essays' })).toHaveAttribute('aria-current', 'page');
-    const like = within(canvas.getByRole('article', { name: 'Post by Daniel Okafor' })).getAllByRole('button')[0];
-    await userEvent.click(like);
-    await expect(like).toHaveAttribute('aria-pressed', 'true');
-  }
-};
-
-export const AppShellPattern8 = {
-  name: 'Two-level navigation · mini rail and section pages',
-  ...pattern(8, 'One rounded panel frames a mini icon rail, a collapsible panel of section pages and a body with Board, List and Docs tabs. On phones the rail becomes top section tabs and the pages become a select.'),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Audience' }));
-    await waitFor(() => expect(canvas.getByRole('heading', { level: 1, name: 'Subscribers' })).toBeInTheDocument());
-    await userEvent.click(canvas.getByRole('tab', { name: 'List' }));
-    await waitFor(() => expect(canvas.getByText('Explainer: RSS in 2026')).toBeVisible());
-  }
-};
-
-export const AppShellPattern9 = {
-  name: 'Assistant · threads, model picker and task panel',
-  ...pattern(9, 'A floating icon rail, folder tabs over a colour wash, a resizable chat list, a model picker grid and the composer; the Tasks tab toggles an assistant column beside the list.'),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole('button', { name: 'Model: Gaudi Writer' }));
-    await userEvent.click(await body.findByRole('button', { name: /Gaudi Research/ }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Model: Gaudi Research' })).toBeVisible());
-    await userEvent.click(canvas.getByRole('tab', { name: 'Tasks' }));
-    await userEvent.click(canvas.getByRole('checkbox', { name: 'Proofread “Small tools, long lifetimes”' }));
-    await expect(canvas.getByRole('checkbox', { name: 'Proofread “Small tools, long lifetimes”' })).toBeChecked();
-  }
-};
-
 export const AppShellPattern10 = {
   name: 'Security console · scope tabs and route tree',
   ...pattern(10, 'Icon scope tabs and a searchable route sidebar that folds to a 48px rail; route groups collapse and reorder by their handles. The header holds workspace tabs and a 3 × 3 section menu; the network tab shows a status-badged robot tree.'),
@@ -153,20 +113,6 @@ export const AppShellPattern10 = {
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Robot network' })).toBeVisible());
     await userEvent.click(canvas.getByRole('tab', { name: 'Network' }));
     await waitFor(() => expect(canvas.getByText('Courier 12')).toBeVisible());
-  }
-};
-
-export const AppShellPattern11 = {
-  name: 'Project tracker · switchers, detail rail and status bar',
-  ...pattern(11, 'The simple AppShell with team and project switchers in the header, indented route groups in the rail, an apps menu, an issue detail rail beside the content and a status bar underneath.'),
-  play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole('button', { name: 'Team: Editorial' }));
-    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Platform' }));
-    await waitFor(() => expect(canvas.getByRole('button', { name: 'Project: Reader app' })).toBeVisible());
-    await userEvent.click(within(canvas.getByRole('list', { name: 'Issues' })).getByRole('button', { name: /GAU-209/ }));
-    await waitFor(() => expect(within(canvas.getByRole('complementary', { name: 'Issue details' })).getByRole('heading', { name: 'Podcast feed misses episode art' })).toBeInTheDocument());
   }
 };
 
