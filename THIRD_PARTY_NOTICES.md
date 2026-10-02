@@ -25,3 +25,15 @@ geometry used for draw treatments retains the ISC notice in
 `src/icons/animated/LUCIDE-LICENSE`. Per-name source and canonical glyph metadata
 are exported as `animatedIconMetadata`; maintenance notes live in
 `src/icons/animated/README.md`.
+
+## Voice orbs
+
+The Persona orb renderers (iridescent, mercury and waveform) are adapted from
+VoiceOrbs by Alexis Munoz (MIT), pinned at
+`339ab42d98f6c4ffa03709ffa71f9f6965a2171a`:
+https://github.com/amunozdev/voiceorbs
+
+The MIT notice is retained in `src/components/chat/Persona/parts/orbs/LICENSE`.
+The activity orb follows the dotted geometry of thinking-orbs by Jakub Antalik
+(MIT) as a rewrite; no thinking-orbs code is bundled. The Voice component APIs
+follow AI SDK Elements (Vercel, MIT).

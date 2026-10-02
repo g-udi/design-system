@@ -1,6 +1,8 @@
 @import "./components/core/Accordion/Accordion.css";
 @import './components/core/Avatar/Avatar.css';
 @import './components/blocks/AppShell/AppShell.css';
+@import './components/chat/Persona/Persona.css';
+@import './components/chat/Voice/Voice.css';
 @import './application.css';
 @import './composition.css';
 @import './spacing.css';

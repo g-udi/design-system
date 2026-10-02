@@ -2050,6 +2050,59 @@
       ],
       "importPath": "./src/components/chat/MessageList/MessageList.stories.jsx"
     },
+    "chat-persona--playground": {
+      "id": "chat-persona--playground",
+      "title": "Chat/Persona",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/Persona/Persona.stories.jsx"
+    },
+    "chat-persona--docs": {
+      "id": "chat-persona--docs",
+      "title": "Chat/Persona",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Persona/Persona.stories.jsx"
+    },
+    "chat-persona--orbs": {
+      "id": "chat-persona--orbs",
+      "title": "Chat/Persona",
+      "name": "Orbs and states",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/Persona/Persona.stories.jsx"
+    },
+    "chat-voice--voice-mode": {
+      "id": "chat-voice--voice-mode",
+      "title": "Chat/Voice",
+      "name": "Voice mode",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/Voice/Voice.stories.jsx"
+    },
+    "chat-voice--docs": {
+      "id": "chat-voice--docs",
+      "title": "Chat/Voice",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Voice/Voice.stories.jsx"
+    },
     "core-accordion--playground": {
       "id": "core-accordion--playground",
       "title": "Core/Layout & Containers/Accordion",

@@ -30,3 +30,5 @@ export { MessageStatus, MessageStatusIcon, messageStatuses } from './shared/mess
 export { ChatContextMeter } from './ChatInput/parts/chat-context-meter.jsx';
 export { PromptAttachMenu, PromptSettings } from './ChatInput/parts/prompt-toolbar.jsx';
 export { chatModels, chatModelProviders, estimateChatCost, formatTokenCount } from './ChatInput/parts/chat-models.js';
+export { SpeechInput, speechInputStates, MicSelector, VoiceSelector, voiceTags, AudioPlayer, exampleVoices, useAudioLevel, useAudioInputs, voiceSupport, getSpeechRecognition, formatAudioTime, computePeaks } from './Voice/index.js';
+export { Persona, personaStates, personaVariants, personaSizes } from './Persona/index.js';
