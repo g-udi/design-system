@@ -35,7 +35,8 @@ import {
 import { useTable } from '@tanstack/react-table-v9';
 import {
   Avatar,
-  AvatarFallback
+  AvatarFallback,
+  AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
@@ -60,12 +61,13 @@ const STAGES = [
 ];
 const STAGE_BY_VALUE = new Map(STAGES.map((stage) => [stage.value, stage]));
 const OWNERS = [
-  { value: 'ada', label: 'Ada Lovelace' },
-  { value: 'grace', label: 'Grace Hopper' },
-  { value: 'alan', label: 'Alan Turing' },
-  { value: 'barbara', label: 'Barbara Liskov' }
+  { value: 'ada', portrait: 'women/65', label: 'Ada Lovelace' },
+  { value: 'grace', portrait: 'women/12', label: 'Grace Hopper' },
+  { value: 'alan', portrait: 'men/46', label: 'Alan Turing' },
+  { value: 'barbara', portrait: 'women/33', label: 'Barbara Liskov' }
 ];
 const OWNER_LABELS = new Map(OWNERS.map((owner) => [owner.value, owner.label]));
+const OWNER_PORTRAITS = new Map(OWNERS.map((owner) => [owner.label, owner.portrait]));
 const REGIONS = [
   { value: 'emea', label: 'EMEA' },
   { value: 'amer', label: 'AMER' },
@@ -177,7 +179,8 @@ function matches(deal, node) {
 function Initials({ name }) {
   return (
     <Avatar aria-hidden='true' className='size-6 shrink-0'>
-      <AvatarFallback className='text-xs'>
+      <AvatarImage src={`https://randomuser.me/api/portraits/${OWNER_PORTRAITS.get(name)}.jpg`} />
+      <AvatarFallback>
         {name.split(' ').map((part) => part[0]).join('')}
       </AvatarFallback>
     </Avatar>

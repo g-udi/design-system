@@ -187,7 +187,7 @@ const panels = {
           <li key={name} className='flex items-center gap-3'>
             <Avatar className='size-8'>
               <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
-              <AvatarFallback className='text-xs'>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+              <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
             </Avatar>
             <span className='grid min-w-0 flex-1 text-sm'>
               <span className='font-medium'>{name}</span>

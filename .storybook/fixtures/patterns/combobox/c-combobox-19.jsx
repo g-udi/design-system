@@ -43,7 +43,7 @@ function MemberAvatar({ member, className }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={member.avatar} alt={member.name} />
-      <AvatarFallback className='text-xs'>{initials(member.name)}</AvatarFallback>
+      <AvatarFallback>{initials(member.name)}</AvatarFallback>
     </Avatar>
   );
 }

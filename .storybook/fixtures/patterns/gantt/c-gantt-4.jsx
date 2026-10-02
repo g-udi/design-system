@@ -248,7 +248,7 @@ export function Pattern() {
                   {person ? (
                     <Avatar className='size-6 shrink-0'>
                       <AvatarImage src={person.photo} alt='' />
-                      <AvatarFallback className='text-xs'>{person.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                      <AvatarFallback>{person.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                     </Avatar>
                   ) : (
                     <span className='bg-surface-muted grid size-6 shrink-0 place-items-center rounded-sm'>

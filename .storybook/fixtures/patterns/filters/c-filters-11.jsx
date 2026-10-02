@@ -31,7 +31,7 @@ function Person({ img, name }) {
         src={`https://randomuser.me/api/portraits/${img}.jpg`}
         alt={name}
       />
-      <AvatarFallback className='text-xs'>
+      <AvatarFallback>
         {name
           .split(' ')
           .map((part) => part[0])

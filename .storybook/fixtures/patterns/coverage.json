@@ -323,7 +323,7 @@
           "title": "Social proof",
           "description": "Social proof",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-20.jsx",
-          "sha256": "4e93107dc07e6a0e73d4a53ffa9beb518de4f1738256e12dd672eb3200152da3",
+          "sha256": "88f4ffed578f2fc8717cfbeb0cb054f400fa3d5098812483099605ddf780ec36",
           "storyId": "core-avatar--avatar-pattern-20"
         },
         {
@@ -331,7 +331,7 @@
           "title": "Hover groups with tooltips",
           "description": "Hover groups with tooltips",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-24.jsx",
-          "sha256": "a683455777737a4c867d6de6a08069af6a8bf56a84e78b41d6b99f113df35dfe",
+          "sha256": "07a32840d6ee3e67e377424956fe77ddc661883647c7bd9ddff65afefbb98b57",
           "storyId": "core-avatar--avatar-pattern-24"
         },
         {
@@ -590,7 +590,7 @@
           "title": "Inputs and selects",
           "description": "Inputs and selects",
           "file": ".storybook/fixtures/patterns/button-group/c-button-group-16.jsx",
-          "sha256": "db3ef8f34711dec97aeccdb364d3131d1251b70e2e62467a4466da21fe13f66e",
+          "sha256": "4cbc748e6cc0451a8c342c92ba1c27a654eec2c9442ecfa3ec2d8c62e30f9238",
           "storyId": "core-buttongroup--button-group-pattern-16"
         },
         {
@@ -1103,7 +1103,7 @@
           "title": "Streaming assistant reply",
           "description": "Streaming assistant reply",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-4.jsx",
-          "sha256": "e491e2aac5e8fc202b3117f64ad10d5e5e9110c9a42eb2dd768ffe7855dafc4c",
+          "sha256": "a8ec90e2845331b8e60a650785e9ef2f8f9288964327c6a9ff6209fd88e74d83",
           "storyId": "core-codeblock--code-block-pattern-4"
         },
         {
@@ -1265,7 +1265,7 @@
           "title": "Member tags",
           "description": "Member tags",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-19.jsx",
-          "sha256": "ca11ca67ed9c544fe21f5c3a74b7ce660cfcaef9c267951d55b1c968602f2016",
+          "sha256": "2872f1ae9c05cd503a73f0c889f58e136499f6bbba690a94569a4512baf30418",
           "storyId": "core-select--combobox-pattern-19"
         },
         {
@@ -1273,7 +1273,7 @@
           "title": "Property pickers",
           "description": "Property pickers",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-21.jsx",
-          "sha256": "5766469b8eb076cd052a8013f99c3c4add71c0e4f7422d2de5cc6d05b43a21ad",
+          "sha256": "2f8aa8862bc68abe9707203cd6d277d8bd5a8f0586c48c2a504e86050bae5688",
           "storyId": "core-select--combobox-pattern-21"
         },
         {
@@ -1310,7 +1310,7 @@
           "title": "Search everything",
           "description": "Search everything",
           "file": ".storybook/fixtures/patterns/command/c-command-5.jsx",
-          "sha256": "a6fbf8279a0d9de2fe0aa576eb00a637dd288e4029f64c93ba5ab03b18d60e43",
+          "sha256": "b1ef7c9418e5cb3666045864edef6c88456984cc8267b7bf21dc3424887e36de",
           "storyId": "core-commander--command-pattern-5"
         }
       ]
@@ -1376,7 +1376,7 @@
           "title": "CRUD in a frame",
           "description": "CRUD in a frame",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-23.jsx",
-          "sha256": "039949f902e73eed5b32683d2a3613e0f9d29cc74fe63df432ed0531c797012a",
+          "sha256": "48fa0671b037d5647401c6684452938eb752fc35569ea1fb346a7058dc2250a2",
           "storyId": "core-datatable--data-grid-pattern-23"
         },
         {
@@ -1416,7 +1416,7 @@
           "title": "Spreadsheet editing",
           "description": "Spreadsheet editing",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-31.jsx",
-          "sha256": "02885038e208e19708b46cccd97696ecb605f4bec30f542568a7e09c25163102",
+          "sha256": "7943967e3e9636fda1c1af83f6dd8f93c957bed1301fc8272129eedd909daf05",
           "storyId": "core-datatable--data-grid-pattern-31"
         },
         {
@@ -1424,7 +1424,7 @@
           "title": "Column virtualization",
           "description": "Column virtualization",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-32.jsx",
-          "sha256": "430e3bc8f8b5a5e15b01af4c30cb3d97c267e950e60c14ec0699092a3a759fde",
+          "sha256": "f8b3a5451c81998618d27cdb7ced947b93975a7ae4a8a4621ef9320bc2f39b29",
           "storyId": "core-datatable--data-grid-pattern-32"
         },
         {
@@ -1480,7 +1480,7 @@
           "title": "CRM workspace",
           "description": "CRM workspace",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-50.jsx",
-          "sha256": "14e12dd36db82f2931596b222b28b3ba744d888390b65b8d1b8af0091eab4c0b",
+          "sha256": "9b66083dcb7e8efbdc415f6f2f8706b95d9e7bf9dbb0aeb0d5db8b514a40a088",
           "storyId": "core-datatable--data-grid-pattern-50"
         },
         {
@@ -1488,7 +1488,7 @@
           "title": "Shipment exceptions",
           "description": "Shipment exceptions",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-51.jsx",
-          "sha256": "2c4300bcc7ea0b104a2afc056149b894cb8064c17b8462271e1bce265c508280",
+          "sha256": "a0c16714b488148a2c7a5e035973885b90e9f7ef84295b0b2ad3c53ccc44765e",
           "storyId": "core-datatable--data-grid-pattern-51"
         }
       ]
@@ -1826,7 +1826,7 @@
           "title": "Everything in one filter bar",
           "description": "Everything in one filter bar",
           "file": ".storybook/fixtures/patterns/filters/c-filters-1.jsx",
-          "sha256": "27a4f75d6d7244e6895ca02f98f0cdf9ab208115631d08d5e8b7b47796ea8dcc",
+          "sha256": "7454c101c79dc7e46431bd4a907cb3064fe04a9b608de99e5ff27ed136b03eff",
           "storyId": "core-filterbar--filters-pattern-1"
         },
         {
@@ -1850,7 +1850,7 @@
           "title": "Filtering a table with nested groups",
           "description": "Filtering a table with nested groups",
           "file": ".storybook/fixtures/patterns/filters/c-filters-10.jsx",
-          "sha256": "ec48083371dde747e3533b53aa7469ddbd4a69ec7d3bb05a6558f63fa1750d39",
+          "sha256": "f7cccfe5992a817e32266c13bd5db0884a207e0e505cf422ffde1ad63a2137ad",
           "storyId": "core-filterbar--filters-pattern-10"
         },
         {
@@ -1858,7 +1858,7 @@
           "title": "Nested groups inline, walked back out",
           "description": "Nested groups inline, walked back out",
           "file": ".storybook/fixtures/patterns/filters/c-filters-11.jsx",
-          "sha256": "a5d672148b9fece195ac4040aad54eaea122e7c87c836e8ffad5e8b8a88d7389",
+          "sha256": "4f35a4e844fd9f42bad91372ff8bb05ef1dfcc97fc664fbd4909a4532e4c495a",
           "storyId": "core-filterbar--filters-pattern-11"
         },
         {
@@ -1866,7 +1866,7 @@
           "title": "Controlled, sized and translated",
           "description": "Controlled, sized and translated",
           "file": ".storybook/fixtures/patterns/filters/c-filters-12.jsx",
-          "sha256": "3d09be2a5f314927e82765cb584d2b2b93ee33401b653333ddbdfb84ea162e26",
+          "sha256": "5af47ec562042a41aa4b39975ddc3e45548dcc77fd20e0088654090f0eae3cee",
           "storyId": "core-filterbar--filters-pattern-12"
         }
       ]
@@ -2094,7 +2094,7 @@
           "title": "Capacity-aware resource planner",
           "description": "Capacity-aware resource planner",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-4.jsx",
-          "sha256": "86800694373a9e9ffdccff5050bf69c4f34f920d1f88e34b229c09aef3952f22",
+          "sha256": "2d118678c21ef7f19582db964c05d9c13d8d95bf64185c633d60935645c67fe7",
           "storyId": "core-gantt--gantt-pattern-4"
         },
         {
@@ -2102,7 +2102,7 @@
           "title": "Task table with progress",
           "description": "Task table with progress",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-5.jsx",
-          "sha256": "3f604398e29450d06da27ca1a994b5a09a30b9a71e91f72b50fddf13c6f86f83",
+          "sha256": "4060d5ebc104ba914223b3d72bb153f00acdcdb107ceac72ebdb7c27aa82571d",
           "storyId": "core-gantt--gantt-pattern-5"
         },
         {
@@ -2118,7 +2118,7 @@
           "title": "Project planner with live validation",
           "description": "Project planner with live validation",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-7.jsx",
-          "sha256": "783658897d619c28094d09518c91ceef76c82686a8d4394c956ec35a37deb6aa",
+          "sha256": "2f949bf82cf3873017e85e57eba77c1949c9bb65bc3e8eb6d5e1a1876e3f68c1",
           "storyId": "core-gantt--gantt-pattern-7"
         },
         {
@@ -2126,7 +2126,7 @@
           "title": "Day dispatch",
           "description": "Day dispatch",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-8.jsx",
-          "sha256": "c21729440fa64f1d78c0f2501d24ed112dd632963e6eb473a2e2fb97a886b824",
+          "sha256": "c164831ec1597c16052850296ba14ffd8d7c6bdce88bf47084270efc513e1489",
           "storyId": "core-gantt--gantt-pattern-8"
         },
         {
@@ -3114,7 +3114,7 @@
           "title": "Day agenda",
           "description": "Day agenda",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-1.jsx",
-          "sha256": "c0faa2ea3215180e26b725e87e2594e0d3af45263d80c949a57857f21132c7bd",
+          "sha256": "db8e9a82ea470d0793be6e0b6838996837bebfec17a299fb8c5a81cb94cc8b48",
           "storyId": "blocks-scheduling--scheduling-pattern-1"
         },
         {
@@ -3122,7 +3122,7 @@
           "title": "Month at a glance",
           "description": "Month at a glance",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-2.jsx",
-          "sha256": "36a955dc096d2f426e8c457e5f5404e530d79866d5932488b62f4fb16b075880",
+          "sha256": "9922372eee2c38336d5181f986fdeb53d82a1f432ff65ee3e1221513b69b9508",
           "storyId": "blocks-scheduling--scheduling-pattern-2"
         },
         {
@@ -3154,7 +3154,7 @@
           "title": "Webinar details and RSVP",
           "description": "Webinar details and RSVP",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-6.jsx",
-          "sha256": "c78932361cc5942acec5c2c7db37fdf8f05cedcb2458311bd2a0160de27e4ee2",
+          "sha256": "920dbfeecd74b5e5fe1eb74d446e203c6f4664aa9aab8aecdd1d38a2b3320e1f",
           "storyId": "blocks-scheduling--scheduling-pattern-6"
         },
         {
@@ -3175,7 +3175,7 @@
           "title": "Account settings",
           "description": "Account settings",
           "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
-          "sha256": "0dd22017fbcc3acc00b4bf02d100f0f0cd75071ebe47308ed4175325319b5301",
+          "sha256": "a47717d49315288d686d8d02d979c7acfd4d90cf4c0471ece0109bd3012ccc03",
           "storyId": "blocks-profile--screens-pattern-1"
         },
         {
@@ -3446,7 +3446,7 @@
           "title": "Rich option content",
           "description": "Rich option content",
           "file": ".storybook/fixtures/patterns/select/c-select-18.jsx",
-          "sha256": "5ea26cc3b039a057aa23409b0700bfa13da1e1b19279f98a357c83c4600aaa3e",
+          "sha256": "28a04c8cb7a3f74917216a23fd8ea503e4a225bfddfdb5acad3c0bae870cd9e2",
           "storyId": "core-select--select-pattern-18"
         },
         {
@@ -3520,7 +3520,7 @@
           "title": "Notifications",
           "description": "Notifications",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-4.jsx",
-          "sha256": "a663b4dbb7c0e985389bead886cab4ce5450031b2922d7a6a1a3c74a13d94d88",
+          "sha256": "1708a169e865a8de6ee5b23ed0098b902af578b1a7b15a247cbab0d8afa061d0",
           "storyId": "core-sheet--sheet-pattern-4"
         },
         {
@@ -3552,7 +3552,7 @@
           "title": "Comments",
           "description": "Comments",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-8.jsx",
-          "sha256": "b79af7320bdc61592c1f0b3072621212f1d35273db4237fde7651aa0ef00370a",
+          "sha256": "b1acd8ec514d9f56bd28780c4bfa55f36997c9a10488cc553c1340b230b10a85",
           "storyId": "core-sheet--sheet-pattern-8"
         },
         {
@@ -3560,7 +3560,7 @@
           "title": "Record details",
           "description": "Record details",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-9.jsx",
-          "sha256": "87e88e940ab8a39696a583628f1466f4544fa4e7f827edbafe1eee89b0a13bab",
+          "sha256": "a2fd2ac3a373cc5777734e17affc11fbec9e4977e3af62954e99ec7928c23d90",
           "storyId": "core-sheet--sheet-pattern-9"
         }
       ]
@@ -3732,7 +3732,7 @@
           "title": "Custom content",
           "description": "Custom content",
           "file": ".storybook/fixtures/patterns/sonner/c-sonner-9.jsx",
-          "sha256": "60d358948f1faec848a660e178068693b3a3e36e3d7bafbd72f3093ef0ada42b",
+          "sha256": "6ee857f7eeedfb418af0a38a6aa2e8156017d884483dfbff3848b9e9b21d1cf2",
           "storyId": "core-toast--sonner-pattern-9"
         }
       ]
@@ -3885,7 +3885,7 @@
           "title": "Team performance",
           "description": "Team performance",
           "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-7.jsx",
-          "sha256": "e753da462c1c6981d5739ba3fdcbf1cd7c33ec99b0c07bfe602a78dc03da3bdd",
+          "sha256": "3ad441f0e680557c3a71b99e5ed2aa0b7edb76a9c8c62afa2626be03208fdfa2",
           "storyId": "blocks-stat-cards--stat-cards-pattern-7"
         },
         {
@@ -4139,7 +4139,7 @@
           "title": "Activity stream",
           "description": "Activity stream",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-11.jsx",
-          "sha256": "6c76c5b617de5ed974730b2ca8853695c99854decd768eacfb21aa15a42424f2",
+          "sha256": "3c3fe0eb8fb84be624e8729dcda9d61f753b60b7bd54da36856bc0e75b083b18",
           "storyId": "core-timeline--timeline-pattern-11"
         },
         {
@@ -4279,7 +4279,7 @@
           "title": "Organization chart",
           "description": "Organization chart",
           "file": ".storybook/fixtures/patterns/tree/c-tree-6.jsx",
-          "sha256": "4a6dff38a92086d75e30840ed30753e37f133e8b9c3b57b8430f2e0ecac152b9",
+          "sha256": "189744bf2b287ec2145af0f4da80c4e66dcf3def6d1b1e2f458fe6455246d2eb",
           "storyId": "core-tree--tree-pattern-6"
         },
         {
@@ -4395,7 +4395,7 @@
           "title": "Writing workspace · icon rail, search and switcher",
           "description": "Writing workspace · icon rail, search and switcher",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-1.jsx",
-          "sha256": "c6ee51f5fb3b86dff9f47daa7c898ac9e81f38901cd878536036c288b14a8a06",
+          "sha256": "5fda7ef3532aa04ac3abcd3a5f59558a8899b5082d0afcc3900f8a7c3912e799",
           "storyId": "blocks-application-appshell--app-shell-pattern-1"
         },
         {

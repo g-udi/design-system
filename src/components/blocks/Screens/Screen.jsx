@@ -72,7 +72,7 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
               <div className='mt-4 flex items-center gap-3'>
                 <Avatar className='size-9'>
                   {quote.avatar ? <AvatarImage src={quote.avatar} alt={quote.name} /> : null}
-                  <AvatarFallback className='text-xs'>{initials(quote.name)}</AvatarFallback>
+                  <AvatarFallback>{initials(quote.name)}</AvatarFallback>
                 </Avatar>
                 <span className='grid text-sm'>
                   <span className='font-medium'>{quote.name}</span>

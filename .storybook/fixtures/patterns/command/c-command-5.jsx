@@ -114,7 +114,7 @@ export function Pattern() {
                 <CommandItem key={email} value={`${name} ${email}`}>
                   <Avatar className='size-6 shrink-0'>
                     <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
-                    <AvatarFallback className='text-xs'>
+                    <AvatarFallback>
                       {name.split(' ').map((part) => part[0]).join('')}
                     </AvatarFallback>
                   </Avatar>

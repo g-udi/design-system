@@ -152,7 +152,7 @@ export function Pattern() {
                     <span className='flex items-center gap-2'>
                       <Avatar className='size-5'>
                         <AvatarImage src={item.avatar} alt={item.name} />
-                        <AvatarFallback className='text-xs'>{item.initials}</AvatarFallback>
+                        <AvatarFallback>{item.initials}</AvatarFallback>
                       </Avatar>
                       <span className='truncate'>{item.name}</span>
                     </span>

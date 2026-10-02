@@ -284,7 +284,7 @@ function TeamCell({ team, onChange }) {
                   <Badge variant='outline'>
                     <Avatar className='size-4'>
                       <AvatarImage src={member.avatar} alt={member.name} />
-                      <AvatarFallback className='text-xs'>
+                      <AvatarFallback>
                         {member.initials.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
@@ -338,7 +338,7 @@ function TeamCell({ team, onChange }) {
             <ComboboxItem key={member.id} value={member}>
               <Avatar className='size-5'>
                 <AvatarImage src={member.avatar} alt={member.name} />
-                <AvatarFallback className='text-xs'>
+                <AvatarFallback>
                   {member.initials}
                 </AvatarFallback>
               </Avatar>

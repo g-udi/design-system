@@ -132,7 +132,7 @@ export function Pattern() {
             <span className='flex min-w-0 items-center gap-2'>
               <Avatar className='size-5 shrink-0'>
                 <AvatarImage src={PEOPLE[owner]} alt='' />
-                <AvatarFallback className='text-xs'>{initials(owner)}</AvatarFallback>
+                <AvatarFallback>{initials(owner)}</AvatarFallback>
               </Avatar>
               <span className='truncate'>{owner}</span>
             </span>

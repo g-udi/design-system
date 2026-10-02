@@ -21,7 +21,7 @@ const Faces = () => (
     {people.map((person) => (
       <Avatar key={person.name} className='size-7'>
         <AvatarImage src={person.src} alt={person.name} />
-        <AvatarFallback className='text-xs'>{person.initials}</AvatarFallback>
+        <AvatarFallback>{person.initials}</AvatarFallback>
       </Avatar>
     ))}
   </AvatarGroup>

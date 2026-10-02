@@ -100,7 +100,7 @@ export function Pattern() {
                 {event.people.slice(0, 3).map((person) => (
                   <Avatar key={person} className='size-6'>
                     <AvatarImage src={portrait(person)} alt='' />
-                    <AvatarFallback className='text-xs'>·</AvatarFallback>
+                    <AvatarFallback>·</AvatarFallback>
                   </Avatar>
                 ))}
               </AvatarGroup>

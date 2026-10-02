@@ -104,7 +104,7 @@ export function Pattern() {
               <TreeItemLabel className='gap-2 py-1'>
                 <Avatar className='size-6 shrink-0'>
                   <AvatarImage src={data.avatar} alt={data.name} />
-                  <AvatarFallback className='text-xs'>
+                  <AvatarFallback>
                     {initials}
                   </AvatarFallback>
                 </Avatar>

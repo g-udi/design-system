@@ -39,7 +39,7 @@ export function Pattern() {
           <li key={name} className='flex items-center gap-2.5 text-sm'>
             <Avatar className='size-6'>
               <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
-              <AvatarFallback className='text-xs'>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+              <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
             </Avatar>
             <p className='min-w-0 flex-1 truncate'>
               <span className='font-medium'>{name}</span> <span className='text-text-muted'>{action}</span>

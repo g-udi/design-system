@@ -49,11 +49,16 @@
   /* MARK: Avatar */
   .ds-part-avatar {
     @apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
+    /* Initials size against the avatar itself, so a 20px avatar in a table row stays balanced. */
+    container-type: size;
   }
 
   .ds-part-avatar-fallback {
-    @apply bg-ui-muted text-ui-muted-foreground;
+    @apply bg-ui-muted text-ui-muted-foreground font-medium;
     border-radius: inherit;
+    font-size: clamp(0.5625rem, 38cqmin, 1.125rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
   }
 
   .ds-part-avatar-image {

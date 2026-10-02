@@ -110,7 +110,7 @@ export function Pattern() {
                 {owners.map(([name, portrait]) => (
                   <Avatar key={name} className='size-7'>
                     <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
-                    <AvatarFallback className='text-xs'>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                    <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                   </Avatar>
                 ))}
               </AvatarGroup>

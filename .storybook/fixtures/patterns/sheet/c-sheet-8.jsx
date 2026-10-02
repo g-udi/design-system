@@ -58,7 +58,7 @@ export function Pattern() {
               <div className='flex items-center gap-2 text-sm'>
                 <Avatar className='size-6'>
                   <AvatarImage src={`https://randomuser.me/api/portraits/${comment.portrait}.jpg`} alt={comment.name} />
-                  <AvatarFallback className='text-xs'>{comment.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                  <AvatarFallback>{comment.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                 </Avatar>
                 <span className='font-medium'>{comment.name}</span>
                 <span className='text-text-muted text-xs'>{comment.when}</span>

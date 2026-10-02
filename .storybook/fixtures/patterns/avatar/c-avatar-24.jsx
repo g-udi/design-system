@@ -23,7 +23,7 @@ function Person({ person, className }) {
       <TooltipTrigger asChild>
         <Avatar tabIndex={0} className={`ring-2 ring-ui-background transition-all duration-300 ease-in-out motion-reduce:transition-none ${className}`}>
           <AvatarImage src={person.src} alt={person.name} />
-          <AvatarFallback className='text-xs'>{person.initials}</AvatarFallback>
+          <AvatarFallback>{person.initials}</AvatarFallback>
         </Avatar>
       </TooltipTrigger>
       <TooltipContent sideOffset={8}>{person.name}</TooltipContent>

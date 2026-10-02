@@ -126,7 +126,7 @@ export function Pattern() {
           <>
             <Avatar className='size-5'>
               <AvatarImage src={item.avatar} alt='' />
-              <AvatarFallback className='text-xs'>{item.initials}</AvatarFallback>
+              <AvatarFallback>{item.initials}</AvatarFallback>
             </Avatar>
             {item.label}
           </>

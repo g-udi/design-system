@@ -55,7 +55,7 @@ export function Pattern() {
             <li key={item.id} className={cn('flex gap-3 p-3', item.unread && 'bg-accent-subtle/40')}>
               <Avatar className='size-8'>
                 <AvatarImage src={`https://randomuser.me/api/portraits/${item.portrait}.jpg`} alt={item.name} />
-                <AvatarFallback className='text-xs'>{item.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                <AvatarFallback>{item.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
               </Avatar>
               <div className='grid min-w-0 flex-1 gap-1.5 text-sm'>
                 <p>

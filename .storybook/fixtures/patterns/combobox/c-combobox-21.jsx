@@ -138,7 +138,7 @@ function PersonAvatar({ person, className = 'size-5' }) {
   return (
     <Avatar className={className}>
       {person.avatar ? <AvatarImage src={person.avatar} alt={person.label} /> : null}
-      <AvatarFallback className='text-xs'>{initials(person.label)}</AvatarFallback>
+      <AvatarFallback>{initials(person.label)}</AvatarFallback>
     </Avatar>
   );
 }

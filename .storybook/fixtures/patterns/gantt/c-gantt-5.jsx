@@ -115,7 +115,7 @@ export function Pattern() {
             <span className='flex min-w-0 items-center gap-2'>
               <Avatar className='size-5 shrink-0'>
                 <AvatarImage src={OWNER_AVATARS[owner]} alt={owner} />
-                <AvatarFallback className='text-xs'>
+                <AvatarFallback>
                   {ownerInitials(owner)}
                 </AvatarFallback>
               </Avatar>

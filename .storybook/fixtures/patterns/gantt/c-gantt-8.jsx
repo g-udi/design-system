@@ -184,7 +184,7 @@ export function Pattern() {
                 <span className='flex min-w-0 items-center gap-2'>
                   <Avatar className='size-6 shrink-0'>
                     <AvatarImage src={tech.photo} alt='' />
-                    <AvatarFallback className='text-xs'>{tech.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                    <AvatarFallback>{tech.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                   </Avatar>
                   <span className='truncate'>{tech.name}</span>
                 </span>

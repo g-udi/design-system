@@ -126,7 +126,7 @@ function Notifications() {
             <li key={item.id} className='flex gap-3 px-3 py-2.5 text-sm'>
               <Avatar className='size-7'>
                 {item.avatar ? <AvatarImage src={`https://randomuser.me/api/portraits/${item.avatar}.jpg`} alt='' /> : null}
-                <AvatarFallback className='text-xs'>{item.who[0]}</AvatarFallback>
+                <AvatarFallback>{item.who[0]}</AvatarFallback>
               </Avatar>
               <p className='min-w-0 flex-1'>
                 <span className='font-medium'>{item.who}</span> <span className='text-text-muted'>{item.text}</span>

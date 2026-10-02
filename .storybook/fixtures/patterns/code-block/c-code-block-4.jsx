@@ -87,7 +87,7 @@ export function Pattern() {
               src='https://randomuser.me/api/portraits/women/44.jpg'
               alt='Mira Stone'
             />
-            <AvatarFallback className='text-xs font-medium'>MS</AvatarFallback>
+            <AvatarFallback>MS</AvatarFallback>
           </Avatar>
           <p className='pt-1 text-sm'>How do I stream chat messages?</p>
         </div>

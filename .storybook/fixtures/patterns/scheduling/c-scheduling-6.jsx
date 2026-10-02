@@ -65,7 +65,7 @@ export function Pattern() {
             <div key={presenter.name} className='flex items-center gap-2.5'>
               <Avatar className='size-8'>
                 <AvatarImage src={portrait(presenter.portrait)} alt={presenter.name} />
-                <AvatarFallback className='text-xs'>{presenter.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+                <AvatarFallback>{presenter.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
               </Avatar>
               <div className='text-sm'>
                 <p className='font-medium'>{presenter.name}</p>
@@ -82,7 +82,7 @@ export function Pattern() {
                 {['women/44', 'men/32', 'women/12'].map((person) => (
                   <Avatar key={person} className='size-6'>
                     <AvatarImage src={portrait(person)} alt='' />
-                    <AvatarFallback className='text-xs'>·</AvatarFallback>
+                    <AvatarFallback>·</AvatarFallback>
                   </Avatar>
                 ))}
                 <AvatarGroupCount className='size-6 text-xs'>+{rsvp === 'yes' ? 129 : 128}</AvatarGroupCount>

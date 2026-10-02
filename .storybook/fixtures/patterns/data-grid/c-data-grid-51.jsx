@@ -19,7 +19,8 @@ import { default as FilterBar } from '../../../../src/components/core/FilterBar/
 import { useTable } from '@tanstack/react-table-v9';
 import {
   Avatar,
-  AvatarFallback
+  AvatarFallback,
+  AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
@@ -52,6 +53,7 @@ const PRIORITIES = [
   { value: 'normal', label: 'Normal', variant: 'outline' }
 ];
 const AGENTS = ['Priya Shah', 'Mateo Ruiz', 'Hana Kim', 'Omar Haddad'];
+const PORTRAITS = { 'Priya Shah': 'women/44', 'Mateo Ruiz': 'men/32', 'Hana Kim': 'women/68', 'Omar Haddad': 'men/75' };
 const CITIES = ['Rotterdam', 'Hamburg', 'Antwerp', 'Dubai', 'Singapore', 'Shanghai', 'Newark', 'Felixstowe', 'Valencia', 'Busan'];
 const byValue = (list) => new Map(list.map((entry) => [entry.value, entry]));
 const EXCEPTION_BY_VALUE = byValue(EXCEPTIONS);
@@ -223,8 +225,9 @@ export function Pattern() {
         cell: ({ getValue }) =>
           getValue() ? (
             <span className='flex min-w-0 items-center gap-2'>
-              <Avatar aria-hidden='true' className='size-5 shrink-0'>
-                <AvatarFallback className='text-xs'>{getValue().split(' ').map((part) => part[0]).join('')}</AvatarFallback>
+              <Avatar aria-hidden='true' className='size-6 shrink-0'>
+                <AvatarImage src={`https://randomuser.me/api/portraits/${PORTRAITS[getValue()]}.jpg`} />
+                <AvatarFallback>{getValue().split(' ').map((part) => part[0]).join('')}</AvatarFallback>
               </Avatar>
               <span className='truncate'>{getValue()}</span>
             </span>

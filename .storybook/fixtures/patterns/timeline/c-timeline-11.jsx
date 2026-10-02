@@ -80,7 +80,7 @@ function Person({ person, className }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={person.avatar} alt={person.name} />
-      <AvatarFallback className='text-xs'>{initials(person.name)}</AvatarFallback>
+      <AvatarFallback>{initials(person.name)}</AvatarFallback>
     </Avatar>
   );
 }

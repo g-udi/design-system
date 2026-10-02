@@ -156,7 +156,7 @@ export function Pattern() {
                 src={row.original.person.avatar}
                 alt={row.original.person.name}
               />
-              <AvatarFallback className='text-xs'>
+              <AvatarFallback>
                 {row.original.person.initials}
               </AvatarFallback>
             </Avatar>

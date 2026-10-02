@@ -147,7 +147,7 @@ const templates = [
             {reviewers.map(([name, path]) => (
               <Avatar key={name} className='size-6 ring-2 ring-current/10'>
                 <AvatarImage src={portrait(path)} alt={name} />
-                <AvatarFallback className='text-xs'>{initials(name)}</AvatarFallback>
+                <AvatarFallback>{initials(name)}</AvatarFallback>
               </Avatar>
             ))}
           </div>
