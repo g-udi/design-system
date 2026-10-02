@@ -19,7 +19,7 @@ export const Playground = {
   args: { name: 'Gaudi', seed: '', motif: 'auto', hue: 'auto', size: 'xl', state: 'idle' },
   parameters: {
     docs: {
-      description: { story: 'Each agent gets a Gaudí-inspired mark: trencadís mosaic, catenary arches, basilica spires, roof scales, a hyperboloid, the four-armed cross, wrought ironwork or a rippling facade, glazed in one of eight tile hues. The seed (or the name) picks both, so an agent keeps the same mark everywhere; `motif` and `hue` pin them. `state` adds an ActivityIndicator badge at the corner.' },
+      description: { story: 'Each agent gets a Gaudí-inspired mark: trencadís mosaic, basilica spires, a wrought-iron spiral, a rose window, the palmetto gate, the flower paving tile, a twisted chimney, a sun medallion or the nativity star, glazed in one of eight tile hues. The seed (or the name) picks both, so an agent keeps the same mark everywhere; `motif` and `hue` pin them. `state` adds an ActivityIndicator badge at the corner.' },
       source: playgroundSource('AgentMark', { imports: "import { AgentMark } from '@gaudi/design-system/chat';" })
     }
   },
@@ -33,10 +33,10 @@ export const Playground = {
 
 export const Motifs = {
   name: 'Motifs and glazes',
-  parameters: { docs: { description: { story: 'The eight motifs, each in a different glaze, then one motif across all eight hues. Motifs are drawn bare, a deep glaze on light surfaces and a bright one on dark.' } } },
+  parameters: { docs: { description: { story: 'The nine motifs, each in a different glaze, then one motif across all eight hues. Motifs are drawn bare, a deep glaze on light surfaces and a bright one on dark.' } } },
   render: () => (
     <div className='grid gap-6'>
-      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-3'>
         {Object.entries(agentMotifs).map(([motif, label], index) => (
           <li key={motif} className='flex items-center gap-3 text-sm'>
             <AgentMark name={label} motif={motif} hue={agentHues[index]} size='lg' />

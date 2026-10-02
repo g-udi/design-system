@@ -23,8 +23,8 @@ test('AgentMark draws a stable Gaudí motif from its seed, and pins motif or hue
   assert.ok(api.agentHues.includes(first.hue));
   const seen = new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'].map((seed) => api.resolveAgentMark(`agent-${seed}`).motif));
   assert.ok(seen.size >= 4, 'seeds spread across motifs');
-  const html = render(api.AgentMark, { name: 'Gaudi', motif: 'catenary', hue: 'teal' });
-  assert.match(html, /data-agent-motif="catenary"/);
+  const html = render(api.AgentMark, { name: 'Gaudi', motif: 'rose', hue: 'teal' });
+  assert.match(html, /data-agent-motif="rose"/);
   assert.match(html, /data-agent-hue="teal"/);
   assert.match(html, /<svg[^>]*aria-hidden="true"/);
   const icon = render(api.AgentMark, { name: 'Search agent', icon: 'Search' });

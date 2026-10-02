@@ -1,6 +1,6 @@
 # AgentMark
 
-The assistant’s mark. By default each agent gets a Gaudí-inspired motif (trencadís mosaic, catenary arches, basilica spires, roof scales, a hyperboloid, the four-armed cross, wrought ironwork or a rippling facade) glazed in one of eight tile hues. The seed, or the name, picks both, so an agent keeps the same mark everywhere. An icon, image or monogram can sit on a token tile instead, and an optional activity badge shows what the agent is doing.
+The assistant’s mark. By default each agent gets a Gaudí-inspired motif (trencadís mosaic, basilica spires, a wrought-iron spiral, a rose window, the palmetto gate, the flower paving tile, a twisted chimney, a sun medallion or the nativity star) glazed in one of eight tile hues. The seed, or the name, picks both, so an agent keeps the same mark everywhere. An icon, image or monogram can sit on a token tile instead, and an optional activity badge shows what the agent is doing.
 
 ## Usage
 

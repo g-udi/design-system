@@ -51,25 +51,12 @@ const spiral = (() => {
   for (let step = 0; step <= 120; step += 1) points.push(point(0.8 + (step / 120) * 8.6, (step / 120) * 2.6 * 360));
   return `M${points.join(' L')}`;
 })();
-const wave = (y, height) =>
-  `M2 ${y} C6 ${y - 3} 8 ${y + 3} 12 ${y} S18 ${y - 3} 22 ${y} V${y + height} C18 ${y + height + 3} 16 ${y + height - 3} 12 ${y + height} S6 ${y + height + 3} 2 ${y + height}Z`;
-const ruled = [5, 7.33, 9.67, 12, 14.33, 16.67, 19];
 
 const AGENT_MOTIFS = {
   trencadis: {
     label: 'Trencadís mosaic',
     draw: () => shards.map((shard) => <path key={shard.d} d={shard.d} opacity={shard.opacity} />),
     cracks: true
-  },
-  catenary: {
-    label: 'Catenary arches',
-    draw: () => (
-      <g fill='none' stroke='currentColor' strokeWidth='2.2' strokeLinecap='round'>
-        <path d='M3 22 C3 10 7 2.5 12 2.5 C17 2.5 21 10 21 22' />
-        <path d='M7.5 22 C7.5 13.5 9.5 8.5 12 8.5 C14.5 8.5 16.5 13.5 16.5 22' opacity='.7' />
-        <path d='M11 22 C11 17.5 11.4 14.5 12 14.5 C12.6 14.5 13 17.5 13 22' opacity='.45' />
-      </g>
-    )
   },
   spire: {
     label: 'Basilica spires',
@@ -81,41 +68,7 @@ const AGENT_MOTIFS = {
         <circle cx='12' cy='2.4' r='1.4' />
       </>
     ),
-    cutouts: ['M11.4 9h1.2v2.2h-1.2Z', 'M11.4 13h1.2v2.2h-1.2Z', 'M11.4 17h1.2v2.2h-1.2Z']
-  },
-  scales: {
-    label: 'Roof scales',
-    // Rows of overlapping fish scales, lightest at the ridge.
-    draw: () => (
-      <g fill='none' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round'>
-        {[[3.5, [3, 9, 15, 21], 0.4], [7, [6, 12, 18], 0.55], [10.5, [3, 9, 15, 21], 0.7], [14, [6, 12, 18], 0.85], [17.5, [3, 9, 15, 21], 1]].flatMap(([y, xs, opacity]) =>
-          xs.map((x) => <path key={`${x}-${y}`} d={`M${x - 3} ${y} A3 3 0 0 0 ${x + 3} ${y}`} opacity={opacity} />)
-        )}
-      </g>
-    ),
-    clip: true
-  },
-  hyperboloid: {
-    label: 'Hyperboloid',
-    draw: () => (
-      <g fill='none' stroke='currentColor' strokeWidth='1.1' strokeLinecap='round'>
-        {ruled.map((x, index) => <line key={`a${x}`} x1={x} y1='3' x2={ruled[(index + 3) % ruled.length]} y2='21' />)}
-        {ruled.map((x, index) => <line key={`b${x}`} x1={x} y1='3' x2={ruled[(index + 4) % ruled.length]} y2='21' opacity='.55' />)}
-        <ellipse cx='12' cy='3' rx='7' ry='1.2' strokeWidth='1.6' />
-        <ellipse cx='12' cy='21' rx='7' ry='1.2' strokeWidth='1.6' />
-      </g>
-    )
-  },
-  cross: {
-    label: 'Four-armed cross',
-    draw: () => (
-      <>
-        <path d='M9.8 4h4.4v16H9.8Z' />
-        <path d='M4 9.8h16v4.4H4Z' opacity='.7' />
-        {[[12, 3], [21, 12], [12, 21], [3, 12]].map(([x, y], index) => <circle key={`${x}-${y}`} cx={x} cy={y} r='2.4' opacity={index % 2 ? 0.7 : 1} />)}
-        <circle cx='12' cy='12' r='2.9' />
-      </>
-    )
+    cutouts: () => ['M11.4 9h1.2v2.2h-1.2Z', 'M11.4 13h1.2v2.2h-1.2Z', 'M11.4 17h1.2v2.2h-1.2Z'].map((d) => <path key={d} d={d} />)
   },
   ironwork: {
     label: 'Wrought-iron spiral',
@@ -126,9 +79,86 @@ const AGENT_MOTIFS = {
       </>
     )
   },
-  facade: {
-    label: 'Undulating facade',
-    draw: () => [[3.5, 0.45], [9.5, 0.7], [15.5, 1]].map(([y, opacity]) => <path key={y} d={wave(y, 3.4)} opacity={opacity} />)
+  rose: {
+    label: 'Rose window',
+    // Eight petals around a pierced centre, like the basilica's rose windows.
+    draw: () => (
+      <>
+        {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, index) => (
+          <ellipse key={angle} cx='12' cy='5.6' rx='2.5' ry='4.4' transform={`rotate(${angle} 12 12)`} opacity={index % 2 ? 0.55 : 1} />
+        ))}
+        <circle cx='12' cy='12' r='3.4' />
+      </>
+    ),
+    cutouts: () => <circle cx='12' cy='12' r='1.5' />
+  },
+  palmetto: {
+    label: 'Palmetto gate',
+    // A fan of palm leaves rising from one stem, after the cast-iron gate of Casa Vicens.
+    draw: () => (
+      <>
+        {[-50, -33, -16, 0, 16, 33, 50].map((angle, index) => {
+          // Outer leaves are shorter, so the fan curves inside the frame.
+          const top = 21 - [11.5, 14.5, 16.8, 18, 16.8, 14.5, 11.5][index];
+          const mid = (21 + top) / 2;
+          return <path key={angle} d={`M12 21 C10.5 ${mid + 2} 10.7 ${mid - 3} 12 ${top} C13.3 ${mid - 3} 13.5 ${mid + 2} 12 21Z`} transform={`rotate(${angle} 12 21)`} opacity={[0.5, 0.7, 0.85, 1, 0.85, 0.7, 0.5][index]} />;
+        })}
+        <path d='M8.8 21.5 A3.2 3.2 0 0 1 15.2 21.5Z' />
+      </>
+    )
+  },
+  panot: {
+    label: 'Flower paving tile',
+    // The Barcelona flower tile: quarter circles in the corners and a four-petal flower at the centre.
+    draw: () => (
+      <>
+        <path d='M2 2h5.5A5.5 5.5 0 0 1 2 7.5Z M22 2v5.5A5.5 5.5 0 0 1 16.5 2Z M22 22h-5.5A5.5 5.5 0 0 1 22 16.5Z M2 22v-5.5A5.5 5.5 0 0 1 7.5 22Z' opacity='.5' />
+        {[0, 90, 180, 270].map((angle) => <ellipse key={angle} cx='12' cy='7.2' rx='2.6' ry='4' transform={`rotate(${angle} 12 12)`} opacity='.85' />)}
+        {[45, 135, 225, 315].map((angle) => <ellipse key={angle} cx='12' cy='8.6' rx='1.3' ry='2.4' transform={`rotate(${angle} 12 12)`} opacity='.55' />)}
+        <circle cx='12' cy='12' r='2' />
+      </>
+    ),
+    clip: true
+  },
+  helicoid: {
+    label: 'Twisted chimney',
+    // Four blades turning about the centre, like the helicoid chimneys on the rooftop of La Pedrera.
+    draw: () => (
+      <>
+        {[0, 90, 180, 270].map((angle, index) => (
+          <path key={angle} d='M12 12 C11.5 6.5 14.5 2.5 20.5 2.5 C18.5 6.5 16.5 10 12 12Z' transform={`rotate(${angle} 12 12)`} opacity={index % 2 ? 0.6 : 1} />
+        ))}
+        <circle cx='12' cy='12' r='2.2' />
+      </>
+    ),
+    cutouts: () => <circle cx='12' cy='12' r='0.9' />
+  },
+  sun: {
+    label: 'Sun medallion',
+    // A ceramic sun from the market-hall ceiling: a glazed disc ringed by broken-tile rays.
+    draw: () => (
+      <>
+        {Array.from({ length: 12 }, (_, index) => {
+          const angle = index * 30;
+          const [l, r, tip] = [point(5.6, angle - 11), point(5.6, angle + 11), point(index % 2 ? 9.2 : 10.8, angle)];
+          return <path key={angle} d={`M${l} L${tip} L${r}Z`} opacity={index % 2 ? 0.55 : 0.9} />;
+        })}
+        <circle cx='12' cy='12' r='4.4' />
+      </>
+    ),
+    cutouts: () => <circle cx='12' cy='12' r='2.4' fill='none' stroke='black' strokeWidth='0.9' />
+  },
+  star: {
+    label: 'Nativity star',
+    // A long four-point star over a shorter one, with a pierced heart, from the Nativity facade.
+    draw: () => (
+      <>
+        <path d='M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8Z' />
+        <path d='M12 1 L14.2 9.8 L23 12 L14.2 14.2 L12 23 L9.8 14.2 L1 12 L9.8 9.8Z' transform='rotate(45 12 12) translate(12 12) scale(0.62) translate(-12 -12)' opacity='.55' />
+        {[[4.5, 4.5], [19.5, 4.5], [19.5, 19.5], [4.5, 19.5]].map(([x, y]) => <circle key={`${x}-${y}`} cx={x} cy={y} r='1.1' opacity='.7' />)}
+      </>
+    ),
+    cutouts: () => <circle cx='12' cy='12' r='1.4' />
   }
 };
 
@@ -185,7 +215,7 @@ function AgentMotif({ motif }) {
                   {outerCuts.map((angle) => <line key={`o${angle}`} x1={point(5, angle)[0]} y1={point(5, angle)[1]} x2={point(11, angle)[0]} y2={point(11, angle)[1]} />)}
                 </g>
               ) : null}
-              {cutouts?.map((d) => <path key={d} d={d} fill='black' />)}
+              {cutouts ? <g fill='black'>{cutouts()}</g> : null}
             </mask>
           ) : null}
           {clip ? <clipPath id={`${id}-clip`}><rect x='1.5' y='1.5' width='21' height='21' rx='3' /></clipPath> : null}
@@ -199,8 +229,9 @@ function AgentMotif({ motif }) {
 const initials = (name = '') => name.trim().split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
 
 /**
- * The assistant's mark. By default it draws a Gaudí-inspired motif (trencadís mosaic, catenary arches,
- * spires, roof scales, a hyperboloid, the four-armed cross, ironwork or a rippling facade), drawn bare
+ * The assistant's mark. By default it draws a Gaudí-inspired motif (trencadís mosaic, basilica spires,
+ * ironwork spiral, rose window, palmetto gate, flower paving tile, twisted chimney, sun medallion or
+ * nativity star), drawn bare
  * in a glazed hue chosen from `seed` (or `name`), so every agent keeps a stable, recognisable mark. Pass `motif` or
  * `hue` to pin either one, or `icon`, `image` or `monogram` to show those on a `tone` tile instead.
  * `state` adds a small ActivityIndicator badge at the corner.
