@@ -5,17 +5,19 @@ import { MessageError } from '../../ChatError/parts/message-error.jsx';
 import { MessageFile } from '../../ChatFile/parts/message-file.jsx';
 import { MessageSuggestions } from '../../ChatPromptSuggestions/parts/message-suggestions.jsx';
 import { MessageMarkdown } from './message-markdown.jsx';
-import { MessageReasoning, MessageReasoningStep } from '../../ChatReasoning/parts/message-reasoning.jsx';
+import { MessageReasoning, MessageReasoningImage, MessageReasoningResults, MessageReasoningStep } from '../../ChatReasoning/parts/message-reasoning.jsx';
 import { MessageSources } from '../../ChatSources/parts/message-sources.jsx';
 import { MessageData, MessageTool } from '../../ChatTool/parts/message-tool.jsx';
+import { MessageToolApproval } from '../../ChatTool/parts/message-tool-approval.jsx';
 
 /*
  * An assistant turn is an ordered list of parts, shaped like the parts of common AI SDK messages but with
  * no dependency on one:
  *
  *   { type: 'text', text }
- *   { type: 'reasoning', text?, steps?: [{ status, text }], streaming?, duration? }
+ *   { type: 'reasoning', text?, steps?: [{ status, text } | { status, label, icon?, description?, text?, results?, images? }], streaming?, duration? }
  *   { type: 'tool', id?, name, status, description?, input?, output?, error?, duration?, parts? }
+ *   { type: 'approval', id?, name, description?, input?, state?, allowAlways?, output? }   // a tool waiting on the person
  *   { type: 'delegation', agent: { name }, status, instructions?, error?, parts? }
  *   { type: 'source', title, url?, kind?, site?, excerpt? }   // gathered into one list, cited as [n]
  *   { type: 'file', name, type?, size?, description?, href? }
@@ -36,9 +38,19 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
       case 'reasoning':
         return (
           // Thinking lasts until the answer after it starts to arrive.
-          <MessageReasoning key={key} streaming={part.streaming ?? (streaming && !parts.slice(index + 1).some((next) => next.type === 'text' && next.text?.trim()))} duration={part.duration}>
+          <MessageReasoning key={key} variant={part.steps?.some((step) => step.label) ? 'steps' : undefined} streaming={part.streaming ?? (streaming && !parts.slice(index + 1).some((next) => next.type === 'text' && next.text?.trim()))} duration={part.duration}>
             {part.steps?.length
-              ? part.steps.map((step, stepIndex) => <MessageReasoningStep key={stepIndex} status={step.status}>{step.text}</MessageReasoningStep>)
+              ? part.steps.map((step, stepIndex) => (step.label ? (
+                <MessageReasoningStep key={stepIndex} status={step.status} label={step.label} icon={step.icon} description={step.description} meta={step.meta}>
+                  {step.text || step.results?.length || step.images?.length ? (
+                    <>
+                      {step.text ? <p className='m-0'>{step.text}</p> : null}
+                      {step.results?.length ? <MessageReasoningResults results={step.results} /> : null}
+                      {step.images?.map((image) => <MessageReasoningImage key={image.src} {...image} />)}
+                    </>
+                  ) : null}
+                </MessageReasoningStep>
+              ) : <MessageReasoningStep key={stepIndex} status={step.status}>{step.text}</MessageReasoningStep>))
               : part.text}
           </MessageReasoning>
         );
@@ -57,6 +69,21 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
           >
             {part.parts?.length ? <PartList parts={part.parts} sources={sources} streaming={false} handlers={handlers} nested /> : null}
           </MessageTool>
+        );
+      case 'approval':
+        return (
+          <MessageToolApproval
+            key={key}
+            name={part.name}
+            description={part.description}
+            input={part.input}
+            state={part.state}
+            allowAlways={part.allowAlways}
+            onApprove={handlers.onToolApproval ? ({ always }) => handlers.onToolApproval(part, { approved: true, always }) : undefined}
+            onDeny={handlers.onToolApproval ? () => handlers.onToolApproval(part, { approved: false }) : undefined}
+          >
+            {part.output !== undefined ? <MessageData value={part.output} /> : null}
+          </MessageToolApproval>
         );
       case 'delegation':
         return (
@@ -94,12 +121,12 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
  * part keeps an open code fence live, and a trailing reasoning part stays open). Source parts gather into
  * one MessageSources list after the reply; text cites them as [1], [2]…
  */
-function MessageParts({ parts = [], streaming = false, onRetry, onToolRetry, onFileAction, onSuggestion, sourcesLabel, className }) {
+function MessageParts({ parts = [], streaming = false, onRetry, onToolRetry, onToolApproval, onFileAction, onSuggestion, sourcesLabel, className }) {
   const sources = parts.filter((part) => part.type === 'source');
   const body = parts.filter((part) => part.type !== 'source');
   return (
     <div data-slot='message-parts' aria-busy={streaming || undefined} className={cn('ds-part-message-parts flex min-w-0 flex-col gap-3', className)}>
-      <PartList parts={body} sources={sources} streaming={streaming} handlers={{ onRetry, onToolRetry, onFileAction, onSuggestion }} />
+      <PartList parts={body} sources={sources} streaming={streaming} handlers={{ onRetry, onToolRetry, onToolApproval, onFileAction, onSuggestion }} />
       {sources.length ? <MessageSources sources={sources} label={sourcesLabel} /> : null}
     </div>
   );

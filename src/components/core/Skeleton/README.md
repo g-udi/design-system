@@ -15,3 +15,20 @@ import { Skeleton } from '@gaudi/design-system';
 - Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.
 - Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.
 - Use a skeleton when the layout is known; use `Spinner` for short waits or when the shape is unknown.
+
+## Shimmer
+
+`Shimmer` is the text counterpart: a highlight sweeps across a label while work is in progress, such as "Thinking…" in a chat reply or "Searching the web…" in an agent step.
+
+```jsx
+import { Shimmer } from '@gaudi/design-system';
+
+<p role='status'><Shimmer>Searching the web…</Shimmer></p>
+<Shimmer as='h3' duration={3} spread={3}>Drafting the summary</Shimmer>
+```
+
+- `duration` is one sweep in seconds (default 2); `spread` is the band width in pixels per character (default 2); `active={false}` rests it as plain text.
+- The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.
+- The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.
+
+Adapted from the Shimmer component of [AI SDK Elements](https://elements.ai-sdk.dev/components/shimmer) (MIT License, Copyright (c) 2023 Vercel, Inc.).

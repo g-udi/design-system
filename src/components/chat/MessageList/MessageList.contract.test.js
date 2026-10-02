@@ -41,3 +41,31 @@ test('MessageParts renders every part type, gathers sources and cites them by nu
   assert.match(html, /1 source/);
   assert.doesNotMatch(html, /\[object Object\]/);
 });
+
+test('MessageParts renders chain-of-thought steps, approvals and grouped citations', () => {
+  const parts = [
+    { type: 'reasoning', steps: [{ status: 'done', label: 'Searched the web', icon: 'Search', results: [{ title: 'Study', url: 'https://example.com/a' }] }] },
+    { type: 'approval', name: 'publish_post', input: { slug: 'drafts' } },
+    { type: 'text', text: 'Both agree [1, 2].' },
+    { type: 'source', title: 'Study', url: 'https://example.com/a' },
+    { type: 'source', title: 'Report', url: 'https://example.com/b' }
+  ];
+  const html = renderToStaticMarkup(createElement(api.MessageParts, { parts, onToolApproval: () => {} }));
+  assert.match(html, /data-variant="steps"/);
+  assert.match(html, /data-slot="message-tool-approval"/);
+  assert.match(html, /aria-label="Source 1: Study, and 1 more"/);
+});
+
+test('A checkpoint is a labelled divider with a restore action', () => {
+  const html = renderToStaticMarkup(createElement(api.MessageCheckpoint, { label: 'Before the rewrite', time: '10:42', onRestore: () => {} }));
+  assert.match(html, /data-slot="message-checkpoint"/);
+  assert.match(html, /role="group"/);
+  assert.match(html, /data-variant="separator"/);
+  assert.match(html, /Before the rewrite/);
+  assert.match(html, /aria-haspopup="dialog"/);
+  assert.match(html, /Restore checkpoint/);
+  const restored = renderToStaticMarkup(createElement(api.MessageCheckpoint, { label: 'Before the rewrite', restored: true, onRestore: () => {} }));
+  assert.match(restored, /disabled=""/);
+  assert.match(restored, />Restored</);
+  assert.doesNotMatch(renderToStaticMarkup(createElement(api.MessageCheckpoint, { label: 'Start' })), /<button/);
+});

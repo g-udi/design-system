@@ -4,6 +4,7 @@ import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
 import Skeleton from './Skeleton';
+import { Shimmer } from './parts/shimmer.jsx';
 
 const docs = getComponentDocs('Core/Skeleton');
 // Comment rows under the article: each second line has its own width so the list reads as text.
@@ -85,5 +86,37 @@ export const Playground = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('region', { name: 'Latest article' })).toHaveAttribute('aria-busy', 'true');
     await expect(canvas.getByRole('status')).toHaveTextContent('Loading the latest article');
+  }
+};
+
+export const TextShimmer = {
+  name: 'Text shimmer',
+  parameters: {
+    docs: {
+      description: { story: 'Shimmer is the text counterpart of Skeleton: a highlight sweeps across a label while work is in progress, on the text tokens so it reads in light and dark. The words stay real text, so they are announced (put them in a `role="status"` region), selectable and translated. `duration` sets one sweep in seconds and `spread` the band width per character; `active={false}` rests it. Readers who reduce motion, and forced-colour modes, see plain text.' },
+      source: {
+        language: 'jsx',
+        code: `import { Shimmer } from '@gaudi/design-system';
+
+<p role='status'><Shimmer>Searching the web…</Shimmer></p>
+<Shimmer as='h3' duration={3} spread={3}>Drafting the summary</Shimmer>
+<Shimmer active={false}>Thought for 4s</Shimmer>`
+      }
+    }
+  },
+  render: () => (
+    <div className='grid gap-3 text-sm'>
+      <p role='status' className='m-0'><Shimmer>Searching the web…</Shimmer></p>
+      <Shimmer as='h3' duration={3} spread={3} className='m-0 text-lg font-semibold'>Drafting the summary</Shimmer>
+      <p className='text-text-muted m-0'><Shimmer active={false}>Thought for 4s</Shimmer></p>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('status')).toHaveTextContent('Searching the web…');
+    const active = canvas.getByText('Searching the web…');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    await expect(getComputedStyle(active).animationName).toBe(reduced ? 'none' : 'ds-shimmer');
+    await expect(getComputedStyle(canvas.getByText('Thought for 4s')).animationName).toBe('none');
   }
 };

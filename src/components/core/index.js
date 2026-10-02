@@ -95,7 +95,8 @@ export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './Resizabl
 export { ScrollArea, ScrollBar } from './ScrollArea/index.js';
 export { Scrollspy } from './Scrollspy/index.js';
 export { Separator } from './Separator/index.js';
-export { SkeletonRoot } from './Skeleton/index.js';
+export { SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayProperties } from './SchemaDisplay/index.js';
+export { SkeletonRoot, Shimmer } from './Skeleton/index.js';
 export { Slider } from './Slider/index.js';
 export { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './Sortable/index.js';
 export { SpinnerRoot } from './Spinner/index.js';

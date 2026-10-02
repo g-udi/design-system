@@ -1892,6 +1892,28 @@
       ],
       "importPath": "./src/components/chat/ChatReasoning/ChatReasoning.stories.jsx"
     },
+    "chat-chatreasoning--agent-run": {
+      "id": "chat-chatreasoning--agent-run",
+      "title": "Chat/ChatReasoning",
+      "name": "Agent run",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/ChatReasoningShowcase.stories.jsx"
+    },
+    "chat-chatreasoning--ai-message-with-steps": {
+      "id": "chat-chatreasoning--ai-message-with-steps",
+      "title": "Chat/ChatReasoning",
+      "name": "AI message with steps",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/ChatReasoningShowcase.stories.jsx"
+    },
     "chat-chatsessionlist--playground": {
       "id": "chat-chatsessionlist--playground",
       "title": "Chat/ChatSessionList",
@@ -1933,6 +1955,17 @@
         "autodocs"
       ],
       "importPath": "./src/components/chat/ChatSources/ChatSources.stories.jsx"
+    },
+    "chat-chatsources--cited-answer": {
+      "id": "chat-chatsources--cited-answer",
+      "title": "Chat/ChatSources",
+      "name": "Cited answer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatSources/ChatSourcesShowcase.stories.jsx"
     },
     "chat-chatthreadnav--playground": {
       "id": "chat-chatthreadnav--playground",
@@ -3641,6 +3674,27 @@
       ],
       "importPath": "./src/components/core/Resizable/Resizable.stories.jsx"
     },
+    "core-schemadisplay--playground": {
+      "id": "core-schemadisplay--playground",
+      "title": "Core/Data Display/SchemaDisplay",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/SchemaDisplay/SchemaDisplay.stories.jsx"
+    },
+    "core-schemadisplay--docs": {
+      "id": "core-schemadisplay--docs",
+      "title": "Core/Data Display/SchemaDisplay",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/core/SchemaDisplay/SchemaDisplay.stories.jsx"
+    },
     "core-scrollarea--playground": {
       "id": "core-scrollarea--playground",
       "title": "Core/Layout & Containers/ScrollArea",
@@ -3786,6 +3840,17 @@
       "type": "docs",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/core/Skeleton/Skeleton.stories.jsx"
+    },
+    "core-skeleton--text-shimmer": {
+      "id": "core-skeleton--text-shimmer",
+      "title": "Core/Feedback & States/Skeleton",
+      "name": "Text shimmer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Skeleton/Skeleton.stories.jsx"
     },

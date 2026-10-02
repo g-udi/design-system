@@ -11,7 +11,7 @@ import { MessageCitation } from '../../ChatSources/parts/message-sources.jsx';
  * Chat replies are plain markdown that arrives a few tokens at a time, so they are rendered at runtime
  * rather than compiled like MDX articles. Fences go through markdownFences and CodeBlock (an open fence
  * keeps streaming), and the text between them is a small block and inline grammar: headings, paragraphs,
- * lists, quotes, rules, tables, emphasis, inline code, links and numbered citations such as [1].
+ * lists, quotes, rules, tables, emphasis, inline code, links and numbered citations such as [1] or [1, 3].
  * Unfinished markup while streaming stays as typed until its closing marker arrives.
  */
 
@@ -89,7 +89,7 @@ function parseBlocks(text) {
 const INLINE = [
   { type: 'code', pattern: /`([^`]+)`/ },
   { type: 'link', pattern: /\[([^\]]+)\]\(([^)\s]+)\)/ },
-  { type: 'citation', pattern: /\[(\d{1,2})\]/ },
+  { type: 'citation', pattern: /\[(\d{1,2}(?:\s*,\s*\d{1,2})*)\]/ },
   { type: 'strong', pattern: /\*\*([^*]+)\*\*|__([^_]+)__/ },
   { type: 'em', pattern: /\*([^*\s][^*]*)\*|(?<![\w])_([^_\s][^_]*)_(?![\w])/ },
   { type: 'del', pattern: /~~([^~]+)~~/ },
@@ -118,8 +118,10 @@ function renderInline(text, context, keyPrefix = 'i') {
     else if (rule.type === 'link') nodes.push(<Link key={id} href={match[2]} variant='inline' tone='accent' className='underline underline-offset-4'>{renderInline(match[1], context, id)}</Link>);
     else if (rule.type === 'url') nodes.push(<Link key={id} href={match[0]} variant='inline' tone='accent' className='break-all underline underline-offset-4'>{match[0]}</Link>);
     else if (rule.type === 'citation') {
-      const source = context.sources?.[Number(inner) - 1];
-      nodes.push(source ? <MessageCitation key={id} index={Number(inner)} source={source} /> : match[0]);
+      // [2] cites one source; [2, 3] groups several behind one chip with a carousel.
+      const numbers = inner.split(',').map((value) => Number(value.trim()));
+      const cited = numbers.map((number) => context.sources?.[number - 1]).filter(Boolean);
+      nodes.push(cited.length ? <MessageCitation key={id} index={numbers[0]} sources={cited} /> : match[0]);
     } else if (rule.type === 'strong') nodes.push(<strong key={id} className='font-semibold'>{renderInline(inner, context, id)}</strong>);
     else if (rule.type === 'em') nodes.push(<em key={id}>{renderInline(inner, context, id)}</em>);
     else nodes.push(<del key={id}>{renderInline(inner, context, id)}</del>);

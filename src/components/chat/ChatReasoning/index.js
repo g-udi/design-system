@@ -1,1 +1,1 @@
-export { MessageReasoning as default, MessageReasoning, MessageReasoningStep, useReasoningDisclosure } from './parts/message-reasoning.jsx';
+export { MessageReasoning as default, MessageReasoning, MessageReasoningStep, MessageReasoningResults, MessageReasoningImage, useReasoningDisclosure } from './parts/message-reasoning.jsx';

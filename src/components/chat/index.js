@@ -7,10 +7,12 @@ export { BubbleGroup, Bubble, BubbleContent, BubbleReactions } from './Bubble/pa
 export { MessageScrollerProvider, MessageScroller, MessageScrollerViewport, MessageScrollerContent, MessageScrollerItem, MessageScrollerButton, useMessageScroller, useMessageScrollerScrollable, useMessageScrollerVisibility } from './MessageList/parts/message-scroller.jsx';
 export { MessageParts } from './MessageList/parts/message-parts.jsx';
 export { MessageMarkdown, parseMessageMarkdown } from './MessageList/parts/message-markdown.jsx';
+export { MessageCheckpoint } from './MessageList/parts/message-checkpoint.jsx';
 export { PromptComposer, PromptQueue, findPromptTrigger } from './ChatInput/parts/prompt-composer.jsx';
 export { ChatModelSelect } from './ChatInput/parts/chat-model-select.jsx';
-export { MessageReasoning, MessageReasoningStep, useReasoningDisclosure } from './ChatReasoning/parts/message-reasoning.jsx';
+export { MessageReasoning, MessageReasoningStep, MessageReasoningResults, MessageReasoningImage, useReasoningDisclosure } from './ChatReasoning/parts/message-reasoning.jsx';
 export { MessageTool, MessageData } from './ChatTool/parts/message-tool.jsx';
+export { MessageToolApproval, approvalStates } from './ChatTool/parts/message-tool-approval.jsx';
 export { MessageSources, MessageSource, MessageCitation } from './ChatSources/parts/message-sources.jsx';
 export { MessageDelegation } from './ChatDelegation/parts/message-delegation.jsx';
 export { MessageError } from './ChatError/parts/message-error.jsx';

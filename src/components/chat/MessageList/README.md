@@ -31,6 +31,7 @@ import { MessageParts, MessageScroller, MessageScrollerContent, MessageScrollerI
 | `MessageParts.parts` | The parts of one assistant turn; unknown types are skipped so the host can render its own. |
 | `MessageParts.streaming` | Marks the turn as arriving: `aria-busy`, a live code fence and an open thinking trail. |
 | `MessageMarkdown` | Runtime markdown for reply text, with code through CodeBlock. |
+| `MessageCheckpoint` | A restore point between turns: `label`, `time` (string or Date), `onRestore` (confirmed in an alert dialog unless `confirm={false}`) and `restored`. |
 
 ## Parts model
 
@@ -39,14 +40,27 @@ An assistant turn is a list of parts, shaped like common AI SDK message parts bu
 | Part | Renders as |
 | --- | --- |
 | `{ type: 'text', text }` | `MessageMarkdown` |
-| `{ type: 'reasoning', text?, steps?, duration? }` | `MessageReasoning`: open while thinking, folds away a second after the answer starts unless the reader toggled it |
+| `{ type: 'reasoning', text?, steps?, duration? }` | `MessageReasoning`: open while thinking, folds away a second after the answer starts unless the reader toggled it. Steps with a `label` (and `icon`, `description`, `text`, `results`, `images`) read as a chain of thought |
 | `{ type: 'tool', name, status, input?, output?, error?, parts? }` | `MessageTool`: statuses pending, running, done, failed or cancelled; input and output in `MessageData` (a list or table, with a JSON view); nested calls as `parts`; a failed call opens with its error and a retry |
+| `{ type: 'approval', name, description?, input?, state?, allowAlways?, output? }` | `MessageToolApproval`: a tool waiting on the person; `onToolApproval(part, { approved, always })` answers it |
 | `{ type: 'delegation', agent, status, instructions?, parts? }` | `MessageDelegation`: work handed to another agent |
-| `{ type: 'source', title, url?, kind?, site?, excerpt? }` | Gathered into one `MessageSources` list; the text cites them as `[1]`, `[2]`… through `MessageCitation` |
+| `{ type: 'source', title, url?, kind?, site?, excerpt? }` | Gathered into one `MessageSources` list; the text cites them as `[1]`, `[2]`… (or `[1, 3]` for several behind one pill) through `MessageCitation` |
 | `{ type: 'file', name, size?, href? }`, `{ type: 'data', label?, value }` | `MessageFile` and `MessageData` |
 | `{ type: 'error', title?, text? }`, `{ type: 'suggestions', items }` | `MessageError` with retry, and `MessageSuggestions` |
 
 Add `MessageFeedback` under a finished reply for copy, rating and regenerate.
+
+### Checkpoints
+
+A checkpoint sits between turns, outside `MessageParts`, so the host decides where restore points fall and what restoring undoes.
+
+```jsx
+import { MessageCheckpoint } from '@gaudi/design-system/chat';
+
+<MessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />
+```
+
+Adapted from the Checkpoint component of [AI SDK Elements](https://elements.ai-sdk.dev/components/checkpoint) (MIT License, Copyright (c) 2023 Vercel, Inc.).
 
 ### Markdown
 
@@ -73,4 +87,4 @@ import { Message, MessageContent, MessageFeedback, MessageParts } from '@gaudi/d
 
 ## Accessibility
 
-The thread scrolls inside a labelled region and never moves the page. While a reply streams, MessageParts marks it `aria-busy`; announce the start and the end once in a polite status, never every token.
+The thread scrolls inside a labelled region and never moves the page. While a reply streams, MessageParts marks it `aria-busy`; announce the start and the end once in a polite status, never every token. A checkpoint is a group named by its label and time; its restore button is described by them, and the confirmation is an alert dialog that returns focus to the button.

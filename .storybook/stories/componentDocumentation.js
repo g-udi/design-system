@@ -92,9 +92,9 @@ const usageExamples = {
   "Chat/Bubble": "import { Bubble, BubbleContent, BubbleReactions } from '@gaudi/design-system/chat';\n\n<Bubble variant='tinted' align='end'>\n  <BubbleContent>Shipped to 4,180 readers.</BubbleContent>\n  <BubbleReactions align='start'>🎉 3</BubbleReactions>\n</Bubble>",
   "Chat/MessageList": "import { MessageParts, MessageScroller, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport } from '@gaudi/design-system/chat';\n\n<MessageScrollerProvider autoScroll>\n  <MessageScroller>\n    <MessageScrollerViewport aria-label='Conversation'>\n      <MessageScrollerContent>\n        {turns.map((turn) => (\n          <MessageScrollerItem key={turn.id} scrollAnchor={turn.role === 'user'}>\n            <MessageParts parts={turn.parts} streaming={turn.streaming} />\n          </MessageScrollerItem>\n        ))}\n      </MessageScrollerContent>\n    </MessageScrollerViewport>\n  </MessageScroller>\n</MessageScrollerProvider>",
   "Chat/ChatInput": "import { ChatEffortSlider, ChatModelSelect, PromptComposer, PromptQueue } from '@gaudi/design-system/chat';\n\n<PromptQueue items={queue} onEdit={edit} onRemove={remove} onSendNow={sendNow} onMove={move} />\n<PromptComposer\n  status={streaming ? 'streaming' : 'ready'}\n  mentions={people}\n  commands={commands}\n  onSubmit={(text, { queued }) => (queued ? enqueue(text) : send(text))}\n  onStop={stop}\n  toolbar={<ChatModelSelect models={models} value={model} onValueChange={setModel}><ChatEffortSlider value={effort} onValueChange={setEffort} compact /></ChatModelSelect>}\n/>",
-  "Chat/ChatReasoning": "import { MessageReasoning, MessageReasoningStep } from '@gaudi/design-system/chat';\n\n<MessageReasoning streaming={thinking} duration={seconds}>\n  <MessageReasoningStep status='done'>Read the draft</MessageReasoningStep>\n  <MessageReasoningStep status='running'>Suggest a tighter opening</MessageReasoningStep>\n</MessageReasoning>",
-  "Chat/ChatTool": "import { MessageTool } from '@gaudi/design-system/chat';\n\n<MessageTool name='schedule_newsletter' status={status} input={input} output={output} error={error} onRetry={retry}>\n  {nestedCalls}\n</MessageTool>",
-  "Chat/ChatSources": "import { MessageCitation, MessageSources } from '@gaudi/design-system/chat';\n\n<p>Readers leave early <MessageCitation index={1} source={sources[0]} /> on long posts.</p>\n<MessageSources sources={sources} />",
+  "Chat/ChatReasoning": "import { MessageReasoning, MessageReasoningResults, MessageReasoningStep } from '@gaudi/design-system/chat';\n\n<MessageReasoning streaming={thinking} variant='steps'>\n  <MessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>\n    <MessageReasoningResults results={results} />\n  </MessageReasoningStep>\n  <MessageReasoningStep status='running' icon='BookOpen' label='Reading the sources' />\n</MessageReasoning>",
+  "Chat/ChatTool": "import { MessageTool, MessageToolApproval } from '@gaudi/design-system/chat';\n\n<MessageTool name='schedule_newsletter' status={status} input={input} output={output} error={error} onRetry={retry} />\n\n<MessageToolApproval\n  name='publish_post'\n  description='Publish the draft to the blog'\n  input={{ slug: 'local-first-drafts' }}\n  allowAlways\n  onApprove={({ always }) => approve(always)}\n  onDeny={deny}\n/>",
+  "Chat/ChatSources": "import { MessageCitation, MessageSources } from '@gaudi/design-system/chat';\n\n<p>\n  Readers leave early <MessageCitation index={1} source={sources[0]} /> on long posts\n  <MessageCitation index={2} sources={[sources[1], sources[2]]} />.\n</p>\n<MessageSources sources={sources} />",
   "Chat/ChatDelegation": "import { MessageDelegation, MessageTool } from '@gaudi/design-system/chat';\n\n<MessageDelegation agent={{ name: 'Research agent' }} status='running' instructions={brief}>\n  <MessageTool name='web_search' status='done' />\n</MessageDelegation>",
   "Chat/ChatError": "import { MessageError } from '@gaudi/design-system/chat';\n\n<MessageError title='The reply stopped before it finished.' onRetry={retry}>\n  The connection dropped. Your message is kept.\n</MessageError>",
   "Chat/ChatFeedback": "import { MessageFeedback } from '@gaudi/design-system/chat';\n\n<MessageFeedback copyText={reply.text} rating={rating} onRatingChange={setRating} onRegenerate={regenerate} />",
@@ -188,9 +188,10 @@ const usageExamples = {
   'Core/Pill': "import { Pill } from '@gaudi/design-system';\n\n<Pill tone='blue' variant='solid' size='sm'>Engineering</Pill>",
   'Core/Popover': "import { Popover } from '@gaudi/design-system';\n\n<Popover trigger='Open popover'>Compact supporting content.</Popover>",
   'Core/Select': "import { Select } from '@gaudi/design-system';\n\n<Select\n  searchable\n  multiple\n  placeholder='Choose topics'\n  options={[\n    { label: 'Design systems', value: 'design-systems' },\n    { label: 'Knowledge graphs', value: 'knowledge-graphs' },\n  ]}\n/>",
-  'Core/Skeleton': "import { Skeleton } from '@gaudi/design-system';\n\n<Skeleton className='h-4 w-40' />",
+  'Core/Skeleton': "import { Shimmer, Skeleton } from '@gaudi/design-system';\n\n<Skeleton className='h-4 w-40' />\n<p role='status'><Shimmer>Searching the web…</Shimmer></p>",
   'Core/Spinner': "import { Spinner } from '@gaudi/design-system';\n\n<Spinner label='Loading articles' size='md' />",
   'Core/Switch': "import { Switch } from '@gaudi/design-system';\n\n<Switch label='Email notifications' defaultChecked />",
+  'Core/SchemaDisplay': "import { SchemaDisplay } from '@gaudi/design-system';\n\n<SchemaDisplay\n  method='GET'\n  path='/posts/{slug}/comments'\n  parameters={[{ name: 'slug', in: 'path', type: 'string' }, { name: 'limit', in: 'query', type: 'integer' }]}\n  responseBody={commentsSchema}\n/>",
   'Core/CodeBlock': "import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle } from '@gaudi/design-system';\n\n<CodeBlock code={code} language='typescript' showLineNumbers highlightedLines='3-5'>\n  <CodeBlockHeader>\n    <CodeBlockTitle>hooks/use-cart.ts</CodeBlockTitle>\n    <CodeBlockLanguage />\n    <CodeBlockCopyButton className='ml-auto' />\n  </CodeBlockHeader>\n</CodeBlock>",
   'Core/Terminal': "import { Terminal } from '@gaudi/design-system';\n\n<Terminal\n  title='blog — zsh'\n  username='ahmad'\n  commands={[\n    { command: 'pnpm test:ds-contracts', output: [{ text: '85 component contracts passed.', tone: 'success' }] },\n  ]}\n/>",
   'Core/TextHighlight': "import { TextHighlight } from '@gaudi/design-system';\n\n<p>Design systems make <TextHighlight>consistency visible</TextHighlight>.</p>"
@@ -841,10 +842,13 @@ const componentDocs = {
     ]
   },
   'Core/Skeleton': {
-    'accessibility': 'Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement.',
-    'description': 'Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes.',
+    'accessibility': 'Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement. Shimmer keeps its words as real text; put it in a status region when the change should be announced. Both hold still for reduced motion.',
+    'description': 'Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes. Shimmer is the text counterpart: a highlight that sweeps across a label such as Thinking… while work is in progress.',
     'props': [
-      [ 'className', 'string', '-', 'Defines shape, width, height, radius, and layout placement.' ]
+      [ 'className', 'string', '-', 'Defines shape, width, height, radius, and layout placement.' ],
+      [ 'Shimmer.children', 'ReactNode', '-', 'Text that shimmers while work is in progress, such as Thinking… or Searching the web…; it stays real, readable text.' ],
+      [ 'Shimmer.active / duration / spread', 'boolean / number / number', 'true / 2 / 2', 'Run or rest the sweep, seconds per sweep, and band width in pixels per character.' ],
+      [ 'Shimmer.as', 'ElementType', 'span', 'Element to render, such as p or h3.' ]
     ]
   },
   'Core/Spinner': {

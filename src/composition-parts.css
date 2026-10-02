@@ -1669,22 +1669,6 @@
     @apply bg-surface-muted rounded-sm px-1 py-0.5 font-mono text-xs;
   }
 
-  /* The "Thinking" label breathes while the model works; it holds still for readers who reduce motion. */
-  .ds-part-message-shimmer {
-    animation: ds-message-shimmer 1.6s ease-in-out infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .ds-part-message-shimmer {
-      animation: none;
-    }
-  }
-
-  @keyframes ds-message-shimmer {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.45; }
-  }
-
   /* MARK: Activity indicator (chat) */
   .ds-part-activity-indicator {
     --ds-activity-color: var(--ds-color-text-subtle);
