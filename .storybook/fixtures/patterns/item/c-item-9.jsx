@@ -21,7 +21,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 // People rows: an avatar with presence, a role badge and a row menu, plus a

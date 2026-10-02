@@ -24,7 +24,6 @@ import Pill from '../../src/components/core/Pill';
 import Search from '../../src/components/layout/Search';
 import { TextHighlight } from '../../src/components/core/TextHighlight';
 import Post from '../../src/components/post/Post';
-import ThoughtsSection from '../../src/components/blocks/ThoughtsSection';
 import Typography from '../../src/foundations/Typography';
 import { tagHref } from '../../src/utilities/taxonomy';
 
@@ -503,7 +502,6 @@ const HomePage = () => (
           </div>
         </div>
       </div>
-      <ThoughtsSection thoughts={ thoughts } />
     </div>
   </PageShell>
 );
@@ -1018,7 +1016,7 @@ const story = (description, extra = {}) => ({ ...extra, parameters: { docs: { de
 
 export const MainPage = {
   name: 'Main Page',
-  ...story('The home page: author introduction, featured posts, the latest posts list, and recent thoughts inside the full site shell.'),
+  ...story('The home page: author introduction, featured posts and the latest posts list inside the full site shell.'),
   render: () => <HomePage />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

@@ -48,13 +48,13 @@ test('original component documentation owns merged pages', () => {
     'core-pagination--pagination-pattern-1': 'Core/Navigation/Pagination',
     'core-navigationmenu--navigation-menu-pattern-1': 'Core/Navigation/NavigationMenu',
     'core-kanban--kanban-pattern-1': 'Core/Planning/Kanban',
-    'blocks-application-resourcelist--item-pattern-1': 'Blocks/To Sort/ResourceList',
+    'core-item--item-pattern-1': 'Core/Data Display/Item',
     'blocks-application-appshell--sidebar-pattern-1': 'Blocks/App Shell'
   };
   for (const [id, title] of Object.entries(merged)) assert.equal(index.entries[id]?.title, title, id);
   const docsTitles = Object.values(index.entries).filter(entry => entry.type === 'docs').map(entry => entry.title);
   assert.equal(new Set(docsTitles).size, docsTitles.length);
-  for (const title of ['Blocks/KanbanBoard', 'Blocks/ResourceList', 'Blocks/Navigation/Sidebar', 'Blocks/Navigation/Breadcrumb', 'Blocks/Navigation/Pagination', 'Blocks/Navigation/Navigation Menu']) {
+  for (const title of ['Blocks/KanbanBoard', 'Blocks/Navigation/Sidebar', 'Blocks/Navigation/Breadcrumb', 'Blocks/Navigation/Pagination', 'Blocks/Navigation/Navigation Menu']) {
     assert.ok(!docsTitles.includes(title), `Stale catalogue page: ${title}`);
   }
 });

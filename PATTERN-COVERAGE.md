@@ -91,7 +91,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | input | [core/Input](src/components/core/Input/index.js) | 4 |
 | input-group | [core/Input](src/components/core/Input/index.js) | 7 |
 | input-otp | [core/InputOtp](src/components/core/InputOtp/index.js) | 1 |
-| item | [blocks/ResourceList](src/components/blocks/ResourceList/index.js) | 7 |
+| item | [core/Item](src/components/core/Item/index.js) | 7 |
 | kanban | [core/KanbanBoard](src/components/core/KanbanBoard/index.js) | 10 |
 | kbd | [core/Kbd](src/components/core/Kbd/index.js) | 2 |
 | label | [core/Field](src/components/core/Field/index.js) | 2 |

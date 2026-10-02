@@ -26,11 +26,10 @@ import Progress from '../../../src/components/core/Progress';
 import Stepper from '../../../src/components/core/Stepper';
 import Timeline from '../../../src/components/core/Timeline';
 import ToastProvider, { toast } from '../../../src/components/core/Toast';
-import ResourceList from '../../../src/components/blocks/ResourceList';
 import AuthForm from '../../../src/components/blocks/AuthForm';
 import Wizard from '../../../src/components/blocks/Wizard';
-import { Preferences, EditorialBoard, articleColumns } from './Workspace';
-import StatGroup from '../../../src/components/blocks/StatGroup';
+import { EditorialBoard, articleColumns } from './Workspace';
+import StatCard from '../../../src/components/blocks/StatCard';
 import DataTable from '../../../src/components/core/DataTable';
 import { articles, activity, topics } from './data';
 import './examples.css';
@@ -212,7 +211,6 @@ export default function StateGallery() {
               title='No saved references'
               description='Add a source when you find something worth keeping.'
             />
-            <ResourceList label='Loading articles' loading />
             <Button
               variant='outline'
               onClick={() => toast.success('Example saved')}
@@ -221,25 +219,10 @@ export default function StateGallery() {
             </Button>
           </div>
         </div>
-        <StatGroup
-          items={[
-            {
-              id: 'articles',
-              label: 'Articles',
-              value: '24',
-              detail: '3 published this month'
-            },
-            {
-              id: 'review',
-              label: 'In review',
-              value: '6',
-              detail: 'Ready for another perspective'
-            }
-          ]}
-        />
-      </Section>
-      <Section title='Profile and settings'>
-        <Preferences />
+        <div className='grid gap-4 sm:grid-cols-2'>
+          <StatCard label='Articles' value='24' description='3 published this month' />
+          <StatCard label='In review' value='6' description='Ready for another perspective' />
+        </div>
       </Section>
       <Section title='Sign-in and guided setup'>
         <div className='example-columns'>

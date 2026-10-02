@@ -475,72 +475,6 @@
   .ds-skip-link:focus {
     transform: none;
   }
-  .ds-settings-panel {
-    display: grid;
-    grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr);
-    gap: calc(var(--ds-space-scale, 1) * 1rem) calc(var(--ds-space-scale, 1) * 1.5rem);
-    padding-block: calc(var(--ds-space-scale, 1) * 1.25rem);
-    border-bottom: 1px solid var(--ds-color-border);
-  }
-  .ds-settings-panel header .ds-description {
-    margin-top: 0.25rem;
-    max-width: 40ch;
-  }
-  .ds-settings-fields {
-    display: grid;
-    gap: calc(var(--ds-space-scale, 1) * 1rem);
-    min-width: 0;
-  }
-  .ds-settings-footer {
-    grid-column: 2;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
-  }
-  .ds-resource-list {
-    min-width: 0;
-  }
-  .ds-resource-list ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .ds-resource-list li {
-    padding-block: calc(var(--ds-space-scale, 1) * 0.5rem);
-    border-bottom: 1px solid var(--ds-color-border);
-  }
-  .ds-resource-list li:last-child {
-    border-bottom: 0;
-  }
-  .ds-stat-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
-    gap: calc(var(--ds-space-scale, 1) * 1rem);
-    padding-block: calc(var(--ds-space-scale, 1) * 1rem);
-    border-block: 1px solid var(--ds-color-border);
-  }
-  .ds-stat-value {
-    margin-top: 0.25rem;
-    color: var(--ds-color-text);
-    font-size: 1.5rem;
-    line-height: 1.25;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    overflow-wrap: anywhere;
-  }
-  .ds-stat-detail {
-    margin-top: 0.25rem;
-    color: var(--ds-color-text-muted);
-    font-size: 0.75rem;
-  }
-  .ds-stat-detail[data-tone='success'] {
-    color: var(--ds-color-success);
-  }
-  .ds-stat-detail[data-tone='danger'] {
-    color: var(--ds-color-danger);
-  }
   .ds-wizard {
     display: grid;
     gap: calc(var(--ds-space-scale, 1) * 1.25rem);
@@ -934,13 +868,6 @@
   @media (max-width: 639px) {
     .ds-app-content {
       padding: calc(var(--ds-space-scale, 1) * 1rem);
-    }
-    .ds-settings-panel {
-      grid-template-columns: minmax(0, 1fr);
-      gap: calc(var(--ds-space-scale, 1) * 0.75rem);
-    }
-    .ds-settings-footer {
-      grid-column: 1;
     }
     .ds-dialog-header {
       padding: calc(var(--ds-space-scale, 1) * 1rem);

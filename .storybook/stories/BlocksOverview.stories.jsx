@@ -5,13 +5,9 @@ import { CheckList, Page, QuickLink, Section, Table, Td, Th } from './StoryDocs'
 const blockGroups = [
   [ 'App shells', 'Framed application shells: icon rails, floating and inset sidebars, mail, chat and mission-control layouts.', 'blocks-application-appshell--app-shell-pattern-1' ],
   [ 'Setup and onboarding', 'Sequential validation, review, asynchronous completion and recovery.', 'blocks-application-wizard--playground' ],
-  [ 'Settings and profile', 'Editable preferences built from reusable fields and responsive sections.', 'blocks-application-settingspanel--profile-and-preferences' ],
-  [ 'Blog content recipes', 'Reference compositions for article shells, series context, table of contents, banners, and FAQs.', 'blocks-blog-content-sections--default' ],
-  [ 'Blog listing recipes', 'Reference compositions for featured content, lists, pagination, and search.', 'blocks-blog-sections--default' ],
-  [ 'FAQ recipes', 'Reference compositions built from the exported MDX Faq primitive.', 'blocks-faqs--default' ],
-  [ 'Footer recipes', 'Reference compositions built from the exported Footer component.', 'blocks-footers--default' ],
-  [ 'Stats recipes', 'Reference metric compositions for evidence, outcomes, and supporting context.', 'blocks-stats-sections--default' ],
-  [ 'ThoughtsSection', 'The package-exported block for recent editorial cards and archive states.', 'blocks-thoughts--playground' ]
+  [ 'Settings and profile', 'Preference, notification, integration and developer settings screens built from reusable fields.', 'blocks-settings--screens-pattern-6' ],
+  [ 'Dashboards', 'Responsive dashboard grids with a period toolbar, StatCard metrics and charts in their own panels.', 'blocks-dashboard--playground' ],
+  [ 'Stat cards', 'KPI, revenue, quota and range metric cards for dashboards and editorial summaries.', 'blocks-stat-cards--stat-cards-pattern-1' ]
 ];
 
 const compositionRules = [

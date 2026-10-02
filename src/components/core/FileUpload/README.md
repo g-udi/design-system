@@ -20,7 +20,7 @@ const [files, setFiles] = useState([]);
 
 | Prop / export           | Type                       | Contract                                                                         |
 | ----------------------- | -------------------------- | -------------------------------------------------------------------------------- |
-| `files / onFilesChange` | File[] / function          | Controlled selected files. Existing server attachments belong in a ResourceList. |
+| `files / onFilesChange` | File[] / function          | Controlled selected files. List existing server attachments with Attachment.     |
 | `accept / multiple`     | string / boolean           | Native accept syntax and single/multiple selection.                              |
 | `maxSize / maxFiles`    | number                     | Bytes and count. Negative/NaN limits allow zero; omission removes a limit.       |
 | `onReject`              | function([{file, reason}]) | Reports type, size or count rejection; never clears a valid existing selection.  |

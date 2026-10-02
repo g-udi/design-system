@@ -23,7 +23,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { cn } from '../../../../src/utilities/cn/index.js';
 
 const members = [

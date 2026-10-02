@@ -21,10 +21,10 @@ The content workspace is one application example: article search, sorting, selec
 | Identity and navigation | Avatar, Breadcrumb, NavigationMenu, Commander, Tree |
 | Forms and selection | Input, Field, Select, Checkbox, RadioGroup, InputOtp, PhoneInput, Rating, Cascader |
 | Overlays and feedback | Dialog, DropdownMenu, Popover, Tooltip, Toast, Progress, EmptyState |
-| Data and collections | DataTable and composable data-grid parts, FilterBar, Pagination, ResourceList |
+| Data and collections | DataTable and composable data-grid parts, FilterBar, Pagination, Item |
 | Time and activity | Calendar, EventCalendar, Gantt, Timeline, Stepper |
 | Files and communication | FileUpload, Attachment, Message |
-| Composition and workflows | Tabs, Resizable, Sortable, AppShell, SettingsPanel, Wizard, KanbanBoard |
+| Composition and workflows | Tabs, Resizable, Sortable, AppShell, Settings screens, Wizard, KanbanBoard |
 
 This is a navigation guide, not a feature guarantee for every component. Use the owner documentation and working examples to check the specific API, states, and interactions you need. The pattern coverage manifest is the source for the family and example inventory.
 

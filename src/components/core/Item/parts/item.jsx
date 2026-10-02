@@ -1,7 +1,7 @@
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Slot } from 'radix-ui';
-import { Separator } from '../../../core/Separator/parts/separator.jsx';
+import { Separator } from '../../Separator/parts/separator.jsx';
 function ItemGroup({ className, ...props }) {
   return (
     <div

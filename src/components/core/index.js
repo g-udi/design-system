@@ -77,6 +77,7 @@ export { default as KanbanBoard } from './KanbanBoard';
 export { Kanban, KanbanBoardPrimitive, KanbanColumn, KanbanColumnHandle, KanbanItem, KanbanItemHandle, KanbanColumnContent, KanbanColumnCount, KanbanColumnRail, KanbanOverlay } from './KanbanBoard/index.js';
 export { HoverCard, HoverCardTrigger, HoverCardContent, PopoverPrimitive, PopoverAnchor, PopoverContentPrimitive, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTriggerPrimitive } from './Popover/index.js';
 export { IconStack, IconTile, iconTileVariants } from './Icon/index.js';
+export { Item, ItemMedia, ItemContent, ItemActions, ItemGroup, ItemSeparator, ItemTitle, ItemDescription, ItemHeader, ItemFooter } from './Item/index.js';
 export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupText, InputGroupInput, InputGroupTextarea } from './Input/index.js';
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './InputOtp/index.js';
 export { KbdRoot, KbdGroup } from './Kbd/index.js';

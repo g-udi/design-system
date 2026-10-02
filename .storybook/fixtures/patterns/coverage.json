@@ -1212,7 +1212,7 @@
           "title": "Collapsible: Tree view with file actions",
           "description": "Collapsible: Tree view with file actions",
           "file": ".storybook/fixtures/patterns/collapsible/c-collapsible-10.jsx",
-          "sha256": "d5f14b597e70b754ca0120017fad327f3b2158a89dac271d39c2a964a1cf88e5",
+          "sha256": "ac10c294a34743253dcc39a15feaa2ad4230e0680fe278a9bd08a1f7604f570c",
           "storyId": "core-accordion--collapsible-pattern-10"
         }
       ]
@@ -1265,7 +1265,7 @@
           "title": "Member tags",
           "description": "Member tags",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-19.jsx",
-          "sha256": "2872f1ae9c05cd503a73f0c889f58e136499f6bbba690a94569a4512baf30418",
+          "sha256": "f6cc0761597fbb08667f5043e702969d75f2a567c836213100695e7cdad3dfca",
           "storyId": "core-select--combobox-pattern-19"
         },
         {
@@ -1273,7 +1273,7 @@
           "title": "Property pickers",
           "description": "Property pickers",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-21.jsx",
-          "sha256": "2f8aa8862bc68abe9707203cd6d277d8bd5a8f0586c48c2a504e86050bae5688",
+          "sha256": "31714489b4de666a5da85ae85f0ebffd480b2b1c653fb7124b12305ac7cecbbc",
           "storyId": "core-select--combobox-pattern-21"
         },
         {
@@ -2223,7 +2223,7 @@
           "title": "In an empty state and list row",
           "description": "In an empty state and list row",
           "file": ".storybook/fixtures/patterns/icon-stack/c-icon-stack-5.jsx",
-          "sha256": "d6a621e021a95165f18d0175f60701b888ec57ed615a191020f472ed164e4afc",
+          "sha256": "47f65b504e15c33f07984682a0bed2f3bcc4e5d93e4250f195b9c7f6909b1d85",
           "storyId": "core-icon--icon-stack-pattern-5"
         }
       ]
@@ -2252,7 +2252,7 @@
           "title": "In a card, list row and empty state",
           "description": "In a card, list row and empty state",
           "file": ".storybook/fixtures/patterns/icon-tile/c-icon-tile-11.jsx",
-          "sha256": "be10246bbc2d0c0478f1e496c9c1938e9aaec8562f867c307910b9c22b4616aa",
+          "sha256": "2cc64fc7601b95c63d5a9300b26948478436853dcb5a4f51591352ce8c922c9b",
           "storyId": "core-icon--icon-tile-pattern-11"
         }
       ]
@@ -2369,63 +2369,63 @@
       ]
     },
     "item": {
-      "owner": "blocks/ResourceList",
+      "owner": "core/Item",
       "examples": [
         {
           "name": "c-item-1",
           "title": "Variants and sizes",
           "description": "Variants and sizes",
           "file": ".storybook/fixtures/patterns/item/c-item-1.jsx",
-          "sha256": "367c868a7142cb062ce76b48c60462f6f8e8df19f737794092eaeb9c2cdac20a",
-          "storyId": "blocks-application-resourcelist--item-pattern-1"
+          "sha256": "e129e41627714912ae63d0d8c8daae1c7ab6bfcb08b83bb87e8c3ec5565f5276",
+          "storyId": "core-item--item-pattern-1"
         },
         {
           "name": "c-item-4",
           "title": "Navigation rows",
           "description": "Navigation rows",
           "file": ".storybook/fixtures/patterns/item/c-item-4.jsx",
-          "sha256": "2df03bc3860b8bb7d71384067670035787594c59b38434abb682c641576352b0",
-          "storyId": "blocks-application-resourcelist--item-pattern-4"
+          "sha256": "dfdbb895827d674c50cb54c644381ab971163ec12afc46ac3b8d24fcf88c0c63",
+          "storyId": "core-item--item-pattern-4"
         },
         {
           "name": "c-item-7",
           "title": "Menu with counts and shortcuts",
           "description": "Menu with counts and shortcuts",
           "file": ".storybook/fixtures/patterns/item/c-item-7.jsx",
-          "sha256": "aa146536f5cc4f65ca4dd5ce038495b8e38fb36b52b9a5b14c9b0d96c78a0814",
-          "storyId": "blocks-application-resourcelist--item-pattern-7"
+          "sha256": "e9b45d8153fff326166f551e42c36f424d749bd9514a8fc3292e7fe87b475050",
+          "storyId": "core-item--item-pattern-7"
         },
         {
           "name": "c-item-9",
           "title": "Team members and roles",
           "description": "Team members and roles",
           "file": ".storybook/fixtures/patterns/item/c-item-9.jsx",
-          "sha256": "ca40b88c53d8933ec7bb2d8ef53f94cd6d27793e070264362e4eb6160153f8e8",
-          "storyId": "blocks-application-resourcelist--item-pattern-9"
+          "sha256": "22be576156604bf9160586bc5f7c25ad30964147368edff35353660365e23f6f",
+          "storyId": "core-item--item-pattern-9"
         },
         {
           "name": "c-item-10",
           "title": "Header and footer",
           "description": "Header and footer",
           "file": ".storybook/fixtures/patterns/item/c-item-10.jsx",
-          "sha256": "13dd6c068e950424882f8d2a2ee288c667182e22f92cd7b767dc907f16792e8b",
-          "storyId": "blocks-application-resourcelist--item-pattern-10"
+          "sha256": "e4308daa332d91e64c75a51427c9de6cacc2e8f9384fb8456c42475374e6e2b8",
+          "storyId": "core-item--item-pattern-10"
         },
         {
           "name": "c-item-11",
           "title": "Settings and integrations",
           "description": "Settings and integrations",
           "file": ".storybook/fixtures/patterns/item/c-item-11.jsx",
-          "sha256": "4be1997087941964bb31c3e359bb1b5f71790468189be9c2e2118e3c7bcb0bed",
-          "storyId": "blocks-application-resourcelist--item-pattern-11"
+          "sha256": "975b10b034f05fda163ac0b82bd77cdbe910c8e3165d0e7a93c42fc4b77a3a14",
+          "storyId": "core-item--item-pattern-11"
         },
         {
           "name": "c-item-12",
           "title": "Activity feed",
           "description": "Activity feed",
           "file": ".storybook/fixtures/patterns/item/c-item-12.jsx",
-          "sha256": "e3bc2cf20d09d1a1bba5a45a1aae86192e19ec85a536471111a41f255e8065ce",
-          "storyId": "blocks-application-resourcelist--item-pattern-12"
+          "sha256": "d628ca3bd6b9895a8934c4f6bf67b13784e75d78dafd4f0bd70f01adc7c408f8",
+          "storyId": "core-item--item-pattern-12"
         }
       ]
     },
@@ -2859,7 +2859,7 @@
           "title": "File upload list",
           "description": "File upload list",
           "file": ".storybook/fixtures/patterns/progress/c-progress-5.jsx",
-          "sha256": "daea2a98b57f4838b1e5b9f0e53656cd7ca9501e73f0302bb40deaff0cef373d",
+          "sha256": "b848110bf3c9e494b3805e6b872778b5411754053fc8e5378912cbcfebb9e775",
           "storyId": "core-progress--progress-pattern-5"
         },
         {

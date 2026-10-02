@@ -12,13 +12,13 @@ export const blockCoverage = [
   ],
   [
     'Card / List / Profile',
-    'ResourceList + Card, Avatar, Pill and SettingsPanel',
-    'blocks-application-resourcelist--playground'
+    'Item rows with Avatar, Pill, role badges and row menus',
+    'core-item--item-pattern-9'
   ],
   [
     'Dashboard / Stats / Chart',
-    'Editorial workspace + StatGroup; MDX charts remain isolated',
-    'blocks-application-statgroup--playground'
+    'Dashboard grid with StatCard metrics and charts in their own panels',
+    'blocks-dashboard--playground'
   ],
   [
     'Dialog / Sheet',
@@ -32,8 +32,8 @@ export const blockCoverage = [
   ],
   [
     'Form / Settings',
-    'SettingsPanel + Field, Input, Textarea, Select, RadioGroup',
-    'blocks-application-settingspanel--profile-and-preferences'
+    'Settings screens: preference rows with Switch, Pill and Button actions',
+    'blocks-settings--screens-pattern-6'
   ],
   [
     'Kanban Board',

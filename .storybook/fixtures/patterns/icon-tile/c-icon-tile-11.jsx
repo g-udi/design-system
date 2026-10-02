@@ -10,7 +10,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import {
   Empty,
   EmptyDescription,

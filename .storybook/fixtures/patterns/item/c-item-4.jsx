@@ -7,7 +7,7 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 export function Pattern() {
   return (

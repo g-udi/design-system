@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/item/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/To Sort/ResourceList', id: 'blocks-application-resourcelist', tags: ['autodocs'], ...catalogueMeta('item') };
+export default { title: 'Core/Data Display/Item', id: 'core-item', tags: ['autodocs'], ...catalogueMeta('item') };
 
 export const ItemPattern1 = { name: 'Variants and sizes', ...pattern(1, 'Default, outline and muted rows at the default, sm and xs sizes, side by side.') };
 export const ItemPattern11 = { name: 'Settings and integrations', ...pattern(11, 'Icon rows whose trailing slot carries a status badge, an action button, or both.') };

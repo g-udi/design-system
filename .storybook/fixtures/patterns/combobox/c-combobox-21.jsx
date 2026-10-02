@@ -28,7 +28,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 // Each option carries `searchText`, so typing a synonym ("defect", "infra") still finds it.

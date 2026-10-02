@@ -4,7 +4,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 // Every variant at every size, side by side: variant sets the surface, size sets the padding.

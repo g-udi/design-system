@@ -6,7 +6,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle
-} from '../../../../src/components/blocks/ResourceList/parts/item.jsx';
+} from '../../../../src/components/core/Item/parts/item.jsx';
 import { Progress } from '../../../../src/components/core/Progress/parts/progress.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const files = [

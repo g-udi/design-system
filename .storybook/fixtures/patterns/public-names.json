@@ -1057,7 +1057,7 @@
     "InputOTPSlot": "InputOTPSlot",
     "InputOTPSeparator": "InputOTPSeparator"
   },
-  "src/components/blocks/ResourceList/parts/item.jsx": {
+  "src/components/core/Item/parts/item.jsx": {
     "Item": "Item",
     "ItemMedia": "ItemMedia",
     "ItemContent": "ItemContent",
