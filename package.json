@@ -29,6 +29,14 @@
       "import": "./src/components/chat/*/index.js",
       "default": "./src/components/chat/*/index.js"
     },
+    "./charts": {
+      "import": "./src/components/charts/index.js",
+      "default": "./src/components/charts/index.js"
+    },
+    "./charts/*": {
+      "import": "./src/components/charts/*/index.js",
+      "default": "./src/components/charts/*/index.js"
+    },
     "./components/*": {
       "import": "./src/components/*",
       "default": "./src/components/*"

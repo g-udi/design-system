@@ -290,7 +290,7 @@
     "useCascaderRender": "useCascaderRender",
     "useCascaderState": "useCascaderState"
   },
-  "src/components/mdx/Chart/parts/chart.jsx": {
+  "src/components/charts/ChartFrame/parts/chart.jsx": {
     "ChartContainer": "ChartContainer",
     "ChartTooltip": "ChartTooltip",
     "ChartTooltipContent": "ChartTooltipContent",

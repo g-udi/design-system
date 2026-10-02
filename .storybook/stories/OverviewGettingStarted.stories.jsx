@@ -60,6 +60,7 @@ export default function RootLayout({ children }) {
             <tr><Td mono>@gaudi/design-system/global.css</Td><Td>Tailwind, CSS variables, base compatibility, reduced motion, and global primitives.</Td></tr>
             <tr><Td mono>@gaudi/design-system/tokens</Td><Td>Structured color, typography, motion, radius, and shadow tokens.</Td></tr>
             <tr><Td mono>@gaudi/design-system/chat</Td><Td>Chat and agent building blocks: messages, the composer, reply parts and chat panels. Also exported from the root.</Td></tr>
+            <tr><Td mono>@gaudi/design-system/charts</Td><Td>Framed, accessible charts: series, part-to-whole, distribution, flow and single readings, with keyboard reading and a data table. Kept out of the root so pages without a chart never load Recharts.</Td></tr>
             <tr><Td mono>@gaudi/design-system/mdx</Td><Td>MDX components for article content.</Td></tr>
           </tbody>
         </Table>

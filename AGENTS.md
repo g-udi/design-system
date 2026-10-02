@@ -44,6 +44,7 @@ module.exports = {
 - All package-internal imports are relative. Do not introduce `@/` aliases in `src/`.
 - MDX components live only in the `./mdx` entry (not re-exported from the root), and the compiled-MDX runtime lives in `./mdx/runtime`.
 - Chat and agent building blocks (messages, bubbles, the message list, the composer, reply parts such as reasoning, tools and sources, and chat panels) live in `src/components/chat/<Owner>` and the `./chat` entry; they are also exported from the root. Blocks/Chat holds only `ChatShell`, which composes Chat parts and must not grow its own chat behaviour.
+- Charts live in `src/components/charts/<Owner>` (one owner per chart family plus `ChartFrame`, the shared frame, Recharts parts and primitives) and the `./charts` entry. They are not exported from the root, so pages without a chart never load Recharts. MDX/Chart is only the MDX adapter (`<Chart type=…>` and the chart names in the MDX map); never build chart behaviour in `src/components/mdx`.
 
 ## Storybook Navigation
 
@@ -68,6 +69,7 @@ module.exports = {
 - Blocks are composed product/editorial sections. Document every variant as a real usage example with its own code.
 - Navigation is documented under `Blocks/Navigation`; low-level navigation pieces stay exported but are not separate docs destinations.
 - Chat is a top-level sidebar section after Blocks: one page per Chat owner (`Chat/<Owner>`). Blocks/Chat documents the composed shell.
+- Charts is a top-level sidebar section after Chat: one page per chart owner (`Charts/<Owner>`) with detailed examples. MDX/Chart documents writing those charts in an article.
 
 ## MDX Work
 

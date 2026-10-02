@@ -12,4 +12,4 @@ export const isNavigationPage = (entry) => navigationPages.some(page => page.id 
 
 // Keep the seven top-level guides alongside all component docs and examples.
 export const isSidebarEntry = (entry) => isNavigationPage(entry)
-  || /^(Core|Blocks|Chat|Navigation|MDX|Post|Layout)\//.test(entry.title);
+  || /^(Core|Blocks|Chat|Charts|Navigation|MDX|Post|Layout)\//.test(entry.title);

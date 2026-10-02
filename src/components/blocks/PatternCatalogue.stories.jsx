@@ -34,7 +34,7 @@ function Catalogue() {
     <Page compact title='Component Catalogue' intro='Find a component or use case across Gaudi. Open the documentation or explore working examples, from application controls to publishing and MDX.'>
       <div className='gaudi-catalogue-controls'>
         <label>Find a component or use case<Input value={query} onChange={event=>{setQuery(event.target.value);resetResults();}} placeholder='Search avatars, dialogs, forms…' /></label>
-        <label>Area<select value={category} onChange={event=>{setCategory(event.target.value);setOwner('');resetResults();}}><option value='all'>All areas</option>{['Core','Blocks','Chat','Navigation','MDX','Post','Layout'].map(value=><option key={value}>{value}</option>)}</select></label>
+        <label>Area<select value={category} onChange={event=>{setCategory(event.target.value);setOwner('');resetResults();}}><option value='all'>All areas</option>{['Core','Blocks','Chat','Charts','Navigation','MDX','Post','Layout'].map(value=><option key={value}>{value}</option>)}</select></label>
       </div>
       <div className='gaudi-catalogue-view'>
         <div role='group' aria-label='Catalogue view'>
