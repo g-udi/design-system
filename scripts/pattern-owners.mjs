@@ -13,7 +13,7 @@ export const owners = {
   'file-upload': 'core/FileUpload', filters: 'core/FilterBar', frame: 'core/Card',
   flow: 'core/Flow', gantt: 'core/Gantt', 'hover-card': 'core/Popover', 'icon-stack': 'core/Icon',
   'icon-tile': 'core/Icon', input: 'core/Input', 'input-group': 'core/Input',
-  'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'core/KanbanBoard', 'stat-cards': 'blocks/StatCard', scheduling: 'blocks/Scheduling', screens: 'blocks/Screens',
+  'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'core/KanbanBoard', 'stat-cards': 'blocks/StatCard', dashboard: 'blocks/Dashboard', scheduling: 'blocks/Scheduling', screens: 'blocks/Screens',
   'area-chart': 'charts/AreaChart', 'bar-chart': 'charts/BarChart', 'box-plot-chart': 'charts/BoxPlotChart', 'chart-frame': 'charts/ChartFrame', 'donut-chart': 'charts/DonutChart', 'funnel-chart': 'charts/FunnelChart', 'gauge-chart': 'charts/GaugeChart', 'heatmap-chart': 'charts/HeatmapChart', 'histogram-chart': 'charts/HistogramChart', 'line-chart': 'charts/LineChart', 'radar-chart': 'charts/RadarChart', 'radial-chart': 'charts/RadialChart', 'range-chart': 'charts/RangeChart', 'sankey-chart': 'charts/SankeyChart', 'scatter-chart': 'charts/ScatterChart', 'sparkline': 'charts/Sparkline', 'stacked-bar-list': 'charts/StackedBarList', 'treemap-chart': 'charts/TreemapChart', 'waterfall-chart': 'charts/WaterfallChart', forms: 'blocks/Forms',
   kbd: 'core/Kbd', label: 'core/Field', marker: 'core/Marker', menubar: 'core/DropdownMenu',
   message: 'chat/Message', 'message-scroller': 'chat/MessageList', 'prompt-composer': 'chat/ChatInput', chat: 'blocks/Chat',

@@ -411,6 +411,38 @@
       ],
       "importPath": "./src/components/blocks/Chat/Chat.stories.jsx"
     },
+    "blocks-dashboard--playground": {
+      "id": "blocks-dashboard--playground",
+      "title": "Blocks/Dashboard",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/Dashboard.stories.jsx"
+    },
+    "blocks-dashboard--docs": {
+      "id": "blocks-dashboard--docs",
+      "title": "Blocks/Dashboard",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/Dashboard.stories.jsx"
+    },
+    "blocks-dashboard--period-toolbar": {
+      "id": "blocks-dashboard--period-toolbar",
+      "title": "Blocks/Dashboard",
+      "name": "Period toolbar with a custom range",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/Dashboard.stories.jsx"
+    },
     "blocks-forms--playground": {
       "id": "blocks-forms--playground",
       "title": "Blocks/Forms",
@@ -5049,6 +5081,94 @@
         "play-fn"
       ],
       "importPath": "./src/components/blocks/Chat/ChatPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-1": {
+      "id": "blocks-dashboard--dashboard-pattern-1",
+      "title": "Blocks/Dashboard",
+      "name": "Operations · Capacity and exceptions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-2": {
+      "id": "blocks-dashboard--dashboard-pattern-2",
+      "title": "Blocks/Dashboard",
+      "name": "Project · Delivery timesheet",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-3": {
+      "id": "blocks-dashboard--dashboard-pattern-3",
+      "title": "Blocks/Dashboard",
+      "name": "AI agents · Conversation analytics",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-4": {
+      "id": "blocks-dashboard--dashboard-pattern-4",
+      "title": "Blocks/Dashboard",
+      "name": "Security · Edge telemetry",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-5": {
+      "id": "blocks-dashboard--dashboard-pattern-5",
+      "title": "Blocks/Dashboard",
+      "name": "Field teams · Coverage",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-6": {
+      "id": "blocks-dashboard--dashboard-pattern-6",
+      "title": "Blocks/Dashboard",
+      "name": "Commerce · Revenue",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-7": {
+      "id": "blocks-dashboard--dashboard-pattern-7",
+      "title": "Blocks/Dashboard",
+      "name": "Creators · Payouts",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
+    },
+    "blocks-dashboard--dashboard-pattern-8": {
+      "id": "blocks-dashboard--dashboard-pattern-8",
+      "title": "Blocks/Dashboard",
+      "name": "Content · Newsletter analytics",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Dashboard/DashboardPatterns.stories.jsx"
     },
     "blocks-forms--forms-pattern-1": {
       "id": "blocks-forms--forms-pattern-1",

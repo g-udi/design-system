@@ -10,20 +10,20 @@ export default {
   tags: ['autodocs'],
   ...chatMeta('AgentMark', {
     component: AgentMark,
-    controls: { name: 'text', seed: 'text', motif: ['auto', ...Object.keys(agentMotifs)], hue: ['auto', ...agentHues], size: ['xs', 'sm', 'md', 'lg', 'xl'], state: ['idle', 'thinking', 'streaming', 'tool', 'done', 'error'] },
+    controls: { name: 'text', motif: ['auto', ...Object.keys(agentMotifs)], hue: ['auto', ...agentHues], size: ['xs', 'sm', 'md', 'lg', 'xl'], state: ['idle', 'thinking', 'streaming', 'tool', 'done', 'error'] },
     primary: () => Playground
   })
 };
 
 export const Playground = {
-  args: { name: 'Gaudi', seed: '', motif: 'auto', hue: 'auto', size: 'xl', state: 'idle' },
+  args: { name: 'Gaudi', motif: 'auto', hue: 'auto', size: 'xl', state: 'idle' },
   parameters: {
     docs: {
-      description: { story: 'Each agent gets a Gaudí-inspired mark: trencadís mosaic, basilica spires, a wrought-iron spiral, a rose window, the palmetto gate, the flower paving tile, a twisted chimney, a sun medallion or the nativity star, glazed in one of eight tile hues. The seed (or the name) picks both, so an agent keeps the same mark everywhere; `motif` and `hue` pin them. `state` adds an ActivityIndicator badge at the corner.' },
+      description: { story: 'Each agent gets a Gaudí-inspired mark: trencadís mosaic, basilica spires, a wrought-iron spiral, a rose window, the palmetto gate, the flower paving tile, a twisted chimney, a sun medallion or the nativity star, glazed in one of eight tile hues. The name, or a `seed` such as the agent id, picks both, so an agent keeps the same mark everywhere; `motif` and `hue` pin them. Change the name with motif and hue on auto to see a different mark. `state` adds an ActivityIndicator badge at the corner.' },
       source: playgroundSource('AgentMark', { imports: "import { AgentMark } from '@gaudi/design-system/chat';" })
     }
   },
-  render: ({ seed, ...args }) => <AgentMark {...args} seed={seed || undefined} />,
+  render: (args) => <AgentMark {...args} />,
   play: async ({ args, canvasElement }) => {
     const mark = within(canvasElement).getByRole('img', { name: args.name });
     await expect(mark).toHaveAttribute('data-slot', 'agent-mark');

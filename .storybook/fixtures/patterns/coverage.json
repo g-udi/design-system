@@ -4261,6 +4261,75 @@
           "storyId": "charts-waterfallchart--waterfall-chart-pattern-1"
         }
       ]
+    },
+    "dashboard": {
+      "owner": "blocks/Dashboard",
+      "examples": [
+        {
+          "name": "c-dashboard-1",
+          "title": "Operations · Capacity and exceptions",
+          "description": "Operations · Capacity and exceptions",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-1.jsx",
+          "sha256": "1239dfd0a522abc08bc95ce12943de675792883e5116467f3c9a25da955b051b",
+          "storyId": "blocks-dashboard--dashboard-pattern-1"
+        },
+        {
+          "name": "c-dashboard-2",
+          "title": "Project · Delivery timesheet",
+          "description": "Project · Delivery timesheet",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-2.jsx",
+          "sha256": "9dbc9e83e924439a44a486c946120aee4ba8e91e52144303c63863dfed76ba9a",
+          "storyId": "blocks-dashboard--dashboard-pattern-2"
+        },
+        {
+          "name": "c-dashboard-3",
+          "title": "AI agents · Conversation analytics",
+          "description": "AI agents · Conversation analytics",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-3.jsx",
+          "sha256": "a8f056e5eaa3fea663586633e5992c50222395d9d4cd0fb705800ee0284ba13f",
+          "storyId": "blocks-dashboard--dashboard-pattern-3"
+        },
+        {
+          "name": "c-dashboard-4",
+          "title": "Security · Edge telemetry",
+          "description": "Security · Edge telemetry",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-4.jsx",
+          "sha256": "5ed8337d482654feb815980658be4751fdbe7aba0a23b9ef040d90da9da0c0f0",
+          "storyId": "blocks-dashboard--dashboard-pattern-4"
+        },
+        {
+          "name": "c-dashboard-5",
+          "title": "Field teams · Coverage",
+          "description": "Field teams · Coverage",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-5.jsx",
+          "sha256": "5c76c535335e4304d75a0aca333309aeab230294ecad5aa7cc4ad0adfb74b3ef",
+          "storyId": "blocks-dashboard--dashboard-pattern-5"
+        },
+        {
+          "name": "c-dashboard-6",
+          "title": "Commerce · Revenue",
+          "description": "Commerce · Revenue",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-6.jsx",
+          "sha256": "2c46dd31d48c98ec3c6849224ef8459f45334ab5e35c59e6291dc6d7bacd8a96",
+          "storyId": "blocks-dashboard--dashboard-pattern-6"
+        },
+        {
+          "name": "c-dashboard-7",
+          "title": "Creators · Payouts",
+          "description": "Creators · Payouts",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-7.jsx",
+          "sha256": "032b65f23d6f837d231952188b48ec2b5825b55e2af97b30bdc4f484ae5a3929",
+          "storyId": "blocks-dashboard--dashboard-pattern-7"
+        },
+        {
+          "name": "c-dashboard-8",
+          "title": "Content · Newsletter analytics",
+          "description": "Content · Newsletter analytics",
+          "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-8.jsx",
+          "sha256": "6abc7fe0789d408d840817341d86d9e3a9f3ca0662bfd8f9fc30b917ba095f97",
+          "storyId": "blocks-dashboard--dashboard-pattern-8"
+        }
+      ]
     }
   }
 }
