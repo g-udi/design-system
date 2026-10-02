@@ -14,7 +14,7 @@ test('the flat catalogue preserves every curated example and original component 
   for (const family of Object.values(coverage.categories)) {
     for (const example of family.examples) assert.ok(ids.has(example.storyId), `Missing ${example.storyId}`);
   }
-  for (const name of ['Core/Avatar','Core/Overlays & Menus/Dialog','MDX/Footnote','Blocks/To Sort/AppShell']) assert.ok(owners.some(owner => owner.key === name), name);
+  for (const name of ['Core/Avatar','Core/Overlays & Menus/Dialog','MDX/Footnote','Blocks/App Shell']) assert.ok(owners.some(owner => owner.key === name), name);
   assert.ok(!owners.some(owner => owner.category === 'Overview'));
 });
 
@@ -49,7 +49,7 @@ test('original component documentation owns merged pages', () => {
     'core-navigationmenu--navigation-menu-pattern-1': 'Core/Navigation/NavigationMenu',
     'core-kanban--kanban-pattern-1': 'Core/Planning/Kanban',
     'blocks-application-resourcelist--item-pattern-1': 'Blocks/To Sort/ResourceList',
-    'blocks-application-appshell--sidebar-pattern-1': 'Blocks/To Sort/AppShell'
+    'blocks-application-appshell--sidebar-pattern-1': 'Blocks/App Shell'
   };
   for (const [id, title] of Object.entries(merged)) assert.equal(index.entries[id]?.title, title, id);
   const docsTitles = Object.values(index.entries).filter(entry => entry.type === 'docs').map(entry => entry.title);

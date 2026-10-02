@@ -6,7 +6,7 @@ const pattern = patternStories(
   import.meta.glob('../../../../.storybook/fixtures/patterns/sidebar/*.jsx', { eager: true, query: '?raw', import: 'default' })
 );
 
-export default { title: 'Blocks/To Sort/AppShell', id: 'blocks-application-appshell', tags: ['autodocs'], ...catalogueMeta('sidebar') };
+export default { title: 'Blocks/App Shell', id: 'blocks-application-appshell', tags: ['autodocs'], ...catalogueMeta('sidebar') };
 
 export const SidebarPattern1 = { name: 'Workspace switcher', ...pattern(1, 'Grouped navigation with count badges, row menus and a footer account menu.') };
 export const SidebarPattern2 = { name: 'Collapsible icon rail', ...pattern(2, 'Labels give way to tooltips at 3rem, with a rail and a trigger to drive it.') };

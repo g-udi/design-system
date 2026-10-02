@@ -2,7 +2,7 @@
 
 Gaudi's pattern catalogue documents every component family with working examples. New patterns follow one rule: extend a matching Gaudi owner and add a component only for a distinct gap.
 
-The catalogue covers **110 families and 464 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
+The catalogue covers **112 families and 486 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
 
 [Browse the component catalogue](http://localhost:6007/?path=/story/overview-component-catalogue--browse). Each example has copyable JSX with public Gaudi imports, its original use case, and automatic accessibility checks.
 
@@ -36,6 +36,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | accordion | [core/Accordion](src/components/core/Accordion/index.js) | 7 |
 | alert | [core/Banner](src/components/core/Banner/index.js) | 5 |
 | alert-dialog | [core/Dialog](src/components/core/Dialog/index.js) | 6 |
+| app-shell | [blocks/AppShell](src/components/blocks/AppShell/index.js) | 13 |
 | area-chart | [charts/AreaChart](src/components/charts/AreaChart/index.js) | 2 |
 | aspect-ratio | [core/AspectRatio](src/components/core/AspectRatio/index.js) | 1 |
 | attachment | [core/Attachment](src/components/core/Attachment/index.js) | 4 |
@@ -65,6 +66,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | combobox | [core/Select](src/components/core/Select/index.js) | 8 |
 | command | [core/Commander](src/components/core/Commander/index.js) | 3 |
 | context-menu | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 2 |
+| dashboard | [blocks/Dashboard](src/components/blocks/Dashboard/index.js) | 8 |
 | data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 13 |
 | date-selector | [core/Calendar](src/components/core/Calendar/index.js) | 3 |
 | dialog | [core/Dialog](src/components/core/Dialog/index.js) | 5 |
@@ -76,7 +78,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | field | [core/Field](src/components/core/Field/index.js) | 5 |
 | file-upload | [core/FileUpload](src/components/core/FileUpload/index.js) | 5 |
 | filters | [core/FilterBar](src/components/core/FilterBar/index.js) | 6 |
-| flow | [core/Flow](src/components/core/Flow/index.js) | 4 |
+| flow | [core/Flow](src/components/core/Flow/index.js) | 5 |
 | forms | [blocks/Forms](src/components/blocks/Forms/index.js) | 17 |
 | funnel-chart | [charts/FunnelChart](src/components/charts/FunnelChart/index.js) | 1 |
 | gantt | [core/Gantt](src/components/core/Gantt/index.js) | 8 |
@@ -130,7 +132,6 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | sparkline | [charts/Sparkline](src/components/charts/Sparkline/index.js) | 1 |
 | spinner | [core/Spinner](src/components/core/Spinner/index.js) | 3 |
 | stacked-bar-list | [charts/StackedBarList](src/components/charts/StackedBarList/index.js) | 1 |
-| dashboard | [blocks/Dashboard](src/components/blocks/Dashboard/index.js) | 8 |
 | stat-cards | [blocks/StatCard](src/components/blocks/StatCard/index.js) | 9 |
 | stepper | [core/Stepper](src/components/core/Stepper/index.js) | 6 |
 | switch | [core/Switch](src/components/core/Switch/index.js) | 4 |

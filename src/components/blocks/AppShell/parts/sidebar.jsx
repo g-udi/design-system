@@ -18,8 +18,10 @@ import { Skeleton } from '../../../core/Skeleton/parts/skeleton.jsx';
 import {
   Tooltip,
   TooltipContent,
+  TooltipProvider,
   TooltipTrigger
 } from '../../../core/Tooltip/parts/tooltip.jsx';
+import { Kbd, KbdGroup } from '../../../core/Kbd/parts/kbd.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -27,6 +29,19 @@ const SIDEBAR_WIDTH = '16rem';
 const SIDEBAR_WIDTH_MOBILE = '18rem';
 const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
+const DEFAULT_SIDEBAR_LABELS = {
+  expanded: 'Sidebar expanded',
+  collapsed: 'Sidebar collapsed',
+  toggle: 'Toggle Sidebar'
+};
+const readStoredOpen = (key) => {
+  try {
+    const value = window.localStorage.getItem(key);
+    return value === null ? null : value === 'true';
+  } catch {
+    return null;
+  }
+};
 const SidebarContext = React.createContext(null);
 function useSidebar() {
   const context = React.useContext(SidebarContext);
@@ -35,19 +50,36 @@ function useSidebar() {
   }
   return context;
 }
+/**
+ * Holds the sidebar's expanded state. `storageKey` restores and saves the desktop state in
+ * localStorage (after mount, so server markup stays stable); `shortcut` is the ⌘/Ctrl key that toggles
+ * it (`false` turns it off); changes made by the shortcut or a trigger are announced politely.
+ */
 function SidebarProvider({
   defaultOpen = true,
   open: openProp,
   onOpenChange: setOpenProp,
+  storageKey,
+  shortcut = SIDEBAR_KEYBOARD_SHORTCUT,
+  labels: labelOverrides,
   className,
   style,
   children,
   ...props
 }) {
+  const labels = { ...DEFAULT_SIDEBAR_LABELS, ...labelOverrides };
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
   const [_open, _setOpen] = React.useState(defaultOpen);
+  const [announcement, setAnnouncement] = React.useState('');
+  // The phone sheet has no Radix trigger, so remember what opened it and give focus back on close.
+  const returnFocusRef = React.useRef(null);
   const open = openProp ?? _open;
+  React.useEffect(() => {
+    if (!storageKey || openProp !== undefined) return;
+    const stored = readStoredOpen(storageKey);
+    if (stored !== null) _setOpen(stored);
+  }, [storageKey, openProp]);
   const setOpen = React.useCallback(
     (value) => {
       const openState = typeof value === 'function' ? value(open) : value;
@@ -57,19 +89,31 @@ function SidebarProvider({
         _setOpen(openState);
       }
       document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      if (storageKey) {
+        try {
+          window.localStorage.setItem(storageKey, String(openState));
+        } catch {
+          // Storage can be unavailable (private mode); the state still applies for this visit.
+        }
+      }
     },
-    [setOpenProp, open]
+    [setOpenProp, open, storageKey]
   );
   const toggleSidebar = React.useCallback(() => {
-    return isMobile
-      ? setOpenMobile((open2) => !open2)
-      : setOpen((open2) => !open2);
-  }, [isMobile, setOpen, setOpenMobile]);
+    if (isMobile) {
+      if (!openMobile) returnFocusRef.current = document.activeElement;
+      return setOpenMobile((open2) => !open2);
+    }
+    setAnnouncement(open ? labels.collapsed : labels.expanded);
+    return setOpen((open2) => !open2);
+  }, [isMobile, open, openMobile, setOpen, setOpenMobile, labels.collapsed, labels.expanded]);
   React.useEffect(() => {
+    if (!shortcut) return undefined;
     const handleKeyDown = (event) => {
       if (
-        event.key === SIDEBAR_KEYBOARD_SHORTCUT &&
-        (event.metaKey || event.ctrlKey)
+        event.key.toLowerCase() === shortcut &&
+        (event.metaKey || event.ctrlKey) &&
+        !event.altKey
       ) {
         event.preventDefault();
         toggleSidebar();
@@ -77,7 +121,7 @@ function SidebarProvider({
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [toggleSidebar]);
+  }, [toggleSidebar, shortcut]);
   const state = open ? 'expanded' : 'collapsed';
   const contextValue = React.useMemo(
     () => ({
@@ -87,12 +131,19 @@ function SidebarProvider({
       isMobile,
       openMobile,
       setOpenMobile,
-      toggleSidebar
+      toggleSidebar,
+      shortcut,
+      labels,
+      returnFocusRef
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar]
+    // labels is rebuilt per render from stable inputs; its parts are the real dependencies.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, shortcut, labels.toggle, labels.expanded, labels.collapsed]
   );
   return (
     <SidebarContext.Provider value={contextValue}>
+      {/* Rail tooltips and the trigger's shortcut hint work without a provider higher up. */}
+      <TooltipProvider delayDuration={0}>
       <div
         data-slot='sidebar-wrapper'
         style={{
@@ -107,7 +158,9 @@ function SidebarProvider({
         {...props}
       >
         {children}
+        <span role='status' aria-live='polite' className='sr-only'>{announcement}</span>
       </div>
+      </TooltipProvider>
     </SidebarContext.Provider>
   );
 }
@@ -120,7 +173,7 @@ function Sidebar({
   dir,
   ...props
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, state, openMobile, setOpenMobile, returnFocusRef } = useSidebar();
   if (collapsible === 'none') {
     return (
       <div
@@ -148,6 +201,14 @@ function Sidebar({
             '--sidebar-width': SIDEBAR_WIDTH_MOBILE
           }}
           side={side}
+          onCloseAutoFocus={(event) => {
+            const target = returnFocusRef.current;
+            returnFocusRef.current = null;
+            if (target?.isConnected) {
+              event.preventDefault();
+              target.focus();
+            }
+          }}
         >
           <SheetHeader className='sr-only'>
             <SheetTitle>Sidebar</SheetTitle>
@@ -203,14 +264,21 @@ function Sidebar({
     </div>
   );
 }
-function SidebarTrigger({ className, onClick, ...props }) {
-  const { toggleSidebar } = useSidebar();
-  return (
+/**
+ * Toggles the sidebar. It reports `aria-expanded` and its keyboard shortcut, and `tooltip` shows the
+ * label with the shortcut keys (on by default when a shortcut is set).
+ */
+function SidebarTrigger({ className, onClick, label, tooltip = true, ...props }) {
+  const { toggleSidebar, isMobile, open, openMobile, shortcut, labels } = useSidebar();
+  const name = label || labels.toggle;
+  const trigger = (
     <Button
       data-sidebar='trigger'
       data-slot='sidebar-trigger'
       variant='ghost'
       size='icon-sm'
+      aria-expanded={isMobile ? openMobile : open}
+      aria-keyshortcuts={shortcut ? `Meta+${shortcut.toUpperCase()} Control+${shortcut.toUpperCase()}` : undefined}
       className={cn('ds-part-sidebar-trigger', className)}
       onClick={(event) => {
         onClick?.(event);
@@ -219,8 +287,21 @@ function SidebarTrigger({ className, onClick, ...props }) {
       {...props}
     >
       <RegistryIcon lucide='PanelLeftIcon' className='ds-part-rtl-flip' />
-      <span className='sr-only'>Toggle Sidebar</span>
+      <span className='sr-only'>{name}</span>
     </Button>
+  );
+  if (!tooltip || !shortcut) return trigger;
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{trigger}</TooltipTrigger>
+      <TooltipContent side='bottom' className='flex items-center gap-2'>
+        {name}
+        <KbdGroup aria-hidden='true'>
+          <Kbd>⌘</Kbd>
+          <Kbd>{shortcut.toUpperCase()}</Kbd>
+        </KbdGroup>
+      </TooltipContent>
+    </Tooltip>
   );
 }
 function SidebarRail({ className, ...props }) {
@@ -426,7 +507,8 @@ function SidebarMenuButton({
       {...props}
     />
   );
-  if (!tooltip) {
+  // In the phone sheet labels are always visible; a hidden tooltip would still swallow the first Escape.
+  if (!tooltip || isMobile) {
     return button;
   }
   if (typeof tooltip === 'string') {

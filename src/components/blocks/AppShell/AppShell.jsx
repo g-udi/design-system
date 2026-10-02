@@ -6,14 +6,25 @@ import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
 
-/** Content remains in normal document flow; no global scroll or storage policy. */
+/**
+ * Content remains in normal document flow; no global scroll or storage policy.
+ *
+ * `layout='sidebar'` (default) puts the brand and navigation in a rail; `layout='topbar'` moves them
+ * into the header for sidebar-free apps. `aside` adds a complementary detail rail beside the content
+ * (it stacks under the content below xl), and `statusBar` adds a footer strip under the content. Below
+ * the lg breakpoint navigation moves into a menu sheet in either layout.
+ */
 export default function AppShell({
   brand,
   navigation,
   children,
   header,
   footer,
+  aside,
+  statusBar,
+  layout = 'sidebar',
   navigationLabel = 'Workspace navigation',
+  asideLabel = 'Details',
   menuLabel = 'Open navigation',
   skipLabel = 'Skip to content',
   className
@@ -21,16 +32,19 @@ export default function AppShell({
   const id = useId();
   const [open, setOpen] = useState(false);
   const nav = <nav aria-label={navigationLabel}>{navigation}</nav>;
+  const topbar = layout === 'topbar';
   return (
-    <div className={cn('ds-app-shell', className)}>
+    <div className={cn('ds-app-shell', className)} data-layout={layout}>
       <a className='ds-skip-link' href={`#${id}`}>
         {skipLabel}
       </a>
-      <aside className='ds-app-rail'>
-        <div className='ds-app-brand'>{brand}</div>
-        {nav}
-        {footer && <div className='ds-app-rail-footer'>{footer}</div>}
-      </aside>
+      {topbar ? null : (
+        <aside className='ds-app-rail'>
+          <div className='ds-app-brand'>{brand}</div>
+          {nav}
+          {footer && <div className='ds-app-rail-footer'>{footer}</div>}
+        </aside>
+      )}
       <div className='ds-app-workspace'>
         <header className='ds-app-header'>
           <div className='ds-app-mobile-nav'>
@@ -55,11 +69,25 @@ export default function AppShell({
               </SheetContent>
             </Sheet>
           </div>
+          {topbar ? (
+            <>
+              <div className='ds-app-brand'>{brand}</div>
+              <div className='ds-app-topnav'>{nav}</div>
+            </>
+          ) : null}
           {header}
         </header>
-        <main id={id} tabIndex={-1} className='ds-app-content'>
-          {children}
-        </main>
+        <div className='ds-app-body' data-aside={aside ? 'true' : undefined}>
+          <main id={id} tabIndex={-1} className='ds-app-content'>
+            {children}
+          </main>
+          {aside ? (
+            <aside aria-label={asideLabel} className='ds-app-aside'>
+              {aside}
+            </aside>
+          ) : null}
+        </div>
+        {statusBar ? <div className='ds-app-status'>{statusBar}</div> : null}
       </div>
     </div>
   );

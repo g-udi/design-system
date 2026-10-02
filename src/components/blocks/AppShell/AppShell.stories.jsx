@@ -11,7 +11,7 @@ import Pill from '../../core/Pill';
 import StatGroup from '../StatGroup';
 import AppShell from './AppShell';
 
-const docs = getComponentDocs('Blocks/AppShell');
+const docs = getComponentDocs('Blocks/App Shell');
 const views = [
   { id: 'Overview', icon: 'LayoutDashboard', title: 'Good morning, Maya', description: 'Three drafts need attention before Friday.' },
   { id: 'Articles', icon: 'FileText', count: 24, title: 'Articles', description: 'Everything you have published, newest first.' },
@@ -25,11 +25,20 @@ const stats = [
 ];
 
 // A working shell: brand, counted navigation with an active page, a header with search and profile, and a rail footer.
-function WorkspaceShell() {
+function WorkspaceShell({ layout = 'sidebar', showAside = false, showStatusBar = false }) {
   const [active, setActive] = useState('Overview');
   const view = views.find((entry) => entry.id === active);
   return (
     <AppShell
+      layout={layout}
+      aside={showAside ? (
+        <div className='grid gap-2 text-sm'>
+          <p className='ds-label'>Publishing checklist</p>
+          <p className='ds-description'>Cover image, summary and two tags before Friday.</p>
+        </div>
+      ) : undefined}
+      asideLabel='Publishing checklist'
+      statusBar={showStatusBar ? <><span>All changes saved</span><span className='ms-auto'>3 readers online</span></> : undefined}
       brand={
         <span className='example-brand'>
           <Icon name='BookOpen' decorative size='sm' />
@@ -91,9 +100,14 @@ function WorkspaceShell() {
 }
 
 export default {
-  title: 'Blocks/To Sort/AppShell', id: 'blocks-application-appshell',
+  title: 'Blocks/App Shell', id: 'blocks-application-appshell',
   component: AppShell,
   tags: ['autodocs'],
+  argTypes: {
+    layout: { control: 'inline-radio', options: ['sidebar', 'topbar'], description: 'A navigation rail, or brand and navigation in the header.' },
+    showAside: { control: 'boolean', name: 'aside', description: 'Show a complementary detail rail beside the content.' },
+    showStatusBar: { control: 'boolean', name: 'statusBar', description: 'Show a status strip under the content.' }
+  },
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -104,6 +118,7 @@ export default {
 };
 
 export const Playground = {
+  args: { layout: 'sidebar', showAside: false, showStatusBar: false },
   parameters: {
     docs: {
       description: { story: 'A writing workspace in the shell: brand, navigation with counts and an active page, a header with search and profile, a rail footer, and a dashboard in the content area. Pick a page to move the active state; below the tablet breakpoint the rail collapses into a menu sheet.' },
@@ -119,7 +134,7 @@ export const Playground = {
       })
     }
   },
-  render: () => <WorkspaceShell />,
+  render: (args) => <WorkspaceShell {...args} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const main = canvas.getByRole('main');
