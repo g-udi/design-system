@@ -42,3 +42,17 @@ test('ChatModelSelect names the current model on its trigger', () => {
   assert.match(html, /aria-label="Model: Deep"/);
   assert.match(html, /aria-haspopup="menu"/);
 });
+
+test('ChatModelSelect shows a model mark on the trigger, and can drop the default sparkle', () => {
+  const Mark = (props) => h('svg', { ...props, 'data-mark': 'atlas' });
+  const marked = render(api.ChatModelSelect, { models: [{ value: 'a', label: 'Atlas', icon: Mark }], variant: 'outline', size: 'sm' });
+  assert.match(marked, /data-mark="atlas"/);
+  assert.match(marked, /aria-hidden="true"[^>]*data-mark|data-mark[^>]*aria-hidden="true"/);
+  assert.equal(render(api.ChatModelSelect, { models: [{ value: 'a', label: 'Atlas' }] }).match(/<svg/g)?.length, 2);
+  assert.equal(render(api.ChatModelSelect, { models: [{ value: 'a', label: 'Atlas' }], icon: false }).match(/<svg/g)?.length, 1);
+});
+
+test('PromptComposer places extra actions beside send', () => {
+  const html = render(api.PromptComposer, { onSubmit: () => {}, actions: h('button', { type: 'button', 'aria-label': 'Use voice input' }) });
+  assert.match(html, /aria-label="Use voice input"[^]*aria-label="Send"/);
+});

@@ -4,6 +4,16 @@ import { Skeleton } from '../../../core/Skeleton/parts/skeleton.jsx';
 // Fixed shapes keep server and client markup identical (no random widths).
 const BARS = [42, 64, 52, 78, 58, 86, 70, 94, 62, 80, 56, 72];
 const ROWS = [72, 58, 84, 46, 66, 54];
+// A conversation: user bubbles (widths in %) and assistant replies (line widths in %), in thread order.
+const TURNS = [
+  { user: [30] },
+  { reply: [100, 92, 67] },
+  { user: [43, 21] },
+  { reply: [100, 100, 83, 50] },
+  { user: [26] },
+  { reply: [100, 83, 60] },
+  { user: [38] }
+];
 
 /** A skeleton line; static unless `animated`, and never animated under reduced motion. */
 function Line({ animated, className, style }) {
@@ -13,6 +23,40 @@ function Line({ animated, className, style }) {
       className={cn('max-w-full', animated ? 'motion-reduce:animate-none' : 'animate-none', className)}
       style={style}
     />
+  );
+}
+
+/** A chat thread of user bubbles and assistant replies, optionally above a composer. */
+function Conversation({ animated, composer = false }) {
+  return (
+    <>
+      <div className='ds-app-shell-placeholder-thread'>
+        {TURNS.map((turn, index) =>
+          turn.user ? (
+            <div key={index} className='flex flex-col items-end gap-2'>
+              {turn.user.map((width, line) => (
+                <Line key={line} animated={animated} className='h-8' style={{ width: `${width}%` }} />
+              ))}
+            </div>
+          ) : (
+            <div key={index} className='flex items-start gap-3'>
+              <Line animated={animated} className='size-8 shrink-0 rounded-full' />
+              <div className='grid min-w-0 flex-1 gap-3 pt-1.5'>
+                {turn.reply.map((width, line) => (
+                  <Line key={line} animated={animated} className='h-2.5' style={{ width: `${width}%` }} />
+                ))}
+              </div>
+            </div>
+          )
+        )}
+      </div>
+      {composer ? (
+        <div className='ds-app-shell-placeholder-composer'>
+          <Line animated={animated} className='h-28 w-full rounded-(--ds-radius-card)' />
+          <Line animated={animated} className='mx-auto h-2.5 w-1/3' />
+        </div>
+      ) : null}
+    </>
   );
 }
 
@@ -79,6 +123,10 @@ const shapes = {
       </div>
     </>
   ),
+  // A chat thread above a composer: the body of a conversation that has not loaded.
+  conversation: ({ animated }) => <Conversation animated={animated} composer />,
+  // The thread alone, for shells that render a real composer under it.
+  thread: ({ animated }) => <Conversation animated={animated} />,
   text: ({ animated }) => (
     <>
       <Line animated={animated} className='h-3.5 w-40 max-w-full' />
@@ -91,8 +139,8 @@ const shapes = {
 
 /**
  * One placeholder card filled with Gaudi Skeleton shapes: `kind` is `stat`, `chart`, `report` (a chart
- * above a short table), `table` or `text`,
- * `variant` is `dashed` (default) or `solid`, and `size` is `sm` (stat height) or `lg` (fills the rest
+ * above a short table), `table`, `text`, `conversation` (a chat thread above a composer) or `thread` (the thread alone),
+ * `variant` is `dashed` (default), `solid` or `bare` (no card), and `size` is `sm` (stat height) or `lg` (fills the rest
  * of the panel). Skeletons stay static unless `animated`, and reduced motion always stops the pulse.
  */
 function AppShellPlaceholder({ kind = 'text', variant = 'dashed', size = 'sm', animated = false, className, ...props }) {
@@ -125,12 +173,16 @@ const presets = {
     ['chart', 'md', 'two'], ['text', 'md'], ['table', 'lg', 'wide']
   ],
   // One large table card.
-  list: [['table', 'lg', 'wide']]
+  list: [['table', 'lg', 'wide']],
+  // A chat thread and its composer, without a card (use with `variant='bare'`).
+  chat: [['conversation', 'lg', 'wide']],
+  // The same thread without the composer, above a real one.
+  thread: [['thread', 'lg', 'wide']]
 };
 
 /**
  * The shared placeholder body of the app-shell examples: preset layouts of skeleton cards
- * (`dashboard`, `grid`, `split` or `list`) that stack on narrow panels and spread into three columns
+ * (`dashboard`, `grid`, `split`, `list`, `chat` or `thread`) that stack on narrow panels and spread into three columns
  * once the panel is wide enough. It is decorative, so it is hidden from assistive technology.
  */
 function AppShellPlaceholderGrid({ preset = 'dashboard', variant = 'dashed', animated = false, className, ...props }) {

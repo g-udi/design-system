@@ -120,6 +120,36 @@
     border-style: solid;
     border-color: color-mix(in oklab, var(--ds-color-border) 60%, transparent);
   }
+  /* A bare placeholder draws only its skeletons, on the panel surface (the chat preset). */
+  .ds-app-shell-placeholder[data-variant='bare'] {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+  .ds-app-shell-placeholder-grid:is([data-preset='chat'], [data-preset='thread']) {
+    width: 100%;
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+  .ds-app-shell-placeholder:is([data-kind='conversation'], [data-kind='thread']) {
+    gap: calc(var(--ds-space-scale, 1) * 2rem);
+  }
+  .ds-app-shell-placeholder[data-variant='bare'] [data-slot='app-shell-placeholder-line'] {
+    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
+  }
+  .ds-app-shell-placeholder-thread {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--ds-space-scale, 1) * 1.5rem);
+    padding-top: calc(var(--ds-space-scale, 1) * 1.5rem);
+  }
+  .ds-app-shell-placeholder-composer {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    margin-top: auto;
+  }
   .ds-app-shell-placeholder[data-size='md'] {
     min-height: 14rem;
   }
@@ -155,8 +185,11 @@
     .ds-app-shell-placeholder-grid[data-preset='grid'] {
       grid-template-rows: auto auto 1fr;
     }
-    .ds-app-shell-placeholder-grid[data-preset='list'] {
+    .ds-app-shell-placeholder-grid:is([data-preset='list'], [data-preset='chat'], [data-preset='thread']) {
       grid-template-rows: 1fr;
+    }
+    .ds-app-shell-placeholder-grid:is([data-preset='chat'], [data-preset='thread']) {
+      grid-template-columns: minmax(0, 1fr);
     }
     .ds-app-shell-placeholder[data-span='wide'] {
       grid-column: 1 / -1;
@@ -213,6 +246,69 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .ds-part-sidebar-rail-grip {
+      transition: none;
+    }
+  }
+
+  /* MARK: Resize handle — drag the sidebar edge to set its width. */
+  .ds-part-sidebar-resize-handle {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-end: -5px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 9px;
+    cursor: col-resize;
+    touch-action: none;
+    outline: none;
+  }
+  [data-slot='sidebar-container'][data-side='right'] .ds-part-sidebar-resize-handle {
+    inset-inline: -5px auto;
+  }
+  .ds-part-sidebar-resize-handle::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 4px;
+    width: 1px;
+    background: transparent;
+    transition: background-color 100ms linear;
+  }
+  .ds-part-sidebar-resize-grip {
+    position: relative;
+    width: 4px;
+    height: 1.5rem;
+    border-radius: var(--ds-radius-pill);
+    background: var(--ds-color-border);
+    transition: background-color 100ms linear;
+  }
+  .ds-part-sidebar-resize-handle:hover::before,
+  .ds-part-sidebar-resize-handle:focus-visible::before,
+  [data-resizing='true'] .ds-part-sidebar-resize-handle::before {
+    background: var(--ds-color-accent);
+  }
+  .ds-part-sidebar-resize-handle:hover .ds-part-sidebar-resize-grip,
+  .ds-part-sidebar-resize-handle:focus-visible .ds-part-sidebar-resize-grip,
+  [data-resizing='true'] .ds-part-sidebar-resize-grip {
+    background: var(--ds-color-text-muted);
+  }
+  .ds-part-sidebar-resize-handle:focus-visible .ds-part-sidebar-resize-grip {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: 1px;
+  }
+  /* The sidebar follows the pointer without the open/close animation, and text is not selected mid-drag. */
+  [data-resizing='true'] :is([data-slot='sidebar-container'], [data-slot='sidebar-gap']) {
+    transition: none;
+  }
+  [data-resizing='true'] {
+    cursor: col-resize;
+    user-select: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ds-part-sidebar-resize-handle::before,
+    .ds-part-sidebar-resize-grip {
       transition: none;
     }
   }

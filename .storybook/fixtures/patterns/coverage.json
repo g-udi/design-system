@@ -4405,6 +4405,30 @@
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-2.jsx",
           "sha256": "6596b6e51b5fd8b5f7e1ab5afb5b7d05dbf34be975ec0e3baf054cfa0a7cf016",
           "storyId": "blocks-application-appshell--app-shell-pattern-2"
+        },
+        {
+          "name": "c-app-shell-7",
+          "title": "Floating sidebar · AI chat with a model picker grid and prompt composer",
+          "description": "Floating sidebar · AI chat with a model picker grid and prompt composer",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-7.jsx",
+          "sha256": "7e585a933b99c589d5f1c464730d99de28320e5af83361142b1d8db1061561d5",
+          "storyId": "blocks-application-appshell--app-shell-pattern-7"
+        },
+        {
+          "name": "c-app-shell-8",
+          "title": "Mail client · folder sidebar, split list and reading panes, and an app rail",
+          "description": "Mail client · folder sidebar, split list and reading panes, and an app rail",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-8.jsx",
+          "sha256": "2ca9859c919c11867a8559c2b45a4018b7dcf065502abd8a6b8d3e66f95c5111",
+          "storyId": "blocks-application-appshell--app-shell-pattern-8"
+        },
+        {
+          "name": "c-app-shell-9",
+          "title": "Resizable sidebar · AI chat threads, icon rail and header model picker",
+          "description": "Resizable sidebar · AI chat threads, icon rail and header model picker",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-9.jsx",
+          "sha256": "2ae688e8cc73939fe807fcee42f05720b5c90edd3ffb957cb65fbec0f1b284a5",
+          "storyId": "blocks-application-appshell--app-shell-pattern-9"
         }
       ]
     }

@@ -4944,6 +4944,39 @@
       ],
       "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
     },
+    "blocks-application-appshell--app-shell-pattern-7": {
+      "id": "blocks-application-appshell--app-shell-pattern-7",
+      "title": "Blocks/App Shell",
+      "name": "Floating sidebar · AI chat with a model picker grid and prompt composer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-8": {
+      "id": "blocks-application-appshell--app-shell-pattern-8",
+      "title": "Blocks/App Shell",
+      "name": "Mail client · folder sidebar, split list and reading panes, and an app rail",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-9": {
+      "id": "blocks-application-appshell--app-shell-pattern-9",
+      "title": "Blocks/App Shell",
+      "name": "Resizable sidebar · AI chat threads, icon rail and header model picker",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
     "blocks-application-appshell--sidebar-pattern-1": {
       "id": "blocks-application-appshell--sidebar-pattern-1",
       "title": "Blocks/App Shell",

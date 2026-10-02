@@ -12,3 +12,15 @@ test('Welcome is a heading with starter prompts', () => {
   assert.match(html, /<h2[^>]*>What are we writing today\?<\/h2>/);
   assert.match(html, /Plan next week/);
 });
+
+test('Welcome takes a product mark and lays starter prompts out as cards', () => {
+  const html = render(api.ChatWelcome, {
+    title: 'How can I help?',
+    icon: h('span', { 'data-mark': 'product' }),
+    suggestionsVariant: 'cards',
+    suggestions: [{ id: 'email', label: 'Draft an email', icon: 'Mail' }]
+  });
+  assert.match(html, /data-mark="product"/);
+  assert.match(html, /data-slot="message-suggestions" data-variant="cards"/);
+  assert.match(html, /Draft an email/);
+});

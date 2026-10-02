@@ -52,7 +52,8 @@ const DEFAULT_LABELS = {
 
 /**
  * A chat composer on InputGroup: multi-line prompt, @mentions and /commands from a listbox, an
- * attachment tray, a toolbar slot for model or effort pickers, and send or stop. Enter sends, Shift+Enter
+ * attachment tray, a toolbar slot for model or effort pickers, an `actions` slot beside send (voice
+ * input, the current model), and send or stop. Enter sends, Shift+Enter
  * starts a new line. While a reply streams (`status='streaming'`) sending still works and reports
  * `{ queued: true }` so the host can hold the message in a PromptQueue.
  */
@@ -70,6 +71,7 @@ function PromptComposer({
   onRemoveAttachment,
   accept,
   toolbar,
+  actions,
   footer,
   disabled = false,
   labels: labelOverrides,
@@ -268,6 +270,7 @@ function PromptComposer({
             {toolbar}
           </div>
           <div className='ms-auto flex shrink-0 items-center gap-1'>
+            {actions}
             {streaming && onStop ? (
               <InputGroupButton size='icon-sm' variant='outline' aria-label={labels.stop} onClick={onStop}>
                 <RegistryIcon lucide='Square' className='fill-current' />
@@ -279,7 +282,7 @@ function PromptComposer({
           </div>
         </InputGroupAddon>
       </InputGroup>
-      {footer ? <div className='text-text-muted text-xs'>{footer}</div> : null}
+      {footer ? <div data-slot='prompt-composer-footer' className='text-text-muted text-xs'>{footer}</div> : null}
     </div>
   );
 }

@@ -14,8 +14,8 @@ import { ChatWelcome } from '@gaudi/design-system/chat';
 
 | Prop / part | Contract |
 | --- | --- |
-| `title` / `description` / `icon` | Greeting, description and the mark above them. |
-| `suggestions` / `onSelect` | Starter prompts as ChatPromptSuggestions. |
+| `title` / `description` / `icon` | Greeting, description and the mark above them; `icon` is a registry icon name or an element such as a product mark. |
+| `suggestions` / `onSelect` | Starter prompts as ChatPromptSuggestions; `suggestionsVariant='cards'` shows them as a two-column grid of rows. |
 | `children` | Extra content under the prompts. |
 
 ## Accessibility

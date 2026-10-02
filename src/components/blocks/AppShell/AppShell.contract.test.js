@@ -154,3 +154,59 @@ test('AppShellNav marks the current page, remembers a section view and labels ba
   assert.match(html, /class="sr-only">, healthy</);
   assert.match(html, /group-data-\[collapsible=icon\]:hidden/);
 });
+
+test('a resizable sidebar takes its width from the provider and names its edge handle', async () => {
+  const { createElement: h } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { AppShellFrame, SidebarProvider, Sidebar, SidebarResizeHandle } = await loadComponent(new URL('./index.js', import.meta.url));
+  const html = renderToStaticMarkup(
+    h(AppShellFrame, null, h(SidebarProvider, { shortcut: false, defaultWidth: 248 }, h(Sidebar, { collapsible: 'icon' }, 'Chats', h(SidebarResizeHandle, { min: 224, max: 384 }))))
+  );
+  assert.match(html, /--sidebar-width:248px/);
+  assert.match(html, /role="separator" tabindex="0" aria-label="Resize sidebar" aria-orientation="vertical" aria-valuemin="224" aria-valuemax="384"/);
+  // Without a width the sidebar keeps its default.
+  const fixed = renderToStaticMarkup(h(SidebarProvider, { shortcut: false }, h(Sidebar, null, 'Nav')));
+  assert.match(fixed, /--sidebar-width:16rem/);
+});
+
+test('the chat and thread placeholders draw a bare conversation, with or without a composer', async () => {
+  const { createElement: h } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { AppShellPlaceholderGrid } = await loadComponent(new URL('./parts/placeholder.jsx', import.meta.url));
+  const chat = renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'chat', variant: 'bare' }));
+  assert.match(chat, /data-kind="conversation" data-variant="bare"/);
+  assert.match(chat, /ds-app-shell-placeholder-thread/);
+  assert.match(chat, /ds-app-shell-placeholder-composer/);
+  const thread = renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'thread', variant: 'bare' }));
+  assert.match(thread, /data-kind="thread"/);
+  assert.doesNotMatch(thread, /ds-app-shell-placeholder-composer/);
+});
+
+test('AppShellNav renders people, bare counts, a hover quick action and a group label action', async () => {
+  const { createElement: h } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { AppShellNav, SidebarProvider, SidebarGroupAction } = await loadComponent(new URL('./index.js', import.meta.url));
+  const items = [
+    { id: 'inbox', label: 'Inbox', icon: 'Inbox', badge: { label: 3, variant: 'plain' } },
+    { id: 'me', label: 'Nina Park', suffix: '(You)', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', presence: 'success' }
+  ];
+  const html = renderToStaticMarkup(
+    h(SidebarProvider, { shortcut: false },
+      h(AppShellNav, {
+        label: 'Mail',
+        items,
+        value: 'inbox',
+        quickAction: (item) => ({ label: `Pin ${item.label}`, icon: 'Pin', onSelect: () => {} }),
+        actions: () => 'Menu',
+        labelAction: h(SidebarGroupAction, { 'aria-label': 'Create label' }, '+')
+      })
+    )
+  );
+  assert.match(html, /data-variant="plain"[^>]*>3</);
+  assert.match(html, /data-slot="app-shell-nav-avatar"/);
+  assert.match(html, /bg-success/);
+  assert.match(html, /> \(You\)</);
+  assert.match(html, /aria-label="Pin Nina Park"/);
+  assert.match(html, /aria-label="Actions for Inbox"/);
+  assert.match(html, /aria-label="Create label"/);
+});

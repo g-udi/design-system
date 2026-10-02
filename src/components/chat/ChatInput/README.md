@@ -22,9 +22,9 @@ import { ChatEffortSlider, ChatModelSelect, PromptComposer, PromptQueue } from '
 
 | Prop / part | Contract |
 | --- | --- |
-| `PromptComposer` | `@` anywhere or `/` at the start opens `mentions` or `commands`; Enter sends and Shift+Enter adds a line; `status` streaming shows Stop and reports `{ queued: true }`; `toolbar`, `footer`, `attachments` and `onAttach` fill the frame. |
+| `PromptComposer` | `@` anywhere or `/` at the start opens `mentions` or `commands`; Enter sends and Shift+Enter adds a line; `status` streaming shows Stop and reports `{ queued: true }`; `toolbar`, `actions` (beside send, such as voice input), `footer`, `attachments` and `onAttach` fill the frame. |
 | `PromptQueue` | Waiting messages `{ id, text }`: edit in place, send now, remove, or move with Alt+Arrow. |
-| `ChatModelSelect` | `models` `{ value, label, description?, badge? }` with `value` / `onValueChange`; `children` add a footer such as a ChatEffortSlider. |
+| `ChatModelSelect` | `models` `{ value, label, description?, details?, badge?, badgeTone?, icon? }` with `value` / `onValueChange`; `icon` is a brand mark, `details` short facts under the name; `variant` / `size` style the trigger (outline in a page header), `icon={false}` drops the default sparkle; `children` add a footer such as a ChatEffortSlider. |
 | `findPromptTrigger(text, caret)` | The mention or command being typed at the caret, or null. |
 
 ## Accessibility

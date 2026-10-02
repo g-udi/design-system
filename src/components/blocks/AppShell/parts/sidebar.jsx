@@ -66,12 +66,24 @@ function SidebarProvider({
   storageKey,
   shortcut = SIDEBAR_KEYBOARD_SHORTCUT,
   labels: labelOverrides,
+  defaultWidth,
+  onWidthChange,
   className,
   style,
   children,
   ...props
 }) {
   const labels = { ...DEFAULT_SIDEBAR_LABELS, ...labelOverrides };
+  // A resizable sidebar (see SidebarResizeHandle) keeps its width here; without `defaultWidth` it stays at 16rem.
+  const [width, _setWidth] = React.useState(defaultWidth);
+  const [resizing, setResizing] = React.useState(false);
+  const setWidth = React.useCallback(
+    (value) => {
+      _setWidth(value);
+      onWidthChange?.(value);
+    },
+    [onWidthChange]
+  );
   const frame = useAppShellFrame();
   const viewportMobile = useIsMobile();
   const isMobile = frame?.compact ?? viewportMobile;
@@ -143,11 +155,15 @@ function SidebarProvider({
       labels,
       returnFocusRef,
       framed,
-      portalContainer: frame?.container ?? undefined
+      portalContainer: frame?.container ?? undefined,
+      width,
+      setWidth,
+      resizing,
+      setResizing
     }),
     // labels is rebuilt per render from stable inputs; its parts are the real dependencies.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, shortcut, labels.toggle, labels.expanded, labels.collapsed, labels.collapse, labels.expand, framed, frame?.container]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, shortcut, labels.toggle, labels.expanded, labels.collapsed, labels.collapse, labels.expand, framed, frame?.container, width, setWidth, resizing]
   );
   return (
     <SidebarContext.Provider value={contextValue}>
@@ -155,8 +171,9 @@ function SidebarProvider({
       <TooltipProvider delayDuration={0}>
       <div
         data-slot='sidebar-wrapper'
+        data-resizing={resizing ? 'true' : undefined}
         style={{
-          '--sidebar-width': SIDEBAR_WIDTH,
+          '--sidebar-width': width === undefined ? SIDEBAR_WIDTH : typeof width === 'number' ? `${width}px` : width,
           '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
           ...style
         }}
@@ -381,6 +398,80 @@ function SidebarRail({ className, handle = false, ...props }) {
       )}
       {...props}
     />
+  );
+}
+/**
+ * A drag handle on the sidebar edge that resizes it (the provider needs a `defaultWidth`). It is a
+ * focusable vertical separator: drag it, or use the arrow keys (Home and End jump to `min` and `max`),
+ * all in pixels. Double-click resets to `defaultWidth`. It hides on the collapsed rail and the phone sheet.
+ */
+function SidebarResizeHandle({ min = 224, max = 384, step = 16, label = 'Resize sidebar', className, ...props }) {
+  const { width, setWidth, setResizing, state, isMobile } = useSidebar();
+  const ref = React.useRef(null);
+  const initial = React.useRef(width);
+  const [current, setCurrent] = React.useState(null);
+  const hidden = isMobile || state === 'collapsed';
+  const measure = () => ref.current?.closest('[data-slot="sidebar-container"]')?.getBoundingClientRect();
+  // A focusable separator reports its value, so read the rendered width once it is on screen.
+  React.useEffect(() => {
+    if (hidden || current !== null) return;
+    const box = measure();
+    if (box?.width) setCurrent(Math.round(box.width));
+  }, [hidden, current]);
+  if (hidden) return null;
+  const clamp = (value) => Math.round(Math.min(max, Math.max(min, value)));
+  const now = () => current ?? Math.round(measure()?.width ?? min);
+  const apply = (value) => {
+    const next = clamp(value);
+    setCurrent(next);
+    setWidth(next);
+  };
+  const onPointerDown = (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    const box = measure();
+    if (!box) return;
+    const rtl = getComputedStyle(event.currentTarget).direction === 'rtl';
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+    setResizing(true);
+    const move = (moveEvent) => apply(rtl ? box.right - moveEvent.clientX : moveEvent.clientX - box.left);
+    const up = () => {
+      setResizing(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+  const onKeyDown = (event) => {
+    const keys = { ArrowLeft: -step, ArrowRight: step, Home: -Infinity, End: Infinity };
+    if (!(event.key in keys)) return;
+    event.preventDefault();
+    const delta = keys[event.key];
+    apply(Number.isFinite(delta) ? now() + delta : delta > 0 ? max : min);
+  };
+  return (
+    <div
+      ref={ref}
+      role='separator'
+      tabIndex={0}
+      aria-label={label}
+      aria-orientation='vertical'
+      aria-valuemin={min}
+      aria-valuemax={max}
+      aria-valuenow={current ?? undefined}
+      data-slot='sidebar-resize-handle'
+      className={cn('ds-part-sidebar-resize-handle', className)}
+      onPointerDown={onPointerDown}
+      onKeyDown={onKeyDown}
+      onDoubleClick={() => {
+        setWidth(initial.current);
+        setCurrent(typeof initial.current === 'number' ? initial.current : null);
+      }}
+      {...props}
+    >
+      <span aria-hidden='true' className='ds-part-sidebar-resize-grip' />
+    </div>
   );
 }
 function SidebarInset({ className, ...props }) {
@@ -715,6 +806,7 @@ export {
   SidebarMenuSubItem,
   SidebarProvider,
   SidebarRail,
+  SidebarResizeHandle,
   SidebarSeparator,
   SidebarTrigger,
   useSidebar
