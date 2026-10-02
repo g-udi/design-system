@@ -304,10 +304,10 @@
       ],
       "importPath": "./.storybook/stories/OverviewLanding.stories.jsx"
     },
-    "blocks-application-appshell--playground": {
-      "id": "blocks-application-appshell--playground",
+    "blocks-application-appshell--app-shell-pattern-1": {
+      "id": "blocks-application-appshell--app-shell-pattern-1",
       "title": "Blocks/App Shell",
-      "name": "Playground",
+      "name": "Icon rail · workspace switcher, nested nav and user menu",
       "type": "story",
       "tags": [
         "autodocs",
@@ -322,17 +322,6 @@
       "type": "docs",
       "tags": [
         "autodocs"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShell.stories.jsx"
-    },
-    "blocks-application-appshell--content-workspace-example": {
-      "id": "blocks-application-appshell--content-workspace-example",
-      "title": "Blocks/App Shell",
-      "name": "Content workspace",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
       ],
       "importPath": "./src/components/blocks/AppShell/AppShell.stories.jsx"
     },
@@ -4921,17 +4910,6 @@
         "!autodocs"
       ],
       "importPath": "./src/components/blocks/ApplicationPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-1": {
-      "id": "blocks-application-appshell--app-shell-pattern-1",
-      "title": "Blocks/App Shell",
-      "name": "Icon rail · workspace switcher, nested nav and user menu",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
     },
     "blocks-application-appshell--app-shell-pattern-2": {
       "id": "blocks-application-appshell--app-shell-pattern-2",

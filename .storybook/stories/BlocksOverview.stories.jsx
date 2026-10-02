@@ -3,7 +3,7 @@ import { expect, within } from 'storybook/test';
 import { CheckList, Page, QuickLink, Section, Table, Td, Th } from './StoryDocs';
 
 const blockGroups = [
-  [ 'Application workspace', 'A working content library, editorial board, activity feed and settings screen.', 'blocks-application-appshell--content-workspace-example' ],
+  [ 'App shells', 'Framed application shells: icon rails, floating and inset sidebars, mail, chat and mission-control layouts.', 'blocks-application-appshell--app-shell-pattern-1' ],
   [ 'Setup and onboarding', 'Sequential validation, review, asynchronous completion and recovery.', 'blocks-application-wizard--playground' ],
   [ 'Settings and profile', 'Editable preferences built from reusable fields and responsive sections.', 'blocks-application-settingspanel--profile-and-preferences' ],
   [ 'Blog content recipes', 'Reference compositions for article shells, series context, table of contents, banners, and FAQs.', 'blocks-blog-content-sections--default' ],

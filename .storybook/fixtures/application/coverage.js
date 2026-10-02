@@ -2,8 +2,8 @@
 export const blockCoverage = [
   [
     'App Shell / Navbar',
-    'AppShell + supplied navigation',
-    'blocks-application-appshell--content-workspace-example'
+    'AppShell icon rail: workspace switcher, nested nav and user menu',
+    'blocks-application-appshell--app-shell-pattern-1'
   ],
   [
     'Auth',
