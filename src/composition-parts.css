@@ -1730,21 +1730,23 @@
   .ds-part-activity-indicator-dot:nth-child(2) { animation-delay: 0.16s !important; }
   .ds-part-activity-indicator-dot:nth-child(3) { animation-delay: 0.32s !important; }
 
-  /* Badge: one coloured dot ringed by the surface, for the corner of a mark or avatar. */
+  /*
+   * Badge: one coloured dot ringed by the surface, for the corner of a mark or avatar. The host sets
+   * --ds-activity-badge-size so the dot stays in proportion; colour carries the state and the label is
+   * announced, so the dot draws no glyph.
+   */
+  .ds-part-activity-indicator[data-variant='badge'] {
+    display: block;
+    line-height: 0;
+  }
   .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: var(--ds-activity-badge-size, 0.5rem);
+    height: var(--ds-activity-badge-size, 0.5rem);
     border-radius: 9999px;
     background: var(--ds-activity-color);
-    box-shadow: 0 0 0 2px var(--ds-color-surface);
-    color: var(--ds-color-surface);
+    box-shadow: 0 0 0 1.5px var(--ds-color-surface);
   }
-  .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark svg {
-    width: 0.5rem;
-    height: 0.5rem;
-    stroke-width: 3.5;
-  }
-  .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-dot {
+  .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark > * {
     display: none;
   }
   .ds-part-activity-indicator[data-variant='badge']:is([data-state='thinking'], [data-state='streaming'], [data-state='tool']) .ds-part-activity-indicator-mark {

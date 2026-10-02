@@ -33,7 +33,7 @@ export const Playground = {
 
 export const Motifs = {
   name: 'Motifs and glazes',
-  parameters: { docs: { description: { story: 'The eight motifs, each in a different glaze, then one motif across all eight hues. Every hue pairs a tinted tile with a deeper glaze and has a dark-theme pairing.' } } },
+  parameters: { docs: { description: { story: 'The eight motifs, each in a different glaze, then one motif across all eight hues. Motifs are drawn bare, a deep glaze on light surfaces and a bright one on dark.' } } },
   render: () => (
     <div className='grid gap-6'>
       <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
@@ -52,6 +52,21 @@ export const Motifs = {
   play: async ({ canvasElement }) => {
     await expect(within(canvasElement).getAllByRole('img')).toHaveLength(Object.keys(agentMotifs).length + agentHues.length);
   }
+};
+
+export const Statuses = {
+  name: 'Status at every size',
+  parameters: { docs: { description: { story: 'The status dot scales with the mark, about a quarter of its size, and sits on the corner ringed by the surface. Colour shows the state; the state is announced for screen readers.' } } },
+  render: () => (
+    <div className='grid gap-4'>
+      {['xs', 'sm', 'md', 'lg', 'xl'].map((size) => (
+        <div key={size} className='flex flex-wrap items-center gap-4'>
+          <span className='text-text-muted w-6 text-xs'>{size}</span>
+          {['thinking', 'streaming', 'tool', 'done', 'error'].map((state) => <AgentMark key={state} name={`Gaudi, ${state}`} seed='gaudi' size={size} state={state} />)}
+        </div>
+      ))}
+    </div>
+  )
 };
 
 export const IconsAndMonograms = {

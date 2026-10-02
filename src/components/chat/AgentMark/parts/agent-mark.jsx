@@ -8,11 +8,11 @@ const agentMarkVariants = createVariants({
   base: 'ds-part-agent-mark relative inline-grid shrink-0 place-items-center rounded-(--ds-radius-card) font-semibold select-none',
   variants: {
     size: {
-      xs: 'size-5 text-xs [&_svg]:size-3',
-      sm: 'size-6 text-xs [&_svg]:size-3.5',
-      md: 'size-8 text-sm [&_svg]:size-4',
-      lg: 'size-10 text-base [&_svg]:size-5',
-      xl: 'size-14 text-lg [&_svg]:size-8'
+      xs: 'size-5 text-xs [--ds-activity-badge-size:5px] [&>svg]:size-3',
+      sm: 'size-6 text-xs [--ds-activity-badge-size:6px] [&>svg]:size-3.5',
+      md: 'size-8 text-sm [--ds-activity-badge-size:8px] [&>svg]:size-4',
+      lg: 'size-10 text-base [--ds-activity-badge-size:10px] [&>svg]:size-5',
+      xl: 'size-14 text-lg [--ds-activity-badge-size:12px] [&>svg]:size-8'
     },
     tone: {
       accent: 'bg-accent-subtle text-accent',
@@ -132,16 +132,16 @@ const AGENT_MOTIFS = {
   }
 };
 
-// Glazed-tile hues from the palette; each pairs a tinted tile with a deeper glaze in both themes.
+// Glazed hues from the palette: a deep glaze on light surfaces and a bright one on dark.
 const AGENT_HUES = {
-  teal: 'bg-teal-50 text-teal-700 dark:bg-teal-900/50 dark:text-teal-300',
-  blue: 'bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
-  amber: 'bg-amber-50 text-amber-700 dark:bg-amber-900/50 dark:text-amber-300',
-  rose: 'bg-rose-50 text-rose-700 dark:bg-rose-900/50 dark:text-rose-300',
-  green: 'bg-green-50 text-green-700 dark:bg-green-900/50 dark:text-green-300',
-  indigo: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-300',
-  red: 'bg-red-50 text-red-700 dark:bg-red-900/50 dark:text-red-300',
-  yellow: 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/50 dark:text-yellow-300'
+  teal: 'text-teal-600 dark:text-teal-300',
+  blue: 'text-blue-600 dark:text-blue-300',
+  amber: 'text-amber-600 dark:text-amber-300',
+  rose: 'text-rose-600 dark:text-rose-300',
+  green: 'text-green-600 dark:text-green-300',
+  indigo: 'text-indigo-600 dark:text-indigo-300',
+  red: 'text-red-600 dark:text-red-300',
+  yellow: 'text-yellow-700 dark:text-yellow-300'
 };
 const motifNames = Object.keys(AGENT_MOTIFS);
 const hueNames = Object.keys(AGENT_HUES);
@@ -153,6 +153,8 @@ function hashSeed(seed = '') {
   hash ^= hash >>> 16;
   hash = Math.imul(hash, 0x85ebca6b);
   hash ^= hash >>> 13;
+  hash = Math.imul(hash, 0xc2b2ae35);
+  hash ^= hash >>> 16;
   return hash >>> 0;
 }
 
@@ -198,8 +200,8 @@ const initials = (name = '') => name.trim().split(/\s+/).slice(0, 2).map((word) 
 
 /**
  * The assistant's mark. By default it draws a Gaudí-inspired motif (trencadís mosaic, catenary arches,
- * spires, roof scales, a hyperboloid, the four-armed cross, ironwork or a rippling facade) in a glazed
- * hue chosen from `seed` (or `name`), so every agent keeps a stable, recognisable mark. Pass `motif` or
+ * spires, roof scales, a hyperboloid, the four-armed cross, ironwork or a rippling facade), drawn bare
+ * in a glazed hue chosen from `seed` (or `name`), so every agent keeps a stable, recognisable mark. Pass `motif` or
  * `hue` to pin either one, or `icon`, `image` or `monogram` to show those on a `tone` tile instead.
  * `state` adds a small ActivityIndicator badge at the corner.
  *
@@ -224,7 +226,7 @@ function AgentMark({ name = 'Gaudi', seed, motif = 'auto', hue = 'auto', icon, i
       role={decorative ? undefined : 'img'}
       aria-label={decorative ? undefined : name}
       aria-hidden={decorative ? true : undefined}
-      className={cn(agentMarkVariants({ size, tone }), resolved && ['border-0 [&>svg]:size-[72%]!', AGENT_HUES[resolved.hue]], className)}
+      className={cn(agentMarkVariants({ size, tone }), resolved && ['border-0 bg-transparent [&>svg]:size-full!', AGENT_HUES[resolved.hue]], className)}
       {...props}
     >
       {content}
@@ -234,7 +236,7 @@ function AgentMark({ name = 'Gaudi', seed, motif = 'auto', hue = 'auto', icon, i
           variant='badge'
           labels={labels}
           decorative={decorative}
-          className='absolute -end-1 -bottom-1'
+          className='absolute end-0 bottom-0 translate-x-1/4 translate-y-1/4 rtl:-translate-x-1/4'
         />
       ) : null}
     </span>

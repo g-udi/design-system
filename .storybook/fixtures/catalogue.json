@@ -1603,6 +1603,16 @@
       ],
       "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
     },
+    "chat-agentmark--statuses": {
+      "id": "chat-agentmark--statuses",
+      "title": "Chat/AgentMark",
+      "name": "Status at every size",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
     "chat-agentmark--icons-and-monograms": {
       "id": "chat-agentmark--icons-and-monograms",
       "title": "Chat/AgentMark",
