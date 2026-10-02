@@ -4925,7 +4925,7 @@
     "blocks-application-appshell--app-shell-pattern-1": {
       "id": "blocks-application-appshell--app-shell-pattern-1",
       "title": "Blocks/App Shell",
-      "name": "Writing workspace · icon rail, search and switcher",
+      "name": "Icon rail · workspace switcher, nested nav and user menu",
       "type": "story",
       "tags": [
         "autodocs",
@@ -4936,84 +4936,7 @@
     "blocks-application-appshell--app-shell-pattern-2": {
       "id": "blocks-application-appshell--app-shell-pattern-2",
       "title": "Blocks/App Shell",
-      "name": "Projects · inset sidebar, progress and agents",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-3": {
-      "id": "blocks-application-appshell--app-shell-pattern-3",
-      "title": "Blocks/App Shell",
-      "name": "Mail · app rail, folders and reading pane",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-4": {
-      "id": "blocks-application-appshell--app-shell-pattern-4",
-      "title": "Blocks/App Shell",
-      "name": "Calendar · section rail and context panel",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-5": {
-      "id": "blocks-application-appshell--app-shell-pattern-5",
-      "title": "Blocks/App Shell",
-      "name": "Environment console · scope switchers and live monitor",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-6": {
-      "id": "blocks-application-appshell--app-shell-pattern-6",
-      "title": "Blocks/App Shell",
-      "name": "Operations · toggleable regions and workbench",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-10": {
-      "id": "blocks-application-appshell--app-shell-pattern-10",
-      "title": "Blocks/App Shell",
-      "name": "Security console · scope tabs and route tree",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-12": {
-      "id": "blocks-application-appshell--app-shell-pattern-12",
-      "title": "Blocks/App Shell",
-      "name": "Top bar only · section pills, view track and inset sheet",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
-    },
-    "blocks-application-appshell--app-shell-pattern-13": {
-      "id": "blocks-application-appshell--app-shell-pattern-13",
-      "title": "Blocks/App Shell",
-      "name": "Dark top bar · workspace switcher, pinnable sidebar and favorites",
+      "name": "Floating sidebar · ⌘K search, nested nav and organization switcher",
       "type": "story",
       "tags": [
         "autodocs",

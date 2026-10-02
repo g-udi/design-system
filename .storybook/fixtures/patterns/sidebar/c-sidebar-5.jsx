@@ -33,6 +33,7 @@ import {
   SidebarSeparator,
   SidebarTrigger
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
+import { AppShellFrame } from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const PINNED = [
   { id: 'checkout', name: 'Checkout API' },
@@ -271,54 +272,56 @@ export function Pattern() {
     project.name.toLowerCase().includes(needle)
   );
   return (
-    <SidebarProvider className='relative h-dvh min-h-0 w-full overflow-hidden'>
-      {/*
-      NOT `collapsible="none"`. That branch is a bare
-      `flex h-full w-(--sidebar-width) flex-col bg-sidebar` with no border, so
-      against a page background this close to `--sidebar` the panel and the
-      content blur into one another. Only the desktop branch draws
-      `group-data-[side=left]:border-r`, and it is the branch the framed
-      preview always takes, so the divider is real rather than hand-painted.
-      `absolute h-full` pins that branch's `fixed inset-y-0 h-svh` container
-      back inside the example.
-    */}
-      <Sidebar className='absolute h-full'>
-        <SidebarHeader>
-          <ProjectFilter query={query} onChange={setQuery} />
-        </SidebarHeader>
+    <AppShellFrame>
+      <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
+        {/*
+        NOT `collapsible="none"`. That branch is a bare
+        `flex h-full w-(--sidebar-width) flex-col bg-sidebar` with no border, so
+        against a page background this close to `--sidebar` the panel and the
+        content blur into one another. Only the desktop branch draws
+        `group-data-[side=left]:border-r`, and it is the branch the framed
+        preview always takes, so the divider is real rather than hand-painted.
+        `absolute h-full` pins that branch's `fixed inset-y-0 h-svh` container
+        back inside the example.
+      */}
+        <Sidebar className='absolute h-full'>
+          <SidebarHeader>
+            <ProjectFilter query={query} onChange={setQuery} />
+          </SidebarHeader>
 
-        <SidebarContent role='navigation' aria-label='Projects'>
-          <PinnedProjects />
-          {/*
-      `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
-      to undo Separator's `data-horizontal:w-full`, but a variant
-      selector outranks a plain utility, so the rule stays full width and
-      the primitive's own `mx-2` then pushes it 8px past the panel's
-      right edge. In this scrolling content that is 16px of horizontal
-      scroll on the whole nav; in the footer it is a rule that misses the
-      left gutter and overhangs the right.
-    */}
-          <SidebarSeparator className='mx-0' />
-          <ProjectList
-            projects={visible}
-            loading={loading}
-            query={query}
-            onRefresh={startRefresh}
-          />
-        </SidebarContent>
+          <SidebarContent role='navigation' aria-label='Projects'>
+            <PinnedProjects />
+            {/*
+        `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
+        to undo Separator's `data-horizontal:w-full`, but a variant
+        selector outranks a plain utility, so the rule stays full width and
+        the primitive's own `mx-2` then pushes it 8px past the panel's
+        right edge. In this scrolling content that is 16px of horizontal
+        scroll on the whole nav; in the footer it is a rule that misses the
+        left gutter and overhangs the right.
+      */}
+            <SidebarSeparator className='mx-0' />
+            <ProjectList
+              projects={visible}
+              loading={loading}
+              query={query}
+              onRefresh={startRefresh}
+            />
+          </SidebarContent>
 
-        <SidebarFooter>
-          <SidebarSeparator className='mx-0' />
-          <p className='text-ui-sidebar-foreground px-2 text-xs'>
-            Free plan, 8 of 10 projects
-          </p>
-          <Button variant='outline' size='sm' className='w-full'>
-            Upgrade plan
-          </Button>
-        </SidebarFooter>
-      </Sidebar>
+          <SidebarFooter>
+            <SidebarSeparator className='mx-0' />
+            <p className='text-ui-sidebar-foreground px-2 text-xs'>
+              Free plan, 8 of 10 projects
+            </p>
+            <Button variant='outline' size='sm' className='w-full'>
+              Upgrade plan
+            </Button>
+          </SidebarFooter>
+        </Sidebar>
 
-      <ProjectOverview />
-    </SidebarProvider>
+        <ProjectOverview />
+      </SidebarProvider>
+    </AppShellFrame>
   );
 }

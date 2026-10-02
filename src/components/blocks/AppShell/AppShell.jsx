@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../.
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import { cn } from '../../../utilities/cn';
+import { useAppShellFrame } from './parts/frame.jsx';
 
 /**
  * Content remains in normal document flow; no global scroll or storage policy.
@@ -12,7 +13,8 @@ import { cn } from '../../../utilities/cn';
  * `layout='sidebar'` (default) puts the brand and navigation in a rail; `layout='topbar'` moves them
  * into the header for sidebar-free apps. `aside` adds a complementary detail rail beside the content
  * (it stacks under the content below xl), and `statusBar` adds a footer strip under the content. Below
- * the lg breakpoint navigation moves into a menu sheet in either layout.
+ * the lg breakpoint navigation moves into a menu sheet in either layout. Wrap it in `AppShellFrame` to
+ * present it as an app window inside a page or a documentation preview.
  */
 export default function AppShell({
   brand,
@@ -31,6 +33,8 @@ export default function AppShell({
 }) {
   const id = useId();
   const [open, setOpen] = useState(false);
+  // Inside an AppShellFrame the menu sheet opens within the window.
+  const frame = useAppShellFrame();
   const nav = <nav aria-label={navigationLabel}>{navigation}</nav>;
   const topbar = layout === 'topbar';
   return (
@@ -54,7 +58,7 @@ export default function AppShell({
                   <Icon name='Menu' decorative size='sm' />
                 </Button>
               </SheetTrigger>
-              <SheetContent side='left' aria-describedby={undefined}>
+              <SheetContent side='left' aria-describedby={undefined} container={frame?.container ?? undefined}>
                 <SheetHeader>
                   <SheetTitle>{navigationLabel}</SheetTitle>
                 </SheetHeader>

@@ -23,6 +23,7 @@ import {
   SidebarMenuSubItem,
   SidebarProvider
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
+import { AppShellFrame } from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const SECTIONS = [
   {
@@ -233,76 +234,78 @@ export function Pattern() {
     items: filterItems(section.items, needle)
   })).filter((entry) => entry.items.length > 0);
   return (
-    <SidebarProvider className='h-dvh min-h-0 w-full overflow-hidden'>
-      <Sidebar collapsible='none'>
-        <SidebarHeader>
-          <div className='flex items-center gap-2'>
-            <BrandMark />
-            <span className='truncate text-sm font-medium'>Gaudi Docs</span>
-            <span className='text-ui-sidebar-foreground ml-auto shrink-0 text-xs'>
-              v2.8
-            </span>
-          </div>
-          <label htmlFor='docs-search' className='sr-only'>
-            Search the documentation
-          </label>
-          <SidebarInput
-            id='docs-search'
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder='Search docs'
-          />
-        </SidebarHeader>
-
-        <SidebarContent role='navigation' aria-label='Documentation'>
-          {visible.map((entry) => (
-            <DocsSection
-              key={entry.section.id}
-              section={entry.section}
-              items={entry.items}
-              filtering={needle !== ''}
+    <AppShellFrame>
+      <SidebarProvider className='h-full min-h-0 w-full overflow-hidden'>
+        <Sidebar collapsible='none'>
+          <SidebarHeader>
+            <div className='flex items-center gap-2'>
+              <BrandMark />
+              <span className='truncate text-sm font-medium'>Gaudi Docs</span>
+              <span className='text-ui-sidebar-foreground ml-auto shrink-0 text-xs'>
+                v2.8
+              </span>
+            </div>
+            <label htmlFor='docs-search' className='sr-only'>
+              Search the documentation
+            </label>
+            <SidebarInput
+              id='docs-search'
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder='Search docs'
             />
-          ))}
-          {visible.length === 0 ? (
-            <p className='text-ui-sidebar-foreground px-4 py-6 text-center text-xs'>
-              No pages match{' '}
-              <span className='text-ui-sidebar-foreground'>{query}</span>.
+          </SidebarHeader>
+
+          <SidebarContent role='navigation' aria-label='Documentation'>
+            {visible.map((entry) => (
+              <DocsSection
+                key={entry.section.id}
+                section={entry.section}
+                items={entry.items}
+                filtering={needle !== ''}
+              />
+            ))}
+            {visible.length === 0 ? (
+              <p className='text-ui-sidebar-foreground px-4 py-6 text-center text-xs'>
+                No pages match{' '}
+                <span className='text-ui-sidebar-foreground'>{query}</span>.
+              </p>
+            ) : null}
+          </SidebarContent>
+        </Sidebar>
+
+        <SidebarInset className='min-w-0 overflow-auto'>
+          <article className='mx-auto w-full max-w-2xl px-6 py-6'>
+            <h1 className='text-xl font-semibold tracking-tight'>
+              Sidebar anatomy
+            </h1>
+            <p className='text-ui-muted-foreground mt-2 text-sm'>
+              A sidebar is a provider, a panel and the inset beside it. The
+              provider owns the open state and the widths, the panel owns the
+              navigation, and the inset is the page the reader came for.
             </p>
-          ) : null}
-        </SidebarContent>
-      </Sidebar>
 
-      <SidebarInset className='min-w-0 overflow-auto'>
-        <article className='mx-auto w-full max-w-2xl px-6 py-6'>
-          <h1 className='text-xl font-semibold tracking-tight'>
-            Sidebar anatomy
-          </h1>
-          <p className='text-ui-muted-foreground mt-2 text-sm'>
-            A sidebar is a provider, a panel and the inset beside it. The
-            provider owns the open state and the widths, the panel owns the
-            navigation, and the inset is the page the reader came for.
-          </p>
+            <h2 className='mt-6 text-base font-medium'>Where the parts go</h2>
+            <p className='text-ui-muted-foreground mt-2 text-sm'>
+              Header and footer are pinned; only the content between them scrolls.
+              Groups carry the labels, menus carry the rows, and a sub-menu nests
+              one level under the row that owns it.
+            </p>
+            <p className='text-ui-muted-foreground mt-2 text-sm'>
+              Keep the panel to one job. A tree that needs three levels of
+              indentation usually wants a page of its own.
+            </p>
 
-          <h2 className='mt-6 text-base font-medium'>Where the parts go</h2>
-          <p className='text-ui-muted-foreground mt-2 text-sm'>
-            Header and footer are pinned; only the content between them scrolls.
-            Groups carry the labels, menus carry the rows, and a sub-menu nests
-            one level under the row that owns it.
-          </p>
-          <p className='text-ui-muted-foreground mt-2 text-sm'>
-            Keep the panel to one job. A tree that needs three levels of
-            indentation usually wants a page of its own.
-          </p>
-
-          <ul className='text-ui-muted-foreground mt-4 flex list-disc flex-col gap-1.5 ps-5 text-sm'>
-            <li>One landmark per panel, labelled for screen readers.</li>
-            <li>
-              Every disclosure reports aria-expanded and what it controls.
-            </li>
-            <li>The current page is marked once, at the deepest level.</li>
-          </ul>
-        </article>
-      </SidebarInset>
-    </SidebarProvider>
+            <ul className='text-ui-muted-foreground mt-4 flex list-disc flex-col gap-1.5 ps-5 text-sm'>
+              <li>One landmark per panel, labelled for screen readers.</li>
+              <li>
+                Every disclosure reports aria-expanded and what it controls.
+              </li>
+              <li>The current page is marked once, at the deepest level.</li>
+            </ul>
+          </article>
+        </SidebarInset>
+      </SidebarProvider>
+    </AppShellFrame>
   );
 }

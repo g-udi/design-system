@@ -10,6 +10,7 @@ import Input from '../../core/Input';
 import Pill from '../../core/Pill';
 import StatGroup from '../StatGroup';
 import AppShell from './AppShell';
+import { AppShellFrame } from './parts/frame.jsx';
 
 const docs = getComponentDocs('Blocks/App Shell');
 const views = [
@@ -109,7 +110,7 @@ export default {
     showStatusBar: { control: 'boolean', name: 'statusBar', description: 'Show a status strip under the content.' }
   },
   parameters: {
-    layout: 'fullscreen',
+    layout: 'padded',
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -121,9 +122,11 @@ export const Playground = {
   args: { layout: 'sidebar', showAside: false, showStatusBar: false },
   parameters: {
     docs: {
-      description: { story: 'A writing workspace in the shell: brand, navigation with counts and an active page, a header with search and profile, a rail footer, and a dashboard in the content area. Pick a page to move the active state; below the tablet breakpoint the rail collapses into a menu sheet.' },
+      description: { story: 'A writing workspace in the shell, presented as an app window with `AppShellFrame`: brand, navigation with counts and an active page, a header with search and profile, a rail footer, and a dashboard in the content area that scrolls inside the frame. Pick a page to move the active state; below the laptop breakpoint the rail collapses into a menu sheet that opens inside the frame.' },
       source: playgroundSource('AppShell', {
-        imports: "import { AppShell, Avatar, Input, StatGroup } from '@gaudi/design-system';",
+        imports: "import { AppShell, AppShellFrame, Avatar, Input, StatGroup } from '@gaudi/design-system';",
+        before: '<AppShellFrame>\n',
+        after: '\n</AppShellFrame>',
         attributes: [
           "brand='Notebook'",
           'navigation={<WorkspaceNavigation active={active} onSelect={setActive} />}',
@@ -134,7 +137,11 @@ export const Playground = {
       })
     }
   },
-  render: (args) => <WorkspaceShell {...args} />,
+  render: (args) => (
+    <AppShellFrame>
+      <WorkspaceShell {...args} />
+    </AppShellFrame>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const main = canvas.getByRole('main');
@@ -151,8 +158,12 @@ export const Playground = {
 
 export const ContentWorkspaceExample = {
   name: 'Content workspace',
-  parameters: { docs: { description: { story: 'A complete editorial workspace composed inside the shell: search, sort, select, draft, review, board moves, and preferences all run on local data.' } } },
-  render: () => <ContentWorkspace />,
+  parameters: { docs: { description: { story: 'A complete editorial workspace composed inside the framed shell: search, sort, select, draft, review, board moves, and preferences all run on local data.' } } },
+  render: () => (
+    <AppShellFrame height='50rem'>
+      <ContentWorkspace />
+    </AppShellFrame>
+  ),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const search = canvas.getByRole('searchbox', { name: 'Search table' });

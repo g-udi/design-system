@@ -23,6 +23,7 @@ import {
   SidebarRail,
   SidebarTrigger
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
+import { AppShellFrame } from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
 import { TooltipProvider } from '../../../../src/components/core/Tooltip/parts/tooltip.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const NAV = [
@@ -199,63 +200,65 @@ function AccountButton() {
 }
 export function Pattern() {
   return (
-    <TooltipProvider>
-      <SidebarProvider className='relative h-dvh min-h-0 w-full overflow-hidden'>
-        <Sidebar collapsible='icon' className='absolute h-full'>
-          <SidebarHeader>
-            <BrandButton />
-          </SidebarHeader>
+    <AppShellFrame>
+      <TooltipProvider>
+        <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
+          <Sidebar collapsible='icon' className='absolute h-full'>
+            <SidebarHeader>
+              <BrandButton />
+            </SidebarHeader>
 
-          <SidebarContent role='navigation' aria-label='Primary'>
-            <RailNav />
-          </SidebarContent>
+            <SidebarContent role='navigation' aria-label='Primary'>
+              <RailNav />
+            </SidebarContent>
 
-          <SidebarFooter>
-            <AccountButton />
-          </SidebarFooter>
+            <SidebarFooter>
+              <AccountButton />
+            </SidebarFooter>
 
-          {/*
-      SidebarRail ships its own `tabIndex={-1}` and `aria-label`, so the
-      grab strip on the panel edge is a mouse affordance and the trigger in
-      the inset header is the keyboard path. Two tab stops for one toggle
-      would only slow a keyboard user down.
-    */}
-          <SidebarRail />
-        </Sidebar>
+            {/*
+        SidebarRail ships its own `tabIndex={-1}` and `aria-label`, so the
+        grab strip on the panel edge is a mouse affordance and the trigger in
+        the inset header is the keyboard path. Two tab stops for one toggle
+        would only slow a keyboard user down.
+      */}
+            <SidebarRail />
+          </Sidebar>
 
-        <SidebarInset className='min-w-0 overflow-hidden'>
-          <header className='flex h-12 shrink-0 items-center gap-2 border-b px-3'>
-            <SidebarTrigger />
-            <h2 className='truncate text-sm font-medium'>Deployments</h2>
-            <Button variant='outline' size='sm' className='ml-auto'>
-              New deploy
-            </Button>
-          </header>
+          <SidebarInset className='min-w-0 overflow-hidden'>
+            <header className='flex h-12 shrink-0 items-center gap-2 border-b px-3'>
+              <SidebarTrigger />
+              <h2 className='truncate text-sm font-medium'>Deployments</h2>
+              <Button variant='outline' size='sm' className='ml-auto'>
+                New deploy
+              </Button>
+            </header>
 
-          <div className='min-w-0 flex-1 overflow-auto p-4'>
-            <p className='text-ui-muted-foreground max-w-prose text-sm'>
-              Every deploy runs against the edge network first. Collapse the
-              rail with the panel button or the strip on its edge, and the
-              labels give way to tooltips.
-            </p>
+            <div className='min-w-0 flex-1 overflow-auto p-4'>
+              <p className='text-ui-muted-foreground max-w-prose text-sm'>
+                Every deploy runs against the edge network first. Collapse the
+                rail with the panel button or the strip on its edge, and the
+                labels give way to tooltips.
+              </p>
 
-            <dl className='mt-4 flex flex-col gap-3'>
-              {MONITORS.map((monitor) => (
-                <div
-                  key={monitor.id}
-                  className='flex items-center gap-2 text-sm'
-                >
-                  <dt className='flex min-w-0 flex-1 items-center gap-2'>
-                    {monitor.icon}
-                    <span className='truncate'>{monitor.label}</span>
-                  </dt>
-                  <dd className='shrink-0 tabular-nums'>{monitor.value}</dd>
-                </div>
-              ))}
-            </dl>
-          </div>
-        </SidebarInset>
-      </SidebarProvider>
-    </TooltipProvider>
+              <dl className='mt-4 flex flex-col gap-3'>
+                {MONITORS.map((monitor) => (
+                  <div
+                    key={monitor.id}
+                    className='flex items-center gap-2 text-sm'
+                  >
+                    <dt className='flex min-w-0 flex-1 items-center gap-2'>
+                      {monitor.icon}
+                      <span className='truncate'>{monitor.label}</span>
+                    </dt>
+                    <dd className='shrink-0 tabular-nums'>{monitor.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </SidebarInset>
+        </SidebarProvider>
+      </TooltipProvider>
+    </AppShellFrame>
   );
 }

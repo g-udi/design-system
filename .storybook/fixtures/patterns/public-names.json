@@ -1278,5 +1278,19 @@
   },
   "src/components/core/Progress/parts/progress-ring.jsx": {
     "ProgressRing": "ProgressRing"
+  },
+  "src/components/blocks/AppShell/parts/frame.jsx": {
+    "AppShellBody": "AppShellBody",
+    "AppShellFrame": "AppShellFrame",
+    "AppShellHeader": "AppShellHeader",
+    "AppShellPanel": "AppShellPanel",
+    "useAppShellFrame": "useAppShellFrame"
+  },
+  "src/components/blocks/AppShell/parts/nav.jsx": {
+    "AppShellNav": "AppShellNav"
+  },
+  "src/components/blocks/AppShell/parts/placeholder.jsx": {
+    "AppShellPlaceholder": "AppShellPlaceholder",
+    "AppShellPlaceholderGrid": "AppShellPlaceholderGrid"
   }
 }

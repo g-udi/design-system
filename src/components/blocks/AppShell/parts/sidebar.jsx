@@ -23,6 +23,7 @@ import {
 } from '../../../core/Tooltip/parts/tooltip.jsx';
 import { Kbd, KbdGroup } from '../../../core/Kbd/parts/kbd.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { useAppShellFrame } from './frame.jsx';
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = '16rem';
@@ -32,7 +33,9 @@ const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 const DEFAULT_SIDEBAR_LABELS = {
   expanded: 'Sidebar expanded',
   collapsed: 'Sidebar collapsed',
-  toggle: 'Toggle Sidebar'
+  toggle: 'Toggle Sidebar',
+  collapse: 'Collapse sidebar',
+  expand: 'Expand sidebar'
 };
 const readStoredOpen = (key) => {
   try {
@@ -54,6 +57,7 @@ function useSidebar() {
  * Holds the sidebar's expanded state. `storageKey` restores and saves the desktop state in
  * localStorage (after mount, so server markup stays stable); `shortcut` is the ⌘/Ctrl key that toggles
  * it (`false` turns it off); changes made by the shortcut or a trigger are announced politely.
+ * Inside an `AppShellFrame` it fills the frame and takes its phone layout from the frame's width.
  */
 function SidebarProvider({
   defaultOpen = true,
@@ -68,7 +72,10 @@ function SidebarProvider({
   ...props
 }) {
   const labels = { ...DEFAULT_SIDEBAR_LABELS, ...labelOverrides };
-  const isMobile = useIsMobile();
+  const frame = useAppShellFrame();
+  const viewportMobile = useIsMobile();
+  const isMobile = frame?.compact ?? viewportMobile;
+  const framed = Boolean(frame);
   const [openMobile, setOpenMobile] = React.useState(false);
   const [_open, _setOpen] = React.useState(defaultOpen);
   const [announcement, setAnnouncement] = React.useState('');
@@ -134,11 +141,13 @@ function SidebarProvider({
       toggleSidebar,
       shortcut,
       labels,
-      returnFocusRef
+      returnFocusRef,
+      framed,
+      portalContainer: frame?.container ?? undefined
     }),
     // labels is rebuilt per render from stable inputs; its parts are the real dependencies.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, shortcut, labels.toggle, labels.expanded, labels.collapsed]
+    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar, shortcut, labels.toggle, labels.expanded, labels.collapsed, labels.collapse, labels.expand, framed, frame?.container]
   );
   return (
     <SidebarContext.Provider value={contextValue}>
@@ -153,6 +162,7 @@ function SidebarProvider({
         }}
         className={cn(
           'group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-ui-sidebar',
+          framed && 'relative h-full min-h-0 has-data-[variant=inset]:bg-transparent',
           className
         )}
         {...props}
@@ -173,7 +183,7 @@ function Sidebar({
   dir,
   ...props
 }) {
-  const { isMobile, state, openMobile, setOpenMobile, returnFocusRef } = useSidebar();
+  const { isMobile, state, openMobile, setOpenMobile, returnFocusRef, framed, portalContainer } = useSidebar();
   if (collapsible === 'none') {
     return (
       <div
@@ -192,11 +202,12 @@ function Sidebar({
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
         <SheetContent
+          container={portalContainer}
           dir={dir}
           data-sidebar='sidebar'
           data-slot='sidebar'
           data-mobile='true'
-          className='w-(--sidebar-width) bg-ui-sidebar p-0 text-ui-sidebar-foreground [&>button]:hidden'
+          className='w-(--sidebar-width) max-w-[85%] bg-ui-sidebar p-0 text-ui-sidebar-foreground [&>button]:hidden'
           style={{
             '--sidebar-width': SIDEBAR_WIDTH_MOBILE
           }}
@@ -221,7 +232,7 @@ function Sidebar({
   }
   return (
     <div
-      className='group peer hidden text-ui-sidebar-foreground md:block'
+      className={cn('group peer hidden text-ui-sidebar-foreground md:block', framed && 'block')}
       data-state={state}
       data-collapsible={state === 'collapsed' ? collapsible : ''}
       data-variant={variant}
@@ -248,7 +259,13 @@ function Sidebar({
           // Adjust the padding for floating and inset variants.
           variant === 'floating' || variant === 'inset'
             ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-            : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l',
+            : cn(
+                'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
+                // In a frame the panel draws the seam, so a docked rail needs no border of its own.
+                !framed && 'group-data-[side=left]:border-r group-data-[side=right]:border-l'
+              ),
+          // In a frame the rail is positioned against the window instead of the viewport.
+          framed && 'absolute flex h-full',
           className
         )}
         {...props}
@@ -290,7 +307,8 @@ function SidebarTrigger({ className, onClick, label, tooltip = true, ...props })
       <span className='sr-only'>{name}</span>
     </Button>
   );
-  if (!tooltip || !shortcut) return trigger;
+  // Phones have no shortcut to teach, and the sheet focuses the trigger as it opens.
+  if (!tooltip || !shortcut || isMobile) return trigger;
   return (
     <Tooltip>
       <TooltipTrigger asChild>{trigger}</TooltipTrigger>
@@ -304,8 +322,46 @@ function SidebarTrigger({ className, onClick, label, tooltip = true, ...props })
     </Tooltip>
   );
 }
-function SidebarRail({ className, ...props }) {
-  const { toggleSidebar } = useSidebar();
+/**
+ * The edge of the sidebar as a toggle. By default it is a thin, pointer-only strip along the edge;
+ * `handle` adds a visible, focusable grip at the middle of the edge that folds into a chevron on hover or
+ * focus, names itself "Collapse sidebar" or "Expand sidebar" (see `SidebarProvider.labels`), reports
+ * `aria-expanded` and shows its name in a tooltip. The phone sheet has no rail.
+ */
+function SidebarRail({ className, handle = false, ...props }) {
+  const { toggleSidebar, state, isMobile, labels, open } = useSidebar();
+  if (handle) {
+    if (isMobile) return null;
+    const label = open ? labels.collapse : labels.expand;
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            type='button'
+            data-sidebar='rail'
+            data-slot='sidebar-rail'
+            data-handle='true'
+            data-state={state}
+            aria-label={label}
+            aria-expanded={open}
+            onClick={toggleSidebar}
+            className={cn(
+              'ds-part-sidebar-rail-handle absolute top-1/2 z-20 flex h-12 w-3 -translate-y-1/2 cursor-pointer items-center',
+              'group-data-[side=left]:-right-3 group-data-[side=left]:justify-start group-data-[side=right]:-left-3 group-data-[side=right]:justify-end',
+              className
+            )}
+            {...props}
+          >
+            <span aria-hidden='true' className='flex flex-col items-center'>
+              <span className='ds-part-sidebar-rail-grip' />
+              <span className='ds-part-sidebar-rail-grip' />
+            </span>
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side='right'>{label}</TooltipContent>
+      </Tooltip>
+    );
+  }
   return (
     <button
       data-sidebar='rail'

@@ -3573,7 +3573,7 @@
           "title": "Workspace switcher",
           "description": "Workspace switcher",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-1.jsx",
-          "sha256": "bbe4c1b42d11254b41919d12804349aed38b06a09c29d7dc5cb3bc5a17cd11b0",
+          "sha256": "be97c3732806777d6f8d1c1ce62ade5768d1dbfa280a64c7b8070f486ae11bdb",
           "storyId": "blocks-application-appshell--sidebar-pattern-1"
         },
         {
@@ -3581,7 +3581,7 @@
           "title": "Collapsible icon rail",
           "description": "Collapsible icon rail",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-2.jsx",
-          "sha256": "b3d21d99ebec2bdd1ff0a0712bc9a075f77afe0b78eb2a9630d5dd3c56684052",
+          "sha256": "ba22071faf6ab2307f9751749d0ec8cfb1b28ccaed92c5cfd27bfc586572213c",
           "storyId": "blocks-application-appshell--sidebar-pattern-2"
         },
         {
@@ -3589,7 +3589,7 @@
           "title": "Documentation sub-menus",
           "description": "Documentation sub-menus",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-3.jsx",
-          "sha256": "1d846df25f179262493abf879ebf02049bed8cccc5605a8dbb215c681d856af2",
+          "sha256": "807b03ffc9537fededfd0b6eab65b423f4c7699d37c82a651726a346a7a74cf9",
           "storyId": "blocks-application-appshell--sidebar-pattern-3"
         },
         {
@@ -3597,7 +3597,7 @@
           "title": "Right-hand inspector",
           "description": "Right-hand inspector",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-4.jsx",
-          "sha256": "a469cde6c2be846eff2ebabc3afb9cda67c00abb2764aae700238969f3e442f3",
+          "sha256": "360155b1211f0ba1806a7c9f997b1c80380e9bd9a5903b0c539011a86b93c946",
           "storyId": "blocks-application-appshell--sidebar-pattern-4"
         },
         {
@@ -3605,7 +3605,7 @@
           "title": "Filter, loading and empty states",
           "description": "Filter, loading and empty states",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-5.jsx",
-          "sha256": "b495fcd16f9d0a9f96421930d82ccd5df4c7a9589cd4ed9b7e1e9be1c5fb7921",
+          "sha256": "2f442973c685b252b453f084b3bf601c25b792dca0a12a000926e0bf9c9f6dde",
           "storyId": "blocks-application-appshell--sidebar-pattern-5"
         }
       ]
@@ -4392,75 +4392,19 @@
       "examples": [
         {
           "name": "c-app-shell-1",
-          "title": "Writing workspace · icon rail, search and switcher",
-          "description": "Writing workspace · icon rail, search and switcher",
+          "title": "Icon rail · workspace switcher, nested nav and user menu",
+          "description": "Icon rail · workspace switcher, nested nav and user menu",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-1.jsx",
-          "sha256": "5fda7ef3532aa04ac3abcd3a5f59558a8899b5082d0afcc3900f8a7c3912e799",
+          "sha256": "3cdbd39e198d8abfc9761eadc6e105b42da6881c06bf85e6a6197ffe1d4ff4c9",
           "storyId": "blocks-application-appshell--app-shell-pattern-1"
         },
         {
           "name": "c-app-shell-2",
-          "title": "Projects · inset sidebar, progress and agents",
-          "description": "Projects · inset sidebar, progress and agents",
+          "title": "Floating sidebar · ⌘K search, nested nav and organization switcher",
+          "description": "Floating sidebar · ⌘K search, nested nav and organization switcher",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-2.jsx",
-          "sha256": "d7220ca4e552856a39fbc2c84e3a89b0b790717e9e6479a26d3ecc74b8f1438d",
+          "sha256": "6596b6e51b5fd8b5f7e1ab5afb5b7d05dbf34be975ec0e3baf054cfa0a7cf016",
           "storyId": "blocks-application-appshell--app-shell-pattern-2"
-        },
-        {
-          "name": "c-app-shell-3",
-          "title": "Mail · app rail, folders and reading pane",
-          "description": "Mail · app rail, folders and reading pane",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-3.jsx",
-          "sha256": "7c7295af9be3d72287a9e0c0c1e12e2893573e1126b2e7dee68f4ee7adf5ca8e",
-          "storyId": "blocks-application-appshell--app-shell-pattern-3"
-        },
-        {
-          "name": "c-app-shell-4",
-          "title": "Calendar · section rail and context panel",
-          "description": "Calendar · section rail and context panel",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-4.jsx",
-          "sha256": "0bcdf9686d2d014cb297f145d8e2459a97a3a6e633397090308a00e74ad83e43",
-          "storyId": "blocks-application-appshell--app-shell-pattern-4"
-        },
-        {
-          "name": "c-app-shell-5",
-          "title": "Environment console · scope switchers and live monitor",
-          "description": "Environment console · scope switchers and live monitor",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-5.jsx",
-          "sha256": "676ebfe0175043c6dca3ba9f3b42a3ec65ca687f6359a888ef472182e12c68b8",
-          "storyId": "blocks-application-appshell--app-shell-pattern-5"
-        },
-        {
-          "name": "c-app-shell-6",
-          "title": "Operations · toggleable regions and workbench",
-          "description": "Operations · toggleable regions and workbench",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-6.jsx",
-          "sha256": "3d2d48e04c3176ca5c456fee6e398b815a64ad2e7fbec0614ae060b93a181d80",
-          "storyId": "blocks-application-appshell--app-shell-pattern-6"
-        },
-        {
-          "name": "c-app-shell-10",
-          "title": "Security console · scope tabs and route tree",
-          "description": "Security console · scope tabs and route tree",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-10.jsx",
-          "sha256": "689f513352e14faaf739199bea8065d5a9bf633dfa4b2af4a262772f0dd5d4b0",
-          "storyId": "blocks-application-appshell--app-shell-pattern-10"
-        },
-        {
-          "name": "c-app-shell-12",
-          "title": "Top bar only · section pills, view track and inset sheet",
-          "description": "Top bar only · section pills, view track and inset sheet",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-12.jsx",
-          "sha256": "60566f9f1d14f9f57ce5eadce62be29a389739227ffb1adf46c5c9daabe3ed67",
-          "storyId": "blocks-application-appshell--app-shell-pattern-12"
-        },
-        {
-          "name": "c-app-shell-13",
-          "title": "Dark top bar · workspace switcher, pinnable sidebar and favorites",
-          "description": "Dark top bar · workspace switcher, pinnable sidebar and favorites",
-          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-13.jsx",
-          "sha256": "6abd17b93f9c531cdb370d5276dfc9860d1f20070c29fa3081c15e70cab9b974",
-          "storyId": "blocks-application-appshell--app-shell-pattern-13"
         }
       ]
     }

@@ -2,7 +2,7 @@
 
 Gaudi's pattern catalogue documents every component family with working examples. New patterns follow one rule: extend a matching Gaudi owner and add a component only for a distinct gap.
 
-The catalogue covers **112 families and 488 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
+The catalogue covers **112 families and 481 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
 
 [Browse the component catalogue](http://localhost:6007/?path=/story/overview-component-catalogue--browse). Each example has copyable JSX with public Gaudi imports, its original use case, and automatic accessibility checks.
 
@@ -36,7 +36,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | accordion | [core/Accordion](src/components/core/Accordion/index.js) | 7 |
 | alert | [core/Banner](src/components/core/Banner/index.js) | 5 |
 | alert-dialog | [core/Dialog](src/components/core/Dialog/index.js) | 6 |
-| app-shell | [blocks/AppShell](src/components/blocks/AppShell/index.js) | 9 |
+| app-shell | [blocks/AppShell](src/components/blocks/AppShell/index.js) | 2 |
 | area-chart | [charts/AreaChart](src/components/charts/AreaChart/index.js) | 2 |
 | aspect-ratio | [core/AspectRatio](src/components/core/AspectRatio/index.js) | 1 |
 | attachment | [core/Attachment](src/components/core/Attachment/index.js) | 4 |

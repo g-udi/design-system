@@ -32,6 +32,7 @@ import {
   SidebarProvider,
   SidebarTrigger
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
+import { AppShellFrame } from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const ASSIGNEES = [
   {
@@ -268,9 +269,11 @@ function IssueView() {
 }
 export function Pattern() {
   return (
-    <SidebarProvider className='relative h-dvh min-h-0 w-full overflow-hidden'>
-      <IssueView />
-      <Inspector />
-    </SidebarProvider>
+    <AppShellFrame>
+      <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
+        <IssueView />
+        <Inspector />
+      </SidebarProvider>
+    </AppShellFrame>
   );
 }

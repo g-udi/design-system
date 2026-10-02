@@ -51,6 +51,7 @@ import {
   SidebarSeparator,
   SidebarTrigger
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
+import { AppShellFrame } from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const WORKSPACES = [
   {
@@ -459,32 +460,34 @@ function Workbench({ workspaceName }) {
 export function Pattern() {
   const [workspace, setWorkspace] = useState(WORKSPACES[0]);
   return (
-    <SidebarProvider className='relative h-dvh min-h-0 w-full overflow-hidden'>
-      <Sidebar variant='inset' className='absolute h-full'>
-        <SidebarHeader>
-          <WorkspaceSwitcher workspace={workspace} onSelect={setWorkspace} />
-        </SidebarHeader>
+    <AppShellFrame>
+      <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
+        <Sidebar variant='inset' className='absolute h-full'>
+          <SidebarHeader>
+            <WorkspaceSwitcher workspace={workspace} onSelect={setWorkspace} />
+          </SidebarHeader>
 
-        <SidebarContent role='navigation' aria-label='Workspace'>
-          <WorkspaceNav />
-          <ProjectNav />
-        </SidebarContent>
+          <SidebarContent role='navigation' aria-label='Workspace'>
+            <WorkspaceNav />
+            <ProjectNav />
+          </SidebarContent>
 
-        <SidebarFooter>
-          {/*
-      `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
-      to undo Separator's `data-horizontal:w-full`, but a variant
-      selector outranks a plain utility, so the rule stays full width and
-      the primitive's own `mx-2` then pushes it 8px past the panel's
-      right edge while leaving a 16px gap on the left. Zeroing the margin
-      lines it up with the footer's own padding.
-    */}
-          <SidebarSeparator className='mx-0' />
-          <AccountMenu />
-        </SidebarFooter>
-      </Sidebar>
+          <SidebarFooter>
+            {/*
+        `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
+        to undo Separator's `data-horizontal:w-full`, but a variant
+        selector outranks a plain utility, so the rule stays full width and
+        the primitive's own `mx-2` then pushes it 8px past the panel's
+        right edge while leaving a 16px gap on the left. Zeroing the margin
+        lines it up with the footer's own padding.
+      */}
+            <SidebarSeparator className='mx-0' />
+            <AccountMenu />
+          </SidebarFooter>
+        </Sidebar>
 
-      <Workbench workspaceName={workspace.name} />
-    </SidebarProvider>
+        <Workbench workspaceName={workspace.name} />
+      </SidebarProvider>
+    </AppShellFrame>
   );
 }

@@ -1,198 +1,286 @@
 'use client';
 import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
-import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
-import { default as Button } from '../../../../src/components/core/Button/index.js';
-import { Popover, PopoverContent, PopoverTrigger } from '../../../../src/components/core/Popover/parts/popover.jsx';
-import { ProgressRing } from '../../../../src/components/core/Progress/parts/progress-ring.jsx';
-import { Progress } from '../../../../src/components/core/Progress/parts/progress.jsx';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../../src/components/core/Tabs/index.js';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../../../src/components/core/Tooltip/parts/tooltip.jsx';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '../../../../src/components/core/Breadcrumb/parts/breadcrumb.jsx';
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandShortcut
+} from '../../../../src/components/core/Commander/parts/command.jsx';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '../../../../src/components/core/DropdownMenu/parts/dropdown-menu.jsx';
+import { default as Kbd } from '../../../../src/components/core/Kbd/index.js';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
-  SidebarInset,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
-  SidebarTrigger
+  SidebarSeparator,
+  SidebarTrigger,
+  useSidebar
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
-import { AgentMark } from '../../../../src/components/chat/AgentMark/index.js';
+import {
+  AppShellBody,
+  AppShellFrame,
+  AppShellHeader,
+  AppShellPanel
+} from '../../../../src/components/blocks/AppShell/parts/frame.jsx';
+import { AppShellNav } from '../../../../src/components/blocks/AppShell/parts/nav.jsx';
+import { AppShellPlaceholderGrid } from '../../../../src/components/blocks/AppShell/parts/placeholder.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
+import { useHotkey } from '../../../../src/hooks/interaction/use-hotkey.js';
+import { ClaudeAiIcon } from '../../../../src/icons/brands/claudeAiIcon.jsx';
+import { Openai } from '../../../../src/icons/brands/openai.jsx';
+import { Stripe } from '../../../../src/icons/brands/stripe.jsx';
 
-const projects = [
-  { id: 'redesign', label: 'Reader app redesign', done: 72 },
-  { id: 'newsletter', label: 'Newsletter relaunch', done: 45 },
-  { id: 'archive', label: 'Archive migration', done: 90 },
-  { id: 'podcast', label: 'Podcast season 3', done: 18 }
+const organizations = [
+  { id: 'stripe', name: 'Stripe', Logo: Stripe },
+  { id: 'openai', name: 'OpenAI', Logo: Openai },
+  { id: 'claude', name: 'Claude', Logo: ClaudeAiIcon }
 ];
-const members = [
-  { name: 'Priya Natarajan', avatar: 'women/44', status: 'online' },
-  { name: 'Tom Becker', avatar: 'men/32', status: 'online' },
-  { name: 'Ana Ruiz', avatar: 'women/68', status: 'away' },
-  { name: 'Li Wei', avatar: 'men/75', status: 'offline' }
+const platform = [
+  { id: 'overview', label: 'Overview', icon: 'LayoutGrid' },
+  {
+    id: 'customers',
+    label: 'Customers',
+    icon: 'Users',
+    defaultOpen: true,
+    defaultValue: 'accounts',
+    items: [
+      { id: 'segments', label: 'Segments' },
+      { id: 'accounts', label: 'Accounts' },
+      { id: 'health-scores', label: 'Health Scores' }
+    ]
+  },
+  {
+    id: 'subscriptions',
+    label: 'Subscriptions',
+    icon: 'CreditCard',
+    items: [
+      { id: 'plans', label: 'Plans' },
+      { id: 'invoices', label: 'Invoices' },
+      { id: 'coupons', label: 'Coupons' }
+    ]
+  },
+  { id: 'revenue', label: 'Revenue', icon: 'BarChart3', indicator: 'success', status: 'new activity' },
+  { id: 'automation', label: 'Automation', icon: 'Zap' },
+  { id: 'support', label: 'Support', icon: 'LifeBuoy' }
 ];
-const agents = [
-  { id: 'research', name: 'Research agent', task: 'Summarising 14 reader interviews', progress: 64, state: 'streaming' },
-  { id: 'editor', name: 'Copy editor', task: 'Checking style on 3 drafts', progress: 30, state: 'thinking' },
-  { id: 'publisher', name: 'Publisher', task: 'Scheduled the Friday issue', progress: 100, state: 'done' }
+const links = [
+  { id: 'settings', label: 'Settings', icon: 'Settings' },
+  { id: 'invite', label: 'Invite Team', icon: 'Users' },
+  { id: 'docs', label: 'Documentation', icon: 'BookOpen' }
 ];
-const feed = {
-  mentions: [{ id: 'm1', who: 'Priya Natarajan', avatar: 'women/44', text: 'mentioned you in “Reader app redesign”', when: '6m' }],
-  system: [{ id: 's1', text: 'Archive migration finished 2 of 3 batches', when: '20m' }, { id: 's2', text: 'Research agent needs approval to spend 4 credits', when: '1h' }],
-  invites: [{ id: 'i1', who: 'Ana Ruiz', avatar: 'women/68', text: 'invited you to “Podcast season 3”', when: '2h' }]
-};
-const presence = { online: 'bg-success', away: 'bg-warning', offline: 'bg-text-subtle' };
+const pages = [...platform, ...links].flatMap((item) =>
+  item.items ? item.items.map((child) => ({ ...child, section: item.label })) : [item]
+);
+const user = { handle: '@maya', photo: 'https://randomuser.me/api/portraits/women/44.jpg' };
+// Raised rows on the floating card: the current page sits on the plain surface with a hairline.
+const raised =
+  'data-active:bg-ui-background data-active:shadow-xs data-active:ring-1 data-active:ring-ui-sidebar-border';
 
-function NotificationsPopover() {
-  const all = [...feed.mentions, ...feed.system, ...feed.invites];
-  const row = (item) => (
-    <li key={item.id} className='flex gap-3 px-3 py-2.5 text-sm'>
-      {item.avatar ? (
-        <Avatar className='size-7'><AvatarImage src={`https://randomuser.me/api/portraits/${item.avatar}.jpg`} alt='' /><AvatarFallback>{item.who[0]}</AvatarFallback></Avatar>
-      ) : (
-        <AgentMark name='Gaudi' size='sm' decorative />
-      )}
-      <p className='min-w-0 flex-1'>
-        {item.who ? <span className='font-medium'>{item.who} </span> : null}
-        <span className='text-text-muted'>{item.text}</span>
-        <span className='text-text-muted block text-xs'>{item.when} ago</span>
-      </p>
-    </li>
-  );
+function Brand() {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button size='icon-sm' variant='ghost' tone='neutral' aria-label={`Notifications, ${all.length} new`} className='relative'>
-          <RegistryIcon lucide='Bell' className='size-4' aria-hidden='true' />
-          <span aria-hidden='true' className='bg-accent text-accent-foreground absolute -top-0.5 -end-0.5 grid h-4 min-w-4 place-items-center rounded-full px-1 text-xs leading-none font-semibold tabular-nums'>{all.length}</span>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent align='end' className='w-80 p-0'>
-        <Tabs defaultValue='all'>
-          <TabsList variant='line' className='w-full justify-start border-b px-2'>
-            <TabsTrigger value='all'>All</TabsTrigger>
-            <TabsTrigger value='mentions'>Mentions</TabsTrigger>
-            <TabsTrigger value='system'>System</TabsTrigger>
-            <TabsTrigger value='invites'>Invites</TabsTrigger>
-          </TabsList>
-          <TabsContent value='all'><ul className='divide-y'>{all.map(row)}</ul></TabsContent>
-          {Object.entries(feed).map(([key, items]) => <TabsContent key={key} value={key}><ul className='divide-y'>{items.map(row)}</ul></TabsContent>)}
-        </Tabs>
-      </PopoverContent>
-    </Popover>
+    <div className='flex items-center gap-2 group-data-[collapsible=icon]:flex-col'>
+      <a
+        href='#overview'
+        className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) px-1 py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:px-0'
+        onClick={(event) => event.preventDefault()}
+      >
+        <span aria-hidden='true' className='bg-ui-foreground text-ui-background grid size-7 shrink-0 place-items-center rounded-(--ds-radius-control)'>
+          <RegistryIcon lucide='Command' className='size-4' aria-hidden='true' />
+        </span>
+        <span className='truncate group-data-[collapsible=icon]:sr-only'>Gaudi</span>
+      </a>
+      <SidebarTrigger />
+    </div>
+  );
+}
+
+function SearchButton({ onOpen, shortcut }) {
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <SidebarMenuButton variant='outline' tooltip='Search' onClick={onOpen} aria-keyshortcuts={shortcut.ariaKeyShortcuts}>
+          <RegistryIcon lucide='Search' aria-hidden='true' />
+          <span className='text-text-muted'>Search...</span>
+          <span aria-hidden='true' className='ms-auto group-data-[collapsible=icon]:hidden'>
+            <Kbd keys={shortcut.kbdKeys} size='sm' />
+          </span>
+        </SidebarMenuButton>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+}
+
+function OrganizationSwitcher({ organization, onChange }) {
+  const { isMobile } = useSidebar();
+  const { Logo } = organization;
+  return (
+    <SidebarMenu>
+      <SidebarMenuItem>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <SidebarMenuButton aria-label={`Organization: ${organization.name}`} className='data-[state=open]:bg-ui-sidebar-accent'>
+              <Logo aria-hidden='true' className='size-4' />
+              <span className='truncate font-medium'>{organization.name}</span>
+              <RegistryIcon lucide='ChevronsUpDown' aria-hidden='true' className='ms-auto opacity-60' />
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent side={isMobile ? 'top' : 'right'} align='end' sideOffset={8} className='w-56'>
+            <DropdownMenuRadioGroup
+              value={organization.id}
+              onValueChange={(id) => onChange(organizations.find((entry) => entry.id === id))}
+            >
+              {organizations.map((entry) => (
+                <DropdownMenuRadioItem key={entry.id} value={entry.id} className='gap-2'>
+                  <entry.Logo aria-hidden='true' className='size-4' />
+                  {entry.name}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <RegistryIcon lucide='Plus' aria-hidden='true' />
+              New Organization
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <RegistryIcon lucide='Settings' aria-hidden='true' />
+              Account Settings
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>
+              <RegistryIcon lucide='LogOut' aria-hidden='true' />
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarMenuItem>
+    </SidebarMenu>
+  );
+}
+
+function PageHeader({ organization, page }) {
+  const { isMobile } = useSidebar();
+  const { Logo } = organization;
+  return (
+    <AppShellHeader>
+      {isMobile ? <SidebarTrigger className='-ms-1' /> : null}
+      <Breadcrumb className='min-w-0'>
+        <BreadcrumbList className='flex-nowrap'>
+          <BreadcrumbItem className='min-w-0'>
+            <BreadcrumbLink href='#workspace' className='flex items-center gap-1.5' onClick={(event) => event.preventDefault()}>
+              <Logo aria-hidden='true' className='size-4 shrink-0' />
+              {/* Narrow frames keep the marks and speak the names. */}
+              <span className={isMobile ? 'sr-only' : 'truncate'}>Workspace</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem className='min-w-0'>
+            <BreadcrumbLink href='#profile' className='flex items-center gap-1.5' onClick={(event) => event.preventDefault()}>
+              <Avatar className='size-5'>
+                <AvatarImage src={user.photo} alt='' />
+                <AvatarFallback>M</AvatarFallback>
+              </Avatar>
+              <span className={isMobile ? 'sr-only' : 'truncate'}>{user.handle}</span>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem className='min-w-0'>
+            <BreadcrumbPage className='truncate'>{page}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
+    </AppShellHeader>
   );
 }
 
 export function Pattern() {
-  const [active, setActive] = useState('redesign');
-  const project = projects.find((entry) => entry.id === active) || projects[0];
+  const [page, setPage] = useState('overview');
+  const [organization, setOrganization] = useState(organizations[0]);
+  const [searchOpen, setSearchOpen] = useState(false);
+  // ⌘K on macOS, Ctrl+K elsewhere, from anywhere on the page.
+  const shortcut = useHotkey('mod+k', () => setSearchOpen((open) => !open), { enableInInputs: true });
+  const go = (id) => {
+    setPage(id);
+    setSearchOpen(false);
+  };
+  const current = pages.find((entry) => entry.id === page);
   return (
-    <SidebarProvider shortcut={false} className='bg-surface-muted relative h-[44rem] min-h-0 w-full overflow-hidden rounded-(--ds-radius-card) border'>
-      <Sidebar variant='inset' collapsible='icon' className='absolute h-full'>
-        <SidebarHeader>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton size='lg' tooltip='Gaudi Studio'>
-                <span className='bg-accent text-accent-foreground grid size-8 shrink-0 place-items-center rounded-(--ds-radius-control)'><RegistryIcon lucide='Layers' className='size-4' aria-hidden='true' /></span>
-                <span className='grid min-w-0 text-start leading-tight'><span className='truncate text-sm font-medium'>Gaudi Studio</span><span className='text-text-muted truncate text-xs'>4 active projects</span></span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupLabel>Projects</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {projects.map((entry) => (
-                  <SidebarMenuItem key={entry.id}>
-                    <SidebarMenuButton tooltip={`${entry.label}, ${entry.done}% done`} isActive={entry.id === active} aria-current={entry.id === active ? 'page' : undefined} onClick={() => setActive(entry.id)}>
-                      <ProgressRing value={entry.done} size='xs' tone={entry.done >= 90 ? 'success' : 'accent'} label={`${entry.label} completion`} />
-                      <span>{entry.label}</span>
-                    </SidebarMenuButton>
-                    <SidebarMenuBadge>{entry.done}%</SidebarMenuBadge>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-          <SidebarGroup>
-            <SidebarGroupLabel>Agents</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {agents.map((agent) => (
-                  <SidebarMenuItem key={agent.id}>
-                    <SidebarMenuButton tooltip={`${agent.name}: ${agent.task}`}>
-                      <AgentMark name={agent.name} seed={agent.id} size='xs' state={agent.state} decorative />
-                      <span>{agent.name}</span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter>
-          <p className='text-text-muted px-2 text-xs group-data-[collapsible=icon]:sr-only'>Here now</p>
-          <ul className='flex flex-wrap gap-1.5 px-1 group-data-[collapsible=icon]:flex-col' aria-label='Team presence'>
-            {members.map((member) => (
-              <li key={member.name}>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <span tabIndex={0} className='relative block rounded-full'>
-                      <Avatar className='size-7'><AvatarImage src={`https://randomuser.me/api/portraits/${member.avatar}.jpg`} alt='' /><AvatarFallback>{member.name[0]}</AvatarFallback></Avatar>
-                      <span aria-hidden='true' className={`ring-surface absolute -end-0.5 -bottom-0.5 size-2.5 rounded-full ring-2 ${presence[member.status]}`} />
-                      <span className='sr-only'>{`${member.name}, ${member.status}`}</span>
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent side='right'>{member.name} · {member.status}</TooltipContent>
-                </Tooltip>
-              </li>
-            ))}
-          </ul>
-        </SidebarFooter>
-      </Sidebar>
-      <SidebarInset className='bg-surface min-h-0 min-w-0 md:my-2 md:me-2 md:rounded-(--ds-radius-card) md:border'>
-        <header className='flex h-14 shrink-0 items-center gap-2 border-b px-3'>
-          <SidebarTrigger />
-          <h1 className='min-w-0 truncate text-sm font-medium'>{project.label}</h1>
-          <div className='ms-auto flex items-center gap-1'>
-            <NotificationsPopover />
-            <Button size='sm'><RegistryIcon lucide='Plus' className='size-4' aria-hidden='true' />New task</Button>
-          </div>
-        </header>
-        <div className='min-h-0 flex-1 overflow-y-auto p-4 sm:p-6'>
-          <section aria-labelledby='project-progress' className='flex flex-wrap items-center gap-6 rounded-(--ds-radius-card) border p-4'>
-            <ProgressRing value={project.done} size='md' showValue tone={project.done >= 90 ? 'success' : 'accent'} label={`${project.label} completion`} />
-            <div className='min-w-0 flex-1'>
-              <h2 id='project-progress' className='font-medium'>{project.done}% complete</h2>
-              <p className='text-text-muted text-sm'>18 of 25 tasks done · next milestone Friday 9 October</p>
-            </div>
-            <Badge variant='success-light'>On track</Badge>
-          </section>
-          <h2 className='mt-6 text-sm font-medium'>Agents working on this project</h2>
-          <ul className='mt-2 grid gap-3 lg:grid-cols-3'>
-            {agents.map((agent) => (
-              <li key={agent.id} className='rounded-(--ds-radius-card) border p-4'>
-                <div className='flex items-center gap-2'>
-                  <AgentMark name={agent.name} seed={agent.id} size='sm' state={agent.state} decorative />
-                  <p className='text-sm font-medium'>{agent.name}</p>
-                </div>
-                <p className='text-text-muted mt-2 text-sm'>{agent.task}</p>
-                <Progress value={agent.progress} className='mt-3' aria-label={`${agent.name} progress`} />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
+    <AppShellFrame surface='default'>
+      <SidebarProvider>
+        <Sidebar variant='floating' collapsible='icon'>
+          <SidebarHeader>
+            <Brand />
+            <SearchButton onOpen={() => setSearchOpen(true)} shortcut={shortcut} />
+          </SidebarHeader>
+          <SidebarContent role='navigation' aria-label='Workspace'>
+            <AppShellNav label='Platform' items={platform} value={page} onValueChange={setPage} itemClassName={raised} />
+            <AppShellNav className='mt-auto' size='sm' items={links} value={page} onValueChange={setPage} itemClassName={raised} />
+          </SidebarContent>
+          <SidebarFooter>
+            <SidebarSeparator className='mx-0' />
+            <OrganizationSwitcher organization={organization} onChange={setOrganization} />
+          </SidebarFooter>
+        </Sidebar>
+        <AppShellPanel inset={false}>
+          <PageHeader organization={organization} page={current?.label ?? 'Overview'} />
+          <AppShellBody>
+            <AppShellPlaceholderGrid preset='dashboard' variant='solid' />
+          </AppShellBody>
+        </AppShellPanel>
+      </SidebarProvider>
+      <CommandDialog open={searchOpen} onOpenChange={setSearchOpen} title='Search' description='Search your workspace content.'>
+        <Command>
+          <CommandInput placeholder='Type to search...' />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup heading='Pages'>
+              {pages.map((entry) => (
+                <CommandItem key={entry.id} value={`${entry.section ?? ''} ${entry.label}`} onSelect={() => go(entry.id)}>
+                  <RegistryIcon lucide={entry.icon || 'CornerDownRight'} aria-hidden='true' />
+                  {entry.section ? <span className='text-text-muted'>{entry.section} /</span> : null}
+                  {entry.label}
+                </CommandItem>
+              ))}
+            </CommandGroup>
+            <CommandGroup heading='Actions'>
+              <CommandItem onSelect={() => go('invite')}>
+                <RegistryIcon lucide='UserPlus' aria-hidden='true' />
+                Invite a teammate
+              </CommandItem>
+              <CommandItem onSelect={() => go('settings')}>
+                <RegistryIcon lucide='Settings' aria-hidden='true' />
+                Open settings
+                <CommandShortcut>⌘,</CommandShortcut>
+              </CommandItem>
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </CommandDialog>
+    </AppShellFrame>
   );
 }
