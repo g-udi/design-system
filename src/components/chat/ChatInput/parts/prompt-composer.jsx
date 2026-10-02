@@ -56,6 +56,13 @@ const DEFAULT_LABELS = {
  * input, the current model), and send or stop. Enter sends, Shift+Enter
  * starts a new line. While a reply streams (`status='streaming'`) sending still works and reports
  * `{ queued: true }` so the host can hold the message in a PromptQueue.
+ *
+ * `variant='card'` is the roomier assistant composer: a one-line prompt that grows, a raised card frame
+ * and a footer toolbar for PromptAttachMenu, ChatModelSelect, PromptSettings and ChatContextMeter.
+ * `voice` takes the send button's place while the prompt is empty, and send returns as soon as there
+ * is text or a file. Pass an element (a microphone button, a SpeechInput) or a function
+ * `({ value, setValue, insert, disabled }) => element`, where `insert(text)` adds dictated text at the
+ * end of the prompt.
  */
 function PromptComposer({
   value: valueProp,
@@ -72,6 +79,8 @@ function PromptComposer({
   accept,
   toolbar,
   actions,
+  voice,
+  variant = 'default',
   footer,
   disabled = false,
   labels: labelOverrides,
@@ -122,7 +131,15 @@ function PromptComposer({
     });
   };
 
-  const canSend = !disabled && !busy && (value.trim() || attachments.length);
+  const hasContent = Boolean(value.trim() || attachments.length);
+  const canSend = !disabled && !busy && hasContent;
+  const card = variant === 'card';
+  const insert = (text) => {
+    if (!text) return;
+    setValue(value && !/\s$/.test(value) ? `${value} ${text}` : `${value}${text}`);
+    requestAnimationFrame(() => textarea.current?.focus());
+  };
+  const voiceSlot = voice && !hasContent && !streaming ? (typeof voice === 'function' ? voice({ value, setValue, insert, disabled }) : voice) : null;
   const submit = () => {
     if (!canSend) return;
     onSubmit?.(value.trim(), { mentions: mentionsIn(value, mentions), command: commands.find((item) => value.startsWith(insertionOf(item, '/'))), attachments, queued: streaming });
@@ -161,7 +178,7 @@ function PromptComposer({
   const syncCaret = (event) => setCaret(event.currentTarget.selectionStart ?? 0);
 
   return (
-    <div data-slot='prompt-composer' data-status={status} className={cn('ds-part-prompt-composer relative grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2', className)}>
+    <div data-slot='prompt-composer' data-status={status} data-variant={variant} className={cn('ds-part-prompt-composer relative grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2', className)}>
       {open ? (
         // A listbox the textarea drives (aria-activedescendant), drawn with the Commander list and item styles.
         <div className='bg-ui-popover text-ui-popover-foreground ring-ui-foreground/10 absolute inset-x-0 bottom-full z-(--ds-z-overlay) mb-2 max-w-sm overflow-hidden rounded-(--ds-radius-card) shadow-md ring-1'>
@@ -197,7 +214,7 @@ function PromptComposer({
         </div>
       ) : null}
       <span role='status' className='sr-only'>{open ? labels.suggestions(results.length) : ''}</span>
-      <InputGroup data-disabled={disabled || undefined} className='bg-surface'>
+      <InputGroup data-disabled={disabled || undefined} className={cn('bg-surface', card && 'rounded-(--ds-radius-card) shadow-sm')}>
         {attachments.length ? (
           <InputGroupAddon align='block-start' className='pb-0'>
             <AttachmentGroup className='flex flex-wrap gap-2'>
@@ -224,7 +241,7 @@ function PromptComposer({
         ) : null}
         <InputGroupTextarea
           ref={textarea}
-          rows={2}
+          rows={card ? 1 : 2}
           value={value}
           disabled={disabled}
           placeholder={labels.placeholder}
@@ -235,7 +252,7 @@ function PromptComposer({
           aria-autocomplete='list'
           aria-activedescendant={open && active ? optionId(active) : undefined}
           {...textareaProps}
-          className={cn('field-sizing-content max-h-48 min-h-14', textareaProps?.className)}
+          className={cn('field-sizing-content max-h-48', card ? 'min-h-12 px-4 pt-3.5 text-base sm:text-sm' : 'min-h-14', textareaProps?.className)}
           onChange={(event) => {
             setValue(event.target.value);
             setCaret(event.target.selectionStart ?? 0);
@@ -246,8 +263,8 @@ function PromptComposer({
           onClick={syncCaret}
           onSelect={syncCaret}
         />
-        <InputGroupAddon align='block-end' className='justify-between gap-2'>
-          <div className='flex min-w-0 flex-wrap items-center gap-1'>
+        <InputGroupAddon align='block-end' className={cn('justify-between gap-2', card && 'flex-nowrap items-end px-1.5 pb-2 sm:px-2')}>
+          <div data-slot='prompt-composer-toolbar' className='flex min-w-0 flex-wrap items-center gap-1'>
             {onAttach ? (
               <>
                 <InputGroupButton size='icon-sm' aria-label={labels.attach} onClick={() => files.current?.click()} disabled={disabled}>
@@ -276,9 +293,11 @@ function PromptComposer({
                 <RegistryIcon lucide='Square' className='fill-current' />
               </InputGroupButton>
             ) : null}
-            <InputGroupButton size='icon-sm' variant='solid' aria-label={streaming ? labels.queue : labels.send} disabled={!canSend} onClick={submit}>
-              <RegistryIcon lucide={streaming ? 'ListTodo' : 'ArrowUp'} />
-            </InputGroupButton>
+            {voiceSlot ?? (
+              <InputGroupButton size='icon-sm' variant='solid' aria-label={streaming ? labels.queue : labels.send} disabled={!canSend} onClick={submit}>
+                <RegistryIcon lucide={streaming ? 'ListTodo' : 'ArrowUp'} />
+              </InputGroupButton>
+            )}
           </div>
         </InputGroupAddon>
       </InputGroup>

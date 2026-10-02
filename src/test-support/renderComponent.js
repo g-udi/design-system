@@ -21,7 +21,8 @@ export async function loadComponent(url) {
       'next/*',
       '@radix-ui/*',
       'radix-ui',
-      'sonner'
+      'sonner',
+      'cmdk'
     ],
     jsx: 'automatic',
     loader: { '.js': 'jsx' },

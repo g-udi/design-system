@@ -27,3 +27,6 @@ export { ChatEffortSlider, chatEffortLevels } from './ChatEffortSlider/parts/cha
 export { AgentMark, agentMarkVariants, agentMotifs, agentHues, resolveAgentMark } from './AgentMark/parts/agent-mark.jsx';
 export { ActivityIndicator, activityStates } from './ActivityIndicator/parts/activity-indicator.jsx';
 export { MessageStatus, MessageStatusIcon, messageStatuses } from './shared/message-status.jsx';
+export { ChatContextMeter } from './ChatInput/parts/chat-context-meter.jsx';
+export { PromptAttachMenu, PromptSettings } from './ChatInput/parts/prompt-toolbar.jsx';
+export { chatModels, chatModelProviders, estimateChatCost, formatTokenCount } from './ChatInput/parts/chat-models.js';

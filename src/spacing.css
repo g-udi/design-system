@@ -69,6 +69,7 @@
   [data-slot='activity-indicator'],
   [data-slot^='rating-star'],
   [data-slot='chart-mark'],
+  [data-slot='chat-model-capability'],
   .ds-part-calendar-day-button,
   .rdp-nav,
   .ds-part-resizable-handle-icon,

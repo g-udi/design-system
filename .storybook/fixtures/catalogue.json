@@ -1796,6 +1796,17 @@
       ],
       "importPath": "./src/components/chat/ChatInput/ChatInput.stories.jsx"
     },
+    "chat-chatinput--assistant-composer": {
+      "id": "chat-chatinput--assistant-composer",
+      "title": "Chat/ChatInput",
+      "name": "Assistant composer: models, options and context",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInput.stories.jsx"
+    },
     "chat-chatplanpanel--playground": {
       "id": "chat-chatplanpanel--playground",
       "title": "Chat/ChatPlanPanel",
