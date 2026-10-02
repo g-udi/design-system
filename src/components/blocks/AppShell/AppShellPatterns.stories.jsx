@@ -493,3 +493,177 @@ export const AppShellPattern9 = {
     }
   }
 };
+
+/** Closes the phone sheet (when one is open) and waits until the page behind it is exposed again. */
+async function closeNavigation(canvasElement) {
+  // The open sheet also carries data-state, so look for the sheet itself rather than the docked rail.
+  if (!canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]')) return;
+  await userEvent.keyboard('{Escape}');
+  await waitFor(() => expect(canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]')).toBeNull());
+  await waitFor(() => expect(canvasElement.querySelector('main')?.closest('[aria-hidden="true"]')).toBeFalsy());
+}
+
+export const AppShellPattern10 = {
+  name: 'Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu',
+  ...pattern(10, 'A top bar across the window with team and project switchers in a breadcrumb, a 3 × 3 apps menu, settings with operation toggles, a notifications sheet, an account menu and a New Mission menu. Below it the sidebar lists Robot Fleet, Mission Control and System Tools routes indented under icon headings, with an upgrade card at the foot. In a narrow frame the switchers move into the sidebar sheet and the button shortens to New.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    // The apps menu is a 3 × 3 grid of launchers.
+    await userEvent.click(canvas.getByRole('button', { name: 'Apps' }));
+    const apps = await body.findByRole('menu');
+    await expect(within(apps).getAllByRole('menuitem')).toHaveLength(10);
+    await userEvent.keyboard('{Escape}');
+    // Notifications: dismissing removes a row; marking all read clears the count.
+    await userEvent.click(canvas.getByRole('button', { name: /^Notifications/ }));
+    const sheet = await body.findByRole('dialog', { name: /Notifications/ });
+    await userEvent.click(within(sheet).getByRole('button', { name: 'Dismiss' }));
+    await waitFor(() => expect(within(sheet).queryByText('Dock 4 lost telemetry')).not.toBeInTheDocument());
+    await userEvent.click(within(sheet).getByRole('button', { name: 'Mark all as read' }));
+    await waitFor(() => expect(within(sheet).getByRole('button', { name: 'Mark all as read' })).toBeDisabled());
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog', { name: /Notifications/ })).not.toBeInTheDocument());
+    let nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('link', { name: 'Stations' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(nav.getByRole('link', { name: 'Fleet Map' }));
+    nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('link', { name: 'Fleet Map' })).toHaveAttribute('aria-current', 'page');
+    // The team switcher sits in the top bar, or at the top of the phone sheet.
+    const switchers = desktopSidebar(canvasElement) ? canvas : nav;
+    await userEvent.click(switchers.getByRole('button', { name: 'Switch team' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Logistics Team' }));
+    await waitFor(() => expect(switchers.getByRole('button', { name: 'Switch team' })).toHaveTextContent('Logistics Team'));
+    await closeNavigation(canvasElement);
+  }
+};
+
+export const AppShellPattern11 = {
+  name: 'Topbar pills · section pills, route search palette and an inset notifications sheet',
+  ...pattern(11, 'A top bar with section pills, a route search palette, settings, an inset notifications sheet, an account menu with a presence status, and a New Mission menu above a sidebar of Fleet Overview, Activity and Settings routes with an account card. The search palette filters every route and counts the matches. In a narrower frame the pills fold into a bottom sheet behind one button, and on phones the sidebar opens as a sheet.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    // Section pills, or the sections sheet that replaces them in a narrow frame.
+    const pills = canvas.queryByRole('navigation', { name: 'Fleet sections' });
+    if (pills && pills.checkVisibility()) {
+      await userEvent.click(within(pills).getByRole('button', { name: 'Missions' }));
+      await expect(within(pills).getByRole('button', { name: 'Missions' })).toHaveAttribute('aria-current', 'page');
+    } else {
+      await userEvent.click(canvas.getByRole('button', { name: 'Fleet sections: Fleet' }));
+      const sections = await body.findByRole('dialog', { name: 'Fleet Sections' });
+      await userEvent.click(within(sections).getByRole('button', { name: 'Missions' }));
+      await expect(await canvas.findByRole('button', { name: 'Fleet sections: Missions' })).toBeVisible();
+    }
+    // The route search palette filters pages and counts the matches.
+    await userEvent.click(canvas.getByRole('button', { name: 'Search fleet pages' }));
+    const palette = await body.findByRole('dialog', { name: 'Search Fleet' });
+    await userEvent.type(within(palette).getByRole('combobox'), 'zon');
+    await expect(within(palette).getByRole('status')).toHaveTextContent('1 result');
+    await userEvent.click(within(palette).getByRole('option', { name: /Zones/ }));
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Search Fleet' })).not.toBeInTheDocument());
+    // The inset notifications sheet resolves an approval in place.
+    await userEvent.click(canvas.getByRole('button', { name: /^Notifications/ }));
+    const sheet = await body.findByRole('dialog', { name: /Notifications/ });
+    await expect(sheet).toHaveAttribute('data-inset', 'true');
+    await userEvent.click(within(sheet).getByRole('button', { name: 'Approve' }));
+    await expect(await within(sheet).findByText('Approved')).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog', { name: /Notifications/ })).not.toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('button', { name: /Account and status for Ava Brooks/ }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Away' }));
+    await expect(await canvas.findByRole('button', { name: 'Account and status for Ava Brooks: Away' })).toBeVisible();
+    const nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('link', { name: 'Zones' })).toHaveAttribute('aria-current', 'page');
+    await closeNavigation(canvasElement);
+  }
+};
+
+export const AppShellPattern12 = {
+  name: 'Mission control · icon rail, 4-tab missions panel and expandable robot event feeds',
+  ...pattern(12, 'A mission-control console: an icon rail with section tooltips, help, settings and profile menus beside a Missions, Robots, Stations and Alerts panel. Robots shows the mission distribution, run stats and collapsible Scheduled, Active, Paused and Failed queues; each active robot expands (one at a time) into its metrics and timestamped event feed. The header search filters active robots and has a scope menu; a sort menu orders them. In a narrow frame the rail and panel open together as one sheet and the labels fold to icons.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    const main = within(canvas.getByRole('main'));
+    // The header search filters the active queue.
+    await userEvent.type(main.getByRole('searchbox', { name: 'Search robots' }), 'kiko');
+    let nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('button', { name: 'Expand Kiko B17 detail' })).toBeVisible();
+    await expect(nav.queryByRole('button', { name: /Meow S025 detail/ })).not.toBeInTheDocument();
+    await closeNavigation(canvasElement);
+    await userEvent.clear(main.getByRole('searchbox', { name: 'Search robots' }));
+    nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('button', { name: 'Robots' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(nav.getByRole('button', { name: 'Routes' }));
+    await expect(nav.getByRole('button', { name: 'Routes' })).toHaveAttribute('aria-current', 'page');
+    // One robot feed is open at a time.
+    await expect(nav.getByRole('button', { name: 'Collapse Dock C112 detail' })).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(nav.getByRole('button', { name: 'Expand Meow S025 detail' }));
+    await expect(nav.getByRole('button', { name: 'Collapse Meow S025 detail' })).toHaveAttribute('aria-expanded', 'true');
+    await expect(nav.getByRole('button', { name: 'Expand Dock C112 detail' })).toHaveAttribute('aria-expanded', 'false');
+    await expect(nav.getByText('Delivering')).toBeInTheDocument();
+    await userEvent.click(nav.getByRole('button', { name: 'Expand scheduled' }));
+    await expect(await nav.findByText(/Zone D/)).toBeVisible();
+    await userEvent.click(nav.getByRole('button', { name: 'Sort assignments' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'By Name' }));
+    await waitFor(() => {
+      const rows = nav.getAllByRole('button', { name: /^(Expand|Collapse) .+ detail$/ }).map((button) => button.getAttribute('aria-label'));
+      expect(rows[0]).toMatch(/Dock C112/);
+    });
+    await userEvent.click(nav.getByRole('tab', { name: 'Alerts' }));
+    await expect(await nav.findByText('Incidents Routed')).toBeVisible();
+    await userEvent.click(nav.getByRole('tab', { name: 'Robots' }));
+    await userEvent.click(nav.getByRole('button', { name: /Open profile for Sienna Wells/ }));
+    await expect(await body.findByRole('menuitem', { name: /Sign-In Security/ })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await closeNavigation(canvasElement);
+  }
+};
+
+export const AppShellPattern13 = {
+  name: 'Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree',
+  ...pattern(13, 'A sidebar with Fleet, Team and Events workspace tabs that swap a 3 × 3 grid of section tiles and a tree below it: counts, status badges, inline Add, Review and Manage actions and indent guides, with arrow-key navigation from the Gaudi Tree. The collapse button folds the sidebar to an icon strip with tooltips; ⌘F / Ctrl+F focuses the workspace search while focus is in the window. In a narrow frame the sidebar opens as a sheet from the header.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expectFramed(canvasElement);
+    const docked = desktopSidebar(canvasElement);
+    if (!docked) await userEvent.click(canvas.getByRole('button', { name: 'Open navigation' }));
+    const region = docked || (await waitFor(() => {
+      const element = canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]');
+      expect(element).toBeTruthy();
+      return element;
+    }));
+    const nav = within(region);
+    await expect(nav.getByRole('treeitem', { name: /^Scheduled/ })).toHaveAttribute('aria-selected', 'true');
+    await userEvent.click(nav.getByRole('treeitem', { name: /^Delivery/ }));
+    await expect(nav.getByRole('treeitem', { name: /^Delivery/ })).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(await nav.findByRole('treeitem', { name: /^Drop Points/ }));
+    await expect(nav.getByRole('treeitem', { name: /^Drop Points/ })).toHaveAttribute('aria-selected', 'true');
+    await userEvent.click(nav.getByRole('button', { name: 'Live Map' }));
+    await expect(nav.getByRole('button', { name: 'Live Map' })).toHaveAttribute('aria-current', 'page');
+    // Workspace tabs swap the tiles and the tree.
+    await userEvent.click(nav.getByRole('tab', { name: 'Team' }));
+    await expect(await nav.findByRole('treeitem', { name: /^Dispatch Crew/ })).toBeVisible();
+    await expect(nav.getByRole('button', { name: 'Roster' })).toHaveAttribute('aria-current', 'page');
+    if (docked) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Collapse navigation' }));
+      await waitFor(() => expect(docked).toHaveAttribute('data-state', 'collapsed'));
+      await userEvent.click(canvas.getByRole('button', { name: 'Shifts' }));
+      await expect(canvas.getByRole('button', { name: 'Shifts' })).toHaveAttribute('aria-current', 'page');
+      await userEvent.click(canvas.getByRole('button', { name: 'Expand navigation' }));
+      await waitFor(() => expect(docked).toHaveAttribute('data-state', 'expanded'));
+    } else {
+      await closeNavigation(canvasElement);
+    }
+    // ⌘F / Ctrl+F focuses the search while focus is inside the window.
+    const main = within(canvas.getByRole('main'));
+    await waitFor(() => expect(within(canvasElement.ownerDocument.body).queryByRole('dialog')).not.toBeInTheDocument());
+    canvas.getByRole('button', { name: /(Open|Collapse) navigation/ }).focus();
+    const mod = /mac|iphone|ipad/i.test(navigator.userAgentData?.platform || navigator.platform || '') ? 'Meta' : 'Control';
+    await userEvent.keyboard(`{${mod}>}f{/${mod}}`);
+    await expect(main.getByRole('searchbox', { name: 'Search the workspace' })).toHaveFocus();
+  }
+};

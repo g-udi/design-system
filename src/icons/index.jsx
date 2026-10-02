@@ -382,11 +382,33 @@ import Upload from 'lucide-react/dist/esm/icons/upload.js';
 import Wifi from 'lucide-react/dist/esm/icons/wifi.js';
 import X from 'lucide-react/dist/esm/icons/x.js';
 
+import AppShellMap from 'lucide-react/dist/esm/icons/map.js';
+import AppShellMapPinned from 'lucide-react/dist/esm/icons/map-pinned.js';
+import AppShellSquareActivity from 'lucide-react/dist/esm/icons/square-activity.js';
+import AppShellSquareDashedMousePointer from 'lucide-react/dist/esm/icons/square-dashed-mouse-pointer.js';
+import AppShellScanSearch from 'lucide-react/dist/esm/icons/scan-search.js';
+import AppShellGrid2x2 from 'lucide-react/dist/esm/icons/grid-2x2.js';
+import AppShellCombine from 'lucide-react/dist/esm/icons/combine.js';
+import AppShellLandPlot from 'lucide-react/dist/esm/icons/land-plot.js';
+import AppShellPanelLeftClose from 'lucide-react/dist/esm/icons/panel-left-close.js';
+import AppShellPanelLeftOpen from 'lucide-react/dist/esm/icons/panel-left-open.js';
 import { cn } from '../utilities/cn';
 import { isExternalHref, normalizeHref } from '../utilities/href';
 
 
 export const iconRegistry = {
+  // App-shell examples (fleet and mission consoles).
+  'Map': AppShellMap,
+  'MapPinned': AppShellMapPinned,
+  'SquareActivity': AppShellSquareActivity,
+  'SquareDashedMousePointer': AppShellSquareDashedMousePointer,
+  'ScanSearch': AppShellScanSearch,
+  'Grid2x2': AppShellGrid2x2,
+  'Combine': AppShellCombine,
+  'LandPlot': AppShellLandPlot,
+  'PanelLeftClose': AppShellPanelLeftClose,
+  'PanelLeftOpen': AppShellPanelLeftOpen,
+  'Boxes': Boxes,
   'Accessibility': AnimatedCatalogAccessibility,
   'ArrowDownCircle': AnimatedCatalogArrowDownCircle,
   'ArrowLeftFromLine': AnimatedCatalogArrowLeftFromLine,

@@ -210,3 +210,27 @@ test('AppShellNav renders people, bare counts, a hover quick action and a group 
   assert.match(html, /aria-label="Actions for Inbox"/);
   assert.match(html, /aria-label="Create label"/);
 });
+
+test('reui-shell additions: tile and list presets, a labelled route group and the notifications trigger', async () => {
+  const { createElement: h } = await import('react');
+  const { renderToStaticMarkup } = await import('react-dom/server');
+  const { AppShellNav, AppShellNotifications, AppShellPlaceholderGrid, SidebarProvider } = await loadComponent(new URL('./index.js', import.meta.url));
+  const tiles = renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'tiles' }));
+  assert.equal(tiles.match(/data-kind="block"/g)?.length, 9);
+  const quad = renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'quad' }));
+  assert.equal(quad.match(/data-span="half"/g)?.length, 4);
+  assert.equal(renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'board' })).match(/data-kind="blank"/g)?.length, 3);
+  assert.match(renderToStaticMarkup(h(AppShellPlaceholderGrid, { preset: 'stack' })), /data-kind="rows"/);
+  const nav = renderToStaticMarkup(h(SidebarProvider, { shortcut: false }, h(AppShellNav, { label: 'Robot Fleet', labelIcon: 'Bot', items: [{ id: 'robots', label: 'Robots' }], value: 'robots' })));
+  assert.match(nav, /data-slot="sidebar-group-label"[^>]*><svg/);
+  const items = [
+    { id: 'a', title: 'Dock 4 lost telemetry', unread: true },
+    { id: 'b', title: 'Firmware rolled out', unread: true },
+    { id: 'c', title: 'Audit shared' }
+  ];
+  const bell = renderToStaticMarkup(h(AppShellNotifications, { defaultItems: items }));
+  assert.match(bell, /aria-label="Notifications, 2 unread"/);
+  assert.match(bell, /aria-haspopup="dialog"/);
+  const read = renderToStaticMarkup(h(AppShellNotifications, { defaultItems: items.map((item) => ({ ...item, unread: false })) }));
+  assert.match(read, /aria-label="Notifications"/);
+});

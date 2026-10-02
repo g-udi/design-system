@@ -191,10 +191,19 @@ function SidebarProvider({
     </SidebarContext.Provider>
   );
 }
+/**
+ * The sidebar: docked beside the page, or a sheet on phones. `mobileWidth`, `mobileClassName`,
+ * `mobileTitle` and `mobileDescription` size and name that sheet (for example a wider sheet that holds
+ * a rail and a panel).
+ */
 function Sidebar({
   side = 'left',
   variant = 'sidebar',
   collapsible = 'offcanvas',
+  mobileWidth = SIDEBAR_WIDTH_MOBILE,
+  mobileTitle = 'Sidebar',
+  mobileDescription = 'Displays the mobile sidebar.',
+  mobileClassName,
   className,
   children,
   dir,
@@ -224,9 +233,9 @@ function Sidebar({
           data-sidebar='sidebar'
           data-slot='sidebar'
           data-mobile='true'
-          className='w-(--sidebar-width) max-w-[85%] bg-ui-sidebar p-0 text-ui-sidebar-foreground [&>button]:hidden'
+          className={cn('w-(--sidebar-width) max-w-[85%] bg-ui-sidebar p-0 text-ui-sidebar-foreground [&>button]:hidden', mobileClassName)}
           style={{
-            '--sidebar-width': SIDEBAR_WIDTH_MOBILE
+            '--sidebar-width': mobileWidth
           }}
           side={side}
           onCloseAutoFocus={(event) => {
@@ -239,8 +248,8 @@ function Sidebar({
           }}
         >
           <SheetHeader className='sr-only'>
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+            <SheetTitle>{mobileTitle}</SheetTitle>
+            <SheetDescription>{mobileDescription}</SheetDescription>
           </SheetHeader>
           <div className='flex h-full w-full flex-col'>{children}</div>
         </SheetContent>

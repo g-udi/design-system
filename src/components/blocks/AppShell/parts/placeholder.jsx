@@ -127,6 +127,43 @@ const shapes = {
   conversation: ({ animated }) => <Conversation animated={animated} composer />,
   // The thread alone, for shells that render a real composer under it.
   thread: ({ animated }) => <Conversation animated={animated} />,
+  // Two heading lines above one filled block that takes the rest of the card.
+  block: ({ animated }) => (
+    <>
+      <Line animated={animated} className='h-3.5 w-full' />
+      <Line animated={animated} className='h-3.5 w-full' />
+      <Line animated={animated} className='mt-3 min-h-8 w-full flex-1' />
+    </>
+  ),
+  // A metric tile: an icon square and a label above a value and a trend.
+  tile: ({ animated }) => (
+    <>
+      <div className='flex items-center gap-2'>
+        <Line animated={animated} className='size-7 shrink-0' />
+        <Line animated={animated} className='h-2.5 w-24 min-w-0 shrink' />
+      </div>
+      <div className='mt-auto flex items-end gap-3'>
+        <Line animated={animated} className='h-6 w-20 min-w-0 shrink' />
+        <Line animated={animated} className='ms-auto h-2.5 w-16 min-w-0 shrink' />
+      </div>
+    </>
+  ),
+  // A titled list with two toolbar buttons, a filter bar and tall rows.
+  rows: ({ animated }) => (
+    <>
+      <div className='flex items-center gap-2'>
+        <Line animated={animated} className='h-3.5 w-32 min-w-0 shrink' />
+        <Line animated={animated} className='ms-auto h-7 w-24 min-w-0 shrink' />
+        <Line animated={animated} className='h-7 w-16 min-w-0 shrink' />
+      </div>
+      <Line animated={animated} className='h-7 w-72 max-w-full' />
+      {ROWS.slice(0, 4).map((_, index) => (
+        <Line key={index} animated={animated} className='min-h-16 w-full flex-1' />
+      ))}
+    </>
+  ),
+  // An empty card face over a muted footer strip.
+  blank: () => <span data-slot='app-shell-placeholder-face' className='ds-app-shell-placeholder-face' />,
   text: ({ animated }) => (
     <>
       <Line animated={animated} className='h-3.5 w-40 max-w-full' />
@@ -139,8 +176,10 @@ const shapes = {
 
 /**
  * One placeholder card filled with Gaudi Skeleton shapes: `kind` is `stat`, `chart`, `report` (a chart
- * above a short table), `table`, `text`, `conversation` (a chat thread above a composer) or `thread` (the thread alone),
- * `variant` is `dashed` (default), `solid` or `bare` (no card), and `size` is `sm` (stat height) or `lg` (fills the rest
+ * above a short table), `table`, `text`, `conversation` (a chat thread above a composer), `thread` (the thread alone),
+ * `tile` (an icon, a value and a trend), `rows` (a titled list of tall rows), `block` (two lines above a filled block) or
+ * `blank` (an empty face over a muted strip), `variant` is `dashed` (default), `solid` or `bare` (no card), and `size` is
+ * `sm` (stat height) or `lg` (fills the rest
  * of the panel). Skeletons stay static unless `animated`, and reduced motion always stops the pulse.
  */
 function AppShellPlaceholder({ kind = 'text', variant = 'dashed', size = 'sm', animated = false, className, ...props }) {
@@ -177,12 +216,32 @@ const presets = {
   // A chat thread and its composer, without a card (use with `variant='bare'`).
   chat: [['conversation', 'lg', 'wide']],
   // The same thread without the composer, above a real one.
-  thread: [['thread', 'lg', 'wide']]
+  thread: [['thread', 'lg', 'wide']],
+  // Three metric tiles above one tall list.
+  stack: [['tile', 'sm'], ['tile', 'sm'], ['tile', 'sm'], ['rows', 'lg', 'wide']],
+  // A 3 × 3 grid of block cards: a short first row above two taller ones.
+  tiles: [
+    ['block', 'sm'], ['block', 'sm'], ['block', 'sm'],
+    ['block', 'md'], ['block', 'md'], ['block', 'md'],
+    ['block', 'md'], ['block', 'md'], ['block', 'md']
+  ],
+  // Like tiles, with a first row of blank cards over a muted strip.
+  board: [
+    ['blank', 'sm'], ['blank', 'sm'], ['blank', 'sm'],
+    ['block', 'md'], ['block', 'md'], ['block', 'md'],
+    ['block', 'md'], ['block', 'md'], ['block', 'md']
+  ],
+  // Four short cards above a 2 × 2 grid of block cards.
+  quad: [
+    ['block', 'sm'], ['block', 'sm'], ['block', 'sm'], ['block', 'sm'],
+    ['block', 'md', 'half'], ['block', 'md', 'half'], ['block', 'md', 'half'], ['block', 'md', 'half']
+  ]
 };
 
 /**
  * The shared placeholder body of the app-shell examples: preset layouts of skeleton cards
- * (`dashboard`, `grid`, `split`, `list`, `chat` or `thread`) that stack on narrow panels and spread into three columns
+ * (`dashboard`, `grid`, `split`, `list`, `chat`, `thread`, `stack` (three tiles above a tall list), `tiles` (3 × 3 blocks),
+ * `board` (tiles under blank cards) or `quad` (four short cards above a 2 × 2 grid)) that stack on narrow panels and spread into three columns
  * once the panel is wide enough. It is decorative, so it is hidden from assistive technology.
  */
 function AppShellPlaceholderGrid({ preset = 'dashboard', variant = 'dashed', animated = false, className, ...props }) {

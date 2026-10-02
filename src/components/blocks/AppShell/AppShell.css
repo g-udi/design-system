@@ -174,11 +174,59 @@
     height: 10rem;
     margin-block-end: auto;
   }
+  /* Block cards: a short row is a heading pair over a band; md and lg rows give the block more room. */
+  .ds-app-shell-placeholder[data-kind='block'][data-size='md'] {
+    min-height: 15rem;
+  }
+  .ds-app-shell-placeholder[data-kind='block'] [data-slot='app-shell-placeholder-line']:last-child {
+    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
+  }
+  .ds-app-shell-placeholder[data-kind='tile'] {
+    min-height: 8rem;
+  }
+  .ds-app-shell-placeholder[data-kind='rows'] [data-slot='app-shell-placeholder-line'] {
+    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
+  }
+  /* Blank cards: a plain face on the surface over the muted strip of the card. */
+  .ds-app-shell-placeholder[data-kind='blank'] {
+    padding: 0 0 calc(var(--ds-space-scale, 1) * 2.5rem);
+    min-height: 9rem;
+  }
+  .ds-app-shell-placeholder-face {
+    flex: 1 1 auto;
+    margin: -1px -1px 0;
+    border: 1px solid color-mix(in oklab, var(--ds-color-border) 60%, transparent);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+  }
+  @container (min-width: 28rem) {
+    .ds-app-shell-placeholder-grid[data-preset='tiles'],
+    .ds-app-shell-placeholder-grid[data-preset='board'],
+    .ds-app-shell-placeholder-grid[data-preset='quad'] {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ds-app-shell-placeholder[data-span='half'] {
+      grid-column: span 1;
+    }
+  }
+  @container (min-width: 44rem) {
+    .ds-app-shell-placeholder-grid[data-preset='tiles'],
+    .ds-app-shell-placeholder-grid[data-preset='board'] {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .ds-app-shell-placeholder-grid[data-preset='quad'] {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .ds-app-shell-placeholder[data-span='half'] {
+      grid-column: span 2;
+    }
+  }
   @container (min-width: 28rem) {
     .ds-app-shell-placeholder-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .ds-app-shell-placeholder-grid[data-preset='dashboard'],
+    .ds-app-shell-placeholder-grid[data-preset='stack'],
     .ds-app-shell-placeholder-grid[data-preset='split'] {
       grid-template-rows: auto 1fr;
     }

@@ -152,6 +152,7 @@ export const animatedIconRegistry = {
   "BookText": artwork16,
   "BookUser": drawIcons["BookUser"],
   "Bot": artwork17,
+  "Boxes": drawIcons["Boxes"],
   "Braces": drawIcons["Braces"],
   "Brain": drawIcons["Brain"],
   "Briefcase": drawIcons["Briefcase"],
@@ -221,6 +222,7 @@ export const animatedIconRegistry = {
   "Coins": drawIcons["Coins"],
   "Columns2": drawIcons["Columns2"],
   "Columns3": drawIcons["Columns3"],
+  "Combine": drawIcons["Combine"],
   "Command": drawIcons["Command"],
   "Compass": artwork30,
   "Copy": artwork31,
@@ -284,6 +286,7 @@ export const animatedIconRegistry = {
   "Globe": drawIcons["Globe"],
   "GraduationCap": artwork46,
   "Grid": drawIcons["Grid3x3"],
+  "Grid2x2": drawIcons["Grid2x2"],
   "Grid3X3": drawIcons["Grid3x3"],
   "GripHorizontal": drawIcons["GripHorizontal"],
   "GripVertical": artwork47,
@@ -315,6 +318,7 @@ export const animatedIconRegistry = {
   "Keyboard": artwork54,
   "KeyRound": drawIcons["KeyRound"],
   "KeySquare": drawIcons["KeySquare"],
+  "LandPlot": drawIcons["LandPlot"],
   "Laptop": drawIcons["Laptop"],
   "Layers": artwork55,
   "Layout": drawIcons["PanelsTopLeft"],
@@ -347,8 +351,10 @@ export const animatedIconRegistry = {
   "Magnet": drawIcons["Magnet"],
   "MagnifyingGlassIcon": artwork59,
   "MailOutline": drawIcons["Mail"],
+  "Map": drawIcons["Map"],
   "MapPin": artwork60,
   "MapPinCheckInside": drawIcons["MapPinCheckInside"],
+  "MapPinned": drawIcons["MapPinned"],
   "markdown": artwork40,
   "Maximize": artwork61,
   "Maximize2": artwork62,
@@ -378,6 +384,8 @@ export const animatedIconRegistry = {
   "Package": drawIcons["Package"],
   "Palette": drawIcons["Palette"],
   "PanelLeft": drawIcons["PanelLeft"],
+  "PanelLeftClose": drawIcons["PanelLeftClose"],
+  "PanelLeftOpen": drawIcons["PanelLeftOpen"],
   "PanelRightOpen": artwork69,
   "Panels": drawIcons["PanelsTopLeft"],
   "Paperclip": drawIcons["Paperclip"],
@@ -421,6 +429,7 @@ export const animatedIconRegistry = {
   "Save": drawIcons["Save"],
   "Scale": drawIcons["Scale"],
   "Scan": drawIcons["Scan"],
+  "ScanSearch": drawIcons["ScanSearch"],
   "Scissors": drawIcons["Scissors"],
   "Search": artwork59,
   "SearchCheck": drawIcons["SearchCheck"],
@@ -448,7 +457,9 @@ export const animatedIconRegistry = {
   "Split": drawIcons["Split"],
   "Sprout": drawIcons["Sprout"],
   "Square": drawIcons["Square"],
+  "SquareActivity": drawIcons["SquareActivity"],
   "SquareCheck": drawIcons["SquareCheck"],
+  "SquareDashedMousePointer": drawIcons["SquareDashedMousePointer"],
   "SquarePen": artwork70,
   "SquareTerminal": drawIcons["SquareTerminal"],
   "SquareUser": drawIcons["SquareUser"],
@@ -731,6 +742,10 @@ export const animatedIconMetadata = {
     "canonical": "Bot",
     "source": "lucide-animated",
     "slug": "bot"
+  },
+  "Boxes": {
+    "canonical": "Boxes",
+    "source": "gaudi-draw"
   },
   "Braces": {
     "canonical": "Braces",
@@ -1024,6 +1039,10 @@ export const animatedIconMetadata = {
     "canonical": "Columns3",
     "source": "gaudi-draw"
   },
+  "Combine": {
+    "canonical": "Combine",
+    "source": "gaudi-draw"
+  },
   "Command": {
     "canonical": "Command",
     "source": "gaudi-draw"
@@ -1296,6 +1315,10 @@ export const animatedIconMetadata = {
     "canonical": "Grid3x3",
     "source": "gaudi-draw"
   },
+  "Grid2x2": {
+    "canonical": "Grid2x2",
+    "source": "gaudi-draw"
+  },
   "Grid3X3": {
     "canonical": "Grid3x3",
     "source": "gaudi-draw"
@@ -1427,6 +1450,10 @@ export const animatedIconMetadata = {
   },
   "KeySquare": {
     "canonical": "KeySquare",
+    "source": "gaudi-draw"
+  },
+  "LandPlot": {
+    "canonical": "LandPlot",
     "source": "gaudi-draw"
   },
   "Laptop": {
@@ -1564,6 +1591,10 @@ export const animatedIconMetadata = {
     "canonical": "Mail",
     "source": "gaudi-draw"
   },
+  "Map": {
+    "canonical": "Map",
+    "source": "gaudi-draw"
+  },
   "MapPin": {
     "canonical": "MapPin",
     "source": "lucide-animated",
@@ -1571,6 +1602,10 @@ export const animatedIconMetadata = {
   },
   "MapPinCheckInside": {
     "canonical": "MapPinCheckInside",
+    "source": "gaudi-draw"
+  },
+  "MapPinned": {
+    "canonical": "MapPinned",
     "source": "gaudi-draw"
   },
   "markdown": {
@@ -1697,6 +1732,14 @@ export const animatedIconMetadata = {
   },
   "PanelLeft": {
     "canonical": "PanelLeft",
+    "source": "gaudi-draw"
+  },
+  "PanelLeftClose": {
+    "canonical": "PanelLeftClose",
+    "source": "gaudi-draw"
+  },
+  "PanelLeftOpen": {
+    "canonical": "PanelLeftOpen",
     "source": "gaudi-draw"
   },
   "PanelRightOpen": {
@@ -1883,6 +1926,10 @@ export const animatedIconMetadata = {
     "canonical": "Scan",
     "source": "gaudi-draw"
   },
+  "ScanSearch": {
+    "canonical": "ScanSearch",
+    "source": "gaudi-draw"
+  },
   "Scissors": {
     "canonical": "Scissors",
     "source": "gaudi-draw"
@@ -1999,8 +2046,16 @@ export const animatedIconMetadata = {
     "canonical": "Square",
     "source": "gaudi-draw"
   },
+  "SquareActivity": {
+    "canonical": "SquareActivity",
+    "source": "gaudi-draw"
+  },
   "SquareCheck": {
     "canonical": "SquareCheck",
+    "source": "gaudi-draw"
+  },
+  "SquareDashedMousePointer": {
+    "canonical": "SquareDashedMousePointer",
     "source": "gaudi-draw"
   },
   "SquarePen": {

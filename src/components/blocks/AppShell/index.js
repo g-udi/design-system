@@ -5,3 +5,4 @@ export { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupActio
 export { AppShellBody, AppShellFrame, AppShellHeader, AppShellPanel, useAppShellFrame } from './parts/frame.jsx';
 export { AppShellPlaceholder, AppShellPlaceholderGrid } from './parts/placeholder.jsx';
 export { AppShellNav } from './parts/nav.jsx';
+export { AppShellNotifications } from './parts/notifications.jsx';

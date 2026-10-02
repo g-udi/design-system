@@ -5021,6 +5021,50 @@
       ],
       "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
     },
+    "blocks-application-appshell--app-shell-pattern-10": {
+      "id": "blocks-application-appshell--app-shell-pattern-10",
+      "title": "Blocks/App Shell",
+      "name": "Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-11": {
+      "id": "blocks-application-appshell--app-shell-pattern-11",
+      "title": "Blocks/App Shell",
+      "name": "Topbar pills · section pills, route search palette and an inset notifications sheet",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-12": {
+      "id": "blocks-application-appshell--app-shell-pattern-12",
+      "title": "Blocks/App Shell",
+      "name": "Mission control · icon rail, 4-tab missions panel and expandable robot event feeds",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-13": {
+      "id": "blocks-application-appshell--app-shell-pattern-13",
+      "title": "Blocks/App Shell",
+      "name": "Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
     "blocks-application-appshell--sidebar-pattern-1": {
       "id": "blocks-application-appshell--sidebar-pattern-1",
       "title": "Blocks/App Shell",

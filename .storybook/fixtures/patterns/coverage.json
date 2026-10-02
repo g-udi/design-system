@@ -4461,6 +4461,38 @@
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-9.jsx",
           "sha256": "2ae688e8cc73939fe807fcee42f05720b5c90edd3ffb957cb65fbec0f1b284a5",
           "storyId": "blocks-application-appshell--app-shell-pattern-9"
+        },
+        {
+          "name": "c-app-shell-10",
+          "title": "Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu",
+          "description": "Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-10.jsx",
+          "sha256": "753e211c2277957930631aaee8b96f5fefabe3600141ac74af48bf648c207848",
+          "storyId": "blocks-application-appshell--app-shell-pattern-10"
+        },
+        {
+          "name": "c-app-shell-11",
+          "title": "Topbar pills · section pills, route search palette and an inset notifications sheet",
+          "description": "Topbar pills · section pills, route search palette and an inset notifications sheet",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-11.jsx",
+          "sha256": "56dcc28a12175ada0da129854633efbac98899b798fbfa2d55480f0f3ffbf3a1",
+          "storyId": "blocks-application-appshell--app-shell-pattern-11"
+        },
+        {
+          "name": "c-app-shell-12",
+          "title": "Mission control · icon rail, 4-tab missions panel and expandable robot event feeds",
+          "description": "Mission control · icon rail, 4-tab missions panel and expandable robot event feeds",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-12.jsx",
+          "sha256": "db08c1c91f8afbb41f9f132f8fa584710384c44bbe06b1236e644f57a7acee80",
+          "storyId": "blocks-application-appshell--app-shell-pattern-12"
+        },
+        {
+          "name": "c-app-shell-13",
+          "title": "Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree",
+          "description": "Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-13.jsx",
+          "sha256": "bba61d155e4d554908233543b654b22a6181a315bf0f0f55ef3acaeac4d94ddc",
+          "storyId": "blocks-application-appshell--app-shell-pattern-13"
         }
       ]
     }

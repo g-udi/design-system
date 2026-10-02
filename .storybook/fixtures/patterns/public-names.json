@@ -1293,5 +1293,8 @@
   "src/components/blocks/AppShell/parts/placeholder.jsx": {
     "AppShellPlaceholder": "AppShellPlaceholder",
     "AppShellPlaceholderGrid": "AppShellPlaceholderGrid"
+  },
+  "src/components/blocks/AppShell/parts/notifications.jsx": {
+    "AppShellNotifications": "AppShellNotifications"
   }
 }

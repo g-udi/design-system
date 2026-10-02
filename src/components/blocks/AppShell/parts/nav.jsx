@@ -274,6 +274,8 @@ function NestedItem({ item, value, onValueChange, size, remembered, onRemember, 
  * `{ label, variant: 'plain' }` is a bare count. `quickAction(item)` returns `{ label, icon, onSelect }`
  * for one more hover action beside the row menu (pin, unpin), and `action` places a group action (a
  * `SidebarGroupAction`, for example "Add project") at the end of the group label.
+ * `labelIcon` puts a registry icon before the group label and `labelClassName` restyles it (for
+ * example a route group heading above indented rows).
  */
 function AppShellNav({
   label,
@@ -289,6 +291,8 @@ function AppShellNav({
   quickAction,
   itemClassName,
   action,
+  labelIcon,
+  labelClassName,
   className,
   ...props
 }) {
@@ -360,7 +364,12 @@ function AppShellNav({
   }
   return (
     <SidebarGroup className={groupClass} {...props}>
-      {label ? <SidebarGroupLabel>{label}</SidebarGroupLabel> : null}
+      {label ? (
+        <SidebarGroupLabel className={cn(labelIcon && 'gap-2', labelClassName)}>
+          {labelIcon ? <RegistryIcon lucide={labelIcon} aria-hidden='true' /> : null}
+          {label}
+        </SidebarGroupLabel>
+      ) : null}
       {action}
       <SidebarGroupContent>{list}</SidebarGroupContent>
     </SidebarGroup>
