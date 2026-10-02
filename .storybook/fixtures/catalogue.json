@@ -635,6 +635,524 @@
       ],
       "importPath": "./src/components/blocks/Wizard/Wizard.stories.jsx"
     },
+    "chat-activityindicator--playground": {
+      "id": "chat-activityindicator--playground",
+      "title": "Chat/ActivityIndicator",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ActivityIndicator/ActivityIndicator.stories.jsx"
+    },
+    "chat-activityindicator--docs": {
+      "id": "chat-activityindicator--docs",
+      "title": "Chat/ActivityIndicator",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ActivityIndicator/ActivityIndicator.stories.jsx"
+    },
+    "chat-activityindicator--reply-lifecycle": {
+      "id": "chat-activityindicator--reply-lifecycle",
+      "title": "Chat/ActivityIndicator",
+      "name": "A reply from thinking to done",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ActivityIndicator/ActivityIndicator.stories.jsx"
+    },
+    "chat-agentmark--playground": {
+      "id": "chat-agentmark--playground",
+      "title": "Chat/AgentMark",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
+    "chat-agentmark--docs": {
+      "id": "chat-agentmark--docs",
+      "title": "Chat/AgentMark",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
+    "chat-agentmark--in-a-thread": {
+      "id": "chat-agentmark--in-a-thread",
+      "title": "Chat/AgentMark",
+      "name": "In a thread, with several agents",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
+    "chat-bubble--playground": {
+      "id": "chat-bubble--playground",
+      "title": "Chat/Bubble",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/Bubble/Bubble.stories.jsx"
+    },
+    "chat-bubble--docs": {
+      "id": "chat-bubble--docs",
+      "title": "Chat/Bubble",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Bubble/Bubble.stories.jsx"
+    },
+    "chat-chatactivityhistory--playground": {
+      "id": "chat-chatactivityhistory--playground",
+      "title": "Chat/ChatActivityHistory",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatActivityHistory/ChatActivityHistory.stories.jsx"
+    },
+    "chat-chatactivityhistory--docs": {
+      "id": "chat-chatactivityhistory--docs",
+      "title": "Chat/ChatActivityHistory",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatActivityHistory/ChatActivityHistory.stories.jsx"
+    },
+    "chat-chatdelegation--playground": {
+      "id": "chat-chatdelegation--playground",
+      "title": "Chat/ChatDelegation",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/ChatDelegation.stories.jsx"
+    },
+    "chat-chatdelegation--docs": {
+      "id": "chat-chatdelegation--docs",
+      "title": "Chat/ChatDelegation",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/ChatDelegation.stories.jsx"
+    },
+    "chat-chateffortslider--playground": {
+      "id": "chat-chateffortslider--playground",
+      "title": "Chat/ChatEffortSlider",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatEffortSlider/ChatEffortSlider.stories.jsx"
+    },
+    "chat-chateffortslider--docs": {
+      "id": "chat-chateffortslider--docs",
+      "title": "Chat/ChatEffortSlider",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatEffortSlider/ChatEffortSlider.stories.jsx"
+    },
+    "chat-chateffortslider--review-depth": {
+      "id": "chat-chateffortslider--review-depth",
+      "title": "Chat/ChatEffortSlider",
+      "name": "Custom levels: review depth",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatEffortSlider/ChatEffortSlider.stories.jsx"
+    },
+    "chat-chaterror--playground": {
+      "id": "chat-chaterror--playground",
+      "title": "Chat/ChatError",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatError/ChatError.stories.jsx"
+    },
+    "chat-chaterror--docs": {
+      "id": "chat-chaterror--docs",
+      "title": "Chat/ChatError",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatError/ChatError.stories.jsx"
+    },
+    "chat-chatfeedback--playground": {
+      "id": "chat-chatfeedback--playground",
+      "title": "Chat/ChatFeedback",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatFeedback/ChatFeedback.stories.jsx"
+    },
+    "chat-chatfeedback--docs": {
+      "id": "chat-chatfeedback--docs",
+      "title": "Chat/ChatFeedback",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatFeedback/ChatFeedback.stories.jsx"
+    },
+    "chat-chatfeedback--rating-with-a-reason": {
+      "id": "chat-chatfeedback--rating-with-a-reason",
+      "title": "Chat/ChatFeedback",
+      "name": "Rating with a reason",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatFeedback/ChatFeedback.stories.jsx"
+    },
+    "chat-chatfile--playground": {
+      "id": "chat-chatfile--playground",
+      "title": "Chat/ChatFile",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatFile/ChatFile.stories.jsx"
+    },
+    "chat-chatfile--docs": {
+      "id": "chat-chatfile--docs",
+      "title": "Chat/ChatFile",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatFile/ChatFile.stories.jsx"
+    },
+    "chat-chatfileexplorer--playground": {
+      "id": "chat-chatfileexplorer--playground",
+      "title": "Chat/ChatFileExplorer",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatFileExplorer/ChatFileExplorer.stories.jsx"
+    },
+    "chat-chatfileexplorer--docs": {
+      "id": "chat-chatfileexplorer--docs",
+      "title": "Chat/ChatFileExplorer",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatFileExplorer/ChatFileExplorer.stories.jsx"
+    },
+    "chat-chatinput--playground": {
+      "id": "chat-chatinput--playground",
+      "title": "Chat/ChatInput",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInput.stories.jsx"
+    },
+    "chat-chatinput--docs": {
+      "id": "chat-chatinput--docs",
+      "title": "Chat/ChatInput",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInput.stories.jsx"
+    },
+    "chat-chatplanpanel--playground": {
+      "id": "chat-chatplanpanel--playground",
+      "title": "Chat/ChatPlanPanel",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatPlanPanel/ChatPlanPanel.stories.jsx"
+    },
+    "chat-chatplanpanel--docs": {
+      "id": "chat-chatplanpanel--docs",
+      "title": "Chat/ChatPlanPanel",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatPlanPanel/ChatPlanPanel.stories.jsx"
+    },
+    "chat-chatplanpanel--plan-in-progress": {
+      "id": "chat-chatplanpanel--plan-in-progress",
+      "title": "Chat/ChatPlanPanel",
+      "name": "Plan in progress",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatPlanPanel/ChatPlanPanel.stories.jsx"
+    },
+    "chat-chatpromptsuggestions--playground": {
+      "id": "chat-chatpromptsuggestions--playground",
+      "title": "Chat/ChatPromptSuggestions",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatPromptSuggestions/ChatPromptSuggestions.stories.jsx"
+    },
+    "chat-chatpromptsuggestions--docs": {
+      "id": "chat-chatpromptsuggestions--docs",
+      "title": "Chat/ChatPromptSuggestions",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatPromptSuggestions/ChatPromptSuggestions.stories.jsx"
+    },
+    "chat-chatreasoning--playground": {
+      "id": "chat-chatreasoning--playground",
+      "title": "Chat/ChatReasoning",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/ChatReasoning.stories.jsx"
+    },
+    "chat-chatreasoning--docs": {
+      "id": "chat-chatreasoning--docs",
+      "title": "Chat/ChatReasoning",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/ChatReasoning.stories.jsx"
+    },
+    "chat-chatreasoning--thinking-then-answer": {
+      "id": "chat-chatreasoning--thinking-then-answer",
+      "title": "Chat/ChatReasoning",
+      "name": "Thinking, then the answer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/ChatReasoning.stories.jsx"
+    },
+    "chat-chatsessionlist--playground": {
+      "id": "chat-chatsessionlist--playground",
+      "title": "Chat/ChatSessionList",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatSessionList/ChatSessionList.stories.jsx"
+    },
+    "chat-chatsessionlist--docs": {
+      "id": "chat-chatsessionlist--docs",
+      "title": "Chat/ChatSessionList",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatSessionList/ChatSessionList.stories.jsx"
+    },
+    "chat-chatsources--playground": {
+      "id": "chat-chatsources--playground",
+      "title": "Chat/ChatSources",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatSources/ChatSources.stories.jsx"
+    },
+    "chat-chatsources--docs": {
+      "id": "chat-chatsources--docs",
+      "title": "Chat/ChatSources",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatSources/ChatSources.stories.jsx"
+    },
+    "chat-chatthreadnav--playground": {
+      "id": "chat-chatthreadnav--playground",
+      "title": "Chat/ChatThreadNav",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatThreadNav/ChatThreadNav.stories.jsx"
+    },
+    "chat-chatthreadnav--docs": {
+      "id": "chat-chatthreadnav--docs",
+      "title": "Chat/ChatThreadNav",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatThreadNav/ChatThreadNav.stories.jsx"
+    },
+    "chat-chattool--playground": {
+      "id": "chat-chattool--playground",
+      "title": "Chat/ChatTool",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatTool/ChatTool.stories.jsx"
+    },
+    "chat-chattool--docs": {
+      "id": "chat-chattool--docs",
+      "title": "Chat/ChatTool",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatTool/ChatTool.stories.jsx"
+    },
+    "chat-chattool--structured-data": {
+      "id": "chat-chattool--structured-data",
+      "title": "Chat/ChatTool",
+      "name": "Structured data with a JSON view",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatTool/ChatTool.stories.jsx"
+    },
+    "chat-chatwelcome--playground": {
+      "id": "chat-chatwelcome--playground",
+      "title": "Chat/ChatWelcome",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatWelcome/ChatWelcome.stories.jsx"
+    },
+    "chat-chatwelcome--docs": {
+      "id": "chat-chatwelcome--docs",
+      "title": "Chat/ChatWelcome",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatWelcome/ChatWelcome.stories.jsx"
+    },
+    "chat-message--playground": {
+      "id": "chat-message--playground",
+      "title": "Chat/Message",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/Message/Message.stories.jsx"
+    },
+    "chat-message--docs": {
+      "id": "chat-message--docs",
+      "title": "Chat/Message",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Message/Message.stories.jsx"
+    },
+    "chat-messagelist--playground": {
+      "id": "chat-messagelist--playground",
+      "title": "Chat/MessageList",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageList.stories.jsx"
+    },
+    "chat-messagelist--docs": {
+      "id": "chat-messagelist--docs",
+      "title": "Chat/MessageList",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageList.stories.jsx"
+    },
     "core-accordion--playground": {
       "id": "core-accordion--playground",
       "title": "Core/Layout & Containers/Accordion",
@@ -1788,27 +2306,6 @@
         "autodocs"
       ],
       "importPath": "./src/components/core/Marker/Marker.stories.jsx"
-    },
-    "core-message--playground": {
-      "id": "core-message--playground",
-      "title": "Core/Messaging/Message",
-      "name": "Playground",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/Message.stories.jsx"
-    },
-    "core-message--docs": {
-      "id": "core-message--docs",
-      "title": "Core/Messaging/Message",
-      "name": "Docs",
-      "type": "docs",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/Message.stories.jsx"
     },
     "core-navigationmenu--playground": {
       "id": "core-navigationmenu--playground",
@@ -4281,6 +4778,214 @@
       ],
       "importPath": "./src/components/blocks/Wizard/WizardPatterns.stories.jsx"
     },
+    "chat-bubble--bubble-pattern-1": {
+      "id": "chat-bubble--bubble-pattern-1",
+      "title": "Chat/Bubble",
+      "name": "Support thread",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Bubble/BubblePatterns.stories.jsx"
+    },
+    "chat-bubble--bubble-pattern-2": {
+      "id": "chat-bubble--bubble-pattern-2",
+      "title": "Chat/Bubble",
+      "name": "Bubble variants in a release thread",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Bubble/BubblePatterns.stories.jsx"
+    },
+    "chat-bubble--bubble-pattern-7": {
+      "id": "chat-bubble--bubble-pattern-7",
+      "title": "Chat/Bubble",
+      "name": "Formatted answer with show more",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Bubble/BubblePatterns.stories.jsx"
+    },
+    "chat-bubble--bubble-pattern-6": {
+      "id": "chat-bubble--bubble-pattern-6",
+      "title": "Chat/Bubble",
+      "name": "Quick reply bubbles and an action row",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Bubble/BubblePatterns.stories.jsx"
+    },
+    "chat-chatdelegation--chat-delegation-pattern-1": {
+      "id": "chat-chatdelegation--chat-delegation-pattern-1",
+      "title": "Chat/ChatDelegation",
+      "name": "Handing work to another agent",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/ChatDelegationPatterns.stories.jsx"
+    },
+    "chat-chaterror--chat-error-pattern-1": {
+      "id": "chat-chaterror--chat-error-pattern-1",
+      "title": "Chat/ChatError",
+      "name": "Error, retry and suggestions",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatError/ChatErrorPatterns.stories.jsx"
+    },
+    "chat-chatfile--chat-file-pattern-1": {
+      "id": "chat-chatfile--chat-file-pattern-1",
+      "title": "Chat/ChatFile",
+      "name": "Delivered files and data",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatFile/ChatFilePatterns.stories.jsx"
+    },
+    "chat-chatinput--prompt-composer-pattern-1": {
+      "id": "chat-chatinput--prompt-composer-pattern-1",
+      "title": "Chat/ChatInput",
+      "name": "Chat composer: Mentions, commands and attachments",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInputPatterns.stories.jsx"
+    },
+    "chat-chatinput--prompt-composer-pattern-2": {
+      "id": "chat-chatinput--prompt-composer-pattern-2",
+      "title": "Chat/ChatInput",
+      "name": "Chat composer: Queue follow-ups while a reply streams",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInputPatterns.stories.jsx"
+    },
+    "chat-chatinput--prompt-composer-pattern-3": {
+      "id": "chat-chatinput--prompt-composer-pattern-3",
+      "title": "Chat/ChatInput",
+      "name": "Chat composer: Model and effort",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatInput/ChatInputPatterns.stories.jsx"
+    },
+    "chat-chatsources--chat-sources-pattern-1": {
+      "id": "chat-chatsources--chat-sources-pattern-1",
+      "title": "Chat/ChatSources",
+      "name": "Research with citations",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatSources/ChatSourcesPatterns.stories.jsx"
+    },
+    "chat-chattool--chat-tool-pattern-1": {
+      "id": "chat-chattool--chat-tool-pattern-1",
+      "title": "Chat/ChatTool",
+      "name": "Running tools",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatTool/ChatToolPatterns.stories.jsx"
+    },
+    "chat-message--message-pattern-2": {
+      "id": "chat-message--message-pattern-2",
+      "title": "Chat/Message",
+      "name": "Team conversation",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Message/MessagePatterns.stories.jsx"
+    },
+    "chat-message--message-pattern-7": {
+      "id": "chat-message--message-pattern-7",
+      "title": "Chat/Message",
+      "name": "Assistant reply",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/Message/MessagePatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-4": {
+      "id": "chat-messagelist--message-scroller-pattern-4",
+      "title": "Chat/MessageList",
+      "name": "Opening position and jump to latest",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-2": {
+      "id": "chat-messagelist--message-scroller-pattern-2",
+      "title": "Chat/MessageList",
+      "name": "Streaming reply that follows the edge",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-3": {
+      "id": "chat-messagelist--message-scroller-pattern-3",
+      "title": "Chat/MessageList",
+      "name": "Anchored turn with a previous peek",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-5": {
+      "id": "chat-messagelist--message-scroller-pattern-5",
+      "title": "Chat/MessageList",
+      "name": "Load earlier without losing your place",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-6": {
+      "id": "chat-messagelist--message-scroller-pattern-6",
+      "title": "Chat/MessageList",
+      "name": "Thread navigator for stepping turns",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
+    "chat-messagelist--message-scroller-pattern-7": {
+      "id": "chat-messagelist--message-scroller-pattern-7",
+      "title": "Chat/MessageList",
+      "name": "Streamed reply: drafting a post",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/MessageList/MessageListPatterns.stories.jsx"
+    },
     "core-accordion--accordion-pattern-1": {
       "id": "core-accordion--accordion-pattern-1",
       "title": "Core/Layout & Containers/Accordion",
@@ -6293,38 +6998,6 @@
       ],
       "importPath": "./src/components/core/Input/InputPatterns.stories.jsx"
     },
-    "core-input--prompt-composer-pattern-1": {
-      "id": "core-input--prompt-composer-pattern-1",
-      "title": "Core/Input",
-      "name": "Chat composer: Mentions, commands and attachments",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
-    },
-    "core-input--prompt-composer-pattern-2": {
-      "id": "core-input--prompt-composer-pattern-2",
-      "title": "Core/Input",
-      "name": "Chat composer: Queue follow-ups while a reply streams",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
-    },
-    "core-input--prompt-composer-pattern-3": {
-      "id": "core-input--prompt-composer-pattern-3",
-      "title": "Core/Input",
-      "name": "Chat composer: Model and effort",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Input/PromptComposerPatterns.stories.jsx"
-    },
     "core-inputotp--input-otp-pattern-1": {
       "id": "core-inputotp--input-otp-pattern-1",
       "title": "Core/Advanced Inputs/InputOtp",
@@ -6504,182 +7177,6 @@
         "play-fn"
       ],
       "importPath": "./src/components/core/Marker/MarkerPatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-1": {
-      "id": "core-message--ai-message-pattern-1",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Drafting a post",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-2": {
-      "id": "core-message--ai-message-pattern-2",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Research with citations",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-3": {
-      "id": "core-message--ai-message-pattern-3",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Running tools",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-4": {
-      "id": "core-message--ai-message-pattern-4",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Handing work to another agent",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-5": {
-      "id": "core-message--ai-message-pattern-5",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Delivered files and data",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--ai-message-pattern-6": {
-      "id": "core-message--ai-message-pattern-6",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply: Error, retry and suggestions",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/AiMessagePatterns.stories.jsx"
-    },
-    "core-message--bubble-pattern-1": {
-      "id": "core-message--bubble-pattern-1",
-      "title": "Core/Messaging/Message",
-      "name": "Bubble: Support thread",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/BubblePatterns.stories.jsx"
-    },
-    "core-message--bubble-pattern-2": {
-      "id": "core-message--bubble-pattern-2",
-      "title": "Core/Messaging/Message",
-      "name": "Bubble: Bubble variants in a release thread",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/BubblePatterns.stories.jsx"
-    },
-    "core-message--bubble-pattern-7": {
-      "id": "core-message--bubble-pattern-7",
-      "title": "Core/Messaging/Message",
-      "name": "Bubble: Formatted answer with show more",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/BubblePatterns.stories.jsx"
-    },
-    "core-message--bubble-pattern-6": {
-      "id": "core-message--bubble-pattern-6",
-      "title": "Core/Messaging/Message",
-      "name": "Bubble: Quick reply bubbles and an action row",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/BubblePatterns.stories.jsx"
-    },
-    "core-message--message-pattern-2": {
-      "id": "core-message--message-pattern-2",
-      "title": "Core/Messaging/Message",
-      "name": "Team conversation",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessagePatterns.stories.jsx"
-    },
-    "core-message--message-pattern-7": {
-      "id": "core-message--message-pattern-7",
-      "title": "Core/Messaging/Message",
-      "name": "Assistant reply",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessagePatterns.stories.jsx"
-    },
-    "core-message--message-scroller-pattern-4": {
-      "id": "core-message--message-scroller-pattern-4",
-      "title": "Core/Messaging/Message",
-      "name": "Message Scroller: Opening position and jump to latest",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessageScrollerPatterns.stories.jsx"
-    },
-    "core-message--message-scroller-pattern-2": {
-      "id": "core-message--message-scroller-pattern-2",
-      "title": "Core/Messaging/Message",
-      "name": "Message Scroller: Streaming reply that follows the edge",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessageScrollerPatterns.stories.jsx"
-    },
-    "core-message--message-scroller-pattern-3": {
-      "id": "core-message--message-scroller-pattern-3",
-      "title": "Core/Messaging/Message",
-      "name": "Message Scroller: Anchored turn with a previous peek",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/core/Message/MessageScrollerPatterns.stories.jsx"
-    },
-    "core-message--message-scroller-pattern-5": {
-      "id": "core-message--message-scroller-pattern-5",
-      "title": "Core/Messaging/Message",
-      "name": "Message Scroller: Load earlier without losing your place",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessageScrollerPatterns.stories.jsx"
-    },
-    "core-message--message-scroller-pattern-6": {
-      "id": "core-message--message-scroller-pattern-6",
-      "title": "Core/Messaging/Message",
-      "name": "Message Scroller: Thread navigator for stepping turns",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/core/Message/MessageScrollerPatterns.stories.jsx"
     },
     "core-navigationmenu--navigation-menu-pattern-1": {
       "id": "core-navigationmenu--navigation-menu-pattern-1",

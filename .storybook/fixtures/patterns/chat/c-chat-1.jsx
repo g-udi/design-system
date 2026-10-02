@@ -1,25 +1,18 @@
 'use client';
 import { useState } from 'react';
-import { ChatShell, ChatThreadNav } from '../../../../src/components/blocks/Chat/parts/chat-shell.jsx';
-import { ChatSessionList } from '../../../../src/components/blocks/Chat/parts/chat-sessions.jsx';
-import { ChatFileExplorer } from '../../../../src/components/blocks/Chat/parts/chat-files.jsx';
-import { ChatActivity, ChatPlan } from '../../../../src/components/blocks/Chat/parts/chat-plan.jsx';
+import { ChatShell } from '../../../../src/components/blocks/Chat/parts/chat-shell.jsx';
+import { ChatThreadNav } from '../../../../src/components/chat/ChatThreadNav/parts/chat-thread-nav.jsx';
+import { ChatSessionList } from '../../../../src/components/chat/ChatSessionList/parts/chat-sessions.jsx';
+import { ChatFileExplorer } from '../../../../src/components/chat/ChatFileExplorer/parts/chat-files.jsx';
+import { ChatActivity } from '../../../../src/components/chat/ChatActivityHistory/parts/chat-activity.jsx';
+import { ChatPlan } from '../../../../src/components/chat/ChatPlanPanel/parts/chat-plan.jsx';
 import { default as Avatar } from '../../../../src/components/core/Avatar/index.js';
-import { Bubble, BubbleContent } from '../../../../src/components/core/Message/parts/bubble.jsx';
-import { Message, MessageAvatar, MessageContent, MessageHeader } from '../../../../src/components/core/Message/parts/message.jsx';
-import {
-  MessageScroller,
-  MessageScrollerButton,
-  MessageScrollerContent,
-  MessageScrollerItem,
-  MessageScrollerProvider,
-  MessageScrollerViewport,
-  useMessageScroller,
-  useMessageScrollerVisibility
-} from '../../../../src/components/core/Message/parts/message-scroller.jsx';
-import { MessageParts } from '../../../../src/components/core/Message/parts/message-parts.jsx';
-import { MessageFeedback } from '../../../../src/components/core/Message/parts/message-actions.jsx';
-import { PromptComposer } from '../../../../src/components/core/Input/parts/prompt-composer.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
+import { Message, MessageAvatar, MessageContent, MessageHeader } from '../../../../src/components/chat/Message/parts/message.jsx';
+import { MessageScroller, MessageScrollerButton, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport, useMessageScroller, useMessageScrollerVisibility } from '../../../../src/components/chat/MessageList/parts/message-scroller.jsx';
+import { MessageParts } from '../../../../src/components/chat/MessageList/parts/message-parts.jsx';
+import { MessageFeedback } from '../../../../src/components/chat/ChatFeedback/parts/message-feedback.jsx';
+import { PromptComposer } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const initialSessions = [

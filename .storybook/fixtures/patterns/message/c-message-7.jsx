@@ -1,20 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
-import {
-  Bubble,
-  BubbleContent
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Marker,
   MarkerContent,
   MarkerIcon
 } from '../../../../src/components/core/Marker/parts/marker.jsx';
-import {
-  Message,
-  MessageContent,
-  MessageFooter
-} from '../../../../src/components/core/Message/parts/message.jsx';
+import { Message, MessageContent, MessageFooter } from '../../../../src/components/chat/Message/parts/message.jsx';
 import { Spinner } from '../../../../src/components/core/Spinner/parts/spinner.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { PromptComposer, PromptQueue } from '../../../../src/components/core/Input/parts/prompt-composer.jsx';
+import { PromptComposer, PromptQueue } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { Spinner } from '../../../../src/components/core/Spinner/parts/spinner.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 

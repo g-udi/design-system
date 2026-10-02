@@ -65,6 +65,8 @@
   [data-slot='spinner'],
   [data-slot='marker-icon'],
   [data-slot='message-citation'],
+  [data-slot='agent-mark'],
+  [data-slot='activity-indicator'],
   [data-slot^='rating-star'],
   [data-slot='chart-mark'],
   .ds-part-calendar-day-button,

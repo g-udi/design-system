@@ -1,19 +1,13 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { ChatShell } from '../../../../src/components/blocks/Chat/parts/chat-shell.jsx';
-import { ChatSessionList } from '../../../../src/components/blocks/Chat/parts/chat-sessions.jsx';
-import { Bubble, BubbleContent } from '../../../../src/components/core/Message/parts/bubble.jsx';
-import { Message, MessageContent, MessageHeader } from '../../../../src/components/core/Message/parts/message.jsx';
-import {
-  MessageScroller,
-  MessageScrollerContent,
-  MessageScrollerItem,
-  MessageScrollerProvider,
-  MessageScrollerViewport
-} from '../../../../src/components/core/Message/parts/message-scroller.jsx';
-import { MessageParts } from '../../../../src/components/core/Message/parts/message-parts.jsx';
-import { MessageFeedback } from '../../../../src/components/core/Message/parts/message-actions.jsx';
-import { PromptComposer, PromptQueue } from '../../../../src/components/core/Input/parts/prompt-composer.jsx';
+import { ChatSessionList } from '../../../../src/components/chat/ChatSessionList/parts/chat-sessions.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
+import { Message, MessageContent, MessageHeader } from '../../../../src/components/chat/Message/parts/message.jsx';
+import { MessageScroller, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport } from '../../../../src/components/chat/MessageList/parts/message-scroller.jsx';
+import { MessageParts } from '../../../../src/components/chat/MessageList/parts/message-parts.jsx';
+import { MessageFeedback } from '../../../../src/components/chat/ChatFeedback/parts/message-feedback.jsx';
+import { PromptComposer, PromptQueue } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { default as Textarea } from '../../../../src/components/core/Textarea/index.js';
 import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 

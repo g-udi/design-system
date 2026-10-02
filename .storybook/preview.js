@@ -188,7 +188,7 @@ const preview = {
        * must stay self-contained (no references to outer variables).
        */
       storySort: (a, b) => {
-        const sectionOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography', 'Core', 'Blocks', 'Navigation', 'MDX', 'Post', 'Layout' ];
+        const sectionOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography', 'Core', 'Blocks', 'Chat', 'Navigation', 'MDX', 'Post', 'Layout' ];
         const rank = (list, value) => {
           const index = list.indexOf(value);
           return index === -1 ? list.length : index;

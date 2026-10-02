@@ -22,7 +22,7 @@ function Tree({
 }) {
   const containerProps =
     tree && typeof tree.getContainerProps === 'function'
-      ? tree.getContainerProps()
+      ? tree.getContainerProps(props['aria-label'])
       : {};
   const mergedProps = { ...props, ...containerProps };
   const { style: propStyle, ...otherProps } = mergedProps;

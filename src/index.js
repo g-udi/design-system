@@ -5,6 +5,7 @@
  * and the compiled-MDX runtime from '@gaudi/design-system/mdx/runtime'.
  */
 export * from './components/blocks';
+export * from './components/chat';
 export * from './components/core';
 export * from './components/layout';
 export * from './components/navigation';

@@ -1,14 +1,19 @@
 # Chat
 
-Chat surfaces built from Gaudi parts. `ChatShell` frames a conversation, either as a full page or as a narrow assistant panel beside other work. Around it sit `ChatSessionList` (conversations with rename and delete), `ChatFileExplorer` (files on the core Tree), `ChatPlan` and `ChatActivity` (both on Timeline), `ChatWelcome` (the empty state) and `ChatThreadNav` (step through the prompts).
+`ChatShell` frames a conversation, either as a full page or as a narrow assistant panel beside other work. Everything inside it comes from the Chat area (`@gaudi/design-system/chat`):
 
-The turns themselves come from Core: `Message`, `Bubble` and `MessageParts` for replies, `MessageScroller` for the thread, and `PromptComposer` with `PromptQueue` for input.
+- the turns: `Message`, `Bubble`, `MessageParts` and `MessageScroller`;
+- the composer: `PromptComposer`, `PromptQueue` and `ChatModelSelect`;
+- the side columns: `ChatSessionList`, `ChatFileExplorer`, `ChatPlan` and `ChatActivity`;
+- the empty state and navigation: `ChatWelcome` and `ChatThreadNav`.
+
+The shell adds layout only: columns, Sheets on small screens and focus return. It has no chat behaviour of its own, so every example here is a composition you can copy.
 
 ## Usage
 
 ```jsx
-import { ChatPlan, ChatSessionList, ChatShell } from '@gaudi/design-system/blocks/Chat';
-import { MessageParts, MessageScroller, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport, PromptComposer } from '@gaudi/design-system';
+import { ChatShell } from '@gaudi/design-system/blocks/Chat';
+import { ChatPlan, ChatSessionList, MessageParts, MessageScroller, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport, PromptComposer } from '@gaudi/design-system/chat';
 
 <MessageScrollerProvider autoScroll>
   <ChatShell
@@ -37,15 +42,9 @@ import { MessageParts, MessageScroller, MessageScrollerContent, MessageScrollerI
 | Part | Contract |
 | --- | --- |
 | `ChatShell` | `variant` page or sidebar. Page shows `navigation`, the thread and `details` side by side from md and xl; below that they open in Sheets from labelled header buttons, which get focus back when the Sheet closes. Sidebar is one column with navigation in a Sheet. `title`, `subtitle`, `headerActions` and `composer` fill the frame; the thread (`children`) owns its scrolling. |
-| `ChatSessionList` | `sessions` `{ id, title, preview?, group?, live? }`, grouped and searchable, with `onSelect`, `onNew`, `onRename` (dialog) and `onDelete` (confirmation). The current chat has `aria-current`. |
-| `ChatFileExplorer` | `items` as a flat map under `rootId`; folders expand, `onSelect(id, item)` opens a file. |
-| `ChatPlan` | `steps` `{ id, title, status, description?, owner?, todos? }`, with a progress summary and collapse. |
-| `ChatActivity` | `items` `{ id, title, time, detail?, status?, icon? }`, a neutral history rail. |
-| `ChatThreadNav` | `turns`, `current` and `onNavigate`: previous, next and a menu of every prompt. Pair it with `useMessageScroller().scrollToMessage`. |
-| `ChatWelcome` | Greeting, description and `suggestions` for a new chat. |
 
-Statuses (pending, running, done, failed, cancelled) are the same vocabulary as `MessageStatus`.
+Each part placed in the shell is documented on its own Chat page.
 
 ## Accessibility
 
-The page never scrolls; the thread does, inside a labelled region. While a reply streams, mark it `aria-busy` (MessageParts does this) and announce the start and the end once in a polite status. Never announce every token. Every icon action has a label, rename and delete go through dialogs with clear titles, and choosing a chat or file in the phone Sheet closes it and returns focus to the button that opened it.
+The page never scrolls; the thread does, inside a labelled region. While a reply streams, mark it `aria-busy` (MessageParts does this) and announce the start and the end once in a polite status. Never announce every token. Every icon action has a label, and choosing a chat or file in the phone Sheet closes it and returns focus to the button that opened it.

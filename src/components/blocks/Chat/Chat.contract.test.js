@@ -7,8 +7,11 @@ import { loadComponent } from '../../../test-support/renderComponent.js';
 const api = await loadComponent(new URL('./index.js', import.meta.url));
 const example = await loadComponent(new URL('../../../../.storybook/fixtures/patterns/chat/c-chat-4.jsx', import.meta.url));
 
-test('Chat publishes the shell and its panels and supports server rendering', () => {
-  for (const name of ['ChatShell', 'ChatSessionList', 'ChatFileExplorer', 'ChatPlan', 'ChatActivity', 'ChatThreadNav', 'ChatWelcome']) assert.ok(api[name], name);
+test('Chat publishes the shell, composed only from Chat-area parts, and supports server rendering', async () => {
+  assert.ok(api.ChatShell, 'ChatShell');
+  const { readFile } = await import('node:fs/promises');
+  const source = await readFile(new URL('./parts/chat-shell.jsx', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /core\/Message|function Chat(Welcome|ThreadNav|Plan|Activity|SessionList)/, 'the shell has no chat parts of its own');
   const html = renderToStaticMarkup(createElement(example.Pattern));
   assert.match(html, /data-slot="chat-shell"/);
   assert.match(html, /<h2[^>]*>Launch: Gaudi 2.0<\/h2>/);
@@ -24,12 +27,4 @@ test('ChatShell names its regions and opens side columns from labelled buttons',
   assert.match(html, /data-slot="chat-thread"/);
   const sidebar = renderToStaticMarkup(createElement(api.ChatShell, { variant: 'sidebar', title: 'Assistant', navigation: 'Sessions' }, 'Thread'));
   assert.doesNotMatch(sidebar, /aria-label="Chats and files"/, 'the sidebar keeps navigation in a Sheet');
-});
-
-test('Sessions mark the current chat, plans count finished steps', () => {
-  const sessions = renderToStaticMarkup(createElement(api.ChatSessionList, { activeId: 'a', onRename: () => {}, onDelete: () => {}, sessions: [{ id: 'a', title: 'First', group: 'Today' }, { id: 'b', title: 'Second' }] }));
-  assert.match(sessions, /aria-current="page"[^>]*>.*First/s);
-  assert.match(sessions, /aria-label="Chat options: Second"/);
-  const plan = renderToStaticMarkup(createElement(api.ChatPlan, { steps: [{ id: '1', title: 'Read', status: 'done' }, { id: '2', title: 'Write', status: 'running' }] }));
-  assert.match(plan, /1 of 2 done/);
 });

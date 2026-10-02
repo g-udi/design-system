@@ -5,12 +5,7 @@ import {
   AvatarFallback,
   AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
-import {
-  Bubble,
-  BubbleContent,
-  BubbleGroup,
-  BubbleReactions
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
+import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Card,

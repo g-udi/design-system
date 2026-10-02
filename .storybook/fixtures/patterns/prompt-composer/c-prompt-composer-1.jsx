@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { PromptComposer } from '../../../../src/components/core/Input/parts/prompt-composer.jsx';
+import { PromptComposer } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 
 const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;

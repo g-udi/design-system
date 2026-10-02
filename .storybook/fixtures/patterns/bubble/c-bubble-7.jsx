@@ -1,9 +1,6 @@
 'use client';
 import { useState } from 'react';
-import {
-  Bubble,
-  BubbleContent
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Collapsible,

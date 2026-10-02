@@ -43,6 +43,7 @@ module.exports = {
 - Never import consumer files (`@/data/meta/*`, `@/app/content/*`, `@/lib/utils/*`, `contentlayer/generated`) from this package. Site data flows in through `SiteConfigProvider` (metadata, navigation) and component props (`LayoutContainer`'s `metadata`/`navigation`/`jsonLd`/`menuProps`/`footerProps`); generic helpers such as `formatDate`, `sortPosts`, and `coreContent` live in `src/utilities/` and are exported from the root entry.
 - All package-internal imports are relative. Do not introduce `@/` aliases in `src/`.
 - MDX components live only in the `./mdx` entry (not re-exported from the root), and the compiled-MDX runtime lives in `./mdx/runtime`.
+- Chat and agent building blocks (messages, bubbles, the message list, the composer, reply parts such as reasoning, tools and sources, and chat panels) live in `src/components/chat/<Owner>` and the `./chat` entry; they are also exported from the root. Blocks/Chat holds only `ChatShell`, which composes Chat parts and must not grow its own chat behaviour.
 
 ## Storybook Navigation
 
@@ -66,6 +67,7 @@ module.exports = {
 - Load original component stories before curated extensions. Every curated story must retain `autodocs` so merged Docs pages include all examples. Give independent examples unique form and heading IDs, and avoid stealing focus on initial Docs load.
 - Blocks are composed product/editorial sections. Document every variant as a real usage example with its own code.
 - Navigation is documented under `Blocks/Navigation`; low-level navigation pieces stay exported but are not separate docs destinations.
+- Chat is a top-level sidebar section after Blocks: one page per Chat owner (`Chat/<Owner>`). Blocks/Chat documents the composed shell.
 
 ## MDX Work
 

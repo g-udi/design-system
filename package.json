@@ -21,6 +21,14 @@
       "import": "./src/components/blocks/*/index.js",
       "default": "./src/components/blocks/*/index.js"
     },
+    "./chat": {
+      "import": "./src/components/chat/index.js",
+      "default": "./src/components/chat/index.js"
+    },
+    "./chat/*": {
+      "import": "./src/components/chat/*/index.js",
+      "default": "./src/components/chat/*/index.js"
+    },
     "./components/*": {
       "import": "./src/components/*",
       "default": "./src/components/*"
