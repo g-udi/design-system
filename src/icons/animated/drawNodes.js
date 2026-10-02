@@ -113,6 +113,29 @@ export const drawNodes = {
       }
     ]
   ],
+  "ArrowDownToLine": [
+    [
+      "path",
+      {
+        "d": "M12 17V3",
+        "key": "1cwfxf"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "m6 11 6 6 6-6",
+        "key": "12ii2o"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M19 21H5",
+        "key": "150jfl"
+      }
+    ]
+  ],
   "ArrowLeftFromLine": [
     [
       "path",
@@ -287,6 +310,29 @@ export const drawNodes = {
       {
         "d": "M7 4v16",
         "key": "1glfcx"
+      }
+    ]
+  ],
+  "ArrowUpToLine": [
+    [
+      "path",
+      {
+        "d": "M5 3h14",
+        "key": "7usisc"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "m18 13-6-6-6 6",
+        "key": "1kf1n9"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M12 7v14",
+        "key": "1akyts"
       }
     ]
   ],
@@ -4441,6 +4487,43 @@ export const drawNodes = {
         "height": "6",
         "rx": "1",
         "key": "cif1o7"
+      }
+    ]
+  ],
+  "ListTree": [
+    [
+      "path",
+      {
+        "d": "M8 5h13",
+        "key": "1pao27"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M13 12h8",
+        "key": "h98zly"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M13 19h8",
+        "key": "c3s6r1"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M3 10a2 2 0 0 0 2 2h3",
+        "key": "1npucw"
+      }
+    ],
+    [
+      "path",
+      {
+        "d": "M3 5v12a2 2 0 0 0 2 2h3",
+        "key": "x1gjn2"
       }
     ]
   ],

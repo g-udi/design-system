@@ -115,6 +115,7 @@ export const animatedIconRegistry = {
   "ArrowDown": artwork6,
   "ArrowDownCircle": drawIcons["CircleArrowDown"],
   "ArrowDownIcon": artwork6,
+  "ArrowDownToLine": drawIcons["ArrowDownToLine"],
   "ArrowLeft": artwork7,
   "ArrowLeftFromLine": drawIcons["ArrowLeftFromLine"],
   "ArrowLeftRight": drawIcons["ArrowLeftRight"],
@@ -129,6 +130,7 @@ export const animatedIconRegistry = {
   "ArrowUpDown": drawIcons["ArrowUpDown"],
   "ArrowUpIcon": artwork9,
   "ArrowUpRight": artwork10,
+  "ArrowUpToLine": drawIcons["ArrowUpToLine"],
   "AtSign": drawIcons["AtSign"],
   "AudioLines": drawIcons["AudioLines"],
   "Award": drawIcons["Award"],
@@ -336,6 +338,7 @@ export const animatedIconRegistry = {
   "ListMusic": drawIcons["ListMusic"],
   "ListPlus": drawIcons["ListPlus"],
   "ListTodo": drawIcons["ListTodo"],
+  "ListTree": drawIcons["ListTree"],
   "Loader2": artwork57,
   "LoaderCircle": artwork57,
   "LocateFixed": drawIcons["LocateFixed"],
@@ -567,6 +570,10 @@ export const animatedIconMetadata = {
     "source": "lucide-animated",
     "slug": "arrow-down"
   },
+  "ArrowDownToLine": {
+    "canonical": "ArrowDownToLine",
+    "source": "gaudi-draw"
+  },
   "ArrowLeft": {
     "canonical": "ArrowLeft",
     "source": "lucide-animated",
@@ -629,6 +636,10 @@ export const animatedIconMetadata = {
     "canonical": "ArrowUpRight",
     "source": "lucide-animated",
     "slug": "arrow-up-right"
+  },
+  "ArrowUpToLine": {
+    "canonical": "ArrowUpToLine",
+    "source": "gaudi-draw"
   },
   "AtSign": {
     "canonical": "AtSign",
@@ -1511,6 +1522,10 @@ export const animatedIconMetadata = {
   },
   "ListTodo": {
     "canonical": "ListTodo",
+    "source": "gaudi-draw"
+  },
+  "ListTree": {
+    "canonical": "ListTree",
     "source": "gaudi-draw"
   },
   "Loader2": {

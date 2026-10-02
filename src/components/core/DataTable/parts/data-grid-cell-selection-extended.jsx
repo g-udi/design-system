@@ -1957,7 +1957,8 @@ function DataGridSelectionBar({
     <Subscribe source={rowSelectionAtom}>
       {() => {
         const table = latestContext.current.table;
-        const count = table.getSelectedRowModel().rows.length;
+        // flatRows: in a tree, `rows` drops selected children of unselected parents.
+        const count = table.getSelectedRowModel().flatRows.length;
         if (count === 0) return null;
         return (
           <div

@@ -462,6 +462,44 @@
   "src/components/core/DataTable/parts/data-grid-table-virtual-extended.jsx": {
     "DataGridTableVirtual": "DataGridTableVirtual"
   },
+  "src/components/core/DataTable/parts/data-grid-tree-rows-extended.jsx": {
+    "DataGridTableLazyStatusRow": "DataGridTableLazyStatusRow",
+    "formatDataGridRollup": "formatDataGridRollup",
+    "getDataGridRollupRows": "getDataGridRollupRows",
+    "getDataGridRollupValue": "getDataGridRollupValue",
+    "getDataGridRowLabel": "getDataGridRowLabel",
+    "getDataGridRowSiblings": "getDataGridRowSiblings",
+    "getDataGridSiblingMove": "getDataGridSiblingMove",
+    "getDataGridTreeTotal": "getDataGridTreeTotal",
+    "moveDataGridRow": "moveDataGridRow",
+    "renderDataGridRollup": "renderDataGridRollup",
+    "useDataGridLazyRows": "useDataGridLazyRows",
+    "useDataGridRowOrder": "useDataGridRowOrder",
+    "useDataGridStructureLabels": "useDataGridStructureLabels"
+  },
+  "src/components/core/DataTable/parts/data-grid-tree-extended.jsx": {
+    "DataGridTableTreeRowSelect": "DataGridTableTreeRowSelect",
+    "DataGridTableTreeRowSelectAll": "DataGridTableTreeRowSelectAll",
+    "DataGridTableTreeTotals": "DataGridTableTreeTotals",
+    "DataGridTreeExpand": "DataGridTreeExpand",
+    "getDataGridTreeSelectionState": "getDataGridTreeSelectionState",
+    "toggleDataGridTreeRowSelected": "toggleDataGridTreeRowSelected"
+  },
+  "src/components/core/DataTable/parts/data-grid-table-tree-dnd-extended.jsx": {
+    "DataGridTableTreeDnd": "DataGridTableTreeDnd",
+    "DataGridTableTreeDndHandle": "DataGridTableTreeDndHandle"
+  },
+  "src/components/core/DataTable/parts/data-grid-table-sections-extended.jsx": {
+    "DataGridTableHeadRows": "DataGridTableHeadRows",
+    "DataGridTableSectionSelectAll": "DataGridTableSectionSelectAll",
+    "DataGridTableSections": "DataGridTableSections",
+    "dataGridSectionTones": "dataGridSectionTones",
+    "useDataGridSection": "useDataGridSection"
+  },
+  "src/components/core/DataTable/parts/data-grid-row-move-extended.jsx": {
+    "DataGridTableRowMoveItems": "DataGridTableRowMoveItems",
+    "handleDataGridRowMoveKey": "handleDataGridRowMoveKey"
+  },
   "src/components/core/DataTable/parts/data-grid-table-extended.jsx": {
     "DataGridTable": "DataGridTable",
     "DataGridTableAddRow": "DataGridTableAddRow",

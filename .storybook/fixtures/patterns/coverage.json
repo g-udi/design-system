@@ -1458,6 +1458,22 @@
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-41.jsx",
           "sha256": "3c37ca825074f2dabbb0e4be71d29759c22bc9aae7b70d384179c323e24f7ee9",
           "storyId": "core-datatable--data-grid-pattern-41"
+        },
+        {
+          "name": "c-data-grid-45",
+          "title": "Shared drive tree",
+          "description": "Shared drive tree",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-45.jsx",
+          "sha256": "60302614b1ecd2da08a96715f36d15f4917a5391e66521d61c5864efcad6aebe",
+          "storyId": "core-datatable--data-grid-pattern-45"
+        },
+        {
+          "name": "c-data-grid-46",
+          "title": "Editorial desk",
+          "description": "Editorial desk",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-46.jsx",
+          "sha256": "ee5b76ba4c6c7c66e450788f0afdc783268959ea533a609130e90f0d3d8fce24",
+          "storyId": "core-datatable--data-grid-pattern-46"
         }
       ]
     },

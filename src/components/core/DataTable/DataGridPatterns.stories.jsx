@@ -33,6 +33,88 @@ export const DataGridPattern26 = {
   }
 };
 export const DataGridPattern30 = { name: 'Tree rows', ...pattern(30) };
+const rowOf = (canvas, text) => canvas.getByText(text).closest('tr');
+export const DataGridPattern45 = {
+  name: 'Shared drive tree',
+  ...pattern(45, 'A file tree whose folders load their contents when opened: a skeleton row while the request is pending, an error row with Retry when it fails, and a cache so reopening is instant. Drag a file before, after or into a folder (hovering a closed folder opens it), or focus its grip and press Enter, the arrow keys and Enter to move it from the keyboard; a row never drops into itself. Checking a folder checks everything inside it and a partly checked folder reads as mixed, with the bulk bar counting every item. Size, cost and last-modified roll up through every level, the footer totals the whole drive, and Expand opens all, none, or the top levels.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    // A lazy folder shows a loading row, then its contents.
+    await userEvent.click(within(rowOf(canvas, 'Design')).getByRole('button', { name: 'Expand row' }));
+    await expect(await canvas.findByText('Loading Design')).toBeInTheDocument();
+    await expect(await canvas.findByText('Brand guidelines.pdf')).toBeVisible();
+    // A failed load offers Retry, which loads it.
+    await userEvent.click(within(rowOf(canvas, 'Archive')).getByRole('button', { name: 'Expand row' }));
+    await expect(await canvas.findByRole('alert')).toHaveTextContent("Couldn't load Archive");
+    await userEvent.click(canvas.getByRole('button', { name: 'Retry' }));
+    await expect(await canvas.findByText('2024 invoices.zip')).toBeVisible();
+    // Checking a folder checks its contents; unchecking one leaves it mixed.
+    await userEvent.click(within(rowOf(canvas, 'Design')).getByRole('checkbox', { name: 'Select row' }));
+    await expect(within(rowOf(canvas, 'Brand guidelines.pdf')).getByRole('checkbox')).toBeChecked();
+    await expect(await canvas.findByText('4 items selected')).toBeVisible();
+    await userEvent.click(within(rowOf(canvas, 'Design tokens.json')).getByRole('checkbox'));
+    await expect(within(rowOf(canvas, 'Design')).getByRole('checkbox')).toHaveAttribute('aria-checked', 'mixed');
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear' }));
+    // Keyboard move: pick up the roadmap, walk up to "Into Marketing", drop.
+    const announcement = () => canvasElement.querySelector('[data-slot="data-grid-table-viewport"] > [role="status"]')?.textContent ?? '';
+    within(rowOf(canvas, 'Roadmap 2027.pdf')).getByRole('button', { name: /Drag to move row/ }).focus();
+    await userEvent.keyboard('{Enter}');
+    for (let step = 0; step < 40 && !announcement().includes('Into Marketing'); step++) await userEvent.keyboard('{ArrowUp}');
+    await expect(announcement()).toContain('Into Marketing');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(rowOf(canvas, 'Roadmap 2027.pdf')).toHaveAttribute('data-depth', '1'));
+    await expect(announcement()).toContain('Moved Roadmap 2027.pdf');
+    // The footer totals the drive; Collapse all folds every folder.
+    await expect(canvas.getByText('All files')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Expand' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Collapse all' }));
+    await waitFor(() => expect(canvas.queryByText('Brand guidelines.pdf')).not.toBeInTheDocument());
+    await expect(within(rowOf(canvas, 'Design')).getByRole('button', { name: 'Expand row' })).toHaveAttribute('aria-expanded', 'false');
+  }
+};
+export const DataGridPattern46 = {
+  name: 'Editorial desk',
+  ...pattern(46, 'Stories banded by status, desk or editor. Each band is its own section with a tinted header, a count, select-all for that section, an Add action and a collapse toggle, and repeats the column headers; sorting, selection and the bulk bar are shared across every band, and empty bands stay visible. The row menu moves a story up, down, to the top or to the bottom of its band, and Reset order puts the plan back. Running order switches to one draggable list where Alt+Arrow and Alt+Home/End move the focused story, and a search that matches nothing shows an empty state.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const section = (name) => canvas.getByRole('table', { name });
+    const firstRow = (name) => within(section(name)).getAllByRole('row')[1];
+    // One table per band, each with its own column headers.
+    await expect(canvas.getAllByRole('table')).toHaveLength(4);
+    await expect(canvas.getAllByRole('columnheader', { name: /Headline/ })).toHaveLength(4);
+    // Select-all for one band feeds the shared bulk bar.
+    await userEvent.click(canvas.getByRole('checkbox', { name: 'Select all in Drafting' }));
+    await expect(await canvas.findByText('3 stories selected')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear' }));
+    // An empty band stays visible and takes new rows.
+    await expect(within(section('Ready')).getByText('Nothing in Ready yet.')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Add to Ready' }));
+    await expect(await within(section('Ready')).findByText('Untitled story')).toBeVisible();
+    // Move to top within a band, then reset the order.
+    await userEvent.click(within(section('Editing')).getByRole('button', { name: 'Actions for Ten albums recorded in this town' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: /Move to top/ }));
+    await waitFor(() => expect(firstRow('Editing')).toHaveTextContent('Ten albums recorded in this town'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Reset order' }));
+    await waitFor(() => expect(firstRow('Editing')).toHaveTextContent('City council approves the night bus plan'));
+    await expect(canvas.getByRole('button', { name: 'Reset order' })).toBeDisabled();
+    // Re-band by desk.
+    await userEvent.click(canvas.getByRole('radio', { name: 'Desk' }));
+    await expect(await canvas.findByRole('table', { name: 'Features' })).toBeVisible();
+    // Running order: Alt+End sends the focused story to the bottom.
+    await userEvent.click(canvas.getByRole('radio', { name: 'Running order' }));
+    const handles = await canvas.findAllByRole('button', { name: 'Drag to reorder row' });
+    handles[0].focus();
+    await userEvent.keyboard('{Alt>}{End}{/Alt}');
+    await waitFor(() => expect(canvas.getAllByRole('row').at(-1)).toHaveTextContent('City council approves the night bus plan'));
+    // A search with no match shows the empty state.
+    await userEvent.type(canvas.getByRole('searchbox', { name: 'Search stories' }), 'zzz');
+    await expect(await canvas.findByText(/No stories match/)).toBeVisible();
+    await userEvent.clear(canvas.getByRole('searchbox', { name: 'Search stories' }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'Status' }));
+  }
+};
 export const DataGridPattern9 = { name: 'Sub table', ...pattern(9) };
 export const DataGridPattern31 = { name: 'Spreadsheet editing', ...pattern(31) };
 export const DataGridPattern40 = {

@@ -7541,6 +7541,28 @@
       ],
       "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
     },
+    "core-datatable--data-grid-pattern-45": {
+      "id": "core-datatable--data-grid-pattern-45",
+      "title": "Core/Data Display/DataTable",
+      "name": "Shared drive tree",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
+    "core-datatable--data-grid-pattern-46": {
+      "id": "core-datatable--data-grid-pattern-46",
+      "title": "Core/Data Display/DataTable",
+      "name": "Editorial desk",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
     "core-datatable--data-grid-pattern-9": {
       "id": "core-datatable--data-grid-pattern-9",
       "title": "Core/Data Display/DataTable",

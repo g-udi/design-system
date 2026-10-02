@@ -11,6 +11,8 @@ import {
   useState
 } from 'react';
 import { useDataGrid } from './data-grid-extended.jsx';
+import { handleDataGridRowMoveKey } from './data-grid-row-move-extended.jsx';
+import { getDataGridRowLabel, useDataGridStructureLabels } from './data-grid-tree-rows-extended.jsx';
 import {
   DataGridTableBase,
   DataGridTableBody,
@@ -55,7 +57,8 @@ import { default as Button } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 const SortableRowContext = createContext(null);
 function DataGridTableDndRowHandle({ className, disabled, disabledLabel }) {
-  const { i18n } = useDataGrid();
+  const { i18n, props } = useDataGrid();
+  const labels = useDataGridStructureLabels();
   const context = useContext(SortableRowContext);
   const resolvedDisabledLabel =
     disabledLabel ?? i18n.labels.reorderingUnavailable;
@@ -93,6 +96,24 @@ function DataGridTableDndRowHandle({ className, disabled, disabledLabel }) {
       aria-label={i18n.labels.dragToReorderRow}
       {...context.attributes}
       {...context.listeners}
+      // Alt+Arrow keys and Alt+Home/End move the row without picking it up,
+      // through the DataGrid's onRowMove; everything else is the drag sensor's.
+      onKeyDown={(event) => {
+        const moved = handleDataGridRowMoveKey(event, context.row, props.onRowMove);
+        if (!moved) {
+          context.listeners?.onKeyDown?.(event);
+          return;
+        }
+        if (moved === true) return;
+        const viewport = event.currentTarget.closest('[data-slot="data-grid-table-viewport"]');
+        const status = viewport?.querySelector('[data-slot="data-grid-row-move-status"]');
+        if (status) status.textContent = labels.movedToPosition(getDataGridRowLabel(context.row), moved.index + 1, moved.count);
+        // `CSS` in this file is dnd-kit's transform helper; escape with the global one.
+        const id = globalThis.CSS.escape(String(context.row.id));
+        requestAnimationFrame(() =>
+          viewport?.querySelector(`tr[data-row-id="${id}"] [data-slot="button"]`)?.focus()
+        );
+      }}
     >
       <RegistryIcon lucide='GripHorizontalIcon' aria-hidden='true' />
     </Button>
@@ -157,7 +178,7 @@ function DataGridTableDndRow({
   };
   const decoration = renderRowDecoration?.({ row, isDragging, isOver });
   return (
-    <SortableRowContext.Provider value={{ attributes, listeners }}>
+    <SortableRowContext.Provider value={{ attributes, listeners, row }}>
       <DataGridTableBodyRow row={row} dndRef={setNodeRef} dndStyle={style}>
         {row.getVisibleCells().map((cell, index2, cells) => {
           return (
@@ -399,6 +420,8 @@ function DataGridTableDndRows({
             : 'relative'
         }
       >
+        {/* Announces keyboard moves made with Alt+Arrow and Alt+Home/End. */}
+        <span data-slot='data-grid-row-move-status' role='status' aria-live='polite' className='sr-only' />
         <DataGridTableBase>
           <DataGridTableHead>
             {table.getHeaderGroups().map((headerGroup, index) => {

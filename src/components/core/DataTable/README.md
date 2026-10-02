@@ -88,6 +88,36 @@ draggable, virtualised, editable or server-driven grids.
   `start(row, { isNew: true })` opens a new row; `onCancel({ rowId, isNew })` lets the host remove it again.
 - **Labels.** The editing parts read `undo`, `redo`, `unsavedChanges(count)`, `invalidCells(count)`, `showInvalidCell`,
   `saveBlocked`, `save`, `saving`, `discard`, `editRow(name)`, `saveRow` and `cancelRowEdit` from `i18n.labels`.
+- **Lazy children.** `useDataGridLazyRows({ data, expanded, getRowHasChildren, loadChildren, onChildrenLoad })`
+  loads a parent's children the first time it opens. Spread its `tableOptions` into `useTable` and pass the hook to
+  `<DataGrid lazyRows={lazy}>`: the table shows a skeleton row under a pending parent and an error row with Retry when
+  the promise rejects. Results are cached (`invalidate(id)` drops one); `onChildrenLoad` merges them into host data,
+  which always wins over the cache. Mark the tree column with `meta.treeColumn` so status rows line up with it.
+- **Tree drag and drop.** `DataGridTableTreeDnd` is a body whose rows drop before, after or into another row
+  (`canDropInside(row)`, default: rows that can expand), drawn with the Tree's drop line. A row never drops into
+  itself or its descendants, a closed folder opens after a short hover, and reordering pauses while the grid is sorted.
+  `DataGridTableTreeDndHandle` is the grip; Enter or Space on it starts a keyboard move (arrow keys choose the place,
+  Enter drops, Escape cancels), announced through a status region.
+- **Row moves.** Drag and drop, the keyboard and `DataGridTableRowMoveItems` (Move up, Move down, Move to top, Move to
+  bottom for a row menu) all report through `<DataGrid onRowMove>` with `{ id, parentId, index, targetId, position }`.
+  `moveDataGridRow(data, move, { childrenKey })` applies a move to nested or flat data. Alt+Arrow and Alt+Home/End on
+  either drag handle move the focused row among its siblings. `useDataGridRowOrder(rows)` keeps a flat manual order with
+  `moveRow`, `handleDragEnd`, `reset` and `isReordered`. Pass an `emptyMessage` node for the DnD body's empty state.
+- **Tree selection.** `DataGridTableTreeRowSelect` and `DataGridTableTreeRowSelectAll` cascade: checking a parent
+  checks every descendant, a parent reads checked when all of its children are and mixed when some are, and children
+  that load under a checked parent arrive checked. `DataGridSelectionBar` counts every selected row at any depth.
+- **Rollups.** Give a column `meta.rollup: true` and an `aggregationFn`: tree parents show the aggregate of their
+  deepest loaded descendants (an unloaded parent keeps its own value), formatted by `meta.rollupCell({ value, row,
+  scope })`. `DataGridTableTreeTotals` adds a grand-total footer row; `getDataGridRollupValue` and
+  `getDataGridTreeTotal` return the numbers. `DataGridTreeExpand` offers Expand all, Collapse all and Expand to level N
+  (pass `levels` when deeper levels have not loaded yet).
+- **Banded sections.** `DataGridTableSections` renders a grouped grid as one section per group: a tinted band with the
+  title, a count, a collapse toggle, `selectable` select-all for the section and an optional `onSectionAdd` action,
+  followed by its own column headers. Sort, selection and columns stay shared, sections scroll sideways together, and
+  `sections={[{ value, label, tone, description }]}` orders the bands and keeps empty ones visible. Tones are
+  `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `attention` and `discovery`. Hide the grouped column
+  (`columnVisibility`) and set `groupedColumnMode: false`; `DataGridTableSectionSelectAll` and `useDataGridSection()`
+  work inside a section's headers and cells.
 - **Export.** `DataGridExport` saves the grid's visible columns, filters, sort and selection as CSV; `meta.exportValue`
   formats a cell and `meta.export: false` skips control columns. `toCsv`, `tableToCsv` and `downloadCsv` are exported for
   custom flows.

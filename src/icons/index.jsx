@@ -78,6 +78,9 @@ import CatalogueArchive from 'lucide-react/dist/esm/icons/archive.js';
 import CatalogueArrowLeftRight from 'lucide-react/dist/esm/icons/arrow-left-right.js';
 import CatalogueArrowLeftToLine from 'lucide-react/dist/esm/icons/arrow-left-to-line.js';
 import CatalogueArrowRightToLine from 'lucide-react/dist/esm/icons/arrow-right-to-line.js';
+import CatalogueArrowUpToLine from 'lucide-react/dist/esm/icons/arrow-up-to-line.js';
+import CatalogueArrowDownToLine from 'lucide-react/dist/esm/icons/arrow-down-to-line.js';
+import CatalogueListTree from 'lucide-react/dist/esm/icons/list-tree.js';
 import CatalogueArrowUpRight from 'lucide-react/dist/esm/icons/arrow-up-right.js';
 import CatalogueAtSign from 'lucide-react/dist/esm/icons/at-sign.js';
 import CatalogueAudioLines from 'lucide-react/dist/esm/icons/audio-lines.js';
@@ -464,6 +467,9 @@ export const iconRegistry = {
   'ArrowLeftRight': CatalogueArrowLeftRight,
   'ArrowLeftToLine': CatalogueArrowLeftToLine,
   'ArrowRightToLine': CatalogueArrowRightToLine,
+  'ArrowUpToLine': CatalogueArrowUpToLine,
+  'ArrowDownToLine': CatalogueArrowDownToLine,
+  'ListTree': CatalogueListTree,
   'ArrowUpRight': CatalogueArrowUpRight,
   'AtSign': CatalogueAtSign,
   'AudioLines': CatalogueAudioLines,

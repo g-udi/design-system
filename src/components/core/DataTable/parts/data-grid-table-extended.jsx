@@ -25,6 +25,11 @@ import {
   DataGridCellErrorIndicator,
   DataGridRowEditCell
 } from './data-grid-editing-extended.jsx';
+import {
+  DataGridTableLazyStatusRow,
+  getDataGridCellIsRollup,
+  renderDataGridRollupCell
+} from './data-grid-tree-rows-extended.jsx';
 const headerCellSpacingVariants = ({ size }) =>
   size === 'dense' ? 'px-2 h-8' : 'px-3';
 const bodyCellSpacingVariants = ({ size }) =>
@@ -1596,6 +1601,8 @@ function renderDataGridCellContent(cell) {
   // A group band has no record of its own: columns without an aggregate stay
   // empty there rather than echoing the first record in the group.
   if (cell.getIsPlaceholder?.() || cell.row.getIsGrouped?.()) return null;
+  // Tree parents in `meta.rollup` columns show their descendants' aggregate.
+  if (getDataGridCellIsRollup(cell)) return renderDataGridRollupCell(cell);
   return flexRender(cell.column.columnDef.cell, cell.getContext());
 }
 function DataGridTableRenderedRow({
@@ -1666,6 +1673,7 @@ function DataGridTableRenderedRow({
         ) : null}
       </DataGridTableBodyRow>
       {row.getIsExpanded() && <DataGridTableBodyRowExpandded row={row} />}
+      {row.getIsExpanded() && <DataGridTableLazyStatusRow row={row} />}
     </Fragment>
   );
 }
