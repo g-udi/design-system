@@ -6,7 +6,7 @@ import { toId } from 'storybook/internal/csf';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const entries = {};
-for (const directory of ['.storybook/stories', 'src/components']) {
+for (const directory of ['.storybook/stories', 'src/components', 'src/hooks']) {
   const files = await readdir(resolve(root, directory), { recursive: true });
   const storyFiles = files.filter(name => /\.stories\.(js|jsx)$/.test(name)).sort((a, b) =>
     Number(/Patterns\.stories/.test(a)) - Number(/Patterns\.stories/.test(b)) || a.localeCompare(b));

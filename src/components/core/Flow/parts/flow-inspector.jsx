@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Alert, AlertAction, AlertDescription, AlertTitle } from '../../Banner/parts/alert-extended.jsx';
 import { default as Button } from '../../Button/index.js';
 import { default as Icon } from '../../Icon/index.js';
@@ -8,6 +8,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../Tabs/index.js';
 import { cn } from '../../../../utilities/cn/index.js';
 import { FlowStatus } from './flow-node.jsx';
+import { useIsomorphicLayoutEffect } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
 
 export const DEFAULT_FLOW_INSPECTOR_LABELS = {
   close: 'Close',
@@ -17,7 +18,6 @@ export const DEFAULT_FLOW_INSPECTOR_LABELS = {
 };
 
 const calloutVariants = { info: 'info', success: 'success', warning: 'warning', danger: 'destructive', destructive: 'destructive' };
-const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
 // Floating needs room for the panel beside the graph; narrower canvases use a sheet.
 function useCanvasWidth(ref, breakpoint) {

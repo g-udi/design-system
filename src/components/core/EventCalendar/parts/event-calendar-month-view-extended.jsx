@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useId,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState
@@ -47,8 +46,7 @@ import {
 } from '../../Popover/parts/popover.jsx';
 import { ScrollArea } from '../../ScrollArea/parts/scroll-area.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-const useIsoLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+import { useIsomorphicLayoutEffect as useIsoLayoutEffect } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
 let focusedChip = null;
 function restoreChipFocus(root, segments) {
   const pending = focusedChip;

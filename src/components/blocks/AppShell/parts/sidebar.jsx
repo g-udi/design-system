@@ -3,7 +3,7 @@ import * as React from 'react';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Slot } from 'radix-ui';
-import { useIsMobile } from '../../../../hooks/use-mobile.js';
+import { useIsMobile } from '../../../../hooks/environment/use-mobile.js';
 import { default as Button } from '../../../core/Button/index.js';
 import { FieldInput as Input } from '../../../core/Field/index.js';
 import { Separator } from '../../../core/Separator/parts/separator.jsx';

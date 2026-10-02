@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { cn } from '../../../utilities/cn';
 import { CarouselContent, CarouselItem, CarouselRoot } from '../../core/Carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/parts/avatar.jsx';
@@ -31,7 +32,6 @@ export default function Screen({ aside, asideSide = 'end', asideClassName, heade
 }
 
 const initials = (name) => name.split(' ').map((part) => part[0]).join('');
-const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 /**
  * Customer quotes for an aside. With more than one quote it rotates every `interval`
@@ -42,6 +42,7 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
   const [api, setApi] = useState();
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
+  const reducedMotion = usePrefersReducedMotion();
   useEffect(() => {
     if (!api) return undefined;
     const sync = () => setCurrent(api.selectedScrollSnap());
@@ -50,10 +51,10 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
     return () => api.off('select', sync);
   }, [api]);
   useEffect(() => {
-    if (!api || paused || quotes.length < 2 || prefersReducedMotion()) return undefined;
+    if (!api || paused || quotes.length < 2 || reducedMotion) return undefined;
     const timer = setInterval(() => api.scrollNext(), interval);
     return () => clearInterval(timer);
-  }, [api, paused, quotes.length, interval]);
+  }, [api, paused, quotes.length, interval, reducedMotion]);
   return (
     <figure
       data-slot='screen-testimonial'

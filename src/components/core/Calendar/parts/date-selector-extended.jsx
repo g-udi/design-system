@@ -15,7 +15,7 @@ import {
   parse,
   subMonths
 } from 'date-fns';
-import { useIsMobile } from '../../../../hooks/use-mobile.js';
+import { useIsMobile } from '../../../../hooks/environment/use-mobile.js';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { Calendar, CalendarDayButton } from './calendar.jsx';

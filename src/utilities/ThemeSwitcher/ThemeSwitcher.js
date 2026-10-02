@@ -11,8 +11,9 @@
  * @version 1.0.0
  */
 
-import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+
+import { useIsClient } from '../../hooks/environment/use-is-client.js';
 
 import Icon from '../../components/core/Icon';
 
@@ -27,11 +28,7 @@ import Icon from '../../components/core/Icon';
  */
 function Provider() {
   const { setTheme, theme } = useTheme();
-  const [ mounted, setMounted ] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsClient();
 
   // Prevent hydration mismatch by not rendering theme-dependent content until mounted
   if (!mounted) return (

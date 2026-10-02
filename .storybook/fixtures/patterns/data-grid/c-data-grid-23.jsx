@@ -1,6 +1,6 @@
 'use client';
 import { useId, useMemo, useState } from 'react';
-import { useCopyToClipboard } from '../../../../src/hooks/use-copy-to-clipboard.js';
+import { useCopyToClipboard } from '../../../../src/hooks/interaction/use-copy-to-clipboard.js';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 import {
   DataGrid,

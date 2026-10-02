@@ -1,4 +1,19 @@
 import { componentReference } from './ComponentReference.js';
+import { hookCatalogue, hookTitle } from '../../src/hooks/catalogue.js';
+
+// Hooks/<Group>/<hook> pages: the API table lists parameters, then return values.
+const hookDocs = Object.fromEntries(hookCatalogue.map((hook) => [ hookTitle(hook), {
+  'accessibility': hook.accessibility,
+  'description': hook.description,
+  'notes': hook.notes,
+  'props': [
+    ...hook.params,
+    ...hook.returns.map(([ name, type, description ]) => [ `returns ${name}`, type, '—', description ])
+  ],
+  'propsTitle': 'API',
+  'usage': hook.usage,
+  'usageTitle': 'Usage'
+} ]));
 
 const groupDocs = {
   'Blocks': {
@@ -24,6 +39,11 @@ const groupDocs = {
       'Keep the user\'s message and the rest of the thread when a reply or tool fails, and offer a retry beside the failure.',
       'Let a stopped or failed reply be regenerated without losing the conversation or scroll position.'
     ]
+  },
+  'Hooks': {
+    'accessibility': 'Hooks carry behaviour, not markup: the component that uses one still owns its roles, names, focus order and announcements.',
+    'description': 'is a React hook from the Hooks collection, exported from @gaudi/design-system/hooks and the package root. It is SSR-safe.',
+    'recovery': []
   },
   'Content': {
     'accessibility': 'Content components should preserve semantic structure, readable labels, image alt text, and keyboard access for modals, search, pagination, and dropdown controls.',
@@ -949,10 +969,10 @@ const defaultUsage = (title, component) => {
 export const getComponentDocs = (sidebarTitle) => {
   // Sidebar groups (Core/Actions/Button) resolve to the owner key (Core/Button).
   const [ group, ...rest ] = sidebarTitle.split('/');
-  const title = rest.length > 1 && !(sidebarTitle in componentDocs) && !(sidebarTitle in componentReference) ? `${group}/${rest.at(-1)}` : sidebarTitle;
+  const title = rest.length > 1 && !(sidebarTitle in componentDocs) && !(sidebarTitle in componentReference) && !(sidebarTitle in hookDocs) ? `${group}/${rest.at(-1)}` : sidebarTitle;
   const component = rest.length > 1 ? rest.at(-1) : rest.join(' / ') || group;
   const docs = groupDocs[group] || groupDocs.Core;
-  const overrides = componentDocs[title] || componentReference[title] || {};
+  const overrides = componentDocs[title] || componentReference[title] || hookDocs[title] || {};
   const usage = overrides.usage || usageExamples[title] || defaultUsage(title, component);
 
   return {

@@ -77,7 +77,7 @@ test('Sidebar trigger reports its state and shortcut, and toggles are announced'
 test('useMediaQuery keeps the fallback during server rendering', async () => {
   const { createElement: h } = await import('react');
   const { renderToStaticMarkup } = await import('react-dom/server');
-  const { useMediaQuery } = await import('../../../hooks/use-media-query.js');
+  const { useMediaQuery } = await import('../../../hooks/environment/use-media-query.js');
   const Probe = ({ fallback }) => h('span', null, String(useMediaQuery('(min-width: 1024px)', fallback)));
   assert.equal(renderToStaticMarkup(h(Probe, { fallback: true })), '<span>true</span>');
   assert.equal(renderToStaticMarkup(h(Probe, { fallback: false })), '<span>false</span>');

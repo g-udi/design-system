@@ -529,7 +529,7 @@
           "title": "Copy with feedback",
           "description": "Copy with feedback",
           "file": ".storybook/fixtures/patterns/button/c-button-41.jsx",
-          "sha256": "34ae1b6cdd8498c89fb0e6bbe615b27f6c9d53131d622274cb13bdc19334227a",
+          "sha256": "c71a5c3e087cea30a20184d85a8acacc70e21fad52844bdd68f2cea2ce2108ee",
           "storyId": "core-button--button-pattern-41"
         },
         {
@@ -1204,7 +1204,7 @@
           "title": "Collapsible: Framed sections",
           "description": "Collapsible: Framed sections",
           "file": ".storybook/fixtures/patterns/collapsible/c-collapsible-7.jsx",
-          "sha256": "8d4560477150fd4c4a24301fe974d43732e45c7aed43b5ecfeec2666a86dc65e",
+          "sha256": "6d7c27b34d512ea6f1bea87f903cf038b75a07df15a5c33a9b69954d7b09c906",
           "storyId": "core-accordion--collapsible-pattern-7"
         },
         {
@@ -1376,7 +1376,7 @@
           "title": "CRUD in a frame",
           "description": "CRUD in a frame",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-23.jsx",
-          "sha256": "48fa0671b037d5647401c6684452938eb752fc35569ea1fb346a7058dc2250a2",
+          "sha256": "739c7c4adbcf30a351f3385fc08720576b27a0b37a19de1a8fe214de5d5b8e12",
           "storyId": "core-datatable--data-grid-pattern-23"
         },
         {
@@ -1400,7 +1400,7 @@
           "title": "Selection, expansion and pinned rows",
           "description": "Selection, expansion and pinned rows",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-29.jsx",
-          "sha256": "252b68e3a7776c4efda3b96db5f4f216e5a7fbd4f579e886cf661477dd863d03",
+          "sha256": "2f95154c7fd8e83d6e6fb7c5542e55fad0dc9b2a74eab5cff7f164cdbfd5a0c5",
           "storyId": "core-datatable--data-grid-pattern-29"
         },
         {
@@ -1996,7 +1996,7 @@
           "title": "Developer · Create an API key",
           "description": "Developer · Create an API key",
           "file": ".storybook/fixtures/patterns/forms/c-forms-10.jsx",
-          "sha256": "4f3d12e09d5dcff6e8e39eb907df8c781f6a940e762b198b357d6793add8a5f3",
+          "sha256": "87c222df7a08c5a3382466ff1c6995d5448ed035c1eaf66bcd3df30543376c7b",
           "storyId": "blocks-forms--forms-pattern-10"
         },
         {
@@ -3239,7 +3239,7 @@
           "title": "Developer",
           "description": "Developer",
           "file": ".storybook/fixtures/patterns/screens/c-screens-9.jsx",
-          "sha256": "2a54fd1d6eef87edda450b60a4cc1db2ea2914a1c11810ee2584a18ac6628eb0",
+          "sha256": "4e3860ba37ee9721614096bd82a4d9d0db001c0a55e18458c53a9ab3945f141b",
           "storyId": "blocks-settings--screens-pattern-9"
         },
         {
@@ -4411,7 +4411,7 @@
           "title": "Mail · app rail, folders and reading pane",
           "description": "Mail · app rail, folders and reading pane",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-3.jsx",
-          "sha256": "a9197d9ec2978acba0e8f8070f0efb1b31178c01dd5fe1c6e411d04c922c36d0",
+          "sha256": "7c7295af9be3d72287a9e0c0c1e12e2893573e1126b2e7dee68f4ee7adf5ca8e",
           "storyId": "blocks-application-appshell--app-shell-pattern-3"
         },
         {

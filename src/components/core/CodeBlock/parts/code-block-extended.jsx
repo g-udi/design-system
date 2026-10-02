@@ -9,7 +9,6 @@ import {
   useDeferredValue,
   useEffect,
   useId,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState
@@ -24,13 +23,12 @@ import {
 } from './code-block-highlight-extended.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
+import { useIsomorphicLayoutEffect as useIsoLayoutEffect } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
 const CodeBlockConfigContext = createContext(null);
 const CodeBlockDocumentContext = createContext(null);
 const CodeBlockHeaderContext = createContext(false);
 const CodeBlockSurfacePropsContext = createContext(null);
 const CodeBlockActionsContext = createContext(null);
-const useIsoLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 function useInternalConfig(part) {
   const context = useContext(CodeBlockConfigContext);
   if (!context) {

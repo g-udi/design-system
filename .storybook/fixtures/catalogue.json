@@ -10044,6 +10044,928 @@
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Table/TablePatterns.stories.jsx"
+    },
+    "hooks-a11y-usearrowkeynav--toolbar": {
+      "id": "hooks-a11y-usearrowkeynav--toolbar",
+      "title": "Hooks/A11y/useArrowKeyNav",
+      "name": "Toolbar",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-arrow-key-nav.stories.jsx"
+    },
+    "hooks-a11y-usearrowkeynav--docs": {
+      "id": "hooks-a11y-usearrowkeynav--docs",
+      "title": "Hooks/A11y/useArrowKeyNav",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-arrow-key-nav.stories.jsx"
+    },
+    "hooks-a11y-usearrowkeynav--vertical-list": {
+      "id": "hooks-a11y-usearrowkeynav--vertical-list",
+      "title": "Hooks/A11y/useArrowKeyNav",
+      "name": "Vertical section list",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-arrow-key-nav.stories.jsx"
+    },
+    "hooks-a11y-usefocustrap--inline-panel": {
+      "id": "hooks-a11y-usefocustrap--inline-panel",
+      "title": "Hooks/A11y/useFocusTrap",
+      "name": "Custom reply panel",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-focus-trap.stories.jsx"
+    },
+    "hooks-a11y-usefocustrap--docs": {
+      "id": "hooks-a11y-usefocustrap--docs",
+      "title": "Hooks/A11y/useFocusTrap",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-focus-trap.stories.jsx"
+    },
+    "hooks-a11y-usefocustrap--container-focus": {
+      "id": "hooks-a11y-usefocustrap--container-focus",
+      "title": "Hooks/A11y/useFocusTrap",
+      "name": "Focus the container first",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-focus-trap.stories.jsx"
+    },
+    "hooks-a11y-useliveannouncer--save-feedback": {
+      "id": "hooks-a11y-useliveannouncer--save-feedback",
+      "title": "Hooks/A11y/useLiveAnnouncer",
+      "name": "Polite and assertive messages",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-live-announcer.stories.jsx"
+    },
+    "hooks-a11y-useliveannouncer--docs": {
+      "id": "hooks-a11y-useliveannouncer--docs",
+      "title": "Hooks/A11y/useLiveAnnouncer",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-live-announcer.stories.jsx"
+    },
+    "hooks-a11y-useliveannouncer--result-count": {
+      "id": "hooks-a11y-useliveannouncer--result-count",
+      "title": "Hooks/A11y/useLiveAnnouncer",
+      "name": "Result count after typing settles",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/a11y/use-live-announcer.stories.jsx"
+    },
+    "hooks-a11y-useprefersreducedmotion--reading": {
+      "id": "hooks-a11y-useprefersreducedmotion--reading",
+      "title": "Hooks/A11y/usePrefersReducedMotion",
+      "name": "Read the preference",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-prefers-reduced-motion.stories.jsx"
+    },
+    "hooks-a11y-useprefersreducedmotion--docs": {
+      "id": "hooks-a11y-useprefersreducedmotion--docs",
+      "title": "Hooks/A11y/usePrefersReducedMotion",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-prefers-reduced-motion.stories.jsx"
+    },
+    "hooks-a11y-useprefersreducedmotion--autoplay-off": {
+      "id": "hooks-a11y-useprefersreducedmotion--autoplay-off",
+      "title": "Hooks/A11y/usePrefersReducedMotion",
+      "name": "Turn autoplay off",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/a11y/use-prefers-reduced-motion.stories.jsx"
+    },
+    "hooks-data-uselocalstorage--preference": {
+      "id": "hooks-data-uselocalstorage--preference",
+      "title": "Hooks/Data/useLocalStorage",
+      "name": "Reading preference",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/data/use-local-storage.stories.jsx"
+    },
+    "hooks-data-uselocalstorage--docs": {
+      "id": "hooks-data-uselocalstorage--docs",
+      "title": "Hooks/Data/useLocalStorage",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/data/use-local-storage.stories.jsx"
+    },
+    "hooks-data-uselocalstorage--synced": {
+      "id": "hooks-data-uselocalstorage--synced",
+      "title": "Hooks/Data/useLocalStorage",
+      "name": "Callers stay in sync",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/data/use-local-storage.stories.jsx"
+    },
+    "hooks-data-useselection--bulk-actions": {
+      "id": "hooks-data-useselection--bulk-actions",
+      "title": "Hooks/Data/useSelection",
+      "name": "Bulk actions with select all",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/data/use-selection.stories.jsx"
+    },
+    "hooks-data-useselection--docs": {
+      "id": "hooks-data-useselection--docs",
+      "title": "Hooks/Data/useSelection",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/data/use-selection.stories.jsx"
+    },
+    "hooks-data-useselection--controlled": {
+      "id": "hooks-data-useselection--controlled",
+      "title": "Hooks/Data/useSelection",
+      "name": "Controlled with a limit",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/data/use-selection.stories.jsx"
+    },
+    "hooks-data-usesessionstorage--form-draft": {
+      "id": "hooks-data-usesessionstorage--form-draft",
+      "title": "Hooks/Data/useSessionStorage",
+      "name": "Keep a form draft",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/data/use-session-storage.stories.jsx"
+    },
+    "hooks-data-usesessionstorage--docs": {
+      "id": "hooks-data-usesessionstorage--docs",
+      "title": "Hooks/Data/useSessionStorage",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/data/use-session-storage.stories.jsx"
+    },
+    "hooks-environment-useisclient--localised-time": {
+      "id": "hooks-environment-useisclient--localised-time",
+      "title": "Hooks/Environment/useIsClient",
+      "name": "Browser-only output",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/environment/use-is-client.stories.jsx"
+    },
+    "hooks-environment-useisclient--docs": {
+      "id": "hooks-environment-useisclient--docs",
+      "title": "Hooks/Environment/useIsClient",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-is-client.stories.jsx"
+    },
+    "hooks-environment-usemediaquery--queries": {
+      "id": "hooks-environment-usemediaquery--queries",
+      "title": "Hooks/Environment/useMediaQuery",
+      "name": "Live queries",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-media-query.stories.jsx"
+    },
+    "hooks-environment-usemediaquery--docs": {
+      "id": "hooks-environment-usemediaquery--docs",
+      "title": "Hooks/Environment/useMediaQuery",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-media-query.stories.jsx"
+    },
+    "hooks-environment-usemediaquery--different-tree": {
+      "id": "hooks-environment-usemediaquery--different-tree",
+      "title": "Hooks/Environment/useMediaQuery",
+      "name": "Render a different tree",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-media-query.stories.jsx"
+    },
+    "hooks-environment-useismobile--filters-panel": {
+      "id": "hooks-environment-useismobile--filters-panel",
+      "title": "Hooks/Environment/useIsMobile",
+      "name": "Sidebar or sheet",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-mobile.stories.jsx"
+    },
+    "hooks-environment-useismobile--docs": {
+      "id": "hooks-environment-useismobile--docs",
+      "title": "Hooks/Environment/useIsMobile",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-mobile.stories.jsx"
+    },
+    "hooks-environment-useonlinestatus--offline-notice": {
+      "id": "hooks-environment-useonlinestatus--offline-notice",
+      "title": "Hooks/Environment/useOnlineStatus",
+      "name": "Offline notice",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/environment/use-online-status.stories.jsx"
+    },
+    "hooks-environment-useonlinestatus--docs": {
+      "id": "hooks-environment-useonlinestatus--docs",
+      "title": "Hooks/Environment/useOnlineStatus",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-online-status.stories.jsx"
+    },
+    "hooks-environment-usepagevisibility--pause-polling": {
+      "id": "hooks-environment-usepagevisibility--pause-polling",
+      "title": "Hooks/Environment/usePageVisibility",
+      "name": "Pause polling in the background",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-page-visibility.stories.jsx"
+    },
+    "hooks-environment-usepagevisibility--docs": {
+      "id": "hooks-environment-usepagevisibility--docs",
+      "title": "Hooks/Environment/usePageVisibility",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-page-visibility.stories.jsx"
+    },
+    "hooks-environment-usepreferscolorscheme--system-default": {
+      "id": "hooks-environment-usepreferscolorscheme--system-default",
+      "title": "Hooks/Environment/usePrefersColorScheme",
+      "name": "System default for an embed",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-prefers-color-scheme.stories.jsx"
+    },
+    "hooks-environment-usepreferscolorscheme--docs": {
+      "id": "hooks-environment-usepreferscolorscheme--docs",
+      "title": "Hooks/Environment/usePrefersColorScheme",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/environment/use-prefers-color-scheme.stories.jsx"
+    },
+    "hooks-interaction-usecopytoclipboard--share-field": {
+      "id": "hooks-interaction-usecopytoclipboard--share-field",
+      "title": "Hooks/Interaction/useCopyToClipboard",
+      "name": "Copy a share link",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-copy-to-clipboard.stories.jsx"
+    },
+    "hooks-interaction-usecopytoclipboard--docs": {
+      "id": "hooks-interaction-usecopytoclipboard--docs",
+      "title": "Hooks/Interaction/useCopyToClipboard",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-copy-to-clipboard.stories.jsx"
+    },
+    "hooks-interaction-usecopytoclipboard--several-targets": {
+      "id": "hooks-interaction-usecopytoclipboard--several-targets",
+      "title": "Hooks/Interaction/useCopyToClipboard",
+      "name": "One hook, several copy buttons",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-copy-to-clipboard.stories.jsx"
+    },
+    "hooks-interaction-useeventlistener--window-events": {
+      "id": "hooks-interaction-useeventlistener--window-events",
+      "title": "Hooks/Interaction/useEventListener",
+      "name": "Window events",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-event-listener.stories.jsx"
+    },
+    "hooks-interaction-useeventlistener--docs": {
+      "id": "hooks-interaction-useeventlistener--docs",
+      "title": "Hooks/Interaction/useEventListener",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-event-listener.stories.jsx"
+    },
+    "hooks-interaction-useeventlistener--document-events": {
+      "id": "hooks-interaction-useeventlistener--document-events",
+      "title": "Hooks/Interaction/useEventListener",
+      "name": "Document events",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-event-listener.stories.jsx"
+    },
+    "hooks-interaction-useeventlistener--element-ref": {
+      "id": "hooks-interaction-useeventlistener--element-ref",
+      "title": "Hooks/Interaction/useEventListener",
+      "name": "An element through a ref",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-event-listener.stories.jsx"
+    },
+    "hooks-interaction-usehotkey--command-palette": {
+      "id": "hooks-interaction-usehotkey--command-palette",
+      "title": "Hooks/Interaction/useHotkey",
+      "name": "Platform-aware mod key",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-hotkey.stories.jsx"
+    },
+    "hooks-interaction-usehotkey--docs": {
+      "id": "hooks-interaction-usehotkey--docs",
+      "title": "Hooks/Interaction/useHotkey",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-hotkey.stories.jsx"
+    },
+    "hooks-interaction-usehotkey--single-keys": {
+      "id": "hooks-interaction-usehotkey--single-keys",
+      "title": "Hooks/Interaction/useHotkey",
+      "name": "Single-key shortcuts that can be turned off",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-hotkey.stories.jsx"
+    },
+    "hooks-interaction-usehover--pause-on-hover": {
+      "id": "hooks-interaction-usehover--pause-on-hover",
+      "title": "Hooks/Interaction/useHover",
+      "name": "Pause rotating content",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-hover.stories.jsx"
+    },
+    "hooks-interaction-usehover--docs": {
+      "id": "hooks-interaction-usehover--docs",
+      "title": "Hooks/Interaction/useHover",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-hover.stories.jsx"
+    },
+    "hooks-interaction-useonclickoutside--inline-editor": {
+      "id": "hooks-interaction-useonclickoutside--inline-editor",
+      "title": "Hooks/Interaction/useOnClickOutside",
+      "name": "Commit an inline editor",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-on-click-outside.stories.jsx"
+    },
+    "hooks-interaction-useonclickoutside--docs": {
+      "id": "hooks-interaction-useonclickoutside--docs",
+      "title": "Hooks/Interaction/useOnClickOutside",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-on-click-outside.stories.jsx"
+    },
+    "hooks-interaction-useonclickoutside--trigger-and-panel": {
+      "id": "hooks-interaction-useonclickoutside--trigger-and-panel",
+      "title": "Hooks/Interaction/useOnClickOutside",
+      "name": "Trigger and panel together",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-on-click-outside.stories.jsx"
+    },
+    "hooks-interaction-usescrolllock--overlay-menu": {
+      "id": "hooks-interaction-usescrolllock--overlay-menu",
+      "title": "Hooks/Interaction/useScrollLock",
+      "name": "Full-screen menu",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/interaction/use-scroll-lock.stories.jsx"
+    },
+    "hooks-interaction-usescrolllock--docs": {
+      "id": "hooks-interaction-usescrolllock--docs",
+      "title": "Hooks/Interaction/useScrollLock",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/interaction/use-scroll-lock.stories.jsx"
+    },
+    "hooks-layout-usecollapsiblesections--settings-page": {
+      "id": "hooks-layout-usecollapsiblesections--settings-page",
+      "title": "Hooks/Layout/useCollapsibleSections",
+      "name": "Settings with expand and collapse all",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/layout/use-collapsible-sections.stories.jsx"
+    },
+    "hooks-layout-usecollapsiblesections--docs": {
+      "id": "hooks-layout-usecollapsiblesections--docs",
+      "title": "Hooks/Layout/useCollapsibleSections",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-collapsible-sections.stories.jsx"
+    },
+    "hooks-layout-useelementsize--container-layout": {
+      "id": "hooks-layout-useelementsize--container-layout",
+      "title": "Hooks/Layout/useElementSize",
+      "name": "Layout from the container width",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-element-size.stories.jsx"
+    },
+    "hooks-layout-useelementsize--docs": {
+      "id": "hooks-layout-useelementsize--docs",
+      "title": "Hooks/Layout/useElementSize",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-element-size.stories.jsx"
+    },
+    "hooks-layout-useinview--lazy-section": {
+      "id": "hooks-layout-useinview--lazy-section",
+      "title": "Hooks/Layout/useInView",
+      "name": "Load a section when it is reached",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-in-view.stories.jsx"
+    },
+    "hooks-layout-useinview--docs": {
+      "id": "hooks-layout-useinview--docs",
+      "title": "Hooks/Layout/useInView",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-in-view.stories.jsx"
+    },
+    "hooks-layout-useinview--infinite-list": {
+      "id": "hooks-layout-useinview--infinite-list",
+      "title": "Hooks/Layout/useInView",
+      "name": "\"Load more\" sentinel with a button",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-in-view.stories.jsx"
+    },
+    "hooks-layout-usescrollposition--reading-progress": {
+      "id": "hooks-layout-usescrollposition--reading-progress",
+      "title": "Hooks/Layout/useScrollPosition",
+      "name": "Reading progress in a scroll container",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/layout/use-scroll-position.stories.jsx"
+    },
+    "hooks-layout-usescrollposition--docs": {
+      "id": "hooks-layout-usescrollposition--docs",
+      "title": "Hooks/Layout/useScrollPosition",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-scroll-position.stories.jsx"
+    },
+    "hooks-layout-usescrollposition--page-scroll": {
+      "id": "hooks-layout-usescrollposition--page-scroll",
+      "title": "Hooks/Layout/useScrollPosition",
+      "name": "Page scroll",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/layout/use-scroll-position.stories.jsx"
+    },
+    "hooks-overview--default": {
+      "id": "hooks-overview--default",
+      "title": "Hooks/Overview",
+      "name": "Overview",
+      "type": "story",
+      "tags": [
+        "!autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/Overview.stories.jsx"
+    },
+    "hooks-state-usecontrollablestate--uncontrolled": {
+      "id": "hooks-state-usecontrollablestate--uncontrolled",
+      "title": "Hooks/State/useControllableState",
+      "name": "Uncontrolled",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-controllable-state.stories.jsx"
+    },
+    "hooks-state-usecontrollablestate--docs": {
+      "id": "hooks-state-usecontrollablestate--docs",
+      "title": "Hooks/State/useControllableState",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-controllable-state.stories.jsx"
+    },
+    "hooks-state-usecontrollablestate--controlled": {
+      "id": "hooks-state-usecontrollablestate--controlled",
+      "title": "Hooks/State/useControllableState",
+      "name": "Controlled, with the host refusing changes",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-controllable-state.stories.jsx"
+    },
+    "hooks-state-usedebouncecallback--autosave-draft": {
+      "id": "hooks-state-usedebouncecallback--autosave-draft",
+      "title": "Hooks/State/useDebounceCallback",
+      "name": "Autosave a draft",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-debounce-callback.stories.jsx"
+    },
+    "hooks-state-usedebouncecallback--docs": {
+      "id": "hooks-state-usedebouncecallback--docs",
+      "title": "Hooks/State/useDebounceCallback",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-debounce-callback.stories.jsx"
+    },
+    "hooks-state-usedebouncevalue--search-filter": {
+      "id": "hooks-state-usedebouncevalue--search-filter",
+      "title": "Hooks/State/useDebounceValue",
+      "name": "Filter after typing settles",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-debounce-value.stories.jsx"
+    },
+    "hooks-state-usedebouncevalue--docs": {
+      "id": "hooks-state-usedebouncevalue--docs",
+      "title": "Hooks/State/useDebounceValue",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-debounce-value.stories.jsx"
+    },
+    "hooks-state-usedisclosure--with-dialog": {
+      "id": "hooks-state-usedisclosure--with-dialog",
+      "title": "Hooks/State/useDisclosure",
+      "name": "Drive a Gaudi Dialog",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-disclosure.stories.jsx"
+    },
+    "hooks-state-usedisclosure--docs": {
+      "id": "hooks-state-usedisclosure--docs",
+      "title": "Hooks/State/useDisclosure",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-disclosure.stories.jsx"
+    },
+    "hooks-state-usedisclosure--custom-trigger": {
+      "id": "hooks-state-usedisclosure--custom-trigger",
+      "title": "Hooks/State/useDisclosure",
+      "name": "Custom disclosure",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-disclosure.stories.jsx"
+    },
+    "hooks-state-useeventcallback--stable-subscription": {
+      "id": "hooks-state-useeventcallback--stable-subscription",
+      "title": "Hooks/State/useEventCallback",
+      "name": "Fresh state, stable subscription",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-event-callback.stories.jsx"
+    },
+    "hooks-state-useeventcallback--docs": {
+      "id": "hooks-state-useeventcallback--docs",
+      "title": "Hooks/State/useEventCallback",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-event-callback.stories.jsx"
+    },
+    "hooks-state-useinterval--timer": {
+      "id": "hooks-state-useinterval--timer",
+      "title": "Hooks/State/useInterval",
+      "name": "A pausable timer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-interval.stories.jsx"
+    },
+    "hooks-state-useinterval--docs": {
+      "id": "hooks-state-useinterval--docs",
+      "title": "Hooks/State/useInterval",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-interval.stories.jsx"
+    },
+    "hooks-state-useisomorphiclayouteffect--measure-before-paint": {
+      "id": "hooks-state-useisomorphiclayouteffect--measure-before-paint",
+      "title": "Hooks/State/useIsomorphicLayoutEffect",
+      "name": "Measure before paint",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-isomorphic-layout-effect.stories.jsx"
+    },
+    "hooks-state-useisomorphiclayouteffect--docs": {
+      "id": "hooks-state-useisomorphiclayouteffect--docs",
+      "title": "Hooks/State/useIsomorphicLayoutEffect",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-isomorphic-layout-effect.stories.jsx"
+    },
+    "hooks-state-usemergedrefs--forwarded-and-own-ref": {
+      "id": "hooks-state-usemergedrefs--forwarded-and-own-ref",
+      "title": "Hooks/State/useMergedRefs",
+      "name": "Forward a ref and keep your own",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-merged-refs.stories.jsx"
+    },
+    "hooks-state-usemergedrefs--docs": {
+      "id": "hooks-state-usemergedrefs--docs",
+      "title": "Hooks/State/useMergedRefs",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-merged-refs.stories.jsx"
+    },
+    "hooks-state-useprevious--trend": {
+      "id": "hooks-state-useprevious--trend",
+      "title": "Hooks/State/usePrevious",
+      "name": "Change since the last value",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-previous.stories.jsx"
+    },
+    "hooks-state-useprevious--docs": {
+      "id": "hooks-state-useprevious--docs",
+      "title": "Hooks/State/usePrevious",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-previous.stories.jsx"
+    },
+    "hooks-state-usesliderinput--range-with-inputs": {
+      "id": "hooks-state-usesliderinput--range-with-inputs",
+      "title": "Hooks/State/useSliderInput",
+      "name": "Range slider with exact inputs",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-slider-input.stories.jsx"
+    },
+    "hooks-state-usesliderinput--docs": {
+      "id": "hooks-state-usesliderinput--docs",
+      "title": "Hooks/State/useSliderInput",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-slider-input.stories.jsx"
+    },
+    "hooks-state-usestep--wizard": {
+      "id": "hooks-state-usestep--wizard",
+      "title": "Hooks/State/useStep",
+      "name": "Wizard with progress",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/hooks/state/use-step.stories.jsx"
+    },
+    "hooks-state-usestep--docs": {
+      "id": "hooks-state-usestep--docs",
+      "title": "Hooks/State/useStep",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-step.stories.jsx"
+    },
+    "hooks-state-usethrottlecallback--pointer-moves": {
+      "id": "hooks-state-usethrottlecallback--pointer-moves",
+      "title": "Hooks/State/useThrottleCallback",
+      "name": "Throttle pointer moves",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-throttle-callback.stories.jsx"
+    },
+    "hooks-state-usethrottlecallback--docs": {
+      "id": "hooks-state-usethrottlecallback--docs",
+      "title": "Hooks/State/useThrottleCallback",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-throttle-callback.stories.jsx"
+    },
+    "hooks-state-usetimeout--auto-dismiss": {
+      "id": "hooks-state-usetimeout--auto-dismiss",
+      "title": "Hooks/State/useTimeout",
+      "name": "Auto-dismiss that pauses",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-timeout.stories.jsx"
+    },
+    "hooks-state-usetimeout--docs": {
+      "id": "hooks-state-usetimeout--docs",
+      "title": "Hooks/State/useTimeout",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/hooks/state/use-timeout.stories.jsx"
     }
   }
 }

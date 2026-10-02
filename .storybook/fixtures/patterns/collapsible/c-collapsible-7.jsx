@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { useCopyToClipboard } from '../../../../src/hooks/use-copy-to-clipboard.js';
+import { useCopyToClipboard } from '../../../../src/hooks/interaction/use-copy-to-clipboard.js';
 import {
   Avatar,
   AvatarFallback,

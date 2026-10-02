@@ -1,5 +1,5 @@
 'use client';
-import { useCopyToClipboard } from '../../../../src/hooks/use-copy-to-clipboard.js';
+import { useCopyToClipboard } from '../../../../src/hooks/interaction/use-copy-to-clipboard.js';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../../../src/components/core/Tooltip/parts/tooltip.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';

@@ -125,6 +125,10 @@
       "import": "./src/utilities/formatDate/formatDate.js",
       "default": "./src/utilities/formatDate/formatDate.js"
     },
+    "./hooks": {
+      "import": "./src/hooks/index.js",
+      "default": "./src/hooks/index.js"
+    },
     "./hooks/*": {
       "import": "./src/hooks/*.js",
       "default": "./src/hooks/*.js"

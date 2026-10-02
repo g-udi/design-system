@@ -9,7 +9,7 @@ export function publicSource(source) {
         if (specifier.includes('/icons/RegistryIcon'))
           return "import { RegistryIcon } from '@gaudi/design-system/icons';";
         if (specifier.includes('/hooks/'))
-          return `import { ${bindings.trim()} } from '@gaudi/design-system/hooks/${specifier.split('/').at(-1).replace(/\.js$/, '')}';`;
+          return `import { ${bindings.trim()} } from '@gaudi/design-system/hooks';`;
         if (specifier.includes('/utilities/cn'))
           return "import { cn } from '@gaudi/design-system';";
         const start = specifier.indexOf('components/');

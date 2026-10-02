@@ -22,7 +22,7 @@ import {
   SidebarProvider,
   SidebarTrigger
 } from '../../../../src/components/blocks/AppShell/parts/sidebar.jsx';
-import { useMediaQuery } from '../../../../src/hooks/use-media-query.js';
+import { useMediaQuery } from '../../../../src/hooks/environment/use-media-query.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const appRail = [

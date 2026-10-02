@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
   flexRender,
   getCoreRowModel,
@@ -27,6 +27,7 @@ import {
 import { Checkbox as CheckboxRoot } from '../Checkbox/parts/checkbox.jsx';
 import { downloadCsv, getTableExportRows, tableToCsv } from './parts/table-export.js';
 import { cn } from '../../../utilities/cn';
+import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 
 /*
  * Anatomy: uppercase tracked headers on the surface,
@@ -72,22 +73,7 @@ const pagerButtons = [
 const PINNED_BAND_LIMIT = 0.6;
 
 /** Controlled when `value` is defined; the host may refuse or replace any change it is offered. */
-function useControllable(value, defaultValue, onChange) {
-  const [inner, setInner] = useState(defaultValue);
-  const controlled = value !== undefined;
-  const current = controlled ? value : inner;
-  const currentRef = useRef(current);
-  currentRef.current = current;
-  const set = useCallback(
-    (updater) => {
-      const next = typeof updater === 'function' ? updater(currentRef.current) : updater;
-      if (!controlled) setInner(next);
-      onChange?.(next);
-    },
-    [controlled, onChange]
-  );
-  return [current, set];
-}
+const useControllable = (value, defaultValue, onChange) => useControllableState({ value, defaultValue, onChange });
 
 /** Client collections up to a few thousand rows. Remote fetching, filter predicates, and persistence stay in the host. */
 export const DataTable = ({

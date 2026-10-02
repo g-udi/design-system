@@ -91,7 +91,8 @@ const config = {
   'stories': [
     './stories/**/*.stories.@(js|jsx|mdx)',
     '../src/components/**/!(*Patterns).stories.@(js|jsx|mdx)',
-    '../src/components/**/*Patterns.stories.@(js|jsx|mdx)'
+    '../src/components/**/*Patterns.stories.@(js|jsx|mdx)',
+    '../src/hooks/**/*.stories.@(js|jsx|mdx)'
   ],
   'viteFinal': (viteConfig) => {
     const { rollupOptions = {}, ...buildConfig } = viteConfig.build || {};

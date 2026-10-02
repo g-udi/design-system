@@ -6,7 +6,7 @@ import { default as Button } from '../../../../src/components/core/Button/index.
 import { CodeBlockGroup } from '../../../../src/components/core/CodeBlock/parts/code-block-group.jsx';
 import { Label } from '../../../../src/components/core/Field/parts/label.jsx';
 import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx';
-import { useCopyToClipboard } from '../../../../src/hooks/use-copy-to-clipboard.js';
+import { useCopyToClipboard } from '../../../../src/hooks/interaction/use-copy-to-clipboard.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const initialKeys = [

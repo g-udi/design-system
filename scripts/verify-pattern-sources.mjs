@@ -26,6 +26,7 @@ await build({
         if (!subpath) return { path: resolve(root, 'src/index.js') };
         if (subpath === 'icons') return { path: resolve(root, 'src/icons/index.jsx') };
         if (subpath.startsWith('icons/')) return { path: resolve(root, `src/${subpath}.jsx`) };
+        if (subpath === 'hooks') return { path: resolve(root, 'src/hooks/index.js') };
         if (subpath.startsWith('hooks/')) return { path: resolve(root, `src/${subpath}.js`) };
         return { path: resolve(root, `src/components/${subpath}/index.js`) };
       });

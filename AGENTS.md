@@ -14,6 +14,7 @@ pnpm add github:ahmadassaf/design-system
 import '@gaudi/design-system/global.css';
 import { Button, Card, Footer, Link, Pill } from '@gaudi/design-system';
 import { Callout, Table } from '@gaudi/design-system/mdx';
+import { useHotkey, useMediaQuery } from '@gaudi/design-system/hooks';
 ```
 
 Use the Tailwind preset and plugins from Gaudi in consuming apps:
@@ -44,12 +45,13 @@ module.exports = {
 - All package-internal imports are relative. Do not introduce `@/` aliases in `src/`.
 - MDX components live only in the `./mdx` entry (not re-exported from the root), and the compiled-MDX runtime lives in `./mdx/runtime`.
 - Chat and agent building blocks (messages, bubbles, the message list, the composer, reply parts such as reasoning, tools and sources, and chat panels) live in `src/components/chat/<Owner>` and the `./chat` entry; they are also exported from the root. Blocks/Chat holds only `ChatShell`, which composes Chat parts and must not grow its own chat behaviour.
+- Hooks live in `src/hooks/<group>/use-x.js` (groups: `a11y`, `data`, `environment`, `interaction`, `layout`, `state`; kebab-case files, camelCase exports). `src/hooks/index.js` is the barrel behind the `./hooks` entry, and the root entry re-exports it, so `@gaudi/design-system` and `@gaudi/design-system/hooks` both work. `src/hooks/catalogue.js` documents every public hook (group, summary, params, returns, accessibility); `src/hooks/README.md` has the conventions. Hooks must be SSR-safe (read browser globals only in effects, subscriptions or guarded snapshots), JS with relative imports, and free of markup and product rules. Components use the shared hooks instead of re-declaring generic ones (controllable state, media queries, isomorphic layout effects, reduced motion, mounted flags).
 - Charts live in `src/components/charts/<Owner>` (one owner per chart family plus `ChartFrame`, the shared frame, Recharts parts and primitives) and the `./charts` entry. They are not exported from the root, so pages without a chart never load Recharts. MDX/Chart is only the MDX adapter (`<Chart type=…>` and the chart names in the MDX map); never build chart behaviour in `src/components/mdx`.
 
 ## Storybook Navigation
 
 - Start the sidebar with seven flat, top-level pages: Getting Started, Accessibility, Colors & Tokens, Icons, Indicators, States & Recovery, and Typography, in that order. Do not nest them under an Overview group.
-- Keep the component list below those pages, with component docs and examples visible in their existing groups. Do not replace the individual foundation guides with a combined Essentials page or hide the component list.
+- Keep the component list below those pages, with component docs and examples visible in their existing groups. The section order is Core, Blocks, Chat, Charts, Hooks, Navigation, MDX, Post, Layout (`.storybook/preview.js` storySort and `.storybook/navigation.js`). Do not replace the individual foundation guides with a combined Essentials page or hide the component list.
 - Getting Started is the introductory page and presents Gaudi as a curated design system for blogs and applications. Link the single Component Catalogue from that page. Keep the full story index intact so direct links, examples, and tests continue to work.
 - The catalogue refreshes from Storybook's index. After adding or renaming stories, run `pnpm catalogue:sync` to update the fallback used by tests and offline browsing.
 
@@ -70,6 +72,7 @@ module.exports = {
 - Navigation is documented under `Blocks/Navigation`; low-level navigation pieces stay exported but are not separate docs destinations.
 - Chat is a top-level sidebar section after Blocks: one page per Chat owner (`Chat/<Owner>`). Blocks/Chat documents the composed shell.
 - Charts is a top-level sidebar section after Chat: one page per chart owner (`Charts/<Owner>`) with detailed examples. MDX/Chart documents writing those charts in an article.
+- Hooks is a top-level sidebar section after Charts: `Hooks/Overview` lists every hook by group, then one docs page per hook (`Hooks/<Group>/<hook>`, e.g. `Hooks/Interaction/useOnClickOutside`). Each hook owns its file, a colocated `use-x.stories.jsx` (literal title and id, `tags: ['autodocs']`, `...hookMeta('<hook>')`, practical live examples built from Gaudi components with copyable `@gaudi/design-system/hooks` imports, play functions where interaction matters) and an entry in `src/hooks/catalogue.js`, which feeds the API table, accessibility notes and the overview. `src/hooks/hooks.contract.test.js` and `logic.contract.test.js` cover exports, docs, SSR rendering and the pure logic. A new hook needs all of these, then `pnpm catalogue:sync`.
 
 ## MDX Work
 

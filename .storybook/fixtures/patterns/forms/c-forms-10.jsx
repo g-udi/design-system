@@ -11,7 +11,7 @@ import { default as RadioGroup } from '../../../../src/components/core/RadioGrou
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../../src/components/core/Select/parts/select.jsx';
 import { default as Textarea } from '../../../../src/components/core/Textarea/index.js';
 import { FormErrorSummary, useFormValidation, validators } from '../../../../src/components/blocks/Forms/Forms.jsx';
-import { useCopyToClipboard } from '../../../../src/hooks/use-copy-to-clipboard.js';
+import { useCopyToClipboard } from '../../../../src/hooks/interaction/use-copy-to-clipboard.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const existing = [

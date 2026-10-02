@@ -61,6 +61,7 @@ export default function RootLayout({ children }) {
             <tr><Td mono>@gaudi/design-system/tokens</Td><Td>Structured color, typography, motion, radius, and shadow tokens.</Td></tr>
             <tr><Td mono>@gaudi/design-system/chat</Td><Td>Chat and agent building blocks: messages, the composer, reply parts and chat panels. Also exported from the root.</Td></tr>
             <tr><Td mono>@gaudi/design-system/charts</Td><Td>Framed, accessible charts: series, part-to-whole, distribution, flow and single readings, with keyboard reading and a data table. Kept out of the root so pages without a chart never load Recharts.</Td></tr>
+            <tr><Td mono>@gaudi/design-system/hooks</Td><Td>SSR-safe React hooks for keyboard and screen reader support, persisted data, the browser environment, interaction, layout and state. Also exported from the root.</Td></tr>
             <tr><Td mono>@gaudi/design-system/mdx</Td><Td>MDX components for article content.</Td></tr>
           </tbody>
         </Table>
@@ -100,6 +101,7 @@ export default function RootLayout({ children }) {
           <QuickLink title='Accessibility' description='Keyboard, screen-reader, contrast, focus, and testing rules.' storyId='overview-accessibility--default' />
           <QuickLink title='States & Recovery' description='Loading, empty, error, success, disabled, and recovery contracts.' storyId='overview-states-recovery--default' />
           <QuickLink title='Colors & Tokens' description='Palette, semantic tokens, CSS variables, motion, radius, and shadows.' storyId='overview-colors-tokens--default' />
+          <QuickLink title='Hooks' description='Curated React hooks for focus, announcements, storage, shortcuts, layout and state.' storyId='hooks-overview--default' />
           <QuickLink title='Component Catalogue' description='Browse components, application patterns, and their practical examples.' storyId='overview-component-catalogue--browse' />
         </div>
       </Section>

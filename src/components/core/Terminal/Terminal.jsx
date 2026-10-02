@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
 
@@ -161,18 +162,8 @@ const Terminal = ({
   const [ commandIndex, setCommandIndex ] = useState(0);
   const [ typedLength, setTypedLength ] = useState(0);
   const [ completedCount, setCompletedCount ] = useState(animate ? 0 : normalizedCommands.length);
-  const [ reduceMotion, setReduceMotion ] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
   const bodyRef = useRef(null);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const update = () => setReduceMotion(media.matches);
-
-    update();
-    media.addEventListener('change', update);
-
-    return () => media.removeEventListener('change', update);
-  }, []);
 
   useEffect(() => {
     if (!animate || reduceMotion) {
