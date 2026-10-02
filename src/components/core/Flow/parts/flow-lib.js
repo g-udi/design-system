@@ -29,8 +29,76 @@ const sizeOf = (node, fallback) => ({
  * `direction` is `TB` (top to bottom) or `LR` (left to right). Cycles are tolerated;
  * an edge that closes a loop is ignored when ranking. Positions are node centres, and
  * each node gets `origin: [0.5, 0.5]`; `nodeWidth` / `nodeHeight` size unmeasured nodes.
+ *
+ * Nodes marked `attachment: true` (a connection, a test or a model hanging off a step) are
+ * not ranked: each sits beside the step it links to, below it in `LR` layouts and to its
+ * right in `TB`, `attachmentGap` away, and keeps its own handle sides. The step reserves
+ * room for them, so neighbouring steps never overlap an attachment.
  */
-export function layoutFlow(nodes, edges, { direction = 'TB', rankGap = 80, nodeGap = 32, nodeWidth = 240, nodeHeight = 96 } = {}) {
+export function layoutFlow(nodes, edges, options = {}) {
+  const { direction = 'TB', nodeWidth = 240, nodeHeight = 96, attachmentGap = 56 } = options;
+  const attachments = nodes.filter((node) => node.attachment);
+  if (!attachments.length) return layoutRanks(nodes, edges, options);
+  const horizontal = direction === 'LR';
+  const fallback = { width: nodeWidth, height: nodeHeight };
+  const steps = nodes.filter((node) => !node.attachment);
+  const stepIds = new Set(steps.map((node) => node.id));
+  const hostOf = new Map();
+  for (const node of attachments) {
+    const link = edges.find((edge) => (edge.source === node.id && stepIds.has(edge.target)) || (edge.target === node.id && stepIds.has(edge.source)));
+    if (link) hostOf.set(node.id, link.source === node.id ? link.target : link.source);
+  }
+  const hosted = new Map();
+  for (const node of attachments) {
+    const host = hostOf.get(node.id);
+    if (!host) continue;
+    if (!hosted.has(host)) hosted.set(host, []);
+    hosted.get(host).push(node);
+  }
+  // A step with attachments is laid out as one taller (or wider) block that includes them.
+  const extra = (id) => {
+    const list = hosted.get(id) || [];
+    if (!list.length) return 0;
+    return attachmentGap + Math.max(...list.map((node) => (horizontal ? sizeOf(node, fallback).height : sizeOf(node, fallback).width)));
+  };
+  const blocks = steps.map((node) => {
+    const grow = extra(node.id);
+    if (!grow) return node;
+    const size = sizeOf(node, fallback);
+    return { ...node, measured: horizontal ? { width: size.width, height: size.height + grow } : { width: size.width + grow, height: size.height } };
+  });
+  const placed = new Map(layoutRanks(blocks, edges.filter((edge) => stepIds.has(edge.source) && stepIds.has(edge.target)), options).map((node) => [node.id, node]));
+  const result = [];
+  for (const node of nodes) {
+    if (!node.attachment) {
+      const block = placed.get(node.id);
+      const grow = extra(node.id);
+      const position = grow ? (horizontal ? { x: block.position.x, y: block.position.y - grow / 2 } : { x: block.position.x - grow / 2, y: block.position.y }) : block.position;
+      result.push({ ...node, position, origin: block.origin, targetPosition: block.targetPosition, sourcePosition: block.sourcePosition });
+      continue;
+    }
+    const host = hostOf.get(node.id);
+    if (!host) {
+      result.push(node);
+      continue;
+    }
+    const hostNode = placed.get(host);
+    const list = hosted.get(host);
+    const index = list.indexOf(node);
+    const hostSize = sizeOf(steps.find((step) => step.id === host), fallback);
+    const own = sizeOf(node, fallback);
+    const spread = (index - (list.length - 1) / 2) * ((horizontal ? own.width : own.height) + 16);
+    const block = hostNode.position;
+    const grow = extra(host);
+    const position = horizontal
+      ? { x: block.x + spread, y: block.y - grow / 2 + hostSize.height / 2 + attachmentGap + own.height / 2 }
+      : { x: block.x - grow / 2 + hostSize.width / 2 + attachmentGap + own.width / 2, y: block.y + spread };
+    result.push({ ...node, position, origin: [0.5, 0.5] });
+  }
+  return result;
+}
+
+function layoutRanks(nodes, edges, { direction = 'TB', rankGap = 80, nodeGap = 32, nodeWidth = 240, nodeHeight = 96 } = {}) {
   const horizontal = direction === 'LR';
   const ids = new Set(nodes.map((node) => node.id));
   const links = edges.filter((edge) => ids.has(edge.source) && ids.has(edge.target) && edge.source !== edge.target);

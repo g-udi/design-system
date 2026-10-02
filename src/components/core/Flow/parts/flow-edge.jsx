@@ -13,10 +13,18 @@ const paths = {
   straight: getStraightPath
 };
 
+/** Line styles an edge can draw. Any of them can also flow (`animated`). */
+export const FLOW_EDGE_VARIANTS = ['solid', 'dashed', 'dotted'];
+
+/** Run states colour a connection: running flows in the accent, failures turn danger, and so on. */
+const statusTones = { running: 'accent', failed: 'danger', waiting: 'warning', blocked: 'attention', success: 'success', done: 'success' };
+
 /**
- * The default `flow` edge: a smooth-step connector with an optional label pill, a tone
- * for the stroke, a dashed style for soft links such as attachments, and an insert
- * button that appears on hover or keyboard focus when `data.onInsert` is set.
+ * The default `flow` edge: a connector with an optional label pill, a line `variant`
+ * (solid, dashed or dotted), an optional travelling flow in the edge's direction, a tone
+ * or run `status` for the stroke, and an insert button that appears on hover or keyboard
+ * focus when `data.onInsert` is set. A solid edge that flows keeps its line and carries
+ * moving dots over it; dashed and dotted edges move their own pattern.
  */
 export function FlowEdge({
   id,
@@ -32,11 +40,15 @@ export function FlowEdge({
   markerStart,
   style,
   selected,
-  animated,
+  animated: edgeAnimated,
   label: edgeLabel,
   data = {}
 }) {
-  const { label = edgeLabel, tone = 'neutral', dashed, path = 'smoothstep', onInsert, insertLabel, emphasis } = data;
+  const { label = edgeLabel, status, dashed, path = 'smoothstep', onInsert, insertLabel, emphasis } = data;
+  const tone = data.tone || statusTones[status] || 'neutral';
+  const animated = data.animated ?? (edgeAnimated || status === 'running');
+  // `dashed` is the earlier flag; an animated edge without a variant keeps its moving dashes.
+  const variant = FLOW_EDGE_VARIANTS.includes(data.variant) ? data.variant : dashed || (edgeAnimated && !data.variant) ? 'dashed' : 'solid';
   const [active, setActive] = useState(false);
   const [d, labelX, labelY] = (paths[path] || paths.smoothstep)({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
   const show = active || selected;
@@ -50,11 +62,15 @@ export function FlowEdge({
           markerStart={markerStart}
           style={style}
           interactionWidth={24}
-          className={cn('ds-flow-edge', animated && 'ds-flow-edge-animated')}
+          className={cn('ds-flow-edge', animated && variant !== 'solid' && 'ds-flow-edge-animated')}
           data-tone={tone}
-          data-dashed={dashed || undefined}
+          data-variant={variant}
+          data-status={status || undefined}
           data-emphasis={emphasis || undefined}
         />
+        {animated && variant === 'solid' && (
+          <path d={d} fill='none' aria-hidden='true' className='ds-flow-edge-flow' data-tone={tone} />
+        )}
       </g>
       {(label || onInsert) && (
         <EdgeLabelRenderer>

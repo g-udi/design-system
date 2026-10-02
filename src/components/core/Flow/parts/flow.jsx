@@ -1,20 +1,29 @@
 'use client';
 
 import { useId, useMemo } from 'react';
-import { Background, BackgroundVariant, MarkerType, MiniMap, Panel, ReactFlow, ReactFlowProvider, useReactFlow } from '@xyflow/react';
+import { Background, BackgroundVariant, MarkerType, MiniMap, Panel, ReactFlow, ReactFlowProvider, useReactFlow, useStore } from '@xyflow/react';
 import { default as Button } from '../../Button/index.js';
 import { ButtonGroup } from '../../ButtonGroup/parts/button-group.jsx';
 import { default as Icon } from '../../Icon/index.js';
+import { ToggleGroup, ToggleGroupItem } from '../../ToggleGroup/parts/toggle-group.jsx';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../Tooltip/parts/tooltip.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 import { FlowEdge } from './flow-edge.jsx';
 import { describeFlow } from './flow-lib.js';
-import { FLOW_STATUSES, FlowNode, FlowPillNode } from './flow-node.jsx';
+import { FLOW_STATUSES, FlowNode, FlowPillNode, FlowTaskNode, FlowTileNode } from './flow-node.jsx';
 
 /** Every string Flow and its controls render, plus React Flow's own announcements. */
 export const DEFAULT_FLOW_LABELS = {
   zoomIn: 'Zoom in',
   zoomOut: 'Zoom out',
   fitView: 'Fit to view',
+  fitSelection: 'Fit selection',
+  autoLayout: 'Auto layout',
+  selectTool: 'Select',
+  handTool: 'Pan',
+  tools: 'Canvas tool',
+  zoomLevel: (percent) => `Zoom ${percent}%`,
+  issues: (count) => (count ? `${count} ${count === 1 ? 'issue' : 'issues'}` : 'No issues'),
   controls: 'Canvas controls',
   minimap: 'Mini map',
   summaryTitle: 'Steps in this flow',
@@ -22,34 +31,135 @@ export const DEFAULT_FLOW_LABELS = {
   leadsTo: 'leads to',
   ends: 'ends here',
   nodeDescription: 'Press Enter or Space to select, then use the arrow keys to move it. Press Delete to remove a selected step.',
+  activateDescription: 'Press Enter to open its details. Press Space to select, then use the arrow keys to move it.',
   edgeDescription: 'Press Enter or Space to select this connection. Press Delete to remove it.'
 };
 
-export const flowNodeTypes = { step: FlowNode, pill: FlowPillNode };
+export const flowNodeTypes = { step: FlowNode, pill: FlowPillNode, tile: FlowTileNode, task: FlowTaskNode };
 export const flowEdgeTypes = { flow: FlowEdge };
 
 const backgrounds = { dots: BackgroundVariant.Dots, lines: BackgroundVariant.Lines, cross: BackgroundVariant.Cross };
 
-/** Zoom in, zoom out and fit, as labelled Gaudi buttons. Children add more controls to the group. */
-export function FlowControls({ position = 'bottom-left', labels: custom, children, className, showFit = true }) {
+function ControlButton({ label, icon, onClick, disabled, pressed, children }) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <Button size='icon-sm' variant='outline' tone='neutral' aria-label={label} aria-pressed={pressed} disabled={disabled} onClick={onClick}>
+          {icon ? <Icon name={icon} decorative /> : children}
+        </Button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  );
+}
+
+// Nodes glide to their new places while a layout settles, then dragging stays instant.
+function animateLayout(flowElement, apply) {
+  const canvas = flowElement?.closest('.ds-flow');
+  canvas?.setAttribute('data-layout-animating', '');
+  apply();
+  window.setTimeout(() => canvas?.removeAttribute('data-layout-animating'), 360);
+}
+
+/**
+ * Canvas controls as labelled Gaudi buttons with tooltips: zoom in, zoom out and fit,
+ * plus Fit selection (`showFitSelection`) and Auto layout (`onAutoLayout`, which receives
+ * the current nodes and edges and returns or applies the new layout while nodes glide into
+ * place). `variant='toolbar'` lays them out in one row with a select / pan tool switch
+ * (`tool`, `onToolChange`), the zoom level and an issues button (`issues`, `onIssues`).
+ * Children add more controls to the group.
+ */
+export function FlowControls({
+  position = 'bottom-left',
+  variant = 'stack',
+  labels: custom,
+  children,
+  className,
+  showFit = true,
+  showFitSelection = false,
+  onAutoLayout,
+  tool,
+  onToolChange,
+  issues,
+  onIssues
+}) {
   const labels = { ...DEFAULT_FLOW_LABELS, ...custom };
   const flow = useReactFlow();
+  const zoom = useStore((state) => state.transform[2]);
+  const selectedCount = useStore((state) => state.nodes.filter((node) => node.selected).length);
+  const toolbar = variant === 'toolbar';
+  const percent = Math.round(zoom * 100);
+  const layout = (event) => animateLayout(event.currentTarget, () => {
+    const next = onAutoLayout({ nodes: flow.getNodes(), edges: flow.getEdges() });
+    if (Array.isArray(next)) flow.setNodes(next);
+    window.requestAnimationFrame(() => flow.fitView({ duration: 300, padding: 0.2 }));
+  });
+  const zoomIn = <ControlButton label={labels.zoomIn} icon={toolbar ? 'Plus' : 'ZoomIn'} onClick={() => flow.zoomIn({ duration: 150 })} />;
+  const zoomOut = <ControlButton label={labels.zoomOut} icon={toolbar ? 'Minus' : 'ZoomOut'} onClick={() => flow.zoomOut({ duration: 150 })} />;
+  const extras = (
+    <>
+      {showFit && <ControlButton label={labels.fitView} icon='Maximize' onClick={() => flow.fitView({ duration: 200, padding: 0.2 })} />}
+      {showFitSelection && (
+        <ControlButton
+          label={labels.fitSelection}
+          icon='LocateFixed'
+          disabled={!selectedCount}
+          onClick={() => flow.fitView({ nodes: flow.getNodes().filter((node) => node.selected), duration: 250, padding: 0.4, maxZoom: 1.4 })}
+        />
+      )}
+      {onAutoLayout && <ControlButton label={labels.autoLayout} icon='LayoutDashboard' onClick={layout} />}
+    </>
+  );
   return (
     <Panel position={position} className={cn('ds-flow-panel', className)}>
-      <ButtonGroup orientation='vertical' aria-label={labels.controls} className='ds-flow-controls'>
-        <Button size='icon-sm' variant='outline' tone='neutral' aria-label={labels.zoomIn} onClick={() => flow.zoomIn({ duration: 150 })}>
-          <Icon name='ZoomIn' decorative />
-        </Button>
-        <Button size='icon-sm' variant='outline' tone='neutral' aria-label={labels.zoomOut} onClick={() => flow.zoomOut({ duration: 150 })}>
-          <Icon name='ZoomOut' decorative />
-        </Button>
-        {showFit && (
-          <Button size='icon-sm' variant='outline' tone='neutral' aria-label={labels.fitView} onClick={() => flow.fitView({ duration: 200, padding: 0.2 })}>
-            <Icon name='Maximize' decorative />
-          </Button>
+      <TooltipProvider>
+        {toolbar ? (
+          <div role='toolbar' aria-label={labels.controls} className='ds-flow-toolbar nodrag nopan'>
+            {onToolChange && (
+              <>
+                <ToggleGroup
+                  type='single'
+                  size='sm'
+                  variant='default'
+                  spacing={0}
+                  aria-label={labels.tools}
+                  value={tool}
+                  onValueChange={(next) => next && onToolChange(next)}
+                >
+                  <ToggleGroupItem value='select' aria-label={labels.selectTool} title={labels.selectTool}>
+                    <Icon name='MousePointer2' decorative />
+                  </ToggleGroupItem>
+                  <ToggleGroupItem value='hand' aria-label={labels.handTool} title={labels.handTool}>
+                    <Icon name='Hand' decorative />
+                  </ToggleGroupItem>
+                </ToggleGroup>
+                <span className='ds-flow-toolbar-divider' aria-hidden='true' />
+              </>
+            )}
+            {zoomOut}
+            <output className='ds-flow-zoom' aria-live='off' aria-label={labels.zoomLevel(percent)}>{percent}%</output>
+            {zoomIn}
+            <span className='ds-flow-toolbar-divider' aria-hidden='true' />
+            {extras}
+            {issues != null && (
+              <ControlButton label={labels.issues(issues)} onClick={onIssues} disabled={!issues && !onIssues}>
+                <span className='ds-flow-issues' data-count={issues || undefined}>
+                  <Icon name='TriangleAlert' decorative />
+                  {issues > 0 && <span className='ds-flow-issues-count'>{issues}</span>}
+                </span>
+              </ControlButton>
+            )}
+            {children}
+          </div>
+        ) : (
+          <ButtonGroup orientation='vertical' aria-label={labels.controls} className='ds-flow-controls'>
+            {zoomIn}
+            {zoomOut}
+            {extras}
+            {children}
+          </ButtonGroup>
         )}
-        {children}
-      </ButtonGroup>
+      </TooltipProvider>
     </Panel>
   );
 }
@@ -101,6 +211,8 @@ export function Flow({
   minimap = false,
   summary = true,
   labels: custom,
+  tool,
+  onNodeActivate,
   fitView = true,
   fitViewOptions,
   className,
@@ -117,7 +229,7 @@ export function Flow({
   const edgeKinds = useMemo(() => ({ ...flowEdgeTypes, ...edgeTypes }), [edgeTypes]);
   const steps = summary ? describeFlow(graphNodes, graphEdges) : [];
   const ariaLabelConfig = {
-    'node.a11yDescription.default': labels.nodeDescription,
+    'node.a11yDescription.default': onNodeActivate ? labels.activateDescription : labels.nodeDescription,
     'edge.a11yDescription.default': labels.edgeDescription,
     'controls.ariaLabel': labels.controls,
     'controls.zoomIn.ariaLabel': labels.zoomIn,
@@ -126,12 +238,29 @@ export function Flow({
     'minimap.ariaLabel': labels.minimap,
     ...props.ariaLabelConfig
   };
+  // Opening a node (for an inspector) works from the pointer and from Enter on a focused node,
+  // which React Flow otherwise only uses to select it.
+  const activate = onNodeActivate && {
+    onNodeClick: (event, node) => {
+      props.onNodeClick?.(event, node);
+      onNodeActivate(node, event);
+    },
+    onKeyDown: (event) => {
+      props.onKeyDown?.(event);
+      if (event.key !== 'Enter' || event.defaultPrevented) return;
+      const element = event.target.closest?.('.react-flow__node');
+      if (!element || element !== event.target) return;
+      const node = graphNodes.find((item) => item.id === element.getAttribute('data-id'));
+      if (node) onNodeActivate(node, event);
+    }
+  };
   const controlled = nodes !== undefined ? { nodes: named, edges: graphEdges } : { defaultNodes: named, defaultEdges: graphEdges };
   return (
     <section
       aria-label={label}
       aria-describedby={summary ? summaryId : undefined}
       data-slot='flow'
+      data-tool={tool || undefined}
       className={cn('ds-flow', className)}
     >
       <ReactFlow
@@ -144,7 +273,10 @@ export function Flow({
         fitViewOptions={{ padding: 0.2, minZoom: 0.5, ...fitViewOptions }}
         proOptions={{ hideAttribution: true }}
         minZoom={0.25}
+        // `select` drags a selection box and pans with scroll; `hand` pans by dragging.
+        {...(tool === 'select' ? { selectionOnDrag: true, panOnDrag: [1, 2], panOnScroll: true } : tool === 'hand' ? { selectionOnDrag: false, panOnDrag: true } : {})}
         {...props}
+        {...activate}
         ariaLabelConfig={ariaLabelConfig}
       >
         {background !== 'none' && <Background variant={backgrounds[background] || BackgroundVariant.Dots} gap={background === 'dots' ? 16 : 24} size={background === 'dots' ? 1.5 : 1} />}

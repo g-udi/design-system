@@ -8043,6 +8043,17 @@
       ],
       "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
     },
+    "core-flow--flow-pattern-5": {
+      "id": "core-flow--flow-pattern-5",
+      "title": "Core/Planning/Flow",
+      "name": "Payments pipeline with an inspector",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/FlowPatterns.stories.jsx"
+    },
     "core-gantt--gantt-pattern-1": {
       "id": "core-gantt--gantt-pattern-1",
       "title": "Core/Planning/Gantt",

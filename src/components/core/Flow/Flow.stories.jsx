@@ -24,9 +24,9 @@ const links = [
   { id: 'schedule-live', source: 'schedule', target: 'live' }
 ];
 
-function Preview({ direction, path, animated, background, controls, minimap, interactive, ...args }) {
+function Preview({ direction, path, variant, animated, background, controls, minimap, interactive, ...args }) {
   const nodes = useMemo(() => layoutFlow(steps.map((node) => ({ ...node, position: { x: 0, y: 0 } })), links, { direction }), [direction]);
-  const edges = useMemo(() => links.map((edge) => ({ ...edge, animated, data: { ...edge.data, path } })), [animated, path]);
+  const edges = useMemo(() => links.map((edge) => ({ ...edge, data: { ...edge.data, path, variant, animated } })), [animated, path, variant]);
   return (
     <Flow
       key={direction}
@@ -53,7 +53,8 @@ export default {
     ...docsArgTypes(docs, { label: 'text', background: ['dots', 'lines', 'cross', 'none'], controls: 'boolean', minimap: 'boolean' }),
     direction: { control: 'inline-radio', options: ['TB', 'LR'], description: 'Layout direction passed to layoutFlow.' },
     path: { control: 'select', options: ['smoothstep', 'bezier', 'step', 'straight'], description: 'Edge path drawn by FlowEdge (`edge.data.path`).' },
-    animated: { control: 'boolean', description: 'Animated dashes on every edge (`edge.animated`).' },
+    variant: { control: 'inline-radio', options: ['solid', 'dashed', 'dotted'], description: 'Line style drawn by FlowEdge (`edge.data.variant`).' },
+    animated: { control: 'boolean', description: 'Dots or dashes travel toward each target (`edge.data.animated`); motion stops under reduced motion.' },
     interactive: { control: 'boolean', description: 'Drag, connect and select (`nodesDraggable`, `nodesConnectable`, `elementsSelectable`).' }
   },
   parameters: {
@@ -65,10 +66,10 @@ export default {
 };
 
 export const Playground = {
-  args: { label: 'Publishing pipeline', direction: 'TB', path: 'smoothstep', background: 'dots', animated: false, controls: true, minimap: false, interactive: true },
+  args: { label: 'Publishing pipeline', direction: 'TB', path: 'smoothstep', variant: 'solid', background: 'dots', animated: false, controls: true, minimap: false, interactive: true },
   parameters: {
     docs: {
-      description: { story: 'A publishing pipeline from draft to published, with a review step that approves or sends the draft back. The layout comes from `layoutFlow`; switch the direction, edge path, background and controls.' },
+      description: { story: 'A publishing pipeline from draft to published, with a review step that approves or sends the draft back. The layout comes from `layoutFlow`; switch the direction, edge path, line style (solid, dashed or dotted), the flowing animation, background and controls.' },
       source: playgroundSource('Flow', {
         imports: "import '@gaudi/design-system/flow.css';\nimport { Flow, layoutFlow } from '@gaudi/design-system/core/Flow';",
         attributes: ['nodes={layoutFlow(steps, links)}', 'edges={links}']

@@ -16,7 +16,7 @@ const iconGroups = [
     'name': 'Content'
   },
   {
-    'icons': [ 'Github', 'Linkedin', 'Twitter', 'Youtube', 'Mail', 'Star', 'Fork', 'Google', 'Apple', 'Microsoft' ],
+    'icons': [ 'Github', 'Linkedin', 'Twitter', 'Youtube', 'Mail', 'Star', 'Fork', 'Google', 'Apple', 'Microsoft', 'GoogleCloud', 'Paypal', 'Prisma' ],
     'name': 'Social & Repositories'
   },
   {
@@ -28,7 +28,7 @@ const iconGroups = [
     'name': 'File Types'
   },
   {
-    'icons': [ 'Workflow', 'Undo', 'Redo', 'Magnet', 'Pause', 'Hourglass', 'Unlink', 'ZoomIn', 'ZoomOut' ],
+    'icons': [ 'Workflow', 'Undo', 'Redo', 'Magnet', 'Pause', 'Hourglass', 'Unlink', 'ZoomIn', 'ZoomOut', 'MousePointer2', 'Hand', 'LocateFixed', 'Cable' ],
     'name': 'Canvas & Workflow'
   },
   {

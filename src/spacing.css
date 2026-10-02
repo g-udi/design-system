@@ -71,7 +71,11 @@
   [data-slot='chart-mark'],
   .ds-part-calendar-day-button,
   .rdp-nav,
-  .ds-part-resizable-handle-icon
+  .ds-part-resizable-handle-icon,
+  .ds-flow-handle,
+  .ds-flow-tile-face,
+  .ds-flow-task-icon,
+  .ds-flow-issues
 ) {
   --ds-space-scale: 1;
 }

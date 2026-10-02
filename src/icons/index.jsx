@@ -283,6 +283,10 @@ import CatalogueWaypoints from 'lucide-react/dist/esm/icons/waypoints.js';
 import CatalogueWebhook from 'lucide-react/dist/esm/icons/webhook.js';
 import CatalogueWrench from 'lucide-react/dist/esm/icons/wrench.js';
 import CatalogueZap from 'lucide-react/dist/esm/icons/zap.js';
+import CatalogueCable from 'lucide-react/dist/esm/icons/cable.js';
+import CatalogueHand from 'lucide-react/dist/esm/icons/hand.js';
+import CatalogueLocateFixed from 'lucide-react/dist/esm/icons/locate-fixed.js';
+import CatalogueMousePointer2 from 'lucide-react/dist/esm/icons/mouse-pointer-2.js';
 import CatalogueZoomIn from 'lucide-react/dist/esm/icons/zoom-in.js';
 import CatalogueHourglass from 'lucide-react/dist/esm/icons/hourglass.js';
 import CatalogueMagnet from 'lucide-react/dist/esm/icons/magnet.js';
@@ -293,6 +297,7 @@ import CatalogueWorkflow from 'lucide-react/dist/esm/icons/workflow.js';
 import CatalogueZoomOut from 'lucide-react/dist/esm/icons/zoom-out.js';
 import { FaApple, FaLinkedin, FaMicrosoft, FaYoutube } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
+import { SiGooglecloud, SiPaypal, SiPrisma } from 'react-icons/si';
 import { FaMedium } from 'react-icons/fa6';
 import { HiSquare3Stack3D } from 'react-icons/hi2';
 import { RiMailOpenFill, RiTwitterXFill } from 'react-icons/ri';
@@ -674,6 +679,10 @@ export const iconRegistry = {
   'Webhook': CatalogueWebhook,
   'Wrench': CatalogueWrench,
   'Zap': CatalogueZap,
+  'Cable': CatalogueCable,
+  'Hand': CatalogueHand,
+  'LocateFixed': CatalogueLocateFixed,
+  'MousePointer2': CatalogueMousePointer2,
   'ZoomIn': CatalogueZoomIn,
   'ZoomOut': CatalogueZoomOut,
   'Hourglass': CatalogueHourglass,
@@ -734,6 +743,9 @@ export const iconRegistry = {
   'Fork': GitFork,
   'Github': VscGithub,
   'Google': FcGoogle,
+  'GoogleCloud': SiGooglecloud,
+  'Paypal': SiPaypal,
+  'Prisma': SiPrisma,
   'Apple': FaApple,
   'Microsoft': FaMicrosoft,
   'Gauge': Gauge,
@@ -853,7 +865,7 @@ export const iconColors = {
 export const getIcon = (name) => iconRegistry[name] || null;
 
 // Solid brand glyphs (react-icons) are shapes, not strokes: a stroke width only bloats them.
-const filledIcons = new Set([ FaApple, FaMicrosoft, FcGoogle, FaLinkedin, FaMedium, FaYoutube, HiSquare3Stack3D, RiMailOpenFill, RiTwitterXFill, VscGithub ]);
+const filledIcons = new Set([ FaApple, FaMicrosoft, FcGoogle, SiGooglecloud, SiPaypal, SiPrisma, FaLinkedin, FaMedium, FaYoutube, HiSquare3Stack3D, RiMailOpenFill, RiTwitterXFill, VscGithub ]);
 
 const Icon = ({
   'aria-hidden': ariaHidden,

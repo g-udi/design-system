@@ -71,3 +71,42 @@ export const FlowPattern4 = {
     await waitFor(() => expect(canvas.getAllByText('North star')).toHaveLength(1));
   }
 };
+
+export const FlowPattern5 = {
+  name: 'Payments pipeline with an inspector',
+  ...pattern(5, 'A nightly payments-to-MRR pipeline drawn as service tiles with run badges: extracts from Stripe and PayPal, a Redis dedupe, a failed ledger reconciliation and a publish step waiting for approval, with dotted satellites for the connections, test and model each step uses. Connections are dotted and flow toward their target; switch them to solid or dashed, or stop the motion. Click a node to open the inspector with its settings and wiring; Approve publishes, the toolbar switches between select and pan, zooms, fits the selection, re-runs the layout and jumps to the failing step.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = within(canvasElement.ownerDocument.body);
+    await waitFor(() => expect(canvas.getByText('dedupe_payments')).toBeVisible());
+    await expect(canvas.getByText('1.2M rows')).toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: '1 issue' })).toBeInTheDocument();
+    // The issues button frames the failing step and opens its inspector.
+    await userEvent.click(canvas.getByRole('button', { name: '1 issue' }));
+    const inspector = await page.findByRole('dialog', { name: 'reconcile_ledger' });
+    await waitFor(() => expect(inspector).toBeVisible());
+    await expect(within(inspector).getByRole('button', { name: 'Save task' })).toBeDisabled();
+    await userEvent.type(within(inspector).getByRole('textbox', { name: 'tolerance' }), '5');
+    await expect(within(inspector).getByRole('button', { name: 'Save task' })).toBeEnabled();
+    await userEvent.click(within(inspector).getByRole('tab', { name: 'Wiring' }));
+    await expect(within(inspector).getByText('ledger_v3')).toBeInTheDocument();
+    await userEvent.click(within(inspector).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('dialog', { name: 'reconcile_ledger' })).not.toBeInTheDocument());
+    // Enter on a focused node opens its inspector too.
+    const dedupe = canvasElement.querySelector('.react-flow__node[data-id="dedupe_payments"]');
+    dedupe.focus();
+    await userEvent.keyboard('{Enter}');
+    const keyboardInspector = await page.findByRole('dialog', { name: 'dedupe_payments' });
+    await userEvent.click(within(keyboardInspector).getByRole('button', { name: 'Cancel' }));
+    await waitFor(() => expect(page.queryByRole('dialog', { name: 'dedupe_payments' })).not.toBeInTheDocument());
+    // Approving publishes MRR and sends the report.
+    // On narrow canvases the inspector was a sheet; the canvas is reachable again once it has closed.
+    await userEvent.click(await canvas.findByRole('button', { name: 'Approve publish_mrr' }));
+    await waitFor(() => expect(canvas.getByText('Sent 09:15')).toBeInTheDocument(), { timeout: 5000 });
+    await userEvent.click(canvas.getByRole('radio', { name: 'Solid' }));
+    await expect(canvasElement.querySelector('.ds-flow-edge[data-variant="solid"]')).not.toBeNull();
+    await userEvent.click(canvas.getByRole('radio', { name: 'Dotted' }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Auto layout' }));
+    await waitFor(() => expect(canvasElement.querySelector('.ds-flow[data-layout-animating]')).toBeNull());
+  }
+};

@@ -163,8 +163,26 @@
   .ds-flow-edge[data-tone='danger'] { stroke: var(--ds-color-danger); }
   .ds-flow-edge[data-tone='discovery'] { stroke: var(--ds-color-discovery); }
   .ds-flow-edge[data-tone='attention'] { stroke: var(--ds-color-attention); }
-  .ds-flow-edge[data-dashed] {
-    stroke-dasharray: 4 4;
+  /*
+   * Line variants. React Flow dashes every `animated` edge itself, so solid lines reset that; dashed
+   * and dotted lines carry their own pattern, and a flowing edge moves it toward the target.
+   */
+  .ds-flow-edge[data-variant='solid'] {
+    stroke-dasharray: none;
+    animation: none;
+  }
+  .ds-flow-edge[data-variant='dashed'] {
+    --ds-flow-dash-cycle: 10;
+    stroke-dasharray: 6 4;
+  }
+  .ds-flow-edge[data-variant='dotted'] {
+    --ds-flow-dash-cycle: 6;
+    stroke-dasharray: 0 6;
+    stroke-linecap: round;
+    stroke-width: 2;
+  }
+  .ds-flow-edge[data-tone='neutral'][data-variant='dotted'] {
+    stroke: color-mix(in srgb, var(--ds-color-text) 42%, transparent);
   }
   .ds-flow-edge[data-emphasis='muted'] {
     opacity: 0.4;
@@ -173,14 +191,32 @@
     stroke-width: 2.5;
   }
   .ds-flow-edge-animated {
-    stroke-dasharray: 6 4;
     animation: ds-flow-dash 0.6s linear infinite;
   }
+  .ds-flow-edge[data-variant='dotted'].ds-flow-edge-animated {
+    animation-duration: 0.5s;
+  }
+  /* A solid edge that flows keeps its line and carries a train of dots over it. */
+  .ds-flow-edge-flow {
+    --ds-flow-dash-cycle: 14;
+    pointer-events: none;
+    stroke: var(--ds-color-accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 0 14;
+    animation: ds-flow-dash 0.7s linear infinite;
+  }
+  .ds-flow-edge-flow[data-tone='success'] { stroke: var(--ds-color-success); }
+  .ds-flow-edge-flow[data-tone='warning'] { stroke: var(--ds-color-warning); }
+  .ds-flow-edge-flow[data-tone='danger'] { stroke: var(--ds-color-danger); }
+  .ds-flow-edge-flow[data-tone='info'] { stroke: var(--ds-color-info); }
+  .ds-flow-edge-flow[data-tone='discovery'] { stroke: var(--ds-color-discovery); }
+  .ds-flow-edge-flow[data-tone='attention'] { stroke: var(--ds-color-attention); }
   .ds-flow .react-flow__edge.selected .ds-flow-edge {
     stroke: var(--ds-color-accent);
   }
   @keyframes ds-flow-dash {
-    to { stroke-dashoffset: -10; }
+    to { stroke-dashoffset: calc(var(--ds-flow-dash-cycle, 10) * -1); }
   }
 
   .ds-flow-edge-labels {
@@ -262,8 +298,285 @@
     box-shadow: var(--ds-shadow-floating);
   }
 
+  /* Tile nodes: a service tile with a run badge, the title and a meta line underneath. */
+  .ds-flow-tile {
+    display: grid;
+    justify-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 2px);
+    width: 8.5rem;
+    text-align: center;
+  }
+  .ds-flow-tile-face {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    margin-block-end: 0.375rem;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+    box-shadow: var(--ds-shadow-card);
+    transition: box-shadow 150ms ease, border-color 150ms ease;
+  }
+  .ds-flow-tile[data-shape='circle'] .ds-flow-tile-face {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+  }
+  .ds-flow-tile[data-status='success'] .ds-flow-tile-face { border-color: var(--ds-color-success-border); }
+  .ds-flow-tile[data-status='failed'] .ds-flow-tile-face { border-color: var(--ds-color-danger); }
+  .ds-flow-tile[data-status='running'] .ds-flow-tile-face { border-color: var(--ds-color-accent); }
+  .ds-flow-tile[data-status='waiting'] .ds-flow-tile-face { border-color: var(--ds-color-warning); }
+  .ds-flow-tile[data-selected] .ds-flow-tile-face {
+    box-shadow: 0 0 0 2px var(--ds-color-surface), 0 0 0 4px var(--ds-color-accent);
+  }
+  .ds-flow-tile[data-emphasis='muted'] {
+    opacity: 0.55;
+  }
+  .ds-flow-glyph > svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  .ds-flow-tile-badge {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: grid;
+    place-items: center;
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: 9999px;
+    background: var(--ds-color-text-subtle);
+    color: var(--ds-color-surface);
+    box-shadow: 0 0 0 2px var(--ds-color-surface);
+    transform: translate(-50%, 50%);
+  }
+  .ds-flow-tile-badge svg {
+    width: 0.5625rem;
+    height: 0.5625rem;
+    stroke-width: 3.5;
+  }
+  .ds-flow-tile-badge[data-status='success'] { background: var(--ds-color-success); }
+  .ds-flow-tile-badge[data-status='failed'] { background: var(--ds-color-danger); }
+  .ds-flow-tile-badge[data-status='running'] { background: var(--ds-color-accent); }
+  .ds-flow-tile-badge[data-status='waiting'] { background: var(--ds-color-warning); }
+  .ds-flow-tile-badge[data-status='blocked'] { background: var(--ds-color-attention); }
+  .ds-flow-tile-title {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+  }
+  .ds-flow-tile-meta {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--ds-color-text-muted);
+  }
+  .ds-flow-tile-meta[data-tone='danger'] { color: var(--ds-color-danger); }
+  .ds-flow-tile-meta[data-tone='warning'] { color: var(--ds-color-warning); }
+  .ds-flow-tile-meta[data-tone='success'] { color: var(--ds-color-success); }
+  /* Handles sit on the tile itself, not the whole column with its labels. */
+  .ds-flow .react-flow__node-tile .ds-flow-handle[class*='left'],
+  .ds-flow .react-flow__node-tile .ds-flow-handle[class*='right'] {
+    top: 1.5rem;
+  }
+  .ds-flow .react-flow__node-tile .ds-flow-handle[class*='left'] { left: calc(50% - 1.5rem); }
+  .ds-flow .react-flow__node-tile .ds-flow-handle[class*='right'] { left: calc(50% + 1.5rem); right: auto; }
+  .ds-flow .react-flow__node-tile .ds-flow-handle[class*='top'] { top: 0; }
+
+  /* Task card: one line with an icon tile, title and an inline action. */
+  .ds-flow-task {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 10px);
+    width: 16rem;
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 10px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+    box-shadow: var(--ds-shadow-card);
+  }
+  .ds-flow-task[data-status='waiting'] {
+    border-color: var(--ds-color-warning);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--ds-color-warning) 16%, transparent);
+  }
+  .ds-flow-task[data-status='failed'] { border-color: var(--ds-color-danger); }
+  .ds-flow-task[data-status='running'] { border-color: var(--ds-color-accent); }
+  .ds-flow-task[data-selected] {
+    box-shadow: 0 0 0 2px var(--ds-color-surface), 0 0 0 4px var(--ds-color-accent);
+  }
+  .ds-flow-task-icon {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-control);
+    background: var(--ds-color-surface);
+  }
+  .ds-flow .react-flow__node:focus-visible > .ds-flow-task,
+  .ds-flow .react-flow__node:focus-visible > .ds-flow-tile .ds-flow-tile-face {
+    box-shadow: 0 0 0 2px var(--ds-color-surface), 0 0 0 4px var(--ds-color-accent);
+  }
+
+  /* Toolbar controls in one row. */
+  .ds-flow-toolbar {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 2px);
+    padding: calc(var(--ds-space-scale, 1) * 3px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+    box-shadow: var(--ds-shadow-card);
+  }
+  .ds-flow-toolbar {
+    flex-wrap: wrap;
+    max-width: calc(100cqw - 1.5rem);
+  }
+  /* On phone-width canvases the zoom readout gives way so every control stays reachable. */
+  @container (max-width: 24rem) {
+    .ds-flow .ds-flow-zoom {
+      display: none;
+    }
+  }
+  .ds-flow-toolbar .ds-part-button {
+    border-color: transparent;
+    background: transparent;
+  }
+  .ds-flow-toolbar-divider {
+    width: 1px;
+    height: 1.25rem;
+    margin-inline: 0.25rem;
+    background: var(--ds-color-border);
+  }
+  .ds-flow-zoom {
+    min-width: 2.75rem;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    color: var(--ds-color-text-muted);
+  }
+  .ds-flow-issues {
+    position: relative;
+    display: inline-flex;
+  }
+  .ds-flow-issues[data-count] {
+    color: var(--ds-color-danger);
+  }
+  .ds-flow-issues-count {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.625rem;
+    min-width: 1rem;
+    padding-inline: calc(var(--ds-space-scale, 1) * 3px);
+    border-radius: var(--ds-radius-pill);
+    background: var(--ds-color-danger);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    color: var(--ds-color-surface);
+  }
+  .ds-flow[data-tool='hand'] .react-flow__pane {
+    cursor: grab;
+  }
+
+  /* Nodes glide into place while Auto layout settles. */
+  .ds-flow[data-layout-animating] .react-flow__node {
+    transition: transform 320ms ease;
+  }
+
+  /* Inspector: a panel that slides in from the right inside the canvas. */
+  .ds-flow-inspector {
+    position: absolute;
+    z-index: 10;
+    top: 0.75rem;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    width: min(23rem, calc(100% - 1.5rem));
+    overflow: hidden;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+    box-shadow: var(--ds-shadow-floating);
+    animation: ds-flow-inspector-in 180ms ease-out;
+    cursor: default;
+  }
+  .ds-flow-inspector:focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: 2px;
+  }
+  .ds-flow-inspector-header {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    padding: calc(var(--ds-space-scale, 1) * 10px) calc(var(--ds-space-scale, 1) * 12px) calc(var(--ds-space-scale, 1) * 10px) calc(var(--ds-space-scale, 1) * 16px);
+    border-bottom: 1px solid var(--ds-color-border);
+  }
+  .ds-flow-inspector-icon {
+    display: inline-grid;
+    flex-shrink: 0;
+    place-items: center;
+  }
+  .ds-flow-inspector-icon > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  .ds-flow-inspector-scroll {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+  }
+  .ds-flow-inspector-tabs {
+    flex: 1;
+    gap: 0;
+  }
+  .ds-flow-inspector-tabs > [role='tablist'] {
+    border-bottom: 1px solid var(--ds-color-border);
+  }
+  .ds-flow-inspector-body {
+    display: grid;
+    align-content: start;
+    gap: calc(var(--ds-space-scale, 1) * 14px);
+    padding: calc(var(--ds-space-scale, 1) * 16px);
+  }
+  .ds-flow-inspector-footer {
+    display: flex;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    padding: calc(var(--ds-space-scale, 1) * 12px) calc(var(--ds-space-scale, 1) * 16px);
+    border-top: 1px solid var(--ds-color-border);
+  }
+  @keyframes ds-flow-inspector-in {
+    from { opacity: 0; transform: translateX(1.5rem); }
+  }
+  [dir='rtl'] .ds-flow-inspector {
+    right: auto;
+    left: 0.75rem;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .ds-flow-edge-animated {
+    .ds-flow[data-layout-animating] .react-flow__node {
+      transition: none;
+    }
+    .ds-flow-inspector {
+      animation: none;
+    }
+    /* Motion stops; the dashes, dots and flow markers stay so the state still reads. */
+    .ds-flow-edge-animated,
+    .ds-flow-edge-flow {
       animation: none;
     }
     .ds-flow-node,

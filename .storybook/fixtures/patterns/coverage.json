@@ -1857,6 +1857,14 @@
           "file": ".storybook/fixtures/patterns/flow/c-flow-4.jsx",
           "sha256": "2fe16a850a4ade11e26c6f894939a8e67e9b57514e0e3cf9da7fa68736f8b369",
           "storyId": "core-flow--flow-pattern-4"
+        },
+        {
+          "name": "c-flow-5",
+          "title": "Payments pipeline with an inspector",
+          "description": "Payments pipeline with an inspector",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-5.jsx",
+          "sha256": "d9223708396874cb3b7f7c954bc6f07ef2e40f7b18faf0348585f0f3a19d7aae",
+          "storyId": "core-flow--flow-pattern-5"
         }
       ]
     },

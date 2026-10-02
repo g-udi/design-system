@@ -157,6 +157,7 @@ export const animatedIconRegistry = {
   "Bug": drawIcons["Bug"],
   "Building": drawIcons["Building"],
   "Building2": drawIcons["Building2"],
+  "Cable": drawIcons["Cable"],
   "Calculator": drawIcons["Calculator"],
   "Calendar": drawIcons["CalendarDays"],
   "CalendarCheck": drawIcons["CalendarCheck"],
@@ -284,6 +285,7 @@ export const animatedIconRegistry = {
   "Grid3X3": drawIcons["Grid3x3"],
   "GripHorizontal": drawIcons["GripHorizontal"],
   "GripVertical": artwork47,
+  "Hand": drawIcons["Hand"],
   "Handshake": drawIcons["Handshake"],
   "HandshakeLine": drawIcons["Handshake"],
   "Hash": drawIcons["Hash"],
@@ -336,6 +338,7 @@ export const animatedIconRegistry = {
   "ListTodo": drawIcons["ListTodo"],
   "Loader2": artwork57,
   "LoaderCircle": artwork57,
+  "LocateFixed": drawIcons["LocateFixed"],
   "Lock": artwork58,
   "LogOut": drawIcons["LogOut"],
   "Magnet": drawIcons["Magnet"],
@@ -365,6 +368,7 @@ export const animatedIconRegistry = {
   "MoonFill": artwork68,
   "MoreHorizontal": drawIcons["Ellipsis"],
   "MoreVertical": drawIcons["EllipsisVertical"],
+  "MousePointer2": drawIcons["MousePointer2"],
   "Music": drawIcons["Music"],
   "Network": drawIcons["Network"],
   "node": drawIcons["Boxes"],
@@ -743,6 +747,10 @@ export const animatedIconMetadata = {
   },
   "Building2": {
     "canonical": "Building2",
+    "source": "gaudi-draw"
+  },
+  "Cable": {
+    "canonical": "Cable",
     "source": "gaudi-draw"
   },
   "Calculator": {
@@ -1290,6 +1298,10 @@ export const animatedIconMetadata = {
     "source": "lucide-animated",
     "slug": "grip-vertical"
   },
+  "Hand": {
+    "canonical": "Hand",
+    "source": "gaudi-draw"
+  },
   "Handshake": {
     "canonical": "Handshake",
     "source": "gaudi-draw"
@@ -1511,6 +1523,10 @@ export const animatedIconMetadata = {
     "source": "lucide-animated",
     "slug": "loader-circle"
   },
+  "LocateFixed": {
+    "canonical": "LocateFixed",
+    "source": "gaudi-draw"
+  },
   "Lock": {
     "canonical": "Lock",
     "source": "lucide-animated",
@@ -1638,6 +1654,10 @@ export const animatedIconMetadata = {
   },
   "MoreVertical": {
     "canonical": "EllipsisVertical",
+    "source": "gaudi-draw"
+  },
+  "MousePointer2": {
+    "canonical": "MousePointer2",
     "source": "gaudi-draw"
   },
   "Music": {

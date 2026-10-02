@@ -254,3 +254,100 @@ export function FlowPillNode({ data = {}, targetPosition = Position.Top, sourceP
     </>
   );
 }
+
+/** Glyphs for the small run badge under a tile; colour comes from the status token. */
+const tileBadges = {
+  success: 'Check',
+  failed: 'X',
+  running: 'RefreshCw',
+  waiting: 'Pause',
+  blocked: 'Lock',
+  queued: 'Clock',
+  skipped: 'Minus'
+};
+
+const renderIcon = (icon, tone, size = 'md') => (typeof icon === 'string'
+  ? <Icon name={icon} decorative size={size} className={toneText[tone]} />
+  : icon ? <span aria-hidden='true' className={cn('ds-flow-glyph inline-flex shrink-0', toneText[tone])}>{icon}</span> : null);
+
+/**
+ * A `tile` node for compact pipeline diagrams: a square (or, with `shape: 'circle'`, round)
+ * tile holding a service or brand icon, a small run badge on its lower edge, and the title
+ * with a meta line underneath. Round tiles suit satellites such as a connection, a test or
+ * a model hanging off a step. `metaTone` colours the meta line, for an error message.
+ */
+export function FlowTileNode({ data = {}, selected, targetPosition = Position.Left, sourcePosition = Position.Right, isConnectable = true }) {
+  const { title, meta, metaTone, icon, tone = 'neutral', status, shape = 'square', target = true, source = true, ports = [], emphasis } = data;
+  const badge = tileBadges[status];
+  return (
+    <>
+      <div
+        data-slot='flow-tile'
+        data-shape={shape}
+        data-status={status}
+        data-selected={selected || undefined}
+        data-emphasis={emphasis || undefined}
+        className='ds-flow-tile'
+      >
+        <span className='ds-flow-tile-face'>
+          {renderIcon(icon, tone, 'lg')}
+          {badge && (
+            <span className='ds-flow-tile-badge' data-status={status} aria-hidden='true'>
+              <Icon name={badge} decorative size='xs' className={status === 'running' ? 'motion-safe:animate-spin' : undefined} />
+            </span>
+          )}
+        </span>
+        <span className='ds-flow-tile-title' title={typeof title === 'string' ? title : undefined}>{title}</span>
+        {meta && <span className='ds-flow-tile-meta' data-tone={metaTone}>{meta}</span>}
+      </div>
+      {target && <Handle type='target' position={targetPosition} isConnectable={isConnectable} className='ds-flow-handle' />}
+      {source && <Handle type='source' position={sourcePosition} isConnectable={isConnectable} className='ds-flow-handle' />}
+      {ports.length > 0 && <Ports ports={ports} connectable={isConnectable} />}
+    </>
+  );
+}
+
+/**
+ * A compact `task` card on one line: an icon tile, the title over a short description, and
+ * an optional inline `action` (such as Approve) that runs without selecting the node. A
+ * `waiting` status rings it in the warning tone, so a step waiting on a person stands out.
+ */
+export function FlowTaskNode({ id, data = {}, selected, targetPosition = Position.Left, sourcePosition = Position.Right, isConnectable = true }) {
+  const { title, description, icon, tone = 'neutral', status, action, target = true, source = true, ports = [], emphasis } = data;
+  return (
+    <>
+      <div
+        data-slot='flow-task'
+        data-status={status}
+        data-selected={selected || undefined}
+        data-emphasis={emphasis || undefined}
+        className='ds-flow-task'
+      >
+        {icon && <span className='ds-flow-task-icon'>{renderIcon(icon, tone)}</span>}
+        <span className='grid min-w-0 flex-1'>
+          <span className='truncate text-sm font-medium'>{title}</span>
+          {description && <span className='text-text-muted truncate text-xs'>{description}</span>}
+        </span>
+        {action && (
+          <Button
+            size='xs'
+            variant={action.variant || 'default'}
+            tone={action.tone}
+            className='nodrag nopan shrink-0'
+            aria-label={action.ariaLabel || `${action.label} ${title}`}
+            disabled={action.disabled}
+            onClick={(event) => {
+              event.stopPropagation();
+              action.onClick?.(id);
+            }}
+          >
+            {action.label}
+          </Button>
+        )}
+      </div>
+      {target && <Handle type='target' position={targetPosition} isConnectable={isConnectable} className='ds-flow-handle' />}
+      {source && <Handle type='source' position={sourcePosition} isConnectable={isConnectable} className='ds-flow-handle' />}
+      {ports.length > 0 && <Ports ports={ports} connectable={isConnectable} />}
+    </>
+  );
+}
