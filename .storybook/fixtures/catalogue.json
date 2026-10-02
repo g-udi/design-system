@@ -635,6 +635,910 @@
       ],
       "importPath": "./src/components/blocks/Wizard/Wizard.stories.jsx"
     },
+    "charts-areachart--playground": {
+      "id": "charts-areachart--playground",
+      "title": "Charts/AreaChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChart.stories.jsx"
+    },
+    "charts-areachart--docs": {
+      "id": "charts-areachart--docs",
+      "title": "Charts/AreaChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChart.stories.jsx"
+    },
+    "charts-areachart--quota": {
+      "id": "charts-areachart--quota",
+      "title": "Charts/AreaChart",
+      "name": "Usage against a quota",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChart.stories.jsx"
+    },
+    "charts-areachart--loading": {
+      "id": "charts-areachart--loading",
+      "title": "Charts/AreaChart",
+      "name": "Loading and empty states",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChart.stories.jsx"
+    },
+    "charts-barchart--playground": {
+      "id": "charts-barchart--playground",
+      "title": "Charts/BarChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChart.stories.jsx"
+    },
+    "charts-barchart--docs": {
+      "id": "charts-barchart--docs",
+      "title": "Charts/BarChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChart.stories.jsx"
+    },
+    "charts-barchart--horizontal": {
+      "id": "charts-barchart--horizontal",
+      "title": "Charts/BarChart",
+      "name": "Horizontal bars for long labels",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChart.stories.jsx"
+    },
+    "charts-barchart--stacked": {
+      "id": "charts-barchart--stacked",
+      "title": "Charts/BarChart",
+      "name": "Stacked with a target",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChart.stories.jsx"
+    },
+    "charts-barchart--highlighted": {
+      "id": "charts-barchart--highlighted",
+      "title": "Charts/BarChart",
+      "name": "Highlight and activate a bar",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChart.stories.jsx"
+    },
+    "charts-boxplotchart--playground": {
+      "id": "charts-boxplotchart--playground",
+      "title": "Charts/BoxPlotChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BoxPlotChart/BoxPlotChart.stories.jsx"
+    },
+    "charts-boxplotchart--docs": {
+      "id": "charts-boxplotchart--docs",
+      "title": "Charts/BoxPlotChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/BoxPlotChart/BoxPlotChart.stories.jsx"
+    },
+    "charts-boxplotchart--precomputed": {
+      "id": "charts-boxplotchart--precomputed",
+      "title": "Charts/BoxPlotChart",
+      "name": "Precomputed summaries",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BoxPlotChart/BoxPlotChart.stories.jsx"
+    },
+    "charts-boxplotchart--regions": {
+      "id": "charts-boxplotchart--regions",
+      "title": "Charts/BoxPlotChart",
+      "name": "Regions with a custom colour",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BoxPlotChart/BoxPlotChart.stories.jsx"
+    },
+    "charts-chartframe--playground": {
+      "id": "charts-chartframe--playground",
+      "title": "Charts/ChartFrame",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFrame.stories.jsx"
+    },
+    "charts-chartframe--docs": {
+      "id": "charts-chartframe--docs",
+      "title": "Charts/ChartFrame",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFrame.stories.jsx"
+    },
+    "charts-chartframe--primitives": {
+      "id": "charts-chartframe--primitives",
+      "title": "Charts/ChartFrame",
+      "name": "Recharts with Gaudi primitives",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFrame.stories.jsx"
+    },
+    "charts-chartframe--toolbar": {
+      "id": "charts-chartframe--toolbar",
+      "title": "Charts/ChartFrame",
+      "name": "Controls in the caption",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFrame.stories.jsx"
+    },
+    "charts-chartframe--data-table": {
+      "id": "charts-chartframe--data-table",
+      "title": "Charts/ChartFrame",
+      "name": "Data table on its own",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFrame.stories.jsx"
+    },
+    "charts-composedchart--playground": {
+      "id": "charts-composedchart--playground",
+      "title": "Charts/ComposedChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ComposedChart/ComposedChart.stories.jsx"
+    },
+    "charts-composedchart--docs": {
+      "id": "charts-composedchart--docs",
+      "title": "Charts/ComposedChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/ComposedChart/ComposedChart.stories.jsx"
+    },
+    "charts-composedchart--rolling-average": {
+      "id": "charts-composedchart--rolling-average",
+      "title": "Charts/ComposedChart",
+      "name": "Daily values with a rolling average",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ComposedChart/ComposedChart.stories.jsx"
+    },
+    "charts-composedchart--stacked-with-rate": {
+      "id": "charts-composedchart--stacked-with-rate",
+      "title": "Charts/ComposedChart",
+      "name": "Stacked bars with a rate line",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ComposedChart/ComposedChart.stories.jsx"
+    },
+    "charts-composedchart--area-band": {
+      "id": "charts-composedchart--area-band",
+      "title": "Charts/ComposedChart",
+      "name": "Area behind a line",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ComposedChart/ComposedChart.stories.jsx"
+    },
+    "charts-donutchart--playground": {
+      "id": "charts-donutchart--playground",
+      "title": "Charts/DonutChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChart.stories.jsx"
+    },
+    "charts-donutchart--docs": {
+      "id": "charts-donutchart--docs",
+      "title": "Charts/DonutChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChart.stories.jsx"
+    },
+    "charts-donutchart--pie": {
+      "id": "charts-donutchart--pie",
+      "title": "Charts/DonutChart",
+      "name": "Pie for a few parts",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChart.stories.jsx"
+    },
+    "charts-donutchart--controlled": {
+      "id": "charts-donutchart--controlled",
+      "title": "Charts/DonutChart",
+      "name": "Controlled selection with a detail panel",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChart.stories.jsx"
+    },
+    "charts-funnelchart--playground": {
+      "id": "charts-funnelchart--playground",
+      "title": "Charts/FunnelChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/FunnelChart/FunnelChart.stories.jsx"
+    },
+    "charts-funnelchart--docs": {
+      "id": "charts-funnelchart--docs",
+      "title": "Charts/FunnelChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/FunnelChart/FunnelChart.stories.jsx"
+    },
+    "charts-funnelchart--centred": {
+      "id": "charts-funnelchart--centred",
+      "title": "Charts/FunnelChart",
+      "name": "Centred funnel with a colour per step",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/FunnelChart/FunnelChart.stories.jsx"
+    },
+    "charts-funnelchart--localised": {
+      "id": "charts-funnelchart--localised",
+      "title": "Charts/FunnelChart",
+      "name": "Custom copy and locale",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/FunnelChart/FunnelChart.stories.jsx"
+    },
+    "charts-gaugechart--playground": {
+      "id": "charts-gaugechart--playground",
+      "title": "Charts/GaugeChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/GaugeChart/GaugeChart.stories.jsx"
+    },
+    "charts-gaugechart--docs": {
+      "id": "charts-gaugechart--docs",
+      "title": "Charts/GaugeChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/GaugeChart/GaugeChart.stories.jsx"
+    },
+    "charts-gaugechart--budget": {
+      "id": "charts-gaugechart--budget",
+      "title": "Charts/GaugeChart",
+      "name": "Spend against a monthly budget",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/GaugeChart/GaugeChart.stories.jsx"
+    },
+    "charts-gaugechart--row": {
+      "id": "charts-gaugechart--row",
+      "title": "Charts/GaugeChart",
+      "name": "A row of readings",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/GaugeChart/GaugeChart.stories.jsx"
+    },
+    "charts-heatmapchart--playground": {
+      "id": "charts-heatmapchart--playground",
+      "title": "Charts/HeatmapChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HeatmapChart/HeatmapChart.stories.jsx"
+    },
+    "charts-heatmapchart--docs": {
+      "id": "charts-heatmapchart--docs",
+      "title": "Charts/HeatmapChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/HeatmapChart/HeatmapChart.stories.jsx"
+    },
+    "charts-heatmapchart--diverging": {
+      "id": "charts-heatmapchart--diverging",
+      "title": "Charts/HeatmapChart",
+      "name": "Change on a diverging scale",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HeatmapChart/HeatmapChart.stories.jsx"
+    },
+    "charts-heatmapchart--calendar": {
+      "id": "charts-heatmapchart--calendar",
+      "title": "Charts/HeatmapChart",
+      "name": "Calendar of publishing days",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HeatmapChart/HeatmapChart.stories.jsx"
+    },
+    "charts-histogramchart--playground": {
+      "id": "charts-histogramchart--playground",
+      "title": "Charts/HistogramChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HistogramChart/HistogramChart.stories.jsx"
+    },
+    "charts-histogramchart--docs": {
+      "id": "charts-histogramchart--docs",
+      "title": "Charts/HistogramChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/HistogramChart/HistogramChart.stories.jsx"
+    },
+    "charts-histogramchart--bimodal": {
+      "id": "charts-histogramchart--bimodal",
+      "title": "Charts/HistogramChart",
+      "name": "Two kinds of visit",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HistogramChart/HistogramChart.stories.jsx"
+    },
+    "charts-histogramchart--fixed-domain": {
+      "id": "charts-histogramchart--fixed-domain",
+      "title": "Charts/HistogramChart",
+      "name": "Fixed domain and count label",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HistogramChart/HistogramChart.stories.jsx"
+    },
+    "charts-linechart--playground": {
+      "id": "charts-linechart--playground",
+      "title": "Charts/LineChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChart.stories.jsx"
+    },
+    "charts-linechart--docs": {
+      "id": "charts-linechart--docs",
+      "title": "Charts/LineChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChart.stories.jsx"
+    },
+    "charts-linechart--comparison": {
+      "id": "charts-linechart--comparison",
+      "title": "Charts/LineChart",
+      "name": "Compare percentiles with an annotation",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChart.stories.jsx"
+    },
+    "charts-linechart--stepped": {
+      "id": "charts-linechart--stepped",
+      "title": "Charts/LineChart",
+      "name": "Stepped line without markers",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChart.stories.jsx"
+    },
+    "charts-linechart--localised": {
+      "id": "charts-linechart--localised",
+      "title": "Charts/LineChart",
+      "name": "Locale formatting",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChart.stories.jsx"
+    },
+    "charts-radarchart--playground": {
+      "id": "charts-radarchart--playground",
+      "title": "Charts/RadarChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadarChart/RadarChart.stories.jsx"
+    },
+    "charts-radarchart--docs": {
+      "id": "charts-radarchart--docs",
+      "title": "Charts/RadarChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/RadarChart/RadarChart.stories.jsx"
+    },
+    "charts-radarchart--comparison": {
+      "id": "charts-radarchart--comparison",
+      "title": "Charts/RadarChart",
+      "name": "Compare three options",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadarChart/RadarChart.stories.jsx"
+    },
+    "charts-radarchart--single": {
+      "id": "charts-radarchart--single",
+      "title": "Charts/RadarChart",
+      "name": "One series without rings",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadarChart/RadarChart.stories.jsx"
+    },
+    "charts-radialchart--playground": {
+      "id": "charts-radialchart--playground",
+      "title": "Charts/RadialChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadialChart/RadialChart.stories.jsx"
+    },
+    "charts-radialchart--docs": {
+      "id": "charts-radialchart--docs",
+      "title": "Charts/RadialChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/RadialChart/RadialChart.stories.jsx"
+    },
+    "charts-radialchart--single-ring": {
+      "id": "charts-radialchart--single-ring",
+      "title": "Charts/RadialChart",
+      "name": "One measure with a caption",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadialChart/RadialChart.stories.jsx"
+    },
+    "charts-radialchart--coloured": {
+      "id": "charts-radialchart--coloured",
+      "title": "Charts/RadialChart",
+      "name": "Custom colours per ring",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadialChart/RadialChart.stories.jsx"
+    },
+    "charts-rangechart--playground": {
+      "id": "charts-rangechart--playground",
+      "title": "Charts/RangeChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RangeChart/RangeChart.stories.jsx"
+    },
+    "charts-rangechart--docs": {
+      "id": "charts-rangechart--docs",
+      "title": "Charts/RangeChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/RangeChart/RangeChart.stories.jsx"
+    },
+    "charts-rangechart--temperature": {
+      "id": "charts-rangechart--temperature",
+      "title": "Charts/RangeChart",
+      "name": "Daily highs and lows",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RangeChart/RangeChart.stories.jsx"
+    },
+    "charts-rangechart--forecast": {
+      "id": "charts-rangechart--forecast",
+      "title": "Charts/RangeChart",
+      "name": "Forecast with a widening band",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RangeChart/RangeChart.stories.jsx"
+    },
+    "charts-sankeychart--playground": {
+      "id": "charts-sankeychart--playground",
+      "title": "Charts/SankeyChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/SankeyChart/SankeyChart.stories.jsx"
+    },
+    "charts-sankeychart--docs": {
+      "id": "charts-sankeychart--docs",
+      "title": "Charts/SankeyChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/SankeyChart/SankeyChart.stories.jsx"
+    },
+    "charts-sankeychart--budget": {
+      "id": "charts-sankeychart--budget",
+      "title": "Charts/SankeyChart",
+      "name": "Budget from income to spend",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/SankeyChart/SankeyChart.stories.jsx"
+    },
+    "charts-sankeychart--onboarding": {
+      "id": "charts-sankeychart--onboarding",
+      "title": "Charts/SankeyChart",
+      "name": "Drop-off between steps",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/SankeyChart/SankeyChart.stories.jsx"
+    },
+    "charts-scatterchart--playground": {
+      "id": "charts-scatterchart--playground",
+      "title": "Charts/ScatterChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ScatterChart/ScatterChart.stories.jsx"
+    },
+    "charts-scatterchart--docs": {
+      "id": "charts-scatterchart--docs",
+      "title": "Charts/ScatterChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/ScatterChart/ScatterChart.stories.jsx"
+    },
+    "charts-scatterchart--with-references": {
+      "id": "charts-scatterchart--with-references",
+      "title": "Charts/ScatterChart",
+      "name": "Quadrants with reference lines",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ScatterChart/ScatterChart.stories.jsx"
+    },
+    "charts-scatterchart--bubbles": {
+      "id": "charts-scatterchart--bubbles",
+      "title": "Charts/ScatterChart",
+      "name": "Bubbles sized by traffic",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ScatterChart/ScatterChart.stories.jsx"
+    },
+    "charts-sparkline--playground": {
+      "id": "charts-sparkline--playground",
+      "title": "Charts/Sparkline",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/Sparkline/Sparkline.stories.jsx"
+    },
+    "charts-sparkline--docs": {
+      "id": "charts-sparkline--docs",
+      "title": "Charts/Sparkline",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/Sparkline/Sparkline.stories.jsx"
+    },
+    "charts-sparkline--in-table": {
+      "id": "charts-sparkline--in-table",
+      "title": "Charts/Sparkline",
+      "name": "Trends in a table",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/Sparkline/Sparkline.stories.jsx"
+    },
+    "charts-sparkline--inline": {
+      "id": "charts-sparkline--inline",
+      "title": "Charts/Sparkline",
+      "name": "Inline in prose",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/Sparkline/Sparkline.stories.jsx"
+    },
+    "charts-stackedbarlist--playground": {
+      "id": "charts-stackedbarlist--playground",
+      "title": "Charts/StackedBarList",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/StackedBarList/StackedBarList.stories.jsx"
+    },
+    "charts-stackedbarlist--docs": {
+      "id": "charts-stackedbarlist--docs",
+      "title": "Charts/StackedBarList",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/StackedBarList/StackedBarList.stories.jsx"
+    },
+    "charts-stackedbarlist--single-value": {
+      "id": "charts-stackedbarlist--single-value",
+      "title": "Charts/StackedBarList",
+      "name": "Ranked list with one value",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/StackedBarList/StackedBarList.stories.jsx"
+    },
+    "charts-stackedbarlist--normalised": {
+      "id": "charts-stackedbarlist--normalised",
+      "title": "Charts/StackedBarList",
+      "name": "Compare mixes as 100%",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/StackedBarList/StackedBarList.stories.jsx"
+    },
+    "charts-treemapchart--playground": {
+      "id": "charts-treemapchart--playground",
+      "title": "Charts/TreemapChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/TreemapChart.stories.jsx"
+    },
+    "charts-treemapchart--docs": {
+      "id": "charts-treemapchart--docs",
+      "title": "Charts/TreemapChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/TreemapChart.stories.jsx"
+    },
+    "charts-treemapchart--flat": {
+      "id": "charts-treemapchart--flat",
+      "title": "Charts/TreemapChart",
+      "name": "One level shaded by value",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/TreemapChart.stories.jsx"
+    },
+    "charts-treemapchart--spend": {
+      "id": "charts-treemapchart--spend",
+      "title": "Charts/TreemapChart",
+      "name": "Spend by team",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/TreemapChart.stories.jsx"
+    },
+    "charts-waterfallchart--playground": {
+      "id": "charts-waterfallchart--playground",
+      "title": "Charts/WaterfallChart",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/WaterfallChart/WaterfallChart.stories.jsx"
+    },
+    "charts-waterfallchart--docs": {
+      "id": "charts-waterfallchart--docs",
+      "title": "Charts/WaterfallChart",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/WaterfallChart/WaterfallChart.stories.jsx"
+    },
+    "charts-waterfallchart--budget": {
+      "id": "charts-waterfallchart--budget",
+      "title": "Charts/WaterfallChart",
+      "name": "Performance budget bridge",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/WaterfallChart/WaterfallChart.stories.jsx"
+    },
+    "charts-waterfallchart--subtotals": {
+      "id": "charts-waterfallchart--subtotals",
+      "title": "Charts/WaterfallChart",
+      "name": "Subtotals inside the bridge",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/WaterfallChart/WaterfallChart.stories.jsx"
+    },
     "chat-activityindicator--playground": {
       "id": "chat-activityindicator--playground",
       "title": "Chat/ActivityIndicator",
@@ -3218,10 +4122,10 @@
       ],
       "importPath": "./src/components/mdx/Chart/Chart.stories.jsx"
     },
-    "mdx-chart--chart-types": {
-      "id": "mdx-chart--chart-types",
+    "mdx-chart--in-mdx": {
+      "id": "mdx-chart--in-mdx",
       "title": "MDX/Chart",
-      "name": "Part-to-whole, correlation and progress",
+      "name": "Writing a chart in MDX",
       "type": "story",
       "tags": [
         "autodocs",
@@ -4777,6 +5681,245 @@
         "play-fn"
       ],
       "importPath": "./src/components/blocks/Wizard/WizardPatterns.stories.jsx"
+    },
+    "charts-areachart--area-chart-pattern-1": {
+      "id": "charts-areachart--area-chart-pattern-1",
+      "title": "Charts/AreaChart",
+      "name": "Fills, curves and stacking",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChartPatterns.stories.jsx"
+    },
+    "charts-areachart--area-chart-pattern-2": {
+      "id": "charts-areachart--area-chart-pattern-2",
+      "title": "Charts/AreaChart",
+      "name": "Annotated traffic with keyboard reading",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/AreaChart/AreaChartPatterns.stories.jsx"
+    },
+    "charts-barchart--bar-chart-pattern-1": {
+      "id": "charts-barchart--bar-chart-pattern-1",
+      "title": "Charts/BarChart",
+      "name": "Fills, comparison and layout",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChartPatterns.stories.jsx"
+    },
+    "charts-barchart--bar-chart-pattern-2": {
+      "id": "charts-barchart--bar-chart-pattern-2",
+      "title": "Charts/BarChart",
+      "name": "Hover to reveal values",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/BarChart/BarChartPatterns.stories.jsx"
+    },
+    "charts-boxplotchart--box-plot-chart-pattern-1": {
+      "id": "charts-boxplotchart--box-plot-chart-pattern-1",
+      "title": "Charts/BoxPlotChart",
+      "name": "Response time by route",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/BoxPlotChart/BoxPlotChartPatterns.stories.jsx"
+    },
+    "charts-chartframe--chart-frame-pattern-1": {
+      "id": "charts-chartframe--chart-frame-pattern-1",
+      "title": "Charts/ChartFrame",
+      "name": "Loading, empty, invalid, error and locale",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ChartFrame/ChartFramePatterns.stories.jsx"
+    },
+    "charts-donutchart--donut-chart-pattern-1": {
+      "id": "charts-donutchart--donut-chart-pattern-1",
+      "title": "Charts/DonutChart",
+      "name": "Patterned slices",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChartPatterns.stories.jsx"
+    },
+    "charts-donutchart--donut-chart-pattern-2": {
+      "id": "charts-donutchart--donut-chart-pattern-2",
+      "title": "Charts/DonutChart",
+      "name": "Select a topic, small slices as Other",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/DonutChart/DonutChartPatterns.stories.jsx"
+    },
+    "charts-funnelchart--funnel-chart-pattern-1": {
+      "id": "charts-funnelchart--funnel-chart-pattern-1",
+      "title": "Charts/FunnelChart",
+      "name": "Newsletter signups",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/FunnelChart/FunnelChartPatterns.stories.jsx"
+    },
+    "charts-gaugechart--gauge-chart-pattern-1": {
+      "id": "charts-gaugechart--gauge-chart-pattern-1",
+      "title": "Charts/GaugeChart",
+      "name": "Core Web Vitals",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/GaugeChart/GaugeChartPatterns.stories.jsx"
+    },
+    "charts-heatmapchart--heatmap-chart-pattern-1": {
+      "id": "charts-heatmapchart--heatmap-chart-pattern-1",
+      "title": "Charts/HeatmapChart",
+      "name": "Errors by service and hour",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HeatmapChart/HeatmapChartPatterns.stories.jsx"
+    },
+    "charts-histogramchart--histogram-chart-pattern-1": {
+      "id": "charts-histogramchart--histogram-chart-pattern-1",
+      "title": "Charts/HistogramChart",
+      "name": "Reading time with median and p90",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/HistogramChart/HistogramChartPatterns.stories.jsx"
+    },
+    "charts-linechart--line-chart-pattern-1": {
+      "id": "charts-linechart--line-chart-pattern-1",
+      "title": "Charts/LineChart",
+      "name": "Forecast with a stripe zone",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/LineChart/LineChartPatterns.stories.jsx"
+    },
+    "charts-radarchart--radar-chart-pattern-1": {
+      "id": "charts-radarchart--radar-chart-pattern-1",
+      "title": "Charts/RadarChart",
+      "name": "Scores against a target",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RadarChart/RadarChartPatterns.stories.jsx"
+    },
+    "charts-radialchart--radial-chart-pattern-1": {
+      "id": "charts-radialchart--radial-chart-pattern-1",
+      "title": "Charts/RadialChart",
+      "name": "Labelled scores",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/RadialChart/RadialChartPatterns.stories.jsx"
+    },
+    "charts-rangechart--range-chart-pattern-1": {
+      "id": "charts-rangechart--range-chart-pattern-1",
+      "title": "Charts/RangeChart",
+      "name": "Release burn-down forecast",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/RangeChart/RangeChartPatterns.stories.jsx"
+    },
+    "charts-sankeychart--sankey-chart-pattern-1": {
+      "id": "charts-sankeychart--sankey-chart-pattern-1",
+      "title": "Charts/SankeyChart",
+      "name": "Where readers go",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/SankeyChart/SankeyChartPatterns.stories.jsx"
+    },
+    "charts-scatterchart--scatter-chart-pattern-1": {
+      "id": "charts-scatterchart--scatter-chart-pattern-1",
+      "title": "Charts/ScatterChart",
+      "name": "Length, read time and shares",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/ScatterChart/ScatterChartPatterns.stories.jsx"
+    },
+    "charts-sparkline--sparkline-pattern-1": {
+      "id": "charts-sparkline--sparkline-pattern-1",
+      "title": "Charts/Sparkline",
+      "name": "Stat cards with trends",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/Sparkline/SparklinePatterns.stories.jsx"
+    },
+    "charts-stackedbarlist--stacked-bar-list-pattern-1": {
+      "id": "charts-stackedbarlist--stacked-bar-list-pattern-1",
+      "title": "Charts/StackedBarList",
+      "name": "Top posts by source",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/StackedBarList/StackedBarListPatterns.stories.jsx"
+    },
+    "charts-treemapchart--treemap-chart-pattern-1": {
+      "id": "charts-treemapchart--treemap-chart-pattern-1",
+      "title": "Charts/TreemapChart",
+      "name": "Storage by folder",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/TreemapChartPatterns.stories.jsx"
+    },
+    "charts-waterfallchart--waterfall-chart-pattern-1": {
+      "id": "charts-waterfallchart--waterfall-chart-pattern-1",
+      "title": "Charts/WaterfallChart",
+      "name": "Recurring revenue bridge",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/WaterfallChart/WaterfallChartPatterns.stories.jsx"
     },
     "chat-bubble--bubble-pattern-1": {
       "id": "chat-bubble--bubble-pattern-1",
@@ -8503,245 +9646,6 @@
         "autodocs"
       ],
       "importPath": "./src/components/core/Tree/TreePatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-13": {
-      "id": "mdx-chart--chart-pattern-13",
-      "title": "MDX/Chart",
-      "name": "Area · Fills, curves and stacking",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-30": {
-      "id": "mdx-chart--chart-pattern-30",
-      "title": "MDX/Chart",
-      "name": "Area · Annotated traffic with keyboard reading",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-1": {
-      "id": "mdx-chart--chart-pattern-1",
-      "title": "MDX/Chart",
-      "name": "Bar · Fills, comparison and layout",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-11": {
-      "id": "mdx-chart--chart-pattern-11",
-      "title": "MDX/Chart",
-      "name": "Bar · Hover to reveal values",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-40": {
-      "id": "mdx-chart--chart-pattern-40",
-      "title": "MDX/Chart",
-      "name": "Bar list · Top posts by source",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-34": {
-      "id": "mdx-chart--chart-pattern-34",
-      "title": "MDX/Chart",
-      "name": "Box plot · Response time by route",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-43": {
-      "id": "mdx-chart--chart-pattern-43",
-      "title": "MDX/Chart",
-      "name": "Bubble · Length, read time and shares",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-19": {
-      "id": "mdx-chart--chart-pattern-19",
-      "title": "MDX/Chart",
-      "name": "Donut · Patterned slices",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-42": {
-      "id": "mdx-chart--chart-pattern-42",
-      "title": "MDX/Chart",
-      "name": "Donut · Select a topic, small slices as Other",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-32": {
-      "id": "mdx-chart--chart-pattern-32",
-      "title": "MDX/Chart",
-      "name": "Funnel · Newsletter signups",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-41": {
-      "id": "mdx-chart--chart-pattern-41",
-      "title": "MDX/Chart",
-      "name": "Gauge · Core Web Vitals",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-35": {
-      "id": "mdx-chart--chart-pattern-35",
-      "title": "MDX/Chart",
-      "name": "Heatmap · Errors by service and hour",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-31": {
-      "id": "mdx-chart--chart-pattern-31",
-      "title": "MDX/Chart",
-      "name": "Histogram · Reading time with median and p90",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-17": {
-      "id": "mdx-chart--chart-pattern-17",
-      "title": "MDX/Chart",
-      "name": "Line · Forecast with a stripe zone",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-23": {
-      "id": "mdx-chart--chart-pattern-23",
-      "title": "MDX/Chart",
-      "name": "Radar · Scores against a target",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-25": {
-      "id": "mdx-chart--chart-pattern-25",
-      "title": "MDX/Chart",
-      "name": "Radial · Labelled scores",
-      "type": "story",
-      "tags": [
-        "autodocs"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-33": {
-      "id": "mdx-chart--chart-pattern-33",
-      "title": "MDX/Chart",
-      "name": "Range · Release burn-down forecast",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-36": {
-      "id": "mdx-chart--chart-pattern-36",
-      "title": "MDX/Chart",
-      "name": "Sankey · Where readers go",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-37": {
-      "id": "mdx-chart--chart-pattern-37",
-      "title": "MDX/Chart",
-      "name": "Sparkline · Stat cards with trends",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-44": {
-      "id": "mdx-chart--chart-pattern-44",
-      "title": "MDX/Chart",
-      "name": "States · Loading, empty, invalid, error and locale",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-39": {
-      "id": "mdx-chart--chart-pattern-39",
-      "title": "MDX/Chart",
-      "name": "Treemap · Storage by folder",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
-    },
-    "mdx-chart--chart-pattern-38": {
-      "id": "mdx-chart--chart-pattern-38",
-      "title": "MDX/Chart",
-      "name": "Waterfall · Recurring revenue bridge",
-      "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/mdx/Chart/ChartPatterns.stories.jsx"
     },
     "mdx-table--table-pattern-1": {
       "id": "mdx-table--table-pattern-1",

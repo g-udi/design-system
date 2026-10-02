@@ -2,7 +2,7 @@
 
 Gaudi's pattern catalogue documents every component family with working examples. New patterns follow one rule: extend a matching Gaudi owner and add a component only for a distinct gap.
 
-The catalogue covers **92 families and 464 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
+The catalogue covers **110 families and 464 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
 
 [Browse the component catalogue](http://localhost:6007/?path=/story/overview-component-catalogue--browse). Each example has copyable JSX with public Gaudi imports, its original use case, and automatic accessibility checks.
 
@@ -36,11 +36,14 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | accordion | [core/Accordion](src/components/core/Accordion/index.js) | 7 |
 | alert | [core/Banner](src/components/core/Banner/index.js) | 5 |
 | alert-dialog | [core/Dialog](src/components/core/Dialog/index.js) | 6 |
+| area-chart | [charts/AreaChart](src/components/charts/AreaChart/index.js) | 2 |
 | aspect-ratio | [core/AspectRatio](src/components/core/AspectRatio/index.js) | 1 |
 | attachment | [core/Attachment](src/components/core/Attachment/index.js) | 4 |
 | autocomplete | [core/Select](src/components/core/Select/index.js) | 4 |
 | avatar | [core/Avatar](src/components/core/Avatar/index.js) | 10 |
 | badge | [core/Pill](src/components/core/Pill/index.js) | 4 |
+| bar-chart | [charts/BarChart](src/components/charts/BarChart/index.js) | 2 |
+| box-plot-chart | [charts/BoxPlotChart](src/components/charts/BoxPlotChart/index.js) | 1 |
 | breadcrumb | [core/Breadcrumb](src/components/core/Breadcrumb/index.js) | 5 |
 | bubble | [chat/Bubble](src/components/chat/Bubble/index.js) | 4 |
 | button | [core/Button](src/components/core/Button/index.js) | 7 |
@@ -49,7 +52,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | card | [core/Card](src/components/core/Card/index.js) | 8 |
 | carousel | [core/Carousel](src/components/core/Carousel/index.js) | 4 |
 | cascader | [core/Cascader](src/components/core/Cascader/index.js) | 12 |
-| chart | [mdx/Chart](src/components/mdx/Chart/index.js) | 22 |
+| chart-frame | [charts/ChartFrame](src/components/charts/ChartFrame/index.js) | 1 |
 | chat | [blocks/Chat](src/components/blocks/Chat/index.js) | 4 |
 | chat-delegation | [chat/ChatDelegation](src/components/chat/ChatDelegation/index.js) | 1 |
 | chat-error | [chat/ChatError](src/components/chat/ChatError/index.js) | 1 |
@@ -65,6 +68,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 13 |
 | date-selector | [core/Calendar](src/components/core/Calendar/index.js) | 3 |
 | dialog | [core/Dialog](src/components/core/Dialog/index.js) | 5 |
+| donut-chart | [charts/DonutChart](src/components/charts/DonutChart/index.js) | 2 |
 | drawer | [core/Dialog](src/components/core/Dialog/index.js) | 1 |
 | dropdown-menu | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 5 |
 | empty | [core/EmptyState](src/components/core/EmptyState/index.js) | 4 |
@@ -74,7 +78,11 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | filters | [core/FilterBar](src/components/core/FilterBar/index.js) | 6 |
 | flow | [core/Flow](src/components/core/Flow/index.js) | 4 |
 | forms | [blocks/Forms](src/components/blocks/Forms/index.js) | 17 |
+| funnel-chart | [charts/FunnelChart](src/components/charts/FunnelChart/index.js) | 1 |
 | gantt | [core/Gantt](src/components/core/Gantt/index.js) | 8 |
+| gauge-chart | [charts/GaugeChart](src/components/charts/GaugeChart/index.js) | 1 |
+| heatmap-chart | [charts/HeatmapChart](src/components/charts/HeatmapChart/index.js) | 1 |
+| histogram-chart | [charts/HistogramChart](src/components/charts/HistogramChart/index.js) | 1 |
 | hover-card | [core/Popover](src/components/core/Popover/index.js) | 3 |
 | icon-stack | [core/Icon](src/components/core/Icon/index.js) | 2 |
 | icon-tile | [core/Icon](src/components/core/Icon/index.js) | 3 |
@@ -85,6 +93,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | kanban | [core/KanbanBoard](src/components/core/KanbanBoard/index.js) | 10 |
 | kbd | [core/Kbd](src/components/core/Kbd/index.js) | 2 |
 | label | [core/Field](src/components/core/Field/index.js) | 2 |
+| line-chart | [charts/LineChart](src/components/charts/LineChart/index.js) | 1 |
 | marker | [core/Marker](src/components/core/Marker/index.js) | 4 |
 | menubar | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 1 |
 | message | [chat/Message](src/components/chat/Message/index.js) | 2 |
@@ -98,9 +107,14 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | progress | [core/Progress](src/components/core/Progress/index.js) | 4 |
 | prompt-composer | [chat/ChatInput](src/components/chat/ChatInput/index.js) | 3 |
 | questionnaire | [core/Questionnaire](src/components/core/Questionnaire/index.js) | 4 |
+| radar-chart | [charts/RadarChart](src/components/charts/RadarChart/index.js) | 1 |
+| radial-chart | [charts/RadialChart](src/components/charts/RadialChart/index.js) | 1 |
 | radio-group | [core/RadioGroup](src/components/core/RadioGroup/index.js) | 5 |
+| range-chart | [charts/RangeChart](src/components/charts/RangeChart/index.js) | 1 |
 | rating | [core/Rating](src/components/core/Rating/index.js) | 4 |
 | resizable | [core/Resizable](src/components/core/Resizable/index.js) | 2 |
+| sankey-chart | [charts/SankeyChart](src/components/charts/SankeyChart/index.js) | 1 |
+| scatter-chart | [charts/ScatterChart](src/components/charts/ScatterChart/index.js) | 1 |
 | scheduling | [blocks/Scheduling](src/components/blocks/Scheduling/index.js) | 7 |
 | screens | [blocks/Screens](src/components/blocks/Screens/index.js) | 25 |
 | scroll-area | [core/ScrollArea](src/components/core/ScrollArea/index.js) | 2 |
@@ -113,7 +127,9 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | slider | [core/Slider](src/components/core/Slider/index.js) | 4 |
 | sonner | [core/Toast](src/components/core/Toast/index.js) | 4 |
 | sortable | [core/Sortable](src/components/core/Sortable/index.js) | 4 |
+| sparkline | [charts/Sparkline](src/components/charts/Sparkline/index.js) | 1 |
 | spinner | [core/Spinner](src/components/core/Spinner/index.js) | 3 |
+| stacked-bar-list | [charts/StackedBarList](src/components/charts/StackedBarList/index.js) | 1 |
 | stat-cards | [blocks/StatCard](src/components/blocks/StatCard/index.js) | 9 |
 | stepper | [core/Stepper](src/components/core/Stepper/index.js) | 6 |
 | switch | [core/Switch](src/components/core/Switch/index.js) | 4 |
@@ -125,6 +141,8 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | toggle-group | [core/ToggleGroup](src/components/core/ToggleGroup/index.js) | 3 |
 | tooltip | [core/Tooltip](src/components/core/Tooltip/index.js) | 5 |
 | tree | [core/Tree](src/components/core/Tree/index.js) | 3 |
+| treemap-chart | [charts/TreemapChart](src/components/charts/TreemapChart/index.js) | 1 |
+| waterfall-chart | [charts/WaterfallChart](src/components/charts/WaterfallChart/index.js) | 1 |
 
 ## Source and maintenance
 

@@ -13,7 +13,9 @@ import CustomLink from '../core/Link';
 import { BlogNewsletterForm } from '../layout/NewsletterForm';
 import Aside from './Aside';
 import Callout from './Callout';
-import Chart, {
+import Chart from './Chart';
+// Every chart in the collection is available by name in MDX as well as through `Chart type=…`.
+import {
   AreaChart,
   BarChart,
   BoxPlotChart,
@@ -33,8 +35,9 @@ import Chart, {
   Sparkline,
   StackedBarList,
   TreemapChart,
-  WaterfallChart
-} from './Chart';
+  WaterfallChart,
+  RadarChart
+} from '../charts/index.js';
 import CitationPopover from './CitationPopover';
 import CitationTracker from './CitationTracker';
 import { CodeFence, CodeGroup } from './Code';
@@ -87,6 +90,7 @@ export const MDXComponents = {
   PieChart,
   Preview,
   Quote,
+  RadarChart,
   RadialBarChart,
   RangeChart,
   SankeyChart,
@@ -137,6 +141,7 @@ export {
   PieChart,
   Preview,
   Quote,
+  RadarChart,
   RadialBarChart,
   RangeChart,
   SankeyChart,
@@ -157,5 +162,5 @@ export {
 };
 
 // Composition exports
-export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from './Chart/index.js';
+export { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartStyle } from '../charts/ChartFrame/index.js';
 export { TableRoot, TableHeader, TableBodyPrimitive, TableFooter, TableHeadPrimitive, TableRowPrimitive, TableCellPrimitive, TableCaption } from './Table/index.js';

@@ -159,6 +159,27 @@
         }
       ]
     },
+    "area-chart": {
+      "owner": "charts/AreaChart",
+      "examples": [
+        {
+          "name": "c-area-chart-1",
+          "title": "Fills, curves and stacking",
+          "description": "Fills, curves and stacking",
+          "file": ".storybook/fixtures/patterns/area-chart/c-area-chart-1.jsx",
+          "sha256": "ae136ad425f5b78d4e727d85ef34398548edf339f6bf24615d0c0e3fda15af8a",
+          "storyId": "charts-areachart--area-chart-pattern-1"
+        },
+        {
+          "name": "c-area-chart-2",
+          "title": "Annotated traffic with keyboard reading",
+          "description": "Annotated traffic with keyboard reading",
+          "file": ".storybook/fixtures/patterns/area-chart/c-area-chart-2.jsx",
+          "sha256": "6d4636c6acdeea80ffb2843d550b47da2fbec9c19a84a0af469ed6d3c237b8e5",
+          "storyId": "charts-areachart--area-chart-pattern-2"
+        }
+      ]
+    },
     "aspect-ratio": {
       "owner": "core/AspectRatio",
       "examples": [
@@ -365,6 +386,40 @@
           "file": ".storybook/fixtures/patterns/badge/c-badge-21.jsx",
           "sha256": "41339cce55700f32927fcd17a52f3ce5d64da03e46bc25b30f7aa0c7b13530c0",
           "storyId": "core-pill--badge-pattern-21"
+        }
+      ]
+    },
+    "bar-chart": {
+      "owner": "charts/BarChart",
+      "examples": [
+        {
+          "name": "c-bar-chart-1",
+          "title": "Fills, comparison and layout",
+          "description": "Fills, comparison and layout",
+          "file": ".storybook/fixtures/patterns/bar-chart/c-bar-chart-1.jsx",
+          "sha256": "5dddb4d9e96b9f0c8a1835e7d3bfd50b0ee16dc2f595275a203b7ce572de492c",
+          "storyId": "charts-barchart--bar-chart-pattern-1"
+        },
+        {
+          "name": "c-bar-chart-2",
+          "title": "Hover to reveal values",
+          "description": "Hover to reveal values",
+          "file": ".storybook/fixtures/patterns/bar-chart/c-bar-chart-2.jsx",
+          "sha256": "bf13d9dc6dc1da432d647fd9e1ea85fe6e1d4cc768f67b6a538967648ea95748",
+          "storyId": "charts-barchart--bar-chart-pattern-2"
+        }
+      ]
+    },
+    "box-plot-chart": {
+      "owner": "charts/BoxPlotChart",
+      "examples": [
+        {
+          "name": "c-box-plot-chart-1",
+          "title": "Response time by route",
+          "description": "Response time by route",
+          "file": ".storybook/fixtures/patterns/box-plot-chart/c-box-plot-chart-1.jsx",
+          "sha256": "2806a00fb2b2adab644875184f4a100de7431144bd3faae6bb6751fd2593d3b1",
+          "storyId": "charts-boxplotchart--box-plot-chart-pattern-1"
         }
       ]
     },
@@ -864,184 +919,118 @@
         }
       ]
     },
-    "chart": {
-      "owner": "mdx/Chart",
+    "chart-frame": {
+      "owner": "charts/ChartFrame",
       "examples": [
         {
-          "name": "c-chart-1",
-          "title": "Bar · Fills, comparison and layout",
-          "description": "Bar · Fills, comparison and layout",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-1.jsx",
-          "sha256": "3229d75496780769b1bd68cf9f365dda0ecc895273a6e42ece3e99a8892232ab",
-          "storyId": "mdx-chart--chart-pattern-1"
+          "name": "c-chart-frame-1",
+          "title": "Loading, empty, invalid, error and locale",
+          "description": "Loading, empty, invalid, error and locale",
+          "file": ".storybook/fixtures/patterns/chart-frame/c-chart-frame-1.jsx",
+          "sha256": "ed4c31792d7af4c9f4b9515fb07b764fc8310927227a2e228ddf231356e79b0f",
+          "storyId": "charts-chartframe--chart-frame-pattern-1"
+        }
+      ]
+    },
+    "chat": {
+      "owner": "blocks/Chat",
+      "examples": [
+        {
+          "name": "c-chat-1",
+          "title": "Reviewing a pull request",
+          "description": "Reviewing a pull request",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-1.jsx",
+          "sha256": "f4eecb725e3ccf86b87966839eac1988e3caacbdea8259921b27496e1608b4db",
+          "storyId": "blocks-chat--chat-pattern-1"
         },
         {
-          "name": "c-chart-11",
-          "title": "Bar · Hover to reveal values",
-          "description": "Bar · Hover to reveal values",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-11.jsx",
-          "sha256": "3838049f6802f13e8b65a3b90409b62c65be1bf7360f6e90140a3c281114db2c",
-          "storyId": "mdx-chart--chart-pattern-11"
+          "name": "c-chat-2",
+          "title": "Writing assistant beside the editor",
+          "description": "Writing assistant beside the editor",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-2.jsx",
+          "sha256": "08e85bb1aa10f897c3fdfa1ab49af480851f2a0e2f990a7f54ae4a5c142c83d5",
+          "storyId": "blocks-chat--chat-pattern-2"
         },
         {
-          "name": "c-chart-13",
-          "title": "Area · Fills, curves and stacking",
-          "description": "Area · Fills, curves and stacking",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-13.jsx",
-          "sha256": "a477371fd36346f3117ef4913df20fa8ffbaf88e625f5723903c2b9ec166b930",
-          "storyId": "mdx-chart--chart-pattern-13"
+          "name": "c-chat-3",
+          "title": "Welcome and suggestions",
+          "description": "Welcome and suggestions",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-3.jsx",
+          "sha256": "5367082078df65c1b5aee6e7228e817e3b4df781833118571e243fefe27c59e5",
+          "storyId": "blocks-chat--chat-pattern-3"
         },
         {
-          "name": "c-chart-17",
-          "title": "Line · Forecast with a stripe zone",
-          "description": "Line · Forecast with a stripe zone",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-17.jsx",
-          "sha256": "0e931e4b6db44321642cea4c596f6d8ae59570b487199d390787f1f298920932",
-          "storyId": "mdx-chart--chart-pattern-17"
-        },
+          "name": "c-chat-4",
+          "title": "Agent at work: plan and activity",
+          "description": "Agent at work: plan and activity",
+          "file": ".storybook/fixtures/patterns/chat/c-chat-4.jsx",
+          "sha256": "5b8ac8a6b71ff1c69b8f1604b51d8b44b85fcd116155b046bfe54ccb525b1008",
+          "storyId": "blocks-chat--chat-pattern-4"
+        }
+      ]
+    },
+    "chat-delegation": {
+      "owner": "chat/ChatDelegation",
+      "examples": [
         {
-          "name": "c-chart-19",
-          "title": "Donut · Patterned slices",
-          "description": "Donut · Patterned slices",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-19.jsx",
-          "sha256": "15f4fdca68d3bfbe6a44557c550802dc8459f24386e66d572720169fb9dbe280",
-          "storyId": "mdx-chart--chart-pattern-19"
-        },
+          "name": "c-chat-delegation-1",
+          "title": "Handing work to another agent",
+          "description": "Handing work to another agent",
+          "file": ".storybook/fixtures/patterns/chat-delegation/c-chat-delegation-1.jsx",
+          "sha256": "0610be748634a3743a0e01424b3e0c2f75ba71e5c8cc465e4f22c3ae1ea88144",
+          "storyId": "chat-chatdelegation--chat-delegation-pattern-1"
+        }
+      ]
+    },
+    "chat-error": {
+      "owner": "chat/ChatError",
+      "examples": [
         {
-          "name": "c-chart-23",
-          "title": "Radar · Scores against a target",
-          "description": "Radar · Scores against a target",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-23.jsx",
-          "sha256": "139151f95b4c26904aae43d743505c631b30758f5a6d0efdbb21c374dc58e2f2",
-          "storyId": "mdx-chart--chart-pattern-23"
-        },
+          "name": "c-chat-error-1",
+          "title": "Error, retry and suggestions",
+          "description": "Error, retry and suggestions",
+          "file": ".storybook/fixtures/patterns/chat-error/c-chat-error-1.jsx",
+          "sha256": "f46691382e90f8ed7e4d297fa2ac865354c8377ce4e04ff2efbdb7d20d53f8db",
+          "storyId": "chat-chaterror--chat-error-pattern-1"
+        }
+      ]
+    },
+    "chat-file": {
+      "owner": "chat/ChatFile",
+      "examples": [
         {
-          "name": "c-chart-25",
-          "title": "Radial · Labelled scores",
-          "description": "Radial · Labelled scores",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-25.jsx",
-          "sha256": "b3fe52db491f8839f09d9f4ef6d237d5bb87ca4adf80b9151c4b9ebe21ed92a0",
-          "storyId": "mdx-chart--chart-pattern-25"
-        },
+          "name": "c-chat-file-1",
+          "title": "Delivered files and data",
+          "description": "Delivered files and data",
+          "file": ".storybook/fixtures/patterns/chat-file/c-chat-file-1.jsx",
+          "sha256": "d3e77dd70998bc34d43a2cda79e56ff01175191d80475248913424dc39a4242f",
+          "storyId": "chat-chatfile--chat-file-pattern-1"
+        }
+      ]
+    },
+    "chat-sources": {
+      "owner": "chat/ChatSources",
+      "examples": [
         {
-          "name": "c-chart-30",
-          "title": "Area · Annotated traffic with keyboard reading",
-          "description": "Area · Annotated traffic with keyboard reading",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-30.jsx",
-          "sha256": "8de72c5f6d79b4701e29fc988fd2afd122a3b2d98baea5babe2179a91beea52a",
-          "storyId": "mdx-chart--chart-pattern-30"
-        },
+          "name": "c-chat-sources-1",
+          "title": "Research with citations",
+          "description": "Research with citations",
+          "file": ".storybook/fixtures/patterns/chat-sources/c-chat-sources-1.jsx",
+          "sha256": "3e6e514809c04868220918412abebb1728a5ee04b9fee14689b766cff50da0db",
+          "storyId": "chat-chatsources--chat-sources-pattern-1"
+        }
+      ]
+    },
+    "chat-tool": {
+      "owner": "chat/ChatTool",
+      "examples": [
         {
-          "name": "c-chart-31",
-          "title": "Histogram · Reading time with median and p90",
-          "description": "Histogram · Reading time with median and p90",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-31.jsx",
-          "sha256": "412df23f16c41d909323cca196fb34e069acb28671e4d5f2a766fc363d94660e",
-          "storyId": "mdx-chart--chart-pattern-31"
-        },
-        {
-          "name": "c-chart-32",
-          "title": "Funnel · Newsletter signups",
-          "description": "Funnel · Newsletter signups",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-32.jsx",
-          "sha256": "a3ea544292a6312b911b0be673eb485fc53b2a593db456f0f1476afcdb313cbf",
-          "storyId": "mdx-chart--chart-pattern-32"
-        },
-        {
-          "name": "c-chart-33",
-          "title": "Range · Release burn-down forecast",
-          "description": "Range · Release burn-down forecast",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-33.jsx",
-          "sha256": "75369316d6c2b1ed0d4e670816f449212bd109fea55e4490fc6bcd4fbcd4011f",
-          "storyId": "mdx-chart--chart-pattern-33"
-        },
-        {
-          "name": "c-chart-34",
-          "title": "Box plot · Response time by route",
-          "description": "Box plot · Response time by route",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-34.jsx",
-          "sha256": "53abfbdabd4ee23d337b327497a4f67110f2f33dd7f008d747a6899262a725ef",
-          "storyId": "mdx-chart--chart-pattern-34"
-        },
-        {
-          "name": "c-chart-35",
-          "title": "Heatmap · Errors by service and hour",
-          "description": "Heatmap · Errors by service and hour",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-35.jsx",
-          "sha256": "f695f9f7ba6c241dd1f1f7bf0a84a56944d6036cd1abc836ba2d1543db946131",
-          "storyId": "mdx-chart--chart-pattern-35"
-        },
-        {
-          "name": "c-chart-36",
-          "title": "Sankey · Where readers go",
-          "description": "Sankey · Where readers go",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-36.jsx",
-          "sha256": "cb415879200253cb95b3fe758185f0ca5e26435b317f14d92bd2623336383ab9",
-          "storyId": "mdx-chart--chart-pattern-36"
-        },
-        {
-          "name": "c-chart-37",
-          "title": "Sparkline · Stat cards with trends",
-          "description": "Sparkline · Stat cards with trends",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-37.jsx",
-          "sha256": "1558a163669595bbc0cbe77615ec9e6154f9019609fd7eb0bd00b37a6c0c9cfd",
-          "storyId": "mdx-chart--chart-pattern-37"
-        },
-        {
-          "name": "c-chart-38",
-          "title": "Waterfall · Recurring revenue bridge",
-          "description": "Waterfall · Recurring revenue bridge",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-38.jsx",
-          "sha256": "d80fc357a4f5a8c211f1c96765c7332dad6309f8b2a30479a4b92c64a3a83070",
-          "storyId": "mdx-chart--chart-pattern-38"
-        },
-        {
-          "name": "c-chart-39",
-          "title": "Treemap · Storage by folder",
-          "description": "Treemap · Storage by folder",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-39.jsx",
-          "sha256": "99906f30f2ae8d3cfc9292f6524f6101a209c5f404df6336c488ddb1d86d12b6",
-          "storyId": "mdx-chart--chart-pattern-39"
-        },
-        {
-          "name": "c-chart-40",
-          "title": "Bar list · Top posts by source",
-          "description": "Bar list · Top posts by source",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-40.jsx",
-          "sha256": "2ae9b101c0dbce2e4fd2e8ae376c24c8d7370c30dd8a84ac0de0f884c8dccaaf",
-          "storyId": "mdx-chart--chart-pattern-40"
-        },
-        {
-          "name": "c-chart-41",
-          "title": "Gauge · Core Web Vitals",
-          "description": "Gauge · Core Web Vitals",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-41.jsx",
-          "sha256": "95104db6f4a1995e6404bb5ce869b417fde16c6be3b5aff31f05345e4a18bb75",
-          "storyId": "mdx-chart--chart-pattern-41"
-        },
-        {
-          "name": "c-chart-42",
-          "title": "Donut · Select a topic, small slices as Other",
-          "description": "Donut · Select a topic, small slices as Other",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-42.jsx",
-          "sha256": "9ef334c144fce49e681f309246aa80ebd657ce47c618edd02db7688c8737f41d",
-          "storyId": "mdx-chart--chart-pattern-42"
-        },
-        {
-          "name": "c-chart-43",
-          "title": "Bubble · Length, read time and shares",
-          "description": "Bubble · Length, read time and shares",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-43.jsx",
-          "sha256": "d407b77737607ab15babb994514cdcd8c713a5b8a67ff0f60bc334495060de21",
-          "storyId": "mdx-chart--chart-pattern-43"
-        },
-        {
-          "name": "c-chart-44",
-          "title": "States · Loading, empty, invalid, error and locale",
-          "description": "States · Loading, empty, invalid, error and locale",
-          "file": ".storybook/fixtures/patterns/chart/c-chart-44.jsx",
-          "sha256": "d01b11bdb2e222e021d8af4213ec89a594539f91bd2eff2a11c9286bf9c412f3",
-          "storyId": "mdx-chart--chart-pattern-44"
+          "name": "c-chat-tool-1",
+          "title": "Running tools",
+          "description": "Running tools",
+          "file": ".storybook/fixtures/patterns/chat-tool/c-chat-tool-1.jsx",
+          "sha256": "24531f2feb3e0bf2ec3f0bb862e6a3c3e56b0fcc4ad47c25873e9b36ae276ea2",
+          "storyId": "chat-chattool--chat-tool-pattern-1"
         }
       ]
     },
@@ -1530,6 +1519,27 @@
         }
       ]
     },
+    "donut-chart": {
+      "owner": "charts/DonutChart",
+      "examples": [
+        {
+          "name": "c-donut-chart-1",
+          "title": "Patterned slices",
+          "description": "Patterned slices",
+          "file": ".storybook/fixtures/patterns/donut-chart/c-donut-chart-1.jsx",
+          "sha256": "2acd7342fbf072efef02b54571a167ffa5bd2730f224efb3bba2caef08f58c50",
+          "storyId": "charts-donutchart--donut-chart-pattern-1"
+        },
+        {
+          "name": "c-donut-chart-2",
+          "title": "Select a topic, small slices as Other",
+          "description": "Select a topic, small slices as Other",
+          "file": ".storybook/fixtures/patterns/donut-chart/c-donut-chart-2.jsx",
+          "sha256": "e5ffcc1c383dbd3dccc207be1ae7c9d145e6b75c398bcfc198d0a0016e00a205",
+          "storyId": "charts-donutchart--donut-chart-pattern-2"
+        }
+      ]
+    },
     "drawer": {
       "owner": "core/Dialog",
       "examples": [
@@ -1813,6 +1823,197 @@
         }
       ]
     },
+    "flow": {
+      "owner": "core/Flow",
+      "examples": [
+        {
+          "name": "c-flow-1",
+          "title": "Automation workflow editor",
+          "description": "Automation workflow editor",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-1.jsx",
+          "sha256": "98744187e9dca68726a4ee62b8d45081b620f4dc45fd1343847d0d2ddf3d32ba",
+          "storyId": "core-flow--flow-pattern-1"
+        },
+        {
+          "name": "c-flow-2",
+          "title": "Agent tree with test run",
+          "description": "Agent tree with test run",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-2.jsx",
+          "sha256": "efffbdbe2879ea1ca9e5e3bad9d4d174df5632367b6f3708e95d6509dac1f257",
+          "storyId": "core-flow--flow-pattern-2"
+        },
+        {
+          "name": "c-flow-3",
+          "title": "Pipeline run monitor",
+          "description": "Pipeline run monitor",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-3.jsx",
+          "sha256": "6bc751b9797b8b4226616825014bc8afd7ac604d9b4c50c0717d45df90a6eb8a",
+          "storyId": "core-flow--flow-pattern-3"
+        },
+        {
+          "name": "c-flow-4",
+          "title": "Growth impact map",
+          "description": "Growth impact map",
+          "file": ".storybook/fixtures/patterns/flow/c-flow-4.jsx",
+          "sha256": "2fe16a850a4ade11e26c6f894939a8e67e9b57514e0e3cf9da7fa68736f8b369",
+          "storyId": "core-flow--flow-pattern-4"
+        }
+      ]
+    },
+    "forms": {
+      "owner": "blocks/Forms",
+      "examples": [
+        {
+          "name": "c-forms-1",
+          "title": "Contact · Message with error summary",
+          "description": "Contact · Message with error summary",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-1.jsx",
+          "sha256": "97fdd2e113c3a38278ef9f8cfbce5c661c8475efd0e004dc3e0b584b97ff523b",
+          "storyId": "blocks-forms--forms-pattern-1"
+        },
+        {
+          "name": "c-forms-2",
+          "title": "Newsletter · Signup and preferences",
+          "description": "Newsletter · Signup and preferences",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-2.jsx",
+          "sha256": "ebd2f468c7525b08994e30d87546199d78a047867156e92be04ea965287ccee5",
+          "storyId": "blocks-forms--forms-pattern-2"
+        },
+        {
+          "name": "c-forms-3",
+          "title": "Feedback · Article survey",
+          "description": "Feedback · Article survey",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-3.jsx",
+          "sha256": "c1a5a21bfb282084d06dd39c19665f05c094c7a551b7a48d3e83b8d35a5f4e84",
+          "storyId": "blocks-forms--forms-pattern-3"
+        },
+        {
+          "name": "c-forms-4",
+          "title": "Checkout · Address and payment",
+          "description": "Checkout · Address and payment",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-4.jsx",
+          "sha256": "1475d5ceb36efbe260c315b79db63264a5515bab955de1f9480fb8919b6d1c6f",
+          "storyId": "blocks-forms--forms-pattern-4"
+        },
+        {
+          "name": "c-forms-5",
+          "title": "Events · Registration with email code",
+          "description": "Events · Registration with email code",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-5.jsx",
+          "sha256": "f7128702955340951cdede0f0e7d36c210177acdb4dd825be376ac83e8c850bf",
+          "storyId": "blocks-forms--forms-pattern-5"
+        },
+        {
+          "name": "c-forms-6",
+          "title": "Profile · Card with completion and office hours",
+          "description": "Profile · Card with completion and office hours",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-6.jsx",
+          "sha256": "abdf326b7cc603763eae7bb164ece8965ce5b965c90054ac03312a6f6d1f728c",
+          "storyId": "blocks-forms--forms-pattern-6"
+        },
+        {
+          "name": "c-forms-7",
+          "title": "Profile · Tabs with audit rail",
+          "description": "Profile · Tabs with audit rail",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-7.jsx",
+          "sha256": "7f176a4f4c38a967c1e8913ba57c93431d4e5683be6f9ae45ac3b7894e62d77c",
+          "storyId": "blocks-forms--forms-pattern-7"
+        },
+        {
+          "name": "c-forms-8",
+          "title": "Security · Sign-in policy",
+          "description": "Security · Sign-in policy",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-8.jsx",
+          "sha256": "346d9521c6a75ff86d12b7bfa982309390711f8d0815c62fa904f398cc0fd2c1",
+          "storyId": "blocks-forms--forms-pattern-8"
+        },
+        {
+          "name": "c-forms-9",
+          "title": "Team · Invite with permissions",
+          "description": "Team · Invite with permissions",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-9.jsx",
+          "sha256": "1d7ee1a330b00afd540a1a1c82fd48dae5cc7eb5729934aff4cb4c7d585ea528",
+          "storyId": "blocks-forms--forms-pattern-9"
+        },
+        {
+          "name": "c-forms-10",
+          "title": "Developer · Create an API key",
+          "description": "Developer · Create an API key",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-10.jsx",
+          "sha256": "4f3d12e09d5dcff6e8e39eb907df8c781f6a940e762b198b357d6793add8a5f3",
+          "storyId": "blocks-forms--forms-pattern-10"
+        },
+        {
+          "name": "c-forms-11",
+          "title": "Billing · Hosted checkout setup",
+          "description": "Billing · Hosted checkout setup",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-11.jsx",
+          "sha256": "fd76f40a98985f8b8c10d406ff4d9cb06ef4924c5a9a0a6077e9a034a59e44e7",
+          "storyId": "blocks-forms--forms-pattern-11"
+        },
+        {
+          "name": "c-forms-12",
+          "title": "Billing · Invoice with line items",
+          "description": "Billing · Invoice with line items",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-12.jsx",
+          "sha256": "f2c88dc7cab69c6fdcaa6993a682d5707e3c6a98ac773bd8b77a43c634fa8336",
+          "storyId": "blocks-forms--forms-pattern-12"
+        },
+        {
+          "name": "c-forms-13",
+          "title": "Commerce · New product",
+          "description": "Commerce · New product",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-13.jsx",
+          "sha256": "abe93336bcff7a2798734440cb19f77c298e34e73875866ffaaebb2a12926202",
+          "storyId": "blocks-forms--forms-pattern-13"
+        },
+        {
+          "name": "c-forms-14",
+          "title": "Compliance · Business verification",
+          "description": "Compliance · Business verification",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-14.jsx",
+          "sha256": "70ec2ae95348d574758f3cd790bf0f9c907dc3f26f52f10f97c92af5dd84b7d4",
+          "storyId": "blocks-forms--forms-pattern-14"
+        },
+        {
+          "name": "c-forms-15",
+          "title": "Support · Ticket details",
+          "description": "Support · Ticket details",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-15.jsx",
+          "sha256": "ed9aeac829504134c8a245a001a5303eeb6123bfac3c46ae27c79321516a180a",
+          "storyId": "blocks-forms--forms-pattern-15"
+        },
+        {
+          "name": "c-forms-16",
+          "title": "Onboarding · Customer intake",
+          "description": "Onboarding · Customer intake",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-16.jsx",
+          "sha256": "4fc7c0a38f4cf88bd88aeab3872f19677162ce451062e3883ba38a5199f9910b",
+          "storyId": "blocks-forms--forms-pattern-16"
+        },
+        {
+          "name": "c-forms-17",
+          "title": "Launch · New app with live summary",
+          "description": "Launch · New app with live summary",
+          "file": ".storybook/fixtures/patterns/forms/c-forms-17.jsx",
+          "sha256": "a93904e7f45c6cecf6815c5f4ee5fe89ae83baab38ca3b0970348035e4c3114c",
+          "storyId": "blocks-forms--forms-pattern-17"
+        }
+      ]
+    },
+    "funnel-chart": {
+      "owner": "charts/FunnelChart",
+      "examples": [
+        {
+          "name": "c-funnel-chart-1",
+          "title": "Newsletter signups",
+          "description": "Newsletter signups",
+          "file": ".storybook/fixtures/patterns/funnel-chart/c-funnel-chart-1.jsx",
+          "sha256": "90a703fbceb970a73442436dbb6daf46bdb180dedd3c42f88e2c07e681fbd9c6",
+          "storyId": "charts-funnelchart--funnel-chart-pattern-1"
+        }
+      ]
+    },
     "gantt": {
       "owner": "core/Gantt",
       "examples": [
@@ -1879,6 +2080,45 @@
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-9.jsx",
           "sha256": "3db9672a2b3134d1fb81aa8e13be4b2949a74ebf73c49d60686904e163af00c6",
           "storyId": "core-gantt--gantt-pattern-9"
+        }
+      ]
+    },
+    "gauge-chart": {
+      "owner": "charts/GaugeChart",
+      "examples": [
+        {
+          "name": "c-gauge-chart-1",
+          "title": "Core Web Vitals",
+          "description": "Core Web Vitals",
+          "file": ".storybook/fixtures/patterns/gauge-chart/c-gauge-chart-1.jsx",
+          "sha256": "be054ff0025ffa6bec1a1adacae8f9bbaeb7e00e9a64e94e5598aeccc75338e1",
+          "storyId": "charts-gaugechart--gauge-chart-pattern-1"
+        }
+      ]
+    },
+    "heatmap-chart": {
+      "owner": "charts/HeatmapChart",
+      "examples": [
+        {
+          "name": "c-heatmap-chart-1",
+          "title": "Errors by service and hour",
+          "description": "Errors by service and hour",
+          "file": ".storybook/fixtures/patterns/heatmap-chart/c-heatmap-chart-1.jsx",
+          "sha256": "ab751f0705d9c2a567aa7e26b3b12ef3e73b5475739b5607c9db4e49feff6556",
+          "storyId": "charts-heatmapchart--heatmap-chart-pattern-1"
+        }
+      ]
+    },
+    "histogram-chart": {
+      "owner": "charts/HistogramChart",
+      "examples": [
+        {
+          "name": "c-histogram-chart-1",
+          "title": "Reading time with median and p90",
+          "description": "Reading time with median and p90",
+          "file": ".storybook/fixtures/patterns/histogram-chart/c-histogram-chart-1.jsx",
+          "sha256": "b13779015b6b0fa1eed082ae583770a11a2b8e40be5eb484f6f4c4afc5c3f9dd",
+          "storyId": "charts-histogramchart--histogram-chart-pattern-1"
         }
       ]
     },
@@ -2260,6 +2500,19 @@
         }
       ]
     },
+    "line-chart": {
+      "owner": "charts/LineChart",
+      "examples": [
+        {
+          "name": "c-line-chart-1",
+          "title": "Forecast with a stripe zone",
+          "description": "Forecast with a stripe zone",
+          "file": ".storybook/fixtures/patterns/line-chart/c-line-chart-1.jsx",
+          "sha256": "a66ac9ca29da2cac6f90b5f008ff9efc762d31d21028eec56cc5f917c9c764d0",
+          "storyId": "charts-linechart--line-chart-pattern-1"
+        }
+      ]
+    },
     "marker": {
       "owner": "core/Marker",
       "examples": [
@@ -2563,6 +2816,35 @@
         }
       ]
     },
+    "prompt-composer": {
+      "owner": "chat/ChatInput",
+      "examples": [
+        {
+          "name": "c-prompt-composer-1",
+          "title": "Mentions, commands and attachments",
+          "description": "Mentions, commands and attachments",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-1.jsx",
+          "sha256": "e3c526d7c433f448bcc5d048ed8f70f42ae9bcd0743175b86b09813be45389ec",
+          "storyId": "chat-chatinput--prompt-composer-pattern-1"
+        },
+        {
+          "name": "c-prompt-composer-2",
+          "title": "Queue follow-ups while a reply streams",
+          "description": "Queue follow-ups while a reply streams",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-2.jsx",
+          "sha256": "6d2de8fc10a3b53464ad79fab0bf8cde1f60373f9f969a5a2d02dce75b582e43",
+          "storyId": "chat-chatinput--prompt-composer-pattern-2"
+        },
+        {
+          "name": "c-prompt-composer-3",
+          "title": "Model and effort",
+          "description": "Model and effort",
+          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-3.jsx",
+          "sha256": "0547985c952ee49efbc2aa6103e2505aa6d30e8d588fff0eeea7922a3e73e96e",
+          "storyId": "chat-chatinput--prompt-composer-pattern-3"
+        }
+      ]
+    },
     "questionnaire": {
       "owner": "core/Questionnaire",
       "examples": [
@@ -2597,6 +2879,32 @@
           "file": ".storybook/fixtures/patterns/questionnaire/c-questionnaire-7.jsx",
           "sha256": "3c3981d624927e36c7d8e7fa60bf92e28ebde4ab0c89ebddd57f4a6d92a57989",
           "storyId": "core-questionnaire--questionnaire-pattern-7"
+        }
+      ]
+    },
+    "radar-chart": {
+      "owner": "charts/RadarChart",
+      "examples": [
+        {
+          "name": "c-radar-chart-1",
+          "title": "Scores against a target",
+          "description": "Scores against a target",
+          "file": ".storybook/fixtures/patterns/radar-chart/c-radar-chart-1.jsx",
+          "sha256": "7f02f8d313e77d8f598adebb068d252e680f1355798053a05fe535bba8842b89",
+          "storyId": "charts-radarchart--radar-chart-pattern-1"
+        }
+      ]
+    },
+    "radial-chart": {
+      "owner": "charts/RadialChart",
+      "examples": [
+        {
+          "name": "c-radial-chart-1",
+          "title": "Labelled scores",
+          "description": "Labelled scores",
+          "file": ".storybook/fixtures/patterns/radial-chart/c-radial-chart-1.jsx",
+          "sha256": "8ffe0997b46cc9aeafcb26be7709e718372dea788e5ed3e13af497a369ed4bf2",
+          "storyId": "charts-radialchart--radial-chart-pattern-1"
         }
       ]
     },
@@ -2642,6 +2950,19 @@
           "file": ".storybook/fixtures/patterns/radio-group/c-radio-group-17.jsx",
           "sha256": "5527034e589baaa9b50bf104519c6048c7e307c616c7396a22287dce8b9bacff",
           "storyId": "core-radiogroup--radio-group-pattern-17"
+        }
+      ]
+    },
+    "range-chart": {
+      "owner": "charts/RangeChart",
+      "examples": [
+        {
+          "name": "c-range-chart-1",
+          "title": "Release burn-down forecast",
+          "description": "Release burn-down forecast",
+          "file": ".storybook/fixtures/patterns/range-chart/c-range-chart-1.jsx",
+          "sha256": "34d78b34288111f165ab748507172455db03e7fb63639dc18fa74508c2befe99",
+          "storyId": "charts-rangechart--range-chart-pattern-1"
         }
       ]
     },
@@ -2700,6 +3021,298 @@
           "file": ".storybook/fixtures/patterns/resizable/c-resizable-9.jsx",
           "sha256": "dbe8b72523418f31372a0bdb6fd66ef0d10d7cd46b42c54a265ac32542c2ca56",
           "storyId": "core-resizable--resizable-pattern-9"
+        }
+      ]
+    },
+    "sankey-chart": {
+      "owner": "charts/SankeyChart",
+      "examples": [
+        {
+          "name": "c-sankey-chart-1",
+          "title": "Where readers go",
+          "description": "Where readers go",
+          "file": ".storybook/fixtures/patterns/sankey-chart/c-sankey-chart-1.jsx",
+          "sha256": "2719279a6455f3ec786ed930174c5216655116c6566a54851e1ec47e4adc228c",
+          "storyId": "charts-sankeychart--sankey-chart-pattern-1"
+        }
+      ]
+    },
+    "scatter-chart": {
+      "owner": "charts/ScatterChart",
+      "examples": [
+        {
+          "name": "c-scatter-chart-1",
+          "title": "Length, read time and shares",
+          "description": "Length, read time and shares",
+          "file": ".storybook/fixtures/patterns/scatter-chart/c-scatter-chart-1.jsx",
+          "sha256": "4e914aaf6da565e35981d868171572e56b0bc6e98fe8890dcef49cb00e3794fd",
+          "storyId": "charts-scatterchart--scatter-chart-pattern-1"
+        }
+      ]
+    },
+    "scheduling": {
+      "owner": "blocks/Scheduling",
+      "examples": [
+        {
+          "name": "c-scheduling-1",
+          "title": "Day agenda",
+          "description": "Day agenda",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-1.jsx",
+          "sha256": "c0faa2ea3215180e26b725e87e2594e0d3af45263d80c949a57857f21132c7bd",
+          "storyId": "blocks-scheduling--scheduling-pattern-1"
+        },
+        {
+          "name": "c-scheduling-2",
+          "title": "Month at a glance",
+          "description": "Month at a glance",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-2.jsx",
+          "sha256": "36a955dc096d2f426e8c457e5f5404e530d79866d5932488b62f4fb16b075880",
+          "storyId": "blocks-scheduling--scheduling-pattern-2"
+        },
+        {
+          "name": "c-scheduling-3",
+          "title": "Book a meeting",
+          "description": "Book a meeting",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-3.jsx",
+          "sha256": "ba53b06535ddad618a0465c8a21943e9396a386ef6fd8b9a334a8767b05aa6c9",
+          "storyId": "blocks-scheduling--scheduling-pattern-3"
+        },
+        {
+          "name": "c-scheduling-4",
+          "title": "Plan a meeting",
+          "description": "Plan a meeting",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-4.jsx",
+          "sha256": "896a7730e5ba83cef60f56f249b6a7150db44420d00801378dc0950e1b929c01",
+          "storyId": "blocks-scheduling--scheduling-pattern-4"
+        },
+        {
+          "name": "c-scheduling-5",
+          "title": "Create a schedule",
+          "description": "Create a schedule",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-5.jsx",
+          "sha256": "a63aebeb373d703d5d229d4e8821fac2645446c4de54b009f816814c06da5d30",
+          "storyId": "blocks-scheduling--scheduling-pattern-5"
+        },
+        {
+          "name": "c-scheduling-6",
+          "title": "Webinar details and RSVP",
+          "description": "Webinar details and RSVP",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-6.jsx",
+          "sha256": "c78932361cc5942acec5c2c7db37fdf8f05cedcb2458311bd2a0160de27e4ee2",
+          "storyId": "blocks-scheduling--scheduling-pattern-6"
+        },
+        {
+          "name": "c-scheduling-7",
+          "title": "Date and time popover",
+          "description": "Date and time popover",
+          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-7.jsx",
+          "sha256": "7b3a8785f772e404c34ec7dc98c3d60af120d09e11f39dde9042a42a9baa3103",
+          "storyId": "blocks-scheduling--scheduling-pattern-7"
+        }
+      ]
+    },
+    "screens": {
+      "owner": "blocks/Screens",
+      "examples": [
+        {
+          "name": "c-screens-1",
+          "title": "Account settings",
+          "description": "Account settings",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
+          "sha256": "0dd22017fbcc3acc00b4bf02d100f0f0cd75071ebe47308ed4175325319b5301",
+          "storyId": "blocks-profile--screens-pattern-1"
+        },
+        {
+          "name": "c-screens-2",
+          "title": "Organisation tabs",
+          "description": "Organisation tabs",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-2.jsx",
+          "sha256": "aecbfdd8eb9d8fe37f479c41b8273ef868b35949ca55cfbb4716a7ef2f9a6540",
+          "storyId": "blocks-profile--screens-pattern-2"
+        },
+        {
+          "name": "c-screens-3",
+          "title": "Billing",
+          "description": "Billing",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-3.jsx",
+          "sha256": "dd020eff787d2865ef153903eb75fc86dc7a1110db7d077f3be0c550146993f8",
+          "storyId": "blocks-profile--screens-pattern-3"
+        },
+        {
+          "name": "c-screens-4",
+          "title": "Referral rewards",
+          "description": "Referral rewards",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-4.jsx",
+          "sha256": "51d15b00902be163a5b47e03e1cabfcfa35cf42a8e53bf1d9a94eedf13bb3deb",
+          "storyId": "blocks-profile--screens-pattern-4"
+        },
+        {
+          "name": "c-screens-5",
+          "title": "Inbox and meeting capture",
+          "description": "Inbox and meeting capture",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-5.jsx",
+          "sha256": "bbc2dfafcbde3aae792d2e5a6e864c577f1ac9ef0934a6a7f856942511c24795",
+          "storyId": "blocks-profile--screens-pattern-5"
+        },
+        {
+          "name": "c-screens-6",
+          "title": "Preferences",
+          "description": "Preferences",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-6.jsx",
+          "sha256": "35b8f94dc4657b478cc8e92d146ec06560c006bfd885a369be6c4a74d7383a8d",
+          "storyId": "blocks-settings--screens-pattern-6"
+        },
+        {
+          "name": "c-screens-7",
+          "title": "Notifications",
+          "description": "Notifications",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-7.jsx",
+          "sha256": "59d5de4e58d02b07a9d5ef6da1b66d7726dba47231ff8bd5b0865df91abf9719",
+          "storyId": "blocks-settings--screens-pattern-7"
+        },
+        {
+          "name": "c-screens-8",
+          "title": "Integrations",
+          "description": "Integrations",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-8.jsx",
+          "sha256": "32c79dae8c025aab261bb3facd11462d5977aef52649f4c4eeb13cdb8e60324c",
+          "storyId": "blocks-settings--screens-pattern-8"
+        },
+        {
+          "name": "c-screens-9",
+          "title": "Developer",
+          "description": "Developer",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-9.jsx",
+          "sha256": "2a54fd1d6eef87edda450b60a4cc1db2ea2914a1c11810ee2584a18ac6628eb0",
+          "storyId": "blocks-settings--screens-pattern-9"
+        },
+        {
+          "name": "c-screens-10",
+          "title": "Plan upgrade",
+          "description": "Plan upgrade",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-10.jsx",
+          "sha256": "ec98d33c2cc43e921a2cf5fd3cd431b143b539a4429c73db0ae43dd5b849b65c",
+          "storyId": "blocks-application-wizard--screens-pattern-10"
+        },
+        {
+          "name": "c-screens-11",
+          "title": "Send an invoice",
+          "description": "Send an invoice",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-11.jsx",
+          "sha256": "f087fdb9f9cc47254c0af561e808d48efebc331ff8dde00f2fec6d153060320c",
+          "storyId": "blocks-application-wizard--screens-pattern-11"
+        },
+        {
+          "name": "c-screens-12",
+          "title": "Vendor onboarding",
+          "description": "Vendor onboarding",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-12.jsx",
+          "sha256": "4acbaa646ed56ca5023ba71cc5900af3110db797bf496213146310b2882b2fc2",
+          "storyId": "blocks-application-wizard--screens-pattern-12"
+        },
+        {
+          "name": "c-screens-13",
+          "title": "Invite your team",
+          "description": "Invite your team",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-13.jsx",
+          "sha256": "50179eb0d4fb7fb36a237c226c52b6f5e394dc7ff2b3125b3afaf13b3aef5af2",
+          "storyId": "blocks-application-wizard--screens-pattern-13"
+        },
+        {
+          "name": "c-screens-14",
+          "title": "Add a product",
+          "description": "Add a product",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-14.jsx",
+          "sha256": "c94fcab41f5b0ce750be1cc07011229a11d84539983da0c154aefef003998299",
+          "storyId": "blocks-application-wizard--screens-pattern-14"
+        },
+        {
+          "name": "c-screens-15",
+          "title": "Send money",
+          "description": "Send money",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-15.jsx",
+          "sha256": "a5d295b947c89f122aec7af0fc91c766e181ad60e6b59c2050f4054e541e1956",
+          "storyId": "blocks-application-wizard--screens-pattern-15"
+        },
+        {
+          "name": "c-screens-16",
+          "title": "Workspace setup",
+          "description": "Workspace setup",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-16.jsx",
+          "sha256": "69926ec95ab49222618de170f2647f8536522111b721438c89f65258bb7140ae",
+          "storyId": "blocks-onboarding--screens-pattern-16"
+        },
+        {
+          "name": "c-screens-17",
+          "title": "Create a publication",
+          "description": "Create a publication",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-17.jsx",
+          "sha256": "d2356166e3f9ba2dfe061d800f6733a913dddee0223aa61155c59f6911350355",
+          "storyId": "blocks-onboarding--screens-pattern-17"
+        },
+        {
+          "name": "c-screens-18",
+          "title": "Tour in a dialog",
+          "description": "Tour in a dialog",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-18.jsx",
+          "sha256": "1e4c99063b8c61ba2190cae6fa103fa5afd4507cd778c84d64b0dde43bf0082b",
+          "storyId": "blocks-onboarding--screens-pattern-18"
+        },
+        {
+          "name": "c-screens-19",
+          "title": "Connect a coding agent",
+          "description": "Connect a coding agent",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-19.jsx",
+          "sha256": "986ee771aa5ec5e009459ee027593bf44583b7e4faf3d56ce16d5fbb864dc24d",
+          "storyId": "blocks-onboarding--screens-pattern-19"
+        },
+        {
+          "name": "c-screens-20",
+          "title": "Split with imagery",
+          "description": "Split with imagery",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-20.jsx",
+          "sha256": "08ca3da63ebab8bd5af2b5ddab38814bdcb8d23dff6c8dcb54fa607bed7f5b4d",
+          "storyId": "blocks-application-authform--screens-pattern-20"
+        },
+        {
+          "name": "c-screens-21",
+          "title": "Split with testimonials",
+          "description": "Split with testimonials",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-21.jsx",
+          "sha256": "8d2be5c2865c85d79686057bd98c281bf7b2231cff9fd444c577077bd5ac8399",
+          "storyId": "blocks-application-authform--screens-pattern-21"
+        },
+        {
+          "name": "c-screens-22",
+          "title": "Magic link with logos",
+          "description": "Magic link with logos",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-22.jsx",
+          "sha256": "506fbdfd70df2bfe2ce5a2c8846dcd2a6bd8bda327d11391b817792295cda651",
+          "storyId": "blocks-application-authform--screens-pattern-22"
+        },
+        {
+          "name": "c-screens-23",
+          "title": "Centred card",
+          "description": "Centred card",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-23.jsx",
+          "sha256": "57b17c4bd608452ef9bdba3854df4e81f935e34e9ce12b4f964ed158079e418c",
+          "storyId": "blocks-application-authform--screens-pattern-23"
+        },
+        {
+          "name": "c-screens-24",
+          "title": "Free trial sign-up",
+          "description": "Free trial sign-up",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-24.jsx",
+          "sha256": "57bc5395b6d0ba639e8b955bb5458468a1dbe58b915428dedf2f12e33ba513b2",
+          "storyId": "blocks-application-authform--screens-pattern-24"
+        },
+        {
+          "name": "c-screens-25",
+          "title": "Choose a sign-in method",
+          "description": "Choose a sign-in method",
+          "file": ".storybook/fixtures/patterns/screens/c-screens-25.jsx",
+          "sha256": "b3076cd5604a822b64460686bf458ab4df34669dea613ff9445f2e3ace203042",
+          "storyId": "blocks-application-authform--screens-pattern-25"
         }
       ]
     },
@@ -3105,6 +3718,19 @@
         }
       ]
     },
+    "sparkline": {
+      "owner": "charts/Sparkline",
+      "examples": [
+        {
+          "name": "c-sparkline-1",
+          "title": "Stat cards with trends",
+          "description": "Stat cards with trends",
+          "file": ".storybook/fixtures/patterns/sparkline/c-sparkline-1.jsx",
+          "sha256": "7351f51415d1df8df9b8cc8a71f47e7311ab01d302310fa246c05943fecd9e60",
+          "storyId": "charts-sparkline--sparkline-pattern-1"
+        }
+      ]
+    },
     "spinner": {
       "owner": "core/Spinner",
       "examples": [
@@ -3131,6 +3757,96 @@
           "file": ".storybook/fixtures/patterns/spinner/c-spinner-9.jsx",
           "sha256": "7816656fdd46c2328cb314835071e327a087f499f67db073de7e6e300da62bda",
           "storyId": "core-spinner--spinner-pattern-9"
+        }
+      ]
+    },
+    "stacked-bar-list": {
+      "owner": "charts/StackedBarList",
+      "examples": [
+        {
+          "name": "c-stacked-bar-list-1",
+          "title": "Top posts by source",
+          "description": "Top posts by source",
+          "file": ".storybook/fixtures/patterns/stacked-bar-list/c-stacked-bar-list-1.jsx",
+          "sha256": "a058ac9c6d0b268bd46d714c0f7493c7d61f613d48e6f6209111693d9648944a",
+          "storyId": "charts-stackedbarlist--stacked-bar-list-pattern-1"
+        }
+      ]
+    },
+    "stat-cards": {
+      "owner": "blocks/StatCard",
+      "examples": [
+        {
+          "name": "c-stat-cards-1",
+          "title": "KPI overview",
+          "description": "KPI overview",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-1.jsx",
+          "sha256": "c18922f6c9cd68ff55eaee32fde4b68ec9bc8be5e75eeaa6a54af424fba7b539",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-1"
+        },
+        {
+          "name": "c-stat-cards-2",
+          "title": "Revenue breakdown",
+          "description": "Revenue breakdown",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-2.jsx",
+          "sha256": "7c67223cd37c1d0133058d2be89d328df2c96cf32bc9d8cdb5bb8265c337ebf3",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-2"
+        },
+        {
+          "name": "c-stat-cards-3",
+          "title": "Quota and progress",
+          "description": "Quota and progress",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-3.jsx",
+          "sha256": "a3fed221fd888880d1aab117d191e22b9fd18d2fdd5605cf03fd7e0903c1d102",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-3"
+        },
+        {
+          "name": "c-stat-cards-4",
+          "title": "Leads with a range",
+          "description": "Leads with a range",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-4.jsx",
+          "sha256": "29828fa3550af358539725f284eabe2ee803bc097671f88b5ee9a7d9b4e494ca",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-4"
+        },
+        {
+          "name": "c-stat-cards-5",
+          "title": "Breakdowns",
+          "description": "Breakdowns",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-5.jsx",
+          "sha256": "dbb731055b1c3d6faf89d40f01ee5999fbf904aef8c3a8dad6ab9b724be64c38",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-5"
+        },
+        {
+          "name": "c-stat-cards-6",
+          "title": "Balance",
+          "description": "Balance",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-6.jsx",
+          "sha256": "2892ec35b2a6fcc1f367d66b41d38fea44c0ac83199db1b2e2683581b5bff7cd",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-6"
+        },
+        {
+          "name": "c-stat-cards-7",
+          "title": "Team performance",
+          "description": "Team performance",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-7.jsx",
+          "sha256": "e753da462c1c6981d5739ba3fdcbf1cd7c33ec99b0c07bfe602a78dc03da3bdd",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-7"
+        },
+        {
+          "name": "c-stat-cards-8",
+          "title": "Support metrics",
+          "description": "Support metrics",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-8.jsx",
+          "sha256": "3dd49ba97ea121905e5079ce22c35612c613bcaa9d4629259efe86072395cb17",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-8"
+        },
+        {
+          "name": "c-stat-cards-9",
+          "title": "Hero metrics",
+          "description": "Hero metrics",
+          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-9.jsx",
+          "sha256": "792d97065dda8b9009152d1d41f8d82e419d5ece19f3785ec33707a65ae2ada6",
+          "storyId": "blocks-stat-cards--stat-cards-pattern-9"
         }
       ]
     },
@@ -3520,655 +4236,29 @@
         }
       ]
     },
-    "stat-cards": {
-      "owner": "blocks/StatCard",
+    "treemap-chart": {
+      "owner": "charts/TreemapChart",
       "examples": [
         {
-          "name": "c-stat-cards-1",
-          "title": "KPI overview",
-          "description": "KPI overview",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-1.jsx",
-          "sha256": "c18922f6c9cd68ff55eaee32fde4b68ec9bc8be5e75eeaa6a54af424fba7b539",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-1"
-        },
-        {
-          "name": "c-stat-cards-2",
-          "title": "Revenue breakdown",
-          "description": "Revenue breakdown",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-2.jsx",
-          "sha256": "7c67223cd37c1d0133058d2be89d328df2c96cf32bc9d8cdb5bb8265c337ebf3",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-2"
-        },
-        {
-          "name": "c-stat-cards-3",
-          "title": "Quota and progress",
-          "description": "Quota and progress",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-3.jsx",
-          "sha256": "a3fed221fd888880d1aab117d191e22b9fd18d2fdd5605cf03fd7e0903c1d102",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-3"
-        },
-        {
-          "name": "c-stat-cards-4",
-          "title": "Leads with a range",
-          "description": "Leads with a range",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-4.jsx",
-          "sha256": "29828fa3550af358539725f284eabe2ee803bc097671f88b5ee9a7d9b4e494ca",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-4"
-        },
-        {
-          "name": "c-stat-cards-5",
-          "title": "Breakdowns",
-          "description": "Breakdowns",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-5.jsx",
-          "sha256": "dbb731055b1c3d6faf89d40f01ee5999fbf904aef8c3a8dad6ab9b724be64c38",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-5"
-        },
-        {
-          "name": "c-stat-cards-6",
-          "title": "Balance",
-          "description": "Balance",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-6.jsx",
-          "sha256": "2892ec35b2a6fcc1f367d66b41d38fea44c0ac83199db1b2e2683581b5bff7cd",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-6"
-        },
-        {
-          "name": "c-stat-cards-7",
-          "title": "Team performance",
-          "description": "Team performance",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-7.jsx",
-          "sha256": "e753da462c1c6981d5739ba3fdcbf1cd7c33ec99b0c07bfe602a78dc03da3bdd",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-7"
-        },
-        {
-          "name": "c-stat-cards-8",
-          "title": "Support metrics",
-          "description": "Support metrics",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-8.jsx",
-          "sha256": "3dd49ba97ea121905e5079ce22c35612c613bcaa9d4629259efe86072395cb17",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-8"
-        },
-        {
-          "name": "c-stat-cards-9",
-          "title": "Hero metrics",
-          "description": "Hero metrics",
-          "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-9.jsx",
-          "sha256": "792d97065dda8b9009152d1d41f8d82e419d5ece19f3785ec33707a65ae2ada6",
-          "storyId": "blocks-stat-cards--stat-cards-pattern-9"
+          "name": "c-treemap-chart-1",
+          "title": "Storage by folder",
+          "description": "Storage by folder",
+          "file": ".storybook/fixtures/patterns/treemap-chart/c-treemap-chart-1.jsx",
+          "sha256": "4df4a444ac2f6eace07dc3349b1f6d59318d3a13e0d23222b8e0aaabecca91ae",
+          "storyId": "charts-treemapchart--treemap-chart-pattern-1"
         }
       ]
     },
-    "scheduling": {
-      "owner": "blocks/Scheduling",
+    "waterfall-chart": {
+      "owner": "charts/WaterfallChart",
       "examples": [
         {
-          "name": "c-scheduling-1",
-          "title": "Day agenda",
-          "description": "Day agenda",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-1.jsx",
-          "sha256": "c0faa2ea3215180e26b725e87e2594e0d3af45263d80c949a57857f21132c7bd",
-          "storyId": "blocks-scheduling--scheduling-pattern-1"
-        },
-        {
-          "name": "c-scheduling-2",
-          "title": "Month at a glance",
-          "description": "Month at a glance",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-2.jsx",
-          "sha256": "36a955dc096d2f426e8c457e5f5404e530d79866d5932488b62f4fb16b075880",
-          "storyId": "blocks-scheduling--scheduling-pattern-2"
-        },
-        {
-          "name": "c-scheduling-3",
-          "title": "Book a meeting",
-          "description": "Book a meeting",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-3.jsx",
-          "sha256": "ba53b06535ddad618a0465c8a21943e9396a386ef6fd8b9a334a8767b05aa6c9",
-          "storyId": "blocks-scheduling--scheduling-pattern-3"
-        },
-        {
-          "name": "c-scheduling-4",
-          "title": "Plan a meeting",
-          "description": "Plan a meeting",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-4.jsx",
-          "sha256": "896a7730e5ba83cef60f56f249b6a7150db44420d00801378dc0950e1b929c01",
-          "storyId": "blocks-scheduling--scheduling-pattern-4"
-        },
-        {
-          "name": "c-scheduling-5",
-          "title": "Create a schedule",
-          "description": "Create a schedule",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-5.jsx",
-          "sha256": "a63aebeb373d703d5d229d4e8821fac2645446c4de54b009f816814c06da5d30",
-          "storyId": "blocks-scheduling--scheduling-pattern-5"
-        },
-        {
-          "name": "c-scheduling-6",
-          "title": "Webinar details and RSVP",
-          "description": "Webinar details and RSVP",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-6.jsx",
-          "sha256": "c78932361cc5942acec5c2c7db37fdf8f05cedcb2458311bd2a0160de27e4ee2",
-          "storyId": "blocks-scheduling--scheduling-pattern-6"
-        },
-        {
-          "name": "c-scheduling-7",
-          "title": "Date and time popover",
-          "description": "Date and time popover",
-          "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-7.jsx",
-          "sha256": "7b3a8785f772e404c34ec7dc98c3d60af120d09e11f39dde9042a42a9baa3103",
-          "storyId": "blocks-scheduling--scheduling-pattern-7"
-        }
-      ]
-    },
-    "screens": {
-      "owner": "blocks/Screens",
-      "examples": [
-        {
-          "name": "c-screens-1",
-          "title": "Account settings",
-          "description": "Account settings",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
-          "sha256": "0dd22017fbcc3acc00b4bf02d100f0f0cd75071ebe47308ed4175325319b5301",
-          "storyId": "blocks-profile--screens-pattern-1"
-        },
-        {
-          "name": "c-screens-2",
-          "title": "Organisation tabs",
-          "description": "Organisation tabs",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-2.jsx",
-          "sha256": "aecbfdd8eb9d8fe37f479c41b8273ef868b35949ca55cfbb4716a7ef2f9a6540",
-          "storyId": "blocks-profile--screens-pattern-2"
-        },
-        {
-          "name": "c-screens-3",
-          "title": "Billing",
-          "description": "Billing",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-3.jsx",
-          "sha256": "dd020eff787d2865ef153903eb75fc86dc7a1110db7d077f3be0c550146993f8",
-          "storyId": "blocks-profile--screens-pattern-3"
-        },
-        {
-          "name": "c-screens-4",
-          "title": "Referral rewards",
-          "description": "Referral rewards",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-4.jsx",
-          "sha256": "51d15b00902be163a5b47e03e1cabfcfa35cf42a8e53bf1d9a94eedf13bb3deb",
-          "storyId": "blocks-profile--screens-pattern-4"
-        },
-        {
-          "name": "c-screens-5",
-          "title": "Inbox and meeting capture",
-          "description": "Inbox and meeting capture",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-5.jsx",
-          "sha256": "bbc2dfafcbde3aae792d2e5a6e864c577f1ac9ef0934a6a7f856942511c24795",
-          "storyId": "blocks-profile--screens-pattern-5"
-        },
-        {
-          "name": "c-screens-6",
-          "title": "Preferences",
-          "description": "Preferences",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-6.jsx",
-          "sha256": "35b8f94dc4657b478cc8e92d146ec06560c006bfd885a369be6c4a74d7383a8d",
-          "storyId": "blocks-settings--screens-pattern-6"
-        },
-        {
-          "name": "c-screens-7",
-          "title": "Notifications",
-          "description": "Notifications",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-7.jsx",
-          "sha256": "59d5de4e58d02b07a9d5ef6da1b66d7726dba47231ff8bd5b0865df91abf9719",
-          "storyId": "blocks-settings--screens-pattern-7"
-        },
-        {
-          "name": "c-screens-8",
-          "title": "Integrations",
-          "description": "Integrations",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-8.jsx",
-          "sha256": "32c79dae8c025aab261bb3facd11462d5977aef52649f4c4eeb13cdb8e60324c",
-          "storyId": "blocks-settings--screens-pattern-8"
-        },
-        {
-          "name": "c-screens-9",
-          "title": "Developer",
-          "description": "Developer",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-9.jsx",
-          "sha256": "2a54fd1d6eef87edda450b60a4cc1db2ea2914a1c11810ee2584a18ac6628eb0",
-          "storyId": "blocks-settings--screens-pattern-9"
-        },
-        {
-          "name": "c-screens-10",
-          "title": "Plan upgrade",
-          "description": "Plan upgrade",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-10.jsx",
-          "sha256": "ec98d33c2cc43e921a2cf5fd3cd431b143b539a4429c73db0ae43dd5b849b65c",
-          "storyId": "blocks-application-wizard--screens-pattern-10"
-        },
-        {
-          "name": "c-screens-11",
-          "title": "Send an invoice",
-          "description": "Send an invoice",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-11.jsx",
-          "sha256": "f087fdb9f9cc47254c0af561e808d48efebc331ff8dde00f2fec6d153060320c",
-          "storyId": "blocks-application-wizard--screens-pattern-11"
-        },
-        {
-          "name": "c-screens-12",
-          "title": "Vendor onboarding",
-          "description": "Vendor onboarding",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-12.jsx",
-          "sha256": "4acbaa646ed56ca5023ba71cc5900af3110db797bf496213146310b2882b2fc2",
-          "storyId": "blocks-application-wizard--screens-pattern-12"
-        },
-        {
-          "name": "c-screens-13",
-          "title": "Invite your team",
-          "description": "Invite your team",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-13.jsx",
-          "sha256": "50179eb0d4fb7fb36a237c226c52b6f5e394dc7ff2b3125b3afaf13b3aef5af2",
-          "storyId": "blocks-application-wizard--screens-pattern-13"
-        },
-        {
-          "name": "c-screens-14",
-          "title": "Add a product",
-          "description": "Add a product",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-14.jsx",
-          "sha256": "c94fcab41f5b0ce750be1cc07011229a11d84539983da0c154aefef003998299",
-          "storyId": "blocks-application-wizard--screens-pattern-14"
-        },
-        {
-          "name": "c-screens-15",
-          "title": "Send money",
-          "description": "Send money",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-15.jsx",
-          "sha256": "a5d295b947c89f122aec7af0fc91c766e181ad60e6b59c2050f4054e541e1956",
-          "storyId": "blocks-application-wizard--screens-pattern-15"
-        },
-        {
-          "name": "c-screens-16",
-          "title": "Workspace setup",
-          "description": "Workspace setup",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-16.jsx",
-          "sha256": "69926ec95ab49222618de170f2647f8536522111b721438c89f65258bb7140ae",
-          "storyId": "blocks-onboarding--screens-pattern-16"
-        },
-        {
-          "name": "c-screens-17",
-          "title": "Create a publication",
-          "description": "Create a publication",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-17.jsx",
-          "sha256": "d2356166e3f9ba2dfe061d800f6733a913dddee0223aa61155c59f6911350355",
-          "storyId": "blocks-onboarding--screens-pattern-17"
-        },
-        {
-          "name": "c-screens-18",
-          "title": "Tour in a dialog",
-          "description": "Tour in a dialog",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-18.jsx",
-          "sha256": "1e4c99063b8c61ba2190cae6fa103fa5afd4507cd778c84d64b0dde43bf0082b",
-          "storyId": "blocks-onboarding--screens-pattern-18"
-        },
-        {
-          "name": "c-screens-19",
-          "title": "Connect a coding agent",
-          "description": "Connect a coding agent",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-19.jsx",
-          "sha256": "986ee771aa5ec5e009459ee027593bf44583b7e4faf3d56ce16d5fbb864dc24d",
-          "storyId": "blocks-onboarding--screens-pattern-19"
-        },
-        {
-          "name": "c-screens-20",
-          "title": "Split with imagery",
-          "description": "Split with imagery",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-20.jsx",
-          "sha256": "08ca3da63ebab8bd5af2b5ddab38814bdcb8d23dff6c8dcb54fa607bed7f5b4d",
-          "storyId": "blocks-application-authform--screens-pattern-20"
-        },
-        {
-          "name": "c-screens-21",
-          "title": "Split with testimonials",
-          "description": "Split with testimonials",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-21.jsx",
-          "sha256": "8d2be5c2865c85d79686057bd98c281bf7b2231cff9fd444c577077bd5ac8399",
-          "storyId": "blocks-application-authform--screens-pattern-21"
-        },
-        {
-          "name": "c-screens-22",
-          "title": "Magic link with logos",
-          "description": "Magic link with logos",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-22.jsx",
-          "sha256": "506fbdfd70df2bfe2ce5a2c8846dcd2a6bd8bda327d11391b817792295cda651",
-          "storyId": "blocks-application-authform--screens-pattern-22"
-        },
-        {
-          "name": "c-screens-23",
-          "title": "Centred card",
-          "description": "Centred card",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-23.jsx",
-          "sha256": "57b17c4bd608452ef9bdba3854df4e81f935e34e9ce12b4f964ed158079e418c",
-          "storyId": "blocks-application-authform--screens-pattern-23"
-        },
-        {
-          "name": "c-screens-24",
-          "title": "Free trial sign-up",
-          "description": "Free trial sign-up",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-24.jsx",
-          "sha256": "57bc5395b6d0ba639e8b955bb5458468a1dbe58b915428dedf2f12e33ba513b2",
-          "storyId": "blocks-application-authform--screens-pattern-24"
-        },
-        {
-          "name": "c-screens-25",
-          "title": "Choose a sign-in method",
-          "description": "Choose a sign-in method",
-          "file": ".storybook/fixtures/patterns/screens/c-screens-25.jsx",
-          "sha256": "b3076cd5604a822b64460686bf458ab4df34669dea613ff9445f2e3ace203042",
-          "storyId": "blocks-application-authform--screens-pattern-25"
-        }
-      ]
-    },
-    "forms": {
-      "owner": "blocks/Forms",
-      "examples": [
-        {
-          "name": "c-forms-1",
-          "title": "Contact · Message with error summary",
-          "description": "Contact · Message with error summary",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-1.jsx",
-          "sha256": "97fdd2e113c3a38278ef9f8cfbce5c661c8475efd0e004dc3e0b584b97ff523b",
-          "storyId": "blocks-forms--forms-pattern-1"
-        },
-        {
-          "name": "c-forms-2",
-          "title": "Newsletter · Signup and preferences",
-          "description": "Newsletter · Signup and preferences",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-2.jsx",
-          "sha256": "ebd2f468c7525b08994e30d87546199d78a047867156e92be04ea965287ccee5",
-          "storyId": "blocks-forms--forms-pattern-2"
-        },
-        {
-          "name": "c-forms-3",
-          "title": "Feedback · Article survey",
-          "description": "Feedback · Article survey",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-3.jsx",
-          "sha256": "c1a5a21bfb282084d06dd39c19665f05c094c7a551b7a48d3e83b8d35a5f4e84",
-          "storyId": "blocks-forms--forms-pattern-3"
-        },
-        {
-          "name": "c-forms-4",
-          "title": "Checkout · Address and payment",
-          "description": "Checkout · Address and payment",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-4.jsx",
-          "sha256": "1475d5ceb36efbe260c315b79db63264a5515bab955de1f9480fb8919b6d1c6f",
-          "storyId": "blocks-forms--forms-pattern-4"
-        },
-        {
-          "name": "c-forms-5",
-          "title": "Events · Registration with email code",
-          "description": "Events · Registration with email code",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-5.jsx",
-          "sha256": "f7128702955340951cdede0f0e7d36c210177acdb4dd825be376ac83e8c850bf",
-          "storyId": "blocks-forms--forms-pattern-5"
-        },
-        {
-          "name": "c-forms-6",
-          "title": "Profile · Card with completion and office hours",
-          "description": "Profile · Card with completion and office hours",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-6.jsx",
-          "sha256": "abdf326b7cc603763eae7bb164ece8965ce5b965c90054ac03312a6f6d1f728c",
-          "storyId": "blocks-forms--forms-pattern-6"
-        },
-        {
-          "name": "c-forms-7",
-          "title": "Profile · Tabs with audit rail",
-          "description": "Profile · Tabs with audit rail",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-7.jsx",
-          "sha256": "7f176a4f4c38a967c1e8913ba57c93431d4e5683be6f9ae45ac3b7894e62d77c",
-          "storyId": "blocks-forms--forms-pattern-7"
-        },
-        {
-          "name": "c-forms-8",
-          "title": "Security · Sign-in policy",
-          "description": "Security · Sign-in policy",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-8.jsx",
-          "sha256": "346d9521c6a75ff86d12b7bfa982309390711f8d0815c62fa904f398cc0fd2c1",
-          "storyId": "blocks-forms--forms-pattern-8"
-        },
-        {
-          "name": "c-forms-9",
-          "title": "Team · Invite with permissions",
-          "description": "Team · Invite with permissions",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-9.jsx",
-          "sha256": "1d7ee1a330b00afd540a1a1c82fd48dae5cc7eb5729934aff4cb4c7d585ea528",
-          "storyId": "blocks-forms--forms-pattern-9"
-        },
-        {
-          "name": "c-forms-10",
-          "title": "Developer · Create an API key",
-          "description": "Developer · Create an API key",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-10.jsx",
-          "sha256": "4f3d12e09d5dcff6e8e39eb907df8c781f6a940e762b198b357d6793add8a5f3",
-          "storyId": "blocks-forms--forms-pattern-10"
-        },
-        {
-          "name": "c-forms-11",
-          "title": "Billing · Hosted checkout setup",
-          "description": "Billing · Hosted checkout setup",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-11.jsx",
-          "sha256": "fd76f40a98985f8b8c10d406ff4d9cb06ef4924c5a9a0a6077e9a034a59e44e7",
-          "storyId": "blocks-forms--forms-pattern-11"
-        },
-        {
-          "name": "c-forms-12",
-          "title": "Billing · Invoice with line items",
-          "description": "Billing · Invoice with line items",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-12.jsx",
-          "sha256": "f2c88dc7cab69c6fdcaa6993a682d5707e3c6a98ac773bd8b77a43c634fa8336",
-          "storyId": "blocks-forms--forms-pattern-12"
-        },
-        {
-          "name": "c-forms-13",
-          "title": "Commerce · New product",
-          "description": "Commerce · New product",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-13.jsx",
-          "sha256": "abe93336bcff7a2798734440cb19f77c298e34e73875866ffaaebb2a12926202",
-          "storyId": "blocks-forms--forms-pattern-13"
-        },
-        {
-          "name": "c-forms-14",
-          "title": "Compliance · Business verification",
-          "description": "Compliance · Business verification",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-14.jsx",
-          "sha256": "70ec2ae95348d574758f3cd790bf0f9c907dc3f26f52f10f97c92af5dd84b7d4",
-          "storyId": "blocks-forms--forms-pattern-14"
-        },
-        {
-          "name": "c-forms-15",
-          "title": "Support · Ticket details",
-          "description": "Support · Ticket details",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-15.jsx",
-          "sha256": "ed9aeac829504134c8a245a001a5303eeb6123bfac3c46ae27c79321516a180a",
-          "storyId": "blocks-forms--forms-pattern-15"
-        },
-        {
-          "name": "c-forms-16",
-          "title": "Onboarding · Customer intake",
-          "description": "Onboarding · Customer intake",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-16.jsx",
-          "sha256": "4fc7c0a38f4cf88bd88aeab3872f19677162ce451062e3883ba38a5199f9910b",
-          "storyId": "blocks-forms--forms-pattern-16"
-        },
-        {
-          "name": "c-forms-17",
-          "title": "Launch · New app with live summary",
-          "description": "Launch · New app with live summary",
-          "file": ".storybook/fixtures/patterns/forms/c-forms-17.jsx",
-          "sha256": "a93904e7f45c6cecf6815c5f4ee5fe89ae83baab38ca3b0970348035e4c3114c",
-          "storyId": "blocks-forms--forms-pattern-17"
-        }
-      ]
-    },
-    "flow": {
-      "owner": "core/Flow",
-      "examples": [
-        {
-          "name": "c-flow-1",
-          "title": "Automation workflow editor",
-          "description": "Automation workflow editor",
-          "file": ".storybook/fixtures/patterns/flow/c-flow-1.jsx",
-          "sha256": "98744187e9dca68726a4ee62b8d45081b620f4dc45fd1343847d0d2ddf3d32ba",
-          "storyId": "core-flow--flow-pattern-1"
-        },
-        {
-          "name": "c-flow-2",
-          "title": "Agent tree with test run",
-          "description": "Agent tree with test run",
-          "file": ".storybook/fixtures/patterns/flow/c-flow-2.jsx",
-          "sha256": "efffbdbe2879ea1ca9e5e3bad9d4d174df5632367b6f3708e95d6509dac1f257",
-          "storyId": "core-flow--flow-pattern-2"
-        },
-        {
-          "name": "c-flow-3",
-          "title": "Pipeline run monitor",
-          "description": "Pipeline run monitor",
-          "file": ".storybook/fixtures/patterns/flow/c-flow-3.jsx",
-          "sha256": "6bc751b9797b8b4226616825014bc8afd7ac604d9b4c50c0717d45df90a6eb8a",
-          "storyId": "core-flow--flow-pattern-3"
-        },
-        {
-          "name": "c-flow-4",
-          "title": "Growth impact map",
-          "description": "Growth impact map",
-          "file": ".storybook/fixtures/patterns/flow/c-flow-4.jsx",
-          "sha256": "2fe16a850a4ade11e26c6f894939a8e67e9b57514e0e3cf9da7fa68736f8b369",
-          "storyId": "core-flow--flow-pattern-4"
-        }
-      ]
-    },
-    "prompt-composer": {
-      "owner": "chat/ChatInput",
-      "examples": [
-        {
-          "name": "c-prompt-composer-1",
-          "title": "Mentions, commands and attachments",
-          "description": "Mentions, commands and attachments",
-          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-1.jsx",
-          "sha256": "e3c526d7c433f448bcc5d048ed8f70f42ae9bcd0743175b86b09813be45389ec",
-          "storyId": "chat-chatinput--prompt-composer-pattern-1"
-        },
-        {
-          "name": "c-prompt-composer-2",
-          "title": "Queue follow-ups while a reply streams",
-          "description": "Queue follow-ups while a reply streams",
-          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-2.jsx",
-          "sha256": "6d2de8fc10a3b53464ad79fab0bf8cde1f60373f9f969a5a2d02dce75b582e43",
-          "storyId": "chat-chatinput--prompt-composer-pattern-2"
-        },
-        {
-          "name": "c-prompt-composer-3",
-          "title": "Model and effort",
-          "description": "Model and effort",
-          "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-3.jsx",
-          "sha256": "0547985c952ee49efbc2aa6103e2505aa6d30e8d588fff0eeea7922a3e73e96e",
-          "storyId": "chat-chatinput--prompt-composer-pattern-3"
-        }
-      ]
-    },
-    "chat": {
-      "owner": "blocks/Chat",
-      "examples": [
-        {
-          "name": "c-chat-1",
-          "title": "Reviewing a pull request",
-          "description": "Reviewing a pull request",
-          "file": ".storybook/fixtures/patterns/chat/c-chat-1.jsx",
-          "sha256": "f4eecb725e3ccf86b87966839eac1988e3caacbdea8259921b27496e1608b4db",
-          "storyId": "blocks-chat--chat-pattern-1"
-        },
-        {
-          "name": "c-chat-2",
-          "title": "Writing assistant beside the editor",
-          "description": "Writing assistant beside the editor",
-          "file": ".storybook/fixtures/patterns/chat/c-chat-2.jsx",
-          "sha256": "08e85bb1aa10f897c3fdfa1ab49af480851f2a0e2f990a7f54ae4a5c142c83d5",
-          "storyId": "blocks-chat--chat-pattern-2"
-        },
-        {
-          "name": "c-chat-3",
-          "title": "Welcome and suggestions",
-          "description": "Welcome and suggestions",
-          "file": ".storybook/fixtures/patterns/chat/c-chat-3.jsx",
-          "sha256": "5367082078df65c1b5aee6e7228e817e3b4df781833118571e243fefe27c59e5",
-          "storyId": "blocks-chat--chat-pattern-3"
-        },
-        {
-          "name": "c-chat-4",
-          "title": "Agent at work: plan and activity",
-          "description": "Agent at work: plan and activity",
-          "file": ".storybook/fixtures/patterns/chat/c-chat-4.jsx",
-          "sha256": "5b8ac8a6b71ff1c69b8f1604b51d8b44b85fcd116155b046bfe54ccb525b1008",
-          "storyId": "blocks-chat--chat-pattern-4"
-        }
-      ]
-    },
-    "chat-sources": {
-      "owner": "chat/ChatSources",
-      "examples": [
-        {
-          "name": "c-chat-sources-1",
-          "title": "Research with citations",
-          "description": "Research with citations",
-          "file": ".storybook/fixtures/patterns/chat-sources/c-chat-sources-1.jsx",
-          "sha256": "3e6e514809c04868220918412abebb1728a5ee04b9fee14689b766cff50da0db",
-          "storyId": "chat-chatsources--chat-sources-pattern-1"
-        }
-      ]
-    },
-    "chat-tool": {
-      "owner": "chat/ChatTool",
-      "examples": [
-        {
-          "name": "c-chat-tool-1",
-          "title": "Running tools",
-          "description": "Running tools",
-          "file": ".storybook/fixtures/patterns/chat-tool/c-chat-tool-1.jsx",
-          "sha256": "24531f2feb3e0bf2ec3f0bb862e6a3c3e56b0fcc4ad47c25873e9b36ae276ea2",
-          "storyId": "chat-chattool--chat-tool-pattern-1"
-        }
-      ]
-    },
-    "chat-delegation": {
-      "owner": "chat/ChatDelegation",
-      "examples": [
-        {
-          "name": "c-chat-delegation-1",
-          "title": "Handing work to another agent",
-          "description": "Handing work to another agent",
-          "file": ".storybook/fixtures/patterns/chat-delegation/c-chat-delegation-1.jsx",
-          "sha256": "0610be748634a3743a0e01424b3e0c2f75ba71e5c8cc465e4f22c3ae1ea88144",
-          "storyId": "chat-chatdelegation--chat-delegation-pattern-1"
-        }
-      ]
-    },
-    "chat-file": {
-      "owner": "chat/ChatFile",
-      "examples": [
-        {
-          "name": "c-chat-file-1",
-          "title": "Delivered files and data",
-          "description": "Delivered files and data",
-          "file": ".storybook/fixtures/patterns/chat-file/c-chat-file-1.jsx",
-          "sha256": "d3e77dd70998bc34d43a2cda79e56ff01175191d80475248913424dc39a4242f",
-          "storyId": "chat-chatfile--chat-file-pattern-1"
-        }
-      ]
-    },
-    "chat-error": {
-      "owner": "chat/ChatError",
-      "examples": [
-        {
-          "name": "c-chat-error-1",
-          "title": "Error, retry and suggestions",
-          "description": "Error, retry and suggestions",
-          "file": ".storybook/fixtures/patterns/chat-error/c-chat-error-1.jsx",
-          "sha256": "f46691382e90f8ed7e4d297fa2ac865354c8377ce4e04ff2efbdb7d20d53f8db",
-          "storyId": "chat-chaterror--chat-error-pattern-1"
+          "name": "c-waterfall-chart-1",
+          "title": "Recurring revenue bridge",
+          "description": "Recurring revenue bridge",
+          "file": ".storybook/fixtures/patterns/waterfall-chart/c-waterfall-chart-1.jsx",
+          "sha256": "c7f7e898d4f7d5e0b4caeed86377b87e948c2ed77aa429a63def8b6e9c3a5f68",
+          "storyId": "charts-waterfallchart--waterfall-chart-pattern-1"
         }
       ]
     }

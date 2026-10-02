@@ -3,7 +3,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../.storyboo
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import { CHART_TYPES, Chart, DonutChart, RadialBarChart, ScatterChart } from './Chart';
+import { CHART_TYPES, Chart } from './Chart';
 
 const docs = getComponentDocs('MDX/Chart');
 // Monthly readers by acquisition channel: three series on one scale, so every type reads well.
@@ -37,6 +37,7 @@ const sampleProps = {
   'histogram': { markers: [{ label: 'Median', value: 7 }], unit: ' min', values: [ 3, 4, 4, 5, 5, 5, 6, 6, 7, 7, 7, 8, 8, 9, 10, 11, 12, 14, 18, 24 ] },
   'line': { data: readers, series },
   'pie': { data: [{ label: 'Data', value: 42 }, { label: 'Engineering', value: 28 }, { label: 'Productivity', value: 18 }] },
+  'radar': { data: [{ label: 'Clarity', value: 72 }, { label: 'Structure', value: 81 }, { label: 'Evidence', value: 58 }, { label: 'Voice', value: 88 }, { label: 'Length', value: 64 }], domain: [ 0, 100 ] },
   'radial': { data: [{ label: 'Read completion', value: 78 }] },
   'range': { data: readers.map((item) => ({ high: item.search * 1.15, label: item.label, low: item.search * 0.85, value: item.search })), bandLabel: 'Forecast', valueLabel: 'Search' },
   'sankey': { links: [{ source: 'Search', target: 'Essays', value: 3120 }, { source: 'Newsletter', target: 'Essays', value: 1460 }, { source: 'Social', target: 'Notes', value: 890 }, { source: 'Essays', target: 'Subscribed', value: 620 }, { source: 'Notes', target: 'Subscribed', value: 140 }] },
@@ -94,9 +95,9 @@ export const Playground = {
   },
   parameters: {
     docs: {
-      description: { story: 'An article paragraph and the chart that backs it. `type` switches between every chart, each with data that suits it. Tab to the plot and use the arrow keys to read each point; `showData` reveals the table that mirrors it, `state` previews the loading, empty, invalid and error states, and `locale` reformats every number.' },
+      description: { story: 'An article paragraph and the chart that backs it, as an author writes it in MDX. `type` picks any chart from the Charts collection, each shown with data that suits it. Tab to the plot and use the arrow keys to read each point; `showData` reveals the table that mirrors it, `state` previews the loading, empty, invalid and error states, and `locale` reformats every number.' },
       source: playgroundSource('Chart', {
-        imports: "import { Chart } from '@gaudi/design-system/mdx';",
+        imports: "// In MDX, Chart comes from the MDX component map; in code, import it from the mdx entry.\nimport { Chart } from '@gaudi/design-system/mdx';",
         before: "const readers = [\n  { label: 'Jan', search: 1840, newsletter: 920, social: 610 },\n  { label: 'Feb', search: 2110, newsletter: 1040, social: 480 }\n  // …one record per month\n];\n\n",
         attributes: [
           'data={readers}',
@@ -146,48 +147,73 @@ export const Playground = {
   }
 };
 
-const shapes = [
-  {
-    Component: DonutChart,
-    note: 'DonutChart and PieChart read label and value; keep them to a few slices.',
-    props: {
-      ariaLabel: 'Content mix by category',
-      title: 'Content mix',
-      data: [{ label: 'Data', value: 42 }, { label: 'Engineering', value: 28 }, { label: 'Productivity', value: 18 }, { label: 'Management', value: 12 }]
-    }
-  },
-  {
-    Component: ScatterChart,
-    note: 'ScatterChart plots the two numeric fields named by xKey and yKey.',
-    props: {
-      ariaLabel: 'Post length against read time',
-      title: 'Length and read time',
-      xKey: 'words',
-      yKey: 'minutes',
-      data: [{ words: 800, minutes: 4 }, { words: 1500, minutes: 8 }, { words: 2600, minutes: 14 }, { words: 3400, minutes: 17 }, { words: 4200, minutes: 22 }]
-    }
-  },
-  {
-    Component: RadialBarChart,
-    note: 'RadialBarChart shows one progress measure against a full track.',
-    props: { ariaLabel: 'Read completion progress', title: 'Read completion', data: [{ label: 'Read completion', value: 78 }] }
-  }
+const mdxSource = `---
+title: 'What changed after the redesign'
+---
+
+Search still brings in most readers, and the newsletter has grown every month.
+
+<Chart
+  type='line'
+  title='Readers by channel'
+  ariaLabel='Monthly readers by channel'
+  data={[
+    { label: 'Jan', search: 1840, newsletter: 920 },
+    { label: 'Feb', search: 2110, newsletter: 1040 },
+    { label: 'Mar', search: 2380, newsletter: 1180 }
+  ]}
+  series={[{ key: 'search', label: 'Search' }, { key: 'newsletter', label: 'Newsletter' }]}
+/>
+
+Every chart is also available by name, for posts that read better that way:
+
+<DonutChart title='Essays by topic' data={[{ label: 'Data', value: 42 }, { label: 'Engineering', value: 28 }]} />`;
+
+const collection = [
+  [ 'Series', [ 'BarChart', 'LineChart', 'AreaChart', 'ComposedChart', 'RangeChart', 'Sparkline' ] ],
+  [ 'Change and flow', [ 'WaterfallChart', 'FunnelChart', 'SankeyChart' ] ],
+  [ 'Part of a whole', [ 'DonutChart', 'StackedBarList', 'TreemapChart' ] ],
+  [ 'Distribution and correlation', [ 'HistogramChart', 'BoxPlotChart', 'ScatterChart' ] ],
+  [ 'Readings, scores and grids', [ 'GaugeChart', 'RadialChart', 'RadarChart', 'HeatmapChart' ] ]
 ];
 
-export const ChartTypes = {
-  name: 'Part-to-whole, correlation and progress',
-  parameters: { docs: { description: { story: 'The chart types whose data shape differs from the Playground series: a donut for parts of a whole, a scatter for correlation, and a radial bar for one progress measure.' } } },
+export const InMdx = {
+  name: 'Writing a chart in MDX',
+  parameters: {
+    docs: {
+      description: { story: 'Charts in an article are the Charts collection rendered through the MDX component map: `<Chart type=…>` or a chart by name. Data lives inline in the post (or in frontmatter passed as props), and every chart keeps its keyboard reading and data table. Each type has its own page under Charts with detailed examples.' },
+      source: { language: 'mdx', code: mdxSource }
+    }
+  },
   render: () => (
-    <div className='grid gap-4 sm:grid-cols-3'>
-      {shapes.map(({ Component, note, props }) => (
-        <figure key={props.ariaLabel} className='min-w-0'>
-          <Component {...props} height={220} className='my-0' />
-          <figcaption className='mt-2 text-xs leading-5 text-text-muted'>{note}</figcaption>
-        </figure>
-      ))}
+    <div className='grid gap-4 text-base leading-7 text-text'>
+      <p>Search still brings in most readers, and the newsletter has grown every month.</p>
+      <Chart
+        type='line'
+        title='Readers by channel'
+        ariaLabel='Monthly readers by channel, in an article'
+        data={readers.slice(0, 3)}
+        series={series.slice(0, 2)}
+        className='my-0'
+      />
+      <nav aria-label='Charts collection' className='grid gap-2 rounded-lg border border-border bg-surface-muted p-4 text-sm'>
+        <span className='font-medium'>Every chart in the collection</span>
+        {collection.map(([ group, owners ]) => (
+          <p key={group} className='m-0'>
+            <span className='text-text-muted'>{group}: </span>
+            {owners.map((owner, index) => (
+              <span key={owner}>
+                {index ? ', ' : ''}
+                <a className='underline underline-offset-4' href={`?path=/docs/charts-${owner.toLowerCase()}--docs`} target='_top'>{owner}</a>
+              </span>
+            ))}
+          </p>
+        ))}
+      </nav>
     </div>
   ),
   play: async ({ canvasElement }) => {
-    for (const { props } of shapes) await expectChart(canvasElement, props.ariaLabel);
+    await expectChart(canvasElement, 'Monthly readers by channel, in an article');
+    await expect(within(canvasElement).getByRole('link', { name: 'SankeyChart' })).toHaveAttribute('href', '?path=/docs/charts-sankeychart--docs');
   }
 };
