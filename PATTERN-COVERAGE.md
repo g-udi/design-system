@@ -2,7 +2,7 @@
 
 Gaudi's pattern catalogue documents every component family with working examples. New patterns follow one rule: extend a matching Gaudi owner and add a component only for a distinct gap.
 
-The catalogue covers **112 families and 482 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
+The catalogue covers **112 families and 484 examples**. Existing convenience APIs remain available; matching compositions extend their current Gaudi owner.
 
 [Browse the component catalogue](http://localhost:6007/?path=/story/overview-component-catalogue--browse). Each example has copyable JSX with public Gaudi imports, its original use case, and automatic accessibility checks.
 
@@ -24,7 +24,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 ## Implementation and usage boundaries
 
 - Form controls support controlled and uncontrolled composition through their underlying Radix or Base UI APIs. Labels, validation messages, disabled states, keyboard access, and focus behavior belong to the component layer.
-- Data Grid adds sorting, selection, grouping, virtualization, resizing, spreadsheet editing, clipboard operations, and server-data examples. The existing TanStack v8 table API is preserved; the advanced grid uses an explicitly aliased v9 dependency.
+- Data Grid adds sorting, selection, grouping, virtualization, resizing, spreadsheet editing with built-in editors, validation, undo and redo, pending changes with Save and Discard, per-row edit mode, clipboard operations, and server-data examples. The existing TanStack v8 table API is preserved; the advanced grid uses an explicitly aliased v9 dependency.
 - Event Calendar and Gantt include scheduling, resources, dependencies, time zones, drag interactions, and range navigation. Kanban, Sortable, and Tree add structured drag and keyboard workflows.
 - Chat (`@gaudi/design-system/chat`) adds messages, bubbles, transcript scrolling, the composer and assistant reply parts; Core adds attachments and questionnaires. File-upload and message examples use local simulated data; applications supply persistence, authentication, real uploads, and remote services.
 - Code blocks include token highlighting, diffs, folding, search, line selection, diagnostics, actions, and terminal output. Color output is mixed toward the theme text color to keep small code legible.
@@ -67,7 +67,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | command | [core/Commander](src/components/core/Commander/index.js) | 3 |
 | context-menu | [core/DropdownMenu](src/components/core/DropdownMenu/index.js) | 2 |
 | dashboard | [blocks/Dashboard](src/components/blocks/Dashboard/index.js) | 8 |
-| data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 13 |
+| data-grid | [core/DataTable](src/components/core/DataTable/index.js) | 15 |
 | date-selector | [core/Calendar](src/components/core/Calendar/index.js) | 3 |
 | dialog | [core/Dialog](src/components/core/Dialog/index.js) | 5 |
 | donut-chart | [charts/DonutChart](src/components/charts/DonutChart/index.js) | 2 |

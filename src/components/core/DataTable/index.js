@@ -3,6 +3,9 @@ export * from './DataTable';
 
 // Composition exports
 export { DataGridCellSelection, DataGridSelectionBar, buildDataGridClearDetails, buildDataGridPasteDetails, getDataGridActiveRegionGrid, getDataGridVisibleSelectedCellCount, invertDataGridCellsChange, parseDataGridClipboardText, serializeDataGridClipboardText, tileDataGridClipboardBlock } from './parts/data-grid-cell-selection-extended.jsx';
+export { DataGridCellErrorIndicator, DataGridCellToggle, DataGridHistoryControls, DataGridRowEditActions, DataGridRowEditCell, DataGridSaveBar, useDataGridEditing, useDataGridHistory, useDataGridRowEditing } from './parts/data-grid-editing-extended.jsx';
+export { DataGridCellEditorControl, DataGridCellInlineEditor } from './parts/data-grid-cell-editors-extended.jsx';
+export { applyDataGridCellsChange, formatDataGridCellEditValue, getDataGridCellEditOptions, resolveDataGridCellEdit, validateDataGridCellValue } from './parts/data-grid-cell-edit.js';
 export { DataGridColumnFilter } from './parts/data-grid-column-filter-extended.jsx';
 export { DataGridColumnHeader } from './parts/data-grid-column-header-extended.jsx';
 export { DataGridColumnVisibility } from './parts/data-grid-column-visibility-extended.jsx';

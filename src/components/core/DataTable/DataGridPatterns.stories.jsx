@@ -35,6 +35,65 @@ export const DataGridPattern26 = {
 export const DataGridPattern30 = { name: 'Tree rows', ...pattern(30) };
 export const DataGridPattern9 = { name: 'Sub table', ...pattern(9) };
 export const DataGridPattern31 = { name: 'Spreadsheet editing', ...pattern(31) };
+export const DataGridPattern40 = {
+  name: 'Inventory workspace',
+  ...pattern(40, 'Spreadsheet editing with every built-in editor: text, select, combobox, number, date, checkbox and switch. Edits, pastes, fills and clears stay pending in `useDataGridEditing` until Save; Discard reverts them all. Each column validates with `required`, `min` and `validate(value, row)`, and an invalid cell shows its message inline and blocks Save. Undo and Redo (Mod+Z, Shift+Mod+Z, Ctrl+Y or the toolbar) step through edits and row changes. Select rows to duplicate or delete them; Add item appends a row and opens its first cell. Accessibility: the grid is one tab stop with aria-activedescendant; invalid cells set aria-invalid and point at their message with aria-describedby, the editor overlay inherits both, and the save bar announces its counts politely.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = await canvas.findByRole('grid');
+    const cell = (rowId, columnId) => grid.querySelector(`tr[data-row-id="${rowId}"] td[data-col-id="${columnId}"]`);
+    await userEvent.click(cell('inv-1', 'stock'));
+    await userEvent.keyboard('-5{Enter}');
+    await waitFor(() => expect(cell('inv-1', 'stock')).toHaveAttribute('aria-invalid', 'true'));
+    await expect(cell('inv-1', 'stock')).toHaveTextContent('-5');
+    const bar = await canvas.findByRole('region', { name: '1 unsaved change' });
+    await expect(within(bar).getByText('1 cell needs attention')).toBeVisible();
+    await expect(within(bar).getByRole('button', { name: 'Save' })).toHaveAttribute('aria-disabled', 'true');
+    // Undo restores the saved value and clears the pending change.
+    await userEvent.keyboard('{Control>}z{/Control}');
+    await waitFor(() => expect(cell('inv-1', 'stock')).toHaveTextContent('42'));
+    await waitFor(() => expect(canvas.queryByRole('region', { name: /unsaved/ })).not.toBeInTheDocument());
+    await userEvent.keyboard('{Control>}{Shift>}z{/Shift}{/Control}');
+    await waitFor(() => expect(cell('inv-1', 'stock')).toHaveTextContent('-5'));
+    // A valid value clears the error; a checkbox flip is a second change.
+    await userEvent.keyboard('12{Enter}');
+    await waitFor(() => expect(cell('inv-1', 'stock')).not.toHaveAttribute('aria-invalid'));
+    await userEvent.click(within(grid.querySelector('tr[data-row-id="inv-6"]')).getByRole('checkbox', { name: 'Taxable' }));
+    await expect(await canvas.findByRole('region', { name: '2 unsaved changes' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Save' }));
+    await waitFor(() => expect(canvas.queryByRole('region', { name: /unsaved/ })).not.toBeInTheDocument(), { timeout: 3000 });
+    await expect(cell('inv-1', 'stock')).toHaveTextContent('12');
+  }
+};
+export const DataGridPattern41 = {
+  name: 'Pricing plans',
+  ...pattern(41, 'Per-row edit mode with `useDataGridRowEditing`: Edit turns one row into a draft with an editor in each cell while the other rows stay read-only. Enter or Save keeps the draft, Escape or Cancel throws it away, and a field shows its message once touched or after a save attempt. Add plan starts a new row in edit mode; cancelling removes it. Accessibility: each editor is named by its column, invalid editors set aria-invalid and aria-describedby, the first editor takes focus when the row opens, and focus returns to the row\'s Edit button afterwards.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(await canvas.findByRole('button', { name: 'Edit Team' }));
+    const name = await canvas.findByRole('textbox', { name: 'Plan' });
+    await waitFor(() => expect(name).toHaveFocus());
+    await expect(canvas.getByRole('button', { name: 'Edit Starter' })).toBeDisabled();
+    await userEvent.clear(name);
+    await waitFor(() => expect(name).toHaveAttribute('aria-invalid', 'true'));
+    // An invalid draft does not save.
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('textbox', { name: 'Plan' })).toBeInTheDocument();
+    await userEvent.type(name, 'Team Plus');
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(canvas.queryByRole('textbox', { name: 'Plan' })).not.toBeInTheDocument());
+    await expect(canvas.getByText('Team Plus')).toBeVisible();
+    // Escape cancels a draft and returns focus to its Edit button.
+    const editStarter = canvas.getByRole('button', { name: 'Edit Starter' });
+    await userEvent.click(editStarter);
+    const seats = await canvas.findByRole('textbox', { name: 'Seats' });
+    await userEvent.clear(seats);
+    await userEvent.type(seats, '3');
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(canvas.queryByRole('textbox', { name: 'Seats' })).not.toBeInTheDocument());
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Edit Starter' })).toHaveFocus());
+  }
+};
 export const DataGridPattern23 = { name: 'CRUD in a frame', ...pattern(23) };
 export const DataGridPattern34 = { name: 'Server-side pagination', ...pattern(34, 'Server-side pagination, sorting, search and a status filter, with a loading skeleton while each page arrives.') };
 export const DataGridPattern28 = { name: 'Infinite scroll', ...pattern(28, 'Rows load from a remote source as the list scrolls.') };

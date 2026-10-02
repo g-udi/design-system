@@ -1442,6 +1442,22 @@
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-35.jsx",
           "sha256": "4f4d18f95f66b6d2a2c61e3595b7f8da07a0eb3ee4425fa83f14ef6147ff7fcd",
           "storyId": "core-datatable--data-grid-pattern-35"
+        },
+        {
+          "name": "c-data-grid-40",
+          "title": "Inventory workspace",
+          "description": "Spreadsheet editing with built-in editors, validation, Save and Discard, undo and redo, and row add, duplicate and delete",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-40.jsx",
+          "sha256": "a9bef807d909c62dd4d91a79a17b6024cf0b6dab291aca55683149fd3b9b9c29",
+          "storyId": "core-datatable--data-grid-pattern-40"
+        },
+        {
+          "name": "c-data-grid-41",
+          "title": "Pricing plans",
+          "description": "Per-row edit mode with Save and Cancel in the row actions",
+          "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-41.jsx",
+          "sha256": "3c37ca825074f2dabbb0e4be71d29759c22bc9aae7b70d384179c323e24f7ee9",
+          "storyId": "core-datatable--data-grid-pattern-41"
         }
       ]
     },

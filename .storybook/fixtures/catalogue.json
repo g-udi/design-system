@@ -7561,6 +7561,28 @@
       ],
       "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
     },
+    "core-datatable--data-grid-pattern-40": {
+      "id": "core-datatable--data-grid-pattern-40",
+      "title": "Core/Data Display/DataTable",
+      "name": "Inventory workspace",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
+    "core-datatable--data-grid-pattern-41": {
+      "id": "core-datatable--data-grid-pattern-41",
+      "title": "Core/Data Display/DataTable",
+      "name": "Pricing plans",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/DataTable/DataGridPatterns.stories.jsx"
+    },
     "core-datatable--data-grid-pattern-23": {
       "id": "core-datatable--data-grid-pattern-23",
       "title": "Core/Data Display/DataTable",

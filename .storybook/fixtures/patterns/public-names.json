@@ -412,6 +412,28 @@
     "serializeDataGridClipboardText": "serializeDataGridClipboardText",
     "tileDataGridClipboardBlock": "tileDataGridClipboardBlock"
   },
+  "src/components/core/DataTable/parts/data-grid-editing-extended.jsx": {
+    "DataGridCellErrorIndicator": "DataGridCellErrorIndicator",
+    "DataGridCellToggle": "DataGridCellToggle",
+    "DataGridHistoryControls": "DataGridHistoryControls",
+    "DataGridRowEditActions": "DataGridRowEditActions",
+    "DataGridRowEditCell": "DataGridRowEditCell",
+    "DataGridSaveBar": "DataGridSaveBar",
+    "useDataGridEditing": "useDataGridEditing",
+    "useDataGridHistory": "useDataGridHistory",
+    "useDataGridRowEditing": "useDataGridRowEditing"
+  },
+  "src/components/core/DataTable/parts/data-grid-cell-editors-extended.jsx": {
+    "DataGridCellEditorControl": "DataGridCellEditorControl",
+    "DataGridCellInlineEditor": "DataGridCellInlineEditor"
+  },
+  "src/components/core/DataTable/parts/data-grid-cell-edit.js": {
+    "applyDataGridCellsChange": "applyDataGridCellsChange",
+    "formatDataGridCellEditValue": "formatDataGridCellEditValue",
+    "getDataGridCellEditOptions": "getDataGridCellEditOptions",
+    "resolveDataGridCellEdit": "resolveDataGridCellEdit",
+    "validateDataGridCellValue": "validateDataGridCellValue"
+  },
   "src/components/core/DataTable/parts/data-grid-column-filter-extended.jsx": {
     "DataGridColumnFilter": "DataGridColumnFilter"
   },

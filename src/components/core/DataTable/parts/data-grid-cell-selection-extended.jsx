@@ -5,6 +5,15 @@ import { useDataGrid } from './data-grid-extended.jsx';
 import { Subscribe } from '@tanstack/react-table-v9';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
+import {
+  DATA_GRID_BUILT_IN_OVERLAY_CONTROLS,
+  DataGridCellEditorControl
+} from './data-grid-cell-editors-extended.jsx';
+import {
+  isDataGridToggleControl,
+  isDataGridValueEqual,
+  resolveDataGridCellEdit
+} from './data-grid-cell-edit.js';
 function serializeDataGridClipboardField(field) {
   return /[\t\n\r"]/.test(field)
     ? '"' + field.replaceAll('"', '""') + '"'
@@ -123,7 +132,9 @@ function getDataGridWritableCellEdit(column, row) {
   ) {
     return null;
   }
-  return cellEdit;
+  // Built-in controls bring their own parse and format, so paste, fill and
+  // the editors read typed values the same way.
+  return resolveDataGridCellEdit(cellEdit);
 }
 function getDataGridRenderedRowIds(table, viewport) {
   if (!viewport) return null;
@@ -275,7 +286,9 @@ function getDataGridActiveRegionGrid(table, viewport) {
       const column = columns[c];
       if (!column || column.columnDef.enableCellSelection === false) continue;
       const value = cells[column.id]?.getValue();
-      const format = column.columnDef.meta?.cellEdit?.format;
+      const format = resolveDataGridCellEdit(
+        column.columnDef.meta?.cellEdit
+      )?.format;
       line.push(format ? format(value, row.original) : String(value ?? ''));
     }
     grid.push(line);
@@ -657,7 +670,9 @@ function startDataGridFillSession(options) {
           const sourceValue = cells[sourceColumn.id]?.getValue();
           let value = sourceValue;
           if (targetColumn.id !== sourceColumn.id && targetEdit.parse) {
-            const sourceFormat = sourceColumn.columnDef.meta?.cellEdit?.format;
+            const sourceFormat = resolveDataGridCellEdit(
+              sourceColumn.columnDef.meta?.cellEdit
+            )?.format;
             const raw = sourceFormat
               ? sourceFormat(sourceValue, row.original)
               : String(sourceValue ?? '');
@@ -750,8 +765,14 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
       ) ?? viewports[0];
     if (!viewport) return;
     const getTable = () => latestContext.current.table;
+    // While a row is in per-row edit mode the rest of the grid is read-only:
+    // no spreadsheet edits, pastes, fills or clears reach the host.
+    const isRowEditLocked = () =>
+      latestContext.current.props.rowEditing?.rowId != null;
     const getOnCellsChange = () =>
-      latestContext.current.props.onCellsChange ?? null;
+      isRowEditLocked()
+        ? null
+        : (latestContext.current.props.onCellsChange ?? null);
     const isRangeSelectionEnabled = () =>
       latestContext.current.props.tableLayout?.cellSelectionMode !== 'single';
     const focusTarget =
@@ -798,6 +819,7 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
       });
     };
     const requestCellEdit = (initialText) => {
+      if (isRowEditLocked()) return false;
       const table2 = getTable();
       const cell = table2.getFocusedCell();
       if (!cell) return false;
@@ -805,16 +827,49 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
         cell.column,
         cell.row.original
       );
+      // Checkbox and switch cells flip in place: Enter, F2, Space or a
+      // double-click toggles the value without opening an editor.
+      if (cellEdit && isDataGridToggleControl(cellEdit.control)) {
+        if (initialText !== void 0 && initialText !== ' ') return false;
+        const onCellsChange = getOnCellsChange();
+        if (!onCellsChange) return false;
+        const previousValue = cell.getValue();
+        onCellsChange({
+          source: 'edit',
+          changes: [
+            {
+              rowId: cell.row.id,
+              columnId: cell.column.id,
+              row: cell.row.original,
+              previousValue,
+              value: !previousValue
+            }
+          ],
+          rejected: []
+        });
+        return true;
+      }
       if (cellEdit?.control) {
         const baseline = cellEdit.format
           ? cellEdit.format(cell.getValue(), cell.row.original)
           : String(cell.getValue() ?? '');
         const headerTitle = cell.column.columnDef.meta?.headerTitle;
         const header = cell.column.columnDef.header;
+        const cellElement = viewport.querySelector('td[data-cell-focused]');
+        const error =
+          latestContext.current.props.getCellError?.(
+            cell.row.original,
+            cell.column.id
+          ) ?? null;
         setEditorSession({
           rowId: cell.row.id,
           columnId: cell.column.id,
           control: cellEdit.control,
+          cellEdit,
+          row: cell.row.original,
+          value: cell.getValue(),
+          error,
+          errorId: cellElement?.getAttribute('aria-describedby') ?? void 0,
           initialValue: initialText ?? baseline,
           baseline,
           label:
@@ -1090,6 +1145,22 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
         }
         event.preventDefault();
         return;
+      }
+      if ((event.metaKey || event.ctrlKey) && !event.altKey) {
+        // Undo and redo go to the host's history (useDataGridHistory or
+        // useDataGridEditing): Mod+Z, Shift+Mod+Z and Ctrl+Y.
+        const { onUndo, onRedo } = latestContext.current.props;
+        const key = /^[a-z]$/i.test(event.key)
+          ? event.key.toLowerCase()
+          : event.code.replace(/^Key/, '').toLowerCase();
+        const undo = key === 'z' && !event.shiftKey;
+        const redo = (key === 'z' && event.shiftKey) || (key === 'y' && !event.shiftKey);
+        if ((undo && onUndo) || (redo && onRedo)) {
+          event.preventDefault();
+          if (undo) onUndo();
+          else onRedo();
+          return;
+        }
       }
       if ((event.metaKey || event.ctrlKey) && !event.altKey && clipboard) {
         const isCopy =
@@ -1399,7 +1470,9 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
     const getTwoStepControl = (target) => {
       if (!(target instanceof Element)) return null;
       if (target.closest('[data-cell-interactive]')) return null;
-      if (target.closest('[role="checkbox"], input[type="checkbox"]')) {
+      if (
+        target.closest('[role="checkbox"], [role="switch"], input[type="checkbox"]')
+      ) {
         return null;
       }
       const marked = target.closest('[data-cell-control]');
@@ -1640,11 +1713,14 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
       });
     });
   };
-  const commitEditorSession = (raw, advance, refocus = true) => {
+  // `typed` carries a `{ value }` from the select, combobox and date editors,
+  // which produce a value directly instead of text to parse.
+  const commitEditorSession = (raw, advance, refocus = true, typed) => {
     const session = editorSession;
     closeEditorSession(advance, refocus);
     const onCellsChange = latestContext.current.props.onCellsChange;
-    if (!session || !onCellsChange || raw === session.baseline) return;
+    if (!session || !onCellsChange) return;
+    if (!typed && raw === session.baseline) return;
     const tableNow = latestContext.current.table;
     const row = tableNow
       .getRowsInDisplayOrder()
@@ -1655,7 +1731,10 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
     if (!row || !column || !cellEdit) return;
     const previousValue = row.getAllCellsByColumnId()[column.id]?.getValue();
     let value = raw;
-    if (cellEdit.parse) {
+    if (typed) {
+      if (isDataGridValueEqual(typed.value, previousValue)) return;
+      value = typed.value;
+    } else if (cellEdit.parse) {
       const parsed = cellEdit.parse(raw, row.original);
       if (parsed === void 0) {
         onCellsChange({
@@ -1805,14 +1884,38 @@ function DataGridCellEditorOverlay({
       enterAdvance ? (event.shiftKey ? 'up' : 'down') : null
     );
   };
+  if (DATA_GRID_BUILT_IN_OVERLAY_CONTROLS.has(session.control)) {
+    return createPortal(
+      <DataGridCellEditorControl
+        session={session}
+        style={style}
+        enterAdvance={enterAdvance}
+        onCommit={(raw, advance, refocus, typed) => {
+          if (finishedRef.current) return;
+          finishedRef.current = true;
+          onCommit(raw, advance, refocus, typed);
+        }}
+        onCancel={() => {
+          if (finishedRef.current) return;
+          finishedRef.current = true;
+          onCancel();
+        }}
+      />,
+      viewport
+    );
+  }
   const sharedClassName =
-    'text-ui-foreground bg-ui-background outline-ui-primary absolute z-[35] box-border resize-none outline-1 outline-solid -outline-offset-1';
+    'text-ui-foreground bg-ui-background absolute z-[35] box-border resize-none shadow-[inset_0_0_0_1px_var(--primary)] aria-invalid:shadow-[inset_0_0_0_1px_var(--destructive)]';
+  const errorProps = session.error
+    ? { 'aria-invalid': true, 'aria-describedby': session.errorId }
+    : null;
   return createPortal(
     session.control === 'textarea' ? (
       <textarea
         data-slot='data-grid-cell-editor'
         ref={placeCaretAtEnd}
         autoFocus
+        {...errorProps}
         aria-label={session.label}
         defaultValue={session.initialValue}
         rows={1}
@@ -1826,6 +1929,7 @@ function DataGridCellEditorOverlay({
         data-slot='data-grid-cell-editor'
         ref={placeCaretAtEnd}
         autoFocus
+        {...errorProps}
         aria-label={session.label}
         defaultValue={session.initialValue}
         style={style}
@@ -1859,7 +1963,7 @@ function DataGridSelectionBar({
           <div
             data-slot='data-grid-selection-bar'
             className={cn(
-              'bg-ui-background rounded-lg sticky inset-x-0 bottom-4 z-40 mx-auto flex w-fit max-w-[calc(100%-2rem)] flex-wrap items-center gap-3 border px-4 py-2.5 shadow-lg',
+              'bg-ui-background rounded-card sticky inset-x-0 bottom-4 z-40 mx-auto flex w-fit max-w-[calc(100%-2rem)] flex-wrap items-center gap-3 border px-4 py-2.5 shadow-lg',
               className
             )}
           >

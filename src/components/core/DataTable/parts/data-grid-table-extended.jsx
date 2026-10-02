@@ -21,6 +21,10 @@ import { default as Button } from '../../Button/index.js';
 import { Checkbox } from '../../Checkbox/parts/checkbox.jsx';
 import { Spinner } from '../../Spinner/parts/spinner.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import {
+  DataGridCellErrorIndicator,
+  DataGridRowEditCell
+} from './data-grid-editing-extended.jsx';
 const headerCellSpacingVariants = ({ size }) =>
   size === 'dense' ? 'px-2 h-8' : 'px-3';
 const bodyCellSpacingVariants = ({ size }) =>
@@ -1201,6 +1205,11 @@ function DataGridTableBodyRow({
       data-row-pinned={isRowPinned || void 0}
       data-row-pinned-boundary={pinnedBoundary}
       data-row-status={rowStatus}
+      data-row-editing={
+        (props.rowEditing?.rowId != null &&
+          props.rowEditing.rowId === row.id) ||
+        void 0
+      }
       data-row-grouped={row.getIsGrouped?.() || void 0}
       aria-rowindex={props.tableLayout?.cellSelection ? row.index + 2 : void 0}
       onClick={() => props.onRowClick && props.onRowClick(row.original)}
@@ -1253,6 +1262,9 @@ function DataGridTableBodyRow({
           props.tableClassNames?.rowPinned,
         // Group bands read as section headers: a muted fill and medium weight.
         'data-[row-grouped]:bg-ui-muted/40 data-[row-grouped]:hover:bg-ui-muted/60 data-[row-grouped]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--muted)_40%,var(--background))]',
+        // Per-row edit mode: the draft row reads as the one being edited.
+        props.rowEditing &&
+          'data-[row-editing]:bg-ui-primary/4 data-[row-editing]:hover:bg-ui-primary/4 data-[row-editing]:[&>td[data-pinned]]:bg-[color-mix(in_oklab,var(--primary)_4%,var(--background))]',
         props.tableClassNames?.bodyRow,
         row.getIsGrouped?.() && props.tableClassNames?.groupRow
       )}
@@ -1313,6 +1325,24 @@ function DataGridTableBodyRowCell({
     !!props.tableLayout?.cellSelection && table.atoms.cellSelection != null;
   const rangeSelectionOn =
     cellSelectionOn && props.tableLayout?.cellSelectionMode !== 'single';
+  // Editing hooks (data-grid-editing-extended): the row in per-row edit mode
+  // renders editors, and a cell with an error carries its message.
+  const rowEditor =
+    props.rowEditing?.rowId != null &&
+    props.rowEditing.rowId === row.id &&
+    !!column.columnDef.meta?.cellEdit &&
+    !row.getIsGrouped?.();
+  const cellError = rowEditor
+    ? props.rowEditing.getError(column.id)
+    : (props.getCellError?.(row.original, column.id) ?? null);
+  const cellErrorId = cellError
+    ? `${gridId}c-${toDataGridDomId(row.id)}-${toDataGridDomId(column.id)}-error`
+    : void 0;
+  const content = rowEditor ? (
+    <DataGridRowEditCell cell={cell} errorId={cellErrorId} />
+  ) : (
+    children
+  );
   const renderTd = (selection) => (
     <td
       ref={dndRef}
@@ -1338,7 +1368,12 @@ function DataGridTableBodyRowCell({
       data-last-col={
         isLastStartPinned ? 'start' : isFirstEndPinned ? 'end' : void 0
       }
-      data-cell-status={props.getCellStatus?.(row.original, column.id)}
+      data-cell-status={
+        cellError ? 'invalid' : props.getCellStatus?.(row.original, column.id)
+      }
+      // In edit mode the editor itself is invalid and described.
+      aria-invalid={cellError && !rowEditor ? true : void 0}
+      aria-describedby={!rowEditor ? cellErrorId : void 0}
       data-column-index={columnIndex}
       {...(selection ? selection : null)}
       onMouseDown={
@@ -1385,7 +1420,9 @@ function DataGridTableBodyRowCell({
         // The classic edited-cell corner mark, active only when
         // getCellStatus is wired: amber for "dirty", destructive for
         // "invalid".
-        props.getCellStatus &&
+        (props.getCellError || props.rowEditing) &&
+          'data-[cell-status=invalid]:bg-ui-destructive/5 data-[cell-status=invalid]:data-pinned:bg-[color-mix(in_oklab,var(--destructive)_5%,var(--background))]',
+        (props.getCellStatus || props.getCellError || props.rowEditing) &&
           "data-[cell-status=invalid]:after:border-t-destructive data-[cell-status]:relative data-[cell-status]:after:absolute data-[cell-status]:after:end-0 data-[cell-status]:after:top-0 data-[cell-status]:after:size-0 data-[cell-status]:after:border-s-[5px] data-[cell-status]:after:border-t-[5px] data-[cell-status]:after:border-s-transparent data-[cell-status]:after:content-[''] data-[cell-status=dirty]:after:border-t-amber-500",
         props.tableLayout?.cellBorder && 'border-e',
         // Mirror of the head cell rule: no floating border against the
@@ -1429,11 +1466,18 @@ function DataGridTableBodyRowCell({
             size: props.tableLayout?.dense ? 'dense' : 'default'
           })}
         >
-          {children}
+          {content}
         </div>
       ) : (
-        children
+        content
       )}
+      {cellError ? (
+        <DataGridCellErrorIndicator
+          id={cellErrorId}
+          message={cellError}
+          focused={!!selection?.['data-cell-focused']}
+        />
+      ) : null}
       {props.tableLayout?.cellFillHandle &&
         selection?.['data-cell-edge-bottom'] &&
         selection['data-cell-edge-right'] && (
