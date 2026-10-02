@@ -130,6 +130,7 @@ Charts, tables, and code blocks remain in `@gaudi/design-system/mdx` and their M
 | sparkline | [charts/Sparkline](src/components/charts/Sparkline/index.js) | 1 |
 | spinner | [core/Spinner](src/components/core/Spinner/index.js) | 3 |
 | stacked-bar-list | [charts/StackedBarList](src/components/charts/StackedBarList/index.js) | 1 |
+| dashboard | [blocks/Dashboard](src/components/blocks/Dashboard/index.js) | 8 |
 | stat-cards | [blocks/StatCard](src/components/blocks/StatCard/index.js) | 9 |
 | stepper | [core/Stepper](src/components/core/Stepper/index.js) | 6 |
 | switch | [core/Switch](src/components/core/Switch/index.js) | 4 |
