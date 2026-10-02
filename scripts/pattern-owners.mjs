@@ -2,7 +2,7 @@
 export const owners = {
   accordion: 'core/Accordion', alert: 'core/Banner', 'alert-dialog': 'core/Dialog',
   'aspect-ratio': 'core/AspectRatio', attachment: 'core/Attachment', autocomplete: 'core/Select',
-  avatar: 'core/Avatar', badge: 'core/Pill', breadcrumb: 'core/Breadcrumb', bubble: 'core/Message',
+  avatar: 'core/Avatar', badge: 'core/Pill', breadcrumb: 'core/Breadcrumb', bubble: 'chat/Bubble',
   button: 'core/Button', 'button-group': 'core/ButtonGroup', calendar: 'core/Calendar',
   card: 'core/Card', carousel: 'core/Carousel', cascader: 'core/Cascader', chart: 'mdx/Chart',
   checkbox: 'core/Checkbox', 'code-block': 'core/CodeBlock', collapsible: 'core/Accordion',
@@ -15,7 +15,8 @@ export const owners = {
   'icon-tile': 'core/Icon', input: 'core/Input', 'input-group': 'core/Input',
   'input-otp': 'core/InputOtp', item: 'blocks/ResourceList', kanban: 'core/KanbanBoard', 'stat-cards': 'blocks/StatCard', scheduling: 'blocks/Scheduling', screens: 'blocks/Screens', forms: 'blocks/Forms',
   kbd: 'core/Kbd', label: 'core/Field', marker: 'core/Marker', menubar: 'core/DropdownMenu',
-  message: 'core/Message', 'message-scroller': 'core/Message', 'ai-message': 'core/Message', 'prompt-composer': 'core/Input', chat: 'blocks/Chat', 'native-select': 'core/Select',
+  message: 'chat/Message', 'message-scroller': 'chat/MessageList', 'prompt-composer': 'chat/ChatInput', chat: 'blocks/Chat',
+  'chat-sources': 'chat/ChatSources', 'chat-tool': 'chat/ChatTool', 'chat-delegation': 'chat/ChatDelegation', 'chat-file': 'chat/ChatFile', 'chat-error': 'chat/ChatError', 'native-select': 'core/Select',
   'navigation-menu': 'core/NavigationMenu', 'number-field': 'core/NumberField',
   pagination: 'core/Pagination', 'phone-input': 'core/PhoneInput', popover: 'core/Popover',
   progress: 'core/Progress', questionnaire: 'core/Questionnaire', 'radio-group': 'core/RadioGroup',

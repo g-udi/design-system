@@ -52,8 +52,6 @@ export { Autocomplete, AutocompleteValue, AutocompleteTrigger, AutocompleteInput
 export { AvatarRoot, AvatarImage, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarBadge } from './Avatar/index.js';
 export { Badge, badgeVariants, BadgeRoot, badgeVariantsPrimitive } from './Pill/index.js';
 export { BreadcrumbRoot, BreadcrumbListPrimitive, BreadcrumbItemPrimitive, BreadcrumbLinkPrimitive, BreadcrumbPagePrimitive, BreadcrumbSeparatorPrimitive, BreadcrumbEllipsisPrimitive } from './Breadcrumb/index.js';
-export { BubbleGroup, Bubble, BubbleContent, BubbleReactions, MessageScrollerProvider, MessageScroller, MessageScrollerViewport, MessageScrollerContent, MessageScrollerItem, MessageScrollerButton, useMessageScroller, useMessageScrollerScrollable, useMessageScrollerVisibility, MessageGroup, Message, MessageAvatar, MessageContent, MessageFooter, MessageHeader } from './Message/index.js';
-export { MessageMarkdown, parseMessageMarkdown, MessageParts, MessageReasoning, MessageReasoningStep, useReasoningDisclosure, MessageCitation, MessageSource, MessageSources, MessageStatus, MessageStatusIcon, messageStatuses, MessageData, MessageTool, MessageDelegation, MessageError, MessageFeedback, MessageFile, MessageSuggestions } from './Message/index.js';
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from './ButtonGroup/index.js';
 export { DEFAULT_DATE_SELECTOR_I18N, useDateSelectorContext, formatDateValue, useDateSelector, DateSelector, Calendar, CalendarDayButton } from './Calendar/index.js';
 export { Frame, FramePanel, FrameHeader, FrameTitle, FrameDescription, FrameFooter, frameVariants, CardRoot, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './Card/index.js';
@@ -77,7 +75,6 @@ export { Kanban, KanbanBoardPrimitive, KanbanColumn, KanbanColumnHandle, KanbanI
 export { HoverCard, HoverCardTrigger, HoverCardContent, PopoverPrimitive, PopoverAnchor, PopoverContentPrimitive, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTriggerPrimitive } from './Popover/index.js';
 export { IconStack, IconTile, iconTileVariants } from './Icon/index.js';
 export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupText, InputGroupInput, InputGroupTextarea } from './Input/index.js';
-export { PromptComposer, PromptQueue, findPromptTrigger } from './Input/index.js';
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './InputOtp/index.js';
 export { KbdRoot, KbdGroup } from './Kbd/index.js';
 export { Marker, MarkerIcon, MarkerContent, markerVariants } from './Marker/index.js';

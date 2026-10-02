@@ -3,8 +3,8 @@ import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../.storybook/stories/ComponentDocs';
 import { docsArgTypes } from '../../../../.storybook/stories/docsContract';
 import { ExampleFrame } from '../../../../.storybook/stories/ApplicationStoryHelpers';
-import { Bubble, BubbleContent, Message, MessageContent, MessageHeader, MessageParts, PromptComposer } from '../../core/index.js';
-import { ChatPlan, ChatSessionList, ChatShell, ChatWelcome } from './index.js';
+import { Bubble, BubbleContent, ChatPlan, ChatSessionList, ChatWelcome, Message, MessageContent, MessageHeader, MessageParts, PromptComposer } from '../../chat/index.js';
+import { ChatShell } from './index.js';
 
 const docs = getComponentDocs('Blocks/Chat');
 const sessions = [
@@ -62,8 +62,8 @@ function ChatPlayground({ variant, title, navigation, details, welcome, streamin
   );
 }
 
-const source = ({ variant, title, navigation, details, streaming }) => `import { ChatPlan, ChatSessionList, ChatShell } from '@gaudi/design-system/blocks/Chat';
-import { MessageScroller, PromptComposer } from '@gaudi/design-system';
+const source = ({ variant, title, navigation, details, streaming }) => `import { ChatShell } from '@gaudi/design-system/blocks/Chat';
+import { ChatPlan, ChatSessionList, MessageScroller, PromptComposer } from '@gaudi/design-system/chat';
 
 <ChatShell
   variant='${variant}'
@@ -103,7 +103,7 @@ export const Playground = {
       source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => source(args) }
     }
   },
-  render: (args) => <ChatPlayground {...args} />,
+  render: (args) => <ChatPlayground key={String(args.welcome)} {...args} />,
   play: async ({ canvasElement, args }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('heading', { name: args.title })).toBeVisible();

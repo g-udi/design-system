@@ -1,4 +1,4 @@
-const categories = new Set(['Core', 'Blocks', 'Navigation', 'MDX', 'Post', 'Layout']);
+const categories = new Set(['Core', 'Blocks', 'Chat', 'Navigation', 'MDX', 'Post', 'Layout']);
 
 export function catalogueFromIndex(index) {
   const owners = new Map();

@@ -111,13 +111,13 @@
     "BreadcrumbSeparator": "BreadcrumbSeparatorPrimitive",
     "BreadcrumbEllipsis": "BreadcrumbEllipsisPrimitive"
   },
-  "src/components/core/Message/parts/bubble.jsx": {
+  "src/components/chat/Bubble/parts/bubble.jsx": {
     "BubbleGroup": "BubbleGroup",
     "Bubble": "Bubble",
     "BubbleContent": "BubbleContent",
     "BubbleReactions": "BubbleReactions"
   },
-  "src/components/core/Message/parts/message-scroller.jsx": {
+  "src/components/chat/MessageList/parts/message-scroller.jsx": {
     "MessageScrollerProvider": "MessageScrollerProvider",
     "MessageScroller": "MessageScroller",
     "MessageScrollerViewport": "MessageScrollerViewport",
@@ -128,7 +128,7 @@
     "useMessageScrollerScrollable": "useMessageScrollerScrollable",
     "useMessageScrollerVisibility": "useMessageScrollerVisibility"
   },
-  "src/components/core/Message/parts/message.jsx": {
+  "src/components/chat/Message/parts/message.jsx": {
     "MessageGroup": "MessageGroup",
     "Message": "Message",
     "MessageAvatar": "MessageAvatar",

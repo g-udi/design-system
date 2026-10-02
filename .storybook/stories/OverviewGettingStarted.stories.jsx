@@ -59,6 +59,7 @@ export default function RootLayout({ children }) {
             <tr><Td mono>@gaudi/design-system</Td><Td>Core components, domain components, and shared tokens exposed from the root API.</Td></tr>
             <tr><Td mono>@gaudi/design-system/global.css</Td><Td>Tailwind, CSS variables, base compatibility, reduced motion, and global primitives.</Td></tr>
             <tr><Td mono>@gaudi/design-system/tokens</Td><Td>Structured color, typography, motion, radius, and shadow tokens.</Td></tr>
+            <tr><Td mono>@gaudi/design-system/chat</Td><Td>Chat and agent building blocks: messages, the composer, reply parts and chat panels. Also exported from the root.</Td></tr>
             <tr><Td mono>@gaudi/design-system/mdx</Td><Td>MDX components for article content.</Td></tr>
           </tbody>
         </Table>

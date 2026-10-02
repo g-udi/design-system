@@ -1,7 +1,4 @@
-import {
-  Bubble,
-  BubbleContent
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
 const turns = [
   {
     id: 't1',

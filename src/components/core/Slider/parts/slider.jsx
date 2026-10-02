@@ -8,6 +8,7 @@ function Slider({
   value,
   min = 0,
   max = 100,
+  getValueText,
   ...props
 }) {
   const _values = React.useMemo(
@@ -49,6 +50,7 @@ function Slider({
               ? `${props['aria-label']}${_values.length > 1 ? ` ${index + 1}` : ''}`
               : `Value ${index + 1}`
           }
+          aria-valuetext={getValueText ? getValueText((value ?? defaultValue ?? _values)[index], index) : undefined}
           key={index}
           className='ds-part-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50'
         />

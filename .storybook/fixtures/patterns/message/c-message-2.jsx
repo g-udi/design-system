@@ -13,18 +13,8 @@ import {
   AvatarFallback,
   AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
-import {
-  Bubble,
-  BubbleContent
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
-import {
-  Message,
-  MessageAvatar,
-  MessageContent,
-  MessageFooter,
-  MessageGroup,
-  MessageHeader
-} from '../../../../src/components/core/Message/parts/message.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
+import { Message, MessageAvatar, MessageContent, MessageFooter, MessageGroup, MessageHeader } from '../../../../src/components/chat/Message/parts/message.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 // An incident thread between two people: align picks the side, avatars flip

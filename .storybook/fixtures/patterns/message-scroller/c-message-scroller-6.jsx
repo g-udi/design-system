@@ -4,10 +4,7 @@ import {
   AvatarFallback,
   AvatarImage
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
-import {
-  Bubble,
-  BubbleContent
-} from '../../../../src/components/core/Message/parts/bubble.jsx';
+import { Bubble, BubbleContent } from '../../../../src/components/chat/Bubble/parts/bubble.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import {
   Card,
@@ -17,21 +14,8 @@ import {
   CardHeader,
   CardTitle
 } from '../../../../src/components/core/Card/parts/card.jsx';
-import {
-  Message,
-  MessageAvatar,
-  MessageContent
-} from '../../../../src/components/core/Message/parts/message.jsx';
-import {
-  MessageScroller,
-  MessageScrollerButton,
-  MessageScrollerContent,
-  MessageScrollerItem,
-  MessageScrollerProvider,
-  MessageScrollerViewport,
-  useMessageScroller,
-  useMessageScrollerVisibility
-} from '../../../../src/components/core/Message/parts/message-scroller.jsx';
+import { Message, MessageAvatar, MessageContent } from '../../../../src/components/chat/Message/parts/message.jsx';
+import { MessageScroller, MessageScrollerButton, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport, useMessageScroller, useMessageScrollerVisibility } from '../../../../src/components/chat/MessageList/parts/message-scroller.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const VIEWER_AVATAR =
   'https://randomuser.me/api/portraits/men/32.jpg';

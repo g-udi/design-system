@@ -414,39 +414,39 @@
       ]
     },
     "bubble": {
-      "owner": "core/Message",
+      "owner": "chat/Bubble",
       "examples": [
         {
           "name": "c-bubble-1",
-          "title": "Bubble: Support thread",
-          "description": "Bubble: Support thread",
+          "title": "Support thread",
+          "description": "Support thread",
           "file": ".storybook/fixtures/patterns/bubble/c-bubble-1.jsx",
-          "sha256": "f1f2bd467b42f1644c9f17196f86daa2bd23d66073b14af95ceadb927dac38f6",
-          "storyId": "core-message--bubble-pattern-1"
+          "sha256": "73a5186b2fda0d57586c1a06ac235a9d3b4294da4862f7e5e851ad3355514bf6",
+          "storyId": "chat-bubble--bubble-pattern-1"
         },
         {
           "name": "c-bubble-2",
-          "title": "Bubble: Bubble variants in a release thread",
-          "description": "Bubble: Bubble variants in a release thread",
+          "title": "Bubble variants in a release thread",
+          "description": "Bubble variants in a release thread",
           "file": ".storybook/fixtures/patterns/bubble/c-bubble-2.jsx",
-          "sha256": "07a373a769bfed5cdd7d4c2bd272cc0a0742cc88488b8e788a66f95701057a74",
-          "storyId": "core-message--bubble-pattern-2"
+          "sha256": "44d949fa611946486b7f7e27c42d0b56903d784dbe0b69577d4c2b5536c21814",
+          "storyId": "chat-bubble--bubble-pattern-2"
         },
         {
           "name": "c-bubble-6",
-          "title": "Bubble: Quick reply bubbles and an action row",
-          "description": "Bubble: Quick reply bubbles and an action row",
+          "title": "Quick reply bubbles and an action row",
+          "description": "Quick reply bubbles and an action row",
           "file": ".storybook/fixtures/patterns/bubble/c-bubble-6.jsx",
-          "sha256": "2d9e5a16835b630bb9072e5e144611e375f60128e83963c7324e06a928993695",
-          "storyId": "core-message--bubble-pattern-6"
+          "sha256": "d8543955dc3fa4eb108deb7dd53dad94e0eae59834b86c20db63b7bfd807337c",
+          "storyId": "chat-bubble--bubble-pattern-6"
         },
         {
           "name": "c-bubble-7",
-          "title": "Bubble: Formatted answer with show more",
-          "description": "Bubble: Formatted answer with show more",
+          "title": "Formatted answer with show more",
+          "description": "Formatted answer with show more",
           "file": ".storybook/fixtures/patterns/bubble/c-bubble-7.jsx",
-          "sha256": "3080514fde506b3c0697330a24ce09b52ae127680561447de1636dc8f3956cd1",
-          "storyId": "core-message--bubble-pattern-7"
+          "sha256": "29ee3bd3be172811b5da2f1395fc303fb064ea9357303d9f22b14c469a77959c",
+          "storyId": "chat-bubble--bubble-pattern-7"
         }
       ]
     },
@@ -2311,68 +2311,76 @@
       ]
     },
     "message": {
-      "owner": "core/Message",
+      "owner": "chat/Message",
       "examples": [
         {
           "name": "c-message-2",
           "title": "Team conversation",
           "description": "Team conversation",
           "file": ".storybook/fixtures/patterns/message/c-message-2.jsx",
-          "sha256": "21050b0ab124fdb91cacc9761afe690aeb8274cfaf73efc207120f0ce317a1c8",
-          "storyId": "core-message--message-pattern-2"
+          "sha256": "36f67d95782800240514980b60e0ed3b82141b93efa729525f4762128cfe3422",
+          "storyId": "chat-message--message-pattern-2"
         },
         {
           "name": "c-message-7",
           "title": "Assistant reply",
           "description": "Assistant reply",
           "file": ".storybook/fixtures/patterns/message/c-message-7.jsx",
-          "sha256": "0fad30710c4e2d883fa8fcc85e9c30ba1d13afa68d3fc88ced8d5a616edae04f",
-          "storyId": "core-message--message-pattern-7"
+          "sha256": "9113c40aee84bfc7dfa385211f7a3b92043b6a20da0aef7b6f52de176c0d14d7",
+          "storyId": "chat-message--message-pattern-7"
         }
       ]
     },
     "message-scroller": {
-      "owner": "core/Message",
+      "owner": "chat/MessageList",
       "examples": [
         {
           "name": "c-message-scroller-2",
-          "title": "Message Scroller: Streaming reply that follows the edge",
-          "description": "Message Scroller: Streaming reply that follows the edge",
+          "title": "Streaming reply that follows the edge",
+          "description": "Streaming reply that follows the edge",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-2.jsx",
-          "sha256": "374527174d1d66df49556e491b382adf7fd7e065778084151de8c3338a960b5f",
-          "storyId": "core-message--message-scroller-pattern-2"
+          "sha256": "c69d84e4f860f097110723ee24e079ebf99347711d84b27bde250ef489af8cc7",
+          "storyId": "chat-messagelist--message-scroller-pattern-2"
         },
         {
           "name": "c-message-scroller-3",
-          "title": "Message Scroller: Anchored turn with a previous peek",
-          "description": "Message Scroller: Anchored turn with a previous peek",
+          "title": "Anchored turn with a previous peek",
+          "description": "Anchored turn with a previous peek",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-3.jsx",
-          "sha256": "767b8421e84556f1cceacce4b98889e9255618f5eab6ec80b449f04cf4b925a4",
-          "storyId": "core-message--message-scroller-pattern-3"
+          "sha256": "474badf4a43cfbc8433fd2ef466c969663886950a621c5d28bc3d777422bf16b",
+          "storyId": "chat-messagelist--message-scroller-pattern-3"
         },
         {
           "name": "c-message-scroller-4",
-          "title": "Message Scroller: Opening position and jump to latest",
-          "description": "Message Scroller: Opening position and jump to latest",
+          "title": "Opening position and jump to latest",
+          "description": "Opening position and jump to latest",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-4.jsx",
-          "sha256": "6ef3d5232bcd6758887b2c203c3e8758c1d8da2668b425e4b70601279d5a8dd4",
-          "storyId": "core-message--message-scroller-pattern-4"
+          "sha256": "5e4f447cdea07706333b2cbfcf9f01330c88aad38d973627789e425bc35e8d59",
+          "storyId": "chat-messagelist--message-scroller-pattern-4"
         },
         {
           "name": "c-message-scroller-5",
-          "title": "Message Scroller: Load earlier without losing your place",
-          "description": "Message Scroller: Load earlier without losing your place",
+          "title": "Load earlier without losing your place",
+          "description": "Load earlier without losing your place",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-5.jsx",
-          "sha256": "13a08788e4781e6bc7e240f9664742fc418d2232643300c7b1c1c220c4d9e0a7",
-          "storyId": "core-message--message-scroller-pattern-5"
+          "sha256": "001fbd41ca7782b03a6ea0d9678d7c22c1fb63b6162fafb9b1d14833c840328f",
+          "storyId": "chat-messagelist--message-scroller-pattern-5"
         },
         {
           "name": "c-message-scroller-6",
-          "title": "Message Scroller: Thread navigator for stepping turns",
-          "description": "Message Scroller: Thread navigator for stepping turns",
+          "title": "Thread navigator for stepping turns",
+          "description": "Thread navigator for stepping turns",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-6.jsx",
-          "sha256": "9c817b0f9cc0866b5d5663d045bc7efbfcfc4ac2ed557c7b229af52d71b037b0",
-          "storyId": "core-message--message-scroller-pattern-6"
+          "sha256": "ae30ec983940f43d6b75cb80e311e7d7f83175a5a1f11dc98c50cfe65f73e213",
+          "storyId": "chat-messagelist--message-scroller-pattern-6"
+        },
+        {
+          "name": "c-message-scroller-7",
+          "title": "Streamed reply: drafting a post",
+          "description": "Streamed reply: drafting a post",
+          "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-7.jsx",
+          "sha256": "9b29f5190684119f8745d71a229d3e45d3db9ee493c176312137e73c687aa184",
+          "storyId": "chat-messagelist--message-scroller-pattern-7"
         }
       ]
     },
@@ -4033,85 +4041,32 @@
         }
       ]
     },
-    "ai-message": {
-      "owner": "core/Message",
-      "examples": [
-        {
-          "name": "c-ai-message-1",
-          "title": "Drafting a post",
-          "description": "Drafting a post",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-1.jsx",
-          "sha256": "7e25469a8b928c0030760159a2ffdc92786b1769b822a86c3f351b51cbbbaf11",
-          "storyId": "core-message--ai-message-pattern-1"
-        },
-        {
-          "name": "c-ai-message-2",
-          "title": "Research with citations",
-          "description": "Research with citations",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-2.jsx",
-          "sha256": "86f380a46792ac3b1ba9cbde992a23a83841b05f283ebf7851d5482dc61f2161",
-          "storyId": "core-message--ai-message-pattern-2"
-        },
-        {
-          "name": "c-ai-message-3",
-          "title": "Running tools",
-          "description": "Running tools",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-3.jsx",
-          "sha256": "5ade0f0032872ca9a80214219f225a20c05549514428de7c491298947a9130be",
-          "storyId": "core-message--ai-message-pattern-3"
-        },
-        {
-          "name": "c-ai-message-4",
-          "title": "Handing work to another agent",
-          "description": "Handing work to another agent",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-4.jsx",
-          "sha256": "230a80bf281e29be79ab2fafb5036982f20abebd55fda29b455353c8f9d404d5",
-          "storyId": "core-message--ai-message-pattern-4"
-        },
-        {
-          "name": "c-ai-message-5",
-          "title": "Delivered files and data",
-          "description": "Delivered files and data",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-5.jsx",
-          "sha256": "bf21f1292b5bb8f6e3680bd550b7057589ba1c4b9b16fe9e1930787a83c9f2c9",
-          "storyId": "core-message--ai-message-pattern-5"
-        },
-        {
-          "name": "c-ai-message-6",
-          "title": "Error, retry and suggestions",
-          "description": "Error, retry and suggestions",
-          "file": ".storybook/fixtures/patterns/ai-message/c-ai-message-6.jsx",
-          "sha256": "1445f6e5ef8b63eeacc2707ab31401194d90fe6ec8cf266c3eeec8c2e76665b2",
-          "storyId": "core-message--ai-message-pattern-6"
-        }
-      ]
-    },
     "prompt-composer": {
-      "owner": "core/Input",
+      "owner": "chat/ChatInput",
       "examples": [
         {
           "name": "c-prompt-composer-1",
           "title": "Mentions, commands and attachments",
           "description": "Mentions, commands and attachments",
           "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-1.jsx",
-          "sha256": "04914b803ed4a995b624bcafca61c56a73c39595a3eed6e16fbeebe810e9bcf9",
-          "storyId": "core-input--prompt-composer-pattern-1"
+          "sha256": "e3c526d7c433f448bcc5d048ed8f70f42ae9bcd0743175b86b09813be45389ec",
+          "storyId": "chat-chatinput--prompt-composer-pattern-1"
         },
         {
           "name": "c-prompt-composer-2",
           "title": "Queue follow-ups while a reply streams",
           "description": "Queue follow-ups while a reply streams",
           "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-2.jsx",
-          "sha256": "6e72f00ed5458acf8a54ab5842dfe09f34451e326f45053bb88b0bc8f1efaf38",
-          "storyId": "core-input--prompt-composer-pattern-2"
+          "sha256": "6d2de8fc10a3b53464ad79fab0bf8cde1f60373f9f969a5a2d02dce75b582e43",
+          "storyId": "chat-chatinput--prompt-composer-pattern-2"
         },
         {
           "name": "c-prompt-composer-3",
           "title": "Model and effort",
           "description": "Model and effort",
           "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-3.jsx",
-          "sha256": "c1e21eb141f2051a158f8617ee673b467e84dce6e8e318f25ded892dd6024650",
-          "storyId": "core-input--prompt-composer-pattern-3"
+          "sha256": "0547985c952ee49efbc2aa6103e2505aa6d30e8d588fff0eeea7922a3e73e96e",
+          "storyId": "chat-chatinput--prompt-composer-pattern-3"
         }
       ]
     },
@@ -4123,7 +4078,7 @@
           "title": "Reviewing a pull request",
           "description": "Reviewing a pull request",
           "file": ".storybook/fixtures/patterns/chat/c-chat-1.jsx",
-          "sha256": "65cb1c660d95a7ad0d00e88671f30b72b22e08fbb2627779c0a149aa063a0151",
+          "sha256": "f4eecb725e3ccf86b87966839eac1988e3caacbdea8259921b27496e1608b4db",
           "storyId": "blocks-chat--chat-pattern-1"
         },
         {
@@ -4131,7 +4086,7 @@
           "title": "Writing assistant beside the editor",
           "description": "Writing assistant beside the editor",
           "file": ".storybook/fixtures/patterns/chat/c-chat-2.jsx",
-          "sha256": "5c29fa5b34cfebc64e1fbb82894f9c8026c13b5946860d64c9f01bf52ac86059",
+          "sha256": "08e85bb1aa10f897c3fdfa1ab49af480851f2a0e2f990a7f54ae4a5c142c83d5",
           "storyId": "blocks-chat--chat-pattern-2"
         },
         {
@@ -4139,7 +4094,7 @@
           "title": "Welcome and suggestions",
           "description": "Welcome and suggestions",
           "file": ".storybook/fixtures/patterns/chat/c-chat-3.jsx",
-          "sha256": "f29a680409b00c7c3701b52466b17b85228d05b16f821b56f81eabf74e126378",
+          "sha256": "5367082078df65c1b5aee6e7228e817e3b4df781833118571e243fefe27c59e5",
           "storyId": "blocks-chat--chat-pattern-3"
         },
         {
@@ -4147,8 +4102,73 @@
           "title": "Agent at work: plan and activity",
           "description": "Agent at work: plan and activity",
           "file": ".storybook/fixtures/patterns/chat/c-chat-4.jsx",
-          "sha256": "6b0938f858dfa678769a577654f1b36b4b94cff10239d039dcf3f944b679c506",
+          "sha256": "5b8ac8a6b71ff1c69b8f1604b51d8b44b85fcd116155b046bfe54ccb525b1008",
           "storyId": "blocks-chat--chat-pattern-4"
+        }
+      ]
+    },
+    "chat-sources": {
+      "owner": "chat/ChatSources",
+      "examples": [
+        {
+          "name": "c-chat-sources-1",
+          "title": "Research with citations",
+          "description": "Research with citations",
+          "file": ".storybook/fixtures/patterns/chat-sources/c-chat-sources-1.jsx",
+          "sha256": "3e6e514809c04868220918412abebb1728a5ee04b9fee14689b766cff50da0db",
+          "storyId": "chat-chatsources--chat-sources-pattern-1"
+        }
+      ]
+    },
+    "chat-tool": {
+      "owner": "chat/ChatTool",
+      "examples": [
+        {
+          "name": "c-chat-tool-1",
+          "title": "Running tools",
+          "description": "Running tools",
+          "file": ".storybook/fixtures/patterns/chat-tool/c-chat-tool-1.jsx",
+          "sha256": "24531f2feb3e0bf2ec3f0bb862e6a3c3e56b0fcc4ad47c25873e9b36ae276ea2",
+          "storyId": "chat-chattool--chat-tool-pattern-1"
+        }
+      ]
+    },
+    "chat-delegation": {
+      "owner": "chat/ChatDelegation",
+      "examples": [
+        {
+          "name": "c-chat-delegation-1",
+          "title": "Handing work to another agent",
+          "description": "Handing work to another agent",
+          "file": ".storybook/fixtures/patterns/chat-delegation/c-chat-delegation-1.jsx",
+          "sha256": "0610be748634a3743a0e01424b3e0c2f75ba71e5c8cc465e4f22c3ae1ea88144",
+          "storyId": "chat-chatdelegation--chat-delegation-pattern-1"
+        }
+      ]
+    },
+    "chat-file": {
+      "owner": "chat/ChatFile",
+      "examples": [
+        {
+          "name": "c-chat-file-1",
+          "title": "Delivered files and data",
+          "description": "Delivered files and data",
+          "file": ".storybook/fixtures/patterns/chat-file/c-chat-file-1.jsx",
+          "sha256": "d3e77dd70998bc34d43a2cda79e56ff01175191d80475248913424dc39a4242f",
+          "storyId": "chat-chatfile--chat-file-pattern-1"
+        }
+      ]
+    },
+    "chat-error": {
+      "owner": "chat/ChatError",
+      "examples": [
+        {
+          "name": "c-chat-error-1",
+          "title": "Error, retry and suggestions",
+          "description": "Error, retry and suggestions",
+          "file": ".storybook/fixtures/patterns/chat-error/c-chat-error-1.jsx",
+          "sha256": "f46691382e90f8ed7e4d297fa2ac865354c8377ce4e04ff2efbdb7d20d53f8db",
+          "storyId": "chat-chaterror--chat-error-pattern-1"
         }
       ]
     }

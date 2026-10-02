@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { PromptComposer } from '../../../../src/components/core/Input/parts/prompt-composer.jsx';
+import { PromptComposer } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { NativeSelect, NativeSelectOption } from '../../../../src/components/core/Select/parts/native-select.jsx';
 import { ToggleGroup, ToggleGroupItem } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 import { Toggle } from '../../../../src/components/core/ToggleGroup/parts/toggle.jsx';

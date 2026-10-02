@@ -1,10 +1,11 @@
 'use client';
 import { useState } from 'react';
 import { ChatShell } from '../../../../src/components/blocks/Chat/parts/chat-shell.jsx';
-import { ChatActivity, ChatPlan } from '../../../../src/components/blocks/Chat/parts/chat-plan.jsx';
+import { ChatActivity } from '../../../../src/components/chat/ChatActivityHistory/parts/chat-activity.jsx';
+import { ChatPlan } from '../../../../src/components/chat/ChatPlanPanel/parts/chat-plan.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
-import { Message, MessageAvatar, MessageContent, MessageHeader } from '../../../../src/components/core/Message/parts/message.jsx';
-import { MessageParts } from '../../../../src/components/core/Message/parts/message-parts.jsx';
+import { Message, MessageAvatar, MessageContent, MessageHeader } from '../../../../src/components/chat/Message/parts/message.jsx';
+import { MessageParts } from '../../../../src/components/chat/MessageList/parts/message-parts.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 // The launch checklist the agent works through; each press of "Run next step" advances it.
