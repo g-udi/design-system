@@ -1,1 +1,1 @@
-export { AgentMark as default, AgentMark, agentMarkVariants } from './parts/agent-mark.jsx';
+export { AgentMark as default, AgentMark, agentMarkVariants, agentMotifs, agentHues, resolveAgentMark } from './parts/agent-mark.jsx';

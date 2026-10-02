@@ -1592,6 +1592,27 @@
       ],
       "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
     },
+    "chat-agentmark--motifs": {
+      "id": "chat-agentmark--motifs",
+      "title": "Chat/AgentMark",
+      "name": "Motifs and glazes",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
+    "chat-agentmark--icons-and-monograms": {
+      "id": "chat-agentmark--icons-and-monograms",
+      "title": "Chat/AgentMark",
+      "name": "Icon, image or monogram instead",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/AgentMark/AgentMark.stories.jsx"
+    },
     "chat-agentmark--in-a-thread": {
       "id": "chat-agentmark--in-a-thread",
       "title": "Chat/AgentMark",

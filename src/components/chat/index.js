@@ -24,6 +24,6 @@ export { ChatFileExplorer } from './ChatFileExplorer/parts/chat-files.jsx';
 export { ChatWelcome } from './ChatWelcome/parts/chat-welcome.jsx';
 export { ChatThreadNav } from './ChatThreadNav/parts/chat-thread-nav.jsx';
 export { ChatEffortSlider, chatEffortLevels } from './ChatEffortSlider/parts/chat-effort-slider.jsx';
-export { AgentMark, agentMarkVariants } from './AgentMark/parts/agent-mark.jsx';
+export { AgentMark, agentMarkVariants, agentMotifs, agentHues, resolveAgentMark } from './AgentMark/parts/agent-mark.jsx';
 export { ActivityIndicator, activityStates } from './ActivityIndicator/parts/activity-indicator.jsx';
 export { MessageStatus, MessageStatusIcon, messageStatuses } from './shared/message-status.jsx';

@@ -2,7 +2,7 @@ import { expect, within } from 'storybook/test';
 import { playgroundSource } from '../../../../.storybook/stories/previewSource';
 import { chatMeta } from '../story-helpers.jsx';
 import { Message, MessageContent, MessageHeader } from '../Message/index.js';
-import { AgentMark } from './index.js';
+import { AgentMark, agentHues, agentMotifs } from './index.js';
 
 export default {
   title: 'Chat/AgentMark',
@@ -10,29 +10,66 @@ export default {
   tags: ['autodocs'],
   ...chatMeta('AgentMark', {
     component: AgentMark,
-    controls: { name: 'text', size: ['xs', 'sm', 'md', 'lg'], tone: ['accent', 'discovery', 'neutral', 'solid'], state: ['idle', 'thinking', 'streaming', 'tool', 'done', 'error'], monogram: 'boolean' },
+    controls: { name: 'text', seed: 'text', motif: ['auto', ...Object.keys(agentMotifs)], hue: ['auto', ...agentHues], size: ['xs', 'sm', 'md', 'lg', 'xl'], state: ['idle', 'thinking', 'streaming', 'tool', 'done', 'error'] },
     primary: () => Playground
   })
 };
 
 export const Playground = {
-  args: { name: 'Gaudi', size: 'lg', tone: 'accent', state: 'thinking', monogram: false },
+  args: { name: 'Gaudi', seed: '', motif: 'auto', hue: 'auto', size: 'xl', state: 'idle' },
   parameters: {
     docs: {
-      description: { story: 'The assistant’s mark: an icon, an image or a monogram on a token-coloured tile that follows the global radius. `state` adds an ActivityIndicator badge at the corner, so the mark also says what the assistant is doing.' },
+      description: { story: 'Each agent gets a Gaudí-inspired mark: trencadís mosaic, catenary arches, basilica spires, roof scales, a hyperboloid, the four-armed cross, wrought ironwork or a rippling facade, glazed in one of eight tile hues. The seed (or the name) picks both, so an agent keeps the same mark everywhere; `motif` and `hue` pin them. `state` adds an ActivityIndicator badge at the corner.' },
       source: playgroundSource('AgentMark', { imports: "import { AgentMark } from '@gaudi/design-system/chat';" })
     }
   },
-  render: (args) => <AgentMark {...args} />,
+  render: ({ seed, ...args }) => <AgentMark {...args} seed={seed || undefined} />,
   play: async ({ args, canvasElement }) => {
     const mark = within(canvasElement).getByRole('img', { name: args.name });
     await expect(mark).toHaveAttribute('data-slot', 'agent-mark');
+    await expect(mark.querySelector('svg[data-agent-motif]')).not.toBeNull();
   }
+};
+
+export const Motifs = {
+  name: 'Motifs and glazes',
+  parameters: { docs: { description: { story: 'The eight motifs, each in a different glaze, then one motif across all eight hues. Every hue pairs a tinted tile with a deeper glaze and has a dark-theme pairing.' } } },
+  render: () => (
+    <div className='grid gap-6'>
+      <ul className='grid grid-cols-2 gap-4 sm:grid-cols-4'>
+        {Object.entries(agentMotifs).map(([motif, label], index) => (
+          <li key={motif} className='flex items-center gap-3 text-sm'>
+            <AgentMark name={label} motif={motif} hue={agentHues[index]} size='lg' />
+            <span>{label}</span>
+          </li>
+        ))}
+      </ul>
+      <div className='flex flex-wrap gap-2'>
+        {agentHues.map((hue) => <AgentMark key={hue} name={`Trencadís in ${hue}`} motif='trencadis' hue={hue} size='md' />)}
+      </div>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    await expect(within(canvasElement).getAllByRole('img')).toHaveLength(Object.keys(agentMotifs).length + agentHues.length);
+  }
+};
+
+export const IconsAndMonograms = {
+  name: 'Icon, image or monogram instead',
+  parameters: { docs: { description: { story: 'When an agent has its own icon, picture or initials, those sit on a `tone` tile instead of a motif.' } } },
+  render: () => (
+    <div className='flex items-center gap-3'>
+      <AgentMark name='Search agent' icon='Search' tone='discovery' size='lg' />
+      <AgentMark name='Fact checker' monogram tone='neutral' size='lg' />
+      <AgentMark name='Editor' image='https://randomuser.me/api/portraits/women/44.jpg' size='lg' />
+      <AgentMark name='Publisher' icon='Send' tone='solid' size='lg' />
+    </div>
+  )
 };
 
 export const InAThread = {
   name: 'In a thread, with several agents',
-  parameters: { docs: { description: { story: 'Marks tell agents apart in one conversation. The visible name sits beside each mark, so the marks are decorative here and the header names the sender.' } } },
+  parameters: { docs: { description: { story: 'Each agent’s name picks its own motif and glaze, so the agents in one conversation are easy to tell apart. The visible name sits beside each mark, so the marks are decorative here and the header names the sender.' } } },
   render: () => (
     <div className='flex w-full max-w-lg flex-col gap-4 text-sm'>
       <Message>
@@ -43,14 +80,14 @@ export const InAThread = {
         </MessageContent>
       </Message>
       <Message>
-        <AgentMark name='Research agent' icon='Search' tone='discovery' size='sm' decorative state='streaming' />
+        <AgentMark name='Research agent' size='sm' decorative state='streaming' />
         <MessageContent>
           <MessageHeader className='px-0'>Research agent</MessageHeader>
           <p>Reading three papers from 2024 and one archive report…</p>
         </MessageContent>
       </Message>
       <Message>
-        <AgentMark name='Fact checker' monogram tone='neutral' size='sm' decorative state='error' />
+        <AgentMark name='Fact checker' size='sm' decorative state='error' />
         <MessageContent>
           <MessageHeader className='px-0'>Fact checker</MessageHeader>
           <p>Couldn’t open the 2023 survey; it needs a login.</p>
