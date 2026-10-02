@@ -99,7 +99,7 @@ const shapes = {
         {ROWS.slice(0, 4).map((width, index) => (
           <div key={index} className='flex items-center gap-3'>
             <Line animated={animated} className='size-5 shrink-0' />
-            <Line animated={animated} className='h-2.5' style={{ width: `${width}%` }} />
+            <Line animated={animated} className='h-2.5 min-w-0 shrink' style={{ width: `${width}%` }} />
             <Line animated={animated} className='ms-auto h-2.5 w-10 shrink-0' />
           </div>
         ))}
@@ -116,7 +116,7 @@ const shapes = {
         {ROWS.map((width, index) => (
           <div key={index} className='flex items-center gap-3'>
             <Line animated={animated} className='size-6 shrink-0' />
-            <Line animated={animated} className='h-2.5' style={{ width: `${width}%` }} />
+            <Line animated={animated} className='h-2.5 min-w-0 shrink' style={{ width: `${width}%` }} />
             <Line animated={animated} className='ms-auto h-2.5 w-10 shrink-0' />
           </div>
         ))}

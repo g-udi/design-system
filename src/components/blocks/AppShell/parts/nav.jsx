@@ -47,13 +47,15 @@ const go = (onValueChange, id) => (event) => {
 };
 
 function Leading({ item }) {
+  // A custom mark (a progress ring, an avatar with presence) stands in for the icon.
+  if (item.leading) return item.leading;
   if (item.avatar) {
     // A person: a small portrait with an optional presence dot (an intrinsic circle).
     return (
       <span aria-hidden='true' data-slot='app-shell-nav-avatar' className='relative -ms-0.5 shrink-0'>
         <Avatar className='size-5 rounded-full'>
           <AvatarImage src={item.avatar} alt='' className='rounded-full' />
-          <AvatarFallback className='rounded-full text-[0.625rem]'>{item.label.slice(0, 1)}</AvatarFallback>
+          <AvatarFallback className='rounded-full'>{item.label.slice(0, 1)}</AvatarFallback>
         </Avatar>
         {item.presence ? (
           <span className={cn('ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2 rounded-full ring-2', DOT_TONES[item.presence] || item.presence)} />
@@ -102,8 +104,11 @@ function Indicator({ item }) {
   );
 }
 
+// A count badge sits over the end of the row, so badged rows keep their label clear of it.
+const hasBadge = (item) => item.badge !== undefined && item.badge !== null && item.badge !== '';
+
 function CountBadge({ badge }) {
-  if (badge === undefined || badge === null || badge === '') return null;
+  if (!hasBadge({ badge })) return null;
   const { label, variant = 'success-light' } = typeof badge === 'object' ? badge : { label: badge };
   // `variant: 'plain'` shows a bare count, as mail folders do.
   if (variant === 'plain') {
@@ -158,7 +163,7 @@ function LeafItem({ item, value, onValueChange, size, actions, actionsLabel, qui
   const hasQuick = Boolean(quickAction?.(item));
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton asChild size={size} isActive={current} tooltip={item.label} className={cn(hasQuick && actions && 'pe-14 md:pe-8 md:group-focus-within/menu-item:pe-14 md:group-hover/menu-item:pe-14', itemClassName)}>
+      <SidebarMenuButton asChild size={size} isActive={current} tooltip={item.label} className={cn(hasQuick && actions ? 'pe-14 md:pe-8 md:group-focus-within/menu-item:pe-14 md:group-hover/menu-item:pe-14' : hasBadge(item) && 'pe-9', itemClassName)}>
         <a
           href={item.href || `#${item.id}`}
           aria-current={current ? 'page' : undefined}
@@ -263,11 +268,12 @@ function NestedItem({ item, value, onValueChange, size, remembered, onRemember, 
  * group; `collapsible` turns the label into a toggle; `hideOnRail` hides the group on the icon rail;
  * `actions(item)` returns DropdownMenu items for a ⋯ row menu that appears on hover or focus;
  * `indicator` (a dot tone) marks live activity at the end of a row; `itemClassName` restyles every
- * row, for example the raised active rows of a floating sidebar. People rows take an `avatar` photo
- * (with an optional `presence` dot tone) instead of an icon, and `suffix` adds muted text after the
- * label ("(You)"). A `badge` of `{ label, variant: 'plain' }` is a bare count. `quickAction(item)`
- * returns `{ label, icon, onSelect }` for one more hover action beside the row menu (pin, unpin), and
- * `labelAction` renders beside the group label (for example a SidebarGroupAction that adds a row).
+ * row, for example the raised active rows of a floating sidebar. `item.leading` replaces the icon with
+ * a custom mark (a progress ring); people rows take an `avatar` photo (with an optional `presence`
+ * dot tone) instead, and `suffix` adds muted text after the label ("(You)"). A `badge` of
+ * `{ label, variant: 'plain' }` is a bare count. `quickAction(item)` returns `{ label, icon, onSelect }`
+ * for one more hover action beside the row menu (pin, unpin), and `action` places a group action (a
+ * `SidebarGroupAction`, for example "Add project") at the end of the group label.
  */
 function AppShellNav({
   label,
@@ -281,8 +287,8 @@ function AppShellNav({
   actions,
   actionsLabel = 'Actions',
   quickAction,
-  labelAction,
   itemClassName,
+  action,
   className,
   ...props
 }) {
@@ -335,7 +341,7 @@ function AppShellNav({
       <Collapsible defaultOpen={defaultOpen} asChild>
         <SidebarGroup className={groupClass} {...props}>
           <SidebarGroupLabel asChild>
-            <CollapsibleTrigger className='group/section w-full cursor-pointer'>
+            <CollapsibleTrigger className={cn('group/section w-full cursor-pointer', action && 'pe-8')}>
               {label}
               <RegistryIcon
                 lucide='ChevronDown'
@@ -344,7 +350,7 @@ function AppShellNav({
               />
             </CollapsibleTrigger>
           </SidebarGroupLabel>
-          {labelAction}
+          {action}
           <CollapsibleContent>
             <SidebarGroupContent>{list}</SidebarGroupContent>
           </CollapsibleContent>
@@ -355,7 +361,7 @@ function AppShellNav({
   return (
     <SidebarGroup className={groupClass} {...props}>
       {label ? <SidebarGroupLabel>{label}</SidebarGroupLabel> : null}
-      {labelAction}
+      {action}
       <SidebarGroupContent>{list}</SidebarGroupContent>
     </SidebarGroup>
   );

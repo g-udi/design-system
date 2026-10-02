@@ -119,6 +119,225 @@ export const AppShellPattern2 = {
   }
 };
 
+export const AppShellPattern3 = {
+  name: 'Inset sidebar · project progress rings and a notifications popover',
+  ...pattern(3, 'An inset sidebar with the brand, a notifications bell and the collapse trigger in its header, a ⌘K search palette (while focus is inside the window), Platform pages with nested Issues and Team sections, collapsible Active Projects whose progress rings are spoken with each name and whose row menus archive a project, a spending-limit meter, and an organization and account menu. The bell opens a multi-type feed (mentions, approvals with Approve and Review, shared files, tasks, joins, events, milestones) with unread dots and Mark all as read. The sidebar folds to an icon rail with tooltips and side menus; in a narrow frame it opens as a sheet inside the window.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    const main = within(canvas.getByRole('main'));
+    let nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('link', { name: 'Dashboard' })).toHaveAttribute('aria-current', 'page');
+    // Each project ring is spoken with its name.
+    await expect(nav.getByRole('link', { name: /Design System.*72% complete/ })).toBeVisible();
+    await userEvent.click(nav.getByRole('button', { name: 'Notifications, 5 unread' }));
+    const feed = await body.findByRole('dialog', { name: 'Notifications' });
+    await userEvent.click(within(feed).getByRole('button', { name: 'Approve' }));
+    await expect(within(feed).getByText('Approved')).toBeVisible();
+    await userEvent.click(within(feed).getByRole('button', { name: 'Mark all as read' }));
+    await waitFor(() => expect(nav.getByRole('button', { name: 'Notifications' })).toBeVisible());
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Notifications' })).not.toBeInTheDocument());
+    nav = await openNavigation(canvasElement);
+    await userEvent.click(nav.getByRole('button', { name: 'Actions for Auth Module' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Archive' }));
+    await waitFor(() => expect(nav.queryByRole('link', { name: /Auth Module/ })).not.toBeInTheDocument());
+    await userEvent.click(nav.getByRole('button', { name: 'Issues' }));
+    await userEvent.click(await nav.findByRole('link', { name: 'In Progress' }));
+    await waitFor(() => expect(main.getByText('In Progress')).toBeVisible());
+    nav = await openNavigation(canvasElement);
+    await userEvent.click(nav.getByRole('button', { name: 'Organization: Claude' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: /OpenAI/ }));
+    await waitFor(() => expect(nav.getByRole('button', { name: 'Organization: OpenAI' })).toBeVisible());
+    const sidebar = desktopSidebar(canvasElement);
+    if (sidebar) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'collapsed'));
+      await userEvent.click(within(sidebar).getByRole('button', { name: 'Team' }));
+      await userEvent.click(await body.findByRole('menuitem', { name: 'Workload' }));
+      await waitFor(() => expect(main.getByText('Workload')).toBeVisible());
+      await userEvent.click(canvas.getByRole('button', { name: 'Expand sidebar' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'expanded'));
+    } else {
+      await userEvent.keyboard('{Escape}');
+    }
+  }
+};
+
+export const AppShellPattern4 = {
+  name: 'Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel',
+  ...pattern(4, 'A dark app rail switches the sidebar panel between Mail (folders with counts, labels and storage), Calendar (a mini calendar, calendar accounts with visibility checkboxes and the next events), Schedule, Contacts (searchable, with presence) and Notifications (invites to accept or decline). Mail shows a wide message list with All, Unread, Starred and Files tabs; choosing a message marks it read and fills the action header (previous and next, Reply all, star, bookmark, delete and a More menu). The calendar context panel slides in from the other edge, inline on wide windows and over the message on narrow ones. The rail handle folds the sidebar to the dark rail; in a narrow frame the list and the message take turns and the sidebar opens as a sheet inside the window.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    const main = within(canvas.getByRole('main'));
+    let nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('button', { name: 'Mail' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: /^Inbox/ })).toHaveAttribute('aria-current', 'page');
+    if (!desktopSidebar(canvasElement)) await userEvent.keyboard('{Escape}');
+    // Choosing a message marks it read and fills the action header.
+    await userEvent.click(main.getByRole('button', { name: /Marcus Lee: Q4 sprint planning, your input needed, unread/ }));
+    await expect(main.getByRole('heading', { name: 'Q4 sprint planning, your input needed' })).toBeVisible();
+    // In a narrow panel the list steps aside for the message, so look it up hidden or not.
+    await expect(main.getByRole('button', { name: /Marcus Lee: Q4 sprint planning, your input needed$/, hidden: true })).toBeInTheDocument();
+    const actions = within(main.getByRole('toolbar', { name: 'Message actions' }));
+    await userEvent.click(actions.getByRole('button', { name: 'Star message' }));
+    await expect(actions.getByRole('button', { name: 'Unstar message' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(actions.getByRole('button', { name: 'More options' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Move to Archive' }));
+    await waitFor(() => expect(main.queryByRole('button', { name: /Marcus Lee/ })).not.toBeInTheDocument());
+    // The calendar context panel slides in from the other edge.
+    const toggle = main.getByRole('button', { name: /^(Show|Hide) calendar panel$/ });
+    if (toggle.getAttribute('aria-pressed') !== 'true') await userEvent.click(toggle);
+    const context = main.getByRole('complementary', { name: 'Calendar' });
+    await waitFor(() => expect(context).toHaveAttribute('data-state', 'open'));
+    await userEvent.click(within(context).getByRole('button', { name: 'Close calendar panel' }));
+    await waitFor(() => expect(context).toHaveAttribute('data-state', 'closed'));
+    // The dark rail switches the sidebar panel and the page.
+    nav = await openNavigation(canvasElement);
+    await userEvent.click(nav.getByRole('button', { name: 'Contacts' }));
+    await userEvent.type(nav.getByRole('textbox', { name: 'Search contacts' }), 'aisha');
+    await expect(nav.getByText('Aisha Patel')).toBeVisible();
+    await expect(nav.queryByText('Sarah Chen')).not.toBeInTheDocument();
+    await userEvent.click(nav.getByRole('button', { name: 'Calendar' }));
+    await expect(nav.getByRole('button', { name: 'Calendar' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('checkbox', { name: 'Work' })).toBeChecked();
+    await userEvent.click(nav.getByRole('checkbox', { name: 'Work' }));
+    await expect(nav.getByRole('checkbox', { name: 'Work' })).not.toBeChecked();
+    await expect(canvas.getByRole('heading', { name: /Calendar: June 2026/ })).toBeInTheDocument();
+    const sidebar = desktopSidebar(canvasElement);
+    if (sidebar) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'collapsed'));
+      // A section chosen from the folded rail opens its panel again.
+      await userEvent.click(within(sidebar).getByRole('button', { name: 'Mail' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'expanded'));
+      await expect(within(sidebar).getByRole('link', { name: /^Inbox/ })).toBeVisible();
+    } else {
+      await userEvent.keyboard('{Escape}');
+    }
+  }
+};
+
+export const AppShellPattern5 = {
+  name: 'Inset icon rail · per-section navigation, org, app and environment switchers',
+  ...pattern(5, 'An icon rail of sections, each with its own secondary navigation inside the inset panel (Catalog and Operations with counts and a storage meter for Inventory; Order Management, Fulfillment and live metrics for Orders; and so on). The header switches organization, application and environment from breadcrumb menus, centres a ⌘K search over every page, and holds a Create menu and a notifications sheet with stock alerts, reviews and approvals. The trigger folds the secondary navigation away so only the rail remains; in a narrow frame the rail and the section navigation open together as a sheet.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    const docked = Boolean(desktopSidebar(canvasElement));
+    let rail = await openNavigation(canvasElement);
+    await expect(rail.getByRole('button', { name: 'Inventory' })).toHaveAttribute('aria-current', 'page');
+    let section = within(canvas.getByRole('navigation', { name: 'Inventory navigation' }));
+    await expect(section.getByRole('link', { name: 'Product Catalog' })).toHaveAttribute('aria-current', 'page');
+    await expect(section.getByRole('progressbar', { name: 'Warehouse capacity used' })).toBeInTheDocument();
+    await userEvent.click(section.getByRole('link', { name: /^Stock Alerts/ }));
+    rail = await openNavigation(canvasElement);
+    section = within(canvas.getByRole('navigation', { name: 'Inventory navigation' }));
+    await expect(section.getByRole('link', { name: /^Stock Alerts/ })).toHaveAttribute('aria-current', 'page');
+    // Each rail section brings its own navigation.
+    await userEvent.click(rail.getByRole('button', { name: 'Orders' }));
+    section = within(await canvas.findByRole('navigation', { name: 'Orders navigation' }));
+    await expect(section.getByRole('link', { name: 'All Orders' })).toHaveAttribute('aria-current', 'page');
+    await expect(section.getByText('Live Metrics')).toBeVisible();
+    if (!docked) await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]')).toBeNull());
+    // Breadcrumb switchers.
+    await userEvent.click(canvas.getByRole('button', { name: 'Environment: Production' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Staging' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Environment: Staging' })).toBeVisible());
+    await userEvent.click(canvas.getByRole('button', { name: 'Organization: Acme Inc' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: /Starter Kit/ }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Organization: Starter Kit' })).toBeInTheDocument());
+    // The notifications sheet opens inside the window.
+    await userEvent.click(canvas.getByRole('button', { name: 'Notifications' }));
+    const sheet = within(await canvas.findByRole('dialog', { name: 'Notifications' }));
+    await userEvent.click(sheet.getByRole('button', { name: 'Reorder' }));
+    await expect(sheet.getByText('Reorder placed')).toBeVisible();
+    await userEvent.click(sheet.getByRole('button', { name: 'Close notifications' }));
+    await waitFor(() => expect(canvas.queryByRole('dialog', { name: 'Notifications' })).not.toBeInTheDocument());
+    // Search reaches pages in every section.
+    await userEvent.click(canvas.getByRole('button', { name: 'Search' }));
+    const palette = await body.findByRole('dialog', { name: 'Search' });
+    await userEvent.type(within(palette).getByRole('combobox'), 'suppliers');
+    await userEvent.click(await within(palette).findByRole('option', { name: /Suppliers/ }));
+    await waitFor(() => expect(body.queryByRole('dialog', { name: 'Search' })).not.toBeInTheDocument());
+    rail = await openNavigation(canvasElement);
+    await expect(rail.getByRole('button', { name: 'Inventory' })).toHaveAttribute('aria-current', 'page');
+    section = within(canvas.getByRole('navigation', { name: 'Inventory navigation' }));
+    await expect(section.getByRole('link', { name: 'Suppliers' })).toHaveAttribute('aria-current', 'page');
+    const sidebar = desktopSidebar(canvasElement);
+    if (sidebar) {
+      const trigger = canvas.getByRole('button', { name: 'Toggle Sidebar' });
+      await userEvent.click(trigger);
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'collapsed'));
+      await expect(canvas.getByRole('navigation', { name: 'Inventory navigation' }).closest('[inert]')).not.toBeNull();
+      await userEvent.click(trigger);
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'expanded'));
+    } else {
+      await userEvent.keyboard('{Escape}');
+    }
+  }
+};
+
+export const AppShellPattern6 = {
+  name: 'Mini icon rail · per-section navigation and a tabbed workspace toolbar',
+  ...pattern(6, 'A mini rail of product sections and apps beside a sidebar panel with a workspace switcher, the section’s own pages, and collapsible Workspaces and Communities groups with add actions. The page has a breadcrumb, search, Reports and Add actions and a profile menu with presence, above a workspace toolbar with List, Kanban, Calendar and Dashboard views (a view menu in narrow panels), Sort, View field options, Filter and search. The rail handle folds the panel to the rail and the header takes over the trigger; in a narrow frame the rail and panel open as a sheet inside the window.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expectFramed(canvasElement);
+    const main = within(canvas.getByRole('main'));
+    let nav = await openNavigation(canvasElement);
+    await expect(nav.getByRole('button', { name: 'Insights' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: 'Updates' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('button', { name: 'Workspaces' })).toHaveAttribute('aria-expanded', 'true');
+    await expect(nav.getByRole('button', { name: 'Create workspace' })).toBeInTheDocument();
+    await userEvent.click(nav.getByRole('button', { name: 'Workspace: Thunder AI' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: /Clarity AI/ }));
+    await waitFor(() => expect(nav.getByRole('button', { name: 'Workspace: Clarity AI' })).toBeVisible());
+    // Each rail section brings its own pages.
+    await userEvent.click(nav.getByRole('button', { name: 'Security' }));
+    const pages = within(nav.getByRole('navigation', { name: 'Security pages' }));
+    await expect(pages.getByRole('link', { name: 'Access' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(pages.getByRole('link', { name: 'Audit Log' }));
+    await waitFor(() => expect(main.getByText('Audit Log')).toBeVisible());
+    // The workspace toolbar switches views: tabs in wide panels, a menu in narrow ones.
+    const kanban = main.queryByRole('tab', { name: 'Kanban' });
+    if (kanban) {
+      await userEvent.click(kanban);
+      await expect(kanban).toHaveAttribute('aria-selected', 'true');
+    } else {
+      await userEvent.click(main.getByRole('button', { name: 'View: List' }));
+      await userEvent.click(await body.findByRole('menuitemradio', { name: 'Kanban' }));
+      await waitFor(() => expect(main.getByRole('button', { name: 'View: Kanban' })).toBeVisible());
+    }
+    await waitFor(() => expect(canvasElement.querySelector('[data-slot="app-shell-placeholder-grid"]')).toHaveAttribute('data-preset', 'grid'));
+    await userEvent.click(main.getByRole('button', { name: 'View options' }));
+    const labels = await body.findByRole('menuitemcheckbox', { name: 'Labels' });
+    await expect(labels).toHaveAttribute('aria-checked', 'false');
+    await userEvent.click(labels);
+    await userEvent.click(main.getByRole('button', { name: 'View options' }));
+    await expect(await body.findByRole('menuitemcheckbox', { name: 'Labels' })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.keyboard('{Escape}');
+    const sidebar = desktopSidebar(canvasElement);
+    if (sidebar) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Collapse sidebar' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'collapsed'));
+      // Folded to the rail, the page header carries the trigger.
+      await userEvent.click(main.getByRole('button', { name: 'Toggle Sidebar' }));
+      await waitFor(() => expect(sidebar).toHaveAttribute('data-state', 'expanded'));
+    } else {
+      nav = await openNavigation(canvasElement);
+      await expect(nav.getByRole('link', { name: 'Audit Log' })).toHaveAttribute('aria-current', 'page');
+      await userEvent.keyboard('{Escape}');
+    }
+  }
+};
+
 /** The docked sidebar only: the phone sheet carries a `data-state` too while it is open or closing. */
 const dockedSidebar = (canvasElement) => canvasElement.querySelector('[data-slot="sidebar"][data-state]:not([data-mobile="true"])');
 

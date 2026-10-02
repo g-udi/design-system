@@ -4407,6 +4407,38 @@
           "storyId": "blocks-application-appshell--app-shell-pattern-2"
         },
         {
+          "name": "c-app-shell-3",
+          "title": "Inset sidebar · project progress rings and a notifications popover",
+          "description": "Inset sidebar · project progress rings and a notifications popover",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-3.jsx",
+          "sha256": "07abb4526c4dd903985229682ba08d43caf1ae0c888cd968425ebc3cd98dd29d",
+          "storyId": "blocks-application-appshell--app-shell-pattern-3"
+        },
+        {
+          "name": "c-app-shell-4",
+          "title": "Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel",
+          "description": "Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-4.jsx",
+          "sha256": "78b000fc984717ead62f2c2227fa0a20da83ece9458196ee9a747576a0a798aa",
+          "storyId": "blocks-application-appshell--app-shell-pattern-4"
+        },
+        {
+          "name": "c-app-shell-5",
+          "title": "Inset icon rail · per-section navigation, org, app and environment switchers",
+          "description": "Inset icon rail · per-section navigation, org, app and environment switchers",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-5.jsx",
+          "sha256": "b50cf465885ec5819c8ea69fd6616ce9d29fe7ca1866c7cbf582df47daf294b1",
+          "storyId": "blocks-application-appshell--app-shell-pattern-5"
+        },
+        {
+          "name": "c-app-shell-6",
+          "title": "Mini icon rail · per-section navigation and a tabbed workspace toolbar",
+          "description": "Mini icon rail · per-section navigation and a tabbed workspace toolbar",
+          "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-6.jsx",
+          "sha256": "a8ce2ffabc68ed016eaf2269777360bf427884f93417f15caa83446cc2768bd2",
+          "storyId": "blocks-application-appshell--app-shell-pattern-6"
+        },
+        {
           "name": "c-app-shell-7",
           "title": "Floating sidebar · AI chat with a model picker grid and prompt composer",
           "description": "Floating sidebar · AI chat with a model picker grid and prompt composer",
@@ -4419,7 +4451,7 @@
           "title": "Mail client · folder sidebar, split list and reading panes, and an app rail",
           "description": "Mail client · folder sidebar, split list and reading panes, and an app rail",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-8.jsx",
-          "sha256": "2ca9859c919c11867a8559c2b45a4018b7dcf065502abd8a6b8d3e66f95c5111",
+          "sha256": "0be2c13c7ac2b1283644cefa2126c4468f454f1acf2690b230b5d4ce64a36ecb",
           "storyId": "blocks-application-appshell--app-shell-pattern-8"
         },
         {

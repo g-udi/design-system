@@ -689,7 +689,7 @@ export function Pattern() {
               items={labels}
               value={folder}
               onValueChange={goFolder}
-              labelAction={
+              action={
                 <SidebarGroupAction aria-label='Create label' onClick={() => setLabelOpen(true)}>
                   <RegistryIcon lucide='Plus' aria-hidden='true' />
                 </SidebarGroupAction>

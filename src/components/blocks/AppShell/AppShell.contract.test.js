@@ -198,7 +198,7 @@ test('AppShellNav renders people, bare counts, a hover quick action and a group 
         value: 'inbox',
         quickAction: (item) => ({ label: `Pin ${item.label}`, icon: 'Pin', onSelect: () => {} }),
         actions: () => 'Menu',
-        labelAction: h(SidebarGroupAction, { 'aria-label': 'Create label' }, '+')
+        action: h(SidebarGroupAction, { 'aria-label': 'Create label' }, '+')
       })
     )
   );

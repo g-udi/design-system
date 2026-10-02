@@ -4944,6 +4944,50 @@
       ],
       "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
     },
+    "blocks-application-appshell--app-shell-pattern-3": {
+      "id": "blocks-application-appshell--app-shell-pattern-3",
+      "title": "Blocks/App Shell",
+      "name": "Inset sidebar · project progress rings and a notifications popover",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-4": {
+      "id": "blocks-application-appshell--app-shell-pattern-4",
+      "title": "Blocks/App Shell",
+      "name": "Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-5": {
+      "id": "blocks-application-appshell--app-shell-pattern-5",
+      "title": "Blocks/App Shell",
+      "name": "Inset icon rail · per-section navigation, org, app and environment switchers",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
+    "blocks-application-appshell--app-shell-pattern-6": {
+      "id": "blocks-application-appshell--app-shell-pattern-6",
+      "title": "Blocks/App Shell",
+      "name": "Mini icon rail · per-section navigation and a tabbed workspace toolbar",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/AppShell/AppShellPatterns.stories.jsx"
+    },
     "blocks-application-appshell--app-shell-pattern-7": {
       "id": "blocks-application-appshell--app-shell-pattern-7",
       "title": "Blocks/App Shell",
