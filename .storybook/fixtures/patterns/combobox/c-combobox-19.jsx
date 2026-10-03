@@ -27,14 +27,14 @@ import {
 import { cn } from '../../../../src/utilities/cn/index.js';
 
 const members = [
-  { id: '1', name: 'Alex Johnson', position: 'Software Engineer', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  { id: '2', name: 'Sarah Chen', position: 'Product Manager', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { id: '3', name: 'Michael Rodriguez', position: 'UX Designer', avatar: 'https://randomuser.me/api/portraits/men/11.jpg' },
-  { id: '4', name: 'Emma Wilson', position: 'Technical Lead', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  { id: '5', name: 'David Kim', position: 'CTO', avatar: 'https://randomuser.me/api/portraits/men/49.jpg' },
-  { id: '6', name: 'Aron Thompson', position: 'Software Engineer', avatar: 'https://randomuser.me/api/portraits/men/75.jpg' },
-  { id: '7', name: 'Maria Garcia', position: 'Product Manager', avatar: 'https://randomuser.me/api/portraits/women/90.jpg' },
-  { id: '8', name: 'Liam Thompson', position: 'UX Designer', avatar: 'https://randomuser.me/api/portraits/women/65.jpg' }
+  { id: '1', name: 'Alex Johnson', position: 'Software Engineer', avatar: '/avatars/men/32.jpg' },
+  { id: '2', name: 'Sarah Chen', position: 'Product Manager', avatar: '/avatars/women/44.jpg' },
+  { id: '3', name: 'Michael Rodriguez', position: 'UX Designer', avatar: '/avatars/men/11.jpg' },
+  { id: '4', name: 'Emma Wilson', position: 'Technical Lead', avatar: '/avatars/women/68.jpg' },
+  { id: '5', name: 'David Kim', position: 'CTO', avatar: '/avatars/men/49.jpg' },
+  { id: '6', name: 'Aron Thompson', position: 'Software Engineer', avatar: '/avatars/men/75.jpg' },
+  { id: '7', name: 'Maria Garcia', position: 'Product Manager', avatar: '/avatars/women/90.jpg' },
+  { id: '8', name: 'Liam Thompson', position: 'UX Designer', avatar: '/avatars/women/65.jpg' }
 ];
 
 const initials = (name) => name.split(' ').map((part) => part[0]).join('');

@@ -44,7 +44,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 import { GithubDark } from '../../../../src/icons/brands/githubDark.jsx';
 import { Stripe } from '../../../../src/icons/brands/stripe.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const me = { name: 'Nick Bold', email: 'nick@gaudi.dev', photo: portrait('men/22') };
 // One fixed day keeps server and client markup identical.
 const TODAY = new Date(2026, 5, 10);

@@ -10,10 +10,10 @@ import {
 } from '../../../../src/components/core/Card/parts/frame-extended.jsx';
 
 const people = [
-  { src: 'https://randomuser.me/api/portraits/women/65.jpg', name: 'Jenny Wilson', initials: 'JW' },
-  { src: 'https://randomuser.me/api/portraits/women/12.jpg', name: 'Nora Quinn', initials: 'NQ' },
-  { src: 'https://randomuser.me/api/portraits/men/11.jpg', name: 'Sam Rivera', initials: 'SR' },
-  { src: 'https://randomuser.me/api/portraits/men/75.jpg', name: 'Jules Martin', initials: 'JM' }
+  { src: '/avatars/women/65.jpg', name: 'Jenny Wilson', initials: 'JW' },
+  { src: '/avatars/women/12.jpg', name: 'Nora Quinn', initials: 'NQ' },
+  { src: '/avatars/men/11.jpg', name: 'Sam Rivera', initials: 'SR' },
+  { src: '/avatars/men/75.jpg', name: 'Jules Martin', initials: 'JM' }
 ];
 
 const Faces = () => (

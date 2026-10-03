@@ -107,7 +107,7 @@ export function Pattern() {
         <AvatarGroup>
           {admins.map((portrait) => (
             <Avatar key={portrait} size='sm'>
-              <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt='' />
+              <AvatarImage src={`/avatars/${portrait}.jpg`} alt='' />
               <AvatarFallback>A</AvatarFallback>
             </Avatar>
           ))}

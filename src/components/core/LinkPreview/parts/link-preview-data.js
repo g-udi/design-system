@@ -6,7 +6,8 @@
  * (Open Graph fields plus a few platform extras); `normalizeLinkPreview` turns
  * that payload into one display model, so the inline hover card, the card and
  * the compact row all agree on the kind, title, image and metadata of a link.
- * No fetching happens here.
+ * No fetching happens here, and Gaudi knows no image services: an image the
+ * payload does not carry comes only from the app's `resolveImage` resolver.
  */
 
 import formatDate from '../../../../utilities/formatDate/formatDate.js';
@@ -16,12 +17,6 @@ export const UNAVAILABLE_STATUSES = Object.freeze([ 400, 404, 410 ]);
 
 // npmjs.com refuses metadata fetches, so package previews are synthesized from the URL.
 export const NPM_HOSTNAME = 'npmjs.com';
-export const NPM_FAVICON_URL = 'https://static.npmjs.com/58a19602036db1daee0d7863c94673a4.png';
-
-// Image services the blog pipeline relies on when a page has no Open Graph image.
-export const MICROLINK_SCREENSHOT_API = 'https://api.microlink.io/';
-export const YOUTUBE_THUMBNAIL_API = 'https://img.youtube.com/vi';
-export const GITHUB_OPENGRAPH_API = 'https://opengraph.githubassets.com/1';
 
 const TITLE_MAX_LENGTH = 60;
 const IMAGE_EXTENSIONS = /\.(avif|gif|jpe?g|png|svg|webp)$/i;
@@ -161,36 +156,82 @@ export const detectLinkKind = (url, data = {}) => {
   return 'website';
 };
 
+const repositoryFromUrl = (parsed) => {
+  const [ owner, repo ] = parsed?.pathname.split('/').filter(Boolean) || [];
+
+  return owner && repo ? { owner, repo } : null;
+};
+
 /**
- * The preview image for a link: the payload image, a platform image derived
- * from the URL (YouTube thumbnail, GitHub Open Graph card), the link itself for
- * images, and the screenshot service only when `screenshotFallback` is set.
+ * The preview image for a link: the payload image, the link itself when it
+ * points at an image, then whatever the app's `resolveImage` returns. Gaudi
+ * derives no image URLs of its own (no thumbnail, Open Graph or screenshot
+ * services), so without a resolver a page with no image simply shows none.
+ *
+ * `resolveImage` is a function or a template map (see `toImageResolver`). A
+ * function receives `{ kind, url, host, data, videoId, repository }`:
+ * `videoId` for YouTube links, `repository` (`{ owner, repo }`) for GitHub
+ * links. It returns an image URL, or null for none.
  */
-export const getPreviewImageUrl = (url, data, { screenshotFallback = true } = {}) => {
+export const getPreviewImageUrl = (url, data, { resolveImage } = {}) => {
   if (data?.image) return data.image;
 
   const parsed = parseLinkUrl(url);
 
   if (!parsed) return null;
   if (url.startsWith('/')) return IMAGE_EXTENSIONS.test(parsed.pathname) ? url : null;
-
-  const host = parsed.hostname.toLowerCase();
-  const videoId = getYouTubeVideoId(url);
-
-  if (videoId) return `${YOUTUBE_THUMBNAIL_API}/${videoId}/maxresdefault.jpg`;
-
-  if (matchesHost(host, 'github.com')) {
-    const [ owner, repo ] = parsed.pathname.split('/').filter(Boolean);
-
-    if (owner && repo) return `${GITHUB_OPENGRAPH_API}/${owner}/${repo}`;
-  }
-
   if (IMAGE_EXTENSIONS.test(parsed.pathname)) return parsed.href;
 
-  // Wikipedia previews deliberately show their excerpt instead of a screenshot.
-  if (matchesHost(host, 'wikipedia.org')) return null;
+  const resolver = toImageResolver(resolveImage);
 
-  return screenshotFallback ? `${MICROLINK_SCREENSHOT_API}?url=${encodeURIComponent(url)}&screenshot=true&meta=false&embed=screenshot.url` : null;
+  if (!resolver) return null;
+
+  const kind = detectLinkKind(url, data || {});
+
+  try {
+    return resolver({
+      'data': data || {},
+      'host': getLinkHost(url),
+      kind,
+      'repository': kind === 'repository' ? repositoryFromUrl(parsed) : null,
+      url,
+      'videoId': kind === 'video' ? getYouTubeVideoId(url) || null : null
+    }) || null;
+  } catch {
+    return null;
+  }
+};
+
+const TEMPLATE_TOKEN = /\{(url|rawUrl|host|videoId|owner|repo)\}/g;
+
+/**
+ * Turns the app's `resolveImage` setting into a resolver. A function is used
+ * as is. An object maps link kinds (`video`, `repository`, `website`…, plus
+ * `default`) to URL templates with `{url}` (encoded), `{rawUrl}`, `{host}`,
+ * `{videoId}`, `{owner}` and `{repo}` placeholders; a kind mapped to `null`
+ * shows no image, and a template whose placeholder has no value yields none.
+ * Templates are plain data, so a server component can pass them through
+ * `SiteConfigProvider` where a function could not cross to the client.
+ */
+export const toImageResolver = (setting) => {
+  if (typeof setting === 'function') return setting;
+  if (!setting || typeof setting !== 'object') return null;
+
+  return ({ kind, url, host, videoId, repository }) => {
+    const template = Object.prototype.hasOwnProperty.call(setting, kind) ? setting[kind] : setting.default;
+
+    if (typeof template !== 'string' || !template) return null;
+
+    const values = { host, 'owner': repository?.owner, 'rawUrl': url, 'repo': repository?.repo, 'url': url ? encodeURIComponent(url) : '', videoId };
+    let missing = false;
+    const resolved = template.replace(TEMPLATE_TOKEN, (_, key) => {
+      if (!values[key]) missing = true;
+
+      return values[key] || '';
+    });
+
+    return missing ? null : resolved;
+  };
 };
 
 /** Compact counts for repository and post stats: 1234 -> 1.2K. */
@@ -222,12 +263,6 @@ export const formatLinkDuration = (value) => {
 
 const siteFromHost = (host) => (host ? host.charAt(0).toUpperCase() + host.slice(1) : '');
 
-const repositoryFromUrl = (parsed) => {
-  const [ owner, repo ] = parsed?.pathname.split('/').filter(Boolean) || [];
-
-  return owner && repo ? { owner, repo } : null;
-};
-
 const socialHandleFromUrl = (parsed) => {
   const [ handle, segment ] = parsed?.pathname.split('/').filter(Boolean) || [];
 
@@ -251,11 +286,11 @@ const metaItem = (id, text, icon, label) => (text ? { icon, id, label: label || 
  * @param {Object} [options]
  * @param {string} [options.url] - The link destination (required for kind detection)
  * @param {string} [options.title] - Link text that overrides the payload title for the visible link
- * @param {boolean} [options.screenshotFallback=false] - Use the screenshot service when no image is known
+ * @param {Function|Object} [options.resolveImage] - App resolver or template map for links whose payload has no image (see getPreviewImageUrl)
  * @param {string} [options.locale='en-US'] - Locale for dates
  * @returns {Object} The normalised preview: kind, status, title, description, image, favicon, site, author, date, meta, stats and tags
  */
-export function normalizeLinkPreview(data, { url = data?.url || '', title, screenshotFallback = false, locale = 'en-US' } = {}) {
+export function normalizeLinkPreview(data, { url = data?.url || '', title, resolveImage, locale = 'en-US' } = {}) {
   const payload = data && typeof data === 'object' ? data : {};
   const parsed = parseLinkUrl(url);
   const kind = detectLinkKind(url, payload);
@@ -268,7 +303,7 @@ export function normalizeLinkPreview(data, { url = data?.url || '', title, scree
 
   let rawTitle = payload.title || '';
   let description = payload.description || payload.summary || '';
-  let image = failed || internal ? null : getPreviewImageUrl(url, payload, { screenshotFallback });
+  let image = failed || internal ? null : getPreviewImageUrl(url, payload, { resolveImage });
   let favicon = normalizeFaviconURL(payload.favicon);
   let author = payload.author || payload.channel || '';
   let label = rules.label;
@@ -301,7 +336,6 @@ export function normalizeLinkPreview(data, { url = data?.url || '', title, scree
     const packageName = parsed?.pathname.match(/\/package\/(?<name>(?:@[^/]+\/)?[^/]+)/)?.groups?.name;
 
     rawTitle = rawTitle || packageName || 'npm package';
-    favicon = favicon || NPM_FAVICON_URL;
     stats.push(metaItem('version', payload.version ? `v${payload.version}` : '', 'Tag'));
   }
 

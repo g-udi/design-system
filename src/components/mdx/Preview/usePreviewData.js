@@ -5,14 +5,11 @@
  *
  * @description The preview data hook and image helpers moved to the Core
  * LinkPreview owner; this module keeps the original MDX import path working.
+ * Gaudi ships no image service URLs: apps pass `resolveImage` instead.
  */
 
 export {
-  GITHUB_OPENGRAPH_API,
   getPreviewImageUrl,
-  MICROLINK_SCREENSHOT_API,
-  NPM_FAVICON_URL,
-  NPM_HOSTNAME,
-  YOUTUBE_THUMBNAIL_API
+  NPM_HOSTNAME
 } from '../../core/LinkPreview/parts/link-preview-data.js';
 export { usePreviewData, default } from '../../core/LinkPreview/parts/use-preview-data.js';

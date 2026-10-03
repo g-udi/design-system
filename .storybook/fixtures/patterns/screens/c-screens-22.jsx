@@ -15,8 +15,8 @@ import { Zoom } from '../../../../src/icons/brands/zoom.jsx';
 const wait = () => new Promise((resolve) => setTimeout(resolve, 600));
 const logos = [['Slack', Slack], ['Stripe', Stripe], ['Supabase', Supabase], ['Zoom', Zoom], ['Dropbox', Dropbox], ['Loom', Loom], ['Discord', Discord], ['Redis', Redis]];
 const quotes = [
-  { quote: 'No passwords to reset means our support queue lost a third of its tickets overnight.', name: 'Priya Natarajan', role: 'Support lead, Ledger', avatar: 'https://randomuser.me/api/portraits/women/12.jpg' },
-  { quote: 'The sign-in link arrives before I have switched tabs.', name: 'Tom Becker', role: 'Engineer, Northwind', avatar: 'https://randomuser.me/api/portraits/men/22.jpg' }
+  { quote: 'No passwords to reset means our support queue lost a third of its tickets overnight.', name: 'Priya Natarajan', role: 'Support lead, Ledger', avatar: '/avatars/women/12.jpg' },
+  { quote: 'The sign-in link arrives before I have switched tabs.', name: 'Tom Becker', role: 'Engineer, Northwind', avatar: '/avatars/men/22.jpg' }
 ];
 
 export function Pattern() {

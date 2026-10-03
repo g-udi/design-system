@@ -40,7 +40,3 @@ import { MessageTool, MessageToolApproval } from '@gaudi/design-system/chat';
 ## Accessibility
 
 The tool header is a disclosure button naming the tool and its status. Errors are alerts. The JSON view is a labelled toggle. An approval is a group named by its question; Approve and Deny are plain buttons, and after a decision focus moves to the outcome, which is also a status message.
-
-## Attribution
-
-`MessageToolApproval` is adapted from the Confirmation component of [AI SDK Elements](https://elements.ai-sdk.dev/components/confirmation) (Apache-2.0, Copyright 2023 Vercel, Inc.).

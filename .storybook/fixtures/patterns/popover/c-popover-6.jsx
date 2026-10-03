@@ -10,7 +10,7 @@ import {
   PopoverTrigger
 } from '../../../../src/components/core/Popover/parts/popover.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const portrait = 'https://randomuser.me/api/portraits/men/46.jpg';
+const portrait = '/avatars/men/46.jpg';
 function ProfilePopover() {
   return (
     <Popover>

@@ -35,7 +35,7 @@ export function Pattern() {
     <div className='bg-surface grid w-full max-w-4xl overflow-hidden rounded-lg border md:grid-cols-[14rem_auto_1fr]'>
       <div className='grid content-start gap-3 border-b p-5 md:border-e md:border-b-0'>
         <Avatar className='size-10'>
-          <AvatarImage src='https://randomuser.me/api/portraits/women/44.jpg' alt='Sarah Chen' />
+          <AvatarImage src='/avatars/women/44.jpg' alt='Sarah Chen' />
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
         <div>

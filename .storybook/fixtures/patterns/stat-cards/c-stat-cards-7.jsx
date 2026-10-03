@@ -38,7 +38,7 @@ export function Pattern() {
         {activity.map(([name, portrait, action, when]) => (
           <li key={name} className='flex items-center gap-2.5 text-sm'>
             <Avatar className='size-6'>
-              <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
+              <AvatarImage src={`/avatars/${portrait}.jpg`} alt={name} />
               <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
             </Avatar>
             <p className='min-w-0 flex-1 truncate'>

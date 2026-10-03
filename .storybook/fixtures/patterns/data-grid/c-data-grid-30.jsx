@@ -40,7 +40,7 @@ const demoData = [
             status: 'active',
             role: 'Staff Engineer',
             avatar:
-              'https://randomuser.me/api/portraits/men/32.jpg',
+              '/avatars/men/32.jpg',
             flag: 'us',
             location: 'United States'
           },
@@ -51,7 +51,7 @@ const demoData = [
             status: 'active',
             role: 'Senior Engineer',
             avatar:
-              'https://randomuser.me/api/portraits/women/44.jpg',
+              '/avatars/women/44.jpg',
             flag: 'gb',
             location: 'United Kingdom'
           },
@@ -62,7 +62,7 @@ const demoData = [
             status: 'inactive',
             role: 'Frontend Engineer',
             avatar:
-              'https://randomuser.me/api/portraits/men/11.jpg',
+              '/avatars/men/11.jpg',
             flag: 'ca',
             location: 'Canada'
           }
@@ -81,7 +81,7 @@ const demoData = [
             status: 'active',
             role: 'iOS Engineer',
             avatar:
-              'https://randomuser.me/api/portraits/women/68.jpg',
+              '/avatars/women/68.jpg',
             flag: 'au',
             location: 'Australia'
           },
@@ -92,7 +92,7 @@ const demoData = [
             status: 'active',
             role: 'Android Engineer',
             avatar:
-              'https://randomuser.me/api/portraits/men/49.jpg',
+              '/avatars/men/49.jpg',
             flag: 'de',
             location: 'Germany'
           }
@@ -119,7 +119,7 @@ const demoData = [
             status: 'active',
             role: 'Design Lead',
             avatar:
-              'https://randomuser.me/api/portraits/men/75.jpg',
+              '/avatars/men/75.jpg',
             flag: 'my',
             location: 'Malaysia'
           },
@@ -130,7 +130,7 @@ const demoData = [
             status: 'active',
             role: 'Product Designer',
             avatar:
-              'https://randomuser.me/api/portraits/women/90.jpg',
+              '/avatars/women/90.jpg',
             flag: 'jp',
             location: 'Japan'
           },
@@ -141,7 +141,7 @@ const demoData = [
             status: 'inactive',
             role: 'UX Researcher',
             avatar:
-              'https://randomuser.me/api/portraits/men/54.jpg',
+              '/avatars/men/54.jpg',
             flag: 'es',
             location: 'Spain'
           }
@@ -160,7 +160,7 @@ const demoData = [
             status: 'active',
             role: 'Brand Designer',
             avatar:
-              'https://randomuser.me/api/portraits/women/12.jpg',
+              '/avatars/women/12.jpg',
             flag: 'fr',
             location: 'France'
           },
@@ -171,7 +171,7 @@ const demoData = [
             status: 'inactive',
             role: 'Motion Designer',
             avatar:
-              'https://randomuser.me/api/portraits/women/65.jpg',
+              '/avatars/women/65.jpg',
             flag: 'it',
             location: 'Italy'
           }
@@ -198,7 +198,7 @@ const demoData = [
             status: 'active',
             role: 'Growth Lead',
             avatar:
-              'https://randomuser.me/api/portraits/women/44.jpg',
+              '/avatars/women/44.jpg',
             flag: 'us',
             location: 'United States'
           },
@@ -209,7 +209,7 @@ const demoData = [
             status: 'active',
             role: 'Performance Marketer',
             avatar:
-              'https://randomuser.me/api/portraits/men/32.jpg',
+              '/avatars/men/32.jpg',
             flag: 'ca',
             location: 'Canada'
           }
@@ -228,7 +228,7 @@ const demoData = [
             status: 'active',
             role: 'Content Lead',
             avatar:
-              'https://randomuser.me/api/portraits/women/68.jpg',
+              '/avatars/women/68.jpg',
             flag: 'it',
             location: 'Italy'
           },
@@ -239,7 +239,7 @@ const demoData = [
             status: 'inactive',
             role: 'Copywriter',
             avatar:
-              'https://randomuser.me/api/portraits/men/11.jpg',
+              '/avatars/men/11.jpg',
             flag: 'de',
             location: 'Germany'
           }
@@ -266,7 +266,7 @@ const demoData = [
             status: 'active',
             role: 'Finance Lead',
             avatar:
-              'https://randomuser.me/api/portraits/women/90.jpg',
+              '/avatars/women/90.jpg',
             flag: 'kr',
             location: 'South Korea'
           },
@@ -277,7 +277,7 @@ const demoData = [
             status: 'active',
             role: 'Accountant',
             avatar:
-              'https://randomuser.me/api/portraits/men/49.jpg',
+              '/avatars/men/49.jpg',
             flag: 'cz',
             location: 'Czechia'
           }
@@ -296,7 +296,7 @@ const demoData = [
             status: 'active',
             role: 'People Lead',
             avatar:
-              'https://randomuser.me/api/portraits/women/44.jpg',
+              '/avatars/women/44.jpg',
             flag: 'fr',
             location: 'France'
           },
@@ -307,7 +307,7 @@ const demoData = [
             status: 'active',
             role: 'Recruiter',
             avatar:
-              'https://randomuser.me/api/portraits/men/75.jpg',
+              '/avatars/men/75.jpg',
             flag: 'ie',
             location: 'Ireland'
           }
@@ -334,7 +334,7 @@ const demoData = [
             status: 'active',
             role: 'Account Executive',
             avatar:
-              'https://randomuser.me/api/portraits/women/68.jpg',
+              '/avatars/women/68.jpg',
             flag: 'kr',
             location: 'South Korea'
           },
@@ -345,7 +345,7 @@ const demoData = [
             status: 'inactive',
             role: 'Account Manager',
             avatar:
-              'https://randomuser.me/api/portraits/men/54.jpg',
+              '/avatars/men/54.jpg',
             flag: 'at',
             location: 'Austria'
           }
@@ -357,7 +357,7 @@ const demoData = [
 function collectImageUrls(rows) {
   return rows.flatMap((row) => [
     ...(row.avatar ? [row.avatar] : []),
-    ...(row.flag ? [`https://flagcdn.com/${row.flag.toLowerCase()}.svg`] : []),
+    ...(row.flag ? [`/flags/${row.flag.toLowerCase()}.svg`] : []),
     ...(row.children ? collectImageUrls(row.children) : [])
   ]);
 }
@@ -452,7 +452,7 @@ export function Pattern() {
           return (
             <div className='flex items-center gap-1.5'>
               <img
-                src={`https://flagcdn.com/${item.flag.toLowerCase()}.svg`}
+                src={`/flags/${item.flag.toLowerCase()}.svg`}
                 alt={item.flag}
                 className='size-4 rounded-full object-cover'
               />

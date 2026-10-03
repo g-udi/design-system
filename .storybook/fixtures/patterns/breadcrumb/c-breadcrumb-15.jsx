@@ -43,7 +43,7 @@ export function Pattern() {
               <BreadcrumbLink href='#' className='flex items-center gap-3'>
                 <Avatar className='size-6'>
                   <AvatarImage
-                    src='https://randomuser.me/api/portraits/men/32.jpg'
+                    src='/avatars/men/32.jpg'
                     className='object-cover'
                   />
                   <AvatarFallback>AJ</AvatarFallback>

@@ -36,7 +36,7 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>
       <Message align='end'>
         <MessageAvatar>
-          <Avatar src='https://randomuser.me/api/portraits/men/32.jpg' name='Daniel Okafor' size='sm' shape='circle' alt='' />
+          <Avatar src='/avatars/men/32.jpg' name='Daniel Okafor' size='sm' shape='circle' alt='' />
         </MessageAvatar>
         <MessageContent>
           <span className='sr-only'>Daniel Okafor said</span>

@@ -20,7 +20,7 @@ export function Pattern() {
         leading: (
           <Avatar
             name={member.name}
-            src={`https://randomuser.me/api/portraits/${member.photo}.jpg`}
+            src={`/avatars/${member.photo}.jpg`}
             alt=''
             size='sm'
             shape='circle'

@@ -23,7 +23,7 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const workspaces = [
   { id: 'studio', name: 'Gaudi Studio', plan: 'Enterprise', image: 'static/images/art/2.svg' },
   { id: 'labs', name: 'Harbor Labs', plan: 'Pro', image: 'static/images/art/6.svg' },
-  { id: 'personal', name: 'Alex Wong', plan: 'Personal', image: 'https://randomuser.me/api/portraits/men/32.jpg' }
+  { id: 'personal', name: 'Alex Wong', plan: 'Personal', image: '/avatars/men/32.jpg' }
 ];
 const models = [
   { id: 'gpt', label: 'GPT-5.4', logo: <Openai />, logoDark: <OpenaiDark /> },

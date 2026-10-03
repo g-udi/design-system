@@ -7,8 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 
 /*
- * Checkpoint adapted from AI SDK Elements (Apache-2.0, Copyright 2023 Vercel, Inc.): a restore point drawn as
- * a labelled divider between turns, with a confirmed "Restore checkpoint" action.
+ * Checkpoint: a restore point drawn as a labelled divider between turns, with a confirmed "Restore checkpoint" action.
  */
 
 const defaultLabels = {

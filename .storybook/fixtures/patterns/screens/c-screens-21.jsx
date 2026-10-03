@@ -5,9 +5,9 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 500));
 const quotes = [
-  { quote: 'We moved four newsletters into one workspace in an afternoon. Our editors stopped asking where drafts live.', name: 'Maya Lopez', role: 'Editor in chief, Field Notes', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { quote: 'Reviews used to take a week of email. Now they happen in the margin, and the history stays with the post.', name: 'Daniel Okafor', role: 'Founder, The Long Read', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  { quote: 'Our readers noticed the faster pages before we told them anything had changed.', name: 'Sofia Brandt', role: 'Head of product, Kiln', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' }
+  { quote: 'We moved four newsletters into one workspace in an afternoon. Our editors stopped asking where drafts live.', name: 'Maya Lopez', role: 'Editor in chief, Field Notes', avatar: '/avatars/women/44.jpg' },
+  { quote: 'Reviews used to take a week of email. Now they happen in the margin, and the history stays with the post.', name: 'Daniel Okafor', role: 'Founder, The Long Read', avatar: '/avatars/men/32.jpg' },
+  { quote: 'Our readers noticed the faster pages before we told them anything had changed.', name: 'Sofia Brandt', role: 'Head of product, Kiln', avatar: '/avatars/women/68.jpg' }
 ];
 // Dots drawn from the border token behind the quote.
 const dotBackdrop = 'bg-[radial-gradient(var(--ds-color-border)_1px,transparent_1px)] bg-[size:1rem_1rem]';

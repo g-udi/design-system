@@ -76,8 +76,8 @@ const prompts = [
   { id: 'function', label: 'Write a function', icon: 'Code' },
   { id: 'trip', label: 'Plan a trip', icon: 'MapPin' }
 ];
-const user = { name: 'AI Assistant', status: 'Always here to help', photo: 'https://randomuser.me/api/portraits/women/65.jpg' };
-const assistantPhoto = 'https://randomuser.me/api/portraits/women/65.jpg';
+const user = { name: 'AI Assistant', status: 'Always here to help', photo: '/avatars/women/65.jpg' };
+const assistantPhoto = '/avatars/women/65.jpg';
 
 function Brand() {
   return (

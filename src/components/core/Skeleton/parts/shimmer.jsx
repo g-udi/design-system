@@ -1,7 +1,7 @@
 import { cn } from '../../../../utilities/cn/index.js';
 
 /*
- * Text shimmer adapted from AI SDK Elements (Apache-2.0, Copyright 2023 Vercel, Inc.), on Gaudi tokens.
+ * Text shimmer on Gaudi tokens.
  * The words stay real text, so they are read, translated and selectable; only a highlight band sweeps
  * across them. The `shimmer` utility (composition.css) holds still for reduced motion and forced colours.
  */

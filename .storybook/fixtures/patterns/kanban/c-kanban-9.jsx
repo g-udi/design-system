@@ -53,7 +53,7 @@ const WINDOWS = [
   ['apr', 'April 30 – May 1'],
   ['may', 'May 2 – May 4']
 ];
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 const change = (id, risk, title, service, env, day, time, owner, portrait, done, total = 5) => ({
   id, risk, title, service, env, day, time, owner, avatar: face(portrait), checks: CHECKS.slice(0, total).map((label, index) => ({ label, done: index < done }))
 });

@@ -23,15 +23,15 @@ const projects = [
     statusVariant: 'info-light',
     team: [
       {
-        src: 'https://randomuser.me/api/portraits/men/32.jpg',
+        src: '/avatars/men/32.jpg',
         fallback: 'SC'
       },
       {
-        src: 'https://randomuser.me/api/portraits/women/44.jpg',
+        src: '/avatars/women/44.jpg',
         fallback: 'MJ'
       },
       {
-        src: 'https://randomuser.me/api/portraits/men/32.jpg',
+        src: '/avatars/men/32.jpg',
         fallback: 'EP'
       }
     ],
@@ -45,11 +45,11 @@ const projects = [
     statusVariant: 'warning-light',
     team: [
       {
-        src: 'https://randomuser.me/api/portraits/women/65.jpg',
+        src: '/avatars/women/65.jpg',
         fallback: 'DK'
       },
       {
-        src: 'https://randomuser.me/api/portraits/men/54.jpg',
+        src: '/avatars/men/54.jpg',
         fallback: 'SD'
       }
     ],
@@ -63,7 +63,7 @@ const projects = [
     statusVariant: 'success-light',
     team: [
       {
-        src: 'https://randomuser.me/api/portraits/women/90.jpg',
+        src: '/avatars/women/90.jpg',
         fallback: 'MJ'
       }
     ],
@@ -77,15 +77,15 @@ const projects = [
     statusVariant: 'outline',
     team: [
       {
-        src: 'https://randomuser.me/api/portraits/men/41.jpg',
+        src: '/avatars/men/41.jpg',
         fallback: 'SC'
       },
       {
-        src: 'https://randomuser.me/api/portraits/women/33.jpg',
+        src: '/avatars/women/33.jpg',
         fallback: 'DK'
       },
       {
-        src: 'https://randomuser.me/api/portraits/men/22.jpg',
+        src: '/avatars/men/22.jpg',
         fallback: 'EP'
       }
     ],

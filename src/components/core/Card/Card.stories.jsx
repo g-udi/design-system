@@ -16,12 +16,12 @@ const heading = (canvas, name, level = 3) => canvas.getByRole('heading', { level
 const Grid = ({ children }) => <div className='grid gap-3 sm:grid-cols-2'>{children}</div>;
 
 // A dashboard pair: the article card takes the text controls; both cards share the surface, padding and radius.
-const author = { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' };
+const author = { name: 'Maya Chen', src: '/avatars/women/44.jpg' };
 const metric = { title: 'Weekly readers', value: '12.4k', trend: '+18% on last week', progress: 72, goal: '72% of the 17k goal' };
 const cardRoot = (canvas, name) => heading(canvas, name).closest('[class*="border"]');
 const articleChildren = [
   "  <div className='mt-3 flex items-center gap-2 text-xs text-ui-muted-foreground'>",
-  "    <Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' size='sm' shape='circle' />",
+  "    <Avatar name='Maya Chen' src='/avatars/women/44.jpg' size='sm' shape='circle' />",
   '    <span>Maya Chen · 6 min read</span>',
   '  </div>',
   "  <div className='mt-3 flex items-center gap-2'>",

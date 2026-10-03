@@ -43,7 +43,7 @@ const MATCH = (score) =>
       : score >= 30
         ? ['text-discovery', '*:data-[slot=progress-indicator]:bg-discovery']
         : ['text-warning', '*:data-[slot=progress-indicator]:bg-warning'];
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 const candidate = (id, name, role, portrait, match, place, zone, date, band, scorecard, note = 'Scorecard tracked') => ({ id, name, role, avatar: face(portrait), match, place, zone, date, band, scorecard, note });
 const INITIAL = {
   sourced: [

@@ -71,7 +71,7 @@ export function Pattern() {
               </FieldContent>
               <div className='flex items-center gap-3 @md/field-group:w-full! @md/field-group:max-w-md'>
                 <Avatar className='size-12'>
-                  <AvatarImage src='https://randomuser.me/api/portraits/women/44.jpg' alt='' />
+                  <AvatarImage src='/avatars/women/44.jpg' alt='' />
                   <AvatarFallback>MC</AvatarFallback>
                 </Avatar>
                 <Button type='button' size='sm' variant='outline' tone='neutral'>Change photo</Button>

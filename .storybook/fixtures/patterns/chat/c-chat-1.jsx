@@ -126,7 +126,7 @@ export function Pattern() {
             </>
           }
           headerActions={<PromptNav />}
-          composer={<PromptComposer labels={{ placeholder: 'Ask about the diff, or @ mention a reviewer' }} mentions={[{ id: 'daniel', name: 'Daniel Okafor', description: 'Author', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' }]} onSubmit={() => {}} />}
+          composer={<PromptComposer labels={{ placeholder: 'Ask about the diff, or @ mention a reviewer' }} mentions={[{ id: 'daniel', name: 'Daniel Okafor', description: 'Author', avatar: '/avatars/men/32.jpg' }]} onSubmit={() => {}} />}
         >
           <MessageScroller>
             <MessageScrollerViewport aria-label='Conversation'>
@@ -136,7 +136,7 @@ export function Pattern() {
                     {turn.role === 'user' ? (
                       <Message align='end'>
                         <MessageAvatar>
-                          <Avatar src='https://randomuser.me/api/portraits/women/44.jpg' name='Sarah Chen' size='sm' shape='circle' alt='' />
+                          <Avatar src='/avatars/women/44.jpg' name='Sarah Chen' size='sm' shape='circle' alt='' />
                         </MessageAvatar>
                         <MessageContent>
                           <span className='sr-only'>Sarah Chen said</span>

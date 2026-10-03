@@ -97,7 +97,7 @@ export function Pattern() {
           <CardFooter className={cn('justify-between gap-2', layout.footerBorder && 'border-t')}>
             <Button variant='ghost' size='sm' className='gap-1.5 ps-1'>
               <Avatar className='size-5'>
-                <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+                <AvatarImage src='/avatars/men/32.jpg' alt='' />
                 <AvatarFallback>AJ</AvatarFallback>
               </Avatar>
               <span className='text-xs'>@alexjohnson</span>

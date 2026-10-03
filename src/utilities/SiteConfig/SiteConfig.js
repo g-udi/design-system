@@ -27,9 +27,11 @@ export const defaultSiteConfig = {
     'categoriesMetadata': {},
     'links': []
   },
-  // The app-owned link preview endpoint LinkPreview calls; `null` turns enrichment off.
+  // App-owned link preview settings. Gaudi loads nothing by default: without an
+  // `endpoint` LinkPreview fetches nothing, and without `resolveImage` it derives no images.
   'preview': {
-    'endpoint': '/api/preview'
+    'endpoint': null,
+    'resolveImage': null
   }
 };
 
@@ -42,7 +44,7 @@ const SiteConfigContext = createContext(defaultSiteConfig);
  * @param {React.ReactNode} props.children - Descendant tree that reads the config
  * @param {Object} [props.metadata] - Site metadata (author, title, locale, theme, …)
  * @param {Object} [props.navigation] - Navigation data (links, categoriesMetadata)
- * @param {Object} [props.preview] - Link preview settings ({ endpoint: string | (url) => string | null })
+ * @param {Object} [props.preview] - Link preview settings ({ endpoint: string | (url) => string | null, resolveImage: function or template map, see LinkPreview })
  *
  * @returns {JSX.Element} Context provider wrapping children
  *

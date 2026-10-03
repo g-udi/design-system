@@ -62,21 +62,21 @@ export function Pattern() {
           <AvatarGroup>
             <Avatar className='size-6'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/women/44.jpg'
+                src='/avatars/women/44.jpg'
                 alt='User 1'
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
             <Avatar className='size-6'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/men/11.jpg'
+                src='/avatars/men/11.jpg'
                 alt='User 2'
               />
               <AvatarFallback>MR</AvatarFallback>
             </Avatar>
             <Avatar className='size-6'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/women/68.jpg'
+                src='/avatars/women/68.jpg'
                 alt='User 3'
               />
               <AvatarFallback>EW</AvatarFallback>

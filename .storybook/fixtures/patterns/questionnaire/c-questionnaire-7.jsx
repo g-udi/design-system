@@ -44,7 +44,7 @@ const OWNERS = [
     role: 'Operations lead',
     initials: 'AB',
     photo:
-      'https://randomuser.me/api/portraits/women/65.jpg'
+      '/avatars/women/65.jpg'
   },
   {
     value: 'ines',
@@ -52,7 +52,7 @@ const OWNERS = [
     role: 'Delivery manager',
     initials: 'IR',
     photo:
-      'https://randomuser.me/api/portraits/women/44.jpg'
+      '/avatars/women/44.jpg'
   },
   {
     value: 'theo',
@@ -60,7 +60,7 @@ const OWNERS = [
     role: 'Engineering manager',
     initials: 'TL',
     photo:
-      'https://randomuser.me/api/portraits/men/46.jpg'
+      '/avatars/men/46.jpg'
   },
   {
     value: 'daniel',
@@ -68,7 +68,7 @@ const OWNERS = [
     role: 'Finance partner',
     initials: 'DO',
     photo:
-      'https://randomuser.me/api/portraits/men/52.jpg'
+      '/avatars/men/52.jpg'
   }
 ];
 const TAIL = [

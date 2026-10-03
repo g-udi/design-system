@@ -89,7 +89,7 @@ const demoData = [
     name: 'Alex Johnson',
     availability: 'online',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     status: 'Active',
     flag: 'us',
     email: 'alex@apple.com',
@@ -104,7 +104,7 @@ const demoData = [
     name: 'Sarah Chen',
     availability: 'away',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     status: 'Inactive',
     flag: 'gb',
     email: 'sarah@openai.com',
@@ -119,7 +119,7 @@ const demoData = [
     name: 'Michael Rodriguez',
     availability: 'busy',
     avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     status: 'Blocked',
     flag: 'ca',
     email: 'michael@meta.com',
@@ -134,7 +134,7 @@ const demoData = [
     name: 'Emma Wilson',
     availability: 'offline',
     avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     status: 'Inactive',
     flag: 'au',
     email: 'emma@tesla.com',
@@ -149,7 +149,7 @@ const demoData = [
     name: 'David Kim',
     availability: 'online',
     avatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     status: 'Active',
     flag: 'de',
     email: 'david@sap.com',
@@ -164,7 +164,7 @@ const demoData = [
     name: 'Aron Thompson',
     availability: 'away',
     avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
+      '/avatars/men/75.jpg',
     status: 'Pending',
     flag: 'my',
     email: 'aron@northwind.dev',
@@ -179,7 +179,7 @@ const demoData = [
     name: 'James Brown',
     availability: 'busy',
     avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
+      '/avatars/men/54.jpg',
     status: 'Inactive',
     flag: 'es',
     email: 'james@bbva.es',
@@ -194,7 +194,7 @@ const demoData = [
     name: 'Maria Garcia',
     availability: 'offline',
     avatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
+      '/avatars/women/90.jpg',
     status: 'Blocked',
     flag: 'jp',
     email: 'maria@sony.jp',
@@ -209,7 +209,7 @@ const demoData = [
     name: 'Nick Johnson',
     availability: 'online',
     avatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
+      '/avatars/women/12.jpg',
     status: 'Pending',
     flag: 'fr',
     email: 'nick@lvmh.fr',
@@ -224,7 +224,7 @@ const demoData = [
     name: 'Liam Thompson',
     availability: 'away',
     avatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
+      '/avatars/women/65.jpg',
     status: 'Inactive',
     flag: 'it',
     email: 'liam@eni.it',
@@ -239,7 +239,7 @@ const demoData = [
     name: 'Alex Johnson',
     availability: 'busy',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     status: 'Blocked',
     flag: 'br',
     email: 'alex@vale.br',
@@ -254,7 +254,7 @@ const demoData = [
     name: 'Sarah Chen',
     availability: 'offline',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     status: 'Active',
     flag: 'in',
     email: 'sarah@tata.in',
@@ -558,7 +558,7 @@ export function Pattern() {
           return (
             <div className='flex items-center gap-1.5'>
               <img
-                src={`https://flagcdn.com/${row.original.flag.toLowerCase()}.svg`}
+                src={`/flags/${row.original.flag.toLowerCase()}.svg`}
                 alt={row.original.flag}
                 className='size-4 rounded-full object-cover'
               />

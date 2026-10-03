@@ -45,7 +45,7 @@ const STATUS = {
 };
 const RING_TONE = (value) => (value >= 60 ? 'success' : value >= 30 ? 'warning' : 'danger');
 const PRIORITIES = ['P0', 'P1', 'P2'];
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 const issue = (id, area, priority, status, title, owner, portrait, due, done) => ({ id, area, priority, status, title, owner, avatar: face(portrait), due, done });
 const INITIAL = {
   open: [

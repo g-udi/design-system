@@ -10,8 +10,7 @@ import { MessageStatus } from '../../shared/message-status.jsx';
 import { MessageData } from './message-tool.jsx';
 
 /*
- * Tool approval adapted from the AI SDK Elements Confirmation (Apache-2.0, Copyright 2023 Vercel, Inc.).
- * States follow the request: requested → approved (running) → executed, or requested → denied.
+ * Tool approval: a confirmation for a tool call that needs consent. States follow the request: requested → approved (running) → executed, or requested → denied.
  */
 
 const approvalStates = Object.freeze(['requested', 'approved', 'denied', 'executed']);

@@ -10,7 +10,7 @@ const docs = getComponentDocs('Core/Planning/Flow');
 // A publishing pipeline: a draft moves through review to a scheduled post, with a send-back branch.
 const steps = [
   { id: 'draft', type: 'pill', data: { title: 'Draft ready', icon: 'FileText', tone: 'accent', target: false } },
-  { id: 'edit', type: 'step', data: { title: 'Copy edit', description: 'Grammar, links and tone', icon: 'Pencil', tone: 'info', status: 'success', meta: ['12 min', '2 comments'], owner: { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' } } },
+  { id: 'edit', type: 'step', data: { title: 'Copy edit', description: 'Grammar, links and tone', icon: 'Pencil', tone: 'info', status: 'success', meta: ['12 min', '2 comments'], owner: { name: 'Maya Chen', src: '/avatars/women/44.jpg' } } },
   { id: 'review', type: 'step', data: { title: 'Editor review', description: 'Approve or send back', icon: 'Split', tone: 'discovery', status: 'running', meta: ['Due today'], outputs: [{ id: 'approve' }, { id: 'revise' }] } },
   { id: 'revise', type: 'step', data: { title: 'Revise draft', icon: 'RotateCcw', tone: 'warning', status: 'idle', meta: ['Back to author'] } },
   { id: 'schedule', type: 'step', data: { title: 'Schedule post', description: 'Tuesday 09:00', icon: 'Calendar', tone: 'success', status: 'queued', progress: 0, progressLabel: 'Assets ready' } },

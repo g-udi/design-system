@@ -97,7 +97,7 @@ const links = [
 const pages = [...platform, ...links].flatMap((item) =>
   item.items ? item.items.map((child) => ({ ...child, section: item.label })) : [item]
 );
-const user = { handle: '@maya', photo: 'https://randomuser.me/api/portraits/women/44.jpg' };
+const user = { handle: '@maya', photo: '/avatars/women/44.jpg' };
 // Raised rows on the floating card: the current page sits on the plain surface with a hairline.
 const raised =
   'data-active:bg-ui-background data-active:shadow-xs data-active:ring-1 data-active:ring-ui-sidebar-border';

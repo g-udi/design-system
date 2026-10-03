@@ -87,7 +87,7 @@ const organizations = [
   { id: 'relay', name: 'Relay', tone: 'bg-info' },
   { id: 'orbit', name: 'Orbit', tone: 'bg-warning' }
 ];
-const user = { name: 'Leo Hart', plan: 'Max', photo: 'https://randomuser.me/api/portraits/men/32.jpg' };
+const user = { name: 'Leo Hart', plan: 'Max', photo: '/avatars/men/32.jpg' };
 
 function Brand({ onSearch }) {
   const { state, isMobile, setOpenMobile } = useSidebar();

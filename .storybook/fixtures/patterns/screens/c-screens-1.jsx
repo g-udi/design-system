@@ -60,7 +60,7 @@ function Row({ id, label, description, children }) {
 
 function ProfilePanel() {
   const [{ files }, { openFileDialog, getInputProps }] = useFileUpload({ accept: 'image/*', maxSize: 2 * 1024 * 1024 });
-  const avatar = files[0]?.preview || 'https://randomuser.me/api/portraits/women/65.jpg';
+  const avatar = files[0]?.preview || '/avatars/women/65.jpg';
   return (
     <FieldGroup className='gap-5'>
       <div className='flex items-center gap-4'>
@@ -186,7 +186,7 @@ const panels = {
         {members.map(([name, portrait, email, role]) => (
           <li key={name} className='flex items-center gap-3'>
             <Avatar className='size-8'>
-              <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
+              <AvatarImage src={`/avatars/${portrait}.jpg`} alt={name} />
               <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
             </Avatar>
             <span className='grid min-w-0 flex-1 text-sm'>

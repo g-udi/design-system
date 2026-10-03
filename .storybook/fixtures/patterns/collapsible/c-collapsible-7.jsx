@@ -123,7 +123,7 @@ export function Pattern() {
         title={
           <span className='flex items-center gap-2'>
             <Avatar className='size-5'>
-              <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+              <AvatarImage src='/avatars/men/32.jpg' alt='' />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
             <span className='text-sm font-medium text-text'>@alexjohnson</span>

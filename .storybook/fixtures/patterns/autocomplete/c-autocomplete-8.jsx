@@ -109,7 +109,7 @@ const usersData = [
     name: 'John Doe',
     group: 'Development Team',
     position: 'Senior Frontend Developer',
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg',
+    avatar: '/avatars/men/1.jpg',
     status: 'Active'
   },
   {
@@ -117,7 +117,7 @@ const usersData = [
     name: 'Jane Smith',
     group: 'Development Team',
     position: 'Full Stack Developer',
-    avatar: 'https://randomuser.me/api/portraits/women/2.jpg',
+    avatar: '/avatars/women/2.jpg',
     status: 'Active'
   },
   {
@@ -125,7 +125,7 @@ const usersData = [
     name: 'Mike Wilson',
     group: 'Development Team',
     position: 'Backend Developer',
-    avatar: 'https://randomuser.me/api/portraits/men/3.jpg',
+    avatar: '/avatars/men/3.jpg',
     status: 'Active'
   },
   {
@@ -133,7 +133,7 @@ const usersData = [
     name: 'Sarah Johnson',
     group: 'Development Team',
     position: 'DevOps Engineer',
-    avatar: 'https://randomuser.me/api/portraits/women/4.jpg',
+    avatar: '/avatars/women/4.jpg',
     status: 'Away'
   },
   {
@@ -141,7 +141,7 @@ const usersData = [
     name: 'David Brown',
     group: 'Development Team',
     position: 'Mobile Developer',
-    avatar: 'https://randomuser.me/api/portraits/men/5.jpg',
+    avatar: '/avatars/men/5.jpg',
     status: 'Active'
   },
   {
@@ -149,7 +149,7 @@ const usersData = [
     name: 'Lisa Garcia',
     group: 'Development Team',
     position: 'UI/UX Developer',
-    avatar: 'https://randomuser.me/api/portraits/women/6.jpg',
+    avatar: '/avatars/women/6.jpg',
     status: 'Active'
   },
   // Design Team
@@ -158,7 +158,7 @@ const usersData = [
     name: 'Alex Martinez',
     group: 'Design Team',
     position: 'Lead UX Designer',
-    avatar: 'https://randomuser.me/api/portraits/men/7.jpg',
+    avatar: '/avatars/men/7.jpg',
     status: 'Active'
   },
   {
@@ -166,7 +166,7 @@ const usersData = [
     name: 'Emma Davis',
     group: 'Design Team',
     position: 'UI Designer',
-    avatar: 'https://randomuser.me/api/portraits/women/8.jpg',
+    avatar: '/avatars/women/8.jpg',
     status: 'Active'
   },
   {
@@ -174,7 +174,7 @@ const usersData = [
     name: 'Chris Taylor',
     group: 'Design Team',
     position: 'Product Designer',
-    avatar: 'https://randomuser.me/api/portraits/men/9.jpg',
+    avatar: '/avatars/men/9.jpg',
     status: 'Active'
   },
   {
@@ -182,7 +182,7 @@ const usersData = [
     name: 'Olivia Anderson',
     group: 'Design Team',
     position: 'Visual Designer',
-    avatar: 'https://randomuser.me/api/portraits/women/10.jpg',
+    avatar: '/avatars/women/10.jpg',
     status: 'Inactive'
   },
   // Marketing Team
@@ -191,7 +191,7 @@ const usersData = [
     name: 'James Moore',
     group: 'Marketing Team',
     position: 'Marketing Manager',
-    avatar: 'https://randomuser.me/api/portraits/men/11.jpg',
+    avatar: '/avatars/men/11.jpg',
     status: 'Active'
   },
   {
@@ -199,7 +199,7 @@ const usersData = [
     name: 'Sophia White',
     group: 'Marketing Team',
     position: 'Content Marketing Specialist',
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    avatar: '/avatars/women/12.jpg',
     status: 'Active'
   },
   {
@@ -207,7 +207,7 @@ const usersData = [
     name: 'William Harris',
     group: 'Marketing Team',
     position: 'Digital Marketing Specialist',
-    avatar: 'https://randomuser.me/api/portraits/men/13.jpg',
+    avatar: '/avatars/men/13.jpg',
     status: 'Active'
   },
   {
@@ -215,7 +215,7 @@ const usersData = [
     name: 'Ava Martin',
     group: 'Marketing Team',
     position: 'Social Media Manager',
-    avatar: 'https://randomuser.me/api/portraits/women/14.jpg',
+    avatar: '/avatars/women/14.jpg',
     status: 'Away'
   },
   // Sales Team
@@ -224,7 +224,7 @@ const usersData = [
     name: 'Ethan Thompson',
     group: 'Sales Team',
     position: 'Sales Director',
-    avatar: 'https://randomuser.me/api/portraits/men/15.jpg',
+    avatar: '/avatars/men/15.jpg',
     status: 'Active'
   },
   {
@@ -232,7 +232,7 @@ const usersData = [
     name: 'Mia Garcia',
     group: 'Sales Team',
     position: 'Account Executive',
-    avatar: 'https://randomuser.me/api/portraits/women/16.jpg',
+    avatar: '/avatars/women/16.jpg',
     status: 'Active'
   },
   {
@@ -240,7 +240,7 @@ const usersData = [
     name: 'Noah Martinez',
     group: 'Sales Team',
     position: 'Sales Representative',
-    avatar: 'https://randomuser.me/api/portraits/men/17.jpg',
+    avatar: '/avatars/men/17.jpg',
     status: 'Active'
   },
   {
@@ -248,7 +248,7 @@ const usersData = [
     name: 'Isabella Rodriguez',
     group: 'Sales Team',
     position: 'Business Development Manager',
-    avatar: 'https://randomuser.me/api/portraits/women/18.jpg',
+    avatar: '/avatars/women/18.jpg',
     status: 'Active'
   },
   // Management Team
@@ -257,7 +257,7 @@ const usersData = [
     name: 'Lucas Lee',
     group: 'Management Team',
     position: 'CEO',
-    avatar: 'https://randomuser.me/api/portraits/men/19.jpg',
+    avatar: '/avatars/men/19.jpg',
     status: 'Active'
   },
   {
@@ -265,7 +265,7 @@ const usersData = [
     name: 'Charlotte Walker',
     group: 'Management Team',
     position: 'CTO',
-    avatar: 'https://randomuser.me/api/portraits/women/20.jpg',
+    avatar: '/avatars/women/20.jpg',
     status: 'Active'
   },
   {
@@ -273,7 +273,7 @@ const usersData = [
     name: 'Benjamin Hall',
     group: 'Management Team',
     position: 'VP of Engineering',
-    avatar: 'https://randomuser.me/api/portraits/men/21.jpg',
+    avatar: '/avatars/men/21.jpg',
     status: 'Active'
   },
   {
@@ -281,7 +281,7 @@ const usersData = [
     name: 'Amelia Allen',
     group: 'Management Team',
     position: 'VP of Marketing',
-    avatar: 'https://randomuser.me/api/portraits/women/22.jpg',
+    avatar: '/avatars/women/22.jpg',
     status: 'Active'
   },
   // Support Team
@@ -290,7 +290,7 @@ const usersData = [
     name: 'Henry Young',
     group: 'Support Team',
     position: 'Customer Success Manager',
-    avatar: 'https://randomuser.me/api/portraits/men/23.jpg',
+    avatar: '/avatars/men/23.jpg',
     status: 'Active'
   },
   {
@@ -298,7 +298,7 @@ const usersData = [
     name: 'Grace King',
     group: 'Support Team',
     position: 'Technical Support Specialist',
-    avatar: 'https://randomuser.me/api/portraits/women/24.jpg',
+    avatar: '/avatars/women/24.jpg',
     status: 'Active'
   },
   {
@@ -306,7 +306,7 @@ const usersData = [
     name: 'Sebastian Wright',
     group: 'Support Team',
     position: 'Customer Support Representative',
-    avatar: 'https://randomuser.me/api/portraits/men/25.jpg',
+    avatar: '/avatars/men/25.jpg',
     status: 'Away'
   },
   {
@@ -314,7 +314,7 @@ const usersData = [
     name: 'Lily Lopez',
     group: 'Support Team',
     position: 'Help Desk Technician',
-    avatar: 'https://randomuser.me/api/portraits/women/26.jpg',
+    avatar: '/avatars/women/26.jpg',
     status: 'Active'
   }
 ];

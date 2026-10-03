@@ -28,7 +28,3 @@ In `MessageMarkdown` and `MessageParts`, `[1]` cites one source and `[1, 3]` gro
 ## Accessibility
 
 Each citation is a button named "Source 1: title" (", and 2 more" when grouped). The card opens on hover for a mouse without taking focus, and on click, tap, Enter or Space with focus inside; Escape closes it. The carousel pages with the arrow keys, its buttons or a swipe, and announces "2 of 3". Links leave the page with clear names.
-
-## Attribution
-
-The citation card and carousel are adapted from the Inline Citation component of [AI SDK Elements](https://elements.ai-sdk.dev/components/inline-citation) (Apache-2.0, Copyright 2023 Vercel, Inc.).

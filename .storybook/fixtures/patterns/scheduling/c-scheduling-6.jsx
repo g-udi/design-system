@@ -19,7 +19,7 @@ import {
 } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const presenters = [
   { name: 'Maya Lopez', role: 'Head of Design, Gaudi', portrait: 'women/65' },
   { name: 'Omar Haddad', role: 'Staff Engineer, Gaudi', portrait: 'men/41' }

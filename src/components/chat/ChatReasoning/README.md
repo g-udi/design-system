@@ -40,7 +40,3 @@ import { MessageReasoning, MessageReasoningImage, MessageReasoningResults, Messa
 ## Accessibility
 
 The trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label ("Searched the web, Done"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.
-
-## Attribution
-
-Reasoning, Chain of Thought and Shimmer behaviour is adapted from [AI SDK Elements](https://elements.ai-sdk.dev/components/chain-of-thought) (Apache-2.0, Copyright 2023 Vercel, Inc.).

@@ -34,10 +34,10 @@ const statuses = [
   { value: 'failed', label: 'Failed', dot: 'bg-danger' }
 ];
 const members = [
-  { value: 'sarah', label: 'Sarah Chen', initials: 'SC', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { value: 'alex', label: 'Alex Kim', initials: 'AK', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  { value: 'maria', label: 'Maria Garcia', initials: 'MG', avatar: 'https://randomuser.me/api/portraits/women/90.jpg' },
-  { value: 'james', label: 'James Wilson', initials: 'JW', avatar: 'https://randomuser.me/api/portraits/men/54.jpg' }
+  { value: 'sarah', label: 'Sarah Chen', initials: 'SC', avatar: '/avatars/women/44.jpg' },
+  { value: 'alex', label: 'Alex Kim', initials: 'AK', avatar: '/avatars/men/32.jpg' },
+  { value: 'maria', label: 'Maria Garcia', initials: 'MG', avatar: '/avatars/women/90.jpg' },
+  { value: 'james', label: 'James Wilson', initials: 'JW', avatar: '/avatars/men/54.jpg' }
 ];
 const priorities = [
   { value: 'urgent', label: 'Urgent', variant: 'destructive-light' },

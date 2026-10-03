@@ -15,9 +15,9 @@ const page = (canvasElement) => within(canvasElement.ownerDocument.body);
 const heading = 'Share this draft';
 const shareUrl = 'gaudi.dev/d/tokens-oklch';
 const people = [
-  { name: 'Ahmad Assaf', role: 'Owner', src: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  { name: 'Lina Haddad', role: 'Can edit', src: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { name: 'Sam Okafor', role: 'Can view', src: 'https://randomuser.me/api/portraits/men/75.jpg' }
+  { name: 'Ahmad Assaf', role: 'Owner', src: '/avatars/men/32.jpg' },
+  { name: 'Lina Haddad', role: 'Can edit', src: '/avatars/women/44.jpg' },
+  { name: 'Sam Okafor', role: 'Can view', src: '/avatars/men/75.jpg' }
 ];
 
 function SharePanel() {

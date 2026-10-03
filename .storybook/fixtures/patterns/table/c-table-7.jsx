@@ -69,7 +69,7 @@ export function Pattern() {
               <TableCell>
                 <div className='flex items-center gap-2'>
                   <Avatar size='sm'>
-                    <AvatarImage src={`https://randomuser.me/api/portraits/${order.photo}.jpg`} alt='' />
+                    <AvatarImage src={`/avatars/${order.photo}.jpg`} alt='' />
                     <AvatarFallback>{initials(order.customer)}</AvatarFallback>
                   </Avatar>
                   <div className='flex min-w-0 flex-col'>

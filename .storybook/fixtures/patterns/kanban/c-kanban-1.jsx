@@ -47,7 +47,7 @@ const FRAMES = [
   ['framed', 'Framed'],
   ['stacked', 'Stacked']
 ];
-const person = (name, portrait) => ({ assignee: name, assigneeAvatar: `https://randomuser.me/api/portraits/${portrait}.jpg` });
+const person = (name, portrait) => ({ assignee: name, assigneeAvatar: `/avatars/${portrait}.jpg` });
 const INITIAL = {
   backlog: [
     { id: '1', title: 'Add authentication', priority: 'high', progress: 0, dueDate: 'Jan 10', ...person('Alex Johnson', 'men/32') },

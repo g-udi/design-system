@@ -76,7 +76,7 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>
       <Message align='end'>
         <MessageAvatar>
-          <Avatar src='https://randomuser.me/api/portraits/women/44.jpg' name='Sarah Chen' size='sm' shape='circle' alt='' />
+          <Avatar src='/avatars/women/44.jpg' name='Sarah Chen' size='sm' shape='circle' alt='' />
         </MessageAvatar>
         <MessageContent>
           <span className='sr-only'>Sarah Chen said</span>

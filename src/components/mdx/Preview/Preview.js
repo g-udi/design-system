@@ -7,8 +7,9 @@
  * (`remarkLinks` for external links, `rehypeInternalLinks` for internal ones).
  * It is a thin adapter over the Core LinkPreview: the rich, type-aware
  * rendering and the normaliser live there. The adapter keeps the props the
- * pipeline emits and the blog's screenshot fallback for pages without an
- * Open Graph image.
+ * pipeline emits. The preview endpoint and any derived images (thumbnails,
+ * screenshots for pages without an Open Graph image) are app settings: pass
+ * `endpoint` / `resolveImage`, or set them once on `SiteConfigProvider preview`.
  *
  * @author Ahmad Assaf
  * @version 4.0.0
@@ -34,7 +35,8 @@ export const PreviewLoadingSkeleton = ({ className }) => <LinkPreviewSkeleton va
  * @param {boolean} [props.defaultOpen] - Start the hover card open
  * @param {number} [props.timeout=10000] - Request timeout in milliseconds
  * @param {'inline'|'card'|'compact'} [props.variant='inline'] - LinkPreview variant
- * @param {string|Function|null} [props.endpoint] - Preview endpoint; defaults to SiteConfig preview.endpoint, then /api/preview
+ * @param {string|Function|null} [props.endpoint] - Preview endpoint; defaults to SiteConfig preview.endpoint (none: no fetching)
+ * @param {Function|Object|null} [props.resolveImage] - Resolver or template map for links without an image; defaults to SiteConfig preview.resolveImage
  * @param {Function} [props.onLoad] / [props.onError] - Load callbacks
  * @param {React.ReactNode} [props.fallback] - Custom fallback when metadata fails
  * @param {string} [props.className] - Additional classes
@@ -51,6 +53,7 @@ const Preview = memo(function Preview({
   variant = 'inline',
   orientation,
   endpoint,
+  resolveImage,
   onLoad,
   onError,
   fallback
@@ -68,10 +71,10 @@ const Preview = memo(function Preview({
       variant={ variant }
       orientation={ orientation }
       endpoint={ endpoint }
+      resolveImage={ resolveImage }
       onLoad={ onLoad }
       onError={ onError }
       fallback={ fallback }
-      screenshotFallback
     />
   );
 });

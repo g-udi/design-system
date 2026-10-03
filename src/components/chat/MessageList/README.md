@@ -60,8 +60,6 @@ import { MessageCheckpoint } from '@gaudi/design-system/chat';
 <MessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />
 ```
 
-Adapted from the Checkpoint component of [AI SDK Elements](https://elements.ai-sdk.dev/components/checkpoint) (Apache-2.0, Copyright 2023 Vercel, Inc.).
-
 ### Markdown
 
 Replies arrive as plain markdown, a few tokens at a time, so `MessageMarkdown` renders them at runtime instead of compiling them like MDX articles. It adds no markdown dependency:

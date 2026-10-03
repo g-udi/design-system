@@ -17,7 +17,7 @@ const openMenu = async (canvasElement, name) => {
   return { trigger, menu: within(await page(canvasElement).findByRole('menu')) };
 };
 // One article's action menu: icons and shortcuts, two toggles, an unavailable action, and a destructive one.
-const article = { title: 'A practical guide to knowledge graphs', author: 'Ada Lovelace', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', meta: 'Draft · edited 2 hours ago' };
+const article = { title: 'A practical guide to knowledge graphs', author: 'Ada Lovelace', avatar: '/avatars/women/68.jpg', meta: 'Draft · edited 2 hours ago' };
 const actions = [
   { label: 'Edit', icon: 'Pencil', shortcut: '⌘E', status: 'Editing the article in this example.' },
   { label: 'Duplicate', icon: 'Copy', shortcut: '⌘D', status: 'Article duplicated in this example.' },

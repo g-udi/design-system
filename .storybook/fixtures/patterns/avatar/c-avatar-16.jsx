@@ -9,7 +9,7 @@ export function Pattern() {
     <div className='flex items-center gap-1.5'>
       <Avatar>
         <AvatarImage
-          src='https://randomuser.me/api/portraits/men/32.jpg'
+          src='/avatars/men/32.jpg'
           alt='Alex Johnson'
         />
         <AvatarFallback>AJ</AvatarFallback>

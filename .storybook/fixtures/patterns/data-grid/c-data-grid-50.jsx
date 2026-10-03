@@ -179,7 +179,7 @@ function matches(deal, node) {
 function Initials({ name }) {
   return (
     <Avatar aria-hidden='true' className='size-6 shrink-0'>
-      <AvatarImage src={`https://randomuser.me/api/portraits/${OWNER_PORTRAITS.get(name)}.jpg`} />
+      <AvatarImage src={`/avatars/${OWNER_PORTRAITS.get(name)}.jpg`} />
       <AvatarFallback>
         {name.split(' ').map((part) => part[0]).join('')}
       </AvatarFallback>

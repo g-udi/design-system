@@ -7,15 +7,15 @@
  * preview endpoint (Gaudi never fetches third-party pages itself) with an
  * LRU + TTL cache, in-flight request deduplication, a timeout, and a
  * stale-response guard. The endpoint comes from the `endpoint` option, then
- * `SiteConfigProvider preview={{ endpoint }}`, then `/api/preview`.
+ * `SiteConfigProvider preview={{ endpoint }}`. There is no default: with no
+ * endpoint configured nothing is fetched and links render from `previewData`
+ * or as plain links.
  */
 
 import { useEffect, useState } from 'react';
 
 import { useSiteConfig } from '../../../../utilities/SiteConfig/SiteConfig.js';
-import { NPM_FAVICON_URL, NPM_HOSTNAME } from './link-preview-data.js';
-
-export const DEFAULT_PREVIEW_ENDPOINT = '/api/preview';
+import { NPM_HOSTNAME } from './link-preview-data.js';
 
 const CACHE_MAX_SIZE = 100;
 const CACHE_TTL = 3600000; // 1 hour
@@ -119,14 +119,25 @@ const fetchPreviewData = async(requestUrl, url, timeout) => {
 
 const withTitle = (data, customTitle) => (customTitle ? { ...data, 'title': customTitle } : data);
 
-/** The endpoint a component should call: explicit option, then SiteConfig, then the default. */
+/** The endpoint a component should call: explicit option, then SiteConfig; null (no fetching) otherwise. */
 export function usePreviewEndpoint(endpoint) {
   const config = useSiteConfig();
 
   if (endpoint !== undefined) return endpoint;
-  if (config?.preview && 'endpoint' in config.preview) return config.preview.endpoint;
 
-  return DEFAULT_PREVIEW_ENDPOINT;
+  return config?.preview?.endpoint ?? null;
+}
+
+/**
+ * The app's image setting for links without an image (a resolver function or a
+ * template map): explicit option, then SiteConfig; null (no derived images) otherwise.
+ */
+export function usePreviewImageResolver(resolveImage) {
+  const config = useSiteConfig();
+
+  if (resolveImage !== undefined) return resolveImage ?? null;
+
+  return config?.preview?.resolveImage ?? null;
 }
 
 /**
@@ -138,7 +149,7 @@ export function usePreviewEndpoint(endpoint) {
  * @param {Object} [options.previewData] - Static metadata; skips fetching
  * @param {boolean} [options.skip] - Resolve a local placeholder without fetching
  * @param {number} [options.timeout=20000] - Request timeout in milliseconds
- * @param {string|Function|null} [options.endpoint] - Preview endpoint; `null` disables fetching
+ * @param {string|Function|null} [options.endpoint] - Preview endpoint; defaults to SiteConfig preview.endpoint, and nothing is fetched without one
  * @returns {{ data: Object|null, error: Error|null, loading: boolean }}
  */
 export function usePreviewData(url, customTitle, options = {}) {
@@ -176,7 +187,7 @@ export function usePreviewData(url, customTitle, options = {}) {
       const packageMatch = url.match(/npmjs\.com\/package\/(?<packageName>[^/?#]+)/);
 
       setState({
-        'data': { 'favicon': NPM_FAVICON_URL, 'siteName': 'npm', 'title': customTitle || packageMatch?.groups?.packageName || 'npm package', 'type': 'package' },
+        'data': { 'siteName': 'npm', 'title': customTitle || packageMatch?.groups?.packageName || 'npm package', 'type': 'package' },
         'error': null,
         'loading': false
       });

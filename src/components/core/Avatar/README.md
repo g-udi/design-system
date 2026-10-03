@@ -2,7 +2,7 @@
 
 A person, workspace or source shown as a photo, initials or an icon, with an optional presence badge. `Avatar` and `AvatarGroup` are built on the `AvatarRoot`, `AvatarImage`, `AvatarFallback` and `AvatarBadge` parts.
 
-Photo examples use fixed [Random User](https://randomuser.me/) portrait URLs with fictional demo identities. The same portraits appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/fixtures/PORTRAITS.md).
+Photo examples use real portraits bundled with Storybook (`/avatars/women/44.jpg`, originally from Random User) with fictional demo identities, so examples never load images from the network. The same portraits appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/fixtures/PORTRAITS.md).
 
 ```jsx
 import { Avatar, AvatarGroup } from '@gaudi/design-system';

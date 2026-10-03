@@ -40,7 +40,7 @@ const RISK = {
 };
 const HEALTH_BAR = (score) =>
   score < 45 ? '*:data-[slot=progress-indicator]:bg-danger' : score < 70 ? '*:data-[slot=progress-indicator]:bg-warning' : '*:data-[slot=progress-indicator]:bg-success';
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 // fill-current lets single-colour marks follow the text colour in dark mode.
 const mark = (Logo) => <Logo className='size-4 fill-current text-text' aria-hidden='true' />;
 const account = (id, logo, name, risk, arr, renews, health, owner, role, portrait, days) => ({ id, logo, name, risk, arr, renews, health, owner, role, avatar: face(portrait), days });

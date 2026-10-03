@@ -10,8 +10,10 @@
  * shown; three variants present it: `inline` (link text that reveals a rich
  * card on hover or focus), `card` (vertical or horizontal, with the Open Graph
  * image) and `compact` (a one-line row). Metadata comes from static
- * `previewData` or from the app's preview endpoint through `usePreviewData`;
- * Gaudi never fetches third-party pages itself.
+ * `previewData` or from the app's preview endpoint through `usePreviewData`
+ * (nothing is fetched until the app configures an endpoint). Gaudi never
+ * fetches third-party pages and derives no image URLs itself: images come from
+ * the payload or the app's `resolveImage`.
  */
 
 import { memo, useEffect, useMemo } from 'react';
@@ -22,7 +24,7 @@ import Link from '../Link';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../Popover/parts/hover-card.jsx';
 import { detectLinkKind, hasLinkPreviewDetails, normalizeLinkPreview } from './parts/link-preview-data.js';
 import { LinkPreviewBody, LinkPreviewCard, LinkPreviewCompact, LinkPreviewFavicon, LinkPreviewSkeleton } from './parts/link-preview.jsx';
-import { usePreviewData } from './parts/use-preview-data.js';
+import { usePreviewData, usePreviewImageResolver } from './parts/use-preview-data.js';
 
 // Plain inline flow, so long link text wraps with the surrounding prose.
 const inlineClass = 'inline';
@@ -62,10 +64,10 @@ function LinkPreviewFallback({ preview, url, label, className }) {
  * @param {'inline'|'card'|'compact'} [props.variant='inline'] - Presentation
  * @param {'vertical'|'horizontal'} [props.orientation='vertical'] - Card layout
  * @param {Object} [props.previewData] - Static preview metadata (skips fetching)
- * @param {string|Function|null} [props.endpoint] - Preview endpoint; defaults to SiteConfig preview.endpoint, then /api/preview
+ * @param {string|Function|null} [props.endpoint] - Preview endpoint; defaults to SiteConfig preview.endpoint (none: no fetching)
  * @param {boolean} [props.internal] - Treat the link as an app link (defaults to paths starting with /)
  * @param {boolean} [props.showImage=true] - Inline: open the hover card; cards: show the image
- * @param {boolean} [props.screenshotFallback=false] - Use the screenshot service when a page has no image
+ * @param {Function|Object|null} [props.resolveImage] - Resolver or template map for links whose payload has no image; defaults to SiteConfig preview.resolveImage
  * @param {boolean} [props.defaultOpen] - Start the inline hover card open
  * @param {number} [props.headingLevel=3] - Heading level of the card title
  * @param {number} [props.timeout=10000] - Request timeout in milliseconds
@@ -84,7 +86,7 @@ const LinkPreview = memo(function LinkPreview({
   endpoint,
   internal = false,
   showImage = true,
-  screenshotFallback = false,
+  resolveImage,
   defaultOpen = false,
   headingLevel = 3,
   timeout = 10000,
@@ -98,6 +100,7 @@ const LinkPreview = memo(function LinkPreview({
   const isInternal = internal || Boolean(url?.startsWith('/') && detectLinkKind(url, previewData || {}) === 'internal');
   // The payload keeps the page's own title for the card; `title` only labels the visible link.
   const { data, loading, error } = usePreviewData(url, null, { endpoint, previewData, timeout });
+  const imageResolver = usePreviewImageResolver(resolveImage);
 
   useEffect(() => {
     if (data && !data.error && onLoad) onLoad(data);
@@ -108,8 +111,8 @@ const LinkPreview = memo(function LinkPreview({
   }, [ error, onError ]);
 
   const preview = useMemo(() => (data
-    ? normalizeLinkPreview(isInternal ? { 'type': 'internal', ...data } : data, { locale, screenshotFallback, title, url })
-    : null), [ data, isInternal, locale, screenshotFallback, title, url ]);
+    ? normalizeLinkPreview(isInternal ? { 'type': 'internal', ...data } : data, { locale, 'resolveImage': imageResolver, title, url })
+    : null), [ data, imageResolver, isInternal, locale, title, url ]);
 
   if (!url) return <span className='text-text-muted'>No URL provided</span>;
 

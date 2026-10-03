@@ -28,9 +28,9 @@ const messages = [
 ];
 const [selected] = messages;
 const portraits = {
-  'Amira Haddad': 'https://randomuser.me/api/portraits/women/68.jpg',
-  'Jonas Weber': 'https://randomuser.me/api/portraits/men/32.jpg',
-  'Lina Sato': 'https://randomuser.me/api/portraits/women/65.jpg'
+  'Amira Haddad': '/avatars/women/68.jpg',
+  'Jonas Weber': '/avatars/men/32.jpg',
+  'Lina Sato': '/avatars/women/65.jpg'
 };
 
 function MailClient({ orientation, withHandle }) {

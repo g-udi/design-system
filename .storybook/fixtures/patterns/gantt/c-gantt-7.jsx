@@ -24,10 +24,10 @@ import { Slider } from '../../../../src/components/core/Slider/parts/slider.jsx'
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const PEOPLE = {
-  'Maya Chen': 'https://randomuser.me/api/portraits/women/44.jpg',
-  'Omar Haddad': 'https://randomuser.me/api/portraits/men/32.jpg',
-  'Sara Lind': 'https://randomuser.me/api/portraits/women/68.jpg',
-  'Theo Brandt': 'https://randomuser.me/api/portraits/men/54.jpg'
+  'Maya Chen': '/avatars/women/44.jpg',
+  'Omar Haddad': '/avatars/men/32.jpg',
+  'Sara Lind': '/avatars/women/68.jpg',
+  'Theo Brandt': '/avatars/men/54.jpg'
 };
 const STATUSES = { 'Not started': 'secondary', 'In progress': 'info-light', Blocked: 'destructive-light', Done: 'success-light' };
 const RESOURCES = [

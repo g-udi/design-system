@@ -28,7 +28,7 @@ function Person({ img, name }) {
   return (
     <Avatar className='size-5'>
       <AvatarImage
-        src={`https://randomuser.me/api/portraits/${img}.jpg`}
+        src={`/avatars/${img}.jpg`}
         alt={name}
       />
       <AvatarFallback>

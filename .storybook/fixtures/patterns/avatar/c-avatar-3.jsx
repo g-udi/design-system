@@ -5,7 +5,7 @@ import {
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const person = { src: 'https://randomuser.me/api/portraits/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' };
+const person = { src: '/avatars/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' };
 
 function Photo({ className, imageClassName, size, src = person.src, children = person.initials }) {
   return (

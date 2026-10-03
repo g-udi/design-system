@@ -59,12 +59,12 @@ const teams = [
 ];
 
 const people = [
-  { id: 'alex', label: 'Alex Morgan', role: 'Engineering lead', you: true, avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  { id: 'emma', label: 'Emma Carter', role: 'Product designer', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
+  { id: 'alex', label: 'Alex Morgan', role: 'Engineering lead', you: true, avatar: '/avatars/men/32.jpg' },
+  { id: 'emma', label: 'Emma Carter', role: 'Product designer', avatar: '/avatars/women/44.jpg' },
   { id: 'ryan', label: 'Ryan Mitchell', role: 'Backend engineer' },
-  { id: 'olivia', label: 'Olivia Bennett', role: 'Growth marketer', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  { id: 'ethan', label: 'Ethan Brooks', role: 'Operations', avatar: 'https://randomuser.me/api/portraits/men/49.jpg' },
-  { id: 'sophia', label: 'Sophia Reed', role: 'Data analyst', avatar: 'https://randomuser.me/api/portraits/women/90.jpg' }
+  { id: 'olivia', label: 'Olivia Bennett', role: 'Growth marketer', avatar: '/avatars/women/68.jpg' },
+  { id: 'ethan', label: 'Ethan Brooks', role: 'Operations', avatar: '/avatars/men/49.jpg' },
+  { id: 'sophia', label: 'Sophia Reed', role: 'Data analyst', avatar: '/avatars/women/90.jpg' }
 ].map((person) => ({ ...person, searchText: `${person.label} ${person.role}` }));
 const noAssignee = { id: 'no-assignee', label: 'No assignee', searchText: 'No assignee unassigned clear' };
 const invite = { id: 'invite', label: 'Invite teammate', searchText: 'Invite new user teammate' };

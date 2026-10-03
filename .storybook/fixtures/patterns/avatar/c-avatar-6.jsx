@@ -7,10 +7,10 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const people = [
-  { src: 'https://randomuser.me/api/portraits/women/12.jpg', name: 'Nora Quinn', initials: 'NQ' },
-  { src: 'https://randomuser.me/api/portraits/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' },
-  { src: 'https://randomuser.me/api/portraits/women/44.jpg', name: 'Sarah Chen', initials: 'SC' },
-  { src: 'https://randomuser.me/api/portraits/men/11.jpg', name: 'Michael Rodriguez', initials: 'MR' }
+  { src: '/avatars/women/12.jpg', name: 'Nora Quinn', initials: 'NQ' },
+  { src: '/avatars/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' },
+  { src: '/avatars/women/44.jpg', name: 'Sarah Chen', initials: 'SC' },
+  { src: '/avatars/men/11.jpg', name: 'Michael Rodriguez', initials: 'MR' }
 ];
 const corners = ['top-0 right-0 bottom-auto', '', 'top-0 right-auto bottom-auto left-0', 'right-auto left-0'];
 const squareCorners = ['-top-1 -right-1 bottom-auto', '-right-1 -bottom-1', '-top-1 right-auto bottom-auto -left-1', 'right-auto -bottom-1 -left-1'];

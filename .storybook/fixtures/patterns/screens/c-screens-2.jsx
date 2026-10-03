@@ -129,7 +129,7 @@ export function Pattern() {
                 <td className='py-2'>
                   <span className='flex items-center gap-2'>
                     <Avatar size='sm'>
-                      <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
+                      <AvatarImage src={`/avatars/${portrait}.jpg`} alt={name} />
                       <AvatarFallback>{name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                     </Avatar>
                     {name}

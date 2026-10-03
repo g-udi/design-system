@@ -9,7 +9,7 @@ import {
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const initial = [
-  { id: 'alex', label: 'Alex', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' },
+  { id: 'alex', label: 'Alex', avatar: '/avatars/men/32.jpg' },
   { id: 'design', label: 'Design' },
   { id: 'open', label: 'Status: Open' }
 ];

@@ -22,7 +22,7 @@ export function Pattern() {
       </Badge>
       <Badge variant='outline'>
         <Avatar className='size-3.5'>
-          <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+          <AvatarImage src='/avatars/men/32.jpg' alt='' />
           <AvatarFallback>AL</AvatarFallback>
         </Avatar>
         Alex

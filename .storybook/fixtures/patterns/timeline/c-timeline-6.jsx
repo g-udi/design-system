@@ -36,7 +36,7 @@ const pipelineSteps = [
     user: {
       name: 'Alex Johnson',
       avatar:
-        'https://randomuser.me/api/portraits/men/32.jpg'
+        '/avatars/men/32.jpg'
     }
   },
   {
@@ -48,7 +48,7 @@ const pipelineSteps = [
     user: {
       name: 'Sarah Chen',
       avatar:
-        'https://randomuser.me/api/portraits/women/44.jpg'
+        '/avatars/women/44.jpg'
     }
   },
   {
@@ -60,7 +60,7 @@ const pipelineSteps = [
     user: {
       name: 'Michael Rodriguez',
       avatar:
-        'https://randomuser.me/api/portraits/men/11.jpg'
+        '/avatars/men/11.jpg'
     }
   },
   {
@@ -72,7 +72,7 @@ const pipelineSteps = [
     user: {
       name: 'Emma Wilson',
       avatar:
-        'https://randomuser.me/api/portraits/women/68.jpg'
+        '/avatars/women/68.jpg'
     }
   }
 ];

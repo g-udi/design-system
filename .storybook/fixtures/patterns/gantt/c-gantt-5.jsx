@@ -20,12 +20,12 @@ import {
 } from '../../../../src/components/core/Card/parts/card.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const OWNER_AVATARS = {
-  'Ada Lovelace': 'https://randomuser.me/api/portraits/women/44.jpg',
-  'Grace Hopper': 'https://randomuser.me/api/portraits/women/68.jpg',
-  'Alan Turing': 'https://randomuser.me/api/portraits/men/32.jpg',
-  'Linus Torvalds': 'https://randomuser.me/api/portraits/men/54.jpg',
-  'Katherine Johnson': 'https://randomuser.me/api/portraits/women/90.jpg',
-  'Margaret Hamilton': 'https://randomuser.me/api/portraits/women/12.jpg'
+  'Ada Lovelace': '/avatars/women/44.jpg',
+  'Grace Hopper': '/avatars/women/68.jpg',
+  'Alan Turing': '/avatars/men/32.jpg',
+  'Linus Torvalds': '/avatars/men/54.jpg',
+  'Katherine Johnson': '/avatars/women/90.jpg',
+  'Margaret Hamilton': '/avatars/women/12.jpg'
 };
 function ownerInitials(name) {
   const parts = name.trim().split(/\s+/).filter(Boolean);

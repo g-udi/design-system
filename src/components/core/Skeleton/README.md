@@ -30,5 +30,3 @@ import { Shimmer } from '@gaudi/design-system';
 - `duration` is one sweep in seconds (default 2); `spread` is the band width in pixels per character (default 2); `active={false}` rests it as plain text.
 - The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.
 - The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.
-
-Adapted from the Shimmer component of [AI SDK Elements](https://elements.ai-sdk.dev/components/shimmer) (Apache-2.0, Copyright 2023 Vercel, Inc.).

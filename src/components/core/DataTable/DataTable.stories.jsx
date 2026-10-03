@@ -11,7 +11,7 @@ import DataTable from './DataTable';
 
 const docs = getComponentDocs('Core/DataTable');
 const caption = 'Article library';
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const people = {
   maya: { name: 'Maya Chen', src: portrait('women/44'), email: 'maya@gaudi.dev' },
   alex: { name: 'Alex Johnson', src: portrait('men/32'), email: 'alex@gaudi.dev' },

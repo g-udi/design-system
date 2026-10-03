@@ -11,10 +11,10 @@ import { EditableField, validators } from '../../../../src/components/blocks/For
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const people = {
-  maya: { name: 'Maya Chen', photo: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  sam: { name: 'Sam Rivera', photo: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  alex: { name: 'Alex Morgan', photo: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  omar: { name: 'Omar Haddad', photo: 'https://randomuser.me/api/portraits/men/75.jpg' }
+  maya: { name: 'Maya Chen', photo: '/avatars/women/44.jpg' },
+  sam: { name: 'Sam Rivera', photo: '/avatars/men/32.jpg' },
+  alex: { name: 'Alex Morgan', photo: '/avatars/women/68.jpg' },
+  omar: { name: 'Omar Haddad', photo: '/avatars/men/75.jpg' }
 };
 const priorities = { low: 'Low', normal: 'Normal', high: 'High', urgent: 'Urgent' };
 const statuses = { open: ['Open', 'info-light'], pending: ['Waiting on customer', 'warning-light'], solved: ['Solved', 'success-light'] };

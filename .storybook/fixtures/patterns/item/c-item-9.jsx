@@ -28,10 +28,10 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 // pending invite whose action is a button instead.
 const presence = { online: ['Online', 'bg-success'], away: ['Away', 'bg-warning'], offline: ['Offline', 'bg-ui-muted-foreground'] };
 const members = [
-  { name: 'Sarah Chen', email: 'sarah@example.com', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', role: 'Admin', roleVariant: 'default', presence: 'online' },
-  { name: 'Alex Johnson', email: 'alex@example.com', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', role: 'Editor', roleVariant: 'info-light', presence: 'away' },
-  { name: 'Emily Park', email: 'emily@example.com', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', role: 'Viewer', roleVariant: 'outline', presence: 'offline' },
-  { name: 'David Kim', email: 'david@example.com', avatar: 'https://randomuser.me/api/portraits/men/75.jpg', invited: true }
+  { name: 'Sarah Chen', email: 'sarah@example.com', avatar: '/avatars/women/44.jpg', role: 'Admin', roleVariant: 'default', presence: 'online' },
+  { name: 'Alex Johnson', email: 'alex@example.com', avatar: '/avatars/men/32.jpg', role: 'Editor', roleVariant: 'info-light', presence: 'away' },
+  { name: 'Emily Park', email: 'emily@example.com', avatar: '/avatars/women/68.jpg', role: 'Viewer', roleVariant: 'outline', presence: 'offline' },
+  { name: 'David Kim', email: 'david@example.com', avatar: '/avatars/men/75.jpg', invited: true }
 ];
 const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 

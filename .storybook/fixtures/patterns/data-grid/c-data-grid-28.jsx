@@ -23,12 +23,12 @@ import {
 } from '../../../../src/components/core/Card/parts/card.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const avatars = [
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/men/11.jpg',
-  'https://randomuser.me/api/portraits/women/68.jpg',
-  'https://randomuser.me/api/portraits/men/49.jpg',
-  'https://randomuser.me/api/portraits/men/75.jpg'
+  '/avatars/men/32.jpg',
+  '/avatars/women/44.jpg',
+  '/avatars/men/11.jpg',
+  '/avatars/women/68.jpg',
+  '/avatars/men/49.jpg',
+  '/avatars/men/75.jpg'
 ];
 const names = [
   'Alex Johnson',

@@ -36,10 +36,10 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const DAY_HOURS = 8;
 const PEOPLE = {
-  maya: { name: 'Maya Chen', role: 'Designer', photo: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  omar: { name: 'Omar Haddad', role: 'Engineer', photo: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  sara: { name: 'Sara Lind', role: 'Researcher', photo: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  theo: { name: 'Theo Brandt', role: 'Engineer', photo: 'https://randomuser.me/api/portraits/men/54.jpg' }
+  maya: { name: 'Maya Chen', role: 'Designer', photo: '/avatars/women/44.jpg' },
+  omar: { name: 'Omar Haddad', role: 'Engineer', photo: '/avatars/men/32.jpg' },
+  sara: { name: 'Sara Lind', role: 'Researcher', photo: '/avatars/women/68.jpg' },
+  theo: { name: 'Theo Brandt', role: 'Engineer', photo: '/avatars/men/54.jpg' }
 };
 const ROOMS = { 'studio-a': 'Studio A', 'studio-b': 'Studio B' };
 const RESOURCES = [

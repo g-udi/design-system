@@ -24,7 +24,7 @@ export function Pattern() {
             <TooltipTrigger asChild>
               <button type='button' aria-label={person.name} className='relative rounded-full ring-2 ring-surface'>
                 <Avatar>
-                  <AvatarImage src={`https://randomuser.me/api/portraits/${person.photo}.jpg`} alt='' />
+                  <AvatarImage src={`/avatars/${person.photo}.jpg`} alt='' />
                   <AvatarFallback>{person.initials}</AvatarFallback>
                 </Avatar>
                 {person.online ? (
@@ -34,7 +34,7 @@ export function Pattern() {
             </TooltipTrigger>
             <TooltipContent className='flex items-center gap-2 p-2'>
               <Avatar>
-                <AvatarImage src={`https://randomuser.me/api/portraits/${person.photo}.jpg`} alt='' />
+                <AvatarImage src={`/avatars/${person.photo}.jpg`} alt='' />
                 <AvatarFallback>{person.initials}</AvatarFallback>
               </Avatar>
               <div className='flex flex-col gap-0.5'>

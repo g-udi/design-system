@@ -46,7 +46,7 @@ const STAGES = {
 };
 const TAG = { Prep: 'outline', Commercial: 'discovery-light', Legal: 'warning-light', Finance: 'info-light' };
 const STATE = { Confirmed: 'bg-success', Ready: 'bg-success', Risk: 'bg-warning', Finance: 'bg-warning' };
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 const PEOPLE = {
   nora: ['Nora Lee', 'Ops', 'women/65'],
   elena: ['Elena Torres', 'Review', 'women/44'],

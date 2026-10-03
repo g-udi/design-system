@@ -60,7 +60,7 @@ const WORKSPACES = [
     plan: 'Pro',
     initials: 'RL',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg'
+      '/avatars/men/32.jpg'
   },
   {
     id: 'acme',
@@ -68,7 +68,7 @@ const WORKSPACES = [
     plan: 'Team',
     initials: 'GA',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg'
+      '/avatars/women/44.jpg'
   },
   {
     id: 'personal',
@@ -76,7 +76,7 @@ const WORKSPACES = [
     plan: 'Free',
     initials: 'PS',
     avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg'
+      '/avatars/men/11.jpg'
   }
 ];
 const NAV = [
@@ -326,7 +326,7 @@ function AccountMenu() {
               className='aria-expanded:bg-ui-sidebar-accent aria-expanded:text-ui-sidebar-accent-foreground'
             >
               <Avatar>
-                <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+                <AvatarImage src='/avatars/men/32.jpg' alt='' />
                 <AvatarFallback>NR</AvatarFallback>
               </Avatar>
               <span className='grid min-w-0 flex-1 text-left leading-tight'>

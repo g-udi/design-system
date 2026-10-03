@@ -69,7 +69,7 @@ import { ClaudeAiIcon } from '../../../../src/icons/brands/claudeAiIcon.jsx';
 import { Openai } from '../../../../src/icons/brands/openai.jsx';
 import { Stripe } from '../../../../src/icons/brands/stripe.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const organizations = [
   { id: 'claude', name: 'Claude', plan: 'Enterprise', Logo: ClaudeAiIcon },
   { id: 'stripe', name: 'Stripe', plan: 'Pro', Logo: Stripe },

@@ -40,9 +40,9 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;
 const records = ['All records', 'Recent', 'Archived'];
 const users = [
-  { id: '1', name: 'Alex Johnson', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', initials: 'AJ' },
-  { id: '2', name: 'Sarah Chen', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', initials: 'SC' },
-  { id: '3', name: 'Michael Rodriguez', avatar: 'https://randomuser.me/api/portraits/men/11.jpg', initials: 'MR' }
+  { id: '1', name: 'Alex Johnson', avatar: '/avatars/men/32.jpg', initials: 'AJ' },
+  { id: '2', name: 'Sarah Chen', avatar: '/avatars/women/44.jpg', initials: 'SC' },
+  { id: '3', name: 'Michael Rodriguez', avatar: '/avatars/men/11.jpg', initials: 'MR' }
 ];
 const statuses = [
   { value: 'progress', label: 'In progress', color: 'bg-info' },

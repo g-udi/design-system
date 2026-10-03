@@ -12,7 +12,7 @@ export function Pattern() {
       <AvatarGroup>
         <Avatar>
           <AvatarImage
-            src='https://randomuser.me/api/portraits/women/44.jpg'
+            src='/avatars/women/44.jpg'
             alt='sarah@example.com'
             className='grayscale'
           />
@@ -20,7 +20,7 @@ export function Pattern() {
         </Avatar>
         <Avatar>
           <AvatarImage
-            src='https://randomuser.me/api/portraits/men/11.jpg'
+            src='/avatars/men/11.jpg'
             alt='@samrivera'
             className='grayscale'
           />
@@ -28,7 +28,7 @@ export function Pattern() {
         </Avatar>
         <Avatar>
           <AvatarImage
-            src='https://randomuser.me/api/portraits/women/68.jpg'
+            src='/avatars/women/68.jpg'
             alt='@jomorgan'
             className='grayscale'
           />

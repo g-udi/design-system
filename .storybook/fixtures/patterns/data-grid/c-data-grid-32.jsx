@@ -31,61 +31,61 @@ const PEOPLE = [
   {
     name: 'Alex Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     initials: 'AJ'
   },
   {
     name: 'Sarah Chen',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     initials: 'SC'
   },
   {
     name: 'Michael Rodriguez',
     avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     initials: 'MR'
   },
   {
     name: 'Emma Wilson',
     avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     initials: 'EW'
   },
   {
     name: 'David Kim',
     avatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     initials: 'DK'
   },
   {
     name: 'Aron Thompson',
     avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
+      '/avatars/men/75.jpg',
     initials: 'AT'
   },
   {
     name: 'James Brown',
     avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
+      '/avatars/men/54.jpg',
     initials: 'JB'
   },
   {
     name: 'Maria Garcia',
     avatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
+      '/avatars/women/90.jpg',
     initials: 'MG'
   },
   {
     name: 'Nick Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
+      '/avatars/women/12.jpg',
     initials: 'NJ'
   },
   {
     name: 'Liam Thompson',
     avatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
+      '/avatars/women/65.jpg',
     initials: 'LT'
   }
 ];

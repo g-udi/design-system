@@ -16,62 +16,62 @@ const items = {
   ceo: {
     name: 'Sarah Chen',
     role: 'CEO',
-    avatar: 'https://randomuser.me/api/portraits/women/44.jpg',
+    avatar: '/avatars/women/44.jpg',
     children: ['cto', 'coo', 'cfo']
   },
   cto: {
     name: 'Alex Johnson',
     role: 'CTO',
-    avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
+    avatar: '/avatars/men/32.jpg',
     children: ['eng-lead', 'design-lead']
   },
   coo: {
     name: 'Emma Wilson',
     role: 'COO',
-    avatar: 'https://randomuser.me/api/portraits/women/68.jpg',
+    avatar: '/avatars/women/68.jpg',
     children: ['ops-mgr', 'hr-mgr']
   },
   cfo: {
     name: 'David Kim',
     role: 'CFO',
-    avatar: 'https://randomuser.me/api/portraits/men/75.jpg',
+    avatar: '/avatars/men/75.jpg',
     children: ['finance-mgr']
   },
   'eng-lead': {
     name: 'Michael Rodriguez',
     role: 'Engineering Lead',
-    avatar: 'https://randomuser.me/api/portraits/men/41.jpg',
+    avatar: '/avatars/men/41.jpg',
     children: ['dev-1', 'dev-2']
   },
   'design-lead': {
     name: 'Lisa Park',
     role: 'Design Lead',
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg'
+    avatar: '/avatars/women/12.jpg'
   },
   'ops-mgr': {
     name: 'James Brown',
     role: 'Operations Manager',
-    avatar: 'https://randomuser.me/api/portraits/men/22.jpg'
+    avatar: '/avatars/men/22.jpg'
   },
   'hr-mgr': {
     name: 'Amy Taylor',
     role: 'HR Manager',
-    avatar: 'https://randomuser.me/api/portraits/women/33.jpg'
+    avatar: '/avatars/women/33.jpg'
   },
   'finance-mgr': {
     name: 'Robert Davis',
     role: 'Finance Manager',
-    avatar: 'https://randomuser.me/api/portraits/men/64.jpg'
+    avatar: '/avatars/men/64.jpg'
   },
   'dev-1': {
     name: 'Tom Harris',
     role: 'Senior Developer',
-    avatar: 'https://randomuser.me/api/portraits/men/18.jpg'
+    avatar: '/avatars/men/18.jpg'
   },
   'dev-2': {
     name: 'Nina Patel',
     role: 'Developer',
-    avatar: 'https://randomuser.me/api/portraits/women/57.jpg'
+    avatar: '/avatars/women/57.jpg'
   }
 };
 const indent = 24;

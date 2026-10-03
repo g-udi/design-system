@@ -48,7 +48,7 @@ import { AppShellNav } from '../../../../src/components/blocks/AppShell/parts/na
 import { AppShellPlaceholderGrid } from '../../../../src/components/blocks/AppShell/parts/placeholder.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const me = { name: 'Mira Stone', role: 'Product Lead', photo: 'https://randomuser.me/api/portraits/women/26.jpg' };
+const me = { name: 'Mira Stone', role: 'Product Lead', photo: '/avatars/women/26.jpg' };
 const workspaces = [
   { id: 'thunder', name: 'Thunder AI', members: 8, icon: 'Zap', tone: 'bg-discovery text-discovery-foreground' },
   { id: 'clarity', name: 'Clarity AI', members: 6, icon: 'Sparkles', tone: 'bg-info text-info-foreground' },

@@ -8,10 +8,10 @@ import {
 import { Spinner } from '../../../../src/components/core/Spinner/parts/spinner.jsx';
 
 const people = [
-  { src: 'https://randomuser.me/api/portraits/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' },
-  { src: 'https://randomuser.me/api/portraits/women/44.jpg', name: 'Sarah Chen', initials: 'SC' },
-  { src: 'https://randomuser.me/api/portraits/men/11.jpg', name: 'Michael Rodriguez', initials: 'MR' },
-  { src: 'https://randomuser.me/api/portraits/women/68.jpg', name: 'Emma Wilson', initials: 'EW' }
+  { src: '/avatars/men/32.jpg', name: 'Alex Johnson', initials: 'AJ' },
+  { src: '/avatars/women/44.jpg', name: 'Sarah Chen', initials: 'SC' },
+  { src: '/avatars/men/11.jpg', name: 'Michael Rodriguez', initials: 'MR' },
+  { src: '/avatars/women/68.jpg', name: 'Emma Wilson', initials: 'EW' }
 ];
 const rings = ['ring-ui-primary', 'ring-ui-destructive', 'ring-discovery', 'ring-warning'];
 

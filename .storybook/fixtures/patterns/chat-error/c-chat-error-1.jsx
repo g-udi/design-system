@@ -23,7 +23,7 @@ function Person({ text }) {
   return (
     <Message align='end'>
       <MessageAvatar>
-        <Avatar src='https://randomuser.me/api/portraits/men/75.jpg' name='Lee Park' size='sm' shape='circle' alt='' />
+        <Avatar src='/avatars/men/75.jpg' name='Lee Park' size='sm' shape='circle' alt='' />
       </MessageAvatar>
       <MessageContent>
         <span className='sr-only'>Lee Park said</span>

@@ -66,7 +66,7 @@ const teams = [
         label: 'Ada Whitfield',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/32.jpg',
+            '/avatars/men/32.jpg',
           role: 'Staff',
           status: 'online'
         }
@@ -76,7 +76,7 @@ const teams = [
         label: 'Marcus Bell',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/44.jpg',
+            '/avatars/women/44.jpg',
           role: 'Senior',
           status: 'away'
         }
@@ -86,7 +86,7 @@ const teams = [
         label: 'Priya Raman',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/11.jpg',
+            '/avatars/men/11.jpg',
           role: 'Lead',
           status: 'online'
         }
@@ -102,7 +102,7 @@ const teams = [
         label: 'June Okafor',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/68.jpg',
+            '/avatars/women/68.jpg',
           role: 'Principal',
           status: 'online'
         }
@@ -112,7 +112,7 @@ const teams = [
         label: 'Theo Lindqvist',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/49.jpg',
+            '/avatars/men/49.jpg',
           role: 'Mid',
           status: 'away'
         }
@@ -128,7 +128,7 @@ const teams = [
         label: 'Samira Haddad',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/75.jpg',
+            '/avatars/men/75.jpg',
           role: 'Director',
           status: 'online'
         }
@@ -138,7 +138,7 @@ const teams = [
         label: 'Owen Fitzgerald',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/54.jpg',
+            '/avatars/men/54.jpg',
           role: 'Senior',
           status: 'away'
         }
@@ -154,7 +154,7 @@ const teams = [
         label: 'Lena Vasquez',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/90.jpg',
+            '/avatars/women/90.jpg',
           role: 'Lead',
           status: 'online'
         }
@@ -164,7 +164,7 @@ const teams = [
         label: 'Dmitri Sokolov',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/12.jpg',
+            '/avatars/women/12.jpg',
           role: 'Mid',
           status: 'away'
         }
@@ -180,7 +180,7 @@ const teams = [
         label: 'Nadia Petrova',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/65.jpg',
+            '/avatars/women/65.jpg',
           role: 'Lead',
           status: 'online'
         }
@@ -190,7 +190,7 @@ const teams = [
         label: 'Tom Ashworth',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/32.jpg',
+            '/avatars/men/32.jpg',
           role: 'Mid',
           status: 'away'
         }
@@ -206,7 +206,7 @@ const teams = [
         label: 'Hana Yoshida',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/44.jpg',
+            '/avatars/women/44.jpg',
           role: 'Senior',
           status: 'online'
         }
@@ -216,7 +216,7 @@ const teams = [
         label: 'Felix Nkemelu',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/49.jpg',
+            '/avatars/men/49.jpg',
           role: 'Mid',
           status: 'away'
         }
@@ -232,7 +232,7 @@ const teams = [
         label: 'Ines Moreau',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/women/68.jpg',
+            '/avatars/women/68.jpg',
           role: 'Senior',
           status: 'online'
         }
@@ -242,7 +242,7 @@ const teams = [
         label: 'Raj Bhatia',
         data: {
           avatar:
-            'https://randomuser.me/api/portraits/men/11.jpg',
+            '/avatars/men/11.jpg',
           role: 'Staff',
           status: 'away'
         }

@@ -14,7 +14,7 @@ import {
 } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const statuses = {
   confirmed: { label: 'Confirmed', variant: 'success-light', tone: 'success' },
   tentative: { label: 'Tentative', variant: 'warning-light', tone: 'warning' },

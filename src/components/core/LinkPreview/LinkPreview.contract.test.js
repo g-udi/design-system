@@ -6,7 +6,13 @@ import { loadComponent } from '../../../test-support/renderComponent.js';
 
 const api = await loadComponent(new URL('./index.js', import.meta.url));
 const mdx = await loadComponent(new URL('../../mdx/Preview/index.js', import.meta.url));
-const { normalizeLinkPreview: normalize, detectLinkKind, resolvePreviewRequest, getPreviewImageUrl } = api;
+const { normalizeLinkPreview: normalize, detectLinkKind, resolvePreviewRequest, getPreviewImageUrl, toImageResolver } = api;
+const blogImages = {
+  'default': 'https://shots.example/?url={url}',
+  'repository': 'https://cards.example/{owner}/{repo}',
+  'video': 'https://thumbs.example/{videoId}.jpg',
+  'wikipedia': null
+};
 
 test('LinkPreview publishes the component, parts, normaliser and data hook', () => {
   for (const name of [ 'default', 'LinkPreviewCard', 'LinkPreviewCompact', 'LinkPreviewSkeleton', 'normalizeLinkPreview', 'usePreviewData', 'clearPreviewCache' ]) assert.ok(api[name], name);
@@ -33,12 +39,13 @@ test('the normaliser detects the kind of a link from the payload type and the UR
   assert.equal(detectLinkKind('https://example.com', { 'type': 'video' }), 'video');
 });
 
-test('repository previews show owner/repo, the GitHub card and stats when the endpoint provides them', () => {
+test('repository previews show owner/repo, an app-resolved card and stats when the endpoint provides them', () => {
   const preview = normalize({ 'description': 'vercel/next.js on GitHub', 'forks': 27000, 'language': 'JavaScript', 'stars': 128400 }, { 'url': 'https://github.com/vercel/next.js' });
   assert.equal(preview.kind, 'repository');
   assert.equal(preview.title, 'vercel/next.js');
   assert.equal(preview.description, '', 'the synthesized "on GitHub" description is noise');
-  assert.equal(preview.image, 'https://opengraph.githubassets.com/1/vercel/next.js');
+  assert.equal(preview.image, null, 'Gaudi derives no GitHub card itself');
+  assert.equal(normalize({}, { 'resolveImage': blogImages, 'url': 'https://github.com/vercel/next.js' }).image, 'https://cards.example/vercel/next.js');
   assert.deepEqual(preview.stats.map((item) => item.text), [ 'JavaScript', '128.4K', '27K' ]);
   assert.equal(preview.stats[1].label, '128.4K stars');
 });
@@ -48,7 +55,8 @@ test('video, article, post, wikipedia, package, image and file previews carry th
   assert.equal(video.videoId, 'abc123');
   assert.equal(video.duration, '12:41');
   assert.equal(video.title, 'Tokens');
-  assert.equal(video.image, 'https://img.youtube.com/vi/abc123/maxresdefault.jpg');
+  assert.equal(video.image, null, 'Gaudi derives no YouTube thumbnail itself');
+  assert.equal(normalize({}, { 'resolveImage': blogImages, 'url': 'https://youtu.be/abc123' }).image, 'https://thumbs.example/abc123.jpg');
   assert.ok(video.meta.some((item) => item.id === 'channel' && item.text === 'Gaudi'));
 
   const article = normalize({ 'author': 'Ahmad', 'publishedTime': '2026-06-05', 'readingTime': '8 min read', 'title': 'Post' }, { 'url': 'https://medium.com/@a/post' });
@@ -63,16 +71,17 @@ test('video, article, post, wikipedia, package, image and file previews carry th
   const wiki = normalize({ 'articleName': 'Knowledge graph', 'excerpt': 'A knowledge graph…' }, { 'url': 'https://en.wikipedia.org/wiki/Knowledge_graph' });
   assert.equal(wiki.title, 'Knowledge graph');
   assert.equal(wiki.image, null, 'Wikipedia shows its excerpt instead of a screenshot');
+  assert.equal(normalize({}, { 'resolveImage': blogImages, 'url': 'https://en.wikipedia.org/wiki/Knowledge_graph' }).image, null, 'a kind mapped to null shows no image');
 
   const pkg = normalize({}, { 'url': 'https://www.npmjs.com/package/@scope/name' });
   assert.equal(pkg.title, '@scope/name');
-  assert.ok(pkg.favicon);
+  assert.equal(pkg.favicon, null, 'no npmjs.com favicon: the package icon stands in');
 
   assert.equal(normalize({}, { 'url': 'https://example.com/a.png' }).image, 'https://example.com/a.png');
   assert.equal(normalize({}, { 'url': 'https://example.com/paper.pdf' }).label, 'PDF');
 });
 
-test('titles, failures and the screenshot fallback follow the blog rules', () => {
+test('titles and failures follow the blog rules, and derived images come only from the app', () => {
   assert.equal(normalize({ 'title': 'GitHub - owner/repo: A thing' }, { 'url': 'https://github.com/owner/repo' }).title, 'owner/repo');
   assert.equal(normalize({ 'title': 'Array - MDN Web Docs' }, { 'url': 'https://developer.mozilla.org/x' }).title, 'Array');
   assert.ok(normalize({ 'title': 'x'.repeat(80) }, { 'url': 'https://example.com' }).title.endsWith('...'));
@@ -80,13 +89,23 @@ test('titles, failures and the screenshot fallback follow the blog rules', () =>
   assert.equal(gone.status, 'error');
   assert.equal(gone.unavailable, true);
   assert.equal(normalize({ 'error': true, 'status': 429 }, { 'url': 'https://example.com' }).unavailable, false);
-  assert.equal(normalize({}, { 'url': 'https://example.com' }).image, null, 'Core never calls the screenshot service by default');
-  assert.match(normalize({}, { 'screenshotFallback': true, 'url': 'https://example.com' }).image, /microlink/);
-  assert.match(getPreviewImageUrl('https://example.com', {}), /microlink/, 'the legacy helper keeps the blog default');
+  assert.equal(normalize({}, { 'url': 'https://example.com' }).image, null, 'no screenshot service by default');
+  assert.equal(getPreviewImageUrl('https://example.com', {}), null, 'the helper has no built-in service either');
+  assert.equal(normalize({}, { 'resolveImage': blogImages, 'url': 'https://example.com/a?b=1' }).image, 'https://shots.example/?url=https%3A%2F%2Fexample.com%2Fa%3Fb%3D1');
+  assert.equal(toImageResolver({ 'video': '/t/{videoId}.jpg' })({ 'kind': 'video', 'url': 'https://vimeo.com/1', 'videoId': null }), null, 'a template with a missing placeholder yields no image');
+  const calls = [];
+  const resolved = normalize({}, { 'resolveImage': (link) => { calls.push(link); return '/shot.png'; }, 'url': 'https://www.youtube.com/watch?v=xyz' });
+  assert.equal(resolved.image, '/shot.png');
+  assert.equal(calls[0].kind, 'video');
+  assert.equal(calls[0].videoId, 'xyz');
+  assert.equal(normalize({ 'image': '/og.png' }, { 'resolveImage': () => '/other.png', 'url': 'https://example.com' }).image, '/og.png', 'the payload image wins');
+  assert.equal(normalize({}, { 'resolveImage': () => { throw new Error('boom'); }, 'url': 'https://example.com' }).image, null, 'a failing resolver shows no image');
   assert.equal(normalize({ 'title': 'Post', 'type': 'internal' }, { 'url': '/blog/post' }).image, null);
 });
 
-test('the preview endpoint is configurable and can be turned off', () => {
+test('the preview endpoint is configurable, and there is none by default', () => {
+  assert.equal(api.DEFAULT_PREVIEW_ENDPOINT, undefined);
+  for (const name of [ 'MICROLINK_SCREENSHOT_API', 'YOUTUBE_THUMBNAIL_API', 'GITHUB_OPENGRAPH_API', 'NPM_FAVICON_URL' ]) assert.equal(api[name], undefined, `${name} is no longer shipped`);
   assert.equal(resolvePreviewRequest('/api/preview', 'https://a.dev/?q=1'), '/api/preview?url=https%3A%2F%2Fa.dev%2F%3Fq%3D1');
   assert.equal(resolvePreviewRequest('/api/meta?v=2', 'https://a.dev'), '/api/meta?v=2&url=https%3A%2F%2Fa.dev');
   assert.equal(resolvePreviewRequest((url) => `/p/${encodeURIComponent(url)}`, 'https://a.dev'), '/p/https%3A%2F%2Fa.dev');
@@ -107,6 +126,10 @@ test('every variant renders on the server from static data, and failures stay pl
   assert.match(gone, /\(link may be unavailable\)/);
   const offline = renderToStaticMarkup(createElement(Component, { 'endpoint': null, 'title': 'Docs', 'url': 'https://example.com' }));
   assert.match(offline, /data-slot="link-preview-fallback"/);
+  // No endpoint configured anywhere: nothing loads, the link renders straight away.
+  const unconfigured = renderToStaticMarkup(createElement(Component, { 'title': 'Docs', 'url': 'https://example.com' }));
+  assert.match(unconfigured, /data-slot="link-preview-fallback"/);
+  assert.doesNotMatch(unconfigured, /link-preview-skeleton|aria-busy/);
 });
 
 test('the MDX Preview stays a drop-in adapter over the core owner', () => {
@@ -114,4 +137,8 @@ test('the MDX Preview stays a drop-in adapter over the core owner', () => {
   const html = renderToStaticMarkup(createElement(mdx.default, { 'previewData': { 'siteName': 'Internal', 'title': 'Post', 'type': 'internal' }, 'title': 'the post', 'url': '/blog/post' }));
   assert.match(html, /data-preview-internal="true"/);
   assert.match(html, /aria-label="the post - Internal"/);
+  const card = renderToStaticMarkup(createElement(mdx.default, { 'previewData': { 'title': 'Example' }, 'url': 'https://example.com', 'variant': 'card' }));
+  assert.doesNotMatch(card, /<img/, 'the adapter no longer adds a screenshot of its own');
+  const resolved = renderToStaticMarkup(createElement(mdx.default, { 'previewData': { 'title': 'Example' }, 'resolveImage': { 'default': '/shots/{host}.png' }, 'url': 'https://example.com', 'variant': 'card' }));
+  assert.match(resolved, /src="\/shots\/example.com.png"/);
 });

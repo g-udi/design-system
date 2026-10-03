@@ -154,7 +154,7 @@ const topDevelopers = [
     skills: ['React', 'Node.js', 'TypeScript', 'AWS', 'Docker'],
     experience: 8,
     rating: 4.9,
-    avatar: 'https://randomuser.me/api/portraits/men/1.jpg'
+    avatar: '/avatars/men/1.jpg'
   },
   {
     id: '2',
@@ -164,7 +164,7 @@ const topDevelopers = [
     skills: ['Vue.js', 'JavaScript', 'CSS', 'Webpack', 'Figma'],
     experience: 10,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/women/2.jpg'
+    avatar: '/avatars/women/2.jpg'
   },
   {
     id: '3',
@@ -174,7 +174,7 @@ const topDevelopers = [
     skills: ['Python', 'Django', 'PostgreSQL', 'Redis', 'Kubernetes'],
     experience: 6,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/men/3.jpg'
+    avatar: '/avatars/men/3.jpg'
   },
   {
     id: '4',
@@ -184,7 +184,7 @@ const topDevelopers = [
     skills: ['AWS', 'Terraform', 'Jenkins', 'Docker', 'Linux'],
     experience: 7,
     rating: 4.9,
-    avatar: 'https://randomuser.me/api/portraits/women/4.jpg'
+    avatar: '/avatars/women/4.jpg'
   },
   {
     id: '5',
@@ -194,7 +194,7 @@ const topDevelopers = [
     skills: ['React Native', 'Swift', 'Kotlin', 'Firebase', 'GraphQL'],
     experience: 5,
     rating: 4.6,
-    avatar: 'https://randomuser.me/api/portraits/men/5.jpg'
+    avatar: '/avatars/men/5.jpg'
   },
   {
     id: '6',
@@ -204,7 +204,7 @@ const topDevelopers = [
     skills: ['Python', 'Spark', 'Airflow', 'Snowflake', 'dbt'],
     experience: 9,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/women/6.jpg'
+    avatar: '/avatars/women/6.jpg'
   },
   {
     id: '7',
@@ -214,7 +214,7 @@ const topDevelopers = [
     skills: ['AWS', 'Azure', 'Terraform', 'Kubernetes', 'Microservices'],
     experience: 12,
     rating: 4.9,
-    avatar: 'https://randomuser.me/api/portraits/men/7.jpg'
+    avatar: '/avatars/men/7.jpg'
   },
   {
     id: '8',
@@ -224,7 +224,7 @@ const topDevelopers = [
     skills: ['React', 'Figma', 'CSS-in-JS', 'Storybook', 'Accessibility'],
     experience: 4,
     rating: 4.5,
-    avatar: 'https://randomuser.me/api/portraits/women/8.jpg'
+    avatar: '/avatars/women/8.jpg'
   },
   {
     id: '9',
@@ -234,7 +234,7 @@ const topDevelopers = [
     skills: ['Python', 'TensorFlow', 'PyTorch', 'MLOps', 'Docker'],
     experience: 6,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/men/9.jpg'
+    avatar: '/avatars/men/9.jpg'
   },
   {
     id: '10',
@@ -244,7 +244,7 @@ const topDevelopers = [
     skills: ['Solidity', 'Web3.js', 'Ethereum', 'Smart Contracts', 'Rust'],
     experience: 5,
     rating: 4.6,
-    avatar: 'https://randomuser.me/api/portraits/women/10.jpg'
+    avatar: '/avatars/women/10.jpg'
   },
   {
     id: '11',
@@ -254,7 +254,7 @@ const topDevelopers = [
     skills: ['Cybersecurity', 'Penetration Testing', 'OWASP', 'SIEM', 'Python'],
     experience: 8,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/men/11.jpg'
+    avatar: '/avatars/men/11.jpg'
   },
   {
     id: '12',
@@ -264,7 +264,7 @@ const topDevelopers = [
     skills: ['Unity', 'C#', 'Unreal Engine', '3D Modeling', 'VR/AR'],
     experience: 7,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg'
+    avatar: '/avatars/women/12.jpg'
   },
   {
     id: '13',
@@ -274,7 +274,7 @@ const topDevelopers = [
     skills: ['Python', 'PyTorch', 'Transformers', 'NLP', 'Computer Vision'],
     experience: 6,
     rating: 4.9,
-    avatar: 'https://randomuser.me/api/portraits/men/13.jpg'
+    avatar: '/avatars/men/13.jpg'
   },
   {
     id: '14',
@@ -284,7 +284,7 @@ const topDevelopers = [
     skills: ['Selenium', 'Cypress', 'Jest', 'Python', 'Test Automation'],
     experience: 5,
     rating: 4.6,
-    avatar: 'https://randomuser.me/api/portraits/women/14.jpg'
+    avatar: '/avatars/women/14.jpg'
   },
   {
     id: '15',
@@ -300,7 +300,7 @@ const topDevelopers = [
     ],
     experience: 10,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/men/15.jpg'
+    avatar: '/avatars/men/15.jpg'
   },
   {
     id: '16',
@@ -316,7 +316,7 @@ const topDevelopers = [
     ],
     experience: 8,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/women/16.jpg'
+    avatar: '/avatars/women/16.jpg'
   },
   {
     id: '17',
@@ -326,7 +326,7 @@ const topDevelopers = [
     skills: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis', 'Performance Tuning'],
     experience: 11,
     rating: 4.9,
-    avatar: 'https://randomuser.me/api/portraits/men/17.jpg'
+    avatar: '/avatars/men/17.jpg'
   },
   {
     id: '18',
@@ -342,7 +342,7 @@ const topDevelopers = [
     ],
     experience: 6,
     rating: 4.5,
-    avatar: 'https://randomuser.me/api/portraits/women/18.jpg'
+    avatar: '/avatars/women/18.jpg'
   },
   {
     id: '19',
@@ -358,7 +358,7 @@ const topDevelopers = [
     ],
     experience: 7,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/men/19.jpg'
+    avatar: '/avatars/men/19.jpg'
   },
   {
     id: '20',
@@ -368,7 +368,7 @@ const topDevelopers = [
     skills: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'Jest'],
     experience: 4,
     rating: 4.6,
-    avatar: 'https://randomuser.me/api/portraits/women/20.jpg'
+    avatar: '/avatars/women/20.jpg'
   },
   {
     id: '21',
@@ -378,7 +378,7 @@ const topDevelopers = [
     skills: ['Java', 'Spring Boot', 'Microservices', 'MongoDB', 'Docker'],
     experience: 6,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/men/21.jpg'
+    avatar: '/avatars/men/21.jpg'
   },
   {
     id: '22',
@@ -388,7 +388,7 @@ const topDevelopers = [
     skills: ['React', 'Node.js', 'GraphQL', 'PostgreSQL', 'AWS'],
     experience: 5,
     rating: 4.6,
-    avatar: 'https://randomuser.me/api/portraits/women/22.jpg'
+    avatar: '/avatars/women/22.jpg'
   },
   {
     id: '23',
@@ -398,7 +398,7 @@ const topDevelopers = [
     skills: ['AWS', 'Terraform', 'Docker', 'Kubernetes', 'Python'],
     experience: 8,
     rating: 4.8,
-    avatar: 'https://randomuser.me/api/portraits/men/23.jpg'
+    avatar: '/avatars/men/23.jpg'
   },
   {
     id: '24',
@@ -408,7 +408,7 @@ const topDevelopers = [
     skills: ['CI/CD', 'Jenkins', 'GitLab', 'Docker', 'AWS'],
     experience: 6,
     rating: 4.7,
-    avatar: 'https://randomuser.me/api/portraits/women/24.jpg'
+    avatar: '/avatars/women/24.jpg'
   },
   {
     id: '25',
@@ -418,6 +418,6 @@ const topDevelopers = [
     skills: ['Flutter', 'Dart', 'Firebase', 'REST APIs', 'Git'],
     experience: 4,
     rating: 4.5,
-    avatar: 'https://randomuser.me/api/portraits/men/25.jpg'
+    avatar: '/avatars/men/25.jpg'
   }
 ];

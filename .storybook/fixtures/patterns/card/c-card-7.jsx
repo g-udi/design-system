@@ -60,7 +60,7 @@ function OverlayCard() {
       <div className='relative flex items-center gap-2 p-4'>
         <div className='relative'>
           <Avatar>
-            <AvatarImage src='https://randomuser.me/api/portraits/men/75.jpg' alt='' />
+            <AvatarImage src='/avatars/men/75.jpg' alt='' />
             <AvatarFallback>NJ</AvatarFallback>
           </Avatar>
           <RegistryIcon lucide='BadgeCheckIcon' aria-label='Verified' className='absolute -top-1 -right-1 size-4 fill-info text-info-foreground' />

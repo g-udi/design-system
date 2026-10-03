@@ -76,7 +76,7 @@ export const IconsAndMonograms = {
     <div className='flex items-center gap-3'>
       <AgentMark name='Search agent' icon='Search' tone='discovery' size='lg' />
       <AgentMark name='Fact checker' monogram tone='neutral' size='lg' />
-      <AgentMark name='Editor' image='https://randomuser.me/api/portraits/women/44.jpg' size='lg' />
+      <AgentMark name='Editor' image='/avatars/women/44.jpg' size='lg' />
       <AgentMark name='Publisher' icon='Send' tone='solid' size='lg' />
     </div>
   )

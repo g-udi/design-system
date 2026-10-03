@@ -44,7 +44,7 @@ const demoData = [
     id: '1',
     name: 'Alex Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     role: 'CEO',
     status: 'Active',
     balance: 5143.03
@@ -53,7 +53,7 @@ const demoData = [
     id: '2',
     name: 'Sarah Chen',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     role: 'CTO',
     status: 'Active',
     balance: 4321.87
@@ -62,7 +62,7 @@ const demoData = [
     id: '3',
     name: 'Michael Rodriguez',
     avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     role: 'Designer',
     status: 'Blocked',
     balance: 7654.98
@@ -71,7 +71,7 @@ const demoData = [
     id: '4',
     name: 'Emma Wilson',
     avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     role: 'Developer',
     status: 'Inactive',
     balance: 3456.45
@@ -80,7 +80,7 @@ const demoData = [
     id: '5',
     name: 'David Kim',
     avatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     role: 'Lawyer',
     status: 'Active',
     balance: 9876.54
@@ -89,7 +89,7 @@ const demoData = [
     id: '6',
     name: 'Aron Thompson',
     avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
+      '/avatars/men/75.jpg',
     role: 'Director',
     status: 'Pending',
     balance: 6214.22
@@ -98,7 +98,7 @@ const demoData = [
     id: '7',
     name: 'James Brown',
     avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
+      '/avatars/men/54.jpg',
     role: 'Product Manager',
     status: 'Inactive',
     balance: 5321.77
@@ -107,7 +107,7 @@ const demoData = [
     id: '8',
     name: 'Maria Garcia',
     avatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
+      '/avatars/women/90.jpg',
     role: 'Marketing Lead',
     status: 'Active',
     balance: 8452.39
@@ -116,7 +116,7 @@ const demoData = [
     id: '9',
     name: 'Nick Johnson',
     avatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
+      '/avatars/women/12.jpg',
     role: 'Data Scientist',
     status: 'Pending',
     balance: 7345.1
@@ -125,7 +125,7 @@ const demoData = [
     id: '10',
     name: 'Liam Thompson',
     avatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
+      '/avatars/women/65.jpg',
     role: 'Engineer',
     status: 'Inactive',
     balance: 5214.88

@@ -84,7 +84,7 @@ export function Pattern() {
         <div className='flex gap-2'>
           <Avatar className='size-7 shrink-0 rounded-full'>
             <AvatarImage
-              src='https://randomuser.me/api/portraits/women/44.jpg'
+              src='/avatars/women/44.jpg'
               alt='Mira Stone'
             />
             <AvatarFallback>MS</AvatarFallback>

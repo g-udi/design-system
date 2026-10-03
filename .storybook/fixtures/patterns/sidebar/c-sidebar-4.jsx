@@ -40,21 +40,21 @@ const ASSIGNEES = [
     name: 'Mara Ellison',
     initials: 'ME',
     avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg'
+      '/avatars/women/68.jpg'
   },
   {
     id: 'tobias',
     name: 'Tobias Reiner',
     initials: 'TR',
     avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg'
+      '/avatars/men/75.jpg'
   },
   {
     id: 'priya',
     name: 'Priya Raman',
     initials: 'PR',
     avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg'
+      '/avatars/men/54.jpg'
   }
 ];
 const LINKED = [

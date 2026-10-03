@@ -23,8 +23,8 @@ const plans = [
   { value: 'enterprise', title: 'Enterprise', price: '$49', description: 'For organizations with advanced needs.' }
 ];
 const reviewers = [
-  { value: 'emma', name: 'Emma Wilson', handle: '@emmawilson', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', initials: 'EW' },
-  { value: 'john', name: 'John Doe', handle: '@johndoe', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', initials: 'JD' }
+  { value: 'emma', name: 'Emma Wilson', handle: '@emmawilson', avatar: '/avatars/women/44.jpg', initials: 'EW' },
+  { value: 'john', name: 'John Doe', handle: '@johndoe', avatar: '/avatars/men/32.jpg', initials: 'JD' }
 ];
 
 export function Pattern() {

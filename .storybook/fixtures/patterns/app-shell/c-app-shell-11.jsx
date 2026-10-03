@@ -97,7 +97,7 @@ const account = {
   name: 'Ava Brooks',
   role: 'Fleet Operations Lead',
   email: 'ava@nimbusfleet.io',
-  photo: 'https://randomuser.me/api/portraits/women/79.jpg'
+  photo: '/avatars/women/79.jpg'
 };
 const statuses = [
   { id: 'none', label: 'No Status', dot: 'border border-text-muted' },
@@ -109,7 +109,7 @@ const notifications = [
   {
     id: 'mention',
     unread: true,
-    avatar: 'https://randomuser.me/api/portraits/women/12.jpg',
+    avatar: '/avatars/women/12.jpg',
     title: 'Mira Stone mentioned you in Mission #8812',
     body: 'Can you check the pallet handover at Station 12 before tonight?',
     time: '2 min ago'
@@ -131,7 +131,7 @@ const notifications = [
   {
     id: 'rating',
     unread: true,
-    avatar: 'https://randomuser.me/api/portraits/men/22.jpg',
+    avatar: '/avatars/men/22.jpg',
     title: 'Leo Grant rated the new mission planner',
     body: 'Route previews made the night shift handover much faster.',
     rating: 4,
@@ -168,9 +168,9 @@ const notifications = [
     title: '3 new operators joined the fleet',
     body: 'Nora, Theo and David have been added to the Night Shift roster.',
     people: [
-      'https://randomuser.me/api/portraits/women/31.jpg',
-      'https://randomuser.me/api/portraits/men/41.jpg',
-      'https://randomuser.me/api/portraits/men/52.jpg'
+      '/avatars/women/31.jpg',
+      '/avatars/men/41.jpg',
+      '/avatars/men/52.jpg'
     ],
     peopleLabel: 'Nora, Theo and David',
     time: '4 hours ago'
@@ -201,7 +201,7 @@ const notifications = [
   },
   {
     id: 'audit',
-    avatar: 'https://randomuser.me/api/portraits/men/52.jpg',
+    avatar: '/avatars/men/52.jpg',
     title: 'David Kim shared the monthly fleet audit',
     attachment: { name: 'Fleet audit August.pdf', size: '2.4 MB' },
     time: '8 hours ago'

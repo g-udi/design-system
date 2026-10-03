@@ -19,7 +19,7 @@ const messages = [
   {
     name: 'Alex Johnson',
     initials: 'AJ',
-    photo: 'https://randomuser.me/api/portraits/men/32.jpg',
+    photo: '/avatars/men/32.jpg',
     action: 'sent you a message',
     body: '"I have finished the draft for the new design system. Let me know what you think."',
     buttons: ['View', 'Reply']
@@ -27,7 +27,7 @@ const messages = [
   {
     name: 'Sarah Chen',
     initials: 'SC',
-    photo: 'https://randomuser.me/api/portraits/women/44.jpg',
+    photo: '/avatars/women/44.jpg',
     action: 'mentioned you in a comment',
     body: '"Great work on the profile layout! I added suggestions for the avatar spacing."',
     buttons: ['Dismiss', 'View'],

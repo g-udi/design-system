@@ -24,7 +24,7 @@ import { Message, MessageAvatar, MessageContent } from '../../../../src/componen
 import { MessageScroller, MessageScrollerButton, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport } from '../../../../src/components/chat/MessageList/parts/message-scroller.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const VIEWER_AVATAR =
-  'https://randomuser.me/api/portraits/men/32.jpg';
+  '/avatars/men/32.jpg';
 const SEEDED = [
   {
     id: 'th_4b8t2v_1',

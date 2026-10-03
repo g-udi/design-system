@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { PromptComposer } from '../../../../src/components/chat/ChatInput/parts/prompt-composer.jsx';
 import { Badge } from '../../../../src/components/core/Pill/parts/badge-extended.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const mentions = [
   { id: 'sarah', name: 'Sarah Chen', description: 'Editor', avatar: portrait('women/44') },
   { id: 'daniel', name: 'Daniel Okafor', description: 'Engineering', avatar: portrait('men/32') },

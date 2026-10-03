@@ -10,7 +10,7 @@ import {
   HoverCardTrigger
 } from '../../../../src/components/core/Popover/parts/hover-card.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
-const portrait = 'https://randomuser.me/api/portraits/women/44.jpg';
+const portrait = '/avatars/women/44.jpg';
 function ProfileCard() {
   return (
     <HoverCard openDelay={100} closeDelay={100}>

@@ -27,7 +27,7 @@ const demoData = [
     customer: 'Alex Johnson',
     customerEmail: 'alex@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     total: '$459.97',
     status: {
       label: 'Shipped',
@@ -126,7 +126,7 @@ const demoData = [
     customer: 'Sarah Chen',
     customerEmail: 'sarah@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     total: '$249.48',
     status: {
       label: 'Processing',
@@ -169,7 +169,7 @@ const demoData = [
     customer: 'Michael Rodriguez',
     customerEmail: 'michael@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     total: '$189.97',
     status: {
       label: 'Delivered',
@@ -289,7 +289,7 @@ const demoData = [
     customer: 'Emma Wilson',
     customerEmail: 'emma@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     total: '$299.97',
     status: {
       label: 'Cancelled',
@@ -374,7 +374,7 @@ const demoData = [
     customer: 'David Kim',
     customerEmail: 'david@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     total: '$179.97',
     status: {
       label: 'Pending',
@@ -494,7 +494,7 @@ const demoData = [
     customer: 'Aron Thompson',
     customerEmail: 'lisa@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
+      '/avatars/men/75.jpg',
     total: '$329.95',
     status: {
       label: 'Shipped',
@@ -614,7 +614,7 @@ const demoData = [
     customer: 'James Brown',
     customerEmail: 'james@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
+      '/avatars/men/54.jpg',
     total: '$159.96',
     status: {
       label: 'Processing',
@@ -734,7 +734,7 @@ const demoData = [
     customer: 'Maria Garcia',
     customerEmail: 'maria@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
+      '/avatars/women/90.jpg',
     total: '$89.97',
     status: {
       label: 'Delivered',
@@ -854,7 +854,7 @@ const demoData = [
     customer: 'Nick Johnson',
     customerEmail: 'nick@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
+      '/avatars/women/12.jpg',
     total: '$199.98',
     status: {
       label: 'Cancelled',
@@ -974,7 +974,7 @@ const demoData = [
     customer: 'Liam Thompson',
     customerEmail: 'liam@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
+      '/avatars/women/65.jpg',
     total: '$149.97',
     status: {
       label: 'Pending',
@@ -1094,7 +1094,7 @@ const demoData = [
     customer: 'Alex Johnson',
     customerEmail: 'alex@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     total: '$279.96',
     status: {
       label: 'Shipped',
@@ -1214,7 +1214,7 @@ const demoData = [
     customer: 'Sarah Chen',
     customerEmail: 'sarah@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     total: '$119.97',
     status: {
       label: 'Processing',
@@ -1334,7 +1334,7 @@ const demoData = [
     customer: 'Michael Rodriguez',
     customerEmail: 'michael@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     total: '$89.98',
     status: {
       label: 'Delivered',
@@ -1454,7 +1454,7 @@ const demoData = [
     customer: 'Emma Wilson',
     customerEmail: 'emma@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     total: '$199.97',
     status: {
       label: 'Shipped',
@@ -1574,7 +1574,7 @@ const demoData = [
     customer: 'David Kim',
     customerEmail: 'david@example.com',
     customerAvatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     total: '$159.96',
     status: {
       label: 'Pending',

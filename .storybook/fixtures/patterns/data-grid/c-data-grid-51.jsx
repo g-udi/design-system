@@ -226,7 +226,7 @@ export function Pattern() {
           getValue() ? (
             <span className='flex min-w-0 items-center gap-2'>
               <Avatar aria-hidden='true' className='size-6 shrink-0'>
-                <AvatarImage src={`https://randomuser.me/api/portraits/${PORTRAITS[getValue()]}.jpg`} />
+                <AvatarImage src={`/avatars/${PORTRAITS[getValue()]}.jpg`} />
                 <AvatarFallback>{getValue().split(' ').map((part) => part[0]).join('')}</AvatarFallback>
               </Avatar>
               <span className='truncate'>{getValue()}</span>

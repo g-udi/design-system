@@ -29,7 +29,7 @@ export const Playground = {
     text: 'Good component systems make product code calmer. You stop deciding how things look and start deciding what they mean.',
     author: 'Maya Chen',
     title: 'Design systems lead',
-    image: 'https://randomuser.me/api/portraits/women/44.jpg'
+    image: '/avatars/women/44.jpg'
   },
   parameters: {
     docs: {

@@ -13,7 +13,7 @@ import {
 } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 import { cn } from '../../../../src/utilities/cn/index.js';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const dot = { info: 'bg-info', warning: 'bg-warning', discovery: 'bg-discovery', success: 'bg-success', attention: 'bg-attention', neutral: 'bg-text-muted' };
 
 // Events: category dots per day, with the selected day's agenda below.

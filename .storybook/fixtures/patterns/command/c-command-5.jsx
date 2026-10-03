@@ -113,7 +113,7 @@ export function Pattern() {
               {people.map(([name, email, portrait, role]) => (
                 <CommandItem key={email} value={`${name} ${email}`}>
                   <Avatar className='size-6 shrink-0'>
-                    <AvatarImage src={`https://randomuser.me/api/portraits/${portrait}.jpg`} alt={name} />
+                    <AvatarImage src={`/avatars/${portrait}.jpg`} alt={name} />
                     <AvatarFallback>
                       {name.split(' ').map((part) => part[0]).join('')}
                     </AvatarFallback>

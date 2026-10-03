@@ -2,8 +2,6 @@
 
 A framed browser for showing a live or generated page inside an interface: back, forward and reload, an editable address bar, open in a new tab, device widths, a sandboxed iframe with a loading state, an optional console, and a LinkPreview card when a site refuses to be framed. Use it for assistant replies that built a page, deploy previews and documentation demos.
 
-Inspired by the Vercel AI Elements web preview and the shadcn.io "AI message with web preview" block (Apache-2.0 / MIT); rebuilt on Gaudi's Button, Tooltip, InputGroup, ToggleGroup, Collapsible, Spinner and LinkPreview.
-
 ## Usage
 
 ```jsx

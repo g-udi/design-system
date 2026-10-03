@@ -183,7 +183,7 @@ function AccountButton() {
         <SidebarMenuButton asChild size='lg' tooltip='Nadia Rahman'>
           <a href='#'>
             <Avatar>
-              <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+              <AvatarImage src='/avatars/men/32.jpg' alt='' />
               <AvatarFallback>NR</AvatarFallback>
             </Avatar>
             <span className='grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:sr-only'>

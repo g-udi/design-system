@@ -20,8 +20,8 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 // An incident thread between two people: align picks the side, avatars flip
 // with the row, a run of messages shares one avatar in a MessageGroup, headers
 // carry identity, footers carry status, and files stack with the bubble.
-const MICHAEL = { name: 'Michael Rodriguez', initials: 'MR', src: 'https://randomuser.me/api/portraits/men/11.jpg' };
-const SARAH = { name: 'Sarah Chen', initials: 'SC', src: 'https://randomuser.me/api/portraits/women/44.jpg' };
+const MICHAEL = { name: 'Michael Rodriguez', initials: 'MR', src: '/avatars/men/11.jpg' };
+const SARAH = { name: 'Sarah Chen', initials: 'SC', src: '/avatars/women/44.jpg' };
 
 function Dot() {
   return <span aria-hidden='true' className='bg-ui-muted-foreground/40 size-1 shrink-0 rounded-full' />;

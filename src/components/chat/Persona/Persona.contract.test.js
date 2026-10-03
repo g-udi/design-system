@@ -35,7 +35,7 @@ test('orbs keep source attribution and stop for reduced motion', () => {
   assert.match(license, /MIT License[\s\S]*Alexis Munoz/);
   const readme = readFileSync(new URL('./README.md', import.meta.url), 'utf8');
   assert.match(readme, /VoiceOrbs/);
-  assert.match(readme, /thinking-orbs/);
+  assert.doesNotMatch(readme, /thinking-orbs|AI SDK Elements/);
   const css = readFileSync(new URL('./Persona.css', import.meta.url), 'utf8');
   assert.match(css, /prefers-reduced-motion: reduce/);
   for (const orb of [ 'iridescent-flow', 'mercury-orb', 'waveform-ring', 'activity-orb' ]) {

@@ -7,8 +7,7 @@
  * back, forward and reload, an editable address bar, open in a new tab,
  * device widths, a sandboxed iframe with a loading state, an optional
  * console, and a link preview card when a site refuses to be framed.
- * Inspired by the Vercel AI Elements web preview (Apache-2.0), rebuilt on
- * Gaudi parts.
+ * Built on Gaudi parts.
  */
 
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useState } from 'react';

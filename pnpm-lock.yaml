@@ -98,9 +98,6 @@ importers:
       '@tanstack/react-virtual':
         specifier: 3.14.3
         version: 3.14.3(react-dom@19.2.7)(react@19.2.7)
-      '@vercel/analytics':
-        specifier: ^1.5.0
-        version: 1.6.1(next@15.5.9)(react@19.2.7)
       '@vitest/browser-playwright':
         specifier: ^4.1.8
         version: 4.1.10(playwright@1.61.1)(vite@8.2.0)(vitest@4.1.10)
@@ -4322,36 +4319,6 @@ packages:
     optionalDependencies:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
-    dev: true
-
-  /@vercel/analytics@1.6.1(next@15.5.9)(react@19.2.7):
-    resolution: {integrity: sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==}
-    peerDependencies:
-      '@remix-run/react': ^2
-      '@sveltejs/kit': ^1 || ^2
-      next: '>= 13'
-      react: ^18 || ^19 || ^19.0.0-rc
-      svelte: '>= 4'
-      vue: ^3
-      vue-router: ^4
-    peerDependenciesMeta:
-      '@remix-run/react':
-        optional: true
-      '@sveltejs/kit':
-        optional: true
-      next:
-        optional: true
-      react:
-        optional: true
-      svelte:
-        optional: true
-      vue:
-        optional: true
-      vue-router:
-        optional: true
-    dependencies:
-      next: 15.5.9(@babel/core@7.29.7)(react-dom@19.2.7)(react@19.2.7)
-      react: 19.2.7
     dev: true
 
   /@vitest/browser-playwright@4.1.10(playwright@1.61.1)(vite@8.2.0)(vitest@4.1.10):

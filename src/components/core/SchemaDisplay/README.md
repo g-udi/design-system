@@ -40,7 +40,3 @@ It reads schemas only. Fetching, `$ref` resolution and validation stay in the ap
 ## Accessibility
 
 Section titles are real headings. Nested objects open from disclosure buttons with `aria-expanded`. "required" is written out rather than shown by colour, and highlighted path parameters keep their braces.
-
-## Attribution
-
-Adapted from the Schema Display component of [AI SDK Elements](https://elements.ai-sdk.dev/components/schema-display) (Apache-2.0, Copyright 2023 Vercel, Inc.).

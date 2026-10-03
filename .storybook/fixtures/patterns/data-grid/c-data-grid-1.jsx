@@ -203,7 +203,7 @@ export function Pattern() {
         cell: ({ row }) => (
           <div className='flex items-center gap-1.5'>
             <img
-              src={`https://flagcdn.com/${row.original.flag.toLowerCase()}.svg`}
+              src={`/flags/${row.original.flag.toLowerCase()}.svg`}
               alt={row.original.flag}
               className='size-4 rounded-full object-cover'
             />

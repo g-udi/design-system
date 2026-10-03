@@ -162,7 +162,7 @@ const usageExamples = {
   'Core/FloatingMenu': "import { FloatingMenu } from '@gaudi/design-system';\n\n// Fixed over the window; links default to SiteConfig navigation.links.\n<FloatingMenu links={[{ href: '/blog', title: 'Blog' }, { href: '/about', title: 'About' }]} />",
   'Blocks/Navigation': "import { Menu } from '@gaudi/design-system';\n\n<Menu categories={categories} posts={posts} logo={<img src='/logo.svg' alt='' className='size-10' />} />",
   'Core/Accordion': "import { AccordionGroup } from '@gaudi/design-system';\n\n<AccordionGroup\n  items={[\n    { value: 'usage', title: 'When should I use it?', content: 'Use accordions for compact progressive disclosure.' },\n  ]}\n/>",
-  'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar name='Maya Chen' src='https://randomuser.me/api/portraits/women/44.jpg' shape='circle' indicator={{ label: 'Online', tone: 'success' }} />",
+  'Core/Avatar': "import { Avatar } from '@gaudi/design-system';\n\n<Avatar name='Maya Chen' src='/avatars/women/44.jpg' shape='circle' indicator={{ label: 'Online', tone: 'success' }} />",
   'Post/Overview': "import { PostHeader, TableOfContents } from '@gaudi/design-system';\n\n<PostHeader frontMatter={frontMatter} siteMetadata={siteMetadata} tocControl={tocControl} />",
   'Core/Banner': "import { Banner } from '@gaudi/design-system';\n\n<Banner title='Now published' href='/blog'>\n  New essays and project notes are available.\n</Banner>",
   'Post/Post': "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
@@ -194,7 +194,7 @@ const usageExamples = {
   'Core/SchemaDisplay': "import { SchemaDisplay } from '@gaudi/design-system';\n\n<SchemaDisplay\n  method='GET'\n  path='/posts/{slug}/comments'\n  parameters={[{ name: 'slug', in: 'path', type: 'string' }, { name: 'limit', in: 'query', type: 'integer' }]}\n  responseBody={commentsSchema}\n/>",
   'Core/CodeBlock': "import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle } from '@gaudi/design-system';\n\n<CodeBlock code={code} language='typescript' showLineNumbers highlightedLines='3-5'>\n  <CodeBlockHeader>\n    <CodeBlockTitle>hooks/use-cart.ts</CodeBlockTitle>\n    <CodeBlockLanguage />\n    <CodeBlockCopyButton className='ml-auto' />\n  </CodeBlockHeader>\n</CodeBlock>",
   'Core/Terminal': "import { Terminal } from '@gaudi/design-system';\n\n<Terminal\n  title='blog — zsh'\n  username='ahmad'\n  commands={[\n    { command: 'pnpm test:ds-contracts', output: [{ text: '85 component contracts passed.', tone: 'success' }] },\n  ]}\n/>",
-  'Core/LinkPreview': "import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';\n\n// Inline: the link text reveals a rich card on hover or focus.\n<p>The source is in <LinkPreview url='https://github.com/ahmadassaf/design-system' title='Gaudi on GitHub' />.</p>\n\n// Card and compact row; previewData skips fetching (server-rendered or cached metadata).\n<LinkPreview url='https://www.youtube.com/watch?v=qh3NGpYRG3I' variant='card' previewData={{ title: 'Designing with tokens', image: '/og/tokens.jpg', author: 'Gaudi', duration: 'PT12M41S' }} />\n<LinkPreview url='https://medium.com/@ahmadassaf/knowledge-graphs' variant='compact' />\n\n// The app owns the endpoint that fetches metadata.\n<SiteConfigProvider preview={{ endpoint: '/api/preview' }}>{children}</SiteConfigProvider>",
+  'Core/LinkPreview': "import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';\n\n// Inline: the link text reveals a rich card on hover or focus.\n<p>The source is in <LinkPreview url='https://github.com/ahmadassaf/design-system' title='Gaudi on GitHub' />.</p>\n\n// Card and compact row; previewData skips fetching (server-rendered or cached metadata).\n<LinkPreview url='https://www.youtube.com/watch?v=qh3NGpYRG3I' variant='card' previewData={{ title: 'Designing with tokens', image: '/og/tokens.jpg', author: 'Gaudi', duration: 'PT12M41S' }} />\n<LinkPreview url='https://medium.com/@ahmadassaf/knowledge-graphs' variant='compact' />\n\n// The app owns the endpoint that fetches metadata and any derived images; Gaudi loads nothing by default.\n<SiteConfigProvider preview={{ endpoint: '/api/preview', resolveImage: { video: '/thumbs/{videoId}.jpg' } }}>{children}</SiteConfigProvider>",
   'Core/WebPreview': "import { WebPreview } from '@gaudi/design-system';\n\n<WebPreview\n  defaultUrl='https://preview.example.dev/'\n  srcDoc={(url) => generatedPages[url]}\n  logs={logs}\n  title='Generated landing page'\n/>\n\n// A site that refuses framing: the app knows from the headers.\n<WebPreview defaultUrl='https://github.com/vercel/next.js' embeddable={false} />",
   'Core/Embed': "import { Embed } from '@gaudi/design-system';\n\n<Embed url='https://github.com/ahmadassaf/design-system' />\n<Embed code={source} language='html' filename='index.html' />\n<Embed url='https://preview.example.dev/' html={generatedHtml} title='Generated page' />\n<Embed src='/images/diagram.png' alt='Architecture diagram' components={{ image: ImageWithLightbox }} />",
   'Core/TextHighlight': "import { TextHighlight } from '@gaudi/design-system';\n\n<p>Design systems make <TextHighlight>consistency visible</TextHighlight>.</p>"
@@ -520,7 +520,8 @@ const componentDocs = {
     'consumerResponsibilities': [
       'Register `remarkLinks` in the blog remark pipeline so external markdown links become `Preview` MDX elements.',
       'Register `rehypeInternalLinks` in the blog rehype pipeline so internal blog anchors become `Preview internal` elements after markdown has become HTML.',
-      'Expose `/api/preview` in the consuming app for external metadata fetching, caching, and failure handling, or point `SiteConfigProvider preview={{ endpoint }}` at another route.',
+      'Expose a preview route (the blog uses `/api/preview`) for external metadata fetching, caching, and failure handling, and configure it with `SiteConfigProvider preview={{ endpoint }}` (or `LayoutContainer preview`). There is no default endpoint.',
+      'Configure `preview.resolveImage` (a function or a template map) for derived images such as video thumbnails, repository cards or page screenshots; Gaudi ships no image services.',
       'Keep `Preview` in the `MDXComponents` map so generated MDX JSX can resolve at render time.'
     ],
     'description': 'Preview renders inline link previews for markdown links transformed by the blog MDX pipeline. It is the MDX adapter over the Core LinkPreview, which owns the rich, type-aware rendering.',
@@ -538,10 +539,10 @@ const componentDocs = {
     'notes': [
       '`remarkLinks` converts external `http` and `https` markdown links into `Preview` MDX text elements with `url` and optional `title` attributes.',
       '`rehypeInternalLinks` converts matching internal blog anchors like `/blog/category/slug` into `Preview internal` elements after markdown has become HAST.',
-      'External previews call `/api/preview`; unavailable URLs render a red fallback link instead of breaking article content.',
+      'External previews call the configured endpoint; without one nothing is fetched. Unavailable URLs render a red fallback link instead of breaking article content.',
       'Internal previews skip remote fetching and can use local metadata supplied by the app or generated pipeline.',
-      'What each link shows (repository stars and language, video channel and duration, article author and date, post author and counts, Wikipedia excerpts) is decided by `normalizeLinkPreview` in Core/LinkPreview; the adapter only keeps the pipeline props and the blog\'s screenshot fallback for pages without an Open Graph image.',
-      'The endpoint resolves from the `endpoint` prop, then `SiteConfigProvider preview={{ endpoint }}`, then `/api/preview`; `endpoint={null}` renders plain links without fetching.'
+      'What each link shows (repository stars and language, video channel and duration, article author and date, post author and counts, Wikipedia excerpts) is decided by `normalizeLinkPreview` in Core/LinkPreview; the adapter only keeps the pipeline props. Images the payload lacks come from the app\'s `resolveImage`.',
+      'The endpoint resolves from the `endpoint` prop, then `SiteConfigProvider preview={{ endpoint }}`; with neither, links render from `previewData` or as plain links without fetching.'
     ],
     'overview': 'Authors should usually write normal markdown links. During compilation, the blog turns eligible external markdown links into `Preview` components with `remarkLinks`, then turns eligible internal blog anchors into `Preview internal` components with `rehypeInternalLinks`. Gaudi owns the rendered inline link, fallback state, loading skeleton, and hover card UI; the blog owns the markdown transforms and preview API.',
     'recovery': [
@@ -561,7 +562,8 @@ const componentDocs = {
       [ 'onError', '(error) => void', '-', 'Called when preview metadata fails to load.' ],
       [ 'fallback', 'ReactNode', '-', 'Custom fallback UI for unavailable preview metadata.' ],
       [ 'variant', 'inline | card | compact', 'inline', 'LinkPreview presentation, for React pages that want a card or a row.' ],
-      [ 'endpoint', 'string | (url) => string | null', 'SiteConfig preview.endpoint', 'App-owned preview endpoint; null disables fetching.' ]
+      [ 'endpoint', 'string | (url) => string | null', 'SiteConfig preview.endpoint', 'App-owned preview endpoint; with none configured nothing is fetched.' ],
+      [ 'resolveImage', '(link) => string | null | template map', 'SiteConfig preview.resolveImage', 'Image for links whose metadata has none (thumbnails, screenshots); Gaudi ships no image services.' ]
     ],
     'usageTitle': 'Authoring Example'
   },

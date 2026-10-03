@@ -1,8 +1,7 @@
 'use client';
 
-// The dotted-sphere treatment of Mav9's ChatActivityOrb, whose geometry came from thinking-orbs
-// (MIT, Jakub Antalik). Gaudi does not depend on thinking-orbs: this is a compact rewrite of the
-// idea (a Fibonacci lattice of dots on a turning sphere, shaded by depth) that reacts to voice states.
+// A dotted sphere (a Fibonacci lattice of dots on a turning sphere, shaded by depth) that reacts to
+// voice states.
 
 import { useEffect, useMemo, useRef } from 'react';
 import { approach, clamp01, clampSize, clampSpeed, createStateMix, hexToRgb, readLevel, stateEnergy } from './voice-orb-model.js';

@@ -50,21 +50,21 @@ export function Pattern() {
           <AvatarGroup>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/women/44.jpg'
+                src='/avatars/women/44.jpg'
                 alt='SC'
               />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/men/46.jpg'
+                src='/avatars/men/46.jpg'
                 alt='AJ'
               />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
             <Avatar size='sm'>
               <AvatarImage
-                src='https://randomuser.me/api/portraits/women/12.jpg'
+                src='/avatars/women/12.jpg'
                 alt='EP'
               />
               <AvatarFallback>EP</AvatarFallback>

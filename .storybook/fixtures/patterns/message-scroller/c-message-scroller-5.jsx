@@ -25,7 +25,7 @@ import { MessageScroller, MessageScrollerButton, MessageScrollerContent, Message
 import { Spinner } from '../../../../src/components/core/Spinner/parts/spinner.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const VIEWER_AVATAR =
-  'https://randomuser.me/api/portraits/men/32.jpg';
+  '/avatars/men/32.jpg';
 const INITIAL_VISIBLE = 6;
 const HISTORY = [
   {

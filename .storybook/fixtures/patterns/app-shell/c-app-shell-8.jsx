@@ -49,7 +49,7 @@ import { AppShellFrame, AppShellPanel } from '../../../../src/components/blocks/
 import { AppShellNav } from '../../../../src/components/blocks/AppShell/parts/nav.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const me = { name: 'Nina Park', email: 'nina@gaudi.dev', photo: 'https://randomuser.me/api/portraits/women/44.jpg' };
+const me = { name: 'Nina Park', email: 'nina@gaudi.dev', photo: '/avatars/women/44.jpg' };
 const folders = [
   { id: 'inbox', label: 'Inbox', icon: 'Inbox' },
   { id: 'draft', label: 'Draft', icon: 'FileText', badge: { label: 45, variant: 'plain' } },
@@ -63,8 +63,8 @@ const labelSeed = [
 ];
 const people = [
   { id: 'dm-nina', label: 'Nina Park', suffix: '(You)', avatar: me.photo, presence: 'success' },
-  { id: 'dm-sarah', label: 'Sarah Chen', avatar: 'https://randomuser.me/api/portraits/women/68.jpg' },
-  { id: 'dm-marcus', label: 'Marcus Lee', avatar: 'https://randomuser.me/api/portraits/men/46.jpg' },
+  { id: 'dm-sarah', label: 'Sarah Chen', avatar: '/avatars/women/68.jpg' },
+  { id: 'dm-marcus', label: 'Marcus Lee', avatar: '/avatars/men/46.jpg' },
   { id: 'dm-invite', label: 'Add Teammates', icon: 'Plus' }
 ];
 const links = [
@@ -86,7 +86,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'Sarah Chen',
     email: 'sarah@northwind.io',
-    photo: 'https://randomuser.me/api/portraits/women/68.jpg',
+    photo: '/avatars/women/68.jpg',
     time: '9:41 AM',
     date: 'Today, 9:41 AM',
     subject: 'Q4 roadmap review',
@@ -106,7 +106,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'Stripe',
     email: 'receipts@stripe.com',
-    photo: 'https://randomuser.me/api/portraits/men/75.jpg',
+    photo: '/avatars/men/75.jpg',
     time: '8:12 AM',
     date: 'Today, 8:12 AM',
     subject: 'Your receipt from Gaudi Labs #2041',
@@ -121,7 +121,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'Marcus Lee',
     email: 'marcus@gaudi.dev',
-    photo: 'https://randomuser.me/api/portraits/men/46.jpg',
+    photo: '/avatars/men/46.jpg',
     time: 'Yesterday',
     date: 'Yesterday, 4:05 PM',
     subject: 'Standup notes and the release checklist',
@@ -140,7 +140,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'TAP Air Portugal',
     email: 'booking@flytap.com',
-    photo: 'https://randomuser.me/api/portraits/women/12.jpg',
+    photo: '/avatars/women/12.jpg',
     time: 'Mon',
     date: 'Monday, 7:30 AM',
     subject: 'Your trip to Lisbon is confirmed',
@@ -154,7 +154,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'Priya Natarajan',
     email: 'priya@gaudi.dev',
-    photo: 'https://randomuser.me/api/portraits/women/26.jpg',
+    photo: '/avatars/women/26.jpg',
     time: 'Sun',
     date: 'Sunday, 6:48 PM',
     subject: 'Design review: inbox density',
@@ -171,7 +171,7 @@ const mailSeed = [
     folder: 'inbox',
     from: 'Frontend Weekly',
     email: 'hello@frontendweekly.dev',
-    photo: 'https://randomuser.me/api/portraits/men/22.jpg',
+    photo: '/avatars/men/22.jpg',
     time: 'Sat',
     date: 'Saturday, 10:00 AM',
     subject: 'Container queries in production',

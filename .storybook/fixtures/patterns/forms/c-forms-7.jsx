@@ -158,7 +158,7 @@ export function Pattern() {
       <aside aria-label='Account summary' className='grid gap-4 rounded-lg border p-4 lg:sticky lg:top-4'>
         <div className='flex items-center gap-3'>
           <Avatar className='size-10'>
-            <AvatarImage src='https://randomuser.me/api/portraits/women/44.jpg' alt='' />
+            <AvatarImage src='/avatars/women/44.jpg' alt='' />
             <AvatarFallback>MC</AvatarFallback>
           </Avatar>
           <div className='grid min-w-0'>

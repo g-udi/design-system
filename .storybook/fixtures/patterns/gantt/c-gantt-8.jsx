@@ -24,10 +24,10 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const SHIFT_MINUTES = 8 * 60;
 const TECHNICIANS = {
-  leo: { name: 'Leo Park', skills: ['HVAC', 'Electrical'], photo: 'https://randomuser.me/api/portraits/men/41.jpg' },
-  ana: { name: 'Ana Ruiz', skills: ['Plumbing'], photo: 'https://randomuser.me/api/portraits/women/65.jpg' },
-  ben: { name: 'Ben Okoro', skills: ['HVAC'], photo: 'https://randomuser.me/api/portraits/men/75.jpg' },
-  ivy: { name: 'Ivy Shah', skills: ['Electrical', 'Plumbing'], photo: 'https://randomuser.me/api/portraits/women/12.jpg' }
+  leo: { name: 'Leo Park', skills: ['HVAC', 'Electrical'], photo: '/avatars/men/41.jpg' },
+  ana: { name: 'Ana Ruiz', skills: ['Plumbing'], photo: '/avatars/women/65.jpg' },
+  ben: { name: 'Ben Okoro', skills: ['HVAC'], photo: '/avatars/men/75.jpg' },
+  ivy: { name: 'Ivy Shah', skills: ['Electrical', 'Plumbing'], photo: '/avatars/women/12.jpg' }
 };
 const RESOURCES = [
   { id: 'unassigned', title: 'Unassigned' },

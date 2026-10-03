@@ -28,7 +28,7 @@ const STAGES = {
   risk: { title: 'SLA risk', icon: 'TriangleAlertIcon', tone: 'text-danger', frame: 'border-danger-border bg-danger-subtle' }
 };
 const PRIORITY = { Urgent: ['destructive-light', 'bg-danger'], High: ['warning-light', 'bg-warning'], Normal: ['info-light', 'bg-info'], Low: ['outline', 'bg-text-muted'] };
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 const ticket = (id, priority, title, requester, company, owner, portrait, minutes) => ({ id, priority, title, requester, company, owner, avatar: face(portrait), minutes });
 const INITIAL = {
   new: [

@@ -63,7 +63,7 @@ import { AppShellPlaceholderGrid } from '../../../../src/components/blocks/AppSh
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 import { useHotkey } from '../../../../src/hooks/interaction/use-hotkey.js';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const me = { name: 'Nick Bold', email: 'nick@gaudi.dev', photo: portrait('men/41') };
 const organizations = [
   { id: 'acme', name: 'Acme Inc', plan: 'Pro', tone: 'bg-discovery' },

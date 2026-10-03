@@ -25,7 +25,7 @@ export function Pattern() {
         >
           <Avatar className='border-ui-background size-6 border'>
             <AvatarImage
-              src='https://randomuser.me/api/portraits/women/65.jpg'
+              src='/avatars/women/65.jpg'
               alt='Liam Thompson'
             />
             <AvatarFallback>LT</AvatarFallback>

@@ -15,11 +15,11 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const firstMonday = new Date(2026, 8, 28);
 const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const people = [
-  { id: 'maya', name: 'Maya Lopez', role: 'Design lead', avatar: 'https://randomuser.me/api/portraits/women/65.jpg', capacity: 40 },
-  { id: 'omar', name: 'Omar Haddad', role: 'Engineer', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', capacity: 40 },
-  { id: 'priya', name: 'Priya Nair', role: 'Engineer', avatar: 'https://randomuser.me/api/portraits/women/23.jpg', capacity: 32 },
-  { id: 'tom', name: 'Tom Becker', role: 'Writer', avatar: 'https://randomuser.me/api/portraits/men/41.jpg', capacity: 24 },
-  { id: 'li', name: 'Li Wei', role: 'Data', avatar: 'https://randomuser.me/api/portraits/men/75.jpg', capacity: 40 }
+  { id: 'maya', name: 'Maya Lopez', role: 'Design lead', avatar: '/avatars/women/65.jpg', capacity: 40 },
+  { id: 'omar', name: 'Omar Haddad', role: 'Engineer', avatar: '/avatars/men/32.jpg', capacity: 40 },
+  { id: 'priya', name: 'Priya Nair', role: 'Engineer', avatar: '/avatars/women/23.jpg', capacity: 32 },
+  { id: 'tom', name: 'Tom Becker', role: 'Writer', avatar: '/avatars/men/41.jpg', capacity: 24 },
+  { id: 'li', name: 'Li Wei', role: 'Data', avatar: '/avatars/men/75.jpg', capacity: 40 }
 ];
 // Hours per person per day for three weeks; week 0 starts on Monday 28 September 2026.
 const weeks = [

@@ -12,7 +12,7 @@ import { Switch } from '../../../../src/components/core/Switch/parts/switch.jsx'
 import { default as ToastProvider, toast } from '../../../../src/components/core/Toast/index.js';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const toasterId = 'toast-custom';
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const reviewers = [
   ['Alex Johnson', 'men/32'],
   ['Sarah Chen', 'women/44'],

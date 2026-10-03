@@ -84,7 +84,7 @@ export function Pattern() {
         <InputGroup>
           <InputGroupAddon className='pr-1'>
             <Avatar className='size-5'>
-              <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='Alex Johnson' />
+              <AvatarImage src='/avatars/men/32.jpg' alt='Alex Johnson' />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
           </InputGroupAddon>

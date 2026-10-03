@@ -91,7 +91,7 @@ const links = [
   { id: 'invite', label: 'Invite Team', icon: 'Users' },
   { id: 'docs', label: 'Documentation', icon: 'BookOpen' }
 ];
-const user = { name: 'Maya Chen', email: 'maya@gaudi.dev', photo: 'https://randomuser.me/api/portraits/women/68.jpg' };
+const user = { name: 'Maya Chen', email: 'maya@gaudi.dev', photo: '/avatars/women/68.jpg' };
 
 const labelOf = (id, resources) => {
   for (const item of [...platform, ...resources, ...links]) {

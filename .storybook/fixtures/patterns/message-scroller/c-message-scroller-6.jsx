@@ -18,7 +18,7 @@ import { Message, MessageAvatar, MessageContent } from '../../../../src/componen
 import { MessageScroller, MessageScrollerButton, MessageScrollerContent, MessageScrollerItem, MessageScrollerProvider, MessageScrollerViewport, useMessageScroller, useMessageScrollerVisibility } from '../../../../src/components/chat/MessageList/parts/message-scroller.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const VIEWER_AVATAR =
-  'https://randomuser.me/api/portraits/men/32.jpg';
+  '/avatars/men/32.jpg';
 const TURNS = [
   {
     id: 'th_8n4d7s_q1',

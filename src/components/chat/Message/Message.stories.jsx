@@ -8,8 +8,8 @@ import { Bubble, BubbleContent, BubbleReactions } from '../Bubble/index.js';
 import { Message, MessageAvatar, MessageContent, MessageFooter, MessageGroup, MessageHeader } from './index.js';
 
 const docs = getComponentDocs('Chat/Message');
-const sarah = { name: 'Sarah Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' };
-const michael = { name: 'Michael Rodriguez', src: 'https://randomuser.me/api/portraits/men/11.jpg' };
+const sarah = { name: 'Sarah Chen', src: '/avatars/women/44.jpg' };
+const michael = { name: 'Michael Rodriguez', src: '/avatars/men/11.jpg' };
 const reply = 'Found it: the legend overlaps the last bar. Moving it under the axis.';
 
 const Portrait = ({ person }) => (

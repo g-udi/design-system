@@ -31,7 +31,7 @@ import { cn } from '../../../../src/utilities/cn/index.js';
 // Two pipelines on one card layout: deals moving through sales stages, and access requests moving
 // through review. Each card carries a mark, a tag, two detail lines, an owner, a star score, activity
 // counts and a due chip; stages reorder by their handle and the access board adds requests per stage.
-const face = (portrait) => `https://randomuser.me/api/portraits/${portrait}.jpg`;
+const face = (portrait) => `/avatars/${portrait}.jpg`;
 // fill-current lets single-colour marks follow the text colour in dark mode.
 const logo = (Mark) => <Mark className='size-4 fill-current text-text' aria-hidden='true' />;
 const dot = (tone) => <span className={cn('size-2.5 rounded-full', tone)} aria-hidden='true' />;

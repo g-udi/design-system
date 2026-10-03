@@ -84,7 +84,7 @@ const MEMBERS = [
     name: 'Alex Johnson',
     email: 'alex@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/32.jpg',
+      '/avatars/men/32.jpg',
     initials: 'AJ'
   },
   {
@@ -92,7 +92,7 @@ const MEMBERS = [
     name: 'Sarah Chen',
     email: 'sarah@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     initials: 'SC'
   },
   {
@@ -100,7 +100,7 @@ const MEMBERS = [
     name: 'Michael Rodriguez',
     email: 'michael@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/11.jpg',
+      '/avatars/men/11.jpg',
     initials: 'MR'
   },
   {
@@ -108,7 +108,7 @@ const MEMBERS = [
     name: 'Emma Wilson',
     email: 'emma@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/68.jpg',
+      '/avatars/women/68.jpg',
     initials: 'EW'
   },
   {
@@ -116,7 +116,7 @@ const MEMBERS = [
     name: 'David Kim',
     email: 'david@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/49.jpg',
+      '/avatars/men/49.jpg',
     initials: 'DK'
   },
   {
@@ -124,7 +124,7 @@ const MEMBERS = [
     name: 'Aron Thompson',
     email: 'lisa@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/75.jpg',
+      '/avatars/men/75.jpg',
     initials: 'LT'
   },
   {
@@ -132,7 +132,7 @@ const MEMBERS = [
     name: 'James Brown',
     email: 'james@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/men/54.jpg',
+      '/avatars/men/54.jpg',
     initials: 'JB'
   },
   {
@@ -140,7 +140,7 @@ const MEMBERS = [
     name: 'Maria Garcia',
     email: 'maria@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/90.jpg',
+      '/avatars/women/90.jpg',
     initials: 'MG'
   },
   {
@@ -148,7 +148,7 @@ const MEMBERS = [
     name: 'Nick Johnson',
     email: 'nick@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/12.jpg',
+      '/avatars/women/12.jpg',
     initials: 'NJ'
   },
   {
@@ -156,7 +156,7 @@ const MEMBERS = [
     name: 'Liam Thompson',
     email: 'liam@example.com',
     avatar:
-      'https://randomuser.me/api/portraits/women/65.jpg',
+      '/avatars/women/65.jpg',
     initials: 'LT'
   }
 ];

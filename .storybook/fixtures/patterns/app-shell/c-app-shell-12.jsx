@@ -45,10 +45,10 @@ const tools = [
   { id: 'compliance', label: 'Compliance', icon: 'ShieldCheck' },
   { id: 'calibration', label: 'Calibration', icon: 'SquareDashedMousePointer' }
 ];
-const operator = { name: 'Sienna Wells', email: 'sienna@nimbusfleet.io', photo: 'https://randomuser.me/api/portraits/women/65.jpg' };
+const operator = { name: 'Sienna Wells', email: 'sienna@nimbusfleet.io', photo: '/avatars/women/65.jpg' };
 const crew = {
-  mark: { name: 'Mark', photo: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  chris: { name: 'Chris', photo: 'https://randomuser.me/api/portraits/men/75.jpg' }
+  mark: { name: 'Mark', photo: '/avatars/men/32.jpg' },
+  chris: { name: 'Chris', photo: '/avatars/men/75.jpg' }
 };
 // Robots have no portrait: a toned tile with the bot glyph stands in.
 const robotTones = {

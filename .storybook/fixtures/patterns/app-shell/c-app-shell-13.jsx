@@ -47,7 +47,7 @@ const operator = {
   name: 'Jordan Reyes',
   role: 'Fleet Network Admin',
   email: 'jordan@nimbusfleet.io',
-  photo: 'https://randomuser.me/api/portraits/men/86.jpg'
+  photo: '/avatars/men/86.jpg'
 };
 const badge = (label, variant, icon) => ({ label, variant, icon });
 /*

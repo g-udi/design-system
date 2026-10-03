@@ -34,19 +34,3 @@ VoiceOrbs by Alexis Munoz (MIT), pinned at
 https://github.com/amunozdev/voiceorbs
 
 The MIT notice is retained in `src/components/chat/Persona/parts/orbs/LICENSE`.
-The activity orb follows the dotted geometry of thinking-orbs by Jakub Antalik
-(MIT) as a rewrite; no thinking-orbs code is bundled. The Voice component APIs
-follow AI SDK Elements (Vercel, Apache-2.0); no source code was copied.
-
-## Web preview
-
-`core/WebPreview` follows the part structure of the Vercel AI Elements web preview
-(Apache-2.0, https://github.com/vercel/ai-elements) and the shadcn.io "AI message with web
-preview" block. It is an original implementation on Gaudi parts; no source code was copied.
-
-## Chat composer, reasoning and agent-run parts
-
-The model selector, context meter, composer toolbar, reasoning and chain of thought, tool approval,
-checkpoint, inline citation, shimmer and schema display APIs follow AI SDK Elements (Vercel,
-Apache-2.0, https://github.com/vercel/ai-elements). They are original implementations on Gaudi
-parts; no source code was copied.

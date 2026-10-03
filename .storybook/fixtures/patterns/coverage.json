@@ -48,7 +48,7 @@
           "title": "Member directory",
           "description": "Member directory",
           "file": ".storybook/fixtures/patterns/accordion/c-accordion-9.jsx",
-          "sha256": "fa23204ef112d51f232a13be2b1975987d6995c1aa99ae2a5013e1e00b477b95",
+          "sha256": "27e4ffc93817e082bf7dbca6371ac72be88d93b38366b5626dab8e55859b537b",
           "storyId": "core-accordion--accordion-pattern-9"
         },
         {
@@ -101,7 +101,7 @@
           "title": "Alert: Message notification",
           "description": "Alert: Message notification",
           "file": ".storybook/fixtures/patterns/alert/c-alert-19.jsx",
-          "sha256": "2284e520650bf209dc84b52c44394feb58febe1f15a9dad4edc38293c7dcb42f",
+          "sha256": "0185d13bbf4fbcdf2f0ed044539825285fb501cc39709484be1b782595cd2c0f",
           "storyId": "core-banner--alert-pattern-19"
         }
       ]
@@ -246,7 +246,7 @@
           "title": "Grouped people search",
           "description": "Grouped people search",
           "file": ".storybook/fixtures/patterns/autocomplete/c-autocomplete-8.jsx",
-          "sha256": "b1188077531f323c832fd36c8b50f0123d49fce639a4a478de866cc9f0a79bb4",
+          "sha256": "338e3b07590d5e0c1294a12961887546ebaf9291fdb0f8c4cff32308f5305df9",
           "storyId": "core-select--autocomplete-pattern-8"
         },
         {
@@ -254,7 +254,7 @@
           "title": "Async search results",
           "description": "Async search results",
           "file": ".storybook/fixtures/patterns/autocomplete/c-autocomplete-9.jsx",
-          "sha256": "c9fc1952e930ce69d059a14c996375135f3fb270b0b13ba8a76d60ba06ff5f10",
+          "sha256": "d809b6703e3b95181cf98db5c4be569441cfb2cf2b0849e11bf997f722fbec62",
           "storyId": "core-select--autocomplete-pattern-9"
         },
         {
@@ -275,7 +275,7 @@
           "title": "Sizes, shapes and fallbacks",
           "description": "Sizes, shapes and fallbacks",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-3.jsx",
-          "sha256": "4143f336d2d7e1039a73cdf4e9614d79a648e0192635d54204f3cca152bd2eca",
+          "sha256": "fcab2e1e3db2240c6906dff7feda55d3ff033a3b35d0e25c4729e32a6756c14a",
           "storyId": "core-avatar--avatar-pattern-3"
         },
         {
@@ -283,7 +283,7 @@
           "title": "Status and icon badges",
           "description": "Status and icon badges",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-6.jsx",
-          "sha256": "5afa47511d745bf3230bb42a78e5440c37abe17c8a14c5a217aab80beea52097",
+          "sha256": "5ec30edc0ca560901236758594db6ccd37e6f9e2bec54e84860b1b9034b1064e",
           "storyId": "core-avatar--avatar-pattern-6"
         },
         {
@@ -291,7 +291,7 @@
           "title": "Groups",
           "description": "Groups",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-11.jsx",
-          "sha256": "18cab53b4bcfe995e2d0bbadf41b328df28c8802c4ccbf4d8f57554c713cf4c3",
+          "sha256": "fd6b944f1765e7ab0ff44654d2a01aa725021784abf80e3f651092dffcd8d614",
           "storyId": "core-avatar--avatar-pattern-11"
         },
         {
@@ -299,7 +299,7 @@
           "title": "Rings and activity",
           "description": "Rings and activity",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-13.jsx",
-          "sha256": "290c332f6d2ce52a3a88876d0e4d2e9f663adc3e7865f1c71aa5ebf13ffcbe9b",
+          "sha256": "41e6bc47173459e5ec131f6eb8975556d00fe47d00a714c412cf225d5e25d23d",
           "storyId": "core-avatar--avatar-pattern-13"
         },
         {
@@ -307,7 +307,7 @@
           "title": "User details and badge",
           "description": "User details and badge",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-16.jsx",
-          "sha256": "365cf819f4ffe8f03096c897ffa5b216bd9c1aaa5c0b5380582eec87b1cbf133",
+          "sha256": "11ac2ab6f70915bb5792da5af6caaeae2d82a5c520695dbed67ecf8c3845ba5c",
           "storyId": "core-avatar--avatar-pattern-16"
         },
         {
@@ -315,7 +315,7 @@
           "title": "Inside buttons",
           "description": "Inside buttons",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-19.jsx",
-          "sha256": "ca4847407e84c763838209c9636afe2c9b58d6b3af224a990c0d488d28b63135",
+          "sha256": "cec7a209e544f9f67fa19905a92208a2b6da5add453103f59664d4962ce77e0a",
           "storyId": "core-avatar--avatar-pattern-19"
         },
         {
@@ -323,7 +323,7 @@
           "title": "Social proof",
           "description": "Social proof",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-20.jsx",
-          "sha256": "88f4ffed578f2fc8717cfbeb0cb054f400fa3d5098812483099605ddf780ec36",
+          "sha256": "4325963c588e3a185da248b7fccff638d8ba89a4c61099ce039714a930e3f994",
           "storyId": "core-avatar--avatar-pattern-20"
         },
         {
@@ -331,7 +331,7 @@
           "title": "Hover groups with tooltips",
           "description": "Hover groups with tooltips",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-24.jsx",
-          "sha256": "07a32840d6ee3e67e377424956fe77ddc661883647c7bd9ddff65afefbb98b57",
+          "sha256": "52838d4dc18f8a48b808db4de313406232c9d6a820ac7eec368aeec7ad926a03",
           "storyId": "core-avatar--avatar-pattern-24"
         },
         {
@@ -339,7 +339,7 @@
           "title": "Empty state",
           "description": "Empty state",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-28.jsx",
-          "sha256": "c4833c61dc8ed7b58fa0a2b8485cd3539b6d6e6ef58775a74fd45be7802324fc",
+          "sha256": "d35f4d328d78defafffa66287be6c7c030599195e1d837da552977729c5f8c56",
           "storyId": "core-avatar--avatar-pattern-28"
         },
         {
@@ -347,7 +347,7 @@
           "title": "Account dropdown menu",
           "description": "Account dropdown menu",
           "file": ".storybook/fixtures/patterns/avatar/c-avatar-35.jsx",
-          "sha256": "1e9fd24656f89bc1eb863c1b7b8462ef2c0905fbc0e602f9c1afcaa5121b7291",
+          "sha256": "1b7229f8ab15c1a1935246675cad488045662716f15724b5ca954d59792b2e41",
           "storyId": "core-avatar--avatar-pattern-35"
         }
       ]
@@ -376,7 +376,7 @@
           "title": "Icons, dots, avatars and images",
           "description": "Icons, dots, avatars and images",
           "file": ".storybook/fixtures/patterns/badge/c-badge-20.jsx",
-          "sha256": "c23b90c8cbd2f7df8eef86fe7c4928d1a1d82d9b6140bc27ce93d5dcd7dc1da5",
+          "sha256": "df876ebb01054cb40d32bfa65bf8428cb7eaaba652138a5516e54c43bbaee976",
           "storyId": "core-pill--badge-pattern-20"
         },
         {
@@ -384,7 +384,7 @@
           "title": "Removable filters and links",
           "description": "Removable filters and links",
           "file": ".storybook/fixtures/patterns/badge/c-badge-21.jsx",
-          "sha256": "41339cce55700f32927fcd17a52f3ce5d64da03e46bc25b30f7aa0c7b13530c0",
+          "sha256": "c785831085ad0c752d432b3485d05cf6f2c5f1f9bfeecac15d2199b7c8a01ecc",
           "storyId": "core-pill--badge-pattern-21"
         }
       ]
@@ -447,7 +447,7 @@
           "title": "Icons, badges and avatars",
           "description": "Icons, badges and avatars",
           "file": ".storybook/fixtures/patterns/breadcrumb/c-breadcrumb-5.jsx",
-          "sha256": "3595f6e4439d49a5c6e535f8be564c892e33a532721653deeb555d041a06317a",
+          "sha256": "03514d8f6ec72c9290cf3661c0f1b29f9e025a800977dcdce78d4835540c6bb1",
           "storyId": "core-breadcrumb--breadcrumb-pattern-5"
         },
         {
@@ -463,7 +463,7 @@
           "title": "Workspace, user and document",
           "description": "Workspace, user and document",
           "file": ".storybook/fixtures/patterns/breadcrumb/c-breadcrumb-15.jsx",
-          "sha256": "994bce3aa05f0084623f2c317b9e0001e89fe938a304b4e96d2ca513f66227e8",
+          "sha256": "e273c0c37bbf3e37b3e8555b4c617b535b382a0d188dd8b2d34b93489c60faa0",
           "storyId": "core-breadcrumb--breadcrumb-pattern-15"
         }
       ]
@@ -476,7 +476,7 @@
           "title": "Support thread",
           "description": "Support thread",
           "file": ".storybook/fixtures/patterns/bubble/c-bubble-1.jsx",
-          "sha256": "73a5186b2fda0d57586c1a06ac235a9d3b4294da4862f7e5e851ad3355514bf6",
+          "sha256": "d125c4d025b23d162fbc10251652ac86e8223f866add2c66a041eb252690623e",
           "storyId": "chat-bubble--bubble-pattern-1"
         },
         {
@@ -553,7 +553,7 @@
           "title": "Avatar and two-line content",
           "description": "Avatar and two-line content",
           "file": ".storybook/fixtures/patterns/button/c-button-55.jsx",
-          "sha256": "e45525e999508df65f6211120890fbad63ff6d3970a185b49348f372e34ddcba",
+          "sha256": "82ab94d4354ba5a2305becb0a13718306f4c3b835f9dcc9e9f338635e08b2b04",
           "storyId": "core-button--button-pattern-55"
         },
         {
@@ -574,7 +574,7 @@
           "title": "Editor header",
           "description": "Editor header",
           "file": ".storybook/fixtures/patterns/button-group/c-button-group-5.jsx",
-          "sha256": "67aca44eff044ed2849f3873bab5679c183221d807ebaa0ab7a6dd70ee981d6a",
+          "sha256": "016e0a7aa867b01da19c134e915afd5babed61e28c3b49adb09c9da36027bb96",
           "storyId": "core-buttongroup--button-group-pattern-5"
         },
         {
@@ -590,7 +590,7 @@
           "title": "Inputs and selects",
           "description": "Inputs and selects",
           "file": ".storybook/fixtures/patterns/button-group/c-button-group-16.jsx",
-          "sha256": "4cbc748e6cc0451a8c342c92ba1c27a654eec2c9442ecfa3ec2d8c62e30f9238",
+          "sha256": "a7641b8fa973d9e3c455a5bd4e9332f77fa9e2af3167e1bc0d3bec81ffc9a233",
           "storyId": "core-buttongroup--button-group-pattern-16"
         },
         {
@@ -720,7 +720,7 @@
           "title": "Sections and dividers",
           "description": "Sections and dividers",
           "file": ".storybook/fixtures/patterns/card/c-card-1.jsx",
-          "sha256": "8bea860b37b3645c4f469ec45920e27e7546868532e4acb3ec9ae8bbafb97f8d",
+          "sha256": "80d5a8f0929cb709940c9fa0bcae03e0401710fa79a9fa0d08a1e0a59dd12d14",
           "storyId": "core-card--card-pattern-1"
         },
         {
@@ -728,7 +728,7 @@
           "title": "Media cards",
           "description": "Media cards",
           "file": ".storybook/fixtures/patterns/card/c-card-7.jsx",
-          "sha256": "07887b10471fc0b5ad38ade77b53beddfae285d0ed53a17cd0889056dc859e28",
+          "sha256": "2031a314ade3e3b66ece97376c9508bcc090d9c1e3e3476d0acf4966a1f9eae0",
           "storyId": "core-card--card-pattern-7"
         },
         {
@@ -768,7 +768,7 @@
           "title": "Header badge and actions",
           "description": "Header badge and actions",
           "file": ".storybook/fixtures/patterns/card/c-card-16.jsx",
-          "sha256": "5aa97c04b622434e7657a41bee90f4972f8e86add31972fd5da64a163ac92e5e",
+          "sha256": "dc904c8048c33d56046ce91fef3f8b73f0d4d5630b638127fb8ab6573140bea8",
           "storyId": "core-card--card-pattern-16"
         },
         {
@@ -842,7 +842,7 @@
           "title": "Avatars and role badges",
           "description": "Avatars and role badges",
           "file": ".storybook/fixtures/patterns/cascader/c-cascader-5.jsx",
-          "sha256": "abcd2b0d51beda88e0b7f1c020e2eae70add8c971e95a6577b434d84eb657839",
+          "sha256": "8ae89c9a94fab6d82c88a4d0a4e3257c86f063bd6147a4bdb55a461201fd6cbf",
           "storyId": "core-cascader--cascader-pattern-5"
         },
         {
@@ -940,7 +940,7 @@
           "title": "Reviewing a pull request",
           "description": "Reviewing a pull request",
           "file": ".storybook/fixtures/patterns/chat/c-chat-1.jsx",
-          "sha256": "f4eecb725e3ccf86b87966839eac1988e3caacbdea8259921b27496e1608b4db",
+          "sha256": "825ec0ba3cca4b7543f1b3f980674d93b4148730faa73bf0c6f91bb83fcdeffc",
           "storyId": "blocks-chat--chat-pattern-1"
         },
         {
@@ -990,7 +990,7 @@
           "title": "Error, retry and suggestions",
           "description": "Error, retry and suggestions",
           "file": ".storybook/fixtures/patterns/chat-error/c-chat-error-1.jsx",
-          "sha256": "f46691382e90f8ed7e4d297fa2ac865354c8377ce4e04ff2efbdb7d20d53f8db",
+          "sha256": "69e0ab9d20210052f6990751c8ffb4b041cd2354454164ab941519223b909362",
           "storyId": "chat-chaterror--chat-error-pattern-1"
         }
       ]
@@ -1003,7 +1003,7 @@
           "title": "Delivered files and data",
           "description": "Delivered files and data",
           "file": ".storybook/fixtures/patterns/chat-file/c-chat-file-1.jsx",
-          "sha256": "d3e77dd70998bc34d43a2cda79e56ff01175191d80475248913424dc39a4242f",
+          "sha256": "9dadcb8f2a4de944ec7ad863ef183f67d91af78ab981da60fa77150a4a6e4c5e",
           "storyId": "chat-chatfile--chat-file-pattern-1"
         }
       ]
@@ -1016,7 +1016,7 @@
           "title": "Research with citations",
           "description": "Research with citations",
           "file": ".storybook/fixtures/patterns/chat-sources/c-chat-sources-1.jsx",
-          "sha256": "3e6e514809c04868220918412abebb1728a5ee04b9fee14689b766cff50da0db",
+          "sha256": "991c203695be9c3878eb5c72249f5f00d4e034e3478707ab79eb601a5d8ddf9b",
           "storyId": "chat-chatsources--chat-sources-pattern-1"
         }
       ]
@@ -1050,7 +1050,7 @@
           "title": "Row cards",
           "description": "Row cards",
           "file": ".storybook/fixtures/patterns/checkbox/c-checkbox-9.jsx",
-          "sha256": "5ee57d87b74889cb521c348a3c00dc341db90eaa86502f85917101e4cad4be4a",
+          "sha256": "a6df71a4eb1b8291b0b61163795a31dea5021368eb048f03197070c038595978",
           "storyId": "core-checkbox--checkbox-pattern-9"
         },
         {
@@ -1103,7 +1103,7 @@
           "title": "Streaming assistant reply",
           "description": "Streaming assistant reply",
           "file": ".storybook/fixtures/patterns/code-block/c-code-block-4.jsx",
-          "sha256": "a8ec90e2845331b8e60a650785e9ef2f8f9288964327c6a9ff6209fd88e74d83",
+          "sha256": "62e07a791aa9b6900f1ce02e9258bd4dabd5d523dbfe5e79bbb66abe0adcf6f5",
           "storyId": "core-codeblock--code-block-pattern-4"
         },
         {
@@ -1204,7 +1204,7 @@
           "title": "Collapsible: Framed sections",
           "description": "Collapsible: Framed sections",
           "file": ".storybook/fixtures/patterns/collapsible/c-collapsible-7.jsx",
-          "sha256": "6d7c27b34d512ea6f1bea87f903cf038b75a07df15a5c33a9b69954d7b09c906",
+          "sha256": "d62c46ed06957041ee2f93d5a21c56302ed925d6bb46ce38127ba633c2cc47bb",
           "storyId": "core-accordion--collapsible-pattern-7"
         },
         {
@@ -1265,7 +1265,7 @@
           "title": "Member tags",
           "description": "Member tags",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-19.jsx",
-          "sha256": "f6cc0761597fbb08667f5043e702969d75f2a567c836213100695e7cdad3dfca",
+          "sha256": "e9aae1fb2dca869e978b01b957ccc82b85c10f197ab2113955d9d12dc696ccf8",
           "storyId": "core-select--combobox-pattern-19"
         },
         {
@@ -1273,7 +1273,7 @@
           "title": "Property pickers",
           "description": "Property pickers",
           "file": ".storybook/fixtures/patterns/combobox/c-combobox-21.jsx",
-          "sha256": "31714489b4de666a5da85ae85f0ebffd480b2b1c653fb7124b12305ac7cecbbc",
+          "sha256": "d236f8cc729ef7583e198318a689bfaae70c53a358b49ea0918b9fdc78ebd2da",
           "storyId": "core-select--combobox-pattern-21"
         },
         {
@@ -1310,7 +1310,7 @@
           "title": "Search everything",
           "description": "Search everything",
           "file": ".storybook/fixtures/patterns/command/c-command-5.jsx",
-          "sha256": "b1ef7c9418e5cb3666045864edef6c88456984cc8267b7bf21dc3424887e36de",
+          "sha256": "4b695aa69c761f3ebfb51496dfadd3a666e2d002ac3ce83078ac6087208f9029",
           "storyId": "core-commander--command-pattern-5"
         }
       ]
@@ -1344,7 +1344,7 @@
           "title": "Layout options",
           "description": "Layout options",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-1.jsx",
-          "sha256": "eaed8569ddd0a0ca6883cfbde9b10419156263fde81458da878595d29f0fefcf",
+          "sha256": "ff4ba8616632f6ea00918551f91e26afbb5edc1c23df694bf7fc9f4e618b1a22",
           "storyId": "core-datatable--data-grid-pattern-1"
         },
         {
@@ -1352,7 +1352,7 @@
           "title": "Sub table",
           "description": "Sub table",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-9.jsx",
-          "sha256": "31139e02c9133ea083f3d44e9e7894c6077f198c7a07c7bd7c9c3ba3a1867e51",
+          "sha256": "f4d495906dec48de44649559399b00f3754a32b4e6fca13c6d313f3fc3e8259b",
           "storyId": "core-datatable--data-grid-pattern-9"
         },
         {
@@ -1360,7 +1360,7 @@
           "title": "Draggable rows and columns",
           "description": "Draggable rows and columns",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-14.jsx",
-          "sha256": "0c65fbdf209d32b79b7c5f3c343e97a6d42eec08aba9da7b1426a3967dc46088",
+          "sha256": "a25ce114249413a2f7661e016f336062c3812a700b2a8b518d207fe97453ce47",
           "storyId": "core-datatable--data-grid-pattern-14"
         },
         {
@@ -1368,7 +1368,7 @@
           "title": "Column controls",
           "description": "Column controls",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-19.jsx",
-          "sha256": "b0c4c69eef3699d871364ee3607845a6b66659e56f2ccf259167e06f1d475964",
+          "sha256": "895cf527bbaf839eb105011bb393fcefcb6e25afac9477708bbd389c0425a766",
           "storyId": "core-datatable--data-grid-pattern-19"
         },
         {
@@ -1376,7 +1376,7 @@
           "title": "CRUD in a frame",
           "description": "CRUD in a frame",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-23.jsx",
-          "sha256": "739c7c4adbcf30a351f3385fc08720576b27a0b37a19de1a8fe214de5d5b8e12",
+          "sha256": "37a22ca0917b80207a1f6dca99e2782e84adb4db85778913b2e2be5f7c4cde2b",
           "storyId": "core-datatable--data-grid-pattern-23"
         },
         {
@@ -1384,7 +1384,7 @@
           "title": "Grouping and aggregation",
           "description": "Grouping and aggregation",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-26.jsx",
-          "sha256": "ed4c4c93e3535a8820915199a0f6c6112198a9d7feb94441f3814feebe52637d",
+          "sha256": "5c03b555bf61ddcfeabc50245862e525fc943f1783bfd804745d7176fefddf8a",
           "storyId": "core-datatable--data-grid-pattern-26"
         },
         {
@@ -1392,7 +1392,7 @@
           "title": "Infinite scroll",
           "description": "Infinite scroll",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-28.jsx",
-          "sha256": "bca39ebf355baeeb4990ef39993cd7a3b2f4b2e3748e2f33c65994aff78afd61",
+          "sha256": "04ae5fc47d36d10bd9aca3da9086992b77dbbd53007b77b2927e7de918971d9c",
           "storyId": "core-datatable--data-grid-pattern-28"
         },
         {
@@ -1400,7 +1400,7 @@
           "title": "Selection, expansion and pinned rows",
           "description": "Selection, expansion and pinned rows",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-29.jsx",
-          "sha256": "2f95154c7fd8e83d6e6fb7c5542e55fad0dc9b2a74eab5cff7f164cdbfd5a0c5",
+          "sha256": "31cda315be76f3566101e2e2daff0d4099e2368f5713e364e71256ddc3e31d30",
           "storyId": "core-datatable--data-grid-pattern-29"
         },
         {
@@ -1408,7 +1408,7 @@
           "title": "Tree rows",
           "description": "Tree rows",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-30.jsx",
-          "sha256": "4fdcd2fd50d0bfa727aab5b3f9d3ebab54b1ee16707ec740d305b4047ebd2b51",
+          "sha256": "16af71a282fc62ea338c3f0edec7b0f3c2dac4b7a9844388572cb6fb6b7a64d5",
           "storyId": "core-datatable--data-grid-pattern-30"
         },
         {
@@ -1416,7 +1416,7 @@
           "title": "Spreadsheet editing",
           "description": "Spreadsheet editing",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-31.jsx",
-          "sha256": "7943967e3e9636fda1c1af83f6dd8f93c957bed1301fc8272129eedd909daf05",
+          "sha256": "3ca568bdf2f32c6ef7f298d6bfac9bb8c58b1f72ac0e097ad01bc8ae5a09f51e",
           "storyId": "core-datatable--data-grid-pattern-31"
         },
         {
@@ -1424,7 +1424,7 @@
           "title": "Column virtualization",
           "description": "Column virtualization",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-32.jsx",
-          "sha256": "f8b3a5451c81998618d27cdb7ced947b93975a7ae4a8a4621ef9320bc2f39b29",
+          "sha256": "2df96ed617ebd5ffd1a395e6f69c9ae32ffc7553d271e18a01db0949cfdf3bdc",
           "storyId": "core-datatable--data-grid-pattern-32"
         },
         {
@@ -1432,7 +1432,7 @@
           "title": "Server-side pagination",
           "description": "Server-side pagination",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-34.jsx",
-          "sha256": "d442a1b5f18d40e0cdf229c0d0f581dd4e67bb1e24f6703186f6806ac411bf18",
+          "sha256": "15a539fa81727c022106959c438ad67d7d9e64d56e16980d5c0668c3206f50d4",
           "storyId": "core-datatable--data-grid-pattern-34"
         },
         {
@@ -1480,7 +1480,7 @@
           "title": "CRM workspace",
           "description": "CRM workspace",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-50.jsx",
-          "sha256": "9b66083dcb7e8efbdc415f6f2f8706b95d9e7bf9dbb0aeb0d5db8b514a40a088",
+          "sha256": "4f80d3ba1e84ba7e87811ed40efb6bf74d429e5e243dbc9ecfe23f31e0b479d2",
           "storyId": "core-datatable--data-grid-pattern-50"
         },
         {
@@ -1488,7 +1488,7 @@
           "title": "Shipment exceptions",
           "description": "Shipment exceptions",
           "file": ".storybook/fixtures/patterns/data-grid/c-data-grid-51.jsx",
-          "sha256": "a0c16714b488148a2c7a5e035973885b90e9f7ef84295b0b2ad3c53ccc44765e",
+          "sha256": "6a4e7dbffbb0f508a4e68a57230d5726ffa9e2bd1da20e96f46d42bdf674af17",
           "storyId": "core-datatable--data-grid-pattern-51"
         }
       ]
@@ -1625,7 +1625,7 @@
           "title": "Workspace and model switchers",
           "description": "Workspace and model switchers",
           "file": ".storybook/fixtures/patterns/dropdown-menu/c-dropdown-menu-10.jsx",
-          "sha256": "2860483d4d04051e279896c316418de86b6712d0ce1db38f23bb8e81ad1814ba",
+          "sha256": "43a5743482afe2ea1dbd5180e970a18175721aaab2622afd37a5bd65fb1b2473",
           "storyId": "core-dropdownmenu--dropdown-menu-pattern-10"
         },
         {
@@ -1633,7 +1633,7 @@
           "title": "Notifications",
           "description": "Notifications",
           "file": ".storybook/fixtures/patterns/dropdown-menu/c-dropdown-menu-11.jsx",
-          "sha256": "11b72f166234d36b89c2d502a18c2998029fb33a19ece02ee6157470343e0367",
+          "sha256": "16c6e870672fb60608cd9eb17a73bc1c0c2e7a66a640c81c934933daa6197b45",
           "storyId": "core-dropdownmenu--dropdown-menu-pattern-11"
         },
         {
@@ -1641,7 +1641,7 @@
           "title": "Account and create menus",
           "description": "Account and create menus",
           "file": ".storybook/fixtures/patterns/dropdown-menu/c-dropdown-menu-14.jsx",
-          "sha256": "8b6f7b239fbb780abf94ebde68851cf708d9e45f9aff07f99bcbbb157b22a9f2",
+          "sha256": "154b4f5e8ba5e85fab4ccef8bf3bd7c5f340ae67ec17eb91b621fb9e672ef338",
           "storyId": "core-dropdownmenu--dropdown-menu-pattern-14"
         }
       ]
@@ -1723,7 +1723,7 @@
           "title": "Drag-to-book appointments",
           "description": "Drag-to-book appointments",
           "file": ".storybook/fixtures/patterns/event-calendar/c-event-calendar-5.jsx",
-          "sha256": "ba8c909cb806298dd791ef9b4240329597d93a625183975becc000e2ad3e549b",
+          "sha256": "0fa41048ef30c0a4d134cac6af48b211a16f1f988f8576b35de47b5b9972c6ea",
           "storyId": "core-eventcalendar--event-calendar-pattern-5"
         }
       ]
@@ -1826,7 +1826,7 @@
           "title": "Everything in one filter bar",
           "description": "Everything in one filter bar",
           "file": ".storybook/fixtures/patterns/filters/c-filters-1.jsx",
-          "sha256": "7454c101c79dc7e46431bd4a907cb3064fe04a9b608de99e5ff27ed136b03eff",
+          "sha256": "69da3b8600353ed9ed5616f154b6fe12baa4baf508295f6186c38c0dfa3ba9b6",
           "storyId": "core-filterbar--filters-pattern-1"
         },
         {
@@ -1858,7 +1858,7 @@
           "title": "Nested groups inline, walked back out",
           "description": "Nested groups inline, walked back out",
           "file": ".storybook/fixtures/patterns/filters/c-filters-11.jsx",
-          "sha256": "4f35a4e844fd9f42bad91372ff8bb05ef1dfcc97fc664fbd4909a4532e4c495a",
+          "sha256": "33e7a4151f047705f36aba9094ef0036d2e172a08cb7faf58d89c0c6d7973cd9",
           "storyId": "core-filterbar--filters-pattern-11"
         },
         {
@@ -1866,7 +1866,7 @@
           "title": "Controlled, sized and translated",
           "description": "Controlled, sized and translated",
           "file": ".storybook/fixtures/patterns/filters/c-filters-12.jsx",
-          "sha256": "5af47ec562042a41aa4b39975ddc3e45548dcc77fd20e0088654090f0eae3cee",
+          "sha256": "03399f1f2466039f0d0276aa71c5bb0f14ce7c2b5dfff625798b3fbce6e1e2df",
           "storyId": "core-filterbar--filters-pattern-12"
         }
       ]
@@ -1879,7 +1879,7 @@
           "title": "Automation workflow editor",
           "description": "Automation workflow editor",
           "file": ".storybook/fixtures/patterns/flow/c-flow-1.jsx",
-          "sha256": "98744187e9dca68726a4ee62b8d45081b620f4dc45fd1343847d0d2ddf3d32ba",
+          "sha256": "1639c0bec40523bddc1a2453c05da4c4efc340dbe6a59cf5d9384e8eb550dfb5",
           "storyId": "core-flow--flow-pattern-1"
         },
         {
@@ -1903,7 +1903,7 @@
           "title": "Growth impact map",
           "description": "Growth impact map",
           "file": ".storybook/fixtures/patterns/flow/c-flow-4.jsx",
-          "sha256": "2fe16a850a4ade11e26c6f894939a8e67e9b57514e0e3cf9da7fa68736f8b369",
+          "sha256": "dacf96d452a740ade4378d63cdd9e942cba91efa072a218e0e888be8fcb0b02d",
           "storyId": "core-flow--flow-pattern-4"
         },
         {
@@ -1964,7 +1964,7 @@
           "title": "Profile · Card with completion and office hours",
           "description": "Profile · Card with completion and office hours",
           "file": ".storybook/fixtures/patterns/forms/c-forms-6.jsx",
-          "sha256": "abdf326b7cc603763eae7bb164ece8965ce5b965c90054ac03312a6f6d1f728c",
+          "sha256": "fda4a60cd0ba368e36492be1611636570eb3bedea40dc47d4659a96eeab3ddb8",
           "storyId": "blocks-forms--forms-pattern-6"
         },
         {
@@ -1972,7 +1972,7 @@
           "title": "Profile · Tabs with audit rail",
           "description": "Profile · Tabs with audit rail",
           "file": ".storybook/fixtures/patterns/forms/c-forms-7.jsx",
-          "sha256": "7f176a4f4c38a967c1e8913ba57c93431d4e5683be6f9ae45ac3b7894e62d77c",
+          "sha256": "c94912098cd9b59ab9b8f1cb8a1994739121d213866eac45c7f0fed16dc1def0",
           "storyId": "blocks-forms--forms-pattern-7"
         },
         {
@@ -2036,7 +2036,7 @@
           "title": "Support · Ticket details",
           "description": "Support · Ticket details",
           "file": ".storybook/fixtures/patterns/forms/c-forms-15.jsx",
-          "sha256": "ed9aeac829504134c8a245a001a5303eeb6123bfac3c46ae27c79321516a180a",
+          "sha256": "78f3361aa92d181c197136ee9ebe992753cc1b57d853c067c169ae9144d8cd71",
           "storyId": "blocks-forms--forms-pattern-15"
         },
         {
@@ -2044,7 +2044,7 @@
           "title": "Onboarding · Customer intake",
           "description": "Onboarding · Customer intake",
           "file": ".storybook/fixtures/patterns/forms/c-forms-16.jsx",
-          "sha256": "4fc7c0a38f4cf88bd88aeab3872f19677162ce451062e3883ba38a5199f9910b",
+          "sha256": "33935bf3f77743c119d62d2416eb2405b584f55caafe44b852b8e1ec5dcb78f6",
           "storyId": "blocks-forms--forms-pattern-16"
         },
         {
@@ -2094,7 +2094,7 @@
           "title": "Capacity-aware resource planner",
           "description": "Capacity-aware resource planner",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-4.jsx",
-          "sha256": "2d118678c21ef7f19582db964c05d9c13d8d95bf64185c633d60935645c67fe7",
+          "sha256": "af9be41e067f9a492a59366d413a0e8f4fea8477f1cfaa6d18bd21115f0e5aff",
           "storyId": "core-gantt--gantt-pattern-4"
         },
         {
@@ -2102,7 +2102,7 @@
           "title": "Task table with progress",
           "description": "Task table with progress",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-5.jsx",
-          "sha256": "4060d5ebc104ba914223b3d72bb153f00acdcdb107ceac72ebdb7c27aa82571d",
+          "sha256": "a8141915da7a66644457becb400e5ae8643eca2d88554eb3e9d1a698ddefb00c",
           "storyId": "core-gantt--gantt-pattern-5"
         },
         {
@@ -2118,7 +2118,7 @@
           "title": "Project planner with live validation",
           "description": "Project planner with live validation",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-7.jsx",
-          "sha256": "2f949bf82cf3873017e85e57eba77c1949c9bb65bc3e8eb6d5e1a1876e3f68c1",
+          "sha256": "36efc8f0b739d87361a76fb7e92afe1917fb4d43d648781cc8ac9189aef3e19a",
           "storyId": "core-gantt--gantt-pattern-7"
         },
         {
@@ -2126,7 +2126,7 @@
           "title": "Day dispatch",
           "description": "Day dispatch",
           "file": ".storybook/fixtures/patterns/gantt/c-gantt-8.jsx",
-          "sha256": "c164831ec1597c16052850296ba14ffd8d7c6bdce88bf47084270efc513e1489",
+          "sha256": "433322e3053f26e4a6bab0e9b16e8568d8761976b074cc2db8ef90351bb7f39a",
           "storyId": "core-gantt--gantt-pattern-8"
         },
         {
@@ -2194,7 +2194,7 @@
           "title": "Rich hover cards",
           "description": "Rich hover cards",
           "file": ".storybook/fixtures/patterns/hover-card/c-hover-card-3.jsx",
-          "sha256": "6641905e079951855813612f745e3b57df2108800d1ae88155e3565e738dd5e6",
+          "sha256": "ead01f88c1215cca87ab2d6577e622a1407f05f53242c0357662b68dfbc73ae4",
           "storyId": "core-popover--hover-card-pattern-3"
         },
         {
@@ -2310,7 +2310,7 @@
           "title": "Dropdown selectors",
           "description": "Dropdown selectors",
           "file": ".storybook/fixtures/patterns/input-group/c-input-group-12.jsx",
-          "sha256": "b42e7e838b8d4598e3e64b3f2a8ebf555df15fbbe09529c6d793bfaf26d60da4",
+          "sha256": "0bc6f110af775581752f2334ca635b25faef9ad82e4eaea34fe54ee127487cf6",
           "storyId": "core-input--input-group-pattern-12"
         },
         {
@@ -2400,7 +2400,7 @@
           "title": "Team members and roles",
           "description": "Team members and roles",
           "file": ".storybook/fixtures/patterns/item/c-item-9.jsx",
-          "sha256": "22be576156604bf9160586bc5f7c25ad30964147368edff35353660365e23f6f",
+          "sha256": "8c632d71d378d19d333cadc210d8d9122c323418155b08d0d003a78447de9d55",
           "storyId": "core-item--item-pattern-9"
         },
         {
@@ -2408,7 +2408,7 @@
           "title": "Header and footer",
           "description": "Header and footer",
           "file": ".storybook/fixtures/patterns/item/c-item-10.jsx",
-          "sha256": "e4308daa332d91e64c75a51427c9de6cacc2e8f9384fb8456c42475374e6e2b8",
+          "sha256": "d9f838e80b01429a6a47002cf6f0c40401d9d764bba711d843ecee234c7e1fba",
           "storyId": "core-item--item-pattern-10"
         },
         {
@@ -2424,7 +2424,7 @@
           "title": "Activity feed",
           "description": "Activity feed",
           "file": ".storybook/fixtures/patterns/item/c-item-12.jsx",
-          "sha256": "d628ca3bd6b9895a8934c4f6bf67b13784e75d78dafd4f0bd70f01adc7c408f8",
+          "sha256": "d88128d2a127d16d2c26e68d3d2d2a76499a1f41216b29f76316e39f778872d3",
           "storyId": "core-item--item-pattern-12"
         }
       ]
@@ -2437,7 +2437,7 @@
           "title": "Board options",
           "description": "Board options",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-1.jsx",
-          "sha256": "b588a572dc94b1801f5cf73ca86063173e1c77c4c37c112600ccb1181bfbd57c",
+          "sha256": "c79b66d5f926a993d4a23a531305f602d3e4c16bb7dfa0777193473c3f292b69",
           "storyId": "core-kanban--kanban-pattern-1"
         },
         {
@@ -2445,7 +2445,7 @@
           "title": "Issue tracking",
           "description": "Issue tracking",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-2.jsx",
-          "sha256": "afffbcb69a5cc5389e50eade9d95a88f3d00622d0dd3392a293e789eec25f5db",
+          "sha256": "9c1574328e951eecfb749d2bd71efef311ed67f2d79bbdf768c5142aabb02601",
           "storyId": "core-kanban--kanban-pattern-2"
         },
         {
@@ -2453,7 +2453,7 @@
           "title": "Workflow with collapsible columns",
           "description": "Workflow with collapsible columns",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-3.jsx",
-          "sha256": "1e06887896a5c9c9b0f7aabe0af3563a9acc5e61bb2fe2ffbc538833f08d6de7",
+          "sha256": "d35680b8593a8110f88a3967479838113d8fde81dfbb069ee3f260d97789bcae",
           "storyId": "core-kanban--kanban-pattern-3"
         },
         {
@@ -2461,7 +2461,7 @@
           "title": "Pipeline and access review",
           "description": "Pipeline and access review",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-4.jsx",
-          "sha256": "ec10a635f916bae27530e8803b6339d18e1628b56879d656dff0406897ca7df8",
+          "sha256": "be46fc9c1e62fe03c0b49505a3215ab157c235c6cebabc25561b51a792ea2787",
           "storyId": "core-kanban--kanban-pattern-4"
         },
         {
@@ -2485,7 +2485,7 @@
           "title": "Support escalations",
           "description": "Support escalations",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-7.jsx",
-          "sha256": "5daa7392601544b3fe18c0fc41099bbd17e313c7048c6a18b389cb55db0ad3c2",
+          "sha256": "e40ab19fe090c620abf15a924dd926448672afe853315b3482881d7b4ce223b8",
           "storyId": "core-kanban--kanban-pattern-7"
         },
         {
@@ -2493,7 +2493,7 @@
           "title": "Renewals risk",
           "description": "Renewals risk",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-8.jsx",
-          "sha256": "836389ab034d9e1b5ee8e3fce90138227f0ced8bf718e53080f02de7dfb0aafa",
+          "sha256": "2ad49a3a6a32e417f673a40b36587188af761eb6970ef9d326be6ec835fbe1b8",
           "storyId": "core-kanban--kanban-pattern-8"
         },
         {
@@ -2501,7 +2501,7 @@
           "title": "Release readiness",
           "description": "Release readiness",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-9.jsx",
-          "sha256": "aa075c8f5b3c008cb4345810022b8e25c409449b0cf10a7e4d39434708463a84",
+          "sha256": "75fef945a96b7cf3590575ee48b207c1be0ab8e1e1c7c533d28399e64b880c7f",
           "storyId": "core-kanban--kanban-pattern-9"
         },
         {
@@ -2509,7 +2509,7 @@
           "title": "Recruiting pipeline",
           "description": "Recruiting pipeline",
           "file": ".storybook/fixtures/patterns/kanban/c-kanban-10.jsx",
-          "sha256": "11dc2699bd5da0136a4fc40e450d3d6c3f16f32f9ed8738edc4dace50962a728",
+          "sha256": "dd1b965485963ff8d74afad46914cdafb8dc60ab72d9758fa7ebad55db31858c",
           "storyId": "core-kanban--kanban-pattern-10"
         }
       ]
@@ -2627,7 +2627,7 @@
           "title": "Team conversation",
           "description": "Team conversation",
           "file": ".storybook/fixtures/patterns/message/c-message-2.jsx",
-          "sha256": "36f67d95782800240514980b60e0ed3b82141b93efa729525f4762128cfe3422",
+          "sha256": "73a5a070a552fa8fd8fa55582a0957e216602cc0064f9c4f94239d85d35febe0",
           "storyId": "chat-message--message-pattern-2"
         },
         {
@@ -2648,7 +2648,7 @@
           "title": "Streaming reply that follows the edge",
           "description": "Streaming reply that follows the edge",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-2.jsx",
-          "sha256": "c69d84e4f860f097110723ee24e079ebf99347711d84b27bde250ef489af8cc7",
+          "sha256": "1da4f5ceb2aca196cf6cae0b7db5a7b20760b44f749ccc5c40ee84a64f66c46c",
           "storyId": "chat-messagelist--message-scroller-pattern-2"
         },
         {
@@ -2656,7 +2656,7 @@
           "title": "Anchored turn with a previous peek",
           "description": "Anchored turn with a previous peek",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-3.jsx",
-          "sha256": "474badf4a43cfbc8433fd2ef466c969663886950a621c5d28bc3d777422bf16b",
+          "sha256": "22ae3f007bda5011879ceda45bde0a520f5f8b4c4a6a07006369276334a7aa5a",
           "storyId": "chat-messagelist--message-scroller-pattern-3"
         },
         {
@@ -2672,7 +2672,7 @@
           "title": "Load earlier without losing your place",
           "description": "Load earlier without losing your place",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-5.jsx",
-          "sha256": "001fbd41ca7782b03a6ea0d9678d7c22c1fb63b6162fafb9b1d14833c840328f",
+          "sha256": "11b782c4107ac8ba5430d81076a191dd6ad028a01be6205a1bf7ef2b055f9822",
           "storyId": "chat-messagelist--message-scroller-pattern-5"
         },
         {
@@ -2680,7 +2680,7 @@
           "title": "Thread navigator for stepping turns",
           "description": "Thread navigator for stepping turns",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-6.jsx",
-          "sha256": "ae30ec983940f43d6b75cb80e311e7d7f83175a5a1f11dc98c50cfe65f73e213",
+          "sha256": "7bb4a6e86634582bbfbbfa265c36c51f942455bc1c12e38414c47dbf41e733c2",
           "storyId": "chat-messagelist--message-scroller-pattern-6"
         },
         {
@@ -2688,7 +2688,7 @@
           "title": "Streamed reply: drafting a post",
           "description": "Streamed reply: drafting a post",
           "file": ".storybook/fixtures/patterns/message-scroller/c-message-scroller-7.jsx",
-          "sha256": "9b29f5190684119f8745d71a229d3e45d3db9ee493c176312137e73c687aa184",
+          "sha256": "43f015869e4f59bca593daaf2120f49977708b36570b7131cbed80921bddf181",
           "storyId": "chat-messagelist--message-scroller-pattern-7"
         }
       ]
@@ -2830,7 +2830,7 @@
           "title": "Rich content",
           "description": "Rich content",
           "file": ".storybook/fixtures/patterns/popover/c-popover-6.jsx",
-          "sha256": "4bd6619c357ff8ff632222e68745aabd7d1e680cbe9f50bbc9c14c725ea6124f",
+          "sha256": "27d4779e720f6b51dfdc44c9faf23186709f0b84bddb1431c0f374f29116b221",
           "storyId": "core-popover--popover-pattern-6"
         },
         {
@@ -2888,7 +2888,7 @@
           "title": "Mentions, commands and attachments",
           "description": "Mentions, commands and attachments",
           "file": ".storybook/fixtures/patterns/prompt-composer/c-prompt-composer-1.jsx",
-          "sha256": "e3c526d7c433f448bcc5d048ed8f70f42ae9bcd0743175b86b09813be45389ec",
+          "sha256": "70702f7445bf5715c3d3d0a55aa9fde53a0de63dfca0d376da9ef9c875a39f29",
           "storyId": "chat-chatinput--prompt-composer-pattern-1"
         },
         {
@@ -2941,7 +2941,7 @@
           "title": "Conditional branch",
           "description": "Conditional branch",
           "file": ".storybook/fixtures/patterns/questionnaire/c-questionnaire-7.jsx",
-          "sha256": "3c3981d624927e36c7d8e7fa60bf92e28ebde4ab0c89ebddd57f4a6d92a57989",
+          "sha256": "892602e4ff3756f789dbb94707ea8ab5d53c2a61d636a0fd6dd7047b533c15b2",
           "storyId": "core-questionnaire--questionnaire-pattern-7"
         }
       ]
@@ -3012,7 +3012,7 @@
           "title": "Row cards",
           "description": "Row cards",
           "file": ".storybook/fixtures/patterns/radio-group/c-radio-group-17.jsx",
-          "sha256": "5527034e589baaa9b50bf104519c6048c7e307c616c7396a22287dce8b9bacff",
+          "sha256": "6f4437c357d5a052be45c62a2345decbc4e12ae64923d2a8fa15682026daa82a",
           "storyId": "core-radiogroup--radio-group-pattern-17"
         }
       ]
@@ -3122,7 +3122,7 @@
           "title": "Day agenda",
           "description": "Day agenda",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-1.jsx",
-          "sha256": "db8e9a82ea470d0793be6e0b6838996837bebfec17a299fb8c5a81cb94cc8b48",
+          "sha256": "36ac018c61fb9853068f12457e233a38e2e980eef581874d68835f44e5734a53",
           "storyId": "blocks-scheduling--scheduling-pattern-1"
         },
         {
@@ -3130,7 +3130,7 @@
           "title": "Month at a glance",
           "description": "Month at a glance",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-2.jsx",
-          "sha256": "9922372eee2c38336d5181f986fdeb53d82a1f432ff65ee3e1221513b69b9508",
+          "sha256": "7dd18a9010df9e8d3cfc1c79a745c15dfc05bbf20eb48971d344b17b500820ca",
           "storyId": "blocks-scheduling--scheduling-pattern-2"
         },
         {
@@ -3138,7 +3138,7 @@
           "title": "Book a meeting",
           "description": "Book a meeting",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-3.jsx",
-          "sha256": "ba53b06535ddad618a0465c8a21943e9396a386ef6fd8b9a334a8767b05aa6c9",
+          "sha256": "602488ab4849b6592512d1688a1fe4e7e7285e7ccc3e78f8599c528f101e78e9",
           "storyId": "blocks-scheduling--scheduling-pattern-3"
         },
         {
@@ -3162,7 +3162,7 @@
           "title": "Webinar details and RSVP",
           "description": "Webinar details and RSVP",
           "file": ".storybook/fixtures/patterns/scheduling/c-scheduling-6.jsx",
-          "sha256": "920dbfeecd74b5e5fe1eb74d446e203c6f4664aa9aab8aecdd1d38a2b3320e1f",
+          "sha256": "08a67dafc065ece19da77171167dc9651788bdee9c0b822c85e6302cdce606cb",
           "storyId": "blocks-scheduling--scheduling-pattern-6"
         },
         {
@@ -3183,7 +3183,7 @@
           "title": "Account settings",
           "description": "Account settings",
           "file": ".storybook/fixtures/patterns/screens/c-screens-1.jsx",
-          "sha256": "a47717d49315288d686d8d02d979c7acfd4d90cf4c0471ece0109bd3012ccc03",
+          "sha256": "d01b9fddf5c936a9fbd7b8584810951d0eaf6dcbbd113bd32e8908712fb5fbf2",
           "storyId": "blocks-profile--screens-pattern-1"
         },
         {
@@ -3191,7 +3191,7 @@
           "title": "Organisation tabs",
           "description": "Organisation tabs",
           "file": ".storybook/fixtures/patterns/screens/c-screens-2.jsx",
-          "sha256": "aecbfdd8eb9d8fe37f479c41b8273ef868b35949ca55cfbb4716a7ef2f9a6540",
+          "sha256": "c477595366c2c159e9233efdc233da0613dd2bf01d91762fd66bd8d000bec93b",
           "storyId": "blocks-profile--screens-pattern-2"
         },
         {
@@ -3207,7 +3207,7 @@
           "title": "Referral rewards",
           "description": "Referral rewards",
           "file": ".storybook/fixtures/patterns/screens/c-screens-4.jsx",
-          "sha256": "51d15b00902be163a5b47e03e1cabfcfa35cf42a8e53bf1d9a94eedf13bb3deb",
+          "sha256": "060feed6ac248044890a99d1b4b3b08c53248d7e67c87cc5f8b4ab57bfc4947e",
           "storyId": "blocks-profile--screens-pattern-4"
         },
         {
@@ -3223,7 +3223,7 @@
           "title": "Preferences",
           "description": "Preferences",
           "file": ".storybook/fixtures/patterns/screens/c-screens-6.jsx",
-          "sha256": "35b8f94dc4657b478cc8e92d146ec06560c006bfd885a369be6c4a74d7383a8d",
+          "sha256": "c1515d7d6a6a05f3f63de7471d9e1c039329b7aaf163cd9d079c45c1dfb459bb",
           "storyId": "blocks-settings--screens-pattern-6"
         },
         {
@@ -3343,7 +3343,7 @@
           "title": "Split with testimonials",
           "description": "Split with testimonials",
           "file": ".storybook/fixtures/patterns/screens/c-screens-21.jsx",
-          "sha256": "8d2be5c2865c85d79686057bd98c281bf7b2231cff9fd444c577077bd5ac8399",
+          "sha256": "52bc675f5be7d38f14e600fc730c8d1c6f8ca1122732f0e9e2a645e8582d6a7b",
           "storyId": "blocks-application-authform--screens-pattern-21"
         },
         {
@@ -3351,7 +3351,7 @@
           "title": "Magic link with logos",
           "description": "Magic link with logos",
           "file": ".storybook/fixtures/patterns/screens/c-screens-22.jsx",
-          "sha256": "506fbdfd70df2bfe2ce5a2c8846dcd2a6bd8bda327d11391b817792295cda651",
+          "sha256": "7c08831c276d5038a93687b9ec3040d870c5799366a0e37c12a56892b7bdd4b6",
           "storyId": "blocks-application-authform--screens-pattern-22"
         },
         {
@@ -3454,7 +3454,7 @@
           "title": "Rich option content",
           "description": "Rich option content",
           "file": ".storybook/fixtures/patterns/select/c-select-18.jsx",
-          "sha256": "28a04c8cb7a3f74917216a23fd8ea503e4a225bfddfdb5acad3c0bae870cd9e2",
+          "sha256": "ae141343eaef261a85f307c329506e8da074404e3bf6fb55988cf6658ddcc8ba",
           "storyId": "core-select--select-pattern-18"
         },
         {
@@ -3528,7 +3528,7 @@
           "title": "Notifications",
           "description": "Notifications",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-4.jsx",
-          "sha256": "1708a169e865a8de6ee5b23ed0098b902af578b1a7b15a247cbab0d8afa061d0",
+          "sha256": "dd94ded28bcad618bffbecbff0e8058b49da2e1db9f009de9084973d025d975c",
           "storyId": "core-sheet--sheet-pattern-4"
         },
         {
@@ -3560,7 +3560,7 @@
           "title": "Comments",
           "description": "Comments",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-8.jsx",
-          "sha256": "b1acd8ec514d9f56bd28780c4bfa55f36997c9a10488cc553c1340b230b10a85",
+          "sha256": "f2c5a01498020fdd37b468991e7af93da788f751c21b7774f02a62e80d440982",
           "storyId": "core-sheet--sheet-pattern-8"
         },
         {
@@ -3568,7 +3568,7 @@
           "title": "Record details",
           "description": "Record details",
           "file": ".storybook/fixtures/patterns/sheet/c-sheet-9.jsx",
-          "sha256": "a2fd2ac3a373cc5777734e17affc11fbec9e4977e3af62954e99ec7928c23d90",
+          "sha256": "714948e9c9ea6350e181a88c0aa417e3dd72369f00a5496f87e4be13c7683fb9",
           "storyId": "core-sheet--sheet-pattern-9"
         }
       ]
@@ -3581,7 +3581,7 @@
           "title": "Workspace switcher",
           "description": "Workspace switcher",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-1.jsx",
-          "sha256": "be97c3732806777d6f8d1c1ce62ade5768d1dbfa280a64c7b8070f486ae11bdb",
+          "sha256": "3245fe33a5010d71a8b77d6fbc3138e31ae73c50817f7610dcee379cd0cc89c4",
           "storyId": "blocks-application-appshell--sidebar-pattern-1"
         },
         {
@@ -3589,7 +3589,7 @@
           "title": "Collapsible icon rail",
           "description": "Collapsible icon rail",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-2.jsx",
-          "sha256": "ba22071faf6ab2307f9751749d0ec8cfb1b28ccaed92c5cfd27bfc586572213c",
+          "sha256": "ff543c4d3717e381898d5be1d5e8dfef29b1dbfe2e17c71a979c055b57e9fe03",
           "storyId": "blocks-application-appshell--sidebar-pattern-2"
         },
         {
@@ -3605,7 +3605,7 @@
           "title": "Right-hand inspector",
           "description": "Right-hand inspector",
           "file": ".storybook/fixtures/patterns/sidebar/c-sidebar-4.jsx",
-          "sha256": "360155b1211f0ba1806a7c9f997b1c80380e9bd9a5903b0c539011a86b93c946",
+          "sha256": "984f51e3ade986e519f87ba026789cb37f994756de04dd2ba68a6cab182ac41e",
           "storyId": "blocks-application-appshell--sidebar-pattern-4"
         },
         {
@@ -3740,7 +3740,7 @@
           "title": "Custom content",
           "description": "Custom content",
           "file": ".storybook/fixtures/patterns/sonner/c-sonner-9.jsx",
-          "sha256": "6ee857f7eeedfb418af0a38a6aa2e8156017d884483dfbff3848b9e9b21d1cf2",
+          "sha256": "304399ce52fdf3c9bd412af3b21c15a047eab99ad9468d2c3760487d2e3cee66",
           "storyId": "core-toast--sonner-pattern-9"
         }
       ]
@@ -3893,7 +3893,7 @@
           "title": "Team performance",
           "description": "Team performance",
           "file": ".storybook/fixtures/patterns/stat-cards/c-stat-cards-7.jsx",
-          "sha256": "3ad441f0e680557c3a71b99e5ed2aa0b7edb76a9c8c62afa2626be03208fdfa2",
+          "sha256": "f45ee92866a152833415fe9fc3ad4718ec8016dc7ef39af05b921ab880eb3472",
           "storyId": "blocks-stat-cards--stat-cards-pattern-7"
         },
         {
@@ -4028,7 +4028,7 @@
           "title": "Records with avatars, status and actions",
           "description": "Records with avatars, status and actions",
           "file": ".storybook/fixtures/patterns/table/c-table-7.jsx",
-          "sha256": "41596c46e5d554b2854b45098170048b5ee96dc25f69269e74077810c5ea4dc5",
+          "sha256": "662052ca88351a052ad5e543a783a4233b26cbf96f30fa66c4493b7cb1c78502",
           "storyId": "mdx-table--table-pattern-7"
         },
         {
@@ -4036,7 +4036,7 @@
           "title": "Projects with team avatars",
           "description": "Projects with team avatars",
           "file": ".storybook/fixtures/patterns/table/c-table-8.jsx",
-          "sha256": "662580593cecb9ed4607fa97389018b65429d51f8bf00281b712095da6f0f081",
+          "sha256": "b72ec2c18f339f6ae8a482c4ba0f06727a0095176ab01e04b6e0b6860306026a",
           "storyId": "mdx-table--table-pattern-8"
         },
         {
@@ -4052,7 +4052,7 @@
           "title": "Leaderboard",
           "description": "Leaderboard",
           "file": ".storybook/fixtures/patterns/table/c-table-15.jsx",
-          "sha256": "79b6d716a3655669342289a32941e3b9d2510a48447739b7f775fa447f85ed53",
+          "sha256": "99e8cffac1d059a07299175a55cd114e1b4885c0291ecb79c215a8e39908f64f",
           "storyId": "mdx-table--table-pattern-15"
         },
         {
@@ -4139,7 +4139,7 @@
           "title": "Pipeline steps",
           "description": "Pipeline steps",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-6.jsx",
-          "sha256": "11e2096397a02f00d6b7ad33bb91064a0a166595e9436c8774bc8aaa36778cc2",
+          "sha256": "5d60b542c153b7ad6a5597fd30589edf7c42668c7b2da75e7a90c3d038bf427d",
           "storyId": "core-timeline--timeline-pattern-6"
         },
         {
@@ -4147,7 +4147,7 @@
           "title": "Activity stream",
           "description": "Activity stream",
           "file": ".storybook/fixtures/patterns/timeline/c-timeline-11.jsx",
-          "sha256": "3c3fe0eb8fb84be624e8729dcda9d61f753b60b7bd54da36856bc0e75b083b18",
+          "sha256": "83d8a34ffe90ed39d8b8d1cc6861d54434f55793d565326577b48a698bbe3084",
           "storyId": "core-timeline--timeline-pattern-11"
         },
         {
@@ -4258,7 +4258,7 @@
           "title": "People",
           "description": "People",
           "file": ".storybook/fixtures/patterns/tooltip/c-tooltip-11.jsx",
-          "sha256": "45095ee7ab2bbe8def594918c7742cd242380c485314354b554c822cb07b3898",
+          "sha256": "de289fb89fc3832a0b6409ee0399cc07a0dc577ae75d34f4ed93fc1b49ee78ae",
           "storyId": "core-tooltip--tooltip-pattern-11"
         },
         {
@@ -4287,7 +4287,7 @@
           "title": "Organization chart",
           "description": "Organization chart",
           "file": ".storybook/fixtures/patterns/tree/c-tree-6.jsx",
-          "sha256": "189744bf2b287ec2145af0f4da80c4e66dcf3def6d1b1e2f458fe6455246d2eb",
+          "sha256": "c14f76eca1b0f4389b6ba183f4590aeb41368d2040a0de534bff27ee5719f4c0",
           "storyId": "core-tree--tree-pattern-6"
         },
         {
@@ -4342,7 +4342,7 @@
           "title": "Project · Delivery timesheet",
           "description": "Project · Delivery timesheet",
           "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-2.jsx",
-          "sha256": "9dbc9e83e924439a44a486c946120aee4ba8e91e52144303c63863dfed76ba9a",
+          "sha256": "b157d722bc14d428b3176e36a994d51ef311ca165281f29fae0965a285c77cc1",
           "storyId": "blocks-dashboard--dashboard-pattern-2"
         },
         {
@@ -4366,7 +4366,7 @@
           "title": "Field teams · Coverage",
           "description": "Field teams · Coverage",
           "file": ".storybook/fixtures/patterns/dashboard/c-dashboard-5.jsx",
-          "sha256": "5c76c535335e4304d75a0aca333309aeab230294ecad5aa7cc4ad0adfb74b3ef",
+          "sha256": "a6323619b25accb2f1c2e385aaf6324cd3e85cf8fd79ee93697b1188d45719e6",
           "storyId": "blocks-dashboard--dashboard-pattern-5"
         },
         {
@@ -4403,7 +4403,7 @@
           "title": "Icon rail · workspace switcher, nested nav and user menu",
           "description": "Icon rail · workspace switcher, nested nav and user menu",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-1.jsx",
-          "sha256": "3cdbd39e198d8abfc9761eadc6e105b42da6881c06bf85e6a6197ffe1d4ff4c9",
+          "sha256": "f2e3e4174f8b070e56f67f1316dde788a1d222396499992213a696d9326cf9e7",
           "storyId": "blocks-application-appshell--app-shell-pattern-1"
         },
         {
@@ -4411,7 +4411,7 @@
           "title": "Floating sidebar · ⌘K search, nested nav and organization switcher",
           "description": "Floating sidebar · ⌘K search, nested nav and organization switcher",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-2.jsx",
-          "sha256": "6596b6e51b5fd8b5f7e1ab5afb5b7d05dbf34be975ec0e3baf054cfa0a7cf016",
+          "sha256": "2ed8c9b9d9c5791661f86c5ee438d952c3a74c3d1c4e315277c8af58128a629e",
           "storyId": "blocks-application-appshell--app-shell-pattern-2"
         },
         {
@@ -4419,7 +4419,7 @@
           "title": "Inset sidebar · project progress rings and a notifications popover",
           "description": "Inset sidebar · project progress rings and a notifications popover",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-3.jsx",
-          "sha256": "07abb4526c4dd903985229682ba08d43caf1ae0c888cd968425ebc3cd98dd29d",
+          "sha256": "505f7cf0298a2dd4242ba0f3c24d7fe053b4c8653c74eb72dc45bac24093556c",
           "storyId": "blocks-application-appshell--app-shell-pattern-3"
         },
         {
@@ -4427,7 +4427,7 @@
           "title": "Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel",
           "description": "Dual sidebar · dark app rail, mail inbox and a slide-in calendar panel",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-4.jsx",
-          "sha256": "78b000fc984717ead62f2c2227fa0a20da83ece9458196ee9a747576a0a798aa",
+          "sha256": "dc2e6245583c653c81cb6b06c273ebc52b02c11bd6b6a578e91ed5d69421007c",
           "storyId": "blocks-application-appshell--app-shell-pattern-4"
         },
         {
@@ -4435,7 +4435,7 @@
           "title": "Inset icon rail · per-section navigation, org, app and environment switchers",
           "description": "Inset icon rail · per-section navigation, org, app and environment switchers",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-5.jsx",
-          "sha256": "b50cf465885ec5819c8ea69fd6616ce9d29fe7ca1866c7cbf582df47daf294b1",
+          "sha256": "03101cad9a4e20578cff667af5527a1a2d2856f654526390d3fed7fae01f4654",
           "storyId": "blocks-application-appshell--app-shell-pattern-5"
         },
         {
@@ -4443,7 +4443,7 @@
           "title": "Mini icon rail · per-section navigation and a tabbed workspace toolbar",
           "description": "Mini icon rail · per-section navigation and a tabbed workspace toolbar",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-6.jsx",
-          "sha256": "a8ce2ffabc68ed016eaf2269777360bf427884f93417f15caa83446cc2768bd2",
+          "sha256": "2d58d263439d23715e37c17c2d54df29876601aba9477017329e256ef97eeeeb",
           "storyId": "blocks-application-appshell--app-shell-pattern-6"
         },
         {
@@ -4451,7 +4451,7 @@
           "title": "Floating sidebar · AI chat with a model picker grid and prompt composer",
           "description": "Floating sidebar · AI chat with a model picker grid and prompt composer",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-7.jsx",
-          "sha256": "7e585a933b99c589d5f1c464730d99de28320e5af83361142b1d8db1061561d5",
+          "sha256": "387d1c7183a0a0ac49ebbb072fddf57c25a2de5cbb04d2081fa79bb5bb291261",
           "storyId": "blocks-application-appshell--app-shell-pattern-7"
         },
         {
@@ -4459,7 +4459,7 @@
           "title": "Mail client · folder sidebar, split list and reading panes, and an app rail",
           "description": "Mail client · folder sidebar, split list and reading panes, and an app rail",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-8.jsx",
-          "sha256": "0be2c13c7ac2b1283644cefa2126c4468f454f1acf2690b230b5d4ce64a36ecb",
+          "sha256": "e37a177cf558e0486f994d9baad84b21eaf3c8f350f7dc65662d69d3e279c234",
           "storyId": "blocks-application-appshell--app-shell-pattern-8"
         },
         {
@@ -4467,7 +4467,7 @@
           "title": "Resizable sidebar · AI chat threads, icon rail and header model picker",
           "description": "Resizable sidebar · AI chat threads, icon rail and header model picker",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-9.jsx",
-          "sha256": "2ae688e8cc73939fe807fcee42f05720b5c90edd3ffb957cb65fbec0f1b284a5",
+          "sha256": "b40b2c823af2b7e7fe3a7d1217340b4d953b23678f2cdfba2f426eaa4d1e5d76",
           "storyId": "blocks-application-appshell--app-shell-pattern-9"
         },
         {
@@ -4475,7 +4475,7 @@
           "title": "Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu",
           "description": "Topbar switchers · team and project switchers, indented route groups and a 3 × 3 apps menu",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-10.jsx",
-          "sha256": "753e211c2277957930631aaee8b96f5fefabe3600141ac74af48bf648c207848",
+          "sha256": "85ff5bf134d6a1117f49d19321c06fea9caf0891397879cebe1699da849e2806",
           "storyId": "blocks-application-appshell--app-shell-pattern-10"
         },
         {
@@ -4483,7 +4483,7 @@
           "title": "Topbar pills · section pills, route search palette and an inset notifications sheet",
           "description": "Topbar pills · section pills, route search palette and an inset notifications sheet",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-11.jsx",
-          "sha256": "56dcc28a12175ada0da129854633efbac98899b798fbfa2d55480f0f3ffbf3a1",
+          "sha256": "b8aa65e5a5b5f8d338dfb84e289f227f41c7656dcc4dedbb882e6a79215bbc46",
           "storyId": "blocks-application-appshell--app-shell-pattern-11"
         },
         {
@@ -4491,7 +4491,7 @@
           "title": "Mission control · icon rail, 4-tab missions panel and expandable robot event feeds",
           "description": "Mission control · icon rail, 4-tab missions panel and expandable robot event feeds",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-12.jsx",
-          "sha256": "db08c1c91f8afbb41f9f132f8fa584710384c44bbe06b1236e644f57a7acee80",
+          "sha256": "fea99f8191b6350e7b6c85c5d58193affb33bce004d2cef9e402c457370a10fc",
           "storyId": "blocks-application-appshell--app-shell-pattern-12"
         },
         {
@@ -4499,7 +4499,7 @@
           "title": "Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree",
           "description": "Section tile rail · 3 × 3 section tiles, workspace tabs and a status-badged robot network tree",
           "file": ".storybook/fixtures/patterns/app-shell/c-app-shell-13.jsx",
-          "sha256": "bba61d155e4d554908233543b654b22a6181a315bf0f0f55ef3acaeac4d94ddc",
+          "sha256": "3ce0d9dd1f853ffc0dc87038be9d7d094ed143f8546119c41d1d2f4d8c611a54",
           "storyId": "blocks-application-appshell--app-shell-pattern-13"
         }
       ]

@@ -39,8 +39,4 @@ All browser APIs (SpeechRecognition, MediaRecorder, getUserMedia, enumerateDevic
 
 ## Accessibility
 
-SpeechInput is a real button with `aria-pressed` while listening; Escape stops it; a polite status announces listening, transcribing and stopped, and a disabled button explains why through `aria-describedby`. MicSelector names its select, explains a blocked permission with a retry, and only opens the microphone for an explicit test. VoiceSelector is a fieldset of native radios (arrow keys move the choice) with separate, named sample buttons. AudioPlayer’s scrubber is a slider that reads time (“0:12 of 0:45”) and moves with the arrow keys, Page Up / Page Down, Home and End. Motion (the level ring, the meter, spinners) is not the only signal, and calms down for reduced motion.
-
-## Attribution
-
-The APIs adapt the SpeechInput, MicSelector, VoiceSelector and AudioPlayer components of [AI SDK Elements](https://elements.ai-sdk.dev/components/speech-input) (Vercel, Apache-2.0) to Gaudi components, tokens and icons. No source was copied; the voice list is example data.
+SpeechInput is a real button with `aria-pressed` while listening; Escape stops it; a polite status announces listening, transcribing and stopped, and a disabled button explains why through `aria-describedby`. MicSelector names its select, explains a blocked permission with a retry, and only opens the microphone for an explicit test. VoiceSelector is a fieldset of Core RadioGroup controls (arrow keys move the choice) with separate, named sample buttons. AudioPlayer’s scrubber is a slider that reads time (“0:12 of 0:45”) and moves with the arrow keys, Page Up / Page Down, Home and End. Motion (the level ring, the meter, spinners) is not the only signal, and calms down for reduced motion.

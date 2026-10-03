@@ -14,8 +14,8 @@ import {
 } from '../../../../src/components/core/Field/parts/field.jsx';
 
 const people = [
-  { name: 'Emma Wilson', handle: '@emmawilson', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', initials: 'EW', checked: true },
-  { name: 'David Kim', handle: '@davidkim', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', initials: 'DK', checked: false }
+  { name: 'Emma Wilson', handle: '@emmawilson', avatar: '/avatars/women/44.jpg', initials: 'EW', checked: true },
+  { name: 'David Kim', handle: '@davidkim', avatar: '/avatars/men/32.jpg', initials: 'DK', checked: false }
 ];
 
 export function Pattern() {

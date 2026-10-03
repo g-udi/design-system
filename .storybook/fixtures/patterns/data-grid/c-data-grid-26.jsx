@@ -31,7 +31,7 @@ import {
   ToggleGroupItem
 } from '../../../../src/components/core/ToggleGroup/parts/toggle-group.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const authors = {
   maya: { name: 'Maya Chen', avatar: portrait('women/44') },
   sam: { name: 'Sam Rivera', avatar: portrait('men/11') },

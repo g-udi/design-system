@@ -7,10 +7,12 @@ import Video, { videoAnimationStyles } from './Video';
 import { aurora } from '../../../../.storybook/fixtures/site/artwork';
 
 const docs = getComponentDocs('MDX/Video');
-const videoSrc = 'https://www.youtube.com/embed/qh3NGpYRG3I';
+// A local stand-in player page, so the story never loads a third-party embed. In an article this is
+// usually a YouTube link, which Video converts to its embed URL.
+const videoSrc = '/static/media/video-player.html';
 const thumbnailAlt = 'Video preview';
 // The second card has no thumbnail, so it shows the labelled fallback, and starts partway into the recording.
-const followUp = { videoSrc: 'https://www.youtube.com/embed/qh3NGpYRG3I?start=90', title: 'Chapter 2', thumbnailAlt: 'Chapter 2 preview', meta: 'Starts at 1:30' };
+const followUp = { videoSrc: '/static/media/video-player.html?start=90', title: 'Chapter 2', thumbnailAlt: 'Chapter 2 preview', meta: 'Starts at 1:30' };
 
 export default {
   title: 'MDX/Video',

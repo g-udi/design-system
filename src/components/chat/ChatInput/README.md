@@ -59,7 +59,3 @@ import { ChatContextMeter, ChatModelSelect, PromptAttachMenu, PromptComposer, Pr
 The prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.
 
 The model trigger names the current model. The searchable list is a dialog with a labelled search combobox; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.
-
-## Attribution
-
-The model selector, prompt toolbar and context meter adapt ideas from [AI SDK Elements](https://elements.ai-sdk.dev) (Model Selector, Prompt Input, Context; Apache-2.0, Vercel) to Gaudi's parts, tokens and icons.

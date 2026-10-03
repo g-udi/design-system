@@ -188,7 +188,7 @@ test('AppShellNav renders people, bare counts, a hover quick action and a group 
   const { AppShellNav, SidebarProvider, SidebarGroupAction } = await loadComponent(new URL('./index.js', import.meta.url));
   const items = [
     { id: 'inbox', label: 'Inbox', icon: 'Inbox', badge: { label: 3, variant: 'plain' } },
-    { id: 'me', label: 'Nina Park', suffix: '(You)', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', presence: 'success' }
+    { id: 'me', label: 'Nina Park', suffix: '(You)', avatar: '/avatars/women/44.jpg', presence: 'success' }
   ];
   const html = renderToStaticMarkup(
     h(SidebarProvider, { shortcut: false },

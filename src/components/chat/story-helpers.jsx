@@ -23,6 +23,6 @@ export function chatMeta(owner, { component, controls = {}, primary, wide = fals
 
 export const gaudiAgent = { name: 'Gaudi', role: 'Writing assistant' };
 export const people = {
-  sarah: { name: 'Sarah Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  omar: { name: 'Omar Haddad', src: 'https://randomuser.me/api/portraits/men/32.jpg' }
+  sarah: { name: 'Sarah Chen', src: '/avatars/women/44.jpg' },
+  omar: { name: 'Omar Haddad', src: '/avatars/men/32.jpg' }
 };

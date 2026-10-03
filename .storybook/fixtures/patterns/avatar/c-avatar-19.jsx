@@ -5,7 +5,7 @@ import {
 } from '../../../../src/components/core/Avatar/parts/avatar.jsx';
 import { default as Button } from '../../../../src/components/core/Button/index.js';
 
-const person = { src: 'https://randomuser.me/api/portraits/men/32.jpg', handle: '@alexjohnson', initials: 'AJ' };
+const person = { src: '/avatars/men/32.jpg', handle: '@alexjohnson', initials: 'AJ' };
 
 const Face = ({ className }) => (
   <Avatar className={className}>

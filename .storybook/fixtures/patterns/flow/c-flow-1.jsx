@@ -46,9 +46,9 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
 const people = {
-  maya: { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  sam: { name: 'Sam Rivera', src: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  alex: { name: 'Alex Morgan', src: 'https://randomuser.me/api/portraits/women/68.jpg' }
+  maya: { name: 'Maya Chen', src: '/avatars/women/44.jpg' },
+  sam: { name: 'Sam Rivera', src: '/avatars/men/32.jpg' },
+  alex: { name: 'Alex Morgan', src: '/avatars/women/68.jpg' }
 };
 const step = (id, x, y, data) => ({ id, type: 'step', position: { x, y }, data });
 // Hand-placed positions keep the reading order a person chose; nothing re-lays them out.

@@ -22,9 +22,9 @@ import {
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;
 const team = [
-  { name: 'Alex Johnson', src: 'https://randomuser.me/api/portraits/men/32.jpg', fallback: 'AJ' },
-  { name: 'Sarah Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg', fallback: 'SC' },
-  { name: 'Emma Wilson', src: 'https://randomuser.me/api/portraits/women/68.jpg', fallback: 'EW' }
+  { name: 'Alex Johnson', src: '/avatars/men/32.jpg', fallback: 'AJ' },
+  { name: 'Sarah Chen', src: '/avatars/women/44.jpg', fallback: 'SC' },
+  { name: 'Emma Wilson', src: '/avatars/women/68.jpg', fallback: 'EW' }
 ];
 const branches = ['main', 'develop', 'feature/auth'];
 export function Pattern() {

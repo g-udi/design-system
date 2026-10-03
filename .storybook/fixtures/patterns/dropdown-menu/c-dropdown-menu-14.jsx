@@ -32,7 +32,7 @@ const user = {
   name: 'Alex Johnson',
   email: 'alex@example.com',
   initials: 'AJ',
-  avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
+  avatar: '/avatars/men/32.jpg'
 };
 const createItems = [
   { label: 'New customer', icon: 'UserPlusIcon' },

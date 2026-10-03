@@ -20,7 +20,7 @@ export function Pattern() {
         {accounts.map(({ size, variant }) => (
           <Button key={`${size}-${variant}`} size={size} variant={variant}>
             <Avatar className='size-5'>
-              <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+              <AvatarImage src='/avatars/men/32.jpg' alt='' />
               <AvatarFallback>AJ</AvatarFallback>
             </Avatar>
             @alexjohnson

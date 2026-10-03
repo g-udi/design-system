@@ -24,11 +24,11 @@ import { ToggleGroup, ToggleGroupItem } from '../../../../src/components/core/To
 import { FormErrorSummary, useFormValidation, validators } from '../../../../src/components/blocks/Forms/Forms.jsx';
 
 const team = {
-  'Maya Chen': 'https://randomuser.me/api/portraits/women/44.jpg',
-  'Sam Rivera': 'https://randomuser.me/api/portraits/men/32.jpg',
-  'Alex Morgan': 'https://randomuser.me/api/portraits/women/68.jpg',
-  'Omar Haddad': 'https://randomuser.me/api/portraits/men/75.jpg',
-  'Priya Nair': 'https://randomuser.me/api/portraits/women/12.jpg'
+  'Maya Chen': '/avatars/women/44.jpg',
+  'Sam Rivera': '/avatars/men/32.jpg',
+  'Alex Morgan': '/avatars/women/68.jpg',
+  'Omar Haddad': '/avatars/men/75.jpg',
+  'Priya Nair': '/avatars/women/12.jpg'
 };
 const goals = ['Migrate existing content', 'Launch a newsletter', 'Set up paid memberships', 'Connect analytics'];
 const rules = {

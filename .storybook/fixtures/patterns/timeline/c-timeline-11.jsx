@@ -39,7 +39,7 @@ import { Progress } from '../../../../src/components/core/Progress/parts/progres
 import { Rating } from '../../../../src/components/core/Rating/parts/rating-extended.jsx';
 import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 
-const portrait = (path) => `https://randomuser.me/api/portraits/${path}.jpg`;
+const portrait = (path) => `/avatars/${path}.jpg`;
 const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 const people = {
   sarah: { name: 'Sarah Chen', avatar: portrait('women/44') },

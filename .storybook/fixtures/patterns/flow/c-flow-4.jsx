@@ -20,9 +20,9 @@ import { RegistryIcon } from '../../../../src/icons/RegistryIcon.jsx';
 const toasterId = 'flow-impact';
 const periods = { week: 'This week', month: 'This month', quarter: 'This quarter' };
 const people = {
-  maya: { name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  sam: { name: 'Sam Rivera', src: 'https://randomuser.me/api/portraits/men/32.jpg' },
-  priya: { name: 'Priya Patel', src: 'https://randomuser.me/api/portraits/women/65.jpg' }
+  maya: { name: 'Maya Chen', src: '/avatars/women/44.jpg' },
+  sam: { name: 'Sam Rivera', src: '/avatars/men/32.jpg' },
+  priya: { name: 'Priya Patel', src: '/avatars/women/65.jpg' }
 };
 // Metrics carry a value and change per period; [value, change, improving].
 const metrics = {

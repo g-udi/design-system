@@ -9,8 +9,8 @@ import Screen, { ScreenTestimonial } from './Screen';
 
 const docs = getComponentDocs('Blocks/Screens');
 const quotes = [
-  { quote: 'We moved four newsletters into one workspace in an afternoon.', name: 'Maya Lopez', role: 'Editor in chief, Field Notes', avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-  { quote: 'Reviews happen in the margin now, and the history stays with the post.', name: 'Daniel Okafor', role: 'Founder, The Long Read', avatar: 'https://randomuser.me/api/portraits/men/32.jpg' }
+  { quote: 'We moved four newsletters into one workspace in an afternoon.', name: 'Maya Lopez', role: 'Editor in chief, Field Notes', avatar: '/avatars/women/44.jpg' },
+  { quote: 'Reviews happen in the margin now, and the history stays with the post.', name: 'Daniel Okafor', role: 'Founder, The Long Read', avatar: '/avatars/men/32.jpg' }
 ];
 const logos = ['Slack', 'Stripe', 'Supabase', 'Loom', 'Zoom', 'Dropbox'];
 const asides = {

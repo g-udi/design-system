@@ -11,10 +11,10 @@ import {
 } from '../../../../src/components/core/Tooltip/parts/tooltip.jsx';
 
 const people = [
-  { src: 'https://randomuser.me/api/portraits/men/49.jpg', initials: 'DK', name: 'David Kim' },
-  { src: 'https://randomuser.me/api/portraits/men/11.jpg', initials: 'SR', name: 'Sam Rivera' },
-  { src: 'https://randomuser.me/api/portraits/men/54.jpg', initials: 'JB', name: 'James Brown' },
-  { src: 'https://randomuser.me/api/portraits/women/65.jpg', initials: 'JW', name: 'Jenny Wilson' }
+  { src: '/avatars/men/49.jpg', initials: 'DK', name: 'David Kim' },
+  { src: '/avatars/men/11.jpg', initials: 'SR', name: 'Sam Rivera' },
+  { src: '/avatars/men/54.jpg', initials: 'JB', name: 'James Brown' },
+  { src: '/avatars/women/65.jpg', initials: 'JW', name: 'Jenny Wilson' }
 ];
 
 function Person({ person, className }) {

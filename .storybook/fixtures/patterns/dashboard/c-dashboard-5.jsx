@@ -67,7 +67,7 @@ export function Pattern() {
             columns={[
               { key: 'crew', header: 'Crew', render: (row) => (
                 <span className='flex items-center gap-2'>
-                  <Avatar src={`https://randomuser.me/api/portraits/${row.avatar}.jpg`} name={row.lead} alt='' size='xs' />
+                  <Avatar src={`/avatars/${row.avatar}.jpg`} name={row.lead} alt='' size='xs' />
                   <span className='grid leading-tight'><span className='font-medium'>{row.crew}</span><span className='text-text-muted text-xs'>{row.lead}</span></span>
                 </span>
               ) },

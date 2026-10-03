@@ -20,7 +20,7 @@ const notifications = [
     id: '1',
     user: 'Sarah',
     avatar:
-      'https://randomuser.me/api/portraits/women/44.jpg',
+      '/avatars/women/44.jpg',
     initials: 'SC',
     action: 'commented on',
     target: 'Design System v2',

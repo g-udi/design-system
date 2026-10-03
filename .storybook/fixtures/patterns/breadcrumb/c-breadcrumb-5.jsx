@@ -70,7 +70,7 @@ const rows = [
       </Item>,
       <Item key='b'>
         <Avatar className='size-5'>
-          <AvatarImage src='https://randomuser.me/api/portraits/men/32.jpg' alt='' />
+          <AvatarImage src='/avatars/men/32.jpg' alt='' />
           <AvatarFallback>AJ</AvatarFallback>
         </Avatar>
         @alexjohnson

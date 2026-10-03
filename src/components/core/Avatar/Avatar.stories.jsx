@@ -13,12 +13,12 @@ const docs = getComponentDocs('Core/Avatar');
 const sizes = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'];
 const tones = ['gray', 'neutral', 'blue', 'teal', 'green', 'amber', 'yellow', 'red', 'rose', 'indigo'];
 const people = [
-  { id: 'maya', name: 'Maya Chen', src: 'https://randomuser.me/api/portraits/women/44.jpg', tone: 'teal' },
-  { id: 'alex', name: 'Alex Johnson', src: 'https://randomuser.me/api/portraits/men/32.jpg', tone: 'blue' },
-  { id: 'sam', name: 'Sam Rivera', src: 'https://randomuser.me/api/portraits/men/11.jpg', tone: 'indigo' },
-  { id: 'lina', name: 'Lina Ahmed', src: 'https://randomuser.me/api/portraits/women/12.jpg', tone: 'rose' },
-  { id: 'jules', name: 'Jules Martin', src: 'https://randomuser.me/api/portraits/men/75.jpg', tone: 'amber' },
-  { id: 'jo', name: 'Jo Morgan', src: 'https://randomuser.me/api/portraits/women/68.jpg', tone: 'green' }
+  { id: 'maya', name: 'Maya Chen', src: '/avatars/women/44.jpg', tone: 'teal' },
+  { id: 'alex', name: 'Alex Johnson', src: '/avatars/men/32.jpg', tone: 'blue' },
+  { id: 'sam', name: 'Sam Rivera', src: '/avatars/men/11.jpg', tone: 'indigo' },
+  { id: 'lina', name: 'Lina Ahmed', src: '/avatars/women/12.jpg', tone: 'rose' },
+  { id: 'jules', name: 'Jules Martin', src: '/avatars/men/75.jpg', tone: 'amber' },
+  { id: 'jo', name: 'Jo Morgan', src: '/avatars/women/68.jpg', tone: 'green' }
 ];
 const [maya, alex] = people;
 const brokenImage = 'data:image/png;base64,broken';

@@ -41,7 +41,7 @@ export function Pattern() {
       {/* CardHeader is a grid by default; the flex override puts the avatar and name on one row. */}
       <CardHeader className='flex flex-row items-center gap-3 border-b'>
         <Avatar size='sm'>
-          <AvatarImage src='https://randomuser.me/api/portraits/women/33.jpg' alt='Lena Ortiz' />
+          <AvatarImage src='/avatars/women/33.jpg' alt='Lena Ortiz' />
           <AvatarFallback>LO</AvatarFallback>
         </Avatar>
         <div className='flex min-w-0 flex-col gap-1'>
