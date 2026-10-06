@@ -1,32 +1,10 @@
-/**
- * Layout Container Component
- *
- * @description The main layout wrapper component that provides the overall structure and visual design for all pages.
- * It includes the Aurora background animation, theme provider, navigation components, an analytics slot, and structured data.
- * This component serves as the root layout for the entire application.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
- */
+import { ThemeProvider } from 'next-themes';
 
-import dynamic from 'next/dynamic';
-import { cookies } from 'next/headers';
-
-import Aurora from '../Aurora';
+import Borealis from '../../animations/Borealis/index.js';
 import Footer from '../Footer';
 import FloatingMenu from '../../core/FloatingMenu';
 import Menu from '../../blocks/Navigation';
-import { SiteConfigProvider } from '../../../utilities/SiteConfig';
-
-const ThemeProvider = dynamic(() => import('../../../utilities/ThemeProvider'));
-
-const getThemeCookieStore = async () => {
-  try {
-    return await cookies();
-  } catch {
-    return null;
-  }
-};
+import { SiteConfigProvider } from '../../../context';
 
 const resolveJsonLd = async (jsonLd) => {
   try {
@@ -75,8 +53,7 @@ const serializeJsonLd = (jsonLd) => {
  * </LayoutContainer>
  */
 export default async function LayoutContainer({ analytics = null, children, footerProps, jsonLd, menuProps, metadata = {}, navigation, preview }) {
-  const themeCookie = await getThemeCookieStore();
-  const theme = themeCookie?.get('__theme__')?.value || metadata.theme || 'system';
+  const theme = metadata.theme || 'system';
   const jsonLdMarkup = serializeJsonLd(await resolveJsonLd(jsonLd));
 
   return (
@@ -89,8 +66,8 @@ export default async function LayoutContainer({ analytics = null, children, foot
         Skip to content
       </a>
 
-      {/* Aurora wraps all content and provides the shared light/dark background treatment. */}
-      <Aurora>
+      {/* Borealis wraps all content and provides the shared light/dark background treatment. */}
+      <Borealis>
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem disableTransitionOnChange>
           {analytics}
 
@@ -106,7 +83,7 @@ export default async function LayoutContainer({ analytics = null, children, foot
             </div>
           </SiteConfigProvider>
         </ThemeProvider>
-      </Aurora>
+      </Borealis>
 
     </div>
   );

@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '../../../utilities/cn';
-import { ToggleGroup as ToggleGroupRoot, ToggleGroupItem } from './parts/toggle-group.jsx';
+import { ToggleGroup as ToggleGroupRoot, ToggleGroupItem } from './ToggleGroupPrimitives.jsx';
 
 /** Options-driven toggle group: an attached, outlined set of items built from the composition parts.
  *  Items wrap in narrow containers instead of overflowing. */

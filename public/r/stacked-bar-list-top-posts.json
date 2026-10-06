@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stacked-bar-list-top-posts",
+  "type": "registry:example",
+  "title": "Top posts by source",
+  "description": "Top posts by source. Charts/StackedBarList pattern composed from @gaudi/design-system/charts/StackedBarList and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stacked-bar-list",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/StackedBarList",
+    "import": "@gaudi/design-system/charts/StackedBarList",
+    "storyId": "charts-stackedbarlist--top-posts",
+    "source": "src/components/charts/StackedBarList/stories/fixtures/stacked-bar-list/stacked-bar-list-top-posts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/stacked-bar-list-top-posts.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { StackedBarList } from '@gaudi/design-system/charts/StackedBarList';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\n\n// Readers per post this month, split by where they came from.\nconst posts = [\n  { label: 'Notes on local-first software', search: 3120, newsletter: 1460, social: 610, direct: 380 },\n  { label: 'Small tools, long lifetimes', search: 1840, newsletter: 920, social: 1320, direct: 240 },\n  { label: 'Designing for real data', search: 2260, newsletter: 610, social: 480, direct: 310 },\n  { label: 'A practical guide to knowledge graphs', search: 1950, newsletter: 1180, social: 260, direct: 190 },\n  { label: 'Writing that survives a reorg', search: 720, newsletter: 1040, social: 890, direct: 120 }\n];\nconst sources = [\n  { key: 'search', label: 'Search' },\n  { key: 'newsletter', label: 'Newsletter' },\n  { key: 'social', label: 'Social' },\n  { key: 'direct', label: 'Direct' }\n];\n\nexport function Pattern() {\n  const [mix, setMix] = useState(false);\n  const id = useId();\n  return (\n    <StackedBarList\n      ariaLabel='Readers per post by traffic source'\n      title='Top posts this month'\n      description={mix ? 'Each post as 100%, to compare where its readers came from.' : 'Readers per post, split by source.'}\n      toolbar={\n        <div className='flex items-center gap-2'>\n          <Switch id={id} checked={mix} onCheckedChange={setMix} />\n          <Label htmlFor={id}>Compare mix</Label>\n        </div>\n      }\n      data={posts}\n      series={sources}\n      normalize={mix}\n      className='my-0 w-full max-w-2xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

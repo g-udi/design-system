@@ -1,0 +1,24 @@
+@layer components {
+  .ds-wizard {
+    display: grid;
+    gap: calc(var(--ds-space-scale, 1) * 1.25rem);
+    min-width: 0;
+  }
+  .ds-wizard header .ds-description {
+    margin-top: 0.25rem;
+  }
+  .ds-wizard-panel {
+    padding-block: calc(var(--ds-space-scale, 1) * 0.25rem) calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+  .ds-wizard fieldset {
+    min-width: 0;
+  }
+  .ds-wizard-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    justify-content: space-between;
+    border-top: 1px solid var(--ds-color-border);
+    padding-top: calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+}

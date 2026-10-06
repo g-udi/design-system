@@ -2,4 +2,4 @@ export { default } from './Kbd';
 export * from './Kbd';
 
 // Composition exports
-export { Kbd as KbdRoot, KbdGroup } from './parts/kbd.jsx';
+export { Kbd as KbdRoot, KbdGroup } from './KbdPrimitives.jsx';

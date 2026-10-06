@@ -16,6 +16,7 @@ import { useEffect, useRef } from 'react';
 import { cn } from '../../../utilities/cn';
 
 import styles from './Table.module.css';
+import { TableHead as HeaderCell, TableCell as Cell, TableHeader as TableHead, TableBody, TableRow } from './TablePrimitives.jsx';
 
 /**
  * Enhanced table component for article content
@@ -46,7 +47,7 @@ import styles from './Table.module.css';
  *   </tbody>
  * </Table>
  */
-const Table = ({ children, className, ...rest }) => {
+const Table = ({ children, className, density = 'normal', ...rest }) => {
   const tableRef = useRef(null);
 
   // Highlight the hovered cell's column across every row.
@@ -84,7 +85,7 @@ const Table = ({ children, className, ...rest }) => {
           aria-label='Scrollable table'
         >
           <div className='inline-block min-w-full align-middle'>
-            <table ref={ tableRef } className={ cn('w-full table-auto', className) } { ...rest }>
+            <table ref={ tableRef } data-density={density} className={ cn('ds-part-table w-full table-auto', className) } { ...rest }>
               {children}
             </table>
           </div>
@@ -94,23 +95,12 @@ const Table = ({ children, className, ...rest }) => {
   );
 };
 
-// Header, row-hover and column-hover colours come from Table.module.css tokens, so the parts only set type.
-const TableHead = ({ className, ...rest }) => <thead className={ className } { ...rest } />;
-
-const TableBody = ({ className, ...rest }) => <tbody className={ className } { ...rest } />;
-
-const TableRow = ({ className, ...rest }) => <tr className={ cn('transition-colors duration-150', className) } { ...rest } />;
-
-const TableHeaderCell = ({ className, ...rest }) => (
-  <th className={ cn(styles.cellPadding, 'text-left text-xs font-semibold uppercase text-text', className) } { ...rest } />
-);
-
 const TableCell = ({ children, className, ...rest }) => (
-  <td className={ cn(styles.cellPadding, 'align-top text-sm text-text', className) } { ...rest }>
+  <Cell className={ cn('align-top whitespace-normal text-text', className) } { ...rest }>
     <div className='overflow-hidden'>{children}</div>
-  </td>
+  </Cell>
 );
 
 export default Table;
 
-export { TableBody, TableCell, TableHead, TableHeaderCell, TableRow };
+export { TableBody, TableCell, TableHead, HeaderCell as TableHeaderCell, TableRow };

@@ -1,0 +1,7 @@
+import { p, className, definition } from '../../../../../docs/components/referenceProps.js';
+export default {
+  "Chat/ChatAgentMark": {
+    ...definition('The assistant’s mark: a Gaudí-inspired motif glazed in a tile hue picked from a seed, or an icon, image or monogram on a token tile, with an optional activity badge.', [p('name', 'string', 'Gaudi', 'Accessible name, monogram source and default seed.'), p('seed', 'string', 'name', 'Stable id that picks the motif and hue.'), p('motif', 'auto | trencadis | spire | ironwork | rose | palmetto | panot | helicoid | sun | star', 'auto', 'Pin a motif.'), p('hue', 'auto | teal | blue | amber | rose | green | indigo | red | yellow', 'auto', 'Pin a glaze.'), p('size', 'xs | sm | md | lg | xl', 'md', 'Tile size.'), p('tone', 'accent | discovery | neutral | solid', 'accent', 'Tile colour.'), p('state', 'idle | thinking | streaming | tool | done | error', '—', 'Adds an ChatActivityIndicator badge.'), p('monogram', 'boolean', 'false', 'Initials instead of the icon.'), p('icon / image / decorative', 'string / string / boolean', 'Sparkles / — / false', 'Glyph, image and hiding.'), className], 'role=img named after the agent unless decorative.'),
+    usage: "import { ChatAgentMark } from '@gaudi/design-system/chat';\n\n<>\n<ChatAgentMark name='Gaudi' state='thinking' />\n<ChatAgentMark name='Research agent' icon='Search' tone='discovery' size='sm' decorative />\n</>"
+  }
+};

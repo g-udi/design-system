@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "attachment-thumbnail-strip",
+  "type": "registry:example",
+  "title": "Image thumbnail strip",
+  "description": "Image thumbnail strip. Core/Messaging/Attachment pattern composed from @gaudi/design-system/core/Attachment and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "attachment",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/art/0.svg, static/images/art/1.svg, static/images/art/10.svg, static/images/art/5.svg, static/images/art/7.svg.",
+  "meta": {
+    "owner": "core/Attachment",
+    "import": "@gaudi/design-system/core/Attachment",
+    "storyId": "core-attachment--thumbnail-strip",
+    "source": "src/components/core/Attachment/stories/fixtures/attachment/attachment-thumbnail-strip.jsx",
+    "assets": [
+      "static/images/art/0.svg",
+      "static/images/art/1.svg",
+      "static/images/art/10.svg",
+      "static/images/art/5.svg",
+      "static/images/art/7.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/attachment-thumbnail-strip.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  Attachment,\n  AttachmentContent,\n  AttachmentGroup,\n  AttachmentMedia,\n  AttachmentTitle,\n  AttachmentTrigger\n} from '@gaudi/design-system/core/Attachment';\nconst SHOTS = [\n  {\n    id: 'gradient',\n    name: 'brand-gradient.png',\n    dimensions: '2400 x 1600',\n    src: 'static/images/art/0.svg',\n    alt: 'Sunset gradient with violet edges'\n  },\n  {\n    id: 'mesh',\n    name: 'mesh-backdrop.png',\n    dimensions: '1800 x 1200',\n    src: 'static/images/art/7.svg',\n    alt: 'Cool blue mesh fading to lilac'\n  },\n  {\n    id: 'spectrum',\n    name: 'spectrum-wash.jpg',\n    dimensions: '3000 x 2000',\n    src: 'static/images/art/5.svg',\n    alt: 'Pale spectrum blend across the frame'\n  },\n  {\n    id: 'waves',\n    name: 'wave-pattern.png',\n    dimensions: '1200 x 1200',\n    src: 'static/images/art/1.svg',\n    alt: 'Rippled bands of magenta and plum'\n  },\n  {\n    id: 'ink',\n    name: 'ink-render.png',\n    dimensions: '2000 x 1400',\n    src: 'static/images/art/10.svg',\n    alt: 'Swirling colour clouds on a dark ground'\n  }\n];\nexport function Pattern() {\n  const [selectedId, setSelectedId] = useState(null);\n  const selected = SHOTS.find((shot) => shot.id === selectedId) ?? null;\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-2'>\n      <AttachmentGroup role='group' aria-label='Images shared in this conversation'>\n        {SHOTS.map((shot) => (\n          /*\n           * A vertical card takes its own fixed width, so a w-full here would\n           * collapse the strip into one column and kill the snap scrolling.\n           */\n          <Attachment key={shot.id} orientation='vertical'>\n            <AttachmentMedia variant='image'>\n              {/*\n               * No classes on the image: variant=\"image\" already crops every\n               * child img square and covers the frame. The alt describes the\n               * picture, and the title below it names the file.\n               */}\n              <img\n                src={shot.src}\n                alt={shot.alt}\n                width={120}\n                height={120}\n                loading='lazy'\n                decoding='async'\n              />\n            </AttachmentMedia>\n            <AttachmentContent>\n              <AttachmentTitle>{shot.name}</AttachmentTitle>\n            </AttachmentContent>\n            {/*\n             * The trigger reports aria-pressed because it selects rather than\n             * navigates, and it renders below the actions slot in the stacking\n             * order, so a card can carry a full card select and its own buttons.\n             */}\n            <AttachmentTrigger\n              type='button'\n              aria-label={`Preview ${shot.name}`}\n              aria-pressed={selectedId === shot.id}\n              onClick={() => setSelectedId(shot.id)}\n            />\n          </Attachment>\n        ))}\n      </AttachmentGroup>\n      <p className='text-ui-muted-foreground text-xs' aria-live='polite'>\n        {selected ? (\n          <>\n            {selected.name}\n            <span\n              aria-hidden='true'\n              className='bg-ui-muted-foreground/40 mx-1.5 inline-block size-1 rounded-full align-middle'\n            />\n            {selected.dimensions}\n          </>\n        ) : (\n          'Choose an image to read its description.'\n        )}\n      </p>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

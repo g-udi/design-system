@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge-variants",
+  "type": "registry:example",
+  "title": "Variants",
+  "description": "Variants. Core/Pill pattern composed from @gaudi/design-system/core/Pill and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "badge",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Pill",
+    "import": "@gaudi/design-system/core/Pill",
+    "storyId": "core-pill--variants",
+    "source": "src/components/core/Pill/stories/fixtures/badge/badge-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/badge-variants.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nconst tones = ['primary', 'destructive', 'success', 'info', 'warning'];\nconst rows = [\n  { label: 'Solid', variants: ['default', 'secondary', 'destructive', 'success', 'info', 'warning'] },\n  { label: 'Light', variants: tones.map((tone) => `${tone}-light`) },\n  { label: 'Outline', variants: ['outline', ...tones.map((tone) => `${tone}-outline`)] }\n];\nconst name = (variant) => variant.replace(/-(light|outline)$/, '').replace('default', 'primary');\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-3 gap-y-2'>\n      {rows.map(({ label, variants }) => (\n        <div key={label} className='contents'>\n          <span className='text-xs text-text-muted'>{label}</span>\n          <div className='flex flex-wrap items-center gap-2'>\n            {variants.map((variant) => (\n              <Badge key={variant} variant={variant} className='capitalize'>\n                {name(variant)}\n              </Badge>\n            ))}\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

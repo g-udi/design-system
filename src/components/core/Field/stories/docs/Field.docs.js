@@ -1,0 +1,10 @@
+export default {
+  "Core/Field": {
+    'accessibility': 'Field keeps label, input, description, and error markup colocated so form controls can be wired with id/htmlFor.',
+    'decisionRules': ['Use a persistent FieldLabel; placeholders are examples, not labels.', 'Put requirements and recovery text next to the field before submission.', 'Use FieldError and aria-invalid for invalid states instead of relying on red borders alone.'],
+    'description': 'Field composes form label, description, error, and input building blocks.',
+    'recovery': ['Keep the entered value when validation fails and move the actionable message next to the input.', 'State the problem and the correction in plain language, then clear `aria-invalid` as soon as the value becomes valid.'],
+    'props': [['caretMode', 'native | smooth', 'provider / smooth', 'FieldInput overrides the nearest InputConfigProvider. Native editing stays intact.'], ['children', 'ReactNode', '-', 'Composes label, input, description, and error slots or supplies slot text.'], ['htmlFor', 'string', '-', 'Connects the visible label to the input id.'], ['id', 'string', '-', 'Input id paired with FieldLabel htmlFor.'], ['type', 'string', 'text', 'Native input type.'], ['name', 'string', '-', 'Native input name for form submission.'], ['value', 'string', '-', 'Controlled input value.'], ['defaultValue', 'string', '-', 'Initial uncontrolled input value.'], ['placeholder', 'string', '-', 'Native input placeholder.'], ['required', 'boolean', 'false', 'Marks the input as required.'], ['invalid', 'boolean', 'true when a FieldError is rendered', 'Forces aria-invalid and the error border on FieldInput.'], ['disabled', 'boolean', 'false', 'Disables the input.'], ['onChange', '(event) => void', '-', 'Native input change handler.'], ['className', 'string', '-', 'Class override on each Field slot.']],
+    usage: "import { Field, FieldDescription, EmailInput, FieldLabel } from '@gaudi/design-system';\n\n<Field>\n  <FieldLabel htmlFor='email'>Email</FieldLabel>\n  <EmailInput id='email' />\n  <FieldDescription>Used for article updates only.</FieldDescription>\n</Field>"
+  }
+};

@@ -1,0 +1,134 @@
+@layer base {
+  :root {
+    --color-blue-500: theme(colors.blue.500);
+    --color-emerald-500: theme(colors.emerald.500);
+    --color-violet-500: theme(colors.violet.500);
+    --color-rose-500: theme(colors.rose.500);
+    --color-amber-500: theme(colors.amber.500);
+    --color-cyan-500: theme(colors.cyan.500);
+    --color-orange-500: theme(colors.orange.500);
+    --color-pink-500: theme(colors.pink.500);
+    --color-teal-500: theme(colors.teal.500);
+    --color-indigo-500: theme(colors.indigo.500);
+  }
+}
+
+/* Compound controls share Gaudi's palette; ui-accent is a selection surface. */
+@theme inline {
+  --color-ui-focus: var(--ds-color-focus);
+  --color-ui-focus-ink: color-mix(in srgb, var(--ds-color-focus) 85%, var(--ds-color-text));
+  --color-ui-focus-foreground: var(--ds-color-focus-foreground);
+  --color-ui-invert: var(--ds-color-text);
+  --color-ui-invert-foreground: var(--ds-color-surface);
+  --color-ui-background: var(--ds-color-surface);
+  --color-ui-foreground: var(--ds-color-text);
+  --color-ui-card: var(--ds-color-surface);
+  --color-ui-card-foreground: var(--ds-color-text);
+  --color-ui-popover: var(--ds-color-surface);
+  --color-ui-popover-foreground: var(--ds-color-text);
+  --color-ui-primary: var(--ds-color-accent);
+  --color-ui-primary-strong: var(--ds-color-accent-dark);
+  --color-ui-success-ink: color-mix(
+    in srgb,
+    var(--ds-color-success) 80%,
+    var(--ds-color-text)
+  );
+  --color-ui-warning-ink: color-mix(
+    in srgb,
+    var(--ds-color-warning) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-info-ink: color-mix(
+    in srgb,
+    var(--ds-color-info) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-discovery-ink: color-mix(
+    in srgb,
+    var(--ds-color-discovery) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-attention-ink: color-mix(
+    in srgb,
+    var(--ds-color-attention) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-danger-ink: color-mix(
+    in srgb,
+    var(--ds-color-danger) 85%,
+    var(--ds-color-text)
+  );
+  --color-ui-primary-foreground: var(--ds-color-accent-foreground);
+  --color-ui-secondary: color-mix(in oklab, var(--ds-color-text) 7%, var(--ds-color-surface));
+  --color-ui-secondary-foreground: var(--ds-color-text);
+  --color-ui-muted: var(--ds-color-surface-muted);
+  --color-ui-muted-foreground: var(--ds-color-text-muted);
+  --color-ui-accent: var(--ds-color-surface-muted);
+  --color-ui-accent-foreground: var(--ds-color-text);
+  --color-ui-destructive: var(--ds-color-danger);
+  --color-ui-destructive-foreground: var(--ds-color-danger-foreground);
+  --color-ui-border: var(--ds-color-border);
+  --color-ui-input: var(--ds-color-border);
+  /* Focus keeps the resting border: no coloured active borders. */
+  --color-ui-ring: var(--ds-color-border);
+  /* Keyboard focus halos use ui-primary (the accent), not ui-ring: at least 3:1 against surfaces and borders in both themes. */
+  --color-ui-sidebar: var(--ds-color-sidebar);
+  --color-ui-sidebar-foreground: var(--ds-color-sidebar-foreground);
+  --color-ui-sidebar-primary: var(--ds-color-accent);
+  --color-ui-sidebar-primary-foreground: var(--ds-color-accent-foreground);
+  --color-ui-sidebar-accent: var(--ds-color-sidebar-accent);
+  --color-ui-sidebar-accent-foreground: var(--ds-color-sidebar-foreground);
+  --color-ui-sidebar-border: var(--ds-color-sidebar-border);
+  --color-ui-sidebar-ring: var(--ds-color-accent);
+  --color-ui-chart-1: var(--ds-color-accent);
+  --color-ui-chart-2: var(--ds-color-success);
+  --color-ui-chart-3: var(--ds-color-discovery);
+  --color-ui-chart-4: var(--ds-color-warning);
+  --color-ui-chart-5: var(--ds-color-attention);
+  --animate-accordion-down: accordion-down 180ms ease-out;
+  --animate-accordion-up: accordion-up 180ms ease-out;
+  @keyframes accordion-down {
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
+  }
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
+  }
+}
+
+@layer base {
+  :root,
+  .dark {
+    --success: var(--ds-color-success);
+    --warning: var(--ds-color-warning);
+    --info: var(--ds-color-info);
+    --destructive: var(--ds-color-danger);
+    --background: var(--ds-color-surface);
+    --foreground: var(--ds-color-text);
+    --card: var(--ds-color-surface);
+    --card-foreground: var(--ds-color-text);
+    --popover: var(--ds-color-surface);
+    --popover-foreground: var(--ds-color-text);
+    --primary: var(--ds-color-accent);
+    --primary-foreground: var(--ds-color-accent-foreground);
+    --muted: var(--ds-color-surface-muted);
+    --muted-foreground: var(--ds-color-text-muted);
+    --border: var(--ds-color-border);
+    --ring: var(--ds-color-accent);
+    --radius: var(--ds-radius-control);
+    --chart-1: var(--ds-color-accent);
+    --chart-2: var(--ds-color-success);
+    --chart-3: var(--ds-color-discovery);
+    --chart-4: var(--ds-color-warning);
+    --chart-5: var(--ds-color-attention);
+  }
+}

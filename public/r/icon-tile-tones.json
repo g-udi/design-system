@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-tile-tones",
+  "type": "registry:example",
+  "title": "Tones",
+  "description": "Tones. Core/Icon pattern composed from @gaudi/design-system/core/Icon and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "icon-tile",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Icon",
+    "import": "@gaudi/design-system/core/Icon",
+    "storyId": "core-icon--icon-tile-tones",
+    "source": "src/components/core/Icon/stories/fixtures/icon-tile/icon-tile-tones.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/icon-tile-tones.jsx",
+      "type": "registry:component",
+      "content": "import { IconTile } from '@gaudi/design-system/core/Icon';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n// Tiles take their tone from text and background tokens, so each tone switches with the theme.\nconst tint = 'border-current/20 bg-current/10';\nconst tones = [\n  { label: 'Soft', variant: 'soft', icon: 'StarIcon', classes: ['', 'text-info', 'text-success', 'text-warning', 'text-danger'] },\n  {\n    label: 'Solid',\n    variant: 'solid',\n    icon: 'CircleCheckIcon',\n    classes: ['', 'bg-info text-info-foreground', 'bg-success text-success-foreground', 'bg-warning text-warning-foreground', 'bg-danger text-danger-foreground']\n  },\n  {\n    label: 'Tinted',\n    variant: 'outline',\n    icon: 'ClockIcon',\n    classes: [`${tint} text-accent`, `${tint} text-info`, `${tint} text-success`, `${tint} text-warning`, `${tint} text-danger`]\n  },\n  {\n    label: 'Custom fill',\n    variant: 'elevated',\n    icon: 'MessageSquareIcon',\n    classes: [\n      'bg-indigo-500 text-white',\n      'bg-sky-500 text-white',\n      'bg-emerald-600 text-white',\n      'bg-amber-500 text-white',\n      'bg-rose-500 text-white'\n    ]\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-3'>\n      {tones.map((tone) => (\n        <div key={tone.label} className='grid grid-cols-[4.5rem_1fr] items-center gap-3'>\n          <span className='text-text-muted text-xs'>{tone.label}</span>\n          <div className='flex flex-wrap items-center gap-2'>\n            {tone.classes.map((className) => (\n              <IconTile\n                key={className || 'primary'}\n                variant={tone.variant}\n                className={className}\n                aria-hidden='true'\n              >\n                <RegistryIcon lucide={tone.icon} />\n              </IconTile>\n            ))}\n          </div>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

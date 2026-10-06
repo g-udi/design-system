@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-stack-sizes-badge",
+  "type": "registry:example",
+  "title": "Sizes, colors and badge",
+  "description": "Sizes, colors and badge. Core/Icon pattern composed from @gaudi/design-system/core/Icon and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "icon-stack",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Icon",
+    "import": "@gaudi/design-system/core/Icon",
+    "storyId": "core-icon--icon-stack-sizes-badge",
+    "source": "src/components/core/Icon/stories/fixtures/icon-stack/icon-stack-sizes-badge.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/icon-stack-sizes-badge.jsx",
+      "type": "registry:component",
+      "content": "import { IconStack } from '@gaudi/design-system/core/Icon';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst sizes = [\n  { label: 'Small', className: 'h-16 w-14', icon: 'ArchiveIcon', iconSize: 'size-3.5' },\n  { label: 'Default', className: '', icon: 'LayersIcon', iconSize: 'size-4' },\n  { label: 'Large', className: 'h-28 w-24', icon: 'PackageIcon', iconSize: 'size-6' }\n];\nconst colors = [\n  { label: 'Neutral', className: 'text-ui-foreground', iconClassName: 'text-text-muted' },\n  { label: 'Primary', className: 'text-ui-primary', iconClassName: 'text-ui-primary' },\n  { label: 'Success', className: 'text-success', iconClassName: 'text-success' },\n  { label: 'Warning', className: 'text-warning', iconClassName: 'text-warning' }\n];\nfunction Labelled({ label, children }) {\n  return (\n    <div className='flex flex-col items-center gap-2'>\n      {children}\n      <span className='text-text-muted text-xs'>{label}</span>\n    </div>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col items-center gap-6'>\n      <div className='flex flex-wrap items-end justify-center gap-6'>\n        {sizes.map((item) => (\n          <Labelled key={item.label} label={item.label}>\n            <IconStack aria-hidden='true' className={item.className}>\n              <RegistryIcon lucide={item.icon} className={item.iconSize} />\n            </IconStack>\n          </Labelled>\n        ))}\n        <Labelled label='Badge'>\n          <IconStack aria-hidden='true' className='text-ui-primary'>\n            <span className='bg-ui-background text-ui-primary flex size-7 items-center justify-center rounded-full border shadow-xs'>\n              <RegistryIcon lucide='CheckIcon' className='size-3.5' />\n            </span>\n          </IconStack>\n        </Labelled>\n      </div>\n      <div className='flex flex-wrap items-end justify-center gap-6'>\n        {colors.map((item) => (\n          <Labelled key={item.label} label={item.label}>\n            <IconStack aria-hidden='true' className={`h-16 w-14 ${item.className}`}>\n              <RegistryIcon lucide='SparklesIcon' className={`size-3.5 ${item.iconClassName}`} />\n            </IconStack>\n          </Labelled>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

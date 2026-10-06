@@ -1,0 +1,300 @@
+@layer components {
+  /* DataTable: the data table anatomy. */
+  .ds-table-frame {
+    position: relative;
+    isolation: isolate;
+    min-width: 0;
+    max-width: 100%;
+    overflow: clip;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+  }
+  .ds-table-tools,
+  .ds-table-footer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 12px);
+  }
+  .ds-table-tools {
+    min-height: 48px;
+    border-bottom: 1px solid var(--ds-color-border);
+  }
+  .ds-table-footer {
+    justify-content: space-between;
+    border-top: 1px solid var(--ds-color-border);
+  }
+  .ds-table-scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+  .ds-table-scroll:focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: -2px;
+  }
+  .ds-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.875rem;
+    color: var(--ds-color-text);
+  }
+  .ds-table-sort {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 4px);
+    min-height: 1lh;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+  }
+  .ds-table-sort:hover,
+  .ds-table-sort[data-sorted] {
+    color: var(--ds-color-text);
+  }
+  .ds-table-sort > svg {
+    opacity: 0;
+    transition: opacity var(--ds-motion-duration-feedback) var(--ds-motion-ease-out);
+  }
+  .ds-table-sort[data-sorted] > svg,
+  .ds-table-sort:hover > svg,
+  .ds-table-sort:focus-visible > svg {
+    opacity: 1;
+  }
+  .ds-table-cell {
+    border-bottom: 1px solid var(--ds-color-border);
+    vertical-align: middle;
+  }
+  .ds-table-row {
+    background: var(--ds-color-surface);
+    transition: background-color var(--ds-motion-duration-feedback) var(--ds-motion-ease-out);
+  }
+  .ds-table-row[data-striped] {
+    background: color-mix(in oklab, var(--ds-color-surface-muted) 55%, var(--ds-color-surface));
+  }
+  .ds-table-row:hover,
+  .ds-table-row:focus-visible {
+    background: var(--ds-color-surface-muted);
+    outline: none;
+  }
+  .ds-table-row[data-interactive] {
+    cursor: pointer;
+  }
+  /* Selected rows get a tinted wash rather than a flat fill. */
+  .ds-table-row[data-selected] {
+    background: linear-gradient(90deg,
+      color-mix(in oklab, var(--ds-color-accent) 9%, var(--ds-color-surface)),
+      color-mix(in oklab, var(--ds-color-accent) 4%, var(--ds-color-surface)) 55%,
+      color-mix(in oklab, var(--ds-color-accent) 9%, var(--ds-color-surface)));
+  }
+  /* The hovered column is tinted across the header and every cell. */
+  .ds-table-head[data-column-hover],
+  .ds-table-cell[data-column-hover] {
+    background-color: var(--ds-color-table-col-hover);
+  }
+  .ds-table-head[data-column-hover] {
+    background-color: var(--ds-color-table-header-alt-bg);
+    color: var(--ds-color-text);
+  }
+  .ds-table > tbody > tr:last-child > .ds-table-cell {
+    border-bottom: 0;
+  }
+  .ds-table-expanded > .ds-table-cell {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-group > th {
+    border-bottom: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-group-toggle {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    width: 100%;
+    color: var(--ds-color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: start;
+  }
+  .ds-table-group-toggle:hover {
+    color: var(--ds-color-text);
+  }
+  .ds-table-foot {
+    border-top: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+    color: var(--ds-color-text-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding-block: calc(var(--ds-space-scale, 1) * 8px);
+  }
+  /* Pinned cells stay opaque in every state so scrolled columns never show through. */
+  .ds-table-head.ds-table-pinned {
+    background: var(--ds-color-table-header-bg);
+  }
+  .ds-table-head.ds-table-pinned[data-variant='plain'] {
+    background: var(--ds-color-surface);
+  }
+  .ds-table-head.ds-table-pinned[data-column-hover] {
+    background: var(--ds-color-table-header-alt-bg);
+  }
+  .ds-table-pinned {
+    background: var(--ds-color-surface);
+  }
+  .ds-table-row > .ds-table-pinned {
+    background: inherit;
+  }
+  .ds-table-row:is(:hover, :focus-visible) > .ds-table-pinned {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-foot.ds-table-pinned {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-table-pinned[data-column-hover] {
+    background: color-mix(in oklab, var(--ds-color-accent) 5%, var(--ds-color-surface));
+  }
+  /* The seam sits on the side facing the scrolling columns, so it mirrors in right-to-left tables. */
+  .ds-table-pin-start,
+  .ds-table-pin-end:dir(rtl) {
+    box-shadow: inset -1px 0 0 var(--ds-color-border);
+  }
+  .ds-table-pin-end,
+  .ds-table-pin-start:dir(rtl) {
+    box-shadow: inset 1px 0 0 var(--ds-color-border);
+  }
+  /*
+   * One stacking ladder for everything that sticks: pinned columns, pinned
+   * rows where they cross, the header, then the sticky header above all of it.
+   */
+  .ds-table-cell.ds-table-pinned,
+  .ds-table-foot.ds-table-pinned {
+    z-index: 2;
+  }
+  .ds-table-head.ds-table-pinned {
+    z-index: 5;
+  }
+  .ds-table[data-sticky] > thead .ds-table-head {
+    position: sticky;
+    top: var(--ds-table-sticky-top, 0px);
+    z-index: 6;
+  }
+  .ds-table[data-sticky] > thead .ds-table-head.ds-table-pinned {
+    z-index: 7;
+  }
+  /* Container mode scrolls the table in place; page mode lets the page scroll so the header can stick under app chrome. */
+  .ds-table-scroll[data-sticky='container'] {
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+  }
+  .ds-table-frame[data-sticky='page'],
+  .ds-table-scroll[data-sticky='page'] {
+    overflow: visible;
+  }
+  .ds-table-frame[data-sticky='page'] .ds-table {
+    min-width: 0;
+  }
+  /* Pinned rows: an opaque band that stays at the top or bottom while the other rows scroll. */
+  .ds-table-row[data-row-pinned] {
+    background: color-mix(in oklab, var(--ds-color-surface-muted) 55%, var(--ds-color-surface));
+  }
+  .ds-table-row[data-row-pinned] > .ds-table-cell {
+    background: inherit;
+  }
+  .ds-table-row[data-row-stuck] > .ds-table-cell {
+    position: sticky;
+    z-index: 3;
+  }
+  .ds-table-row[data-row-stuck] > .ds-table-cell.ds-table-pinned {
+    z-index: 4;
+  }
+  .ds-table-row[data-row-stuck='top'] > .ds-table-cell {
+    top: var(--ds-table-row-top, 0px);
+  }
+  .ds-table-row[data-row-stuck='bottom'] > .ds-table-cell {
+    bottom: var(--ds-table-row-bottom, 0px);
+  }
+  .ds-table-row[data-pin-edge='top'] > .ds-table-cell {
+    border-bottom-color: color-mix(in oklab, var(--ds-color-text) 22%, var(--ds-color-border));
+  }
+  .ds-table-row[data-pin-edge='bottom'] > .ds-table-cell {
+    border-top: 1px solid color-mix(in oklab, var(--ds-color-text) 22%, var(--ds-color-border));
+  }
+  .ds-table-sort-order {
+    display: inline-grid;
+    min-width: 1.125rem;
+    height: 1.125rem;
+    place-items: center;
+    border-radius: var(--ds-radius-pill);
+    background: var(--ds-color-surface-muted);
+    color: var(--ds-color-text);
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+  /* Edge chevrons replace scroll shadows: they fade in on hover where more columns wait. */
+  .ds-table-edge {
+    position: absolute;
+    top: 50%;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    translate: 0 -50%;
+    border: 1px solid var(--ds-color-border);
+    border-radius: 999px;
+    background: var(--ds-color-surface);
+    color: var(--ds-color-text-muted);
+    box-shadow: var(--ds-shadow-card);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--ds-motion-duration-feedback) var(--ds-motion-ease-out);
+  }
+  .ds-table-frame:hover .ds-table-edge[data-visible],
+  .ds-table-scroll:focus-visible ~ .ds-table-edge[data-visible] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (pointer: coarse) {
+    .ds-table-edge[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+  .ds-table-pending {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    z-index: 30;
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    translate: -50% 0;
+    padding: calc(var(--ds-space-scale, 1) * 4px) calc(var(--ds-space-scale, 1) * 12px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--ds-color-surface) 85%, transparent);
+    backdrop-filter: blur(6px);
+    box-shadow: var(--ds-shadow-card);
+    color: var(--ds-color-text-muted);
+    font-size: 0.75rem;
+  }
+  .ds-table-empty {
+    padding: 0;
+    text-align: center;
+  }
+  .ds-table-empty > * {
+    position: sticky;
+    inset-inline-start: 0;
+    max-width: var(--ds-table-viewport-width, 100%);
+  }
+  .ds-table-number {
+    font-variant-numeric: tabular-nums;
+  }
+  .ds-table-tools > .ds-input-group {
+    flex: 1 1 14rem;
+  }
+}

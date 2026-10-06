@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "gauge-chart-web-vitals",
+  "type": "registry:example",
+  "title": "Core Web Vitals",
+  "description": "Core Web Vitals. Charts/GaugeChart pattern composed from @gaudi/design-system/charts/GaugeChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "gauge-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/GaugeChart",
+    "import": "@gaudi/design-system/charts/GaugeChart",
+    "storyId": "charts-gaugechart--web-vitals",
+    "source": "src/components/charts/GaugeChart/stories/fixtures/gauge-chart/gauge-chart-web-vitals.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/gauge-chart-web-vitals.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { GaugeChart } from '@gaudi/design-system/charts/GaugeChart';\n\n// Field data for the home page, scored against the public thresholds for each metric.\nconst vitals = [\n  { label: 'Largest contentful paint', value: 2.1, max: 6, target: 2.5, unit: ' s', bands: [{ to: 2.5, tone: 'success' }, { to: 4, tone: 'warning' }, { to: 6, tone: 'danger' }] },\n  { label: 'Interaction to next paint', value: 240, max: 600, target: 200, unit: ' ms', bands: [{ to: 200, tone: 'success' }, { to: 500, tone: 'warning' }, { to: 600, tone: 'danger' }] },\n  { label: 'Cumulative layout shift', value: 0.04, max: 0.5, target: 0.1, bands: [{ to: 0.1, tone: 'success' }, { to: 0.25, tone: 'warning' }, { to: 0.5, tone: 'danger' }] }\n];\n\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-4xl gap-4 sm:grid-cols-3'>\n      {vitals.map((vital) => (\n        <GaugeChart\n          key={vital.label}\n          ariaLabel={`${vital.label} gauge`}\n          title={vital.label}\n          {...vital}\n          label={vital.value <= vital.target ? 'Good' : vital.value <= vital.bands[1].to ? 'Needs work' : 'Poor'}\n          height={170}\n          className='my-0'\n        />\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-toolbar",
+  "type": "registry:example",
+  "title": "Select in a toolbar",
+  "description": "Select in a toolbar. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--toolbar",
+    "source": "src/components/core/Select/stories/fixtures/select/select-toolbar.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-toolbar.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\n\nconst filters = [\n  { label: 'All', value: 'all' },\n  { label: 'Active', value: 'active' },\n  { label: 'Inactive', value: 'inactive' }\n];\n\n// A select sharing a row with an input and a button, sized to its content while\n// the input takes the remaining width.\nconst members = [{ name: 'Anouk Brennan', status: 'active' }, { name: 'Ilse Moreland', status: 'active' }, { name: 'Rhian Mitchum', status: 'inactive' }];\n\nexport function Pattern() {\n  const [query, setQuery] = useState('');\n  const [status, setStatus] = useState('all');\n  const [results, setResults] = useState(null);\n  return (\n    <form className='mx-auto grid w-full max-w-md gap-2' onSubmit={(event) => {\n      event.preventDefault();\n      setResults(members.filter((member) => (status === 'all' || member.status === status) && member.name.toLowerCase().includes(query.toLowerCase())));\n    }}>\n      <div className='flex min-w-0 items-center gap-2'>\n      <Input value={query} onChange={(event) => setQuery(event.target.value)} aria-label='Search members' placeholder='Search members' className='min-w-0 flex-1' />\n      <Select value={status} onValueChange={setStatus}>\n        <SelectTrigger aria-label='Filter by status' className='w-28 shrink-0'>\n          <SelectValue />\n        </SelectTrigger>\n        <SelectContent position='popper'>\n          <SelectGroup>\n            {filters.map((item) => (\n              <SelectItem key={item.value} value={item.value}>\n                {item.label}\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </Select>\n      <Button type='submit'>Search</Button>\n      </div>\n      {results && <p role='status' className='text-sm text-text-muted'>{results.length ? results.map((member) => member.name).join(', ') : 'No members found.'}</p>}\n    </form>\n  );\n}\n"
+    }
+  ]
+}

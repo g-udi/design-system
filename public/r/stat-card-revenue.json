@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-revenue",
+  "type": "registry:block",
+  "title": "Revenue breakdown",
+  "description": "Revenue breakdown. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--revenue",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-revenue.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-revenue.jsx",
+      "type": "registry:component",
+      "content": "import { StatCard } from '@gaudi/design-system/blocks/StatCard';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst rows = [\n  ['Subscriptions', '$31,420', 'success'],\n  ['One-off sales', '$12,180', 'info'],\n  ['Services', '$4,690', 'discovery'],\n  ['Refunds', '−$1,240', 'danger']\n];\nconst dot = { success: 'bg-success', info: 'bg-info', discovery: 'bg-discovery', danger: 'bg-danger' };\n\nexport function Pattern() {\n  return (\n    <StatCard\n      className='w-full max-w-sm'\n      label='Total revenue'\n      value='$47,050'\n      delta='18.2%' deltaDirection='up' deltaTone='success'\n      description='$7,240 more than August'\n      action={\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button variant='ghost' size='icon-xs' aria-label='Revenue actions'>\n              <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />\n            </Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align='end'>\n            <DropdownMenuItem>Open report</DropdownMenuItem>\n            <DropdownMenuItem>Compare periods</DropdownMenuItem>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem>Download invoice list</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      }\n      footer={\n        <a href='#revenue' className='hover:text-text inline-flex items-center gap-1'>\n          View full breakdown\n          <RegistryIcon lucide='ArrowUpRightIcon' aria-hidden='true' className='size-3.5' />\n        </a>\n      }\n    >\n      <dl className='mt-1 grid gap-2 text-sm'>\n        {rows.map(([label, value, tone]) => (\n          <div key={label} className='flex items-center gap-2'>\n            <span aria-hidden='true' className={`size-2 rounded-full ${dot[tone]}`} />\n            <dt className='text-text-muted flex-1'>{label}</dt>\n            <dd className='font-medium tabular-nums'>{value}</dd>\n          </div>\n        ))}\n      </dl>\n    </StatCard>\n  );\n}\n"
+    }
+  ]
+}

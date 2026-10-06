@@ -9,44 +9,12 @@
  * @version 1.0.0
  */
 
+import { useId } from 'react';
+
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import NewsletterForm from '../NewsletterForm';
 import { cn } from '../../../utilities/cn';
-
-const defaultSections = [
-  {
-    'links': [
-      { 'href': '/blog/categories/engineering', 'label': 'Engineering' },
-      { 'href': '/blog/categories/management', 'label': 'Management' },
-      { 'href': '/blog/categories/productivity', 'label': 'Productivity' },
-      { 'href': '/blog/categories/data', 'label': 'Data' }
-    ],
-    'title': 'Categories'
-  },
-  {
-    'links': [
-      { 'href': '/blog/projects/gaudi', 'label': 'Gaudi' }
-    ],
-    'title': 'Projects'
-  },
-  {
-    'links': [
-      { 'href': '/about', 'label': 'Summary' },
-      { 'href': '/press', 'label': 'Press' },
-      { 'href': '/blog/publications', 'label': 'Publications' }
-    ],
-    'title': 'About'
-  }
-];
-
-const defaultSocialLinks = [
-  { 'href': 'mailto:me@assaf.website', 'kind': 'mail' },
-  { 'href': 'https://github.com/ahmadassaf', 'kind': 'github' },
-  { 'href': 'https://www.youtube.com/ahmadassafa', 'kind': 'youtube' },
-  { 'href': 'https://www.linkedin.com/in/ahmadassaf', 'kind': 'linkedin' },
-  { 'href': 'https://twitter.com/ahmadaassaf', 'kind': 'twitter' }
-];
 
 const FooterSection = ({ links = [], title }) => (
   <div>
@@ -54,7 +22,7 @@ const FooterSection = ({ links = [], title }) => (
     <ul role='list' className='mt-3 space-y-2'>
       {links.map((link) => (
         <li key={ `${title}-${link.href}-${link.label}` }>
-          <Link href={ link.href } variant='muted' className='text-sm font-normal leading-5 capitalize'>
+          <Link href={ link.href } variant='muted' className='text-sm font-normal leading-5'>
             {link.label}
           </Link>
         </li>
@@ -68,11 +36,11 @@ const resolveCopyrightName = (value) => {
   if (value?.name) return value.name;
   if (value?.author) return resolveCopyrightName(value.author);
 
-  return 'Ahmad Assaf';
+  return '';
 };
 
-const SocialLinks = ({ className, iconProps, links = defaultSocialLinks }) => (
-  <div className={ cn('flex gap-4', className) }>
+const SocialLinks = ({ className, iconProps, links = [] }) => (
+  <div className={ cn('flex flex-wrap gap-4', className) }>
     {links.filter((link) => link.href).map((link) => (
       <Icon key={ link.kind } kind={ link.kind } href={ link.href } { ...iconProps } />
     ))}
@@ -80,60 +48,64 @@ const SocialLinks = ({ className, iconProps, links = defaultSocialLinks }) => (
 );
 
 const FooterNavigation = ({ sections }) => (
-  <nav aria-label='Footer navigation' className='grid gap-6 sm:grid-cols-3'>
+  <nav aria-label='Footer navigation' className='grid grid-cols-1 gap-6 @[36rem]/footer:grid-cols-3'>
     {sections.filter((section) => section.links?.length).map((section) => (
       <FooterSection key={ section.title } links={ section.links } title={ section.title } />
     ))}
   </nav>
 );
 
-const Copyright = ({ className, name }) => (
+const Copyright = ({ className, name }) => resolveCopyrightName(name) ? (
   <p className={ cn('text-xs leading-5 text-text-muted', className) }>
     &copy; {new Date().getFullYear()} {resolveCopyrightName(name)}. All rights reserved.
   </p>
-);
+) : null;
 
-const FooterFrame = ({ children }) => (
-  <footer aria-labelledby='footer-heading' className='border-t border-border'>
-    <h2 id='footer-heading' className='sr-only'>Footer</h2>
-    <div className='mx-auto py-6 lg:py-8'>{children}</div>
+const FooterFrame = ({ children }) => {
+  const headingId = useId();
+
+  return (
+  <footer aria-labelledby={ headingId } className='@container/footer border-t border-border'>
+    <h2 id={ headingId } className='sr-only'>Footer</h2>
+    <div className='mx-auto py-6 @[56rem]/footer:py-8'>{children}</div>
   </footer>
-);
+  );
+};
 
 const StandardFooter = ({ copyrightName, newsletterProps, sections, socialLinks }) => (
   <FooterFrame>
-    <div className='grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,28rem)] lg:items-start'>
+    <div className='grid grid-cols-1 gap-8 @[56rem]/footer:grid-cols-[minmax(0,1fr)_minmax(20rem,28rem)] @[56rem]/footer:items-start'>
       <FooterNavigation sections={ sections } />
       <NewsletterForm
         { ...newsletterProps }
         className='mt-0'
         classNames={{
           ...newsletterProps.classNames,
-          'form': 'mt-5 flex flex-col gap-3 sm:flex-row',
+          'form': 'mt-5',
           'input': 'min-h-11',
           'title': 'text-sm font-semibold text-text'
         }}
       />
     </div>
-    <div className='mt-6 border-t border-border pt-6 md:flex md:items-center md:justify-between'>
-      <SocialLinks links={ socialLinks } className='sm:justify-center md:order-2' />
-      <Copyright name={ copyrightName } className='mt-6 sm:text-center md:order-1 md:mt-0' />
+    <div className='mt-6 border-t border-border pt-6 @[40rem]/footer:flex @[40rem]/footer:items-center @[40rem]/footer:justify-between'>
+      <SocialLinks links={ socialLinks } className='@[36rem]/footer:justify-center @[40rem]/footer:order-2' />
+      <Copyright name={ copyrightName } className='mt-6 @[36rem]/footer:text-center @[40rem]/footer:order-1 @[40rem]/footer:mt-0' />
     </div>
   </FooterFrame>
 );
 
 const EditorialFooter = ({
-  brandDescription = 'Writing about AI, semantic systems, data products, and engineering practice.',
+  brandDescription,
   brandTitle,
   copyrightName,
   sections,
   socialLinks
 }) => (
   <FooterFrame>
-    <div className='grid gap-8 lg:grid-cols-[1.2fr_2fr]'>
+    <div className='grid grid-cols-1 gap-8 @[56rem]/footer:grid-cols-[minmax(0,1.2fr)_minmax(0,2fr)]'>
       <div>
         {brandTitle ? <h3 className='text-xl font-semibold leading-7 text-text'>{brandTitle}</h3> : null}
-        <p className={ cn('max-w-md text-xs leading-5 text-text-muted', brandTitle && 'mt-3') }>{brandDescription}</p>
+        {brandDescription ? <p className={ cn('max-w-md text-xs leading-5 text-text-muted', brandTitle && 'mt-3') }>{brandDescription}</p> : null}
         <SocialLinks
           links={ socialLinks }
           className='mt-4'
@@ -153,7 +125,7 @@ const EditorialFooter = ({
  * @param {'standard'|'editorial'} [props.variant='standard'] - `standard` adds the newsletter form; `editorial` leads with the brand
  * @param {Array<{ title: string, links: Array<{ href: string, label: string }> }>} [props.sections] - Link columns
  * @param {Array<{ kind: string, href: string }>} [props.socialLinks] - Social icon links; entries without `href` are skipped
- * @param {string|Object} [props.copyrightName='Ahmad Assaf'] - Name, or an object with `name` or `author`
+ * @param {string|Object} [props.copyrightName] - Name, or an object with `name` or `author`
  * @param {string} [props.brandTitle] - Editorial brand heading
  * @param {string} [props.brandDescription] - Editorial brand summary
  * @param {Object} [props.newsletterProps] - Props for the standard footer's NewsletterForm
@@ -165,10 +137,10 @@ const EditorialFooter = ({
 const Footer = ({
   brandDescription,
   brandTitle,
-  copyrightName = 'Ahmad Assaf',
+  copyrightName,
   newsletterProps = {},
-  sections = defaultSections,
-  socialLinks = defaultSocialLinks,
+  sections = [],
+  socialLinks = [],
   variant = 'standard'
 }) => {
   const footerProps = { brandDescription, brandTitle, copyrightName, newsletterProps, sections, socialLinks };

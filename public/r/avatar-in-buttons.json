@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-in-buttons",
+  "type": "registry:example",
+  "title": "Inside buttons",
+  "description": "Inside buttons. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--in-buttons",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-in-buttons.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-in-buttons.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\n\nconst person = { src: '/avatars/person-41.svg', handle: '@alexjohnson', initials: 'AJ' };\n\nconst Face = ({ className }) => (\n  <Avatar className={className}>\n    <AvatarImage src={person.src} alt='' />\n    <AvatarFallback>{person.initials}</AvatarFallback>\n  </Avatar>\n);\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-fit flex-wrap items-center gap-2'>\n      <Button variant='outline' size='sm' className='gap-1.5'>\n        <Face className='size-5' />\n        <span className='text-xs'>{person.handle}</span>\n      </Button>\n      <Button variant='outline' size='sm' className='gap-1 rounded-control ps-0.5'>\n        <Face className='size-6 border-2 border-ui-background' />\n        <span className='text-xs'>{person.handle}</span>\n      </Button>\n      <Button size='sm' className='gap-1 rounded-control ps-0.5'>\n        <Face className='size-6 border border-ui-primary' />\n        <span className='text-xs'>{person.handle}</span>\n      </Button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

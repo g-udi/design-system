@@ -13,22 +13,21 @@ export function useSliderInput({
   }, []);
   const handleInputChange = useCallback(
     (e, index) => {
-      const newValue = parseFloat(e.target.value);
-      if (!isNaN(newValue)) {
-        const updatedInputs = [...inputValues];
-        updatedInputs[index] = newValue;
-        setInputValues(updatedInputs);
-      }
+      const draft = e.target.value;
+      const newValue = draft === '' ? '' : parseFloat(draft);
+      if (newValue !== '' && !Number.isFinite(newValue)) return;
+      setInputValues((current) => current.map((value, position) => position === index ? newValue : value));
     },
-    [inputValues]
+    []
   );
   const validateAndUpdateValue = useCallback(
     (value, index) => {
       const updatedSlider = [...sliderValues];
+      const requested = Number.isFinite(value) ? value : sliderValues[index];
       if (index === 0) {
-        updatedSlider[0] = Math.max(minValue, Math.min(value, sliderValues[1]));
+        updatedSlider[0] = Math.max(minValue, Math.min(requested, sliderValues[1]));
       } else {
-        updatedSlider[1] = Math.min(maxValue, Math.max(value, sliderValues[0]));
+        updatedSlider[1] = Math.min(maxValue, Math.max(requested, sliderValues[0]));
       }
       setSliderValues(updatedSlider);
       setInputValues(updatedSlider);

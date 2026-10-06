@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-settings-integrations",
+  "type": "registry:example",
+  "title": "Settings and integrations",
+  "description": "Settings and integrations. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--settings-integrations",
+    "source": "src/components/core/Item/stories/fixtures/item/item-settings-integrations.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-settings-integrations.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Icon rows whose trailing slot carries a status, an action, or both.\nconst integrations = [\n  { icon: 'DatabaseIcon', title: 'Database', description: 'Sync records from your data warehouse', status: ['Connected', 'success-light'], action: ['Configure', 'outline'] },\n  { icon: 'WebhookIcon', title: 'Webhooks', description: 'Push realtime events to your endpoints', status: ['Connected', 'success-light'] },\n  { icon: 'MailIcon', title: 'Email notifications', description: 'Receive a digest every morning', status: ['Paused', 'warning-light'], action: ['Resume', 'outline'] },\n  { icon: 'BellIcon', title: 'Push notifications', description: 'Get notified on your devices', action: ['Enable', 'default'] },\n  { icon: 'CodeIcon', title: 'API access', description: 'Build custom integrations with the REST API', action: ['Connect', 'outline'] }\n];\n\nexport function Pattern() {\n  const [completed, setCompleted] = useState([]);\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col'>\n      <ItemGroup>\n        {integrations.map(({ icon, title, description, status, action }) => (\n          <Item key={title} variant='outline' size='xs'>\n            <ItemMedia variant='icon'>\n              <RegistryIcon lucide={icon} />\n            </ItemMedia>\n            <ItemContent>\n              <ItemTitle>{title}</ItemTitle>\n              <ItemDescription>{description}</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              {completed.includes(title) ? <Badge variant='success-light' size='sm'>Enabled in demo</Badge> : status ? <Badge variant={status[1]} size='sm'>{status[0]}</Badge> : null}\n              {action ? <Button variant={action[1]} size='sm' href={action[0] === 'Configure' ? '/settings/integrations/database' : undefined} disabled={completed.includes(title)} onClick={action[0] === 'Configure' ? undefined : () => setCompleted((values) => [...values, title])}>{action[0]}</Button> : null}\n            </ItemActions>\n          </Item>\n        ))}\n      </ItemGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

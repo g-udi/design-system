@@ -1,6 +1,6 @@
 'use client';
 
-import { Tooltip as TooltipRoot, TooltipContent, TooltipProvider, TooltipTrigger } from './parts/tooltip.jsx';
+import { Tooltip as TooltipRoot, TooltipContent, TooltipProvider, TooltipTrigger } from './TooltipPrimitives.jsx';
 
 /** The child must forward its ref and have an accessible name of its own. */
 export default function Tooltip({

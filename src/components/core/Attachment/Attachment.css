@@ -1,0 +1,57 @@
+@layer components {
+  .ds-part-attachment {
+    @apply rounded-xl w-fit focus-within:ring-1 focus-within:ring-ui-primary;
+  }
+
+  .ds-part-attachment-orientation-horizontal {
+    @apply min-w-40;
+  }
+
+  .ds-part-attachment-orientation-vertical {
+    @apply w-24 has-data-[slot=attachment-content]:w-30;
+  }
+
+  .ds-part-attachment-size-default {
+    @apply gap-2 has-data-[slot=attachment-content]:px-2.5 has-data-[slot=attachment-content]:py-2 has-data-[slot=attachment-media]:p-2 text-sm;
+  }
+
+  .ds-part-attachment-size-sm {
+    @apply gap-2.5 has-data-[slot=attachment-content]:px-2 has-data-[slot=attachment-content]:py-1.5 has-data-[slot=attachment-media]:p-1.5 text-xs;
+  }
+
+  .ds-part-attachment-size-xs {
+    @apply gap-1.5 has-data-[slot=attachment-content]:px-1.5 has-data-[slot=attachment-content]:py-1 has-data-[slot=attachment-media]:p-1 text-xs rounded-lg;
+  }
+
+  .ds-part-attachment-media {
+    @apply bg-ui-muted text-ui-foreground w-10 rounded-lg group-data-[size=sm]/attachment:w-8 group-data-[size=xs]/attachment:w-7 group-data-[size=xs]/attachment:rounded-md [&_svg:not([class*='size-'])]:size-4 group-data-[size=xs]/attachment:[&_svg:not([class*='size-'])]:size-3.5 group-data-[orientation=vertical]/attachment:w-full group-data-[orientation=vertical]/attachment:[&_svg:not([class*='size-'])]:size-6 group-data-[orientation=vertical]/attachment:*:data-[slot=spinner]:size-6!;
+  }
+
+  .ds-part-attachment-media-variant-image {
+    @apply opacity-60 group-data-[state=idle]/attachment:opacity-100 group-data-[state=done]/attachment:opacity-100;
+  }
+
+  .ds-part-attachment-content {
+    @apply leading-tight group-data-[orientation=vertical]/attachment:px-1;
+  }
+
+  .ds-part-attachment-title {
+    @apply font-medium;
+  }
+
+  .ds-part-attachment-description {
+    @apply mt-0.5 text-xs;
+  }
+
+  .ds-part-attachment-actions {
+    @apply group-data-[orientation=vertical]/attachment:absolute group-data-[orientation=vertical]/attachment:top-3 group-data-[orientation=vertical]/attachment:right-3 relative z-20 group-data-[orientation=vertical]/attachment:gap-1;
+  }
+
+  .ds-part-attachment-group {
+    @apply gap-3 scroll-px-1 py-1;
+  }
+
+  .ds-part-attachment-trigger {
+    @apply absolute inset-0 z-10 outline-none;
+  }
+}

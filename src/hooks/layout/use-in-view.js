@@ -21,7 +21,7 @@ export function useInView({ root = null, rootMargin = '0px', threshold = 0, once
   useEffect(() => {
     if (!node || done) return undefined;
     if (typeof IntersectionObserver === 'undefined') {
-      setState((current) => (current.inView ? current : { inView: true, entry: null }));
+      setState((current) => (current.inView === initialInView && current.entry === null ? current : { inView: initialInView, entry: null }));
       return undefined;
     }
     const observer = new IntersectionObserver(([ entry ]) => {
@@ -32,7 +32,7 @@ export function useInView({ root = null, rootMargin = '0px', threshold = 0, once
     }, { root, rootMargin, threshold: typeof thresholdKey === 'string' ? thresholdKey.split(',').map(Number) : thresholdKey });
     observer.observe(node);
     return () => observer.disconnect();
-  }, [ done, node, onChangeRef, once, root, rootMargin, thresholdKey ]);
+  }, [ done, initialInView, node, onChangeRef, once, root, rootMargin, thresholdKey ]);
 
   return [ ref, state.inView, state.entry ];
 }

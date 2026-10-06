@@ -1,0 +1,15 @@
+@layer components {
+  .ds-stack {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--ds-space-scale, 1) * 1rem);
+    min-width: 0;
+  }
+  .ds-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    min-width: 0;
+  }
+}

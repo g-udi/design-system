@@ -1,2 +1,2 @@
-export { AreaChart as default } from './parts/area-chart.jsx';
-export { AreaChart } from './parts/area-chart.jsx';
+export { AreaChart as default } from './AreaChart.jsx';
+export { AreaChart } from './AreaChart.jsx';

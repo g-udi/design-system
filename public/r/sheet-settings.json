@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-settings",
+  "type": "registry:example",
+  "title": "Settings",
+  "description": "Settings. Core/Overlays & Menus/Sheet pattern composed from @gaudi/design-system/core/Sheet and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sheet",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sheet",
+    "import": "@gaudi/design-system/core/Sheet",
+    "storyId": "core-sheet--settings",
+    "source": "src/components/core/Sheet/stories/fixtures/sheet/sheet-settings.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sheet-settings.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldLegend,\n  FieldSet\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\nimport {\n  Sheet,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger\n} from '@gaudi/design-system/core/Sheet';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\n\nconst toggles = [\n  ['reading-time', 'Show reading time', 'On every article card and page.', true],\n  ['comments', 'Open comments', 'Readers can reply under articles.', true],\n  ['digest', 'Weekly digest', 'Send a summary to subscribers every Monday.', false]\n];\nconst layouts = [\n  ['grid', 'Grid', 'LayoutGridIcon'],\n  ['columns', 'Columns', 'Columns3Icon'],\n  ['list', 'List', 'MenuIcon']\n];\n\n// Two sections scroll between a fixed header and a footer that stays in view.\nexport function Pattern() {\n  const [layout, setLayout] = useState('grid');\n  return (\n    <Sheet>\n      <SheetTrigger asChild>\n        <Button size='sm' variant='outline'>\n          <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />\n          Site settings\n        </Button>\n      </SheetTrigger>\n      <SheetContent size='md' className='gap-0'>\n        <SheetHeader className='border-b'>\n          <SheetTitle>Site settings</SheetTitle>\n          <SheetDescription>Your public profile and how the site behaves for readers.</SheetDescription>\n        </SheetHeader>\n        <div className='grid min-h-0 flex-1 gap-6 overflow-y-auto p-3'>\n          <FieldSet>\n            <FieldLegend>Profile</FieldLegend>\n            <FieldGroup>\n              <Field>\n                <FieldLabel htmlFor='settings-name'>Site name</FieldLabel>\n                <Input id='settings-name' defaultValue='Gaudi Journal' />\n              </Field>\n              <Field>\n                <FieldLabel htmlFor='settings-email'>Contact email</FieldLabel>\n                <EmailInput id='settings-email'  defaultValue='hello@gaudi.dev' />\n                <FieldDescription>Shown on the about page and in newsletter footers.</FieldDescription>\n              </Field>\n            </FieldGroup>\n          </FieldSet>\n          <FieldSet>\n            <FieldLegend>Reading</FieldLegend>\n            <FieldGroup className='gap-4'>\n              {toggles.map(([id, label, hint, on]) => (\n                <Field key={id} orientation='horizontal' className='items-start justify-between'>\n                  <div className='grid gap-0.5'>\n                    <FieldLabel htmlFor={`settings-${id}`}>{label}</FieldLabel>\n                    <FieldDescription>{hint}</FieldDescription>\n                  </div>\n                  <Switch id={`settings-${id}`} defaultChecked={on} />\n                </Field>\n              ))}\n              <Field>\n                <FieldLabel id='settings-layout'>Home page layout</FieldLabel>\n                <ToggleGroup aria-labelledby='settings-layout' type='single' variant='outline' spacing={2} value={layout} onValueChange={(next) => setLayout(next || layout)} className='grid w-full grid-cols-3'>\n                  {layouts.map(([value, label, icon]) => (\n                    <ToggleGroupItem key={value} value={value} className='h-16 flex-col gap-1'>\n                      <RegistryIcon lucide={icon} aria-hidden='true' />\n                      {label}\n                    </ToggleGroupItem>\n                  ))}\n                </ToggleGroup>\n              </Field>\n            </FieldGroup>\n          </FieldSet>\n        </div>\n        <SheetFooter className='flex-row justify-end border-t'>\n          <SheetClose asChild>\n            <Button variant='outline'>Cancel</Button>\n          </SheetClose>\n          <SheetClose asChild>\n            <Button>Save settings</Button>\n          </SheetClose>\n        </SheetFooter>\n      </SheetContent>\n    </Sheet>\n  );\n}\n"
+    }
+  ]
+}

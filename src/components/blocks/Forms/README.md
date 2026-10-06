@@ -7,7 +7,7 @@ that takes focus after a failed submit, values you edit in place and live charac
 ```jsx
 import { FormErrorSummary, useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
 import { FieldError, FieldGroup, FieldLabel, FieldRoot as Field } from '@gaudi/design-system/core/Field';
-import Input from '@gaudi/design-system/core/Input';
+import { EmailInput } from '@gaudi/design-system/core/Input';
 
 const form = useFormValidation({
   initialValues: { email: '' },
@@ -18,7 +18,7 @@ const form = useFormValidation({
   <FormErrorSummary form={form} labels={{ email: 'Email' }} />
   <Field data-invalid={form.errors.email ? true : undefined}>
     <FieldLabel htmlFor={form.id('email')}>Email</FieldLabel>
-    <Input {...form.field('email')} type='email' />
+    <EmailInput {...form.field('email')} />
     <FieldError id={form.errorId('email')}>{form.errors.email}</FieldError>
   </Field>
 </form>

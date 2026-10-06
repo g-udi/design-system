@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-basic",
+  "type": "registry:example",
+  "title": "Simple data table",
+  "description": "Simple data table. MDX/Table pattern composed from @gaudi/design-system/mdx/Table and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "table",
+    "mdx"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "mdx/Table",
+    "import": "@gaudi/design-system/mdx/Table",
+    "storyId": "mdx-table--basic",
+    "source": "src/components/mdx/Table/stories/fixtures/table/table-basic.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/table-basic.jsx",
+      "type": "registry:component",
+      "content": "import {\n  TableRoot as Table,\n  TableBodyPrimitive as TableBody,\n  TableCaption,\n  TableCellPrimitive as TableCell,\n  TableFooter,\n  TableHeadPrimitive as TableHead,\n  TableHeader,\n  TableRowPrimitive as TableRow\n} from '@gaudi/design-system/mdx/Table';\nconst invoices = [\n  {\n    invoice: 'INV001',\n    paymentStatus: 'Paid',\n    totalAmount: '$250.00',\n    paymentMethod: 'Credit Card'\n  },\n  {\n    invoice: 'INV002',\n    paymentStatus: 'Pending',\n    totalAmount: '$150.00',\n    paymentMethod: 'PayPal'\n  },\n  {\n    invoice: 'INV003',\n    paymentStatus: 'Unpaid',\n    totalAmount: '$350.00',\n    paymentMethod: 'Bank Transfer'\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-col'>\n      <Table>\n        <TableCaption>Sponsorship invoices for this season.</TableCaption>\n        <TableHeader>\n          <TableRow>\n            <TableHead className='w-[100px]'>Invoice</TableHead>\n            <TableHead>Status</TableHead>\n            <TableHead>Method</TableHead>\n            <TableHead className='text-right'>Amount</TableHead>\n          </TableRow>\n        </TableHeader>\n        <TableBody>\n          {invoices.map((invoice) => (\n            <TableRow key={invoice.invoice}>\n              <TableCell className='text-sm font-medium'>\n                {invoice.invoice}\n              </TableCell>\n              <TableCell className='text-sm'>{invoice.paymentStatus}</TableCell>\n              <TableCell className='text-sm'>{invoice.paymentMethod}</TableCell>\n              <TableCell className='text-right text-sm'>\n                {invoice.totalAmount}\n              </TableCell>\n            </TableRow>\n          ))}\n        </TableBody>\n        <TableFooter>\n          <TableRow>\n            <TableCell colSpan={3}>Total</TableCell>\n            <TableCell className='text-right font-semibold'>$750.00</TableCell>\n          </TableRow>\n        </TableFooter>\n      </Table>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

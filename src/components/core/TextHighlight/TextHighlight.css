@@ -1,0 +1,23 @@
+@layer base {
+
+  /*
+   * TextHighlight entrance: the background sweeps in from the left. The base
+   * classes already set the final background size, so a from-only keyframe
+   * is enough; reduced-motion users get the static highlight.
+   */
+  .ds-text-highlight-animate {
+    animation: ds-text-highlight-sweep var(--ds-motion-duration-focal) var(--ds-motion-ease-out);
+  }
+
+  @keyframes ds-text-highlight-sweep {
+    from {
+      background-size: 0% 100%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-text-highlight-animate {
+      animation: none;
+    }
+  }
+}

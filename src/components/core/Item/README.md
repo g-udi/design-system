@@ -1,11 +1,11 @@
 # Item
 
-A flexible row for lists of people, settings, integrations, navigation links and activity. Compose media, a title and description, trailing actions, and an optional header or footer; group rows with `ItemGroup` and divide them with `ItemSeparator`.
+A flexible row for lists of people, settings, integrations, navigation links, activity and run logs. Compose media, a title and description, trailing actions, and an optional header or footer; group rows with `ItemGroup` and divide them with `ItemSeparator`.
 
 ## Usage
 
 ```jsx
-import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from '@gaudi/design-system';
+import { Button, Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle, RegistryIcon } from '@gaudi/design-system';
 
 <ItemGroup>
   <Item variant='outline'>
@@ -14,7 +14,7 @@ import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemMedia, 
       <ItemTitle>GitHub</ItemTitle>
       <ItemDescription>Sync pull requests and issues.</ItemDescription>
     </ItemContent>
-    <ItemActions><Button size='sm' variant='outline'>Connect</Button></ItemActions>
+    <ItemActions><Button href='/settings/integrations/github' size='sm' variant='outline'>Connect</Button></ItemActions>
   </Item>
 </ItemGroup>
 ```
@@ -34,4 +34,8 @@ The parts are also available from `@gaudi/design-system/core/Item`.
 
 ## Accessibility
 
-Use `asChild` with a link when the whole row navigates, and keep independent actions outside that link. Name icon-only actions after their row ("Remove Ada Lovelace"). Give a group of rows an accessible name with `aria-label` when the surrounding heading does not describe it.
+Use `asChild` with a link when the whole row navigates, and keep independent actions outside that link. Name icon-only actions after their row ("Remove Odile Marchetti"). Give a group of rows an accessible name with `aria-label` when the surrounding heading does not describe it.
+
+## Log examples
+
+The Item docs include a live run status, phases separated by labelled rules, changed files with badges, and log links with a reversible action. These compose Item, Separator, Badge, Loader, Link and Button without a separate marker wrapper.

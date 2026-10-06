@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "funnel-chart-newsletter-signups",
+  "type": "registry:example",
+  "title": "Newsletter signups",
+  "description": "Newsletter signups. Charts/FunnelChart pattern composed from @gaudi/design-system/charts/FunnelChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "funnel-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/FunnelChart",
+    "import": "@gaudi/design-system/charts/FunnelChart",
+    "storyId": "charts-funnelchart--newsletter-signups",
+    "source": "src/components/charts/FunnelChart/stories/fixtures/funnel-chart/funnel-chart-newsletter-signups.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/funnel-chart-newsletter-signups.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { FunnelChart } from '@gaudi/design-system/charts/FunnelChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\nconst periods = {\n  month: [\n    { label: 'Read a post', value: 14200 },\n    { label: 'Saw the signup form', value: 6900 },\n    { label: 'Entered an email', value: 1640 },\n    { label: 'Confirmed', value: 1210 },\n    { label: 'Opened the first issue', value: 980 }\n  ],\n  quarter: [\n    { label: 'Read a post', value: 39800 },\n    { label: 'Saw the signup form', value: 17600 },\n    { label: 'Entered an email', value: 3920 },\n    { label: 'Confirmed', value: 2870 },\n    { label: 'Opened the first issue', value: 2210 }\n  ]\n};\n\nexport function Pattern() {\n  const [period, setPeriod] = useState('month');\n  const [shape, setShape] = useState('start');\n  return (\n    <FunnelChart\n      ariaLabel='Newsletter signup funnel'\n      title='Newsletter signups'\n      description='From reading a post to opening the first issue.'\n      toolbar={\n        <>\n          <ToggleGroup aria-label='Period' type='single' variant='outline' size='sm' spacing={0} value={period} onValueChange={(next) => next && setPeriod(next)}>\n            <ToggleGroupItem value='month'>30 days</ToggleGroupItem>\n            <ToggleGroupItem value='quarter'>Quarter</ToggleGroupItem>\n          </ToggleGroup>\n          <ToggleGroup aria-label='Layout' type='single' variant='outline' size='sm' spacing={0} value={shape} onValueChange={(next) => next && setShape(next)}>\n            <ToggleGroupItem value='start'>Bars</ToggleGroupItem>\n            <ToggleGroupItem value='center'>Funnel</ToggleGroupItem>\n          </ToggleGroup>\n        </>\n      }\n      data={periods[period]}\n      align={shape}\n      valueLabel='People'\n      className='my-0 w-full max-w-2xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

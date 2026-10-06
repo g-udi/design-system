@@ -10,7 +10,6 @@
  */
 
 import CustomLink from '../core/Link';
-import { BlogNewsletterForm } from '../layout/NewsletterForm';
 import Aside from './Aside';
 import Callout from './Callout';
 import Chart from './Chart';
@@ -63,7 +62,6 @@ export const MDXComponents = {
   AreaChart,
   Aside,
   BarChart,
-  BlogNewsletterForm,
   BoxPlotChart,
   BubbleChart,
   Callout,

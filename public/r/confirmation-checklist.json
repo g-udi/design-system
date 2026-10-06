@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirmation-checklist",
+  "type": "registry:example",
+  "title": "Checklist before an action",
+  "description": "Checklist before an action. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "confirmation",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--confirmation-checklist",
+    "source": "src/components/core/Dialog/stories/fixtures/confirmation/confirmation-checklist.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/confirmation-checklist.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  DialogConfirmationRoot as DialogConfirmation,\n  DialogConfirmationAction,\n  DialogConfirmationCancel,\n  DialogConfirmationContent,\n  DialogConfirmationDescription,\n  DialogConfirmationFooter,\n  DialogConfirmationMedia,\n  DialogConfirmationTitle,\n  DialogConfirmationTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst SECURITY_ITEMS = [\n  {\n    icon: (\n      <RegistryIcon\n        lucide='LockIcon'\n        className='text-text-muted size-4'\n      />\n    ),\n    title: 'Password Policy',\n    description: 'Confirm the password is unique',\n    status: 'Pending'\n  },\n  {\n    icon: (\n      <RegistryIcon\n        lucide='FingerprintPatternIcon'\n        className='text-text-muted size-4'\n      />\n    ),\n    title: 'Biometric Status',\n    description: 'Turn on disk encryption',\n    status: 'Done'\n  },\n  {\n    icon: (\n      <RegistryIcon\n        lucide='KeySquareIcon'\n        className='text-text-muted size-4'\n      />\n    ),\n    title: 'Active Sessions',\n    description: 'Sign out devices you do not recognise',\n    status: 'Pending'\n  }\n];\nexport function Pattern() {\n  return (\n    <DialogConfirmation>\n      <DialogConfirmationTrigger asChild>\n        <Button variant='outline'>Account health check</Button>\n      </DialogConfirmationTrigger>\n      <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>\n        {/* Header */}\n        <div className='flex flex-col items-center justify-center gap-1.5 px-4 pt-6 pb-5 text-center'>\n          <DialogConfirmationMedia className='size-12 rounded-full bg-success-muted text-success'>\n            <RegistryIcon lucide='ShieldAlertIcon' className='size-6' />\n          </DialogConfirmationMedia>\n          <DialogConfirmationTitle className='text-base font-semibold'>\n            Advanced Security Audit\n          </DialogConfirmationTitle>\n          <DialogConfirmationDescription className='p-0 text-sm'>\n            Summary of your account status and security settings.\n          </DialogConfirmationDescription>\n        </div>\n\n        {/* Content */}\n        <div className='grid gap-2 px-4'>\n          {SECURITY_ITEMS.map((item) => (\n            <div\n              key={item.title}\n              className='border-border flex items-center justify-between rounded-md border border-dashed px-3 py-2'\n            >\n              <div className='flex items-center gap-2.5'>\n                <div className='bg-surface border-border flex size-7 items-center justify-center rounded-md border shadow-xs'>\n                  {item.icon}\n                </div>\n                <div className='flex flex-col gap-0.5'>\n                  <span className='text-sm font-medium'>{item.title}</span>\n                  <span className='text-text-muted text-xs'>\n                    {item.description}\n                  </span>\n                </div>\n              </div>\n              <Badge\n                variant={\n                  item.status === 'Pending' ? 'warning-light' : 'success-light'\n                }\n              >\n                {item.status}\n              </Badge>\n            </div>\n          ))}\n        </div>\n\n        {/* Footer */}\n        {/* The content is `p-0`, so there is no padding to escape: the footer's\n       built-in `-mx-3 -mb-3` pushed the bar OUTSIDE the dialog, where\n       `overflow-hidden` clipped it - which is why it looked like it had no\n       padding. Cancelling the breakout puts it flush edge-to-edge with its\n       own `p-4` intact. */}\n        <DialogConfirmationFooter className='mx-0 mb-0 grid grid-cols-1 gap-2 p-4'>\n          <DialogConfirmationAction variant='default' className='flex-1'>\n            Start Deep Audit\n          </DialogConfirmationAction>\n          <DialogConfirmationCancel variant='ghost' className='flex-1'>\n            Skip for now\n          </DialogConfirmationCancel>\n        </DialogConfirmationFooter>\n      </DialogConfirmationContent>\n    </DialogConfirmation>\n  );\n}\n"
+    }
+  ]
+}

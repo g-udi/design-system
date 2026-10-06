@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block-tabbed",
+  "type": "registry:example",
+  "title": "Tabbed code",
+  "description": "Tabbed code. Core/Data Display/CodeBlock pattern composed from @gaudi/design-system/core/CodeBlock and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "code-block",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/CodeBlock",
+    "import": "@gaudi/design-system/core/CodeBlock",
+    "storyId": "core-codeblock--tabbed",
+    "source": "src/components/core/CodeBlock/stories/fixtures/code-block/code-block-tabbed.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/code-block-tabbed.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { CodeBlockGroup } from '@gaudi/design-system/core/CodeBlock';\n\nconst install = [\n  { title: 'pnpm', language: 'bash', code: 'pnpm add @gaudi/design-system\\npnpm add katex mermaid recharts' },\n  { title: 'npm', language: 'bash', code: 'npm install @gaudi/design-system\\nnpm install katex mermaid recharts' },\n  { title: 'yarn', language: 'bash', code: 'yarn add @gaudi/design-system\\nyarn add katex mermaid recharts' },\n  { title: 'bun', language: 'bash', code: 'bun add @gaudi/design-system\\nbun add katex mermaid recharts' }\n];\nconst files = [\n  {\n    title: 'greeting.tsx',\n    language: 'tsx',\n    code: `export function Greeting({ name }: { name: string }) {\n  return <p>Hello {name}</p>\n}`\n  },\n  {\n    title: 'greeting.py',\n    language: 'python',\n    code: `def greeting(name: str) -> str:\n    return f\"Hello {name}\"`\n  },\n  {\n    title: 'recent.sql',\n    language: 'sql',\n    code: `select id, email\nfrom users\nwhere created_at > now() - interval '7 days';`\n  }\n];\n\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-2xl gap-6'>\n      <CodeBlockGroup label='Install' items={install} />\n      <CodeBlockGroup label='Greeting in three languages' items={files} showLineNumbers />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

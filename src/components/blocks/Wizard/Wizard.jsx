@@ -118,9 +118,9 @@ function WizardFlow({
             return (
               <li key={item.id} aria-current={index === step ? 'step' : undefined}>
                 {goTo && index < active ? (
-                  <button type='button' aria-label={`Back to ${item.label}`} onClick={() => goTo(index)} className='grid h-6 min-w-6 cursor-pointer place-items-center px-1'>
+                  <Button variant='ghost' size='icon-xs' aria-label={`Back to ${item.label}`} onClick={() => goTo(index)}>
                     {dot}
-                  </button>
+                  </Button>
                 ) : (
                   <span className='grid h-6 min-w-6 place-items-center px-1'>
                     {dot}

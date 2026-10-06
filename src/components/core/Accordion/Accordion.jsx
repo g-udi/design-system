@@ -1,8 +1,9 @@
 'use client';
 
-import { createContext, useContext, useId, useState } from 'react';
+import { createContext, useContext, useId } from 'react';
 import * as Primitive from '@radix-ui/react-accordion';
 import Icon from '../Icon';
+import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { cn } from '../../../utilities/cn';
 
 const AccordionContext = createContext({});
@@ -35,15 +36,16 @@ export function Accordion(props) {
   } = props;
   // An explicitly supplied undefined is a controlled, fully collapsed accordion.
   const controlled = Object.prototype.hasOwnProperty.call(props, 'value');
-  const [internalValue, setInternalValue] = useState(() =>
-    normalizeValue(defaultValue, type)
-  );
-  const currentValue = normalizeValue(controlled ? value : internalValue, type);
+  const [state, setState] = useControllableState({
+    value: controlled ? normalizeValue(value, type) ?? '' : undefined,
+    defaultValue: () => normalizeValue(defaultValue, type),
+    onChange: (next) => onValueChange?.(normalizeValue(next, type))
+  });
+  const currentValue = normalizeValue(state, type);
   const setValue = (nextValue) => {
     const next = normalizeValue(nextValue, type);
     if (type === 'single' && !collapsible && currentValue && !next) return;
-    if (!controlled) setInternalValue(next);
-    onValueChange?.(next);
+    setState(next);
   };
   return (
     <AccordionContext.Provider

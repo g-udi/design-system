@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible-advanced-fields",
+  "type": "registry:example",
+  "title": "Collapsible: Advanced form fields",
+  "description": "Collapsible: Advanced form fields. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "collapsible",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--collapsible-advanced-fields",
+    "source": "src/components/core/Accordion/stories/fixtures/collapsible/collapsible-advanced-fields.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/collapsible-advanced-fields.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger\n} from '@gaudi/design-system/core/Accordion';\nimport {\n  FieldRoot as Field,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { InputGroupAddon, InputGroupText } from '@gaudi/design-system/core/Input';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';\nexport function Pattern() {\n  const id = useId();\n  const [isOpen, setIsOpen] = useState(false);\n  return (\n    <div className='mx-auto h-54 w-full max-w-xs'>\n      <Card size='sm'>\n        <CardHeader>\n          <CardTitle>Unit Pricing</CardTitle>\n        </CardHeader>\n        <CardContent>\n          <Collapsible\n            open={isOpen}\n            onOpenChange={setIsOpen}\n            className='flex flex-col gap-3'\n          >\n            <div className='flex items-end gap-2'>\n              <Field className='flex-1'>\n                <FieldLabel htmlFor={`${id}-base`} className='sr-only'>Base Price</FieldLabel>\n                <NumberField id={`${id}-base`} defaultValue={19}>\n                  <NumberFieldGroup>\n                    <NumberFieldInput placeholder='0.00' />\n                    <InputGroupAddon align='inline-end'>\n                      <InputGroupText>$</InputGroupText>\n                    </InputGroupAddon>\n                  </NumberFieldGroup>\n                </NumberField>\n              </Field>\n              <CollapsibleTrigger asChild>\n                <Button\n                  aria-label='Settings'\n                  variant='outline'\n                  size='icon'\n                  className='shrink-0'\n                >\n                  <RegistryIcon\n                    lucide='Settings2Icon'\n                    aria-hidden='true'\n                    className='size-3.5'\n                  />\n                </Button>\n              </CollapsibleTrigger>\n            </div>\n\n            <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down'>\n              <FieldGroup className='gap-2'>\n                <Field>\n                  <FieldLabel htmlFor={`${id}-tax`}>Tax Rate (%)</FieldLabel>\n                  <NumberField id={`${id}-tax`} defaultValue={15}>\n                    <NumberFieldGroup>\n                      <NumberFieldInput placeholder='0' />\n                      <InputGroupAddon align='inline-end'>\n                        <InputGroupText>%</InputGroupText>\n                      </InputGroupAddon>\n                    </NumberFieldGroup>\n                  </NumberField>\n                </Field>\n                <Field>\n                  <FieldLabel htmlFor={`${id}-discount`}>Discount (%)</FieldLabel>\n                  <NumberField id={`${id}-discount`} defaultValue={0}>\n                    <NumberFieldGroup>\n                      <NumberFieldInput placeholder='0' />\n                      <InputGroupAddon align='inline-end'>\n                        <InputGroupText>%</InputGroupText>\n                      </InputGroupAddon>\n                    </NumberFieldGroup>\n                  </NumberField>\n                </Field>\n              </FieldGroup>\n            </CollapsibleContent>\n          </Collapsible>\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "prompt-composer-mentions-attachments",
+  "type": "registry:example",
+  "title": "Chat composer: Mentions, commands and attachments",
+  "description": "Chat composer: Mentions, commands and attachments. Chat/ChatInput pattern composed from @gaudi/design-system/chat/ChatInput and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "prompt-composer",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatInput",
+    "import": "@gaudi/design-system/chat/ChatInput",
+    "storyId": "chat-chatinput--mentions-attachments",
+    "source": "src/components/chat/ChatInput/stories/fixtures/prompt-composer/prompt-composer-mentions-attachments.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/prompt-composer-mentions-attachments.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';\nimport { Badge } from '@gaudi/design-system/core/Pill';\n\nconst portrait = (path) => `/avatars/${path}.svg`;\nconst mentions = [\n  { id: 'sarah', name: 'Sabine Okafor', description: 'Editor', avatar: portrait('person-20') },\n  { id: 'daniel', name: 'Ansel Mwangi', description: 'Engineering', avatar: portrait('person-41') },\n  { id: 'emma', name: 'Ilse Valtonen', description: 'Growth', avatar: portrait('person-24') },\n  { id: 'research', name: 'Research agent', description: 'Searches the archive and the web', icon: 'Bot' },\n  { id: 'drafts', name: 'Drafts', description: 'Folder · 12 posts', icon: 'Folder' }\n];\nconst commands = [\n  { id: 'summarize', name: 'summarize', description: 'Summarise the open draft', icon: 'ListChecks' },\n  { id: 'outline', name: 'outline', description: 'Turn notes into an outline', icon: 'ListTodo' },\n  { id: 'translate', name: 'translate', description: 'Translate the selection', icon: 'Globe' },\n  { id: 'proofread', name: 'proofread', description: 'Fix spelling and grammar', icon: 'Check' }\n];\nconst formatSize = (bytes) => (bytes > 1e6 ? `${(bytes / 1e6).toFixed(1)} MB` : `${Math.max(1, Math.round(bytes / 1e3))} KB`);\n\nexport function Pattern() {\n  const [attachments, setAttachments] = useState([{ id: 'notes', name: 'interview-notes.md', size: '12 KB', type: 'text/markdown' }]);\n  const [sent, setSent] = useState(null);\n  return (\n    <div className='mx-auto grid w-full max-w-2xl gap-4 pt-64'>\n      <ChatPromptComposer\n        mentions={mentions}\n        commands={commands}\n        attachments={attachments}\n        onAttach={(files) => setAttachments((current) => [...current, ...files.map((file) => ({ id: `${file.name}-${file.size}`, name: file.name, size: formatSize(file.size), type: file.type }))])}\n        onRemoveAttachment={(id) => setAttachments((current) => current.filter((file) => file.id !== id))}\n        onSubmit={(text, details) => {\n          setSent({ text, details });\n          setAttachments([]);\n        }}\n        footer='Enter sends · Shift+Enter adds a line · @ mentions people, agents and folders · / runs a command'\n      />\n      {sent ? (\n        <div role='status' className='bg-surface-muted grid gap-2 rounded-(--ds-radius-card) border p-3 text-sm'>\n          <p className='font-medium'>Sent</p>\n          <p className='break-words'>{sent.text || 'No text'}</p>\n          <div className='flex flex-wrap gap-1.5'>\n            {sent.details.command ? <Badge variant='discovery-light'>/{sent.details.command.name}</Badge> : null}\n            {sent.details.mentions.map((item) => <Badge key={item.id} variant='info-light'>@{item.name}</Badge>)}\n            {sent.details.attachments.map((file) => <Badge key={file.id} variant='outline'>{file.name}</Badge>)}\n          </div>\n        </div>\n      ) : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

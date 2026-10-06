@@ -1,2 +1,2 @@
 // Composition exports
-export { Separator } from './parts/separator.jsx';
+export { Separator } from './Separator.jsx';

@@ -1,2 +1,2 @@
 // Composition exports
-export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './parts/input-otp.jsx';
+export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './InputOtp.jsx';

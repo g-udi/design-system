@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-rich-options",
+  "type": "registry:example",
+  "title": "Rich option content",
+  "description": "Rich option content. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-25.svg, /avatars/person-41.svg, /avatars/person-47.svg.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--rich-options",
+    "source": "src/components/core/Select/stories/fixtures/select/select-rich-options.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-25.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-47.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-rich-options.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { cn } from '@gaudi/design-system/utilities/cn';\n\nconst categories = [\n  { value: 'documents', label: 'Documents', icon: 'FileTextIcon' },\n  { value: 'images', label: 'Images', icon: 'ImageIcon' },\n  { value: 'videos', label: 'Videos', icon: 'VideoIcon' },\n  { value: 'archives', label: 'Archives', icon: 'ArchiveIcon' }\n];\nconst statuses = [\n  { value: 'all', label: 'All statuses' },\n  { value: 'ready', label: 'Ready', dot: 'bg-success' },\n  { value: 'building', label: 'Building', dot: 'bg-warning' },\n  { value: 'queued', label: 'Queued', dot: 'bg-info' },\n  { value: 'failed', label: 'Failed', dot: 'bg-danger' }\n];\nconst members = [\n  { value: 'sarah', label: 'Sabine Okafor', initials: 'SO', avatar: '/avatars/person-20.svg' },\n  { value: 'alex', label: 'Bram Seo', initials: 'BS', avatar: '/avatars/person-41.svg' },\n  { value: 'maria', label: 'Mireille Gaspard', initials: 'MG', avatar: '/avatars/person-25.svg' },\n  { value: 'james', label: 'Felix Wainwright', initials: 'FW', avatar: '/avatars/person-47.svg' }\n];\nconst priorities = [\n  { value: 'urgent', label: 'Urgent', variant: 'destructive-light' },\n  { value: 'high', label: 'High', variant: 'warning-light' },\n  { value: 'medium', label: 'Medium', variant: 'info-light' },\n  { value: 'low', label: 'Low', variant: 'outline' }\n];\nconst countries = [\n  { value: 'us', label: 'United States', flag: '\\u{1F1FA}\\u{1F1F8}' },\n  { value: 'gb', label: 'United Kingdom', flag: '\\u{1F1EC}\\u{1F1E7}' },\n  { value: 'de', label: 'Germany', flag: '\\u{1F1E9}\\u{1F1EA}' },\n  { value: 'jp', label: 'Japan', flag: '\\u{1F1EF}\\u{1F1F5}' }\n];\nconst fonts = [\n  { value: 'sans', label: 'Sans serif', className: 'font-sans' },\n  { value: 'serif', label: 'Serif', className: 'font-serif' },\n  { value: 'mono', label: 'Monospace', className: 'font-mono' }\n];\n\nfunction Picker({ label, defaultValue, prefix, groupLabel, items, render }) {\n  const id = useId();\n  return (\n    <Field>\n      <FieldLabel htmlFor={id}>{label}</FieldLabel>\n      <Select defaultValue={defaultValue}>\n        <SelectTrigger id={id} className='w-full'>\n          {prefix ? (\n            <span className='flex items-center gap-2'>\n              <span className='text-text-muted'>{prefix}</span>\n              <SelectValue />\n            </span>\n          ) : (\n            <SelectValue />\n          )}\n        </SelectTrigger>\n        <SelectContent position='popper'>\n          <SelectGroup>\n            {groupLabel && <SelectLabel>{groupLabel}</SelectLabel>}\n            {items.map((item) => (\n              <SelectItem key={item.value} value={item.value}>\n                <span className='flex items-center gap-2'>{render(item)}</span>\n              </SelectItem>\n            ))}\n          </SelectGroup>\n        </SelectContent>\n      </Select>\n    </Field>\n  );\n}\n\n// Option rows carry what identifies them at a glance: an icon, a status dot, an\n// avatar, a badge, a flag or a live font preview. The trigger repeats it.\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <Picker\n        label='Category'\n        defaultValue='documents'\n        items={categories}\n        render={(item) => (\n          <>\n            <RegistryIcon lucide={item.icon} className='size-4 text-text-muted' />\n            {item.label}\n          </>\n        )}\n      />\n      <Picker\n        label='Status'\n        defaultValue='all'\n        items={statuses}\n        render={(item) => (\n          <>\n            {item.dot && <span className={cn('size-2 shrink-0 rounded-full', item.dot)} />}\n            {item.label}\n          </>\n        )}\n      />\n      <Picker\n        label='Assignee'\n        defaultValue='sarah'\n        groupLabel='Assign to'\n        items={members}\n        render={(item) => (\n          <>\n            <Avatar className='size-5'>\n              <AvatarImage src={item.avatar} alt='' />\n              <AvatarFallback>{item.initials}</AvatarFallback>\n            </Avatar>\n            {item.label}\n          </>\n        )}\n      />\n      <Picker\n        label='Priority'\n        defaultValue='high'\n        prefix='Priority:'\n        items={priorities}\n        render={(item) => (\n          <Badge variant={item.variant} size='sm'>\n            {item.label}\n          </Badge>\n        )}\n      />\n      <Picker\n        label='Country'\n        defaultValue='de'\n        items={countries}\n        render={(item) => (\n          <>\n            <span aria-hidden='true'>{item.flag}</span>\n            {item.label}\n          </>\n        )}\n      />\n      <Picker\n        label='Font'\n        defaultValue='serif'\n        items={fonts}\n        render={(item) => <span className={item.className}>{item.label}</span>}\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

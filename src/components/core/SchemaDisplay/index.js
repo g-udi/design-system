@@ -1,1 +1,1 @@
-export { SchemaDisplay as default, SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayProperties } from './parts/schema-display.jsx';
+export { SchemaDisplay as default, SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayProperties } from './SchemaDisplay.jsx';

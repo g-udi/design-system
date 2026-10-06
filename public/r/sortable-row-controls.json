@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sortable-row-controls",
+  "type": "registry:example",
+  "title": "List with row controls",
+  "description": "List with row controls. Core/Layout & Containers/Sortable pattern composed from @gaudi/design-system/core/Sortable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sortable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sortable",
+    "import": "@gaudi/design-system/core/Sortable",
+    "storyId": "core-sortable--row-controls",
+    "source": "src/components/core/Sortable/stories/fixtures/sortable/sortable-row-controls.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sortable-row-controls.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  Frame,\n  FrameDescription,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Sortable,\n  SortableItem,\n  SortableItemHandle\n} from '@gaudi/design-system/core/Sortable';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Product media: drag a row by its handle to set the display order; the switch\n// inside each row stays clickable without starting a drag.\nconst defaultItems = [\n  { id: '1', title: 'Product photo', description: 'Main listing image', type: 'image', size: '2.4 MB', visible: true },\n  { id: '2', title: 'Specification sheet', description: 'Technical details', type: 'document', size: '1.2 MB', visible: true },\n  { id: '3', title: 'Demo video', description: 'How to set it up', type: 'video', size: '15.7 MB', visible: true },\n  { id: '4', title: 'Audio guide', description: 'Spoken instructions', type: 'audio', size: '8.3 MB', visible: false },\n  { id: '5', title: 'Side view', description: 'Additional angle', type: 'image', size: '3.1 MB', visible: true }\n];\nconst types = {\n  image: { icon: 'ImageIcon', variant: 'primary-light' },\n  document: { icon: 'FileTextIcon', variant: 'success-light' },\n  video: { icon: 'VideoIcon', variant: 'info-light' },\n  audio: { icon: 'MusicIcon', variant: 'warning-light' }\n};\n\nexport function Pattern() {\n  const toastId = useId();\n  const [items, setItems] = useState(defaultItems);\n  const reorder = (next) => {\n    setItems(next);\n    toast.success('Media reordered', {\n      toasterId: toastId,\n      description: next.map((item, index) => `${index + 1}. ${item.title}`).join(', ')\n    });\n  };\n  const toggle = (id) =>\n    setItems((current) => current.map((item) => (item.id === id ? { ...item, visible: !item.visible } : item)));\n  const shown = items.filter((item) => item.visible).length;\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <div className='mx-auto w-full max-w-lg'>\n      <Frame spacing='xs'>\n        <FrameHeader>\n          <FrameTitle>Product media</FrameTitle>\n          <FrameDescription>{shown} of {items.length} shown on the listing, top first.</FrameDescription>\n        </FrameHeader>\n        <Sortable\n          value={items}\n          onValueChange={reorder}\n          getItemValue={(item) => item.id}\n          strategy='vertical'\n          className='space-y-0.5'\n        >\n          {items.map((item, index) => (\n            <SortableItem key={item.id} value={item.id}>\n              <FramePanel className='p-0!'>\n                <div className='flex items-center gap-2 px-2 py-1.5'>\n                  <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>\n                    <RegistryIcon lucide='GripVerticalIcon' className='size-4' />\n                  </SortableItemHandle>\n                  <span className='flex size-8 shrink-0 items-center justify-center rounded-md bg-ui-muted text-ui-muted-foreground'>\n                    <RegistryIcon lucide={types[item.type].icon} className='size-4' />\n                  </span>\n                  <div className='min-w-0 flex-1'>\n                    <p className='truncate text-sm font-medium'>\n                      {item.title}\n                      {index === 0 && (\n                        <Badge variant='primary-light' size='xs' className='ms-1.5 align-middle'>Cover</Badge>\n                      )}\n                    </p>\n                    <p className='truncate text-xs text-ui-muted-foreground'>{item.description} · {item.size}</p>\n                  </div>\n                  <Badge variant={types[item.type].variant} size='sm' className='hidden sm:inline-flex'>{item.type}</Badge>\n                  <Switch aria-label={`Show ${item.title}`} checked={item.visible} onCheckedChange={() => toggle(item.id)} />\n                </div>\n              </FramePanel>\n            </SortableItem>\n          ))}\n        </Sortable>\n      </Frame>\n    </div>\n    </>\n  );\n}\n"
+    }
+  ]
+}

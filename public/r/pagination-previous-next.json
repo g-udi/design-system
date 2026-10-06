@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination-previous-next",
+  "type": "registry:example",
+  "title": "Previous and next with page info",
+  "description": "Previous and next with page info. Core/Navigation/Pagination pattern composed from @gaudi/design-system/core/Pagination and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "pagination",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Pagination",
+    "import": "@gaudi/design-system/core/Pagination",
+    "storyId": "core-pagination--previous-next",
+    "source": "src/components/core/Pagination/stories/fixtures/pagination/pagination-previous-next.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/pagination-previous-next.jsx",
+      "type": "registry:component",
+      "content": "import {\n  PaginationRoot as Pagination,\n  PaginationContentPrimitive as PaginationContent,\n  PaginationItemPrimitive as PaginationItem,\n  PaginationLinkPrimitive as PaginationLink,\n  PaginationNextPrimitive as PaginationNext,\n  PaginationPreviousPrimitive as PaginationPrevious\n} from '@gaudi/design-system/core/Pagination';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst PageInfo = () => (\n  <span className='text-xs text-text-muted'>\n    Page <span className='font-medium text-text'>1</span> of <span className='font-medium text-text'>10</span>\n  </span>\n);\nconst IconLink = ({ icon, label }) => (\n  <PaginationLink href='#' size='icon' aria-label={label}>\n    <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' />\n  </PaginationLink>\n);\nconst TextLink = ({ icon, children, trailing }) => (\n  <PaginationLink href='#' size='default' className='gap-2'>\n    {trailing ? null : <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' />}\n    {children}\n    {trailing ? <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' /> : null}\n  </PaginationLink>\n);\nconst rows = {\n  'Info centred': [\n    <IconLink key='p' icon='ChevronLeftIcon' label='Go to previous page' />,\n    <PageInfo key='i' />,\n    <IconLink key='n' icon='ChevronRightIcon' label='Go to next page' />\n  ],\n  'Info leading': [\n    <PageInfo key='i' />,\n    <span key='b' className='flex gap-1'>\n      <PaginationPrevious href='#' />\n      <PaginationNext href='#' />\n    </span>\n  ],\n  'Arrows only': [\n    <TextLink key='p' icon='ArrowLeftIcon'>Previous</TextLink>,\n    <TextLink key='n' icon='ArrowRightIcon' trailing>Next</TextLink>\n  ]\n};\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-sm grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n      {Object.entries(rows).map(([name, items]) => (\n        <div key={name} className='contents'>\n          <span className='text-xs text-text-muted'>{name}</span>\n          <Pagination aria-label={`${name} pagination`}>\n            <PaginationContent className='w-full justify-between'>\n              {items.map((item) => (\n                <PaginationItem key={item.key}>{item}</PaginationItem>\n              ))}\n            </PaginationContent>\n          </Pagination>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

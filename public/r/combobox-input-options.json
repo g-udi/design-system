@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox-input-options",
+  "type": "registry:example",
+  "title": "Input options",
+  "description": "Input options. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "@base-ui/react@1.5.0"
+  ],
+  "categories": [
+    "combobox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--combobox-input-options",
+    "source": "src/components/core/Select/stories/fixtures/combobox/combobox-input-options.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/combobox-input-options.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { Combobox as ComboboxPrimitive } from '@base-ui/react';\nimport {\n  Combobox,\n  ComboboxContent,\n  ComboboxEmpty,\n  ComboboxInput,\n  ComboboxItem,\n  ComboboxList\n} from '@gaudi/design-system/core/Select';\nimport {\n  FieldRoot as Field,\n  FieldErrorPrimitive as FieldError,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { InputGroupAddon } from '@gaudi/design-system/core/Input';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];\n\nfunction FrameworkCombobox({ label, error, inputProps, children, ...props }) {\n  const id = useId();\n  return (\n    <Field data-invalid={error ? true : undefined}>\n      <FieldLabel htmlFor={id}>{label}</FieldLabel>\n      <Combobox items={frameworks} {...props}>\n        <ComboboxInput\n          id={id}\n          placeholder='Select a framework'\n          aria-invalid={error ? true : undefined}\n                  aria-describedby={error ? `${id}-error` : undefined}\n          {...inputProps}\n        >\n          {children}\n        </ComboboxInput>\n        <ComboboxContent>\n          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>\n          <ComboboxList>\n            {(item) => (\n              <ComboboxItem key={item} value={item}>\n                {item}\n              </ComboboxItem>\n            )}\n          </ComboboxList>\n        </ComboboxContent>\n      </Combobox>\n      {error ? <FieldError id={`${id}-error`} errors={[{ message: error }]} /> : null}\n    </Field>\n  );\n}\n\n// A custom trigger icon that gives way to the clear button once a value is picked.\nfunction CustomTriggerCombobox() {\n  const [value, setValue] = useState(null);\n  return (\n    <FrameworkCombobox\n      label='Custom trigger icon'\n      value={value}\n      onValueChange={setValue}\n      inputProps={{ showTrigger: false, showClear: true }}\n    >\n      {!value && (\n        <ComboboxPrimitive.Trigger aria-label='Show options' data-slot='combobox-trigger'>\n          <RegistryIcon lucide='ChevronsUpDownIcon' className='text-text-muted pointer-events-none size-4' />\n        </ComboboxPrimitive.Trigger>\n      )}\n    </FrameworkCombobox>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <FrameworkCombobox label='Framework' />\n      <FrameworkCombobox label='Auto highlight' autoHighlight />\n      <FrameworkCombobox\n        label='Clear button'\n        defaultValue={frameworks[0]}\n        inputProps={{ showClear: true }}\n      />\n      <FrameworkCombobox label='Icon addon'>\n        <InputGroupAddon>\n          <RegistryIcon lucide='GlobeIcon' className='text-text-muted size-4' />\n        </InputGroupAddon>\n      </FrameworkCombobox>\n      <CustomTriggerCombobox />\n      <FrameworkCombobox\n        label='Disabled'\n        defaultValue={frameworks[1]}\n        inputProps={{ disabled: true }}\n      />\n      <FrameworkCombobox\n        label='Invalid'\n        error='Pick a framework to continue.'\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

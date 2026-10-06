@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog-scrollable",
+  "type": "registry:example",
+  "title": "Scrollable content",
+  "description": "Scrollable content. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dialog",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--scrollable",
+    "source": "src/components/core/Dialog/stories/fixtures/dialog/dialog-scrollable.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dialog-scrollable.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogClosePrimitive as DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\n\nconst TERMS = [\n  'Your workspace data stays in the region you chose at sign-up. Backups are encrypted at rest and kept for 30 days.',\n  'Members can export their own content at any time. Owners can export the whole workspace from Settings.',\n  'We notify owners by email at least 14 days before any change to these terms takes effect.',\n  'Deleted projects move to the trash for 30 days, after which they are removed permanently from every backup.',\n  'Integrations only receive the scopes you approve. You can revoke a connected app from the Integrations page.',\n  'Usage is billed monthly per active member. Guests and viewers are free and never count toward your plan.'\n];\n\nfunction Terms({ repeat = 2 }) {\n  return Array.from({ length: repeat }).flatMap((_, round) =>\n    TERMS.map((term, index) => (\n      <p key={`${round}-${index}`} className='text-text-muted leading-normal'>\n        {term}\n      </p>\n    ))\n  );\n}\n\n// Three ways to hold long content: the body scrolls alone, the footer stays pinned, or the dialog fills the screen.\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>Scrolling body</Button>\n        </DialogTrigger>\n        <DialogContent>\n          <DialogHeader>\n            <DialogTitle>Terms of service</DialogTitle>\n            <DialogDescription>Scroll to read the full terms.</DialogDescription>\n          </DialogHeader>\n          <div className='no-scrollbar -mx-3 grid max-h-[60vh] gap-3 overflow-y-auto px-3'>\n            <Terms />\n          </div>\n        </DialogContent>\n      </Dialog>\n\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>Sticky footer</Button>\n        </DialogTrigger>\n        <DialogContent>\n          <DialogHeader>\n            <DialogTitle>Terms of service</DialogTitle>\n            <DialogDescription>The footer stays in view while the terms scroll.</DialogDescription>\n          </DialogHeader>\n          <div className='no-scrollbar -mx-3 grid max-h-[50vh] gap-3 overflow-y-auto px-3'>\n            <Terms />\n          </div>\n          <DialogFooter>\n            <DialogClose asChild>\n              <Button variant='outline'>Decline</Button>\n            </DialogClose>\n            <DialogClose asChild>\n              <Button>Accept</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>Full screen</Button>\n        </DialogTrigger>\n        <DialogContent className='flex max-h-[calc(100vh-3rem)] w-full max-w-[calc(100vw-3rem)] flex-col gap-0 overflow-hidden p-0 sm:max-w-[calc(100vw-3rem)]'>\n          <DialogHeader className='border-b border-border p-4'>\n            <DialogTitle>Terms of service</DialogTitle>\n            <DialogDescription>A fluid full-screen dialog with a sticky header and footer.</DialogDescription>\n          </DialogHeader>\n          <div className='grid flex-1 gap-3 overflow-y-auto p-4'>\n            <Terms repeat={4} />\n          </div>\n          <DialogFooter className='mx-0 mb-0 rounded-none'>\n            <DialogClose asChild>\n              <Button variant='outline'>Decline</Button>\n            </DialogClose>\n            <DialogClose asChild>\n              <Button>Accept</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

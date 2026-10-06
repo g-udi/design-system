@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-account-menu",
+  "type": "registry:example",
+  "title": "Account dropdown menu",
+  "description": "Account dropdown menu. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-23.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--account-menu",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-account-menu.jsx",
+    "assets": [
+      "/avatars/person-23.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-account-menu.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuLabelPrimitive as DropdownMenuLabel,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button\n          variant='outline'\n          size='sm'\n          className='rounded-control h-8 gap-1.5 pr-2.5 pl-1'\n        >\n          <Avatar className='border-ui-background size-6 border'>\n            <AvatarImage\n              src='/avatars/person-23.svg'\n              alt='Quentin Hale'\n            />\n            <AvatarFallback>QH</AvatarFallback>\n          </Avatar>\n          <span className='text-xs font-medium'>Quentin Hale</span>\n          <RegistryIcon\n            lucide='ChevronsUpDownIcon'\n            className='size-3.5 opacity-60'\n            aria-hidden='true'\n          />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent className='w-44' align='center' sideOffset={8}>\n        <DropdownMenuGroup>\n          <DropdownMenuLabel>Management</DropdownMenuLabel>\n          <DropdownMenuItem>\n            <RegistryIcon lucide='UserIcon' aria-hidden='true' />\n            <span>Profile</span>\n          </DropdownMenuItem>\n          <DropdownMenuItem>\n            <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />\n            <span>Settings</span>\n          </DropdownMenuItem>\n        </DropdownMenuGroup>\n        <DropdownMenuSeparator />\n        <DropdownMenuGroup>\n          <DropdownMenuItem>\n            <RegistryIcon lucide='UserIcon' aria-hidden='true' />\n            <span>Teams</span>\n          </DropdownMenuItem>\n          <DropdownMenuItem>\n            <RegistryIcon lucide='PlusIcon' aria-hidden='true' />\n            <span>Invite</span>\n          </DropdownMenuItem>\n        </DropdownMenuGroup>\n        <DropdownMenuSeparator />\n        <DropdownMenuItem variant='destructive'>\n          <RegistryIcon lucide='LogOutIcon' aria-hidden='true' />\n          <span>Log out</span>\n        </DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}\n"
+    }
+  ]
+}

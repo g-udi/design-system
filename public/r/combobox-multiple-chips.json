@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox-multiple-chips",
+  "type": "registry:example",
+  "title": "Multiple selection with chips",
+  "description": "Multiple selection with chips. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "combobox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--combobox-multiple-chips",
+    "source": "src/components/core/Select/stories/fixtures/combobox/combobox-multiple-chips.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/combobox-multiple-chips.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { Fragment, useId } from 'react';\nimport {\n  Combobox,\n  ComboboxChip,\n  ComboboxChips,\n  ComboboxChipsInput,\n  ComboboxContent,\n  ComboboxEmpty,\n  ComboboxItem,\n  ComboboxList,\n  ComboboxValue,\n  useComboboxAnchor\n} from '@gaudi/design-system/core/Select';\nimport {\n  FieldRoot as Field,\n  FieldErrorPrimitive as FieldError,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\n\nconst frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];\n\nfunction FrameworkChips({ label, removable = true, error, disabled, defaultValue, className }) {\n  const id = useId();\n  const anchor = useComboboxAnchor();\n  return (\n    <Field data-invalid={error ? true : undefined} className={className}>\n      <FieldLabel htmlFor={id}>{label}</FieldLabel>\n      <Combobox multiple autoHighlight items={frameworks} defaultValue={defaultValue} disabled={disabled}>\n        <ComboboxChips ref={anchor}>\n          <ComboboxValue>\n            {(values) => (\n              <Fragment>\n                {values.map((value) => (\n                  <ComboboxChip key={value} showRemove={removable}>\n                    {value}\n                  </ComboboxChip>\n                ))}\n                <ComboboxChipsInput\n                  id={id}\n                  placeholder='Add frameworks...'\n                  aria-invalid={error ? true : undefined}\n                  aria-describedby={error ? `${id}-error` : undefined}\n                />\n              </Fragment>\n            )}\n          </ComboboxValue>\n        </ComboboxChips>\n        <ComboboxContent anchor={anchor}>\n          <ComboboxEmpty>No frameworks found.</ComboboxEmpty>\n          <ComboboxList>\n            {(item) => (\n              <ComboboxItem key={item} value={item}>\n                {item}\n              </ComboboxItem>\n            )}\n          </ComboboxList>\n        </ComboboxContent>\n      </Combobox>\n      {error ? <FieldError id={`${id}-error`} errors={[{ message: error }]} /> : null}\n    </Field>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>\n      <FrameworkChips label='Removable chips' defaultValue={[frameworks[0]]} />\n      <FrameworkChips\n        label='Fixed chips'\n        removable={false}\n        defaultValue={[frameworks[0], frameworks[1]]}\n      />\n      <FrameworkChips\n        label='Disabled'\n        disabled\n        defaultValue={[frameworks[0], frameworks[1]]}\n      />\n      <FrameworkChips\n        label='Invalid'\n        className='sm:col-span-2'\n        defaultValue={[frameworks[3]]}\n        error='Pick at least two frameworks.'\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

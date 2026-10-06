@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-presets",
+  "type": "registry:example",
+  "title": "Presets",
+  "description": "Presets. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "date-fns@4.1.0"
+  ],
+  "categories": [
+    "calendar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--presets",
+    "source": "src/components/core/Calendar/stories/fixtures/calendar/calendar-presets.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/calendar-presets.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  addDays,\n  addMonths,\n  endOfMonth,\n  endOfYear,\n  startOfMonth,\n  startOfYear,\n  subDays,\n  subMonths,\n  subYears\n} from 'date-fns';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';\nimport { Calendar } from '@gaudi/design-system/core/Calendar';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\n\nconst today = new Date();\n// A due date looks ahead; a reporting range looks back and cannot end in the future.\nconst presets = {\n  single: [\n    { label: 'Today', value: today },\n    { label: 'Tomorrow', value: addDays(today, 1) },\n    { label: 'In a week', value: addDays(today, 7) },\n    { label: 'In 2 weeks', value: addDays(today, 14) },\n    { label: 'Next month', value: addMonths(today, 1) }\n  ],\n  range: [\n    { label: 'Today', value: { from: today, to: today } },\n    {\n      label: 'Yesterday',\n      value: { from: subDays(today, 1), to: subDays(today, 1) }\n    },\n    { label: 'Last 7 days', value: { from: subDays(today, 6), to: today } },\n    { label: 'Last 30 days', value: { from: subDays(today, 29), to: today } },\n    { label: 'Month to date', value: { from: startOfMonth(today), to: today } },\n    {\n      label: 'Last month',\n      value: {\n        from: startOfMonth(subMonths(today, 1)),\n        to: endOfMonth(subMonths(today, 1))\n      }\n    },\n    { label: 'Year to date', value: { from: startOfYear(today), to: today } },\n    {\n      label: 'Last year',\n      value: {\n        from: startOfYear(subYears(today, 1)),\n        to: endOfYear(subYears(today, 1))\n      }\n    }\n  ]\n};\nconst disabled = { single: { before: today }, range: { after: today } };\nconst monthOf = (value) => value?.to ?? value;\n\nexport function Pattern() {\n  const [mode, setMode] = useState('range');\n  const [selection, setSelection] = useState({\n    single: presets.single[2].value,\n    range: presets.range[2].value\n  });\n  const [month, setMonth] = useState(today);\n  const pick = (value) => {\n    setSelection((current) => ({ ...current, [mode]: value }));\n    setMonth(monthOf(value));\n  };\n  return (\n    <div className='mx-auto flex w-fit max-w-full flex-col gap-3'>\n      <ToggleGroup\n        type='single'\n        variant='outline'\n        size='sm'\n        spacing={0}\n        value={mode}\n        onValueChange={(value) => {\n          if (!value) return;\n          setMode(value);\n          setMonth(monthOf(selection[value]));\n        }}\n        aria-label='Preset type'\n      >\n        <ToggleGroupItem value='range'>Report range</ToggleGroupItem>\n        <ToggleGroupItem value='single'>Due date</ToggleGroupItem>\n      </ToggleGroup>\n      <Card className='w-fit max-w-full p-0'>\n        <CardContent className='flex p-0 max-sm:flex-col'>\n          <div className='flex flex-col gap-0.5 border-border p-2 max-sm:order-1 max-sm:border-t sm:w-32 sm:border-e'>\n            {presets[mode].map((preset) => (\n              <Button\n                key={preset.label}\n                className='w-full justify-start'\n                onClick={() => pick(preset.value)}\n                size='sm'\n                variant='ghost'\n              >\n                {preset.label}\n              </Button>\n            ))}\n          </div>\n          <Calendar\n            key={mode}\n            mode={mode}\n            month={month}\n            onMonthChange={setMonth}\n            selected={selection[mode]}\n            onSelect={(value) =>\n              value && setSelection((current) => ({ ...current, [mode]: value }))\n            }\n            disabled={disabled[mode]}\n            fixedWeeks\n          />\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -2,5 +2,5 @@ export { default } from './Skeleton';
 export * from './Skeleton';
 
 // Composition exports
-export { Skeleton as SkeletonRoot } from './parts/skeleton.jsx';
-export { Shimmer } from './parts/shimmer.jsx';
+export { Skeleton as SkeletonRoot } from './SkeletonPrimitives.jsx';
+export { Shimmer } from './Shimmer.jsx';

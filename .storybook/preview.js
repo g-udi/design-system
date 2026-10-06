@@ -4,14 +4,17 @@ import { create } from 'storybook/theming';
 import { withThemeByClassName } from '@storybook/addon-themes';
 
 import './preview.css';
+// Every preset, scoped by [data-theme]; the Theme toolbar sets the attribute on <html>.
+import '../src/themes/themes.css';
 
-import { SiteConfigProvider } from '../src/utilities/SiteConfig';
-import ThemeProvider from '../src/utilities/ThemeProvider';
+import { SiteConfigProvider, InputConfigProvider } from '../src/context';
+import { ThemeProvider } from 'next-themes';
 import tokenData from '../src/tokens/tokens.json';
-import siteMetadata from './fixtures/site/metadata';
-import navigationMetadata from './fixtures/site/navigationMetadata.mjs';
-import { ApplicationDocsPage } from './stories/ApplicationStoryHelpers';
-import { DocsMarkdown } from './stories/DocsMarkdown';
+import { DEFAULT_THEME_ID, listThemes } from '../src/themes';
+import siteMetadata from '../src/docs/fixtures/site/metadata';
+import navigationMetadata from '../src/docs/fixtures/site/navigationMetadata.mjs';
+import { ApplicationDocsPage } from '../src/docs/components/ApplicationStoryHelpers';
+import { DocsMarkdown } from '../src/docs/components/DocsMarkdown';
 
 /*
  * Workaround for a Storybook bug (storybook/test's enhanceContext loader):
@@ -54,8 +57,18 @@ const STORYBOOK_BACKGROUNDS = {
   'light': tokenData.dsVariables.root['--ds-color-surface']
 };
 
-function applyStorybookTheme(theme, cornerRadius, spaceScale) {
+const THEME_PRESETS = listThemes();
+
+// Toolbar values equal to the token default defer to the active theme's own radius/density.
+function setRootVariable(name, value, allowed) {
+  const style = document.documentElement.style;
+  if (allowed.includes(value) && value !== tokenData.dsVariables.root[name]) style.setProperty(name, value);
+  else style.removeProperty(name);
+}
+
+function applyStorybookTheme(theme, cornerRadius, spaceScale, themeId) {
   const isDark = theme === 'dark';
+  const preset = THEME_PRESETS.some((entry) => entry.id === themeId) ? themeId : DEFAULT_THEME_ID;
   const roots = [
     document.documentElement,
     document.body,
@@ -68,16 +81,19 @@ function applyStorybookTheme(theme, cornerRadius, spaceScale) {
     if (isDark) root.classList.add('dark');
   });
 
-  document.documentElement.style.setProperty('--ds-radius', CORNER_RADII.includes(cornerRadius) ? cornerRadius : tokenData.dsVariables.root['--ds-radius']);
-  document.documentElement.style.setProperty('--ds-space-scale', SPACE_SCALES.includes(spaceScale) ? spaceScale : tokenData.dsVariables.root['--ds-space-scale']);
+  document.documentElement.setAttribute('data-theme', preset);
+  setRootVariable('--ds-radius', cornerRadius, CORNER_RADII);
+  setRootVariable('--ds-space-scale', spaceScale, SPACE_SCALES);
   document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-  document.body.style.backgroundColor = isDark ? STORYBOOK_BACKGROUNDS.dark : STORYBOOK_BACKGROUNDS.light;
+  document.body.style.backgroundColor = preset === DEFAULT_THEME_ID
+    ? (isDark ? STORYBOOK_BACKGROUNDS.dark : STORYBOOK_BACKGROUNDS.light)
+    : 'var(--ds-color-surface)';
 }
 
-function syncStorybookTheme(theme, cornerRadius, spaceScale) {
-  applyStorybookTheme(theme, cornerRadius, spaceScale);
-  window.requestAnimationFrame(() => applyStorybookTheme(theme, cornerRadius, spaceScale));
-  window.setTimeout(() => applyStorybookTheme(theme, cornerRadius, spaceScale), 0);
+function syncStorybookTheme(...args) {
+  applyStorybookTheme(...args);
+  window.requestAnimationFrame(() => applyStorybookTheme(...args));
+  window.setTimeout(() => applyStorybookTheme(...args), 0);
 }
 
 const preview = {
@@ -99,22 +115,41 @@ const preview = {
     // The toolbar theme switch toggles the `dark` class on <html>.
     withThemeByClassName({ themes: { light: '', dark: 'dark' }, defaultTheme: 'light' }),
     (Story, context) => {
-      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius, context.globals.spaceScale);
+      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius, context.globals.spaceScale, context.globals.gaudiTheme);
       return React.createElement(
         ThemeProvider,
         { attribute: 'class', defaultTheme: context.globals.theme, enableSystem: false },
         React.createElement(
           SiteConfigProvider,
           { metadata: siteMetadata, navigation: navigationMetadata },
-          Story()
+          React.createElement(InputConfigProvider, { caretMode: context.globals.caretMode }, Story())
         )
       );
     }
   ],
   globalTypes: {
+    gaudiTheme: {
+      name: 'Theme preset',
+      description: 'Gaudi theme preset (data-theme on <html>); composes with the light/dark switch. See the Theming guide.',
+      toolbar: {
+        title: 'Theme preset',
+        icon: 'component',
+        items: THEME_PRESETS.map(({ id, name }) => ({ value: id, title: name })),
+        dynamicTitle: true
+      }
+    },
+    caretMode: {
+      name: 'Caret',
+      description: 'Text cursor behavior across Gaudi inputs. Individual fields can override it.',
+      toolbar: {
+        title: 'Caret', icon: 'edit',
+        items: [{ value: 'native', title: 'Native caret' }, { value: 'smooth', title: 'Smooth caret' }],
+        dynamicTitle: true,
+      },
+    },
     cornerRadius: {
       name: 'Corners',
-      description: 'Global corner radius for elements. Accordion and text highlights stay square.',
+      description: 'Global corner radius for elements. Accordion and text highlights stay square. The 4px default follows the theme preset.',
       toolbar: {
         title: 'Corners',
         icon: 'circlehollow',
@@ -129,7 +164,7 @@ const preview = {
     },
     spaceScale: {
       name: 'Density',
-      description: 'Global density: padding, gaps and control heights scale together. Margins and layout widths stay fixed.',
+      description: 'Global density: padding, gaps and control heights scale together. Margins and layout widths stay fixed. The default follows the theme preset.',
       toolbar: {
         title: 'Density',
         icon: 'expand',
@@ -142,7 +177,9 @@ const preview = {
     },
   },
   initialGlobals: {
+    caretMode: import.meta.env.VITE_GAUDI_CARET || 'smooth',
     cornerRadius: tokenData.dsVariables.root['--ds-radius'],
+    gaudiTheme: import.meta.env.VITE_GAUDI_THEME_PRESET || DEFAULT_THEME_ID,
     spaceScale: tokenData.dsVariables.root['--ds-space-scale'],
     theme: import.meta.env.VITE_GAUDI_THEME || 'light'
   },
@@ -188,7 +225,7 @@ const preview = {
        * must stay self-contained (no references to outer variables).
        */
       storySort: (a, b) => {
-        const sectionOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography', 'Core', 'Blocks', 'Chat', 'Charts', 'Hooks', 'MDX', 'Post', 'Layout' ];
+        const sectionOrder = [ 'Getting Started', 'Accessibility', 'Colors & Tokens', 'Icons', 'Indicators', 'States & Recovery', 'Typography', 'Theming', 'Theme Studio', 'Core', 'Blocks', 'Chat', 'Charts', 'Hooks', 'Animations', 'MDX', 'Post', 'Layout' ];
         const rank = (list, value) => {
           const index = list.indexOf(value);
           return index === -1 ? list.length : index;

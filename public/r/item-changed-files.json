@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-changed-files",
+  "type": "registry:example",
+  "title": "Changed files summary",
+  "description": "Changed files summary. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--changed-files",
+    "source": "src/components/core/Item/stories/fixtures/item/item-changed-files.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-changed-files.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  Item,\n  ItemContent,\n  ItemMedia\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst CHANGES = [\n  { path: 'src/lib/rate-limit.ts', kind: 'added', delta: '+64' },\n  { path: 'src/app/api/send/route.ts', kind: 'modified', delta: '+18 -4' },\n  { path: 'src/db/schema.ts', kind: 'modified', delta: '+6 -1' },\n  { path: 'src/lib/legacy-throttle.ts', kind: 'removed', delta: '-91' },\n  { path: 'README.md', kind: 'modified', delta: '+3' }\n];\nconst ICONS = {\n  added: <RegistryIcon lucide='PlusIcon' />,\n  modified: <RegistryIcon lucide='PencilIcon' />,\n  removed: <RegistryIcon lucide='Trash2Icon' />\n};\nconst BADGES = {\n  added: 'success-light',\n  modified: 'info-light',\n  removed: 'destructive-light'\n};\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-2'>\n      {CHANGES.map((change) => (\n        <Item\n          key={change.path}\n          size='xs'\n          className='border-b border-border last:border-b-0'\n        >\n          <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>{ICONS[change.kind]}</ItemMedia>\n          <ItemContent className='min-w-0 break-words'>\n            <span\n              className='block truncate font-mono text-xs'\n              title={change.path}\n            >\n              {change.path}\n            </span>\n          </ItemContent>\n          <Badge className='ms-auto' variant={BADGES[change.kind]}>\n            {change.kind}\n          </Badge>\n          <span className='shrink-0 text-xs tabular-nums'>{change.delta}</span>\n        </Item>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

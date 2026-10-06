@@ -1,0 +1,33 @@
+@layer components {
+  .ds-part-empty {
+    @apply gap-3 rounded-xl border-dashed p-4;
+  }
+
+  .ds-part-empty-header {
+    @apply gap-2;
+  }
+
+  .ds-part-empty-media {
+    @apply mb-2;
+  }
+
+  .ds-part-empty-media-default {
+    @apply bg-transparent;
+  }
+
+  .ds-part-empty-media-icon {
+    @apply bg-ui-muted text-ui-foreground flex size-8 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-empty-title {
+    @apply text-sm font-medium tracking-tight;
+  }
+
+  .ds-part-empty-description {
+    @apply text-sm/relaxed;
+  }
+
+  .ds-part-empty-content {
+    @apply gap-2.5 text-sm;
+  }
+}

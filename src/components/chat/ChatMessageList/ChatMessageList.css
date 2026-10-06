@@ -1,0 +1,8 @@
+@layer components {
+  .ds-part-message-scroller-content {
+    @apply gap-4;
+  }
+  .ds-part-message-markdown-code {
+    @apply bg-surface-muted rounded-sm px-1 py-0.5 font-mono text-xs;
+  }
+}

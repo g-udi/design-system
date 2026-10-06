@@ -7,7 +7,7 @@ import {
   StepperItem,
   StepperNav,
   StepperTitle
-} from './parts/stepper-extended.jsx';
+} from './StepperPrimitives.jsx';
 
 const indicators = { completed: <Icon name='Check' decorative size='xs' /> };
 

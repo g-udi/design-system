@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-collection-toolbar",
+  "type": "registry:example",
+  "title": "Collection toolbar",
+  "description": "Collection toolbar. Core/ButtonGroup pattern composed from @gaudi/design-system/core/ButtonGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ButtonGroup",
+    "import": "@gaudi/design-system/core/ButtonGroup",
+    "storyId": "core-buttongroup--collection-toolbar",
+    "source": "src/components/core/ButtonGroup/stories/fixtures/button-group/button-group-collection-toolbar.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-group-collection-toolbar.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  ButtonGroup,\n  ButtonGroupSeparator\n} from '@gaudi/design-system/core/ButtonGroup';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuLabelPrimitive as DropdownMenuLabel,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;\nconst views = [['Grid view', 'LayoutGridIcon', 'grid'], ['List view', 'ListIcon', 'list']];\nexport function Pattern() {\n  const [view, setView] = useState('grid');\n  const [sort, setSort] = useState('Newest');\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-wrap items-center gap-2'>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button variant='outline' size='icon' aria-label={`Sort: ${sort}`}><Icon name='ArrowUpDownIcon' /></Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align='start' className='min-w-40'>\n          <DropdownMenuLabel>Sort by</DropdownMenuLabel>\n          {['Newest', 'Oldest', 'Recently updated'].map((item) => (\n            <DropdownMenuItem key={item} onClick={() => setSort(item)}>\n              {item}\n              {item === sort ? <Icon name='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}\n            </DropdownMenuItem>\n          ))}\n        </DropdownMenuContent>\n      </DropdownMenu>\n      <ButtonGroup aria-label='Filter and export'>\n        <Button variant='outline'><Icon name='ListFilterIcon' />Filter</Button>\n        <ButtonGroupSeparator />\n        <Button variant='outline'><Icon name='DownloadIcon' />Export CSV</Button>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button variant='outline' size='icon' aria-label='More export options'><Icon name='ChevronDownIcon' /></Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align='end' className='w-40'>\n            <DropdownMenuItem><Icon name='FileSpreadsheetIcon' />Export Excel</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='FileJsonIcon' />Export JSON</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='FileTextIcon' />Export PDF</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </ButtonGroup>\n      <ButtonGroup aria-label='View'>\n        {views.map(([label, icon, id]) => (\n          <Button\n            key={id}\n            variant='outline'\n            size='icon'\n            aria-label={label}\n            aria-pressed={view === id}\n            className={cn(view === id && 'bg-surface-muted')}\n            onClick={() => setView(id)}\n          >\n            <Icon name={icon} />\n          </Button>\n        ))}\n      </ButtonGroup>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button>\n            Add new\n            <Icon name='ChevronDownIcon' className='opacity-60' />\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align='end' className='min-w-40'>\n          <DropdownMenuGroup>\n            <DropdownMenuItem><Icon name='PlusIcon' />Project</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='PlusIcon' />Domain</DropdownMenuItem>\n          </DropdownMenuGroup>\n          <DropdownMenuSeparator />\n          <DropdownMenuItem><Icon name='PlusIcon' />Team</DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

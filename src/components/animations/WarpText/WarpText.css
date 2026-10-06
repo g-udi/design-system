@@ -1,0 +1,5 @@
+.gaudi-warp-text { position: relative; display: block; width: 100%; max-width: 100%; min-width: 0; min-height: clamp(160px, 28vw, 320px); overflow: hidden; }
+.gaudi-warp-text canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.gaudi-warp-text__fallback { position: relative; display: grid; place-items: center; min-height: inherit; box-sizing: border-box; padding: calc(var(--ds-space-scale, 1) * 16px); text-align: center; overflow-wrap: anywhere; white-space: pre-wrap; }
+.gaudi-warp-text[data-ready="true"] .gaudi-warp-text__fallback { visibility: hidden; }
+@media (forced-colors: active) { .gaudi-warp-text canvas { visibility: hidden; } .gaudi-warp-text[data-ready="true"] .gaudi-warp-text__fallback { visibility: visible; } }

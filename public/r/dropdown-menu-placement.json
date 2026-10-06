@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dropdown-menu-placement",
+  "type": "registry:example",
+  "title": "Side and alignment",
+  "description": "Side and alignment. Core/Overlays & Menus/DropdownMenu pattern composed from @gaudi/design-system/core/DropdownMenu and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dropdown-menu",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/DropdownMenu",
+    "import": "@gaudi/design-system/core/DropdownMenu",
+    "storyId": "core-dropdownmenu--placement",
+    "source": "src/components/core/DropdownMenu/stories/fixtures/dropdown-menu/dropdown-menu-placement.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dropdown-menu-placement.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nconst sides = ['top', 'right', 'bottom', 'left'];\nconst aligns = ['start', 'center', 'end'];\nconst capitalize = (value) => value.charAt(0).toUpperCase() + value.slice(1);\nfunction Placement({ side, align, label }) {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant='outline' size='sm' className='w-full'>\n          {label}\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent side={side} align={align} className='w-36'>\n        <DropdownMenuGroup>\n          <DropdownMenuItem>Profile</DropdownMenuItem>\n          <DropdownMenuItem>Billing</DropdownMenuItem>\n          <DropdownMenuItem>Settings</DropdownMenuItem>\n        </DropdownMenuGroup>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}\n// Each trigger opens the same menu on another side or alignment.\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-md gap-3'>\n      <div className='grid gap-2'>\n        <span className='text-text-muted text-xs font-medium'>Side</span>\n        <div className='grid grid-cols-4 gap-2'>\n          {sides.map((side) => (\n            <Placement key={side} side={side} label={capitalize(side)} />\n          ))}\n        </div>\n      </div>\n      <div className='grid gap-2'>\n        <span className='text-text-muted text-xs font-medium'>Align</span>\n        <div className='grid grid-cols-3 gap-2'>\n          {aligns.map((align) => (\n            <Placement key={align} side='bottom' align={align} label={capitalize(align)} />\n          ))}\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field-responsive",
+  "type": "registry:example",
+  "title": "Fields that reflow by width",
+  "description": "Fields that reflow by width. Core/Field pattern composed from @gaudi/design-system/core/Field and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "field",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Field",
+    "import": "@gaudi/design-system/core/Field",
+    "storyId": "core-field--responsive",
+    "source": "src/components/core/Field/stories/fixtures/field/field-responsive.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/field-responsive.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldSeparator\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\nexport function Pattern() {\n  const [feedback, setFeedback] = useState('');\n  const [role, setRole] = useState('member');\n  return (\n    <form className='mx-auto w-full max-w-lg' onSubmit={(event) => { event.preventDefault(); setFeedback(`Invitation for ${new FormData(event.currentTarget).get('email')} prepared in this demo. No email was sent.`); }} onReset={() => { setRole('member'); setFeedback('Invitation cleared.'); }}>\n      <FieldGroup>\n        <Field orientation='responsive'>\n          <FieldLabel htmlFor='resp-first'>First Name</FieldLabel>\n          <Input id='resp-first' name='firstName' required placeholder='First name' />\n        </Field>\n        <Field orientation='responsive'>\n          <FieldLabel htmlFor='resp-last'>Last Name</FieldLabel>\n          <Input id='resp-last' name='lastName' required placeholder='Last name' />\n        </Field>\n        <Field orientation='responsive'>\n          <FieldLabel htmlFor='resp-email'>Email</FieldLabel>\n          <EmailInput id='resp-email' name='email' required  placeholder='you@example.com' />\n        </Field>\n        <Field orientation='responsive'>\n          <FieldLabel htmlFor='resp-role'>Role</FieldLabel>\n          <Select value={role} onValueChange={setRole}>\n            <SelectTrigger aria-label='Select role' id='resp-role'>\n              <SelectValue placeholder='Select role' />\n            </SelectTrigger>\n            <SelectContent>\n              <SelectItem value='admin'>Admin</SelectItem>\n              <SelectItem value='member'>Member</SelectItem>\n              <SelectItem value='viewer'>Viewer</SelectItem>\n            </SelectContent>\n          </Select>\n        </Field>\n        <FieldSeparator />\n        <FieldDescription>\n          This demo validates invitation details locally without sending email.\n        </FieldDescription>\n        <div className='flex justify-end gap-2'>\n          <Button type='reset' variant='outline'>Cancel</Button>\n          <Button type='submit'>Send Invite</Button>\n        </div>\n        <p role='status' className='text-xs text-text-muted'>{feedback}</p>\n      </FieldGroup>\n    </form>\n  );\n}\n"
+    }
+  ]
+}

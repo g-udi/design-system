@@ -13,8 +13,11 @@ export * from './hooks';
 export { default as Typography, typographyVariants } from './foundations/Typography';
 export { getIcon, iconColors, iconLabels, iconRegistry, iconSizes } from './icons';
 export { colors, motion, radii, shadows, tokens, typography } from './tokens';
+export { applyTheme, getThemePreset, getThemeScript, listThemes, themePresets, ThemeProvider, useTheme } from './themes';
 export { cn } from './utilities/cn';
 export { coreContent, omit, pick, sortPosts } from './utilities/content';
 export { createVariants } from './utilities/variants';
 export { default as formatDate } from './utilities/formatDate';
-export { defaultSiteConfig, SiteConfigProvider, useSiteConfig } from './utilities/SiteConfig';
+export { defaultSiteConfig, SiteConfigProvider, useSiteConfig, InputConfigProvider } from './context';
+
+export * from './components/animations';

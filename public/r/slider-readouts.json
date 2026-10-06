@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-readouts",
+  "type": "registry:example",
+  "title": "Custom readouts",
+  "description": "Custom readouts. Core/Slider pattern composed from @gaudi/design-system/core/Slider and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "slider",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Slider",
+    "import": "@gaudi/design-system/core/Slider",
+    "storyId": "core-slider--readouts",
+    "source": "src/components/core/Slider/stories/fixtures/slider/slider-readouts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/slider-readouts.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { Slider } from '@gaudi/design-system/core/Slider';\n\nconst first = (value, fallback) => (Array.isArray(value) ? (value[0] ?? fallback) : value);\nconst temperatureName = (kelvin) => {\n  if (kelvin <= 3000) return 'Warm';\n  if (kelvin <= 4500) return 'Neutral';\n  if (kelvin <= 5500) return 'Daylight';\n  return 'Cool';\n};\nconst moods = [\n  { emoji: '\\u{1F621}', label: 'Awful' },\n  { emoji: '\\u{1F641}', label: 'Poor' },\n  { emoji: '\\u{1F610}', label: 'Okay' },\n  { emoji: '\\u{1F642}', label: 'Good' },\n  { emoji: '\\u{1F60D}', label: 'Amazing' }\n];\n\nexport function Pattern() {\n  const [volume, setVolume] = useState(50);\n  const [temperature, setTemperature] = useState(4500);\n  const [mood, setMood] = useState(3);\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-6'>\n      <div className='grid gap-2'>\n        <div className='flex items-center justify-between gap-2'>\n          <Label>Volume</Label>\n          <output className='text-xs font-medium tabular-nums text-text-muted' aria-label='Volume percentage'>{volume}%</output>\n        </div>\n        <Slider aria-label='Volume' value={[volume]} onValueChange={(v) => setVolume(first(v, 50))} max={100} step={1} />\n      </div>\n      {/* A gradient scale above the track, with a named readout. */}\n      <div className='grid gap-2'>\n        <div className='flex items-center justify-between'>\n          <Label>Color temperature</Label>\n          <span className='text-xs font-medium tabular-nums text-text-muted'>\n            {temperature}K &middot; {temperatureName(temperature)}\n          </span>\n        </div>\n        <div aria-hidden='true' className='h-2 rounded-full bg-linear-to-r from-orange-400 via-amber-50 to-blue-300' />\n        <Slider\n          aria-label='Color temperature'\n          value={[temperature]}\n          onValueChange={(v) => setTemperature(first(v, 4500))}\n          min={2700}\n          max={6500}\n          step={100}\n        />\n      </div>\n      {/* A five-step scale read out as an emoji and a word. */}\n      <div className='grid gap-2'>\n        <div className='flex items-center justify-between'>\n          <Label>Rate your experience</Label>\n          <span className='text-xs font-medium text-text-muted'>{moods[mood - 1].label}</span>\n        </div>\n        <div className='flex items-center gap-3'>\n          <Slider aria-label='Experience' value={[mood]} onValueChange={(v) => setMood(first(v, 3))} min={1} max={5} step={1} />\n          <span className='text-2xl leading-none' aria-hidden='true'>{moods[mood - 1].emoji}</span>\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

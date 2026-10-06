@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion-icons-badges",
+  "type": "registry:example",
+  "title": "Icons and badges",
+  "description": "Icons and badges. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "accordion",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--icons-badges",
+    "source": "src/components/core/Accordion/stories/fixtures/accordion/accordion-icons-badges.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/accordion-icons-badges.jsx",
+      "type": "registry:component",
+      "content": "import { AccordionGroup } from '@gaudi/design-system/core/Accordion';\nimport { default as Icon } from '@gaudi/design-system/core/Icon';\nimport { default as Pill } from '@gaudi/design-system/core/Pill';\nconst items = [\n  {\n    value: 'account',\n    title: 'Account settings',\n    leading: <Icon name='Settings' decorative />,\n    badge: (\n      <Pill size='xs' variant='soft' tone='green'>\n        New\n      </Pill>\n    ),\n    content: 'Manage your display name, language, and notification preferences.'\n  },\n  {\n    value: 'security',\n    title: 'Privacy & security',\n    leading: <Icon name='Fingerprint' decorative />,\n    content:\n      'Review active sessions and configure two-factor authentication in your account.'\n  },\n  {\n    value: 'support',\n    title: 'Help & support',\n    leading: <Icon name='Info' decorative />,\n    content:\n      'Find setup guides, accessibility information, and ways to contact your workspace administrator.'\n  }\n];\n\nexport function Pattern() {\n  return <AccordionGroup className='mx-auto w-full max-w-lg' variant='separated' items={items} />;\n}\n"
+    }
+  ]
+}

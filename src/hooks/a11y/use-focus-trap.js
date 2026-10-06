@@ -29,7 +29,7 @@ export function getTrapTarget(elements, active, shiftKey) {
  * Keeps Tab and Shift+Tab inside a container while `active` is true, for custom overlays such as
  * a full-screen menu, lightbox or command bar. On activation it focuses the first tabbable element
  * (or the container with `initialFocus: 'container'`, which then needs `tabIndex={-1}`), and on
- * release it returns focus to where it was. Traps nest. Gaudi Dialog, AlertDialog, Sheet and
+ * release it returns focus to where it was. Traps nest. Gaudi Dialog, Dialog confirmation, Sheet and
  * Drawer already trap focus.
  *
  * @returns {{ current: HTMLElement | null }} The ref to attach to the container (or `containerRef` when passed).

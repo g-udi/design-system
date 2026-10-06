@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-social-sign-in",
+  "type": "registry:example",
+  "title": "Social sign-in",
+  "description": "Social sign-in. Core/Button pattern composed from @gaudi/design-system/core/Button and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Button",
+    "import": "@gaudi/design-system/core/Button",
+    "storyId": "core-button--social-sign-in",
+    "source": "src/components/core/Button/stories/fixtures/button/button-social-sign-in.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-social-sign-in.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Provider marks come from Gaudi's icon registry; Google keeps its own colours, the others follow the text colour.\nconst providers = [\n  { name: 'Google', icon: 'Google' },\n  { name: 'X', icon: 'Twitter' },\n  { name: 'Apple', icon: 'Apple' },\n  { name: 'GitHub', icon: 'Github' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-3'>\n      <div className='flex flex-col gap-2'>\n        {providers.map(({ name, icon }) => (\n          <Button key={name} variant='outline' tone='neutral'>\n            <RegistryIcon lucide={icon} aria-hidden='true' size={16} />\n            <span><span className='text-text-muted'>Continue with</span> {name}</span>\n          </Button>\n        ))}\n      </div>\n      <div className='flex gap-2'>\n        {providers.map(({ name, icon }) => (\n          <Button key={name} size='icon' variant='outline' tone='neutral' className='flex-1' aria-label={`Continue with ${name}`}>\n            <RegistryIcon lucide={icon} aria-hidden='true' size={16} />\n          </Button>\n        ))}\n      </div>\n      <Button>\n        <RegistryIcon lucide='MailIcon' aria-hidden='true' />\n        Continue with email\n      </Button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

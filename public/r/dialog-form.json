@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog-form",
+  "type": "registry:example",
+  "title": "Form dialog",
+  "description": "Form dialog. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dialog",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--form",
+    "source": "src/components/core/Dialog/stories/fixtures/dialog/dialog-form.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dialog-form.jsx",
+      "type": "registry:component",
+      "content": "import { useId, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogClosePrimitive as DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport {\n  FieldRoot as Field,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nexport function Pattern() {\n  const id = useId();\n  const [open, setOpen] = useState(false);\n  const [profile, setProfile] = useState({ name: 'Maya Patel', username: '@maya' });\n  const [saved, setSaved] = useState(false);\n  return (\n    <div className='flex flex-col items-center justify-center gap-2'>\n      <Dialog open={open} onOpenChange={setOpen}>\n          <DialogTrigger asChild>\n            <Button variant='outline'>Basic Dialog</Button>\n          </DialogTrigger>\n          <DialogContent>\n            <form className='grid gap-4' onSubmit={(event) => {\n              event.preventDefault();\n              const data = new FormData(event.currentTarget);\n              setProfile({ name: data.get('name'), username: data.get('username') });\n              setSaved(true);\n              setOpen(false);\n            }}>\n            <DialogHeader>\n              <DialogTitle>Edit profile</DialogTitle>\n              <DialogDescription>\n                Make changes to your profile here. Click save when you&apos;re\n                done. Changes remain in this local demo.\n              </DialogDescription>\n            </DialogHeader>\n            <FieldGroup>\n              <Field>\n                <FieldLabel htmlFor={`${id}-name`}>Name</FieldLabel>\n                <Input id={`${id}-name`} name='name' defaultValue={profile.name} required />\n              </Field>\n              <Field>\n                <FieldLabel htmlFor={`${id}-username`}>Username</FieldLabel>\n                <Input\n                  id={`${id}-username`}\n                  name='username'\n                  defaultValue={profile.username}\n                  required\n                />\n              </Field>\n            </FieldGroup>\n            <DialogFooter>\n              <DialogClose asChild>\n                <Button variant='outline'>Cancel</Button>\n              </DialogClose>\n              <Button type='submit'>Save changes</Button>\n            </DialogFooter>\n            </form>\n          </DialogContent>\n      </Dialog>\n      {saved && <p role='status' className='text-sm text-text-muted'>Saved {profile.name} ({profile.username}) in this demo.</p>}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

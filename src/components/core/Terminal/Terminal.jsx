@@ -116,7 +116,7 @@ const HighlightedCommand = ({ command }) => {
     const className = cn(
       index === 0 && 'text-success',
       part.startsWith('-') && 'text-warning',
-      (part.startsWith('./') || part.startsWith('/') || part.includes('/')) && 'text-accent',
+      (part.startsWith('.') || part.startsWith('/') || part.includes('/')) && 'text-accent',
       (part.startsWith('"') || part.startsWith("'")) && 'text-info',
       part.includes('=') && 'text-discovery'
     );

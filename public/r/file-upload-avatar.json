@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "file-upload-avatar",
+  "type": "registry:example",
+  "title": "Profile photo picker",
+  "description": "Profile photo picker. Core/Advanced Inputs/FileUpload pattern composed from @gaudi/design-system/core/FileUpload and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "file-upload",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/FileUpload",
+    "import": "@gaudi/design-system/core/FileUpload",
+    "storyId": "core-fileupload--avatar",
+    "source": "src/components/core/FileUpload/stories/fixtures/file-upload/file-upload-avatar.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/file-upload-avatar.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  formatBytes,\n  useFileUpload\n} from '@gaudi/design-system/core/FileUpload';\nimport {\n  Alert,\n  AlertDescription,\n  AlertTitle\n} from '@gaudi/design-system/core/Banner';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern({\n  maxSize = 2 * 1024 * 1024,\n  // 2MB\n  className,\n  onFileChange,\n  defaultAvatar\n}) {\n  const [\n    { files, isDragging, errors },\n    {\n      removeFile,\n      handleDragEnter,\n      handleDragLeave,\n      handleDragOver,\n      handleDrop,\n      openFileDialog,\n      getInputProps\n    }\n  ] = useFileUpload({\n    maxFiles: 1,\n    maxSize,\n    accept: 'image/png,image/jpeg',\n    multiple: false,\n    onFilesChange: (files2) => {\n      onFileChange?.(files2[0] || null);\n    }\n  });\n  const currentFile = files[0];\n  const previewUrl = currentFile?.preview || defaultAvatar;\n  const handleRemove = () => {\n    if (currentFile) {\n      removeFile(currentFile.id);\n    }\n  };\n  return (\n    <div className={cn('flex flex-col items-center gap-3', className)}>\n      {/* Avatar Preview */}\n      <div className='relative'>\n        <div\n          className={cn(\n            'group/avatar relative size-24 cursor-pointer overflow-hidden rounded-control border border-dashed transition-colors',\n            isDragging\n              ? 'border-ui-primary bg-ui-primary/5'\n              : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/20',\n            previewUrl && 'border-solid'\n          )}\n          onDragEnter={handleDragEnter}\n          onDragLeave={handleDragLeave}\n          onDragOver={handleDragOver}\n          onDrop={handleDrop}\n          onClick={openFileDialog}\n        >\n          <input {...getInputProps()} className='sr-only' />\n\n          {previewUrl ? (\n            <img\n              src={previewUrl}\n              alt='Avatar'\n              className='h-full w-full object-cover'\n            />\n          ) : (\n            <div className='flex h-full w-full items-center justify-center'>\n              <RegistryIcon\n                lucide='UserIcon'\n                className='text-ui-muted-foreground size-6'\n              />\n            </div>\n          )}\n        </div>\n\n        {/* Remove Button - only show when file is uploaded */}\n        {currentFile && (\n          <Button\n            size='icon'\n            variant='outline'\n            onClick={handleRemove}\n            className='absolute end-0.5 top-0.5 z-10 size-6 rounded-control'\n            aria-label='Remove avatar'\n          >\n            <RegistryIcon lucide='XIcon' className='size-3.5' />\n          </Button>\n        )}\n      </div>\n\n      {/* Picker button, file name, and limits */}\n      <div className='grid justify-items-center gap-1.5 text-center'>\n        <Button size='sm' variant='outline' onClick={openFileDialog} aria-haspopup='dialog'>\n          <RegistryIcon lucide='UploadIcon' className='size-3.5' />\n          {currentFile ? 'Change image' : 'Upload image'}\n        </Button>\n        <p className='max-w-56 truncate text-xs text-ui-muted-foreground' aria-live='polite'>\n          {currentFile ? currentFile.file.name : `PNG or JPG up to ${formatBytes(maxSize)}`}\n        </p>\n      </div>\n\n      {/* Error Messages */}\n      {errors.length > 0 && (\n        <Alert variant='destructive'>\n          <RegistryIcon lucide='CircleAlertIcon' />\n          <AlertTitle>File upload error(s)</AlertTitle>\n          <AlertDescription>\n            {errors.map((error, index) => (\n              <p key={index} className='last:mb-0'>\n                {error}\n              </p>\n            ))}\n          </AlertDescription>\n        </Alert>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+export default {
+  "Core/Carousel": {
+    'accessibility': 'Carousel exposes a labelled carousel region, native previous/next buttons, aria-live status updates, keyboard arrow support, and named indicators.',
+    'description': 'Carousel renders standard feature slides and editorial card rails.',
+    'props': [['items', 'Array<{ id, title, description, eyebrow, image, alt, href, action, content }>', '[]', 'Slide data. Standard uses the active item; apple renders the horizontal rail.'], ['ariaLabel', 'string', 'Carousel', 'Accessible name for the carousel region.'], ['variant', 'standard | rail | apple', 'standard', 'Slide format. Use rail for editorial card rails; apple remains a legacy alias.'], ['size', 'sm | md | lg', 'md', 'Controls max width and slide/card height.'], ['radius', 'none | sm | md | lg', 'lg', 'Legacy aliases use the global --ds-radius setting; none keeps square corners.'], ['controls', 'boolean', 'true', 'Shows previous and next buttons.'], ['loop', 'boolean', 'false', 'Wraps previous/next navigation.'], ['className', 'string', '-', 'Root class override.'], ['classNames', '{ root, header, viewport, track, slide, card, image, content, eyebrow, title, description, action, controls, control, indicators, indicator, dialog, overlay }', '-', 'Slot-level overrides for visual composition.']],
+    usage: "import { Carousel } from '@gaudi/design-system';\n\n<Carousel\n  ariaLabel='Featured articles'\n  items={[\n    { title: 'Design systems keep editorial rhythm predictable', eyebrow: 'Design Systems', description: 'A focused carousel item.', href: '/blog' },\n  ]}\n/>"
+  }
+};

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sparkline-stat-trends",
+  "type": "registry:example",
+  "title": "Stat cards with trends",
+  "description": "Stat cards with trends. Charts/Sparkline pattern composed from @gaudi/design-system/charts/Sparkline and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sparkline",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/Sparkline",
+    "import": "@gaudi/design-system/charts/Sparkline",
+    "storyId": "charts-sparkline--stat-trends",
+    "source": "src/components/charts/Sparkline/stories/fixtures/sparkline/sparkline-stat-trends.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sparkline-stat-trends.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { StatCard } from '@gaudi/design-system/blocks/StatCard';\nimport { Sparkline } from '@gaudi/design-system/charts/Sparkline';\n\n// Last 14 days for three publishing metrics; each card pairs the number with its trend.\nconst metrics = [\n  { label: 'Readers', value: '4,210', delta: '+12%', deltaDirection: 'up', deltaTone: 'success', variant: 'area', color: 'var(--ds-color-chart-1)', data: [ 2980, 3120, 3040, 3310, 3260, 3480, 3550, 3420, 3690, 3810, 3760, 3990, 4080, 4210 ] },\n  { label: 'Signups', value: '96', delta: '+4%', deltaDirection: 'up', deltaTone: 'success', variant: 'bar', color: 'var(--ds-color-chart-2)', reference: 80, data: [ 71, 84, 66, 90, 88, 79, 102, 74, 93, 85, 99, 91, 88, 96 ] },\n  { label: 'Unsubscribes', value: '7', delta: '-30%', deltaDirection: 'down', deltaTone: 'success', variant: 'line', color: 'var(--ds-color-chart-5)', data: [ 12, 9, 14, 10, 11, 8, 9, 13, 10, 8, 9, 7, 6, 7 ] }\n];\n\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-4xl gap-4 sm:grid-cols-3'>\n      {metrics.map((metric) => (\n        <StatCard key={metric.label} label={metric.label} value={metric.value} delta={metric.delta} deltaDirection={metric.deltaDirection} deltaTone={metric.deltaTone} description='Last 14 days'>\n          <Sparkline\n            ariaLabel={`${metric.label}, last 14 days`}\n            data={metric.data}\n            variant={metric.variant}\n            color={metric.color}\n            reference={metric.reference}\n            valueLabel={metric.label}\n            height={44}\n          />\n        </StatCard>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

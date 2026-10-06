@@ -1,0 +1,96 @@
+@layer components {
+  .ds-part-activity-indicator {
+    --ds-activity-color: var(--ds-color-text-subtle);
+    display: inline-flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 6px);
+    color: var(--ds-color-text-muted);
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
+  .ds-part-activity-indicator[data-state='thinking'] { --ds-activity-color: var(--ds-color-discovery); }
+  .ds-part-activity-indicator[data-state='streaming'] { --ds-activity-color: var(--ds-color-accent); }
+  .ds-part-activity-indicator[data-state='tool'] { --ds-activity-color: var(--ds-color-info); }
+  .ds-part-activity-indicator[data-state='done'] { --ds-activity-color: var(--ds-color-success); }
+  .ds-part-activity-indicator[data-state='error'] { --ds-activity-color: var(--ds-color-danger); }
+
+  .ds-part-activity-indicator-mark {
+    display: inline-flex;
+    height: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: calc(var(--ds-space-scale, 1) * 3px);
+    color: var(--ds-activity-color);
+  }
+  .ds-part-activity-indicator-mark svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+  .ds-part-activity-indicator-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 9999px;
+    background: var(--ds-activity-color);
+  }
+  .ds-part-activity-indicator[data-state='idle'] .ds-part-activity-indicator-dot:not(:first-child) {
+    opacity: 0.35;
+  }
+  /* Thinking breathes in sequence, streaming ripples like typing, a tool steps quickly. */
+  .ds-part-activity-indicator[data-state='thinking'] .ds-part-activity-indicator-dot {
+    animation: ds-activity-breathe 1.4s ease-in-out infinite;
+  }
+  .ds-part-activity-indicator[data-state='streaming'] .ds-part-activity-indicator-dot {
+    animation: ds-activity-ripple 1s ease-in-out infinite;
+  }
+  .ds-part-activity-indicator[data-state='tool'] .ds-part-activity-indicator-dot {
+    animation: ds-activity-breathe 0.8s steps(2, jump-none) infinite;
+  }
+  .ds-part-activity-indicator-dot:nth-child(2) { animation-delay: 0.16s !important; }
+  .ds-part-activity-indicator-dot:nth-child(3) { animation-delay: 0.32s !important; }
+
+  /*
+   * Badge: one coloured dot ringed by the surface, for the corner of a mark or avatar. The host sets
+   * --ds-activity-badge-size so the dot stays in proportion; colour carries the state and the label is
+   * announced, so the dot draws no glyph.
+   */
+  .ds-part-activity-indicator[data-variant='badge'] {
+    display: block;
+    line-height: 0;
+  }
+  .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark {
+    width: var(--ds-activity-badge-size, 0.5rem);
+    height: var(--ds-activity-badge-size, 0.5rem);
+    border-radius: 9999px;
+    background: var(--ds-activity-color);
+    box-shadow: 0 0 0 1.5px var(--ds-color-surface);
+  }
+  .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark > * {
+    display: none;
+  }
+  .ds-part-activity-indicator[data-variant='badge']:is([data-state='thinking'], [data-state='streaming'], [data-state='tool']) .ds-part-activity-indicator-mark {
+    animation: ds-activity-breathe 1.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* A calm, slow fade keeps "still working" readable without movement. */
+    .ds-part-activity-indicator .ds-part-activity-indicator-dot,
+    .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark {
+      animation-name: ds-activity-fade !important;
+      animation-duration: 3s !important;
+      animation-timing-function: ease-in-out !important;
+    }
+  }
+
+  @keyframes ds-activity-breathe {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  @keyframes ds-activity-ripple {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.55; }
+    30% { transform: translateY(-3px); opacity: 1; }
+  }
+  @keyframes ds-activity-fade {
+    0%, 100% { opacity: 0.45; }
+    50% { opacity: 1; }
+  }
+}

@@ -1,0 +1,8 @@
+.gaudi-typewriter { display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+.gaudi-typewriter__layout { display: inline-grid; max-width: 100%; }
+.gaudi-typewriter__layout > span { grid-area: 1 / 1; }
+.gaudi-typewriter__measure { visibility: hidden; padding-inline-end: .5em; }
+.gaudi-typewriter__cursor { font-weight: 400; }
+.gaudi-typewriter[data-animated="true"] .gaudi-typewriter__cursor { animation: gaudi-typewriter-caret 1.2s steps(1) infinite; }
+@keyframes gaudi-typewriter-caret { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .gaudi-typewriter__cursor { animation: none !important; } }

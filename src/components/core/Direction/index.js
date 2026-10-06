@@ -1,2 +1,2 @@
 // Composition exports
-export { DirectionProvider, useDirection } from './parts/direction.jsx';
+export { DirectionProvider, useDirection } from './Direction.jsx';

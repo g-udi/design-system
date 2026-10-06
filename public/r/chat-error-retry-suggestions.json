@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-error-retry-suggestions",
+  "type": "registry:example",
+  "title": "Error, retry and suggestions",
+  "description": "Error, retry and suggestions. Chat/ChatMessage pattern composed from @gaudi/design-system/chat/ChatMessage and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-error",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-50.svg.",
+  "meta": {
+    "owner": "chat/ChatMessage",
+    "import": "@gaudi/design-system/chat/ChatMessage",
+    "storyId": "chat-message--chat-error-retry-suggestions",
+    "source": "src/components/chat/ChatMessage/stories/fixtures/chat-error/chat-error-retry-suggestions.jsx",
+    "assets": [
+      "/avatars/person-50.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-error-retry-suggestions.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Avatar } from '@gaudi/design-system/core/Avatar';\nimport { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nimport { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';\nimport { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst failed = [\n  { type: 'text', text: 'Comparing the two titles against last quarter’s' },\n  { type: 'error', title: 'The reply stopped before it finished.', text: 'The connection dropped after 18 seconds. Nothing was saved.' }\n];\nconst answered = [\n  { type: 'text', text: '**“Small tools, long lifetimes”** is the stronger title. Shorter titles with a concrete noun had a 22% higher open rate this quarter.' },\n  { type: 'suggestions', items: [\n    { id: 'subtitle', label: 'Write a subtitle for it', icon: 'Pencil' },\n    { id: 'variants', label: 'Give me three more variants', icon: 'Sparkles' },\n    { id: 'test', label: 'Set up an A/B test', icon: 'Split' }\n  ] }\n];\n\nfunction Person({ text }) {\n  return (\n    <ChatMessage align='end'>\n      <ChatMessageAvatar>\n        <Avatar src='/avatars/person-50.svg' name='Lee Park' size='sm' shape='circle' alt='' />\n      </ChatMessageAvatar>\n      <ChatMessageContent>\n        <span className='sr-only'>Lee Park said</span>\n        <ChatBubble align='end'>\n          <ChatBubbleContent>{text}</ChatBubbleContent>\n        </ChatBubble>\n      </ChatMessageContent>\n    </ChatMessage>\n  );\n}\n\nexport function Pattern() {\n  const [state, setState] = useState('failed');\n  const [follow, setFollow] = useState(null);\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>\n      <Person text='Which title will open better: “Small tools, long lifetimes” or “Tools that last”?' />\n      <ChatMessage>\n        <ChatMessageAvatar className='self-start'>\n          <span className='bg-accent-subtle text-accent grid size-8 place-items-center rounded-full'>\n            <RegistryIcon lucide='Sparkles' className='size-4' />\n          </span>\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <ChatMessageHeader className='px-0'>Gaudi</ChatMessageHeader>\n          <ChatMessageParts\n            parts={state === 'failed' ? failed : answered}\n            onRetry={() => setState('answered')}\n            onSuggestion={(prompt) => setFollow(prompt)}\n          />\n        </ChatMessageContent>\n      </ChatMessage>\n      {follow ? <Person text={follow} /> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox-in-form",
+  "type": "registry:example",
+  "title": "Combobox in a form",
+  "description": "Combobox in a form. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "combobox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--combobox-in-form",
+    "source": "src/components/core/Select/stories/fixtures/combobox/combobox-in-form.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/combobox-in-form.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Combobox,\n  ComboboxContent,\n  ComboboxEmpty,\n  ComboboxInput,\n  ComboboxItem,\n  ComboboxList\n} from '@gaudi/design-system/core/Select';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nconst frameworks = ['Next.js', 'SvelteKit', 'Nuxt.js', 'Remix', 'Astro'];\nexport function Pattern() {\n  const toastId = useId();\n  const handleSubmit = (event) => {\n    event.preventDefault();\n    const formData = new FormData(event.target);\n    const framework = formData.get('framework');\n    toast(`You selected ${framework} as your framework.`, { toasterId: toastId });\n  };\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <form\n      id={`${toastId}-form-with-combobox`}\n      onSubmit={handleSubmit}\n      className='w-full max-w-xs space-y-4'\n    >\n      <Field>\n        <FieldLabel htmlFor={`${toastId}-framework`}>Framework</FieldLabel>\n        <Combobox items={frameworks}>\n          <ComboboxInput\n            id={`${toastId}-framework`}\n            name='framework'\n            placeholder='Select a framework'\n            required\n          />\n          <ComboboxContent>\n            <ComboboxEmpty>No items found.</ComboboxEmpty>\n            <ComboboxList>\n              {(item) => (\n                <ComboboxItem key={item} value={item}>\n                  {item}\n                </ComboboxItem>\n              )}\n            </ComboboxList>\n          </ComboboxContent>\n        </Combobox>\n      </Field>\n      <Button type='submit' form={`${toastId}-form-with-combobox`} className='w-full'>\n        Submit\n      </Button>\n    </form>\n    </>\n  );\n}\n"
+    }
+  ]
+}

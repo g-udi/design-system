@@ -1,0 +1,774 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ahmadassaf/design-system/themes/theme.schema.json",
+  "title": "Gaudi theme",
+  "description": "A Gaudi design-system theme: the themeable --ds-* contract for light and dark (src/tokens/THEMING.md). Colour groups: Surfaces, Text, Borders, Accent (primary), Focus, Success, Warning, Danger, Discovery, Info, Attention, Charts, Sidebar.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "light",
+    "dark",
+    "shadows",
+    "fonts",
+    "radius"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,47}$",
+      "description": "Slug used in data-theme=\"<id>\"."
+    },
+    "name": {
+      "$ref": "#/$defs/cssValue"
+    },
+    "description": {
+      "type": "string"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/cssValue"
+      }
+    },
+    "author": {
+      "$ref": "#/$defs/cssValue"
+    },
+    "source": {
+      "$ref": "#/$defs/cssValue"
+    },
+    "light": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "surface-muted",
+        "surface-raised",
+        "text",
+        "text-muted",
+        "text-subtle",
+        "text-inverse",
+        "border",
+        "border-muted",
+        "accent",
+        "accent-dark",
+        "accent-foreground",
+        "accent-muted",
+        "accent-subtle",
+        "focus",
+        "focus-foreground",
+        "success",
+        "success-foreground",
+        "success-muted",
+        "success-subtle",
+        "success-border",
+        "warning",
+        "warning-foreground",
+        "warning-muted",
+        "warning-subtle",
+        "warning-border",
+        "danger",
+        "danger-foreground",
+        "danger-muted",
+        "danger-subtle",
+        "danger-border",
+        "discovery",
+        "discovery-foreground",
+        "discovery-muted",
+        "discovery-subtle",
+        "discovery-border",
+        "info",
+        "info-foreground",
+        "info-muted",
+        "info-subtle",
+        "info-border",
+        "attention",
+        "attention-foreground",
+        "attention-muted",
+        "attention-subtle",
+        "attention-border",
+        "chart-1",
+        "chart-2",
+        "chart-3",
+        "chart-4",
+        "chart-5",
+        "chart-6",
+        "chart-7",
+        "chart-8",
+        "sidebar",
+        "sidebar-foreground",
+        "sidebar-accent",
+        "sidebar-border"
+      ],
+      "properties": {
+        "surface": {
+          "$ref": "#/$defs/color",
+          "description": "Page background (shadcn background)."
+        },
+        "surface-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Muted panels, table headers, hover rows (shadcn muted)."
+        },
+        "surface-raised": {
+          "$ref": "#/$defs/color",
+          "description": "Cards, popovers and raised panels (shadcn card/popover)."
+        },
+        "text": {
+          "$ref": "#/$defs/color",
+          "description": "Body text (shadcn foreground)."
+        },
+        "text-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Secondary text (shadcn muted-foreground)."
+        },
+        "text-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Tertiary text, captions and placeholders."
+        },
+        "text-inverse": {
+          "$ref": "#/$defs/color",
+          "description": "Text on inverted (text-coloured) surfaces."
+        },
+        "border": {
+          "$ref": "#/$defs/color",
+          "description": "Borders and input outlines (shadcn border/input)."
+        },
+        "border-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Hairline dividers."
+        },
+        "accent": {
+          "$ref": "#/$defs/color",
+          "description": "Primary actions, links and selection (shadcn primary)."
+        },
+        "accent-dark": {
+          "$ref": "#/$defs/color",
+          "description": "Stronger accent for hover/pressed states."
+        },
+        "accent-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on the accent (shadcn primary-foreground)."
+        },
+        "accent-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Tinted chips and secondary fills (shadcn secondary)."
+        },
+        "accent-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Selection surfaces and soft highlights (shadcn accent)."
+        },
+        "focus": {
+          "$ref": "#/$defs/color",
+          "description": "Keyboard focus and live indicators (shadcn ring)."
+        },
+        "focus-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on focus-coloured fills."
+        },
+        "success": {
+          "$ref": "#/$defs/color",
+          "description": "success status colour; also its text on surfaces."
+        },
+        "success-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid success fill."
+        },
+        "success-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium success tint (badges)."
+        },
+        "success-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft success background (alerts)."
+        },
+        "success-border": {
+          "$ref": "#/$defs/color",
+          "description": "success border."
+        },
+        "warning": {
+          "$ref": "#/$defs/color",
+          "description": "warning status colour; also its text on surfaces."
+        },
+        "warning-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid warning fill."
+        },
+        "warning-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium warning tint (badges)."
+        },
+        "warning-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft warning background (alerts)."
+        },
+        "warning-border": {
+          "$ref": "#/$defs/color",
+          "description": "warning border."
+        },
+        "danger": {
+          "$ref": "#/$defs/color",
+          "description": "danger status colour; also its text on surfaces."
+        },
+        "danger-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid danger fill."
+        },
+        "danger-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium danger tint (badges)."
+        },
+        "danger-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft danger background (alerts)."
+        },
+        "danger-border": {
+          "$ref": "#/$defs/color",
+          "description": "danger border."
+        },
+        "discovery": {
+          "$ref": "#/$defs/color",
+          "description": "discovery status colour; also its text on surfaces."
+        },
+        "discovery-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid discovery fill."
+        },
+        "discovery-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium discovery tint (badges)."
+        },
+        "discovery-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft discovery background (alerts)."
+        },
+        "discovery-border": {
+          "$ref": "#/$defs/color",
+          "description": "discovery border."
+        },
+        "info": {
+          "$ref": "#/$defs/color",
+          "description": "info status colour; also its text on surfaces."
+        },
+        "info-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid info fill."
+        },
+        "info-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium info tint (badges)."
+        },
+        "info-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft info background (alerts)."
+        },
+        "info-border": {
+          "$ref": "#/$defs/color",
+          "description": "info border."
+        },
+        "attention": {
+          "$ref": "#/$defs/color",
+          "description": "attention status colour; also its text on surfaces."
+        },
+        "attention-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid attention fill."
+        },
+        "attention-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium attention tint (badges)."
+        },
+        "attention-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft attention background (alerts)."
+        },
+        "attention-border": {
+          "$ref": "#/$defs/color",
+          "description": "attention border."
+        },
+        "chart-1": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 1."
+        },
+        "chart-2": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 2."
+        },
+        "chart-3": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 3."
+        },
+        "chart-4": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 4."
+        },
+        "chart-5": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 5."
+        },
+        "chart-6": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 6."
+        },
+        "chart-7": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 7."
+        },
+        "chart-8": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 8."
+        },
+        "sidebar": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar background."
+        },
+        "sidebar-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar text."
+        },
+        "sidebar-accent": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar hover/active item background."
+        },
+        "sidebar-border": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar border."
+        }
+      },
+      "description": "Colour tokens for light mode (CSS colours; OKLCH recommended)."
+    },
+    "dark": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "surface-muted",
+        "surface-raised",
+        "text",
+        "text-muted",
+        "text-subtle",
+        "text-inverse",
+        "border",
+        "border-muted",
+        "accent",
+        "accent-dark",
+        "accent-foreground",
+        "accent-muted",
+        "accent-subtle",
+        "focus",
+        "focus-foreground",
+        "success",
+        "success-foreground",
+        "success-muted",
+        "success-subtle",
+        "success-border",
+        "warning",
+        "warning-foreground",
+        "warning-muted",
+        "warning-subtle",
+        "warning-border",
+        "danger",
+        "danger-foreground",
+        "danger-muted",
+        "danger-subtle",
+        "danger-border",
+        "discovery",
+        "discovery-foreground",
+        "discovery-muted",
+        "discovery-subtle",
+        "discovery-border",
+        "info",
+        "info-foreground",
+        "info-muted",
+        "info-subtle",
+        "info-border",
+        "attention",
+        "attention-foreground",
+        "attention-muted",
+        "attention-subtle",
+        "attention-border",
+        "chart-1",
+        "chart-2",
+        "chart-3",
+        "chart-4",
+        "chart-5",
+        "chart-6",
+        "chart-7",
+        "chart-8",
+        "sidebar",
+        "sidebar-foreground",
+        "sidebar-accent",
+        "sidebar-border"
+      ],
+      "properties": {
+        "surface": {
+          "$ref": "#/$defs/color",
+          "description": "Page background (shadcn background)."
+        },
+        "surface-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Muted panels, table headers, hover rows (shadcn muted)."
+        },
+        "surface-raised": {
+          "$ref": "#/$defs/color",
+          "description": "Cards, popovers and raised panels (shadcn card/popover)."
+        },
+        "text": {
+          "$ref": "#/$defs/color",
+          "description": "Body text (shadcn foreground)."
+        },
+        "text-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Secondary text (shadcn muted-foreground)."
+        },
+        "text-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Tertiary text, captions and placeholders."
+        },
+        "text-inverse": {
+          "$ref": "#/$defs/color",
+          "description": "Text on inverted (text-coloured) surfaces."
+        },
+        "border": {
+          "$ref": "#/$defs/color",
+          "description": "Borders and input outlines (shadcn border/input)."
+        },
+        "border-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Hairline dividers."
+        },
+        "accent": {
+          "$ref": "#/$defs/color",
+          "description": "Primary actions, links and selection (shadcn primary)."
+        },
+        "accent-dark": {
+          "$ref": "#/$defs/color",
+          "description": "Stronger accent for hover/pressed states."
+        },
+        "accent-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on the accent (shadcn primary-foreground)."
+        },
+        "accent-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Tinted chips and secondary fills (shadcn secondary)."
+        },
+        "accent-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Selection surfaces and soft highlights (shadcn accent)."
+        },
+        "focus": {
+          "$ref": "#/$defs/color",
+          "description": "Keyboard focus and live indicators (shadcn ring)."
+        },
+        "focus-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on focus-coloured fills."
+        },
+        "success": {
+          "$ref": "#/$defs/color",
+          "description": "success status colour; also its text on surfaces."
+        },
+        "success-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid success fill."
+        },
+        "success-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium success tint (badges)."
+        },
+        "success-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft success background (alerts)."
+        },
+        "success-border": {
+          "$ref": "#/$defs/color",
+          "description": "success border."
+        },
+        "warning": {
+          "$ref": "#/$defs/color",
+          "description": "warning status colour; also its text on surfaces."
+        },
+        "warning-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid warning fill."
+        },
+        "warning-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium warning tint (badges)."
+        },
+        "warning-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft warning background (alerts)."
+        },
+        "warning-border": {
+          "$ref": "#/$defs/color",
+          "description": "warning border."
+        },
+        "danger": {
+          "$ref": "#/$defs/color",
+          "description": "danger status colour; also its text on surfaces."
+        },
+        "danger-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid danger fill."
+        },
+        "danger-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium danger tint (badges)."
+        },
+        "danger-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft danger background (alerts)."
+        },
+        "danger-border": {
+          "$ref": "#/$defs/color",
+          "description": "danger border."
+        },
+        "discovery": {
+          "$ref": "#/$defs/color",
+          "description": "discovery status colour; also its text on surfaces."
+        },
+        "discovery-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid discovery fill."
+        },
+        "discovery-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium discovery tint (badges)."
+        },
+        "discovery-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft discovery background (alerts)."
+        },
+        "discovery-border": {
+          "$ref": "#/$defs/color",
+          "description": "discovery border."
+        },
+        "info": {
+          "$ref": "#/$defs/color",
+          "description": "info status colour; also its text on surfaces."
+        },
+        "info-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid info fill."
+        },
+        "info-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium info tint (badges)."
+        },
+        "info-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft info background (alerts)."
+        },
+        "info-border": {
+          "$ref": "#/$defs/color",
+          "description": "info border."
+        },
+        "attention": {
+          "$ref": "#/$defs/color",
+          "description": "attention status colour; also its text on surfaces."
+        },
+        "attention-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Text on a solid attention fill."
+        },
+        "attention-muted": {
+          "$ref": "#/$defs/color",
+          "description": "Medium attention tint (badges)."
+        },
+        "attention-subtle": {
+          "$ref": "#/$defs/color",
+          "description": "Soft attention background (alerts)."
+        },
+        "attention-border": {
+          "$ref": "#/$defs/color",
+          "description": "attention border."
+        },
+        "chart-1": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 1."
+        },
+        "chart-2": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 2."
+        },
+        "chart-3": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 3."
+        },
+        "chart-4": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 4."
+        },
+        "chart-5": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 5."
+        },
+        "chart-6": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 6."
+        },
+        "chart-7": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 7."
+        },
+        "chart-8": {
+          "$ref": "#/$defs/color",
+          "description": "Categorical chart series 8."
+        },
+        "sidebar": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar background."
+        },
+        "sidebar-foreground": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar text."
+        },
+        "sidebar-accent": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar hover/active item background."
+        },
+        "sidebar-border": {
+          "$ref": "#/$defs/color",
+          "description": "Sidebar border."
+        }
+      },
+      "description": "Colour tokens for dark mode."
+    },
+    "shadows": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "light",
+        "dark"
+      ],
+      "properties": {
+        "light": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "card",
+            "card-hover",
+            "floating",
+            "popover",
+            "launcher",
+            "table"
+          ],
+          "properties": {
+            "card": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "card-hover": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "floating": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "popover": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "launcher": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "table": {
+              "$ref": "#/$defs/cssValue"
+            }
+          }
+        },
+        "dark": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "card",
+            "card-hover",
+            "floating",
+            "popover",
+            "launcher",
+            "table"
+          ],
+          "properties": {
+            "card": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "card-hover": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "floating": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "popover": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "launcher": {
+              "$ref": "#/$defs/cssValue"
+            },
+            "table": {
+              "$ref": "#/$defs/cssValue"
+            }
+          }
+        }
+      },
+      "description": "--ds-shadow-* box-shadow values per mode."
+    },
+    "fonts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sans",
+        "serif",
+        "mono",
+        "heading"
+      ],
+      "properties": {
+        "sans": {
+          "$ref": "#/$defs/cssValue",
+          "description": "font-family list for --ds-font-sans"
+        },
+        "serif": {
+          "$ref": "#/$defs/cssValue",
+          "description": "font-family list for --ds-font-serif"
+        },
+        "mono": {
+          "$ref": "#/$defs/cssValue",
+          "description": "font-family list for --ds-font-mono"
+        },
+        "heading": {
+          "$ref": "#/$defs/cssValue",
+          "description": "font-family list for --ds-font-heading"
+        }
+      }
+    },
+    "radius": {
+      "type": "string",
+      "pattern": "^(?:0|\\d*\\.?\\d+(?:px|rem|em))$",
+      "description": "Base corner radius (--ds-radius)."
+    },
+    "spacing": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 2,
+      "description": "Density multiplier (--ds-space-scale)."
+    },
+    "tracking": {
+      "type": "string",
+      "pattern": "^-?(?:0|\\d*\\.?\\d+(?:em|rem|px))$",
+      "description": "Body letter-spacing."
+    }
+  },
+  "$defs": {
+    "cssValue": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[^;{}<>\\\\]+$"
+    },
+    "color": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?:#[0-9a-fA-F]{3,8}|(?:rgb|rgba|hsl|hsla|oklch|oklab)\\([^;{}<>\\\\]+\\)|black|white|transparent)$"
+    }
+  }
+}

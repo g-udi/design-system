@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "autocomplete-input-options",
+  "type": "registry:example",
+  "title": "Input options",
+  "description": "Input options. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "autocomplete",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--autocomplete-input-options",
+    "source": "src/components/core/Select/stories/fixtures/autocomplete/autocomplete-input-options.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/autocomplete-input-options.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  Autocomplete,\n  AutocompleteContent,\n  AutocompleteEmpty,\n  AutocompleteInput,\n  AutocompleteItem,\n  AutocompleteList\n} from '@gaudi/design-system/core/Select';\nimport { Label } from '@gaudi/design-system/core/Field';\n\n// Free-text search with suggestions. Each field below changes one input option.\nfunction TagAutocomplete({ label, inputProps, className, ...props }) {\n  const id = useId();\n  return (\n    <div className={`flex flex-col gap-2 ${className || ''}`}>\n      <Label htmlFor={id}>{label}</Label>\n      <Autocomplete items={items} {...props}>\n        <AutocompleteInput id={id} placeholder='e.g. feature' {...inputProps} />\n        <AutocompleteContent>\n          <AutocompleteEmpty>No tags found.</AutocompleteEmpty>\n          <AutocompleteList>\n            {(item) => (\n              <AutocompleteItem key={item.id} value={item.value}>\n                {item.value}\n              </AutocompleteItem>\n            )}\n          </AutocompleteList>\n        </AutocompleteContent>\n      </Autocomplete>\n    </div>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>\n      <TagAutocomplete label='Tag' />\n      <TagAutocomplete label='Auto highlight' autoHighlight />\n      <TagAutocomplete label='Clear button' defaultValue='Feature' inputProps={{ showClear: true }} />\n      <TagAutocomplete label='Trigger button' inputProps={{ showTrigger: true }} />\n      <TagAutocomplete label='Clear and trigger' defaultValue='Docs' inputProps={{ showTrigger: true, showClear: true }} />\n      <TagAutocomplete label='Disabled' disabled defaultValue='Bug' />\n      <TagAutocomplete label='Small' inputProps={{ size: 'sm', showTrigger: true, showClear: true }} />\n      <TagAutocomplete label='Large' className='sm:col-span-2' inputProps={{ size: 'lg', showTrigger: true, showClear: true }} />\n    </div>\n  );\n}\nconst items = [\n  { id: 't1', value: 'Feature' },\n  { id: 't2', value: 'Fix' },\n  { id: 't3', value: 'Bug' },\n  { id: 't4', value: 'Docs' },\n  { id: 't5', value: 'Internal' },\n  { id: 't6', value: 'Mobile' },\n  { id: 'c-accordion', value: 'component: Accordion' },\n  { id: 'c-alert-dialog', value: 'component: Alert Dialog' },\n  { id: 'c-autocomplete', value: 'component: Autocomplete' },\n  { id: 'c-avatar', value: 'component: Avatar' },\n  { id: 'c-checkbox', value: 'component: Checkbox' },\n  { id: 'c-checkbox-group', value: 'component: Checkbox Group' },\n  { id: 'c-collapsible', value: 'component: Collapsible' },\n  { id: 'c-combobox', value: 'component: Combobox' },\n  { id: 'c-context-menu', value: 'component: Context Menu' },\n  { id: 'c-dialog', value: 'component: Dialog' },\n  { id: 'c-field', value: 'component: Field' },\n  { id: 'c-fieldset', value: 'component: Fieldset' },\n  { id: 'c-filterable-menu', value: 'component: Filterable Menu' },\n  { id: 'c-form', value: 'component: Form' },\n  { id: 'c-input', value: 'component: Input' },\n  { id: 'c-menu', value: 'component: Menu' },\n  { id: 'c-menubar', value: 'component: Menubar' },\n  { id: 'c-meter', value: 'component: Meter' },\n  { id: 'c-navigation-menu', value: 'component: Navigation Menu' },\n  { id: 'c-number-field', value: 'component: Number Field' },\n  { id: 'c-popover', value: 'component: Popover' },\n  { id: 'c-preview-card', value: 'component: Preview Card' },\n  { id: 'c-progress', value: 'component: Progress' },\n  { id: 'c-radio', value: 'component: Radio' },\n  { id: 'c-scroll-area', value: 'component: Scroll Area' },\n  { id: 'c-select', value: 'component: Select' },\n  { id: 'c-separator', value: 'component: Separator' },\n  { id: 'c-slider', value: 'component: Slider' },\n  { id: 'c-switch', value: 'component: Switch' },\n  { id: 'c-tabs', value: 'component: Tabs' },\n  { id: 'c-toast', value: 'component: Toast' },\n  { id: 'c-toggle', value: 'component: Toggle' },\n  { id: 'c-toggle-group', value: 'component: Toggle Group' },\n  { id: 'c-toolbar', value: 'component: Toolbar' },\n  { id: 'c-tooltip', value: 'component: Tooltip' }\n];\n"
+    }
+  ]
+}

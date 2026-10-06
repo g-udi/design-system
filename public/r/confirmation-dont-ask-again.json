@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirmation-dont-ask-again",
+  "type": "registry:example",
+  "title": "Confirmation with a don't-ask-again option",
+  "description": "Confirmation with a don't-ask-again option. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "confirmation",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--confirmation-dont-ask-again",
+    "source": "src/components/core/Dialog/stories/fixtures/confirmation/confirmation-dont-ask-again.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/confirmation-dont-ask-again.jsx",
+      "type": "registry:component",
+      "content": "import {\n  DialogConfirmationRoot as DialogConfirmation,\n  DialogConfirmationAction,\n  DialogConfirmationCancel,\n  DialogConfirmationContent,\n  DialogConfirmationDescription,\n  DialogConfirmationFooter,\n  DialogConfirmationTitle,\n  DialogConfirmationTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <DialogConfirmation>\n      <DialogConfirmationTrigger asChild>\n        <Button variant='outline'>Discard Changes</Button>\n      </DialogConfirmationTrigger>\n      <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-md'>\n        <div className='flex items-start gap-3 p-4'>\n          <div className='flex size-9 shrink-0 items-center justify-center rounded-full bg-warning-muted text-warning'>\n            <RegistryIcon lucide='TriangleAlertIcon' className='size-4' />\n          </div>\n          <div className='flex flex-col justify-center gap-1'>\n            <DialogConfirmationTitle className='text-sm font-semibold'>\n              Unsaved changes\n            </DialogConfirmationTitle>\n            <DialogConfirmationDescription className='text-text-muted text-sm'>\n              You have unsaved changes in this form. If you leave now, your\n              progress will be lost.\n            </DialogConfirmationDescription>\n          </div>\n        </div>\n        <DialogConfirmationFooter className='mx-0 mb-0 items-center gap-4 border-t border-border p-4 sm:justify-between'>\n          <div className='flex items-center gap-2'>\n            <Checkbox id='dont-ask-again' />\n            <Label\n              htmlFor='dont-ask-again'\n              className='text-text-muted font-normal'\n            >\n              Don&apos;t ask again\n            </Label>\n          </div>\n          <div className='flex items-center gap-2'>\n            <DialogConfirmationCancel>Stay</DialogConfirmationCancel>\n            <DialogConfirmationAction>Discard Changes</DialogConfirmationAction>\n          </div>\n        </DialogConfirmationFooter>\n      </DialogConfirmationContent>\n    </DialogConfirmation>\n  );\n}\n"
+    }
+  ]
+}

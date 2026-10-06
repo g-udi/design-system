@@ -1,0 +1,8 @@
+.gaudi-phrase-cycle { display: inline-block; max-width: 100%; vertical-align: bottom; overflow: hidden; }
+.gaudi-phrase-cycle__layout { display: inline-grid; max-width: 100%; overflow-wrap: anywhere; }
+.gaudi-phrase-cycle__layout > span { grid-area: 1 / 1; }
+.gaudi-phrase-cycle__measure { visibility: hidden; }
+.gaudi-phrase-cycle[data-animated="true"] .gaudi-phrase-cycle__value { animation: gaudi-phrase-cycle-in 450ms cubic-bezier(.16,1,.3,1) both; }
+.gaudi-phrase-cycle[data-direction="down"] { --cycle-from: -100%; }
+@keyframes gaudi-phrase-cycle-in { from { transform: translateY(var(--cycle-from, 100%)); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .gaudi-phrase-cycle__value { animation: none !important; } }

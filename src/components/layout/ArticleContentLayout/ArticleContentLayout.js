@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-
 import Button from '../../core/Button';
+import { useControllableState } from '../../../hooks/state/use-controllable-state';
 import { cn } from '../../../utilities/cn';
 
 const prosePadding = {
@@ -42,12 +41,11 @@ const ArticleContentLayout = ({
   padding = 'md',
   showAsideToggleControl = true
 }) => {
-  const [ uncontrolledAsideOpen, setUncontrolledAsideOpen ] = useState(defaultAsideOpen);
-  const isAsideOpen = asideOpen ?? uncontrolledAsideOpen;
-  const setIsAsideOpen = (value) => {
-    setUncontrolledAsideOpen(value);
-    onAsideOpenChange?.(value);
-  };
+  const [ isAsideOpen, setIsAsideOpen ] = useControllableState({
+    value: asideOpen,
+    defaultValue: defaultAsideOpen,
+    onChange: onAsideOpenChange
+  });
   const showAside = hasAside && (!collapsibleAside || isAsideOpen);
   const showAsideRail = hasAside && collapsibleAside;
   const showAsideToggle = hasAside && collapsibleAside && showAsideToggleControl;
@@ -62,7 +60,7 @@ const ArticleContentLayout = ({
         ) }
         style={{ 'gridTemplateRows': 'auto 1fr' }}
       >
-        <div className={ cn('order-2 lg:order-none lg:row-span-2', reserveAsideRail && 'lg:col-span-6') }>
+        <div className={ cn('order-2 min-w-0 lg:order-none lg:row-span-2', reserveAsideRail && 'lg:col-span-6') }>
           <div className={ cn('prose max-w-none dark:prose-invert', prosePadding[padding], contentClassName) }>
             {children}
           </div>

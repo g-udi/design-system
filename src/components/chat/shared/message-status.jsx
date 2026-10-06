@@ -1,6 +1,6 @@
 import { cn } from '../../../utilities/cn/index.js';
-import { Badge } from '../../core/Pill/parts/badge-extended.jsx';
-import { Spinner } from '../../core/Spinner/parts/spinner.jsx';
+import { Badge } from '../../core/Pill/Badge.jsx';
+import { Loader } from '../../core/Loader/LoaderPrimitives.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 
 /*
@@ -14,28 +14,28 @@ const messageStatuses = Object.freeze({
   done: { label: 'Done', icon: 'CircleCheck', tone: 'text-success', badge: 'success-light' },
   failed: { label: 'Failed', icon: 'CircleX', tone: 'text-danger', badge: 'destructive-light' },
   cancelled: { label: 'Skipped', icon: 'Circle', tone: 'text-text-muted', badge: 'outline' },
-  // A tool call waiting on the person (MessageToolApproval), and one they refused.
+  // A tool call waiting on the person (ChatMessageToolApproval), and one they refused.
   awaiting: { label: 'Needs approval', icon: 'ShieldQuestionMark', tone: 'text-warning', badge: 'warning-light' },
   denied: { label: 'Denied', icon: 'Ban', tone: 'text-danger', badge: 'destructive-light' }
 });
 
 const statusOf = (status) => messageStatuses[status] || messageStatuses.pending;
 
-function MessageStatusIcon({ status = 'pending', className }) {
+function ChatMessageStatusIcon({ status = 'pending', className }) {
   const meta = statusOf(status);
-  if (!meta.icon) return <Spinner aria-hidden='true' aria-label={undefined} role={undefined} className={cn('size-3.5 shrink-0', meta.tone, className)} />;
+  if (!meta.icon) return <Loader aria-hidden='true' aria-label={undefined} role={undefined} className={cn('size-3.5 shrink-0', meta.tone, className)} />;
   return <RegistryIcon lucide={meta.icon} className={cn('size-3.5 shrink-0', meta.tone, className)} />;
 }
 
 /** A labelled status badge; `labels` overrides the words for each status. */
-function MessageStatus({ status = 'pending', labels, className }) {
+function ChatMessageStatus({ status = 'pending', labels, className }) {
   const meta = statusOf(status);
   return (
     <Badge data-slot='message-status' data-status={status} variant={meta.badge} size='sm' className={cn('gap-1', className)}>
-      <MessageStatusIcon status={status} className='size-3' />
+      <ChatMessageStatusIcon status={status} className='size-3' />
       {labels?.[status] || meta.label}
     </Badge>
   );
 }
 
-export { MessageStatus, MessageStatusIcon, messageStatuses };
+export { ChatMessageStatus, ChatMessageStatusIcon, messageStatuses };

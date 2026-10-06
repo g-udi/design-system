@@ -1,0 +1,95 @@
+@layer components {
+  .ds-part-field-set {
+    @apply gap-3 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3;
+  }
+
+  .ds-part-field-legend {
+    @apply mb-1.5 font-medium data-[variant=label]:text-sm data-[variant=legend]:text-base;
+  }
+
+  .ds-part-field-group {
+    @apply gap-4 data-[slot=checkbox-group]:gap-2 *:data-[slot=field-group]:gap-3;
+  }
+
+  .ds-part-field {
+    @apply data-[invalid=true]:text-ui-destructive gap-2;
+  }
+
+  .ds-part-field-content {
+    @apply gap-0.5;
+  }
+
+  .ds-part-label {
+    @apply gap-2 text-sm leading-none font-medium group-data-[disabled=true]:opacity-50 peer-disabled:opacity-50;
+  }
+
+  .ds-part-field-label {
+    @apply has-data-checked:bg-ui-primary/5 has-data-checked:border-ui-primary/30 dark:has-data-checked:border-ui-primary/20 dark:has-data-checked:bg-ui-primary/10 gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:rounded-lg has-[>[data-slot=field]]:border has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:bg-ui-muted/50 has-[>[data-slot=field]]:has-[:focus-visible]:border-ui-ring has-[>[data-slot=field]]:has-[:focus-visible]:ring-ui-primary has-[>[data-slot=field]]:has-[:focus-visible]:ring-3 *:data-[slot=field]:p-2.5;
+  }
+
+  .ds-part-field-title {
+    @apply gap-2 leading-snug text-sm font-medium group-data-[disabled=true]/field:opacity-50;
+  }
+
+  .ds-part-field-description {
+    @apply text-ui-muted-foreground text-left text-sm [[data-variant=legend]+&]:-mt-1.5;
+  }
+
+  .ds-part-field-separator {
+    @apply -my-2 h-5 text-sm group-data-[variant=outline]/field-group:-mb-2;
+  }
+
+  .ds-part-field-separator-content {
+    @apply text-ui-muted-foreground px-2;
+  }
+
+  .ds-part-field-error {
+    @apply text-ui-destructive text-sm;
+  }
+}
+
+@layer components {
+  [data-smooth-caret-active] { caret-color: transparent !important; }
+  .ds-input-caret-anchor {
+    position: absolute;
+    inset: 0 auto auto 0;
+    /* Field layouts give direct children full width; this measuring anchor is fixed. */
+    width: 1px !important;
+    height: 1px !important;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .ds-input-caret-clip {
+    position: absolute;
+    inset: 0 auto auto 0;
+    overflow: hidden;
+    transform-origin: top left;
+    pointer-events: none;
+  }
+  .ds-input-caret {
+    position: absolute;
+    inset: 0 auto auto 0;
+    width: 1.5px;
+    pointer-events: none;
+    transition: transform var(--ds-motion-duration-feedback) var(--ds-motion-ease-out);
+    animation: ds-input-caret-blink 1s step-end 700ms infinite;
+  }
+  .ds-input-caret-mirror {
+    position: fixed;
+    inset: 0 auto auto 0;
+    visibility: hidden;
+    pointer-events: none;
+    contain: layout style paint;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  @keyframes ds-input-caret-blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    [data-smooth-caret-active] { caret-color: auto !important; }
+    .ds-input-caret-anchor { display: none; }
+  }
+}

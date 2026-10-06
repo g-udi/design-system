@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-tile-in-context",
+  "type": "registry:example",
+  "title": "In a card, list row and empty state",
+  "description": "In a card, list row and empty state. Core/Icon pattern composed from @gaudi/design-system/core/Icon and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "icon-tile",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Icon",
+    "import": "@gaudi/design-system/core/Icon",
+    "storyId": "core-icon--icon-tile-in-context",
+    "source": "src/components/core/Icon/stories/fixtures/icon-tile/icon-tile-in-context.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/icon-tile-in-context.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\nimport { IconTile } from '@gaudi/design-system/core/Icon';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport {\n  Empty,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-3'>\n      <Frame>\n        <FramePanel className='flex flex-col gap-3'>\n          <IconTile variant='elevated' size='lg' aria-hidden='true'>\n            <RegistryIcon lucide='LayoutDashboardIcon' />\n          </IconTile>\n          <div className='flex flex-col gap-1'>\n            <h3 className='text-sm font-medium'>Reader overview</h3>\n            <p className='text-text-muted text-xs'>\n              Track every project, deployment and metric from a single workspace.\n            </p>\n          </div>\n        </FramePanel>\n      </Frame>\n      <Item variant='outline'>\n        <ItemMedia>\n          <IconTile variant='elevated' size='sm' aria-hidden='true'>\n            <RegistryIcon lucide='FileTextIcon' />\n          </IconTile>\n        </ItemMedia>\n        <ItemContent>\n          <ItemTitle>Autumn reading report</ItemTitle>\n          <ItemDescription>Edited 2 hours ago by Rosalind</ItemDescription>\n        </ItemContent>\n        <ItemActions>\n          <IconTile\n            asChild\n            size='sm'\n            className='hover:bg-ui-accent focus-visible:ring-ui-ring focus-visible:ring-offset-background transition-colors outline-none focus-visible:ring-2 focus-visible:ring-offset-2'\n          >\n            <a href='/reports/quarterly/settings' aria-label='Open settings'>\n              <RegistryIcon lucide='Settings2Icon' aria-hidden='true' />\n            </a>\n          </IconTile>\n        </ItemActions>\n      </Item>\n      <Empty className='rounded-lg border border-dashed py-8'>\n        <EmptyHeader>\n          <EmptyMedia>\n            <IconTile variant='frame' size='xl' aria-hidden='true'>\n              <RegistryIcon lucide='FolderIcon' />\n            </IconTile>\n          </EmptyMedia>\n          <EmptyTitle>No files yet</EmptyTitle>\n          <EmptyDescription>\n            Upload a file to get started. Everything you add shows up here.\n          </EmptyDescription>\n        </EmptyHeader>\n      </Empty>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

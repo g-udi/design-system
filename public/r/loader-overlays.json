@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader-overlays",
+  "type": "registry:example",
+  "title": "Overlays and empty states",
+  "description": "Overlays and empty states. Core/Loader pattern composed from @gaudi/design-system/core/Loader and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "loader",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Loader",
+    "import": "@gaudi/design-system/core/Loader",
+    "storyId": "core-loader--overlays",
+    "source": "src/components/core/Loader/stories/fixtures/loader/loader-overlays.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/loader-overlays.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nconst metrics = [\n  ['Revenue', '$12,450'],\n  ['Growth', '+18.2%'],\n  ['Users', '1,248']\n];\nexport function Pattern() {\n  const [loading, setLoading] = useState(true);\n  const [settingUp, setSettingUp] = useState(true);\n  const refreshId = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-2xl gap-3 sm:grid-cols-2'>\n      <div className='flex flex-col gap-2'>\n        <div className='flex items-center gap-2'>\n          <Switch id={refreshId} checked={loading} onCheckedChange={setLoading} />\n          <Label htmlFor={refreshId}>Refreshing</Label>\n        </div>\n        <Card className='relative overflow-hidden' aria-busy={loading}>\n          <CardHeader>\n            <CardTitle>Monthly report</CardTitle>\n            <CardDescription>Revenue and growth metrics.</CardDescription>\n          </CardHeader>\n          <CardContent className='space-y-2'>\n            {metrics.map(([label, value]) => (\n              <div key={label} className='flex items-center justify-between text-sm'>\n                <span className='text-text-muted'>{label}</span>\n                <span className='font-medium'>{value}</span>\n              </div>\n            ))}\n          </CardContent>\n          {loading ? (\n            <div className='absolute inset-0 z-10 flex flex-col items-center justify-center gap-2 bg-surface/80 backdrop-blur-xs'>\n              <Loader className='size-5 text-text-muted' aria-label='Refreshing data' />\n              <span className='text-sm text-text-muted'>Refreshing data…</span>\n            </div>\n          ) : null}\n        </Card>\n      </div>\n      <Empty className='border border-dashed border-border'>\n        <EmptyHeader>\n          {settingUp ? <EmptyMedia variant='icon'><Loader aria-label='Setting up workspace' /></EmptyMedia> : null}\n          <EmptyTitle>{settingUp ? 'Setting up your workspace' : 'Setup cancelled'}</EmptyTitle>\n          <EmptyDescription>{settingUp ? 'Fetching your projects. This takes a few seconds.' : 'Your workspace has not been changed. Restart setup when you are ready.'}</EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent>\n          <Button variant='outline' size='sm' onClick={() => setSettingUp((current) => !current)}>{settingUp ? 'Cancel' : 'Restart setup'}</Button>\n        </EmptyContent>\n      </Empty>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-empty-state",
+  "type": "registry:example",
+  "title": "Empty state",
+  "description": "Empty state. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-24.svg, /avatars/person-31.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--empty-state",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-empty-state.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-31.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-empty-state.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarGroupCount,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='flex flex-col items-center gap-4 text-center'>\n      <AvatarGroup>\n        <Avatar>\n          <AvatarImage\n            src='/avatars/person-20.svg'\n            alt='sarah@example.com'\n            className='grayscale'\n          />\n          <AvatarFallback>CN</AvatarFallback>\n        </Avatar>\n        <Avatar>\n          <AvatarImage\n            src='/avatars/person-31.svg'\n            alt='@samrivera'\n            className='grayscale'\n          />\n          <AvatarFallback>SR</AvatarFallback>\n        </Avatar>\n        <Avatar>\n          <AvatarImage\n            src='/avatars/person-24.svg'\n            alt='@jomorgan'\n            className='grayscale'\n          />\n          <AvatarFallback>JM</AvatarFallback>\n        </Avatar>\n        <AvatarGroupCount aria-label='Add collaborator'>\n          <RegistryIcon lucide='UserPlusIcon' aria-hidden='true' />\n        </AvatarGroupCount>\n      </AvatarGroup>\n      <div className='space-y-0.5'>\n        <h3 className='text-sm font-medium'>No active collaborators</h3>\n        <p className='text-ui-muted-foreground text-xs'>\n          Invite teammates to start working together.\n        </p>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

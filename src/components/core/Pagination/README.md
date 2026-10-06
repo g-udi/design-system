@@ -8,6 +8,6 @@ import { PaginationBar } from '@gaudi/design-system';
 <PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />
 ```
 
-`PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; hovering or focusing the status reveals page shortcuts, with ellipses past five pages. Pass `onPageChange` for client-side paging: every control becomes a button and the host owns `currentPage`. `label` names the landmark.
+`PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.
 
 The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.

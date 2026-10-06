@@ -1,0 +1,12 @@
+@layer components {
+  .ds-auth-form header .ds-description {
+    margin-top: 0.25rem;
+  }
+  .ds-auth-form {
+    display: grid;
+    gap: calc(var(--ds-space-scale, 1) * 1.25rem);
+    width: 100%;
+    max-width: 28rem;
+    margin-inline: auto;
+  }
+}

@@ -15,34 +15,4 @@ concurrency:
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-
-      - name: Enable pnpm
-        run: corepack enable pnpm
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Run contract tests
-        run: pnpm test:contracts
-
-      - name: Install Playwright browsers
-        run: pnpm exec playwright install chromium --with-deps
-
-      - name: Run Storybook tests (interactions + axe a11y)
-        run: pnpm test-storybook -- --run
-
-      - name: Build Storybook
-        run: pnpm build-storybook
+    uses: ./.github/workflows/validation.yml

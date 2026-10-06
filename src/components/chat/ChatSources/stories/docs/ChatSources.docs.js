@@ -1,0 +1,7 @@
+import { p, className, definition } from '../../../../../docs/components/referenceProps.js';
+export default {
+  "Chat/ChatSources": {
+    ...definition('Numbered citations that open a hover card (with a carousel when one marker cites several sources) and the list of sources under a reply.', [p('label', 'string', 'n sources', 'Toggle label for the list.'), p('defaultOpen', 'boolean', 'false', 'Initial disclosure.'), p('sources', 'Array<{ title, url?, kind?, site?, excerpt?, quote?, icon? }>', '[]', 'Sources in citation order.'), p('ChatMessageCitation.index / source / sources', 'number / source / source[]', '—', 'Inline numbered pill; several sources page through a carousel in the card.'), p('ChatMessageCitation.labels', '{ trigger, carousel, position, previous, next }', 'English copy', 'Names for the pill, the carousel and its controls.'), className], 'Citations are buttons named “Source n: title”. The card opens on hover without taking focus, and on click, tap, Enter or Space with focus inside; arrow keys and buttons page the carousel and the position is announced.', ['See Cited answer on this page for grouped citations [1, 3] beside a SchemaDisplay tool result.']),
+    usage: "import { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\n<>\n<p>\n  Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts\n  <ChatMessageCitation index={2} sources={[sources[1], sources[2]]} />.\n</p>\n<ChatMessageSources sources={sources} />\n</>"
+  }
+};

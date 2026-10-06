@@ -3,7 +3,7 @@
 /**
  * Newsletter Form Component
  *
- * @description Newsletter subscription form component that integrates with Buttondown API.
+ * @description Newsletter subscription form component that submits to an explicitly configured host endpoint.
  * Provides email validation, submission handling, and success/error feedback states.
  * Features responsive design with inline form layout and disabled state after subscription.
  *
@@ -14,18 +14,19 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 import Button from '../../core/Button';
-import { FieldInput } from '../../core/Field';
+
 import { cn } from '../../../utilities/cn';
+import { EmailInput } from '../../core/Input/index.js';
 
 /**
  * Newsletter subscription form component
  *
  * @description Renders a newsletter subscription form with email input and submit button.
- * Handles form submission to Buttondown API, manages subscription state, and provides
+ * Handles form submission to the host endpoint, manages subscription state, and provides
  * user feedback for success and error cases.
  *
  * @param {Object} props - Component props
- * @param {string} [props.endpoint='/api/buttondown'] - Subscription API endpoint to POST the email to
+ * @param {string} [props.endpoint] - Explicit subscription API endpoint to POST the email to; missing endpoints disable signup
  * @param {string} [props.title='Subscribe to the newsletter'] - Form heading
  * @param {string} [props.className] - Root classes
  * @param {Object} [props.classNames] - Part classes (root, title, description, form, input, action, button, message)
@@ -33,9 +34,9 @@ import { cn } from '../../../utilities/cn';
  * @returns {JSX.Element} Newsletter subscription form
  *
  * @example
- * <NewsletterForm title="Join our newsletter" />
+ * <NewsletterForm endpoint="/api/newsletter" title="Join our newsletter" />
  */
-const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondown', title = 'Subscribe to the newsletter' }) => {
+const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscribe to the newsletter' }) => {
   const abortControllerRef = useRef(null);
   const inputEl = useRef(null);
   const mountedRef = useRef(false);
@@ -63,7 +64,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
   const subscribe = async(event) => {
     event.preventDefault();
 
-    if (submitting) return;
+    if (!endpoint || subscribed || submitting || abortControllerRef.current) return;
 
     const email = inputEl.current?.value?.trim();
 
@@ -77,13 +78,12 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
     abortControllerRef.current?.abort();
 
     const controller = new AbortController();
-    const subscriptionEndpoint = endpoint || '/api/buttondown';
 
     abortControllerRef.current = controller;
     setSubmitting(true);
 
     try {
-      const res = await fetch(subscriptionEndpoint, {
+      const res = await fetch(endpoint, {
         'body': JSON.stringify({
           email
         }),
@@ -128,34 +128,35 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
   };
 
   return (
-    <div className={ cn('mt-8 xl:col-span-2 xl:mt-0', className, classNames.root) }>
+    <div className={ cn('@container/newsletter mt-8 min-w-0', className, classNames.root) }>
       <h3 className={ cn('text-base font-medium text-text', classNames.title) }>{title}</h3>
       <p className={ cn('mt-4 text-base text-text-muted md:text-sm', classNames.description) }>
-        The latest articles, readings, and resources, sent to your inbox monthly.
+        Get new articles and resources in your inbox.
       </p>
-      <form className={ cn('mt-4 sm:flex sm:max-w-md', classNames.form) } onSubmit={ subscribe }>
+      <form className={ cn('mt-4 flex max-w-md flex-col gap-3 @[24rem]/newsletter:flex-row', classNames.form) } onSubmit={ subscribe }>
         <label htmlFor={ inputId } className='sr-only'>
           Email address
         </label>
-        <FieldInput
+        <EmailInput
           autoComplete='email'
           id={ inputId }
           name='email'
           placeholder={ subscribed ? 'You are subscribed' : 'Enter your email' }
           ref={ inputEl }
           required
-          type='email'
+
           disabled={ subscribed }
           invalid={ error }
           aria-describedby={ message ? messageId : undefined }
-          className={ cn('min-h-11 px-4 py-2', classNames.input) }
+          inputClassName={ cn('min-h-11 px-4 py-2', classNames.input) }
+          className='h-auto min-w-0 flex-1'
         />
-        <div className={ cn('mt-3 sm:ml-3 sm:mt-0 sm:shrink-0', classNames.action) }>
+        <div className={ cn('shrink-0', classNames.action) }>
           <Button
             type='submit'
-            disabled={ subscribed || submitting }
+            disabled={ !endpoint || subscribed || submitting }
             aria-busy={ submitting || undefined }
-            className={ cn('w-full', classNames.button) }
+            className={ cn('min-h-11 w-full', classNames.button) }
             size='sm'
             variant='solid'
           >
@@ -163,31 +164,10 @@ const NewsletterForm = ({ className, classNames = {}, endpoint = '/api/buttondow
           </Button>
         </div>
       </form>
+      {!endpoint ? <p className='mt-3 text-sm text-text-muted'>Newsletter sign-up is currently unavailable.</p> : null}
       {message ? <p id={ messageId } role={ error ? 'alert' : 'status' } className={ cn('mt-3 text-sm', error ? 'text-danger' : 'text-success', classNames.message) }>{message}</p> : null}
     </div>
   );
 };
 
 export default NewsletterForm;
-
-/**
- * Blog-specific newsletter form with styled wrapper
- *
- * @description Newsletter form variant with additional styling and background for use within blog content.
- * Wraps the main NewsletterForm component with centered layout and background styling.
- *
- * @param {Object} props - Component props
- * @param {string} props.title - Form title to pass to NewsletterForm
- *
- * @returns {JSX.Element} Styled newsletter form for blog context
- *
- * @example
- * <BlogNewsletterForm title="Subscribe for updates" />
- */
-export const BlogNewsletterForm = ({ classNames = {}, title }) => (
-  <div className={ cn('flex items-center justify-center', classNames.root) }>
-    <div className={ cn('rounded-card bg-surface-muted p-6 sm:px-14 sm:py-8', classNames.frame) }>
-      <NewsletterForm title={ title } classNames={ classNames.form } />
-    </div>
-  </div>
-);

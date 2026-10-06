@@ -1,13 +1,14 @@
 'use client';
 
 import { useId, useState } from 'react';
+import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { addDays, differenceInCalendarDays, format, startOfDay, subDays, subMonths } from 'date-fns';
 import { default as Button } from '../../core/Button/index.js';
-import { Calendar } from '../../core/Calendar/parts/calendar.jsx';
+import { Calendar } from '../../core/Calendar/Calendar.jsx';
 import { CardRoot, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../../core/Card/index.js';
-import { Popover, PopoverContent, PopoverTrigger } from '../../core/Popover/parts/popover.jsx';
-import { Switch } from '../../core/Switch/parts/switch.jsx';
-import { ToggleGroup, ToggleGroupItem } from '../../core/ToggleGroup/parts/toggle-group.jsx';
+import { Popover, PopoverContent, PopoverTrigger } from '../../core/Popover/PopoverPrimitives.jsx';
+import { Switch } from '../../core/Switch/SwitchPrimitives.jsx';
+import { ToggleGroup, ToggleGroupItem } from '../../core/ToggleGroup/ToggleGroupPrimitives.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { cn } from '../../../utilities/cn/index.js';
 
@@ -136,7 +137,7 @@ export function resolveDashboardPeriod(period, { today = new Date(), range, peri
     from = startOfDay(range.from);
     to = startOfDay(range.to || range.from);
   } else {
-    const preset = periods.find((item) => item.value === period) || periods[0];
+    const preset = periods.find((item) => item.value === period) || periods[0] || {};
     from = preset.months ? addDays(subMonths(end, preset.months), 1) : subDays(end, (preset.days || 1) - 1);
   }
   if (from > to) [from, to] = [to, from];
@@ -155,7 +156,7 @@ const formatRange = (range, pattern) => (range?.from ? `${format(range.from, pat
 export function DashboardToolbar({
   periods = DEFAULT_DASHBOARD_PERIODS,
   period: periodProp,
-  defaultPeriod = periods[1]?.value || periods[0].value,
+  defaultPeriod = periods[1]?.value ?? periods[0]?.value ?? 'custom',
   onPeriodChange,
   range: rangeProp,
   defaultRange,
@@ -174,13 +175,10 @@ export function DashboardToolbar({
 }) {
   const labels = { ...DEFAULT_DASHBOARD_LABELS, ...labelOverrides };
   const compareId = useId();
-  const [periodState, setPeriodState] = useState(defaultPeriod);
-  const [rangeState, setRangeState] = useState(defaultRange);
-  const [compareState, setCompareState] = useState(defaultCompare);
+  const [period, setPeriod] = useControllableState({ value: periodProp, defaultValue: defaultPeriod, onChange: onPeriodChange });
+  const [range, setRange] = useControllableState({ value: rangeProp, defaultValue: defaultRange, onChange: onRangeChange });
+  const [compare, setCompare] = useControllableState({ value: compareProp, defaultValue: defaultCompare, onChange: onCompareChange });
   const [open, setOpen] = useState(false);
-  const period = periodProp ?? periodState;
-  const range = rangeProp ?? rangeState;
-  const compare = compareProp ?? compareState;
   const resolved = resolveDashboardPeriod(period, { today, range, periods });
 
   const emit = (next) => onChange?.({ ...resolveDashboardPeriod(next.period, { today, range: next.range, periods }), period: next.period, compare: next.compare });
@@ -190,39 +188,35 @@ export function DashboardToolbar({
       setOpen(true);
       return;
     }
-    setPeriodState(next);
-    onPeriodChange?.(next);
+    setPeriod(next);
     emit({ period: next, range, compare });
   };
   const chooseRange = (next) => {
-    setRangeState(next);
-    onRangeChange?.(next);
+    setRange(next);
     if (next?.from && next?.to) {
-      setPeriodState('custom');
-      onPeriodChange?.('custom');
+      setPeriod('custom');
       emit({ period: 'custom', range: next, compare });
     }
   };
   const toggleCompare = (next) => {
-    setCompareState(next);
-    onCompareChange?.(next);
+    setCompare(next);
     emit({ period, range, compare: next });
   };
 
   const summary = `${labels.showing} ${formatRange(resolved, dateFormat)}${compare ? `, ${labels.comparedWith} ${formatRange(resolved.previous, dateFormat)}` : ''}`;
   return (
     <div data-slot='dashboard-toolbar' className={cn('flex flex-wrap items-center gap-2', className)}>
-      <ToggleGroup type='single' variant='outline' size='sm' spacing={0} aria-label={labels.period} value={period} onValueChange={choosePeriod}>
+      {periods.length ? <ToggleGroup type='single' variant='outline' size='sm' spacing={0} aria-label={labels.period} value={period} onValueChange={choosePeriod}>
         {periods.map((item) => (
           <ToggleGroupItem key={item.value} value={item.value} aria-label={item.description}>{item.label}</ToggleGroupItem>
         ))}
-      </ToggleGroup>
+      </ToggleGroup> : null}
       {allowCustom ? (
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button variant={period === 'custom' ? 'soft' : 'outline'} tone='neutral' size='sm' aria-label={`${labels.pickRange}${period === 'custom' ? `, ${formatRange(range, dateFormat)}` : ''}`}>
               <RegistryIcon lucide='CalendarIcon' aria-hidden='true' />
-              <span className='max-w-56 truncate'>{period === 'custom' ? formatRange(range, dateFormat) : labels.custom}</span>
+              <span className='max-w-56 truncate'>{period === 'custom' && range?.from ? formatRange(range, dateFormat) : labels.custom}</span>
             </Button>
           </PopoverTrigger>
           <PopoverContent align='start' className='w-auto p-0'>

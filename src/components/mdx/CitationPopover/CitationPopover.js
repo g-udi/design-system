@@ -13,6 +13,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 import LatexText from '../LatexText';
+import Link from '../../core/Link';
+import { PopoverAnchor, PopoverContentPrimitive, PopoverPrimitive } from '../../core/Popover';
 
 import { findBackLink as getBackLink, readCitationKeys as readJsonArray, registerPopoverClickHandler, setStoredCitation } from '../citations';
 
@@ -91,28 +93,6 @@ const parseCitationContent = (citationTexts, citationNumbers, citationKeys, cita
   }
 };
 
-const calculatePosition = (targetRect, popoverWidth, popoverHeight) => {
-  const margin = 12;
-  const offset = 8;
-  const viewportWidth = Math.max(window.innerWidth || 0, margin * 2);
-  const viewportHeight = Math.max(window.innerHeight || 0, margin * 2);
-  const safePopoverWidth = Math.min(popoverWidth, Math.max(viewportWidth - (margin * 2), 0)) || popoverWidth;
-  const safePopoverHeight = Math.min(popoverHeight, Math.max(viewportHeight - (margin * 2), 0)) || popoverHeight;
-  const centerX = targetRect.left + (targetRect.width / 2);
-  const below = targetRect.bottom + offset;
-  const above = targetRect.top - safePopoverHeight - offset;
-
-  let left = centerX - (safePopoverWidth / 2);
-  let top = below;
-
-  if (below + safePopoverHeight > viewportHeight - margin && above > margin)
-    top = above;
-
-  left = Math.max(margin, Math.min(left, Math.max(margin, viewportWidth - safePopoverWidth - margin)));
-  top = Math.max(margin, Math.min(top, Math.max(margin, viewportHeight - safePopoverHeight - margin)));
-
-  return { left, top };
-};
 
 /**
  * Update back-link for a citation and make it visible
@@ -179,7 +159,9 @@ const CitationPopover = () => {
 
     const scheduleClose = (delay) => {
       clearCloseTimeout();
-      timeoutRef.current = setTimeout(closePopover, delay);
+      timeoutRef.current = setTimeout(() => {
+        if (!activeTriggerRef.current?.contains(document.activeElement) && !popoverRef.current?.contains(document.activeElement)) closePopover();
+      }, delay);
     };
 
     const openPopoverFor = (target) => {
@@ -190,12 +172,6 @@ const CitationPopover = () => {
 
       if (!parsedContent) return;
 
-      const rect = target.getBoundingClientRect();
-      const itemCount = readJsonArray(citationNumbers).length || 1;
-      const popoverWidth = itemCount > 1 ? 420 : 360;
-      const popoverHeight = itemCount > 1 ? Math.min(320, 96 + (itemCount * 86)) : 150;
-      const position = calculatePosition(rect, popoverWidth, popoverHeight);
-
       if (activeTriggerRef.current && activeTriggerRef.current !== target)
         activeTriggerRef.current.setAttribute('aria-expanded', 'false');
 
@@ -204,10 +180,8 @@ const CitationPopover = () => {
 
       setPopover({
         'content': parsedContent,
-        'left': Math.round(position.left),
         'number': target.textContent?.trim() || undefined,
-        'originCitationId': target.id,
-        'top': Math.round(position.top)
+        'originCitationId': target.id
       });
     };
 
@@ -251,15 +225,6 @@ const CitationPopover = () => {
       if (trigger || isInsidePopover(event.target)) scheduleClose(300);
     };
 
-    const handleKeyDown = (event) => {
-      if (event.key === 'Escape' && popoverStateRef.current) closePopover();
-    };
-
-    const handleScroll = () => {
-      clearCloseTimeout();
-      if (popoverStateRef.current) closePopover();
-    };
-
     const handleClick = (event) => {
 
       // 1. Clicks on a row inside a multi-citation popover
@@ -281,6 +246,8 @@ const CitationPopover = () => {
 
         if (targetElement) {
           targetElement.scrollIntoView({ 'block': 'center' });
+          // The selected link disappears with the popover; continue at the bibliography.
+          (getBackLink(citationKey) || activeTriggerRef.current)?.focus({ preventScroll: true });
           closePopover();
         }
 
@@ -341,8 +308,6 @@ const CitationPopover = () => {
     document.addEventListener('focusin', handleFocusIn, true);
     document.addEventListener('focusout', handleFocusOut, true);
     document.addEventListener('click', handleClick, true);
-    document.addEventListener('keydown', handleKeyDown, true);
-    window.addEventListener('scroll', handleScroll, true);
 
     // Tell the globally-mounted CitationTracker to stand down while this handler is live
     const unregisterClickHandler = registerPopoverClickHandler();
@@ -357,8 +322,6 @@ const CitationPopover = () => {
       document.removeEventListener('focusin', handleFocusIn, true);
       document.removeEventListener('focusout', handleFocusOut, true);
       document.removeEventListener('click', handleClick, true);
-      document.removeEventListener('keydown', handleKeyDown, true);
-      window.removeEventListener('scroll', handleScroll, true);
 
       clearCloseTimeout();
 
@@ -370,18 +333,35 @@ const CitationPopover = () => {
   }, []);
 
   return (
-    <div data-gaudi-citation-popover-root='true'>
+    <PopoverPrimitive open={ Boolean(popover) } onOpenChange={ (open) => {
+      if (!open) {
+        clearTimeout(timeoutRef.current);
+        activeTriggerRef.current?.setAttribute('aria-expanded', 'false');
+        activeTriggerRef.current = null;
+        setPopover(null);
+      }
+    } }>
+      <PopoverAnchor virtualRef={ activeTriggerRef } />
       {popover ? (
-        <div
+        <PopoverContentPrimitive
           ref={ popoverRef }
-          role='tooltip'
-          className={ `${styles.popover} ${styles.ready}` }
-          style={{
-            'left': `${popover.left}px`,
-            'top': `${popover.top}px`
-          }}
+          data-gaudi-citation-popover-root='true'
+          aria-label='Citation details'
+          side='bottom'
+          sideOffset={ 8 }
+          collisionPadding={ 12 }
+          className='w-[26.25rem] max-w-[calc(100vw-1.5rem)] max-h-(--radix-popover-content-available-height) overflow-y-auto wrap-anywhere'
+          onOpenAutoFocus={ (event) => event.preventDefault() }
+          onCloseAutoFocus={ (event) => event.preventDefault() }
+          onEscapeKeyDown={ () => {
+            if (popoverRef.current?.contains(document.activeElement)) activeTriggerRef.current?.focus({ preventScroll: true });
+            clearTimeout(timeoutRef.current);
+          } }
+          onInteractOutside={ (event) => {
+            if (event.target.closest?.(CITATION_TRIGGER_SELECTOR)) event.preventDefault();
+          } }
+          onFocusCapture={ () => clearTimeout(timeoutRef.current) }
         >
-          <div className={ styles.content }>
             <div className={ styles.body }>
               {popover.content.type === 'single' && (
                 <div className={ styles.item }>
@@ -392,20 +372,21 @@ const CitationPopover = () => {
               {popover.content.type === 'multiple' && (
                 popover.content.items.map((item, index) => {
                   const isInteractive = Boolean(item.key);
-
                   return (
                     <div
                       key={ `${item.key || item.number}-${index}` }
-                      className={ `${styles.item} ${styles.entry} ${isInteractive ? styles.multiple : ''}` }
-                      data-citation-key={ item.key || undefined }
-                      data-citation-popover-item={ isInteractive ? 'multiple' : undefined }
-                      role={ isInteractive ? 'link' : undefined }
-                      tabIndex={ isInteractive ? 0 : undefined }
-                      onKeyDown={ isInteractive ? (event) => {
-                        if (event.key === 'Enter' || event.key === ' ') event.currentTarget.click();
-                      } : undefined }
+                      className={ `${styles.item} ${styles.entry}` }
                     >
-                      <div className={ styles.number }>{item.number}</div>
+                      {isInteractive ? (
+                        <Link
+                          href={ `#citation-${item.key}` }
+                          variant='bare'
+                          className={ styles.number }
+                          aria-label={ `${item.number} ${item.text.replace(/<[^>]+>/g, '')}` }
+                          data-citation-key={ item.key }
+                          data-citation-popover-item='multiple'
+                        >{item.number}</Link>
+                      ) : <span className={ styles.number }>{item.number}</span>}
                       <div className={ styles.citationContent }>
                         <LatexText>{item.text}</LatexText>
                       </div>
@@ -418,10 +399,9 @@ const CitationPopover = () => {
                 <LatexText>{popover.content.content}</LatexText>
               )}
             </div>
-          </div>
-        </div>
+        </PopoverContentPrimitive>
       ) : null}
-    </div>
+    </PopoverPrimitive>
   );
 };
 

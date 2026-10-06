@@ -1,0 +1,11 @@
+{
+  "retrieved": "2026-10-06",
+  "attribution": "New York City Department of City Planning; NYC Office of Technology and Innovation",
+  "sources": [
+    "https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne",
+    "https://data.cityofnewyork.us/City-Government/Centerline/inkn-q76z"
+  ],
+  "streetQuery": "intersects(the_geom, 'POLYGON((-74.03 40.68,-73.89 40.68,-73.89 40.83,-74.03 40.83,-74.03 40.68))')",
+  "transforms": "Borough polygons near the viewport; street road types 1/2/3 grouped by name. Douglas\u2013Peucker simplification (0.00004 degrees land, 0.00002 streets), coordinates rounded to five decimals. All other attributes removed. Demo routes and vehicles are fictional.",
+  "terms": "https://opendata.cityofnewyork.us/overview/#termsofuse"
+}

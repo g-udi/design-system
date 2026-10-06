@@ -1,0 +1,7 @@
+import { p, className, definition } from '../../../../../docs/components/referenceProps.js';
+export default {
+  "Core/FileUpload": {
+    ...definition('Choose or drop attachments with validation, upload progress and recovery actions.', [p('files / onFilesChange', 'File[] / (files: File[]) => void', '[]', 'Host-owned file selection.'), p('label / description', 'string', 'Attachments / Choose files or drop them here.', 'Visible label and instructions.'), p('accept', 'string', '—', 'Accepted MIME types or extensions.'), p('multiple', 'boolean', 'false', 'Allow more than one file.'), p('maxFiles / maxSize', 'number', '—', 'Count and byte limits.'), p('onReject', 'function', '—', 'Receives rejected-file feedback.'), p('getFileState / onRetry / onCancel', 'function', '—', 'Read upload state and perform host-owned retry or cancellation.'), p('disabled', 'boolean', '—', 'Disable new selections.'), p('labels', 'Record<string, string>', '{}', 'Localized action and validation labels.'), className], 'The native file input remains keyboard accessible. Announce rejection reasons and retain valid files.', ['Selecting files does not upload them. The application owns storage, network requests and cancellation.']),
+    usage: "import FileUpload from '@gaudi/design-system/core/FileUpload';\n\n<FileUpload label='Attachments' files={files} onFilesChange={setFiles} multiple\n  accept='image/*,application/pdf' getFileState={getUploadState} onRetry={retryUpload} onCancel={cancelUpload} />"
+  }
+};

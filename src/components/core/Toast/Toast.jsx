@@ -1,5 +1,6 @@
 'use client';
 
+import Loader from '../Loader/index.js';
 import { Toaster } from 'sonner';
 import { buttonVariants } from '../Button';
 import { cn } from '../../../utilities/cn';
@@ -18,13 +19,17 @@ const classNames = {
 };
 
 /** Mount once per app. Consumer `toastOptions.classNames` are merged with the Gaudi classes. */
-export default function ToastProvider({ toastOptions, ...props }) {
+export default function ToastProvider({ toastOptions, style, icons, className, ...props }) {
   const custom = toastOptions?.classNames || {};
   return (
     <Toaster
       position='bottom-right'
       closeButton
       {...props}
+      className={cn('ds-toaster', className)}
+      icons={{ loading: <Loader size='sm' className='text-current' aria-hidden='true' />, ...icons }}
+      // Responsive container placement is immediate; individual toasts retain their entrance/exit motion.
+      style={{ transition: 'none', ...style }}
       toastOptions={{
         ...toastOptions,
         unstyled: true,

@@ -1,2 +1,2 @@
 // Composition exports
-export { AspectRatio } from './parts/aspect-ratio.jsx';
+export { AspectRatio } from './AspectRatio.jsx';

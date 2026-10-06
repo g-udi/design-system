@@ -1,0 +1,90 @@
+@layer components {
+  .ds-part-table-container {
+    @apply relative w-full overflow-x-auto;
+  }
+
+  .ds-part-table {
+    @apply w-full caption-bottom text-sm;
+    --ds-table-cell-inline: calc(var(--ds-space-scale, 1) * 0.75rem);
+    --ds-table-cell-block: calc(var(--ds-space-scale, 1) * 0.5rem);
+    --ds-table-header-block: calc(var(--ds-space-scale, 1) * 0.5rem);
+    --ds-table-header-height: calc(var(--ds-space-scale, 1) * 2.5rem);
+  }
+
+  .ds-part-table[data-density='compact'] {
+    --ds-table-cell-inline: calc(var(--ds-space-scale, 1) * 0.5rem);
+    --ds-table-cell-block: calc(var(--ds-space-scale, 1) * 0.375rem);
+    --ds-table-header-block: calc(var(--ds-space-scale, 1) * 0.25rem);
+    --ds-table-header-height: calc(var(--ds-space-scale, 1) * 2rem);
+  }
+
+  .ds-part-table[data-density='comfortable'] {
+    --ds-table-cell-inline: calc(var(--ds-space-scale, 1) * 1rem);
+    --ds-table-cell-block: calc(var(--ds-space-scale, 1) * 0.75rem);
+    --ds-table-header-block: calc(var(--ds-space-scale, 1) * 0.75rem);
+    --ds-table-header-height: calc(var(--ds-space-scale, 1) * 3rem);
+  }
+
+  .ds-part-table-header {
+    @apply [&_tr]:border-b;
+  }
+
+  .ds-part-table-body {
+    @apply [&_tr:last-child]:border-0;
+  }
+
+  .ds-part-table-footer {
+    @apply bg-ui-muted/50 border-t font-medium [&>tr]:last:border-b-0;
+  }
+
+  .ds-part-table-row {
+    @apply hover:bg-ui-muted/50 data-[state=selected]:bg-ui-muted border-b transition-colors;
+  }
+
+  .ds-part-table-head,
+  :where(.ds-part-table > thead > tr) > th {
+    @apply text-start align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0;
+    background: var(--ds-color-table-header-bg);
+    border-bottom: 1px solid var(--ds-color-table-border);
+    color: var(--ds-color-text);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+
+  .ds-part-table-head[data-variant='plain'] {
+    background: var(--ds-color-surface);
+  }
+
+  .ds-part-table-head,
+  :where(.ds-part-table > thead > tr) > th,
+  .ds-table-header-spacing {
+    height: var(--ds-table-header-height);
+    padding-block: var(--ds-table-header-block);
+    padding-inline: var(--ds-table-cell-inline);
+  }
+
+  .ds-part-table-cell {
+    @apply text-start align-middle whitespace-nowrap [&:has([role=checkbox])]:pe-0;
+    font-weight: inherit;
+  }
+
+  .ds-part-table-cell,
+  .ds-table-cell-spacing,
+  .ds-table-cell-truncate {
+    padding-block: var(--ds-table-cell-block);
+    padding-inline: var(--ds-table-cell-inline);
+  }
+
+  .ds-table-cell-truncate {
+    @apply truncate;
+    margin-block: calc(-1 * var(--ds-table-cell-block));
+    margin-inline: calc(-1 * var(--ds-table-cell-inline));
+  }
+
+  .ds-part-table-caption {
+    @apply text-ui-muted-foreground mt-4 text-sm;
+  }
+}

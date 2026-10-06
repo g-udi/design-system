@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-navigation",
+  "type": "registry:example",
+  "title": "Navigation rows",
+  "description": "Navigation rows. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--navigation",
+    "source": "src/components/core/Item/stories/fixtures/item/item-navigation.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-navigation.jsx",
+      "type": "registry:component",
+      "content": "import Link from '@gaudi/design-system/core/Link';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemMedia,\n  ItemSeparator,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col'>\n      <ItemGroup className='gap-0'>\n        <Item asChild size='xs'>\n          <Link variant='bare' href='/settings/profile'>\n            <ItemMedia variant='icon'>\n              <RegistryIcon lucide='UserIcon' />\n            </ItemMedia>\n            <ItemContent>\n              <ItemTitle>Profile</ItemTitle>\n              <ItemDescription>Manage your account details</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              <RegistryIcon\n                lucide='ChevronRightIcon'\n                className='text-ui-muted-foreground size-4'\n              />\n            </ItemActions>\n          </Link>\n        </Item>\n        <ItemSeparator />\n        <Item asChild size='xs'>\n          <Link variant='bare' href='/settings/security'>\n            <ItemMedia variant='icon'>\n              <RegistryIcon lucide='ShieldIcon' />\n            </ItemMedia>\n            <ItemContent>\n              <ItemTitle>Security</ItemTitle>\n              <ItemDescription>Password and two-factor auth</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              <RegistryIcon\n                lucide='ChevronRightIcon'\n                className='text-ui-muted-foreground size-4'\n              />\n            </ItemActions>\n          </Link>\n        </Item>\n        <ItemSeparator />\n        <Item asChild size='xs'>\n          <Link variant='bare' href='/settings/billing'>\n            <ItemMedia variant='icon'>\n              <RegistryIcon lucide='CreditCardIcon' />\n            </ItemMedia>\n            <ItemContent>\n              <ItemTitle>Billing</ItemTitle>\n              <ItemDescription>Plans, invoices, and payment</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              <RegistryIcon\n                lucide='ChevronRightIcon'\n                className='text-ui-muted-foreground size-4'\n              />\n            </ItemActions>\n          </Link>\n        </Item>\n      </ItemGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

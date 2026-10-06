@@ -1,0 +1,17 @@
+@layer components {
+  .ds-part-radio-group {
+    @apply grid gap-2;
+  }
+
+  .ds-part-radio-group-item {
+    @apply border-ui-input dark:bg-ui-input/30 data-checked:bg-ui-primary data-checked:text-ui-primary-foreground dark:data-checked:bg-ui-primary data-checked:border-ui-primary aria-invalid:aria-checked:border-ui-primary aria-invalid:border-ui-destructive focus-visible:border-ui-ring focus-visible:ring-ui-primary aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 dark:aria-invalid:border-ui-destructive/50 flex size-4 rounded-full focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:not-data-checked:border-ui-input group-has-[:focus-visible]/field-label:data-checked:border-ui-primary;
+  }
+
+  .ds-part-radio-group-indicator {
+    @apply flex size-4 items-center justify-center;
+  }
+
+  .ds-part-radio-group-indicator-icon {
+    @apply bg-ui-primary-foreground absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2 rounded-full;
+  }
+}

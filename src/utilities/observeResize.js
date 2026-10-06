@@ -1,12 +1,12 @@
 /** Defer size-dependent writes until after ResizeObserver delivery. */
 export function observeResize(callback) {
   let frame;
-  const observer = new ResizeObserver(() => {
+  const observer = new ResizeObserver((entries) => {
     cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(callback);
+    frame = requestAnimationFrame(() => callback(entries));
   });
   return {
-    observe: (element) => observer.observe(element),
+    observe: (element, options) => observer.observe(element, options),
     disconnect: () => {
       cancelAnimationFrame(frame);
       observer.disconnect();

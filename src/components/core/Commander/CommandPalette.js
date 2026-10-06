@@ -5,7 +5,8 @@ import { createContext, isValidElement, useCallback, useContext, useEffect, useM
 import Button from '../Button';
 import Dialog from '../Dialog';
 import Icon from '../Icon';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './parts/command.jsx';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from './Command.jsx';
+import { normalizeHref } from '../../../utilities/href.js';
 
 const CommandPaletteContext = createContext(null);
 
@@ -145,7 +146,8 @@ const ListItem = ({ children, closeOnSelect = true, disabled = false, href, onCl
   const handleSelect = () => {
     onClick?.();
     if (closeOnSelect) context?.close();
-    if (href) window.location.assign(href);
+    const destination = normalizeHref(href);
+    if (typeof destination === 'string' && destination) window.location.assign(destination);
   };
 
   return (

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge-removable-filters",
+  "type": "registry:example",
+  "title": "Removable filters and links",
+  "description": "Removable filters and links. Core/Pill pattern composed from @gaudi/design-system/core/Pill and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "badge",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Pill",
+    "import": "@gaudi/design-system/core/Pill",
+    "storyId": "core-pill--removable-filters",
+    "source": "src/components/core/Pill/stories/fixtures/badge/badge-removable-filters.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/badge-removable-filters.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst initial = [\n  { id: 'alex', label: 'Alex', avatar: '/avatars/person-41.svg' },\n  { id: 'design', label: 'Design' },\n  { id: 'open', label: 'Status: Open' }\n];\nexport function Pattern() {\n  const [filters, setFilters] = useState(initial);\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-wrap items-center justify-center gap-2'>\n      {filters.map(({ id, label, avatar }) => (\n        <Badge key={id} variant='outline' size='lg' className='gap-1'>\n          {avatar ? (\n            <Avatar className='size-3.5'>\n              <AvatarImage src={avatar} alt='' />\n              <AvatarFallback>{label.slice(0, 2)}</AvatarFallback>\n            </Avatar>\n          ) : null}\n          {label}\n          <Button\n            aria-label={`Remove ${label}`}\n            variant='ghost'\n            size='icon'\n            className='size-3.5 text-text-muted hover:bg-transparent hover:text-text'\n            onClick={() => setFilters((items) => items.filter((item) => item.id !== id))}\n          >\n            <RegistryIcon lucide='XIcon' aria-hidden='true' />\n          </Button>\n        </Badge>\n      ))}\n      {filters.length < initial.length ? (\n        <Button variant='link' size='xs' onClick={() => setFilters(initial)}>\n          Reset\n        </Button>\n      ) : null}\n      <Badge variant='primary-outline' size='lg' asChild>\n        <a href='#'>View all tags</a>\n      </Badge>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

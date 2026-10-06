@@ -63,17 +63,18 @@ const Image = ({ alt, caption, className, darkSrc, fallback, src, ...rest }) => 
       ...rest,
       'alt': imageAlt,
       'className': cn('cursor-pointer transition-opacity duration-200 hover:opacity-90', className),
-      'loading': 'lazy',
-      'onError': () => {
+      'loading': rest.loading ?? (rest.priority || rest.preload ? undefined : 'lazy'),
+      'onError': (event) => {
+        rest.onError?.(event);
         if (fallback && imageSrc !== fallback) setErroredSources((sources) => ({ ...sources, [imageSrc]: true }));
       },
-      'sizes': SIZES,
+      'sizes': rest.sizes || SIZES,
       'src': resolvedSrc
     };
 
     return (
       <Button variant='ghost' tone='neutral' size='sm' className={ cn('mx-auto block h-auto max-w-full p-0 hover:bg-transparent', themeClassName) } onClick={ () => setModalSrc(resolvedSrc) } aria-label={ openLabel }>
-        {NextImage ? <NextImage { ...imageProps } blurDataURL={ BLUR_DATA_URL } placeholder='blur' /> : <img { ...imageProps } src={ resolvedSrc } alt={ imageAlt } />}
+        {NextImage ? <NextImage { ...imageProps } blurDataURL={ rest.blurDataURL ?? BLUR_DATA_URL } placeholder={ rest.placeholder ?? 'blur' } /> : <img { ...imageProps } src={ resolvedSrc } alt={ imageAlt } />}
       </Button>
     );
   };
@@ -82,7 +83,7 @@ const Image = ({ alt, caption, className, darkSrc, fallback, src, ...rest }) => 
     <figure>
       {renderTrigger(src, darkSrc ? 'dark:hidden' : undefined)}
       {darkSrc ? renderTrigger(darkSrc, 'hidden dark:block') : null}
-      {caption ? <figcaption className='mt-3 text-center text-sm text-text-muted'>{caption}</figcaption> : null}
+      {caption ? <figcaption className='mt-3 wrap-anywhere text-center text-sm text-text-muted'>{caption}</figcaption> : null}
 
       <ImageModal
         isOpen={ Boolean(modalSrc) }

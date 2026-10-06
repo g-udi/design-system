@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-sizes-fallbacks",
+  "type": "registry:example",
+  "title": "Sizes, shapes and fallbacks",
+  "description": "Sizes, shapes and fallbacks. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--sizes-fallbacks",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-sizes-fallbacks.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-sizes-fallbacks.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst person = { src: '/avatars/person-41.svg', name: 'Anouk Varga', initials: 'AV' };\n\nfunction Photo({ className, imageClassName, size, src = person.src, children = person.initials }) {\n  return (\n    <Avatar size={size} className={className}>\n      {src ? <AvatarImage src={src} alt={person.name} className={imageClassName} /> : null}\n      <AvatarFallback>{children}</AvatarFallback>\n    </Avatar>\n  );\n}\n\nconst rows = [\n  {\n    label: 'Sizes',\n    items: [\n      <Photo key='sm' size='sm' />,\n      <Photo key='default' />,\n      <Photo key='lg' size='lg' />,\n      <Photo key='12' className='size-12' />,\n      <Photo key='16' className='size-16' />\n    ]\n  },\n  {\n    label: 'Shapes',\n    items: [\n      <Photo key='md' className='rounded-md after:rounded-md' />,\n      <Photo key='lg' className='rounded-lg after:rounded-lg' />,\n      <Photo key='xl' className='rounded-xl after:rounded-xl' />,\n      <Photo key='full' />\n    ]\n  },\n  {\n    label: 'Fallbacks',\n    items: [\n      <Photo key='initials' src='' />,\n      <Photo key='icon' src=''>\n        <RegistryIcon lucide='UserIcon' className='size-4' aria-hidden='true' />\n      </Photo>,\n      <Photo key='square' src='' className='rounded-md after:rounded-md' />\n    ]\n  }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n      {rows.map((row) => (\n        <div key={row.label} className='contents'>\n          <span className='text-xs text-text-muted'>{row.label}</span>\n          <div className='flex flex-wrap items-center gap-2'>{row.items}</div>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+@layer components {
+  [data-slot='chart'] .recharts-legend-wrapper {
+    overflow-wrap: anywhere;
+  }
+
+  [data-slot='chart'] .recharts-legend-item {
+    max-inline-size: 100%;
+  }
+
+  .ds-part-chart-tooltip {
+    @apply border-ui-border/50 bg-ui-background gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl;
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-live-run",
+  "type": "registry:example",
+  "title": "Run status with a live step",
+  "description": "Run status with a live step. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--live-run",
+    "source": "src/components/core/Item/stories/fixtures/item/item-live-run.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-live-run.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Item,\n  ItemContent,\n  ItemMedia\n} from '@gaudi/design-system/core/Item';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <Card className='mx-auto w-full max-w-sm'>\n      <CardHeader>\n        <CardTitle>Agent run</CardTitle>\n        <CardDescription>fix/rate-limit-window</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <div className='flex flex-col gap-3'>\n          <Item size='xs'>\n            <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n              <RegistryIcon lucide='CircleCheckIcon' />\n            </ItemMedia>\n            <ItemContent className='min-w-0 break-words'>Read content/posts/colour-notes.mdx</ItemContent>\n          </Item>\n          <Item size='xs'>\n            <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n              <RegistryIcon lucide='CircleCheckIcon' />\n            </ItemMedia>\n            <ItemContent className='min-w-0 break-words'>Found 3 broken links in the preview</ItemContent>\n          </Item>\n          <Item size='xs'>\n            <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n              <RegistryIcon lucide='CircleCheckIcon' />\n            </ItemMedia>\n            <ItemContent className='min-w-0 break-words'>Replaced the links with archive copies</ItemContent>\n          </Item>\n          <Item size='xs'>\n            <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n              <RegistryIcon lucide='XIcon' />\n            </ItemMedia>\n            <ItemContent className='min-w-0 break-words'>Front matter check failed in colour-notes.mdx</ItemContent>\n            <Badge variant='destructive-light'>failed</Badge>\n          </Item>\n          <Item size='xs' role='status'>\n            <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n              <Loader className='size-full' />\n            </ItemMedia>\n            <ItemContent className='min-w-0 break-words'>\n              <span className='sr-only'>In progress: </span>\n              <span>Re-running the content checks</span>\n            </ItemContent>\n          </Item>\n        </div>\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

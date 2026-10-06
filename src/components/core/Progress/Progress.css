@@ -1,0 +1,35 @@
+@layer components {
+  .ds-part-progress {
+    --progress-direction: 1;
+    @apply bg-ui-muted h-1 rounded-control;
+  }
+
+  .ds-part-progress:dir(rtl) {
+    --progress-direction: -1;
+  }
+
+  .ds-part-progress-indicator {
+    @apply bg-ui-primary;
+  }
+
+  .ds-part-progress-indicator[data-state='indeterminate'] {
+    width: 40%;
+    flex: none;
+    animation: ds-progress-indeterminate 1.4s ease-in-out infinite;
+  }
+
+  @keyframes ds-progress-indeterminate {
+    from {
+      transform: translateX(calc(var(--progress-direction, 1) * -100%));
+    }
+    to {
+      transform: translateX(calc(var(--progress-direction, 1) * 250%));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ds-part-progress-indicator[data-state='indeterminate'] {
+      animation: none !important;
+      transform: none;
+    }
+  }
+}

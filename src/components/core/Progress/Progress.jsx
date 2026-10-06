@@ -1,6 +1,6 @@
 import { useId } from 'react';
 import { cn } from '../../../utilities/cn';
-import { Progress as ProgressRoot } from './parts/progress.jsx';
+import { Progress as ProgressRoot } from './ProgressPrimitives.jsx';
 
 export function normalizeProgress(value, max = 100) {
   const limit = Number.isFinite(max) && max > 0 ? max : 100;

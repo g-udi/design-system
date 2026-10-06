@@ -2,7 +2,7 @@
  * Global inner spacing
  *
  * @description Padding, gap, height, min-height and size utilities follow
- * --ds-space-scale (declared in styles.css :root), the same way corner
+ * --ds-space-scale (declared in tokens/tokens.css :root), the same way corner
  * utilities follow --ds-radius. Controls therefore get shorter or taller with
  * their padding. Change the scale at runtime to make every component tighter
  * or more relaxed without rebuilding CSS:
@@ -54,6 +54,8 @@
   svg,
   [data-slot='switch'],
   [data-slot='checkbox'],
+  [data-slot='color-picker-swatch'],
+  [data-slot='color-picker-thumb'],
   [data-slot='radio-group-item'],
   [data-slot='slider'],
   [data-slot='progress'],
@@ -62,13 +64,18 @@
   [data-slot='message-avatar'],
   [data-slot='kbd'],
   [data-slot='badge'],
-  [data-slot='spinner'],
+  [data-slot='loader'],
   [data-slot='marker-icon'],
   [data-slot='message-citation'],
   [data-slot='agent-mark'],
   [data-slot='activity-indicator'],
+  [data-slot='stepper-indicator'],
+  [data-slot='timeline-indicator'],
   [data-slot^='rating-star'],
   [data-slot='chart-mark'],
+  [data-slot='pointer-follower-mark'],
+  [data-slot='reading-ruler'],
+  [data-slot='video-play-mark'],
   [data-slot='chat-model-capability'],
   .ds-part-calendar-day-button,
   .rdp-nav,
@@ -76,7 +83,8 @@
   .ds-flow-handle,
   .ds-flow-tile-face,
   .ds-flow-task-icon,
-  .ds-flow-issues
+  .ds-flow-issues,
+  .ds-map-marker
 ) {
   --ds-space-scale: 1;
 }

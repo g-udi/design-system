@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "attachment-file-picker",
+  "type": "registry:example",
+  "title": "File picker that fills a tray",
+  "description": "File picker that fills a tray. Core/Messaging/Attachment pattern composed from @gaudi/design-system/core/Attachment and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "attachment",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Attachment",
+    "import": "@gaudi/design-system/core/Attachment",
+    "storyId": "core-attachment--file-picker",
+    "source": "src/components/core/Attachment/stories/fixtures/attachment/attachment-file-picker.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/attachment-file-picker.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  formatBytes,\n  useFileUpload\n} from '@gaudi/design-system/core/FileUpload';\nimport {\n  Attachment,\n  AttachmentAction,\n  AttachmentActions,\n  AttachmentContent,\n  AttachmentDescription,\n  AttachmentMedia,\n  AttachmentTitle,\n  AttachmentTrigger\n} from '@gaudi/design-system/core/Attachment';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst ICON_UPLOAD = <RegistryIcon lucide='UploadIcon' aria-hidden='true' />;\nconst ICON_FILE = <RegistryIcon lucide='FileIcon' aria-hidden='true' />;\nconst ICON_REMOVE = <RegistryIcon lucide='XIcon' aria-hidden='true' />;\nexport function Pattern() {\n  const [{ files, errors }, { removeFile, openFileDialog, getInputProps }] =\n    useFileUpload({\n      multiple: true,\n      maxFiles: 5,\n      maxSize: 10 * 1024 * 1024,\n      accept: 'image/*,.pdf,.csv'\n    });\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-2'>\n      {/*\n       * The picker is an attachment rather than a box around one: state=\"idle\"\n       * draws the dashed border and the card's own focus-within ring puts\n       * keyboard focus somewhere visible instead of on an invisible overlay.\n       */}\n      <Attachment state='idle' className='w-full'>\n        <AttachmentMedia>{ICON_UPLOAD}</AttachmentMedia>\n        <AttachmentContent>\n          <AttachmentTitle>Choose files</AttachmentTitle>\n          <AttachmentDescription>\n            Images, PDF or CSV, up to 10 MB each\n          </AttachmentDescription>\n        </AttachmentContent>\n        <AttachmentTrigger\n          type='button'\n          aria-haspopup='dialog'\n          aria-label='Choose files to attach'\n          onClick={openFileDialog}\n        />\n        {/*\n         * The input stays in the accessibility tree as sr-only with\n         * tabIndex={-1}: a display:none input cannot be opened by the hook,\n         * and a second tab stop over the same action would only be noise.\n         */}\n        <input\n          {...getInputProps()}\n          className='sr-only'\n          tabIndex={-1}\n          aria-label='Choose files to attach'\n        />\n      </Attachment>\n\n      {errors.length > 0 ? (\n        <p className='text-ui-destructive text-xs' role='alert'>\n          {errors[0]}\n        </p>\n      ) : null}\n\n      {files.length > 0 ? (\n        <div className='flex flex-col gap-1.5'>\n          {files.map((entry) => (\n            <Attachment\n              key={entry.id}\n              state='idle'\n              size='sm'\n              className='w-full'\n            >\n              {entry.file.type.startsWith('image/') && entry.preview ? (\n                <AttachmentMedia variant='image'>\n                  {/*\n                   * The preview carries alt=\"\" on purpose: the filename sits\n                   * beside it, and a second announcement of the same file is\n                   * noise rather than information.\n                   */}\n                  <img\n                    src={entry.preview}\n                    alt=''\n                    width={64}\n                    height={64}\n                    loading='lazy'\n                    decoding='async'\n                  />\n                </AttachmentMedia>\n              ) : (\n                <AttachmentMedia>{ICON_FILE}</AttachmentMedia>\n              )}\n              <AttachmentContent>\n                <AttachmentTitle>{entry.file.name}</AttachmentTitle>\n                <AttachmentDescription>\n                  {formatBytes(entry.file.size)}\n                </AttachmentDescription>\n              </AttachmentContent>\n              <AttachmentActions>\n                {/*\n                 * removeFile is what revokes an image preview's object URL, so\n                 * nothing here needs an effect to clean up after itself.\n                 */}\n                <AttachmentAction\n                  type='button'\n                  aria-label={`Remove ${entry.file.name}`}\n                  onClick={() => removeFile(entry.id)}\n                >\n                  {ICON_REMOVE}\n                </AttachmentAction>\n              </AttachmentActions>\n            </Attachment>\n          ))}\n        </div>\n      ) : (\n        <p className='text-ui-muted-foreground text-xs' aria-live='polite'>\n          No files chosen yet.\n        </p>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

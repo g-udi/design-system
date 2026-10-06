@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-assistant",
+  "type": "registry:example",
+  "title": "Assistant",
+  "description": "Assistant. Core/Overlays & Menus/Sheet pattern composed from @gaudi/design-system/core/Sheet and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sheet",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sheet",
+    "import": "@gaudi/design-system/core/Sheet",
+    "storyId": "core-sheet--assistant",
+    "source": "src/components/core/Sheet/stories/fixtures/sheet/sheet-assistant.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sheet-assistant.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';\nimport { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nimport { ChatMessage, ChatMessageContent } from '@gaudi/design-system/chat/ChatMessage';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger\n} from '@gaudi/design-system/core/Sheet';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst suggestions = ['Summarise this draft', 'Suggest three titles', 'Find weak arguments', 'Write the newsletter intro'];\nconst reply = (prompt) => `Here is a first pass at “${prompt.toLowerCase()}”. I kept your tone and flagged two places where a source would help.`;\n\n// Suggestions start a conversation; the composer stays pinned to the bottom.\nexport function Pattern() {\n  const [messages, setMessages] = useState([]);\n  const [draft, setDraft] = useState('');\n  const send = (text) => {\n    if (!text.trim()) return;\n    setMessages((current) => [...current, { role: 'user', text }, { role: 'assistant', text: reply(text) }]);\n    setDraft('');\n  };\n  return (\n    <Sheet>\n      <SheetTrigger asChild>\n        <Button size='sm' variant='outline'>\n          <RegistryIcon lucide='SparklesIcon' aria-hidden='true' />\n          Assistant\n        </Button>\n      </SheetTrigger>\n      <SheetContent size='md' className='gap-0'>\n        <SheetHeader className='flex-row flex-wrap items-center gap-3 border-b pe-12'>\n          <div className='grid min-w-40 flex-1 gap-0.5'>\n            <SheetTitle>Writing assistant</SheetTitle>\n            <SheetDescription>Works on the draft you have open.</SheetDescription>\n          </div>\n          <Select defaultValue='balanced'>\n            <SelectTrigger aria-label='Model' size='sm' className='w-32'>\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent position='popper' align='end'>\n              <SelectItem value='fast'>Fast</SelectItem>\n              <SelectItem value='balanced'>Balanced</SelectItem>\n              <SelectItem value='thorough'>Thorough</SelectItem>\n            </SelectContent>\n          </Select>\n        </SheetHeader>\n        <div className='grid min-h-0 flex-1 content-start gap-3 overflow-y-auto p-3'>\n          {messages.length ? (\n            messages.map((message, index) => (\n              <ChatMessage key={index} align={message.role === 'user' ? 'end' : 'start'} aria-label={message.role === 'user' ? 'You' : 'Writing assistant'}>\n                <ChatMessageContent>\n                  <ChatBubble align={message.role === 'user' ? 'end' : 'start'} variant={message.role === 'user' ? 'default' : 'muted'}>\n                    <ChatBubbleContent>{message.text}</ChatBubbleContent>\n                  </ChatBubble>\n                </ChatMessageContent>\n              </ChatMessage>\n            ))\n          ) : (\n            <div className='grid gap-3 py-6 text-center'>\n              <RegistryIcon lucide='BotIcon' aria-hidden='true' className='text-text-muted mx-auto size-6' />\n              <p className='text-sm font-medium'>What should we work on?</p>\n              <div className='flex flex-wrap justify-center gap-2'>\n                {suggestions.map((suggestion) => (\n                  <Button key={suggestion} size='xs' variant='outline' className='rounded-full' onClick={() => send(suggestion)}>\n                    {suggestion}\n                  </Button>\n                ))}\n              </div>\n            </div>\n          )}\n        </div>\n        <div className='border-t p-3'>\n          <ChatPromptComposer value={draft} onValueChange={setDraft} onSubmit={send} labels={{ placeholder: 'Ask about this draft…' }} />\n        </div>\n      </SheetContent>\n    </Sheet>\n  );\n}\n"
+    }
+  ]
+}

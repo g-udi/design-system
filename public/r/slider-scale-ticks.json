@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-scale-ticks",
+  "type": "registry:example",
+  "title": "Scale labels and ticks",
+  "description": "Scale labels and ticks. Core/Slider pattern composed from @gaudi/design-system/core/Slider and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "slider",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Slider",
+    "import": "@gaudi/design-system/core/Slider",
+    "storyId": "core-slider--scale-ticks",
+    "source": "src/components/core/Slider/stories/fixtures/slider/slider-scale-ticks.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/slider-scale-ticks.jsx",
+      "type": "registry:component",
+      "content": "import { cn } from '@gaudi/design-system/utilities/cn';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { Slider } from '@gaudi/design-system/core/Slider';\n\nconst months = 12;\nconst ticks = Array.from({ length: months + 1 }, (_, i) => i);\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-6'>\n      {/* Reference labels at the ends and midpoint. */}\n      <div className='grid gap-2'>\n        <Label>Storage</Label>\n        <Slider aria-label='Storage' defaultValue={[15]} min={5} max={35} />\n        <span aria-hidden='true' className='flex w-full items-center justify-between text-xs font-medium text-text-muted'>\n          <span>5 GB</span>\n          <span>20 GB</span>\n          <span>35 GB</span>\n        </span>\n      </div>\n      {/* A tick per step, labelled every other step. */}\n      <div className='grid gap-2'>\n        <Label>Duration (months)</Label>\n        <Slider aria-label='Duration' defaultValue={[5]} max={months} />\n        <span aria-hidden='true' className='flex w-full items-center justify-between gap-1 px-2.5 text-xs font-medium text-text-muted'>\n          {ticks.map((tick) => (\n            <span key={tick} className='flex w-0 flex-col items-center justify-center gap-1.5'>\n              <span className={cn('h-1 w-px bg-text-muted/70', tick % 2 !== 0 && 'h-0.5')} />\n              <span className={cn(tick % 2 !== 0 && 'opacity-0')}>{tick}</span>\n            </span>\n          ))}\n        </span>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

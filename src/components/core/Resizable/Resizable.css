@@ -1,0 +1,5 @@
+@layer components {
+  .ds-part-resizable-handle-icon {
+    @apply bg-ui-border h-6 w-1 rounded-lg;
+  }
+}

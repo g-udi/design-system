@@ -11,7 +11,6 @@ export { default as Commander } from './Commander';
 export { default as DataTable } from './DataTable';
 export { default as FloatingMenu } from './FloatingMenu';
 export { default as Field, FieldDescription, FieldError, FieldInput, FieldLabel } from './Field';
-export { Grid, GridItem, gridItemVariants, gridVariants } from './Grid';
 export { default as Icon } from './Icon';
 export { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } from './Icon';
 export { default as Kbd, kbdVariants } from './Kbd';
@@ -19,20 +18,21 @@ export { default as Link, linkTones, linkVariants } from './Link';
 export { default as NavigationMenu, NavigationMenuAside, NavigationMenuDropdown, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuPanel } from './NavigationMenu';
 export { default as Pagination, PaginationBar, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationStatus, POSTS_PER_PAGE } from './Pagination';
 export { default as Pill, pillSizes, pillTones, pillVariants } from './Pill';
+export { Pointer } from './Pointer/index.js';
+export { ReadingIndicator } from './ReadingIndicator/index.js';
 export { default as Popover, PopoverContent, PopoverRoot, PopoverTrigger } from './Popover';
 export { default as Select } from './Select';
 export { default as Skeleton } from './Skeleton';
-export { default as Spinner } from './Spinner';
+export { default as Loader } from './Loader';
 export { default as Switch } from './Switch';
 export { default as Terminal, terminalBodyVariants, terminalLineVariants, terminalVariants } from './Terminal';
 export { TextHighlight, textHighlightVariants } from './TextHighlight';
-export { default as Input } from './Input';
+export { default as Input, EmailInput } from './Input';
 export { default as Textarea } from './Textarea';
 export { default as RadioGroup } from './RadioGroup';
 export { default as Tabs, TabsList, TabsTrigger, TabsContent } from './Tabs';
 export { default as ToggleGroup } from './ToggleGroup';
 export { default as Dialog, DialogClose } from './Dialog';
-export { default as AlertDialog } from './AlertDialog';
 export { default as DropdownMenu, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator } from './DropdownMenu';
 export { default as Tooltip } from './Tooltip';
 export { default as EmptyState } from './EmptyState';
@@ -46,7 +46,6 @@ export { default as FilterBar } from './FilterBar';
 // Composition exports
 export { Collapsible, CollapsibleTrigger, CollapsibleContent } from './Accordion/index.js';
 export { Alert, AlertTitle, AlertDescription, AlertAction, AlertRoot, AlertTitlePrimitive, AlertDescriptionPrimitive, AlertActionPrimitive } from './Banner/index.js';
-export { AlertDialogRoot, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogMedia, AlertDialogOverlay, AlertDialogPortal, AlertDialogTitle, AlertDialogTrigger } from './AlertDialog/index.js';
 export { AspectRatio } from './AspectRatio/index.js';
 export { Attachment, AttachmentGroup, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction, AttachmentTrigger } from './Attachment/index.js';
 export { Autocomplete, AutocompleteValue, AutocompleteTrigger, AutocompleteInput, AutocompleteStatus, AutocompletePortal, AutocompleteBackdrop, AutocompletePositioner, AutocompleteContent, AutocompleteList, AutocompleteCollection, AutocompleteRow, AutocompleteItem, AutocompleteGroup, AutocompleteGroupLabel, AutocompleteEmpty, AutocompleteClear, AutocompleteArrow, AutocompleteSeparator, Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxItem, ComboboxGroup, ComboboxLabel, ComboboxCollection, ComboboxEmpty, ComboboxSeparator, ComboboxChips, ComboboxChip, ComboboxChipsInput, ComboboxTrigger, ComboboxValue, useComboboxAnchor, NativeSelect, NativeSelectOptGroup, NativeSelectOption, SelectRoot, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectScrollDownButton, SelectScrollUpButton, SelectSeparator, SelectTrigger, SelectValue } from './Select/index.js';
@@ -82,7 +81,6 @@ export { Item, ItemMedia, ItemContent, ItemActions, ItemGroup, ItemSeparator, It
 export { InputGroup, InputGroupAddon, InputGroupButton, InputGroupText, InputGroupInput, InputGroupTextarea } from './Input/index.js';
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from './InputOtp/index.js';
 export { KbdRoot, KbdGroup } from './Kbd/index.js';
-export { Marker, MarkerIcon, MarkerContent, markerVariants } from './Marker/index.js';
 export { NavigationMenuRoot, NavigationMenuListPrimitive, NavigationMenuItemPrimitive, NavigationMenuContent, NavigationMenuTrigger, NavigationMenuLinkPrimitive, NavigationMenuIndicator, NavigationMenuViewport, navigationMenuTriggerStyle } from './NavigationMenu/index.js';
 export { NumberField, NumberFieldScrubArea, NumberFieldDecrement, NumberFieldIncrement, NumberFieldGroup, NumberFieldInput } from './NumberField/index.js';
 export { PaginationRoot, PaginationContentPrimitive, PaginationEllipsisPrimitive, PaginationItemPrimitive, PaginationLinkPrimitive, PaginationNextPrimitive, PaginationPreviousPrimitive } from './Pagination/index.js';
@@ -99,7 +97,7 @@ export { SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayPro
 export { SkeletonRoot, Shimmer } from './Skeleton/index.js';
 export { Slider } from './Slider/index.js';
 export { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './Sortable/index.js';
-export { SpinnerRoot } from './Spinner/index.js';
+export { LoaderRoot, loaderVariants } from './Loader/index.js';
 export { useStepper, useStepItem, StepperRoot, StepperItem, StepperTrigger, StepperIndicator, StepperSeparator, StepperTitle, StepperDescription, StepperPanel, StepperContent, StepperNav } from './Stepper/index.js';
 export { SwitchRoot } from './Switch/index.js';
 export { TimelineRoot, TimelineContent, TimelineDate, TimelineHeader, TimelineIndicator, TimelineItem, TimelineSeparator, TimelineTitle } from './Timeline/index.js';
@@ -113,3 +111,12 @@ export { DialogConfirmationRoot, DialogConfirmationAction, DialogConfirmationCan
 export { default as LinkPreview, LinkPreviewFallback, LinkPreviewBody, LinkPreviewCard, LinkPreviewCompact, LinkPreviewFavicon, LinkPreviewMedia, LinkPreviewMeta, LinkPreviewSkeleton, LinkPreviewTags, normalizeLinkPreview, detectLinkKind, hasLinkPreviewDetails, linkPreviewKinds, getPreviewImageUrl, toImageResolver, getYouTubeVideoId, getLinkHost, formatLinkTitle, formatLinkCount, formatLinkDuration, usePreviewData, usePreviewEndpoint, usePreviewImageResolver, resolvePreviewRequest, clearPreviewCache } from './LinkPreview/index.js';
 export { default as WebPreview, WebPreviewRoot, WebPreviewNavigation, WebPreviewNavigationButton, WebPreviewHistoryButtons, WebPreviewUrl, WebPreviewOpenButton, WebPreviewDevices, WebPreviewBody, WebPreviewConsole, useWebPreview, defaultWebPreviewLabels, webPreviewDevices, normalizeWebPreviewUrl, DEFAULT_WEB_PREVIEW_SANDBOX } from './WebPreview/index.js';
 export { default as Embed, resolveEmbedType, embedTypes } from './Embed/index.js';
+
+export { SignaturePad, signaturePadLabels, SignaturePadArea, SignaturePadGuide, SignaturePadPlaceholder, SignaturePadControls, SignaturePadClear, SignaturePadUndo, SignaturePadRedo, SignaturePadSave, SignaturePadPreview, useSignaturePad, getSignaturePadStrokePath, getSignaturePadBounds, serializeSignaturePad, signaturePadToSVG, signaturePadToDataURL, signaturePadToBlob } from './SignaturePad/index.js';
+
+export { VideoPlayer } from './VideoPlayer/index.js';
+export { ImageGallery } from './ImageGallery/index.js';
+
+export { ColorPicker } from './ColorPicker/index.js';
+
+export { Map } from './Map/index.js';

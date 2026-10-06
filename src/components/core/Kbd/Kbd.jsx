@@ -1,5 +1,5 @@
 import { cn } from '../../../utilities/cn';
-import { Kbd as KbdRoot, KbdGroup } from './parts/kbd.jsx';
+import { Kbd as KbdRoot, KbdGroup } from './KbdPrimitives.jsx';
 
 const keyMap = {
   'alt': '⌥',
@@ -81,13 +81,13 @@ kbdVariants.variants = {
 };
 kbdVariants.defaultVariants = kbdVariantConfig.defaults;
 
-/** Keys from `keys` ('command,k') render as symbols with a spoken label; `children` render one literal key. */
+/** Keys from `keys` ('command,k' or ['command', 'k']) render as symbols with a spoken label; `children` render one literal key. */
 const Kbd = ({ children, className, keys, size, variant, ...rest }) => {
   const classes = kbdVariants({ className, size, variant });
 
-  if (!keys) return <KbdRoot className={ classes } { ...rest }>{children}</KbdRoot>;
+  if (!keys || (Array.isArray(keys) && !keys.length)) return <KbdRoot className={ classes } { ...rest }>{children}</KbdRoot>;
 
-  const keyList = keys.split(',').map((key) => key.trim().toLowerCase());
+  const keyList = (Array.isArray(keys) ? keys : String(keys).split(',')).map((key) => String(key).trim().toLowerCase());
   const symbols = keyList.map((key) => keyMap[key] || key.toUpperCase());
   const label = keyList.map((key) => keyLabelMap[key] || key.charAt(0).toUpperCase() + key.slice(1)).join(' plus ');
 

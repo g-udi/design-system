@@ -4,10 +4,12 @@ import { useId, useMemo, useState } from 'react';
 import Input from '../Input';
 import Button from '../Button';
 import Icon from '../Icon';
-import { Badge } from '../Pill/parts/badge-extended.jsx';
-import { Popover, PopoverContent, PopoverTrigger } from '../Popover/parts/popover.jsx';
+import { CheckboxRoot } from '../Checkbox';
+import { RadioGroup as RadioGroupRoot, RadioGroupItem } from '../RadioGroup/RadioGroupPrimitives.jsx';
+import { Badge } from '../Pill/Badge.jsx';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover/PopoverPrimitives.jsx';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs';
-import { NativeSelect, NativeSelectOption } from '../Select/parts/native-select.jsx';
+import { NativeSelect, NativeSelectOption } from '../Select/NativeSelect.jsx';
 import { cn } from '../../../utilities/cn';
 
 /*
@@ -35,15 +37,16 @@ const ClearButton = ({ children, onClick }) => (
 
 function FacetOptions({ facet, labels }) {
   const [search, setSearch] = useState('');
+  const optionId = useId();
   const values = selectedValues(facet);
   const needle = search.trim().toLowerCase();
   const options = facet.options.filter((option) =>
     [option.label, ...(option.keywords || [])].some((text) => String(text).toLowerCase().includes(needle))
   );
   const toggle = (value) => {
-    if (!facet.multiple) return facet.onChange(values.includes(value) ? '' : value);
     facet.onChange(values.includes(value) ? values.filter((item) => item !== value) : [...values, value]);
   };
+  const OptionGroup = facet.multiple ? 'div' : RadioGroupRoot;
   return (
     <div className='ds-facet-pane'>
       <div className='flex min-h-6 items-center justify-between gap-2'>
@@ -55,35 +58,38 @@ function FacetOptions({ facet, labels }) {
           type='search'
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          aria-label={`${labels.find || 'Find'} ${facet.label}`}
-          placeholder={`${labels.find || 'Find'} ${facet.label.toLowerCase()}…`}
+          aria-label={labels.findIn ? labels.findIn(facet.label) : `${labels.find || 'Find'} ${facet.label}`}
+          placeholder={labels.findPlaceholder ? labels.findPlaceholder(facet.label) : `${labels.find || 'Find'} ${facet.label.toLowerCase()}…`}
           prefix={<Icon name='Search' decorative size='sm' />}
         />
       )}
-      <div role='group' aria-label={facet.label} className='ds-facet-options'>
+      <OptionGroup
+        {...(facet.multiple ? { role: 'group' } : { value: facet.value || '', onValueChange: facet.onChange })}
+        aria-label={facet.label}
+        className='ds-facet-options'
+      >
         {options.length ? (
-          options.map((option) => {
+          options.map((option, index) => {
             const checked = values.includes(option.value);
+            const disabled = facet.disabled || option.disabled;
+            const id = `${optionId}-${index}`;
+            const controlProps = { id, disabled, 'aria-label': String(option.label) };
             return (
-              <button
-                key={option.value}
-                type='button'
-                role={facet.multiple ? 'checkbox' : 'radio'}
-                aria-checked={checked}
-                disabled={facet.disabled || option.disabled}
-                onClick={() => toggle(option.value)}
-                className='ds-facet-option'
-              >
+              <label key={option.value} htmlFor={id} className={cn('ds-facet-option cursor-pointer', checked && 'font-medium', disabled && 'cursor-not-allowed opacity-50')}>
                 <span className='min-w-0 flex-1 truncate text-start' title={String(option.label)}>{option.label}</span>
-                {option.count != null && <span className='ds-table-count'>{option.count}</span>}
-                <Icon name='Check' decorative size='sm' className={cn('shrink-0', !checked && 'invisible')} />
-              </button>
+                {option.count != null && <span className='ds-count'>{option.count}</span>}
+                {facet.multiple ? (
+                  <CheckboxRoot {...controlProps} checked={checked} onCheckedChange={() => toggle(option.value)} />
+                ) : (
+                  <RadioGroupItem {...controlProps} value={option.value} />
+                )}
+              </label>
             );
           })
         ) : (
           <p className='px-2 py-3 text-sm text-text-muted'>{labels.noOptions || 'No matching options'}</p>
         )}
-      </div>
+      </OptionGroup>
     </div>
   );
 }
@@ -182,6 +188,8 @@ export default function FilterBar({
   onClearFilters,
   actions,
   labels = {},
+  dir,
+  inputProps,
   className
 }) {
   const facetChips = useMemo(
@@ -199,10 +207,12 @@ export default function FilterBar({
   const chips = [...facetChips, ...filters.map((filter) => ({ ...filter, remove: () => onRemoveFilter?.(filter.id) }))];
   const canClear = chips.length > 0 && (facets.length > 0 || onClearFilters);
   return (
-    <div className={cn('ds-filter-bar', className)}>
+    <div className={cn('ds-filter-bar', className)} dir={dir}>
       <div className='ds-filter-controls'>
         {onQueryChange && (
           <Input
+            {...inputProps}
+            dir={dir ?? inputProps?.dir}
             type='search'
             aria-label={searchLabel}
             placeholder={placeholder}
@@ -211,7 +221,7 @@ export default function FilterBar({
             prefix={<Icon name='Search' decorative size='sm' />}
             suffix={
               count && (
-                <span className='ds-table-count' aria-hidden='true'>
+                <span className='ds-count' aria-hidden='true'>
                   {count.shown} / {count.total}
                 </span>
               )
@@ -237,7 +247,7 @@ export default function FilterBar({
                 tone='neutral'
                 size='icon-xs'
                 onClick={chip.remove}
-                aria-label={`${labels.remove || 'Remove'} ${chip.label} filter`}
+                aria-label={labels.removeFilter ? labels.removeFilter(chip.label, chip.field) : `${labels.remove || 'Remove'} ${chip.label} filter`}
                 className='text-text-muted hover:text-danger'
               >
                 <Icon name='X' decorative size='xs' />

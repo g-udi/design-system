@@ -8,7 +8,7 @@ import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
-import { Carousel as CarouselRoot, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './parts/carousel.jsx';
+import { Carousel as CarouselRoot, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './CarouselPrimitives.jsx';
 
 const focusRing = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-subtle focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
 const radiusVariants = {
@@ -89,7 +89,7 @@ const StandardSlide = ({ classNames, item, radius, size }) => (
     <CarouselImage image={ item.image } alt={ getItemImageAlt(item) } className={ classNames.image } />
     <Scrim className='via-surface-dark/70 to-surface-dark/20' />
     <div className={ cn('relative z-10 flex min-h-[inherit] max-w-2xl flex-col justify-end p-6 sm:p-8', classNames.content) }>
-      {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
+      {item.eyebrow ? <p className={ cn('text-xs font-semibold opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
       <h3 className={ cn('mt-2 text-2xl font-bold leading-tight sm:text-4xl', overlayText, classNames.title) }>{item.title}</h3>
       {item.description ? <p className={ cn('mt-3 max-w-xl text-sm leading-6 sm:text-base', overlayText, classNames.description) }>{item.description}</p> : null}
       {item.href ? (
@@ -113,7 +113,7 @@ const RailCard = ({ classNames, isActive, item, onOpen, radius, size }) => (
     />
     <div className={ cn('relative z-10 flex flex-1 flex-col justify-between p-5 sm:p-6', classNames.content) }>
       <div>
-        {item.eyebrow ? <p className={ cn('text-xs font-semibold uppercase opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
+        {item.eyebrow ? <p className={ cn('text-xs font-semibold opacity-80', overlayText, classNames.eyebrow) }>{item.eyebrow}</p> : null}
         <h3 className={ cn('mt-2 text-xl font-bold leading-tight sm:text-2xl', overlayText, classNames.title) }>{item.title}</h3>
       </div>
       {item.description ? <p className={ cn('max-w-[18rem] text-sm leading-6', overlayText, classNames.description) }>{item.description}</p> : null}
@@ -150,7 +150,7 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
           <Icon name='X' decorative size='sm' />
         </Button>
         {item.image ? <img src={ item.image } alt={ getItemImageAlt(item) } loading='lazy' className='mb-6 aspect-video w-full rounded-md object-cover' /> : null}
-        {item.eyebrow ? <p className='text-xs font-semibold uppercase text-accent'>{item.eyebrow}</p> : null}
+        {item.eyebrow ? <p className='text-xs font-semibold text-accent'>{item.eyebrow}</p> : null}
         <h2 id={ titleId } className='mt-2 pr-10 text-3xl font-bold'>{item.title}</h2>
         {item.description ? <p className='mt-4 text-base leading-7 text-text-muted'>{item.description}</p> : null}
         {item.content ? <div className='mt-6 text-sm leading-7 text-text-muted'>{item.content}</div> : null}

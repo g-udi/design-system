@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-row-cards",
+  "type": "registry:example",
+  "title": "Row cards",
+  "description": "Row cards. Core/Checkbox pattern composed from @gaudi/design-system/core/Checkbox and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "checkbox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Checkbox",
+    "import": "@gaudi/design-system/core/Checkbox",
+    "storyId": "core-checkbox--row-cards",
+    "source": "src/components/core/Checkbox/stories/fixtures/checkbox/checkbox-row-cards.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/checkbox-row-cards.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport {\n  FieldRoot as Field,\n  FieldContent,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldTitle\n} from '@gaudi/design-system/core/Field';\n\nconst people = [\n  { name: 'Ilse Valtonen', handle: '@emmawilson', avatar: '/avatars/person-20.svg', initials: 'IV', checked: true },\n  { name: 'Ottilie Nakamura', handle: '@davidkim', avatar: '/avatars/person-41.svg', initials: 'ON', checked: false }\n];\n\nexport function Pattern() {\n  return (\n    <FieldGroup className='mx-auto w-full max-w-xs gap-2'>\n      {/* Leading checkbox with a title and description. */}\n      <FieldLabel>\n        <Field orientation='horizontal'>\n          <Checkbox defaultChecked />\n          <FieldContent>\n            <FieldTitle>Enable notifications</FieldTitle>\n            <FieldDescription>You can turn notifications off at any time.</FieldDescription>\n          </FieldContent>\n        </Field>\n      </FieldLabel>\n      {/* Trailing checkbox beside a person. */}\n      {people.map((person) => (\n        <FieldLabel key={person.name}>\n          <Field orientation='horizontal'>\n            <FieldTitle className='flex flex-1 items-center gap-2'>\n              <Avatar size='sm'>\n                <AvatarImage src={person.avatar} alt={person.name} />\n                <AvatarFallback>{person.initials}</AvatarFallback>\n              </Avatar>\n              <span className='flex flex-col items-start'>\n                <span className='text-sm font-semibold'>{person.name}</span>\n                <span className='text-xs font-normal text-text-muted'>{person.handle}</span>\n              </span>\n            </FieldTitle>\n            <Checkbox defaultChecked={person.checked} />\n          </Field>\n        </FieldLabel>\n      ))}\n    </FieldGroup>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+/* Contain the hidden measurement line and stale frame positions during a resize. */
+.gaudi-glyph-inspector { position: relative; display: inline-flex; justify-content: center; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box; overflow: clip; padding: calc(var(--ds-space-scale, 1) * 48px) calc(var(--ds-space-scale, 1) * 32px) calc(var(--ds-space-scale, 1) * 64px); line-height: 1.2; }
+.gaudi-glyph-inspector__measure-clip { position: absolute; inset: 0; overflow: hidden; visibility: hidden; pointer-events: none; }
+.gaudi-glyph-inspector__measure { display: inline-block; width: max-content; max-width: none; height: 0; overflow: hidden; white-space: pre; }
+.gaudi-glyph-inspector__measure > span { display: inline-block; }
+.gaudi-glyph-inspector__line { display: inline-flex; flex-wrap: nowrap; white-space: pre; max-width: 100%; }
+.gaudi-glyph-inspector__line[data-measured="false"] { flex-wrap: wrap; justify-content: center; }
+.gaudi-glyph-inspector__letter { position: relative; display: inline-block; flex-shrink: 0; touch-action: pan-y; }
+.gaudi-glyph-inspector__letter[data-draggable="true"] { cursor: grab; }
+.gaudi-glyph-inspector[data-dragging="true"] .gaudi-glyph-inspector__letter { cursor: grabbing; }
+.gaudi-glyph-inspector__fallback[data-measured="true"] { opacity: 0; }
+.gaudi-glyph-inspector__glyph { position: absolute; inset: 0; overflow: visible; pointer-events: none; font: inherit; letter-spacing: inherit; opacity: 0; }
+.gaudi-glyph-inspector__glyph[data-measured="true"] { opacity: 1; }
+.gaudi-glyph-inspector__glyph text { font: inherit; letter-spacing: inherit; transition: opacity 200ms ease-out; }
+.gaudi-glyph-inspector__fill { opacity: calc(1 - var(--inspector-reveal, 0)); }
+.gaudi-glyph-inspector__outline { opacity: var(--inspector-reveal, 0); stroke-width: 1px; animation: gaudi-glyph-inspector-march var(--inspector-period, 1.4s) linear infinite; }
+.gaudi-glyph-inspector[data-animated="false"] .gaudi-glyph-inspector__outline { animation-play-state: paused; }
+.gaudi-glyph-inspector[data-animated="false"] .gaudi-glyph-inspector__particle { animation-play-state: paused; }
+.gaudi-glyph-inspector[data-animated="false"] .gaudi-glyph-inspector__glyph text { transition: none; }
+.gaudi-glyph-inspector__guides { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; stroke: var(--inspector-accent); stroke-width: 1; stroke-dasharray: 2 4; opacity: 0.45; }
+.gaudi-glyph-inspector__tether { stroke-dasharray: 4 2; opacity: 1; }
+.gaudi-glyph-inspector__frame { position: absolute; left: 0; top: 0; color: var(--inspector-accent); outline: 1px solid currentColor; pointer-events: none; }
+/* Edge-midpoint handles, as on a resizable selection. */
+.gaudi-glyph-inspector__frame i { position: absolute; width: 5px; height: 5px; box-sizing: border-box; border: 1px solid currentColor; background: var(--ds-color-surface, Canvas); }
+.gaudi-glyph-inspector__frame i:nth-child(1) { left: calc(50% - 2.5px); top: -3px; }
+.gaudi-glyph-inspector__frame i:nth-child(2) { right: -3px; top: calc(50% - 2.5px); }
+.gaudi-glyph-inspector__frame i:nth-child(3) { left: calc(50% - 2.5px); bottom: -3px; }
+.gaudi-glyph-inspector__frame i:nth-child(4) { left: -3px; top: calc(50% - 2.5px); }
+.gaudi-glyph-inspector__particle { position: absolute; width: 3px; height: 3px; background: currentColor; animation: gaudi-glyph-inspector-particle 1.6s ease-out infinite; }
+.gaudi-glyph-inspector__particle:nth-of-type(3n) { background: transparent; border: 1px solid currentColor; width: 5px; height: 5px; }
+.gaudi-glyph-inspector__readout { position: absolute; left: 0; top: 0; display: inline-flex; align-items: baseline; gap: calc(var(--ds-space-scale, 1) * 6px); color: var(--inspector-accent); font: 10px/1.4 var(--ds-font-mono, monospace); letter-spacing: 0; white-space: nowrap; pointer-events: none; }
+.gaudi-glyph-inspector__readout b { font-weight: 600; }
+.gaudi-glyph-inspector__readout > span { opacity: 0.7; font-variant-numeric: tabular-nums; }
+@keyframes gaudi-glyph-inspector-march { to { stroke-dashoffset: -16; } }
+@keyframes gaudi-glyph-inspector-particle { 0%, 100% { opacity: 0; transform: translate(0, 0); } 25% { opacity: 0.7; } 75% { opacity: 0.15; transform: translate(var(--inspector-drift-x), var(--inspector-drift-y)); } }
+@media (prefers-reduced-motion: reduce) { .gaudi-glyph-inspector__letter { transform: none !important; } .gaudi-glyph-inspector__outline, .gaudi-glyph-inspector__particle { animation: none !important; } .gaudi-glyph-inspector__glyph text { transition: none; } }

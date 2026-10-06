@@ -8,7 +8,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator
-} from './parts/breadcrumb.jsx';
+} from './BreadcrumbPrimitives.jsx';
 
 // The convenience API is the composition parts with a labelled landmark and router-aware links.
 export const Breadcrumb = ({ label = 'Breadcrumb', ...props }) => <BreadcrumbPart aria-label={ label } { ...props } />;

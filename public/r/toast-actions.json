@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast-actions",
+  "type": "registry:example",
+  "title": "Actions",
+  "description": "Actions. Core/Overlays & Menus/Toast pattern composed from @gaudi/design-system/core/Toast and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toast",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Toast",
+    "import": "@gaudi/design-system/core/Toast",
+    "storyId": "core-toast--actions",
+    "source": "src/components/core/Toast/stories/fixtures/toast/toast-actions.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toast-actions.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';\nexport function Pattern() {\n  const toasterId = useId();\n  // An action offers a follow-up such as Undo; adding cancel turns the toast into a lightweight confirmation.\n  const archive = () =>\n    toast('Message archived', {\n      toasterId,\n      description: 'The conversation moved to Archive.',\n      action: { label: 'Undo', onClick: () => toast.success('Message restored', { toasterId }) }\n    });\n  const remove = () =>\n    toast('Delete this item?', {\n      toasterId,\n      duration: Infinity,\n      description: 'It will be removed permanently.',\n      action: { label: 'Delete', onClick: () => toast.success('Item deleted', { toasterId }) },\n      cancel: { label: 'Cancel', onClick: () => {} },\n      classNames: { actionButton: 'shrink-0', cancelButton: 'shrink-0' }\n    });\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      <Button size='sm' variant='outline' tone='neutral' onClick={archive}>\n        Archive message\n      </Button>\n      <Button size='sm' variant='outline' tone='danger' onClick={remove}>\n        Delete item\n      </Button>\n      <ToastProvider id={toasterId} />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,90 +1,21 @@
-/**
- * Tailwind CSS v4 Configuration
- *
- * @description Modern Tailwind CSS v4 configuration with optimized imports
- * and enhanced styles for improved performance and maintainability.
- *
- * @author Ahmad Assaf
- * @version 2.0.0
- */
-
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
-@config '../tailwind.config.cjs';
+@config './tailwind/config.js';
+@source '.';
 @import './styles.css';
 
-/**
- * Border Color Compatibility Layer
- *
- * @description The default border color has changed to `currentColor` in Tailwind CSS v4,
- * so we've added these compatibility styles to make sure everything still
- * looks the same as it did with Tailwind CSS v3.
- *
- * @note If we ever want to remove these styles, we need to add an explicit border
- * color utility to any element that depends on these defaults.
- */
 @layer base {
-  
-  /*
-   * Smooth anchor/TOC scrolling; the prefers-reduced-motion block below
-   * forces this back to `auto` for users who opt out of motion.
-   */
   html {
     scroll-behavior: smooth;
   }
 
-  /**
-   * Base font size for optimal readability
-   */
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-size: 1rem; /* 16px */
-    line-height: 1.6;
-  }
-
-  button,
-  [role='button'],
-  a {
-    cursor: pointer;
-  }
-
-  /*
-   * Focus rings are suppressed for pointer interactions only. Keyboard focus
-   * (:focus-visible) keeps the browser outline as a fallback so components
-   * without an explicit focus-visible utility still show an indicator.
-   */
-  :where(*):focus:not(:focus-visible) {
-    outline: none;
-  }
-
-  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--ds-color-accent);
-    outline-offset: 2px;
+    font-size: 1rem;
+    line-height: var(--ds-line-height-body);
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
-
-    /* Ping is decoration, so it stops. Spin and pulse signal loading, so they
-       keep a slow cycle; composition.css applies the same durations. */
-    :where(.animate-ping) {
-      animation-duration: 1ms !important;
-      animation-iteration-count: 1 !important;
-    }
-
-    :where(.animate-spin) {
-      animation-duration: 2.4s !important;
-    }
-
-    :where(.animate-pulse) {
-      animation-duration: 3s !important;
-    }
-
-    :where(.transition, .transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
-      transition-duration: 0ms !important;
-    }
+    html { scroll-behavior: auto; }
   }
-  
 }

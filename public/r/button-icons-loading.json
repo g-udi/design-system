@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-icons-loading",
+  "type": "registry:example",
+  "title": "Icons, loading and links",
+  "description": "Icons, loading and links. Core/Button pattern composed from @gaudi/design-system/core/Button and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Button",
+    "import": "@gaudi/design-system/core/Button",
+    "storyId": "core-button--icons-loading",
+    "source": "src/components/core/Button/stories/fixtures/button/button-icons-loading.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-icons-loading.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst Row = ({ label, gap = 'gap-2', children }) => (\n  <>\n    <span className='text-xs text-text-muted'>{label}</span>\n    <div className={`flex flex-wrap items-center ${gap}`}>{children}</div>\n  </>\n);\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-3xl grid-cols-[5.5rem_1fr] items-center gap-x-3 gap-y-3'>\n      <Row label='Leading icon'>\n        <Button><RegistryIcon lucide='CloudDownloadIcon' aria-hidden='true' />Download</Button>\n        <Button variant='secondary'><RegistryIcon lucide='GithubIcon' aria-hidden='true' />GitHub</Button>\n        <Button variant='outline'><RegistryIcon lucide='PlusIcon' aria-hidden='true' />Add item</Button>\n        <Button variant='ghost'><RegistryIcon lucide='SettingsIcon' aria-hidden='true' />Settings</Button>\n        <Button variant='destructive'><RegistryIcon lucide='Trash2Icon' aria-hidden='true' />Delete account</Button>\n      </Row>\n      <Row label='Trailing icon'>\n        <Button>Get started<RegistryIcon lucide='ArrowRightIcon' aria-hidden='true' /></Button>\n        <Button variant='secondary'>Open project<RegistryIcon lucide='ExternalLinkIcon' aria-hidden='true' /></Button>\n        <Button variant='outline'>Options<RegistryIcon lucide='Settings2Icon' aria-hidden='true' /></Button>\n        <Button variant='ghost'>Log out<RegistryIcon lucide='LogOutIcon' aria-hidden='true' /></Button>\n        <Button variant='destructive'>Confirm removal<RegistryIcon lucide='CircleAlertIcon' aria-hidden='true' /></Button>\n      </Row>\n      <Row label='Icon only'>\n        <Button size='icon-xs' variant='outline' aria-label='Close'><RegistryIcon lucide='XIcon' aria-hidden='true' /></Button>\n        <Button size='icon-sm' variant='ghost' aria-label='Notifications'><RegistryIcon lucide='BellIcon' aria-hidden='true' /></Button>\n        <Button size='icon' variant='secondary' aria-label='Search'><RegistryIcon lucide='SearchIcon' aria-hidden='true' /></Button>\n        <Button size='icon-lg' aria-label='Play'><RegistryIcon lucide='PlayIcon' aria-hidden='true' /></Button>\n      </Row>\n      <Row label='Loading'>\n        <Button disabled><Loader aria-hidden='true' />Please wait</Button>\n        <Button variant='outline' disabled><Loader aria-hidden='true' />Uploading</Button>\n      </Row>\n      <Row label='Links' gap='gap-x-4 gap-y-2'>\n        <Button asChild variant='outline'><a href='#home'>Back to home</a></Button>\n        <Button variant='link'><RegistryIcon lucide='HelpCircleIcon' aria-hidden='true' />Help center</Button>\n        <Button variant='link' className='group/back' asChild>\n          <a href='#back'>\n            <RegistryIcon lucide='ChevronLeftIcon' aria-hidden='true' className='transition-transform duration-200 group-hover/back:-translate-x-1' />\n            Go back\n          </a>\n        </Button>\n        <Button variant='link' className='group/docs' asChild>\n          <a href='#docs'>\n            View documentation\n            <RegistryIcon lucide='ArrowUpRightIcon' aria-hidden='true' className='transition-transform duration-200 group-hover/docs:rotate-45' />\n          </a>\n        </Button>\n      </Row>\n      <Row label='Hover reveal'>\n        <Button className='group/slide relative overflow-hidden px-6'>\n          <span className='transition-transform duration-300 group-hover/slide:-translate-x-2'>Get started</span>\n          <RegistryIcon lucide='ArrowRightIcon' aria-hidden='true' className='absolute right-2 translate-x-8 opacity-0 transition-all duration-300 group-hover/slide:translate-x-0 group-hover/slide:opacity-100' />\n        </Button>\n        <Button aria-label='Create new' className='group/fab relative w-8 justify-start overflow-hidden px-2 transition-[width] duration-300 hover:w-28 focus-visible:w-28'>\n          <RegistryIcon lucide='PlusIcon' aria-hidden='true' />\n          <span className='opacity-0 transition-opacity duration-300 group-hover/fab:opacity-100 group-focus-visible/fab:opacity-100'>Create new</span>\n        </Button>\n      </Row>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

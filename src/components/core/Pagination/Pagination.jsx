@@ -1,3 +1,8 @@
+'use client';
+
+import { useState } from 'react';
+import Button from '../Button';
+import { Popover, PopoverContent, PopoverTrigger } from '../Popover/PopoverPrimitives.jsx';
 import { cn } from '../../../utilities/cn';
 import {
   Pagination as PaginationPart,
@@ -7,7 +12,7 @@ import {
   PaginationLink,
   PaginationNext as PaginationNextPart,
   PaginationPrevious as PaginationPreviousPart
-} from './parts/pagination.jsx';
+} from './PaginationPrimitives.jsx';
 
 export const POSTS_PER_PAGE = 7;
 
@@ -38,37 +43,45 @@ const getPageShortcuts = (currentPage, totalPages) => {
   });
 };
 
-// "3 of 8" that reveals a row of page shortcuts on hover or keyboard focus.
-export const PaginationStatus = ({ className, currentPage = 1, getHref = (page) => `?page=${page}`, onPageChange, totalPages = 1 }) => (
-  <span className={ cn('group/pagination-status relative inline-flex justify-center', className) }>
-    <span className='rounded-control border border-border bg-surface px-3 py-1.5 text-sm font-medium text-text-muted'>
-      <span className='font-semibold text-accent'>{currentPage}</span>
-      <span className='mx-1.5'>of</span>
-      <span>{totalPages}</span>
-    </span>
-    <PaginationContent
-      aria-label='Page shortcuts'
-      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-1 w-max max-w-[calc(100vw-2rem)] -translate-x-1/2 translate-y-0.5 justify-center gap-1 rounded-card border border-border bg-surface p-1.5 opacity-0 shadow-lg transition duration-150 before:absolute before:left-0 before:top-full before:h-3 before:w-full before:content-[''] group-focus-within/pagination-status:pointer-events-auto group-focus-within/pagination-status:translate-y-0 group-focus-within/pagination-status:opacity-100 group-hover/pagination-status:pointer-events-auto group-hover/pagination-status:translate-y-0 group-hover/pagination-status:opacity-100 motion-reduce:transition-none"
-    >
-      {getPageShortcuts(currentPage, totalPages).map((shortcut) => (
-        <PaginationItem key={ shortcut }>
-          {typeof shortcut === 'string' ? <PaginationEllipsis className='size-8' /> : (
-            <PaginationLink
-              href={ getHref(shortcut) }
-              isActive={ shortcut === currentPage }
-              onClick={ onPageChange ? () => onPageChange(shortcut) : undefined }
-            >
-              {shortcut}
-            </PaginationLink>
-          )}
-        </PaginationItem>
-      ))}
-    </PaginationContent>
-  </span>
-);
+// A labelled status button opens shortcuts through the shared keyboard-accessible popover.
+export const PaginationStatus = ({ className, size = 'md', currentPage = 1, getHref = (page) => `?page=${page}`, onPageChange, totalPages = 1, ofLabel = 'of', shortcutsLabel = 'Page shortcuts' }) => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant='outline' tone='neutral' size={size} className={cn('text-text-muted', className)} aria-label={`${shortcutsLabel}: ${currentPage} ${ofLabel} ${totalPages}`}>
+          <span className='font-semibold text-accent'>{currentPage}</span>
+          <span>{ofLabel}</span>
+          <span>{totalPages}</span>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent aria-label={shortcutsLabel} side='top' collisionPadding={12} className='w-auto p-1.5'>
+        <PaginationContent aria-label={shortcutsLabel} className='justify-center gap-1'>
+          {getPageShortcuts(currentPage, totalPages).map((shortcut) => (
+            <PaginationItem key={shortcut}>
+              {typeof shortcut === 'string' ? <PaginationEllipsis className='size-8' /> : (
+                <PaginationLink
+                  href={getHref(shortcut)}
+                  isActive={shortcut === currentPage}
+                  onClick={onPageChange ? () => {
+                    onPageChange(shortcut);
+                    setOpen(false);
+                  } : undefined}
+                >
+                  {shortcut}
+                </PaginationLink>
+              )}
+            </PaginationItem>
+          ))}
+        </PaginationContent>
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 // Previous, the "n of total" status and Next under a list: the blog's archive pager.
-export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, label = 'Pagination', onPageChange, totalPages = 1 }) => {
+export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, label = 'Pagination', onPageChange, totalPages = 1, previousLabel = 'Previous', nextLabel = 'Next', ofLabel = 'of', shortcutsLabel = 'Page shortcuts' }) => {
   const pageAction = (page) => ({
     href: getHref(page),
     onClick: onPageChange ? () => onPageChange(page) : undefined
@@ -78,11 +91,11 @@ export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${pa
     <Pagination label={ label } className='border-t border-border pt-6'>
       <div className='grid w-full grid-cols-[1fr_auto_1fr] items-center gap-1'>
         <div className='flex justify-start'>
-          <PaginationPrevious disabled={ currentPage <= 1 } { ...pageAction(Math.max(1, currentPage - 1)) } />
+          <PaginationPrevious label={ previousLabel } disabled={ currentPage <= 1 } { ...pageAction(Math.max(1, currentPage - 1)) } />
         </div>
-        <PaginationStatus currentPage={ currentPage } getHref={ getHref } onPageChange={ onPageChange } totalPages={ totalPages } />
+        <PaginationStatus currentPage={ currentPage } getHref={ getHref } onPageChange={ onPageChange } totalPages={ totalPages } ofLabel={ ofLabel } shortcutsLabel={ shortcutsLabel } />
         <div className='flex justify-end'>
-          <PaginationNext disabled={ currentPage >= totalPages } { ...pageAction(Math.min(totalPages, currentPage + 1)) } />
+          <PaginationNext label={ nextLabel } disabled={ currentPage >= totalPages } { ...pageAction(Math.min(totalPages, currentPage + 1)) } />
         </div>
       </div>
     </Pagination>

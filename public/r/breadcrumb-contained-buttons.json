@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb-contained-buttons",
+  "type": "registry:example",
+  "title": "Contained and button styles",
+  "description": "Contained and button styles. Core/Navigation/Breadcrumb pattern composed from @gaudi/design-system/core/Breadcrumb and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "breadcrumb",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Breadcrumb",
+    "import": "@gaudi/design-system/core/Breadcrumb",
+    "storyId": "core-breadcrumb--contained-buttons",
+    "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-contained-buttons.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/breadcrumb-contained-buttons.jsx",
+      "type": "registry:component",
+      "content": "import {\n  BreadcrumbRoot as Breadcrumb,\n  BreadcrumbItemPrimitive as BreadcrumbItem,\n  BreadcrumbLinkPrimitive as BreadcrumbLink,\n  BreadcrumbListPrimitive as BreadcrumbList,\n  BreadcrumbPagePrimitive as BreadcrumbPage,\n  BreadcrumbSeparatorPrimitive as BreadcrumbSeparator\n} from '@gaudi/design-system/core/Breadcrumb';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nfunction Trail() {\n  return (\n    <Breadcrumb>\n      <BreadcrumbList>\n        <BreadcrumbItem>\n          <BreadcrumbLink href='#' className='flex items-center gap-1.5'>\n            <RegistryIcon lucide='HouseIcon' className='size-4' aria-hidden='true' />\n            Home\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbLink href='#'>Products</BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbPage className='font-semibold'>Checkout</BreadcrumbPage>\n        </BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}\nfunction ButtonTrail() {\n  return (\n    <Breadcrumb aria-label='Workspace breadcrumb'>\n      <BreadcrumbList className='gap-1'>\n        <BreadcrumbItem>\n          <BreadcrumbLink asChild>\n            <Button variant='ghost' size='sm' className='text-text-muted hover:text-text'>\n              <RegistryIcon lucide='HouseIcon' />\n              Home\n            </Button>\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbLink asChild>\n            <Button variant='ghost' size='sm' className='text-text-muted hover:text-text'>\n              <RegistryIcon lucide='LayoutGridIcon' />\n              Workspace\n            </Button>\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator />\n        <BreadcrumbItem>\n          <BreadcrumbPage>\n            <span className='inline-flex h-7 items-center gap-1.5 rounded-control bg-surface-muted px-2.5 text-sm font-medium text-text'>\n              <RegistryIcon lucide='SettingsIcon' className='size-4' aria-hidden='true' />\n              Settings\n            </span>\n          </BreadcrumbPage>\n        </BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n      <span className='text-xs text-text-muted'>Card</span>\n      <Card className='w-fit p-2'>\n        <CardContent className='px-1 py-0'>\n          <Trail />\n        </CardContent>\n      </Card>\n      <span className='text-xs text-text-muted'>Frame</span>\n      <Frame className='w-fit'>\n        <FramePanel className='px-3! py-2!'>\n          <Trail />\n        </FramePanel>\n      </Frame>\n      <span className='text-xs text-text-muted'>Buttons</span>\n      <ButtonTrail />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

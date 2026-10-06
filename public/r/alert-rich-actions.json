@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-rich-actions",
+  "type": "registry:example",
+  "title": "Alert: Actions and rich content",
+  "description": "Alert: Actions and rich content. Core/Feedback & States/Banner pattern composed from @gaudi/design-system/core/Banner and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "alert",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Banner",
+    "import": "@gaudi/design-system/core/Banner",
+    "storyId": "core-banner--rich-actions",
+    "source": "src/components/core/Banner/stories/fixtures/alert/alert-rich-actions.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/alert-rich-actions.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport {\n  Alert,\n  AlertAction,\n  AlertDescription,\n  AlertTitle\n} from '@gaudi/design-system/core/Banner';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nexport function Pattern() {\n  const [securityVisible, setSecurityVisible] = useState(true);\n  const [updateVisible, setUpdateVisible] = useState(true);\n  const [updated, setUpdated] = useState(false);\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      {securityVisible ? <Alert>\n        <RegistryIcon lucide='ShieldCheckIcon' />\n        <AlertTitle>Security update</AlertTitle>\n        <AlertDescription>Review your sign-in methods and add a passkey.</AlertDescription>\n        <AlertAction>\n          <Button variant='outline' size='xs' onClick={() => setSecurityVisible(false)}>Dismiss</Button>\n          <Button href='/settings/security' size='xs'>Update</Button>\n        </AlertAction>\n      </Alert> : null}\n      <Alert>\n        <RegistryIcon lucide='KeyRoundIcon' />\n        <AlertTitle>Your API key expires in 7 days.</AlertTitle>\n        <AlertAction>\n          <Button href='/settings/api-keys' size='xs'>Rotate</Button>\n        </AlertAction>\n      </Alert>\n      {updateVisible ? <Alert variant='info'>\n        <RegistryIcon lucide='InfoIcon' />\n        <AlertDescription>{updated ? 'Demo updated. No page reload was performed.' : 'A new version is available.'}</AlertDescription>\n        <AlertAction>\n          <Button variant='outline' size='xs' onClick={() => setUpdateVisible(false)}>Later</Button>\n          <Button size='xs' disabled={updated} onClick={() => setUpdated(true)}>Reload</Button>\n        </AlertAction>\n      </Alert> : null}\n      <Alert variant='destructive'>\n        <RegistryIcon lucide='CircleAlertIcon' />\n        <AlertTitle>Payment failed</AlertTitle>\n        <AlertDescription>\n          <p>We could not renew your plan. Check these details:</p>\n          <ul className='list-inside list-disc space-y-0.5 text-sm'>\n            <li>Card number and expiry</li>\n            <li>Billing address</li>\n            <li>Available funds</li>\n          </ul>\n        </AlertDescription>\n      </Alert>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

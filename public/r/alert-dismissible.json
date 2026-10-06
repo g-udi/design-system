@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-dismissible",
+  "type": "registry:example",
+  "title": "Alert: Dismissible notices",
+  "description": "Alert: Dismissible notices. Core/Feedback & States/Banner pattern composed from @gaudi/design-system/core/Banner and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "alert",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Banner",
+    "import": "@gaudi/design-system/core/Banner",
+    "storyId": "core-banner--dismissible",
+    "source": "src/components/core/Banner/stories/fixtures/alert/alert-dismissible.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/alert-dismissible.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport {\n  Alert,\n  AlertAction,\n  AlertDescription,\n  AlertTitle\n} from '@gaudi/design-system/core/Banner';\nimport {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst all = ['discovery', 'promo', 'billing'];\n\nexport function Pattern() {\n  const [open, setOpen] = useState(all);\n  const dismiss = (id) => setOpen((ids) => ids.filter((item) => item !== id));\n  const shown = (id) => open.includes(id);\n\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      {shown('discovery') ? (\n        <Frame variant='ghost'>\n          <FramePanel className='overflow-hidden p-0!'>\n            <Alert variant='info' className='border-0 shadow-none'>\n              <RegistryIcon lucide='LightbulbIcon' />\n              <AlertTitle>New: advanced analytics</AlertTitle>\n              <AlertAction>\n                <Button aria-label='Dismiss analytics notice' size='icon-xs' variant='ghost' onClick={() => dismiss('discovery')}>\n                  <RegistryIcon lucide='XIcon' className='size-3.5' />\n                </Button>\n              </AlertAction>\n              <AlertDescription>\n                A new dashboard tracks your team&apos;s performance.\n                <Button href='/analytics' variant='link' size='sm' className='text-info h-auto p-0 underline'>\n                  Explore features\n                </Button>\n              </AlertDescription>\n            </Alert>\n          </FramePanel>\n        </Frame>\n      ) : null}\n      {shown('promo') ? (\n        <Frame>\n          <FramePanel className='overflow-hidden p-0!'>\n            <Alert variant='invert' className='border-0 shadow-none'>\n              <RegistryIcon lucide='ZapIcon' className='text-warning' />\n              <AlertTitle>Pro feature</AlertTitle>\n              <AlertAction>\n                <Button variant='soft' size='xs' onClick={() => dismiss('promo')}>\n                  Dismiss\n                </Button>\n                <Button href='/settings/billing' size='xs'>Upgrade</Button>\n              </AlertAction>\n              <AlertDescription>Upgrade your plan to unlock scheduled exports.</AlertDescription>\n            </Alert>\n          </FramePanel>\n        </Frame>\n      ) : null}\n      {shown('billing') ? (\n        <Frame>\n          <FramePanel className='overflow-hidden p-0!'>\n            <Alert variant='destructive' className='border-0 shadow-none'>\n              <RegistryIcon lucide='CreditCardIcon' />\n              <AlertTitle>Subscription expiring</AlertTitle>\n              <AlertAction>\n                <Button size='xs' variant='destructive' onClick={() => dismiss('billing')}>\n                  Renew now\n                </Button>\n              </AlertAction>\n              <AlertDescription>Your annual plan expires in 3 days. Renew to avoid interruption.</AlertDescription>\n            </Alert>\n          </FramePanel>\n        </Frame>\n      ) : null}\n      {open.length < all.length ? (\n        <Button variant='outline' size='sm' className='justify-self-start' onClick={() => setOpen(all)}>\n          Restore notices\n        </Button>\n      ) : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

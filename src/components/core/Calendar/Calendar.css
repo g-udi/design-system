@@ -1,0 +1,14 @@
+@layer components {
+  /* 32px cells match the md control height; touch screens get 40px targets. */
+  .ds-part-calendar {
+    @apply p-2 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(8)] pointer-coarse:[--cell-size:--spacing(10)];
+  }
+
+  .ds-part-calendar-dropdown-root {
+    @apply has-focus:border-ui-ring border-ui-input has-focus:ring-ui-primary border has-focus:ring-3;
+  }
+
+  .ds-part-calendar-caption-label {
+    @apply h-6 pr-1 pl-1.5;
+  }
+}

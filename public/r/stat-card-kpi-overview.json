@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-kpi-overview",
+  "type": "registry:block",
+  "title": "KPI overview",
+  "description": "KPI overview. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--kpi-overview",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-kpi-overview.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-kpi-overview.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { cn } from '@gaudi/design-system/utilities/cn';\n\nconst metrics = [\n  { label: 'Revenue', value: '$48,290', delta: '12.4%', deltaDirection: 'up', deltaTone: 'success', previous: '$42,960', icon: 'DollarSignIcon', tone: 'success' },\n  { label: 'Subscribers', value: '1,284', delta: '8.1%', deltaDirection: 'up', deltaTone: 'success', previous: '1,188', icon: 'UsersIcon', tone: 'info' },\n  { label: 'Orders', value: '326', delta: '-3.2%', deltaDirection: 'down', deltaTone: 'danger', previous: '337', icon: 'ShoppingCartIcon', tone: 'warning' },\n  { label: 'Churn', value: '2.1%', delta: '-0.4%', deltaDirection: 'down', deltaTone: 'success', previous: '2.5%', icon: 'ActivityIcon', tone: 'discovery' }\n];\n\nfunction MetricMenu({ label }) {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant='ghost' size='icon-xs' aria-label={`${label} actions`}>\n          <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent align='end'>\n        <DropdownMenuItem>View report</DropdownMenuItem>\n        <DropdownMenuItem>Set a goal</DropdownMenuItem>\n        <DropdownMenuItem>Export CSV</DropdownMenuItem>\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}\n\nexport function Pattern() {\n  const [layout, setLayout] = useState('cards');\n  return (\n    <div className='grid w-full max-w-5xl gap-3'>\n      <ToggleGroup\n        aria-label='KPI layout'\n        type='single'\n        variant='outline'\n        size='sm'\n        spacing={0}\n        value={layout}\n        onValueChange={(next) => setLayout(next || layout)}\n        className='justify-self-end'\n      >\n        <ToggleGroupItem value='cards'>Cards</ToggleGroupItem>\n        <ToggleGroupItem value='panel'>Panel</ToggleGroupItem>\n        <ToggleGroupItem value='tinted'>Tinted</ToggleGroupItem>\n      </ToggleGroup>\n      {layout === 'panel' ? (\n        /* One bordered panel divided into cells, for dense dashboards. */\n        <dl className='bg-surface grid overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4'>\n          {metrics.map((metric) => (\n            <div key={metric.label} className='grid gap-1 border-b p-4 last:border-b-0 sm:odd:border-e lg:border-e lg:border-b-0 lg:last:border-e-0'>\n              <dt className='text-text-muted text-sm'>{metric.label}</dt>\n              <dd className='flex items-baseline gap-2'>\n                <span className='text-2xl font-semibold tabular-nums'>{metric.value}</span>\n                <StatDelta value={metric.delta} direction={metric.deltaDirection} tone={metric.deltaTone} />\n              </dd>\n            </div>\n          ))}\n        </dl>\n      ) : (\n        <div className='grid gap-3 sm:grid-cols-2 lg:grid-cols-4'>\n          {metrics.map((metric) => (\n            <StatCard\n              key={metric.label}\n              label={metric.label}\n              value={metric.value}\n              delta={metric.delta} deltaDirection={metric.deltaDirection} deltaTone={metric.deltaTone}\n              icon={metric.icon}\n              tone={metric.tone}\n              variant={layout === 'tinted' ? 'tinted' : 'default'}\n              action={<MetricMenu label={metric.label} />}\n              description={`vs ${metric.previous} last month`}\n              footer={layout === 'cards' ? 'Sep 1 – Sep 30, 2026' : undefined}\n              className={cn(layout === 'tinted' && 'shadow-none')}\n            />\n          ))}\n        </div>\n      )}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

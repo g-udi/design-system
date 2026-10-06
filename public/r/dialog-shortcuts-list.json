@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog-shortcuts-list",
+  "type": "registry:example",
+  "title": "Keyboard shortcuts list",
+  "description": "Keyboard shortcuts list. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dialog",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--shortcuts-list",
+    "source": "src/components/core/Dialog/stories/fixtures/dialog/dialog-shortcuts-list.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dialog-shortcuts-list.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogClosePrimitive as DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { KbdRoot as Kbd } from '@gaudi/design-system/core/Kbd';\nconst shortcuts = [\n  { keys: ['\\u2318', 'K'], action: 'Search' },\n  { keys: ['\\u2318', 'B'], action: 'Bold' },\n  { keys: ['\\u2318', 'I'], action: 'Italic' },\n  { keys: ['\\u2318', 'S'], action: 'Save' },\n  { keys: ['\\u2318', 'Z'], action: 'Undo' },\n  { keys: ['\\u2318', '\\u21E7', 'Z'], action: 'Redo' },\n  { keys: ['\\u2318', 'N'], action: 'New File' },\n  { keys: ['\\u2318', 'P'], action: 'Quick Open' },\n  { keys: ['\\u2318', '/'], action: 'Toggle Comment' },\n  { keys: ['\\u2318', 'D'], action: 'Duplicate Line' }\n];\nexport function Pattern() {\n  const half = Math.ceil(shortcuts.length / 2);\n  const leftColumn = shortcuts.slice(0, half);\n  const rightColumn = shortcuts.slice(half);\n  return (\n    <div className='flex items-center justify-center'>\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button variant='outline'>Keyboard Shortcuts</Button>\n        </DialogTrigger>\n        <DialogContent className='sm:max-w-lg'>\n          <DialogHeader>\n            <DialogTitle>Keyboard Shortcuts</DialogTitle>\n            <DialogDescription>\n              Quick reference for commonly used keyboard shortcuts.\n            </DialogDescription>\n          </DialogHeader>\n          <div className='grid grid-cols-2 gap-x-6 gap-y-3'>\n            {[leftColumn, rightColumn].map((column, colIndex) => (\n              <div key={colIndex} className='space-y-3'>\n                {column.map((shortcut) => (\n                  <div\n                    key={shortcut.action}\n                    className='flex items-center justify-between'\n                  >\n                    <span className='text-text-muted text-sm'>\n                      {shortcut.action}\n                    </span>\n                    <div className='flex gap-1'>\n                      {shortcut.keys.map((key, index) => (\n                        <Kbd key={index}>{key}</Kbd>\n                      ))}\n                    </div>\n                  </div>\n                ))}\n              </div>\n            ))}\n          </div>\n          <DialogFooter>\n            <DialogClose asChild>\n              <Button variant='outline'>Close</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group-filters",
+  "type": "registry:example",
+  "title": "Filters",
+  "description": "Filters. Core/ToggleGroup pattern composed from @gaudi/design-system/core/ToggleGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toggle-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ToggleGroup",
+    "import": "@gaudi/design-system/core/ToggleGroup",
+    "storyId": "core-togglegroup--filters",
+    "source": "src/components/core/ToggleGroup/stories/fixtures/toggle-group/toggle-group-filters.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toggle-group-filters.jsx",
+      "type": "registry:component",
+      "content": "import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst statuses = ['All', 'Active', 'Completed', 'Archived'];\nconst ranges = ['1H', '6H', '24H', '7D', '30D', 'All'];\nconst channels = [\n  { value: 'email', label: 'Email', icon: 'MailIcon' },\n  { value: 'sms', label: 'SMS', icon: 'PhoneIcon' },\n  { value: 'push', label: 'Push', icon: 'BellIcon' },\n  { value: 'chat', label: 'Chat', icon: 'MessageSquareIcon' }\n];\nconst Field = ({ label, children }) => (\n  <div className='flex flex-col gap-1.5'>\n    <span className='text-xs font-medium text-text-muted'>{label}</span>\n    {children}\n  </div>\n);\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>\n      <Field label='Status'>\n        <ToggleGroup type='single' variant='outline' size='sm' spacing={0} defaultValue='Active' aria-label='Status'>\n          {statuses.map((status) => <ToggleGroupItem key={status} value={status}>{status}</ToggleGroupItem>)}\n        </ToggleGroup>\n      </Field>\n      <Field label='Time range'>\n        <ToggleGroup type='single' variant='outline' size='sm' spacing={0} defaultValue='24H' aria-label='Time range'>\n          {ranges.map((range) => <ToggleGroupItem key={range} value={range} className='tabular-nums'>{range}</ToggleGroupItem>)}\n        </ToggleGroup>\n      </Field>\n      <Field label='Notify me by'>\n        <ToggleGroup type='multiple' variant='outline' size='sm' spacing={1} defaultValue={['email', 'push']} aria-label='Notification channels'>\n          {channels.map(({ value, label, icon }) => (\n            <ToggleGroupItem key={value} value={value}><RegistryIcon lucide={icon} />{label}</ToggleGroupItem>\n          ))}\n        </ToggleGroup>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

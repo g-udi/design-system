@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "resizable-handles",
+  "type": "registry:example",
+  "title": "Handle styles",
+  "description": "Handle styles. Core/Layout & Containers/Resizable pattern composed from @gaudi/design-system/core/Resizable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "resizable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Resizable",
+    "import": "@gaudi/design-system/core/Resizable",
+    "storyId": "core-resizable--handles",
+    "source": "src/components/core/Resizable/stories/fixtures/resizable/resizable-handles.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/resizable-handles.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  ResizableHandle,\n  ResizablePanel,\n  ResizablePanelGroup\n} from '@gaudi/design-system/core/Resizable';\n\n// Pill handles draw a ::before bar that grows on hover and turns primary while dragging.\nconst pill =\n  'before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-control before:bg-ui-muted-foreground/25 before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:bg-ui-muted-foreground/40 active:before:bg-ui-primary';\n// Vertical handles (between columns) take a tall pill, horizontal handles a wide one.\nconst styles = [\n  { name: 'Line', note: 'default', className: '' },\n  { name: 'Grip', note: 'withHandle', withHandle: true },\n  { name: 'Pill', note: 'grows on hover', className: `${pill} before:h-6 before:w-1 hover:before:h-8 active:before:h-12 active:before:w-1.5`, rotated: `${pill} before:h-1 before:w-6 hover:before:w-8 active:before:w-12 active:before:h-1.5` },\n  { name: 'Scaling pill', note: 'scales from 75%', className: `${pill} before:h-8 before:w-1 before:scale-y-75 hover:before:scale-y-100 active:before:h-14 active:before:w-1.5`, rotated: `${pill} before:h-1 before:w-8 before:scale-x-75 hover:before:scale-x-100 active:before:w-14 active:before:h-1.5` },\n  { name: 'Capsule', note: 'track tints while dragging', className: `${pill} transition-colors duration-200 active:bg-ui-primary/20 before:h-6 before:w-1 hover:before:h-10 hover:before:w-1.5 active:before:h-20`, rotated: `${pill} transition-colors duration-200 active:bg-ui-primary/20 before:h-1 before:w-6 hover:before:w-10 hover:before:h-1.5 active:before:w-20` }\n];\n\nfunction Sample({ style }) {\n  return (\n    <figure className='grid gap-1.5'>\n      <ResizablePanelGroup orientation='horizontal' className='min-h-36 rounded-xl border border-ui-border'>\n        <ResizablePanel defaultSize='40%' minSize='20%'>\n          <div className='flex h-full items-center justify-center text-xs text-ui-muted-foreground'>Nav</div>\n        </ResizablePanel>\n        <ResizableHandle withHandle={style.withHandle} className={style.className} />\n        <ResizablePanel defaultSize='60%' minSize='30%'>\n          <ResizablePanelGroup orientation='vertical'>\n            <ResizablePanel defaultSize='50%' minSize='25%'>\n              <div className='flex h-full items-center justify-center text-xs text-ui-muted-foreground'>Top</div>\n            </ResizablePanel>\n            <ResizableHandle withHandle={style.withHandle} className={style.rotated ?? style.className} />\n            <ResizablePanel defaultSize='50%' minSize='25%'>\n              <div className='flex h-full items-center justify-center text-xs text-ui-muted-foreground'>Bottom</div>\n            </ResizablePanel>\n          </ResizablePanelGroup>\n        </ResizablePanel>\n      </ResizablePanelGroup>\n      <figcaption className='text-xs'>\n        <span className='font-medium'>{style.name}</span>\n        <span className='text-ui-muted-foreground'> · {style.note}</span>\n      </figcaption>\n    </figure>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-3xl grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3'>\n      {styles.map((style) => (\n        <Sample key={style.name} style={style} />\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

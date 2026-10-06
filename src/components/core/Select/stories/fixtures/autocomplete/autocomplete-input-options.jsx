@@ -1,0 +1,92 @@
+'use client';
+import { useId } from 'react';
+import {
+  Autocomplete,
+  AutocompleteContent,
+  AutocompleteEmpty,
+  AutocompleteInput,
+  AutocompleteItem,
+  AutocompleteList
+} from '@gaudi/design-system/core/Select';
+import { Label } from '@gaudi/design-system/core/Field';
+
+// Free-text search with suggestions. Each field below changes one input option.
+function TagAutocomplete({ label, inputProps, className, ...props }) {
+  const id = useId();
+  return (
+    <div className={`flex flex-col gap-2 ${className || ''}`}>
+      <Label htmlFor={id}>{label}</Label>
+      <Autocomplete items={items} {...props}>
+        <AutocompleteInput id={id} placeholder='e.g. feature' {...inputProps} />
+        <AutocompleteContent>
+          <AutocompleteEmpty>No tags found.</AutocompleteEmpty>
+          <AutocompleteList>
+            {(item) => (
+              <AutocompleteItem key={item.id} value={item.value}>
+                {item.value}
+              </AutocompleteItem>
+            )}
+          </AutocompleteList>
+        </AutocompleteContent>
+      </Autocomplete>
+    </div>
+  );
+}
+
+export function Pattern() {
+  return (
+    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>
+      <TagAutocomplete label='Tag' />
+      <TagAutocomplete label='Auto highlight' autoHighlight />
+      <TagAutocomplete label='Clear button' defaultValue='Feature' inputProps={{ showClear: true }} />
+      <TagAutocomplete label='Trigger button' inputProps={{ showTrigger: true }} />
+      <TagAutocomplete label='Clear and trigger' defaultValue='Docs' inputProps={{ showTrigger: true, showClear: true }} />
+      <TagAutocomplete label='Disabled' disabled defaultValue='Bug' />
+      <TagAutocomplete label='Small' inputProps={{ size: 'sm', showTrigger: true, showClear: true }} />
+      <TagAutocomplete label='Large' className='sm:col-span-2' inputProps={{ size: 'lg', showTrigger: true, showClear: true }} />
+    </div>
+  );
+}
+const items = [
+  { id: 't1', value: 'Feature' },
+  { id: 't2', value: 'Fix' },
+  { id: 't3', value: 'Bug' },
+  { id: 't4', value: 'Docs' },
+  { id: 't5', value: 'Internal' },
+  { id: 't6', value: 'Mobile' },
+  { id: 'c-accordion', value: 'component: Accordion' },
+  { id: 'c-alert-dialog', value: 'component: Alert Dialog' },
+  { id: 'c-autocomplete', value: 'component: Autocomplete' },
+  { id: 'c-avatar', value: 'component: Avatar' },
+  { id: 'c-checkbox', value: 'component: Checkbox' },
+  { id: 'c-checkbox-group', value: 'component: Checkbox Group' },
+  { id: 'c-collapsible', value: 'component: Collapsible' },
+  { id: 'c-combobox', value: 'component: Combobox' },
+  { id: 'c-context-menu', value: 'component: Context Menu' },
+  { id: 'c-dialog', value: 'component: Dialog' },
+  { id: 'c-field', value: 'component: Field' },
+  { id: 'c-fieldset', value: 'component: Fieldset' },
+  { id: 'c-filterable-menu', value: 'component: Filterable Menu' },
+  { id: 'c-form', value: 'component: Form' },
+  { id: 'c-input', value: 'component: Input' },
+  { id: 'c-menu', value: 'component: Menu' },
+  { id: 'c-menubar', value: 'component: Menubar' },
+  { id: 'c-meter', value: 'component: Meter' },
+  { id: 'c-navigation-menu', value: 'component: Navigation Menu' },
+  { id: 'c-number-field', value: 'component: Number Field' },
+  { id: 'c-popover', value: 'component: Popover' },
+  { id: 'c-preview-card', value: 'component: Preview Card' },
+  { id: 'c-progress', value: 'component: Progress' },
+  { id: 'c-radio', value: 'component: Radio' },
+  { id: 'c-scroll-area', value: 'component: Scroll Area' },
+  { id: 'c-select', value: 'component: Select' },
+  { id: 'c-separator', value: 'component: Separator' },
+  { id: 'c-slider', value: 'component: Slider' },
+  { id: 'c-switch', value: 'component: Switch' },
+  { id: 'c-tabs', value: 'component: Tabs' },
+  { id: 'c-toast', value: 'component: Toast' },
+  { id: 'c-toggle', value: 'component: Toggle' },
+  { id: 'c-toggle-group', value: 'component: Toggle Group' },
+  { id: 'c-toolbar', value: 'component: Toolbar' },
+  { id: 'c-tooltip', value: 'component: Tooltip' }
+];

@@ -54,9 +54,9 @@ const FileTreeItem = ({ name, isFolder = false, level, childrenProp = [], isOpen
 
   return (
     <li className='m-0 p-0'>
-      <div className='flex items-center gap-2 rounded py-1 pe-2 transition-colors hover:bg-surface-muted' style={{ 'paddingLeft': `${(level * INDENT) + 8}px` }}>
+      <div className='flex items-center gap-2 rounded py-1 pe-2 transition-colors hover:bg-surface-muted' style={{ 'paddingInlineStart': `calc(var(--ds-space-scale, 1) * ${(level * INDENT) + 8}px)` }}>
         <Icon name={ icon } decorative className={ cn('size-4 shrink-0', tint) } />
-        <span className={ isFolder ? 'font-medium text-text' : 'text-text-muted' }>{name}</span>
+        <span className={ cn('min-w-0 wrap-anywhere', isFolder ? 'font-medium text-text' : 'text-text-muted') }>{name}</span>
       </div>
       {isFolder && isOpen && childrenProp.length > 0 ? <FileTreeList items={ childrenProp } level={ level + 1 } /> : null}
     </li>
@@ -81,7 +81,7 @@ const FileTreeList = ({ items, level }) => (
  * <FileTree data={[{ name: 'content', isFolder: true, childrenProp: [{ name: 'post.mdx' }] }, { name: 'package.json' }]} />
  */
 const FileTree = ({ data = [], className }) => (
-  <div className={ cn('not-prose max-h-96 overflow-y-auto rounded-lg border border-border bg-surface p-4 font-mono text-sm', className) }>
+  <div role='region' aria-label='File listing' tabIndex={ 0 } className={ cn('not-prose max-h-96 min-w-0 overflow-auto rounded-lg border border-border bg-surface p-4 font-mono text-sm', className) }>
     <FileTreeList items={ data } level={ 0 } />
   </div>
 );

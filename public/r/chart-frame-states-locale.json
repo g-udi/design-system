@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-frame-states-locale",
+  "type": "registry:example",
+  "title": "Loading, empty, invalid, error and locale",
+  "description": "Loading, empty, invalid, error and locale. Charts/ChartFrame pattern composed from @gaudi/design-system/charts/ChartFrame and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chart-frame",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/ChartFrame",
+    "import": "@gaudi/design-system/charts/ChartFrame",
+    "storyId": "charts-chartframe--states-locale",
+    "source": "src/components/charts/ChartFrame/stories/fixtures/chart-frame/chart-frame-states-locale.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chart-frame-states-locale.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { BarChart } from '@gaudi/design-system/charts/BarChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\nconst weeks = [\n  { label: 'W1', views: 12840 },\n  { label: 'W2', views: 15210 },\n  { label: 'W3', views: 11960 },\n  { label: 'W4', views: 18430 }\n];\nconst datasets = { empty: [], error: weeks, invalid: [{ label: 'W1', views: 'pending' }], loading: weeks, ready: weeks };\n// Copy for each state, in the voice of the dashboard it sits in.\nconst labels = {\n  empty: 'No views yet. Publish a post to start the count.',\n  error: 'Views could not load. Check the connection and try again.',\n  invalid: 'Some weeks are still being counted, so the chart is paused.',\n  loading: 'Loading views'\n};\n\nexport function Pattern() {\n  const [state, setState] = useState('ready');\n  const [locale, setLocale] = useState('en-US');\n  return (\n    <div className='grid w-full max-w-3xl gap-3'>\n      <div className='flex flex-wrap gap-2'>\n        <ToggleGroup aria-label='Chart state' className='max-w-full flex-wrap' type='single' variant='outline' size='sm' spacing={1} value={state} onValueChange={(next) => next && setState(next)}>\n          {[ 'ready', 'loading', 'empty', 'invalid', 'error' ].map((value) => <ToggleGroupItem key={value} value={value} className='capitalize'>{value}</ToggleGroupItem>)}\n        </ToggleGroup>\n        <ToggleGroup aria-label='Locale' type='single' variant='outline' size='sm' spacing={0} value={locale} onValueChange={(next) => next && setLocale(next)}>\n          <ToggleGroupItem value='en-US'>en-US</ToggleGroupItem>\n          <ToggleGroupItem value='de-DE'>de-DE</ToggleGroupItem>\n          <ToggleGroupItem value='hi-IN'>hi-IN</ToggleGroupItem>\n        </ToggleGroup>\n      </div>\n      <BarChart\n        ariaLabel='Weekly views'\n        title='Weekly views'\n        description='The same chart in each state, with numbers in the chosen locale.'\n        data={datasets[state]}\n        state={state === 'loading' || state === 'error' ? state : undefined}\n        yKey='views'\n        series={[{ key: 'views', label: 'Views' }]}\n        labels={labels}\n        locale={locale}\n        formatValue={{ notation: 'compact', maximumFractionDigits: 1 }}\n        showData='visible'\n        height={240}\n        className='my-0'\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

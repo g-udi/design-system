@@ -2,9 +2,10 @@
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { cn } from '../../../utilities/cn';
 import Button from '../../core/Button';
-import { Alert, AlertDescription, AlertTitle } from '../../core/Banner/parts/alert-extended.jsx';
-import { Field, FieldDescription, FieldError, FieldLabel } from '../../core/Field/parts/field.jsx';
-import Input from '../../core/Input';
+import { Alert, AlertDescription, AlertTitle } from '../../core/Banner/Alert.jsx';
+import { Field, FieldDescription, FieldError, FieldLabel } from '../../core/Field/FieldPrimitives.jsx';
+import Input, { EmailInput } from '../../core/Input';
+import { NumberField, NumberFieldGroup, NumberFieldInput } from '../../core/NumberField/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 
 /*
@@ -13,7 +14,7 @@ import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
  * Layout stays with the Core Field parts (FieldGroup, Field orientation='responsive').
  */
 
-const blank = (value) => value == null || value === '' || value === false || (Array.isArray(value) && value.length === 0);
+const blank = (value) => value == null || (typeof value === 'string' && value.trim() === '') || value === false || (Array.isArray(value) && value.length === 0);
 
 // Each validator returns a message when the value fails, or an empty string.
 export const validators = {
@@ -24,9 +25,16 @@ export const validators = {
     !blank(value) && String(value).trim().length < length ? message || `Use at least ${length} characters.` : '',
   maxLength: (length, message) => (value) =>
     !blank(value) && String(value).length > length ? message || `Use ${length} characters or fewer.` : '',
-  pattern: (expression, message = 'Check the format.') => (value) => (!blank(value) && !expression.test(String(value)) ? message : ''),
-  min: (limit, message) => (value) => (!blank(value) && Number(value) < limit ? message || `Enter ${limit} or more.` : ''),
-  max: (limit, message) => (value) => (!blank(value) && Number(value) > limit ? message || `Enter ${limit} or less.` : '')
+  pattern: (expression, message = 'Check the format.') => (value) => {
+    if (blank(value)) return '';
+    const previousIndex = expression.lastIndex;
+    expression.lastIndex = 0;
+    const valid = expression.test(String(value));
+    expression.lastIndex = previousIndex;
+    return valid ? '' : message;
+  },
+  min: (limit, message) => (value) => (!blank(value) && (!Number.isFinite(Number(value)) || Number(value) < limit) ? message || `Enter ${limit} or more.` : ''),
+  max: (limit, message) => (value) => (!blank(value) && (!Number.isFinite(Number(value)) || Number(value) > limit) ? message || `Enter ${limit} or less.` : '')
 };
 
 const runRules = (rule, value, values) => {
@@ -56,6 +64,7 @@ export function useFormValidation({ initialValues = {}, rules = {}, validateOn =
   const [ touched, setTouched ] = useState({});
   const [ submitCount, setSubmitCount ] = useState(0);
   const [ submitting, setSubmitting ] = useState(false);
+  const pending = useRef(false);
   // Refs keep handlers stable when callers pass inline rules, and let blur read the latest values.
   const rulesRef = useRef(rules);
   const valuesRef = useRef(values);
@@ -121,14 +130,17 @@ export function useFormValidation({ initialValues = {}, rules = {}, validateOn =
 
   const handleSubmit = useCallback((onValid) => async (event) => {
     event?.preventDefault?.();
+    if (pending.current) return;
     const next = validate(valuesRef.current);
     Object.keys(rulesRef.current).forEach((name) => live.current.add(name));
     setSubmitCount((count) => count + 1);
     if (Object.keys(next).length) return;
+    pending.current = true;
     setSubmitting(true);
     try {
       await onValid?.(valuesRef.current);
     } finally {
+      pending.current = false;
       setSubmitting(false);
     }
   }, [ validate ]);
@@ -236,6 +248,8 @@ export function EditableField({
   const [ draft, setDraft ] = useState(value ?? '');
   const [ error, setError ] = useState('');
   const [ saving, setSaving ] = useState(false);
+  const pending = useRef(false);
+  const root = useRef(null);
   const editButton = useRef(null);
   const control = useRef(null);
   const returnFocus = useRef(false);
@@ -254,16 +268,19 @@ export function EditableField({
     setEditing(true);
   };
   const close = () => {
-    returnFocus.current = true;
+    const document = root.current?.ownerDocument;
+    returnFocus.current = Boolean(document?.hasFocus() && (document.activeElement === document.body || root.current?.contains(document.activeElement)));
     setEditing(false);
   };
   const save = async () => {
+    if (pending.current) return;
     const message = validate?.(draft) || '';
     if (message) {
       setError(message);
       control.current?.focus?.();
       return;
     }
+    pending.current = true;
     setSaving(true);
     try {
       await onSave?.(draft);
@@ -271,10 +288,12 @@ export function EditableField({
     } catch (failure) {
       setError(failure?.message || 'Could not save. Try again.');
     } finally {
+      pending.current = false;
       setSaving(false);
     }
   };
   const keys = (event) => {
+    if (pending.current || event.nativeEvent.isComposing) return;
     if (event.key === 'Escape') {
       event.preventDefault();
       close();
@@ -285,10 +304,12 @@ export function EditableField({
     }
   };
   const shown = format(value);
+  const DefaultControl = type === 'email' ? EmailInput : Input;
   const controlProps = {
     id: `${id}-control`,
     ref: control,
     value: draft,
+    disabled: saving,
     onChange: (event) => setDraft(readEvent(event)),
     onKeyDown: keys,
     'aria-invalid': error ? true : undefined,
@@ -296,11 +317,17 @@ export function EditableField({
   };
 
   return (
-    <div data-slot='editable-field' data-editing={editing || undefined} className={cn('grid gap-2 py-3 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-4', className)}>
+    <div ref={root} data-slot='editable-field' data-editing={editing || undefined} className={cn('grid gap-2 py-3 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-4', className)}>
       {editing ? (
         <Field className='sm:col-span-2'>
           <FieldLabel htmlFor={`${id}-control`}>{label}</FieldLabel>
-          {renderControl ? renderControl(controlProps) : <Input {...controlProps} type={type} placeholder={placeholder} />}
+          {renderControl ? renderControl(controlProps) : type === 'number' ? (
+            <NumberField id={controlProps.id} value={draft === '' ? null : Number(draft)} disabled={saving} onValueChange={(next) => setDraft(next == null ? '' : String(next))}>
+              <NumberFieldGroup>
+                <NumberFieldInput ref={control} onKeyDown={keys} aria-invalid={controlProps['aria-invalid']} aria-describedby={controlProps['aria-describedby']} placeholder={placeholder} />
+              </NumberFieldGroup>
+            </NumberField>
+          ) : <DefaultControl {...controlProps} {...(type === 'email' ? {} : { type })} placeholder={placeholder} />}
           {description ? <FieldDescription id={`${id}-description`}>{description}</FieldDescription> : null}
           {error ? <FieldError id={`${id}-error`}>{error}</FieldError> : null}
           <div className='flex gap-2'>

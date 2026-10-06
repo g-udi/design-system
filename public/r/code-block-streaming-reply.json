@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block-streaming-reply",
+  "type": "registry:example",
+  "title": "Streaming assistant reply",
+  "description": "Streaming assistant reply. Core/Data Display/CodeBlock pattern composed from @gaudi/design-system/core/CodeBlock and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "code-block",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg.",
+  "meta": {
+    "owner": "core/CodeBlock",
+    "import": "@gaudi/design-system/core/CodeBlock",
+    "storyId": "core-codeblock--streaming-reply",
+    "source": "src/components/core/CodeBlock/stories/fixtures/code-block/code-block-streaming-reply.jsx",
+    "assets": [
+      "/avatars/person-20.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/code-block-streaming-reply.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  CodeBlock,\n  CodeBlockContent,\n  CodeBlockCopyButton,\n  CodeBlockHeader,\n  CodeBlockLanguage,\n  CodeBlockTitle,\n  markdownFences\n} from '@gaudi/design-system/core/CodeBlock';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Frame,\n  FrameDescription,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  ScrollArea,\n  ScrollBar\n} from '@gaudi/design-system/core/ScrollArea';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst reply = `Add a route handler that streams the model output:\n\n\\`\\`\\`ts\nexport async function POST(request: Request) {\n  const { messages } = await request.json()\n\n  const result = streamText({\n    model: provider(\"large\"),\n    system: \"Answer briefly and cite the docs.\",\n    messages,\n    temperature: 0.2,\n    maxOutputTokens: 1024,\n  })\n\n  result.usage.then((usage) => {\n    metrics.record(\"chat.tokens\", usage.totalTokens)\n  })\n\n  return result.toUIMessageStreamResponse()\n}\n\\`\\`\\`\n\nThe client hook reads that stream and keeps the transcript in sync.`;\nexport function Pattern() {\n  const [length, setLength] = useState(0);\n  useEffect(() => {\n    if (length >= reply.length) return;\n    const id = window.setTimeout(() => setLength((value) => value + 4), 24);\n    return () => window.clearTimeout(id);\n  }, [length]);\n  const streaming = length < reply.length;\n  return (\n    <Frame dense className='w-full max-w-2xl'>\n      <FrameHeader className='flex-row items-center gap-2'>\n        <div className='flex min-w-0 flex-col'>\n          <FrameTitle>Assistant</FrameTitle>\n          <FrameDescription>\n            Generated responses may contain mistakes.\n          </FrameDescription>\n        </div>\n        <Button\n          variant='outline'\n          size='sm'\n          className='ml-auto'\n          disabled={streaming}\n          onClick={() => setLength(0)}\n        >\n          <RegistryIcon lucide='RotateCcwIcon' />\n          Replay\n        </Button>\n      </FrameHeader>\n\n      <FramePanel className='flex flex-col gap-3'>\n        <div className='flex gap-2'>\n          <Avatar className='size-7 shrink-0 rounded-full'>\n            <AvatarImage\n              src='/avatars/person-20.svg'\n              alt='Isaura Stenberg'\n            />\n            <AvatarFallback>IS</AvatarFallback>\n          </Avatar>\n          <p className='pt-1 text-sm'>How do I show a reply while it is still being written?</p>\n        </div>\n\n        <div className='flex gap-2'>\n          <Avatar className='size-7 shrink-0 rounded-full'>\n            <AvatarFallback className='bg-ui-muted text-ui-muted-foreground text-xs font-medium'>\n              AI\n            </AvatarFallback>\n          </Avatar>\n          <div className='flex min-w-0 flex-1 flex-col gap-2 pt-1'>\n            {/* markdownFences splits the partial reply into text and code\n             parts; an unclosed fence is still `open` and keeps the caret. */}\n            {markdownFences(reply.slice(0, length)).map((part, index) =>\n              part.type === 'text' ? (\n                <p key={index} className='text-sm whitespace-pre-wrap'>\n                  {part.content}\n                </p>\n              ) : (\n                <CodeBlock\n                  key={index}\n                  code={part.content}\n                  language={part.language}\n                  showLineNumbers\n                  streaming={streaming && part.open}\n                >\n                  <CodeBlockHeader>\n                    <CodeBlockTitle>app/api/chat/route.ts</CodeBlockTitle>\n                    <CodeBlockLanguage />\n                    <div className='ml-auto flex items-center gap-1.5'>\n                      <Badge variant={part.open ? 'info-light' : 'success-light'}>\n                        {part.open ? 'Generating' : 'Complete'}\n                      </Badge>\n                      <CodeBlockCopyButton />\n                    </div>\n                  </CodeBlockHeader>\n                  {/* Stick-to-bottom follows the nearest scrolling ancestor,\n                   so the caret stays in view inside this capped area. */}\n                  <ScrollArea className='rounded-[inherit] **:data-[slot=scroll-area-viewport]:max-h-48'>\n                    <CodeBlockContent />\n                    <ScrollBar orientation='horizontal' />\n                  </ScrollArea>\n                </CodeBlock>\n              )\n            )}\n          </div>\n        </div>\n      </FramePanel>\n    </Frame>\n  );\n}\n"
+    }
+  ]
+}

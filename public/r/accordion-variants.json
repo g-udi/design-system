@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion-variants",
+  "type": "registry:example",
+  "title": "Variants and indicators",
+  "description": "Variants and indicators. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "accordion",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--variants",
+    "source": "src/components/core/Accordion/stories/fixtures/accordion/accordion-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/accordion-variants.jsx",
+      "type": "registry:component",
+      "content": "import { AccordionGroup } from '@gaudi/design-system/core/Accordion';\nconst items = [\n  {\n    value: 'plans',\n    title: 'Which plan is right for my team?',\n    content: 'A team workspace adds shared collections, review workflows, and member permissions.'\n  },\n  {\n    value: 'billing',\n    title: 'Can I change my billing schedule?',\n    content: 'Your current access continues until the next renewal date.'\n  }\n];\nconst styles = [\n  { label: 'Flush', props: { variant: 'flush' } },\n  { label: 'Plus and minus', props: { variant: 'flush', indicator: 'plus-minus' } },\n  { label: 'Leading arrow', props: { variant: 'flush', indicator: 'arrow', indicatorPosition: 'start' } },\n  { label: 'Outline', props: { variant: 'outline' } },\n  { label: 'Separated', props: { variant: 'separated' } },\n  { label: 'Framed', props: { variant: 'framed' } }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-3xl gap-x-6 gap-y-4 sm:grid-cols-2'>\n      {styles.map(({ label, props }) => (\n        <section key={label} aria-label={label} className='grid content-start gap-2'>\n          <span className='text-xs text-text-muted'>{label}</span>\n          <AccordionGroup headingLevel={4} items={items.map((item) => ({ ...item, value: `${label}-${item.value}` }))} {...props} />\n        </section>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,2 +1,2 @@
-export { TreemapChart as default } from './parts/treemap-chart.jsx';
-export { TreemapChart, treemapLeaves } from './parts/treemap-chart.jsx';
+export { TreemapChart as default } from './TreemapChart.jsx';
+export { TreemapChart, treemapLeaves } from './TreemapChart.jsx';

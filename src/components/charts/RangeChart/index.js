@@ -1,2 +1,2 @@
-export { RangeChart as default } from './parts/range-chart.jsx';
-export { RangeChart } from './parts/range-chart.jsx';
+export { RangeChart as default } from './RangeChart.jsx';
+export { RangeChart } from './RangeChart.jsx';

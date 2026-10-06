@@ -1,0 +1,61 @@
+@layer components {
+  .ds-part-bubble {
+    @apply gap-1 data-[align=end]:self-end max-w-[80%] data-[variant=ghost]:max-w-full group-data-[align=end]/message:self-end;
+  }
+
+  .ds-part-bubble-content {
+    @apply rounded-xl border border-transparent px-3 py-2 text-sm leading-normal [button,a]:outline-none [button,a]:focus-visible:border-ui-ring [button,a]:focus-visible:ring-3 [button,a]:focus-visible:ring-ui-primary group-data-[align=end]/bubble:self-end;
+  }
+
+  .ds-part-bubble-variant-default {
+    @apply *:data-[slot=bubble-content]:bg-ui-primary *:data-[slot=bubble-content]:text-ui-primary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-primary/80;
+  }
+
+  .ds-part-bubble-variant-secondary {
+    @apply *:data-[slot=bubble-content]:bg-ui-secondary *:data-[slot=bubble-content]:text-ui-secondary-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklab,var(--ds-color-surface)_88%,var(--ds-color-text))];
+  }
+
+  .ds-part-bubble-variant-muted {
+    @apply *:data-[slot=bubble-content]:bg-ui-muted [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[color-mix(in_oklch,var(--muted),var(--foreground)_5%)];
+  }
+
+  .ds-part-bubble-variant-tinted {
+    @apply *:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.93_calc(c*0.4)_h)] dark:*:data-[slot=bubble-content]:bg-[oklch(from_var(--primary)_0.3_calc(c*0.4)_h)] *:data-[slot=bubble-content]:text-ui-foreground [&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.88_calc(c*0.5)_h)] dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-[oklch(from_var(--primary)_0.35_calc(c*0.5)_h)];
+  }
+
+  .ds-part-bubble-variant-outline {
+    @apply *:data-[slot=bubble-content]:bg-ui-background *:data-[slot=bubble-content]:border-ui-border [&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-ui-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-input/30;
+  }
+
+  .ds-part-bubble-variant-ghost {
+    @apply *:data-[slot=bubble-content]:rounded-none *:data-[slot=bubble-content]:bg-transparent *:data-[slot=bubble-content]:p-0 [&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-muted [&>[data-slot=bubble-content]:is(button,a):hover]:text-ui-foreground dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-muted/50 border-none;
+  }
+
+  .ds-part-bubble-variant-destructive {
+    @apply *:data-[slot=bubble-content]:bg-ui-destructive/10 dark:*:data-[slot=bubble-content]:bg-ui-destructive/20 *:data-[slot=bubble-content]:text-ui-danger-ink [&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-destructive/20 dark:[&>[data-slot=bubble-content]:is(button,a):hover]:bg-ui-destructive/30;
+  }
+
+  .ds-part-bubble-reactions {
+    @apply rounded-control ring-3 ring-ui-card bg-ui-muted shrink-0 gap-1 px-1.5 py-0.5 has-[button]:p-0 text-sm;
+  }
+
+  .ds-part-bubble-reactions-side-top {
+    @apply top-0 -translate-y-3/4;
+  }
+
+  .ds-part-bubble-reactions-side-bottom {
+    @apply bottom-0 translate-y-3/4;
+  }
+
+  .ds-part-bubble-reactions-align-start {
+    @apply left-3;
+  }
+
+  .ds-part-bubble-reactions-align-end {
+    @apply right-3;
+  }
+
+  .ds-part-bubble-group {
+    @apply gap-2;
+  }
+}

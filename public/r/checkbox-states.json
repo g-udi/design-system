@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-states",
+  "type": "registry:example",
+  "title": "States",
+  "description": "States. Core/Checkbox pattern composed from @gaudi/design-system/core/Checkbox and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "checkbox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Checkbox",
+    "import": "@gaudi/design-system/core/Checkbox",
+    "storyId": "core-checkbox--states",
+    "source": "src/components/core/Checkbox/stories/fixtures/checkbox/checkbox-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/checkbox-states.jsx",
+      "type": "registry:component",
+      "content": "import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport {\n  FieldRoot as Field,\n  FieldContent,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xs gap-3'>\n      <Field orientation='horizontal'>\n        <Checkbox id='cb-basic' />\n        <FieldLabel htmlFor='cb-basic'>Remember this device</FieldLabel>\n      </Field>\n      <Field orientation='horizontal'>\n        <Checkbox id='cb-terms' defaultChecked />\n        <FieldContent>\n          <FieldLabel htmlFor='cb-terms'>Accept terms and conditions</FieldLabel>\n          <FieldDescription>You can review the terms at any time in settings.</FieldDescription>\n        </FieldContent>\n      </Field>\n      <Field orientation='horizontal'>\n        <Checkbox id='cb-indeterminate' checked='indeterminate' />\n        <FieldLabel htmlFor='cb-indeterminate'>Some files selected</FieldLabel>\n      </Field>\n      <Field orientation='horizontal' data-disabled>\n        <Checkbox id='cb-disabled' disabled defaultChecked />\n        <FieldLabel htmlFor='cb-disabled'>Managed by your admin</FieldLabel>\n      </Field>\n      <Field orientation='horizontal' data-invalid>\n        <Checkbox id='cb-invalid' aria-invalid />\n        <FieldLabel htmlFor='cb-invalid'>Confirm you are over 18</FieldLabel>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

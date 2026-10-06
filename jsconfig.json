@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@gaudi/design-system": ["src/index.js"],
-      "@gaudi/design-system/*": ["src/*"]
-    }
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "resolveJsonModule": true
   },
-  "include": [".", ".storybook/fixtures/site"]
+  "include": ["."],
+  "exclude": ["node_modules", "storybook-static", ".next", ".storybook/verification"]
 }

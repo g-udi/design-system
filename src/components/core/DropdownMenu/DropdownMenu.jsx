@@ -8,7 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
-} from './parts/dropdown-menu.jsx';
+} from './DropdownMenuPrimitives.jsx';
 
 export { DropdownMenuCheckboxItem, DropdownMenuLabel, DropdownMenuSeparator };
 

@@ -11,8 +11,8 @@ import {
   FieldLegend,
   FieldSet,
   FieldTitle
-} from '../Field/parts/field.jsx';
-import { RadioGroup as RadioGroupRoot, RadioGroupItem } from './parts/radio-group.jsx';
+} from '../Field/FieldPrimitives.jsx';
+import { RadioGroup as RadioGroupRoot, RadioGroupItem } from './RadioGroupPrimitives.jsx';
 
 /** A labelled single-choice group built from the RadioGroup and Field parts. */
 export default function RadioGroup({

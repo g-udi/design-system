@@ -2,29 +2,38 @@
 
 ## Patterns
 
-The app-shell examples (`Blocks/App Shell` → `AppShellPattern1…13`) recreate the reui application shells at <https://reui.io/blocks/application/app-shell> in Gaudi code. reui blocks are Pro: match the design and behaviour from the live previews (`https://reui.io/preview/base/app-shell-<n>`), never their source. Every example follows these conventions so parallel work stays consistent.
+The app-shell examples (`Blocks/App Shell`) are Gaudi compositions for knowledge, reading, research and finance workspaces: a library rail, a reading desk, research projects, a digest inbox, a publishing console, notebook tabs, a research assistant, a newsletter reader, study chat, two top-bar layouts (collections and journal), crawler control, a source network and a finance dashboard. The knowledge-work layouts were inspired by [reui](https://reui.io)'s [app-shell blocks](https://reui.io/blocks/application/app-shell); the names, content, data and structure are Gaudi's. Every example follows these conventions so parallel work stays consistent.
 
 **Files and names**
 
-- Fixture `.storybook/fixtures/patterns/app-shell/c-app-shell-<n>.jsx` (n = 1–13, in reui's order) exports `Pattern`. It imports Gaudi parts by relative path (`src/components/...`, `src/icons/RegistryIcon.jsx`, `src/hooks/...`); Storybook rewrites them to public `@gaudi/design-system/...` imports for the copyable source. New part files need entries in `.storybook/fixtures/patterns/public-names.json`.
-- Story `export const AppShellPattern<n> = { name, ...pattern(<n>, description), play }` in `AppShellPatterns.stories.jsx`, in numeric order. `name` is `Topology · key features` (for example `Icon rail · workspace switcher, nested nav and user menu`); the description says what the reader can do and how it behaves in a narrow frame.
-- Each story has a play test built from the shared helpers at the top of the stories file: `expectFramed`, `openNavigation` (the docked sidebar, or the phone sheet opened from the header) and `desktopSidebar`. Test the current page (`aria-current`), at least one menu, nested navigation, and collapse/expand when the sidebar is docked. The vitest browser is phone sized, so tests must pass in both layouts.
-- Add the example to `.storybook/fixtures/patterns/coverage.json` (`name`, `title`, `description`, `file`, `sha256` of the fixture bytes, `storyId` `blocks-application-appshell--app-shell-pattern-<n>`), update the app-shell count and total in `PATTERN-COVERAGE.md`, then run `pnpm catalogue:sync`.
+- Fixture `src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-<slug>.jsx` exports `Pattern`; the slug is a short descriptive kebab-case name (for example `app-shell-library-rail`), never a number. Import Gaudi parts directly from public namespaces such as `@gaudi/design-system/blocks/AppShell`, `@gaudi/design-system/core/Button`, `@gaudi/design-system/icons/RegistryIcon`, and `@gaudi/design-system/hooks/interaction/use-hotkey`. Package self-reference lets the fixture and its copyable source share the same imports.
+- Story `export const <Slug> = { name, ...pattern('<slug>', description), play }` lives in an owner-local story file: most patterns use `AppShellPatterns.stories.jsx`, the library rail is the primary story in `AppShell.stories.jsx`, and finance uses `FinanceDashboard.stories.jsx`. Keep the shared `Blocks/App Shell` title and owner ID. `name` is `Topology · key features` (for example `Icon rail · workspace switcher, nested nav and user menu`); the description says what the reader can do and how it behaves in a narrow frame.
+- Each story has a play test built from `AppShell.story-steps.js` helpers: `expectFramed`, `openNavigation` (the docked sidebar, or the phone sheet opened from the header) and `desktopSidebar`. Cover the current page (`aria-current`), the example's actions, any menus or nested navigation, and collapse/expand when the sidebar is docked. The vitest browser is phone sized, so tests must pass in both layouts.
+- Add the example to `src/docs/catalogue/coverage.json` (`name`, `title`, `description`, `file`, `sha256` of the fixture bytes, `storyId` `blocks-application-appshell--<slug>`), then run `pnpm catalogue:sync`.
 
 **Visual vocabulary** (reuse these parts; do not restyle them per fixture)
 
-- `AppShellFrame` is the root of every example: the bordered app window on the shared card radius, 48rem tall (40rem on phones), with internal scrolling. Use `surface='muted'` (default) when the content sits in an inset panel and `surface='default'` for floating sidebars on a plain page.
-- `SidebarProvider` → `Sidebar` (`collapsible='icon'` for rails, `variant='floating'` for cards) → `AppShellPanel` (the `main` landmark; `inset` by default, `inset={false}` beside a floating sidebar). `AppShellHeader` holds the trigger (render `SidebarTrigger` there when `useSidebar().isMobile`), breadcrumb and actions; `AppShellBody` holds the page.
-- `AppShellNav` renders sidebar groups from data: icons or status dots, count `badge`, inline `tag`, live `indicator`, nested `items` (collapsible, a flyout menu on the icon rail, remembered section view), `collapsible` group labels, `hideOnRail`, and `actions` row menus. Use `itemClassName` for topology-specific active rows (for example raised rows on a floating card).
+- `AppShellFrame` is the root of every example: the bordered app window on the shared card radius, 48rem tall by default (40rem on phones), with internal scrolling. Use `surface='muted'` (default) when the content sits in an inset panel and `surface='default'` for a plain surface with a flush or floating sidebar.
+- `SidebarProvider` → `Sidebar` (`collapsible='icon'` for rails, `variant='floating'` for cards) → `AppShellPanel` (the `main` landmark; `inset` by default, `inset={false}` for flush content). `AppShellHeader` holds breadcrumbs, search or actions. Place `SidebarTrigger` first in the header, or at the top inside `SidebarHeader` with a header trigger on phones; `AppShellBody` holds the page.
+- `AppShellNav` follows explicit item `href` links; items without `href` invoke `onValueChange` without navigation. Modifier-clicks keep native link behavior. It renders sidebar groups from data: icons or status dots, count `badge`, inline `tag`, live `indicator`, nested `items` (collapsible, a flyout menu on the icon rail, remembered section view), `collapsible` group labels, `hideOnRail`, and `actions` row menus. Use `itemClassName` for topology-specific active rows (for example raised rows on a floating card).
+- Collapsed `SidebarMenuButton` rows center their first visual and keep later children screen-reader-only. Portraits are capped at 24px to fit the rail; do not compensate with negative margins. Labels and account menus remain accessible.
 - `AppShellNav` also takes `item.leading` (a custom mark such as a `ProgressRing` or a presence avatar; speak its value through `status`) and `action` (a `SidebarGroupAction` at the end of the group label). Rows with a count badge keep their label clear of it.
-- `SidebarRail handle` is the edge grip that folds into a chevron and toggles the rail. Several shells share the docs page, so give at most one of them the ⌘B shortcut (`shortcut={false}` on the others).
-- Where reui shows empty placeholder areas, use `AppShellPlaceholderGrid` with a preset (`dashboard`: 3 small + 1 large; `grid`: 3 × 2 + 1 wide; `split`: 2/3 + 1/3 then a table; `list`: one table) and `variant='dashed'` or `'solid'` to match the reference, or compose `AppShellPlaceholder` cards (`kind` `stat`, `chart`, `table`, `text`; `size` `sm`, `md`, `lg`). They are static Gaudi Skeletons in bordered cards; add a preset or kind to `parts/placeholder.jsx` rather than drawing new placeholders in a fixture.
-- Chat, mail and resizable shells (7–9) add: `SidebarProvider defaultWidth` with `SidebarResizeHandle` (a focusable separator on the edge: drag, arrow keys, Home/End, double-click resets), the `chat` and `thread` placeholder presets with `variant='bare'` for an unloaded conversation, and `AppShellNav` people rows (`avatar`, `presence`, `suffix`), bare counts (`badge: { label, variant: 'plain' }`), a hover `quickAction` beside the row menu and a `action`. Chat shells compose the Chat parts (`ChatModelSelect` with model `icon`/`details`, `PromptComposer actions`, `ChatWelcome suggestionsVariant='cards'`).
+- Use `SidebarTrigger` at the top of the shell, inside the sidebar header or before the breadcrumbs. Keep the trigger visible and in the same place when collapsed; do not add a floating edge toggle or reserve a gutter for one. Several shells share the docs page, so give at most one of them the ⌘B shortcut (`shortcut={false}` on the others).
+- Compose Core `Skeleton` for loading content. Rich placeholder layouts live only in `stories/fixtures/AppShellPlaceholder.jsx` and the Loading layouts story; they are example compositions, not package exports.
+- The research-assistant, newsletter-reader and study-chat shells add: `SidebarProvider defaultWidth` with `SidebarResizeHandle` (a focusable separator on the edge: drag, arrow keys, Home/End, double-click resets), Core Skeleton compositions for an unloaded conversation, and `AppShellNav` people rows (`avatar`, `presence`, `suffix`), bare counts (`badge: { label, variant: 'plain' }`), a hover `quickAction` beside the row menu and a `action`. Chat shells compose the Chat parts (`ChatModelSelect` with model `icon`/`details`, `ChatPromptComposer actions`) and Core `EmptyState` with a labelled list of Core `Button` starter prompts in a responsive grid.
 - More placeholder presets: `tiles` (3 × 3 block cards), `board` (tiles under a row of blank cards), `quad` (four short cards above a 2 × 2 grid) and `stack` (three metric tiles above a tall list), from the `block`, `blank`, `tile` and `rows` kinds.
 - Top bars spanning the window: give `SidebarProvider` `className='flex-col'`, render the header first and put `Sidebar` and `AppShellPanel` in a `relative flex` row below it. `AppShellNotifications` is the bell and notifications sheet (`inset` floats it); `Sidebar` takes `mobileWidth`, `mobileClassName`, `mobileTitle` and `mobileDescription` for a wider or renamed phone sheet; `AppShellNav` takes `labelIcon` and `labelClassName` for route-group headings.
 - Overlays: menus and tooltips portal to the page; the phone sidebar sheet opens inside the frame. Command palettes (`CommandDialog`) open over the page.
-- Gaudi tokens only: semantic colours (`bg-success`, `text-text-muted`…), `rounded-(--ds-radius-control)` / `--ds-radius-card` for tiles and cards (circles only for dots and avatars), registry icons through `RegistryIcon`, brand marks from `src/icons/brands`, real portraits from Storybook's local `/avatars/...` assets for avatars, and the shared hooks (`useHotkey` for ⌘K).
+- Gaudi tokens only: semantic colours (`bg-success`, `text-text-muted`…), `rounded-(--ds-radius-control)` / `--ds-radius-card` for tiles and cards (circles only for dots and avatars), registry icons through `RegistryIcon`, brand marks from `src/icons/brands`, Gaudi's generated illustrations from Storybook's local `/avatars/...` assets for avatars, and the shared hooks (`useHotkey` for ⌘K).
 - Check each example at 320, 390, 768, 1024, 1280 and 1600 px in light and dark: the frame border is visible inside the preview, nothing overflows the page, and the rail, nested navigation, menus and phone sheet work.
+
+### Finance dashboard example
+
+[FinanceDashboard.stories.jsx](stories/FinanceDashboard.stories.jsx) presents the [finance dashboard fixture](stories/fixtures/app-shell/app-shell-finance-dashboard.jsx) as a copyable composition. It combines flat, labelled navigation groups and a compact search header with stacked revenue bars, report totals, visitor distribution, product sales and a customer table. The layout uses App Shell and Dashboard parts, `BarChart`, `DataTable` and Core controls; actions and selection use Gaudi's default accent, while charts inherit the standard chart palette. Success colours are reserved for positive changes and account or payment status.
+
+Navigation switches local views, search finds pages and record details, role and plan filters update the customer table, and report, transaction and invoice tables offer CSV export. All figures and records are illustrative fixture data. Copy the story's public-import source into the consuming application, replace the sample data and `/avatars/` assets, and connect routing, services, permissions and persistence there. The fixture and its private helpers are examples, not package exports.
+
+The frame is 62rem tall with a 40rem compact height and internal panel scrolling. Narrow frames use the sidebar sheet, stack the dashboard panels and filters, and keep horizontal table scrolling inside each table. Preserve the frame-scoped ⌘/Ctrl+K search shortcut so other examples on the page do not respond. Closing record details returns focus to the opening control, with the search button as the fallback when a search result has unmounted.
 
 ## Overview
 
@@ -32,12 +41,13 @@ Application frames at three levels:
 
 - **`AppShell`**: a simple responsive workspace with a navigation rail (or a top bar), a mobile navigation sheet, a header, the content landmark, a skip link, an optional detail rail and an optional status bar. It stays in document flow.
 - **Sidebar parts** (`SidebarProvider`, `Sidebar`, `SidebarInset`, `SidebarTrigger`, `SidebarRail`, menus, groups and sub-menus): for richer shells, such as a rail that collapses to icons, floating and inset sidebars, nested groups with badges and row menus, secondary panels, and right-hand inspectors. On phones the sidebar becomes a Sheet drawer.
-- **Frame parts** (`AppShellFrame`, `AppShellPanel`, `AppShellHeader`, `AppShellBody`, `AppShellNav`, `AppShellPlaceholderGrid`): present either kind of shell as an app window inside a page, a marketing section or a documentation preview.
+- **Frame parts** (`AppShellFrame`, `AppShellPanel`, `AppShellHeader`, `AppShellBody`, `AppShellNav`): present either kind of shell as an app window inside a page, a marketing section or a documentation preview.
 
 ## Usage
 
 ```jsx
 import AppShell, { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';
+import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 
 <AppShell
   brand='Gaudi'
@@ -60,22 +70,22 @@ import AppShell, { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';
 
 ```jsx
 import {
-  AppShellBody, AppShellFrame, AppShellHeader, AppShellNav, AppShellPanel, AppShellPlaceholderGrid,
-  Sidebar, SidebarContent, SidebarProvider, SidebarRail
+  AppShellBody, AppShellFrame, AppShellHeader, AppShellNav, AppShellPanel,
+  Sidebar, SidebarContent, SidebarProvider, SidebarTrigger
 } from '@gaudi/design-system/blocks/AppShell';
+import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 
 <AppShellFrame>
   <SidebarProvider storageKey='gaudi-sidebar'>
     <Sidebar collapsible='icon'>
       <SidebarContent role='navigation' aria-label='Workspace'>
-        <AppShellNav label='Platform' items={pages} value={page} onValueChange={setPage} />
+        <AppShellNav label='Library' items={pages} value={page} onValueChange={setPage} />
       </SidebarContent>
-      <SidebarRail handle />
     </Sidebar>
     <AppShellPanel>
-      <AppShellHeader>{breadcrumb}</AppShellHeader>
+      <AppShellHeader><SidebarTrigger />{breadcrumb}</AppShellHeader>
       <AppShellBody>
-        <AppShellPlaceholderGrid preset='dashboard' />
+        <Skeleton className='m-4 h-64' />
       </AppShellBody>
     </AppShellPanel>
   </SidebarProvider>
@@ -102,18 +112,16 @@ import {
 | `AppShellPanel.inset`                     | boolean                    | A bordered panel set into the frame (default), or flush beside a floating sidebar.         |
 | `AppShellHeader.bordered`                 | boolean                    | A rule under the sticky panel header.                                                      |
 | `AppShellNav`                             | items, value, …            | Data-driven sidebar group; see the Patterns section and the component docs.                |
-| `AppShellPlaceholderGrid.preset / variant`| string                     | `dashboard`, `grid`, `split`, `list`; `dashed` or `solid` skeleton cards (static).         |
 | `SidebarProvider.storageKey`              | string                     | Restores and saves the expanded state in localStorage after mount.                         |
 | `SidebarProvider.shortcut`                | string / false             | The ⌘/Ctrl key that toggles the sidebar (`b`); `false` turns it off.                       |
-| `SidebarProvider.labels`                  | object                     | `expanded`, `collapsed` announcements, the `toggle` trigger name, `collapse`/`expand` rail. |
+| `SidebarProvider.labels`                  | object                     | `expanded`, `collapsed` announcements and the `toggle` trigger name. |
 | `Sidebar.variant / collapsible / side`    | string                     | `sidebar`, `floating` or `inset`; `offcanvas`, `icon` or `none`; edge.                     |
-| `SidebarRail.handle`                      | boolean                    | A visible, focusable edge grip with a tooltip instead of the pointer-only strip.           |
 | `SidebarTrigger.label / tooltip`          | string / boolean           | Trigger name, and a tooltip with the shortcut keys.                                        |
 | `SidebarMenuButton.tooltip`               | string / object            | Names the item on the collapsed icon rail.                                                 |
 
 ## Accessibility
 
-Keep the skip link and the main landmark, and name each navigation and complementary region. Mark the current page with `aria-current` (`AppShellNav` does; a remembered section view is only highlighted). The trigger reports `aria-expanded` and `aria-keyshortcuts`, the rail handle names the action it performs ("Collapse sidebar" / "Expand sidebar") and reports `aria-expanded`, and expanding or collapsing is announced politely. On phones the sidebar is a Sheet that traps focus and returns it to the trigger, and choosing a page closes it. Collapsed icon rails name every item with a tooltip, and nested sections open as menus. Status dots carry a spoken `status`; placeholder grids are decorative and hidden from assistive technology, and their skeletons do not animate.
+Keep the skip link and the main landmark, and name each navigation and complementary region. Mark the current page with `aria-current` (`AppShellNav` does; a remembered section view is only highlighted). The trigger reports `aria-expanded` and `aria-keyshortcuts`, and expanding or collapsing is announced politely. Keep the trigger at the top of the sidebar or before the breadcrumbs, including when collapsed. On phones the sidebar is a Sheet that traps focus and returns it to the trigger, and choosing a page closes it. Collapsed icon rails name every item with a tooltip, and nested sections open as menus. Status dots carry a spoken `status`; placeholder grids are decorative and hidden from assistive technology, and their skeletons do not animate.
 
 When several shells share a page (as in these docs), turn the shortcut off on all but one, because each provider listens on the window.
 

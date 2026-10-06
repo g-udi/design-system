@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-labels-messages",
+  "type": "registry:example",
+  "title": "Labels and messages",
+  "description": "Labels and messages. Core/Input pattern composed from @gaudi/design-system/core/Input and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "input",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Input",
+    "import": "@gaudi/design-system/core/Input",
+    "storyId": "core-input--labels-messages",
+    "source": "src/components/core/Input/stories/fixtures/input/input-labels-messages.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/input-labels-messages.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldErrorPrimitive as FieldError,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst codeErrors = [\n  'At least 12 characters long',\n  'At least one uppercase letter',\n  'No common words or patterns'\n];\nconst maxLength = 50;\n\nexport function Pattern() {\n  const [description, setDescription] = useState('');\n  return (\n    <TooltipProvider>\n      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>\n        <Field className='sm:col-span-2'>\n          <div className='flex items-center gap-1.5'>\n            <FieldLabel htmlFor='input-username'>Username</FieldLabel>\n            <Tooltip>\n              <TooltipTrigger className='inline-flex items-center text-text-muted' aria-label='About usernames'>\n                <RegistryIcon lucide='HelpCircleIcon' className='size-3.5' />\n              </TooltipTrigger>\n              <TooltipContent>Shown on your profile and in mentions.</TooltipContent>\n            </Tooltip>\n          </div>\n          <Input id='input-username' placeholder='johndoe' />\n          <FieldDescription>Your unique identifier.</FieldDescription>\n        </Field>\n        <Field>\n          <div className='flex items-center justify-between gap-2'>\n            <FieldLabel htmlFor='input-description'>Description</FieldLabel>\n            <span className='text-xs tabular-nums text-text-muted'>{description.length}/{maxLength}</span>\n          </div>\n          <Input\n            id='input-description'\n            maxLength={maxLength}\n            value={description}\n            onChange={(e) => setDescription(e.target.value)}\n            placeholder='What is this project about?'\n          />\n        </Field>\n        <Field>\n          <div className='flex items-center gap-2'>\n            <FieldLabel htmlFor='input-api-key'>API key</FieldLabel>\n            <Badge variant='success-light' size='sm'>New</Badge>\n          </div>\n          <Input id='input-api-key' className='font-mono' placeholder='9f82a1c4b7e243d8' />\n        </Field>\n        <Field>\n          <div className='flex items-center justify-between gap-2'>\n            <FieldLabel htmlFor='input-middle-name'>Middle name</FieldLabel>\n            <Badge variant='warning-outline' size='sm'>Optional</Badge>\n          </div>\n          <Input id='input-middle-name' placeholder='Alexander' />\n        </Field>\n        <Field orientation='horizontal' className='sm:col-span-2'>\n          <FieldLabel htmlFor='input-horizontal' className='w-24 shrink-0'>Full name</FieldLabel>\n          <Input id='input-horizontal' placeholder='John Doe' />\n        </Field>\n        <Field className='sm:col-span-2' data-invalid>\n          <FieldLabel htmlFor='input-security-code'>Security code</FieldLabel>\n          <Input id='input-security-code' defaultValue='gaudi' aria-invalid='true' aria-describedby='input-security-errors' />\n          <FieldError id='input-security-errors' className='grid gap-1 text-xs'>\n            {codeErrors.map((error) => (\n              <span key={error} className='flex items-center gap-1.5'>\n                <RegistryIcon lucide='CircleAlertIcon' className='size-3.5 shrink-0' aria-hidden='true' />\n                {error}\n              </span>\n            ))}\n          </FieldError>\n        </Field>\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

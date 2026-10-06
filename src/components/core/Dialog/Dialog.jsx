@@ -5,7 +5,7 @@ import { Dialog as Primitive } from 'radix-ui';
 import Icon from '../Icon';
 import Button from '../Button';
 import DialogConfirmation from './DialogConfirmation';
-import { Dialog as DialogRoot, DialogClose, DialogPortal, DialogTrigger } from './parts/dialog.jsx';
+import { Dialog as DialogRoot, DialogClose, DialogPortal, DialogTrigger, DialogTitle, DialogDescription } from './DialogPrimitives.jsx';
 import { cn } from '../../../utilities/cn';
 
 export { DialogClose };
@@ -30,7 +30,7 @@ function BareDialog({ trigger, title, label, children, open, defaultOpen, onOpen
             // Record the opener before focus moves inside, so it can be restored on close.
             previousFocus.current = document.activeElement;
             contentProps?.onOpenAutoFocus?.(event);
-            if (!initialFocusRef?.current) return;
+            if (event.defaultPrevented || !initialFocusRef?.current) return;
             event.preventDefault();
             initialFocusRef.current.focus();
           }}
@@ -39,14 +39,14 @@ function BareDialog({ trigger, title, label, children, open, defaultOpen, onOpen
             if (event.defaultPrevented) return;
             // Without a Radix trigger, return focus to the opener (or the fallback) ourselves.
             const previous = previousFocus.current;
-            const target = previous?.isConnected && previous !== document.body ? previous : restoreFocusRef?.current;
+            const target = previous?.isConnected && previous !== document.body && !previous.matches(':disabled') ? previous : restoreFocusRef?.current;
             if (trigger && !target) return;
             event.preventDefault();
             target?.focus();
           }}
           onClick={(event) => {
             contentProps?.onClick?.(event);
-            if (event.target === event.currentTarget) onOpenChange?.(false);
+            if (!event.defaultPrevented && event.target === event.currentTarget) onOpenChange?.(false);
           }}
           className={className}
         >
@@ -127,11 +127,11 @@ export default function Dialog({
           className={cn('ds-dialog', className)}
         >
           <header className='ds-dialog-header'>
-            <Primitive.Title className='ds-title'>{title}</Primitive.Title>
+            <DialogTitle>{title}</DialogTitle>
             {description && (
-              <Primitive.Description className='ds-description'>
+              <DialogDescription>
                 {description}
-              </Primitive.Description>
+              </DialogDescription>
             )}
             <DialogClose asChild>
               <Button

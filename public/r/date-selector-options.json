@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-selector-options",
+  "type": "registry:example",
+  "title": "Date selector: Options",
+  "description": "Date selector: Options. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "date-fns@4.1.0"
+  ],
+  "categories": [
+    "date-selector",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--date-selector-options",
+    "source": "src/components/core/Calendar/stories/fixtures/date-selector/date-selector-options.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/date-selector-options.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { format } from 'date-fns';\nimport {\n  DateSelector,\n  formatDateValue\n} from '@gaudi/design-system/core/Calendar';\nimport { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\n\nconst options = [\n  { key: 'allowRange', label: 'Allow ranges' },\n  { key: 'showInput', label: 'Text input' },\n  { key: 'lockFilter', label: 'Lock filter to is' }\n];\n\nexport function Pattern() {\n  const [value, setValue] = useState();\n  const [flags, setFlags] = useState({ allowRange: true, showInput: true, lockFilter: false });\n  const summary = value ? formatDateValue(value) : '';\n  return (\n    <div className='mx-auto flex w-fit max-w-full flex-col gap-3'>\n      <div role='group' aria-label='Selector options' className='flex flex-wrap gap-x-4 gap-y-2'>\n        {options.map((option) => (\n          <Label key={option.key} className='gap-2 text-sm font-normal'>\n            <Switch\n              size='sm'\n              checked={flags[option.key]}\n              onCheckedChange={(checked) =>\n                setFlags((current) => ({ ...current, [option.key]: checked }))\n              }\n            />\n            {option.label}\n          </Label>\n        ))}\n      </div>\n      <Card className='p-0'>\n        <CardContent className='p-3'>\n          <DateSelector\n            key={flags.allowRange ? 'range' : 'single'}\n            value={value}\n            onChange={setValue}\n            label='Due date'\n            inputHint='Try: 2025, Q4, 05/10/2025'\n            allowRange={flags.allowRange}\n            showInput={flags.showInput}\n            presetMode={flags.lockFilter ? 'is' : undefined}\n          />\n        </CardContent>\n      </Card>\n      <div role='status' className='flex flex-col gap-1 text-sm'>\n        <p className='text-text-muted'>\n          {summary || 'Nothing selected yet.'}\n        </p>\n        {summary && (\n          <pre className='overflow-auto rounded-md bg-surface-muted p-2 font-mono text-xs'>\n            {JSON.stringify(\n              value,\n              (key, val) =>\n                key && /date$/i.test(key) && val ? format(new Date(val), 'MM/dd/yyyy') : val,\n              2\n            )}\n          </pre>\n        )}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

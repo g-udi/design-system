@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-editor-header",
+  "type": "registry:example",
+  "title": "Editor header",
+  "description": "Editor header. Core/ButtonGroup pattern composed from @gaudi/design-system/core/ButtonGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-24.svg, /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/ButtonGroup",
+    "import": "@gaudi/design-system/core/ButtonGroup",
+    "storyId": "core-buttongroup--editor-header",
+    "source": "src/components/core/ButtonGroup/stories/fixtures/button-group/button-group-editor-header.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-group-editor-header.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  ButtonGroup,\n  ButtonGroupSeparator,\n  ButtonGroupText\n} from '@gaudi/design-system/core/ButtonGroup';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuLabelPrimitive as DropdownMenuLabel,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;\nconst team = [\n  { name: 'Anouk Varga', src: '/avatars/person-41.svg', fallback: 'AV' },\n  { name: 'Sabine Okafor', src: '/avatars/person-20.svg', fallback: 'SO' },\n  { name: 'Ilse Valtonen', src: '/avatars/person-24.svg', fallback: 'IV' }\n];\nconst branches = ['main', 'develop', 'feature/auth'];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-wrap items-center gap-2'>\n      <ButtonGroup aria-label='Branch'>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button variant='outline'>\n              <Icon name='GitMergeIcon' />\n              main\n              <Icon name='ChevronDownIcon' className='size-3.5 opacity-60' />\n            </Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align='start' className='w-48'>\n            <DropdownMenuGroup>\n              <DropdownMenuLabel>Switch branch</DropdownMenuLabel>\n              {branches.map((branch) => (\n                <DropdownMenuItem key={branch}>\n                  <Icon name='GitBranchIcon' />\n                  {branch}\n                  {branch === 'main' ? <Icon name='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}\n                </DropdownMenuItem>\n              ))}\n            </DropdownMenuGroup>\n          </DropdownMenuContent>\n        </DropdownMenu>\n        <ButtonGroupText className='gap-1.5 border border-border px-2.5 text-xs text-text-muted'>\n          <span className='size-1.5 animate-pulse rounded-full bg-success' />\n          Production\n        </ButtonGroupText>\n        <Button variant='outline' size='icon' aria-label='Refresh'><Icon name='RefreshCwIcon' /></Button>\n      </ButtonGroup>\n\n      <ButtonGroup aria-label='Team'>\n        <ButtonGroupText className='gap-2 border border-border px-2'>\n          <AvatarGroup>\n            {team.map((member) => (\n              <Avatar key={member.name} className='size-5'>\n                <AvatarImage src={member.src} alt={member.name} />\n                <AvatarFallback>{member.fallback}</AvatarFallback>\n              </Avatar>\n            ))}\n          </AvatarGroup>\n          <span className='text-xs font-medium text-text-muted'>3 live</span>\n        </ButtonGroupText>\n        <Button variant='outline' size='icon' aria-label='Invite'><Icon name='PlusIcon' /></Button>\n        <Button variant='outline' size='icon' aria-label='View recent activity'><Icon name='ClockIcon' /></Button>\n      </ButtonGroup>\n\n      <div className='flex items-center gap-2'>\n        <Button variant='outline'><Icon name='EyeIcon' />Preview</Button>\n        <ButtonGroup aria-label='Publish' className='**:data-[slot=button]:border-x-0'>\n          <Button><Icon name='SendIcon' />Publish</Button>\n          <ButtonGroupSeparator className='bg-ui-primary-foreground/20' />\n          <DropdownMenu>\n            <DropdownMenuTrigger asChild>\n              <Button size='icon' aria-label='More publish options'><Icon name='ChevronDownIcon' /></Button>\n            </DropdownMenuTrigger>\n            <DropdownMenuContent align='end' className='w-48'>\n              <DropdownMenuItem><Icon name='CalendarIcon' />Schedule for later</DropdownMenuItem>\n              <DropdownMenuItem><Icon name='FileIcon' />Save as draft</DropdownMenuItem>\n            </DropdownMenuContent>\n          </DropdownMenu>\n        </ButtonGroup>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button variant='ghost' size='icon' aria-label='More actions'><Icon name='MoreHorizontalIcon' /></Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align='end' className='w-48'>\n            <DropdownMenuGroup>\n              <DropdownMenuItem><Icon name='UserIcon' />Manage members</DropdownMenuItem>\n              <DropdownMenuItem><Icon name='CopyIcon' />Duplicate</DropdownMenuItem>\n              <DropdownMenuItem><Icon name='HistoryIcon' />View history</DropdownMenuItem>\n              <DropdownMenuItem><Icon name='ArchiveIcon' />Archive</DropdownMenuItem>\n            </DropdownMenuGroup>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem variant='destructive'><Icon name='TrashIcon' />Delete</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "screens-dialog-tour",
+  "type": "registry:block",
+  "title": "Tour in a dialog",
+  "description": "Tour in a dialog. Blocks/Onboarding pattern composed from @gaudi/design-system/blocks/Screens and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "screens",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/Screens",
+    "import": "@gaudi/design-system/blocks/Screens",
+    "storyId": "blocks-onboarding--dialog-tour",
+    "source": "src/components/blocks/Screens/stories/fixtures/screens/screens-dialog-tour.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/screens-dialog-tour.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { DialogContent, DialogDescription, DialogRoot, DialogTitle, DialogTrigger } from '@gaudi/design-system/core/Dialog';\nimport { default as EmptyState } from '@gaudi/design-system/core/EmptyState';\nimport { KbdRoot as Kbd, KbdGroup } from '@gaudi/design-system/core/Kbd';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { default as RadioGroup } from '@gaudi/design-system/core/RadioGroup';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { default as Wizard } from '@gaudi/design-system/blocks/Wizard';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst steps = [\n  { id: 'focus', label: 'Focus' },\n  { id: 'shortcuts', label: 'Shortcuts' },\n  { id: 'alerts', label: 'Alerts' },\n  { id: 'ready', label: 'Ready' }\n];\nconst focuses = [\n  { value: 'write', label: 'Write and publish', description: 'Open the editor first.' },\n  { value: 'review', label: 'Review drafts', description: 'Start in the review queue.' },\n  { value: 'analyse', label: 'Track readership', description: 'Start on the analytics overview.' }\n];\nconst shortcuts = [\n  [['⌘', 'K'], 'Search and run commands'],\n  [['C'], 'Create a draft'],\n  [['G', 'R'], 'Go to the review queue'],\n  [['?'], 'Show every shortcut']\n];\n\nexport function Pattern() {\n  const [open, setOpen] = useState(false);\n  const [focus, setFocus] = useState('write');\n  const [alerts, setAlerts] = useState(true);\n  return (\n    <DialogRoot open={open} onOpenChange={setOpen}>\n      <DialogTrigger asChild>\n        <Button>\n          <RegistryIcon lucide='SparklesIcon' />\n          Take the tour\n        </Button>\n      </DialogTrigger>\n      <DialogContent className='max-w-lg'>\n        <DialogTitle className='sr-only'>Welcome tour</DialogTitle>\n        <DialogDescription className='sr-only'>Four short steps to set up your workspace.</DialogDescription>\n        <Wizard\n          title='Welcome to Gaudi'\n          description='Four short steps. Use the dots to go back.'\n          steps={steps}\n          indicator='dots'\n          navigable\n          onComplete={() => new Promise((resolve) => setTimeout(resolve, 300))}\n          completeLabel='Finish tour'\n          completion={\n            <EmptyState\n              icon={<RegistryIcon lucide='RocketIcon' />}\n              title='You are all set'\n              description='Open the tour again from Help whenever you like.'\n              actions={<Button onClick={() => setOpen(false)}>Start working</Button>}\n            />\n          }\n          labels={{ continue: 'Next' }}\n        >\n          {(step) =>\n            step === 0 ? (\n              <RadioGroup label='What do you want to do first?' variant='cards' value={focus} onValueChange={setFocus} options={focuses} />\n            ) : step === 1 ? (\n              <ul className='grid gap-2 text-sm'>\n                {shortcuts.map(([keys, label]) => (\n                  <li key={label} className='flex items-center justify-between gap-3 rounded-md border px-3 py-2'>\n                    <span>{label}</span>\n                    <KbdGroup>\n                      {keys.map((key) => <Kbd key={key}>{key}</Kbd>)}\n                    </KbdGroup>\n                  </li>\n                ))}\n              </ul>\n            ) : step === 2 ? (\n              <div className='flex items-center justify-between gap-3 rounded-lg border p-3'>\n                <Label htmlFor='tour-alerts' className='grid gap-0.5 font-normal'>\n                  <span className='font-medium'>Desktop alerts</span>\n                  <span className='text-text-muted text-xs'>Mentions and review requests only.</span>\n                </Label>\n                <Switch id='tour-alerts' checked={alerts} onCheckedChange={setAlerts} />\n              </div>\n            ) : (\n              <p className='text-sm'>\n                You start in <span className='font-medium'>{focuses.find((item) => item.value === focus).label.toLowerCase()}</span> with desktop alerts{' '}\n                {alerts ? 'on' : 'off'}. Press <Kbd>?</Kbd> any time to see the shortcuts again.\n              </p>\n            )\n          }\n        </Wizard>\n      </DialogContent>\n    </DialogRoot>\n  );\n}\n"
+    }
+  ]
+}

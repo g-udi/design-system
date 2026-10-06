@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-nested-group",
+  "type": "registry:example",
+  "title": "Nested group",
+  "description": "Nested group. Core/Checkbox pattern composed from @gaudi/design-system/core/Checkbox and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "checkbox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Checkbox",
+    "import": "@gaudi/design-system/core/Checkbox",
+    "storyId": "core-checkbox--nested-group",
+    "source": "src/components/core/Checkbox/stories/fixtures/checkbox/checkbox-nested-group.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/checkbox-nested-group.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useCallback, useState } from 'react';\nimport { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nconst data = [\n  {\n    id: 'admin',\n    label: 'Administration',\n    children: [\n      {\n        id: 'user-management',\n        label: 'User Management',\n        children: [\n          { id: 'view-users', label: 'View Users' },\n          { id: 'create-users', label: 'Create Users' },\n          { id: 'edit-users', label: 'Edit Users' }\n        ]\n      },\n      {\n        id: 'role-management',\n        label: 'Role Management',\n        children: [\n          { id: 'view-roles', label: 'View Roles' },\n          { id: 'assign-roles', label: 'Assign Roles' }\n        ]\n      }\n    ]\n  }\n];\nexport function Pattern() {\n  const [checked, setChecked] = useState({\n    'view-users': true,\n    'create-users': true,\n    'view-roles': true\n  });\n  const getLeafIds = useCallback((item) => {\n    if (!item.children) return [item.id];\n    return item.children.flatMap(getLeafIds);\n  }, []);\n  const isChecked = useCallback(\n    (item) => {\n      const leafIds = getLeafIds(item);\n      return leafIds.every((id) => checked[id]);\n    },\n    [checked, getLeafIds]\n  );\n  const isIndeterminate = useCallback(\n    (item) => {\n      const leafIds = getLeafIds(item);\n      const checkedCount = leafIds.filter((id) => checked[id]).length;\n      return checkedCount > 0 && checkedCount < leafIds.length;\n    },\n    [checked, getLeafIds]\n  );\n  const toggle = (item) => {\n    const leafIds = getLeafIds(item);\n    const shouldCheck = !isChecked(item);\n    const nextChecked = { ...checked };\n    leafIds.forEach((id) => {\n      nextChecked[id] = shouldCheck;\n    });\n    setChecked(nextChecked);\n  };\n  const renderItem = (item, level = 0) => {\n    return (\n      <div key={item.id} className='flex flex-col gap-3'>\n        <Field orientation='horizontal'>\n          <Checkbox\n            id={item.id}\n            checked={isIndeterminate(item) ? 'indeterminate' : isChecked(item)}\n            onCheckedChange={() => toggle(item)}\n          />\n          <FieldLabel\n            htmlFor={item.id}\n            className={level === 0 ? 'font-semibold' : 'text-sm'}\n          >\n            {item.label}\n          </FieldLabel>\n        </Field>\n\n        {item.children && (\n          <div className='ml-7 flex flex-col gap-3'>\n            {item.children.map((child) => renderItem(child, level + 1))}\n          </div>\n        )}\n      </div>\n    );\n  };\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-3'>\n      {data.map((item) => renderItem(item))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

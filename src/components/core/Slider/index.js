@@ -1,2 +1,2 @@
 // Composition exports
-export { Slider } from './parts/slider.jsx';
+export { Slider } from './Slider.jsx';

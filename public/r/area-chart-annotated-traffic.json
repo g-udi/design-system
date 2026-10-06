@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "area-chart-annotated-traffic",
+  "type": "registry:example",
+  "title": "Annotated traffic with keyboard reading",
+  "description": "Annotated traffic with keyboard reading. Charts/AreaChart pattern composed from @gaudi/design-system/charts/AreaChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "area-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/AreaChart",
+    "import": "@gaudi/design-system/charts/AreaChart",
+    "storyId": "charts-areachart--annotated-traffic",
+    "source": "src/components/charts/AreaChart/stories/fixtures/area-chart/area-chart-annotated-traffic.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/area-chart-annotated-traffic.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { AreaChart } from '@gaudi/design-system/charts/AreaChart';\n\n// Unique readers and new subscribers per month, with the launch and the summer dip called out.\nconst months = [\n  { label: 'Jan', readers: 2380, subscribers: 210 },\n  { label: 'Feb', readers: 2610, subscribers: 240 },\n  { label: 'Mar', readers: 3920, subscribers: 610 },\n  { label: 'Apr', readers: 3340, subscribers: 380 },\n  { label: 'May', readers: 3180, subscribers: 330 },\n  { label: 'Jun', readers: 3050, subscribers: 300 },\n  { label: 'Jul', readers: 2490, subscribers: 220 },\n  { label: 'Aug', readers: 2260, subscribers: 190 },\n  { label: 'Sep', readers: 3410, subscribers: 360 },\n  { label: 'Oct', readers: 3720, subscribers: 420 },\n  { label: 'Nov', readers: 4050, subscribers: 470 },\n  { label: 'Dec', readers: 3880, subscribers: 410 }\n];\nconst number = new Intl.NumberFormat('en-US');\n\nexport function Pattern() {\n  const [pinned, setPinned] = useState(null);\n  return (\n    <div className='grid w-full max-w-3xl gap-3'>\n      <AreaChart\n        ariaLabel='Unique readers and new subscribers per month'\n        title='Readers this year'\n        description='Tab to the chart and use the arrow keys to read each month. Enter pins it below.'\n        data={months}\n        series={[{ key: 'readers', label: 'Readers' }, { key: 'subscribers', label: 'Subscribers' }]}\n        showLegend\n        showData='toggle'\n        references={[{ y: 4000, label: 'Goal 4,000', tone: 'success' }]}\n        annotations={[{ x: 'Mar', y: 3920, label: 'Launch' }, { x: 'Aug', y: 2260, label: 'Summer break', tone: 'warning' }]}\n        onActivate={(point) => setPinned(point)}\n        height={300}\n        className='my-0'\n      />\n      <p aria-live='polite' className='text-sm text-text-muted' data-testid='pinned-month'>\n        {pinned\n          ? `${pinned.label}: ${pinned.values.map((item) => `${item.name} ${number.format(item.value)}`).join(', ')}`\n          : 'No month pinned yet.'}\n      </p>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,147 +1,104 @@
 'use client';
 
-/**
- * Footnote Component
- *
- * @description Displays a popover preview of footnotes when hovering over footnote numbers.
- * Works with data attributes added by the rehype-footnote-popover plugin.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
- */
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 
-import { useEffect, useRef, useState } from 'react';
-
+import { PopoverAnchor, PopoverContentPrimitive, PopoverPrimitive } from '../../core/Popover';
 import sanitizeHtml from '../../../utilities/sanitizeHtml';
 
-import styles from './Footnote.module.css';
+const triggerSelector = '[data-footnote-popover="true"]';
+const keepFocus = (event) => event.preventDefault();
 
-const calculatePosition = (rect) => {
-  const margin = 12;
-  const offset = 10;
-  const popoverWidth = 300;
-  const viewportWidth = Math.max(window.innerWidth || 0, margin * 2);
-  const viewportHeight = Math.max(window.innerHeight || 0, margin * 2);
-  const safeWidth = Math.min(popoverWidth, Math.max(viewportWidth - (margin * 2), 0)) || popoverWidth;
-  let xPos = rect.right + offset;
-  let yPos = rect.top + (rect.height / 2);
-
-  if (xPos + safeWidth > viewportWidth - margin) xPos = rect.left - safeWidth - offset;
-
-  xPos = Math.max(margin, Math.min(xPos, Math.max(margin, viewportWidth - safeWidth - margin)));
-  yPos = Math.max(margin, Math.min(yPos, viewportHeight - margin));
-
-  return { 'x': xPos, 'y': yPos };
-};
-
-/**
- * Component that adds popover functionality to footnote references
- */
+/** Hydrate generated footnote anchors; Core Popover owns positioning and dismissal. */
 const Footnote = () => {
   const [ popover, setPopover ] = useState(null);
-  const [ isReady, setIsReady ] = useState(false);
-  const popoverRef = useRef(null);
-  const timeoutRef = useRef(null);
+  const anchorRef = useRef(null);
+  const contentRef = useRef(null);
+  const timerRef = useRef(null);
+  const descriptionId = useId();
 
-  useEffect(() => {
-    const handleFootnoteHover = (event) => {
-      const target = event.target.closest?.('[data-footnote-popover="true"]');
-
-      // Check if hovering over a footnote link with popover data
-      if (target) {
-        event.preventDefault();
-
-        // Clear any existing timeout
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-        if (event.type === 'mouseenter' || event.type === 'focusin') {
-
-          // Get footnote data from data attributes
-          const { footnoteContent } = target.dataset;
-          const footnoteNumber = target.dataset.footnoteNumber || target.textContent;
-
-          if (footnoteContent) {
-
-            // Get position of the footnote link
-            const rect = target.getBoundingClientRect();
-
-            // Show popover with a slight delay
-            timeoutRef.current = setTimeout(() => {
-              setIsReady(false);
-
-              const position = calculatePosition(rect);
-
-              setPopover({
-                'content': sanitizeHtml(footnoteContent),
-                'footnoteNumber': footnoteNumber,
-                'x': position.x,
-                'y': position.y
-              });
-
-              // Small delay to ensure positioning is applied before showing
-              window.requestAnimationFrame(() => {
-                setIsReady(true);
-              });
-            }, 300);
-          }
-        } else if (event.type === 'mouseleave' || event.type === 'focusout') {
-
-          // Hide popover with a slight delay to allow moving to popover
-          timeoutRef.current = setTimeout(() => {
-            setIsReady(false);
-            setPopover(null);
-          }, 200);
-        }
-      }
-    };
-
-    // Add listeners to the document body for all footnote links
-    document.body.addEventListener('mouseenter', handleFootnoteHover, true);
-    document.body.addEventListener('mouseleave', handleFootnoteHover, true);
-    document.body.addEventListener('focusin', handleFootnoteHover, true);
-    document.body.addEventListener('focusout', handleFootnoteHover, true);
-
-    return () => {
-      document.body.removeEventListener('mouseenter', handleFootnoteHover, true);
-      document.body.removeEventListener('mouseleave', handleFootnoteHover, true);
-      document.body.removeEventListener('focusin', handleFootnoteHover, true);
-      document.body.removeEventListener('focusout', handleFootnoteHover, true);
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
+  const cancelClose = () => clearTimeout(timerRef.current);
+  const closeSoon = useCallback(() => {
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      if (!anchorRef.current?.contains(document.activeElement) && !contentRef.current?.contains(document.activeElement)) setPopover(null);
+    }, 200);
   }, []);
 
-  // Handle popover hover to keep it visible
-  const handlePopoverEnter = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-  };
+  useEffect(() => {
+    const show = (event) => {
+      const target = event.target.closest?.(triggerSelector);
+      if (!target?.dataset.footnoteContent) return;
+      clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
+        anchorRef.current = target;
+        setPopover({
+          content: sanitizeHtml(target.dataset.footnoteContent),
+          number: target.dataset.footnoteNumber || target.textContent
+        });
+      }, event.type === 'focusin' ? 0 : 300);
+    };
+    const hide = (event) => {
+      if (!event.target.closest?.(triggerSelector)) return;
+      if (contentRef.current?.contains(event.relatedTarget) || event.target.contains(event.relatedTarget)) return;
+      closeSoon();
+    };
+    document.addEventListener('pointerover', show, true);
+    document.addEventListener('pointerout', hide, true);
+    document.addEventListener('focusin', show, true);
+    document.addEventListener('focusout', hide, true);
+    return () => {
+      clearTimeout(timerRef.current);
+      document.removeEventListener('pointerover', show, true);
+      document.removeEventListener('pointerout', hide, true);
+      document.removeEventListener('focusin', show, true);
+      document.removeEventListener('focusout', hide, true);
+    };
+  }, [ closeSoon ]);
 
-  const handlePopoverLeave = () => {
-    timeoutRef.current = setTimeout(() => {
-      setIsReady(false);
-      setPopover(null);
-    }, 200);
-  };
+  useEffect(() => {
+    const anchor = anchorRef.current;
+    if (!popover || !anchor) return undefined;
+    const previous = anchor.getAttribute('aria-describedby');
+    anchor.setAttribute('aria-describedby', [ previous, descriptionId ].filter(Boolean).join(' '));
+    return () => {
+      if (previous === null) anchor.removeAttribute('aria-describedby');
+      else anchor.setAttribute('aria-describedby', previous);
+    };
+  }, [ descriptionId, popover ]);
 
   if (!popover) return null;
 
   return (
-    <div
-      ref={ popoverRef }
-      className={ `${styles.popover} ${isReady ? styles.ready : ''}` }
-      style={{
-        'left': `${popover.x}px`,
-        'position': 'fixed',
-        'top': `${popover.y}px`,
-        'transform': 'translateY(-50%)',
-        'zIndex': 9999
-      }}
-      onMouseEnter={ handlePopoverEnter }
-      onMouseLeave={ handlePopoverLeave }
-    >
-      <div className={ styles.content }>
-        <div className={ styles.body } dangerouslySetInnerHTML={{ '__html': popover.content }} />
-      </div>
-    </div>
+    <PopoverPrimitive open onOpenChange={ (open) => { if (!open) setPopover(null); } }>
+      <PopoverAnchor virtualRef={ anchorRef } />
+      <PopoverContentPrimitive
+        ref={ contentRef }
+        aria-label={ `Footnote ${popover.number}` }
+        side='top'
+        sideOffset={ 8 }
+        collisionPadding={ 12 }
+        className='w-80 max-w-[calc(100vw-1.5rem)] max-h-(--radix-popover-content-available-height) overflow-y-auto wrap-anywhere text-sm leading-6'
+        onOpenAutoFocus={ keepFocus }
+        onCloseAutoFocus={ keepFocus }
+        onEscapeKeyDown={ () => {
+          if (!contentRef.current?.contains(document.activeElement)) return;
+          anchorRef.current?.focus({ preventScroll: true });
+          // Returning to the generated anchor must not schedule another focus preview.
+          clearTimeout(timerRef.current);
+        } }
+        onInteractOutside={ (event) => {
+          if (event.target.closest?.(triggerSelector)) event.preventDefault();
+        } }
+        onPointerEnter={ cancelClose }
+        onPointerLeave={ closeSoon }
+        onFocusCapture={ cancelClose }
+        onBlurCapture={ (event) => {
+          if (!event.currentTarget.contains(event.relatedTarget) && event.relatedTarget !== anchorRef.current) closeSoon();
+        } }
+      >
+        <div id={ descriptionId } dangerouslySetInnerHTML={{ __html: popover.content }} />
+      </PopoverContentPrimitive>
+    </PopoverPrimitive>
   );
 };
 

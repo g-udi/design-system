@@ -1,0 +1,163 @@
+@layer components {
+  .ds-part-context-menu-content {
+    max-width: calc(100vw - 16px);
+    overflow-wrap: anywhere;
+    @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 bg-ui-popover text-ui-popover-foreground min-w-36 rounded-lg p-1 shadow-md ring-1 duration-100;
+  }
+
+  .ds-part-context-menu-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-[variant=destructive]:text-ui-destructive data-[variant=destructive]:focus:bg-ui-destructive/10 dark:data-[variant=destructive]:focus:bg-ui-destructive/20 data-[variant=destructive]:focus:text-ui-destructive data-[variant=destructive]:*:[svg]:text-ui-destructive focus:*:[svg]:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-context-menu-checkbox-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-8 pl-2 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-context-menu-radio-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-8 pl-2 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-context-menu-item-indicator {
+    @apply absolute right-2;
+  }
+
+  .ds-part-context-menu-label {
+    @apply text-ui-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:pl-7;
+  }
+
+  .ds-part-context-menu-separator {
+    @apply bg-ui-border -mx-1 my-1 h-px;
+  }
+
+  .ds-part-context-menu-shortcut {
+    @apply text-ui-muted-foreground group-focus/context-menu-item:text-ui-accent-foreground ml-auto text-xs tracking-widest;
+  }
+
+  .ds-part-context-menu-sub-trigger {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-open:bg-ui-accent data-open:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-context-menu-sub-content {
+    min-width: min(8rem, calc(100vw - 16px));
+    max-width: calc(100vw - 16px);
+    overflow-wrap: anywhere;
+    transition-property: none;
+    @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-ui-popover text-ui-popover-foreground rounded-lg border p-1 shadow-lg duration-100;
+  }
+  .ds-part-dropdown-menu-content {
+    @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 bg-ui-popover text-ui-popover-foreground min-w-32 rounded-lg p-1 shadow-md ring-1 duration-100;
+  }
+
+  .ds-part-dropdown-menu-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-[variant=destructive]:text-ui-destructive data-[variant=destructive]:focus:bg-ui-destructive/10 dark:data-[variant=destructive]:focus:bg-ui-destructive/20 data-[variant=destructive]:focus:text-ui-destructive data-[variant=destructive]:*:[svg]:text-ui-destructive not-data-[variant=destructive]:focus:**:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-dropdown-menu-checkbox-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground focus:**:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-8 pl-2 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-dropdown-menu-radio-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground focus:**:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-8 pl-2 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-dropdown-menu-item-indicator {
+    @apply absolute right-2 flex items-center justify-center;
+  }
+
+  .ds-part-dropdown-menu-label {
+    @apply text-ui-muted-foreground px-2 py-1.5 text-xs font-medium data-inset:pl-7;
+  }
+
+  .ds-part-dropdown-menu-separator {
+    @apply bg-ui-border -mx-1 my-1 h-px;
+  }
+
+  .ds-part-dropdown-menu-shortcut {
+    @apply text-ui-muted-foreground group-focus/dropdown-menu-item:text-ui-accent-foreground ml-auto text-xs tracking-widest;
+  }
+
+  .ds-part-dropdown-menu-sub-trigger {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-open:bg-ui-accent data-open:text-ui-accent-foreground not-data-[variant=destructive]:focus:**:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-dropdown-menu-sub-content {
+    min-width: min(8rem, calc(100vw - 16px));
+    max-width: calc(100vw - 16px);
+    overflow-wrap: anywhere;
+    transition-property: none;
+    @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 bg-ui-popover text-ui-popover-foreground rounded-lg p-1 shadow-lg ring-1 duration-100;
+  }
+  .ds-part-menubar {
+    @apply h-8 gap-0.5 rounded-lg border p-[3px];
+  }
+
+  .ds-part-menubar-trigger {
+    @apply hover:bg-ui-muted aria-expanded:bg-ui-muted rounded-sm px-1.5 py-[2px] text-sm font-medium;
+  }
+
+  .ds-part-menubar-content {
+    @apply bg-ui-popover text-ui-popover-foreground data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 min-w-36 rounded-lg p-1 shadow-md ring-1 duration-100;
+  }
+
+  .ds-part-menubar-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-[variant=destructive]:text-ui-destructive data-[variant=destructive]:focus:bg-ui-destructive/10 dark:data-[variant=destructive]:focus:bg-ui-destructive/20 data-[variant=destructive]:focus:text-ui-destructive data-[variant=destructive]:*:[svg]:text-ui-destructive! not-data-[variant=destructive]:focus:**:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-disabled:opacity-50 data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-menubar-checkbox-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground focus:**:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-2 pl-7 text-sm data-inset:pl-7;
+  }
+
+  .ds-part-menubar-checkbox-item-indicator {
+    @apply left-2 size-4 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-menubar-radio-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground focus:**:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-2 pl-7 text-sm data-disabled:opacity-50 data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-menubar-radio-item-indicator {
+    @apply left-2 size-4 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-menubar-label {
+    @apply px-2 py-1.5 text-sm font-medium data-inset:pl-7;
+  }
+
+  .ds-part-menubar-separator {
+    @apply bg-ui-border;
+  }
+
+  .ds-part-menubar-shortcut {
+    @apply text-ui-muted-foreground group-focus/menubar-item:text-ui-accent-foreground text-xs tracking-widest;
+  }
+
+  .ds-part-menubar-sub-trigger {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground data-open:bg-ui-accent data-open:text-ui-accent-foreground gap-1.5 rounded-md px-2 py-1.5 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-menubar-sub-content {
+    min-width: min(8rem, calc(100vw - 16px));
+    max-width: calc(100vw - 16px);
+    overflow-wrap: anywhere;
+    transition-property: none;
+    @apply bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 rounded-lg p-1 shadow-lg ring-1 duration-100;
+  }
+  /* Keep menus readable when neither side of their anchor has room.
+     Radix still owns placement; only the unavailable width overlaps the anchor. */
+  :is(.ds-part-context-menu-content, .ds-part-context-menu-sub-content, .ds-part-dropdown-menu-sub-content, .ds-part-menubar-sub-content)[data-side='right'] {
+    translate: min(0px, calc(var(--radix-popper-available-width, 100vw) - 100%)) 0;
+  }
+
+  :is(.ds-part-context-menu-content, .ds-part-context-menu-sub-content, .ds-part-dropdown-menu-sub-content, .ds-part-menubar-sub-content)[data-side='left'] {
+    translate: max(0px, calc(100% - var(--radix-popper-available-width, 100vw))) 0;
+  }
+  .ds-part-menu-translucent {
+    @apply animate-none! relative bg-ui-popover/70 before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 **:data-[slot$=-item]:focus:bg-ui-foreground/10 **:data-[slot$=-item]:data-highlighted:bg-ui-foreground/10 **:data-[slot$=-separator]:bg-ui-foreground/5 **:data-[slot$=-trigger]:focus:bg-ui-foreground/10 **:data-[slot$=-trigger]:aria-expanded:bg-ui-foreground/10! **:data-[variant=destructive]:focus:bg-ui-foreground/10! **:data-[variant=destructive]:text-ui-destructive! **:data-[variant=destructive]:**:text-ui-destructive!;
+  }
+  @media (pointer: coarse) {
+    [data-slot='menu-item'],
+    [data-slot='dropdown-menu-item'] {
+      min-height: 44px;
+    }
+  }
+}

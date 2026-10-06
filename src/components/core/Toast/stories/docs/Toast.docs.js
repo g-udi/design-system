@@ -1,0 +1,7 @@
+import { p, definition } from '../../../../../docs/components/referenceProps.js';
+export default {
+  "Core/Toast": {
+    ...definition('Transient feedback for completed actions, errors and recoverable background work.', [p('position', 'top-left | top-center | top-right | bottom-left | bottom-center | bottom-right', 'bottom-right', 'Toast stack position.'), p('closeButton', 'boolean', 'true', 'Show an explicit dismiss action.'), p('expand', 'boolean', 'false', 'Show every toast in the stack instead of collapsing them behind the front one.'), p('duration', 'number', 'Sonner default', 'Default display duration in milliseconds.'), p('toastOptions', 'ExternalToast', 'Gaudi class names', 'Default appearance and behavior for each toast.'), p('toast(message, options)', 'function', '—', 'Show a message; options include description, action and cancellation.'), p('toast.promise(promise, options)', 'function', '—', 'Show loading, success and error feedback for one operation.')], 'Use inline errors for fields and persistent failures. Keep toast actions keyboard accessible and allow enough time to act.', ['Mount one ToastProvider for a region. The toast API and additional provider props are forwarded from Sonner.']),
+    usage: "import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport Button from '@gaudi/design-system/core/Button';\n\n<><ToastProvider /><Button onClick={() => toast.success('Changes saved')}>Save</Button></>"
+  }
+};

@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '../Button';
-import { Popover, PopoverContent, PopoverTrigger } from './parts/popover.jsx';
+import { Popover, PopoverContent, PopoverTrigger } from './PopoverPrimitives.jsx';
 
 // The compound API is the Radix composition; PopoverRoot is the one-line convenience built on it.
 export { Popover, PopoverContent, PopoverTrigger };

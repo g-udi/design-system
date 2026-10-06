@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label-accessories",
+  "type": "registry:example",
+  "title": "Label accessories",
+  "description": "Label accessories. Core/Field pattern composed from @gaudi/design-system/core/Field and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "label",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Field",
+    "import": "@gaudi/design-system/core/Field",
+    "storyId": "core-field--label-accessories",
+    "source": "src/components/core/Field/stories/fixtures/label/label-accessories.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/label-accessories.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport { FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription } from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { default as Textarea } from '@gaudi/design-system/core/Textarea';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\n\nexport function Pattern() {\n  const [bio, setBio] = useState(0);\n  return (\n    <TooltipProvider>\n      <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-flow-dense sm:grid-cols-2'>\n        <Field>\n          <Label htmlFor='label-required'>\n            Email address\n            <span className='text-danger'>*</span>\n          </Label>\n          <EmailInput id='label-required'  placeholder='you@example.com' required />\n        </Field>\n        <Field>\n          <Label htmlFor='label-optional'>\n            Phone number\n            <span className='font-normal text-text-muted'>(optional)</span>\n          </Label>\n          <Input id='label-optional' type='tel' placeholder='+1 (555) 000-0000' />\n        </Field>\n        <Field>\n          <Label htmlFor='label-tooltip' className='gap-1'>\n            API key\n            <Tooltip>\n              <TooltipTrigger className='inline-flex cursor-help items-center text-text-muted' aria-label='Where to find your API key'>\n                <RegistryIcon lucide='InfoIcon' className='size-3.5' />\n              </TooltipTrigger>\n              <TooltipContent>Find it in the developer settings.</TooltipContent>\n            </Tooltip>\n          </Label>\n          <Input id='label-tooltip' placeholder='sk_live_...' className='font-mono' />\n        </Field>\n        <Field>\n          <Label htmlFor='label-badge' className='gap-2'>\n            Webhook URL\n            <Badge variant='success-light' size='sm'>Active</Badge>\n          </Label>\n          <Input id='label-badge' type='url' defaultValue='https://api.example.com/hooks' className='font-mono text-xs' />\n        </Field>\n        <Field className='sm:col-span-2'>\n          <div className='flex flex-col gap-1'>\n            <Label htmlFor='label-helper'>Project key</Label>\n            <FieldDescription>Used in issue IDs, like GDS-42.</FieldDescription>\n          </div>\n          <Input id='label-helper' defaultValue='GDS' className='font-mono' />\n        </Field>\n        <Field>\n          <Label htmlFor='label-status' className='gap-1.5'>\n            Server status\n            <span className='relative flex size-2' aria-hidden='true'>\n              <span className='absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75' />\n              <span className='relative inline-flex size-2 rounded-full bg-success' />\n            </span>\n          </Label>\n          <Input id='label-status' defaultValue='Online' disabled />\n        </Field>\n        <Field className='sm:col-span-2'>\n          <Label htmlFor='label-counter' className='justify-between'>\n            Bio\n            <span className='font-normal tabular-nums text-text-muted'>{bio}/200</span>\n          </Label>\n          <Textarea\n            id='label-counter'\n            rows={2}\n            placeholder='Tell us about yourself…'\n            maxLength={200}\n            onChange={(e) => setBio(e.target.value.length)}\n          />\n        </Field>\n        <Field orientation='horizontal' className='sm:col-span-2'>\n          <Checkbox id='label-terms' />\n          <Label htmlFor='label-terms'>Accept terms and conditions</Label>\n        </Field>\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

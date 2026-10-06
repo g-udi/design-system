@@ -1,0 +1,26 @@
+@layer components {
+  /* Like the source previews: examples centre and fit their content unless they set a width. */
+  .ds-catalogue-frame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 80rem;
+    margin-inline: auto;
+    color: var(--ds-color-text);
+  }
+  .ds-catalogue-frame > * {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* Docs blocks are transformed, which traps the fixed toaster; make the frame its containing block with room for the stack. */
+  .ds-catalogue-frame[data-family='toast'] {
+    min-height: 28rem;
+    transform: translateZ(0);
+  }
+  /* Below 600px Sonner stretches the toaster to 100% plus its inline offsets; keep it inside the frame. */
+  .ds-catalogue-frame[data-family='toast'] [data-sonner-toaster] {
+    max-width: calc(100% - 2rem);
+  }
+}

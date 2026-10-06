@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-caption-navigation",
+  "type": "registry:example",
+  "title": "Caption and navigation",
+  "description": "Caption and navigation. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "date-fns@4.1.0"
+  ],
+  "categories": [
+    "calendar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--caption-navigation",
+    "source": "src/components/core/Calendar/stories/fixtures/calendar/calendar-caption-navigation.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/calendar-caption-navigation.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { addDays } from 'date-fns';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';\nimport { Calendar } from '@gaudi/design-system/core/Calendar';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\n\n// react-day-picker hands each dropdown an onChange that expects a change event.\nfunction CaptionSelect({ label, value, options, onChange }) {\n  return (\n    <Select\n      value={String(value)}\n      onValueChange={(next) => next != null && onChange?.({ target: { value: String(next) } })}\n    >\n      <SelectTrigger size='sm' aria-label={label}>\n        <SelectValue>{options?.find((option) => option.value === value)?.label}</SelectValue>\n      </SelectTrigger>\n      <SelectContent align='start'>\n        {options?.map((option) => (\n          <SelectItem key={option.value} value={String(option.value)} disabled={option.disabled}>\n            {option.label}\n          </SelectItem>\n        ))}\n      </SelectContent>\n    </Select>\n  );\n}\n\nconst layouts = {\n  centered: { label: 'Centered' },\n  end: {\n    label: 'Arrows at end',\n    props: {\n      classNames: {\n        month_caption: 'ms-2.5 justify-start',\n        nav: 'absolute inset-x-0 top-0 flex w-full items-center justify-end'\n      }\n    }\n  },\n  dropdowns: {\n    label: 'Month and year',\n    props: {\n      captionLayout: 'dropdown',\n      hideNavigation: true,\n      components: {\n        MonthsDropdown: (props) => <CaptionSelect label='Month' {...props} />,\n        YearsDropdown: (props) => <CaptionSelect label='Year' {...props} />,\n        DropdownNav: ({ children }) => (\n          <div className='flex w-full items-center gap-2 [&>*]:flex-1'>{children}</div>\n        )\n      }\n    }\n  },\n  year: {\n    label: 'Year',\n    props: {\n      captionLayout: 'dropdown-years',\n      classNames: {\n        nav: 'pointer-events-none absolute inset-x-0 top-0 flex w-full items-center justify-between [&>button]:pointer-events-auto'\n      },\n      components: {\n        YearsDropdown: (props) => <CaptionSelect label='Year' {...props} />,\n        DropdownNav: ({ children }) => (\n          <div className='flex items-center justify-center gap-2 text-sm font-medium'>\n            {children}\n          </div>\n        )\n      }\n    }\n  }\n};\n\nexport function Pattern() {\n  const today = new Date();\n  const [layout, setLayout] = useState('dropdowns');\n  const [date, setDate] = useState(addDays(today, -40));\n  const [month, setMonth] = useState(date);\n  return (\n    <div className='mx-auto flex w-fit max-w-full flex-col gap-3'>\n      <ToggleGroup\n        className='max-w-full flex-wrap'\n        type='single'\n        variant='outline'\n        size='sm'\n        spacing={0}\n        value={layout}\n        onValueChange={(value) => value && setLayout(value)}\n        aria-label='Caption layout'\n      >\n        {Object.entries(layouts).map(([value, item]) => (\n          <ToggleGroupItem key={value} value={value}>\n            {item.label}\n          </ToggleGroupItem>\n        ))}\n      </ToggleGroup>\n      <Card className='w-fit gap-0 p-0'>\n        <CardContent className='flex flex-col gap-2 p-0 pb-2'>\n          <Calendar\n            key={layout}\n            mode='single'\n            selected={date}\n            onSelect={setDate}\n            month={month}\n            onMonthChange={setMonth}\n            startMonth={new Date(1980, 0)}\n            endMonth={new Date(today.getFullYear() + 5, 11)}\n            {...layouts[layout].props}\n          />\n          <div className='flex gap-2 px-2'>\n            <Button size='sm' variant='outline' onClick={() => setMonth(today)}>\n              This month\n            </Button>\n            <Button\n              size='sm'\n              variant='outline'\n              onClick={() => {\n                setDate(today);\n                setMonth(today);\n              }}\n            >\n              Today\n            </Button>\n          </div>\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

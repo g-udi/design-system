@@ -1,0 +1,43 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-org-chart",
+  "type": "registry:example",
+  "title": "Organization chart",
+  "description": "Organization chart. Core/Navigation/Tree pattern composed from @gaudi/design-system/core/Tree and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "@headless-tree/core@1.6.3",
+    "@headless-tree/react@1.6.3"
+  ],
+  "categories": [
+    "tree",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-19.svg, /avatars/person-20.svg, /avatars/person-22.svg, /avatars/person-24.svg, /avatars/person-35.svg, /avatars/person-38.svg, /avatars/person-41.svg, /avatars/person-43.svg, /avatars/person-49.svg, /avatars/person-50.svg.",
+  "meta": {
+    "owner": "core/Tree",
+    "import": "@gaudi/design-system/core/Tree",
+    "storyId": "core-tree--org-chart",
+    "source": "src/components/core/Tree/stories/fixtures/tree/tree-org-chart.jsx",
+    "assets": [
+      "/avatars/person-07.svg",
+      "/avatars/person-19.svg",
+      "/avatars/person-20.svg",
+      "/avatars/person-22.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-35.svg",
+      "/avatars/person-38.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-43.svg",
+      "/avatars/person-49.svg",
+      "/avatars/person-50.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/tree-org-chart.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  Tree,\n  TreeItem,\n  TreeItemLabel\n} from '@gaudi/design-system/core/Tree';\nimport { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';\nimport { useTree } from '@headless-tree/react';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nconst items = {\n  company: { name: 'Gaudi Studio', children: ['ceo'] },\n  ceo: {\n    name: 'Sabine Okafor',\n    role: 'CEO',\n    avatar: '/avatars/person-20.svg',\n    children: ['cto', 'coo', 'cfo']\n  },\n  cto: {\n    name: 'Anouk Varga',\n    role: 'CTO',\n    avatar: '/avatars/person-41.svg',\n    children: ['eng-lead', 'design-lead']\n  },\n  coo: {\n    name: 'Ilse Valtonen',\n    role: 'COO',\n    avatar: '/avatars/person-24.svg',\n    children: ['ops-mgr', 'hr-mgr']\n  },\n  cfo: {\n    name: 'Ottilie Nakamura',\n    role: 'CFO',\n    avatar: '/avatars/person-50.svg',\n    children: ['finance-mgr']\n  },\n  'eng-lead': {\n    name: 'Rafe Okonkwo',\n    role: 'Engineering Lead',\n    avatar: '/avatars/person-43.svg',\n    children: ['dev-1', 'dev-2']\n  },\n  'design-lead': {\n    name: 'Nell Parfitt',\n    role: 'Design Lead',\n    avatar: '/avatars/person-07.svg'\n  },\n  'ops-mgr': {\n    name: 'Felix Arrowsmith',\n    role: 'Operations Manager',\n    avatar: '/avatars/person-38.svg'\n  },\n  'hr-mgr': {\n    name: 'Margit Solberg',\n    role: 'HR Manager',\n    avatar: '/avatars/person-19.svg'\n  },\n  'finance-mgr': {\n    name: 'Rufus Davenport',\n    role: 'Finance Manager',\n    avatar: '/avatars/person-49.svg'\n  },\n  'dev-1': {\n    name: 'Tamsin Harrow',\n    role: 'Senior Developer',\n    avatar: '/avatars/person-35.svg'\n  },\n  'dev-2': {\n    name: 'Niamh Prasad',\n    role: 'Developer',\n    avatar: '/avatars/person-22.svg'\n  }\n};\nconst indent = 24;\nexport function Pattern() {\n  const tree = useTree({\n    initialState: {\n      expandedItems: ['ceo', 'cto']\n    },\n    indent,\n    rootItemId: 'company',\n    getItemName: (item) => item.getItemData().name,\n    isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,\n    dataLoader: {\n      getItem: (itemId) => items[itemId],\n      getChildren: (itemId) => items[itemId].children ?? []\n    },\n    features: [syncDataLoaderFeature, hotkeysCoreFeature]\n  });\n  return (\n    <div className='mx-auto w-full grow place-self-start lg:w-xs'>\n      <Tree indent={indent} tree={tree}>\n        {tree.getItems().map((item) => {\n          const data = item.getItemData();\n          const initials = data.name\n            .split(' ')\n            .map((n) => n[0])\n            .join('');\n          return (\n            <TreeItem key={item.getId()} item={item}>\n              <TreeItemLabel className='gap-2 py-1'>\n                <Avatar className='size-6 shrink-0'>\n                  <AvatarImage src={data.avatar} alt={data.name} />\n                  <AvatarFallback>\n                    {initials}\n                  </AvatarFallback>\n                </Avatar>\n                <span className='flex flex-col items-start'>\n                  <span className='text-sm leading-tight'>{data.name}</span>\n                  {data.role && (\n                    <span className='text-ui-muted-foreground text-xs leading-tight'>\n                      {data.role}\n                    </span>\n                  )}\n                </span>\n              </TreeItemLabel>\n            </TreeItem>\n          );\n        })}\n      </Tree>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

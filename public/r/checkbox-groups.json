@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-groups",
+  "type": "registry:example",
+  "title": "Groups",
+  "description": "Groups. Core/Checkbox pattern composed from @gaudi/design-system/core/Checkbox and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "checkbox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Checkbox",
+    "import": "@gaudi/design-system/core/Checkbox",
+    "storyId": "core-checkbox--groups",
+    "source": "src/components/core/Checkbox/stories/fixtures/checkbox/checkbox-groups.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/checkbox-groups.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Frame,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel,\n  FieldLegend,\n  FieldSet\n} from '@gaudi/design-system/core/Field';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst permissions = [\n  { id: 'perm-read', label: 'Read', checked: true },\n  { id: 'perm-write', label: 'Write', checked: false },\n  { id: 'perm-delete', label: 'Delete', checked: true }\n];\nconst channels = [\n  { id: 'ch-push', icon: 'LaptopIcon', label: 'Push notifications', checked: true },\n  { id: 'ch-email', icon: 'MailIcon', label: 'Email notifications', checked: false },\n  { id: 'ch-sms', icon: 'SmartphoneIcon', label: 'SMS notifications', checked: false }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xs gap-3'>\n      {/* Inline: short options on one line. */}\n      <FieldSet className='gap-2'>\n        <FieldLegend variant='label'>Permissions</FieldLegend>\n        <div className='flex flex-wrap items-center gap-4'>\n          {permissions.map((item) => (\n            <Field key={item.id} orientation='horizontal' className='w-auto'>\n              <Checkbox id={item.id} defaultChecked={item.checked} />\n              <FieldLabel htmlFor={item.id}>{item.label}</FieldLabel>\n            </Field>\n          ))}\n        </div>\n      </FieldSet>\n      {/* Stacked in a frame: each row is one click target, with a leading icon. */}\n      <Frame spacing='sm'>\n        <FrameHeader>\n          <FrameTitle>Notification settings</FrameTitle>\n        </FrameHeader>\n        <FramePanel className='overflow-hidden p-0!'>\n          {channels.map((item, index) => (\n            <div key={item.id}>\n              {index > 0 && <Separator />}\n              <label htmlFor={item.id} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>\n                <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4 text-text-muted' />\n                <span className='flex-1'>{item.label}</span>\n                <Checkbox id={item.id} defaultChecked={item.checked} />\n              </label>\n            </div>\n          ))}\n        </FramePanel>\n      </Frame>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

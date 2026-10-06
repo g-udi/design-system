@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group-framed-lists",
+  "type": "registry:example",
+  "title": "Framed lists",
+  "description": "Framed lists. Core/RadioGroup pattern composed from @gaudi/design-system/core/RadioGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "radio-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/RadioGroup",
+    "import": "@gaudi/design-system/core/RadioGroup",
+    "storyId": "core-radiogroup--framed-lists",
+    "source": "src/components/core/RadioGroup/stories/fixtures/radio-group/radio-group-framed-lists.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/radio-group-framed-lists.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Frame,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  RadioGroupRoot as RadioGroup,\n  RadioGroupItem\n} from '@gaudi/design-system/core/RadioGroup';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst languages = [\n  { value: 'en', label: 'English' },\n  { value: 'es', label: 'Spanish' },\n  { value: 'fr', label: 'French' }\n];\nconst channels = [\n  { value: 'email', label: 'Email', icon: 'MailIcon' },\n  { value: 'phone', label: 'Phone', icon: 'SmartphoneIcon' },\n  { value: 'chat', label: 'Chat', icon: 'MessageCircleIcon' }\n];\n\nfunction List({ title, defaultValue, items, trailing }) {\n  return (\n    <Frame spacing='sm'>\n      <FrameHeader>\n        <FrameTitle>{title}</FrameTitle>\n      </FrameHeader>\n      <FramePanel className='overflow-hidden p-0!'>\n        <RadioGroup defaultValue={defaultValue} aria-label={title} className='gap-0'>\n          {items.map((item, index) => (\n            <div key={item.value}>\n              {index > 0 && <Separator />}\n              <label htmlFor={`${title}-${item.value}`} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>\n                {!trailing && <RadioGroupItem value={item.value} id={`${title}-${item.value}`} />}\n                {item.icon && <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4 text-text-muted' />}\n                <span className='flex-1'>{item.label}</span>\n                {trailing && <RadioGroupItem value={item.value} id={`${title}-${item.value}`} />}\n              </label>\n            </div>\n          ))}\n        </RadioGroup>\n      </FramePanel>\n    </Frame>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <List title='Language' defaultValue='en' items={languages} />\n      <List title='Contact channel' defaultValue='email' items={channels} trailing />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

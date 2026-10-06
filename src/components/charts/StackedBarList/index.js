@@ -1,2 +1,2 @@
-export { StackedBarList as default } from './parts/stacked-bar-list.jsx';
-export { StackedBarList } from './parts/stacked-bar-list.jsx';
+export { StackedBarList as default } from './StackedBarList.jsx';
+export { StackedBarList } from './StackedBarList.jsx';

@@ -1,11 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useInterval } from '../../../hooks/state/use-interval.js';
+import Button from '../../core/Button/index.js';
 import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { cn } from '../../../utilities/cn';
 import { CarouselContent, CarouselItem, CarouselRoot } from '../../core/Carousel';
-import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/parts/avatar.jsx';
-import { Rating } from '../../core/Rating/parts/rating-extended.jsx';
+import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
+import { Rating } from '../../core/Rating/Rating.jsx';
 
 /**
  * A screen frame: the main column (a form, wizard or settings) beside an optional
@@ -41,7 +43,8 @@ const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 export function ScreenTestimonial({ quotes = [], rating, interval = 6000, className }) {
   const [api, setApi] = useState();
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
   const reducedMotion = usePrefersReducedMotion();
   useEffect(() => {
     if (!api) return undefined;
@@ -50,19 +53,15 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
     api.on('select', sync);
     return () => api.off('select', sync);
   }, [api]);
-  useEffect(() => {
-    if (!api || paused || quotes.length < 2 || reducedMotion) return undefined;
-    const timer = setInterval(() => api.scrollNext(), interval);
-    return () => clearInterval(timer);
-  }, [api, paused, quotes.length, interval, reducedMotion]);
+  useInterval(() => api.scrollNext(), api && !hovered && !focused && quotes.length > 1 && !reducedMotion && interval > 0 ? interval : null);
   return (
     <figure
       data-slot='screen-testimonial'
       className={cn('grid gap-4', className)}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}
     >
       {rating ? <Rating rating={rating} size='sm' /> : null}
       <CarouselRoot setApi={setApi} opts={{ loop: true }} aria-label='Customer quotes'>
@@ -88,16 +87,18 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
         <div className='-ms-1.5 flex'>
           {quotes.map((quote, index) => (
             // A 24px hit area around a slim bar keeps the dots easy to press.
-            <button
+            <Button
               key={quote.name}
+              variant='ghost'
+              size='icon-xs'
               type='button'
               aria-label={`Show quote from ${quote.name}`}
               aria-current={index === current || undefined}
               onClick={() => api?.scrollTo(index)}
               className='grid h-6 min-w-6 cursor-pointer place-items-center px-1.5'
             >
-              <span aria-hidden='true' className={cn('h-1.5 rounded-full transition-all', index === current ? 'bg-text w-5' : 'bg-text-muted/40 w-1.5')} />
-            </button>
+              <span aria-hidden='true' className={cn('h-1.5 rounded-(--ds-radius-control) transition-all motion-reduce:transition-none', index === current ? 'bg-text w-5' : 'bg-text-muted/40 w-1.5')} />
+            </Button>
           ))}
         </div>
       ) : null}

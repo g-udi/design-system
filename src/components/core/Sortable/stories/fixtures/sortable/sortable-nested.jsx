@@ -1,0 +1,127 @@
+'use client';
+import { useId, useState } from 'react';
+import {
+  Sortable,
+  SortableItem,
+  SortableItemHandle
+} from '@gaudi/design-system/core/Sortable';
+import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
+import {
+  CardRoot as Card,
+  CardContent
+} from '@gaudi/design-system/core/Card';
+import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+const defaultOptionGroups = [
+  {
+    id: '1',
+    name: 'Colors',
+    values: [
+      { id: '1-1', value: 'White' },
+      { id: '1-2', value: 'Black' },
+      { id: '1-3', value: 'Grey' },
+      { id: '1-4', value: 'Green' }
+    ]
+  },
+  {
+    id: '2',
+    name: 'Sizes',
+    values: [
+      { id: '2-1', value: 'Small' },
+      { id: '2-2', value: 'Medium' },
+      { id: '2-3', value: 'Large' }
+    ]
+  },
+  {
+    id: '3',
+    name: 'Materials',
+    values: [
+      { id: '3-1', value: 'Cotton' },
+      { id: '3-2', value: 'Polyester' },
+      { id: '3-3', value: 'Wool' }
+    ]
+  }
+];
+export function Pattern() {
+  const toastId = useId();
+  const [optionGroups, setOptionGroups] = useState(defaultOptionGroups);
+  const handleParentReorder = (newGroups) => {
+    setOptionGroups(newGroups);
+    toast.success('Option groups reordered successfully!', {
+      toasterId: toastId,
+      description: `${newGroups.map((group, index) => `${index + 1}. ${group.name}`).join(', ')}`
+    });
+  };
+  const getParentValue = (group) => group.id;
+  const getChildValue = (value) => value.id;
+  const handleChildReorder = (groupId, newValues) => {
+    setOptionGroups((prev) =>
+      prev.map((group) =>
+        group.id === groupId ? { ...group, values: newValues } : group
+      )
+    );
+    toast.success('Values reordered successfully!', {
+      toasterId: toastId,
+      description: newValues
+        .map((value, index) => `${index + 1}. ${value.value}`)
+        .join(', ')
+    });
+  };
+  return (
+    <>
+      <ToastProvider id={toastId} />
+    <div className='mx-auto w-full max-w-sm space-y-4'>
+      <Sortable
+        value={optionGroups}
+        onValueChange={handleParentReorder}
+        getItemValue={getParentValue}
+        strategy='vertical'
+        className='space-y-3'
+      >
+        {optionGroups.map((group) => (
+          <SortableItem key={group.id} value={group.id}>
+            <Card className='p-2'>
+              <CardContent className='p-0'>
+                {/* Group Header */}
+                <div className='mb-2 flex items-center gap-2'>
+                  <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
+                    <RegistryIcon
+                      lucide='GripVerticalIcon'
+                      className='size-4'
+                    />
+                  </SortableItemHandle>
+                  <h3 className='text-sm font-semibold'>{group.name}</h3>
+                </div>
+
+                {/* Option Values - Child Level */}
+                <Sortable
+                  value={group.values}
+                  onValueChange={(newValues) =>
+                    handleChildReorder(group.id, newValues)
+                  }
+                  getItemValue={getChildValue}
+                  strategy='vertical'
+                  className='space-y-2'
+                >
+                  {group.values.map((value) => (
+                    <SortableItem key={value.id} value={value.id}>
+                      <div className='border-ui-border rounded-md flex items-center gap-2 border p-1.5'>
+                        <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
+                          <RegistryIcon
+                            lucide='GripVerticalIcon'
+                            className='size-4'
+                          />
+                        </SortableItemHandle>
+                        <span className='flex-1 text-sm'>{value.value}</span>
+                      </div>
+                    </SortableItem>
+                  ))}
+                </Sortable>
+              </CardContent>
+            </Card>
+          </SortableItem>
+        ))}
+      </Sortable>
+    </div>
+    </>
+  );
+}

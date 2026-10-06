@@ -10,28 +10,28 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import { useMediaQuery } from '../../../hooks/environment/use-media-query.js';
 
 import CommandLauncher from '../../core/Commander';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import { NavigationMenu, NavigationMenuAside, NavigationMenuDropdown, NavigationMenuLink, NavigationMenuList } from '../../core/NavigationMenu';
-import BrandMark from './parts/BrandMark.jsx';
-import MenuMobile from './parts/MenuMobile.jsx';
-import MenuSearch from './parts/MenuSearch.jsx';
-import ThemeSwitch from '../../../utilities/ThemeSwitcher';
+import BrandMark from './BrandMark.jsx';
+import MenuMobile from './MenuMobile.jsx';
+import MenuSearch from './MenuSearch.jsx';
+import ThemeSwitch from './ThemeSwitch.jsx';
 import { coreContent, sortPosts } from '../../../utilities/content';
 import formatDate from '../../../utilities/formatDate';
-import { useSiteConfig } from '../../../utilities/SiteConfig';
-import { formatCategoryTitle } from '../../../utilities/taxonomy';
+import { useSiteConfig } from '../../../context';
 
 /** Category destinations for a Blog or Categories panel. */
 const CategoryLinks = ({ categories }) => (
   <ul className='m-0 grid list-none content-start gap-0.5 p-0'>
     {categories.map((category) => (
       <li key={ category.id }>
-        <NavigationMenuLink variant='panel' href={ `/blog/categories/${category.id}` } description={ category.description }>
-          {formatCategoryTitle(category.title)}
+        <NavigationMenuLink variant='panel' href={ category.href } description={ category.description }>
+          {category.title}
         </NavigationMenuLink>
       </li>
     ))}
@@ -39,12 +39,12 @@ const CategoryLinks = ({ categories }) => (
 );
 
 /** The Blog panel's second block: the three most recent posts and a See all link. */
-const RecentPosts = ({ locale, posts }) => (
-  <NavigationMenuAside title='Recent posts' action={{ 'href': '/blog', 'label': 'See all' }}>
+const RecentPosts = ({ locale, posts, blogLink }) => (
+  <NavigationMenuAside title='Recent posts' action={blogLink ? { href: blogLink.href, label: 'See all' } : undefined}>
     <ul className='m-0 grid list-none gap-0.5 p-0'>
       {posts.slice(0, 3).map((post) => (
-        <li key={ post.slug }>
-          <NavigationMenuLink variant='panel' href={ `/blog/${post.slug}` } description={ formatDate(post.date, locale) }>
+        <li key={ post.id ?? post.slug ?? post.href }>
+          <NavigationMenuLink variant='panel' href={ post.href } description={ formatDate(post.date, locale) }>
             <span className='block truncate'>{post.title}</span>
           </NavigationMenuLink>
         </li>
@@ -64,6 +64,7 @@ const RecentPosts = ({ locale, posts }) => (
  * <Menu categories={categories} posts={posts} logo={<img src='/logo.svg' alt='' className='size-10' />} />
  */
 const Menu = ({
+  blogLink,
   categories: categoriesProp,
   logo,
   posts: postsProp,
@@ -82,31 +83,24 @@ const Menu = ({
   const menuCategories = categoriesProp || [];
   const menuPublications = publicationsProp || [];
   const menuTags = tagsProp || [];
-  const blogLink = navigation.links.find((link) => link.href === '/blog' || link.href === '/blog/');
   const shouldShowLink = (link) => {
     if (link.hideInPath === '*') return Boolean(link.showInPath && path.includes(link.showInPath));
 
     return !link.hideInPath || !path.includes(link.hideInPath);
   };
-  const mobileLinks = navigation.links.filter((link) => link !== blogLink && shouldShowLink(link));
+  const mobileLinks = navigation.links.filter((link) => link.href !== blogLink?.href && shouldShowLink(link));
   const isActivePath = (href) => path === href || (href !== '/' && path.startsWith(`${href}/`));
-  const onBlogRoute = path.includes('/blog');
+  const blogPath = blogLink?.href?.replace(/\/$/, '');
+  const onBlogRoute = Boolean(blogPath && (path === blogPath || path.startsWith(`${blogPath}/`)));
 
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);
   const [ LauncherOpen, LauncherSetOpen ] = useState(false);
   const mobileMenuTriggerRef = useRef(null);
+  const desktop = useMediaQuery('(min-width: 1024px)');
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia('(min-width: 1024px)');
-    const closeOnDesktop = (event) => {
-      if (event.matches) setMobileMenuOpen(false);
-    };
-
-    closeOnDesktop(desktopQuery);
-    desktopQuery.addEventListener('change', closeOnDesktop);
-
-    return () => desktopQuery.removeEventListener('change', closeOnDesktop);
-  }, []);
+    if (desktop) setMobileMenuOpen(false);
+  }, [desktop]);
 
   return (
     <header className='flex min-h-14 items-center justify-between gap-4 py-3 lg:py-4'>
@@ -122,15 +116,15 @@ const Menu = ({
                 {link.title}
               </NavigationMenuLink>
             ))}
-            {onBlogRoute ? (
+            {blogLink ? onBlogRoute ? (
               <NavigationMenuDropdown label='Categories' align='center' width='md'>
                 <CategoryLinks categories={ menuCategories } />
               </NavigationMenuDropdown>
             ) : (
-              <NavigationMenuDropdown label='Blog' align='center' width='2xl' aside={ <RecentPosts posts={ posts } locale={ metadata.locale } /> }>
+              <NavigationMenuDropdown label={blogLink.title} align='center' width='2xl' aside={ <RecentPosts posts={ posts } locale={ metadata.locale } blogLink={blogLink} /> }>
                 <CategoryLinks categories={ menuCategories } />
               </NavigationMenuDropdown>
-            )}
+            ) : null}
           </NavigationMenuList>
         </NavigationMenu>
 
@@ -153,6 +147,7 @@ const Menu = ({
           />
         ) : null}
         <CommandLauncher
+          navigation={navigation.links.map((link) => ({ ...link, id: link.id ?? link.href, title: link.title, href: link.href }))}
           tags={ menuTags }
           projects={ projects }
           posts={ posts }

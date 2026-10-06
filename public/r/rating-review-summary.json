@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rating-review-summary",
+  "type": "registry:example",
+  "title": "Review summary",
+  "description": "Review summary. Core/Advanced Inputs/Rating pattern composed from @gaudi/design-system/core/Rating and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "rating",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Rating",
+    "import": "@gaudi/design-system/core/Rating",
+    "storyId": "core-rating--review-summary",
+    "source": "src/components/core/Rating/stories/fixtures/rating/rating-review-summary.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/rating-review-summary.jsx",
+      "type": "registry:component",
+      "content": "import { Rating } from '@gaudi/design-system/core/Rating';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nconst distribution = [\n  { stars: 5, count: 124 },\n  { stars: 4, count: 45 },\n  { stars: 3, count: 18 },\n  { stars: 2, count: 8 },\n  { stars: 1, count: 5 }\n];\nconst reviewCount = distribution.reduce((sum, row) => sum + row.count, 0);\nconst average = distribution.reduce((sum, row) => sum + row.stars * row.count, 0) / reviewCount;\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto w-full max-w-xs space-y-3'>\n      <div className='flex flex-col items-center gap-2'>\n        <span className='text-3xl font-semibold'>{average.toFixed(1)}</span>\n        <Rating rating={average} size='sm' />\n        <span className='text-text-muted text-xs'>\n          Based on {reviewCount} reviews\n        </span>\n      </div>\n      <Separator />\n      <div className='space-y-2'>\n        {distribution.map((row) => (\n          <div key={row.stars} className='flex items-center gap-3 text-sm'>\n            <span className='text-text-muted w-3 text-right text-xs'>\n              {row.stars}\n            </span>\n            <Progress\n              value={row.count / reviewCount * 100} aria-label={`${row.stars} star reviews`}\n              className='h-1.5 flex-1 **:data-[slot=progress-indicator]:bg-warning'\n            />\n            <span className='text-text-muted w-7 text-right text-xs'>\n              {row.count}\n            </span>\n          </div>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

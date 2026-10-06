@@ -1,0 +1,86 @@
+.gaudi-background-demo {
+  container-type: inline-size;
+  display: grid;
+  gap: calc(var(--ds-space-scale, 1) * 12px);
+  min-width: 0;
+  width: 100%;
+}
+
+.gaudi-background-demo__content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  min-width: 0;
+  overflow-y: auto;
+  padding: calc(var(--ds-space-scale, 1) * 20px);
+  position: relative;
+  z-index: 1;
+  color: var(--ds-color-text);
+  background: radial-gradient(ellipse at 50% 55%, color-mix(in srgb, var(--ds-color-surface) 88%, transparent) 5%, color-mix(in srgb, var(--ds-color-surface) 64%, transparent) 32%, transparent 70%);
+}
+
+.gaudi-background-demo__content[hidden] { display: none; }
+
+.gaudi-background-demo__header {
+  align-items: center;
+  background: color-mix(in srgb, var(--ds-color-surface) 88%, transparent);
+  border: 1px solid var(--ds-color-border);
+  border-radius: var(--ds-radius);
+  display: flex;
+  flex-shrink: 0;
+  gap: calc(var(--ds-space-scale, 1) * 12px);
+  justify-content: space-between;
+  min-width: 0;
+  padding: calc(var(--ds-space-scale, 1) * 10px) calc(var(--ds-space-scale, 1) * 14px);
+}
+
+.gaudi-background-demo__brand {
+  align-items: center;
+  border-radius: var(--ds-radius);
+  color: var(--ds-color-text);
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: 650;
+  gap: calc(var(--ds-space-scale, 1) * 6px);
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.gaudi-background-demo__brand:focus-visible { outline: 2px solid var(--ds-color-accent); outline-offset: 4px; }
+.gaudi-background-demo__navigation { display: flex; align-items: center; gap: calc(var(--ds-space-scale, 1) * 8px); }
+
+.gaudi-background-demo__hero {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+  padding: calc(var(--ds-space-scale, 1) * 30px) 0;
+  text-align: center;
+}
+
+.gaudi-background-demo__copy { max-width: 680px; min-width: 0; }
+.gaudi-background-demo__copy h2 {
+  color: var(--ds-color-text);
+  font-size: clamp(30px, 5.5cqi, 56px);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  margin: 20px 0 14px;
+  text-wrap: balance;
+}
+
+.gaudi-background-demo__copy p { color: var(--ds-color-text); font-size: 15px; line-height: 1.5; margin: 0; text-wrap: balance; }
+.gaudi-background-demo__actions { display: flex; flex-wrap: wrap; gap: calc(var(--ds-space-scale, 1) * 12px); justify-content: center; margin-top: 28px; }
+.gaudi-background-demo__toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: calc(var(--ds-space-scale, 1) * 12px); }
+.gaudi-background-demo__hint { color: var(--ds-color-text-muted); flex: 1 1 180px; font-size: 13px; line-height: 1.5; margin: 0; }
+.gaudi-background-demo__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: calc(var(--ds-space-scale, 1) * 16px); }
+
+@container (max-width: 480px) {
+  .gaudi-background-demo__content { padding: calc(var(--ds-space-scale, 1) * 12px); }
+  .gaudi-background-demo__header { padding: calc(var(--ds-space-scale, 1) * 10px); }
+  .gaudi-background-demo__navigation a:first-child { display: none; }
+  .gaudi-background-demo__actions { gap: calc(var(--ds-space-scale, 1) * 8px); margin-top: 24px; }
+  .gaudi-background-demo__controls { gap: calc(var(--ds-space-scale, 1) * 12px); }
+}

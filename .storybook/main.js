@@ -89,10 +89,10 @@ const config = {
   },
   'staticDirs': [ './public' ],
   'stories': [
-    './stories/**/*.stories.@(js|jsx|mdx)',
-    '../src/components/**/!(*Patterns).stories.@(js|jsx|mdx)',
-    '../src/components/**/*Patterns.stories.@(js|jsx|mdx)',
-    '../src/hooks/**/*.stories.@(js|jsx|mdx)'
+    '../src/docs/stories/**/*.stories.@(js|jsx|mdx)',
+    '../src/components/**/stories/!(*Patterns).stories.@(js|jsx|mdx)',
+    '../src/components/**/stories/*Patterns.stories.@(js|jsx|mdx)',
+    '../src/docs/hooks/stories/**/*.stories.@(js|jsx|mdx)'
   ],
   'viteFinal': (viteConfig) => {
     const { rollupOptions = {}, ...buildConfig } = viteConfig.build || {};
@@ -109,6 +109,13 @@ const config = {
 
     return {
       ...viteConfig,
+      server: {
+        ...viteConfig.server,
+        watch: {
+          ...viteConfig.server?.watch,
+          ignored: [viteConfig.server?.watch?.ignored, '**/.storybook/verification/**'].flat().filter(Boolean)
+        }
+      },
       'build': {
         ...buildConfig,
         'chunkSizeWarningLimit': Math.max(buildConfig.chunkSizeWarningLimit || 0, storybookDocsWarningLimit),
@@ -122,7 +129,9 @@ const config = {
         'include': [
           ...(viteConfig.optimizeDeps?.include || []),
           'storybook/internal/components',
+          'maplibre-gl',
           '@radix-ui/react-accordion',
+          '@tanstack/react-table/static-functions',
           ...lucideIconOptimizeDeps,
           ...mermaidOptimizeDeps,
           ...rechartsOptimizeDeps

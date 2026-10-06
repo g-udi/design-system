@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-bubble-quick-replies",
+  "type": "registry:example",
+  "title": "Suggested replies under a question",
+  "description": "Suggested replies under a question. Chat/ChatBubble pattern composed from @gaudi/design-system/chat/ChatBubble and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-bubble",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatBubble",
+    "import": "@gaudi/design-system/chat/ChatBubble",
+    "storyId": "chat-bubble--quick-replies",
+    "source": "src/components/chat/ChatBubble/stories/fixtures/chat-bubble/chat-bubble-quick-replies.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-bubble-quick-replies.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { ChatBubble, ChatBubbleContent, ChatBubbleGroup } from '@gaudi/design-system/chat/ChatBubble';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst options = [\n  {\n    id: 'retry',\n    label: 'Resend both issues now',\n    reply: 'Queued again. Issues 41 and 42 go out with the next send.'\n  },\n  {\n    id: 'hold',\n    label: 'Hold them until I fix the links',\n    reply: 'Held. Neither issue goes out until you confirm the links.'\n  },\n  { id: 'log', label: 'Open the bounced delivery log', href: '#' }\n];\nexport function Pattern() {\n  const [picked, setPicked] = useState(null);\n  const chosen = options.find((option) => option.id === picked);\n  return (\n    <Card className='w-full max-w-sm'>\n      <CardContent className='flex flex-col gap-4'>\n        <ChatBubble variant='muted'>\n          <ChatBubbleContent>\n            Two newsletter issues bounced last night. What do you want to do?\n          </ChatBubbleContent>\n        </ChatBubble>\n        {chosen ? (\n          <>\n            <ChatBubble align='end'>\n              <ChatBubbleContent>{chosen.label}</ChatBubbleContent>\n            </ChatBubble>\n            {/* max-w-full lifts the 80% cap for the one bubble that carries\n       controls, and it needs no `!` because a plain utility already\n       outranks the style sheet. */}\n            <ChatBubble variant='outline' className='max-w-full'>\n              <ChatBubbleContent>\n                {chosen.reply}\n                {/* Both actions move the thread forward. Repeating the pick or\n       the link option still on offer would give the reader a row\n       of choices they have already made. */}\n                <div className='mt-3 flex flex-wrap gap-2'>\n                  <Button size='sm'>Check links</Button>\n                  <Button variant='outline' size='sm'>\n                    Notify the owner\n                  </Button>\n                </div>\n              </ChatBubbleContent>\n            </ChatBubble>\n          </>\n        ) : (\n          <ChatBubbleGroup>\n            {options.map((option) =>\n              option.href ? (\n                <ChatBubble key={option.id} variant='tinted' align='end'>\n                  {/* This option is an anchor and not a button, because it\n         leaves the thread instead of answering it. asChild keeps\n         that difference in the DOM, so middle click still works. */}\n                  <ChatBubbleContent asChild>\n                    <a href={option.href}>\n                      {option.label}\n                      <RegistryIcon\n                        lucide='ArrowUpRightIcon'\n                        aria-hidden='true'\n                        className='ms-1 inline size-4 align-text-bottom'\n                      />\n                    </a>\n                  </ChatBubbleContent>\n                </ChatBubble>\n              ) : (\n                <ChatBubble key={option.id} variant='tinted' align='end'>\n                  {/* asChild turns the content element itself into the button,\n         which earns the focus ring and the hover the variant\n         already ships; a button nested inside it would get\n         neither. The visible text is the accessible name. */}\n                  <ChatBubbleContent asChild>\n                    <button type='button' onClick={() => setPicked(option.id)}>\n                      {option.label}\n                    </button>\n                  </ChatBubbleContent>\n                </ChatBubble>\n              )\n            )}\n          </ChatBubbleGroup>\n        )}\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

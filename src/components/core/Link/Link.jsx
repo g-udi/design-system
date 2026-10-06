@@ -3,7 +3,7 @@ import NextLink from 'next/link';
 
 import { isExternalHref, normalizeHref } from '../../../utilities/href';
 import { createVariants } from '../../../utilities/variants';
-import { buttonToneAliases } from '../Button/Button.tones.js';
+import { buttonToneAliases } from '../Button/buttonTones.js';
 
 // Semantic tones colour `inline` links; legacy hue names (blue, gray, red…) resolve through the Button aliases.
 const inlineToneClasses = {

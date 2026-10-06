@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "gantt-baselines-dependencies",
+  "type": "registry:example",
+  "title": "Baseline, dependencies and milestones",
+  "description": "Baseline, dependencies and milestones. Core/Planning/Gantt pattern composed from @gaudi/design-system/core/Gantt and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "date-fns@4.1.0"
+  ],
+  "categories": [
+    "gantt",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Gantt",
+    "import": "@gaudi/design-system/core/Gantt",
+    "storyId": "core-gantt--baselines-dependencies",
+    "source": "src/components/core/Gantt/stories/fixtures/gantt/gantt-baselines-dependencies.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/gantt-baselines-dependencies.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useMemo } from 'react';\nimport { Gantt } from '@gaudi/design-system/core/Gantt';\nimport { GanttNav } from '@gaudi/design-system/core/Gantt';\nimport { GanttView } from '@gaudi/design-system/core/Gantt';\nimport { addDays, startOfDay, startOfWeek } from 'date-fns';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nfunction buildResources(anchor) {\n  const week = startOfWeek(startOfDay(anchor), { weekStartsOn: 0 });\n  const day = (dayOffset) => addDays(week, dayOffset);\n  return [\n    {\n      id: 'discovery',\n      title: 'Discovery',\n      children: [\n        { id: 'kickoff', title: 'Kickoff workshop' },\n        { id: 'requirements', title: 'Requirements' }\n      ]\n    },\n    {\n      id: 'implementation',\n      title: 'Implementation',\n      baselineStart: day(-3),\n      baselineEnd: day(6),\n      children: [\n        { id: 'integration', title: 'API integration' },\n        { id: 'migration', title: 'Data migration' },\n        { id: 'hardening', title: 'Security hardening' }\n      ]\n    },\n    {\n      id: 'launch',\n      title: 'Launch',\n      children: [{ id: 'handover', title: 'Handover' }]\n    }\n  ];\n}\nfunction leafTitles(resources) {\n  return new Map(\n    resources\n      .flatMap((group) => group.children ?? [])\n      .map((leaf) => [leaf.id, leaf.title])\n  );\n}\nfunction buildBars(anchor, titles) {\n  const week = startOfWeek(startOfDay(anchor), { weekStartsOn: 0 });\n  const day = (dayOffset) => addDays(week, dayOffset);\n  const bar = (\n    resourceId,\n    startOffset,\n    days,\n    plannedOffset,\n    plannedDays,\n    color,\n    progress,\n    dependencies\n  ) => ({\n    id: `bar-${resourceId}`,\n    title: titles.get(resourceId) ?? resourceId,\n    start: day(startOffset),\n    end: day(startOffset + days),\n    baselineStart: day(plannedOffset),\n    baselineEnd: day(plannedOffset + plannedDays),\n    allDay: true,\n    color,\n    resourceId,\n    progress,\n    dependencies\n  });\n  return [\n    // delivered exactly to plan\n    bar('kickoff', -9, 2, -9, 2, 'var(--color-blue-500)', 100),\n    // ran a day over its planned window\n    bar('requirements', -7, 4, -7, 3, 'var(--color-sky-500)', 100, ['bar-kickoff']),\n    // started a day late and carried the slip through\n    bar('integration', -2, 5, -3, 5, 'var(--color-violet-500)', 60, ['bar-requirements']),\n    // tracking a day ahead of plan\n    bar('migration', 1, 3, 1, 4, 'var(--color-emerald-500)', 30, ['bar-requirements']),\n    // waits on BOTH tracks, so two arrows land on its start; slipped on both ends\n    bar('hardening', 4, 4, 3, 3, 'var(--color-teal-500)', 0, ['bar-integration', 'bar-migration']),\n    // a zero-length milestone (diamond) that landed a day after its planned date\n    bar('handover', 9, 0, 8, 0, 'var(--color-amber-500)', void 0, ['bar-hardening'])\n  ];\n}\nexport function Pattern() {\n  const resources = useMemo(\n    () => buildResources(new Date()),\n    []\n  );\n  const bars = useMemo(\n    () => buildBars(new Date(), leafTitles(resources)),\n    [resources]\n  );\n  return (\n    <div className='w-full p-4'>\n      <Card className='w-full py-0'>\n        <CardContent className='p-0'>\n          {/* baselineBars and dependencyLines are on by default: an event\n       carrying baselineStart and baselineEnd ghosts its planned window\n       behind the bar (data-baseline-variance=\"early|late|on-time\"), and\n       one naming `dependencies` gets a finish-to-start arrow from each\n       predecessor. Dragging re-times the actual dates and re-anchors the\n       arrows while the plan holds still; the milestone diamond moves\n       like any bar but has no resize edges. */}\n          <Gantt\n            defaultEvents={bars}\n            resources={resources}\n            defaultScale='month'\n            scheduleMode='single'\n            treePanel={{ width: 240 }}\n            className='h-[480px] w-full'\n          >\n            <GanttNav />\n            <GanttView />\n          </Gantt>\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

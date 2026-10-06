@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { loadComponent } from '../../../support/renderComponent.js';
+test('GlyphInspector preserves readable, escaped content and deterministic server output', async () => {
+  const { GlyphInspector } = await loadComponent(new URL('../../../../src/components/animations/GlyphInspector/index.js', import.meta.url));
+  const render = () => renderToStaticMarkup(createElement(GlyphInspector, { ...{"text": "Readable <content>"}, paused: true, 'data-consumer': 'kept' }));
+  const html = render();
+  assert.equal(render(), html);
+  assert.match(html, /Readable &lt;content&gt;/);
+  assert.match(html, /data-consumer="kept"/);
+  assert.match(html, /data-animated="false"/);
+  assert.doesNotMatch(html, /aria-live|NaN|Infinity/);
+});

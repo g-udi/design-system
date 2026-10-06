@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-descriptions",
+  "type": "registry:example",
+  "title": "Options with descriptions",
+  "description": "Options with descriptions. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--descriptions",
+    "source": "src/components/core/Select/stories/fixtures/select/select-descriptions.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-descriptions.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\n\nconst accessLevels = [\n  { value: 'full', label: 'Full access', description: 'Can manage writers, editors and billing' },\n  { value: 'edit', label: 'Read and write', description: 'Can edit and publish posts' },\n  { value: 'view', label: 'Read only', description: 'Can read drafts and leave comments' },\n  { value: 'none', label: 'No access', description: 'Cannot open this publication' }\n];\nconst plans = [\n  { value: 'starter', label: 'Starter', description: 'For a single author' },\n  { value: 'team', label: 'Team', description: 'For editorial teams of up to 25' },\n  { value: 'enterprise', label: 'Enterprise', description: 'Unlimited writers and single sign-on' }\n];\n\nfunction TwoLine({ item }) {\n  return (\n    <span className='flex flex-col items-start gap-px text-left'>\n      <span className='font-medium'>{item.label}</span>\n      <small className='text-xs text-text-muted'>{item.description}</small>\n    </span>\n  );\n}\n\n// Options with a second line. The access trigger hides the description to stay\n// one line; the plan trigger grows to show both lines.\nexport function Pattern() {\n  const id = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-y-6'>\n      <Field>\n        <FieldLabel htmlFor={`${id}-select-access`}>Access level</FieldLabel>\n        <Select defaultValue='edit'>\n          <SelectTrigger id={`${id}-select-access`} className='w-full [&_small]:hidden'>\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <SelectGroup>\n              {accessLevels.map((item) => (\n                <SelectItem key={item.value} value={item.value}>\n                  <TwoLine item={item} />\n                </SelectItem>\n              ))}\n            </SelectGroup>\n          </SelectContent>\n        </Select>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-select-plan`}>Plan</FieldLabel>\n        <Select defaultValue='team'>\n          <SelectTrigger id={`${id}-select-plan`} className='h-auto! w-full py-1.5'>\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <SelectGroup>\n              {plans.map((item) => (\n                <SelectItem key={item.value} value={item.value}>\n                  <TwoLine item={item} />\n                </SelectItem>\n              ))}\n            </SelectGroup>\n          </SelectContent>\n        </Select>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

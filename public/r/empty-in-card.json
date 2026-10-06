@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-in-card",
+  "type": "registry:example",
+  "title": "Inside a card",
+  "description": "Inside a card. Core/Feedback & States/EmptyState pattern composed from @gaudi/design-system/core/EmptyState and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "empty",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/EmptyState",
+    "import": "@gaudi/design-system/core/EmptyState",
+    "storyId": "core-emptystate--in-card",
+    "source": "src/components/core/EmptyState/stories/fixtures/empty/empty-in-card.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/empty-in-card.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto w-full max-w-md'>\n      <Card className='w-full max-w-md'>\n        <CardHeader>\n          <CardTitle>Team members</CardTitle>\n          <CardDescription>\n            Manage your team and their permissions.\n          </CardDescription>\n        </CardHeader>\n        <CardContent>\n          <Empty>\n            <EmptyHeader>\n              <EmptyMedia variant='icon'>\n                <RegistryIcon lucide='UsersIcon' />\n              </EmptyMedia>\n              <EmptyTitle>No team members</EmptyTitle>\n              <EmptyDescription>\n                Invite people to collaborate on this project.\n              </EmptyDescription>\n            </EmptyHeader>\n            <EmptyContent>\n              <Button size='sm' href='/settings/team/invite'>\n                <RegistryIcon lucide='UserPlusIcon' data-icon='inline-start' />\n                Invite people\n              </Button>\n            </EmptyContent>\n          </Empty>\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

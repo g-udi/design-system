@@ -1,2 +1,2 @@
 // Composition exports
-export { Scrollspy } from './parts/scrollspy-extended.jsx';
+export { Scrollspy } from './Scrollspy.jsx';

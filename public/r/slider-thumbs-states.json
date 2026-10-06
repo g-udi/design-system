@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-thumbs-states",
+  "type": "registry:example",
+  "title": "Thumbs and states",
+  "description": "Thumbs and states. Core/Slider pattern composed from @gaudi/design-system/core/Slider and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "slider",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Slider",
+    "import": "@gaudi/design-system/core/Slider",
+    "storyId": "core-slider--thumbs-states",
+    "source": "src/components/core/Slider/stories/fixtures/slider/slider-thumbs-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/slider-thumbs-states.jsx",
+      "type": "registry:component",
+      "content": "import { Slider } from '@gaudi/design-system/core/Slider';\n\nconst rows = [\n  { label: 'Single', props: { defaultValue: [50], step: 1 } },\n  { label: 'Range', props: { defaultValue: [25, 75], step: 5 } },\n  { label: 'Three thumbs', props: { defaultValue: [10, 40, 80], step: 10 } },\n  { label: 'Disabled', props: { defaultValue: [50], step: 1, disabled: true } }\n];\n\nexport function Pattern() {\n  return (\n    <dl className='mx-auto grid w-full max-w-sm gap-3'>\n      {rows.map(({ label, props }) => (\n        <div key={label} className='grid grid-cols-[6rem_1fr] items-center gap-3'>\n          <dt className='text-xs text-text-muted'>{label}</dt>\n          <dd className='px-2'>\n            <Slider aria-label={label} max={100} {...props} />\n          </dd>\n        </div>\n      ))}\n    </dl>\n  );\n}\n"
+    }
+  ]
+}

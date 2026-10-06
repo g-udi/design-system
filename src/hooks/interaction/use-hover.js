@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLatestRef } from '../shared/use-latest-ref.js';
 
 /**
@@ -22,6 +22,10 @@ export function useHover({ disabled = false, onHoverChange } = {}) {
     setHovered(next);
     callbackRef.current?.(next);
   }, [ callbackRef ]);
+
+  useEffect(() => {
+    if (disabled) update(false);
+  }, [ disabled, update ]);
 
   const hoverProps = useMemo(() => ({
     onPointerEnter: (event) => {

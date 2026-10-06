@@ -1,0 +1,10 @@
+export default {
+  "Core/Commander": {
+    'accessibility': 'Commander is a keyboard-first overlay. Keep focus visible, support Escape close/back behavior, expose readable result labels, and make Cmd/Ctrl + K available without hiding the visible trigger.',
+    'description': 'Commander provides the site command palette with host-supplied destinations for navigation, content search, and theme actions.',
+    'overview': 'Use Commander with a visible trigger such as MenuSearch. MenuSearch already includes the keyboard hint.',
+    'recovery': ['Keep the query and current page intact when a search returns no results; offer a clear route back to all destinations.', 'Escape closes the current level first, then the launcher, so keyboard users can recover without losing context.'],
+    'props': [['open', 'boolean', '-', 'Controlled palette state.'], ['setOpen', '(open: boolean) => void', '-', 'State setter used by the trigger, shortcut, keyboard handler, and close behavior.'], ['navigation', 'Array', '[]', 'Prepared destinations with id, title, href or onClick, and optional disabled. No built-in routes.'], ['posts', 'Array', '[]', 'Searchable post records with prepared id/slug, title and href or onClick.'], ['projects', 'Array', '[]', 'Searchable project records.'], ['publications', 'Array', '[]', 'Searchable publication records.'], ['tags', 'Array', '[]', 'Searchable tag records.'], ['thoughts', 'Array', '[]', 'Searchable thought records.']],
+    usage: "import { useState } from 'react';\nimport { Button, Commander } from '@gaudi/design-system';\n\nexport function ContentSearch({ posts = [], projects = [], publications = [], tags = [], thoughts = [] }) {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)}>Search content</Button>\n      <Commander\n        open={open}\n        setOpen={setOpen}\n        posts={posts}\n        projects={projects}\n        publications={publications}\n        tags={tags}\n        thoughts={thoughts}\n      />\n    </>\n  );\n}"
+  }
+};

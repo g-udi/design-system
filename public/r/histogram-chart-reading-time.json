@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "histogram-chart-reading-time",
+  "type": "registry:example",
+  "title": "Reading time with median and p90",
+  "description": "Reading time with median and p90. Charts/HistogramChart pattern composed from @gaudi/design-system/charts/HistogramChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "histogram-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/HistogramChart",
+    "import": "@gaudi/design-system/charts/HistogramChart",
+    "storyId": "charts-histogramchart--reading-time",
+    "source": "src/components/charts/HistogramChart/stories/fixtures/histogram-chart/histogram-chart-reading-time.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/histogram-chart-reading-time.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { HistogramChart } from '@gaudi/design-system/charts/HistogramChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\n// Minutes readers spent on 60 sampled essays.\nconst minutes = [ 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 11, 11, 11, 12, 12, 12, 13, 13, 14, 14, 15, 15, 16, 17, 18, 19, 20, 21, 22, 24, 26, 28, 31, 34, 38, 41, 47 ];\nconst sorted = [ ...minutes ].sort((a, b) => a - b);\nconst median = (sorted[Math.floor((sorted.length - 1) / 2)] + sorted[Math.floor(sorted.length / 2)]) / 2;\nconst p90 = sorted[Math.floor(sorted.length * 0.9)];\n\nexport function Pattern() {\n  const [bins, setBins] = useState('10');\n  return (\n    <HistogramChart\n      ariaLabel='Distribution of reading time across 60 essays'\n      title='Reading time'\n      description='Most essays hold readers for 5 to 15 minutes; a long tail reads to the end.'\n      toolbar={\n        <ToggleGroup aria-label='Bin count' type='single' variant='outline' size='sm' spacing={0} value={bins} onValueChange={(next) => next && setBins(next)}>\n          <ToggleGroupItem value='5'>Coarse</ToggleGroupItem>\n          <ToggleGroupItem value='10'>Fine</ToggleGroupItem>\n        </ToggleGroup>\n      }\n      values={minutes}\n      bins={Number(bins)}\n      unit=' min'\n      markers={[{ label: 'Median', value: median }, { label: 'p90', tone: 'warning', value: p90 }]}\n      countLabel='Essays'\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

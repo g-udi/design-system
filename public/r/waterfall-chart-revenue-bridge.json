@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "waterfall-chart-revenue-bridge",
+  "type": "registry:example",
+  "title": "Recurring revenue bridge",
+  "description": "Recurring revenue bridge. Charts/WaterfallChart pattern composed from @gaudi/design-system/charts/WaterfallChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "waterfall-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/WaterfallChart",
+    "import": "@gaudi/design-system/charts/WaterfallChart",
+    "storyId": "charts-waterfallchart--revenue-bridge",
+    "source": "src/components/charts/WaterfallChart/stories/fixtures/waterfall-chart/waterfall-chart-revenue-bridge.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/waterfall-chart-revenue-bridge.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { WaterfallChart } from '@gaudi/design-system/charts/WaterfallChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\n// Monthly recurring revenue from September to October, change by change.\nconst bridge = [\n  { label: 'September', total: true, value: 48200 },\n  { label: 'New plans', value: 6900 },\n  { label: 'Upgrades', value: 2650 },\n  { label: 'Downgrades', value: -1180 },\n  { label: 'Cancelled', value: -3240 },\n  { label: 'October', total: true }\n];\n\nexport function Pattern() {\n  const [locale, setLocale] = useState('en-GB');\n  return (\n    <WaterfallChart\n      ariaLabel='Recurring revenue bridge from September to October'\n      title='Recurring revenue'\n      description='What moved monthly recurring revenue between September and October.'\n      toolbar={\n        <ToggleGroup aria-label='Number format' type='single' variant='outline' size='sm' spacing={0} value={locale} onValueChange={(next) => next && setLocale(next)}>\n          <ToggleGroupItem value='en-GB'>English</ToggleGroupItem>\n          <ToggleGroupItem value='de-DE'>Deutsch</ToggleGroupItem>\n        </ToggleGroup>\n      }\n      data={bridge}\n      locale={locale}\n      formatValue={{ currency: 'EUR', maximumFractionDigits: 0, style: 'currency' }}\n      changeLabel='Change'\n      totalLabel='MRR'\n      showData='toggle'\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

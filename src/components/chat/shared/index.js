@@ -1,2 +1,2 @@
-export { MessageStatus, MessageStatusIcon, messageStatuses } from './message-status.jsx';
-export { SourceIcon, hostOf, siteOf } from './source.jsx';
+export { ChatMessageStatus, ChatMessageStatusIcon, messageStatuses } from './message-status.jsx';
+export { ChatSourceIcon, hostOf, siteOf } from './source.jsx';

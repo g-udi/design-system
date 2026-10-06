@@ -1,18 +1,17 @@
 import { forwardRef } from 'react';
-import Link from 'next/link';
+import Link from '../Link';
 import { Slot } from 'radix-ui';
 
 import { cn } from '../../../utilities/cn';
-import { isExternalHref } from '../../../utilities/href';
 import { createVariants } from '../../../utilities/variants';
-import { buttonToneAliases, buttonToneClasses, buttonTones } from './Button.tones';
+import { buttonToneAliases, buttonToneClasses, buttonTones } from './buttonTones';
 
 const compoundVariants = Object.entries(buttonToneClasses).flatMap(([ tone, variants ]) => (
   Object.entries(variants).map(([ variant, className ]) => ({ className, tone, variant }))
 ));
 
 const resolveButtonVariants = createVariants({
-  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-subtle focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-2 aria-invalid:ring-danger/20',
+  'base': 'ds-motion-press inline-flex items-center justify-center whitespace-nowrap font-medium [&_svg]:shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ui-primary disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-danger aria-invalid:ring-2 aria-invalid:ring-danger/20',
   compoundVariants,
   'defaultVariants': {
     'radius': 'md',
@@ -42,7 +41,8 @@ const resolveButtonVariants = createVariants({
       'ghost': '',
       'outline': 'border',
       'soft': '',
-      'solid': '',
+      // Forced colours drop backgrounds; a system-coloured border keeps the filled button's shape.
+      'solid': 'forced-colors:border forced-colors:border-[ButtonBorder]',
       'subtle': ''
     }
   }
@@ -68,9 +68,6 @@ export const buttonVariants = Object.assign((options = {}) => {
 export const buttonSizes = Object.keys(buttonVariants.variants.size);
 export { buttonToneAliases, buttonTones };
 
-// mailto also renders as a plain anchor: NextLink client navigation makes no sense for it
-const rendersAsExternalAnchor = (href) => isExternalHref(href) || Boolean(href?.startsWith('mailto:'));
-
 const Button = forwardRef(function Button({
   children,
   asChild = false,
@@ -86,6 +83,10 @@ const Button = forwardRef(function Button({
   const classes = buttonVariants({ className, radius, size, tone, variant });
   const disabledLinkProps = disabled ? {
     'aria-disabled': true,
+    'onClickCapture': (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+    },
     'onClick': (event) => {
       event.preventDefault();
       event.stopPropagation();
@@ -94,21 +95,15 @@ const Button = forwardRef(function Button({
   } : {};
 
   if (asChild) return (
-    <Slot.Root ref={ref} data-slot='button' className={classes} {...rest} {...disabledLinkProps}>
+    <Slot.Root ref={ref} data-slot='button' className={classes} {...rest} disabled={disabled || undefined} {...disabledLinkProps}>
       {children}
     </Slot.Root>
   );
 
-  if (href && !rendersAsExternalAnchor(href)) return (
-    <Link ref={ ref } data-slot='button' href={ href } className={ classes } { ...rest } { ...disabledLinkProps }>
+  if (href) return (
+    <Link ref={ ref } data-slot='button' href={ href } variant='bare' className={ classes } { ...rest } { ...disabledLinkProps }>
       {children}
     </Link>
-  );
-
-  if (href) return (
-    <a ref={ ref } data-slot='button' href={ href } className={ classes } target='_blank' rel='noopener noreferrer' { ...rest } { ...disabledLinkProps }>
-      {children}
-    </a>
   );
 
   return (

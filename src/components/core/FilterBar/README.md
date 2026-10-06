@@ -24,4 +24,6 @@ import FilterBar from '@gaudi/design-system/core/FilterBar';
   `filterLabel`) above a scrollable option list, so phones keep the height for options.
 - `filters` with `onRemoveFilter` shows host-applied filters as chips when you do not use facets; `onClearFilters` clears everything.
 - `children` adds controls beside the search; `labels` translates every visible and accessible string.
+- Phrases with a name are label functions, so translations control word order: `labels.removeFilter(value, field)` (default "Remove {value} filter"), `labels.findIn(facet)` (default "Find {facet}") and `labels.findPlaceholder(facet)`. The older string labels (`remove`, `find`) still work.
+- `dir` sets the bar's reading direction (and its search field's); `inputProps` passes other attributes (name, autoComplete, id…) to the search input.
 - Use the `Filters` and `FiltersAdvanced` parts for rule builders with operators, groups and drag and drop.

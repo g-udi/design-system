@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch-settings-panel",
+  "type": "registry:example",
+  "title": "Settings panel",
+  "description": "Settings panel. Core/Switch pattern composed from @gaudi/design-system/core/Switch and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "switch",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Switch",
+    "import": "@gaudi/design-system/core/Switch",
+    "storyId": "core-switch--settings-panel",
+    "source": "src/components/core/Switch/stories/fixtures/switch/switch-settings-panel.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/switch-settings-panel.jsx",
+      "type": "registry:component",
+      "content": "import { useId } from 'react';\nimport {\n  Frame,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst settings = [\n  { id: 'push', icon: 'BellIcon', title: 'Push notifications', description: 'Alerts on your phone while you are away.', checked: true },\n  { id: 'email', icon: 'MailIcon', title: 'Email notifications', description: 'Replies, mentions and review requests.', checked: true },\n  { id: 'status', icon: 'EyeIcon', title: 'Show online status', description: 'Teammates see when you are active.', checked: false },\n  { id: 'data', icon: 'ShieldIcon', title: 'Allow data collection', description: 'Share anonymous usage to improve the product.', checked: false }\n];\n\nexport function Pattern() {\n  const id = useId();\n  return (\n    <Frame className='mx-auto w-full max-w-sm' spacing='sm'>\n      <FrameHeader>\n        <FrameTitle>Notifications and privacy</FrameTitle>\n      </FrameHeader>\n      <FramePanel className='overflow-hidden p-0!'>\n        {settings.map((setting, index) => (\n          <div key={setting.id}>\n            {index > 0 && <Separator />}\n            <label htmlFor={`${id}-sw-${setting.id}`} className='flex cursor-pointer items-center gap-3 px-3 py-2.5'>\n              <RegistryIcon lucide={setting.icon} aria-hidden='true' className='size-4 shrink-0 text-text-muted' />\n              <span className='flex min-w-0 flex-1 flex-col gap-0.5'>\n                <span className='text-sm font-medium'>{setting.title}</span>\n                <span className='text-xs text-text-muted'>{setting.description}</span>\n              </span>\n              <Switch id={`${id}-sw-${setting.id}`} size='sm' defaultChecked={setting.checked} />\n            </label>\n          </div>\n        ))}\n      </FramePanel>\n    </Frame>\n  );\n}\n"
+    }
+  ]
+}

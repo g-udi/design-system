@@ -1,1 +1,1 @@
-export { MessageDelegation as default, MessageDelegation } from './parts/message-delegation.jsx';
+export { ChatMessageDelegation as default, ChatMessageDelegation } from './ChatMessageDelegation.jsx';

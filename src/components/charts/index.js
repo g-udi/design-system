@@ -1,5 +1,6 @@
 /*
- * Charts: framed, accessible charts on Recharts. Every chart shares one frame (a captioned
+ * Charts: accessible quantitative charts on Recharts and connected hierarchy diagrams.
+ * Quantitative charts share one frame (a captioned
  * figure, a single keyboard stop, loading/empty/invalid/error states, locale-aware numbers and
  * a data table mirror). Import from here or a chart's own subpath; MDX/Chart renders them in
  * articles. Charts stay out of the root entry so pages without one never load Recharts.
@@ -24,3 +25,5 @@ export { BoxPlotChart, boxGroups } from './BoxPlotChart/index.js';
 export { HistogramChart, histogramBins } from './HistogramChart/index.js';
 export { GaugeChart } from './GaugeChart/index.js';
 export { HeatmapChart, heatmapStep } from './HeatmapChart/index.js';
+export { OrgChart } from './OrgChart/index.js';
+export { TournamentBracket } from './TournamentBracket/index.js';

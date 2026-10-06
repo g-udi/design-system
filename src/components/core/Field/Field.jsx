@@ -1,6 +1,9 @@
 'use client';
 
-import { createContext, useContext, useEffect, useId, useMemo, useState } from 'react';
+import { useContext, useEffect, useId, useMemo, useState } from 'react';
+import { FieldContext, useFieldControlProps } from './fieldContext.js';
+
+import { useInputCaret } from './hooks/useInputCaret.js';
 
 import { cn } from '../../../utilities/cn';
 import {
@@ -8,34 +11,33 @@ import {
   FieldDescription as FieldDescriptionPart,
   FieldError as FieldErrorPart,
   FieldLabel as FieldLabelPart
-} from './parts/field.jsx';
+} from './FieldPrimitives.jsx';
 
 // The convenience Field wires ids between its parts: the label targets the control,
 // and the control is described by whichever description and error are mounted.
-const FieldContext = createContext(null);
 
 // Registers a mounted description or error so FieldInput only references ids that exist.
-const useRegister = (register) => {
+const useRegister = (register, id) => {
   useEffect(() => {
     if (!register) return undefined;
-    register(true);
-    return () => register(false);
-  }, [ register ]);
+    register(id);
+    return () => register(null);
+  }, [ register, id ]);
 };
 
 export const Field = ({ children, className }) => {
   const id = useId();
-  const [ hasDescription, setHasDescription ] = useState(false);
-  const [ hasError, setHasError ] = useState(false);
+  const [ registeredDescriptionId, setDescriptionId ] = useState(null);
+  const [ registeredErrorId, setErrorId ] = useState(null);
   const context = useMemo(() => ({
     'descriptionId': `${id}-description`,
     'errorId': `${id}-error`,
-    hasDescription,
-    hasError,
+    registeredDescriptionId,
+    registeredErrorId,
     'inputId': `${id}-input`,
-    setHasDescription,
-    setHasError
-  }), [ hasDescription, hasError, id ]);
+    setDescriptionId,
+    setErrorId
+  }), [ registeredDescriptionId, registeredErrorId, id ]);
 
   return (
     <FieldContext.Provider value={ context }>
@@ -52,35 +54,48 @@ export const FieldLabel = ({ children, className, htmlFor }) => {
 
 export const FieldDescription = ({ children, className, id }) => {
   const context = useContext(FieldContext);
-  useRegister(context?.setHasDescription);
+  const descriptionId = id || context?.descriptionId;
+  useRegister(context?.setDescriptionId, descriptionId);
 
-  return <FieldDescriptionPart id={ id || context?.descriptionId } className={ className }>{children}</FieldDescriptionPart>;
+  return <FieldDescriptionPart id={ descriptionId } className={ className }>{children}</FieldDescriptionPart>;
 };
 
 const MountedError = ({ children, className, id }) => {
   const context = useContext(FieldContext);
-  useRegister(context?.setHasError);
+  const errorId = id || context?.errorId;
+  useRegister(context?.setErrorId, errorId);
 
-  return <FieldErrorPart id={ id || context?.errorId } className={ className }>{children}</FieldErrorPart>;
+  return <FieldErrorPart id={ errorId } className={ className }>{children}</FieldErrorPart>;
 };
 
 // An empty error renders nothing and leaves the control valid.
 export const FieldError = (props) => (props.children ? <MountedError { ...props } /> : null);
 
-export const FieldInput = ({ as: Control = 'input', 'aria-describedby': ariaDescribedBy, className, id, invalid, ...props }) => {
-  const context = useContext(FieldContext);
-  const describedBy = [
-    ariaDescribedBy,
-    context?.hasDescription ? context.descriptionId : null,
-    context?.hasError ? context.errorId : null
-  ].filter(Boolean).join(' ');
-  const isInvalid = invalid ?? context?.hasError;
+// Pointer focus is marked on the element (not state), so base.css can skip the keyboard outline after a click.
+const markPointerFocus = (event) => {
+  event.currentTarget.dataset.focusSource = 'pointer';
+};
+const clearPointerFocus = (event) => {
+  delete event.currentTarget.dataset.focusSource;
+};
+
+export const FieldInput = ({ as: Control = 'input', caretMode, ref, 'aria-describedby': ariaDescribedBy, className, id, invalid, onPointerDown, onBlur, ...props }) => {
+  const fieldProps = useFieldControlProps({ id, invalid, 'aria-describedby': ariaDescribedBy });
+  const inputRef = useInputCaret(caretMode, ref);
+  const isInvalid = fieldProps['aria-invalid'];
 
   return (
     <Control
-      id={ id || context?.inputId }
-      aria-describedby={ describedBy || undefined }
-      aria-invalid={ isInvalid || undefined }
+      ref={ inputRef }
+      {...fieldProps}
+      onPointerDown={ (event) => {
+        markPointerFocus(event);
+        onPointerDown?.(event);
+      } }
+      onBlur={ (event) => {
+        clearPointerFocus(event);
+        onBlur?.(event);
+      } }
       className={ cn('ds-motion-state min-h-8 w-full min-w-0 rounded-md border border-border bg-surface px-3 py-1 text-base leading-5 text-text md:text-sm shadow-xs placeholder:text-text-muted disabled:cursor-not-allowed disabled:opacity-50', isInvalid && 'border-danger', className) }
       { ...props }
     />

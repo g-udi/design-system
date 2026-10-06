@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-corner-cards",
+  "type": "registry:example",
+  "title": "Corner-check cards",
+  "description": "Corner-check cards. Core/Checkbox pattern composed from @gaudi/design-system/core/Checkbox and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "checkbox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Checkbox",
+    "import": "@gaudi/design-system/core/Checkbox",
+    "storyId": "core-checkbox--corner-cards",
+    "source": "src/components/core/Checkbox/stories/fixtures/checkbox/checkbox-corner-cards.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/checkbox-corner-cards.jsx",
+      "type": "registry:component",
+      "content": "import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';\nimport {\n  FieldRoot as Field,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldTitle\n} from '@gaudi/design-system/core/Field';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst modules = [\n  { title: 'Payments', description: 'Receive payments from customers', icon: 'CircleDollarSignIcon', checked: true },\n  { title: 'Invoices', description: 'Create and send invoices', icon: 'FileTextIcon', checked: false },\n  { title: 'Billing', description: 'Manage subscriptions', icon: 'CreditCardIcon', checked: false },\n  { title: 'Reports', description: 'Revenue and analytics', icon: 'ChartNoAxesColumnDecreasingIcon', checked: false }\n];\nconst tags = [\n  { title: 'Billings', checked: true },\n  { title: 'Payments', checked: false },\n  { title: 'Invoices', checked: false }\n];\nconst corner = 'absolute top-2.5 right-2.5 size-5 rounded-full';\n\nconst MastercardIcon = (props) => (\n  <svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>\n    <circle cx='7' cy='12' r='7' fill='#EB001B' />\n    <circle cx='17' cy='12' r='7' fill='#F79E1B' />\n    <path d='M12 17.5C13.5 16.2 14.5 14.2 14.5 12C14.5 9.8 13.5 7.8 12 6.5C10.5 7.8 9.5 9.8 9.5 12C9.5 14.2 10.5 16.2 12 17.5Z' fill='#FF5F00' />\n  </svg>\n);\n\nfunction Tile({ children }) {\n  return <span className='flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-surface'>{children}</span>;\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-3'>\n      {/* Icon cards with a round check in the corner. */}\n      <FieldGroup className='grid grid-cols-2 gap-2'>\n        {modules.map((item) => (\n          <FieldLabel key={item.title} className='relative p-0'>\n            <Field orientation='horizontal'>\n              <Checkbox defaultChecked={item.checked} className={corner} />\n              <FieldTitle className='flex flex-col items-start gap-2 pe-6'>\n                <Tile>\n                  <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4' />\n                </Tile>\n                <span className='flex flex-col items-start gap-0.5'>\n                  <span className='text-sm font-semibold'>{item.title}</span>\n                  <span className='text-xs font-normal text-text-muted'>{item.description}</span>\n                </span>\n              </FieldTitle>\n            </Field>\n          </FieldLabel>\n        ))}\n      </FieldGroup>\n      {/* A saved payment method. */}\n      <FieldLabel htmlFor='cb-mastercard' className='relative p-0!'>\n        <Field orientation='horizontal'>\n          <Checkbox id='cb-mastercard' defaultChecked className={corner} />\n          <FieldTitle className='flex items-center gap-2'>\n            <Tile>\n              <MastercardIcon className='size-5' />\n            </Tile>\n            <span className='flex flex-col items-start gap-0.5'>\n              <span className='text-sm font-medium'>Mastercard ending in 8888</span>\n              <span className='text-xs font-normal text-text-muted'>Expires 09/28</span>\n            </span>\n          </FieldTitle>\n        </Field>\n      </FieldLabel>\n      {/* Compact tag chips with a corner badge. */}\n      <div className='flex flex-wrap gap-3 pt-2'>\n        {tags.map((item) => (\n          <FieldLabel key={item.title} className='relative w-auto! p-0'>\n            <Field orientation='horizontal' className='justify-center'>\n              <Checkbox defaultChecked={item.checked} className='absolute -top-2 -right-2 size-5 rounded-full border-none shadow-none data-[state=unchecked]:opacity-0' />\n              <FieldTitle className='justify-center'>{item.title}</FieldTitle>\n            </Field>\n          </FieldLabel>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

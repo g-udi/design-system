@@ -1,0 +1,21 @@
+@layer components {
+  .ds-part-input-otp {
+    @apply gap-2;
+  }
+
+  .ds-part-input-otp-group {
+    @apply has-aria-invalid:ring-ui-destructive/20 dark:has-aria-invalid:ring-ui-destructive/40 has-aria-invalid:border-ui-destructive rounded-lg has-aria-invalid:ring-3;
+  }
+
+  .ds-part-input-otp-slot {
+    @apply dark:bg-ui-input/30 border-ui-input data-[active=true]:border-ui-ring data-[active=true]:ring-ui-primary data-[active=true]:aria-invalid:ring-ui-destructive/20 dark:data-[active=true]:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive data-[active=true]:aria-invalid:border-ui-destructive size-8 border-y border-r text-sm transition-all outline-none first:rounded-l-lg first:border-l last:rounded-r-lg data-[active=true]:ring-3;
+  }
+
+  .ds-part-input-otp-caret-line {
+    @apply animate-caret-blink bg-ui-foreground h-4 w-px duration-1000;
+  }
+
+  .ds-part-input-otp-separator {
+    @apply [&_svg:not([class*='size-'])]:size-4;
+  }
+}

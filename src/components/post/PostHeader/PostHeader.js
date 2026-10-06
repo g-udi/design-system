@@ -13,7 +13,6 @@ import Pill from '../../core/Pill';
 import PostSeriesBox from '../PostSeriesBox';
 import Typography from '../../../foundations/Typography';
 import { cn } from '../../../utilities/cn';
-import { categoryHref, tagHref } from '../../../utilities/taxonomy';
 
 const titleElements = { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
 
@@ -25,7 +24,7 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * Renders the blog post header: category, date, draft badge, title, subtitle, reading time, tags, and series.
  *
  * @param {Object} props - Component props
- * @param {Object} [props.frontMatter={}] - Post metadata (title, subtitle, category, date, updated, draft, tags, slug, readingTime.text, seriesPosts)
+ * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, readingTime.text and seriesPosts
  * @param {Object} [props.siteMetadata={}] - Site configuration; `locale` formats the date
  * @param {React.ReactNode} [props.tocControl] - Contents toggle shown before the reading time on wide screens
  * @param {1|2|3|4|5|6} [props.titleLevel=1] - Semantic heading level for the post title
@@ -36,23 +35,25 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * @example
  * <PostHeader frontMatter={post} siteMetadata={{ locale: 'en-US' }} tocControl={<ContentsToggle />} />
  */
-const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, tocControl }) => (
+const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, tocControl }) => {
+  const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
+  return (
   <div className={ cn('w-full pt-6', className, classNames.root) }>
 
     <div className={ cn('mb-2 flex flex-wrap items-center gap-3', classNames.meta) }>
-      {frontMatter.category && (
+      {category && (
         <Link
-          href={ categoryHref(frontMatter.category) }
+          href={ category.href }
           variant='muted'
           className={ cn('flex w-fit items-center gap-2 text-xs font-normal sm:text-sm', classNames.category) }
         >
           <span aria-hidden='true' className='size-2 shrink-0 rounded-full bg-success' />
-          {frontMatter.category.charAt(0).toUpperCase() + frontMatter.category.slice(1)}
+          {category.label}
         </Link>
       )}
       {isValidPostDate(frontMatter.updated || frontMatter.date) ? (
         <span className='inline-flex items-center gap-3 whitespace-nowrap'>
-          {frontMatter.category ? <MetaSeparator /> : null}
+          {category ? <MetaSeparator /> : null}
           <PostDate date={ frontMatter.updated || frontMatter.date } locale={ siteMetadata.locale } />
         </span>
       ) : null}
@@ -75,12 +76,12 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
       />
     ) : null}
 
-    {frontMatter.tags ? (
+    {frontMatter.tags?.length ? (
       <div className={ cn('my-5 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between', classNames.actions) }>
         <div className={ cn('flex flex-wrap gap-2', classNames.tags) }>
           {frontMatter.tags.map((tag) => (
-            <Pill key={ tag } href={ tagHref(tag) } tone='gray' variant='soft' size='sm' radius='md' className={ cn('my-0 mr-0 capitalize sm:text-sm', classNames.tag) }>
-              {tag}
+            <Pill key={ typeof tag === 'string' ? tag : tag.id ?? tag.href ?? tag.label } href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='soft' size='sm' radius='md' className={ cn('my-0 mr-0 sm:text-sm', classNames.tag) }>
+              {typeof tag === 'string' ? tag : tag.label}
             </Pill>
           ))}
         </div>
@@ -88,11 +89,12 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
     ) : null}
 
     {frontMatter.seriesPosts && (
-      <PostSeriesBox series={ frontMatter.seriesPosts } slug={ frontMatter.slug } className={ classNames.series } />
+      <PostSeriesBox series={ frontMatter.seriesPosts } currentId={ frontMatter.id } className={ classNames.series } />
     )}
 
   </div>
-);
+  );
+};
 
 export default PostHeader;
 

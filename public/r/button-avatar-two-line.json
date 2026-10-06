@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-avatar-two-line",
+  "type": "registry:example",
+  "title": "Avatar and two-line content",
+  "description": "Avatar and two-line content. Core/Button pattern composed from @gaudi/design-system/core/Button and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Button",
+    "import": "@gaudi/design-system/core/Button",
+    "storyId": "core-button--avatar-two-line",
+    "source": "src/components/core/Button/stories/fixtures/button/button-avatar-two-line.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-avatar-two-line.jsx",
+      "type": "registry:component",
+      "content": "import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst accounts = [\n  { size: 'sm', variant: 'default' },\n  { size: 'sm', variant: 'outline' },\n  { size: 'md', variant: 'default' },\n  { size: 'md', variant: 'outline' }\n];\nconst methods = [\n  { icon: 'CreditCardIcon', title: 'Credit card', description: 'Visa, Mastercard or Amex' },\n  { icon: 'BanknoteIcon', title: 'Bank transfer', description: 'Settles in 1–2 days' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xl flex-col gap-3'>\n      <div className='flex flex-wrap items-center gap-2'>\n        {accounts.map(({ size, variant }) => (\n          <Button key={`${size}-${variant}`} size={size} variant={variant}>\n            <Avatar className='size-5'>\n              <AvatarImage src='/avatars/person-41.svg' alt='' />\n              <AvatarFallback>AJ</AvatarFallback>\n            </Avatar>\n            @alexjohnson\n          </Button>\n        ))}\n      </div>\n      <div className='grid gap-2 sm:grid-cols-2'>\n        {methods.map(({ icon, title, description }) => (\n          <Button key={title} variant='outline' tone='neutral' className='group/method h-auto justify-start gap-3 whitespace-normal px-3 py-2 text-left'>\n            <span className='flex size-8 shrink-0 items-center justify-center rounded-md bg-surface-muted text-text-muted group-hover/method:bg-surface'>\n              <RegistryIcon lucide={icon} aria-hidden='true' />\n            </span>\n            <span className='flex flex-col gap-0.5'>\n              <span>{title}</span>\n              <span className='text-xs font-normal text-text-muted'>{description}</span>\n            </span>\n          </Button>\n        ))}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,1 +1,1 @@
-export { ChatPlan as default, ChatPlan } from './parts/chat-plan.jsx';
+export { ChatPlan as default, ChatPlan } from './ChatPlanPanel.jsx';

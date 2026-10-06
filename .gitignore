@@ -5,6 +5,8 @@ dist
 coverage
 .impeccable/critique/
 .impeccable/visual/
+.impeccable/review/
+.storybook/verification/
 .DS_Store
 pnpm-debug.log*
 .env

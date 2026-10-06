@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-menu-counts",
+  "type": "registry:example",
+  "title": "Menu with counts and shortcuts",
+  "description": "Menu with counts and shortcuts. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--menu-counts",
+    "source": "src/components/core/Item/stories/fixtures/item/item-menu-counts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-menu-counts.jsx",
+      "type": "registry:component",
+      "content": "import Link from '@gaudi/design-system/core/Link';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemGroup,\n  ItemMedia,\n  ItemSeparator,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { KbdRoot as Kbd } from '@gaudi/design-system/core/Kbd';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Compact link rows whose trailing slot is a count badge or a keyboard shortcut.\nconst folders = [\n  { icon: 'InboxIcon', label: 'Inbox', href: '/mail/inbox', count: 12 },\n  { icon: 'FileIcon', label: 'Drafts', href: '/mail/drafts', count: 3 },\n  { icon: 'SendIcon', label: 'Sent', href: '/mail/sent' },\n  { icon: 'ArchiveIcon', label: 'Archive', href: '/mail/archive' }\n];\nconst commands = [\n  { icon: 'SearchIcon', label: 'Search', href: '/mail/search', shortcut: '⌘K' },\n  { icon: 'PlusIcon', label: 'New message', href: '/mail/compose', shortcut: '⌘N' },\n  { icon: 'SettingsIcon', label: 'Settings', href: '/settings', shortcut: '⌘,' },\n  { icon: 'LogOutIcon', label: 'Sign out', href: '/sign-out', shortcut: '⌘Q' }\n];\n\nfunction Row({ icon, label, href, children }) {\n  return (\n    <Item asChild size='xs'>\n      <Link variant='bare' href={href}>\n        <ItemMedia variant='icon'>\n          <RegistryIcon lucide={icon} />\n        </ItemMedia>\n        <ItemContent>\n          <ItemTitle>{label}</ItemTitle>\n        </ItemContent>\n        {children ? <ItemActions>{children}</ItemActions> : null}\n      </Link>\n    </Item>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-64 flex-col'>\n      <ItemGroup className='gap-0.5'>\n        {folders.map(({ icon, label, count, href }) => (\n          <Row key={label} icon={icon} label={label} href={href}>\n            {count ? <Badge variant='success-light' size='xs' className='rounded-control'>{count}</Badge> : null}\n          </Row>\n        ))}\n        <ItemSeparator className='my-1' />\n        {commands.map(({ icon, label, shortcut, href }) => (\n          <Row key={label} icon={icon} label={label} href={href}>\n            <Kbd>{shortcut}</Kbd>\n          </Row>\n        ))}\n      </ItemGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

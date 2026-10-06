@@ -1,0 +1,44 @@
+@layer components {
+  .ds-board-wrap {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .ds-board {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(16rem, 1fr);
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    overflow-x: auto;
+    padding-bottom: calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+  .ds-board-column {
+    border-radius: var(--ds-radius-control);
+    background: var(--ds-color-surface-muted);
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+  .ds-board-column > header {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    margin-bottom: 0.75rem;
+  }
+  .ds-board-column ul {
+    display: grid;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    list-style: none;
+    padding: 0;
+  }
+  .ds-board-item {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-color-surface);
+  }
+  .ds-board-item > :first-child {
+    min-width: 0;
+  }
+}

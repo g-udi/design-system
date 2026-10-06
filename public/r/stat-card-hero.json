@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-hero",
+  "type": "registry:block",
+  "title": "Hero metrics",
+  "description": "Hero metrics. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--hero",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-hero.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-hero.jsx",
+      "type": "registry:component",
+      "content": "import { CardContent, CardFooter, CardRoot } from '@gaudi/design-system/core/Card';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { StatDelta } from '@gaudi/design-system/blocks/StatCard';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst heroes = [\n  { label: 'Monthly readers', value: '48.2k', delta: '12.4%', deltaDirection: 'up', deltaTone: 'success', summary: 'Your best month since launch, led by the knowledge graph series.', action: 'Open analytics' },\n  { label: 'Newsletter', value: '9,410', delta: '3.8%', deltaDirection: 'up', deltaTone: 'success', summary: '312 new subscribers; the welcome email opens at 71%.', action: 'Write an issue' },\n  { label: 'Drafts', value: '6', delta: '0', deltaDirection: 'flat', deltaTone: 'neutral', summary: 'Two are ready for review and one is scheduled for Friday.', action: 'Review drafts' }\n];\n\n// Full-bleed hero metrics with a dark action bar that stays dark in both themes.\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-5xl gap-3 md:grid-cols-3'>\n      {heroes.map((hero) => (\n        <CardRoot key={hero.label} className='gap-0 overflow-hidden py-0'>\n          <CardContent className='grid gap-2 p-5'>\n            <p className='text-text-muted text-sm'>{hero.label}</p>\n            <div className='flex items-baseline gap-2'>\n              <span className='text-4xl font-semibold tracking-tight tabular-nums'>{hero.value}</span>\n              <StatDelta value={hero.delta} direction={hero.deltaDirection} tone={hero.deltaTone} />\n            </div>\n            <p className='text-text-muted text-sm'>{hero.summary}</p>\n          </CardContent>\n          <CardFooter className='dark bg-surface text-text mt-auto justify-between px-5 py-2.5'>\n            <span className='text-text-muted text-xs'>Updated 5 min ago</span>\n            <Button variant='ghost' size='xs'>\n              {hero.action}\n              <RegistryIcon lucide='ArrowUpRightIcon' aria-hidden='true' />\n            </Button>\n          </CardFooter>\n        </CardRoot>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,11 +1,13 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '../../core/Sheet';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
+import { useMediaQuery } from '../../../hooks/environment/use-media-query.js';
+import { getFocusableElements } from '../../../hooks/shared/dom.js';
 import { cn } from '../../../utilities/cn';
-import { useAppShellFrame } from './parts/frame.jsx';
+import { useAppShellFrame } from './AppShellFrame.jsx';
 
 /**
  * Content remains in normal document flow; no global scroll or storage policy.
@@ -35,15 +37,20 @@ export default function AppShell({
   const [open, setOpen] = useState(false);
   // Inside an AppShellFrame the menu sheet opens within the window.
   const frame = useAppShellFrame();
+  const viewportCompact = useMediaQuery('(max-width: 1023px)');
+  const compact = frame?.compact ?? viewportCompact;
+  const shell = useRef(null);
+  const menuTrigger = useRef(null);
+  useEffect(() => { if (!compact) setOpen(false); }, [compact]);
   const nav = <nav aria-label={navigationLabel}>{navigation}</nav>;
   const topbar = layout === 'topbar';
   return (
-    <div className={cn('ds-app-shell', className)} data-layout={layout}>
+    <div ref={shell} className={cn('ds-app-shell', className)} data-layout={layout} data-frame-compact={frame?.compact == null ? undefined : String(frame.compact)}>
       <a className='ds-skip-link' href={`#${id}`}>
         {skipLabel}
       </a>
       {topbar ? null : (
-        <aside className='ds-app-rail'>
+        <aside tabIndex={-1} className='ds-app-rail'>
           <div className='ds-app-brand'>{brand}</div>
           {nav}
           {footer && <div className='ds-app-rail-footer'>{footer}</div>}
@@ -54,11 +61,16 @@ export default function AppShell({
           <div className='ds-app-mobile-nav'>
             <Sheet open={open} onOpenChange={setOpen}>
               <SheetTrigger asChild>
-                <Button size='xs' tone='neutral' variant='ghost' aria-label={menuLabel}>
+                <Button ref={menuTrigger} size='xs' tone='neutral' variant='ghost' aria-label={menuLabel}>
                   <Icon name='Menu' decorative size='sm' />
                 </Button>
               </SheetTrigger>
-              <SheetContent side='left' aria-describedby={undefined} container={frame?.container ?? undefined}>
+              <SheetContent side='left' aria-describedby={undefined} container={frame?.container ?? undefined} onCloseAutoFocus={(event) => {
+                event.preventDefault();
+                const panel = shell.current?.querySelector(topbar ? '.ds-app-topnav' : '.ds-app-rail');
+                const target = menuTrigger.current?.getClientRects().length ? menuTrigger.current : getFocusableElements(panel)[0] || panel;
+                target?.focus();
+              }}>
                 <SheetHeader>
                   <SheetTitle>{navigationLabel}</SheetTitle>
                 </SheetHeader>
@@ -76,7 +88,7 @@ export default function AppShell({
           {topbar ? (
             <>
               <div className='ds-app-brand'>{brand}</div>
-              <div className='ds-app-topnav'>{nav}</div>
+              <div tabIndex={-1} className='ds-app-topnav'>{nav}</div>
             </>
           ) : null}
           {header}

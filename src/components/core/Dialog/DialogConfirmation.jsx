@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { AlertDialog as Primitive } from 'radix-ui';
 import Button from '../Button';
-import { DialogConfirmation as ConfirmationRoot, DialogConfirmationPortal, DialogConfirmationTrigger } from './parts/dialog-confirmation.jsx';
+import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
+import { DialogConfirmation as ConfirmationRoot, DialogConfirmationPortal, DialogConfirmationTrigger, DialogConfirmationTitle, DialogConfirmationDescription } from './DialogConfirmationPrimitives.jsx';
 
 /** Rejected async actions retain the dialog and provide a retry path. */
 export default function DialogConfirmation({
@@ -20,7 +21,7 @@ export default function DialogConfirmation({
   defaultOpen = false,
   onOpenChange
 }) {
-  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const [isOpen, setOpen] = useControllableState({ value: open, defaultValue: defaultOpen, onChange: onOpenChange });
   const [pending, setPending] = useState(false);
   const [error, setError] = useState(false);
   const busy = useRef(false);
@@ -33,9 +34,8 @@ export default function DialogConfirmation({
   }, []);
   const change = (next) => {
     if (!busy.current) {
-      setInternalOpen(next);
+      setOpen(next);
       setError(false);
-      onOpenChange?.(next);
     }
   };
   const confirm = async () => {
@@ -55,7 +55,7 @@ export default function DialogConfirmation({
     }
   };
   return (
-    <ConfirmationRoot open={open ?? internalOpen} onOpenChange={change}>
+    <ConfirmationRoot open={isOpen} onOpenChange={change}>
       {trigger && <DialogConfirmationTrigger asChild>{trigger}</DialogConfirmationTrigger>}
       <DialogConfirmationPortal>
         <Primitive.Overlay className='ds-overlay' />
@@ -67,10 +67,10 @@ export default function DialogConfirmation({
           }}
         >
           <header className='ds-dialog-header'>
-            <Primitive.Title className='ds-title'>{title}</Primitive.Title>
-            <Primitive.Description className='ds-description'>
+            <DialogConfirmationTitle>{title}</DialogConfirmationTitle>
+            <DialogConfirmationDescription>
               {description}
-            </Primitive.Description>
+            </DialogConfirmationDescription>
           </header>
           {error && (
             <p className='ds-error ds-dialog-body' role='alert'>

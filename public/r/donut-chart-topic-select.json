@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "donut-chart-topic-select",
+  "type": "registry:example",
+  "title": "Select a topic, small slices as Other",
+  "description": "Select a topic, small slices as Other. Charts/DonutChart pattern composed from @gaudi/design-system/charts/DonutChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "donut-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/DonutChart",
+    "import": "@gaudi/design-system/charts/DonutChart",
+    "storyId": "charts-donutchart--topic-select",
+    "source": "src/components/charts/DonutChart/stories/fixtures/donut-chart/donut-chart-topic-select.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/donut-chart-topic-select.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { DonutChart } from '@gaudi/design-system/charts/DonutChart';\n\n// Essays published this year by topic; the smallest topics fold into Other.\nconst topics = [\n  { label: 'Engineering', value: 34, posts: [ 'Notes on local-first software', 'Small tools, long lifetimes' ] },\n  { label: 'Data', value: 27, posts: [ 'Designing for real data', 'A practical guide to knowledge graphs' ] },\n  { label: 'Writing', value: 19, posts: [ 'Writing that survives a reorg' ] },\n  { label: 'Management', value: 12, posts: [ 'Running a calm team' ] },\n  { label: 'Hiring', value: 3, posts: [ 'Interviews worth having' ] },\n  { label: 'Tools', value: 3, posts: [ 'A desk setup, revisited' ] },\n  { label: 'Travel', value: 2, posts: [ 'Working from Lisbon' ] }\n];\n\nexport function Pattern() {\n  const [selected, setSelected] = useState(null);\n  const members = selected?.isOther ? topics.filter((topic) => selected.members.includes(topic.label)) : selected ? topics.filter((topic) => topic.label === selected.label) : [];\n  return (\n    <div className='grid w-full max-w-3xl gap-4 md:grid-cols-[minmax(0,1fr)_16rem]'>\n      <DonutChart\n        ariaLabel='Essays by topic this year'\n        title='Essays by topic'\n        description='Select a slice with a click or Enter to list its essays.'\n        data={topics}\n        otherThreshold={0.05}\n        centerLabel='Essays'\n        valueLabel='Essays'\n        onSelect={(slice) => setSelected(slice)}\n        height={300}\n        className='my-0'\n      />\n      <section aria-live='polite' aria-labelledby='topic-essays-heading' className='rounded-xl border border-border bg-surface p-4'>\n        <h3 id='topic-essays-heading' className='text-sm font-semibold text-text'>{selected ? selected.label : 'No topic selected'}</h3>\n        {members.length ? (\n          <ul className='mt-3 grid gap-2 text-sm text-text-muted'>\n            {members.flatMap((topic) => topic.posts).map((post) => <li key={post}>{post}</li>)}\n          </ul>\n        ) : (\n          <p className='mt-3 text-sm text-text-muted'>Pick a slice to see the essays behind it.</p>\n        )}\n      </section>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

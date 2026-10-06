@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-social-proof",
+  "type": "registry:example",
+  "title": "Social proof",
+  "description": "Social proof. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-23.svg, /avatars/person-31.svg, /avatars/person-50.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--social-proof",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-social-proof.jsx",
+    "assets": [
+      "/avatars/person-07.svg",
+      "/avatars/person-23.svg",
+      "/avatars/person-31.svg",
+      "/avatars/person-50.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-social-proof.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\n\nconst people = [\n  { src: '/avatars/person-23.svg', name: 'Maren Wilder', initials: 'MW' },\n  { src: '/avatars/person-07.svg', name: 'Nora Quinn', initials: 'NQ' },\n  { src: '/avatars/person-31.svg', name: 'Sam Rivera', initials: 'SR' },\n  { src: '/avatars/person-50.svg', name: 'Jules Martin', initials: 'JM' }\n];\n\nconst Faces = () => (\n  <AvatarGroup className='-space-x-1.5'>\n    {people.map((person) => (\n      <Avatar key={person.name} className='size-7'>\n        <AvatarImage src={person.src} alt={person.name} />\n        <AvatarFallback>{person.initials}</AvatarFallback>\n      </Avatar>\n    ))}\n  </AvatarGroup>\n);\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-fit flex-col items-center gap-3'>\n      <div className='flex items-center gap-1.5 rounded-full border border-ui-border p-1 shadow-sm shadow-black/5'>\n        <Faces />\n        <p className='me-1.5 text-xs text-text-muted'>\n          Trusted by <span className='font-semibold text-text'>100K+</span> users.\n        </p>\n      </div>\n      <div className='flex items-center gap-1.5 rounded-full border border-ui-border p-0.5 shadow-sm shadow-black/5'>\n        <Faces />\n        <p className='me-1.5 text-xs text-text-muted'>+3</p>\n      </div>\n      <Frame>\n        <FramePanel className='flex items-center gap-2 p-2!'>\n          <Faces />\n          <p className='me-1.5 text-xs text-text-muted'>\n            Joined by <span className='font-semibold text-text'>500+</span> developers.\n          </p>\n        </FramePanel>\n      </Frame>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

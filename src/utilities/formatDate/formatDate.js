@@ -33,10 +33,15 @@ const formatDate = (date, locale = defaultLocale) => {
 
   if (Number.isNaN(parsed.getTime())) return '';
 
+  // A calendar date has no timezone; keep its day in every server/browser locale.
+  const options = typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)
+    ? { ...dateOptions, timeZone: 'UTC' }
+    : dateOptions;
+
   try {
-    return new Intl.DateTimeFormat(locale || defaultLocale, dateOptions).format(parsed);
+    return new Intl.DateTimeFormat(locale || defaultLocale, options).format(parsed);
   } catch {
-    return new Intl.DateTimeFormat(defaultLocale, dateOptions).format(parsed);
+    return new Intl.DateTimeFormat(defaultLocale, options).format(parsed);
   }
 };
 

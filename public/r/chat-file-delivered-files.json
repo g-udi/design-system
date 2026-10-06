@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-file-delivered-files",
+  "type": "registry:example",
+  "title": "Delivered files and data",
+  "description": "Delivered files and data. Chat/ChatMessage pattern composed from @gaudi/design-system/chat/ChatMessage and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-file",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-24.svg.",
+  "meta": {
+    "owner": "chat/ChatMessage",
+    "import": "@gaudi/design-system/chat/ChatMessage",
+    "storyId": "chat-message--chat-file-delivered-files",
+    "source": "src/components/chat/ChatMessage/stories/fixtures/chat-file/chat-file-delivered-files.jsx",
+    "assets": [
+      "/avatars/person-24.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-file-delivered-files.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Avatar } from '@gaudi/design-system/core/Avatar';\nimport { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nimport { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';\nimport { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';\nimport { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst parts = [\n  { type: 'text', text: 'Here is the September report. Subscribers grew **6.2%**, and the local-first post drove a third of new sign-ups.' },\n  { type: 'data', label: 'September at a glance', value: { subscribers: 4980, growth: '6.2%', posts: 7, topPost: 'Notes on local-first software', averageReadTime: '5m 12s' } },\n  { type: 'file', id: 'report', name: 'september-report.pdf', size: '412 KB', description: 'Four pages' },\n  { type: 'file', id: 'csv', name: 'subscribers-2026-09.csv', size: '86 KB', description: '4,980 rows' }\n];\n\nexport function Pattern() {\n  const [action, setAction] = useState('');\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>\n      <ChatMessage align='end'>\n        <ChatMessageAvatar>\n          <Avatar src='/avatars/person-24.svg' name='Ilse Valtonen' size='sm' shape='circle' alt='' />\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <span className='sr-only'>Ilse Valtonen said</span>\n          <ChatBubble align='end'>\n            <ChatBubbleContent>Send me the monthly report and the subscriber export.</ChatBubbleContent>\n          </ChatBubble>\n        </ChatMessageContent>\n      </ChatMessage>\n      <ChatMessage>\n        <ChatMessageAvatar className='self-start'>\n          <span className='bg-accent-subtle text-accent grid size-8 place-items-center rounded-full'>\n            <RegistryIcon lucide='Sparkles' className='size-4' />\n          </span>\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <ChatMessageHeader className='px-0'>Gaudi</ChatMessageHeader>\n          <ChatMessageParts parts={parts} onFileAction={(kind, file) => setAction(`${kind === 'preview' ? 'Opening' : 'Downloading'} ${file.name}`)} />\n          <ChatMessageFeedback copyText={parts[0].text} />\n          <p role='status' className='text-text-muted text-xs'>{action}</p>\n        </ChatMessageContent>\n      </ChatMessage>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

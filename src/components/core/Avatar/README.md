@@ -2,13 +2,13 @@
 
 A person, workspace or source shown as a photo, initials or an icon, with an optional presence badge. `Avatar` and `AvatarGroup` are built on the `AvatarRoot`, `AvatarImage`, `AvatarFallback` and `AvatarBadge` parts.
 
-Photo examples use real portraits bundled with Storybook (`/avatars/women/44.jpg`, originally from Random User) with fictional demo identities, so examples never load images from the network. The same portraits appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/fixtures/PORTRAITS.md).
+Image examples use Gaudi's own illustrated avatars bundled with Storybook (`/avatars/person-20.svg`, generated deterministically from a seed) with fictional demo identities, so examples never load images from the network. The same avatars appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/public/avatars/README.md).
 
 ```jsx
 import { Avatar, AvatarGroup } from '@gaudi/design-system';
 
 <Avatar
-  name='Maya Chen'
+  name='Mei Castellanos'
   src={person.photoUrl}
   shape='circle'
   indicator={{ label: 'Online', tone: 'success' }}

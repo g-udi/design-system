@@ -2,9 +2,9 @@
 
 import { useId } from 'react';
 
-import { Label } from '../Field/parts/label.jsx';
+import { Label } from '../Field/Label.jsx';
 import { cn } from '../../../utilities/cn';
-import { Switch as SwitchRoot } from './parts/switch.jsx';
+import { Switch as SwitchRoot } from './SwitchPrimitives.jsx';
 
 // The convenience scale names map onto the part's data-size values.
 const partSizes = { sm: 'sm', md: 'default', lg: 'lg' };

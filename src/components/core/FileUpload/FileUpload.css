@@ -1,0 +1,50 @@
+@layer components {
+  .ds-upload {
+    display: grid;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    min-width: 0;
+  }
+  .ds-dropzone {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    padding: calc(var(--ds-space-scale, 1) * 1.5rem);
+    border: 1px dashed var(--ds-color-border);
+    border-radius: var(--ds-radius-control);
+    color: var(--ds-color-text-muted);
+  }
+  .ds-dropzone[data-dragging] {
+    border-color: var(--ds-color-accent);
+    background: var(--ds-color-accent-subtle);
+  }
+  .ds-dropzone[data-disabled] {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-upload-list {
+    display: grid;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .ds-upload-list li {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    border-bottom: 1px solid var(--ds-color-border);
+    padding-block: calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+  .ds-upload-file {
+    flex: 1;
+    min-width: 0;
+  }
+  .ds-upload-file .ds-label {
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 639px) {
+    .ds-upload-list li {
+      flex-wrap: wrap;
+    }
+  }
+}

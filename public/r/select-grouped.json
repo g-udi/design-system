@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-grouped",
+  "type": "registry:example",
+  "title": "Grouped options",
+  "description": "Grouped options. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--grouped",
+    "source": "src/components/core/Select/stories/fixtures/select/select-grouped.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-grouped.jsx",
+      "type": "registry:component",
+      "content": "import { Fragment, useId } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectSeparator,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\n\nconst regions = [\n  {\n    label: 'Americas',\n    zones: [\n      { value: 'est', label: 'Eastern', offset: 'UTC-5' },\n      { value: 'cst', label: 'Central', offset: 'UTC-6' },\n      { value: 'pst', label: 'Pacific', offset: 'UTC-8' }\n    ]\n  },\n  {\n    label: 'Europe',\n    zones: [\n      { value: 'gmt', label: 'Greenwich', offset: 'UTC+0' },\n      { value: 'cet', label: 'Central European', offset: 'UTC+1' }\n    ]\n  },\n  {\n    label: 'Asia',\n    zones: [\n      { value: 'ist', label: 'India', offset: 'UTC+5:30' },\n      { value: 'jst', label: 'Japan', offset: 'UTC+9' }\n    ]\n  }\n];\n\n// Labelled groups split by separators, each option with a muted offset.\nexport function Pattern() {\n  const id = useId();\n  return (\n    <Field className='mx-auto w-full max-w-xs'>\n      <FieldLabel htmlFor={`${id}-select-timezone`}>Time zone</FieldLabel>\n      <Select defaultValue='cet'>\n        <SelectTrigger id={`${id}-select-timezone`} className='w-full'>\n          <SelectValue placeholder='Select a time zone' />\n        </SelectTrigger>\n        <SelectContent position='popper'>\n          {regions.map((region, index) => (\n            <Fragment key={region.label}>\n              {index > 0 && <SelectSeparator />}\n              <SelectGroup>\n                <SelectLabel>{region.label}</SelectLabel>\n                {region.zones.map((zone) => (\n                  <SelectItem key={zone.value} value={zone.value}>\n                    <span className='flex items-center gap-2'>\n                      <span>{zone.label}</span>\n                      <span className='text-xs text-text-muted'>{zone.offset}</span>\n                    </span>\n                  </SelectItem>\n                ))}\n              </SelectGroup>\n            </Fragment>\n          ))}\n        </SelectContent>\n      </Select>\n    </Field>\n  );\n}\n"
+    }
+  ]
+}

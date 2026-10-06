@@ -52,12 +52,19 @@ export function createStorageStore(getStorage) {
       notify(key);
     },
     remove(key) {
-      memory.delete(key);
-      memoryOnly.delete(key);
+      // Keep a tombstone when storage refuses removal, just as refused writes
+      // keep their new value in memory. Otherwise the old preference reappears.
+      memory.set(key, null);
+      memoryOnly.add(key);
       try {
-        storage()?.removeItem(key);
+        const area = storage();
+        if (area) {
+          area.removeItem(key);
+          memory.delete(key);
+          memoryOnly.delete(key);
+        }
       } catch {
-        // Nothing stored to remove.
+        // The session still observes the removal.
       }
       notify(key);
     },
@@ -79,12 +86,7 @@ const parseJSON = (raw) => JSON.parse(raw);
  * useState backed by a storage store. The server render and hydration use `initialValue`; the
  * stored value is read on the client right after. Every caller with the same key stays in sync.
  */
-export function useStorageState(store, key, initialValue, { serialize = JSON.stringify, deserialize = parseJSON, syncTabs = true } = {}) {
-  const initialRef = useRef(initialValue);
-  initialRef.current = initialValue;
-  const options = useRef({ serialize, deserialize });
-  options.current = { serialize, deserialize };
-
+export function useStorageValue(store, key, initialValue, { deserialize = parseJSON, syncTabs = true } = {}) {
   const subscribe = useCallback((notify) => {
     const unsubscribe = store.subscribe(key, notify);
     if (!syncTabs || typeof window === 'undefined') return unsubscribe;
@@ -102,14 +104,23 @@ export function useStorageState(store, key, initialValue, { serialize = JSON.str
 
   const raw = useSyncExternalStore(subscribe, () => store.get(key), () => null);
 
-  const value = useMemo(() => {
-    if (raw === null || raw === undefined) return initialRef.current;
+  const stored = useMemo(() => {
+    if (raw === null || raw === undefined) return null;
     try {
-      return options.current.deserialize(raw);
+      return { value: deserialize(raw) };
     } catch {
-      return initialRef.current;
+      return null;
     }
-  }, [ raw ]);
+  }, [ raw, deserialize ]);
+  return stored ? stored.value : initialValue;
+}
+
+export function useStorageState(store, key, initialValue, { serialize = JSON.stringify, ...readOptions } = {}) {
+  const value = useStorageValue(store, key, initialValue, readOptions);
+  const initialRef = useRef(initialValue);
+  initialRef.current = initialValue;
+  const options = useRef({ serialize });
+  options.current = { serialize };
   const valueRef = useRef(value);
   valueRef.current = value;
 

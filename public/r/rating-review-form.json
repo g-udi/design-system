@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rating-review-form",
+  "type": "registry:example",
+  "title": "Review form",
+  "description": "Review form. Core/Advanced Inputs/Rating pattern composed from @gaudi/design-system/core/Rating and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "rating",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Rating",
+    "import": "@gaudi/design-system/core/Rating",
+    "storyId": "core-rating--review-form",
+    "source": "src/components/core/Rating/stories/fixtures/rating/rating-review-form.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/rating-review-form.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport { Rating } from '@gaudi/design-system/core/Rating';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { default as Textarea } from '@gaudi/design-system/core/Textarea';\n\nconst feedback = (rating) =>\n  rating <= 2 ? \"We're sorry to hear that\" : rating <= 3 ? 'Thanks for your feedback' : 'Glad you enjoyed it!';\n\nexport function Pattern() {\n  const toastId = useId();\n  const [rating, setRating] = useState(0);\n  const [review, setReview] = useState('');\n  const submit = (event) => {\n    event.preventDefault();\n    toast.success(`Rated ${rating} out of 5`, { toasterId: toastId, description: 'Your review is posted.' });\n    setRating(0);\n    setReview('');\n  };\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <Card className='mx-auto w-full max-w-xs'>\n      <CardContent>\n        <form className='grid gap-3' onSubmit={submit}>\n          <div className='flex flex-col items-center gap-2'>\n            <h3 className='text-sm font-semibold'>Write a review</h3>\n            <Rating rating={rating} onRatingChange={setRating} editable showValue />\n            <p className='min-h-4 text-xs text-text-muted'>{rating > 0 ? feedback(rating) : 'Choose a score to continue'}</p>\n          </div>\n          <div className='grid gap-1.5'>\n            <Label htmlFor={`${toastId}-review-text`}>Your review</Label>\n            <Textarea\n              id={`${toastId}-review-text`}\n              value={review}\n              onChange={(e) => setReview(e.target.value)}\n              placeholder='What worked, and what could be clearer?'\n              rows={3}\n            />\n          </div>\n          <Button type='submit' disabled={rating === 0} size='sm' className='w-full'>\n            Submit review\n          </Button>\n        </form>\n      </CardContent>\n    </Card>\n    </>\n  );\n}\n"
+    }
+  ]
+}

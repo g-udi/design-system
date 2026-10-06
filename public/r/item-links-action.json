@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-links-action",
+  "type": "registry:example",
+  "title": "Log links and a reversible action",
+  "description": "Log links and a reversible action. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--links-action",
+    "source": "src/components/core/Item/stories/fixtures/item/item-links-action.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-links-action.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport Button from '@gaudi/design-system/core/Button';\nimport Link from '@gaudi/design-system/core/Link';\nimport {\n  Item,\n  ItemContent,\n  ItemMedia\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [reverted, setReverted] = useState(false);\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>\n      <Item size='xs' asChild>\n        <Link href='/pull-requests/412' variant='bare'>\n          <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n            <RegistryIcon lucide='GitMergeIcon' />\n          </ItemMedia>\n          <ItemContent className='min-w-0 break-words'>Review draft #412: Colour in long-form layouts</ItemContent>\n        </Link>\n      </Item>\n      <Item size='xs' asChild>\n        <Link href='/pull-requests/412/files#rate-limit' variant='bare'>\n          <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n            <RegistryIcon lucide='FileTextIcon' />\n          </ItemMedia>\n          <ItemContent className='min-w-0 break-words'>Compare it with the published version</ItemContent>\n        </Link>\n      </Item>\n      <Item size='xs' asChild>\n        <Button variant='ghost' tone='neutral'\n          type='button'\n          className='hover:text-ui-foreground transition-colors'\n          onClick={() => setReverted((value) => !value)}\n        >\n          <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>\n            {reverted ? (\n              <RegistryIcon lucide='CheckIcon' />\n            ) : (\n              <RegistryIcon lucide='RotateCcwIcon' />\n            )}\n          </ItemMedia>\n          <ItemContent className='min-w-0 break-words'>\n            {reverted ? 'Restore the edit' : 'Undo this edit'}\n          </ItemContent>\n        </Button>\n      </Item>\n      {/* Mounted empty from the first render, not inserted on the click: a\n       live region added at the same moment as its text is not reliably\n       announced, and the button's own label changes silently. */}\n      <span role='status' aria-live='polite' className='sr-only'>\n        {reverted ? 'Edit undone' : ''}\n      </span>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

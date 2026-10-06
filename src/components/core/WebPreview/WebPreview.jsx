@@ -19,7 +19,7 @@ import {
   WebPreviewOpenButton,
   WebPreviewRoot,
   WebPreviewUrl
-} from './parts/web-preview.jsx';
+} from './WebPreviewPrimitives.jsx';
 
 /**
  * @param {Object} props

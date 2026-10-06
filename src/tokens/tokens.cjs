@@ -1,22 +1,8 @@
 /**
- * Design Tokens (CJS entry)
- *
- * @description Builds the design tokens from the canonical data in
- * `tokens.json` for synchronous `require()` consumers: `tailwind-preset.cjs`
- * and the plugins in `src/tailwind/*.cjs`.
- *
- * The palette is derived from `tailwindcss/colors` so it always matches the
- * consumer's installed Tailwind version. Semantic colors point at the
- * `--ds-*` custom properties (declared in `src/styles.css`, mirrored by
- * `dsVariables`) so every semantic utility flips automatically in dark mode.
- *
- * Keep the palette/tokens assembly in sync with `src/tokens/index.js` — the
- * ESM twin exists because browser bundlers (Vite/Storybook) cannot import a
- * local CJS module, while Tailwind configs cannot `require()` ESM. All VALUES
- * live once in `tokens.json`; only this little glue is duplicated.
- *
- * @author Ahmad Assaf
- * @version 1.0.0
+ * Supported JavaScript token projection. Runtime CSS in tokens.css and theme.css
+ * is authoritative; tokens.json mirrors values exposed to JS and the preset.
+ * Token contracts enforce parity. Keep the ESM/CJS assembly in sync: Tailwind
+ * config uses require(), while browser bundlers consume the ESM entry.
  */
 
 const tailwindColors = require('tailwindcss/colors');

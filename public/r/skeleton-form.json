@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton-form",
+  "type": "registry:example",
+  "title": "Form",
+  "description": "Form. Core/Feedback & States/Skeleton pattern composed from @gaudi/design-system/core/Skeleton and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "skeleton",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Skeleton",
+    "import": "@gaudi/design-system/core/Skeleton",
+    "storyId": "core-skeleton--form",
+    "source": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-form.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/skeleton-form.jsx",
+      "type": "registry:component",
+      "content": "import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-4'>\n      <div className='flex flex-col gap-2'>\n        <Skeleton className='h-5 w-32' />\n        <Skeleton className='h-3.5 w-full' />\n        <Skeleton className='h-3.5 w-3/4' />\n      </div>\n      <div className='flex flex-col gap-2'>\n        <Skeleton className='h-3.5 w-20' />\n        <Skeleton className='h-9 w-full' />\n      </div>\n      <div className='flex flex-col gap-2'>\n        <Skeleton className='h-3.5 w-24' />\n        <Skeleton className='h-20 w-full' />\n      </div>\n      <div className='flex items-center gap-2'>\n        <Skeleton className='size-4 rounded-sm' />\n        <Skeleton className='h-3.5 w-40' />\n      </div>\n      <div className='flex justify-end gap-2'>\n        <Skeleton className='h-8 w-20' />\n        <Skeleton className='h-8 w-24' />\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

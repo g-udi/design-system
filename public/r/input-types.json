@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-types",
+  "type": "registry:example",
+  "title": "Input types",
+  "description": "Input types. Core/Input pattern composed from @gaudi/design-system/core/Input and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "input",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Input",
+    "import": "@gaudi/design-system/core/Input",
+    "storyId": "core-input--types",
+    "source": "src/components/core/Input/stories/fixtures/input/input-types.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/input-types.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\nimport { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\n\nconst types = [\n  { type: 'text', label: 'Text', placeholder: 'Project name' },\n  { type: 'email', label: 'Email', placeholder: 'name@example.com' },\n  { type: 'password', label: 'Password', placeholder: 'Password' },\n  { type: 'tel', label: 'Phone', placeholder: '+1 (555) 123-4567' },\n  { type: 'url', label: 'URL', placeholder: 'https://example.com' },\n  { type: 'number', label: 'Number', placeholder: '123' },\n  { type: 'date', label: 'Date' },\n  { type: 'time', label: 'Time' }\n];\n\nexport function Pattern() {\n  const [volume, setVolume] = useState(50);\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      {types.map(({ type, label, placeholder }) => (\n        <Field key={type}>\n          <FieldLabel htmlFor={`input-type-${type}`}>{label}</FieldLabel>\n          {type === 'email' ? <EmailInput id={`input-type-${type}`} placeholder={placeholder} /> : type === 'number' ? (\n            <NumberField id={`input-type-${type}`}><NumberFieldGroup><NumberFieldInput placeholder={placeholder} /></NumberFieldGroup></NumberField>\n          ) : <Input id={`input-type-${type}`} type={type} placeholder={placeholder} />}\n        </Field>\n      ))}\n      <Field className='sm:col-span-2'>\n        <FieldLabel htmlFor='input-type-file'>File</FieldLabel>\n        <Input id='input-type-file' type='file' />\n      </Field>\n      <Field>\n        <FieldLabel htmlFor='input-type-color'>Theme colour</FieldLabel>\n        <Input id='input-type-color' type='color' className='h-8 w-16! cursor-pointer p-1' defaultValue='#3b82f6' />\n      </Field>\n      <Field>\n        <div className='flex items-center justify-between'>\n          <FieldLabel htmlFor='input-type-range'>Range</FieldLabel>\n          <span className='text-xs font-medium tabular-nums text-text-muted'>{volume}</span>\n        </div>\n        <Input\n          id='input-type-range'\n          type='range'\n          min='0'\n          max='100'\n          value={volume}\n          onChange={(e) => setVolume(parseInt(e.target.value, 10))}\n          className='cursor-pointer border-none bg-transparent px-0 shadow-none accent-accent dark:bg-transparent'\n        />\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

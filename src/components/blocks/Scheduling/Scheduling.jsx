@@ -1,8 +1,8 @@
 'use client';
 import { createContext, useContext } from 'react';
 import { cn } from '../../../utilities/cn';
-import { Calendar, CalendarDayButton } from '../../core/Calendar/parts/calendar.jsx';
-import { ToggleGroup, ToggleGroupItem } from '../../core/ToggleGroup/parts/toggle-group.jsx';
+import { Calendar, CalendarDayButton } from '../../core/Calendar/Calendar.jsx';
+import { ToggleGroup, ToggleGroupItem } from '../../core/ToggleGroup/ToggleGroupPrimitives.jsx';
 
 export const scheduleTones = ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'];
 
@@ -30,7 +30,10 @@ const toMinutes = (time) => {
   const [hours, minutes] = time.split(':').map(Number);
   return hours * 60 + minutes;
 };
-const fromMinutes = (total) => `${pad(Math.floor(total / 60) % 24)}:${pad(total % 60)}`;
+const fromMinutes = (total) => {
+  const wrapped = ((total % 1440) + 1440) % 1440;
+  return `${pad(Math.floor(wrapped / 60))}:${pad(wrapped % 60)}`;
+};
 
 /** Adds minutes to an `HH:MM` time. */
 export const addMinutes = (time, minutes) => fromMinutes(toMinutes(time) + minutes);
@@ -41,7 +44,10 @@ export const minutesBetween = (start, end) => toMinutes(end) - toMinutes(start);
 /** `HH:MM` slots from `start` while a `duration`-long meeting still ends by `end`, every `step` minutes. */
 export function timeSlots({ start = '09:00', end = '17:00', step = 30, duration = step } = {}) {
   const slots = [];
-  for (let time = toMinutes(start); time + duration <= toMinutes(end); time += step) slots.push(fromMinutes(time));
+  const first = toMinutes(start);
+  const last = toMinutes(end);
+  if (![first, last, step, duration].every(Number.isFinite) || step <= 0 || duration < 0) return slots;
+  for (let time = first; time + duration <= last; time += step) slots.push(fromMinutes(time));
   return slots;
 }
 

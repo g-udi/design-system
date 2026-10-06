@@ -1,1 +1,1 @@
-export { ChatSessionList as default, ChatSessionList } from './parts/chat-sessions.jsx';
+export { ChatSessionList as default, ChatSessionList } from './ChatSessionList.jsx';

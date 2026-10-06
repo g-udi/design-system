@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "screens-billing",
+  "type": "registry:block",
+  "title": "Billing",
+  "description": "Billing. Blocks/Profile pattern composed from @gaudi/design-system/blocks/Screens and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "screens",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/Screens",
+    "import": "@gaudi/design-system/blocks/Screens",
+    "storyId": "blocks-profile--billing",
+    "source": "src/components/blocks/Screens/stories/fixtures/screens/screens-billing.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/screens-billing.jsx",
+      "type": "registry:component",
+      "content": "import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';\nimport { StatCard } from '@gaudi/design-system/blocks/StatCard';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst usage = [\n  { label: 'Seats', value: '8 of 10', used: 80, icon: 'UsersIcon', tone: 'info' },\n  { label: 'Storage', value: '42 of 100 GB', used: 42, icon: 'DatabaseIcon', tone: 'discovery' },\n  { label: 'API calls', value: '91k of 100k', used: 91, icon: 'ZapIcon', tone: 'warning' }\n];\nconst invoices = [\n  ['INV-2026-010', 'Oct 1, 2026', '€48.00', 'Paid'],\n  ['INV-2026-009', 'Sep 1, 2026', '€48.00', 'Paid'],\n  ['INV-2026-008', 'Aug 1, 2026', '€62.40', 'Refunded'],\n  ['INV-2026-007', 'Jul 1, 2026', '€48.00', 'Paid']\n];\nconst status = { Paid: 'success-light', Refunded: 'secondary', Failed: 'destructive-light' };\n\nexport function Pattern() {\n  return (\n    <section aria-labelledby='billing-title' className='grid w-full max-w-4xl gap-5'>\n      <header className='flex flex-wrap items-start justify-between gap-4 rounded-xl border p-5'>\n        <div className='grid gap-1'>\n          <p className='text-text-muted text-sm'>Current plan</p>\n          <h2 id='billing-title' className='flex items-center gap-2 text-xl font-semibold'>\n            Team\n            <Badge size='sm' variant='primary-light'>Monthly</Badge>\n          </h2>\n          <p className='text-text-muted text-sm'>€48 per month · renews November 1, 2026 · Visa ending 4242</p>\n        </div>\n        <div className='flex gap-2'>\n          <Button variant='outline'>Cancel plan</Button>\n          <Button>Upgrade</Button>\n        </div>\n      </header>\n      <div className='grid gap-3 sm:grid-cols-3'>\n        {usage.map((item) => (\n          <StatCard key={item.label} label={item.label} value={item.value} icon={item.icon} tone={item.tone}>\n            <Progress value={item.used} aria-label={`${item.label} used`} className='h-1.5' />\n            <p className={item.used > 85 ? 'text-warning text-xs font-medium' : 'text-text-muted text-xs'}>\n              {item.used > 85 ? 'Close to the limit' : `${item.used}% used`}\n            </p>\n          </StatCard>\n        ))}\n      </div>\n      <Table containerProps={{ role: 'region', 'aria-label': 'Invoice history', tabIndex: 0, className: 'rounded-xl border' }} className='min-w-[32rem]'>\n        <TableCaption className='p-4 text-left font-medium'>Invoice history</TableCaption>\n        <TableHeader className='text-left'>\n          <TableRow>\n            <TableHead scope='col'>Invoice</TableHead>\n            <TableHead scope='col'>Date</TableHead>\n            <TableHead scope='col'>Amount</TableHead>\n            <TableHead scope='col'>Status</TableHead>\n            <TableHead scope='col'><span className='sr-only'>Download</span></TableHead>\n          </TableRow>\n        </TableHeader>\n        <TableBody>\n          {invoices.map(([number, date, amount, state]) => (\n            <TableRow key={number}>\n              <TableCell className='font-medium'>{number}</TableCell>\n              <TableCell className='text-text-muted'>{date}</TableCell>\n              <TableCell className='tabular-nums'>{amount}</TableCell>\n              <TableCell><Badge size='sm' variant={status[state]}>{state}</Badge></TableCell>\n              <TableCell className='text-end'>\n                <Button size='xs' variant='ghost' aria-label={`Download ${number}`}>\n                  <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />\n                </Button>\n              </TableCell>\n            </TableRow>\n          ))}\n        </TableBody>\n      </Table>\n    </section>\n  );\n}\n"
+    }
+  ]
+}

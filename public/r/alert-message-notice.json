@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-message-notice",
+  "type": "registry:example",
+  "title": "Alert: Message notification",
+  "description": "Alert: Message notification. Core/Feedback & States/Banner pattern composed from @gaudi/design-system/core/Banner and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "alert",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Banner",
+    "import": "@gaudi/design-system/core/Banner",
+    "storyId": "core-banner--message-notice",
+    "source": "src/components/core/Banner/stories/fixtures/alert/alert-message-notice.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/alert-message-notice.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport {\n  Alert,\n  AlertAction,\n  AlertDescription,\n  AlertTitle\n} from '@gaudi/design-system/core/Banner';\nimport {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\n\nconst messages = [\n  {\n    id: 'alex',\n    name: 'Anouk Varga',\n    initials: 'AV',\n    photo: '/avatars/person-41.svg',\n    action: 'sent you a message',\n    body: '\"I have finished the draft for the new design system. Let me know what you think.\"',\n    buttons: ['View', 'Reply']\n  },\n  {\n    id: 'sarah',\n    name: 'Sabine Okafor',\n    initials: 'SO',\n    photo: '/avatars/person-20.svg',\n    action: 'mentioned you in a comment',\n    body: '\"Great work on the profile layout! I added suggestions for the avatar spacing.\"',\n    buttons: ['Dismiss', 'View'],\n    invert: true\n  }\n];\n\nexport function Pattern() {\n  const [dismissed, setDismissed] = useState([]);\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      {messages.filter(({ id }) => !dismissed.includes(id)).map(({ id, name, initials, photo, action, body, buttons, invert }) => (\n        <Frame key={name}>\n          <FramePanel className='overflow-hidden p-0!'>\n            <Alert variant={invert ? 'invert' : 'default'} className='grid-cols-[32px_1fr] gap-x-3 border-0 shadow-none'>\n              <Avatar className={invert ? 'border-ui-border/10 size-8 border' : 'size-8 border'}>\n                <AvatarImage src={photo} alt={name} />\n                <AvatarFallback>{initials}</AvatarFallback>\n              </Avatar>\n              <AlertTitle className='block'>\n                <span>{name}</span>{' '}\n                <span className={invert ? 'text-invert-foreground/60 font-normal' : 'text-ui-muted-foreground font-normal'}>\n                  {action}\n                </span>\n              </AlertTitle>\n              <AlertAction>\n                <Button size='xs' variant={invert ? 'soft' : 'outline'} href={buttons[0] === 'View' ? `/messages/${id}` : undefined} onClick={buttons[0] === 'Dismiss' ? () => setDismissed((ids) => [...ids, id]) : undefined}>\n                  {buttons[0]}\n                </Button>\n                <Button size='xs' href={`/messages/${id}${buttons[1] === 'Reply' ? '?reply=1' : ''}`}>{buttons[1]}</Button>\n              </AlertAction>\n              <AlertDescription className='line-clamp-1'>{body}</AlertDescription>\n            </Alert>\n          </FramePanel>\n        </Frame>\n      ))}\n      {dismissed.length ? <Button variant='outline' size='sm' className='justify-self-start' onClick={() => setDismissed([])}>Restore messages</Button> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,2 +1,2 @@
-export { MessageTool as default, MessageTool, MessageData } from './parts/message-tool.jsx';
-export { MessageToolApproval, approvalStates } from './parts/message-tool-approval.jsx';
+export { ChatMessageTool as default, ChatMessageTool, ChatMessageData } from './ChatMessageTool.jsx';
+export { ChatMessageToolApproval, approvalStates } from './ChatMessageToolApproval.jsx';

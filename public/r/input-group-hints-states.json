@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-group-hints-states",
+  "type": "registry:example",
+  "title": "Hints and states",
+  "description": "Hints and states. Core/Input pattern composed from @gaudi/design-system/core/Input and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "input-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Input",
+    "import": "@gaudi/design-system/core/Input",
+    "storyId": "core-input--input-group-hints-states",
+    "source": "src/components/core/Input/stories/fixtures/input-group/input-group-hints-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/input-group-hints-states.jsx",
+      "type": "registry:component",
+      "content": "import {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput,\n  InputGroupText\n} from '@gaudi/design-system/core/Input';\nimport { KbdRoot as Kbd, KbdGroup } from '@gaudi/design-system/core/Kbd';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\n\nfunction Cell({ id, label, children, ...props }) {\n  return (\n    <Field {...props}>\n      <FieldLabel htmlFor={id} className='text-xs font-normal text-text-muted'>{label}</FieldLabel>\n      {children}\n    </Field>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <Cell id='ig-shortcut' label='Keyboard shortcut'>\n        <InputGroup>\n          <InputGroupInput id='ig-shortcut' placeholder='Search documentation…' />\n          <InputGroupAddon align='inline-end'>\n            <Kbd>⌘K</Kbd>\n          </InputGroupAddon>\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-multi-key' label='Icon and multi-key shortcut'>\n        <InputGroup>\n          <InputGroupAddon>\n            <RegistryIcon lucide='SparklesIcon' className='text-success' />\n          </InputGroupAddon>\n          <InputGroupInput id='ig-multi-key' placeholder='Ask AI…' />\n          <InputGroupAddon align='inline-end'>\n            <KbdGroup>\n              <Kbd>\n                <RegistryIcon lucide='CommandIcon' className='size-3' />\n              </Kbd>\n              <Kbd>Enter</Kbd>\n            </KbdGroup>\n          </InputGroupAddon>\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-count' label='Result count'>\n        <InputGroup>\n          <InputGroupAddon>\n            <RegistryIcon lucide='SearchIcon' />\n          </InputGroupAddon>\n          <InputGroupInput id='ig-count' defaultValue='timeout' />\n          <InputGroupAddon align='inline-end'>\n            <InputGroupText className='text-xs text-text-muted'>12 results</InputGroupText>\n          </InputGroupAddon>\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-valid' label='Valid'>\n        <InputGroup>\n          <InputGroupInput id='ig-valid' defaultValue='gaudi_dev' />\n          <InputGroupAddon align='inline-end'>\n            <RegistryIcon lucide='CircleCheckIcon' className='size-4 text-success' aria-hidden='true' />\n          </InputGroupAddon>\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-loading' label='Loading' data-disabled='true'>\n        <InputGroup>\n          <InputGroupInput id='ig-loading' defaultValue='checking_name' disabled />\n          <InputGroupAddon align='inline-end'>\n            <Loader />\n          </InputGroupAddon>\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-disabled' label='Disabled' data-disabled='true'>\n        <InputGroup>\n          <InputGroupInput id='ig-disabled' placeholder='Not editable' disabled />\n        </InputGroup>\n      </Cell>\n      <Cell id='ig-invalid' label='Invalid' data-invalid='true' className='sm:col-span-2'>\n        <EmailInput id='ig-invalid' defaultValue='not-an-email' aria-invalid='true' prefix={<RegistryIcon lucide='MailIcon' />} />\n      </Cell>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-quota",
+  "type": "registry:block",
+  "title": "Quota and progress",
+  "description": "Quota and progress. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--quota",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-quota.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-quota.jsx",
+      "type": "registry:component",
+      "content": "import { StatCard } from '@gaudi/design-system/blocks/StatCard';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-3xl gap-3 sm:grid-cols-2'>\n      <StatCard\n        label='API calls'\n        icon='ServerIcon'\n        tone='info'\n        value='824,310'\n        description='of 1,000,000 included this cycle'\n        footer='Renews Oct 14 · billed $82.40 so far'\n      >\n        <Progress value={82} aria-label='API quota used' className='h-2' />\n        <div className='flex justify-between text-xs'>\n          <span className='text-text-muted'>82% used</span>\n          <span className='text-warning font-medium'>175,690 left</span>\n        </div>\n      </StatCard>\n      <StatCard\n        label='Sprint tasks'\n        icon='CircleCheckIcon'\n        tone='success'\n        value='38 / 52'\n        delta='6' deltaDirection='up' deltaTone='success'\n        description='completed since Monday'\n        footer={\n          <span className='inline-flex items-center gap-1.5'>\n            <RegistryIcon lucide='SparklesIcon' aria-hidden='true' className='text-discovery size-3.5' />\n            At this pace the sprint finishes Thursday, a day early.\n          </span>\n        }\n      >\n        <Progress value={73} aria-label='Sprint completion' className='h-2' />\n        <div className='flex flex-wrap gap-1.5'>\n          <Badge variant='secondary' size='sm'>9 in review</Badge>\n          <Badge variant='warning-light' size='sm'>3 blocked</Badge>\n          <Badge variant='outline' size='sm'>2 unassigned</Badge>\n        </div>\n      </StatCard>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

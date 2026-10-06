@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline-alternating",
+  "type": "registry:example",
+  "title": "Alternating milestones",
+  "description": "Alternating milestones. Core/Data Display/Timeline pattern composed from @gaudi/design-system/core/Timeline and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "timeline",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Timeline",
+    "import": "@gaudi/design-system/core/Timeline",
+    "storyId": "core-timeline--alternating",
+    "source": "src/components/core/Timeline/stories/fixtures/timeline/timeline-alternating.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/timeline-alternating.jsx",
+      "type": "registry:component",
+      "content": "import {\n  TimelineRoot as Timeline,\n  TimelineDate,\n  TimelineHeader,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineSeparator,\n  TimelineTitle\n} from '@gaudi/design-system/core/Timeline';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nconst milestones = [\n  {\n    id: 1,\n    date: 'Jan 2024',\n    title: 'Seed Funding'\n  },\n  {\n    id: 2,\n    date: 'Mar 2024',\n    title: 'Product MVP'\n  },\n  {\n    id: 3,\n    date: 'May 2024',\n    title: 'First Client'\n  },\n  {\n    id: 4,\n    date: 'Jul 2024',\n    title: 'Series A'\n  },\n  {\n    id: 5,\n    date: 'Sep 2024',\n    title: 'Global Expansion'\n  }\n];\nexport function Pattern() {\n  return (\n    <Timeline defaultValue={3} className='w-full max-w-md'>\n      {milestones.map((item) => (\n        <TimelineItem\n          key={item.id}\n          step={item.id}\n          className={cn(\n            'w-[calc(50%-1.5rem)] odd:ms-auto even:me-auto even:text-right even:group-data-[orientation=vertical]/timeline:ms-0 even:group-data-[orientation=vertical]/timeline:me-8',\n            'even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:-right-6 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:left-auto',\n            'even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-indicator]:translate-x-1/2 even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:-right-6',\n            'even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:left-auto even:group-data-[orientation=vertical]/timeline:**:data-[slot=timeline-separator]:translate-x-1/2'\n          )}\n        >\n          <TimelineHeader>\n            <TimelineSeparator />\n            <TimelineDate>{item.date}</TimelineDate>\n            <TimelineTitle>{item.title}</TimelineTitle>\n            <TimelineIndicator />\n          </TimelineHeader>\n        </TimelineItem>\n      ))}\n    </Timeline>\n  );\n}\n"
+    }
+  ]
+}

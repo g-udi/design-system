@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "phone-input-field-states",
+  "type": "registry:example",
+  "title": "Field states",
+  "description": "Field states. Core/Advanced Inputs/PhoneInput pattern composed from @gaudi/design-system/core/PhoneInput and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "phone-input",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/PhoneInput",
+    "import": "@gaudi/design-system/core/PhoneInput",
+    "storyId": "core-phoneinput--field-states",
+    "source": "src/components/core/PhoneInput/stories/fixtures/phone-input/phone-input-field-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/phone-input-field-states.jsx",
+      "type": "registry:component",
+      "content": "import { PhoneInput } from '@gaudi/design-system/core/PhoneInput';\nimport { Label } from '@gaudi/design-system/core/Field';\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <div className='grid gap-1.5'>\n        <Label htmlFor='phone-empty'>Phone number</Label>\n        <PhoneInput id='phone-empty' defaultCountry='NL' placeholder='Enter phone number' />\n        <p className='text-xs text-text-muted'>Empty, Netherlands preselected</p>\n      </div>\n      <div className='grid gap-1.5'>\n        <Label htmlFor='phone-readonly'>Office line</Label>\n        <PhoneInput id='phone-readonly' readOnly value='+12125551234' />\n        <p className='text-xs text-text-muted'>Read-only</p>\n      </div>\n      <div className='grid gap-1.5'>\n        <Label htmlFor='phone-disabled'>Fax</Label>\n        <PhoneInput id='phone-disabled' disabled defaultCountry='FR' value='+33612345678' />\n        <p className='text-xs text-text-muted'>Disabled</p>\n      </div>\n      <div className='grid gap-1.5'>\n        <Label htmlFor='phone-error'>Emergency contact</Label>\n        <PhoneInput\n          id='phone-error'\n          aria-invalid='true'\n          aria-describedby='phone-error-message'\n          placeholder='Enter phone number'\n        />\n        <p id='phone-error-message' className='text-xs text-danger'>\n          Enter a valid phone number.\n        </p>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

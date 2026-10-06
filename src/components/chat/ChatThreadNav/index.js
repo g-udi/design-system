@@ -1,1 +1,1 @@
-export { ChatThreadNav as default, ChatThreadNav } from './parts/chat-thread-nav.jsx';
+export { ChatThreadNav as default, ChatThreadNav } from './ChatThreadNav.jsx';

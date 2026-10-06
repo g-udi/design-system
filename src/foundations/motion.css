@@ -1,0 +1,137 @@
+@import 'tw-animate-css';
+
+@layer components {
+  @media (prefers-reduced-motion: reduce) {
+    :where(.animate-ping) {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+    }
+    :where(.transition, .transition-all, .transition-colors, .transition-opacity, .transition-shadow, .transition-transform) {
+      transition-duration: 0ms !important;
+    }
+
+    [data-slot],
+    [data-slot]::before,
+    [data-slot]::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    /*
+     * Loading indicators are exempt from the kill switch: a frozen spinner or
+     * skeleton no longer reads as "still working". Spinners stop rotating and
+     * breathe in place (a slow opacity pulse) instead, which is the calm
+     * alternative; their status role and label are unchanged.
+     */
+    .animate-spin,
+    .animate-spin[data-slot] {
+      animation: ds-loading-breathe 2.4s ease-in-out infinite !important;
+    }
+    .animate-pulse,
+    .animate-pulse[data-slot] {
+      animation-duration: 3s !important;
+      animation-iteration-count: infinite !important;
+    }
+  }
+
+  @keyframes ds-loading-breathe {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  @keyframes ds-disclosure-in {
+    from {
+      clip-path: inset(0 0 12px 0);
+      opacity: 0.01;
+      transform: translate3d(0, -4px, 0);
+    }
+
+    to {
+      clip-path: inset(0);
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes ds-popover-in {
+    from {
+      opacity: 0.01;
+      transform: translate3d(0, -4px, 0) scale(0.98);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  .ds-motion-press {
+    transition-duration: var(--ds-motion-duration-feedback);
+    transition-property: background-color, border-color, box-shadow, color, transform;
+    transition-timing-function: var(--ds-motion-ease-out);
+  }
+
+  .ds-motion-press:not(:disabled):not([aria-disabled='true']):active {
+    transform: translate3d(0, 1px, 0);
+  }
+
+  .ds-motion-state {
+    transition-duration: var(--ds-motion-duration-state);
+    transition-property: background-color, border-color, box-shadow, color, opacity, transform;
+    transition-timing-function: var(--ds-motion-ease-out);
+  }
+
+  .ds-motion-icon {
+    transition-duration: var(--ds-motion-duration-state);
+    transition-property: color, transform;
+    transition-timing-function: var(--ds-motion-ease-out);
+  }
+
+  .ds-motion-disclosure {
+    animation: ds-disclosure-in var(--ds-motion-duration-state) var(--ds-motion-ease-out) both;
+    transform-origin: top;
+  }
+
+  .ds-motion-popover {
+    animation: ds-popover-in var(--ds-motion-duration-state) var(--ds-motion-ease-out) both;
+    transform-origin: top center;
+  }
+
+  .ds-motion-toggle-track {
+    transition-duration: var(--ds-motion-duration-state);
+    transition-property: background-color, border-color, box-shadow;
+    transition-timing-function: var(--ds-motion-ease-out);
+  }
+
+  .ds-motion-toggle-thumb {
+    transition-duration: var(--ds-motion-duration-state);
+    transition-property: box-shadow, transform;
+    transition-timing-function: var(--ds-motion-ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    .ds-motion-disclosure,
+    .ds-motion-popover {
+      animation: none !important;
+    }
+
+    .ds-motion-press,
+    .ds-motion-icon,
+    .ds-motion-state,
+    .ds-motion-toggle-thumb,
+    .ds-motion-toggle-track {
+      transition-duration: 0ms !important;
+    }
+
+    .ds-motion-press:not(:disabled):not([aria-disabled='true']):active {
+      transform: none !important;
+    }
+  }
+}

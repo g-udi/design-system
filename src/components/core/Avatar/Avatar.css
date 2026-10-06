@@ -15,8 +15,41 @@
   .ds-avatar .ds-avatar-indicator[data-tone='danger'] { background: var(--ds-color-danger); color: var(--ds-color-danger-foreground); }
   .ds-avatar .ds-avatar-indicator[data-tone='neutral'] { background: var(--ds-color-text-muted); }
   .ds-avatar .ds-avatar-indicator[data-tone='primary'] { background: var(--ds-color-info); color: var(--ds-color-info-foreground); }
-  .ds-avatar-group-layout { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; min-width: 0; }
-  .ds-avatar-stack { max-width: 100%; overflow-x: auto; padding: 4px; }
+  .ds-avatar-group-layout { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--ds-space-scale, 1) * 12px); min-width: 0; }
+  .ds-avatar-stack { max-width: 100%; overflow-x: auto; padding: calc(var(--ds-space-scale, 1) * 4px); }
   .ds-avatar-group-member { display: flex; border-radius: inherit; }
   .ds-avatar-group-member .ds-avatar { box-shadow: 0 0 0 2px var(--ds-color-surface); }
+  .ds-part-avatar {
+    @apply size-8 rounded-full after:rounded-full data-[size=lg]:size-10 data-[size=sm]:size-6;
+    /* Initials size against the avatar itself, so a 20px avatar in a table row stays balanced. */
+    container-type: size;
+  }
+
+  .ds-part-avatar-fallback {
+    @apply bg-ui-muted text-ui-muted-foreground font-medium;
+    border-radius: inherit;
+    font-size: clamp(0.5625rem, 38cqmin, 1.125rem);
+    line-height: 1;
+    letter-spacing: 0.01em;
+  }
+
+  .ds-part-avatar-image {
+    border-radius: inherit;
+  }
+
+  .ds-part-avatar-badge {
+    @apply bg-ui-primary text-ui-primary-foreground ring-ui-background;
+  }
+
+  /* Defaults stay in the component layer so custom badges can set their own size. */
+  .ds-part-avatar[data-size='sm'] .ds-part-avatar-badge { @apply size-2; }
+  .ds-part-avatar[data-size='sm'] .ds-part-avatar-badge > svg { display: none; }
+  .ds-part-avatar[data-size='default'] .ds-part-avatar-badge { @apply size-2.5; }
+  .ds-part-avatar[data-size='lg'] .ds-part-avatar-badge { @apply size-3; }
+  .ds-part-avatar[data-size='default'] .ds-part-avatar-badge > svg,
+  .ds-part-avatar[data-size='lg'] .ds-part-avatar-badge > svg { @apply size-2; }
+
+  .ds-part-avatar-group-count {
+    @apply bg-ui-muted text-ui-muted-foreground size-8 rounded-full text-sm group-has-data-[size=lg]/avatar-group:size-10 group-has-data-[size=sm]/avatar-group:size-6 [&>svg]:size-4 group-has-data-[size=lg]/avatar-group:[&>svg]:size-5 group-has-data-[size=sm]/avatar-group:[&>svg]:size-3;
+  }
 }

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dropdown-menu-notifications",
+  "type": "registry:example",
+  "title": "Notifications",
+  "description": "Notifications. Core/Overlays & Menus/DropdownMenu pattern composed from @gaudi/design-system/core/DropdownMenu and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dropdown-menu",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, static/images/art/1.svg, static/images/art/9.svg.",
+  "meta": {
+    "owner": "core/DropdownMenu",
+    "import": "@gaudi/design-system/core/DropdownMenu",
+    "storyId": "core-dropdownmenu--notifications",
+    "source": "src/components/core/DropdownMenu/stories/fixtures/dropdown-menu/dropdown-menu-notifications.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "static/images/art/1.svg",
+      "static/images/art/9.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dropdown-menu-notifications.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport Link from '@gaudi/design-system/core/Link';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuLabelPrimitive as DropdownMenuLabel,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst notifications = [\n  {\n    id: '1',\n    user: 'Sarah',\n    avatar:\n      '/avatars/person-20.svg',\n    initials: 'SC',\n    action: 'commented on',\n    target: 'Design System v2',\n    time: '2 min ago',\n    unread: false\n  },\n  {\n    id: '2',\n    user: 'Felix Wainwright',\n    avatar:\n      'static/images/art/9.svg',\n    initials: 'FW',\n    action: 'shared',\n    target: 'Q4 Report',\n    time: '1 hour ago',\n    unread: true\n  },\n  {\n    id: '3',\n    user: 'Juno Asante',\n    avatar:\n      'static/images/art/1.svg',\n    initials: 'JA',\n    action: 'invited you to',\n    target: 'Project Alpha',\n    time: '3 hours ago',\n    unread: false\n  }\n];\nexport function Pattern() {\n  const [unreadIds, setUnreadIds] = useState(() => notifications.filter((item) => item.unread).map((item) => item.id));\n  const [message, setMessage] = useState('');\n  return (\n    <div className='flex flex-col items-center justify-center gap-2 pt-2'>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <Button\n            aria-label={`Notifications, ${unreadIds.length} unread`}\n            variant='outline'\n            size='icon'\n            className='relative'\n          >\n            <RegistryIcon lucide='BellIcon' aria-hidden='true' />\n            {unreadIds.length > 0 && <Badge\n              variant='destructive'\n              size='sm'\n              className='absolute -top-1.5 -end-2 rounded-control px-1'\n              aria-hidden='true'\n            >\n              {unreadIds.length}\n            </Badge>}\n          </Button>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent className='w-80' align='end' sideOffset={8}>\n          <DropdownMenuGroup>\n            <div className='flex items-center justify-between gap-2'>\n              <DropdownMenuLabel>Notifications</DropdownMenuLabel>\n              <DropdownMenuItem\n                disabled={unreadIds.length === 0}\n                className='text-xs'\n                onSelect={() => {\n                  setUnreadIds([]);\n                  setMessage('All notifications marked as read.');\n                }}\n              >\n                Mark all as read\n              </DropdownMenuItem>\n            </div>\n            <DropdownMenuSeparator />\n            <DropdownMenuGroup>\n              {notifications.map((notification) => (\n                <DropdownMenuItem\n                  key={notification.id}\n                  className='flex items-start gap-2 py-1'\n                  onSelect={() => {\n                    setUnreadIds((ids) => ids.filter((id) => id !== notification.id));\n                    setMessage(`${notification.user} ${notification.action} ${notification.target}.`);\n                  }}\n                >\n                  <Avatar className='mt-0.5 size-6 shrink-0'>\n                    <AvatarImage\n                      src={notification.avatar}\n                      alt={notification.user}\n                    />\n                    <AvatarFallback>{notification.initials}</AvatarFallback>\n                  </Avatar>\n                  <div className='flex flex-1 flex-col gap-px'>\n                    <p className='leading-snug'>\n                      <span className='font-medium'>{notification.user}</span>{' '}\n                      <span className='text-text-muted'>\n                        {notification.action}\n                      </span>{' '}\n                      <span className='font-medium'>{notification.target}</span>\n                    </p>\n                    <span className='text-text-muted'>\n                      {notification.time}\n                    </span>\n                  </div>\n                  {unreadIds.includes(notification.id) && (\n                    <span className='bg-accent mt-2 size-1.5 shrink-0 rounded-full' />\n                  )}\n                </DropdownMenuItem>\n              ))}\n            </DropdownMenuGroup>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem asChild className='justify-center'>\n              <Link href='/notifications' variant='bare'>View all notifications</Link>\n            </DropdownMenuItem>\n          </DropdownMenuGroup>\n        </DropdownMenuContent>\n      </DropdownMenu>\n      <p role='status' className='text-xs text-text-muted'>{message}</p>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

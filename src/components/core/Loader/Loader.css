@@ -1,0 +1,32 @@
+@layer components {
+  .ds-loader { --ds-loader-size: 20px; display: inline-block; width: var(--ds-loader-size); height: var(--ds-loader-size); flex-shrink: 0; vertical-align: middle; overflow: visible; }
+  .ds-loader-size-xs { --ds-loader-size: 12px; }
+  .ds-loader-size-sm { --ds-loader-size: 16px; }
+  .ds-loader-size-md { --ds-loader-size: 20px; }
+  .ds-loader-size-lg { --ds-loader-size: 32px; }
+  .ds-loader[data-variant='bar'] { width: calc(var(--ds-loader-size) * 3); }
+  .ds-loader-motion { transform-origin: center; }
+  .ds-loader-rotate { animation: ds-loader-turn 1s linear infinite; }
+  .ds-loader-counter-rotate { animation: ds-loader-turn 1.25s linear infinite reverse; }
+  .ds-loader-bar { animation: ds-loader-travel 1.2s ease-in-out infinite alternate; }
+  .ds-loader-beat { transform-box: fill-box; animation: ds-loader-beat 1s ease-in-out infinite; }
+  .ds-loader-bounce { animation: ds-loader-bounce 1.4s ease-in-out infinite; }
+  .ds-loader-orbit-dot { animation: ds-loader-fade 1.2s linear infinite; }
+  .ds-loader-clip { animation: ds-loader-clip 1.4s ease-in-out infinite; }
+  .ds-loader-puff { animation: ds-loader-puff 1.5s ease-out infinite; }
+  .ds-loader-hop { animation: ds-loader-hop 1s ease-in-out infinite; }
+  .ds-loader-triangle { animation: ds-loader-turn 1.8s cubic-bezier(.65, 0, .35, 1) infinite; }
+  @keyframes ds-loader-turn { to { transform: rotate(360deg); } }
+  @keyframes ds-loader-travel { to { transform: translateX(48px); } }
+  @keyframes ds-loader-beat { 0%, 100% { transform: scale(.65); opacity: .35; } 50% { transform: scale(1); opacity: 1; } }
+  @keyframes ds-loader-bounce { 0%, 100% { transform: scale(.12); } 50% { transform: scale(1); } }
+  @keyframes ds-loader-fade { 0%, 100% { opacity: 1; } 80% { opacity: .2; } }
+  @keyframes ds-loader-clip { 0%, 100% { stroke-dasharray: 8 49; } 50% { stroke-dasharray: 45 12; } }
+  @keyframes ds-loader-puff { from { transform: scale(.25); opacity: 1; } to { transform: scale(1); opacity: 0; } }
+  @keyframes ds-loader-hop { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .ds-loader .ds-loader-motion { animation: none !important; }
+    .ds-loader[data-slot] { animation: ds-loading-breathe 2.4s ease-in-out infinite !important; }
+  }
+  @media (forced-colors: active) { .ds-loader { color: CanvasText; } }
+}

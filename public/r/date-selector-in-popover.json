@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "date-selector-in-popover",
+  "type": "registry:example",
+  "title": "Date selector: Opened from a field",
+  "description": "Date selector: Opened from a field. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "date-selector",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--date-selector-in-popover",
+    "source": "src/components/core/Calendar/stories/fixtures/date-selector/date-selector-in-popover.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/date-selector-in-popover.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport {\n  DateSelector,\n  formatDateValue\n} from '@gaudi/design-system/core/Calendar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  PopoverPrimitive as Popover,\n  PopoverContentPrimitive as PopoverContent,\n  PopoverTriggerPrimitive as PopoverTrigger\n} from '@gaudi/design-system/core/Popover';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [value, setValue] = useState();\n  const [open, setOpen] = useState(false);\n  const [internalValue, setInternalValue] = useState(value);\n  const formattedValue = value ? formatDateValue(value) : '';\n  const displayText = formattedValue || 'Select a date';\n  useEffect(() => {\n    if (open) {\n      setInternalValue(value);\n    }\n  }, [open, value]);\n  const handleApply = () => {\n    setValue(internalValue);\n    setOpen(false);\n  };\n  const handleCancel = () => {\n    setInternalValue(value);\n    setOpen(false);\n  };\n  return (\n    <Popover open={open} onOpenChange={setOpen}>\n      <PopoverTrigger asChild>\n        <Button variant='outline' className='w-56 justify-start'>\n          <RegistryIcon lucide='CalendarIcon' />\n          {displayText}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent className='w-auto gap-3 p-0' align='start' sideOffset={4}>\n        <div className='p-3'>\n          <DateSelector\n            value={internalValue}\n            onChange={setInternalValue}\n            allowRange={true}\n            label='Due date'\n            inputHint='Try: 2025, Q4, 05/10/2025'\n          />\n        </div>\n        <Separator className='p-0' />\n        <div className='flex justify-end gap-2 p-3 pt-0'>\n          <Button variant='outline' onClick={handleCancel}>\n            Cancel\n          </Button>\n          <Button onClick={handleApply}>Apply</Button>\n        </div>\n      </PopoverContent>\n    </Popover>\n  );\n}\n"
+    }
+  ]
+}

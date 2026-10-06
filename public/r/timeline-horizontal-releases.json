@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline-horizontal-releases",
+  "type": "registry:example",
+  "title": "Horizontal releases",
+  "description": "Horizontal releases. Core/Data Display/Timeline pattern composed from @gaudi/design-system/core/Timeline and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "timeline",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Timeline",
+    "import": "@gaudi/design-system/core/Timeline",
+    "storyId": "core-timeline--horizontal-releases",
+    "source": "src/components/core/Timeline/stories/fixtures/timeline/timeline-horizontal-releases.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/timeline-horizontal-releases.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  TimelineRoot as Timeline,\n  TimelineContent,\n  TimelineDate,\n  TimelineHeader,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineSeparator,\n  TimelineTitle\n} from '@gaudi/design-system/core/Timeline';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst releases = [\n  { id: 1, version: 'v1.0', date: 'Jan 2025', title: 'Initial release', status: 'released' },\n  { id: 2, version: 'v1.1', date: 'Mar 2025', title: 'Bug fixes', status: 'released' },\n  { id: 3, version: 'v2.0', date: 'Jun 2025', title: 'Major update', status: 'current' },\n  { id: 4, version: 'v2.1', date: 'Sep 2025', title: 'Improvements', status: 'upcoming' }\n];\n\nconst indicatorTone = {\n  released: 'bg-success text-success-foreground',\n  current: 'bg-ui-primary text-ui-primary-foreground',\n  upcoming: 'bg-ui-muted text-ui-muted-foreground'\n};\n\nconst indicatorIcon = { released: 'CheckIcon', current: 'PlayIcon', upcoming: 'CircleIcon' };\n\nexport function Pattern() {\n  // Dates above the rail lead each column; otherwise they sit with the title below it.\n  const [datesAbove, setDatesAbove] = useState(false);\n  const rail = datesAbove ? 'group-data-[orientation=horizontal]/timeline:top-7' : 'group-data-[orientation=horizontal]/timeline:-top-6';\n  return (\n    <div className='mx-auto flex w-full max-w-xl flex-col gap-3'>\n      <Label className='gap-2 text-sm font-normal'>\n        <Switch size='sm' checked={datesAbove} onCheckedChange={setDatesAbove} />\n        Dates above the rail\n      </Label>\n      <Timeline defaultValue={3} orientation='horizontal' className='overflow-x-auto pt-3'>\n        {releases.map((release) => (\n          <TimelineItem\n            key={release.id}\n            step={release.id}\n            className={cn('min-w-28', datesAbove && 'group-data-[orientation=horizontal]/timeline:mt-0')}\n          >\n            <TimelineHeader>\n              <TimelineSeparator\n                className={cn(\n                  'bg-ui-input! group-data-[orientation=horizontal]/timeline:left-2.5 group-data-[orientation=horizontal]/timeline:w-[calc(100%-2.25rem)]',\n                  rail\n                )}\n              />\n              <TimelineDate className={cn(datesAbove && 'mb-8')}>{release.date}</TimelineDate>\n              <TimelineTitle className='flex items-center gap-2'>\n                {release.version}\n                {release.status === 'current' && (\n                  <Badge variant='primary-light' size='sm'>\n                    Current\n                  </Badge>\n                )}\n              </TimelineTitle>\n              <TimelineIndicator\n                className={cn('flex size-6 items-center justify-center border-none', indicatorTone[release.status], rail)}\n              >\n                <RegistryIcon\n                  lucide={indicatorIcon[release.status]}\n                  className={release.status === 'released' ? 'size-3.5' : 'size-3'}\n                />\n              </TimelineIndicator>\n            </TimelineHeader>\n            <TimelineContent className='text-xs'>{release.title}</TimelineContent>\n          </TimelineItem>\n        ))}\n      </Timeline>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

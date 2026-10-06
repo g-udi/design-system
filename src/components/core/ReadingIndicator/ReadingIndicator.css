@@ -1,0 +1,37 @@
+@layer components {
+  .ds-reading-indicator {
+    --reading-color: var(--ds-color-accent);
+    color: var(--reading-color);
+    z-index: var(--ds-z-sticky);
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+  }
+  .ds-reading-indicator[data-tone='neutral'] { --reading-color: var(--ds-color-text); }
+  .ds-reading-indicator[data-position='fixed'] { position: fixed; }
+  .ds-reading-indicator[data-position='absolute'] { position: absolute; }
+  .ds-reading-indicator[data-variant='bar'] { inset-block-start: 0; inset-inline: 0; }
+  .ds-reading-indicator .ds-reading-bar { height: 3px; border-radius: 0; }
+  .ds-reading-bar [data-slot='progress-indicator'] { background: var(--reading-color); transition: none; }
+  .ds-reading-value { display: inline-flex; align-items: baseline; white-space: nowrap; font-size: 12px; line-height: 1; color: var(--ds-color-text); }
+  .ds-reading-value > span:first-child { display: inline-block; min-width: 3ch; text-align: end; }
+  .ds-reading-value > span:last-child { font-size: 10px; }
+  .ds-reading-indicator[data-variant='bar'] > .ds-reading-value { position: absolute; inset-block-start: 12px; inset-inline-end: 16px; background: var(--ds-color-surface); padding: calc(var(--ds-space-scale, 1) * 4px); }
+  .ds-reading-indicator[data-variant='ruler'] { inset-inline-end: 16px; inset-block-start: calc(50% - 100px); }
+  .ds-reading-ruler { position: relative; width: 80px; height: 200px; }
+  .ds-reading-ruler > svg { display: block; width: 24px; height: 100%; overflow: visible; }
+  .ds-reading-tick { stroke: var(--ds-color-border); }
+  .ds-reading-tick-complete { stroke: var(--reading-color); }
+  .ds-reading-ruler-marker { position: absolute; left: 0; display: flex; align-items: center; gap: calc(var(--ds-space-scale, 1) * 6px); transform: translateY(-50%); }
+  .ds-reading-needle { width: 30px; height: 1px; background: var(--reading-color); }
+  .ds-reading-indicator[data-variant='ring'] { display: inline-flex; align-items: center; gap: calc(var(--ds-space-scale, 1) * 8px); width: max-content; max-width: 100%; min-height: 44px; padding: calc(var(--ds-space-scale, 1) * 8px); border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-control); background: var(--ds-color-surface); inset-inline-end: 16px; inset-block-end: 16px; }
+  .ds-reading-indicator .ds-reading-ring { color: var(--reading-color); }
+  .ds-reading-ring circle { transition: none; }
+  .ds-reading-handle { pointer-events: auto; touch-action: none; cursor: grab; }
+  .ds-reading-handle:active { cursor: grabbing; }
+  .ds-reading-indicator[data-position='inline'] { position: relative; inset: auto; z-index: auto; }
+  @media (forced-colors: active) {
+    .ds-reading-indicator { --reading-color: CanvasText; }
+    .ds-reading-tick { stroke: GrayText; }
+    .ds-reading-bar [data-slot='progress-indicator'], .ds-reading-needle { forced-color-adjust: none; background: Highlight; }
+  }
+}

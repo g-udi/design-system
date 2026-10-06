@@ -11,11 +11,18 @@ export { announce, useLiveAnnouncer } from './a11y/use-live-announcer.js';
 export { REDUCED_MOTION_QUERY, usePrefersReducedMotion } from './a11y/use-prefers-reduced-motion.js';
 
 // Data
+export { useReadLocalStorage } from './data/use-read-local-storage.js';
+export { useMap } from './data/use-map.js';
 export { useLocalStorage } from './data/use-local-storage.js';
 export { useSessionStorage } from './data/use-session-storage.js';
 export { selectionState, toggleInSet, useSelection } from './data/use-selection.js';
 
 // Environment
+export { useScript } from './environment/use-script.js';
+export { useScreen } from './environment/use-screen.js';
+export { useWindowSize } from './environment/use-window-size.js';
+export { useDocumentTitle } from './environment/use-document-title.js';
+export { useIsMounted } from './environment/use-is-mounted.js';
 export { useIsClient } from './environment/use-is-client.js';
 export { matchesMediaQuery, subscribeMediaQuery, useMediaQuery } from './environment/use-media-query.js';
 export { MOBILE_BREAKPOINT, useIsMobile } from './environment/use-mobile.js';
@@ -24,6 +31,7 @@ export { usePageVisibility } from './environment/use-page-visibility.js';
 export { usePrefersColorScheme } from './environment/use-prefers-color-scheme.js';
 
 // Interaction
+export { useMousePosition } from './interaction/use-mouse-position.js';
 export { useCopyToClipboard, writeToClipboard } from './interaction/use-copy-to-clipboard.js';
 export { useEventListener } from './interaction/use-event-listener.js';
 export { isApplePlatform, matchHotkey, parseHotkey, toAriaKeyShortcuts, toKbdKeys, useHotkey } from './interaction/use-hotkey.js';
@@ -39,6 +47,10 @@ export { useInView } from './layout/use-in-view.js';
 export { useScrollPosition } from './layout/use-scroll-position.js';
 
 // State
+export { useUnmount } from './state/use-unmount.js';
+export { useCountdown } from './state/use-countdown.js';
+export { useCounter } from './state/use-counter.js';
+export { useBoolean } from './state/use-boolean.js';
 export { useControllableState } from './state/use-controllable-state.js';
 export { createDebouncer, useDebounceCallback } from './state/use-debounce-callback.js';
 export { useDebounceValue } from './state/use-debounce-value.js';

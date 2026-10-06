@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "resizable-editor-workspace",
+  "type": "registry:example",
+  "title": "Editor workspace",
+  "description": "Editor workspace. Core/Layout & Containers/Resizable pattern composed from @gaudi/design-system/core/Resizable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "resizable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Resizable",
+    "import": "@gaudi/design-system/core/Resizable",
+    "storyId": "core-resizable--editor-workspace",
+    "source": "src/components/core/Resizable/stories/fixtures/resizable/resizable-editor-workspace.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/resizable-editor-workspace.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  ResizableHandle,\n  ResizablePanel,\n  ResizablePanelGroup\n} from '@gaudi/design-system/core/Resizable';\n\n// An editor workspace: three columns, the middle one split into editor and terminal.\n// String sizes are percentages; onLayoutChange reports each panel size by id.\nfunction Pane({ label, size }) {\n  return (\n    <div className='flex h-full flex-col items-center justify-center gap-1 p-3 text-center'>\n      <span className='text-sm font-semibold'>{label}</span>\n      <span className='text-xs tabular-nums text-ui-muted-foreground'>{Math.round(size)}%</span>\n    </div>\n  );\n}\n\nexport function Pattern() {\n  const [columns, setColumns] = useState({ files: 25, main: 50, preview: 25 });\n  const [rows, setRows] = useState({ editor: 70, terminal: 30 });\n  return (\n    <div className='mx-auto w-full max-w-2xl'>\n      <ResizablePanelGroup\n        orientation='horizontal'\n        className='min-h-72 rounded-2xl border border-ui-border'\n        onLayoutChange={setColumns}\n      >\n        <ResizablePanel id='files' defaultSize='25%' minSize='15%'>\n          <Pane label='Files' size={columns.files ?? 25} />\n        </ResizablePanel>\n        <ResizableHandle withHandle />\n        <ResizablePanel id='main' defaultSize='50%' minSize='30%'>\n          <ResizablePanelGroup orientation='vertical' onLayoutChange={setRows}>\n            <ResizablePanel id='editor' defaultSize='70%' minSize='30%'>\n              <Pane label='Editor' size={rows.editor ?? 70} />\n            </ResizablePanel>\n            <ResizableHandle withHandle />\n            <ResizablePanel id='terminal' defaultSize='30%' minSize='20%'>\n              <Pane label='Terminal' size={rows.terminal ?? 30} />\n            </ResizablePanel>\n          </ResizablePanelGroup>\n        </ResizablePanel>\n        <ResizableHandle withHandle />\n        <ResizablePanel id='preview' defaultSize='25%' minSize='15%'>\n          <Pane label='Preview' size={columns.preview ?? 25} />\n        </ResizablePanel>\n      </ResizablePanelGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

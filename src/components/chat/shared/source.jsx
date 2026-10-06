@@ -17,9 +17,9 @@ const hostOf = (url) => {
 const siteOf = (source) => source.site || hostOf(source.url);
 
 /** The source's favicon when it has one, otherwise a globe or a document. */
-function SourceIcon({ source, className }) {
+function ChatSourceIcon({ source, className }) {
   if (source.icon) return <img src={source.icon} alt='' className={cn('size-4 shrink-0 rounded-sm', className)} />;
   return <RegistryIcon lucide={source.kind === 'document' ? 'FileText' : 'Globe'} className={cn('text-text-muted size-4 shrink-0', className)} />;
 }
 
-export { SourceIcon, hostOf, siteOf };
+export { ChatSourceIcon, hostOf, siteOf };

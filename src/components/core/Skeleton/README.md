@@ -14,7 +14,7 @@ import { Skeleton } from '@gaudi/design-system';
 
 - Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.
 - Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.
-- Use a skeleton when the layout is known; use `Spinner` for short waits or when the shape is unknown.
+- Use a skeleton when the layout is known; use `Loader` for short waits or when the shape is unknown.
 
 ## Shimmer
 

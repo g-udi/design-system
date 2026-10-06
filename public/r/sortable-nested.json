@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sortable-nested",
+  "type": "registry:example",
+  "title": "Nested lists",
+  "description": "Nested lists. Core/Layout & Containers/Sortable pattern composed from @gaudi/design-system/core/Sortable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sortable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sortable",
+    "import": "@gaudi/design-system/core/Sortable",
+    "storyId": "core-sortable--nested",
+    "source": "src/components/core/Sortable/stories/fixtures/sortable/sortable-nested.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sortable-nested.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport {\n  Sortable,\n  SortableItem,\n  SortableItemHandle\n} from '@gaudi/design-system/core/Sortable';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst defaultOptionGroups = [\n  {\n    id: '1',\n    name: 'Colors',\n    values: [\n      { id: '1-1', value: 'White' },\n      { id: '1-2', value: 'Black' },\n      { id: '1-3', value: 'Grey' },\n      { id: '1-4', value: 'Green' }\n    ]\n  },\n  {\n    id: '2',\n    name: 'Sizes',\n    values: [\n      { id: '2-1', value: 'Small' },\n      { id: '2-2', value: 'Medium' },\n      { id: '2-3', value: 'Large' }\n    ]\n  },\n  {\n    id: '3',\n    name: 'Materials',\n    values: [\n      { id: '3-1', value: 'Cotton' },\n      { id: '3-2', value: 'Polyester' },\n      { id: '3-3', value: 'Wool' }\n    ]\n  }\n];\nexport function Pattern() {\n  const toastId = useId();\n  const [optionGroups, setOptionGroups] = useState(defaultOptionGroups);\n  const handleParentReorder = (newGroups) => {\n    setOptionGroups(newGroups);\n    toast.success('Option groups reordered successfully!', {\n      toasterId: toastId,\n      description: `${newGroups.map((group, index) => `${index + 1}. ${group.name}`).join(', ')}`\n    });\n  };\n  const getParentValue = (group) => group.id;\n  const getChildValue = (value) => value.id;\n  const handleChildReorder = (groupId, newValues) => {\n    setOptionGroups((prev) =>\n      prev.map((group) =>\n        group.id === groupId ? { ...group, values: newValues } : group\n      )\n    );\n    toast.success('Values reordered successfully!', {\n      toasterId: toastId,\n      description: newValues\n        .map((value, index) => `${index + 1}. ${value.value}`)\n        .join(', ')\n    });\n  };\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <div className='mx-auto w-full max-w-sm space-y-4'>\n      <Sortable\n        value={optionGroups}\n        onValueChange={handleParentReorder}\n        getItemValue={getParentValue}\n        strategy='vertical'\n        className='space-y-3'\n      >\n        {optionGroups.map((group) => (\n          <SortableItem key={group.id} value={group.id}>\n            <Card className='p-2'>\n              <CardContent className='p-0'>\n                {/* Group Header */}\n                <div className='mb-2 flex items-center gap-2'>\n                  <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>\n                    <RegistryIcon\n                      lucide='GripVerticalIcon'\n                      className='size-4'\n                    />\n                  </SortableItemHandle>\n                  <h3 className='text-sm font-semibold'>{group.name}</h3>\n                </div>\n\n                {/* Option Values - Child Level */}\n                <Sortable\n                  value={group.values}\n                  onValueChange={(newValues) =>\n                    handleChildReorder(group.id, newValues)\n                  }\n                  getItemValue={getChildValue}\n                  strategy='vertical'\n                  className='space-y-2'\n                >\n                  {group.values.map((value) => (\n                    <SortableItem key={value.id} value={value.id}>\n                      <div className='border-ui-border rounded-md flex items-center gap-2 border p-1.5'>\n                        <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>\n                          <RegistryIcon\n                            lucide='GripVerticalIcon'\n                            className='size-4'\n                          />\n                        </SortableItemHandle>\n                        <span className='flex-1 text-sm'>{value.value}</span>\n                      </div>\n                    </SortableItem>\n                  ))}\n                </Sortable>\n              </CardContent>\n            </Card>\n          </SortableItem>\n        ))}\n      </Sortable>\n    </div>\n    </>\n  );\n}\n"
+    }
+  ]
+}

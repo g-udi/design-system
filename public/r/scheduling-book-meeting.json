@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scheduling-book-meeting",
+  "type": "registry:block",
+  "title": "Book a meeting",
+  "description": "Book a meeting. Blocks/Scheduling pattern composed from @gaudi/design-system/blocks/Scheduling and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "scheduling",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg.",
+  "meta": {
+    "owner": "blocks/Scheduling",
+    "import": "@gaudi/design-system/blocks/Scheduling",
+    "storyId": "blocks-scheduling--book-meeting",
+    "source": "src/components/blocks/Scheduling/stories/fixtures/scheduling/scheduling-book-meeting.jsx",
+    "assets": [
+      "/avatars/person-20.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/scheduling-book-meeting.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  ScheduleCalendar,\n  TimeSlots,\n  addMinutes,\n  dayKey,\n  timeSlots\n} from '@gaudi/design-system/blocks/Scheduling';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Weekdays in October with open time; some slots on each are already booked.\nconst open = ['2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-19', '2026-10-20', '2026-10-21', '2026-10-22', '2026-10-23', '2026-10-27', '2026-10-28'];\nconst booked = { '2026-10-14': ['10:00', '13:00', '13:30'], '2026-10-15': ['09:00', '09:30', '15:00'], '2026-10-16': ['11:00'] };\nconst markers = Object.fromEntries(open.map((day) => [day, [booked[day]?.length > 2 ? 'warning' : 'success']]));\n\nexport function Pattern() {\n  const [duration, setDuration] = useState('30');\n  const [date, setDate] = useState(new Date(2026, 9, 14));\n  const [slot, setSlot] = useState('');\n  const [confirmation, setConfirmation] = useState('');\n  const minutes = Number(duration);\n  const day = dayKey(date);\n  return (\n    <div className='bg-surface grid w-full max-w-4xl overflow-hidden rounded-lg border md:grid-cols-[14rem_auto_1fr]'>\n      <div className='grid content-start gap-3 border-b p-5 md:border-e md:border-b-0'>\n        <Avatar className='size-10'>\n          <AvatarImage src='/avatars/person-20.svg' alt='Sabine Okafor' />\n          <AvatarFallback>SO</AvatarFallback>\n        </Avatar>\n        <div>\n          <p className='text-text-muted text-sm'>Sabine Okafor</p>\n          <h3 className='text-lg font-semibold'>Product walkthrough</h3>\n        </div>\n        <ul className='text-text-muted grid gap-1.5 text-sm'>\n          <li className='flex items-center gap-2'>\n            <RegistryIcon lucide='VideoIcon' aria-hidden='true' className='size-4' />\n            Google Meet\n          </li>\n          <li className='flex items-center gap-2'>\n            <RegistryIcon lucide='GlobeIcon' aria-hidden='true' className='size-4' />\n            Europe/Berlin\n          </li>\n        </ul>\n        <ToggleGroup aria-label='Duration' type='single' variant='outline' size='sm' spacing={0} value={duration} onValueChange={(next) => { setDuration(next || duration); setSlot(''); }}>\n          {['15', '30', '60'].map((value) => (\n            <ToggleGroupItem key={value} value={value}>\n              {value}m\n            </ToggleGroupItem>\n          ))}\n        </ToggleGroup>\n      </div>\n      <div className='border-b p-3 md:border-e md:border-b-0'>\n        <ScheduleCalendar\n          mode='single'\n          required\n          selected={date}\n          onSelect={(next) => { setDate(next); setSlot(''); }}\n          defaultMonth={new Date(2026, 9, 1)}\n          disabled={(candidate) => !open.includes(dayKey(candidate))}\n          markers={markers}\n          markerLabel={(tones) => (tones[0] === 'warning' ? 'few times left' : 'times available')}\n        />\n      </div>\n      <div className='grid content-start gap-3 p-4'>\n        <p className='text-sm font-medium'>{date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}</p>\n        <ScrollArea className='h-64 pe-3'>\n          <TimeSlots\n            columns={1}\n            label={`Start times, ${minutes} minutes`}\n            slots={timeSlots({ start: '09:00', end: '17:00', step: 30, duration: minutes })}\n            unavailable={booked[day] || []}\n            value={slot}\n            onValueChange={setSlot}\n          />\n        </ScrollArea>\n        <Button disabled={!slot} className='w-full' onClick={() => setConfirmation(`Demo booking confirmed for ${day}, ${slot}–${addMinutes(slot, minutes)}.`)}>\n          {slot ? `Confirm ${slot}–${addMinutes(slot, minutes)}` : 'Pick a time'}\n        </Button>\n        {confirmation && <p role='status' className='text-text-muted text-sm'>{confirmation}</p>}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

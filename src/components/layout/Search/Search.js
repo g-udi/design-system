@@ -1,6 +1,8 @@
 'use client';
 
-import { useId, useState } from 'react';
+import { useId, useRef } from 'react';
+
+import { useControllableState } from '../../../hooks/state/use-controllable-state';
 
 import Icon from '../../core/Icon';
 import Input, { InputGroupButton } from '../../core/Input';
@@ -31,18 +33,15 @@ import Input, { InputGroupButton } from '../../core/Input';
  */
 const Search = ({ label = 'Filter articles', resultsId, setSearchValue, value }) => {
   const generatedId = useId();
+  const inputRef = useRef(null);
   const inputId = `article-filter-${generatedId}`;
-  const [ internalValue, setInternalValue ] = useState('');
-  const currentValue = value ?? internalValue;
-  const handleChange = (nextValue) => {
-    if (value === undefined) setInternalValue(nextValue);
-    setSearchValue?.(nextValue);
-  };
+  const [ currentValue, handleChange ] = useControllableState({ value, defaultValue: '', onChange: setSearchValue });
 
   return (
     <div role='search'>
       <label htmlFor={ inputId } className='sr-only'>{label}</label>
       <Input
+        ref={ inputRef }
         id={ inputId }
         aria-controls={ resultsId }
         type='search'
@@ -53,7 +52,10 @@ const Search = ({ label = 'Filter articles', resultsId, setSearchValue, value })
         inputClassName='text-base [&::-webkit-search-cancel-button]:appearance-none'
         prefix={ <Icon name='Search' decorative size='sm' /> }
         suffix={ currentValue ? (
-          <InputGroupButton size='icon-sm' tone='neutral' aria-label='Clear article filter' onClick={ () => handleChange('') }>
+          <InputGroupButton size='icon-sm' tone='neutral' aria-label='Clear article filter' onClick={ () => {
+            handleChange('');
+            inputRef.current?.focus();
+          } }>
             <Icon name='X' decorative size='sm' />
           </InputGroupButton>
         ) : null }

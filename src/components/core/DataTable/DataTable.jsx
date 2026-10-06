@@ -1,20 +1,17 @@
 'use client';
+import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 
-import { Fragment, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import {
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable
-} from '@tanstack/react-table';
+import { Fragment, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { flexRender, useTable } from '@tanstack/react-table';
+import { dataGridFeatures } from './dataGridFeatures.js';
+import { canPinTableColumns } from './dataGridTableModel.js';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import Button from '../Button';
 import Input from '../Input';
 import Icon from '../Icon';
 import Skeleton from '../Skeleton';
-import Spinner from '../Spinner';
+import { TableHead } from '../../mdx/Table/TablePrimitives.jsx';
+import Loader from '../Loader';
 import EmptyState from '../EmptyState';
 import DropdownMenu, { DropdownMenuCheckboxItem } from '../DropdownMenu';
 import {
@@ -23,36 +20,32 @@ import {
   DropdownMenuItem as MenuItem,
   DropdownMenuSeparator as MenuSeparator,
   DropdownMenuTrigger as MenuTrigger
-} from '../DropdownMenu/parts/dropdown-menu.jsx';
-import { Checkbox as CheckboxRoot } from '../Checkbox/parts/checkbox.jsx';
-import { downloadCsv, getTableExportRows, tableToCsv } from './parts/table-export.js';
+} from '../DropdownMenu/DropdownMenuPrimitives.jsx';
+import { Checkbox as CheckboxRoot } from '../Checkbox/CheckboxPrimitives.jsx';
+import { downloadCsv, getTableExportRows, tableToCsv } from './tableExport.js';
 import { cn } from '../../../utilities/cn';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 
 /*
- * Anatomy: uppercase tracked headers on the surface,
+ * Anatomy: shared table headers and density,
  * hairline rows, a synced column + row hover, a tinted wash for selected rows,
  * declarative `align` / `width` / `sticky` columns, and host-owned filtering.
  */
 
-// The DS checkbox in the table's round treatment, filled with the text colour when checked or mixed.
-const selectionClass =
-  'rounded-full align-middle border-text-muted/45 data-checked:border-text data-checked:bg-text data-checked:text-surface data-[state=indeterminate]:border-text data-[state=indeterminate]:bg-text data-[state=indeterminate]:text-surface';
 const SelectionCheckbox = ({ checked, mixed, onCheckedChange, ...props }) => (
   <CheckboxRoot
     {...props}
     checked={mixed && !checked ? 'indeterminate' : checked}
     onCheckedChange={(value) => onCheckedChange(value === true)}
-    className={selectionClass}
   />
 );
 // Expand and row-action triggers: a quiet icon button that stays tinted while its panel or menu is open.
 const iconButtonClass = 'text-text-muted aria-expanded:bg-surface-muted aria-expanded:text-text';
 
 const densities = {
-  compact: { cell: 'px-3 py-1.5', head: 'h-9 px-3', skeleton: 3, estimate: 37 },
-  normal: { cell: 'px-4 py-2.5', head: 'h-10 px-4', skeleton: 4, estimate: 45 },
-  comfortable: { cell: 'px-5 py-3.5', head: 'h-11 px-5', skeleton: 4, estimate: 53 }
+  compact: { skeleton: 3, estimate: 33 },
+  normal: { skeleton: 4, estimate: 37 },
+  comfortable: { skeleton: 4, estimate: 45 }
 };
 const emptyRows = [];
 const emptyColumns = [];
@@ -71,6 +64,9 @@ const pagerButtons = [
 ];
 // Pinned bands give way when they would leave less than this share of the viewport for scrolling rows.
 const PINNED_BAND_LIMIT = 0.6;
+
+// Column `sticky` is logical: `start`/`end` (or the older `left`/`right`, read as start/end) follow the reading direction.
+const stickySide = (value) => (value === 'start' || value === 'left' ? 'start' : value === 'end' || value === 'right' ? 'end' : undefined);
 
 /** Controlled when `value` is defined; the host may refuse or replace any change it is offered. */
 const useControllable = (value, defaultValue, onChange) => useControllableState({ value, defaultValue, onChange });
@@ -94,10 +90,12 @@ export const DataTable = ({
   pagination = false,
   pageSize = 10,
   density = 'normal',
+  headerVariant = 'muted',
   striped = false,
   footer = false,
   toolbar,
   getRowId = defaultRowId,
+  getRowLabel,
   selection,
   defaultSelection = emptySelection,
   onSelectionChange,
@@ -174,13 +172,14 @@ export const DataTable = ({
         enableSorting: sortable && column.sortable !== false,
         enableGlobalFilter: column.searchable !== false,
         enableHiding: column.hideable !== false,
-        sortingFn: column.sortingFn || 'auto',
+        sortFn: column.sortingFn || 'auto',
         meta: column
       })),
     [columns, sortable]
   );
   const resetPage = () => setPage((current) => ({ ...current, pageIndex: 0 }));
-  const table = useReactTable({
+  const table = useTable({
+    features: dataGridFeatures,
     data: rows,
     columns: definitions,
     getRowId,
@@ -210,10 +209,7 @@ export const DataTable = ({
     keepPinnedRows: true,
     enableMultiSort: multiSort,
     globalFilterFn: 'includesString',
-    getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: pagination ? getPaginationRowModel() : undefined
+    manualPagination: !pagination
   });
   const pageCount = table.getPageCount();
   const filteredRows = table.getFilteredRowModel().rows;
@@ -265,32 +261,37 @@ export const DataTable = ({
 
   // Scroll edges drive the chevron affordances; measured header widths drive sticky offsets.
   // Pinning releases when pinned columns would cover most of the viewport, so every column stays reachable.
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const element = scrollRef.current;
     if (!element) return undefined;
     const update = () => {
+      const viewport = element.getBoundingClientRect();
+      element.style.setProperty('--ds-table-viewport-width', `${element.clientWidth}px`);
+      const content = tableRef.current?.getBoundingClientRect();
+      const viewportLeft = viewport.left + element.clientLeft;
+      const viewportRight = viewportLeft + element.clientWidth;
       const next = {
-        left: stickyMode !== 'page' && element.scrollLeft > 1,
-        right: stickyMode !== 'page' && Math.ceil(element.scrollLeft + element.clientWidth) < element.scrollWidth - 1
+        left: stickyMode !== 'page' && !!content && content.left < viewportLeft - 1,
+        right: stickyMode !== 'page' && !!content && content.right > viewportRight + 1
       };
       setEdges((current) => (current.left === next.left && current.right === next.right ? current : next));
       const leaves = table.getVisibleLeafColumns();
       const order = [...(selectable ? ['__select'] : []), ...(expandable ? ['__expand'] : []), ...leaves.map((column) => column.id)];
-      const sticky = (id) => leaves.find((column) => column.id === id)?.columnDef.meta?.sticky;
-      const leftIds = order.slice(0, order.findLastIndex((id) => sticky(id) === 'left') + 1);
-      const rightIds = order.filter((id) => sticky(id) === 'right');
+      const sticky = (id) => stickySide(leaves.find((column) => column.id === id)?.columnDef.meta?.sticky);
+      const startIds = order.slice(0, order.findLastIndex((id) => sticky(id) === 'start') + 1);
+      const endIds = order.filter((id) => sticky(id) === 'end');
       const width = (id) => headerRefs.current[id]?.getBoundingClientRect().width || 0;
-      const pinnedWidth = [...leftIds, ...rightIds].reduce((sum, id) => sum + width(id), 0);
+      const pinnedWidth = [...startIds, ...endIds].reduce((sum, id) => sum + width(id), 0);
       const nextPins = {};
-      if (pinnedWidth && pinnedWidth < element.clientWidth * 0.75) {
+      if (canPinTableColumns(pinnedWidth, element.clientWidth)) {
         let offset = 0;
-        for (const id of leftIds) {
-          nextPins[id] = { side: 'left', offset, edge: id === leftIds.at(-1) };
+        for (const id of startIds) {
+          nextPins[id] = { side: 'start', offset, edge: id === startIds.at(-1) };
           offset += width(id);
         }
         offset = 0;
-        for (const id of [...rightIds].reverse()) {
-          nextPins[id] = { side: 'right', offset, edge: id === rightIds[0] };
+        for (const id of [...endIds].reverse()) {
+          nextPins[id] = { side: 'end', offset, edge: id === endIds[0] };
           offset += width(id);
         }
       }
@@ -306,10 +307,9 @@ export const DataTable = ({
       observer.disconnect();
     };
     // `table` is a stable instance; the listed inputs are what change its column layout.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rows, visibility, columns, selectable, expandable, stickyMode]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const element = scrollRef.current;
     const tableElement = tableRef.current;
     if (requestedSticky !== 'page' || !element || !tableElement) return undefined;
@@ -323,7 +323,7 @@ export const DataTable = ({
 
   // Pinned rows stack under the header from measured heights, so rich rows never overlap.
   const pinnedKey = `${topRows.map((row) => row.id)}|${bottomRows.map((row) => row.id)}`;
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const element = scrollRef.current;
     const tableElement = tableRef.current;
     if (!element || !tableElement) return undefined;
@@ -384,9 +384,11 @@ export const DataTable = ({
     setStatus(hasMore ? `${rows.length} ${labels.loaded || 'records loaded'}` : labels.allLoaded || 'All records loaded');
   }, [loadingMore, hasMore, rows.length, labels.loaded, labels.allLoaded]);
 
-  const pinStyle = (id) => (pins[id] ? { position: 'sticky', [pins[id].side]: pins[id].offset } : undefined);
-  const pinClass = (id) => pins[id] && cn('ds-table-pinned', pins[id].edge && (pins[id].side === 'left' ? 'ds-table-pin-left' : 'ds-table-pin-right'));
-  const align = (column) => ({ right: 'text-right', center: 'text-center' })[column.columnDef.meta?.align] || 'text-left';
+  // Logical insets: start-pinned columns stick to the left in LTR and to the right in RTL.
+  const pinStyle = (id) => (pins[id] ? { position: 'sticky', [pins[id].side === 'start' ? 'insetInlineStart' : 'insetInlineEnd']: pins[id].offset } : undefined);
+  const pinClass = (id) => pins[id] && cn('ds-table-pinned', pins[id].edge && (pins[id].side === 'start' ? 'ds-table-pin-start' : 'ds-table-pin-end'));
+  const rowName = (row) => (getRowLabel ? getRowLabel(row.original) : row.id);
+  const align = (column) => ({ left: 'text-left', right: 'text-right', center: 'text-center' })[column.columnDef.meta?.align] || 'text-start';
   const numeric = (column) => column.columnDef.meta?.align === 'right' && 'tabular-nums';
   const toggleExpanded = (id) =>
     setExpandedIds((current = emptyIds) => {
@@ -470,9 +472,9 @@ export const DataTable = ({
           className='ds-table-row'
         >
           {selectable && (
-            <td style={pinStyle('__select')} className={cn('ds-table-cell w-10', spacing.cell, expandable && 'pe-1', pinClass('__select'))}>
+            <td style={pinStyle('__select')} className={cn('ds-table-cell ds-table-cell-spacing w-10', expandable && 'pe-1', pinClass('__select'))}>
               <SelectionCheckbox
-                aria-label={`${labels.selectRow || 'Select row'} ${row.id}`}
+                aria-label={`${labels.selectRow || 'Select row'} ${rowName(row)}`}
                 checked={row.getIsSelected()}
                 disabled={!row.getCanSelect()}
                 onCheckedChange={(value) => row.toggleSelected(value)}
@@ -487,7 +489,7 @@ export const DataTable = ({
                   tone='neutral'
                   size='icon-sm'
                   aria-expanded={isExpanded}
-                  aria-label={`${labels.expand || 'Details for'} ${row.id}`}
+                  aria-label={`${labels.expand || 'Details for'} ${rowName(row)}`}
                   onClick={() => toggleExpanded(row.id)}
                   className={iconButtonClass}
                 >
@@ -502,7 +504,7 @@ export const DataTable = ({
               style={{ ...pinStyle(cell.column.id), width: cell.column.columnDef.meta?.width }}
               data-column-hover={hoverColumn === cell.column.id || undefined}
               onMouseEnter={() => setHoverColumn(cell.column.id)}
-              className={cn('ds-table-cell', spacing.cell, align(cell.column), numeric(cell.column), cell.column.columnDef.meta?.className, pinClass(cell.column.id))}
+              className={cn('ds-table-cell ds-table-cell-spacing', align(cell.column), numeric(cell.column), cell.column.columnDef.meta?.className, pinClass(cell.column.id))}
             >
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
             </td>
@@ -512,7 +514,7 @@ export const DataTable = ({
               {hasMenu && (
                 <MenuRoot open={menuRowId === row.id} onOpenChange={(open) => (open ? openMenu(row.id, false) : setMenuRowId(null))}>
                   <MenuTrigger asChild>
-                    <Button variant='ghost' tone='neutral' size='icon-sm' aria-label={`${labels.rowActions || 'Actions for'} ${row.id}`} className={iconButtonClass}>
+                    <Button variant='ghost' tone='neutral' size='icon-sm' aria-label={`${labels.rowActions || 'Actions for'} ${rowName(row)}`} className={iconButtonClass}>
                       <Icon name={pinSide ? 'Pin' : 'MoreHorizontal'} decorative size='sm' />
                     </Button>
                   </MenuTrigger>
@@ -556,7 +558,7 @@ export const DataTable = ({
         </tr>
         {isExpanded && (
           <tr className='ds-table-expanded' data-expanded-for={row.id}>
-            <td colSpan={count} className={cn('ds-table-cell', spacing.cell)}>
+            <td colSpan={count} className='ds-table-cell ds-table-cell-spacing'>
               {renderExpanded(row.original)}
             </td>
           </tr>
@@ -575,14 +577,13 @@ export const DataTable = ({
     <tr>
       <td colSpan={Math.max(1, count)} className='ds-table-empty'>
         {error ? (
-          <div role='alert'>
-            <EmptyState
-              compact
-              title={labels.errorTitle || 'Unable to load records'}
-              description={error}
-              actions={onRetry && <Button size='sm' onClick={onRetry}>{labels.retry || 'Try again'}</Button>}
-            />
-          </div>
+          <EmptyState
+            role='alert'
+            compact
+            title={labels.errorTitle || 'Unable to load records'}
+            description={error}
+            actions={onRetry && <Button size='sm' onClick={onRetry}>{labels.retry || 'Try again'}</Button>}
+          />
         ) : (
           <EmptyState
             compact
@@ -603,7 +604,7 @@ export const DataTable = ({
   const skeletonBody = Array.from({ length: Math.min(size, spacing.skeleton) }, (_, index) => (
     <tr key={index} className='ds-table-row'>
       {Array.from({ length: Math.max(1, count) }, (__, cell) => (
-        <td key={cell} className={cn('ds-table-cell', spacing.cell)}>
+        <td key={cell} className='ds-table-cell ds-table-cell-spacing'>
           {index === 0 && cell === 0 && <span role='status' className='sr-only'>{labels.loading || 'Loading records…'}</span>}
           <Skeleton className={cn('h-4', cell === 0 && (selectable || expandable) ? 'w-4' : index % 2 ? 'w-3/5' : 'w-4/5')} />
         </td>
@@ -618,10 +619,10 @@ export const DataTable = ({
           <Fragment key={group.key}>
             <tr className='ds-table-group'>
               <th scope='rowgroup' colSpan={count} className='p-0'>
-                <button type='button' aria-expanded={open} onClick={() => toggleGroup(group.key)} className={cn('ds-table-group-toggle', spacing.head)}>
+                <button type='button' aria-expanded={open} onClick={() => toggleGroup(group.key)} className='ds-table-group-toggle ds-table-header-spacing'>
                   <Icon name='ChevronDown' decorative size='xs' className={cn('ds-motion-icon', !open && '-rotate-90')} />
                   {group.label}
-                  <span className='ds-table-count'>{group.rows.length}</span>
+                  <span className='ds-count'>{group.rows.length}</span>
                 </button>
               </th>
             </tr>
@@ -686,7 +687,7 @@ export const DataTable = ({
                   placeholder={labels.searchPlaceholder || 'Search records…'}
                   prefix={<Icon name='Search' decorative size='sm' />}
                   suffix={
-                    <span className='ds-table-count' aria-hidden='true'>
+                    <span className='ds-count' aria-hidden='true'>
                       {filteredRows.length} / {rows.length}
                     </span>
                   }
@@ -728,7 +729,7 @@ export const DataTable = ({
           ref={scrollRef}
           role='region'
           tabIndex={0}
-          aria-label={caption ? `${caption} scrollable table` : overflowLabel}
+          aria-label={caption ? (labels.scrollRegion ? labels.scrollRegion(caption) : `${caption} scrollable table`) : overflowLabel}
           aria-describedby={descriptionId}
           data-sticky={stickyMode || undefined}
           style={resolvedMaxHeight && stickyMode !== 'page' ? { maxHeight: resolvedMaxHeight } : undefined}
@@ -741,7 +742,8 @@ export const DataTable = ({
         >
           <table
             ref={tableRef}
-            className='ds-table'
+            className='ds-part-table ds-table'
+            data-density={density}
             data-sticky={stickyMode || undefined}
             aria-rowcount={virtualOn ? shownRows + 1 : undefined}
             style={stickyMode === 'page' ? { '--ds-table-sticky-top': stickyOffset } : undefined}
@@ -751,37 +753,40 @@ export const DataTable = ({
               {table.getHeaderGroups().map((group) => (
                 <tr key={group.id} aria-rowindex={virtualOn ? 1 : undefined}>
                   {selectable && (
-                    <th
+                    <TableHead
+                      variant={headerVariant}
                       scope='col'
                       ref={(node) => (headerRefs.current.__select = node)}
                       style={pinStyle('__select')}
-                      className={cn('ds-table-head w-10', spacing.head, expandable && 'pe-1', pinClass('__select'))}
+                      className={cn('ds-table-head w-10', expandable && 'pe-1', pinClass('__select'))}
                     >
                       <SelectionCheckbox
                         aria-label={labels.selectPage || 'Select this page'}
                         checked={table.getIsAllPageRowsSelected()}
-                        mixed={table.getIsSomePageRowsSelected()}
+                        mixed={table.getIsSomePageRowsSelected() && !table.getIsAllPageRowsSelected()}
                         disabled={!rows.length || loading}
                         onCheckedChange={(value) => table.toggleAllPageRowsSelected(value)}
                       />
-                    </th>
+                    </TableHead>
                   )}
                   {expandable && (
-                    <th
+                    <TableHead
+                      variant={headerVariant}
                       scope='col'
                       ref={(node) => (headerRefs.current.__expand = node)}
                       style={pinStyle('__expand')}
                       className={cn('ds-table-head w-9 px-0', pinClass('__expand'))}
                     >
                       <span className='sr-only'>{labels.details || 'Details'}</span>
-                    </th>
+                    </TableHead>
                   )}
                   {group.headers.map((header) => {
                     const direction = header.column.getIsSorted();
                     const label = flexRender(header.column.columnDef.header, header.getContext());
                     const order = sortCount > 1 && direction ? header.column.getSortIndex() + 1 : null;
                     return (
-                      <th
+                      <TableHead
+                        variant={headerVariant}
                         key={header.id}
                         scope='col'
                         ref={(node) => (headerRefs.current[header.column.id] = node)}
@@ -789,7 +794,7 @@ export const DataTable = ({
                         aria-sort={header.column.getCanSort() ? sortState[direction] || 'none' : undefined}
                         data-column-hover={hoverColumn === header.column.id || undefined}
                         onMouseEnter={() => setHoverColumn(header.column.id)}
-                        className={cn('ds-table-head', spacing.head, align(header.column), pinClass(header.column.id))}
+                        className={cn('ds-table-head', align(header.column), header.column.columnDef.meta?.className, pinClass(header.column.id))}
                       >
                         {header.column.getCanSort() ? (
                           <button
@@ -811,13 +816,13 @@ export const DataTable = ({
                         ) : (
                           label
                         )}
-                      </th>
+                      </TableHead>
                     );
                   })}
                   {withActions && (
-                    <th scope='col' className='ds-table-head w-10 px-1'>
+                    <TableHead variant={headerVariant} scope='col' className='ds-table-head w-10 px-1'>
                       <span className='sr-only'>{labels.actions || 'Actions'}</span>
-                    </th>
+                    </TableHead>
                   )}
                 </tr>
               ))}
@@ -833,12 +838,12 @@ export const DataTable = ({
             {footer && !loading && !error && shownRows > 0 && (
               <tfoot>
                 <tr>
-                  {selectable && <td className={cn('ds-table-foot', spacing.cell)} />}
+                  {selectable && <td className='ds-table-foot ds-table-cell-spacing' />}
                   {expandable && <td className='ds-table-foot' />}
                   {visibleColumns.map((column, index) => {
                     const total = column.columnDef.meta?.footer;
                     return (
-                      <td key={column.id} style={pinStyle(column.id)} className={cn('ds-table-foot', spacing.cell, align(column), numeric(column), pinClass(column.id))}>
+                      <td key={column.id} style={pinStyle(column.id)} className={cn('ds-table-foot ds-table-cell-spacing', align(column), numeric(column), pinClass(column.id))}>
                         {typeof total === 'function'
                           ? total(filteredRows.map((row) => row.original))
                           : index === 0 && `${filteredRows.length} ${labels.records || 'records'}`}
@@ -851,6 +856,7 @@ export const DataTable = ({
             )}
           </table>
         </div>
+        {/* Edges are measured and scrolled physically, so these chevrons stay correct in RTL without flipping. */}
         {['left', 'right'].map((side) => (
           <button
             key={side}
@@ -866,7 +872,7 @@ export const DataTable = ({
         ))}
         {refreshing && !loading && (
           <span role='status' className='ds-table-pending'>
-            <Spinner size='xs' label='' />
+            <Loader size='xs' label='' />
             {labels.refreshing || 'Updating…'}
           </span>
         )}
@@ -892,7 +898,7 @@ export const DataTable = ({
               onLoadMore();
             }}
           >
-            {loadingMore ? <Spinner size='xs' label='' /> : <Icon name='ChevronDown' decorative size='sm' />}
+            {loadingMore ? <Loader size='xs' label='' /> : <Icon name='ChevronDown' decorative size='sm' />}
             {loadingMore ? labels.loadingMore || 'Loading more…' : labels.loadMore || 'Load more'}
           </Button>
         </div>

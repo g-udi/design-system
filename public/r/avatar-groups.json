@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-groups",
+  "type": "registry:example",
+  "title": "Groups",
+  "description": "Groups. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-24.svg, /avatars/person-31.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--groups",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-groups.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-31.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-groups.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarBadge,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarGroupCount,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst team = [\n  { src: '/avatars/person-20.svg', name: 'Sabine Okafor', initials: 'SO' },\n  { src: '/avatars/person-31.svg', name: 'Rafe Okonkwo', initials: 'RO' },\n  { src: '/avatars/person-24.svg', name: 'Ilse Valtonen', initials: 'IV' }\n];\n\nconst members = (online) =>\n  team.map((person, index) => (\n    <Avatar key={person.name}>\n      <AvatarImage src={person.src} alt={online && index === 0 ? `${person.name}, online` : person.name} />\n      <AvatarFallback>{person.initials}</AvatarFallback>\n      {online && index === 0 ? <AvatarBadge className='bg-success' /> : null}\n    </Avatar>\n  ));\n\nconst rows = [\n  { label: 'Stacked', group: <AvatarGroup>{members(true)}</AvatarGroup> },\n  {\n    label: 'Count',\n    group: (\n      <AvatarGroup>\n        {members()}\n        <AvatarGroupCount aria-label='3 more people'>+3</AvatarGroupCount>\n      </AvatarGroup>\n    )\n  },\n  {\n    label: 'Icon count',\n    group: (\n      <AvatarGroup>\n        {members()}\n        <AvatarGroupCount aria-label='More people'>\n          <RegistryIcon lucide='PlusIcon' aria-hidden='true' />\n        </AvatarGroupCount>\n      </AvatarGroup>\n    )\n  },\n  {\n    label: 'With action',\n    group: (\n      <div className='flex gap-2'>\n        <AvatarGroup>\n          {members()}\n          <AvatarGroupCount aria-label='5 more people'>+5</AvatarGroupCount>\n        </AvatarGroup>\n        <Tooltip>\n          <TooltipTrigger asChild>\n            <Button aria-label='Add user' variant='outline' size='icon' className='rounded-full'>\n              <RegistryIcon lucide='PlusIcon' aria-hidden='true' />\n            </Button>\n          </TooltipTrigger>\n          <TooltipContent>Add user</TooltipContent>\n        </Tooltip>\n      </div>\n    )\n  }\n];\n\nexport function Pattern() {\n  return (\n    <TooltipProvider>\n      <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n        {rows.map((row) => (\n          <div key={row.label} className='contents'>\n            <span className='text-xs text-text-muted'>{row.label}</span>\n            {row.group}\n          </div>\n        ))}\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

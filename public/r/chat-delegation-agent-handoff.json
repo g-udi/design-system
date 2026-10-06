@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-delegation-agent-handoff",
+  "type": "registry:example",
+  "title": "Handing work to another agent",
+  "description": "Handing work to another agent. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-delegation",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatDelegation",
+    "import": "@gaudi/design-system/chat/ChatDelegation",
+    "storyId": "chat-chatdelegation--agent-handoff",
+    "source": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-agent-handoff.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-delegation-agent-handoff.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';\nimport { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Each stage of the handoff, so the example can be stepped through.\nconst stages = [\n  { delegation: 'running', tools: ['running', 'pending'], text: null },\n  { delegation: 'running', tools: ['done', 'running'], text: null },\n  { delegation: 'done', tools: ['done', 'done'], text: 'The research agent found **two** posts that already cover sync conflicts. I linked them from the draft instead of repeating the explanation.' }\n];\n\nexport function Pattern() {\n  const [stage, setStage] = useState(0);\n  const current = stages[stage];\n  const parts = [\n    { type: 'reasoning', duration: 6, text: 'The question needs a sweep of the archive, which the research agent does faster with its own index. I will hand it the brief and check its answer.' },\n    {\n      type: 'delegation',\n      agent: { name: 'Research agent' },\n      status: current.delegation,\n      instructions: 'Find existing posts about sync conflicts and say whether the new draft repeats them.',\n      parts: [\n        { type: 'tool', name: 'search_archive', description: 'sync conflict OR merge', status: current.tools[0], output: current.tools[0] === 'done' ? [{ post: 'Merging offline edits', year: 2024 }, { post: 'CRDTs for writers', year: 2025 }] : undefined },\n        { type: 'tool', name: 'compare_drafts', description: 'New draft against both matches', status: current.tools[1], output: current.tools[1] === 'done' ? { overlap: '38%', repeatedSections: ['How merges work'] } : undefined }\n      ]\n    },\n    ...(current.text ? [{ type: 'text', text: current.text }] : [])\n  ];\n  const done = stage === stages.length - 1;\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col gap-3'>\n      <ChatMessage>\n        <ChatMessageAvatar className='self-start'>\n          <span className='bg-accent-subtle text-accent grid size-8 place-items-center rounded-full'>\n            <RegistryIcon lucide='Sparkles' className='size-4' />\n          </span>\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <ChatMessageHeader className='px-0'>Gaudi</ChatMessageHeader>\n          <ChatMessageParts parts={parts} streaming={!done} />\n        </ChatMessageContent>\n      </ChatMessage>\n      <div className='flex justify-end gap-2'>\n        <Button size='xs' variant='outline' disabled={stage === 0} onClick={() => setStage(0)}>Restart</Button>\n        <Button size='xs' disabled={done} onClick={() => setStage((value) => Math.min(value + 1, stages.length - 1))}>\n          Next step\n          <RegistryIcon lucide='ArrowRight' />\n        </Button>\n      </div>\n      <span role='status' className='sr-only'>{done ? 'The research agent finished.' : `Step ${stage + 1} of ${stages.length}.`}</span>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

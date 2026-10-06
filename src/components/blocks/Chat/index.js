@@ -1,1 +1,1 @@
-export { ChatShell as default, ChatShell } from './parts/chat-shell.jsx';
+export { ChatShell as default, ChatShell } from './ChatShell.jsx';

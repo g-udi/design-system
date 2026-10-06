@@ -1,16 +1,18 @@
 import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 import { build } from 'esbuild';
-import { loadComponent } from '../src/test-support/renderComponent.js';
+import { loadComponent } from '../tests/support/renderComponent.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const coverage = JSON.parse(await readFile(resolve(root, '.storybook/fixtures/patterns/coverage.json'), 'utf8'));
-const { publicSource } = await loadComponent(new URL('../.storybook/stories/PatternStoryHelpers.jsx', import.meta.url));
-const examples = Object.entries(coverage.categories).flatMap(([family, entry]) => entry.examples.map((example) => ({ family, ...example })));
+const require = createRequire(import.meta.url);
+const coverage = JSON.parse(await readFile(resolve(root, 'src/docs/catalogue/coverage.json'), 'utf8'));
+const { publicSource } = await loadComponent(new URL('../src/docs/components/PatternStoryHelpers.jsx', import.meta.url));
+const examples = Object.values(coverage.categories).flatMap((entry) => entry.examples);
 const sources = new Map(await Promise.all(examples.map(async (example) => {
-  const source = publicSource(await readFile(resolve(root, `.storybook/fixtures/patterns/${example.family}/${example.name}.jsx`), 'utf8'));
-  if (/from\s+['"]\./.test(source)) throw new Error(`${example.name}: copyable source still has a private relative import`);
+  const source = publicSource(await readFile(resolve(root, example.file), 'utf8'), example.file);
+  if (/(?:from\s+|import\s*(?:\(\s*)?)['"]\./.test(source)) throw new Error(`${example.name}: copyable source still has a private relative import`);
   return [example.name, source];
 })));
 await build({
@@ -22,13 +24,7 @@ await build({
       builder.onResolve({ filter: /^example:/ }, ({ path }) => ({ path: path.slice(8), namespace: 'example' }));
       builder.onLoad({ filter: /.*/, namespace: 'example' }, ({ path }) => ({ contents: sources.get(path), loader: 'jsx', resolveDir: root }));
       builder.onResolve({ filter: /^@gaudi\/design-system(?:\/|$)/ }, ({ path }) => {
-        const subpath = path.replace('@gaudi/design-system', '').replace(/^\//, '');
-        if (!subpath) return { path: resolve(root, 'src/index.js') };
-        if (subpath === 'icons') return { path: resolve(root, 'src/icons/index.jsx') };
-        if (subpath.startsWith('icons/')) return { path: resolve(root, `src/${subpath}.jsx`) };
-        if (subpath === 'hooks') return { path: resolve(root, 'src/hooks/index.js') };
-        if (subpath.startsWith('hooks/')) return { path: resolve(root, `src/${subpath}.js`) };
-        return { path: resolve(root, `src/components/${subpath}/index.js`) };
+        return { path: require.resolve(path) };
       });
     }
   }]

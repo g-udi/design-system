@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert-variants",
+  "type": "registry:example",
+  "title": "Alert: Variants",
+  "description": "Alert: Variants. Core/Feedback & States/Banner pattern composed from @gaudi/design-system/core/Banner and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "alert",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Banner",
+    "import": "@gaudi/design-system/core/Banner",
+    "storyId": "core-banner--variants",
+    "source": "src/components/core/Banner/stories/fixtures/alert/alert-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/alert-variants.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Alert,\n  AlertDescription,\n  AlertTitle\n} from '@gaudi/design-system/core/Banner';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst alerts = [\n  { variant: 'default', title: 'Heads up', body: 'An alert with a title and description, no icon.' },\n  { variant: 'default', icon: 'CircleCheckIcon', title: 'Draft saved', body: 'The default variant with a leading icon.' },\n  { variant: 'info', icon: 'InfoIcon', title: 'Maintenance window', body: 'Search is read-only on Sunday, 02:00 to 04:00 UTC.' },\n  { variant: 'success', icon: 'CircleCheckIcon', title: 'Deployment complete', body: 'Version 2.4 is live in production.' },\n  { variant: 'warning', icon: 'AlertTriangleIcon', title: 'Storage almost full', body: 'You have used 92% of your plan. Archive old files or upgrade.' },\n  { variant: 'destructive', icon: 'CircleAlertIcon', title: 'Sync failed — retry after checking your network connection', body: 'We could not reach the server. Try again in a moment.' },\n  { variant: 'invert', icon: 'BellIcon', title: 'New sign-in', body: 'Your account was accessed from a new device in Berlin.' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-2'>\n      {alerts.map(({ variant, icon, title, body }) => (\n        <Alert key={title} variant={variant}>\n          {icon ? <RegistryIcon lucide={icon} /> : null}\n          <AlertTitle>{title}</AlertTitle>\n          <AlertDescription>{body}</AlertDescription>\n        </Alert>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

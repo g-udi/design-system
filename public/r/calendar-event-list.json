@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-event-list",
+  "type": "registry:example",
+  "title": "Event list",
+  "description": "Event list. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "date-fns@4.1.0",
+    "little-date@1.2.1"
+  ],
+  "categories": [
+    "calendar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--event-list",
+    "source": "src/components/core/Calendar/stories/fixtures/calendar/calendar-event-list.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/calendar-event-list.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { formatDateRange } from 'little-date';\nimport { addMinutes, isSameDay, setHours, startOfDay } from 'date-fns';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { Calendar } from '@gaudi/design-system/core/Calendar';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardFooter\n} from '@gaudi/design-system/core/Card';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport EmptyState from '@gaudi/design-system/core/EmptyState';\nconst events = [\n  {\n    title: 'Product launch',\n    start: '2026-01-24T10:00:00',\n    end: '2026-01-24T11:30:00',\n    colorful: 'after:bg-success'\n  },\n  {\n    title: 'Weekly standup',\n    start: '2026-01-28T13:00:00',\n    end: '2026-01-28T13:30:00',\n    colorful: 'after:bg-warning'\n  },\n  {\n    title: 'Code review',\n    start: '2026-01-31T15:00:00',\n    end: '2026-01-31T16:00:00',\n    colorful: 'after:bg-info'\n  }\n];\nexport function Pattern() {\n  const [date, setDate] = useState(() => new Date(events[0].start));\n  const [demoEvents, setDemoEvents] = useState(events);\n  const visibleEvents = demoEvents.filter((event) => isSameDay(new Date(event.start), date));\n  return (\n    <Card className='mx-auto w-fit gap-3 py-3'>\n      <CardContent className='px-3'>\n        <Calendar\n          mode='single'\n          selected={date}\n          defaultMonth={date}\n          onSelect={setDate}\n          className='p-0'\n          required\n        />\n      </CardContent>\n      <CardFooter className='flex flex-col items-start gap-2 border-t border-border px-3 pt-3'>\n        <div className='flex w-full items-center justify-between px-1'>\n          <div className='text-sm font-medium'>\n            {date?.toLocaleDateString('en-US', {\n              day: 'numeric',\n              month: 'long',\n              year: 'numeric'\n            })}\n          </div>\n          <Button\n            variant='ghost'\n            size='icon'\n            className='size-6'\n            title='Add event'\n            onClick={() => {\n              const start = setHours(startOfDay(date), 9);\n              setDemoEvents((current) => [...current, {\n                title: `Demo event ${current.length - events.length + 1}`,\n                start: start.toISOString(),\n                end: addMinutes(start, 30).toISOString(),\n                colorful: 'after:bg-info'\n              }]);\n            }}\n          >\n            <RegistryIcon lucide='PlusIcon' />\n            <span className='sr-only'>Add event</span>\n          </Button>\n        </div>\n        <div className='flex w-full flex-col gap-2'>\n          {visibleEvents.length === 0 && <EmptyState title='No events for this day' description='Add a local demo event to see it here.' />}\n          {visibleEvents.map((event) => (\n            <div\n              key={event.title}\n              className={cn(\n                'bg-surface-muted relative p-2 pl-6 text-sm after:absolute after:inset-y-2 after:left-2 after:w-1',\n                'rounded-md',\n                'after:rounded-full',\n                event.colorful\n              )}\n            >\n              <div className='font-medium'>{event.title}</div>\n              <div className='text-text-muted text-xs'>\n                {formatDateRange(new Date(event.start), new Date(event.end))}\n              </div>\n            </div>\n          ))}\n        </div>\n        <p className='text-xs text-text-muted'>Events added here stay in this demo.</p>\n      </CardFooter>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card-rich",
+  "type": "registry:example",
+  "title": "Rich hover cards",
+  "description": "Rich hover cards. Core/Overlays & Menus/Popover pattern composed from @gaudi/design-system/core/Popover and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "hover-card",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, static/images/art/9.svg.",
+  "meta": {
+    "owner": "core/Popover",
+    "import": "@gaudi/design-system/core/Popover",
+    "storyId": "core-popover--hover-card-rich",
+    "source": "src/components/core/Popover/stories/fixtures/hover-card/hover-card-rich.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "static/images/art/9.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/hover-card-rich.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger\n} from '@gaudi/design-system/core/Popover';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst portrait = '/avatars/person-20.svg';\nfunction ProfileCard() {\n  return (\n    <HoverCard openDelay={100} closeDelay={100}>\n      <HoverCardTrigger asChild>\n        <a href='#elena' className='flex items-center gap-2 no-underline'>\n          <Avatar className='size-8'>\n            <AvatarImage src={portrait} alt='' />\n            <AvatarFallback>ES</AvatarFallback>\n          </Avatar>\n          <span className='grid text-left'>\n            <span className='font-medium text-text hover:underline'>Elena Soroka</span>\n            <span className='text-xs text-text-muted'>@e.soroka</span>\n          </span>\n        </a>\n      </HoverCardTrigger>\n      <HoverCardContent className='w-64'>\n        <div className='flex gap-2'>\n          <Avatar className='size-10 shrink-0'>\n            <AvatarImage src={portrait} alt='Elena Soroka' />\n            <AvatarFallback>ES</AvatarFallback>\n          </Avatar>\n          <div className='grid gap-1'>\n            <div>\n              <p className='font-medium'>Elena Soroka</p>\n              <p className='text-xs text-text-muted'>@e.soroka</p>\n            </div>\n            <p>Lead product designer.</p>\n            <p className='flex items-center gap-1 text-xs text-text-muted'>\n              <RegistryIcon lucide='CalendarIcon' className='size-3.5' aria-hidden='true' />\n              Joined December 2023\n            </p>\n          </div>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  );\n}\nfunction FeatureCard() {\n  return (\n    <HoverCard openDelay={100} closeDelay={100}>\n      <HoverCardTrigger asChild>\n        <Button variant='outline' size='sm'>\n          Instant deployment\n        </Button>\n      </HoverCardTrigger>\n      <HoverCardContent className='w-72'>\n        <div className='flex gap-2'>\n          <RegistryIcon\n            lucide='ZapIcon'\n            aria-hidden='true'\n            className='mt-0.5 size-4 shrink-0 text-warning'\n          />\n          <div className='grid gap-1'>\n            <p className='font-medium'>Zero latency edge</p>\n            <p className='text-text-muted'>\n              Deploy across the global edge network in seconds.\n            </p>\n          </div>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  );\n}\nfunction ImageCard() {\n  return (\n    <HoverCard openDelay={100} closeDelay={100}>\n      <HoverCardTrigger asChild>\n        <Button variant='outline' size='sm'>\n          <RegistryIcon lucide='ImageIcon' aria-hidden='true' />\n          View image\n        </Button>\n      </HoverCardTrigger>\n      <HoverCardContent className='w-72 overflow-hidden p-0'>\n        <img\n          src='static/images/art/9.svg'\n          alt='Generated landing page'\n          className='aspect-video w-full bg-surface-muted object-cover'\n        />\n        <div className='grid gap-1 p-3'>\n          <p className='font-medium'>Image overview</p>\n          <p className='text-text-muted'>\n            A visual overview of the generated landing page.\n          </p>\n        </div>\n      </HoverCardContent>\n    </HoverCard>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-3'>\n      <ProfileCard />\n      <FeatureCard />\n      <ImageCard />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

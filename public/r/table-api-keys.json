@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-api-keys",
+  "type": "registry:example",
+  "title": "API keys and permissions",
+  "description": "API keys and permissions. MDX/Table pattern composed from @gaudi/design-system/mdx/Table and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "table",
+    "mdx"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "mdx/Table",
+    "import": "@gaudi/design-system/mdx/Table",
+    "storyId": "mdx-table--api-keys",
+    "source": "src/components/mdx/Table/stories/fixtures/table/table-api-keys.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/table-api-keys.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  TableRoot as Table,\n  TableBodyPrimitive as TableBody,\n  TableCellPrimitive as TableCell,\n  TableHeadPrimitive as TableHead,\n  TableHeader,\n  TableRowPrimitive as TableRow\n} from '@gaudi/design-system/mdx/Table';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst apiKeys = [\n  {\n    name: 'Production API',\n    token: 'sk_live_\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u20224f3a',\n    permissions: ['read', 'write'],\n    lastUsed: '2 minutes ago',\n    status: 'Active',\n    statusVariant: 'success-light'\n  },\n  {\n    name: 'Staging API',\n    token: 'sk_test_\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u20228b2c',\n    permissions: ['read', 'write', 'admin'],\n    lastUsed: '1 hour ago',\n    status: 'Active',\n    statusVariant: 'success-light'\n  },\n  {\n    name: 'CI/CD Pipeline',\n    token: 'sk_ci_\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u20221d9e',\n    permissions: ['read'],\n    lastUsed: '3 days ago',\n    status: 'Active',\n    statusVariant: 'success-light'\n  },\n  {\n    name: 'Legacy Integration',\n    token: 'sk_old_\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u2022\\u20227a5f',\n    permissions: ['read', 'write'],\n    lastUsed: '30 days ago',\n    status: 'Expired',\n    statusVariant: 'destructive-light'\n  }\n];\nconst permissionVariant = {\n  read: 'outline',\n  write: 'info-light',\n  admin: 'warning-light'\n};\nexport function Pattern() {\n  return (\n    <Card className='mx-auto flex w-full max-w-2xl p-0'>\n      <CardContent className='p-0'>\n        <Table>\n          <TableHeader>\n            <TableRow>\n              <TableHead>Name</TableHead>\n              <TableHead>Key</TableHead>\n              <TableHead>Permissions</TableHead>\n              <TableHead>Status</TableHead>\n              <TableHead className='text-right'>Actions</TableHead>\n            </TableRow>\n          </TableHeader>\n          <TableBody>\n            {apiKeys.map((key) => (\n              <TableRow key={key.name}>\n                <TableCell>\n                  <div className='flex flex-col'>\n                    <span className='text-sm font-medium'>{key.name}</span>\n                    <span className='text-text-muted text-xs'>\n                      Last used: {key.lastUsed}\n                    </span>\n                  </div>\n                </TableCell>\n                <TableCell>\n                  <code className='bg-surface-muted rounded px-1.5 py-0.5 font-mono text-xs'>\n                    {key.token}\n                  </code>\n                </TableCell>\n                <TableCell>\n                  <div className='flex gap-1'>\n                    {key.permissions.map((perm) => (\n                      <Badge\n                        key={perm}\n                        variant={permissionVariant[perm] ?? 'outline'}\n                        size='xs'\n                      >\n                        {perm}\n                      </Badge>\n                    ))}\n                  </div>\n                </TableCell>\n                <TableCell>\n                  <Badge variant={key.statusVariant} size='sm'>\n                    {key.status}\n                  </Badge>\n                </TableCell>\n                <TableCell className='text-right'>\n                  <div className='flex justify-end gap-1'>\n                    <Button variant='ghost' size='icon' className='size-7'>\n                      <RegistryIcon\n                        lucide='CopyIcon'\n                        className='size-3.5'\n                        aria-hidden='true'\n                      />\n                      <span className='sr-only'>Copy key</span>\n                    </Button>\n                    <Button variant='ghost' size='icon' className='size-7'>\n                      <RegistryIcon\n                        lucide='RotateCcwIcon'\n                        className='size-3.5'\n                        aria-hidden='true'\n                      />\n                      <span className='sr-only'>Regenerate key</span>\n                    </Button>\n                  </div>\n                </TableCell>\n              </TableRow>\n            ))}\n          </TableBody>\n        </Table>\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

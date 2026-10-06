@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-form-states",
+  "type": "registry:example",
+  "title": "Form fields and states",
+  "description": "Form fields and states. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--form-states",
+    "source": "src/components/core/Select/stories/fixtures/select/select-form-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-form-states.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldErrorPrimitive as FieldError,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\n\nconst fruits = [\n  { label: 'Apple', value: 'apple' },\n  { label: 'Banana', value: 'banana' },\n  { label: 'Blueberry', value: 'blueberry' },\n  { label: 'Grapes', value: 'grapes', disabled: true },\n  { label: 'Pineapple', value: 'pineapple' }\n];\nconst sizes = [\n  { label: 'Small', value: 'sm' },\n  { label: 'Medium', value: 'md' },\n  { label: 'Large', value: 'lg' },\n  { label: 'Extra large', value: 'xl' }\n];\nconst bins = Array.from({ length: 100 }, (_, i) => ({\n  label: `Bin ${i + 1}`,\n  value: `bin-${i + 1}`\n}));\n\nfunction Options({ items }) {\n  return (\n    <SelectGroup>\n      {items.map((item) => (\n        <SelectItem key={item.value} value={item.value} disabled={item.disabled}>\n          {item.label}\n        </SelectItem>\n      ))}\n    </SelectGroup>\n  );\n}\n\n// An order form covering the field states: label and description, a disabled\n// option, the small trigger, a long list aligned to the selected item, and the\n// invalid and disabled fields.\nexport function Pattern() {\n  const id = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <Field>\n        <FieldLabel htmlFor={`${id}-select-fruit`}>Fruit</FieldLabel>\n        <Select>\n          <SelectTrigger id={`${id}-select-fruit`} className='w-full'>\n            <SelectValue placeholder='Select a fruit' />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <Options items={fruits} />\n          </SelectContent>\n        </Select>\n        <FieldDescription>Grapes are out of season.</FieldDescription>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-select-size`}>Box size</FieldLabel>\n        <Select defaultValue='md'>\n          <SelectTrigger id={`${id}-select-size`} size='sm' className='w-full'>\n            <SelectValue placeholder='Select a size' />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <Options items={sizes} />\n          </SelectContent>\n        </Select>\n        <FieldDescription>Small trigger for dense forms.</FieldDescription>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-select-bin`}>Storage bin</FieldLabel>\n        <Select defaultValue='bin-42'>\n          <SelectTrigger id={`${id}-select-bin`} className='w-full'>\n            <SelectValue placeholder='Select a bin' />\n          </SelectTrigger>\n          {/* Item-aligned (the default) opens over the trigger at the selected row. */}\n          <SelectContent>\n            <Options items={bins} />\n          </SelectContent>\n        </Select>\n        <FieldDescription>100 bins; opens at the selected one.</FieldDescription>\n      </Field>\n      <Field data-invalid>\n        <FieldLabel htmlFor={`${id}-select-ripeness`}>Ripeness</FieldLabel>\n        <Select>\n          <SelectTrigger id={`${id}-select-ripeness`} aria-invalid className='w-full'>\n            <SelectValue placeholder='Select ripeness' />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <Options\n              items={[\n                { label: 'Ripe', value: 'ripe' },\n                { label: 'Ripening', value: 'ripening' }\n              ]}\n            />\n          </SelectContent>\n        </Select>\n        <FieldError>Choose how ripe the fruit should be.</FieldError>\n      </Field>\n      <Field data-disabled className='sm:col-span-2'>\n        <FieldLabel htmlFor={`${id}-select-warehouse`}>Warehouse</FieldLabel>\n        <Select disabled defaultValue='berlin'>\n          <SelectTrigger id={`${id}-select-warehouse`} className='w-full'>\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent position='popper'>\n            <Options items={[{ label: 'Berlin', value: 'berlin' }]} />\n          </SelectContent>\n        </Select>\n        <FieldDescription>Set by your delivery address.</FieldDescription>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

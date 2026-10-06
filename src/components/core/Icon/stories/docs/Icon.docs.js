@@ -1,0 +1,9 @@
+export default {
+  "Core/Icon": {
+    'accessibility': 'Decorative icons are hidden from assistive technology. Informative or icon-only links need a readable label.',
+    'decisionRules': ['Use the Gaudi icon registry; do not import vendor icons directly outside `src/icons/index.jsx`.', 'Mark decorative icons as decorative and label meaningful icon-only controls.', 'Keep icon size and stroke aligned with the surrounding text or control.'],
+    'description': 'Static and interactive artwork from Gaudi’s centralized icon registry. AnimatedIcon adds opt-in motion with shared size and color tokens, a searchable catalogue, and host-controlled activation.',
+    'props': [['name', 'registry icon name', '-', 'Renders an icon from the Gaudi registry.'], ['kind', 'github | linkedin | twitter | youtube | mail | ...', '-', 'Compatibility alias for social/link icon use.'], ['href', 'string', '-', 'Renders the icon as a safe link when provided.'], ['label', 'string', '-', 'Accessible label for informative icons and icon links.'], ['decorative', 'boolean', 'false', 'Hides the SVG from assistive technology when the icon is visual only.'], ['size', 'xs | sm | md | lg | xl | 2xl | number', 'md', 'Controls icon dimensions.'], ['color', 'neutral | muted | primary | info | success | warning | danger | attention | blue | teal | green | amber | yellow | red | rose | dim', 'currentColor', 'Token color shortcut.'], ['strokeWidth', 'number', 'icon default', 'Adjusts line icon stroke width. Filled brand icons such as Github ignore it.'], ['active', 'boolean (AnimatedIcon)', 'false', 'Starts motion when the host is active and visible. Reduced motion and hidden documents keep the resting artwork.'], ['className', 'string', '-', 'Root class override.']],
+    usage: "import { Icon } from '@gaudi/design-system';\n\n<Icon name='Info' label='More information' color='primary' size='lg' />"
+  }
+};

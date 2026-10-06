@@ -2,7 +2,7 @@
 
 An API endpoint or a JSON Schema as a reference card: the method badge, the path with its parameters highlighted, and the parameters, request body and response as an expandable property tree with types, formats, enums, required markers and descriptions.
 
-It lives in Core rather than Chat because API reference is as common in blog posts and app settings as it is in a tool result. In a chat, render it inside a reply or as `MessageTool` output.
+It lives in Core rather than Chat because API reference is as common in blog posts and app settings as it is in a tool result. In a chat, render it inside a reply or as `ChatMessageTool` output.
 
 ## Usage
 

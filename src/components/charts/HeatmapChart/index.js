@@ -1,2 +1,2 @@
-export { HeatmapChart as default } from './parts/heatmap-chart.jsx';
-export { HeatmapChart, heatmapStep } from './parts/heatmap-chart.jsx';
+export { HeatmapChart as default } from './HeatmapChart.jsx';
+export { HeatmapChart, heatmapStep } from './HeatmapChart.jsx';

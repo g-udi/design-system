@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "drawer-edges",
+  "type": "registry:example",
+  "title": "Drawer from each edge",
+  "description": "Drawer from each edge. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "drawer",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--drawer-edges",
+    "source": "src/components/core/Dialog/stories/fixtures/drawer/drawer-edges.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/drawer-edges.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Drawer,\n  DrawerClose,\n  DrawerContent,\n  DrawerDescription,\n  DrawerFooter,\n  DrawerHeader,\n  DrawerTitle,\n  DrawerTrigger\n} from '@gaudi/design-system/core/Dialog';\n\nconst SIDES = ['bottom', 'right', 'left', 'top'];\nconst NOTES = [\n  'Pick a daily target you can keep on a busy day, then raise it once it feels easy.',\n  'Active minutes count any movement that raises your heart rate, including brisk walks.',\n  'Your goal resets at midnight in your local time zone.',\n  'Streaks pause instead of breaking when you log a rest day.',\n  'Reminders arrive an hour before the end of your usual active window.',\n  'Changes apply from tomorrow so today’s progress stays comparable.'\n];\n\n// The body scrolls between a fixed header and footer, whichever edge the drawer slides from.\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      {SIDES.map((side) => (\n        <Drawer key={side} direction={side}>\n          <DrawerTrigger asChild>\n            <Button size='sm' variant='outline'>{side}</Button>\n          </DrawerTrigger>\n          <DrawerContent>\n            <DrawerHeader>\n              <DrawerTitle>Move goal</DrawerTitle>\n              <DrawerDescription>Review these notes before choosing an activity goal.</DrawerDescription>\n            </DrawerHeader>\n            <div className='no-scrollbar grid gap-3 overflow-y-auto px-3 text-sm text-text-muted'>\n              {[...NOTES, ...NOTES].map((note, index) => (\n                <p key={index}>{note}</p>\n              ))}\n            </div>\n            <DrawerFooter>\n              <DrawerClose asChild><Button>Done</Button></DrawerClose>\n              <DrawerClose asChild>\n                <Button variant='outline'>Cancel</Button>\n              </DrawerClose>\n            </DrawerFooter>\n          </DrawerContent>\n        </Drawer>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

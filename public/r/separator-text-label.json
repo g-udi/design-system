@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator-text-label",
+  "type": "registry:example",
+  "title": "Text label",
+  "description": "Text label. Core/Separator pattern composed from @gaudi/design-system/core/Separator and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "separator",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Separator",
+    "import": "@gaudi/design-system/core/Separator",
+    "storyId": "core-separator--text-label",
+    "source": "src/components/core/Separator/stories/fixtures/separator/separator-text-label.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/separator-text-label.jsx",
+      "type": "registry:component",
+      "content": "import { Separator } from '@gaudi/design-system/core/Separator';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-6'>\n      <div className='grid items-center'>\n        <Separator className='col-start-1 row-start-1' />\n        <span className='bg-ui-background text-ui-muted-foreground col-start-1 row-start-1 justify-self-center px-2 text-xs'>\n          or continue with\n        </span>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 # DataTable
 
 A table for client collections up to a few thousand rows: search with a live count, single or multi-column sorting,
-round row selection, column visibility, paging or load-more, grouped and expandable rows, row actions, pinned rows and
+row selection, column visibility, paging or load-more, grouped and expandable rows, row actions, pinned rows and
 columns, sticky headers, automatic virtualization, CSV export, a totals footer, and loading, refreshing, empty and error
-states. It is built on TanStack Table and composes the DS Button, Input, Checkbox, DropdownMenu, Skeleton, Spinner and
+states. The convenience table and DataGrid share TanStack Table v9 and the same feature registry. It composes the DS Button, Input, Checkbox, DropdownMenu, Skeleton, Loader and
 EmptyState.
 
 ```jsx
@@ -22,8 +22,9 @@ import DataTable from '@gaudi/design-system/core/DataTable';
 />
 ```
 
-- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`left` or `right`), `footer`,
+- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`start` or `end`; `left` and `right` are aliases that mirror in RTL), `footer`,
   `exportValue(value, row)` and `export: false`, and `sortable`, `searchable` or `hideable` set to `false` to opt out.
+- Text follows the surrounding reading direction by default. Set `align` to `left`, `center`, or `right` for an explicit physical alignment.
 - State is controlled or uncontrolled: `sorting` / `defaultSorting` / `onSortingChange`, `selection` /
   `defaultSelection` / `onSelectionChange`, `expanded` / `defaultExpanded` / `onExpandedChange` (row IDs) and
   `rowPinning` / `defaultRowPinning` / `onRowPinningChange` (`{ top, bottom }`). A controlled host can refuse a change by
@@ -46,6 +47,12 @@ import DataTable from '@gaudi/design-system/core/DataTable';
   show it as text.
 - Filtering predicates, remote fetching and persistence stay in the host; pair it with `FilterBar` for facets.
 
+## Shared table appearance
+
+The primitive Table, DataTable, DataGrid and article Table use the same header typography and semantic colours. Labels preserve supplied casing. Density changes padding and header height, not typography or colour.
+
+`DataTable` uses `headerVariant='muted'` by default; choose `'plain'` for a surface-coloured header. DataGrid uses the same default through `tableLayout.headerBackground=true`; setting it to `false` selects the plain treatment. Its `dense` flag maps to the shared compact density. Both treatments keep an opaque background for sticky headers.
+
 ## DataGrid parts
 
 Use the `DataGrid` parts (`DataGrid`, `DataGridContainer`, `DataGridTable`, `DataGridPagination`, …) for resizable,
@@ -56,6 +63,7 @@ draggable, virtualised, editable or server-driven grids.
   `sum`, `count`, `mean`, `min`, `max`, `extent`, `median`, `unique`, `uniqueCount`, `first`, `last`, or a custom
   `constructAggregationFn({ aggregate })`. Group bands collapse, count their records and render aggregates with the
   column's `aggregatedCell` (or a formatted value). `column.getAggregationValue()` returns grand totals for a footer.
+- **Narrow containers.** DataTable and DataGrid release fixed column positioning when pinned columns would use at least three quarters of the scroll viewport. The host’s pinning state and column order stay intact; pinning resumes when the container grows.
 - **Editing.** With `tableLayout.cellSelection`, a column edits through `meta.cellEdit`:
   - `control`: `text`, `textarea`, `number`, `select`, `combobox`, `date`, `checkbox` or `switch`. Enter, F2, typing or a
     double-click opens the editor over the cell (the Gaudi Select, Combobox, Calendar); checkbox and switch cells flip with
@@ -188,3 +196,7 @@ const layouts = useDataGridLayouts({ table, density, onDensityChange: setDensity
 Every string is in `DATA_GRID_VIEW_LABELS` and translates through the grid's `i18n.labels`. The view popovers are
 labelled dialogs that return focus to their trigger; column moves keep focus on the moved row and are announced, and
 layout, column and export changes are announced through status regions.
+
+## Implementation ownership
+
+`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.

@@ -1,0 +1,14 @@
+@layer components {
+  .ds-part-switch {
+    @apply data-checked:bg-ui-primary data-unchecked:bg-ui-input focus-visible:border-ui-ring focus-visible:ring-ui-primary aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 dark:data-unchecked:bg-ui-input/80 shrink-0 rounded-control border border-transparent focus-visible:ring-3 aria-invalid:ring-3 group-has-[:focus-visible]/field-label:ring-0 group-has-[:focus-visible]/field-label:border-transparent data-[size=default]:h-[18.4px] data-[size=default]:w-[32px] data-[size=sm]:h-[14px] data-[size=sm]:w-[24px] data-[size=lg]:h-[22px] data-[size=lg]:w-[40px];
+  }
+
+  /* The checked thumb travels toward the inline end, so it mirrors in right-to-left text. */
+  .ds-part-switch:dir(rtl) {
+    --ds-switch-direction: -1;
+  }
+
+  .ds-part-switch-thumb {
+    @apply bg-ui-background dark:data-unchecked:bg-ui-foreground dark:data-checked:bg-ui-primary-foreground rounded-control group-data-[size=default]/switch:size-4 group-data-[size=sm]/switch:size-3 group-data-[size=default]/switch:data-checked:translate-x-[calc((100%-2px)*var(--ds-switch-direction,1))] group-data-[size=sm]/switch:data-checked:translate-x-[calc((100%-2px)*var(--ds-switch-direction,1))] group-data-[size=default]/switch:data-unchecked:translate-x-0 group-data-[size=sm]/switch:data-unchecked:translate-x-0 group-data-[size=lg]/switch:size-5 group-data-[size=lg]/switch:data-checked:translate-x-[calc((100%-2px)*var(--ds-switch-direction,1))] group-data-[size=lg]/switch:data-unchecked:translate-x-0;
+  }
+}

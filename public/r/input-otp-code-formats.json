@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-otp-code-formats",
+  "type": "registry:example",
+  "title": "Code formats",
+  "description": "Code formats. Core/Advanced Inputs/InputOtp pattern composed from @gaudi/design-system/core/InputOtp and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "input-otp@1.4.2"
+  ],
+  "categories": [
+    "input-otp",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/InputOtp",
+    "import": "@gaudi/design-system/core/InputOtp",
+    "storyId": "core-inputotp--code-formats",
+    "source": "src/components/core/InputOtp/stories/fixtures/input-otp/input-otp-code-formats.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/input-otp-code-formats.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from 'input-otp';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  InputOTP,\n  InputOTPGroup,\n  InputOTPSeparator,\n  InputOTPSlot\n} from '@gaudi/design-system/core/InputOtp';\n\n// Slot indexes per group: [[0, 1, 2], [3, 4, 5]] renders two groups split by a separator.\nfunction Slots({ groups }) {\n  return groups.map((slots, group) => [\n    group ? <InputOTPSeparator key={`separator-${group}`} /> : null,\n    <InputOTPGroup key={group}>\n      {slots.map((index) => (\n        <InputOTPSlot key={index} index={index} />\n      ))}\n    </InputOTPGroup>\n  ]);\n}\n\nexport function Pattern() {\n  const [code, setCode] = useState('123456');\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-wrap gap-x-8 gap-y-3'>\n      <Field className='w-auto'>\n        <FieldLabel htmlFor='otp-digits'>Digits only</FieldLabel>\n        <InputOTP id='otp-digits' maxLength={6} pattern={REGEXP_ONLY_DIGITS}>\n          <Slots groups={[[0, 1, 2, 3, 4, 5]]} />\n        </InputOTP>\n        <FieldDescription>Letters are rejected.</FieldDescription>\n      </Field>\n      <Field className='w-auto'>\n        <FieldLabel htmlFor='otp-alphanumeric'>Letters and digits</FieldLabel>\n        <InputOTP id='otp-alphanumeric' maxLength={6} pattern={REGEXP_ONLY_DIGITS_AND_CHARS}>\n          <Slots groups={[[0, 1, 2], [3, 4, 5]]} />\n        </InputOTP>\n        <FieldDescription>Two groups of three.</FieldDescription>\n      </Field>\n      <Field className='w-auto'>\n        <FieldLabel htmlFor='otp-pin'>Four-digit PIN</FieldLabel>\n        <InputOTP id='otp-pin' maxLength={4} pattern={REGEXP_ONLY_DIGITS}>\n          <Slots groups={[[0, 1, 2, 3]]} />\n        </InputOTP>\n        <FieldDescription>Short codes for PINs.</FieldDescription>\n      </Field>\n      <Field className='w-auto'>\n        <FieldLabel htmlFor='otp-controlled'>Controlled</FieldLabel>\n        <InputOTP id='otp-controlled' maxLength={6} value={code} onChange={setCode}>\n          <Slots groups={[[0, 1], [2, 3], [4, 5]]} />\n        </InputOTP>\n        <FieldDescription className='tabular-nums'>Value: {code || 'empty'}</FieldDescription>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

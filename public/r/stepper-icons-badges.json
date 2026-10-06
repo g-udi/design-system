@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper-icons-badges",
+  "type": "registry:example",
+  "title": "Controlled with icons and badges",
+  "description": "Controlled with icons and badges. Core/Navigation/Stepper pattern composed from @gaudi/design-system/core/Stepper and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stepper",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Stepper",
+    "import": "@gaudi/design-system/core/Stepper",
+    "storyId": "core-stepper--icons-badges",
+    "source": "src/components/core/Stepper/stories/fixtures/stepper/stepper-icons-badges.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/stepper-icons-badges.jsx",
+      "type": "registry:component",
+      "content": "import Loader from '@gaudi/design-system/core/Loader';\n'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  StepperRoot as Stepper,\n  StepperContent,\n  StepperIndicator,\n  StepperItem,\n  StepperNav,\n  StepperPanel,\n  StepperSeparator,\n  StepperTitle,\n  StepperTrigger\n} from '@gaudi/design-system/core/Stepper';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst steps = [\n  {\n    title: 'User Details',\n    icon: <RegistryIcon lucide='BookUserIcon' className='size-4' />\n  },\n  {\n    title: 'Payment Info',\n    icon: <RegistryIcon lucide='CreditCardIcon' className='size-4' />\n  },\n  {\n    title: 'Auth OTP',\n    icon: <RegistryIcon lucide='LockIcon' className='size-4' />\n  }\n];\nexport function Pattern() {\n  const [currentStep, setCurrentStep] = useState(2);\n  return (\n    <Stepper\n      value={currentStep}\n      onValueChange={setCurrentStep}\n      indicators={{\n        completed: <RegistryIcon lucide='CheckIcon' className='size-3.5' />,\n        loading: (\n          <Loader size='xs' className='size-3.5' aria-hidden='true' />\n        )\n      }}\n      className='w-full max-w-xl space-y-6'\n    >\n      <StepperNav className='gap-3'>\n        {steps.map((step, index) => (\n          <StepperItem\n            key={index}\n            step={index + 1}\n            className='relative flex-1 items-start'\n          >\n            <StepperTrigger className='flex grow flex-col items-start justify-center gap-2.5'>\n              <StepperIndicator className='data-[state=inactive]:border-ui-border data-[state=inactive]:text-ui-muted-foreground data-[state=completed]:bg-success size-8 border-2 data-[state=completed]:text-success-foreground data-[state=inactive]:bg-transparent'>\n                {step.icon}\n              </StepperIndicator>\n              <div className='flex flex-col items-start gap-1'>\n                <div className='text-ui-muted-foreground text-xs font-medium'>\n                  Step {index + 1}\n                </div>\n                <StepperTitle className='group-data-[state=inactive]/step:text-ui-muted-foreground text-start'>\n                  {step.title}\n                </StepperTitle>\n                <div>\n                  <Badge\n                    size='sm'\n                    variant='primary-light'\n                    className='hidden group-data-[state=active]/step:inline-flex'\n                  >\n                    In Progress\n                  </Badge>\n                  <Badge\n                    variant='success-light'\n                    size='sm'\n                    className='hidden group-data-[state=completed]/step:inline-flex'\n                  >\n                    Completed\n                  </Badge>\n                  <Badge\n                    variant='secondary'\n                    size='sm'\n                    className='text-ui-muted-foreground hidden group-data-[state=inactive]/step:inline-flex'\n                  >\n                    Pending\n                  </Badge>\n                </div>\n              </div>\n            </StepperTrigger>\n\n            {steps.length > index + 1 && (\n              <StepperSeparator className='group-data-[state=completed]/step:bg-success absolute inset-x-0 start-9 top-4 m-0 -translate-y-1/2 group-data-[orientation=horizontal]/stepper-nav:w-[calc(100%-2rem)] group-data-[orientation=horizontal]/stepper-nav:flex-none' />\n            )}\n          </StepperItem>\n        ))}\n      </StepperNav>\n\n      <StepperPanel className='text-sm'>\n        {steps.map((step, index) => (\n          <StepperContent\n            key={index}\n            value={index + 1}\n            className='flex items-center justify-center'\n          >\n            {step.title} content\n          </StepperContent>\n        ))}\n      </StepperPanel>\n\n      <div className='flex items-center justify-between gap-2.5'>\n        <Button\n          variant='outline'\n          onClick={() => setCurrentStep((prev) => prev - 1)}\n          disabled={currentStep === 1}\n        >\n          Previous\n        </Button>\n        <Button\n          variant='outline'\n          onClick={() => setCurrentStep((prev) => prev + 1)}\n          disabled={currentStep === steps.length}\n        >\n          Next\n        </Button>\n      </div>\n    </Stepper>\n  );\n}\n"
+    }
+  ]
+}

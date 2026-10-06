@@ -1,0 +1,20 @@
+@layer components {
+  .ds-part-hover-card-content {
+    @apply data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 bg-ui-popover text-ui-popover-foreground w-64 rounded-lg p-3 text-sm shadow-md ring-1 duration-100;
+  }
+  .ds-part-popover-content {
+    @apply bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 flex flex-col gap-2 rounded-lg p-3 text-sm shadow-md ring-1 duration-100;
+  }
+
+  .ds-part-popover-header {
+    @apply flex flex-col gap-0.5 text-sm;
+  }
+
+  .ds-part-popover-title {
+    @apply font-medium;
+  }
+
+  .ds-part-popover-description {
+    @apply text-ui-muted-foreground;
+  }
+}

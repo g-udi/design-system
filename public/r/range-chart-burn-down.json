@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "range-chart-burn-down",
+  "type": "registry:example",
+  "title": "Release burn-down forecast",
+  "description": "Release burn-down forecast. Charts/RangeChart pattern composed from @gaudi/design-system/charts/RangeChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "range-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/RangeChart",
+    "import": "@gaudi/design-system/charts/RangeChart",
+    "storyId": "charts-rangechart--burn-down",
+    "source": "src/components/charts/RangeChart/stories/fixtures/range-chart/range-chart-burn-down.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/range-chart-burn-down.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { RangeChart } from '@gaudi/design-system/charts/RangeChart';\n\n// Open issues in the 2.0 release: the actual count to day 8, then a forecast band to launch.\nconst days = [\n  { label: 'Day 1', value: 64 },\n  { label: 'Day 2', value: 61 },\n  { label: 'Day 3', value: 59 },\n  { label: 'Day 4', value: 52 },\n  { label: 'Day 5', value: 49 },\n  { label: 'Day 6', value: 47 },\n  { label: 'Day 7', value: 41 },\n  { label: 'Day 8', value: 36, low: 36, high: 36 },\n  { label: 'Day 9', low: 30, high: 35 },\n  { label: 'Day 10', low: 24, high: 33 },\n  { label: 'Day 11', low: 17, high: 30 },\n  { label: 'Day 12', low: 11, high: 27 },\n  { label: 'Day 13', low: 5, high: 24 },\n  { label: 'Day 14', low: 0, high: 21 }\n];\n\nexport function Pattern() {\n  return (\n    <RangeChart\n      ariaLabel='Open issues for the 2.0 release, with the forecast to launch'\n      title='Release 2.0 burn-down'\n      description='Open issues so far, and the range we expect to land in by launch day.'\n      data={days}\n      valueLabel='Open issues'\n      bandLabel='Forecast'\n      references={[{ x: 'Day 8', label: 'Today', tone: 'accent' }, { y: 0, label: 'Launch ready', tone: 'success' }]}\n      showData='toggle'\n      height={300}\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

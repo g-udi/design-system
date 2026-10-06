@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "heatmap-chart-errors-by-hour",
+  "type": "registry:example",
+  "title": "Errors by service and hour",
+  "description": "Errors by service and hour. Charts/HeatmapChart pattern composed from @gaudi/design-system/charts/HeatmapChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "heatmap-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/HeatmapChart",
+    "import": "@gaudi/design-system/charts/HeatmapChart",
+    "storyId": "charts-heatmapchart--errors-by-hour",
+    "source": "src/components/charts/HeatmapChart/stories/fixtures/heatmap-chart/heatmap-chart-errors-by-hour.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/heatmap-chart-errors-by-hour.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { HeatmapChart } from '@gaudi/design-system/charts/HeatmapChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\nconst services = [ 'Web', 'API', 'Search', 'Mailer', 'Worker' ];\nconst hours = [ '00', '03', '06', '09', '12', '15', '18', '21' ].map((hour) => `${hour}:00`);\n// Errors per three hours, and the change against the same hours last week.\nconst errors = [\n  [ 2, 1, 3, 12, 18, 9, 6, 4 ],\n  [ 5, 3, 4, 21, 34, 27, 15, 8 ],\n  [ 0, 1, 1, 6, 9, 11, 7, 2 ],\n  [ 1, 0, 14, 3, 2, 2, 1, 1 ],\n  [ 7, 9, 6, 5, 8, 6, 4, 6 ]\n];\nconst change = [\n  [ -1, 0, 1, 4, 6, -2, -1, 0 ],\n  [ 2, 1, -1, 9, 14, 6, -3, -2 ],\n  [ 0, 0, -1, -2, 3, 5, 2, -1 ],\n  [ 0, -1, 11, -1, -2, 0, 0, 0 ],\n  [ -4, -2, -1, 0, 1, -3, -2, 1 ]\n];\nconst cells = (matrix) => services.flatMap((service, row) => hours.map((hour, column) => ({ x: hour, y: service, value: matrix[row][column] })));\n\nexport function Pattern() {\n  const [view, setView] = useState('errors');\n  return (\n    <HeatmapChart\n      ariaLabel={view === 'errors' ? 'Errors by service and time of day' : 'Change in errors against last week'}\n      title='Errors by service'\n      description={view === 'errors' ? 'Errors in each three-hour window, today.' : 'More errors than last week in rose, fewer in blue.'}\n      toolbar={\n        <ToggleGroup aria-label='Measure' type='single' variant='outline' size='sm' spacing={0} value={view} onValueChange={(next) => next && setView(next)}>\n          <ToggleGroupItem value='errors'>Errors</ToggleGroupItem>\n          <ToggleGroupItem value='change'>Change</ToggleGroupItem>\n        </ToggleGroup>\n      }\n      data={cells(view === 'errors' ? errors : change)}\n      scale={view === 'errors' ? 'sequential' : 'diverging'}\n      valueLabel={view === 'errors' ? 'Errors' : 'Change'}\n      xLabels={hours}\n      yLabels={services}\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

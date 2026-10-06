@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch-card-grid",
+  "type": "registry:example",
+  "title": "Card grid with descriptions",
+  "description": "Card grid with descriptions. Core/Switch pattern composed from @gaudi/design-system/core/Switch and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "switch",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Switch",
+    "import": "@gaudi/design-system/core/Switch",
+    "storyId": "core-switch--card-grid",
+    "source": "src/components/core/Switch/stories/fixtures/switch/switch-card-grid.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/switch-card-grid.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldContent,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldTitle\n} from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst features = [\n  {\n    id: 'feat-analytics',\n    title: 'Analytics',\n    description: 'Count reads and scroll depth without cookies',\n    checked: true,\n    icon: (\n      <RegistryIcon\n        lucide='BarChart3Icon'\n        aria-hidden='true'\n        className='size-4'\n      />\n    )\n  },\n  {\n    id: 'feat-logging',\n    title: 'Error Logging',\n    description: 'Collect broken links and failed embeds',\n    checked: true,\n    icon: (\n      <RegistryIcon lucide='BugIcon' aria-hidden='true' className='size-4' />\n    )\n  },\n  {\n    id: 'feat-cdn',\n    title: 'CDN Caching',\n    description: 'Resize and cache images near readers',\n    checked: false,\n    icon: (\n      <RegistryIcon lucide='GlobeIcon' aria-hidden='true' className='size-4' />\n    )\n  },\n  {\n    id: 'feat-backup',\n    title: 'Auto Backup',\n    description: 'Keep a nightly copy of every post',\n    checked: false,\n    icon: (\n      <RegistryIcon\n        lucide='DatabaseIcon'\n        aria-hidden='true'\n        className='size-4'\n      />\n    )\n  }\n];\nexport function Pattern() {\n  const id = useId();\n  return (\n    <FieldGroup className='grid w-full max-w-md grid-cols-1 gap-4 sm:grid-cols-2'>\n      {features.map((feature) => (\n        <FieldLabel key={feature.id} htmlFor={`${id}-${feature.id}`} className='p-0!'>\n          <Field orientation='horizontal'>\n            <FieldContent>\n              <FieldTitle className='flex items-start gap-2'>\n                <div className='bg-surface border-border flex shrink-0 items-center justify-center rounded-md border p-1.5 shadow-xs shadow-black/5'>\n                  {feature.icon}\n                </div>\n                <div className='flex flex-col items-start gap-0.5'>\n                  <span className='text-sm font-semibold'>{feature.title}</span>\n                  <span className='text-text-muted text-xs'>\n                    {feature.description}\n                  </span>\n                </div>\n              </FieldTitle>\n            </FieldContent>\n            <Switch\n              id={`${id}-${feature.id}`}\n              defaultChecked={feature.checked}\n              size='sm'\n            />\n          </Field>\n        </FieldLabel>\n      ))}\n    </FieldGroup>\n  );\n}\n"
+    }
+  ]
+}

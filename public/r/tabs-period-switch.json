@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tabs-period-switch",
+  "type": "registry:example",
+  "title": "Period switch",
+  "description": "Period switch. Core/Tabs pattern composed from @gaudi/design-system/core/Tabs and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "tabs",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Tabs",
+    "import": "@gaudi/design-system/core/Tabs",
+    "storyId": "core-tabs--period-switch",
+    "source": "src/components/core/Tabs/stories/fixtures/tabs/tabs-period-switch.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/tabs-period-switch.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  Tabs,\n  TabsContent,\n  TabsList,\n  TabsTrigger\n} from '@gaudi/design-system/core/Tabs';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [period, setPeriod] = useState('monthly');\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col items-center gap-6'>\n      <Tabs value={period} onValueChange={setPeriod} className='w-full'>\n        <TabsList className='w-full'>\n          <TabsTrigger value='daily' className='flex-1 gap-1.5'>\n            <RegistryIcon lucide='CalendarIcon' className='size-3.5 max-sm:hidden' />\n            Daily\n          </TabsTrigger>\n          <TabsTrigger value='weekly' className='flex-1 gap-1.5'>\n            <RegistryIcon lucide='SquareCheckIcon' className='size-4 max-sm:hidden' />\n            Weekly\n          </TabsTrigger>\n          <TabsTrigger value='monthly' className='flex-1 gap-1.5'>\n            <RegistryIcon lucide='UsersIcon' className='size-4 max-sm:hidden' />\n            Monthly\n          </TabsTrigger>\n          <TabsTrigger value='yearly' className='flex-1 gap-1.5'>\n            <RegistryIcon lucide='CalendarClockIcon' className='size-3.5 max-sm:hidden' />\n            Yearly\n          </TabsTrigger>\n        </TabsList>\n        <TabsContent value='daily'>\n          <Card>\n            <CardContent className='text-center'>\n              <p className='text-3xl font-bold'>1,284</p>\n              <p className='text-text-muted mt-1 text-sm'>\n                Visitors today\n              </p>\n            </CardContent>\n          </Card>\n        </TabsContent>\n        <TabsContent value='weekly'>\n          <Card>\n            <CardContent className='text-center'>\n              <p className='text-3xl font-bold'>8,942</p>\n              <p className='text-text-muted mt-1 text-sm'>\n                Visitors this week\n              </p>\n            </CardContent>\n          </Card>\n        </TabsContent>\n        <TabsContent value='monthly'>\n          <Card>\n            <CardContent className='text-center'>\n              <p className='text-3xl font-bold'>32,156</p>\n              <p className='text-text-muted mt-1 text-sm'>\n                Visitors this month\n              </p>\n            </CardContent>\n          </Card>\n        </TabsContent>\n        <TabsContent value='yearly'>\n          <Card>\n            <CardContent className='text-center'>\n              <p className='text-3xl font-bold'>384,721</p>\n              <p className='text-text-muted mt-1 text-sm'>\n                Visitors this year\n              </p>\n            </CardContent>\n          </Card>\n        </TabsContent>\n      </Tabs>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

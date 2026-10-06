@@ -1,0 +1,77 @@
+.merging-navigation-demo {
+  --merge-row: max(3.25rem, calc(var(--ds-space-scale, 1) * 3.25rem));
+  --merge-gutter: calc(var(--ds-space-scale, 1) * 1rem);
+  --merge-brand-space: 3.5rem;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--ds-color-border);
+  border-radius: var(--ds-radius);
+  background: var(--ds-color-surface);
+  color: var(--ds-color-text);
+}
+.merging-navigation-scroll { height: 36rem; }
+/* Radix's measurement wrapper must not make the horizontally scrollable tabs widen the page. */
+.merging-navigation-scroll > [data-slot='scroll-area-viewport'] > div { display: block !important; }
+.merging-navigation-header {
+  position: sticky;
+  top: calc(-1 * var(--measured-row));
+  z-index: 2;
+  background: var(--ds-color-surface);
+}
+.merging-navigation-context {
+  display: flex;
+  align-items: center;
+  height: var(--merge-row);
+  padding-inline: calc(var(--merge-gutter) + var(--merge-brand-space)) var(--merge-gutter);
+  opacity: calc(1 - var(--merge-progress));
+}
+.merging-navigation-context [data-slot='breadcrumb-list'] { flex-wrap: nowrap; gap: calc(var(--ds-space-scale, 1) * .5rem); }
+.merging-navigation-context [data-slot='breadcrumb-item'] { min-width: 0; }
+.merging-navigation-context [data-slot='breadcrumb-item'] > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.merging-navigation-brand {
+  position: absolute;
+  top: 0;
+  left: var(--merge-gutter);
+  width: 44px;
+  height: var(--merge-row);
+  padding: 0;
+  border-radius: 0;
+  color: var(--ds-color-text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  transform: translateY(calc(var(--merge-progress) * var(--measured-row)));
+}
+.merging-navigation-row { display: flex; align-items: stretch; height: var(--merge-row); padding-inline: var(--merge-gutter); }
+.merging-navigation-tabs {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  margin-inline-start: calc(var(--merge-progress) * var(--merge-brand-space));
+  padding-block: 0;
+  scroll-padding-inline: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ds-color-border) transparent;
+}
+.merging-navigation-tabs .ds-tabs-trigger { height: 100%; border-radius: 0; }
+.merging-navigation-tabs .ds-tabs-trigger::after { bottom: 0; }
+.merging-navigation-content { padding: calc(var(--ds-space-scale, 1) * 2rem) calc(var(--ds-space-scale, 1) * 1.5rem); }
+.merging-navigation-content h2 { margin: 0; font-size: 1.75rem; font-weight: 600; line-height: 1.25; letter-spacing: -.025em; }
+.merging-navigation-description { margin: .5rem 0 0; font-size: .875rem; color: var(--ds-color-text-muted); }
+.merging-navigation-instruction { margin: 1.5rem 0 0; font-size: .8125rem; color: var(--ds-color-text-muted); }
+.merging-navigation-details { margin-top: 2rem; }
+.merging-navigation-content h3 { margin: 0 0 .75rem; font-size: .875rem; font-weight: 600; }
+.merging-navigation-details dl { margin: 0; border-block: 1px solid var(--ds-color-border); }
+.merging-navigation-details dl > div { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: calc(var(--ds-space-scale, 1) * .25rem) calc(var(--ds-space-scale, 1) * 1rem); padding-block: calc(var(--ds-space-scale, 1) * 1rem); font-size: .8125rem; }
+.merging-navigation-details dl > div + div { border-top: 1px solid var(--ds-color-border); }
+.merging-navigation-details dt { color: var(--ds-color-text-muted); }
+.merging-navigation-details dd { margin: 0; overflow-wrap: anywhere; }
+.merging-navigation-notes { display: grid; gap: calc(var(--ds-space-scale, 1) * 2.5rem); max-width: 68ch; margin-top: 3rem; }
+.merging-navigation-notes p { margin: 0; font-size: .875rem; line-height: 1.75; color: var(--ds-color-text-muted); }
+.merging-navigation-footnote { margin: 3rem 0 0; font-size: .75rem; color: var(--ds-color-text-muted); }
+/* Keep one compact, stationary header when spatial animation is unwanted. */
+.merging-navigation-header[data-reduced-motion='true'] { top: 0; }
+.merging-navigation-header[data-reduced-motion='true'] .merging-navigation-context { display: none; }
+.merging-navigation-header[data-reduced-motion='true'] .merging-navigation-brand { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .merging-navigation-demo *, .merging-navigation-demo *::before, .merging-navigation-demo *::after { transition: none !important; animation: none !important; }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scheduling-date-time-popover",
+  "type": "registry:block",
+  "title": "Date and time popover",
+  "description": "Date and time popover. Blocks/Scheduling pattern composed from @gaudi/design-system/blocks/Scheduling and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "scheduling",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/Scheduling",
+    "import": "@gaudi/design-system/blocks/Scheduling",
+    "storyId": "blocks-scheduling--date-time-popover",
+    "source": "src/components/blocks/Scheduling/stories/fixtures/scheduling/scheduling-date-time-popover.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/scheduling-date-time-popover.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { TimeSlots, timeSlots } from '@gaudi/design-system/blocks/Scheduling';\nimport { Calendar } from '@gaudi/design-system/core/Calendar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  PopoverPrimitive as Popover,\n  PopoverContentPrimitive as PopoverContent,\n  PopoverTriggerPrimitive as PopoverTrigger\n} from '@gaudi/design-system/core/Popover';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// \"Today\" is fixed so the shortcuts read the same every time the example renders.\nconst today = new Date(2026, 9, 14);\nconst shift = (days) => new Date(today.getFullYear(), today.getMonth(), today.getDate() + days);\nconst shortcuts = [\n  { label: 'Later today', hint: '17:00', date: today, time: '17:00', icon: 'SunIcon' },\n  { label: 'Tomorrow morning', hint: 'Thu 09:00', date: shift(1), time: '09:00', icon: 'CoffeeIcon' },\n  { label: 'Next Monday', hint: 'Mon 09:00', date: shift(5), time: '09:00', icon: 'BriefcaseIcon' },\n  { label: 'In a week', hint: 'Wed 21 Oct', date: shift(7), time: '10:00', icon: 'CalendarDaysIcon' }\n];\nconst format = (date, time) => `${date.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' })}, ${time}`;\n\nexport function Pattern() {\n  const [open, setOpen] = useState(false);\n  const [date, setDate] = useState(shift(1));\n  const [time, setTime] = useState('09:00');\n  const [value, setValue] = useState(null);\n  // Applying also moves the draft, so reopening shows the chosen moment.\n  const apply = (nextDate, nextTime) => {\n    setDate(nextDate);\n    setTime(nextTime);\n    setValue({ date: nextDate, time: nextTime });\n    setOpen(false);\n  };\n  return (\n    <Popover open={open} onOpenChange={setOpen}>\n      <PopoverTrigger asChild>\n        <Button variant='outline' className='font-normal'>\n          <RegistryIcon lucide='CalendarClockIcon' aria-hidden='true' />\n          {value ? format(value.date, value.time) : 'Schedule send'}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent align='start' className='w-auto p-0'>\n        <div className='grid sm:grid-cols-[15rem_auto]'>\n          <ul aria-label='Shortcuts' className='grid content-start gap-0.5 border-b p-2 sm:border-e sm:border-b-0'>\n            {shortcuts.map((shortcut) => (\n              <li key={shortcut.label}>\n                <Button variant='ghost' size='sm' className='w-full justify-start font-normal' onClick={() => apply(shortcut.date, shortcut.time)}>\n                  <RegistryIcon lucide={shortcut.icon} aria-hidden='true' />\n                  <span className='flex-1 text-start'>{shortcut.label}</span>\n                  <span className='text-text-muted text-xs'>{shortcut.hint}</span>\n                </Button>\n              </li>\n            ))}\n          </ul>\n          <div className='grid gap-3 p-3'>\n            <Calendar mode='single' required selected={date} onSelect={setDate} defaultMonth={today} disabled={{ before: today }} className='p-0' />\n            <TimeSlots columns={4} label='Time' slots={timeSlots({ start: '08:00', end: '18:00', step: 60, duration: 0 })} value={time} onValueChange={(next) => next && setTime(next)} />\n            <div className='flex justify-end gap-2 border-t pt-3'>\n              <Button variant='ghost' size='sm' onClick={() => setOpen(false)}>\n                Cancel\n              </Button>\n              <Button size='sm' onClick={() => apply(date, time)}>\n                Schedule for {format(date, time)}\n              </Button>\n            </div>\n          </div>\n        </div>\n      </PopoverContent>\n    </Popover>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,2 +1,2 @@
-export { RadialBarChart as default } from './parts/radial-chart.jsx';
-export { RadialBarChart } from './parts/radial-chart.jsx';
+export { RadialBarChart as default } from './RadialChart.jsx';
+export { RadialBarChart } from './RadialChart.jsx';

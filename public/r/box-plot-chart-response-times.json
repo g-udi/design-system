@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "box-plot-chart-response-times",
+  "type": "registry:example",
+  "title": "Response time by route",
+  "description": "Response time by route. Charts/BoxPlotChart pattern composed from @gaudi/design-system/charts/BoxPlotChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "box-plot-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/BoxPlotChart",
+    "import": "@gaudi/design-system/charts/BoxPlotChart",
+    "storyId": "charts-boxplotchart--response-times",
+    "source": "src/components/charts/BoxPlotChart/stories/fixtures/box-plot-chart/box-plot-chart-response-times.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/box-plot-chart-response-times.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { BoxPlotChart } from '@gaudi/design-system/charts/BoxPlotChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\n// Server response times in milliseconds, sampled per route over the last hour.\nconst regions = {\n  eu: [\n    { label: 'Home', values: [ 92, 104, 110, 118, 121, 130, 138, 142, 151, 170, 410 ] },\n    { label: 'Essay', values: [ 120, 131, 138, 149, 156, 162, 171, 188, 196, 214 ] },\n    { label: 'Search', values: [ 210, 236, 248, 262, 281, 302, 318, 344, 371, 402, 890 ] },\n    { label: 'Feed', values: [ 64, 70, 73, 78, 81, 86, 92, 97, 104, 112 ] },\n    { label: 'Account', values: [ 150, 166, 174, 188, 203, 221, 239, 257, 610, 720 ] }\n  ],\n  us: [\n    { label: 'Home', values: [ 128, 140, 151, 158, 166, 179, 186, 197, 214, 233 ] },\n    { label: 'Essay', values: [ 156, 171, 178, 190, 203, 214, 226, 248, 260, 281, 540 ] },\n    { label: 'Search', values: [ 260, 281, 299, 318, 336, 352, 371, 402, 438, 470 ] },\n    { label: 'Feed', values: [ 88, 93, 99, 104, 110, 117, 121, 129, 138, 146 ] },\n    { label: 'Account', values: [ 190, 204, 219, 231, 246, 262, 280, 301, 322, 344 ] }\n  ]\n};\n\nexport function Pattern() {\n  const [region, setRegion] = useState('eu');\n  return (\n    <BoxPlotChart\n      ariaLabel='Response time distribution by route'\n      title='Response time by route'\n      description='Median, middle half and whiskers per route; dots are slow outliers worth a look.'\n      toolbar={\n        <ToggleGroup aria-label='Region' type='single' variant='outline' size='sm' spacing={0} value={region} onValueChange={(next) => next && setRegion(next)}>\n          <ToggleGroupItem value='eu'>Europe</ToggleGroupItem>\n          <ToggleGroupItem value='us'>Americas</ToggleGroupItem>\n        </ToggleGroup>\n      }\n      data={regions[region]}\n      unit=' ms'\n      showData='toggle'\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

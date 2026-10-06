@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "slider-number-sync",
+  "type": "registry:example",
+  "title": "Paired with a number field",
+  "description": "Paired with a number field. Core/Slider pattern composed from @gaudi/design-system/core/Slider and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "slider",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Slider",
+    "import": "@gaudi/design-system/core/Slider",
+    "storyId": "core-slider--number-sync",
+    "source": "src/components/core/Slider/stories/fixtures/slider/slider-number-sync.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/slider-number-sync.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\n\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { Slider } from '@gaudi/design-system/core/Slider';\nimport { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';\nexport function Pattern() {\n  const id = useId();\n  const [value, setValue] = useState(50);\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-4'>\n      <div className='flex items-center justify-between'>\n        <Label htmlFor={id} className='text-sm font-medium'>\n          Opacity\n        </Label>\n        <div className='flex items-center gap-1.5'>\n          <NumberField id={id} value={(value) === '' || !Number.isFinite(Number(value)) ? null : Number(value)} onValueChange={(value) => {\n              const v = Number((value ?? ''));\n              if (v >= 0 && v <= 100) setValue(v);\n            }} min={0} max={100} className='w-16 text-center text-sm tabular-nums'>\n            <NumberFieldGroup>\n              <NumberFieldInput />\n            </NumberFieldGroup>\n          </NumberField>\n          <span className='text-text-muted text-xs'>%</span>\n        </div>\n      </div>\n      <Slider\n        aria-label='Opacity'\n        value={[value]}\n        onValueChange={(val) =>\n          setValue(Array.isArray(val) ? (val[0] ?? 50) : val)\n        }\n        max={100}\n        step={1}\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

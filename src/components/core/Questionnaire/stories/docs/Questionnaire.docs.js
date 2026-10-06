@@ -1,0 +1,7 @@
+import { p, children, className, definition } from '../../../../../docs/components/referenceProps.js';
+export default {
+  "Core/Questionnaire": {
+    ...definition('A sequence of form questions with selection, validation and progress.', [p('items', 'QuestionnaireItemDefinition[]', '—', 'Question identities and constraints.'), p('item / defaultItem / onItemChange', 'string / function', '—', 'Controlled or initial active question.'), p('onSubmit / onReset', 'FormEventHandler', '—', 'Native form submission and reset.'), p('shortcuts', 'QuestionnaireShortcutMode', '—', 'Keyboard shortcut mode.'), p('QuestionnaireItem.name', 'string', 'Required', 'Question field name.'), p('QuestionnaireItem.multiple / required / invalid', 'boolean', '—', 'Selection and validation constraints.'), children, className], 'Question titles render as legends. Keep validation beside the question and ensure Previous, Next and Submit have clear names.'),
+    usage: "import { Questionnaire, QuestionnaireItem, QuestionnaireTitle, QuestionnaireInput, QuestionnaireActions, QuestionnaireSubmit } from '@gaudi/design-system/core/Questionnaire';\n\n<Questionnaire onSubmit={submitAnswers}>\n  <QuestionnaireItem name='goal'>\n    <QuestionnaireTitle>What would you like to achieve?</QuestionnaireTitle>\n    <QuestionnaireInput placeholder='Your goal' />\n  </QuestionnaireItem>\n  <QuestionnaireActions><QuestionnaireSubmit>Submit</QuestionnaireSubmit></QuestionnaireActions>\n</Questionnaire>"
+  }
+};

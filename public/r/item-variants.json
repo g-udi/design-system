@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-variants",
+  "type": "registry:example",
+  "title": "Variants and sizes",
+  "description": "Variants and sizes. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--variants",
+    "source": "src/components/core/Item/stories/fixtures/item/item-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-variants.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Every variant at every size, side by side: variant sets the surface, size sets the padding.\nconst variants = [\n  { variant: 'default', title: 'Default', description: 'No frame, for rows inside a card or list.' },\n  { variant: 'outline', title: 'Outline', description: 'A visible border for standalone rows.' },\n  { variant: 'muted', title: 'Muted', description: 'A subtle fill that sets a row apart.' }\n];\nconst sizes = ['default', 'sm', 'xs'];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-3'>\n      {sizes.map((size) => (\n        <section key={size} className='grid content-start gap-2'>\n          <h3 className='text-xs font-medium text-ui-muted-foreground'>size=&quot;{size}&quot;</h3>\n          {variants.map(({ variant, title, description }) => (\n            <Item key={variant} variant={variant} size={size}>\n              <ItemMedia variant='icon'>\n                <RegistryIcon lucide='LayersIcon' />\n              </ItemMedia>\n              <ItemContent>\n                <ItemTitle>{title}</ItemTitle>\n                <ItemDescription>{description}</ItemDescription>\n              </ItemContent>\n            </Item>\n          ))}\n        </section>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

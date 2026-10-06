@@ -4,13 +4,28 @@ import { create } from 'storybook/theming';
 import { GLOBALS_UPDATED, SET_GLOBALS } from 'storybook/internal/core-events';
 
 import './manager.css';
-import { isSidebarEntry } from './navigation';
+import { isSidebarEntry, navigationPages } from './navigation';
+
+// Storybook marks a leaf as an "orphan" when its story ID starts with the ID of any
+// parentless sidebar node, and orphans keep one extra indent level. The title 'Theming'
+// creates the node `theming`, so `theming-overview--default` and
+// `theming-theme-studio--studio` match it and render indented. Pin every top-level guide to
+// the same root inset; guides with a `parent` (Theme Studio under Theming) keep the indent.
+const guideInset = document.createElement('style');
+guideInset.dataset.gaudi = 'guide-inset';
+guideInset.textContent = `${navigationPages
+  .filter(({ parent }) => !parent)
+  .map(({ id }) => `.sidebar-item[data-item-id='${id}'] > a`)
+  .join(',\n')} { padding-left: 4px !important; }`;
+document.head.append(guideInset);
 
 // The Storybook chrome follows the toolbar theme switch, using Gaudi's surface, text and border tokens.
 const managerThemes = {
-  light: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
+  light: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0,
+    brandTitle: 'Gaudi Design System' }),
   dark: create({
     base: 'dark',
+    brandTitle: 'Gaudi Design System',
     appBorderRadius: 0,
     inputBorderRadius: 0,
     appBg: '#1a1a1a',

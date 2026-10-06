@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carousel-autoplay",
+  "type": "registry:example",
+  "title": "Autoplay",
+  "description": "Autoplay. Core/Layout & Containers/Carousel pattern composed from @gaudi/design-system/core/Carousel and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "embla-carousel-autoplay@8.6.0"
+  ],
+  "categories": [
+    "carousel",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Carousel",
+    "import": "@gaudi/design-system/core/Carousel",
+    "storyId": "core-carousel--autoplay",
+    "source": "src/components/core/Carousel/stories/fixtures/carousel/carousel-autoplay.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/carousel-autoplay.jsx",
+      "type": "registry:component",
+      "content": "import Autoplay from 'embla-carousel-autoplay';\nimport { CardRoot as Card } from '@gaudi/design-system/core/Card';\nimport {\n  CarouselRoot as Carousel,\n  CarouselContent,\n  CarouselItem,\n  CarouselNext,\n  CarouselPrevious\n} from '@gaudi/design-system/core/Carousel';\nexport function Pattern() {\n  return (\n    <Carousel\n      plugins={[\n        Autoplay({\n          delay: 2e3\n        })\n      ]}\n      className='mx-auto w-full max-w-xs'\n    >\n      <CarouselContent>\n        {Array.from({ length: 5 }).map((_, index) => (\n          <CarouselItem key={index}>\n            <div className='p-1'>\n              <Card className='relative aspect-square overflow-hidden border-0 p-0'>\n                <img\n                  src={`static/images/art/${(index + 25) % 12}.svg`}\n                  alt={`Slide ${index + 1}`}\n                  width={800}\n                  height={800}\n                  className='h-full w-full object-cover'\n                />\n              </Card>\n            </div>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n      <CarouselPrevious />\n      <CarouselNext />\n    </Carousel>\n  );\n}\n"
+    }
+  ]
+}

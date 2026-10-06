@@ -1,0 +1,109 @@
+# RadarChart
+
+> Charts/RadarChart · charts · `@gaudi/design-system/charts/RadarChart`
+
+Scores on several axes at once, one record per axis and a value per series; a dashed series reads as a target.
+
+## Import
+
+```js
+import RadarChart from '@gaudi/design-system/charts/RadarChart';
+// also: import { … } from '@gaudi/design-system/charts';
+```
+
+Exports: `RadarChart`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `xKey / yKey` | `string` | `label / value` | no | Category field and the single value field when series is omitted. |
+| `series` | `Array<{ key, label?, dashed? }>` | `from yKey` | no | Value fields drawn as series, in order; a dashed series reads as a projection or target. |
+| `domain` | `[number, number \| auto]` | `[0, auto]` | no | Fix the scale so charts compare. |
+| `filled` | `boolean` | `true` | no | Fill each outline. |
+| `showRings` | `boolean` | `true` | no | Value labels on the rings. |
+| `showLegend / showTooltip` | `boolean` | `true` | no | Presentation. |
+| `colors` | `string[]` | `categorical palette` | no | Override the series colours with chart tokens. |
+| `title / description` | `ReactNode` | — | no | Figure caption above the plot. |
+| `ariaLabel` | `string` | `title or Chart` | no | Accessible name of the plot, the single keyboard stop. |
+| `height` | `number` | `type-specific` | no | Plot height in pixels. |
+| `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
+| `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
+| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
+| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `state`: `loading`, `error`, `empty`, `invalid`
+- `showData`: `hidden`, `toggle`, `visible`
+
+## Usage
+
+```jsx
+import { RadarChart } from '@gaudi/design-system/charts';
+
+<RadarChart ariaLabel='Draft scores against the target' data={review} series={[{ key: 'draft', label: 'Draft' }, { key: 'target', label: 'Target', dashed: true }]} domain={[0, 100]} />
+```
+
+## Accessibility
+
+The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.
+
+## Examples
+
+- Playground (Storybook `charts-radarchart--playground`)
+- Compare three options (Storybook `charts-radarchart--comparison`)
+- One series without rings (Storybook `charts-radarchart--single`)
+
+Curated patterns:
+
+- Scores against a target — registry item `@gaudi/radar-chart-target-scores` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`, `Label`, `SwitchRoot`)
+
+## README
+
+Scores on several axes at once, one record per axis and a value per series; a dashed series reads as a target.
+
+[Open the docs](http://localhost:6007/?path=/docs/charts-radarchart--docs) for the Playground and detailed examples, each with its complete JSX.
+
+### Usage
+
+```jsx
+import { RadarChart } from '@gaudi/design-system/charts';
+
+<RadarChart ariaLabel='Draft scores against the target' data={review} series={[{ key: 'draft', label: 'Draft' }, { key: 'target', label: 'Target', dashed: true }]} domain={[0, 100]} />
+```
+
+Import from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/RadarChart`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.
+
+### API
+
+| Prop | Type | Default | Contract |
+| --- | --- | --- | --- |
+| `xKey / yKey` | string | label / value | Category field and the single value field when series is omitted. |
+| `series` | Array<{ key, label?, dashed? }> | from yKey | Value fields drawn as series, in order; a dashed series reads as a projection or target. |
+| `domain` | [number, number \| auto] | [0, auto] | Fix the scale so charts compare. |
+| `filled` | boolean | true | Fill each outline. |
+| `showRings` | boolean | true | Value labels on the rings. |
+| `showLegend / showTooltip` | boolean | true | Presentation. |
+| `colors` | string[] | categorical palette | Override the series colours with chart tokens. |
+| `title / description` | ReactNode | — | Figure caption above the plot. |
+| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |
+| `height` | number | type-specific | Plot height in pixels. |
+| `state` | loading \| error \| empty \| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |
+| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |
+| `locale / formatValue` | string / Intl.NumberFormatOptions \| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |
+| `showData` | hidden \| toggle \| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |
+| `onActivate / onActiveChange` | (point, index) => void / (index \| null) => void | — | Click, Enter or Space on a point; the active point changed. |
+| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |
+| `className` | string | — | Additional classes on the outer element. |
+
+### Accessibility
+
+The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.
+
+Colours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.
+
+See [source notices](../../../../README.md#third-party-notices).

@@ -1,9 +1,9 @@
-import Link from 'next/link';
+import Link from '../Link';
 
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
-import { buttonToneAliases, canonicalButtonToneClasses } from '../Button/Button.tones';
-import { Badge } from './parts/badge-extended.jsx';
+import { buttonToneAliases, canonicalButtonToneClasses } from '../Button/buttonTones';
+import { Badge } from './Badge.jsx';
 
 const toneNames = [ 'amber', 'blue', 'gray', 'green', 'indigo', 'neutral', 'red', 'rose', 'teal', 'yellow' ];
 
@@ -92,7 +92,7 @@ const Pill = ({
   // Badge's own size and radius scales are switched off; the pill scale above replaces them.
   return (
     <Badge variant={ null } size={ null } radius={ null } data-variant={ variant || 'solid' } asChild={ Boolean(href) } className={ classes }>
-      {href ? <Link href={ href }>{content}</Link> : content}
+      {href ? <Link href={ href } variant='bare'>{content}</Link> : content}
     </Badge>
   );
 };

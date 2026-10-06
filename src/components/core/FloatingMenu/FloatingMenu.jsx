@@ -19,7 +19,7 @@ import Link from '../Link';
 import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { useScrollPosition } from '../../../hooks/layout/use-scroll-position.js';
 import { cn } from '../../../utilities/cn';
-import { useSiteConfig } from '../../../utilities/SiteConfig';
+import { useSiteConfig } from '../../../context';
 
 const trimSlash = (href) => (href.length > 1 ? href.replace(/\/$/, '') : href);
 const matchesPath = (href, path) => Boolean(path) && (trimSlash(path) === trimSlash(href) || (href !== '/' && path.startsWith(`${trimSlash(href)}/`)));

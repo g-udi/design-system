@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-not-found",
+  "type": "registry:example",
+  "title": "Not found with search",
+  "description": "Not found with search. Core/Feedback & States/EmptyState pattern composed from @gaudi/design-system/core/EmptyState and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "empty",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/EmptyState",
+    "import": "@gaudi/design-system/core/EmptyState",
+    "storyId": "core-emptystate--not-found",
+    "source": "src/components/core/EmptyState/stories/fixtures/empty/empty-not-found.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/empty-not-found.jsx",
+      "type": "registry:component",
+      "content": "import { useRef, useState } from 'react';\nimport { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';\nimport Button from '@gaudi/design-system/core/Button';\nimport Link from '@gaudi/design-system/core/Link';\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput\n} from '@gaudi/design-system/core/Input';\nimport { KbdRoot as Kbd } from '@gaudi/design-system/core/Kbd';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const searchRef = useRef(null);\n  const [query, setQuery] = useState('');\n  const [submitted, setSubmitted] = useState('');\n  const { ariaKeyShortcuts } = useHotkey('/', () => searchRef.current?.focus());\n  return (\n    <div className='mx-auto w-full max-w-lg'>\n      <Empty className='border'>\n        <EmptyHeader>\n          <EmptyTitle>404 — Not Found</EmptyTitle>\n          <EmptyDescription>\n            The page you&apos;re looking for doesn&apos;t exist. Try searching\n            for what you need below.\n          </EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent>\n          <form className='grid w-full gap-2' onSubmit={(event) => { event.preventDefault(); setSubmitted(query.trim()); }}>\n          <InputGroup>\n            <InputGroupInput\n              ref={searchRef}\n              value={query}\n              onChange={(event) => setQuery(event.target.value)}\n              aria-keyshortcuts={ariaKeyShortcuts}\n              aria-label='Try searching for pages…'\n              placeholder='Try searching for pages…'\n            />\n            <InputGroupAddon>\n              <RegistryIcon lucide='SearchIcon' />\n            </InputGroupAddon>\n            <InputGroupAddon align='inline-end'>\n              <Kbd>/</Kbd>\n            </InputGroupAddon>\n          </InputGroup>\n          <Button type='submit' size='sm' disabled={!query.trim()}>Search pages</Button>\n          {submitted ? <p role='status' className='text-xs text-text-muted'>Search prepared for “{submitted}” in this demo. No service request was sent.</p> : null}\n          </form>\n          <EmptyDescription>\n            Need help? <Link href='/support'>Contact support</Link>\n          </EmptyDescription>\n        </EmptyContent>\n      </Empty>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

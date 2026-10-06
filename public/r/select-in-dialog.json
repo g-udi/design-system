@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-in-dialog",
+  "type": "registry:example",
+  "title": "Select inside a dialog",
+  "description": "Select inside a dialog. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--in-dialog",
+    "source": "src/components/core/Select/stories/fixtures/select/select-in-dialog.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/select-in-dialog.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  SelectRoot as Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectTrigger,\n  SelectValue\n} from '@gaudi/design-system/core/Select';\n\nconst roles = [\n  { label: 'Viewer', value: 'viewer' },\n  { label: 'Editor', value: 'editor' },\n  { label: 'Admin', value: 'admin' }\n];\n\n// The popup layers above the dialog and stays inside its focus trap.\nexport function Pattern() {\n  const id = useId();\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button>Invite member</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>Invite member</DialogTitle>\n          <DialogDescription>Choose the role they join with.</DialogDescription>\n        </DialogHeader>\n        <Field>\n          <FieldLabel htmlFor={`${id}-select-dialog-role`}>Role</FieldLabel>\n          <Select defaultValue='editor'>\n            <SelectTrigger id={`${id}-select-dialog-role`} className='w-full'>\n              <SelectValue />\n            </SelectTrigger>\n            <SelectContent position='popper'>\n              <SelectGroup>\n                {roles.map((item) => (\n                  <SelectItem key={item.value} value={item.value}>\n                    {item.label}\n                  </SelectItem>\n                ))}\n              </SelectGroup>\n            </SelectContent>\n          </Select>\n        </Field>\n      </DialogContent>\n    </Dialog>\n  );\n}\n"
+    }
+  ]
+}

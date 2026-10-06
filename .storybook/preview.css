@@ -1,13 +1,15 @@
 @import 'tailwindcss';
 @custom-variant dark (&:where(.dark, .dark *));
-@config '../tailwind.config.cjs';
+@config '../tailwind.config.js';
 @import '../src/styles.css';
 @import '../src/components/core/Flow/Flow.css';
 @import './documentation.css';
+@import '../src/docs/components/PatternStoryHelpers.css';
 
 @source '../src/**/*.{js,jsx,mdx}';
 @source './**/*.{js,jsx,mdx}';
-@source './fixtures/site/**/*.{js,mjs,json}';
+@source not './verification';
+@source '../src/docs/fixtures/site/**/*.{js,mjs,json}';
 
 .sbdocs-wrapper:has(.ds-docs-page) {
   background: var(--ds-color-surface);
@@ -539,20 +541,15 @@
 .gaudi-essential-statuses { display: flex; flex-wrap: wrap; gap: 12px; }
 .gaudi-catalogue-controls { display: grid; grid-template-columns: minmax(0,2fr) minmax(0,1fr); gap: 16px; }
 .gaudi-catalogue-controls label { display: grid; gap: 8px; min-width: 0; font-size: var(--ds-docs-font-size); font-weight: 600; }
-.gaudi-catalogue-controls select { width: 100%; min-height: 44px; background: var(--ds-color-surface); color: var(--ds-color-text); border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-sm); padding: 8px 12px; }
 .gaudi-catalogue-view { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
-.gaudi-catalogue-view [role='group'] { display: flex; gap: 4px; }
-.gaudi-catalogue-view button, .gaudi-catalogue-more { min-height: 44px; padding: 8px 12px; border: 1px solid var(--ds-color-border); border-radius: var(--ds-radius-sm); background: var(--ds-color-surface); font-size: var(--ds-docs-font-size); cursor: pointer; }
-.gaudi-catalogue-view button[aria-pressed='true'] { color: var(--ds-color-accent); border-color: var(--ds-color-accent); background: var(--ds-color-accent-subtle); }
 .gaudi-catalogue-view p { margin-left: auto; font-size: var(--ds-docs-font-size); color: var(--ds-color-text-muted); }
 .gaudi-catalogue-results { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 32px; padding: 0; margin: 0; list-style: none; }
 .gaudi-catalogue-results li { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-width: 0; padding-block: 16px; border-bottom: 1px solid var(--ds-color-border); }
 .gaudi-catalogue-results li > div { min-width: 0; }
 .gaudi-catalogue-results a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ds-color-accent); font-size: 16px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; text-underline-offset: 4px; }
 .gaudi-catalogue-results span { display: block; color: var(--ds-color-text-muted); font-size: 12px; }
-.gaudi-catalogue-results button { flex-shrink: 0; min-height: 44px; padding: 4px; color: var(--ds-color-text-muted); font-size: 12px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
-:is(.gaudi-guide-links,.gaudi-guide-anchors,.gaudi-catalogue-view,.gaudi-catalogue-results) :is(a,button):focus-visible,
-.gaudi-guide-reference:focus-visible, .gaudi-catalogue-more:focus-visible { outline: 2px solid var(--ds-color-accent); outline-offset: 3px; }
+:is(.gaudi-guide-links,.gaudi-guide-anchors,.gaudi-catalogue-results) a:focus-visible,
+.gaudi-guide-reference:focus-visible { outline: 2px solid var(--ds-color-accent); outline-offset: 3px; }
 @media (max-width: 767px) {
   .gaudi-catalogue-controls, .gaudi-catalogue-results { grid-template-columns: minmax(0,1fr); }
   .gaudi-essential-swatches { grid-template-columns: repeat(2,minmax(0,1fr)); }

@@ -5,11 +5,12 @@ Wraps a form control with its label, help text and error, and connects them for 
 ## Usage
 
 ```jsx
-import { Field, FieldDescription, FieldError, FieldInput, FieldLabel } from '@gaudi/design-system';
+import { EmailInput } from '@gaudi/design-system/core/Input';
+import { Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system';
 
 <Field>
   <FieldLabel>Email</FieldLabel>
-  <FieldInput type='email' name='email' />
+  <EmailInput name='email' />
   <FieldDescription>Used for article updates only.</FieldDescription>
   {error ? <FieldError>{error}</FieldError> : null}
 </Field>;
@@ -20,3 +21,5 @@ A `FieldError` marks the control invalid and adds itself to its description. For
 ## Accessibility
 
 The label targets the control, and the description and error are read with it through `aria-describedby`. Errors are announced as alerts.
+
+`FieldInput` inherits `caretMode` from `InputConfigProvider` and supports a local `native` or `smooth` override. See [Input caret mode](../Input/README.md#smooth-caret-mode) for behavior and native fallbacks.

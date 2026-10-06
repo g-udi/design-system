@@ -1,2 +1,2 @@
 // Composition exports
-export { ScrollArea, ScrollBar } from './parts/scroll-area.jsx';
+export { ScrollArea, ScrollBar } from './ScrollArea.jsx';

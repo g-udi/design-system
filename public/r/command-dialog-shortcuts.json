@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "command-dialog-shortcuts",
+  "type": "registry:example",
+  "title": "Command dialog with groups and shortcuts",
+  "description": "Command dialog with groups and shortcuts. Core/Overlays & Menus/Commander pattern composed from @gaudi/design-system/core/Commander and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "command",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Commander",
+    "import": "@gaudi/design-system/core/Commander",
+    "storyId": "core-commander--dialog-shortcuts",
+    "source": "src/components/core/Commander/stories/fixtures/command/command-dialog-shortcuts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/command-dialog-shortcuts.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { Fragment, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Command,\n  CommandDialog,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandSeparator,\n  CommandShortcut\n} from '@gaudi/design-system/core/Commander';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n// Enough groups to scroll: headings stay with their items, and shortcuts align on the right.\nconst groups = [\n  {\n    heading: 'Create',\n    items: [\n      ['PlusIcon', 'New Project', '⌘N'],\n      ['FileTextIcon', 'New Document', '⇧⌘N'],\n      ['UserPlusIcon', 'Invite Member', '⌘I']\n    ]\n  },\n  {\n    heading: 'Navigate',\n    items: [\n      ['HouseIcon', 'Go to Dashboard', '⌘D'],\n      ['InboxIcon', 'Go to Inbox', '⇧⌘I'],\n      ['FolderIcon', 'Go to Folders', '⌘F']\n    ]\n  },\n  {\n    heading: 'Edit',\n    items: [\n      ['CopyIcon', 'Copy', '⌘C'],\n      ['ScissorsIcon', 'Cut', '⌘X'],\n      ['ClipboardIcon', 'Paste', '⌘V'],\n      ['TrashIcon', 'Delete', '⌫']\n    ]\n  },\n  {\n    heading: 'View',\n    items: [\n      ['LayoutGridIcon', 'Grid View'],\n      ['ListIcon', 'List View'],\n      ['ZoomInIcon', 'Zoom In', '⌘+'],\n      ['ZoomOutIcon', 'Zoom Out', '⌘-']\n    ]\n  },\n  {\n    heading: 'Account',\n    items: [\n      ['UserIcon', 'Profile', '⌘P'],\n      ['CreditCardIcon', 'Billing', '⌘B'],\n      ['SettingsIcon', 'Settings', '⌘S'],\n      ['MoonIcon', 'Toggle Dark Mode', '⇧⌘D'],\n      ['LogOutIcon', 'Sign Out', '⌘Q']\n    ]\n  }\n];\nexport function Pattern() {\n  const [open, setOpen] = useState(false);\n  return (\n    <>\n      <Button onClick={() => setOpen(true)} variant='outline' tone='neutral'>\n        Quick Actions\n      </Button>\n      <CommandDialog open={open} onOpenChange={setOpen}>\n        <Command>\n          <CommandInput placeholder='Type a command or page name' />\n          <CommandList>\n            <CommandEmpty>No actions found.</CommandEmpty>\n            {groups.map((group, index) => (\n              <Fragment key={group.heading}>\n                {index > 0 && <CommandSeparator />}\n                <CommandGroup heading={group.heading}>\n                  {group.items.map(([icon, label, shortcut]) => (\n                    <CommandItem key={label}>\n                      <RegistryIcon lucide={icon} />\n                      <span>{label}</span>\n                      {shortcut && <CommandShortcut>{shortcut}</CommandShortcut>}\n                    </CommandItem>\n                  ))}\n                </CommandGroup>\n              </Fragment>\n            ))}\n          </CommandList>\n        </Command>\n      </CommandDialog>\n    </>\n  );\n}\n"
+    }
+  ]
+}

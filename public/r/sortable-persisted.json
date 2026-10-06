@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sortable-persisted",
+  "type": "registry:example",
+  "title": "Persisted order",
+  "description": "Persisted order. Core/Layout & Containers/Sortable pattern composed from @gaudi/design-system/core/Sortable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sortable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sortable",
+    "import": "@gaudi/design-system/core/Sortable",
+    "storyId": "core-sortable--persisted",
+    "source": "src/components/core/Sortable/stories/fixtures/sortable/sortable-persisted.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sortable-persisted.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  Sortable,\n  SortableItem,\n  SortableItemHandle\n} from '@gaudi/design-system/core/Sortable';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst defaultItems = [\n  { id: '1', title: 'Outline the essay' },\n  { id: '2', title: 'Collect reader questions' },\n  { id: '3', title: 'Choose the cover image' },\n  { id: '4', title: 'Schedule the post' },\n  { id: '5', title: 'Share it in the newsletter' }\n];\nexport function Pattern() {\n  const toastId = useId();\n  const [items, setItems] = useState(defaultItems);\n  const [pending, setPending] = useState(null);\n  const [simulateFailure, setSimulateFailure] = useState(false);\n  useTimeout(() => {\n    if (pending.fail) {\n      setItems(pending.previous);\n      toast.error('Could not save the new order. Restored.', { id: toastId, toasterId: toastId });\n    } else {\n      toast.success(`Saved \"${pending.title}\" at position ${pending.position}`, { id: toastId, toasterId: toastId });\n    }\n    setPending(null);\n  }, pending ? 700 : null);\n  const handleValueCommit = (next, meta) => {\n    if (pending) return;\n    setPending({ previous: meta.previousValue, title: next[meta.overIndex].title, position: meta.overIndex + 1, fail: simulateFailure });\n    toast.loading('Saving order...', { id: toastId, toasterId: toastId });\n  };\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <div className='mx-auto grid w-full max-w-xl gap-3'>\n      <Label className='gap-2'><Switch checked={simulateFailure} onCheckedChange={setSimulateFailure} disabled={Boolean(pending)} />Simulate a failed save</Label>\n      <Sortable\n        value={items}\n        onValueChange={setItems}\n        onValueCommit={handleValueCommit}\n        getItemValue={(item) => item.id}\n        strategy='vertical'\n        className='space-y-2'\n      >\n        {items.map((item, index) => (\n          <SortableItem key={item.id} value={item.id} disabled={Boolean(pending)}>\n            <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border px-3 py-2'>\n              <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>\n                <RegistryIcon lucide='GripVerticalIcon' className='size-4' />\n              </SortableItemHandle>\n              <Badge variant='outline' className='tabular-nums'>\n                {index + 1}\n              </Badge>\n              <span className='min-w-0 flex-1 truncate text-sm font-medium'>\n                {item.title}\n              </span>\n            </div>\n          </SortableItem>\n        ))}\n      </Sortable>\n    </div>\n    </>\n  );\n}\n"
+    }
+  ]
+}

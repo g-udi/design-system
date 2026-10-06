@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover-settings-form",
+  "type": "registry:example",
+  "title": "Settings form",
+  "description": "Settings form. Core/Overlays & Menus/Popover pattern composed from @gaudi/design-system/core/Popover and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "popover",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Popover",
+    "import": "@gaudi/design-system/core/Popover",
+    "storyId": "core-popover--settings-form",
+    "source": "src/components/core/Popover/stories/fixtures/popover/popover-settings-form.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/popover-settings-form.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport {\n  PopoverPrimitive as Popover,\n  PopoverContentPrimitive as PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTriggerPrimitive as PopoverTrigger\n} from '@gaudi/design-system/core/Popover';\nimport { Slider } from '@gaudi/design-system/core/Slider';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [opacity, setOpacity] = useState([75]);\n  return (\n    <div className='flex items-center justify-center'>\n      <Popover>\n        <PopoverTrigger asChild>\n          <Button variant='outline'>\n            <RegistryIcon lucide='SlidersHorizontalIcon' aria-hidden='true' />\n            Layer settings\n          </Button>\n        </PopoverTrigger>\n        <PopoverContent className='w-72 gap-0 p-0' align='start'>\n          <PopoverHeader className='border-b border-border p-3'>\n            <PopoverTitle>Layer settings</PopoverTitle>\n            <PopoverDescription>\n              Set the dimensions and appearance of the layer.\n            </PopoverDescription>\n          </PopoverHeader>\n          <div className='grid gap-3 p-3'>\n            <FieldGroup className='gap-2'>\n              <Field orientation='horizontal'>\n                <FieldLabel htmlFor='layer-width' className='w-1/2'>\n                  Width\n                </FieldLabel>\n                <Input id='layer-width' defaultValue='100%' />\n              </Field>\n              <Field orientation='horizontal'>\n                <FieldLabel htmlFor='layer-height' className='w-1/2'>\n                  Height\n                </FieldLabel>\n                <Input id='layer-height' defaultValue='25px' />\n              </Field>\n            </FieldGroup>\n            <div className='grid gap-2 border-t border-border pt-3'>\n              <div className='flex items-center justify-between'>\n                <label htmlFor='layer-visible'>Visible</label>\n                <Switch id='layer-visible' defaultChecked />\n              </div>\n              <div className='flex items-center justify-between'>\n                <label htmlFor='layer-lock'>Lock position</label>\n                <Switch id='layer-lock' />\n              </div>\n              <div className='grid gap-2'>\n                <div className='flex items-center justify-between'>\n                  <span>Opacity</span>\n                  <span className='text-text-muted tabular-nums'>\n                    {opacity[0]}%\n                  </span>\n                </div>\n                <Slider\n                  aria-label='Opacity'\n                  value={opacity}\n                  onValueChange={setOpacity}\n                  max={100}\n                  step={1}\n                />\n              </div>\n            </div>\n          </div>\n        </PopoverContent>\n      </Popover>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

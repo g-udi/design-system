@@ -1,0 +1,32 @@
+@layer components {
+  .ds-part-sheet-overlay {
+    @apply bg-black/40;
+  }
+
+  .ds-part-sheet-content {
+    @apply bg-ui-popover text-ui-popover-foreground fixed z-[calc(var(--ds-z-overlay)+1)] flex flex-col gap-3 bg-clip-padding text-sm shadow-lg transition duration-200 ease-in-out data-[side=bottom]:inset-x-0 data-[side=bottom]:bottom-0 data-[side=bottom]:h-auto data-[side=bottom]:border-t data-[side=left]:inset-y-0 data-[side=left]:left-0 data-[side=left]:h-full data-[side=left]:w-3/4 data-[side=left]:border-r data-[side=right]:inset-y-0 data-[side=right]:right-0 data-[side=right]:h-full data-[side=right]:w-3/4 data-[side=right]:border-l data-[side=top]:inset-x-0 data-[side=top]:top-0 data-[side=top]:h-auto data-[side=top]:border-b data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm;
+  }
+
+  .ds-part-sheet-close {
+    @apply absolute top-2 end-2;
+  }
+
+  .ds-part-sheet-header {
+    @apply gap-0.5 p-3;
+  }
+
+  .ds-part-sheet-footer {
+    @apply gap-2 p-3;
+  }
+
+  .ds-part-sheet-title {
+    @apply text-ui-foreground text-base font-medium;
+  }
+
+  .ds-part-sheet-description {
+    @apply text-ui-muted-foreground text-sm;
+  }
+  [data-slot='sheet-content'] {
+    max-height: 100dvh;
+  }
+}

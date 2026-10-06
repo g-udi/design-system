@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton-profile",
+  "type": "registry:example",
+  "title": "Profile page",
+  "description": "Profile page. Core/Feedback & States/Skeleton pattern composed from @gaudi/design-system/core/Skeleton and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "skeleton",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Skeleton",
+    "import": "@gaudi/design-system/core/Skeleton",
+    "storyId": "core-skeleton--profile",
+    "source": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-profile.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/skeleton-profile.jsx",
+      "type": "registry:component",
+      "content": "import {\n  CardRoot as Card,\n  CardContent,\n  CardHeader\n} from '@gaudi/design-system/core/Card';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\nexport function Pattern() {\n  return (\n    <div className='mx-auto w-full max-w-xs space-y-6'>\n      {/* Profile header */}\n      <Card>\n        <CardHeader className='items-center gap-3'>\n          <Skeleton className='size-20 rounded-full' />\n          <Skeleton className='h-5 w-32' />\n          <Skeleton className='h-3 w-48' />\n        </CardHeader>\n        <CardContent className='flex justify-center gap-8'>\n          {Array.from({ length: 3 }).map((_, i) => (\n            <div key={i} className='flex flex-col items-center gap-1'>\n              <Skeleton className='h-5 w-10' />\n              <Skeleton className='h-3 w-14' />\n            </div>\n          ))}\n        </CardContent>\n      </Card>\n\n      {/* Details section */}\n      <Card>\n        <CardContent className='space-y-4 pt-4'>\n          <Skeleton className='h-4 w-24' />\n          <Separator />\n          {Array.from({ length: 4 }).map((_, i) => (\n            <div key={i} className='flex items-center justify-between'>\n              <Skeleton className='h-3 w-20' />\n              <Skeleton className='h-3 w-32' />\n            </div>\n          ))}\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

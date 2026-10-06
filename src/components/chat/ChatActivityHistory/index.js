@@ -1,1 +1,1 @@
-export { ChatActivity as default, ChatActivity } from './parts/chat-activity.jsx';
+export { ChatActivity as default, ChatActivity } from './ChatActivityHistory.jsx';

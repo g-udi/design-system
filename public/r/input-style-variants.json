@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input-style-variants",
+  "type": "registry:example",
+  "title": "Style variants",
+  "description": "Style variants. Core/Input pattern composed from @gaudi/design-system/core/Input and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "input",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Input",
+    "import": "@gaudi/design-system/core/Input",
+    "storyId": "core-input--style-variants",
+    "source": "src/components/core/Input/stories/fixtures/input/input-style-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/input-style-variants.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\n\n// The base input sets its own dark fill and border, so each style repeats its override under `dark:`.\nconst styles = [\n  { id: 'subtle', label: 'Subtle background', placeholder: 'Enter text…', className: 'bg-surface-muted dark:bg-surface-muted' },\n  { id: 'underline', label: 'Bottom border only', placeholder: 'Type here…', className: 'rounded-none border-x-0 border-t-0 border-b-2 px-0 shadow-none bg-transparent dark:bg-transparent focus-visible:border-accent focus-visible:ring-0 focus-visible:ring-offset-0' },\n  { id: 'pill', label: 'Pill', placeholder: 'Search everything…', className: 'rounded-full px-4' },\n  { id: 'focus', label: 'Custom focus ring', placeholder: 'Success-coloured focus', className: 'focus-visible:border-success focus-visible:ring-success/50 dark:focus-visible:border-success dark:focus-visible:ring-success/50' },\n  { id: 'minimal', label: 'Minimal', placeholder: 'No border or background…', className: 'border-none bg-transparent px-0 shadow-none dark:bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0' }\n];\n\nexport function Pattern() {\n  const [focused, setFocused] = useState(false);\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      {styles.map((style) => (\n        <Field key={style.id}>\n          <FieldLabel htmlFor={`input-style-${style.id}`}>{style.label}</FieldLabel>\n          <Input id={`input-style-${style.id}`} placeholder={style.placeholder} className={style.className} />\n        </Field>\n      ))}\n      {/* A pulsing fill draws attention until the field is focused. */}\n      <Field>\n        <FieldLabel htmlFor='input-style-pulse'>Pulsed background</FieldLabel>\n        <div className='relative'>\n          <div\n            aria-hidden='true'\n            className={`pointer-events-none absolute inset-0 rounded-md bg-accent/20 transition-opacity duration-300 ${focused ? 'opacity-0' : 'animate-pulse'}`}\n          />\n          <Input\n            id='input-style-pulse'\n            placeholder='Stops on focus…'\n            onFocus={() => setFocused(true)}\n            onBlur={() => setFocused(false)}\n            className='relative bg-transparent shadow-none dark:bg-transparent focus-visible:bg-surface dark:focus-visible:bg-surface'\n          />\n        </div>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

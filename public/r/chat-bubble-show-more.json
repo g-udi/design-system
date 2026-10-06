@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-bubble-show-more",
+  "type": "registry:example",
+  "title": "Formatted answer with show more",
+  "description": "Formatted answer with show more. Chat/ChatBubble pattern composed from @gaudi/design-system/chat/ChatBubble and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-bubble",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatBubble",
+    "import": "@gaudi/design-system/chat/ChatBubble",
+    "storyId": "chat-bubble--show-more",
+    "source": "src/components/chat/ChatBubble/stories/fixtures/chat-bubble/chat-bubble-show-more.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-bubble-show-more.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger\n} from '@gaudi/design-system/core/Accordion';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst code = 'bg-ui-muted rounded-sm px-1 py-0.5 font-mono text-[0.85em]';\n\nexport function Pattern() {\n  const [open, setOpen] = useState(false);\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col gap-4'>\n      <ChatBubble variant='muted' align='end'>\n        <ChatBubbleContent>Summarise what changed in 3.4 for the release note.</ChatBubbleContent>\n      </ChatBubble>\n      {/* ghost is the only variant with no frame and no 80% cap, so a structured answer uses the whole row. */}\n      <ChatBubble variant='ghost'>\n        <ChatBubbleContent>\n          {/*\n           * Real elements, not a markdown renderer, so nothing sets raw HTML from\n           * a string. The block layout sits on this wrapper because ChatBubbleContent\n           * owns its own padding, radius and font size.\n           */}\n          <Collapsible open={open} onOpenChange={setOpen}>\n            <div className='flex flex-col gap-3'>\n              <p>\n                3.4 is a reliability release. Nothing in it changes an API, and three fixes are worth naming in the note.\n              </p>\n              <h4 className='font-semibold'>What changed</h4>\n              <ul className='marker:text-ui-muted-foreground ms-4 list-disc space-y-1'>\n                <li>\n                  <strong className='font-medium'>Refund webhooks</strong> retry for up to a minute, so a{' '}\n                  <code className={code}>charge.refunded</code> event no longer drops when the processor is slow.\n                </li>\n                <li>\n                  <strong className='font-medium'>Group membership</strong> stays in step with the identity provider,\n                  including removals that used to need a manual resync.\n                </li>\n                <li>\n                  <strong className='font-medium'>CSV exports</strong> finish at every accepted size.\n                </li>\n              </ul>\n              {/* The long tail folds away so the answer reads at a glance. */}\n              <CollapsibleContent>\n                <div className='flex flex-col gap-3'>\n                  <h4 className='font-semibold'>Why the webhooks dropped</h4>\n                  <p>\n                    The payments worker retried a batch of 1,200 deliveries after a processor timeout, and each retry\n                    opened a connection of its own until the pool hit its ceiling.\n                  </p>\n                  <p>\n                    We raised the pool to 60 and capped the worker at 8 concurrent deliveries. A backoff follows in 3.5.\n                  </p>\n                  <p className='text-ui-muted-foreground'>\n                    Everything else is unchanged.{' '}\n                    <a href='#' className='underline underline-offset-4'>Open the full diff</a>\n                  </p>\n                </div>\n              </CollapsibleContent>\n              {/* asChild hands the trigger to a real Button, so the fold keeps keyboard activation and a focus ring. */}\n              <CollapsibleTrigger asChild>\n                <Button variant='link' size='sm' className='w-fit px-0'>\n                  {open ? 'Show less' : 'Show more'}\n                  <span data-open={open} className='inline-flex transition-transform data-[open=true]:rotate-180'>\n                    <RegistryIcon lucide='ChevronDownIcon' aria-hidden='true' className='size-4' />\n                  </span>\n                </Button>\n              </CollapsibleTrigger>\n            </div>\n          </Collapsible>\n        </ChatBubbleContent>\n      </ChatBubble>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

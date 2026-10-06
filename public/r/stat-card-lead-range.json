@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-lead-range",
+  "type": "registry:block",
+  "title": "Leads with a range",
+  "description": "Leads with a range. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--lead-range",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-lead-range.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-lead-range.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { StatCard, StatMeter } from '@gaudi/design-system/blocks/StatCard';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\n\n// Each range swaps the whole dataset; the card keeps its shape.\nconst ranges = {\n  '7d': { leads: 312, delta: '4.6%', deltaDirection: 'up', deltaTone: 'success', goal: 400, returning: 118, organic: 141, paid: 53 },\n  '30d': { leads: 1284, delta: '11.2%', deltaDirection: 'up', deltaTone: 'success', goal: 1500, returning: 452, organic: 590, paid: 242 },\n  '90d': { leads: 3610, delta: '-2.3%', deltaDirection: 'down', deltaTone: 'danger', goal: 4500, returning: 1390, organic: 1520, paid: 700 }\n};\n\nexport function Pattern() {\n  const [range, setRange] = useState('30d');\n  const data = ranges[range];\n  return (\n    <StatCard\n      className='w-full max-w-sm'\n      label='Leads'\n      value={data.leads.toLocaleString('en-GB')}\n      delta={data.delta} deltaDirection={data.deltaDirection} deltaTone={data.deltaTone}\n      description={`${Math.round((data.leads / data.goal) * 100)}% of the ${data.goal.toLocaleString('en-GB')} goal`}\n      action={\n        <ToggleGroup aria-label='Range' type='single' variant='outline' size='xs' spacing={0} value={range} onValueChange={(next) => setRange(next || range)}>\n          {Object.keys(ranges).map((key) => (\n            <ToggleGroupItem key={key} value={key}>\n              {key}\n            </ToggleGroupItem>\n          ))}\n        </ToggleGroup>\n      }\n    >\n      <Progress value={(data.leads / data.goal) * 100} aria-label='Progress to lead goal' className='h-2' />\n      <StatMeter\n        className='mt-2'\n        label='Where leads came from'\n        formatValue={(value) => value.toLocaleString('en-GB')}\n        segments={[\n          { label: 'Returning', value: data.returning, tone: 'info' },\n          { label: 'Organic', value: data.organic, tone: 'success' },\n          { label: 'Paid', value: data.paid, tone: 'warning' }\n        ]}\n      />\n    </StatCard>\n  );\n}\n"
+    }
+  ]
+}

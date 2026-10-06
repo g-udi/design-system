@@ -17,6 +17,14 @@ import { Calendar } from '@gaudi/design-system';
 
 `DateSelector` combines an is/before/after/between filter, period tabs and a calendar or period grid, with optional typed input. Pass `value` / `onChange` and translate every string with `i18n`.
 
+The period grid shows `yearRange` years (10 by default) around `baseYear`, or the current year when omitted. Pass both `minYear` and `maxYear` to supply an explicit inclusive year window.
+
+An empty `value` clears a previous selection, including a cancelled draft in an overlay that is still closing. Hosts keep committed and draft values separate when using Apply and Cancel.
+
 ## Accessibility
 
 Days are buttons in a grid with the full date as their name. Arrow keys move by day and week, Page Up and Page Down by month, and disabled days cannot be picked.
+
+## Implementation ownership
+
+`Calendar` owns the DayPicker bridge. DateSelector formatting, labels, state and context are separate from its private day/period views and controls. All supported exports remain available from the Calendar entry.

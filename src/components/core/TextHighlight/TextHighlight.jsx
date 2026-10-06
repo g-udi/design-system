@@ -1,5 +1,5 @@
 import { createVariants } from '../../../utilities/variants';
-import { buttonToneAliases } from '../Button/Button.tones';
+import { buttonToneAliases } from '../Button/buttonTones';
 
 // One class set per semantic colour; the named tones resolve through the shared Button tone aliases.
 const semanticClasses = {

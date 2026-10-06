@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-team-roles",
+  "type": "registry:example",
+  "title": "Team members and roles",
+  "description": "Team members and roles. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-24.svg, /avatars/person-41.svg, /avatars/person-50.svg.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--team-roles",
+    "source": "src/components/core/Item/stories/fixtures/item/item-team-roles.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-50.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-team-roles.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport Link from '@gaudi/design-system/core/Link';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarBadge,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// People rows: an avatar with presence, a role badge and a row menu, plus a\n// pending invite whose action is a button instead.\nconst presence = { online: ['Online', 'bg-success'], away: ['Away', 'bg-warning'], offline: ['Offline', 'bg-ui-muted-foreground'] };\nconst members = [\n  { name: 'Sabine Okafor', email: 'sabine@example.com', avatar: '/avatars/person-20.svg', role: 'Admin', roleVariant: 'default', presence: 'online' },\n  { name: 'Anouk Varga', email: 'anouk@example.com', avatar: '/avatars/person-41.svg', role: 'Editor', roleVariant: 'info-light', presence: 'away' },\n  { name: 'Juno Saarinen', email: 'juno@example.com', avatar: '/avatars/person-24.svg', role: 'Viewer', roleVariant: 'outline', presence: 'offline' },\n  { name: 'Ottilie Nakamura', email: 'ottilie@example.com', avatar: '/avatars/person-50.svg', invited: true }\n];\nconst initials = (name) => name.split(' ').map((part) => part[0]).join('');\n\nexport function Pattern() {\n  const [people, setPeople] = useState(members);\n  const [notice, setNotice] = useState('');\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col'>\n      <ItemGroup>\n        {people.map((member) => (\n          <Item key={member.email} variant='outline' size='xs'>\n            <ItemMedia>\n              <Avatar>\n                <AvatarImage src={member.avatar} alt={member.name} />\n                <AvatarFallback>{initials(member.name)}</AvatarFallback>\n                {member.presence ? (\n                  <AvatarBadge className={presence[member.presence][1]}>\n                    <span className='sr-only'>{presence[member.presence][0]}</span>\n                  </AvatarBadge>\n                ) : null}\n              </Avatar>\n            </ItemMedia>\n            <ItemContent>\n              <ItemTitle>{member.name}</ItemTitle>\n              <ItemDescription>{member.invited ? 'Invitation sent 2 days ago' : member.email}</ItemDescription>\n            </ItemContent>\n            <ItemActions>\n              {member.invited ? (\n                <Button variant='outline' size='sm' onClick={() => setNotice(`Invitation resent to ${member.name} in this demo.`)}>Resend</Button>\n              ) : (\n                <>\n                  <Badge variant={member.roleVariant} size='sm'>{member.role}</Badge>\n                  <DropdownMenu>\n                    <DropdownMenuTrigger asChild>\n                      <Button variant='ghost' size='icon-sm'>\n                        <RegistryIcon lucide='MoreHorizontalIcon' />\n                        <span className='sr-only'>Actions for {member.name}</span>\n                      </Button>\n                    </DropdownMenuTrigger>\n                    <DropdownMenuContent align='end'>\n                      <DropdownMenuItem onSelect={() => setPeople((current) => current.map((person) => person.email === member.email ? { ...person, role: person.role === 'Viewer' ? 'Editor' : 'Viewer', roleVariant: 'outline' } : person))}>Change role</DropdownMenuItem>\n                      <DropdownMenuItem asChild><Link variant='bare' href={`/team/${encodeURIComponent(member.email)}`}>View profile</Link></DropdownMenuItem>\n                      <DropdownMenuSeparator />\n                      <DropdownMenuItem variant='destructive' onSelect={() => { setPeople((current) => current.filter((person) => person.email !== member.email)); setNotice(`${member.name} removed from this demo.`); }}>Remove</DropdownMenuItem>\n                    </DropdownMenuContent>\n                  </DropdownMenu>\n                </>\n              )}\n            </ItemActions>\n          </Item>\n        ))}\n      </ItemGroup>\n      <p role='status' className='text-xs text-text-muted'>{notice}</p>\n      {people.length < members.length ? <Button variant='outline' size='sm' onClick={() => { setPeople(members); setNotice('Demo members restored.'); }}>Restore members</Button> : null}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

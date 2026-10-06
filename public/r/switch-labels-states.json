@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch-labels-states",
+  "type": "registry:example",
+  "title": "Labels and states",
+  "description": "Labels and states. Core/Switch pattern composed from @gaudi/design-system/core/Switch and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "switch",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Switch",
+    "import": "@gaudi/design-system/core/Switch",
+    "storyId": "core-switch--labels-states",
+    "source": "src/components/core/Switch/stories/fixtures/switch/switch-labels-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/switch-labels-states.jsx",
+      "type": "registry:component",
+      "content": "import { useId } from 'react';\nimport { BadgeRoot as Badge } from '@gaudi/design-system/core/Pill';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nfunction Row({ label, children, ...props }) {\n  const id = useId();\n  return (\n    <div className='flex items-center gap-2'>\n      <Switch id={id} {...props} />\n      <Label htmlFor={id}>{label}</Label>\n      {children}\n    </div>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <TooltipProvider>\n      <div className='mx-auto grid w-full max-w-xs gap-3'>\n        <Row label='Airplane mode' />\n        <Row label='Two-factor authentication' defaultChecked>\n          <Tooltip>\n            <TooltipTrigger className='text-text-muted' aria-label='About two-factor authentication'>\n              <RegistryIcon lucide='HelpCircleIcon' aria-hidden='true' className='size-3.5' />\n            </TooltipTrigger>\n            <TooltipContent side='right'>Requires a verification code on sign-in.</TooltipContent>\n          </Tooltip>\n        </Row>\n        <Row label='AI copilot' defaultChecked>\n          <Badge size='sm'>New</Badge>\n        </Row>\n        <Row label='Smart suggestions'>\n          <Badge variant='secondary' size='sm'>\n            Beta\n          </Badge>\n        </Row>\n        <Row label='Disabled (Unchecked)' disabled />\n        <Row label='Disabled (Checked)' defaultChecked disabled />\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

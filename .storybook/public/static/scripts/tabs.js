@@ -1,4 +1,5 @@
-
+// Client script from rehype-code-group 0.1.3 (https://github.com/ITZSHOAIB/rehype-code-group),
+// MIT License, Copyright (c) 2024 Sohab Sk. The full notice is in ./LICENSE and THIRD_PARTY_LICENSES.
 const codeGroups = document.querySelectorAll('.rehype-code-group');
 
 codeGroups.forEach((group) => {

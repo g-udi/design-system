@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirmation-status-notice",
+  "type": "registry:example",
+  "title": "Notice with a status badge",
+  "description": "Notice with a status badge. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "confirmation",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--confirmation-status-notice",
+    "source": "src/components/core/Dialog/stories/fixtures/confirmation/confirmation-status-notice.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/confirmation-status-notice.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  DialogConfirmationRoot as DialogConfirmation,\n  DialogConfirmationAction,\n  DialogConfirmationCancel,\n  DialogConfirmationContent,\n  DialogConfirmationDescription,\n  DialogConfirmationFooter,\n  DialogConfirmationMedia,\n  DialogConfirmationTitle,\n  DialogConfirmationTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// The same notice layout in two tones: a status badge under the title, the details on a muted panel.\nconst NOTICES = [\n  {\n    trigger: 'System update',\n    icon: 'ShieldAlertIcon',\n    media: 'bg-info-muted text-info',\n    title: 'System update available',\n    badge: { variant: 'success-light', label: 'Release v28.1.0 (2026-01-12)' },\n    description: 'A new version is ready. Restarting now applies the latest security patches and features.',\n    action: 'Update now'\n  },\n  {\n    trigger: 'Subscription expiring',\n    icon: 'BellIcon',\n    media: 'bg-danger-muted text-danger',\n    title: 'Subscription expiring soon',\n    badge: { variant: 'destructive-light', label: 'Expires in 2 days' },\n    description: 'Update your payment method now to keep uninterrupted access to your Pro features.',\n    action: 'Update payment'\n  }\n];\n\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      {NOTICES.map((notice) => (\n        <DialogConfirmation key={notice.trigger}>\n          <DialogConfirmationTrigger asChild>\n            <Button size='sm' variant='outline'>{notice.trigger}</Button>\n          </DialogConfirmationTrigger>\n          <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-sm'>\n            <div className='flex flex-col items-center gap-2 p-6 text-center'>\n              <DialogConfirmationMedia className={`size-10 rounded-full ${notice.media}`}>\n                <RegistryIcon lucide={notice.icon} className='size-5' />\n              </DialogConfirmationMedia>\n              <DialogConfirmationTitle>{notice.title}</DialogConfirmationTitle>\n              <Badge variant={notice.badge.variant}>{notice.badge.label}</Badge>\n            </div>\n            <div className='grid gap-3 border-t border-border bg-surface-muted p-4'>\n              <DialogConfirmationDescription className='text-center'>\n                {notice.description}\n              </DialogConfirmationDescription>\n              <DialogConfirmationFooter className='mx-0 mb-0 border-0 bg-transparent p-0'>\n                <DialogConfirmationCancel>Remind me later</DialogConfirmationCancel>\n                <DialogConfirmationAction>{notice.action}</DialogConfirmationAction>\n              </DialogConfirmationFooter>\n            </div>\n          </DialogConfirmationContent>\n        </DialogConfirmation>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

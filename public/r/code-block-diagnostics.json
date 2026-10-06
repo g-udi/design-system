@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block-diagnostics",
+  "type": "registry:example",
+  "title": "Diagnostics with fixes",
+  "description": "Diagnostics with fixes. Core/Data Display/CodeBlock pattern composed from @gaudi/design-system/core/CodeBlock and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "code-block",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/CodeBlock",
+    "import": "@gaudi/design-system/core/CodeBlock",
+    "storyId": "core-codeblock--diagnostics",
+    "source": "src/components/core/CodeBlock/stories/fixtures/code-block/code-block-diagnostics.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/code-block-diagnostics.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  CodeBlock,\n  CodeBlockHeader,\n  CodeBlockLineActions,\n  CodeBlockTitle\n} from '@gaudi/design-system/core/CodeBlock';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n/* Each diagnostic carries the line it sits on and the replacement a fix\n   applies. */\nconst issues = [\n  {\n    id: 'reduce',\n    level: 'error',\n    line: 3,\n    before: '  const subtotal = lines.reduce((sum, amount) => sum + amount)',\n    after: '  const subtotal = lines.reduce((sum, amount) => sum + amount, 0)'\n  },\n  {\n    id: 'radix',\n    level: 'warning',\n    line: 4,\n    before: '  const tax = parseInt(invoice.taxRate) * subtotal',\n    after: '  const tax = Number(invoice.taxRate) * subtotal'\n  }\n];\nconst head = `export function totalDue(invoice: Invoice) {\n  const lines = invoice.lines.map((line) => line.amount)`;\nconst tail = `  return subtotal + tax\n}`;\nexport function Pattern() {\n  const [fixed, setFixed] = useState([]);\n  const open = issues.filter((issue) => !fixed.includes(issue.id));\n  const code = [\n    head,\n    ...issues.map((issue) => (fixed.includes(issue.id) ? issue.after : issue.before)),\n    tail\n  ].join('\\n');\n  const levels = {};\n  for (const issue of open) (levels[issue.level] ??= []).push(issue.line);\n  const fix = (line) => {\n    const issue = issues.find((entry) => entry.line === line);\n    setFixed((current) => [...current, issue.id]);\n  };\n  return (\n    <div className='w-full max-w-2xl'>\n      <CodeBlock code={code} language='typescript' showLineNumbers lineLevels={levels}>\n        <CodeBlockHeader>\n          <CodeBlockTitle>invoice.ts</CodeBlockTitle>\n          <div className='ml-auto flex items-center gap-1.5'>\n            {open.some((issue) => issue.level === 'error') && (\n              <Badge variant='destructive-light'>1 error</Badge>\n            )}\n            {open.some((issue) => issue.level === 'warning') && (\n              <Badge variant='warning-light'>1 warning</Badge>\n            )}\n            {open.length === 0 && <Badge variant='success-light'>No problems</Badge>}\n            {fixed.length > 0 && (\n              <Button size='xs' variant='ghost' onClick={() => setFixed([])}>\n                Undo\n              </Button>\n            )}\n          </div>\n        </CodeBlockHeader>\n\n        {/* One action group is registered for the whole block and rendered in\n         whichever row is active, so a long file costs a single button. It\n         reads the row's state, so a fix is only offered where a diagnostic\n         sits. */}\n        <CodeBlockLineActions>\n          {({ line, state }) =>\n            state?.level === 'error' ? (\n              <Button size='xs' onClick={() => fix(line)}>\n                <RegistryIcon lucide='SparklesIcon' />\n                Fix with AI\n              </Button>\n            ) : state?.level === 'warning' ? (\n              <Button\n                size='xs'\n                variant='outline'\n                className='bg-ui-background'\n                onClick={() => fix(line)}\n              >\n                Fix line {line}\n              </Button>\n            ) : null\n          }\n        </CodeBlockLineActions>\n      </CodeBlock>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

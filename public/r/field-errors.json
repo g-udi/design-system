@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field-errors",
+  "type": "registry:example",
+  "title": "Validation errors",
+  "description": "Validation errors. Core/Field pattern composed from @gaudi/design-system/core/Field and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "field",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Field",
+    "import": "@gaudi/design-system/core/Field",
+    "storyId": "core-field--errors",
+    "source": "src/components/core/Field/stories/fixtures/field/field-errors.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/field-errors.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldErrorPrimitive as FieldError,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput\n} from '@gaudi/design-system/core/Input';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { EmailInput } from '@gaudi/design-system/core/Input';\nexport function Pattern() {\n  const id = useId();\n  const [email, setEmail] = useState('invalid-email');\n  const [emailInvalid, setEmailInvalid] = useState(true);\n  const [password, setPassword] = useState('short');\n  const [confirmation, setConfirmation] = useState('');\n  const [status, setStatus] = useState('');\n  const passwordErrors = [\n    password.length < 8 && { message: 'Must be at least 8 characters.' },\n    !/[0-9]/.test(password) && { message: 'Must contain at least one number.' }\n  ].filter(Boolean);\n  const confirmationInvalid = confirmation !== password;\n  return (\n    <form className='mx-auto w-full max-w-xs' onSubmit={(event) => { event.preventDefault(); setStatus('Account details validated in this demo.'); }}>\n      <FieldGroup>\n        <Field data-invalid={emailInvalid || undefined}>\n          <FieldLabel htmlFor='val-email'>\n            Email <span className='text-danger'>*</span>\n          </FieldLabel>\n          <EmailInput\n            id='val-email'\n            prefix={<RegistryIcon lucide='MailIcon' aria-hidden='true' />}\n            value={email}\n            required\n            aria-invalid={emailInvalid || undefined}\n            aria-describedby={emailInvalid ? `${id}-email-error` : undefined}\n            onChange={(event) => { setEmail(event.target.value); setEmailInvalid(!event.target.validity.valid); setStatus(''); }}\n            placeholder='you@example.com'\n          />\n          {emailInvalid ? <FieldError id={`${id}-email-error`}>Please enter a valid email address.</FieldError> : null}\n        </Field>\n        <Field data-invalid={passwordErrors.length > 0 || undefined}>\n          <FieldLabel htmlFor='val-password'>\n            Password <span className='text-danger'>*</span>\n          </FieldLabel>\n          <InputGroup>\n            <InputGroupAddon>\n              <RegistryIcon lucide='LockIcon' aria-hidden='true' />\n            </InputGroupAddon>\n            <InputGroupInput\n              id='val-password'\n              type='password'\n              value={password}\n              required\n              aria-invalid={passwordErrors.length > 0 || undefined}\n              aria-describedby={passwordErrors.length ? `${id}-password-error` : undefined}\n              onChange={(event) => { setPassword(event.target.value); setStatus(''); }}\n              placeholder='Enter password'\n            />\n          </InputGroup>\n          <FieldError id={`${id}-password-error`} errors={passwordErrors} />\n        </Field>\n        <Field>\n          <FieldLabel htmlFor='val-confirm'>Confirm Password</FieldLabel>\n          <InputGroup>\n            <InputGroupAddon>\n              <RegistryIcon lucide='LockIcon' aria-hidden='true' />\n            </InputGroupAddon>\n            <InputGroupInput\n              id='val-confirm'\n              type='password'\n              placeholder='Repeat password'\n              value={confirmation}\n              onChange={(event) => { setConfirmation(event.target.value); setStatus(''); }}\n              required\n              aria-invalid={confirmation && confirmationInvalid ? true : undefined}\n              aria-describedby={`${id}-confirm-help`}\n            />\n          </InputGroup>\n          <FieldDescription id={`${id}-confirm-help`}>\n            {confirmation && confirmationInvalid ? 'Passwords must match.' : 'Re-enter your password to confirm.'}\n          </FieldDescription>\n        </Field>\n        <Button type='submit' className='w-full' disabled={emailInvalid || passwordErrors.length > 0 || confirmationInvalid}>Create Account</Button>\n        <p role='status' className='text-sm text-text-muted'>{status}</p>\n      </FieldGroup>\n    </form>\n  );\n}\n"
+    }
+  ]
+}

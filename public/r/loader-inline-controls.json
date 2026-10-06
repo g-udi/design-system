@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader-inline-controls",
+  "type": "registry:example",
+  "title": "In buttons, badges and inputs",
+  "description": "In buttons, badges and inputs. Core/Loader pattern composed from @gaudi/design-system/core/Loader and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "loader",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Loader",
+    "import": "@gaudi/design-system/core/Loader",
+    "storyId": "core-loader--inline-controls",
+    "source": "src/components/core/Loader/stories/fixtures/loader/loader-inline-controls.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/loader-inline-controls.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput\n} from '@gaudi/design-system/core/Input';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nconst Row = ({ label, children }) => (\n  <div className='contents'>\n    <span className='text-xs text-text-muted'>{label}</span>\n    <div className='flex flex-wrap items-center gap-2'>{children}</div>\n  </div>\n);\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-2xl grid-cols-1 sm:grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-3'>\n      <Row label='Buttons'>\n        <Button disabled>\n          <Loader data-icon='inline-start' /> Saving…\n        </Button>\n        <Button variant='secondary' disabled>\n          <Loader data-icon='inline-start' /> Processing\n        </Button>\n        <Button variant='outline' disabled>\n          <Loader data-icon='inline-start' /> Loading\n        </Button>\n        <Button variant='outline' size='icon' disabled aria-label='Loading'>\n          <Loader />\n        </Button>\n      </Row>\n      <Row label='Badges'>\n        <Badge>\n          <Loader data-icon='inline-start' /> Updating\n        </Badge>\n        <Badge variant='secondary'>\n          <Loader data-icon='inline-start' /> Syncing\n        </Badge>\n        <Badge variant='outline'>\n          <Loader data-icon='inline-start' /> Loading\n        </Badge>\n        <Badge variant='success-light'>\n          <Loader data-icon='inline-start' /> Deploying\n        </Badge>\n        <Badge variant='destructive-light'>\n          <Loader data-icon='inline-start' /> Rolling back\n        </Badge>\n      </Row>\n      <Row label='Input'>\n        <InputGroup className='w-full max-w-64'>\n          <InputGroupInput aria-label='Search records' placeholder='Search records…' defaultValue='invoices' />\n          <InputGroupAddon align='inline-end'>\n            <Loader aria-label='Searching' />\n          </InputGroupAddon>\n        </InputGroup>\n      </Row>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

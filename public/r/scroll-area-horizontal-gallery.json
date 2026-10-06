@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area-horizontal-gallery",
+  "type": "registry:example",
+  "title": "Horizontal gallery",
+  "description": "Horizontal gallery. Core/Layout & Containers/ScrollArea pattern composed from @gaudi/design-system/core/ScrollArea and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "scroll-area",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ScrollArea",
+    "import": "@gaudi/design-system/core/ScrollArea",
+    "storyId": "core-scrollarea--horizontal-gallery",
+    "source": "src/components/core/ScrollArea/stories/fixtures/scroll-area/scroll-area-horizontal-gallery.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/scroll-area-horizontal-gallery.jsx",
+      "type": "registry:component",
+      "content": "import { cn } from '@gaudi/design-system/utilities/cn';\nimport {\n  ScrollArea,\n  ScrollBar\n} from '@gaudi/design-system/core/ScrollArea';\n\n// Masks fade whichever edge still has content to scroll to, and the gutter\n// padding appears only on an axis that overflows, so the bar never covers a card.\nconst fadeEdges = [\n  '**:data-[slot=scroll-area-viewport]:[--fade-size:2rem]',\n  '**:data-[slot=scroll-area-viewport]:mask-l-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-start)))]',\n  '**:data-[slot=scroll-area-viewport]:mask-r-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-end)))]',\n  '**:data-[slot=scroll-area-viewport]:mask-t-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-start)))]',\n  '**:data-[slot=scroll-area-viewport]:mask-b-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-end)))]'\n];\nconst artworks = Array.from({ length: 10 }, (_, index) => ({\n  src: `static/images/art/${(index + 1) % 12}.svg`,\n  title: `Study ${index + 1}`\n}));\n\nexport function Pattern() {\n  return (\n    <ScrollArea\n      aria-label='Gallery'\n      className={cn(\n        'mx-auto w-full max-w-md rounded-2xl border border-ui-border data-has-overflow-x:pb-2.5 data-has-overflow-y:pe-2.5',\n        fadeEdges\n      )}\n    >\n      <ul className='flex w-max gap-3 p-3'>\n        {artworks.map(({ src, title }) => (\n          <li key={src} className='grid w-36 shrink-0 gap-1.5'>\n            <img src={src} alt={title} className='h-24 w-full rounded-xl border border-ui-border object-cover' />\n            <span className='text-xs font-medium'>{title}</span>\n          </li>\n        ))}\n      </ul>\n      <ScrollBar orientation='horizontal' />\n    </ScrollArea>\n  );\n}\n"
+    }
+  ]
+}

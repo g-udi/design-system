@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip-people",
+  "type": "registry:example",
+  "title": "People",
+  "description": "People. Core/Tooltip pattern composed from @gaudi/design-system/core/Tooltip and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "tooltip",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Tooltip",
+    "import": "@gaudi/design-system/core/Tooltip",
+    "storyId": "core-tooltip--people",
+    "source": "src/components/core/Tooltip/stories/fixtures/tooltip/tooltip-people.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/tooltip-people.jsx",
+      "type": "registry:component",
+      "content": "import Button from '@gaudi/design-system/core/Button';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarGroup,\n  AvatarBadge,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nconst people = [\n  { name: 'Ilse Valtonen', email: 'ilse@example.com', role: 'Admin', online: true, photo: 'person-24', initials: 'IV' },\n  { name: 'Felix Okonjo', email: 'felix@example.com', role: 'Editor', online: true, photo: 'person-41', initials: 'FO' },\n  { name: 'Priyanka Nairn', email: 'priyanka@example.com', role: 'Viewer', online: false, photo: 'person-23', initials: 'PN' }\n];\nexport function Pattern() {\n  return (\n    <TooltipProvider>\n      <AvatarGroup className='justify-center'>\n        {people.map((person) => (\n          <Tooltip key={person.name}>\n            <TooltipTrigger asChild>\n              <Button variant='ghost' size='icon' aria-label={person.name} className='relative rounded-full ring-2 ring-surface'>\n                <Avatar>\n                  <AvatarImage src={`/avatars/${person.photo}.svg`} alt='' />\n                  <AvatarFallback>{person.initials}</AvatarFallback>\n                </Avatar>\n                {person.online ? (\n                  <AvatarBadge className='bg-success' />\n                ) : null}\n              </Button>\n            </TooltipTrigger>\n            <TooltipContent className='flex items-center gap-2 p-2'>\n              <Avatar>\n                <AvatarImage src={`/avatars/${person.photo}.svg`} alt='' />\n                <AvatarFallback>{person.initials}</AvatarFallback>\n              </Avatar>\n              <div className='flex flex-col gap-0.5'>\n                <div className='flex items-center gap-1'>\n                  <span className='font-semibold'>{person.name}</span>\n                  <Badge variant='info' size='xs'>{person.role}</Badge>\n                </div>\n                <span className='opacity-80'>{person.email}</span>\n                <span className='flex items-center gap-1.5 opacity-80'>\n                  <span className={`block size-1.5 shrink-0 rounded-full ${person.online ? 'bg-success' : 'bg-text-muted'}`} />\n                  {person.online ? 'Online now' : 'Away'}\n                </span>\n              </div>\n            </TooltipContent>\n          </Tooltip>\n        ))}\n      </AvatarGroup>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

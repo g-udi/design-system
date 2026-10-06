@@ -1,0 +1,25 @@
+@layer components {
+  .ds-part-breadcrumb-list {
+    @apply text-ui-muted-foreground gap-1.5 text-sm;
+  }
+
+  .ds-part-breadcrumb-item {
+    @apply gap-1;
+  }
+
+  .ds-part-breadcrumb-link {
+    @apply hover:text-ui-foreground transition-colors;
+  }
+
+  .ds-part-breadcrumb-page {
+    @apply text-ui-foreground font-normal;
+  }
+
+  .ds-part-breadcrumb-separator {
+    @apply [&>svg]:size-3.5;
+  }
+
+  .ds-part-breadcrumb-ellipsis {
+    @apply size-5 [&>svg]:size-4;
+  }
+}

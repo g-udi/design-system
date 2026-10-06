@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-header-footer",
+  "type": "registry:example",
+  "title": "Header and footer",
+  "description": "Header and footer. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-20.svg, /avatars/person-44.svg.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--header-footer",
+    "source": "src/components/core/Item/stories/fixtures/item/item-header-footer.jsx",
+    "assets": [
+      "/avatars/person-07.svg",
+      "/avatars/person-20.svg",
+      "/avatars/person-44.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-header-footer.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemFooter,\n  ItemHeader,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-3'>\n      <Item variant='outline'>\n        <ItemHeader>\n          <div className='flex items-center gap-2'>\n            <RegistryIcon\n              lucide='FolderIcon'\n              className='text-ui-muted-foreground size-3.5'\n              aria-hidden='true'\n            />\n            <span className='text-ui-muted-foreground text-xs'>Project</span>\n          </div>\n          <Badge variant='info-light' size='xs'>\n            In Progress\n          </Badge>\n        </ItemHeader>\n        <ItemContent>\n          <ItemTitle>Website Redesign</ItemTitle>\n          <ItemDescription>\n            Complete overhaul of the marketing site with a focus on conversion\n            optimization and modern design patterns.\n          </ItemDescription>\n        </ItemContent>\n        <ItemActions>\n          <Button href='/projects/website-redesign' variant='outline' size='sm'>\n            Open\n          </Button>\n        </ItemActions>\n        <ItemFooter>\n          <AvatarGroup>\n            <Avatar size='sm'>\n              <AvatarImage\n                src='/avatars/person-20.svg'\n                alt='SC'\n              />\n              <AvatarFallback>SC</AvatarFallback>\n            </Avatar>\n            <Avatar size='sm'>\n              <AvatarImage\n                src='/avatars/person-44.svg'\n                alt='AJ'\n              />\n              <AvatarFallback>AJ</AvatarFallback>\n            </Avatar>\n            <Avatar size='sm'>\n              <AvatarImage\n                src='/avatars/person-07.svg'\n                alt='EP'\n              />\n              <AvatarFallback>EP</AvatarFallback>\n            </Avatar>\n          </AvatarGroup>\n          <div className='flex items-center gap-2'>\n            <Progress value={65} className='w-20' />\n            <span className='text-ui-muted-foreground text-xs'>65%</span>\n          </div>\n        </ItemFooter>\n      </Item>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

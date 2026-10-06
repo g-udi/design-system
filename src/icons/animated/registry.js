@@ -261,6 +261,7 @@ export const animatedIconRegistry = {
   "FileText": artwork40,
   "FileType2": drawIcons["FileType2"],
   "Filter": drawIcons["Funnel"],
+  "Fingerprint": drawIcons["Fingerprint"],
   "FingerprintPattern": drawIcons["Fingerprint"],
   "Flag": drawIcons["Flag"],
   "Flame": drawIcons["Flame"],
@@ -399,9 +400,11 @@ export const animatedIconRegistry = {
   "Phone": artwork71,
   "PhoneCall": artwork72,
   "PhotoIcon": drawIcons["Image"],
+  "PictureInPicture2": drawIcons["PictureInPicture2"],
   "PieChart": artwork73,
   "Pin": drawIcons["Pin"],
   "PinOff": drawIcons["PinOff"],
+  "Pipette": drawIcons["Pipette"],
   "Plane": drawIcons["Plane"],
   "Play": drawIcons["Play"],
   "Plus": artwork74,
@@ -412,6 +415,7 @@ export const animatedIconRegistry = {
   "Puzzle": drawIcons["Puzzle"],
   "python": drawIcons["CodeXml"],
   "QrCode": drawIcons["QrCode"],
+  "Quote": drawIcons["Quote"],
   "Radio": drawIcons["Radio"],
   "RadioTower": artwork75,
   "react": drawIcons["Atom"],
@@ -505,6 +509,7 @@ export const animatedIconRegistry = {
   "Users": drawIcons["Users"],
   "UsersRound": drawIcons["UsersRound"],
   "Video": drawIcons["Video"],
+  "VideoOff": drawIcons["VideoOff"],
   "Volume2": drawIcons["Volume2"],
   "VolumeOff": drawIcons["VolumeOff"],
   "VolumeX": drawIcons["VolumeX"],
@@ -1208,6 +1213,10 @@ export const animatedIconMetadata = {
     "canonical": "Funnel",
     "source": "gaudi-draw"
   },
+  "Fingerprint": {
+    "canonical": "Fingerprint",
+    "source": "gaudi-draw"
+  },
   "FingerprintPattern": {
     "canonical": "Fingerprint",
     "source": "gaudi-draw"
@@ -1799,6 +1808,10 @@ export const animatedIconMetadata = {
     "canonical": "Image",
     "source": "gaudi-draw"
   },
+  "PictureInPicture2": {
+    "canonical": "PictureInPicture2",
+    "source": "gaudi-draw"
+  },
   "PieChart": {
     "canonical": "ChartPie",
     "source": "lucide-animated",
@@ -1810,6 +1823,10 @@ export const animatedIconMetadata = {
   },
   "PinOff": {
     "canonical": "PinOff",
+    "source": "gaudi-draw"
+  },
+  "Pipette": {
+    "canonical": "Pipette",
     "source": "gaudi-draw"
   },
   "Plane": {
@@ -1852,6 +1869,10 @@ export const animatedIconMetadata = {
   },
   "QrCode": {
     "canonical": "QrCode",
+    "source": "gaudi-draw"
+  },
+  "Quote": {
+    "canonical": "Quote",
     "source": "gaudi-draw"
   },
   "Radio": {
@@ -2247,6 +2268,10 @@ export const animatedIconMetadata = {
   },
   "Video": {
     "canonical": "Video",
+    "source": "gaudi-draw"
+  },
+  "VideoOff": {
+    "canonical": "VideoOff",
     "source": "gaudi-draw"
   },
   "Volume2": {

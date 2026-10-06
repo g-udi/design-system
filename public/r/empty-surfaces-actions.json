@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "empty-surfaces-actions",
+  "type": "registry:example",
+  "title": "Surfaces and actions",
+  "description": "Surfaces and actions. Core/Feedback & States/EmptyState pattern composed from @gaudi/design-system/core/EmptyState and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "empty",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/EmptyState",
+    "import": "@gaudi/design-system/core/EmptyState",
+    "storyId": "core-emptystate--surfaces-actions",
+    "source": "src/components/core/EmptyState/stories/fixtures/empty/empty-surfaces-actions.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/empty-surfaces-actions.jsx",
+      "type": "registry:component",
+      "content": "import { useFileUpload } from '@gaudi/design-system/core/FileUpload';\nimport Link from '@gaudi/design-system/core/Link';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nexport function Pattern() {\n  const [{ files, errors, isDragging }, { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, openFileDialog, getInputProps, clearFiles }] = useFileUpload({ accept: 'image/png,image/jpeg,image/svg+xml', multiple: true, maxSize: 10 * 1024 * 1024 });\n  return (\n    <div className='mx-auto grid w-full max-w-3xl gap-3 sm:grid-cols-2'>\n      <Empty className='rounded-lg py-6'>\n        <EmptyHeader>\n          <EmptyTitle>No collections yet</EmptyTitle>\n          <EmptyDescription>Group related posts into a collection to give readers a path through them.</EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent>\n          <div className='flex gap-2'>\n            <Button size='sm' href='/projects/new'>Create collection</Button>\n            <Button size='sm' variant='outline' href='/projects/import'>Import</Button>\n          </div>\n          <Button size='sm' variant='link' asChild className='text-ui-muted-foreground'>\n            <a href='/docs/projects'>\n              Learn more <RegistryIcon lucide='ArrowUpRightIcon' />\n            </a>\n          </Button>\n        </EmptyContent>\n      </Empty>\n      <Empty className='bg-ui-muted rounded-lg py-6'>\n        <EmptyHeader>\n          <EmptyMedia variant='icon'>\n            <RegistryIcon lucide='BellOffIcon' />\n          </EmptyMedia>\n          <EmptyTitle>No notifications</EmptyTitle>\n          <EmptyDescription>When you get notifications, they&apos;ll show up here.</EmptyDescription>\n        </EmptyHeader>\n      </Empty>\n      <Empty className='rounded-lg border border-solid py-6'>\n        <EmptyHeader>\n          <EmptyMedia variant='icon'>\n            <RegistryIcon lucide='FolderIcon' />\n          </EmptyMedia>\n          <EmptyTitle>This shelf is empty</EmptyTitle>\n          <EmptyDescription>\n            No posts yet. Get started by <Link href='/posts/new'>creating your first post</Link>.\n          </EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent>\n          <Button size='sm' variant='outline' href='/posts/new'>\n            <RegistryIcon lucide='PlusIcon' data-icon='inline-start' />\n            New post\n          </Button>\n        </EmptyContent>\n      </Empty>\n      <Empty className='rounded-lg border border-dashed py-6 data-[dragging=true]:border-accent' data-dragging={isDragging} onDragEnter={handleDragEnter} onDragLeave={handleDragLeave} onDragOver={handleDragOver} onDrop={handleDrop}>\n        <input {...getInputProps()} aria-label='Choose images' className='sr-only' />\n        <EmptyHeader>\n          <EmptyMedia variant='icon'>\n            <RegistryIcon lucide='CloudUploadIcon' />\n          </EmptyMedia>\n          <EmptyTitle>Upload files</EmptyTitle>\n          <EmptyDescription>Drag and drop files here, or click to browse.</EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent>\n          <Button variant='outline' size='sm' onClick={openFileDialog}>\n            <RegistryIcon lucide='PlusIcon' data-icon='inline-start' />\n            Browse files\n          </Button>\n          <EmptyDescription className='text-xs'>PNG, JPG, SVG up to 10MB. Files remain local in this demo.</EmptyDescription>\n          {files.length ? <><p role='status' className='text-xs'>{files.length} image{files.length === 1 ? '' : 's'} selected</p><Button size='sm' variant='ghost' onClick={clearFiles}>Clear files</Button></> : null}\n          {errors.length ? <p role='alert' className='text-xs text-danger'>{errors.join(' ')}</p> : null}\n        </EmptyContent>\n      </Empty>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

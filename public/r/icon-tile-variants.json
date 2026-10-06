@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-tile-variants",
+  "type": "registry:example",
+  "title": "Variants, sizes and shapes",
+  "description": "Variants, sizes and shapes. Core/Icon pattern composed from @gaudi/design-system/core/Icon and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "icon-tile",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Icon",
+    "import": "@gaudi/design-system/core/Icon",
+    "storyId": "core-icon--icon-tile-variants",
+    "source": "src/components/core/Icon/stories/fixtures/icon-tile/icon-tile-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/icon-tile-variants.jsx",
+      "type": "registry:component",
+      "content": "import { IconTile } from '@gaudi/design-system/core/Icon';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst variants = ['outline', 'elevated', 'soft', 'solid', 'frame'];\nconst sizes = ['xs', 'sm', 'default', 'lg', 'xl'];\nfunction Row({ label, align = 'items-center', children }) {\n  return (\n    <div className='grid grid-cols-[4.5rem_1fr] items-center gap-3'>\n      <span className='text-text-muted text-xs'>{label}</span>\n      <div className={`flex flex-wrap gap-2 ${align}`}>{children}</div>\n    </div>\n  );\n}\nfunction Captioned({ caption, children }) {\n  return (\n    <figure className='m-0 flex w-14 flex-col items-center gap-1'>\n      {children}\n      <figcaption className='text-text-muted text-xs'>{caption}</figcaption>\n    </figure>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col gap-3'>\n      <Row label='Variant' align='items-start'>\n        {variants.map((variant) => (\n          <Captioned key={variant} caption={variant}>\n            <IconTile variant={variant} aria-hidden='true'>\n              <RegistryIcon lucide='PackageIcon' />\n            </IconTile>\n          </Captioned>\n        ))}\n      </Row>\n      <Row label='Size' align='items-end'>\n        {sizes.map((size) => (\n          <Captioned key={size} caption={size}>\n            <IconTile variant='elevated' size={size} aria-hidden='true'>\n              <RegistryIcon lucide='PackageIcon' />\n            </IconTile>\n          </Captioned>\n        ))}\n      </Row>\n      <Row label='Circular'>\n        {variants.map((variant) => (\n          <span key={variant} className='flex w-14 justify-center'>\n            <IconTile variant={variant} radius='full' aria-hidden='true'>\n              <RegistryIcon lucide='GlobeIcon' />\n            </IconTile>\n          </span>\n        ))}\n      </Row>\n      <Row label='Custom' align='items-start'>\n        <Captioned caption='class'>\n          <IconTile variant='elevated' className='size-14' aria-hidden='true'>\n            <RegistryIcon lucide='ImageIcon' className='size-7' />\n          </IconTile>\n        </Captioned>\n        <Captioned caption='variables'>\n          <IconTile\n            variant='elevated'\n            className='[--icon-tile-icon-size:--spacing(7)] [--icon-tile-size:--spacing(14)]'\n            aria-hidden='true'\n          >\n            <RegistryIcon lucide='Settings2Icon' />\n          </IconTile>\n        </Captioned>\n        <Captioned caption='initials'>\n          <IconTile variant='elevated' className='text-xs font-medium'>\n            AK\n          </IconTile>\n        </Captioned>\n        <Captioned caption='count'>\n          <IconTile variant='outline' radius='full' className='text-text-muted text-xs font-medium'>\n            12\n          </IconTile>\n        </Captioned>\n        <Captioned caption='status'>\n          <span className='relative inline-flex' aria-hidden='true'>\n            <IconTile variant='elevated'>\n              <RegistryIcon lucide='GlobeIcon' />\n            </IconTile>\n            <span className='border-ui-background bg-success absolute -end-0.5 -top-0.5 size-3 rounded-full border-2' />\n          </span>\n        </Captioned>\n      </Row>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

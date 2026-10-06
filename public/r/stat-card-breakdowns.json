@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-breakdowns",
+  "type": "registry:block",
+  "title": "Breakdowns",
+  "description": "Breakdowns. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--breakdowns",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-breakdowns.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-breakdowns.jsx",
+      "type": "registry:component",
+      "content": "import { StatCard, StatMeter } from '@gaudi/design-system/blocks/StatCard';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst renewals = [\n  ['Northwind', 'Team', 'in 3 days'],\n  ['Litware', 'Business', 'in 5 days'],\n  ['Fabrikam', 'Team', 'in 9 days']\n];\n\nfunction Menu({ label, items }) {\n  return (\n    <DropdownMenu>\n      <DropdownMenuTrigger asChild>\n        <Button variant='ghost' size='icon-xs' aria-label={`${label} actions`}>\n          <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />\n        </Button>\n      </DropdownMenuTrigger>\n      <DropdownMenuContent align='end'>\n        {items.map((item) => (\n          <DropdownMenuItem key={item}>{item}</DropdownMenuItem>\n        ))}\n      </DropdownMenuContent>\n    </DropdownMenu>\n  );\n}\n\n// Three breakdowns that share one segmented meter: plan mix, compliance and adoption.\nexport function Pattern() {\n  return (\n    <div className='grid w-full max-w-5xl gap-3 lg:grid-cols-3'>\n      <StatCard label='Active subscriptions' value='2,148' delta='5.3%' deltaDirection='up' deltaTone='success'>\n        <StatMeter\n          label='By plan'\n          segments={[\n            { label: 'Starter', value: 1120, tone: 'info' },\n            { label: 'Team', value: 784, tone: 'warning' },\n            { label: 'Business', value: 212, tone: 'discovery' },\n            { label: 'Enterprise', value: 32, tone: 'attention' }\n          ]}\n        />\n        <div className='mt-2 grid gap-1.5'>\n          <p className='text-text-muted text-xs'>Expiring soon</p>\n          <ul className='grid gap-1.5 text-sm'>\n            {renewals.map(([account, plan, when]) => (\n              <li key={account} className='flex items-center gap-2'>\n                <span className='flex-1 font-medium'>{account}</span>\n                <Badge variant='outline' size='sm'>{plan}</Badge>\n                <span className='text-text-muted w-16 text-end text-xs'>{when}</span>\n              </li>\n            ))}\n          </ul>\n        </div>\n      </StatCard>\n      <StatCard\n        label='Compliance checks'\n        icon='ShieldCheckIcon'\n        tone='success'\n        value='94%'\n        description='188 of 200 controls passing'\n        action={<Menu label='Compliance' items={['Run checks now', 'View failing controls', 'Export evidence']} />}\n        footer='Last scan 12 minutes ago'\n      >\n        <StatMeter\n          segments={[\n            { label: 'Passing', value: 188, tone: 'success' },\n            { label: 'Needs review', value: 8, tone: 'warning' },\n            { label: 'Failing', value: 4, tone: 'danger' }\n          ]}\n        />\n      </StatCard>\n      <StatCard\n        label='Feature adoption'\n        icon='ZapIcon'\n        tone='discovery'\n        value='61%'\n        delta='9%' deltaDirection='up' deltaTone='success'\n        description='of active workspaces use at least one'\n        action={<Menu label='Adoption' items={['Open cohort', 'Compare releases']} />}\n      >\n        <StatMeter\n          formatValue={(value) => `${value}`}\n          segments={[\n            { label: 'Saved views', value: 42, tone: 'info' },\n            { label: 'Automations', value: 27, tone: 'discovery' },\n            { label: 'AI summaries', value: 19, tone: 'warning' },\n            { label: 'Not yet', value: 12, tone: 'neutral' }\n          ]}\n        />\n      </StatCard>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

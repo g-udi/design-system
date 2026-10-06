@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context-menu-item-kinds",
+  "type": "registry:example",
+  "title": "Context menu",
+  "description": "Context menu. Core/Overlays & Menus/DropdownMenu pattern composed from @gaudi/design-system/core/DropdownMenu and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "context-menu",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/DropdownMenu",
+    "import": "@gaudi/design-system/core/DropdownMenu",
+    "storyId": "core-dropdownmenu--context-menu-item-kinds",
+    "source": "src/components/core/DropdownMenu/stories/fixtures/context-menu/context-menu-item-kinds.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/context-menu-item-kinds.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  ContextMenu,\n  ContextMenuCheckboxItem,\n  ContextMenuContent,\n  ContextMenuGroup,\n  ContextMenuItem,\n  ContextMenuLabel,\n  ContextMenuRadioGroup,\n  ContextMenuRadioItem,\n  ContextMenuSeparator,\n  ContextMenuShortcut,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst clipboard = [\n  { label: 'Cut', icon: 'ScissorsIcon', shortcut: '⌘X' },\n  { label: 'Copy', icon: 'CopyIcon', shortcut: '⌘C' },\n  { label: 'Paste', icon: 'ClipboardIcon', shortcut: '⌘V', disabled: true }\n];\nconst views = [\n  { id: 'bookmarks', label: 'Show bookmarks bar' },\n  { id: 'urls', label: 'Show full URLs' }\n];\n// Every item kind in one menu: labels, icons, shortcuts, a disabled item, a submenu, checkboxes, radios and a destructive action.\nexport function Pattern() {\n  const [visible, setVisible] = useState({ bookmarks: true, urls: false });\n  const [zoom, setZoom] = useState('100');\n  return (\n    <div className='flex w-full items-center justify-center'>\n      <ContextMenu>\n        <ContextMenuTrigger className='text-text-muted border-border flex h-32 w-full max-w-xs items-center justify-center rounded-lg border border-dashed text-sm'>\n          Right click here\n        </ContextMenuTrigger>\n        <ContextMenuContent className='w-56'>\n          <ContextMenuGroup>\n            <ContextMenuLabel>Edit</ContextMenuLabel>\n            {clipboard.map((item) => (\n              <ContextMenuItem key={item.label} disabled={item.disabled}>\n                <RegistryIcon lucide={item.icon} aria-hidden='true' />\n                {item.label}\n                <ContextMenuShortcut>{item.shortcut}</ContextMenuShortcut>\n              </ContextMenuItem>\n            ))}\n            <ContextMenuSub>\n              <ContextMenuSubTrigger>\n                <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />\n                More tools\n              </ContextMenuSubTrigger>\n              <ContextMenuSubContent className='w-44'>\n                <ContextMenuItem>Save page…</ContextMenuItem>\n                <ContextMenuItem>Create shortcut…</ContextMenuItem>\n                <ContextMenuSeparator />\n                <ContextMenuItem>Developer tools</ContextMenuItem>\n              </ContextMenuSubContent>\n            </ContextMenuSub>\n          </ContextMenuGroup>\n          <ContextMenuSeparator />\n          <ContextMenuGroup>\n            <ContextMenuLabel>View</ContextMenuLabel>\n            {views.map((item) => (\n              <ContextMenuCheckboxItem\n                key={item.id}\n                checked={visible[item.id]}\n                onCheckedChange={(checked) => setVisible((prev) => ({ ...prev, [item.id]: checked }))}\n              >\n                {item.label}\n              </ContextMenuCheckboxItem>\n            ))}\n          </ContextMenuGroup>\n          <ContextMenuSeparator />\n          <ContextMenuGroup>\n            <ContextMenuLabel>Zoom</ContextMenuLabel>\n            <ContextMenuRadioGroup value={zoom} onValueChange={setZoom}>\n              {['75', '100', '150'].map((value) => (\n                <ContextMenuRadioItem key={value} value={value}>\n                  {value}%\n                </ContextMenuRadioItem>\n              ))}\n            </ContextMenuRadioGroup>\n          </ContextMenuGroup>\n          <ContextMenuSeparator />\n          <ContextMenuItem variant='destructive'>\n            <RegistryIcon lucide='TrashIcon' aria-hidden='true' />\n            Delete\n            <ContextMenuShortcut>⌫</ContextMenuShortcut>\n          </ContextMenuItem>\n        </ContextMenuContent>\n      </ContextMenu>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

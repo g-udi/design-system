@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block-line-states",
+  "type": "registry:example",
+  "title": "Line states",
+  "description": "Line states. Core/Data Display/CodeBlock pattern composed from @gaudi/design-system/core/CodeBlock and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "code-block",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/CodeBlock",
+    "import": "@gaudi/design-system/core/CodeBlock",
+    "storyId": "core-codeblock--line-states",
+    "source": "src/components/core/CodeBlock/stories/fixtures/code-block/code-block-line-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/code-block-line-states.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  CodeBlock,\n  CodeBlockCopyButton,\n  CodeBlockHeader,\n  CodeBlockTitle\n} from '@gaudi/design-system/core/CodeBlock';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport {\n  ToggleGroupRoot as ToggleGroup,\n  ToggleGroupItem\n} from '@gaudi/design-system/core/ToggleGroup';\nconst code = `export async function checkout(cart: Cart) {\n  const totals = computeTotals(cart)\n\n  const session = await payments.createSession({\n    amount: totals.total,\n    currency: cart.currency,\n    currency: cart.currency ?? \"EUR\",\n  })\n\n  audit.record(\"checkout.started\", session.id)\n  return session\n}`;\nconst states = [\n  { key: 'lines', label: 'Highlighted lines' },\n  { key: 'words', label: 'Highlighted words' },\n  { key: 'diff', label: 'Diff' },\n  { key: 'diagnostics', label: 'Diagnostics' }\n];\n/* Focus dims everything outside the step, for walking through a file. */\nconst steps = [\n  { value: 'totals', label: 'Totals', lines: '2' },\n  { value: 'session', label: 'Session', lines: '4-8' },\n  { value: 'audit', label: 'Audit', lines: '10-11' }\n];\nexport function Pattern() {\n  const [on, setOn] = useState({\n    lines: true,\n    words: true,\n    diff: true,\n    diagnostics: true\n  });\n  const [step, setStep] = useState('');\n  const focus = steps.find((entry) => entry.value === step);\n  return (\n    <div className='flex w-full max-w-2xl flex-col gap-3'>\n      <div\n        role='group'\n        aria-label='Line states'\n        className='flex flex-wrap items-center gap-x-4 gap-y-2'\n      >\n        {states.map((state) => (\n          <Label key={state.key} className='gap-2 text-sm font-normal'>\n            <Switch\n              size='sm'\n              checked={on[state.key]}\n              onCheckedChange={(checked) =>\n                setOn((current) => ({ ...current, [state.key]: checked }))\n              }\n            />\n            {state.label}\n          </Label>\n        ))}\n      </div>\n\n      <CodeBlock\n        code={code}\n        language='typescript'\n        showLineNumbers\n        highlightedLines={on.lines ? '4-5' : undefined}\n        highlightedWords={on.words ? ['computeTotals', 'createSession'] : undefined}\n        diff={on.diff ? { removed: [6], added: [7] } : undefined}\n        lineLevels={\n          on.diagnostics ? { warning: [10], info: [11] } : undefined\n        }\n        focusedLines={focus?.lines}\n      >\n        <CodeBlockHeader>\n          <CodeBlockTitle>checkout.ts</CodeBlockTitle>\n          {on.diagnostics && (\n            <>\n              <Badge variant='warning-light'>1 warning</Badge>\n              <Badge variant='info-light'>1 hint</Badge>\n            </>\n          )}\n          <div className='ml-auto flex items-center gap-2'>\n            <ToggleGroup\n              aria-label='Focus step'\n              variant='outline'\n              size='sm'\n              spacing={0}\n              type='single'\n              value={step}\n              onValueChange={setStep}\n            >\n              {steps.map((entry) => (\n                <ToggleGroupItem key={entry.value} value={entry.value}>\n                  {entry.label}\n                </ToggleGroupItem>\n              ))}\n            </ToggleGroup>\n            <CodeBlockCopyButton />\n          </div>\n        </CodeBlockHeader>\n      </CodeBlock>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

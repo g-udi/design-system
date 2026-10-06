@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb-workspace-path",
+  "type": "registry:example",
+  "title": "Workspace, user and document",
+  "description": "Workspace, user and document. Core/Navigation/Breadcrumb pattern composed from @gaudi/design-system/core/Breadcrumb and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "breadcrumb",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg, static/images/art/4.svg.",
+  "meta": {
+    "owner": "core/Breadcrumb",
+    "import": "@gaudi/design-system/core/Breadcrumb",
+    "storyId": "core-breadcrumb--workspace-path",
+    "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-workspace-path.jsx",
+    "assets": [
+      "/avatars/person-41.svg",
+      "static/images/art/4.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/breadcrumb-workspace-path.jsx",
+      "type": "registry:component",
+      "content": "import {\n  Frame,\n  FramePanel\n} from '@gaudi/design-system/core/Card';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  BreadcrumbRoot as Breadcrumb,\n  BreadcrumbItemPrimitive as BreadcrumbItem,\n  BreadcrumbLinkPrimitive as BreadcrumbLink,\n  BreadcrumbListPrimitive as BreadcrumbList,\n  BreadcrumbPagePrimitive as BreadcrumbPage,\n  BreadcrumbSeparatorPrimitive as BreadcrumbSeparator\n} from '@gaudi/design-system/core/Breadcrumb';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <Frame spacing='sm'>\n      <FramePanel>\n        <Breadcrumb>\n          <BreadcrumbList className='gap-3'>\n            <BreadcrumbItem>\n              <BreadcrumbLink\n                aria-label='Gaudi workspace'\n                href='#'\n                className='text-text flex items-center gap-2'\n              >\n                <Avatar className='size-6'>\n                  <AvatarImage src='static/images/art/4.svg' />\n                  <AvatarFallback>AC</AvatarFallback>\n                </Avatar>\n              </BreadcrumbLink>\n            </BreadcrumbItem>\n\n            <BreadcrumbSeparator className='text-text-muted'>\n              /\n            </BreadcrumbSeparator>\n\n            <BreadcrumbItem>\n              <BreadcrumbLink href='#' className='flex items-center gap-3'>\n                <Avatar className='size-6'>\n                  <AvatarImage\n                    src='/avatars/person-41.svg'\n                    className='object-cover'\n                  />\n                  <AvatarFallback>AV</AvatarFallback>\n                </Avatar>\n                <div className='flex flex-col'>\n                  <span className='text-text leading-tight font-medium'>\n                    Anouk Varga\n                  </span>\n                  <span className='text-text-muted leading-tight'>\n                    anouk@acme.com\n                  </span>\n                </div>\n              </BreadcrumbLink>\n            </BreadcrumbItem>\n\n            <BreadcrumbSeparator className='text-text-muted'>\n              /\n            </BreadcrumbSeparator>\n\n            <BreadcrumbItem>\n              <BreadcrumbPage className='flex items-center gap-2.5'>\n                <span className='flex size-6 items-center justify-center rounded-md bg-info-subtle text-info'>\n                  <RegistryIcon lucide='FileTextIcon' className='size-3.5' />\n                </span>\n                <div className='flex flex-col'>\n                  <span className='text-text leading-tight font-medium'>\n                    Document\n                  </span>\n                  <span className='text-text-muted flex items-center gap-1 leading-tight'>\n                    agents.md\n                  </span>\n                </div>\n              </BreadcrumbPage>\n            </BreadcrumbItem>\n          </BreadcrumbList>\n        </Breadcrumb>\n      </FramePanel>\n    </Frame>\n  );\n}\n"
+    }
+  ]
+}

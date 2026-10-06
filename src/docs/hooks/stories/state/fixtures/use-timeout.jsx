@@ -1,0 +1,29 @@
+import { useState } from 'react';
+import Button from '../../../../../components/core/Button';
+import { Alert, AlertDescription, AlertTitle } from '../../../../../components/core/Banner/index.js';
+import { useTimeout } from '../../../../../hooks/state/use-timeout.js';
+
+function SavedNotice() {
+  const [ visible, setVisible ] = useState(false);
+  const { clear, reset } = useTimeout(() => setVisible(false), visible ? 6000 : null);
+  return (
+    <div className='grid gap-3'>
+      <Button className='w-fit' onClick={() => setVisible(true)}>Publish post</Button>
+      <div role='status'>
+        {visible ? (
+          <div onPointerEnter={clear} onPointerLeave={reset} onFocus={clear} onBlur={reset}>
+            <Alert variant='success' role='none'>
+              <AlertTitle>Post published</AlertTitle>
+              <AlertDescription className='flex flex-wrap items-center gap-2'>
+                It is live for 4,180 subscribers.
+                <Button size='xs' variant='ghost' tone='neutral' onClick={() => setVisible(false)}>Dismiss</Button>
+              </AlertDescription>
+            </Alert>
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+export { SavedNotice };

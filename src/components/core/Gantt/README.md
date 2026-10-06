@@ -38,3 +38,7 @@ Examples cover a project planner with live dependency validation and an edit dia
 ## Accessibility
 
 Navigation and row controls are labelled buttons, and bars scrolled out of view get labelled jump buttons at the edge of the timeline. Every visible string comes from `i18n`. When a drop is refused, say why in a `role='status'` line, as the examples do, and keep a non-drag path: bars are buttons, so a click opens a dialog or sheet with the same edits.
+
+## Implementation ownership
+
+`GanttView` composes private row and overlay components. Owner-local hooks manage the time scale, packed row layout, synchronized viewports and row reordering; models and recurrence remain separate from rendering.

@@ -1,0 +1,17 @@
+@layer components {
+  .ds-part-slider {
+    @apply data-vertical:min-h-40;
+  }
+
+  .ds-part-slider-track {
+    @apply bg-ui-border rounded-control data-horizontal:h-1 data-horizontal:w-full data-vertical:h-full data-vertical:w-1;
+  }
+
+  .ds-part-slider-range {
+    @apply bg-ui-primary;
+  }
+
+  .ds-part-slider-thumb {
+    @apply border-ui-ring ring-ui-ring/50 relative size-3 rounded-full border bg-white transition-[color,box-shadow] after:absolute after:inset-x-0 after:-inset-y-2 hover:ring-3 focus-visible:ring-ui-primary focus-visible:ring-3 focus-visible:outline-hidden active:ring-3;
+  }
+}

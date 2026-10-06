@@ -1,7 +1,8 @@
 'use client';
 
-import { createContext, isValidElement, useCallback, useContext, useId, useLayoutEffect, useState } from 'react';
+import { createContext, isValidElement, useCallback, useContext, useId, useState } from 'react';
 
+import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
@@ -12,7 +13,7 @@ import {
   NavigationMenuLink as NavigationMenuLinkPart,
   NavigationMenuList as NavigationMenuListPart,
   NavigationMenuTrigger
-} from './parts/navigation-menu.jsx';
+} from './NavigationMenuPrimitives.jsx';
 
 // Lets a dropdown ask the root to open it on mount (`defaultOpen`).
 const OpenItemContext = createContext(() => {});
@@ -63,7 +64,7 @@ export const NavigationMenuLink = ({ active = false, children, className, descri
       >
         {variant === 'panel' ? <span className='text-sm font-medium text-text group-hover/nav-link:text-accent'>{children}</span> : children}
         {description ? <span className='block text-xs leading-5 text-text-muted'>{description}</span> : null}
-        {meta ? <span className='mt-0.5 block text-xs font-medium uppercase text-text-subtle'>{meta}</span> : null}
+        {meta ? <span className='mt-0.5 block text-xs font-medium text-text-subtle'>{meta}</span> : null}
       </Link>
     </NavigationMenuLinkPart>
   );
@@ -116,7 +117,7 @@ export const NavigationMenuDropdown = ({ align = 'start', aside, children, class
   const value = useId();
   const openOnMount = useContext(OpenItemContext);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (defaultOpen) openOnMount(value);
   }, [ defaultOpen, openOnMount, value ]);
 
@@ -127,7 +128,7 @@ export const NavigationMenuDropdown = ({ align = 'start', aside, children, class
         ref={ keepInViewport }
         onPointerLeave={ clickOnly.onPointerLeave }
         className={ cn(
-          'absolute top-full z-50 mt-2 max-w-[calc(100vw-2rem)]',
+          'absolute top-full z-50 mt-2 max-w-[calc(100vw-2rem)] transition-[opacity,transform]',
           aside ? 'grid overflow-hidden p-0 sm:grid-cols-2' : 'p-2',
           panelWidths[width],
           panelAlignment[align] || panelAlignment.start,

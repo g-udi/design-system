@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scrollspy-top-navigation",
+  "type": "registry:example",
+  "title": "Top navigation",
+  "description": "Top navigation. Core/Navigation/Scrollspy pattern composed from @gaudi/design-system/core/Scrollspy and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "scrollspy",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Scrollspy",
+    "import": "@gaudi/design-system/core/Scrollspy",
+    "storyId": "core-scrollspy--top-navigation",
+    "source": "src/components/core/Scrollspy/stories/fixtures/scrollspy/scrollspy-top-navigation.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/scrollspy-top-navigation.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useRef } from 'react';\nimport { Scrollspy } from '@gaudi/design-system/core/Scrollspy';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\n\n// A product page with wrapping section tabs above the content, for layouts too narrow for a side rail.\nconst sections = [\n  { id: 'spy-overview', label: 'Overview', body: 'A 14-inch laptop with a matte display, all-day battery and a quiet fan curve.' },\n  { id: 'spy-specs', label: 'Specs', body: '16 GB memory, 1 TB storage, two USB-C ports, Wi-Fi 7 and a 1080p camera.' },\n  { id: 'spy-reviews', label: 'Reviews', body: 'Rated 4.7 out of 5 across 2,184 reviews. Buyers praise the keyboard and the screen.' },\n  { id: 'spy-shipping', label: 'Shipping', body: 'Free delivery in two to four days. Returns are free for 30 days.' },\n  { id: 'spy-faq', label: 'FAQ', body: 'Every order includes a charger. Extended warranty adds two years of cover.' }\n];\n\nexport function Pattern() {\n  const targetRef = useRef(null);\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      <Scrollspy offset={8} targetRef={targetRef} className='flex flex-wrap gap-1'>\n        {sections.map(({ id, label }) => (\n          <Button\n            key={id}\n            size='sm'\n            variant='ghost'\n            data-scrollspy-anchor={id}\n            className='data-[active=true]:bg-ui-primary data-[active=true]:text-ui-primary-foreground'\n          >\n            {label}\n          </Button>\n        ))}\n      </Scrollspy>\n      <div ref={targetRef}>\n        <ScrollArea className='h-64 rounded-2xl border border-ui-border'>\n          {sections.map(({ id, label, body }) => (\n            <section key={id} id={id} className='grid min-h-40 content-start gap-2 p-4 text-sm'>\n              <h3 className='text-base font-semibold'>{label}</h3>\n              <p className='text-ui-muted-foreground'>{body}</p>\n              <div className='h-16 rounded-xl bg-ui-muted' />\n            </section>\n          ))}\n        </ScrollArea>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

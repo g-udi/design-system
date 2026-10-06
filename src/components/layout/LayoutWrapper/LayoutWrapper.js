@@ -43,7 +43,7 @@ import Menu from '../../blocks/Navigation';
  */
 const LayoutWrapper = ({ children, footerProps }) => (
   <div className='relative isolate overflow-x-hidden'>
-    <div className='flex min-h-screen flex-col justify-between'>
+    <div className='mx-auto flex min-h-screen w-full max-w-6xl flex-col justify-between px-4 sm:px-8'>
       <Menu />
       <main className='mb-8'>{children}</main>
       <Footer { ...footerProps } />

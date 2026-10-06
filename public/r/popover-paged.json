@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover-paged",
+  "type": "registry:example",
+  "title": "Paged content",
+  "description": "Paged content. Core/Overlays & Menus/Popover pattern composed from @gaudi/design-system/core/Popover and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "popover",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Popover",
+    "import": "@gaudi/design-system/core/Popover",
+    "storyId": "core-popover--paged",
+    "source": "src/components/core/Popover/stories/fixtures/popover/popover-paged.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/popover-paged.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  PopoverPrimitive as Popover,\n  PopoverContentPrimitive as PopoverContent,\n  PopoverTriggerPrimitive as PopoverTrigger\n} from '@gaudi/design-system/core/Popover';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst releases = [\n  {\n    version: 'v3.2.0',\n    date: 'Feb 5, 2026',\n    tag: 'Latest',\n    tone: 'success',\n    description:\n      'Real-time collaboration cursors, a faster markdown editor, and fixed PDF export layouts.'\n  },\n  {\n    version: 'v3.1.4',\n    date: 'Jan 22, 2026',\n    tag: 'Patch',\n    tone: 'destructive',\n    description:\n      'Fixed a memory leak in dashboard widgets and patched a file upload vulnerability.'\n  },\n  {\n    version: 'v3.1.0',\n    date: 'Jan 10, 2026',\n    tag: 'Minor',\n    tone: 'info',\n    description:\n      'A rate limiting dashboard, webhook retry settings, and new audit log filters.'\n  },\n  {\n    version: 'v3.0.0',\n    date: 'Dec 15, 2025',\n    tag: 'Major',\n    tone: 'warning',\n    description:\n      'A redesigned interface, the edge runtime, and multi-tenant workspaces.'\n  }\n];\nexport function Pattern() {\n  const [current, setCurrent] = useState(0);\n  const release = releases[current];\n  return (\n    <div className='flex items-center justify-center'>\n      <Popover>\n        <PopoverTrigger asChild>\n          <Button variant='outline'>\n            <RegistryIcon lucide='SparklesIcon' aria-hidden='true' />\n            What&apos;s new\n          </Button>\n        </PopoverTrigger>\n        <PopoverContent className='w-72 gap-2 px-3 pt-3 pb-2' sideOffset={8}>\n          <div className='flex items-center justify-between gap-2'>\n            <div className='flex items-center gap-2'>\n              <span className='font-semibold'>{release.version}</span>\n              <Badge variant={release.tone} size='xs'>\n                {release.tag}\n              </Badge>\n            </div>\n            <span className='text-text-muted'>{release.date}</span>\n          </div>\n          <p className='text-text-muted'>{release.description}</p>\n          <div className='flex items-center justify-between'>\n            <span className='text-text-muted tabular-nums' aria-live='polite'>\n              {current + 1} of {releases.length}\n            </span>\n            <div className='flex gap-0.5'>\n              <Button\n                aria-label='Previous release'\n                className='size-6'\n                disabled={current === 0}\n                onClick={() => setCurrent(current - 1)}\n                size='icon'\n                variant='ghost'\n              >\n                <RegistryIcon lucide='ArrowLeftIcon' className='size-3.5' aria-hidden='true' />\n              </Button>\n              <Button\n                aria-label='Next release'\n                className='size-6'\n                disabled={current === releases.length - 1}\n                onClick={() => setCurrent(current + 1)}\n                size='icon'\n                variant='ghost'\n              >\n                <RegistryIcon lucide='ArrowRightIcon' className='size-3.5' aria-hidden='true' />\n              </Button>\n            </div>\n          </div>\n        </PopoverContent>\n      </Popover>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

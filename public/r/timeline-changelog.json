@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline-changelog",
+  "type": "registry:example",
+  "title": "Release changelog",
+  "description": "Release changelog. Core/Data Display/Timeline pattern composed from @gaudi/design-system/core/Timeline and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "timeline",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Timeline",
+    "import": "@gaudi/design-system/core/Timeline",
+    "storyId": "core-timeline--changelog",
+    "source": "src/components/core/Timeline/stories/fixtures/timeline/timeline-changelog.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/timeline-changelog.jsx",
+      "type": "registry:component",
+      "content": "import {\n  TimelineRoot as Timeline,\n  TimelineContent,\n  TimelineDate,\n  TimelineHeader,\n  TimelineIndicator,\n  TimelineItem,\n  TimelineSeparator,\n  TimelineTitle\n} from '@gaudi/design-system/core/Timeline';\nimport { Badge } from '@gaudi/design-system/core/Pill';\n\nconst kinds = { New: 'info-light', Improved: 'primary-light', Fixed: 'success-light', Breaking: 'warning-light' };\nconst releases = [\n  {\n    version: 'v2.4.0',\n    date: 'Oct 1, 2026',\n    summary: 'Code blocks join Core, articles render fences through CodeBlock, and quiet buttons stop carrying the accent.',\n    kinds: ['New', 'Improved', 'Breaking'],\n    impact: 'High',\n    changes: 18\n  },\n  {\n    version: 'v2.3.2',\n    date: 'Sep 24, 2026',\n    summary: 'Toast stacks keep their cards inside narrow previews and long custom content truncates instead of overflowing.',\n    kinds: ['Fixed'],\n    impact: 'Low',\n    changes: 4\n  },\n  {\n    version: 'v2.3.0',\n    date: 'Sep 12, 2026',\n    summary: 'Tabs gain underline, outline and type variants with a tone for the active marker, plus a global density control.',\n    kinds: ['New', 'Improved'],\n    impact: 'Medium',\n    changes: 11\n  },\n  {\n    version: 'v2.2.1',\n    date: 'Aug 30, 2026',\n    summary: 'Keyboard shortcuts render as proper keycaps and command results align their file paths.',\n    kinds: ['Fixed', 'Improved'],\n    impact: 'Low',\n    changes: 6\n  }\n];\n\nexport function Pattern() {\n  return (\n    <div className='w-full max-w-xl'>\n      <Timeline defaultValue={1}>\n        {releases.map((release, index) => (\n          <TimelineItem key={release.version} step={index + 1} className='sm:group-data-[orientation=vertical]/timeline:ms-36'>\n            <TimelineHeader>\n              <TimelineSeparator />\n              {/* From sm up the date moves into a rail on the left of the line. */}\n              <TimelineDate className='sm:group-data-[orientation=vertical]/timeline:absolute sm:group-data-[orientation=vertical]/timeline:-left-36 sm:group-data-[orientation=vertical]/timeline:w-24 sm:group-data-[orientation=vertical]/timeline:text-right'>\n                {release.date}\n              </TimelineDate>\n              <TimelineTitle className='flex items-center gap-2'>\n                {release.version}\n                {index === 0 && (\n                  <Badge variant='secondary' size='sm'>\n                    Latest\n                  </Badge>\n                )}\n              </TimelineTitle>\n              <TimelineIndicator />\n            </TimelineHeader>\n            <TimelineContent className='grid gap-2'>\n              <p>{release.summary}</p>\n              <div className='flex flex-wrap items-center gap-1.5'>\n                {release.kinds.map((kind) => (\n                  <Badge key={kind} variant={kinds[kind]} size='sm'>\n                    {kind}\n                  </Badge>\n                ))}\n                <Badge variant='outline' size='sm'>\n                  {release.impact} impact\n                </Badge>\n                <Badge variant='outline' size='sm'>\n                  {release.changes} changes\n                </Badge>\n              </div>\n            </TimelineContent>\n          </TimelineItem>\n        ))}\n      </Timeline>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

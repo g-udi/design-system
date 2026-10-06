@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carousel-thumbnails",
+  "type": "registry:example",
+  "title": "Thumbnail navigation",
+  "description": "Thumbnail navigation. Core/Layout & Containers/Carousel pattern composed from @gaudi/design-system/core/Carousel and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "carousel",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Carousel",
+    "import": "@gaudi/design-system/core/Carousel",
+    "storyId": "core-carousel--thumbnails",
+    "source": "src/components/core/Carousel/stories/fixtures/carousel/carousel-thumbnails.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/carousel-thumbnails.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useCallback, useEffect, useState } from 'react';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport {\n  CarouselRoot as Carousel,\n  CarouselContent,\n  CarouselItem\n} from '@gaudi/design-system/core/Carousel';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nconst slides = Array.from({ length: 10 }, (_, index) => `static/images/art/${(index + 2) % 12}.svg`);\nfunction Thumbnails({ setApi, selected, onSelect, overlay }) {\n  return (\n    <Carousel setApi={setApi} opts={{ containScroll: 'keepSnaps', dragFree: true }} className='w-full'>\n      <CarouselContent className='-ml-2'>\n        {slides.map((src, index) => (\n          <CarouselItem key={src + index} className={cn('pl-2', overlay ? 'basis-1/6' : 'basis-1/5')}>\n            <button\n              type='button'\n              onClick={() => onSelect(index)}\n              aria-label={`Show slide ${index + 1}`}\n              aria-current={index === selected ? 'true' : undefined}\n              className={cn(\n                'relative block aspect-square w-full cursor-pointer overflow-hidden rounded-md border-2 transition-opacity',\n                index === selected\n                  ? overlay ? 'border-white' : 'border-accent'\n                  : cn('opacity-50 hover:opacity-80', overlay ? 'border-white/40' : 'border-transparent')\n              )}\n            >\n              <img src={src} alt='' width={200} height={200} className='h-full w-full object-cover' />\n            </button>\n          </CarouselItem>\n        ))}\n      </CarouselContent>\n    </Carousel>\n  );\n}\nexport function Pattern() {\n  const [mainApi, setMainApi] = useState();\n  const [thumbApi, setThumbApi] = useState();\n  const [selected, setSelected] = useState(0);\n  const [overlay, setOverlay] = useState(false);\n  const onSelect = useCallback(() => {\n    if (!mainApi) return;\n    const index = mainApi.selectedScrollSnap();\n    setSelected(index);\n    thumbApi?.scrollTo(index);\n  }, [mainApi, thumbApi]);\n  useEffect(() => {\n    if (!mainApi) return undefined;\n    onSelect();\n    mainApi.on('select', onSelect);\n    mainApi.on('reInit', onSelect);\n    return () => {\n      mainApi.off('select', onSelect);\n      mainApi.off('reInit', onSelect);\n    };\n  }, [mainApi, onSelect]);\n  const thumbnails = (\n    <Thumbnails setApi={setThumbApi} selected={selected} onSelect={(index) => mainApi?.scrollTo(index)} overlay={overlay} />\n  );\n  return (\n    <div className='mx-auto grid w-full max-w-md gap-3'>\n      <Label className='gap-2 text-sm font-normal'>\n        <Switch size='sm' checked={overlay} onCheckedChange={setOverlay} />\n        Overlay thumbnails\n      </Label>\n      <div className='relative overflow-hidden rounded-xl'>\n        <Carousel setApi={setMainApi} className='w-full' aria-label='Gallery'>\n          <CarouselContent>\n            {slides.map((src, index) => (\n              <CarouselItem key={src + index}>\n                <div className='relative aspect-video overflow-hidden rounded-xl bg-surface-muted'>\n                  <img src={src} alt={`Slide ${index + 1}`} width={1000} height={560} className='h-full w-full object-cover' />\n                </div>\n              </CarouselItem>\n            ))}\n          </CarouselContent>\n        </Carousel>\n        {overlay ? (\n          <div className='absolute inset-x-0 bottom-0 bg-linear-to-t from-black/60 to-transparent p-3'>{thumbnails}</div>\n        ) : null}\n      </div>\n      {overlay ? null : thumbnails}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

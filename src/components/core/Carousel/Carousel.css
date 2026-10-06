@@ -1,0 +1,9 @@
+@layer components {
+  .ds-part-carousel-previous {
+    @apply rounded-control bg-ui-background/90 shadow-xs backdrop-blur-sm;
+  }
+
+  .ds-part-carousel-next {
+    @apply rounded-control bg-ui-background/90 shadow-xs backdrop-blur-sm;
+  }
+}

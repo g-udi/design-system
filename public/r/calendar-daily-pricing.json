@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "calendar-daily-pricing",
+  "type": "registry:example",
+  "title": "Daily pricing",
+  "description": "Daily pricing. Core/Advanced Inputs/Calendar pattern composed from @gaudi/design-system/core/Calendar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "calendar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Calendar",
+    "import": "@gaudi/design-system/core/Calendar",
+    "storyId": "core-calendar--daily-pricing",
+    "source": "src/components/core/Calendar/stories/fixtures/calendar/calendar-daily-pricing.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/calendar-daily-pricing.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport {\n  Calendar,\n  CalendarDayButton\n} from '@gaudi/design-system/core/Calendar';\nfunction getPriceForDate(date) {\n  const seed =\n    date.getFullYear() * 1e4 + (date.getMonth() + 1) * 100 + date.getDate();\n  const val = (seed * 9301 + 49297) % 233280;\n  return Math.floor(50 + (val / 233280) * 200);\n}\nexport function Pattern() {\n  const [date, setDate] = useState(new Date());\n  return (\n    <Calendar\n      mode='single'\n      selected={date}\n      onSelect={setDate}\n      showOutsideDays={false}\n      className='mx-auto rounded-lg border border-border [--cell-size:clamp(2rem,6vw,3rem)] [&_td]:h-12 [&_td]:aspect-auto'\n      components={{\n        DayButton: ({ children, className, modifiers, day, ...props }) => {\n          const price = getPriceForDate(day.date);\n          const isGreen = price < 100;\n          return (\n            <CalendarDayButton day={day} modifiers={modifiers} {...props} className={cn(className, 'h-12 aspect-auto')}>\n              {children}\n              {!modifiers.outside && (\n                <span\n                  className={\n                    isGreen && !modifiers.selected\n                      ? 'text-ui-success-ink'\n                      : ''\n                  }\n                >\n                  ${price}\n                </span>\n              )}\n            </CalendarDayButton>\n          );\n        }\n      }}\n    />\n  );\n}\n"
+    }
+  ]
+}

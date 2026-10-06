@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sheet-edges",
+  "type": "registry:example",
+  "title": "Sheet from each edge",
+  "description": "Sheet from each edge. Core/Overlays & Menus/Sheet pattern composed from @gaudi/design-system/core/Sheet and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sheet",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sheet",
+    "import": "@gaudi/design-system/core/Sheet",
+    "storyId": "core-sheet--edges",
+    "source": "src/components/core/Sheet/stories/fixtures/sheet/sheet-edges.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sheet-edges.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport {\n  Sheet,\n  SheetClose,\n  SheetContent,\n  SheetDescription,\n  SheetFooter,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger\n} from '@gaudi/design-system/core/Sheet';\n\nconst sides = ['right', 'left', 'top', 'bottom'];\nconst activity = [\n  'Maya Patel moved “Launch checklist” to Review.',\n  'Leo Martins commented on “Pricing page copy”.',\n  'Ana Costa uploaded three files to Brand assets.',\n  'Sam Lee closed “Fix onboarding email typo”.',\n  'Priyanka Nairn invited two guests to the Q3 roadmap.',\n  'Maya Patel renamed the Design channel to Product design.'\n];\n\n// Long content scrolls inside the sheet while the header and footer stay put, from every edge.\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      {sides.map((side) => (\n        <Sheet key={side}>\n          <SheetTrigger asChild>\n            <Button size='sm' variant='outline' className='capitalize'>\n              {side}\n            </Button>\n          </SheetTrigger>\n          <SheetContent side={side} className='data-[side=bottom]:h-[50vh] data-[side=top]:h-[50vh]'>\n            <SheetHeader>\n              <SheetTitle>Recent activity</SheetTitle>\n              <SheetDescription>This sheet opens from the {side} edge of the screen.</SheetDescription>\n            </SheetHeader>\n            <ScrollArea className='min-h-0 flex-1'>\n              <div className='grid gap-3 px-3 text-sm text-text-muted'>\n                {[...activity, ...activity, ...activity].map((entry, index) => (\n                  <p key={index}>{entry}</p>\n                ))}\n              </div>\n            </ScrollArea>\n            <SheetFooter>\n              <SheetClose asChild>\n                <Button variant='outline'>Close</Button>\n              </SheetClose>\n            </SheetFooter>\n          </SheetContent>\n        </Sheet>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

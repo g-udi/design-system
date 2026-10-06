@@ -1,0 +1,14 @@
+@layer components {
+  .borealis.ds-background {
+    position: absolute;
+    inset: 0;
+    max-height: 48rem;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .borealis[data-fade='true'] {
+    mask-image: linear-gradient(to bottom, black 55%, transparent 100%);
+  }
+}

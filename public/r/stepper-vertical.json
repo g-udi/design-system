@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper-vertical",
+  "type": "registry:example",
+  "title": "Vertical orientation",
+  "description": "Vertical orientation. Core/Navigation/Stepper pattern composed from @gaudi/design-system/core/Stepper and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stepper",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Stepper",
+    "import": "@gaudi/design-system/core/Stepper",
+    "storyId": "core-stepper--vertical",
+    "source": "src/components/core/Stepper/stories/fixtures/stepper/stepper-vertical.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/stepper-vertical.jsx",
+      "type": "registry:component",
+      "content": "import Loader from '@gaudi/design-system/core/Loader';\n'use client';\nimport { useState } from 'react';\nimport {\n  StepperRoot as Stepper,\n  StepperContent,\n  StepperDescription,\n  StepperIndicator,\n  StepperItem,\n  StepperNav,\n  StepperPanel,\n  StepperSeparator,\n  StepperTitle,\n  StepperTrigger\n} from '@gaudi/design-system/core/Stepper';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst steps = [\n  { title: 'Account', description: 'Create your account' },\n  { title: 'Profile', description: 'Set up your profile' },\n  { title: 'Review', description: 'Confirm your details' }\n];\nexport function Pattern() {\n  const [descriptions, setDescriptions] = useState(true);\n  return (\n    <div className='flex flex-col items-center gap-4'>\n      <Label className='gap-2 text-sm font-normal'>\n        <Switch size='sm' checked={descriptions} onCheckedChange={setDescriptions} />\n        Descriptions\n      </Label>\n      <Stepper\n        className='flex flex-col items-center justify-center gap-6'\n        defaultValue={2}\n        orientation='vertical'\n        indicators={{\n          completed: <RegistryIcon lucide='CheckIcon' className='size-3.5' />,\n          loading: (\n            <Loader size='xs' className='size-3.5' aria-hidden='true' />\n          )\n        }}\n      >\n        <StepperNav>\n          {steps.map((step, index) => (\n            <StepperItem\n              key={index}\n              step={index + 1}\n              className='relative items-start not-last:flex-1'\n            >\n              <StepperTrigger className='items-start gap-2.5 pb-8 last:pb-0'>\n                <StepperIndicator className='data-[state=completed]:bg-success data-[state=completed]:text-success-foreground'>\n                  {index + 1}\n                </StepperIndicator>\n                <div className='mt-0.5 text-left'>\n                  <StepperTitle>{step.title}</StepperTitle>\n                  {descriptions && <StepperDescription>{step.description}</StepperDescription>}\n                </div>\n              </StepperTrigger>\n              {index < steps.length - 1 && (\n                <StepperSeparator className='group-data-[state=completed]/step:bg-success absolute inset-y-0 top-7 left-3 -order-1 m-0 -translate-x-1/2 group-data-[orientation=vertical]/stepper-nav:h-[calc(100%-2rem)]' />\n              )}\n            </StepperItem>\n          ))}\n        </StepperNav>\n\n        <StepperPanel className='w-56 text-center text-sm'>\n          {steps.map((step, index) => (\n            <StepperContent key={index} value={index + 1}>\n              {step.title} content\n            </StepperContent>\n          ))}\n        </StepperPanel>\n      </Stepper>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

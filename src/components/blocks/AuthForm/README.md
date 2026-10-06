@@ -50,13 +50,17 @@ Add single sign-on above the email fields and a reset link beside the password:
 | `nameLabel / emailLabel / passwordLabel`      | string                       | Visible accessible field labels.                                      |
 | `emailPlaceholder / passwordPlaceholder`      | string                       | Optional example text inside the fields. No placeholder by default.   |
 | `passwordHint`                                | ReactNode or false           | Help text under the password; defaults per mode, `false` hides it.    |
+| `passwordMinLength` | number | Optional native minimum supplied by the host; signup imposes no minimum by default. Pair it with a matching `passwordHint`. |
 | `passwordAction`                              | ReactNode                    | A link beside the password label, such as Forgot password.            |
 | `identifier`                                  | email or username            | `username` asks for a username field that also accepts an email.      |
 | `providers / onProvider`                      | {id, label, icon}[] / fn(id) | Sign-on buttons above the form; they share its pending and error state. |
 | `providerLayout / dividerLabel`               | grid or stack / string       | Provider buttons side by side or stacked, and the divider copy.       |
+| `showPasswordLabel / hidePasswordLabel` | string | Reveal-button names; default `Show password` / `Hide password`. |
 | `children`                                    | ReactNode                    | Extra fields before submit, such as keep me signed in or terms.       |
 | `pendingLabel`                                | string                       | Submit text while `onSubmit` is pending. Defaults per mode.           |
 
+Email identifiers use `EmailInput`, so they inherit the default smooth caret and single-address pattern validation. Username identifiers remain text inputs; masked passwords retain the native caret. A surrounding `InputConfigProvider caretMode='native'` opts the form out of smooth mode.
+
 ## Ownership and verification
 
-The host supplies data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.
+The host supplies password policy (`passwordMinLength` and matching help text), data, translations, network calls, permissions and persistence. Gaudi owns layout, semantics and local interaction. Examples document working behavior and states, with Storybook interaction/axe checks and a server-rendering contract test alongside the component.

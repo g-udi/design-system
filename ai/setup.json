@@ -1,0 +1,75 @@
+{
+  "package": "@gaudi/design-system",
+  "version": "0.1.6",
+  "generatedBy": "pnpm ai:build",
+  "install": {
+    "github": "pnpm add github:ahmadassaf/design-system",
+    "npm": "pnpm add @gaudi/design-system",
+    "note": "Until the package is published to npm, install from GitHub; the import name is always @gaudi/design-system."
+  },
+  "peerDependencies": {
+    "@xyflow/react": "12.12.0",
+    "next": ">=15.0.0",
+    "next-themes": "^0.4.6",
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0",
+    "recharts": "^3.10.0",
+    "tailwindcss": ">=4.0.0"
+  },
+  "optionalPeers": {
+    "@xyflow/react": "Flow (@gaudi/design-system/core/Flow + flow.css)",
+    "recharts": "Charts (@gaudi/design-system/charts)"
+  },
+  "styles": {
+    "global": {
+      "import": "import '@gaudi/design-system/global.css';",
+      "use": "Apps without their own Tailwind entry: loads Tailwind v4, Gaudi tokens, foundations and component CSS, and scans the package source."
+    },
+    "styles": {
+      "import": "import '@gaudi/design-system/styles.css';",
+      "use": "Apps that own their Tailwind entry: import after `@import \"tailwindcss\";` and add `@source` for the package."
+    },
+    "flow": {
+      "import": "import '@gaudi/design-system/flow.css';",
+      "use": "Only with the Flow component."
+    }
+  },
+  "tailwind": {
+    "preset": "@gaudi/design-system/tailwind-preset",
+    "usage": "Tailwind v4 loads Gaudi's config through global.css. For a JS config, use `presets: [require('@gaudi/design-system/tailwind-preset')]` (colours, radii, typography and the prose theme).",
+    "plugins": [
+      "@gaudi/design-system/tailwind/addVariablesColors",
+      "@gaudi/design-system/tailwind/tailwindGrid"
+    ]
+  },
+  "nextjs": {
+    "config": "transpilePackages: ['@gaudi/design-system']",
+    "note": "Gaudi ships React source (JSX); a JSX-aware bundler is required."
+  },
+  "theming": {
+    "radius": ":root { --ds-radius: 4px; }",
+    "density": ":root { --ds-space-scale: 1; }",
+    "darkMode": "Add the `dark` class on <html> (next-themes attribute=\"class\").",
+    "themes": {
+      "presets": [
+        "contrast",
+        "ember",
+        "folio",
+        "gaudi",
+        "graphite",
+        "grove",
+        "midnight",
+        "pastel"
+      ],
+      "apply": "Set data-theme=\"<id>\" on <html> and import '@gaudi/design-system/themes.css', or wrap the app in ThemeProvider from '@gaudi/design-system/themes' (injects and persists the active theme) and render getThemeScript() in <head> to avoid a flash.",
+      "runtime": "import { ThemeProvider, useTheme, getThemeScript, applyTheme, listThemes } from '@gaudi/design-system/themes';",
+      "contract": "src/tokens/THEMING.md (themeable --ds-* tokens per mode, fonts, radius, shadows); schema themes/theme.schema.json.",
+      "cli": "gaudi-ds theme list | import <file|url> | export <id> --format css|shadcn|registry|json | check <id> | generate --brand <colour>",
+      "storybook": "The Theming guide (theming-overview--default) renders THEMING.md with live swatches, presets and contrast; the Theme Studio guide edits, generates and exports; the Theme preset toolbar previews any story in any preset."
+    }
+  },
+  "imports": {
+    "rule": "Prefer owner leaf entries (e.g. @gaudi/design-system/core/Button) in route code; root and category entries are valid. Only package.json exports are public; never import src/ paths.",
+    "entries": 283
+  }
+}

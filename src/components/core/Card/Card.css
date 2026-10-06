@@ -1,0 +1,29 @@
+@layer components {
+  .ds-part-card {
+    @apply [--card-spacing:--spacing(3)] data-[size=sm]:[--card-spacing:--spacing(2)];
+  }
+
+  .ds-part-card[data-padding='sections'] {
+    @apply gap-(--card-spacing) py-(--card-spacing) text-sm has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0 *:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl;
+  }
+
+  .ds-part-card-header {
+    @apply gap-1 rounded-t-xl px-(--card-spacing) [.border-b]:pb-(--card-spacing);
+  }
+
+  .ds-part-card-title {
+    @apply text-base leading-snug font-medium group-data-[size=sm]/card:text-sm;
+  }
+
+  .ds-part-card-description {
+    @apply text-ui-muted-foreground text-sm;
+  }
+
+  .ds-part-card-content {
+    @apply px-(--card-spacing);
+  }
+
+  .ds-part-card-footer {
+    @apply bg-ui-muted/50 rounded-b-xl border-t p-(--card-spacing);
+  }
+}

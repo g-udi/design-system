@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "prompt-composer-queued-follow-ups",
+  "type": "registry:example",
+  "title": "Chat composer: Queue follow-ups while a reply streams",
+  "description": "Chat composer: Queue follow-ups while a reply streams. Chat/ChatInput pattern composed from @gaudi/design-system/chat/ChatInput and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "prompt-composer",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatInput",
+    "import": "@gaudi/design-system/chat/ChatInput",
+    "storyId": "chat-chatinput--queued-follow-ups",
+    "source": "src/components/chat/ChatInput/stories/fixtures/prompt-composer/prompt-composer-queued-follow-ups.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/prompt-composer-queued-follow-ups.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useRef, useState } from 'react';\nimport { ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nlet nextId = 3;\n\nexport function Pattern() {\n  const [status, setStatus] = useState('streaming');\n  const [current, setCurrent] = useState('Rewrite the introduction so it leads with the reader’s problem.');\n  const [queue, setQueue] = useState([\n    { id: 'q1', text: 'Then shorten the second section to under 150 words.' },\n    { id: 'q2', text: 'Suggest a title that fits in 60 characters.' }\n  ]);\n  const [log, setLog] = useState([]);\n  const [run, setRun] = useState(0);\n\n  // A reply finishes after a while; the next queued message then starts on its own.\n  const finishLatest = useRef();\n  useEffect(() => {\n    if (status !== 'streaming') return undefined;\n    const timer = setTimeout(() => finishLatest.current('done'), 6000);\n    return () => clearTimeout(timer);\n  }, [status, run]);\n\n  function start(text) {\n    setCurrent(text);\n    setRun((value) => value + 1);\n    setStatus('streaming');\n  }\n\n  function finish(outcome) {\n    setLog((entries) => [...entries, { id: `${entries.length}`, text: current, outcome }]);\n    const [first, ...rest] = queue;\n    setQueue(rest);\n    if (first) start(first.text);\n    else setStatus('ready');\n  }\n  finishLatest.current = finish;\n\n  const move = (id, step) => setQueue((items) => {\n    const index = items.findIndex((item) => item.id === id);\n    const target = index + step;\n    if (index < 0 || target < 0 || target >= items.length) return items;\n    const next = [...items];\n    [next[index], next[target]] = [next[target], next[index]];\n    return next;\n  });\n\n  return (\n    <div className='mx-auto grid w-full max-w-2xl grid-cols-[minmax(0,1fr)] gap-3'>\n      <ol aria-label='Finished requests' className='grid gap-1 text-sm'>\n        {log.map((entry) => (\n          <li key={entry.id} className='text-text-muted flex items-start gap-2'>\n            <RegistryIcon lucide={entry.outcome === 'stopped' ? 'CircleX' : 'CircleCheck'} className='mt-0.5 size-3.5 shrink-0' />\n            <span>{entry.text}{entry.outcome === 'stopped' ? ' (stopped)' : ''}</span>\n          </li>\n        ))}\n      </ol>\n      {status === 'streaming' ? (\n        <div className='bg-surface flex items-center gap-2 rounded-(--ds-radius-card) border px-3 py-2 text-sm'>\n          <Loader className='text-accent size-4' />\n          <span className='min-w-0 flex-1 truncate'>Working on: {current}</span>\n        </div>\n      ) : (\n        <p className='text-text-muted text-sm'>Gaudi is idle. Anything you send starts right away.</p>\n      )}\n      <ChatPromptQueue\n        items={queue}\n        onEdit={(id, text) => setQueue((items) => items.map((item) => (item.id === id ? { ...item, text } : item)))}\n        onRemove={(id) => setQueue((items) => items.filter((item) => item.id !== id))}\n        onSendNow={(id) => {\n          const item = queue.find((entry) => entry.id === id);\n          setQueue((items) => items.filter((entry) => entry.id !== id));\n          setLog((entries) => [...entries, { id: `${entries.length}`, text: current, outcome: 'stopped' }]);\n          start(item.text);\n        }}\n        onMove={move}\n      />\n      <ChatPromptComposer\n        status={status}\n        onStop={() => finish('stopped')}\n        onSubmit={(text, { queued }) => {\n          if (queued) setQueue((items) => [...items, { id: `q${nextId++}`, text }]);\n          else start(text);\n        }}\n        labels={{ placeholder: status === 'streaming' ? 'Add a follow-up. It waits until this reply finishes.' : 'Ask Gaudi to edit the draft' }}\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

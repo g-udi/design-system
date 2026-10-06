@@ -1,2 +1,2 @@
 // Composition exports
-export { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './parts/sortable-extended.jsx';
+export { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './Sortable.jsx';

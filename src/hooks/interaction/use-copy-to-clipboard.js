@@ -82,6 +82,7 @@ export function useCopyToClipboard(options = {}) {
   }, []);
 
   const reset = useCallback(() => {
+    requestRef.current += 1;
     clearTimer();
     setCopiedText(null);
   }, [ clearTimer ]);

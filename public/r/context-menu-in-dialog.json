@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "context-menu-in-dialog",
+  "type": "registry:example",
+  "title": "Context menu inside a dialog",
+  "description": "Context menu inside a dialog. Core/Overlays & Menus/DropdownMenu pattern composed from @gaudi/design-system/core/DropdownMenu and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "context-menu",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/DropdownMenu",
+    "import": "@gaudi/design-system/core/DropdownMenu",
+    "storyId": "core-dropdownmenu--context-menu-in-dialog",
+    "source": "src/components/core/DropdownMenu/stories/fixtures/context-menu/context-menu-in-dialog.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/context-menu-in-dialog.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  ContextMenu,\n  ContextMenuContent,\n  ContextMenuGroup,\n  ContextMenuItem,\n  ContextMenuSeparator,\n  ContextMenuSub,\n  ContextMenuSubContent,\n  ContextMenuSubTrigger,\n  ContextMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport {\n  DialogRoot as Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='flex w-full items-center justify-center'>\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button variant='outline'>Open dialog</Button>\n        </DialogTrigger>\n        <DialogContent>\n          <DialogHeader>\n            <DialogTitle>Organise files</DialogTitle>\n            <DialogDescription>\n              Right click the drop zone to act on the selection without leaving the dialog.\n            </DialogDescription>\n          </DialogHeader>\n          <ContextMenu>\n            <ContextMenuTrigger className='text-text-muted border-border flex h-24 w-full items-center justify-center rounded-lg border border-dashed text-sm'>\n              Right click here\n            </ContextMenuTrigger>\n            <ContextMenuContent>\n              <ContextMenuGroup>\n                <ContextMenuItem>\n                  <RegistryIcon lucide='CopyIcon' />\n                  Copy\n                </ContextMenuItem>\n                <ContextMenuItem>\n                  <RegistryIcon lucide='ScissorsIcon' />\n                  Cut\n                </ContextMenuItem>\n                <ContextMenuItem>\n                  <RegistryIcon lucide='ClipboardIcon' />\n                  Paste\n                </ContextMenuItem>\n              </ContextMenuGroup>\n              <ContextMenuSeparator />\n              <ContextMenuSub>\n                <ContextMenuSubTrigger>More options</ContextMenuSubTrigger>\n                <ContextMenuSubContent>\n                  <ContextMenuGroup>\n                    <ContextMenuItem>Save Page...</ContextMenuItem>\n                    <ContextMenuItem>Create Shortcut...</ContextMenuItem>\n                    <ContextMenuItem>Name Window...</ContextMenuItem>\n                  </ContextMenuGroup>\n                  <ContextMenuSeparator />\n                  <ContextMenuGroup>\n                    <ContextMenuItem>Developer Tools</ContextMenuItem>\n                  </ContextMenuGroup>\n                </ContextMenuSubContent>\n              </ContextMenuSub>\n              <ContextMenuSeparator />\n              <ContextMenuGroup>\n                <ContextMenuItem variant='destructive'>\n                  <RegistryIcon lucide='TrashIcon' />\n                  Delete\n                </ContextMenuItem>\n              </ContextMenuGroup>\n            </ContextMenuContent>\n          </ContextMenu>\n        </DialogContent>\n      </Dialog>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

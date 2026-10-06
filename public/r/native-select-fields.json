@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "native-select-fields",
+  "type": "registry:example",
+  "title": "Native select fields",
+  "description": "Native select fields. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "native-select",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--native-select-fields",
+    "source": "src/components/core/Select/stories/fixtures/native-select/native-select-fields.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/native-select-fields.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldErrorPrimitive as FieldError,\n  FieldLabelPrimitive as FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport {\n  NativeSelect,\n  NativeSelectOptGroup,\n  NativeSelectOption\n} from '@gaudi/design-system/core/Select';\n\n// One shipping form covers every native select state: grouped options with a\n// disabled entry, the small size, a disabled field and an invalid field.\nexport function Pattern() {\n  const id = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-xl gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <Field>\n        <FieldLabel htmlFor={`${id}-native-select-country`}>Country</FieldLabel>\n        <NativeSelect id={`${id}-native-select-country`} className='w-full' defaultValue=''>\n          <NativeSelectOption value=''>Select a country</NativeSelectOption>\n          <NativeSelectOptGroup label='Europe'>\n            <NativeSelectOption value='de'>Germany</NativeSelectOption>\n            <NativeSelectOption value='fr'>France</NativeSelectOption>\n            <NativeSelectOption value='uk'>United Kingdom</NativeSelectOption>\n          </NativeSelectOptGroup>\n          <NativeSelectOptGroup label='Americas'>\n            <NativeSelectOption value='us'>United States</NativeSelectOption>\n            <NativeSelectOption value='ca'>Canada</NativeSelectOption>\n            <NativeSelectOption value='br' disabled>\n              Brazil (unavailable)\n            </NativeSelectOption>\n          </NativeSelectOptGroup>\n        </NativeSelect>\n        <FieldDescription>Grouped by region.</FieldDescription>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-native-select-quantity`}>Quantity</FieldLabel>\n        <NativeSelect id={`${id}-native-select-quantity`} size='sm' className='w-full' defaultValue='1'>\n          <NativeSelectOption value='1'>1 item</NativeSelectOption>\n          <NativeSelectOption value='2'>2 items</NativeSelectOption>\n          <NativeSelectOption value='5'>5 items</NativeSelectOption>\n        </NativeSelect>\n        <FieldDescription>Small size.</FieldDescription>\n      </Field>\n      <Field data-disabled>\n        <FieldLabel htmlFor={`${id}-native-select-carrier`}>Carrier</FieldLabel>\n        <NativeSelect id={`${id}-native-select-carrier`} disabled className='w-full' defaultValue='standard'>\n          <NativeSelectOption value='standard'>Standard post</NativeSelectOption>\n        </NativeSelect>\n        <FieldDescription>Only one carrier ships here.</FieldDescription>\n      </Field>\n      <Field data-invalid>\n        <FieldLabel htmlFor={`${id}-native-select-speed`}>Delivery speed</FieldLabel>\n        <NativeSelect\n          id={`${id}-native-select-speed`}\n          aria-invalid=\"true\"\n          aria-describedby={`${id}-native-select-speed-error`}\n          className='w-full'\n          defaultValue=''\n        >\n          <NativeSelectOption value=''>Choose a speed</NativeSelectOption>\n          <NativeSelectOption value='economy'>Economy</NativeSelectOption>\n          <NativeSelectOption value='express'>Express</NativeSelectOption>\n        </NativeSelect>\n        <FieldError id={`${id}-native-select-speed-error`}>Choose a delivery speed.</FieldError>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

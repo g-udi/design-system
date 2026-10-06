@@ -1,0 +1,14 @@
+/* A StyleGlide-style hex/rgb export without a dark block. */
+:root {
+  --background: #fdfcfb;
+  --foreground: rgb(28, 25, 23);
+  --primary: #0e7490;
+  --primary-foreground: #ffffff;
+  --muted: #f5f5f4;
+  --muted-foreground: #57534e;
+  --border: #e7e5e4;
+  --ring: #0e7490;
+  --success: #15803d;
+  --warning: #b45309;
+  --radius: 0.75rem;
+}

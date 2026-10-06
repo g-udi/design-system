@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "command-inline-palette",
+  "type": "registry:example",
+  "title": "Inline palette",
+  "description": "Inline palette. Core/Overlays & Menus/Commander pattern composed from @gaudi/design-system/core/Commander and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "command",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Commander",
+    "import": "@gaudi/design-system/core/Commander",
+    "storyId": "core-commander--inline-palette",
+    "source": "src/components/core/Commander/stories/fixtures/command/command-inline-palette.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/command-inline-palette.jsx",
+      "type": "registry:component",
+      "content": "import {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n  CommandSeparator,\n  CommandShortcut\n} from '@gaudi/design-system/core/Commander';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <Card className='w-full max-w-xs p-0'>\n      <CardContent className='p-0'>\n        {/* Inline palettes wait for keyboard or search input before selecting an item.\n            This also prevents cmdk's initial selection from scrolling the host page. */}\n        <Command defaultValue='__unselected__'>\n          <CommandInput aria-label='Search commands' placeholder='Type a command or search...' />\n          <CommandList>\n            <CommandEmpty>No results found.</CommandEmpty>\n            <CommandGroup heading='Suggestions'>\n              <CommandItem>\n                <RegistryIcon lucide='CalendarIcon' />\n                <span>Calendar</span>\n              </CommandItem>\n              <CommandItem>\n                <RegistryIcon lucide='SmileIcon' />\n                <span>Search Emoji</span>\n              </CommandItem>\n              <CommandItem disabled>\n                <RegistryIcon lucide='CalculatorIcon' />\n                <span>Calculator</span>\n              </CommandItem>\n            </CommandGroup>\n            <CommandSeparator />\n            <CommandGroup heading='Settings'>\n              <CommandItem>\n                <RegistryIcon lucide='UserIcon' />\n                <span>Profile</span>\n                <CommandShortcut>⌘P</CommandShortcut>\n              </CommandItem>\n              <CommandItem>\n                <RegistryIcon lucide='CreditCardIcon' />\n                <span>Billing</span>\n                <CommandShortcut>⌘B</CommandShortcut>\n              </CommandItem>\n              <CommandItem>\n                <RegistryIcon lucide='SettingsIcon' />\n                <span>Settings</span>\n                <CommandShortcut>⌘S</CommandShortcut>\n              </CommandItem>\n            </CommandGroup>\n          </CommandList>\n        </Command>\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

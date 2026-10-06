@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea-field-states",
+  "type": "registry:example",
+  "title": "Field states",
+  "description": "Field states. Core/Textarea pattern composed from @gaudi/design-system/core/Textarea and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "textarea",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Textarea",
+    "import": "@gaudi/design-system/core/Textarea",
+    "storyId": "core-textarea--field-states",
+    "source": "src/components/core/Textarea/stories/fixtures/textarea/textarea-field-states.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/textarea-field-states.jsx",
+      "type": "registry:component",
+      "content": "import { useId } from 'react';\nimport {\n  default as Field,\n  FieldDescription,\n  FieldError,\n  FieldLabel\n} from '@gaudi/design-system/core/Field';\nimport { default as Textarea } from '@gaudi/design-system/core/Textarea';\n\nexport function Pattern() {\n  const id = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-xl items-start gap-x-5 gap-y-6 sm:grid-cols-2'>\n      <Field>\n        <FieldLabel htmlFor={`${id}-textarea-feedback`}>Feedback</FieldLabel>\n        <Textarea id={`${id}-textarea-feedback`} placeholder='Type your message here…' rows={3} />\n        <FieldDescription>Shared with the editors.</FieldDescription>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-textarea-notes`}>Review notes</FieldLabel>\n        <Textarea id={`${id}-textarea-notes`} rows={3} />\n        <FieldError>Add a reason before returning this draft.</FieldError>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-textarea-disabled`}>Internal memo</FieldLabel>\n        <Textarea id={`${id}-textarea-disabled`} placeholder='Locked while the draft is in review' rows={3} disabled />\n        <FieldDescription>Disabled</FieldDescription>\n      </Field>\n      <Field>\n        <FieldLabel htmlFor={`${id}-textarea-readonly`}>Published summary</FieldLabel>\n        <Textarea\n          id={`${id}-textarea-readonly`}\n          rows={3}\n          readOnly\n          defaultValue='An introduction to knowledge graphs and the questions they answer.'\n        />\n        <FieldDescription>Read-only: focusable and selectable.</FieldDescription>\n      </Field>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

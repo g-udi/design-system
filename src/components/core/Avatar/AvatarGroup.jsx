@@ -1,7 +1,7 @@
 'use client';
 
 import Avatar, { avatarVariants } from './Avatar';
-import { AvatarGroup as AvatarGroupRoot, AvatarGroupCount } from './parts/avatar';
+import { AvatarGroup as AvatarGroupRoot, AvatarGroupCount } from './AvatarPrimitives.jsx';
 import { getAvatarGroupState } from './avatarModel';
 import { cn } from '../../../utilities/cn';
 

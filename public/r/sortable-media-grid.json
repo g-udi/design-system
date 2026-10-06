@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sortable-media-grid",
+  "type": "registry:example",
+  "title": "Media grid",
+  "description": "Media grid. Core/Layout & Containers/Sortable pattern composed from @gaudi/design-system/core/Sortable and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sortable",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Sortable",
+    "import": "@gaudi/design-system/core/Sortable",
+    "storyId": "core-sortable--media-grid",
+    "source": "src/components/core/Sortable/stories/fixtures/sortable/sortable-media-grid.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sortable-media-grid.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  Frame,\n  FrameDescription,\n  FrameHeader,\n  FramePanel,\n  FrameTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Sortable,\n  SortableItem,\n  SortableItemHandle\n} from '@gaudi/design-system/core/Sortable';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// A media library on the grid strategy. The featured tile spans two cells, and\n// each handle appears on hover so the thumbnails stay clean.\nconst defaultImages = [\n  { id: '1', name: 'hero-banner.jpg', dimensions: '1920×1080', size: '2.4 MB', featured: true },\n  { id: '2', name: 'product-shot.png', dimensions: '800×600', size: '1.8 MB' },\n  { id: '3', name: 'team-photo.jpg', dimensions: '1200×800', size: '3.2 MB' },\n  { id: '4', name: 'logo-dark.svg', dimensions: '240×60', size: '12 KB' },\n  { id: '5', name: 'og-image.png', dimensions: '1200×630', size: '890 KB' },\n  { id: '6', name: 'detail-shot.jpg', dimensions: '1024×1024', size: '1.1 MB' },\n  { id: '7', name: 'lifestyle.jpg', dimensions: '1600×900', size: '2.9 MB' }\n];\n\nexport function Pattern() {\n  const [images, setImages] = useState(defaultImages);\n  return (\n    <div className='mx-auto w-full max-w-lg'>\n      <Frame spacing='xs'>\n        <FrameHeader>\n          <FrameTitle>Media library</FrameTitle>\n          <FrameDescription>Drag to set the display order</FrameDescription>\n        </FrameHeader>\n        <FramePanel className='p-2!'>\n          <Sortable\n            value={images}\n            onValueChange={setImages}\n            getItemValue={(item) => item.id}\n            strategy='grid'\n            className='grid grid-cols-3 gap-2'\n          >\n            {images.map((image, index) => (\n              <SortableItem key={image.id} value={image.id} className={cn(image.featured && 'col-span-2 row-span-2')}>\n                <figure className='group relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>\n                  <img\n                    src={`static/images/art/${index % 12}.svg`}\n                    alt={image.name}\n                    className={cn('w-full rounded-md object-cover', image.featured ? 'h-44' : 'h-16')}\n                  />\n                  <SortableItemHandle className='absolute top-2.5 end-2.5 rounded-md bg-ui-background/90 p-0.5 text-ui-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-ui-foreground focus-visible:opacity-100'>\n                    <RegistryIcon lucide='GripVerticalIcon' className='size-3.5' />\n                  </SortableItemHandle>\n                  <figcaption className='min-w-0 px-0.5'>\n                    <p className='flex items-center gap-1.5 text-xs font-medium'>\n                      <span className='truncate'>{image.name}</span>\n                      {image.featured && <Badge variant='warning-light' size='xs'>Featured</Badge>}\n                    </p>\n                    <p className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} · {image.size}</p>\n                  </figcaption>\n                </figure>\n              </SortableItem>\n            ))}\n          </Sortable>\n        </FramePanel>\n      </Frame>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-async-success",
+  "type": "registry:example",
+  "title": "Async loading and success",
+  "description": "Async loading and success. Core/Button pattern composed from @gaudi/design-system/core/Button and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Button",
+    "import": "@gaudi/design-system/core/Button",
+    "storyId": "core-button--async-success",
+    "source": "src/components/core/Button/stories/fixtures/button/button-async-success.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-async-success.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [status, setStatus] = useState('idle');\n  useEffect(() => {\n    if (status !== 'success') return;\n    const timer = setTimeout(() => setStatus('idle'), 2e3);\n    return () => clearTimeout(timer);\n  }, [status]);\n  return (\n    <Button\n      onClick={() => {\n        if (status !== 'idle') return;\n        setStatus('loading');\n        setTimeout(() => setStatus('success'), 900);\n      }}\n      disabled={status === 'loading'}\n      aria-busy={status === 'loading'}\n      aria-live='polite'\n      className='min-w-32'\n    >\n      {status === 'loading' ? (\n        <>\n          <Loader aria-hidden='true' />\n          Saving…\n        </>\n      ) : status === 'success' ? (\n        <>\n          <RegistryIcon lucide='CheckIcon' aria-hidden='true' />\n          Saved\n        </>\n      ) : (\n        'Save changes'\n      )}\n    </Button>\n  );\n}\n"
+    }
+  ]
+}

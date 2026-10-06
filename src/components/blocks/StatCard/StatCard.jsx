@@ -1,6 +1,7 @@
 import { cn } from '../../../utilities/cn';
 import { CardAction, CardContent, CardFooter, CardHeader, CardRoot, CardTitle } from '../../core/Card';
-import { Badge } from '../../core/Pill/parts/badge-extended.jsx';
+import { Badge } from '../../core/Pill/Badge.jsx';
+import { IconTile } from '../../core/Icon/IconTile.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 
 export const statTones = ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'];
@@ -40,31 +41,30 @@ const segmentClass = {
 /** An icon on a tinted square, used for KPI and support metrics. */
 export function StatIcon({ icon, tone = 'neutral', className }) {
   return (
-    <span data-slot='stat-icon' className={cn('inline-flex size-8 shrink-0 items-center justify-center rounded-md [&_svg]:size-4', tileClass[tone], className)}>
+    <IconTile data-slot='stat-icon' size='sm' variant='solid' className={cn(tileClass[tone], className)}>
       <RegistryIcon lucide={icon} aria-hidden='true' />
-    </span>
+    </IconTile>
   );
 }
 
 /**
- * A change badge. `value` keeps the host's formatting ("12.4%", "-3"); the direction
- * comes from `direction` or the sign. `invert` marks metrics where up is bad.
+ * A change badge. The host supplies the formatted `value`, optional `direction`, and semantic
+ * `tone`. Direction and whether a change is favorable are never inferred from the value.
  */
-export function StatDelta({ value, direction, invert = false, className }) {
-  const text = String(value);
-  const trend = direction || (/^\s*[-−]/.test(text) ? 'down' : /^\s*[+]?0(?:[.,]0+)?(?!\d)/.test(text) ? 'flat' : 'up');
-  const good = trend === 'flat' ? null : (trend === 'up') !== invert;
+export function StatDelta({ value, direction, tone = 'neutral', className }) {
+  const trend = { up: ['TrendingUpIcon', 'Up'], down: ['TrendingDownIcon', 'Down'], flat: ['MinusIcon', 'Unchanged'] }[direction];
+  const variant = { neutral: 'secondary', accent: 'info-light', info: 'info-light', success: 'success-light', warning: 'warning-light', danger: 'destructive-light', discovery: 'discovery-light', attention: 'warning-light' }[tone] || 'secondary';
   return (
     <Badge
       data-slot='stat-delta'
-      data-trend={trend}
+      data-trend={trend ? direction : undefined}
       size='sm'
-      variant={good === null ? 'secondary' : good ? 'success-light' : 'destructive-light'}
+      variant={variant}
       className={cn('gap-0.5 tabular-nums', className)}
     >
-      <RegistryIcon lucide={trend === 'up' ? 'TrendingUpIcon' : trend === 'down' ? 'TrendingDownIcon' : 'MinusIcon'} aria-hidden='true' className='size-3' />
-      <span className='sr-only'>{trend === 'up' ? 'Up' : trend === 'down' ? 'Down' : 'Unchanged'} </span>
-      {text.replace(/^\s*[-−+]/, '')}
+      {trend ? <RegistryIcon lucide={trend[0]} aria-hidden='true' className='size-3' /> : null}
+      {trend ? <span className='sr-only'>{trend[1]} </span> : null}
+      {value}
     </Badge>
   );
 }
@@ -83,8 +83,7 @@ export function StatMeter({ segments = [], label, showLegend = true, formatValue
           <span key={segment.label} className={cn('h-full', segmentClass[segment.tone || 'neutral'])} style={{ width: `${(segment.value / total) * 100}%` }} />
         ))}
       </div>
-      {showLegend ? (
-        <dl className='grid gap-x-4 gap-y-1 text-xs @[20rem]:grid-cols-2'>
+      <dl className={cn('grid gap-x-4 gap-y-1 text-xs @[20rem]:grid-cols-2', !showLegend && 'sr-only')}>
           {segments.map((segment) => (
             <div key={segment.label} className='flex items-center gap-2'>
               <span aria-hidden='true' className={cn('size-2 shrink-0 rounded-full', segmentClass[segment.tone || 'neutral'])} />
@@ -95,8 +94,7 @@ export function StatMeter({ segments = [], label, showLegend = true, formatValue
               </dd>
             </div>
           ))}
-        </dl>
-      ) : null}
+      </dl>
     </figure>
   );
 }
@@ -106,7 +104,7 @@ export function StatMeter({ segments = [], label, showLegend = true, formatValue
  * action (usually a menu), description, footer and extra content such as a meter.
  * `variant` is `default`, `tinted` (a colour block in `tone`) or `inverse` (dark).
  */
-export default function StatCard({ label, value, delta, invert, icon, tone = 'neutral', variant = 'default', action, description, footer, children, className }) {
+export default function StatCard({ label, value, delta, deltaDirection, deltaTone = 'neutral', icon, tone = 'neutral', variant = 'default', action, description, footer, children, className }) {
   return (
     <CardRoot
       data-slot='stat-card'
@@ -120,10 +118,10 @@ export default function StatCard({ label, value, delta, invert, icon, tone = 'ne
         </CardTitle>
         {action ? <CardAction>{action}</CardAction> : null}
       </CardHeader>
-      <CardContent className='grid gap-2 px-4'>
+      <CardContent className='grid grid-cols-1 gap-2 px-4'>
         <div className='flex flex-wrap items-baseline gap-2'>
           <span data-slot='stat-value' className='text-2xl font-semibold tracking-tight tabular-nums'>{value}</span>
-          {delta !== undefined && delta !== null ? <StatDelta value={delta} invert={invert} /> : null}
+          {delta !== undefined && delta !== null ? <StatDelta value={delta} direction={deltaDirection} tone={deltaTone} /> : null}
         </div>
         {description ? <p className='text-text-muted text-sm'>{description}</p> : null}
         {children}

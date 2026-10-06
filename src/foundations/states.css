@@ -1,0 +1,11 @@
+@custom-variant data-open (&:is([data-state='open'], [data-open]));
+@custom-variant data-closed (&:is([data-state='closed'], [data-closed]));
+@custom-variant data-active (&:is([data-state='active'], [data-active]));
+@custom-variant data-inactive (&:is([data-state='inactive'], [data-inactive]));
+@custom-variant data-checked (&:is([data-state='checked'], [data-checked]));
+@custom-variant data-unchecked (&:is([data-state='unchecked'], [data-unchecked]));
+@custom-variant data-on (&:is([data-state='on'], [data-on]));
+@custom-variant data-off (&:is([data-state='off'], [data-off]));
+@custom-variant data-horizontal (&[data-orientation='horizontal']);
+@custom-variant data-vertical (&[data-orientation='vertical']);
+@custom-variant data-selected (&:is([data-selected], [data-state='checked'], [data-state='active'], [data-state='on'], [aria-selected='true']))

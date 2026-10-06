@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-field-validation",
+  "type": "registry:example",
+  "title": "Form validation",
+  "description": "Form validation. Core/Advanced Inputs/NumberField pattern composed from @gaudi/design-system/core/NumberField and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "@hookform/resolvers@5.2.2",
+    "react-hook-form@7.72.1",
+    "zod@4.3.6"
+  ],
+  "categories": [
+    "number-field",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/NumberField",
+    "import": "@gaudi/design-system/core/NumberField",
+    "storyId": "core-numberfield--validation",
+    "source": "src/components/core/NumberField/stories/fixtures/number-field/number-field-validation.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/number-field-validation.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useId } from 'react';\nimport {\n  NumberField,\n  NumberFieldDecrement,\n  NumberFieldGroup,\n  NumberFieldIncrement,\n  NumberFieldInput\n} from '@gaudi/design-system/core/NumberField';\nimport { zodResolver } from '@hookform/resolvers/zod';\nimport { Controller, useForm } from 'react-hook-form';\nimport ToastProvider, { toast } from '@gaudi/design-system/core/Toast';\nimport { z } from 'zod';\nimport {\n  AlertRoot as Alert,\n  AlertDescriptionPrimitive as AlertDescription\n} from '@gaudi/design-system/core/Banner';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldErrorPrimitive as FieldError,\n  FieldGroup,\n  FieldLabelPrimitive as FieldLabel,\n  FieldSet\n} from '@gaudi/design-system/core/Field';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst FormSchema = z.object({\n  amount: z\n    .number({\n      message: 'Enter the donation as a number.'\n    })\n    .min(10, {\n      message: 'The smallest donation is 10.'\n    })\n    .max(100, {\n      message: 'The largest donation is 100.'\n    })\n});\nexport function Pattern() {\n  const toastId = useId();\n  const form = useForm({\n    resolver: zodResolver(FormSchema),\n    defaultValues: {\n      amount: 5\n    },\n    mode: 'onChange'\n  });\n  function onSubmit(data) {\n    toast.success('Form submitted', {\n      toasterId: toastId,\n      description: (\n        <Alert variant='default'>\n          <RegistryIcon lucide='CircleAlertIcon' />\n          <AlertDescription>\n            Your form has successfully submitted with amount: {data.amount}\n          </AlertDescription>\n        </Alert>\n      )\n    });\n    form.reset();\n  }\n  return (\n    <>\n      <ToastProvider id={toastId} />\n    <div className='w-full max-w-68'>\n      <form onSubmit={form.handleSubmit(onSubmit)}>\n        <FieldGroup>\n          <FieldSet>\n            <FieldGroup>\n              <Controller\n                name='amount'\n                control={form.control}\n                render={({ field, fieldState }) => (\n                  <Field data-invalid={fieldState.invalid}>\n                    <FieldLabel htmlFor={`${toastId}-number-field-amount`}>\n                      Amount\n                    </FieldLabel>\n                    <NumberField\n                      id={`${toastId}-number-field-amount`}\n                      value={field.value}\n                      onValueChange={(value) => field.onChange(value)}\n                      min={0}\n                      max={100}\n                    >\n                      <NumberFieldGroup\n                        aria-invalid={!!form.formState.errors.amount}\n                      >\n                        <NumberFieldDecrement />\n                        <NumberFieldInput />\n                        <NumberFieldIncrement />\n                      </NumberFieldGroup>\n                    </NumberField>\n                    <FieldDescription>\n                      Enter an amount between 10 and 100.\n                    </FieldDescription>\n                    {fieldState.error && (\n                      <FieldError>{fieldState.error?.message}</FieldError>\n                    )}\n                  </Field>\n                )}\n              />\n            </FieldGroup>\n          </FieldSet>\n          <Field orientation='horizontal'>\n            <Button\n              variant='outline'\n              type='button'\n              onClick={() => form.reset()}\n              className='flex-1'\n            >\n              Cancel\n            </Button>\n            <Button type='submit' className='flex-1'>\n              Submit\n            </Button>\n          </Field>\n        </FieldGroup>\n      </form>\n    </div>\n    </>\n  );\n}\n"
+    }
+  ]
+}

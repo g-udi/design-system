@@ -96,207 +96,8 @@
   .ds-app-shell-header[data-bordered='true'] + .ds-app-shell-body {
     padding-top: calc(var(--ds-space-scale, 1) * 1rem);
   }
-
-  /* MARK: Placeholder — skeleton cards that stand in for page content. */
-  .ds-app-shell-placeholder-grid {
-    display: grid;
-    flex: 1 0 auto;
-    grid-template-columns: minmax(0, 1fr);
-    gap: calc(var(--ds-space-scale, 1) * 1rem);
-  }
-  .ds-app-shell-placeholder {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
-    min-width: 0;
-    min-height: 10rem;
-    padding: calc(var(--ds-space-scale, 1) * 1rem);
-    overflow: hidden;
-    border: 1px dashed var(--ds-color-border);
-    border-radius: var(--ds-radius-card);
-    background: var(--ds-color-surface-muted);
-  }
-  .ds-app-shell-placeholder[data-variant='solid'] {
-    border-style: solid;
-    border-color: color-mix(in oklab, var(--ds-color-border) 60%, transparent);
-  }
-  /* A bare placeholder draws only its skeletons, on the panel surface (the chat preset). */
-  .ds-app-shell-placeholder[data-variant='bare'] {
-    padding: 0;
-    border: 0;
-    border-radius: 0;
-    background: transparent;
-  }
-  .ds-app-shell-placeholder-grid:is([data-preset='chat'], [data-preset='thread']) {
-    width: 100%;
-    max-width: 48rem;
-    margin-inline: auto;
-  }
-  .ds-app-shell-placeholder:is([data-kind='conversation'], [data-kind='thread']) {
-    gap: calc(var(--ds-space-scale, 1) * 2rem);
-  }
-  .ds-app-shell-placeholder[data-variant='bare'] [data-slot='app-shell-placeholder-line'] {
-    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
-  }
-  .ds-app-shell-placeholder-thread {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--ds-space-scale, 1) * 1.5rem);
-    padding-top: calc(var(--ds-space-scale, 1) * 1.5rem);
-  }
-  .ds-app-shell-placeholder-composer {
-    display: flex;
-    flex-direction: column;
-    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
-    margin-top: auto;
-  }
-  .ds-app-shell-placeholder[data-size='md'] {
-    min-height: 14rem;
-  }
-  .ds-app-shell-placeholder[data-size='lg'] {
-    min-height: 22rem;
-  }
-  .ds-app-shell-placeholder [data-slot='app-shell-placeholder-line'] {
-    flex-shrink: 0;
-    background: color-mix(in oklab, var(--ds-color-border) 70%, transparent);
-  }
-  .ds-app-shell-placeholder-bars {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: flex-end;
-    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
-    min-height: 8rem;
-    max-height: 16rem;
-    padding-top: calc(var(--ds-space-scale, 1) * 0.5rem);
-  }
-  .ds-app-shell-placeholder-bars[data-fixed='true'] {
-    flex: 0 0 auto;
-    height: 10rem;
-    margin-block-end: auto;
-  }
   /* Block cards: a short row is a heading pair over a band; md and lg rows give the block more room. */
-  .ds-app-shell-placeholder[data-kind='block'][data-size='md'] {
-    min-height: 15rem;
-  }
-  .ds-app-shell-placeholder[data-kind='block'] [data-slot='app-shell-placeholder-line']:last-child {
-    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
-  }
-  .ds-app-shell-placeholder[data-kind='tile'] {
-    min-height: 8rem;
-  }
-  .ds-app-shell-placeholder[data-kind='rows'] [data-slot='app-shell-placeholder-line'] {
-    background: color-mix(in oklab, var(--ds-color-border) 45%, transparent);
-  }
   /* Blank cards: a plain face on the surface over the muted strip of the card. */
-  .ds-app-shell-placeholder[data-kind='blank'] {
-    padding: 0 0 calc(var(--ds-space-scale, 1) * 2.5rem);
-    min-height: 9rem;
-  }
-  .ds-app-shell-placeholder-face {
-    flex: 1 1 auto;
-    margin: -1px -1px 0;
-    border: 1px solid color-mix(in oklab, var(--ds-color-border) 60%, transparent);
-    border-radius: var(--ds-radius-card);
-    background: var(--ds-color-surface);
-  }
-  @container (min-width: 28rem) {
-    .ds-app-shell-placeholder-grid[data-preset='tiles'],
-    .ds-app-shell-placeholder-grid[data-preset='board'],
-    .ds-app-shell-placeholder-grid[data-preset='quad'] {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-    .ds-app-shell-placeholder[data-span='half'] {
-      grid-column: span 1;
-    }
-  }
-  @container (min-width: 44rem) {
-    .ds-app-shell-placeholder-grid[data-preset='tiles'],
-    .ds-app-shell-placeholder-grid[data-preset='board'] {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .ds-app-shell-placeholder-grid[data-preset='quad'] {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    .ds-app-shell-placeholder[data-span='half'] {
-      grid-column: span 2;
-    }
-  }
-  @container (min-width: 28rem) {
-    .ds-app-shell-placeholder-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .ds-app-shell-placeholder-grid[data-preset='dashboard'],
-    .ds-app-shell-placeholder-grid[data-preset='stack'],
-    .ds-app-shell-placeholder-grid[data-preset='split'] {
-      grid-template-rows: auto 1fr;
-    }
-    .ds-app-shell-placeholder-grid[data-preset='grid'] {
-      grid-template-rows: auto auto 1fr;
-    }
-    .ds-app-shell-placeholder-grid:is([data-preset='list'], [data-preset='chat'], [data-preset='thread']) {
-      grid-template-rows: 1fr;
-    }
-    .ds-app-shell-placeholder-grid:is([data-preset='chat'], [data-preset='thread']) {
-      grid-template-columns: minmax(0, 1fr);
-    }
-    .ds-app-shell-placeholder[data-span='wide'] {
-      grid-column: 1 / -1;
-    }
-    .ds-app-shell-placeholder[data-span='two'] {
-      grid-column: span 2;
-    }
-  }
-
-  /* MARK: Rail handle — a grip on the sidebar edge that folds into a chevron on hover or focus. */
-  .ds-part-sidebar-rail-handle {
-    color: var(--ds-color-text);
-    outline: none;
-  }
-  /* The grip sits in the gutter just past the edge; the button extends the hit area. */
-  .ds-part-sidebar-rail-handle > span {
-    margin-inline: 3px;
-  }
-  .ds-part-sidebar-rail-grip {
-    display: block;
-    width: 2px;
-    height: 0.5rem;
-    border-radius: var(--ds-radius-pill);
-    background: color-mix(in oklab, currentColor 40%, transparent);
-    transition: transform 100ms linear, background-color 100ms linear;
-  }
-  .ds-part-sidebar-rail-grip:first-child {
-    transform-origin: bottom;
-  }
-  .ds-part-sidebar-rail-grip:last-child {
-    transform-origin: top;
-  }
-  .ds-part-sidebar-rail-handle:hover .ds-part-sidebar-rail-grip,
-  .ds-part-sidebar-rail-handle:focus-visible .ds-part-sidebar-rail-grip {
-    background: color-mix(in oklab, currentColor 70%, transparent);
-  }
-  .ds-part-sidebar-rail-handle:focus-visible {
-    outline: 2px solid var(--ds-color-accent);
-    outline-offset: -2px;
-    border-radius: var(--ds-radius-control);
-  }
-  /* The grip folds toward the way the sidebar will move: "‹" to collapse a left rail, "›" to expand it. */
-  :is([data-side='left'][data-state='expanded'], [data-side='right'][data-state='collapsed']) > [data-slot='sidebar-container'] .ds-part-sidebar-rail-handle:is(:hover, :focus-visible) .ds-part-sidebar-rail-grip:first-child {
-    transform: rotate(40deg);
-  }
-  :is([data-side='left'][data-state='expanded'], [data-side='right'][data-state='collapsed']) > [data-slot='sidebar-container'] .ds-part-sidebar-rail-handle:is(:hover, :focus-visible) .ds-part-sidebar-rail-grip:last-child {
-    transform: rotate(-40deg);
-  }
-  :is([data-side='left'][data-state='collapsed'], [data-side='right'][data-state='expanded']) > [data-slot='sidebar-container'] .ds-part-sidebar-rail-handle:is(:hover, :focus-visible) .ds-part-sidebar-rail-grip:first-child {
-    transform: rotate(-40deg);
-  }
-  :is([data-side='left'][data-state='collapsed'], [data-side='right'][data-state='expanded']) > [data-slot='sidebar-container'] .ds-part-sidebar-rail-handle:is(:hover, :focus-visible) .ds-part-sidebar-rail-grip:last-child {
-    transform: rotate(40deg);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .ds-part-sidebar-rail-grip {
-      transition: none;
-    }
-  }
 
   /* MARK: Resize handle — drag the sidebar edge to set its width. */
   .ds-part-sidebar-resize-handle {
@@ -358,6 +159,287 @@
     .ds-part-sidebar-resize-handle::before,
     .ds-part-sidebar-resize-grip {
       transition: none;
+    }
+  }
+  .ds-app-shell {
+    position: relative;
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    min-height: 42rem;
+    width: 100%;
+    background: var(--ds-color-surface);
+    color: var(--ds-color-text);
+  }
+  .ds-app-rail {
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
+    border-inline-end: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-app-brand {
+    padding: calc(var(--ds-space-scale, 1) * 0.375rem) calc(var(--ds-space-scale, 1) * 0.5rem) calc(var(--ds-space-scale, 1) * 0.75rem);
+    font-weight: 600;
+  }
+  .ds-app-rail-footer {
+    margin-top: auto;
+    padding-top: calc(var(--ds-space-scale, 1) * 0.75rem);
+  }
+  .ds-app-workspace {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .ds-app-shell[data-layout='topbar'] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ds-app-shell[data-layout='topbar'] .ds-app-brand {
+    padding: 0;
+  }
+  .ds-app-topnav {
+    min-width: 0;
+  }
+  .ds-app-body {
+    display: grid;
+    flex: 1;
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ds-app-aside {
+    min-width: 0;
+    padding: calc(var(--ds-space-scale, 1) * 1rem) calc(var(--ds-space-scale, 1) * 1.5rem);
+    border-top: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+  }
+  @media (min-width: 1280px) {
+    .ds-app-body[data-aside='true'] {
+      grid-template-columns: minmax(0, 1fr) 18rem;
+    }
+    .ds-app-aside {
+      border-top: 0;
+      border-inline-start: 1px solid var(--ds-color-border);
+    }
+  }
+  .ds-app-status {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    padding: calc(var(--ds-space-scale, 1) * 0.375rem) calc(var(--ds-space-scale, 1) * 1.5rem);
+    border-top: 1px solid var(--ds-color-border);
+    color: var(--ds-color-text-muted);
+    font-size: 0.75rem;
+  }
+  .ds-app-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 3.5rem;
+    gap: calc(var(--ds-space-scale, 1) * 0.75rem);
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem) calc(var(--ds-space-scale, 1) * 1.5rem);
+    border-bottom: 1px solid var(--ds-color-border);
+  }
+  .ds-app-mobile-nav {
+    display: none;
+  }
+  .ds-app-content {
+    min-width: 0;
+    padding: calc(var(--ds-space-scale, 1) * 1.5rem);
+  }
+  .ds-skip-link {
+    position: absolute;
+    z-index: 10;
+    inset-inline-start: 0.75rem;
+    top: 0.75rem;
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
+    background: var(--ds-color-surface);
+    color: var(--ds-color-accent);
+    transform: translateY(-200%);
+  }
+  .ds-skip-link:focus {
+    transform: none;
+  }
+  /*
+   * A modal hides the page behind it (aria-hidden/inert), so the skip link must leave the tab order
+   * too: Radix modals lock body scroll (data-scroll-locked), other modals mark aria-modal.
+   */
+  body[data-scroll-locked] .ds-skip-link,
+  body:has(:is([role='dialog'], [role='alertdialog'])[aria-modal='true']) .ds-skip-link {
+    visibility: hidden;
+  }
+  @media (max-width: 1023px) {
+    .ds-app-shell {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .ds-app-rail {
+      display: none;
+    }
+    .ds-app-mobile-nav {
+      display: block;
+    }
+    .ds-app-topnav {
+      display: none;
+    }
+    .ds-app-header {
+      padding: calc(var(--ds-space-scale, 1) * 0.75rem) calc(var(--ds-space-scale, 1) * 1rem);
+    }
+    .ds-app-content {
+      padding: calc(var(--ds-space-scale, 1) * 1rem);
+    }
+  }
+  /* A framed shell follows its measured container, including on wide pages. */
+  .ds-app-shell[data-frame-compact='true'] {
+    grid-template-columns: minmax(0, 1fr);
+    & .ds-app-rail, & .ds-app-topnav { display: none; }
+    & .ds-app-mobile-nav { display: block; }
+    & .ds-app-header { padding-inline: calc(var(--ds-space-scale, 1) * 1rem); }
+    & .ds-app-content { padding: calc(var(--ds-space-scale, 1) * 1rem); }
+  }
+  .ds-app-shell[data-frame-compact='false'] {
+    grid-template-columns: 15rem minmax(0, 1fr);
+    &[data-layout='topbar'] { grid-template-columns: minmax(0, 1fr); }
+    & .ds-app-rail { display: flex; }
+    & .ds-app-topnav { display: block; }
+    & .ds-app-mobile-nav { display: none; }
+  }
+  @media (max-width: 639px) {
+    .ds-app-content {
+      padding: calc(var(--ds-space-scale, 1) * 1rem);
+    }
+  }
+  .ds-part-sidebar-gap {
+    @apply transition-[width] duration-200 ease-linear;
+  }
+
+  .ds-part-sidebar-inner {
+    @apply bg-ui-sidebar group-data-[variant=floating]:ring-ui-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1;
+  }
+
+  .ds-part-sidebar-rail {
+    @apply hover:after:bg-ui-sidebar-border;
+  }
+
+  .ds-part-sidebar-inset {
+    @apply bg-ui-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2;
+  }
+
+  .ds-part-sidebar-input {
+    @apply bg-ui-background h-8 w-full shadow-none;
+  }
+
+  .ds-part-sidebar-header {
+    @apply gap-2 p-2;
+  }
+
+  .ds-part-sidebar-content {
+    @apply no-scrollbar gap-0;
+  }
+
+  .ds-part-sidebar-footer {
+    @apply gap-2 p-2;
+  }
+
+  .ds-part-sidebar-separator {
+    @apply bg-ui-sidebar-border mx-2;
+  }
+
+  .ds-part-sidebar-group {
+    @apply p-2;
+  }
+
+  .ds-part-sidebar-menu {
+    @apply gap-0;
+  }
+
+  .ds-part-sidebar-group-content {
+    @apply text-sm;
+  }
+
+  .ds-part-sidebar-group-label {
+    @apply text-ui-sidebar-foreground/70 ring-ui-sidebar-ring h-8 rounded-md px-2 text-xs font-medium transition-[margin,opacity] duration-200 ease-linear group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 focus-visible:ring-2 [&>svg]:size-4;
+  }
+
+  .ds-part-sidebar-group-action {
+    @apply text-ui-sidebar-foreground ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground absolute top-3.5 end-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4;
+  }
+
+  .ds-part-sidebar-menu-button {
+    @apply ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground active:bg-ui-sidebar-accent active:text-ui-sidebar-accent-foreground data-active:bg-ui-sidebar-accent data-active:text-ui-sidebar-accent-foreground data-open:hover:bg-ui-sidebar-accent data-open:hover:text-ui-sidebar-accent-foreground gap-2 rounded-md p-2 text-start text-sm transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pe-8 group-data-[collapsible=icon]:size-8! focus-visible:ring-2 data-active:font-medium;
+  }
+
+  /* Collapsed rows center their leading visual; labels remain available to assistive technology. */
+  [data-slot='sidebar'][data-collapsible='icon'] .ds-part-sidebar-menu-button {
+    @apply mx-auto max-w-full justify-center gap-0 p-0!;
+    overflow: visible;
+  }
+  [data-slot='sidebar'][data-collapsible='icon'] .ds-part-sidebar-menu-button > :first-child {
+    margin-inline: 0 !important;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  [data-slot='sidebar'][data-collapsible='icon'] .ds-part-sidebar-menu-button > :not(:first-child) {
+    @apply sr-only;
+  }
+  [data-slot='sidebar'][data-collapsible='icon'] .ds-part-sidebar-menu-button [data-slot='avatar'] {
+    max-width: 1.5rem;
+    max-height: 1.5rem;
+  }
+
+  .ds-part-sidebar-menu-button-variant-default {
+    @apply hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground;
+  }
+
+  .ds-part-sidebar-menu-button-variant-outline {
+    @apply bg-ui-background hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground shadow-[0_0_0_1px_var(--ds-color-border)] hover:shadow-[0_0_0_1px_var(--ds-color-accent-subtle)];
+  }
+
+  .ds-part-sidebar-menu-button-size-default {
+    @apply h-8 text-sm;
+  }
+
+  .ds-part-sidebar-menu-button-size-sm {
+    @apply h-7 text-xs;
+  }
+
+  .ds-part-sidebar-menu-button-size-lg {
+    @apply h-12 text-sm;
+  }
+
+  .ds-part-sidebar-menu-action {
+    @apply text-ui-sidebar-foreground ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground peer-hover/menu-button:text-ui-sidebar-accent-foreground absolute top-1.5 end-1 aspect-square w-5 rounded-md p-0 peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1 focus-visible:ring-2 [&>svg]:size-4;
+  }
+
+  .ds-part-sidebar-menu-badge {
+    @apply text-ui-sidebar-foreground peer-hover/menu-button:text-ui-sidebar-accent-foreground peer-data-active/menu-button:text-ui-sidebar-accent-foreground pointer-events-none absolute end-1 flex h-5 min-w-5 rounded-md px-1 text-xs font-medium peer-data-[size=default]/menu-button:top-1.5 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1;
+  }
+
+  .ds-part-sidebar-menu-skeleton {
+    @apply h-8 gap-2 rounded-md px-2;
+  }
+
+  .ds-part-sidebar-menu-skeleton-icon {
+    @apply size-4 rounded-md;
+  }
+
+  .ds-part-sidebar-menu-skeleton-text {
+    @apply h-4;
+  }
+
+  .ds-part-sidebar-menu-sub {
+    @apply border-ui-sidebar-border mx-3.5 translate-x-px gap-1 border-s px-2.5 py-0.5 group-data-[collapsible=icon]:hidden;
+  }
+
+  .ds-part-sidebar-menu-sub-button {
+    @apply text-ui-sidebar-foreground ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground active:bg-ui-sidebar-accent active:text-ui-sidebar-accent-foreground [&>svg]:text-ui-sidebar-accent-foreground data-active:bg-ui-sidebar-accent data-active:text-ui-sidebar-accent-foreground h-7 gap-2 rounded-md px-2 focus-visible:ring-2 data-[size=md]:text-sm data-[size=sm]:text-xs [&>svg]:size-4;
+  }
+
+  /* Forced colours drop the selection fill, so the current item takes the system highlight. */
+  @media (forced-colors: active) {
+    .ds-part-sidebar-menu-button[data-active],
+    .ds-part-sidebar-menu-sub-button[data-active] {
+      background-color: Highlight;
+      color: HighlightText;
+      forced-color-adjust: none;
     }
   }
 }

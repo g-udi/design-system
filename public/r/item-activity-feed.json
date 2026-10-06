@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-activity-feed",
+  "type": "registry:example",
+  "title": "Activity feed",
+  "description": "Activity feed. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-20.svg, /avatars/person-44.svg.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--activity-feed",
+    "source": "src/components/core/Item/stories/fixtures/item/item-activity-feed.jsx",
+    "assets": [
+      "/avatars/person-07.svg",
+      "/avatars/person-20.svg",
+      "/avatars/person-44.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-activity-feed.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  Item,\n  ItemActions,\n  ItemContent,\n  ItemDescription,\n  ItemGroup,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nconst activities = [\n  {\n    name: 'Sabine Okafor',\n    avatar: '/avatars/person-20.svg',\n    action: 'deployed',\n    target: 'v2.4.1 to production',\n    badge: 'success-light',\n    time: '5 min ago'\n  },\n  {\n    name: 'Dorian Oduya',\n    avatar: '/avatars/person-44.svg',\n    action: 'merged',\n    target: 'feat/dark-mode into main',\n    badge: 'info-light',\n    time: '32 min ago'\n  },\n  {\n    name: 'Juno Saarinen',\n    avatar: '/avatars/person-07.svg',\n    action: 'opened',\n    target: 'issue #284: Fix mobile nav',\n    badge: 'warning-light',\n    time: '1 hour ago'\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col'>\n      <ItemGroup>\n        {activities.map((activity, index) => (\n          <div key={index}>\n            <Item variant='outline' size='xs'>\n              <ItemMedia>\n                <Avatar size='sm'>\n                  <AvatarImage src={activity.avatar} alt={activity.name} />\n                  <AvatarFallback>\n                    {activity.name\n                      .split(' ')\n                      .map((n) => n[0])\n                      .join('')}\n                  </AvatarFallback>\n                </Avatar>\n              </ItemMedia>\n              <ItemContent>\n                <ItemTitle>{activity.name}</ItemTitle>\n                <ItemDescription>\n                  <Badge\n                    variant={activity.badge}\n                    size='xs'\n                    className='mr-1 align-text-top'\n                  >\n                    {activity.action}\n                  </Badge>\n                  {activity.target}\n                </ItemDescription>\n              </ItemContent>\n              <ItemActions>\n                <span className='text-ui-muted-foreground text-xs whitespace-nowrap'>\n                  {activity.time}\n                </span>\n              </ItemActions>\n            </Item>\n          </div>\n        ))}\n      </ItemGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

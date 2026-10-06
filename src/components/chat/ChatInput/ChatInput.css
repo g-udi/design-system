@@ -1,0 +1,120 @@
+@layer components {
+  .ds-part-prompt-composer[data-variant='card'] {
+    --prompt-control-size: max(2rem, calc(var(--ds-space-scale, 1) * 2.25rem));
+  }
+
+  .ds-part-prompt-composer[data-variant='card'] > .ds-part-input-group {
+    @apply bg-surface-muted border-border rounded-(--ds-radius-card);
+    padding: calc(var(--ds-space-scale, 1) * 0.375rem);
+  }
+
+  .ds-part-prompt-composer[data-variant='card'] > .ds-part-input-group > [data-align='block-end'] {
+    @apply bg-surface rounded-(--ds-radius-control);
+    align-items: center;
+    padding: calc(var(--ds-space-scale, 1) * 0.25rem);
+    gap: calc(var(--ds-space-scale, 1) * 0.375rem);
+  }
+
+  .ds-part-prompt-composer[data-variant='card'] :is([data-slot='prompt-composer-toolbar'], [data-slot='prompt-composer-actions']) > button,
+  .ds-part-prompt-composer[data-variant='card'] [data-slot='prompt-composer-submit'] > button {
+    min-height: var(--prompt-control-size);
+    border-radius: var(--ds-radius-control);
+  }
+
+  .ds-part-prompt-composer[data-variant='card'] .ds-part-input-group-button-size-icon-sm {
+    min-width: var(--prompt-control-size);
+    width: var(--prompt-control-size);
+    height: var(--prompt-control-size);
+  }
+
+  .ds-part-prompt-composer[data-variant='card'] :is([data-slot='prompt-composer-toolbar'], [data-slot='prompt-composer-actions']) > button:not([data-slot='prompt-toggle']) {
+    @apply bg-surface-muted hover:bg-ui-secondary;
+    height: var(--prompt-control-size);
+  }
+
+  .ds-part-prompt-attach-menu > svg {
+    transition: transform var(--ds-motion-duration-state) var(--ds-motion-ease-out);
+  }
+
+  .ds-part-prompt-attach-menu[data-state='open'] > svg {
+    transform: rotate(45deg);
+  }
+
+  .ds-part-prompt-toggle.ds-part-toggle {
+    --prompt-toggle-size: var(--prompt-control-size, max(2rem, calc(var(--ds-space-scale, 1) * 2rem)));
+    @apply bg-surface-muted text-text-muted hover:bg-ui-secondary hover:text-text;
+    flex: 0 1 auto;
+    min-width: var(--prompt-toggle-size);
+    max-width: 100%;
+    height: auto;
+    min-height: var(--prompt-toggle-size);
+    padding: 0;
+    gap: 0;
+    border-radius: var(--ds-radius-control);
+    transition: background-color var(--ds-motion-duration-state), color var(--ds-motion-duration-state);
+  }
+
+  .ds-part-prompt-toggle.ds-part-toggle[aria-pressed='true'] {
+    @apply bg-accent-subtle text-accent;
+  }
+
+  .ds-part-prompt-toggle [data-slot='prompt-toggle-icon'] {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: var(--prompt-toggle-size);
+    min-height: var(--prompt-toggle-size);
+  }
+
+  .ds-part-prompt-toggle [data-slot='prompt-toggle-label'] {
+    display: grid;
+    grid-template-columns: 0fr;
+    min-width: 0;
+    opacity: 0;
+    transition: grid-template-columns var(--ds-motion-duration-state) var(--ds-motion-ease-out), opacity var(--ds-motion-duration-feedback);
+  }
+
+  .ds-part-prompt-toggle [data-slot='prompt-toggle-label'] > span {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .ds-part-prompt-toggle [data-slot='prompt-toggle-label'] > span > span {
+    display: block;
+    padding-inline-end: calc(var(--ds-space-scale, 1) * 0.625rem);
+    padding-block: calc(var(--ds-space-scale, 1) * 0.25rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: start;
+  }
+
+  .ds-part-prompt-toggle:is([aria-pressed='true'], :focus-visible) [data-slot='prompt-toggle-label'] {
+    grid-template-columns: 1fr;
+    opacity: 1;
+  }
+
+  @media (pointer: coarse) {
+    .ds-part-prompt-composer[data-variant='card'] {
+      --prompt-control-size: max(2.75rem, calc(var(--ds-space-scale, 1) * 2.25rem));
+    }
+
+    .ds-part-prompt-toggle.ds-part-toggle {
+      --prompt-toggle-size: max(2.75rem, var(--prompt-control-size, 2.75rem));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-part-prompt-attach-menu > svg,
+    .ds-part-prompt-toggle [data-slot='prompt-toggle-label'] {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .ds-part-prompt-toggle[aria-pressed='true'] {
+      outline: 1px solid Highlight;
+      outline-offset: -1px;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "loader-inline-status",
+  "type": "registry:example",
+  "title": "Inline status",
+  "description": "Inline status. Core/Loader pattern composed from @gaudi/design-system/core/Loader and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "loader",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Loader",
+    "import": "@gaudi/design-system/core/Loader",
+    "storyId": "core-loader--inline-status",
+    "source": "src/components/core/Loader/stories/fixtures/loader/loader-inline-status.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/loader-inline-status.jsx",
+      "type": "registry:component",
+      "content": "import { ChatActivityIndicator } from '@gaudi/design-system/chat/ChatActivityIndicator';\nimport { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';\nconst statuses = [\n  { tone: 'text-text-muted', title: 'Checking availability', detail: '' },\n  { tone: 'text-accent', title: 'Publishing', detail: 'step 2 of 3' },\n  { tone: 'text-success', title: 'Connected', detail: 'syncing data' },\n  { tone: 'text-warning', title: 'Reconnecting', detail: 'attempt 3 of 5' },\n  { tone: 'text-danger', title: 'Retrying', detail: 'upload failed once' },\n  { tone: 'text-info', title: 'Indexing', detail: '1,204 files' }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col gap-2'>\n      {statuses.map(({ tone, title, detail }) => (\n        <div key={title} className='flex items-center gap-2 text-sm'>\n          <Loader className={`size-3.5 ${tone}`} aria-label={title} />\n          <span className={`font-medium ${tone}`}>{title}</span>\n          {detail ? <span className='text-text-muted'>· {detail}</span> : null}\n        </div>\n      ))}\n      <div className='flex items-center gap-2 text-sm'>\n        <ChatActivityIndicator state='streaming' labels={{ streaming: 'Typing' }} />\n        <span className='text-text-muted'>Alex is typing</span>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

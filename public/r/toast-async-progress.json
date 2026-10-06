@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast-async-progress",
+  "type": "registry:example",
+  "title": "Progress and async work",
+  "description": "Progress and async work. Core/Overlays & Menus/Toast pattern composed from @gaudi/design-system/core/Toast and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toast",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Toast",
+    "import": "@gaudi/design-system/core/Toast",
+    "storyId": "core-toast--async-progress",
+    "source": "src/components/core/Toast/stories/fixtures/toast/toast-async-progress.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toast-async-progress.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useId, useRef, useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';\nimport { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';\nimport { useInterval } from '@gaudi/design-system/hooks/state/use-interval';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n// Custom content renders in the title slot, so it takes the full row and drops the title weight.\nconst custom = { classNames: { content: 'min-w-0 flex-1', title: 'font-normal text-current' } };\nfunction UploadProgress({ progress }) {\n  const done = progress >= 100;\n  return (\n    <div className='flex w-full flex-col gap-2'>\n      <div className='flex items-center gap-2'>\n        <RegistryIcon\n          lucide={done ? 'CircleCheckIcon' : 'FileIcon'}\n          className={`size-4 shrink-0 ${done ? 'text-success' : 'text-text-muted'}`}\n          aria-hidden='true'\n        />\n        <p className='flex-1 truncate text-sm font-medium'>report-q4-2025.pdf</p>\n        <span className='text-text-muted text-xs tabular-nums'>{done ? 'Uploaded' : `${progress}%`}</span>\n      </div>\n      <Progress value={progress} className='h-1.5' aria-label='Upload progress' />\n    </div>\n  );\n}\nexport function Pattern() {\n  const toasterId = useId();\n  const deployment = useRef(null);\n  const uploadId = useRef(null);\n  const progress = useRef(0);\n  const [deploying, setDeploying] = useState(false);\n  const [uploading, setUploading] = useState(false);\n  // Shared timer hooks stop the demo's work when its owning canvas unmounts.\n  useTimeout(() => {\n    deployment.current?.({ name: 'production' });\n    deployment.current = null;\n    setDeploying(false);\n  }, deploying ? 2000 : null);\n  useInterval(() => {\n    progress.current = Math.min(progress.current + 20, 100);\n    const nextProgress = progress.current;\n    toast.custom(() => <UploadProgress progress={nextProgress} />, {\n      ...custom,\n      toasterId,\n      id: uploadId.current,\n      duration: nextProgress >= 100 ? 3000 : Infinity\n    });\n    if (nextProgress >= 100) setUploading(false);\n  }, uploading ? 500 : null);\n  useEffect(() => () => {\n    toast.getToasts().filter((item) => item.toasterId === toasterId).forEach((item) => toast.dismiss(item.id));\n  }, [toasterId]);\n  // toast.promise switches from loading to success or error when the promise settles.\n  const deploy = () => {\n    if (deploying) return;\n    setDeploying(true);\n    toast.promise(new Promise((resolve) => { deployment.current = resolve; }), {\n      toasterId,\n      classNames: { icon: 'relative size-4 shrink-0' },\n      loading: 'Deploying to production...',\n      success: (data) => `Deployed to ${data.name}`,\n      error: 'Deployment failed. Please try again.'\n    });\n  };\n  // Reusing the id updates one toast in place instead of stacking a new one per step.\n  const upload = () => {\n    if (uploading) return;\n    progress.current = 0;\n    uploadId.current = toast.custom(() => <UploadProgress progress={0} />, { ...custom, toasterId, duration: Infinity });\n    setUploading(true);\n  };\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      <Button size='sm' variant='outline' tone='neutral' onClick={deploy} disabled={deploying}>\n        Deploy\n      </Button>\n      <Button size='sm' variant='outline' tone='neutral' onClick={upload} disabled={uploading}>\n        <RegistryIcon lucide='UploadIcon' />\n        Upload report\n      </Button>\n      <ToastProvider id={toasterId} />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+@layer components {
+  .ds-part-combobox-content {
+    @apply bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 *:data-[slot=input-group]:bg-ui-input/30 *:data-[slot=input-group]:border-ui-input/30 max-h-72 min-w-36 overflow-hidden rounded-lg shadow-md ring-1 transition-none duration-100 *:data-[slot=input-group]:m-1 *:data-[slot=input-group]:mb-0 *:data-[slot=input-group]:h-8 *:data-[slot=input-group]:shadow-none;
+  }
+
+  .ds-part-combobox-content-logical {
+    @apply data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2;
+  }
+
+  .ds-part-combobox-label {
+    @apply text-ui-muted-foreground px-2 py-1.5 text-xs;
+  }
+
+  .ds-part-combobox-item {
+    @apply data-highlighted:bg-ui-accent data-highlighted:text-ui-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-ui-accent-foreground gap-2 rounded-md py-1.5 pr-8 pl-2 text-sm [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-combobox-item-indicator {
+    @apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+  }
+
+  .ds-part-combobox-empty {
+    @apply text-ui-muted-foreground hidden w-full justify-center py-2 text-center text-sm group-data-empty/combobox-content:flex;
+  }
+
+  .ds-part-combobox-list {
+    @apply no-scrollbar max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] scroll-py-1 overflow-y-auto p-1 data-empty:p-0;
+  }
+
+  .ds-part-combobox-separator {
+    @apply bg-ui-border -mx-1 my-1 h-px;
+  }
+
+  .ds-part-combobox-trigger {
+    @apply [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-combobox-trigger-icon {
+    @apply text-ui-muted-foreground size-4;
+  }
+
+  .ds-part-combobox-chips {
+    @apply dark:bg-ui-input/30 border-ui-input focus-within:border-ui-ring focus-within:ring-ui-primary has-aria-invalid:ring-ui-destructive/20 dark:has-aria-invalid:ring-ui-destructive/40 has-aria-invalid:border-ui-destructive dark:has-aria-invalid:border-ui-destructive/50 flex min-h-8 flex-wrap items-center gap-1 rounded-lg border bg-transparent bg-clip-padding px-2.5 py-1 text-sm transition-colors focus-within:ring-3 has-aria-invalid:ring-3 has-data-[slot=combobox-chip]:px-1;
+  }
+
+  .ds-part-combobox-chip {
+    @apply bg-ui-muted text-ui-foreground flex h-[calc(--spacing(5.25))] w-fit items-center justify-center gap-1 rounded-sm px-1.5 text-xs font-medium whitespace-nowrap has-data-[slot=combobox-chip-remove]:pr-0;
+  }
+
+  .ds-part-combobox-chip-remove {
+    @apply -ml-1 opacity-50 hover:opacity-100;
+  }
+  .ds-part-native-select {
+    @apply border-ui-input placeholder:text-ui-muted-foreground selection:bg-ui-primary selection:text-ui-primary-foreground dark:bg-ui-input/30 dark:hover:bg-ui-input/50 focus-visible:border-ui-ring focus-visible:ring-ui-primary aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 h-8 w-full min-w-0 appearance-none rounded-lg border bg-transparent py-1 pr-8 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] data-[size=sm]:py-0.5;
+  }
+
+  .ds-part-native-select-icon {
+    @apply text-ui-muted-foreground top-1/2 right-2.5 size-4 -translate-y-1/2;
+  }
+  .ds-part-select-trigger {
+    @apply border-ui-input data-placeholder:text-ui-muted-foreground dark:bg-ui-input/30 dark:hover:bg-ui-input/50 focus-visible:border-ui-ring focus-visible:ring-ui-primary aria-invalid:ring-ui-destructive/20 dark:aria-invalid:ring-ui-destructive/40 aria-invalid:border-ui-destructive dark:aria-invalid:border-ui-destructive/50 gap-1.5 rounded-lg border bg-transparent py-2 pr-2 pl-2.5 text-sm transition-colors select-none focus-visible:ring-3 aria-invalid:ring-3 data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-select-trigger-icon {
+    @apply text-ui-muted-foreground size-4;
+  }
+
+  .ds-part-select-content {
+    @apply bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 ring-ui-foreground/10 min-w-36 rounded-lg shadow-md ring-1 transition-none duration-100;
+  }
+
+  .ds-part-select-label {
+    @apply text-ui-muted-foreground px-2 py-1.5 text-xs;
+  }
+
+  .ds-part-select-item {
+    @apply focus:bg-ui-accent focus:text-ui-accent-foreground not-data-[variant=destructive]:focus:**:text-ui-accent-foreground gap-1.5 rounded-md py-1.5 pr-8 pl-2 text-sm [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2;
+  }
+
+  .ds-part-select-item-indicator {
+    @apply pointer-events-none absolute right-2 flex size-4 items-center justify-center;
+  }
+
+  .ds-part-select-group {
+    @apply scroll-my-1 p-1;
+  }
+
+  .ds-part-select-separator {
+    @apply bg-ui-border -mx-1 my-1 h-px;
+  }
+
+  .ds-part-select-scroll-up-button {
+    @apply bg-ui-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-select-scroll-down-button {
+    @apply bg-ui-popover z-10 flex cursor-default items-center justify-center py-1 [&_svg:not([class*='size-'])]:size-4;
+  }
+}

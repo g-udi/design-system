@@ -1,15 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
 
 import Icon from '../Icon';
-import { omit } from '../../../utilities/content';
-import { useSiteConfig } from '../../../utilities/SiteConfig';
+import { useSiteConfig } from '../../../context';
+import { useHotkey } from '../../../hooks/interaction/use-hotkey.js';
 import CommandPalette, { filterItems } from './CommandPalette';
-import { CommandFooter } from './parts/command.jsx';
+import { CommandFooter } from './Command.jsx';
+import { commandItemProps, prepareCommandCollection } from './commanderItems.js';
 
-const normalizeSlug = (value = '') => String(value).replace(/^\//, '');
 const allowedExternalProtocols = new Set([ 'http:', 'https:', 'mailto:' ]);
 
 const normalizeExternalUrl = (value) => {
@@ -45,14 +45,6 @@ const createExternalAction = (url) => () => {
   }
 };
 
-const commandItemProps = ({ closeOnSelect, href, onClick }) => {
-  return {
-    ...(typeof closeOnSelect === 'boolean' ? { closeOnSelect } : {}),
-    ...(href ? { href } : {}),
-    ...(onClick ? { onClick } : {})
-  };
-};
-
 const itemConfig = {
   'navigation': {},
   'post': { 'showSubtitle': true },
@@ -67,9 +59,9 @@ const metaClass = 'truncate text-xs text-(--ds-color-launcher-heading)';
 // Row content inside a Command item: an optional icon, the title, and type-specific metadata inline or underneath.
 const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subtitle, title, type = 'navigation' }) => {
   const config = itemConfig[type] || itemConfig.navigation;
-  const resolvedSubtitle = (type === 'post' && category ? category.replace(/[-_]/g, ' ') : null) || (type === 'tag' && typeof count !== 'undefined' ? `${count} ${count === 1 ? 'post' : 'posts'}` : null) || subtitle;
-  const showSubtitle = config.showSubtitle && resolvedSubtitle;
-  const label = <div className='truncate font-medium'>{title || children}</div>;
+  const resolvedSubtitle = subtitle ?? (type === 'post' ? category : null) ?? (type === 'tag' && count != null ? `${count} ${count === 1 ? 'post' : 'posts'}` : null);
+  const showSubtitle = config.showSubtitle && resolvedSubtitle != null && resolvedSubtitle !== '';
+  const label = <div className='truncate font-medium'>{title ?? children}</div>;
 
   return (
     <>
@@ -78,7 +70,7 @@ const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subt
         <>
           <div className='min-w-0 flex-1'>{label}</div>
           {showSubtitle ? (
-            <div className={ `${metaClass} ml-auto max-w-[38%] shrink-0 text-right sm:max-w-[45%]${type === 'post' ? ' capitalize' : ''}` } data-cmdk-item-meta>
+            <div className={ `${metaClass} ml-auto max-w-[38%] shrink-0 text-right sm:max-w-[45%]` } data-cmdk-item-meta>
               {resolvedSubtitle}
             </div>
           ) : null}
@@ -92,43 +84,6 @@ const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subt
     </>
   );
 };
-
-const prepareCollection = (collection, type) => (collection || []).map((item) => {
-  const base = {
-    ...item,
-    'children': item.title || item.display || item.name,
-    'id': type === 'publication' ? item.id : item.slug,
-    'showType': false,
-    'title': item.title || item.display || item.name,
-    type
-  };
-
-  if (type === 'post')
-    return omit({ ...base, 'href': `/blog/${normalizeSlug(item.slug)}` }, [ 'draft', 'externalLink', 'featured', 'filePath', 'readingTime', 'sameAs', 'tableOfContents', 'venueType' ]);
-
-  if (type === 'project')
-    return omit({ ...base, 'href': `/blog/projects/${normalizeSlug(item.slug)}`, 'subtitle': item.subtitle || item.description || item.summary }, [ 'draft', 'externalLink', 'featured', 'filePath' ]);
-
-  if (type === 'thought')
-    return omit({ ...base, 'href': `/thoughts/${normalizeSlug(item.slug)}`, 'subtitle': item.summary || item.description }, [ 'draft', 'featured', 'filePath' ]);
-
-  if (type === 'publication')
-    return omit({ ...base, 'href': item.href, 'subtitle': item.year }, [ 'sameAs', 'venueType' ]);
-
-  return base;
-});
-
-const prepareTags = (tags = []) => tags.map((tag) => {
-  return {
-    'children': tag.title || tag.display || tag.name,
-    'count': tag.count,
-    'href': tag.href || `/blog/tags/${normalizeSlug(tag.slug || tag.id)}`,
-    'id': tag.slug || tag.id,
-    'showType': false,
-    'title': tag.title || tag.display || tag.name,
-    'type': 'tag'
-  };
-});
 
 const collectionPageConfig = {
   'posts': { 'heading': 'Posts', 'inlineMetadata': true, 'type': 'post' },
@@ -213,6 +168,7 @@ const SocialPage = ({ items = [], page, search, setPage }) => {
 };
 
 const CommandLauncher = ({
+  navigation = [],
   open,
   posts = [],
   projects = [],
@@ -231,11 +187,11 @@ const CommandLauncher = ({
 
   const collections = useMemo(() => {
     return {
-      'posts': prepareCollection(posts, 'post'),
-      'projects': prepareCollection(projects, 'project'),
-      'publications': prepareCollection(publications, 'publication'),
-      'tags': prepareTags(tags),
-      'thoughts': prepareCollection(thoughts, 'thought')
+      'posts': prepareCommandCollection(posts, 'post'),
+      'projects': prepareCommandCollection(projects, 'project'),
+      'publications': prepareCommandCollection(publications, 'publication'),
+      'tags': prepareCommandCollection(tags, 'tag'),
+      'thoughts': prepareCommandCollection(thoughts, 'thought')
     };
   }, [ posts, projects, publications, tags, thoughts ]);
 
@@ -245,8 +201,7 @@ const CommandLauncher = ({
       'id': 'commander',
       /* Collection entries only appear when the consumer actually supplied that collection. */
       'items': [
-        { 'children': 'Home', 'cmdIcon': 'HomeIcon', 'href': '/', 'id': 'home' },
-        { 'children': 'Blog', 'cmdIcon': 'BookOpenIcon', 'href': '/blog', 'id': 'blog' },
+        ...prepareCommandCollection(navigation, 'navigation'),
         ...(collections.projects.length ? [{ 'children': 'Projects', 'closeOnSelect': false, 'cmdIcon': 'RectangleGroupIcon', 'id': 'projects', 'onClick': () => {
           setPage('projects'); setSearch('');
         } }] : []),
@@ -268,7 +223,6 @@ const CommandLauncher = ({
       'heading': 'Other',
       'id': 'other',
       'items': [
-        { 'children': 'About me', 'cmdIcon': 'FingerPrintIcon', 'href': '/about', 'id': 'about_me' },
         ...(socialItems.length ? [{ 'children': 'Reach out', 'closeOnSelect': false, 'cmdIcon': 'IdentificationIcon', 'id': 'reach_out', 'onClick': () => {
           setPage('contact'); setSearch('');
         } }] : []),
@@ -280,24 +234,15 @@ const CommandLauncher = ({
     { 'heading': 'Thoughts', 'hidden': true, 'id': 'thoughts_fullTextSearch', 'items': collections.thoughts, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Publications', 'hidden': true, 'id': 'publications_fullTextSearch', 'items': collections.publications, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Tags', 'hidden': true, 'id': 'tags_fullTextSearch', 'items': collections.tags, 'options': { 'filterOnListHeading': true } }
-  ], page === 'root' ? search : ''), [ collections, page, resolvedTheme, search, setTheme, socialItems, theme ]);
+  ], page === 'root' ? search : ''), [ collections, navigation, page, resolvedTheme, search, setTheme, socialItems, theme ]);
 
   // Full-text lists only show while searching, and a list whose heading is the whole query steps aside for its page entry.
   const visibleRootItems = rootItems.filter((list) => (search || !list.hidden) && search.toLowerCase() !== list.heading.toLowerCase());
 
-  useEffect(() => {
-    const down = (event) => {
-      if (event.key !== 'k' || (!event.metaKey && !event.ctrlKey)) return;
-
-      event.preventDefault();
-      setOpen((currentOpen) => !currentOpen);
-      setPage('root');
-    };
-
-    document.addEventListener('keydown', down);
-
-    return () => document.removeEventListener('keydown', down);
-  }, [ setOpen ]);
+  useHotkey(['meta+k', 'ctrl+k'], () => {
+    setOpen((currentOpen) => !currentOpen);
+    setPage('root');
+  });
 
   return (
     <CommandPalette

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion-guided-setup",
+  "type": "registry:example",
+  "title": "Guided setup",
+  "description": "Guided setup. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "accordion",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/setup-guide.svg.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--guided-setup",
+    "source": "src/components/core/Accordion/stories/fixtures/accordion/accordion-guided-setup.jsx",
+    "assets": [
+      "static/images/setup-guide.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/accordion-guided-setup.jsx",
+      "type": "registry:component",
+      "content": "import { useId, useState } from 'react';\nimport { AccordionGroup } from '@gaudi/design-system/core/Accordion';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { default as Icon } from '@gaudi/design-system/core/Icon';\nimport { default as Input } from '@gaudi/design-system/core/Input';\nimport { default as Pill } from '@gaudi/design-system/core/Pill';\nimport { default as Progress } from '@gaudi/design-system/core/Progress';\n\n// Supply a QR image that encodes your public setup-guide URL.\nconst setupQr = 'static/images/setup-guide.svg';\n\nexport function Pattern() {\n  const [value, setValue] = useState('guide');\n  const [complete, setComplete] = useState(false);\n  const [saved, setSaved] = useState(false);\n  const nameId = useId();\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      <Progress\n        label='Workspace setup'\n        value={complete ? 2 : 1}\n        max={3}\n        valueText={`${complete ? 2 : 1} of 3 complete`}\n      />\n      <AccordionGroup\n        value={value}\n        onValueChange={setValue}\n        variant='outline'\n        items={[\n          {\n            value: 'workspace',\n            title: 'Create your workspace',\n            leading: <Icon name='Check' decorative />,\n            badge: (\n              <Pill size='xs' tone='green' variant='soft'>\n                Ready\n              </Pill>\n            ),\n            content: 'Your workspace is ready. Continue with the setup guide.'\n          },\n          {\n            value: 'guide',\n            title: 'Read the setup guide',\n            leading: <Icon name='BookOpen' decorative />,\n            badge: complete && (\n              <Pill size='xs' tone='green' variant='soft'>\n                Done\n              </Pill>\n            ),\n            content: (\n              <div className='grid gap-3 [&>button]:justify-self-start'>\n                <div className='flex flex-wrap items-start gap-3'>\n                  <p className='min-w-0 flex-[1_1_180px]'>\n                    Scan to read the package guide on another device, or{' '}\n                    <a\n                      className='text-accent underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2'\n                      href='https://github.com/ahmadassaf/design-system'\n                      target='_blank'\n                      rel='noreferrer'\n                    >\n                      open the setup guide\n                    </a>\n                    .\n                  </p>\n                  <img\n                    className='shrink-0 rounded-sm bg-white'\n                    width='96'\n                    height='96'\n                    src={setupQr}\n                    alt='QR code for the Gaudi setup guide'\n                  />\n                </div>\n                <Button\n                  size='sm'\n                  onClick={() => {\n                    setComplete(true);\n                    setValue('profile');\n                  }}\n                >\n                  Mark guide as read\n                </Button>\n              </div>\n            )\n          },\n          {\n            value: 'profile',\n            title: 'Set your display name',\n            leading: <Icon name='Users' decorative />,\n            disabled: !complete,\n            description: complete ? undefined : 'Read the guide to unlock this step.',\n            content: (\n              <form\n                className='grid gap-3 [&>button]:justify-self-start'\n                onSubmit={(event) => {\n                  event.preventDefault();\n                  setSaved(true);\n                }}\n              >\n                <label htmlFor={nameId}>Display name</label>\n                <Input\n                  id={nameId}\n                  required\n                  name='displayName'\n                  autoComplete='name'\n                  autoFocus\n                  placeholder='Your name'\n                  onChange={() => setSaved(false)}\n                />\n                <Button type='submit' size='sm'>\n                  Save display name\n                </Button>\n                {saved && <p role='status'>Display name saved in this example.</p>}\n              </form>\n            )\n          }\n        ]}\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

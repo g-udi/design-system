@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "navigation-menu-blog-recent-posts",
+  "type": "registry:example",
+  "title": "Blog menu with recent posts",
+  "description": "Blog menu with recent posts. Core/Navigation/NavigationMenu pattern composed from @gaudi/design-system/core/NavigationMenu and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "navigation-menu",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/NavigationMenu",
+    "import": "@gaudi/design-system/core/NavigationMenu",
+    "storyId": "core-navigationmenu--blog-recent-posts",
+    "source": "src/components/core/NavigationMenu/stories/fixtures/navigation-menu/navigation-menu-blog-recent-posts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/navigation-menu-blog-recent-posts.jsx",
+      "type": "registry:component",
+      "content": "import {\n  NavigationMenu,\n  NavigationMenuAside,\n  NavigationMenuDropdown,\n  NavigationMenuLink,\n  NavigationMenuList\n} from '@gaudi/design-system/core/NavigationMenu';\nconst categories = [\n  { title: 'Data', description: 'Everything AI, ML and Data', href: '#data' },\n  { title: 'Productivity', description: 'Productivity, tools and tips', href: '#productivity' },\n  { title: 'Management', description: 'Engineering management and leadership', href: '#management' },\n  { title: 'Engineering', description: 'Development, programming and code', href: '#engineering' }\n];\nconst recentPosts = [\n  { title: 'Design systems keep editorial rhythm predictable', date: 'May 20, 2026', href: '#design-systems' },\n  { title: 'Knowledge graphs for product teams', date: 'April 18, 2026', href: '#knowledge-graphs' },\n  { title: 'Component contracts for navigation', date: 'March 16, 2026', href: '#component-contracts' }\n];\nexport function Pattern() {\n  return (\n    <div className='flex min-h-[26rem] items-start justify-center'>\n      <NavigationMenu label='Blog navigation' className='w-auto min-w-0 max-w-full'>\n        <NavigationMenuList className='justify-center'>\n          <NavigationMenuLink href='#publications'>Publications</NavigationMenuLink>\n          <NavigationMenuLink href='#projects'>Projects</NavigationMenuLink>\n          <NavigationMenuLink href='#thoughts'>Thoughts</NavigationMenuLink>\n          <NavigationMenuDropdown\n            label='Blog'\n            align='center'\n            width='2xl'\n            aside={\n              <NavigationMenuAside title='Recent posts' action={{ href: '#blog', label: 'See all' }}>\n                <ul className='m-0 grid list-none gap-0.5 p-0'>\n                  {recentPosts.map((post) => (\n                    <li key={post.href}>\n                      <NavigationMenuLink variant='panel' href={post.href} description={post.date}>\n                        <span className='block truncate'>{post.title}</span>\n                      </NavigationMenuLink>\n                    </li>\n                  ))}\n                </ul>\n              </NavigationMenuAside>\n            }\n          >\n            <ul className='m-0 grid list-none content-start gap-0.5 p-0'>\n              {categories.map((category) => (\n                <li key={category.href}>\n                  <NavigationMenuLink variant='panel' href={category.href} description={category.description}>\n                    {category.title}\n                  </NavigationMenuLink>\n                </li>\n              ))}\n            </ul>\n          </NavigationMenuDropdown>\n        </NavigationMenuList>\n      </NavigationMenu>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

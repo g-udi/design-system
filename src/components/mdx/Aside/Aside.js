@@ -1,8 +1,8 @@
 /**
  * Aside Component
  *
- * @description Supplementary article content. Reads as a muted note in the column and moves into the
- * left margin on very wide screens. Colours come from theme tokens, so it needs no dark-mode overrides.
+ * @description Supplementary article content that stays in its reading column at every width.
+ * Colours come from theme tokens, so it needs no dark-mode overrides.
  *
  * @author Ahmad Assaf
  * @version 1.0.0
@@ -23,7 +23,6 @@ const Aside = ({ children, className }) => (
   <aside
     className={ cn(
       'my-4 rounded-md border border-border bg-surface-muted px-4 py-3 text-sm leading-6 text-text-muted',
-      '2xl:absolute 2xl:left-[-20%] 2xl:w-[250px] 2xl:border-0 2xl:bg-transparent 2xl:py-2',
       className
     ) }
   >

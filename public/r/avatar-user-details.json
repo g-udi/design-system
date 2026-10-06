@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar-user-details",
+  "type": "registry:example",
+  "title": "User details and badge",
+  "description": "User details and badge. Core/Avatar pattern composed from @gaudi/design-system/core/Avatar and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "avatar",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/Avatar",
+    "import": "@gaudi/design-system/core/Avatar",
+    "storyId": "core-avatar--user-details",
+    "source": "src/components/core/Avatar/stories/fixtures/avatar/avatar-user-details.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/avatar-user-details.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nexport function Pattern() {\n  return (\n    <div className='flex items-center gap-1.5'>\n      <Avatar>\n        <AvatarImage\n          src='/avatars/person-41.svg'\n          alt='Anouk Varga'\n        />\n        <AvatarFallback>AV</AvatarFallback>\n      </Avatar>\n\n      <div className='flex flex-col'>\n        <div className='flex items-center gap-1.5'>\n          <span className='text-sm font-semibold'>Anouk Varga</span>\n          <Badge variant='default' size='xs'>\n            Pro\n          </Badge>\n        </div>\n        <span className='text-ui-muted-foreground text-xs'>Founder & CEO</span>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

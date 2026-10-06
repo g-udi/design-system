@@ -1,2 +1,2 @@
-export { FunnelChart as default } from './parts/funnel-chart.jsx';
-export { FunnelChart } from './parts/funnel-chart.jsx';
+export { FunnelChart as default } from './FunnelChart.jsx';
+export { FunnelChart } from './FunnelChart.jsx';

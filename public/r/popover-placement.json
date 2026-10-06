@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover-placement",
+  "type": "registry:example",
+  "title": "Sides and alignment",
+  "description": "Sides and alignment. Core/Overlays & Menus/Popover pattern composed from @gaudi/design-system/core/Popover and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "popover",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Popover",
+    "import": "@gaudi/design-system/core/Popover",
+    "storyId": "core-popover--placement",
+    "source": "src/components/core/Popover/stories/fixtures/popover/popover-placement.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/popover-placement.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  PopoverPrimitive as Popover,\n  PopoverContentPrimitive as PopoverContent,\n  PopoverDescription,\n  PopoverHeader,\n  PopoverTitle,\n  PopoverTriggerPrimitive as PopoverTrigger\n} from '@gaudi/design-system/core/Popover';\nconst sides = ['top', 'right', 'bottom', 'left'];\nconst aligns = ['start', 'center', 'end'];\nfunction Example({ side = 'bottom', align = 'center', label }) {\n  return (\n    <Popover>\n      <PopoverTrigger asChild>\n        <Button variant='outline' size='sm' className='w-full capitalize'>\n          {label}\n        </Button>\n      </PopoverTrigger>\n      <PopoverContent side={side} align={align} className='w-56 px-3 py-2'>\n        <PopoverHeader>\n          <PopoverTitle>Dimensions</PopoverTitle>\n          <PopoverDescription>\n            Opens on the {side}, aligned to the {align}.\n          </PopoverDescription>\n        </PopoverHeader>\n      </PopoverContent>\n    </Popover>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-3'>\n      <div className='grid gap-2'>\n        <p className='text-xs text-text-muted'>Side</p>\n        <div className='grid grid-cols-4 gap-2'>\n          {sides.map((side) => (\n            <Example key={side} side={side} label={side} />\n          ))}\n        </div>\n      </div>\n      <div className='grid gap-2'>\n        <p className='text-xs text-text-muted'>Alignment</p>\n        <div className='grid grid-cols-3 gap-2'>\n          {aligns.map((align) => (\n            <Example key={align} align={align} label={align} />\n          ))}\n        </div>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

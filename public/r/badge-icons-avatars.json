@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge-icons-avatars",
+  "type": "registry:example",
+  "title": "Icons, dots, avatars and images",
+  "description": "Icons, dots, avatars and images. Core/Pill pattern composed from @gaudi/design-system/core/Pill and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "badge",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg, static/images/art/4.svg.",
+  "meta": {
+    "owner": "core/Pill",
+    "import": "@gaudi/design-system/core/Pill",
+    "storyId": "core-pill--icons-avatars",
+    "source": "src/components/core/Pill/stories/fixtures/badge/badge-icons-avatars.jsx",
+    "assets": [
+      "/avatars/person-41.svg",
+      "static/images/art/4.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/badge-icons-avatars.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      <Badge variant='outline'>\n        <RegistryIcon lucide='CheckIcon' aria-hidden='true' />\n        Verified\n      </Badge>\n      <Badge variant='info-light'>\n        <span aria-hidden='true' className='size-1.5 rounded-full bg-current' />\n        In progress\n      </Badge>\n      <Badge variant='success-light'>\n        <span aria-hidden='true' className='size-1.5 rounded-full bg-current' />\n        Online\n      </Badge>\n      <Badge variant='outline'>\n        <Avatar className='size-3.5'>\n          <AvatarImage src='/avatars/person-41.svg' alt='' />\n          <AvatarFallback>AL</AvatarFallback>\n        </Avatar>\n        Alex\n      </Badge>\n      <Badge variant='outline'>\n        <img src='static/images/art/4.svg' alt='' width={14} height={14} className='rounded-xs' />\n        Northwind\n      </Badge>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

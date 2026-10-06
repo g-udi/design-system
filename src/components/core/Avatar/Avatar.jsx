@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import { cn } from '../../../utilities/cn';
 import { createVariants } from '../../../utilities/variants';
 import Icon from '../Icon';
-import { Avatar as AvatarRoot, AvatarImage, AvatarFallback, AvatarBadge } from './parts/avatar';
+import { Avatar as AvatarRoot, AvatarImage, AvatarFallback, AvatarBadge } from './AvatarPrimitives.jsx';
 import { getAvatarInitials } from './avatarModel';
 
 export const avatarVariants = createVariants({

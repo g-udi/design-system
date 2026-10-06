@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-block-folding",
+  "type": "registry:example",
+  "title": "Long file with folding",
+  "description": "Long file with folding. Core/Data Display/CodeBlock pattern composed from @gaudi/design-system/core/CodeBlock and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "code-block",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/CodeBlock",
+    "import": "@gaudi/design-system/core/CodeBlock",
+    "storyId": "core-codeblock--folding",
+    "source": "src/components/core/CodeBlock/stories/fixtures/code-block/code-block-folding.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/code-block-folding.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  CodeBlock,\n  CodeBlockContent,\n  CodeBlockCopyButton,\n  CodeBlockExpandButton,\n  CodeBlockHeader,\n  CodeBlockTitle,\n  useCodeBlockConfig\n} from '@gaudi/design-system/core/CodeBlock';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  ScrollArea,\n  ScrollBar\n} from '@gaudi/design-system/core/ScrollArea';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nconst code = `export async function syncWorkspace(workspaceId: string) {\n  const workspace = await db.workspace.findUnique({ where: { id: workspaceId } })\n\n  if (!workspace) {\n    throw new WorkspaceNotFoundError(workspaceId)\n  }\n\n  const members = await db.member.findMany({ where: { workspaceId } })\n\n  for (const member of members) {\n    if (member.status === \"invited\") {\n      await mail.send({\n        to: member.email,\n        template: \"workspace-reminder\",\n      })\n    }\n  }\n\n  return { synced: members.length }\n}`;\n/* Fold regions are detected from indentation; these are their first lines,\n   counted from the top of the snippet whatever startLine says. Folding\n   something drops the line budget, since the file is already short. */\nconst REGION_STARTS = [1, 4, 10, 11, 12];\nfunction CollapsibleArea({ children }) {\n  const { expanded } = useCodeBlockConfig('CollapsibleArea');\n  return (\n    <ScrollArea\n      className={cn(\n        'rounded-[inherit]',\n        /* overflow-hidden makes collapsed mean collapsed: without it the\n         reader could wheel through everything under the \"Show more\" fade. */\n        !expanded &&\n          '**:data-[slot=scroll-area-viewport]:max-h-56 **:data-[slot=scroll-area-viewport]:overflow-hidden'\n      )}\n    >\n      {children}\n      <ScrollBar orientation='horizontal' />\n    </ScrollArea>\n  );\n}\nexport function Pattern() {\n  const [folded, setFolded] = useState([]);\n  return (\n    <CodeBlock\n      code={code}\n      language='typescript'\n      showLineNumbers\n      startLine={40}\n      maxLines={folded.length ? undefined : 10}\n      className='w-full max-w-2xl'\n      foldable\n      folded={folded}\n      onFoldedChange={setFolded}\n    >\n      <CodeBlockHeader className='gap-1.5'>\n        <CodeBlockTitle>lib/sync-workspace.ts</CodeBlockTitle>\n        <div className='ml-auto flex items-center gap-1'>\n          <Button size='xs' variant='ghost' onClick={() => setFolded(REGION_STARTS)}>\n            Fold all\n          </Button>\n          <Button\n            size='xs'\n            variant='ghost'\n            disabled={!folded.length}\n            onClick={() => setFolded([])}\n          >\n            Unfold all\n          </Button>\n          <CodeBlockCopyButton />\n        </div>\n      </CodeBlockHeader>\n      <CollapsibleArea>\n        <CodeBlockContent />\n      </CollapsibleArea>\n      <CodeBlockExpandButton />\n    </CodeBlock>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-media",
+  "type": "registry:example",
+  "title": "Media cards",
+  "description": "Media cards. Core/Card pattern composed from @gaudi/design-system/core/Card and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "card",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-50.svg, static/images/art/4.svg, static/images/art/5.svg.",
+  "meta": {
+    "owner": "core/Card",
+    "import": "@gaudi/design-system/core/Card",
+    "storyId": "core-card--media",
+    "source": "src/components/core/Card/stories/fixtures/card/card-media.jsx",
+    "assets": [
+      "/avatars/person-50.svg",
+      "static/images/art/4.svg",
+      "static/images/art/5.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/card-media.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nfunction ImageCard({ bleed }) {\n  return (\n    <Card className={cn('w-full', bleed && 'overflow-hidden p-0')}>\n      <CardContent className={cn('flex flex-col gap-3', bleed && 'p-0')}>\n        <div className={cn('h-40 w-full overflow-hidden', !bleed && 'rounded-lg')}>\n          <img src='static/images/art/4.svg' alt='' width={1e3} height={800} className='size-full object-cover' />\n        </div>\n        <div className={cn('flex flex-col gap-3', bleed && 'px-4 pb-4')}>\n          <div className='flex items-center justify-between gap-2'>\n            <Badge variant='outline'>\n              <RegistryIcon lucide='BellIcon' aria-hidden='true' />\n              Trending\n            </Badge>\n            <span className='flex items-center gap-1 text-xs font-medium text-text-muted'>\n              <RegistryIcon lucide='SparklesIcon' aria-hidden='true' className='size-3.5' />\n              Featured\n            </span>\n          </div>\n          <p className='text-sm text-text'>Manage tasks, projects, and your team in one place from day one.</p>\n          <Button href='/projects/new' size='sm'>\n            Get started\n            <RegistryIcon lucide='ArrowRightIcon' aria-hidden='true' />\n          </Button>\n        </div>\n      </CardContent>\n    </Card>\n  );\n}\n\nfunction OverlayCard() {\n  return (\n    <Card className='group/media relative h-full min-h-80 w-full overflow-hidden border-0 p-0'>\n      <img\n        src='static/images/art/5.svg'\n        alt=''\n        width={1e3}\n        height={800}\n        className='absolute inset-0 size-full object-cover transition-transform duration-500 motion-reduce:transition-none group-hover/media:scale-110'\n      />\n      <div className='absolute inset-x-0 top-0 h-1/2 bg-linear-to-b from-black/60 to-transparent' />\n      <div className='absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-black/60 to-transparent transition-opacity duration-500 group-hover/media:from-black/70' />\n      <div className='relative flex items-center gap-2 p-4'>\n        <div className='relative'>\n          <Avatar>\n            <AvatarImage src='/avatars/person-50.svg' alt='' />\n            <AvatarFallback>BO</AvatarFallback>\n          </Avatar>\n          <RegistryIcon lucide='BadgeCheckIcon' aria-label='Verified' className='absolute -top-1 -right-1 size-4 fill-info text-info-foreground' />\n        </div>\n        <div className='min-w-0 flex-1 text-sm'>\n          <a href='/authors/nick-johnson' className='block font-medium text-white'>Barnaby Okafor</a>\n          <span className='block truncate text-xs text-white/80'>6 min read</span>\n        </div>\n        <Badge variant='success'>New</Badge>\n      </div>\n      <div className='absolute inset-x-0 bottom-0 space-y-1 p-4'>\n        <h3 className='text-lg font-semibold text-white'>Designing with tokens</h3>\n        <p className='text-sm text-white/90'>The image scales and the fade deepens on hover.</p>\n      </div>\n    </Card>\n  );\n}\n\nexport function Pattern() {\n  const [bleed, setBleed] = useState(false);\n  return (\n    <div className='mx-auto grid w-full max-w-2xl gap-3'>\n      <Label className='gap-2 text-sm font-normal'>\n        <Switch size='sm' checked={bleed} onCheckedChange={setBleed} />\n        Full-bleed image\n      </Label>\n      <div className='grid gap-3 sm:grid-cols-2'>\n        <ImageCard bleed={bleed} />\n        <OverlayCard />\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

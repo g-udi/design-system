@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb-icons-avatars",
+  "type": "registry:example",
+  "title": "Icons, badges and avatars",
+  "description": "Icons, badges and avatars. Core/Navigation/Breadcrumb pattern composed from @gaudi/design-system/core/Breadcrumb and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "breadcrumb",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg, static/images/art/4.svg.",
+  "meta": {
+    "owner": "core/Breadcrumb",
+    "import": "@gaudi/design-system/core/Breadcrumb",
+    "storyId": "core-breadcrumb--icons-avatars",
+    "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-icons-avatars.jsx",
+    "assets": [
+      "/avatars/person-41.svg",
+      "static/images/art/4.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/breadcrumb-icons-avatars.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  BreadcrumbRoot as Breadcrumb,\n  BreadcrumbItemPrimitive as BreadcrumbItem,\n  BreadcrumbLinkPrimitive as BreadcrumbLink,\n  BreadcrumbListPrimitive as BreadcrumbList,\n  BreadcrumbPagePrimitive as BreadcrumbPage,\n  BreadcrumbSeparatorPrimitive as BreadcrumbSeparator\n} from '@gaudi/design-system/core/Breadcrumb';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Item = ({ children, current }) => (\n  <BreadcrumbItem>\n    {current ? (\n      <BreadcrumbPage className='flex items-center gap-1.5'>{children}</BreadcrumbPage>\n    ) : (\n      <BreadcrumbLink href='#' className='flex items-center gap-1.5'>{children}</BreadcrumbLink>\n    )}\n  </BreadcrumbItem>\n);\nconst Glyph = ({ name }) => <RegistryIcon lucide={name} className='size-4' aria-hidden='true' />;\nconst rows = [\n  {\n    label: 'Icons',\n    items: [\n      <Item key='a'><Glyph name='HouseIcon' />Home</Item>,\n      <Item key='b'><Glyph name='LayoutDashboardIcon' />Components</Item>,\n      <Item key='c' current><Glyph name='SettingsIcon' />Settings</Item>\n    ]\n  },\n  {\n    label: 'Home button',\n    items: [\n      <BreadcrumbItem key='a'>\n        <BreadcrumbLink asChild>\n          <Button size='icon-sm' variant='outline' aria-label='Home'>\n            <Glyph name='HouseIcon' />\n          </Button>\n        </BreadcrumbLink>\n      </BreadcrumbItem>,\n      <Item key='b'>Help Center</Item>,\n      <Item key='c' current>Getting started</Item>\n    ]\n  },\n  {\n    label: 'Count badge',\n    items: [\n      <Item key='a'>\n        Inbox\n        <Badge variant='destructive-outline' size='sm' className='rounded-control'>3</Badge>\n      </Item>,\n      <Item key='b'>Labels</Item>,\n      <Item key='c' current>Important</Item>\n    ]\n  },\n  {\n    label: 'Avatars',\n    items: [\n      <Item key='a'>\n        <Avatar className='size-5 rounded-sm'>\n          <AvatarImage src='static/images/art/4.svg' alt='' />\n          <AvatarFallback>AC</AvatarFallback>\n        </Avatar>\n        Gaudi\n      </Item>,\n      <Item key='b'>\n        <Avatar className='size-5'>\n          <AvatarImage src='/avatars/person-41.svg' alt='' />\n          <AvatarFallback>AJ</AvatarFallback>\n        </Avatar>\n        @alexjohnson\n      </Item>,\n      <Item key='c' current>Projects</Item>\n    ]\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n      {rows.map(({ label, items }) => (\n        <div key={label} className='contents'>\n          <span className='text-xs text-text-muted'>{label}</span>\n          <Breadcrumb aria-label={`${label} breadcrumb`}>\n            <BreadcrumbList>\n              {items.flatMap((item, index) => (index ? [<BreadcrumbSeparator key={`s${index}`} />, item] : [item]))}\n            </BreadcrumbList>\n          </Breadcrumb>\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

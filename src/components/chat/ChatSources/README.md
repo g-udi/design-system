@@ -5,25 +5,25 @@ Where an answer came from: numbered inline citations that open a card with the s
 ## Usage
 
 ```jsx
-import { MessageCitation, MessageSources } from '@gaudi/design-system/chat';
+import { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';
 
 <p>
-  Readers leave early <MessageCitation index={1} source={sources[0]} /> on long posts
-  <MessageCitation index={2} sources={[sources[1], sources[2]]} />.
+  Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts
+  <ChatMessageCitation index={2} sources={[sources[1], sources[2]]} />.
 </p>
-<MessageSources sources={sources} />
+<ChatMessageSources sources={sources} />
 ```
 
-In `MessageMarkdown` and `MessageParts`, `[1]` cites one source and `[1, 3]` groups several behind one pill.
+In `ChatMessageMarkdown` and `ChatMessageParts`, `[1]` cites one source and `[1, 3]` groups several behind one pill.
 
 ## API
 
 | Prop / part | Contract |
 | --- | --- |
-| `MessageSources.sources` | `{ title, url?, kind?, site?, excerpt?, quote?, icon? }`; collapsed to a count by default. |
-| `MessageCitation` | `index` with `source`, or `sources` for several; the pill reads "2 +1" and the card has a carousel. |
-| `MessageCitation.labels` | `trigger`, `carousel`, `position`, `previous` and `next` copy. |
-| `MessageSource` | One row of the list. |
+| `ChatMessageSources.sources` | `{ title, url?, kind?, site?, excerpt?, quote?, icon? }`; collapsed to a count by default. |
+| `ChatMessageCitation` | `index` with `source`, or `sources` for several; the pill reads "2 +1" and the card has a carousel. |
+| `ChatMessageCitation.labels` | `trigger`, `carousel`, `position`, `previous` and `next` copy. |
+| `ChatMessageSource` | One row of the list. |
 
 ## Accessibility
 

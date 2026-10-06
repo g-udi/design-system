@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper-basic",
+  "type": "registry:example",
+  "title": "Simple linear steps",
+  "description": "Simple linear steps. Core/Navigation/Stepper pattern composed from @gaudi/design-system/core/Stepper and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stepper",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Stepper",
+    "import": "@gaudi/design-system/core/Stepper",
+    "storyId": "core-stepper--basic",
+    "source": "src/components/core/Stepper/stories/fixtures/stepper/stepper-basic.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/stepper-basic.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  StepperRoot as Stepper,\n  StepperContent,\n  StepperIndicator,\n  StepperItem,\n  StepperNav,\n  StepperPanel,\n  StepperSeparator,\n  StepperTrigger\n} from '@gaudi/design-system/core/Stepper';\nconst steps = [1, 2, 3, 4];\nexport function Pattern() {\n  return (\n    <Stepper defaultValue={2} className='w-full max-w-md space-y-6'>\n      <StepperNav>\n        {steps.map((step) => (\n          <StepperItem key={step} step={step}>\n            <StepperTrigger>\n              <StepperIndicator>{step}</StepperIndicator>\n            </StepperTrigger>\n            {steps.length > step && (\n              <StepperSeparator className='group-data-[state=completed]/step:bg-ui-primary' />\n            )}\n          </StepperItem>\n        ))}\n      </StepperNav>\n\n      <StepperPanel className='text-sm'>\n        {steps.map((step) => (\n          <StepperContent\n            key={step}\n            value={step}\n            className='flex items-center justify-center'\n          >\n            Step {step} content\n          </StepperContent>\n        ))}\n      </StepperPanel>\n    </Stepper>\n  );\n}\n"
+    }
+  ]
+}

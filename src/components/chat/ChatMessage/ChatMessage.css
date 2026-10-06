@@ -1,0 +1,25 @@
+@layer components {
+  .ds-part-message {
+    @apply text-sm gap-2;
+  }
+
+  .ds-part-message-avatar {
+    @apply min-w-8 group-has-data-[slot=message-footer]/message:-translate-y-8;
+  }
+
+  .ds-part-message-content {
+    @apply gap-2 group-data-[align=end]/message:*:data-slot:self-end;
+  }
+
+  .ds-part-message-header {
+    @apply text-xs font-medium text-ui-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0;
+  }
+
+  .ds-part-message-footer {
+    @apply text-xs font-medium text-ui-muted-foreground px-3 group-has-data-[variant=ghost]/message:px-0;
+  }
+
+  .ds-part-message-group {
+    @apply gap-2;
+  }
+}

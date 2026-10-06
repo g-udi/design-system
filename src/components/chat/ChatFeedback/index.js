@@ -1,1 +1,1 @@
-export { MessageFeedback as default, MessageFeedback } from './parts/message-feedback.jsx';
+export { ChatMessageFeedback as default, ChatMessageFeedback } from './ChatMessageFeedback.jsx';

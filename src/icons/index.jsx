@@ -1,3 +1,6 @@
+import { GaudiLogo } from './brands/gaudi.jsx';
+import Quote from 'lucide-react/dist/esm/icons/quote.js';
+import Fingerprint from 'lucide-react/dist/esm/icons/fingerprint.js';
 import AnimatedCatalogAccessibility from 'lucide-react/dist/esm/icons/accessibility.js';
 import AnimatedCatalogArrowDownCircle from 'lucide-react/dist/esm/icons/circle-arrow-down.js';
 import AnimatedCatalogArrowLeftFromLine from 'lucide-react/dist/esm/icons/arrow-left-from-line.js';
@@ -204,6 +207,7 @@ import CatalogueMoreVertical from 'lucide-react/dist/esm/icons/ellipsis-vertical
 import CatalogueMusic from 'lucide-react/dist/esm/icons/music.js';
 import CataloguePackage from 'lucide-react/dist/esm/icons/package.js';
 import CataloguePalette from 'lucide-react/dist/esm/icons/palette.js';
+import CataloguePipette from 'lucide-react/dist/esm/icons/pipette.js';
 import CataloguePanelLeft from 'lucide-react/dist/esm/icons/panel-left.js';
 import CataloguePaperclip from 'lucide-react/dist/esm/icons/paperclip.js';
 import CataloguePauseCircle from 'lucide-react/dist/esm/icons/circle-pause.js';
@@ -278,6 +282,8 @@ import CatalogueUserRoundCog from 'lucide-react/dist/esm/icons/user-round-cog.js
 import CatalogueUserRound from 'lucide-react/dist/esm/icons/user-round.js';
 import CatalogueUserRoundX from 'lucide-react/dist/esm/icons/user-round-x.js';
 import CatalogueUsersRound from 'lucide-react/dist/esm/icons/users-round.js';
+import CatalogueVideoOff from 'lucide-react/dist/esm/icons/video-off.js';
+import CataloguePictureInPicture2 from 'lucide-react/dist/esm/icons/picture-in-picture-2.js';
 import CatalogueVideo from 'lucide-react/dist/esm/icons/video.js';
 import CatalogueVolume2 from 'lucide-react/dist/esm/icons/volume-2.js';
 import CatalogueVolumeOff from 'lucide-react/dist/esm/icons/volume-off.js';
@@ -398,6 +404,9 @@ import { isExternalHref, normalizeHref } from '../utilities/href';
 
 
 export const iconRegistry = {
+  Gaudi: GaudiLogo,
+  Quote,
+  Fingerprint,
   // App-shell examples (fleet and mission consoles).
   'Map': AppShellMap,
   'MapPinned': AppShellMapPinned,
@@ -624,6 +633,7 @@ export const iconRegistry = {
   'Music': CatalogueMusic,
   'Package': CataloguePackage,
   'Palette': CataloguePalette,
+  'Pipette': CataloguePipette,
   'PanelLeft': CataloguePanelLeft,
   'Paperclip': CataloguePaperclip,
   'PauseCircle': CataloguePauseCircle,
@@ -701,6 +711,8 @@ export const iconRegistry = {
   'Users': Users,
   'UsersRound': CatalogueUsersRound,
   'Video': CatalogueVideo,
+  'VideoOff': CatalogueVideoOff,
+  'PictureInPicture2': CataloguePictureInPicture2,
   'Volume2': CatalogueVolume2,
   'VolumeOff': CatalogueVolumeOff,
   'VolumeX': CatalogueVolumeX,
@@ -877,18 +889,18 @@ export const iconColors = {
   'amber': 'text-amber-700 dark:text-amber-300',
   'attention': 'text-rose-700 dark:text-rose-300',
   'blue': 'text-blue-600 dark:text-blue-400',
-  'danger': 'text-red-600 dark:text-red-400',
-  'dim': 'text-gray-400 dark:text-gray-500',
+  'danger': 'text-danger',
+  'dim': 'text-text-subtle',
   'green': 'text-green-600 dark:text-green-400',
-  'info': 'text-blue-600 dark:text-blue-400',
-  'muted': 'text-gray-500 dark:text-gray-400',
-  'neutral': 'text-gray-700 dark:text-gray-200',
-  'primary': 'text-blue-600 dark:text-blue-400',
+  'info': 'text-info',
+  'muted': 'text-text-muted',
+  'neutral': 'text-text',
+  'primary': 'text-accent',
   'red': 'text-red-600 dark:text-red-400',
   'rose': 'text-rose-700 dark:text-rose-300',
-  'success': 'text-green-600 dark:text-green-400',
+  'success': 'text-success',
   'teal': 'text-teal-700 dark:text-teal-300',
-  'warning': 'text-amber-700 dark:text-amber-300',
+  'warning': 'text-warning',
   'yellow': 'text-yellow-600 dark:text-yellow-300'
 };
 
@@ -899,6 +911,7 @@ const filledIcons = new Set([ FaApple, FaMicrosoft, FcGoogle, SiGooglecloud, SiP
 
 const Icon = ({
   'aria-hidden': ariaHidden,
+  'aria-label': ariaLabel,
   className = '',
   color,
   decorative,
@@ -919,15 +932,17 @@ const Icon = ({
 
   if (!IconComponent) return null;
 
-  const accessibleLabel = label || title || iconLabels[iconName];
+  const accessibleLabel = label || ariaLabel || title || iconLabels[iconName];
   const safeHref = typeof href === 'string' ? normalizeHref(href) : null;
   const isDecorative = decorative ?? (!safeHref && !accessibleLabel);
+  const numericSize = typeof size === 'number';
   const svg = (
     <IconComponent
       aria-hidden={ isDecorative ? 'true' : ariaHidden }
       aria-label={ !safeHref && !isDecorative ? accessibleLabel : undefined }
       role={ !safeHref && !isDecorative ? 'img' : undefined }
-      className={ cn('shrink-0', iconSizes[size] || iconSizes.md, color ? iconColors[color] : undefined, className) }
+      className={ cn('shrink-0', !numericSize && (iconSizes[size] || iconSizes.md), color ? iconColors[color] : undefined, className) }
+      { ...(numericSize ? { width: size, height: size } : {}) }
       { ...(strokeWidth === undefined || filledIcons.has(IconComponent) ? {} : { strokeWidth }) }
       { ...props }
     />
@@ -937,7 +952,7 @@ const Icon = ({
 
   return (
     <a
-      className={ cn('inline-flex items-center text-sm text-gray-500 transition hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400', linkClassName) }
+      className={ cn('inline-flex items-center text-sm text-text-muted transition hover:text-accent', linkClassName) }
       target={ target || (isExternalHref(safeHref) ? '_blank' : undefined) }
       rel={ rel || (isExternalHref(safeHref) ? 'noopener noreferrer' : undefined) }
       href={ safeHref }

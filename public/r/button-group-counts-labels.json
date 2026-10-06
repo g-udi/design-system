@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-counts-labels",
+  "type": "registry:example",
+  "title": "Counts and labels",
+  "description": "Counts and labels. Core/ButtonGroup pattern composed from @gaudi/design-system/core/ButtonGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ButtonGroup",
+    "import": "@gaudi/design-system/core/ButtonGroup",
+    "storyId": "core-buttongroup--counts-labels",
+    "source": "src/components/core/ButtonGroup/stories/fixtures/button-group/button-group-counts-labels.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-group-counts-labels.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  ButtonGroup,\n  ButtonGroupText\n} from '@gaudi/design-system/core/ButtonGroup';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Icon = ({ name }) => <RegistryIcon lucide={name} aria-hidden='true' />;\nconst count = 'rounded-md border border-border px-2.5 text-xs text-text-muted tabular-nums';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-wrap items-center gap-2'>\n      <ButtonGroup aria-label='Like'>\n        <Button variant='outline'><Icon name='HeartIcon' />Like</Button>\n        <ButtonGroupText className={count}>1.2K</ButtonGroupText>\n      </ButtonGroup>\n      <ButtonGroup aria-label='Star'>\n        <Button variant='outline'>\n          <Icon name='StarIcon' />\n          Star\n          <Badge variant='secondary'>2.4k</Badge>\n        </Button>\n        <DropdownMenu>\n          <DropdownMenuTrigger asChild>\n            <Button variant='outline' size='icon' aria-label='Repository actions'><Icon name='ChevronDownIcon' /></Button>\n          </DropdownMenuTrigger>\n          <DropdownMenuContent align='end' className='min-w-40'>\n            <DropdownMenuItem><Icon name='EyeIcon' />Watch</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='GitForkIcon' />Fork</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='ListPlusIcon' />Add to list</DropdownMenuItem>\n            <DropdownMenuSeparator />\n            <DropdownMenuItem><Icon name='BellIcon' />Notifications</DropdownMenuItem>\n            <DropdownMenuItem><Icon name='FlagIcon' />Report</DropdownMenuItem>\n          </DropdownMenuContent>\n        </DropdownMenu>\n      </ButtonGroup>\n      <ButtonGroup aria-label='Follow'>\n        <Button size='sm' variant='outline'><Icon name='UserPlusIcon' />Follow</Button>\n        <ButtonGroupText className={count}>2.4k followers</ButtonGroupText>\n      </ButtonGroup>\n      <ButtonGroup aria-label='Share'>\n        <Button size='sm'><Icon name='Share2Icon' />Share</Button>\n        <ButtonGroupText className='rounded-md border border-accent px-2.5 text-xs font-medium text-accent tabular-nums'>128</ButtonGroupText>\n      </ButtonGroup>\n      <ButtonGroup aria-label='Attachment'>\n        <Button variant='outline' size='xs'>\n          <Icon name='PaperclipIcon' />\n          Q4-Product-Roadmap.pdf\n          <span className='text-text-muted'>2.4 MB</span>\n        </Button>\n        <Button variant='outline' size='icon-xs' aria-label='Download attachment'><Icon name='DownloadIcon' /></Button>\n      </ButtonGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

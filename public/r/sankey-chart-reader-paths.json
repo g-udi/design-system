@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sankey-chart-reader-paths",
+  "type": "registry:example",
+  "title": "Where readers go",
+  "description": "Where readers go. Charts/SankeyChart pattern composed from @gaudi/design-system/charts/SankeyChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "sankey-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/SankeyChart",
+    "import": "@gaudi/design-system/charts/SankeyChart",
+    "storyId": "charts-sankeychart--reader-paths",
+    "source": "src/components/charts/SankeyChart/stories/fixtures/sankey-chart/sankey-chart-reader-paths.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/sankey-chart-reader-paths.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { SankeyChart } from '@gaudi/design-system/charts/SankeyChart';\n\n// Where readers arrived from, which kind of post they read, and what they did next.\nconst links = [\n  { source: 'Search', target: 'Essays', value: 4820 },\n  { source: 'Search', target: 'Notes', value: 1310 },\n  { source: 'Newsletter', target: 'Essays', value: 2240 },\n  { source: 'Newsletter', target: 'Notes', value: 610 },\n  { source: 'Social', target: 'Essays', value: 940 },\n  { source: 'Social', target: 'Notes', value: 1180 },\n  { source: 'Essays', target: 'Read another', value: 2650 },\n  { source: 'Essays', target: 'Subscribed', value: 840 },\n  { source: 'Essays', target: 'Left', value: 4510 },\n  { source: 'Notes', target: 'Read another', value: 720 },\n  { source: 'Notes', target: 'Subscribed', value: 190 },\n  { source: 'Notes', target: 'Left', value: 2190 }\n];\n\nexport function Pattern() {\n  return (\n    <SankeyChart\n      ariaLabel='Reader flow from source to post type to next action'\n      title='Where readers go'\n      description='Arrivals by source, the kind of post they read, and what happened next. Arrow keys walk each flow.'\n      links={links}\n      valueLabel='Readers'\n      showData='toggle'\n      height={360}\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

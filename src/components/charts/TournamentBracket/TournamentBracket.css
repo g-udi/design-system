@@ -1,0 +1,82 @@
+.ds-bracket {
+  --ds-bracket-gap: calc(var(--ds-space-scale, 1) * 2rem);
+  width: 100%;
+  min-width: 0;
+  color: var(--ds-color-text);
+}
+.ds-bracket-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(var(--ds-space-scale, 1) * 1rem);
+  margin-bottom: 1rem;
+}
+.ds-bracket-grid {
+  display: grid;
+  column-gap: var(--ds-bracket-gap);
+  min-width: 0;
+}
+.ds-bracket-heading {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 500;
+  font-size: .875rem;
+  padding-bottom: calc(var(--ds-space-scale, 1) * .5rem);
+  border-bottom: 1px solid var(--ds-color-border);
+}
+.ds-bracket-slot {
+  display: flex;
+  position: relative;
+  align-items: center;
+  min-width: 0;
+  padding-block: calc(var(--ds-space-scale, 1) * .75rem);
+}
+.ds-bracket-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: calc(var(--ds-space-scale, 1) * .375rem);
+  width: 100%;
+  min-width: 0;
+  padding: calc(var(--ds-space-scale, 1) * .875rem);
+  border: 1px solid var(--ds-color-border);
+  border-radius: var(--ds-radius-card);
+  background: var(--ds-color-surface);
+  white-space: normal;
+  text-align: start;
+  font-size: .875rem;
+  font-weight: 400;
+}
+.ds-bracket-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: calc(var(--ds-space-scale, 1) * .375rem);
+  overflow-wrap: anywhere;
+  color: var(--ds-color-text-muted);
+  font-size: .75rem;
+  margin-bottom: .25rem;
+}
+.ds-bracket-meta [data-live] { color: var(--ds-color-accent); font-weight: 500; }
+.ds-bracket-side {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--ds-space-scale, 1) * .5rem);
+  min-width: 0;
+}
+.ds-bracket-side[data-winner] { font-weight: 600; }
+.ds-bracket-connector {
+  position: absolute;
+  inset-block: 0;
+  left: 100%;
+  width: var(--ds-bracket-gap);
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  fill: none;
+  stroke: var(--ds-color-border-strong, var(--ds-color-border));
+  stroke-width: 1;
+}

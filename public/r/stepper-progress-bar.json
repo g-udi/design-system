@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stepper-progress-bar",
+  "type": "registry:example",
+  "title": "Progress bar",
+  "description": "Progress bar. Core/Navigation/Stepper pattern composed from @gaudi/design-system/core/Stepper and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stepper",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Stepper",
+    "import": "@gaudi/design-system/core/Stepper",
+    "storyId": "core-stepper--progress-bar",
+    "source": "src/components/core/Stepper/stories/fixtures/stepper/stepper-progress-bar.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/stepper-progress-bar.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport {\n  StepperRoot as Stepper,\n  StepperContent,\n  StepperIndicator,\n  StepperItem,\n  StepperNav,\n  StepperPanel,\n  StepperTitle,\n  StepperTrigger\n} from '@gaudi/design-system/core/Stepper';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst steps = ['User details', 'Payment info', 'Verify code', 'Preview form'];\n\nexport function Pattern() {\n  const [currentStep, setCurrentStep] = useState(2);\n  // Without titles the bar is one segmented track and each segment is the trigger itself;\n  // with titles each step becomes its own bar with a label underneath.\n  const [titles, setTitles] = useState(false);\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col gap-4'>\n      <Label className='gap-2 text-sm font-normal'>\n        <Switch size='sm' checked={titles} onCheckedChange={setTitles} />\n        Titles\n      </Label>\n      <Stepper value={currentStep} onValueChange={setCurrentStep}>\n        <StepperNav className={cn(titles && 'gap-3')}>\n          {steps.map((title, index) => (\n            <StepperItem\n              key={title}\n              step={index + 1}\n              className={cn(\n                'flex-1 transition-all duration-300',\n                titles ? 'items-start' : 'overflow-hidden first:rounded-s-full last:rounded-e-full'\n              )}\n            >\n              {titles ? (\n                <StepperTrigger className='flex grow flex-col items-start gap-2'>\n                  <StepperIndicator className='bg-ui-border data-[state=active]:bg-ui-primary data-[state=completed]:bg-ui-primary h-1 w-full rounded-control'>\n                    <span className='sr-only'>{index + 1}</span>\n                  </StepperIndicator>\n                  <StepperTitle className='group-data-[state=inactive]/step:text-ui-muted-foreground text-start'>\n                    {title}\n                  </StepperTitle>\n                </StepperTrigger>\n              ) : (\n                <StepperTrigger className='w-full' asChild>\n                  <StepperIndicator className='bg-ui-border h-2 w-full rounded-none!'>\n                    <span className='sr-only'>{title}</span>\n                  </StepperIndicator>\n                </StepperTrigger>\n              )}\n            </StepperItem>\n          ))}\n        </StepperNav>\n        <div className='mt-2 flex items-center justify-between gap-2'>\n          <Button\n            variant='link'\n            onClick={() => setCurrentStep((prev) => prev - 1)}\n            disabled={currentStep === 1}\n            className='px-0'\n          >\n            <RegistryIcon lucide='ArrowLeftIcon' className='size-4' />\n            Back\n          </Button>\n          <div className='text-sm font-medium'>\n            <span className='text-ui-foreground'>{currentStep}</span>{' '}\n            <span className='text-ui-muted-foreground'>/ {steps.length}</span>\n          </div>\n        </div>\n        <StepperPanel className='py-6 text-sm'>\n          {steps.map((title, index) => (\n            <StepperContent key={title} value={index + 1} className='flex w-full items-center justify-center'>\n              {title} content\n            </StepperContent>\n          ))}\n        </StepperPanel>\n        <div className='flex items-center justify-end gap-2'>\n          <Button\n            variant='outline'\n            onClick={() => setCurrentStep((prev) => prev + 1)}\n            disabled={currentStep === steps.length}\n          >\n            Next\n          </Button>\n        </div>\n      </Stepper>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "carousel-layouts",
+  "type": "registry:example",
+  "title": "Layout options",
+  "description": "Layout options. Core/Layout & Containers/Carousel pattern composed from @gaudi/design-system/core/Carousel and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "carousel",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Carousel",
+    "import": "@gaudi/design-system/core/Carousel",
+    "storyId": "core-carousel--layouts",
+    "source": "src/components/core/Carousel/stories/fixtures/carousel/carousel-layouts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/carousel-layouts.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { CardRoot as Card } from '@gaudi/design-system/core/Card';\nimport {\n  CarouselRoot as Carousel,\n  CarouselContent,\n  CarouselItem,\n  CarouselNext,\n  CarouselPrevious\n} from '@gaudi/design-system/core/Carousel';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nconst options = [\n  { key: 'vertical', label: 'Vertical' },\n  { key: 'multiple', label: 'Multiple' },\n  { key: 'centered', label: 'Centred loop' },\n  { key: 'tight', label: 'Tight gap' }\n];\nconst slides = Array.from({ length: 8 }, (_, index) => index);\nfunction itemBasis({ vertical, multiple, centered }) {\n  if (vertical) return multiple ? 'basis-1/2' : 'basis-full';\n  // Several per view steps up with the viewport: two, then three.\n  if (multiple) return 'basis-1/2 md:basis-1/3';\n  return centered ? 'basis-[70%]' : 'basis-full';\n}\nexport function Pattern() {\n  const [layout, setLayout] = useState({ vertical: false, multiple: false, centered: false, tight: false });\n  const { vertical, multiple, centered, tight } = layout;\n  const gap = tight ? (vertical ? 'pt-1' : 'pl-1') : undefined;\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3'>\n      <div role='group' aria-label='Carousel options' className='flex flex-wrap gap-x-4 gap-y-2'>\n        {options.map((option) => (\n          <Label key={option.key} className='gap-2 text-sm font-normal'>\n            <Switch\n              size='sm'\n              checked={layout[option.key]}\n              onCheckedChange={(checked) => setLayout((current) => ({ ...current, [option.key]: checked }))}\n            />\n            {option.label}\n          </Label>\n        ))}\n      </div>\n      <div className={cn('flex justify-center', vertical && 'py-12')}>\n        <Carousel\n          key={vertical ? 'vertical' : 'horizontal'}\n          orientation={vertical ? 'vertical' : 'horizontal'}\n          opts={{ align: centered ? 'center' : 'start', loop: centered }}\n          className={vertical || !multiple ? 'w-full max-w-xs' : 'w-full'}\n        >\n          <CarouselContent className={cn(vertical && 'h-72', tight && (vertical ? '-mt-1' : '-ml-1'))}>\n            {slides.map((index) => (\n              <CarouselItem key={index} className={cn('min-h-0', itemBasis(layout), gap)}>\n                <Card\n                  className={cn(\n                    'relative overflow-hidden border-0 p-0',\n                    vertical ? 'h-full' : centered && !multiple ? 'aspect-video' : 'aspect-square'\n                  )}\n                >\n                  <img\n                    src={`static/images/art/${index % 12}.svg`}\n                    alt={`Slide ${index + 1}`}\n                    width={800}\n                    height={800}\n                    className='absolute inset-0 size-full object-cover'\n                  />\n                </Card>\n              </CarouselItem>\n            ))}\n          </CarouselContent>\n          <CarouselPrevious />\n          <CarouselNext />\n        </Carousel>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

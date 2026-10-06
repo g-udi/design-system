@@ -1,0 +1,117 @@
+@layer components {
+  /* FilterBar: the collection toolbar. */
+  .ds-filter-bar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    min-width: 0;
+  }
+  .ds-filter-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    align-items: center;
+  }
+  .ds-filter-trigger[data-state='open'] {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 6px);
+  }
+  .ds-facet-option:focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: -2px;
+  }
+  .ds-facet-popover {
+    overflow: hidden;
+  }
+  .ds-facet-pane {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    min-width: 0;
+    min-height: 0;
+    padding: calc(var(--ds-space-scale, 1) * 12px);
+    overflow-y: auto;
+  }
+  .ds-facet-picker {
+    flex-shrink: 0;
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 12px);
+    border-bottom: 1px solid var(--ds-color-border);
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-facet-picker select {
+    width: 100%;
+  }
+  .ds-facet-options {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--ds-space-scale, 1) * 2px);
+  }
+  .ds-facet-option {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 8px);
+    min-height: 32px;
+    padding-inline: calc(var(--ds-space-scale, 1) * 8px);
+    border-radius: var(--ds-radius-control);
+    color: var(--ds-color-text);
+    font-size: 0.875rem;
+  }
+  .ds-facet-option:hover {
+    background: var(--ds-color-surface-muted);
+  }
+  .ds-facet-option[aria-checked='true'] {
+    font-weight: 500;
+  }
+  .ds-facet-option:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  .ds-facet-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: calc(var(--ds-space-scale, 1) * 12px);
+    padding: calc(var(--ds-space-scale, 1) * 8px) calc(var(--ds-space-scale, 1) * 12px);
+    border-top: 1px solid var(--ds-color-border);
+  }
+  .ds-filter-rule-row,
+  .ds-filter-rule-content {
+    display: flex;
+    align-items: center;
+  }
+  .ds-filter-field-cell { flex-basis: var(--filter-field-width, 11rem); }
+  .ds-filter-operator-cell { flex-basis: var(--filter-operator-width, 9rem); }
+  .ds-filter-value-cell { flex-basis: var(--filter-value-width, 12rem); }
+  /* Nested builders use their available track width, not the page width. */
+  @container track (max-width: 26rem) {
+    .ds-filter-rule-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+    .ds-filter-rule-row > :first-child {
+      grid-area: 1 / 1;
+    }
+    .ds-filter-rule-row > :last-child {
+      grid-area: 1 / 2;
+    }
+    .ds-filter-rule-content {
+      grid-area: 2 / 1 / 3 / -1;
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .ds-filter-rule-content > * {
+      flex-basis: auto;
+      width: 100%;
+    }
+  }
+  .ds-filter-controls > .ds-input-group {
+    flex: 1 1 16rem;
+  }
+}

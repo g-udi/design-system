@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button-group-vertical",
+  "type": "registry:example",
+  "title": "Vertical groups",
+  "description": "Vertical groups. Core/ButtonGroup pattern composed from @gaudi/design-system/core/ButtonGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "button-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ButtonGroup",
+    "import": "@gaudi/design-system/core/ButtonGroup",
+    "storyId": "core-buttongroup--vertical",
+    "source": "src/components/core/ButtonGroup/stories/fixtures/button-group/button-group-vertical.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/button-group-vertical.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { ButtonGroup } from '@gaudi/design-system/core/ButtonGroup';\nimport { cn } from '@gaudi/design-system/utilities/cn';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Icon = ({ name }) => <RegistryIcon lucide={name} aria-hidden='true' />;\nconst nav = [['Dashboard', 'LayoutDashboardIcon'], ['Analytics', 'BarChart2Icon'], ['Settings', 'SettingsIcon'], ['Help', 'CircleHelpIcon']];\nconst tools = [['Search', 'SearchIcon'], ['Copy', 'CopyIcon'], ['Share', 'UploadIcon']];\nexport function Pattern() {\n  const [active, setActive] = useState('Dashboard');\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-wrap items-start justify-center gap-3'>\n      <ButtonGroup orientation='vertical' aria-label='Sections' className='w-40'>\n        {nav.map(([label, icon]) => (\n          <Button\n            key={label}\n            variant='outline'\n            aria-current={active === label ? 'page' : undefined}\n            className={cn('justify-start', active === label && 'bg-surface-muted')}\n            onClick={() => setActive(label)}\n          >\n            <Icon name={icon} />\n            {label}\n          </Button>\n        ))}\n      </ButtonGroup>\n      <ButtonGroup orientation='vertical' aria-label='Quantity'>\n        <Button variant='outline' size='icon' aria-label='Add'><Icon name='PlusIcon' /></Button>\n        <Button variant='outline' size='icon' aria-label='Subtract'><Icon name='MinusIcon' /></Button>\n      </ButtonGroup>\n      <ButtonGroup orientation='vertical' aria-label='Tool palette'>\n        <ButtonGroup orientation='vertical'>\n          {tools.map(([label, icon]) => (\n            <Button key={label} variant='outline' size='icon' aria-label={label}><Icon name={icon} /></Button>\n          ))}\n        </ButtonGroup>\n        <ButtonGroup orientation='vertical'>\n          <Button variant='outline' size='icon' aria-label='Delete'><Icon name='Trash2Icon' /></Button>\n        </ButtonGroup>\n      </ButtonGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

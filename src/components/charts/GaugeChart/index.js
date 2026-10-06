@@ -1,2 +1,2 @@
-export { GaugeChart as default } from './parts/gauge-chart.jsx';
-export { GaugeChart } from './parts/gauge-chart.jsx';
+export { GaugeChart as default } from './GaugeChart.jsx';
+export { GaugeChart } from './GaugeChart.jsx';

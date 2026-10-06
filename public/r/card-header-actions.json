@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-header-actions",
+  "type": "registry:example",
+  "title": "Header badge and actions",
+  "description": "Header badge and actions. Core/Card pattern composed from @gaudi/design-system/core/Card and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "card",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-24.svg, /avatars/person-31.svg.",
+  "meta": {
+    "owner": "core/Card",
+    "import": "@gaudi/design-system/core/Card",
+    "storyId": "core-card--header-actions",
+    "source": "src/components/core/Card/stories/fixtures/card/card-header-actions.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-31.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/card-header-actions.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport Link from '@gaudi/design-system/core/Link';\nimport { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarGroupCount,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  DropdownMenuRoot as DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuGroup,\n  DropdownMenuItemPrimitive as DropdownMenuItem,\n  DropdownMenuTrigger\n} from '@gaudi/design-system/core/DropdownMenu';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [notice, setNotice] = useState('');\n  const { copy } = useCopyToClipboard({ onCopy: () => setNotice('Integration link copied.'), onError: () => setNotice('Copy failed. Try again.') });\n  return (\n    <Card className='w-full max-w-sm p-0'>\n      <CardContent className='p-0'>\n        <div className='flex items-center justify-between border-b px-3 py-2'>\n          <Badge variant='secondary'>\n            <RegistryIcon lucide='CheckIcon' aria-hidden='true' />\n            Live\n          </Badge>\n          <DropdownMenu>\n            <DropdownMenuTrigger asChild>\n              <Button\n                variant='ghost'\n                size='icon'\n                className='text-ui-muted-foreground'\n                aria-label='More options'\n              >\n                <RegistryIcon lucide='MoreVerticalIcon' aria-hidden='true' />\n              </Button>\n            </DropdownMenuTrigger>\n            <DropdownMenuContent className='w-32' align='end'>\n              <DropdownMenuGroup>\n                <DropdownMenuItem asChild><Link href='/settings/integrations/github' variant='bare'>Edit</Link></DropdownMenuItem>\n                <DropdownMenuItem onSelect={() => copy('/integrations/github')}>Copy link</DropdownMenuItem>\n              </DropdownMenuGroup>\n            </DropdownMenuContent>\n          </DropdownMenu>\n        </div>\n        <div className='space-y-3 p-4'>\n          <div className='flex items-start justify-between gap-2'>\n            <h3 className='text-sm leading-tight font-medium'>\n              Integration name\n            </h3>\n            <Badge variant='success-light' size='sm'>\n              Installed\n            </Badge>\n          </div>\n          <p className='text-ui-muted-foreground text-sm'>\n            Short description of the integration and what it does in one line.\n          </p>\n          <AvatarGroup>\n            <Avatar className='size-6'>\n              <AvatarImage\n                src='/avatars/person-20.svg'\n                alt='User 1'\n              />\n              <AvatarFallback>SC</AvatarFallback>\n            </Avatar>\n            <Avatar className='size-6'>\n              <AvatarImage\n                src='/avatars/person-31.svg'\n                alt='User 2'\n              />\n              <AvatarFallback>MR</AvatarFallback>\n            </Avatar>\n            <Avatar className='size-6'>\n              <AvatarImage\n                src='/avatars/person-24.svg'\n                alt='User 3'\n              />\n              <AvatarFallback>EW</AvatarFallback>\n            </Avatar>\n            <AvatarGroupCount className='size-6 border text-xs'>\n              +3\n            </AvatarGroupCount>\n          </AvatarGroup>\n        </div>\n        <div className='border-t p-3'>\n          <Button href='/integrations/github' variant='outline' className='w-full'>\n            Open\n          </Button>\n          <p role='status' className='text-xs text-text-muted'>{notice}</p>\n        </div>\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

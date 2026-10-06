@@ -1,2 +1,2 @@
-export { BarChart as default } from './parts/bar-chart.jsx';
-export { BarChart } from './parts/bar-chart.jsx';
+export { BarChart as default } from './BarChart.jsx';
+export { BarChart } from './BarChart.jsx';

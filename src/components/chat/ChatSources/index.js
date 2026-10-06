@@ -1,1 +1,1 @@
-export { MessageSources as default, MessageSources, MessageSource, MessageCitation } from './parts/message-sources.jsx';
+export { ChatMessageSources as default, ChatMessageSources, ChatMessageSource, ChatMessageCitation } from './ChatMessageSources.jsx';

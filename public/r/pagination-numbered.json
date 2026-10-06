@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination-numbered",
+  "type": "registry:example",
+  "title": "Numbered page styles",
+  "description": "Numbered page styles. Core/Navigation/Pagination pattern composed from @gaudi/design-system/core/Pagination and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "pagination",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Pagination",
+    "import": "@gaudi/design-system/core/Pagination",
+    "storyId": "core-pagination--numbered",
+    "source": "src/components/core/Pagination/stories/fixtures/pagination/pagination-numbered.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/pagination-numbered.jsx",
+      "type": "registry:component",
+      "content": "import {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport {\n  PaginationRoot as Pagination,\n  PaginationContentPrimitive as PaginationContent,\n  PaginationEllipsisPrimitive as PaginationEllipsis,\n  PaginationItemPrimitive as PaginationItem,\n  PaginationLinkPrimitive as PaginationLink,\n  PaginationNextPrimitive as PaginationNext,\n  PaginationPreviousPrimitive as PaginationPrevious\n} from '@gaudi/design-system/core/Pagination';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst pages = [1, 2, 3, null, 10];\nconst current = 2;\nconst styles = {\n  Default: { link: '' },\n  'Icon arrows': { link: '', icons: true },\n  Circle: { link: 'rounded-full' },\n  'Hover border': { link: 'hover:border hover:border-border' },\n  Joined: {\n    icons: true,\n    content: 'gap-0 overflow-hidden rounded-control border border-border',\n    link: 'rounded-none border-0 border-e border-border data-[active=true]:bg-surface-muted',\n    item: 'border-e border-border'\n  },\n  Filled: {\n    icons: true,\n    card: true,\n    link: 'data-[active=true]:border-transparent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground'\n  }\n};\nfunction Arrow({ direction, className }) {\n  const next = direction === 'next';\n  return (\n    <PaginationLink\n      href='#'\n      size='icon'\n      aria-label={next ? 'Go to next page' : 'Go to previous page'}\n      className={className}\n    >\n      <RegistryIcon lucide={next ? 'ChevronRightIcon' : 'ChevronLeftIcon'} className='ds-part-rtl-flip size-4' />\n    </PaginationLink>\n  );\n}\nfunction Pages({ name, style }) {\n  const edge = style.link.includes('rounded-full') ? 'rounded-full' : style.content ? 'rounded-none border-0 border-e border-border' : '';\n  const nav = (\n    <Pagination aria-label={`${name} pagination`} className='justify-start'>\n      <PaginationContent className={style.content ?? 'gap-1'}>\n        <PaginationItem>\n          {style.icons ? <Arrow direction='previous' className={edge} /> : <PaginationPrevious href='#' className={edge} />}\n        </PaginationItem>\n        {pages.map((page, index) => (\n          <PaginationItem key={page ?? `gap-${index}`} className={page ? undefined : style.item}>\n            {page ? (\n              <PaginationLink href='#' isActive={page === current} className={style.link}>\n                {page}\n              </PaginationLink>\n            ) : (\n              <PaginationEllipsis />\n            )}\n          </PaginationItem>\n        ))}\n        <PaginationItem>\n          {style.icons ? <Arrow direction='next' className={style.content ? 'rounded-none border-0' : edge} /> : <PaginationNext href='#' className={edge} />}\n        </PaginationItem>\n      </PaginationContent>\n    </Pagination>\n  );\n  if (!style.card) return nav;\n  return (\n    <Card className='w-fit p-1.5'>\n      <CardContent className='p-0'>{nav}</CardContent>\n    </Card>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-1 items-center gap-x-4 gap-y-2 sm:grid-cols-[auto_1fr] sm:gap-y-3'>\n      {Object.entries(styles).map(([name, style]) => (\n        <div key={name} className='contents'>\n          <span className='text-xs text-text-muted'>{name}</span>\n          <Pages name={name} style={style} />\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

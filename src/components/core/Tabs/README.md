@@ -22,3 +22,5 @@ Switches between related panels on the same page. Use it for views of one thing 
 | `TabsTrigger / TabsContent` | components | Match their `value`; triggers accept `disabled`. |
 
 Label each `TabsList`. Use manual activation when a panel is expensive to load.
+
+Keyboard focus is drawn inside each trigger, so the scrolling list never clips it. In forced-colours mode (Windows High Contrast) idle tabs drop their border and the selected tab draws it, and its underline, in `Highlight`.

@@ -32,8 +32,10 @@ const keepFocus = (event) => event.preventDefault();
 export default function Tooltip({ message, text, children }) {
   const [ open, setOpen ] = useState(false);
   const closeTimer = useRef(null);
+  const triggerRef = useRef(null);
   const descriptionId = useId();
-  const explanation = message || text;
+  const explanation = message ?? text;
+  const hasExplanation = explanation !== undefined && explanation !== null && explanation !== false && explanation !== '';
   const show = (next) => {
     clearTimeout(closeTimer.current);
     setOpen(next);
@@ -43,19 +45,22 @@ export default function Tooltip({ message, text, children }) {
     if (event.pointerType !== 'mouse') return;
     clearTimeout(closeTimer.current);
     if (next) setOpen(true);
-    else closeTimer.current = setTimeout(() => setOpen(false), 100);
+    else closeTimer.current = setTimeout(() => {
+      if (document.activeElement !== triggerRef.current) setOpen(false);
+    }, 100);
   };
 
   useEffect(() => () => clearTimeout(closeTimer.current), []);
 
   return (
-    <span className='inline-flex items-center align-middle'>
+    <span className='wrap-anywhere'>
       {children}
       <PopoverPrimitive open={ open } onOpenChange={ show }>
         <PopoverTriggerPrimitive
+          ref={ triggerRef }
           aria-label='More information'
-          aria-describedby={ explanation ? descriptionId : undefined }
-          className='ds-control-hit-target ml-1 inline-flex cursor-help items-center rounded-sm text-text-subtle transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
+          aria-describedby={ hasExplanation ? descriptionId : undefined }
+          className='ds-control-hit-target ms-1 inline-flex align-middle cursor-help items-center rounded-sm text-text-subtle transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
           // A tap or click always opens; closing is left to Escape, blur, and taps outside.
           onClick={ (event) => {
             event.preventDefault();
@@ -72,7 +77,7 @@ export default function Tooltip({ message, text, children }) {
           role='tooltip'
           side='top'
           collisionPadding={ 8 }
-          className='w-max max-w-[min(20rem,90vw)] px-3 py-2 text-sm leading-6'
+          className='w-max max-w-[min(20rem,90vw)] wrap-anywhere px-3 py-2 text-sm leading-6'
           onCloseAutoFocus={ keepFocus }
           onOpenAutoFocus={ keepFocus }
           onPointerEnter={ onHover(true) }
@@ -81,7 +86,7 @@ export default function Tooltip({ message, text, children }) {
           {explanation}
         </PopoverContentPrimitive>
       </PopoverPrimitive>
-      {explanation ? <span id={ descriptionId } hidden>{explanation}</span> : null}
+      {hasExplanation ? <span id={ descriptionId } hidden>{explanation}</span> : null}
     </span>
   );
 }

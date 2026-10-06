@@ -22,9 +22,12 @@ export function useControllableState({ value, defaultValue, onChange } = {}) {
   const setValue = useCallback((next) => {
     const resolved = typeof next === 'function' ? next(currentRef.current) : next;
     if (Object.is(resolved, currentRef.current)) return;
-    // Consecutive updates in one event build on each other, as with useState updaters.
-    currentRef.current = resolved;
-    if (!controlled) setInner(resolved);
+    // Only advance owned state. The host can refuse a controlled change without
+    // rerendering, so subsequent requests must still start from its actual value.
+    if (!controlled) {
+      currentRef.current = resolved;
+      setInner(resolved);
+    }
     onChangeRef.current?.(resolved);
   }, [ controlled, onChangeRef ]);
 

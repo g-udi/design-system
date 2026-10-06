@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rating-display-options",
+  "type": "registry:example",
+  "title": "Display options",
+  "description": "Display options. Core/Advanced Inputs/Rating pattern composed from @gaudi/design-system/core/Rating and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "rating",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Rating",
+    "import": "@gaudi/design-system/core/Rating",
+    "storyId": "core-rating--display-options",
+    "source": "src/components/core/Rating/stories/fixtures/rating/rating-display-options.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/rating-display-options.jsx",
+      "type": "registry:component",
+      "content": "import { Rating } from '@gaudi/design-system/core/Rating';\n\nconst rows = [\n  { label: 'Whole score', props: { rating: 4 } },\n  { label: 'Partial star', props: { rating: 3.5 } },\n  { label: 'With value', props: { rating: 4.5, showValue: true } },\n  { label: 'Small', props: { rating: 4, size: 'sm' } },\n  { label: 'Large', props: { rating: 4, size: 'lg' } }\n];\n\nexport function Pattern() {\n  return (\n    <dl className='mx-auto grid w-full max-w-xs gap-2'>\n      {rows.map(({ label, props }) => (\n        <div key={label} className='flex min-h-7 items-center justify-between gap-3'>\n          <dt className='text-xs text-text-muted'>{label}</dt>\n          <dd>\n            <Rating {...props} />\n          </dd>\n        </div>\n      ))}\n    </dl>\n  );\n}\n"
+    }
+  ]
+}

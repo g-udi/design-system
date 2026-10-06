@@ -16,10 +16,15 @@ import { Cascader, CascaderTrigger, CascaderValue, CascaderContent, CascaderPane
 ```
 
 - `items` are `{ value, label, children?, description?, icon?, disabled? }`. `mode` shows the tree as a drill-down list, Miller columns (`CascaderColumns`) or an expanding tree.
-- `selectable='all'` lets branches be picked, not only leaves; `multiple` adds checkboxes and chips.
+- `selectable='any'` lets branches be picked, not only leaves; `multiple` adds checkboxes and chips.
 - `inline` renders the panel in the page instead of a popup. `CascaderInput`, `CascaderBreadcrumb`, `CascaderEmpty`, `CascaderStatus` and `CascaderFooter` add search, a path, empty and async states, and footer actions.
 - `useCascaderLoader` fetches children on demand; `CascaderVirtualItems` windows long levels.
+- `readOnly` preserves selection across active and background columns; `disabled` also disables navigation and dims every row. Both constraints follow prop changes.
 
 ## Accessibility
 
 The trigger is a combobox. Up and Down move through a level, the inline-end and inline-start arrow keys open and leave a branch, and Enter picks. A live region announces changes, and every visible or announced string comes from `labels`.
+
+## Implementation ownership
+
+`Cascader` coordinates the controlled state and contexts. Owner-local hooks manage prepared rows, announcements, navigation and the Combobox callback contract. Trigger/chip and panel rendering live in private `components/` modules; the loader remains responsible for asynchronous children.

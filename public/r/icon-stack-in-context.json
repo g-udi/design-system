@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-stack-in-context",
+  "type": "registry:example",
+  "title": "In an empty state and list row",
+  "description": "In an empty state and list row. Core/Icon pattern composed from @gaudi/design-system/core/Icon and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "icon-stack",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Icon",
+    "import": "@gaudi/design-system/core/Icon",
+    "storyId": "core-icon--icon-stack-in-context",
+    "source": "src/components/core/Icon/stories/fixtures/icon-stack/icon-stack-in-context.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/icon-stack-in-context.jsx",
+      "type": "registry:component",
+      "content": "import { IconStack } from '@gaudi/design-system/core/Icon';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  Empty,\n  EmptyContent,\n  EmptyDescription,\n  EmptyHeader,\n  EmptyMedia,\n  EmptyTitle\n} from '@gaudi/design-system/core/EmptyState';\nimport {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-md flex-col gap-3'>\n      <Empty className='rounded-lg border border-dashed py-8'>\n        <EmptyHeader>\n          <EmptyMedia>\n            <IconStack aria-hidden='true' className='text-ui-primary h-24 w-22'>\n              <RegistryIcon lucide='InboxIcon' className='text-ui-primary size-5' />\n            </IconStack>\n          </EmptyMedia>\n          <EmptyTitle>Workspace is ready</EmptyTitle>\n          <EmptyDescription>\n            Invite teammates or connect a data source to start filling this view.\n          </EmptyDescription>\n        </EmptyHeader>\n        <EmptyContent className='flex-row justify-center gap-2'>\n          <Button size='sm' href='/settings/team/invite'>\n            <RegistryIcon lucide='UserPlusIcon' data-icon='inline-start' />\n            Invite team\n          </Button>\n          <Button variant='outline' size='sm' href='/settings/integrations'>\n            <RegistryIcon lucide='DatabaseIcon' data-icon='inline-start' />\n            Connect source\n          </Button>\n        </EmptyContent>\n      </Empty>\n      <Item variant='outline'>\n        <ItemMedia>\n          <IconStack aria-hidden='true' className='text-ui-primary h-12 w-11'>\n            <RegistryIcon lucide='PackageIcon' className='text-ui-primary size-3' />\n          </IconStack>\n        </ItemMedia>\n        <ItemContent>\n          <ItemTitle>Registry package ready</ItemTitle>\n          <ItemDescription>Three components were published to the team registry.</ItemDescription>\n        </ItemContent>\n      </Item>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

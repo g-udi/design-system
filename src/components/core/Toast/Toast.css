@@ -1,0 +1,66 @@
+@layer components {
+  /* Expanded stacks use their actual content height after wrapping. Sonner's cached
+     offsets do not refresh on resize; its collapsed stack and swipe motion stay intact. */
+  .ds-toaster:has(> [data-expanded='true']) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+  .ds-toaster[data-y-position='bottom']:has(> [data-expanded='true']) {
+    flex-direction: column-reverse;
+  }
+  .ds-toaster > [data-expanded='true'] {
+    /* Override Sonner's unlayered absolute positioning and inline cached offset. */
+    position: relative !important;
+    height: auto !important;
+    --offset: 0px !important;
+  }
+
+  .ds-toast {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--ds-space-scale, 1) * 0.5rem);
+    width: 100%;
+    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
+    background: var(--ds-color-surface);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-control);
+    color: var(--ds-color-text);
+    box-shadow: var(--ds-shadow-popover);
+  }
+  /* Sonner only hides the content of collapsed back toasts in its styled mode; do the same for the unstyled Gaudi toast. */
+  .ds-toast > * {
+    transition: opacity 0.2s;
+  }
+  .ds-toast[data-expanded='false'][data-front='false'] > * {
+    opacity: 0;
+  }
+  /* Confirmations need room for their explanation before the two actions. */
+  .ds-toast:has([data-cancel]) {
+    flex-wrap: wrap;
+  }
+  .ds-toast:has([data-cancel]) .ds-toast-content {
+    flex-basis: 100%;
+  }
+  .ds-toast:has([data-cancel]) [data-close-button] {
+    margin-inline-start: auto;
+  }
+  .ds-toast-content {
+    display: grid;
+    /* A shrinkable column lets long titles and custom content truncate instead of overflowing the toast. */
+    grid-template-columns: minmax(0, 1fr);
+    flex: 1 1 auto;
+    gap: calc(var(--ds-space-scale, 1) * 2px);
+    min-width: 0;
+  }
+  /* The type icon and the loading spinner share one fixed box at the start of the toast. */
+  .ds-toast [data-icon] {
+    position: relative;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+  }
+}

@@ -2,20 +2,20 @@
 
 import { useEffect, useId, useRef, useState } from 'react';
 import Field, { FieldLabel, FieldDescription } from '../../core/Field';
-import Input from '../../core/Input';
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../core/Input/parts/input-group.jsx';
+import Input, { EmailInput } from '../../core/Input';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../core/Input/InputGroup.jsx';
 import Button from '../../core/Button';
 import Icon from '../../core/Icon';
 
 // The reveal button swaps the input type; the value and autofill stay with the same field. The input sits in an
 // InputGroup, so it takes its id and description explicitly instead of from the Field context.
-function PasswordInput({ id, describedBy, autoComplete, minLength, placeholder }) {
+function PasswordInput({ id, describedBy, autoComplete, minLength, placeholder, showLabel, hideLabel }) {
   const [visible, setVisible] = useState(false);
   return (
     <InputGroup>
       <InputGroupInput id={id} aria-describedby={describedBy} type={visible ? 'text' : 'password'} name='password' autoComplete={autoComplete} minLength={minLength} placeholder={placeholder} required />
       <InputGroupAddon align='inline-end'>
-        <InputGroupButton size='icon-xs' aria-label={visible ? 'Hide password' : 'Show password'} aria-pressed={visible} onClick={() => setVisible((current) => !current)}>
+        <InputGroupButton size='icon-xs' aria-label={visible ? hideLabel : showLabel} aria-pressed={visible} onClick={() => setVisible((current) => !current)}>
           <Icon name={visible ? 'EyeOff' : 'Eye'} decorative size='sm' />
         </InputGroupButton>
       </InputGroupAddon>
@@ -24,7 +24,7 @@ function PasswordInput({ id, describedBy, autoComplete, minLength, placeholder }
 }
 
 const pendingLabels = { password: 'Signing in…', email: 'Sending link…', signup: 'Creating account…' };
-const passwordHints = { password: 'Use the password for your account.', signup: 'At least 8 characters.' };
+const passwordHints = { password: 'Use the password for your account.', signup: 'Choose a password for your account.' };
 
 /**
  * Form layout and pending/error presentation; the host owns authentication.
@@ -49,11 +49,14 @@ export default function AuthForm({
   emailPlaceholder,
   passwordPlaceholder,
   passwordHint = passwordHints[mode],
+  passwordMinLength,
   passwordAction,
   providers = [],
   onProvider,
   providerLayout = 'grid',
-  dividerLabel = 'or'
+  dividerLabel = 'or',
+  showPasswordLabel = 'Show password',
+  hidePasswordLabel = 'Hide password'
 }) {
   const [pending, setPending] = useState(false);
   const [provider, setProvider] = useState('');
@@ -95,6 +98,7 @@ export default function AuthForm({
     run(() => onSubmit(values));
   };
   const username = identifier === 'username';
+  const IdentifierInput = username ? Input : EmailInput;
   const showHint = passwordHint !== false && passwordHint != null && passwordHint !== '';
   return (
     <form
@@ -135,8 +139,7 @@ export default function AuthForm({
         )}
         <Field>
           <FieldLabel>{emailLabel}</FieldLabel>
-          <Input
-            type={username ? 'text' : 'email'}
+          <IdentifierInput
             name={username ? 'username' : 'email'}
             autoComplete={username ? 'username' : 'email'}
             placeholder={emailPlaceholder}
@@ -157,8 +160,10 @@ export default function AuthForm({
               id={`${passwordId}-input`}
               describedBy={showHint ? `${passwordId}-hint` : undefined}
               autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-              minLength={mode === 'signup' ? 8 : undefined}
+              minLength={passwordMinLength}
               placeholder={passwordPlaceholder}
+              showLabel={showPasswordLabel}
+              hideLabel={hidePasswordLabel}
             />
             {showHint && <FieldDescription id={`${passwordId}-hint`}>{passwordHint}</FieldDescription>}
           </Field>

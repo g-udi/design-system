@@ -1,0 +1,77 @@
+@layer components {
+  .ds-part-item {
+    @apply [a]:hover:bg-ui-muted rounded-lg border text-sm;
+  }
+
+  .ds-part-item-variant-default {
+    @apply border-transparent;
+  }
+
+  .ds-part-item-variant-outline {
+    @apply border-ui-border;
+  }
+
+  .ds-part-item-variant-muted {
+    @apply bg-ui-muted/50 border-transparent;
+  }
+
+  .ds-part-item-size-default {
+    @apply gap-2.5 px-3 py-2;
+  }
+
+  .ds-part-item-size-sm {
+    @apply gap-2 px-2.5 py-1.5;
+  }
+
+  .ds-part-item-size-xs {
+    @apply gap-2 px-2 py-1.5 in-data-[slot=dropdown-menu-content]:p-0;
+  }
+
+  .ds-part-item-media {
+    @apply gap-2 group-has-data-[slot=item-description]/item:translate-y-0.5 group-has-data-[slot=item-description]/item:self-start;
+  }
+
+  .ds-part-item-media-variant-default {
+    @apply bg-transparent;
+  }
+
+  .ds-part-item-media-variant-icon {
+    @apply [&_svg:not([class*='size-'])]:size-4;
+  }
+
+  .ds-part-item-media-variant-image {
+    @apply size-10 overflow-hidden rounded-sm group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 [&_img]:size-full [&_img]:object-cover;
+  }
+
+  .ds-part-item-content {
+    @apply gap-0.5 group-data-[size=xs]/item:gap-0;
+  }
+
+  .ds-part-item-title {
+    @apply gap-2 text-sm leading-snug font-medium underline-offset-4;
+  }
+
+  .ds-part-item-description {
+    @apply text-ui-muted-foreground text-left text-xs leading-normal;
+  }
+
+  .ds-part-item-actions {
+    @apply gap-2;
+  }
+
+  .ds-part-item-header {
+    @apply gap-2;
+  }
+
+  .ds-part-item-footer {
+    @apply gap-2;
+  }
+
+  .ds-part-item-group {
+    @apply gap-2 has-data-[size=xs]:gap-1;
+  }
+
+  .ds-part-item-separator {
+    @apply my-2;
+  }
+}

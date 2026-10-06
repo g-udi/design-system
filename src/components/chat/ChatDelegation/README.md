@@ -5,11 +5,11 @@ Work the assistant handed to another agent: who took it, the brief, its status a
 ## Usage
 
 ```jsx
-import { MessageDelegation, MessageTool } from '@gaudi/design-system/chat';
+import { ChatMessageDelegation, ChatMessageTool } from '@gaudi/design-system/chat';
 
-<MessageDelegation agent={{ name: 'Research agent' }} status='running' instructions={brief}>
-  <MessageTool name='web_search' status='done' />
-</MessageDelegation>
+<ChatMessageDelegation agent={{ name: 'Research agent' }} status='running' instructions={brief}>
+  <ChatMessageTool name='web_search' status='done' />
+</ChatMessageDelegation>
 ```
 
 ## API

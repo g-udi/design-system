@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Button from '../Button';
 import DropdownMenu, { DropdownMenuItem } from '../DropdownMenu';
 import Icon from '../Icon';
-import { KanbanColumnCount } from './parts/kanban-extended.jsx';
+import { KanbanColumnCount } from './Kanban.jsx';
 
 /** All moves have a keyboard and touch action. Hosts own ordering and persistence. */
 export default function KanbanBoard({

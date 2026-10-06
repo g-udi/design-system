@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "treemap-chart-storage-folders",
+  "type": "registry:example",
+  "title": "Storage by folder",
+  "description": "Storage by folder. Charts/TreemapChart pattern composed from @gaudi/design-system/charts/TreemapChart and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "treemap-chart",
+    "charts"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "charts/TreemapChart",
+    "import": "@gaudi/design-system/charts/TreemapChart",
+    "storyId": "charts-treemapchart--storage-folders",
+    "source": "src/components/charts/TreemapChart/stories/fixtures/treemap-chart/treemap-chart-storage-folders.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/treemap-chart-storage-folders.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { TreemapChart } from '@gaudi/design-system/charts/TreemapChart';\nimport { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\n\n// Media library storage in megabytes, by folder and file type.\nconst storage = [\n  { name: 'Images', children: [{ name: 'Covers', value: 1840 }, { name: 'Diagrams', value: 920 }, { name: 'Photos', value: 2610 }, { name: 'Icons', value: 140 }] },\n  { name: 'Video', children: [{ name: 'Talks', value: 3920 }, { name: 'Demos', value: 1480 }] },\n  { name: 'Audio', children: [{ name: 'Podcast', value: 1210 }, { name: 'Narration', value: 460 }] },\n  { name: 'Documents', children: [{ name: 'PDFs', value: 380 }, { name: 'Slides', value: 640 }, { name: 'Datasets', value: 1090 }] }\n];\n\nexport function Pattern() {\n  const [colorBy, setColorBy] = useState('group');\n  return (\n    <TreemapChart\n      ariaLabel='Media storage by folder and file type'\n      title='Storage'\n      description='Media library usage; larger tiles take more space.'\n      toolbar={\n        <ToggleGroup aria-label='Colour by' type='single' variant='outline' size='sm' spacing={0} value={colorBy} onValueChange={(next) => next && setColorBy(next)}>\n          <ToggleGroupItem value='group'>Folder</ToggleGroupItem>\n          <ToggleGroupItem value='value'>Size</ToggleGroupItem>\n        </ToggleGroup>\n      }\n      data={storage}\n      colorBy={colorBy}\n      formatValue={(megabytes) => (megabytes >= 1000 ? `${(megabytes / 1000).toFixed(1)} GB` : `${megabytes} MB`)}\n      valueLabel='Size'\n      height={340}\n      className='my-0 w-full max-w-3xl'\n    />\n  );\n}\n"
+    }
+  ]
+}

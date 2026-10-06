@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accordion-in-card",
+  "type": "registry:example",
+  "title": "Inside a card",
+  "description": "Inside a card. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "accordion",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--in-card",
+    "source": "src/components/core/Accordion/stories/fixtures/accordion/accordion-in-card.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/accordion-in-card.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport { AccordionGroup } from '@gaudi/design-system/core/Accordion';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport { default as Card } from '@gaudi/design-system/core/Card';\nconst items = [\n  {\n    value: 'plans',\n    title: 'Which plan is right for my team?',\n    content:\n      'Start with a personal workspace for individual projects. A team workspace adds shared collections, review workflows, and member permissions.'\n  },\n  {\n    value: 'billing',\n    title: 'Can I change my billing schedule?',\n    content:\n      'Review your next renewal in billing settings before changing schedules. Your current access continues until that date.'\n  },\n  {\n    value: 'export',\n    title: 'How do I export my content?',\n    content:\n      'Open workspace settings and choose Export. Your download includes articles, collections, and uploaded assets.'\n  }\n];\n\nexport function Pattern() {\n  const [showPlans, setShowPlans] = useState(false);\n  const [plans, ...rest] = items;\n  return (\n    <Card\n      variant='outline'\n      className='mx-auto h-auto w-full max-w-lg'\n      title='Subscription & billing'\n      titleLevel={3}\n      subtitle='Plans, payments, and workspace access.'\n    >\n      <AccordionGroup\n        variant='flush'\n        headingLevel={4}\n        className='mt-3'\n        items={[\n          {\n            ...plans,\n            content: (\n              <div className='grid gap-3 [&>button]:justify-self-start'>\n                <p>{plans.content}</p>\n                <Button\n                  size='sm'\n                  variant='outline'\n                  aria-expanded={showPlans}\n                  onClick={() => setShowPlans(!showPlans)}\n                >\n                  {showPlans ? 'Hide plan details' : 'Compare plans'}\n                </Button>\n                {showPlans && (\n                  <dl className='grid gap-1'>\n                    <dt className='font-semibold text-text'>Personal</dt>\n                    <dd>One owner, personal collections.</dd>\n                    <dt className='mt-2 font-semibold text-text'>Team</dt>\n                    <dd>Shared collections and member roles.</dd>\n                  </dl>\n                )}\n              </div>\n            )\n          },\n          ...rest\n        ]}\n      />\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

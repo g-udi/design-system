@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-leaderboard",
+  "type": "registry:example",
+  "title": "Leaderboard",
+  "description": "Leaderboard. MDX/Table pattern composed from @gaudi/design-system/mdx/Table and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "table",
+    "mdx"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-19.svg, /avatars/person-20.svg, /avatars/person-25.svg, /avatars/person-41.svg, /avatars/person-43.svg.",
+  "meta": {
+    "owner": "mdx/Table",
+    "import": "@gaudi/design-system/mdx/Table",
+    "storyId": "mdx-table--leaderboard",
+    "source": "src/components/mdx/Table/stories/fixtures/table/table-leaderboard.jsx",
+    "assets": [
+      "/avatars/person-19.svg",
+      "/avatars/person-20.svg",
+      "/avatars/person-25.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-43.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/table-leaderboard.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  TableRoot as Table,\n  TableBodyPrimitive as TableBody,\n  TableCellPrimitive as TableCell,\n  TableHeadPrimitive as TableHead,\n  TableHeader,\n  TableRowPrimitive as TableRow\n} from '@gaudi/design-system/mdx/Table';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst leaders = [\n  {\n    rank: 1,\n    name: 'Sabine Okafor',\n    handle: '@sarahchen',\n    avatar:\n      '/avatars/person-20.svg',\n    score: 12840,\n    change: '+320',\n    changeUp: true,\n    level: 'Diamond',\n    levelVariant: 'info'\n  },\n  {\n    rank: 2,\n    name: 'Dorian Oduya',\n    handle: '@marcusj',\n    avatar:\n      '/avatars/person-41.svg',\n    score: 11250,\n    change: '+180',\n    changeUp: true,\n    level: 'Platinum',\n    levelVariant: 'default'\n  },\n  {\n    rank: 3,\n    name: 'Juno Saarinen',\n    handle: '@emilyp',\n    avatar:\n      '/avatars/person-25.svg',\n    score: 10890,\n    change: '-45',\n    changeUp: false,\n    level: 'Platinum',\n    levelVariant: 'default'\n  },\n  {\n    rank: 4,\n    name: 'Ottilie Nakamura',\n    handle: '@davidk',\n    avatar:\n      '/avatars/person-43.svg',\n    score: 9420,\n    change: '+520',\n    changeUp: true,\n    level: 'Gold',\n    levelVariant: 'warning'\n  },\n  {\n    rank: 5,\n    name: 'Sorrel Davanzo',\n    handle: '@sofiad',\n    avatar:\n      '/avatars/person-19.svg',\n    score: 8750,\n    change: '+90',\n    changeUp: true,\n    level: 'Gold',\n    levelVariant: 'warning'\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col'>\n      <Table>\n        <TableHeader>\n          <TableRow>\n            <TableHead className='w-12 text-center'>#</TableHead>\n            <TableHead>Player</TableHead>\n            <TableHead>Level</TableHead>\n            <TableHead className='text-right'>Score</TableHead>\n            <TableHead className='text-right'>Change</TableHead>\n          </TableRow>\n        </TableHeader>\n        <TableBody>\n          {leaders.map((leader) => (\n            <TableRow key={leader.rank}>\n              <TableCell className='text-center text-sm font-bold'>\n                {leader.rank}\n              </TableCell>\n              <TableCell>\n                <div className='flex items-center gap-3'>\n                  <Avatar size='sm'>\n                    <AvatarImage src={leader.avatar} alt={leader.name} />\n                    <AvatarFallback>\n                      {leader.name\n                        .split(' ')\n                        .map((n) => n[0])\n                        .join('')}\n                    </AvatarFallback>\n                  </Avatar>\n                  <div className='flex flex-col'>\n                    <span className='text-sm font-medium'>{leader.name}</span>\n                    <span className='text-text-muted text-xs'>\n                      {leader.handle}\n                    </span>\n                  </div>\n                </div>\n              </TableCell>\n              <TableCell>\n                <Badge variant={leader.levelVariant} size='sm'>\n                  {leader.level}\n                </Badge>\n              </TableCell>\n              <TableCell className='text-right font-mono text-sm font-medium'>\n                {leader.score.toLocaleString()}\n              </TableCell>\n              <TableCell className='text-right'>\n                <span className='inline-flex items-center gap-0.5 text-sm'>\n                  {leader.changeUp ? (\n                    <RegistryIcon\n                      lucide='TrendingUpIcon'\n                      aria-hidden='true'\n                      className='text-success size-3.5'\n                    />\n                  ) : (\n                    <RegistryIcon\n                      lucide='TrendingDownIcon'\n                      aria-hidden='true'\n                      className='text-danger size-3.5'\n                    />\n                  )}\n                  <span\n                    className={\n                      leader.changeUp ? 'text-success' : 'text-danger'\n                    }\n                  >\n                    {leader.change}\n                  </span>\n                </span>\n              </TableCell>\n            </TableRow>\n          ))}\n        </TableBody>\n      </Table>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress-status-messages",
+  "type": "registry:example",
+  "title": "Status messages",
+  "description": "Status messages. Core/Progress pattern composed from @gaudi/design-system/core/Progress and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "progress",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Progress",
+    "import": "@gaudi/design-system/core/Progress",
+    "storyId": "core-progress--status-messages",
+    "source": "src/components/core/Progress/stories/fixtures/progress/progress-status-messages.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/progress-status-messages.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nexport function Pattern() {\n  const [downloadProgress, setDownloadProgress] = useState(0);\n  const getStatusMessage = (progress) => {\n    if (progress < 5) return 'Preparing the export...';\n    if (progress < 15) return 'Collecting posts...';\n    if (progress < 25) return 'Reading drafts...';\n    if (progress < 35) return 'Checking image rights...';\n    if (progress < 50) return 'Packing articles...';\n    if (progress < 65) return 'Packing images...';\n    if (progress < 80) return 'Packing attachments...';\n    if (progress < 90) return 'Writing the archive...';\n    if (progress < 95) return 'Checking every file...';\n    if (progress < 100) return 'Finishing the export...';\n    return 'Export ready to download.';\n  };\n  useEffect(() => {\n    const downloadTimer = setInterval(() => {\n      setDownloadProgress((prev) => {\n        if (prev >= 100) {\n          return 0;\n        }\n        return prev + Math.random() * 3 + 1;\n      });\n    }, 150);\n    return () => {\n      clearInterval(downloadTimer);\n    };\n  }, []);\n  return (\n    <div className='w-full max-w-xs space-y-2'>\n      <div className='flex items-center justify-between'>\n        <span className='text-sm font-medium'>Workspace Setup</span>\n        <span className='text-ui-muted-foreground text-sm'>\n          {Math.min(Math.round(downloadProgress), 100)}%\n        </span>\n      </div>\n      <Progress value={downloadProgress} />\n      <div className='text-ui-muted-foreground text-xs'>\n        {getStatusMessage(downloadProgress)}\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -36,34 +36,17 @@
  * </Callout>
  */
 import { cn } from '../../../utilities/cn';
+import { Alert, AlertDescription } from '../../core/Banner';
 
-const calloutStyles = {
-  'error': {
-    'background': 'bg-danger-subtle',
-    'border': 'border-danger-border',
-    'text': 'text-danger'
-  },
-  'info': {
-    'background': 'bg-info-subtle',
-    'border': 'border-info-border',
-    'text': 'text-info'
-  },
-  'warning': {
-    'background': 'bg-warning-subtle',
-    'border': 'border-warning-border',
-    'text': 'text-warning'
-  }
-};
+const variants = { error: 'destructive', info: 'info', warning: 'warning' };
 
 const Callout = ({ children, className, classNames = {}, type = 'info' }) => {
-  const resolvedStyles = calloutStyles[type] || calloutStyles.info;
-
   return (
-    <aside className={ cn('mb-6 rounded-md border px-6 py-4 text-base', resolvedStyles.background, resolvedStyles.border, className, classNames.root) }>
-      <div className={ cn(resolvedStyles.text, '[&>p]:m-0 [&>p:not(:last-child)]:mb-2', classNames.body) }>
+    <Alert role='note' variant={ variants[type] || variants.info } className={ cn('mb-6', className, classNames.root) }>
+      <AlertDescription className={ cn('block text-base text-text [&>p]:m-0 [&>p:not(:last-child)]:mb-2', classNames.body) }>
         {children}
-      </div>
-    </aside>
+      </AlertDescription>
+    </Alert>
   );
 };
 

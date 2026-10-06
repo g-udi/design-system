@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "card-link-cards",
+  "type": "registry:example",
+  "title": "Link cards",
+  "description": "Link cards. Core/Card pattern composed from @gaudi/design-system/core/Card and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "card",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Card",
+    "import": "@gaudi/design-system/core/Card",
+    "storyId": "core-card--link-cards",
+    "source": "src/components/core/Card/stories/fixtures/card/card-link-cards.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/card-link-cards.jsx",
+      "type": "registry:component",
+      "content": "import Link from '@gaudi/design-system/core/Link';\nimport {\n  CardRoot as Card,\n  CardContent\n} from '@gaudi/design-system/core/Card';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst linkClass = 'inline-flex items-center gap-1 text-xs font-medium text-ui-primary hover:underline';\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-2xl gap-3 sm:grid-cols-2'>\n      <Card>\n        <CardContent className='flex flex-col gap-3'>\n          <div className='flex size-9 items-center justify-center rounded-md bg-ui-primary text-ui-primary-foreground [&_svg]:size-4'>\n            <RegistryIcon lucide='ShoppingBagIcon' aria-hidden='true' />\n          </div>\n          <Link href='/orders' className='text-sm leading-tight font-medium text-text hover:text-ui-primary'>\n            Recent orders overview\n          </Link>\n          <p className='text-xs leading-relaxed text-text-muted'>\n            Track recent purchases, updates, and status changes in one place.\n          </p>\n          <Link href='/orders' className={linkClass}>\n            View orders\n            <RegistryIcon lucide='ChevronRightIcon' aria-hidden='true' className='size-3 shrink-0' />\n          </Link>\n        </CardContent>\n      </Card>\n      <Card className='p-0'>\n        <CardContent className='p-0'>\n          <div className='flex items-center gap-2 border-b px-4 py-3 text-text-muted [&_svg]:size-4'>\n            <RegistryIcon lucide='BookOpenIcon' aria-hidden='true' />\n            <span className='text-sm font-medium text-text'>Documentation</span>\n          </div>\n          <div className='space-y-3 p-4'>\n            <p className='text-sm leading-relaxed text-text-muted'>\n              Guides, API references, and examples to integrate with the platform.\n            </p>\n            <Link href='/docs' className={linkClass}>\n              <RegistryIcon lucide='LinkIcon' aria-hidden='true' className='size-3 shrink-0' />\n              View docs\n            </Link>\n          </div>\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

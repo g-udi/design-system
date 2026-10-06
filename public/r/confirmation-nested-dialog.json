@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "confirmation-nested-dialog",
+  "type": "registry:example",
+  "title": "Confirmation nested in a dialog",
+  "description": "Confirmation nested in a dialog. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "confirmation",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--confirmation-nested-dialog",
+    "source": "src/components/core/Dialog/stories/fixtures/confirmation/confirmation-nested-dialog.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/confirmation-nested-dialog.jsx",
+      "type": "registry:component",
+      "content": "import {\n  DialogConfirmationRoot as DialogConfirmation,\n  DialogConfirmationAction,\n  DialogConfirmationCancel,\n  DialogConfirmationContent,\n  DialogConfirmationDescription,\n  DialogConfirmationFooter,\n  DialogConfirmationHeader,\n  DialogConfirmationTitle,\n  DialogConfirmationTrigger\n} from '@gaudi/design-system/core/Dialog';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\nexport function Pattern() {\n  return (\n    <Dialog>\n      <DialogTrigger asChild>\n        <Button variant='outline'>Open Dialog</Button>\n      </DialogTrigger>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>Alert Dialog Example</DialogTitle>\n          <DialogDescription>\n            Click the button below to open an alert dialog.\n          </DialogDescription>\n        </DialogHeader>\n        <DialogFooter>\n          <DialogConfirmation>\n            <DialogConfirmationTrigger asChild>\n              <Button>Open Confirmation Dialog</Button>\n            </DialogConfirmationTrigger>\n            <DialogConfirmationContent size='sm'>\n              <DialogConfirmationHeader>\n                <DialogConfirmationTitle>Are you absolutely sure?</DialogConfirmationTitle>\n                <DialogConfirmationDescription>\n                  This action cannot be undone. This will permanently delete\n                  your account and remove your data from our servers.\n                </DialogConfirmationDescription>\n              </DialogConfirmationHeader>\n              <DialogConfirmationFooter>\n                <DialogConfirmationCancel>Cancel</DialogConfirmationCancel>\n                <DialogConfirmationAction>Continue</DialogConfirmationAction>\n              </DialogConfirmationFooter>\n            </DialogConfirmationContent>\n          </DialogConfirmation>\n        </DialogFooter>\n      </DialogContent>\n    </Dialog>\n  );\n}\n"
+    }
+  ]
+}

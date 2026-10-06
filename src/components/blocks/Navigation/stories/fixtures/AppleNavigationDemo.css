@@ -1,0 +1,72 @@
+.apple-navigation-demo {
+  position: relative;
+  isolation: isolate;
+  transform: translateZ(0);
+  width: 100%;
+  min-height: 36rem;
+  border: 1px solid var(--ds-color-border);
+  border-radius: var(--ds-radius);
+  background: var(--ds-color-surface-muted);
+  color: var(--ds-color-text);
+}
+.apple-navigation-header { position: relative; z-index: 2; background: var(--ds-color-surface); }
+.apple-navigation-desktop { display: block; width: 100%; max-width: none; }
+.apple-navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  max-width: 62rem;
+  min-height: calc(var(--ds-space-scale, 1) * 3.25rem);
+  margin: auto;
+  padding: calc(var(--ds-space-scale, 1) * .35rem) calc(var(--ds-space-scale, 1) * 2rem);
+  gap: calc(var(--ds-space-scale, 1) * 1rem);
+}
+.apple-navigation-brand { display: inline-flex; align-items: center; gap: calc(var(--ds-space-scale, 1) * .4rem); color: inherit; font-size: 1rem; font-weight: 600; text-decoration: none; }
+.apple-navigation-trigger { font-size: .8125rem; font-weight: 400; background: transparent; }
+.apple-navigation-trigger > svg { display: none; }
+.apple-navigation-desktop .ds-part-navigation-menu-viewport-wrapper { width: 100%; }
+.apple-navigation-desktop .ds-part-navigation-menu-viewport {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--ds-color-surface);
+  animation: none;
+  transition: height 260ms cubic-bezier(.16, 1, .3, 1);
+}
+.apple-navigation-panel { width: 100%; padding: 0; animation: apple-navigation-reveal 200ms cubic-bezier(.16, 1, .3, 1) both; }
+.apple-navigation-panel[data-motion^='to-'] { animation: apple-navigation-hide 100ms ease-in both; }
+.apple-navigation-columns {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  align-items: start;
+  max-width: 62rem;
+  margin: auto;
+  padding: calc(var(--ds-space-scale, 1) * 2rem) calc(var(--ds-space-scale, 1) * 2rem) calc(var(--ds-space-scale, 1) * 2.5rem);
+  gap: calc(var(--ds-space-scale, 1) * 2rem);
+}
+.apple-navigation-column { min-width: 0; color: var(--ds-color-text); animation: apple-navigation-reveal 260ms cubic-bezier(.16, 1, .3, 1) both; animation-delay: var(--column-delay); }
+.apple-navigation-group-label { margin: 0 0 .75rem; color: var(--ds-color-text-muted); font-size: .75rem; line-height: 1.5; }
+.apple-navigation-column ul { display: grid; gap: calc(var(--ds-space-scale, 1) * .2rem); margin: 0; padding: 0; list-style: none; }
+.apple-navigation-link { display: block; width: fit-content; max-width: 100%; padding: calc(var(--ds-space-scale, 1) * .25rem) 0; border-radius: 0; color: inherit; background: transparent; font-size: .875rem; font-weight: 500; line-height: 1.4; overflow-wrap: anywhere; text-decoration: none; }
+.apple-navigation-column:first-child .apple-navigation-link { font-size: 1.5rem; font-weight: 600; letter-spacing: -.025em; }
+.apple-navigation-link:hover, .apple-navigation-link[aria-current='page'] { background: transparent; text-decoration: underline; text-underline-offset: .2em; }
+.apple-navigation-demo a:focus-visible, .apple-navigation-demo button:focus-visible { outline: 2px solid var(--ds-color-focus); outline-offset: 3px; }
+.apple-navigation-page { display: flex; flex-direction: column; align-items: center; text-align: center; padding: calc(var(--ds-space-scale, 1) * 4rem) calc(var(--ds-space-scale, 1) * 1.5rem) calc(var(--ds-space-scale, 1) * 2rem); }
+.apple-navigation-page h2 { max-width: 14ch; margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 600; line-height: 1.03; letter-spacing: -.04em; text-wrap: balance; overflow-wrap: anywhere; }
+.apple-navigation-page > p { max-width: 38ch; margin: 1.25rem 0; color: var(--ds-color-text-muted); font-size: 1rem; line-height: 1.6; }
+.apple-navigation-page .apple-navigation-caption { margin-top: 3.5rem; font-size: .75rem; overflow-wrap: anywhere; }
+.apple-navigation-backdrop { position: absolute; z-index: 1; inset: 0; background: color-mix(in srgb, var(--ds-color-surface) 35%, transparent); backdrop-filter: blur(6px); animation: apple-navigation-backdrop 180ms ease-out both; }
+.apple-navigation-phone-bar, .apple-navigation-phone-heading { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--ds-space-scale, 1) * 1rem); padding: calc(var(--ds-space-scale, 1) * .5rem) calc(var(--ds-space-scale, 1) * 1rem); }
+.apple-navigation-phone-bar button, .apple-navigation-phone-heading button { min-width: 44px; min-height: 44px; }
+.apple-navigation-phone-dialog { position: fixed; z-index: var(--ds-z-overlay); inset: 0; display: flex; flex-direction: column; background: var(--ds-color-surface); color: var(--ds-color-text); animation: apple-navigation-reveal 240ms cubic-bezier(.16, 1, .3, 1) both; }
+.apple-navigation-phone-content { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--ds-color-border) transparent; scrollbar-width: thin; padding: calc(var(--ds-space-scale, 1) * 1rem) calc(var(--ds-space-scale, 1) * 1.5rem); }
+.apple-navigation-accordion .ds-accordion-trigger { font-size: 1.75rem; font-weight: 600; line-height: 1.25; letter-spacing: -.025em; }
+.apple-navigation-phone-content .apple-navigation-columns { grid-template-columns: 1fr; padding: calc(var(--ds-space-scale, 1) * .5rem) 0 calc(var(--ds-space-scale, 1) * 1rem); gap: calc(var(--ds-space-scale, 1) * 1.5rem); }
+.apple-navigation-phone-content .apple-navigation-column:first-child .apple-navigation-link { font-size: 1.25rem; }
+.apple-navigation-phone-content .apple-navigation-link { padding-block: calc(var(--ds-space-scale, 1) * .45rem); }
+@keyframes apple-navigation-reveal { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes apple-navigation-hide { to { opacity: 0; } }
+@keyframes apple-navigation-backdrop { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .apple-navigation-demo *, .apple-navigation-demo *::before, .apple-navigation-demo *::after { animation: none !important; transition: none !important; }
+}

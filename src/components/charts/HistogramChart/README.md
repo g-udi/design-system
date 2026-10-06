@@ -41,4 +41,4 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Colours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.
 
-See [source notices](../../../../THIRD_PARTY_NOTICES.md).
+See [source notices](../../../../README.md#third-party-notices).

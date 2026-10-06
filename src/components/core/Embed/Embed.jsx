@@ -13,10 +13,10 @@
  */
 
 import { cn } from '../../../utilities/cn';
-import { CodeBlock } from '../CodeBlock/parts/code-block-extended.jsx';
+import { CodeBlock } from '../CodeBlock/CodeBlock.jsx';
 import LinkPreview from '../LinkPreview/LinkPreview.jsx';
 import WebPreview from '../WebPreview/WebPreview.jsx';
-import { resolveEmbedType } from './parts/embed-model.js';
+import { resolveEmbedType } from './embedModel.js';
 
 /**
  * @param {Object} props

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd-in-controls",
+  "type": "registry:example",
+  "title": "Shortcuts in controls",
+  "description": "Shortcuts in controls. Core/Kbd pattern composed from @gaudi/design-system/core/Kbd and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "kbd",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Kbd",
+    "import": "@gaudi/design-system/core/Kbd",
+    "storyId": "core-kbd--in-controls",
+    "source": "src/components/core/Kbd/stories/fixtures/kbd/kbd-in-controls.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/kbd-in-controls.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  InputGroup,\n  InputGroupAddon,\n  InputGroupInput\n} from '@gaudi/design-system/core/Input';\nimport {\n  KbdRoot as Kbd,\n  KbdGroup\n} from '@gaudi/design-system/core/Kbd';\nimport {\n  TooltipRoot as Tooltip,\n  TooltipContent,\n  TooltipProvider,\n  TooltipTrigger\n} from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <TooltipProvider>\n      <div className='mx-auto flex w-full max-w-md flex-wrap items-center justify-center gap-2'>\n        <InputGroup className='w-56'>\n          <InputGroupAddon>\n            <RegistryIcon lucide='SearchIcon' aria-hidden='true' />\n          </InputGroupAddon>\n          <InputGroupInput aria-label='Search' placeholder='Search…' />\n          <InputGroupAddon align='inline-end'>\n            <KbdGroup aria-hidden='true'>\n              <Kbd>⌘</Kbd>\n              <Kbd>K</Kbd>\n            </KbdGroup>\n          </InputGroupAddon>\n        </InputGroup>\n        <Tooltip>\n          <TooltipTrigger asChild>\n            <Button aria-label='Save' size='icon' variant='outline'>\n              <RegistryIcon lucide='SaveIcon' aria-hidden='true' />\n            </Button>\n          </TooltipTrigger>\n          <TooltipContent className='pr-1.5'>\n            <span className='flex items-center gap-2'>\n              Save changes <Kbd>S</Kbd>\n            </span>\n          </TooltipContent>\n        </Tooltip>\n        <Button variant='outline'>\n          Send\n          <Kbd aria-hidden='true'>↵</Kbd>\n        </Button>\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

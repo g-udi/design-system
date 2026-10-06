@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton-dashboard",
+  "type": "registry:example",
+  "title": "Dashboard stats and table",
+  "description": "Dashboard stats and table. Core/Feedback & States/Skeleton pattern composed from @gaudi/design-system/core/Skeleton and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "skeleton",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Skeleton",
+    "import": "@gaudi/design-system/core/Skeleton",
+    "storyId": "core-skeleton--dashboard",
+    "source": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-dashboard.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/skeleton-dashboard.jsx",
+      "type": "registry:component",
+      "content": "import {\n  CardRoot as Card,\n  CardContent,\n  CardHeader\n} from '@gaudi/design-system/core/Card';\nimport { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';\nconst rows = ['w-3/4', 'w-2/3', 'w-5/6', 'w-1/2'];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>\n      <div className='grid grid-cols-3 gap-3'>\n        {Array.from({ length: 3 }).map((_, i) => (\n          <Card key={i}>\n            <CardHeader className='pb-2'>\n              <Skeleton className='h-3 w-16' />\n            </CardHeader>\n            <CardContent className='space-y-2'>\n              <Skeleton className='h-7 w-20' />\n              <Skeleton className='h-3 w-full' />\n            </CardContent>\n          </Card>\n        ))}\n      </div>\n      <Card>\n        <CardContent className='flex flex-col gap-3'>\n          <div className='border-ui-border flex gap-4 border-b pb-2'>\n            <Skeleton className='h-4 flex-1' />\n            <Skeleton className='h-4 w-20' />\n            <Skeleton className='h-4 w-16' />\n          </div>\n          {rows.map((width) => (\n            <div key={width} className='flex items-center gap-4'>\n              <div className='flex flex-1 items-center gap-2'>\n                <Skeleton className='size-6 shrink-0 rounded-full' />\n                <Skeleton className={`h-3.5 ${width}`} />\n              </div>\n              <Skeleton className='h-3.5 w-20' />\n              <Skeleton className='h-5 w-16 rounded-full' />\n            </div>\n          ))}\n        </CardContent>\n      </Card>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pagination-jump-to-page",
+  "type": "registry:example",
+  "title": "Jump to a page",
+  "description": "Jump to a page. Core/Navigation/Pagination pattern composed from @gaudi/design-system/core/Pagination and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "pagination",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Pagination",
+    "import": "@gaudi/design-system/core/Pagination",
+    "storyId": "core-pagination--jump-to-page",
+    "source": "src/components/core/Pagination/stories/fixtures/pagination/pagination-jump-to-page.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/pagination-jump-to-page.jsx",
+      "type": "registry:component",
+      "content": "\nimport {\n  NativeSelect,\n  NativeSelectOption\n} from '@gaudi/design-system/core/Select';\nimport {\n  PaginationRoot as Pagination,\n  PaginationContentPrimitive as PaginationContent,\n  PaginationEllipsisPrimitive as PaginationEllipsis,\n  PaginationItemPrimitive as PaginationItem,\n  PaginationLinkPrimitive as PaginationLink\n} from '@gaudi/design-system/core/Pagination';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';\nconst IconLink = ({ icon, label }) => (\n  <PaginationLink href='#' size='icon' aria-label={label}>\n    <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' />\n  </PaginationLink>\n);\nconst pageNumbers = Array.from({ length: 10 }, (_, index) => index + 1);\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-md gap-3'>\n      <Pagination aria-label='Numbered pages with page input'>\n        <PaginationContent className='w-full justify-between gap-3'>\n          <PaginationItem className='flex items-center gap-1'>\n            <IconLink icon='ChevronLeftIcon' label='Go to previous page' />\n            <PaginationLink href='#' isActive>1</PaginationLink>\n            <PaginationLink href='#'>2</PaginationLink>\n            <PaginationLink href='#'>3</PaginationLink>\n            <PaginationEllipsis />\n            <IconLink icon='ChevronRightIcon' label='Go to next page' />\n          </PaginationItem>\n          <PaginationItem className='flex items-center gap-2'>\n            <span className='text-sm whitespace-nowrap text-text-muted'>Go to page</span>\n            <NumberField min={1} max={10} defaultValue={1} className='h-8 w-14 text-center'>\n              <NumberFieldGroup>\n                <NumberFieldInput aria-label='Go to page' />\n              </NumberFieldGroup>\n            </NumberField>\n          </PaginationItem>\n        </PaginationContent>\n      </Pagination>\n      <Pagination aria-label='First, last and page select' className='justify-start'>\n        <PaginationContent className='gap-1'>\n          <PaginationItem><IconLink icon='ChevronFirstIcon' label='Go to first page' /></PaginationItem>\n          <PaginationItem><IconLink icon='ChevronLeftIcon' label='Go to previous page' /></PaginationItem>\n          <PaginationItem>\n            <NativeSelect aria-label='Page' className='w-26' defaultValue='1'>\n              {pageNumbers.map((page) => (\n                <NativeSelectOption key={page} value={String(page)}>Page {page}</NativeSelectOption>\n              ))}\n            </NativeSelect>\n          </PaginationItem>\n          <PaginationItem><IconLink icon='ChevronRightIcon' label='Go to next page' /></PaginationItem>\n          <PaginationItem><IconLink icon='ChevronLastIcon' label='Go to last page' /></PaginationItem>\n        </PaginationContent>\n      </Pagination>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

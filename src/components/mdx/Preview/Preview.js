@@ -18,9 +18,9 @@
 import { memo } from 'react';
 
 import LinkPreview from '../../core/LinkPreview/LinkPreview.jsx';
-import { LinkPreviewSkeleton } from '../../core/LinkPreview/parts/link-preview.jsx';
+import { LinkPreviewSkeleton } from '../../core/LinkPreview/LinkPreviewPrimitives.jsx';
 
-export { usePreviewData } from '../../core/LinkPreview/parts/use-preview-data.js';
+export { usePreviewData } from '../../core/LinkPreview/usePreviewData.js';
 
 /** The inline loading placeholder, kept under its original name. */
 export const PreviewLoadingSkeleton = ({ className }) => <LinkPreviewSkeleton variant='inline' className={ className } />;

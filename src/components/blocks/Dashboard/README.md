@@ -12,7 +12,7 @@ import DataTable from '@gaudi/design-system/core/DataTable';
 
 <DashboardToolbar defaultPeriod='30d' defaultCompare onChange={(period) => load(period)} />
 <DashboardGrid label='Shop revenue'>
-  <StatCard label='Revenue' value='$184,950' delta='+11.6%' className={dashboardSpan(3)} />
+  <StatCard label='Revenue' value='$184,950' delta='+11.6%' deltaDirection='up' deltaTone='success' className={dashboardSpan(3)} />
   <DashboardPanel title='Revenue by product line' span={8}>
     <AreaChart framed={false} data={revenue} stacked series={series} />
   </DashboardPanel>

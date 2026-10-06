@@ -234,6 +234,7 @@ export const lucideIconOptimizeDeps = [
   'lucide-react/dist/esm/icons/phone.js',
   'lucide-react/dist/esm/icons/pin-off.js',
   'lucide-react/dist/esm/icons/pin.js',
+  'lucide-react/dist/esm/icons/pipette.js',
   'lucide-react/dist/esm/icons/plane.js',
   'lucide-react/dist/esm/icons/play.js',
   'lucide-react/dist/esm/icons/plus.js',

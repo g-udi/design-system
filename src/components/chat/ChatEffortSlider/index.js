@@ -1,1 +1,1 @@
-export { ChatEffortSlider as default, ChatEffortSlider, chatEffortLevels } from './parts/chat-effort-slider.jsx';
+export { ChatEffortSlider as default, ChatEffortSlider, chatEffortLevels } from './ChatEffortSlider.jsx';

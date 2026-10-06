@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "number-field-button-layouts",
+  "type": "registry:example",
+  "title": "Button layouts",
+  "description": "Button layouts. Core/Advanced Inputs/NumberField pattern composed from @gaudi/design-system/core/NumberField and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "number-field",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/NumberField",
+    "import": "@gaudi/design-system/core/NumberField",
+    "storyId": "core-numberfield--button-layouts",
+    "source": "src/components/core/NumberField/stories/fixtures/number-field/number-field-button-layouts.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/number-field-button-layouts.jsx",
+      "type": "registry:component",
+      "content": "import {\n  NumberField,\n  NumberFieldDecrement,\n  NumberFieldGroup,\n  NumberFieldIncrement,\n  NumberFieldInput,\n  NumberFieldScrubArea\n} from '@gaudi/design-system/core/NumberField';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-lg gap-3 sm:grid-cols-3'>\n      {/* Split: decrement and increment on either side. */}\n      <NumberField defaultValue={5} min={0} max={100}>\n        <NumberFieldScrubArea label='Quantity' />\n        <NumberFieldGroup>\n          <NumberFieldDecrement />\n          <NumberFieldInput />\n          <NumberFieldIncrement />\n        </NumberFieldGroup>\n      </NumberField>\n      {/* Both buttons trail the value. */}\n      <NumberField defaultValue={12} min={1} max={50}>\n        <NumberFieldScrubArea label='Seats' />\n        <NumberFieldGroup>\n          <NumberFieldInput className='text-start' />\n          <NumberFieldDecrement className='rounded-none!' />\n          <NumberFieldIncrement />\n        </NumberFieldGroup>\n      </NumberField>\n      {/* Stacked spinner chevrons. */}\n      <NumberField defaultValue={3} min={1} max={10}>\n        <NumberFieldScrubArea label='Replicas' />\n        <NumberFieldGroup>\n          <NumberFieldInput className='text-start' />\n          <div className='m-px flex shrink-0 flex-col overflow-hidden rounded-md border border-border bg-surface-muted'>\n            <NumberFieldIncrement className='flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! border-b border-border px-1.5 leading-none'>\n              <RegistryIcon lucide='ChevronUpIcon' className='size-3.5' />\n            </NumberFieldIncrement>\n            <NumberFieldDecrement className='flex h-3.5 w-full flex-1 shrink-0 items-center rounded-none! px-1.5 leading-none'>\n              <RegistryIcon lucide='ChevronDownIcon' className='size-3.5' />\n            </NumberFieldDecrement>\n          </div>\n        </NumberFieldGroup>\n      </NumberField>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

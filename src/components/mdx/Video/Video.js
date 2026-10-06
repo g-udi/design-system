@@ -29,16 +29,16 @@ const getEmbeddableSrc = (src) => {
   try {
     const url = new URL(src);
 
-    if (url.hostname.includes('youtube.com') && url.pathname === '/watch') {
+    if ((url.hostname === 'youtube.com' || url.hostname.endsWith('.youtube.com')) && url.pathname === '/watch') {
       const videoId = url.searchParams.get('v');
 
-      if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+      if (videoId) return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}`;
     }
 
-    if (url.hostname.includes('youtu.be')) {
+    if (url.hostname === 'youtu.be' || url.hostname === 'www.youtu.be') {
       const videoId = url.pathname.replace('/', '');
 
-      if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+      if (videoId) return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}`;
     }
   } catch {
     return src;
@@ -47,9 +47,16 @@ const getEmbeddableSrc = (src) => {
   return src;
 };
 
-const PlayGlyph = () => (
-  <span className='ml-0.5 size-0 border-y-[9px] border-l-[14px] border-y-transparent border-l-current' aria-hidden='true' />
-);
+const addAutoplay = (src) => {
+  if (!src) return src;
+  const hashAt = src.indexOf('#');
+  const hash = hashAt === -1 ? '' : src.slice(hashAt);
+  const path = hashAt === -1 ? src : src.slice(0, hashAt);
+  const queryAt = path.indexOf('?');
+  const query = new URLSearchParams(queryAt === -1 ? '' : path.slice(queryAt + 1));
+  query.set('autoplay', '1');
+  return `${queryAt === -1 ? path : path.slice(0, queryAt)}?${query}${hash}`;
+};
 
 /**
  * Article video: a thumbnail button that plays the video in a modal player. YouTube watch and short
@@ -75,7 +82,7 @@ const Video = ({
   const closeRef = useRef(null);
   const panelAnimation = videoAnimationStyles[animationStyle] || videoAnimationStyles['from-center'];
   const iframeSrc = getEmbeddableSrc(videoSrc);
-  const srcWithAutoplay = autoplay && iframeSrc ? `${iframeSrc}${iframeSrc.includes('?') ? '&' : '?'}autoplay=1` : iframeSrc;
+  const srcWithAutoplay = autoplay ? addAutoplay(iframeSrc) : iframeSrc;
 
   return (
     <>
@@ -101,7 +108,7 @@ const Video = ({
         <span className='absolute inset-0 bg-black/20 transition group-hover:bg-black/10' aria-hidden='true' />
         <span className={ cn('absolute inset-0 flex items-center justify-center', classNames.playWrapper) }>
           <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-surface/95 text-accent shadow-lg transition group-hover:scale-105', classNames.playButton) }>
-            <PlayGlyph />
+            <Icon name='Play' decorative className='ml-0.5 size-6 fill-current' />
           </span>
         </span>
       </Button>
@@ -118,18 +125,18 @@ const Video = ({
           <Button variant='ghost' tone='neutral' size='sm' className={ cn('absolute inset-0 h-auto rounded-none bg-black/80 p-0 backdrop-blur-sm hover:bg-black/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
           <div
             className={ cn(
-              'relative z-10 w-full max-w-5xl overflow-hidden rounded-lg bg-black shadow-2xl transition duration-200', panelAnimation, classNames.panel
+              'relative z-10 max-h-full w-full max-w-5xl overflow-x-hidden overflow-y-auto rounded-lg bg-black shadow-2xl transition duration-200', panelAnimation, classNames.panel
             ) }
             data-open
           >
-            <div className='flex items-center justify-between border-b border-text-inverse/10 bg-surface-dark px-4 py-3'>
-              <h2 id={ dialogTitleId } className={ cn('text-sm font-semibold text-text-inverse', classNames.title) }>{title}</h2>
+            <div className='flex items-center justify-between gap-3 border-b border-text-inverse/10 bg-surface-dark px-4 py-3'>
+              <h2 id={ dialogTitleId } className={ cn('min-w-0 flex-1 wrap-anywhere text-sm font-semibold text-text-inverse', classNames.title) }>{title}</h2>
               <Button
                 ref={ closeRef }
                 variant='ghost'
                 tone='neutral'
                 size='sm'
-                className={ cn('size-11 rounded-control bg-text-inverse/10 p-0 text-text-inverse hover:bg-text-inverse/20 hover:text-text-inverse', classNames.close) }
+                className={ cn('size-11 shrink-0 rounded-control bg-text-inverse/10 p-0 text-text-inverse hover:bg-text-inverse/20 hover:text-text-inverse', classNames.close) }
                 aria-label='Close video dialog'
                 onClick={ () => setOpen(false) }
               >

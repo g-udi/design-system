@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group-row-cards",
+  "type": "registry:example",
+  "title": "Row cards",
+  "description": "Row cards. Core/RadioGroup pattern composed from @gaudi/design-system/core/RadioGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "radio-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-41.svg.",
+  "meta": {
+    "owner": "core/RadioGroup",
+    "import": "@gaudi/design-system/core/RadioGroup",
+    "storyId": "core-radiogroup--row-cards",
+    "source": "src/components/core/RadioGroup/stories/fixtures/radio-group/radio-group-row-cards.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/radio-group-row-cards.jsx",
+      "type": "registry:component",
+      "content": "import {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  FieldRoot as Field,\n  FieldContent,\n  FieldDescriptionPrimitive as FieldDescription,\n  FieldLabelPrimitive as FieldLabel,\n  FieldLegend,\n  FieldSet,\n  FieldTitle\n} from '@gaudi/design-system/core/Field';\nimport {\n  RadioGroupRoot as RadioGroup,\n  RadioGroupItem\n} from '@gaudi/design-system/core/RadioGroup';\n\nconst plans = [\n  { value: 'free', title: 'Free', price: '$0', description: 'For a personal blog or a first newsletter.' },\n  { value: 'pro', title: 'Pro', price: '$19', description: 'For writers who publish every week with a few editors.' },\n  { value: 'enterprise', title: 'Enterprise', price: '$49', description: 'For newsrooms with several desks and review steps.' }\n];\nconst reviewers = [\n  { value: 'emma', name: 'Ilse Valtonen', handle: '@emmawilson', avatar: '/avatars/person-20.svg', initials: 'IV' },\n  { value: 'john', name: 'John Doe', handle: '@johndoe', avatar: '/avatars/person-41.svg', initials: 'JD' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xs gap-4'>\n      <FieldSet className='gap-2'>\n        <FieldLegend variant='label'>Plan</FieldLegend>\n        <RadioGroup defaultValue='pro' aria-label='Plan' className='gap-2'>\n          {plans.map((plan) => (\n            <FieldLabel key={plan.value} htmlFor={`plan-${plan.value}`}>\n              <Field orientation='horizontal'>\n                <RadioGroupItem value={plan.value} id={`plan-${plan.value}`} />\n                <FieldContent>\n                  <FieldTitle className='flex w-full items-center justify-between'>\n                    <span>{plan.title}</span>\n                    <span className='text-sm font-semibold tabular-nums'>{plan.price}/mo</span>\n                  </FieldTitle>\n                  <FieldDescription>{plan.description}</FieldDescription>\n                </FieldContent>\n              </Field>\n            </FieldLabel>\n          ))}\n        </RadioGroup>\n      </FieldSet>\n      <FieldSet className='gap-2'>\n        <FieldLegend variant='label'>Reviewer</FieldLegend>\n        <RadioGroup defaultValue='emma' aria-label='Reviewer' className='gap-2'>\n          {reviewers.map((person) => (\n            <FieldLabel key={person.value} htmlFor={`reviewer-${person.value}`}>\n              <Field orientation='horizontal'>\n                <FieldTitle className='flex flex-1 items-center gap-2'>\n                  <Avatar size='sm'>\n                    <AvatarImage src={person.avatar} alt={person.name} />\n                    <AvatarFallback>{person.initials}</AvatarFallback>\n                  </Avatar>\n                  <span className='flex flex-col items-start'>\n                    <span className='text-sm font-semibold'>{person.name}</span>\n                    <span className='text-xs font-normal text-text-muted'>{person.handle}</span>\n                  </span>\n                </FieldTitle>\n                <RadioGroupItem value={person.value} id={`reviewer-${person.value}`} />\n              </Field>\n            </FieldLabel>\n          ))}\n        </RadioGroup>\n      </FieldSet>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

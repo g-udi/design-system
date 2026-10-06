@@ -21,10 +21,10 @@ import { memo, useEffect, useMemo } from 'react';
 import { cn } from '../../../utilities/cn';
 import Icon from '../Icon';
 import Link from '../Link';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../Popover/parts/hover-card.jsx';
-import { detectLinkKind, hasLinkPreviewDetails, normalizeLinkPreview } from './parts/link-preview-data.js';
-import { LinkPreviewBody, LinkPreviewCard, LinkPreviewCompact, LinkPreviewFavicon, LinkPreviewSkeleton } from './parts/link-preview.jsx';
-import { usePreviewData, usePreviewImageResolver } from './parts/use-preview-data.js';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../Popover/HoverCard.jsx';
+import { detectLinkKind, hasLinkPreviewDetails, normalizeLinkPreview } from './linkPreviewData.js';
+import { LinkPreviewBody, LinkPreviewCard, LinkPreviewCompact, LinkPreviewFavicon, LinkPreviewSkeleton } from './LinkPreviewPrimitives.jsx';
+import { usePreviewData, usePreviewImageResolver } from './usePreviewData.js';
 
 // Plain inline flow, so long link text wraps with the surrounding prose.
 const inlineClass = 'inline';

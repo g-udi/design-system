@@ -1,0 +1,9 @@
+export default {
+  "Core/Button": {
+    'accessibility': 'Button renders native buttons for actions and links for navigation. Disabled link variants are removed from tab order.',
+    'decisionRules': ['Use `solid` with `accent` for the one primary action in a local group.', 'Use `outline` or `soft` with `neutral` for secondary actions that still need a visible target.', 'Use `ghost`, `subtle`, or inline Link for quiet navigation and toolbar actions.', 'Choose semantic tones by meaning: `success`, `warning`, `danger`, `attention`, `discovery`, or `info`.'],
+    'description': 'Button renders the Gaudi action and link-button variants.',
+    'props': [['children', 'ReactNode', '-', 'Visible button label or content.'], ['variant', 'solid | soft | outline | ghost | subtle', 'solid', 'Reusable visual treatment.'], ['size', 'xs | sm | md | lg | icon | icon-xs | icon-sm | icon-lg', 'md', 'Compact heights: xs 24px, sm 28px, md/default 32px, lg 36px. Icon sizes match their text-button counterparts. Use matching sizes for controls in the same row.'], ['tone', 'accent | neutral | success | warning | danger | attention | discovery | info', 'accent (solid, subtle); neutral (soft, outline, ghost)', 'Semantic meaning for the action. Quiet variants default to neutral so screens do not turn blue. Legacy hue names remain supported as compatibility aliases.'], ['radius', 'sm | md | lg | full', 'md', 'Legacy aliases use the global --ds-radius setting (4px by default); none stays square where supported.'], ['href', 'string', '-', 'Renders an internal Next link or safe external anchor.'], ['disabled', 'boolean', 'false', 'Disables native buttons and removes disabled links from the tab order.'], ['className', 'string', '-', 'Root class override.']],
+    usage: "import { Button } from '@gaudi/design-system';\n\n<Button variant='solid' tone='accent' size='md'>Read article</Button>"
+  }
+};

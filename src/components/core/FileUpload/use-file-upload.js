@@ -1,27 +1,28 @@
 'use client';
-import { useCallback, useRef, useState } from 'react';
-import { acceptsFile } from './fileSelection.js';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { selectFiles } from './fileSelection.js';
+import { mergeRefs } from '../../../hooks/state/use-merged-refs.js';
 
 export const formatBytes = (bytes, decimals = 2) => {
-  if (bytes === 0) return '0 Bytes';
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 Bytes';
   const k = 1024;
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.min(sizes.length - 1, Math.max(0, Math.floor(Math.log(bytes) / Math.log(k))));
   return Number.parseFloat((bytes / k ** i).toFixed(Math.max(0, decimals))) + sizes[i];
 };
 
-const isImagePreview = (entry) => entry.preview && entry.file instanceof File && entry.file.type.startsWith('image/');
+const isLocalFile = (file) => typeof File !== 'undefined' && file instanceof File;
 const revokePreview = (entry) => {
-  if (isImagePreview(entry)) URL.revokeObjectURL(entry.preview);
+  if (entry.preview && isLocalFile(entry.file)) URL.revokeObjectURL(entry.preview);
 };
 const toEntry = (file) =>
-  file instanceof File
+  isLocalFile(file)
     ? { file, id: `${file.name}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`, preview: URL.createObjectURL(file) }
     : { file, id: file.id, preview: file.url };
 
 /**
  * Headless state for custom upload surfaces: validated entries with preview URLs, drag state and error text.
- * `FileUpload` uses the same accept rules through `acceptsFile`.
+ * `FileUpload` uses the same accept rules through `selectFiles`.
  */
 export const useFileUpload = (options = {}) => {
   const {
@@ -39,85 +40,66 @@ export const useFileUpload = (options = {}) => {
     isDragging: false,
     errors: []
   }));
+  const filesRef = useRef(state.files);
   const inputRef = useRef(null);
+  useEffect(() => () => filesRef.current.forEach(revokePreview), []);
   const resetInput = () => {
     if (inputRef.current) inputRef.current.value = '';
   };
 
-  const validateFile = useCallback(
-    (file) => {
-      if (file.size > maxSize) return `File "${file.name}" exceeds the maximum size of ${formatBytes(maxSize)}.`;
-      if (!acceptsFile(file, accept)) return `File "${file.name}" is not an accepted file type.`;
-      return null;
-    },
-    [accept, maxSize]
-  );
-
   const commitFiles = useCallback(
-    (update, errors = []) => {
-      setState((prev) => {
-        const files = update(prev.files);
-        onFilesChange?.(files);
-        return { ...prev, files, errors };
-      });
+    (files, errors = []) => {
+      const previous = filesRef.current;
+      filesRef.current = files;
+      previous.filter((entry) => !files.includes(entry)).forEach(revokePreview);
+      setState((prev) => ({ ...prev, files, errors }));
+      // Callbacks and URL cleanup run once per action, outside React's replayable state updater.
+      onFilesChange?.(files);
     },
     [onFilesChange]
   );
 
   const clearFiles = useCallback(() => {
-    setState((prev) => {
-      prev.files.forEach(revokePreview);
-      onFilesChange?.([]);
-      return { ...prev, files: [], errors: [] };
-    });
+    commitFiles([]);
     resetInput();
-  }, [onFilesChange]);
+  }, [commitFiles]);
 
   const addFiles = useCallback(
     (newFiles) => {
       if (!newFiles?.length) return;
-      const incoming = Array.from(newFiles);
-      const fail = (errors) => {
-        onError?.(errors);
+      const current = filesRef.current;
+      const selected = selectFiles(
+        current.map((entry) => entry.file),
+        Array.from(newFiles),
+        { accept, maxFiles, maxSize, multiple }
+      );
+      const errors = selected.rejected.map(({ file, reason }) => {
+        if (reason === 'size') return `File "${file.name}" exceeds the maximum size of ${formatBytes(maxSize)}.`;
+        if (reason === 'type') return `File "${file.name}" is not an accepted file type.`;
+        return `You can only upload a maximum of ${multiple ? maxFiles : 1} files.`;
+      });
+      const added = [];
+      const files = selected.files.map((file) => {
+        const existing = current.find((entry) => entry.file === file);
+        if (existing) return existing;
+        const entry = toEntry(file);
+        added.push(entry);
+        return entry;
+      });
+      if (errors.length) onError?.(errors);
+      if (added.length) {
+        commitFiles(files, errors);
+        onFilesAdded?.(added);
+      } else {
         setState((prev) => ({ ...prev, errors }));
-      };
-      if (multiple && state.files.length + incoming.length > maxFiles) {
-        fail([`You can only upload a maximum of ${maxFiles} files.`]);
-        return;
-      }
-      const isDuplicate = (file) =>
-        multiple && state.files.some(({ file: existing }) => existing.name === file.name && existing.size === file.size);
-      const errors = [];
-      const valid = [];
-      for (const file of incoming) {
-        if (isDuplicate(file)) continue;
-        const error = validateFile(file);
-        if (error) errors.push(error);
-        else valid.push(toEntry(file));
-      }
-      if (valid.length) {
-        onFilesAdded?.(valid);
-        commitFiles((files) => {
-          if (multiple) return [...files, ...valid];
-          files.forEach(revokePreview);
-          return valid;
-        }, errors);
-      } else if (errors.length) {
-        fail(errors);
       }
       resetInput();
     },
-    [state.files, maxFiles, multiple, validateFile, commitFiles, onError, onFilesAdded]
+    [accept, maxFiles, maxSize, multiple, commitFiles, onError, onFilesAdded]
   );
 
   const removeFile = useCallback(
-    (id) => {
-      commitFiles((files) => {
-        const removed = files.find((entry) => entry.id === id);
-        if (removed) revokePreview(removed);
-        return files.filter((entry) => entry.id !== id);
-      });
-    },
+    (id) => commitFiles(filesRef.current.filter((entry) => entry.id !== id)),
     [commitFiles]
   );
 
@@ -153,10 +135,13 @@ export const useFileUpload = (options = {}) => {
       'aria-label': 'Choose files',
       ...props,
       type: 'file',
-      onChange: handleFileChange,
+      onChange: (event) => {
+        props.onChange?.(event);
+        if (!event.defaultPrevented) handleFileChange(event);
+      },
       accept: props.accept || accept,
       multiple: props.multiple !== undefined ? props.multiple : multiple,
-      ref: inputRef
+      ref: mergeRefs(inputRef, props.ref)
     }),
     [accept, multiple, handleFileChange]
   );

@@ -30,6 +30,22 @@ const getThemeColor = (name) => {
   return value || 'currentColor';
 };
 
+const readDiagramTheme = () => ({
+  fontFamily: getThemeColor('--ds-font-sans'),
+  background: getThemeColor('--ds-color-surface'),
+  primaryColor: getThemeColor('--ds-color-mermaid-primary'),
+  primaryTextColor: getThemeColor('--ds-color-mermaid-primary-text'),
+  primaryBorderColor: getThemeColor('--ds-color-mermaid-primary-border'),
+  secondaryColor: getThemeColor('--ds-color-mermaid-secondary'),
+  secondaryTextColor: getThemeColor('--ds-color-text'),
+  tertiaryColor: getThemeColor('--ds-color-mermaid-tertiary'),
+  tertiaryTextColor: getThemeColor('--ds-color-text'),
+  lineColor: getThemeColor('--ds-color-mermaid-line'),
+  gridColor: getThemeColor('--ds-color-mermaid-grid'),
+  sectionBkgColor: getThemeColor('--ds-color-mermaid-section-bg'),
+  altSectionBkgColor: getThemeColor('--ds-color-mermaid-alt-section-bg')
+});
+
 /**
  * Renders a Mermaid diagram from provided chart definition
  *
@@ -48,10 +64,25 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
   const descriptionId = id ? `${id}-description` : generatedDescriptionId;
   const [ svg, setSvg ] = useState('');
   const [ error, setError ] = useState('');
+  const [ theme, setTheme ] = useState(null);
+
+  useEffect(() => {
+    // Mermaid bakes colors into SVG styles, so CSS theme changes need a fresh render.
+    const updateTheme = () => {
+      const next = readDiagramTheme();
+      setTheme((current) => Object.keys(next).every((key) => current?.[key] === next[key]) ? current : next);
+    };
+    const observer = new MutationObserver(updateTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
+    updateTheme();
+    return () => observer.disconnect();
+  }, []);
 
   // Effects only run in the browser, so the server render keeps the placeholder.
   useEffect(() => {
-    if (!chart) return undefined;
+    setSvg('');
+    setError('');
+    if (!chart || !theme) return undefined;
 
     // Cancellation flag so a stale render never wins over a newer chart
     // and no setState happens after unmount.
@@ -76,18 +107,8 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
           'securityLevel': 'loose',
           'suppressErrorRendering': true,
           'startOnLoad': false,
-          'theme': 'default',
-          'themeVariables': {
-            'altSectionBkgColor': getThemeColor('--ds-color-mermaid-alt-section-bg'),
-            'gridColor': getThemeColor('--ds-color-mermaid-grid'),
-            'lineColor': getThemeColor('--ds-color-mermaid-line'),
-            'primaryBorderColor': getThemeColor('--ds-color-mermaid-primary-border'),
-            'primaryColor': getThemeColor('--ds-color-mermaid-primary'),
-            'primaryTextColor': getThemeColor('--ds-color-mermaid-primary-text'),
-            'secondaryColor': getThemeColor('--ds-color-mermaid-secondary'),
-            'sectionBkgColor': getThemeColor('--ds-color-mermaid-section-bg'),
-            'tertiaryColor': getThemeColor('--ds-color-mermaid-tertiary')
-          }
+          'theme': 'base',
+          'themeVariables': theme
         });
 
         const diagramId = id || `mermaid-${Math.random().toString(36).slice(2, 11)}`;
@@ -104,7 +125,13 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
 
           if (cancelled) return;
 
-          setSvg(sanitizeHtml(renderedSvg, { 'allowStyleTags': true }));
+          const template = document.createElement('template');
+          template.innerHTML = sanitizeHtml(renderedSvg, { 'allowStyleTags': true });
+          const diagram = template.content.querySelector('svg');
+          const width = diagram?.viewBox.baseVal.width;
+          // Preserve the diagram's type size; narrow readers pan within this figure.
+          if (Number.isFinite(width) && width > 0) diagram.style.minWidth = `${width}px`;
+          setSvg(template.innerHTML);
           setError('');
         } finally {
           renderContainer.remove();
@@ -122,7 +149,9 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
     return () => {
       cancelled = true;
     };
-  }, [ chart, id ]);
+  }, [ chart, id, theme ]);
+
+  if (!chart) return null;
 
   if (error)
     return (
@@ -148,8 +177,9 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
   return (
     <figure
       aria-labelledby={ descriptionId }
-      className={ cn('mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-4', className) }
+      className={ cn('mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent', className) }
       role='img'
+      tabIndex={ 0 }
     >
       <div aria-hidden='true' dangerouslySetInnerHTML={{ '__html': svg }} />
       <figcaption id={ descriptionId } className='sr-only'>{description}</figcaption>

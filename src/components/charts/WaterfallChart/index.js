@@ -1,2 +1,2 @@
-export { WaterfallChart as default } from './parts/waterfall-chart.jsx';
-export { WaterfallChart, waterfallSteps } from './parts/waterfall-chart.jsx';
+export { WaterfallChart as default } from './WaterfallChart.jsx';
+export { WaterfallChart, waterfallSteps } from './WaterfallChart.jsx';

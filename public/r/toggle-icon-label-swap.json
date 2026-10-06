@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-icon-label-swap",
+  "type": "registry:example",
+  "title": "Toggle that swaps icon and label",
+  "description": "Toggle that swaps icon and label. Core/ToggleGroup pattern composed from @gaudi/design-system/core/ToggleGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toggle",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ToggleGroup",
+    "import": "@gaudi/design-system/core/ToggleGroup",
+    "storyId": "core-togglegroup--toggle-icon-label-swap",
+    "source": "src/components/core/ToggleGroup/stories/fixtures/toggle/toggle-icon-label-swap.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toggle-icon-label-swap.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Toggle } from '@gaudi/design-system/core/ToggleGroup';\nimport { TooltipRoot as Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nexport function Pattern() {\n  const [favourite, setFavourite] = useState(false);\n  const [saved, setSaved] = useState(false);\n  const [muted, setMuted] = useState(false);\n  const [pinned, setPinned] = useState(false);\n  return (\n    <TooltipProvider>\n      <div className='flex flex-wrap items-center justify-center gap-2'>\n        <Toggle aria-label='Favourite' pressed={favourite} onPressedChange={setFavourite}>\n          <RegistryIcon lucide='HeartIcon' className={favourite ? 'fill-current' : undefined} />\n        </Toggle>\n        <Toggle variant='outline' pressed={saved} onPressedChange={setSaved}>\n          <RegistryIcon lucide={saved ? 'BookmarkCheckIcon' : 'BookmarkIcon'} />\n          {saved ? 'Bookmarked' : 'Bookmark'}\n        </Toggle>\n        <Toggle variant='outline' pressed={muted} onPressedChange={setMuted}>\n          <RegistryIcon lucide={muted ? 'VolumeOffIcon' : 'Volume2Icon'} />\n          {muted ? 'Muted' : 'Sound on'}\n        </Toggle>\n        <Tooltip>\n          <TooltipTrigger asChild>\n            <Toggle variant='outline' aria-label={pinned ? 'Unpin from sidebar' : 'Pin to sidebar'} pressed={pinned} onPressedChange={setPinned}>\n              <RegistryIcon lucide={pinned ? 'PinOffIcon' : 'PinIcon'} />\n            </Toggle>\n          </TooltipTrigger>\n          <TooltipContent>{pinned ? 'Unpin from sidebar' : 'Pin to sidebar'}</TooltipContent>\n        </Tooltip>\n      </div>\n    </TooltipProvider>\n  );\n}\n"
+    }
+  ]
+}

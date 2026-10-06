@@ -1,1 +1,1 @@
-export { ChatFileExplorer as default, ChatFileExplorer } from './parts/chat-files.jsx';
+export { ChatFileExplorer as default, ChatFileExplorer } from './ChatFileExplorer.jsx';

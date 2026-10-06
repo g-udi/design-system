@@ -2,9 +2,9 @@
 
 import { useId } from 'react';
 
-import { Label } from '../Field/parts/label.jsx';
+import { Label } from '../Field/Label.jsx';
 import { cn } from '../../../utilities/cn';
-import { Checkbox as CheckboxRoot } from './parts/checkbox.jsx';
+import { Checkbox as CheckboxRoot } from './CheckboxPrimitives.jsx';
 
 /** A labelled checkbox: the composition part plus a visible label that toggles it. */
 const Checkbox = ({ className, id, label, ...props }) => {

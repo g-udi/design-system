@@ -5,9 +5,9 @@ Actions under a finished reply: copy, rate up or down, and regenerate.
 ## Usage
 
 ```jsx
-import { MessageFeedback } from '@gaudi/design-system/chat';
+import { ChatMessageFeedback } from '@gaudi/design-system/chat';
 
-<MessageFeedback copyText={reply.text} rating={rating} onRatingChange={setRating} onRegenerate={regenerate} />
+<ChatMessageFeedback copyText={reply.text} rating={rating} onRatingChange={setRating} onRegenerate={regenerate} />
 ```
 
 ## API
@@ -16,8 +16,8 @@ import { MessageFeedback } from '@gaudi/design-system/chat';
 | --- | --- |
 | `copyText` | What the copy action writes. |
 | `rating` / `defaultRating` / `onRatingChange` | 'up', 'down' or null. |
-| `onCopy` / `onRegenerate` | Host callbacks; regenerate shows only when provided. |
-| `labels` | Copy for every label and confirmation. |
+| `onCopy` / `onRegenerate` | Host callbacks; `onCopy` runs only after copying succeeds. Regenerate shows only when provided. |
+| `labels` | Copy for every label and confirmation, including `copyFailed` when the clipboard is unavailable. |
 
 ## Accessibility
 

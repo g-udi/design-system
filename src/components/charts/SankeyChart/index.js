@@ -1,2 +1,2 @@
-export { SankeyChart as default } from './parts/sankey-chart.jsx';
-export { SankeyChart, sankeyGraph } from './parts/sankey-chart.jsx';
+export { SankeyChart as default } from './SankeyChart.jsx';
+export { SankeyChart, sankeyGraph } from './SankeyChart.jsx';

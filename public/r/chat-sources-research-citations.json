@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-sources-research-citations",
+  "type": "registry:example",
+  "title": "Research with citations",
+  "description": "Research with citations. Chat/ChatSources pattern composed from @gaudi/design-system/chat/ChatSources and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-sources",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg.",
+  "meta": {
+    "owner": "chat/ChatSources",
+    "import": "@gaudi/design-system/chat/ChatSources",
+    "storyId": "chat-chatsources--research-citations",
+    "source": "src/components/chat/ChatSources/stories/fixtures/chat-sources/chat-sources-research-citations.jsx",
+    "assets": [
+      "/avatars/person-41.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-sources-research-citations.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { default as Avatar } from '@gaudi/design-system/core/Avatar';\nimport { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nimport { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';\nimport { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';\nimport { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Sources are parts of the turn; the text cites them by position as [1], [2]…\nconst parts = [\n  {\n    type: 'reasoning',\n    duration: 14,\n    steps: [\n      { status: 'done', text: 'Searched for studies on reading time and article length.' },\n      { status: 'done', text: 'Dropped two vendor blogs that cite each other.' },\n      { status: 'done', text: 'Compared the remaining three on sample size.' }\n    ]\n  },\n  {\n    type: 'text',\n    text: `Long reads do keep readers longer, but only once they are past the first screen. Median engaged time rises with length up to roughly 2,000 words and then flattens [1]. Most of the drop-off happens in the first 15% of the page, so the opening matters more than the total length [2].\n\nTwo practical takeaways for the newsletter:\n\n- Put the claim in the first paragraph and the evidence after it.\n- Split anything past 3,000 words into a series; completion falls sharply beyond that [3].`\n  },\n  { type: 'source', title: 'How long do readers stay on long-form pages?', url: 'https://example.com/research/engaged-time', site: 'Reading Lab', excerpt: 'Engaged time grows with length up to about 2,000 words, then plateaus across 1.2M sessions.' },\n  { type: 'source', title: 'Where readers leave an article', url: 'https://example.com/research/scroll-depth', site: 'Newsroom Metrics', excerpt: 'Over half of all exits happen within the first screen of text.' },\n  { type: 'source', title: 'Series vs single posts.pdf', kind: 'document', excerpt: 'Internal study: completion rates for posts over 3,000 words, 2025.' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>\n      <ChatMessage align='end'>\n        <ChatMessageAvatar>\n          <Avatar src='/avatars/person-41.svg' name='Ansel Mwangi' size='sm' shape='circle' alt='' />\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <span className='sr-only'>Ansel Mwangi said</span>\n          <ChatBubble align='end'>\n            <ChatBubbleContent>Do long reads actually keep people around? I want sources before we change the newsletter.</ChatBubbleContent>\n          </ChatBubble>\n        </ChatMessageContent>\n      </ChatMessage>\n      <ChatMessage>\n        <ChatMessageAvatar className='self-start'>\n          <span className='bg-accent-subtle text-accent grid size-8 place-items-center rounded-full'>\n            <RegistryIcon lucide='Sparkles' className='size-4' />\n          </span>\n        </ChatMessageAvatar>\n        <ChatMessageContent>\n          <ChatMessageHeader className='px-0'>Gaudi</ChatMessageHeader>\n          <ChatMessageParts parts={parts} sourcesLabel='3 sources' />\n          <ChatMessageFeedback copyText={parts[1].text} />\n        </ChatMessageContent>\n      </ChatMessage>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

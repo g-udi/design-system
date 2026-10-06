@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-reactions",
+  "type": "registry:example",
+  "title": "Reactions and counts",
+  "description": "Reactions and counts. Core/ToggleGroup pattern composed from @gaudi/design-system/core/ToggleGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toggle",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ToggleGroup",
+    "import": "@gaudi/design-system/core/ToggleGroup",
+    "storyId": "core-togglegroup--toggle-reactions",
+    "source": "src/components/core/ToggleGroup/stories/fixtures/toggle/toggle-reactions.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toggle-reactions.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { Toggle } from '@gaudi/design-system/core/ToggleGroup';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\n// Each reaction adds one to its count while pressed.\nconst reactions = [\n  { label: 'Like', icon: 'HeartIcon', count: 12 },\n  { label: 'Repost', icon: 'Repeat2Icon', count: 5 },\n  { label: 'Share', icon: 'Share2Icon', count: 3 },\n  { label: 'Bookmark', icon: 'BookmarkIcon', count: 8 }\n];\n\nexport function Pattern() {\n  const [pressed, setPressed] = useState({});\n  const [read, setRead] = useState(false);\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      {reactions.map(({ label, icon, count }) => (\n        <Toggle key={label} variant='outline' size='sm' aria-label={label} pressed={Boolean(pressed[label])} onPressedChange={(on) => setPressed((p) => ({ ...p, [label]: on }))}>\n          <RegistryIcon lucide={icon} className='group-data-[state=on]/toggle:fill-current' />\n          <span className='tabular-nums'>{count + (pressed[label] ? 1 : 0)}</span>\n        </Toggle>\n      ))}\n      <Toggle aria-label={read ? 'Notifications' : 'Notifications (3 unread)'} pressed={read} onPressedChange={setRead} className='relative'>\n        <RegistryIcon lucide='BellIcon' />\n        {!read && (\n          <Badge variant='destructive' size='xs' className='absolute -top-1 -right-1 px-1' aria-hidden='true'>3</Badge>\n        )}\n      </Toggle>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

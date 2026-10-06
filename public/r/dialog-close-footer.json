@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dialog-close-footer",
+  "type": "registry:example",
+  "title": "Close button and footer options",
+  "description": "Close button and footer options. Core/Overlays & Menus/Dialog pattern composed from @gaudi/design-system/core/Dialog and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "dialog",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Dialog",
+    "import": "@gaudi/design-system/core/Dialog",
+    "storyId": "core-dialog--close-footer",
+    "source": "src/components/core/Dialog/stories/fixtures/dialog/dialog-close-footer.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/dialog-close-footer.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  DialogRoot as Dialog,\n  DialogClosePrimitive as DialogClose,\n  DialogContent,\n  DialogDescription,\n  DialogFooter,\n  DialogHeader,\n  DialogTitle,\n  DialogTrigger\n} from '@gaudi/design-system/core/Dialog';\n\n// The corner close button can be hidden or restyled; the footer can hold one full-width action.\nconst customClose =\n  '[&>[data-slot=dialog-close]]:size-6 [&>[data-slot=dialog-close]]:rounded-full [&>[data-slot=dialog-close]]:border [&>[data-slot=dialog-close]]:border-border [&>[data-slot=dialog-close]]:bg-surface-muted [&>[data-slot=dialog-close]]:text-text-muted';\n\nexport function Pattern() {\n  return (\n    <div className='flex flex-wrap items-center justify-center gap-2'>\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>No close button</Button>\n        </DialogTrigger>\n        <DialogContent showCloseButton={false}>\n          <DialogHeader>\n            <DialogTitle>Publish changes?</DialogTitle>\n            <DialogDescription>\n              Without the corner button, the footer actions are the only way out besides Escape.\n            </DialogDescription>\n          </DialogHeader>\n          <DialogFooter>\n            <DialogClose asChild>\n              <Button variant='outline'>Not now</Button>\n            </DialogClose>\n            <DialogClose asChild>\n              <Button>Publish</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>Custom close button</Button>\n        </DialogTrigger>\n        <DialogContent className={customClose}>\n          <DialogHeader>\n            <DialogTitle>Invite accepted</DialogTitle>\n            <DialogDescription>\n              Maya Patel joined the Design workspace. The corner close button is restyled as a round chip.\n            </DialogDescription>\n          </DialogHeader>\n          <DialogFooter>\n            <DialogClose asChild>\n              <Button>View workspace</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n\n      <Dialog>\n        <DialogTrigger asChild>\n          <Button size='sm' variant='outline'>Full-width action</Button>\n        </DialogTrigger>\n        <DialogContent showCloseButton={false}>\n          <DialogHeader>\n            <DialogTitle>Session expired</DialogTitle>\n            <DialogDescription>\n              Your session timed out due to inactivity. Sign in again to continue where you left off.\n            </DialogDescription>\n          </DialogHeader>\n          <DialogFooter>\n            <DialogClose asChild>\n              <Button className='w-full'>Sign in again</Button>\n            </DialogClose>\n          </DialogFooter>\n        </DialogContent>\n      </Dialog>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

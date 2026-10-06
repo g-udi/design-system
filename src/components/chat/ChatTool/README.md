@@ -1,17 +1,17 @@
 # ChatTool
 
-One tool call the assistant made: its name and status, the input and output as readable data with a JSON view, nested calls, and an error with a retry. `MessageToolApproval` is the call that waits for the person: what the tool wants to do, Approve or Deny (optionally "always allow"), then approved, denied or executed.
+One tool call the assistant made: its name and status, the input and output as readable data with a JSON view, nested calls, and an error with a retry. `ChatMessageToolApproval` is the call that waits for the person: what the tool wants to do, Approve or Deny (optionally "always allow"), then approved, denied or executed.
 
 ## Usage
 
 ```jsx
-import { MessageTool, MessageToolApproval } from '@gaudi/design-system/chat';
+import { ChatMessageTool, ChatMessageToolApproval } from '@gaudi/design-system/chat';
 
-<MessageTool name='schedule_newsletter' status={status} input={input} output={output} error={error} onRetry={retry}>
+<ChatMessageTool name='schedule_newsletter' status={status} input={input} output={output} error={error} onRetry={retry}>
   {nestedCalls}
-</MessageTool>
+</ChatMessageTool>
 
-<MessageToolApproval
+<ChatMessageToolApproval
   name='publish_post'
   description='Publish the draft to the blog and email subscribers'
   input={{ slug: 'local-first-drafts', notify: 4180 }}
@@ -21,8 +21,8 @@ import { MessageTool, MessageToolApproval } from '@gaudi/design-system/chat';
   onApprove={({ always }) => run({ always })}
   onDeny={cancel}
 >
-  {state === 'executed' ? <MessageData value={result} /> : null}
-</MessageToolApproval>
+  {state === 'executed' ? <ChatMessageData value={result} /> : null}
+</ChatMessageToolApproval>
 ```
 
 ## API
@@ -30,12 +30,12 @@ import { MessageTool, MessageToolApproval } from '@gaudi/design-system/chat';
 | Prop / part | Contract |
 | --- | --- |
 | `status` | pending, running, done, failed or cancelled; `awaiting` and `denied` for approvals. |
-| `input` / `output` / `error` | Shown with MessageData; a failed call opens on its own with the error. |
+| `input` / `output` / `error` | Shown with ChatMessageData; a failed call opens on its own with the error. |
 | `onRetry` | Adds a retry to a failed call. |
-| `MessageData` | `value` read as a list or table, with a JSON view; `label` names it. |
-| `MessageToolApproval.state` | `requested`, `approved`, `denied` or `executed`; uncontrolled it follows the person's choice (`defaultState`, `onStateChange`). |
-| `MessageToolApproval.onApprove` / `onDeny` | The decision; `onApprove` receives `{ always }`. |
-| `MessageToolApproval.allowAlways` / `reason` / `labels` | Offer "always allow", explain a denial, and replace any copy. Children are the result once `executed`. |
+| `ChatMessageData` | `value` read as a list or table, with a JSON view; `label` names it. Keys retain their supplied casing and numbers are not localized implicitly. Pass prepared strings when formatting is needed. |
+| `ChatMessageToolApproval.state` | `requested`, `approved`, `denied` or `executed`; uncontrolled it follows the person's choice (`defaultState`, `onStateChange`). |
+| `ChatMessageToolApproval.onApprove` / `onDeny` | The decision; `onApprove` receives `{ always }`. |
+| `ChatMessageToolApproval.allowAlways` / `reason` / `labels` | Offer "always allow", explain a denial, and replace any copy. Children are the result once `executed`. |
 
 ## Accessibility
 

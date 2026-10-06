@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress-upload-list",
+  "type": "registry:example",
+  "title": "File upload list",
+  "description": "File upload list. Core/Progress pattern composed from @gaudi/design-system/core/Progress and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "progress",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Progress",
+    "import": "@gaudi/design-system/core/Progress",
+    "storyId": "core-progress--upload-list",
+    "source": "src/components/core/Progress/stories/fixtures/progress/progress-upload-list.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/progress-upload-list.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  Item,\n  ItemContent,\n  ItemGroup,\n  ItemMedia,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst files = [\n  { id: '1', name: 'document.pdf', progress: 45, status: '2m 30s' },\n  { id: '2', name: 'presentation.pptx', progress: 78, status: '45s' },\n  { id: '3', name: 'spreadsheet.xlsx', progress: 12, status: '5m 12s' },\n  { id: '4', name: 'image.jpg', progress: 100, status: 'Complete' }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-xs flex-col'>\n      <ItemGroup>\n        {files.map((file) => (\n          <Item key={file.id} size='xs' className='px-0'>\n            <ItemMedia variant='icon'>\n              <RegistryIcon\n                lucide='FileIcon'\n                className='text-ui-muted-foreground size-4'\n              />\n            </ItemMedia>\n            <ItemContent className='min-w-0 gap-2'>\n              <div className='flex flex-wrap items-baseline justify-between gap-x-2 gap-y-1'>\n                <ItemTitle className='wrap-anywhere'>{file.name}</ItemTitle>\n                <span className='text-ui-muted-foreground text-xs'>{file.status}</span>\n              </div>\n              <Progress value={file.progress} className='h-1' aria-label={`Upload progress for ${file.name}`} />\n            </ItemContent>\n          </Item>\n        ))}\n      </ItemGroup>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

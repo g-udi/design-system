@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "aspect-ratio-common-ratios",
+  "type": "registry:example",
+  "title": "Common ratios",
+  "description": "Common ratios. Core/AspectRatio pattern composed from @gaudi/design-system/core/AspectRatio and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "aspect-ratio",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/AspectRatio",
+    "import": "@gaudi/design-system/core/AspectRatio",
+    "storyId": "core-aspectratio--common-ratios",
+    "source": "src/components/core/AspectRatio/stories/fixtures/aspect-ratio/aspect-ratio-common-ratios.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/aspect-ratio-common-ratios.jsx",
+      "type": "registry:component",
+      "content": "import { AspectRatio } from '@gaudi/design-system/core/AspectRatio';\n\n// Common media shapes, widest first. Each frame keeps its shape at any column width.\nconst ratios = [\n  { label: '21:9', use: 'Ultrawide banner', ratio: 21 / 9, art: 3 },\n  { label: '16:9', use: 'Widescreen video', ratio: 16 / 9, art: 9 },\n  { label: '16:10', use: 'Monitor', ratio: 16 / 10, art: 7 },\n  { label: '3:2', use: 'Photography', ratio: 3 / 2, art: 2 },\n  { label: '4:3', use: 'Standard', ratio: 4 / 3, art: 5 },\n  { label: '1:1', use: 'Square', ratio: 1, art: 0 },\n  { label: '4:5', use: 'Social portrait', ratio: 4 / 5, art: 6 },\n  { label: '9:16', use: 'Story', ratio: 9 / 16, art: 11 }\n];\n\nexport function Pattern() {\n  return (\n    <ul className='mx-auto grid w-full max-w-2xl grid-cols-2 items-end gap-3 sm:grid-cols-4'>\n      {ratios.map(({ label, use, ratio, art }) => (\n        <li key={label} className='flex min-w-0 flex-col gap-1'>\n          <AspectRatio ratio={ratio} className='overflow-hidden rounded-lg border border-ui-border bg-ui-muted'>\n            <img src={`static/images/art/${art}.svg`} alt={`${label} ${use.toLowerCase()}`} className='size-full object-cover' />\n          </AspectRatio>\n          <span className='flex items-baseline justify-between gap-2 text-xs'>\n            <span className='font-medium text-ui-foreground tabular-nums'>{label}</span>\n            <span className='truncate text-ui-muted-foreground'>{use}</span>\n          </span>\n        </li>\n      ))}\n    </ul>\n  );\n}\n"
+    }
+  ]
+}

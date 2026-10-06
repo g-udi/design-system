@@ -1,13 +1,8 @@
 /**
- * Design Tokens (ESM entry)
- *
- * @description Builds the design tokens from the canonical data in
- * `tokens.json` for ESM consumers (Next.js, Vite/Storybook, Node).
- *
- * Keep the palette/tokens assembly in sync with `src/tokens/tokens.cjs` — the
- * CJS twin exists because Tailwind configs must `require()` the preset, while
- * browser bundlers cannot import a local CJS module. All VALUES live once in
- * `tokens.json`; only this little glue is duplicated.
+ * Supported JavaScript token projection. Runtime CSS in tokens.css and theme.css
+ * is authoritative; tokens.json mirrors values exposed to JS and the preset.
+ * Token contracts enforce parity. Keep the ESM/CJS assembly in sync: Tailwind
+ * config uses require(), while browser bundlers consume the ESM entry.
  */
 
 import tailwindColors from 'tailwindcss/colors';

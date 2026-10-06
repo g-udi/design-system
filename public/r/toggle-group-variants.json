@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group-variants",
+  "type": "registry:example",
+  "title": "Group variants, spacing, sizes and orientation",
+  "description": "Group variants, spacing, sizes and orientation. Core/ToggleGroup pattern composed from @gaudi/design-system/core/ToggleGroup and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "toggle-group",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/ToggleGroup",
+    "import": "@gaudi/design-system/core/ToggleGroup",
+    "storyId": "core-togglegroup--variants",
+    "source": "src/components/core/ToggleGroup/stories/fixtures/toggle-group/toggle-group-variants.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/toggle-group-variants.jsx",
+      "type": "registry:component",
+      "content": "import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';\nimport { Badge } from '@gaudi/design-system/core/Pill';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\n\nconst Row = ({ label, children }) => (\n  <>\n    <span className='text-xs text-text-muted'>{label}</span>\n    <div className='flex flex-wrap items-center gap-3'>{children}</div>\n  </>\n);\nconst formatting = [\n  { value: 'bold', label: 'Bold', icon: 'BoldIcon' },\n  { value: 'italic', label: 'Italic', icon: 'ItalicIcon' },\n  { value: 'underline', label: 'Underline', icon: 'UnderlineIcon' }\n];\nconst Formatting = (props) => (\n  <ToggleGroup type='multiple' spacing={1} aria-label='Formatting' {...props}>\n    {formatting.map(({ value, label, icon }) => (\n      <ToggleGroupItem key={value} value={value} aria-label={label}><RegistryIcon lucide={icon} /></ToggleGroupItem>\n    ))}\n  </ToggleGroup>\n);\nconst periods = ['Day', 'Week', 'Month'];\nconst Periods = ({ spacing }) => (\n  <ToggleGroup type='single' variant='outline' spacing={spacing} defaultValue='Week' aria-label={`Period, spacing ${spacing}`}>\n    {periods.map((period) => <ToggleGroupItem key={period} value={period}>{period}</ToggleGroupItem>)}\n  </ToggleGroup>\n);\nconst connections = [\n  { value: 'wifi', label: 'Wi-Fi', icon: 'WifiIcon' },\n  { value: 'bluetooth', label: 'Bluetooth', icon: 'BluetoothIcon' },\n  { value: 'airplane', label: 'Airplane mode', icon: 'PlaneIcon' }\n];\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-2xl grid-cols-1 sm:grid-cols-[5rem_minmax(0,1fr)] items-center gap-x-3 gap-y-3'>\n      <Row label='Variant'>\n        <Formatting defaultValue={['bold']} />\n        <Formatting variant='outline' defaultValue={['italic']} />\n      </Row>\n      <Row label='Spacing'>\n        <Periods spacing={0} />\n        <Periods spacing={2} />\n      </Row>\n      <Row label='Size'>\n        <ToggleGroup type='single' variant='outline' size='sm' defaultValue='m' aria-label='Shirt size'>\n          {['S', 'M', 'L', 'XL'].map((size) => <ToggleGroupItem key={size} value={size.toLowerCase()}>{size}</ToggleGroupItem>)}\n        </ToggleGroup>\n        <ToggleGroup type='single' variant='outline' defaultValue='top' aria-label='Position'>\n          <ToggleGroupItem value='top'>Top</ToggleGroupItem>\n          <ToggleGroupItem value='bottom'>Bottom</ToggleGroupItem>\n        </ToggleGroup>\n        <ToggleGroup type='single' variant='outline' size='lg' defaultValue='yearly' aria-label='Billing'>\n          <ToggleGroupItem value='monthly'>Monthly</ToggleGroupItem>\n          <ToggleGroupItem value='yearly' className='gap-2'>\n            Yearly\n            <Badge variant='success-light'>Save 20%</Badge>\n          </ToggleGroupItem>\n        </ToggleGroup>\n      </Row>\n      <Row label='Vertical'>\n        <Formatting orientation='vertical' variant='outline' />\n        <ToggleGroup type='multiple' orientation='vertical' spacing={1} defaultValue={['wifi', 'bluetooth']} aria-label='Connections'>\n          {connections.map(({ value, label, icon }) => (\n            <ToggleGroupItem key={value} value={value} className='justify-start'><RegistryIcon lucide={icon} />{label}</ToggleGroupItem>\n          ))}\n        </ToggleGroup>\n      </Row>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

@@ -1,2 +1,2 @@
-export { RadarChart as default } from './parts/radar-chart.jsx';
-export { RadarChart } from './parts/radar-chart.jsx';
+export { RadarChart as default } from './RadarChart.jsx';
+export { RadarChart } from './RadarChart.jsx';

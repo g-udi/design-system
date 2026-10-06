@@ -1,5 +1,5 @@
 import { readFile, writeFile } from 'node:fs/promises';
-import { loadComponent } from '../src/test-support/renderComponent.js';
+import { loadComponent } from '../tests/support/renderComponent.js';
 
 // Reconcile the retained artwork with Gaudi's actual glyphs, including aliases.
 const root = new URL('../src/icons/animated/', import.meta.url);

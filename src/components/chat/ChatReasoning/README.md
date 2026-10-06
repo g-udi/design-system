@@ -5,22 +5,22 @@ The thinking trail before an answer. While the model thinks, the label shimmers 
 ## Usage
 
 ```jsx
-import { MessageReasoning, MessageReasoningImage, MessageReasoningResults, MessageReasoningStep } from '@gaudi/design-system/chat';
+import { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningResults, ChatMessageReasoningStep } from '@gaudi/design-system/chat';
 
-<MessageReasoning streaming={thinking}>
-  <MessageReasoningStep status='done'>Read the draft</MessageReasoningStep>
-  <MessageReasoningStep status='running'>Suggest a tighter opening</MessageReasoningStep>
-</MessageReasoning>
+<ChatMessageReasoning streaming={thinking}>
+  <ChatMessageReasoningStep status='done'>Read the draft</ChatMessageReasoningStep>
+  <ChatMessageReasoningStep status='running'>Suggest a tighter opening</ChatMessageReasoningStep>
+</ChatMessageReasoning>
 
-<MessageReasoning streaming={thinking} variant='steps'>
-  <MessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>
-    <MessageReasoningResults results={results} />
-  </MessageReasoningStep>
-  <MessageReasoningStep status='running' icon='Image' label='Comparing cover images'>
-    <MessageReasoningImage src={cover} alt='The current cover: a train window at dusk' caption='Current cover' />
-  </MessageReasoningStep>
-  <MessageReasoningStep status='pending' icon='Lightbulb' label='Recommend a headline' />
-</MessageReasoning>
+<ChatMessageReasoning streaming={thinking} variant='steps'>
+  <ChatMessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>
+    <ChatMessageReasoningResults results={results} />
+  </ChatMessageReasoningStep>
+  <ChatMessageReasoningStep status='running' icon='Image' label='Comparing cover images'>
+    <ChatMessageReasoningImage src={cover} alt='The current cover: a train window at dusk' caption='Current cover' />
+  </ChatMessageReasoningStep>
+  <ChatMessageReasoningStep status='pending' icon='Lightbulb' label='Recommend a headline' />
+</ChatMessageReasoning>
 ```
 
 ## API
@@ -32,9 +32,9 @@ import { MessageReasoning, MessageReasoningImage, MessageReasoningResults, Messa
 | `open` / `defaultOpen` / `onOpenChange` | Disclosure state; the reader's choice wins over the automatic fold. |
 | `variant` | `trail` (a quoted trail) or `steps` (detailed steps draw their own rail). |
 | `thinkingLabel` / `label` / `autoCloseDelay` | The streaming label, a fixed label, and the fold delay in ms (default 1000). |
-| `MessageReasoningStep` | `status` from the shared vocabulary. Children alone make a plain step; `label` makes a detailed one with `icon`, `description`, `meta` and children as details that open from the label (the running step starts open). |
-| `MessageReasoningResults` | `results` as link chips with favicons; `max` shows the first few and "+n more". |
-| `MessageReasoningImage` | `src`, `alt` and `caption` for an image the step looked at. |
+| `ChatMessageReasoningStep` | `status` from the shared vocabulary. Children alone make a plain step; `label` makes a detailed one with `icon`, `description`, `meta` and children as details that open from the label (the running step starts open). |
+| `ChatMessageReasoningResults` | `results` as link chips with favicons; `max` shows the first few and "+n more". |
+| `ChatMessageReasoningImage` | `src`, `alt` and `caption` for an image the step looked at. |
 | `useReasoningDisclosure` | The same open-then-fold behaviour for a custom trigger. |
 
 ## Accessibility

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tree-display-options",
+  "type": "registry:example",
+  "title": "Display options",
+  "description": "Display options. Core/Navigation/Tree pattern composed from @gaudi/design-system/core/Tree and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system",
+    "@headless-tree/core@1.6.3",
+    "@headless-tree/react@1.6.3"
+  ],
+  "categories": [
+    "tree",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Tree",
+    "import": "@gaudi/design-system/core/Tree",
+    "storyId": "core-tree--display-options",
+    "source": "src/components/core/Tree/stories/fixtures/tree/tree-display-options.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/tree-display-options.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport {\n  Tree,\n  TreeItem,\n  TreeItemLabel\n} from '@gaudi/design-system/core/Tree';\nimport { hotkeysCoreFeature, syncDataLoaderFeature } from '@headless-tree/core';\nimport { useTree } from '@headless-tree/react';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nimport { useState } from 'react';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';\nconst items = {\n  crm: {\n    name: 'CRM',\n    children: ['leads', 'accounts', 'activities', 'support']\n  },\n  leads: {\n    name: 'Pitches',\n    children: ['new-lead', 'contacted-lead', 'qualified-lead']\n  },\n  'new-lead': { name: 'New pitch' },\n  'contacted-lead': { name: 'Pitch answered' },\n  'qualified-lead': { name: 'Pitch accepted' },\n  accounts: {\n    name: 'Accounts',\n    children: ['acme-corp', 'globex-inc']\n  },\n  'acme-corp': {\n    name: 'Gaudi Press',\n    children: ['acme-contacts', 'acme-opportunities']\n  },\n  'acme-contacts': {\n    name: 'Contacts',\n    children: ['john-smith', 'jane-doe']\n  },\n  'john-smith': { name: 'Hollis Marten' },\n  'jane-doe': { name: 'Wren Talbot' },\n  'acme-opportunities': {\n    name: 'Opportunities',\n    children: ['website-redesign', 'annual-maintenance']\n  },\n  'website-redesign': { name: 'Spring cover series' },\n  'annual-maintenance': { name: 'Archive upkeep' },\n  'globex-inc': {\n    name: 'Lantern Books',\n    children: ['globex-contacts', 'globex-opportunities']\n  },\n  'globex-contacts': {\n    name: 'Contacts',\n    children: ['alice-johnson']\n  },\n  'alice-johnson': { name: 'Elodie Varga' },\n  'globex-opportunities': {\n    name: 'Opportunities',\n    children: ['cloud-migration']\n  },\n  'cloud-migration': { name: 'Print edition' },\n  activities: {\n    name: 'Activities',\n    children: ['calls', 'meetings', 'emails']\n  },\n  calls: { name: 'Calls' },\n  meetings: { name: 'Meetings' },\n  emails: { name: 'Emails' },\n  support: {\n    name: 'Support',\n    children: ['open-tickets', 'closed-tickets']\n  },\n  'open-tickets': { name: 'Open requests' },\n  'closed-tickets': { name: 'Closed requests' }\n};\nconst indent = 20;\n// Display options on one tree: indent guides, folder icons, and plus and minus toggles.\nconst guides =\n  'relative before:absolute before:inset-0 before:-ms-1.25 before:bg-[repeating-linear-gradient(to_right,transparent_0,transparent_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)-1px),var(--border)_calc(var(--tree-indent)))]';\nconst optionLabels = { guides: 'Indent guides', icons: 'Folder icons', plusMinus: 'Plus and minus' };\n\nfunction ItemIcon({ item }) {\n  const icon = item.isFolder() ? (item.isExpanded() ? 'FolderOpenIcon' : 'FolderIcon') : 'FileIcon';\n  return <RegistryIcon lucide={icon} aria-hidden='true' className='pointer-events-none size-4 text-ui-muted-foreground' />;\n}\n\nexport function Pattern() {\n  const [options, setOptions] = useState({ guides: true, icons: true, plusMinus: false });\n  const tree = useTree({\n    initialState: {\n      expandedItems: ['leads', 'accounts', 'activities']\n    },\n    indent,\n    rootItemId: 'crm',\n    getItemName: (item) => item.getItemData().name,\n    isItemFolder: (item) => (item.getItemData()?.children?.length ?? 0) > 0,\n    dataLoader: {\n      getItem: (itemId) => items[itemId],\n      getChildren: (itemId) => items[itemId].children ?? []\n    },\n    features: [syncDataLoaderFeature, hotkeysCoreFeature]\n  });\n  return (\n    <div className='mx-auto grid w-full max-w-sm gap-3'>\n      <div className='flex flex-wrap gap-x-3 gap-y-2'>\n        {Object.entries(optionLabels).map(([key, label]) => (\n          <Label key={key} className='flex items-center gap-2 text-xs font-normal'>\n            <Switch\n              size='sm'\n              checked={options[key]}\n              onCheckedChange={(checked) => setOptions((current) => ({ ...current, [key]: checked }))}\n            />\n            {label}\n          </Label>\n        ))}\n      </div>\n      <Tree\n        className={options.guides ? guides : undefined}\n        indent={indent}\n        tree={tree}\n        toggleIconType={options.plusMinus ? 'plus-minus' : 'chevron'}\n      >\n        {tree.getItems().map((item) => (\n          <TreeItem key={item.getId()} item={item}>\n            <TreeItemLabel className='before:bg-ui-background relative before:absolute before:inset-x-0 before:-inset-y-0.5 before:-z-10'>\n              <span className='ms-1 flex items-center gap-2'>\n                {options.icons && <ItemIcon item={item} />}\n                {item.getItemName()}\n              </span>\n            </TreeItemLabel>\n          </TreeItem>\n        ))}\n      </Tree>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

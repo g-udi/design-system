@@ -7,7 +7,8 @@ const resolveNextImage = (candidate) => {
     depth += 1;
   }
 
-  if (typeof component === 'function') return component;
+  // Next/Image uses React.forwardRef, whose component type is an object.
+  if (typeof component === 'function' || component?.$$typeof === Symbol.for('react.forward_ref') || component?.$$typeof === Symbol.for('react.memo')) return component;
 
   return null;
 };

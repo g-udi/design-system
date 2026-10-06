@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "item-run-log",
+  "type": "registry:example",
+  "title": "Run log grouped by phase",
+  "description": "Run log grouped by phase. Core/Data Display/Item pattern composed from @gaudi/design-system/core/Item and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "item",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Item",
+    "import": "@gaudi/design-system/core/Item",
+    "storyId": "core-item--run-log",
+    "source": "src/components/core/Item/stories/fixtures/item/item-run-log.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/item-run-log.jsx",
+      "type": "registry:component",
+      "content": "import { Fragment } from 'react';\nimport { Separator } from '@gaudi/design-system/core/Separator';\nimport {\n  CardRoot as Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Item,\n  ItemContent,\n  ItemMedia\n} from '@gaudi/design-system/core/Item';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst PHASES = [\n  // Phases nest their steps instead of every step naming its own phase. The\n  // separator row is the group boundary itself, so a flat list would need a\n  // lookbehind on every row to work out where one phase ends and the next\n  // one starts.\n  {\n    name: 'Plan',\n    steps: [\n      {\n        id: 'scan',\n        label: 'Searched 214 posts for broken image links',\n        icon: <RegistryIcon lucide='SearchIcon' />\n      },\n      {\n        id: 'read',\n        label: 'Read content/posts/colour-notes.mdx',\n        icon: <RegistryIcon lucide='FileTextIcon' />\n      },\n      {\n        id: 'outline',\n        label: 'Drafted a three-step fix',\n        icon: <RegistryIcon lucide='ListChecksIcon' />\n      }\n    ]\n  },\n  {\n    name: 'Edit',\n    steps: [\n      {\n        id: 'window',\n        label: 'Pointed the images at the media library',\n        icon: <RegistryIcon lucide='PencilIcon' />\n      },\n      {\n        id: 'route',\n        label: 'Added alt text to the replaced images',\n        icon: <RegistryIcon lucide='CodeIcon' />\n      },\n      {\n        id: 'commit',\n        label: 'Committed to fix/colour-notes-images',\n        icon: <RegistryIcon lucide='GitBranchIcon' />\n      }\n    ]\n  },\n  {\n    name: 'Verify',\n    // Verify is two steps where the others are three. A run log is whatever\n    // the run actually did, and padding every phase to the same length turns\n    // the example into a template no real run would produce.\n    steps: [\n      {\n        id: 'tests',\n        label: 'Ran pnpm check:content',\n        icon: <RegistryIcon lucide='TerminalIcon' />\n      },\n      {\n        id: 'probe',\n        label: 'Confirmed every image loads in the preview',\n        icon: <RegistryIcon lucide='FlaskConicalIcon' />\n      }\n    ]\n  }\n];\nexport function Pattern() {\n  return (\n    <Card className='mx-auto w-full max-w-md'>\n      <CardHeader>\n        <CardTitle>Agent run</CardTitle>\n        <CardDescription>auth-rate-limit, 1m 48s</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <div className='flex flex-col gap-2'>\n          {PHASES.map((phase) => (\n            <Fragment key={phase.name}>\n              <div className='flex items-center gap-2 text-xs text-text-muted'>\n                <Separator className='min-w-0 flex-1' />\n                <span>{phase.name}</span>\n                <Separator className='min-w-0 flex-1' />\n              </div>\n              {phase.steps.map((step) => (\n                <Item size='xs' key={step.id}>\n                  <ItemMedia aria-hidden='true' className='size-4 [&_svg]:size-4'>{step.icon}</ItemMedia>\n                  <ItemContent className='min-w-0 break-words'>{step.label}</ItemContent>\n                </Item>\n              ))}\n            </Fragment>\n          ))}\n        </div>\n      </CardContent>\n    </Card>\n  );\n}\n"
+    }
+  ]
+}

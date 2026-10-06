@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb-separators",
+  "type": "registry:example",
+  "title": "Separators",
+  "description": "Separators. Core/Navigation/Breadcrumb pattern composed from @gaudi/design-system/core/Breadcrumb and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "breadcrumb",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Breadcrumb",
+    "import": "@gaudi/design-system/core/Breadcrumb",
+    "storyId": "core-breadcrumb--separators",
+    "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-separators.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/breadcrumb-separators.jsx",
+      "type": "registry:component",
+      "content": "import {\n  BreadcrumbRoot as Breadcrumb,\n  BreadcrumbItemPrimitive as BreadcrumbItem,\n  BreadcrumbLinkPrimitive as BreadcrumbLink,\n  BreadcrumbListPrimitive as BreadcrumbList,\n  BreadcrumbPagePrimitive as BreadcrumbPage,\n  BreadcrumbSeparatorPrimitive as BreadcrumbSeparator\n} from '@gaudi/design-system/core/Breadcrumb';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst Dash = () => <span className='inline-flex h-0.5 w-2 shrink-0 rounded-full bg-text-muted/40' />;\nconst rows = [\n  { label: 'Chevron', separator: undefined },\n  { label: 'Slash', separator: '/' },\n  { label: 'Double chevron', separator: <RegistryIcon lucide='ChevronsRightIcon' /> },\n  { label: 'Dash', separator: <Dash /> }\n];\nfunction Trail({ label, separator }) {\n  return (\n    <Breadcrumb aria-label={`${label} breadcrumb`}>\n      <BreadcrumbList>\n        <BreadcrumbItem>\n          <BreadcrumbLink href='#'>Home</BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator className='flex items-center'>{separator}</BreadcrumbSeparator>\n        <BreadcrumbItem>\n          {/* asChild hands the styling to a router link such as next/link. */}\n          <BreadcrumbLink asChild>\n            <a href='#'>Components</a>\n          </BreadcrumbLink>\n        </BreadcrumbItem>\n        <BreadcrumbSeparator className='flex items-center'>{separator}</BreadcrumbSeparator>\n        <BreadcrumbItem>\n          <BreadcrumbPage>Breadcrumb</BreadcrumbPage>\n        </BreadcrumbItem>\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>\n      {rows.map((row) => (\n        <div key={row.label} className='contents'>\n          <span className='text-xs text-text-muted'>{row.label}</span>\n          <Trail {...row} />\n        </div>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

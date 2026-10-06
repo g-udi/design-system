@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible-bottom-trigger",
+  "type": "registry:example",
+  "title": "Collapsible: Card that opens from its footer",
+  "description": "Collapsible: Card that opens from its footer. Core/Layout & Containers/Accordion pattern composed from @gaudi/design-system/core/Accordion and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "collapsible",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Accordion",
+    "import": "@gaudi/design-system/core/Accordion",
+    "storyId": "core-accordion--collapsible-bottom-trigger",
+    "source": "src/components/core/Accordion/stories/fixtures/collapsible/collapsible-bottom-trigger.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/collapsible-bottom-trigger.jsx",
+      "type": "registry:component",
+      "content": "import { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  CardRoot as Card,\n  CardAction,\n  CardContent,\n  CardHeader,\n  CardTitle\n} from '@gaudi/design-system/core/Card';\nimport {\n  Collapsible,\n  CollapsibleContent,\n  CollapsibleTrigger\n} from '@gaudi/design-system/core/Accordion';\nimport { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  return (\n    <div className='mx-auto h-72 w-full max-w-xs'>\n      <Collapsible className='relative'>\n        <Card>\n          <CardHeader className='flex items-center justify-between'>\n            <CardTitle className='text-sm'>3 days remaining in cycle</CardTitle>\n            <CardAction>\n              <Button href='/settings/billing' variant='outline' size='sm'>\n                Billing\n              </Button>\n            </CardAction>\n          </CardHeader>\n          <CardContent className='space-y-4'>\n            <div className='bg-surface-muted/60 border-border rounded-lg space-y-2 border p-3'>\n              <div className='flex justify-between text-sm font-medium'>\n                <span>$18.08 / $20</span>\n                <span>$200</span>\n              </div>\n              <Progress value={90} className='bg-accent/20 h-1.5' />\n            </div>\n\n            <CollapsibleContent className='data-[state=closed]:animate-collapsible-up data-[state=open]:animate-collapsible-down'>\n              <div className='flex flex-col gap-2.5 pt-2'>\n                {[\n                  { label: 'Requests', value: '$210.84' },\n                  { label: 'Active CPU', value: '$21.95' },\n                  { label: 'Events', value: '$21.20' },\n                  { label: 'Storage Usage', value: '$20.45' }\n                ].map((item) => (\n                  <div\n                    key={item.label}\n                    className='flex justify-between text-xs'\n                  >\n                    <span className='text-text-muted font-medium'>\n                      {item.label}\n                    </span>\n                    <span className='font-medium'>{item.value}</span>\n                  </div>\n                ))}\n              </div>\n            </CollapsibleContent>\n          </CardContent>\n        </Card>\n\n        <div className='absolute -bottom-3.5 left-1/2 -translate-x-1/2'>\n          <CollapsibleTrigger asChild>\n            <Button\n              variant='outline'\n              size='icon-sm'\n              className='bg-surface! rounded-control shadow-sm'\n            >\n              <RegistryIcon\n                lucide='ChevronDownIcon'\n                aria-hidden='true'\n                className='size-3.5 transition-transform in-data-panel-open:rotate-180'\n              />\n              <span className='sr-only'>Toggle details</span>\n            </Button>\n          </CollapsibleTrigger>\n        </div>\n      </Collapsible>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

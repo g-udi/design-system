@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "table-team-projects",
+  "type": "registry:example",
+  "title": "Projects with team avatars",
+  "description": "Projects with team avatars. MDX/Table pattern composed from @gaudi/design-system/mdx/Table and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "table",
+    "mdx"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-19.svg, /avatars/person-20.svg, /avatars/person-23.svg, /avatars/person-25.svg, /avatars/person-38.svg, /avatars/person-41.svg, /avatars/person-43.svg, /avatars/person-47.svg.",
+  "meta": {
+    "owner": "mdx/Table",
+    "import": "@gaudi/design-system/mdx/Table",
+    "storyId": "mdx-table--team-projects",
+    "source": "src/components/mdx/Table/stories/fixtures/table/table-team-projects.jsx",
+    "assets": [
+      "/avatars/person-19.svg",
+      "/avatars/person-20.svg",
+      "/avatars/person-23.svg",
+      "/avatars/person-25.svg",
+      "/avatars/person-38.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-43.svg",
+      "/avatars/person-47.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/table-team-projects.jsx",
+      "type": "registry:component",
+      "content": "import { Badge } from '@gaudi/design-system/core/Pill';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarGroup,\n  AvatarGroupCount,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  TableRoot as Table,\n  TableBodyPrimitive as TableBody,\n  TableCellPrimitive as TableCell,\n  TableHeadPrimitive as TableHead,\n  TableHeader,\n  TableRowPrimitive as TableRow\n} from '@gaudi/design-system/mdx/Table';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nconst projects = [\n  {\n    name: 'Website Redesign',\n    description: 'New home page and newsletter signup',\n    status: 'In Progress',\n    statusVariant: 'info-light',\n    team: [\n      {\n        src: '/avatars/person-41.svg',\n        fallback: 'SC'\n      },\n      {\n        src: '/avatars/person-20.svg',\n        fallback: 'MJ'\n      },\n      {\n        src: '/avatars/person-41.svg',\n        fallback: 'EP'\n      }\n    ],\n    extra: 2,\n    dueDate: 'Mar 15'\n  },\n  {\n    name: 'Mobile App v2',\n    description: 'Offline reading on phones',\n    status: 'Review',\n    statusVariant: 'warning-light',\n    team: [\n      {\n        src: '/avatars/person-23.svg',\n        fallback: 'DK'\n      },\n      {\n        src: '/avatars/person-47.svg',\n        fallback: 'SD'\n      }\n    ],\n    extra: 0,\n    dueDate: 'Apr 1'\n  },\n  {\n    name: 'API Integration',\n    description: 'Paid memberships at checkout',\n    status: 'Completed',\n    statusVariant: 'success-light',\n    team: [\n      {\n        src: '/avatars/person-25.svg',\n        fallback: 'MJ'\n      }\n    ],\n    extra: 0,\n    dueDate: 'Feb 28'\n  },\n  {\n    name: 'Analytics Dashboard',\n    description: 'Reader statistics for each post',\n    status: 'Planning',\n    statusVariant: 'outline',\n    team: [\n      {\n        src: '/avatars/person-43.svg',\n        fallback: 'SC'\n      },\n      {\n        src: '/avatars/person-19.svg',\n        fallback: 'DK'\n      },\n      {\n        src: '/avatars/person-38.svg',\n        fallback: 'EP'\n      }\n    ],\n    extra: 4,\n    dueDate: 'May 10'\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-2xl flex-col'>\n      <Table>\n        <TableHeader>\n          <TableRow>\n            <TableHead>Project</TableHead>\n            <TableHead>Status</TableHead>\n            <TableHead>Team</TableHead>\n            <TableHead className='text-right'>Due</TableHead>\n          </TableRow>\n        </TableHeader>\n        <TableBody>\n          {projects.map((project) => (\n            <TableRow key={project.name}>\n              <TableCell>\n                <div className='flex items-center gap-3'>\n                  <div className='bg-surface-muted rounded-sm flex size-8 shrink-0 items-center justify-center'>\n                    <RegistryIcon\n                      lucide='FolderIcon'\n                      className='text-text-muted size-4'\n                      aria-hidden='true'\n                    />\n                  </div>\n                  <div className='flex flex-col'>\n                    <span className='text-sm font-medium'>{project.name}</span>\n                    <span className='text-text-muted text-xs'>\n                      {project.description}\n                    </span>\n                  </div>\n                </div>\n              </TableCell>\n              <TableCell>\n                <Badge variant={project.statusVariant} size='sm'>\n                  {project.status}\n                </Badge>\n              </TableCell>\n              <TableCell>\n                <AvatarGroup>\n                  {project.team.map((member) => (\n                    <Avatar key={member.fallback} size='sm'>\n                      <AvatarImage src={member.src} alt={member.fallback} />\n                      <AvatarFallback>{member.fallback}</AvatarFallback>\n                    </Avatar>\n                  ))}\n                  {project.extra > 0 && (\n                    <AvatarGroupCount>\n                      <span className='text-text-muted text-xs'>\n                        +{project.extra}\n                      </span>\n                    </AvatarGroupCount>\n                  )}\n                </AvatarGroup>\n              </TableCell>\n              <TableCell className='text-text-muted text-right text-sm'>\n                {project.dueDate}\n              </TableCell>\n            </TableRow>\n          ))}\n        </TableBody>\n      </Table>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

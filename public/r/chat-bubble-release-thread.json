@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chat-bubble-release-thread",
+  "type": "registry:example",
+  "title": "Bubble styles across a deploy thread",
+  "description": "Bubble styles across a deploy thread. Chat/ChatBubble pattern composed from @gaudi/design-system/chat/ChatBubble and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "chat-bubble",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "chat/ChatBubble",
+    "import": "@gaudi/design-system/chat/ChatBubble",
+    "storyId": "chat-bubble--release-thread",
+    "source": "src/components/chat/ChatBubble/stories/fixtures/chat-bubble/chat-bubble-release-thread.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/chat-bubble-release-thread.jsx",
+      "type": "registry:component",
+      "content": "import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';\nconst turns = [\n  {\n    id: 't1',\n    variant: 'secondary',\n    align: 'start',\n    text: 'Publishing the spring issue is queued behind two image jobs.'\n  },\n  {\n    id: 't2',\n    variant: 'default',\n    align: 'end',\n    text: 'Go ahead. I will keep an eye on the preview.'\n  },\n  {\n    id: 't3',\n    variant: 'muted',\n    align: 'start',\n    text: 'Image job 2 of 2 finished in 41s.'\n  },\n  // The destructive turn names the failure in its own words. A variant that\n  // signals an error only by colour fails every reader who cannot see it.\n  {\n    id: 't4',\n    variant: 'destructive',\n    align: 'start',\n    text: 'Step 5 failed. The search indexer did not come back after the restart.'\n  },\n  {\n    id: 't5',\n    variant: 'outline',\n    align: 'start',\n    text: 'search-index.ts returned 500 on post.published, 41 updates queued'\n  },\n  {\n    id: 't6',\n    variant: 'tinted',\n    align: 'end',\n    text: 'Restart the indexer and retry step 5.'\n  },\n  // ghost is the assistant rung: it drops the frame and the 80% cap, which is\n  // why this turn is the only one reaching the full width of the row.\n  {\n    id: 't7',\n    variant: 'ghost',\n    align: 'start',\n    text: 'The indexer came back and step 5 replayed all 41 queued updates without a second failure. I have left the retry window at 60 seconds so a slow rebuild cannot drop another post.'\n  }\n];\nexport function Pattern() {\n  return (\n    <div className='mx-auto flex w-full max-w-sm flex-col gap-3'>\n      {turns.map((turn) => (\n        <ChatBubble key={turn.id} variant={turn.variant} align={turn.align}>\n          {/* Nothing is set on ChatBubbleContent, so each style resolves its own\n       radius, padding and font size. One stray text-sm here would pin\n       all eight to it. */}\n          <ChatBubbleContent>{turn.text}</ChatBubbleContent>\n        </ChatBubble>\n      ))}\n    </div>\n  );\n}\n"
+    }
+  ]
+}

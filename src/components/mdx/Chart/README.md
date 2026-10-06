@@ -36,4 +36,4 @@ The blog loads the adapter on demand with `dynamic(() => import('@gaudi/design-s
 
 Keyboard reading, the data table, the loading, empty, invalid and error states, and locale formatting come from the chart's frame; see `Charts/ChartFrame`.
 
-See [source notices](../../../../THIRD_PARTY_NOTICES.md).
+See [source notices](../../../../README.md#third-party-notices).

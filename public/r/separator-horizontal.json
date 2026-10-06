@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator-horizontal",
+  "type": "registry:example",
+  "title": "Horizontal rules",
+  "description": "Horizontal rules. Core/Separator pattern composed from @gaudi/design-system/core/Separator and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "separator",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Separator",
+    "import": "@gaudi/design-system/core/Separator",
+    "storyId": "core-separator--horizontal",
+    "source": "src/components/core/Separator/stories/fixtures/separator/separator-horizontal.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/separator-horizontal.jsx",
+      "type": "registry:component",
+      "content": "import { Separator } from '@gaudi/design-system/core/Separator';\n\nconst items = [\n  { label: \"Pro plan · monthly\", value: \"$49.00\" },\n  { label: \"Extra seats × 2\", value: \"$18.00\" },\n  { label: \"Discount\", value: \"−$5.00\", tone: \"text-ui-success-ink\" },\n];\n\nexport function Pattern() {\n  return (\n    <div className=\"mx-auto flex w-full max-w-xs flex-col gap-3 text-sm\">\n      <div className=\"flex flex-col gap-1\">\n        <p className=\"leading-none font-medium\">Order summary</p>\n        <p className=\"text-xs text-ui-muted-foreground\">\n          Billed on the 1st of every month.\n        </p>\n      </div>\n      <Separator />\n      <div className=\"flex flex-col gap-2\">\n        {items.map((item, index) => (\n          <div key={item.label} className=\"flex flex-col gap-2\">\n            {index > 0 && <Separator className=\"opacity-60\" />}\n            <dl className=\"flex items-center justify-between\">\n              <dt className=\"text-ui-muted-foreground\">{item.label}</dt>\n              <dd className={`tabular-nums ${item.tone || \"\"}`}>\n                {item.value}\n              </dd>\n            </dl>\n          </div>\n        ))}\n      </div>\n      <Separator />\n      <dl className=\"flex items-center justify-between font-medium\">\n        <dt>Total</dt>\n        <dd className=\"tabular-nums\">$62.00</dd>\n      </dl>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

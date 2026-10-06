@@ -48,21 +48,12 @@ module.exports = {
     },
     extend: {
       animation: {
-        aurora: 'aurora 60s linear infinite',
         'fade-in-up': 'fadeInUp 0.6s ease-out',
         shimmer: 'shimmer 2.5s ease-in-out infinite'
       },
       colors,
       fontFamily: typography.fontFamily,
       keyframes: {
-        aurora: {
-          from: {
-            backgroundPosition: '50% 50%, 50% 50%'
-          },
-          to: {
-            backgroundPosition: '350% 50%, 350% 50%'
-          }
-        },
         fadeInUp: {
           from: {
             opacity: '0',

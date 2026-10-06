@@ -1,2 +1,2 @@
-export { LineChart as default } from './parts/line-chart.jsx';
-export { LineChart } from './parts/line-chart.jsx';
+export { LineChart as default } from './LineChart.jsx';
+export { LineChart } from './LineChart.jsx';

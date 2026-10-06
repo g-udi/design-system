@@ -1,0 +1,38 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "combobox-member-tags",
+  "type": "registry:example",
+  "title": "Member tags",
+  "description": "Member tags. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "combobox",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-20.svg, /avatars/person-23.svg, /avatars/person-24.svg, /avatars/person-25.svg, /avatars/person-31.svg, /avatars/person-41.svg, /avatars/person-45.svg, /avatars/person-50.svg.",
+  "meta": {
+    "owner": "core/Select",
+    "import": "@gaudi/design-system/core/Select",
+    "storyId": "core-select--combobox-member-tags",
+    "source": "src/components/core/Select/stories/fixtures/combobox/combobox-member-tags.jsx",
+    "assets": [
+      "/avatars/person-20.svg",
+      "/avatars/person-23.svg",
+      "/avatars/person-24.svg",
+      "/avatars/person-25.svg",
+      "/avatars/person-31.svg",
+      "/avatars/person-41.svg",
+      "/avatars/person-45.svg",
+      "/avatars/person-50.svg"
+    ]
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/combobox-member-tags.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { Fragment, useId } from 'react';\nimport {\n  AvatarRoot as Avatar,\n  AvatarFallback,\n  AvatarImage\n} from '@gaudi/design-system/core/Avatar';\nimport {\n  Combobox,\n  ComboboxChip,\n  ComboboxChips,\n  ComboboxChipsInput,\n  ComboboxContent,\n  ComboboxEmpty,\n  ComboboxItem,\n  ComboboxList,\n  ComboboxValue,\n  useComboboxAnchor\n} from '@gaudi/design-system/core/Select';\nimport { FieldRoot as Field, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';\nimport {\n  Item,\n  ItemContent,\n  ItemDescription,\n  ItemTitle\n} from '@gaudi/design-system/core/Item';\nimport { cn } from '@gaudi/design-system/utilities/cn';\n\nconst members = [\n  { id: '1', name: 'Anouk Varga', position: 'Software Engineer', avatar: '/avatars/person-41.svg' },\n  { id: '2', name: 'Sabine Okafor', position: 'Product Manager', avatar: '/avatars/person-20.svg' },\n  { id: '3', name: 'Rafe Okonkwo', position: 'UX Designer', avatar: '/avatars/person-31.svg' },\n  { id: '4', name: 'Ilse Valtonen', position: 'Technical Lead', avatar: '/avatars/person-24.svg' },\n  { id: '5', name: 'Ottilie Nakamura', position: 'CTO', avatar: '/avatars/person-45.svg' },\n  { id: '6', name: 'Aurelio Brandt', position: 'Software Engineer', avatar: '/avatars/person-50.svg' },\n  { id: '7', name: 'Mireille Gaspard', position: 'Product Manager', avatar: '/avatars/person-25.svg' },\n  { id: '8', name: 'Quentin Hale', position: 'UX Designer', avatar: '/avatars/person-23.svg' }\n];\n\nconst initials = (name) => name.split(' ').map((part) => part[0]).join('');\n\nfunction MemberAvatar({ member, className }) {\n  return (\n    <Avatar className={className}>\n      <AvatarImage src={member.avatar} alt={member.name} />\n      <AvatarFallback>{initials(member.name)}</AvatarFallback>\n    </Avatar>\n  );\n}\n\n// `borderless` drops the field chrome so the tags read as inline content, each chip carrying its own border.\nfunction MemberTags({ label, defaultValue, borderless = false }) {\n  const id = useId();\n  const anchor = useComboboxAnchor();\n  return (\n    <Field>\n      <FieldLabel htmlFor={id}>{label}</FieldLabel>\n      <Combobox multiple items={members} itemToStringValue={(member) => member.name} defaultValue={defaultValue}>\n        <ComboboxChips\n          ref={anchor}\n          className={cn(\n            'has-data-[slot=combobox-chip]:pl-1',\n            borderless && 'border-none bg-transparent p-0 shadow-none ring-0 focus-within:ring-0'\n          )}\n        >\n          <ComboboxValue>\n            {(selected) => (\n              <Fragment>\n                {selected.map((member) => (\n                  <ComboboxChip\n                    key={member.id}\n                    className={cn(\n                      'gap-1.5 rounded-full',\n                      borderless && 'bg-surface border-border h-auto border py-0.5 pl-1 shadow-xs'\n                    )}\n                  >\n                    <MemberAvatar member={member} className='size-4' />\n                    {member.name}\n                  </ComboboxChip>\n                ))}\n                <ComboboxChipsInput id={id} placeholder='Add members...' className='bg-transparent' />\n              </Fragment>\n            )}\n          </ComboboxValue>\n        </ComboboxChips>\n        <ComboboxContent anchor={anchor}>\n          <ComboboxEmpty>No members found.</ComboboxEmpty>\n          <ComboboxList>\n            {(member) => (\n              <ComboboxItem key={member.id} value={member}>\n                <Item size='xs' className='p-0'>\n                  <MemberAvatar member={member} className='size-6' />\n                  <ItemContent>\n                    <ItemTitle className='whitespace-nowrap'>{member.name}</ItemTitle>\n                    <ItemDescription>{member.position}</ItemDescription>\n                  </ItemContent>\n                </Item>\n              </ComboboxItem>\n            )}\n          </ComboboxList>\n        </ComboboxContent>\n      </Combobox>\n    </Field>\n  );\n}\n\nexport function Pattern() {\n  return (\n    <div className='mx-auto grid w-full max-w-xs gap-3'>\n      <MemberTags label='Reviewers' defaultValue={[members[0], members[1]]} />\n      <MemberTags\n        label='Watchers (borderless)'\n        borderless\n        defaultValue={[members[5], members[7], members[3]]}\n      />\n    </div>\n  );\n}\n"
+    }
+  ]
+}

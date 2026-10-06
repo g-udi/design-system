@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "label-inline-edit",
+  "type": "registry:example",
+  "title": "Inline edit",
+  "description": "Inline edit. Core/Field pattern composed from @gaudi/design-system/core/Field and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "label",
+    "core"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.",
+  "meta": {
+    "owner": "core/Field",
+    "import": "@gaudi/design-system/core/Field",
+    "storyId": "core-field--label-inline-edit",
+    "source": "src/components/core/Field/stories/fixtures/label/label-inline-edit.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/label-inline-edit.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useState } from 'react';\nimport { default as Button } from '@gaudi/design-system/core/Button';\nimport {\n  FieldRoot as Field,\n  FieldDescriptionPrimitive as FieldDescription\n} from '@gaudi/design-system/core/Field';\nimport { FieldInput as Input } from '@gaudi/design-system/core/Field';\nimport { Label } from '@gaudi/design-system/core/Field';\nimport { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';\nexport function Pattern() {\n  const [isEditing, setIsEditing] = useState(false);\n  const [value, setValue] = useState('My Awesome Project');\n  return (\n    <Field className='mx-auto w-full max-w-xs'>\n      <Label htmlFor='label-inline-edit' className='gap-2'>\n        Project name\n        <Button\n          size='icon-xs'\n          variant='ghost'\n          aria-label={isEditing ? 'Save project name' : 'Edit project name'}\n          onClick={() => setIsEditing(!isEditing)}\n        >\n          {isEditing ? (\n            <RegistryIcon lucide='CheckIcon' className='size-3.5' />\n          ) : (\n            <RegistryIcon lucide='PencilIcon' className='size-3.5' />\n          )}\n        </Button>\n      </Label>\n      {isEditing ? (\n        <Input\n          id='label-inline-edit'\n          value={value}\n          onChange={(e) => setValue(e.target.value)}\n          autoFocus\n        />\n      ) : (\n        <FieldDescription>{value}</FieldDescription>\n      )}\n    </Field>\n  );\n}\n"
+    }
+  ]
+}
