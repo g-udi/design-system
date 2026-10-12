@@ -1,6 +1,6 @@
 {
   "name": "@gaudi/design-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A curated React design system for blogs and applications, with shared foundations, rich components, and reusable interface patterns.",
   "license": "MIT",
   "type": "module",
