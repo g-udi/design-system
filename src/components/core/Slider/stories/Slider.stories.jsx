@@ -6,6 +6,7 @@ import { PlaygroundDemo, priceLabel, priceDefault, formatPrice } from './fixture
 import nativeSource from './fixtures/NativeExamples.jsx?raw';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import { Slider } from '../index';
+import { checkSliderControlUpdates } from '../../../../../tests/components/core/Slider/checkSliderControlUpdates.jsx';
 
 const docs = getComponentDocs('Core/Slider');
 export default {
@@ -79,5 +80,6 @@ export const Playground = {
     await userEvent.keyboard(`{ArrowRight>${Math.round((50 - args.min) / args.step)}/}`);
     await expect(slider).toHaveAttribute('aria-valuenow', '50');
     await expect(readout(slider)).toHaveTextContent('50');
+    await checkSliderControlUpdates(canvasElement);
   }
 };

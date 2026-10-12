@@ -1,3 +1,5 @@
+import { flushSync } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
 import { CitationExample } from './fixtures/CitationExample.jsx';
 import exampleSource from './fixtures/CitationExample.jsx?raw';
@@ -25,7 +27,8 @@ export default {
 export const Playground = {
   parameters: { docs: { source: { code: publicSource(exampleSource, new URL('./fixtures/CitationExample.jsx', import.meta.url)), language: 'jsx' }, description: { story: 'A paragraph with a single citation and a grouped one, above the generated reference list. Hover or focus a marker to read the source; select a source in the group to jump to it and reveal its back-link.' } } },
   render: () => <CitationExample />,
-  play: async ({ canvasElement }) => {
+  play: async (context) => {
+    const { canvasElement, id } = context;
     const canvas = within(canvasElement);
     const popover = () => within(screen.getByRole('dialog', { name: 'Citation details' }));
     const single = canvas.getByRole('link', { name: 'Reference 1' });
@@ -58,5 +61,46 @@ export const Playground = {
     await expect(backLink).toHaveFocus();
     await expect(backLink).toHaveAttribute('href', '#cite-ref-2');
     await expect(group).toHaveAttribute('data-citation-popover-bound', 'true');
+    // Revisiting a source before the return timer fires must keep the back-link visible.
+    backLink.addEventListener('click', (event) => event.preventDefault(), { once: true });
+    backLink.click();
+    group.addEventListener('click', (event) => event.preventDefault(), { once: true });
+    group.click();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    await expect(backLink).toBeVisible();
+
+    // Simulate a second article handler unmounting before its return timer fires.
+    const host = document.createElement('div');
+    const markup = document.createElement('div');
+    document.body.append(host, markup);
+    const root = createRoot(host);
+    let mounted = true;
+    try {
+      flushSync(() => root.render(<CitationPopover />));
+      const oldLink = document.createElement('a');
+      oldLink.className = 'citation-back-link';
+      oldLink.dataset.citationKey = 'navigation-regression';
+      oldLink.textContent = 'Old article';
+      markup.append(oldLink);
+      oldLink.click();
+      root.unmount();
+      mounted = false;
+      const nextLink = oldLink.cloneNode(true);
+      nextLink.textContent = 'New article';
+      oldLink.replaceWith(nextLink);
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      await expect(nextLink).toBeVisible();
+    } finally {
+      if (mounted) root.unmount();
+      host.remove();
+      markup.remove();
+    }
+    group.focus();
+    await waitFor(() => expect(screen.getByRole('dialog', { name: 'Citation details' })).toBeVisible());
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ canvasElement, id: `${id}--open` });
+    }
+    await userEvent.keyboard('{Escape}');
   }
 };

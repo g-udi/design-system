@@ -20,7 +20,8 @@ Exports: `ChatActivityIndicator`, `activityStates`, `default`
 | `state` | `idle \| thinking \| streaming \| tool \| done \| error` | `idle` | no | Current activity. |
 | `variant` | `inline \| badge` | `inline` | no | Inline mark or corner badge. |
 | `showLabel` | `boolean` | `false` | no | Visible label beside the mark. |
-| `labels / decorative` | `object / boolean` | — | no | Copy per state, and hiding. |
+| `labels` | `object` | — | no | Copy per state, and hiding. |
+| `decorative` | `boolean` | — | no | Copy per state, and hiding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

@@ -1,3 +1,4 @@
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
 import { PlaygroundForm } from './fixtures/PlaygroundForm.jsx';
 import PlaygroundFormSource from './fixtures/PlaygroundForm.jsx?raw';
 import { publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
@@ -58,11 +59,12 @@ export const Playground = {
     await expect(email).toHaveAttribute('aria-invalid', 'true');
     await userEvent.type(email, 'maya@example.com');
     await waitFor(() => expect(email).not.toHaveAttribute('aria-invalid'));
-    // EditableField: Escape cancels and returns focus to Edit.
+    // Saving the inline field returns focus to Edit.
     await userEvent.click(canvas.getByRole('button', { name: 'Edit Display name' }));
     const control = canvas.getByLabelText('Display name');
     await userEvent.clear(control);
-    await userEvent.type(control, 'Maya C.{Enter}');
+    await userEvent.type(control, 'Maya C.');
+    await actInteraction(() => userEvent.keyboard('{Enter}'));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Edit Display name' })).toHaveFocus());
     await expect(canvas.getByText('Maya C.')).toBeVisible();
   }

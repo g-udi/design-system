@@ -1,8 +1,9 @@
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 
-import { expect, waitFor, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import NewsletterForm from '..';
+import { checkNewsletterLifecycle } from '../../../../../tests/components/layout/NewsletterForm/checkNewsletterLifecycle.jsx';
 
 const story = description => ({
   docs: {
@@ -23,9 +24,12 @@ export const Newsletter = {
       description: 'Form heading.'
     }
   },
-  parameters: { ...story('The subscription form with an explicit host endpoint, followed by its unavailable state when no endpoint is configured. The email field is required and results are announced below it.'), __id: 'layout-components--newsletter' },
+  parameters: { ...story('The subscription form uses a local sample response; no address is subscribed. A second form shows the unavailable state when no endpoint is configured. The email field is required and results are announced below it.'), __id: 'layout-components--newsletter' },
   render: args => <div className='mx-auto grid max-w-2xl gap-10 p-6'>
-      <NewsletterForm {...args} endpoint='#newsletter' className='mt-0' />
+      <div>
+        <NewsletterForm {...args} endpoint='data:application/json,%7B%22error%22%3Afalse%7D' className='mt-0' />
+        <p className='mt-3 text-sm text-text-muted'>Demo only. Submitting shows a sample response and does not subscribe your address.</p>
+      </div>
       <div className='rounded-card bg-surface-muted p-6 sm:px-14 sm:py-8'>
         <NewsletterForm title={args.title} />
       </div>
@@ -62,6 +66,12 @@ export const Newsletter = {
     } finally {
       newsletter.style.width = originalWidth;
     }
+    await userEvent.type(emails[0], 'reader@example.com');
+    await userEvent.click(buttons[0]);
+    await expect(await canvas.findByRole('status')).toHaveTextContent('You are now subscribed.');
+    await expect(emails[0]).toBeDisabled();
+    await expect(emails[0]).toHaveValue('');
+    await checkNewsletterLifecycle(canvasElement);
   }
 };
 

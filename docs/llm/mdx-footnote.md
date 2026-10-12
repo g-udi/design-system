@@ -15,12 +15,6 @@ import Footnote from '@gaudi/design-system/mdx/Footnote';
 
 Exports: `default`
 
-## Runtime contract
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `Footnote` | `Runtime component; no props` | — | no | Enhances generated article markup. Mount once per article runtime. |
-
 ## Authoring Example
 
 ```jsx

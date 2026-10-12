@@ -4,8 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import { usePrefersColorScheme } from '../hooks/environment/use-prefers-color-scheme.js';
 import { DARK_CLASS, DEFAULT_THEME_ID, THEME_ATTRIBUTE } from './contract.js';
 import { themePresets } from './presets.js';
-import { THEME_MODES, THEME_STORAGE_KEY, applyTheme, localStorageAdapter, resolveMode, storageKeys } from './runtime.js';
-import { assertTheme } from './validate.js';
+import { STYLE_ATTRIBUTE, THEME_MODES, THEME_STORAGE_KEY, applyTheme, localStorageAdapter, resolveMode, storageKeys } from './runtime.js';
+import { assertTheme, validateTheme } from './validate.js';
 
 const noop = () => {};
 const defaultContext = {
@@ -22,7 +22,7 @@ const ThemeContext = createContext(defaultContext);
 const readCustom = (storage, key) => {
   try {
     const value = JSON.parse(storage?.getItem(key) || 'null');
-    return value && typeof value === 'object' ? value : null;
+    return validateTheme(value).valid ? value : null;
   } catch {
     return null;
   }
@@ -47,7 +47,7 @@ export function ThemeProvider({
   onThemeChange
 }) {
   const keys = useMemo(() => storageKeys(storageKey), [ storageKey ]);
-  const [ theme, setThemeState ] = useState(defaultTheme);
+  const [ themeId, setThemeState ] = useState(defaultTheme);
   const [ mode, setModeState ] = useState(defaultMode);
   const [ custom, setCustom ] = useState(null);
   const systemMode = usePrefersColorScheme();
@@ -69,19 +69,22 @@ export function ThemeProvider({
   }, [ defaultMode, defaultTheme, keys, storage ]);
 
   const allThemes = useMemo(() => (custom && !themes.some((entry) => entry.id === custom.id) ? [ ...themes, custom ] : themes), [ custom, themes ]);
-  const active = allThemes.find((entry) => entry.id === theme);
+  const active = allThemes.find((entry) => entry.id === themeId) ?? allThemes.find((entry) => entry.id === defaultTheme);
+  const theme = active?.id ?? defaultTheme;
 
   useEffect(() => {
     if (typeof document === 'undefined') return undefined;
     document.documentElement.setAttribute(attribute, theme);
-    if (!active || active.id === DEFAULT_THEME_ID) {
+    if (!active || (active.id === DEFAULT_THEME_ID && attribute === THEME_ATTRIBUTE && darkClass === DARK_CLASS)) {
+      // A pre-paint stylesheet may use selectors from a previous provider configuration.
+      document.head.querySelector(`style[${STYLE_ATTRIBUTE}="${DEFAULT_THEME_ID}"]`)?.remove();
       storage?.removeItem(keys.css);
       return undefined;
     }
-    const { css, remove } = applyTheme(active, { nonce });
+    const { css, remove } = applyTheme(active, { nonce, attribute, darkClass });
     storage?.setItem(keys.css, css);
     return remove;
-  }, [ active, attribute, keys, nonce, storage, theme ]);
+  }, [ active, attribute, darkClass, keys, nonce, storage, theme ]);
 
   useEffect(() => {
     if (!enableMode || typeof document === 'undefined') return;

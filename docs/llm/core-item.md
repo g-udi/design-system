@@ -19,7 +19,8 @@ Exports: `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemFooter`, 
 | --- | --- | --- | --- | --- |
 | `variant` | `default \| outline \| muted` | `default` | no | Row surface: plain, bordered or tinted. |
 | `size` | `default \| sm \| xs` | `default` | no | Row density. |
-| `as / asChild` | `ElementType / boolean` | `div / false` | no | Render the row as another element, or merge it into a link or button child. |
+| `as` | `ElementType` | `div` | no | Render the row as another element, or merge it into a link or button child. |
+| `asChild` | `boolean` | `false` | no | Render the row as another element, or merge it into a link or button child. |
 | `ItemMedia.variant` | `default \| icon \| image` | `default` | no | Presentation of the leading media slot. |
 | `ItemGroup` | `HTMLAttributes<HTMLDivElement>` | — | no | A role="group" wrapper that stacks rows; pair with ItemSeparator. |
 | `ItemTitle / ItemDescription` | `ReactNode` | — | no | Row title (one line) and supporting text (two lines). |

@@ -13,13 +13,13 @@ export function Pattern() {
   return (
     <div className='mx-auto flex w-full max-w-xs flex-col items-center gap-3'>
       <p className='text-sm font-medium'>How was your experience?</p>
-      <ToggleGroup type='single' value={selected} onValueChange={(value) => value && setSelected(value)} aria-label='Experience'>
+      <ToggleGroup type='single' spacing={1} value={selected} onValueChange={(value) => value && setSelected(value)} aria-label='Experience'>
         {emojis.map((item) => (
           <ToggleGroupItem
             key={item.value}
             value={String(item.value)}
             aria-label={item.label}
-            className='size-10 p-0 text-2xl'
+            className='size-8 p-0 text-2xl'
           >
             {item.emoji}
           </ToggleGroupItem>

@@ -21,10 +21,16 @@ Exports: `CharacterCount`, `EditableField`, `FormErrorSummary`, `default`, `useF
 | `form.field(name, { describedBy })` | `props` | — | no | id, name, value, onChange, onBlur, aria-invalid and aria-describedby for a text-like control. |
 | `form.setValue / setValues / handleSubmit / reset` | `functions` | — | no | Update values, block invalid submits (onValid receives the values) and restore a state. |
 | `validators` | `required \| email \| minLength \| maxLength \| pattern \| min \| max` | — | no | Message-returning validators; custom rules receive (value, values). |
-| `FormErrorSummary.form / labels / title` | `form / Record<name, string> / string` | `Fix n problems to continue` | no | Lists errors after a submit, takes focus and links each entry to its control. |
-| `EditableField.label / value / onSave` | `string / any / (value) => void \| Promise` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `FormErrorSummary.form` | `form` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `labels` | `Record<name, string>` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `title` | `string` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `EditableField.label` | `string` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `value` | `any` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `onSave` | `(value) => void \| Promise` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
 | `EditableField.validate / format / renderControl` | `function` | — | no | Message for an invalid draft, how the value reads, and a custom control instead of Input. |
-| `CharacterCount.value / max / id` | `string / number / string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `CharacterCount.value` | `string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `max` | `number` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `id` | `string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

@@ -20,6 +20,7 @@ test('smooth ScrollArea preserves server content, region naming and scrollbar cu
   const html = renderToStaticMarkup(createElement(publicAPI.ScrollArea, props, article));
   assert.match(html, /The article is available before hydration/);
   assert.match(html, /role="region" aria-labelledby="article-title"/);
+  assert.equal((html.match(/aria-labelledby="article-title"/g) || []).length, 1);
   assert.doesNotMatch(html, /aria-label="Scrollable content"|smooth="|viewportRef=|scrollbarClassName=/);
   assert.equal(html, renderToStaticMarkup(createElement(publicAPI.ScrollArea, props, article)));
 });

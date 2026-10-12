@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useId, useMemo, useRef } from 'react';
+import { useTimeout } from '../../../hooks/state/use-timeout.js';
 import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { Background, BackgroundVariant, MarkerType, MiniMap, Panel, ReactFlow, ReactFlowProvider, useReactFlow, useStore } from '@xyflow/react';
 import { default as Button } from '../Button/index.js';
@@ -54,14 +55,6 @@ function ControlButton({ label, icon, onClick, disabled, pressed, children }) {
   );
 }
 
-// Nodes glide to their new places while a layout settles, then dragging stays instant.
-function animateLayout(flowElement, apply) {
-  const canvas = flowElement?.closest('.ds-flow');
-  canvas?.setAttribute('data-layout-animating', '');
-  apply();
-  window.setTimeout(() => canvas?.removeAttribute('data-layout-animating'), 360);
-}
-
 /**
  * Canvas controls as labelled Gaudi buttons with tooltips: zoom in, zoom out and fit,
  * plus Fit selection (`showFitSelection`) and Auto layout (`onAutoLayout`, which receives
@@ -91,11 +84,25 @@ export function FlowControls({
   const selectedCount = useStore((state) => state.nodes.filter((node) => node.selected).length);
   const toolbar = variant === 'toolbar';
   const percent = Math.round(zoom * 100);
-  const layout = (event) => animateLayout(event.currentTarget, () => {
+  const layoutCanvasRef = useRef(null);
+  const layoutFrameRef = useRef(null);
+  const { reset: finishLayoutLater } = useTimeout(() => {
+    layoutCanvasRef.current?.removeAttribute('data-layout-animating');
+  }, 360);
+  useEffect(() => () => {
+    cancelAnimationFrame(layoutFrameRef.current);
+    layoutCanvasRef.current?.removeAttribute('data-layout-animating');
+  }, []);
+  const layout = (event) => {
+    const canvas = event.currentTarget.closest('.ds-flow');
+    layoutCanvasRef.current = canvas;
+    canvas?.setAttribute('data-layout-animating', '');
+    finishLayoutLater();
     const next = onAutoLayout({ nodes: flow.getNodes(), edges: flow.getEdges() });
     if (Array.isArray(next)) flow.setNodes(next);
-    window.requestAnimationFrame(() => flow.fitView({ duration: reduceMotion ? 0 : 300, padding: 0.2 }));
-  });
+    cancelAnimationFrame(layoutFrameRef.current);
+    layoutFrameRef.current = requestAnimationFrame(() => flow.fitView({ duration: reduceMotion ? 0 : 300, padding: 0.2 }));
+  };
   const zoomIn = <ControlButton label={labels.zoomIn} icon={toolbar ? 'Plus' : 'ZoomIn'} onClick={() => flow.zoomIn({ duration: reduceMotion ? 0 : 150 })} />;
   const zoomOut = <ControlButton label={labels.zoomOut} icon={toolbar ? 'Minus' : 'ZoomOut'} onClick={() => flow.zoomOut({ duration: reduceMotion ? 0 : 150 })} />;
   const extras = (
@@ -284,6 +291,7 @@ export function Flow({
       className={cn('ds-flow', className)}
     >
       <ReactFlow
+        id={`gaudi-flow-${summaryId}`}
         {...controlled}
         nodeTypes={types}
         edgeTypes={edgeKinds}
@@ -291,7 +299,6 @@ export function Flow({
         fitView={fitView}
         // The first fit stops at a readable zoom on narrow canvases; the Fit control still shows everything.
         fitViewOptions={{ padding: 0.2, minZoom: 0.5, ...fitViewOptions }}
-        proOptions={{ hideAttribution: true }}
         minZoom={0.25}
         // `select` drags a selection box and pans with scroll; `hand` pans by dragging.
         {...(tool === 'select' ? { selectionOnDrag: true, panOnDrag: [1, 2], panOnScroll: true } : tool === 'hand' ? { selectionOnDrag: false, panOnDrag: true } : {})}

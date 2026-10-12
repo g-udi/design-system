@@ -19,10 +19,19 @@ Exports: `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `Popover`, `Popove
 | --- | --- | --- | --- | --- |
 | `trigger` | `ReactNode` | — | no | Label or content of the outline trigger button. |
 | `children` | `ReactNode` | — | no | Panel content. |
-| `side / align` | `top \| right \| bottom \| left / start \| center \| end` | `bottom / center` | no | Placement of the panel relative to the trigger. |
-| `open / defaultOpen / onOpenChange / modal` | `boolean / boolean / function / boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `side` | `top \| right \| bottom \| left` | `bottom` | no | Placement of the panel relative to the trigger. |
+| `align` | `start \| center \| end` | `center` | no | Placement of the panel relative to the trigger. |
+| `open` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `defaultOpen` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `onOpenChange` | `function` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `modal` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
 | `contentClassName` | `string` | — | no | Panel class override. |
 | `className` | `string` | — | no | Trigger button class override. |
+
+## Variants
+
+- `side`: `top`, `right`, `bottom`, `left`
+- `align`: `start`, `center`, `end`
 
 ## Usage
 

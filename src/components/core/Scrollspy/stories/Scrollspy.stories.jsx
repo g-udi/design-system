@@ -9,6 +9,7 @@ import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 
 import { Scrollspy } from '../index.js';
+import { checkScrollspyUpdates } from '../../../../../tests/components/core/Scrollspy/checkScrollspyUpdates.jsx';
 
 const docs = getComponentDocs('Core/Scrollspy');
 // A guide page: icon links on the left, and a scroll area whose sticky header is exactly `offset` pixels tall.
@@ -67,5 +68,6 @@ export const Playground = {
     await waitFor(() => expect(Math.abs(viewport.scrollTop - target)).toBeLessThanOrEqual(1));
     await waitFor(() => expect(args.onUpdate).toHaveBeenLastCalledWith(anchor('Usage').dataset.scrollspyAnchor));
     anchor('Usage').blur();
+    await checkScrollspyUpdates(canvasElement);
   }
 };

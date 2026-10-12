@@ -1,10 +1,11 @@
 'use client';
+import { useMergedRefs } from '../../../../hooks/state/use-merged-refs.js';
 import { useIsomorphicLayoutEffect } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
 import { observeResize } from '../../../../utilities/observeResize.js';
 import { useCallback, useMemo, useRef } from 'react';
 import { useDataGrid } from '../DataGrid.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
-import { assignRef, getDataGridScrollAreaViewport } from '../dataGridTableDom.js';
+import { getDataGridScrollAreaViewport } from '../dataGridTableDom.js';
 import { hasDataGridTableRightPinnedColumns } from '../dataGridTableModel.js';
 import { DataGridTableFillCol } from './DataGridTableStructure.jsx';
 import { DataGridTableResizeIndicator } from './DataGridColumnResize.jsx';
@@ -143,7 +144,6 @@ function DataGridTableViewport({ children, className, viewportRef, style }) {
       stopContainerObserverRef.current?.();
       stopContainerObserverRef.current = null;
       viewportNodeRef.current = node;
-      assignRef(viewportRef, node);
       if (!node) return;
       if (!isColumnsResizable) {
         fillStateRef.current.appliedFill = -1;
@@ -165,8 +165,9 @@ function DataGridTableViewport({ children, className, viewportRef, style }) {
         stopContainerObserverRef.current = () => observer.disconnect();
       }
     },
-    [isColumnsResizable, syncFillWidth, viewportRef]
+    [isColumnsResizable, syncFillWidth]
   );
+  const ref = useMergedRefs(handleViewportRef, viewportRef);
   useIsomorphicLayoutEffect(() => {
     if (!isColumnsResizable) return;
     syncFillWidth();
@@ -174,7 +175,7 @@ function DataGridTableViewport({ children, className, viewportRef, style }) {
   return (
     <div
       data-slot='data-grid-table-viewport'
-      ref={handleViewportRef}
+      ref={ref}
       className={cn('relative min-w-full align-top', className)}
       style={{
         ...(isColumnsResizable

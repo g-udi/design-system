@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import { example, hookMeta } from '../../HookDocs.jsx';
 
@@ -19,7 +19,30 @@ export default {
 export const WithDialog = {
   name: 'Drive a Gaudi Dialog',
   parameters: example('Gaudi overlays take `open` and `onOpenChange`, so pass the state straight through; `onOpen` and `onClose` read well in handlers.', exampleSource),
-  render: () => <ShareDialog />
+  render: () => <ShareDialog />,
+  play: async ({ canvasElement, id }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const opener = canvas.getByRole('button', { name: 'Share post' });
+    opener.focus();
+    await userEvent.keyboard('{Enter}');
+    const dialog = await body.findByRole('dialog', { name: 'Share post' });
+    await expect(dialog).toHaveAccessibleDescription('Send this post to a colleague.');
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ canvasElement, id: `${id}--open` });
+    }
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(opener).toHaveFocus());
+    for (const action of ['Cancel', 'Send']) {
+      await userEvent.click(opener);
+      const reopened = await body.findByRole('dialog', { name: 'Share post' });
+      await userEvent.click(within(reopened).getByRole('button', { name: action }));
+      await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+      await waitFor(() => expect(opener).toHaveFocus());
+    }
+  }
 };
 
 export const CustomTrigger = {

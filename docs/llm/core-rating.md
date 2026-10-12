@@ -22,8 +22,13 @@ Exports: `Rating`
 | `editable` | `boolean` | `false` | no | Enable score selection. |
 | `onRatingChange` | `(rating: number) => void` | — | no | Receives a new score. |
 | `showValue` | `boolean` | `false` | no | Display the numeric score. |
-| `size / starClassName` | `string` | — | no | Star sizing and style override. |
+| `size` | `sm \| default \| lg` | `default` | no | Star size: sm 16px, default 20px, lg 24px. |
+| `starClassName` | `string` | — | no | Class override applied to every star. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `size`: `sm`, `default`, `lg`
 
 ## Usage
 

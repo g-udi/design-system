@@ -22,7 +22,9 @@ Exports: `ImageGallery`
 | `layout` | `masonry \| grid` | `masonry` | no | Masonry keeps each thumbnail ratio and reads down each column. Grid reads across rows and crops thumbnails to 4:3. |
 | `columns` | `{ mobile?, tablet?, desktop? }` | `{ mobile: 1, tablet: 2, desktop: 3 }` | no | Positive integer column counts at gallery widths below 640px, from 640px, and from 1024px. A single image always occupies one full-width column. |
 | `showCaptions` | `boolean` | `true` | no | Shows captions below thumbnails. The viewer always shows the active caption or alternative text. |
-| `selectedId / defaultSelectedId / onSelectedIdChange` | `string \| null / string \| null / (id) => void` | `uncontrolled / null / —` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `selectedId` | `string \| null` | `uncontrolled` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `defaultSelectedId` | `string \| null` | `null` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `onSelectedIdChange` | `(id) => void` | — | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
 | `disabled` | `boolean` | `false` | no | Disables thumbnail activation and hides the viewer while true, retaining the selection. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

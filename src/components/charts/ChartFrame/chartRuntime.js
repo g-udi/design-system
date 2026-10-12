@@ -31,6 +31,7 @@ import * as CellModule from 'recharts/es6/component/Cell.js';
 import * as HooksModule from 'recharts/es6/hooks.js';
 import * as LegendModule from 'recharts/es6/component/Legend.js';
 import * as ResponsiveContainerModule from 'recharts/es6/component/ResponsiveContainer.js';
+import * as RechartsTextModule from 'recharts/es6/component/Text.js';
 import * as RechartsTooltipModule from 'recharts/es6/component/Tooltip.js';
 import * as PieModule from 'recharts/es6/polar/Pie.js';
 import * as PolarAngleAxisModule from 'recharts/es6/polar/PolarAngleAxis.js';
@@ -63,6 +64,7 @@ export const RechartsRadarChart = resolve(RechartsRadarChartModule, 'RadarChart'
 export const RechartsRadialBarChart = resolve(RechartsRadialBarChartModule, 'RadialBarChart');
 export const RechartsSankey = resolve(RechartsSankeyModule, 'Sankey');
 export const RechartsScatterChart = resolve(RechartsScatterChartModule, 'ScatterChart');
+export const RechartsText = resolve(RechartsTextModule, 'Text');
 export const RechartsTooltip = resolve(RechartsTooltipModule, 'Tooltip');
 export const RechartsTreemap = resolve(RechartsTreemapModule, 'Treemap');
 export const ReferenceArea = resolve(ReferenceAreaModule, 'ReferenceArea');
@@ -78,7 +80,7 @@ export const ZAxis = resolve(ZAxisModule, 'ZAxis');
 export const isChartRuntimeReady = [
   Area, Bar, CartesianGrid, Cell, Legend, Line, Pie, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadialBar,
   RechartsAreaChart, RechartsBarChart, RechartsComposedChart, RechartsLineChart, RechartsPieChart,
-  RechartsRadarChart, RechartsRadialBarChart, RechartsSankey, RechartsScatterChart, RechartsTooltip, RechartsTreemap,
+  RechartsRadarChart, RechartsRadialBarChart, RechartsSankey, RechartsScatterChart, RechartsText, RechartsTooltip, RechartsTreemap,
   ReferenceArea, ReferenceDot, ReferenceLine, ResponsiveContainer, Scatter, XAxis, YAxis, ZAxis
 ].every(Boolean);
 

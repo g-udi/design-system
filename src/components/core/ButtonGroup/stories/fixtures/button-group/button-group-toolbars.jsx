@@ -32,9 +32,9 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
       <Row label='Labelled, one disabled'>
         <ButtonGroup aria-label='Library'>
-          <Button variant='outline'><Icon name='FileIcon' />Files</Button>
-          <Button variant='outline' disabled><Icon name='FolderIcon' />Folder</Button>
-          <Button variant='outline'><Icon name='TrashIcon' />Trash</Button>
+          <Button variant='outline' size='sm'><Icon name='FileIcon' />Files</Button>
+          <Button variant='outline' size='sm' disabled><Icon name='FolderIcon' />Folder</Button>
+          <Button variant='outline' size='sm'><Icon name='TrashIcon' />Trash</Button>
         </ButtonGroup>
       </Row>
       <Row label='Icon only'>
@@ -55,11 +55,11 @@ export function Pattern() {
       </Row>
       <Row label='Separators'>
         <ButtonGroup aria-label='Media library' className='**:data-[slot=button]:border-0'>
-          <Button><Icon name='FileIcon' />Docs</Button>
+          <Button size='sm'><Icon name='FileIcon' />Docs</Button>
           <ButtonGroupSeparator className='bg-ui-primary-foreground/20' />
-          <Button><Icon name='FolderIcon' />Projects</Button>
+          <Button size='sm'><Icon name='FolderIcon' />Projects</Button>
           <ButtonGroupSeparator className='bg-ui-primary-foreground/20' />
-          <Button><Icon name='ImageIcon' />Media</Button>
+          <Button size='sm'><Icon name='ImageIcon' />Media</Button>
         </ButtonGroup>
         <ButtonGroup aria-label='Dashboard actions'>
           <Button variant='outline' size='icon-sm' aria-label='Refresh'><Icon name='RefreshCwIcon' /></Button>

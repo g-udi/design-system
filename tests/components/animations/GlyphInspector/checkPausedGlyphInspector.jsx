@@ -5,6 +5,7 @@ import { act } from '../../../support/reactAct.js';
 import { GlyphInspector } from '../../../../src/components/animations/GlyphInspector/index.js';
 
 export async function checkPausedGlyphInspector(canvasElement) {
+  if (import.meta.env.MODE !== 'test') return;
   const sandbox = document.createElement('div');
   sandbox.style.cssText = 'position:fixed;top:0;left:0;width:320px;font-size:72px;background:var(--ds-color-surface);z-index:1000';
   canvasElement.append(sandbox);

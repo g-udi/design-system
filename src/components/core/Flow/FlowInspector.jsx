@@ -59,10 +59,10 @@ export function FlowInspector({
   }, [measureCanvas]);
   const wide = canvasSize.width >= breakpoint;
   const titleId = useId();
-  const [tab, setTab] = useState(defaultTab || tabs[0]?.value);
-  useEffect(() => {
-    if (!tabs.some((item) => item.value === tab)) setTab(defaultTab || tabs[0]?.value);
-  }, [tabs, tab, defaultTab]);
+  const [tab, setTab] = useState(defaultTab ?? tabs[0]?.value);
+  const activeTab = tabs.find(item => item.value === tab)?.value
+    ?? tabs.find(item => item.value === defaultTab)?.value
+    ?? tabs[0]?.value;
 
   // Back to the node that opened the panel, so keyboard users keep their place on the canvas.
   const returnFocus = () => {
@@ -96,7 +96,7 @@ export function FlowInspector({
   const body = (
     <>
       {tabs.length > 0 && (
-        <Tabs value={tab} onValueChange={setTab} className='ds-flow-inspector-tabs'>
+        <Tabs value={activeTab} onValueChange={setTab} className='ds-flow-inspector-tabs'>
           <TabsList variant='underline' aria-label={labels.tabs} className='px-4'>
             {tabs.map((item) => <TabsTrigger key={item.value} value={item.value}>{item.label}</TabsTrigger>)}
           </TabsList>

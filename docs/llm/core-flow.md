@@ -18,11 +18,14 @@ Exports: `DEFAULT_FLOW_INSPECTOR_LABELS`, `DEFAULT_FLOW_LABELS`, `FLOW_EDGE_VARI
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `label` | `string` | `Required` | no | Accessible name of the canvas region. |
-| `nodes / edges` | `Node[] / Edge[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
-| `defaultNodes / defaultEdges` | `Node[] / Edge[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
+| `nodes` | `Node[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
+| `edges` | `Edge[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
+| `defaultNodes` | `Node[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
+| `defaultEdges` | `Edge[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
 | `node.type` | `step \| pill \| tile \| task` | `step` | no | Card, compact pill, service tile with a run badge (round with data.shape circle, for satellites), or a one-line task card with an inline data.action. |
 | `node.data.status` | `idle \| queued \| running \| success \| failed \| waiting \| blocked \| skipped` | — | no | Run state shown as a Badge, a tinted ring and the minimap colour; statusLabel overrides the text. |
-| `node.data.outputs / ports` | `{ id, label? }[] / { id, label, position, type }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
+| `node.data.outputs` | `{ id, label? }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
+| `ports` | `{ id, label, position, type }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
 | `edge.data` | `{ label, tone, status, variant, animated, path, emphasis, onInsert }` | — | no | Connector label, colour or run status, solid \| dashed \| dotted line, a flow toward the target, path shape and an insert button. |
 | `background` | `dots \| lines \| cross \| none` | `dots` | no | Canvas pattern. |
 | `controls / minimap` | `boolean` | `true / false` | no | Built-in zoom controls and the overview map. Render FlowControls yourself for the toolbar variant, Auto layout (onAutoLayout), Fit selection, select / pan tools and the issues count. |

@@ -60,6 +60,7 @@
   [data-slot='slider'],
   [data-slot='progress'],
   [data-slot='avatar'],
+  .ds-part-avatar,
   [data-slot='avatar-group-count'],
   [data-slot='message-avatar'],
   [data-slot='kbd'],

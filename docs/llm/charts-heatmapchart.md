@@ -20,21 +20,27 @@ Exports: `HeatmapChart`, `default`, `heatmapStep`
 | `data` | `Array<{ x, y, value }>` | `[]` | no | Cells. |
 | `xKey / yKey / valueKey` | `string` | `x / y / value` | no | Field names. |
 | `xLabels / yLabels` | `string[]` | `first appearance` | no | Column and row order. |
-| `scale / midpoint` | `sequential \| diverging / number` | `sequential / 0` | no | Ramp; diverging centres on midpoint. |
-| `showValues / valueLabel` | `boolean / string` | `up to 12 columns / Value` | no | Print values in cells; their name in the readout. |
+| `scale` | `sequential \| diverging` | `sequential` | no | Ramp; diverging centres on midpoint. |
+| `midpoint` | `number` | `0` | no | Ramp; diverging centres on midpoint. |
+| `showValues` | `boolean` | `up to 12 columns` | no | Print values in cells; their name in the readout. |
+| `valueLabel` | `string` | `Value` | no | Print values in cells; their name in the readout. |
 | `title / description` | `ReactNode` | — | no | Figure caption above the plot. |
 | `ariaLabel` | `string` | `title or Chart` | no | Accessible name of the plot, the single keyboard stop. |
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `scale`: `sequential`, `diverging`
 - `state`: `loading`, `error`, `empty`, `invalid`
 - `showData`: `hidden`, `toggle`, `visible`
 

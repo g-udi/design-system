@@ -17,15 +17,30 @@ Exports: `ChatAudioPlayer`, `ChatMicSelector`, `ChatSpeechInput`, `ChatVoiceSele
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `ChatSpeechInput.onTranscript / onInterim` | `(text, { final }) => void / (text) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
+| `ChatSpeechInput.onTranscript` | `(text, { final }) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
+| `onInterim` | `(text) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
 | `ChatSpeechInput.onAudio` | `(blob: Blob) => string \| Promise<string> \| void` | — | no | MediaRecorder fallback; return the transcript. |
-| `ChatSpeechInput.mode / lang / deviceId` | `auto \| speech \| recorder / string / string` | `auto / en-US / —` | no | Engine, recognition language and input device. |
-| `ChatSpeechInput.onStateChange / onError / onLevel` | `(state) => void / (kind, cause) => void / (level) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
-| `ChatMicSelector.value / onValueChange / meter` | `string / (deviceId, device) => void / boolean` | `— / — / true` | no | Chosen device and a Test level meter. |
+| `ChatSpeechInput.mode` | `auto \| speech \| recorder` | `auto` | no | Engine, recognition language and input device. |
+| `lang` | `string` | `en-US` | no | Engine, recognition language and input device. |
+| `deviceId` | `string` | — | no | Engine, recognition language and input device. |
+| `ChatSpeechInput.onStateChange` | `(state) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `onError` | `(kind, cause) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `onLevel` | `(level) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `ChatMicSelector.value` | `string` | — | no | Chosen device and a Test level meter. |
+| `onValueChange` | `(deviceId, device) => void` | — | no | Chosen device and a Test level meter. |
+| `meter` | `boolean` | `true` | no | Chosen device and a Test level meter. |
 | `ChatVoiceSelector.voices` | `Array<{ id, name, provider?, gender?, accent?, age?, style?, description?, previewUrl? }>` | `[]` | no | The voices, supplied by the app. |
-| `ChatVoiceSelector.value / onValueChange / onPreview / groupBy / searchable` | `string / (id, voice) => void / (voice, { signal }) => Promise / string / boolean` | — | no | Choice, sample playback, headings and filter. |
-| `ChatAudioPlayer.src / title / peaks / duration` | `string / string / number[] / number` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
-| `ChatAudioPlayer.speeds / download` | `number[] / boolean \| string` | `[1, 1.5, 2] / false` | no | Speed toggle and an optional download. |
+| `ChatVoiceSelector.value` | `string` | — | no | Choice, sample playback, headings and filter. |
+| `onValueChange` | `(id, voice) => void` | — | no | Choice, sample playback, headings and filter. |
+| `onPreview` | `(voice, { signal }) => Promise` | — | no | Choice, sample playback, headings and filter. |
+| `groupBy` | `string` | — | no | Choice, sample playback, headings and filter. |
+| `searchable` | `boolean` | — | no | Choice, sample playback, headings and filter. |
+| `ChatAudioPlayer.src` | `string` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `title` | `string` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `peaks` | `number[]` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `duration` | `number` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `ChatAudioPlayer.speeds` | `number[]` | `[1, 1.5, 2]` | no | Speed toggle and an optional download. |
+| `download` | `boolean \| string` | `false` | no | Speed toggle and an optional download. |
 | `useAudioLevel(stream, { onLevel })` | `{ levelRef, waveformRef }` | — | no | Live level and samples for ChatPersona. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

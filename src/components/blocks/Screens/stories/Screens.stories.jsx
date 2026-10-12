@@ -42,7 +42,7 @@ export const ScreenFrame = {
       description: {
         story: 'A sign-in screen: the AuthForm in the main column beside an `aside` of imagery, customer quotes or logos. `asideSide` moves the aside to the start or end from md up; below md it hides so the form comes first. `header` and `footer` add bands for the logo, account links and legal links. `mode` switches the form between password, email link and sign-up.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('ScreenExample', args, { imports: publicSource(ScreenExampleSource, new URL('./fixtures/ScreenExample.jsx', import.meta.url)), attributes: ['onSubmit={async () => { /* Simulated successful sign-in. */ }}'] }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('ScreenExample', args, { imports: publicSource(ScreenExampleSource, new URL('./fixtures/ScreenExample.jsx', import.meta.url)), attributes: ['onSubmit={async () => { /* Simulated successful sign-in. */ }}'] }) }
     }
   },
   render: (args) => <ScreenExample {...args} />,

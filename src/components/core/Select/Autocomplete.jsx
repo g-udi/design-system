@@ -84,7 +84,7 @@ function AutocompletePositioner({ className, ...props }) {
     />
   );
 }
-function AutocompleteList({ className, scrollAreaClassName, ...props }) {
+function AutocompleteList({ className, scrollAreaClassName, 'aria-label': ariaLabel = 'Suggestions', ...props }) {
   return (
     <ScrollArea
       className={cn(
@@ -94,6 +94,7 @@ function AutocompleteList({ className, scrollAreaClassName, ...props }) {
     >
       <AutocompletePrimitive.List
         data-slot='autocomplete-list'
+        aria-label={ariaLabel}
         className={cn(
           'not-empty:px-1 not-empty:py-1 not-empty:scroll-py-1 in-data-has-overflow-y:me-3',
           className

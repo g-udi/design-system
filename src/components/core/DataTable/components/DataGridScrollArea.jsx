@@ -307,7 +307,7 @@ function DataGridScrollArea({
         <ScrollAreaPrimitive.Viewport
           ref={mergedViewportRef}
           data-slot='scroll-area-viewport'
-          className='size-full'
+          className='size-full [contain:inline-size]'
         >
           <ScrollAreaPrimitive.Content data-slot='scroll-area-content'>
             {children}

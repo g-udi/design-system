@@ -77,11 +77,11 @@ export function Pattern() {
       </Row>
       <Row label='Pagination'>
         <ButtonGroup aria-label='Pagination'>
-          <Button variant='outline' size='sm' disabled={page === 1} onClick={() => setPage(page - 1)}><Icon name='ArrowLeftIcon' />Previous</Button>
+          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 1} onClick={() => setPage(page - 1)}><Icon name='ArrowLeftIcon' /><span className='max-sm:sr-only'>Previous</span></Button>
           {[1, 2, 3, 4, 5].map((n) => (
             <Button
               key={n}
-              size='icon-sm'
+              size='icon-xs'
               variant={n === page ? 'default' : 'outline'}
               aria-current={n === page ? 'page' : undefined}
               className='text-xs tabular-nums'
@@ -90,7 +90,7 @@ export function Pattern() {
               {n}
             </Button>
           ))}
-          <Button variant='outline' size='sm' disabled={page === 5} onClick={() => setPage(page + 1)}>Next<Icon name='ArrowRightIcon' /></Button>
+          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 5} onClick={() => setPage(page + 1)}><span className='max-sm:sr-only'>Next</span><Icon name='ArrowRightIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup aria-label='Compact pagination'>
           <Button variant='outline' size='icon-sm' aria-label='Previous page' disabled={page === 1} onClick={() => setPage(page - 1)}><Icon name='ChevronLeftIcon' /></Button>

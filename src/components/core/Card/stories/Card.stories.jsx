@@ -67,7 +67,7 @@ export const Playground = {
     docs: {
       description: { story: 'An article card with an author, reading time, and actions beside a metric card with a goal bar. Title and subtitle drive the article; the surface controls apply to both cards, and `interactive` adds hover elevation while the actions stay real links and buttons.' },
       source: {
-        type: 'dynamic', language: 'jsx',
+        type: 'code', language: 'jsx',
         transform: (_source, { args }) => previewSource('Card', args, {
           imports: "import { useState } from 'react';\nimport { Avatar, Button, Card } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
           before: 'export function Example() {\n  const [saved, setSaved] = useState(false);\n  return (\n',

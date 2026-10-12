@@ -28,6 +28,7 @@ export async function auditSelectMenus(context) {
     await userEvent.click(trigger);
     if (trigger.tagName === 'INPUT') await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => expect(document.querySelector(popupSelector)).toBeVisible());
+    await expect(within(document.body).getByRole('listbox')).toHaveAccessibleName();
     await auditOverlayState({
       ...context,
       beforeAuditWidth: async () => {

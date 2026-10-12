@@ -12,12 +12,6 @@ import { useOnlineStatus } from '@gaudi/design-system/hooks';
 
 Exports: `useOnlineStatus`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
-
 ## Returns
 
 | Name | Type | Description |

@@ -142,6 +142,7 @@ function RunRow({ run }) {
   );
 }
 function ProjectFilter({ query, onChange }) {
+  const searchRef = useRef(null);
   return (
     /*
       The form and the `py-0` group are shadcn's own SearchForm shape
@@ -157,6 +158,7 @@ function ProjectFilter({ query, onChange }) {
               <RegistryIcon lucide='SearchIcon' aria-hidden='true' />
             </InputGroupAddon>
             <InputGroupInput
+              ref={searchRef}
               value={query}
               onChange={(event) => onChange(event.target.value)}
               placeholder='Filter projects'
@@ -167,7 +169,7 @@ function ProjectFilter({ query, onChange }) {
                 <InputGroupButton
                   size='icon-xs'
                   aria-label='Clear filter'
-                  onClick={() => onChange('')}
+                  onClick={() => { onChange(''); searchRef.current?.focus(); }}
                 >
                   <RegistryIcon lucide='XIcon' aria-hidden='true' />
                 </InputGroupButton>

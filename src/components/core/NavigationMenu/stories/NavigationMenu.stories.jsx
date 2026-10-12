@@ -67,7 +67,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'A blog header with a current link, two dropdown panels and a plain link. `defaultOpen` starts the Categories panel open, `align` and `width` place and size it, and `columns` sets its grid. Panels open on click and close on Escape or an outside click.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_code, { args }) => menuSource(args) }
+      source: { type: 'code', language: 'jsx', transform: (_code, { args }) => menuSource(args) }
     }
   },
   decorators: [(Story) => <div className='min-h-80'><Story /></div>],

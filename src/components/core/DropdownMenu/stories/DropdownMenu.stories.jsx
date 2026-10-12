@@ -35,7 +35,7 @@ export const Playground = {
       description: {
         story: 'The action menu for one article, open so every item kind is visible: icons with shortcuts, two checkbox toggles, an unavailable Publish, and a destructive Archive. `align` lines the menu up with the start, centre, or end of its trigger.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('ActionsExample', args, { before: `${publicSource(actionSource, new URL('./fixtures/ArticleActionsExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('ActionsExample', args, { before: `${publicSource(actionSource, new URL('./fixtures/ArticleActionsExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <ActionsExample {...args} />,

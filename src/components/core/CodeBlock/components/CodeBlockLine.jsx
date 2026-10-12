@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 const TOKEN_COLOR_CLASS =
-  '[&_[data-slot=code-block-token]]:text-[color:color-mix(in_srgb,var(--cb-c,currentColor)_70%,var(--ds-color-text))] dark:[&_[data-slot=code-block-token]]:text-[color:color-mix(in_srgb,var(--cb-cd,currentColor)_85%,var(--ds-color-text))]';
+  '[&_[data-slot=code-block-token]]:text-[color:color-mix(in_srgb,var(--cb-c,currentColor)_70%,var(--ds-color-text))] dark:[&_[data-slot=code-block-token]]:text-[color:color-mix(in_srgb,var(--cb-cd,currentColor)_80%,var(--ds-color-text))]';
 const LINE_NUMBER_CLASS = [
   '[[data-code-line-numbers]_&]:before:pointer-events-none',
   '[[data-code-line-numbers]_&]:before:sticky',

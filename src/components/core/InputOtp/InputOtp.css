@@ -1,10 +1,10 @@
 @layer components {
   .ds-part-input-otp {
-    @apply gap-2;
+    @apply min-w-0 max-w-full gap-2;
   }
 
   .ds-part-input-otp-group {
-    @apply has-aria-invalid:ring-ui-destructive/20 dark:has-aria-invalid:ring-ui-destructive/40 has-aria-invalid:border-ui-destructive rounded-lg has-aria-invalid:ring-3;
+    @apply min-w-0 has-aria-invalid:ring-ui-destructive/20 dark:has-aria-invalid:ring-ui-destructive/40 has-aria-invalid:border-ui-destructive rounded-lg has-aria-invalid:ring-3;
   }
 
   .ds-part-input-otp-slot {

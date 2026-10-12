@@ -301,10 +301,14 @@ export function FilterValuePopover({
   const focusStore = useFilterFocusStore();
   const autoOpen = useFilterChipAutoOpen(rule.id) === 'value';
   const [open, setOpen] = React.useState(false);
+  const [editorSession, setEditorSession] = React.useState(0);
   const locked = isFilterLocked(actions);
   React.useEffect(() => {
     if (!autoOpen || open) return;
-    if (!locked) setOpen(true);
+    if (!locked) {
+      setEditorSession(session => session + 1);
+      setOpen(true);
+    }
     focusStore.set({ id: rule.id, segment: 'value', autoOpen: false });
   }, [autoOpen, open, focusStore, rule.id, locked]);
   if (!operator || !actions.resolveEditor(field, operator)) {
@@ -320,6 +324,7 @@ export function FilterValuePopover({
       open={open}
       onOpenChange={(next) => {
         if (next && locked) return;
+        if (next && !open) setEditorSession(session => session + 1);
         setOpen(next);
       }}
     >
@@ -337,6 +342,9 @@ export function FilterValuePopover({
       </PopoverTrigger>
       <PopoverContent align='start' className={cn('w-auto p-0', className)}>
         <FilterValueEditor
+          // Reopening during the exit transition starts a fresh edit session,
+          // including consumer editor state and completion callbacks.
+          key={editorSession}
           rule={rule}
           field={field}
           operator={operator}

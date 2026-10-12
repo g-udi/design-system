@@ -31,7 +31,7 @@ Exports: `default`
 
 ## Accessibility
 
-The listing preserves nested list semantics and has a named keyboard-scrollable region. isOpen controls which authored branches are shown; use Core/Tree for an interactive file explorer.
+The listing composes Core Card and Item, preserves nested list semantics and has a named keyboard-scrollable region. isOpen controls which authored branches are shown; use Core/Tree for an interactive file explorer.
 
 ## Examples
 
@@ -39,4 +39,4 @@ The listing preserves nested list semantics and has a named keyboard-scrollable 
 
 ## Related
 
-`core-tree`
+`core-card`, `core-item`, `core-tree`

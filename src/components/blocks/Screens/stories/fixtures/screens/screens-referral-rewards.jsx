@@ -16,6 +16,7 @@ import {
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { cn } from '@gaudi/design-system/utilities/cn';
+import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 
 const link = 'https://gaudi.app/r/maya-lopez';
 const referred = 7;
@@ -32,12 +33,11 @@ const activity = [
 ];
 
 export function Pattern() {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    await navigator.clipboard?.writeText(link).catch(() => {});
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+  const [message, setMessage] = useState('');
+  const { copy, isCopied: copied } = useCopyToClipboard({
+    onCopy: () => setMessage('Demo referral link copied.'),
+    onError: () => setMessage('Could not copy. Select the referral link and copy it manually.')
+  });
   const next = tiers.find((tier) => tier.count > referred);
   return (
     <div className='grid w-full max-w-4xl gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]'>
@@ -49,26 +49,27 @@ export function Pattern() {
         <InputGroup>
           <InputGroupInput readOnly value={link} aria-label='Referral link' />
           <InputGroupAddon align='inline-end'>
-            <InputGroupButton size='xs' onClick={copy}>
+            <InputGroupButton size='xs' onClick={() => copy(link)}>
               <RegistryIcon lucide={copied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
               {copied ? 'Copied' : 'Copy link'}
             </InputGroupButton>
           </InputGroupAddon>
         </InputGroup>
         <div className='flex flex-wrap gap-2'>
-          <Button size='sm' variant='outline'>
+          <Button size='sm' variant='outline' onClick={() => setMessage('Email sharing is not connected in this demo. Copy the link to share it.')}>
             <RegistryIcon lucide='MailIcon' aria-hidden='true' />
             Email
           </Button>
-          <Button size='sm' variant='outline'>
+          <Button size='sm' variant='outline' onClick={() => setMessage('Posting is not connected in this demo. Copy the link to share it.')}>
             <RegistryIcon lucide='TwitterIcon' aria-hidden='true' />
             Post
           </Button>
-          <Button size='sm' variant='outline'>
+          <Button size='sm' variant='outline' onClick={() => setMessage('LinkedIn sharing is not connected in this demo. Copy the link to share it.')}>
             <RegistryIcon lucide='LinkedinIcon' aria-hidden='true' />
             Share
           </Button>
         </div>
+        <p role='status' aria-label='Referral action' className='text-text-muted text-sm'>{message || 'Demo rewards and referral activity. Sharing services are not connected.'}</p>
         <div className='grid gap-2'>
           <h3 className='text-sm font-medium'>Recent referrals</h3>
           <ul className='grid gap-2.5'>

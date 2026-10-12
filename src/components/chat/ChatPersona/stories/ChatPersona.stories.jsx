@@ -4,6 +4,7 @@ import { playgroundSource } from '../../../../docs/components/previewSource';
 import { default as Button } from '../../../core/Button/index.js';
 import { chatMeta } from '../../stories/story-helpers.jsx';
 import { ChatPersona, personaStates, personaVariants } from '../index.js';
+import { checkPersonaScopedTheme } from '../../../../../tests/components/chat/checkCompositionReuse.jsx';
 
 export default {
   title: 'Chat/ChatPersona',
@@ -29,6 +30,7 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const orb = within(canvasElement).getByRole('img', { name: new RegExp(`^${args.name}: `) });
     await expect(orb.querySelector('[data-slot="voice-orb"]')).toHaveAttribute('data-orb', args.variant);
+    await checkPersonaScopedTheme(canvasElement);
   }
 };
 

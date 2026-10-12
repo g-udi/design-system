@@ -55,3 +55,13 @@ test('MDX fences preserve a zero-based starting line through the Core renderer',
   assert.match(html, /data-code-line="1"/);
   assert.doesNotMatch(html, /data-code-line="2"/);
 });
+
+ test('code groups preserve metadata supplied by earlier authoring plugins', () => {
+  const fence = code('js', '{1}');
+  fence.data = { hProperties: { 'data-title': 'legacy.js', 'data-custom': 'kept' } };
+  const tree = { type: 'root', children: [text('::: code-group labels=[Fallback]'), fence, text(':::')] };
+  remarkCode()(tree);
+  assert.deepEqual(tree.children[0].children[0].data.hProperties, {
+    'data-title': 'legacy.js', 'data-custom': 'kept', 'data-highlight': '1'
+  });
+});

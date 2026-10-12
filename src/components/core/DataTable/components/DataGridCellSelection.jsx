@@ -854,7 +854,10 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
         dragStartSelectionKey = getSelectionKey();
         viewport.setAttribute('data-cell-selecting', '');
       }
-      if (!target?.closest?.('[data-slot="data-grid-cell-fill-handle"]'))
+    };
+    const handleFillPointerDown = (event) => {
+      if (event.button !== 0 || !event.isPrimary) return;
+      if (!event.target?.closest?.('[data-slot="data-grid-cell-fill-handle"]'))
         return;
       event.preventDefault();
       event.stopPropagation();
@@ -862,6 +865,7 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
       cancelFill = startDataGridFillSession({
         table: getTable(),
         viewport,
+        pointerId: event.pointerId,
         onCellsChange: (details) => getOnCellsChange()?.(details)
       });
     };
@@ -894,6 +898,7 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
       viewport.addEventListener('paste', handlePaste);
     }
     viewport.addEventListener('pointerdown', handleControlPointerDown);
+    viewport.addEventListener('pointerdown', handleFillPointerDown);
     viewport.addEventListener('mousedown', handleControlMouseDown);
     viewport.addEventListener('click', handleControlClick);
     viewport.addEventListener('mousedown', handleMouseDown);
@@ -942,6 +947,7 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
         viewport.removeEventListener('paste', handlePaste);
       }
       viewport.removeEventListener('pointerdown', handleControlPointerDown);
+      viewport.removeEventListener('pointerdown', handleFillPointerDown);
       viewport.removeEventListener('mousedown', handleControlMouseDown);
       viewport.removeEventListener('click', handleControlClick);
       viewport.removeEventListener('mousedown', handleMouseDown);

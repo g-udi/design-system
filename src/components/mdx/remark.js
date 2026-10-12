@@ -65,7 +65,7 @@ function transform(parent) {
       const labels = groupLabels(node);
       const fences = children.slice(index + 1, end).filter((child) => child.type === 'code');
       fences.forEach((fence, at) => {
-        const hProperties = { ...fenceMeta(fence.meta) };
+        const hProperties = { ...fence.data?.hProperties, ...fenceMeta(fence.meta) };
         if (!hProperties['data-title'] && labels[at]) hProperties['data-title'] = labels[at];
         fence.data = { ...fence.data, hProperties };
       });

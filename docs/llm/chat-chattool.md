@@ -20,12 +20,18 @@ Exports: `ChatMessageData`, `ChatMessageTool`, `ChatMessageToolApproval`, `appro
 | `name` | `string` | — | no | Tool name. |
 | `status` | `pending \| running \| done \| failed \| cancelled \| awaiting \| denied` | `pending` | no | Status badge; failed opens with the error. |
 | `defaultOpen` | `boolean` | `false` | no | Initial disclosure; a failed call opens on its own. |
-| `input / output / error` | `unknown / unknown / string` | — | no | Shown with ChatMessageData. |
+| `input` | `unknown` | — | no | Shown with ChatMessageData. |
+| `output` | `unknown` | — | no | Shown with ChatMessageData. |
+| `error` | `string` | — | no | Shown with ChatMessageData. |
 | `onRetry` | `function` | — | no | Retry a failed call. |
-| `ChatMessageData.value / label` | `unknown / string` | — | no | A list or table with a JSON view. |
+| `ChatMessageData.value` | `unknown` | — | no | A list or table with a JSON view. |
+| `label` | `string` | — | no | A list or table with a JSON view. |
 | `ChatMessageToolApproval.state / defaultState / onStateChange` | `requested \| approved \| denied \| executed` | `requested` | no | Approval lifecycle; control it to move to executed with the result as children. |
-| `ChatMessageToolApproval.onApprove / onDeny` | `({ always }) => void / () => void` | — | no | The person’s decision; always is the “always allow” choice. |
-| `ChatMessageToolApproval.allowAlways / reason / labels` | `boolean / ReactNode / object` | `false / — / English copy` | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `ChatMessageToolApproval.onApprove` | `({ always }) => void` | — | no | The person’s decision; always is the “always allow” choice. |
+| `onDeny` | `() => void` | — | no | The person’s decision; always is the “always allow” choice. |
+| `ChatMessageToolApproval.allowAlways` | `boolean` | `false` | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `reason` | `ReactNode` | — | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `labels` | `object` | `English copy` | no | Offer “always allow”, explain a denial, and replace the copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

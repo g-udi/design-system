@@ -75,7 +75,7 @@ export function Pattern() {
         <Button variant='outline' size='icon' aria-label='View recent activity'><Icon name='ClockIcon' /></Button>
       </ButtonGroup>
 
-      <div className='flex items-center gap-2'>
+      <div className='flex flex-wrap items-center gap-2'>
         <Button variant='outline'><Icon name='EyeIcon' />Preview</Button>
         <ButtonGroup aria-label='Publish' className='**:data-[slot=button]:border-x-0'>
           <Button><Icon name='SendIcon' />Publish</Button>

@@ -58,7 +58,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'A TypeScript hook with a file header, language badge and copy button. `highlightedLines` takes a line spec such as `3-5` or `2,7`, `startLine` offsets the gutter, `wrap` soft-wraps the long formatter line, and a `maxLines` above zero collapses the block behind an expand button. Turning `header` off pins the copy button over the code.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args: { header, title, maxLines, onCopyClick: _onCopyClick, ...args } }) => previewSource('CodeBlock', { ...args, maxLines: maxLines > 0 ? maxLines : undefined }, {
+      source: { type: 'code', language: 'jsx', transform: (_source, { args: { header, title, maxLines, onCopyClick: _onCopyClick, ...args } }) => previewSource('CodeBlock', { ...args, maxLines: maxLines > 0 ? maxLines : undefined }, {
         imports: `import { CodeBlock, CodeBlockCopyButton, CodeBlockExpandButton, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle } from '@gaudi/design-system';\n\nconst code = ${JSON.stringify(code)};`,
         attributes: ['code={code}', "language='typescript'"],
         children: `${header ? `<CodeBlockHeader><CodeBlockTitle>{${JSON.stringify(title)}}</CodeBlockTitle><CodeBlockLanguage /><CodeBlockCopyButton className='ml-auto' /></CodeBlockHeader>` : '<CodeBlockCopyButton />'}${maxLines > 0 ? '\n<CodeBlockExpandButton />' : ''}`

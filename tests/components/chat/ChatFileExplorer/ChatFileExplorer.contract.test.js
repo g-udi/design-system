@@ -89,6 +89,7 @@ test('empty folders remain tree entries and search results without increasing th
   const html = render({ items });
   assert.match(html, /role="tree"/);
   assert.match(html, /aria-label="Search files"/);
-  assert.match(html, /aria-label="0 files"/);
+  assert.doesNotMatch(html, /aria-label="0 files"/);
+  assert.match(html, />0<span class="sr-only"> files<\/span>/);
   assert.doesNotMatch(html, /No files yet/);
 });

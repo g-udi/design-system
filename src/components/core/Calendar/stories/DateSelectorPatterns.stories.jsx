@@ -32,12 +32,10 @@ export const DateSelectorOptions = {
     const canvas = within(context.canvasElement);
     await userEvent.click(canvas.getByRole('radio', { name: 'between', exact: true }));
     const days = [...context.canvasElement.querySelectorAll('[data-slot="calendar"] button[data-day]')];
-    const late = days.find((button) => new Date(button.dataset.day).getDate() === 20);
-    const early = days.find((button) => {
-      const date = new Date(button.dataset.day);
-      const end = new Date(late.dataset.day);
-      return date.getDate() === 10 && date.getMonth() === end.getMonth();
-    });
+    // data-day is localized metadata; select actual days in one visible month.
+    const late = days.find((button) => !button.closest('[data-outside="true"]') && button.textContent.trim() === '20');
+    const month = late.closest('[role="grid"]');
+    const early = days.find((button) => button.closest('[role="grid"]') === month && !button.closest('[data-outside="true"]') && button.textContent.trim() === '10');
     // Keyboard selection has no hover preview to reorder the range for us.
     late.focus();
     await userEvent.keyboard('{Enter}');

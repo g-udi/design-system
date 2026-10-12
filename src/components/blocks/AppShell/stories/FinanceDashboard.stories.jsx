@@ -1,6 +1,6 @@
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
-import { desktopSidebar, expectFramed, expectHeaderToggle, openNavigation } from './AppShell.story-steps.js';
+import { closeMobileNavigation, desktopSidebar, expectFramed, expectHeaderToggle, openNavigation } from './AppShell.story-steps.js';
 import { checkFinanceLayout } from '../../../../../tests/components/blocks/AppShell/checkFinanceLayout.js';
 
 const pattern = patternStories(
@@ -26,6 +26,7 @@ export const FinanceDashboard = {
 
     const nav = await openNavigation(canvasElement);
     await userEvent.click(nav.getByRole('link', { name: 'Customers', exact: true }));
+    await closeMobileNavigation(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Select role' }));
     await userEvent.click(await body.findByRole('option', { name: 'Editor', exact: true }));
     await expect(canvas.getByText('2 of 5 customers')).toBeVisible();
@@ -57,11 +58,13 @@ export const FinanceDashboard = {
     for (const name of ['Cash flow', 'Net worth', 'Transactions', 'Invoices', 'Products', 'Visitors']) {
       const navigation = await openNavigation(canvasElement);
       await userEvent.click(navigation.getByRole('link', { name, exact: true }));
+      await closeMobileNavigation(canvasElement);
       await expect(canvas.getByRole('heading', { name, exact: true, level: 1 })).toBeVisible();
     }
 
     const finalNav = await openNavigation(canvasElement);
     await userEvent.click(finalNav.getByRole('link', { name: 'Finance', exact: true }));
+    await closeMobileNavigation(canvasElement);
     const sidebar = desktopSidebar(canvasElement);
     if (sidebar) {
       const toggle = await expectHeaderToggle(canvasElement);

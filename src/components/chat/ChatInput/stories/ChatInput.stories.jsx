@@ -248,7 +248,7 @@ export const AssistantComposer = {
         story:
           'The card composer from an assistant home: a `+` menu for files and photos, a searchable model list grouped by provider (Claude and OpenAI from story fixture data, with context window, speed, cost and capability badges), an options popover with effort and switches, and the context meter with its token and cost breakdown. The microphone holds the send slot while the prompt is empty and send returns once there is text. Use the side controls to place each control independently in `leftControls` or `rightControls`. Both groups wrap on narrow screens; the send/stop/voice group stays together at the trailing edge.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => assistantComposerSource(args) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => assistantComposerSource(args) }
     }
   },
   render: (args) => <AssistantComposerExample {...args} />,
@@ -274,7 +274,7 @@ export const AssistantComposer = {
       await userEvent.click(canvas.getByRole('button', { name: 'Model: GPT-4o' }));
       const search = await page.findByRole('combobox', { name: 'Search models' });
       await waitFor(() => expect(search).toHaveFocus());
-      await expect(page.getByText('Anthropic')).toBeVisible();
+      await waitFor(() => expect(page.getByText('Anthropic')).toBeVisible());
       await expect(page.getByRole('option', { name: /GPT-4o/ })).toHaveAttribute('aria-checked', 'true');
       await userEvent.type(search, 'haiku');
       await waitFor(() => expect(page.queryByRole('option', { name: /GPT-4o/ })).not.toBeInTheDocument());
@@ -357,7 +357,7 @@ export const HostEvents = {
         onSelect: () => setSelected(true),
         onKeyDown: (event) => { if (event.key === 'Enter') event.preventDefault(); }
       }} />
-      <output data-testid='host-events' className='text-xs text-text-muted'>{JSON.stringify({ changed, clicked, selected, sent })}</output>
+      <output data-testid='host-events' className='min-w-0 break-all text-xs text-text-muted'>{JSON.stringify({ changed, clicked, selected, sent })}</output>
       <InputGroupButton onClick={() => textarea.current?.focus()}>Focus message</InputGroupButton>
     </div>;
   },

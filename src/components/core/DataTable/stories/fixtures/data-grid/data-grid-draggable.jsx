@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from 'react';
+import Link from '@gaudi/design-system/core/Link';
 import {
   DataGrid,
   DataGridContainer,
@@ -156,12 +157,14 @@ export function Pattern() {
         id: 'email',
         header: 'Email',
         cell: (info) => (
-          <a
+          <Link
             href={`mailto:${info.getValue()}`}
-            className='hover:text-ui-primary text-truncate hover:underline'
+            variant='bare'
+            title={info.getValue()}
+            className='block truncate hover:text-ui-primary hover:underline'
           >
             {info.getValue()}
-          </a>
+          </Link>
         ),
         size: 150,
         meta: {

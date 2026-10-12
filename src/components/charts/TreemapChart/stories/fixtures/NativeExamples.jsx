@@ -7,7 +7,7 @@ const sections = [
   { name: 'Docs', children: [{ name: 'Guides', value: 690 }, { name: 'Reference', value: 380 }] }
 ];
 
-export const PlaygroundExample = ({ state, ...args }) => <TreemapChart {...args} ariaLabel='Hours read by section' data={stateData(state, sections)} formatValue={(value) => `${value} h`} state={forcedState(state)} />;
+export const PlaygroundExample = ({ state, ...args }) => <TreemapChart {...args} ariaLabel='Hours read by section' data={stateData(state, sections)} formatValue={{ style: 'unit', unit: 'hour' }} state={forcedState(state)} />;
 
 export const FlatExample = () => (
     <TreemapChart

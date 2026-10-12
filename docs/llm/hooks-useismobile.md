@@ -12,12 +12,6 @@ import { useIsMobile } from '@gaudi/design-system/hooks';
 
 Exports: `MOBILE_BREAKPOINT`, `useIsMobile`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments; the breakpoint is MOBILE_BREAKPOINT (768). |
-
 ## Returns
 
 | Name | Type | Description |

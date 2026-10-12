@@ -55,4 +55,34 @@ export const Thumbnails = {
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Show slide 4' })).toHaveAttribute('aria-current', 'true'));
   }
 };
-export const Autoplay = { name: 'Autoplay', ...pattern('autoplay', 'The autoplay plugin advances every two seconds.') };
+export const Autoplay = {
+  name: 'Autoplay',
+  ...pattern('autoplay', 'Slides advance every two seconds, with a pause control. Reduced motion starts paused; manual navigation stops playback.'),
+  play: async (context) => {
+    const { canvasElement } = context;
+    const canvas = within(canvasElement);
+    const previous = canvas.getByRole('button', { name: 'Previous slide' });
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reducedMotion) await userEvent.click(await canvas.findByRole('button', { name: 'Play slideshow' }));
+    await waitFor(() => expect(previous).toBeEnabled(), { timeout: 3500 });
+    await userEvent.click(canvas.getByRole('button', { name: 'Pause slideshow' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Play slideshow' })).toBeVisible());
+    await userEvent.click(previous);
+    await waitFor(() => expect(previous).toBeDisabled());
+    await new Promise(resolve => setTimeout(resolve, 2150));
+    await expect(previous).toBeDisabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Play slideshow' }));
+    await waitFor(() => expect(previous).toBeEnabled(), { timeout: 3500 });
+    await userEvent.click(canvas.getByRole('button', { name: 'Next slide' }));
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Play slideshow' })).toBeVisible());
+    await userEvent.click(canvas.getByRole('button', { name: 'Play slideshow' }));
+    await userEvent.pointer({ target: canvasElement.querySelector('[data-slot="carousel-content"]'), keys: '[MouseLeft]' });
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Play slideshow' })).toBeVisible());
+    const { checkReducedMotionAutoplay } = await import('../../../../../tests/components/core/Carousel/checkReducedMotionAutoplay.jsx');
+    await checkReducedMotionAutoplay(canvasElement);
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--paused` });
+    }
+  },
+};

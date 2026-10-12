@@ -166,13 +166,13 @@ export function Pattern() {
          */}
         <CardHeader className='shrink-0 border-b py-4'>
           <CardTitle>Author support</CardTitle>
-          <CardDescription className='flex items-center gap-2'>
+          <CardDescription className='col-span-2 flex flex-wrap items-center gap-2'>
             <HistoryChip />
             <span>
               {visible.length} of {HISTORY.length} messages
             </span>
           </CardDescription>
-          <CardAction>
+          <CardAction className='row-span-1'>
             <Button
               variant='outline'
               size='sm'

@@ -63,12 +63,12 @@ export const Playground = {
     docs: {
       description: { story: 'A review team: image avatars with presence and verification, an initials fallback, a guest silhouette, and a stacked group with overflow. Tone and surface colour the fallbacks, grayscale desaturates the photos, and size and shape apply to every avatar.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args }) => previewSource('Avatar', args, {
           imports: `import { Avatar, AvatarGroup } from '@gaudi/design-system';\n\nconst roster = ${JSON.stringify(roster, null, 2)};\nconst people = ${JSON.stringify(people, null, 2)};`,
-          attributes: ['key={person.id}', '{...person}'],
-          before: "export default function AvatarExample() {\n  return (<div className='flex flex-wrap items-center justify-center gap-4'>\n{roster.map((person) => (\n",
+          attributes: ['key={id}', '{...person}'],
+          before: "export default function AvatarExample() {\n  return (<div className='flex flex-wrap items-center justify-center gap-4'>\n{roster.map(({ id, ...person }) => (\n",
           after: `\n))}\n<AvatarGroup avatars={people} max={3} size=${JSON.stringify(args.size)} shape=${JSON.stringify(args.shape)} label='Review team' />\n</div>);\n}`
         })
       }
@@ -113,8 +113,8 @@ export const Indicators = {
   parameters: { docs: { description: { story: '`indicator` adds a host-provided presence or verification badge whose label joins the accessible name. Children add custom badges.' } } },
   render: () => (
     <div className='flex flex-wrap items-center gap-6'>
-      {indicators.map((indicator) => <Avatar key={indicator.label} {...maya} size='lg' shape='circle' indicator={indicator} />)}
-      <Avatar {...alex} size='lg' shape='circle' aria-label={`${alex.name}, online, 3 unread messages`} indicator={indicators[0]}>
+      {indicators.map((indicator) => <Avatar key={indicator.label} name={maya.name} src={maya.src} tone={maya.tone} size='lg' shape='circle' indicator={indicator} />)}
+      <Avatar name={alex.name} src={alex.src} tone={alex.tone} size='lg' shape='circle' aria-label={`${alex.name}, online, 3 unread messages`} indicator={indicators[0]}>
         <AvatarBadge className='inset-auto -top-1 -right-1 size-5 bg-danger text-xs text-danger-foreground' aria-hidden='true'>3</AvatarBadge>
       </Avatar>
     </div>
@@ -222,8 +222,8 @@ export const GroupOverflow = {
           }
         >
           <ul className='grid gap-4'>
-            {people.map((person) => (
-              <li key={person.id} className='flex items-center gap-3'>
+            {people.map(({ id, ...person }) => (
+              <li key={id} className='flex items-center gap-3'>
                 <Avatar {...person} shape='circle' alt='' />
                 <span>{person.name}</span>
               </li>

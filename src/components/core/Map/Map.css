@@ -15,6 +15,6 @@
   .ds-map-fallback-list { display: flex; flex-wrap: wrap; justify-content: center; gap: calc(var(--ds-space-scale, 1) * .5rem); }
   .ds-map .maplibregl-ctrl-attrib { max-width: calc(100% - 1rem); background: var(--ds-color-surface); color: var(--ds-color-text-muted); font: 10px/1.4 var(--ds-font-sans); }
   .ds-map .maplibregl-ctrl-attrib a { color: inherit; }
-  .ds-map .maplibregl-ctrl-attrib-button { background-color: var(--ds-color-surface); }
+  .ds-map .maplibregl-ctrl-attrib-button { background-color: var(--ds-color-text-inverse); }
   .ds-map .maplibregl-canvas:focus-visible { outline: 2px solid var(--ds-color-accent); outline-offset: -3px; }
 }

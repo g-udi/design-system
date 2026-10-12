@@ -2260,9 +2260,7 @@
         "@gaudi/design-system/core/Tooltip"
       ],
       "uses": [
-        "AvatarFallback",
-        "AvatarImage",
-        "AvatarRoot",
+        "Avatar",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",
@@ -5396,7 +5394,8 @@
         "@gaudi/design-system/chat/ChatMessageList",
         "@gaudi/design-system/chat/ChatSessionList",
         "@gaudi/design-system/core/Field",
-        "@gaudi/design-system/core/Textarea"
+        "@gaudi/design-system/core/Textarea",
+        "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion"
       ],
       "uses": [
         "ChatBubble",
@@ -5416,7 +5415,8 @@
         "ChatSessionList",
         "ChatShell",
         "Label",
-        "Textarea"
+        "Textarea",
+        "usePrefersReducedMotion"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -14489,6 +14489,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Loader",
+        "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion",
         "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
@@ -14504,7 +14505,8 @@
         "ItemMedia",
         "LoaderRoot",
         "RegistryIcon",
-        "useCopyToClipboard"
+        "useCopyToClipboard",
+        "usePrefersReducedMotion"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -14594,6 +14596,7 @@
         "@gaudi/design-system/chat/ChatMessageList",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -14608,7 +14611,8 @@
         "ChatMessageFeedback",
         "ChatMessageHeader",
         "ChatMessageParts",
-        "RegistryIcon"
+        "RegistryIcon",
+        "usePrefersReducedMotion"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -17533,6 +17537,7 @@
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
+        "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -17548,7 +17553,8 @@
         "InputGroupInput",
         "ProgressRoot",
         "RegistryIcon",
-        "cn"
+        "cn",
+        "useCopyToClipboard"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -20295,6 +20301,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/hooks",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/mdx/Table"
       ],
@@ -20309,7 +20316,8 @@
         "TableHeadPrimitive",
         "TableHeader",
         "TableRoot",
-        "TableRowPrimitive"
+        "TableRowPrimitive",
+        "useCopyToClipboard"
       ],
       "dependencies": [
         "@gaudi/design-system"

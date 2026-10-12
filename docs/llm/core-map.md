@@ -20,17 +20,22 @@ Exports: `Map`
 | `mapStyle` | `MapLibre StyleSpecification \| string` | `required` | no | A stable style object or an application-configured style URL. Gaudi has no built-in map service, access token, geocoding, or routing endpoint. Memoize object styles. Changing the style preserves the camera. |
 | `initialViewState` | `{ center: [longitude, latitude], zoom?, bearing?, pitch? }` | `{ center: [0, 0], zoom: 2 }` | no | Initial camera. Later changes use ref.flyTo, ref.fitBounds, or ref.reset. Coordinates always use longitude before latitude. |
 | `markers` | `Array<{ id, coordinates, label, tone?, icon?, badge? }>` | `[]` | no | Stable unique IDs, [longitude, latitude] coordinates, and an accessible label. tone uses Button tones, icon is a React slot, and badge is optional visible metadata; include its meaning in label. |
-| `selectedMarkerId / onMarkerClick` | `string \| number / (id) => void` | `— / —` | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
+| `selectedMarkerId` | `string \| number` | — | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
+| `onMarkerClick` | `(id) => void` | — | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
 | `routes` | `Array<{ id, coordinates, color?, width?, dashed? }>` | `[]` | no | Prepared line strings (at least two coordinates each). The app supplies color and status meaning. Defaults: blue, 3px, solid. Preserve attribution in your map style. |
 | `label` | `string` | `Map` | no | Accessible name for the map region and keyboard canvas. |
 | `controls` | `boolean` | `true` | no | Shows reset, zoom in, and zoom out controls when interactive. |
 | `interactive` | `boolean` | `true` | no | Enables camera gestures and keyboard navigation. False disables those and hides camera controls; marker buttons remain selectable. |
 | `scrollZoom` | `boolean` | `false` | no | Enables wheel zoom. Off by default so a map embedded in a page does not trap page scrolling. |
-| `minZoom / maxZoom` | `number / number` | `0 / 20` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
-| `onViewStateChange / onLoad / onError` | `(view) => void / (view) => void / (error) => void` | `— / — / —` | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `minZoom` | `number` | `0` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
+| `maxZoom` | `number` | `20` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
+| `onViewStateChange` | `(view) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `onLoad` | `(view) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `onError` | `(error) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
 | `ref` | `{ flyTo(view), fitBounds(bounds, options?), reset(), getViewState() }` | — | no | Imperative camera access after readiness. fitBounds accepts southwest/northeast coordinate pairs and optional MapLibre fit options. Camera motion honors reduced motion. getViewState returns null before mount. |
 | `labels` | `{ loading?, unavailable?, retry?, zoomIn?, zoomOut?, reset? }` | `English labels` | no | Localized state and control text. |
-| `children / fallback` | `ReactNode / ReactNode` | `— / location buttons` | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
+| `children` | `ReactNode` | — | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
+| `fallback` | `ReactNode` | `location buttons` | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
 | `style` | `CSSProperties` | — | no | Container styling, including height (default 32rem). The map follows its container size. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

@@ -1,3 +1,6 @@
+import { expect, userEvent, within } from 'storybook/test';
+import { verifyTimeout } from '../../../../../tests/hooks/browserChecks.jsx';
+
 import { example, hookMeta } from '../../HookDocs.jsx';
 
 import { SavedNotice } from './fixtures/use-timeout.jsx';
@@ -17,5 +20,16 @@ export default {
 export const AutoDismiss = {
   name: 'Auto-dismiss that pauses',
   parameters: example('The notice hides after six seconds, but `clear` holds it while the reader points at or focuses it and `reset` restarts the countdown when they leave. It also has a Dismiss button.', exampleSource),
-  render: () => <SavedNotice />
+  render: () => <SavedNotice />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('status')).toBeEmptyDOMElement();
+    await userEvent.click(canvas.getByRole('button', { name: 'Publish post' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Post published');
+    const dismiss = canvas.getByRole('button', { name: 'Dismiss' });
+    dismiss.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.getByRole('status')).toBeEmptyDOMElement();
+    await verifyTimeout();
+  }
 };

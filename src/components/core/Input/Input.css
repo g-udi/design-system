@@ -17,6 +17,10 @@
     @apply text-ui-muted-foreground h-auto gap-2 py-1.5 text-sm font-medium group-data-[disabled=true]/input-group:opacity-50 [&>kbd]:rounded-sm [&>svg:not([class*='size-'])]:size-4;
   }
 
+  .ds-part-input-group-addon[data-align^='inline-'] {
+    @apply self-stretch py-0;
+  }
+
   .ds-part-input-group-addon-align-inline-start {
     @apply pl-2;
   }

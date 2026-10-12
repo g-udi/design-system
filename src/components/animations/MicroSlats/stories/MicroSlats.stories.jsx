@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { MicroSlats } from '../index.js';
 import { MicroSlatsPlayground } from './fixtures/MicroSlatsExamples.jsx';
@@ -43,6 +44,7 @@ export const Playground = {
       await expect(effect).toHaveAttribute('data-renderer', 'webgl');
       await checkBackgroundBehavior(canvasElement);
     }
+    await checkBackgroundRendering(canvasElement, MicroSlats);
     await checkBackgroundDemo(context);
   }
 };

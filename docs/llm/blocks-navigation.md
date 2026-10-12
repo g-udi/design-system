@@ -22,7 +22,7 @@ Exports: `Menu`, `MenuSearch`, `default`
 | `posts` | `Array<{ id?, slug?, href, title, date }>` | `[]` | no | The newest three appear in Recent posts; all are searchable. |
 | `projects / publications / tags / thoughts` | `Array` | `[]` | no | Command launcher search records. |
 | `logo` | `ReactNode` | `Gaudi brand mark` | no | Brand inside the home link; the link is named by the SiteConfig author or title. |
-| `MenuSearch setOpen` | `(open: boolean) => void` | — | no | Exported search entry for custom headers; opens Commander. |
+| `MenuSearch.setOpen` | `(open: boolean) => void` | — | no | Exported search entry for custom headers; opens Commander. |
 
 ## Usage
 

@@ -18,7 +18,25 @@ export default {
 export const Preference = {
   name: 'Reading preference',
   parameters: example('A text-size choice persisted under a namespaced key. `removeValue` resets it to the initial value. Reload the page to see it kept.', exampleSource),
-  render: () => <ReaderPreferences />
+  render: () => <ReaderPreferences />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const key = 'gaudi-docs:reader-size';
+    const previous = localStorage.getItem(key);
+    try {
+      await userEvent.click(canvas.getByRole('button', { name: 'Reset', exact: true }));
+      await expect(canvas.getByRole('radio', { name: 'Medium' })).toHaveAttribute('aria-checked', 'true');
+      await userEvent.click(canvas.getByRole('radio', { name: 'Large' }));
+      await expect(localStorage.getItem(key)).toBe('"lg"');
+      await expect(canvas.getByText('The preference survives a reload and follows you into other tabs.').style.fontSize).toBe('1.25rem');
+      await userEvent.click(canvas.getByRole('button', { name: 'Reset', exact: true }));
+      await expect(localStorage.getItem(key)).toBeNull();
+      await expect(canvas.getByRole('radio', { name: 'Medium' })).toHaveAttribute('aria-checked', 'true');
+    } finally {
+      if (previous === null) localStorageStore.remove(key);
+      else localStorageStore.set(key, JSON.parse(previous));
+    }
+  }
 };
 
 export const Synced = {

@@ -17,7 +17,8 @@ Exports: `useCollapsibleSections`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `config.sections` | `string[]` | — | no | Every section id. |
-| `config.initialExpanded / expandAll` | `string[] / boolean` | `[] / false` | no | Sections open at first, or all of them. |
+| `config.initialExpanded` | `string[]` | `[]` | no | Sections open at first, or all of them. |
+| `expandAll` | `boolean` | `false` | no | Sections open at first, or all of them. |
 | `config.onChange` | `(expanded: string[]) => void` | — | no | Called after each change. |
 
 ## Returns

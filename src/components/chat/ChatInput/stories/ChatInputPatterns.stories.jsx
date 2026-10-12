@@ -1,3 +1,4 @@
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
 import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories, publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
 import { chatModels, chatModelProviders } from './fixtures/chatModels.js';
@@ -46,7 +47,7 @@ export const QueuedFollowUps = {
     await expect(editor).toBeInTheDocument();
     fireEvent.keyDown(editor, { key: 'Escape', isComposing: true });
     await expect(editor).toBeInTheDocument();
-    await userEvent.type(editor, ' in Japanese{Enter}');
+    await actInteraction(() => userEvent.type(editor, ' in Japanese{Enter}'));
     await waitFor(() => expect(canvas.getByText('Add a closing line in Japanese')).toBeVisible());
     await userEvent.click(canvas.getByRole('button', { name: /^Remove: Suggest a title/ }));
     await expect(canvas.queryByText('Suggest a title that fits in 60 characters.')).not.toBeInTheDocument();
@@ -62,5 +63,31 @@ export const ModelEffort = {
       publicSource(modelEffortSource, new URL('./fixtures/prompt-composer/prompt-composer-model-effort.jsx', import.meta.url)),
       '<Pattern models={chatModels} providers={chatModelProviders} />'
     ].join('\n\n') }
-  } }
+  } },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    const model = canvas.getByRole('button', { name: 'Model: Claude Opus 5' });
+    await userEvent.click(model);
+    const search = await body.findByRole('combobox', { name: 'Search models' });
+    await userEvent.type(search, 'Claude Sonnet 5');
+    await userEvent.click(await body.findByRole('option', { name: /Claude Sonnet 5/ }));
+    await waitFor(() => expect(model).toHaveAccessibleName('Model: Claude Sonnet 5'));
+    await waitFor(() => expect(model).toHaveFocus());
+    await userEvent.click(canvas.getByRole('radio', { name: 'High' }));
+    const web = canvas.getByRole('button', { name: 'Search the web' });
+    await userEvent.click(web);
+    await expect(web).toHaveAttribute('aria-pressed', 'false');
+    const prompt = canvas.getByRole('combobox', { name: 'Message' });
+    await userEvent.type(prompt, 'Summarize the archive{Enter}');
+    const submitted = await canvas.findByText(/^Sent: Summarize the archive/);
+    await expect(submitted).toHaveAttribute('role', 'status');
+    await expect(submitted).toHaveTextContent('Sent: Summarize the archive · Claude Sonnet 5 model, high effort');
+    await expect(submitted).not.toHaveTextContent('web search on');
+    await expect(prompt).toHaveValue('');
+    await userEvent.click(web);
+    await userEvent.click(canvas.getByRole('radio', { name: 'Low' }));
+    await userEvent.type(prompt, 'Check sources{Enter}');
+    await waitFor(() => expect(submitted).toHaveTextContent('Sent: Check sources · Claude Sonnet 5 model, low effort, web search on'));
+  }
 };

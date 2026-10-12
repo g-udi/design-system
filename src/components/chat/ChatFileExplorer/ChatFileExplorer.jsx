@@ -107,7 +107,7 @@ function ChatFileExplorer({
     <section ref={panelRef} tabIndex={-1} data-slot='chat-file-explorer' aria-label={label} aria-busy={busy || undefined} className={cn('ds-part-chat-file-explorer flex min-h-0 min-w-0 flex-col gap-3', className)}>
       <header className='flex min-w-0 flex-wrap items-center gap-2'>
         <h2 className='min-w-0 flex-1 break-words text-sm font-semibold'>{label}</h2>
-        <Badge variant='secondary' size='sm' aria-label={`${model.total} ${model.total === 1 ? 'file' : 'files'}`}>{model.total}</Badge>
+        <Badge variant='secondary' size='sm'>{model.total}<span className='sr-only'>{model.total === 1 ? ' file' : ' files'}</span></Badge>
         {onRefresh ? <Button variant='ghost' size='icon-sm' aria-label={labels.refresh} title={labels.refresh} disabled={busy} onClick={onRefresh}><RegistryIcon lucide='RefreshCw' className={cn(busy && 'motion-safe:animate-spin')} /></Button> : null}
         {actions}
       </header>
@@ -150,7 +150,7 @@ function ChatFileExplorer({
                             {data.meta ? <span className='max-w-full truncate'>{data.meta}</span> : null}
                           </span> : null}
                         </span>
-                        {folder ? <span className='shrink-0 text-xs tabular-nums text-text-muted' aria-label={`${model.counts[id]} files`}>{model.counts[id]}</span> : null}
+                        {folder ? <span className='shrink-0 text-xs tabular-nums text-text-muted'>{model.counts[id]}<span className='sr-only'>{model.counts[id] === 1 ? ' file' : ' files'}</span></span> : null}
                         {canPreview || download ? <span className='flex shrink-0 items-center gap-0.5' onClick={(event) => event.stopPropagation()} onKeyDownCapture={(event) => event.stopPropagation()}>
                           {canPreview ? <Button variant='ghost' size='icon-sm' tabIndex={item.isFocused() ? 0 : -1} aria-label={`${labels.preview}: ${data.name}`} title={labels.preview} onClick={() => { activate(id); onPreview(id, items[id]); }}><RegistryIcon lucide='Eye' /></Button> : null}
                           {download ? <Button asChild variant='ghost' size='icon-sm'><a href={download} download={data.downloadName || data.name} tabIndex={item.isFocused() ? 0 : -1} aria-label={`${labels.download}: ${data.name}`} title={labels.download}><RegistryIcon lucide='Download' /></a></Button> : null}

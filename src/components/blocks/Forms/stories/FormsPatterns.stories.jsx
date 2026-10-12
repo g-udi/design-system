@@ -1,3 +1,4 @@
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 
@@ -133,7 +134,7 @@ export const ApiKey = {
     await userEvent.click(canvas.getByRole('button', { name: 'Create key' }));
     await waitFor(() => expect(canvas.getByText(/is ready/)).toBeVisible());
     await userEvent.click(canvas.getByRole('button', { name: 'Reveal' }));
-    await expect(canvas.getByLabelText('API secret')).toHaveTextContent(/^gd_test_/);
+    await expect(canvas.getByText('API secret:').closest('code')).toHaveTextContent(/^API secret: gd_test_/);
   }
 };
 export const HostedCheckout = {
@@ -196,7 +197,7 @@ export const SupportTicket = {
     await userEvent.clear(input);
     await userEvent.type(input, 'not-an-email{Enter}');
     await waitFor(() => expect(canvas.getByText(/Enter an email address/)).toBeVisible());
-    await userEvent.keyboard('{Escape}');
+    await actInteraction(() => userEvent.keyboard('{Escape}'));
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Edit Requester' })).toHaveFocus());
   }
 };

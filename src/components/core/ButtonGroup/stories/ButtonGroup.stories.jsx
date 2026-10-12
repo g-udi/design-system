@@ -40,7 +40,7 @@ export const Playground = {
       source: playgroundSource('ButtonGroup', {
         imports: "import { Button, ButtonGroup } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';",
         attributes: ["aria-label='Message actions'"],
-        children: actions.map(({ label, icon }) => `  <Button variant='outline'>\n    <RegistryIcon lucide='${icon}' aria-hidden='true' />\n    ${label}\n  </Button>`).join('\n')
+        children: actions.map(({ label, icon }) => `  <Button variant='outline' size='sm'>\n    <RegistryIcon lucide='${icon}' aria-hidden='true' />\n    ${label}\n  </Button>`).join('\n')
       })
     }
   },
@@ -48,7 +48,7 @@ export const Playground = {
     <div className={`flex flex-wrap justify-center gap-3 ${orientation === 'vertical' ? 'items-start' : 'items-center'}`}>
       <ButtonGroup orientation={orientation} aria-label={groups[0]}>
         {actions.map(({ label, icon }) => (
-          <Button key={label} variant='outline' onClick={() => onAction(label)}>
+          <Button key={label} variant='outline' size='sm' onClick={() => onAction(label)}>
             <RegistryIcon lucide={icon} aria-hidden='true' />
             {label}
           </Button>

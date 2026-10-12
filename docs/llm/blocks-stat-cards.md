@@ -19,18 +19,25 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 | --- | --- | --- | --- | --- |
 | `label / value` | `ReactNode` | — | no | Metric name and its prepared value. |
 | `delta` | `string \| number` | — | no | Change in your formatting, including its sign and zero. |
-| `deltaDirection / deltaTone` | `up \| down \| flat / semantic tone` | `— / neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
-| `icon / tone` | `string / neutral \| accent \| info \| success \| warning \| danger \| discovery \| attention` | `— / neutral` | no | Icon tile and its colour. |
+| `deltaDirection` | `up \| down \| flat` | — | no | Explicit arrow and semantic colour; the host decides what the change means. |
+| `deltaTone` | `semantic tone` | `neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
+| `icon` | `string` | — | no | Icon tile and its colour. |
+| `tone` | `neutral \| accent \| info \| success \| warning \| danger \| discovery \| attention` | `neutral` | no | Icon tile and its colour. |
 | `variant` | `default \| tinted \| inverse` | `default` | no | Card, colour block in tone, or dark surface. |
 | `action` | `ReactNode` | — | no | Header slot, usually a menu, range switch or status badge. |
 | `description / footer` | `ReactNode` | — | no | Comparison line and footer text. |
 | `StatMeter.segments` | `Array<{ label, value, tone }>` | `[]` | no | Segmented bar with a legend of values and shares. |
-| `StatDelta.value / direction / tone` | `string \| number / up \| down \| flat / semantic tone` | `— / — / neutral` | no | Standalone change badge with explicit presentation and unchanged value. |
+| `StatDelta.value` | `string \| number` | — | no | Standalone change badge with explicit presentation and unchanged value. |
+| `direction` | `up \| down \| flat` | — | no | Standalone change badge with explicit presentation and unchanged value. |
+| `tone` | `semantic tone` | `neutral` | no | Standalone change badge with explicit presentation and unchanged value. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `deltaDirection`: `up`, `down`, `flat`
+- `tone`: `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `discovery`, `attention`
 - `variant`: `default`, `tinted`, `inverse`
+- `direction`: `up`, `down`, `flat`
 
 ## Usage
 

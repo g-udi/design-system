@@ -21,20 +21,30 @@ Exports: `CHART_TYPES`, `Chart`, `default`
 | --- | --- | --- | --- | --- |
 | `type` | `bar \| line \| area \| composed \| pie \| donut \| scatter \| bubble \| radar \| radial \| sparkline \| range \| waterfall \| bar-list \| funnel \| sankey \| treemap \| box-plot \| histogram \| gauge \| heatmap` | `bar` | no | Picks the chart from the Charts collection; every other prop goes to that chart. |
 | `data` | `Array<Record<string, unknown>> \| number[]` | `[]` | no | Records for the chart; the data shape follows the type (series, slices, steps, cells, groups). |
-| `xKey / yKey / series` | `string / string / Array<{ key, label, type?, axis?, dashed? }>` | `label / value / —` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `xKey` | `string` | `label` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `yKey` | `string` | `value` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `series` | `Array<{ key, label, type?, axis?, dashed? }>` | — | no | Category field and value fields for series charts; composed series take type and axis. |
 | `title / description` | `ReactNode` | — | no | Figure caption. |
 | `ariaLabel` | `string` | `title or Chart` | no | Accessible name of the plot. |
 | `height` | `number \| auto` | `320 (type-specific)` | no | Plot height; list-shaped charts default to auto. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; otherwise empty and invalid are detected from the data. |
 | `labels` | `Partial<typeof DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / default number` | no | Number formatting for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number formatting for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `default number` | no | Number formatting for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `references / annotations` | `Array<{ x?, y?, label, tone? }> / Array<{ x, y, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `references` | `Array<{ x?, y?, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
+| `annotations` | `Array<{ x, y, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
 | `stacked / showGrid / showLegend / showTooltip` | `boolean` | `false / true / false / true` | no | Series chart presentation. |
-| `selectedIndex / defaultSelectedIndex / onSelect` | `number \| null / number \| null / (slice, index) => void` | `— / null / —` | no | Donut selection; the centre summary shows the selected slice. |
-| `otherThreshold / maxSlices / centerLabel` | `number / number / string` | `— / — / Total` | no | Fold small slices into Other; the donut centre caption. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true (false for Sparkline)` | no | Controls beside the caption; the figure border and padding. |
+| `selectedIndex` | `number \| null` | — | no | Donut selection; the centre summary shows the selected slice. |
+| `defaultSelectedIndex` | `number \| null` | `null` | no | Donut selection; the centre summary shows the selected slice. |
+| `onSelect` | `(slice, index) => void` | — | no | Donut selection; the centre summary shows the selected slice. |
+| `otherThreshold` | `number` | — | no | Fold small slices into Other; the donut centre caption. |
+| `maxSlices` | `number` | — | no | Fold small slices into Other; the donut centre caption. |
+| `centerLabel` | `string` | `Total` | no | Fold small slices into Other; the donut centre caption. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true (false for Sparkline)` | no | Controls beside the caption; the figure border and padding. |
 | `colors` | `string[]` | `Gaudi categorical palette` | no | Override the series or slice colours. |
 | `className` | `string` | — | no | Root figure class override. |
 

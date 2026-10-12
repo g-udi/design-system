@@ -27,8 +27,10 @@ Exports: `DEFAULT_GANTT_I18N`, `DEFAULT_ROW_ALIGN`, `DEFAULT_SCHEDULE_MODE`, `DE
 | `GanttView.interval` | `number` | `60` | no | Time-grid interval in minutes, clamped from 15 to 240. |
 | `GanttBar.segment` | `Gantt segment` | `Required` | no | Scheduled segment rendered by the bar. |
 | `GanttScaleSwitcher.scales` | `Scale[]` | `GANTT_SCALES` | no | Available timeline scales. |
-| `columns / treePanel` | `{id, title, width, render}[] / {width, nameColumnWidth, minWidth, maxWidth, resizable}` | `[] / 200px, resizable` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
-| `canDropEvent / enforceCanDrop` | `fn(update) => boolean / boolean` | `— / false` | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
+| `columns` | `{id, title, width, render}[]` | `[]` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
+| `treePanel` | `{width, nameColumnWidth, minWidth, maxWidth, resizable}` | `200px, resizable` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
+| `canDropEvent` | `fn(update) => boolean` | — | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
+| `enforceCanDrop` | `boolean` | `false` | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
 | `renderEvent / renderEventMenu / renderResourceLabel` | `fn(props) => ReactNode` | `Built-in bar` | no | Custom bar content such as booking cards, a right-click menu of ContextMenu items, and row labels. |
 | `checkDependencies(update, events)` | `{ok, blockedBy, blocking}` | — | no | Finish-to-start check for a proposed move; pair it with canDropEvent. |
 | `getCriticalPath(events)` | `string[]` | — | no | Task ids on the chain that drives the finish date. |

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { renderComponent } from '../../../support/renderComponent.js';
+import { createElement } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { loadComponent, renderComponent } from '../../../support/renderComponent.js';
 import { getAvatarInitials, getAvatarGroupState } from '../../../../src/components/core/Avatar/avatarModel.js';
 
 test('Avatar initials support non-Latin names and missing identities', () => {
@@ -35,4 +37,12 @@ test('AvatarGroup handles empty lists and numeric limits without losing identiti
   assert.deepEqual(getAvatarGroupState(people, 2.8), { visible: people.slice(0, 2), overflow: 3 });
   assert.equal(getAvatarGroupState(people, 0.5).visible.length, 1);
   for (const max of [0, -1, Infinity, NaN]) assert.deepEqual(getAvatarGroupState(people, max).visible, people);
+});
+
+test('hover groups expose complete person identities before portraits load', async () => {
+  const { Pattern } = await loadComponent(new URL('../../../../src/components/core/Avatar/stories/fixtures/avatar/avatar-hover-groups.jsx', import.meta.url));
+  const html = renderToStaticMarkup(createElement(Pattern));
+  for (const name of ['Ottilie Nakamura', 'Sam Rivera', 'Felix Arrowsmith', 'Maren Wilder']) {
+    assert.equal((html.match(new RegExp(`role="img" aria-label="${name}"`, 'g')) || []).length, 2);
+  }
 });

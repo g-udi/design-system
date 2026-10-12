@@ -17,6 +17,7 @@ export default {
 };
 
 export const Playground = {
+  argTypes: { midpoint: { if: { arg: 'scale', eq: 'diverging' } } },
   args: { title: 'When people read', description: 'Readers per three-hour window, by day of week.', height: 300, scale: 'sequential', showValues: true, midpoint: 0, showData: 'toggle', state: 'ready', locale: 'en-US' },
   parameters: {
     docs: {

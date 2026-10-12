@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { AeroShards } from '../index.js';
 import { AeroShardsPlayground } from './fixtures/AeroShardsExamples.jsx';
@@ -38,6 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
+    await checkBackgroundRendering(canvasElement, AeroShards);
     await checkBackgroundDemo(context);
   }
 };

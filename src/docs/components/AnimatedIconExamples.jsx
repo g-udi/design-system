@@ -87,7 +87,7 @@ export function AnimatedIconsGallery() {
         </p>
         <p role='status' aria-label='Icon copy status' className={descriptionClasses}>{feedback}</p>
       </div>
-      <div className='grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6' aria-label='Animated icon gallery'>
+      <div role='group' className='grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6' aria-label='Animated icon gallery'>
         {visible.map((name) => <AnimatedIconCard key={name} name={name} animate={animate} onCopy={onCopy} />)}
       </div>
       {!filtered.length ? (

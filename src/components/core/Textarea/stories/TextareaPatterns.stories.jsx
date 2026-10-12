@@ -1,4 +1,4 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -25,4 +25,20 @@ export const FieldStates = {
     await expect(readOnly).toHaveFocus();
   }
 };
-export const AutoResize = { name: 'Growing note field with a counter', ...pattern('auto-resize') };
+export const AutoResize = {
+  name: 'Growing note field with a counter', ...pattern('auto-resize'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByRole('textbox', { name: 'Bio' });
+    const initialHeight = input.getBoundingClientRect().height;
+    await userEvent.type(input, 'A line\n'.repeat(20));
+    await expect(canvas.getByText('140/280')).toBeVisible();
+    await waitFor(() => expect(input.getBoundingClientRect().height).toBeGreaterThan(initialHeight));
+    await userEvent.type(input, 'a'.repeat(160));
+    await expect(input.value).toHaveLength(280);
+    await expect(canvas.getByText('280/280')).toBeVisible();
+    await userEvent.clear(input);
+    await expect(canvas.getByText('0/280')).toBeVisible();
+    await waitFor(() => expect(input.getBoundingClientRect().height).toBe(initialHeight));
+  }
+};

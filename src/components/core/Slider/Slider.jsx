@@ -18,6 +18,9 @@ function Slider({
   dir,
   ref,
   thumbLabel = defaultThumbLabel,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  'aria-describedby': ariaDescribedby,
   ...props
 }) {
   const rootRef = useRef(null);
@@ -57,12 +60,12 @@ function Slider({
         <SliderPrimitive.Thumb
           data-slot='slider-thumb'
           aria-label={
-            props['aria-labelledby'] ? undefined : props['aria-label']
-              ? `${props['aria-label']}${values.length > 1 ? ` ${index + 1}` : ''}`
+            ariaLabelledby ? undefined : ariaLabel
+              ? `${ariaLabel}${values.length > 1 ? ` ${index + 1}` : ''}`
               : typeof thumbLabel === 'function' ? thumbLabel(index, values.length) : thumbLabel
           }
-          aria-labelledby={props['aria-labelledby']}
-          aria-describedby={props['aria-describedby']}
+          aria-labelledby={ariaLabelledby}
+          aria-describedby={ariaDescribedby}
           aria-valuetext={getValueText ? getValueText(values[index], index) : undefined}
           key={index}
           className='ds-part-slider-thumb block shrink-0 select-none disabled:pointer-events-none disabled:opacity-50'

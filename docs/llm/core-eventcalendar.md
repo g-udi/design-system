@@ -21,7 +21,8 @@ Exports: `ALL_VIEWS`, `BASE_VIEWS`, `DEFAULT_EVENT_CALENDAR_I18N`, `DEFAULT_VIEW
 | `events / defaultEvents / onEventsChange` | `Event[] / function` | — | no | Controlled or initial events and updates. |
 | `view / defaultView / onViewChange` | `string / function` | — | no | Active calendar view. |
 | `date / defaultDate / onDateChange` | `Date / function` | — | no | Calendar navigation date. |
-| `timeZone / locale` | `string / Locale` | `Browser time zone` | no | Date interpretation and localized labels. |
+| `timeZone` | `string` | — | no | Date interpretation and localized labels. |
+| `locale` | `Locale` | — | no | Date interpretation and localized labels. |
 | `resources` | `Resource[]` | `[]` | no | Resource rows or columns. |
 | `slotDuration / snapDuration` | `number` | `30 / 15` | no | Visible and drag increments in minutes. |
 | `apiRef` | `MutableRefObject` | — | no | Imperative calendar API. |

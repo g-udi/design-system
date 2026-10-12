@@ -5,6 +5,7 @@ import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   DataGrid,
   DataGridContainer,
+  DataGridTableRowExpand,
   dataGridFeatures
 } from '@gaudi/design-system/core/DataTable';
 import { DataGridColumnHeader } from '@gaudi/design-system/core/DataTable';
@@ -17,9 +18,7 @@ import {
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
-import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card } from '@gaudi/design-system/core/Card';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const demoData = [
   {
     id: '1',
@@ -1792,27 +1791,7 @@ export function Pattern() {
       {
         id: 'expand',
         header: () => null,
-        cell: ({ row }) => {
-          return row.getCanExpand() ? (
-            <Button
-              onClick={row.getToggleExpandedHandler()}
-              size='icon-sm'
-              variant='ghost'
-              className='opacity-70 hover:bg-transparent hover:opacity-100'
-              aria-label={
-                row.getIsExpanded()
-                  ? 'Collapse order items'
-                  : 'Expand order items'
-              }
-            >
-              {row.getIsExpanded() ? (
-                <RegistryIcon lucide='ChevronUpIcon' aria-hidden='true' />
-              ) : (
-                <RegistryIcon lucide='ChevronDownIcon' aria-hidden='true' />
-              )}
-            </Button>
-          ) : null;
-        },
+        cell: ({ row }) => <DataGridTableRowExpand row={row} indent={0} />,
         size: 25,
         enableResizing: false,
         meta: {
@@ -1948,6 +1927,7 @@ export function Pattern() {
     <DataGrid
       table={table}
       recordCount={demoData?.length || 0}
+      i18n={{ labels: { expandRow: 'Expand order items', collapseRow: 'Collapse order items' } }}
       tableLayout={{
         columnsPinnable: true,
         columnsMovable: true,

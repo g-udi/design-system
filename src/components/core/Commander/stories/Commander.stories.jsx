@@ -103,7 +103,7 @@ export const Playground = {
       description: {
         story: 'A site header whose MenuSearch trigger opens the launcher, with the indexed collections listed underneath. Each collection control adds a page and full-text results; empty one to remove its page. Open with the field, ⌘K, or Ctrl+K.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('HeaderExample', args, { before: `${publicSource(headerSource, new URL('./fixtures/HeaderCommanderExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('HeaderExample', args, { before: `${publicSource(headerSource, new URL('./fixtures/HeaderCommanderExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <HeaderExample {...args} />,
@@ -136,6 +136,19 @@ export const Playground = {
     await userEvent.type(search, 'no matching command');
     await expect(await palette.findByText('No results for “no matching command”.')).toBeVisible();
     await userEvent.clear(search);
+
+    const startedDark = document.documentElement.classList.contains('dark');
+    try {
+      await userEvent.click(command(palette, 'Switch theme'));
+      await waitFor(() => expect(document.documentElement.classList.contains('dark')).toBe(!startedDark));
+      await expect(dialog).toBeVisible();
+    } finally {
+      if (document.documentElement.classList.contains('dark') !== startedDark) {
+        await userEvent.click(command(palette, 'Switch theme'));
+        await waitFor(() => expect(document.documentElement.classList.contains('dark')).toBe(startedDark));
+      }
+    }
+    await expect(dialog).toBeVisible();
 
     await userEvent.keyboard('{Escape}');
     await expectClosed();

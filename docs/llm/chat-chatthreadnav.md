@@ -19,7 +19,8 @@ Exports: `ChatThreadNav`, `default`
 | --- | --- | --- | --- | --- |
 | `start` | `string` | `t2` | no | Example only: the turn in view at first. |
 | `turns` | `Array<{ id, label }>` | `[]` | no | Prompts in thread order. |
-| `current / onNavigate` | `string / (id) => void` | — | no | The turn in view and navigation. |
+| `current` | `string` | — | no | The turn in view and navigation. |
+| `onNavigate` | `(id) => void` | — | no | The turn in view and navigation. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage

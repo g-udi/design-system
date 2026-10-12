@@ -57,7 +57,7 @@ export const Playground = {
     docs: {
       description: { story: 'A profile form using EmailInput for the email editor and NumberField for the monthly budget, so both inherit the global Caret toolbar. Other type choices use Input. caretMode overrides the featured field; required, invalid and disabled control its state.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args: { type, prefix, suffix, ...args } }) => previewSource(type === 'email' ? 'EmailInput' : 'Input', { ...(type === 'email' ? {} : { type }), ...args, ...(prefix ? { prefix } : {}), ...(suffix ? { suffix } : {}) }, {
           imports: `import { Field, FieldDescription, FieldError, FieldLabel, Icon, ${type === 'email' ? 'EmailInput' : 'Input'} } from '@gaudi/design-system';`,

@@ -66,8 +66,8 @@ export default async function LayoutContainer({ analytics = null, children, foot
         Skip to content
       </a>
 
-      {/* Borealis wraps all content and provides the shared light/dark background treatment. */}
-      <Borealis>
+      {/* Keep even subtle reading text legible at the animation's brightest point. */}
+      <Borealis intensity={0.02}>
         <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem disableTransitionOnChange>
           {analytics}
 

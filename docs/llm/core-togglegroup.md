@@ -20,7 +20,9 @@ Exports: `Toggle`, `ToggleGroupItem`, `ToggleGroupRoot`, `default`, `toggleVaria
 | `label` | `string` | — | no | Accessible name of the group. |
 | `options` | `Array<{ value, label, disabled? }>` | `[]` | no | Available choices. |
 | `type` | `single \| multiple` | `single` | no | Selection model. |
-| `variant / size / spacing` | `outline \| default / sm \| default \| lg / number` | `outline / default / 0` | no | Attached outline items by default; spacing separates them. |
+| `variant` | `outline \| default` | `outline` | no | Attached outline items by default; spacing separates them. |
+| `size` | `sm \| default \| lg` | `default` | no | Attached outline items by default; spacing separates them. |
+| `spacing` | `number` | `0` | no | Attached outline items by default; spacing separates them. |
 | `value / defaultValue / onValueChange` | `string \| string[] / function` | — | no | Controlled or initial selection matching type. |
 | `disabled / loop` | `boolean` | `false / true` | no | Group availability and keyboard wrapping. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -28,6 +30,8 @@ Exports: `Toggle`, `ToggleGroupItem`, `ToggleGroupRoot`, `default`, `toggleVaria
 ## Variants
 
 - `type`: `single`, `multiple`
+- `variant`: `outline`, `default`
+- `size`: `sm`, `default`, `lg`
 
 ## Usage
 

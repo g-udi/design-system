@@ -67,11 +67,9 @@ export const FooterLayout = {
       description: '`standard` adds the newsletter form; `editorial` leads with the brand.'
     }
   },
-  parameters: { ...story('The site footer with link columns, social links, and copyright. Switch `variant` between the newsletter layout and the brand-led editorial layout.'), __id: 'layout-components--footer-layout' },
+  parameters: { ...story('The site footer with link columns, social links, and copyright. Newsletter signup is unavailable until the host provides an endpoint. Switch `variant` between the newsletter layout and the brand-led editorial layout.'), __id: 'layout-components--footer-layout' },
   render: args => <div className='mx-auto max-w-6xl px-6'>
-      <Footer {...args} sections={footerSections} newsletterProps={{
-      'endpoint': '#newsletter'
-    }} />
+      <Footer {...args} sections={footerSections} />
     </div>,
   play: async ({
     args,
@@ -85,6 +83,7 @@ export const FooterLayout = {
     await expect(Boolean(canvas.queryByRole('textbox', {
       name: 'Email address'
     }))).toBe(args.variant === 'standard');
+    if (args.variant === 'standard') await expect(canvas.getByRole('button', { name: 'Sign up' })).toBeDisabled();
   }
 };
 

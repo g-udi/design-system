@@ -17,9 +17,16 @@ Exports: `DonutChart`, `PieChart`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `data / nameKey / valueKey` | `object[] / string / string` | `[] / label / value` | no | Slices. |
-| `selectable / selectedIndex / defaultSelectedIndex / onSelect` | `boolean / number \| null / number \| null / (slice, index) => void` | `true for donuts` | no | Selection pins a slice; the centre shows its share. |
-| `otherThreshold / maxSlices / otherLabel` | `number / number / string` | `— / — / Other` | no | Fold small slices into Other. |
+| `data` | `object[]` | `[]` | no | Slices. |
+| `nameKey` | `string` | `label` | no | Slices. |
+| `valueKey` | `string` | `value` | no | Slices. |
+| `selectable` | `boolean` | — | no | Selection pins a slice; the centre shows its share. |
+| `selectedIndex` | `number \| null` | — | no | Selection pins a slice; the centre shows its share. |
+| `defaultSelectedIndex` | `number \| null` | — | no | Selection pins a slice; the centre shows its share. |
+| `onSelect` | `(slice, index) => void` | — | no | Selection pins a slice; the centre shows its share. |
+| `otherThreshold` | `number` | — | no | Fold small slices into Other. |
+| `maxSlices` | `number` | — | no | Fold small slices into Other. |
+| `otherLabel` | `string` | `Other` | no | Fold small slices into Other. |
 | `centerLabel` | `string` | `Total` | no | Caption under the centre value. |
 | `innerRadius` | `string \| number` | `'56%' (DonutChart), 0 (PieChart)` | no | Hole size. |
 | `colors` | `string[]` | `categorical palette` | no | Override the series colours with chart tokens. |
@@ -28,10 +35,13 @@ Exports: `DonutChart`, `PieChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

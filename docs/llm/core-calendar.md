@@ -18,13 +18,16 @@ Exports: `Calendar`, `CalendarDayButton`, `DEFAULT_DATE_SELECTOR_I18N`, `DateSel
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `mode` | `single \| multiple \| range` | — | no | DayPicker selection mode. |
-| `selected / onSelect` | `Date \| Date[] \| DateRange / function` | — | no | Controlled selection and selection callback; the shape follows mode. |
+| `selected` | `Date \| Date[] \| DateRange` | — | no | Controlled selection and selection callback; the shape follows mode. |
+| `onSelect` | `function` | — | no | Controlled selection and selection callback; the shape follows mode. |
 | `disabled` | `Matcher \| Matcher[]` | — | no | Dates that cannot be selected. |
 | `numberOfMonths` | `number` | `1` | no | Number of visible months. |
 | `showOutsideDays` | `boolean` | `true` | no | Show dates outside the current month. |
 | `captionLayout` | `label \| dropdown \| dropdown-months \| dropdown-years` | `label` | no | Month and year navigation controls. |
 | `buttonVariant` | `Button variant` | `ghost` | no | Variant for calendar navigation buttons. |
-| `locale / formatters / components` | `Locale / Formatters / CustomComponents` | — | no | Localized text and explicit DayPicker overrides. |
+| `locale` | `Locale` | — | no | Localized text and explicit DayPicker overrides. |
+| `formatters` | `Formatters` | — | no | Localized text and explicit DayPicker overrides. |
+| `components` | `CustomComponents` | — | no | Localized text and explicit DayPicker overrides. |
 | `classNames` | `Partial<ClassNames>` | — | no | Classes for individual DayPicker slots. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

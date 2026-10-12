@@ -9,7 +9,9 @@ import { useUnmount } from '../../src/hooks/state/use-unmount.js';
 import { useReadLocalStorage } from '../../src/hooks/data/use-read-local-storage.js';
 import { localStorageStore } from '../../src/hooks/data/use-local-storage.js';
 import { useScript } from '../../src/hooks/environment/use-script.js';
+import { useMousePosition } from '../../src/hooks/interaction/use-mouse-position.js';
 import { useMap } from '../../src/hooks/data/use-map.js';
+import { useTimeout } from '../../src/hooks/state/use-timeout.js';
 
 /** Browser-only hook probes, removed before each story's accessibility/responsive audit. */
 function probe(useHook, initialOptions) {
@@ -157,4 +159,69 @@ export async function verifyScriptOwnership() {
     expect(adopted.value).toBe('idle');
     expect(external.isConnected).toBe(true);
   } finally { adopted.dispose(); external.remove(); }
+}
+
+/** A burst of pointer input needs one layout read, and pending work must cancel on release. */
+export async function verifyPointerCoalescing() {
+  const pointer = probe(useMousePosition, { enabled: true });
+  const target = document.createElement('div');
+  document.body.append(target);
+  let reads = 0;
+  target.getBoundingClientRect = () => {
+    reads += 1;
+    return { left: 10, top: 20, right: 210, bottom: 120 };
+  };
+  pointer.value.ref(target);
+  const move = (x, y) => window.dispatchEvent(new PointerEvent('pointermove', { clientX: x, clientY: y }));
+  const nextFrame = () => new Promise(resolve => requestAnimationFrame(resolve));
+  try {
+    for (let index = 0; index < 100; index += 1) move(20 + index, 40);
+    expect(reads, 'pointer events should defer geometry reads until the animation frame').toBe(0);
+    await waitFor(() => expect(pointer.value.elementX).toBe(109));
+    expect(pointer.value.elementY).toBe(20);
+    expect(pointer.value.isInside).toBe(true);
+    expect(reads, 'one frame measures the latest pointer sample once').toBe(1);
+    const retained = pointer.value.x;
+    move(200, 60);
+    pointer.render({ enabled: false });
+    await nextFrame();
+    expect(reads).toBe(1);
+    expect(pointer.value.x).toBe(retained);
+    move(180, 50);
+    await nextFrame();
+    expect(reads).toBe(1);
+    pointer.render({ enabled: true });
+    move(220, 50);
+    await waitFor(() => expect(pointer.value.x).toBe(220));
+    expect(pointer.value.isInside).toBe(false);
+    expect(reads).toBe(2);
+    move(100, 80);
+    pointer.dispose();
+    await nextFrame();
+    expect(reads, 'unmount cancels a pending geometry read').toBe(2);
+  } finally { pointer.dispose(); target.remove(); }
+}
+
+export async function verifyTimeout() {
+  let calls = 0;
+  const callback = () => { calls += 1; };
+  const timer = probe(({ callback: run, delay }) => useTimeout(run, delay), { callback, delay: null });
+  try {
+    timer.value.reset();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    expect(calls).toBe(0);
+    timer.render({ callback, delay: 100 });
+    timer.value.clear();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    expect(calls).toBe(0);
+    timer.value.reset();
+    await waitFor(() => expect(calls).toBe(1));
+    timer.render({ callback: () => { calls += 10; }, delay: 100 });
+    timer.value.reset();
+    await waitFor(() => expect(calls).toBe(11));
+    timer.value.reset();
+    timer.dispose();
+    await new Promise((resolve) => setTimeout(resolve, 150));
+    expect(calls).toBe(11);
+  } finally { timer.dispose(); }
 }

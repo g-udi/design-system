@@ -87,7 +87,7 @@ export const Playground = {
     docs: {
       description: { story: 'A product launch across design, build and launch workstreams, with finished, in-flight and upcoming bars, progress, and dependency lines between phases. `defaultScale` zooms the same plan from single days to a whole year.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args }) => previewSource('Gantt', { ...args, treePanel: { width: 200 }, className: 'h-[580px] w-full' }, {
           imports: `import { Gantt, GanttNav, GanttView } from '@gaudi/design-system';\n\nconst resources = ${JSON.stringify(resources, null, 2)};\nconst events = ${JSON.stringify(events, null, 2)}.map(({ start, end, ...event }) => ({ ...event, start: new Date(start), end: new Date(end) }));\nconst today = new Date(2026, 5, 15);`,

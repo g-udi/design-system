@@ -38,19 +38,19 @@ export const DeliveredFile = {
   name: 'Delivered file',
   args: { onPreview: fn() },
   parameters: { docs: {
-    description: { story: 'Delivered files use the same Attachment media, content and actions as uploaded files. Each action names the file.' },
-    source: { language: 'jsx', code: "import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '@gaudi/design-system';\n\nexport function DeliveredFileExample({ preview, url }) {\n  return (\n<Attachment size='sm'>\n  <AttachmentMedia file={{ name: 'september-report.csv', type: 'text/csv' }} />\n  <AttachmentContent>\n    <AttachmentTitle>september-report.csv</AttachmentTitle>\n    <AttachmentDescription>Reading time per post · 18 KB</AttachmentDescription>\n  </AttachmentContent>\n  <AttachmentActions>\n    <AttachmentAction aria-label='Preview september-report.csv' onClick={preview}>Preview</AttachmentAction>\n    <AttachmentAction asChild aria-label='Download september-report.csv'><a href={url} download='september-report.csv'>Download</a></AttachmentAction>\n  </AttachmentActions>\n</Attachment>\n  );\n}" }
+    description: { story: 'Delivered files use the same Attachment media, content and actions as uploaded files. Download saves a small sample CSV; preview reports the host callback.' },
+    source: { language: 'jsx', code: "import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '@gaudi/design-system';\n\nexport function DeliveredFileExample({ preview, url }) {\n  return (\n<Attachment size='sm'>\n  <AttachmentMedia file={{ name: 'september-report.csv', type: 'text/csv' }} />\n  <AttachmentContent>\n    <AttachmentTitle>september-report.csv</AttachmentTitle>\n    <AttachmentDescription>Sample reading time per post · CSV</AttachmentDescription>\n  </AttachmentContent>\n  <AttachmentActions>\n    <AttachmentAction aria-label='Preview september-report.csv' onClick={preview}>Preview</AttachmentAction>\n    <AttachmentAction asChild aria-label='Download september-report.csv'><a href={url} download='september-report.csv'>Download</a></AttachmentAction>\n  </AttachmentActions>\n</Attachment>\n  );\n}" }
   } },
   render: ({ onPreview }) => (
     <Attachment size='sm' className='w-full max-w-sm'>
       <AttachmentMedia file={{ name: 'september-report.csv', type: 'text/csv' }} />
       <AttachmentContent>
         <AttachmentTitle>september-report.csv</AttachmentTitle>
-        <AttachmentDescription>Reading time per post · 18 KB</AttachmentDescription>
+        <AttachmentDescription>Sample reading time per post · CSV</AttachmentDescription>
       </AttachmentContent>
       <AttachmentActions>
         <AttachmentAction aria-label='Preview september-report.csv' onClick={onPreview}><RegistryIcon lucide='Eye' /></AttachmentAction>
-        <AttachmentAction asChild aria-label='Download september-report.csv'><a href='#download' download='september-report.csv'><RegistryIcon lucide='Download' /></a></AttachmentAction>
+        <AttachmentAction asChild aria-label='Download september-report.csv'><a href='data:text/csv;charset=utf-8,title%2Creading_minutes%0ALocal-first%20software%2C6%0ASmall%20tools%2C4%0A' download='september-report.csv'><RegistryIcon lucide='Download' /></a></AttachmentAction>
       </AttachmentActions>
     </Attachment>
   ),
@@ -59,6 +59,7 @@ export const DeliveredFile = {
     await userEvent.click(canvas.getByRole('button', { name: 'Preview september-report.csv' }));
     await expect(args.onPreview).toHaveBeenCalledOnce();
     await expect(canvas.getByRole('link', { name: 'Download september-report.csv' })).toHaveAttribute('download', 'september-report.csv');
+    await expect(canvas.getByRole('link', { name: 'Download september-report.csv' })).toHaveAttribute('href', expect.stringMatching(/^data:text\/csv/));
   }
 };
 

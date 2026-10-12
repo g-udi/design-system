@@ -345,6 +345,11 @@ export const AppleStyle = {
       const dialog = await openPhone();
       await userEvent.click(dialog.getByRole('button', { name: 'Journal' }));
       const lastLink = dialog.getByRole('link', { name: 'A slower web' });
+      // Focus after expansion so the browser scrolls to the final link position.
+      await Promise.all(canvasElement.querySelector('.apple-navigation-phone-content')
+        .getAnimations({ subtree: true })
+        .filter((animation) => animation.effect.getComputedTiming().iterations !== Infinity)
+        .map((animation) => animation.finished));
       lastLink.focus();
       await expectFocus(canvasElement, lastLink);
       await expect(canvasElement.querySelector('.apple-navigation-phone-content').scrollTop).toBeGreaterThan(0);

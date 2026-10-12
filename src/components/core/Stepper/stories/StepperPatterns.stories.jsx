@@ -37,7 +37,30 @@ const pattern = patternStories(
 export default { title: 'Core/Navigation/Stepper', id: 'core-stepper', tags: ['autodocs'], ...catalogueMeta('stepper') };
 
 export const Basic = { name: 'Simple linear steps', ...pattern('basic'), play: catalogueInteractions['stepper-basic'] };
-export const Descriptions = { name: 'Titles and descriptions', ...pattern('descriptions', 'Labels centred under the indicator, start-aligned without a rail, or inline beside it, with optional descriptions.') };
+export const Descriptions = {
+  name: 'Titles and descriptions',
+  ...pattern('descriptions', 'Labels centred under the indicator, start-aligned without a rail, or inline beside it, with optional descriptions.'),
+  play: async (context) => {
+    const canvas = within(context.canvasElement);
+    await expect(canvas.getByText('Profile content')).toBeVisible();
+    for (const layout of ['Start', 'Inline', 'Centered']) {
+      await userEvent.click(canvas.getByRole('radio', { name: layout, exact: true }));
+      await expect(canvas.getByRole('radio', { name: layout, exact: true })).toHaveAttribute('aria-checked', 'true');
+      await expect(canvas.getByText('Profile content')).toBeVisible();
+      if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+        const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+        await auditStoryLayout({ ...context, id: `${context.id}--${layout.toLowerCase()}` });
+      }
+    }
+    await userEvent.click(canvas.getByRole('switch', { name: 'Descriptions' }));
+    await expect(canvas.queryByText('Set up your profile')).not.toBeInTheDocument();
+    await expect(canvas.getByText('Profile content')).toBeVisible();
+    await userEvent.click(canvas.getByRole('switch', { name: 'Descriptions' }));
+    await expect(canvas.getByText('Set up your profile')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Step 3' }));
+    await expect(canvas.getByText('Complete content')).toBeVisible();
+  },
+};
 export const IconsBadges = { name: 'Controlled with icons and badges', ...pattern('icons-badges', 'Previous and Next drive a controlled stepper; icon indicators turn to checks and a badge names each step status.'), play: checkIndicatorGeometry(32) };
 export const Loading = { name: 'Loading state', ...pattern('loading'), play: checkIndicatorGeometry(20) };
 export const ProgressBar = { name: 'Progress bar', ...pattern('progress-bar', 'A segmented bar with a step counter and Back and Next; switch on titles to label each segment.'), play: async ({ canvasElement }) => {

@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { LightRays } from '../index.js';
 import { LightRaysPlayground } from './fixtures/LightRaysExamples.jsx';
@@ -37,6 +38,7 @@ export const Playground = {
     await expect(canvas.getByRole('button', { name: 'Pause animation' })).toBeVisible();
     const canAnimate = effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     await waitFor(() => expect(effect).toHaveAttribute('data-animated', String(canAnimate)));
+    await checkBackgroundRendering(canvasElement, LightRays);
     await checkBackgroundDemo(context);
   }
 };

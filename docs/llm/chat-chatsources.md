@@ -20,7 +20,9 @@ Exports: `ChatMessageCitation`, `ChatMessageSource`, `ChatMessageSources`, `defa
 | `label` | `string` | `n sources` | no | Toggle label for the list. |
 | `defaultOpen` | `boolean` | `false` | no | Initial disclosure. |
 | `sources` | `Array<{ title, url?, kind?, site?, excerpt?, quote?, icon? }>` | `[]` | no | Sources in citation order. |
-| `ChatMessageCitation.index / source / sources` | `number / source / source[]` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `ChatMessageCitation.index` | `number` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `source` | `source` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `sources` | `source[]` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
 | `ChatMessageCitation.labels` | `{ trigger, carousel, position, previous, next }` | `English copy` | no | Names for the pill, the carousel and its controls. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

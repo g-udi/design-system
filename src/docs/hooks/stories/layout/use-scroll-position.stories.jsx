@@ -46,5 +46,20 @@ export const ReadingProgress = {
 export const PageScroll = {
   name: 'Page scroll',
   parameters: example('Without options it follows the window, for headers that shrink and back-to-top links.', exampleSource),
-  render: () => <PageHeader />
+  render: () => <PageHeader />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const previousHeight = canvasElement.style.minHeight;
+    const previousScroll = { left: scrollX, top: scrollY };
+    try {
+      canvasElement.style.minHeight = `${innerHeight + 300}px`;
+      window.scrollTo({ top: 120, behavior: 'instant' });
+      await waitFor(() => expect(canvas.getByText(/120px.*compact/)).toBeVisible());
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      await waitFor(() => expect(canvas.getByText(/0px.*full/)).toBeVisible());
+    } finally {
+      canvasElement.style.minHeight = previousHeight;
+      window.scrollTo({ ...previousScroll, behavior: 'instant' });
+    }
+  }
 };

@@ -39,7 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
-    await checkBackgroundRendering(canvasElement, Plasma, {"turbulence": 0});
+    await checkBackgroundRendering(canvasElement, Plasma, { direction: 'reverse', turbulence: 0 });
     await checkBackgroundDemo(context);
   }
 };

@@ -53,6 +53,7 @@ export default {
 export const Playground = {
   args: { chart },
   parameters: {
+    layoutAudit: { readySelector: '.mermaid-diagram svg' },
     docs: {
       description: { story: 'An editorial workflow in article context, with a decision, a revision loop, and labelled branches. Edit `chart` to redraw it.' },
       source: playgroundSource('Mermaid', {
@@ -78,6 +79,27 @@ export const Playground = {
     await expect(canvasElement.querySelector('.mermaid-loading')).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Restore diagram' }));
     await waitFor(() => expect(canvasElement.querySelector('.mermaid-diagram svg')).toBeInTheDocument(), { timeout: 10000 });
+    const scope = canvasElement;
+    const originalScopedColor = scope.style.getPropertyValue('--ds-color-mermaid-primary');
+    const scopedPriority = scope.style.getPropertyPriority('--ds-color-mermaid-primary');
+    try {
+      scope.style.setProperty('--ds-color-mermaid-primary', '#fef3c7');
+      await waitFor(() => expect(scope.querySelector('.mermaid-diagram svg style')?.textContent).toContain('#fef3c7'), { timeout: 10000 });
+    } finally {
+      if (originalScopedColor) scope.style.setProperty('--ds-color-mermaid-primary', originalScopedColor, scopedPriority);
+      else scope.style.removeProperty('--ds-color-mermaid-primary');
+    }
+    // Custom ThemeProvider attributes must redraw baked SVG colors too.
+    const themeRule = document.createElement('style');
+    themeRule.textContent = '[data-mermaid-palette="test"] { --ds-color-mermaid-primary: #dcfce7; }';
+    document.head.append(themeRule);
+    try {
+      scope.setAttribute('data-mermaid-palette', 'test');
+      await waitFor(() => expect(scope.querySelector('.mermaid-diagram svg style')?.textContent).toContain('#dcfce7'), { timeout: 10000 });
+    } finally {
+      scope.removeAttribute('data-mermaid-palette');
+      themeRule.remove();
+    }
     const root = document.documentElement;
     const original = root.style.getPropertyValue('--ds-color-mermaid-primary');
     const priority = root.style.getPropertyPriority('--ds-color-mermaid-primary');
@@ -90,5 +112,22 @@ export const Playground = {
       else root.style.removeProperty('--ds-color-mermaid-primary');
       await waitFor(() => expect(canvasElement.querySelector('.mermaid-diagram svg')).toBeInTheDocument(), { timeout: 10000 });
     }
+  }
+};
+
+export const InvalidDiagram = {
+  args: { chart: 'not-a-diagram: A --> B' },
+  parameters: {
+    docs: {
+      description: { story: 'Invalid source uses Gaudi’s Alert and CodeBlock so the failure stays readable within the article.' },
+      source: playgroundSource('Mermaid', { imports: "import { Mermaid } from '@gaudi/design-system/mdx';" })
+    }
+  },
+  render: (args) => <Mermaid {...args} />,
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    const alert = await canvas.findByRole('alert', {}, { timeout: 10000 });
+    await expect(alert).toHaveTextContent('Failed to render diagram');
+    await expect(within(alert).getByRole('region', { name: 'Diagram source' })).toHaveTextContent(args.chart);
   }
 };

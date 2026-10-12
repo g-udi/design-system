@@ -3,6 +3,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../docs/comp
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import Carousel, { carouselVariants } from '../Carousel';
+import { checkCarouselUpdates } from '../../../../../tests/components/core/Carousel/checkCarouselUpdates.jsx';
 import { aurora, ember, iris, lagoon, rose, sky } from '../../../../docs/fixtures/site/artwork';
 
 const docs = getComponentDocs('Core/Carousel');
@@ -151,5 +152,6 @@ export const EditorialRail = {
     await expect(await screen.findByRole('dialog', { name: third.title })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    await checkCarouselUpdates(canvasElement);
   }
 };

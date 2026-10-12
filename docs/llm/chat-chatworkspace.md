@@ -17,13 +17,24 @@ Exports: `ChatWorkspace`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `title / description / actions` | `string / string / ReactNode` | `Workspace / — / —` | no | Panel heading and optional supporting content. |
+| `title` | `string` | `Workspace` | no | Panel heading and optional supporting content. |
+| `description` | `string` | — | no | Panel heading and optional supporting content. |
+| `actions` | `ReactNode` | — | no | Panel heading and optional supporting content. |
 | `agents` | `Array<{ id, name, description?, state?, labels?, fileRootId? }>` | `[]` | no | Stable agent identity, ChatActivityIndicator state and an existing file-tree folder. |
 | `fileExplorerProps` | `ChatFileExplorer props` | `{}` | no | Reuse the complete explorer contract for data, selection, preview, download and recovery. |
-| `view / defaultView / onViewChange` | `files \| agents / files \| agents / function` | `— / files / —` | no | Controlled or local tab state. |
-| `agentId / defaultAgentId / onAgentChange` | `string \| null / string \| null / function` | `— / null / —` | no | Controlled or local agent scope. Null restores all files. |
+| `view` | `files \| agents` | — | no | Controlled or local tab state. |
+| `defaultView` | `files \| agents` | `files` | no | Controlled or local tab state. |
+| `onViewChange` | `function` | — | no | Controlled or local tab state. |
+| `agentId` | `string \| null` | — | no | Controlled or local agent scope. Null restores all files. |
+| `defaultAgentId` | `string \| null` | `null` | no | Controlled or local agent scope. Null restores all files. |
+| `onAgentChange` | `function` | — | no | Controlled or local agent scope. Null restores all files. |
 | `labels` | `object` | `English copy` | no | Tabs, navigation and empty-agent copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `view`: `files`, `agents`
+- `defaultView`: `files`, `agents`
 
 ## Usage
 

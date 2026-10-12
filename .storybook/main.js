@@ -2,6 +2,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import { lucideIconOptimizeDeps, mermaidOptimizeDeps, rechartsOptimizeDeps } from './viteOptimizeDeps.js';
+import { sanitizeHtmlBrowserPlugin } from './sanitizeHtmlBrowserPlugin.js';
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const lodashEsDir = resolve(rootDir, 'node_modules/lodash-es');
@@ -150,6 +151,7 @@ const config = {
       },
       'plugins': [
         ...(viteConfig.plugins || []),
+        sanitizeHtmlBrowserPlugin(rootDir),
         tailwindcss()
       ],
       'resolve': {

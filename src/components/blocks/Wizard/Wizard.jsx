@@ -172,6 +172,7 @@ function WizardFlow({
                 ref={panel}
                 tabIndex={-1}
                 className='ds-wizard-panel'
+                role='group'
                 aria-label={steps[active].label}
               >
                 <fieldset disabled={pending}>

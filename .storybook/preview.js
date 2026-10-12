@@ -1,14 +1,15 @@
 import React from 'react';
+import { emitTransformCode, useEffect as useStoryEffect } from 'storybook/preview-api';
 import 'storybook/internal/components';
 import { create } from 'storybook/theming';
-import { withThemeByClassName } from '@storybook/addon-themes';
+import { DecoratorHelpers } from '@storybook/addon-themes';
 
 import './preview.css';
 // Every preset, scoped by [data-theme]; the Theme toolbar sets the attribute on <html>.
 import '../src/themes/themes.css';
 
 import { SiteConfigProvider, InputConfigProvider } from '../src/context';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider, useTheme } from 'next-themes';
 import tokenData from '../src/tokens/tokens.json';
 import { DEFAULT_THEME_ID, listThemes } from '../src/themes';
 import siteMetadata from '../src/docs/fixtures/site/metadata';
@@ -49,6 +50,8 @@ function makeFocusAccessorPrototypeSafe() {
   Object.defineProperty(HTMLElement.prototype, 'focus', { configurable: true, get: safeGet, set });
 }
 
+DecoratorHelpers.initializeThemeState(['light', 'dark'], 'light');
+
 const STORYBOOK_THEME_CLASSES = [ 'dark' ];
 const CORNER_RADII = [ '0px', '2px', '4px', '8px' ];
 const SPACE_SCALES = Object.values(tokenData.spaceScales).map(String);
@@ -85,15 +88,29 @@ function applyStorybookTheme(theme, cornerRadius, spaceScale, themeId) {
   setRootVariable('--ds-radius', cornerRadius, CORNER_RADII);
   setRootVariable('--ds-space-scale', spaceScale, SPACE_SCALES);
   document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
-  document.body.style.backgroundColor = preset === DEFAULT_THEME_ID
-    ? (isDark ? STORYBOOK_BACKGROUNDS.dark : STORYBOOK_BACKGROUNDS.light)
-    : 'var(--ds-color-surface)';
+  document.body.style.backgroundColor = 'var(--ds-color-surface)';
 }
 
 function syncStorybookTheme(...args) {
   applyStorybookTheme(...args);
   window.requestAnimationFrame(() => applyStorybookTheme(...args));
   window.setTimeout(() => applyStorybookTheme(...args), 0);
+}
+
+// Toolbar changes update the provider; in-demo switches can still change its theme.
+function StorybookTheme({ theme, cornerRadius, spaceScale, themeId, children }) {
+  const { resolvedTheme, setTheme } = useTheme();
+  // next-themes recreates setTheme after selection; only a new toolbar value overrides it.
+  const appliedToolbarTheme = React.useRef();
+  React.useEffect(() => {
+    if (appliedToolbarTheme.current === theme) return;
+    appliedToolbarTheme.current = theme;
+    setTheme(theme);
+  }, [theme, setTheme]);
+  React.useEffect(() => {
+    syncStorybookTheme(resolvedTheme || theme, cornerRadius, spaceScale, themeId);
+  }, [resolvedTheme, theme, cornerRadius, spaceScale, themeId]);
+  return children;
 }
 
 const preview = {
@@ -112,17 +129,29 @@ const preview = {
     }
   },
   decorators: [
-    // The toolbar theme switch toggles the `dark` class on <html>.
-    withThemeByClassName({ themes: { light: '', dark: 'dark' }, defaultTheme: 'light' }),
     (Story, context) => {
-      syncStorybookTheme(context.globals.theme, context.globals.cornerRadius, context.globals.spaceScale, context.globals.gaudiTheme);
+      const source = context.parameters.docs?.source;
+      useStoryEffect(() => {
+        if (source?.type === 'code' && source.transform && source.code === undefined) {
+          // Publish args-driven authored snippets without walking mounted React refs.
+          // Storybook only invokes the transform when its input is nonempty.
+          void emitTransformCode(source.originalSource || ' ', context);
+        }
+      }, [context.id, context.args, source]);
+      return Story();
+    },
+    (Story, context) => {
       return React.createElement(
         ThemeProvider,
         { attribute: 'class', defaultTheme: context.globals.theme, enableSystem: false },
         React.createElement(
-          SiteConfigProvider,
-          { metadata: siteMetadata, navigation: navigationMetadata },
-          React.createElement(InputConfigProvider, { caretMode: context.globals.caretMode }, Story())
+          StorybookTheme,
+          { theme: context.globals.theme, cornerRadius: context.globals.cornerRadius, spaceScale: context.globals.spaceScale, themeId: context.globals.gaudiTheme },
+          React.createElement(
+            SiteConfigProvider,
+            { metadata: siteMetadata, navigation: navigationMetadata },
+            React.createElement(InputConfigProvider, { caretMode: context.globals.caretMode }, Story())
+          )
         )
       );
     }
@@ -177,6 +206,7 @@ const preview = {
     },
   },
   initialGlobals: {
+    ...(import.meta.env.VITE_GAUDI_AUDIT === '1' && { viewport: { value: 'auditPhone' } }),
     caretMode: import.meta.env.VITE_GAUDI_CARET || 'smooth',
     cornerRadius: tokenData.dsVariables.root['--ds-radius'],
     gaudiTheme: import.meta.env.VITE_GAUDI_THEME_PRESET || DEFAULT_THEME_ID,
@@ -185,6 +215,11 @@ const preview = {
   },
   loaders: [ makeFocusAccessorPrototypeSafe ],
   parameters: {
+    ...(import.meta.env.VITE_GAUDI_AUDIT === '1' && {
+      viewport: {
+        options: { auditPhone: { name: 'Audit phone', styles: { width: '320px', height: '900px' }, type: 'mobile' } }
+      }
+    }),
     docs: {
       theme: create({ base: 'light', appBorderRadius: 0, inputBorderRadius: 0 }),
       components: { Markdown: DocsMarkdown },

@@ -76,7 +76,9 @@ export const Playground = {
     await expect(canvas.getByText(dateLabel(entry, args.siteMetadata?.locale))).toBeVisible();
     await expect(Boolean(canvas.queryByText('Draft'))).toBe(Boolean(entry.draft));
     for (const tag of entry.tags || []) await expect(await canvas.findByRole('link', { name: tag.label })).toHaveAttribute('href', tag.href);
-    const contents = canvas.getByRole('button', { name: 'Contents' });
+    const contents = canvas.getByRole('button', { name: 'Contents', hidden: true });
+    if (window.matchMedia('(min-width: 1024px)').matches) await expect(contents).toBeVisible();
+    else await expect(contents).not.toBeVisible();
     if (entry.readingTime) {
       const readingTime = canvas.getByText(entry.readingTime.text);
       await expect(contents.parentElement.contains(readingTime)).toBe(true);

@@ -36,7 +36,27 @@ export const ShareField = {
 export const SeveralTargets = {
   name: 'One hook, several copy buttons',
   parameters: example('`copiedText` says which value was copied, so one hook can drive a list of icon buttons. A number argument is the reset timeout.', exampleSource),
-  render: () => <InstallCommands />
+  render: () => <InstallCommands />,
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    const original = navigator.clipboard.writeText;
+    const writes = [];
+    navigator.clipboard.writeText = async text => { writes.push(text); };
+    try {
+      const pnpm = canvas.getByRole('button', { name: 'Copy the pnpm command' });
+      const npm = canvas.getByRole('button', { name: 'Copy the npm command' });
+      const originalIcon = pnpm.querySelector('svg').innerHTML;
+      await userEvent.click(pnpm);
+      await waitFor(() => expect(pnpm.querySelector('svg').innerHTML).not.toBe(originalIcon));
+      await expect(npm.querySelector('svg').innerHTML).toBe(originalIcon);
+      await userEvent.click(npm);
+      await waitFor(() => expect(npm.querySelector('svg').innerHTML).not.toBe(originalIcon));
+      await expect(pnpm.querySelector('svg').innerHTML).toBe(originalIcon);
+      await expect(writes).toEqual(['pnpm add github:ahmadassaf/design-system', 'npm install github:ahmadassaf/design-system']);
+      await waitFor(() => expect(npm.querySelector('svg').innerHTML).toBe(originalIcon), { timeout: 2500 });
+    } finally { navigator.clipboard.writeText = original; }
+  }
 };
 
 export const ResetPendingCopy = {

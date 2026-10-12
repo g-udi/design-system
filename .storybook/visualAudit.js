@@ -14,13 +14,12 @@ function isBordered(element) {
 }
 const clipsX = (element) => ['hidden', 'clip', 'auto', 'scroll'].includes(getComputedStyle(element).overflowX);
 
-export async function auditVisualLayout({ canvasElement, id, parameters }) {
+export function collectVisualLayout({ canvasElement, parameters }) {
   // Stories whose containers span the width by design declare it: parameters.visualAudit.wide = 'reason'.
   const allowWide = Boolean(parameters?.visualAudit?.wide);
-  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   const root = canvasElement;
   const visible = [...root.querySelectorAll('*')].filter((element) => {
-    if (element.closest('[hidden],[aria-hidden="true"],[inert],.sr-only')) return false;
+    if (element.closest('[hidden],[aria-hidden="true"],[inert],.sr-only') || !element.checkVisibility({ opacityProperty: true, visibilityProperty: true })) return false;
     const { width, height } = element.getBoundingClientRect();
     return width > 0 && height > 0 && !['absolute', 'fixed'].includes(getComputedStyle(element).position);
   });
@@ -56,5 +55,11 @@ export async function auditVisualLayout({ canvasElement, id, parameters }) {
     }
   }
 
-  if (failures.size) throw new Error(`${id}\n${[...failures].slice(0, 5).join('\n')}`);
+  return [...failures];
+}
+
+export async function auditVisualLayout(context) {
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  const failures = collectVisualLayout(context);
+  if (failures.length) throw new Error(`${context.id}\n${failures.slice(0, 5).join('\n')}`);
 }

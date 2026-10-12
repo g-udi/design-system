@@ -27,10 +27,13 @@ Exports: `BubbleChart`, `ScatterChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

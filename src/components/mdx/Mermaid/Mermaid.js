@@ -13,9 +13,12 @@
 import { useEffect, useId, useState } from 'react';
 
 import Icon from '../../core/Icon';
+import { Alert, AlertTitle, AlertDescription } from '../../core/Banner';
+import { CodeBlock } from '../../core/CodeBlock';
 import Skeleton from '../../core/Skeleton';
 import { cn } from '../../../utilities/cn';
 import sanitizeHtml from '../../../utilities/sanitizeHtml';
+import { observeTheme } from '../../../themes/observeTheme';
 
 // Lazy load mermaid only when component is used
 const loadMermaid = async() => {
@@ -24,27 +27,25 @@ const loadMermaid = async() => {
   return mermaid;
 };
 
-const getThemeColor = (name) => {
-  const value = window.getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-
-  return value || 'currentColor';
+const readDiagramTheme = (element) => {
+  const styles = element.ownerDocument.defaultView.getComputedStyle(element);
+  const getThemeColor = (name) => styles.getPropertyValue(name).trim() || 'currentColor';
+  return {
+    fontFamily: getThemeColor('--ds-font-sans'),
+    background: getThemeColor('--ds-color-surface'),
+    primaryColor: getThemeColor('--ds-color-mermaid-primary'),
+    primaryTextColor: getThemeColor('--ds-color-mermaid-primary-text'),
+    primaryBorderColor: getThemeColor('--ds-color-mermaid-primary-border'),
+    secondaryColor: getThemeColor('--ds-color-mermaid-secondary'),
+    secondaryTextColor: getThemeColor('--ds-color-text'),
+    tertiaryColor: getThemeColor('--ds-color-mermaid-tertiary'),
+    tertiaryTextColor: getThemeColor('--ds-color-text'),
+    lineColor: getThemeColor('--ds-color-mermaid-line'),
+    gridColor: getThemeColor('--ds-color-mermaid-grid'),
+    sectionBkgColor: getThemeColor('--ds-color-mermaid-section-bg'),
+    altSectionBkgColor: getThemeColor('--ds-color-mermaid-alt-section-bg')
+  };
 };
-
-const readDiagramTheme = () => ({
-  fontFamily: getThemeColor('--ds-font-sans'),
-  background: getThemeColor('--ds-color-surface'),
-  primaryColor: getThemeColor('--ds-color-mermaid-primary'),
-  primaryTextColor: getThemeColor('--ds-color-mermaid-primary-text'),
-  primaryBorderColor: getThemeColor('--ds-color-mermaid-primary-border'),
-  secondaryColor: getThemeColor('--ds-color-mermaid-secondary'),
-  secondaryTextColor: getThemeColor('--ds-color-text'),
-  tertiaryColor: getThemeColor('--ds-color-mermaid-tertiary'),
-  tertiaryTextColor: getThemeColor('--ds-color-text'),
-  lineColor: getThemeColor('--ds-color-mermaid-line'),
-  gridColor: getThemeColor('--ds-color-mermaid-grid'),
-  sectionBkgColor: getThemeColor('--ds-color-mermaid-section-bg'),
-  altSectionBkgColor: getThemeColor('--ds-color-mermaid-alt-section-bg')
-});
 
 /**
  * Renders a Mermaid diagram from provided chart definition
@@ -65,18 +66,18 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
   const [ svg, setSvg ] = useState('');
   const [ error, setError ] = useState('');
   const [ theme, setTheme ] = useState(null);
+  const [ host, setHost ] = useState(null);
 
   useEffect(() => {
+    if (!host) return undefined;
     // Mermaid bakes colors into SVG styles, so CSS theme changes need a fresh render.
     const updateTheme = () => {
-      const next = readDiagramTheme();
+      const next = readDiagramTheme(host);
       setTheme((current) => Object.keys(next).every((key) => current?.[key] === next[key]) ? current : next);
     };
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class', 'style'] });
     updateTheme();
-    return () => observer.disconnect();
-  }, []);
+    return observeTheme(host, updateTheme);
+  }, [host]);
 
   // Effects only run in the browser, so the server render keeps the placeholder.
   useEffect(() => {
@@ -155,19 +156,19 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
 
   if (error)
     return (
-      <div role='alert' className={ cn('mermaid-error my-4 rounded-lg border border-danger-border bg-danger-subtle p-4', className) }>
-        <p className='flex items-center gap-2 text-sm font-medium text-danger'>
-          <Icon name='CircleAlert' decorative size='sm' />
-          Mermaid Diagram Error: {error}
-        </p>
-        <pre className='mt-2 overflow-x-auto rounded bg-surface p-2 text-xs text-text'>{chart}</pre>
-      </div>
+      <Alert ref={setHost} variant='destructive' className={ cn('mermaid-error my-4', className) }>
+        <Icon name='CircleAlert' decorative size='sm' />
+        <AlertTitle>Mermaid Diagram Error: {error}</AlertTitle>
+        <AlertDescription className='min-w-0 w-full'>
+          <CodeBlock code={ chart } language='text' label='Diagram source' className='w-full' />
+        </AlertDescription>
+      </Alert>
     );
 
   // Placeholder for the server render and while Mermaid loads.
   if (!svg)
     return (
-      <div className={ cn('mermaid-loading my-4 space-y-2 rounded-lg bg-surface-muted p-6', className) }>
+      <div ref={setHost} className={ cn('mermaid-loading my-4 space-y-2 rounded-lg bg-surface-muted p-6', className) }>
         <Skeleton className='h-4 w-3/4' />
         <Skeleton className='h-4' />
         <Skeleton className='h-4 w-5/6' />
@@ -176,6 +177,7 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
 
   return (
     <figure
+      ref={setHost}
       aria-labelledby={ descriptionId }
       className={ cn('mermaid-diagram my-6 overflow-x-auto rounded-lg border border-border bg-surface p-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent', className) }
       role='img'

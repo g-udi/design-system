@@ -77,10 +77,10 @@ export const KeySet = {
     const canvas = within(canvasElement);
     await expect(canvas.getByText('K').tagName).toBe('KBD');
     await expect(canvas.getByText('K')).not.toHaveAttribute('aria-label');
-    await expect(canvas.getByLabelText('Escape')).toHaveTextContent('Esc');
-    await expect(canvas.getByLabelText('Enter')).toHaveTextContent('↵');
+    await expect(canvas.getByRole('img', { name: 'Escape' })).toHaveTextContent('Esc');
+    await expect(canvas.getByRole('img', { name: 'Enter' })).toHaveTextContent('↵');
     await expect(canvas.getByRole('img', { name: 'Shift plus Tab' })).toBeVisible();
-    await expect(canvas.getByLabelText('Option')).toHaveTextContent('⌥');
+    await expect(canvas.getByRole('img', { name: 'Option' })).toHaveTextContent('⌥');
   }
 };
 
@@ -88,7 +88,7 @@ export const Variants = {
   name: 'Variants and sizes',
   parameters: { docs: { description: { story: '`raised` has a keycap edge for standalone hints; `outline` and `flat` sit quieter in dense UI. Match the size to the text or control beside it.' } } },
   render: () => (
-    <div className='grid grid-cols-[auto_repeat(4,auto)] items-center justify-start justify-items-start gap-x-3 gap-y-2 text-xs text-text-muted'>
+    <div className='grid grid-cols-[auto_repeat(4,auto)] items-center justify-start justify-items-start gap-x-1 gap-y-2 text-xs text-text-muted sm:gap-x-3'>
       <span />
       {sizes.map((size) => <span key={size}>{size}</span>)}
       {variants.map((variant) => [

@@ -1,4 +1,5 @@
-import { Canvas, DocsContext, DocsStory, PureArgsTable, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
+import { Canvas, DocsContext, DocsStory, PureArgsTable, Story, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
+import { MDXProvider } from '@storybook/addon-docs/mdx-react-shim';
 import { useContext, useEffect, useId, useState } from 'react';
 import { RESET_STORY_ARGS, STORY_ARGS_UPDATED, UPDATE_STORY_ARGS } from 'storybook/internal/core-events';
 
@@ -7,6 +8,23 @@ import { InlineCode as CodeValue, InlineText, Table } from './StoryDocs';
 import { getComponentDocs } from './componentDocumentation';
 export { getComponentDocs } from './componentDocumentation';
 import { acceptsPreviewArgs, displayedPreviewArgs, previewArgTypes, referenceFromArgTypes, selectPreviewStory } from './docsContract';
+import { useInView } from '../../hooks/layout/use-in-view.js';
+import Skeleton from '../../components/core/Skeleton';
+
+// Defer only the example body; standard DocsStory headings and source controls stay available.
+const DeferredExampleStory = (props) => {
+  const [ref, inView] = useInView({
+    once: true,
+    rootMargin: '200px',
+    initialInView: typeof IntersectionObserver === 'undefined'
+  });
+  return (
+    <div ref={ref} data-slot='docs-example-story' aria-busy={!inView}>
+      {inView ? <Story {...props} /> : <Skeleton className='h-48 w-full animate-none' />}
+    </div>
+  );
+};
+const deferredExampleComponents = { Story: DeferredExampleStory };
 
 const toSectionId = (title) => title
   .toLowerCase()
@@ -213,7 +231,7 @@ export const CatalogueDocsPage = ({ documentation, options = {} }) => {
     // Without an explicit list, the preview exposes the Playground's own scalar args.
     const argNames = Object.keys(selected?.initialArgs || {}).filter(name => typeof selected.initialArgs[name] !== 'function');
     const controlNames = previewControls || (argNames.length ? argNames : undefined);
-    const previewUsage = storyDocs.source?.type === 'dynamic' && storyDocs.source?.transform
+    const previewUsage = storyDocs.source?.transform
       ? storyDocs.source.transform('', {...context.getStoryContext(selected), args: selected.initialArgs}) : undefined;
     const props = authored.props?.length ? authored.props : referenceFromArgTypes(selected?.argTypes);
     const docs = {
@@ -296,7 +314,9 @@ export const CatalogueDocsPage = ({ documentation, options = {} }) => {
           {examples && exampleStories.length ? (
             <section className='ds-docs-examples' aria-label='Examples'>
               <h2>Examples</h2>
-              {exampleStories.map(story => <DocsStory key={story.id} of={story.moduleExport} expanded __forceInitialArgs />)}
+              <MDXProvider components={deferredExampleComponents}>
+                {exampleStories.map(story => <DocsStory key={story.id} of={story.moduleExport} expanded __forceInitialArgs />)}
+              </MDXProvider>
             </section>
           ) : null}
 

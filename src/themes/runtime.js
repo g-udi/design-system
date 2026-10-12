@@ -51,5 +51,5 @@ export function getThemeScript({ storageKey = THEME_STORAGE_KEY, defaultTheme = 
   const mode = enableMode
     ? `var m=g(${literal(keys.mode)})||${literal(defaultMode)},k=m==='dark'||(m==='system'&&!!window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches);d.classList.toggle(${literal(darkClass)},k);d.style.colorScheme=k?'dark':'light';`
     : '';
-  return `(function(){var d=document.documentElement;function g(k){try{return window.localStorage.getItem(k)}catch(e){return null}}try{var t=g(${literal(keys.theme)})||${literal(defaultTheme)};d.setAttribute(${literal(attribute)},t);var c=g(${literal(keys.css)});if(c&&t!==${literal(DEFAULT_THEME_ID)}){var e=document.createElement('style');e.setAttribute(${literal(STYLE_ATTRIBUTE)},t);e.textContent=c;document.head.appendChild(e);}${mode}}catch(e){}})();`;
+  return `(function(){var d=document.documentElement;function g(k){try{return window.localStorage.getItem(k)}catch(e){return null}}try{var t=g(${literal(keys.theme)})||${literal(defaultTheme)};d.setAttribute(${literal(attribute)},t);var c=g(${literal(keys.css)});if(c){var e=document.createElement('style');e.setAttribute(${literal(STYLE_ATTRIBUTE)},t);e.textContent=c;document.head.appendChild(e);}${mode}}catch(e){}})();`;
 }

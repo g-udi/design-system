@@ -27,20 +27,47 @@ const categoryOrder = categories.map(([key]) => key);
 
 const slug = (title) => title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const empty = (value) => value == null || ['—', '-', ''].includes(String(value).trim());
-const splitNames = (name) => name.split(/\s*\/\s*/).map((part) => part.trim()).filter(Boolean);
+// Names split on '/' (and ',' for parameter lists), except inside call signatures such as `toast(message, options)`.
+const splitNames = (name) => (/\([^)]+\)|[{}]/.test(name) ? [name] : name.split(/\s*[/,]\s*/)).map((part) => part.trim()).filter(Boolean);
+
+const identifier = /^(?:\.\.\.)?[A-Za-z_$][\w$-]*(?:\.[\w$]+)*(?:\(\))?$/;
+const signature = /^[\w$.]+\(.*\)$/;
+const componentName = /^[A-Z][\w$]*$/;
 
 function prop([name, type, defaultValue, description]) {
   const names = splitNames(name);
   const parts = names.map((entry) => entry.match(/^([A-Z][\w]*)\.(.+)$/));
+  // `toast(message, options)`: a helper the owner exports, documented alongside its props.
+  const api = names.length === 1 && signature.test(names[0]);
+  // "Native input props / ref", "className / style / ref / DOM props": pass-through rows, not named props.
+  const passthrough = !api && names.some((entry) => !identifier.test(entry));
+  // "AvatarGroup", "Field / RadioGroup / Switch": a sub-component, or the components a block composes.
+  const subcomponent = !passthrough && names.every((entry) => componentName.test(entry));
   return {
     name,
-    names: names.map((entry, index) => parts[index] ? parts[index][2] : entry.replace(/\(.*$/, '')),
-    ...(parts.some(Boolean) ? { part: (parts.find(Boolean))[1] } : {}),
+    names: api ? [names[0].replace(/\(.*$/, '')] : names.flatMap((entry, index) => identifier.test(entry) ? [parts[index] ? parts[index][2] : entry.replace(/\(.*$/, '').replace(/^\.\.\./, '')] : []),
+    ...(parts.some(Boolean) ? { part: (parts.find(Boolean))[1] } : subcomponent ? { part: names[0] } : {}),
+    ...(api ? { api: true } : {}),
+    ...(passthrough ? { passthrough: true } : {}),
+    ...(subcomponent ? { subcomponent: true } : {}),
     type: type || null,
     default: empty(defaultValue) ? null : String(defaultValue),
-    required: /\brequired\b/i.test(`${description}`) && !/\bnot required\b/i.test(`${description}`),
+    // Only an explicit marker counts ("Required. …", "(required) …"); descriptions often mention the `required` attribute.
+    required: /^\s*(?:\(required\)|required[.:—-])/i.test(`${description}`),
     description: description || ''
   };
+}
+
+// A grouped row with one type per name ("shape / surface" typed "circle | square / solid | tinted") is
+// several props: split it so each gets its own type and default. Rows sharing one type stay grouped.
+function expandProps(row) {
+  const [name, type, defaultValue, description] = row;
+  if (/\bno props\b/i.test(`${type}`) || /^\(none\)$/i.test(String(name).trim())) return [];
+  const names = splitNames(name);
+  const types = type ? String(type).split(/\s+\/\s+/) : [];
+  if (names.length < 2 || types.length !== names.length || !names.every((entry) => identifier.test(entry) && !componentName.test(entry))) return [prop(row)];
+  const defaults = empty(defaultValue) ? [] : String(defaultValue).split(/\s+\/\s+/);
+  return names.map((entry, index) => prop([entry, types[index], defaults.length === names.length ? defaults[index] : null, description]));
 }
 
 const literalUnion = (type) => {
@@ -78,8 +105,9 @@ async function buildComponents(entryExports, patterns) {
       const candidate = name.replace(/\s+/g, '');
       const exportsList = entry?.exports || [];
       const mainExport = exportsList.includes(candidate) || exportsList.includes('default') ? candidate : exportsList.find((value) => /^[A-Z]/.test(value)) || candidate;
-      const props = (doc.props || []).map(prop);
-      const variants = Object.fromEntries(props.filter((entry) => entry.names.length === 1 && !entry.part)
+      const importKind = exportsList.includes(mainExport) || !exportsList.includes('default') ? 'named' : 'default';
+      const props = (doc.props || []).flatMap(expandProps);
+      const variants = Object.fromEntries(props.filter((entry) => entry.names.length === 1 && !entry.part && !entry.passthrough)
         .map((entry) => [entry.names[0], literalUnion(entry.type)]).filter(([, values]) => values));
       components.push({
         id: slug(title),
@@ -93,6 +121,9 @@ async function buildComponents(entryExports, patterns) {
           category: categoryEntry?.specifier || null,
           root: rootExports.has(mainExport),
           mainExport,
+          // Many owners only default-export their component; `line` is the import that actually works.
+          kind: importKind,
+          line: entry?.specifier ? (importKind === 'named' ? `import { ${mainExport} } from '${entry.specifier}';` : `import ${mainExport} from '${entry.specifier}';`) : null,
           exports: exportsList
         },
         description: doc.description || '',
@@ -138,7 +169,7 @@ async function buildComponents(entryExports, patterns) {
       description: hook.description || hook.summary,
       summary: hook.summary,
       group: hook.group,
-      props: (hook.params || []).map(prop),
+      props: (hook.params || []).flatMap(expandProps),
       returns: (hook.returns || []).map(([name, type, description]) => ({ name, type, description })),
       variants: {},
       accessibility: hook.accessibility || '',

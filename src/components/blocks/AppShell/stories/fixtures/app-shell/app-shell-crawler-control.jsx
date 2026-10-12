@@ -745,7 +745,7 @@ function CapturePanel({ query }) {
 
 function SearchBar({ query, onQuery, scope, onScope }) {
   return (
-    <InputGroup className='h-8 max-w-lg min-w-0 flex-1'>
+    <InputGroup className='h-8 max-w-lg min-w-0 flex-1 @max-md:order-last @max-md:max-w-none @max-md:basis-full'>
       <InputGroupAddon>
         <RegistryIcon lucide='Search' aria-hidden='true' />
       </InputGroupAddon>
@@ -815,7 +815,7 @@ function TopBar({ query, onQuery }) {
   const { isMobile } = useSidebar();
   const [scope, setScope] = useState(scopes[0]);
   return (
-    <AppShellHeader className='gap-2 px-3'>
+    <AppShellHeader className='gap-2 px-3 @max-md:flex-wrap'>
       {isMobile ? (
         <>
           <SidebarTrigger className='-ms-1' />

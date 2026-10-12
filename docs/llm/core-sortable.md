@@ -17,7 +17,8 @@ Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableOverlay`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `value / onValueChange` | `Array / function` | `Required` | no | Controlled item order. |
+| `value` | `Array` | — | no | Controlled item order. |
+| `onValueChange` | `function` | — | no | Controlled item order. |
 | `getItemValue` | `(item) => string` | — | no | Stable unique identity for each item. |
 | `strategy` | `vertical \| horizontal \| grid` | `vertical` | no | Layout-specific sorting strategy. |
 | `onMove / onValueCommit` | `function` | — | no | Move notification and committed order. |

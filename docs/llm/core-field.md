@@ -32,7 +32,7 @@ Exports: `Field`, `FieldContent`, `FieldDescription`, `FieldDescriptionPrimitive
 | `value` | `string` | — | no | Controlled input value. |
 | `defaultValue` | `string` | — | no | Initial uncontrolled input value. |
 | `placeholder` | `string` | — | no | Native input placeholder. |
-| `required` | `boolean` | `false` | yes | Marks the input as required. |
+| `required` | `boolean` | `false` | no | Marks the input as required. |
 | `invalid` | `boolean` | `true when a FieldError is rendered` | no | Forces aria-invalid and the error border on FieldInput. |
 | `disabled` | `boolean` | `false` | no | Disables the input. |
 | `onChange` | `(event) => void` | — | no | Native input change handler. |

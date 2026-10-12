@@ -1,5 +1,11 @@
+import { captureNestedScroll } from './captureNestedScroll.js';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+
+// Exercise native matchMedia subscriptions; callers clear overrides with null in finally.
+export async function emulateStoryMedia(context, options) {
+  await context.page.emulateMedia(options);
+}
 
 /** Capture the visible test iframe at each scroll position without changing its viewport. */
 export async function captureStoryViewport(context, path) {
@@ -10,6 +16,7 @@ export async function captureStoryViewport(context, path) {
   const last = Math.max(0, dimensions.documentHeight - dimensions.height);
   const positions = [...new Set(Array.from({ length: Math.ceil(last / dimensions.height) + 1 }, (_, index) => Math.min(index * dimensions.height, last)))];
   const images = [];
+  let nested;
   const presentation = await iframe.evaluate(element => ({
     transform: element.style.getPropertyValue('transform'),
     transformPriority: element.style.getPropertyPriority('transform'),
@@ -40,6 +47,8 @@ export async function captureStoryViewport(context, path) {
       await iframe.screenshot({ path: file });
       images.push({ file, scrollY: top });
     }
+    nested = await captureNestedScroll(frame, path, file => iframe.screenshot({ path: file }));
+    images.push(...nested.images);
   } finally {
     await iframe.evaluate((element, saved) => {
       for (const [property, value, priority] of [['transform', saved.transform, saved.transformPriority], ['transform-origin', saved.origin, saved.originPriority]]) {
@@ -49,7 +58,7 @@ export async function captureStoryViewport(context, path) {
     }, presentation);
     await frame.evaluate(({ x, y }) => window.scrollTo({ left: x, top: y, behavior: 'instant' }), previous);
   }
-  await writeFile(path.replace(/\.png$/, '.json'), `${JSON.stringify({ ...dimensions, images }, null, 2)}\n`);
+  await writeFile(path.replace(/\.png$/, '.json'), `${JSON.stringify({ ...dimensions, ...nested, images }, null, 2)}\n`);
   return images;
 }
 

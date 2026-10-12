@@ -62,6 +62,7 @@ function NavigationMenuContent({ className, ...props }) {
   return (
     <NavigationMenuPrimitive.Content
       data-slot='navigation-menu-content'
+      role='group'
       className={cn(
         'ds-part-navigation-menu-content top-0 left-0 w-full group-data-[viewport=false]/navigation-menu:top-full group-data-[viewport=false]/navigation-menu:mt-1.5 group-data-[viewport=false]/navigation-menu:overflow-hidden **:data-[slot=navigation-menu-link]:focus:ring-0 **:data-[slot=navigation-menu-link]:focus:outline-none md:absolute md:w-auto',
         className

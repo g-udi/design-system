@@ -1,7 +1,7 @@
 import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
-import { playgroundSource } from '../../../../docs/components/previewSource';
+import { previewSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import Image from '../Image';
 
@@ -11,7 +11,7 @@ const image = {
   alt: 'Lavender gradient artwork',
   caption: 'A lavender gradient study rendered as a post image.',
   width: 420,
-  height: 237
+  height: 236
 };
 const darkSrc = '/static/images/art/5.svg';
 const lead = 'Soft gradients bring color to the reading column. Select the image for a closer look.';
@@ -36,16 +36,20 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An article figure using local gradient artwork: the image swaps to a second gradient with the dark theme, the caption sits below, and selecting the image opens it in a lightbox.' },
-      source: playgroundSource('Image', {
-        imports: "import { Image } from '@gaudi/design-system/mdx';",
-        attributes: [`src='${image.src}'`, `darkSrc='${darkSrc}'`, `alt='${image.alt}'`, 'height={316}']
-      })
+      source: {
+        type: 'code',
+        language: 'jsx',
+        transform: (_source, { args }) => previewSource('Image', { ...args, height: Math.round(args.width * 9 / 16) }, {
+          imports: "import { Image } from '@gaudi/design-system/mdx';",
+          attributes: [`src='${image.src}'`, `darkSrc='${darkSrc}'`, `alt='${image.alt}'`]
+        })
+      }
     }
   },
   render: (args) => (
     <div className='text-base leading-7 text-text'>
       <p className='mb-4'>{lead}</p>
-      <Image {...image} darkSrc={darkSrc} height={316} {...args} />
+      <Image {...image} darkSrc={darkSrc} {...args} height={Math.round(args.width * 9 / 16)} />
     </div>
   ),
   play: async ({ args, canvasElement, id }) => {

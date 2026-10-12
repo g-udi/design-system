@@ -8,7 +8,10 @@ import {
 const dataGridGestureOutlineClasses =
   'outline-ui-primary pointer-events-none absolute z-[35] outline-1 outline-dashed -outline-offset-1';
 function startDataGridFillSession(options) {
-  const { table, viewport, onCellsChange } = options;
+  const { table, viewport, onCellsChange, pointerId } = options;
+  const pointerSession = typeof pointerId === 'number';
+  const moveEvent = pointerSession ? 'pointermove' : 'mousemove';
+  const upEvent = pointerSession ? 'pointerup' : 'mouseup';
   const document = viewport.ownerDocument;
   if (table.getCellSelectionBounds().length > 1) return;
   const bound = getDataGridActiveBound(table);
@@ -142,6 +145,7 @@ function startDataGridFillSession(options) {
     positionPreviewOutline();
   };
   const handleMove = (event) => {
+    if (pointerSession && event.pointerId !== pointerId) return;
     const element = document.elementFromPoint(event.clientX, event.clientY);
     const cellElement = element?.closest?.('td[data-col-id]');
     const rowElement = cellElement?.closest?.('tr[data-row-id]');
@@ -171,8 +175,10 @@ function startDataGridFillSession(options) {
   const finish = (commit) => {
     if (finished) return;
     finished = true;
-    document.removeEventListener('mousemove', handleMove);
-    document.removeEventListener('mouseup', handleUp);
+    document.removeEventListener(moveEvent, handleMove);
+    document.removeEventListener(upEvent, handleUp);
+    document.removeEventListener('pointercancel', handleCancel);
+    document.defaultView?.removeEventListener('blur', handleBlur);
     document.removeEventListener('keydown', handleKey, true);
     clearPreview();
     previewOutline.remove();
@@ -264,14 +270,24 @@ function startDataGridFillSession(options) {
         (extension.axis === 'column' ? extension.count : 0)
     });
   };
-  const handleUp = () => finish(true);
+  const handleUp = (event) => {
+    if (pointerSession && event.pointerId !== pointerId) return;
+    handleMove(event);
+    finish(true);
+  };
+  const handleCancel = (event) => {
+    if (event.pointerId === pointerId) finish(false);
+  };
+  const handleBlur = () => finish(false);
   const handleKey = (event) => {
     if (event.key !== 'Escape') return;
     event.stopPropagation();
     finish(false);
   };
-  document.addEventListener('mousemove', handleMove);
-  document.addEventListener('mouseup', handleUp);
+  document.addEventListener(moveEvent, handleMove);
+  document.addEventListener(upEvent, handleUp);
+  if (pointerSession) document.addEventListener('pointercancel', handleCancel);
+  document.defaultView?.addEventListener('blur', handleBlur);
   document.addEventListener('keydown', handleKey, true);
   return () => finish(false);
 }

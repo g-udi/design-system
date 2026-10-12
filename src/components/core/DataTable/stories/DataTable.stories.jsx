@@ -6,6 +6,7 @@ import { playgroundSource } from '../../../../docs/components/previewSource';
 import Checkbox from '../../Checkbox';
 import Pill from '../../Pill';
 import DataTable from '../DataTable';
+import CodeBlock from '../../CodeBlock';
 import { publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
 import { ArticleLibrary, Person, Status, archiveLabel, library, libraryColumns, number, people, sum } from './fixtures/ArticleLibrary.jsx';
 import librarySource from './fixtures/ArticleLibrary.jsx?raw';
@@ -13,6 +14,22 @@ import librarySource from './fixtures/ArticleLibrary.jsx?raw';
 const docs = getComponentDocs('Core/DataTable');
 const caption = 'Article library';
 const bodyRows = (canvasElement) => [...canvasElement.querySelector('tbody').rows].filter((row) => row.classList.contains('ds-table-row'));
+
+// Pinning and page-sticky headers deliberately release on narrow screens. Exercise both layouts without changing the preview's final viewport.
+async function verifyWideAndPhone(verify) {
+  if (import.meta.env.MODE !== 'test') return verify(window.innerWidth < 640);
+  const { page } = await import('vitest/browser');
+  const previous = { width: window.innerWidth, height: window.innerHeight };
+  try {
+    for (const width of [1440, 320]) {
+      await page.viewport(width, previous.height);
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await verify(width === 320);
+    }
+  } finally {
+    await page.viewport(previous.width, previous.height);
+  }
+}
 
 export default {
   title: 'Core/Data Display/DataTable',
@@ -258,12 +275,15 @@ export const PinnedColumns = {
   render: () => <DataTable caption='Reads by month' footer sortable density='compact' columns={trafficColumns} rows={traffic} />,
   play: async ({ canvasElement }) => {
     const region = within(canvasElement).getByRole('region', { name: 'Reads by month scrollable table' });
-    await waitFor(() => expect(region.querySelector('th[style*="sticky"]')).not.toBeNull());
-    // Arrow keys pan only when the months overflow the frame.
-    if (region.scrollWidth <= region.clientWidth) return;
-    region.focus();
-    await userEvent.keyboard('{ArrowRight}');
-    await waitFor(() => expect(region.scrollLeft).toBeGreaterThan(0));
+    await verifyWideAndPhone(async (phone) => {
+      await waitFor(() => expect(Boolean(region.querySelector('th[style*="sticky"]'))).toBe(!phone));
+      // Arrow keys pan only when the months overflow the frame.
+      if (region.scrollWidth <= region.clientWidth) return;
+      region.scrollLeft = 0;
+      region.focus();
+      await userEvent.keyboard('{ArrowRight}');
+      await waitFor(() => expect(region.scrollLeft).toBeGreaterThan(0));
+    });
   }
 };
 
@@ -279,8 +299,10 @@ export const PinnedColumnsRightToLeft = {
   ),
   play: async ({ canvasElement }) => {
     const region = within(canvasElement).getByRole('region', { name: 'Reads by month scrollable table' });
-    await waitFor(() => expect(region.querySelector('th[style*="inset-inline-start"]')).not.toBeNull());
-    await expect(region.querySelector('th[style*="left"]')).toBeNull();
+    await verifyWideAndPhone(async (phone) => {
+      await waitFor(() => expect(Boolean(region.querySelector('th[style*="inset-inline-start"]'))).toBe(!phone));
+      await expect(region.querySelector('th[style*="left"]')).toBeNull();
+    });
     await expect(within(region).getByRole('checkbox', { name: `Select row ${traffic[0].title}` })).toBeInTheDocument();
   }
 };
@@ -405,8 +427,10 @@ export const StickyPageHeader = {
   play: async ({ canvasElement }) => {
     const header = within(canvasElement).getByRole('columnheader', { name: 'Article' });
     const view = canvasElement.ownerDocument.defaultView;
-    await expect(view.getComputedStyle(header).position).toBe('sticky');
-    await expect(view.getComputedStyle(header).top).toBe('56px');
+    await verifyWideAndPhone(async (phone) => {
+      await waitFor(() => expect(view.getComputedStyle(header).position).toBe(phone ? 'static' : 'sticky'));
+      await expect(view.getComputedStyle(header).top).toBe(phone ? 'auto' : '56px');
+    });
   }
 };
 
@@ -574,7 +598,7 @@ function ExportableLibrary() {
           }
         }}
       />
-      {preview && <pre className='overflow-x-auto rounded-md border bg-surface-muted p-3 text-xs'>{preview}</pre>}
+      {preview && <CodeBlock code={preview} language='csv' label='CSV export' />}
     </div>
   );
 }
@@ -592,7 +616,8 @@ export const ExportCsv = {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByRole('searchbox'), 'design');
     await userEvent.click(canvas.getByRole('button', { name: 'Export CSV' }));
-    const preview = await canvas.findByText(/^Article,Status,Words,Reads,30 days/);
+    const preview = await canvas.findByRole('region', { name: 'CSV export' });
+    await expect(preview).toHaveTextContent('Article,Status,Words,Reads,30 days');
     await expect(preview).toHaveTextContent('Design tokens in production — Lina Ahmed');
     await expect(preview).not.toHaveTextContent('knowledge graphs');
   }

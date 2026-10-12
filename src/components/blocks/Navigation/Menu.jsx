@@ -88,9 +88,9 @@ const Menu = ({
 
     return !link.hideInPath || !path.includes(link.hideInPath);
   };
-  const mobileLinks = navigation.links.filter((link) => link.href !== blogLink?.href && shouldShowLink(link));
-  const isActivePath = (href) => path === href || (href !== '/' && path.startsWith(`${href}/`));
   const blogPath = blogLink?.href?.replace(/\/$/, '');
+  const mobileLinks = navigation.links.filter((link) => link.href.replace(/\/$/, '') !== blogPath && shouldShowLink(link));
+  const isActivePath = (href) => path === href || (href !== '/' && path.startsWith(`${href}/`));
   const onBlogRoute = Boolean(blogPath && (path === blogPath || path.startsWith(`${blogPath}/`)));
 
   const [ mobileMenuOpen, setMobileMenuOpen ] = useState(false);

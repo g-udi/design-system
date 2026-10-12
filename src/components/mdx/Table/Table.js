@@ -16,7 +16,7 @@ import { useEffect, useRef } from 'react';
 import { cn } from '../../../utilities/cn';
 
 import styles from './Table.module.css';
-import { TableHead as HeaderCell, TableCell as Cell, TableHeader as TableHead, TableBody, TableRow } from './TablePrimitives.jsx';
+import { Table as TableRoot, TableHead as HeaderCell, TableCell as Cell, TableHeader as TableHead, TableBody, TableRow } from './TablePrimitives.jsx';
 
 /**
  * Enhanced table component for article content
@@ -76,22 +76,17 @@ const Table = ({ children, className, density = 'normal', ...rest }) => {
   }, []);
 
   return (
-    <div className={ cn('not-prose', styles.root) }>
-      <div className={ styles.breakout }>
-        <div
-          className={ cn(styles.scroll, styles.frame) }
-          role='region'
-          tabIndex={ 0 }
-          aria-label='Scrollable table'
-        >
-          <div className='inline-block min-w-full align-middle'>
-            <table ref={ tableRef } data-density={density} className={ cn('ds-part-table w-full table-auto', className) } { ...rest }>
-              {children}
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
+    <TableRoot
+      ref={ tableRef }
+      density={ density }
+      className={ cn('table-auto', className) }
+      { ...rest }
+      containerProps={{
+        className: cn('not-prose', styles.root, styles.scroll, styles.frame)
+      }}
+    >
+      {children}
+    </TableRoot>
   );
 };
 

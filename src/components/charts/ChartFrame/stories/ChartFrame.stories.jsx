@@ -6,11 +6,11 @@ import { createRoot } from 'react-dom/client';
 
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 
-import { BarChart } from '../../BarChart/index.js';
-import { HeatmapChart } from '../../HeatmapChart/index.js';
-import { StackedBarList } from '../../StackedBarList/index.js';
+import { BarChart } from '@gaudi/design-system/charts/BarChart';
+import { HeatmapChart } from '@gaudi/design-system/charts/HeatmapChart';
+import { StackedBarList } from '@gaudi/design-system/charts/StackedBarList';
 import { chartsMeta, focusPlot, readout, ready } from '../../stories/story-helpers.jsx';
-import { ChartContainer, ChartFrame, ChartLegendContent, ChartTooltipContent, ChartTooltipRows } from '../index.js';
+import { ChartContainer, ChartFrame, ChartLegendContent, ChartTooltipContent, ChartTooltipRows, createChartFormatter } from '@gaudi/design-system/charts/ChartFrame';
 
 async function checkChangingChartData(canvasElement) {
   const host = canvasElement.ownerDocument.createElement('div');
@@ -35,6 +35,30 @@ async function checkChangingChartData(canvasElement) {
     root.render(<ChartFrame {...props} points={goalPoints} status='error' />);
     await waitFor(() => expect(onActiveChange).toHaveBeenLastCalledWith(null));
     await expect(plot).toHaveAttribute('tabindex', '-1');
+
+    root.render(
+      <ChartFrame {...props} points={goalPoints}>
+        <div role='region' aria-label='Scrollable chart detail' tabIndex={0} className='h-full overflow-x-auto'>
+          <div className='min-w-xl'><GoalBars /></div>
+        </div>
+      </ChartFrame>
+    );
+    const scrollRegion = await canvas.findByRole('region', { name: 'Scrollable chart detail' });
+    plot.focus();
+    await userEvent.keyboard('{Home}');
+    await expect(onActiveChange).toHaveBeenLastCalledWith(0);
+    scrollRegion.focus();
+    const activeCalls = onActiveChange.mock.calls.length;
+    for (const key of ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End', 'Enter', ' ', 'Escape']) {
+      const event = new KeyboardEvent('keydown', { key, bubbles: true, cancelable: true });
+      scrollRegion.dispatchEvent(event);
+      await expect(event.defaultPrevented).toBe(false);
+    }
+    await expect(onActiveChange).toHaveBeenCalledTimes(activeCalls);
+    await expect(scrollRegion).toHaveFocus();
+    plot.focus();
+    await userEvent.keyboard('{End}');
+    await expect(onActiveChange).toHaveBeenLastCalledWith(2);
 
     const identifier = 'FederatedKnowledgeGraphReconciliationAndContextualEntityResolutionPipeline';
     root.render(<BarChart data={[{ label: 'Recorded zero', value: 0 }, { label: 'Recorded five', value: 5 }]} series={[{ key: 'value', label: identifier }]} showLegend height={240} />);
@@ -122,7 +146,8 @@ export const Playground = {
     if (args.state !== 'ready') return;
     await checkChangingChartData(canvasElement);
     await focusPlot(canvasElement, 'Progress towards writing goals');
-    await waitFor(() => expect(readout(canvasElement)).toHaveTextContent('Essays: Done 18, Target 24, Progress 75%'));
+    const format = createChartFormatter(args.locale);
+    await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(`Words: Done ${format(18000)}, Target ${format(24000)}, Progress 75%`));
     await userEvent.keyboard('{ArrowDown}');
     await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(/^Notes:/));
   }

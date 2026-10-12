@@ -3,6 +3,7 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../docs/comp
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import { CodeFence, CodeGroup } from '../Code';
+import styles from '../../MdxContent/MdxContent.module.css';
 
 const docs = getComponentDocs('MDX/Code');
 const page = `export default function Page({ posts }) {
@@ -54,11 +55,11 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An article fence and a `::: code-group`, both rendered through CodeBlock. `title` fills the header, `highlightedLines` takes the `{2-3}` fence spec and `showLineNumbers` adds the gutter; the group gives each fence a tab with its own copy button.' },
-      source: { transform: (_, { args }) => mdx(args), language: 'mdx' }
+      source: { type: 'code', transform: (_, { args }) => mdx(args), language: 'mdx' }
     }
   },
   render: ({ title, highlightedLines, showLineNumbers }) => (
-    <div className='text-base leading-7'>
+    <div className={`${styles.root} text-base leading-7`}>
       {fence(page, 'tsx', {
         'data-title': title || undefined,
         'data-highlight': highlightedLines || undefined,
@@ -70,6 +71,12 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     await waitFor(() => expect(canvas.getByText(args.title)).toBeVisible());
+    // Article styles must not override the shared code surface or its flex layout.
+    const block = canvasElement.querySelector('[data-slot=code-block]');
+    await expect(getComputedStyle(block).display).toBe('flex');
+    const pre = block.querySelector('pre');
+    await expect(getComputedStyle(pre).paddingRight).toBe('0px');
+    await expect(getComputedStyle(pre.querySelector('code')).fontSize).toBe(getComputedStyle(pre).fontSize);
     await userEvent.click(canvas.getByRole('tab', { name: 'bun' }));
     // Highlighting splits code into token spans, so assert on the selected panel's text.
     await waitFor(() => expect(canvas.getByRole('tabpanel', { name: 'bun' })).toHaveTextContent('bun add @gaudi/design-system'));

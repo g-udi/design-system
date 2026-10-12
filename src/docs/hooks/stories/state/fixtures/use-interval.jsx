@@ -10,7 +10,7 @@ function FocusTimer() {
   useInterval(() => setSeconds((value) => value + 1), running ? 1000 : null);
   return (
     <div className='grid gap-3'>
-      <p className='font-mono text-3xl tabular-nums' aria-label={`Writing time ${format(seconds)}`}>{format(seconds)}</p>
+      <p role='timer' className='font-mono text-3xl tabular-nums' aria-label='Writing time'>{format(seconds)}</p>
       <div className='flex gap-2'>
         <Button aria-pressed={running} onClick={() => setRunning(!running)}>{running ? 'Pause' : 'Start'}</Button>
         <Button variant='ghost' tone='neutral' disabled={!seconds} onClick={() => {

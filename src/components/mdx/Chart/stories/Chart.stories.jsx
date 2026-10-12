@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
@@ -204,7 +205,7 @@ export const InMdx = {
             {owners.map((owner, index) => (
               <span key={owner}>
                 {index ? ', ' : ''}
-                <a className='underline underline-offset-4' href={`?path=/docs/charts-${owner.toLowerCase()}--docs`} target='_top'>{owner}</a>
+                <Link tone='accent' href={`?path=/docs/charts-${owner.toLowerCase()}--docs`} target='_top'>{owner}</Link>
               </span>
             ))}
           </p>

@@ -9,6 +9,7 @@
  */
 
 import { cn } from '../../../utilities/cn';
+import { cardVariants } from '../../core/Card';
 
 /**
  * @param {Object} props - Component props
@@ -22,7 +23,8 @@ import { cn } from '../../../utilities/cn';
 const Aside = ({ children, className }) => (
   <aside
     className={ cn(
-      'my-4 rounded-md border border-border bg-surface-muted px-4 py-3 text-sm leading-6 text-text-muted',
+      cardVariants({ variant: 'soft', padding: 'md', fill: false }),
+      'my-4 text-sm leading-6 text-text-muted',
       className
     ) }
   >

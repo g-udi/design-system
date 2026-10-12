@@ -18,7 +18,9 @@ Exports: `isApplePlatform`, `matchHotkey`, `parseHotkey`, `toAriaKeyShortcuts`, 
 | --- | --- | --- | --- | --- |
 | `keys` | `string \| string[]` | — | no | One or more combinations: 'mod+k', 'ctrl+shift+p', '/', 'escape'. |
 | `callback` | `(event, combo) => void` | — | no | Called when a combination matches. |
-| `options.enabled / target / event` | `boolean / target / 'keydown' \| 'keyup'` | `true / 'document' / 'keydown'` | no | When and where to listen. |
+| `options.enabled` | `boolean` | `true` | no | When and where to listen. |
+| `target` | `target` | `'document'` | no | When and where to listen. |
+| `event` | `'keydown' \| 'keyup'` | `'keydown'` | no | When and where to listen. |
 | `options.preventDefault` | `boolean` | `true` | no | Stop the browser default for a matched shortcut. |
 | `options.enableInInputs / allowRepeat` | `boolean` | `false` | no | Also fire in text fields, and on held-key repeats. |
 

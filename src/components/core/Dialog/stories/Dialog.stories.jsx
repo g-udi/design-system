@@ -49,7 +49,7 @@ export const Playground = {
       description: {
         story: 'An article editor, open over the drafts list: a cover, a title field, and a summary with a hint, with Cancel and Save changes in the footer. Side panels use Sheet; the confirmation variant has its own examples below.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('EditorExample', args, { before: `${publicSource(editorSource, new URL('./fixtures/DialogEditorExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('EditorExample', args, { before: `${publicSource(editorSource, new URL('./fixtures/DialogEditorExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <EditorExample {...args} />,

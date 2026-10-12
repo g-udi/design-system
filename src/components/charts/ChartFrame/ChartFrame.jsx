@@ -214,7 +214,8 @@ export function ChartFrame({
   };
 
   const onKeyDown = (event) => {
-    if (!ready || event.altKey || event.ctrlKey || event.metaKey) return;
+    // Nested scroll regions and controls keep their native keyboard behavior.
+    if (event.target !== event.currentTarget || event.defaultPrevented || !ready || event.altKey || event.ctrlKey || event.metaKey) return;
     if ([ 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End' ].includes(event.key)) {
       event.preventDefault();
       setKeyboard(true);

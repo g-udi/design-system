@@ -17,7 +17,7 @@ Exports: `Sheet`, `SheetClose`, `SheetContent`, `SheetDescription`, `SheetFooter
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `Sheet open / defaultOpen / onOpenChange` | `boolean / (open) => void` | — | no | Controlled or initial open state. |
+| `Sheet.open / defaultOpen / onOpenChange` | `boolean / (open) => void` | — | no | Controlled or initial open state. |
 | `SheetContent.side` | `right \| left \| top \| bottom` | `right` | no | Edge the panel slides from. |
 | `SheetContent.size` | `sm \| md \| lg \| xl` | `sm` | no | Width of side panels. |
 | `SheetContent.inset` | `boolean` | `false` | no | Float the panel off the edge with a rounded border. |

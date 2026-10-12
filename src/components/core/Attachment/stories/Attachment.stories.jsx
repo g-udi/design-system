@@ -35,7 +35,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An upload queue with a settled photo, a failed spreadsheet, and a report driven by the controls. Each state changes the media, status line, and actions: retry on failure, cancel while in flight, remove when settled. Retry and removal update this local example; Reset restores the queue.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('AttachmentQueue', args, { before: `${publicSource(copyableQueueSource, new URL('./fixtures/AttachmentQueueExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('AttachmentQueue', args, { before: `${publicSource(copyableQueueSource, new URL('./fixtures/AttachmentQueueExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <AttachmentQueue key={args.state} {...args} />,

@@ -1,3 +1,4 @@
+import { checkCascaderRefs } from '../../../../../tests/components/core/Cascader/checkCascaderRefs.jsx';
 import { badgeVariants } from '../../Pill/Badge.jsx';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
@@ -77,6 +78,7 @@ export const DrillDown = {
   ...pattern('drill-down', 'Brand icons, branch counts and search keywords across three levels. The toggles switch how the trigger prints the path (collapsed, full, tail, leaf or a headless custom value) and whether search reaches every level.'),
   play: async (context) => {
     const { canvasElement } = context;
+    await checkCascaderRefs(canvasElement);
     await auditPopup(context);
     const canvas = within(canvasElement);
     const page = within(canvasElement.ownerDocument.body);

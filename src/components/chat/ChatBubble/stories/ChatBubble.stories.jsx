@@ -18,7 +18,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: '`variant` picks the surface for the sender or the kind of message, and `align` keeps the bubble and its reactions on the sender side.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('ChatBubble', args, { imports: "import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat';", children: '  <ChatBubbleContent>{' + JSON.stringify(args.children) + '}</ChatBubbleContent>' }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('ChatBubble', args, { imports: "import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat';", children: '  <ChatBubbleContent>{' + JSON.stringify(args.children) + '}</ChatBubbleContent>' }) }
     }
   },
   render: ({ children, ...args }) => (

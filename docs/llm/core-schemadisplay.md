@@ -17,14 +17,15 @@ Exports: `SchemaDisplay`, `SchemaDisplayMethod`, `SchemaDisplayPath`, `SchemaDis
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `method / path` | `string / string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
+| `method` | `string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
+| `path` | `string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
 | `title / description` | `ReactNode` | — | no | A name for a bare schema and a summary line. |
-| `parameters` | `Array<{ name, in, type?, schema?, required?, description? }>` | `[]` | yes | Path, query and header parameters; path parameters are always required. |
-| `requestBody / responseBody / schema` | `JSONSchema` | — | yes | Schemas read as trees: type, format, required, description, enum, items and oneOf. |
+| `parameters` | `Array<{ name, in, type?, schema?, required?, description? }>` | `[]` | no | Path, query and header parameters; path parameters are always required. |
+| `requestBody / responseBody / schema` | `JSONSchema` | — | no | Schemas read as trees: type, format, required, description, enum, items and oneOf. |
 | `defaultExpandDepth` | `number` | `1` | no | Levels of nested objects that start open. |
 | `showJson` | `boolean` | `false` | no | Adds a Schema / JSON toggle with the raw definition in CodeBlock. |
 | `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | `3` | no | Heading level of the section titles. |
-| `labels` | `object` | `English copy` | yes | Section titles and the required marker. |
+| `labels` | `object` | `English copy` | no | Section titles and the required marker. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

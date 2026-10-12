@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useIsomorphicLayoutEffect } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
+import { observeTheme } from '../../../../themes/observeTheme.js';
 import { isHex } from './voice-orb-model.js';
 
 // Server and first-paint values (the light accent, chart-7, danger and chart-5 tokens), replaced by
@@ -40,12 +41,7 @@ export function useVoiceOrbColors(hostRef, palette, requestedFrom, requestedTo) 
       setColors((previous) => (Object.keys(next).every((key) => previous[key] === next[key]) ? previous : next));
     };
     refresh();
-    if (typeof MutationObserver === 'undefined') return undefined;
-    const observer = new MutationObserver(refresh);
-    for (let node = host; node; node = node.parentElement) {
-      observer.observe(node, { attributes: true, attributeFilter: [ 'class', 'style', 'data-theme' ] });
-    }
-    return () => observer.disconnect();
+    return observeTheme(host, refresh);
   }, [ hostRef, palette, requestedFrom, requestedTo ]);
 
   return colors;

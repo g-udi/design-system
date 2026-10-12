@@ -20,11 +20,16 @@ Exports: `ChatPersona`, `default`, `personaSizes`, `personaStates`, `personaVari
 | `state` | `idle \| connecting \| listening \| thinking \| speaking \| asleep \| error` | `idle` | no | What the assistant is doing. |
 | `variant` | `iridescent \| mercury \| waveform \| activity \| circle \| bars \| cloud \| radial` | `iridescent` | no | Renderer: WebGL film, CSS metal, canvas ring, SVG dot sphere, CSS disc, CSS bars, WebGL cloud or WebGL pinwheel. |
 | `size` | `xs \| sm \| md \| lg \| xl \| number` | `md` | no | 32, 48, 96, 168 or 240 pixels, or a number. |
-| `level / levelRef` | `number / RefObject<number>` | — | no | Live audio level 0..1. |
+| `level` | `number` | — | no | Live audio level 0..1. |
+| `levelRef` | `RefObject<number>` | — | no | Live audio level 0..1. |
 | `waveformRef` | `RefObject<Uint8Array>` | — | no | Time-domain samples for the waveform ring. |
-| `speed / active` | `number / boolean` | `1 / true unless asleep` | no | Animation multiplier and whether it moves. |
-| `name / labels / showLabel` | `string / object / boolean` | `Assistant / — / false` | no | Accessible name, copy per state and a visible label. |
-| `announce / decorative` | `boolean / boolean` | `true / false` | no | Polite state announcements, or hide it entirely. |
+| `speed` | `number` | `1` | no | Animation multiplier and whether it moves. |
+| `active` | `boolean` | `true unless asleep` | no | Animation multiplier and whether it moves. |
+| `name` | `string` | `Assistant` | no | Accessible name, copy per state and a visible label. |
+| `labels` | `object` | — | no | Accessible name, copy per state and a visible label. |
+| `showLabel` | `boolean` | `false` | no | Accessible name, copy per state and a visible label. |
+| `announce` | `boolean` | `true` | no | Polite state announcements, or hide it entirely. |
+| `decorative` | `boolean` | `false` | no | Polite state announcements, or hide it entirely. |
 | `colorFrom / colorTo` | `string` | `palette tokens` | no | Hex overrides for the artwork. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

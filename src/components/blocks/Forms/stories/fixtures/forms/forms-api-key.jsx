@@ -72,7 +72,8 @@ export function Pattern() {
           <AlertTitle>“{created.name}” is ready. Copy the secret now; it will not be shown again.</AlertTitle>
           <AlertDescription className='grid min-w-0 grid-cols-[minmax(0,1fr)] gap-3'>
             <div className='flex w-full flex-wrap items-center gap-2'>
-              <code aria-label={revealed ? 'API secret' : 'API secret, hidden'} className='bg-surface min-w-0 flex-1 basis-60 truncate rounded-sm border px-2 py-1 font-mono text-xs'>
+              <code className='bg-surface min-w-0 flex-1 basis-60 truncate rounded-sm border px-2 py-1 font-mono text-xs'>
+                <span className='sr-only'>{revealed ? 'API secret: ' : 'API secret, hidden: '}</span>
                 {revealed ? created.secret : `${created.secret.slice(0, 12)}${'•'.repeat(16)}`}
               </code>
               <div className='ms-auto flex shrink-0 items-center gap-2'>

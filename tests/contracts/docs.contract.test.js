@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { ownerDocumentation } from '../../src/docs/catalogue/component-docs.js';
 import { getComponentDocs } from '../../src/docs/components/componentDocumentation.js';
-import { acceptsPreviewArgs, displayedPreviewArgs, previewArgTypes, selectPreviewStory } from '../../src/docs/components/docsContract.js';
+import { acceptsPreviewArgs, displayedPreviewArgs, docsArgTypes, previewArgTypes, selectPreviewStory } from '../../src/docs/components/docsContract.js';
 import { previewSource } from '../../src/docs/components/previewSource.js';
 import { loadComponent } from '../support/renderComponent.js';
 
@@ -71,6 +71,15 @@ test('preview controls preserve defaults and exclude callbacks and read-only val
   assert.equal(rows.disabled.control.type, 'boolean');
   assert.deepEqual(displayedPreviewArgs(rows, {}), {disabled: false});
   assert.deepEqual(displayedPreviewArgs(rows, {disabled: true}), {disabled: true});
+});
+
+test('effect radius remains editable while corner presets use the global toolbar', () => {
+  const glyph = getComponentDocs('Animations/Text/GlyphInspector');
+  const radius = docsArgTypes(glyph, {radius: 'number'}).radius;
+  assert.equal(radius.control, 'number');
+  assert.match(radius.description, /Area reveal radius/);
+  const card = getComponentDocs('Core/Card');
+  assert.equal(docsArgTypes(card, {radius: ['none', 'sm', 'md', 'lg']}).radius.control, false);
 });
 
 test('copyable preview source keeps quoted strings, arrays and complete prop expressions', () => {

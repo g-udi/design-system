@@ -41,7 +41,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'The chat frame: `variant` page lays out navigation, thread and details side by side (they move into Sheets on narrow screens), sidebar is a narrow assistant panel. `navigation` and `details` fill the side columns, `welcome` shows the empty state of a new chat and `streaming` swaps send for stop and queue.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => source(args) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => source(args) }
     }
   },
   render: (args) => <ChatPlayground key={String(args.welcome)} {...args} />,

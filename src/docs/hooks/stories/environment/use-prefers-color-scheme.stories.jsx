@@ -1,3 +1,4 @@
+import { expect, waitFor, within } from 'storybook/test';
 import { example, hookMeta } from '../../HookDocs.jsx';
 
 import { SystemScheme } from './fixtures/use-prefers-color-scheme.jsx';
@@ -17,5 +18,16 @@ export default {
 export const SystemDefault = {
   name: 'System default for an embed',
   parameters: example('Reads the operating system preference. The site theme can differ (the reader may pick light on a dark system), so use the theme provider for site styling.', exampleSource),
-  render: () => <SystemScheme />
+  render: () => <SystemScheme />,
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const { commands } = await import('vitest/browser');
+    const canvas = within(canvasElement);
+    try {
+      for (const colorScheme of ['dark', 'light', 'dark']) {
+        await commands.emulateStoryMedia({ colorScheme });
+        await waitFor(() => expect(canvas.getByText(new RegExp(`load the ${colorScheme} map style`))).toBeVisible());
+      }
+    } finally { await commands.emulateStoryMedia({ colorScheme: null }); }
+  }
 };

@@ -172,7 +172,7 @@ const TokenFinder = () => {
         />
         <p role='status' aria-label='Token search status' className='text-xs leading-6 text-text-muted'>{resultMessage}</p>
         {!normalizedQuery ? (
-          <div aria-label='Popular token jobs' className='flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-xs'>
+          <div role='group' aria-label='Popular token jobs' className='flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-xs'>
             <span className='font-semibold text-text-muted'>Popular</span>
             {[
               [ 'Backgrounds & panels', 'background' ],

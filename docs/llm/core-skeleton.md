@@ -19,7 +19,9 @@ Exports: `Shimmer`, `SkeletonRoot`, `default`
 | --- | --- | --- | --- | --- |
 | `className` | `string` | — | no | Defines shape, width, height, radius, and layout placement. |
 | `Shimmer.children` | `ReactNode` | — | no | Text that shimmers while work is in progress, such as Thinking… or Searching the web…; it stays real, readable text. |
-| `Shimmer.active / duration / spread` | `boolean / number / number` | `true / 2 / 2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `Shimmer.active` | `boolean` | `true` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `duration` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `spread` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
 | `Shimmer.as` | `ElementType` | `span` | no | Element to render, such as p or h3. |
 
 ## Usage

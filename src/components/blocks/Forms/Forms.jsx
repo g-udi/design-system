@@ -317,7 +317,7 @@ export function EditableField({
   };
 
   return (
-    <div ref={root} data-slot='editable-field' data-editing={editing || undefined} className={cn('grid gap-2 py-3 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-4', className)}>
+    <div ref={root} data-slot='editable-field' data-editing={editing || undefined} role={editing ? undefined : 'group'} aria-labelledby={editing ? undefined : `${id}-label`} className={cn('grid gap-2 py-3 sm:grid-cols-[minmax(0,11rem)_minmax(0,1fr)] sm:gap-4', className)}>
       {editing ? (
         <Field className='sm:col-span-2'>
           <FieldLabel htmlFor={`${id}-control`}>{label}</FieldLabel>
@@ -339,7 +339,7 @@ export function EditableField({
         <>
           <span id={`${id}-label`} className='text-text-muted text-sm'>{label}</span>
           <div className='flex min-w-0 items-start justify-between gap-3'>
-            <span aria-labelledby={`${id}-label`} className={cn('min-w-0 text-sm break-words', blank(shown) && 'text-text-muted')}>{blank(shown) ? emptyLabel : shown}</span>
+            <span className={cn('min-w-0 text-sm break-words', blank(shown) && 'text-text-muted')}>{blank(shown) ? emptyLabel : shown}</span>
             <Button ref={editButton} size='xs' variant='ghost' tone='neutral' aria-label={`Edit ${label}`} onClick={open} className='-my-1 shrink-0'>
               <RegistryIcon lucide='PencilIcon' aria-hidden='true' />
               Edit

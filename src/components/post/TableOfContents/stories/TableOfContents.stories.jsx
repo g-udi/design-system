@@ -63,7 +63,9 @@ export const CompactToc = {
   args: { toc: toc.slice(0, 4) },
   parameters: { docs: { description: { story: 'With four or fewer top-level headings every branch stays expanded.' } } },
   render: (args) => <TableOfContentsFixture { ...args } />,
-  play: async ({ canvasElement }) => {
+  play: async ({ args, canvasElement }) => {
+    const headings = canvasElement.querySelectorAll('article h2, article h3');
+    await expect([...headings].map((heading) => heading.textContent)).toEqual(args.toc.flatMap((section) => [section.value, ...section.children.map((child) => child.value)]));
     for (const id of [ 'design-tokens', 'component-contracts', 'documentation' ])
       await expect(tocLink(canvasElement, id)).toBeInTheDocument();
   }

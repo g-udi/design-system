@@ -35,5 +35,22 @@ export const BulkActions = {
 export const Controlled = {
   name: 'Controlled with a limit',
   parameters: example('With `selectedIds` and `onSelectionChange` the host owns the Set and may refuse a change; here it keeps at most two topics.', exampleSource),
-  render: () => <ControlledTags />
+  render: () => <ControlledTags />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const design = canvas.getByRole('button', { name: 'design', exact: true });
+    const engineering = canvas.getByRole('button', { name: 'engineering', exact: true });
+    const data = canvas.getByRole('button', { name: 'data', exact: true });
+    await expect(design).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(engineering);
+    await expect(engineering).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(data);
+    await expect(data).toHaveAttribute('aria-pressed', 'false');
+    await expect(design).toHaveAttribute('aria-pressed', 'true');
+    await expect(engineering).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(design);
+    await userEvent.click(data);
+    await expect(design).toHaveAttribute('aria-pressed', 'false');
+    await expect(data).toHaveAttribute('aria-pressed', 'true');
+  }
 };

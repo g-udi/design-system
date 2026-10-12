@@ -34,7 +34,7 @@ export const Playground = {
       description: {
         story: 'An article register. The search shows a live count; Filters opens status, category and author facets with counts; every selected value becomes a removable chip. The host filters the rows with its own predicate and hands the visible ones to DataTable.'
       },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('Collection', args, { before: `${publicSource(copyableArticleSource, new URL('./fixtures/ArticleFilterExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('Collection', args, { before: `${publicSource(copyableArticleSource, new URL('./fixtures/ArticleFilterExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   // Remount when the seeded query changes so the search box and results follow the control.
@@ -45,6 +45,12 @@ export const Playground = {
     const status = canvas.getByText(/of \d+ articles$/);
     const search = canvas.getByRole('searchbox', { name: args.searchLabel });
     const trigger = () => canvas.getByRole('button', { name: new RegExp(`^${args.filterLabel}`) });
+    const selectFacet = async (name) => {
+      const popover = within(await page.findByRole('dialog', { name: args.filterLabel }));
+      const picker = popover.queryByRole('combobox', { name: args.filterLabel });
+      if (picker) await userEvent.selectOptions(picker, name.toLowerCase());
+      else await userEvent.click(popover.getByRole('tab', { name }));
+    };
     const count = (filters) => `${matching({ query: args.query, ...initial, ...filters }).length} of ${articles.length} articles`;
     await expect(search).toHaveValue(args.query);
     if (!args.query) await expect(search).toHaveAttribute('placeholder', args.placeholder);
@@ -53,7 +59,7 @@ export const Playground = {
 
     // Pick a category in the facet popover; the chip and the count follow.
     await userEvent.click(trigger());
-    await userEvent.click(await page.findByRole('tab', { name: 'Category' }));
+    await selectFacet('Category');
     await userEvent.click(page.getByRole('radio', { name: /^Research/ }));
     await userEvent.click(page.getByRole('button', { name: 'Done' }));
     await expect(status).toHaveTextContent(count({ category: 'Research' }));
@@ -71,7 +77,7 @@ export const Playground = {
     await userEvent.clear(search);
     if (args.query) await userEvent.type(search, args.query);
     await userEvent.click(trigger());
-    await userEvent.click(await page.findByRole('tab', { name: 'Status' }));
+    await selectFacet('Status');
     for (const value of initial.status) await userEvent.click(page.getByRole('checkbox', { name: new RegExp(`^${value}`) }));
     await userEvent.click(page.getByRole('button', { name: 'Done' }));
     await expect(status).toHaveTextContent(count({}));

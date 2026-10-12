@@ -25,7 +25,9 @@ Exports: `ChatAgentMark`, `agentHues`, `agentMarkVariants`, `agentMotifs`, `defa
 | `tone` | `accent \| discovery \| neutral \| solid` | `accent` | no | Tile colour. |
 | `state` | `idle \| thinking \| streaming \| tool \| done \| error` | — | no | Adds an ChatActivityIndicator badge. |
 | `monogram` | `boolean` | `false` | no | Initials instead of the icon. |
-| `icon / image / decorative` | `string / string / boolean` | `Sparkles / — / false` | no | Glyph, image and hiding. |
+| `icon` | `string` | `Sparkles` | no | Glyph, image and hiding. |
+| `image` | `string` | — | no | Glyph, image and hiding. |
+| `decorative` | `boolean` | `false` | no | Glyph, image and hiding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

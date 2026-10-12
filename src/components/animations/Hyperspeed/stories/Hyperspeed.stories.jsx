@@ -39,7 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
-    await checkBackgroundRendering(canvasElement, Hyperspeed, {"curvature": 0, "trailLength": 4});
+    await checkBackgroundRendering(canvasElement, Hyperspeed, { curvature: 0, trailLength: 4 });
     await checkBackgroundDemo(context);
   }
 };

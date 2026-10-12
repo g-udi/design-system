@@ -31,7 +31,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An editorial board with cards at different priorities, categories, and assignees, plus an empty column. Move a card from its menu; `disabled` locks every move, and a column `limit` shows its work-in-progress count, warning once a move takes it over.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('Board', args, { before: `${publicSource(boardSource, new URL('./fixtures/EditorialBoardExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('Board', args, { before: `${publicSource(boardSource, new URL('./fixtures/EditorialBoardExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <Board {...args} />,

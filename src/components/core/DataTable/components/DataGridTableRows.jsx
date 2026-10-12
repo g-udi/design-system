@@ -1,5 +1,6 @@
 'use client';
 import { Fragment, memo } from 'react';
+import { useMergedRefs } from '../../../../hooks/state/use-merged-refs.js';
 import { useDataGrid } from '../DataGrid.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Loader } from '../../Loader/LoaderPrimitives.jsx';
@@ -9,11 +10,10 @@ import {
   getDataGridTableOrderedVisibleCells,
   hasDataGridTableRightPinnedColumns
 } from '../dataGridTableModel.js';
-import { assignRef, isDataGridCellInteractiveTarget } from '../dataGridTableDom.js';
+import { isDataGridCellInteractiveTarget } from '../dataGridTableDom.js';
 import {
   DataGridTableFillBodyCell,
-  DataGridTableBodyRowSkeleton,
-  DataGridTableBodyRowSkeletonCell,
+  DataGridTableBodySkeleton,
   DataGridTableEmpty
 } from './DataGridTableStructure.jsx';
 import {
@@ -31,16 +31,14 @@ function DataGridTableBodyRow({
   dataIndex
 }) {
   const { props, table } = useDataGrid();
+  const ref = useMergedRefs(rowRef, dndRef);
   const isRowPinned = row.getIsPinned();
   const rowStatus = props.getRowStatus?.(row.original);
   const bodyRowBottomBorderClasses =
     '[&:not(:last-child)>td]:border-b [tbody:has(+tfoot)_&:last-child>td]:border-b [*:has(>[data-slot=data-grid]+[data-slot=data-grid-pagination])_[data-slot=data-grid]_&:last-child>td]:border-b';
   return (
     <tr
-      ref={(node) => {
-        assignRef(rowRef, node);
-        assignRef(dndRef, node);
-      }}
+      ref={ref}
       style={{ ...(dndStyle ? dndStyle : null) }}
       data-state={
         table.options.enableRowSelection && row.getIsSelected()
@@ -229,34 +227,7 @@ function DataGridTableBodyRows({ table }) {
   const { i18n, isLoading, props } = useDataGrid();
   const pagination = table.state.pagination;
   if (isLoading && props.loadingMode === 'skeleton' && pagination?.pageSize) {
-    const leftVisibleColumns = table.getStartVisibleLeafColumns();
-    const centerVisibleColumns = table.getCenterVisibleLeafColumns();
-    const rightVisibleColumns = table.getEndVisibleLeafColumns();
-    const hasRightPinnedColumns = hasDataGridTableRightPinnedColumns(table);
-    return (
-      <>
-        {Array.from({ length: pagination.pageSize }).map((_, rowIndex) => (
-          <DataGridTableBodyRowSkeleton key={rowIndex}>
-            {[...leftVisibleColumns, ...centerVisibleColumns].map((column) => (
-              <DataGridTableBodyRowSkeletonCell column={column} key={column.id}>
-                {column.columnDef.meta?.skeleton}
-              </DataGridTableBodyRowSkeletonCell>
-            ))}
-            {props.tableLayout?.columnsResizable && hasRightPinnedColumns ? (
-              <DataGridTableFillBodyCell />
-            ) : null}
-            {rightVisibleColumns.map((column) => (
-              <DataGridTableBodyRowSkeletonCell column={column} key={column.id}>
-                {column.columnDef.meta?.skeleton}
-              </DataGridTableBodyRowSkeletonCell>
-            ))}
-            {props.tableLayout?.columnsResizable && !hasRightPinnedColumns ? (
-              <DataGridTableFillBodyCell />
-            ) : null}
-          </DataGridTableBodyRowSkeleton>
-        ))}
-      </>
-    );
+    return <DataGridTableBodySkeleton />;
   }
   if (isLoading && props.loadingMode === 'spinner') {
     return (

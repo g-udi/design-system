@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@storybook/addon-docs@10.5.6':
+    hash: 3gxtalhjxpity5rk4tnykvb4ci
+    path: patches/@storybook__addon-docs@10.5.6.patch
+
 importers:
 
   .:
@@ -140,7 +145,7 @@ importers:
         version: 10.5.6(storybook@10.5.6)
       '@storybook/addon-docs':
         specifier: ^10.5.6
-        version: 10.5.6(@types/react@19.2.18)(esbuild@0.28.1)(storybook@10.5.6)(vite@8.2.0)
+        version: 10.5.6(patch_hash=3gxtalhjxpity5rk4tnykvb4ci)(@types/react@19.2.18)(esbuild@0.28.1)(storybook@10.5.6)(vite@8.2.0)
       '@storybook/addon-themes':
         specifier: 10.5.6
         version: 10.5.6(storybook@10.5.6)
@@ -3655,7 +3660,7 @@ packages:
       storybook: 10.5.6(@types/react@19.2.18)(react@19.2.7)
     dev: true
 
-  /@storybook/addon-docs@10.5.6(@types/react@19.2.18)(esbuild@0.28.1)(storybook@10.5.6)(vite@8.2.0):
+  /@storybook/addon-docs@10.5.6(patch_hash=3gxtalhjxpity5rk4tnykvb4ci)(@types/react@19.2.18)(esbuild@0.28.1)(storybook@10.5.6)(vite@8.2.0):
     resolution: {integrity: sha512-zyUJBrrpC9NTrmsREaVFNr+9WW6pikJtmRvo7GgZGqthEyhjQKSarHrW0aNWkwae2ep3jp1CZi8vIUVG1Dnp0w==}
     peerDependencies:
       '@types/react': ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -3680,6 +3685,7 @@ packages:
       - vite
       - webpack
     dev: true
+    patched: true
 
   /@storybook/addon-themes@10.5.6(storybook@10.5.6):
     resolution: {integrity: sha512-fIzu2f6xPh/mtOBUU9TnjSoO3qUIF57AVES9HX4dfhjtbz9lWd+EhNd65nZfmTXxKsS32x/7/aXDTHtuP/ObwQ==}

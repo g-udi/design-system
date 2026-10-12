@@ -21,6 +21,7 @@ test('Wizard renders dots, progress and vertical indicators with the step announ
   const dots = await renderComponent(new URL('../../../../src/components/blocks/Wizard/Wizard.jsx', import.meta.url), { title: 'Upgrade', steps, indicator: 'dots', navigable: true, onComplete: () => {} });
   assert.match(dots, /data-slot="wizard-dots"/);
   assert.match(dots, /aria-label="Step 1 of 3"/);
+  assert.match(dots, /class="ds-wizard-panel" role="group" aria-label="Plan"/);
   assert.equal(dots.match(/aria-current="step"/g)?.length, 1);
   const progress = await renderComponent(new URL('../../../../src/components/blocks/Wizard/Wizard.jsx', import.meta.url), { title: 'Upgrade', steps, indicator: 'progress', onComplete: () => {} });
   assert.match(progress, /data-slot="wizard-progress"/);

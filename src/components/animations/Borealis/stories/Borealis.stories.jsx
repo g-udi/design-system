@@ -27,7 +27,7 @@ export const BorealisSurface = {
     await waitFor(() => expect(canvasElement.querySelector('.borealis')).toHaveAttribute('data-animated', 'false'));
     await userEvent.click(canvas.getByRole('button', { name: 'Resume animation' }));
     await expect(canvas.getByRole('button', { name: 'Pause animation' })).toBeVisible();
-    await checkBackgroundRendering(canvasElement, Borealis, { variant: 'soft' });
+    await checkBackgroundRendering(canvasElement, Borealis, { variant: 'soft', amplitude: 0, blend: 1, fadeEdges: false });
     await checkBackgroundDemo(context);
   }
 };

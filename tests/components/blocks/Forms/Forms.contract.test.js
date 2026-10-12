@@ -41,6 +41,8 @@ test('EditableField shows the value with a named Edit button, and CharacterCount
   const { EditableField, CharacterCount } = await load();
   const html = renderToStaticMarkup(h(EditableField, { label: 'Subject', value: 'Export drops a column' }));
   assert.match(html, /data-slot="editable-field"/);
+  assert.match(html, /role="group" aria-labelledby="[^"]+-label"/);
+  assert.doesNotMatch(html, /<span aria-labelledby=/);
   assert.match(html, /aria-label="Edit Subject"/);
   assert.match(html, /Export drops a column/);
   const empty = renderToStaticMarkup(h(EditableField, { label: 'Phone', value: '' }));

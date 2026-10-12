@@ -22,21 +22,26 @@ export const PullRequestReview = {
     await waitFor(() => expect(canvas.getByText('Please check the conflict test')).toBeVisible());
     const openSessions = async () => {
       const trigger = canvas.queryByRole('button', { name: 'Open chats' });
-      if (trigger) { await userEvent.click(trigger); await waitFor(() => expect(body.getByRole('dialog', { name: 'Chats and files' })).toBeVisible()); }
+      if (!trigger) return canvas;
+      await userEvent.click(trigger);
+      const dialog = await body.findByRole('dialog', { name: 'Chats and files' });
+      await expect(dialog).toBeVisible();
+      return within(dialog);
     };
-    await openSessions();
-    await userEvent.click(canvas.getByRole('button', { name: /^Fix the RSS feed dates/ }));
+    const selectSession = async (name) => {
+      const sessions = await openSessions();
+      await userEvent.click(sessions.getByRole('button', { name, exact: true }));
+      await waitFor(() => expect(body.queryByRole('dialog', { name: 'Chats and files' })).not.toBeInTheDocument());
+    };
+    await selectSession(/^Fix the RSS feed dates/);
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Fix the RSS feed dates' })).toBeVisible());
     await expect(canvas.queryByText('Please check the conflict test')).not.toBeInTheDocument();
-    await openSessions();
-    await userEvent.click(canvas.getByRole('button', { name: /^Review: offline draft sync/ }));
+    await selectSession(/^Review: offline draft sync/);
     await waitFor(() => expect(canvas.getByText('Please check the conflict test')).toBeVisible());
-    await openSessions();
-    await userEvent.click(canvas.getByRole('button', { name: 'New chat', exact: true }));
+    await selectSession('New chat');
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'New chat' })).toBeVisible());
     await expect(canvas.queryByText('Please check the conflict test')).not.toBeInTheDocument();
-    await openSessions();
-    await userEvent.click(canvas.getByRole('button', { name: /^Review: offline draft sync/ }));
+    await selectSession(/^Review: offline draft sync/);
     await waitFor(() => expect(canvas.getByRole('heading', { name: 'Review: offline draft sync' })).toBeVisible());
     await openSessions();
     const sessions = body.getByRole('navigation', { name: 'Chats', exact: true });

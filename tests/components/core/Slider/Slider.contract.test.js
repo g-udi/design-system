@@ -22,6 +22,8 @@ test('Slider supplies one default thumb and places the host label and descriptio
   assert.match(thumbs[0], /aria-labelledby="volume-label"/);
   assert.match(thumbs[0], /aria-describedby="volume-hint"/);
   assert.doesNotMatch(thumbs[0], /aria-label=/);
+  assert.equal((html.match(/aria-labelledby="volume-label"/g) || []).length, 1);
+  assert.equal((html.match(/aria-describedby="volume-hint"/g) || []).length, 1);
 });
 
 test('Slider names unlabelled thumbs through thumbLabel and takes an explicit dir', () => {

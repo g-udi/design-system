@@ -66,9 +66,9 @@ function Playback({ src, poster, title, variant, aspectRatio, fit, tracks, autoP
     </div>
     {!nativeControls && <div className='ds-video-controls'>
       <Control label={playLabel} icon={playIcon} disabled={disabled} onClick={player.toggle} />
-      <time className='ds-video-time' aria-label='Elapsed time'>{formatVideoTime(state.currentTime)}</time>
+      <span className='ds-video-time'><span className='sr-only'>Elapsed time: </span>{formatVideoTime(state.currentTime)}</span>
       <Timeline player={player} elastic={minimal} />
-      <time className='ds-video-time' aria-label='Duration'>{formatVideoTime(state.duration)}</time>
+      <span className='ds-video-time'><span className='sr-only'>Duration: </span>{formatVideoTime(state.duration)}</span>
       <div className='ds-video-secondary'>
         <div className='ds-video-audio'>
           <Control label={state.muted || !state.volume ? 'Unmute' : 'Mute'} icon={state.muted || !state.volume ? 'VolumeX' : 'Volume2'} disabled={disabled} onClick={player.mute} />

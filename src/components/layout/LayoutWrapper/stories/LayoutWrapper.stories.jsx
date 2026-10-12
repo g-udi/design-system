@@ -46,6 +46,7 @@ export const PageShell = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const footer = canvas.getByRole('contentinfo');
+    await expect(canvas.getByRole('button', { name: 'Sign up' })).toBeDisabled();
     const shell = footer.parentElement;
     const originalWidth = shell.style.width;
 
@@ -61,11 +62,8 @@ export const PageShell = {
       shell.style.width = originalWidth;
     }
   },
-  parameters: { ...story('The page shell: shared navigation, a main landmark, and the footer around page content.'), __id: 'layout-components--page-shell' },
+  parameters: { ...story('The page shell: shared navigation, a main landmark, and the footer around page content. Newsletter signup remains unavailable until the host configures an endpoint.'), __id: 'layout-components--page-shell' },
   render: () => <LayoutWrapper footerProps={{
-    'newsletterProps': {
-      'endpoint': '#newsletter'
-    },
     'sections': footerSections
   }}>
       <div className='py-16'>

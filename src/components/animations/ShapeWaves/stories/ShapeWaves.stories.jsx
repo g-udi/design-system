@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { ShapeWaves } from '../index.js';
 import { ShapeWavesPlayground } from './fixtures/ShapeWavesExamples.jsx';
@@ -38,6 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
+    await checkBackgroundRendering(canvasElement, ShapeWaves, { text: 'Wave', textSize: 0.3, cellSize: 20, dotSize: 0.3 }, { text: 'Gaudi' });
     await checkBackgroundDemo(context);
   }
 };

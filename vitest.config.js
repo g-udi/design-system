@@ -6,7 +6,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lucideIconOptimizeDeps } from './.storybook/viteOptimizeDeps.js';
 import { checkStorySource } from './.storybook/checkStorySource.js';
-import { captureStoryViewport, recordStoryAudit } from './.storybook/captureStoryViewport.js';
+import { captureStoryViewport, emulateStoryMedia, recordStoryAudit } from './.storybook/captureStoryViewport.js';
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const lodashEsDir = resolve(rootDir, 'node_modules/lodash-es');
@@ -47,7 +47,7 @@ export default defineConfig({
           testTimeout: auditTimeout,
           hookTimeout: auditTimeout,
           browser: {
-            commands: { captureStoryViewport, recordStoryAudit, checkStorySource },
+            commands: { captureStoryViewport, emulateStoryMedia, recordStoryAudit, checkStorySource },
             enabled: true,
             headless: true,
             instances: [

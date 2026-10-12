@@ -28,6 +28,8 @@ export const Playground = {
     const canvas = within(canvasElement);
     const video = canvasElement.querySelector('video');
     await ready(video);
+    await expect(canvas.getByText('Elapsed time:').parentElement).toHaveTextContent(/^Elapsed time: \d+:\d{2}$/);
+    await expect(canvas.getByText('Duration:').parentElement).toHaveTextContent(/^Duration: \d+:\d{2}$/);
     await userEvent.click(canvas.getByRole('button', { name: 'Play', exact: true }));
     await waitFor(() => expect(video.paused).toBe(false));
     await waitFor(() => expect(video.currentTime).toBeGreaterThan(0));

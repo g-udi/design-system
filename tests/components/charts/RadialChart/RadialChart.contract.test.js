@@ -23,3 +23,12 @@ test('RadialBarChart renders a labelled plot, a keyboard hint and a data table m
 test('values read as percentages', () => {
   assert.match(render(api.RadialBarChart, { ariaLabel: 'Done', data: [{ label: 'Done', value: 78 }] }), />78%</);
 });
+
+
+test('fractional percentages follow locale without changing the 0–100 value contract', () => {
+  const data = [{ label: 'Done', value: 78.25 }];
+  assert.match(render(api.RadialBarChart, { data, locale: 'en-US' }), />78\.25%</);
+  assert.match(render(api.RadialBarChart, { data, locale: 'de-DE' }), />78,25\s%</);
+  assert.match(render(api.RadialBarChart, { data, locale: 'de-DE', formatValue: value => `${value} points` }), />78\.25 points</);
+  assert.match(render(api.RadialBarChart, { data, locale: 'de-DE', formatValue: { minimumFractionDigits: 1 } }), />78,25</);
+});

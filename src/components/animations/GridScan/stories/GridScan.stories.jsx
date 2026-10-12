@@ -39,7 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
-    await checkBackgroundRendering(canvasElement, GridScan, {"lineWidth": 3, "scanGlow": 2});
+    await checkBackgroundRendering(canvasElement, GridScan, { lineWidth: 3, scanWidth: 4, scanGlow: 0 });
     await checkBackgroundDemo(context);
   }
 };

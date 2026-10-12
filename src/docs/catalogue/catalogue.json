@@ -6341,6 +6341,17 @@
       ],
       "importPath": "./src/components/mdx/Mermaid/stories/Mermaid.stories.jsx"
     },
+    "mdx-mermaid--invalid-diagram": {
+      "id": "mdx-mermaid--invalid-diagram",
+      "title": "MDX/Mermaid",
+      "name": "Invalid Diagram",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/mdx/Mermaid/stories/Mermaid.stories.jsx"
+    },
     "mdx-preview--playground": {
       "id": "mdx-preview--playground",
       "title": "MDX/Preview",
@@ -6396,7 +6407,7 @@
     },
     "mdx-overview--default": {
       "id": "mdx-overview--default",
-      "title": "MDX",
+      "title": "MDX/Overview",
       "name": "Overview",
       "type": "story",
       "tags": [

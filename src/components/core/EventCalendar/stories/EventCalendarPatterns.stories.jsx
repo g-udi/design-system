@@ -82,6 +82,11 @@ const verifyPreciseEventEditing = async (context) => {
   await verifyNavigationTitle(context);
   const canvas = within(context.canvasElement);
   const body = within(context.canvasElement.ownerDocument.body);
+  // Month chips collapse into per-day overflow menus on phones; Agenda exposes the same events as full rows.
+  if (window.matchMedia('(max-width: 639px)').matches) {
+    await userEvent.click(canvas.getByRole('button', { name: 'Select view' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: /^Agenda\b/ }));
+  }
   await userEvent.click(canvas.getByRole('button', { name: /^Team standup,/ }));
   const dialog = within(await body.findByRole('dialog', { name: 'Edit event' }));
   await waitFor(() => expect(dialog.getByRole('combobox', { name: 'Start' })).toBeVisible());

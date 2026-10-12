@@ -18,7 +18,8 @@ Exports: `sessionStorageStore`, `useSessionStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key. |
 | `initialValue` | `any` | — | no | Value on the server, during hydration and when nothing is stored. |
-| `options.serialize / deserialize` | `(value) => string / (raw) => any` | `JSON` | no | Custom encoding. |
+| `options.serialize` | `(value) => string` | — | no | Custom encoding. |
+| `deserialize` | `(raw) => any` | — | no | Custom encoding. |
 
 ## Returns
 

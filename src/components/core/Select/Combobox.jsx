@@ -113,10 +113,11 @@ function ComboboxContent({
     </ComboboxPrimitive.Portal>
   );
 }
-function ComboboxList({ className, ...props }) {
+function ComboboxList({ className, 'aria-label': ariaLabel = 'Options', ...props }) {
   return (
     <ComboboxPrimitive.List
       data-slot='combobox-list'
+      aria-label={ariaLabel}
       className={cn(
         'ds-part-combobox-list overflow-y-auto overscroll-contain',
         className

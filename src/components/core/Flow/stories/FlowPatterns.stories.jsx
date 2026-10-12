@@ -1,5 +1,7 @@
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
+import { checkFlowInspectorUpdates } from '../../../../../tests/components/core/Flow/checkFlowInspectorUpdates.jsx';
 
 const pattern = patternStories(
   'flow', import.meta.url,
@@ -80,7 +82,7 @@ export const ImpactMap = {
 export const PaymentsInspector = {
   name: 'Payments pipeline with an inspector',
   ...pattern('payments-inspector', 'A nightly payments-to-MRR pipeline drawn as service tiles with run badges: extracts from Stripe and PayPal, a Redis dedupe, a failed ledger reconciliation and a publish step waiting for approval, with dotted satellites for the connections, test and model each step uses. Connections are dotted and flow toward their target; switch them to solid or dashed, or stop the motion. Click a node to open the inspector with its settings and wiring; Approve publishes, the toolbar switches between select and pan, zooms, fits the selection, re-runs the layout and jumps to the failing step.'),
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, id }) => {
     const canvas = within(canvasElement);
     const page = within(canvasElement.ownerDocument.body);
     await waitFor(() => expect(canvas.getByText('dedupe_payments')).toBeVisible());
@@ -88,12 +90,17 @@ export const PaymentsInspector = {
     await expect(canvas.getByRole('button', { name: '1 issue' })).toBeInTheDocument();
     // The issues button frames the failing step and opens its inspector.
     await userEvent.click(canvas.getByRole('button', { name: '1 issue' }));
+    await waitFor(() => expect(page.getByRole('dialog', { name: 'reconcile_ledger' })).toBeVisible());
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ canvasElement, id: `${id}--inspector-open` });
+    }
     const inspector = await page.findByRole('dialog', { name: 'reconcile_ledger' });
     await waitFor(() => expect(inspector).toBeVisible());
     await expect(within(inspector).getByRole('button', { name: 'Save task' })).toBeDisabled();
     await userEvent.type(within(inspector).getByRole('textbox', { name: 'tolerance' }), '5');
     await expect(within(inspector).getByRole('button', { name: 'Save task' })).toBeEnabled();
-    await userEvent.click(within(inspector).getByRole('tab', { name: 'Wiring' }));
+    await actInteraction(() => userEvent.click(within(inspector).getByRole('tab', { name: 'Wiring' })));
     await expect(within(inspector).getByText('ledger_v3')).toBeInTheDocument();
     await userEvent.click(within(inspector).getByRole('button', { name: 'Cancel' }));
     await waitFor(() => expect(page.queryByRole('dialog', { name: 'reconcile_ledger' })).not.toBeInTheDocument());
@@ -108,6 +115,7 @@ export const PaymentsInspector = {
     // On narrow canvases the inspector was a sheet; the canvas is reachable again once it has closed.
     await userEvent.click(await canvas.findByRole('button', { name: 'Approve publish_mrr' }));
     await waitFor(() => expect(canvas.getByText('Sent 09:15')).toBeInTheDocument(), { timeout: 5000 });
+    await checkFlowInspectorUpdates(canvasElement);
     await userEvent.click(canvas.getByRole('radio', { name: 'Solid' }));
     await expect(canvasElement.querySelector('.ds-flow-edge[data-variant="solid"]')).not.toBeNull();
     await userEvent.click(canvas.getByRole('radio', { name: 'Dotted' }));

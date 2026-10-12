@@ -19,7 +19,8 @@ Exports: `ChatSessionList`, `default`
 | --- | --- | --- | --- | --- |
 | `searchable` | `boolean` | `true` | no | Search box. |
 | `sessions` | `Array<{ id, title, preview?, updated?, group?, live? }>` | `[]` | no | Conversations, grouped by group. |
-| `activeId / onSelect` | `string / function` | — | no | Current chat and selection. |
+| `activeId` | `string` | — | no | Current chat and selection. |
+| `onSelect` | `function` | — | no | Current chat and selection. |
 | `onNew / onRename / onDelete` | `function` | — | no | New chat, rename dialog, delete confirmation. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

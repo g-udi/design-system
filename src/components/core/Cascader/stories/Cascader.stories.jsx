@@ -100,7 +100,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An inline help-centre router with icons, descriptions, a disabled enterprise-only topic, and a live summary of the selection. `mode` switches between drill-down, Miller columns and a tree; `multiple` adds checkboxes; `selectable: all` saves the whole Technical branch instead of one leaf; `disabled` dims and locks the search and every option.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('Cascader', args, {
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('Cascader', args, {
         imports: `import { Cascader, CascaderBreadcrumb, CascaderColumns, CascaderEmpty, CascaderInput, CascaderItems, CascaderList, CascaderNav, CascaderPanel, CascaderStatus } from '@gaudi/design-system';\nimport { RegistryIcon } from '@gaudi/design-system/icons';\n\nconst topics = ${sourceItems};`,
         attributes: ['inline', 'items={topics}', "defaultValue='technical.bug'"],
         children: `  <CascaderPanel>

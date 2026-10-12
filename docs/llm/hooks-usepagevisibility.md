@@ -12,12 +12,6 @@ import { usePageVisibility } from '@gaudi/design-system/hooks';
 
 Exports: `usePageVisibility`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
-
 ## Returns
 
 | Name | Type | Description |

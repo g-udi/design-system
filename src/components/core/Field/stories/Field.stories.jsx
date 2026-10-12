@@ -34,7 +34,7 @@ export const Playground = {
     docs: {
       description: { story: 'A sign-up form with a filled name, a handle that failed validation, and a textarea bio. The email field follows the controls: `required` adds the marker, `invalid` shows the error, and `disabled` locks the input.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args }) => previewSource('EmailInput', args, {
           imports: "import { Field, FieldDescription, FieldError, EmailInput, FieldLabel } from '@gaudi/design-system';",

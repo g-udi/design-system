@@ -27,7 +27,8 @@ Exports: `DEFAULT_WEB_PREVIEW_SANDBOX`, `WebPreviewBody`, `WebPreviewConsole`, `
 | `logs` | `Array<{ level, message, timestamp? }>` | — | no | Console entries; passing an array shows the console. |
 | `defaultConsoleOpen` | `boolean` | `false` | no | Open the console initially. |
 | `embeddable` | `boolean` | `true` | no | false replaces the frame with a LinkPreview card. |
-| `previewData / endpoint` | `object / string` | — | no | Metadata or endpoint for that fallback card. |
+| `previewData` | `object` | — | no | Metadata or endpoint for that fallback card. |
+| `endpoint` | `string` | — | no | Metadata or endpoint for that fallback card. |
 | `sandbox` | `string` | `allow-scripts allow-forms allow-popups allow-presentation allow-modals` | no | iframe sandbox; allow-same-origin is left out on purpose. |
 | `actions` | `ReactNode` | — | no | Extra toolbar controls. |
 | `labels` | `object` | `English` | no | Copy overrides. |

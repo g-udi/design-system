@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import { useMergedRefs } from '../../../../hooks/state/use-merged-refs.js';
 import { useCascaderActions, useCascaderState } from '../CascaderContext.jsx';
 import {
   applyCascadeSelection,
@@ -21,14 +22,7 @@ function CascaderTrigger({
 }) {
   const { invalid } = useCascaderActions();
   const triggerRef = React.useRef(null);
-  const setTrigger = React.useCallback(
-    (node) => {
-      triggerRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    },
-    [ref]
-  );
+  const setTrigger = useMergedRefs(triggerRef, ref);
   React.useEffect(() => {
     if (process.env.NODE_ENV === 'production') return;
     const element = triggerRef.current;

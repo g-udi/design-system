@@ -9,15 +9,39 @@ export const desktopSidebar = (canvasElement) => canvasElement.querySelector('[d
 /** Returns the region that holds the navigation: the docked sidebar, or the phone sheet after opening it. */
 export async function openNavigation(canvasElement) {
   const canvas = within(canvasElement);
+  await waitFor(() => expect(canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"][data-state="closed"]')).not.toBeInTheDocument());
   const docked = desktopSidebar(canvasElement);
-  if (docked) return within(docked);
+  if (docked) {
+    await waitFor(() => {
+      expect(docked).toBeVisible();
+      expect(docked.closest('[aria-hidden="true"], [inert]')).toBeNull();
+    });
+    return within(docked);
+  }
+  const mobile = canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]');
+  if (mobile) {
+    await waitFor(() => {
+      expect(mobile).toHaveAttribute('data-state', 'open');
+      expect(mobile).toBeVisible();
+      expect(mobile.closest('[aria-hidden="true"], [inert]')).toBeNull();
+    });
+    return within(mobile);
+  }
   await userEvent.click(canvas.getAllByRole('button', { name: 'Toggle Sidebar' })[0]);
   const sheet = await waitFor(() => {
     const element = canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]');
-    expect(element).toBeTruthy();
+    expect(element).toHaveAttribute('data-state', 'open');
+    expect(element).toBeVisible();
     return element;
   });
   return within(sheet);
+}
+
+/** Return to the header through the phone drawer's supported keyboard dismissal. */
+export async function closeMobileNavigation(canvasElement) {
+  if (!canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]')) return;
+  await userEvent.keyboard('{Escape}');
+  await waitFor(() => expect(canvasElement.querySelector('[data-slot="sidebar"][data-mobile="true"]')).not.toBeInTheDocument());
 }
 
 /** Every framed example renders inside one bordered app window that contains its own main landmark. */

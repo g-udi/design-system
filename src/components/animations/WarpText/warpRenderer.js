@@ -1,3 +1,5 @@
+import { releaseDetachedWebGLContext } from '../webglLifecycle.js';
+
 // A text texture sampled through a moving, local lens. No external assets or renderer dependency.
 const vertex = `
 attribute vec2 position;
@@ -50,6 +52,7 @@ export function createWarpRenderer(canvas) {
     if (program) gl.deleteProgram(program);
     if (buffer) gl.deleteBuffer(buffer);
     if (texture) gl.deleteTexture(texture);
+    releaseDetachedWebGLContext(gl);
   };
   if (!vert || !frag || !program || !buffer || !texture) { dispose(); return null; }
   gl.attachShader(program, vert); gl.attachShader(program, frag); gl.linkProgram(program);

@@ -1,3 +1,4 @@
+import { actInteraction } from '../../../../../../tests/support/actInteraction.js';
 import chatSessionsSource from './ChatSessionsDemo.jsx?raw';
 import chatModelsSource from '../../../../chat/ChatInput/stories/fixtures/chatModels.js?raw';
 import { publicSource } from '../../../../../docs/components/PatternStoryHelpers.jsx';
@@ -7,7 +8,7 @@ import { expect, fireEvent, userEvent, waitFor, within } from 'storybook/test';
 export const sessionParameters = {
   docs: {
     description: { story: 'A complete chat with a persistent header, session history, conversation and composer. The compact panel opens history below its header; the page layout keeps history beside the conversation and uses the existing navigation Sheet on phones. Search, select, rename, delete and new chat all work with local demo data. Each session keeps its own messages and draft. History focuses its search on user-open, returns focus on close, and supports Escape. The model picker configures the demo composer; no model request is made.' },
-    source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('ChatSessionsDemo', args, { imports: [
+    source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('ChatSessionsDemo', args, { imports: [
         publicSource(chatModelsSource, new URL('../../../../chat/ChatInput/stories/fixtures/chatModels.js', import.meta.url)),
         publicSource(chatSessionsSource.replace(/^import .*chatModels\.js';\n/m, ''), new URL('./ChatSessionsDemo.jsx', import.meta.url))
       ].join('\n\n') }) }
@@ -42,12 +43,12 @@ export async function exerciseSessions({ args, canvasElement }) {
     await userEvent.type(history.getByRole('searchbox'), 'rss');
     await expect(history.queryByRole('button', { name: /Tag cleanup/ })).not.toBeInTheDocument();
   }
-  await userEvent.click(history.getByRole('button', { name: 'Chat options: Fix the RSS feed dates' }));
+  await actInteraction(() => userEvent.click(history.getByRole('button', { name: 'Chat options: Fix the RSS feed dates' })));
   await userEvent.click(await body.findByRole('menuitem', { name: 'Rename', exact: true }));
   const cancelRename = within(await body.findByRole('dialog', { name: 'Rename chat' }));
   await userEvent.click(cancelRename.getByRole('button', { name: 'Cancel' }));
   await waitFor(() => expect(history.getByRole('button', { name: 'Chat options: Fix the RSS feed dates' })).toHaveFocus());
-  await userEvent.click(history.getByRole('button', { name: 'Chat options: Fix the RSS feed dates' }));
+  await actInteraction(() => userEvent.click(history.getByRole('button', { name: 'Chat options: Fix the RSS feed dates' })));
   await userEvent.click(await body.findByRole('menuitem', { name: 'Rename', exact: true }));
   const rename = within(await body.findByRole('dialog', { name: 'Rename chat' }));
   await userEvent.clear(rename.getByRole('textbox', { name: 'Name' }));
@@ -56,7 +57,7 @@ export async function exerciseSessions({ args, canvasElement }) {
   await waitFor(() => expect(body.queryByRole('dialog', { name: 'Rename chat' })).not.toBeInTheDocument());
   await waitFor(() => expect(history.getByRole('button', { name: 'Chat options: RSS timezone review' })).toHaveFocus());
   await userEvent.click(history.getByRole('button', { name: /^RSS timezone review/ }));
-  await expect(canvas.getByRole('heading', { name: 'RSS timezone review' })).toBeVisible();
+  await expect(await canvas.findByRole('heading', { name: 'RSS timezone review' })).toBeVisible();
   await waitFor(() => expect(canvas.getByRole('combobox', { name: 'Message' })).toBeVisible());
   await expect(canvas.getByRole('combobox', { name: 'Message' })).toHaveValue('');
   await waitFor(() => expect(canvas.getByText('Why are the feed dates a day early?')).toBeVisible());

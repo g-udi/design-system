@@ -42,7 +42,7 @@ export const Playground = {
     docs: {
       description: { story: 'A search panel whose query and filters matched nothing. The empty state keeps the query in view, explains why, and offers a reset and a way out. `compact` tightens it for small panels.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args }) => previewSource('EmptySearchExample', args, {
           before: `${publicSource(emptySearchSource, new URL('./fixtures/EmptySearchExample.jsx', import.meta.url))}\n\n`

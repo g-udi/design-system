@@ -24,7 +24,8 @@ Exports: `ContextMenu`, `ContextMenuCheckboxItem`, `ContextMenuContent`, `Contex
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `DropdownMenuItem.onSelect` | `(event: Event) => void` | — | no | Action invoked by keyboard or pointer selection. |
 | `DropdownMenuItem.destructive / disabled` | `boolean` | — | no | Destructive styling or unavailable action. |
-| `DropdownMenuCheckboxItem.checked / onCheckedChange` | `boolean \| indeterminate / function` | — | no | Controlled checkbox menu item. |
+| `DropdownMenuCheckboxItem.checked` | `boolean \| indeterminate` | — | no | Controlled checkbox menu item. |
+| `onCheckedChange` | `function` | — | no | Controlled checkbox menu item. |
 
 ## Variants
 

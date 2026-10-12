@@ -47,7 +47,7 @@ Curated patterns:
 - Billing — registry item `@gaudi/screens-billing` (uses `Badge`, `Button`, `ProgressRoot`, `RegistryIcon`, `StatCard`, `TableBodyPrimitive`, `TableCaption`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Inbox and meeting capture — registry item `@gaudi/screens-inbox-capture` (uses `Badge`, `Button`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `Label`, `NativeSelect`, `NativeSelectOption`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `SwitchRoot`, `Textarea`)
 - Organisation tabs — registry item `@gaudi/screens-organisation-tabs` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldRoot`, `Input`, `Label`, `RegistryIcon`, `SwitchRoot`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Referral rewards — registry item `@gaudi/screens-referral-rewards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`)
+- Referral rewards — registry item `@gaudi/screens-referral-rewards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`, `useCopyToClipboard`)
 
 ## Related
 

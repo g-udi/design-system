@@ -1,20 +1,18 @@
 import { useId } from 'react';
-import Button from '../../../../../components/core/Button';
-import Dialog from '../../../../../components/core/Dialog';
-import { useDisclosure } from '../../../../../hooks/state/use-disclosure.js';
+import Button from '@gaudi/design-system/core/Button';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import { useDisclosure } from '@gaudi/design-system/hooks/state/use-disclosure';
 
 function ShareDialog() {
   const { open, setOpen, onOpen, onClose } = useDisclosure();
   return (
-    <>
-      <Button className='w-fit' onClick={onOpen}>Share post</Button>
-      <Dialog open={open} onOpenChange={setOpen} title='Share post' description='Send this post to a colleague.'>
-        <div className='flex justify-end gap-2'>
-          <Button variant='ghost' tone='neutral' onClick={onClose}>Cancel</Button>
-          <Button onClick={onClose}>Send</Button>
-        </div>
-      </Dialog>
-    </>
+    <Dialog open={open} onOpenChange={setOpen} title='Share post' description='Send this post to a colleague.'
+      trigger={<Button className='w-fit' onClick={onOpen}>Share post</Button>}>
+      <div className='flex justify-end gap-2'>
+        <Button variant='ghost' tone='neutral' onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Send</Button>
+      </div>
+    </Dialog>
   );
 }
 

@@ -62,8 +62,8 @@ export function Pattern() {
       : Object.fromEntries(Object.entries(attendance).filter(([, status]) => statuses.includes(status)).map(([day, status]) => [day, [attendanceStatus[status].tone]]));
   const days = Object.values(attendance);
   return (
-    <div className='bg-surface grid w-full max-w-sm gap-3 rounded-lg border p-4'>
-      <div className='flex items-center justify-between gap-2'>
+    <div className='@container bg-surface grid min-w-0 w-full max-w-sm grid-cols-1 gap-3 rounded-lg border p-4'>
+      <div className='flex flex-wrap items-center justify-between gap-2'>
         <h3 className='font-medium'>October</h3>
         <ToggleGroup aria-label='View' type='single' variant='outline' size='xs' spacing={0} value={mode} onValueChange={(next) => setMode(next || mode)}>
           <ToggleGroupItem value='events'>Events</ToggleGroupItem>
@@ -83,7 +83,7 @@ export function Pattern() {
         defaultMonth={new Date(2026, 9, 1)}
         markers={markers}
         markerLabel={(tones) => (mode === 'events' ? `${tones.length} ${tones.length === 1 ? 'event' : 'events'}` : 'attendance recorded')}
-        className='mx-auto p-0 [--cell-size:--spacing(10)]'
+        className='mx-auto p-0 [--cell-size:min(--spacing(10),calc(100cqw/7))]'
       />
       {mode === 'events' ? (
         <ul className='grid gap-2 border-t pt-3'>

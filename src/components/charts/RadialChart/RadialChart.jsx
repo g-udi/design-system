@@ -6,11 +6,13 @@ import { ChartFrame, activeOpacity, useChartFrame } from '../ChartFrame/ChartFra
 import { createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
 import { Cell, PolarAngleAxis, RadialBar, RechartsRadialBarChart, RechartsTooltip, ResponsiveContainer, chartColors, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';
+import { createChartFormatter, resolveFormatter } from '../ChartFrame/chartScale.js';
 
 function RadialPlot({ color, colors, data, nameKey, valueKey }) {
   const frame = useChartFrame();
   const active = frame?.activeIndex;
-  const Rows = useMemo(() => createRowsTooltip(({ payload }) => payload.map((item) => ({ 'label': item.payload?.[nameKey], 'value': `${item.value}%` }))), [ nameKey ]);
+  const format = frame.format;
+  const Rows = useMemo(() => createRowsTooltip(({ payload }) => payload.map((item) => ({ 'label': item.payload?.[nameKey], 'value': format(item.value) }))), [ format, nameKey ]);
 
   return (
     <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
@@ -29,12 +31,17 @@ function RadialPlot({ color, colors, data, nameKey, valueKey }) {
 /** Progress against a full 0–100 track, one ring per record. */
 export function RadialBarChart(props) {
   const [ frameProps, { color, colors, data = [], nameKey = 'label', state, valueKey = 'value' } ] = splitFrameProps(props);
+  const format = useMemo(() => {
+    if (frameProps.formatValue != null) return resolveFormatter(frameProps.formatValue, frameProps.locale);
+    const percent = createChartFormatter(frameProps.locale, { style: 'percent', maximumFractionDigits: 3 });
+    return value => percent(value / 100);
+  }, [ frameProps.formatValue, frameProps.locale ]);
   const records = normalizeRecords(data, nameKey, valueKey);
   const status = chartStatus({ data: records, 'keys': [ valueKey ], state });
-  const points = (status === 'ready' ? records : []).map((item) => ({ 'label': String(item[nameKey]), 'values': [{ 'display': `${item[valueKey]}%`, 'name': props.valueLabel || 'Value', 'value': item[valueKey] }] }));
+  const points = (status === 'ready' ? records : []).map((item) => ({ 'label': String(item[nameKey]), 'values': [{ 'name': props.valueLabel || 'Value', 'value': item[valueKey] }] }));
 
   return (
-    <ChartFrame { ...frameProps } height={ frameProps.height ?? 300 } points={ status === 'ready' ? points : [] } status={ status }>
+    <ChartFrame { ...frameProps } formatValue={ format } height={ frameProps.height ?? 300 } points={ status === 'ready' ? points : [] } status={ status }>
       <RadialPlot color={ color } colors={ colors } data={ records } nameKey={ nameKey } valueKey={ valueKey } />
     </ChartFrame>
   );

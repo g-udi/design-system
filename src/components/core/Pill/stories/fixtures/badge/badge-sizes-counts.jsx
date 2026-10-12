@@ -8,7 +8,7 @@ const rows = [
 ];
 export function Pattern() {
   return (
-    <div className='mx-auto grid w-fit grid-cols-[auto_repeat(5,minmax(2.5rem,auto))] items-center gap-x-3 gap-y-2'>
+    <div className='mx-auto grid w-fit grid-cols-[auto_repeat(5,auto)] items-center gap-x-1 gap-y-2 sm:grid-cols-[auto_repeat(5,minmax(2.5rem,auto))] sm:gap-x-3'>
       <span />
       {sizes.map((size) => (
         <span key={size} className='text-center text-xs text-text-muted'>{size}</span>

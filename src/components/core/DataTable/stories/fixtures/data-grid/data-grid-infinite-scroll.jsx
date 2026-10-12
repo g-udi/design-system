@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   DataGrid,
+  DataGridExport,
   dataGridFeatures
 } from '@gaudi/design-system/core/DataTable';
 import { DataGridColumnHeader } from '@gaudi/design-system/core/DataTable';
@@ -229,15 +230,15 @@ export function Pattern() {
               <RegistryIcon lucide='RefreshCwIcon' className='size-4' />
               Start over
             </Button>
-            <Button
+            <DataGridExport
+              filename='remote-data.csv'
+              label=''
               variant='ghost'
               size='icon'
               className='size-8'
               aria-label='Download snapshot'
               title='Download snapshot'
-            >
-              <RegistryIcon lucide='DownloadIcon' className='size-4' />
-            </Button>
+            />
           </CardAction>
         </CardHeader>
         <CardContent className='border-t p-0'>

@@ -21,7 +21,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'Where an answer came from. The sentence cites a source with a numbered ChatMessageCitation that opens a popover; ChatMessageSources lists them all under the reply with the same numbers.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('ChatMessageSources', args, { imports: "import { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\nconst sources = " + JSON.stringify(sources, null, 2) + ';', before: "<>\n<p>Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts.</p>\n", attributes: ['sources={sources}'], after: '\n</>' }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('ChatMessageSources', args, { imports: "import { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\nconst sources = " + JSON.stringify(sources, null, 2) + ';', before: "<>\n<p>Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts.</p>\n", attributes: ['sources={sources}'], after: '\n</>' }) }
     }
   },
   render: ({ label, defaultOpen }) => (

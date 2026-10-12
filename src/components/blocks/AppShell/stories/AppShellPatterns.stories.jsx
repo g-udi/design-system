@@ -1,6 +1,6 @@
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
-import { desktopSidebar, expectFramed, expectHeaderToggle, openNavigation } from './AppShell.story-steps.js';
+import { closeMobileNavigation, desktopSidebar, expectFramed, expectHeaderToggle, openNavigation } from './AppShell.story-steps.js';
 
 const pattern = patternStories(
   'app-shell', import.meta.url,
@@ -49,7 +49,7 @@ export const ReadingDesk = {
     // ⌘K / Ctrl+K opens the palette from anywhere in the page.
     const mod = /mac|iphone|ipad/i.test(navigator.userAgentData?.platform || navigator.platform || '') ? 'Meta' : 'Control';
     await userEvent.keyboard(`{${mod}>}k{/${mod}}`);
-    await expect(await body.findByRole('dialog', { name: 'Search' })).toBeVisible();
+    await waitFor(() => expect(body.getByRole('dialog', { name: 'Search' })).toBeVisible());
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('dialog', { name: 'Search' })).not.toBeInTheDocument());
   }
@@ -122,7 +122,7 @@ export const DigestInbox = {
     await expect(nav.getByRole('button', { name: 'Digests' })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('link', { name: /^Latest issues/ })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('progressbar', { name: 'Weekly reading goal' })).toBeInTheDocument();
-    if (!desktopSidebar(canvasElement)) await userEvent.keyboard('{Escape}');
+    await closeMobileNavigation(canvasElement);
     // Opening an issue marks it read and fills the action header.
     await userEvent.click(main.getByRole('button', { name: /Slow Science Weekly: Replication, one decade on, unread/ }));
     await expect(main.getByRole('heading', { name: 'Replication, one decade on' })).toBeVisible();
@@ -152,6 +152,7 @@ export const DigestInbox = {
     await expect(nav.getByRole('checkbox', { name: 'Deep reading' })).toBeChecked();
     await userEvent.click(nav.getByRole('checkbox', { name: 'Deep reading' }));
     await expect(nav.getByRole('checkbox', { name: 'Deep reading' })).not.toBeChecked();
+    await closeMobileNavigation(canvasElement);
     await expect(canvas.getByRole('heading', { name: /Reading plan: June 2026/ })).toBeInTheDocument();
     const sidebar = desktopSidebar(canvasElement);
     if (sidebar) {
@@ -251,6 +252,7 @@ export const NotebookTabs = {
     const pages = within(nav.getByRole('navigation', { name: 'Evidence pages' }));
     await expect(pages.getByRole('link', { name: 'Claims' })).toHaveAttribute('aria-current', 'page');
     await userEvent.click(pages.getByRole('link', { name: 'Citations' }));
+    await closeMobileNavigation(canvasElement);
     await waitFor(() => expect(main.getByText('Citations')).toBeVisible());
     // The notebook toolbar switches views: tabs in wide panels, a menu in narrow ones.
     const board = main.queryByRole('tab', { name: 'Board' });

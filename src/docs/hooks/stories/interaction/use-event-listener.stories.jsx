@@ -18,7 +18,19 @@ export default {
 export const WindowEvents = {
   name: 'Window events',
   parameters: example('Listens to `resize` on window, the default target. The handler can change on every render without re-subscribing.', exampleSource),
-  render: () => <WindowSize />
+  render: () => <WindowSize />,
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const { page } = await import('vitest/browser');
+    const canvas = within(canvasElement);
+    const original = { width: innerWidth, height: innerHeight };
+    try {
+      for (const width of [390, 768, 1440]) {
+        await page.viewport(width, original.height);
+        await waitFor(() => expect(canvas.getByText(`${width} × ${original.height}`)).toBeVisible());
+      }
+    } finally { await page.viewport(original.width, original.height); }
+  }
 };
 
 export const DocumentEvents = {

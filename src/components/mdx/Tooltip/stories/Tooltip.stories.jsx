@@ -63,6 +63,10 @@ export const Playground = {
     await userEvent.unhover(trigger);
     trigger.focus();
     await expectOpen(true);
+    if (import.meta.env.MODE === 'test' && import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ canvasElement, id: `${id}--open` });
+    }
     await userEvent.hover(trigger);
     await userEvent.unhover(trigger);
     await new Promise((resolve) => setTimeout(resolve, 150));

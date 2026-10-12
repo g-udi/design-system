@@ -39,11 +39,26 @@ export const OrganisationTabs = {
 export const Billing = { name: 'Billing', ...pattern('billing', 'The current plan with its renewal, three usage meters and the invoice history with statuses and downloads.') };
 export const ReferralRewards = {
   name: 'Referral rewards',
-  ...pattern('referral-rewards', 'A copyable referral link with share buttons, recent referrals and a reward tier ladder that shows what the next tier unlocks.'),
+  ...pattern('referral-rewards', 'A copyable demo referral link, recent sample referrals and a reward tier ladder. Sharing actions explain that services are not connected; clipboard feedback reports the actual result.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const clipboard = Object.getOwnPropertyDescriptor(navigator, 'clipboard');
+    const execCommand = document.execCommand;
+    try {
+      Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText: () => Promise.reject(new Error('Clipboard unavailable')) } });
+      document.execCommand = () => false;
+      await userEvent.click(canvas.getByRole('button', { name: 'Copy link' }));
+      await waitFor(() => expect(canvas.getByRole('status', { name: 'Referral action' })).toHaveTextContent('Could not copy.'));
+      await expect(canvas.getByRole('button', { name: 'Copy link' })).toBeVisible();
+    } finally {
+      if (clipboard) Object.defineProperty(navigator, 'clipboard', clipboard);
+      else delete navigator.clipboard;
+      document.execCommand = execCommand;
+    }
     await userEvent.click(canvas.getByRole('button', { name: 'Copy link' }));
-    await expect(await canvas.findByRole('button', { name: 'Copied' })).toBeVisible();
+    await waitFor(() => expect(canvas.getByRole('status', { name: 'Referral action' })).toHaveTextContent(/Demo referral link copied\.|Could not copy\./));
+    await userEvent.click(canvas.getByRole('button', { name: 'Email', exact: true }));
+    await expect(canvas.getByRole('status', { name: 'Referral action' })).toHaveTextContent('Email sharing is not connected in this demo.');
   }
 };
 export const InboxCapture = {

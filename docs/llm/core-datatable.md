@@ -36,26 +36,45 @@ Exports: `DATA_GRID_STATUS_ALL`, `DATA_GRID_VIEW_LABELS`, `DataGrid`, `DataGridC
 | `density` | `compact \| normal \| comfortable` | `normal` | no | Cell padding and header height. |
 | `headerVariant` | `muted \| plain` | `muted` | no | Shared header fill; casing and typography stay consistent across table APIs. |
 | `striped / footer` | `boolean` | `false` | no | Alternate row wash; a footer row with the record count and column totals. |
-| `renderExpanded / canExpand / expandMode` | `function(row) / function(row) / single \| multiple` | `- / - / single` | no | Detail rows under an expand toggle. |
+| `renderExpanded` | `function(row)` | — | no | Detail rows under an expand toggle. |
+| `canExpand` | `function(row)` | — | no | Detail rows under an expand toggle. |
+| `expandMode` | `single \| multiple` | `single` | no | Detail rows under an expand toggle. |
 | `getRowActions` | `function(row) => Array<{ label, onSelect, icon?, tone?, disabled? }>` | — | no | An overflow menu at the end of each row; it also opens with a right-click, Shift+F10 or the Menu key. |
-| `onRowClick / canActivateRow` | `function(row) / function(row) => boolean` | `- / -` | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
-| `sorting / defaultSorting / onSortingChange` | `Array<{ id, desc }> / Array / function` | `- / [] / -` | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `onRowClick` | `function(row)` | — | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
+| `canActivateRow` | `function(row) => boolean` | — | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
+| `sorting` | `Array<{ id, desc }>` | — | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `defaultSorting` | `Array` | `[]` | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `onSortingChange` | `function` | — | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
 | `multiSort` | `boolean` | `false` | no | Shift-click a header to sort by more than one column; headers show their sort order. |
-| `expanded / defaultExpanded / onExpandedChange` | `string[] / string[] / function` | `- / [] / -` | no | Controlled or initial open detail rows by row ID. |
+| `expanded` | `string[]` | — | no | Controlled or initial open detail rows by row ID. |
+| `defaultExpanded` | `string[]` | `[]` | no | Controlled or initial open detail rows by row ID. |
+| `onExpandedChange` | `function` | — | no | Controlled or initial open detail rows by row ID. |
 | `pinnableRows` | `boolean` | `false` | no | Adds Pin to top, Pin to bottom and Unpin to each row menu. |
-| `rowPinning / defaultRowPinning / onRowPinningChange` | `{ top: string[], bottom: string[] } / object / function` | `- / { top: [], bottom: [] } / -` | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
-| `stickyHeader / stickyOffset` | `false \| container \| page / CSS length` | `container with maxHeight, otherwise false / 0px` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
+| `rowPinning` | `{ top: string[], bottom: string[] }` | — | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `defaultRowPinning` | `object` | `{ top: [], bottom: [] }` | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `onRowPinningChange` | `function` | — | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `stickyHeader` | `false \| container \| page` | `container with maxHeight, otherwise false` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
+| `stickyOffset` | `CSS length` | `0px` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
 | `maxHeight` | `CSS length` | — | no | Scroll rows inside the table region so the header and pinned rows stay in view. |
-| `virtualize / virtualThreshold` | `auto \| true \| false / number` | `auto / 100` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
-| `onLoadMore / hasMore / loadingMore / loadMoreOnScroll` | `function / boolean / boolean / boolean` | `- / false / false / false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `virtualize` | `auto \| true \| false` | `auto` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
+| `virtualThreshold` | `number` | `100` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
+| `onLoadMore` | `function` | — | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `hasMore` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `loadingMore` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `loadMoreOnScroll` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
 | `exportable` | `boolean \| { filename, scope, label, delimiter, onExport }` | `false` | no | An Export CSV action: visible columns, current search and sort, and only the selected rows when there is a selection. Columns format values with exportValue(value, row) and opt out with export: false. |
 | `groupBy` | `function(row) => { key, label }` | — | no | Collapsible group bands with counts. |
 | `toolbar` | `ReactNode` | — | no | Extra controls beside the search, such as a FilterBar facet trigger. |
-| `selection / defaultSelection / onSelectionChange` | `Record<string, boolean> / object / function` | `- / {} / -` | no | Controlled or initial selection keyed by stable row IDs. |
+| `selection` | `Record<string, boolean>` | — | no | Controlled or initial selection keyed by stable row IDs. |
+| `defaultSelection` | `object` | `{}` | no | Controlled or initial selection keyed by stable row IDs. |
+| `onSelectionChange` | `function` | — | no | Controlled or initial selection keyed by stable row IDs. |
 | `getRowId` | `function` | `row.id or index` | no | Supply stable identity for interactive collections. |
 | `getRowLabel` | `function(row) => string` | `row ID` | no | Names a row in its select, details and actions controls (for example the title instead of an ID). |
 | `renderSelectionActions` | `function(rows)` | — | no | Bulk actions for the selected rows. |
-| `loading / refreshing / error / onRetry` | `boolean / boolean / string / function` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `loading` | `boolean` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `refreshing` | `boolean` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `error` | `string` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `onRetry` | `function` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
 | `caption` | `ReactNode` | — | no | Visually hidden caption that names the table and its scroll region. |
 | `overflowLabel` | `string` | `Scrollable data table` | no | Accessible name for the scroll region when no caption is present. |
 | `labels` | `object` | — | no | Visible and accessible copy overrides; labels.scrollRegion(caption) names the scroll region when a caption is set (default: caption + " scrollable table"). |
@@ -65,6 +84,7 @@ Exports: `DATA_GRID_STATUS_ALL`, `DATA_GRID_VIEW_LABELS`, `DataGrid`, `DataGridC
 
 - `density`: `compact`, `normal`, `comfortable`
 - `headerVariant`: `muted`, `plain`
+- `expandMode`: `single`, `multiple`
 
 ## Usage
 

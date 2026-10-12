@@ -114,10 +114,8 @@ const updateCitationBackLink = (citationKey, originCitationId) => {
 /**
  * Hide back-link after it's been used
  */
-const hideBackLink = (citationKey) => {
-  const backLink = getBackLink(citationKey);
-
-  if (backLink) {
+const hideBackLink = (backLink) => {
+  if (backLink.isConnected) {
     backLink.style.display = 'none';
     backLink.removeAttribute('data-recently-clicked');
   }
@@ -143,6 +141,11 @@ const CitationPopover = () => {
   }, [ popover ]);
 
   useEffect(() => {
+    const backLinkTimers = new Map();
+    const clearBackLinkTimer = (backLink) => {
+      window.clearTimeout(backLinkTimers.get(backLink));
+      backLinkTimers.delete(backLink);
+    };
     const clearCloseTimeout = () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -258,6 +261,9 @@ const CitationPopover = () => {
       const citationLink = event.target.closest?.('a.citation-link');
 
       if (citationLink) {
+        // A fresh citation visit keeps its newly revealed back-link visible.
+        backLinkTimers.forEach((timer) => window.clearTimeout(timer));
+        backLinkTimers.clear();
         const href = citationLink.getAttribute('href');
         const citationKeys = citationLink.getAttribute('data-citation-keys');
 
@@ -287,9 +293,12 @@ const CitationPopover = () => {
       const backLink = event.target.closest?.('a.citation-back-link');
 
       if (backLink) {
-        const citationKey = backLink.getAttribute('data-citation-key');
-
-        if (citationKey) setTimeout(() => hideBackLink(citationKey), 100);
+        clearBackLinkTimer(backLink);
+        const timer = window.setTimeout(() => {
+          backLinkTimers.delete(backLink);
+          hideBackLink(backLink);
+        }, 100);
+        backLinkTimers.set(backLink, timer);
       }
     };
 
@@ -314,6 +323,8 @@ const CitationPopover = () => {
 
     return () => {
       window.clearTimeout(bindTimer);
+      backLinkTimers.forEach((timer) => window.clearTimeout(timer));
+      backLinkTimers.clear();
       observer.disconnect();
       unregisterClickHandler();
 

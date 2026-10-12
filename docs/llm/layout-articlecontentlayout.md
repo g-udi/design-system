@@ -22,7 +22,8 @@ Exports: `default`
 | `collapsibleAside` | `boolean` | `false` | no | Enable the aside disclosure. |
 | `asideOpen / defaultAsideOpen` | `boolean` | `— / true` | no | Controlled or initial aside visibility. |
 | `onAsideOpenChange` | `(open: boolean) => void` | — | no | Host notification when visibility changes. |
-| `showAsideToggleControl / asideToggleLabel` | `boolean / string` | `true / Table of contents` | no | Built-in toggle and its accessible name suffix. |
+| `showAsideToggleControl` | `boolean` | `true` | no | Built-in toggle and its accessible name suffix. |
+| `asideToggleLabel` | `string` | `Table of contents` | no | Built-in toggle and its accessible name suffix. |
 | `padding` | `md \| lg` | `md` | no | Vertical prose spacing. |
 | `className / contentClassName` | `string` | — | no | Root and article prose classes. |
 

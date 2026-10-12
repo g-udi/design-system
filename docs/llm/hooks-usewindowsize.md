@@ -16,7 +16,8 @@ Exports: `useWindowSize`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.initialWidth / initialHeight` | `number / number` | `0 / 0` | no | Deterministic dimensions before the first client measurement. |
+| `options.initialWidth` | `number` | `0` | no | Deterministic dimensions before the first client measurement. |
+| `initialHeight` | `number` | `0` | no | Deterministic dimensions before the first client measurement. |
 
 ## Returns
 

@@ -17,9 +17,11 @@ Exports: `DEFAULT_FILTER_EDITORS`, `DEFAULT_FILTER_LABELS`, `DEFAULT_FILTER_OPER
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `query / onQueryChange` | `string / (query: string) => void` | — | no | Controlled search query. |
+| `query` | `string` | — | no | Controlled search query. |
+| `onQueryChange` | `(query: string) => void` | — | no | Controlled search query. |
 | `labels.removeFilter / labels.findIn / labels.findPlaceholder` | `(value, field) => string / (facet) => string` | `Remove {value} filter / Find {facet}` | no | Translatable phrases with names in them. |
-| `dir / inputProps` | `'ltr' \| 'rtl' / object` | — | no | Reading direction of the bar and its search; extra search input attributes. |
+| `dir` | `'ltr' \| 'rtl'` | — | no | Reading direction of the bar and its search; extra search input attributes. |
+| `inputProps` | `object` | — | no | Reading direction of the bar and its search; extra search input attributes. |
 | `count` | `{ shown, total }` | — | no | Live result count shown inside the search field. |
 | `facets` | `Array<{ id, label, options: Array<{ value, label, count? }>, value, onChange, multiple? }>` | `[]` | no | Controlled facets listed in the Filters popover; every selected value becomes a chip. |
 | `filterLabel` | `string` | `Filters` | no | Filters trigger label. |
@@ -30,6 +32,10 @@ Exports: `DEFAULT_FILTER_EDITORS`, `DEFAULT_FILTER_LABELS`, `DEFAULT_FILTER_OPER
 | `labels` | `object` | — | no | Visible and accessible copy overrides; labels.facet names the phone facet select. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `dir`: `ltr`, `rtl`
 
 ## Usage
 

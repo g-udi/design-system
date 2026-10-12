@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import EmptyState from '@gaudi/design-system/core/EmptyState';
-import Button from '@gaudi/design-system/core/Button';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
 import { ChatSessionList } from '@gaudi/design-system/chat/ChatSessionList';
@@ -42,13 +41,7 @@ export function ChatPlayground({ variant, title, navigation, details, welcome, s
         <div role='region' aria-label='Conversation' tabIndex={0} className='min-h-0 flex-1 overflow-y-auto p-4 focus-visible:outline-none'>
           {empty ? (
             <EmptyState title={<h2>What are we writing today?</h2>} description='Ask Gaudi to plan, edit or check a post.' actions={
-              <ul aria-label='Suggested prompts' className='flex flex-wrap gap-2'>
-                {['Plan next week', 'Edit my draft'].map((text) => (
-                  <li key={text} className='max-w-full min-w-0'>
-                    <Button size='sm' variant='outline' className='h-auto max-w-full py-1.5 text-start whitespace-normal break-words' onClick={() => setSent([text])}>{text}</Button>
-                  </li>
-                ))}
-              </ul>
+              <ChatMessageParts parts={[{ type: 'suggestions', items: ['Plan next week', 'Edit my draft'] }]} onSuggestion={(text) => setSent([text])} />
             } />
           ) : (
             <div className='flex flex-col gap-4'>

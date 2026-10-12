@@ -4,6 +4,7 @@ import { chartExampleSource } from '../../stories/chartExamples.js';
 import { expect, within } from 'storybook/test';
 import { chartsMeta, ready } from '../../stories/story-helpers.jsx';
 import { GaugeChart } from '../index.js';
+import { createChartFormatter } from '../../ChartFrame/chartScale.js';
 
 const exampleSource = chartExampleSource(exampleCode, new URL('./fixtures/NativeExamples.jsx', import.meta.url));
 
@@ -34,7 +35,11 @@ export const Budget = {
   render: BudgetExample,
   play: async ({ canvasElement }) => {
     await ready(canvasElement, 'Cloud spend against the monthly budget');
-    await expect(within(canvasElement).getAllByText('$1,640').length).toBeGreaterThan(0);
+    const canvas = within(canvasElement);
+    const format = createChartFormatter(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    await expect(canvas.getAllByText(format(1640)).length).toBeGreaterThan(0);
+    await expect(canvas.getByRole('cell', { name: format(1800), exact: true })).toBeInTheDocument();
+    await expect(canvas.getByRole('cell', { name: `${format(0)} – ${format(2000)}`, exact: true })).toBeInTheDocument();
   }
 };
 

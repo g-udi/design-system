@@ -18,6 +18,9 @@ export async function checkBackgroundBehavior(canvasElement) {
   sandbox.style.cssText = 'position:fixed;top:0;left:0;width:320px;z-index:1000;background:var(--ds-color-surface)';
   canvasElement.append(sandbox);
   const root = createRoot(sandbox);
+  const themeStyle = document.createElement('style');
+  themeStyle.textContent = '[data-background-behavior][data-palette=warm] { --background-test-color: #ff0000; } [data-background-behavior][data-palette=cool] { --background-test-color: #00ff00; }';
+  canvasElement.append(themeStyle);
   const originalGetContext = HTMLCanvasElement.prototype.getContext;
   const originalMatchMedia = window.matchMedia;
   const visibilityDescriptor = Object.getOwnPropertyDescriptor(document, 'visibilityState');
@@ -122,6 +125,15 @@ export async function checkBackgroundBehavior(canvasElement) {
     expect(simulationFrame.bufferWidth).toBe(surface().querySelector('canvas').width);
     expect(simulationFrame.bufferHeight).toBe(surface().querySelector('canvas').height);
     await expectDrawingStopped();
+    const retainedCanvas = surface().querySelector('canvas');
+    sandbox.dataset.palette = 'warm';
+    await render({ paused: true, colors: ['var(--background-test-color)', '#00ff00', '#0000ff'] });
+    await waitFor(() => expect(simulationFrame.colors[0]).toEqual([1, 0, 0]));
+    sandbox.dataset.palette = 'cool';
+    await waitFor(() => expect(simulationFrame.colors[0]).toEqual([0, 1, 0]));
+    expect(surface().querySelector('canvas')).toBe(retainedCanvas);
+    expect(simulationFrame.delta).toBe(0);
+    await expectDrawingStopped();
     await render({ paused: false });
     const afterPause = draws;
     await waitFor(() => expect(draws).toBeGreaterThan(afterPause));
@@ -165,16 +177,14 @@ export async function checkBackgroundBehavior(canvasElement) {
     document.dispatchEvent(new Event('visibilitychange'));
     try {
       await act(() => root.unmount());
-      if (gl?.isContextLost() && loseContext) {
-        loseContext.restoreContext();
-        await waitFor(() => expect(gl.isContextLost()).toBe(false), { timeout: 5000 });
-      }
+      if (loseContext) expect(gl.isContextLost(), 'unmount releases the detached context after recovery was verified').toBe(true);
     } finally {
       if (gl) {
         if (drawDescriptor) Object.defineProperty(gl, 'drawArrays', drawDescriptor);
         else delete gl.drawArrays;
       }
       sandbox.remove();
+      themeStyle.remove();
     }
   }
 }

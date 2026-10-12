@@ -30,7 +30,7 @@ export function Pattern() {
         </ToggleGroup>
       </Field>
       <Field label='Notify me by'>
-        <ToggleGroup type='multiple' variant='outline' size='sm' spacing={1} defaultValue={['email', 'push']} aria-label='Notification channels'>
+        <ToggleGroup type='multiple' variant='outline' size='sm' spacing={1} className='max-w-full flex-wrap' defaultValue={['email', 'push']} aria-label='Notification channels'>
           {channels.map(({ value, label, icon }) => (
             <ToggleGroupItem key={value} value={value}><RegistryIcon lucide={icon} />{label}</ToggleGroupItem>
           ))}

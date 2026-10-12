@@ -43,7 +43,7 @@ export function PlaygroundDemo({ 'aria-label': label = 'Volume', defaultValue = 
   const args = { min: 0, max: 100, step: 5, orientation: 'horizontal', ...props };
   return (
     <div className={args.orientation === 'vertical' ? 'flex justify-center gap-16' : 'grid gap-6'}>
-      <SliderField {...args} label={label} icon='Volume2Icon' defaultValue={defaultValue} format={([value]) => value} key={`volume-${args.min}-${args.max}`} />
+      <SliderField {...args} label={label} icon='Volume2Icon' defaultValue={defaultValue} format={([value]) => value} key={`volume-${args.min}-${args.max}-${defaultValue.join(',')}`} />
       <SliderField {...args} label={priceLabel} icon='DollarSignIcon' defaultValue={priceDefault(args)} format={formatPrice} minStepsBetweenThumbs={1} key={`price-${args.min}-${args.max}`} />
     </div>
   );

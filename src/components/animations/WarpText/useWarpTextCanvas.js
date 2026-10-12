@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useLatestRef } from '../../../hooks/shared/use-latest-ref.js';
+import { observeTheme } from '../../../themes/observeTheme.js';
 import { createWarpRenderer, createWarpTextMask } from './warpRenderer.js';
 
 export function useWarpTextCanvas({ root, size, text, active, pointer, hovered, options }) {
@@ -46,10 +47,9 @@ export function useWarpTextCanvas({ root, size, text, active, pointer, hovered, 
     setup(); wake.current = schedule;
     document.fonts?.ready.then(upload);
     document.fonts?.addEventListener('loadingdone', upload);
-    const observer = new MutationObserver(upload);
-    for (let parent = host; parent; parent = parent.parentElement) observer.observe(parent, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] });
+    const stopObservingTheme = observeTheme(host, upload);
     return () => {
-      disposed = true; wake.current = null; cancelAnimationFrame(frame); observer.disconnect();
+      disposed = true; wake.current = null; cancelAnimationFrame(frame); stopObservingTheme();
       document.fonts?.removeEventListener('loadingdone', upload);
       node.removeEventListener('webglcontextlost', lost); node.removeEventListener('webglcontextrestored', setup);
       renderer?.dispose();

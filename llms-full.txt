@@ -31,7 +31,8 @@ Exports: `Accordion`, `AccordionContent`, `AccordionGroup`, `AccordionItem`, `Ac
 | `type` | `single \| multiple` | `single` | no | Allow one or several expanded panels. |
 | `variant` | `outline \| flush \| separated \| solid \| framed` | `outline` | no | Shared border, quiet dividers, individual borders, muted items, or an inset frame. |
 | `defaultValue` | `string \| string[] \| null` | `first enabled item (group)` | no | Initial uncontrolled state. Use null or [] to start collapsed. |
-| `value / onValueChange` | `string \| string[] \| undefined / function` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
+| `value` | `string \| string[] \| undefined` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
+| `onValueChange` | `function` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
 | `collapsible` | `boolean` | `true` | no | Allow the current single item to close. Set false to keep the active item expanded. |
 | `disabled` | `boolean` | `false` | no | Disable all root items or one AccordionItem. |
 | `indicator` | `chevron \| plus-minus \| arrow \| ReactNode \| ({isOpen}) => ReactNode \| null` | `chevron` | no | Root default with per-trigger or per-item overrides. |
@@ -385,9 +386,12 @@ Exports: `Avatar`, `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupC
 | `alt` | `string` | — | no | Accessible identity override; an empty string is decorative. |
 | `fallback` | `ReactNode \| boolean` | `initials` | no | Custom artwork or text; true shows the guest silhouette. |
 | `size` | `2xs \| xs \| sm \| md \| lg \| xl` | `md` | no | Six sizes; existing xs through lg dimensions are preserved. |
-| `shape / surface` | `circle \| square \| tile / solid \| tinted \| plain \| bare` | `square / solid` | no | Identity crop and background treatment. |
+| `shape` | `circle \| square \| tile` | `square` | no | Identity crop and background treatment. |
+| `surface` | `solid \| tinted \| plain \| bare` | `solid` | no | Identity crop and background treatment. |
 | `indicator` | `{ label, tone?, icon?, position? }` | — | no | Host-provided presence or verification; positions follow reading direction. |
-| `imageProps / imageClassName / fallbackClassName` | `object / string / string` | — | no | Image attributes and per-layer appearance. |
+| `imageProps` | `object` | — | no | Image attributes and per-layer appearance. |
+| `imageClassName` | `string` | — | no | Image attributes and per-layer appearance. |
+| `fallbackClassName` | `string` | — | no | Image attributes and per-layer appearance. |
 | `tone` | `gray \| neutral \| blue \| teal \| green \| amber \| yellow \| red \| rose \| indigo` | `gray` | no | Fallback colour family. |
 | `grayscale` | `boolean` | `false` | no | Desaturates the image. |
 | `onLoadingStatusChange` | `(status) => void` | — | no | Receives loading, loaded or error; source changes recover automatically. |
@@ -396,6 +400,8 @@ Exports: `Avatar`, `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupC
 ## Variants
 
 - `size`: `2xs`, `xs`, `sm`, `md`, `lg`, `xl`
+- `shape`: `circle`, `square`, `tile`
+- `surface`: `solid`, `tinted`, `plain`, `bare`
 - `tone`: `gray`, `neutral`, `blue`, `teal`, `green`, `amber`, `yellow`, `red`, `rose`, `indigo`
 
 ## Usage
@@ -424,7 +430,7 @@ Curated patterns:
 - Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`)
 - Empty state — registry item `@gaudi/avatar-empty-state` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Groups — registry item `@gaudi/avatar-groups` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `Avatar`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Inside buttons — registry item `@gaudi/avatar-in-buttons` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`)
 - Sizes, shapes and fallbacks — registry item `@gaudi/avatar-sizes-fallbacks` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Frame`, `FramePanel`)
@@ -845,13 +851,16 @@ Exports: `Calendar`, `CalendarDayButton`, `DEFAULT_DATE_SELECTOR_I18N`, `DateSel
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `mode` | `single \| multiple \| range` | — | no | DayPicker selection mode. |
-| `selected / onSelect` | `Date \| Date[] \| DateRange / function` | — | no | Controlled selection and selection callback; the shape follows mode. |
+| `selected` | `Date \| Date[] \| DateRange` | — | no | Controlled selection and selection callback; the shape follows mode. |
+| `onSelect` | `function` | — | no | Controlled selection and selection callback; the shape follows mode. |
 | `disabled` | `Matcher \| Matcher[]` | — | no | Dates that cannot be selected. |
 | `numberOfMonths` | `number` | `1` | no | Number of visible months. |
 | `showOutsideDays` | `boolean` | `true` | no | Show dates outside the current month. |
 | `captionLayout` | `label \| dropdown \| dropdown-months \| dropdown-years` | `label` | no | Month and year navigation controls. |
 | `buttonVariant` | `Button variant` | `ghost` | no | Variant for calendar navigation buttons. |
-| `locale / formatters / components` | `Locale / Formatters / CustomComponents` | — | no | Localized text and explicit DayPicker overrides. |
+| `locale` | `Locale` | — | no | Localized text and explicit DayPicker overrides. |
+| `formatters` | `Formatters` | — | no | Localized text and explicit DayPicker overrides. |
+| `components` | `CustomComponents` | — | no | Localized text and explicit DayPicker overrides. |
 | `classNames` | `Partial<ClassNames>` | — | no | Classes for individual DayPicker slots. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -1664,26 +1673,45 @@ Exports: `DATA_GRID_STATUS_ALL`, `DATA_GRID_VIEW_LABELS`, `DataGrid`, `DataGridC
 | `density` | `compact \| normal \| comfortable` | `normal` | no | Cell padding and header height. |
 | `headerVariant` | `muted \| plain` | `muted` | no | Shared header fill; casing and typography stay consistent across table APIs. |
 | `striped / footer` | `boolean` | `false` | no | Alternate row wash; a footer row with the record count and column totals. |
-| `renderExpanded / canExpand / expandMode` | `function(row) / function(row) / single \| multiple` | `- / - / single` | no | Detail rows under an expand toggle. |
+| `renderExpanded` | `function(row)` | — | no | Detail rows under an expand toggle. |
+| `canExpand` | `function(row)` | — | no | Detail rows under an expand toggle. |
+| `expandMode` | `single \| multiple` | `single` | no | Detail rows under an expand toggle. |
 | `getRowActions` | `function(row) => Array<{ label, onSelect, icon?, tone?, disabled? }>` | — | no | An overflow menu at the end of each row; it also opens with a right-click, Shift+F10 or the Menu key. |
-| `onRowClick / canActivateRow` | `function(row) / function(row) => boolean` | `- / -` | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
-| `sorting / defaultSorting / onSortingChange` | `Array<{ id, desc }> / Array / function` | `- / [] / -` | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `onRowClick` | `function(row)` | — | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
+| `canActivateRow` | `function(row) => boolean` | — | no | Makes rows focusable and activatable, ignoring clicks on inner controls; canActivateRow leaves rows that return false inert. |
+| `sorting` | `Array<{ id, desc }>` | — | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `defaultSorting` | `Array` | `[]` | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
+| `onSortingChange` | `function` | — | no | Controlled or initial sort state. The host can refuse or replace a change by not applying it. |
 | `multiSort` | `boolean` | `false` | no | Shift-click a header to sort by more than one column; headers show their sort order. |
-| `expanded / defaultExpanded / onExpandedChange` | `string[] / string[] / function` | `- / [] / -` | no | Controlled or initial open detail rows by row ID. |
+| `expanded` | `string[]` | — | no | Controlled or initial open detail rows by row ID. |
+| `defaultExpanded` | `string[]` | `[]` | no | Controlled or initial open detail rows by row ID. |
+| `onExpandedChange` | `function` | — | no | Controlled or initial open detail rows by row ID. |
 | `pinnableRows` | `boolean` | `false` | no | Adds Pin to top, Pin to bottom and Unpin to each row menu. |
-| `rowPinning / defaultRowPinning / onRowPinningChange` | `{ top: string[], bottom: string[] } / object / function` | `- / { top: [], bottom: [] } / -` | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
-| `stickyHeader / stickyOffset` | `false \| container \| page / CSS length` | `container with maxHeight, otherwise false / 0px` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
+| `rowPinning` | `{ top: string[], bottom: string[] }` | — | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `defaultRowPinning` | `object` | `{ top: [], bottom: [] }` | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `onRowPinningChange` | `function` | — | no | Pinned rows stay above or below the others across sorting, search and pages, and stick under the header while the rest scroll. |
+| `stickyHeader` | `false \| container \| page` | `container with maxHeight, otherwise false` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
+| `stickyOffset` | `CSS length` | `0px` | no | Keep the header in view inside the table region, or under page chrome while the page scrolls. Page mode lets the table fit its container rather than scroll sideways. |
 | `maxHeight` | `CSS length` | — | no | Scroll rows inside the table region so the header and pinned rows stay in view. |
-| `virtualize / virtualThreshold` | `auto \| true \| false / number` | `auto / 100` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
-| `onLoadMore / hasMore / loadingMore / loadMoreOnScroll` | `function / boolean / boolean / boolean` | `- / false / false / false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `virtualize` | `auto \| true \| false` | `auto` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
+| `virtualThreshold` | `number` | `100` | no | Render only the rows in view for long flat lists; auto switches on above the threshold and gives the region a 32rem height unless maxHeight is set. |
+| `onLoadMore` | `function` | — | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `hasMore` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `loadingMore` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
+| `loadMoreOnScroll` | `boolean` | `false` | no | A Load more action for incremental collections; loadMoreOnScroll requests the next batch as the last row comes into view. |
 | `exportable` | `boolean \| { filename, scope, label, delimiter, onExport }` | `false` | no | An Export CSV action: visible columns, current search and sort, and only the selected rows when there is a selection. Columns format values with exportValue(value, row) and opt out with export: false. |
 | `groupBy` | `function(row) => { key, label }` | — | no | Collapsible group bands with counts. |
 | `toolbar` | `ReactNode` | — | no | Extra controls beside the search, such as a FilterBar facet trigger. |
-| `selection / defaultSelection / onSelectionChange` | `Record<string, boolean> / object / function` | `- / {} / -` | no | Controlled or initial selection keyed by stable row IDs. |
+| `selection` | `Record<string, boolean>` | — | no | Controlled or initial selection keyed by stable row IDs. |
+| `defaultSelection` | `object` | `{}` | no | Controlled or initial selection keyed by stable row IDs. |
+| `onSelectionChange` | `function` | — | no | Controlled or initial selection keyed by stable row IDs. |
 | `getRowId` | `function` | `row.id or index` | no | Supply stable identity for interactive collections. |
 | `getRowLabel` | `function(row) => string` | `row ID` | no | Names a row in its select, details and actions controls (for example the title instead of an ID). |
 | `renderSelectionActions` | `function(rows)` | — | no | Bulk actions for the selected rows. |
-| `loading / refreshing / error / onRetry` | `boolean / boolean / string / function` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `loading` | `boolean` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `refreshing` | `boolean` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `error` | `string` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
+| `onRetry` | `function` | — | no | Skeleton rows, a floating updating pill over current rows, and host-owned recovery. |
 | `caption` | `ReactNode` | — | no | Visually hidden caption that names the table and its scroll region. |
 | `overflowLabel` | `string` | `Scrollable data table` | no | Accessible name for the scroll region when no caption is present. |
 | `labels` | `object` | — | no | Visible and accessible copy overrides; labels.scrollRegion(caption) names the scroll region when a caption is set (default: caption + " scrollable table"). |
@@ -1693,6 +1721,7 @@ Exports: `DATA_GRID_STATUS_ALL`, `DATA_GRID_VIEW_LABELS`, `DataGrid`, `DataGridC
 
 - `density`: `compact`, `normal`, `comfortable`
 - `headerVariant`: `muted`, `plain`
+- `expandMode`: `single`, `multiple`
 
 ## Usage
 
@@ -1975,7 +2004,10 @@ Exports: `DialogClose`, `DialogClosePrimitive`, `DialogConfirmationAction`, `Dia
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `variant` | `modal \| confirmation \| bare` | `modal` | no | Presentation and interaction contract; side panels use Sheet. |
-| `label / container / initialFocusRef / restoreFocusRef` | `string / Element / Ref / Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `label` | `string` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `container` | `Element` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `initialFocusRef` | `Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `restoreFocusRef` | `Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
 | `trigger` | `ReactElement` | — | no | A ref-forwarding button that opens the dialog. |
 | `title / description` | `ReactNode` | — | no | Accessible title and optional supporting description. |
 | `open / defaultOpen` | `boolean` | — | no | Controlled or initial open state. Use one state model for the lifetime of the component. |
@@ -2170,7 +2202,8 @@ Exports: `ContextMenu`, `ContextMenuCheckboxItem`, `ContextMenuContent`, `Contex
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `DropdownMenuItem.onSelect` | `(event: Event) => void` | — | no | Action invoked by keyboard or pointer selection. |
 | `DropdownMenuItem.destructive / disabled` | `boolean` | — | no | Destructive styling or unavailable action. |
-| `DropdownMenuCheckboxItem.checked / onCheckedChange` | `boolean \| indeterminate / function` | — | no | Controlled checkbox menu item. |
+| `DropdownMenuCheckboxItem.checked` | `boolean \| indeterminate` | — | no | Controlled checkbox menu item. |
+| `onCheckedChange` | `function` | — | no | Controlled checkbox menu item. |
 
 ## Variants
 
@@ -2440,7 +2473,8 @@ Exports: `ALL_VIEWS`, `BASE_VIEWS`, `DEFAULT_EVENT_CALENDAR_I18N`, `DEFAULT_VIEW
 | `events / defaultEvents / onEventsChange` | `Event[] / function` | — | no | Controlled or initial events and updates. |
 | `view / defaultView / onViewChange` | `string / function` | — | no | Active calendar view. |
 | `date / defaultDate / onDateChange` | `Date / function` | — | no | Calendar navigation date. |
-| `timeZone / locale` | `string / Locale` | `Browser time zone` | no | Date interpretation and localized labels. |
+| `timeZone` | `string` | — | no | Date interpretation and localized labels. |
+| `locale` | `Locale` | — | no | Date interpretation and localized labels. |
 | `resources` | `Resource[]` | `[]` | no | Resource rows or columns. |
 | `slotDuration / snapDuration` | `number` | `30 / 15` | no | Visible and drag increments in minutes. |
 | `apiRef` | `MutableRefObject` | — | no | Imperative calendar API. |
@@ -2546,7 +2580,7 @@ Exports: `Field`, `FieldContent`, `FieldDescription`, `FieldDescriptionPrimitive
 | `value` | `string` | — | no | Controlled input value. |
 | `defaultValue` | `string` | — | no | Initial uncontrolled input value. |
 | `placeholder` | `string` | — | no | Native input placeholder. |
-| `required` | `boolean` | `false` | yes | Marks the input as required. |
+| `required` | `boolean` | `false` | no | Marks the input as required. |
 | `invalid` | `boolean` | `true when a FieldError is rendered` | no | Forces aria-invalid and the error border on FieldInput. |
 | `disabled` | `boolean` | `false` | no | Disables the input. |
 | `onChange` | `(event) => void` | — | no | Native input change handler. |
@@ -2642,7 +2676,8 @@ Exports: `default`, `formatBytes`, `useFileUpload`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `files / onFilesChange` | `File[] / (files: File[]) => void` | `[]` | no | Host-owned file selection. |
+| `files` | `File[]` | — | no | Host-owned file selection. |
+| `onFilesChange` | `(files: File[]) => void` | — | no | Host-owned file selection. |
 | `label / description` | `string` | `Attachments / Choose files or drop them here.` | no | Visible label and instructions. |
 | `accept` | `string` | — | no | Accepted MIME types or extensions. |
 | `multiple` | `boolean` | `false` | no | Allow more than one file. |
@@ -2741,9 +2776,11 @@ Exports: `DEFAULT_FILTER_EDITORS`, `DEFAULT_FILTER_LABELS`, `DEFAULT_FILTER_OPER
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `query / onQueryChange` | `string / (query: string) => void` | — | no | Controlled search query. |
+| `query` | `string` | — | no | Controlled search query. |
+| `onQueryChange` | `(query: string) => void` | — | no | Controlled search query. |
 | `labels.removeFilter / labels.findIn / labels.findPlaceholder` | `(value, field) => string / (facet) => string` | `Remove {value} filter / Find {facet}` | no | Translatable phrases with names in them. |
-| `dir / inputProps` | `'ltr' \| 'rtl' / object` | — | no | Reading direction of the bar and its search; extra search input attributes. |
+| `dir` | `'ltr' \| 'rtl'` | — | no | Reading direction of the bar and its search; extra search input attributes. |
+| `inputProps` | `object` | — | no | Reading direction of the bar and its search; extra search input attributes. |
 | `count` | `{ shown, total }` | — | no | Live result count shown inside the search field. |
 | `facets` | `Array<{ id, label, options: Array<{ value, label, count? }>, value, onChange, multiple? }>` | `[]` | no | Controlled facets listed in the Filters popover; every selected value becomes a chip. |
 | `filterLabel` | `string` | `Filters` | no | Filters trigger label. |
@@ -2754,6 +2791,10 @@ Exports: `DEFAULT_FILTER_EDITORS`, `DEFAULT_FILTER_LABELS`, `DEFAULT_FILTER_OPER
 | `labels` | `object` | — | no | Visible and accessible copy overrides; labels.facet names the phone facet select. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `dir`: `ltr`, `rtl`
 
 ## Usage
 
@@ -2930,11 +2971,14 @@ Exports: `DEFAULT_FLOW_INSPECTOR_LABELS`, `DEFAULT_FLOW_LABELS`, `FLOW_EDGE_VARI
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `label` | `string` | `Required` | no | Accessible name of the canvas region. |
-| `nodes / edges` | `Node[] / Edge[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
-| `defaultNodes / defaultEdges` | `Node[] / Edge[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
+| `nodes` | `Node[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
+| `edges` | `Edge[]` | — | no | Controlled graph. Pair with onNodesChange and onEdgesChange, or use useFlowHistory for undo and redo. |
+| `defaultNodes` | `Node[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
+| `defaultEdges` | `Edge[]` | — | no | Uncontrolled graph for read-only or self-managed canvases. |
 | `node.type` | `step \| pill \| tile \| task` | `step` | no | Card, compact pill, service tile with a run badge (round with data.shape circle, for satellites), or a one-line task card with an inline data.action. |
 | `node.data.status` | `idle \| queued \| running \| success \| failed \| waiting \| blocked \| skipped` | — | no | Run state shown as a Badge, a tinted ring and the minimap colour; statusLabel overrides the text. |
-| `node.data.outputs / ports` | `{ id, label? }[] / { id, label, position, type }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
+| `node.data.outputs` | `{ id, label? }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
+| `ports` | `{ id, label, position, type }[]` | — | no | Named source handles for branches, and dashed attachment ports on any side. |
 | `edge.data` | `{ label, tone, status, variant, animated, path, emphasis, onInsert }` | — | no | Connector label, colour or run status, solid \| dashed \| dotted line, a flow toward the target, path shape and an insert button. |
 | `background` | `dots \| lines \| cross \| none` | `dots` | no | Canvas pattern. |
 | `controls / minimap` | `boolean` | `true / false` | no | Built-in zoom controls and the overview map. Render FlowControls yourself for the toolbar variant, Auto layout (onAutoLayout), Fit selection, select / pan tools and the issues count. |
@@ -3065,8 +3109,10 @@ Exports: `DEFAULT_GANTT_I18N`, `DEFAULT_ROW_ALIGN`, `DEFAULT_SCHEDULE_MODE`, `DE
 | `GanttView.interval` | `number` | `60` | no | Time-grid interval in minutes, clamped from 15 to 240. |
 | `GanttBar.segment` | `Gantt segment` | `Required` | no | Scheduled segment rendered by the bar. |
 | `GanttScaleSwitcher.scales` | `Scale[]` | `GANTT_SCALES` | no | Available timeline scales. |
-| `columns / treePanel` | `{id, title, width, render}[] / {width, nameColumnWidth, minWidth, maxWidth, resizable}` | `[] / 200px, resizable` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
-| `canDropEvent / enforceCanDrop` | `fn(update) => boolean / boolean` | `— / false` | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
+| `columns` | `{id, title, width, render}[]` | `[]` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
+| `treePanel` | `{width, nameColumnWidth, minWidth, maxWidth, resizable}` | `200px, resizable` | no | Extra tree columns beside the row names, and the resizable split between tree and timeline. |
+| `canDropEvent` | `fn(update) => boolean` | — | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
+| `enforceCanDrop` | `boolean` | `false` | no | Validates a move or resize live; with enforceCanDrop a refused drop snaps back. |
 | `renderEvent / renderEventMenu / renderResourceLabel` | `fn(props) => ReactNode` | `Built-in bar` | no | Custom bar content such as booking cards, a right-click menu of ContextMenu items, and row labels. |
 | `checkDependencies(update, events)` | `{ok, blockedBy, blocking}` | — | no | Finish-to-start check for a proposed move; pair it with canDropEvent. |
 | `getCriticalPath(events)` | `string[]` | — | no | Task ids on the chain that drives the finish date. |
@@ -3274,7 +3320,9 @@ Exports: `ImageGallery`
 | `layout` | `masonry \| grid` | `masonry` | no | Masonry keeps each thumbnail ratio and reads down each column. Grid reads across rows and crops thumbnails to 4:3. |
 | `columns` | `{ mobile?, tablet?, desktop? }` | `{ mobile: 1, tablet: 2, desktop: 3 }` | no | Positive integer column counts at gallery widths below 640px, from 640px, and from 1024px. A single image always occupies one full-width column. |
 | `showCaptions` | `boolean` | `true` | no | Shows captions below thumbnails. The viewer always shows the active caption or alternative text. |
-| `selectedId / defaultSelectedId / onSelectedIdChange` | `string \| null / string \| null / (id) => void` | `uncontrolled / null / —` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `selectedId` | `string \| null` | `uncontrolled` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `defaultSelectedId` | `string \| null` | `null` | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
+| `onSelectedIdChange` | `(id) => void` | — | no | Controls or initializes the viewer selection. null closes it; selecting a thumbnail, navigating, swiping, and closing request a change. Controlled hosts remain authoritative. An ID absent from images closes the viewer. |
 | `disabled` | `boolean` | `false` | no | Disables thumbnail activation and hides the viewer while true, retaining the selection. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -3420,7 +3468,7 @@ Exports: `EmailInput`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `Inp
 | `invalid` | `boolean` | — | no | Marks the underlying FieldInput as invalid. |
 | `inputClassName` | `string` | — | no | Classes on the input itself. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
-| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | yes | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
+| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | no | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
 
 ## Variants
 
@@ -3572,14 +3620,15 @@ Exports: `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `maxLength` | `number` | `Required` | no | Number of characters accepted. |
-| `value / onChange` | `string / (value: string) => void` | — | no | Controlled code entry. |
+| `value` | `string` | — | no | Controlled code entry. |
+| `onChange` | `(value: string) => void` | — | no | Controlled code entry. |
 | `onComplete` | `(value: string) => void` | — | no | Called when every slot is filled. |
 | `pattern` | `string` | — | no | Allowed character pattern. |
 | `disabled` | `boolean` | `false` | no | Dims every slot and blocks code entry. |
 | `containerClassName` | `string` | — | no | Classes on the slot container. |
 | `InputOTPSlot.index` | `number` | `Required` | no | Zero-based character index. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
-| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | yes | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
+| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | no | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
 
 ## Usage
 
@@ -3656,7 +3705,8 @@ Exports: `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemFooter`, 
 | --- | --- | --- | --- | --- |
 | `variant` | `default \| outline \| muted` | `default` | no | Row surface: plain, bordered or tinted. |
 | `size` | `default \| sm \| xs` | `default` | no | Row density. |
-| `as / asChild` | `ElementType / boolean` | `div / false` | no | Render the row as another element, or merge it into a link or button child. |
+| `as` | `ElementType` | `div` | no | Render the row as another element, or merge it into a link or button child. |
+| `asChild` | `boolean` | `false` | no | Render the row as another element, or merge it into a link or button child. |
 | `ItemMedia.variant` | `default \| icon \| image` | `default` | no | Presentation of the leading media slot. |
 | `ItemGroup` | `HTMLAttributes<HTMLDivElement>` | — | no | A role="group" wrapper that stacks rows; pair with ItemSeparator. |
 | `ItemTitle / ItemDescription` | `ReactNode` | — | no | Row title (one line) and supporting text (two lines). |
@@ -4281,17 +4331,22 @@ Exports: `Map`
 | `mapStyle` | `MapLibre StyleSpecification \| string` | `required` | no | A stable style object or an application-configured style URL. Gaudi has no built-in map service, access token, geocoding, or routing endpoint. Memoize object styles. Changing the style preserves the camera. |
 | `initialViewState` | `{ center: [longitude, latitude], zoom?, bearing?, pitch? }` | `{ center: [0, 0], zoom: 2 }` | no | Initial camera. Later changes use ref.flyTo, ref.fitBounds, or ref.reset. Coordinates always use longitude before latitude. |
 | `markers` | `Array<{ id, coordinates, label, tone?, icon?, badge? }>` | `[]` | no | Stable unique IDs, [longitude, latitude] coordinates, and an accessible label. tone uses Button tones, icon is a React slot, and badge is optional visible metadata; include its meaning in label. |
-| `selectedMarkerId / onMarkerClick` | `string \| number / (id) => void` | `— / —` | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
+| `selectedMarkerId` | `string \| number` | — | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
+| `onMarkerClick` | `(id) => void` | — | no | Controlled selection. Pointer and keyboard activation request a selection; the host chooses whether to accept it. Selection does not move the camera. |
 | `routes` | `Array<{ id, coordinates, color?, width?, dashed? }>` | `[]` | no | Prepared line strings (at least two coordinates each). The app supplies color and status meaning. Defaults: blue, 3px, solid. Preserve attribution in your map style. |
 | `label` | `string` | `Map` | no | Accessible name for the map region and keyboard canvas. |
 | `controls` | `boolean` | `true` | no | Shows reset, zoom in, and zoom out controls when interactive. |
 | `interactive` | `boolean` | `true` | no | Enables camera gestures and keyboard navigation. False disables those and hides camera controls; marker buttons remain selectable. |
 | `scrollZoom` | `boolean` | `false` | no | Enables wheel zoom. Off by default so a map embedded in a page does not trap page scrolling. |
-| `minZoom / maxZoom` | `number / number` | `0 / 20` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
-| `onViewStateChange / onLoad / onError` | `(view) => void / (view) => void / (error) => void` | `— / — / —` | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `minZoom` | `number` | `0` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
+| `maxZoom` | `number` | `20` | no | Camera zoom bounds. Changes clamp the current view without replacing the map. |
+| `onViewStateChange` | `(view) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `onLoad` | `(view) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
+| `onError` | `(error) => void` | — | no | Camera movement completion, map readiness, and renderer/style/source errors. view includes center, zoom, bearing, and pitch. onViewStateChange reports state; it is not a controlled camera prop. |
 | `ref` | `{ flyTo(view), fitBounds(bounds, options?), reset(), getViewState() }` | — | no | Imperative camera access after readiness. fitBounds accepts southwest/northeast coordinate pairs and optional MapLibre fit options. Camera motion honors reduced motion. getViewState returns null before mount. |
 | `labels` | `{ loading?, unavailable?, retry?, zoomIn?, zoomOut?, reset? }` | `English labels` | no | Localized state and control text. |
-| `children / fallback` | `ReactNode / ReactNode` | `— / location buttons` | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
+| `children` | `ReactNode` | — | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
+| `fallback` | `ReactNode` | `location buttons` | no | Bottom-left overlay content and custom unavailable-state content. Retry remains available. Keep overlay content concise and provide a textual alternative for important geographic information. |
 | `style` | `CSSProperties` | — | no | Container styling, including height (default 32rem). The map follows its container size. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -4528,7 +4583,8 @@ Exports: `NavigationMenu`, `NavigationMenuAside`, `NavigationMenuContent`, `Navi
 | `align` | `start \| center \| end` | `start` | no | Controls dropdown panel alignment. |
 | `width` | `sm \| md \| lg \| xl \| 2xl` | `lg` | no | Controls dropdown panel width. |
 | `aside` | `ReactNode` | — | no | NavigationMenuDropdown second block: turns the panel into two columns (children, then aside), stacked below sm. |
-| `NavigationMenuAside title / action` | `ReactNode / { href, label } \| ReactNode` | `- / -` | no | Muted second column with a title that labels its group and an optional See all link. |
+| `NavigationMenuAside.title` | `ReactNode` | — | no | Muted second column with a title that labels its group and an optional See all link. |
+| `action` | `{ href, label } \| ReactNode` | — | no | Muted second column with a title that labels its group and an optional See all link. |
 | `columns` | `1 \| 2 \| 3` | `2` | no | Responsive panel grid columns. |
 | `panelClassName` | `string` | — | no | Dropdown panel class override. |
 | `className` | `string` | — | no | Class override on each slot. |
@@ -4639,7 +4695,8 @@ Exports: `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberField
 | `value / defaultValue / onValueChange` | `number \| null / function` | — | no | Controlled or initial numeric value and change callback. |
 | `min / max / step` | `number` | — | no | Numeric bounds and increment. |
 | `size` | `sm \| default \| lg` | `default` | no | Shared size for input, group and buttons. |
-| `format / locale` | `Intl.NumberFormatOptions / string` | — | no | Number formatting and locale. |
+| `format` | `Intl.NumberFormatOptions` | — | no | Number formatting and locale. |
+| `locale` | `string` | — | no | Number formatting and locale. |
 | `disabled / readOnly / required` | `boolean` | — | no | Interaction and form state. |
 | `NumberFieldScrubArea.label` | `ReactNode` | — | no | Visible label associated with the generated input ID. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
@@ -5051,10 +5108,19 @@ Exports: `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `Popover`, `Popove
 | --- | --- | --- | --- | --- |
 | `trigger` | `ReactNode` | — | no | Label or content of the outline trigger button. |
 | `children` | `ReactNode` | — | no | Panel content. |
-| `side / align` | `top \| right \| bottom \| left / start \| center \| end` | `bottom / center` | no | Placement of the panel relative to the trigger. |
-| `open / defaultOpen / onOpenChange / modal` | `boolean / boolean / function / boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `side` | `top \| right \| bottom \| left` | `bottom` | no | Placement of the panel relative to the trigger. |
+| `align` | `start \| center \| end` | `center` | no | Placement of the panel relative to the trigger. |
+| `open` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `defaultOpen` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `onOpenChange` | `function` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
+| `modal` | `boolean` | — | no | Controlled or initial open state, and whether outside content is inert while open. |
 | `contentClassName` | `string` | — | no | Panel class override. |
 | `className` | `string` | — | no | Trigger button class override. |
+
+## Variants
+
+- `side`: `top`, `right`, `bottom`, `left`
+- `align`: `start`, `center`, `end`
 
 ## Usage
 
@@ -5410,8 +5476,13 @@ Exports: `Rating`
 | `editable` | `boolean` | `false` | no | Enable score selection. |
 | `onRatingChange` | `(rating: number) => void` | — | no | Receives a new score. |
 | `showValue` | `boolean` | `false` | no | Display the numeric score. |
-| `size / starClassName` | `string` | — | no | Star sizing and style override. |
+| `size` | `sm \| default \| lg` | `default` | no | Star size: sm 16px, default 20px, lg 24px. |
+| `starClassName` | `string` | — | no | Class override applied to every star. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `size`: `sm`, `default`, `lg`
 
 ## Usage
 
@@ -5646,14 +5717,15 @@ Exports: `SchemaDisplay`, `SchemaDisplayMethod`, `SchemaDisplayPath`, `SchemaDis
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `method / path` | `string / string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
+| `method` | `string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
+| `path` | `string` | — | no | Endpoint verb and path; {id} and :id parameters are highlighted. |
 | `title / description` | `ReactNode` | — | no | A name for a bare schema and a summary line. |
-| `parameters` | `Array<{ name, in, type?, schema?, required?, description? }>` | `[]` | yes | Path, query and header parameters; path parameters are always required. |
-| `requestBody / responseBody / schema` | `JSONSchema` | — | yes | Schemas read as trees: type, format, required, description, enum, items and oneOf. |
+| `parameters` | `Array<{ name, in, type?, schema?, required?, description? }>` | `[]` | no | Path, query and header parameters; path parameters are always required. |
+| `requestBody / responseBody / schema` | `JSONSchema` | — | no | Schemas read as trees: type, format, required, description, enum, items and oneOf. |
 | `defaultExpandDepth` | `number` | `1` | no | Levels of nested objects that start open. |
 | `showJson` | `boolean` | `false` | no | Adds a Schema / JSON toggle with the raw definition in CodeBlock. |
 | `headingLevel` | `2 \| 3 \| 4 \| 5 \| 6` | `3` | no | Heading level of the section titles. |
-| `labels` | `object` | `English copy` | yes | Section titles and the required marker. |
+| `labels` | `object` | `English copy` | no | Section titles and the required marker. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -6140,7 +6212,7 @@ Exports: `Sheet`, `SheetClose`, `SheetContent`, `SheetDescription`, `SheetFooter
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `Sheet open / defaultOpen / onOpenChange` | `boolean / (open) => void` | — | no | Controlled or initial open state. |
+| `Sheet.open / defaultOpen / onOpenChange` | `boolean / (open) => void` | — | no | Controlled or initial open state. |
 | `SheetContent.side` | `right \| left \| top \| bottom` | `right` | no | Edge the panel slides from. |
 | `SheetContent.size` | `sm \| md \| lg \| xl` | `sm` | no | Width of side panels. |
 | `SheetContent.inset` | `boolean` | `false` | no | Float the panel off the edge with a rounded border. |
@@ -6210,25 +6282,34 @@ Exports: `SignaturePad`, `SignaturePadArea`, `SignaturePadClear`, `SignaturePadC
 | --- | --- | --- | --- | --- |
 | `value / defaultValue / onValueChange` | `SignaturePadStroke[] / function` | `[]` | no | Controlled or initial strokes. A stroke is { points: [x, y, diameter][], color? }. Changes fire once per completed stroke or history action. |
 | `disabled / readOnly / invalid` | `boolean` | `false` | no | Disabled prevents interaction and form submission; readOnly allows saving existing ink. Invalid marks the drawing area. |
-| `name / form / required / format` | `string / string / boolean / svg \| png \| jpeg \| json` | `— / — / false / svg` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `name` | `string` | — | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `form` | `string` | — | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `required` | `boolean` | `false` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `format` | `svg \| png \| jpeg \| json` | `svg` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
 | `color` | `CSS color` | `currentColor` | no | Optional ink color recorded per stroke; unset ink follows the theme. Export defaults to black. |
 | `minWidth / maxWidth` | `number` | `0.8 / 3.2` | no | Minimum and maximum ink diameter in CSS pixels. Equal values produce a constant line. |
 | `smoothing` | `number` | `0.5` | no | 0–1 smoothing; higher values soften the curve. |
 | `sizing` | `auto \| pressure \| velocity` | `auto` | no | Auto reads pen pressure and uses speed for mouse or touch. |
 | `pointerTypes` | `(mouse \| touch \| pen)[]` | `all` | no | Filter input devices, such as ["pen"] to ignore touch. |
 | `onStrokeStart / onStrokeEnd` | `function` | — | no | Receive { pointerType } when drawing starts and the completed stroke when it ends. Cancelled strokes are discarded. |
-| `apiRef / useSignaturePad()` | `ref / hook` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
+| `apiRef` | `ref` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
+| `useSignaturePad()` | `hook` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
 | `labels` | `object` | `English labels` | no | Override drawing instructions, placeholder, state announcements, and default button labels. Area and Preview accept their own ARIA names. |
 | `SignaturePadArea.variant` | `default \| muted \| ghost` | `default` | no | Drawing surface appearance. Root sizing and state props are shared with every part. |
 | `SignaturePadControls.position` | `top-start \| top-end \| bottom-start \| bottom-end` | `top-end` | no | Pins controls inside the drawing surface; a regular flex row can place them outside. |
-| `SignaturePadSave.format / options / onSave` | `format / export options / (value, strokes) => void` | `png / — / —` | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
-| `SignaturePadPreview.strokes / padding / color` | `strokes / number / CSS color` | `— / 4 / currentColor` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `SignaturePadSave.format` | `format` | `png` | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `options` | `export options` | — | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `onSave` | `(value, strokes) => void` | — | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `SignaturePadPreview.strokes` | `strokes` | — | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `padding` | `number` | `4` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `color` | `CSS color` | `currentColor` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
 | `export options` | `object` | `padding 8; raster scale 2` | no | width and height set a fixed frame. Otherwise crop includes ink thickness and padding. background, color, scale, type, and quality configure output. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `format`: `svg`, `png`, `jpeg`, `json`
 - `sizing`: `auto`, `pressure`, `velocity`
 
 ## Usage
@@ -6352,7 +6433,9 @@ Exports: `Shimmer`, `SkeletonRoot`, `default`
 | --- | --- | --- | --- | --- |
 | `className` | `string` | — | no | Defines shape, width, height, radius, and layout placement. |
 | `Shimmer.children` | `ReactNode` | — | no | Text that shimmers while work is in progress, such as Thinking… or Searching the web…; it stays real, readable text. |
-| `Shimmer.active / duration / spread` | `boolean / number / number` | `true / 2 / 2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `Shimmer.active` | `boolean` | `true` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `duration` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
+| `spread` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
 | `Shimmer.as` | `ElementType` | `span` | no | Element to render, such as p or h3. |
 
 ## Usage
@@ -6513,7 +6596,8 @@ Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableOverlay`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `value / onValueChange` | `Array / function` | `Required` | no | Controlled item order. |
+| `value` | `Array` | — | no | Controlled item order. |
+| `onValueChange` | `function` | — | no | Controlled item order. |
 | `getItemValue` | `(item) => string` | — | no | Stable unique identity for each item. |
 | `strategy` | `vertical \| horizontal \| grid` | `vertical` | no | Layout-specific sorting strategy. |
 | `onMove / onValueCommit` | `function` | — | no | Move notification and committed order. |
@@ -6928,7 +7012,8 @@ Exports: `default`
 | --- | --- | --- | --- | --- |
 | `caretMode` | `native \| smooth` | `provider / smooth` | no | Overrides InputConfigProvider for this field. Smooth mode animates the collapsed caret while supported native text controls retain their editing behavior. |
 | `rows` | `number` | `4` | no | Initial visible line count. |
-| `Native textarea props / ref` | `TextareaHTMLAttributes<HTMLTextAreaElement>` | — | yes | Value, change callback, name, placeholder, limits, disabled, required and ARIA attributes. |
+| `placeholder` | `string` | — | no | Example value; never a replacement for a label. |
+| `Native textarea props / ref` | `TextareaHTMLAttributes<HTMLTextAreaElement>` | — | no | Value, change callback, name, placeholder, limits, disabled, required and ARIA attributes. |
 | `invalid` | `boolean` | — | no | Expose invalid state through FieldTextarea. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -7224,7 +7309,9 @@ Exports: `Toggle`, `ToggleGroupItem`, `ToggleGroupRoot`, `default`, `toggleVaria
 | `label` | `string` | — | no | Accessible name of the group. |
 | `options` | `Array<{ value, label, disabled? }>` | `[]` | no | Available choices. |
 | `type` | `single \| multiple` | `single` | no | Selection model. |
-| `variant / size / spacing` | `outline \| default / sm \| default \| lg / number` | `outline / default / 0` | no | Attached outline items by default; spacing separates them. |
+| `variant` | `outline \| default` | `outline` | no | Attached outline items by default; spacing separates them. |
+| `size` | `sm \| default \| lg` | `default` | no | Attached outline items by default; spacing separates them. |
+| `spacing` | `number` | `0` | no | Attached outline items by default; spacing separates them. |
 | `value / defaultValue / onValueChange` | `string \| string[] / function` | — | no | Controlled or initial selection matching type. |
 | `disabled / loop` | `boolean` | `false / true` | no | Group availability and keyboard wrapping. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -7232,6 +7319,8 @@ Exports: `Toggle`, `ToggleGroupItem`, `ToggleGroupRoot`, `default`, `toggleVaria
 ## Variants
 
 - `type`: `single`, `multiple`
+- `variant`: `outline`, `default`
+- `size`: `sm`, `default`, `lg`
 
 ## Usage
 
@@ -7483,7 +7572,9 @@ Exports: `VideoPlayer`
 | `loop` | `boolean` | `false` | no | Restarts the native video at the end. |
 | `preload` | `none \| metadata \| auto` | `metadata` | no | Native browser preload hint. Metadata enables the duration and seek controls. |
 | `nativeControls` | `boolean` | `false` | no | Uses the browser’s controls in place of the custom toolbar. The source must still be browser-playable; this adds no streaming adapters or codec support. |
-| `open / defaultOpen / onOpenChange` | `boolean / boolean / (open) => void` | `uncontrolled / false / —` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `open` | `boolean` | `uncontrolled` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `defaultOpen` | `boolean` | `false` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `onOpenChange` | `(open) => void` | — | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
 | `onPlay / onPause / onEnded / onTimeUpdate / onError` | `(event) => void` | — | no | Native media event callbacks. Time updates are not live announcements. |
 | `ref` | `Ref<HTMLVideoElement>` | — | no | Access to the active native video for programmatic playback changes. Null while a dialog is closed. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -7590,7 +7681,8 @@ Exports: `DEFAULT_WEB_PREVIEW_SANDBOX`, `WebPreviewBody`, `WebPreviewConsole`, `
 | `logs` | `Array<{ level, message, timestamp? }>` | — | no | Console entries; passing an array shows the console. |
 | `defaultConsoleOpen` | `boolean` | `false` | no | Open the console initially. |
 | `embeddable` | `boolean` | `true` | no | false replaces the frame with a LinkPreview card. |
-| `previewData / endpoint` | `object / string` | — | no | Metadata or endpoint for that fallback card. |
+| `previewData` | `object` | — | no | Metadata or endpoint for that fallback card. |
+| `endpoint` | `string` | — | no | Metadata or endpoint for that fallback card. |
 | `sandbox` | `string` | `allow-scripts allow-forms allow-popups allow-presentation allow-modals` | no | iframe sandbox; allow-same-origin is left out on purpose. |
 | `actions` | `ReactNode` | — | no | Extra toolbar controls. |
 | `labels` | `object` | `English` | no | Copy overrides. |
@@ -7691,15 +7783,19 @@ Exports: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppS
 | --- | --- | --- | --- | --- |
 | `brand / navigation / header / footer` | `ReactNode` | — | no | Shell slots built from Gaudi components; footer sits at the foot of the rail. |
 | `layout` | `sidebar \| topbar` | `sidebar` | no | A navigation rail, or brand and navigation in the header for sidebar-free apps. |
-| `aside / asideLabel` | `ReactNode / string` | `— / Details` | no | A complementary detail rail beside the content; it stacks below the content under xl. |
+| `aside` | `ReactNode` | — | no | A complementary detail rail beside the content; it stacks below the content under xl. |
+| `asideLabel` | `string` | `Details` | no | A complementary detail rail beside the content; it stacks below the content under xl. |
 | `statusBar` | `ReactNode` | — | no | A status strip under the content, for sync state, counts or environment. |
 | `navigationLabel` | `string` | `Workspace navigation` | no | Navigation landmark name. |
 | `menuLabel / skipLabel` | `string` | `Open navigation / Skip to content` | no | Mobile trigger and skip-link labels. |
 | `SidebarProvider.storageKey` | `string` | — | no | Restores and saves the expanded state in localStorage, after mount. |
 | `SidebarProvider.shortcut` | `string \| false` | `b` | no | The ⌘/Ctrl key that toggles the sidebar; false turns it off. |
 | `SidebarProvider.labels` | `{ expanded, collapsed, toggle }` | `English copy` | no | Announcements when the sidebar toggles, and the trigger name. |
-| `Sidebar.variant / collapsible / side` | `sidebar \| floating \| inset / offcanvas \| icon \| none / left \| right` | `sidebar / offcanvas / inline start (left in LTR, right in RTL)` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
-| `SidebarTrigger.label / tooltip` | `string / boolean` | `Toggle Sidebar / true` | no | Trigger name and a tooltip showing the shortcut. |
+| `Sidebar.variant` | `sidebar \| floating \| inset` | `sidebar` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `collapsible` | `offcanvas \| icon \| none` | `offcanvas` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `side` | `left \| right` | `inline start (left in LTR, right in RTL)` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `SidebarTrigger.label` | `string` | `Toggle Sidebar` | no | Trigger name and a tooltip showing the shortcut. |
+| `tooltip` | `boolean` | `true` | no | Trigger name and a tooltip showing the shortcut. |
 | `SidebarMenuButton.tooltip` | `string \| TooltipContent props` | — | no | Names the item on the collapsed icon rail. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -7707,6 +7803,8 @@ Exports: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppS
 ## Variants
 
 - `layout`: `sidebar`, `topbar`
+- `collapsible`: `offcanvas`, `icon`, `none`
+- `side`: `left`, `right`
 
 ## Usage
 
@@ -7917,8 +8015,10 @@ Exports: `default`
 | `passwordHint` | `ReactNode \| false` | `Per mode` | no | Help text under the password field; false hides it. |
 | `passwordAction` | `ReactNode` | — | no | A link beside the password label, such as Forgot password. |
 | `identifier` | `email \| username` | `email` | no | Ask for an email, or a username that also accepts an email. |
-| `providers / onProvider` | `Array<{ id, label, icon }> / (id) => void \| Promise<void>` | `[]` | no | Single sign-on buttons above the form, sharing its pending and error state. |
-| `providerLayout / dividerLabel` | `grid \| stack / string` | `grid / or` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
+| `providers` | `Array<{ id, label, icon }>` | — | no | Single sign-on buttons above the form, sharing its pending and error state. |
+| `onProvider` | `(id) => void \| Promise<void>` | — | no | Single sign-on buttons above the form, sharing its pending and error state. |
+| `providerLayout` | `grid \| stack` | `grid` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
+| `dividerLabel` | `string` | `or` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
 | `showPasswordLabel / hidePasswordLabel` | `string` | `Show password / Hide password` | no | Accessible names of the password reveal button, for translation. |
 | `children` | `ReactNode` | — | no | Extra fields before the submit button, such as keep me signed in or terms. |
 | `pendingLabel` | `string` | `Per mode` | no | Submit text while the request is pending. |
@@ -7929,6 +8029,7 @@ Exports: `default`
 
 - `mode`: `password`, `email`, `signup`
 - `identifier`: `email`, `username`
+- `providerLayout`: `grid`, `stack`
 
 ## Usage
 
@@ -8051,7 +8152,9 @@ Exports: `ChatShell`, `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `ChatShell.variant` | `page \| sidebar` | `page` | no | Page lays navigation, thread and details side by side from md and xl; sidebar is one narrow column. Side content moves into Sheets on narrow screens. |
-| `ChatShell.title / subtitle / headerActions` | `string / string / ReactNode` | — | no | Conversation heading and actions. |
+| `ChatShell.title` | `string` | — | no | Conversation heading and actions. |
+| `subtitle` | `string` | — | no | Conversation heading and actions. |
+| `headerActions` | `ReactNode` | — | no | Conversation heading and actions. |
 | `ChatShell.navigation / details / composer` | `ReactNode` | — | no | Side columns and the composer, filled with Chat parts such as ChatSessionList, ChatPlan and ChatPromptComposer. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -8102,7 +8205,7 @@ Curated patterns:
 - Agent at work: Plan and activity — registry item `@gaudi/chat-agent-activity` (uses `Button`, `ChatActivity`, `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `ChatPlan`, `ChatShell`, `RegistryIcon`)
 - Full page: Reviewing a pull request — registry item `@gaudi/chat-pull-request-review` (uses `Avatar`, `ChatActivity`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatFileExplorer`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPlan`, `ChatPromptComposer`, `ChatSessionList`, `ChatShell`, `ChatThreadNav`, `useMessageScroller`, `useMessageScrollerVisibility`)
 - New chat: Welcome and suggestions — registry item `@gaudi/chat-welcome-suggestions` (uses `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `ChatPromptComposer`, `ChatShell`, `EmptyState`, `RegistryIcon`)
-- Sidebar: Writing assistant beside the editor — registry item `@gaudi/chat-writing-assistant` (uses `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`)
+- Sidebar: Writing assistant beside the editor — registry item `@gaudi/chat-writing-assistant` (uses `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`, `usePrefersReducedMotion`)
 
 ## Related
 
@@ -8227,13 +8330,19 @@ Exports: `DEFAULT_DASHBOARD_LABELS`, `DEFAULT_DASHBOARD_PERIODS`, `DashboardGrid
 | `DashboardGrid.label` | `string` | — | no | Names the dashboard region. |
 | `DashboardPanel.span / spanMd / rowSpan` | `number` | `12 / derived / —` | no | Columns of twelve on wide containers, of six on medium ones, and rows to span. |
 | `DashboardPanel.title / description / action / toolbar / footer` | `ReactNode` | — | no | Panel heading, help, header action, controls row and footer. |
-| `DashboardPanel.scroll / scrollLabel / maxHeight` | `x \| y \| both / string / CSS length` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `DashboardPanel.scroll` | `x \| y \| both` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `scrollLabel` | `string` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `maxHeight` | `CSS length` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
 | `dashboardSpan(span, spanMd, rowSpan)` | `function` | — | no | Grid placement classes for any child, such as a StatCard. |
 | `DashboardToolbar.period / defaultPeriod / onPeriodChange` | `string / function` | `30d` | no | Active preset, or custom. |
 | `DashboardToolbar.range / defaultRange / onRangeChange` | `{ from, to } / function` | — | no | Custom date range from the calendar. |
 | `DashboardToolbar.compare / defaultCompare / onCompareChange` | `boolean / function` | `false` | no | Compare with the previous period. |
 | `DashboardToolbar.onChange` | `(period) => void` | — | no | Resolved { period, from, to, days, previous, compare } on every change. |
-| `DashboardToolbar.periods / allowCustom / showCompare / today / labels` | `Period[] / boolean / boolean / Date / object` | `DEFAULT_DASHBOARD_PERIODS / true / true / now / English` | no | Presets, optional controls, the end date and copy. |
+| `DashboardToolbar.periods` | `Period[]` | `DEFAULT_DASHBOARD_PERIODS` | no | Presets, optional controls, the end date and copy. |
+| `allowCustom` | `boolean` | `true` | no | Presets, optional controls, the end date and copy. |
+| `showCompare` | `boolean` | `true` | no | Presets, optional controls, the end date and copy. |
+| `today` | `Date` | `now` | no | Presets, optional controls, the end date and copy. |
+| `labels` | `object` | `English` | no | Presets, optional controls, the end date and copy. |
 | `resolveDashboardPeriod(period, options)` | `function` | — | no | The dates a period covers and the equally long period before it. |
 
 ## Usage
@@ -8337,10 +8446,16 @@ Exports: `CharacterCount`, `EditableField`, `FormErrorSummary`, `default`, `useF
 | `form.field(name, { describedBy })` | `props` | — | no | id, name, value, onChange, onBlur, aria-invalid and aria-describedby for a text-like control. |
 | `form.setValue / setValues / handleSubmit / reset` | `functions` | — | no | Update values, block invalid submits (onValid receives the values) and restore a state. |
 | `validators` | `required \| email \| minLength \| maxLength \| pattern \| min \| max` | — | no | Message-returning validators; custom rules receive (value, values). |
-| `FormErrorSummary.form / labels / title` | `form / Record<name, string> / string` | `Fix n problems to continue` | no | Lists errors after a submit, takes focus and links each entry to its control. |
-| `EditableField.label / value / onSave` | `string / any / (value) => void \| Promise` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `FormErrorSummary.form` | `form` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `labels` | `Record<name, string>` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `title` | `string` | — | no | Lists errors after a submit, takes focus and links each entry to its control. |
+| `EditableField.label` | `string` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `value` | `any` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
+| `onSave` | `(value) => void \| Promise` | — | no | A label and value with Edit; Save calls onSave and closes, a thrown error keeps it open. |
 | `EditableField.validate / format / renderControl` | `function` | — | no | Message for an invalid draft, how the value reads, and a custom control instead of Input. |
-| `CharacterCount.value / max / id` | `string / number / string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `CharacterCount.value` | `string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `max` | `number` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
+| `id` | `string` | — | no | Remaining characters, announced politely near the limit; reference the id from aria-describedby. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -8477,7 +8592,7 @@ Exports: `Menu`, `MenuSearch`, `default`
 | `posts` | `Array<{ id?, slug?, href, title, date }>` | `[]` | no | The newest three appear in Recent posts; all are searchable. |
 | `projects / publications / tags / thoughts` | `Array` | `[]` | no | Command launcher search records. |
 | `logo` | `ReactNode` | `Gaudi brand mark` | no | Brand inside the home link; the link is named by the SiteConfig author or title. |
-| `MenuSearch setOpen` | `(open: boolean) => void` | — | no | Exported search entry for custom headers; opens Commander. |
+| `MenuSearch.setOpen` | `(open: boolean) => void` | — | no | Exported search entry for custom headers; opens Commander. |
 
 ## Usage
 
@@ -8692,7 +8807,7 @@ Curated patterns:
 - Billing — registry item `@gaudi/screens-billing` (uses `Badge`, `Button`, `ProgressRoot`, `RegistryIcon`, `StatCard`, `TableBodyPrimitive`, `TableCaption`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Inbox and meeting capture — registry item `@gaudi/screens-inbox-capture` (uses `Badge`, `Button`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `Label`, `NativeSelect`, `NativeSelectOption`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `SwitchRoot`, `Textarea`)
 - Organisation tabs — registry item `@gaudi/screens-organisation-tabs` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldRoot`, `Input`, `Label`, `RegistryIcon`, `SwitchRoot`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Referral rewards — registry item `@gaudi/screens-referral-rewards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`)
+- Referral rewards — registry item `@gaudi/screens-referral-rewards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`, `useCopyToClipboard`)
 
 ## Related
 
@@ -8759,10 +8874,15 @@ Exports: `ScheduleCalendar`, `TimeSlots`, `addMinutes`, `dayKey`, `default`, `fo
 | `TimeSlots.slots` | `string[]` | `[]` | no | HH:MM start times, usually from timeSlots(). |
 | `TimeSlots.value / defaultValue / onValueChange` | `string / (slot) => void` | — | no | Controlled or initial selected slot. |
 | `TimeSlots.unavailable` | `string[]` | `[]` | no | Booked slots: listed but disabled. |
-| `TimeSlots.hour12 / columns` | `boolean / 1 \| 2 \| 3 \| 4` | `false / 3` | no | Clock format and grid columns. |
+| `TimeSlots.hour12` | `boolean` | `false` | no | Clock format and grid columns. |
+| `columns` | `1 \| 2 \| 3 \| 4` | `3` | no | Clock format and grid columns. |
 | `timeSlots({ start, end, step, duration })` | `helper` | `09:00–17:00 every 30` | no | Start times where the whole meeting fits before end. |
 | `formatTime / formatDuration / addMinutes / minutesBetween` | `helpers` | — | no | Format and calculate HH:MM times and durations. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `columns`: `1`, `2`, `3`, `4`
 
 ## Usage
 
@@ -9008,18 +9128,25 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 | --- | --- | --- | --- | --- |
 | `label / value` | `ReactNode` | — | no | Metric name and its prepared value. |
 | `delta` | `string \| number` | — | no | Change in your formatting, including its sign and zero. |
-| `deltaDirection / deltaTone` | `up \| down \| flat / semantic tone` | `— / neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
-| `icon / tone` | `string / neutral \| accent \| info \| success \| warning \| danger \| discovery \| attention` | `— / neutral` | no | Icon tile and its colour. |
+| `deltaDirection` | `up \| down \| flat` | — | no | Explicit arrow and semantic colour; the host decides what the change means. |
+| `deltaTone` | `semantic tone` | `neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
+| `icon` | `string` | — | no | Icon tile and its colour. |
+| `tone` | `neutral \| accent \| info \| success \| warning \| danger \| discovery \| attention` | `neutral` | no | Icon tile and its colour. |
 | `variant` | `default \| tinted \| inverse` | `default` | no | Card, colour block in tone, or dark surface. |
 | `action` | `ReactNode` | — | no | Header slot, usually a menu, range switch or status badge. |
 | `description / footer` | `ReactNode` | — | no | Comparison line and footer text. |
 | `StatMeter.segments` | `Array<{ label, value, tone }>` | `[]` | no | Segmented bar with a legend of values and shares. |
-| `StatDelta.value / direction / tone` | `string \| number / up \| down \| flat / semantic tone` | `— / — / neutral` | no | Standalone change badge with explicit presentation and unchanged value. |
+| `StatDelta.value` | `string \| number` | — | no | Standalone change badge with explicit presentation and unchanged value. |
+| `direction` | `up \| down \| flat` | — | no | Standalone change badge with explicit presentation and unchanged value. |
+| `tone` | `semantic tone` | `neutral` | no | Standalone change badge with explicit presentation and unchanged value. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `deltaDirection`: `up`, `down`, `flat`
+- `tone`: `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `discovery`, `attention`
 - `variant`: `default`, `tinted`, `inverse`
+- `direction`: `up`, `down`, `flat`
 
 ## Usage
 
@@ -9284,7 +9411,8 @@ Exports: `ChatActivityIndicator`, `activityStates`, `default`
 | `state` | `idle \| thinking \| streaming \| tool \| done \| error` | `idle` | no | Current activity. |
 | `variant` | `inline \| badge` | `inline` | no | Inline mark or corner badge. |
 | `showLabel` | `boolean` | `false` | no | Visible label beside the mark. |
-| `labels / decorative` | `object / boolean` | — | no | Copy per state, and hiding. |
+| `labels` | `object` | — | no | Copy per state, and hiding. |
+| `decorative` | `boolean` | — | no | Copy per state, and hiding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -9367,7 +9495,9 @@ Exports: `ChatAgentMark`, `agentHues`, `agentMarkVariants`, `agentMotifs`, `defa
 | `tone` | `accent \| discovery \| neutral \| solid` | `accent` | no | Tile colour. |
 | `state` | `idle \| thinking \| streaming \| tool \| done \| error` | — | no | Adds an ChatActivityIndicator badge. |
 | `monogram` | `boolean` | `false` | no | Initials instead of the icon. |
-| `icon / image / decorative` | `string / string / boolean` | `Sparkles / — / false` | no | Glyph, image and hiding. |
+| `icon` | `string` | `Sparkles` | no | Glyph, image and hiding. |
+| `image` | `string` | — | no | Glyph, image and hiding. |
+| `decorative` | `boolean` | `false` | no | Glyph, image and hiding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -9630,7 +9760,8 @@ Exports: `ChatEffortSlider`, `chatEffortLevels`, `default`
 | `compact` | `boolean` | `false` | no | Drops step labels and the description. |
 | `disabled` | `boolean` | `false` | no | Locks the control. |
 | `levels` | `Array<{ value, label, description? }>` | `chatEffortLevels` | no | The levels. |
-| `value / onValueChange` | `string / (value, level) => void` | — | no | Controlled level. |
+| `value` | `string` | — | no | Controlled level. |
+| `onValueChange` | `(value, level) => void` | — | no | Controlled level. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -9708,7 +9839,8 @@ Exports: `ChatMessageFeedback`, `default`
 | `defaultRating` | `none \| up \| down` | `none` | no | Initial rating. |
 | `regenerate` | `boolean` | `true` | no | Example only: shows Regenerate through onRegenerate. |
 | `copyText` | `string` | — | no | What copy writes. |
-| `rating / onRatingChange` | `'up' \| 'down' \| null / function` | — | no | Controlled rating. |
+| `rating` | `'up' \| 'down' \| null` | — | no | Controlled rating. |
+| `onRatingChange` | `function` | — | no | Controlled rating. |
 | `onCopy / onRegenerate` | `function` | — | no | Host callbacks. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -9781,13 +9913,20 @@ Exports: `ChatFileExplorer`, `default`
 | --- | --- | --- | --- | --- |
 | `label` | `string` | `Files` | no | Region and tree name. |
 | `expanded` | `boolean` | `true` | no | Example only: opens the folders. |
-| `items / rootId` | `{ [id]: { name, children?, meta?, typeLabel?, sizeLabel?, modifiedLabel?, modifiedAt?, downloadUrl?, downloadName?, canPreview?, agent? } } / string` | `{} / root` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
+| `items` | `{ [id]: { name, children?, meta?, typeLabel?, sizeLabel?, modifiedLabel?, modifiedAt?, downloadUrl?, downloadName?, canPreview?, agent? } }` | `{}` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
+| `rootId` | `string` | `root` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
 | `defaultExpanded` | `string[]` | `[]` | no | Initially open folders. |
-| `selectedId / defaultSelectedId / onSelect` | `string \| null / string \| null / (id, item) => void` | `— / null / —` | no | Controlled or local single-file selection. |
+| `selectedId` | `string \| null` | — | no | Controlled or local single-file selection. |
+| `defaultSelectedId` | `string \| null` | `null` | no | Controlled or local single-file selection. |
+| `onSelect` | `(id, item) => void` | — | no | Controlled or local single-file selection. |
 | `onPreview` | `(id, item) => void` | — | no | Adds a named preview action for eligible files; the host supplies content. |
 | `searchable` | `boolean` | `true` | no | Search names and metadata while preserving ancestors. |
-| `loading / refreshing / error` | `boolean / boolean / ReactNode` | `false / false / —` | no | Initial loading, background refresh and recoverable failure. |
-| `onRefresh / onRetry / actions` | `function / function / ReactNode` | — | no | Header refresh, recovery callback and extra actions. |
+| `loading` | `boolean` | `false` | no | Initial loading, background refresh and recoverable failure. |
+| `refreshing` | `boolean` | `false` | no | Initial loading, background refresh and recoverable failure. |
+| `error` | `ReactNode` | — | no | Initial loading, background refresh and recoverable failure. |
+| `onRefresh` | `function` | — | no | Header refresh, recovery callback and extra actions. |
+| `onRetry` | `function` | — | no | Header refresh, recovery callback and extra actions. |
+| `actions` | `ReactNode` | — | no | Header refresh, recovery callback and extra actions. |
 | `labels` | `object` | `English copy` | no | Search, actions and recovery copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -9926,26 +10065,53 @@ Exports: `ChatContextMeter`, `ChatModelSelect`, `ChatPromptAttachMenu`, `ChatPro
 | `placeholder` | `string` | `Message` | no | Prompt placeholder, through labels. |
 | `models` | `boolean` | `true` | no | Example only: a ChatModelSelect with an effort slider in the toolbar. |
 | `ChatPromptComposer.onSubmit` | `(text, { queued, mentions, command, attachments }) => void` | — | no | Send or queue. |
-| `ChatPromptComposer.attachments / onRemoveAttachment` | `Array<{ id, name, type?, size?, kind?, previewUrl? }> / (id) => void` | `[] / —` | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
+| `ChatPromptComposer.attachments` | `Array<{ id, name, type?, size?, kind?, previewUrl? }>` | `[]` | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
+| `onRemoveAttachment` | `(id) => void` | — | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
 | `ChatPromptComposer.mentions / commands` | `Array<{ id, name, description?, icon? }>` | `[]` | no | @ anywhere and / at the start open them. |
-| `ChatPromptComposer.leftControls / rightControls` | `ReactNode / ReactNode` | `toolbar / actions` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
-| `ChatPromptComposer.toolbar / actions / footer / labels` | `ReactNode / ReactNode / ReactNode / object` | — | no | Compatible left/right aliases, footer text and copy. |
+| `ChatPromptComposer.leftControls` | `ReactNode` | `toolbar` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
+| `rightControls` | `ReactNode` | `actions` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
+| `ChatPromptComposer.toolbar` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `actions` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `footer` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `labels` | `object` | — | no | Compatible left/right aliases, footer text and copy. |
 | `ChatPromptQueue.items / onEdit / onRemove / onSendNow / onMove` | `Array<{ id, text }> / functions` | — | no | Waiting messages. |
-| `ChatModelSelect.models / value / onValueChange` | `Array<{ value, label, description?, badge? }> / string / function` | — | no | The model a prompt runs on. |
+| `ChatModelSelect.models` | `Array<{ value, label, description?, badge? }>` | — | no | The model a prompt runs on. |
+| `value` | `string` | — | no | The model a prompt runs on. |
+| `onValueChange` | `function` | — | no | The model a prompt runs on. |
 | `ChatModelSelect.children` | `ReactNode` | — | no | Footer content switches to a popover with a model list and separate controls; Tab reaches the footer, and Escape returns focus to the trigger. |
-| `ChatModelSelect.searchable / providers` | `boolean / Record<provider, { label, icon }>` | `false / {}` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
-| `ChatPromptComposer.variant / voice` | `'default' \| 'card' / ReactNode \| ({ value, setValue, insert, disabled }) => ReactNode` | `'default' / —` | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
-| `ChatPromptToggle.icon / label / pressed / defaultPressed / onPressedChange / disabled` | `string / string / boolean / boolean / (pressed) => void / boolean` | `— / — / — / false / — / false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
-| `ChatPromptAttachMenu.items / onAttach / onSelect` | `Array<{ value, label, icon?, accept?, capture? }> / (files, item) => void / (item) => void` | `Upload files, Add photos` | no | The + menu: items with accept open the file picker. |
-| `ChatPromptSettings.options / values / onValuesChange / effort / onEffortChange` | `Array<{ value, label, description?, icon? }> / Record<string, boolean> / function / string / function` | — | no | Options popover with an effort slider and switches. |
-| `ChatContextMeter.usedTokens / maxTokens / breakdown` | `number / number / Array<{ id, label, value, detail? }>` | `0 / 0 / []` | no | Prepared totals and breakdown values; only the percentage is derived. |
-| `ChatContextMeter.cost / costLabel / tone / message` | `ReactNode / ReactNode / accent \| warning \| danger / ReactNode` | `— / Cost / accent / —` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
-| `ChatContextMeter.formatTokens / formatPercentage` | `(number) => string / (number) => string` | `compact token count / percentage` | no | Format the supplied counts and derived percentage. |
+| `ChatModelSelect.searchable` | `boolean` | `false` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
+| `providers` | `Record<provider, { label, icon }>` | `{}` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
+| `ChatPromptComposer.variant` | `'default' \| 'card'` | `'default'` | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
+| `voice` | `ReactNode \| ({ value, setValue, insert, disabled }) => ReactNode` | — | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
+| `ChatPromptToggle.icon` | `string` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `label` | `string` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `pressed` | `boolean` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `defaultPressed` | `boolean` | `false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `onPressedChange` | `(pressed) => void` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `disabled` | `boolean` | `false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `ChatPromptAttachMenu.items` | `Array<{ value, label, icon?, accept?, capture? }>` | — | no | The + menu: items with accept open the file picker. |
+| `onAttach` | `(files, item) => void` | — | no | The + menu: items with accept open the file picker. |
+| `onSelect` | `(item) => void` | — | no | The + menu: items with accept open the file picker. |
+| `ChatPromptSettings.options` | `Array<{ value, label, description?, icon? }>` | — | no | Options popover with an effort slider and switches. |
+| `values` | `Record<string, boolean>` | — | no | Options popover with an effort slider and switches. |
+| `onValuesChange` | `function` | — | no | Options popover with an effort slider and switches. |
+| `effort` | `string` | — | no | Options popover with an effort slider and switches. |
+| `onEffortChange` | `function` | — | no | Options popover with an effort slider and switches. |
+| `ChatContextMeter.usedTokens` | `number` | `0` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `maxTokens` | `number` | `0` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `breakdown` | `Array<{ id, label, value, detail? }>` | `[]` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `ChatContextMeter.cost` | `ReactNode` | — | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `costLabel` | `ReactNode` | `Cost` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `tone` | `accent \| warning \| danger` | `accent` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `message` | `ReactNode` | — | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `ChatContextMeter.formatTokens` | `(number) => string` | `compact token count` | no | Format the supplied counts and derived percentage. |
+| `formatPercentage` | `(number) => string` | `percentage` | no | Format the supplied counts and derived percentage. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
 - `status`: `ready`, `streaming`
+- `tone`: `accent`, `warning`, `danger`
 
 ## Usage
 
@@ -10154,7 +10320,7 @@ Curated patterns:
 
 - Error, retry and suggestions — registry item `@gaudi/chat-error-retry-suggestions` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`)
 - Delivered files and data — registry item `@gaudi/chat-file-delivered-files` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
-- Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`)
+- Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`, `usePrefersReducedMotion`)
 - Team conversation — registry item `@gaudi/message-team-conversation` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFooter`, `ChatMessageGroup`, `ChatMessageHeader`, `RegistryIcon`)
 
 ## Related
@@ -10218,8 +10384,11 @@ Exports: `ChatMessageCheckpoint`, `ChatMessageMarkdown`, `ChatMessageParts`, `Ch
 | `ChatMessageParts.onRetry / onToolRetry / onToolApproval / onFileAction / onSuggestion` | `function` | — | no | Retry a turn or tool, answer an approval, act on a file, pick a follow-up. |
 | `ChatMessageScrollerItem.scrollAnchor` | `boolean` | `false` | no | Lift a sent message near the top. |
 | `ChatMessageMarkdown.children` | `string` | `''` | no | Runtime markdown; code through CodeBlock; [1] or [1, 3] cite sources. |
-| `ChatMessageCheckpoint.label / time` | `string / string \| Date` | `Checkpoint / —` | no | A restore point between turns. |
-| `ChatMessageCheckpoint.onRestore / confirm / restored` | `function / boolean / boolean` | `— / true / false` | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `ChatMessageCheckpoint.label` | `string` | `Checkpoint` | no | A restore point between turns. |
+| `time` | `string \| Date` | — | no | A restore point between turns. |
+| `ChatMessageCheckpoint.onRestore` | `function` | — | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `confirm` | `boolean` | `true` | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `restored` | `boolean` | `false` | no | Restore action, asked first in an alert dialog unless confirm is false. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage
@@ -10258,7 +10427,7 @@ The thread scrolls inside a labelled region; announce the start and end of a rep
 Curated patterns:
 
 - New turn anchored under the last answer — registry item `@gaudi/message-scroller-anchored-turn` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `RegistryIcon`)
-- Streamed reply: drafting a post — registry item `@gaudi/message-scroller-drafting-post` (uses `Avatar`, `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`)
+- Streamed reply: drafting a post — registry item `@gaudi/message-scroller-drafting-post` (uses `Avatar`, `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`, `usePrefersReducedMotion`)
 - Opening position and jump to latest — registry item `@gaudi/message-scroller-jump-to-latest` (uses `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `Separator`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Older history that keeps your position — registry item `@gaudi/message-scroller-load-earlier` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `LoaderRoot`, `RegistryIcon`, `Separator`, `useMessageScrollerScrollable`)
 - Pinned to the newest streamed line — registry item `@gaudi/message-scroller-streaming-follow` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `LoaderRoot`, `RegistryIcon`)
@@ -10397,11 +10566,16 @@ Exports: `ChatPersona`, `default`, `personaSizes`, `personaStates`, `personaVari
 | `state` | `idle \| connecting \| listening \| thinking \| speaking \| asleep \| error` | `idle` | no | What the assistant is doing. |
 | `variant` | `iridescent \| mercury \| waveform \| activity \| circle \| bars \| cloud \| radial` | `iridescent` | no | Renderer: WebGL film, CSS metal, canvas ring, SVG dot sphere, CSS disc, CSS bars, WebGL cloud or WebGL pinwheel. |
 | `size` | `xs \| sm \| md \| lg \| xl \| number` | `md` | no | 32, 48, 96, 168 or 240 pixels, or a number. |
-| `level / levelRef` | `number / RefObject<number>` | — | no | Live audio level 0..1. |
+| `level` | `number` | — | no | Live audio level 0..1. |
+| `levelRef` | `RefObject<number>` | — | no | Live audio level 0..1. |
 | `waveformRef` | `RefObject<Uint8Array>` | — | no | Time-domain samples for the waveform ring. |
-| `speed / active` | `number / boolean` | `1 / true unless asleep` | no | Animation multiplier and whether it moves. |
-| `name / labels / showLabel` | `string / object / boolean` | `Assistant / — / false` | no | Accessible name, copy per state and a visible label. |
-| `announce / decorative` | `boolean / boolean` | `true / false` | no | Polite state announcements, or hide it entirely. |
+| `speed` | `number` | `1` | no | Animation multiplier and whether it moves. |
+| `active` | `boolean` | `true unless asleep` | no | Animation multiplier and whether it moves. |
+| `name` | `string` | `Assistant` | no | Accessible name, copy per state and a visible label. |
+| `labels` | `object` | — | no | Accessible name, copy per state and a visible label. |
+| `showLabel` | `boolean` | `false` | no | Accessible name, copy per state and a visible label. |
+| `announce` | `boolean` | `true` | no | Polite state announcements, or hide it entirely. |
+| `decorative` | `boolean` | `false` | no | Polite state announcements, or hide it entirely. |
 | `colorFrom / colorTo` | `string` | `palette tokens` | no | Hex overrides for the artwork. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -10583,13 +10757,21 @@ Exports: `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReason
 | `streaming` | `boolean` | `false` | no | Opens the trail with a shimmering Thinking… label; it opens again whenever thinking restarts. |
 | `duration` | `number` | `measured` | no | Seconds spent; measured from streaming start to end when omitted. |
 | `defaultOpen` | `boolean` | `true` | no | Initial disclosure state. |
-| `open / onOpenChange` | `boolean / (open) => void` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
+| `open` | `boolean` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
+| `onOpenChange` | `(open) => void` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
 | `variant` | `trail \| steps` | `trail` | no | steps drops the quote rule so detailed steps draw their own rail. |
-| `thinkingLabel / label / autoCloseDelay` | `string / string / number` | `Thinking… / — / 1000` | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `thinkingLabel` | `string` | `Thinking…` | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `label` | `string` | — | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `autoCloseDelay` | `number` | `1000` | no | Streaming label, a fixed label, and the fold delay in ms. |
 | `ChatMessageReasoningStep.status` | `pending \| running \| done \| failed \| cancelled` | `done` | no | A step with the shared statuses. |
-| `ChatMessageReasoningStep.label / icon / description / meta` | `ReactNode / string / ReactNode / ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `ChatMessageReasoningStep.label` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `icon` | `string` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `description` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `meta` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
 | `ChatMessageReasoningResults.results` | `Array<{ title, url?, site?, icon? }>` | `[]` | no | Search results as link chips with favicons; max limits them with a +n more. |
-| `ChatMessageReasoningImage.src / alt / caption` | `string / string / ReactNode` | — | no | A thumbnail the step looked at. |
+| `ChatMessageReasoningImage.src` | `string` | — | no | A thumbnail the step looked at. |
+| `alt` | `string` | — | no | A thumbnail the step looked at. |
+| `caption` | `ReactNode` | — | no | A thumbnail the step looked at. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -10694,7 +10876,8 @@ Exports: `ChatSessionList`, `default`
 | --- | --- | --- | --- | --- |
 | `searchable` | `boolean` | `true` | no | Search box. |
 | `sessions` | `Array<{ id, title, preview?, updated?, group?, live? }>` | `[]` | no | Conversations, grouped by group. |
-| `activeId / onSelect` | `string / function` | — | no | Current chat and selection. |
+| `activeId` | `string` | — | no | Current chat and selection. |
+| `onSelect` | `function` | — | no | Current chat and selection. |
 | `onNew / onRename / onDelete` | `function` | — | no | New chat, rename dialog, delete confirmation. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -10813,7 +10996,9 @@ Exports: `ChatMessageCitation`, `ChatMessageSource`, `ChatMessageSources`, `defa
 | `label` | `string` | `n sources` | no | Toggle label for the list. |
 | `defaultOpen` | `boolean` | `false` | no | Initial disclosure. |
 | `sources` | `Array<{ title, url?, kind?, site?, excerpt?, quote?, icon? }>` | `[]` | no | Sources in citation order. |
-| `ChatMessageCitation.index / source / sources` | `number / source / source[]` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `ChatMessageCitation.index` | `number` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `source` | `source` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
+| `sources` | `source[]` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
 | `ChatMessageCitation.labels` | `{ trigger, carousel, position, previous, next }` | `English copy` | no | Names for the pill, the carousel and its controls. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -10906,7 +11091,8 @@ Exports: `ChatThreadNav`, `default`
 | --- | --- | --- | --- | --- |
 | `start` | `string` | `t2` | no | Example only: the turn in view at first. |
 | `turns` | `Array<{ id, label }>` | `[]` | no | Prompts in thread order. |
-| `current / onNavigate` | `string / (id) => void` | — | no | The turn in view and navigation. |
+| `current` | `string` | — | no | The turn in view and navigation. |
+| `onNavigate` | `(id) => void` | — | no | The turn in view and navigation. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage
@@ -10973,12 +11159,18 @@ Exports: `ChatMessageData`, `ChatMessageTool`, `ChatMessageToolApproval`, `appro
 | `name` | `string` | — | no | Tool name. |
 | `status` | `pending \| running \| done \| failed \| cancelled \| awaiting \| denied` | `pending` | no | Status badge; failed opens with the error. |
 | `defaultOpen` | `boolean` | `false` | no | Initial disclosure; a failed call opens on its own. |
-| `input / output / error` | `unknown / unknown / string` | — | no | Shown with ChatMessageData. |
+| `input` | `unknown` | — | no | Shown with ChatMessageData. |
+| `output` | `unknown` | — | no | Shown with ChatMessageData. |
+| `error` | `string` | — | no | Shown with ChatMessageData. |
 | `onRetry` | `function` | — | no | Retry a failed call. |
-| `ChatMessageData.value / label` | `unknown / string` | — | no | A list or table with a JSON view. |
+| `ChatMessageData.value` | `unknown` | — | no | A list or table with a JSON view. |
+| `label` | `string` | — | no | A list or table with a JSON view. |
 | `ChatMessageToolApproval.state / defaultState / onStateChange` | `requested \| approved \| denied \| executed` | `requested` | no | Approval lifecycle; control it to move to executed with the result as children. |
-| `ChatMessageToolApproval.onApprove / onDeny` | `({ always }) => void / () => void` | — | no | The person’s decision; always is the “always allow” choice. |
-| `ChatMessageToolApproval.allowAlways / reason / labels` | `boolean / ReactNode / object` | `false / — / English copy` | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `ChatMessageToolApproval.onApprove` | `({ always }) => void` | — | no | The person’s decision; always is the “always allow” choice. |
+| `onDeny` | `() => void` | — | no | The person’s decision; always is the “always allow” choice. |
+| `ChatMessageToolApproval.allowAlways` | `boolean` | `false` | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `reason` | `ReactNode` | — | no | Offer “always allow”, explain a denial, and replace the copy. |
+| `labels` | `object` | `English copy` | no | Offer “always allow”, explain a denial, and replace the copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11091,15 +11283,30 @@ Exports: `ChatAudioPlayer`, `ChatMicSelector`, `ChatSpeechInput`, `ChatVoiceSele
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `ChatSpeechInput.onTranscript / onInterim` | `(text, { final }) => void / (text) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
+| `ChatSpeechInput.onTranscript` | `(text, { final }) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
+| `onInterim` | `(text) => void` | — | no | Final phrases and the live interim text from the Web Speech API. |
 | `ChatSpeechInput.onAudio` | `(blob: Blob) => string \| Promise<string> \| void` | — | no | MediaRecorder fallback; return the transcript. |
-| `ChatSpeechInput.mode / lang / deviceId` | `auto \| speech \| recorder / string / string` | `auto / en-US / —` | no | Engine, recognition language and input device. |
-| `ChatSpeechInput.onStateChange / onError / onLevel` | `(state) => void / (kind, cause) => void / (level) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
-| `ChatMicSelector.value / onValueChange / meter` | `string / (deviceId, device) => void / boolean` | `— / — / true` | no | Chosen device and a Test level meter. |
+| `ChatSpeechInput.mode` | `auto \| speech \| recorder` | `auto` | no | Engine, recognition language and input device. |
+| `lang` | `string` | `en-US` | no | Engine, recognition language and input device. |
+| `deviceId` | `string` | — | no | Engine, recognition language and input device. |
+| `ChatSpeechInput.onStateChange` | `(state) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `onError` | `(kind, cause) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `onLevel` | `(level) => void` | — | no | idle, listening, processing; denied, no-device, unsupported, failed; live level 0..1. |
+| `ChatMicSelector.value` | `string` | — | no | Chosen device and a Test level meter. |
+| `onValueChange` | `(deviceId, device) => void` | — | no | Chosen device and a Test level meter. |
+| `meter` | `boolean` | `true` | no | Chosen device and a Test level meter. |
 | `ChatVoiceSelector.voices` | `Array<{ id, name, provider?, gender?, accent?, age?, style?, description?, previewUrl? }>` | `[]` | no | The voices, supplied by the app. |
-| `ChatVoiceSelector.value / onValueChange / onPreview / groupBy / searchable` | `string / (id, voice) => void / (voice, { signal }) => Promise / string / boolean` | — | no | Choice, sample playback, headings and filter. |
-| `ChatAudioPlayer.src / title / peaks / duration` | `string / string / number[] / number` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
-| `ChatAudioPlayer.speeds / download` | `number[] / boolean \| string` | `[1, 1.5, 2] / false` | no | Speed toggle and an optional download. |
+| `ChatVoiceSelector.value` | `string` | — | no | Choice, sample playback, headings and filter. |
+| `onValueChange` | `(id, voice) => void` | — | no | Choice, sample playback, headings and filter. |
+| `onPreview` | `(voice, { signal }) => Promise` | — | no | Choice, sample playback, headings and filter. |
+| `groupBy` | `string` | — | no | Choice, sample playback, headings and filter. |
+| `searchable` | `boolean` | — | no | Choice, sample playback, headings and filter. |
+| `ChatAudioPlayer.src` | `string` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `title` | `string` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `peaks` | `number[]` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `duration` | `number` | — | no | Audio, label, waveform peaks 0..1 and a length before metadata. |
+| `ChatAudioPlayer.speeds` | `number[]` | `[1, 1.5, 2]` | no | Speed toggle and an optional download. |
+| `download` | `boolean \| string` | `false` | no | Speed toggle and an optional download. |
 | `useAudioLevel(stream, { onLevel })` | `{ levelRef, waveformRef }` | — | no | Live level and samples for ChatPersona. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -11195,13 +11402,24 @@ Exports: `ChatWorkspace`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `title / description / actions` | `string / string / ReactNode` | `Workspace / — / —` | no | Panel heading and optional supporting content. |
+| `title` | `string` | `Workspace` | no | Panel heading and optional supporting content. |
+| `description` | `string` | — | no | Panel heading and optional supporting content. |
+| `actions` | `ReactNode` | — | no | Panel heading and optional supporting content. |
 | `agents` | `Array<{ id, name, description?, state?, labels?, fileRootId? }>` | `[]` | no | Stable agent identity, ChatActivityIndicator state and an existing file-tree folder. |
 | `fileExplorerProps` | `ChatFileExplorer props` | `{}` | no | Reuse the complete explorer contract for data, selection, preview, download and recovery. |
-| `view / defaultView / onViewChange` | `files \| agents / files \| agents / function` | `— / files / —` | no | Controlled or local tab state. |
-| `agentId / defaultAgentId / onAgentChange` | `string \| null / string \| null / function` | `— / null / —` | no | Controlled or local agent scope. Null restores all files. |
+| `view` | `files \| agents` | — | no | Controlled or local tab state. |
+| `defaultView` | `files \| agents` | `files` | no | Controlled or local tab state. |
+| `onViewChange` | `function` | — | no | Controlled or local tab state. |
+| `agentId` | `string \| null` | — | no | Controlled or local agent scope. Null restores all files. |
+| `defaultAgentId` | `string \| null` | `null` | no | Controlled or local agent scope. Null restores all files. |
+| `onAgentChange` | `function` | — | no | Controlled or local agent scope. Null restores all files. |
 | `labels` | `object` | `English copy` | no | Tabs, navigation and empty-agent copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `view`: `files`, `agents`
+- `defaultView`: `files`, `agents`
 
 ## Usage
 
@@ -11296,10 +11514,13 @@ Exports: `AreaChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11412,10 +11633,13 @@ Exports: `BarChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11526,10 +11750,13 @@ Exports: `BoxPlotChart`, `boxGroups`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11638,10 +11865,13 @@ Exports: `ChartActiveMarker`, `ChartAnnotations`, `ChartAreaGradient`, `ChartCon
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11753,10 +11983,13 @@ Exports: `ComposedChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11848,9 +12081,16 @@ Exports: `DonutChart`, `PieChart`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `data / nameKey / valueKey` | `object[] / string / string` | `[] / label / value` | no | Slices. |
-| `selectable / selectedIndex / defaultSelectedIndex / onSelect` | `boolean / number \| null / number \| null / (slice, index) => void` | `true for donuts` | no | Selection pins a slice; the centre shows its share. |
-| `otherThreshold / maxSlices / otherLabel` | `number / number / string` | `— / — / Other` | no | Fold small slices into Other. |
+| `data` | `object[]` | `[]` | no | Slices. |
+| `nameKey` | `string` | `label` | no | Slices. |
+| `valueKey` | `string` | `value` | no | Slices. |
+| `selectable` | `boolean` | — | no | Selection pins a slice; the centre shows its share. |
+| `selectedIndex` | `number \| null` | — | no | Selection pins a slice; the centre shows its share. |
+| `defaultSelectedIndex` | `number \| null` | — | no | Selection pins a slice; the centre shows its share. |
+| `onSelect` | `(slice, index) => void` | — | no | Selection pins a slice; the centre shows its share. |
+| `otherThreshold` | `number` | — | no | Fold small slices into Other. |
+| `maxSlices` | `number` | — | no | Fold small slices into Other. |
+| `otherLabel` | `string` | `Other` | no | Fold small slices into Other. |
 | `centerLabel` | `string` | `Total` | no | Caption under the centre value. |
 | `innerRadius` | `string \| number` | `'56%' (DonutChart), 0 (PieChart)` | no | Hole size. |
 | `colors` | `string[]` | `categorical palette` | no | Override the series colours with chart tokens. |
@@ -11859,10 +12099,13 @@ Exports: `DonutChart`, `PieChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -11959,7 +12202,9 @@ Exports: `FunnelChart`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `data / labelKey / valueKey` | `object[] / string / string` | `[] / label / value` | no | Steps in order. |
+| `data` | `object[]` | `[]` | no | Steps in order. |
+| `labelKey` | `string` | `label` | no | Steps in order. |
+| `valueKey` | `string` | `value` | no | Steps in order. |
 | `align` | `start \| center` | `start` | no | Left-aligned bars or a centred funnel. |
 | `monochrome` | `boolean` | `true` | no | One hue fading by step. |
 | `conversionLabel` | `string` | `from previous` | no | Suffix on each conversion rate. |
@@ -11969,10 +12214,13 @@ Exports: `FunnelChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12078,10 +12326,13 @@ Exports: `GaugeChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12179,21 +12430,27 @@ Exports: `HeatmapChart`, `default`, `heatmapStep`
 | `data` | `Array<{ x, y, value }>` | `[]` | no | Cells. |
 | `xKey / yKey / valueKey` | `string` | `x / y / value` | no | Field names. |
 | `xLabels / yLabels` | `string[]` | `first appearance` | no | Column and row order. |
-| `scale / midpoint` | `sequential \| diverging / number` | `sequential / 0` | no | Ramp; diverging centres on midpoint. |
-| `showValues / valueLabel` | `boolean / string` | `up to 12 columns / Value` | no | Print values in cells; their name in the readout. |
+| `scale` | `sequential \| diverging` | `sequential` | no | Ramp; diverging centres on midpoint. |
+| `midpoint` | `number` | `0` | no | Ramp; diverging centres on midpoint. |
+| `showValues` | `boolean` | `up to 12 columns` | no | Print values in cells; their name in the readout. |
+| `valueLabel` | `string` | `Value` | no | Print values in cells; their name in the readout. |
 | `title / description` | `ReactNode` | — | no | Figure caption above the plot. |
 | `ariaLabel` | `string` | `title or Chart` | no | Accessible name of the plot, the single keyboard stop. |
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `scale`: `sequential`, `diverging`
 - `state`: `loading`, `error`, `empty`, `invalid`
 - `showData`: `hidden`, `toggle`, `visible`
 
@@ -12299,10 +12556,13 @@ Exports: `HistogramChart`, `default`, `histogramBins`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12410,10 +12670,13 @@ Exports: `LineChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12594,10 +12857,13 @@ Exports: `RadarChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12694,7 +12960,9 @@ Exports: `RadialBarChart`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `data / nameKey / valueKey` | `object[] / string / string` | `[] / label / value` | no | One ring per record; values are percentages. |
+| `data` | `object[]` | `[]` | no | One ring per record; values are percentages. |
+| `nameKey` | `string` | `label` | no | One ring per record; values are percentages. |
+| `valueKey` | `string` | `value` | no | One ring per record; values are percentages. |
 | `color` | `string` | `chart-1` | no | Colour of a single ring. |
 | `colors` | `string[]` | `categorical palette` | no | Override the series colours with chart tokens. |
 | `title / description` | `ReactNode` | — | no | Figure caption above the plot. |
@@ -12702,10 +12970,13 @@ Exports: `RadialBarChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12812,10 +13083,13 @@ Exports: `RangeChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -12919,10 +13193,13 @@ Exports: `SankeyChart`, `default`, `sankeyGraph`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13026,10 +13303,13 @@ Exports: `BubbleChart`, `ScatterChart`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13134,10 +13414,13 @@ Exports: `Sparkline`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13233,7 +13516,8 @@ Exports: `StackedBarList`, `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `data / labelKey` | `object[] / string` | `[] / label` | no | Rows. |
+| `data` | `object[]` | `[]` | no | Rows. |
+| `labelKey` | `string` | `label` | no | Rows. |
 | `series` | `Array<{ key, label? }>` | `valueKey` | no | Segments in order. |
 | `normalize` | `boolean` | `false` | no | Each row as 100% to compare mixes. |
 | `sort` | `boolean` | `true` | no | Largest row first. |
@@ -13244,10 +13528,13 @@ Exports: `StackedBarList`, `default`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13426,10 +13713,13 @@ Exports: `TreemapChart`, `default`, `treemapLeaves`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13536,10 +13826,13 @@ Exports: `WaterfallChart`, `default`, `waterfallSteps`
 | `height` | `number` | `type-specific` | no | Plot height in pixels. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; empty and invalid are otherwise detected from the data. |
 | `labels` | `Partial<DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / number` | no | Number format for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number format for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `number` | no | Number format for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true` | no | Controls beside the caption; the figure border and padding. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true` | no | Controls beside the caption; the figure border and padding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
@@ -13640,7 +13933,8 @@ Exports: `getNextIndex`, `useArrowKeyNav`
 | `options.wrap` | `boolean` | `false` | no | Loop from the last item to the first and back. |
 | `options.dir` | `'ltr' \| 'rtl'` | `'ltr'` | no | In right-to-left layouts ArrowLeft moves forward. |
 | `options.role` | `string` | `'group'` | no | Container role; aria-orientation is added for roles that support it (toolbar, listbox, menu, tablist…). |
-| `options.defaultIndex / onActiveChange` | `number / (index) => void` | `0 / —` | no | Initial active item, and a callback when it changes. |
+| `options.defaultIndex` | `number` | `0` | no | Initial active item, and a callback when it changes. |
+| `onActiveChange` | `(index) => void` | — | no | Initial active item, and a callback when it changes. |
 
 ## Returns
 
@@ -13872,7 +14166,8 @@ Exports: `localStorageStore`, `useLocalStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key; namespace it, for example reader:font-size. |
 | `initialValue` | `any` | — | no | Value on the server, during hydration and when nothing is stored. |
-| `options.serialize / deserialize` | `(value) => string / (raw) => any` | `JSON` | no | Custom encoding. |
+| `options.serialize` | `(value) => string` | — | no | Custom encoding. |
+| `deserialize` | `(raw) => any` | — | no | Custom encoding. |
 | `options.syncTabs` | `boolean` | `true` | no | Follow writes from other tabs. |
 
 ## Returns
@@ -13980,7 +14275,8 @@ Exports: `useReadLocalStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key to subscribe to. |
 | `initialValue` | `any` | `null` | no | Server, hydration, absent-key and invalid-JSON fallback. |
-| `options.deserialize / syncTabs` | `function / boolean` | `JSON.parse / true` | no | Custom reader and whether to subscribe to cross-tab changes. |
+| `options.deserialize` | `function` | `JSON.parse` | no | Custom reader and whether to subscribe to cross-tab changes. |
+| `syncTabs` | `boolean` | `true` | no | Custom reader and whether to subscribe to cross-tab changes. |
 
 ## Returns
 
@@ -14093,7 +14389,8 @@ Exports: `sessionStorageStore`, `useSessionStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key. |
 | `initialValue` | `any` | — | no | Value on the server, during hydration and when nothing is stored. |
-| `options.serialize / deserialize` | `(value) => string / (raw) => any` | `JSON` | no | Custom encoding. |
+| `options.serialize` | `(value) => string` | — | no | Custom encoding. |
+| `deserialize` | `(raw) => any` | — | no | Custom encoding. |
 
 ## Returns
 
@@ -14192,12 +14489,6 @@ import { useIsClient } from '@gaudi/design-system/hooks';
 
 Exports: `useIsClient`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
-
 ## Returns
 
 | Name | Type | Description |
@@ -14240,12 +14531,6 @@ import { useIsMobile } from '@gaudi/design-system/hooks';
 ```
 
 Exports: `MOBILE_BREAKPOINT`, `useIsMobile`
-
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments; the breakpoint is MOBILE_BREAKPOINT (768). |
 
 ## Returns
 
@@ -14391,12 +14676,6 @@ import { useOnlineStatus } from '@gaudi/design-system/hooks';
 
 Exports: `useOnlineStatus`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
-
 ## Returns
 
 | Name | Type | Description |
@@ -14439,12 +14718,6 @@ import { usePageVisibility } from '@gaudi/design-system/hooks';
 ```
 
 Exports: `usePageVisibility`
-
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
 
 ## Returns
 
@@ -14643,7 +14916,8 @@ Exports: `useWindowSize`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.initialWidth / initialHeight` | `number / number` | `0 / 0` | no | Deterministic dimensions before the first client measurement. |
+| `options.initialWidth` | `number` | `0` | no | Deterministic dimensions before the first client measurement. |
+| `initialHeight` | `number` | `0` | no | Deterministic dimensions before the first client measurement. |
 
 ## Returns
 
@@ -14806,7 +15080,9 @@ Exports: `isApplePlatform`, `matchHotkey`, `parseHotkey`, `toAriaKeyShortcuts`, 
 | --- | --- | --- | --- | --- |
 | `keys` | `string \| string[]` | — | no | One or more combinations: 'mod+k', 'ctrl+shift+p', '/', 'escape'. |
 | `callback` | `(event, combo) => void` | — | no | Called when a combination matches. |
-| `options.enabled / target / event` | `boolean / target / 'keydown' \| 'keyup'` | `true / 'document' / 'keydown'` | no | When and where to listen. |
+| `options.enabled` | `boolean` | `true` | no | When and where to listen. |
+| `target` | `target` | `'document'` | no | When and where to listen. |
+| `event` | `'keydown' \| 'keyup'` | `'keydown'` | no | When and where to listen. |
 | `options.preventDefault` | `boolean` | `true` | no | Stop the browser default for a matched shortcut. |
 | `options.enableInInputs / allowRepeat` | `boolean` | `false` | no | Also fire in text fields, and on held-key repeats. |
 
@@ -15081,7 +15357,8 @@ Exports: `useCollapsibleSections`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `config.sections` | `string[]` | — | no | Every section id. |
-| `config.initialExpanded / expandAll` | `string[] / boolean` | `[] / false` | no | Sections open at first, or all of them. |
+| `config.initialExpanded` | `string[]` | `[]` | no | Sections open at first, or all of them. |
+| `expandAll` | `boolean` | `false` | no | Sections open at first, or all of them. |
 | `config.onChange` | `(expanded: string[]) => void` | — | no | Called after each change. |
 
 ## Returns
@@ -15190,7 +15467,9 @@ Exports: `useInView`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.root / rootMargin / threshold` | `Element / string / number \| number[]` | `viewport / '0px' / 0` | no | IntersectionObserver options. |
+| `options.root` | `Element` | `viewport` | no | IntersectionObserver options. |
+| `rootMargin` | `string` | `'0px'` | no | IntersectionObserver options. |
+| `threshold` | `number \| number[]` | `0` | no | IntersectionObserver options. |
 | `options.once` | `boolean` | `false` | no | Stop after the first time the element is in view. |
 | `options.initialInView` | `boolean` | `false` | no | Value on the server and without IntersectionObserver. |
 | `options.onChange` | `(inView, entry) => void` | — | no | Called on each change. |
@@ -15410,7 +15689,8 @@ Exports: `useCountdown`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.countStart / countStop` | `number / number` | `60 / 0` | no | Starting value and terminal value. |
+| `options.countStart` | `number` | `60` | no | Starting value and terminal value. |
+| `countStop` | `number` | `0` | no | Starting value and terminal value. |
 | `options.intervalMs` | `number` | `1000` | no | Positive milliseconds per tick; invalid values stop the timer. |
 | `options.isIncrement` | `boolean` | `false` | no | Count up toward the target instead of down. |
 
@@ -15929,7 +16209,9 @@ Exports: `useSliderInput`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.minValue / maxValue / initialValue` | `number / number / [number, number]` | — | no | Bounds and the starting range. |
+| `options.minValue` | `number` | — | no | Bounds and the starting range. |
+| `maxValue` | `number` | — | no | Bounds and the starting range. |
+| `initialValue` | `[number, number]` | — | no | Bounds and the starting range. |
 
 ## Returns
 
@@ -18636,20 +18918,30 @@ Exports: `CHART_TYPES`, `Chart`, `default`
 | --- | --- | --- | --- | --- |
 | `type` | `bar \| line \| area \| composed \| pie \| donut \| scatter \| bubble \| radar \| radial \| sparkline \| range \| waterfall \| bar-list \| funnel \| sankey \| treemap \| box-plot \| histogram \| gauge \| heatmap` | `bar` | no | Picks the chart from the Charts collection; every other prop goes to that chart. |
 | `data` | `Array<Record<string, unknown>> \| number[]` | `[]` | no | Records for the chart; the data shape follows the type (series, slices, steps, cells, groups). |
-| `xKey / yKey / series` | `string / string / Array<{ key, label, type?, axis?, dashed? }>` | `label / value / —` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `xKey` | `string` | `label` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `yKey` | `string` | `value` | no | Category field and value fields for series charts; composed series take type and axis. |
+| `series` | `Array<{ key, label, type?, axis?, dashed? }>` | — | no | Category field and value fields for series charts; composed series take type and axis. |
 | `title / description` | `ReactNode` | — | no | Figure caption. |
 | `ariaLabel` | `string` | `title or Chart` | no | Accessible name of the plot. |
 | `height` | `number \| auto` | `320 (type-specific)` | no | Plot height; list-shaped charts default to auto. |
 | `state` | `loading \| error \| empty \| invalid` | `from data` | no | Force a state; otherwise empty and invalid are detected from the data. |
 | `labels` | `Partial<typeof DEFAULT_CHART_LABELS>` | `English copy` | no | Copy for states, the keyboard hint, the data table and its toggle. |
-| `locale / formatValue` | `string / Intl.NumberFormatOptions \| (value) => string` | `runtime / default number` | no | Number formatting for axes, tooltips, the readout and the table. |
+| `locale` | `string` | `runtime` | no | Number formatting for axes, tooltips, the readout and the table. |
+| `formatValue` | `Intl.NumberFormatOptions \| (value) => string` | `default number` | no | Number formatting for axes, tooltips, the readout and the table. |
 | `showData` | `hidden \| toggle \| visible` | `hidden` | no | Data table visibility; hidden keeps it available to assistive technology. |
-| `onActivate / onActiveChange` | `(point, index) => void / (index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
-| `references / annotations` | `Array<{ x?, y?, label, tone? }> / Array<{ x, y, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
+| `onActivate` | `(point, index) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `onActiveChange` | `(index \| null) => void` | — | no | Click, Enter or Space on a point; the active point changed. |
+| `references` | `Array<{ x?, y?, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
+| `annotations` | `Array<{ x, y, label, tone? }>` | — | no | Labelled guide lines and point notes on category and scatter charts. |
 | `stacked / showGrid / showLegend / showTooltip` | `boolean` | `false / true / false / true` | no | Series chart presentation. |
-| `selectedIndex / defaultSelectedIndex / onSelect` | `number \| null / number \| null / (slice, index) => void` | `— / null / —` | no | Donut selection; the centre summary shows the selected slice. |
-| `otherThreshold / maxSlices / centerLabel` | `number / number / string` | `— / — / Total` | no | Fold small slices into Other; the donut centre caption. |
-| `toolbar / framed` | `ReactNode / boolean` | `— / true (false for Sparkline)` | no | Controls beside the caption; the figure border and padding. |
+| `selectedIndex` | `number \| null` | — | no | Donut selection; the centre summary shows the selected slice. |
+| `defaultSelectedIndex` | `number \| null` | `null` | no | Donut selection; the centre summary shows the selected slice. |
+| `onSelect` | `(slice, index) => void` | — | no | Donut selection; the centre summary shows the selected slice. |
+| `otherThreshold` | `number` | — | no | Fold small slices into Other; the donut centre caption. |
+| `maxSlices` | `number` | — | no | Fold small slices into Other; the donut centre caption. |
+| `centerLabel` | `string` | `Total` | no | Fold small slices into Other; the donut centre caption. |
+| `toolbar` | `ReactNode` | — | no | Controls beside the caption; the figure border and padding. |
+| `framed` | `boolean` | `true (false for Sparkline)` | no | Controls beside the caption; the figure border and padding. |
 | `colors` | `string[]` | `Gaudi categorical palette` | no | Override the series or slice colours. |
 | `className` | `string` | — | no | Root figure class override. |
 
@@ -18744,12 +19036,6 @@ import Citation from '@gaudi/design-system/mdx/CitationPopover';
 
 Exports: `default`
 
-## Runtime contract
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `CitationPopover / CitationTracker` | `Runtime component; no props` | — | no | Enhances generated article markup. Mount once per article runtime. |
-
 ## Authoring Example
 
 ```jsx
@@ -18827,7 +19113,6 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `Generated citation attributes` | `data-citation-popover / data-citation-keys / data-citation-key` | — | no | Metadata written by the consuming markdown pipeline. |
-| `CitationTracker` | `Runtime component; no props` | — | no | Mount with the article runtime to track citation navigation. |
 
 ## Usage
 
@@ -19039,7 +19324,7 @@ Exports: `default`
 
 ## Accessibility
 
-The listing preserves nested list semantics and has a named keyboard-scrollable region. isOpen controls which authored branches are shown; use Core/Tree for an interactive file explorer.
+The listing composes Core Card and Item, preserves nested list semantics and has a named keyboard-scrollable region. isOpen controls which authored branches are shown; use Core/Tree for an interactive file explorer.
 
 ## Examples
 
@@ -19047,7 +19332,7 @@ The listing preserves nested list semantics and has a named keyboard-scrollable 
 
 ## Related
 
-`core-tree`
+`core-card`, `core-item`, `core-tree`
 
 ---
 
@@ -19067,12 +19352,6 @@ import Footnote from '@gaudi/design-system/mdx/Footnote';
 ```
 
 Exports: `default`
-
-## Runtime contract
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `Footnote` | `Runtime component; no props` | — | no | Enhances generated article markup. Mount once per article runtime. |
 
 ## Authoring Example
 
@@ -19310,7 +19589,7 @@ Provide surrounding prose that explains the notation and preserves the reading f
 
 > MDX/Mermaid · mdx · `@gaudi/design-system/mdx/Mermaid`
 
-Renders host-supplied Mermaid source as a labelled diagram with a local loading and error state. Diagram colors and typography use Gaudi tokens and update when the root theme changes. Wide diagrams keep readable labels and scroll within a keyboard-focusable figure.
+Renders host-supplied Mermaid source as a labelled diagram with a local loading and error state. Diagram colors and typography use Gaudi tokens and update when the surrounding theme or local tokens change. Wide diagrams keep readable labels and scroll within a keyboard-focusable figure.
 
 ## Import
 
@@ -19353,6 +19632,7 @@ Mermaid exposes the rendered diagram as one labelled figure. Provide a concise d
 ## Examples
 
 - Playground (Storybook `mdx-mermaid--playground`)
+- Invalid Diagram (Storybook `mdx-mermaid--invalid-diagram`)
 
 ---
 
@@ -19588,7 +19868,7 @@ Include column or row headers and an accessible caption. Wide data scrolls insid
 
 Curated patterns:
 
-- API keys and permissions — registry item `@gaudi/table-api-keys` (uses `Badge`, `Button`, `CardContent`, `CardRoot`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
+- API keys and permissions — registry item `@gaudi/table-api-keys` (uses `Badge`, `Button`, `CardContent`, `CardRoot`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `useCopyToClipboard`)
 - Simple data table — registry item `@gaudi/table-basic` (uses `TableBodyPrimitive`, `TableCaption`, `TableCellPrimitive`, `TableFooter`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Editable cells — registry item `@gaudi/table-editable` (uses `CardContent`, `CardRoot`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Leaderboard — registry item `@gaudi/table-leaderboard` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
@@ -19954,7 +20234,8 @@ Exports: `default`
 | `collapsibleAside` | `boolean` | `false` | no | Enable the aside disclosure. |
 | `asideOpen / defaultAsideOpen` | `boolean` | `— / true` | no | Controlled or initial aside visibility. |
 | `onAsideOpenChange` | `(open: boolean) => void` | — | no | Host notification when visibility changes. |
-| `showAsideToggleControl / asideToggleLabel` | `boolean / string` | `true / Table of contents` | no | Built-in toggle and its accessible name suffix. |
+| `showAsideToggleControl` | `boolean` | `true` | no | Built-in toggle and its accessible name suffix. |
+| `asideToggleLabel` | `string` | `Table of contents` | no | Built-in toggle and its accessible name suffix. |
 | `padding` | `md \| lg` | `md` | no | Vertical prose spacing. |
 | `className / contentClassName` | `string` | — | no | Root and article prose classes. |
 
@@ -20555,7 +20836,7 @@ npx shadcn@latest add @gaudi/chat-writing-assistant
 npx shadcn@latest add ./public/r/chat-writing-assistant.json
 ```
 
-Uses: `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`
+Uses: `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`, `usePrefersReducedMotion`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21437,7 +21718,7 @@ npx shadcn@latest add @gaudi/screens-referral-rewards
 npx shadcn@latest add ./public/r/screens-referral-rewards.json
 ```
 
-Uses: `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`
+Uses: `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `cn`, `useCopyToClipboard`
 
 npm dependencies: `@gaudi/design-system`
 

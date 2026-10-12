@@ -19,13 +19,13 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 // A media library on the grid strategy. The featured tile spans two cells, and
 // each handle appears on hover so the thumbnails stay clean.
 const defaultImages = [
-  { id: '1', name: 'hero-banner.jpg', dimensions: '1920×1080', size: '2.4 MB', featured: true },
-  { id: '2', name: 'product-shot.png', dimensions: '800×600', size: '1.8 MB' },
-  { id: '3', name: 'team-photo.jpg', dimensions: '1200×800', size: '3.2 MB' },
-  { id: '4', name: 'logo-dark.svg', dimensions: '240×60', size: '12 KB' },
-  { id: '5', name: 'og-image.png', dimensions: '1200×630', size: '890 KB' },
-  { id: '6', name: 'detail-shot.jpg', dimensions: '1024×1024', size: '1.1 MB' },
-  { id: '7', name: 'lifestyle.jpg', dimensions: '1600×900', size: '2.9 MB' }
+  { id: '1', src: '/static/images/art/0.svg', name: 'hero-banner.jpg', dimensions: '1920×1080', size: '2.4 MB', featured: true },
+  { id: '2', src: '/static/images/art/1.svg', name: 'product-shot.png', dimensions: '800×600', size: '1.8 MB' },
+  { id: '3', src: '/static/images/art/2.svg', name: 'team-photo.jpg', dimensions: '1200×800', size: '3.2 MB' },
+  { id: '4', src: '/static/images/art/3.svg', name: 'logo-dark.svg', dimensions: '240×60', size: '12 KB' },
+  { id: '5', src: '/static/images/art/4.svg', name: 'og-image.png', dimensions: '1200×630', size: '890 KB' },
+  { id: '6', src: '/static/images/art/5.svg', name: 'detail-shot.jpg', dimensions: '1024×1024', size: '1.1 MB' },
+  { id: '7', src: '/static/images/art/6.svg', name: 'lifestyle.jpg', dimensions: '1600×900', size: '2.9 MB' }
 ];
 
 export function Pattern() {
@@ -45,11 +45,11 @@ export function Pattern() {
             strategy='grid'
             className='grid grid-cols-3 gap-2'
           >
-            {images.map((image, index) => (
+            {images.map((image) => (
               <SortableItem key={image.id} value={image.id} className={cn(image.featured && 'col-span-2 row-span-2')}>
                 <figure className='group relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>
                   <img
-                    src={`static/images/art/${index % 12}.svg`}
+                    src={image.src}
                     alt={image.name}
                     className={cn('w-full rounded-md object-cover', image.featured ? 'h-44' : 'h-16')}
                   />

@@ -28,5 +28,33 @@ export const SettingsForm = {
     await userEvent.click(canvas.getByRole('switch', { name: 'Vertical' }));
   }
 };
-export const BadgeCounts = { name: 'Badge counts', ...pattern('badge-counts', 'Line tabs with a count badge per mailbox; the tone marks what needs attention.') };
-export const PeriodSwitch = { name: 'Period switch', ...pattern('period-switch', 'Controlled tabs with equal-width triggers that change the figure in one card.') };
+export const BadgeCounts = {
+  name: 'Badge counts', ...pattern('badge-counts', 'Line tabs with a count badge per mailbox; the tone marks what needs attention.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const states = [
+      ['Drafts 3', '3 drafts saved but not scheduled.'],
+      ['Sent', 'Issues you have already sent are listed here.'],
+      ['Spam 24', '24 comments held for moderation.'],
+      ['Inbox 12', '12 reader replies waiting for you.']
+    ];
+    canvas.getByRole('tab', { name: 'Inbox 12' }).focus();
+    for (const [name, content] of states) {
+      await userEvent.keyboard('{ArrowRight}');
+      await expect(canvas.getByRole('tab', { name })).toHaveAttribute('aria-selected', 'true');
+      await expect(canvas.getByRole('tabpanel')).toHaveTextContent(content);
+    }
+  }
+};
+export const PeriodSwitch = {
+  name: 'Period switch', ...pattern('period-switch', 'Controlled tabs with equal-width triggers that change the figure in one card.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('tabpanel')).toHaveTextContent('32,156');
+    for (const [period, figure] of [['Daily', '1,284'], ['Weekly', '8,942'], ['Yearly', '384,721'], ['Monthly', '32,156']]) {
+      await userEvent.click(canvas.getByRole('tab', { name: period }));
+      await expect(canvas.getByRole('tab', { name: period })).toHaveAttribute('aria-selected', 'true');
+      await expect(canvas.getByRole('tabpanel')).toHaveTextContent(figure);
+    }
+  }
+};

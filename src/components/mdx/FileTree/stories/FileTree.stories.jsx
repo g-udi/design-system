@@ -1,4 +1,5 @@
-import { expect, within } from 'storybook/test';
+import { expect, waitFor, within } from 'storybook/test';
+import { spaceScales } from '@gaudi/design-system/tokens';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
@@ -59,13 +60,36 @@ export const Playground = {
     }
   },
   render: (args) => <FileTree {...args} />,
-  play: async ({ canvasElement }) => {
+  play: async ({ canvasElement, id }) => {
     const canvas = within(canvasElement);
     for (const name of ['assaf.website', '[slug]', 'knowledge-graphs.mdx', 'node_modules', 'Dockerfile', 'package.json'])
       await expect(canvas.getByText(name)).toBeVisible();
     // Nesting indents each level by 20px from the root row.
-    await expect(canvas.getByText('[slug]').parentElement).toHaveStyle({ paddingInlineStart: '68px' });
+    await expect(canvas.getByText('[slug]').closest('[data-slot=item]')).toHaveStyle({ paddingInlineStart: '68px' });
     // `isOpen: false` collapses a folder and skips rendering its children.
     for (const hidden of ['react', 'MDXComponents.jsx']) await expect(canvas.queryByText(hidden)).not.toBeInTheDocument();
+    const region = canvas.getByRole('region', { name: 'File listing' });
+    region.focus();
+    if (import.meta.env.MODE === 'test') {
+      // Native scrolling needs a real browser key; synthetic DOM events have no default action.
+      const { userEvent } = await import('vitest/browser');
+      await userEvent.keyboard('{End}');
+    } else region.scrollTop = region.scrollHeight;
+    await waitFor(() => expect(canvas.getByText('package.json').getBoundingClientRect().bottom).toBeLessThanOrEqual(region.getBoundingClientRect().bottom));
+    region.scrollTop = 0;
+    region.blur();
+    if (import.meta.env.MODE === 'test' && import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      const scale = canvasElement.style.getPropertyValue('--ds-space-scale');
+      try {
+        for (const [name, value] of Object.entries(spaceScales)) {
+          canvasElement.style.setProperty('--ds-space-scale', value);
+          await auditStoryLayout({ canvasElement, id: `${id}--${name}` });
+        }
+      } finally {
+        if (scale) canvasElement.style.setProperty('--ds-space-scale', scale);
+        else canvasElement.style.removeProperty('--ds-space-scale');
+      }
+    }
   }
 };

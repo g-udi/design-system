@@ -21,7 +21,8 @@ Exports: `getNextIndex`, `useArrowKeyNav`
 | `options.wrap` | `boolean` | `false` | no | Loop from the last item to the first and back. |
 | `options.dir` | `'ltr' \| 'rtl'` | `'ltr'` | no | In right-to-left layouts ArrowLeft moves forward. |
 | `options.role` | `string` | `'group'` | no | Container role; aria-orientation is added for roles that support it (toolbar, listbox, menu, tablist…). |
-| `options.defaultIndex / onActiveChange` | `number / (index) => void` | `0 / —` | no | Initial active item, and a callback when it changes. |
+| `options.defaultIndex` | `number` | `0` | no | Initial active item, and a callback when it changes. |
+| `onActiveChange` | `(index) => void` | — | no | Initial active item, and a callback when it changes. |
 
 ## Returns
 

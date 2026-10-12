@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -85,6 +85,8 @@ function Row({ label, children }) {
   );
 }
 export function Pattern() {
+  const filterRef = useRef(null);
+  const [filter, setFilter] = useState('');
   const [user, setUser] = useState('2');
   const [env, setEnv] = useState('development');
   const [range, setRange] = useState('Last 6 hours');
@@ -99,8 +101,8 @@ export function Pattern() {
               <Icon name='ChevronDownIcon' className='opacity-60' />
             </Button>
           </Menu>
-          <Input aria-label='Filter records' placeholder='Filter records...' />
-          <Button variant='outline' size='icon' aria-label='Clear filter'><Icon name='XIcon' /></Button>
+          <Input ref={filterRef} aria-label='Filter records' placeholder='Filter records...' value={filter} onChange={(event) => setFilter(event.target.value)} />
+          <Button variant='outline' size='icon' aria-label='Clear filter' onClick={() => { setFilter(''); filterRef.current?.focus(); }}><Icon name='XIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup className='min-w-0 flex-1'>
           <SearchInput label='Search records...' />

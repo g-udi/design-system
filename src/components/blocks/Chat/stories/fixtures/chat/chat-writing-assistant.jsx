@@ -10,6 +10,7 @@ import { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';
 import { ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
 import { Label } from '@gaudi/design-system/core/Field';
+import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 
 const draft = `Drafts used to live on the server. On a train with patchy signal that meant lost paragraphs, and editors learned to copy their work into a notes app before pressing save.
 
@@ -23,6 +24,7 @@ const answers = {
 let nextId = 1;
 
 export function Pattern() {
+  const reducedMotion = usePrefersReducedMotion();
   const [turns, setTurns] = useState([{ id: 'u0', role: 'user', text: 'Make the opening punchier.' }, { id: 'a0', role: 'assistant', text: '', target: answers['Make the opening punchier.'] }]);
   const [queue, setQueue] = useState([]);
   const [sessions, setSessions] = useState([
@@ -44,16 +46,15 @@ export function Pattern() {
       }
       return undefined;
     }
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
     const timer = setTimeout(() => {
       setTurns((list) => list.map((turn, index) => {
         if (index !== list.length - 1) return turn;
-        const cut = reduce ? turn.target.length : turn.target.indexOf(' ', turn.text.length + 4);
+        const cut = reducedMotion ? turn.target.length : turn.target.indexOf(' ', turn.text.length + 4);
         return { ...turn, text: cut === -1 ? turn.target : turn.target.slice(0, cut) };
       }));
     }, 30);
     return () => clearTimeout(timer);
-  }, [turns, streaming]);
+  }, [turns, streaming, reducedMotion]);
 
   function ask(text) {
     const id = nextId++;

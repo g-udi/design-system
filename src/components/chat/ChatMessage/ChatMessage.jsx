@@ -13,6 +13,7 @@ function ChatMessage({ className, align = 'start', ...props }) {
     <div
       data-slot='message'
       data-align={align}
+      role={props['aria-label'] || props['aria-labelledby'] ? 'group' : undefined}
       className={cn(
         'ds-part-message group/message relative flex w-full min-w-0 data-[align=end]:flex-row-reverse',
         className

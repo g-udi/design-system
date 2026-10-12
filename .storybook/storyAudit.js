@@ -1,5 +1,7 @@
 import { commands, page } from 'vitest/browser';
 import { auditWidths } from '../tests/support/responsiveWidths.js';
+import tokenData from '../src/tokens/tokens.json';
+import { collectVisualLayout } from './visualAudit.js';
 
 export { auditWidths };
 
@@ -39,7 +41,7 @@ export async function auditStoryLayout(context) {
     frozenSheets.forEach(({ sheet }) => { sheet.disabled = true; });
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     await settleFiniteAnimations();
-    return await auditCurrentThemes(context);
+    return await auditCurrentDensities(context);
   } finally {
     // Restoring a desktop viewport can restart an entrance animation. Let it
     // finish before Storybook freezes frames for the accessibility check.
@@ -54,6 +56,26 @@ async function settleFiniteAnimations() {
     Promise.all(document.getAnimations().filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))),
     new Promise(resolve => setTimeout(resolve, 2000))
   ]);
+}
+
+async function auditCurrentDensities(context) {
+  if (import.meta.env.VITE_GAUDI_AUDIT_DENSITIES !== 'all') return auditCurrentThemes(context);
+  const style = document.documentElement.style;
+  const previous = style.getPropertyValue('--ds-space-scale');
+  const priority = style.getPropertyPriority('--ds-space-scale');
+  try {
+    for (const density of Object.values(tokenData.spaceScales)) {
+      style.setProperty('--ds-space-scale', String(density));
+      await auditCurrentThemes({
+        ...context,
+        id: density === 1 ? context.id : `${context.id}--density-${density}`,
+        auditDensity: density,
+      });
+    }
+  } finally {
+    if (previous) style.setProperty('--ds-space-scale', previous, priority);
+    else style.removeProperty('--ds-space-scale');
+  }
 }
 
 async function auditCurrentThemes(context) {
@@ -76,12 +98,16 @@ async function auditCurrentThemes(context) {
   }
 }
 
-async function auditTheme({ canvasElement, id, beforeAuditWidth, parameters }) {
+async function auditTheme({ canvasElement, id, beforeAuditWidth, parameters, auditDensity }) {
   const previous = { width: innerWidth, height: innerHeight };
   const failures = [];
   const checks = [];
+  const visualFindings = [];
+  // Full breakpoint coverage at the default density; every other supported
+  // density is measured across phone, tablet, laptop and wide desktop widths.
+  const widths = auditDensity && auditDensity !== 1 ? [320, 390, 768, 1440, 1920] : auditWidths;
   try {
-    for (const width of auditWidths) {
+    for (const width of widths) {
       await page.viewport(width, 900);
       await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       await beforeAuditWidth?.({ width, canvasElement });
@@ -103,9 +129,15 @@ async function auditTheme({ canvasElement, id, beforeAuditWidth, parameters }) {
         const detail = errorOverlay.shadowRoot?.textContent || errorOverlay.textContent;
         throw new Error(`${id}: preview has a Vite error overlay; this render is not valid audit evidence. ${detail?.slice(0, 500) || ''}`);
       }
+      if (import.meta.env.VITE_GAUDI_AUDIT_VISUAL === '1') {
+        // Container-width heuristics need review: an intentionally generous
+        // layout is not a failure merely because it contains little text.
+        const findings = collectVisualLayout({ canvasElement, parameters });
+        if (findings.length) visualFindings.push({ width, findings });
+      }
       const captureIds = import.meta.env.VITE_GAUDI_AUDIT_SCREENSHOTS?.split(',') || [];
       const capture = captureIds.includes('*') || captureIds.some(story => id === story || id.startsWith(`${story}--`));
-      if (capture && import.meta.env.VITE_GAUDI_AUDIT_SCREENSHOT_DIR && [320, 390, 1440].includes(width)) {
+      if (capture && (!auditDensity || auditDensity === 1) && import.meta.env.VITE_GAUDI_AUDIT_SCREENSHOT_DIR && [320, 390, 1440].includes(width)) {
         // Recharts restarts its entry animation after a responsive resize.
         if (canvasElement.querySelector('.recharts-wrapper')) await new Promise(resolve => setTimeout(resolve, 1700));
         // Capture completed finite CSS transitions, while leaving ambient loops running.
@@ -154,6 +186,6 @@ async function auditTheme({ canvasElement, id, beforeAuditWidth, parameters }) {
   } finally {
     await page.viewport(previous.width, previous.height);
   }
-  await commands.recordStoryAudit({ id, theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light', checks, failures });
+  await commands.recordStoryAudit({ id, theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light', checks, failures, ...(auditDensity ? { density: auditDensity } : {}), ...(import.meta.env.VITE_GAUDI_AUDIT_VISUAL === '1' ? { visualFindings } : {}) });
   if (failures.length) throw new Error(`${id}\n${failures.join('\n')}`);
 }

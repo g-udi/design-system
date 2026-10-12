@@ -39,7 +39,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'One switch, five owners. Pick a type to see who renders it: links and media go to LinkPreview (an image or thumbnail with its destination), code to CodeBlock, a generated page to WebPreview. `variant` picks the LinkPreview presentation for links and media.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('Embed', { ...contents[args.type], ...args }, { imports: "import { Embed } from '@gaudi/design-system';" }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('Embed', { ...contents[args.type], ...args }, { imports: "import { Embed } from '@gaudi/design-system';" }) }
     }
   },
   render: ({ type, ...args }) => <Embed key={type} {...contents[type]} {...args} type={type} />,

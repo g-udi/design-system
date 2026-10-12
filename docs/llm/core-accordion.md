@@ -21,7 +21,8 @@ Exports: `Accordion`, `AccordionContent`, `AccordionGroup`, `AccordionItem`, `Ac
 | `type` | `single \| multiple` | `single` | no | Allow one or several expanded panels. |
 | `variant` | `outline \| flush \| separated \| solid \| framed` | `outline` | no | Shared border, quiet dividers, individual borders, muted items, or an inset frame. |
 | `defaultValue` | `string \| string[] \| null` | `first enabled item (group)` | no | Initial uncontrolled state. Use null or [] to start collapsed. |
-| `value / onValueChange` | `string \| string[] \| undefined / function` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
+| `value` | `string \| string[] \| undefined` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
+| `onValueChange` | `function` | — | no | Controlled state. Single close emits undefined; multiple close emits an array. |
 | `collapsible` | `boolean` | `true` | no | Allow the current single item to close. Set false to keep the active item expanded. |
 | `disabled` | `boolean` | `false` | no | Disable all root items or one AccordionItem. |
 | `indicator` | `chevron \| plus-minus \| arrow \| ReactNode \| ({isOpen}) => ReactNode \| null` | `chevron` | no | Root default with per-trigger or per-item overrides. |

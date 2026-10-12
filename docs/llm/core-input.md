@@ -25,7 +25,7 @@ Exports: `EmailInput`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `Inp
 | `invalid` | `boolean` | — | no | Marks the underlying FieldInput as invalid. |
 | `inputClassName` | `string` | — | no | Classes on the input itself. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
-| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | yes | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
+| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | no | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
 
 ## Variants
 

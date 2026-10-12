@@ -48,4 +48,38 @@ export const CollapsibleAdvancedFields = {
     }
   }
 };
-export const CollapsibleFileTree = { name: 'Collapsible: Tree view with file actions', ...pattern('file-tree', 'Compact file explorer with expandable folders, selection, and keyboard-accessible actions. Downloads contain illustrative file content; deleting and restoring files affects only this demo.') };
+export const CollapsibleFileTree = {
+  name: 'Collapsible: Tree view with file actions',
+  ...pattern('file-tree', 'Compact file explorer with expandable folders, selection, and keyboard-accessible actions. Downloads contain illustrative file content; deleting and restoring files affects only this demo.'),
+  play: async (context) => {
+    const canvas = within(context.canvasElement);
+    canvas.getByRole('button', { name: 'components', exact: true }).focus();
+    await userEvent.keyboard('{Enter}');
+    await userEvent.click(canvas.getByRole('button', { name: 'ui', exact: true }));
+    const file = canvas.getByRole('button', { name: 'button.tsx', exact: true });
+    await userEvent.click(file);
+    await expect(file).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByRole('link', { name: 'Download button.tsx' })).toHaveAttribute('download', 'button.tsx');
+    await userEvent.click(canvas.getByRole('tab', { name: 'Outline' }));
+    await expect(canvas.getByText('button.tsx has no symbols in this demo.')).toBeVisible();
+    await userEvent.click(canvas.getByRole('tab', { name: 'Explorer' }));
+    for (const name of ['components', 'ui']) {
+      const folder = canvas.getByRole('button', { name, exact: true });
+      if (folder.getAttribute('aria-expanded') !== 'true') await userEvent.click(folder);
+    }
+    const remove = canvas.getByRole('button', { name: 'Delete button.tsx' });
+    remove.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(canvas.queryByRole('button', { name: 'button.tsx', exact: true })).not.toBeInTheDocument();
+    await expect(canvas.getByRole('status')).toHaveTextContent('button.tsx removed.');
+    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Explorer' })).toHaveFocus());
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--file-removed` });
+    }
+    await userEvent.click(canvas.getByRole('button', { name: 'Restore files' }));
+    await expect(canvas.getByRole('button', { name: 'button.tsx', exact: true })).toBeVisible();
+    await expect(canvas.queryByRole('status')).not.toBeInTheDocument();
+    await waitFor(() => expect(canvas.getByRole('tab', { name: 'Explorer' })).toHaveFocus());
+  },
+};

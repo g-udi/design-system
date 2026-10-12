@@ -22,7 +22,8 @@ Exports: `ChatEffortSlider`, `chatEffortLevels`, `default`
 | `compact` | `boolean` | `false` | no | Drops step labels and the description. |
 | `disabled` | `boolean` | `false` | no | Locks the control. |
 | `levels` | `Array<{ value, label, description? }>` | `chatEffortLevels` | no | The levels. |
-| `value / onValueChange` | `string / (value, level) => void` | — | no | Controlled level. |
+| `value` | `string` | — | no | Controlled level. |
+| `onValueChange` | `(value, level) => void` | — | no | Controlled level. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

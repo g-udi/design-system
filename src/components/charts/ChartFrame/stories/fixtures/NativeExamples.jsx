@@ -5,7 +5,7 @@ import { BarChart } from '@gaudi/design-system/charts/BarChart';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 
 export const goals = [
-  { label: 'Essays', done: 18, target: 24 },
+  { label: 'Words', done: 18000, target: 24000 },
   { label: 'Notes', done: 41, target: 52 },
   { label: 'Talks', done: 3, target: 6 }
 ];

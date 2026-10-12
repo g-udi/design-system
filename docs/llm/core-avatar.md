@@ -22,9 +22,12 @@ Exports: `Avatar`, `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupC
 | `alt` | `string` | — | no | Accessible identity override; an empty string is decorative. |
 | `fallback` | `ReactNode \| boolean` | `initials` | no | Custom artwork or text; true shows the guest silhouette. |
 | `size` | `2xs \| xs \| sm \| md \| lg \| xl` | `md` | no | Six sizes; existing xs through lg dimensions are preserved. |
-| `shape / surface` | `circle \| square \| tile / solid \| tinted \| plain \| bare` | `square / solid` | no | Identity crop and background treatment. |
+| `shape` | `circle \| square \| tile` | `square` | no | Identity crop and background treatment. |
+| `surface` | `solid \| tinted \| plain \| bare` | `solid` | no | Identity crop and background treatment. |
 | `indicator` | `{ label, tone?, icon?, position? }` | — | no | Host-provided presence or verification; positions follow reading direction. |
-| `imageProps / imageClassName / fallbackClassName` | `object / string / string` | — | no | Image attributes and per-layer appearance. |
+| `imageProps` | `object` | — | no | Image attributes and per-layer appearance. |
+| `imageClassName` | `string` | — | no | Image attributes and per-layer appearance. |
+| `fallbackClassName` | `string` | — | no | Image attributes and per-layer appearance. |
 | `tone` | `gray \| neutral \| blue \| teal \| green \| amber \| yellow \| red \| rose \| indigo` | `gray` | no | Fallback colour family. |
 | `grayscale` | `boolean` | `false` | no | Desaturates the image. |
 | `onLoadingStatusChange` | `(status) => void` | — | no | Receives loading, loaded or error; source changes recover automatically. |
@@ -33,6 +36,8 @@ Exports: `Avatar`, `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupC
 ## Variants
 
 - `size`: `2xs`, `xs`, `sm`, `md`, `lg`, `xl`
+- `shape`: `circle`, `square`, `tile`
+- `surface`: `solid`, `tinted`, `plain`, `bare`
 - `tone`: `gray`, `neutral`, `blue`, `teal`, `green`, `amber`, `yellow`, `red`, `rose`, `indigo`
 
 ## Usage
@@ -61,7 +66,7 @@ Curated patterns:
 - Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`)
 - Empty state — registry item `@gaudi/avatar-empty-state` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Groups — registry item `@gaudi/avatar-groups` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `Avatar`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Inside buttons — registry item `@gaudi/avatar-in-buttons` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`)
 - Sizes, shapes and fallbacks — registry item `@gaudi/avatar-sizes-fallbacks` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Frame`, `FramePanel`)

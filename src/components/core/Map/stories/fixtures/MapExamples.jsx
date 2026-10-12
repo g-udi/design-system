@@ -83,7 +83,7 @@ export function TrackingMap(args) {
             markers={fleet.map(item => ({ ...item, label: `${item.id}: ${item.status}, ${item.driver}${item.delayLabel ? `, ${item.delayLabel}` : ''}`, icon: <Icon name='Truck' size='sm' decorative /> }))}
             routes={fleet.map(item => ({ id: item.id, coordinates: item.route, color: item.color, width: selectedId === item.id ? 5 : 2, dashed: item.status === 'Delayed' }))}
             selectedMarkerId={selectedId} onMarkerClick={select} onViewStateChange={next => setZoom(next.zoom)}>
-            <div className='map-legend' aria-label='Route legend'>{[['#2563eb', 'On route'], ['#b45309', 'Delayed'], ['#15803d', 'Completed']].map(([color, name]) => <span key={name}><i style={{ background: color }} />{name}</span>)}</div>
+            <div className='map-legend' role='group' aria-label='Route legend'>{[['#2563eb', 'On route'], ['#b45309', 'Delayed'], ['#15803d', 'Completed']].map(([color, name]) => <span key={name}><i style={{ background: color }} />{name}</span>)}</div>
           </Map>
           <footer className='map-tracking-footer'><span>New York City <span aria-hidden='true'>·</span> Zoom <output aria-label='Map zoom'>{zoom.toFixed(1)}</output></span><Button type='button' variant='ghost' size='sm' tone='neutral' onClick={() => map.current?.flyTo({ center: selected.coordinates, zoom: 14 })}><Icon name='LocateFixed' size='sm' decorative /> Locate {selected.id}</Button></footer>
         </div>

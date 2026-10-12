@@ -194,7 +194,7 @@ function DataGridTableBodyRowCell({
           <span
             data-slot='data-grid-cell-fill-handle'
             className={cn(
-              'absolute z-10 cursor-crosshair in-data-[cell-editing]:hidden in-data-[cell-selecting]:hidden',
+              'absolute z-10 cursor-crosshair touch-none in-data-[cell-editing]:hidden in-data-[cell-selecting]:hidden',
               props.tableLayout?.cellFillHandleVariant === 'ring'
                 ? 'border-ui-primary bg-ui-background -end-[5px] -bottom-[5px] size-[11px] rounded-full border-2 in-[td:has(+[data-slot=data-grid-table-fill-body-cell]+td[data-pinned])]:end-0 in-[td:has(+[data-slot=data-grid-table-fill-body-cell]:last-child)]:end-0 in-[td:has(+td[data-pinned])]:end-0 in-[td:last-child]:end-0 in-[tr:last-child]:bottom-0'
                 : props.tableLayout?.cellFillHandleVariant === 'square'

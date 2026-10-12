@@ -7,6 +7,7 @@ import { ChatMessage, ChatMessageContent, ChatMessageFooter } from '@gaudi/desig
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
+import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 
 // One assistant row moves from thinking, to typing, to settled; once settled
 // its footer offers copy, regenerate and a rating.
@@ -19,6 +20,7 @@ const STEP_MS = 24;
 const STEP_CHARS = 4;
 
 export function Pattern() {
+  const reducedMotion = usePrefersReducedMotion();
   const [draftIndex, setDraftIndex] = useState(0);
   const [revealed, setRevealed] = useState(0);
   const [vote, setVote] = useState(null);
@@ -26,7 +28,7 @@ export function Pattern() {
   const answer = DRAFTS[draftIndex];
   useEffect(() => {
     if (revealed >= answer.length) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (reducedMotion) {
       setRevealed(answer.length);
       return;
     }
@@ -35,7 +37,7 @@ export function Pattern() {
       revealed === 0 ? PENDING_MS : STEP_MS
     );
     return () => window.clearTimeout(id);
-  }, [revealed, answer]);
+  }, [revealed, answer, reducedMotion]);
   const done = revealed >= answer.length;
   const regenerate = () => {
     setDraftIndex((index) => (index + 1) % DRAFTS.length);

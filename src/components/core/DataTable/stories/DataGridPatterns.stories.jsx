@@ -1,3 +1,6 @@
+import { checkDraggableRows, checkTreeRows, checkSubTables, checkInfiniteScroll, checkCrudFrame, checkSpreadsheet } from '../../../../../tests/components/core/DataTable/checkDataGridWorkflows.js';
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
+import { checkDataGridRefs, checkDataGridLoading } from '../../../../../tests/components/core/DataTable/checkDataGridRefs.jsx';
 import { act } from '../../../../../tests/support/reactAct.js';
 import { createRoot } from 'react-dom/client';
 import { Pattern as InventoryExample } from './fixtures/data-grid/data-grid-inventory.jsx';
@@ -14,7 +17,7 @@ const pattern = patternStories(
 
 export default { title: 'Core/Data Display/DataTable', id: 'core-datatable', tags: ['autodocs'], ...catalogueMeta('data-grid') };
 
-export const Layouts = { name: 'Layout options', ...pattern('layouts', 'Every tableLayout flag on one grid: density, cell and row borders, stripes, rounded rows, header fill, sticky header and auto width.') };
+export const Layouts = { name: 'Layout options', ...pattern('layouts', 'Every tableLayout flag on one grid: density, cell and row borders, stripes, rounded rows, header fill, sticky header and auto width.'), play: async ({ canvasElement }) => { await checkDataGridRefs(canvasElement); await checkDataGridLoading(canvasElement); } };
 export const ColumnControls = { name: 'Column controls', ...pattern('column-controls', 'Header menus sort, pin, move and hide columns; edges resize them; header icons label each field.'), play: checkColumnControls };
 export const SelectionPinning = {
   name: 'Selection, expansion and pinned rows',
@@ -38,7 +41,7 @@ export const SelectionPinning = {
     }
   }
 };
-export const Draggable = { name: 'Draggable rows and columns', ...pattern('draggable') };
+export const Draggable = { name: 'Draggable rows and columns', ...pattern('draggable'), play: checkDraggableRows };
 export const Grouping = {
   name: 'Grouping and aggregation',
   ...pattern('grouping', 'Group by category, status or author from the toggle or any column menu. Each group band collapses, counts its records and aggregates every column: sums, a mean, a unique count and a custom reads-per-thousand-words measure. The footer totals come from the same aggregation registry, and Export CSV writes the records behind the groups.'),
@@ -58,7 +61,7 @@ export const Grouping = {
     await expect(await canvas.findByRole('button', { name: 'Collapse Engineering' })).toBeVisible();
   }
 };
-export const TreeRows = { name: 'Tree rows', ...pattern('tree-rows') };
+export const TreeRows = { name: 'Tree rows', ...pattern('tree-rows'), play: checkTreeRows };
 const rowOf = (canvas, text) => canvas.getByText(text).closest('tr');
 export const SharedDrive = {
   name: 'Shared drive tree',
@@ -141,8 +144,8 @@ export const EditorialDesk = {
     await userEvent.click(canvas.getByRole('radio', { name: 'Status' }));
   }
 };
-export const SubTable = { name: 'Sub table', ...pattern('sub-table') };
-export const Spreadsheet = { name: 'Spreadsheet editing', ...pattern('spreadsheet') };
+export const SubTable = { name: 'Sub table', ...pattern('sub-table'), play: checkSubTables };
+export const Spreadsheet = { name: 'Spreadsheet editing', ...pattern('spreadsheet'), play: checkSpreadsheet };
 export const Inventory = {
   name: 'Inventory workspace',
   ...pattern('inventory', 'Spreadsheet editing with every built-in editor: text, select, combobox, number, date, checkbox and switch. Edits, pastes, fills and clears stay pending in `useDataGridEditing` until Save; Discard reverts them all. Each column validates with `required`, `min` and `validate(value, row)`, and an invalid cell shows its message inline and blocks Save. Undo and Redo (Mod+Z, Shift+Mod+Z, Ctrl+Y or the toolbar) step through edits and row changes. Select rows to duplicate or delete them; Add item appends a row and opens its first cell. Accessibility: the grid is one tab stop with aria-activedescendant; invalid cells set aria-invalid and point at their message with aria-describedby, the editor overlay inherits both, and the save bar announces its counts politely.'),
@@ -173,19 +176,19 @@ export const Inventory = {
       else delete navigator.clipboard;
     }
     await userEvent.click(cell('inv-1', 'name'));
-    await userEvent.keyboard('{Enter}');
+    await actInteraction(() => userEvent.keyboard('{Enter}'));
     const itemEditor = await canvas.findByRole('textbox', { name: 'Item' });
     await fireEvent.keyDown(itemEditor, { key: 'Enter', isComposing: true });
     await fireEvent.keyDown(itemEditor, { key: 'Escape', isComposing: true });
     await expect(itemEditor).toBeVisible();
-    await userEvent.keyboard('{Escape}');
+    await actInteraction(() => userEvent.keyboard('{Escape}'));
     await userEvent.click(cell('inv-1', 'stock'));
     await userEvent.keyboard('-5');
     const stockEditor = await canvas.findByRole('textbox', { name: 'Stock' });
     await fireEvent.keyDown(stockEditor, { key: 'Enter', isComposing: true });
     await fireEvent.keyDown(stockEditor, { key: 'ArrowUp', isComposing: true });
     await expect(stockEditor).toHaveValue('-5');
-    await userEvent.keyboard('{Enter}');
+    await actInteraction(() => userEvent.keyboard('{Enter}'));
     await waitFor(() => expect(cell('inv-1', 'stock')).toHaveAttribute('aria-invalid', 'true'));
     await expect(cell('inv-1', 'stock')).toHaveTextContent('-5');
     const bar = await canvas.findByRole('region', { name: '1 unsaved change' });
@@ -198,7 +201,7 @@ export const Inventory = {
     await userEvent.keyboard('{Control>}{Shift>}z{/Shift}{/Control}');
     await waitFor(() => expect(cell('inv-1', 'stock')).toHaveTextContent('-5'));
     // A valid value clears the error; a checkbox flip is a second change.
-    await userEvent.keyboard('12{Enter}');
+    await actInteraction(() => userEvent.keyboard('12{Enter}'));
     await waitFor(() => expect(cell('inv-1', 'stock')).not.toHaveAttribute('aria-invalid'));
     await userEvent.click(within(grid.querySelector('tr[data-row-id="inv-6"]')).getByRole('checkbox', { name: 'Taxable' }));
     await expect(await canvas.findByRole('region', { name: '2 unsaved changes' })).toBeVisible();
@@ -217,13 +220,13 @@ export const Inventory = {
       await waitFor(() => expect(host.querySelector('[data-slot="data-grid-cell-fill-handle"]')).not.toBeNull());
       const handle = host.querySelector('[data-slot="data-grid-cell-fill-handle"]');
       const viewport = handle.closest('[data-slot="data-grid-table-viewport"]');
-      await fireEvent.mouseDown(handle, { button: 0 });
+      await fireEvent.pointerDown(handle, { pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0, buttons: 1 });
       await expect(viewport).toHaveAttribute('data-cell-filling');
       await act(async () => temporary.unmount());
       mounted = false;
       await expect(viewport).not.toHaveAttribute('data-cell-filling');
       await expect(viewport.querySelector('[data-slot="data-grid-cell-fill-preview"]')).toBeNull();
-      await fireEvent.mouseUp(canvasElement.ownerDocument);
+      await fireEvent.pointerUp(canvasElement.ownerDocument, { pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0, buttons: 0 });
     } finally {
       if (mounted) await act(async () => temporary.unmount());
       host.remove();
@@ -246,10 +249,10 @@ export const PricingPlans = {
     await userEvent.clear(name);
     await waitFor(() => expect(name).toHaveAttribute('aria-invalid', 'true'));
     // An invalid draft does not save.
-    await userEvent.keyboard('{Enter}');
+    await actInteraction(() => userEvent.keyboard('{Enter}'));
     await expect(canvas.getByRole('textbox', { name: 'Plan' })).toBeInTheDocument();
     await userEvent.type(name, 'Team Plus');
-    await userEvent.keyboard('{Enter}');
+    await actInteraction(() => userEvent.keyboard('{Enter}'));
     await waitFor(() => expect(canvas.queryByRole('textbox', { name: 'Plan' })).not.toBeInTheDocument());
     await expect(canvas.getByText('Team Plus')).toBeVisible();
     await waitFor(() => expect(within(canvasElement.ownerDocument.body).getByText('Team Plus saved')).toBeVisible());
@@ -259,12 +262,12 @@ export const PricingPlans = {
     const seats = await canvas.findByRole('textbox', { name: 'Seats' });
     await userEvent.clear(seats);
     await userEvent.type(seats, '3');
-    await userEvent.keyboard('{Escape}');
+    await actInteraction(() => userEvent.keyboard('{Escape}'));
     await waitFor(() => expect(canvas.queryByRole('textbox', { name: 'Seats' })).not.toBeInTheDocument());
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Edit Starter' })).toHaveFocus());
   }
 };
-export const CrudFrame = { name: 'CRUD in a frame', ...pattern('crud-frame') };
+export const CrudFrame = { name: 'CRUD in a frame', ...pattern('crud-frame'), play: checkCrudFrame };
 export const ServerPagination = {
   name: 'Server-side pagination',
   ...pattern('server-pagination', 'Server-side pagination, sorting, search and a status filter, with a loading skeleton while each page arrives.'),
@@ -290,7 +293,7 @@ export const ServerPagination = {
     }
   }
 };
-export const InfiniteScroll = { name: 'Infinite scroll', ...pattern('infinite-scroll', 'Rows load from a remote source as the list scrolls.') };
+export const InfiniteScroll = { name: 'Infinite scroll', ...pattern('infinite-scroll', 'Rows load from a remote source as the list scrolls.'), play: checkInfiniteScroll };
 export const ColumnVirtualization = {
   name: 'Column virtualization',
   ...pattern('column-virtualization'),

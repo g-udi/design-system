@@ -18,7 +18,9 @@ Exports: `ChatShell`, `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `ChatShell.variant` | `page \| sidebar` | `page` | no | Page lays navigation, thread and details side by side from md and xl; sidebar is one narrow column. Side content moves into Sheets on narrow screens. |
-| `ChatShell.title / subtitle / headerActions` | `string / string / ReactNode` | — | no | Conversation heading and actions. |
+| `ChatShell.title` | `string` | — | no | Conversation heading and actions. |
+| `subtitle` | `string` | — | no | Conversation heading and actions. |
+| `headerActions` | `ReactNode` | — | no | Conversation heading and actions. |
 | `ChatShell.navigation / details / composer` | `ReactNode` | — | no | Side columns and the composer, filled with Chat parts such as ChatSessionList, ChatPlan and ChatPromptComposer. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -69,7 +71,7 @@ Curated patterns:
 - Agent at work: Plan and activity — registry item `@gaudi/chat-agent-activity` (uses `Button`, `ChatActivity`, `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `ChatPlan`, `ChatShell`, `RegistryIcon`)
 - Full page: Reviewing a pull request — registry item `@gaudi/chat-pull-request-review` (uses `Avatar`, `ChatActivity`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatFileExplorer`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPlan`, `ChatPromptComposer`, `ChatSessionList`, `ChatShell`, `ChatThreadNav`, `useMessageScroller`, `useMessageScrollerVisibility`)
 - New chat: Welcome and suggestions — registry item `@gaudi/chat-welcome-suggestions` (uses `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `ChatPromptComposer`, `ChatShell`, `EmptyState`, `RegistryIcon`)
-- Sidebar: Writing assistant beside the editor — registry item `@gaudi/chat-writing-assistant` (uses `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`)
+- Sidebar: Writing assistant beside the editor — registry item `@gaudi/chat-writing-assistant` (uses `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `ChatMessageScroller`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `ChatPromptComposer`, `ChatPromptQueue`, `ChatSessionList`, `ChatShell`, `Label`, `Textarea`, `usePrefersReducedMotion`)
 
 ## Related
 

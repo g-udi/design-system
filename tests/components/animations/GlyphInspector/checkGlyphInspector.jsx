@@ -5,6 +5,7 @@ import { act } from '../../../support/reactAct.js';
 import { GlyphInspector } from '../../../../src/components/animations/GlyphInspector/index.js';
 
 export async function checkGlyphInspector(canvasElement) {
+  if (import.meta.env.MODE !== 'test') return;
   const sandbox = document.createElement('div');
   sandbox.style.cssText = 'position:fixed;top:0;left:0;width:320px;font-size:72px;background:var(--ds-color-surface);z-index:1000';
   canvasElement.append(sandbox);
@@ -23,7 +24,40 @@ export async function checkGlyphInspector(canvasElement) {
     const before = getComputedStyle(stroke).strokeDashoffset;
     await waitFor(() => expect(getComputedStyle(stroke).strokeDashoffset).not.toBe(before));
 
+    const staticProps = { paused: true, activeIndex: 1 };
+    await render(staticProps);
+    const readout = () => sandbox.querySelector('.gaudi-glyph-inspector__readout');
+    const guides = () => sandbox.querySelector('.gaudi-glyph-inspector__guides');
+    expect(readout()).toBeVisible();
+    expect(guides()).toBeVisible();
+    await render({ ...staticProps, readout: false });
+    expect(readout()).toBeNull();
+    await render({ ...staticProps, guides: false });
+    expect(guides()).toBeNull();
+    for (const [outline, dash] of [['dotted', '1px, 3px'], ['solid', 'none'], ['dashed', '5px, 3px']]) {
+      await render({ ...staticProps, outline });
+      expect(getComputedStyle(sandbox.querySelector('.gaudi-glyph-inspector__outline')).strokeDasharray).toBe(dash);
+    }
+    await render({ ...staticProps, particles: 4 });
+    expect(sandbox.querySelectorAll('.gaudi-glyph-inspector__particle')).toHaveLength(4);
+    await render({ ...staticProps, accent: '#ff4500' });
+    expect(getComputedStyle(sandbox.querySelector('.gaudi-glyph-inspector__frame')).color).toBe('rgb(255, 69, 0)');
+    await render({ ...staticProps, tempo: 2 });
+    expect(sandbox.querySelector('.gaudi-glyph-inspector__particle').style.animationDuration).toBe('0.65s');
+    await render({ ...staticProps, reveal: 'none' });
+    expect([...sandbox.querySelectorAll('.gaudi-glyph-inspector__letter')].every(node => node.style.getPropertyValue('--inspector-reveal') === '0')).toBe(true);
+    await render({ ...staticProps, reveal: 'area', radius: 20 });
+    const narrow = [...sandbox.querySelectorAll('.gaudi-glyph-inspector__letter')].map(node => node.style.getPropertyValue('--inspector-reveal'));
+    await render({ ...staticProps, reveal: 'area', radius: 400 });
+    expect([...sandbox.querySelectorAll('.gaudi-glyph-inspector__letter')].map(node => node.style.getPropertyValue('--inspector-reveal'))).not.toEqual(narrow);
+    await render({ autoplay: true, interval: 10000 });
+    const slow = focused();
+    await new Promise(resolve => setTimeout(resolve, 300));
+    expect(focused()).toBe(slow);
+    await render({ autoplay: true, interval: 200 });
+    await waitFor(() => expect(focused()).not.toBe(slow));
     await render({ autoplay: false });
+    expect(sandbox.querySelector('[data-slot="glyph-inspector-frame"]')).toBeNull();
     const letter = sandbox.querySelector('.gaudi-glyph-inspector__letter');
     await userEvent.hover(letter);
     await waitFor(() => expect(letter).toHaveAttribute('data-focused', 'true'));
@@ -46,10 +80,36 @@ export async function checkGlyphInspector(canvasElement) {
     window.dispatchEvent(new PointerEvent('pointerup', { pointerId: 1, pointerType: 'mouse', isPrimary: true, button: 0 }));
     await waitFor(() => expect(sandbox.querySelector('[data-slot="glyph-inspector"]')).toHaveAttribute('data-dragging', 'false'));
     await userEvent.unhover(letter);
+    await render({ autoplay: false, draggable: false });
+    await act(() => {
+      letter.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerId: 2, pointerType: 'mouse', isPrimary: true, button: 0, buttons: 1, ...start }));
+      window.dispatchEvent(new PointerEvent('pointermove', { bubbles: true, pointerId: 2, pointerType: 'mouse', isPrimary: true, buttons: 1, clientX: start.clientX + 50, clientY: start.clientY - 50 }));
+    });
+    await tick();
+    expect(sandbox.querySelector('[data-slot="glyph-inspector"]')).toHaveAttribute('data-dragging', 'false');
+    expect(new DOMMatrix(getComputedStyle(letter).transform).m41).toBe(0);
+    window.dispatchEvent(new PointerEvent('pointerup', { pointerId: 2, pointerType: 'mouse', button: 0 }));
 
     await render({ reveal: 'area', radius: 400, particles: 0, autoplay: true });
     await waitFor(() => expect(sandbox.querySelectorAll('.gaudi-glyph-inspector__particle')).toHaveLength(0));
     expect([...sandbox.querySelectorAll('.gaudi-glyph-inspector__letter')].filter(el => Number(el.style.getPropertyValue('--inspector-reveal')) > 0)).toHaveLength(4);
+    const { commands } = await import('vitest/browser');
+    await commands.recordStoryAudit({ id: 'glyph-inspector-independent-controls', theme: 'light', checks: [
+      { control: 'text', evidence: 'visible glyph content and layout changed, including empty and long values' },
+      { control: 'autoplay', evidence: 'frame cycles while enabled, disappears while idle with autoplay disabled' },
+      { control: 'draggable', evidence: 'pointer drag moves enabled glyph within constraints; disabled glyph stays at origin' },
+      { control: 'readout', evidence: 'readout removed independently' },
+      { control: 'guides', evidence: 'guide SVG removed independently' },
+      { control: 'interval', evidence: 'long interval holds current glyph; 200ms advances it' },
+      { control: 'outline', evidence: 'all three computed stroke dash patterns checked' },
+      { control: 'particles', evidence: '4 and 0 particle counts checked' },
+      { control: 'tempo', evidence: 'particle animation duration halves at tempo 2' },
+      { control: 'reveal', evidence: 'none hides all fills; area reveals neighbours' },
+      { control: 'radius', evidence: 'changing only radius changes per-glyph reveal amount' },
+      { control: 'accent', evidence: 'computed inspector foreground changes to requested colour' },
+      { control: 'activeIndex', evidence: 'existing Paused story helper checks requested character and out-of-range fallback to first glyph' },
+      { control: 'paused', evidence: 'paused frame remains visible without animation; existing paused-index helper covers bounds' }
+    ] });
     await render({ text: '', reveal: 'area' });
     expect(sandbox.querySelector('[data-slot="glyph-inspector-frame"]')).not.toBeInTheDocument();
     await render({ text: 'A', paused: true });

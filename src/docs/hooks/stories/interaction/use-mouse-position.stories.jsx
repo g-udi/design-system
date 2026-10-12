@@ -1,3 +1,4 @@
+import { verifyPointerCoalescing } from '../../../../../tests/hooks/browserChecks.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { example, hookMeta } from '../../HookDocs.jsx';
 import { PointerReadout } from './fixtures/use-mouse-position.jsx';
@@ -18,6 +19,7 @@ export const Playground = {
   parameters: example('A working example using Gaudi controls and the documented hook contract.', exampleSource),
   render: () => <PointerReadout />,
   play: async ({ canvasElement }) => {
+    await verifyPointerCoalescing();
     const canvas = within(canvasElement);
     const target = canvas.getByRole('region', { name: 'Pointer tracking area' });
     const bounds = target.getBoundingClientRect();

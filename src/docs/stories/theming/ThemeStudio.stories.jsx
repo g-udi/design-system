@@ -1,5 +1,6 @@
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { ThemeStudio } from './ThemeStudio';
+import { checkThemeProvider } from '../../../../tests/themes/checkThemeProvider.jsx';
 
 export default {
   id: 'theming-theme-studio',
@@ -44,5 +45,6 @@ export const Studio = {
     await userEvent.click(canvas.getByRole('button', { name: 'Import theme' }));
     await expect(await canvas.findByText('Imported')).toBeInTheDocument();
     await expect(canvas.getByRole('textbox', { name: 'Exported theme' }).value).toContain('--ds-color-accent: #0e7490;');
+    await checkThemeProvider(canvasElement);
   }
 };

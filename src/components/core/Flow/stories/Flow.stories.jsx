@@ -1,3 +1,4 @@
+import { checkFlowLayoutLifecycle } from '../../../../../tests/components/core/Flow/checkFlowLayoutLifecycle.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
@@ -35,11 +36,12 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'A publishing pipeline from draft to published, with a review step that approves or sends the draft back. The layout comes from `layoutFlow`; switch the direction, edge path, line style (solid, dashed or dotted), the flowing animation, background and controls.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('Preview', args, { imports: "import '@gaudi/design-system/flow.css';", before: `${publicSource(flowSource, new URL('./fixtures/PublishingFlowExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('Preview', args, { imports: "import '@gaudi/design-system/flow.css';", before: `${publicSource(flowSource, new URL('./fixtures/PublishingFlowExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   render: (args) => <Preview {...args} />,
   play: async ({ args, canvasElement }) => {
+    await checkFlowLayoutLifecycle(canvasElement);
     const canvas = within(canvasElement);
     const region = await canvas.findByRole('region', { name: args.label });
     await expect(region).toHaveAccessibleDescription('6 steps and 5 connections.');

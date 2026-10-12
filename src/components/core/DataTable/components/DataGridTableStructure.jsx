@@ -207,6 +207,38 @@ function DataGridTableFootRowCell({ children, colSpan, className }) {
     </td>
   );
 }
+function DataGridTableBodySkeleton() {
+  const { props, table } = useDataGrid();
+  const pagination = table.state.pagination;
+  const leftVisibleColumns = table.getStartVisibleLeafColumns();
+  const centerVisibleColumns = table.getCenterVisibleLeafColumns();
+  const rightVisibleColumns = table.getEndVisibleLeafColumns();
+  const hasRightPinnedColumns = hasDataGridTableRightPinnedColumns(table);
+  return (
+    <>
+      {Array.from({ length: pagination.pageSize }).map((_, rowIndex) => (
+        <DataGridTableBodyRowSkeleton key={rowIndex}>
+          {[...leftVisibleColumns, ...centerVisibleColumns].map((column) => (
+            <DataGridTableBodyRowSkeletonCell column={column} key={column.id}>
+              {column.columnDef.meta?.skeleton}
+            </DataGridTableBodyRowSkeletonCell>
+          ))}
+          {props.tableLayout?.columnsResizable && hasRightPinnedColumns ? (
+            <DataGridTableFillBodyCell />
+          ) : null}
+          {rightVisibleColumns.map((column) => (
+            <DataGridTableBodyRowSkeletonCell column={column} key={column.id}>
+              {column.columnDef.meta?.skeleton}
+            </DataGridTableBodyRowSkeletonCell>
+          ))}
+          {props.tableLayout?.columnsResizable && !hasRightPinnedColumns ? (
+            <DataGridTableFillBodyCell />
+          ) : null}
+        </DataGridTableBodyRowSkeleton>
+      ))}
+    </>
+  );
+}
 function DataGridTableBodyRowSkeleton({ children }) {
   const { table: _table, props } = useDataGrid();
   return (
@@ -292,4 +324,4 @@ function DataGridTableLoader() {
     </div>
   );
 }
-export { DataGridTableFillHeadCell, DataGridTableFillBodyCell, DataGridTableAddRow, DataGridTableRowSpacer, DataGridTableBody, DataGridTableFoot, DataGridTableFootRow, DataGridTableFootRowCell, DataGridTableBodyRowSkeleton, DataGridTableBodyRowSkeletonCell, DataGridTableEmpty, DataGridTableLoader, DataGridTableFillCol };
+export { DataGridTableBodySkeleton, DataGridTableFillHeadCell, DataGridTableFillBodyCell, DataGridTableAddRow, DataGridTableRowSpacer, DataGridTableBody, DataGridTableFoot, DataGridTableFootRow, DataGridTableFootRowCell, DataGridTableBodyRowSkeleton, DataGridTableBodyRowSkeletonCell, DataGridTableEmpty, DataGridTableLoader, DataGridTableFillCol };

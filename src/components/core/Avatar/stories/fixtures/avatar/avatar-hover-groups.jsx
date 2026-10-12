@@ -1,8 +1,4 @@
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import Avatar from '@gaudi/design-system/core/Avatar';
 import {
   TooltipRoot as Tooltip,
   TooltipContent,
@@ -11,20 +7,18 @@ import {
 } from '@gaudi/design-system/core/Tooltip';
 
 const people = [
-  { src: '/avatars/person-45.svg', initials: 'ON', name: 'Ottilie Nakamura' },
-  { src: '/avatars/person-31.svg', initials: 'SR', name: 'Sam Rivera' },
-  { src: '/avatars/person-47.svg', initials: 'FA', name: 'Felix Arrowsmith' },
-  { src: '/avatars/person-23.svg', initials: 'MW', name: 'Maren Wilder' }
+  { src: '/avatars/person-45.svg', name: 'Ottilie Nakamura' },
+  { src: '/avatars/person-31.svg', name: 'Sam Rivera' },
+  { src: '/avatars/person-47.svg', name: 'Felix Arrowsmith' },
+  { src: '/avatars/person-23.svg', name: 'Maren Wilder' }
 ];
 
 function Person({ person, className }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Avatar tabIndex={0} className={`ring-2 ring-ui-background transition-all duration-300 ease-in-out motion-reduce:transition-none ${className}`}>
-          <AvatarImage src={person.src} alt={person.name} />
-          <AvatarFallback>{person.initials}</AvatarFallback>
-        </Avatar>
+        <Avatar src={person.src} name={person.name} size='sm' shape='circle' surface='tinted' tabIndex={0}
+          className={`ring-2 ring-ui-background transition-all duration-300 ease-in-out motion-reduce:transition-none ${className}`} />
       </TooltipTrigger>
       <TooltipContent sideOffset={8}>{person.name}</TooltipContent>
     </Tooltip>

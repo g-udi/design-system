@@ -91,7 +91,7 @@ const Kbd = ({ children, className, keys, size, variant, ...rest }) => {
   const symbols = keyList.map((key) => keyMap[key] || key.toUpperCase());
   const label = keyList.map((key) => keyLabelMap[key] || key.charAt(0).toUpperCase() + key.slice(1)).join(' plus ');
 
-  if (symbols.length === 1) return <KbdRoot className={ classes } aria-label={ label } { ...rest }>{symbols[0]}</KbdRoot>;
+  if (symbols.length === 1) return <KbdRoot className={ classes } role='img' aria-label={ label } { ...rest }>{symbols[0]}</KbdRoot>;
 
   return (
     <KbdGroup role='img' aria-label={ label } { ...rest }>

@@ -34,7 +34,7 @@ export const Playground = {
     docs: {
       description: { story: 'One link through the normaliser: pick a kind to see what rich information it earns (stars and language for a repository, channel and duration for a video, author and date for an article), then switch the variant between the card, the compact row and the inline hover link.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args: { kind, ...args } }) => previewSource('LinkPreview', {
           url: links[kind].url,

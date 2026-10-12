@@ -94,7 +94,9 @@ export const Providers = ({ children }) => (
 // app/layout.jsx: <script dangerouslySetInnerHTML={{ __html: getThemeScript({ enableMode: false }) }} />
 ```
 
-`applyTheme(themeJson, { document?, nonce? })` compiles and injects a theme anywhere (returns `{ css, remove }`). `compileTheme(theme)` returns the CSS string; `listThemes()` and `getThemePreset(id)` support pickers.
+Invalid saved custom themes and theme IDs that are no longer available fall back to `defaultTheme`. The provider reuses the same validation as theme imports.
+
+`applyTheme(themeJson, { document?, nonce?, attribute?, darkClass? })` compiles and injects a theme anywhere (returns `{ css, remove }`). `compileTheme(theme, { attribute?, darkClass? })` returns the CSS string using the same selectors as the provider; `listThemes()` and `getThemePreset(id)` support pickers. A custom dark class controls theme tokens; applications must also configure their CSS dark variants to use that class.
 
 ### Fonts
 

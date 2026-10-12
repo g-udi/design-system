@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { CRTWarp } from '../index.js';
 import { CRTWarpPlayground } from './fixtures/CRTWarpExamples.jsx';
@@ -39,6 +40,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
+    await checkBackgroundRendering(canvasElement, CRTWarp);
     await checkBackgroundDemo(context);
     await checkCRTWarpBehavior(canvasElement);
   }

@@ -1,5 +1,6 @@
 'use client';
 import * as React from 'react';
+import { useMergedRefs } from '../../../../hooks/state/use-merged-refs.js';
 import { useCascaderLoadState } from '../hooks/useCascaderAsync.jsx';
 import { useCascaderActions, useCascaderState } from '../CascaderContext.jsx';
 import {
@@ -36,14 +37,7 @@ function CascaderContent({
 }) {
   const { labels } = useCascaderActions();
   const popupRef = React.useRef(null);
-  const setPopup = React.useCallback(
-    (node) => {
-      popupRef.current = node;
-      if (typeof ref === 'function') ref(node);
-      else if (ref) ref.current = node;
-    },
-    [ref]
-  );
+  const setPopup = useMergedRefs(popupRef, ref);
   const initialFocus = React.useCallback((openType) => {
     const popup = popupRef.current;
     if (!popup) return true;

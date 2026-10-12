@@ -46,12 +46,12 @@ jobs:
         env:
           VITE_GAUDI_AUDIT: '1'
           VITE_GAUDI_AUDIT_THEMES: both
-        run: pnpm exec vitest run --project=storybook --maxWorkers=4
+        run: pnpm test-storybook:run
 
       - name: Check container layouts
         env:
           VITE_GAUDI_VISUAL: '1'
-        run: pnpm exec vitest run --project=storybook --maxWorkers=4
+        run: pnpm test-storybook:run
 
       - name: Build Storybook
         run: pnpm build-storybook

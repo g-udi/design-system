@@ -30,7 +30,9 @@ Exports: `VideoPlayer`
 | `loop` | `boolean` | `false` | no | Restarts the native video at the end. |
 | `preload` | `none \| metadata \| auto` | `metadata` | no | Native browser preload hint. Metadata enables the duration and seek controls. |
 | `nativeControls` | `boolean` | `false` | no | Uses the browser’s controls in place of the custom toolbar. The source must still be browser-playable; this adds no streaming adapters or codec support. |
-| `open / defaultOpen / onOpenChange` | `boolean / boolean / (open) => void` | `uncontrolled / false / —` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `open` | `boolean` | `uncontrolled` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `defaultOpen` | `boolean` | `false` | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
+| `onOpenChange` | `(open) => void` | — | no | Controlled or uncontrolled dialog visibility. Only used by the dialog variant. |
 | `onPlay / onPause / onEnded / onTimeUpdate / onError` | `(event) => void` | — | no | Native media event callbacks. Time updates are not live announcements. |
 | `ref` | `Ref<HTMLVideoElement>` | — | no | Access to the active native video for programmatic playback changes. Null while a dialog is closed. |
 | `className` | `string` | — | no | Additional classes on the outer element. |

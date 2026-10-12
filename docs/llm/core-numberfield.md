@@ -20,7 +20,8 @@ Exports: `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberField
 | `value / defaultValue / onValueChange` | `number \| null / function` | — | no | Controlled or initial numeric value and change callback. |
 | `min / max / step` | `number` | — | no | Numeric bounds and increment. |
 | `size` | `sm \| default \| lg` | `default` | no | Shared size for input, group and buttons. |
-| `format / locale` | `Intl.NumberFormatOptions / string` | — | no | Number formatting and locale. |
+| `format` | `Intl.NumberFormatOptions` | — | no | Number formatting and locale. |
+| `locale` | `string` | — | no | Number formatting and locale. |
 | `disabled / readOnly / required` | `boolean` | — | no | Interaction and form state. |
 | `NumberFieldScrubArea.label` | `ReactNode` | — | no | Visible label associated with the generated input ID. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |

@@ -30,7 +30,30 @@ export const AsyncSuccess = {
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Saved' })).toBeEnabled());
   }
 };
-export const CopyFeedback = { name: 'Copy with feedback', ...pattern('copy-feedback') };
+export const CopyFeedback = {
+  name: 'Copy with feedback',
+  ...pattern('copy-feedback'),
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    const clipboard = navigator.clipboard;
+    const original = clipboard.writeText;
+    const writes = [];
+    clipboard.writeText = async (text) => { writes.push(text); };
+    try {
+      const labelled = canvas.getByRole('button', { name: 'Copy', exact: true });
+      const iconOnly = canvas.getByRole('button', { name: 'Copy link', exact: true });
+      await userEvent.click(labelled);
+      await waitFor(() => expect(labelled).toHaveAccessibleName('Copied'));
+      await expect(iconOnly).toHaveAccessibleName('Copy link');
+      await userEvent.click(iconOnly);
+      await waitFor(() => expect(iconOnly).toHaveAccessibleName('Copied'));
+      await expect(writes).toEqual(['https://design.assaf.website', 'https://design.assaf.website']);
+      await waitFor(() => expect(labelled).toHaveAccessibleName('Copy'), { timeout: 2500 });
+      await waitFor(() => expect(iconOnly).toHaveAccessibleName('Copy link'), { timeout: 2500 });
+    } finally { clipboard.writeText = original; }
+  }
+};
 export const TogglingLabel = {
   name: 'Toggling icon and label',
   ...pattern('toggling-label', 'Menu and theme icons swap in place; the disclosure label flips with its chevron.'),

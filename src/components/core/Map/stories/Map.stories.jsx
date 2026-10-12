@@ -71,7 +71,7 @@ export const Location = {
 
 export const Recovery = {
   name: 'Unavailable map & recovery', render: () => <MapRecovery />,
-  parameters: { docs: { source: source('MapRecovery') } },
+  parameters: { layoutAudit: { readySelector: '.ds-map[data-map-status="error"], .ds-map[data-map-status="ready"]' }, docs: { source: source('MapRecovery') } },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await canvas.findByText('Map unavailable. Try again or use the location list.', {}, { timeout: 20000 });

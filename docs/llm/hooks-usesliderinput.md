@@ -16,7 +16,9 @@ Exports: `useSliderInput`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.minValue / maxValue / initialValue` | `number / number / [number, number]` | — | no | Bounds and the starting range. |
+| `options.minValue` | `number` | — | no | Bounds and the starting range. |
+| `maxValue` | `number` | — | no | Bounds and the starting range. |
+| `initialValue` | `[number, number]` | — | no | Bounds and the starting range. |
 
 ## Returns
 

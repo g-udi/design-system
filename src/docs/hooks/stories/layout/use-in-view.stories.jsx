@@ -1,4 +1,4 @@
-import { expect, waitFor } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { example, hookMeta } from '../../HookDocs.jsx';
 
 import { LazyComments, IntersectionFallback, LoadMore } from './fixtures/use-in-view.jsx';
@@ -38,5 +38,21 @@ export const LazySection = {
 export const InfiniteList = {
   name: '"Load more" sentinel with a button',
   parameters: example('Reaching the end loads more automatically, and the same row keeps a real "Load more" button for keyboard and screen reader users.', exampleSource),
-  render: () => <LoadMore />
+  render: () => <LoadMore />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const viewport = canvas.getByRole('region', { name: 'Posts' });
+    const initial = canvas.getAllByRole('listitem').length;
+    viewport.scrollTop = viewport.scrollHeight;
+    await waitFor(() => expect(canvas.getAllByRole('listitem').length).toBeGreaterThan(initial));
+    while (canvas.queryByRole('button', { name: 'Load more posts' })) {
+      const count = canvas.getAllByRole('listitem').length;
+      const button = canvas.getByRole('button', { name: 'Load more posts' });
+      button.focus();
+      await userEvent.keyboard('{Enter}');
+      await waitFor(() => expect(canvas.getAllByRole('listitem').length).toBeGreaterThan(count));
+    }
+    await expect(canvas.getAllByRole('listitem')).toHaveLength(18);
+    await expect(canvas.getByText('All 18 posts loaded.')).toBeVisible();
+  }
 };

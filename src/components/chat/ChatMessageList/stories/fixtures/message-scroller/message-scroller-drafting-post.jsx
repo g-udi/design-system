@@ -8,6 +8,7 @@ import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageHeader }
 import { ChatMessageParts } from '@gaudi/design-system/chat/ChatMessageList';
 import { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 
 const prompt = 'Outline a post on why we moved the blog to local-first drafts. Keep it short and add the sync snippet.';
 const reply = `## Local-first drafts, in four beats
@@ -31,29 +32,21 @@ Want me to turn beat 2 into the opening paragraph?`;
 
 // Think for a moment, then reveal the reply a few words at a time; readers who reduce motion get it whole.
 function useStream(text, running) {
+  const reducedMotion = usePrefersReducedMotion();
   const [length, setLength] = useState(0);
+  useEffect(() => setLength(0), [text, running]);
   useEffect(() => {
-    if (!running) return undefined;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+    if (!running || length >= text.length) return undefined;
+    if (reducedMotion) {
       setLength(text.length);
       return undefined;
     }
-    setLength(0);
-    let timer;
-    const reveal = () => setLength((current) => {
-      const next = text.indexOf(' ', current + 6);
-      if (next !== -1) return next;
-      clearInterval(timer);
-      return text.length;
-    });
-    const thinking = setTimeout(() => {
-      timer = setInterval(reveal, 24);
-    }, 1200);
-    return () => {
-      clearTimeout(thinking);
-      clearInterval(timer);
-    };
-  }, [text, running]);
+    const timer = setTimeout(() => {
+      const next = text.indexOf(' ', length + 6);
+      setLength(next === -1 ? text.length : next);
+    }, length === 0 ? 1200 : 24);
+    return () => clearTimeout(timer);
+  }, [text, running, length, reducedMotion]);
   return text.slice(0, length);
 }
 

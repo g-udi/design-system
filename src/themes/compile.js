@@ -2,17 +2,17 @@
 // values when it (or an ancestor) has .dark, or for a .dark descendant. `.light` on the themed
 // element opts out of an ancestor's .dark (used by previews). Output is unlayered so it overrides
 // the layered defaults in tokens.css.
-import { COLOR_TOKENS, DEFAULT_THEME_ID, FONT_TOKENS, RADIUS_VAR, SHADOW_TOKENS, SPACING_VAR, THEME_ATTRIBUTE, colorVar, fontVar, shadowVar } from './contract.js';
+import { COLOR_TOKENS, DARK_CLASS, DEFAULT_THEME_ID, FONT_TOKENS, RADIUS_VAR, SHADOW_TOKENS, SPACING_VAR, THEME_ATTRIBUTE, colorVar, fontVar, shadowVar } from './contract.js';
 import { contrastRatio, formatOklch, toOklch } from './color.js';
 import { ANCHOR_DECLARATIONS, themePresets } from './presets.js';
 import { assertTheme } from './validate.js';
 
 const baseline = themePresets.find((theme) => theme.id === DEFAULT_THEME_ID);
 
-export const themeSelector = (id) => `[${THEME_ATTRIBUTE}="${id}"]`;
-export const darkSelector = (id) => {
-  const base = themeSelector(id);
-  return `${base}.dark, .dark ${base}:not(.light), ${base} .dark`;
+export const themeSelector = (id, attribute = THEME_ATTRIBUTE) => `[${attribute}="${id}"]`;
+export const darkSelector = (id, attribute = THEME_ATTRIBUTE, darkClass = DARK_CLASS) => {
+  const base = themeSelector(id, attribute);
+  return `${base}.${darkClass}, .${darkClass} ${base}:not(.light), ${base} .${darkClass}`;
 };
 
 const mix = (variable, percent, other = 'transparent') => `color-mix(in oklab, var(${variable}) ${percent}%, ${other})`;
@@ -81,9 +81,10 @@ const block = (selector, declarations) => `${selector} {\n${declarations.map(([n
  * compileTheme(theme, { derived? }) → CSS text. `derived` (default: every theme except "gaudi")
  * also recomputes DS-only tokens from the contract; the default theme reproduces tokens.css exactly.
  */
-export function compileTheme(theme, { derived = theme?.id !== DEFAULT_THEME_ID, anchors = true } = {}) {
+export function compileTheme(theme, { derived = theme?.id !== DEFAULT_THEME_ID, anchors = true, attribute = THEME_ATTRIBUTE, darkClass = DARK_CLASS } = {}) {
   assertTheme(theme);
-  const base = themeSelector(theme.id);
+  const base = themeSelector(theme.id, attribute);
+  const dark = darkSelector(theme.id, attribute, darkClass);
   const modeDeclarations = (mode) => [
     ...COLOR_TOKENS.map((key) => [colorVar(key), theme[mode][key]]),
     ...SHADOW_TOKENS.map((key) => [shadowVar(key), theme.shadows[mode][key]]),
@@ -96,8 +97,8 @@ export function compileTheme(theme, { derived = theme?.id !== DEFAULT_THEME_ID, 
   ];
   let css = `/* Gaudi theme: ${theme.name} (${theme.id}) */\n`;
   css += block(base, [...shared, ...modeDeclarations('light')]);
-  css += block(darkSelector(theme.id), modeDeclarations('dark'));
-  if (anchors) css += block(`${base}, ${darkSelector(theme.id)}`, ANCHOR_DECLARATIONS);
+  css += block(dark, modeDeclarations('dark'));
+  if (anchors) css += block(`${base}, ${dark}`, ANCHOR_DECLARATIONS);
   // Tailwind's font utilities inline the default stacks, so a theme with its own fonts re-points them.
   if (fontsDiffer(theme.fonts)) {
     css += block(`${base}, ${base} body, ${base} .font-sans`, [['font-family', `var(${fontVar('sans')})`]]);
@@ -113,7 +114,7 @@ export function compileTheme(theme, { derived = theme?.id !== DEFAULT_THEME_ID, 
  * Tokens that alias contract tokens (tokens.css and the shadcn bridge in theme.css), re-declared in
  * themed scopes so a nested data-theme element (a preview card) resolves them against its own values.
  */
-export const anchorCss = () => block(`[${THEME_ATTRIBUTE}], [${THEME_ATTRIBUTE}] .dark`, ANCHOR_DECLARATIONS);
+export const anchorCss = ({ attribute = THEME_ATTRIBUTE, darkClass = DARK_CLASS } = {}) => block(`[${attribute}], [${attribute}] .${darkClass}`, ANCHOR_DECLARATIONS);
 
 /** CSS for several themes (e.g. every preset) in one stylesheet, sharing one anchor block. */
-export const compileThemes = (themes, options) => [anchorCss(), ...themes.map((theme) => compileTheme(theme, { ...options, anchors: false }))].join('\n');
+export const compileThemes = (themes, options) => [anchorCss(options), ...themes.map((theme) => compileTheme(theme, { ...options, anchors: false }))].join('\n');

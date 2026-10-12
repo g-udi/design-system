@@ -61,7 +61,7 @@ export function Pattern() {
         ))}
       </div>
       <div role='group' aria-label='Toast options' className='border-border grid gap-2 rounded-lg border p-3'>
-        <div className='flex items-center justify-between gap-2'>
+        <div className='flex flex-wrap items-center justify-between gap-2'>
           <Label htmlFor={`${toasterId}-position`} className='text-sm font-normal'>Position</Label>
           <NativeSelect id={`${toasterId}-position`} size='sm' value={position} onChange={(event) => setPosition(event.target.value)}>
             {positions.map((value) => (
@@ -71,7 +71,7 @@ export function Pattern() {
             ))}
           </NativeSelect>
         </div>
-        <div className='flex items-center justify-between gap-2'>
+        <div className='flex flex-wrap items-center justify-between gap-2'>
           <span className='text-sm'>Duration</span>
           <ToggleGroup
             type='single'

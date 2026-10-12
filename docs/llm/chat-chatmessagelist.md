@@ -23,8 +23,11 @@ Exports: `ChatMessageCheckpoint`, `ChatMessageMarkdown`, `ChatMessageParts`, `Ch
 | `ChatMessageParts.onRetry / onToolRetry / onToolApproval / onFileAction / onSuggestion` | `function` | — | no | Retry a turn or tool, answer an approval, act on a file, pick a follow-up. |
 | `ChatMessageScrollerItem.scrollAnchor` | `boolean` | `false` | no | Lift a sent message near the top. |
 | `ChatMessageMarkdown.children` | `string` | `''` | no | Runtime markdown; code through CodeBlock; [1] or [1, 3] cite sources. |
-| `ChatMessageCheckpoint.label / time` | `string / string \| Date` | `Checkpoint / —` | no | A restore point between turns. |
-| `ChatMessageCheckpoint.onRestore / confirm / restored` | `function / boolean / boolean` | `— / true / false` | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `ChatMessageCheckpoint.label` | `string` | `Checkpoint` | no | A restore point between turns. |
+| `time` | `string \| Date` | — | no | A restore point between turns. |
+| `ChatMessageCheckpoint.onRestore` | `function` | — | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `confirm` | `boolean` | `true` | no | Restore action, asked first in an alert dialog unless confirm is false. |
+| `restored` | `boolean` | `false` | no | Restore action, asked first in an alert dialog unless confirm is false. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage
@@ -63,7 +66,7 @@ The thread scrolls inside a labelled region; announce the start and end of a rep
 Curated patterns:
 
 - New turn anchored under the last answer — registry item `@gaudi/message-scroller-anchored-turn` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `RegistryIcon`)
-- Streamed reply: drafting a post — registry item `@gaudi/message-scroller-drafting-post` (uses `Avatar`, `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`)
+- Streamed reply: drafting a post — registry item `@gaudi/message-scroller-drafting-post` (uses `Avatar`, `Button`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`, `usePrefersReducedMotion`)
 - Opening position and jump to latest — registry item `@gaudi/message-scroller-jump-to-latest` (uses `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `Separator`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Older history that keeps your position — registry item `@gaudi/message-scroller-load-earlier` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `LoaderRoot`, `RegistryIcon`, `Separator`, `useMessageScrollerScrollable`)
 - Pinned to the newest streamed line — registry item `@gaudi/message-scroller-streaming-follow` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageScroller`, `ChatMessageScrollerButton`, `ChatMessageScrollerContent`, `ChatMessageScrollerItem`, `ChatMessageScrollerProvider`, `ChatMessageScrollerViewport`, `LoaderRoot`, `RegistryIcon`)

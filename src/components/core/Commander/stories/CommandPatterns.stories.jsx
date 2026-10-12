@@ -17,7 +17,9 @@ export default { title: 'Core/Overlays & Menus/Commander', id: 'core-commander',
 
 const openPalette = async (canvasElement, trigger) => {
   await userEvent.click(within(canvasElement).getByRole('button', { name: trigger }));
-  return within(await within(document.body).findByRole('dialog'));
+  const dialog = await within(document.body).findByRole('dialog');
+  await waitFor(() => expect(dialog).toBeVisible());
+  return within(dialog);
 };
 const closePalette = async () => {
   await userEvent.keyboard('{Escape}');

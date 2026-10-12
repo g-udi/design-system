@@ -57,7 +57,7 @@ export function Pattern() {
             // align stays on each ChatBubble: the group stretches and has no side of its own.
             <ChatBubbleGroup key={group.id} className={group.reactions ? 'mb-4' : group.seen ? 'mt-4' : undefined}>
               {/* Side and variant are visual only, so the group names its sender once. */}
-              <span className='sr-only'>{you ? 'You said: ' : 'Lena said: '}</span>
+              <span className='sr-only'>{you ? 'You said: ' : 'Saskia said: '}</span>
               {group.lines.map((line, index) => (
                 <ChatBubble key={line} align={you ? 'end' : 'start'} variant={you ? 'default' : 'muted'}>
                   <ChatBubbleContent>{line}</ChatBubbleContent>

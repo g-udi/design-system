@@ -11,6 +11,7 @@ import {
   useState
 } from 'react';
 import { useDataGrid } from '../DataGrid.jsx';
+import { DataGridTableBodySkeleton } from './DataGridTableStructure.jsx';
 import { handleDataGridRowMoveKey } from './DataGridRowMove.jsx';
 import { getDataGridRowLabel, useDataGridStructureLabels } from './DataGridTreeRows.jsx';
 import {
@@ -19,8 +20,6 @@ import {
   DataGridTableBodyRow,
   DataGridTableBodyRowCell,
   DataGridTableBodyRowExpandded,
-  DataGridTableBodyRowSkeleton,
-  DataGridTableBodyRowSkeletonCell,
   DataGridTableEmpty,
   DataGridTableFillBodyCell,
   DataGridTableFillHeadCell,
@@ -249,25 +248,7 @@ function DataGridTableDndRowsBody({
   const { isLoading, props } = useDataGrid();
   const pagination = table.state.pagination;
   if (props.loadingMode === 'skeleton' && isLoading && pagination?.pageSize) {
-    return (
-      <>
-        {Array.from({ length: pagination.pageSize }).map((_, rowIndex) => (
-          <DataGridTableBodyRowSkeleton key={rowIndex}>
-            {table.getVisibleFlatColumns().map((column, colIndex) => {
-              return (
-                <DataGridTableBodyRowSkeletonCell
-                  column={column}
-                  key={colIndex}
-                >
-                  {column.columnDef.meta?.skeleton}
-                </DataGridTableBodyRowSkeletonCell>
-              );
-            })}
-            <DataGridTableFillBodyCell />
-          </DataGridTableBodyRowSkeleton>
-        ))}
-      </>
-    );
+    return <DataGridTableBodySkeleton />;
   }
   if (!table.getRowModel().rows.length) return <DataGridTableEmpty />;
   return (

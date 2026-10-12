@@ -20,13 +20,21 @@ Exports: `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReason
 | `streaming` | `boolean` | `false` | no | Opens the trail with a shimmering Thinking… label; it opens again whenever thinking restarts. |
 | `duration` | `number` | `measured` | no | Seconds spent; measured from streaming start to end when omitted. |
 | `defaultOpen` | `boolean` | `true` | no | Initial disclosure state. |
-| `open / onOpenChange` | `boolean / (open) => void` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
+| `open` | `boolean` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
+| `onOpenChange` | `(open) => void` | — | no | Controlled disclosure; the reader’s choice otherwise wins over the automatic fold. |
 | `variant` | `trail \| steps` | `trail` | no | steps drops the quote rule so detailed steps draw their own rail. |
-| `thinkingLabel / label / autoCloseDelay` | `string / string / number` | `Thinking… / — / 1000` | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `thinkingLabel` | `string` | `Thinking…` | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `label` | `string` | — | no | Streaming label, a fixed label, and the fold delay in ms. |
+| `autoCloseDelay` | `number` | `1000` | no | Streaming label, a fixed label, and the fold delay in ms. |
 | `ChatMessageReasoningStep.status` | `pending \| running \| done \| failed \| cancelled` | `done` | no | A step with the shared statuses. |
-| `ChatMessageReasoningStep.label / icon / description / meta` | `ReactNode / string / ReactNode / ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `ChatMessageReasoningStep.label` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `icon` | `string` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `description` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
+| `meta` | `ReactNode` | — | no | A detailed chain-of-thought step: kind icon, title, summary and right-hand meta; children open as details. |
 | `ChatMessageReasoningResults.results` | `Array<{ title, url?, site?, icon? }>` | `[]` | no | Search results as link chips with favicons; max limits them with a +n more. |
-| `ChatMessageReasoningImage.src / alt / caption` | `string / string / ReactNode` | — | no | A thumbnail the step looked at. |
+| `ChatMessageReasoningImage.src` | `string` | — | no | A thumbnail the step looked at. |
+| `alt` | `string` | — | no | A thumbnail the step looked at. |
+| `caption` | `ReactNode` | — | no | A thumbnail the step looked at. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants

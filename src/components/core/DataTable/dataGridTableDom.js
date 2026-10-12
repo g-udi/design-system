@@ -1,11 +1,3 @@
-function assignRef(ref, value) {
-  if (!ref) return;
-  if (typeof ref === 'function') {
-    ref(value);
-    return;
-  }
-  ref.current = value;
-}
 function getDataGridScrollAreaViewport(node) {
   const scrollViewport = node.closest('[data-slot="scroll-area-viewport"]');
   if (!scrollViewport) return null;
@@ -21,4 +13,4 @@ function isDataGridCellInteractiveTarget(target) {
     ) != null
   );
 }
-export { getDataGridScrollAreaViewport, assignRef, isDataGridCellInteractiveTarget };
+export { getDataGridScrollAreaViewport, isDataGridCellInteractiveTarget };

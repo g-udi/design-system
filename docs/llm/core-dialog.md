@@ -18,7 +18,10 @@ Exports: `DialogClose`, `DialogClosePrimitive`, `DialogConfirmationAction`, `Dia
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `variant` | `modal \| confirmation \| bare` | `modal` | no | Presentation and interaction contract; side panels use Sheet. |
-| `label / container / initialFocusRef / restoreFocusRef` | `string / Element / Ref / Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `label` | `string` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `container` | `Element` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `initialFocusRef` | `Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
+| `restoreFocusRef` | `Ref` | — | no | Bare only: the accessible name without a visible title, the portal container, the element focused on open, and the fallback focus target when the opener is gone. |
 | `trigger` | `ReactElement` | — | no | A ref-forwarding button that opens the dialog. |
 | `title / description` | `ReactNode` | — | no | Accessible title and optional supporting description. |
 | `open / defaultOpen` | `boolean` | — | no | Controlled or initial open state. Use one state model for the lifetime of the component. |

@@ -139,7 +139,7 @@ function ModelGrid({ model, onChange }) {
               className='bg-ui-background data-[state=on]:bg-ui-sidebar-accent h-auto min-w-0 flex-col gap-1.5 py-2.5 text-xs font-medium'
             >
               <RegistryIcon lucide={icon} aria-hidden='true' className='size-4' />
-              <span className='truncate'>{label}</span>
+              <span className='max-w-full truncate'>{label}</span>
             </ToggleGroupItem>
           ))}
         </ToggleGroup>

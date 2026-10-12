@@ -18,7 +18,6 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `Generated citation attributes` | `data-citation-popover / data-citation-keys / data-citation-key` | — | no | Metadata written by the consuming markdown pipeline. |
-| `CitationTracker` | `Runtime component; no props` | — | no | Mount with the article runtime to track citation navigation. |
 
 ## Usage
 

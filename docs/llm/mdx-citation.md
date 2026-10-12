@@ -15,12 +15,6 @@ import Citation from '@gaudi/design-system/mdx/CitationPopover';
 
 Exports: `default`
 
-## Runtime contract
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `CitationPopover / CitationTracker` | `Runtime component; no props` | — | no | Enhances generated article markup. Mount once per article runtime. |
-
 ## Authoring Example
 
 ```jsx

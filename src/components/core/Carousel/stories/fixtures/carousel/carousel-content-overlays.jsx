@@ -28,6 +28,10 @@ export function Pattern({ onNavigate }) {
   }, [api]);
   return (
     <Carousel setApi={setApi} className='mx-auto w-full max-w-md' aria-label='Photo stories'>
+      <div className='mb-3 flex justify-end gap-2'>
+        <CarouselPrevious className='static' onClick={(event) => onNavigate?.('previous', event)} />
+        <CarouselNext className='static' onClick={(event) => onNavigate?.('next', event)} />
+      </div>
       <CarouselContent>
         {slides.map((slide, index) => (
           <CarouselItem key={slide.title}>
@@ -48,8 +52,6 @@ export function Pattern({ onNavigate }) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious onClick={(event) => onNavigate?.('previous', event)} />
-      <CarouselNext onClick={(event) => onNavigate?.('next', event)} />
       <div className='flex justify-center gap-2 pt-3'>
         {slides.map((slide, index) => (
           <button

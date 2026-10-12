@@ -1,3 +1,4 @@
+import { checkBackgroundRendering } from '../../../../../tests/components/animations/checkBackgroundRendering.jsx';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { LiquidEther } from '../index.js';
 import { checkLiquidEther } from '../../../../../tests/components/animations/LiquidEther/checkLiquidEther.jsx';
@@ -40,6 +41,7 @@ export const Playground = {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
       await checkLiquidEther(effect);
     }
+    await checkBackgroundRendering(canvasElement, LiquidEther);
     await checkBackgroundDemo(context);
   }
 };

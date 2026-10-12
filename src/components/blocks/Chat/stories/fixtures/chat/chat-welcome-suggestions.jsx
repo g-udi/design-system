@@ -62,16 +62,7 @@ export function Pattern() {
                 title={<h2>What are we writing today?</h2>}
                 description='Gaudi knows your published posts, drafts and reader stats. Ask it to plan, edit or check anything.'
                 actions={
-                  <ul aria-label='Suggested prompts' className='flex flex-wrap gap-2'>
-                    {suggestions.map((suggestion) => (
-                      <li key={suggestion.id} className='max-w-full min-w-0'>
-                        <Button size='sm' variant='outline' className='h-auto max-w-full py-1.5 text-start whitespace-normal break-words' onClick={() => start(suggestion.label)}>
-                          <RegistryIcon lucide={suggestion.icon} />
-                          {suggestion.label}
-                        </Button>
-                      </li>
-                    ))}
-                  </ul>
+                  <ChatMessageParts parts={[{ type: 'suggestions', items: suggestions }]} onSuggestion={start} />
                 }
               />
             </div>

@@ -121,7 +121,7 @@ const RailCard = ({ classNames, isActive, item, onOpen, radius, size }) => (
   </article>
 );
 
-const CarouselDialog = ({ classNames, item, onClose }) => {
+const CarouselDialog = ({ classNames, item, onClose, restoreFocusRef }) => {
   const titleId = useId();
   const closeButtonRef = useRef(null);
 
@@ -133,6 +133,7 @@ const CarouselDialog = ({ classNames, item, onClose }) => {
       open
       onOpenChange={ (open) => !open && onClose() }
       initialFocusRef={ closeButtonRef }
+      restoreFocusRef={ restoreFocusRef }
       label={ item.title }
       contentProps={ { 'aria-labelledby': titleId } }
       className={ cn('fixed inset-0 z-50 flex items-center justify-center bg-surface-dark/70 p-4 backdrop-blur-sm', classNames.overlay, classNames.dialog) }
@@ -174,7 +175,10 @@ const Carousel = ({
 }) => {
   const [ api, setApi ] = useState();
   const [ current, setCurrent ] = useState(0);
-  const [ openItem, setOpenItem ] = useState(null);
+  const [ openItemKey, setOpenItemKey ] = useState(null);
+  const rootRef = useRef(null);
+  const openItem = items.find((item, index) => getItemKey(item, index) === openItemKey);
+  if (openItemKey !== null && !openItem) setOpenItemKey(null);
   const normalizedVariant = variant || carouselVariants.defaultVariants.variant;
   const isRail = normalizedVariant === 'apple' || normalizedVariant === 'rail';
   const itemCount = items.length;
@@ -195,6 +199,7 @@ const Carousel = ({
 
   return (
     <CarouselRoot
+      ref={ rootRef }
       aria-label={ ariaLabel }
       // Rail cards keep one snap per card, so every card can become the active one.
       opts={ { 'align': 'start', 'containScroll': isRail ? 'keepSnaps' : 'trimSnaps', loop } }
@@ -228,7 +233,7 @@ const Carousel = ({
                 size={ size }
                 onOpen={ () => {
                   api?.scrollTo(index);
-                  setOpenItem(item);
+                  setOpenItemKey(getItemKey(item, index));
                 } }
               />
             ) : (
@@ -259,7 +264,7 @@ const Carousel = ({
         ))}
       </div>
 
-      {isRail ? <CarouselDialog item={ openItem } classNames={ classNames } onClose={ () => setOpenItem(null) } /> : null}
+      {isRail ? <CarouselDialog item={ openItem } classNames={ classNames } restoreFocusRef={ rootRef } onClose={ () => setOpenItemKey(null) } /> : null}
     </CarouselRoot>
   );
 };

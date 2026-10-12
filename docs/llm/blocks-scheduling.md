@@ -22,10 +22,15 @@ Exports: `ScheduleCalendar`, `TimeSlots`, `addMinutes`, `dayKey`, `default`, `fo
 | `TimeSlots.slots` | `string[]` | `[]` | no | HH:MM start times, usually from timeSlots(). |
 | `TimeSlots.value / defaultValue / onValueChange` | `string / (slot) => void` | — | no | Controlled or initial selected slot. |
 | `TimeSlots.unavailable` | `string[]` | `[]` | no | Booked slots: listed but disabled. |
-| `TimeSlots.hour12 / columns` | `boolean / 1 \| 2 \| 3 \| 4` | `false / 3` | no | Clock format and grid columns. |
+| `TimeSlots.hour12` | `boolean` | `false` | no | Clock format and grid columns. |
+| `columns` | `1 \| 2 \| 3 \| 4` | `3` | no | Clock format and grid columns. |
 | `timeSlots({ start, end, step, duration })` | `helper` | `09:00–17:00 every 30` | no | Start times where the whole meeting fits before end. |
 | `formatTime / formatDuration / addMinutes / minutesBetween` | `helpers` | — | no | Format and calculate HH:MM times and durations. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `columns`: `1`, `2`, `3`, `4`
 
 ## Usage
 

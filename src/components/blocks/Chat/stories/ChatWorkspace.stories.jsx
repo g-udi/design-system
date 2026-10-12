@@ -66,7 +66,7 @@ function ConversationWorkspace({ agents, files, sessions, messages, openPreview,
     const preview = await panel.findByRole('button', { name: 'Preview: research-findings.md' });
     await userEvent.click(preview);
     const dialog = within(await body.findByRole('dialog', { name: 'research-findings.md', exact: true }));
-    await expect(dialog.getByText(/Keep source material beside the draft/)).toBeVisible();
+    await waitFor(() => expect(dialog.getByText(/Keep source material beside the draft/)).toBeVisible());
     await userEvent.click(dialog.getByRole('button', { name: 'Back to workspace' }));
     await waitFor(() => expect(preview).toHaveFocus());
     await userEvent.click(panel.getByRole('button', { name: 'All files', exact: true }));

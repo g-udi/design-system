@@ -1,4 +1,4 @@
-import Table, { TableBody, TableCell, TableHead, TableHeaderCell, TableRow } from '@gaudi/design-system/mdx/Table';
+import Table, { TableBody, TableCaption, TableCell, TableHead, TableHeaderCell, TableRow } from '@gaudi/design-system/mdx/Table';
 
 // Field data from a performance post: text, numbers with units, and a status per row.
 export const columns = ['Template', 'LCP', 'INP', 'CLS', 'Status'];
@@ -13,7 +13,7 @@ const statusClass = { Good: 'text-success', 'Needs work': 'text-warning', Poor: 
 export function TableExample() {
   return (
     <Table>
-      <caption className='caption-bottom px-3 py-2 text-left text-xs text-text-muted'>75th-percentile field data, last 28 days.</caption>
+      <TableCaption className='px-3 py-2 text-left'>75th-percentile field data, last 28 days.</TableCaption>
       <TableHead><TableRow>{columns.map((column) => <TableHeaderCell key={column} scope='col'>{column}</TableHeaderCell>)}</TableRow></TableHead>
       <TableBody>
         {rows.map(([template, ...metrics]) => (

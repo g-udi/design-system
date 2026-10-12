@@ -2,7 +2,7 @@
 
 > MDX/Mermaid · mdx · `@gaudi/design-system/mdx/Mermaid`
 
-Renders host-supplied Mermaid source as a labelled diagram with a local loading and error state. Diagram colors and typography use Gaudi tokens and update when the root theme changes. Wide diagrams keep readable labels and scroll within a keyboard-focusable figure.
+Renders host-supplied Mermaid source as a labelled diagram with a local loading and error state. Diagram colors and typography use Gaudi tokens and update when the surrounding theme or local tokens change. Wide diagrams keep readable labels and scroll within a keyboard-focusable figure.
 
 ## Import
 
@@ -45,3 +45,4 @@ Mermaid exposes the rendered diagram as one labelled figure. Provide a concise d
 ## Examples
 
 - Playground (Storybook `mdx-mermaid--playground`)
+- Invalid Diagram (Storybook `mdx-mermaid--invalid-diagram`)

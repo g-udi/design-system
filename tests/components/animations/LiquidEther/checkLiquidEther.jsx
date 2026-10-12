@@ -2,6 +2,7 @@ import { expect, fireEvent, waitFor } from 'storybook/test';
 
 /** Verify that a real pointer plume is uploaded, remains in motion, and clears without new input. */
 export async function checkLiquidEther(effect) {
+  if (import.meta.env.MODE !== 'test') return;
   const gl = effect.querySelector('canvas').getContext('webgl');
   const descriptor = Object.getOwnPropertyDescriptor(gl, 'texSubImage2D');
   const upload = gl.texSubImage2D;

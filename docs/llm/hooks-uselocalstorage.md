@@ -18,7 +18,8 @@ Exports: `localStorageStore`, `useLocalStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key; namespace it, for example reader:font-size. |
 | `initialValue` | `any` | — | no | Value on the server, during hydration and when nothing is stored. |
-| `options.serialize / deserialize` | `(value) => string / (raw) => any` | `JSON` | no | Custom encoding. |
+| `options.serialize` | `(value) => string` | — | no | Custom encoding. |
+| `deserialize` | `(raw) => any` | — | no | Custom encoding. |
 | `options.syncTabs` | `boolean` | `true` | no | Follow writes from other tabs. |
 
 ## Returns

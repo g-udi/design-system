@@ -581,6 +581,7 @@ export function Pattern() {
 
       <pre
         tabIndex={0}
+        role='region'
         aria-label='Filter query'
         className='bg-ui-muted dark:bg-ui-muted/60 max-h-80 w-full overflow-auto rounded-md border p-3 text-xs'
       >

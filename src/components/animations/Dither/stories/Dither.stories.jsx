@@ -39,7 +39,7 @@ export const Playground = {
     if (effect.dataset.renderer === 'webgl' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'true'));
     }
-    await checkBackgroundRendering(canvasElement, Dither, {"pixelSize": 7, "levels": 2});
+    await checkBackgroundRendering(canvasElement, Dither, { pixelSize: 7, levels: 2, amplitude: 0 });
     await checkBackgroundDemo(context);
   }
 };

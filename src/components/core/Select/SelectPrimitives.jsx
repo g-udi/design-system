@@ -44,12 +44,14 @@ function SelectContent({
   children,
   position = 'item-aligned',
   align = 'center',
+  'aria-label': ariaLabel = 'Options',
   ...props
 }) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Content
         data-slot='select-content'
+        aria-label={ariaLabel}
         data-align-trigger={position === 'item-aligned'}
         className={cn(
           'ds-part-select-content ds-part-menu-target ds-part-menu-translucent relative z-[calc(var(--ds-z-overlay)+1)] max-h-(--radix-select-content-available-height) max-w-[min(var(--radix-select-content-available-width,100vw),calc(100vw-1.25rem))] self-start rtl:self-end origin-(--radix-select-content-transform-origin) overflow-x-hidden overflow-y-auto data-[align-trigger=true]:animate-none',

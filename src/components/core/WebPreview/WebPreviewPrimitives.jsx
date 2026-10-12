@@ -388,7 +388,7 @@ function WebPreviewBody({
             <p className='text-sm font-semibold'>{labels.blocked}</p>
             <p className='max-w-sm text-xs text-text-muted'>{labels.blockedHint}</p>
           </div>
-          {fallback ?? (url ? <LinkPreview url={ url } variant='card' orientation='horizontal' previewData={ previewData } endpoint={ endpoint } className='w-full max-w-md text-left' /> : null)}
+          {fallback ?? (url ? <LinkPreview url={ url } variant='card' previewData={ previewData } endpoint={ endpoint } className='w-full max-w-md text-left' /> : null)}
         </div>
       ) : null}
       {showFrame && loading ? (

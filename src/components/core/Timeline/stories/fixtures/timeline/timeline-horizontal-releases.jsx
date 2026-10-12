@@ -11,6 +11,7 @@ import {
   TimelineSeparator,
   TimelineTitle
 } from '@gaudi/design-system/core/Timeline';
+import { ScrollArea, ScrollBar } from '@gaudi/design-system/core/ScrollArea';
 import { Label } from '@gaudi/design-system/core/Field';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { cn } from '@gaudi/design-system/utilities/cn';
@@ -41,7 +42,8 @@ export function Pattern() {
         <Switch size='sm' checked={datesAbove} onCheckedChange={setDatesAbove} />
         Dates above the rail
       </Label>
-      <Timeline defaultValue={3} orientation='horizontal' className='overflow-x-auto pt-3'>
+      <ScrollArea className='w-full' aria-label='Release timeline'>
+      <Timeline defaultValue={3} orientation='horizontal' className='pt-3 pb-2'>
         {releases.map((release) => (
           <TimelineItem
             key={release.id}
@@ -77,6 +79,8 @@ export function Pattern() {
           </TimelineItem>
         ))}
       </Timeline>
+      <ScrollBar orientation='horizontal' />
+      </ScrollArea>
     </div>
   );
 }

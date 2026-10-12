@@ -48,7 +48,7 @@ export const toc = [
   }
 ];
 
-export const articleSections = toc.flatMap((section) => [ section, ...section.children ]);
+const flattenSections = (sections) => sections.flatMap((section) => [section, ...flattenSections(section.children || [])]);
 
 export const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
   const scopeId = useId();
@@ -65,12 +65,12 @@ export const TableOfContentsFixture = ({ showVisuals = false, ...args }) => {
   return (
   <div className='grid min-w-0 grid-cols-1 gap-8 lg:grid-cols-12'>
     <article ref={articleRef} className='min-w-0 space-y-6 lg:col-span-8'>
-      {articleSections.map((section) => {
-        const Heading = section.depth === 1 ? 'h2' : 'h3';
+      {flattenSections(scopedToc).map((section) => {
+        const Heading = `h${Math.min(section.depth + 1, 6)}`;
 
         return (
           <section key={ section.id } className={ section.depth === 1 ? 'scroll-mt-28' : 'scroll-mt-28 pl-8' }>
-            <Heading id={ `${scopeId}-${section.id}` }>{section.value}</Heading>
+            <Heading id={section.id}>{section.value}</Heading>
             <p className='mt-1 text-sm text-text-muted'>
               Story fixture copy gives the table of contents real headings to observe and target.
             </p>

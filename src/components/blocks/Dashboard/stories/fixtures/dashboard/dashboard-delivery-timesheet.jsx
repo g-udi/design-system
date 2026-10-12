@@ -5,7 +5,7 @@ import { addDays, format } from 'date-fns';
 import { DashboardGrid, DashboardPanel, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
 import { default as BreadcrumbTrail } from '@gaudi/design-system/core/Breadcrumb';
-import { default as AvatarGroup } from '@gaudi/design-system/core/Avatar';
+import { AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { default as Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ProgressRing } from '@gaudi/design-system/core/Progress';

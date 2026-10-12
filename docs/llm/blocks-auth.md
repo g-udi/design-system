@@ -27,8 +27,10 @@ Exports: `default`
 | `passwordHint` | `ReactNode \| false` | `Per mode` | no | Help text under the password field; false hides it. |
 | `passwordAction` | `ReactNode` | — | no | A link beside the password label, such as Forgot password. |
 | `identifier` | `email \| username` | `email` | no | Ask for an email, or a username that also accepts an email. |
-| `providers / onProvider` | `Array<{ id, label, icon }> / (id) => void \| Promise<void>` | `[]` | no | Single sign-on buttons above the form, sharing its pending and error state. |
-| `providerLayout / dividerLabel` | `grid \| stack / string` | `grid / or` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
+| `providers` | `Array<{ id, label, icon }>` | — | no | Single sign-on buttons above the form, sharing its pending and error state. |
+| `onProvider` | `(id) => void \| Promise<void>` | — | no | Single sign-on buttons above the form, sharing its pending and error state. |
+| `providerLayout` | `grid \| stack` | `grid` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
+| `dividerLabel` | `string` | `or` | no | Provider buttons side by side or stacked, and the divider before the email fields. |
 | `showPasswordLabel / hidePasswordLabel` | `string` | `Show password / Hide password` | no | Accessible names of the password reveal button, for translation. |
 | `children` | `ReactNode` | — | no | Extra fields before the submit button, such as keep me signed in or terms. |
 | `pendingLabel` | `string` | `Per mode` | no | Submit text while the request is pending. |
@@ -39,6 +41,7 @@ Exports: `default`
 
 - `mode`: `password`, `email`, `signup`
 - `identifier`: `email`, `username`
+- `providerLayout`: `grid`, `stack`
 
 ## Usage
 

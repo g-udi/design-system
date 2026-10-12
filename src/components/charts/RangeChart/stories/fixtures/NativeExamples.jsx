@@ -16,7 +16,7 @@ const forecast = [
   { label: 'W5', low: 520, high: 610 }, { label: 'W6', low: 540, high: 670 }, { label: 'W7', low: 556, high: 732 }
 ];
 
-export const PlaygroundExample = ({ state, ...args }) => <RangeChart {...args} ariaLabel='Median response time with its p10 to p90 band' data={stateData(state, latency)} formatValue={(value) => `${value} ms`} state={forcedState(state)} />;
+export const PlaygroundExample = ({ state, ...args }) => <RangeChart {...args} ariaLabel='Median response time with its p10 to p90 band' data={stateData(state, latency)} formatValue={{ style: 'unit', unit: 'millisecond' }} state={forcedState(state)} />;
 
 export const TemperatureExample = () => (
     <RangeChart

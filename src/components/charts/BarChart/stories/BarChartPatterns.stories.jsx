@@ -26,4 +26,24 @@ export const FillsLayout = {
     await userEvent.click(canvas.getByRole('switch', { name: 'Compare' }));
   }
 };
-export const HoverValues = { name: 'Hover to reveal values', ...pattern('hover-values', 'Monochrome bars widen on hover and the header shows the hovered value.') };
+export const HoverValues = {
+  name: 'Hover to reveal values',
+  ...pattern('hover-values', 'Monochrome bars widen on hover and the header shows the hovered value.'),
+  play: async (context) => {
+    const { canvasElement } = context;
+    const canvas = within(canvasElement);
+    await waitFor(() => expect(bars(canvasElement)).toHaveLength(12));
+    await expect(canvas.getByText('$123')).toBeVisible();
+    await userEvent.hover(bars(canvasElement)[0].querySelector('rect'));
+    await waitFor(() => expect(canvas.getByText('$289')).toBeVisible());
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--hover-value`, beforeAuditWidth: async () => {
+        await userEvent.hover(bars(canvasElement)[0].querySelector('rect'));
+        await expect(canvas.getByText('$289')).toBeVisible();
+      } });
+    }
+    await userEvent.unhover(canvasElement.querySelector('.recharts-wrapper'));
+    await waitFor(() => expect(canvas.getByText('$123')).toBeVisible());
+  },
+};

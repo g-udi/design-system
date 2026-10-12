@@ -15,6 +15,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 
 import Icon from '../../core/Icon';
+import Button from '../../core/Button';
 import { PopoverContentPrimitive, PopoverPrimitive, PopoverTriggerPrimitive } from '../../core/Popover';
 
 const keepFocus = (event) => event.preventDefault();
@@ -57,10 +58,10 @@ export default function Tooltip({ message, text, children }) {
       {children}
       <PopoverPrimitive open={ open } onOpenChange={ show }>
         <PopoverTriggerPrimitive
+          asChild
           ref={ triggerRef }
           aria-label='More information'
           aria-describedby={ hasExplanation ? descriptionId : undefined }
-          className='ds-control-hit-target ms-1 inline-flex align-middle cursor-help items-center rounded-sm text-text-subtle transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent'
           // A tap or click always opens; closing is left to Escape, blur, and taps outside.
           onClick={ (event) => {
             event.preventDefault();
@@ -71,7 +72,9 @@ export default function Tooltip({ message, text, children }) {
           onPointerEnter={ onHover(true) }
           onPointerLeave={ onHover(false) }
         >
-          <Icon name='Info' decorative className='size-3.5' />
+          <Button variant='ghost' size='icon-xs' className='ms-1 align-middle cursor-help' aria-label='More information'>
+            <Icon name='Info' decorative />
+          </Button>
         </PopoverTriggerPrimitive>
         <PopoverContentPrimitive
           role='tooltip'

@@ -13,3 +13,11 @@ test('ChatMessage publishes its composition and supports server rendering', () =
   assert.ok(html.length > 0, 'The example must render useful server markup');
   assert.doesNotMatch(html, /\[object Object\]/);
 });
+
+test('named messages expose a group without overriding explicit host semantics', () => {
+  const render = (props) => renderToStaticMarkup(createElement(publicAPI.ChatMessage, props, 'Message text'));
+  assert.match(render({ 'aria-label': 'You' }), /role="group"[^>]*aria-label="You"/);
+  assert.match(render({ 'aria-labelledby': 'sender' }), /role="group"[^>]*aria-labelledby="sender"/);
+  assert.match(render({ 'aria-label': 'Reply', role: 'article' }), /role="article"/);
+  assert.doesNotMatch(render({}), /role=/);
+});

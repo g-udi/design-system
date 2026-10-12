@@ -31,5 +31,35 @@ export const ComposerTray = {
     await expect(within(tray).getByText('pricing-tiers-v4.xlsx')).toBeVisible();
   }
 };
-export const FilePicker = { name: 'File picker that fills a tray', ...pattern('file-picker', 'An idle attachment acts as the picker, and each chosen file lands below it with a preview.') };
-export const ThumbnailStrip = { name: 'Image thumbnail strip', ...pattern('thumbnail-strip', 'Vertical image cards scroll in a strip, and a full-card trigger selects one.') };
+export const FilePicker = {
+  name: 'File picker that fills a tray',
+  ...pattern('file-picker', 'An idle attachment acts as the picker, and each chosen file lands below it with a preview.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvasElement.querySelector('input[type="file"]');
+    await expect(canvas.getByText('No files chosen yet.')).toBeVisible();
+    await userEvent.upload(input, new File(['name,amount\nGaudi,12'], 'report.csv', { type: 'text/csv' }));
+    await expect(canvas.getByText('report.csv')).toBeVisible();
+    await expect(canvas.queryByText('No files chosen yet.')).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove report.csv' }));
+    await expect(canvas.queryByText('report.csv')).not.toBeInTheDocument();
+    await expect(canvas.getByText('No files chosen yet.')).toBeVisible();
+  }
+};
+export const ThumbnailStrip = {
+  name: 'Image thumbnail strip',
+  ...pattern('thumbnail-strip', 'Vertical image cards scroll in a strip, and a full-card trigger selects one.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const first = canvas.getByRole('button', { name: 'Preview brand-gradient.png' });
+    const second = canvas.getByRole('button', { name: 'Preview mesh-backdrop.png' });
+    await userEvent.click(first);
+    await expect(first).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText('2400 x 1600', { exact: false })).toBeVisible();
+    second.focus();
+    await userEvent.keyboard('{Enter}');
+    await expect(first).toHaveAttribute('aria-pressed', 'false');
+    await expect(second).toHaveAttribute('aria-pressed', 'true');
+    await expect(canvas.getByText('1800 x 1200', { exact: false })).toBeVisible();
+  }
+};

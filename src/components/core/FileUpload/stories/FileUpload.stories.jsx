@@ -57,7 +57,7 @@ export const Playground = {
   parameters: {
     docs: {
       description: { story: 'An upload queue with a finished photo, a brief mid-upload, and a failed spreadsheet. `multiple` switches between a single file and the whole queue; `disabled` locks the drop zone and every row action.' },
-      source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => previewSource('UploadQueue', args, { before: `${publicSource(queueSource, new URL('./fixtures/UploadQueueExample.jsx', import.meta.url))}\n\n` }) }
+      source: { type: 'code', language: 'jsx', transform: (_source, { args }) => previewSource('UploadQueue', args, { before: `${publicSource(queueSource, new URL('./fixtures/UploadQueueExample.jsx', import.meta.url))}\n\n` }) }
     }
   },
   // Remount when `multiple` flips so the seeded queue matches the picker mode.

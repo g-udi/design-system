@@ -2,9 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utilities/cn/cn.js';
+import { observeTheme } from '../../themes/observeTheme.js';
 import { useAnimation, bounded } from './animationRuntime.js';
 import { backgroundVertex, backgroundUniforms, compileBackground } from './backgroundShader.js';
 import { createBackgroundPointer } from './backgroundPointer.js';
+import { releaseDetachedWebGLContext } from './webglLifecycle.js';
 
 const defaultColors = ['var(--ds-color-chart-1)', 'var(--ds-color-chart-2)', 'var(--ds-color-chart-3)'];
 
@@ -47,7 +49,7 @@ export function BackgroundSurface({
     let lastTime = 0;
     let disposed = false;
     let resizeObserver;
-    let themeObserver;
+    let stopObservingTheme;
     let probe;
     const fail = () => {
       cancelAnimationFrame(frame);
@@ -63,7 +65,7 @@ export function BackgroundSurface({
       disposed = true;
       cancelAnimationFrame(frame);
       resizeObserver?.disconnect();
-      themeObserver?.disconnect();
+      stopObservingTheme?.();
       canvas.removeEventListener('webglcontextlost', lost);
       canvas.removeEventListener('webglcontextrestored', restored);
       probe?.remove();
@@ -72,6 +74,7 @@ export function BackgroundSurface({
         if (buffer) gl.deleteBuffer(buffer);
         if (program) gl.deleteProgram(program);
         shaders.forEach(shader => gl.deleteShader(shader));
+        releaseDetachedWebGLContext(gl);
       }
       engine.current = null;
     };
@@ -200,11 +203,7 @@ export function BackgroundSurface({
       engine.current = { update };
       resizeObserver = new ResizeObserver(resize);
       resizeObserver.observe(host);
-      themeObserver = new MutationObserver(update);
-      // Ancestor-only observation avoids reacting to animated descendants or unrelated page changes.
-      for (let ancestor = host; ancestor; ancestor = ancestor.parentElement) {
-        themeObserver.observe(ancestor, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] });
-      }
+      stopObservingTheme = observeTheme(host, update);
       refreshColors();
       resize();
       update();

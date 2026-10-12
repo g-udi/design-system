@@ -1,0 +1,13 @@
+diff --git a/dist/blocks.js b/dist/blocks.js
+index 54b95e8ea8fd135b9fb3f456e71fda74dcbf520d..1552ac20f534eabc8ee87453262c4669b99f70e7 100644
+--- a/dist/blocks.js
++++ b/dist/blocks.js
+@@ -1264,7 +1264,7 @@ function JsonNodeAccordion({
+   deep,
+   ...props
+ }) {
+-  let accordionKey = `${keyPath.at(-1) ?? "root"}-${name}-${deep}`, ids = {
++  let instanceId = React8.useId(), accordionKey = `${instanceId}-${keyPath.at(-1) ?? "root"}-${name}-${deep}`, ids = {
+     trigger: `${accordionKey}-trigger`,
+     region: `${accordionKey}-region`
+   }, containerTag = keyPath.length > 0 ? "li" : "div";

@@ -82,7 +82,7 @@ export const Playground = {
     docs: {
       description: { story: 'An email verification card with a code already half entered. `maxLength` resizes both slot groups, `pattern` switches between digit and alphanumeric codes, and `disabled` dims the slots and the Verify button.' },
       source: {
-        type: 'dynamic',
+        type: 'code',
         language: 'jsx',
         transform: (_source, { args }) => previewSource('InputOTP', args, {
           imports: "import { useState } from 'react';\nimport { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@gaudi/design-system';",

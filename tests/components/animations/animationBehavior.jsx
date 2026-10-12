@@ -1,11 +1,23 @@
-import { StrictMode } from 'react';
+import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, waitFor } from 'storybook/test';
 import { act } from '../../support/reactAct.js';
 import * as animations from '../../../src/components/animations/index.js';
 
+// Browser promises (fonts, observers, renderers) can update state immediately after commit.
+function ActMicrotaskProbe() {
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    let current = true;
+    Promise.resolve().then(() => { if (current) setReady(true); });
+    return () => { current = false; };
+  }, []);
+  return <span>{ready ? 'Microtask settled' : 'Pending microtask'}</span>;
+}
+
 /** Real-browser lifecycle checks; temporary roots never enter copied examples. */
 export async function checkAnimationBehavior(canvasElement) {
+  if (import.meta.env.MODE !== 'test') return;
   const sandbox = document.createElement('div');
   sandbox.style.cssText = 'position:fixed;top:0;left:0;width:320px;z-index:1000;background:white;color:black;font-size:36px';
   canvasElement.append(sandbox);
@@ -14,6 +26,20 @@ export async function checkAnimationBehavior(canvasElement) {
   const originalMatchMedia = window.matchMedia;
   const visibilityDescriptor = Object.getOwnPropertyDescriptor(document, 'visibilityState');
   try {
+    const errors = [];
+    const originalError = console.error;
+    console.error = (...args) => {
+      if (args.some(value => String(value).includes('ActMicrotaskProbe'))) errors.push(args.map(String).join(' '));
+      originalError.apply(console, args);
+    };
+    try {
+      await render(ActMicrotaskProbe);
+      expect(sandbox.textContent).toBe('Microtask settled');
+      expect(errors, 'promise updates after commit stay inside the awaited act scope').toEqual([]);
+    } finally {
+      console.error = originalError;
+    }
+
     await render(animations.Typewriter, { texts: ['ABC'], typeDelay: 16, eraseDelay: 16, holdDelay: 100, repeat: false });
     await waitFor(() => expect(sandbox.querySelector('.gaudi-typewriter__value').textContent).toBe('ABC|'));
     await render(animations.Typewriter, { texts: ['New'], typeDelay: 16, repeat: false });

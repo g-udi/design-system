@@ -20,7 +20,8 @@ Exports: `ChatMessageFeedback`, `default`
 | `defaultRating` | `none \| up \| down` | `none` | no | Initial rating. |
 | `regenerate` | `boolean` | `true` | no | Example only: shows Regenerate through onRegenerate. |
 | `copyText` | `string` | — | no | What copy writes. |
-| `rating / onRatingChange` | `'up' \| 'down' \| null / function` | — | no | Controlled rating. |
+| `rating` | `'up' \| 'down' \| null` | — | no | Controlled rating. |
+| `onRatingChange` | `function` | — | no | Controlled rating. |
 | `onCopy / onRegenerate` | `function` | — | no | Host callbacks. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

@@ -19,13 +19,20 @@ Exports: `ChatFileExplorer`, `default`
 | --- | --- | --- | --- | --- |
 | `label` | `string` | `Files` | no | Region and tree name. |
 | `expanded` | `boolean` | `true` | no | Example only: opens the folders. |
-| `items / rootId` | `{ [id]: { name, children?, meta?, typeLabel?, sizeLabel?, modifiedLabel?, modifiedAt?, downloadUrl?, downloadName?, canPreview?, agent? } } / string` | `{} / root` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
+| `items` | `{ [id]: { name, children?, meta?, typeLabel?, sizeLabel?, modifiedLabel?, modifiedAt?, downloadUrl?, downloadName?, canPreview?, agent? } }` | `{}` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
+| `rootId` | `string` | `root` | no | Flat file map. Agent folders accept ChatAgentMark identity props; labels are prepared by the host. |
 | `defaultExpanded` | `string[]` | `[]` | no | Initially open folders. |
-| `selectedId / defaultSelectedId / onSelect` | `string \| null / string \| null / (id, item) => void` | `— / null / —` | no | Controlled or local single-file selection. |
+| `selectedId` | `string \| null` | — | no | Controlled or local single-file selection. |
+| `defaultSelectedId` | `string \| null` | `null` | no | Controlled or local single-file selection. |
+| `onSelect` | `(id, item) => void` | — | no | Controlled or local single-file selection. |
 | `onPreview` | `(id, item) => void` | — | no | Adds a named preview action for eligible files; the host supplies content. |
 | `searchable` | `boolean` | `true` | no | Search names and metadata while preserving ancestors. |
-| `loading / refreshing / error` | `boolean / boolean / ReactNode` | `false / false / —` | no | Initial loading, background refresh and recoverable failure. |
-| `onRefresh / onRetry / actions` | `function / function / ReactNode` | — | no | Header refresh, recovery callback and extra actions. |
+| `loading` | `boolean` | `false` | no | Initial loading, background refresh and recoverable failure. |
+| `refreshing` | `boolean` | `false` | no | Initial loading, background refresh and recoverable failure. |
+| `error` | `ReactNode` | — | no | Initial loading, background refresh and recoverable failure. |
+| `onRefresh` | `function` | — | no | Header refresh, recovery callback and extra actions. |
+| `onRetry` | `function` | — | no | Header refresh, recovery callback and extra actions. |
+| `actions` | `ReactNode` | — | no | Header refresh, recovery callback and extra actions. |
 | `labels` | `object` | `English copy` | no | Search, actions and recovery copy. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

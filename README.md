@@ -392,6 +392,7 @@ pnpm test:contracts
 pnpm pack:check
 pnpm test:consumer
 pnpm test-storybook
+pnpm test-storybook:run
 pnpm build-storybook
 ```
 
@@ -401,6 +402,17 @@ production consumer, Storybook interactions and axe accessibility, responsive ch
 in both themes, container layout checks, and the Storybook build. Version releases
 can write only after the same validation passes for the checked-out commit; the
 version commit and annotated tag are pushed atomically.
+
+`pnpm test-storybook` keeps the interactive watch workflow. `pnpm test-storybook:run`
+is the finite full-catalogue gate used by CI: it executes every story in light and
+dark themes, preserving the responsive/source or container-layout audit flags.
+Each bounded group starts a fresh Vitest/browser process; no tests are retried or
+filtered. Per-group logs and completion ledgers, plus an aggregate summary, are
+saved under `.storybook/verification/<date>/`. A missing, skipped, duplicate or
+failed story, a browser transport error, an incomplete group, or changed source
+fails the full run. Set `GAUDI_STORYBOOK_REPORT_DIR` to select its evidence directory.
+Fresh processes bound the browser's lifetime; they do not establish the cause of
+an upstream transport failure in an unbatched run.
 
 Storybook uses local fixtures and static assets to document components without depending on the blog repository or remote services. These fixtures are not part of the runtime API. Contributor rules and story conventions live in [AGENTS.md](AGENTS.md#storybook-and-examples).
 
@@ -427,7 +439,7 @@ Run affected Storybook tests with a file filter, for example:
 pnpm exec vitest run --project=storybook src/components/core/Attachment/stories/AttachmentMedia.stories.jsx
 ```
 
-Use `VITE_GAUDI_AUDIT=1` to validate authored/copied Docs source and run the responsive width audit (add `VITE_GAUDI_AUDIT_THEMES=both` to check both CSS themes and restore the original theme), `VITE_GAUDI_VISUAL=1` for container layout checks, and `VITE_GAUDI_THEME=dark` for dark-theme checks. Run visual and responsive audit modes separately. For screenshot evidence, pass comma-separated story IDs (including their derived states) or `*` in `VITE_GAUDI_AUDIT_SCREENSHOTS` and a repository-local absolute directory in `VITE_GAUDI_AUDIT_SCREENSHOT_DIR`; run that capture with `--no-file-parallelism` because the browser provider targets the active test frame. Captures cover 320, 390 and 1440px. Set `GAUDI_AUDIT_REPORT_DIR` to a repository-local evidence directory to persist one JSON report per story/state and theme, including every width actually checked; browser console output alone is not a reliable audit record. With Storybook running, `pnpm audit:controls` verifies that Playground controls affect the preview; interaction-dependent controls declare `parameters.controlAudit.interaction`. Intentional full-width examples declare `parameters.visualAudit.wide` with a reason. After changing pattern sources, run `node scripts/verify-pattern-sources.mjs` to check their copyable public imports.
+Use `VITE_GAUDI_AUDIT=1` to validate authored/copied Docs source and run the responsive width audit (add `VITE_GAUDI_AUDIT_THEMES=both` to check both CSS themes and restore the original theme), `VITE_GAUDI_VISUAL=1` for container layout checks, and `VITE_GAUDI_THEME=dark` for dark-theme checks. Run standalone visual and responsive audit modes separately. Add `VITE_GAUDI_AUDIT_VISUAL=1` to a responsive run to record container-layout heuristics as advisory `visualFindings` at each width; inspect those findings before classifying intentional layouts as defects. Add `VITE_GAUDI_AUDIT_DENSITIES=all` to check all five supported spacing presets: the default density uses the full breakpoint matrix, and the other densities use 320, 390, 768, 1440 and 1920px. Density overrides are restored afterward; screenshot captures remain at the default density. For screenshot evidence, pass comma-separated story IDs (including their derived states) or `*` in `VITE_GAUDI_AUDIT_SCREENSHOTS` and a repository-local absolute directory in `VITE_GAUDI_AUDIT_SCREENSHOT_DIR`; run that capture with `--no-file-parallelism` because the browser provider targets the active test frame. Captures cover 320, 390 and 1440px. Set `GAUDI_AUDIT_REPORT_DIR` to a repository-local evidence directory to persist one JSON report per story/state and theme, including every width actually checked; browser console output alone is not a reliable audit record. With Storybook running, `pnpm audit:controls http://localhost:6006` exercises each component’s exposed Docs controls and reset through their actual widgets, verifies delivered args, and records stable rendered changes in `.storybook/verification/<date>/controls/results.json`. Use `--inventory` for story metadata, `--filter=<docs-id-regex>` for focused confirmation, and `GAUDI_CONTROLS_REPORT_DIR` to choose the evidence directory. Canvas uniforms are recorded separately; canvas pixels, conditional controls, equivalent values, and interaction-dependent effects still require owner-specific checks. Unresolved results remain explicit in the report; they are not visual passes. Interaction-dependent controls declare `parameters.controlAudit.interaction`. Intentional full-width examples declare `parameters.visualAudit.wide` with a reason. After changing pattern sources, run `node scripts/verify-pattern-sources.mjs` to check their copyable public imports.
 
 Every UI change needs visual and interaction checks across narrow/common phones, tablets, laptops, and wide desktops, including affected breakpoints and adjacent widths. Inspect wrapping, clipping, alignment, and contained scrolling; report the widths actually checked and restore viewport/theme overrides. Historical results under [`.storybook/verification/`](.storybook/verification/) describe their dated scope, not the current state of the entire system.
 
@@ -440,6 +452,8 @@ Run `pnpm catalogue:sync` after adding, removing, or renaming stories to refresh
 ## Component catalogue
 
 Open **Component Catalogue** from Storybook's Getting Started page to search owners and practical use cases. Owner docs contain the supported APIs, interaction states, and copyable imports; the current index replaces duplicated Markdown inventories and example counts.
+
+**MDX / Overview** introduces article authoring and the unified, remark and rehype pipeline, adapted from “Creating Rich & Interactive Blog Posts.” Follow one example from source through its syntax trees to React, then open the individual article component pages.
 
 Existing convenience APIs and compound parts share their owner. Where names would collide, documented parts use explicit names such as `CardRoot` alongside `Card`, or `SelectRoot` alongside `Select`. Use the public contract shown in the owner's examples.
 

@@ -101,7 +101,25 @@ export const Folding = {
     await userEvent.click(canvas.getByRole('button', { name: 'Show less' }));
   }
 };
-export const FileSearch = { name: 'Find within a long file', ...pattern('file-search', 'Live search marking every match, with a counter that reads the block through useCodeBlockConfig.') };
+export const FileSearch = {
+  name: 'Find within a long file',
+  ...pattern('file-search', 'Live search marking every match, with a counter that reads the block through useCodeBlockConfig.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Search in file' });
+    await userEvent.clear(search);
+    await userEvent.type(search, 'no-such-symbol');
+    await expect(canvas.getByText('0 matches')).toBeVisible();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'createInvite');
+    await expect(canvas.getByText('1 match')).toBeVisible();
+    await waitFor(() => expect(canvasElement.querySelector('[data-word]')).toHaveTextContent('createInvite'));
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear search' }));
+    await expect(search).toHaveValue('');
+    await expect(canvas.getByRole('button', { name: 'Clear search' })).toBeDisabled();
+    await expect(canvas.queryByText('1 match')).not.toBeInTheDocument();
+  }
+};
 export const PatchReview = {
   name: 'Patch review',
   ...pattern('patch-review', 'A proposed git patch parsed into files with dual gutters, counters and downloads, a before-and-after view, one scroll area for every file, and accept or reject actions.'),
@@ -132,8 +150,40 @@ export const PatchReview = {
     await expect(canvas.getByText('Change accepted in this demo')).toBeVisible();
   }
 };
-export const StreamingReply = { name: 'Streaming assistant reply', ...pattern('streaming-reply', 'A chat reply streamed through markdownFences, with a caret, stick-to-bottom scrolling and a status badge on the open fence.') };
-export const Diagnostics = { name: 'Diagnostics with fixes', ...pattern('diagnostics', 'Error and warning lines, each with a fix action on its own row that applies the patch.') };
+export const StreamingReply = {
+  name: 'Streaming assistant reply',
+  ...pattern('streaming-reply', 'A chat reply streamed through markdownFences, with a caret, stick-to-bottom scrolling and a status badge on the open fence.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const replay = canvas.getByRole('button', { name: 'Replay' });
+    await waitFor(() => expect(replay).toBeEnabled(), { timeout: 8000 });
+    await expect(canvas.getByText('Complete')).toBeVisible();
+    await expect(canvasElement.querySelector('[data-slot="code-block"]')).toHaveTextContent('toUIMessageStreamResponse');
+    await userEvent.click(replay);
+    await expect(replay).toBeDisabled();
+    await waitFor(() => expect(canvas.getByText('Generating')).toBeVisible());
+  }
+};
+export const Diagnostics = {
+  name: 'Diagnostics with fixes',
+  ...pattern('diagnostics', 'Error and warning lines, each with a fix action on its own row that applies the patch.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const grid = canvas.getByRole('region', { name: 'typescript code' });
+    await userEvent.hover(canvasElement.querySelector('[data-code-line="3"]'));
+    await userEvent.click(await canvas.findByRole('button', { name: 'Fix with AI' }));
+    await expect(canvas.queryByText('1 error')).not.toBeInTheDocument();
+    await expect(grid).toHaveTextContent('lines.reduce((sum, amount) => sum + amount, 0)');
+    await userEvent.hover(canvasElement.querySelector('[data-code-line="4"]'));
+    await userEvent.click(await canvas.findByRole('button', { name: 'Fix line 4' }));
+    await expect(canvas.getByText('No problems')).toBeVisible();
+    await expect(grid).toHaveTextContent('Number(invoice.taxRate)');
+    await userEvent.click(canvas.getByRole('button', { name: 'Undo' }));
+    await expect(canvas.getByText('1 error')).toBeVisible();
+    await expect(canvas.getByText('1 warning')).toBeVisible();
+    await expect(grid).toHaveTextContent('parseInt(invoice.taxRate)');
+  }
+};
 export const ChatReferences = {
   name: 'Quoted lines in a chat answer',
   ...pattern('chat-references', 'Select lines, then a gutter button turns them into file:line reference badges in a chat composer.'),

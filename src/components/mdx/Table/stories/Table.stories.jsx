@@ -31,7 +31,8 @@ export const Playground = {
     const canvas = within(canvasElement);
     await expect(canvas.getByRole('region', { name: 'Scrollable table' })).toHaveAttribute('tabindex', '0');
     const table = canvas.getByRole('table', { name: /75th-percentile field data/ });
-    await expect(table).toHaveClass('w-full', 'table-auto');
+    await expect(getComputedStyle(table).tableLayout).toBe('auto');
+    await expect(table.getBoundingClientRect().width).toBeGreaterThanOrEqual(table.parentElement.clientWidth - 1);
     await expect(canvas.getAllByRole('row')).toHaveLength(rows.length + 1);
     for (const name of columns) await expect(canvas.getByRole('columnheader', { name })).toBeVisible();
     await expect(canvas.getByRole('cell', { name: 'Search' })).toBeVisible();

@@ -108,7 +108,7 @@ export const DataReplacement = {
   render: function Render() {
     const [items, setItems] = useState(originalFiles);
     return <div className='grid w-full max-w-md gap-3'>
-      <div className='flex flex-wrap gap-2' aria-label='Simulate workspace updates'>
+      <div role='group' className='flex flex-wrap gap-2' aria-label='Simulate workspace updates'>
         <Button size='sm' variant='outline' onClick={() => setItems({ root: { name: 'Files', children: ['second'] }, second: originalFiles.second })}>Remove first file</Button>
         <Button size='sm' variant='outline' onClick={() => setItems({ root: { name: 'Files', children: ['third'] }, third: { name: 'third.md' } })}>Replace files</Button>
         <Button size='sm' variant='outline' onClick={() => setItems({ root: { name: 'Files', children: [] } })}>Clear files</Button>
@@ -182,7 +182,7 @@ export const EmptyFolders = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const folder = await canvas.findByRole('treeitem', { name: 'Drafts' });
-    await expect(within(canvasElement.querySelector('header')).getByLabelText('0 files')).toBeVisible();
+    await expect(canvasElement.querySelector('header [data-slot="badge"]')).toHaveTextContent('0 files');
     await expect(canvas.queryByText('No files yet')).toBeNull();
     await userEvent.click(folder);
     await expect(folder).toHaveAttribute('aria-expanded', 'true');

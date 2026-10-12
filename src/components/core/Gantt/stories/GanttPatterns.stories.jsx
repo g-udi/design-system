@@ -1,3 +1,4 @@
+import { actInteraction } from '../../../../../tests/support/actInteraction.js';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 
@@ -10,7 +11,7 @@ const pattern = patternStories(
 const page = (canvasElement) => within(canvasElement.ownerDocument.body);
 /** Picks an option from a labelled Select inside a dialog scope. */
 const choose = async (canvasElement, scope, label, option) => {
-  await userEvent.click(scope.getByRole('combobox', { name: label }));
+  await actInteraction(() => userEvent.click(scope.getByRole('combobox', { name: label })));
   await userEvent.click(await page(canvasElement).findByRole('option', { name: option }));
 };
 
@@ -25,8 +26,10 @@ export const SettingsReordering = {
     const body = page(canvasElement);
     await expect(await body.findByRole('switch', { name: 'Row checkboxes' })).toBeChecked();
     await userEvent.click(body.getByRole('tab', { name: 'Region' }));
-    await expect(body.getByRole('combobox', { name: 'Language' })).toBeVisible();
-    await expect(body.getByRole('combobox', { name: 'Time zone' })).toBeVisible();
+    await waitFor(() => {
+      expect(body.getByRole('combobox', { name: 'Language' })).toBeVisible();
+      expect(body.getByRole('combobox', { name: 'Time zone' })).toBeVisible();
+    });
     if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
       const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
       await auditStoryLayout({ ...context, id: `${context.id}--settings` });
@@ -70,8 +73,51 @@ export const LiveValidation = {
     }
   }
 };
-export const TaskTable = { name: 'Task table with progress', ...pattern('task-table', 'Tree columns for owner and status beside the bars, with progress on each task.') };
-export const QuarterRoadmap = { name: 'Quarter roadmap with rollups', ...pattern('quarter-roadmap', 'A quarter-scale roadmap where each team row rolls up its projects.') };
+export const TaskTable = {
+  name: 'Task table with progress',
+  ...pattern('task-table', 'Tree columns for owner and status beside the bars, with progress on each task.'),
+  play: async (context) => {
+    const { canvasElement } = context;
+    const canvas = within(canvasElement);
+    for (const number of [1, 2]) {
+      await userEvent.click(canvas.getByRole('button', { name: 'Add task' }));
+      const bar = await canvas.findByRole('button', { name: new RegExp(`^New task ${number}\\b`) });
+      await expect(bar).toHaveAttribute('data-slot', 'gantt-bar');
+      await expect(bar).toHaveAttribute('data-progress', '0');
+      const row = [...canvasElement.querySelectorAll('[data-slot="gantt-row-group"]')].find(element => within(element).queryByText(`New task ${number}`, { exact: true }));
+      await expect(within(row).getByText('Unassigned')).toBeVisible();
+      await expect(within(row).getByText('Not started')).toBeVisible();
+    }
+    await expect(canvas.getAllByRole('button', { name: /^New task [12]\b/ })).toHaveLength(2);
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--tasks-added` });
+    }
+  }
+};
+export const QuarterRoadmap = {
+  name: 'Quarter roadmap with rollups',
+  ...pattern('quarter-roadmap', 'A quarter-scale roadmap where each team row rolls up its projects.'),
+  play: async (context) => {
+    const { canvasElement } = context;
+    const canvas = within(canvasElement);
+    const add = canvas.getByRole('button', { name: 'Add to roadmap' });
+    for (const title of ['Archive search', 'Billing v2', 'Offline reading']) {
+      await expect(add).toBeEnabled();
+      await expect(canvas.queryByRole('button', { name: new RegExp(`^${title}\\b`) })).not.toBeInTheDocument();
+      await userEvent.click(add);
+      await expect(await canvas.findByRole('button', { name: new RegExp(`^${title}\\b`) })).toHaveAttribute('data-slot', 'gantt-bar');
+    }
+    await expect(add).toBeDisabled();
+    for (const title of ['Archive search', 'Billing v2', 'Offline reading']) {
+      await expect(canvas.getAllByRole('button', { name: new RegExp(`^${title}\\b`) })).toHaveLength(1);
+    }
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--backlog-scheduled` });
+    }
+  }
+};
 export const ResourcePlanner = {
   name: 'Capacity-aware resource planner',
   ...pattern('resource-planner', 'People and rooms with weekly utilisation and booking cards. Drags that would overbook a day are refused; create, edit, copy and delete bookings from the toolbar, the dialog or the right-click menu.'),

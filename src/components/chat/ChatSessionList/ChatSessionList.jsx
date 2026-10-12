@@ -20,7 +20,7 @@ import {
   DialogConfirmationHeader,
   DialogConfirmationTitle
 } from '../../core/Dialog/DialogConfirmationPrimitives.jsx';
-import { FieldInput as Input } from '../../core/Field/index.js';
+import Input from '../../core/Input/index.js';
 import { Label } from '../../core/Field/Label.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 
@@ -85,10 +85,9 @@ function ChatSessionList({ sessions = [], activeId, onSelect, onRename, onDelete
         ) : null}
       </div>
       {searchable ? (
-        <div className='relative'>
+        <div>
           <label htmlFor={searchId} className='sr-only'>{labels.search}</label>
-          <RegistryIcon lucide='Search' className='text-text-muted pointer-events-none absolute start-2.5 top-1/2 size-3.5 -translate-y-1/2' />
-          <Input id={searchId} type='search' value={query} onChange={(event) => setQuery(event.target.value)} placeholder={labels.search} className='h-8 ps-8 text-sm' />
+          <Input id={searchId} type='search' value={query} onChange={(event) => setQuery(event.target.value)} placeholder={labels.search} inputClassName='text-sm' prefix={<RegistryIcon lucide='Search' className='size-3.5' />} />
         </div>
       ) : null}
       <div>

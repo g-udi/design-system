@@ -11,10 +11,14 @@ export function useMousePosition({ enabled = true } = {}) {
   const [position, setPosition] = useState({ x: null, y: null, pageX: null, pageY: null, elementX: null, elementY: null, isInside: false });
   const ref = useCallback((element) => { node.current = element; }, []);
   useEventListener('pointermove', (event) => {
-    const bounds = node.current?.getBoundingClientRect();
-    pending.current = { x: event.clientX, y: event.clientY, pageX: event.pageX, pageY: event.pageY, elementX: bounds ? event.clientX - bounds.left : null, elementY: bounds ? event.clientY - bounds.top : null, isInside: Boolean(bounds && event.clientX >= bounds.left && event.clientX <= bounds.right && event.clientY >= bounds.top && event.clientY <= bounds.bottom) };
+    pending.current = { x: event.clientX, y: event.clientY, pageX: event.pageX, pageY: event.pageY };
     if (frame.current !== null) return;
-    frame.current = requestAnimationFrame(() => { frame.current = null; setPosition(pending.current); });
+    frame.current = requestAnimationFrame(() => {
+      frame.current = null;
+      const sample = pending.current;
+      const bounds = node.current?.getBoundingClientRect();
+      setPosition({ ...sample, elementX: bounds ? sample.x - bounds.left : null, elementY: bounds ? sample.y - bounds.top : null, isInside: Boolean(bounds && sample.x >= bounds.left && sample.x <= bounds.right && sample.y >= bounds.top && sample.y <= bounds.bottom) });
+    });
   }, enabled ? 'window' : null, { passive: true });
   useEffect(() => () => { if (frame.current !== null) cancelAnimationFrame(frame.current); frame.current = null; }, [enabled]);
   return { ref, ...position };

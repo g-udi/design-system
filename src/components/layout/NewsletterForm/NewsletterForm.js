@@ -49,12 +49,17 @@ const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscri
 
   useEffect(() => {
     mountedRef.current = true;
+    setError(false);
+    setMessage('');
+    setSubmitting(false);
+    setSubscribed(false);
 
     return () => {
       mountedRef.current = false;
       abortControllerRef.current?.abort();
+      abortControllerRef.current = null;
     };
-  }, []);
+  }, [endpoint]);
 
   /**
    * Handles newsletter subscription form submission
@@ -81,6 +86,8 @@ const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscri
 
     abortControllerRef.current = controller;
     setSubmitting(true);
+    setError(false);
+    setMessage('');
 
     try {
       const res = await fetch(endpoint, {
@@ -107,7 +114,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscri
 
       if (responseError || !res.ok) {
         setError(true);
-        setMessage('Your e-mail address is invalid or you are already subscribed!');
+        setMessage('We could not subscribe you. Please try again.');
 
         return;
       }
@@ -117,7 +124,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscri
       setSubscribed(true);
       setMessage('You are now subscribed.');
     } catch (err) {
-      if (err?.name === 'AbortError' || !mountedRef.current) return;
+      if (controller.signal.aborted || err?.name === 'AbortError' || !mountedRef.current) return;
 
       setError(true);
       setMessage('Something went wrong. Please check your connection and try again.');
@@ -145,7 +152,7 @@ const NewsletterForm = ({ className, classNames = {}, endpoint, title = 'Subscri
           ref={ inputEl }
           required
 
-          disabled={ subscribed }
+          disabled={ subscribed || submitting }
           invalid={ error }
           aria-describedby={ message ? messageId : undefined }
           inputClassName={ cn('min-h-11 px-4 py-2', classNames.input) }

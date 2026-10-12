@@ -3,7 +3,7 @@ import { cn } from '../../../utilities/cn/index.js';
 function Table({ className, density = 'normal', containerProps = {}, ...props }) {
   const { className: containerClassName, ...containerAttributes } = containerProps;
   return (
-    <div {...containerAttributes} data-slot='table-container' className={cn('ds-part-table-container', containerClassName)}>
+    <div role='region' aria-label='Scrollable table' tabIndex={0} {...containerAttributes} data-slot='table-container' className={cn('ds-part-table-container', containerClassName)}>
       <table
         data-slot='table'
         data-density={density}

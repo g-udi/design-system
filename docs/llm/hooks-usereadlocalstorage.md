@@ -18,7 +18,8 @@ Exports: `useReadLocalStorage`
 | --- | --- | --- | --- | --- |
 | `key` | `string` | — | no | Storage key to subscribe to. |
 | `initialValue` | `any` | `null` | no | Server, hydration, absent-key and invalid-JSON fallback. |
-| `options.deserialize / syncTabs` | `function / boolean` | `JSON.parse / true` | no | Custom reader and whether to subscribe to cross-tab changes. |
+| `options.deserialize` | `function` | `JSON.parse` | no | Custom reader and whether to subscribe to cross-tab changes. |
+| `syncTabs` | `boolean` | `true` | no | Custom reader and whether to subscribe to cross-tab changes. |
 
 ## Returns
 

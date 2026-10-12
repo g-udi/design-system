@@ -8,7 +8,7 @@ import vm from 'node:vm';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { loadComponent } from '../support/renderComponent.js';
-import { compileTheme } from '../../src/themes/compile.js';
+import { compileTheme, compileThemes } from '../../src/themes/compile.js';
 import { themePresets } from '../../src/themes/presets.js';
 import { applyTheme, getThemeScript } from '../../src/themes/runtime.js';
 
@@ -94,6 +94,19 @@ test('applyTheme injects one replaceable style element and compiles without a DO
   first.remove();
   assert.equal(document.styles.length, 0);
   assert.match(applyTheme(ember, { document: undefined }).css, /--ds-color-accent:/);
+});
+
+test('custom theme selectors apply to tokens, anchors and the pre-paint stylesheet', () => {
+  const theme = themePresets.find(theme => theme.id === 'gaudi');
+  const options = { attribute: 'data-palette', darkClass: 'night' };
+  const css = compileTheme(theme, options);
+  assert.match(css, /\[data-palette="gaudi"\]\.night/);
+  assert.doesNotMatch(css, /\[data-theme=|\.dark/);
+  const collection = compileThemes([theme], options);
+  assert.match(collection, /\[data-palette\], \[data-palette\] \.night/);
+  const document = runScript(getThemeScript(options), { stored: { 'gaudi-theme-css': css, 'gaudi-theme-mode': 'dark' } });
+  assert.equal(document.styles[0].textContent, css);
+  assert.equal(document.classes.has('night'), true);
 });
 
 test('ThemeProvider renders deterministic defaults on the server', async () => {

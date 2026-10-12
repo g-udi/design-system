@@ -19,15 +19,19 @@ Exports: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppS
 | --- | --- | --- | --- | --- |
 | `brand / navigation / header / footer` | `ReactNode` | — | no | Shell slots built from Gaudi components; footer sits at the foot of the rail. |
 | `layout` | `sidebar \| topbar` | `sidebar` | no | A navigation rail, or brand and navigation in the header for sidebar-free apps. |
-| `aside / asideLabel` | `ReactNode / string` | `— / Details` | no | A complementary detail rail beside the content; it stacks below the content under xl. |
+| `aside` | `ReactNode` | — | no | A complementary detail rail beside the content; it stacks below the content under xl. |
+| `asideLabel` | `string` | `Details` | no | A complementary detail rail beside the content; it stacks below the content under xl. |
 | `statusBar` | `ReactNode` | — | no | A status strip under the content, for sync state, counts or environment. |
 | `navigationLabel` | `string` | `Workspace navigation` | no | Navigation landmark name. |
 | `menuLabel / skipLabel` | `string` | `Open navigation / Skip to content` | no | Mobile trigger and skip-link labels. |
 | `SidebarProvider.storageKey` | `string` | — | no | Restores and saves the expanded state in localStorage, after mount. |
 | `SidebarProvider.shortcut` | `string \| false` | `b` | no | The ⌘/Ctrl key that toggles the sidebar; false turns it off. |
 | `SidebarProvider.labels` | `{ expanded, collapsed, toggle }` | `English copy` | no | Announcements when the sidebar toggles, and the trigger name. |
-| `Sidebar.variant / collapsible / side` | `sidebar \| floating \| inset / offcanvas \| icon \| none / left \| right` | `sidebar / offcanvas / inline start (left in LTR, right in RTL)` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
-| `SidebarTrigger.label / tooltip` | `string / boolean` | `Toggle Sidebar / true` | no | Trigger name and a tooltip showing the shortcut. |
+| `Sidebar.variant` | `sidebar \| floating \| inset` | `sidebar` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `collapsible` | `offcanvas \| icon \| none` | `offcanvas` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `side` | `left \| right` | `inline start (left in LTR, right in RTL)` | no | Sidebar style, how it collapses and which edge it docks to; collapsed-row tooltips open toward the other edge. |
+| `SidebarTrigger.label` | `string` | `Toggle Sidebar` | no | Trigger name and a tooltip showing the shortcut. |
+| `tooltip` | `boolean` | `true` | no | Trigger name and a tooltip showing the shortcut. |
 | `SidebarMenuButton.tooltip` | `string \| TooltipContent props` | — | no | Names the item on the collapsed icon rail. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -35,6 +39,8 @@ Exports: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppS
 ## Variants
 
 - `layout`: `sidebar`, `topbar`
+- `collapsible`: `offcanvas`, `icon`, `none`
+- `side`: `left`, `right`
 
 ## Usage
 

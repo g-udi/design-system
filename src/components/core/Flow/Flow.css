@@ -31,6 +31,17 @@
     --xy-minimap-node-background-color: color-mix(in srgb, var(--ds-color-text) 20%, transparent);
   }
 
+  .ds-flow .react-flow__attribution {
+    background: var(--ds-color-surface);
+  }
+  .ds-flow .react-flow__attribution a {
+    color: var(--ds-color-text-muted);
+  }
+  .ds-flow .react-flow__attribution a:focus-visible {
+    outline: 2px solid var(--ds-color-accent);
+    outline-offset: -2px;
+  }
+
   .ds-flow .react-flow__node:focus-visible {
     outline: none;
   }

@@ -78,7 +78,7 @@ export function EditorExample({ onOpenChange, onSave, ...args }) {
               </>
             )}
           >
-            <div className='grid gap-4'>
+            <div className='grid min-w-0 grid-cols-1 gap-4'>
               <div className='flex items-center gap-3'>
                 <img src={alternateCover ? '/static/images/art/1.svg' : iris} alt='' className='aspect-video w-16 shrink-0 rounded-md object-cover sm:w-24' />
                 <div className='min-w-0 flex-1'>

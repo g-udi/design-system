@@ -47,7 +47,7 @@ Include column or row headers and an accessible caption. Wide data scrolls insid
 
 Curated patterns:
 
-- API keys and permissions — registry item `@gaudi/table-api-keys` (uses `Badge`, `Button`, `CardContent`, `CardRoot`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
+- API keys and permissions — registry item `@gaudi/table-api-keys` (uses `Badge`, `Button`, `CardContent`, `CardRoot`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `useCopyToClipboard`)
 - Simple data table — registry item `@gaudi/table-basic` (uses `TableBodyPrimitive`, `TableCaption`, `TableCellPrimitive`, `TableFooter`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Editable cells — registry item `@gaudi/table-editable` (uses `CardContent`, `CardRoot`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)
 - Leaderboard — registry item `@gaudi/table-leaderboard` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`)

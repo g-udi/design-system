@@ -16,7 +16,9 @@ Exports: `useInView`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.root / rootMargin / threshold` | `Element / string / number \| number[]` | `viewport / '0px' / 0` | no | IntersectionObserver options. |
+| `options.root` | `Element` | `viewport` | no | IntersectionObserver options. |
+| `rootMargin` | `string` | `'0px'` | no | IntersectionObserver options. |
+| `threshold` | `number \| number[]` | `0` | no | IntersectionObserver options. |
 | `options.once` | `boolean` | `false` | no | Stop after the first time the element is in view. |
 | `options.initialInView` | `boolean` | `false` | no | Value on the server and without IntersectionObserver. |
 | `options.onChange` | `(inView, entry) => void` | — | no | Called on each change. |

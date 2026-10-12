@@ -1,4 +1,4 @@
-import { expect, fn, userEvent, within } from 'storybook/test';
+import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 
 const pattern = patternStories(
@@ -19,7 +19,28 @@ export const Sections = {
     await expect(canvas.getByRole('button', { name: 'Certify' })).toBeDisabled();
   }
 };
-export const Media = { name: 'Media cards', ...pattern('media', 'An image card with inset or full-bleed media beside an overlay card with an author header, gradient fades and hover zoom.') };
+export const Media = {
+  name: 'Media cards', ...pattern('media', 'An image card with inset or full-bleed media beside an overlay card with an author header, gradient fades and hover zoom.'),
+  play: async (context) => {
+    const canvas = within(context.canvasElement);
+    const toggle = canvas.getByRole('switch', { name: 'Full-bleed image' });
+    const card = canvas.getByRole('link', { name: 'Get started' }).closest('[data-slot="card"]');
+    const image = card.querySelector('img');
+    const inset = () => image.getBoundingClientRect().left - card.getBoundingClientRect().left;
+    await expect(toggle).not.toBeChecked();
+    await expect(inset()).toBeGreaterThan(8);
+    await userEvent.click(toggle);
+    await expect(toggle).toBeChecked();
+    await waitFor(() => expect(inset()).toBeLessThanOrEqual(1));
+    await expect(canvas.getByRole('link', { name: 'Get started' })).toHaveAttribute('href', '/projects/new');
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--full-bleed` });
+    }
+    await userEvent.click(toggle);
+    await waitFor(() => expect(inset()).toBeGreaterThan(8));
+  }
+};
 export const LinkCards = { name: 'Link cards', ...pattern('link-cards', 'Navigation cards led by an icon tile or a bordered header label.') };
 export const StatTrend = {
   name: 'Stat with trend and menu', ...pattern('stat-trend', 'A metric card with local pin, alert and remove actions; Share copies its explicit report route.'),

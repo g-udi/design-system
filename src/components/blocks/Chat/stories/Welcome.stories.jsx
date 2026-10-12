@@ -111,7 +111,7 @@ export const Welcome = {
   },
   parameters: { controls: { include: ['title', 'description', 'showOrb', 'suggestions', 'suggestionStyle'] }, docs: {
     description: { story: 'The welcome surface composes Persona, Core EmptyState parts, ChatPromptComposer, ChatModelSelect and ordinary Core Buttons. Choosing a starter fills and focuses the input so it can be reviewed or edited before sending. The host supplies greeting copy, prompts and submission. The orb respects reduced motion. There is no separate welcome or suggestions component.' },
-    source: { type: 'dynamic', language: 'jsx', transform: (_source, { args }) => welcomeSource(args) }
+    source: { type: 'code', language: 'jsx', transform: (_source, { args }) => welcomeSource(args) }
   } },
   render: (args) => <WelcomeDemo {...args} />,
   play: async ({ args, canvasElement }) => {

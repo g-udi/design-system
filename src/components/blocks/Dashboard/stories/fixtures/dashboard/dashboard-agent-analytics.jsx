@@ -84,9 +84,9 @@ export function Pattern() {
           </Tabs>
         </DashboardPanel>
         <DashboardPanel span={7} title='Agents ranked by conversations' description='Resolution rate and model cost per agent'>
-          <ol className='grid gap-3'>
+          <ol className='@container grid gap-3'>
             {agents.map((agent, index) => (
-              <li key={agent.seed} className='grid grid-cols-[auto_1fr_auto] items-center gap-x-3 gap-y-1'>
+              <li key={agent.seed} className='grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-1 @sm:grid-cols-[auto_minmax(0,1fr)_auto]'>
                 <ChatAgentMark name={agent.name} seed={agent.seed} size='md' decorative />
                 <div className='grid min-w-0 gap-1'>
                   <div className='flex items-baseline justify-between gap-2 text-sm'>
@@ -95,7 +95,7 @@ export function Pattern() {
                   </div>
                   <ProgressRoot value={agent.conversations} max={top} aria-label={`${agent.name}, ${agent.conversations} conversations`} />
                 </div>
-                <div className='grid justify-items-end text-xs'>
+                <div className='col-start-2 flex items-center justify-between gap-2 text-xs @sm:col-start-auto @sm:grid @sm:justify-items-end'>
                   <Badge variant={agent.resolved >= 85 ? 'success-light' : agent.resolved >= 78 ? 'info-light' : 'warning-light'}>{agent.resolved}% resolved</Badge>
                   <span className='text-text-muted mt-1 tabular-nums'>{agent.cost}</span>
                 </div>

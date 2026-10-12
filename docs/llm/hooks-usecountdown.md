@@ -16,7 +16,8 @@ Exports: `useCountdown`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `options.countStart / countStop` | `number / number` | `60 / 0` | no | Starting value and terminal value. |
+| `options.countStart` | `number` | `60` | no | Starting value and terminal value. |
+| `countStop` | `number` | `0` | no | Starting value and terminal value. |
 | `options.intervalMs` | `number` | `1000` | no | Positive milliseconds per tick; invalid values stop the timer. |
 | `options.isIncrement` | `boolean` | `false` | no | Count up toward the target instead of down. |
 

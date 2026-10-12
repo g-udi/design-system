@@ -9,7 +9,7 @@
 const safeExternalProtocols = new Set([ 'http:', 'https:', 'mailto:', 'tel:' ]);
 
 /**
- * Normalizes an href, allowing site-relative paths, hash links, and a safe
+ * Normalizes an href, allowing relative paths, hash/query links, and a safe
  * set of external protocols; anything else resolves to null.
  *
  * @param {*} href - Candidate href value
@@ -24,7 +24,8 @@ export const normalizeHref = (href) => {
   if (normalizedHref.startsWith('/') || normalizedHref.startsWith('#')) return normalizedHref;
 
   try {
-    const parsed = normalizedHref.startsWith('//') ? new URL(normalizedHref, 'https:') : new URL(normalizedHref);
+    // A base validates relative references without changing the authored destination.
+    const parsed = new URL(normalizedHref, 'https://gaudi.invalid/');
 
     return safeExternalProtocols.has(parsed.protocol) ? normalizedHref : null;
   } catch {

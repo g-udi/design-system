@@ -4,7 +4,8 @@ import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { useMeasuredWidth } from '../ChartFrame/chartMeasure.js';
-import { getChartColor } from '../ChartFrame/chartRuntime.js';
+import { chartAxisTick } from '../ChartFrame/ChartMarks.jsx';
+import { getChartColor, RechartsText } from '../ChartFrame/chartRuntime.js';
 import { boxStats, isChartNumber, niceTicks, scaleLinear } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
@@ -67,7 +68,7 @@ function BoxPlotPlot({ color, colors, groups, height, unit }) {
                 <rect fill={ stroke } fillOpacity={ isActive ? 0.3 : 0.16 } height={ Math.max(1, y(q1) - y(q3)) } rx={ 2 } stroke={ stroke } strokeWidth={ isActive ? 2.5 : 1.5 } width={ boxWidth } x={ center - boxWidth / 2 } y={ y(q3) } />
                 <line stroke={ stroke } strokeWidth={ 2.5 } x1={ center - boxWidth / 2 } x2={ center + boxWidth / 2 } y1={ y(median) } y2={ y(median) } />
                 {outliers.map((value, outlier) => <circle key={ `${value}-${outlier}` } cx={ center } cy={ y(value) } fill='var(--ds-color-surface)' r={ 3 } stroke={ stroke } strokeWidth={ 1.5 } />)}
-                <text fill='var(--ds-color-text-muted)' fontSize={ 12 } textAnchor='middle' x={ center } y={ height - 8 }>{group.label}</text>
+                <RechartsText breakAll maxLines={ 1 } style={ chartAxisTick } textAnchor='middle' width={ Math.max(1, band - 8) } x={ center } y={ height - 8 }>{group.label}</RechartsText>
               </g>
             );
           })}

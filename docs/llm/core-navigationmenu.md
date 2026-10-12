@@ -29,7 +29,8 @@ Exports: `NavigationMenu`, `NavigationMenuAside`, `NavigationMenuContent`, `Navi
 | `align` | `start \| center \| end` | `start` | no | Controls dropdown panel alignment. |
 | `width` | `sm \| md \| lg \| xl \| 2xl` | `lg` | no | Controls dropdown panel width. |
 | `aside` | `ReactNode` | — | no | NavigationMenuDropdown second block: turns the panel into two columns (children, then aside), stacked below sm. |
-| `NavigationMenuAside title / action` | `ReactNode / { href, label } \| ReactNode` | `- / -` | no | Muted second column with a title that labels its group and an optional See all link. |
+| `NavigationMenuAside.title` | `ReactNode` | — | no | Muted second column with a title that labels its group and an optional See all link. |
+| `action` | `{ href, label } \| ReactNode` | — | no | Muted second column with a title that labels its group and an optional See all link. |
 | `columns` | `1 \| 2 \| 3` | `2` | no | Responsive panel grid columns. |
 | `panelClassName` | `string` | — | no | Dropdown panel class override. |
 | `className` | `string` | — | no | Class override on each slot. |

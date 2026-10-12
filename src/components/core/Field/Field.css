@@ -12,7 +12,7 @@
   }
 
   .ds-part-field {
-    @apply data-[invalid=true]:text-ui-destructive gap-2;
+    @apply min-w-0 data-[invalid=true]:text-ui-destructive gap-2;
   }
 
   .ds-part-field-content {

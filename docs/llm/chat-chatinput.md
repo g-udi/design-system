@@ -21,26 +21,53 @@ Exports: `ChatContextMeter`, `ChatModelSelect`, `ChatPromptAttachMenu`, `ChatPro
 | `placeholder` | `string` | `Message` | no | Prompt placeholder, through labels. |
 | `models` | `boolean` | `true` | no | Example only: a ChatModelSelect with an effort slider in the toolbar. |
 | `ChatPromptComposer.onSubmit` | `(text, { queued, mentions, command, attachments }) => void` | — | no | Send or queue. |
-| `ChatPromptComposer.attachments / onRemoveAttachment` | `Array<{ id, name, type?, size?, kind?, previewUrl? }> / (id) => void` | `[] / —` | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
+| `ChatPromptComposer.attachments` | `Array<{ id, name, type?, size?, kind?, previewUrl? }>` | `[]` | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
+| `onRemoveAttachment` | `(id) => void` | — | no | Compact shared Attachment pills; supplied image/poster thumbnails or file-type icons. The host owns removal and preview URL lifecycle. |
 | `ChatPromptComposer.mentions / commands` | `Array<{ id, name, description?, icon? }>` | `[]` | no | @ anywhere and / at the start open them. |
-| `ChatPromptComposer.leftControls / rightControls` | `ReactNode / ReactNode` | `toolbar / actions` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
-| `ChatPromptComposer.toolbar / actions / footer / labels` | `ReactNode / ReactNode / ReactNode / object` | — | no | Compatible left/right aliases, footer text and copy. |
+| `ChatPromptComposer.leftControls` | `ReactNode` | `toolbar` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
+| `rightControls` | `ReactNode` | `actions` | no | Independent left/right control slots; children set order and both groups wrap. Explicit values, including null, override legacy toolbar/actions. Send/stop/voice stay after the right controls. |
+| `ChatPromptComposer.toolbar` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `actions` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `footer` | `ReactNode` | — | no | Compatible left/right aliases, footer text and copy. |
+| `labels` | `object` | — | no | Compatible left/right aliases, footer text and copy. |
 | `ChatPromptQueue.items / onEdit / onRemove / onSendNow / onMove` | `Array<{ id, text }> / functions` | — | no | Waiting messages. |
-| `ChatModelSelect.models / value / onValueChange` | `Array<{ value, label, description?, badge? }> / string / function` | — | no | The model a prompt runs on. |
+| `ChatModelSelect.models` | `Array<{ value, label, description?, badge? }>` | — | no | The model a prompt runs on. |
+| `value` | `string` | — | no | The model a prompt runs on. |
+| `onValueChange` | `function` | — | no | The model a prompt runs on. |
 | `ChatModelSelect.children` | `ReactNode` | — | no | Footer content switches to a popover with a model list and separate controls; Tab reaches the footer, and Escape returns focus to the trigger. |
-| `ChatModelSelect.searchable / providers` | `boolean / Record<provider, { label, icon }>` | `false / {}` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
-| `ChatPromptComposer.variant / voice` | `'default' \| 'card' / ReactNode \| ({ value, setValue, insert, disabled }) => ReactNode` | `'default' / —` | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
-| `ChatPromptToggle.icon / label / pressed / defaultPressed / onPressedChange / disabled` | `string / string / boolean / boolean / (pressed) => void / boolean` | `— / — / — / false / — / false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
-| `ChatPromptAttachMenu.items / onAttach / onSelect` | `Array<{ value, label, icon?, accept?, capture? }> / (files, item) => void / (item) => void` | `Upload files, Add photos` | no | The + menu: items with accept open the file picker. |
-| `ChatPromptSettings.options / values / onValuesChange / effort / onEffortChange` | `Array<{ value, label, description?, icon? }> / Record<string, boolean> / function / string / function` | — | no | Options popover with an effort slider and switches. |
-| `ChatContextMeter.usedTokens / maxTokens / breakdown` | `number / number / Array<{ id, label, value, detail? }>` | `0 / 0 / []` | no | Prepared totals and breakdown values; only the percentage is derived. |
-| `ChatContextMeter.cost / costLabel / tone / message` | `ReactNode / ReactNode / accent \| warning \| danger / ReactNode` | `— / Cost / accent / —` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
-| `ChatContextMeter.formatTokens / formatPercentage` | `(number) => string / (number) => string` | `compact token count / percentage` | no | Format the supplied counts and derived percentage. |
+| `ChatModelSelect.searchable` | `boolean` | `false` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
+| `providers` | `Record<provider, { label, icon }>` | `{}` | no | A searchable command list grouped by provider, with context, speed, cost and capability badges. |
+| `ChatPromptComposer.variant` | `'default' \| 'card'` | `'default'` | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
+| `voice` | `ReactNode \| ({ value, setValue, insert, disabled }) => ReactNode` | — | no | The card composer has a muted writing area and inset toolbar; voice takes the send slot while the prompt is empty. |
+| `ChatPromptToggle.icon` | `string` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `label` | `string` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `pressed` | `boolean` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `defaultPressed` | `boolean` | `false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `onPressedChange` | `(pressed) => void` | — | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `disabled` | `boolean` | `false` | no | A compact tool toggle with an animated registry icon. Hover animates the icon and shows a tooltip; keyboard focus and selection expand its label. Selected tools retain their label and accent. Supports controlled state, reduced motion and touch. Hosts disable supplied controls explicitly. |
+| `ChatPromptAttachMenu.items` | `Array<{ value, label, icon?, accept?, capture? }>` | — | no | The + menu: items with accept open the file picker. |
+| `onAttach` | `(files, item) => void` | — | no | The + menu: items with accept open the file picker. |
+| `onSelect` | `(item) => void` | — | no | The + menu: items with accept open the file picker. |
+| `ChatPromptSettings.options` | `Array<{ value, label, description?, icon? }>` | — | no | Options popover with an effort slider and switches. |
+| `values` | `Record<string, boolean>` | — | no | Options popover with an effort slider and switches. |
+| `onValuesChange` | `function` | — | no | Options popover with an effort slider and switches. |
+| `effort` | `string` | — | no | Options popover with an effort slider and switches. |
+| `onEffortChange` | `function` | — | no | Options popover with an effort slider and switches. |
+| `ChatContextMeter.usedTokens` | `number` | `0` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `maxTokens` | `number` | `0` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `breakdown` | `Array<{ id, label, value, detail? }>` | `[]` | no | Prepared totals and breakdown values; only the percentage is derived. |
+| `ChatContextMeter.cost` | `ReactNode` | — | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `costLabel` | `ReactNode` | `Cost` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `tone` | `accent \| warning \| danger` | `accent` | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `message` | `ReactNode` | — | no | Host-supplied cost text, meaning and status copy; no billing or workflow policy. |
+| `ChatContextMeter.formatTokens` | `(number) => string` | `compact token count` | no | Format the supplied counts and derived percentage. |
+| `formatPercentage` | `(number) => string` | `percentage` | no | Format the supplied counts and derived percentage. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
 - `status`: `ready`, `streaming`
+- `tone`: `accent`, `warning`, `danger`
 
 ## Usage
 

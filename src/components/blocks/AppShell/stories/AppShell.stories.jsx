@@ -46,7 +46,9 @@ export const LibraryRail = {
     await userEvent.click(await nav.findByRole('link', { name: 'Literature Notes' }));
     await waitFor(() => expect(main.getByText('Literature Notes')).toBeVisible());
     nav = await openNavigation(canvasElement);
-    await expect(nav.getByRole('link', { name: 'Literature Notes' })).toHaveAttribute('aria-current', 'page');
+    const notes = nav.getByRole('button', { name: 'Notes' });
+    if (notes.getAttribute('aria-expanded') !== 'true') await userEvent.click(notes);
+    await expect(await nav.findByRole('link', { name: 'Literature Notes' })).toHaveAttribute('aria-current', 'page');
     await userEvent.click(nav.getByRole('button', { name: 'Actions for Web Clipper' }));
     await userEvent.click(await body.findByRole('menuitem', { name: 'Unsubscribe' }));
     await waitFor(() => expect(nav.queryByRole('link', { name: /^Web Clipper/ })).not.toBeInTheDocument());

@@ -40,6 +40,12 @@ test('Flow is a labelled region with a text alternative of its steps', () => {
   assert.match(html, /Orphan: ends here/);
 });
 
+test('Flow retains upstream attribution by default and accepts caller pro options', () => {
+  const props = { nodes: [], edges: [], label: 'Attribution contract' };
+  assert.match(renderToStaticMarkup(createElement(flow.Flow, props)), /aria-label="React Flow attribution"/);
+  assert.doesNotMatch(renderToStaticMarkup(createElement(flow.Flow, { ...props, proOptions: { hideAttribution: true } })), /aria-label="React Flow attribution"/);
+});
+
 test('layoutFlow ranks by dependency and keeps branches in output order', () => {
   const laid = flow.layoutFlow(nodes.slice(0, 4), edges, { direction: 'TB' });
   const at = Object.fromEntries(laid.map((node) => [node.id, node.position]));

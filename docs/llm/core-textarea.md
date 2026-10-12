@@ -19,7 +19,8 @@ Exports: `default`
 | --- | --- | --- | --- | --- |
 | `caretMode` | `native \| smooth` | `provider / smooth` | no | Overrides InputConfigProvider for this field. Smooth mode animates the collapsed caret while supported native text controls retain their editing behavior. |
 | `rows` | `number` | `4` | no | Initial visible line count. |
-| `Native textarea props / ref` | `TextareaHTMLAttributes<HTMLTextAreaElement>` | — | yes | Value, change callback, name, placeholder, limits, disabled, required and ARIA attributes. |
+| `placeholder` | `string` | — | no | Example value; never a replacement for a label. |
+| `Native textarea props / ref` | `TextareaHTMLAttributes<HTMLTextAreaElement>` | — | no | Value, change callback, name, placeholder, limits, disabled, required and ARIA attributes. |
 | `invalid` | `boolean` | — | no | Expose invalid state through FieldTextarea. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 

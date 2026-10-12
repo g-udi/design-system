@@ -16,9 +16,9 @@ export function previewSource(component, args, {imports = '', attributes = [], c
   return `${imports}\n\n${before}${body === undefined ? `${opening}/>` : `${opening}>\n${body}\n</${component}>`}${after}`;
 }
 
-/** Dynamic docs source that mirrors the Playground's current args. */
+/** Authored source mirrors current args without serializing mounted React elements. */
 export const playgroundSource = (component, options) => ({
-  type: 'dynamic',
+  type: 'code',
   language: 'jsx',
   transform: (_source, { args }) => previewSource(component, args, options)
 });

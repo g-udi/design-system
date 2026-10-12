@@ -304,7 +304,7 @@ const menuProps = {
 
 const PageShell = ({ children }) => (
   <div className='bg-background text-foreground antialiased'>
-    <Borealis>
+    <Borealis intensity={0.02}>
       <div className='relative isolate w-full px-4 dark:z-10 sm:w-[95%] sm:px-8 xl:max-w-6xl'>
         <div className='flex min-h-screen flex-col justify-between'>
           <FloatingMenu />
@@ -1020,7 +1020,31 @@ export const MainPage = {
 export const BlogMainPage = {
   name: 'Blog Main Page',
   ...story('The blog index: a featured lead with two companions above the filterable, paginated post list.'),
-  render: () => <BlogPage />
+  render: () => <BlogPage />,
+  play: async (context) => {
+    const canvas = within(context.canvasElement);
+    const search = canvas.getByRole('searchbox', { name: 'Filter articles' });
+    const list = () => search.closest('[role=search]').parentElement.querySelector('ul');
+    const titles = () => [...list().querySelectorAll('h2,h3')].map(element => element.textContent);
+    const initial = titles();
+    await expect(initial).toHaveLength(7);
+    await userEvent.click(within(canvas.getByRole('navigation', { name: 'Pagination' })).getByRole('button', { name: 'Next', exact: true }));
+    await waitFor(() => expect(titles()).toHaveLength(5));
+    await expect(titles()).not.toEqual(initial);
+    await userEvent.type(search, 'knowledge graphs');
+    await waitFor(() => expect(titles()).toEqual(['An Introduction to Knowledge Graphs']));
+    await expect(canvas.queryByRole('navigation', { name: 'Pagination' })).not.toBeInTheDocument();
+    await userEvent.clear(search);
+    await userEvent.type(search, 'unmatched-article-query');
+    await expect(within(list()).getByText('No posts found')).toBeVisible();
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--empty-search` });
+    }
+    await userEvent.clear(search);
+    await waitFor(() => expect(titles()).toEqual(initial));
+    await expect(within(canvas.getByRole('navigation', { name: 'Pagination' })).getByRole('button', { name: 'Previous', exact: true })).toBeDisabled();
+  }
 };
 
 export const CategoryPageWithPostsAndPagination = {

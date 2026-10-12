@@ -20,13 +20,19 @@ Exports: `DEFAULT_DASHBOARD_LABELS`, `DEFAULT_DASHBOARD_PERIODS`, `DashboardGrid
 | `DashboardGrid.label` | `string` | — | no | Names the dashboard region. |
 | `DashboardPanel.span / spanMd / rowSpan` | `number` | `12 / derived / —` | no | Columns of twelve on wide containers, of six on medium ones, and rows to span. |
 | `DashboardPanel.title / description / action / toolbar / footer` | `ReactNode` | — | no | Panel heading, help, header action, controls row and footer. |
-| `DashboardPanel.scroll / scrollLabel / maxHeight` | `x \| y \| both / string / CSS length` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `DashboardPanel.scroll` | `x \| y \| both` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `scrollLabel` | `string` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
+| `maxHeight` | `CSS length` | — | no | A labelled, focusable scroll region for wide tables and long lists. |
 | `dashboardSpan(span, spanMd, rowSpan)` | `function` | — | no | Grid placement classes for any child, such as a StatCard. |
 | `DashboardToolbar.period / defaultPeriod / onPeriodChange` | `string / function` | `30d` | no | Active preset, or custom. |
 | `DashboardToolbar.range / defaultRange / onRangeChange` | `{ from, to } / function` | — | no | Custom date range from the calendar. |
 | `DashboardToolbar.compare / defaultCompare / onCompareChange` | `boolean / function` | `false` | no | Compare with the previous period. |
 | `DashboardToolbar.onChange` | `(period) => void` | — | no | Resolved { period, from, to, days, previous, compare } on every change. |
-| `DashboardToolbar.periods / allowCustom / showCompare / today / labels` | `Period[] / boolean / boolean / Date / object` | `DEFAULT_DASHBOARD_PERIODS / true / true / now / English` | no | Presets, optional controls, the end date and copy. |
+| `DashboardToolbar.periods` | `Period[]` | `DEFAULT_DASHBOARD_PERIODS` | no | Presets, optional controls, the end date and copy. |
+| `allowCustom` | `boolean` | `true` | no | Presets, optional controls, the end date and copy. |
+| `showCompare` | `boolean` | `true` | no | Presets, optional controls, the end date and copy. |
+| `today` | `Date` | `now` | no | Presets, optional controls, the end date and copy. |
+| `labels` | `object` | `English` | no | Presets, optional controls, the end date and copy. |
 | `resolveDashboardPeriod(period, options)` | `function` | — | no | The dates a period covers and the equally long period before it. |
 
 ## Usage

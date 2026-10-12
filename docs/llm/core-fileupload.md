@@ -17,7 +17,8 @@ Exports: `default`, `formatBytes`, `useFileUpload`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `files / onFilesChange` | `File[] / (files: File[]) => void` | `[]` | no | Host-owned file selection. |
+| `files` | `File[]` | — | no | Host-owned file selection. |
+| `onFilesChange` | `(files: File[]) => void` | — | no | Host-owned file selection. |
 | `label / description` | `string` | `Attachments / Choose files or drop them here.` | no | Visible label and instructions. |
 | `accept` | `string` | — | no | Accepted MIME types or extensions. |
 | `multiple` | `boolean` | `false` | no | Allow more than one file. |

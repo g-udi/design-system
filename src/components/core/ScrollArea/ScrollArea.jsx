@@ -51,7 +51,7 @@ function SmoothScrolling({ viewportRef }) {
   return null;
 }
 
-function ScrollArea({ className, children, smooth = false, viewportRef, scrollbarClassName, ...props }) {
+function ScrollArea({ className, children, smooth = false, viewportRef, scrollbarClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props }) {
   const localViewport = useRef(null);
   const mergedViewportRef = useMergedRefs(localViewport, viewportRef);
   return (
@@ -65,8 +65,8 @@ function ScrollArea({ className, children, smooth = false, viewportRef, scrollba
         data-slot='scroll-area-viewport'
         tabIndex={0}
         role='region'
-        aria-label={props['aria-label'] || (props['aria-labelledby'] ? undefined : 'Scrollable content')}
-        aria-labelledby={props['aria-labelledby']}
+        aria-label={ariaLabel || (ariaLabelledby ? undefined : 'Scrollable content')}
+        aria-labelledby={ariaLabelledby}
         className='ds-part-scroll-area-viewport size-full rounded-[inherit] transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ui-primary focus-visible:outline-1'
       >
         {children}

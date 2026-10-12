@@ -2,6 +2,7 @@
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 
 import { Fragment, useEffect, useId, useMemo, useRef, useState } from 'react';
+import { observeResize } from '../../../utilities/observeResize.js';
 import { flexRender, useTable } from '@tanstack/react-table';
 import { dataGridFeatures } from './dataGridFeatures.js';
 import { canPinTableColumns } from './dataGridTableModel.js';
@@ -299,7 +300,7 @@ export const DataTable = ({
     };
     update();
     element.addEventListener('scroll', update, { passive: true });
-    const observer = new ResizeObserver(update);
+    const observer = observeResize(update);
     observer.observe(element);
     if (element.firstElementChild) observer.observe(element.firstElementChild);
     return () => {
@@ -315,7 +316,7 @@ export const DataTable = ({
     if (requestedSticky !== 'page' || !element || !tableElement) return undefined;
     const measure = () => setPageOverflow(tableElement.scrollWidth > element.clientWidth + 1);
     measure();
-    const observer = new ResizeObserver(measure);
+    const observer = observeResize(measure);
     observer.observe(element);
     observer.observe(tableElement);
     return () => observer.disconnect();
@@ -352,7 +353,7 @@ export const DataTable = ({
       setRowOffsets((current) => (JSON.stringify(current) === JSON.stringify(next) ? current : next));
     };
     measure();
-    const observer = new ResizeObserver(measure);
+    const observer = observeResize(measure);
     observer.observe(element);
     if (tableElement.tHead) observer.observe(tableElement.tHead);
     tableElement.querySelectorAll(':scope > tbody > tr[data-row-pinned]').forEach((node) => observer.observe(node));

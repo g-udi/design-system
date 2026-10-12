@@ -51,7 +51,7 @@ Curated patterns:
 
 - Error, retry and suggestions — registry item `@gaudi/chat-error-retry-suggestions` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`)
 - Delivered files and data — registry item `@gaudi/chat-file-delivered-files` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
-- Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`)
+- Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`, `usePrefersReducedMotion`)
 - Team conversation — registry item `@gaudi/message-team-conversation` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFooter`, `ChatMessageGroup`, `ChatMessageHeader`, `RegistryIcon`)
 
 ## Related

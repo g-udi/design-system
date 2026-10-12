@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { loadComponent } from '../../../support/renderComponent.js';
+import { themePresets } from '../../../../src/themes/presets.js';
+import { contrastRatio, parseColor } from '../../../../src/themes/color.js';
 
 const { default: LayoutContainer } = await loadComponent(new URL('../../../../src/components/layout/LayoutContainer/LayoutContainer.js', import.meta.url));
 const descendants = (node) => {
@@ -27,5 +29,23 @@ test('unavailable or unserializable metadata does not prevent the layout from re
     assert.equal(nodes.find(node => node.props?.attribute === 'class').props.defaultTheme, 'system');
     assert.equal(nodes.some(node => node.type === 'script'), false);
     assert.ok(nodes.some(node => node.type === 'main'));
+  }
+});
+
+test('the reading shell preserves AA text contrast across the aurora palette', async () => {
+  const nodes = descendants(await LayoutContainer({ children: 'Content' }));
+  const intensity = nodes.find(node => node.type?.name === 'Borealis').props.intensity;
+  const theme = themePresets.find(theme => theme.id === 'gaudi');
+  for (const mode of ['light', 'dark']) {
+    for (const tint of ['chart-1', 'chart-2', 'chart-3']) {
+      const surface = parseColor(theme[mode].surface);
+      const color = parseColor(theme[mode][tint]);
+      // A conservative upper bound for the default curtain's noise/emission peak.
+      const blend = intensity * 1.2;
+      const background = `rgb(${['r', 'g', 'b'].map(key => (surface[key] + (color[key] - surface[key]) * blend) * 255).join(' ')})`;
+      for (const text of ['text', 'text-muted', 'text-subtle', 'accent']) {
+        assert.ok(contrastRatio(theme[mode][text], background) >= 4.5, `${mode} ${text} on ${tint}`);
+      }
+    }
   }
 });

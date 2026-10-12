@@ -58,7 +58,35 @@ export const SortableGallery = { name: 'Image gallery with sorting', ...pattern(
   await userEvent.click(canvas.getByRole('button', { name: `Remove ${filename}` }));
   await expect(canvas.queryByRole('button', { name: `Preview ${filename}` })).not.toBeInTheDocument();
 } };
-export const Avatar = { name: 'Profile photo picker', ...pattern('avatar', 'Click or drop on the avatar, or use the button; the file name replaces the size hint once picked.') };
+export const Avatar = {
+  name: 'Profile photo picker',
+  ...pattern('avatar', 'Click or drop on the avatar, or use the button; the file name replaces the size hint once picked.'),
+  play: async (context) => {
+    const canvas = within(context.canvasElement);
+    const input = context.canvasElement.querySelector('input[type="file"]');
+    const invalid = new DataTransfer();
+    invalid.items.add(new File(['notes'], 'notes.txt', { type: 'text/plain' }));
+    await fireEvent.change(input, { target: { files: invalid.files } });
+    await expect(canvas.getByRole('alert')).toHaveTextContent('not an accepted file type');
+    await expect(canvas.queryByRole('img', { name: 'Avatar' })).not.toBeInTheDocument();
+    const png = new File([Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jrWQAAAAASUVORK5CYII='), (char) => char.charCodeAt(0))], 'profile.png', { type: 'image/png' });
+    await userEvent.upload(input, png);
+    await expect(canvas.queryByRole('alert')).not.toBeInTheDocument();
+    await expect(canvas.getByText('profile.png')).toBeVisible();
+    await waitFor(() => expect(canvas.getByRole('img', { name: 'Avatar' }).naturalWidth).toBeGreaterThan(0));
+    await expect(canvas.getByRole('button', { name: 'Change image' })).toBeVisible();
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--uploaded` });
+    }
+    await userEvent.click(canvas.getByRole('button', { name: 'Remove avatar' }));
+    await expect(canvas.queryByRole('img', { name: 'Avatar' })).not.toBeInTheDocument();
+    await expect(canvas.getByRole('button', { name: 'Upload image' })).toBeVisible();
+    await expect(canvas.getByText('PNG or JPG up to 2MB')).toBeVisible();
+    await userEvent.upload(input, png);
+    await expect(canvas.getByText('profile.png')).toBeVisible();
+  }
+};
 export const CoverImage = {
   name: 'Banner image for a page',
   ...pattern('cover-image', 'A wide cover with touch and keyboard actions. Progress is simulated: the first attempt fails and retry completes locally. Removing or replacing a file cancels its timer.'),

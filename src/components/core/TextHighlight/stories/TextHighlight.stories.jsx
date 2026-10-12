@@ -72,7 +72,7 @@ export const Playground = {
 export const Tones = {
   parameters: { docs: { description: { story: 'Every tone in each variant, static (`animate={false}`). Tone names map to semantic colours, so `yellow` matches `amber` and `gray` matches `neutral`.' } } },
   render: () => (
-    <div className='grid w-fit grid-cols-[auto_repeat(3,auto)] items-baseline gap-x-6 gap-y-2 text-base font-medium text-text'>
+    <div className='grid w-fit grid-cols-[auto_repeat(3,auto)] items-baseline gap-x-2 gap-y-2 text-base font-medium text-text sm:gap-x-6'>
       <span />
       {variants.map((variant) => <span key={variant} className='text-xs font-normal text-text-muted'>{variant}</span>)}
       {tones.map((tone) => (

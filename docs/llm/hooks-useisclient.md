@@ -12,12 +12,6 @@ import { useIsClient } from '@gaudi/design-system/hooks';
 
 Exports: `useIsClient`
 
-## Parameters
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `(none)` | `—` | — | no | Takes no arguments. |
-
 ## Returns
 
 | Name | Type | Description |

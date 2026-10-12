@@ -26,7 +26,8 @@
   content: none;
 }
 
-.root :global(pre) {
+/* Legacy rehype-pretty-code output only; Core CodeBlock owns its own surface. */
+.root :global(figure[data-rehype-pretty-code-figure] > pre) {
   background-color: var(--ds-color-code-block-bg) !important;
   color: var(--ds-color-text-inverse);
   margin: 0;
@@ -34,7 +35,7 @@
   padding: 1rem;
 }
 
-.root :global(pre code) {
+.root :global(figure[data-rehype-pretty-code-figure] > pre code) {
   color: inherit;
   font-size: 0.875rem;
 }
@@ -317,10 +318,6 @@
   background-color: var(--ds-color-code-chars-highlight-bg);
   border-radius: var(--ds-radius-sm);
   box-shadow: 0 0 0 4px var(--ds-color-code-chars-highlight-bg);
-}
-
-.root :global(.relative) {
-  display: grid;
 }
 
 .root :global(figure[data-rehype-pretty-code-figure]) {

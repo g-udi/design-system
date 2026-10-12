@@ -19,25 +19,34 @@ Exports: `SignaturePad`, `SignaturePadArea`, `SignaturePadClear`, `SignaturePadC
 | --- | --- | --- | --- | --- |
 | `value / defaultValue / onValueChange` | `SignaturePadStroke[] / function` | `[]` | no | Controlled or initial strokes. A stroke is { points: [x, y, diameter][], color? }. Changes fire once per completed stroke or history action. |
 | `disabled / readOnly / invalid` | `boolean` | `false` | no | Disabled prevents interaction and form submission; readOnly allows saving existing ink. Invalid marks the drawing area. |
-| `name / form / required / format` | `string / string / boolean / svg \| png \| jpeg \| json` | `— / — / false / svg` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `name` | `string` | — | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `form` | `string` | — | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `required` | `boolean` | `false` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
+| `format` | `svg \| png \| jpeg \| json` | `svg` | no | Native form field name, external form association, validation, and submission format. Reset restores defaultValue and clears history. |
 | `color` | `CSS color` | `currentColor` | no | Optional ink color recorded per stroke; unset ink follows the theme. Export defaults to black. |
 | `minWidth / maxWidth` | `number` | `0.8 / 3.2` | no | Minimum and maximum ink diameter in CSS pixels. Equal values produce a constant line. |
 | `smoothing` | `number` | `0.5` | no | 0–1 smoothing; higher values soften the curve. |
 | `sizing` | `auto \| pressure \| velocity` | `auto` | no | Auto reads pen pressure and uses speed for mouse or touch. |
 | `pointerTypes` | `(mouse \| touch \| pen)[]` | `all` | no | Filter input devices, such as ["pen"] to ignore touch. |
 | `onStrokeStart / onStrokeEnd` | `function` | — | no | Receive { pointerType } when drawing starts and the completed stroke when it ends. Cancelled strokes are discarded. |
-| `apiRef / useSignaturePad()` | `ref / hook` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
+| `apiRef` | `ref` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
+| `useSignaturePad()` | `hook` | — | no | Access strokes, isEmpty, isDrawing, canUndo, canRedo, clear, undo, redo, focus, toSVG, toDataURL, toBlob, and serialize. |
 | `labels` | `object` | `English labels` | no | Override drawing instructions, placeholder, state announcements, and default button labels. Area and Preview accept their own ARIA names. |
 | `SignaturePadArea.variant` | `default \| muted \| ghost` | `default` | no | Drawing surface appearance. Root sizing and state props are shared with every part. |
 | `SignaturePadControls.position` | `top-start \| top-end \| bottom-start \| bottom-end` | `top-end` | no | Pins controls inside the drawing surface; a regular flex row can place them outside. |
-| `SignaturePadSave.format / options / onSave` | `format / export options / (value, strokes) => void` | `png / — / —` | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
-| `SignaturePadPreview.strokes / padding / color` | `strokes / number / CSS color` | `— / 4 / currentColor` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `SignaturePadSave.format` | `format` | `png` | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `options` | `export options` | — | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `onSave` | `(value, strokes) => void` | — | no | Serialize to a data URL or JSON and pass it to the host. Saving performs no download or upload itself. |
+| `SignaturePadPreview.strokes` | `strokes` | — | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `padding` | `number` | `4` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
+| `color` | `CSS color` | `currentColor` | no | A standalone SVG preview cropped to its ink; aria-label names its purpose. |
 | `export options` | `object` | `padding 8; raster scale 2` | no | width and height set a fixed frame. Otherwise crop includes ink thickness and padding. background, color, scale, type, and quality configure output. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Variants
 
+- `format`: `svg`, `png`, `jpeg`, `json`
 - `sizing`: `auto`, `pressure`, `velocity`
 
 ## Usage

@@ -18,14 +18,15 @@ Exports: `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `maxLength` | `number` | `Required` | no | Number of characters accepted. |
-| `value / onChange` | `string / (value: string) => void` | — | no | Controlled code entry. |
+| `value` | `string` | — | no | Controlled code entry. |
+| `onChange` | `(value: string) => void` | — | no | Controlled code entry. |
 | `onComplete` | `(value: string) => void` | — | no | Called when every slot is filled. |
 | `pattern` | `string` | — | no | Allowed character pattern. |
 | `disabled` | `boolean` | `false` | no | Dims every slot and blocks code entry. |
 | `containerClassName` | `string` | — | no | Classes on the slot container. |
 | `InputOTPSlot.index` | `number` | `Required` | no | Zero-based character index. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
-| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | yes | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
+| `Native input props / ref` | `InputHTMLAttributes<HTMLInputElement>` | — | no | Forwards value, defaultValue, onChange, disabled, required, name, autocomplete and ARIA attributes to the input. |
 
 ## Usage
 
