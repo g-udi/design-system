@@ -365,15 +365,15 @@ OpenCode (`opencode.json`): `{ "mcp": { "gaudi-ds": { "type": "local", "command"
 
 `pnpm registry:build` emits a shadcn-compatible registry for the curated examples in `coverage.json`: page-level blocks (`registry:block`: app shells, sidebars, screens, dashboards, forms, scheduling, stat cards, chat) and component patterns (`registry:example`). Each item's file is the owner fixture rewritten by the Storybook `publicSource` helper, so it imports components from `@gaudi/design-system` (declared as a dependency) instead of copying them. `registry.json` is generated; do not edit it by hand, and do not use `shadcn build` (it would copy the fixtures' relative imports).
 
-The registry is served from https://design.assaf.website/r. Consumers add the namespace to their `components.json`:
+The registry is served from https://design.gaudi.site/r. Consumers add the namespace to their `components.json`:
 
 ```json
-{ "registries": { "@gaudi": "https://design.assaf.website/r/{name}.json" } }
+{ "registries": { "@gaudi": "https://design.gaudi.site/r/{name}.json" } }
 ```
 
 ```sh
 npx shadcn@latest add @gaudi/screens-account-settings
-npx shadcn@latest add https://design.assaf.website/r/screens-account-settings.json
+npx shadcn@latest add https://design.gaudi.site/r/screens-account-settings.json
 ```
 
 Install the package from GitHub first (`pnpm add github:ahmadassaf/design-system`), or build the registry with `GAUDI_PACKAGE_SPEC=github:ahmadassaf/design-system pnpm registry:build` so items declare that spec. Some items reference demo assets (`/avatars/…`, `static/images/…`) listed in their `docs`/`meta.assets`; supply your own. Copied compositions keep the [third-party notice](#third-party-notices).

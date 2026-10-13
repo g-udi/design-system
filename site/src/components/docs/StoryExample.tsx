@@ -26,7 +26,7 @@ export function StoryExample({ id, title }: { id: string; title: string }) {
   const { theme, resolvedMode } = useTheme();
   const width = VIEWPORT_WIDTH[viewport];
   const globals = `theme:${resolvedMode === 'dark' ? 'dark' : 'light'}${theme ? `;gaudiTheme:${theme}` : ''}`;
-  const src = `${siteConfig.storybookUrl}/iframe.html?id=${encodeURIComponent(id)}&viewMode=story&globals=${globals}`;
+  const src = `${siteConfig.storybookEmbedUrl}/iframe.html?id=${encodeURIComponent(id)}&viewMode=story&globals=${globals}`;
 
   useEffect(() => {
     const element = frame.current;

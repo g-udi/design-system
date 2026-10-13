@@ -71,7 +71,7 @@ Each example renders in an isolated document at `/preview/<pattern>` inside an i
 
 ## Hosting
 
-The site deploys to https://design.assaf.website from the design-system repository on Vercel (project `design-system`, root directory `site`). Every push to `main` redeploys it. `vercel.json` installs the design system and the site, builds the static Storybook into `public/storybook`, then builds the site; the registry is copied to `/r` by `pnpm generate`. Ask AI uses the `OPENAI_API_KEY` and `OPENAI_MODEL` environment variables set on the project, and `NEXT_PUBLIC_SITE_URL` is `https://design.assaf.website`. Old Storybook links at the domain root redirect to `/storybook/index.html`.
+The site deploys to https://design.gaudi.site from the design-system repository on Vercel (project `design-system`, root directory `site`). Every push to `main` redeploys it. `vercel.json` installs the design system and the site, builds the static Storybook into `public/storybook`, then builds the site; the registry is copied to `/r` by `pnpm generate`. Ask AI uses the `OPENAI_API_KEY` and `OPENAI_MODEL` environment variables set on the project, and `NEXT_PUBLIC_SITE_URL` is `https://design.gaudi.site`. Storybook is also served at https://storybook.gaudi.site from the same deployment (a host rewrite to `/storybook`); old Storybook links at the site root redirect to `/storybook/index.html`, and design.assaf.website redirects to design.gaudi.site.
 
 ## Licence
 

@@ -48,7 +48,7 @@ export const CopyFeedback = {
       await expect(iconOnly).toHaveAccessibleName('Copy link');
       await userEvent.click(iconOnly);
       await waitFor(() => expect(iconOnly).toHaveAccessibleName('Copied'));
-      await expect(writes).toEqual(['https://design.assaf.website', 'https://design.assaf.website']);
+      await expect(writes).toEqual(['https://design.gaudi.site', 'https://design.gaudi.site']);
       await waitFor(() => expect(labelled).toHaveAccessibleName('Copy'), { timeout: 2500 });
       await waitFor(() => expect(iconOnly).toHaveAccessibleName('Copy link'), { timeout: 2500 });
     } finally { clipboard.writeText = original; }

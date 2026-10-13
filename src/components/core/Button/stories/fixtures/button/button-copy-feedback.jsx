@@ -4,7 +4,7 @@ import { default as Button } from '@gaudi/design-system/core/Button';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
-const url = 'https://design.assaf.website';
+const url = 'https://design.gaudi.site';
 const CopyIcon = ({ copied }) => <RegistryIcon lucide={copied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />;
 
 export function Pattern() {

@@ -11,6 +11,8 @@ const own = (name) => realpathSync(path.join(root, 'node_modules', name));
 const staticExport = process.env.STATIC_EXPORT === '1';
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
+const STORYBOOK_HOST = 'storybook.gaudi.site';
+
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
@@ -25,10 +27,20 @@ const config = {
     // links go to the file itself. Storybook used to live at the domain root; old links land there too.
     async redirects() {
       return [
-        { source: '/', has: [{ type: 'query', key: 'path' }], destination: '/storybook/index.html', permanent: true },
-        { source: '/iframe.html', destination: '/storybook/iframe.html', permanent: true },
-        { source: '/storybook', destination: '/storybook/index.html', permanent: false }
+        { source: '/', has: [{ type: 'query', key: 'path' }], missing: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/storybook/index.html', permanent: true },
+        { source: '/iframe.html', missing: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/storybook/iframe.html', permanent: true },
+        { source: '/storybook', destination: '/storybook/index.html', permanent: false, missing: [{ type: 'host', value: STORYBOOK_HOST }] }
       ];
+    },
+    // storybook.gaudi.site serves the same deployment's Storybook build at its root.
+    async rewrites() {
+      const host = [{ type: 'host', value: STORYBOOK_HOST }];
+      return {
+        beforeFiles: [
+          { source: '/', has: host, destination: '/storybook/index.html' },
+          { source: '/:path*', has: host, destination: '/storybook/:path*' }
+        ]
+      };
     }
   }),
   // Keep builds deterministic; lint and typecheck run as separate scripts.
