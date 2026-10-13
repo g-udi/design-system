@@ -17,7 +17,9 @@ export default [
     ignores: [
       '.next/**',
       'node_modules/**',
-      'storybook-static/**'
+      'storybook-static/**',
+      // The docs site has its own TypeScript lint setup (site/eslint.config.mjs).
+      'site/**'
     ]
   },
   js.configs.recommended,

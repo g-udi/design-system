@@ -1,0 +1,63 @@
+---
+title: Setup with Next.js
+description: Configure the App Router for Gaudi's React source, stylesheet and themes.
+---
+
+Gaudi ships **React source (JSX)** for a JSX-aware bundler and Tailwind CSS v4 processing, so Next.js must transpile it.
+
+## 1. Transpile the package
+
+```js title="next.config.mjs"
+export default {
+  transpilePackages: ['@gaudi/design-system']
+};
+```
+
+## 2. Load the stylesheet once
+
+```jsx title="app/layout.jsx"
+import '@gaudi/design-system/global.css';
+```
+
+`global.css` loads Tailwind v4, Gaudi's tokens, foundations and component CSS, and scans the package source. If your app owns its Tailwind entry, use [styles.css](/docs/getting-started/styles) instead.
+
+## 3. Add themes (optional)
+
+Render the no-flash script in `<head>` and wrap the app in `ThemeProvider` from a client component:
+
+```jsx title="app/layout.jsx"
+import { getThemeScript } from '@gaudi/design-system/themes';
+import { Providers } from './providers';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang='en' suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: getThemeScript() }} /></head>
+      <body><Providers>{children}</Providers></body>
+    </html>
+  );
+}
+```
+
+```jsx title="app/providers.jsx"
+'use client';
+import { ThemeProvider } from '@gaudi/design-system/themes';
+
+export const Providers = ({ children }) => <ThemeProvider defaultMode='system'>{children}</ThemeProvider>;
+```
+
+Apps that keep `next-themes` for light/dark pass `enableMode={false}` to `ThemeProvider` and `getThemeScript`. See the [theming guide](/docs/theming/guide).
+
+## Site configuration
+
+Site-aware components (navigation, footer, command launcher) read metadata from `SiteConfigProvider`; `LayoutContainer` wires it up. Gaudi never imports data from the consuming app.
+
+```jsx
+import { SiteConfigProvider } from '@gaudi/design-system/context';
+
+<SiteConfigProvider metadata={siteMetadata} navigation={navigationMetadata}>
+  <App />
+</SiteConfigProvider>
+```
+
+<Callout type="info">This documentation site is itself a Next.js App Router app built this way: Gaudi's ThemeProvider, AppShell, Tabs, CodeBlock, Command and Button render its chrome.</Callout>

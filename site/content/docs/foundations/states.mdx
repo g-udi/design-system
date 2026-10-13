@@ -1,0 +1,15 @@
+---
+title: States & recovery
+description: Loading, empty, error, disabled and read-only states, and how components recover.
+---
+
+Interactive owners document their states alongside their examples. Shared conventions:
+
+- **Loading:** compose Core [Skeleton](/docs/components/skeleton) and [Loader](/docs/components/loader); placeholder layouts are decorative and hidden from assistive technology.
+- **Empty:** use [EmptyState](/docs/components/empty-state) with a clear next action.
+- **Errors:** associate messages with their field ([Field](/docs/components/field)); use [Banner](/docs/components/banner) and [Toast](/docs/components/toast) for page-level feedback.
+- **Disabled and read-only:** respect changes immediately, keep read-only values focusable and copyable.
+- **Controlled values stay authoritative:** compose host callbacks and honour cancellation where the contract allows it.
+- **Async work:** clean up listeners, timers and pending work, and prevent stale results from affecting a different request or an unmounted view.
+
+Gaudi owns presentation, semantics, keyboard/focus behaviour and local interaction state. Applications own business rules, permissions, persistence and service requests; mocked uploads, messages and saves in examples never connect to real services.

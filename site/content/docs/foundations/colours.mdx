@@ -1,0 +1,26 @@
+---
+title: Colours & tokens
+description: The semantic --ds-* contract. Every swatch below reads the live theme, so switch presets or modes to compare.
+---
+
+Runtime CSS (`src/tokens/tokens.css`) is the token authority; `tokens.json` is the supported JavaScript/preset projection exported from `@gaudi/design-system/tokens`.
+
+```js
+import tokens from '@gaudi/design-system/tokens';
+```
+
+## Colour
+
+<ColorTokens />
+
+Never use colour as the only status cue: status colours always pair with text or an icon.
+
+## Radius and density
+
+<RadiusAndDensity />
+
+## Motion
+
+Durations and easings respect `prefers-reduced-motion`.
+
+<MotionTokens />

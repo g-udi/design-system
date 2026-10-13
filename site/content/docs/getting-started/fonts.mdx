@@ -1,0 +1,27 @@
+---
+title: Fonts
+description: Gaudi never downloads fonts; load them with next/font or @fontsource and put them first in the stack.
+---
+
+Theme font stacks name an open-source family first and fall back to system faces. `@fontsource/<family>` registers the real family name, so the stack picks it up automatically.
+
+`next/font` generates its own family name: expose it as a CSS variable and put it first in the theme's stack, as the default theme does with `--font-space-inter`.
+
+```jsx title="app/layout.jsx"
+import { Fraunces, Source_Sans_3 } from 'next/font/google';
+
+const serif = Fraunces({ subsets: ['latin'], variable: '--font-fraunces' });
+const sans = Source_Sans_3({ subsets: ['latin'], variable: '--font-source-sans' });
+
+// <html lang='en' className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
+```
+
+```css title="app/globals.css"
+/* after the Gaudi stylesheets */
+[data-theme='folio'] {
+  --ds-font-sans: var(--font-source-sans), ui-sans-serif, system-ui, sans-serif;
+  --ds-font-heading: var(--font-fraunces), ui-serif, Georgia, serif;
+}
+```
+
+Curated pairs are exported as `FONT_PAIRS` from `@gaudi/design-system/themes`. See [Typography](/docs/foundations/typography) for the default stacks.

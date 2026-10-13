@@ -1,0 +1,3 @@
+# The docs site installs on its own; the design system is linked from the parent folder.
+packages:
+  - '.'

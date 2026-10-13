@@ -1,0 +1,49 @@
+{
+  "name": "gaudi-ds-site",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "generate": "node scripts/generate.mjs && fumadocs-mdx",
+    "dev": "pnpm generate && next dev --webpack -p ${PORT:-3410}",
+    "build": "pnpm generate && next build --webpack",
+    "build:static": "STATIC_EXPORT=1 pnpm build",
+    "build:storybook": "pnpm --dir \"${GAUDI_DS_DIR:-..}\" build-storybook --quiet -o \"$PWD/public/storybook\"",
+    "start": "next start -p ${PORT:-3410}",
+    "serve:static": "npx serve out -l ${PORT:-3410}",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "check:links": "node scripts/check-links.mjs",
+    "clean": "rm -rf .next out .source .cache test-results playwright-report"
+  },
+  "dependencies": {
+    "@gaudi/design-system": "link:..",
+    "fumadocs-core": "^16.16.0",
+    "fumadocs-mdx": "15.4.6",
+    "next": "16.3.8",
+    "next-themes": "^0.4.6",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/mdx": "^2.0.14",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.3.8",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20.19"
+  },
+  "packageManager": "pnpm@12.9.1+sha512.06b055fff5cd20dc12781de173ced3310ce0951bf2ec620211a16045d5444d5c93a663210764ef29a653a610459ba0368f0e74f84d80c54723cf95aae7bc0d6d"
+}

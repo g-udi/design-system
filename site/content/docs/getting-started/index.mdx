@@ -1,0 +1,44 @@
+---
+title: Installation
+description: Install @gaudi/design-system and render your first component.
+---
+
+## Install the package
+
+Install the package from its GitHub repository, then import it as `@gaudi/design-system`.
+
+```sh
+pnpm add github:ahmadassaf/design-system
+```
+
+React, React DOM, Next.js, `next-themes` and Tailwind CSS are shared framework **peers**; Gaudi installs its own implementation libraries. Install the optional peers only for the features that need them:
+
+```sh
+pnpm add recharts        # Charts (@gaudi/design-system/charts)
+pnpm add @xyflow/react   # Flow (@gaudi/design-system/core/Flow + flow.css)
+```
+
+## Use a component
+
+```jsx
+import { Avatar, Button, Dialog } from '@gaudi/design-system';
+import '@gaudi/design-system/global.css';
+```
+
+For route-level code that imports one or two components, prefer **leaf entries** so bundlers do not traverse the full barrel:
+
+```jsx
+import Button from '@gaudi/design-system/core/Button';
+import Dialog from '@gaudi/design-system/core/Dialog';
+```
+
+Only the explicit entries in the package `exports` are public: owner paths such as `/core/Button`, `/chat/ChatInput` and `/hooks/state/use-controllable-state`.
+
+## Next steps
+
+<Cards>
+  <Card title="Set up with Next.js" href="/docs/getting-started/nextjs">transpilePackages, the stylesheet and the theme script.</Card>
+  <Card title="Tailwind preset" href="/docs/getting-started/tailwind">Use Gaudi's tokens in your own utilities.</Card>
+  <Card title="styles.css" href="/docs/getting-started/styles">global.css versus styles.css, themes.css and flow.css.</Card>
+  <Card title="Fonts" href="/docs/getting-started/fonts">Gaudi never downloads fonts; wire next/font or @fontsource.</Card>
+</Cards>

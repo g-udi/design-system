@@ -1,0 +1,38 @@
+node_modules/
+.next/
+out/
+.source/
+.cache/
+next-env.d.ts
+*.tsbuildinfo
+test-results/
+playwright-report/
+
+# Generated from the linked design system by `pnpm generate` (never edit by hand).
+src/generated/
+content/docs/components/
+content/docs/blocks/
+content/docs/chat/
+content/docs/charts/
+content/docs/hooks/
+content/docs/animations/
+content/docs/mdx/
+content/docs/layout/
+content/docs/theming/guide.md
+content/docs/ai/reference.md
+public/avatars/
+public/static/
+public/flags/
+public/r/
+public/llms.txt
+
+# Local secrets (OpenAI key for Ask AI)
+.env
+.env*.local
+
+# Static Storybook build served under /storybook (pnpm build:storybook)
+/public/storybook
+# Registry items copied from the design system by pnpm generate
+/public/r
+.vercel
+.env*

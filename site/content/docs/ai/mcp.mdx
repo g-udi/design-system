@@ -1,0 +1,26 @@
+---
+title: MCP server
+description: A local stdio Model Context Protocol server that reads the shipped metadata, with no network access.
+---
+
+Tools: `search`, `list_components`, `get_component`, `get_examples`, `list_blocks`, `get_block`, `get_tokens`, `get_install_command`, `validate_usage`, `get_agent_skill`, `get_project_setup`, plus theme tools `list_themes`, `get_theme`, `import_theme` and `export_theme`; prompt: `build`.
+
+```sh
+claude mcp add gaudi-ds -- npx -y @gaudi/design-system mcp
+# before publishing (local checkout):
+claude mcp add gaudi-ds -- node "/path/to/design-system/bin/gaudi-ds.mjs" mcp
+```
+
+Cursor (`.cursor/mcp.json`) and Windsurf:
+
+```json
+{ "mcpServers": { "gaudi-ds": { "command": "npx", "args": ["-y", "@gaudi/design-system", "mcp"] } } }
+```
+
+VS Code (`.vscode/mcp.json`):
+
+```json
+{ "servers": { "gaudi-ds": { "type": "stdio", "command": "npx", "args": ["-y", "@gaudi/design-system", "mcp"] } } }
+```
+
+The full client list (Codex, OpenCode) is in the [AI reference](/docs/ai/reference#mcp-server).

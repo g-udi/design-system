@@ -1,0 +1,197 @@
+/* Gaudi's own Tailwind entry, mirroring @gaudi/design-system/global.css with this site's Tailwind. */
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@config '../../node_modules/@gaudi/design-system/src/tailwind/config.js';
+@source '../../node_modules/@gaudi/design-system/src';
+@source '../generated';
+@source '../';
+@import '@gaudi/design-system/styles.css';
+@import '@gaudi/design-system/themes.css';
+@import '@gaudi/design-system/flow.css';
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 4.5rem;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-size: 1rem;
+    line-height: var(--ds-line-height-body);
+  }
+
+  button,
+  [role='button'],
+  a {
+    cursor: pointer;
+  }
+
+  /* No element renders a browser outline or utility focus ring in any interaction state.
+     Rings are removed through their Tailwind variables so elevation shadows on dialogs, menus and cards stay. */
+  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    outline: none !important;
+  }
+
+  :where(
+    [aria-current='page'],
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [data-active='true'],
+    [data-selected='true'],
+    [data-state='active'],
+    [data-state='on']
+  ) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    outline: none !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+}
+
+/* MARK: Site chrome. Only layout glue lives here; components come from Gaudi. */
+@layer components {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    border-bottom: 1px solid var(--ds-color-border);
+    background: color-mix(in oklab, var(--ds-color-surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+  }
+
+  .site-nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding-inline: 0.5rem;
+    border-radius: var(--ds-radius-control);
+    color: var(--ds-color-text-muted);
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .site-nav-link:hover { color: var(--ds-color-text); background: var(--ds-color-surface-muted); }
+  .site-nav-link[aria-current='page'] { color: var(--ds-color-text); }
+
+  /* The docs AppShell: sticky rail and table of contents, wide content column. */
+  .site-docs.ds-app-shell { grid-template-columns: 18rem minmax(0, 1fr); min-height: 100dvh; }
+  .site-docs .ds-app-rail {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding-bottom: 2rem;
+  }
+  .site-docs .ds-app-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-wrap: nowrap;
+    background: color-mix(in oklab, var(--ds-color-surface) 90%, transparent);
+    backdrop-filter: blur(8px);
+    padding-block: 0.5rem;
+  }
+  .site-docs .ds-app-content { padding: 2rem 2.5rem 4rem; }
+  .site-docs .ds-app-body[data-aside='true'] .ds-app-aside { display: none; }
+  @media (min-width: 1280px) {
+    .site-docs .ds-app-body[data-aside='true'] { grid-template-columns: minmax(0, 1fr) 15rem; }
+    .site-docs .ds-app-body[data-aside='true'] .ds-app-aside {
+      display: block;
+      position: sticky;
+      top: 3.5rem;
+      align-self: start;
+      max-height: calc(100dvh - 3.5rem);
+      overflow-y: auto;
+      border-inline-start: 0;
+      background: transparent;
+    }
+  }
+  @media (max-width: 1023px) {
+    .site-docs.ds-app-shell { grid-template-columns: minmax(0, 1fr); }
+    .site-docs .ds-app-content { padding: 1.25rem 1rem 3rem; }
+  }
+
+  .site-toc-link {
+    display: block;
+    padding-block: 0.25rem;
+    padding-inline-start: calc(0.75rem + var(--depth, 0) * 0.75rem);
+    border-inline-start: 1px solid var(--ds-color-border);
+    color: var(--ds-color-text-muted);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+  .site-toc-link:hover { color: var(--ds-color-text); }
+  .site-toc-link[data-active='true'] { color: var(--ds-color-accent); border-inline-start-color: var(--ds-color-accent); }
+
+  /* Docs prose: Gaudi's .prose, widened for documentation and with tables and lists. */
+  .site-prose.prose { max-width: 52rem; font-size: 0.9375rem; }
+  .site-prose[data-full='true'].prose { max-width: none; }
+  .site-prose.prose :where(h2) { scroll-margin-top: 4.5rem; font-size: 1.375rem; margin-top: 2.5em; padding-bottom: 0.35em; border-bottom: 1px solid var(--ds-color-border); }
+  .site-prose.prose :where(h3) { scroll-margin-top: 4.5rem; font-size: 1.0625rem; font-weight: 600; margin-top: 2em; margin-bottom: 0.75em; }
+  .site-prose.prose :where(ul):not(.not-prose *) { list-style: disc; padding-inline-start: 1.25em; }
+  .site-prose.prose :where(ol):not(.not-prose *) { list-style: decimal; padding-inline-start: 1.25em; }
+  .site-prose.prose :where(li) { margin-block: 0.35em; }
+  .site-prose.prose :where(a:not([data-plain])):not(.not-prose *) { color: var(--ds-color-accent); text-decoration: underline; text-underline-offset: 2px; }
+  .site-prose.prose :where(:not(pre) > code) {
+    padding: 0.1em 0.35em;
+    border-radius: var(--ds-radius-sm);
+    background: var(--ds-color-surface-muted);
+    font-family: var(--ds-font-mono, ui-monospace, monospace);
+    font-size: 0.85em;
+    overflow-wrap: anywhere;
+  }
+  .site-prose.prose :where(blockquote) {
+    margin-block: 1.25em;
+    padding: 0.5em 1em;
+    border-inline-start: 3px solid var(--ds-color-accent);
+    background: var(--ds-color-surface-muted);
+    color: var(--ds-color-text-muted);
+  }
+  .site-prose.prose :where(table) { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.875rem; margin-block: 1.5em; }
+  .site-prose.prose :where(th, td) { padding: 0.5rem 0.75rem; border: 1px solid var(--ds-color-border); text-align: start; vertical-align: top; }
+  .site-prose.prose :where(th, td) { min-width: 7rem; }
+  .site-prose.prose :where(th:last-child, td:last-child) { min-width: 14rem; }
+  .site-prose.prose :where(th) { background: var(--ds-color-surface-muted); font-weight: 600; }
+  .site-prose .not-prose, .site-prose [data-docs-example] { font-size: 0.875rem; }
+  /* Gaudi's .prose list rhythm stops at component islands. */
+  .site-prose .not-prose :where(ul, ol) { list-style: none; margin-block: 0; padding-inline-start: 0; }
+  .site-prose .not-prose :where(li) { margin-block: 0; padding-inline-start: 0; }
+
+  .site-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 1rem;
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius-card);
+    background: var(--ds-color-surface);
+    color: var(--ds-color-text);
+    text-decoration: none;
+    min-width: 0;
+  }
+  a.site-card:hover { border-color: var(--ds-color-accent); }
+  
+
+  .site-preview-stage {
+    background-color: var(--ds-color-surface-muted);
+    background-image: radial-gradient(var(--ds-color-border) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+}

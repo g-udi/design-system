@@ -1,0 +1,4 @@
+{
+  "title": "Docs",
+  "pages": ["index", "getting-started", "foundations", "theming", "ai", "components", "blocks", "chat", "charts", "hooks", "animations", "mdx", "layout", "credits"]
+}

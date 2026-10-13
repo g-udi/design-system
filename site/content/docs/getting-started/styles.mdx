@@ -1,0 +1,35 @@
+---
+title: styles.css
+description: Which stylesheet to import, and how corner radius and density are configured.
+---
+
+| Import | When |
+| --- | --- |
+| `@gaudi/design-system/global.css` | Apps without their own Tailwind entry: loads Tailwind v4, Gaudi tokens, foundations and component CSS, and scans the package source. |
+| `@gaudi/design-system/styles.css` | Apps that own their Tailwind entry: import after `@import "tailwindcss";` and add `@source` for the package. |
+| `@gaudi/design-system/themes.css` | Every theme preset, switched with `data-theme` (optional when you use `ThemeProvider`). |
+| `@gaudi/design-system/flow.css` | Only with the Flow component. |
+
+`src/styles.css` aggregates shared foundations and owner-local component styles; `src/global.css` adds Tailwind and application body defaults. CSS token definitions are authoritative; `tokens.json` is the JavaScript/preset projection.
+
+## Corner radius
+
+Elements use a soft 4px radius. Set `--ds-radius` on the root after importing the stylesheet to change every corner without rebuilding CSS:
+
+```css
+:root {
+  --ds-radius: 4px; /* 0px for square corners */
+}
+```
+
+## Density
+
+Inner padding, gaps and control heights scale with `--ds-space-scale` (default `1`):
+
+```css
+:root {
+  --ds-space-scale: 0.875; /* compact */
+}
+```
+
+<RadiusAndDensity />

@@ -1,0 +1,20 @@
+---
+title: Agent skill
+description: Install the Gaudi skill into your coding agent's rules or skills folder.
+---
+
+```sh
+npx @gaudi/design-system skills install --agent claude   # default
+npx @gaudi/design-system skills install --agent all --dir ../my-app
+npx @gaudi/design-system skills list
+```
+
+| Agent | Installed to |
+| --- | --- |
+| `claude` | `.claude/skills/gaudi-design-system/SKILL.md` and `references/` |
+| `cursor` | `.cursor/rules/gaudi-design-system.mdc` (auto-attached for JS/TS/MDX) |
+| `codex`, `opencode` | a managed section in `AGENTS.md` |
+| `windsurf` | `.windsurf/rules/gaudi-design-system.md` |
+| `vscode` | `.github/instructions/gaudi-design-system.instructions.md` |
+
+Re-running is idempotent. Before publishing, run the same commands with `node /path/to/design-system/bin/gaudi-ds.mjs` in place of `npx @gaudi/design-system`.

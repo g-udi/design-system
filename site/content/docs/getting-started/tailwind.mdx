@@ -1,0 +1,33 @@
+---
+title: Tailwind preset
+description: Use Gaudi's colours, radii, typography and prose theme in your own Tailwind utilities.
+---
+
+Tailwind v4 loads Gaudi's configuration through `global.css`, so most apps need nothing else. For a JavaScript config, use the preset and the two plugins from the package:
+
+```js title="tailwind.config.js"
+const designSystemPreset = require('@gaudi/design-system/tailwind-preset');
+const addVariablesColors = require('@gaudi/design-system/tailwind/addVariablesColors');
+const tailwindGrid = require('@gaudi/design-system/tailwind/tailwindGrid');
+
+module.exports = {
+  content: [
+    './app/**/*.{js,jsx,ts,tsx,mdx}',
+    './node_modules/@gaudi/design-system/src/**/*.{js,jsx,mdx}'
+  ],
+  plugins: [addVariablesColors, tailwindGrid],
+  presets: [designSystemPreset]
+};
+```
+
+With a CSS-first Tailwind v4 entry, point `@config` at the package config and add the package source:
+
+```css title="app/globals.css"
+@import 'tailwindcss';
+@custom-variant dark (&:where(.dark, .dark *));
+@config '../node_modules/@gaudi/design-system/src/tailwind/config.js';
+@source '../node_modules/@gaudi/design-system/src';
+@import '@gaudi/design-system/styles.css';
+```
+
+Use the **semantic utilities** (`bg-surface`, `text-text-muted`, `border-border`, `bg-accent`, `text-danger`…) built from the token names, never raw hex or palette shades for UI state. See [Colours & tokens](/docs/foundations/colours).

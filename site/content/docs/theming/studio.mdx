@@ -1,0 +1,15 @@
+---
+title: Theme Studio
+description: The Storybook page that puts the gallery, editor, generator, contrast report and import/export together.
+---
+
+Theme Studio lives in the design system's Storybook (**Theming / Theme Studio**). It edits every contract token, generates palettes from one or two brand colours (`generateTheme`, `randomTheme`), shows the contrast report and imports or exports themes in every format.
+
+<Cards>
+  <StorybookCard story="theming-theme-studio--studio" title="Open Theme Studio">Runs with the design system's Storybook (`pnpm storybook`, port 6006 locally).</StorybookCard>
+  <Card title="Import and export here" href="/themes">The Themes page offers the importer and exporter without Storybook.</Card>
+</Cards>
+
+<Callout type="info">The Storybook URL is configurable with `NEXT_PUBLIC_STORYBOOK_URL` once Storybook is hosted.</Callout>
+
+Theme Studio is inspired by [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) and the [shadcn/ui theme editor](https://ui.shadcn.com/themes).

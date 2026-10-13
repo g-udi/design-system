@@ -1,0 +1,23 @@
+---
+title: AI & agents
+description: Machine-readable docs, an agent skill, a local MCP server and a copy-in registry, all generated from the sources of truth.
+---
+
+Gaudi ships everything an agent needs to use it correctly, generated from the same sources as the components (owner docs, READMEs, the story catalogue, the coverage manifest, tokens, the icon registry and the package exports), so it cannot drift.
+
+| Piece | Where | Ships in the npm package |
+| --- | --- | --- |
+| Metadata | `ai/components.json`, `blocks.json`, `tokens.json`, `icons.json`, `setup.json`, `exports.json` | yes |
+| LLM docs | `llms.txt`, `llms-full.txt`, `docs/llm/<id>.md` | `llms*.txt` yes |
+| Agent skill | `skills/gaudi-design-system/SKILL.md` | yes |
+| CLI / MCP | `bin/gaudi-ds.mjs`, `cli/` | yes |
+| Registry | `registry.json`, `public/r/<name>.json` | repository only until hosted |
+
+<Cards>
+  <Card title="llms.txt" href="/docs/ai/llms-txt">The index for language models, also served by this site.</Card>
+  <Card title="Agent skill" href="/docs/ai/skill">Install the skill for Claude, Cursor, Codex, Windsurf, VS Code or OpenCode.</Card>
+  <Card title="MCP server" href="/docs/ai/mcp">A local stdio server over the shipped metadata.</Card>
+  <Card title="Registry" href="/docs/ai/registry">Copy-in blocks and patterns for the shadcn CLI.</Card>
+</Cards>
+
+This setup is inspired by [reui](https://reui.io) ([agent skills](https://reui.io/docs/agent-skills), [MCP](https://reui.io/docs/mcp), [registry](https://reui.io/docs/registry), [llms.txt](https://reui.io/llms.txt)) and builds on the [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io).

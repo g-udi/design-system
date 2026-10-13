@@ -1,0 +1,24 @@
+---
+title: Presets
+description: gaudi, folio, graphite, contrast, pastel, midnight, grove and ember, each passing WCAG AA in both modes.
+---
+
+| Preset | Character |
+| --- | --- |
+| `gaudi` | The default, extracted from `tokens.css`; applying it changes nothing. |
+| `folio` | Warm editorial serif. |
+| `graphite` | Cool minimal mono, square and flat. |
+| `contrast` | 7:1 body text. |
+| `pastel` | Soft and rounded. |
+| `midnight` | Dark-first indigo. |
+| `grove` | Nature. |
+| `ember` | Vivid orange. |
+
+<PresetGallery />
+
+Presets are JSON in `themes/presets/` and shadcn registry items named `theme-<id>`. The CLI lists, checks and exports them:
+
+```sh
+gaudi-ds theme list
+gaudi-ds theme export folio --format shadcn
+```

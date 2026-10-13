@@ -1,0 +1,17 @@
+---
+title: llms.txt
+description: A package summary, setup and an index of every docs page as Markdown, for language models.
+---
+
+`llms.txt` follows the [llms.txt convention](https://llmstxt.org): the design system's summary and setup (install, imports, CSS, preset), then every docs page in sidebar order, each linking to its Markdown version.
+
+- [/llms.txt](/llms.txt): the index.
+- [/llms-full.txt](/llms-full.txt): every page concatenated (API tables, usage, accessibility and notes; example code stays on each page's own Markdown).
+- `/docs/<page>.md`: any page as Markdown, for example [/docs.md](/docs.md). Requests for a docs URL with `Accept: text/markdown` get the same Markdown.
+
+Every page also has **Copy Markdown** and **Open in ChatGPT / Claude** actions. Links are absolute once `NEXT_PUBLIC_SITE_URL` is set for the docs host.
+
+```sh
+curl -s https://<docs-host>/llms.txt
+curl -s -H 'Accept: text/markdown' https://<docs-host>/docs/components/button
+```

@@ -1,0 +1,32 @@
+---
+title: Theming
+description: One semantic contract, eight WCAG AA presets, a runtime provider and lossless import/export.
+---
+
+A theme overrides the semantic `--ds-*` contract (surfaces, text, borders, accent, focus, status, charts, sidebar and shadows for light and dark, plus fonts, radius and density). Every other token derives from it, so components need no theme-specific code.
+
+```jsx
+// Static: every preset, switched by an attribute
+import '@gaudi/design-system/themes.css';
+// <html data-theme='folio' className='dark'>
+
+// Next.js App Router: no-flash script in app/layout.jsx, provider in a client component
+import { getThemeScript, ThemeProvider, useTheme } from '@gaudi/design-system/themes';
+// <head><script dangerouslySetInnerHTML={{ __html: getThemeScript() }} /></head>
+// <ThemeProvider defaultMode='system'>{children}</ThemeProvider>
+// const { theme, setTheme, mode, setMode } = useTheme();
+```
+
+## Presets
+
+Try them live: each card is a nested `data-theme` scope; **Use** applies the preset to the whole site (the header picker does the same).
+
+<PresetGallery />
+
+**Bring any [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or [shadcn/ui](https://ui.shadcn.com/themes) theme:** the contract follows the shadcn CSS-variable convention, so their themes import as-is on the [Themes page](/themes), with `gaudi-ds theme import`, or through the `import_theme` MCP tool.
+
+<Cards>
+  <Card title="Theming guide" href="/docs/theming/guide">The full contract, runtime API, fonts, import/export and contrast.</Card>
+  <Card title="Themes page" href="/themes">Gallery plus a paste-in importer and exporter.</Card>
+  <Card title="Theme Studio" href="/docs/theming/studio">Edit, generate, check and export themes in Storybook.</Card>
+</Cards>

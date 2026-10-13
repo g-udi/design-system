@@ -1,0 +1,43 @@
+---
+title: Accessibility
+description: The accessibility, keyboard, motion, RTL and responsive conventions every owner follows.
+---
+
+Each component page lists its own accessibility contract under **Accessibility**. These conventions apply across the system.
+
+## Semantics and names
+
+- Use semantic elements, visible labels, associated errors and meaningful accessible names.
+- Name every navigation and complementary region; keep a skip link and a main landmark in app shells.
+- Never use colour as the only status cue; pair status colours with text or an icon.
+
+## Keyboard and focus
+
+- Every interaction is keyboard reachable, with a visible focus ring from the `focus` token.
+- Shortcuts respect editable fields and IME composition (see [useHotkey](/docs/hooks/use-hotkey)).
+- Overlays trap focus and return it to a surviving, meaningful target when they close.
+- Keys and DOM identity stay stable through selection, filtering and responsive changes, preserving focus and scroll position.
+
+## Motion
+
+Animations respect `prefers-reduced-motion` and forced colours ([usePrefersReducedMotion](/docs/hooks/use-prefers-reduced-motion)). Initial docs loads never steal focus or scroll the page.
+
+## Right-to-left
+
+Components use logical properties (`inline-start`, `inline-end`), so they mirror under `dir='rtl'`. Wrap RTL regions in `DirectionProvider` so Radix-based parts follow:
+
+```jsx
+import { DirectionProvider } from '@gaudi/design-system/core/Direction';
+
+<DirectionProvider dir='rtl'><div dir='rtl'>{controls}</div></DirectionProvider>
+```
+
+Every example on this site has an **RTL** toggle in its toolbar.
+
+## Responsive checks
+
+Build for narrow containers as well as wide pages: let labels and actions wrap, keep full-width elements aligned, and contain deliberately scrollable charts, tables and boards within their own regions. Verify narrow phones, common phones, tablets, laptops and wide desktops (for example 320–360, 390, 768, 1280 and 1600px) in light and dark. Every example here has phone/tablet/desktop width toggles.
+
+## Contrast
+
+Every theme preset passes WCAG AA pairs in both modes (`checkContrast`); the `contrast` preset goes further with 7:1 body text. See the [theming guide](/docs/theming/guide#contrast).

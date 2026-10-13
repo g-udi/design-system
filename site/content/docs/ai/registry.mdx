@@ -1,0 +1,21 @@
+---
+title: Registry
+description: A shadcn-compatible registry of blocks and patterns whose components stay package imports.
+---
+
+The registry covers the curated examples: page-level **blocks** (`registry:block`: app shells, sidebars, screens, dashboards, forms, scheduling, stat cards, chat) and component **patterns** (`registry:example`). Each item's file is the owner fixture rewritten to public imports, exactly the source shown in every **Code** tab on this site, so it imports from `@gaudi/design-system` instead of copying components.
+
+Add the namespace to `components.json`:
+
+```json
+{ "registries": { "@gaudi": "https://design.assaf.website/r/{name}.json" } }
+```
+
+Then add any item by name, or by its full URL:
+
+```sh
+npx shadcn@latest add @gaudi/screens-account-settings
+npx shadcn@latest add https://design.assaf.website/r/screens-account-settings.json
+```
+
+Install the package first (`pnpm add github:ahmadassaf/design-system`). Some items reference demo assets (`/avatars/…`, `static/images/…`); supply your own. Copied compositions keep the [third-party notice](https://github.com/ahmadassaf/design-system#third-party-notices).

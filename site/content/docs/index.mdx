@@ -1,0 +1,28 @@
+---
+title: Introduction
+description: Gaudi is a curated React design system for blogs and applications, with shared foundations, rich components and reusable interface patterns.
+---
+
+Gaudi brings reusable React components, design foundations and practical interface patterns into one coherent system. It began with a blog and grew to support application interfaces: forms, data views, navigation, dialogs, dashboards and complete workflows, alongside rich editorial and MDX experiences.
+
+The package is `@gaudi/design-system`; the source lives at [ahmadassaf/design-system](https://github.com/ahmadassaf/design-system).
+
+## How this site is built
+
+Every component, block, chart, chat and hook page is **generated from the design system's own metadata** (its `ai/components.json`, the pattern coverage manifest and the owner fixtures), so the docs cannot drift from the code. Each example renders the real fixture in an isolated frame, and its **Code** tab shows the same copyable source as Storybook, rewritten to public `@gaudi/design-system/...` imports.
+
+<Cards>
+  <Card title="Installation" href="/docs/getting-started">Add the package, the stylesheet and the Next.js config.</Card>
+  <Card title="Foundations" href="/docs/foundations">Colours and tokens, typography, icons, accessibility and states.</Card>
+  <Card title="Theming" href="/docs/theming">Eight presets, the theme contract and StyleGlide/tweakcn/shadcn import.</Card>
+  <Card title="AI & agents" href="/docs/ai">llms.txt, the agent skill, the MCP server and the registry.</Card>
+  <Card title="Components" href="/docs/components">Controls, inputs, overlays, data display, feedback and navigation.</Card>
+  <Card title="Blocks" href="/docs/blocks">App shells, auth, dashboards, forms, scheduling, settings and more.</Card>
+</Cards>
+
+## What belongs in Gaudi
+
+- **Foundations:** shared tokens, typography, colours, icons, motion and accessibility conventions.
+- **Components:** reusable controls and compositions, with variants and interaction states for real product use.
+- **Patterns and blocks:** application shells, settings, onboarding, collections and editorial page sections.
+- **Publishing:** post components, reading layouts and MDX primitives for blogs and other content experiences.

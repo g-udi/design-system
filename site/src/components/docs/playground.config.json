@@ -1,0 +1,140 @@
+{
+  "$comment": "Components that get a live props playground. Controls are derived from each owner's props metadata (src/generated/catalogue.json); entries here only correct or seed it. values: initial prop values (emitted in the code). options: replace a prop's literal options when the metadata type is wrong. types: force a control type (text, number, boolean). hide: props that get no control. noDefault: props whose metadata default is unreliable (shown as 'Default' instead). range: [min, max, step] renders a number as a slider. Read by scripts/generate.mjs (component loaders) and catalogue-blocks.tsx.",
+  "components": {
+    "core-button": {
+      "values": {
+        "children": "Button"
+      },
+      "hide": [
+        "href"
+      ],
+      "noDefault": [
+        "tone"
+      ]
+    },
+    "core-pill": {
+      "values": {
+        "children": "Badge"
+      },
+      "hide": [
+        "href",
+        "icon"
+      ]
+    },
+    "core-kbd": {
+      "values": {
+        "keys": "cmd,k"
+      },
+      "types": {
+        "keys": "text"
+      }
+    },
+    "core-switch": {
+      "values": {
+        "label": "Airplane mode"
+      },
+      "hide": [
+        "checked"
+      ]
+    },
+    "core-checkbox": {
+      "values": {
+        "label": "Accept the terms"
+      },
+      "hide": [
+        "checked"
+      ]
+    },
+    "core-progress": {
+      "values": {
+        "label": "Uploading files",
+        "value": 60
+      },
+      "range": {
+        "value": [
+          0,
+          100,
+          1
+        ]
+      }
+    },
+    "core-avatar": {
+      "values": {
+        "name": "Ada Lovelace"
+      },
+      "hide": [
+        "fallback"
+      ]
+    },
+    "core-card": {
+      "values": {
+        "title": "Card title",
+        "subtitle": "A short supporting line.",
+        "children": "Cards group related content and actions."
+      }
+    },
+    "core-input": {
+      "values": {
+        "placeholder": "you@example.com"
+      },
+      "hide": [
+        "prefix",
+        "suffix",
+        "caretMode"
+      ]
+    },
+    "core-textarea": {
+      "values": {
+        "placeholder": "Write a message"
+      },
+      "hide": [
+        "caretMode"
+      ]
+    },
+    "core-banner": {
+      "values": {
+        "title": "New release",
+        "children": "Gaudi 2 ships charts and chat parts."
+      },
+      "hide": [
+        "href",
+        "ariaLabel"
+      ]
+    },
+    "core-loader": {
+      "hide": [
+        "loaderVariants"
+      ]
+    },
+    "core-rating": {
+      "values": {
+        "rating": 3
+      },
+      "hide": [
+        "starClassName"
+      ],
+      "range": {
+        "rating": [
+          0,
+          5,
+          1
+        ]
+      }
+    },
+    "core-emptystate": {
+      "values": {
+        "title": "No projects yet",
+        "description": "Create a project to start collecting feedback."
+      },
+      "hide": [
+        "icon",
+        "actions"
+      ]
+    },
+    "mdx-callout": {
+      "values": {
+        "children": "Callouts highlight information the reader should not miss."
+      }
+    }
+  }
+}
