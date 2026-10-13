@@ -12,7 +12,7 @@
     "data-grid",
     "core"
   ],
-  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/art/0.svg, static/images/art/1.svg, static/images/art/10.svg, static/images/art/2.svg, static/images/art/3.svg, static/images/art/5.svg, static/images/art/6.svg, static/images/art/7.svg, static/images/art/8.svg, static/images/art/9.svg.",
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/art/0.svg, static/images/art/1.svg, static/images/art/10.svg, static/images/art/2.svg, static/images/art/3.svg, static/images/art/5.svg, static/images/art/6.svg, static/images/art/7.svg, static/images/art/8.svg, static/images/art/9.svg.",
   "meta": {
     "owner": "core/DataTable",
     "import": "@gaudi/design-system/core/DataTable",

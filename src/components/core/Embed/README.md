@@ -17,7 +17,7 @@ The shared preview vocabulary for messages and content. `Embed` is a thin switch
 ```jsx
 import { Embed } from '@gaudi/design-system';
 
-<Embed url='https://github.com/ahmadassaf/design-system' />
+<Embed url='https://github.com/g-udi/design-system' />
 <Embed code={source} language='html' filename='index.html' />
 <Embed url='https://preview.example.dev/' html={generatedHtml} title='Generated page' />
 <Embed src='/images/diagram.png' alt='Architecture diagram' components={{ image: ImageWithLightbox }} />

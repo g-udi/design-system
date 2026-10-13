@@ -27,7 +27,7 @@ function ShareLink() {
   );
 }
 
-const snippets = [ [ 'pnpm', 'pnpm add github:ahmadassaf/design-system' ], [ 'npm', 'npm install github:ahmadassaf/design-system' ] ];
+const snippets = [ [ 'pnpm', 'pnpm add github:g-udi/design-system' ], [ 'npm', 'npm install github:g-udi/design-system' ] ];
 
 function InstallCommands() {
   const { copy, copiedText } = useCopyToClipboard(1500);

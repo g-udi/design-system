@@ -53,7 +53,7 @@ export const SeveralTargets = {
       await userEvent.click(npm);
       await waitFor(() => expect(npm.querySelector('svg').innerHTML).not.toBe(originalIcon));
       await expect(pnpm.querySelector('svg').innerHTML).toBe(originalIcon);
-      await expect(writes).toEqual(['pnpm add github:ahmadassaf/design-system', 'npm install github:ahmadassaf/design-system']);
+      await expect(writes).toEqual(['pnpm add github:g-udi/design-system', 'npm install github:g-udi/design-system']);
       await waitFor(() => expect(npm.querySelector('svg').innerHTML).toBe(originalIcon), { timeout: 2500 });
     } finally { navigator.clipboard.writeText = original; }
   }

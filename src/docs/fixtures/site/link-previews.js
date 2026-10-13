@@ -5,11 +5,11 @@ import { aurora, dusk, lagoon, meadow, sky } from './artwork';
 
 export const linkPreviewExamples = {
   repository: {
-    url: 'https://github.com/ahmadassaf/design-system',
+    url: 'https://github.com/g-udi/design-system',
     title: 'Gaudi on GitHub',
     previewData: {
       type: 'repository',
-      title: 'ahmadassaf/design-system',
+      title: 'g-udi/design-system',
       description: 'Gaudi: a curated design system for blogs and applications.',
       image: aurora,
       siteName: 'GitHub',

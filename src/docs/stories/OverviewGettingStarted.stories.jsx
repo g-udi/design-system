@@ -43,7 +43,7 @@ export const Default = {
         </p>
         <CodeBlock
           language='jsx'
-          code={ `pnpm add github:ahmadassaf/design-system
+          code={ `pnpm add github:g-udi/design-system
 
 // app/layout.js
 import '@gaudi/design-system/global.css';

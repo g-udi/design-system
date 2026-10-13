@@ -13,7 +13,7 @@
     "tree",
     "core"
   ],
-  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-19.svg, /avatars/person-20.svg, /avatars/person-22.svg, /avatars/person-24.svg, /avatars/person-35.svg, /avatars/person-38.svg, /avatars/person-41.svg, /avatars/person-43.svg, /avatars/person-49.svg, /avatars/person-50.svg.",
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-07.svg, /avatars/person-19.svg, /avatars/person-20.svg, /avatars/person-22.svg, /avatars/person-24.svg, /avatars/person-35.svg, /avatars/person-38.svg, /avatars/person-41.svg, /avatars/person-43.svg, /avatars/person-49.svg, /avatars/person-50.svg.",
   "meta": {
     "owner": "core/Tree",
     "import": "@gaudi/design-system/core/Tree",

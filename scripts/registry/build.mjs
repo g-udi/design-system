@@ -15,7 +15,7 @@ const patterns = await derivePatterns();
 const docs = (pattern) => [
   `Copy-in ${pattern.type === 'registry:block' ? 'block' : 'pattern'} built on ${manifest.name}; the components stay package imports.`,
   `Load '${manifest.name}/global.css' once and add transpilePackages: ['${manifest.name}'] in Next.js.`,
-  'Until the package is on npm, install it from GitHub first: pnpm add github:ahmadassaf/design-system.',
+  'Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.',
   pattern.assets.length ? `Demo assets referenced (supply your own or copy them into public/): ${pattern.assets.join(', ')}.` : ''
 ].filter(Boolean).join(' ');
 
@@ -38,7 +38,7 @@ const themes = readdirSync(path.join(root, 'themes/presets')).filter((file) => f
 const registry = {
   $schema: 'https://ui.shadcn.com/schema/registry.json',
   name: 'gaudi',
-  homepage: 'https://github.com/ahmadassaf/design-system',
+  homepage: 'https://github.com/g-udi/design-system',
   items: [
     ...patterns.map((pattern) => ({ ...itemBase(pattern), files: [{ path: filePath(pattern), type: 'registry:component' }] })),
     ...themes.map(({ $schema: _schema, meta: _meta, ...item }) => item)

@@ -9,7 +9,7 @@ const options = (name) => Object.keys(terminalVariants.variants[name]);
 // A release session: installs, tests and a push, with every output tone in one history.
 const commands = [
   {
-    command: 'pnpm add github:ahmadassaf/design-system',
+    command: 'pnpm add github:g-udi/design-system',
     output: [
       { text: 'Packages resolved, downloaded, and linked.', tone: 'success' },
       { text: 'WARN 1 peer dependency expects react@^19.', tone: 'warning' }
@@ -26,7 +26,7 @@ const commands = [
   {
     command: 'git push origin main',
     output: [
-      { text: 'To github.com:ahmadassaf/design-system.git' },
+      { text: 'To github.com:g-udi/design-system.git' },
       { text: '5e7f828..a41c9d2 main -> main', tone: 'success' }
     ]
   }

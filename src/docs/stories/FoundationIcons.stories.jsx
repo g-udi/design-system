@@ -106,7 +106,7 @@ import { Button } from '@gaudi/design-system';
         </Table>
       </Section>
 
-      <Section title='Application Consumption' description='Consuming applications and Gaudi components consume icons through the registry only. Direct vendor imports are limited to src/icons/index.jsx in ahmadassaf/design-system.'>
+      <Section title='Application Consumption' description='Consuming applications and Gaudi components consume icons through the registry only. Direct vendor imports are limited to src/icons/index.jsx in g-udi/design-system.'>
         <CodeBlock code={ `import { Icon } from '@gaudi/design-system';
 
 <Icon name='Search' size='sm' decorative />
@@ -180,7 +180,7 @@ rg "from ['"](@heroicons|react-icons|lucide-react|@tabler/icons-react)" src app 
           <div className='rounded-lg border border-border bg-surface p-4'>
             <h3 className='mb-3 text-sm font-semibold'>Workflow</h3>
             <CheckList items={ [
-              'Open src/icons/index.jsx in ahmadassaf/design-system.',
+              'Open src/icons/index.jsx in g-udi/design-system.',
               'Import the vendor icon only in that registry file.',
               'Add a PascalCase registry key for product UI, or a lowercase key for file/social aliases.',
               'Add compatibility aliases when replacing old names such as Heroicon-style *Icon keys.',

@@ -61,7 +61,7 @@ export function themeSchema() {
   const shadowSet = { type: 'object', additionalProperties: false, required: SHADOW_TOKENS, properties: shadowProperties };
   return {
     $schema: 'https://json-schema.org/draft/2020-12/schema',
-    $id: 'https://github.com/ahmadassaf/design-system/themes/theme.schema.json',
+    $id: 'https://github.com/g-udi/design-system/themes/theme.schema.json',
     title: 'Gaudi theme',
     description: `A Gaudi design-system theme: the themeable --ds-* contract for light and dark (src/tokens/THEMING.md). Colour groups: ${COLOR_GROUPS.map((group) => group.label).join(', ')}.`,
     type: 'object',

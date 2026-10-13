@@ -29,18 +29,14 @@ const config = {
       return [
         { source: '/', has: [{ type: 'query', key: 'path' }], missing: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/storybook/index.html', permanent: true },
         { source: '/iframe.html', missing: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/storybook/iframe.html', permanent: true },
-        { source: '/storybook', destination: '/storybook/index.html', permanent: false, missing: [{ type: 'host', value: STORYBOOK_HOST }] }
+        { source: '/storybook', destination: '/storybook/index.html', permanent: false, missing: [{ type: 'host', value: STORYBOOK_HOST }] },
+        // The site's home page claims `/` before rewrites run, so the Storybook host sends it to the file.
+        { source: '/', has: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/index.html', permanent: false }
       ];
     },
     // storybook.gaudi.site serves the same deployment's Storybook build at its root.
     async rewrites() {
-      const host = [{ type: 'host', value: STORYBOOK_HOST }];
-      return {
-        beforeFiles: [
-          { source: '/', has: host, destination: '/storybook/index.html' },
-          { source: '/:path*', has: host, destination: '/storybook/:path*' }
-        ]
-      };
+      return { beforeFiles: [{ source: '/:path+', has: [{ type: 'host', value: STORYBOOK_HOST }], destination: '/storybook/:path+' }] };
     }
   }),
   // Keep builds deterministic; lint and typecheck run as separate scripts.

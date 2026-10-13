@@ -17,7 +17,7 @@ Gaudi (`@gaudi/design-system`) is a React 19 design system shipped as JSX source
 
 ## Setup (once per project)
 
-- Install: `pnpm add github:ahmadassaf/design-system` (until published to npm; the import name is always `@gaudi/design-system`). Peers: `react`, `react-dom`, `next`, `next-themes`, `tailwindcss`; optional `recharts` (charts) and `@xyflow/react` (Flow).
+- Install: `pnpm add github:g-udi/design-system` (until published to npm; the import name is always `@gaudi/design-system`). Peers: `react`, `react-dom`, `next`, `next-themes`, `tailwindcss`; optional `recharts` (charts) and `@xyflow/react` (Flow).
 - CSS: `import '@gaudi/design-system/global.css'` once in the root layout. If the app owns its Tailwind entry, import `@gaudi/design-system/styles.css` after Tailwind instead.
 - Next.js: `transpilePackages: ['@gaudi/design-system']`.
 - Theming: `--ds-radius` (corners, default 4px), `--ds-space-scale` (density, default 1), dark mode via the `dark` class on `<html>`.

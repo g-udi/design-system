@@ -55,7 +55,7 @@ export const Playground = {
     const anchors = within(canvasElement).getAllByRole('link');
     await expect(anchors[0]).toHaveAttribute('href', link.url);
     if (args.kind === 'repository' && args.variant === 'card') {
-      await expect(within(canvasElement).getByRole('heading', { name: 'ahmadassaf/design-system' })).toBeVisible();
+      await expect(within(canvasElement).getByRole('heading', { name: 'g-udi/design-system' })).toBeVisible();
       await expect(within(canvasElement).getByText('1.3K stars')).toBeInTheDocument();
     }
   }
@@ -96,7 +96,7 @@ export const LinkPreviews = {
     const canvas = within(canvasElement);
     // The inline link opens its rich card on hover with the repository stats from the payload.
     await userEvent.hover(canvas.getByRole('link', { name: 'Gaudi on GitHub - GitHub' }));
-    await waitFor(() => expect(screen.getByRole('heading', { name: 'ahmadassaf/design-system' })).toBeVisible());
+    await waitFor(() => expect(screen.getByRole('heading', { name: 'g-udi/design-system' })).toBeVisible());
     await userEvent.unhover(canvas.getByRole('link', { name: 'Gaudi on GitHub - GitHub' }));
     // Cards title-link to the destination; the video card carries its channel and length.
     await expect(canvas.getByRole('heading', { level: 4, name: 'Designing with tokens' })).toBeVisible();

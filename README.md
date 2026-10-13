@@ -4,7 +4,11 @@ Gaudi is a curated design system for blogs and applications. It brings reusable 
 
 It began with the blog and has grown to support application interfaces: forms, data views, navigation, dialogs, dashboards, and complete workflows alongside rich editorial and MDX experiences. Components and patterns discovered across other systems are selected, adapted, and extended for reuse in Gaudi.
 
-The system is called **Gaudi**. The source repository is hosted at [`ahmadassaf/design-system`](https://github.com/ahmadassaf/design-system), and the package import name is `@gaudi/design-system`.
+The system is called **Gaudi**. The source repository is hosted at [`g-udi/design-system`](https://github.com/g-udi/design-system), and the package import name is `@gaudi/design-system`.
+
+- **Website:** [design.gaudi.site](https://design.gaudi.site): getting started, foundations, theming, AI tooling and every component with live examples.
+- **Storybook:** [storybook.gaudi.site](https://storybook.gaudi.site): every story, interaction state and theme preset.
+- **Registry:** [design.gaudi.site/r](https://design.gaudi.site/r/registry.json): copy-in blocks and patterns for the shadcn CLI.
 
 Use `GaudiBrand` from `@gaudi/design-system/icons/brands/gaudi` in demo and content headers: a compact dark tile with a white G followed by ordinary “Gaudi” text. `GaudiLogo` provides the tile alone for compact icon slots and favicons, including the `Gaudi` icon registry name. The dark tile is the default in both themes; `tone="light"` explicitly selects the white alternative. The graphic `GaudiWordmark` remains available as artwork but is not used in demos. Storybook's sidebar stays unbranded. The four original SVGs live in [`src/icons/brands/artwork`](src/icons/brands/artwork). `pnpm brand:build` preserves their geometry while regenerating the React components, Storybook images and favicons; see the [brand usage notes](src/icons/brands/README.md).
 
@@ -28,7 +32,7 @@ Read [`AGENTS.md`](./AGENTS.md) before changing the package or consuming it from
 ## Install
 
 ```sh
-pnpm add github:ahmadassaf/design-system
+pnpm add github:g-udi/design-system
 ```
 
 The repository name and package name are intentionally different: install from GitHub, then import from `@gaudi/design-system`.
@@ -376,7 +380,7 @@ npx shadcn@latest add @gaudi/screens-account-settings
 npx shadcn@latest add https://design.gaudi.site/r/screens-account-settings.json
 ```
 
-Install the package from GitHub first (`pnpm add github:ahmadassaf/design-system`), or build the registry with `GAUDI_PACKAGE_SPEC=github:ahmadassaf/design-system pnpm registry:build` so items declare that spec. Some items reference demo assets (`/avatars/…`, `static/images/…`) listed in their `docs`/`meta.assets`; supply your own. Copied compositions keep the [third-party notice](#third-party-notices).
+Install the package from GitHub first (`pnpm add github:g-udi/design-system`), or build the registry with `GAUDI_PACKAGE_SPEC=github:g-udi/design-system pnpm registry:build` so items declare that spec. Some items reference demo assets (`/avatars/…`, `static/images/…`) listed in their `docs`/`meta.assets`; supply your own. Copied compositions keep the [third-party notice](#third-party-notices).
 
 ## Development
 
@@ -443,9 +447,13 @@ Use `VITE_GAUDI_AUDIT=1` to validate authored/copied Docs source and run the res
 
 Every UI change needs visual and interaction checks across narrow/common phones, tablets, laptops, and wide desktops, including affected breakpoints and adjacent widths. Inspect wrapping, clipping, alignment, and contained scrolling; report the widths actually checked and restore viewport/theme overrides. Historical results under [`.storybook/verification/`](.storybook/verification/) describe their dated scope, not the current state of the entire system.
 
+### Documentation site
+
+The website lives in [`site/`](site/README.md), a Next.js app that installs this checkout (`link:..`) and generates its component pages from the same catalogue, coverage and fixtures. Every push to `main` deploys it to Vercel with Storybook built into the same deployment: [design.gaudi.site](https://design.gaudi.site) serves the website and registry, and [storybook.gaudi.site](https://storybook.gaudi.site) serves Storybook. Run it locally with `pnpm --dir site install` and `pnpm --dir site dev`.
+
 ## Storybook navigation
 
-The sidebar starts with nine top-level pages: Getting Started, Accessibility, Colors & Tokens, Icons, Indicators, States & Recovery, Typography, Theming, and Theme Studio. The component list follows: Core, Blocks, Chat, Charts, Hooks, Animations (Text and Backgrounds), MDX, Post, and Layout. Getting Started links to the single Component Catalogue. Site navigation is documented under Blocks/Navigation; reusable navigation primitives live under Core/Navigation.
+The sidebar starts with eight guides: Getting Started, Accessibility, Colors & Tokens, Icons, Indicators, States & Recovery, Typography, and Theming (with Theme Studio nested under it). The component list follows: Core, Blocks, Chat, Charts, Hooks, Animations (Text and Backgrounds), and MDX. Blog compositions live under Blocks/Blog. Getting Started links to the single Component Catalogue. Site navigation is documented under Blocks/Navigation; reusable navigation primitives live under Core/Navigation.
 
 Run `pnpm catalogue:sync` after adding, removing, or renaming stories to refresh the catalogue fallback. The running catalogue also reads Storybook's current index.
 

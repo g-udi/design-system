@@ -16,12 +16,12 @@ export function BackgroundDemo({ children, paused: externallyPaused = false, hin
   const content = (
     <div id={contentId} className={`gaudi-background-demo__content${darkContent ? ' dark' : ''}`} data-background-demo-content hidden={!showContent}>
       <header className="gaudi-background-demo__header">
-        <Link className="gaudi-background-demo__brand" href="https://github.com/ahmadassaf/design-system" variant="bare">
+        <Link className="gaudi-background-demo__brand" href="https://github.com/g-udi/design-system" variant="bare">
           <GaudiBrand className="text-sm" />
         </Link>
         <nav aria-label="Gaudi demo navigation" className="gaudi-background-demo__navigation">
-          <Button href="https://github.com/ahmadassaf/design-system#usage" target="_blank" rel="noreferrer" variant="ghost" size="sm">Components</Button>
-          <Button href="https://github.com/ahmadassaf/design-system#install" target="_blank" rel="noreferrer" size="sm">Get started</Button>
+          <Button href="https://github.com/g-udi/design-system#usage" target="_blank" rel="noreferrer" variant="ghost" size="sm">Components</Button>
+          <Button href="https://github.com/g-udi/design-system#install" target="_blank" rel="noreferrer" size="sm">Get started</Button>
         </nav>
       </header>
       <section className="gaudi-background-demo__hero" aria-labelledby={headingId}>
@@ -30,8 +30,8 @@ export function BackgroundDemo({ children, paused: externallyPaused = false, hin
           <h2 id={headingId}>Make room for <br />your next idea.</h2>
           <p>Thoughtful components. A little atmosphere.</p>
           <div className="gaudi-background-demo__actions">
-            <Button href="https://github.com/ahmadassaf/design-system#usage" target="_blank" rel="noreferrer" size="lg">Explore components <RegistryIcon lucide="ArrowRight" /></Button>
-            <Button href="https://github.com/ahmadassaf/design-system" target="_blank" rel="noreferrer" size="lg" variant="outline" className="bg-surface">View on GitHub</Button>
+            <Button href="https://github.com/g-udi/design-system#usage" target="_blank" rel="noreferrer" size="lg">Explore components <RegistryIcon lucide="ArrowRight" /></Button>
+            <Button href="https://github.com/g-udi/design-system" target="_blank" rel="noreferrer" size="lg" variant="outline" className="bg-surface">View on GitHub</Button>
           </div>
         </div>
       </section>

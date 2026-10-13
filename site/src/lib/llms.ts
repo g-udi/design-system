@@ -14,8 +14,6 @@ import { siteConfig, storybookStoryUrl } from '../../site.config';
 /** Public origin for absolute links in llms.txt and chat prompts; root-relative when unset. */
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '');
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
-/** This site's own repository (hand-written pages); the design system lives at siteConfig.github. */
-export const siteRepo = (process.env.NEXT_PUBLIC_SITE_REPO_URL || 'https://github.com/ahmadassaf/gaudi-ds-site').replace(/\/$/, '');
 
 export const absoluteUrl = (pathname: string) => `${siteUrl}${basePath}${pathname}`;
 /**
@@ -75,7 +73,7 @@ export function pageOrigin(page: DocsPage): PageOrigin {
     return { handWritten: false, sourceUrl: `${siteConfig.github}/blob/main/ai/components.json`, editUrl: null, lastModified: lastCommitDate(designSystemRoot, 'ai/components.json') };
   }
   const file = `content/docs/${page.path}`;
-  return { handWritten: true, sourceUrl: `${siteRepo}/blob/main/${file}`, editUrl: `${siteRepo}/edit/main/${file}`, lastModified: lastCommitDate(siteRoot, file) };
+  return { handWritten: true, sourceUrl: `${siteConfig.github}/blob/main/site/${file}`, editUrl: `${siteConfig.github}/edit/main/site/${file}`, lastModified: lastCommitDate(siteRoot, file) };
 }
 
 // ---------------------------------------------------------------------------------------------

@@ -32,7 +32,7 @@ const write = (file, content) => {
   mkdirSync(path.dirname(target), { recursive: true });
   writeFileSync(target, content);
 };
-const GITHUB = 'https://github.com/ahmadassaf/design-system';
+const GITHUB = 'https://github.com/g-udi/design-system';
 const blob = (file) => `${GITHUB}/blob/main/${file.replace(/^\.?\//, '')}`;
 
 // Brand hygiene: the site never names the organisation some DS notes mention. Drop any sentence

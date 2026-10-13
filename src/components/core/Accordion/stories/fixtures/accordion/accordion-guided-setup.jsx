@@ -54,7 +54,7 @@ export function Pattern() {
                     Scan to read the package guide on another device, or{' '}
                     <a
                       className='text-accent underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2'
-                      href='https://github.com/ahmadassaf/design-system'
+                      href='https://github.com/g-udi/design-system'
                       target='_blank'
                       rel='noreferrer'
                     >

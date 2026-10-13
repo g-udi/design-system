@@ -1,6 +1,6 @@
 # Gaudi Design System — documentation site
 
-The documentation website for [Gaudi](https://github.com/ahmadassaf/design-system) (`@gaudi/design-system`): getting started, foundations, theming, AI & agents, and a generated page for every component, block, chat part, chart, hook, MDX primitive and layout owner, each with live previews and copyable code.
+The documentation website for [Gaudi](https://github.com/g-udi/design-system) (`@gaudi/design-system`): getting started, foundations, theming, AI & agents, and a generated page for every component, block, chat part, chart, hook, MDX primitive and layout owner, each with live previews and copyable code.
 
 Built with [Next.js](https://nextjs.org) (App Router, webpack), [Fumadocs](https://fumadocs.dev) (routing over MDX content, the search index and the table of contents) and [Tailwind CSS v4](https://tailwindcss.com). The site chrome is Gaudi itself: `AppShell`, `Tabs`, `CodeBlock`/`CodeBlockGroup`, `CommandDialog`, `DropdownMenu`, `ToggleGroup`, `Button`, `ThemeProvider`/`useTheme` and the MDX `CodeFence`.
 
@@ -57,7 +57,6 @@ Each example renders in an isolated document at `/preview/<pattern>` inside an i
 | `GAUDI_DS_DIR` | the linked package | Alternative design-system checkout for `pnpm generate` |
 | `STATIC_EXPORT` | unset | `1` builds a static export to `out/` |
 | `NEXT_PUBLIC_SITE_URL` | `http://localhost:$PORT` | Absolute site URL for social images, `sitemap.xml` and `robots.txt`; `llms.txt` and Markdown links stay relative until it is set |
-| `NEXT_PUBLIC_SITE_REPO_URL` | `https://github.com/ahmadassaf/gaudi-ds-site` | Target of "Edit on GitHub" and source links for hand-written pages |
 | `OPENAI_API_KEY` | unset | Enables Ask AI (`/api/ask`); keep it in `.env.local`, which is git-ignored |
 | `OPENAI_MODEL` | `gpt-5-mini` | Model Ask AI uses |
 
@@ -82,4 +81,4 @@ The site deploys to https://design.gaudi.site from the design-system repository 
 - Site layout inspired by [beUI](https://beui.dev) (for example its [project folder block page](https://beui.dev/components/blocks/project-folder)).
 - [Fumadocs](https://fumadocs.dev) (MIT) for content routing, search and the table of contents; [Next.js](https://nextjs.org) (MIT); [Tailwind CSS](https://tailwindcss.com) (MIT).
 - Theme import credits: [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) and [shadcn/ui](https://ui.shadcn.com/themes).
-- Everything the design system builds on is listed in its README: [Credits & acknowledgements](https://github.com/ahmadassaf/design-system#credits--acknowledgements).
+- Everything the design system builds on is listed in its README: [Credits & acknowledgements](https://github.com/g-udi/design-system#credits--acknowledgements).

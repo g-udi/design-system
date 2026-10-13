@@ -1,6 +1,6 @@
 # Agent instructions for Gaudi
 
-Gaudi is a curated React design system for blogs and applications. The repository is `ahmadassaf/design-system`; the package is `@gaudi/design-system`. These instructions apply throughout the repository. See [README.md](README.md) for installation, public imports, development commands, and source notices; use component READMEs and Storybook for detailed APIs.
+Gaudi is a curated React design system for blogs and applications. The repository is `g-udi/design-system`; the package is `@gaudi/design-system`. These instructions apply throughout the repository. See [README.md](README.md) for installation, public imports, development commands, and source notices; use component READMEs and Storybook for detailed APIs.
 
 ## Clean code: KISS, DRY, and ownership
 

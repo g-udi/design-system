@@ -46,7 +46,7 @@ import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';
 
 // Inline: the link text reveals a rich card on hover or focus.
 <>
-<p>The source is in <LinkPreview url='https://github.com/ahmadassaf/design-system' title='Gaudi on GitHub' />.</p>
+<p>The source is in <LinkPreview url='https://github.com/g-udi/design-system' title='Gaudi on GitHub' />.</p>
 
 {/* Card and compact row; previewData skips fetching (server-rendered or cached metadata). */}
 <LinkPreview url='https://www.youtube.com/watch?v=qh3NGpYRG3I' variant='card' previewData={{ title: 'Designing with tokens', image: '/og/tokens.jpg', author: 'Gaudi', duration: 'PT12M41S' }} />
@@ -89,7 +89,7 @@ A link enriched with what the destination is. One pure normaliser, `normalizeLin
 ```jsx
 import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';
 
-<p>The source is in <LinkPreview url='https://github.com/ahmadassaf/design-system' title='Gaudi on GitHub' />.</p>
+<p>The source is in <LinkPreview url='https://github.com/g-udi/design-system' title='Gaudi on GitHub' />.</p>
 
 <LinkPreview url='https://www.youtube.com/watch?v=qh3NGpYRG3I' variant='card' previewData={payload} />
 <LinkPreview url='https://medium.com/@ahmadassaf/knowledge-graphs' variant='compact' />

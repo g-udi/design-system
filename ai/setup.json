@@ -3,7 +3,7 @@
   "version": "0.1.7",
   "generatedBy": "pnpm ai:build",
   "install": {
-    "github": "pnpm add github:ahmadassaf/design-system",
+    "github": "pnpm add github:g-udi/design-system",
     "npm": "pnpm add @gaudi/design-system",
     "note": "Install from GitHub; the import name is always @gaudi/design-system."
   },

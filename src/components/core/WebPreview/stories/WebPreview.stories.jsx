@@ -110,7 +110,7 @@ export const BlockedEmbed = {
     const canvas = within(canvasElement);
     await expect(frame(canvasElement)).toBeNull();
     await expect(canvas.getByText('This page can’t be shown here')).toBeVisible();
-    await expect(canvas.getByRole('link', { name: 'ahmadassaf/design-system' })).toHaveAttribute('href', linkPreviewExamples.repository.url);
+    await expect(canvas.getByRole('link', { name: 'g-udi/design-system' })).toHaveAttribute('href', linkPreviewExamples.repository.url);
     await expect(canvas.getByRole('link', { name: 'Open in new tab' })).toHaveAttribute('target', '_blank');
   }
 };

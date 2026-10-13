@@ -8,7 +8,7 @@ import { sky } from '../../../../docs/fixtures/site/artwork';
 import Embed from '../index.js';
 
 const docs = getComponentDocs('Core/Media & Previews/Embed');
-const snippet = "import { Embed } from '@gaudi/design-system';\n\n<Embed url='https://github.com/ahmadassaf/design-system' />";
+const snippet = "import { Embed } from '@gaudi/design-system';\n\n<Embed url='https://github.com/g-udi/design-system' />";
 
 // One piece of content per type, as a message renderer would receive them.
 const contents = {
