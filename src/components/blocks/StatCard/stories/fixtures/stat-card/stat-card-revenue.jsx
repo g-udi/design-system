@@ -1,5 +1,6 @@
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
@@ -41,10 +42,10 @@ export function Pattern() {
         </DropdownMenu>
       }
       footer={
-        <a href='#revenue' className='hover:text-text inline-flex items-center gap-1'>
+        <Link href='#revenue' variant='muted' className='inline-flex items-center gap-1'>
           View full breakdown
           <RegistryIcon lucide='ArrowUpRightIcon' aria-hidden='true' className='size-3.5' />
-        </a>
+        </Link>
       }
     >
       <dl className='mt-1 grid gap-2 text-sm'>

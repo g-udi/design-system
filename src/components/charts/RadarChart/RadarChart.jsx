@@ -3,8 +3,8 @@
 import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { chartAxisTick, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
-import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RechartsRadarChart, RechartsTooltip, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
+import { ChartSeriesLegend, chartAxisTick, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RechartsRadarChart, RechartsTooltip, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { categoryPoints, getSeries } from '../ChartFrame/ChartSeries.jsx';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';
 
@@ -22,7 +22,7 @@ function RadarPlot({ colors, data, domain, filled, series, showLegend, showRings
   const Rows = useMemo(() => createRowsTooltip(({ payload }) => payload.map((item) => ({ 'color': item.color || item.stroke, 'label': item.name, 'value': format(item.value) }))), [ format ]);
 
   return (
-    <div className='h-full w-full overflow-x-auto' role='region' aria-label='Scrollable radar chart' tabIndex={0}>
+    <div className='h-full w-full overflow-x-auto' role='region' aria-label={ frame?.labels.scrollRegion } tabIndex={0}>
       <div className='h-full min-w-sm'>
     <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
       <RechartsRadarChart accessibilityLayer={ false } cx='50%' cy='50%' data={ data } margin={{ top: 20, right: 88, bottom: 44, left: 88 }} outerRadius='85%'>
@@ -30,7 +30,7 @@ function RadarPlot({ colors, data, domain, filled, series, showLegend, showRings
         <PolarAngleAxis dataKey={ xKey } tick={ chartAxisTick } />
         <PolarRadiusAxis angle={ 90 } axisLine={ false } domain={ domain } tick={ showRings ? { ...chartAxisTick, 'fontSize': 10 } : false } tickFormatter={ format } />
         {showTooltip ? <RechartsTooltip content={ <Rows /> } /> : null}
-        {showLegend ? <Legend iconType='circle' wrapperStyle={{ 'bottom': 0, 'fontSize': 12, 'paddingTop': 12 }} /> : null}
+        {showLegend ? <ChartSeriesLegend wrapperStyle={{ 'bottom': 0 }} /> : null}
         {series.map((item, index) => {
           const color = getChartColor(colors, index);
 

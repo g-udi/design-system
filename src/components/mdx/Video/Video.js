@@ -1,10 +1,11 @@
 'use client';
 
-import { useId, useRef, useState } from 'react';
+import { useState } from 'react';
 
 import Button from '../../core/Button';
 import Dialog from '../../core/Dialog';
 import Icon from '../../core/Icon';
+import { getYouTubeVideoId } from '../../core/LinkPreview/linkPreviewData.js';
 import { cn } from '../../../utilities/cn';
 
 const slideIn = {
@@ -23,28 +24,10 @@ export const videoAnimationStyles = {
   'top-in-bottom-out': slideIn['from-top']
 };
 
+// Watch and short links become embed URLs; embed URLs and other players keep their own parameters.
 const getEmbeddableSrc = (src) => {
-  if (!src) return '';
-
-  try {
-    const url = new URL(src);
-
-    if ((url.hostname === 'youtube.com' || url.hostname.endsWith('.youtube.com')) && url.pathname === '/watch') {
-      const videoId = url.searchParams.get('v');
-
-      if (videoId) return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}`;
-    }
-
-    if (url.hostname === 'youtu.be' || url.hostname === 'www.youtu.be') {
-      const videoId = url.pathname.replace('/', '');
-
-      if (videoId) return `https://www.youtube.com/embed/${encodeURIComponent(videoId)}`;
-    }
-  } catch {
-    return src;
-  }
-
-  return src;
+  const videoId = getYouTubeVideoId(src);
+  return videoId && !src.includes('/embed/') ? `https://www.youtube.com/embed/${encodeURIComponent(videoId)}` : src || '';
 };
 
 const addAutoplay = (src) => {
@@ -78,85 +61,58 @@ const Video = ({
   videoSrc
 }) => {
   const [ open, setOpen ] = useState(false);
-  const dialogTitleId = useId();
-  const closeRef = useRef(null);
   const panelAnimation = videoAnimationStyles[animationStyle] || videoAnimationStyles['from-center'];
   const iframeSrc = getEmbeddableSrc(videoSrc);
   const srcWithAutoplay = autoplay ? addAutoplay(iframeSrc) : iframeSrc;
 
   return (
-    <>
-      <Button
-        variant='ghost'
-        tone='neutral'
-        size='sm'
-        className={ cn(
-          'group relative block h-auto w-full overflow-hidden rounded-lg bg-surface-dark p-0 text-left shadow-sm ring-1 ring-border transition hover:bg-surface-dark hover:shadow-md', className, classNames.trigger
-        ) }
-        aria-label={ ariaLabel || playLabel }
-        onClick={ () => setOpen(true) }
-      >
-        <span className='block aspect-video w-full overflow-hidden'>
-          {thumbnailSrc ? (
-            <img src={ thumbnailSrc } alt={ thumbnailAlt } className={ cn('size-full object-cover transition duration-300 group-hover:scale-[1.02]', classNames.thumbnail) } />
-          ) : (
-            <span className={ cn('flex size-full items-end bg-surface-muted p-4 text-sm text-text-muted', classNames.thumbnail) }>
-              {thumbnailAlt}
-            </span>
-          )}
-        </span>
-        <span className='absolute inset-0 bg-black/20 transition group-hover:bg-black/10' aria-hidden='true' />
-        <span className={ cn('absolute inset-0 flex items-center justify-center', classNames.playWrapper) }>
-          <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-surface/95 text-accent shadow-lg transition group-hover:scale-105', classNames.playButton) }>
-            <Icon name='Play' decorative className='ml-0.5 size-6 fill-current' />
+    <Dialog
+      open={ open }
+      onOpenChange={ setOpen }
+      title={ <span className={ cn('block wrap-anywhere', classNames.title) }>{title}</span> }
+      closeLabel='Close video dialog'
+      contentProps={ { 'aria-modal': 'true', 'data-video-dialog': true } }
+      className={ cn('w-[min(64rem,calc(100vw-2rem))] overflow-x-hidden transition duration-200', panelAnimation, classNames.panel) }
+      trigger={
+        <Button
+          variant='ghost'
+          tone='neutral'
+          size='sm'
+          className={ cn(
+            'group relative block h-auto w-full overflow-hidden rounded-lg bg-surface-dark p-0 text-left shadow-sm ring-1 ring-border transition hover:bg-surface-dark hover:shadow-md', className, classNames.trigger
+          ) }
+          aria-label={ ariaLabel || playLabel }
+        >
+          <span className='block aspect-video w-full overflow-hidden'>
+            {thumbnailSrc ? (
+              <img src={ thumbnailSrc } alt={ thumbnailAlt } className={ cn('size-full object-cover transition duration-300 group-hover:scale-[1.02]', classNames.thumbnail) } />
+            ) : (
+              <span className={ cn('flex size-full items-end bg-surface-muted p-4 text-sm text-text-muted', classNames.thumbnail) }>
+                {thumbnailAlt}
+              </span>
+            )}
           </span>
-        </span>
-      </Button>
-
-      <Dialog
-        variant='bare'
-        open={ open }
-        onOpenChange={ setOpen }
-        initialFocusRef={ closeRef }
-        label={ title }
-        contentProps={ { 'aria-labelledby': dialogTitleId, 'data-video-dialog': true } }
-        className={ cn('fixed inset-0 z-[var(--ds-z-overlay)] flex items-center justify-center p-4 sm:p-6', classNames.dialog) }
-      >
-          <Button variant='ghost' tone='neutral' size='sm' className={ cn('absolute inset-0 h-auto rounded-none bg-black/80 p-0 backdrop-blur-sm hover:bg-black/80', classNames.overlay) } aria-label='Close video dialog' onClick={ () => setOpen(false) } />
-          <div
-            className={ cn(
-              'relative z-10 max-h-full w-full max-w-5xl overflow-x-hidden overflow-y-auto rounded-lg bg-black shadow-2xl transition duration-200', panelAnimation, classNames.panel
-            ) }
-            data-open
-          >
-            <div className='flex items-center justify-between gap-3 border-b border-text-inverse/10 bg-surface-dark px-4 py-3'>
-              <h2 id={ dialogTitleId } className={ cn('min-w-0 flex-1 wrap-anywhere text-sm font-semibold text-text-inverse', classNames.title) }>{title}</h2>
-              <Button
-                ref={ closeRef }
-                variant='ghost'
-                tone='neutral'
-                size='sm'
-                className={ cn('size-11 shrink-0 rounded-control bg-text-inverse/10 p-0 text-text-inverse hover:bg-text-inverse/20 hover:text-text-inverse', classNames.close) }
-                aria-label='Close video dialog'
-                onClick={ () => setOpen(false) }
-              >
-                <Icon name='X' decorative size='sm' />
-              </Button>
-            </div>
-            <div className={ cn('aspect-video w-full bg-black', classNames.video) }>
-              {srcWithAutoplay ? (
-                <iframe
-                  title={ title }
-                  src={ srcWithAutoplay }
-                  className='size-full'
-                  allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-                  allowFullScreen
-                />
-              ) : null}
-            </div>
-          </div>
-      </Dialog>
-    </>
+          <span className='absolute inset-0 bg-surface-dark/20 transition group-hover:bg-surface-dark/10' aria-hidden='true' />
+          <span className={ cn('absolute inset-0 flex items-center justify-center', classNames.playWrapper) }>
+            <span data-slot='video-play-icon' className={ cn('inline-flex size-16 items-center justify-center rounded-control bg-surface/95 text-accent shadow-lg transition group-hover:scale-105', classNames.playButton) }>
+              <Icon name='Play' decorative className='ml-0.5 size-6 fill-current' />
+            </span>
+          </span>
+        </Button>
+      }
+    >
+      <div className={ cn('aspect-video w-full overflow-hidden rounded-control bg-surface-dark', classNames.video) }>
+        {srcWithAutoplay ? (
+          <iframe
+            title={ title }
+            src={ srcWithAutoplay }
+            className='size-full'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+          />
+        ) : null}
+      </div>
+    </Dialog>
   );
 };
 

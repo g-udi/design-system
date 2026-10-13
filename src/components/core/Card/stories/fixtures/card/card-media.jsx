@@ -8,6 +8,7 @@ import {
 } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   CardRoot as Card,
   CardContent
@@ -66,7 +67,7 @@ function OverlayCard() {
           <RegistryIcon lucide='BadgeCheckIcon' aria-label='Verified' className='absolute -top-1 -right-1 size-4 fill-info text-info-foreground' />
         </div>
         <div className='min-w-0 flex-1 text-sm'>
-          <a href='/authors/nick-johnson' className='block font-medium text-white'>Barnaby Okafor</a>
+          <Link href='/authors/nick-johnson' variant='bare' className='block font-medium text-white'>Barnaby Okafor</Link>
           <span className='block truncate text-xs text-white/80'>6 min read</span>
         </div>
         <Badge variant='success'>New</Badge>

@@ -16,8 +16,9 @@ import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { ScrollArea } from '../../ScrollArea/ScrollArea.jsx';
+// Popover's surface without its inset and gap: the panel's parts own their spacing.
 const CONTENT_SURFACE_CLASS =
-  'bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 overflow-hidden ring-1 duration-100 ring-ui-foreground/10 shadow-md rounded-lg data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2';
+  'ds-part-popover-content gap-0 overflow-hidden p-0 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2';
 const EMPTY_CLASS =
   'text-ui-muted-foreground hidden w-full justify-center py-2 text-center group-data-empty/combobox-content:flex text-sm';
 function CascaderContent({

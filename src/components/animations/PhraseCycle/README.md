@@ -9,7 +9,7 @@ import { PhraseCycle } from '@gaudi/design-system/animations/PhraseCycle';
 ```
 
 - `texts` (string[], default ["thoughtfully", "boldly", "together"]): Phrases to display in order. All phrases are included once in the accessible text.
-- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms.
+- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms).
 - `direction` (up | down, default "up"): Direction of the vertical transition.
 - `paused` (boolean, default false): Stop nonessential motion. System reduced motion, hidden tabs and offscreen containers also stop it.
 - `className / style / ref` (DOM props, default —): Applied to the outer span. Typography is inherited.

@@ -150,8 +150,6 @@ function CascaderActionList({ items }) {
     </>
   );
 }
-const FLYOUT_SURFACE_CLASS =
-  'bg-ui-popover text-ui-popover-foreground data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 max-h-72 overflow-hidden ring-1 duration-100 ring-ui-foreground/10 shadow-md rounded-lg';
 function CascaderAction({
   className,
   icon,
@@ -445,7 +443,8 @@ function CascaderSubmenuContent({
           onKeyDown={handleKeyDown}
           data-menu-target=''
           className={cn(
-            FLYOUT_SURFACE_CLASS,
+            // Popover's surface; the list padding below replaces its inset.
+            'ds-part-popover-content max-h-72 overflow-hidden',
             'flex max-w-(--available-width) min-w-48 flex-col gap-0.5 outline-hidden',
             CASCADER_LIST_PAD_CLASS,
             'p-(--cascader-list-pad,4px)',

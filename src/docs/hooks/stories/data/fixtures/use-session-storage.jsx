@@ -1,8 +1,8 @@
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import Textarea from '../../../../../components/core/Textarea';
-import { Field, FieldDescription, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useSessionStorage } from '../../../../../hooks/data/use-session-storage.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import Textarea from '@gaudi/design-system/core/Textarea';
+import { Field, FieldDescription, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useSessionStorage } from '@gaudi/design-system/hooks/data/use-session-storage';
 
 const empty = { name: '', message: '' };
 

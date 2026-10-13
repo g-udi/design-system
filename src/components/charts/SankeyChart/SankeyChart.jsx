@@ -84,7 +84,7 @@ function SankeyPlot({ colors, graph, nodeWidth }) {
   };
 
   return (
-    <div className='h-full w-full overflow-x-auto' tabIndex={0} role='region' aria-label='Scrollable flow diagram'>
+    <div className='h-full w-full overflow-x-auto' tabIndex={0} role='region' aria-label={ frame?.labels.scrollRegion }>
       <div className='h-full min-w-xl'>
     <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
       <RechartsSankey

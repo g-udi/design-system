@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldDescription, FieldLabel } from '../../../../../components/core/Field/index.js';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldDescription, FieldLabel } from '@gaudi/design-system/core/Field';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useDebounceValue } from '../../../../../hooks/state/use-debounce-value.js';
+import { useDebounceValue } from '@gaudi/design-system/hooks/state/use-debounce-value';
 
 const tags = [ 'accessibility', 'animation', 'charts', 'css', 'data', 'design systems', 'graphs', 'motion', 'react', 'typography' ];
 

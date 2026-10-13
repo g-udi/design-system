@@ -1,5 +1,6 @@
 'use client';
 
+import { clamp } from '../../../utilities/clamp.js';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { chartTones } from '../ChartFrame/ChartMarks.jsx';
 import { isChartNumber, resolveFormatter } from '../ChartFrame/chartScale.js';
@@ -21,8 +22,7 @@ const arc = (radius, from, to) => {
 function GaugePlot({ bands, label, max, min, target, unit, value }) {
   const frame = useChartFrame();
   const format = frame?.format || String;
-  const clamp = (number) => Math.min(max, Math.max(min, number));
-  const angle = (number) => 180 - ((clamp(number) - min) / (max - min || 1)) * 180;
+  const angle = (number) => 180 - ((clamp(number, min, max) - min) / (max - min || 1)) * 180;
   const band = bands.find((item, index) => value <= item.to || index === bands.length - 1);
   const color = band ? chartTones[band.tone] || band.tone : 'var(--ds-color-chart-1)';
   let from = min;

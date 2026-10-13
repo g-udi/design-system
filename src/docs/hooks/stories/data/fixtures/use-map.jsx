@@ -1,6 +1,6 @@
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useMap } from '../../../../../hooks/data/use-map.js';
+import { useMap } from '@gaudi/design-system/hooks/data/use-map';
 
 const initial = [['Introduction', 'Draft'], ['Conclusion', 'Planned']];
 export function DraftMap() {

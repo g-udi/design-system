@@ -1,7 +1,7 @@
-import { NumberField, NumberFieldGroup, NumberFieldInput } from '../../../../../components/core/NumberField/index.js';
-import { Slider } from '../../../../../components/core/Slider/index.js';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useSliderInput } from '../../../../../hooks/state/use-slider-input.js';
+import { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';
+import { Slider } from '@gaudi/design-system/core/Slider';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useSliderInput } from '@gaudi/design-system/hooks/state/use-slider-input';
 
 function ReadingTimeRange() {
   const { sliderValues, inputValues, setInputValues, handleSliderChange, validateAndUpdateValue } = useSliderInput({ minValue: 1, maxValue: 60, initialValue: [ 5, 20 ] });

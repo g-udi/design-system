@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useDocumentTitle } from '../../../../../hooks/environment/use-document-title.js';
+import { useDocumentTitle } from '@gaudi/design-system/hooks/environment/use-document-title';
 
 export function TitlePreview() {
   const [title, setTitle] = useState('Writing room');

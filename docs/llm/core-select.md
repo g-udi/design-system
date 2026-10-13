@@ -95,10 +95,6 @@ Curated patterns:
 - Rich option content — registry item `@gaudi/select-rich-options` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `FieldLabelPrimitive`, `FieldRoot`, `RegistryIcon`, `SelectContent`, `SelectGroup`, `SelectItem`, `SelectLabel`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `cn`)
 - Select in a toolbar — registry item `@gaudi/select-toolbar` (uses `Button`, `FieldInput`, `SelectContent`, `SelectGroup`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`)
 
-## Related
-
-`layout-search`
-
 ## README
 
 Pick one or several values from a list. Use it for form fields with a known set of options; use a combobox when people type to filter a long list, an autocomplete when free text is also allowed, and a native select for the plainest, platform-styled field.

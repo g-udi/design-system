@@ -1,8 +1,8 @@
 import { useEffect, useId } from 'react';
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useLocalStorage } from '../../../../../hooks/data/use-local-storage.js';
-import { useReadLocalStorage } from '../../../../../hooks/data/use-read-local-storage.js';
+import { useLocalStorage } from '@gaudi/design-system/hooks/data/use-local-storage';
+import { useReadLocalStorage } from '@gaudi/design-system/hooks/data/use-read-local-storage';
 
 function PreferenceReader({ storageKey }) {
   const value = useReadLocalStorage(storageKey, 'Comfortable');

@@ -59,12 +59,7 @@ export default async function LayoutContainer({ analytics = null, children, foot
   return (
     <div className='bg-background text-foreground antialiased'>
 
-      <a
-        href='#main-content'
-        className='sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[var(--ds-z-max)] focus:rounded-md focus:bg-surface focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-text focus:shadow-lg'
-      >
-        Skip to content
-      </a>
+      <a className='ds-skip-link' href='#main-content'>Skip to content</a>
 
       {/* Keep even subtle reading text legible at the animation's brightest point. */}
       <Borealis intensity={0.02}>

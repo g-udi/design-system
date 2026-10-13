@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../support/renderComponent.js';
@@ -15,7 +16,9 @@ test('ChatSpeechInput is a named, pressed-state button that stays disabled until
   assert.match(html, /aria-pressed="false"/);
   assert.match(html, /data-state="idle"/);
   assert.match(html, /disabled=""/);
-  assert.match(html, /role="status"/);
+  // State changes and errors are spoken through the shared live region, not a per-button status.
+  assert.doesNotMatch(html, /role="status"/);
+  assert.match(readFileSync(new URL('../../../../src/components/chat/ChatVoice/ChatSpeechInput.jsx', import.meta.url), 'utf8'), /useLiveAnnouncer\(\)/);
   assert.match(render(api.ChatSpeechInput, { labels: { start: 'Dictate' } }), /aria-label="Dictate"/);
 });
 

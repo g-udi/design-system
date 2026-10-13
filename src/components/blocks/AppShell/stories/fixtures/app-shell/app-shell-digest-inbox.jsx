@@ -4,6 +4,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/desi
 import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import { Item } from '@gaudi/design-system/core/Item';
 import { Calendar } from '@gaudi/design-system/core/Calendar';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import {
@@ -218,14 +219,16 @@ function CalendarContext({ idPrefix, cellSize }) {
         <ul className='grid gap-0.5 px-1.5'>
           {upNext.map((event) => (
             <li key={event.id}>
-              <button type='button' className='hover:bg-ui-sidebar-accent focus-visible:ring-ui-sidebar-ring flex w-full items-stretch gap-2.5 rounded-(--ds-radius-control) px-1.5 py-1.5 text-start outline-hidden focus-visible:ring-2'>
-                <span aria-hidden='true' className={`w-1 shrink-0 rounded-full ${event.tone}`} />
-                <span className='grid min-w-0 flex-1'>
-                  <span className='truncate text-sm font-medium'>{event.title}</span>
-                  <span className='text-text-muted text-xs'>{event.time}</span>
-                </span>
-                <Portraits people={event.people} />
-              </button>
+              <Item asChild size='sm' className='hover:bg-ui-sidebar-accent focus-visible:ring-ui-sidebar-ring flex-nowrap items-stretch gap-2.5 rounded-(--ds-radius-control) px-1.5 py-1.5 text-start outline-hidden focus-visible:ring-2'>
+                <button type='button'>
+                  <span aria-hidden='true' className={`w-1 shrink-0 rounded-full ${event.tone}`} />
+                  <span className='grid min-w-0 flex-1'>
+                    <span className='truncate text-sm font-medium'>{event.title}</span>
+                    <span className='text-text-muted text-xs'>{event.time}</span>
+                  </span>
+                  <Portraits people={event.people} />
+                </button>
+              </Item>
             </li>
           ))}
         </ul>
@@ -452,10 +455,10 @@ function NotificationsPanel() {
                 {item.unread ? <span className='sr-only'> (unread)</span> : null}
               </p>
               {item.when ? (
-                <span className='border-ui-border text-text-muted flex w-fit items-center gap-1.5 rounded-(--ds-radius-control) border px-1.5 py-0.5 text-xs'>
+                <Badge variant='outline' size='lg' className='text-text-muted gap-1.5 font-normal'>
                   <RegistryIcon lucide='Calendar' aria-hidden='true' className='size-3.5' />
                   {item.when}
-                </span>
+                </Badge>
               ) : null}
               {!item.info && !item.reminder ? (
                 item.answer ? (
@@ -534,11 +537,11 @@ function MessageRow({ message, selected, onSelect }) {
             </div>
           ) : null}
           {message.file ? (
-            <span className='border-ui-border mt-1 flex w-fit items-center gap-1.5 rounded-(--ds-radius-control) border px-1.5 py-0.5 text-xs'>
+            <Badge variant='outline' size='lg' className='mt-1 gap-1.5 font-normal'>
               <RegistryIcon lucide='Paperclip' className='size-3' />
               <span className='max-w-32 truncate font-medium'>{message.file[0]}</span>
               <span className='text-text-muted'>({message.file[1]})</span>
-            </span>
+            </Badge>
           ) : null}
         </div>
       </div>

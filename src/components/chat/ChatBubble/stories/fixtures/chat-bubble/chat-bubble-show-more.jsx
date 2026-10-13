@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   Collapsible,
   CollapsibleContent,
@@ -58,7 +59,7 @@ export function Pattern() {
                   </p>
                   <p className='text-ui-muted-foreground'>
                     Everything else is unchanged.{' '}
-                    <a href='#' className='underline underline-offset-4'>Open the full diff</a>
+                    <Link href='#' variant='bare' className='underline underline-offset-4'>Open the full diff</Link>
                   </p>
                 </div>
               </CollapsibleContent>

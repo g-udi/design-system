@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import { CheckboxRoot } from '../../../../../components/core/Checkbox/index.js';
-import { useLiveAnnouncer } from '../../../../../hooks/a11y/use-live-announcer.js';
+import Button from '@gaudi/design-system/core/Button';
+import { CheckboxRoot } from '@gaudi/design-system/core/Checkbox';
+import { useLiveAnnouncer } from '@gaudi/design-system/hooks/a11y/use-live-announcer';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useSelection } from '../../../../../hooks/data/use-selection.js';
+import { useSelection } from '@gaudi/design-system/hooks/data/use-selection';
 
 const initialPosts = [
   { id: 'p1', title: 'Designing calm interfaces' },

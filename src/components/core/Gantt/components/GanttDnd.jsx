@@ -12,11 +12,10 @@ import {
   zonedStartOfDay
 } from '../ganttModel.jsx';
 import { addDays, differenceInCalendarDays } from 'date-fns';
+import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
 const GANTT_ACTIVATION = {
-  moveDistancePx: 5,
-  createDistancePx: 4,
-  touchDelayMs: 250,
-  touchTolerancePx: 5
+  ...POINTER_DRAG_ACTIVATION,
+  createDistancePx: 4
 };
 function surfaceMinutesAt(tl, x) {
   const clamped = Math.min(Math.max(x, tl.rect.left), tl.rect.right);
@@ -25,7 +24,7 @@ function surfaceMinutesAt(tl, x) {
 }
 let lastGestureEndedAt = 0;
 function wasRecentDrag() {
-  return performance.now() - lastGestureEndedAt < 250;
+  return endedRecently(lastGestureEndedAt);
 }
 function markGestureEnd() {
   lastGestureEndedAt = performance.now();
@@ -40,10 +39,6 @@ function cancelActiveGanttGestures() {
 }
 function useGanttGestureTeardown() {
   useEffect(() => cancelActiveGanttGestures, []);
-}
-function snapToPixel(value) {
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
-  return Math.round(value * dpr) / dpr;
 }
 function collectSurface(root) {
   if (!root) return null;

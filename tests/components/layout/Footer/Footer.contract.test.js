@@ -28,3 +28,27 @@ test('Footer uses host content without personal defaults or transformed labels',
   assert.doesNotMatch(html, /capitalize/);
   assert.match(html, /Example team/);
 });
+
+test('simple footer variants preserve supplied destinations without adding a newsletter', () => {
+  for (const variant of ['centered', 'compact']) {
+    const html = renderToStaticMarkup(createElement(Footer, {
+      variant, id: 'page-footer', className: 'host-footer',
+      brandTitle: createElement('span', null, 'Custom brand'),
+      sections: [{ title: 'Explore', links: [{ href: '/journal', label: 'Journal' }] }],
+      copyrightName: { author: { name: 'Example' } }
+    }));
+    assert.match(html, /id="page-footer"/);
+    assert.match(html, /host-footer/);
+    assert.match(html, /Custom brand/);
+    assert.match(html, /href="\/journal"/);
+    assert.match(html, /Example\. All rights reserved/);
+    assert.doesNotMatch(html, /<form|type="email"/);
+  }
+});
+
+test('empty footer groups do not introduce empty navigation or social links', () => {
+  const html = renderToStaticMarkup(createElement(Footer, {
+    variant: 'centered', sections: [{ title: 'Empty', links: [] }], socialLinks: [{ kind: 'github' }]
+  }));
+  assert.doesNotMatch(html, /<nav|href=/);
+});

@@ -13,9 +13,11 @@ import { Badge } from '../../core/Pill';
 import { Alert, AlertTitle, AlertDescription } from '../../core/Banner';
 import EmptyState from '../../core/EmptyState';
 import Skeleton from '../../core/Skeleton';
+import { ScrollArea } from '../../core/ScrollArea';
 import { ChatAgentMark } from '../ChatAgentMark';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
-import { fileDownloadUrl, fileIcon, fileType, prepareFileTree } from './chatFileExplorerModel.js';
+import { normalizeDownloadHref } from '../../../utilities/href.js';
+import { fileIcon, fileType, prepareFileTree } from './chatFileExplorerModel.js';
 
 const EMPTY_ITEMS = {};
 const EMPTY_EXPANDED = [];
@@ -123,7 +125,7 @@ function ChatFileExplorer({
       ) : hasItems && searching && !hasVisibleItems ? (
         <EmptyState compact icon={<RegistryIcon lucide='Search' />} title={labels.noResultsTitle} description={labels.noResultsDescription} actions={<Button variant='outline' size='sm' onClick={() => setQuery('')}>{labels.clearSearch}</Button>} />
       ) : hasVisibleItems ? (
-        <div className='min-h-0 min-w-0 overflow-y-auto overscroll-contain' onFocusCapture={(event) => { lastTreeFocus.current = event.target; }} onBlurCapture={(event) => {
+        <ScrollArea className='min-h-0 min-w-0 [&_[data-slot=scroll-area-viewport]]:overscroll-contain' onFocusCapture={(event) => { lastTreeFocus.current = event.target; }} onBlurCapture={(event) => {
           if (event.target.isConnected && !event.currentTarget.contains(event.relatedTarget)) lastTreeFocus.current = null;
         }}>
           <Tree indent={16} tree={tree} aria-label={label} aria-multiselectable={false} className='min-w-0 gap-0.5'>
@@ -132,7 +134,7 @@ function ChatFileExplorer({
               const data = model.items[id];
               if (!data) return null;
               const folder = Array.isArray(data.children);
-              const download = folder ? null : fileDownloadUrl(data.downloadUrl);
+              const download = folder ? null : normalizeDownloadHref(data.downloadUrl);
               const type = data.typeLabel ?? fileType(data.name);
               const canPreview = !folder && onPreview && data.canPreview !== false;
               const metadata = [data.sizeLabel, data.modifiedLabel, data.meta].filter(Boolean);
@@ -161,7 +163,7 @@ function ChatFileExplorer({
               );
             })}
           </Tree>
-        </div>
+        </ScrollArea>
       ) : null}
     </section>
   );

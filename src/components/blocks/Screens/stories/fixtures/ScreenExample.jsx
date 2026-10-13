@@ -1,6 +1,7 @@
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import AuthForm from '@gaudi/design-system/blocks/AuthForm';
 import Screen, { ScreenTestimonial } from '@gaudi/design-system/blocks/Screens';
+import Link from '@gaudi/design-system/core/Link';
 
 export const quotes = [
   { quote: 'We moved four newsletters into one workspace in an afternoon.', name: 'Maya Lopez', role: 'Editor in chief, Field Notes', avatar: '/avatars/person-20.svg' },
@@ -33,7 +34,7 @@ export const ScreenExample = ({ aside, header, footer, mode, onSubmit, ...args }
       aside={asides[aside]}
       asideClassName={aside === 'image' ? undefined : 'bg-surface-muted'}
       header={header ? <span className='flex items-center gap-2 font-semibold'><GaudiBrand className='text-sm' /></span> : null}
-      footer={footer ? <><span>© 2026 Gaudi</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></> : null}
+      footer={footer ? <><span>© 2026 Gaudi</span><Link href='#privacy' variant='muted'>Privacy</Link></> : null}
     >
       <AuthForm
         key={mode}

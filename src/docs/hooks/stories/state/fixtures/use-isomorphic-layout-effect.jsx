@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import { useIsomorphicLayoutEffect } from '../../../../../hooks/state/use-isomorphic-layout-effect.js';
+import Button from '@gaudi/design-system/core/Button';
+import { useIsomorphicLayoutEffect } from '@gaudi/design-system/hooks/state/use-isomorphic-layout-effect';
 
 const excerpt = 'Calm interfaces leave room for the reader. They hold back motion, keep controls where people expect them, and explain state changes in words. This excerpt is long enough to need a "Read more" button only when it really overflows its three lines.';
 

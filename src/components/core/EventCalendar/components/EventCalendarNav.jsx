@@ -32,15 +32,16 @@ import {
   TooltipTrigger
 } from '../../Tooltip/TooltipPrimitives.jsx';
 import Kbd from '../../Kbd/index.js';
+import {
+  getNavButtonProps,
+  NavTooltip,
+  ScheduleNavButton
+} from '../../shared/ScheduleNav.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 function useNavButtonProps() {
   const viewConfig = useEventCalendarViewConfig();
   return {
-    variant: viewConfig.navButtonVariant,
-    // Ghost and outline nav buttons read as neutral chrome; a filled variant keeps the accent.
-    tone: ['default', 'solid'].includes(viewConfig.navButtonVariant) ? undefined : 'neutral',
-    size: viewConfig.navButtonSize,
-    iconSize: viewConfig.navButtonSize === 'sm' ? 'icon-sm' : 'icon',
+    ...getNavButtonProps(viewConfig),
     className: viewConfig.classNames?.navButton
   };
 }
@@ -60,134 +61,61 @@ function useNavTooltipConfig() {
     className: viewConfig.classNames?.navTooltip
   };
 }
-function NavTooltip({ content, children }) {
-  const tooltips = useNavTooltipConfig();
-  if (tooltips.disabled || content === null || content === void 0)
-    return children;
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>{children}</TooltipTrigger>
-      <TooltipContent side={tooltips.side} className={tooltips.className}>
-        {content}
-      </TooltipContent>
-    </Tooltip>
-  );
-}
-function EventCalendarNavToday({
-  className,
-  asChild = false,
-  children,
-  tooltip,
-  onClick,
-  ...props
-}) {
+function EventCalendarNavToday({ tooltip, ...props }) {
   const { today, isToday } = useEventCalendarNavigation();
   const settings = useEventCalendarSettings();
-  const nav = useNavButtonProps();
+  const { disabled, side, className } = useNavTooltipConfig();
   const defaultTooltip = format(
     toZoned(new Date(), settings.timeZone),
     settings.i18n.formats.dayTitle,
     { locale: settings.locale }
   );
   return (
-    <NavTooltip content={tooltip === void 0 ? defaultTooltip : tooltip}>
-      <Button
-        variant={nav.variant}
-        tone={nav.tone}
-        size={nav.size}
-        data-slot='event-calendar-nav-today'
-        data-active={isToday || void 0}
-        className={cn(nav.className, className)}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) today();
-        }}
-        asChild={asChild}
-        {...props}
-      >
-        {children ?? settings.i18n.labels.today}
-      </Button>
-    </NavTooltip>
+    <ScheduleNavButton
+      step='today'
+      nav={useNavButtonProps()}
+      data-slot='event-calendar-nav-today'
+      label={settings.i18n.labels.today}
+      active={isToday}
+      tooltip={tooltip === void 0 ? defaultTooltip : tooltip}
+      tooltipConfig={{ disabled, side, className }}
+      onStep={today}
+      {...props}
+    />
   );
 }
-function EventCalendarNavPrev({
-  className,
-  asChild = false,
-  children,
-  tooltip,
-  onClick,
-  ...props
-}) {
+function EventCalendarNavPrev({ tooltip, ...props }) {
   const { prev } = useEventCalendarNavigation();
-  const settings = useEventCalendarSettings();
-  const nav = useNavButtonProps();
+  const { labels } = useEventCalendarSettings().i18n;
+  const { disabled, side, className } = useNavTooltipConfig();
   return (
-    <NavTooltip
-      content={tooltip === void 0 ? settings.i18n.labels.previous : tooltip}
-    >
-      <Button
-        variant={nav.variant}
-        tone={nav.tone}
-        size={nav.iconSize}
-        data-slot='event-calendar-nav-prev'
-        aria-label={settings.i18n.labels.previous}
-        className={cn(nav.className, className)}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) prev();
-        }}
-        asChild={asChild}
-        {...props}
-      >
-        {children ?? (
-          <RegistryIcon
-            lucide='ChevronLeftIcon'
-            className='size-4'
-            aria-hidden='true'
-          />
-        )}
-      </Button>
-    </NavTooltip>
+    <ScheduleNavButton
+      step='prev'
+      nav={useNavButtonProps()}
+      data-slot='event-calendar-nav-prev'
+      label={labels.previous}
+      tooltip={tooltip === void 0 ? labels.previous : tooltip}
+      tooltipConfig={{ disabled, side, className }}
+      onStep={prev}
+      {...props}
+    />
   );
 }
-function EventCalendarNavNext({
-  className,
-  asChild = false,
-  children,
-  tooltip,
-  onClick,
-  ...props
-}) {
+function EventCalendarNavNext({ tooltip, ...props }) {
   const { next } = useEventCalendarNavigation();
-  const settings = useEventCalendarSettings();
-  const nav = useNavButtonProps();
+  const { labels } = useEventCalendarSettings().i18n;
+  const { disabled, side, className } = useNavTooltipConfig();
   return (
-    <NavTooltip
-      content={tooltip === void 0 ? settings.i18n.labels.next : tooltip}
-    >
-      <Button
-        variant={nav.variant}
-        tone={nav.tone}
-        size={nav.iconSize}
-        data-slot='event-calendar-nav-next'
-        aria-label={settings.i18n.labels.next}
-        className={cn(nav.className, className)}
-        onClick={(event) => {
-          onClick?.(event);
-          if (!event.defaultPrevented) next();
-        }}
-        asChild={asChild}
-        {...props}
-      >
-        {children ?? (
-          <RegistryIcon
-            lucide='ChevronRightIcon'
-            className='size-4'
-            aria-hidden='true'
-          />
-        )}
-      </Button>
-    </NavTooltip>
+    <ScheduleNavButton
+      step='next'
+      nav={useNavButtonProps()}
+      data-slot='event-calendar-nav-next'
+      label={labels.next}
+      tooltip={tooltip === void 0 ? labels.next : tooltip}
+      tooltipConfig={{ disabled, side, className }}
+      onStep={next}
+      {...props}
+    />
   );
 }
 function EventCalendarTitle({
@@ -364,6 +292,7 @@ function EventCalendarDatePicker({
   const settings = useEventCalendarSettings();
   const viewConfig = useEventCalendarViewConfig();
   const nav = useNavButtonProps();
+  const tooltips = useNavTooltipConfig();
   const [open, setOpen] = useState(false);
   const zoned = toZoned(date, settings.timeZone);
   const configured = mode ?? 'auto';
@@ -380,7 +309,12 @@ function EventCalendarDatePicker({
   };
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <NavTooltip content={tooltip}>
+      <NavTooltip
+        content={tooltip}
+        disabled={tooltips.disabled}
+        side={tooltips.side}
+        className={tooltips.className}
+      >
         <PopoverTrigger asChild {...props}>
           <Button
             variant={nav.variant}

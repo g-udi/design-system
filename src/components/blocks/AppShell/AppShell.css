@@ -246,27 +246,6 @@
     min-width: 0;
     padding: calc(var(--ds-space-scale, 1) * 1.5rem);
   }
-  .ds-skip-link {
-    position: absolute;
-    z-index: 10;
-    inset-inline-start: 0.75rem;
-    top: 0.75rem;
-    padding: calc(var(--ds-space-scale, 1) * 0.75rem);
-    background: var(--ds-color-surface);
-    color: var(--ds-color-accent);
-    transform: translateY(-200%);
-  }
-  .ds-skip-link:focus {
-    transform: none;
-  }
-  /*
-   * A modal hides the page behind it (aria-hidden/inert), so the skip link must leave the tab order
-   * too: Radix modals lock body scroll (data-scroll-locked), other modals mark aria-modal.
-   */
-  body[data-scroll-locked] .ds-skip-link,
-  body:has(:is([role='dialog'], [role='alertdialog'])[aria-modal='true']) .ds-skip-link {
-    visibility: hidden;
-  }
   @media (max-width: 1023px) {
     .ds-app-shell {
       grid-template-columns: minmax(0, 1fr);

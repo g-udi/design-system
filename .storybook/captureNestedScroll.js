@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { settleFiniteAnimations } from './settleFiniteAnimations.js';
 
 /** Capture actual nested scroll endpoints in the current authored state, restoring all offsets. */
 export async function captureNestedScroll(surface, path, screenshot) {
@@ -110,16 +111,12 @@ export async function captureNestedScroll(surface, path, screenshot) {
         }, { index: region.index, endpoint });
         if (!position.settled || Math.abs(position.x - position.targetX) > 1 || Math.abs(position.y - position.targetY) > 1) throw new Error(`Nested region ${region.index} did not reach ${endpoint} endpoint: ${JSON.stringify(position)}`);
         // Scroll-driven overlay exits need the same finite-animation settle as base captures.
-        position = { ...position, ...await surface.evaluate(async ({ index, endpoint, position }) => {
-          const animations = document.getAnimations().filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity);
-          const finiteAnimationsSettled = await Promise.race([
-            Promise.all(animations.map(animation => animation.finished.catch(() => {}))).then(() => true),
-            new Promise(resolve => setTimeout(() => resolve(false), 2000))
-          ]);
+        const finiteAnimationsSettled = await surface.evaluate(settleFiniteAnimations);
+        position = { ...position, ...await surface.evaluate(async ({ index, endpoint, position, finiteAnimationsSettled }) => {
           await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
           const element = window.__nestedCaptureRegions[index], style = getComputedStyle(element);
           return { x: element.scrollLeft, y: element.scrollTop, targetX: endpoint.includes('x') ? Math.max(0, element.scrollWidth - element.clientWidth) * (style.direction === 'rtl' ? -1 : 1) : position.targetX, targetY: endpoint.includes('y') ? Math.max(0, element.scrollHeight - element.clientHeight) : position.targetY, documentX: scrollX, documentY: scrollY, finiteAnimationsSettled };
-        }, { index: region.index, endpoint, position }) };
+        }, { index: region.index, endpoint, position, finiteAnimationsSettled }) };
         if (Math.abs(position.x - position.targetX) > 1 || Math.abs(position.y - position.targetY) > 1) throw new Error(`Nested region ${region.index} moved away from ${endpoint} endpoint during animation settle: ${JSON.stringify(position)}`);
         const file = path.replace(/\.png$/, `--nested-${region.index}-${endpoint}.png`);
         const bytes = await screenshot(file);

@@ -60,7 +60,7 @@ The current chat has aria-current; row menus are named after each chat, and rena
 
 ## Related
 
-`core-sheet`, `layout-search`
+`core-sheet`
 
 ## README
 

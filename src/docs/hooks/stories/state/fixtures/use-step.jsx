@@ -1,9 +1,9 @@
 import { useRef } from 'react';
-import Button from '../../../../../components/core/Button';
-import Progress from '../../../../../components/core/Progress';
-import { useIsomorphicLayoutEffect } from '../../../../../hooks/state/use-isomorphic-layout-effect.js';
-import { usePrevious } from '../../../../../hooks/state/use-previous.js';
-import { useStep } from '../../../../../hooks/state/use-step.js';
+import Button from '@gaudi/design-system/core/Button';
+import Progress from '@gaudi/design-system/core/Progress';
+import { useIsomorphicLayoutEffect } from '@gaudi/design-system/hooks/state/use-isomorphic-layout-effect';
+import { usePrevious } from '@gaudi/design-system/hooks/state/use-previous';
+import { useStep } from '@gaudi/design-system/hooks/state/use-step';
 
 const steps = [
   [ 'Choose a topic', 'Pick what the newsletter is about.' ],

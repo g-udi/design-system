@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import Kbd from '../../../../../components/core/Kbd';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import Kbd from '@gaudi/design-system/core/Kbd';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useHotkey } from '../../../../../hooks/interaction/use-hotkey.js';
+import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 
 function SearchShortcut() {
   const [ opened, setOpened ] = useState(0);

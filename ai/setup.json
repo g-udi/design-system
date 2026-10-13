@@ -1,6 +1,6 @@
 {
   "package": "@gaudi/design-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "generatedBy": "pnpm ai:build",
   "install": {
     "github": "pnpm add github:ahmadassaf/design-system",

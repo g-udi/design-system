@@ -40,3 +40,18 @@ export const normalizeHref = (href) => {
  * @returns {boolean} True for absolute http(s) and protocol-relative URLs
  */
 export const isExternalHref = (href) => typeof href === 'string' && (/^https?:\/\//i.test(href) || href.startsWith('//'));
+
+/**
+ * Normalizes a download or file URL: http(s), root-relative paths, and host-owned
+ * object URLs only; fragments, mailto, script and data URLs resolve to null.
+ *
+ * @param {*} value - Candidate file URL
+ * @returns {string|null} The safe URL or null
+ */
+export function normalizeDownloadHref(value) {
+  if (typeof value !== 'string') return null;
+  const href = value.trim();
+  if (/^blob:(https?:\/\/|null\/)/i.test(href)) return href;
+  const safe = normalizeHref(href);
+  return safe && /^(https?:|\/)/i.test(safe) ? safe : null;
+}

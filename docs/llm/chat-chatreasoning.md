@@ -71,7 +71,7 @@ The trail and each detailed step are disclosure buttons with aria-expanded; step
 
 ## Related
 
-`blocks-chat`, `chat-chattool`, `chat-chatmessagelist`, `layout-search`
+`blocks-chat`, `chat-chattool`, `chat-chatmessagelist`
 
 ## README
 

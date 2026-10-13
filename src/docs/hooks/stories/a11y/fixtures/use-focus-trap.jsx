@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useEventListener } from '../../../../../hooks/interaction/use-event-listener.js';
-import { useFocusTrap } from '../../../../../hooks/a11y/use-focus-trap.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useEventListener } from '@gaudi/design-system/hooks/interaction/use-event-listener';
+import { useFocusTrap } from '@gaudi/design-system/hooks/a11y/use-focus-trap';
 
 function QuickReply() {
   const [ open, setOpen ] = useState(false);

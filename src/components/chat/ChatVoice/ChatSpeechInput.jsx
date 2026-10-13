@@ -4,6 +4,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { useLatestRef } from '../../../hooks/shared/use-latest-ref.js';
+import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
 import { classifyMediaError, getSpeechRecognition, openMicrophone, stopStream, useAudioLevel, voiceSupport } from './voiceMedia.js';
 
 const DEFAULT_LABELS = {
@@ -66,7 +67,7 @@ function ChatSpeechInput({
   const [ state, setState ] = useState('idle');
   const [ problem, setProblem ] = useState(null);
   const [ stream, setStream ] = useState(null);
-  const [ announcement, setAnnouncement ] = useState('');
+  const { announce } = useLiveAnnouncer();
   const buttonRef = useRef(null);
   const session = useRef(null);
   const mounted = useRef(false);
@@ -86,16 +87,16 @@ function ChatSpeechInput({
 
   const move = useCallback((next, message) => {
     setState(next);
-    if (message) setAnnouncement(message);
+    if (message) announce(message);
     callbacks.current.onStateChange?.(next);
-  }, [ callbacks ]);
+  }, [ announce, callbacks ]);
 
   const fail = useCallback((cause) => {
     const kind = classifyMediaError(cause);
     setProblem(kind);
-    setAnnouncement(labels[kind] || labels.failed);
+    announce(labels[kind] || labels.failed);
     callbacks.current.onError?.(kind, cause);
-  }, [ callbacks, labels ]);
+  }, [ announce, callbacks, labels ]);
 
   const release = useCallback(() => {
     const current = session.current;
@@ -285,7 +286,6 @@ function ChatSpeechInput({
         <RegistryIcon lucide={icon} className={processing ? 'ds-part-speech-input-spinner' : undefined} />
       </Button>
       {hint ? <span id={hintId} className='sr-only'>{hint}</span> : null}
-      <span role='status' aria-live='polite' className='sr-only'>{announcement}</span>
     </>
   );
 }

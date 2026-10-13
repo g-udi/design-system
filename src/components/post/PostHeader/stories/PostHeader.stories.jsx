@@ -10,7 +10,7 @@ import { ArticleActions, articleActions } from './fixtures/ArticleActions.jsx';
 import actionsSource from './fixtures/ArticleActions.jsx?raw';
 import { publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
 
-const docs = getComponentDocs('Post/PostHeader');
+const docs = getComponentDocs('Blocks/Blog/PostHeader');
 // A draft that sits second in a three-part series, so every header slot has something to show.
 const frontMatter = {
   category: { id: 'engineering', label: 'engineering', href: '/topics/engineering' },
@@ -31,10 +31,11 @@ const siteMetadata = { locale: 'en-GB' };
 const dateLabel = (entry, locale) => new Date(entry.updated || entry.date).toLocaleDateString(locale, { day: 'numeric', month: 'short', year: 'numeric' });
 
 export default {
-  title: 'Post/PostHeader',
+  id: 'post-postheader',
+  title: 'Blocks/Blog/PostHeader',
   component: PostHeader,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { frontMatter: 'object', siteMetadata: 'object' }),
+  argTypes: docsArgTypes(docs, { frontMatter: 'object', siteMetadata: 'object', titleVariant: ['post-title', 'title-md', 'heading-lg', 'heading-md'], subtitleVariant: ['post-subtitle', 'paragraph-md', 'paragraph-sm'] }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -45,7 +46,7 @@ export default {
 };
 
 export const Playground = {
-  args: { frontMatter, siteMetadata },
+  args: { frontMatter, siteMetadata, titleVariant: 'post-title', subtitleVariant: 'post-subtitle' },
   parameters: {
     docs: {
       description: { story: 'A draft article header with category, date, draft badge, tags, and its place in a series. `tocControl` adds a contents action before the reading time on wide screens. Edit `frontMatter` to drop a slot, or `siteMetadata.locale` to reformat the date.' },

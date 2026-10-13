@@ -43,3 +43,7 @@ Faq uses a semantic definition list and native disclosure buttons. Choose a head
 ## Examples
 
 - Playground (Storybook `mdx-faq--playground`)
+
+## Related
+
+`blocks-blog-article`

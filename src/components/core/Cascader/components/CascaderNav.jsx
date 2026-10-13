@@ -14,6 +14,14 @@ import { useDirection } from '@base-ui/react/direction-provider';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator
+} from '../../Breadcrumb/BreadcrumbPrimitives.jsx';
 function PathChevron() {
   return (
     <RegistryIcon
@@ -98,54 +106,62 @@ function CascaderBreadcrumb({
     if (depth < 0) return;
     goToDepth(depth + 1);
   };
-  const trail = segments.map((segment, i) => (
-    <React.Fragment
-      key={segment.type === 'node' ? segment.node.value : `gap-${i}`}
-    >
-      {i > 0 ? <PathChevron /> : null}
-      {segment.type === 'ellipsis' ? (
-        <span
-          data-slot='cascader-breadcrumb-ellipsis'
-          title={segment.hidden
-            .map((n) => n.label)
-            .join(` ${labels.pathSeparator} `)}
-          className='shrink-0'
+  const trail = (
+    <BreadcrumbList className='min-w-0 flex-nowrap gap-0.5 text-xs'>
+      {segments.map((segment, i) => (
+        <React.Fragment
+          key={segment.type === 'node' ? segment.node.value : `gap-${i}`}
         >
-          &hellip;
-        </span>
-      ) : interactive && segment.node.value !== currentValue ? (
-        <button
-          type='button'
-          data-slot='cascader-breadcrumb-item'
-          disabled={disabled}
-          onClick={() => goTo(segment.node)}
-          className='hover:text-ui-foreground focus-visible:ring-ui-primary max-w-32 truncate rounded-sm outline-hidden transition-colors focus-visible:ring-2'
-        >
-          {segment.node.label}
-        </button>
-      ) : (
-        <span
-          data-slot='cascader-breadcrumb-item'
-          {...(segment.node.value === currentValue
-            ? { 'aria-current': 'page' }
-            : null)}
-          className={cn(
-            'max-w-32 truncate',
-            segment.node.value === currentValue &&
-              'text-ui-foreground font-medium'
-          )}
-        >
-          {segment.node.label}
-        </span>
-      )}
-    </React.Fragment>
-  ));
+          {i > 0 ? (
+            <BreadcrumbSeparator className='shrink-0 opacity-50 [&>svg]:size-3' />
+          ) : null}
+          <BreadcrumbItem className='min-w-0'>
+            {segment.type === 'ellipsis' ? (
+              <span
+                data-slot='cascader-breadcrumb-ellipsis'
+                title={segment.hidden
+                  .map((n) => n.label)
+                  .join(` ${labels.pathSeparator} `)}
+                className='shrink-0'
+              >
+                &hellip;
+              </span>
+            ) : interactive && segment.node.value !== currentValue ? (
+              // A button, not a link: the crumb drills back up in place.
+              <BreadcrumbLink asChild>
+                <button
+                  type='button'
+                  data-slot='cascader-breadcrumb-item'
+                  disabled={disabled}
+                  onClick={() => goTo(segment.node)}
+                  className='focus-visible:ring-ui-primary max-w-32 truncate rounded-sm outline-hidden focus-visible:ring-2'
+                >
+                  {segment.node.label}
+                </button>
+              </BreadcrumbLink>
+            ) : segment.node.value === currentValue ? (
+              <BreadcrumbPage
+                data-slot='cascader-breadcrumb-item'
+                className='max-w-32 truncate font-medium'
+              >
+                {segment.node.label}
+              </BreadcrumbPage>
+            ) : (
+              <span data-slot='cascader-breadcrumb-item' className='max-w-32 truncate'>
+                {segment.node.label}
+              </span>
+            )}
+          </BreadcrumbItem>
+        </React.Fragment>
+      ))}
+    </BreadcrumbList>
+  );
   const slotChild = asChild ? cascaderSlotChild(children, trail) : null;
   const shared = {
     'data-slot': 'cascader-breadcrumb',
     'aria-label': labels.breadcrumbLabel,
     className: cn(
-      'text-ui-muted-foreground flex min-w-0 shrink-0 items-center gap-0.5 pt-1.5 pb-0.5 text-xs',
+      'flex min-w-0 shrink-0 items-center pt-1.5 pb-0.5',
       disabled && 'opacity-50',
       'px-2.5',
       className
@@ -155,7 +171,7 @@ function CascaderBreadcrumb({
   return slotChild ? (
     <Slot.Root {...shared}>{slotChild}</Slot.Root>
   ) : (
-    <nav {...shared}>{trail}</nav>
+    <Breadcrumb {...shared}>{trail}</Breadcrumb>
   );
 }
 function CascaderInput({

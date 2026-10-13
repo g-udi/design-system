@@ -4,6 +4,7 @@ import { Screen } from '@gaudi/design-system/blocks/Screens';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { Label } from '@gaudi/design-system/core/Field';
+import Link from '@gaudi/design-system/core/Link';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 600));
@@ -58,7 +59,7 @@ export function Pattern() {
         successMessage='Account created. Check your inbox to confirm your email.'
         footer={
           <p className='text-text-muted text-center text-sm'>
-            Already have an account? <a href='#signin' className='text-text font-medium underline-offset-4 hover:underline'>Sign in</a>
+            Already have an account? <Link href='#signin'>Sign in</Link>
           </p>
         }
       >

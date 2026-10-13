@@ -4,8 +4,9 @@ import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
-import { RechartsTooltip, RechartsTreemap, ResponsiveContainer, chartScales, getChartColor } from '../ChartFrame/chartRuntime.js';
-import { isChartNumber } from '../ChartFrame/chartScale.js';
+import { RechartsTooltip, RechartsTreemap, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
+import { extent, formatShare, isChartNumber } from '../ChartFrame/chartScale.js';
+import { heatmapStep } from '../HeatmapChart/HeatmapChart.jsx';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
 /** Flatten a one- or two-level tree into indexed leaves, keeping each leaf's group. */
@@ -33,17 +34,11 @@ export function treemapLeaves(data, { nameKey = 'name', valueKey = 'value' } = {
   return { 'leaves': leaves.map((leaf) => ({ ...leaf, 'value': leaf[valueKey] })), tree };
 }
 
-const heatStep = (value, [ min, max ]) => (max === min ? 3 : 1 + Math.min(4, Math.floor(((value - min) / (max - min)) * 5)));
-
 function TreemapPlot({ colorBy, colors, leaves, nameKey, tree, valueKey }) {
   const frame = useChartFrame();
   const active = frame?.activeIndex;
   const format = frame?.format || String;
-  const range = useMemo(() => {
-    const values = leaves.map((leaf) => leaf.value).filter(isChartNumber);
-
-    return [ Math.min(...values), Math.max(...values) ];
-  }, [ leaves ]);
+  const domain = useMemo(() => extent(leaves.map((leaf) => leaf.value)) || [ 0, 0 ], [ leaves ]);
   const Rows = useMemo(() => createRowsTooltip(({ payload }) => {
     const item = payload[0]?.payload || {};
 
@@ -55,10 +50,10 @@ function TreemapPlot({ colorBy, colors, leaves, nameKey, tree, valueKey }) {
     const { depth, height, width, x, y } = node;
     if (node.__chartIndex == null || !width || !height) return depth > 0 && node.children ? <g key={ `${node[nameKey]}-group` } /> : null;
     const index = node.__chartIndex;
-    const step = heatStep(node.value, range);
     const color = getChartColor(colors, node.__groupIndex);
-    const fill = colorBy === 'value' ? chartScales.heatmap[step] : `color-mix(in srgb, ${color} 22%, var(--ds-color-surface))`;
-    const ink = colorBy === 'value' ? chartScales.heatmapInk[step] : 'var(--ds-color-text)';
+    const { fill, ink } = colorBy === 'value'
+      ? heatmapStep(node.value, { domain })
+      : { 'fill': `color-mix(in srgb, ${color} 22%, var(--ds-color-surface))`, 'ink': 'var(--ds-color-text)' };
     const isActive = active === index;
 
     return (
@@ -110,7 +105,7 @@ export function TreemapChart(props) {
     'label': leaf.__group ? `${leaf.__group} · ${leaf[nameKey]}` : String(leaf[nameKey]),
     'values': [
       { 'name': props.valueLabel || 'Value', 'value': leaf.value },
-      { 'display': total ? `${Math.round((leaf.value / total) * 1000) / 10}%` : '—', 'name': 'Share', 'value': total ? leaf.value / total : 0 }
+      { 'display': total ? formatShare(leaf.value / total, 1) : '—', 'name': 'Share', 'value': total ? leaf.value / total : 0 }
     ]
   }));
 

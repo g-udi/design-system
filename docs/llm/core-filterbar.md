@@ -70,7 +70,7 @@ Curated patterns:
 
 ## Related
 
-`core-field`, `layout-search`
+`core-field`
 
 ## README
 

@@ -5,6 +5,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { CodeBlock } from '../../core/CodeBlock/CodeBlock.jsx';
 import { markdownFences } from '../../core/CodeBlock/CodeBlockHighlight.jsx';
 import Link from '../../core/Link/Link.jsx';
+import { Separator } from '../../core/Separator/Separator.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { ChatMessageCitation } from '../ChatSources/ChatMessageSources.jsx';
 
@@ -139,7 +140,8 @@ function Block({ block, context, id }) {
     const Tag = `h${Math.min(block.level + 2, 6)}`;
     return <Tag className={headingClass[block.level]}>{renderInline(block.text, context, id)}</Tag>;
   }
-  if (block.type === 'rule') return <hr className='border-border' />;
+  // A markdown rule is a thematic break, so it keeps the separator role.
+  if (block.type === 'rule') return <Separator decorative={false} />;
   if (block.type === 'quote') return <blockquote className='border-border text-text-muted border-s-2 ps-3'>{renderInline(block.text, context, id)}</blockquote>;
   if (block.type === 'list') {
     const Tag = block.ordered ? 'ol' : 'ul';

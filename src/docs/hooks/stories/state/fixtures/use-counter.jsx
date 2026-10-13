@@ -1,6 +1,6 @@
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useCounter } from '../../../../../hooks/state/use-counter.js';
+import { useCounter } from '@gaudi/design-system/hooks/state/use-counter';
 
 export function DraftCounter() {
   const { count, increment, decrement, reset, setCount } = useCounter(1);

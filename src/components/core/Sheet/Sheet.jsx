@@ -34,7 +34,8 @@ const sizeClass = {
   lg: 'sm:data-[side=left]:max-w-lg sm:data-[side=right]:max-w-lg',
   xl: 'sm:data-[side=left]:max-w-2xl sm:data-[side=right]:max-w-2xl'
 };
-const sheetOverlays = { dim: 'bg-black/40', blur: 'bg-black/20 backdrop-blur-sm' };
+// The overlay's scrim is Dialog's overlay token (Sheet.css); `blur` also softens the page behind it.
+const sheetOverlays = { dim: '', blur: 'backdrop-blur-sm' };
 // An inset sheet floats off the edge with its own rounded border.
 const insetClass =
   'rounded-xl border data-[side=right]:inset-y-2 data-[side=right]:right-2 data-[side=right]:h-auto data-[side=left]:inset-y-2 data-[side=left]:left-2 data-[side=left]:h-auto data-[side=top]:inset-x-2 data-[side=top]:top-2 data-[side=bottom]:inset-x-2 data-[side=bottom]:bottom-2';
@@ -54,6 +55,7 @@ function SheetContent({
     <SheetPortal container={container}>
       <SheetOverlay className={sheetOverlays[overlay]} />
       <SheetPrimitive.Content
+        aria-modal='true'
         data-slot='sheet-content'
         data-side={side}
         data-inset={inset || undefined}

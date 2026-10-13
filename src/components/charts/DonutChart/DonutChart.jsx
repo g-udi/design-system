@@ -5,9 +5,9 @@ import { useControllableState } from '../../../hooks/state/use-controllable-stat
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 
 import { ChartFrame, activeOpacity, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
-import { Cell, Legend, Pie, RechartsPieChart, RechartsTooltip, ResponsiveContainer, getChartColor, usePlotArea } from '../ChartFrame/chartRuntime.js';
-import { groupSmallSlices, isChartNumber } from '../ChartFrame/chartScale.js';
+import { ChartSeriesLegend, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { Cell, Pie, RechartsPieChart, RechartsTooltip, ResponsiveContainer, getChartColor, usePlotArea } from '../ChartFrame/chartRuntime.js';
+import { formatShare, groupSmallSlices, isChartNumber } from '../ChartFrame/chartScale.js';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';
 
 // The plot area excludes the measured legend, including wrapped rows.
@@ -35,7 +35,7 @@ function PiePlot({ centerLabel, colors, data, innerRadius, nameKey, selectedInde
   const Rows = useMemo(() => createRowsTooltip(({ payload }) => payload.map((item) => ({
     'color': item.payload?.fill,
     'label': item.name,
-    'value': `${format(item.value)} · ${Math.round(total ? (item.value / total) * 100 : 0)}%`
+    'value': `${format(item.value)} · ${formatShare(total ? item.value / total : 0)}`
   }))), [ format, total ]);
   const focus = selectedIndex ?? active;
   const focused = focus == null ? null : data[focus];
@@ -45,7 +45,7 @@ function PiePlot({ centerLabel, colors, data, innerRadius, nameKey, selectedInde
       <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
         <RechartsPieChart accessibilityLayer={ false }>
           {showTooltip ? <RechartsTooltip content={ <Rows /> } /> : null}
-          {showLegend ? <Legend iconType='circle' wrapperStyle={{ 'fontSize': 12, 'paddingTop': 12 }} /> : null}
+          {showLegend ? <ChartSeriesLegend /> : null}
           <Pie
             cx='50%'
             cy='48%'
@@ -68,7 +68,7 @@ function PiePlot({ centerLabel, colors, data, innerRadius, nameKey, selectedInde
               />
             ))}
           </Pie>
-          {innerRadius ? <PieCenter innerRadius={innerRadius} value={format(focused ? focused[valueKey] : total)} label={focused ? `${focused[nameKey]} · ${Math.round(total ? (focused[valueKey] / total) * 100 : 0)}%` : centerLabel} /> : null}
+          {innerRadius ? <PieCenter innerRadius={innerRadius} value={format(focused ? focused[valueKey] : total)} label={focused ? `${focused[nameKey]} · ${formatShare(total ? focused[valueKey] / total : 0)}` : centerLabel} /> : null}
         </RechartsPieChart>
       </ResponsiveContainer>
 
@@ -117,7 +117,7 @@ export function PieChart(props) {
     'label': String(item[nameKey]),
     'values': [
       { 'name': props.valueLabel || 'Value', 'value': item[valueKey] },
-      { 'display': `${total ? Math.round((item[valueKey] / total) * 100) : 0}%`, 'name': 'Share', 'value': total ? item[valueKey] / total : 0 },
+      { 'display': formatShare(total ? item[valueKey] / total : 0), 'name': 'Share', 'value': total ? item[valueKey] / total : 0 },
       ...(item.isOther ? [{ 'display': item.members.join(', '), 'name': 'Includes', 'value': item.members.length }] : [])
     ]
   }));

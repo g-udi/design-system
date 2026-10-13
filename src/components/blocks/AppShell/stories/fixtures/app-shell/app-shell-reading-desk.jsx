@@ -30,6 +30,7 @@ import {
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import Button from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { default as Kbd } from '@gaudi/design-system/core/Kbd';
 import {
   Sidebar,
@@ -112,7 +113,8 @@ function ShelfTile({ shelf, className = 'size-5' }) {
 function Brand() {
   return (
     <div className='flex items-center gap-2 group-data-[collapsible=icon]:flex-col'>
-      <a
+      <Link
+        variant='bare'
         href='#today'
         aria-label='Gaudi Reader'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) px-1 py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:px-0'
@@ -120,7 +122,7 @@ function Brand() {
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Reader</span></span>
-      </a>
+      </Link>
       <SidebarTrigger />
     </div>
   );

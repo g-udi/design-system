@@ -14,7 +14,7 @@ const iconTileVariants = cva(
         outline: 'border border-ui-border bg-ui-background dark:bg-ui-input/32',
         /** Raised muted fill with a background-colored ring. Reads as a physical chip. */
         elevated:
-          'border-2 border-ui-background bg-ui-muted text-ui-accent-foreground shadow-[0_1px_3px_0_rgb(0_0_0/0.14)] dark:border',
+          'border-2 border-ui-background bg-ui-muted text-ui-accent-foreground shadow-[var(--ds-shadow-card)] dark:border',
         /**
          * Tinted double container: an opacity-filled outer ring with no border
          * around a bordered inner card, all derived from `currentColor`. The

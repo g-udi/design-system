@@ -12,7 +12,7 @@ export default {
         "interval",
         "number",
         "2200",
-        "Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms."
+        "Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms)."
       ],
       [
         "direction",

@@ -100,7 +100,8 @@ export const Playground = {
       scope.removeAttribute('data-mermaid-palette');
       themeRule.remove();
     }
-    const root = document.documentElement;
+    // Dark mode also scopes `.dark` (and its tokens) to the story root, so update the nearest themed root.
+    const root = canvasElement.closest('.dark') || document.documentElement;
     const original = root.style.getPropertyValue('--ds-color-mermaid-primary');
     const priority = root.style.getPropertyPriority('--ds-color-mermaid-primary');
     try {

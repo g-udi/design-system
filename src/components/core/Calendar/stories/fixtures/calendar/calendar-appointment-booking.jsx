@@ -11,6 +11,7 @@ import {
   CardTitle
 } from '@gaudi/design-system/core/Card';
 import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
+import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const today = new Date();
@@ -52,21 +53,23 @@ export function Pattern() {
             <ScrollArea className='h-full'>
               <div className='flex flex-col gap-2 p-3'>
                 <p className='text-sm font-medium'>{format(date, 'EEEE, d')}</p>
-                <div className='grid gap-1.5 max-sm:grid-cols-3'>
+                <ToggleGroup
+                  type='single'
+                  aria-label='Available times'
+                  orientation='vertical'
+                  variant='outline'
+                  size='sm'
+                  spacing={1.5}
+                  value={time ?? ''}
+                  onValueChange={(slot) => { if (!slot) return; setTime(slot); setConfirmed(false); }}
+                  className='grid w-full max-sm:grid-cols-3'
+                >
                   {slots.map((slot) => (
-                    <Button
-                      key={slot}
-                      className='w-full'
-                      disabled={taken.has(slot)}
-                      aria-pressed={time === slot}
-                      onClick={() => { setTime(slot); setConfirmed(false); }}
-                      size='sm'
-                      variant={time === slot ? 'default' : 'outline'}
-                    >
+                    <ToggleGroupItem key={slot} value={slot} disabled={taken.has(slot)} className='w-full'>
                       {slot}
-                    </Button>
+                    </ToggleGroupItem>
                   ))}
-                </div>
+                </ToggleGroup>
               </div>
             </ScrollArea>
           </div>

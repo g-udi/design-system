@@ -10,11 +10,9 @@ import {
   useState
 } from 'react';
 import {
-  defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  MeasuringStrategy,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -22,11 +20,9 @@ import {
 } from '@dnd-kit/core';
 import {
   arrayMove,
-  defaultAnimateLayoutChanges,
   horizontalListSortingStrategy,
   rectSortingStrategy,
   SortableContext,
-  sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
@@ -35,33 +31,20 @@ import { Slot } from 'radix-ui';
 import { createPortal } from 'react-dom';
 import { useIsClient } from '../../../hooks/environment/use-is-client.js';
 import { cn } from '../../../utilities/cn/index.js';
+import {
+  animateLayoutChanges,
+  dropAnimationConfig,
+  KEYBOARD_SENSOR_OPTIONS,
+  MEASURING_CONFIG,
+  MOUSE_SENSOR_OPTIONS,
+  TOUCH_SENSOR_OPTIONS
+} from './sortableConfig.js';
 const SortableItemContext = createContext({
   listeners: void 0,
   isDragging: false,
   disabled: false
 });
 const IsOverlayContext = createContext(false);
-const animateLayoutChanges = (args) =>
-  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
-const dropAnimationConfig = {
-  sideEffects: defaultDropAnimationSideEffects({
-    styles: {
-      active: {
-        opacity: '0.4'
-      }
-    }
-  })
-};
-const MOUSE_SENSOR_OPTIONS = { activationConstraint: { distance: 10 } };
-const TOUCH_SENSOR_OPTIONS = {
-  activationConstraint: { delay: 250, tolerance: 5 }
-};
-const KEYBOARD_SENSOR_OPTIONS = {
-  coordinateGetter: sortableKeyboardCoordinates
-};
-const MEASURING_CONFIG = {
-  droppable: { strategy: MeasuringStrategy.Always }
-};
 const STRATEGY_MAP = {
   horizontal: horizontalListSortingStrategy,
   grid: rectSortingStrategy,

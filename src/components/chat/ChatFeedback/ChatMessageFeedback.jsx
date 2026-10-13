@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { useCopyToClipboard } from '../../../hooks/interaction/use-copy-to-clipboard.js';
 import { cn } from '../../../utilities/cn/index.js';
@@ -22,23 +22,23 @@ function IconAction({ label, icon, pressed, onClick, disabled, className }) {
 
 /**
  * Copy, rate and regenerate a reply. `copyText` is what the copy action writes; `rating` is 'up', 'down'
- * or null (controlled with onRatingChange). A visually hidden status confirms each action.
+ * or null (controlled with onRatingChange). The shared live announcer confirms each action.
  */
 function ChatMessageFeedback({ copyText, rating: ratingProp, defaultRating = null, onRatingChange, onCopy, onRegenerate, labels = {}, className, children }) {
   const [rating, setRating] = useControllableState({ value: ratingProp, defaultValue: defaultRating, onChange: onRatingChange });
-  const [announcement, setAnnouncement] = useState('');
+  const { announce } = useLiveAnnouncer();
   const { copy, isCopied: copied } = useCopyToClipboard({
     timeout: 1600,
     onCopy: (text) => {
       onCopy?.(text);
-      setAnnouncement(labels.copied || 'Copied to clipboard.');
+      announce(labels.copied || 'Copied to clipboard.');
     },
-    onError: () => setAnnouncement(labels.copyFailed || 'Could not copy. Select the reply and copy it manually.')
+    onError: () => announce(labels.copyFailed || 'Could not copy. Select the reply and copy it manually.')
   });
   const rate = (value) => {
     const next = rating === value ? null : value;
     setRating(next);
-    setAnnouncement(next ? (labels.thanks || 'Thanks for the feedback.') : '');
+    if (next) announce(labels.thanks || 'Thanks for the feedback.');
   };
   return (
     <TooltipProvider delayDuration={300}>
@@ -48,7 +48,6 @@ function ChatMessageFeedback({ copyText, rating: ratingProp, defaultRating = nul
       <IconAction label={labels.down || 'Bad reply'} icon='ThumbsDown' pressed={rating === 'down'} onClick={() => rate('down')} />
       {onRegenerate ? <IconAction label={labels.regenerate || 'Regenerate'} icon='RefreshCw' onClick={onRegenerate} /> : null}
       {children}
-      <span role='status' className='sr-only'>{announcement}</span>
     </div>
     </TooltipProvider>
   );

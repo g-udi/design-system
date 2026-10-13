@@ -5,7 +5,7 @@ import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import PostSeriesBox from '../index';
 
-const docs = getComponentDocs('Post/PostSeriesBox');
+const docs = getComponentDocs('Blocks/Blog/PostSeriesBox');
 // A five-part series read up to part three: finished, current, and upcoming entries all show.
 const series = [
   { order: 0, series: 'Design Systems in Practice', id: 'foundations', href: '/articles/foundations', title: 'Foundations: tokens, scales, and themes' },
@@ -16,7 +16,8 @@ const series = [
 ];
 
 export default {
-  title: 'Post/PostSeriesBox',
+  id: 'post-postseriesbox',
+  title: 'Blocks/Blog/PostSeriesBox',
   component: PostSeriesBox,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { series: 'object', currentId: series.map((entry) => entry.id) }),

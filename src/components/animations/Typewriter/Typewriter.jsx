@@ -1,8 +1,9 @@
 'use client';
 import { forwardRef, useEffect, useMemo, useState } from 'react';
 import { useAnimation, bounded, characters } from '../animationRuntime.js';
+import { cn } from '../../../utilities/cn';
 const defaultTexts = ['Make something memorable.', 'Make it yours.'];
-export const Typewriter = forwardRef(function Typewriter({ texts = defaultTexts, typeDelay = 80, eraseDelay = 40, holdDelay = 1600, repeat = true, caret = true, paused = false, className = '', ...props }, forwardedRef) {
+export const Typewriter = forwardRef(function Typewriter({ texts = defaultTexts, typeDelay = 80, eraseDelay = 40, holdDelay = 1600, repeat = true, caret = true, paused = false, className, ...props }, forwardedRef) {
   const { ref, active, reduced } = useAnimation(paused, forwardedRef);
   const phrases = Array.isArray(texts) ? texts.map(String) : [String(texts ?? '')];
   const key = JSON.stringify(phrases);
@@ -23,7 +24,7 @@ export const Typewriter = forwardRef(function Typewriter({ texts = defaultTexts,
     }, delay);
     return () => clearTimeout(timer);
   }, [active, key, current, glyphs.length, typeDelay, eraseDelay, holdDelay, repeat, phrases.length]);
-  return <span {...props} ref={ref} className={`gaudi-typewriter ${className}`} data-slot="typewriter" data-animated={active}>
+  return <span {...props} ref={ref} className={cn('gaudi-typewriter', className)} data-slot="typewriter" data-animated={active}>
     <span className="sr-only">{phrases.join(' ')}</span>
     <span className="gaudi-typewriter__layout" aria-hidden="true">{phrases.map((item, i) => <span className="gaudi-typewriter__measure" key={i}>{item}</span>)}<span className="gaudi-typewriter__value">{reduced || !started ? phrase : glyphs.slice(0, current.length).join('')}{caret && <span className="gaudi-typewriter__cursor">|</span>}</span></span>
   </span>;

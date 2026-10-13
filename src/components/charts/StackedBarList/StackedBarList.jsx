@@ -1,9 +1,9 @@
 'use client';
 
-import { cn } from '../../../utilities/cn';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
+import { ChartLegendList, ChartListRow } from '../ChartFrame/ChartMarks.jsx';
 import { getChartColor } from '../ChartFrame/chartRuntime.js';
-import { isChartNumber } from '../ChartFrame/chartScale.js';
+import { formatShare, isChartNumber } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
 function BarListPlot({ colors, labelKey, normalize, rows, series, showLegend }) {
@@ -15,22 +15,11 @@ function BarListPlot({ colors, labelKey, normalize, rows, series, showLegend }) 
   return (
     <div className='flex h-full flex-col gap-3'>
       {showLegend && series.length > 1 ? (
-        <ul aria-hidden='true' className='flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-muted'>
-          {series.map((item, index) => (
-            <li key={ item.key } className='flex min-w-0 items-center gap-1.5'>
-              <span className='size-2 shrink-0 rounded-sm' data-slot='chart-mark' style={{ 'background': getChartColor(colors, index) }} />
-              <span className='min-w-0 wrap-anywhere'>{item.label || item.key}</span>
-            </li>
-          ))}
-        </ul>
+        <ChartLegendList aria-hidden='true' items={ series.map((item, index) => ({ 'color': getChartColor(colors, index), 'key': item.key, 'label': item.label || item.key })) } />
       ) : null}
       <ol aria-hidden='true' className='grid min-w-0 grid-cols-[minmax(0,1fr)] content-start gap-2'>
         {rows.map((row, index) => (
-          <li
-            key={ `${row.record[labelKey]}-${index}` }
-            className={ cn('grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 rounded-md px-2 py-1.5 transition-colors', active === index && 'bg-surface-muted') }
-            data-chart-index={ index }
-          >
+          <ChartListRow key={ `${row.record[labelKey]}-${index}` } active={ active === index } index={ index }>
             <div className='flex items-baseline justify-between gap-3 text-sm'>
               <span className='min-w-0 truncate text-text'>{row.record[labelKey]}</span>
               <span className='shrink-0 font-medium tabular-nums text-text'>{normalize ? (row.total ? '100%' : '0%') : format(row.total)}</span>
@@ -45,7 +34,7 @@ function BarListPlot({ colors, labelKey, normalize, rows, series, showLegend }) 
                 })}
               </div>
             </div>
-          </li>
+          </ChartListRow>
         ))}
       </ol>
     </div>
@@ -76,7 +65,7 @@ export function StackedBarList(props) {
     'label': String(row.record[labelKey]),
     'values': [
       ...segments.map((item) => ({
-        'display': normalize && row.total ? `${Math.round((row.record[item.key] / row.total) * 100)}%` : undefined,
+        'display': normalize && row.total ? formatShare(row.record[item.key] / row.total) : undefined,
         'name': item.label || item.key,
         'value': row.record[item.key]
       })),

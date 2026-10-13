@@ -45,7 +45,7 @@ Curated patterns:
 
 - Horizontal rules — registry item `@gaudi/separator-horizontal` (uses `Separator`)
 - Text label — registry item `@gaudi/separator-text-label` (uses `Separator`)
-- Vertical rules — registry item `@gaudi/separator-vertical` (uses `Separator`)
+- Vertical rules — registry item `@gaudi/separator-vertical` (uses `Link`, `Separator`)
 
 ## Related
 

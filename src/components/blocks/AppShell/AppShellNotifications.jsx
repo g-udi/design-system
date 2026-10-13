@@ -7,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '../../core/Ava
 import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '../../core/Attachment/Attachment.jsx';
 import { Progress } from '../../core/Progress/ProgressPrimitives.jsx';
 import { Rating } from '../../core/Rating/Rating.jsx';
+import { ScrollArea } from '../../core/ScrollArea/index.js';
 import {
   Sheet,
   SheetClose,
@@ -19,6 +20,7 @@ import {
 } from '../../core/Sheet/Sheet.jsx';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../core/Tooltip/TooltipPrimitives.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
+import { normalizeDownloadHref } from '../../../utilities/href.js';
 import { useAppShellFrame } from './AppShellFrame.jsx';
 
 // Icon tones map to Gaudi's semantic colours.
@@ -113,13 +115,13 @@ function NotificationItem({ item, onAction }) {
               <AttachmentTitle>{item.attachment.name}</AttachmentTitle>
               {item.attachment.size ? <AttachmentDescription>{item.attachment.size}</AttachmentDescription> : null}
             </AttachmentContent>
-            {item.attachment.href ? (
+            {normalizeDownloadHref(item.attachment.href) ? (
               <AttachmentActions>
                 <AttachmentAction asChild aria-label={`Open ${item.attachment.name}`}>
-                  <a href={item.attachment.href}><RegistryIcon lucide='ExternalLink' aria-hidden='true' /></a>
+                  <a href={normalizeDownloadHref(item.attachment.href)}><RegistryIcon lucide='ExternalLink' aria-hidden='true' /></a>
                 </AttachmentAction>
                 <AttachmentAction asChild aria-label={`Download ${item.attachment.name}`}>
-                  <a href={item.attachment.href} download={item.attachment.name}><RegistryIcon lucide='Download' aria-hidden='true' /></a>
+                  <a href={normalizeDownloadHref(item.attachment.href)} download={item.attachment.name}><RegistryIcon lucide='Download' aria-hidden='true' /></a>
                 </AttachmentAction>
               </AttachmentActions>
             ) : null}
@@ -249,7 +251,7 @@ function AppShellNotifications({
             </SheetClose>
           </span>
         </SheetHeader>
-        <div className='min-h-0 flex-1 overflow-y-auto overscroll-contain'>
+        <ScrollArea aria-label={label} className='min-h-0 flex-1 [&_[data-slot=scroll-area-viewport]]:overscroll-contain'>
           {items.length ? (
             <ul aria-label={label}>
               {items.map((item) => (
@@ -259,7 +261,7 @@ function AppShellNotifications({
           ) : (
             <p className='text-text-muted px-4 py-10 text-center text-sm'>You are all caught up.</p>
           )}
-        </div>
+        </ScrollArea>
         <SheetFooter className='border-t border-ui-border p-1'>
           <Button variant='ghost' className='w-full' onClick={onViewAll}>
             {viewAllLabel}

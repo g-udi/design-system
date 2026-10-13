@@ -1,6 +1,7 @@
 import { useId, useRef } from 'react';
 import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';
+import Link from '@gaudi/design-system/core/Link';
 
 export function SmoothReadingDemo({ smooth = true, type = 'always' }) {
   const viewport = useRef(null);
@@ -32,7 +33,7 @@ export function SmoothReadingDemo({ smooth = true, type = 'always' }) {
             <p className='text-base text-text-muted'>Reading at your own pace, with a little less friction.</p>
           </header>
           <nav aria-label='Article sections' className='flex flex-wrap gap-x-4 gap-y-2 border-y border-border py-3'>
-            {sections.map(section => <a key={section.id} href={`#${section.id}`} className='text-accent underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4'>{section.title}</a>)}
+            {sections.map(section => <Link key={section.id} href={`#${section.id}`} tone='accent' className='underline underline-offset-4'>{section.title}</Link>)}
           </nav>
           {sections.map((section, index) => <section key={section.id} className='grid gap-4'>
             <h3 id={section.id} tabIndex={-1} className='scroll-mt-6 text-lg font-semibold leading-snug focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent'>{section.title}</h3>
@@ -46,7 +47,7 @@ export function SmoothReadingDemo({ smooth = true, type = 'always' }) {
               </ScrollArea>
             </aside>}
           </section>)}
-          <a href={`#${sections[0].id}`} className='justify-self-start text-accent underline underline-offset-4'>Back to the first section</a>
+          <Link href={`#${sections[0].id}`} tone='accent' className='justify-self-start underline underline-offset-4'>Back to the first section</Link>
         </article>
       </ScrollArea>
       <ReadingIndicator targetRef={viewport} position='absolute' label='Article reading progress' />

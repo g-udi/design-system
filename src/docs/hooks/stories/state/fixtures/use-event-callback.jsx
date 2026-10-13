@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useEventCallback } from '../../../../../hooks/state/use-event-callback.js';
+import { useEventCallback } from '@gaudi/design-system/hooks/state/use-event-callback';
 
 function useTicker(onTick) {
   const [ subscriptions, setSubscriptions ] = useState(0);

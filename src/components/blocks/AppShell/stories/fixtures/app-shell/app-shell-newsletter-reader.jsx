@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import { Item } from '@gaudi/design-system/core/Item';
 import {
   DialogRoot as Dialog,
   DialogClosePrimitive as DialogClose,
@@ -428,37 +429,38 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
           <ul className='grid gap-0.5 px-2 pb-2'>
             {mails.map((mail) => (
               <li key={mail.id}>
-                <button
-                  type='button'
-                  aria-current={mail.id === selected ? 'true' : undefined}
-                  className='hover:bg-ui-accent aria-[current=true]:bg-ui-accent focus-visible:ring-ui-ring flex w-full min-w-0 gap-3 rounded-(--ds-radius-control) px-2 py-2.5 text-start outline-hidden focus-visible:ring-2'
-                  onClick={() => onSelect(mail.id)}
-                >
-                  <Avatar className='size-8 shrink-0 rounded-full'>
-                    <AvatarImage src={mail.photo} alt='' className='rounded-full' />
-                    <AvatarFallback className='rounded-full'>{mail.from.slice(0, 1)}</AvatarFallback>
-                  </Avatar>
-                  <span className='grid min-w-0 flex-1 gap-0.5'>
-                    <span className='flex items-center gap-2'>
-                      <span className={`min-w-0 flex-1 truncate text-sm ${mail.unread ? 'font-semibold' : 'font-medium'}`}>{mail.from}</span>
-                      {mail.unread ? (
-                        <span className='bg-info size-2 shrink-0 rounded-full'>
-                          <span className='sr-only'>Unread</span>
+                <Item asChild size='sm' className='hover:bg-ui-accent aria-[current=true]:bg-ui-accent focus-visible:ring-ui-ring min-w-0 flex-nowrap items-start gap-3 rounded-(--ds-radius-control) px-2 py-2.5 text-start outline-hidden focus-visible:ring-2'>
+                  <button
+                    type='button'
+                    aria-current={mail.id === selected ? 'true' : undefined}
+                    onClick={() => onSelect(mail.id)}
+                  >
+                    <Avatar className='size-8 shrink-0 rounded-full'>
+                      <AvatarImage src={mail.photo} alt='' className='rounded-full' />
+                      <AvatarFallback className='rounded-full'>{mail.from.slice(0, 1)}</AvatarFallback>
+                    </Avatar>
+                    <span className='grid min-w-0 flex-1 gap-0.5'>
+                      <span className='flex items-center gap-2'>
+                        <span className={`min-w-0 flex-1 truncate text-sm ${mail.unread ? 'font-semibold' : 'font-medium'}`}>{mail.from}</span>
+                        {mail.unread ? (
+                          <span className='bg-info size-2 shrink-0 rounded-full'>
+                            <span className='sr-only'>Unread</span>
+                          </span>
+                        ) : null}
+                        <span className='text-text-muted shrink-0 text-xs'>{mail.time}</span>
+                      </span>
+                      <span className='truncate text-sm'>{mail.subject}</span>
+                      <span className='text-text-muted line-clamp-2 text-xs'>{mail.preview}</span>
+                      {mail.tags.length ? (
+                        <span className='flex flex-wrap gap-1 pt-1'>
+                          {mail.tags.map((tag) => (
+                            <Badge key={tag} variant='outline' size='xs' className='font-normal'>{tag}</Badge>
+                          ))}
                         </span>
                       ) : null}
-                      <span className='text-text-muted shrink-0 text-xs'>{mail.time}</span>
                     </span>
-                    <span className='truncate text-sm'>{mail.subject}</span>
-                    <span className='text-text-muted line-clamp-2 text-xs'>{mail.preview}</span>
-                    {mail.tags.length ? (
-                      <span className='flex flex-wrap gap-1 pt-1'>
-                        {mail.tags.map((tag) => (
-                          <Badge key={tag} variant='outline' size='xs' className='font-normal'>{tag}</Badge>
-                        ))}
-                      </span>
-                    ) : null}
-                  </span>
-                </button>
+                  </button>
+                </Item>
               </li>
             ))}
           </ul>
@@ -468,9 +470,9 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
             description={
               <>
                 Try another search or{' '}
-                <button type='button' className='text-text underline underline-offset-4' onClick={onClear}>
+                <Button variant='link' size='sm' className='h-auto p-0' onClick={onClear}>
                   clear filters
-                </button>
+                </Button>
               </>
             }
           />

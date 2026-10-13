@@ -3,6 +3,7 @@ import { useEffect, useId, useRef, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import Icon from '@gaudi/design-system/core/Icon';
 import Dialog from '@gaudi/design-system/core/Dialog';
+import Link from '@gaudi/design-system/core/Link';
 import { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent } from '@gaudi/design-system/core/Accordion';
 import {
   NavigationMenuRoot, NavigationMenuListPrimitive, NavigationMenuItemPrimitive,
@@ -99,7 +100,7 @@ export function AppleNavigationDemo({ onNavigate }) {
           </NavigationMenuRoot>
         ) : (
           <div className='apple-navigation-phone-bar'>
-            <a className='apple-navigation-brand' href='/' onClick={(event) => navigate(event, { title: 'Home', href: '/' })}><GaudiBrand className='text-sm' /></a>
+            <Link variant='bare' className='apple-navigation-brand' href='/' onClick={(event) => navigate(event, { title: 'Home', href: '/' })}><GaudiBrand className='text-sm' /></Link>
             <Button ref={opener} variant='ghost' size='icon' aria-label='Open studio menu' aria-haspopup='dialog' aria-expanded={phoneOpen} onClick={() => setPhoneOpen(true)}><Icon name='Menu' decorative size='sm' /></Button>
           </div>
         )}

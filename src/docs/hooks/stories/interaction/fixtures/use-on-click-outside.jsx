@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import { useEventListener } from '../../../../../hooks/interaction/use-event-listener.js';
-import { useOnClickOutside } from '../../../../../hooks/interaction/use-on-click-outside.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import { useEventListener } from '@gaudi/design-system/hooks/interaction/use-event-listener';
+import { useOnClickOutside } from '@gaudi/design-system/hooks/interaction/use-on-click-outside';
 
 function InlineTitleEditor() {
   const [ title, setTitle ] = useState('Designing calm interfaces');

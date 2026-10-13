@@ -44,7 +44,7 @@
   width: 100%;
   white-space: normal;
   text-align: start;
-  font-size: var(--ds-font-size-sm, .875rem);
+  font-size: var(--text-sm);
 }
 .ds-org-toggle {
   display: flex;
@@ -65,7 +65,7 @@
   top: 0;
   left: 50%;
   height: calc(var(--ds-space-scale, 1) * 1.25rem);
-  border-left: 1px solid var(--ds-color-border-strong, var(--ds-color-border));
+  border-left: 1px solid var(--ds-color-border);
 }
 .ds-org-level:not(.ds-org-root) > .ds-org-branch::before,
 .ds-org-level:not(.ds-org-root) > .ds-org-branch::after {
@@ -74,12 +74,12 @@
   top: calc(var(--ds-space-scale, 1) * -1.25rem);
   width: 50%;
   height: calc(var(--ds-space-scale, 1) * 1.25rem);
-  border-top: 1px solid var(--ds-color-border-strong, var(--ds-color-border));
+  border-top: 1px solid var(--ds-color-border);
 }
 .ds-org-level:not(.ds-org-root) > .ds-org-branch::before { left: 0; }
 .ds-org-level:not(.ds-org-root) > .ds-org-branch::after {
   right: 0;
-  border-left: 1px solid var(--ds-color-border-strong, var(--ds-color-border));
+  border-left: 1px solid var(--ds-color-border);
 }
 .ds-org-level > .ds-org-branch:first-child::before,
 .ds-org-level > .ds-org-branch:last-child::after { border-top: 0; }

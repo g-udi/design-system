@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { useMeasuredWidth } from '../ChartFrame/chartMeasure.js';
-import { chartAxisTick } from '../ChartFrame/ChartMarks.jsx';
+import { ChartValueGrid, chartAxisTick } from '../ChartFrame/ChartMarks.jsx';
 import { getChartColor, RechartsText } from '../ChartFrame/chartRuntime.js';
 import { boxStats, isChartNumber, niceTicks, scaleLinear } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
@@ -45,12 +45,7 @@ function BoxPlotPlot({ color, colors, groups, height, unit }) {
     <div ref={ ref } className='h-full w-full'>
       {width ? (
         <svg aria-hidden='true' className='block' height={ height } width={ width }>
-          {ticks.map((tick) => (
-            <g key={ tick }>
-              <line stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' x1={ margin.left } x2={ width - margin.right } y1={ y(tick) } y2={ y(tick) } />
-              <text dominantBaseline='middle' fill='var(--ds-color-text-muted)' fontSize={ 12 } textAnchor='end' x={ margin.left - 8 } y={ y(tick) }>{`${format(tick)}${unit || ''}`}</text>
-            </g>
-          ))}
+          <ChartValueGrid format={ (tick) => `${format(tick)}${unit || ''}` } left={ margin.left } right={ width - margin.right } ticks={ ticks } y={ y } />
           {groups.map((group, index) => {
             const center = margin.left + band * index + band / 2;
             const { max, median, min, outliers, q1, q3 } = group.stats;

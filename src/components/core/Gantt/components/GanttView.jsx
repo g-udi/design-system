@@ -404,10 +404,10 @@ function GanttView({
           />
         ))}
         {showCreateTask && (
-          <button
-            type='button'
+          <Button
+            variant='ghost'
             data-slot='gantt-create-task'
-            className='text-ui-muted-foreground hover:text-ui-foreground hover:bg-ui-muted/40 flex h-10 w-full shrink-0 items-center border-b ps-3 pe-3'
+            className='text-ui-muted-foreground hover:text-ui-foreground hover:bg-ui-muted/40 h-10 w-full shrink-0 justify-start rounded-none border-b px-3 font-normal'
             onClick={() =>
               settings.onCreateTask?.({
                 parentId: null,
@@ -430,7 +430,7 @@ function GanttView({
               </span>
               <span>{settings.i18n.labels.addTask}</span>
             </span>
-          </button>
+          </Button>
         )}
       </div>
     </div>

@@ -59,7 +59,7 @@ DayPicker supplies grid navigation and selected-date announcements. Label the ca
 
 Curated patterns:
 
-- Appointment booking — registry item `@gaudi/calendar-appointment-booking` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ScrollArea`)
+- Appointment booking — registry item `@gaudi/calendar-appointment-booking` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ScrollArea`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Caption and navigation — registry item `@gaudi/calendar-caption-navigation` (uses `Button`, `Calendar`, `CardContent`, `CardRoot`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Daily pricing — registry item `@gaudi/calendar-daily-pricing` (uses `Calendar`, `CalendarDayButton`, `cn`)
 - Event list — registry item `@gaudi/calendar-event-list` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardRoot`, `EmptyState`, `RegistryIcon`, `cn`)

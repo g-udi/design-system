@@ -1,6 +1,6 @@
 {
   "package": "@gaudi/design-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "generatedBy": "pnpm ai:build",
   "entries": {
     "@gaudi/design-system": [
@@ -534,6 +534,7 @@
       "GradientWaves",
       "Grainient",
       "GridScan",
+      "Hero",
       "HoverCard",
       "HoverCardContent",
       "HoverCardTrigger",
@@ -579,7 +580,6 @@
       "KbdGroup",
       "KbdRoot",
       "Label",
-      "LayoutWrapper",
       "LightPillar",
       "LightRays",
       "Link",
@@ -661,6 +661,7 @@
       "PaginationPreviousPrimitive",
       "PaginationRoot",
       "PaginationStatus",
+      "ParticleSea",
       "PatternWaves",
       "PhoneInput",
       "PhraseCycle",
@@ -724,7 +725,6 @@
       "ScrollArea",
       "ScrollBar",
       "Scrollspy",
-      "Search",
       "Select",
       "SelectContent",
       "SelectGroup",
@@ -1387,6 +1387,7 @@
       "DashboardToolbar",
       "EditableField",
       "FormErrorSummary",
+      "Hero",
       "Menu",
       "MenuSearch",
       "ScheduleCalendar",
@@ -4643,9 +4644,7 @@
       "ArticleContentLayout",
       "Borealis",
       "Footer",
-      "LayoutWrapper",
-      "NewsletterForm",
-      "Search"
+      "NewsletterForm"
     ],
     "@gaudi/design-system/layout/ArticleContentLayout": [
       "default"
@@ -4659,13 +4658,7 @@
     "@gaudi/design-system/layout/LayoutContainer": [
       "default"
     ],
-    "@gaudi/design-system/layout/LayoutWrapper": [
-      "default"
-    ],
     "@gaudi/design-system/layout/NewsletterForm": [
-      "default"
-    ],
-    "@gaudi/design-system/layout/Search": [
       "default"
     ],
     "@gaudi/design-system/mdx": [
@@ -5001,6 +4994,7 @@
       "LightRays",
       "LiquidEther",
       "MicroSlats",
+      "ParticleSea",
       "PatternWaves",
       "PhraseCycle",
       "PixelBlast",
@@ -5108,6 +5102,10 @@
       "Grainient",
       "default"
     ],
+    "@gaudi/design-system/animations/ParticleSea": [
+      "ParticleSea",
+      "default"
+    ],
     "@gaudi/design-system/animations/GridScan": [
       "GridScan",
       "default"
@@ -5122,6 +5120,10 @@
     ],
     "@gaudi/design-system/animations/Hyperspeed": [
       "Hyperspeed",
+      "default"
+    ],
+    "@gaudi/design-system/blocks/Hero": [
+      "Hero",
       "default"
     ]
   }

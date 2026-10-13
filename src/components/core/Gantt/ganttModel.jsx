@@ -11,7 +11,8 @@ import {
   eventsOverlap,
   defaultEventOrder,
   getRangeKey,
-  flattenResources
+  flattenResources,
+  resolveOffDay
 } from '../EventCalendar/eventCalendarModel.jsx';
 import {
   addDays,
@@ -332,21 +333,6 @@ function reorderResources(resources, resourceId, parentId, index) {
     if (!flat.some(({ resource }) => resource.id === resourceId)) return null;
   }
   return next;
-}
-const DEFAULT_WEEKEND_DAYS = [0, 6];
-function resolveOffDay(day, timeZone, config) {
-  if (!config) return false;
-  const resolved = config === true ? {} : config;
-  const weekendDays = resolved.weekendDays ?? DEFAULT_WEEKEND_DAYS;
-  const zoned = toZoned(day, timeZone);
-  if (weekendDays.includes(zoned.getDay())) return true;
-  if (resolved.dates?.length) {
-    const key = getDayKey(day, timeZone);
-    if (resolved.dates.some((date) => getDayKey(date, timeZone) === key)) {
-      return true;
-    }
-  }
-  return resolved.isOffDay?.(day) ?? false;
 }
 /*
  * Finish-to-start dependency check for a proposed move or resize. `update`

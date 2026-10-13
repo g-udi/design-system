@@ -8,7 +8,14 @@ import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced
 import Button from '../../core/Button/index.js';
 import Icon from '../../core/Icon/index.js';
 import EmptyState from '../../core/EmptyState/index.js';
+import { motion as motionTokens } from '../../../tokens/index.js';
 import { bracketError, bracketWindow } from './bracketModel.js';
+
+// Framer Motion takes seconds and a bezier array; the motion tokens are CSS strings.
+const bracketTransition = {
+  duration: parseFloat(motionTokens.duration.overlay) / 1000,
+  ease: motionTokens.ease.out.match(/[\d.]+/g).map(Number)
+};
 
 const defaultLabels = {
   previous: 'Previous round', next: 'Next round', empty: 'No matches to display',
@@ -58,7 +65,7 @@ export function TournamentBracket({ rounds = [], label = 'Tournament bracket', r
   const { start, end, last } = bracketWindow(invalid ? 0 : rounds.length, width, requestedRound);
   const visible = invalid ? [] : rounds.slice(start, end);
   const firstCount = visible[0]?.matches.length || 1;
-  const transition = { duration: reducedMotion ? 0 : .32, ease: [.22, 1, .36, 1] };
+  const transition = reducedMotion ? { duration: 0 } : bracketTransition;
 
   return (
     <div {...props} ref={ref} className={cn('ds-bracket', className)} role='region' aria-label={label} data-slot='tournament-bracket'>

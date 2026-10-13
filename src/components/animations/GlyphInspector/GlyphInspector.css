@@ -11,7 +11,7 @@
 .gaudi-glyph-inspector__fallback[data-measured="true"] { opacity: 0; }
 .gaudi-glyph-inspector__glyph { position: absolute; inset: 0; overflow: visible; pointer-events: none; font: inherit; letter-spacing: inherit; opacity: 0; }
 .gaudi-glyph-inspector__glyph[data-measured="true"] { opacity: 1; }
-.gaudi-glyph-inspector__glyph text { font: inherit; letter-spacing: inherit; transition: opacity 200ms ease-out; }
+.gaudi-glyph-inspector__glyph text { font: inherit; letter-spacing: inherit; transition: opacity var(--ds-motion-duration-state) var(--ds-motion-ease-out); }
 .gaudi-glyph-inspector__fill { opacity: calc(1 - var(--inspector-reveal, 0)); }
 .gaudi-glyph-inspector__outline { opacity: var(--inspector-reveal, 0); stroke-width: 1px; animation: gaudi-glyph-inspector-march var(--inspector-period, 1.4s) linear infinite; }
 .gaudi-glyph-inspector[data-animated="false"] .gaudi-glyph-inspector__outline { animation-play-state: paused; }

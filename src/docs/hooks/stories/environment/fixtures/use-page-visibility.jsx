@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useInterval } from '../../../../../hooks/state/use-interval.js';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { usePageVisibility } from '../../../../../hooks/environment/use-page-visibility.js';
+import { usePageVisibility } from '@gaudi/design-system/hooks/environment/use-page-visibility';
 
 function PausedPolling() {
   const visible = usePageVisibility();

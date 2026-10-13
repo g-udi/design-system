@@ -1,4 +1,4 @@
-import { compileBackground } from '../backgroundShader.js';
+import { createLinearTexture, createProgram } from '../backgroundShader.js';
 import { AERO_PARTICLE_COUNT, AERO_VERTEX_STRIDE, createAeroGeometry } from './aeroGeometry.js';
 
 const vertex = `
@@ -111,15 +111,9 @@ export function createAeroRenderer(gl) {
     shaders.forEach(shader => gl.deleteShader(shader));
   };
   try {
-    shaders.push(compileBackground(gl, vertex, gl.VERTEX_SHADER));
-    shaders.push(compileBackground(gl, fragment, gl.FRAGMENT_SHADER));
-    program = gl.createProgram();
-    if (!program) throw new Error('Unable to allocate AeroShards program');
-    shaders.forEach(shader => gl.attachShader(program, shader));
-    gl.linkProgram(program);
-    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error('Unable to link AeroShards mesh');
+    program = createProgram(gl, vertex, fragment, shaders, 'AeroShards');
     buffer = gl.createBuffer();
-    texture = gl.createTexture();
+    texture = createLinearTexture(gl);
     framebuffer = gl.createFramebuffer();
     depthBuffer = gl.createRenderbuffer();
     if (!buffer || !texture || !framebuffer || !depthBuffer) throw new Error('Unable to allocate AeroShards mesh');
@@ -130,11 +124,6 @@ export function createAeroRenderer(gl) {
     const names = ['uTime', 'uAspect', 'uScale', 'uChannel', 'uPointer', 'uPointerActive', 'uPressed',
       'uColor1', 'uColor2', 'uColor3', 'uBackground', 'uIntensity'];
     const uniforms = Object.fromEntries(names.map(name => [name, gl.getUniformLocation(program, name)]));
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
     let allocatedWidth = 0;
     let allocatedHeight = 0;
     return {

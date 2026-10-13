@@ -7,7 +7,7 @@
   .ds-map-controls > button { background: var(--ds-color-surface); }
   .ds-map-overlay { position: absolute; left: 1rem; right: 4.5rem; bottom: 2rem; pointer-events: none; }
   .ds-map-overlay > * { pointer-events: auto; }
-  .ds-map-marker { position: relative; border-radius: 50%; outline: 3px solid var(--ds-color-surface); box-shadow: 0 2px 8px #0003; }
+  .ds-map-marker { position: relative; border-radius: 50%; outline: 3px solid var(--ds-color-surface); box-shadow: var(--ds-shadow-floating); }
   .ds-map-marker[aria-pressed='true'] { outline: 3px solid var(--ds-color-text); }
   .ds-map-marker:focus-visible { outline: 3px solid var(--ds-color-accent); outline-offset: 4px; }
   .ds-map-marker-badge { position: absolute; bottom: calc(100% + .5rem); left: 50%; transform: translateX(-50%); white-space: nowrap; padding: calc(var(--ds-space-scale, 1) * .125rem) calc(var(--ds-space-scale, 1) * .375rem); border-radius: var(--ds-radius); background: inherit; color: inherit; font-size: .6875rem; line-height: 1.4; font-weight: 600; }

@@ -1,5 +1,6 @@
 'use client';
 import { useControllableState } from '../../../../hooks/state/use-controllable-state.js';
+import { localStorageStore } from '../../../../hooks/data/use-local-storage.js';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import { getDataGridColumnOrder } from './DataGridViewOptions.jsx';
 import {
@@ -91,9 +92,9 @@ export function isSameDataGridLayout(a, b, columnIds) {
   return canonicalLayout(a, columnIds) === canonicalLayout(b, columnIds);
 }
 function readStoredLayouts(storageKey) {
-  if (!storageKey || typeof window === 'undefined') return null;
+  if (!storageKey) return null;
   try {
-    const raw = window.localStorage.getItem(storageKey);
+    const raw = localStorageStore.get(storageKey);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     return parsed?.version === LAYOUT_STORAGE_VERSION ? parsed : null;
@@ -101,16 +102,13 @@ function readStoredLayouts(storageKey) {
     return null;
   }
 }
+// The shared store falls back to memory when storage refuses the write.
 function writeStoredLayouts(storageKey, value) {
-  if (!storageKey || typeof window === 'undefined') return;
-  try {
-    window.localStorage.setItem(
-      storageKey,
-      JSON.stringify({ version: LAYOUT_STORAGE_VERSION, ...value })
-    );
-  } catch {
-    // Private mode or a full quota: the layouts still work for this session.
-  }
+  if (!storageKey) return;
+  localStorageStore.set(
+    storageKey,
+    JSON.stringify({ version: LAYOUT_STORAGE_VERSION, ...value })
+  );
 }
 function createLayoutId(name) {
   const slug = name

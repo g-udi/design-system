@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Pill from '../../../../../components/core/Pill';
-import { usePrevious } from '../../../../../hooks/state/use-previous.js';
+import Button from '@gaudi/design-system/core/Button';
+import Pill from '@gaudi/design-system/core/Pill';
+import { usePrevious } from '@gaudi/design-system/hooks/state/use-previous';
 
 function SubscriberTrend() {
   const [ subscribers, setSubscribers ] = useState(4180);

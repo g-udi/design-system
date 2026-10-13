@@ -6,7 +6,8 @@ import {
   StepperIndicator,
   StepperItem,
   StepperNav,
-  StepperTitle
+  StepperTitle,
+  StepperTrigger
 } from './StepperPrimitives.jsx';
 
 const indicators = { completed: <Icon name='Check' decorative size='xs' /> };
@@ -43,13 +44,15 @@ export default function Stepper({
                 <div className='grid min-w-0 gap-1 pt-1'>
                   <StepperTitle asChild className='group-data-[state=inactive]/step:text-text-muted'>
                     {onStepSelect && index < activeStep ? (
-                      <button
-                        type='button'
+                      // Completed steps stay in the tab order; the current step is not a trigger.
+                      <StepperTrigger
+                        tabIndex={0}
+                        aria-label={step.label}
                         onClick={() => onStepSelect(index)}
-                        className='cursor-pointer text-start underline-offset-4 hover:underline focus-visible:underline'
+                        className='text-start underline-offset-4 hover:underline focus-visible:underline'
                       >
                         {step.label}
-                      </button>
+                      </StepperTrigger>
                     ) : (
                       <span>{step.label}</span>
                     )}

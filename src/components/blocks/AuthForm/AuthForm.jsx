@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
+import { useIsMounted } from '../../../hooks/environment/use-is-mounted.js';
 import Field, { FieldLabel, FieldDescription } from '../../core/Field';
 import Input, { EmailInput } from '../../core/Input';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../core/Input/InputGroup.jsx';
@@ -63,14 +64,8 @@ export default function AuthForm({
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const busy = useRef(false);
-  const mounted = useRef(true);
+  const isMounted = useIsMounted();
   const passwordId = useId();
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
   // Form submission and provider sign-in share one pending guard so only one request runs at a time.
   const run = async (request, providerId = '') => {
     if (busy.current) return;
@@ -81,12 +76,12 @@ export default function AuthForm({
     setSuccess(false);
     try {
       await request();
-      if (mounted.current && !providerId) setSuccess(true);
+      if (isMounted() && !providerId) setSuccess(true);
     } catch {
-      if (mounted.current) setError(true);
+      if (isMounted()) setError(true);
     } finally {
       busy.current = false;
-      if (mounted.current) {
+      if (isMounted()) {
         setPending(false);
         setProvider('');
       }

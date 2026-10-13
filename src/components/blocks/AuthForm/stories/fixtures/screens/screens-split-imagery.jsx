@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen } from '@gaudi/design-system/blocks/Screens';
 import { default as Borealis } from '@gaudi/design-system/layout/Borealis';
+import Link from '@gaudi/design-system/core/Link';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -48,7 +49,7 @@ export function Pattern() {
         asideSide={side}
         className='relative bg-transparent'
         header={<span className='flex items-center gap-2 font-semibold'><GaudiBrand className='text-sm' /></span>}
-        footer={<><span>© 2026 Gaudi</span><a href='#privacy' className='hover:text-text underline-offset-4 hover:underline'>Privacy</a></>}
+        footer={<><span>© 2026 Gaudi</span><Link href='#privacy' variant='muted'>Privacy</Link></>}
       >
         <div className='bg-surface rounded-lg border p-6 shadow-xs'>
           <AuthForm
@@ -58,7 +59,7 @@ export function Pattern() {
             mode={mode}
             submitLabel={mode === 'password' ? 'Sign in' : 'Email me a link'}
             emailPlaceholder='you@gaudi.dev'
-            passwordAction={<a href='#reset' className='text-text-muted text-xs underline-offset-4 hover:underline'>Forgot password?</a>}
+            passwordAction={<Link href='#reset' variant='muted' className='text-xs'>Forgot password?</Link>}
             providers={providers}
             onProvider={wait}
             onSubmit={wait}

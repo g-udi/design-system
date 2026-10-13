@@ -1,8 +1,8 @@
 export default {
-  "Post/TableOfContents": {
-    description: 'Tracks article headings and indexes diagrams and tables. Pass contentRef when several articles share the same page.',
-    props: [['toc', 'Array<{ id, url, value, depth, children }>', '[]', 'Heading IDs and labels from the article.'], ['contentRef', 'RefObject<HTMLElement>', '-', 'Article to index. Defaults to the first article on the page.'], ['className', 'string', '-', 'Layout and responsive visibility classes.']],
-    usage: "import { TableOfContents } from '@gaudi/design-system';\n\n<TableOfContents toc={toc} />",
-    accessibility: "Names the article navigation and preserves normal anchor behavior; the active heading is marked without stealing focus."
+  "Blocks/Blog/TableOfContents": {
+    description: 'Responsive article navigation with active sections, expandable heading branches, and an optional diagram and table index. Reuses Scrollspy, Collapsible, Link and the shared expansion hook.',
+    props: [['toc', 'Array<{ id, url?, value, depth?, children? }>', '[]', 'Prepared heading IDs and labels. Nest children to describe the hierarchy; top-level count controls initial expansion regardless of heading depth.'], ['contentRef', 'RefObject<HTMLElement>', '—', 'Article to index. Defaults to the first article on the page.'], ['targetRef', 'RefObject<HTMLElement>', '—', 'Document or nested scroll viewport used by shared Scrollspy. Omit for document scrolling.'], ['offset', 'number', '24', 'Space above the selected heading for sticky navigation or decorative edges.'], ['smooth', 'boolean', 'true', 'Smooth section navigation; respects reduced motion.'], ['indexVisuals', 'boolean', 'true', 'Index captioned diagrams and tables in the article. Image and video figures are excluded.'], ['className', 'string', '—', 'Root layout classes. Sticky placement and mobile disclosure belong to the surrounding layout.'], ['aria-label', 'string', 'Table of contents', 'Accessible navigation name when several contents lists share a page.']],
+    usage: "import TableOfContents from '@gaudi/design-system/post/TableOfContents';\n\n<TableOfContents toc={toc} contentRef={articleRef} targetRef={readingViewportRef} offset={24} />",
+    accessibility: 'Uses real links and marks the active heading with aria-current. Branch toggles have descriptive names and aria-expanded. Modified link clicks remain native; section navigation respects reduced motion and does not steal focus. Hidden branches keep their targets indexed and expand when a descendant becomes active.'
   }
 };

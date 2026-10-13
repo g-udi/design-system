@@ -338,6 +338,15 @@
 }
 
 @media (max-width: 768px) {
+  /* Keep the touch-sized reset action entirely inside the table header. */
+  .ds-docs-preview-controls .docblock-argstable thead th {
+    height: 56px;
+  }
+
+  .ds-docs-preview-controls .docblock-argstable thead th:last-child {
+    padding-inline-end: 56px;
+  }
+
   a[aria-label='Open canvas in new tab'],
   button[aria-label='Reset controls'],
   button[aria-label='Copy heading URL to address bar'] {

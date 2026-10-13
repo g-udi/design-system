@@ -1,4 +1,5 @@
 import { expect, within } from 'storybook/test';
+import Link from '../../../components/core/Link';
 import { CheckList, CodeBlock, InlineCode, Page, Section, Table, Td, Th } from '../../components/StoryDocs';
 import { hookCatalogue, hookDocsId, hookGroupDescriptions, hookGroups } from '../catalogue.js';
 
@@ -37,9 +38,9 @@ export const Default = {
             <tbody>
               {hookCatalogue.filter((hook) => hook.group === group).map((hook) => (
                 <tr key={hook.name}>
-                  <td className='border-b border-gray-100 px-4 py-3 text-xs last:border-b-0 dark:border-gray-800'>
-                    <a href={docsHref(hook)} target='_top' className='font-mono font-semibold text-blue-700 underline-offset-4 hover:underline dark:text-blue-300'>{hook.name}</a>
-                  </td>
+                  <Td mono>
+                    <Link href={docsHref(hook)} target='_top' tone='accent' className='font-semibold underline-offset-4 hover:underline'>{hook.name}</Link>
+                  </Td>
                   <Td>{hook.summary}</Td>
                 </tr>
               ))}
@@ -50,7 +51,7 @@ export const Default = {
 
       <Section title='Rules' description='The contract every hook in this collection follows.'>
         <CheckList items={ rules } />
-        <p className='text-xs leading-6 text-gray-600 dark:text-gray-300'>
+        <p className='text-xs leading-6 text-text-muted'>
           Deep imports such as <InlineCode>@gaudi/design-system/hooks/state/use-step</InlineCode> also resolve, but prefer the entry so files can move.
         </p>
       </Section>

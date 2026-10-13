@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Switch from '../../../../../components/core/Switch';
-import ToggleGroup from '../../../../../components/core/ToggleGroup';
+import Button from '@gaudi/design-system/core/Button';
+import Switch from '@gaudi/design-system/core/Switch';
+import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useLocalStorage } from '../../../../../hooks/data/use-local-storage.js';
+import { useLocalStorage } from '@gaudi/design-system/hooks/data/use-local-storage';
 
 const sizes = { sm: '0.875rem', md: '1rem', lg: '1.25rem' };
 

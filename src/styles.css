@@ -82,3 +82,7 @@
 @import './components/animations/WarpText/WarpText.css';
 
 @import './components/core/Map/Map.css';
+
+@import './components/blocks/Hero/Hero.css';
+
+@import './components/post/Post/Post.css';

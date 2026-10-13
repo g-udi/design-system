@@ -5,6 +5,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../../core/Carousel/CarouselPrimitives.jsx';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion/Collapsible.jsx';
 import { Popover, PopoverContent, PopoverTrigger } from '../../core/Popover/PopoverPrimitives.jsx';
+import Link from '../../core/Link/Link.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { ChatSourceIcon, siteOf } from '../shared/source.jsx';
 
@@ -28,10 +29,10 @@ function CitationCard({ source }) {
         {site ? <p className='text-text-muted m-0 truncate text-xs'>{site}</p> : null}
         {quote ? <blockquote className='text-text-muted border-border m-0 border-s-2 ps-2 text-xs'>{quote}</blockquote> : null}
         {source.url ? (
-          <a href={source.url} target='_blank' rel='noopener noreferrer' className='text-accent focus-visible:ring-accent mt-1 inline-flex w-fit items-center gap-1 rounded-(--ds-radius-control) text-xs font-medium underline-offset-4 hover:underline focus-visible:ring-2 focus-visible:outline-none'>
+          <Link href={source.url} tone='accent' className='mt-1 inline-flex w-fit items-center gap-1 rounded-(--ds-radius-control) text-xs underline-offset-4 hover:underline'>
             Open source <RegistryIcon lucide='ExternalLink' className='size-3' />
             <span className='sr-only'>{`: ${source.title}`}</span>
-          </a>
+          </Link>
         ) : null}
       </div>
     </div>
@@ -174,9 +175,9 @@ function ChatMessageSource({ source, index, className }) {
   return (
     <li data-slot='message-source'>
       {source.url ? (
-        <a href={source.url} target='_blank' rel='noopener noreferrer' className={cn(rowClass, 'hover:bg-surface-muted focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none')}>
+        <Link href={source.url} variant='bare' className={cn(rowClass, 'hover:bg-surface-muted')}>
           {body}
-        </a>
+        </Link>
       ) : (
         <div className={rowClass}>{body}</div>
       )}

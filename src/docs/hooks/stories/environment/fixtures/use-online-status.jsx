@@ -1,6 +1,6 @@
-import Button from '../../../../../components/core/Button';
-import { Alert, AlertDescription, AlertTitle } from '../../../../../components/core/Banner/index.js';
-import { useOnlineStatus } from '../../../../../hooks/environment/use-online-status.js';
+import Button from '@gaudi/design-system/core/Button';
+import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
+import { useOnlineStatus } from '@gaudi/design-system/hooks/environment/use-online-status';
 
 function PublishBar() {
   const online = useOnlineStatus();

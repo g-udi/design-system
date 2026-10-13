@@ -1,7 +1,8 @@
 'use client';
 import * as React from 'react';
 import { cn } from '../../../utilities/cn/index.js';
-import * as RechartsPrimitive from 'recharts';
+import { Legend, RechartsTooltip, ResponsiveContainer } from './chartRuntime.js';
+import { createChartFormatter } from './chartScale.js';
 const THEMES = { light: '', dark: '.dark' };
 const INITIAL_DIMENSION = { width: 320, height: 200 };
 const ChartContext = React.createContext(null);
@@ -34,11 +35,11 @@ function ChartContainer({
         {...props}
       >
         <ChartStyle id={chartId} config={config} />
-        <RechartsPrimitive.ResponsiveContainer
+        <ResponsiveContainer
           initialDimension={initialDimension}
         >
           {children}
-        </RechartsPrimitive.ResponsiveContainer>
+        </ResponsiveContainer>
       </div>
     </ChartContext.Provider>
   );
@@ -71,7 +72,9 @@ ${colorConfig
     />
   );
 };
-const ChartTooltip = RechartsPrimitive.Tooltip;
+const ChartTooltip = RechartsTooltip;
+// The locale's default number format, as for chart frames without a formatValue.
+const formatTooltipValue = createChartFormatter();
 function ChartTooltipContent({
   active,
   payload,
@@ -186,9 +189,7 @@ function ChartTooltipContent({
                       </div>
                       {item.value != null && (
                         <span className='font-mono font-medium text-ui-foreground tabular-nums'>
-                          {typeof item.value === 'number'
-                            ? item.value.toLocaleString()
-                            : String(item.value)}
+                          {formatTooltipValue(item.value)}
                         </span>
                       )}
                     </div>
@@ -201,7 +202,7 @@ function ChartTooltipContent({
     </div>
   );
 }
-const ChartLegend = RechartsPrimitive.Legend;
+const ChartLegend = Legend;
 function ChartLegendContent({
   className,
   hideIcon = false,

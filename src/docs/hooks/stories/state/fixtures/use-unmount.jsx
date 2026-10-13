@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useUnmount } from '../../../../../hooks/state/use-unmount.js';
+import { useUnmount } from '@gaudi/design-system/hooks/state/use-unmount';
 
 function DraftPreview({ onClose }) {
   const [name, setName] = useState('Untitled');

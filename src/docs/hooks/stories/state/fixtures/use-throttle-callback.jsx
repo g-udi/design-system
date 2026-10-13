@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useThrottleCallback } from '../../../../../hooks/state/use-throttle-callback.js';
+import { useThrottleCallback } from '@gaudi/design-system/hooks/state/use-throttle-callback';
 
 function PointerTracker() {
   const [ events, setEvents ] = useState(0);

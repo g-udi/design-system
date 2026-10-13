@@ -57,7 +57,7 @@ Carousel exposes a labelled carousel region, native previous/next buttons, aria-
 
 Curated patterns:
 
-- Autoplay — registry item `@gaudi/carousel-autoplay` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`)
+- Autoplay — registry item `@gaudi/carousel-autoplay` (uses `Button`, `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `usePrefersReducedMotion`)
 - Content overlays with dots — registry item `@gaudi/carousel-content-overlays` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `cn`)
 - Layout options — registry item `@gaudi/carousel-layouts` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
 - Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)

@@ -4,8 +4,10 @@ import { motion } from 'framer-motion';
 import { useInterval } from '../../../hooks/state/use-interval.js';
 import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
 import { useMousePosition } from '../../../hooks/interaction/use-mouse-position.js';
+import { clamp } from '../../../utilities/clamp.js';
 import { useAnimation, bounded, characters } from '../animationRuntime.js';
 import { useGlyphInspectorLayout } from './useGlyphInspectorLayout.js';
+import { cn } from '../../../utilities/cn';
 
 // Letters are handled like type specimens: a short leash keeps them near their slot.
 const LEASH = { x: 20, y: 28 };
@@ -18,7 +20,7 @@ const visibleLetter = letter => letter === ' ' ? ' ' : letter;
 export const GlyphInspector = forwardRef(function GlyphInspector({
   text = 'Gaudi', autoplay = true, draggable = true, readout = true, guides = true, interval = 900,
   outline = 'dashed', accent = 'currentColor', particles = 12, tempo = 1,
-  reveal = 'letter', radius = 120, paused = false, activeIndex = 0, className = '', style, onPointerLeave, ...props
+  reveal = 'letter', radius = 120, paused = false, activeIndex = 0, className, style, onPointerLeave, ...props
 }, forwardedRef) {
   const { ref: animationRef, active } = useAnimation(paused, forwardedRef);
   const line = useRef(null);
@@ -51,7 +53,7 @@ export const GlyphInspector = forwardRef(function GlyphInspector({
   const focusX = active && reveal === 'area' && pointer.isInside ? pointer.elementX : box?.centerX;
   const focusY = active && reveal === 'area' && pointer.isInside ? pointer.elementY : box?.centerY;
 
-  return <span {...props} ref={ref} className={`gaudi-glyph-inspector ${className}`} data-slot="glyph-inspector" data-animated={active}
+  return <span {...props} ref={ref} className={cn('gaudi-glyph-inspector', className)} data-slot="glyph-inspector" data-animated={active}
     data-dragging={Boolean(active && held)} style={{ '--inspector-accent': accent, '--inspector-period': `${1.4 / rate}s`, ...style }}
     onPointerLeave={event => { onPointerLeave?.(event); if (!held) setPointed(null); }}>
     <span className="sr-only">{text}</span>
@@ -62,7 +64,7 @@ export const GlyphInspector = forwardRef(function GlyphInspector({
         const ink = Boolean(letter.trim());
         const distance = measured ? Math.hypot(boxes[i].centerX - focusX, boxes[i].centerY - focusY) : Infinity;
         const amount = !inspecting || reveal === 'none' ? 0 : reveal === 'area'
-          ? Math.max(0, Math.min(1, (bounded(radius, 120, 20, 400) - distance) / 60)) : Number(i === focus);
+          ? clamp((bounded(radius, 120, 20, 400) - distance) / 60, 0, 1) : Number(i === focus);
         return <motion.span key={`${i}-${letter}`} className="gaudi-glyph-inspector__letter" data-focused={Boolean(inspecting && i === focus)}
           style={{ '--inspector-reveal': amount }} animate={!canDrag ? { x: 0, y: 0 } : undefined} transition={transition}
           data-draggable={canDrag && ink} drag={canDrag && ink} dragConstraints={{ left: -LEASH.x, right: LEASH.x, top: -LEASH.y, bottom: LEASH.y }}
@@ -102,7 +104,7 @@ export const GlyphInspector = forwardRef(function GlyphInspector({
         })}
       </motion.span>
       {readout && <motion.span className="gaudi-glyph-inspector__readout" aria-hidden="true" initial={false}
-        animate={{ x: Math.max(0, Math.min(box.x + shift.x, right - 140)), y: box.y + box.height + shift.y + 24 }} transition={transition}>
+        animate={{ x: clamp(box.x + shift.x, 0, Math.max(0, right - 140)), y: box.y + box.height + shift.y + 24 }} transition={transition}>
         <b>{letters[focus]}</b> {codePoint(letters[focus])} <span>{active && held ? `Δ ${Math.round(shift.x)}, ${Math.round(shift.y)}` : `${Math.round(box.width)} × ${Math.round(box.height)}`}</span>
       </motion.span>}
     </Fragment>}

@@ -16,6 +16,7 @@ import Card from '../../core/Card';
 import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import { ProgressRoot } from '../../core/Progress';
+import { ScrollArea } from '../../core/ScrollArea';
 import { cn } from '../../../utilities/cn';
 
 const markerClasses = {
@@ -54,7 +55,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, currentId }) => {
       >
         <span className='flex min-w-0 flex-1 items-center gap-2 sm:gap-3'>
           <Icon name='Square3Stack3DIcon' size='sm' decorative className='text-accent' />
-          <span className='truncate text-sm font-medium text-text'>{series[0].series}</span>
+          <span className='min-w-0 whitespace-normal break-words text-sm font-medium text-text'>{series[0].series}</span>
         </span>
         <span className='flex shrink-0 items-center gap-2'>
           <ProgressRoot aria-label='Series progress' value={ completedCount } max={ totalCount } className='w-12 sm:w-16' />
@@ -69,8 +70,9 @@ const PostSeriesBox = ({ className, classNames = {}, series, currentId }) => {
       </Button>
       </CollapsibleTrigger>
 
-      <CollapsibleContent asChild>
-      <ol className={ cn('grid max-h-80 gap-2 overflow-y-auto border-t border-border px-3 py-3 sm:px-4 sm:py-4', classNames.body) }>
+      <CollapsibleContent className='border-t border-border'>
+      <ScrollArea aria-label='Series parts' className='[&_[data-slot=scroll-area-viewport]]:max-h-80'>
+      <ol className={ cn('grid gap-2 px-3 py-3 sm:px-4 sm:py-4', classNames.body) }>
         {series.map((post, index) => {
           const isCurrent = index === currentIndex;
           const state = isCurrent ? 'current' : index < currentIndex ? 'done' : 'upcoming';
@@ -88,6 +90,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, currentId }) => {
           );
         })}
       </ol>
+      </ScrollArea>
       </CollapsibleContent>
     </Card>
     </Collapsible>

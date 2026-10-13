@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Card from '../../../../../components/core/Card';
-import Button from '../../../../../components/core/Button';
-import Dialog from '../../../../../components/core/Dialog';
+import Card from '@gaudi/design-system/core/Card';
+import Button from '@gaudi/design-system/core/Button';
+import Dialog from '@gaudi/design-system/core/Dialog';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useElementSize } from '../../../../../hooks/layout/use-element-size.js';
+import { useElementSize } from '@gaudi/design-system/hooks/layout/use-element-size';
 
 function ContainerCard() {
   const [ narrow, setNarrow ] = useState(false);

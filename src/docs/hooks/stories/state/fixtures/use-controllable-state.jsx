@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useControllableState } from '../../../../../hooks/state/use-controllable-state.js';
+import { useControllableState } from '@gaudi/design-system/hooks/state/use-controllable-state';
 
 function Quantity({ label, value, defaultValue = 1, onChange, min = 1, max = 9 }) {
   const [ quantity, setQuantity ] = useControllableState({ value, defaultValue, onChange });

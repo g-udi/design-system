@@ -213,9 +213,7 @@
     "./layout/Borealis": "./src/components/animations/Borealis/index.js",
     "./layout/Footer": "./src/components/layout/Footer/index.js",
     "./layout/LayoutContainer": "./src/components/layout/LayoutContainer/LayoutContainer.js",
-    "./layout/LayoutWrapper": "./src/components/layout/LayoutWrapper/index.js",
     "./layout/NewsletterForm": "./src/components/layout/NewsletterForm/index.js",
-    "./layout/Search": "./src/components/layout/Search/index.js",
     "./mdx": "./src/components/mdx/index.js",
     "./mdx/Aside": "./src/components/mdx/Aside/index.js",
     "./mdx/Callout": "./src/components/mdx/Callout/index.js",
@@ -293,10 +291,12 @@
     "./icons/brands/gaudi": "./src/icons/brands/gaudi.jsx",
     "./animations/Plasma": "./src/components/animations/Plasma/index.js",
     "./animations/Grainient": "./src/components/animations/Grainient/index.js",
+    "./animations/ParticleSea": "./src/components/animations/ParticleSea/index.js",
     "./animations/GridScan": "./src/components/animations/GridScan/index.js",
     "./animations/Dither": "./src/components/animations/Dither/index.js",
     "./animations/FaultyTerminal": "./src/components/animations/FaultyTerminal/index.js",
-    "./animations/Hyperspeed": "./src/components/animations/Hyperspeed/index.js"
+    "./animations/Hyperspeed": "./src/components/animations/Hyperspeed/index.js",
+    "./blocks/Hero": "./src/components/blocks/Hero/index.js"
   },
   "scripts": {
     "ai:build": "node scripts/ai/build.mjs",

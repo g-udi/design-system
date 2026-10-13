@@ -1,3 +1,5 @@
+import { createLinearTexture, createProgram } from '../backgroundShader.js';
+import { canvasFont } from '../../../themes/observeFonts.js';
 import { releaseDetachedWebGLContext } from '../webglLifecycle.js';
 
 // A text texture sampled through a moving, local lens. No external assets or renderer dependency.
@@ -38,15 +40,7 @@ export function createWarpRenderer(canvas) {
   try { gl = canvas.getContext('webgl', { alpha: true, antialias: false, premultipliedAlpha: true, powerPreference: 'low-power' }); } catch { return null; }
   if (!gl) return null;
   const shaders = [];
-  const compile = (kind, source) => {
-    const shader = gl.createShader(kind);
-    if (!shader) return null;
-    shaders.push(shader);
-    gl.shaderSource(shader, source); gl.compileShader(shader);
-    return gl.getShaderParameter(shader, gl.COMPILE_STATUS) ? shader : null;
-  };
-  const vert = compile(gl.VERTEX_SHADER, vertex), frag = compile(gl.FRAGMENT_SHADER, fragment);
-  const program = gl.createProgram(), buffer = gl.createBuffer(), texture = gl.createTexture();
+  let program, buffer, texture;
   const dispose = () => {
     shaders.forEach(shader => gl.deleteShader(shader));
     if (program) gl.deleteProgram(program);
@@ -54,19 +48,18 @@ export function createWarpRenderer(canvas) {
     if (texture) gl.deleteTexture(texture);
     releaseDetachedWebGLContext(gl);
   };
-  if (!vert || !frag || !program || !buffer || !texture) { dispose(); return null; }
-  gl.attachShader(program, vert); gl.attachShader(program, frag); gl.linkProgram(program);
-  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) { dispose(); return null; }
+  try {
+    program = createProgram(gl, vertex, fragment, shaders, 'WarpText');
+  } catch {
+    dispose(); return null;
+  }
+  buffer = gl.createBuffer(); texture = createLinearTexture(gl);
+  if (!buffer || !texture) { dispose(); return null; }
   gl.useProgram(program);
   gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
   const position = gl.getAttribLocation(program, 'position');
   gl.enableVertexAttribArray(position); gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
   const uniforms = Object.fromEntries(['pointer', 'aspect', 'time', 'ambient', 'scale', 'radius', 'strength', 'hover', 'ripple', 'refraction'].map(name => [name, gl.getUniformLocation(program, name)]));
   return {
@@ -96,7 +89,7 @@ export function createWarpTextMask(root, text, width, height) {
   const requested = parseFloat(style.fontSize) || 64;
   const lineHeight = (parseFloat(style.lineHeight) || requested * 1.2) / requested;
   const setFont = size => {
-    context.font = `${style.fontStyle} ${style.fontWeight} ${size}px ${style.fontFamily}`;
+    context.font = canvasFont(style, `${size}px`);
     if ('letterSpacing' in context) context.letterSpacing = `${(parseFloat(style.letterSpacing) || 0) * size / requested}px`;
   };
   setFont(requested);

@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
-import Kbd from '../../../../../components/core/Kbd';
+import Kbd from '@gaudi/design-system/core/Kbd';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useEventListener } from '../../../../../hooks/interaction/use-event-listener.js';
+import { useEventListener } from '@gaudi/design-system/hooks/interaction/use-event-listener';
 
 function WindowSize() {
   const [ size, setSize ] = useState(() => (typeof window === 'undefined' ? null : { width: window.innerWidth, height: window.innerHeight }));

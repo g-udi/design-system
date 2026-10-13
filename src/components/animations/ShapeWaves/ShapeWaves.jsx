@@ -1,6 +1,8 @@
 'use client';
 
 import { BackgroundSurface } from '../backgroundRuntime.jsx';
+import { typography } from '../../../tokens/index.js';
+import { escapeHtml } from '../../../utilities/escapeHtml.js';
 import { bounded } from '../animationRuntime.js';
 
 const fragment = `
@@ -45,10 +47,15 @@ vec3 shade(vec2 uv, float time) {
 }
 `;
 
+// A data-URL mask cannot read CSS variables, so it takes the sans stack from the token projection.
+const maskFontFamily = escapeHtml(typography.fontFamily.sans
+  .filter(family => !family.startsWith('var('))
+  .map(family => (family.includes(' ') ? `'${family}'` : family))
+  .join(','));
+
 function textMask(text, textSize) {
-  const escaped = text.replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' })[character]);
   const fontSize = Math.min(500 * textSize, 1500 / Math.max(text.length, 1));
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><mask id="cutout"><rect width="100%" height="100%" fill="white"/><svg width="100%" height="100%" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"><text x="500" y="250" dy=".35em" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="600" font-size="${fontSize}" fill="black">${escaped}</text></svg></mask></defs><rect width="100%" height="100%" fill="white" mask="url(#cutout)"/></svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><mask id="cutout"><rect width="100%" height="100%" fill="white"/><svg width="100%" height="100%" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid meet"><text x="500" y="250" dy=".35em" text-anchor="middle" font-family="${maskFontFamily}" font-weight="600" font-size="${fontSize}" fill="black">${escapeHtml(text)}</text></svg></mask></defs><rect width="100%" height="100%" fill="white" mask="url(#cutout)"/></svg>`;
   return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
 

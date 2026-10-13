@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../../../core/Button/index.js';
+import ToggleGroup from '../../../core/ToggleGroup/index.js';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { chatMeta } from '../../stories/story-helpers.jsx';
 import { ChatMessageFeedback } from '../index.js';
@@ -47,13 +47,7 @@ function RateAndExplain() {
       {rating === 'down' ? (
         <fieldset className='grid gap-2'>
           <legend className='text-text-muted text-xs'>What was off?</legend>
-          <div className='flex flex-wrap gap-2'>
-            {['Too long', 'Wrong tone', 'Missed the point'].map((option) => (
-              <Button key={option} size='xs' variant='outline' tone='neutral' type='button' aria-pressed={reason === option} onClick={() => setReason(option)} className='aria-pressed:border-accent aria-pressed:text-accent rounded-(--ds-radius-control) border px-2 py-1 text-xs'>
-                {option}
-              </Button>
-            ))}
-          </div>
+          <ToggleGroup label='What was off?' size='sm' spacing={2} value={reason} onValueChange={(value) => value && setReason(value)} options={['Too long', 'Wrong tone', 'Missed the point'].map((option) => ({ value: option, label: option }))} />
         </fieldset>
       ) : null}
       <p role='status' className='text-text-muted text-xs'>{reason ? `Noted: ${reason.toLowerCase()}. Gaudi will adjust the next reply.` : ''}</p>
@@ -68,7 +62,7 @@ export const RatingWithAReason = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Bad reply' }));
-    await userEvent.click(await canvas.findByRole('button', { name: 'Too long' }));
+    await userEvent.click(await canvas.findByRole('radio', { name: 'Too long' }));
     await waitFor(() => expect(canvas.getByText(/Noted: too long/)).toBeVisible());
   }
 };

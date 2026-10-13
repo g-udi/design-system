@@ -21,6 +21,7 @@ export { PixelBlast } from './PixelBlast/index.js';
 export { default as Borealis } from './Borealis/index.js';
 export { Plasma } from './Plasma/index.js';
 export { Grainient } from './Grainient/index.js';
+export { ParticleSea } from './ParticleSea/index.js';
 export { GridScan } from './GridScan/index.js';
 export { Dither } from './Dither/index.js';
 export { FaultyTerminal } from './FaultyTerminal/index.js';

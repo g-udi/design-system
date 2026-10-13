@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import KanbanBoard from '../../../components/core/KanbanBoard';
-import Pill from '../../../components/core/Pill';
+import KanbanBoard from '@gaudi/design-system/core/KanbanBoard';
+import Pill from '@gaudi/design-system/core/Pill';
 import { articles } from './data';
 import './examples.css';
 

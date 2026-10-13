@@ -1,6 +1,6 @@
-import Card from '../../../../../components/core/Card';
+import Card from '@gaudi/design-system/core/Card';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useMediaQuery } from '../../../../../hooks/environment/use-media-query.js';
+import { useMediaQuery } from '@gaudi/design-system/hooks/environment/use-media-query';
 
 function Breakpoints() {
   const sm = useMediaQuery('(min-width: 640px)');

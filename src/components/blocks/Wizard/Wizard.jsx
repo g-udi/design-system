@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useIsMounted } from '../../../hooks/environment/use-is-mounted.js';
 import { cn } from '../../../utilities/cn';
 import Stepper from '../../core/Stepper';
 import Progress from '../../core/Progress';
@@ -41,15 +42,9 @@ function WizardFlow({
   const [error, setError] = useState('');
   const [complete, setComplete] = useState(false);
   const busy = useRef(false);
-  const mounted = useRef(true);
+  const isMounted = useIsMounted();
   const panel = useRef(null);
   const focusState = useRef({ active, complete, error });
-  useEffect(() => {
-    mounted.current = true;
-    return () => {
-      mounted.current = false;
-    };
-  }, []);
   useEffect(() => {
     const previous = focusState.current;
     if (
@@ -73,7 +68,7 @@ function WizardFlow({
     try {
       for (let index = 0; index <= active; index++) {
         const valid = await validateStep?.(index);
-        if (!mounted.current) return;
+        if (!isMounted()) return;
         if (valid === false) {
           setActive(index);
           setError(validationMessage);
@@ -83,13 +78,13 @@ function WizardFlow({
       if (active < steps.length - 1) setActive(active + 1);
       else {
         await onComplete();
-        if (mounted.current) setComplete(true);
+        if (isMounted()) setComplete(true);
       }
     } catch {
-      if (mounted.current) setError(errorMessage);
+      if (isMounted()) setError(errorMessage);
     } finally {
       busy.current = false;
-      if (mounted.current) setPending(false);
+      if (isMounted()) setPending(false);
     }
   };
   const step = complete ? steps.length : active;

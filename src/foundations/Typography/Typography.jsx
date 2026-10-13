@@ -118,7 +118,7 @@ export const typographyVariants = {
     'element': 'h1'
   },
   'title-md': {
-    'className': 'text-3xl sm:text-4xl font-extrabold leading-9 text-text text-balance',
+    'className': 'text-4xl sm:text-[2.625rem] font-extrabold leading-[1.15] tracking-[-0.025em] text-text text-balance break-words',
     'element': 'h1'
   },
   'title-xl': {

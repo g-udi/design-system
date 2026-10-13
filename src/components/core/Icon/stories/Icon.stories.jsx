@@ -132,8 +132,8 @@ export const Sizes = {
     const icon = (name) => within(row(canvasElement, 'Color')).getByRole('img', { name });
     await expect(icon('danger')).toHaveClass('text-danger');
     await expect(icon('warning')).toHaveClass('text-warning');
-    await expect(icon('attention')).toHaveClass('text-rose-700');
-    await expect(icon('teal')).toHaveClass('text-teal-700');
+    await expect(icon('attention')).toHaveClass('text-attention');
+    await expect(icon('teal')).toHaveClass('text-discovery');
     const stroked = svgs(row(canvasElement, 'Stroke'));
     const [filled, ...line] = [stroked.at(-1), ...stroked.slice(0, -1)];
     await expect(line.map((item) => Number(item.getAttribute('stroke-width')))).toEqual(strokeWidths);

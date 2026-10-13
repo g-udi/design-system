@@ -1,11 +1,22 @@
 'use client';
 import { useCallback, useEffect, useRef } from 'react';
 import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
+import { useEventListener } from '../../../hooks/interaction/use-event-listener.js';
 
 // Position within the actual scrolling viewport, independent of the section's offset parent.
 const sectionTop = (section, viewport) => viewport === window || viewport === document.documentElement
   ? section.getBoundingClientRect().top + window.scrollY
   : section.getBoundingClientRect().top - viewport.getBoundingClientRect().top + viewport.scrollTop - viewport.clientTop;
+
+// A ref may name a ScrollArea wrapper or its viewport. Never substitute a
+// nested navigator's viewport for an already-scrollable article boundary.
+const scrollViewport = targetRef => {
+  const element = targetRef ? targetRef.current : document.documentElement;
+  if (element === window || element === document) return document.documentElement;
+  if (!(element instanceof HTMLElement) || element === document.documentElement) return element;
+  if (element.matches('[data-slot="scroll-area-viewport"]') || ['auto', 'scroll', 'overlay'].includes(getComputedStyle(element).overflowY)) return element;
+  return element.querySelector('[data-slot="scroll-area-viewport"]') || element;
+};
 export function Scrollspy({
   children,
   targetRef,
@@ -14,14 +25,15 @@ export function Scrollspy({
   offset = 0,
   smooth = true,
   dataAttribute = 'scrollspy',
-  history = false
+  history = false,
+  fallbackToFirst = true
 }) {
   const reduceMotion = usePrefersReducedMotion();
   const selfRef = useRef(null);
   const prevIdTracker = useRef(null);
+  const clickedDestination = useRef(null);
   const setActiveSection = useCallback(
     (sectionId, force = false) => {
-      if (!sectionId) return;
       selfRef.current?.querySelectorAll(`[data-${dataAttribute}-anchor]`).forEach((item) => {
         const id = item.getAttribute(`data-${dataAttribute}-anchor`);
         if (id === sectionId) {
@@ -33,7 +45,7 @@ export function Scrollspy({
         }
       });
       if (prevIdTracker.current !== sectionId) onUpdate?.(sectionId);
-      if (history && (force || prevIdTracker.current !== sectionId)) {
+      if (sectionId && history && (force || prevIdTracker.current !== sectionId)) {
         window.history.replaceState(window.history.state, '', `#${sectionId}`);
       }
       prevIdTracker.current = sectionId;
@@ -43,22 +55,22 @@ export function Scrollspy({
   const handleScroll = useCallback(() => {
     const anchors = selfRef.current?.querySelectorAll(`[data-${dataAttribute}-anchor]`);
     if (!anchors?.length) return;
-    let scrollElement =
-      targetRef?.current === document
-        ? document.documentElement
-        : targetRef?.current;
+    const scrollElement = scrollViewport(targetRef);
     if (!scrollElement) return;
-    const viewport = scrollElement.querySelector(
-      '[data-slot="scroll-area-viewport"]'
-    );
-    if (viewport instanceof HTMLElement) {
-      scrollElement = viewport;
-    }
     const scrollTop =
       scrollElement === document.documentElement
         ? window.scrollY || document.documentElement.scrollTop
         : scrollElement.scrollTop;
-    let activeIdx = 0;
+    const clicked = clickedDestination.current;
+    if (clicked && [...anchors].some(anchor => anchor.getAttribute(`data-${dataAttribute}-anchor`) === clicked.id)) {
+      if (Math.abs(scrollTop - clicked.top) <= 1) {
+        clicked.arrived = true;
+        setActiveSection(clicked.id);
+        return;
+      }
+      if (clicked.arrived) clickedDestination.current = null;
+    } else clickedDestination.current = null;
+    let activeIdx = fallbackToFirst ? 0 : -1;
     let minDelta = Infinity;
     anchors.forEach((anchor, idx) => {
       const sectionId2 = anchor.getAttribute(`data-${dataAttribute}-anchor`);
@@ -70,7 +82,8 @@ export function Scrollspy({
       const top = sectionTop(sectionElement, scrollElement) - customOffset;
       const delta = Math.abs(top - scrollTop);
       if (
-        top <= scrollTop &&
+        // Scroll positions can round down while heading geometry retains subpixels.
+        top <= scrollTop + 1 &&
         delta < minDelta
       ) {
         minDelta = delta;
@@ -79,14 +92,14 @@ export function Scrollspy({
     });
     const scrollHeight = scrollElement.scrollHeight;
     const clientHeight = scrollElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight - 2) {
+    if (scrollHeight > clientHeight + 1 && scrollTop + clientHeight >= scrollHeight - 2) {
       activeIdx = anchors.length - 1;
     }
     const activeAnchor = anchors[activeIdx];
     const sectionId =
       activeAnchor?.getAttribute(`data-${dataAttribute}-anchor`) || null;
     setActiveSection(sectionId);
-  }, [targetRef, dataAttribute, offset, setActiveSection]);
+  }, [targetRef, dataAttribute, offset, fallbackToFirst, setActiveSection]);
   const scrollTo = useCallback(
     (anchorElement) => (event) => {
       if (event && (event.defaultPrevented || event.button !== 0 || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey)) return;
@@ -97,16 +110,8 @@ export function Scrollspy({
       if (!sectionId) return;
       const sectionElement = document.getElementById(sectionId);
       if (!sectionElement) return;
-      let scrollToElement =
-        targetRef?.current === document ? window : targetRef?.current;
-      if (scrollToElement instanceof HTMLElement) {
-        const viewport = scrollToElement.querySelector(
-          '[data-slot="scroll-area-viewport"]'
-        );
-        if (viewport instanceof HTMLElement) {
-          scrollToElement = viewport;
-        }
-      }
+      const viewport = scrollViewport(targetRef);
+      const scrollToElement = viewport === document.documentElement ? window : viewport;
       let customOffset = offset;
       const dataOffset = anchorElement.getAttribute(
         `data-${dataAttribute}-offset`
@@ -117,6 +122,11 @@ export function Scrollspy({
       if (!scrollToElement) return;
       event?.preventDefault();
       const scrollTop = sectionTop(sectionElement, scrollToElement) - customOffset;
+      clickedDestination.current = {
+        id: sectionId,
+        top: Math.max(0, Math.min(scrollTop, viewport.scrollHeight - viewport.clientHeight)),
+        arrived: false
+      };
       if (scrollToElement && 'scrollTo' in scrollToElement) {
         scrollToElement.scrollTo({
           top: scrollTop,
@@ -139,26 +149,20 @@ export function Scrollspy({
     }
   }, [dataAttribute, scrollTo]);
   useEffect(() => { handleScroll(); }, [children, handleScroll]);
+  useEventListener('scroll', (event) => {
+    const scrollElement = scrollViewport(targetRef);
+    if (scrollElement === document.documentElement || (scrollElement instanceof HTMLElement && scrollElement.contains(event.target))) handleScroll();
+  }, 'window', { capture: true, passive: true });
+  useEventListener('resize', () => {
+    clickedDestination.current = null;
+    handleScroll();
+  });
   useEffect(() => {
-    const onScroll = (event) => {
-      const scrollElement =
-        targetRef?.current === document ? window : targetRef?.current;
-      if (!scrollElement) return;
-      if (
-        scrollElement === window ||
-        (scrollElement instanceof HTMLElement &&
-          scrollElement.contains(event.target))
-      ) {
-        handleScroll();
-      }
-    };
-    window.addEventListener('scroll', onScroll, true);
     const initialTimeout = setTimeout(() => {
       scrollToHashSection();
       handleScroll();
     }, 100);
     return () => {
-      window.removeEventListener('scroll', onScroll, true);
       clearTimeout(initialTimeout);
     };
   }, [

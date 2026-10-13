@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../../utilities/cn/index.js';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion/Collapsible.jsx';
 import { Shimmer } from '../../core/Skeleton/Shimmer.jsx';
+import Link from '../../core/Link/Link.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { ChatMessageStatusIcon, messageStatuses } from '../shared/message-status.jsx';
@@ -187,9 +188,9 @@ function ChatMessageReasoningResults({ results = [], label = 'Search results', m
         return (
           <li key={result.url || result.title} className='max-w-full min-w-0'>
             {result.url ? (
-              <a href={result.url} target='_blank' rel='noopener noreferrer' className={cn(chip, 'hover:text-accent hover:bg-accent-subtle focus-visible:ring-accent focus-visible:ring-2 focus-visible:outline-none')}>
+              <Link href={result.url} variant='bare' className={cn(chip, 'hover:text-accent hover:bg-accent-subtle')}>
                 {body}
-              </a>
+              </Link>
             ) : (
               <span className={chip}>{body}</span>
             )}

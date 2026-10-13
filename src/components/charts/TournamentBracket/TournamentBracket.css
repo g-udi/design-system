@@ -77,6 +77,6 @@
   overflow: visible;
   pointer-events: none;
   fill: none;
-  stroke: var(--ds-color-border-strong, var(--ds-color-border));
+  stroke: var(--ds-color-border);
   stroke-width: 1;
 }

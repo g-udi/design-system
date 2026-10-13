@@ -240,11 +240,7 @@ const CascaderItem = React.memo(function CascaderItem2({
     const moreBody = children ?? (
       <>
         {loading ? (
-          <RegistryIcon
-            lucide='LoaderCircleIcon'
-            className='size-3.5 animate-spin'
-            aria-hidden
-          />
+          <Loader size='xs' aria-hidden='true' />
         ) : null}
         <span>{text}</span>
         {/* TEXT, not a button: a focusable element inside a `role="option"`

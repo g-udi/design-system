@@ -2,6 +2,7 @@
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 import { useMemo, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { AvatarRoot as Avatar, AvatarBadge, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import {
   Command,
@@ -435,14 +436,15 @@ function TopBar({ section, onSection }) {
       <span className='@4xl:hidden'>
         <SectionsSheet section={section} onSection={onSection} />
       </span>
-      <a
+      <Link
+        variant='bare'
         href='#home'
         aria-label='Gaudi Journal home'
         onClick={noop}
         className='bg-surface hidden size-6 @xs:grid shrink-0 place-items-center rounded-(--ds-radius-control) border border-ui-border outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
-      </a>
+      </Link>
       <span aria-hidden='true' className='hidden h-3.5 w-px shrink-0 bg-ui-border @4xl:block' />
       <div className='hidden min-w-0 @4xl:block'>
         <SectionPills section={section} onSection={onSection} />

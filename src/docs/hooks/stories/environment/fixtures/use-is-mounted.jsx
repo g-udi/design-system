@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useIsMounted } from '../../../../../hooks/environment/use-is-mounted.js';
+import { useIsMounted } from '@gaudi/design-system/hooks/environment/use-is-mounted';
 
 function PreviewPanel({ register }) {
   const isMounted = useIsMounted();

@@ -110,15 +110,16 @@ function TreeItem({ item, level = 0, selectedId, onSelect, onDelete }) {
           className='text-text-muted group-hover/item:text-text group-data-[active=true]/item:text-text size-3.5'
         />
       </ItemMedia>
-      <button
-        type='button'
-        className='min-w-0 flex-1 self-stretch truncate text-start text-sm'
+      <Button
+        variant='ghost'
+        tone='neutral'
+        className='min-h-0 min-w-0 flex-1 justify-start self-stretch rounded-none px-0 py-0 text-sm font-normal hover:bg-transparent'
         title={item.name}
         aria-pressed={isSelected}
         onClick={() => onSelect?.(item.name)}
       >
-        {item.name}
-      </button>
+        <span className='truncate'>{item.name}</span>
+      </Button>
       <ItemActions className='-mr-1 ml-auto shrink-0 gap-0 opacity-0 transition-opacity group-hover/item:opacity-100 group-focus-within/item:opacity-100 group-data-[active=true]/item:opacity-100 pointer-coarse:opacity-100'>
         <Button asChild aria-label={`Download ${item.name}`} size='icon-xs' variant='ghost'>
           <a href={`data:text/plain;charset=utf-8,${encodeURIComponent(`// Demo file: ${item.name}\n`)}`} download={item.name}>

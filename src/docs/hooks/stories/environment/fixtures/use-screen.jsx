@@ -1,5 +1,5 @@
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useScreen } from '../../../../../hooks/environment/use-screen.js';
+import { useScreen } from '@gaudi/design-system/hooks/environment/use-screen';
 
 export function ScreenReadout() {
   const screen = useScreen();

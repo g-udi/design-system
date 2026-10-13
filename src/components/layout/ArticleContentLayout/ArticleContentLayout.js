@@ -66,7 +66,7 @@ const ArticleContentLayout = ({
           </div>
         </div>
         {showAsideRail && reserveAsideRail ? (
-          <div className='order-1 border-b border-border py-3 lg:order-none lg:col-span-3 lg:border-b-0 lg:pt-8'>
+          <div data-slot='article-aside-rail' className='order-1 border-b border-border py-3 lg:order-none lg:col-span-3 lg:border-b-0 lg:pt-8'>
             {showAsideToggle ? (
               <Button
                 variant='subtle'

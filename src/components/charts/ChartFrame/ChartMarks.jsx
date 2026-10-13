@@ -6,7 +6,8 @@
  * reference lines with labels, point annotations, an area gradient, and the marker that draws
  * the frame's active point.
  */
-import { CartesianGrid, ReferenceDot, ReferenceLine, XAxis, YAxis } from './chartRuntime.js';
+import { cn } from '../../../utilities/cn';
+import { CartesianGrid, Legend, ReferenceDot, ReferenceLine, XAxis, YAxis } from './chartRuntime.js';
 import { useChartFrame } from './ChartFrame.jsx';
 
 /** Supporting-text size and muted ink for axis ticks. */
@@ -24,6 +25,44 @@ export const chartTones = {
 /** Horizontal grid lines; pass `vertical` for a full grid. */
 export function ChartGrid({ vertical = false, ...props }) {
   return <CartesianGrid stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' vertical={ vertical } { ...props } />;
+}
+
+/** The Recharts series legend: circle marks in supporting text below the plot. */
+export function ChartSeriesLegend({ wrapperStyle, ...props }) {
+  return <Legend iconType='circle' wrapperStyle={{ 'fontSize': 12, 'paddingTop': 12, ...wrapperStyle }} { ...props } />;
+}
+
+/** Dashed value grid lines with their tick labels, for charts that draw their own SVG. */
+export function ChartValueGrid({ format, left, right, ticks, y }) {
+  return ticks.map((tick) => (
+    <g key={ tick }>
+      <line stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' x1={ left } x2={ right } y1={ y(tick) } y2={ y(tick) } />
+      <text dominantBaseline='middle' fill={ chartAxisTick.fill } fontSize={ chartAxisTick.fontSize } textAnchor='end' x={ left - 8 } y={ y(tick) }>{format(tick)}</text>
+    </g>
+  ));
+}
+
+/** A legend outside Recharts: a colour swatch and a label per item. */
+export function ChartLegendList({ className, items, ...props }) {
+  return (
+    <ul className={ cn('flex flex-wrap gap-x-4 gap-y-1 text-xs text-text-muted', className) } { ...props }>
+      {items.map((item) => (
+        <li key={ item.key } className='flex min-w-0 items-center gap-1.5'>
+          <span aria-hidden='true' className='size-2 shrink-0 rounded-sm' data-slot='chart-mark' style={{ 'background': item.color }} />
+          <span className='min-w-0 wrap-anywhere'>{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** One row of a list chart (funnel steps, bar lists); the frame highlights the active row. */
+export function ChartListRow({ active, children, index }) {
+  return (
+    <li className={ cn('grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 rounded-(--ds-radius-control) px-2 py-1.5 transition-colors', active && 'bg-surface-muted') } data-chart-index={ index }>
+      {children}
+    </li>
+  );
 }
 
 /** Category or number axis along the bottom, without axis or tick lines. */
@@ -58,7 +97,7 @@ export function createRowsTooltip(getRows, { title } = {}) {
 /** The tooltip panel: an optional title and label/value rows with colour swatches. */
 export function ChartTooltipRows({ rows = [], title }) {
   return (
-    <div className='min-w-36 max-w-xs wrap-anywhere whitespace-normal rounded-lg border border-border bg-surface px-3 py-2 text-xs shadow-lg' data-slot='chart-tooltip'>
+    <div className='min-w-36 max-w-xs wrap-anywhere whitespace-normal rounded-(--ds-radius-card) border border-border bg-surface px-3 py-2 text-xs shadow-lg' data-slot='chart-tooltip'>
       {title != null && title !== '' ? <div className='mb-1 font-semibold text-text'>{title}</div> : null}
       <div className='grid gap-1'>
         {rows.map((row, index) => (

@@ -76,7 +76,9 @@ test('Sidebar trigger reports its state and shortcut, and toggles are announced'
   const html = renderToStaticMarkup(h(SidebarProvider, { storageKey: 'test-sidebar' }, h(SidebarTrigger)));
   assert.match(html, /aria-expanded="true"/);
   assert.match(html, /aria-keyshortcuts="Meta\+B Control\+B"/);
-  assert.match(html, /role="status" aria-live="polite"/);
+  const { readFile } = await import('node:fs/promises');
+  const source = await readFile(new URL('../../../../src/components/blocks/AppShell/Sidebar.jsx', import.meta.url), 'utf8');
+  assert.match(source, /useLiveAnnouncer\(\)/, 'toggles are announced through the shared live region');
   const quiet = renderToStaticMarkup(h(SidebarProvider, { shortcut: false, defaultOpen: false }, h(SidebarTrigger, { label: 'Show navigation' })));
   assert.doesNotMatch(quiet, /aria-keyshortcuts/);
   assert.match(quiet, /aria-expanded="false"/);
@@ -259,7 +261,8 @@ test('AppShellNav nests collapsible groups as ul > li only, and the skip link le
   }
   assert.match(html, /<li[^>]*data-sidebar="menu-item"[^>]*>[\s\S]*<ul[^>]*data-slot="sidebar-menu-sub"[\s\S]*<li[^>]*data-slot="sidebar-menu-sub-item"/);
   const css = await readFile(new URL('../../../../src/components/blocks/AppShell/AppShell.css', import.meta.url), 'utf8');
-  assert.match(css, /body\[data-scroll-locked\] \.ds-skip-link/);
+  const foundation = await readFile(new URL('../../../../src/foundations/base.css', import.meta.url), 'utf8');
+  assert.match(foundation, /body\[data-scroll-locked\] \.ds-skip-link/);
   assert.doesNotMatch(css, /text-left|\bright-[0-9]|group-has-data-\[sidebar=menu-action\]\/menu-item:pr-8/);
 });
 

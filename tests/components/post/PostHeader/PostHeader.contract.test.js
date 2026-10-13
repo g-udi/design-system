@@ -4,6 +4,16 @@ import { renderComponent } from '../../../support/renderComponent.js';
 
 const frontMatter = { title: 'Prepared labels', category: 'eBay', tags: ['iOS', 'a11y'] };
 
+test('PostHeader changes typography without changing title or subtitle semantics', async () => {
+  const path = new URL('../../../../src/components/post/PostHeader/index.js', import.meta.url);
+  const metadata = { title: 'Compact article', subtitle: 'A readable introduction' };
+  const compact = await renderComponent(path, { frontMatter: metadata, titleLevel: 2, titleVariant: 'heading-lg', subtitleVariant: 'paragraph-md' });
+  assert.match(compact, /<h2 class="[^"]*text-3xl[^"]*md:text-4xl[^"]*">Compact article<\/h2>/);
+  assert.match(compact, /<p class="[^"]*text-base[^"]*">A readable introduction<\/p>/);
+  const defaultHeader = await renderComponent(path, { frontMatter: metadata });
+  assert.match(defaultHeader, /<h1 class="[^"]*md:text-5xl[^"]*">Compact article<\/h1>/);
+});
+
 test('PostHeader preserves host category and tag casing', async () => {
   const html = await renderComponent(new URL('../../../../src/components/post/PostHeader/index.js', import.meta.url), { frontMatter });
   assert.match(html, />eBay<|eBay<\/a>/);
@@ -34,6 +44,8 @@ test('Post and PostHeader preserve prepared destinations, labels and unlinked me
   assert.match(header, /href="\/collections\/CaseSensitive"/);
   assert.match(header, /href="\/labels\/iOS\?sort=0"/);
   assert.match(header, />a11y</);
+  // A calendar date keeps its day in every timezone, in the short month style.
+  assert.match(header, /<time dateTime="2026-10-01"[^>]*>Oct 1, 2026<\/time>/);
   assert.doesNotMatch(header, /href="[^"]*a11y/);
   const unlinked = await renderComponent(new URL('../../../../src/components/post/Post/index.js', import.meta.url), { frontMatter: { title: 'No destination', slug: 'must-not-be-a-route', category: 'eBay' } });
   assert.doesNotMatch(unlinked, /<a\b|\/blog|\/thoughts/);

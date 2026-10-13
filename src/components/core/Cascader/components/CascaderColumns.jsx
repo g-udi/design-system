@@ -14,7 +14,7 @@ import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { ScrollArea } from '../../ScrollArea/ScrollArea.jsx';
-import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { Loader } from '../../Loader/LoaderPrimitives.jsx';
 function CascaderColumns({
   className,
   columnWidth = 220,
@@ -99,11 +99,7 @@ function CascaderColumnPanel({ column, children, virtualized }) {
   } else if (loadState?.loading) {
     emptyBody = (
       <span className='flex items-center gap-1.5'>
-        <RegistryIcon
-          lucide='LoaderCircleIcon'
-          className='size-3.5 animate-spin'
-          aria-hidden
-        />
+        <Loader size='xs' aria-hidden='true' />
         {labels.loading}
       </span>
     );

@@ -1,4 +1,5 @@
 import { captureNestedScroll } from './captureNestedScroll.js';
+import { settleFiniteAnimations } from './settleFiniteAnimations.js';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
@@ -41,6 +42,7 @@ export async function captureStoryViewport(context, path) {
         window.scrollTo({ top: y, left: 0, behavior: 'instant' });
         await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
       }, top);
+      await frame.evaluate(settleFiniteAnimations);
       const clip = await iframe.boundingBox();
       if (!clip) throw new Error('The Storybook test iframe is not visible.');
       const file = top === 0 ? path : path.replace(/\.png$/, `--scroll-${top}.png`);

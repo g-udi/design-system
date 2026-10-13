@@ -5,6 +5,7 @@ import Button from '../../core/Button/index.js';
 import { Alert, AlertTitle, AlertDescription, AlertAction } from '../../core/Banner/Alert.jsx';
 import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '../../core/Attachment/Attachment.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
+import { normalizeDownloadHref } from '../../../utilities/href.js';
 import { ChatMessageSuggestions } from './ChatMessageSuggestions.jsx';
 import { ChatMessageMarkdown } from './ChatMessageMarkdown.jsx';
 import { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningResults, ChatMessageReasoningStep } from '../ChatReasoning/ChatMessageReasoning.jsx';
@@ -93,7 +94,8 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
             {part.parts?.length ? <PartList parts={part.parts} sources={sources} streaming={false} handlers={handlers} nested /> : null}
           </ChatMessageDelegation>
         );
-      case 'file':
+      case 'file': {
+        const href = normalizeDownloadHref(part.href);
         return (
           <Attachment key={key} size='sm' className='max-w-sm'>
             <AttachmentMedia file={part} />
@@ -101,16 +103,17 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
               <AttachmentTitle>{part.name}</AttachmentTitle>
               <AttachmentDescription>{[part.description, part.size].filter(Boolean).join(' · ')}</AttachmentDescription>
             </AttachmentContent>
-            {handlers.onFileAction || part.href ? (
+            {handlers.onFileAction || href ? (
               <AttachmentActions>
                 {handlers.onFileAction ? <AttachmentAction aria-label={`Preview ${part.name}`} onClick={() => handlers.onFileAction('preview', part)}><RegistryIcon lucide='Eye' /></AttachmentAction> : null}
-                <AttachmentAction aria-label={`Download ${part.name}`} asChild={Boolean(part.href)} onClick={part.href ? undefined : () => handlers.onFileAction('download', part)}>
-                  {part.href ? <a href={part.href} download={part.name}><RegistryIcon lucide='Download' /></a> : <RegistryIcon lucide='Download' />}
+                <AttachmentAction aria-label={`Download ${part.name}`} asChild={Boolean(href)} onClick={href ? undefined : () => handlers.onFileAction('download', part)}>
+                  {href ? <a href={href} download={part.name}><RegistryIcon lucide='Download' /></a> : <RegistryIcon lucide='Download' />}
                 </AttachmentAction>
               </AttachmentActions>
             ) : null}
           </Attachment>
         );
+      }
       case 'data':
         return <ChatMessageData key={key} label={part.label} value={part.value} />;
       case 'error':

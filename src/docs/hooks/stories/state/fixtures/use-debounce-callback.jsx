@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Textarea from '../../../../../components/core/Textarea';
-import { Field, FieldDescription, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useDebounceCallback } from '../../../../../hooks/state/use-debounce-callback.js';
+import Textarea from '@gaudi/design-system/core/Textarea';
+import { Field, FieldDescription, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useDebounceCallback } from '@gaudi/design-system/hooks/state/use-debounce-callback';
 
 function Autosave() {
   const [ status, setStatus ] = useState('No changes');

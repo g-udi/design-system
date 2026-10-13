@@ -33,7 +33,6 @@ import AnimatedCatalogIndentIncrease from 'lucide-react/dist/esm/icons/list-inde
 import AnimatedCatalogKeyboard from 'lucide-react/dist/esm/icons/keyboard.js';
 import AnimatedCatalogLibrary from 'lucide-react/dist/esm/icons/library.js';
 import AnimatedCatalogLightbulbOff from 'lucide-react/dist/esm/icons/lightbulb-off.js';
-import AnimatedCatalogLineChart from 'lucide-react/dist/esm/icons/chart-line.js';
 import AnimatedCatalogLink2Off from 'lucide-react/dist/esm/icons/link-2-off.js';
 import AnimatedCatalogListTodo from 'lucide-react/dist/esm/icons/list-todo.js';
 import AnimatedCatalogMaximize from 'lucide-react/dist/esm/icons/maximize.js';
@@ -71,7 +70,6 @@ import AnimatedCatalogExternalLinkOutline from 'lucide-react/dist/esm/icons/exte
 import AnimatedCatalogMailOutline from 'lucide-react/dist/esm/icons/mail.js';
 import AnimatedCatalogLink2 from 'lucide-react/dist/esm/icons/link-2.js';
 import AnimatedCatalogSquareUser from 'lucide-react/dist/esm/icons/square-user.js';
-import CatalogueFingerprint from 'lucide-react/dist/esm/icons/fingerprint.js';
 import CatalogueActivity from 'lucide-react/dist/esm/icons/activity.js';
 import CatalogueAlertCircle from 'lucide-react/dist/esm/icons/circle-alert.js';
 import CatalogueAlignCenter from 'lucide-react/dist/esm/icons/text-align-center.js';
@@ -122,7 +120,6 @@ import CatalogueChevronUp from 'lucide-react/dist/esm/icons/chevron-up.js';
 import CatalogueChevronsLeft from 'lucide-react/dist/esm/icons/chevrons-left.js';
 import CatalogueChevronsRight from 'lucide-react/dist/esm/icons/chevrons-right.js';
 import CatalogueChevronsUpDown from 'lucide-react/dist/esm/icons/chevrons-up-down.js';
-import CatalogueCircleAlert from 'lucide-react/dist/esm/icons/circle-alert.js';
 import CatalogueCircleCheck from 'lucide-react/dist/esm/icons/circle-check.js';
 import CatalogueCircleDashed from 'lucide-react/dist/esm/icons/circle-dashed.js';
 import CatalogueCircleDollarSign from 'lucide-react/dist/esm/icons/circle-dollar-sign.js';
@@ -131,7 +128,6 @@ import CatalogueCircleHelp from 'lucide-react/dist/esm/icons/circle-question-mar
 import CatalogueCircle from 'lucide-react/dist/esm/icons/circle.js';
 import CatalogueCirclePlus from 'lucide-react/dist/esm/icons/circle-plus.js';
 import CatalogueCircleUserRound from 'lucide-react/dist/esm/icons/circle-user-round.js';
-import CatalogueCircleX from 'lucide-react/dist/esm/icons/circle-x.js';
 import CatalogueClipboard from 'lucide-react/dist/esm/icons/clipboard.js';
 import CatalogueClipboardList from 'lucide-react/dist/esm/icons/clipboard-list.js';
 import CatalogueCloudDownload from 'lucide-react/dist/esm/icons/cloud-download.js';
@@ -160,7 +156,6 @@ import CatalogueFlipHorizontal from 'lucide-react/dist/esm/icons/flip-horizontal
 import CatalogueFlipVertical from 'lucide-react/dist/esm/icons/flip-vertical.js';
 import CatalogueFolderGit2 from 'lucide-react/dist/esm/icons/folder-git-2.js';
 import CatalogueFolderPlus from 'lucide-react/dist/esm/icons/folder-plus.js';
-import CatalogueFunnel from 'lucide-react/dist/esm/icons/funnel.js';
 import CatalogueGitCompareArrows from 'lucide-react/dist/esm/icons/git-compare-arrows.js';
 import CatalogueGitMerge from 'lucide-react/dist/esm/icons/git-merge.js';
 import CatalogueGitPullRequestArrow from 'lucide-react/dist/esm/icons/git-pull-request-arrow.js';
@@ -170,7 +165,6 @@ import CatalogueGripVertical from 'lucide-react/dist/esm/icons/grip-vertical.js'
 import CatalogueHash from 'lucide-react/dist/esm/icons/hash.js';
 import CatalogueHeadphones from 'lucide-react/dist/esm/icons/headphones.js';
 import CatalogueHeart from 'lucide-react/dist/esm/icons/heart.js';
-import CatalogueHelpCircle from 'lucide-react/dist/esm/icons/circle-question-mark.js';
 import CatalogueHistory from 'lucide-react/dist/esm/icons/history.js';
 import CatalogueHouse from 'lucide-react/dist/esm/icons/house.js';
 import CatalogueInbox from 'lucide-react/dist/esm/icons/inbox.js';
@@ -192,7 +186,6 @@ import CatalogueListFilterPlus from 'lucide-react/dist/esm/icons/list-filter-plu
 import CatalogueListMusic from 'lucide-react/dist/esm/icons/list-music.js';
 import CatalogueListPlus from 'lucide-react/dist/esm/icons/list-plus.js';
 import CatalogueLoader2 from 'lucide-react/dist/esm/icons/loader-circle.js';
-import CatalogueLoaderCircle from 'lucide-react/dist/esm/icons/loader-circle.js';
 import CatalogueLock from 'lucide-react/dist/esm/icons/lock.js';
 import CatalogueLogOut from 'lucide-react/dist/esm/icons/log-out.js';
 import CatalogueMapPinCheckInside from 'lucide-react/dist/esm/icons/map-pin-check-inside.js';
@@ -203,14 +196,12 @@ import CatalogueMessageSquare from 'lucide-react/dist/esm/icons/message-square.j
 import CatalogueMic from 'lucide-react/dist/esm/icons/mic.js';
 import CatalogueMonitor from 'lucide-react/dist/esm/icons/monitor.js';
 import CatalogueMonitorSmartphone from 'lucide-react/dist/esm/icons/monitor-smartphone.js';
-import CatalogueMoreVertical from 'lucide-react/dist/esm/icons/ellipsis-vertical.js';
 import CatalogueMusic from 'lucide-react/dist/esm/icons/music.js';
 import CataloguePackage from 'lucide-react/dist/esm/icons/package.js';
 import CataloguePalette from 'lucide-react/dist/esm/icons/palette.js';
 import CataloguePipette from 'lucide-react/dist/esm/icons/pipette.js';
 import CataloguePanelLeft from 'lucide-react/dist/esm/icons/panel-left.js';
 import CataloguePaperclip from 'lucide-react/dist/esm/icons/paperclip.js';
-import CataloguePauseCircle from 'lucide-react/dist/esm/icons/circle-pause.js';
 import CataloguePenTool from 'lucide-react/dist/esm/icons/pen-tool.js';
 import CataloguePencil from 'lucide-react/dist/esm/icons/pencil.js';
 import CataloguePhone from 'lucide-react/dist/esm/icons/phone.js';
@@ -253,7 +244,6 @@ import CatalogueSmile from 'lucide-react/dist/esm/icons/smile.js';
 import CatalogueSparkles from 'lucide-react/dist/esm/icons/sparkles.js';
 import CatalogueSquareCheck from 'lucide-react/dist/esm/icons/square-check.js';
 import CatalogueSquare from 'lucide-react/dist/esm/icons/square.js';
-import CatalogueSquarePen from 'lucide-react/dist/esm/icons/square-pen.js';
 import CatalogueSquareTerminal from 'lucide-react/dist/esm/icons/square-terminal.js';
 import CatalogueStore from 'lucide-react/dist/esm/icons/store.js';
 import CatalogueStrikethrough from 'lucide-react/dist/esm/icons/strikethrough.js';
@@ -364,7 +354,6 @@ import Home from 'lucide-react/dist/esm/icons/home.js';
 import Image from 'lucide-react/dist/esm/icons/image.js';
 import Info from 'lucide-react/dist/esm/icons/info.js';
 import Link from 'lucide-react/dist/esm/icons/link.js';
-import Link2Off from 'lucide-react/dist/esm/icons/link-2-off.js';
 import List from 'lucide-react/dist/esm/icons/list.js';
 import MailOpen from 'lucide-react/dist/esm/icons/mail-open.js';
 import MemoryStick from 'lucide-react/dist/esm/icons/memory-stick.js';
@@ -399,8 +388,10 @@ import AppShellCombine from 'lucide-react/dist/esm/icons/combine.js';
 import AppShellLandPlot from 'lucide-react/dist/esm/icons/land-plot.js';
 import AppShellPanelLeftClose from 'lucide-react/dist/esm/icons/panel-left-close.js';
 import AppShellPanelLeftOpen from 'lucide-react/dist/esm/icons/panel-left-open.js';
+import TextLink from '../components/core/Link/Link.jsx';
 import { cn } from '../utilities/cn';
-import { isExternalHref, normalizeHref } from '../utilities/href';
+import { normalizeHref } from '../utilities/href';
+import { resolveIconStyle } from './iconStyle.js';
 
 
 export const iconRegistry = {
@@ -451,7 +442,7 @@ export const iconRegistry = {
   'Keyboard': AnimatedCatalogKeyboard,
   'Library': AnimatedCatalogLibrary,
   'LightbulbOff': AnimatedCatalogLightbulbOff,
-  'LineChart': AnimatedCatalogLineChart,
+  'LineChart': AnimatedCatalogChartLine,
   'Link2Off': AnimatedCatalogLink2Off,
   'ListTodo': AnimatedCatalogListTodo,
   'Maximize': AnimatedCatalogMaximize,
@@ -488,7 +479,7 @@ export const iconRegistry = {
   'MailOutline': AnimatedCatalogMailOutline,
   'Link2': AnimatedCatalogLink2,
   'SquareUser': AnimatedCatalogSquareUser,
-  FingerprintPattern: CatalogueFingerprint,
+  FingerprintPattern: Fingerprint,
   'Activity': CatalogueActivity,
   'AlertCircle': CatalogueAlertCircle,
   'AlertTriangle': TriangleAlert,
@@ -543,7 +534,7 @@ export const iconRegistry = {
   'ChevronsLeft': CatalogueChevronsLeft,
   'ChevronsRight': CatalogueChevronsRight,
   'ChevronsUpDown': CatalogueChevronsUpDown,
-  'CircleAlert': CatalogueCircleAlert,
+  'CircleAlert': CatalogueAlertCircle,
   'CircleCheck': CatalogueCircleCheck,
   'CircleDashed': CatalogueCircleDashed,
   'CircleDollarSign': CatalogueCircleDollarSign,
@@ -552,7 +543,7 @@ export const iconRegistry = {
   'Circle': CatalogueCircle,
   'CirclePlus': CatalogueCirclePlus,
   'CircleUserRound': CatalogueCircleUserRound,
-  'CircleX': CatalogueCircleX,
+  'CircleX': AnimatedCatalogXCircle,
   'Clipboard': CatalogueClipboard,
   'ClipboardList': CatalogueClipboardList,
   'CloudDownload': CatalogueCloudDownload,
@@ -583,7 +574,7 @@ export const iconRegistry = {
   'FlipVertical': CatalogueFlipVertical,
   'FolderGit2': CatalogueFolderGit2,
   'FolderPlus': CatalogueFolderPlus,
-  'Funnel': CatalogueFunnel,
+  'Funnel': CatalogueFilter,
   'GitBranch': GitBranch,
   'GitCompareArrows': CatalogueGitCompareArrows,
   'GitFork': GitFork,
@@ -595,7 +586,7 @@ export const iconRegistry = {
   'Hash': CatalogueHash,
   'Headphones': CatalogueHeadphones,
   'Heart': CatalogueHeart,
-  'HelpCircle': CatalogueHelpCircle,
+  'HelpCircle': CatalogueCircleHelp,
   'History': CatalogueHistory,
   'House': CatalogueHouse,
   'Inbox': CatalogueInbox,
@@ -618,7 +609,7 @@ export const iconRegistry = {
   'ListMusic': CatalogueListMusic,
   'ListPlus': CatalogueListPlus,
   'Loader2': CatalogueLoader2,
-  'LoaderCircle': CatalogueLoaderCircle,
+  'LoaderCircle': CatalogueLoader2,
   'Lock': CatalogueLock,
   'LogOut': CatalogueLogOut,
   'MapPinCheckInside': CatalogueMapPinCheckInside,
@@ -629,14 +620,14 @@ export const iconRegistry = {
   'Mic': CatalogueMic,
   'Monitor': CatalogueMonitor,
   'MonitorSmartphone': CatalogueMonitorSmartphone,
-  'MoreVertical': CatalogueMoreVertical,
+  'MoreVertical': CatalogueEllipsisVertical,
   'Music': CatalogueMusic,
   'Package': CataloguePackage,
   'Palette': CataloguePalette,
   'Pipette': CataloguePipette,
   'PanelLeft': CataloguePanelLeft,
   'Paperclip': CataloguePaperclip,
-  'PauseCircle': CataloguePauseCircle,
+  'PauseCircle': AnimatedCatalogCirclePause,
   'PenTool': CataloguePenTool,
   'Pencil': CataloguePencil,
   'Phone': CataloguePhone,
@@ -679,7 +670,7 @@ export const iconRegistry = {
   'Sparkles': CatalogueSparkles,
   'SquareCheck': CatalogueSquareCheck,
   'Square': CatalogueSquare,
-  'SquarePen': CatalogueSquarePen,
+  'SquarePen': AnimatedCatalogPenSquare,
   'SquareTerminal': CatalogueSquareTerminal,
   'Store': CatalogueStore,
   'Strikethrough': CatalogueStrikethrough,
@@ -804,7 +795,7 @@ export const iconRegistry = {
   'LightBulbIcon': HeroLightBulbIcon,
   'Link': Link,
   'LinkIcon': Link,
-  'LinkSlashIcon': Link2Off,
+  'LinkSlashIcon': AnimatedCatalogLink2Off,
   'Linkedin': FaLinkedin,
   'List': List,
   'MagnifyingGlassIcon': Search,
@@ -876,33 +867,7 @@ export const iconLabels = {
   'youtube': 'YouTube channel'
 };
 
-export const iconSizes = {
-  '2xl': 'size-10',
-  'lg': 'size-6',
-  'md': 'size-5',
-  'sm': 'size-4',
-  'xl': 'size-8',
-  'xs': 'size-3'
-};
-
-export const iconColors = {
-  'amber': 'text-amber-700 dark:text-amber-300',
-  'attention': 'text-rose-700 dark:text-rose-300',
-  'blue': 'text-blue-600 dark:text-blue-400',
-  'danger': 'text-danger',
-  'dim': 'text-text-subtle',
-  'green': 'text-green-600 dark:text-green-400',
-  'info': 'text-info',
-  'muted': 'text-text-muted',
-  'neutral': 'text-text',
-  'primary': 'text-accent',
-  'red': 'text-red-600 dark:text-red-400',
-  'rose': 'text-rose-700 dark:text-rose-300',
-  'success': 'text-success',
-  'teal': 'text-teal-700 dark:text-teal-300',
-  'warning': 'text-warning',
-  'yellow': 'text-yellow-600 dark:text-yellow-300'
-};
+export { iconColors, iconSizes } from './iconStyle.js';
 
 export const getIcon = (name) => iconRegistry[name] || null;
 
@@ -912,7 +877,7 @@ const filledIcons = new Set([ FaApple, FaMicrosoft, FcGoogle, SiGooglecloud, SiP
 const Icon = ({
   'aria-hidden': ariaHidden,
   'aria-label': ariaLabel,
-  className = '',
+  className,
   color,
   decorative,
   href,
@@ -935,14 +900,12 @@ const Icon = ({
   const accessibleLabel = label || ariaLabel || title || iconLabels[iconName];
   const safeHref = typeof href === 'string' ? normalizeHref(href) : null;
   const isDecorative = decorative ?? (!safeHref && !accessibleLabel);
-  const numericSize = typeof size === 'number';
   const svg = (
     <IconComponent
       aria-hidden={ isDecorative ? 'true' : ariaHidden }
       aria-label={ !safeHref && !isDecorative ? accessibleLabel : undefined }
       role={ !safeHref && !isDecorative ? 'img' : undefined }
-      className={ cn('shrink-0', !numericSize && (iconSizes[size] || iconSizes.md), color ? iconColors[color] : undefined, className) }
-      { ...(numericSize ? { width: size, height: size } : {}) }
+      { ...resolveIconStyle({ className, color, size }) }
       { ...(strokeWidth === undefined || filledIcons.has(IconComponent) ? {} : { strokeWidth }) }
       { ...props }
     />
@@ -951,15 +914,16 @@ const Icon = ({
   if (!safeHref) return svg;
 
   return (
-    <a
-      className={ cn('inline-flex items-center text-sm text-text-muted transition hover:text-accent', linkClassName) }
-      target={ target || (isExternalHref(safeHref) ? '_blank' : undefined) }
-      rel={ rel || (isExternalHref(safeHref) ? 'noopener noreferrer' : undefined) }
+    <TextLink
+      variant='muted'
+      className={ cn('inline-flex items-center text-sm hover:text-accent', linkClassName) }
       href={ safeHref }
+      { ...(target ? { target } : {}) }
+      { ...(rel ? { rel } : {}) }
       aria-label={ accessibleLabel || iconName }
     >
       {svg}
-    </a>
+    </TextLink>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useWindowSize } from '../../../../../hooks/environment/use-window-size.js';
+import { useWindowSize } from '@gaudi/design-system/hooks/environment/use-window-size';
 
 export function ViewportReadout() {
   const { width, height } = useWindowSize();

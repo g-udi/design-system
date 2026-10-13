@@ -7,6 +7,8 @@
  * global tracker stands down while the richer popover handler is mounted.
  */
 
+import { localStorageStore } from '../../hooks/data/use-local-storage.js';
+
 /**
  * Parses a JSON array attribute value, returning [] for anything invalid
  *
@@ -38,18 +40,12 @@ export const findBackLink = (citationKey) => {
 };
 
 /**
- * Reads the last-visited citation instance id from localStorage
+ * Reads the last-visited citation instance id (localStorage, with an in-memory fallback)
  *
  * @param {string} citationKey - Citation key
  * @returns {string|null} Stored citation instance id, or null
  */
-export const getStoredCitation = (citationKey) => {
-  try {
-    return window.localStorage.getItem(`citation-last-${citationKey}`);
-  } catch {
-    return null;
-  }
-};
+export const getStoredCitation = (citationKey) => localStorageStore.get(`citation-last-${citationKey}`);
 
 /**
  * Persists the last-visited citation instance id
@@ -57,14 +53,7 @@ export const getStoredCitation = (citationKey) => {
  * @param {string} citationKey - Citation key
  * @param {string} citationId - Citation instance element id
  */
-export const setStoredCitation = (citationKey, citationId) => {
-  try {
-    window.localStorage.setItem(`citation-last-${citationKey}`, citationId);
-  } catch {
-
-    // Storage can be unavailable in private or restricted browser contexts.
-  }
-};
+export const setStoredCitation = (citationKey, citationId) => localStorageStore.set(`citation-last-${citationKey}`, citationId);
 
 /*
  * CitationPopover registers a document-level click handler that supersedes

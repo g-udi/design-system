@@ -7,6 +7,7 @@ import {
   AvatarGroup,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
+import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -14,6 +15,7 @@ import {
 import { cn } from '@gaudi/design-system/utilities/cn';
 
 const portrait = (path) => `/avatars/${path}.svg`;
+const bar = { success: '[&>[data-slot=progress-indicator]]:bg-success', info: '[&>[data-slot=progress-indicator]]:bg-info', attention: '[&>[data-slot=progress-indicator]]:bg-attention' };
 const dot = { info: 'bg-info', warning: 'bg-warning', discovery: 'bg-discovery', success: 'bg-success', attention: 'bg-attention', neutral: 'bg-text-muted' };
 
 // Events: category dots per day, with the selected day's agenda below.
@@ -115,8 +117,8 @@ export function Pattern() {
             return (
               <div key={key} className='grid grid-cols-[4.5rem_1fr_2rem] items-center gap-2'>
                 <dt className='text-text-muted'>{status.label}</dt>
-                <dd className='bg-surface-muted h-2 overflow-hidden rounded-full'>
-                  <span className={cn('block h-full rounded-full', dot[status.tone])} style={{ width: `${(count / days.length) * 100}%` }} />
+                <dd>
+                  <ProgressRoot value={count} max={days.length} aria-label={`${status.label} days`} className={cn('h-2', bar[status.tone])} />
                 </dd>
                 <dd className='text-end font-medium tabular-nums'>{count}d</dd>
               </div>

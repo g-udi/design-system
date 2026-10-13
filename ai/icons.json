@@ -1,6 +1,6 @@
 {
   "package": "@gaudi/design-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "generatedBy": "pnpm ai:build",
   "import": "import Icon from '@gaudi/design-system/core/Icon';",
   "registryImport": "import { iconRegistry, getIcon } from '@gaudi/design-system/icons';",
@@ -894,32 +894,8 @@
       "ZoomOut"
     ]
   },
-  "sizes": [
-    "2xl",
-    "lg",
-    "md",
-    "sm",
-    "xl",
-    "xs"
-  ],
-  "colors": [
-    "amber",
-    "attention",
-    "blue",
-    "danger",
-    "dim",
-    "green",
-    "info",
-    "muted",
-    "neutral",
-    "primary",
-    "red",
-    "rose",
-    "success",
-    "teal",
-    "warning",
-    "yellow"
-  ],
+  "sizes": [],
+  "colors": [],
   "brands": [
     "@gaudi/design-system/icons/brands/anthropicBlack",
     "@gaudi/design-system/icons/brands/anthropicWhite",

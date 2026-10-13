@@ -1,11 +1,11 @@
 import { useMemo, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useDebounceValue } from '../../../../../hooks/state/use-debounce-value.js';
-import { useIsomorphicLayoutEffect } from '../../../../../hooks/state/use-isomorphic-layout-effect.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useDebounceValue } from '@gaudi/design-system/hooks/state/use-debounce-value';
+import { useIsomorphicLayoutEffect } from '@gaudi/design-system/hooks/state/use-isomorphic-layout-effect';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useLiveAnnouncer } from '../../../../../hooks/a11y/use-live-announcer.js';
+import { useLiveAnnouncer } from '@gaudi/design-system/hooks/a11y/use-live-announcer';
 
 function SaveDraft() {
   const { announce } = useLiveAnnouncer();

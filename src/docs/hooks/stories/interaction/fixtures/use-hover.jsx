@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Card from '../../../../../components/core/Card';
-import Button from '../../../../../components/core/Button';
-import { useInterval } from '../../../../../hooks/state/use-interval.js';
+import Card from '@gaudi/design-system/core/Card';
+import Button from '@gaudi/design-system/core/Button';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useHover } from '../../../../../hooks/interaction/use-hover.js';
+import { useHover } from '@gaudi/design-system/hooks/interaction/use-hover';
 
 const tips = [ 'Name every icon button.', 'Keep focus visible.', 'Never rely on colour alone.' ];
 

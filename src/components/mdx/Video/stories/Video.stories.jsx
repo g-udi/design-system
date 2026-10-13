@@ -83,9 +83,9 @@ export const Playground = {
     await userEvent.click(trigger);
 
     const dialog = await screen.findByRole('dialog', { name: args.title });
-    const panel = within(dialog).getByRole('heading', { name: args.title }).closest('[data-open]');
+    await expect(within(dialog).getByRole('heading', { name: args.title })).toBeVisible();
     await expect(dialog).toHaveAttribute('aria-modal', 'true');
-    await expect(panel).toHaveClass(...videoAnimationStyles[args.animationStyle].split(' '));
+    await expect(dialog).toHaveClass(...videoAnimationStyles[args.animationStyle].split(' '));
     await waitFor(() => expect(within(dialog).getAllByRole('button', { name: 'Close video dialog' }).at(-1)).toHaveFocus());
     // The page behind the open player takes no pointer input and does not scroll.
     await expect(document.body).toHaveStyle({ pointerEvents: 'none' });

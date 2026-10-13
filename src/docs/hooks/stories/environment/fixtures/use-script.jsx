@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useScript } from '../../../../../hooks/environment/use-script.js';
+import { useScript } from '@gaudi/design-system/hooks/environment/use-script';
 
 // Create public/static/scripts/hook-preview.js containing:
 //   // Local preview script; intentionally no side effects.

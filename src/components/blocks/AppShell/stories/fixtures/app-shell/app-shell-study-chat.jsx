@@ -3,6 +3,7 @@ import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   CommandDialog,
   Command,
@@ -99,14 +100,15 @@ function Brand({ onSearch }) {
   }
   return (
     <div className='flex items-center gap-1'>
-      <a
+      <Link
+        variant='bare'
         href='#new-chat'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring'
         onClick={(event) => event.preventDefault()}
       >
         <GaudiBrand className='text-sm' />
         <span className='truncate'>Study</span>
-      </a>
+      </Link>
       <Button
         variant='ghost'
         size='icon-sm'
@@ -301,9 +303,9 @@ function ChatHeader({ title, model, onModelChange, onSearch, onNewChat }) {
         <ChatModelSelect models={models} value={model} onValueChange={onModelChange} label='Tutor' icon={false} variant='outline' size='sm' align='end' contentClassName='w-72'>
           <div className='text-text-muted flex items-center justify-between text-xs'>
             <span>Switching keeps this thread</span>
-            <a href='#compare' className='text-text underline underline-offset-2' onClick={(event) => event.preventDefault()}>
+            <Link href='#compare' className='underline underline-offset-2' onClick={(event) => event.preventDefault()}>
               Compare tutors
-            </a>
+            </Link>
           </div>
         </ChatModelSelect>
         <DropdownMenu>

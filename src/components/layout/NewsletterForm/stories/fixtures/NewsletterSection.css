@@ -1,0 +1,22 @@
+.newsletter-section { container-type: inline-size; width: 100%; background: var(--ds-color-surface); color: var(--ds-color-text); }
+.newsletter-section-inner { max-width: 80rem; margin-inline: auto; padding: calc(var(--ds-space-scale, 1) * 4rem) calc(var(--ds-space-scale, 1) * 1.5rem); }
+.newsletter-section-content, .newsletter-section-header, .newsletter-section-body { min-width: 0; }
+.newsletter-section-title { max-width: 20ch; overflow-wrap: anywhere; }
+.newsletter-section-description { max-width: 52ch; font-size: 1rem; line-height: 1.75; overflow-wrap: anywhere; }
+.newsletter-section-fields { max-width: none; margin-top: 0; }
+.newsletter-section-form { display: grid; gap: calc(var(--ds-space-scale, 1) * 2rem); }
+.newsletter-section-body { align-self: center; }
+.newsletter-section-demo-note { max-width: 80rem; margin: 0 auto; border-top: 1px solid var(--ds-color-border); padding: calc(var(--ds-space-scale, 1) * 1rem) calc(var(--ds-space-scale, 1) * 1.5rem); color: var(--ds-color-text-muted); font-size: .75rem; line-height: 1.5; }
+.newsletter-section[data-layout='centered'] .newsletter-section-content { max-width: 42rem; margin-inline: auto; text-align: center; }
+.newsletter-section[data-layout='centered'] .newsletter-section-header { display: grid; justify-items: center; }
+.newsletter-section[data-layout='centered'] .newsletter-section-body { width: 100%; max-width: 30rem; margin-inline: auto; text-align: start; }
+.newsletter-section[data-layout='image'] .newsletter-section-inner { display: grid; gap: calc(var(--ds-space-scale, 1) * 2rem); }
+.newsletter-section-image { width: 100%; height: 100%; max-height: 28rem; object-fit: cover; aspect-ratio: 4 / 3; border-radius: var(--ds-radius); }
+.newsletter-section[data-layout='compact'] .newsletter-section-inner { padding-block: calc(var(--ds-space-scale, 1) * 2rem); background: var(--ds-color-surface-muted); }
+@container (min-width: 48rem) {
+  .newsletter-section-inner { padding-inline: calc(var(--ds-space-scale, 1) * 3rem); }
+  .newsletter-section-demo-note { padding-inline: calc(var(--ds-space-scale, 1) * 3rem); }
+  .newsletter-section[data-layout='split'] .newsletter-section-form,
+  .newsletter-section[data-layout='compact'] .newsletter-section-form { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: calc(var(--ds-space-scale, 1) * 4rem); }
+  .newsletter-section[data-layout='image'] .newsletter-section-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: calc(var(--ds-space-scale, 1) * 4rem); }
+}

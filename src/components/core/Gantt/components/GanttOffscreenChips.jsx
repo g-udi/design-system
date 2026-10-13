@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useGanttSettings } from '../Gantt.jsx';
 import { toZoned } from '../ganttModel.jsx';
 import { format } from 'date-fns';
+import { observeResize } from '../../../../utilities/observeResize.js';
 import { default as Button } from '../../Button/index.js';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../Tooltip/TooltipPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
@@ -95,7 +96,11 @@ function GanttOffscreenChips({ paneRef, occurrences, locale, refreshKey }) {
       if (!raf) raf = requestAnimationFrame(measure);
     };
     viewport.addEventListener('scroll', schedule);
-    const observer = new ResizeObserver(schedule);
+    // A resize measures now, superseding any scroll-scheduled frame.
+    const observer = observeResize(() => {
+      cancelAnimationFrame(raf);
+      measure();
+    });
     observer.observe(viewport);
     schedule();
     return () => {

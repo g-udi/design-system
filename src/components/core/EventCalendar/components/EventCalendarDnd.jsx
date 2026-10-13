@@ -10,17 +10,16 @@ import {
   zonedStartOfDay
 } from '../eventCalendarModel.jsx';
 import { addDays, addMinutes, differenceInCalendarDays } from 'date-fns';
+import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
 const EVENT_CALENDAR_ACTIVATION = {
-  moveDistancePx: 5,
+  ...POINTER_DRAG_ACTIVATION,
   createDistancePx: 4,
-  touchDelayMs: 250,
-  touchTolerancePx: 5,
   autoScrollEdgePx: 48,
   autoScrollMaxStepPx: 15
 };
 let lastGestureEndedAt = 0;
 function wasRecentDrag() {
-  return performance.now() - lastGestureEndedAt < 250;
+  return endedRecently(lastGestureEndedAt);
 }
 let lastChipPressAt = 0;
 function markChipPress() {
@@ -39,10 +38,6 @@ function wasRecentChipPress() {
 const activeGestureCancels = new Set();
 function cancelActiveEventCalendarGestures() {
   for (const cancel of [...activeGestureCancels]) cancel();
-}
-function snapToPixel(value) {
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
-  return Math.round(value * dpr) / dpr;
 }
 function collectSurface(origin, fallbackRoot) {
   const root =

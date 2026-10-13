@@ -125,13 +125,13 @@ export const AppointmentBooking = { name: 'Appointment booking', ...pattern('app
   const canvas = within(context.canvasElement);
   const confirm = canvas.getByRole('button', { name: 'Confirm' });
   await expect(confirm).toBeDisabled();
-  await expect(canvas.getByRole('button', { name: '09:00', exact: true })).toBeDisabled();
-  await userEvent.click(canvas.getByRole('button', { name: '10:00', exact: true }));
-  await expect(canvas.getByRole('button', { name: '10:00', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  await expect(canvas.getByRole('radio', { name: '09:00', exact: true })).toBeDisabled();
+  await userEvent.click(canvas.getByRole('radio', { name: '10:00', exact: true }));
+  await expect(canvas.getByRole('radio', { name: '10:00', exact: true })).toHaveAttribute('aria-checked', 'true');
   await userEvent.click(confirm);
   await expect(canvas.getByRole('status', { name: 'Appointment selection' })).toHaveTextContent('This demo has not reserved a slot.');
   await auditState(context, 'confirmed');
-  await userEvent.click(canvas.getByRole('button', { name: '10:30', exact: true }));
+  await userEvent.click(canvas.getByRole('radio', { name: '10:30', exact: true }));
   await expect(canvas.queryByRole('status', { name: 'Appointment selection' })).not.toBeInTheDocument();
   await expect(confirm).toBeEnabled();
 } };

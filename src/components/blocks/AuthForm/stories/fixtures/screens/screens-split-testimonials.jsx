@@ -2,6 +2,7 @@
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen, ScreenTestimonial } from '@gaudi/design-system/blocks/Screens';
+import Link from '@gaudi/design-system/core/Link';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 500));
@@ -34,7 +35,7 @@ export function Pattern() {
         description='Sign in to keep writing.'
         emailPlaceholder='you@example.com'
         passwordHint={false}
-        passwordAction={<a href='#reset' className='text-text-muted text-xs underline-offset-4 hover:underline'>Forgot password?</a>}
+        passwordAction={<Link href='#reset' variant='muted' className='text-xs'>Forgot password?</Link>}
         providers={[
           { id: 'google', label: 'Google', icon: <RegistryIcon lucide='Google' className='size-4' /> },
           { id: 'github', label: 'GitHub', icon: <RegistryIcon lucide='Github' className='size-4' /> }
@@ -45,7 +46,7 @@ export function Pattern() {
         successMessage='Signed in. Opening your drafts…'
         footer={
           <p className='text-text-muted text-center text-sm'>
-            New to Gaudi? <a href='#signup' className='text-text font-medium underline-offset-4 hover:underline'>Create an account</a>
+            New to Gaudi? <Link href='#signup'>Create an account</Link>
           </p>
         }
       />

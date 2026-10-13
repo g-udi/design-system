@@ -3,6 +3,11 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../docs/comp
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 import NewsletterForm from '..';
+import { NewsletterSection } from './fixtures/NewsletterSection';
+import sectionSource from './fixtures/NewsletterSection.jsx?raw';
+import sectionStyles from './fixtures/NewsletterSection.css?raw';
+import { playgroundSource } from '../../../../docs/components/previewSource';
+import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { checkNewsletterLifecycle } from '../../../../../tests/components/layout/NewsletterForm/checkNewsletterLifecycle.jsx';
 
 const story = description => ({
@@ -14,7 +19,7 @@ const story = description => ({
 });
 
 export const Newsletter = {
-  name: 'NewsletterForm',
+  name: 'Form and availability',
   args: {
     title: 'Subscribe to the newsletter'
   },
@@ -75,12 +80,86 @@ export const Newsletter = {
   }
 };
 
-const docs = getComponentDocs('Layout/NewsletterForm');
+const docs = getComponentDocs('Blocks/Marketing/Newsletter');
 
 export default {
-  title: 'Layout/NewsletterForm',
+  title: 'Blocks/Marketing/Newsletter',
   id: 'layout-newsletter-form',
   component: NewsletterForm,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen', docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => Newsletter }) } }
+  parameters: { layout: 'fullscreen', docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => Playground }) } }
+};
+
+
+const source = sectionSource.replace("import styles from './NewsletterSection.css?raw';", `const styles = ${JSON.stringify(sectionStyles)};`);
+const section = {
+  render: args => <NewsletterSection {...args} />,
+  argTypes: {
+    ...docsArgTypes(docs, { title: 'text', description: 'text' }),
+    layout: { control: 'select', options: ['centered', 'split', 'image', 'compact'] },
+    response: { control: 'select', options: ['success', 'error', 'unavailable'], description: 'Local sample result. Changing it resets the form.' }
+  },
+  parameters: {
+    visualAudit: { wide: 'Newsletter sections fill their containing page.' },
+    docs: { source: playgroundSource('NewsletterSection', { imports: source }) }
+  },
+  play: async (context) => {
+    const { canvasElement, args } = context;
+    const canvas = within(canvasElement);
+    const email = canvas.getByRole('textbox', { name: 'Email address' });
+    const submit = canvas.getByRole('button', { name: 'Sign up' });
+    await expect(canvas.getByRole('heading', { name: args.title })).toBeVisible();
+    await expect(email).toBeRequired();
+    if (args.response === 'unavailable') {
+      await expect(submit).toBeDisabled();
+      return;
+    }
+    await userEvent.type(email, 'not-an-email');
+    await userEvent.click(submit);
+    await expect(email.checkValidity()).toBe(false);
+    await expect(canvas.queryByRole('status')).toBeNull();
+    await userEvent.clear(email);
+    await userEvent.type(email, 'reader@example.com');
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--ready` });
+    }
+    await userEvent.click(submit);
+    if (args.response === 'error') {
+      await expect(await canvas.findByRole('alert')).toHaveTextContent('We could not subscribe you. Please try again.');
+      await expect(email).toHaveValue('reader@example.com');
+      await expect(submit).toBeEnabled();
+    } else {
+      await expect(await canvas.findByRole('status')).toHaveTextContent('You are now subscribed.');
+      await expect(email).toBeDisabled();
+      await expect(email).toHaveValue('');
+    }
+    canvasElement.ownerDocument.activeElement?.blur();
+  }
+};
+
+export const Playground = {
+  ...section,
+  name: 'Centered',
+  args: { title: 'Good ideas, delivered thoughtfully.', description: 'Notes on design, new components, and things worth making. A little inspiration for whatever comes next.', layout: 'centered', response: 'success' }
+};
+export const Split = {
+  ...section,
+  name: 'Split',
+  args: { title: 'Keep a little room for inspiration.', description: 'Get the latest writing, experiments, and useful resources from the Gaudi journal.', layout: 'split', response: 'success' }
+};
+export const ImagePanel = {
+  ...section,
+  name: 'Image panel',
+  args: { title: 'See what takes shape next.', description: 'A closer look at the ideas behind the work. Join the journal for fresh perspectives on building for the web.', layout: 'image', response: 'success' }
+};
+export const Compact = {
+  ...section,
+  name: 'Compact',
+  args: { title: 'Stay in the loop.', description: 'New writing and useful resources, straight to your inbox.', layout: 'compact', response: 'success' }
+};
+export const SubmissionError = {
+  ...section,
+  name: 'Submission error',
+  args: { ...Compact.args, response: 'error' }
 };

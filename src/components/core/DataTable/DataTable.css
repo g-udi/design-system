@@ -238,14 +238,8 @@
     position: absolute;
     top: 50%;
     z-index: 30;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
     translate: 0 -50%;
     border: 1px solid var(--ds-color-border);
-    border-radius: 999px;
     background: var(--ds-color-surface);
     color: var(--ds-color-text-muted);
     box-shadow: var(--ds-shadow-card);
@@ -275,7 +269,7 @@
     translate: -50% 0;
     padding: calc(var(--ds-space-scale, 1) * 4px) calc(var(--ds-space-scale, 1) * 12px);
     border: 1px solid var(--ds-color-border);
-    border-radius: 999px;
+    border-radius: var(--ds-radius-pill);
     background: color-mix(in oklab, var(--ds-color-surface) 85%, transparent);
     backdrop-filter: blur(6px);
     box-shadow: var(--ds-shadow-card);

@@ -17,12 +17,13 @@ Exports: `Scrollspy`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `targetRef` | `RefObject<HTMLElement>` | — | no | Scrollable region to observe. |
-| `onUpdate` | `(activeId: string) => void` | — | no | Respond to the active section changing. |
+| `targetRef` | `RefObject<HTMLElement>` | — | no | Scrollable region or ScrollArea viewport to observe. Omit to track the document. |
+| `onUpdate` | `(activeId: string \| null) => void` | — | no | Respond to the active section changing. |
 | `offset` | `number` | `0` | no | Compensate for sticky headers. |
 | `smooth` | `boolean` | `true` | no | Smooth scrolling when an anchor is clicked. |
 | `history` | `boolean` | `false` | no | Opt in to rewriting the page URL hash to the active section. |
 | `dataAttribute` | `string` | `scrollspy` | no | Attribute identifying tracked content. |
+| `fallbackToFirst` | `boolean` | `true` | no | Mark the first section before it reaches the offset. Disable for an index whose first target appears later in the article; onUpdate then receives null before that target. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -55,6 +56,10 @@ Use real links with valid targets. Preserve focus and allow navigation without m
 Curated patterns:
 
 - Top navigation — registry item `@gaudi/scrollspy-top-navigation` (uses `Button`, `ScrollArea`, `Scrollspy`)
+
+## Related
+
+`core-scrollarea`
 
 ## README
 

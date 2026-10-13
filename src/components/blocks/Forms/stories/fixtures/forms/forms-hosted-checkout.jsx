@@ -5,6 +5,7 @@ import { CardRoot as Card, CardContent, CardDescription, CardFooter, CardHeader,
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel, FieldLegend, FieldSeparator, FieldSet } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
+import Link from '@gaudi/design-system/core/Link';
 import {
   NumberField,
   NumberFieldDecrement,
@@ -13,6 +14,7 @@ import {
   NumberFieldInput
 } from '@gaudi/design-system/core/NumberField';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
+import { Badge } from '@gaudi/design-system/core/Pill';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { FormErrorSummary, useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -165,11 +167,11 @@ export function Pattern() {
           <div aria-hidden='true' className='bg-surface-muted flex min-w-0 flex-1 basis-60 items-center gap-3 rounded-md border px-3 py-2'>
             <RegistryIcon lucide='LockIcon' className='text-text-muted size-4 shrink-0' />
             <span className='truncate text-sm'>{values.product || 'Your product'}</span>
-            <span className='bg-accent text-accent-foreground ms-auto rounded-sm px-2 py-0.5 text-xs font-medium'>{labelText}</span>
+            <Badge className='ms-auto'>{labelText}</Badge>
           </div>
           {link ? (
             <p role='status' className='text-sm'>
-              Live at <a href={link} className='text-accent underline underline-offset-2'>{link.replace('https://', '')}</a>
+              Live at <Link href={link} tone='accent' className='underline underline-offset-2'>{link.replace('https://', '')}</Link>
             </p>
           ) : null}
           <Button type='submit'>{link ? 'Update page' : 'Create checkout page'}</Button>

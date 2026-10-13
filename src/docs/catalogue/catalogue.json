@@ -601,6 +601,27 @@
       ],
       "importPath": "./src/components/animations/MicroSlats/stories/MicroSlats.stories.jsx"
     },
+    "animations-backgrounds-particle-sea--playground": {
+      "id": "animations-backgrounds-particle-sea--playground",
+      "title": "Animations/Backgrounds/Particle Sea",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/animations/ParticleSea/stories/ParticleSea.stories.jsx"
+    },
+    "animations-backgrounds-particle-sea--docs": {
+      "id": "animations-backgrounds-particle-sea--docs",
+      "title": "Animations/Backgrounds/Particle Sea",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/animations/ParticleSea/stories/ParticleSea.stories.jsx"
+    },
     "animations-backgrounds-pattern-waves--playground": {
       "id": "animations-backgrounds-pattern-waves--playground",
       "title": "Animations/Backgrounds/PatternWaves",
@@ -1117,6 +1138,94 @@
         "play-fn"
       ],
       "importPath": "./src/components/blocks/Forms/stories/Forms.stories.jsx"
+    },
+    "blocks-marketing-heroes--playground": {
+      "id": "blocks-marketing-heroes--playground",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Aurora",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--docs": {
+      "id": "blocks-marketing-heroes--docs",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--mesh-gradient": {
+      "id": "blocks-marketing-heroes--mesh-gradient",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Mesh gradient",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--live-surface": {
+      "id": "blocks-marketing-heroes--live-surface",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Live surface",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--journal-topics": {
+      "id": "blocks-marketing-heroes--journal-topics",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Journal topics",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--split-image": {
+      "id": "blocks-marketing-heroes--split-image",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Split image",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--product-preview": {
+      "id": "blocks-marketing-heroes--product-preview",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Product preview",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
+    },
+    "blocks-marketing-heroes--editorial": {
+      "id": "blocks-marketing-heroes--editorial",
+      "title": "Blocks/Marketing/Heroes",
+      "name": "Editorial",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/Hero/stories/Hero.stories.jsx"
     },
     "blocks-navigation--playground": {
       "id": "blocks-navigation--playground",
@@ -5816,10 +5925,10 @@
       ],
       "importPath": "./src/components/core/WebPreview/stories/WebPreview.stories.jsx"
     },
-    "layout-components--article-content": {
-      "id": "layout-components--article-content",
-      "title": "Layout/ArticleContentLayout",
-      "name": "ArticleContentLayout",
+    "layout-article-content-layout--blog-article": {
+      "id": "layout-article-content-layout--blog-article",
+      "title": "Blocks/Blog/Article",
+      "name": "Blog article",
       "type": "story",
       "tags": [
         "autodocs",
@@ -5829,7 +5938,7 @@
     },
     "layout-article-content-layout--docs": {
       "id": "layout-article-content-layout--docs",
-      "title": "Layout/ArticleContentLayout",
+      "title": "Blocks/Blog/Article",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -5837,10 +5946,10 @@
       ],
       "importPath": "./src/components/layout/ArticleContentLayout/stories/ArticleContentLayout.stories.jsx"
     },
-    "layout-article-content-layout--blog-article": {
-      "id": "layout-article-content-layout--blog-article",
-      "title": "Layout/ArticleContentLayout",
-      "name": "Blog article",
+    "layout-article-content-layout--series-article": {
+      "id": "layout-article-content-layout--series-article",
+      "title": "Blocks/Blog/Article",
+      "name": "Series article",
       "type": "story",
       "tags": [
         "autodocs",
@@ -5848,20 +5957,52 @@
       ],
       "importPath": "./src/components/layout/ArticleContentLayout/stories/ArticleContentLayout.stories.jsx"
     },
-    "layout-components--footer-layout": {
-      "id": "layout-components--footer-layout",
-      "title": "Layout/Footer",
-      "name": "Footer",
+    "layout-article-content-layout--focused-essay": {
+      "id": "layout-article-content-layout--focused-essay",
+      "title": "Blocks/Blog/Article",
+      "name": "Focused essay",
       "type": "story",
       "tags": [
         "autodocs",
         "play-fn"
+      ],
+      "importPath": "./src/components/layout/ArticleContentLayout/stories/ArticleContentLayout.stories.jsx"
+    },
+    "layout-article-content-layout--technical-tutorial": {
+      "id": "layout-article-content-layout--technical-tutorial",
+      "title": "Blocks/Blog/Article",
+      "name": "Technical tutorial",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/layout/ArticleContentLayout/stories/ArticleContentLayout.stories.jsx"
+    },
+    "layout-article-content-layout--photo-essay": {
+      "id": "layout-article-content-layout--photo-essay",
+      "title": "Blocks/Blog/Article",
+      "name": "Photo essay",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/layout/ArticleContentLayout/stories/ArticleContentLayout.stories.jsx"
+    },
+    "layout-footer--blog": {
+      "id": "layout-footer--blog",
+      "title": "Blocks/Marketing/Footers",
+      "name": "Blog with link columns",
+      "type": "story",
+      "tags": [
+        "autodocs"
       ],
       "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
     "layout-footer--docs": {
       "id": "layout-footer--docs",
-      "title": "Layout/Footer",
+      "title": "Blocks/Marketing/Footers",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -5869,103 +6010,60 @@
       ],
       "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
-    "layout-components--page-shell": {
-      "id": "layout-components--page-shell",
-      "title": "Layout/LayoutWrapper",
-      "name": "LayoutWrapper",
+    "layout-footer--newsletter": {
+      "id": "layout-footer--newsletter",
+      "title": "Blocks/Marketing/Footers",
+      "name": "With newsletter",
       "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/LayoutWrapper.stories.jsx"
-    },
-    "layout-layout-wrapper--docs": {
-      "id": "layout-layout-wrapper--docs",
-      "title": "Layout/LayoutWrapper",
-      "name": "Docs",
-      "type": "docs",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/LayoutWrapper.stories.jsx"
+      "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
-    "layout-examples--main-page": {
-      "id": "layout-examples--main-page",
-      "title": "Layout/Examples",
-      "name": "Main Page",
+    "layout-footer--centered": {
+      "id": "layout-footer--centered",
+      "title": "Blocks/Marketing/Footers",
+      "name": "Centered",
       "type": "story",
       "tags": [
-        "play-fn"
+        "autodocs"
       ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
+      "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
-    "layout-examples--blog-main-page": {
-      "id": "layout-examples--blog-main-page",
-      "title": "Layout/Examples",
-      "name": "Blog Main Page",
-      "type": "story",
-      "tags": [],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
-    },
-    "layout-examples--category-page-with-posts-and-pagination": {
-      "id": "layout-examples--category-page-with-posts-and-pagination",
-      "title": "Layout/Examples",
-      "name": "Category Page With Posts And Pagination",
+    "layout-footer--compact": {
+      "id": "layout-footer--compact",
+      "title": "Blocks/Marketing/Footers",
+      "name": "Compact inline",
       "type": "story",
       "tags": [
-        "play-fn"
+        "autodocs"
       ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
+      "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
-    "layout-examples--categories-page": {
-      "id": "layout-examples--categories-page",
-      "title": "Layout/Examples",
-      "name": "Categories Page",
+    "layout-components--footer-layout": {
+      "id": "layout-components--footer-layout",
+      "title": "Blocks/Marketing/Footers",
+      "name": "Newsletter unavailable",
       "type": "story",
       "tags": [
-        "play-fn"
+        "autodocs"
       ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
+      "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
-    "layout-examples--tags-page": {
-      "id": "layout-examples--tags-page",
-      "title": "Layout/Examples",
-      "name": "Tags Page",
+    "layout-footer--submission-error": {
+      "id": "layout-footer--submission-error",
+      "title": "Blocks/Marketing/Footers",
+      "name": "Newsletter error",
       "type": "story",
       "tags": [
-        "play-fn"
+        "autodocs"
       ],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
-    },
-    "layout-examples--projects-page": {
-      "id": "layout-examples--projects-page",
-      "title": "Layout/Examples",
-      "name": "Projects Page",
-      "type": "story",
-      "tags": [],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
-    },
-    "layout-examples--publications-page": {
-      "id": "layout-examples--publications-page",
-      "title": "Layout/Examples",
-      "name": "Publications Page",
-      "type": "story",
-      "tags": [],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
-    },
-    "layout-examples--about-me-page": {
-      "id": "layout-examples--about-me-page",
-      "title": "Layout/Examples",
-      "name": "About Me Page",
-      "type": "story",
-      "tags": [],
-      "importPath": "./src/components/layout/LayoutWrapper/stories/PageLayouts.stories.jsx"
+      "importPath": "./src/components/layout/Footer/stories/Footer.stories.jsx"
     },
     "layout-components--newsletter": {
       "id": "layout-components--newsletter",
-      "title": "Layout/NewsletterForm",
-      "name": "NewsletterForm",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Form and availability",
       "type": "story",
       "tags": [
         "autodocs",
@@ -5975,7 +6073,7 @@
     },
     "layout-newsletter-form--docs": {
       "id": "layout-newsletter-form--docs",
-      "title": "Layout/NewsletterForm",
+      "title": "Blocks/Marketing/Newsletter",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -5983,26 +6081,55 @@
       ],
       "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
     },
-    "layout-components--article-search": {
-      "id": "layout-components--article-search",
-      "title": "Layout/Search",
-      "name": "Search",
+    "layout-newsletter-form--playground": {
+      "id": "layout-newsletter-form--playground",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Centered",
       "type": "story",
-      "tags": [
-        "autodocs",
-        "play-fn"
-      ],
-      "importPath": "./src/components/layout/Search/stories/Search.stories.jsx"
-    },
-    "layout-search--docs": {
-      "id": "layout-search--docs",
-      "title": "Layout/Search",
-      "name": "Docs",
-      "type": "docs",
       "tags": [
         "autodocs"
       ],
-      "importPath": "./src/components/layout/Search/stories/Search.stories.jsx"
+      "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
+    },
+    "layout-newsletter-form--split": {
+      "id": "layout-newsletter-form--split",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Split",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
+    },
+    "layout-newsletter-form--image-panel": {
+      "id": "layout-newsletter-form--image-panel",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Image panel",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
+    },
+    "layout-newsletter-form--compact": {
+      "id": "layout-newsletter-form--compact",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Compact",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
+    },
+    "layout-newsletter-form--submission-error": {
+      "id": "layout-newsletter-form--submission-error",
+      "title": "Blocks/Marketing/Newsletter",
+      "name": "Submission error",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
     },
     "mdx-aside--playground": {
       "id": "mdx-aside--playground",
@@ -6492,8 +6619,8 @@
     },
     "post-post--playground": {
       "id": "post-post--playground",
-      "title": "Post/Post",
-      "name": "Playground",
+      "title": "Blocks/Blog/Post lists",
+      "name": "Post metadata",
       "type": "story",
       "tags": [
         "autodocs",
@@ -6503,7 +6630,7 @@
     },
     "post-post--docs": {
       "id": "post-post--docs",
-      "title": "Post/Post",
+      "title": "Blocks/Blog/Post lists",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -6511,9 +6638,49 @@
       ],
       "importPath": "./src/components/post/Post/stories/Post.stories.jsx"
     },
+    "post-post--image-cards": {
+      "id": "post-post--image-cards",
+      "title": "Blocks/Blog/Post lists",
+      "name": "Image cards",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/post/Post/stories/Post.stories.jsx"
+    },
+    "post-post--featured": {
+      "id": "post-post--featured",
+      "title": "Blocks/Blog/Post lists",
+      "name": "Featured and recent",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/post/Post/stories/Post.stories.jsx"
+    },
+    "post-post--horizontal": {
+      "id": "post-post--horizontal",
+      "title": "Blocks/Blog/Post lists",
+      "name": "Horizontal rows",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/post/Post/stories/Post.stories.jsx"
+    },
+    "post-post--compact": {
+      "id": "post-post--compact",
+      "title": "Blocks/Blog/Post lists",
+      "name": "Compact list",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/post/Post/stories/Post.stories.jsx"
+    },
     "post-postheader--playground": {
       "id": "post-postheader--playground",
-      "title": "Post/PostHeader",
+      "title": "Blocks/Blog/PostHeader",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -6524,7 +6691,7 @@
     },
     "post-postheader--docs": {
       "id": "post-postheader--docs",
-      "title": "Post/PostHeader",
+      "title": "Blocks/Blog/PostHeader",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -6534,7 +6701,7 @@
     },
     "post-postheader--sharing-actions": {
       "id": "post-postheader--sharing-actions",
-      "title": "Post/PostHeader",
+      "title": "Blocks/Blog/PostHeader",
       "name": "Prepared share and source actions",
       "type": "story",
       "tags": [
@@ -6545,7 +6712,7 @@
     },
     "post-postnavigation--playground": {
       "id": "post-postnavigation--playground",
-      "title": "Post/PostNavigation",
+      "title": "Blocks/Blog/PostNavigation",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -6556,7 +6723,7 @@
     },
     "post-postnavigation--docs": {
       "id": "post-postnavigation--docs",
-      "title": "Post/PostNavigation",
+      "title": "Blocks/Blog/PostNavigation",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -6566,7 +6733,7 @@
     },
     "post-postseriesbox--playground": {
       "id": "post-postseriesbox--playground",
-      "title": "Post/PostSeriesBox",
+      "title": "Blocks/Blog/PostSeriesBox",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -6577,7 +6744,7 @@
     },
     "post-postseriesbox--docs": {
       "id": "post-postseriesbox--docs",
-      "title": "Post/PostSeriesBox",
+      "title": "Blocks/Blog/PostSeriesBox",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -6597,7 +6764,7 @@
     },
     "post-tableofcontents--playground": {
       "id": "post-tableofcontents--playground",
-      "title": "Post/TableOfContents",
+      "title": "Blocks/Blog/TableOfContents",
       "name": "Playground",
       "type": "story",
       "tags": [
@@ -6608,7 +6775,7 @@
     },
     "post-tableofcontents--docs": {
       "id": "post-tableofcontents--docs",
-      "title": "Post/TableOfContents",
+      "title": "Blocks/Blog/TableOfContents",
       "name": "Docs",
       "type": "docs",
       "tags": [
@@ -6618,7 +6785,7 @@
     },
     "post-tableofcontents--compact-toc": {
       "id": "post-tableofcontents--compact-toc",
-      "title": "Post/TableOfContents",
+      "title": "Blocks/Blog/TableOfContents",
       "name": "Four or fewer sections",
       "type": "story",
       "tags": [
@@ -6765,7 +6932,8 @@
       "name": "Workspace switcher",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/blocks/AppShell/stories/SidebarPatterns.stories.jsx"
     },
@@ -6797,7 +6965,8 @@
       "name": "Details panel on the right",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/blocks/AppShell/stories/SidebarPatterns.stories.jsx"
     },
@@ -6807,7 +6976,8 @@
       "name": "Search, loading and no-result states",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/blocks/AppShell/stories/SidebarPatterns.stories.jsx"
     },
@@ -7643,7 +7813,8 @@
       "name": "Hover to reveal values",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/charts/BarChart/stories/BarChartPatterns.stories.jsx"
     },
@@ -7849,7 +8020,8 @@
       "name": "Support thread",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatBubble/stories/ChatBubblePatterns.stories.jsx"
     },
@@ -7869,7 +8041,8 @@
       "name": "Formatted answer with show more",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatBubble/stories/ChatBubblePatterns.stories.jsx"
     },
@@ -7879,7 +8052,8 @@
       "name": "Suggested replies under a question",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatBubble/stories/ChatBubblePatterns.stories.jsx"
     },
@@ -7922,7 +8096,8 @@
       "name": "Chat composer: Model and effort",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatInput/stories/ChatInputPatterns.stories.jsx"
     },
@@ -7943,7 +8118,8 @@
       "name": "Delivered files and data",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatMessage/stories/ChatFilePatterns.stories.jsx"
     },
@@ -7974,7 +8150,8 @@
       "name": "Opening position and jump to latest",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatMessageList/stories/MessageListPatterns.stories.jsx"
     },
@@ -7984,7 +8161,8 @@
       "name": "Pinned to the newest streamed line",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatMessageList/stories/MessageListPatterns.stories.jsx"
     },
@@ -8005,7 +8183,8 @@
       "name": "Older history that keeps your position",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatMessageList/stories/MessageListPatterns.stories.jsx"
     },
@@ -8015,7 +8194,8 @@
       "name": "Step between turns from a navigator",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/chat/ChatMessageList/stories/MessageListPatterns.stories.jsx"
     },
@@ -8174,7 +8354,8 @@
       "name": "Collapsible: Tree view with file actions",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Accordion/stories/CollapsiblePatterns.stories.jsx"
     },
@@ -8216,7 +8397,8 @@
       "name": "File picker that fills a tray",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Attachment/stories/AttachmentPatterns.stories.jsx"
     },
@@ -8226,7 +8408,8 @@
       "name": "Image thumbnail strip",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Attachment/stories/AttachmentPatterns.stories.jsx"
     },
@@ -8318,7 +8501,8 @@
       "name": "Rings and activity",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Avatar/stories/AvatarPatterns.stories.jsx"
     },
@@ -8486,7 +8670,8 @@
       "name": "Copy with feedback",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Button/stories/ButtonPatterns.stories.jsx"
     },
@@ -8549,7 +8734,8 @@
       "name": "Inputs and selects",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/ButtonGroup/stories/ButtonGroupPatterns.stories.jsx"
     },
@@ -8580,7 +8766,8 @@
       "name": "Collection toolbar",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/ButtonGroup/stories/ButtonGroupPatterns.stories.jsx"
     },
@@ -8600,7 +8787,8 @@
       "name": "Vertical groups",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/ButtonGroup/stories/ButtonGroupPatterns.stories.jsx"
     },
@@ -8610,7 +8798,8 @@
       "name": "Selection and display options",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Calendar/stories/CalendarPatterns.stories.jsx"
     },
@@ -8642,7 +8831,8 @@
       "name": "Caption and navigation",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Calendar/stories/CalendarPatterns.stories.jsx"
     },
@@ -8740,7 +8930,8 @@
       "name": "Media cards",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Card/stories/CardPatterns.stories.jsx"
     },
@@ -8847,7 +9038,8 @@
       "name": "Autoplay",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Carousel/stories/CarouselPatterns.stories.jsx"
     },
@@ -9099,7 +9291,8 @@
       "name": "Find within a long file",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/CodeBlock/stories/CodeBlockPatterns.stories.jsx"
     },
@@ -9120,7 +9313,8 @@
       "name": "Streaming assistant reply",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/CodeBlock/stories/CodeBlockPatterns.stories.jsx"
     },
@@ -9130,7 +9324,8 @@
       "name": "Diagnostics with fixes",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/CodeBlock/stories/CodeBlockPatterns.stories.jsx"
     },
@@ -9184,7 +9379,8 @@
       "name": "Layout options",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9216,7 +9412,8 @@
       "name": "Draggable rows and columns",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9237,7 +9434,8 @@
       "name": "Tree rows",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9269,7 +9467,8 @@
       "name": "Sub table",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9279,7 +9478,8 @@
       "name": "Spreadsheet editing",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9311,7 +9511,8 @@
       "name": "CRUD in a frame",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9332,7 +9533,8 @@
       "name": "Infinite scroll",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DataTable/stories/DataGridPatterns.stories.jsx"
     },
@@ -9810,7 +10012,8 @@
       "name": "Profile photo picker",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FileUpload/stories/FileUploadPatterns.stories.jsx"
     },
@@ -9831,7 +10034,8 @@
       "name": "One bar, every filter kind",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FilterBar/stories/FiltersPatterns.stories.jsx"
     },
@@ -9841,7 +10045,8 @@
       "name": "Filtering a table with nested groups",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FilterBar/stories/FiltersPatterns.stories.jsx"
     },
@@ -9851,7 +10056,8 @@
       "name": "Custom value editors",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FilterBar/stories/FiltersPatterns.stories.jsx"
     },
@@ -9861,7 +10067,8 @@
       "name": "Deep attribute menus for large libraries",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/FilterBar/stories/FiltersPatterns.stories.jsx"
     },
@@ -9970,7 +10177,8 @@
       "name": "Task table with progress",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Gantt/stories/GanttPatterns.stories.jsx"
     },
@@ -9980,7 +10188,8 @@
       "name": "Quarter roadmap with rollups",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Gantt/stories/GanttPatterns.stories.jsx"
     },
@@ -10735,7 +10944,8 @@
       "name": "Status messages",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Progress/stories/ProgressPatterns.stories.jsx"
     },
@@ -10777,7 +10987,8 @@
       "name": "Answer types",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Questionnaire/stories/QuestionnairePatterns.stories.jsx"
     },
@@ -10787,7 +10998,8 @@
       "name": "Conditional branch",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Questionnaire/stories/QuestionnairePatterns.stories.jsx"
     },
@@ -10902,7 +11114,8 @@
       "name": "Editor workspace",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Resizable/stories/ResizablePatterns.stories.jsx"
     },
@@ -10912,7 +11125,8 @@
       "name": "Handle styles",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Resizable/stories/ResizablePatterns.stories.jsx"
     },
@@ -11415,7 +11629,8 @@
       "name": "Media grid",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Sortable/stories/SortablePatterns.stories.jsx"
     },
@@ -11425,7 +11640,8 @@
       "name": "Nested lists",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Sortable/stories/SortablePatterns.stories.jsx"
     },
@@ -11457,7 +11673,8 @@
       "name": "Titles and descriptions",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Stepper/stories/StepperPatterns.stories.jsx"
     },
@@ -11563,7 +11780,8 @@
       "name": "Badge counts",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Tabs/stories/TabsPatterns.stories.jsx"
     },
@@ -11573,7 +11791,8 @@
       "name": "Period switch",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Tabs/stories/TabsPatterns.stories.jsx"
     },
@@ -11594,7 +11813,8 @@
       "name": "Growing note field with a counter",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Textarea/stories/TextareaPatterns.stories.jsx"
     },
@@ -11604,7 +11824,8 @@
       "name": "Vertical progress",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Timeline/stories/TimelinePatterns.stories.jsx"
     },
@@ -11614,7 +11835,8 @@
       "name": "Horizontal releases",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Timeline/stories/TimelinePatterns.stories.jsx"
     },
@@ -11645,7 +11867,8 @@
       "name": "Pipeline steps",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Timeline/stories/TimelinePatterns.stories.jsx"
     },
@@ -11881,7 +12104,8 @@
       "name": "API keys and permissions",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/mdx/Table/stories/TablePatterns.stories.jsx"
     },
@@ -12017,7 +12241,8 @@
       "name": "Read the preference",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/a11y/use-prefers-reduced-motion.stories.jsx"
     },
@@ -12037,7 +12262,8 @@
       "name": "Turn autoplay off",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/a11y/use-prefers-reduced-motion.stories.jsx"
     },
@@ -12047,7 +12273,8 @@
       "name": "Reading preference",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/data/use-local-storage.stories.jsx"
     },
@@ -12152,7 +12379,8 @@
       "name": "Controlled with a limit",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/data/use-selection.stories.jsx"
     },
@@ -12246,7 +12474,8 @@
       "name": "Live queries",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/environment/use-media-query.stories.jsx"
     },
@@ -12266,7 +12495,8 @@
       "name": "Render a different tree",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/environment/use-media-query.stories.jsx"
     },
@@ -12276,7 +12506,8 @@
       "name": "Sidebar or sheet",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/environment/use-mobile.stories.jsx"
     },
@@ -12317,7 +12548,8 @@
       "name": "Pause polling in the background",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/environment/use-page-visibility.stories.jsx"
     },
@@ -12337,7 +12569,8 @@
       "name": "System default for an embed",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/environment/use-prefers-color-scheme.stories.jsx"
     },
@@ -12441,7 +12674,8 @@
       "name": "One hook, several copy buttons",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/interaction/use-copy-to-clipboard.stories.jsx"
     },
@@ -12462,7 +12696,8 @@
       "name": "Window events",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/interaction/use-event-listener.stories.jsx"
     },
@@ -12694,7 +12929,8 @@
       "name": "\"Load more\" sentinel with a button",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/layout/use-in-view.stories.jsx"
     },
@@ -12725,7 +12961,8 @@
       "name": "Page scroll",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/layout/use-scroll-position.stories.jsx"
     },
@@ -12883,7 +13120,8 @@
       "name": "Drive a Gaudi Dialog",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/state/use-disclosure.stories.jsx"
     },
@@ -12914,7 +13152,8 @@
       "name": "Fresh state, stable subscription",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/state/use-event-callback.stories.jsx"
     },
@@ -12955,7 +13194,8 @@
       "name": "Measure before paint",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/state/use-isomorphic-layout-effect.stories.jsx"
     },
@@ -13059,7 +13299,8 @@
       "name": "Throttle pointer moves",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/state/use-throttle-callback.stories.jsx"
     },
@@ -13079,7 +13320,8 @@
       "name": "Auto-dismiss that pauses",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/docs/hooks/stories/state/use-timeout.stories.jsx"
     },

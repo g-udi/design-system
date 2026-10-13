@@ -1,6 +1,6 @@
 .gaudi-word-spotlight { display: inline-block; max-width: 100%; }
 .gaudi-word-spotlight__words { display: flex; flex-wrap: wrap; justify-content: center; gap: .25em .45em; }
-.gaudi-word-spotlight__word { position: relative; filter: blur(var(--spotlight-blur)); transition: filter 450ms; overflow-wrap: anywhere; min-width: 0; }
+.gaudi-word-spotlight__word { position: relative; filter: blur(var(--spotlight-blur)); transition: filter var(--ds-motion-duration-focal) var(--ds-motion-ease-standard); overflow-wrap: anywhere; min-width: 0; }
 .gaudi-word-spotlight__word[data-focused="true"] { filter: none; }
 .gaudi-word-spotlight__brackets { position: absolute; inset: -.12em -.18em; opacity: 0; border: 2px solid var(--ds-color-accent); clip-path: polygon(0 0, 12px 0, 12px 2px, calc(100% - 12px) 2px, calc(100% - 12px) 0, 100% 0, 100% 12px, calc(100% - 2px) 12px, calc(100% - 2px) calc(100% - 12px), 100% calc(100% - 12px), 100% 100%, calc(100% - 12px) 100%, calc(100% - 12px) calc(100% - 2px), 12px calc(100% - 2px), 12px 100%, 0 100%, 0 calc(100% - 12px), 2px calc(100% - 12px), 2px 12px, 0 12px); }
 .gaudi-word-spotlight__word[data-focused="true"] .gaudi-word-spotlight__brackets { opacity: 1; }

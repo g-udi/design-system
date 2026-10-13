@@ -11,6 +11,7 @@ import Typography from '../../../foundations/Typography';
 import formatDate from '../../../utilities/formatDate';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
+import { cn } from '../../../utilities/cn';
 
 const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle'>·</span>;
 
@@ -22,13 +23,14 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * @param {string} [props.locale] - Locale passed to the date formatter
  * @param {string} [props.titleAs='h3'] - Heading element used for the post title
  */
-const Post = ({ frontMatter = {}, locale, titleAs = 'h3' }) => {
+const Post = ({ frontMatter = {}, locale, titleAs = 'h3', titleVariant = 'index-list-title', layout = 'list', media, footer, className, ...props }) => {
   const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
 
   return (
-    <li className='group'>
-      <article className='border-b border-border-muted py-3 last:border-b-0 dark:border-border-dark'>
-        <div className='min-w-0'>
+    <li {...props} data-slot='post' data-layout={layout} data-has-media={Boolean(media)} className={cn('group gaudi-post', className)}>
+      <article className={cn('gaudi-post-article', layout === 'list' && 'border-b border-border-muted py-3 last:border-b-0 dark:border-border-dark')}>
+        {media && <div className='gaudi-post-media'>{media}</div>}
+        <div className='gaudi-post-body'>
           <div className='mb-1 flex flex-wrap items-center gap-2 text-sm'>
             <Typography
               as='time'
@@ -56,7 +58,7 @@ const Post = ({ frontMatter = {}, locale, titleAs = 'h3' }) => {
             )}
           </div>
 
-          <Typography variant='index-list-title' as={ titleAs } className='mb-1'>
+          <Typography variant={titleVariant} as={ titleAs } className='mb-1'>
             <Link href={ frontMatter.href } className='font-semibold group-hover:text-accent'>
               {frontMatter.title}
             </Link>
@@ -67,6 +69,7 @@ const Post = ({ frontMatter = {}, locale, titleAs = 'h3' }) => {
               {frontMatter.subtitle}
             </Typography>
           )}
+          {footer && <div className='gaudi-post-footer'>{footer}</div>}
         </div>
       </article>
     </li>

@@ -1,6 +1,6 @@
 # Gaudi Design System (@gaudi/design-system)
 
-> A curated React design system for blogs and applications, with shared foundations, rich components, and reusable interface patterns. React 19 source components with Tailwind CSS v4, semantic tokens, accessibility, RTL-aware layout and copy-in blocks. Version 0.1.6.
+> A curated React design system for blogs and applications, with shared foundations, rich components, and reusable interface patterns. React 19 source components with Tailwind CSS v4, semantic tokens, accessibility, RTL-aware layout and copy-in blocks. Version 0.1.7.
 
 Install from GitHub until the package is on npm: `pnpm add github:ahmadassaf/design-system`. Import from `@gaudi/design-system` (root), category entries (`/core`, `/chat`, `/charts`, `/animations`, `/blocks`, `/hooks`, `/mdx`, `/post`, `/layout`) or owner leaf entries such as `@gaudi/design-system/core/Button`. Load `@gaudi/design-system/global.css` once (or `styles.css` when the app owns its Tailwind entry). In Next.js add `transpilePackages: ['@gaudi/design-system']`. Peers: react, react-dom, next, next-themes, tailwindcss; optional recharts (charts) and @xyflow/react (Flow). A JS Tailwind preset is available at `@gaudi/design-system/tailwind-preset`.
 
@@ -109,6 +109,7 @@ Composed application blocks: app shells, auth and onboarding screens, dashboards
 - [Chat](docs/llm/blocks-chat.md): The chat frame: a shell for a full page or a sidebar assistant that composes the Chat parts: the thread, the composer, sessions, files, the plan and activity.
 - [Dashboard](docs/llm/blocks-dashboard.md): Full dashboards composed from Stat Cards, Charts, DataTable and Core parts, on a grid that reflows by its own width, with a period toolbar for presets, a custom range and comparison.
 - [Forms](docs/llm/blocks-forms.md): Form behaviour on the Core Field parts: validation with accessible errors, a summary that takes focus after a failed submit, values you edit in place and live character counts.
+- [Heroes](docs/llm/blocks-marketing-heroes.md): Responsive hero sections for product, editorial, and marketing pages.
 - [Navigation](docs/llm/blocks-navigation.md): The site header block: brand, primary NavigationMenu with a two-block Blog panel (categories beside recent posts) or a Categories panel on the supplied blog route, search, theme switch, and a phone sheet below lg.
 - [Onboarding](docs/llm/blocks-onboarding.md): First-run flows: workspace setup, a publication with a progress rail, a product tour in a dialog and connecting a coding agent.
 - [Profile](docs/llm/blocks-profile.md): Account and organisation pages for an application: profile details, organisation members and permissions, billing and usage, referrals, and connected mailboxes.
@@ -242,6 +243,7 @@ Text and background effects with scoped rendering, reduced motion and visibility
 - [LightRays](docs/llm/animations-backgrounds-lightrays.md): Soft overhead shafts overlap in an atmospheric cone and dissolve before reaching the lower surface.
 - [LiquidEther](docs/llm/animations-backgrounds-liquidether.md): Colored dye follows pointer movement, curls through a retained velocity field, and gradually dissipates.
 - [MicroSlats](docs/llm/animations-backgrounds-microslats.md): Rounded 10×25px slats catch broad rolling swells, crest glints and a fading pointer wake.
+- [Particle Sea](docs/llm/animations-backgrounds-particle-sea.md): A rolling sea of fine points seen in perspective; crests catch the light and glitter.
 - [PatternWaves](docs/llm/animations-backgrounds-patternwaves.md): A nine-pixel dot lattice shades folded fabric with narrow illuminated creases and localized ripples.
 - [PixelBlast](docs/llm/animations-backgrounds-pixelblast.md): Separate square pixels form drifting dithered patterns; clicks send circular waves through the field.
 - [Plasma](docs/llm/animations-backgrounds-plasma.md): Translucent plasma folds flow across the surface, with soft illuminated edges.
@@ -284,22 +286,20 @@ Article primitives for MDX content and the compiled MDX runtime.
 
 Blog post page parts: header, navigation, series box and table of contents.
 
-- [Post](docs/llm/post-post.md): An article summary linking to a full post.
-- [PostHeader](docs/llm/post-postheader.md): Article title, metadata, timestamps and supporting header controls.
-- [PostNavigation](docs/llm/post-postnavigation.md): Previous and next article links at the end of a post.
-- [PostSeriesBox](docs/llm/post-postseriesbox.md): List the articles in a series and identify the current entry.
-- [TableOfContents](docs/llm/post-tableofcontents.md): Tracks article headings and indexes diagrams and tables.
+- [Post lists](docs/llm/blocks-blog-post-lists.md): Blog-post sections using the same Post summaries and article data as the blog pages.
+- [PostHeader](docs/llm/blocks-blog-postheader.md): Article title, metadata, timestamps and supporting header controls.
+- [PostNavigation](docs/llm/blocks-blog-postnavigation.md): Previous and next article links at the end of a post.
+- [PostSeriesBox](docs/llm/blocks-blog-postseriesbox.md): List the articles in a series and identify the current entry.
+- [TableOfContents](docs/llm/blocks-blog-tableofcontents.md): Responsive article navigation with active sections, expandable heading branches, and an optional diagram and table index.
 
 ## Layout
 
 Site layout: containers, wrappers, footer, search and newsletter.
 
-- [ArticleContentLayout](docs/llm/layout-articlecontentlayout.md): Responsive article prose with an optional contents rail and controlled or uncontrolled aside visibility.
-- [Footer](docs/llm/layout-footer.md): Site footer with host-supplied navigation, social links, copyright, and optional newsletter form.
+- [Article](docs/llm/blocks-blog-article.md): A complete blog article with Gaudi journal navigation, PostHeader metadata, reading progress, TableOfContents section navigation, expandable images, a gallery, and captioned video.
+- [Footers](docs/llm/blocks-marketing-footers.md): Site footer with host-supplied navigation, social links, copyright, and optional newsletter form.
+- [Newsletter](docs/llm/blocks-marketing-newsletter.md): Newsletter sections built from one email subscription form, with an explicit host endpoint and local pending, success, and error feedback.
 - [LayoutContainer](docs/llm/layout-layoutcontainer.md): Async server layout that composes theme context, navigation, a skip link, article content, footer, and host-provided structured data.
-- [LayoutWrapper](docs/llm/layout-layoutwrapper.md): Client-safe page shell composed from navigation, one main landmark, and Footer.
-- [NewsletterForm](docs/llm/layout-newsletterform.md): Email subscription form with an explicit host endpoint and local pending, success, and error feedback.
-- [Search](docs/llm/layout-search.md): Controlled article filter with a clear action that returns focus to the search field.
 
 ## Blocks & patterns
 

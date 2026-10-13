@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Skeleton from '../../../../../components/core/Skeleton';
+import Button from '@gaudi/design-system/core/Button';
+import Skeleton from '@gaudi/design-system/core/Skeleton';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useInView } from '../../../../../hooks/layout/use-in-view.js';
+import { useInView } from '@gaudi/design-system/hooks/layout/use-in-view';
 
 function LazyComments() {
   const [ ref, inView ] = useInView({ rootMargin: '0px', once: true });

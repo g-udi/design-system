@@ -1,6 +1,6 @@
-import Skeleton from '../../../../../components/core/Skeleton';
+import Skeleton from '@gaudi/design-system/core/Skeleton';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useIsClient } from '../../../../../hooks/environment/use-is-client.js';
+import { useIsClient } from '@gaudi/design-system/hooks/environment/use-is-client';
 
 function LocalTime() {
   const isClient = useIsClient();

@@ -1,20 +1,18 @@
-import { expect, within } from 'storybook/test';
+import { expect } from 'storybook/test';
 
-import { CheckList, CodeBlock, InlineCode, Page, QuickLink, Section, Table, Td, Th } from '../components/StoryDocs';
+import { CheckList, CodeBlock, InlineCode, Page, Section, Table, Td, Th } from '../components/StoryDocs';
 
 const layoutApis = [
   [ 'ArticleContentLayout', 'Article body with an optional, controlled or uncontrolled aside.', 'aside, children, collapsibleAside, asideOpen, defaultAsideOpen, padding', 'Keep the aside toggle named and expose aria-expanded.' ],
   [ 'Borealis', 'Theme-aware decorative page background.', 'children, className, fadeEdges', 'Decoration is aria-hidden and motion reduces with the user preference.' ],
   [ 'Footer', 'Responsive footer navigation, newsletter, social links, and copyright.', 'sections, socialLinks, newsletterProps, variant, brandTitle, brandDescription, copyrightName', 'Retain the footer landmark, named navigation, and visible subscription feedback.' ],
-  [ 'LayoutWrapper', 'Client-safe menu, main, and footer page shell.', 'children, footerProps', 'Use one main landmark and avoid nesting it inside another application shell.' ],
   [ 'NewsletterForm', 'Subscription form with an explicit host endpoint, validation, pending, success, and failure feedback.', 'endpoint, title, className, classNames', 'Preserve the entered address on failure and announce the result beside the field.' ],
-  [ 'Search', 'Compact controlled filter for article collections.', 'label, resultsId, setSearchValue, value', 'Keep the programmatic label and update results without moving keyboard focus.' ],
   [ 'LayoutContainer', 'Async server root shell with theme, navigation, JSON-LD, analytics, and skip link.', 'children, footerProps, jsonLd, menuProps, metadata, navigation', 'Import directly from its server entry and preserve the skip link and main landmark.' ]
 ];
 
 const compositionRules = [
-  'Choose LayoutContainer for the Next.js server root; choose LayoutWrapper only when the consuming app already owns server theme and navigation context.',
-  'Keep exactly one main landmark. LayoutContainer and LayoutWrapper already provide it.',
+  'Choose LayoutContainer for the Next.js server root; it owns the theme, navigation, main landmark, and footer.',
+  'Keep exactly one main landmark. LayoutContainer already provides it.',
   'Use ArticleContentLayout for prose and a table-of-contents rail; do not rebuild responsive aside behavior per article.',
   'Pass navigation, footer, and newsletter data through documented props instead of importing application fixtures into package components.',
   'Treat Borealis as decoration. Content must remain readable and complete when gradients or motion are unavailable.'
@@ -23,17 +21,10 @@ const compositionRules = [
 const stateRows = [
   [ 'ArticleContentLayout', 'Aside open / closed', 'Controlled and uncontrolled modes keep the toggle label and aria-expanded synchronized.' ],
   [ 'NewsletterForm', 'Idle / submitting / success / error', 'Disable duplicate submission, preserve correction context, and return a specific retryable message.' ],
-  [ 'Search', 'Empty / active query / no matches', 'The collection owns result and empty-state messaging; Search keeps focus in the field.' ],
   [ 'Footer', 'Sparse configuration', 'Empty sections are omitted without leaving blank navigation columns.' ],
   [ 'LayoutContainer', 'Missing theme or invalid JSON-LD', 'Use the host-supplied metadata.theme or system theme, and omit unsafe or unserializable structured data.' ]
 ];
 
-const examples = [
-  [ 'Complete home page', 'Menu, hero, content sections, and footer in the primary shell.', 'layout-examples--main-page' ],
-  [ 'Blog index', 'Editorial listing composition with reusable navigation and footer.', 'layout-examples--blog-main-page' ],
-  [ 'Filtered category', 'Search, posts, empty-state ownership, and pagination together.', 'layout-examples--category-page-with-posts-and-pagination' ],
-  [ 'About page', 'Long-form personal content inside the shared site layout.', 'layout-examples--about-me-page' ]
-];
 
 export default {
   id: 'layout-overview',
@@ -47,17 +38,12 @@ export default {
 export const Default = {
   name: 'Overview',
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
     await expect(canvasElement).toHaveTextContent('@gaudi/design-system/layout/LayoutContainer');
-
-    for (const [ title, , storyId ] of examples)
-      await expect(canvas.getByRole('link', { name: new RegExp(`^${title}`) })).toHaveAttribute('href', `./?path=/story/${storyId}`);
   },
   render: () => (
     <Page
       title='Layout'
-      intro='Layout composes page-level structure, responsive content rails, navigation boundaries, decorative surfaces, collection filtering, subscription feedback, and the application shell. Start here before assembling a full page.'
+      intro='Layout composes page-level structure, responsive content rails, navigation boundaries, decorative surfaces, subscription feedback, and the application shell. Start here before assembling a full page.'
     >
       <Section title='Public API' description='Use these components at page and application boundaries. Smaller reusable jobs belong in Core; editorial assemblies belong in Blocks or Post.'>
         <Table label='Layout public API'>
@@ -90,9 +76,7 @@ export const Default = {
   ArticleContentLayout,
   Borealis,
   Footer,
-  LayoutWrapper,
-  NewsletterForm,
-  Search
+  NewsletterForm
 } from '@gaudi/design-system';
 
 import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';` } />
@@ -101,13 +85,6 @@ import LayoutContainer from '@gaudi/design-system/layout/LayoutContainer';` } />
         </p>
       </Section>
 
-      <Section title='Page Examples' description='Use these compositions to inspect realistic spacing and responsive behavior; return here for API and boundary decisions.'>
-        <div className='grid gap-3 md:grid-cols-2 xl:grid-cols-3'>
-          {examples.map(([ title, description, storyId ]) => (
-            <QuickLink key={ storyId } title={ title } description={ description } storyId={ storyId } />
-          ))}
-        </div>
-      </Section>
     </Page>
   )
 };

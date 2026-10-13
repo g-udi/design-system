@@ -1,86 +1,26 @@
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 
-import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { expect, spyOn, userEvent, waitFor, within } from 'storybook/test';
 import { publicSource } from '../../../../docs/components/PatternStoryHelpers';
 import { playgroundSource } from '../../../../docs/components/previewSource';
-import { BlogArticleDemo } from './fixtures/BlogArticleDemo.jsx';
+import { BlogArticleDemo, FocusedEssayDemo, TechnicalTutorialDemo, PhotoEssayDemo, SeriesArticleDemo, seriesArticles } from './fixtures/BlogArticleDemo.jsx';
 import blogArticleSource from './fixtures/BlogArticleDemo.jsx?raw';
 import blogArticleStyles from './fixtures/BlogArticleDemo.css?raw';
 
 import ArticleContentLayout from '..';
 
-import Link from '../../../core/Link';
-
-const story = description => ({
-  docs: {
-    description: {
-      story: description
-    }
-  }
-});
-
-const aside = <nav className='space-y-2 px-1 py-4' aria-label='Article contents'>
-    <p className='text-sm font-semibold text-text'>On this page</p>
-    <Link href='#layout-boundaries' tone='accent' className='block text-sm'>Layout boundaries</Link>
-    <Link href='#reading-column' tone='accent' className='block text-sm'>The reading column</Link>
-  </nav>;
-
-export const ArticleContent = {
-  name: 'ArticleContentLayout',
-  args: {
-    collapsibleAside: true,
-    padding: 'md'
-  },
-  argTypes: {
-    collapsibleAside: {
-      control: 'boolean',
-      description: 'Add a show/hide toggle above the aside.'
-    },
-    padding: {
-      control: 'inline-radio',
-      options: ['md', 'lg'],
-      description: 'Vertical prose padding.'
-    }
-  },
-  parameters: { ...story('The reading column beside a contents aside. `collapsibleAside` adds the show/hide toggle; `padding` sets the prose spacing.'), __id: 'layout-components--article-content' },
-  render: args => <div className='mx-auto max-w-6xl px-6'>
-      <ArticleContentLayout aside={aside} {...args}>
-        <h1 id='layout-boundaries'>Layout boundaries</h1>
-        <p>ArticleContentLayout keeps long-form content and its supporting navigation readable across breakpoints.</p>
-        <h2 id='reading-column'>The reading column</h2>
-        <p>Prose keeps its measure while the aside takes three of nine columns on wide screens and moves above the article on small ones.</p>
-      </ArticleContentLayout>
-    </div>,
-  play: async ({
-    args,
-    canvasElement
-  }) => {
-    const canvas = within(canvasElement);
-    if (!args.collapsibleAside) return;
-    await userEvent.click(canvas.getByRole('button', {
-      name: 'Hide Table of contents'
-    }));
-    await expect(canvas.queryByRole('navigation', {
-      name: 'Article contents'
-    })).not.toBeInTheDocument();
-    await userEvent.click(canvas.getByRole('button', {
-      name: 'Show Table of contents'
-    }));
-    await expect(canvas.getByRole('navigation', {
-      name: 'Article contents'
-    })).toBeVisible();
-  }
-};
+const articleSource = publicSource(blogArticleSource.replace("import styles from './BlogArticleDemo.css?raw';", `const styles = \`\n${blogArticleStyles}\`;`), new URL('./fixtures/BlogArticleDemo.jsx', import.meta.url));
 
 export const BlogArticle = {
   name: 'Blog article',
-  args: { smooth: true },
+  args: { smooth: true, contents: 'visible' },
   argTypes: {
+    contents: { control: 'select', options: ['visible', 'none', 'collapsible', 'collapsed'], description: 'Keep the table of contents visible, omit it, or allow readers to expand and collapse it.' },
     smooth: { control: 'boolean', description: 'Smooth mouse-wheel scrolling in the article viewport. Keyboard, touch, and reduced-motion reading remain native.' }
   },
-  parameters: { docs: {
-    description: { story: 'A complete blog reading composition: persistent journal navigation, SmoothScrollArea as the article host, ReadingIndicator, a responsive contents rail powered by Scrollspy, an expandable single image, a gallery, and a captioned video. All section links and progress share the same viewport ref. Use the Blur edges switch below the article title to compare clear reading with soft viewport edges inspired by [Skiper UI Progressive Blur](https://skiper-ui.com/v1/skiper41). The effect clears at the start/end, during keyboard navigation, and for reduced motion. Pass `defaultProgressiveBlur={false}` to start with clear edges. During migration, replace the sample article and local media with blog content while retaining this scroll boundary.' },
-    source: playgroundSource('BlogArticleDemo', { imports: publicSource(blogArticleSource.replace("import styles from './BlogArticleDemo.css?raw';", `const styles = \`\n${blogArticleStyles}\`;`), new URL('./fixtures/BlogArticleDemo.jsx', import.meta.url)) })
+  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+    description: { story: 'A complete blog reading composition: persistent journal navigation, ScrollArea as the article host, PostHeader, ReadingIndicator, a responsive contents rail powered by Scrollspy, an expandable single image, a gallery, and a captioned video. All section links and progress share the same viewport ref. Use the Blur edges switch below the article title to compare clear reading with soft viewport edges inspired by [Skiper UI Progressive Blur](https://skiper-ui.com/v1/skiper41). The effect clears at the start/end, during keyboard navigation, and for reduced motion. Pass `defaultProgressiveBlur={false}` to start with clear edges. Reuse the scroll boundary when adding your own article content.' },
+    source: playgroundSource('BlogArticleDemo', { imports: articleSource })
   } },
   render: args => <BlogArticleDemo {...args} />,
   play: async (context) => {
@@ -90,7 +30,18 @@ export const BlogArticle = {
     const viewport = canvas.getByRole('region', { name: 'Blog post content' });
     const progress = canvas.getByRole('progressbar', { name: 'Article reading progress' });
     const header = canvas.getByRole('navigation', { name: 'Journal navigation' });
-    const contents = canvas.getByRole('navigation', { name: 'Article contents' });
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Giving a page room to breathe' })).toBeVisible();
+    if (context.args.contents === 'collapsed') {
+      await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
+      await userEvent.click(canvas.getByRole('button', { name: 'Show Table of contents' }));
+    } else if (context.args.contents === 'collapsible') {
+      await userEvent.click(canvas.getByRole('button', { name: 'Hide Table of contents' }));
+      await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
+      await userEvent.click(canvas.getByRole('button', { name: 'Show Table of contents' }));
+    }
+    const contents = canvas.queryByRole('navigation', { name: 'Article contents' });
+    if (context.args.contents === 'none') await expect(contents).toBeNull();
+    else await expect(contents).toBeVisible();
     const initialHeaderTop = header.getBoundingClientRect().top;
     const initialPageTop = window.scrollY;
     const blurSwitch = canvas.getByRole('switch', { name: 'Blur edges' });
@@ -118,9 +69,13 @@ export const BlogArticle = {
       await expect(bottomBlur).toBeNull();
     }
 
+    if (contents) {
+      await userEvent.click(within(contents).getByRole('link', { name: 'Looking more closely' }));
+      await waitFor(() => expect(viewport.scrollTop).toBeGreaterThan(300));
+    }
     await userEvent.click(within(header).getByRole('link', { name: 'Images' }));
     await waitFor(() => expect(viewport.scrollTop).toBeGreaterThan(300));
-    await waitFor(() => expect(within(contents).getByRole('link', { name: 'Looking more closely' })).toHaveAttribute('aria-current', 'location'));
+    if (contents) await waitFor(() => expect(within(contents).getByRole('link', { name: 'Looking more closely' })).toHaveAttribute('aria-current', 'location'));
     await waitFor(() => expect(Number(progress.getAttribute('aria-valuenow'))).toBeGreaterThan(0));
     await expect(header.getBoundingClientRect().top).toBeCloseTo(initialHeaderTop, 0);
     await expect(window.scrollY).toBe(initialPageTop);
@@ -170,7 +125,8 @@ export const BlogArticle = {
         await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
         expect(header.getBoundingClientRect().top).toBeCloseTo(initialHeaderTop, 0);
         expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.clientWidth + 1);
-        if (innerWidth >= 1024) expect(canvasElement.querySelector('.gaudi-blog-aside').getBoundingClientRect().top).toBeGreaterThanOrEqual(viewport.getBoundingClientRect().top);
+        const aside = canvasElement.querySelector('.gaudi-blog-aside');
+        if (aside && innerWidth >= 1024) expect(aside.getBoundingClientRect().top).toBeGreaterThanOrEqual(viewport.getBoundingClientRect().top);
       } });
     }
     await userEvent.click(within(header).getByRole('link', { name: 'Gaudi journal' }));
@@ -178,15 +134,134 @@ export const BlogArticle = {
     video.currentTime = 0;
     within(header).getByRole('link', { name: 'Gaudi journal' }).blur();
     viewport.scrollTop = 0;
+    if (context.args.contents === 'collapsed') await userEvent.click(canvas.getByRole('button', { name: 'Hide Table of contents' }));
   }
 };
 
-const docs = getComponentDocs('Layout/ArticleContentLayout');
+export const SeriesArticle = {
+  name: 'Series article',
+  args: { smooth: true, contents: 'visible', currentId: 'reading' },
+  argTypes: {
+    smooth: BlogArticle.argTypes.smooth,
+    contents: BlogArticle.argTypes.contents,
+    currentId: { control: 'select', options: seriesArticles.map(article => article.id), description: 'Select the article to update its content, current series entry, and position indicator together.' }
+  },
+  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+    description: { story: 'The second article in a three-part series. PostHeader composes the existing PostSeriesBox from prepared seriesPosts and the article id. Expand the box to see the full sequence; change currentId to preview any part with its own content and position. Contents remain section navigation for the current article. Journal link destinations are prepared sample routes owned by the publishing app.' },
+    source: playgroundSource('SeriesArticleDemo', { imports: articleSource })
+  } },
+  render: args => <SeriesArticleDemo {...args} />,
+  play: async (context) => {
+    const { args, canvasElement } = context;
+    const canvas = within(canvasElement);
+    const article = seriesArticles.find(entry => entry.id === args.currentId) || seriesArticles[1];
+    const position = seriesArticles.indexOf(article) + 1;
+    await expect(canvas.getByRole('heading', { level: 1, name: article.title })).toBeVisible();
+    const trigger = canvas.getByRole('button', { name: /Publishing with Gaudi/u });
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await expect(canvas.getByRole('progressbar', { name: 'Series progress' })).toHaveAttribute('aria-valuenow', String(position));
+    await expect(canvas.getByRole('progressbar', { name: 'Series progress' })).toHaveAttribute('aria-valuemax', '3');
+    if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
+      const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
+      await auditStoryLayout({ ...context, id: `${context.id}--collapsed` });
+    }
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    for (const entry of seriesArticles) {
+      if (entry.id === article.id) {
+        const current = canvas.getAllByText(entry.title).find(element => element.hasAttribute('aria-current'));
+        await expect(current).toHaveAttribute('aria-current', 'step');
+        await expect(canvas.queryByRole('link', { name: entry.title })).not.toBeInTheDocument();
+      } else await expect(canvas.getByRole('link', { name: entry.title })).toHaveAttribute('href', `/journal/publishing-with-gaudi/${entry.id}`);
+    }
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(trigger);
+    await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+  }
+};
+
+export const FocusedEssay = {
+  name: 'Focused essay',
+  args: { smooth: true },
+  argTypes: { smooth: BlogArticle.argTypes.smooth },
+  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+    description: { story: 'A centered, text-first essay with a quiet header and a pull quote. It starts without contents or edge blur; the shorter sequence relies on its headings and reading progress.' },
+    source: playgroundSource('FocusedEssayDemo', { imports: articleSource })
+  } },
+  render: args => <FocusedEssayDemo {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 1, name: 'The value of a quiet page' })).toBeVisible();
+    await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
+    await expect(canvas.getByText('A page can do less and still give the reader more.')).toBeVisible();
+    await expect(canvasElement.querySelector('.gaudi-blog-blur')).toBeNull();
+    await userEvent.click(canvas.getByRole('link', { name: 'Back to the beginning' }));
+    await waitFor(() => expect(canvas.getByRole('region', { name: 'Blog post content' }).scrollTop).toBeLessThan(80));
+  }
+};
+
+export const TechnicalTutorial = {
+  name: 'Technical tutorial',
+  args: { smooth: true },
+  argTypes: { smooth: BlogArticle.argTypes.smooth },
+  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+    description: { story: 'A practical tutorial with nested section navigation, code examples, copy actions, and informational and warning callouts. The collapsible contents rail follows the reader on wide screens and moves above the content on phones.' },
+    source: playgroundSource('TechnicalTutorialDemo', { imports: articleSource })
+  } },
+  render: args => <TechnicalTutorialDemo {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Build an article with Gaudi' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Hide Table of contents' }));
+    await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
+    await userEvent.click(canvas.getByRole('button', { name: 'Show Table of contents' }));
+    const contents = canvas.getByRole('navigation', { name: 'Article contents' });
+    await userEvent.click(within(contents).getByRole('link', { name: 'Connect section navigation' }));
+    await waitFor(() => expect(within(contents).getByRole('link', { name: 'Connect section navigation' })).toHaveAttribute('aria-current', 'location'));
+    const code = canvas.getByText('Article.jsx').closest('[data-slot="code-block"]');
+    const copy = spyOn(navigator.clipboard, 'writeText').mockResolvedValue(undefined);
+    try {
+      await userEvent.click(within(code).getByRole('button', { name: 'Copy code' }));
+      await waitFor(() => expect(copy).toHaveBeenCalledWith(expect.stringContaining('export function Article')));
+    } finally { copy.mockRestore(); }
+    await userEvent.click(canvas.getByRole('link', { name: 'Gaudi journal' }));
+    await waitFor(() => expect(canvas.getByRole('region', { name: 'Blog post content' }).scrollTop).toBeLessThan(80));
+  }
+};
+
+export const PhotoEssay = {
+  name: 'Photo essay',
+  args: { smooth: true },
+  argTypes: { smooth: BlogArticle.argTypes.smooth },
+  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+    description: { story: 'A wider visual essay with a prominent lead image, a two-image gallery, short passages, and captions. Local gradient artwork stands in for publication photography. The layout omits the contents rail and starts with clear viewport edges.' },
+    source: playgroundSource('PhotoEssayDemo', { imports: articleSource })
+  } },
+  render: args => <PhotoEssayDemo {...args} />,
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
+    await expect(canvas.getByRole('heading', { level: 1, name: 'Three studies in color' })).toBeVisible();
+    await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
+    const opener = within(canvas.getByRole('region', { name: 'Paired color studies' })).getByRole('button', { name: 'Open image: Peach and pink color study' });
+    await userEvent.click(opener);
+    const dialog = await body.findByRole('dialog');
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(dialog).toHaveTextContent('Cool light'));
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await userEvent.click(canvas.getByRole('link', { name: 'Gaudi journal' }));
+    await waitFor(() => expect(canvas.getByRole('region', { name: 'Blog post content' }).scrollTop).toBeLessThan(80));
+  }
+};
+
+const docs = getComponentDocs('Blocks/Blog/Article');
 
 export default {
-  title: 'Layout/ArticleContentLayout',
+  title: 'Blocks/Blog/Article',
   id: 'layout-article-content-layout',
   component: ArticleContentLayout,
   tags: ['autodocs'],
-  parameters: { layout: 'fullscreen', docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => ArticleContent }) } }
+  parameters: { layout: 'fullscreen', docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => BlogArticle }) } }
 };

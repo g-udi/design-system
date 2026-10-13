@@ -2,6 +2,7 @@
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 import { useMemo, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
@@ -659,14 +660,15 @@ function ProfileMenu() {
 function Rail({ section, onSection }) {
   return (
     <div className='flex w-13 shrink-0 flex-col items-center gap-3 py-3'>
-      <a
+      <Link
+        variant='bare'
         href='#home'
         aria-label='Gaudi Capture home'
         onClick={noop}
         className='grid size-7 place-items-center rounded-(--ds-radius-control) border border-ui-border outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
-      </a>
+      </Link>
       <nav aria-label='Sections' className='flex flex-1 flex-col items-center gap-2'>
         {sections.map((item) => (
           <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />

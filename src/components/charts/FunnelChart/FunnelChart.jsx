@@ -1,11 +1,14 @@
 'use client';
 
 import { cn } from '../../../utilities/cn';
+import { clamp } from '../../../utilities/clamp.js';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
+import { ChartListRow } from '../ChartFrame/ChartMarks.jsx';
+import { formatShare } from '../ChartFrame/chartScale.js';
 import { getChartColor } from '../ChartFrame/chartRuntime.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
-const percent = (value) => `${Math.round(value * 1000) / 10}%`;
+const percent = (ratio) => formatShare(ratio, 1);
 
 function FunnelPlot({ align, colors, conversionLabel, labelKey, monochrome, steps, valueKey }) {
   const frame = useChartFrame();
@@ -20,7 +23,7 @@ function FunnelPlot({ align, colors, conversionLabel, labelKey, monochrome, step
         const previous = index ? steps[index - 1][valueKey] : null;
 
         return (
-          <li key={ `${step[labelKey]}-${index}` } className={ cn('grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 rounded-md px-2 py-1.5 transition-colors', active === index && 'bg-surface-muted') } data-chart-index={ index }>
+          <ChartListRow key={ `${step[labelKey]}-${index}` } active={ active === index } index={ index }>
             <div className='flex min-w-0 flex-wrap items-baseline justify-between gap-x-3 gap-y-1 text-sm'>
               <span className='min-w-0 wrap-anywhere text-text'>{step[labelKey]}</span>
               <span className='flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5 tabular-nums'>
@@ -31,10 +34,10 @@ function FunnelPlot({ align, colors, conversionLabel, labelKey, monochrome, step
             <div className={ cn('flex h-6', align === 'center' && 'justify-center') } data-slot='chart-mark'>
               <span
                 className='h-full rounded-sm'
-                style={{ 'background': monochrome ? getChartColor(colors, 0) : getChartColor(colors, index), 'opacity': monochrome ? Math.max(0.35, 1 - index * 0.14) : 1, 'width': `${Math.min(100, Math.max(share * 100, 1.5))}%` }}
+                style={{ 'background': monochrome ? getChartColor(colors, 0) : getChartColor(colors, index), 'opacity': monochrome ? Math.max(0.35, 1 - index * 0.14) : 1, 'width': `${clamp(share * 100, 1.5, 100)}%` }}
               />
             </div>
-          </li>
+          </ChartListRow>
         );
       })}
     </ol>

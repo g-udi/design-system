@@ -2,9 +2,10 @@
 
 import { useMemo } from 'react';
 
+import { clamp } from '../../../utilities/clamp.js';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { useElementSize } from '../../../hooks/layout/use-element-size.js';
-import { chartTones } from '../ChartFrame/ChartMarks.jsx';
+import { ChartLegendList, ChartValueGrid, chartTones } from '../ChartFrame/ChartMarks.jsx';
 import { binValues, extent, isChartNumber, niceTicks, resolveFormatter, scaleLinear } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
@@ -41,19 +42,12 @@ function HistogramPlot({ bins, color, height, markers, unit }) {
   return (
     <div className='flex h-full min-w-0 flex-col gap-2'>
       {markers.length ? (
-        <ul className='flex flex-wrap gap-x-4 gap-y-1 text-xs' data-slot='chart-markers'>
-          {markers.map((marker, index) => <li key={`${marker.label}-${index}`} className='min-w-0 wrap-anywhere font-medium' style={{ color: chartTones[marker.tone] || chartTones.accent }}>{`${marker.label} ${format(marker.value)}${unit || ''}`}</li>)}
-        </ul>
+        <ChartLegendList data-slot='chart-markers' items={ markers.map((marker, index) => ({ 'color': chartTones[marker.tone] || chartTones.accent, 'key': `${marker.label}-${index}`, 'label': `${marker.label} ${format(marker.value)}${unit || ''}` })) } />
       ) : null}
       <div ref={ref} className='min-h-0 w-full flex-1'>
       {width ? (
         <svg aria-hidden='true' className='block' height={ plotHeight } width={ width }>
-          {countTicks.map((tick) => (
-            <g key={ tick }>
-              <line stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' x1={ margin.left } x2={ width - margin.right } y1={ y(tick) } y2={ y(tick) } />
-              <text dominantBaseline='middle' fill='var(--ds-color-text-muted)' fontSize={ 12 } textAnchor='end' x={ margin.left - 8 } y={ y(tick) }>{format(tick)}</text>
-            </g>
-          ))}
+          <ChartValueGrid format={ format } left={ margin.left } right={ width - margin.right } ticks={ countTicks } y={ y } />
           {bins.map((bin, index) => {
             const left = x(bin.start) + 0.5;
             const barWidth = Math.max(1, x(bin.end) - x(bin.start) - 1);
@@ -77,7 +71,7 @@ function HistogramPlot({ bins, color, height, markers, unit }) {
           })}
           {markers.map((marker) => {
             const tone = chartTones[marker.tone] || chartTones.accent;
-            const mx = x(Math.min(high, Math.max(low, marker.value)));
+            const mx = x(clamp(marker.value, low, high));
             return <line key={`${marker.label}-${marker.value}`} stroke={tone} strokeDasharray='4 3' strokeWidth={1.5} x1={mx} x2={mx} y1={margin.top - 4} y2={y(0)} />;
           })}
         </svg>
@@ -99,8 +93,8 @@ function HistogramPlot({ bins, color, height, markers, unit }) {
  */
 export function HistogramChart(props) {
   const [ frameProps, { bins, color = 'var(--ds-color-chart-1)', countLabel = 'Count', data, domain, markers = [], state, unit, values } ] = splitFrameProps(props);
-  const observations = Array.isArray(values) ? values : Array.isArray(data) ? data : [];
-  const binned = useMemo(() => histogramBins(Array.isArray(values) ? values : Array.isArray(data) ? data : [], { bins, domain }), [ values, data, bins, domain ]);
+  const observations = useMemo(() => (Array.isArray(values) ? values : Array.isArray(data) ? data : []), [ values, data ]);
+  const binned = useMemo(() => histogramBins(observations, { bins, domain }), [ observations, bins, domain ]);
   const format = resolveFormatter(frameProps.formatValue, frameProps.locale);
   const status = chartStatus({ 'data': observations, 'keys': [], state, 'status': !observations.length ? 'empty' : observations.some((value) => !isChartNumber(value)) ? 'invalid' : 'ready', 'usesRecharts': false });
   const height = typeof frameProps.height === 'number' ? frameProps.height : 280;

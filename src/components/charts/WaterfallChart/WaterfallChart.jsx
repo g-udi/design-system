@@ -6,6 +6,7 @@ import { ChartFrame, activeOpacity, useChartFrame } from '../ChartFrame/ChartFra
 import { ChartGrid, ChartReferenceLine, ChartXAxis, ChartYAxis, createRowsTooltip, useRechartsActive } from '../ChartFrame/ChartMarks.jsx';
 import { Bar, Cell, RechartsBarChart, RechartsTooltip, ResponsiveContainer } from '../ChartFrame/chartRuntime.js';
 import { isChartNumber } from '../ChartFrame/chartScale.js';
+import { defaultMargins } from '../ChartFrame/ChartSeries.jsx';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
 const stepColor = (step) => (step.isTotal ? 'var(--ds-color-chart-total)' : step.change < 0 ? 'var(--ds-color-chart-negative)' : 'var(--ds-color-chart-positive)');
@@ -50,7 +51,7 @@ function WaterfallPlot({ changeLabel, showGrid, steps, totalLabel }) {
 
   return (
     <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
-      <RechartsBarChart accessibilityLayer={ false } barCategoryGap='18%' data={ steps } margin={{ 'bottom': 8, 'left': 8, 'right': 16, 'top': 16 }} { ...handlers }>
+      <RechartsBarChart accessibilityLayer={ false } barCategoryGap='18%' data={ steps } margin={ defaultMargins } { ...handlers }>
         {showGrid ? <ChartGrid /> : null}
         <ChartXAxis dataKey='label' />
         <ChartYAxis tickFormatter={ format } />

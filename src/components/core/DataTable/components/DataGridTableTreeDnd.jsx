@@ -1,4 +1,5 @@
 'use client';
+import { useIsClient } from '../../../../hooks/environment/use-is-client.js';
 /* Tree drag and drop for the DataGrid: rows drop before or after another row,
  or into a row that can hold children, with the Tree's drop line marking the
  place. Dropping a row into itself or its own descendants is refused. The
@@ -242,9 +243,8 @@ export function DataGridTableTreeDnd({
   const [keyboard, setKeyboard] = useState(null);
   const [announcement, setAnnouncement] = useState('');
   const [treeOffset, setTreeOffset] = useState(0);
-  const [portalTarget, setPortalTarget] = useState(null);
+  const isClient = useIsClient();
   const refocusId = useRef(null);
-  useEffect(() => setPortalTarget(document.body), []);
   const report = onRowMove ?? props.onRowMove;
   const sorted = (table.state.sorting?.length ?? 0) > 0;
   const rows = table.getRowModel().rows;
@@ -469,7 +469,7 @@ export function DataGridTableTreeDnd({
           {footerContent ? <DataGridTableFoot>{footerContent}</DataGridTableFoot> : null}
         </DataGridTableBase>
       </DataGridTableViewport>
-      {portalTarget
+      {isClient
         ? createPortal(
             <DragOverlay dropAnimation={null}>
               {activeRow ? (
@@ -488,7 +488,7 @@ export function DataGridTableTreeDnd({
                 )
               ) : null}
             </DragOverlay>,
-            portalTarget
+            document.body
           )
         : null}
     </DndContext>

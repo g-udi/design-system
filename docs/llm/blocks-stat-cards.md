@@ -67,7 +67,7 @@ Curated patterns:
 - KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 - Leads with a range — registry item `@gaudi/stat-card-lead-range` (uses `ProgressRoot`, `StatCard`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Quota and progress — registry item `@gaudi/stat-card-quota` (uses `Badge`, `ProgressRoot`, `RegistryIcon`, `StatCard`)
-- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`)
+- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `StatCard`)
 - Support metrics — registry item `@gaudi/stat-card-support` (uses `Badge`, `StatCard`)
 - Team performance — registry item `@gaudi/stat-card-team-performance` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `StatCard`, `StatDelta`)
 

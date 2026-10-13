@@ -2,6 +2,7 @@ import { commands, page } from 'vitest/browser';
 import { auditWidths } from '../tests/support/responsiveWidths.js';
 import tokenData from '../src/tokens/tokens.json';
 import { collectVisualLayout } from './visualAudit.js';
+import { settleFiniteAnimations } from './settleFiniteAnimations.js';
 
 export { auditWidths };
 
@@ -51,13 +52,6 @@ export async function auditStoryLayout(context) {
   }
 }
 
-async function settleFiniteAnimations() {
-  await Promise.race([
-    Promise.all(document.getAnimations().filter(animation => animation.effect?.getComputedTiming().iterations !== Infinity).map(animation => animation.finished.catch(() => {}))),
-    new Promise(resolve => setTimeout(resolve, 2000))
-  ]);
-}
-
 async function auditCurrentDensities(context) {
   if (import.meta.env.VITE_GAUDI_AUDIT_DENSITIES !== 'all') return auditCurrentThemes(context);
   const style = document.documentElement.style;
@@ -105,7 +99,7 @@ async function auditTheme({ canvasElement, id, beforeAuditWidth, parameters, aud
   const visualFindings = [];
   // Full breakpoint coverage at the default density; every other supported
   // density is measured across phone, tablet, laptop and wide desktop widths.
-  const widths = auditDensity && auditDensity !== 1 ? [320, 390, 768, 1440, 1920] : auditWidths;
+  const widths = auditDensity && auditDensity !== 1 ? [320, 390, 768, 1440, 1920] : [...new Set([...auditWidths, ...(parameters?.layoutAudit?.widths || [])])].sort((a, b) => a - b);
   try {
     for (const width of widths) {
       await page.viewport(width, 900);

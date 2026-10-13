@@ -4,6 +4,7 @@ import { useControllableState } from '../../../hooks/state/use-controllable-stat
 import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 import { getFocusableElements } from '../../../hooks/shared/dom.js';
+import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
 import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
 import {
@@ -20,6 +21,8 @@ import { default as Textarea } from '../../core/Textarea/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } from '../../core/Input/InputGroup.jsx';
 import { Popover, PopoverAnchor, PopoverContent } from '../../core/Popover/PopoverPrimitives.jsx';
+import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
+import { getAvatarInitials } from '../../core/Avatar/avatarModel.js';
 
 /*
  * The trigger is the token right before the caret: `@` anywhere after a space starts a mention, and `/`
@@ -231,7 +234,10 @@ function ChatPromptComposer({
                     onClick={() => choose(item)}
                   >
                     {item.avatar ? (
-                      <img src={item.avatar} alt='' className='size-5 shrink-0 rounded-full' />
+                      <Avatar size='sm' className='size-5'>
+                        <AvatarImage src={item.avatar} />
+                        <AvatarFallback>{getAvatarInitials(item.name)}</AvatarFallback>
+                      </Avatar>
                     ) : (
                       <RegistryIcon lucide={item.icon || (trigger.symbol === '@' ? 'AtSign' : 'Command')} className='text-text-muted size-4 shrink-0' />
                     )}
@@ -363,7 +369,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
   const labels = { ...QUEUE_LABELS, ...labelOverrides };
   const [editing, setEditing] = useState(null);
   const [draft, setDraft] = useState('');
-  const [announcement, setAnnouncement] = useState('');
+  const { announce } = useLiveAnnouncer();
   const editButtons = useRef(new Map());
   const queue = useRef(null);
   const lastQueueFocus = useRef(null);
@@ -380,11 +386,12 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
       (getFocusableElements(queue.current)[0] || queue.current)?.focus();
     }
   });
-  if (!items.length) return <span ref={queue} role='status' aria-label={labels.title} tabIndex={-1} className='sr-only'>{announcement}</span>;
+  // Focus lands here when the last queued message goes, so the queue keeps a named target.
+  if (!items.length) return <span ref={queue} role='status' aria-label={labels.title} tabIndex={-1} className='sr-only' />;
   const finish = (id, save) => {
     if (save && draft.trim()) {
       onEdit?.(id, draft.trim());
-      setAnnouncement(labels.saved);
+      announce(labels.saved);
     }
     setEditing(null);
     requestAnimationFrame(() => editButtons.current.get(id)?.focus());
@@ -437,7 +444,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
                     if (!onMove || !event.altKey || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')) return;
                     event.preventDefault();
                     onMove(item.id, event.key === 'ArrowUp' ? -1 : 1);
-                    setAnnouncement(labels.moved);
+                    announce(labels.moved);
                   }}
                 >
                   {item.text}
@@ -470,7 +477,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
                       aria-label={`${labels.remove}: ${item.text}`}
                       onClick={() => {
                         onRemove(item.id);
-                        setAnnouncement(labels.removed);
+                        announce(labels.removed);
                       }}
                     >
                       <RegistryIcon lucide='Trash2' />
@@ -482,7 +489,6 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
           </li>
         ))}
       </ol>
-      <span role='status' className='sr-only'>{announcement}</span>
     </section>
   );
 }

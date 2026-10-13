@@ -1,36 +1,36 @@
 import { useState } from 'react';
-import Input from '../../../components/core/Input';
-import Textarea from '../../../components/core/Textarea';
+import Input from '@gaudi/design-system/core/Input';
+import Textarea from '@gaudi/design-system/core/Textarea';
 import Field, {
   FieldLabel,
   FieldError
-} from '../../../components/core/Field';
-import RadioGroup from '../../../components/core/RadioGroup';
-import ToggleGroup from '../../../components/core/ToggleGroup';
+} from '@gaudi/design-system/core/Field';
+import RadioGroup from '@gaudi/design-system/core/RadioGroup';
+import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import Tabs, {
   TabsList,
   TabsTrigger,
   TabsContent
-} from '../../../components/core/Tabs';
-import Dialog from '../../../components/core/Dialog';
+} from '@gaudi/design-system/core/Tabs';
+import Dialog from '@gaudi/design-system/core/Dialog';
 import DropdownMenu, {
   DropdownMenuItem
-} from '../../../components/core/DropdownMenu';
-import Tooltip from '../../../components/core/Tooltip';
-import Button from '../../../components/core/Button';
-import EmptyState from '../../../components/core/EmptyState';
-import FileUpload from '../../../components/core/FileUpload';
-import Select from '../../../components/core/Select';
-import FilterBar from '../../../components/core/FilterBar';
-import Progress from '../../../components/core/Progress';
-import Stepper from '../../../components/core/Stepper';
-import Timeline from '../../../components/core/Timeline';
-import ToastProvider, { toast } from '../../../components/core/Toast';
-import AuthForm from '../../../components/blocks/AuthForm';
-import Wizard from '../../../components/blocks/Wizard';
+} from '@gaudi/design-system/core/DropdownMenu';
+import Tooltip from '@gaudi/design-system/core/Tooltip';
+import Button from '@gaudi/design-system/core/Button';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import FileUpload from '@gaudi/design-system/core/FileUpload';
+import Select from '@gaudi/design-system/core/Select';
+import FilterBar from '@gaudi/design-system/core/FilterBar';
+import Progress from '@gaudi/design-system/core/Progress';
+import Stepper from '@gaudi/design-system/core/Stepper';
+import Timeline from '@gaudi/design-system/core/Timeline';
+import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
+import AuthForm from '@gaudi/design-system/blocks/AuthForm';
+import Wizard from '@gaudi/design-system/blocks/Wizard';
 import { EditorialBoard, articleColumns } from './Workspace';
-import StatCard from '../../../components/blocks/StatCard';
-import DataTable from '../../../components/core/DataTable';
+import StatCard from '@gaudi/design-system/blocks/StatCard';
+import DataTable from '@gaudi/design-system/core/DataTable';
 import { articles, activity, topics } from './data';
 import './examples.css';
 const steps = [

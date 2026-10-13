@@ -11,9 +11,11 @@
  */
 import { createContext, useCallback, useContext, useId, useMemo, useRef, useState } from 'react';
 
+import { useLatestRef } from '../../../hooks/shared/use-latest-ref.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 import Button from '../../core/Button';
 import { CardTitle } from '../../core/Card';
+import EmptyState from '../../core/EmptyState';
 import { Skeleton } from '../../core/Skeleton/SkeletonPrimitives.jsx';
 import { cn } from '../../../utilities/cn';
 import { TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../../mdx/Table/TablePrimitives.jsx';
@@ -30,6 +32,7 @@ export const DEFAULT_CHART_LABELS = {
   'keyboardHint': 'Use the arrow keys to move between points. Press Enter to select one.',
   'loading': 'Loading chart',
   'other': 'Other',
+  'scrollRegion': 'Scrollable chart',
   'showData': 'Show data',
   'total': 'Total',
   'unavailable': 'The chart renderer did not load.'
@@ -120,10 +123,13 @@ export function ChartStatePanel({ labels, status }) {
       </div>
     );
   }
-  const tone = status === 'empty' ? 'border-border bg-surface-muted text-text-muted' : 'border-danger-border bg-danger-subtle text-danger';
+  const panel = 'h-full min-h-32 rounded-(--ds-radius-card) border border-dashed';
+  if (status === 'empty') {
+    return <EmptyState className={ cn(panel, 'border-border bg-surface-muted') } compact data-slot='chart-state' data-state='empty' title={ labels.empty } />;
+  }
 
   return (
-    <div className={ cn('flex h-full min-h-32 items-center justify-center rounded-lg border border-dashed px-4 text-center text-sm font-medium', tone) } data-slot='chart-state' data-state={ status } role={ status === 'empty' ? undefined : 'alert' }>
+    <div className={ cn(panel, 'flex items-center justify-center border-danger-border bg-danger-subtle px-4 text-center text-sm font-medium text-danger') } data-slot='chart-state' data-state={ status } role='alert'>
       {labels[status] || labels.error}
     </div>
   );
@@ -194,16 +200,13 @@ export function ChartFrame({
   const tableVisible = showData === 'visible' || (showData === 'toggle' && tableOpen);
 
   const activeRef = useRef(null);
-  const onActiveChangeRef = useRef(onActiveChange);
-  useIsomorphicLayoutEffect(() => {
-    onActiveChangeRef.current = onActiveChange;
-  }, [ onActiveChange ]);
+  const onActiveChangeRef = useLatestRef(onActiveChange);
   const setActive = useCallback((index) => {
     if (activeRef.current === index) return;
     activeRef.current = index;
     setActiveIndex(index);
     onActiveChangeRef.current?.(index);
-  }, []);
+  }, [ onActiveChangeRef ]);
   useIsomorphicLayoutEffect(() => {
     if (activeIndex != null && (!ready || activeIndex >= points.length)) setActive(null);
   }, [activeIndex, points.length, ready, setActive]);
@@ -265,7 +268,7 @@ export function ChartFrame({
     <ChartFrameContext.Provider value={ context }>
       <figure
         aria-busy={ status === 'loading' || undefined }
-        className={ cn('not-prose min-w-0', framed && 'my-8 rounded-xl border border-border bg-surface p-4 shadow-sm', className) }
+        className={ cn('not-prose min-w-0', framed && 'my-8 rounded-(--ds-radius-card) border border-border bg-surface p-4 shadow-sm', className) }
         data-slot='chart'
         data-state={ ready ? 'ready' : status }
       >
@@ -334,7 +337,7 @@ export function ChartFrame({
           <p
             aria-live='polite'
             className={ cn(
-              'pointer-events-none absolute end-2 top-2 z-10 max-w-[min(20rem,90%)] wrap-anywhere rounded-md border border-border bg-surface px-2.5 py-1.5 text-xs font-medium text-text shadow-md',
+              'pointer-events-none absolute end-2 top-2 z-10 max-w-[min(20rem,90%)] wrap-anywhere rounded-(--ds-radius-control) border border-border bg-surface px-2.5 py-1.5 text-xs font-medium text-text shadow-md',
               !(keyboard && activePoint) && 'sr-only'
             ) }
             data-slot='chart-readout'

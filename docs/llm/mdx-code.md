@@ -58,4 +58,4 @@ Fences are keyboard-scrollable regions with a labelled copy button; groups are G
 
 ## Related
 
-`core-codeblock`, `core-map`, `core-tabs`
+`blocks-blog-article`, `core-codeblock`, `core-map`, `core-tabs`

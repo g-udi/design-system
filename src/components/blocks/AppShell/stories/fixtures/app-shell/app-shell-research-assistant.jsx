@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
@@ -79,7 +80,8 @@ const user = { name: 'Amira Haddad', status: 'Reader · 3 notebooks', photo: '/a
 function Brand() {
   return (
     <div className='flex items-center gap-2 group-data-[collapsible=icon]:flex-col'>
-      <a
+      <Link
+        variant='bare'
         href='#new-chat'
         aria-label='Gaudi Research'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) px-1 py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:px-0'
@@ -87,7 +89,7 @@ function Brand() {
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Research</span></span>
-      </a>
+      </Link>
       {/* On the rail the trigger moves to the page header. */}
       <SidebarTrigger className='group-data-[collapsible=icon]:hidden' />
     </div>

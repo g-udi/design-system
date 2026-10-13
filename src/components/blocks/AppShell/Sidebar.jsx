@@ -5,6 +5,8 @@ import { cn } from '../../../utilities/cn/index.js';
 import { Slot } from 'radix-ui';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { useHotkey } from '../../../hooks/interaction/use-hotkey.js';
+import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
+import { useLocalStorage } from '../../../hooks/data/use-local-storage.js';
 import { useIsMobile } from '../../../hooks/environment/use-mobile.js';
 import { default as Button } from '../../core/Button/index.js';
 import { FieldInput as Input } from '../../core/Field/index.js';
@@ -35,14 +37,6 @@ const DEFAULT_SIDEBAR_LABELS = {
   expanded: 'Sidebar expanded',
   collapsed: 'Sidebar collapsed',
   toggle: 'Toggle Sidebar'
-};
-const readStoredOpen = (key) => {
-  try {
-    const value = window.localStorage.getItem(key);
-    return value === null ? null : value === 'true';
-  } catch {
-    return null;
-  }
 };
 const SidebarContext = React.createContext(null);
 // The side the rail docks to, so collapsed-row tooltips open away from it (toward the inline end).
@@ -93,37 +87,28 @@ function SidebarProvider({
   const framed = Boolean(frame);
   const [openMobile, setOpenMobile] = React.useState(false);
   React.useEffect(() => { if (!isMobile) setOpenMobile(false); }, [isMobile]);
-  const [open, setOpenState] = useControllableState({ value: openProp, defaultValue: defaultOpen, onChange: setOpenProp });
-  const [announcement, setAnnouncement] = React.useState('');
+  // Stored as JSON `true`/`false`, the same text earlier versions wrote. Without `storageKey` the value is unused.
+  const [storedOpen, setStoredOpen] = useLocalStorage(storageKey || '', defaultOpen);
+  const [open, setOpenState] = useControllableState({ value: openProp ?? (storageKey ? storedOpen : undefined), defaultValue: defaultOpen, onChange: setOpenProp });
+  const { announce } = useLiveAnnouncer();
   // The phone sheet has no Radix trigger, so remember what opened it and give focus back on close.
   const returnFocusRef = React.useRef(null);
-  React.useEffect(() => {
-    if (!storageKey || openProp !== undefined) return;
-    const stored = readStoredOpen(storageKey);
-    if (stored !== null) setOpenState(stored);
-  }, [storageKey, openProp, setOpenState]);
   const setOpen = React.useCallback(
     (value) => {
       const openState = typeof value === 'function' ? value(open) : value;
       setOpenState(openState);
-      if (storageKey) {
-        try {
-          window.localStorage.setItem(storageKey, String(openState));
-        } catch {
-          // Storage can be unavailable (private mode); the state still applies for this visit.
-        }
-      }
+      if (storageKey) setStoredOpen(openState);
     },
-    [setOpenState, open, storageKey]
+    [setOpenState, open, storageKey, setStoredOpen]
   );
   const toggleSidebar = React.useCallback(() => {
     if (isMobile) {
       if (!openMobile) returnFocusRef.current = document.activeElement;
       return setOpenMobile((open2) => !open2);
     }
-    setAnnouncement(open ? labels.collapsed : labels.expanded);
+    announce(open ? labels.collapsed : labels.expanded);
     return setOpen((open2) => !open2);
-  }, [isMobile, open, openMobile, setOpen, setOpenMobile, labels.collapsed, labels.expanded]);
+  }, [isMobile, open, openMobile, setOpen, setOpenMobile, announce, labels.collapsed, labels.expanded]);
   useHotkey(`mod+${shortcut || SIDEBAR_KEYBOARD_SHORTCUT}`, toggleSidebar, { enabled: Boolean(shortcut) });
   const state = open ? 'expanded' : 'collapsed';
   const contextValue = React.useMemo(
@@ -169,7 +154,6 @@ function SidebarProvider({
         {...props}
       >
         {children}
-        <span role='status' aria-live='polite' className='sr-only'>{announcement}</span>
       </div>
       </TooltipProvider>
     </SidebarContext.Provider>

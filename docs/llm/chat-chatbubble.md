@@ -51,7 +51,7 @@ Curated patterns:
 
 - Suggested replies under a question — registry item `@gaudi/chat-bubble-quick-replies` (uses `Button`, `CardContent`, `CardRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatBubbleGroup`, `RegistryIcon`)
 - Bubble styles across a deploy thread — registry item `@gaudi/chat-bubble-release-thread` (uses `ChatBubble`, `ChatBubbleContent`)
-- Formatted answer with show more — registry item `@gaudi/chat-bubble-show-more` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`)
+- Formatted answer with show more — registry item `@gaudi/chat-bubble-show-more` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `Link`, `RegistryIcon`)
 - Support thread — registry item `@gaudi/chat-bubble-support-thread` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatBubbleGroup`, `ChatBubbleReactions`)
 
 ## README

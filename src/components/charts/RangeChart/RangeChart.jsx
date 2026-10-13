@@ -5,6 +5,7 @@ import { useMemo } from 'react';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { ChartActiveMarker, ChartAnnotations, ChartGrid, ChartReferenceLine, ChartXAxis, ChartYAxis, createRowsTooltip, useRechartsActive } from '../ChartFrame/ChartMarks.jsx';
 import { Area, Line, RechartsComposedChart, RechartsTooltip, ResponsiveContainer, chartColors } from '../ChartFrame/chartRuntime.js';
+import { defaultMargins } from '../ChartFrame/ChartSeries.jsx';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 
 function RangePlot({ annotations, bandLabel, color, data, highKey, lowKey, references, showGrid, valueKey, valueLabel, xKey }) {
@@ -22,7 +23,7 @@ function RangePlot({ annotations, bandLabel, color, data, highKey, lowKey, refer
 
   return (
     <ResponsiveContainer height='100%' minWidth={ 0 } width='100%'>
-      <RechartsComposedChart accessibilityLayer={ false } data={ data } margin={{ 'bottom': 8, 'left': 8, 'right': 16, 'top': 16 }} { ...handlers }>
+      <RechartsComposedChart accessibilityLayer={ false } data={ data } margin={ defaultMargins } { ...handlers }>
         {showGrid ? <ChartGrid /> : null}
         <ChartXAxis dataKey={ xKey } />
         <ChartYAxis tickFormatter={ format } />

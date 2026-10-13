@@ -6,6 +6,7 @@ import { Screen } from '@gaudi/design-system/blocks/Screens';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { Label } from '@gaudi/design-system/core/Field';
+import Link from '@gaudi/design-system/core/Link';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { cn } from '@gaudi/design-system/utilities/cn';
@@ -38,7 +39,7 @@ export function Pattern() {
           <>
             <span>© 2026 Gaudi</span>
             <nav aria-label='Legal' className='flex gap-4'>
-              {links.map((link) => <a key={link} href={`#${link.toLowerCase()}`} className='hover:text-text underline-offset-4 hover:underline'>{link}</a>)}
+              {links.map((link) => <Link key={link} href={`#${link.toLowerCase()}`} variant='muted'>{link}</Link>)}
             </nav>
           </>
         }
@@ -58,7 +59,7 @@ export function Pattern() {
               emailLabel={mode === 'password' ? 'Email or username' : 'Email'}
               submitLabel={mode === 'password' ? 'Sign in' : 'Email me a link'}
               passwordHint={false}
-              passwordAction={<a href='#reset' className='text-text-muted text-xs underline-offset-4 hover:underline'>Forgot?</a>}
+              passwordAction={<Link href='#reset' variant='muted' className='text-xs'>Forgot?</Link>}
               providers={providers}
               providerLayout='stack'
               onProvider={wait}
@@ -66,7 +67,7 @@ export function Pattern() {
               successMessage={mode === 'password' ? 'Signed in.' : 'Check your inbox for the link.'}
               footer={
                 <p className='text-text-muted text-center text-xs text-balance'>
-                  By continuing you agree to the <a href='#terms' className='underline underline-offset-4'>Terms</a> and <a href='#privacy' className='underline underline-offset-4'>Privacy Policy</a>.
+                  By continuing you agree to the <Link href='#terms' variant='bare' className='underline underline-offset-4'>Terms</Link> and <Link href='#privacy' variant='bare' className='underline underline-offset-4'>Privacy Policy</Link>.
                 </p>
               }
             >

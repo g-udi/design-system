@@ -4,6 +4,7 @@ import { useRef, useState } from 'react';
 import { hotkeysCoreFeature, selectionFeature, syncDataLoaderFeature } from '@headless-tree/core';
 import { useTree } from '@headless-tree/react';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
@@ -362,14 +363,15 @@ const stop = (event) => {
 
 function Logo({ compact = false }) {
   return (
-    <a
+    <Link
+      variant='bare'
       href='#home'
       onClick={noop}
       aria-label={compact ? 'Gaudi Sources home' : undefined}
       className='flex shrink-0 items-center gap-2 rounded-(--ds-radius-control)'
     >
       {compact ? <GaudiLogo aria-hidden='true' className='size-5' /> : <GaudiBrand className='text-sm' />}
-    </a>
+    </Link>
   );
 }
 
@@ -452,15 +454,16 @@ function RowAction({ item }) {
     );
   }
   return (
-    <a
+    <Link
+      variant='muted'
       href={`#${item.getId()}-${data.action.label.toLowerCase()}`}
       tabIndex={-1}
       aria-label={`${data.action.label} ${data.name}`}
       onClick={stop}
-      className='text-text-muted hover:text-text shrink-0 text-xs'
+      className='shrink-0 text-xs'
     >
       {data.action.label}
-    </a>
+    </Link>
   );
 }
 

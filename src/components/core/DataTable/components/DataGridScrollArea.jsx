@@ -5,6 +5,7 @@ import { useElementSize } from '../../../../hooks/layout/use-element-size.js';
 import { useMergedRefs } from '../../../../hooks/state/use-merged-refs.js';
 import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area';
 import { cn } from '../../../../utilities/cn/index.js';
+import { observeResize } from '../../../../utilities/observeResize.js';
 const MIN_THUMB_SIZE = 24;
 const FALLBACK_SCROLLBAR_SIZE = 12;
 const INITIAL_METRICS = {
@@ -177,7 +178,7 @@ function DataGridScrollArea({
     const observer =
       typeof ResizeObserver === 'undefined'
         ? null
-        : new ResizeObserver(scheduleSync);
+        : observeResize(syncCustomVerticalScrollbar);
     const observed = /* @__PURE__ */ new Set();
     const observeElement = (element) => {
       if (element && observer && !observed.has(element)) {

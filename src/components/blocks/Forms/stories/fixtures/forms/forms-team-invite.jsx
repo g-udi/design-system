@@ -7,13 +7,12 @@ import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
-import { default as Input } from '@gaudi/design-system/core/Input';
+import { default as Input, InputGroup, InputGroupInput } from '@gaudi/design-system/core/Input';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { Tree, TreeItem, TreeItemLabel } from '@gaudi/design-system/core/Tree';
 import { FormErrorSummary, useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-import { cn } from '@gaudi/design-system/utilities/cn';
 
 const permissions = {
   root: { name: 'Permissions', children: ['content', 'people', 'billing', 'developer'] },
@@ -60,7 +59,7 @@ function EmailChips({ form }) {
   return (
     <Field data-invalid={error ? true : undefined}>
       <FieldLabel htmlFor={form.id('emails')}>Email addresses</FieldLabel>
-      <div className={cn('bg-surface flex min-h-9 flex-wrap items-center gap-1.5 rounded-md border px-2 py-1.5 focus-within:ring-2 focus-within:ring-accent/30', error && 'border-danger')}>
+      <InputGroup className='bg-surface h-auto min-h-9 flex-wrap gap-1.5 px-2 py-1.5'>
         {emails.map((email) => (
           <Badge key={email} variant={isEmail(email) ? 'secondary' : 'destructive-light'} className='gap-1 pe-0.5'>
             {email}
@@ -69,7 +68,7 @@ function EmailChips({ form }) {
             </Button>
           </Badge>
         ))}
-        <input
+        <InputGroupInput
           id={form.id('emails')}
           value={draft}
           placeholder={emails.length ? '' : 'name@company.com, another@company.com'}
@@ -88,9 +87,9 @@ function EmailChips({ form }) {
             }
             if (event.key === 'Backspace' && !draft && emails.length) form.setValue('emails', emails.slice(0, -1));
           }}
-          className='min-w-40 flex-1 bg-transparent text-sm outline-none'
+          className='h-6 min-w-40 px-1'
         />
-      </div>
+      </InputGroup>
       <FieldDescription id={form.id('emails-hint')}>Press Enter or comma after each address, or paste a list. {SEATS_LEFT} seats left on your plan.</FieldDescription>
       <FieldError id={form.errorId('emails')}>{error}</FieldError>
     </Field>

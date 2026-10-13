@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import { useElementSize } from '../../../hooks/layout/use-element-size.js';
 import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
+import { canvasFont, observeFonts } from '../../../themes/observeFonts.js';
 
 // Measure the browser's actual SVG glyphs, including the chosen host font.
 export function useGlyphInspectorLayout(line, measure, text, style) {
@@ -35,7 +36,7 @@ export function useGlyphInspectorLayout(line, measure, text, style) {
         let ink = rect;
         if (context && glyph.textContent.trim() && glyph.getNumberOfChars()) {
           const font = getComputedStyle(glyph);
-          context.font = `${font.fontStyle} ${font.fontWeight} ${font.fontSize} ${font.fontFamily}`;
+          context.font = canvasFont(font);
           const metrics = context.measureText(glyph.textContent);
           // SVG's text-before-edge baseline is not reflected in getStartPositionOfChar.
           // Start at its font box and remove the font's unused ascent/descent instead.
@@ -50,9 +51,8 @@ export function useGlyphInspectorLayout(line, measure, text, style) {
       setBoxes(previous => JSON.stringify(previous) === JSON.stringify(next) ? previous : next);
     };
     update();
-    document.fonts?.ready.then(update);
-    document.fonts?.addEventListener('loadingdone', update);
-    return () => { disposed = true; document.fonts?.removeEventListener('loadingdone', update); };
+    const stopObservingFonts = observeFonts(update);
+    return () => { disposed = true; stopObservingFonts(); };
   }, [fontSize, line, measure, size.width, size.height, text, style]);
   return { ref, fontSize, boxes };
 }

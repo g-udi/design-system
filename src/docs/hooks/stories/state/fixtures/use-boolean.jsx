@@ -1,6 +1,6 @@
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useBoolean } from '../../../../../hooks/state/use-boolean.js';
+import { useBoolean } from '@gaudi/design-system/hooks/state/use-boolean';
 
 export function TogglePreference() {
   const { value, toggle, setTrue, setFalse } = useBoolean(false);

@@ -1,6 +1,6 @@
 @layer components {
   .ds-part-sheet-overlay {
-    @apply bg-black/40;
+    @apply bg-(--ds-color-launcher-overlay-bg);
   }
 
   .ds-part-sheet-content {

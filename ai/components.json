@@ -1,6 +1,6 @@
 {
   "package": "@gaudi/design-system",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "generatedBy": "pnpm ai:build",
   "categories": [
     {
@@ -13,7 +13,7 @@
       "key": "blocks",
       "label": "Blocks",
       "description": "Composed application blocks: app shells, auth and onboarding screens, dashboards, forms, scheduling, stat cards and wizards.",
-      "count": 13
+      "count": 14
     },
     {
       "key": "chat",
@@ -37,7 +37,7 @@
       "key": "animations",
       "label": "Animations",
       "description": "Text and background effects with scoped rendering, reduced motion and visibility-aware playback.",
-      "count": 27
+      "count": 28
     },
     {
       "key": "mdx",
@@ -55,7 +55,7 @@
       "key": "layout",
       "label": "Layout",
       "description": "Site layout: containers, wrappers, footer, search and newsletter.",
-      "count": 6
+      "count": 4
     }
   ],
   "components": [
@@ -1182,6 +1182,7 @@
               "AvatarFallback",
               "AvatarImage",
               "AvatarRoot",
+              "Icon",
               "RegistryIcon"
             ]
           },
@@ -2409,7 +2410,9 @@
               "CardRoot",
               "CardTitle",
               "RegistryIcon",
-              "ScrollArea"
+              "ScrollArea",
+              "ToggleGroupItem",
+              "ToggleGroupRoot"
             ]
           },
           {
@@ -2880,6 +2883,7 @@
               "CardContent",
               "CardRoot",
               "Label",
+              "Link",
               "RegistryIcon",
               "SwitchRoot",
               "cn"
@@ -3103,12 +3107,14 @@
             "registry": "carousel-autoplay",
             "storyId": "core-carousel--autoplay",
             "imports": [
+              "Button",
               "CardRoot",
               "CarouselContent",
               "CarouselItem",
               "CarouselNext",
               "CarouselPrevious",
-              "CarouselRoot"
+              "CarouselRoot",
+              "usePrefersReducedMotion"
             ]
           },
           {
@@ -5686,6 +5692,7 @@
               "DataGridScrollArea",
               "DataGridTableDndRowHandle",
               "DataGridTableDndRows",
+              "Link",
               "dataGridFeatures"
             ]
           },
@@ -5775,6 +5782,7 @@
               "CardRoot",
               "DataGrid",
               "DataGridColumnHeader",
+              "DataGridExport",
               "DataGridScrollArea",
               "DataGridTableVirtual",
               "RegistryIcon",
@@ -5824,6 +5832,7 @@
               "DataGridScrollArea",
               "DataGridTable",
               "Label",
+              "Link",
               "SwitchRoot",
               "dataGridFeatures"
             ]
@@ -6064,7 +6073,6 @@
               "AvatarImage",
               "AvatarRoot",
               "Badge",
-              "Button",
               "CardRoot",
               "DataGrid",
               "DataGridColumnHeader",
@@ -6072,7 +6080,7 @@
               "DataGridPagination",
               "DataGridScrollArea",
               "DataGridTable",
-              "RegistryIcon",
+              "DataGridTableRowExpand",
               "dataGridFeatures"
             ]
           },
@@ -6094,6 +6102,7 @@
               "DataGridScrollArea",
               "DataGridTable",
               "DataGridTableRowExpand",
+              "Link",
               "dataGridFeatures"
             ]
           }
@@ -6105,7 +6114,6 @@
       "readme": "# DataTable\n\nA table for client collections up to a few thousand rows: search with a live count, single or multi-column sorting,\nrow selection, column visibility, paging or load-more, grouped and expandable rows, row actions, pinned rows and\ncolumns, sticky headers, automatic virtualization, CSV export, a totals footer, and loading, refreshing, empty and error\nstates. The convenience table and DataGrid share TanStack Table v9 and the same feature registry. It composes the DS Button, Input, Checkbox, DropdownMenu, Skeleton, Loader and\nEmptyState.\n\n```jsx\nimport DataTable from '@gaudi/design-system/core/DataTable';\n\n<DataTable\n  caption='Article library'\n  columns={[{ key: 'title', header: 'Article' }, { key: 'words', header: 'Words', align: 'right' }]}\n  rows={articles}\n  searchable\n  sortable\n  selectable\n  pagination\n  pageSize={10}\n  density='compact'\n/>\n```\n\n- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`start` or `end`; `left` and `right` are aliases that mirror in RTL), `footer`,\n  `exportValue(value, row)` and `export: false`, and `sortable`, `searchable` or `hideable` set to `false` to opt out.\n- Text follows the surrounding reading direction by default. Set `align` to `left`, `center`, or `right` for an explicit physical alignment.\n- State is controlled or uncontrolled: `sorting` / `defaultSorting` / `onSortingChange`, `selection` /\n  `defaultSelection` / `onSelectionChange`, `expanded` / `defaultExpanded` / `onExpandedChange` (row IDs) and\n  `rowPinning` / `defaultRowPinning` / `onRowPinningChange` (`{ top, bottom }`). A controlled host can refuse a change by\n  not applying it, or replace it with something else.\n- `multiSort` adds Shift-click sorting by more than one column; headers show their sort order.\n- `pinnableRows` adds Pin to top, Pin to bottom and Unpin to each row menu. Pinned rows stay in view through sorting,\n  search and pages, and stick under the header while the region scrolls; they stop sticking when the bands would\n  crowd out the scrolling rows.\n- `getRowActions` opens one menu from the overflow button, a right-click, Shift+F10 or the Menu key, and returns focus to\n  where it was. `canActivateRow(row)` leaves some rows inert while `onRowClick` activates the rest.\n- `maxHeight` scrolls rows inside the region with a sticky header. `stickyHeader='page'` keeps the header under page\n  chrome (`stickyOffset`) while the page scrolls; in that mode the table fits its container, and a table too wide\n  for it falls back to scrolling sideways in place.\n- `virtualize='auto'` (the default) renders only the rows in view above `virtualThreshold` rows (100) and gives the\n  region a 32rem height unless `maxHeight` is set. Grouped and paged tables are not virtualized.\n- `onLoadMore`, `hasMore` and `loadingMore` add a Load more action; `loadMoreOnScroll` asks for the next batch as the last\n  row comes into view.\n- `exportable` (or `{ filename, scope, label, delimiter, onExport }`) adds Export CSV: visible columns, the current\n  search and sort, and only the selected rows when there is a selection. Formula-like text is neutralised so spreadsheets\n  show it as text.\n- Filtering predicates, remote fetching and persistence stay in the host; pair it with `FilterBar` for facets.\n\n## Shared table appearance\n\nThe primitive Table, DataTable, DataGrid and article Table use the same header typography and semantic colours. Labels preserve supplied casing. Density changes padding and header height, not typography or colour.\n\n`DataTable` uses `headerVariant='muted'` by default; choose `'plain'` for a surface-coloured header. DataGrid uses the same default through `tableLayout.headerBackground=true`; setting it to `false` selects the plain treatment. Its `dense` flag maps to the shared compact density. Both treatments keep an opaque background for sticky headers.\n\n## DataGrid parts\n\nUse the `DataGrid` parts (`DataGrid`, `DataGridContainer`, `DataGridTable`, `DataGridPagination`, …) for resizable,\ndraggable, virtualised, editable or server-driven grids.\n\n- **Grouping and aggregation.** `dataGridFeatures` registers grouping and aggregation. Set `grouping` state (or turn on\n  `tableLayout.columnsGroupable` for a \"Group by this column\" header action) and give columns an `aggregationFn`:\n  `sum`, `count`, `mean`, `min`, `max`, `extent`, `median`, `unique`, `uniqueCount`, `first`, `last`, or a custom\n  `constructAggregationFn({ aggregate })`. Group bands collapse, count their records and render aggregates with the\n  column's `aggregatedCell` (or a formatted value). `column.getAggregationValue()` returns grand totals for a footer.\n- **Narrow containers.** DataTable and DataGrid release fixed column positioning when pinned columns would use at least three quarters of the scroll viewport. The host’s pinning state and column order stay intact; pinning resumes when the container grows.\n- **Editing.** With `tableLayout.cellSelection`, a column edits through `meta.cellEdit`:\n  - `control`: `text`, `textarea`, `number`, `select`, `combobox`, `date`, `checkbox` or `switch`. Enter, F2, typing or a\n    double-click opens the editor over the cell (the Gaudi Select, Combobox, Calendar); checkbox and switch cells flip with\n    Enter, Space or a click and render with `DataGridCellToggle`. `options` (`[{ value, label }]`, strings or\n    `(row) => options`) feed select and combobox; `step`, `min` and `max` the number editor (ArrowUp/Down steps, Shift\n    by ten); dates are stored as `yyyy-MM-dd` and shown with `displayFormat` (`MMM d, yyyy`).\n  - Each built-in control brings a `parse(raw, row)` and `format(value, row)` pair, so paste, fill and clipboard copy\n    read the same values the editors write. A column's own `parse`, `format`, `clearValue` or `setValue(row, value)`\n    wins.\n  - `required`, `min`, `max` and `validate(value, row)` (a message string, `false`, or nothing when valid) mark a cell\n    invalid. The grid shows the error inline through `getCellError(row, columnId)`: the cell sets `aria-invalid`,\n    points `aria-describedby` at its message, tints red and shows a tooltip while hovered or focused.\n- **Undo and redo.** `useDataGridHistory({ onApply, limit })` records each `onCellsChange` batch (an edit, paste, fill,\n  clear or cut) as one step and replays its inverse through `invertDataGridCellsChange`; `record({ undo, redo, source })`\n  adds custom steps. Pass `gridProps` (`onCellsChange`, `onUndo`, `onRedo`) to `DataGrid` for Mod+Z, Shift+Mod+Z and\n  Ctrl+Y, and `DataGridHistoryControls history={…}` adds toolbar buttons with their shortcuts.\n- **Pending changes.** `useDataGridEditing({ data, columns, getRowId, onSave, onReject })` keeps a working copy of\n  `data`: give the table `editing.rows` and spread `editing.gridProps` onto `DataGrid` for dirty, new and invalid\n  status, inline errors and history. `insertRow`, `duplicateRow(rowId, copy)` and `removeRows(ids)` are undoable;\n  `pending`, `pendingCount`, `errors` and `firstError` describe the state, `save()` calls `onSave({ rows, updated,\n  added, removed })` (return `false` or throw to keep the changes) and `discard()` reverts everything. Text that cannot\n  be parsed stays visible as a cell error instead of a toast. `DataGridSaveBar editing={…} apiRef={…}` shows the count,\n  the cells that need attention (Show focuses the first) and Discard and Save; Save is blocked while errors exist. It\n  floats at the bottom like `DataGridSelectionBar`; to show both, wrap them in one sticky row and pass\n  `className='static mx-0'` to each.\n- **Per-row edit mode.** `useDataGridRowEditing({ columns, onSave, onCancel })` turns one row at a time into a draft:\n  spread its `gridProps` onto `DataGrid` and render `DataGridRowEditActions row={row} label={name}` in an actions column.\n  Editable cells of the draft render `DataGridCellInlineEditor`; Enter saves, Escape cancels, other rows stay\n  read-only (spreadsheet edits pause too), and messages appear once a field is touched or after a save attempt.\n  `start(row, { isNew: true })` opens a new row; `onCancel({ rowId, isNew })` lets the host remove it again.\n- **Labels.** The editing parts read `undo`, `redo`, `unsavedChanges(count)`, `invalidCells(count)`, `showInvalidCell`,\n  `saveBlocked`, `save`, `saving`, `discard`, `editRow(name)`, `saveRow` and `cancelRowEdit` from `i18n.labels`.\n- **Lazy children.** `useDataGridLazyRows({ data, expanded, getRowHasChildren, loadChildren, onChildrenLoad })`\n  loads a parent's children the first time it opens. Spread its `tableOptions` into `useTable` and pass the hook to\n  `<DataGrid lazyRows={lazy}>`: the table shows a skeleton row under a pending parent and an error row with Retry when\n  the promise rejects. Results are cached (`invalidate(id)` drops one); `onChildrenLoad` merges them into host data,\n  which always wins over the cache. Mark the tree column with `meta.treeColumn` so status rows line up with it.\n- **Tree drag and drop.** `DataGridTableTreeDnd` is a body whose rows drop before, after or into another row\n  (`canDropInside(row)`, default: rows that can expand), drawn with the Tree's drop line. A row never drops into\n  itself or its descendants, a closed folder opens after a short hover, and reordering pauses while the grid is sorted.\n  `DataGridTableTreeDndHandle` is the grip; Enter or Space on it starts a keyboard move (arrow keys choose the place,\n  Enter drops, Escape cancels), announced through a status region.\n- **Row moves.** Drag and drop, the keyboard and `DataGridTableRowMoveItems` (Move up, Move down, Move to top, Move to\n  bottom for a row menu) all report through `<DataGrid onRowMove>` with `{ id, parentId, index, targetId, position }`.\n  `moveDataGridRow(data, move, { childrenKey })` applies a move to nested or flat data. Alt+Arrow and Alt+Home/End on\n  either drag handle move the focused row among its siblings. `useDataGridRowOrder(rows)` keeps a flat manual order with\n  `moveRow`, `handleDragEnd`, `reset` and `isReordered`. Pass an `emptyMessage` node for the DnD body's empty state.\n- **Tree selection.** `DataGridTableTreeRowSelect` and `DataGridTableTreeRowSelectAll` cascade: checking a parent\n  checks every descendant, a parent reads checked when all of its children are and mixed when some are, and children\n  that load under a checked parent arrive checked. `DataGridSelectionBar` counts every selected row at any depth.\n- **Rollups.** Give a column `meta.rollup: true` and an `aggregationFn`: tree parents show the aggregate of their\n  deepest loaded descendants (an unloaded parent keeps its own value), formatted by `meta.rollupCell({ value, row,\n  scope })`. `DataGridTableTreeTotals` adds a grand-total footer row; `getDataGridRollupValue` and\n  `getDataGridTreeTotal` return the numbers. `DataGridTreeExpand` offers Expand all, Collapse all and Expand to level N\n  (pass `levels` when deeper levels have not loaded yet).\n- **Banded sections.** `DataGridTableSections` renders a grouped grid as one section per group: a tinted band with the\n  title, a count, a collapse toggle, `selectable` select-all for the section and an optional `onSectionAdd` action,\n  followed by its own column headers. Sort, selection and columns stay shared, sections scroll sideways together, and\n  `sections={[{ value, label, tone, description }]}` orders the bands and keeps empty ones visible. Tones are\n  `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `attention` and `discovery`. Hide the grouped column\n  (`columnVisibility`) and set `groupedColumnMode: false`; `DataGridTableSectionSelectAll` and `useDataGridSection()`\n  work inside a section's headers and cells.\n- **Export.** `DataGridExport` saves the grid's visible columns, filters, sort and selection as CSV; `meta.exportValue`\n  formats a cell and `meta.export: false` skips control columns. `toCsv`, `tableToCsv` and `downloadCsv` are exported for\n  custom flows.\n\n### View controls\n\n```jsx\nimport {\n  DataGrid, DataGridCardView, DataGridColumnPicker, DataGridLayouts, DataGridStatusTabs, DataGridTable,\n  DataGridViewOptions, DataGridViewToggle, createDataGridColumnRegistry, dataGridEqualsFilter, useDataGridLayouts\n} from '@gaudi/design-system/core/DataTable';\n\nconst layouts = useDataGridLayouts({ table, density, onDensityChange: setDensity, storageKey: 'deals-layouts' });\n\n<DataGrid table={table} recordCount={rows.length} tableLayout={{ dense: density === 'compact', headerSticky, rowsPinnable: true }}>\n  <DataGridColumnPicker registry={registry} value={addedIds} onAdd={(id) => setAddedIds((ids) => [...ids, id])} />\n  <DataGridLayouts layouts={layouts} />\n  <DataGridViewOptions density={density} onDensityChange={setDensity} headerSticky={headerSticky}\n    onHeaderStickyChange={setHeaderSticky} onReset={layouts.resetLayout} />\n  <DataGridViewToggle value={view} onValueChange={setView} />\n  <DataGridStatusTabs columnId='stage' options={stages}>\n    {view === 'table' ? <DataGridTable /> : <DataGridCardView aria-label='Deals' />}\n  </DataGridStatusTabs>\n</DataGrid>\n```\n\n- **View settings.** `DataGridViewOptions` is one popover for density (`density` / `onDensityChange`, `comfortable` or\n  `compact`), the sticky header (`headerSticky` / `onHeaderStickyChange`), extra `toggles` (`{ id, label, checked,\n  onCheckedChange, description? }`) and the column list: a checkbox per hideable column plus Move up and Move down\n  (or Alt+Arrow keys), with pinned columns held in place. `onReset` adds Reset layout. Pass `children` to compose\n  `DataGridViewOptionsSection`, `DataGridViewOptionsDensity`, `DataGridViewOptionsSwitch` and\n  `DataGridViewOptionsColumns` yourself. `getDataGridColumnOrder(table)` and `moveDataGridColumn(table, id, delta)` are\n  the ordering helpers.\n- **Table or cards.** `DataGridCardView` renders the same row model as the table (sorting, filters, pagination, pinned\n  rows first) as a responsive card grid (`minCardWidth`, default `16rem`), and selection is shared. Columns choose\n  their card slot with `meta.card`: `title`, `subtitle`, `media`, `badge`, `actions`, `field` or `false`\n  (`meta.cardLabel` renames a field). `renderCard({ row, slots, table, isSelected })` replaces the default card.\n  `DataGridViewToggle` switches `'table'` and `'cards'`.\n- **Saved layouts.** `useDataGridLayouts({ table, density?, onDensityChange?, defaultLayout?, layouts?,\n  defaultLayouts?, onLayoutsChange?, storageKey? })` snapshots column order, sizing, visibility and pinning (and\n  density when `onDensityChange` is given) into named layouts `{ id, name, layout }`. Saved layouts are controlled or\n  uncontrolled; `storageKey` also keeps them and the current layout in localStorage, restored after hydration. It\n  returns `layouts`, `activeLayout`, `isDefault`, `saveLayout(name)`, `applyLayout(id)`, `deleteLayout(id)` and\n  `resetLayout()` (back to `defaultLayout`, else the table's initial state). `DataGridLayouts` is the menu for it;\n  `getDataGridLayout`, `applyDataGridLayout` and `isSameDataGridLayout` work on any table.\n- **Column stats.** A header with `stats` (or a column with `meta.stats`) adds a labelled Column stats group to its menu:\n  count, distinct and empty values, and min, max, average and sum for numbers (min and max for dates), over the\n  filtered rows. Each stat is a menu item that copies its value; `DataGridColumnStats` renders the same figures as a\n  definition list outside menus. Pass an array\n  (`['min', 'max', 'avg']`) to pick stats and `meta.statsFormat(value, id)` to format them. `getDataGridColumnStats`\n  reads the column's own `getAggregationValue` first, so a server-backed aggregation supplies its values.\n- **Add columns.** `createDataGridColumnRegistry(entries)` groups addable columns (`{ id, label, icon?, keywords?,\n  children?, column }`) for `DataGridColumnPicker`, a searchable Cascader that disables columns already shown. The host\n  keeps the added ids and builds `columns` with `registry.getColumns(ids)`.\n- **Heat cells.** `DataGridHeatmapCell` colours a number with the HeatmapChart scale and chart tokens (`heatmap`, or\n  `diverging` around `midpoint`), against its column's visible range or a given `domain`;\n  `getDataGridHeatmapColor` returns the fill and ink for custom cells. For trend cells, lazy-load\n  `Sparkline` from `@gaudi/design-system/charts` so the chart runtime stays out of the table's bundle.\n- **Status tabs.** `DataGridStatusTabs` puts an All tab and one tab per status, each with a live count, above the grid,\n  which renders as the tab panel. With `columnId` a tab filters that column (give it `filterFn: dataGridEqualsFilter`)\n  and counts come from its facets, which ignore the column's own filter; otherwise pass `value`, `onValueChange` and\n  `counts`.\n- **Virtualized selection.** Under `DataGridTableVirtual` with `onFetchMore` and `manualPagination`, Select all takes\n  every loaded row and reads as partial when the next page arrives. For \"every matching record\", keep a flag in the\n  host and derive the selection from it, as the Shipment exceptions example does; bulk actions then target the query,\n  not only loaded rows.\n\nEvery string is in `DATA_GRID_VIEW_LABELS` and translates through the grid's `i18n.labels`. The view popovers are\nlabelled dialogs that return focus to their trigger; column moves keep focus on the moved row and are announced, and\nlayout, column and export changes are announced through status regions.\n\n## Implementation ownership\n\n`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.",
       "related": [
         "core-filterbar",
-        "layout-search",
         "core-skeleton"
       ]
     },
@@ -8937,8 +8945,7 @@
       "source": "src/components/core/FilterBar/",
       "readme": "# FilterBar\n\nThe toolbar above a collection: a search with a live result count, a Filters popover with one tab per facet and option\ncounts, and a removable \"Field: Value\" chip for every applied filter. It composes the DS Input, Button, Popover, Tabs\nand Badge, and only presents state: the host owns matching and persistence.\n\n```jsx\nimport FilterBar from '@gaudi/design-system/core/FilterBar';\n\n<FilterBar\n  query={query}\n  onQueryChange={setQuery}\n  count={{ shown: visible.length, total: rows.length }}\n  facets={[{ id: 'status', label: 'Status', multiple: true, options: statuses, value: status, onChange: setStatus }]}\n  onClearFilters={() => setQuery('')}\n  actions={<Button size='sm'>New article</Button>}\n/>\n```\n\n- A facet is `{ id, label, options: [{ value, label, count?, keywords?, disabled? }], value, onChange, multiple?, disabled? }`.\n  Facets with more than six options get a search field.\n- Long option labels truncate to the popover width and keep the full text as a tooltip.\n- Below the small breakpoint the facet rail becomes a one-line facet select (`labels.facet` names it, falling back to\n  `filterLabel`) above a scrollable option list, so phones keep the height for options.\n- `filters` with `onRemoveFilter` shows host-applied filters as chips when you do not use facets; `onClearFilters` clears everything.\n- `children` adds controls beside the search; `labels` translates every visible and accessible string.\n- Phrases with a name are label functions, so translations control word order: `labels.removeFilter(value, field)` (default \"Remove {value} filter\"), `labels.findIn(facet)` (default \"Find {facet}\") and `labels.findPlaceholder(facet)`. The older string labels (`remove`, `find`) still work.\n- `dir` sets the bar's reading direction (and its search field's); `inputProps` passes other attributes (name, autoComplete, id…) to the search input.\n- Use the `Filters` and `FiltersAdvanced` parts for rule builders with operators, groups and drag and drop.",
       "related": [
-        "core-field",
-        "layout-search"
+        "core-field"
       ]
     },
     {
@@ -15949,14 +15956,14 @@
           "type": "RefObject<HTMLElement>",
           "default": null,
           "required": false,
-          "description": "Scrollable region to observe."
+          "description": "Scrollable region or ScrollArea viewport to observe. Omit to track the document."
         },
         {
           "name": "onUpdate",
           "names": [
             "onUpdate"
           ],
-          "type": "(activeId: string) => void",
+          "type": "(activeId: string | null) => void",
           "default": null,
           "required": false,
           "description": "Respond to the active section changing."
@@ -16000,6 +16007,16 @@
           "default": "scrollspy",
           "required": false,
           "description": "Attribute identifying tracked content."
+        },
+        {
+          "name": "fallbackToFirst",
+          "names": [
+            "fallbackToFirst"
+          ],
+          "type": "boolean",
+          "default": "true",
+          "required": false,
+          "description": "Mark the first section before it reaches the offset. Disable for an index whose first target appears later in the article; onUpdate then receives null before that target."
         },
         {
           "name": "children",
@@ -16050,7 +16067,9 @@
       "docs": "docs/llm/core-scrollspy.md",
       "source": "src/components/core/Scrollspy/",
       "readme": "# Scrollspy\n\nHighlights the link for the section currently in view and scrolls to a section when its link is clicked. Use it for a table of contents beside a long document or a scrollable panel.\n\n```jsx\nimport { useRef } from 'react';\nimport { ScrollArea, Scrollspy } from '@gaudi/design-system';\n\nconst targetRef = useRef(null);\n\n<Scrollspy targetRef={targetRef} offset={44}>\n  <button data-scrollspy-anchor='overview'>Overview</button>\n  <button data-scrollspy-anchor='usage'>Usage</button>\n</Scrollspy>\n<div ref={targetRef}>\n  <ScrollArea className='h-72'>\n    <section id='overview'>…</section>\n    <section id='usage'>…</section>\n  </ScrollArea>\n</div>\n```\n\nEach anchor names the id of its section; the active anchor gets `data-active=\"true\"` for styling and `onUpdate` receives its id. `offset` reserves room for a sticky header, `smooth` animates the jump, and `history` (off by default) writes the active section to the URL hash. Point `targetRef` at `document` to follow the page scroll.",
-      "related": []
+      "related": [
+        "core-scrollarea"
+      ]
     },
     {
       "id": "core-select",
@@ -16751,9 +16770,7 @@
       "docs": "docs/llm/core-select.md",
       "source": "src/components/core/Select/",
       "readme": "# Select\n\nPick one or several values from a list. Use it for form fields with a known set of options; use a combobox when people type to filter a long list, an autocomplete when free text is also allowed, and a native select for the plainest, platform-styled field.\n\n```jsx\nimport { Select } from '@gaudi/design-system';\n\n<Select\n  aria-label='Topics'\n  options={[{ value: 'design-systems', label: 'Design systems', description: 'Tokens and components.' }]}\n  multiple\n  searchable\n  onValueChange={setTopics}\n/>\n```\n\n- `options` takes `{ value, label, description?, disabled? }`; native `<option>` children work when `options` is empty.\n- `multiple` keeps the popup open and counts the selection in the trigger. `searchable` adds a filter field that matches labels and descriptions.\n- `value` / `defaultValue` / `onValueChange` control the selection; `name` submits it with a form. `invalid`, `disabled` and `loading` cover the field states.\n- The options API composes the shared `Combobox` trigger, popup, search input and rows; keyboard navigation, focus and viewport collision handling belong to that primitive.\n\n## Composition\n\n`@gaudi/design-system/core/Select` also exports the compound families: `SelectRoot` with `SelectTrigger`, `SelectValue`, `SelectContent`, `SelectItem`, `SelectGroup`, `SelectLabel`, `SelectSeparator`; `Combobox*` (with chips for multiple values); `Autocomplete*`; and `NativeSelect`, `NativeSelectOption`, `NativeSelectOptGroup`.\n\n## Accessibility\n\nThe trigger is a button with `aria-haspopup='listbox'`. Arrow keys, Home and End highlight options; disabled options remain discoverable but cannot be selected. Enter selects an enabled option, and Escape closes and returns focus to the trigger. Give every select a visible label or `aria-label`.",
-      "related": [
-        "layout-search"
-      ]
+      "related": []
     },
     {
       "id": "core-separator",
@@ -16846,6 +16863,7 @@
             "registry": "separator-vertical",
             "storyId": "core-separator--vertical",
             "imports": [
+              "Link",
               "Separator"
             ]
           }
@@ -17075,6 +17093,11 @@
               "InputGroup",
               "InputGroupAddon",
               "InputGroupInput",
+              "Item",
+              "ItemContent",
+              "ItemDescription",
+              "ItemMedia",
+              "ItemTitle",
               "KbdGroup",
               "KbdRoot",
               "RegistryIcon",
@@ -19452,6 +19475,8 @@
               "Badge",
               "Label",
               "RegistryIcon",
+              "ScrollArea",
+              "ScrollBar",
               "SwitchRoot",
               "TimelineContent",
               "TimelineDate",
@@ -21082,6 +21107,7 @@
               "InputGroupAddon",
               "InputGroupButton",
               "InputGroupInput",
+              "Link",
               "RegistryIcon",
               "Separator",
               "Sidebar",
@@ -21132,6 +21158,7 @@
               "InputGroup",
               "InputGroupAddon",
               "InputGroupInput",
+              "Item",
               "ProgressRoot",
               "RegistryIcon",
               "Sidebar",
@@ -21298,6 +21325,7 @@
               "InputGroup",
               "InputGroupAddon",
               "InputGroupInput",
+              "Item",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21474,6 +21502,7 @@
               "GaudiBrand",
               "GaudiLogo",
               "Kbd",
+              "Link",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21530,6 +21559,7 @@
               "GaudiBrand",
               "GaudiLogo",
               "InputGroupButton",
+              "Link",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21596,6 +21626,7 @@
               "GaudiBrand",
               "GaudiLogo",
               "Kbd",
+              "Link",
               "PopoverContentPrimitive",
               "PopoverPrimitive",
               "PopoverTriggerPrimitive",
@@ -21654,6 +21685,7 @@
               "InputGroupAddon",
               "InputGroupInput",
               "Kbd",
+              "Link",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21714,6 +21746,7 @@
               "DropdownMenuSubTrigger",
               "DropdownMenuTrigger",
               "GaudiBrand",
+              "Link",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -21768,6 +21801,7 @@
               "DropdownMenuShortcut",
               "DropdownMenuTrigger",
               "GaudiBrand",
+              "Link",
               "ProgressRoot",
               "RegistryIcon",
               "Sidebar",
@@ -21817,6 +21851,7 @@
               "DropdownMenuShortcut",
               "DropdownMenuTrigger",
               "GaudiLogo",
+              "Link",
               "ProgressRoot",
               "RegistryIcon",
               "Sheet",
@@ -22308,6 +22343,7 @@
               "CheckboxRoot",
               "GaudiBrand",
               "Label",
+              "Link",
               "RegistryIcon",
               "Screen",
               "ToggleGroupItem",
@@ -22325,6 +22361,7 @@
               "Badge",
               "CheckboxRoot",
               "Label",
+              "Link",
               "RegistryIcon",
               "Screen"
             ]
@@ -22366,6 +22403,7 @@
               "InputOTPSeparator",
               "InputOTPSlot",
               "Label",
+              "Link",
               "Loom",
               "RegistryIcon",
               "Screen",
@@ -22382,6 +22420,7 @@
               "AuthForm",
               "Borealis",
               "GaudiBrand",
+              "Link",
               "RegistryIcon",
               "Screen",
               "ToggleGroupItem",
@@ -22396,6 +22435,7 @@
             "imports": [
               "AuthForm",
               "GaudiBrand",
+              "Link",
               "RegistryIcon",
               "Screen",
               "ScreenTestimonial"
@@ -23572,6 +23612,7 @@
             "registry": "forms-hosted-checkout",
             "storyId": "blocks-forms--hosted-checkout",
             "imports": [
+              "Badge",
               "Button",
               "CardContent",
               "CardDescription",
@@ -23591,6 +23632,7 @@
               "FieldSet",
               "FormErrorSummary",
               "Input",
+              "Link",
               "NumberField",
               "NumberFieldDecrement",
               "NumberFieldGroup",
@@ -23888,6 +23930,8 @@
               "FieldRoot",
               "FormErrorSummary",
               "Input",
+              "InputGroup",
+              "InputGroupInput",
               "RegistryIcon",
               "SelectContent",
               "SelectItem",
@@ -23898,7 +23942,6 @@
               "Tree",
               "TreeItem",
               "TreeItemLabel",
-              "cn",
               "useFormValidation",
               "validators"
             ]
@@ -23912,6 +23955,184 @@
       "related": [
         "core-field",
         "core-input"
+      ]
+    },
+    {
+      "id": "blocks-marketing-heroes",
+      "name": "Heroes",
+      "kind": "component",
+      "title": "Blocks/Marketing/Heroes",
+      "category": "blocks",
+      "owner": "blocks/Hero",
+      "import": {
+        "path": "@gaudi/design-system/blocks/Hero",
+        "category": "@gaudi/design-system/blocks",
+        "root": false,
+        "mainExport": "Heroes",
+        "kind": "default",
+        "line": "import Heroes from '@gaudi/design-system/blocks/Hero';",
+        "exports": [
+          "Hero",
+          "default"
+        ]
+      },
+      "description": "Responsive hero sections for product, editorial, and marketing pages. One shared layout owns the heading, introduction, action group, and media; compose the slots with existing Gaudi components.",
+      "props": [
+        {
+          "name": "eyebrow",
+          "names": [
+            "eyebrow"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional label, badge, or mark above the heading. It stays outside the heading so the section name is only the title."
+        },
+        {
+          "name": "title",
+          "names": [
+            "title"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "The primary heading. Keep it concise and specific."
+        },
+        {
+          "name": "description",
+          "names": [
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Supporting paragraph, rendered with Gaudi typography."
+        },
+        {
+          "name": "layout",
+          "names": [
+            "layout"
+          ],
+          "type": "centered | split | editorial | background",
+          "default": "centered",
+          "required": false,
+          "description": "Centered stack, side-by-side image, editorial heading and introduction, or background image with an opaque readable content panel."
+        },
+        {
+          "name": "actions",
+          "names": [
+            "actions"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Primary and secondary actions; use Button and Link. Long labels wrap."
+        },
+        {
+          "name": "media",
+          "names": [
+            "media"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Prepared image, video, or product preview. Background layout is intended for decorative imagery."
+        },
+        {
+          "name": "children",
+          "names": [
+            "children"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional supporting content below the actions."
+        },
+        {
+          "name": "headingAs",
+          "names": [
+            "headingAs"
+          ],
+          "type": "h1 | h2 | h3",
+          "default": "h1",
+          "required": false,
+          "description": "Choose the heading level for its place in the page."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional classes on the outer element."
+        }
+      ],
+      "variants": {
+        "layout": [
+          "centered",
+          "split",
+          "editorial",
+          "background"
+        ],
+        "headingAs": [
+          "h1",
+          "h2",
+          "h3"
+        ]
+      },
+      "accessibility": "The section is labelled by its heading. Reading order is eyebrow, heading, description, actions, supporting content, then media. Images need meaningful alternative text, or empty alt text when decorative. Background imagery must be decorative and non-interactive.",
+      "notes": [
+        "The hero responds to its container, stacking split and editorial layouts below 48rem.",
+        "Supply prepared content and real destinations. Navigation, forms, claims, and product behavior belong to the host.",
+        "Animated examples reuse Gaudi backgrounds (Aurora, Grainient, Dark Veil, Floating Lines, Liquid Ether) and include a pause control; reduced motion stops them.",
+        "The examples are original Gaudi compositions using local artwork; no Tailwind Plus source is included."
+      ],
+      "usage": "import { Hero } from '@gaudi/design-system/blocks/Hero';\nimport Button from '@gaudi/design-system/core/Button';\n\n<Hero title='A good place to start.' description='Your content. Shared foundations.' actions={<Button href='/start'>Get started</Button>} />",
+      "examples": {
+        "stories": [
+          {
+            "name": "Aurora",
+            "id": "blocks-marketing-heroes--playground"
+          },
+          {
+            "name": "Mesh gradient",
+            "id": "blocks-marketing-heroes--mesh-gradient"
+          },
+          {
+            "name": "Live surface",
+            "id": "blocks-marketing-heroes--live-surface"
+          },
+          {
+            "name": "Journal topics",
+            "id": "blocks-marketing-heroes--journal-topics"
+          },
+          {
+            "name": "Split image",
+            "id": "blocks-marketing-heroes--split-image"
+          },
+          {
+            "name": "Product preview",
+            "id": "blocks-marketing-heroes--product-preview"
+          },
+          {
+            "name": "Editorial",
+            "id": "blocks-marketing-heroes--editorial"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "blocks-marketing-heroes--docs",
+      "docs": "docs/llm/blocks-marketing-heroes.md",
+      "source": "src/components/blocks/Hero/",
+      "readme": "# Hero\n\nA responsive marketing introduction, showcased in **Blocks → Marketing → Heroes**.\n\n```jsx\nimport { Hero } from '@gaudi/design-system/blocks/Hero';\nimport Button from '@gaudi/design-system/core/Button';\n\n<Hero\n  layout='split'\n  title='A good place to start.'\n  description='Your content. Shared foundations.'\n  actions={<Button href='/start'>Get started</Button>}\n  media={<img src='/cover.jpg' alt='Your image description' />}\n/>\n```\n\n`layout` supports `centered`, `split`, `editorial`, and `background`. Split and editorial layouts stack below a 48rem container width. With no media, split keeps a single content column. Slots accept existing Gaudi components; the block does not own navigation, forms, destinations, or product data. `eyebrow` places a short label, Badge, or mark above the heading without changing the section name. `children` adds supporting content below the actions.\n\nThe section labels itself with its heading. Use `headingAs` to fit the document hierarchy. Supply decorative, non-interactive media for `background`; its opaque content panel keeps text readable in both themes. Images require descriptive alt text unless decorative. Button and Link provide the action semantics, focus, and keyboard behavior.\n\nFor an animated hero, place the Hero inside a Gaudi background such as `Borealis` or `Grainient`, give the Hero `className='bg-transparent'`, and offer a pause control. Use the dark theme scope for dark effects so text keeps its contrast.",
+      "related": [
+        "blocks-navigation",
+        "animations-backgrounds-aurora",
+        "animations-backgrounds-grainient",
+        "core-button",
+        "core-link"
       ]
     },
     {
@@ -24743,6 +24964,7 @@
               "AvatarGroup",
               "AvatarImage",
               "AvatarRoot",
+              "ProgressRoot",
               "ScheduleCalendar",
               "ToggleGroupItem",
               "ToggleGroupRoot",
@@ -25447,6 +25669,7 @@
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
+              "Link",
               "RegistryIcon",
               "StatCard"
             ]
@@ -26376,6 +26599,7 @@
               "Collapsible",
               "CollapsibleContent",
               "CollapsibleTrigger",
+              "Link",
               "RegistryIcon"
             ]
           },
@@ -27021,7 +27245,6 @@
       "readme": "# ChatFileExplorer\n\nA conversation’s shared files, uploads, and agent outputs, composed from Core Tree, Input, Button, Badge, Alert, EmptyState, Skeleton, and ChatAgentMark. Hosts supply the file map and own loading, permissions, preview content, and downloads.\n\n## Usage\n\n```jsx\nimport { ChatFileExplorer } from '@gaudi/design-system/chat';\n\nconst files = {\n  root: { name: 'Files', children: ['shared', 'researcher'] },\n  shared: { name: 'Shared', children: ['brief'] },\n  brief: {\n    name: 'launch-brief.md', typeLabel: 'MD', sizeLabel: '4.2 KB',\n    modifiedLabel: 'Edited 10:40', modifiedAt: '2026-10-03T10:40:00Z',\n    downloadUrl: '/files/launch-brief.md'\n  },\n  researcher: {\n    name: 'Researcher', agent: { name: 'Researcher', seed: 'research-agent' },\n    children: ['notes']\n  },\n  notes: { name: 'interview-notes.md', meta: '6 sources' }\n};\n\n<ChatFileExplorer\n  items={files}\n  defaultExpanded={['shared', 'researcher']}\n  selectedId={selectedId}\n  onSelect={(id, file) => setSelectedId(id)}\n  onPreview={(id, file) => openPreview(file)}\n  onRefresh={reloadFiles}\n/>\n```\n\n## Data\n\n`items` remains a flat map by stable string ID. `rootId` identifies its hidden root; `children` defines folder hierarchy and order. Group roots for shared files, uploads, and agents are ordinary folders, so the component needs no second grouping API.\n\n| Item field | Contract |\n| --- | --- |\n| `name` | File or folder name. Long names truncate with a full-name title. |\n| `children?` | Child IDs; even an empty array identifies a folder. |\n| `meta?` | Existing short supplementary text, retained for compatibility. |\n| `typeLabel?` | Prepared file type. Defaults to the filename extension; an empty string hides it. |\n| `sizeLabel?` | Prepared size such as `18 KB`; Gaudi does not reformat it. |\n| `modifiedLabel?` / `modifiedAt?` | Prepared time text and optional machine-readable `dateTime`. No polling or relative-time engine. |\n| `downloadUrl?` / `downloadName?` | Host-supplied site-relative, HTTP(S), or blob destination and optional saved filename. Unsafe protocols produce no action. |\n| `canPreview?` | Set false to omit a file’s explicit Preview action; file selection still works. |\n| `agent?` | ChatAgentMark identity props such as `{ name, seed, motif, hue, state }`, used on folders. |\n\nMissing child IDs and repeated/cyclic references are omitted. Input objects are not mutated. Counts cover reachable files; empty folders remain visible and expandable without increasing the file count.\n\n## Props\n\n| Prop | Contract |\n| --- | --- |\n| `items` / `rootId='root'` | Prepared map and hidden root ID; omitted data shows an empty state. |\n| `defaultExpanded=[]` | Normal folder expansion at mount. Core Tree owns subsequent expansion. |\n| `selectedId` / `defaultSelectedId=null` | Controlled or initial selected file. Folder focus does not replace file selection. |\n| `onSelect(id, item)` | Called on file activation, including repeat activation. Receives the original host item. |\n| `onPreview(id, item)` | Adds explicit Preview actions. Preview also selects the file. |\n| `searchable=true` | Local search across names, type/size/modified labels, supplementary metadata, and agent names. Matches keep ancestor folders; matching a folder shows its descendants. Clearing search restores normal expansion. |\n| `loading` / `refreshing` | Announces busy state and disables refresh/retry. With existing files, keeps the list visible; without them, shows Skeleton rows. |\n| `error` / `onRetry` | Error text and retry callback. Existing files remain visible. Retry falls back to `onRefresh` when supplied. |\n| `onRefresh` / `actions` | Optional header refresh button and host action slot. |\n| `label='Files'` / `className` | Region/tree name and outer layout classes. Place in a bounded flex panel to make its tree scroll internally. |\n| `labels` | Overrides `search`, `clearSearch`, `preview`, `download`, `refresh`, `loading`, `errorTitle`, `retry`, `emptyTitle`, `emptyDescription`, `noResultsTitle`, and `noResultsDescription`. |\n\nDownloads use real native anchors with `download`; the host supplies a valid URL and cross-origin download headers where needed. No fetch, file content, permission, polling, or preview implementation is built in.\n\n## Accessibility\n\nCore Tree provides arrows, folder expansion, focus, and Enter activation. Selection is single-file and exposed with `aria-selected`. Preview/download actions are separate controls, available in the focused row’s tab sequence; their keys do not activate the tree row. Search is labelled, updates announce match counts, errors use Alert, and loading announces its state. File actions stay visible for touch users. Rows use non-button treeitems to avoid nested interactive buttons.\n\nWhen a host update removes the focused row, focus moves to a remaining visible row. An empty replacement focuses the first available panel control, or the labelled panel itself. Updates leave focus in Search and outside controls alone.\n\n## Examples\n\n- **Playground:** grouped shared/upload/agent files, nested search, metadata, preview, genuine local downloads, and refresh.\n- **Controlled selection:** host-selected files and a header action.\n- **Live file updates:** focus recovery when the host replaces or clears the file map.\n- **Empty folders:** folder navigation and search before any files exist.\n- **Loading**, **Error and retry**, **Empty:** initial and recovery states.",
       "related": [
         "core-tree",
-        "layout-search",
         "chat-chatagentmark"
       ]
     },
@@ -27636,8 +27859,7 @@
       "source": "src/components/chat/ChatInput/",
       "readme": "# ChatInput\n\nThe composer for a chat: `ChatPromptComposer` (a multi-line prompt on the core InputGroup with mentions, commands, attachments and send or stop), `ChatPromptQueue` for messages waiting while a reply streams, and `ChatModelSelect` for the model and effort. The assistant toolbar adds `ChatPromptAttachMenu` (the `+` menu), `ChatPromptSettings` (effort and option switches), `ChatContextMeter` (prepared context usage, breakdown and cost). Applications supply model/provider catalogues and usage policy; richer sample data lives only in story fixtures.\n\n## Usage\n\n```jsx\nimport { ChatEffortSlider, ChatModelSelect, ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat';\n\n<ChatPromptQueue items={queue} onEdit={edit} onRemove={remove} onSendNow={sendNow} onMove={move} />\n<ChatPromptComposer\n  status={streaming ? 'streaming' : 'ready'}\n  mentions={people}\n  commands={commands}\n  onSubmit={(text, { queued }) => (queued ? enqueue(text) : send(text))}\n  onStop={stop}\n  leftControls={<ChatModelSelect searchable providers={providers} models={models} value={model} onValueChange={setModel}><ChatEffortSlider value={effort} onValueChange={setEffort} compact /></ChatModelSelect>}\n/>\n```\n\n### Assistant composer\n\n```jsx\nimport { ChatContextMeter, ChatModelSelect, ChatPromptAttachMenu, ChatPromptComposer, ChatPromptSettings } from '@gaudi/design-system/chat';\n\n<ChatPromptComposer\n  variant='card'\n  labels={{ placeholder: 'Ask anything...' }}\n  onSubmit={send}\n  leftControls={\n    <>\n      <ChatPromptAttachMenu onAttach={addFiles} />\n      <ChatModelSelect searchable models={models} providers={providers} value={model} onValueChange={setModel} />\n    </>\n  }\n  rightControls={\n    <>\n      <ChatPromptSettings options={[{ value: 'web', label: 'Web search', icon: 'Globe' }]} values={options} onValuesChange={setOptions} effort={effort} onEffortChange={setEffort} />\n      <ChatContextMeter usedTokens={usedTokens} maxTokens={contextLimit} breakdown={breakdown} cost={formattedCost} tone={contextTone} message={contextMessage} />\n    </>\n  }\n  voice={({ insert }) => <MicButton onTranscript={insert} />}\n/>\n```\n\n### Expanding tool icons\n\n`ChatPromptToggle` composes the shared Toggle, Tooltip and AnimatedIcon for tools such as Search or Think. Hover animates the icon and shows a tooltip without moving adjacent controls. Keyboard focus or selection expands the label; selected tools retain their label and accent. Its accessible name stays constant and `aria-pressed` reports the selection. Prefer short labels; longer labels truncate within the available width and remain available through the tooltip and accessible name. The icon respects reduced motion, and touch targets are at least 44px. Tool selection belongs to the host and does not start a search or request.\n\n```jsx\nimport { ChatPromptComposer, ChatPromptToggle } from '@gaudi/design-system/chat/ChatInput';\n\n<ChatPromptComposer\n  variant='card'\n  onSubmit={send}\n  leftControls={\n    <ChatPromptToggle icon='Globe' label='Search' pressed={search} onPressedChange={setSearch} />\n  }\n/>\n```\n\nThe `card` variant uses a muted writing area, an inset toolbar and matched control heights; it follows Gaudi's radius and spacing tokens in both themes. The attachment `+` rotates while its menu is open. The **Expanding tools** story demonstrates these interactions, inspired by [Skiper AI Input 001](https://skiper-ui.com/v1/skiper81), with an independent implementation using Gaudi primitives.\n\n### Control placement\n\n`leftControls` and `rightControls` accept any composition of the existing controls. Their child order sets the visual and keyboard order. Put `ChatPromptAttachMenu`, `ChatModelSelect`, `ChatPromptSettings`, `ChatContextMeter`, or custom buttons in either slot; both groups wrap to fit narrow containers. Left/right follow the reading direction, so they mirror in RTL.\n\nThe built-in `onAttach` button remains in the left group. For configurable attachment placement, use `ChatPromptAttachMenu` in either slot. Send, stop and the empty-prompt voice action stay together after the right controls.\n\nExisting `toolbar` and `actions` remain aliases for the left and right slots. An explicit new slot takes precedence; `null` clears that slot without rendering its legacy alias. These slots work in both `default` and `card` variants.\n\nStorybook’s **Assistant composer** example provides independent left/right controls for attachments, model, settings and context, with matching copyable source. **Split controls** and **All controls on the right** show common arrangements.\n\n### Mixed attachments\n\n`attachments` accepts `{ id, name, type?, mediaType?, fileType?, size?, kind?, previewUrl? }`. The composer reuses Core `AttachmentMedia`: audio and video get distinct icons, images use a supplied `previewUrl`, and `kind='link'` uses a globe. Without a thumbnail, or if it cannot load, the file-type icon remains. Supply image thumbnails or video posters explicitly; the component does not fetch the original media or create object URLs. The host owns those URLs and their cleanup.\n\nThe **Mixed attachments: compact media pills** story shows image, PDF, audio, video and link attachments, removal, reset and submission. `onSubmit` receives the same attachment objects in its second argument; `onRemoveAttachment(id)` keeps the tray controlled by the host.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatPromptComposer` | `@` anywhere or `/` at the start opens `mentions` or `commands`; Enter sends and Shift+Enter adds a line; `status` streaming shows Stop and reports `{ queued: true }`; `leftControls`, `rightControls`, `footer`, `attachments` and `onAttach` fill the frame. |\n| `ChatPromptComposer` `leftControls` / `rightControls` | ReactNode slots for independently arranged control groups; both wrap. New props override legacy `toolbar` / `actions`; `null` clears a slot. Built-in send/stop/voice remain after the right slot. |\n| `ChatPromptQueue` | Waiting messages `{ id, text }`: edit in place, send now, remove, or move with Alt+Arrow. |\n| `ChatPromptToggle` | `icon` is an icon registry name; `label` supplies the visible and accessible name. `pressed` / `defaultPressed` / `onPressedChange` follow the shared Toggle's controlled/uncontrolled contract; `disabled` prevents changes. Use it in either control slot. Hosts must pass their disabled/read-only policy to supplied slot controls. |\n| `ChatModelSelect` | `models` `{ value, label, description?, details?, badge?, badgeTone?, icon? }` with `value` / `onValueChange`; `icon` is a brand mark, `details` short facts under the name; `variant` / `size` style the trigger (outline in a page header), `icon={false}` drops the default sparkle; `disabled` disables the trigger; `children` add a footer such as a ChatEffortSlider; a footer uses a popover containing a model list and separate controls. |\n| `ChatModelSelect` (catalogue) | Models with a `provider` group under its name and mark (host-supplied `providers`, or the provider ID when absent); `contextWindow`, `speed` (`fast`, `balanced`, `slow`), `cost` (1 to 4) and `capabilities` (`vision`, `reasoning`, `tools`, `web`, `files`, `audio`, `code`, `image`) show under the name. `searchable` opens a command list with a search field instead of a menu. |\n| `ChatPromptComposer` `variant` / `voice` | `card` is the roomier composer with a one-line prompt that grows; `voice` (element or `({ value, setValue, insert, disabled }) => element`) holds the send slot while the prompt is empty. |\n| `ChatPromptAttachMenu` | `items` `{ value, label, icon?, description?, shortcut?, accept?, capture?, multiple?, separator? }`; items with `accept` open the file picker and call `onAttach(files, item)`, others call `onSelect(item)`. |\n| `ChatPromptSettings` | `effort` / `onEffortChange` (a ChatEffortSlider, `effortLevels` for your own steps) and switches for `options` with `values` / `defaultValues` / `onValuesChange(values, changed)`; `children` add controls. |\n| `ChatContextMeter` | `usedTokens`, `maxTokens`, optional `modelLabel`; prepared `breakdown` rows `{ id, label, value, detail? }`; prepared `cost` and `costLabel`; explicit `tone` (`accent`, `warning`, `danger`) and `message`. `formatTokens` defaults to exported `formatTokenCount`; `formatPercentage` formats the derived percentage. |\n| `findPromptTrigger(text, caret)` | The mention or command being typed at the caret, or null. |\n\n### Context data ownership\n\nThe meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message.\n\nThe previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` props and exported `estimateChatCost`, `chatModels` and `chatModelProviders` are removed. Move model/provider metadata and any billing calculation into the application. The Assistant composer story retains an illustrative catalogue and billing calculation in `stories/fixtures`.\n\n## Accessibility\n\nThe prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.\n\nThe model trigger names the current model. Searchable pickers and pickers with footer content use a dialog; searchable ones include a labelled search combobox. Without search, focus starts in the model list: arrow keys move and Enter selects, while Tab reaches the footer controls. Escape closes and returns focus to the trigger. Simple pickers without search or a footer retain menu keyboard behavior; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.",
       "related": [
-        "core-attachment",
-        "layout-footer"
+        "core-attachment"
       ]
     },
     {
@@ -28766,8 +28988,7 @@
       "related": [
         "blocks-chat",
         "chat-chattool",
-        "chat-chatmessagelist",
-        "layout-search"
+        "chat-chatmessagelist"
       ]
     },
     {
@@ -28871,8 +29092,7 @@
       "source": "src/components/chat/ChatSessionList/",
       "readme": "# ChatSessionList\n\nPast conversations grouped by day or week, with title search, current-session selection, a new-chat action, and rename and delete dialogs. Compose the list inside a chat so choosing a session opens its transcript and draft.\n\n## Usage\n\n```jsx\nimport { ChatShell } from '@gaudi/design-system/blocks/Chat';\nimport { ChatSessionList, ChatMessageParts, ChatPromptComposer } from '@gaudi/design-system/chat';\n\n<ChatShell\n  title={activeSession.title}\n  navigation={\n    <ChatSessionList\n      sessions={sessions}\n      activeId={activeSession.id}\n      onSelect={openChat}\n      onNew={startChat}\n      onRename={renameChat}\n      onDelete={deleteChat}\n    />\n  }\n  composer={<ChatPromptComposer value={activeSession.draft} onValueChange={saveDraft} onSubmit={send} />}\n>\n  <div role='region' aria-label='Conversation' tabIndex={0} className='min-h-0 flex-1 overflow-y-auto p-4'>\n    {activeSession.turns.map((turn) => <ChatMessageParts key={turn.id} parts={turn.parts} />)}\n  </div>\n</ChatShell>\n```\n\nThe host owns `sessions`, the active ID, and each session's transcript and draft. Selection changes the active ID; rename updates that session's title; deletion removes it and chooses a remaining session or starts a new one if necessary. Keep drafts keyed by session ID so switching chats does not carry text into another conversation. Search filters the supplied titles locally and does not change the active session.\n\nFor a compact assistant panel, keep the shell header visible and use its **History** action to replace the conversation with this list. Hide the composer while browsing history; **Back to conversation** or selecting a session restores it. Keep **New chat** in the header. This is a `ChatShell` composition, with no additional public wrapper. The full-page layout uses the shell's `navigation` slot; on narrow screens the existing navigation Sheet contains the list.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `sessions` | `{ id, title, preview?, updated?, group?, live? }`. |\n| `activeId` / `onSelect(id)` | Host-controlled current chat (`aria-current`) and selection callback. |\n| `onNew()` / `onRename(id, title)` / `onDelete(id)` | Host callbacks for new chat, a confirmed rename, and confirmed deletion. Only supplied actions appear. |\n| `searchable=true` / `labels` | Local title search and interface copy overrides. |\n\n## Accessibility\n\nRows are buttons with the current one marked; each row menu is named after the chat, and rename and delete go through dialogs with clear titles. The full-page shell closes its narrow-screen navigation Sheet after session selection and returns focus to the opener. The compact composition keeps History and New chat available in the header.\n\n## Examples\n\n- [ChatSessionList playground](?path=/story/chat-chatsessionlist--playground): the list inside a compact conversation panel, with search, selection, rename, deletion, and separate session drafts.\n- [Blocks/Chat · Session panel](?path=/story/blocks-chat--session-panel): the compact History / Back to conversation flow and header New chat action.\n- [Blocks/Chat · Session page](?path=/story/blocks-chat--session-page): full-page navigation beside the conversation, using the existing Sheet on narrow screens.",
       "related": [
-        "core-sheet",
-        "layout-search"
+        "core-sheet"
       ]
     },
     {
@@ -41910,6 +42130,183 @@
       ]
     },
     {
+      "id": "animations-backgrounds-particle-sea",
+      "name": "Particle Sea",
+      "kind": "component",
+      "title": "Animations/Backgrounds/Particle Sea",
+      "category": "animations",
+      "owner": "animations/ParticleSea",
+      "import": {
+        "path": "@gaudi/design-system/animations/ParticleSea",
+        "category": "@gaudi/design-system/animations",
+        "root": true,
+        "mainExport": "ParticleSea",
+        "kind": "named",
+        "line": "import { ParticleSea } from '@gaudi/design-system/animations/ParticleSea';",
+        "exports": [
+          "ParticleSea",
+          "default"
+        ]
+      },
+      "description": "A rolling sea of fine points seen in perspective; crests catch the light and glitter.",
+      "props": [
+        {
+          "name": "waveHeight",
+          "names": [
+            "waveHeight"
+          ],
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Swell height, clamped to 0–2. Higher seas light more crests."
+        },
+        {
+          "name": "density",
+          "names": [
+            "density"
+          ],
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Points per unit of water, clamped to 0.25–2."
+        },
+        {
+          "name": "horizon",
+          "names": [
+            "horizon"
+          ],
+          "type": "number",
+          "default": "0.75",
+          "required": false,
+          "description": "Horizon position from the bottom of the container, clamped to 0.3–1. The area above it shows the background."
+        },
+        {
+          "name": "paused",
+          "names": [
+            "paused"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation."
+        },
+        {
+          "name": "speed",
+          "names": [
+            "speed"
+          ],
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Animation speed multiplier, clamped to 0–5. Zero holds a static frame."
+        },
+        {
+          "name": "intensity",
+          "names": [
+            "intensity"
+          ],
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Brightness of the lit points, clamped to 0–2. Zero reveals the background color."
+        },
+        {
+          "name": "scale",
+          "names": [
+            "scale"
+          ],
+          "type": "number",
+          "default": "1",
+          "required": false,
+          "description": "Spatial scale of the sea, clamped to 0.25–4."
+        },
+        {
+          "name": "colors",
+          "names": [
+            "colors"
+          ],
+          "type": "string[]",
+          "default": "Gaudi theme tokens",
+          "required": false,
+          "description": "Up to three CSS colors for the points. Omitted colors inherit the current Gaudi palette."
+        },
+        {
+          "name": "background",
+          "names": [
+            "background"
+          ],
+          "type": "string",
+          "default": "var(--ds-color-surface)",
+          "required": false,
+          "description": "CSS color behind the effect and its static fallback."
+        },
+        {
+          "name": "interactive",
+          "names": [
+            "interactive"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Lift the sea under the pointer without capturing clicks or scrolling."
+        },
+        {
+          "name": "height",
+          "names": [
+            "height"
+          ],
+          "type": "number | string",
+          "default": "360",
+          "required": false,
+          "description": "Container height in pixels or a CSS length. Numeric values are clamped to 1–4096; width fills the available container."
+        },
+        {
+          "name": "children",
+          "names": [
+            "children"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional semantic content layered above the decorative canvas."
+        },
+        {
+          "name": "className / style / ref / DOM props",
+          "names": [
+            "className",
+            "style",
+            "ref"
+          ],
+          "passthrough": true,
+          "type": "DOM props",
+          "default": null,
+          "required": false,
+          "description": "Forwarded to the outer container."
+        }
+      ],
+      "variants": {},
+      "accessibility": "The canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.",
+      "notes": [
+        "The playground layers a Gaudi header, hero and working documentation links above the effect. The Demo content switch hides only this foreground; canvas size, animation phase and pause state are retained.",
+        "Points are spaced evenly across the water, so they shrink and crowd towards the horizon. Only crests are lit, and each point twinkles on its own phase. Points too small to resolve fade out instead of shimmering."
+      ],
+      "usage": "import { ParticleSea } from '@gaudi/design-system/animations/ParticleSea';\n\n<ParticleSea height={500} waveHeight={1.2} colors={['var(--ds-color-warning)']} />",
+      "examples": {
+        "stories": [
+          {
+            "name": "Playground",
+            "id": "animations-backgrounds-particle-sea--playground"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "animations-backgrounds-particle-sea--docs",
+      "docs": "docs/llm/animations-backgrounds-particle-sea.md",
+      "source": "src/components/animations/ParticleSea/",
+      "readme": "# ParticleSea\n\nA rolling sea of fine points seen in perspective; crests catch the light and glitter.\n\n```jsx\nimport { ParticleSea } from '@gaudi/design-system/animations/ParticleSea';\n\n<ParticleSea height={500} waveHeight={1.2} colors={['var(--ds-color-warning)']} />\n```\n\nPoints are spaced evenly across the water, so they shrink and crowd towards the horizon. Only crests are lit, and each point twinkles on its own phase. Points too small to resolve fade out instead of shimmering. Change `waveHeight` or `speed` to give different content its own sea.\n\n## Contract\n\n- `waveHeight` (number, default `1`): Swell height, clamped to 0–2. Higher seas light more crests.\n- `density` (number, default `1`): Points per unit of water, clamped to 0.25–2.\n- `horizon` (number, default `0.75`): Horizon position from the bottom of the container, clamped to 0.3–1. The area above it shows the background.\n- `paused` (boolean, default `false`): Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation.\n- `speed` (number, default `1`): Animation speed multiplier, clamped to 0–5. Zero holds a static frame.\n- `intensity` (number, default `1`): Brightness of the lit points, clamped to 0–2. Zero reveals the background color.\n- `scale` (number, default `1`): Spatial scale of the sea, clamped to 0.25–4.\n- `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors for the points. Omitted colors inherit the current Gaudi palette.\n- `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.\n- `interactive` (boolean, default `false`): Lift the sea under the pointer without capturing clicks or scrolling.\n- `height` (number | string, default `360`): Container height in pixels or a CSS length. Numeric values are clamped to 1–4096; width fills the available container.\n- `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.\n- `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.\n\nThe shared renderer caps drawing at 30fps, device pixel ratio at 1.5, and its buffer at approximately two million pixels. It stops for reduced motion, hidden tabs and offscreen containers, and cleans up its GPU resources on unmount. A static fallback preserves the content if WebGL is unavailable.\n\n## Accessibility\n\nThe canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.",
+      "related": []
+    },
+    {
       "id": "animations-backgrounds-patternwaves",
       "name": "PatternWaves",
       "kind": "component",
@@ -43255,7 +43652,7 @@
           "type": "number",
           "default": "2200",
           "required": false,
-          "description": "Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms."
+          "description": "Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms)."
         },
         {
           "name": "direction",
@@ -43317,7 +43714,7 @@
       "storybook": "animations-text-phrasecycle--docs",
       "docs": "docs/llm/animations-text-phrasecycle.md",
       "source": "src/components/animations/PhraseCycle/",
-      "readme": "# PhraseCycle\n\nA sequence of phrases rotates vertically in a stable space, without moving the surrounding line.\n\n```jsx\nimport { PhraseCycle } from '@gaudi/design-system/animations/PhraseCycle';\n\n<PhraseCycle texts={[\"Create\", \"Explore\"]} />\n```\n\n- `texts` (string[], default [\"thoughtfully\", \"boldly\", \"together\"]): Phrases to display in order. All phrases are included once in the accessible text.\n- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms.\n- `direction` (up | down, default \"up\"): Direction of the vertical transition.\n- `paused` (boolean, default false): Stop nonessential motion. System reduced motion, hidden tabs and offscreen containers also stop it.\n- `className / style / ref` (DOM props, default —): Applied to the outer span. Typography is inherited.\n\nAll phrases are exposed once as stable text, without a live region. Reduced motion shows the first phrase. Pausing keeps the current phrase visible. Provide a pause control for continuous cycling.\n\nVisual idea inspired by [Rotating Text](https://reactbits.dev/text-animations/rotating-text) from [React Bits](https://reactbits.dev) (MIT + Commons Clause). Independently implemented for Gaudi; no React Bits code or assets are included.",
+      "readme": "# PhraseCycle\n\nA sequence of phrases rotates vertically in a stable space, without moving the surrounding line.\n\n```jsx\nimport { PhraseCycle } from '@gaudi/design-system/animations/PhraseCycle';\n\n<PhraseCycle texts={[\"Create\", \"Explore\"]} />\n```\n\n- `texts` (string[], default [\"thoughtfully\", \"boldly\", \"together\"]): Phrases to display in order. All phrases are included once in the accessible text.\n- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms).\n- `direction` (up | down, default \"up\"): Direction of the vertical transition.\n- `paused` (boolean, default false): Stop nonessential motion. System reduced motion, hidden tabs and offscreen containers also stop it.\n- `className / style / ref` (DOM props, default —): Applied to the outer span. Typography is inherited.\n\nAll phrases are exposed once as stable text, without a live region. Reduced motion shows the first phrase. Pausing keeps the current phrase visible. Provide a pause control for continuous cycling.\n\nVisual idea inspired by [Rotating Text](https://reactbits.dev/text-animations/rotating-text) from [React Bits](https://reactbits.dev) (MIT + Commons Clause). Independently implemented for Gaudi; no React Bits code or assets are included.",
       "related": [
         "core-direction"
       ]
@@ -44424,6 +44821,7 @@
       "source": "src/components/mdx/Code/",
       "readme": null,
       "related": [
+        "blocks-blog-article",
         "core-codeblock",
         "core-map",
         "core-tabs"
@@ -44583,7 +44981,9 @@
       "docs": "docs/llm/mdx-faq.md",
       "source": "src/components/mdx/Faq/",
       "readme": null,
-      "related": []
+      "related": [
+        "blocks-blog-article"
+      ]
     },
     {
       "id": "mdx-filetree",
@@ -44888,7 +45288,7 @@
         "Provide a valid fallback source for editorial images that can fail independently of the article.",
         "Keep useful alt text available when both image sources fail; never replace the article with an empty frame."
       ],
-      "usage": "<Image\n  src='/static/images/art/0.svg'\n  fallback='/static/images/art/1.svg'\n  darkSrc='/static/images/art/5.svg'\n  alt='Lavender gradient artwork'\n  caption='A study in lavender and light.'\n  width={420}\n  height={260}\n/>",
+      "usage": "<Image\n  src='/static/images/art/0.svg'\n  fallback='/static/images/art/1.svg'\n  darkSrc='/static/images/art/5.svg'\n  alt='Lavender gradient artwork'\n  caption='A study in lavender and light.'\n  width={420}\n  height={236}\n/>",
       "examples": {
         "stories": [
           {
@@ -45866,7 +46266,7 @@
           "names": [
             "classNames"
           ],
-          "type": "{ trigger, thumbnail, playWrapper, playButton, dialog, overlay, panel, title, close, video }",
+          "type": "{ trigger, thumbnail, playWrapper, playButton, panel, title, video }",
           "default": null,
           "required": false,
           "description": "Slot-level class overrides."
@@ -45885,7 +46285,7 @@
         ]
       },
       "accessibility": "Video uses a native button for the thumbnail trigger, an aria-modal dialog, Escape-to-close behavior, labelled close controls, and returns focus to the trigger when closed.",
-      "usage": "<Video\n  animationStyle='from-center'\n  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Video preview'\n  title='Video walkthrough'\n/>",
+      "usage": "<Video\n  animationStyle='from-center'\n  videoSrc='/static/media/video-player.html'\n  thumbnailSrc='/static/images/og-card.jpg'\n  thumbnailAlt='Video preview'\n  title='Video walkthrough'\n/>",
       "examples": {
         "stories": [
           {
@@ -45904,24 +46304,24 @@
       ]
     },
     {
-      "id": "post-post",
-      "name": "Post",
+      "id": "blocks-blog-post-lists",
+      "name": "Post lists",
       "kind": "component",
-      "title": "Post/Post",
+      "title": "Blocks/Blog/Post lists",
       "category": "post",
       "owner": "post/Post",
       "import": {
         "path": "@gaudi/design-system/post/Post",
         "category": "@gaudi/design-system/post",
-        "root": true,
-        "mainExport": "Post",
+        "root": false,
+        "mainExport": "Postlists",
         "kind": "default",
-        "line": "import Post from '@gaudi/design-system/post/Post';",
+        "line": "import Postlists from '@gaudi/design-system/post/Post';",
         "exports": [
           "default"
         ]
       },
-      "description": "An article summary linking to a full post.",
+      "description": "Blog-post sections using the same Post summaries and article data as the blog pages. Image cards, featured articles, horizontal rows, and compact archives reuse one component.",
       "props": [
         {
           "name": "frontMatter",
@@ -45934,6 +46334,46 @@
           "description": "Title, prepared href, date, subtitle and category { id, label, href }. String categories remain unlinked labels; absent hrefs never create a route."
         },
         {
+          "name": "layout",
+          "names": [
+            "layout"
+          ],
+          "type": "list | stacked | horizontal",
+          "default": "list",
+          "required": false,
+          "description": "Post presentation. Horizontal media stacks in narrow containers."
+        },
+        {
+          "name": "media",
+          "names": [
+            "media"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional image or media before the summary."
+        },
+        {
+          "name": "footer",
+          "names": [
+            "footer"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional byline and reading-time composition."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Classes on the list item."
+        },
+        {
           "name": "locale",
           "names": [
             "locale"
@@ -45942,6 +46382,16 @@
           "default": null,
           "required": false,
           "description": "Date formatting locale."
+        },
+        {
+          "name": "titleVariant",
+          "names": [
+            "titleVariant"
+          ],
+          "type": "string",
+          "default": "index-list-title",
+          "required": false,
+          "description": "Shared Typography variant; use heading-md for a featured article."
         },
         {
           "name": "titleAs",
@@ -45954,29 +46404,53 @@
           "description": "Heading element appropriate to the surrounding list."
         }
       ],
-      "variants": {},
+      "variants": {
+        "layout": [
+          "list",
+          "stacked",
+          "horizontal"
+        ]
+      },
       "accessibility": "Use a meaningful linked title and an appropriate heading level. Content and routing remain application-owned.",
-      "usage": "import { Post } from '@gaudi/design-system';\n\n<Post frontMatter={frontMatter} />",
+      "usage": "import { Post } from '@gaudi/design-system';\n\n<ul>\n  <Post frontMatter={frontMatter} />\n</ul>",
       "examples": {
         "stories": [
           {
-            "name": "Playground",
+            "name": "Post metadata",
             "id": "post-post--playground"
+          },
+          {
+            "name": "Image cards",
+            "id": "post-post--image-cards"
+          },
+          {
+            "name": "Featured and recent",
+            "id": "post-post--featured"
+          },
+          {
+            "name": "Horizontal rows",
+            "id": "post-post--horizontal"
+          },
+          {
+            "name": "Compact list",
+            "id": "post-post--compact"
           }
         ],
         "patterns": []
       },
       "storybook": "post-post--docs",
-      "docs": "docs/llm/post-post.md",
+      "docs": "docs/llm/blocks-blog-post-lists.md",
       "source": "src/components/post/Post/",
-      "readme": null,
-      "related": []
+      "readme": "# Post\n\nA semantic list entry for the blog. Storybook's **Blocks → Blog → Post lists** shows image cards, featured and recent articles, horizontal rows, and a compact archive using the same component and article data as the blog pages.\n\n```jsx\nimport Post from '@gaudi/design-system/post/Post';\nimport { PostReadingTime } from '@gaudi/design-system/post/PostHeader';\n\n<ul>\n  <Post\n    frontMatter={article}\n    layout='stacked'\n    media={<img src='/cover.jpg' alt='' />}\n    footer={<PostReadingTime readingTime='8 min read' />}\n  />\n</ul>\n```\n\n`frontMatter` contains the supplied `title`, `href`, `date`, `subtitle`, `draft`, and `category` (`{ label, href }` or an unlinked string). `locale` controls date formatting; `titleAs` defaults to `h3`; `titleVariant` defaults to `index-list-title` and accepts a shared Typography variant. Applications prepare routes and content. `Post` does not infer a destination or estimate reading time.\n\n`layout` defaults to `list`, preserving the existing text index. `stacked` puts optional media above the summary. `horizontal` puts media beside the text when the list item is at least 36rem wide and stacks it below that width. `media` and `footer` accept composed content; `className` and standard list-item props pass to the outer `li`.\n\nPlace entries inside a list. Use a heading level appropriate to the surrounding section and keep the title link descriptive. Cover artwork that repeats the title's purpose can use empty alt text; meaningful illustrations need a useful description. Keep unrelated buttons and category links outside the title link. Layouts in the examples use shared styles and do not duplicate post metadata rendering.",
+      "related": [
+        "mdx-image"
+      ]
     },
     {
-      "id": "post-postheader",
+      "id": "blocks-blog-postheader",
       "name": "PostHeader",
       "kind": "component",
-      "title": "Post/PostHeader",
+      "title": "Blocks/Blog/PostHeader",
       "category": "post",
       "owner": "post/PostHeader",
       "import": {
@@ -46015,6 +46489,26 @@
           "default": "1",
           "required": false,
           "description": "Article heading level."
+        },
+        {
+          "name": "titleVariant",
+          "names": [
+            "titleVariant"
+          ],
+          "type": "keyof typographyVariants",
+          "default": "post-title",
+          "required": false,
+          "description": "Shared Typography style for the title, independent of titleLevel. Blog page and article titles use title-md; featured articles use heading-md."
+        },
+        {
+          "name": "subtitleVariant",
+          "names": [
+            "subtitleVariant"
+          ],
+          "type": "keyof typographyVariants",
+          "default": "post-subtitle",
+          "required": false,
+          "description": "Shared Typography style for the subtitle. Blog compositions use paragraph-md."
         },
         {
           "name": "tocControl",
@@ -46064,16 +46558,18 @@
         "patterns": []
       },
       "storybook": "post-postheader--docs",
-      "docs": "docs/llm/post-postheader.md",
+      "docs": "docs/llm/blocks-blog-postheader.md",
       "source": "src/components/post/PostHeader/",
       "readme": null,
-      "related": []
+      "related": [
+        "blocks-blog-article"
+      ]
     },
     {
-      "id": "post-postnavigation",
+      "id": "blocks-blog-postnavigation",
       "name": "PostNavigation",
       "kind": "component",
-      "title": "Post/PostNavigation",
+      "title": "Blocks/Blog/PostNavigation",
       "category": "post",
       "owner": "post/PostNavigation",
       "import": {
@@ -46134,16 +46630,16 @@
         "patterns": []
       },
       "storybook": "post-postnavigation--docs",
-      "docs": "docs/llm/post-postnavigation.md",
+      "docs": "docs/llm/blocks-blog-postnavigation.md",
       "source": "src/components/post/PostNavigation/",
       "readme": null,
       "related": []
     },
     {
-      "id": "post-postseriesbox",
+      "id": "blocks-blog-postseriesbox",
       "name": "PostSeriesBox",
       "kind": "component",
-      "title": "Post/PostSeriesBox",
+      "title": "Blocks/Blog/PostSeriesBox",
       "category": "post",
       "owner": "post/PostSeriesBox",
       "import": {
@@ -46213,16 +46709,16 @@
         "patterns": []
       },
       "storybook": "post-postseriesbox--docs",
-      "docs": "docs/llm/post-postseriesbox.md",
+      "docs": "docs/llm/blocks-blog-postseriesbox.md",
       "source": "src/components/post/PostSeriesBox/",
       "readme": null,
       "related": []
     },
     {
-      "id": "post-tableofcontents",
+      "id": "blocks-blog-tableofcontents",
       "name": "TableOfContents",
       "kind": "component",
-      "title": "Post/TableOfContents",
+      "title": "Blocks/Blog/TableOfContents",
       "category": "post",
       "owner": "post/TableOfContents",
       "import": {
@@ -46236,17 +46732,17 @@
           "default"
         ]
       },
-      "description": "Tracks article headings and indexes diagrams and tables. Pass contentRef when several articles share the same page.",
+      "description": "Responsive article navigation with active sections, expandable heading branches, and an optional diagram and table index. Reuses Scrollspy, Collapsible, Link and the shared expansion hook.",
       "props": [
         {
           "name": "toc",
           "names": [
             "toc"
           ],
-          "type": "Array<{ id, url, value, depth, children }>",
+          "type": "Array<{ id, url?, value, depth?, children? }>",
           "default": "[]",
           "required": false,
-          "description": "Heading IDs and labels from the article."
+          "description": "Prepared heading IDs and labels. Nest children to describe the hierarchy; top-level count controls initial expansion regardless of heading depth."
         },
         {
           "name": "contentRef",
@@ -46259,6 +46755,46 @@
           "description": "Article to index. Defaults to the first article on the page."
         },
         {
+          "name": "targetRef",
+          "names": [
+            "targetRef"
+          ],
+          "type": "RefObject<HTMLElement>",
+          "default": null,
+          "required": false,
+          "description": "Document or nested scroll viewport used by shared Scrollspy. Omit for document scrolling."
+        },
+        {
+          "name": "offset",
+          "names": [
+            "offset"
+          ],
+          "type": "number",
+          "default": "24",
+          "required": false,
+          "description": "Space above the selected heading for sticky navigation or decorative edges."
+        },
+        {
+          "name": "smooth",
+          "names": [
+            "smooth"
+          ],
+          "type": "boolean",
+          "default": "true",
+          "required": false,
+          "description": "Smooth section navigation; respects reduced motion."
+        },
+        {
+          "name": "indexVisuals",
+          "names": [
+            "indexVisuals"
+          ],
+          "type": "boolean",
+          "default": "true",
+          "required": false,
+          "description": "Index captioned diagrams and tables in the article. Image and video figures are excluded."
+        },
+        {
           "name": "className",
           "names": [
             "className"
@@ -46266,12 +46802,22 @@
           "type": "string",
           "default": null,
           "required": false,
-          "description": "Layout and responsive visibility classes."
+          "description": "Root layout classes. Sticky placement and mobile disclosure belong to the surrounding layout."
+        },
+        {
+          "name": "aria-label",
+          "names": [
+            "aria-label"
+          ],
+          "type": "string",
+          "default": "Table of contents",
+          "required": false,
+          "description": "Accessible navigation name when several contents lists share a page."
         }
       ],
       "variants": {},
-      "accessibility": "Names the article navigation and preserves normal anchor behavior; the active heading is marked without stealing focus.",
-      "usage": "import { TableOfContents } from '@gaudi/design-system';\n\n<TableOfContents toc={toc} />",
+      "accessibility": "Uses real links and marks the active heading with aria-current. Branch toggles have descriptive names and aria-expanded. Modified link clicks remain native; section navigation respects reduced motion and does not steal focus. Hidden branches keep their targets indexed and expand when a descendant becomes active.",
+      "usage": "import TableOfContents from '@gaudi/design-system/post/TableOfContents';\n\n<TableOfContents toc={toc} contentRef={articleRef} targetRef={readingViewportRef} offset={24} />",
       "examples": {
         "stories": [
           {
@@ -46286,30 +46832,35 @@
         "patterns": []
       },
       "storybook": "post-tableofcontents--docs",
-      "docs": "docs/llm/post-tableofcontents.md",
+      "docs": "docs/llm/blocks-blog-tableofcontents.md",
       "source": "src/components/post/TableOfContents/",
-      "readme": null,
-      "related": []
+      "readme": "# TableOfContents\n\nUse this block for article headings, nested sections, and optional captioned diagrams and tables. It shares Scrollspy tracking and navigation, Link behavior, Collapsible controls, ScrollArea containment, and the expansion hook with the rest of Gaudi.\n\n```jsx\nimport TableOfContents from '@gaudi/design-system/post/TableOfContents';\n\n<TableOfContents\n  toc={toc}\n  contentRef={articleRef}\n  targetRef={readingViewportRef}\n  offset={24}\n/>\n```\n\nPrepare entries as `{ id, value, url?, depth?, children? }`. Nest `children` to describe expandable branches; flat lists still use `depth` for indentation. Four or fewer top-level entries expand initially, regardless of their heading depth. Larger lists follow the active branch; readers can toggle every branch independently. Closed branches retain their tracking targets and reveal an active descendant.\n\nOmit `targetRef` for document scrolling. Pass the article's actual viewport ref for bounded reading layouts; use the same ref for ReadingIndicator and other Scrollspy navigation. `offset` accounts for sticky headers or decorative edges. `smooth` defaults to true and respects reduced motion. Scrollspy owns scroll listeners and active-section tracking; this block does not create separate heading observers.\n\n`contentRef` scopes visual indexing to one article. Captioned diagrams and tables receive stable anchors; photo, video, and code figures are excluded. Set `indexVisuals={false}` to show only headings. Long labels wrap, and a shared ScrollArea contains longer lists.\n\nThe block is visible at every screen width. The surrounding ArticleContentLayout owns sticky placement and the mobile contents disclosure. Use `aria-label` to name navigation when several lists share a page. Real links preserve modified clicks; active links use `aria-current=\"location\"`, and branch toggles expose `aria-expanded` without moving focus.",
+      "related": [
+        "core-scrollspy",
+        "core-link",
+        "blocks-blog-article",
+        "mdx-image"
+      ]
     },
     {
-      "id": "layout-articlecontentlayout",
-      "name": "ArticleContentLayout",
+      "id": "blocks-blog-article",
+      "name": "Article",
       "kind": "component",
-      "title": "Layout/ArticleContentLayout",
+      "title": "Blocks/Blog/Article",
       "category": "layout",
       "owner": "layout/ArticleContentLayout",
       "import": {
         "path": "@gaudi/design-system/layout/ArticleContentLayout",
         "category": "@gaudi/design-system/layout",
-        "root": true,
-        "mainExport": "ArticleContentLayout",
+        "root": false,
+        "mainExport": "Article",
         "kind": "default",
-        "line": "import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';",
+        "line": "import Article from '@gaudi/design-system/layout/ArticleContentLayout';",
         "exports": [
           "default"
         ]
       },
-      "description": "Responsive article prose with an optional contents rail and controlled or uncontrolled aside visibility. The Blog article example composes a full reading page with journal navigation, smooth scrolling, reading progress, section navigation, expandable images, and video. Use its ScrollArea viewport as the main blog content host during migration and share that ref with ReadingIndicator and Scrollspy.",
+      "description": "A complete blog article with Gaudi journal navigation, PostHeader metadata, reading progress, TableOfContents section navigation, expandable images, a gallery, and captioned video. The main Blog article is joined by a centered Focused essay, a Technical tutorial with nested navigation and code, a wider Photo essay with a gallery, and a Series article with PostSeriesBox navigation across three parts. Each workflow reuses the same scroll boundary, header, media controls, and layout component. Contents-enabled examples use the shared TableOfContents block for links, active sections, and nested branch controls.",
       "props": [
         {
           "name": "children / aside",
@@ -46412,44 +46963,60 @@
         ]
       },
       "accessibility": "The aside toggle is a named button with aria-expanded. Supply a labelled nav or aside and keep heading order in the article body. The Blog article demo's optional Blur edges treatment is decorative, does not intercept input, and clears for keyboard focus, reduced motion, and forced colors. Its scroll destinations and sticky contents remain outside the blur bands.",
-      "usage": "import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';\n\n<ArticleContentLayout aside={tableOfContents} collapsibleAside>\n  <h1>{article.title}</h1>\n  {articleContent}\n</ArticleContentLayout>",
+      "notes": [
+        "Article is the Storybook composition name. The supported layout component remains ArticleContentLayout, with its public import and props unchanged.",
+        "The Blog article preview's contents control selects visible, none, collapsible, or collapsed navigation. Its smooth control changes wheel scrolling; keyboard, touch, and reduced-motion reading remain native. The other stories demonstrate distinct reading workflows; table-of-contents visibility remains a control in the main Blog article example."
+      ],
+      "usage": "import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';\nimport TableOfContents from '@gaudi/design-system/post/TableOfContents';\nimport PostHeader from '@gaudi/design-system/post/PostHeader';\n\n<ArticleContentLayout aside={<TableOfContents toc={toc} contentRef={articleRef} targetRef={readingViewportRef} />} collapsibleAside>\n  <PostHeader frontMatter={article} titleVariant='title-md' subtitleVariant='paragraph-md' />\n  {articleContent}\n</ArticleContentLayout>",
       "examples": {
         "stories": [
           {
-            "name": "ArticleContentLayout",
-            "id": "layout-components--article-content"
-          },
-          {
             "name": "Blog article",
             "id": "layout-article-content-layout--blog-article"
+          },
+          {
+            "name": "Series article",
+            "id": "layout-article-content-layout--series-article"
+          },
+          {
+            "name": "Focused essay",
+            "id": "layout-article-content-layout--focused-essay"
+          },
+          {
+            "name": "Technical tutorial",
+            "id": "layout-article-content-layout--technical-tutorial"
+          },
+          {
+            "name": "Photo essay",
+            "id": "layout-article-content-layout--photo-essay"
           }
         ],
         "patterns": []
       },
       "storybook": "layout-article-content-layout--docs",
-      "docs": "docs/llm/layout-articlecontentlayout.md",
+      "docs": "docs/llm/blocks-blog-article.md",
       "source": "src/components/layout/ArticleContentLayout/",
       "readme": null,
       "related": [
-        "core-scrollarea",
-        "core-readingindicator",
-        "core-scrollspy"
+        "blocks-blog-postheader",
+        "blocks-blog-tableofcontents",
+        "blocks-blog-postseriesbox"
       ]
     },
     {
-      "id": "layout-footer",
-      "name": "Footer",
+      "id": "blocks-marketing-footers",
+      "name": "Footers",
       "kind": "component",
-      "title": "Layout/Footer",
+      "title": "Blocks/Marketing/Footers",
       "category": "layout",
       "owner": "layout/Footer",
       "import": {
         "path": "@gaudi/design-system/layout/Footer",
         "category": "@gaudi/design-system/layout",
-        "root": true,
-        "mainExport": "Footer",
+        "root": false,
+        "mainExport": "Footers",
         "kind": "default",
-        "line": "import Footer from '@gaudi/design-system/layout/Footer';",
+        "line": "import Footers from '@gaudi/design-system/layout/Footer';",
         "exports": [
           "default"
         ]
@@ -46461,10 +47028,10 @@
           "names": [
             "variant"
           ],
-          "type": "standard | editorial",
+          "type": "standard | editorial | centered | compact",
           "default": "standard",
           "required": false,
-          "description": "Newsletter layout or brand-led layout."
+          "description": "Link columns with a newsletter, blog branding, centered navigation, or compact inline navigation."
         },
         {
           "name": "sections",
@@ -46497,15 +47064,34 @@
           "description": "Host-owned attribution."
         },
         {
-          "name": "brandTitle / brandDescription",
+          "name": "brandTitle",
           "names": [
-            "brandTitle",
+            "brandTitle"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Host-supplied name or brand component."
+        },
+        {
+          "name": "brandDescription",
+          "names": [
             "brandDescription"
           ],
           "type": "string",
           "default": null,
           "required": false,
-          "description": "Editorial brand heading and description."
+          "description": "Short description beneath the brand."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional classes on the footer landmark."
         },
         {
           "name": "newsletterProps",
@@ -46521,7 +47107,9 @@
       "variants": {
         "variant": [
           "standard",
-          "editorial"
+          "editorial",
+          "centered",
+          "compact"
         ]
       },
       "accessibility": "Retains the footer landmark and uniquely named navigation regions. Supply descriptive link labels and a configured newsletter endpoint before allowing subscription.",
@@ -46529,19 +47117,179 @@
       "examples": {
         "stories": [
           {
-            "name": "Footer",
+            "name": "Blog with link columns",
+            "id": "layout-footer--blog"
+          },
+          {
+            "name": "With newsletter",
+            "id": "layout-footer--newsletter"
+          },
+          {
+            "name": "Centered",
+            "id": "layout-footer--centered"
+          },
+          {
+            "name": "Compact inline",
+            "id": "layout-footer--compact"
+          },
+          {
+            "name": "Newsletter unavailable",
             "id": "layout-components--footer-layout"
+          },
+          {
+            "name": "Newsletter error",
+            "id": "layout-footer--submission-error"
           }
         ],
         "patterns": []
       },
       "storybook": "layout-footer--docs",
-      "docs": "docs/llm/layout-footer.md",
+      "docs": "docs/llm/blocks-marketing-footers.md",
       "source": "src/components/layout/Footer/",
-      "readme": null,
+      "readme": "# Footer\n\nOne footer owner for blog and marketing pages. Import from `@gaudi/design-system/layout/Footer`.\n\n- `standard` places navigation beside the shared `NewsletterForm`.\n- `editorial` places a brand and social links beside grouped navigation.\n- `centered` centers the brand, a flat list of links, social links, and copyright.\n- `compact` puts the brand, flat navigation, and social links in a row when the container permits.\n\nSupply `sections` as `{ title, links: [{ href, label }] }[]`, `socialLinks` as `{ kind, href }[]`, and `copyrightName` as a name or author object. Content and destinations belong to the host. Empty navigation and social groups are omitted. The simple variants flatten the supplied navigation groups.\n\n`brandTitle` accepts a React node, including `GaudiBrand`; `brandDescription` supplies the supporting text. `className` and native footer attributes pass through to the landmark. Each instance generates a unique accessible heading.\n\n`newsletterProps` goes to `NewsletterForm`. An endpoint is required to enable subscriptions; the examples use local sample responses and never subscribe an address. Custom form classes merge with the footer defaults.\n\nThe footer responds to its container, so it can be used in page layouts and inset regions. The host owns the outer width and horizontal gutters. Keep each page's footer outside its main landmark.",
       "related": [
+        "core-link",
         "blocks-navigation"
       ]
+    },
+    {
+      "id": "blocks-marketing-newsletter",
+      "name": "Newsletter",
+      "kind": "component",
+      "title": "Blocks/Marketing/Newsletter",
+      "category": "layout",
+      "owner": "layout/NewsletterForm",
+      "import": {
+        "path": "@gaudi/design-system/layout/NewsletterForm",
+        "category": "@gaudi/design-system/layout",
+        "root": false,
+        "mainExport": "Newsletter",
+        "kind": "default",
+        "line": "import Newsletter from '@gaudi/design-system/layout/NewsletterForm';",
+        "exports": [
+          "default"
+        ]
+      },
+      "description": "Newsletter sections built from one email subscription form, with an explicit host endpoint and local pending, success, and error feedback.",
+      "props": [
+        {
+          "name": "endpoint",
+          "names": [
+            "endpoint"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Host endpoint that receives a POST; absent endpoints disable signup."
+        },
+        {
+          "name": "title",
+          "names": [
+            "title"
+          ],
+          "type": "ReactNode",
+          "default": "Subscribe to the newsletter",
+          "required": false,
+          "description": "Visible form heading. Pass null to omit it."
+        },
+        {
+          "name": "description",
+          "names": [
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": "Get new articles and resources in your inbox.",
+          "required": false,
+          "description": "Supporting copy. Pass null to omit it."
+        },
+        {
+          "name": "headingAs",
+          "names": [
+            "headingAs"
+          ],
+          "type": "string",
+          "default": "h3",
+          "required": false,
+          "description": "Heading level in the host page."
+        },
+        {
+          "name": "titleVariant",
+          "names": [
+            "titleVariant"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Shared Typography variant; omitted preserves the compact form heading."
+        },
+        {
+          "name": "children",
+          "names": [
+            "children"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Supporting content below the form and feedback, such as a privacy note."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Root layout classes."
+        },
+        {
+          "name": "classNames",
+          "names": [
+            "classNames"
+          ],
+          "type": "{ root?, header?, body?, title?, description?, form?, input?, action?, button?, message? }",
+          "default": "{}",
+          "required": false,
+          "description": "Part-specific classes."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Uses EmailInput with single-address pattern validation and the default smooth caret. Names the email input, preserves the submitted address on failure, disables duplicate submissions, and announces feedback beside the field.",
+      "usage": "import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';\n\n<NewsletterForm title='Monthly field notes' endpoint='/api/newsletter' />",
+      "examples": {
+        "stories": [
+          {
+            "name": "Form and availability",
+            "id": "layout-components--newsletter"
+          },
+          {
+            "name": "Centered",
+            "id": "layout-newsletter-form--playground"
+          },
+          {
+            "name": "Split",
+            "id": "layout-newsletter-form--split"
+          },
+          {
+            "name": "Image panel",
+            "id": "layout-newsletter-form--image-panel"
+          },
+          {
+            "name": "Compact",
+            "id": "layout-newsletter-form--compact"
+          },
+          {
+            "name": "Submission error",
+            "id": "layout-newsletter-form--submission-error"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "layout-newsletter-form--docs",
+      "docs": "docs/llm/blocks-marketing-newsletter.md",
+      "source": "src/components/layout/NewsletterForm/",
+      "readme": "# NewsletterForm\n\nOne subscription form for footer embeds and **Blocks → Marketing → Newsletter** sections. The public import remains `@gaudi/design-system/layout/NewsletterForm`.\n\n```jsx\nimport NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';\n\n<NewsletterForm\n  endpoint='/api/newsletter'\n  title='Notes worth sharing.'\n  description='New writing and useful resources from our journal.'\n  headingAs='h2'\n  titleVariant='heading-xl'\n>\n  <p>Unsubscribe whenever you like.</p>\n</NewsletterForm>\n```\n\nThe host endpoint receives a POST with `{ email }`. A successful HTTP response without an `error` value confirms the subscription. Failed requests preserve the address for retry; pending and successful forms prevent duplicate submission. Endpoint changes and unmounts abort pending work. Without an endpoint, signup is disabled and an unavailable message is shown.\n\n`title` and `description` accept content or `null`. `headingAs` defaults to `h3`; `titleVariant` optionally selects a shared Typography variant. Omit it to retain the compact heading used by existing embeds. `children` follows submission feedback. `classNames` accepts `root`, `header`, `body`, `title`, `description`, `form`, `input`, `action`, `button`, and `message`.\n\nThe EmailInput owns single-address validation and caret behavior. Feedback uses an alert for errors and a status for success. All examples share this implementation; section layout styles and local sample endpoints stay in the story fixtures. The response control switches between success, error, and unavailable and resets the example. Demo addresses are never sent to a subscription service.",
+      "related": []
     },
     {
       "id": "layout-layoutcontainer",
@@ -46634,258 +47382,6 @@
       "related": [
         "blocks-navigation"
       ]
-    },
-    {
-      "id": "layout-layoutwrapper",
-      "name": "LayoutWrapper",
-      "kind": "component",
-      "title": "Layout/LayoutWrapper",
-      "category": "layout",
-      "owner": "layout/LayoutWrapper",
-      "import": {
-        "path": "@gaudi/design-system/layout/LayoutWrapper",
-        "category": "@gaudi/design-system/layout",
-        "root": true,
-        "mainExport": "LayoutWrapper",
-        "kind": "default",
-        "line": "import LayoutWrapper from '@gaudi/design-system/layout/LayoutWrapper';",
-        "exports": [
-          "default"
-        ]
-      },
-      "description": "Client-safe page shell composed from navigation, one main landmark, and Footer.",
-      "props": [
-        {
-          "name": "children",
-          "names": [
-            "children"
-          ],
-          "type": "ReactNode",
-          "default": null,
-          "required": false,
-          "description": "Page content placed in main."
-        },
-        {
-          "name": "footerProps",
-          "names": [
-            "footerProps"
-          ],
-          "type": "Footer props",
-          "default": null,
-          "required": false,
-          "description": "Host-owned footer content and newsletter configuration."
-        }
-      ],
-      "variants": {},
-      "accessibility": "Provides a single main landmark. Do not nest this shell inside another main element or use it alongside LayoutContainer.",
-      "usage": "import LayoutWrapper from '@gaudi/design-system/layout/LayoutWrapper';\n\n<LayoutWrapper footerProps={footerProps}>\n  <h1>Latest articles</h1>\n  {postList}\n</LayoutWrapper>",
-      "examples": {
-        "stories": [
-          {
-            "name": "LayoutWrapper",
-            "id": "layout-components--page-shell"
-          },
-          {
-            "name": "Main Page",
-            "id": "layout-examples--main-page"
-          },
-          {
-            "name": "Blog Main Page",
-            "id": "layout-examples--blog-main-page"
-          },
-          {
-            "name": "Category Page With Posts And Pagination",
-            "id": "layout-examples--category-page-with-posts-and-pagination"
-          },
-          {
-            "name": "Categories Page",
-            "id": "layout-examples--categories-page"
-          },
-          {
-            "name": "Tags Page",
-            "id": "layout-examples--tags-page"
-          },
-          {
-            "name": "Projects Page",
-            "id": "layout-examples--projects-page"
-          },
-          {
-            "name": "Publications Page",
-            "id": "layout-examples--publications-page"
-          },
-          {
-            "name": "About Me Page",
-            "id": "layout-examples--about-me-page"
-          }
-        ],
-        "patterns": []
-      },
-      "storybook": "layout-layout-wrapper--docs",
-      "docs": "docs/llm/layout-layoutwrapper.md",
-      "source": "src/components/layout/LayoutWrapper/",
-      "readme": null,
-      "related": [
-        "layout-footer",
-        "layout-layoutcontainer"
-      ]
-    },
-    {
-      "id": "layout-newsletterform",
-      "name": "NewsletterForm",
-      "kind": "component",
-      "title": "Layout/NewsletterForm",
-      "category": "layout",
-      "owner": "layout/NewsletterForm",
-      "import": {
-        "path": "@gaudi/design-system/layout/NewsletterForm",
-        "category": "@gaudi/design-system/layout",
-        "root": true,
-        "mainExport": "NewsletterForm",
-        "kind": "default",
-        "line": "import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';",
-        "exports": [
-          "default"
-        ]
-      },
-      "description": "Email subscription form with an explicit host endpoint and local pending, success, and error feedback.",
-      "props": [
-        {
-          "name": "endpoint",
-          "names": [
-            "endpoint"
-          ],
-          "type": "string",
-          "default": null,
-          "required": false,
-          "description": "Host endpoint that receives a POST; absent endpoints disable signup."
-        },
-        {
-          "name": "title",
-          "names": [
-            "title"
-          ],
-          "type": "string",
-          "default": "Subscribe to the newsletter",
-          "required": false,
-          "description": "Visible form heading."
-        },
-        {
-          "name": "className",
-          "names": [
-            "className"
-          ],
-          "type": "string",
-          "default": null,
-          "required": false,
-          "description": "Root layout classes."
-        },
-        {
-          "name": "classNames",
-          "names": [
-            "classNames"
-          ],
-          "type": "{ root?, title?, description?, form?, input?, action?, button?, message? }",
-          "default": "{}",
-          "required": false,
-          "description": "Part-specific classes."
-        }
-      ],
-      "variants": {},
-      "accessibility": "Uses EmailInput with single-address pattern validation and the default smooth caret. Names the email input, preserves the submitted address on failure, disables duplicate submissions, and announces feedback beside the field.",
-      "usage": "import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';\n\n<NewsletterForm title='Monthly field notes' endpoint='/api/newsletter' />",
-      "examples": {
-        "stories": [
-          {
-            "name": "NewsletterForm",
-            "id": "layout-components--newsletter"
-          }
-        ],
-        "patterns": []
-      },
-      "storybook": "layout-newsletter-form--docs",
-      "docs": "docs/llm/layout-newsletterform.md",
-      "source": "src/components/layout/NewsletterForm/",
-      "readme": null,
-      "related": []
-    },
-    {
-      "id": "layout-search",
-      "name": "Search",
-      "kind": "component",
-      "title": "Layout/Search",
-      "category": "layout",
-      "owner": "layout/Search",
-      "import": {
-        "path": "@gaudi/design-system/layout/Search",
-        "category": "@gaudi/design-system/layout",
-        "root": true,
-        "mainExport": "Search",
-        "kind": "default",
-        "line": "import Search from '@gaudi/design-system/layout/Search';",
-        "exports": [
-          "default"
-        ]
-      },
-      "description": "Controlled article filter with a clear action that returns focus to the search field.",
-      "props": [
-        {
-          "name": "label",
-          "names": [
-            "label"
-          ],
-          "type": "string",
-          "default": "Filter articles",
-          "required": false,
-          "description": "Accessible label and placeholder."
-        },
-        {
-          "name": "value",
-          "names": [
-            "value"
-          ],
-          "type": "string",
-          "default": null,
-          "required": false,
-          "description": "Controlled query from the host."
-        },
-        {
-          "name": "setSearchValue",
-          "names": [
-            "setSearchValue"
-          ],
-          "type": "(query: string) => void",
-          "default": null,
-          "required": false,
-          "description": "Notifies the host for typing and clearing."
-        },
-        {
-          "name": "resultsId",
-          "names": [
-            "resultsId"
-          ],
-          "type": "string",
-          "default": null,
-          "required": false,
-          "description": "ID referenced by aria-controls."
-        }
-      ],
-      "variants": {},
-      "accessibility": "Supply a meaningful label and the result region ID. Filtering belongs to the host; clearing the query preserves keyboard focus.",
-      "usage": "import Search from '@gaudi/design-system/layout/Search';\n\n<>\n<Search label='Filter articles' value={query} setSearchValue={setQuery} resultsId='article-results' />\n<div id='article-results'>{filteredArticles}</div>\n</>",
-      "examples": {
-        "stories": [
-          {
-            "name": "Search",
-            "id": "layout-components--article-search"
-          }
-        ],
-        "patterns": []
-      },
-      "storybook": "layout-search--docs",
-      "docs": "docs/llm/layout-search.md",
-      "source": "src/components/layout/Search/",
-      "readme": null,
-      "related": []
     }
   ]
 }

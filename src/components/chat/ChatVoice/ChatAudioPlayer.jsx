@@ -5,6 +5,7 @@ import { default as Button } from '../../core/Button/index.js';
 import { Slider } from '../../core/Slider/Slider.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { formatAudioTime } from './voiceMedia.js';
+import { normalizeDownloadHref } from '../../../utilities/href.js';
 
 const DEFAULT_LABELS = {
   play: 'Play',
@@ -194,9 +195,9 @@ function ChatAudioPlayer({
           {`${speed}×`}
         </Button>
       ) : null}
-      {download && src ? (
+      {download && normalizeDownloadHref(src) ? (
         <Button asChild size='icon-sm' variant='ghost'>
-          <a href={src} download={fileName} aria-label={`${labels.download}${title ? ` ${title}` : ''}`}>
+          <a href={normalizeDownloadHref(src)} download={fileName} aria-label={`${labels.download}${title ? ` ${title}` : ''}`}>
             <RegistryIcon lucide='Download' />
           </a>
         </Button>

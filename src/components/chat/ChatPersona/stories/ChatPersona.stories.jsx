@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import { default as Button } from '../../../core/Button/index.js';
+import ToggleGroup from '../../../core/ToggleGroup/index.js';
 import { chatMeta } from '../../stories/story-helpers.jsx';
 import { ChatPersona, personaStates, personaVariants } from '../index.js';
 import { checkPersonaScopedTheme } from '../../../../../tests/components/chat/checkCompositionReuse.jsx';
@@ -50,13 +51,10 @@ function OrbGallery() {
   const [constrained, setConstrained] = useState(false);
   return (
     <div className='grid w-full gap-6'>
-      <div role='group' aria-label='Persona state' className='flex flex-wrap gap-1.5'>
+      <div className='flex flex-wrap items-center gap-1.5'>
         <Button size='xs' variant='outline' aria-pressed={constrained} onClick={() => setConstrained((value) => !value)}>Constrain orbs</Button>
-        {personaStates.map((item) => (
-          <Button key={item} size='xs' variant={item === state ? 'soft' : 'ghost'} tone={item === state ? 'accent' : undefined} aria-pressed={item === state} onClick={() => setState(item)}>
-            {item}
-          </Button>
-        ))}
+        {/* One state is always selected, so an empty value from re-clicking the active item is ignored. */}
+        <ToggleGroup label='Persona state' size='sm' value={state} onValueChange={(value) => value && setState(value)} options={personaStates.map((item) => ({ value: item, label: item }))} />
       </div>
       <ul className='grid grid-cols-1 gap-4 min-[420px]:grid-cols-2 lg:grid-cols-4'>
         {personaVariants.map((variant) => (
@@ -104,15 +102,15 @@ export const Orbs = {
     await expect(orbOf('bars').querySelectorAll('.ds-part-voice-bar')).toHaveLength(5);
     await expect(orbOf('circle').querySelector('.ds-part-voice-circle-disc')).not.toBeNull();
     for (const variant of [ 'cloud', 'radial' ]) await expect(orbOf(variant)).toHaveAttribute('data-orb', variant);
-    await userEvent.click(canvas.getByRole('button', { name: 'listening' }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'listening' }));
     await waitFor(() => expect(Number(getComputedStyle(orbOf('bars').querySelector('.ds-part-voice-bar:nth-child(3)')).height.replace('px', ''))).toBeGreaterThan(4));
-    await userEvent.click(canvas.getByRole('button', { name: 'asleep' }));
-    await expect(canvas.getByRole('button', { name: 'asleep' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('radio', { name: 'asleep' }));
+    await expect(canvas.getByRole('radio', { name: 'asleep' })).toHaveAttribute('aria-checked', 'true');
     for (const variant of personaVariants) {
       await expect(canvas.getByRole('img', { name: `Gaudi (${variant}): Asleep` })).toBeInTheDocument();
     }
     await expect(canvasElement.querySelectorAll('[data-slot="voice-orb"][data-moving]')).toHaveLength(0);
-    await userEvent.click(canvas.getByRole('button', { name: 'error' }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'error' }));
     await expect(canvasElement.querySelectorAll('[data-slot="voice-orb"][data-state="error"]')).toHaveLength(personaVariants.length + 3);
   }
 };

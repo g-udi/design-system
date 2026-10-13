@@ -1,6 +1,7 @@
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useId, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import Switch from '@gaudi/design-system/core/Switch';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -15,9 +16,9 @@ export function BackgroundDemo({ children, paused: externallyPaused = false, hin
   const content = (
     <div id={contentId} className={`gaudi-background-demo__content${darkContent ? ' dark' : ''}`} data-background-demo-content hidden={!showContent}>
       <header className="gaudi-background-demo__header">
-        <a className="gaudi-background-demo__brand" href="https://github.com/ahmadassaf/design-system" target="_blank" rel="noreferrer">
+        <Link className="gaudi-background-demo__brand" href="https://github.com/ahmadassaf/design-system" variant="bare">
           <GaudiBrand className="text-sm" />
-        </a>
+        </Link>
         <nav aria-label="Gaudi demo navigation" className="gaudi-background-demo__navigation">
           <Button href="https://github.com/ahmadassaf/design-system#usage" target="_blank" rel="noreferrer" variant="ghost" size="sm">Components</Button>
           <Button href="https://github.com/ahmadassaf/design-system#install" target="_blank" rel="noreferrer" size="sm">Get started</Button>

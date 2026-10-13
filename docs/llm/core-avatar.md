@@ -70,7 +70,7 @@ Curated patterns:
 - Inside buttons — registry item `@gaudi/avatar-in-buttons` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`)
 - Sizes, shapes and fallbacks — registry item `@gaudi/avatar-sizes-fallbacks` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Frame`, `FramePanel`)
-- Status and icon badges — registry item `@gaudi/avatar-status-badges` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
+- Status and icon badges — registry item `@gaudi/avatar-status-badges` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Icon`, `RegistryIcon`)
 - User details and badge — registry item `@gaudi/avatar-user-details` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`)
 
 ## Related

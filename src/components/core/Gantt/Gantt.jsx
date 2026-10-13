@@ -1,5 +1,6 @@
 'use client';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
+import { splitOptions, warnOnce } from '../shared/schedulerOptions.js';
 import {
   createContext,
   useContext,
@@ -75,13 +76,6 @@ function resolveSettings(options) {
         defaultEventOrder(a, b)),
     getOccurrences: options.getOccurrences
   };
-}
-const warned = new Set();
-function warnOnce(key, message) {
-  if (process.env.NODE_ENV !== 'production' && !warned.has(key)) {
-    warned.add(key);
-    console.warn(`[gantt] ${message}`);
-  }
 }
 function createGanttStore(initial) {
   let options = initial;
@@ -846,22 +840,6 @@ function shallowEqualRecord(a, b) {
   }
   return true;
 }
-function splitOptions(props) {
-  const options = {};
-  const viewConfig = { ...DEFAULT_VIEW_CONFIG };
-  const rest = {};
-  for (const [key, value] of Object.entries(props)) {
-    if (OPTION_KEYS.includes(key)) options[key] = value;
-    else if (VIEW_CONFIG_KEYS.includes(key)) {
-      if (value !== void 0) viewConfig[key] = value;
-    } else rest[key] = value;
-  }
-  return {
-    options,
-    viewConfig,
-    rest
-  };
-}
 function Gantt({
   calendar,
   apiRef,
@@ -870,7 +848,12 @@ function Gantt({
   children,
   ...props
 }) {
-  const { options, viewConfig, rest } = splitOptions(props);
+  const { options, viewConfig, rest } = splitOptions(
+    props,
+    OPTION_KEYS,
+    VIEW_CONFIG_KEYS,
+    DEFAULT_VIEW_CONFIG
+  );
   const viewConfigRef = useRef(viewConfig);
   if (!shallowEqualRecord(viewConfigRef.current, viewConfig)) {
     viewConfigRef.current = viewConfig;
@@ -878,6 +861,7 @@ function Gantt({
   const stableViewConfig = viewConfigRef.current;
   if (calendar && Object.keys(options).length > 0) {
     warnOnce(
+      'gantt',
       'calendar-and-options',
       'both `calendar` and option props were passed; option props are ignored when adopting an instance.'
     );

@@ -1,4 +1,5 @@
 'use client';
+import { useIsClient } from '../../../../hooks/environment/use-is-client.js';
 import {
   createContext,
   memo,
@@ -287,10 +288,7 @@ function DataGridTableDndRows({
   const { table, props } = useDataGrid();
   const tableContainerRef = useRef(null);
   const [isDraggingRow, setIsDraggingRow] = useState(false);
-  const [portalTarget, setPortalTarget] = useState(null);
-  useEffect(() => {
-    setPortalTarget(document.body);
-  }, []);
+  const isClient = useIsClient();
   const [carried, setCarried] = useState(null);
   const pickUpRow = useCallback((id) => {
     const container = tableContainerRef.current;
@@ -469,7 +467,7 @@ function DataGridTableDndRows({
               Portalled to the body so the fixed positioning resolves against the
               viewport wherever the grid is mounted. React context crosses a portal,
               so DndContext still reaches it. */}
-      {portalTarget
+      {isClient
         ? createPortal(
             <DragOverlay dropAnimation={null}>
               {carried && carriedRow ? (
@@ -510,7 +508,7 @@ function DataGridTableDndRows({
                 </table>
               ) : null}
             </DragOverlay>,
-            portalTarget
+            document.body
           )
         : null}
     </DndContext>

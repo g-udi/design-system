@@ -1,4 +1,5 @@
-const clamp = (value, low, high) => Math.max(low, Math.min(high, value));
+import { clamp } from '../../../utilities/clamp.js';
+import { createLinearTexture } from '../backgroundShader.js';
 
 function sample(values, width, height, x, y) {
   x = clamp(x, 0, width - 1.001);
@@ -155,13 +156,8 @@ export function advanceEtherField(field, { delta, time, pointer, previousPointer
 export function createLiquidEtherSimulation(gl) {
   const field = createEtherField();
   const pixels = new Uint8Array(field.width * field.height * 4);
-  const texture = gl.createTexture();
+  const texture = createLinearTexture(gl);
   if (!texture) throw new Error('Unable to create LiquidEther dye texture');
-  gl.bindTexture(gl.TEXTURE_2D, texture);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, field.width, field.height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
   return {
     texture,

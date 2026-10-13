@@ -1,11 +1,8 @@
 'use client';
 import * as React from 'react';
+import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
 export const FILTER_DND_ACTIVATION = {
-  /** Mouse travel before a press becomes a drag. Below this it stays a click. */
-  moveDistancePx: 5,
-  /** Touch long-press before a drag starts, so a swipe still scrolls. */
-  touchDelayMs: 250,
-  touchTolerancePx: 5,
+  ...POINTER_DRAG_ACTIVATION,
   autoScrollEdgePx: 40,
   autoScrollMaxStepPx: 12,
   /** A seed only: `createCarry` measures the real grab offset before paint. */
@@ -62,17 +59,13 @@ export function cancelActiveFilterDrags() {
 }
 let lastDragEndedAt = 0;
 export function wasRecentFilterDrag() {
-  return performance.now() - lastDragEndedAt < 250;
+  return endedRecently(lastDragEndedAt);
 }
 function suppressTrailingClick(event) {
   window.removeEventListener('click', suppressTrailingClick, true);
   if (!wasRecentFilterDrag()) return;
   event.stopPropagation();
   event.preventDefault();
-}
-function snapToPixel(value) {
-  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1;
-  return Math.round(value * dpr) / dpr;
 }
 function findScrollParent(el) {
   let node = el ?? null;

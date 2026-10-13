@@ -1,8 +1,8 @@
-import Button from '../../../../../components/core/Button';
-import Card from '../../../../../components/core/Card';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '../../../../../components/core/Sheet';
+import Button from '@gaudi/design-system/core/Button';
+import Card from '@gaudi/design-system/core/Card';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@gaudi/design-system/core/Sheet';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { MOBILE_BREAKPOINT, useIsMobile } from '../../../../../hooks/environment/use-mobile.js';
+import { MOBILE_BREAKPOINT, useIsMobile } from '@gaudi/design-system/hooks/environment/use-mobile';
 
 const Filters = () => (
   <ul className='grid gap-1 text-sm'>

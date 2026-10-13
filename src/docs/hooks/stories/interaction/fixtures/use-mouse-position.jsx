@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useMousePosition } from '../../../../../hooks/interaction/use-mouse-position.js';
+import { useMousePosition } from '@gaudi/design-system/hooks/interaction/use-mouse-position';
 
 export function PointerReadout() {
   const [enabled, setEnabled] = useState(true);

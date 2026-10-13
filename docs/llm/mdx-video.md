@@ -28,7 +28,7 @@ Exports: `default`, `videoAnimationStyles`
 | `autoplay` | `boolean` | `true` | no | Adds autoplay to the iframe URL when the dialog opens. |
 | `playLabel` | `string` | `Play video` | no | Fallback accessible label for the thumbnail trigger. |
 | `className` | `string` | — | no | Thumbnail trigger class override. |
-| `classNames` | `{ trigger, thumbnail, playWrapper, playButton, dialog, overlay, panel, title, close, video }` | — | no | Slot-level class overrides. |
+| `classNames` | `{ trigger, thumbnail, playWrapper, playButton, panel, title, video }` | — | no | Slot-level class overrides. |
 
 ## Variants
 
@@ -39,7 +39,7 @@ Exports: `default`, `videoAnimationStyles`
 ```jsx
 <Video
   animationStyle='from-center'
-  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'
+  videoSrc='/static/media/video-player.html'
   thumbnailSrc='/static/images/og-card.jpg'
   thumbnailAlt='Video preview'
   title='Video walkthrough'

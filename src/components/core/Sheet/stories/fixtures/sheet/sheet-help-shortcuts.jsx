@@ -6,6 +6,7 @@ import {
   InputGroupAddon,
   InputGroupInput
 } from '@gaudi/design-system/core/Input';
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@gaudi/design-system/core/Item';
 import { KbdRoot as Kbd, KbdGroup } from '@gaudi/design-system/core/Kbd';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import {
@@ -68,13 +69,17 @@ export function Pattern() {
                     <section key={group} className='grid gap-1'>
                       <h3 className='text-text-muted text-xs font-medium'>{group}</h3>
                       {items.map(([title, hint, icon]) => (
-                        <a key={title} href={`#${title}`} className='hover:bg-surface-muted -mx-2 flex items-start gap-3 rounded-md p-2'>
-                          <RegistryIcon lucide={icon} aria-hidden='true' className='text-text-muted mt-0.5 size-4' />
-                          <span className='grid gap-0.5 text-sm'>
-                            <span className='font-medium'>{title}</span>
-                            <span className='text-text-muted'>{hint}</span>
-                          </span>
-                        </a>
+                        <Item key={title} asChild size='sm' className='-mx-2'>
+                          <a href={`#${title}`}>
+                            <ItemMedia variant='icon' className='text-text-muted'>
+                              <RegistryIcon lucide={icon} aria-hidden='true' />
+                            </ItemMedia>
+                            <ItemContent>
+                              <ItemTitle>{title}</ItemTitle>
+                              <ItemDescription>{hint}</ItemDescription>
+                            </ItemContent>
+                          </a>
+                        </Item>
                       ))}
                     </section>
                   ))

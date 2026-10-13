@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Progress from '../../../../../components/core/Progress';
+import Button from '@gaudi/design-system/core/Button';
+import Progress from '@gaudi/design-system/core/Progress';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useScrollPosition } from '../../../../../hooks/layout/use-scroll-position.js';
+import { useScrollPosition } from '@gaudi/design-system/hooks/layout/use-scroll-position';
 
 function ReadingPanel() {
   const panelRef = useRef(null);

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import Pill from '../../../../../components/core/Pill';
-import Button from '../../../../../components/core/Button';
-import { useInterval } from '../../../../../hooks/state/use-interval.js';
+import Pill from '@gaudi/design-system/core/Pill';
+import Button from '@gaudi/design-system/core/Button';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { usePrefersReducedMotion } from '../../../../../hooks/a11y/use-prefers-reduced-motion.js';
+import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 
 function Preference() {
   const reduced = usePrefersReducedMotion();

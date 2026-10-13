@@ -60,7 +60,7 @@ Core Tree provides arrow navigation; Enter or Space selects files. Row actions a
 
 ## Related
 
-`core-tree`, `layout-search`, `chat-chatagentmark`
+`core-tree`, `chat-chatagentmark`
 
 ## README
 

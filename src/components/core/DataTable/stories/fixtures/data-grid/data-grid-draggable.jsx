@@ -139,12 +139,7 @@ export function Pattern() {
                     .join('')}
                 </AvatarFallback>
               </Avatar>
-              <a
-                href='#'
-                className='text-ui-foreground hover:text-ui-primary font-medium'
-              >
-                {row.original.name}
-              </a>
+              <Link href='#'>{row.original.name}</Link>
             </div>
           );
         },

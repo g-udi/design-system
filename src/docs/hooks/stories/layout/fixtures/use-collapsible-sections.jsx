@@ -1,7 +1,7 @@
-import Button from '../../../../../components/core/Button';
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../../../../components/core/Accordion/index.js';
+import Button from '@gaudi/design-system/core/Button';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useCollapsibleSections } from '../../../../../hooks/layout/use-collapsible-sections.js';
+import { useCollapsibleSections } from '@gaudi/design-system/hooks/layout/use-collapsible-sections';
 
 const settings = [
   [ 'profile', 'Profile', 'Name, photo and the short bio shown under your posts.' ],

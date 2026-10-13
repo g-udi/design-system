@@ -1,9 +1,9 @@
-import Button from '../../../../../components/core/Button';
-import Icon from '../../../../../components/core/Icon';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
-import { useLiveAnnouncer } from '../../../../../hooks/a11y/use-live-announcer.js';
-import { useCopyToClipboard } from '../../../../../hooks/interaction/use-copy-to-clipboard.js';
+import Button from '@gaudi/design-system/core/Button';
+import Icon from '@gaudi/design-system/core/Icon';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import { useLiveAnnouncer } from '@gaudi/design-system/hooks/a11y/use-live-announcer';
+import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 
 const shareUrl = 'https://gaudi.dev/posts/designing-calm-interfaces';
 

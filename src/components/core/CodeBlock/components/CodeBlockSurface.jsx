@@ -1,6 +1,7 @@
 'use client';
 import { Children, isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from '../../../../utilities/cn/index.js';
+import { useEventListener } from '../../../../hooks/interaction/use-event-listener.js';
 import {
   useIsomorphicLayoutEffect as useIsoLayoutEffect
 } from '../../../../hooks/state/use-isomorphic-layout-effect.js';
@@ -83,19 +84,32 @@ function CodeBlockSurface({
       viewport.scrollHeight - viewport.scrollTop - viewport.clientHeight;
     stickRef.current = distance < 24;
   }, []);
+  // While streaming, an outer scroller (or the page) may own the scroll; track
+  // whether it is pinned to the bottom. useEventListener reads the ref after
+  // this effect resolves it in the same commit.
+  const outerScrollTargetRef = useRef(null);
   useEffect(() => {
-    if (!streaming) return;
-    const scroller = resolveScroller();
-    if (!scroller || scroller === viewportRef.current) return;
-    const onScroll = () => {
+    const scroller = streaming ? resolveScroller() : null;
+    outerScrollTargetRef.current =
+      !scroller || scroller === viewportRef.current
+        ? null
+        : scroller === document.scrollingElement
+          ? window
+          : scroller;
+  }, [streaming, lines.length, resolveScroller]);
+  useEventListener(
+    'scroll',
+    () => {
+      const target = outerScrollTargetRef.current;
+      const scroller = target === window ? document.scrollingElement : target;
+      if (!scroller) return;
       const distance =
         scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight;
       stickRef.current = distance < 24;
-    };
-    const target = scroller === document.scrollingElement ? window : scroller;
-    target.addEventListener('scroll', onScroll, { passive: true });
-    return () => target.removeEventListener('scroll', onScroll);
-  }, [streaming, lines.length, resolveScroller]);
+    },
+    outerScrollTargetRef,
+    { passive: true }
+  );
   useIsoLayoutEffect(() => {
     if (!streaming || !stickRef.current) return;
     const scroller = resolveScroller();

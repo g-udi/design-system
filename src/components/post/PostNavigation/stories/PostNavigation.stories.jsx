@@ -5,13 +5,14 @@ import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import PostNavigation from '../index';
 
-const docs = getComponentDocs('Post/PostNavigation');
+const docs = getComponentDocs('Blocks/Blog/PostNavigation');
 const prev = { id: 'local-first-software', href: '/articles/local-first-software', title: 'Notes on local-first software' };
 const next = { id: 'resilient-components', href: '/articles/resilient-components', title: 'A field guide to resilient components that survive real data' };
 const labels = { Post: 'Article', Thought: 'Thought' };
 
 export default {
-  title: 'Post/PostNavigation',
+  id: 'post-postnavigation',
+  title: 'Blocks/Blog/PostNavigation',
   component: PostNavigation,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, { type: ['Post', 'Thought'], prev: 'object', next: 'object' }),

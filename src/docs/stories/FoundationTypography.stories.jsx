@@ -38,7 +38,7 @@ const sampleText = {
   'subtitle-md': 'Medium supporting text',
   'subtitle-xl': 'Prominent supporting text',
   'title-lg': 'Practical components for writing',
-  'title-md': 'A compact page title',
+  'title-md': 'A balanced page title',
   'title-xl': 'A stronger editorial title'
 };
 

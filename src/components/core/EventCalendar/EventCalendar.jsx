@@ -1,5 +1,6 @@
 'use client';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
+import { splitOptions, warnOnce } from '../shared/schedulerOptions.js';
 import {
   createContext,
   useCallback,
@@ -94,13 +95,6 @@ function resolveSettings(options) {
     activation: options.activation
   };
 }
-const warned = new Set();
-function warnOnce(key, message) {
-  if (process.env.NODE_ENV !== 'production' && !warned.has(key)) {
-    warned.add(key);
-    console.warn(`[event-calendar] ${message}`);
-  }
-}
 function createEventCalendarStore(initial) {
   let options = initial;
   let settings = resolveSettings(initial);
@@ -110,6 +104,7 @@ function createEventCalendarStore(initial) {
     if (settings.views.includes(view)) return view;
     const fallback = settings.views[0] ?? 'month';
     warnOnce(
+      'event-calendar',
       `view-${view}`,
       `view "${view}" is not in views [${settings.views.join(', ')}]; falling back to "${fallback}".`
     );
@@ -980,22 +975,6 @@ const OPTION_KEYS = [
   'onEventsChange',
   'onMoreClick'
 ];
-function splitOptions(props) {
-  const options = {};
-  const viewConfig = { ...DEFAULT_VIEW_CONFIG };
-  const rest = {};
-  for (const [key, value] of Object.entries(props)) {
-    if (OPTION_KEYS.includes(key)) options[key] = value;
-    else if (VIEW_CONFIG_KEYS.includes(key)) {
-      if (value !== void 0) viewConfig[key] = value;
-    } else rest[key] = value;
-  }
-  return {
-    options,
-    viewConfig,
-    rest
-  };
-}
 function EventCalendar({
   calendar,
   apiRef,
@@ -1004,9 +983,15 @@ function EventCalendar({
   children,
   ...props
 }) {
-  const { options, viewConfig, rest } = splitOptions(props);
+  const { options, viewConfig, rest } = splitOptions(
+    props,
+    OPTION_KEYS,
+    VIEW_CONFIG_KEYS,
+    DEFAULT_VIEW_CONFIG
+  );
   if (calendar && Object.keys(options).length > 0) {
     warnOnce(
+      'event-calendar',
       'calendar-and-options',
       'both `calendar` and option props were passed; option props are ignored when adopting an instance.'
     );

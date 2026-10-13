@@ -1,6 +1,6 @@
-import Button from '../../../../../components/core/Button';
+import Button from '@gaudi/design-system/core/Button';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { useCountdown } from '../../../../../hooks/state/use-countdown.js';
+import { useCountdown } from '@gaudi/design-system/hooks/state/use-countdown';
 
 export function PreviewCountdown() {
   const { count, isRunning, start, stop, reset } = useCountdown({ countStart: 3 });

@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import { Alert, AlertDescription, AlertTitle } from '../../../../../components/core/Banner/index.js';
-import { useTimeout } from '../../../../../hooks/state/use-timeout.js';
+import Button from '@gaudi/design-system/core/Button';
+import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
+import { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';
 
 function SavedNotice() {
   const [ visible, setVisible ] = useState(false);

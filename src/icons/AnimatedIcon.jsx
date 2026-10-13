@@ -1,8 +1,8 @@
 'use client';
 
 import { forwardRef, Suspense, useEffect, useImperativeHandle, useRef, useState } from 'react';
-import { cn } from '../utilities/cn';
-import { getIcon, iconColors, iconSizes } from './index';
+import { getIcon } from './index';
+import { resolveIconStyle } from './iconStyle.js';
 import { animatedIconRegistry } from './animated/registry';
 import { observeIconActivity } from './animated/observeIconActivity';
 
@@ -29,11 +29,9 @@ export const AnimatedIcon = forwardRef(function AnimatedIcon({
   if (!Glyph) return null;
   const accessibleLabel = label || ariaLabel;
   const isDecorative = decorative ?? !accessibleLabel;
-  const numericSize = typeof size === 'number';
   const shared = {
     ...props,
-    className: cn('shrink-0 overflow-visible', !numericSize && (iconSizes[size] || iconSizes.md), color && iconColors[color], className),
-    ...(numericSize ? { width: size, height: size } : {}),
+    ...resolveIconStyle({ className, color, size }, 'shrink-0 overflow-visible'),
     'aria-hidden': isDecorative ? true : undefined,
     'aria-label': isDecorative ? undefined : accessibleLabel,
     role: isDecorative ? undefined : 'img',

@@ -13,11 +13,13 @@
  *
  * @param {string|Date} date - The date to format
  * @param {string} [locale='en-US'] - BCP 47 locale tag
+ * @param {{ month?: 'long' | 'short' }} [options] - Month style; `short` gives "Dec 25, 2023"
  * @returns {string} The formatted date string, or an empty string for invalid input
  *
  * @example
  * formatDate('2023-12-25') // "December 25, 2023"
  * formatDate('2023-12-25', 'de-DE') // "25. Dezember 2023"
+ * formatDate('2023-12-25', 'en-US', { month: 'short' }) // "Dec 25, 2023"
  */
 const defaultLocale = 'en-US';
 const dateOptions = {
@@ -26,7 +28,7 @@ const dateOptions = {
   'year': 'numeric'
 };
 
-const formatDate = (date, locale = defaultLocale) => {
+const formatDate = (date, locale = defaultLocale, { month = 'long' } = {}) => {
   if (date === null || typeof date === 'undefined' || date === '') return '';
 
   const parsed = date instanceof Date ? date : new Date(date);
@@ -35,8 +37,8 @@ const formatDate = (date, locale = defaultLocale) => {
 
   // A calendar date has no timezone; keep its day in every server/browser locale.
   const options = typeof date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(date)
-    ? { ...dateOptions, timeZone: 'UTC' }
-    : dateOptions;
+    ? { ...dateOptions, month, timeZone: 'UTC' }
+    : { ...dateOptions, month };
 
   try {
     return new Intl.DateTimeFormat(locale || defaultLocale, options).format(parsed);

@@ -4,11 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utilities/cn/cn.js';
 import { observeTheme } from '../../themes/observeTheme.js';
 import { useAnimation, bounded } from './animationRuntime.js';
-import { backgroundVertex, backgroundUniforms, compileBackground } from './backgroundShader.js';
+import { backgroundVertex, backgroundUniforms, createProgram } from './backgroundShader.js';
 import { createBackgroundPointer } from './backgroundPointer.js';
 import { releaseDetachedWebGLContext } from './webglLifecycle.js';
 
 const defaultColors = ['var(--ds-color-chart-1)', 'var(--ds-color-chart-2)', 'var(--ds-color-chart-3)'];
+
+/** A CSS height for a background: numbers are bounded pixels, other values pass through. */
+export const backgroundHeight = height => typeof height === 'number' ? bounded(height, 360, 1, 4096) : height;
 
 /** Shared canvas lifecycle; each owner supplies an independently authored fragment shader. */
 export function BackgroundSurface({
@@ -83,12 +86,7 @@ export function BackgroundSurface({
       gl = canvas.getContext('webgl', { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'low-power' });
       if (!gl) { canvas.dataset.renderError = 'WebGL is unavailable'; fail(); return cleanup; }
       const precision = gl.getShaderPrecisionFormat(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT)?.precision ? 'highp' : 'mediump';
-      shaders.push(compileBackground(gl, backgroundVertex, gl.VERTEX_SHADER));
-      shaders.push(compileBackground(gl, `precision ${precision} float;\n${backgroundUniforms}\n${fragment}\nvoid main() { gl_FragColor = vec4(clamp(shade(vUv, uTime), 0.0, 1.0), 1.0); }`, gl.FRAGMENT_SHADER));
-      program = gl.createProgram();
-      shaders.forEach(shader => gl.attachShader(program, shader));
-      gl.linkProgram(program);
-      if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error('Unable to link background program');
+      program = createProgram(gl, backgroundVertex, `precision ${precision} float;\n${backgroundUniforms}\n${fragment}\nvoid main() { gl_FragColor = vec4(clamp(shade(vUv, uTime), 0.0, 1.0), 1.0); }`, shaders);
       gl.useProgram(program);
       buffer = gl.createBuffer();
       gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -236,7 +234,7 @@ export function BackgroundSurface({
   const animated = renderer === 'webgl' && active && options.current.speed > 0;
   return <div {...props} ref={ref} className={cn('ds-background', className)}
     data-slot={effect} data-effect={effect} data-renderer={renderer} data-animated={String(animated)}
-    style={{ height: typeof height === 'number' ? bounded(height, 360, 1, 4096) : height, background, ...style }}
+    style={{ height: backgroundHeight(height), background, ...style }}
     onPointerMove={event => {
       onPointerMove?.(event);
       movePointer(event);

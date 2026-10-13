@@ -15,6 +15,7 @@ import {
   ChartAreaGradient,
   ChartGrid,
   ChartReferenceLine,
+  ChartSeriesLegend,
   ChartXAxis,
   ChartYAxis,
   createRowsTooltip,
@@ -24,7 +25,6 @@ import {
   Area,
   Bar,
   Cell,
-  Legend,
   Line,
   RechartsAreaChart,
   RechartsBarChart,
@@ -69,7 +69,7 @@ export const SeriesChrome = ({ showLegend, showTooltip }) => {
   return (
     <>
       {showTooltip ? <RechartsTooltip content={ <Rows /> } cursor={{ 'fill': 'var(--ds-color-chart-cursor)', 'stroke': 'var(--ds-color-chart-grid)' }} /> : null}
-      {showLegend ? <Legend iconType='circle' wrapperStyle={{ 'fontSize': 12, 'paddingTop': 12 }} /> : null}
+      {showLegend ? <ChartSeriesLegend /> : null}
     </>
   );
 };

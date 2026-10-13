@@ -5,6 +5,7 @@ import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen } from '@gaudi/design-system/blocks/Screens';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from '@gaudi/design-system/core/InputOtp';
+import Link from '@gaudi/design-system/core/Link';
 import { Label } from '@gaudi/design-system/core/Field';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { Dropbox } from '@gaudi/design-system/icons/brands/dropbox';
@@ -45,7 +46,7 @@ export function Pattern() {
       header={
         <>
           <span className='flex items-center gap-2 font-semibold'><GaudiBrand className='text-sm' /></span>
-          <span className='text-text-muted text-sm'>New here? <a href='#signup' className='text-text font-medium underline-offset-4 hover:underline'>Create a workspace</a></span>
+          <span className='text-text-muted text-sm'>New here? <Link href='#signup'>Create a workspace</Link></span>
         </>
       }
       footer={

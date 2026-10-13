@@ -12,3 +12,4 @@ export { DashboardGrid, DashboardPanel, DashboardToolbar, dashboardSpan, resolve
 // Composition exports
 export { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupAction, SidebarGroupContent, SidebarGroupLabel, SidebarHeader, SidebarInput, SidebarInset, SidebarMenu, SidebarMenuAction, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton, SidebarMenuSub, SidebarMenuSubButton, SidebarMenuSubItem, SidebarProvider, SidebarRail, SidebarSeparator, SidebarTrigger, useSidebar } from './AppShell/index.js';
 export { AppShellBody, AppShellFrame, AppShellHeader, AppShellNav, AppShellPanel, useAppShellFrame } from './AppShell/index.js';
+export { Hero } from './Hero';

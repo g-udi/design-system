@@ -13,6 +13,7 @@ import Pill from '../../core/Pill';
 import PostSeriesBox from '../PostSeriesBox';
 import Typography from '../../../foundations/Typography';
 import { cn } from '../../../utilities/cn';
+import formatDate from '../../../utilities/formatDate';
 
 const titleElements = { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
 
@@ -28,6 +29,8 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * @param {Object} [props.siteMetadata={}] - Site configuration; `locale` formats the date
  * @param {React.ReactNode} [props.tocControl] - Contents toggle shown before the reading time on wide screens
  * @param {1|2|3|4|5|6} [props.titleLevel=1] - Semantic heading level for the post title
+ * @param {string} [props.titleVariant='post-title'] - Shared Typography variant for the title, independent of its heading level
+ * @param {string} [props.subtitleVariant='post-subtitle'] - Shared Typography variant for the subtitle
  * @param {string} [props.className] - Root classes
  * @param {Object} [props.classNames] - Part classes (root, meta, category, body, title, subtitle, timestamps, actions, tags, tag, series)
  * @returns {JSX.Element} Post header
@@ -35,7 +38,7 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * @example
  * <PostHeader frontMatter={post} siteMetadata={{ locale: 'en-US' }} tocControl={<ContentsToggle />} />
  */
-const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, tocControl }) => {
+const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, titleVariant = 'post-title', subtitleVariant = 'post-subtitle', tocControl }) => {
   const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
   return (
   <div className={ cn('w-full pt-6', className, classNames.root) }>
@@ -60,10 +63,10 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
       {frontMatter.draft && <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>}
     </div>
     <div className={ cn('text-left', classNames.body) }>
-      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant='post-title' className={ cn('pb-3', classNames.title) }>
+      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant={ titleVariant } className={ cn('pb-3', classNames.title) }>
         {frontMatter.title}
       </Typography>
-      <Typography variant='post-subtitle' className={ classNames.subtitle }>
+      <Typography as='p' variant={ subtitleVariant } className={ classNames.subtitle }>
         {frontMatter.subtitle}
       </Typography>
     </div>
@@ -99,19 +102,11 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
 export default PostHeader;
 
 export const PostDate = ({ className, date, locale }) => {
-  const postDate = new Date(date);
-  const isValidDate = isValidPostDate(date);
-  const formattedDate = isValidDate ? postDate.toLocaleDateString(locale, {
-    'day': 'numeric',
-    'month': 'short',
-    'year': 'numeric'
-  }) : '';
-
-  if (!isValidDate) return null;
+  if (!isValidPostDate(date)) return null;
 
   return (
     <time dateTime={ date } className={ cn('text-xs font-normal tabular-nums text-text-muted', className) }>
-      {formattedDate}
+      {formatDate(date, locale, { month: 'short' })}
     </time>
   );
 };

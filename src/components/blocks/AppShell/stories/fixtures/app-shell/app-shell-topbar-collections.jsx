@@ -2,6 +2,7 @@
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import {
   BreadcrumbRoot as Breadcrumb,
@@ -181,13 +182,14 @@ const indented =
 
 function Logo() {
   return (
-    <a
+    <Link
+      variant='bare'
       href='#home'
       onClick={noop}
       className='flex shrink-0 items-center gap-2 rounded-(--ds-radius-control) outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
     >
       <GaudiBrand className='text-sm' />
-    </a>
+    </Link>
   );
 }
 

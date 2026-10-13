@@ -10,11 +10,9 @@ import {
   useState
 } from 'react';
 import {
-  defaultDropAnimationSideEffects,
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  MeasuringStrategy,
   MouseSensor,
   TouchSensor,
   useSensor,
@@ -22,10 +20,8 @@ import {
 } from '@dnd-kit/core';
 import {
   arrayMove,
-  defaultAnimateLayoutChanges,
   rectSortingStrategy,
   SortableContext,
-  sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy
 } from '@dnd-kit/sortable';
@@ -33,6 +29,14 @@ import { CSS } from '@dnd-kit/utilities';
 import { Slot } from 'radix-ui';
 import { createPortal } from 'react-dom';
 import { cn } from '../../../utilities/cn/index.js';
+import {
+  animateLayoutChanges,
+  dropAnimationConfig,
+  KEYBOARD_SENSOR_OPTIONS,
+  MEASURING_CONFIG,
+  MOUSE_SENSOR_OPTIONS,
+  TOUCH_SENSOR_OPTIONS
+} from '../Sortable/sortableConfig.js';
 import { Badge } from '../Pill/Badge.jsx';
 const KanbanContext = createContext({
   columns: {},
@@ -57,27 +61,6 @@ const ItemContext = createContext({
   disabled: false
 });
 const IsOverlayContext = createContext(false);
-const animateLayoutChanges = (args) =>
-  defaultAnimateLayoutChanges({ ...args, wasDragging: true });
-const dropAnimationConfig = {
-  sideEffects: defaultDropAnimationSideEffects({
-    styles: {
-      active: {
-        opacity: '0.4'
-      }
-    }
-  })
-};
-const MOUSE_SENSOR_OPTIONS = { activationConstraint: { distance: 10 } };
-const TOUCH_SENSOR_OPTIONS = {
-  activationConstraint: { delay: 250, tolerance: 5 }
-};
-const KEYBOARD_SENSOR_OPTIONS = {
-  coordinateGetter: sortableKeyboardCoordinates
-};
-const MEASURING_CONFIG = {
-  droppable: { strategy: MeasuringStrategy.Always }
-};
 function Kanban({
   value,
   onValueChange,

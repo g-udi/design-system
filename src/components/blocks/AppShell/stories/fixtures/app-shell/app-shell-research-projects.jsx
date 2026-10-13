@@ -12,6 +12,7 @@ import {
   BreadcrumbSeparatorPrimitive as BreadcrumbSeparator
 } from '@gaudi/design-system/core/Breadcrumb';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import Link from '@gaudi/design-system/core/Link';
 import {
   Command,
   CommandDialog,
@@ -190,11 +191,11 @@ function NotificationItem({ item, onResolve }) {
         ) : null}
         {item.when ? (
           <div className='flex flex-wrap items-center gap-1.5'>
-            <span className='border-ui-border flex items-center gap-1.5 rounded-(--ds-radius-control) border px-2 py-0.5 text-xs'>
+            <Badge variant='outline' size='lg' className='gap-1.5 px-2 font-normal'>
               <RegistryIcon lucide='Calendar' aria-hidden='true' className='size-3.5' />
               <span className='font-medium'>{item.when[0]}</span>
               <span className='text-text-muted'>{item.when[1]}</span>
-            </span>
+            </Badge>
             <Button size='xs'>Join</Button>
             <Button size='xs' variant='outline'>Decline</Button>
           </div>
@@ -277,7 +278,8 @@ function NotificationsPopover() {
 function Brand() {
   return (
     <div className='flex items-center gap-1 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-2'>
-      <a
+      <Link
+        variant='bare'
         href='#overview'
         aria-label='Gaudi Research'
         className='focus-visible:ring-ui-sidebar-ring flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) p-1 text-sm font-semibold outline-hidden focus-visible:ring-2 group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:p-0'
@@ -285,7 +287,7 @@ function Brand() {
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Research</span></span>
-      </a>
+      </Link>
       <SidebarTrigger />
     </div>
   );

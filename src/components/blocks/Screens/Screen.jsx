@@ -7,6 +7,7 @@ import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced
 import { cn } from '../../../utilities/cn';
 import { CarouselContent, CarouselItem, CarouselRoot } from '../../core/Carousel';
 import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
+import { getAvatarInitials } from '../../core/Avatar/avatarModel.js';
 import { Rating } from '../../core/Rating/Rating.jsx';
 
 /**
@@ -32,8 +33,6 @@ export default function Screen({ aside, asideSide = 'end', asideClassName, heade
     </div>
   );
 }
-
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
 
 /**
  * Customer quotes for an aside. With more than one quote it rotates every `interval`
@@ -72,7 +71,7 @@ export function ScreenTestimonial({ quotes = [], rating, interval = 6000, classN
               <div className='mt-4 flex items-center gap-3'>
                 <Avatar className='size-9'>
                   {quote.avatar ? <AvatarImage src={quote.avatar} alt={quote.name} /> : null}
-                  <AvatarFallback>{initials(quote.name)}</AvatarFallback>
+                  <AvatarFallback>{getAvatarInitials(quote.name)}</AvatarFallback>
                 </Avatar>
                 <span className='grid text-sm'>
                   <span className='font-medium'>{quote.name}</span>

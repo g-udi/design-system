@@ -112,7 +112,7 @@ Curated patterns:
 
 ## Related
 
-`core-attachment`, `layout-footer`
+`core-attachment`
 
 ## README
 

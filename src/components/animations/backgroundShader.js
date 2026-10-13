@@ -61,3 +61,33 @@ export function compileBackground(gl, source, type) {
   }
   return shader;
 }
+
+/**
+ * Compile and link a vertex/fragment pair. Compiled shaders are pushed onto `shaders` so the
+ * caller's dispose releases them even when linking fails; a program that fails to link is deleted.
+ */
+export function createProgram(gl, vertexSource, fragmentSource, shaders, name = 'background') {
+  shaders.push(compileBackground(gl, vertexSource, gl.VERTEX_SHADER));
+  shaders.push(compileBackground(gl, fragmentSource, gl.FRAGMENT_SHADER));
+  const program = gl.createProgram();
+  if (!program) throw new Error(`Unable to allocate ${name} program`);
+  shaders.forEach(shader => gl.attachShader(program, shader));
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
+    gl.deleteProgram(program);
+    throw new Error(`Unable to link ${name} program`);
+  }
+  return program;
+}
+
+/** A bound 2D texture with linear filtering and clamped edges, or null when allocation fails. */
+export function createLinearTexture(gl) {
+  const texture = gl.createTexture();
+  if (!texture) return null;
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  return texture;
+}

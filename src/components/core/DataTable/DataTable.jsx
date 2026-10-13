@@ -26,6 +26,8 @@ import { Checkbox as CheckboxRoot } from '../Checkbox/CheckboxPrimitives.jsx';
 import { downloadCsv, getTableExportRows, tableToCsv } from './tableExport.js';
 import { cn } from '../../../utilities/cn';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
+import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
+import { useInView } from '../../../hooks/layout/use-in-view.js';
 
 /*
  * Anatomy: shared table headers and density,
@@ -68,9 +70,6 @@ const PINNED_BAND_LIMIT = 0.6;
 
 // Column `sticky` is logical: `start`/`end` (or the older `left`/`right`, read as start/end) follow the reading direction.
 const stickySide = (value) => (value === 'start' || value === 'left' ? 'start' : value === 'end' || value === 'right' ? 'end' : undefined);
-
-/** Controlled when `value` is defined; the host may refuse or replace any change it is offered. */
-const useControllable = (value, defaultValue, onChange) => useControllableState({ value, defaultValue, onChange });
 
 /** Client collections up to a few thousand rows. Remote fetching, filter predicates, and persistence stay in the host. */
 export const DataTable = ({
@@ -135,10 +134,12 @@ export const DataTable = ({
 }) => {
   const descriptionId = useId();
   const scrollRef = useRef(null);
+  // The scroll region as state too: it is the load-more observer's root when the table scrolls itself.
+  const [scrollElement, setScrollElement] = useState(null);
+  const setScrollRef = useMergedRefs(scrollRef, setScrollElement);
   const tableRef = useRef(null);
   const headerRefs = useRef({});
   const returnFocusRef = useRef(null);
-  const sentinelRef = useRef(null);
   const loadRequested = useRef(false);
   const [edges, setEdges] = useState({ left: false, right: false });
   const [pins, setPins] = useState({});
@@ -147,10 +148,10 @@ export const DataTable = ({
   const [menuRowId, setMenuRowId] = useState(null);
   const [status, setStatus] = useState('');
   const [pageOverflow, setPageOverflow] = useState(false);
-  const [sorting, setSorting] = useControllable(sortingProp, defaultSorting, onSortingChange);
-  const [selected, setSelected] = useControllable(selection, defaultSelection, onSelectionChange);
-  const [expandedIds, setExpandedIds] = useControllable(expandedProp, defaultExpanded, onExpandedChange);
-  const [rowPinning, setRowPinning] = useControllable(rowPinningProp, defaultRowPinning, onRowPinningChange);
+  const [sorting, setSorting] = useControllableState({ value: sortingProp, defaultValue: defaultSorting, onChange: onSortingChange });
+  const [selected, setSelected] = useControllableState({ value: selection, defaultValue: defaultSelection, onChange: onSelectionChange });
+  const [expandedIds, setExpandedIds] = useControllableState({ value: expandedProp, defaultValue: defaultExpanded, onChange: onExpandedChange });
+  const [rowPinning, setRowPinning] = useControllableState({ value: rowPinningProp, defaultValue: defaultRowPinning, onChange: onRowPinningChange });
   const [visibility, setVisibility] = useState({});
   const [collapsed, setCollapsed] = useState(() => new Set());
   const [hoverColumn, setHoverColumn] = useState(null);
@@ -365,20 +366,17 @@ export const DataTable = ({
   }, [pinnedKey, stickyMode, resolvedMaxHeight, density, footer, loading]);
 
   // Scroll-triggered loading: a sentinel after the last row asks for the next batch.
+  const [sentinelRef, sentinelInView, sentinelEntry] = useInView({
+    root: resolvedMaxHeight ? scrollElement : null,
+    rootMargin: '0px 0px 160px 0px'
+  });
   useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!loadMoreOnScroll || !hasMore || loadingMore || !sentinel || typeof onLoadMore !== 'function') return undefined;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-        loadRequested.current = true;
-        onLoadMore();
-      },
-      { root: resolvedMaxHeight ? scrollRef.current : null, rootMargin: '0px 0px 160px 0px' }
-    );
-    observer.observe(sentinel);
-    return () => observer.disconnect();
-  }, [loadMoreOnScroll, hasMore, loadingMore, onLoadMore, resolvedMaxHeight, rows.length]);
+    // The entry outlives an unmounted sentinel, so require it to still be in the document.
+    if (!sentinelInView || !sentinelEntry?.target.isConnected) return;
+    if (!loadMoreOnScroll || !hasMore || loadingMore || typeof onLoadMore !== 'function') return;
+    loadRequested.current = true;
+    onLoadMore();
+  }, [sentinelInView, sentinelEntry, loadMoreOnScroll, hasMore, loadingMore, onLoadMore, rows.length]);
   useEffect(() => {
     if (loadingMore || !loadRequested.current) return;
     loadRequested.current = false;
@@ -727,7 +725,7 @@ export const DataTable = ({
       )}
       <div className='relative min-w-0' onMouseLeave={() => setHoverColumn(null)}>
         <div
-          ref={scrollRef}
+          ref={setScrollRef}
           role='region'
           tabIndex={0}
           aria-label={caption ? (labels.scrollRegion ? labels.scrollRegion(caption) : `${caption} scrollable table`) : overflowLabel}
@@ -859,17 +857,18 @@ export const DataTable = ({
         </div>
         {/* Edges are measured and scrolled physically, so these chevrons stay correct in RTL without flipping. */}
         {['left', 'right'].map((side) => (
-          <button
+          <Button
             key={side}
-            type='button'
+            variant='ghost'
+            size='icon-xs'
             tabIndex={-1}
             aria-hidden='true'
             onClick={() => scrollRef.current?.scrollBy({ left: side === 'left' ? -240 : 240, behavior: 'smooth' })}
             data-visible={edges[side] || undefined}
-            className={cn('ds-table-edge', side === 'left' ? 'left-2' : 'right-2')}
+            className={cn('ds-table-edge text-text-muted', side === 'left' ? 'left-2' : 'right-2')}
           >
             <Icon name={side === 'left' ? 'ChevronLeft' : 'ChevronRight'} decorative size='xs' />
-          </button>
+          </Button>
         ))}
         {refreshing && !loading && (
           <span role='status' className='ds-table-pending'>

@@ -1,4 +1,3 @@
-import { normalizeHref } from '../../../utilities/href.js';
 
 export const fileType = (name = '') => String(name).includes('.') ? String(name).split('.').at(-1).toUpperCase() : '';
 
@@ -8,15 +7,6 @@ export const fileIcon = (name = '') => {
   if (/\.(js|jsx|ts|tsx|json|css|html|py|sh|sql|ya?ml)$/i.test(name)) return 'FileCode';
   return 'FileText';
 };
-
-// Downloads use native anchors, including host-owned object URLs. Ordinary links share Link's policy.
-export function fileDownloadUrl(value) {
-  if (typeof value !== 'string') return null;
-  const href = value.trim();
-  if (/^blob:(https?:\/\/|null\/)/i.test(href)) return href;
-  const safe = normalizeHref(href);
-  return safe && /^(https?:|\/)/i.test(safe) ? safe : null;
-}
 
 /** Filter file data, not tree interactions: keep matching files and their ancestor folders. */
 export function prepareFileTree(source = {}, rootId = 'root', query = '') {

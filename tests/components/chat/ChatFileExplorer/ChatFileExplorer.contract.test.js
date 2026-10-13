@@ -3,7 +3,8 @@ import test from 'node:test';
 import { createElement as h } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../support/renderComponent.js';
-import { fileDownloadUrl, prepareFileTree } from '../../../../src/components/chat/ChatFileExplorer/chatFileExplorerModel.js';
+import { prepareFileTree } from '../../../../src/components/chat/ChatFileExplorer/chatFileExplorerModel.js';
+import { normalizeDownloadHref } from '../../../../src/utilities/href.js';
 
 const api = await loadComponent(new URL('../../../../src/components/chat/ChatFileExplorer/index.js', import.meta.url));
 const render = (props) => renderToStaticMarkup(h(api.ChatFileExplorer, props));
@@ -56,8 +57,8 @@ test('missing children, duplicates, cycles, and absent roots do not poison the t
 });
 
 test('downloads accept real file destinations and reject script/contact/fragment links', () => {
-  for (const value of ['/files/report.csv', 'https://example.test/report.csv', 'blob:https://example.test/report']) assert.equal(fileDownloadUrl(value), value);
-  for (const value of ['javascript:alert(1)', 'data:text/html,<script>', '#file', 'mailto:me@example.test', '', null]) assert.equal(fileDownloadUrl(value), null);
+  for (const value of ['/files/report.csv', 'https://example.test/report.csv', 'blob:https://example.test/report']) assert.equal(normalizeDownloadHref(value), value);
+  for (const value of ['javascript:alert(1)', 'data:text/html,<script>', '#file', 'mailto:me@example.test', '', null]) assert.equal(normalizeDownloadHref(value), null);
 });
 
 test('empty, loading and error states compose shared recovery primitives', () => {

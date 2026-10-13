@@ -1,4 +1,5 @@
 import { Separator } from '@gaudi/design-system/core/Separator';
+import Link from '@gaudi/design-system/core/Link';
 
 const sections = [
   { title: 'Settings', hint: 'Manage preferences' },
@@ -11,11 +12,11 @@ export function Pattern() {
     <div className='flex flex-col items-center gap-3 text-sm'>
       {/* Vertical rules stretch to the height of a flex row. */}
       <nav aria-label='Resources' className='flex h-5 items-center gap-3'>
-        <a href='#blog' className='hover:underline'>Blog</a>
+        <Link href='#blog' variant='bare' className='hover:underline'>Blog</Link>
         <Separator orientation='vertical' />
-        <a href='#docs' className='hover:underline'>Docs</a>
+        <Link href='#docs' variant='bare' className='hover:underline'>Docs</Link>
         <Separator orientation='vertical' />
-        <a href='#source' className='hover:underline'>Source</a>
+        <Link href='#source' variant='bare' className='hover:underline'>Source</Link>
       </nav>
       {/* A fixed height keeps the rules shorter than two-line items. */}
       <div className='flex items-center gap-3'>

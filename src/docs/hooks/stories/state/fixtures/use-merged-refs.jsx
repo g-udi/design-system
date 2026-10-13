@@ -1,9 +1,9 @@
 import { useRef, useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Input from '../../../../../components/core/Input';
-import { Field, FieldLabel } from '../../../../../components/core/Field/index.js';
+import Button from '@gaudi/design-system/core/Button';
+import Input from '@gaudi/design-system/core/Input';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useMergedRefs } from '../../../../../hooks/state/use-merged-refs.js';
+import { useMergedRefs } from '@gaudi/design-system/hooks/state/use-merged-refs';
 
 function SearchField({ ref, label, ...props }) {
   const inputRef = useRef(null);

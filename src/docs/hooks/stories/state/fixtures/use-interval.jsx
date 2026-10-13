@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import { useInterval } from '../../../../../hooks/state/use-interval.js';
+import Button from '@gaudi/design-system/core/Button';
+import { useInterval } from '@gaudi/design-system/hooks/state/use-interval';
 
 const format = (total) => `${String(Math.floor(total / 60)).padStart(2, '0')}:${String(total % 60).padStart(2, '0')}`;
 

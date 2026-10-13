@@ -11,8 +11,9 @@
  * @version 1.0.0
  */
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
+import { useEventListener } from '../../../hooks/interaction/use-event-listener.js';
 import { cn } from '../../../utilities/cn';
 
 import styles from './Table.module.css';
@@ -51,29 +52,19 @@ const Table = ({ children, className, density = 'normal', ...rest }) => {
   const tableRef = useRef(null);
 
   // Highlight the hovered cell's column across every row.
-  useEffect(() => {
+  const handleCellHover = (event) => {
     const table = tableRef.current;
+    const cell = event.target.closest?.('td, th');
 
-    if (!table) return undefined;
+    if (!table || !cell || !table.contains(cell)) return;
 
-    const handleCellHover = (event) => {
-      const cell = event.target.closest?.('td, th');
+    const cellIndex = Array.from(cell.parentNode.children).indexOf(cell);
 
-      if (!cell || !table.contains(cell)) return;
+    table.querySelectorAll('tr').forEach((row) => row.children[cellIndex]?.classList.toggle(styles.columnHover, event.type === 'mouseover'));
+  };
 
-      const cellIndex = Array.from(cell.parentNode.children).indexOf(cell);
-
-      table.querySelectorAll('tr').forEach((row) => row.children[cellIndex]?.classList.toggle(styles.columnHover, event.type === 'mouseover'));
-    };
-
-    table.addEventListener('mouseover', handleCellHover);
-    table.addEventListener('mouseout', handleCellHover);
-
-    return () => {
-      table.removeEventListener('mouseover', handleCellHover);
-      table.removeEventListener('mouseout', handleCellHover);
-    };
-  }, []);
+  useEventListener('mouseover', handleCellHover, tableRef);
+  useEventListener('mouseout', handleCellHover, tableRef);
 
   return (
     <TableRoot

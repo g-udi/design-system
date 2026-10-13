@@ -12,6 +12,8 @@ import {
 } from '../cascaderModel.jsx';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import { cn } from '../../../../utilities/cn/index.js';
+import { default as Button } from '../../Button/index.js';
+import { ComboboxChips } from '../../Select/Combobox.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 function CascaderTrigger({
   className,
@@ -61,11 +63,6 @@ function CascaderTrigger({
 }
 const TRIGGER_ICON_CLASS = 'text-ui-muted-foreground size-4';
 const TRIGGER_ICON_FALLBACK_CLASS = "[&_svg:not([class*='size-'])]:size-4";
-const CHIPS_CLASS =
-  'flex flex-wrap items-center border bg-clip-padding dark:bg-ui-input/30 border-ui-input focus-within:border-ui-ring focus-within:ring-ui-primary has-aria-invalid:ring-ui-destructive/20 dark:has-aria-invalid:ring-ui-destructive/40 has-aria-invalid:border-ui-destructive dark:has-aria-invalid:border-ui-destructive/50 bg-transparent px-2.5 text-sm focus-within:ring-3 has-aria-invalid:ring-3 min-h-8 gap-1 rounded-lg py-1 transition-colors has-data-[slot=combobox-chip]:px-1';
-const CHIP_CLASS =
-  'text-ui-foreground flex w-fit items-center justify-center gap-1 font-medium whitespace-nowrap bg-ui-muted rounded-sm px-1.5 text-xs has-data-[slot=combobox-chip-remove]:pr-0 h-[calc(--spacing(5.25))]';
-const CHIP_REMOVE_CLASS = 'opacity-50 hover:opacity-100 -ml-1';
 export function useCascaderAnchor() {
   return React.useRef(null);
 }
@@ -114,11 +111,11 @@ function CascaderChips({
   };
   const content = typeof children === 'function' ? children(nodes) : children;
   return (
-    <ComboboxPrimitive.Chips
+    <ComboboxChips
       data-slot='cascader-chips'
       aria-label={labels.chipsLabel}
       {...(invalid ? { 'aria-invalid': true, 'data-invalid': '' } : null)}
-      className={cn(CHIPS_CLASS, className)}
+      className={className}
       {...props}
     >
       {content ??
@@ -141,7 +138,7 @@ function CascaderChips({
             />
           ))
         ))}
-    </ComboboxPrimitive.Chips>
+    </ComboboxChips>
   );
 }
 function CascaderChip({
@@ -180,8 +177,7 @@ function CascaderChip({
           }
         : null)}
       className={cn(
-        CHIP_CLASS,
-        'has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50',
+        'ds-part-combobox-chip has-disabled:pointer-events-none has-disabled:cursor-not-allowed has-disabled:opacity-50',
         className
       )}
       {...props}
@@ -189,6 +185,7 @@ function CascaderChip({
       {children ?? <span className='truncate'>{label}</span>}
       {showRemove ? (
         <ComboboxPrimitive.ChipRemove
+          render={<Button variant='ghost' size='icon-xs' />}
           data-slot='cascader-chip-remove'
           aria-label={labels.removeChip(label)}
           {...(onRemove
@@ -199,7 +196,7 @@ function CascaderChip({
                 }
               }
             : null)}
-          className={CHIP_REMOVE_CLASS}
+          className='ds-part-combobox-chip-remove'
         >
           <RegistryIcon lucide='XIcon' className='pointer-events-none' />
         </ComboboxPrimitive.ChipRemove>

@@ -3,6 +3,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { createVariants } from '../../../utilities/variants/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { ChatActivityIndicator } from '../ChatActivityIndicator/ChatActivityIndicator.jsx';
+import { getAvatarInitials } from '../../core/Avatar/avatarModel.js';
 
 const agentMarkVariants = createVariants({
   base: 'ds-part-agent-mark relative inline-grid shrink-0 place-items-center rounded-(--ds-radius-card) font-semibold select-none',
@@ -226,8 +227,6 @@ function AgentMotif({ motif }) {
   );
 }
 
-const initials = (name = '') => name.trim().split(/\s+/).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
-
 /**
  * The assistant's mark. By default it draws a Gaudí-inspired motif (trencadís mosaic, basilica spires,
  * ironwork spiral, rose window, palmetto gate, flower paving tile, twisted chimney, sun medallion or
@@ -244,7 +243,7 @@ function ChatAgentMark({ name = 'Gaudi', seed, motif = 'auto', hue = 'auto', ico
   const content = image
     ? <img src={image} alt='' className='size-full rounded-[inherit] object-cover' />
     : monogram
-      ? <span aria-hidden='true'>{initials(name)}</span>
+      ? <span aria-hidden='true'>{getAvatarInitials(name)}</span>
       : icon
         ? <RegistryIcon lucide={icon} />
         : <AgentMotif motif={resolved.motif} />;

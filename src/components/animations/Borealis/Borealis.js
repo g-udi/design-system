@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '../../../utilities/cn';
-import { BackgroundSurface } from '../backgroundRuntime.jsx';
+import { BackgroundSurface, backgroundHeight } from '../backgroundRuntime.jsx';
 import { bounded } from '../animationRuntime.js';
 import { borealisFragment } from './borealisShader.js';
 
@@ -13,7 +13,7 @@ const Borealis = ({
 }) => (
   <div {...props} ref={ref}
     className={cn('relative isolate flex min-h-dvh flex-col items-center justify-center transition-colors motion-reduce:transition-none', className)}
-    style={{ ...(height !== undefined && { height: typeof height === 'number' ? bounded(height, 360, 1, 4096) : height, minHeight: 0 }), ...style }}>
+    style={{ ...(height !== undefined && { height: backgroundHeight(height), minHeight: 0 }), ...style }}>
     <BackgroundSurface effect="borealis" fragment={borealisFragment} aria-hidden="true"
       className="borealis" data-fade={String(fadeEdges)} data-variant={variant === 'soft' ? 'soft' : 'aurora'}
       height="100%" paused={paused} speed={speed} intensity={intensity} scale={scale} colors={colors} background={background}

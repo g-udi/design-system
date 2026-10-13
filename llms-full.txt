@@ -1,6 +1,6 @@
 # Gaudi Design System (@gaudi/design-system)
 
-> A curated React design system for blogs and applications, with shared foundations, rich components, and reusable interface patterns. React 19 source components with Tailwind CSS v4, semantic tokens, accessibility, RTL-aware layout and copy-in blocks. Version 0.1.6.
+> A curated React design system for blogs and applications, with shared foundations, rich components, and reusable interface patterns. React 19 source components with Tailwind CSS v4, semantic tokens, accessibility, RTL-aware layout and copy-in blocks. Version 0.1.7.
 
 Install from GitHub until the package is on npm: `pnpm add github:ahmadassaf/design-system`. Import from `@gaudi/design-system` (root), category entries (`/core`, `/chat`, `/charts`, `/animations`, `/blocks`, `/hooks`, `/mdx`, `/post`, `/layout`) or owner leaf entries such as `@gaudi/design-system/core/Button`. Load `@gaudi/design-system/global.css` once (or `styles.css` when the app owns its Tailwind entry). In Next.js add `transpilePackages: ['@gaudi/design-system']`. Peers: react, react-dom, next, next-themes, tailwindcss; optional recharts (charts) and @xyflow/react (Flow). A JS Tailwind preset is available at `@gaudi/design-system/tailwind-preset`.
 
@@ -434,7 +434,7 @@ Curated patterns:
 - Inside buttons — registry item `@gaudi/avatar-in-buttons` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`)
 - Sizes, shapes and fallbacks — registry item `@gaudi/avatar-sizes-fallbacks` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Social proof — registry item `@gaudi/avatar-social-proof` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Frame`, `FramePanel`)
-- Status and icon badges — registry item `@gaudi/avatar-status-badges` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
+- Status and icon badges — registry item `@gaudi/avatar-status-badges` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Icon`, `RegistryIcon`)
 - User details and badge — registry item `@gaudi/avatar-user-details` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`)
 
 ## Related
@@ -892,7 +892,7 @@ DayPicker supplies grid navigation and selected-date announcements. Label the ca
 
 Curated patterns:
 
-- Appointment booking — registry item `@gaudi/calendar-appointment-booking` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ScrollArea`)
+- Appointment booking — registry item `@gaudi/calendar-appointment-booking` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ScrollArea`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Caption and navigation — registry item `@gaudi/calendar-caption-navigation` (uses `Button`, `Calendar`, `CardContent`, `CardRoot`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Daily pricing — registry item `@gaudi/calendar-daily-pricing` (uses `Calendar`, `CalendarDayButton`, `cn`)
 - Event list — registry item `@gaudi/calendar-event-list` (uses `Button`, `Calendar`, `CardContent`, `CardFooter`, `CardRoot`, `EmptyState`, `RegistryIcon`, `cn`)
@@ -1005,7 +1005,7 @@ Curated patterns:
 - Header badge and actions — registry item `@gaudi/card-header-actions` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardContent`, `CardRoot`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `useCopyToClipboard`)
 - Link cards — registry item `@gaudi/card-link-cards` (uses `CardContent`, `CardRoot`, `Link`, `RegistryIcon`)
 - Login form — registry item `@gaudi/card-login-form` (uses `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `EmailInput`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `Link`, `RegistryIcon`)
-- Media cards — registry item `@gaudi/card-media` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardContent`, `CardRoot`, `Label`, `RegistryIcon`, `SwitchRoot`, `cn`)
+- Media cards — registry item `@gaudi/card-media` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardContent`, `CardRoot`, `Label`, `Link`, `RegistryIcon`, `SwitchRoot`, `cn`)
 - Sections and dividers — registry item `@gaudi/card-sections` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `CardAction`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Label`, `RegistryIcon`, `SwitchRoot`, `cn`)
 - Stat with trend and menu — registry item `@gaudi/card-stat-trend` (uses `Badge`, `Button`, `CardContent`, `CardRoot`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `Separator`, `useCopyToClipboard`)
 
@@ -1094,7 +1094,7 @@ Carousel exposes a labelled carousel region, native previous/next buttons, aria-
 
 Curated patterns:
 
-- Autoplay — registry item `@gaudi/carousel-autoplay` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`)
+- Autoplay — registry item `@gaudi/carousel-autoplay` (uses `Button`, `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `usePrefersReducedMotion`)
 - Content overlays with dots — registry item `@gaudi/carousel-content-overlays` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `cn`)
 - Layout options — registry item `@gaudi/carousel-layouts` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
 - Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
@@ -1760,24 +1760,24 @@ Curated patterns:
 - CRM workspace — registry item `@gaudi/data-grid-crm` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardContent`, `CardHeader`, `CardRoot`, `DataGrid`, `DataGridCardView`, `DataGridColumnHeader`, `DataGridColumnPicker`, `DataGridHeatmapCell`, `DataGridLayouts`, `DataGridScrollArea`, `DataGridStatusTabs`, `DataGridTable`, `DataGridTableRowPin`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `DataGridViewOptions`, `DataGridViewToggle`, `Filters`, `RegistryIcon`, `SkeletonRoot`, `createDataGridColumnRegistry`, `createFilterQuery`, `dataGridEqualsFilter`, `dataGridFeatures`, `isFilterRule`, `useDataGridLayouts`)
 - CRUD in a frame — registry item `@gaudi/data-grid-crud-frame` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CheckboxRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `DialogClosePrimitive`, `DialogConfirmationAction`, `DialogConfirmationCancel`, `DialogConfirmationContent`, `DialogConfirmationDescription`, `DialogConfirmationFooter`, `DialogConfirmationHeader`, `DialogConfirmationRoot`, `DialogConfirmationTitle`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `EmailInput`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `Frame`, `FrameFooter`, `FrameHeader`, `FramePanel`, `FrameTitle`, `Input`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `Label`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `ToastProvider`, `dataGridFeatures`, `toast`, `useCopyToClipboard`)
 - Export to CSV — registry item `@gaudi/data-grid-csv-export` (uses `Badge`, `Button`, `CardContent`, `CardHeader`, `CardRoot`, `CodeBlock`, `DataGrid`, `DataGridColumnHeader`, `DataGridColumnVisibility`, `DataGridExport`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `FieldInput`, `RegistryIcon`, `dataGridFeatures`)
-- Draggable rows and columns — registry item `@gaudi/data-grid-draggable` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `DataGrid`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTableDndRowHandle`, `DataGridTableDndRows`, `dataGridFeatures`)
+- Draggable rows and columns — registry item `@gaudi/data-grid-draggable` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `DataGrid`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTableDndRowHandle`, `DataGridTableDndRows`, `Link`, `dataGridFeatures`)
 - Editorial desk — registry item `@gaudi/data-grid-editorial-desk` (uses `Badge`, `Button`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridScrollArea`, `DataGridSelectionBar`, `DataGridTableDndRowHandle`, `DataGridTableDndRows`, `DataGridTableRowMoveItems`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `DataGridTableSections`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `FieldInput`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`, `dataGridFeatures`, `useDataGridRowOrder`, `useDataGridSection`)
 - Grouping and aggregation — registry item `@gaudi/data-grid-grouping` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridColumnHeader`, `DataGridExport`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableFootRow`, `DataGridTableFootRowCell`, `ToggleGroupItem`, `ToggleGroupRoot`, `dataGridFeatures`)
-- Infinite scroll — registry item `@gaudi/data-grid-infinite-scroll` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridScrollArea`, `DataGridTableVirtual`, `RegistryIcon`, `dataGridFeatures`)
+- Infinite scroll — registry item `@gaudi/data-grid-infinite-scroll` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridExport`, `DataGridScrollArea`, `DataGridTableVirtual`, `RegistryIcon`, `dataGridFeatures`)
 - Inventory workspace — registry item `@gaudi/data-grid-inventory` (uses `Badge`, `Button`, `CardAction`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridCellSelection`, `DataGridCellToggle`, `DataGridContainer`, `DataGridHistoryControls`, `DataGridSaveBar`, `DataGridScrollArea`, `DataGridSelectionBar`, `DataGridTable`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `RegistryIcon`, `ToastProvider`, `dataGridFeatures`, `toast`, `useDataGridEditing`)
-- Layout options — registry item `@gaudi/data-grid-layouts` (uses `DataGrid`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `Label`, `SwitchRoot`, `dataGridFeatures`)
+- Layout options — registry item `@gaudi/data-grid-layouts` (uses `DataGrid`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `Label`, `Link`, `SwitchRoot`, `dataGridFeatures`)
 - Pricing plans — registry item `@gaudi/data-grid-pricing-plans` (uses `Badge`, `Button`, `CardAction`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridContainer`, `DataGridRowEditActions`, `DataGridScrollArea`, `DataGridTable`, `RegistryIcon`, `ToastProvider`, `dataGridFeatures`, `toast`, `useDataGridRowEditing`)
 - Selection, expansion and pinned rows — registry item `@gaudi/data-grid-selection-pinning` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowPin`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `ToastProvider`, `dataGridFeatures`, `toast`, `useCopyToClipboard`)
 - Server-side pagination — registry item `@gaudi/data-grid-server-pagination` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridColumnHeader`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `FieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SkeletonRoot`, `dataGridFeatures`)
 - Shared drive tree — registry item `@gaudi/data-grid-shared-drive` (uses `Button`, `CardAction`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `DataGrid`, `DataGridContainer`, `DataGridScrollArea`, `DataGridSelectionBar`, `DataGridTableRowExpand`, `DataGridTableTreeDnd`, `DataGridTableTreeDndHandle`, `DataGridTableTreeRowSelect`, `DataGridTableTreeRowSelectAll`, `DataGridTableTreeTotals`, `DataGridTreeExpand`, `RegistryIcon`, `dataGridFeatures`, `moveDataGridRow`, `useDataGridLazyRows`)
 - Shipment exceptions — registry item `@gaudi/data-grid-shipment-exceptions` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardContent`, `CardHeader`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridHeatmapCell`, `DataGridScrollArea`, `DataGridTableRowSelect`, `DataGridTableRowSelectAll`, `DataGridTableVirtual`, `DataGridViewOptions`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `FilterBar`, `RegistryIcon`, `dataGridFeatures`, `downloadCsv`, `getColumnHeaderLabel`, `toCsv`)
 - Spreadsheet editing — registry item `@gaudi/data-grid-spreadsheet` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Calendar`, `CardAction`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `Combobox`, `ComboboxChip`, `ComboboxChips`, `ComboboxChipsInput`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxInput`, `ComboboxItem`, `ComboboxList`, `ComboboxValue`, `ContextMenu`, `ContextMenuContent`, `ContextMenuGroup`, `ContextMenuItem`, `ContextMenuLabel`, `ContextMenuSeparator`, `ContextMenuTrigger`, `DataGrid`, `DataGridCellSelection`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DialogConfirmationAction`, `DialogConfirmationCancel`, `DialogConfirmationContent`, `DialogConfirmationDescription`, `DialogConfirmationFooter`, `DialogConfirmationHeader`, `DialogConfirmationRoot`, `DialogConfirmationTitle`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `ToastProvider`, `buildDataGridClearDetails`, `dataGridFeatures`, `getDataGridActiveRegionGrid`, `serializeDataGridClipboardText`, `toast`, `useComboboxAnchor`, `useCopyToClipboard`)
-- Sub table — registry item `@gaudi/data-grid-sub-table` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `RegistryIcon`, `dataGridFeatures`)
-- Tree rows — registry item `@gaudi/data-grid-tree-rows` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowExpand`, `dataGridFeatures`)
+- Sub table — registry item `@gaudi/data-grid-sub-table` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowExpand`, `dataGridFeatures`)
+- Tree rows — registry item `@gaudi/data-grid-tree-rows` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `CardRoot`, `DataGrid`, `DataGridColumnHeader`, `DataGridContainer`, `DataGridPagination`, `DataGridScrollArea`, `DataGridTable`, `DataGridTableRowExpand`, `Link`, `dataGridFeatures`)
 
 ## Related
 
-`core-filterbar`, `layout-search`, `core-skeleton`
+`core-filterbar`, `core-skeleton`
 
 ## README
 
@@ -2829,7 +2829,7 @@ Curated patterns:
 
 ## Related
 
-`core-field`, `layout-search`
+`core-field`
 
 ## README
 
@@ -5927,12 +5927,13 @@ Exports: `Scrollspy`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `targetRef` | `RefObject<HTMLElement>` | — | no | Scrollable region to observe. |
-| `onUpdate` | `(activeId: string) => void` | — | no | Respond to the active section changing. |
+| `targetRef` | `RefObject<HTMLElement>` | — | no | Scrollable region or ScrollArea viewport to observe. Omit to track the document. |
+| `onUpdate` | `(activeId: string \| null) => void` | — | no | Respond to the active section changing. |
 | `offset` | `number` | `0` | no | Compensate for sticky headers. |
 | `smooth` | `boolean` | `true` | no | Smooth scrolling when an anchor is clicked. |
 | `history` | `boolean` | `false` | no | Opt in to rewriting the page URL hash to the active section. |
 | `dataAttribute` | `string` | `scrollspy` | no | Attribute identifying tracked content. |
+| `fallbackToFirst` | `boolean` | `true` | no | Mark the first section before it reaches the offset. Disable for an index whose first target appears later in the article; onUpdate then receives null before that target. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -5965,6 +5966,10 @@ Use real links with valid targets. Preserve focus and allow navigation without m
 Curated patterns:
 
 - Top navigation — registry item `@gaudi/scrollspy-top-navigation` (uses `Button`, `ScrollArea`, `Scrollspy`)
+
+## Related
+
+`core-scrollarea`
 
 ## README
 
@@ -6089,10 +6094,6 @@ Curated patterns:
 - Rich option content — registry item `@gaudi/select-rich-options` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `FieldLabelPrimitive`, `FieldRoot`, `RegistryIcon`, `SelectContent`, `SelectGroup`, `SelectItem`, `SelectLabel`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `cn`)
 - Select in a toolbar — registry item `@gaudi/select-toolbar` (uses `Button`, `FieldInput`, `SelectContent`, `SelectGroup`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`)
 
-## Related
-
-`layout-search`
-
 ## README
 
 Pick one or several values from a list. Use it for form fields with a known set of options; use a combobox when people type to filter a long list, an autocomplete when free text is also allowed, and a native select for the plainest, platform-styled field.
@@ -6171,7 +6172,7 @@ Curated patterns:
 
 - Horizontal rules — registry item `@gaudi/separator-horizontal` (uses `Separator`)
 - Text label — registry item `@gaudi/separator-text-label` (uses `Separator`)
-- Vertical rules — registry item `@gaudi/separator-vertical` (uses `Separator`)
+- Vertical rules — registry item `@gaudi/separator-vertical` (uses `Link`, `Separator`)
 
 ## Related
 
@@ -6249,7 +6250,7 @@ Curated patterns:
 - Assistant — registry item `@gaudi/sheet-assistant` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatPromptComposer`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`)
 - Comments — registry item `@gaudi/sheet-comments` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Label`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `SwitchRoot`, `Textarea`)
 - Sheet from each edge — registry item `@gaudi/sheet-edges` (uses `Button`, `ScrollArea`, `Sheet`, `SheetClose`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle`, `SheetTrigger`)
-- Help and shortcuts — registry item `@gaudi/sheet-help-shortcuts` (uses `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `KbdGroup`, `KbdRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
+- Help and shortcuts — registry item `@gaudi/sheet-help-shortcuts` (uses `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Item`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `KbdGroup`, `KbdRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`)
 - New project — registry item `@gaudi/sheet-new-project` (uses `Button`, `Calendar`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `Label`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Sheet`, `SheetClose`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `SwitchRoot`, `Textarea`)
 - Notifications — registry item `@gaudi/sheet-notifications` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `cn`)
 - Record details — registry item `@gaudi/sheet-record-details` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `FieldInput`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetClose`, `SheetContent`, `SheetDescription`, `SheetFooter`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`)
@@ -7176,7 +7177,7 @@ Curated patterns:
 - Activity stream — registry item `@gaudi/timeline-activity-stream` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentGroup`, `AttachmentMedia`, `AttachmentTitle`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `ProgressRoot`, `Rating`, `RegistryIcon`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `useCopyToClipboard`)
 - Alternating milestones — registry item `@gaudi/timeline-alternating` (uses `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`, `cn`)
 - Release changelog — registry item `@gaudi/timeline-changelog` (uses `Badge`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`)
-- Horizontal releases — registry item `@gaudi/timeline-horizontal-releases` (uses `Badge`, `Label`, `RegistryIcon`, `SwitchRoot`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`, `cn`)
+- Horizontal releases — registry item `@gaudi/timeline-horizontal-releases` (uses `Badge`, `Label`, `RegistryIcon`, `ScrollArea`, `ScrollBar`, `SwitchRoot`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`, `cn`)
 - Pipeline steps — registry item `@gaudi/timeline-pipeline-steps` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `Frame`, `FrameHeader`, `FramePanel`, `LoaderRoot`, `RegistryIcon`, `TimelineContent`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`, `cn`)
 - Vertical progress — registry item `@gaudi/timeline-vertical-progress` (uses `Label`, `RegistryIcon`, `SwitchRoot`, `TimelineContent`, `TimelineDate`, `TimelineHeader`, `TimelineIndicator`, `TimelineItem`, `TimelineRoot`, `TimelineSeparator`, `TimelineTitle`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 
@@ -7829,20 +7830,20 @@ Preserve the skip link and main landmark (it leaves the tab order while a modal 
 
 Curated patterns:
 
-- Capture console · icon rail, capture queue tabs and expandable run feeds — registry item `@gaudi/app-shell-crawler-control` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `RegistryIcon`, `Separator`, `Sidebar`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
-- Dual sidebar · digest inbox, reading-plan panel and an author directory — registry item `@gaudi/app-shell-digest-inbox` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Calendar`, `CheckboxRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`)
+- Capture console · icon rail, capture queue tabs and expandable run feeds — registry item `@gaudi/app-shell-crawler-control` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `Link`, `RegistryIcon`, `Separator`, `Sidebar`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
+- Dual sidebar · digest inbox, reading-plan panel and an author directory — registry item `@gaudi/app-shell-digest-inbox` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Calendar`, `CheckboxRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Item`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`)
 - Finance dashboard · grouped sidebar, search and reports — registry item `@gaudi/app-shell-finance-dashboard` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `BarChart`, `Button`, `CardContent`, `CardRoot`, `Command`, `CommandEmpty`, `CommandFooter`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DashboardGrid`, `DashboardPanel`, `DataTable`, `Dialog`, `DialogContent`, `DialogDescription`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `EmptyState`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `RegistryIcon`, `Select`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `useHotkey`)
 - Icon rail · library switcher, nested collections and a reader menu — registry item `@gaudi/app-shell-library-rail` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `useSidebar`)
-- Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail — registry item `@gaudi/app-shell-newsletter-reader` (uses `AppShellFrame`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DialogClosePrimitive`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmailInput`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Field`, `FieldInput`, `FieldLabel`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroupAction`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `Textarea`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
+- Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail — registry item `@gaudi/app-shell-newsletter-reader` (uses `AppShellFrame`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DialogClosePrimitive`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmailInput`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Field`, `FieldInput`, `FieldLabel`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Item`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroupAction`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `Textarea`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
 - Mini icon rail · research notebooks with per-section pages and view tabs — registry item `@gaudi/app-shell-notebook-tabs` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarGroupAction`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuItem`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
 - Inset icon rail · per-section navigation, site, publication and environment switchers — registry item `@gaudi/app-shell-publishing-console` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `Kbd`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useHotkey`, `useSidebar`)
-- Floating sidebar · header ⌘K search, reading queue and shelf switcher — registry item `@gaudi/app-shell-reading-desk` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `useHotkey`, `useSidebar`)
-- Floating sidebar · library research assistant with answer modes, sources and cited replies — registry item `@gaudi/app-shell-research-assistant` (uses `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageParts`, `ChatModelSelect`, `ChatPromptComposer`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmptyState`, `GaudiBrand`, `GaudiLogo`, `InputGroupButton`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `useSidebar`)
-- Inset sidebar · study progress rings, reading goal and a header notifications feed — registry item `@gaudi/app-shell-research-projects` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `ProgressRing`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useHotkey`, `useSidebar`)
-- Source tile rail · workspace tabs, section tiles and a status-badged source tree — registry item `@gaudi/app-shell-source-network` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Kbd`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `Tree`, `TreeItem`, `TreeItemLabel`, `useAppShellFrame`, `useHotkey`, `useSidebar`)
-- Resizable sidebar · reading-group study threads, notes tab and a header tutor picker — registry item `@gaudi/app-shell-study-chat` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `ChatModelSelect`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarResizeHandle`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
-- Library top bar · circle and collection switchers, grouped routes and an apps grid — registry item `@gaudi/app-shell-topbar-collections` (uses `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiBrand`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
-- Journal top bar · section pills, sidebar page search and an inset notifications sheet — registry item `@gaudi/app-shell-topbar-journal` (uses `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`)
+- Floating sidebar · header ⌘K search, reading queue and shelf switcher — registry item `@gaudi/app-shell-reading-desk` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `useHotkey`, `useSidebar`)
+- Floating sidebar · library research assistant with answer modes, sources and cited replies — registry item `@gaudi/app-shell-research-assistant` (uses `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageParts`, `ChatModelSelect`, `ChatPromptComposer`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmptyState`, `GaudiBrand`, `GaudiLogo`, `InputGroupButton`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `useSidebar`)
+- Inset sidebar · study progress rings, reading goal and a header notifications feed — registry item `@gaudi/app-shell-research-projects` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `Link`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `ProgressRing`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useHotkey`, `useSidebar`)
+- Source tile rail · workspace tabs, section tiles and a status-badged source tree — registry item `@gaudi/app-shell-source-network` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Kbd`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `Tree`, `TreeItem`, `TreeItemLabel`, `useAppShellFrame`, `useHotkey`, `useSidebar`)
+- Resizable sidebar · reading-group study threads, notes tab and a header tutor picker — registry item `@gaudi/app-shell-study-chat` (uses `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `ChatModelSelect`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarResizeHandle`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
+- Library top bar · circle and collection switchers, grouped routes and an apps grid — registry item `@gaudi/app-shell-topbar-collections` (uses `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiBrand`, `Link`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`)
+- Journal top bar · section pills, sidebar page search and an inset notifications sheet — registry item `@gaudi/app-shell-topbar-journal` (uses `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `Link`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`)
 - Documentation sub-menus — registry item `@gaudi/sidebar-docs-submenus` (uses `AppShellFrame`, `AppShellHeader`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `GaudiBrand`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarInput`, `SidebarInset`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarMenuSub`, `SidebarMenuSubButton`, `SidebarMenuSubItem`, `SidebarProvider`, `SidebarTrigger`, `cn`)
 - Search, loading and no-result states — registry item `@gaudi/sidebar-filter-states` (uses `AppShellFrame`, `Button`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupAction`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarInset`, `SidebarMenu`, `SidebarMenuBadge`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarMenuSkeleton`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `cn`)
 - Collapsible icon rail — registry item `@gaudi/sidebar-icon-rail` (uses `AppShellFrame`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `GaudiBrand`, `GaudiLogo`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarInset`, `SidebarMenu`, `SidebarMenuBadge`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarRail`, `SidebarTrigger`, `TooltipProvider`)
@@ -8052,12 +8053,12 @@ Native labels and autocomplete support password managers; the password keeps its
 
 Curated patterns:
 
-- Centred card — registry item `@gaudi/screens-centred-card` (uses `AuthForm`, `CardContent`, `CardRoot`, `CheckboxRoot`, `GaudiBrand`, `Label`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
-- Free trial sign-up — registry item `@gaudi/screens-free-trial` (uses `AuthForm`, `Badge`, `CheckboxRoot`, `Label`, `RegistryIcon`, `Screen`)
+- Centred card — registry item `@gaudi/screens-centred-card` (uses `AuthForm`, `CardContent`, `CardRoot`, `CheckboxRoot`, `GaudiBrand`, `Label`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
+- Free trial sign-up — registry item `@gaudi/screens-free-trial` (uses `AuthForm`, `Badge`, `CheckboxRoot`, `Label`, `Link`, `RegistryIcon`, `Screen`)
 - Magic link with logos — registry item `@gaudi/screens-magic-link` (uses `AuthForm`, `Discord`, `Dropbox`, `Frame`, `FramePanel`, `GaudiBrand`, `Loom`, `Redis`, `Screen`, `ScreenTestimonial`, `Slack`, `Stripe`, `Supabase`, `Zoom`)
-- Choose a sign-in method — registry item `@gaudi/screens-sign-in-methods` (uses `AuthForm`, `Button`, `Dropbox`, `GaudiBrand`, `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`, `Label`, `Loom`, `RegistryIcon`, `Screen`, `Stripe`, `Supabase`)
-- Split with imagery — registry item `@gaudi/screens-split-imagery` (uses `AuthForm`, `Borealis`, `GaudiBrand`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`)
-- Split with testimonials — registry item `@gaudi/screens-split-testimonials` (uses `AuthForm`, `GaudiBrand`, `RegistryIcon`, `Screen`, `ScreenTestimonial`)
+- Choose a sign-in method — registry item `@gaudi/screens-sign-in-methods` (uses `AuthForm`, `Button`, `Dropbox`, `GaudiBrand`, `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`, `Label`, `Link`, `Loom`, `RegistryIcon`, `Screen`, `Stripe`, `Supabase`)
+- Split with imagery — registry item `@gaudi/screens-split-imagery` (uses `AuthForm`, `Borealis`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`)
+- Split with testimonials — registry item `@gaudi/screens-split-testimonials` (uses `AuthForm`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ScreenTestimonial`)
 
 ## Related
 
@@ -8505,7 +8506,7 @@ Curated patterns:
 - Contact · Message with error summary — registry item `@gaudi/forms-contact` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CharacterCount`, `CheckboxRoot`, `EmailInput`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Textarea`, `useFormValidation`, `validators`)
 - Onboarding · Customer intake — registry item `@gaudi/forms-customer-intake` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `CheckboxRoot`, `Combobox`, `ComboboxChip`, `ComboboxChips`, `ComboboxChipsInput`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxItem`, `ComboboxList`, `ComboboxValue`, `EmailInput`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldSeparator`, `FormErrorSummary`, `Input`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Textarea`, `ToggleGroupItem`, `ToggleGroupRoot`, `useComboboxAnchor`, `useFormValidation`, `validators`)
 - Events · Registration with email code — registry item `@gaudi/forms-event-registration` (uses `Badge`, `Button`, `CheckboxRoot`, `EmailInput`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FormErrorSummary`, `Input`, `InputOTP`, `InputOTPGroup`, `InputOTPSlot`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `NumberFieldScrubArea`, `RadioGroup`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `useFormValidation`, `validators`)
-- Billing · Hosted checkout setup — registry item `@gaudi/forms-hosted-checkout` (uses `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSeparator`, `FieldSet`, `FormErrorSummary`, `Input`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `useFormValidation`, `validators`)
+- Billing · Hosted checkout setup — registry item `@gaudi/forms-hosted-checkout` (uses `Badge`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSeparator`, `FieldSet`, `FormErrorSummary`, `Input`, `Link`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `useFormValidation`, `validators`)
 - Billing · Invoice with line items — registry item `@gaudi/forms-invoice` (uses `Badge`, `Button`, `Calendar`, `Combobox`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxInput`, `ComboboxItem`, `ComboboxList`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `InputGroupAddon`, `InputGroupText`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Separator`, `TableBodyPrimitive`, `TableCaption`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `Textarea`, `useFormValidation`, `validators`)
 - Commerce · New product — registry item `@gaudi/forms-new-product` (uses `Badge`, `Button`, `CharacterCount`, `CheckboxRoot`, `Combobox`, `ComboboxChip`, `ComboboxChips`, `ComboboxChipsInput`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxItem`, `ComboboxList`, `ComboboxValue`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Textarea`, `cn`, `formatBytes`, `useComboboxAnchor`, `useFileUpload`, `useFormValidation`, `validators`)
 - Newsletter · Signup and preferences — registry item `@gaudi/forms-newsletter` (uses `Button`, `CheckboxRoot`, `EmailInput`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `RadioGroup`, `RegistryIcon`, `useFormValidation`, `validators`)
@@ -8513,7 +8514,7 @@ Curated patterns:
 - Profile · Tabs with audit rail — registry item `@gaudi/forms-profile-tabs` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `EmailInput`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `Input`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `cn`, `useFormValidation`, `validators`)
 - Security · Sign-in policy — registry item `@gaudi/forms-sign-in-policy` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `Input`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `NumberFieldScrubArea`, `RadioGroup`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Slider`, `SwitchRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `useFormValidation`)
 - Support · Ticket details — registry item `@gaudi/forms-support-ticket` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `EditableField`, `Input`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `Textarea`, `validators`)
-- Team · Invite with permissions — registry item `@gaudi/forms-team-invite` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Badge`, `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Tree`, `TreeItem`, `TreeItemLabel`, `cn`, `useFormValidation`, `validators`)
+- Team · Invite with permissions — registry item `@gaudi/forms-team-invite` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Badge`, `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `InputGroup`, `InputGroupInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Tree`, `TreeItem`, `TreeItemLabel`, `useFormValidation`, `validators`)
 
 ## Related
 
@@ -8565,6 +8566,99 @@ const form = useFormValidation({
 - `FormErrorSummary` is an alert that receives focus; each link moves focus to its field, or to the first control in a
   group such as a rating or a checkbox list.
 - `EditableField` returns focus to its Edit button after Save, Cancel or Escape.
+
+---
+
+# Heroes
+
+> Blocks/Marketing/Heroes · blocks · `@gaudi/design-system/blocks/Hero`
+
+Responsive hero sections for product, editorial, and marketing pages. One shared layout owns the heading, introduction, action group, and media; compose the slots with existing Gaudi components.
+
+## Import
+
+```js
+import Heroes from '@gaudi/design-system/blocks/Hero';
+// also: import { … } from '@gaudi/design-system/blocks';
+```
+
+Exports: `Hero`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `eyebrow` | `ReactNode` | — | no | Optional label, badge, or mark above the heading. It stays outside the heading so the section name is only the title. |
+| `title` | `ReactNode` | — | no | The primary heading. Keep it concise and specific. |
+| `description` | `ReactNode` | — | no | Supporting paragraph, rendered with Gaudi typography. |
+| `layout` | `centered \| split \| editorial \| background` | `centered` | no | Centered stack, side-by-side image, editorial heading and introduction, or background image with an opaque readable content panel. |
+| `actions` | `ReactNode` | — | no | Primary and secondary actions; use Button and Link. Long labels wrap. |
+| `media` | `ReactNode` | — | no | Prepared image, video, or product preview. Background layout is intended for decorative imagery. |
+| `children` | `ReactNode` | — | no | Optional supporting content below the actions. |
+| `headingAs` | `h1 \| h2 \| h3` | `h1` | no | Choose the heading level for its place in the page. |
+| `className` | `string` | — | no | Additional classes on the outer element. |
+
+## Variants
+
+- `layout`: `centered`, `split`, `editorial`, `background`
+- `headingAs`: `h1`, `h2`, `h3`
+
+## Usage
+
+```jsx
+import { Hero } from '@gaudi/design-system/blocks/Hero';
+import Button from '@gaudi/design-system/core/Button';
+
+<Hero title='A good place to start.' description='Your content. Shared foundations.' actions={<Button href='/start'>Get started</Button>} />
+```
+
+## Accessibility
+
+The section is labelled by its heading. Reading order is eyebrow, heading, description, actions, supporting content, then media. Images need meaningful alternative text, or empty alt text when decorative. Background imagery must be decorative and non-interactive.
+
+## Notes
+
+- The hero responds to its container, stacking split and editorial layouts below 48rem.
+- Supply prepared content and real destinations. Navigation, forms, claims, and product behavior belong to the host.
+- Animated examples reuse Gaudi backgrounds (Aurora, Grainient, Dark Veil, Floating Lines, Liquid Ether) and include a pause control; reduced motion stops them.
+- The examples are original Gaudi compositions using local artwork; no Tailwind Plus source is included.
+
+## Examples
+
+- Aurora (Storybook `blocks-marketing-heroes--playground`)
+- Mesh gradient (Storybook `blocks-marketing-heroes--mesh-gradient`)
+- Live surface (Storybook `blocks-marketing-heroes--live-surface`)
+- Journal topics (Storybook `blocks-marketing-heroes--journal-topics`)
+- Split image (Storybook `blocks-marketing-heroes--split-image`)
+- Product preview (Storybook `blocks-marketing-heroes--product-preview`)
+- Editorial (Storybook `blocks-marketing-heroes--editorial`)
+
+## Related
+
+`blocks-navigation`, `animations-backgrounds-aurora`, `animations-backgrounds-grainient`, `core-button`, `core-link`
+
+## README
+
+A responsive marketing introduction, showcased in **Blocks → Marketing → Heroes**.
+
+```jsx
+import { Hero } from '@gaudi/design-system/blocks/Hero';
+import Button from '@gaudi/design-system/core/Button';
+
+<Hero
+  layout='split'
+  title='A good place to start.'
+  description='Your content. Shared foundations.'
+  actions={<Button href='/start'>Get started</Button>}
+  media={<img src='/cover.jpg' alt='Your image description' />}
+/>
+```
+
+`layout` supports `centered`, `split`, `editorial`, and `background`. Split and editorial layouts stack below a 48rem container width. With no media, split keeps a single content column. Slots accept existing Gaudi components; the block does not own navigation, forms, destinations, or product data. `eyebrow` places a short label, Badge, or mark above the heading without changing the section name. `children` adds supporting content below the actions.
+
+The section labels itself with its heading. Use `headingAs` to fit the document hierarchy. Supply decorative, non-interactive media for `background`; its opaque content panel keeps text readable in both themes. Images require descriptive alt text unless decorative. Button and Link provide the action semantics, focus, and keyboard behavior.
+
+For an animated hero, place the Hero inside a Gaudi background such as `Borealis` or `Grainient`, give the Hero `className='bg-transparent'`, and offer a pause control. Use the dark theme scope for dark effects so text keeps its contrast.
 
 ---
 
@@ -8915,7 +9009,7 @@ Curated patterns:
 - Create a schedule — registry item `@gaudi/scheduling-create-schedule` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AttachmentTrigger`, `Button`, `Calendar`, `Combobox`, `ComboboxChip`, `ComboboxChips`, `ComboboxChipsInput`, `ComboboxContent`, `ComboboxEmpty`, `ComboboxItem`, `ComboboxList`, `ComboboxValue`, `Input`, `Label`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `formatBytes`, `useComboboxAnchor`, `useFileUpload`)
 - Date and time popover — registry item `@gaudi/scheduling-date-time-popover` (uses `Button`, `Calendar`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`, `TimeSlots`, `timeSlots`)
 - Day agenda — registry item `@gaudi/scheduling-day-agenda` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `dayKey`)
-- Month at a glance — registry item `@gaudi/scheduling-month-overview` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`)
+- Month at a glance — registry item `@gaudi/scheduling-month-overview` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`)
 - Plan a meeting — registry item `@gaudi/scheduling-plan-meeting` (uses `Button`, `Label`, `ScheduleCalendar`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `addMinutes`, `formatDuration`, `minutesBetween`, `timeSlots`)
 - Webinar details and RSVP — registry item `@gaudi/scheduling-webinar-rsvp` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`)
 
@@ -9176,7 +9270,7 @@ Curated patterns:
 - KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 - Leads with a range — registry item `@gaudi/stat-card-lead-range` (uses `ProgressRoot`, `StatCard`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Quota and progress — registry item `@gaudi/stat-card-quota` (uses `Badge`, `ProgressRoot`, `RegistryIcon`, `StatCard`)
-- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`)
+- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `StatCard`)
 - Support metrics — registry item `@gaudi/stat-card-support` (uses `Badge`, `StatCard`)
 - Team performance — registry item `@gaudi/stat-card-team-performance` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `StatCard`, `StatDelta`)
 
@@ -9622,7 +9716,7 @@ Curated patterns:
 
 - Suggested replies under a question — registry item `@gaudi/chat-bubble-quick-replies` (uses `Button`, `CardContent`, `CardRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatBubbleGroup`, `RegistryIcon`)
 - Bubble styles across a deploy thread — registry item `@gaudi/chat-bubble-release-thread` (uses `ChatBubble`, `ChatBubbleContent`)
-- Formatted answer with show more — registry item `@gaudi/chat-bubble-show-more` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`)
+- Formatted answer with show more — registry item `@gaudi/chat-bubble-show-more` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `Link`, `RegistryIcon`)
 - Support thread — registry item `@gaudi/chat-bubble-support-thread` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChatBubble`, `ChatBubbleContent`, `ChatBubbleGroup`, `ChatBubbleReactions`)
 
 ## README
@@ -9954,7 +10048,7 @@ Core Tree provides arrow navigation; Enter or Space selects files. Row actions a
 
 ## Related
 
-`core-tree`, `layout-search`, `chat-chatagentmark`
+`core-tree`, `chat-chatagentmark`
 
 ## README
 
@@ -10156,7 +10250,7 @@ Curated patterns:
 
 ## Related
 
-`core-attachment`, `layout-footer`
+`core-attachment`
 
 ## README
 
@@ -10808,7 +10902,7 @@ The trail and each detailed step are disclosure buttons with aria-expanded; step
 
 ## Related
 
-`blocks-chat`, `chat-chattool`, `chat-chatmessagelist`, `layout-search`
+`blocks-chat`, `chat-chattool`, `chat-chatmessagelist`
 
 ## README
 
@@ -10917,7 +11011,7 @@ The current chat has aria-current; row menus are named after each chat, and rena
 
 ## Related
 
-`core-sheet`, `layout-search`
+`core-sheet`
 
 ## README
 
@@ -17788,6 +17882,96 @@ Visual idea inspired by [MicroSlats](https://reactbits.dev/backgrounds/micro-sla
 
 ---
 
+# Particle Sea
+
+> Animations/Backgrounds/Particle Sea · animations · `@gaudi/design-system/animations/ParticleSea`
+
+A rolling sea of fine points seen in perspective; crests catch the light and glitter.
+
+## Import
+
+```js
+import ParticleSea from '@gaudi/design-system/animations/ParticleSea';
+// also: import { … } from '@gaudi/design-system/animations';
+```
+
+Exports: `ParticleSea`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `waveHeight` | `number` | `1` | no | Swell height, clamped to 0–2. Higher seas light more crests. |
+| `density` | `number` | `1` | no | Points per unit of water, clamped to 0.25–2. |
+| `horizon` | `number` | `0.75` | no | Horizon position from the bottom of the container, clamped to 0.3–1. The area above it shows the background. |
+| `paused` | `boolean` | `false` | no | Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation. |
+| `speed` | `number` | `1` | no | Animation speed multiplier, clamped to 0–5. Zero holds a static frame. |
+| `intensity` | `number` | `1` | no | Brightness of the lit points, clamped to 0–2. Zero reveals the background color. |
+| `scale` | `number` | `1` | no | Spatial scale of the sea, clamped to 0.25–4. |
+| `colors` | `string[]` | `Gaudi theme tokens` | no | Up to three CSS colors for the points. Omitted colors inherit the current Gaudi palette. |
+| `background` | `string` | `var(--ds-color-surface)` | no | CSS color behind the effect and its static fallback. |
+| `interactive` | `boolean` | `false` | no | Lift the sea under the pointer without capturing clicks or scrolling. |
+| `height` | `number \| string` | `360` | no | Container height in pixels or a CSS length. Numeric values are clamped to 1–4096; width fills the available container. |
+| `children` | `ReactNode` | — | no | Optional semantic content layered above the decorative canvas. |
+| `className / style / ref / DOM props` | `DOM props` | — | no | Forwarded to the outer container. |
+
+## Usage
+
+```jsx
+import { ParticleSea } from '@gaudi/design-system/animations/ParticleSea';
+
+<ParticleSea height={500} waveHeight={1.2} colors={['var(--ds-color-warning)']} />
+```
+
+## Accessibility
+
+The canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.
+
+## Notes
+
+- The playground layers a Gaudi header, hero and working documentation links above the effect. The Demo content switch hides only this foreground; canvas size, animation phase and pause state are retained.
+- Points are spaced evenly across the water, so they shrink and crowd towards the horizon. Only crests are lit, and each point twinkles on its own phase. Points too small to resolve fade out instead of shimmering.
+
+## Examples
+
+- Playground (Storybook `animations-backgrounds-particle-sea--playground`)
+
+## README
+
+A rolling sea of fine points seen in perspective; crests catch the light and glitter.
+
+```jsx
+import { ParticleSea } from '@gaudi/design-system/animations/ParticleSea';
+
+<ParticleSea height={500} waveHeight={1.2} colors={['var(--ds-color-warning)']} />
+```
+
+Points are spaced evenly across the water, so they shrink and crowd towards the horizon. Only crests are lit, and each point twinkles on its own phase. Points too small to resolve fade out instead of shimmering. Change `waveHeight` or `speed` to give different content its own sea.
+
+### Contract
+
+- `waveHeight` (number, default `1`): Swell height, clamped to 0–2. Higher seas light more crests.
+- `density` (number, default `1`): Points per unit of water, clamped to 0.25–2.
+- `horizon` (number, default `0.75`): Horizon position from the bottom of the container, clamped to 0.3–1. The area above it shows the background.
+- `paused` (boolean, default `false`): Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation.
+- `speed` (number, default `1`): Animation speed multiplier, clamped to 0–5. Zero holds a static frame.
+- `intensity` (number, default `1`): Brightness of the lit points, clamped to 0–2. Zero reveals the background color.
+- `scale` (number, default `1`): Spatial scale of the sea, clamped to 0.25–4.
+- `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors for the points. Omitted colors inherit the current Gaudi palette.
+- `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.
+- `interactive` (boolean, default `false`): Lift the sea under the pointer without capturing clicks or scrolling.
+- `height` (number | string, default `360`): Container height in pixels or a CSS length. Numeric values are clamped to 1–4096; width fills the available container.
+- `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.
+- `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.
+
+The shared renderer caps drawing at 30fps, device pixel ratio at 1.5, and its buffer at approximately two million pixels. It stops for reduced motion, hidden tabs and offscreen containers, and cleans up its GPU resources on unmount. A static fallback preserves the content if WebGL is unavailable.
+
+### Accessibility
+
+The canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.
+
+---
+
 # PatternWaves
 
 > Animations/Backgrounds/PatternWaves · animations · `@gaudi/design-system/animations/PatternWaves`
@@ -18514,7 +18698,7 @@ Exports: `PhraseCycle`, `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `texts` | `string[]` | `["thoughtfully", "boldly", "together"]` | no | Phrases to display in order. All phrases are included once in the accessible text. |
-| `interval` | `number` | `2200` | no | Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms. |
+| `interval` | `number` | `2200` | no | Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms). |
 | `direction` | `up \| down` | `"up"` | no | Direction of the vertical transition. |
 | `paused` | `boolean` | `false` | no | Stop nonessential motion. System reduced motion, hidden tabs and offscreen containers also stop it. |
 | `className / style / ref` | `DOM props` | — | no | Applied to the outer span. Typography is inherited. |
@@ -18559,7 +18743,7 @@ import { PhraseCycle } from '@gaudi/design-system/animations/PhraseCycle';
 ```
 
 - `texts` (string[], default ["thoughtfully", "boldly", "together"]): Phrases to display in order. All phrases are included once in the accessible text.
-- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition lasts 450 ms.
+- `interval` (number, default 2200): Milliseconds between phrase changes, clamped to 700–30000. Each transition uses the focal motion duration (560 ms).
 - `direction` (up | down, default "up"): Direction of the vertical transition.
 - `paused` (boolean, default false): Stop nonessential motion. System reduced motion, hidden tabs and offscreen containers also stop it.
 - `className / style / ref` (DOM props, default —): Applied to the outer span. Typography is inherited.
@@ -19197,7 +19381,7 @@ Fences are keyboard-scrollable regions with a labelled copy button; groups are G
 
 ## Related
 
-`core-codeblock`, `core-map`, `core-tabs`
+`blocks-blog-article`, `core-codeblock`, `core-map`, `core-tabs`
 
 ---
 
@@ -19288,6 +19472,10 @@ Faq uses a semantic definition list and native disclosure buttons. Choose a head
 ## Examples
 
 - Playground (Storybook `mdx-faq--playground`)
+
+## Related
+
+`blocks-blog-article`
 
 ---
 
@@ -19482,7 +19670,7 @@ Exports: `default`
   alt='Lavender gradient artwork'
   caption='A study in lavender and light.'
   width={420}
-  height={260}
+  height={236}
 />
 ```
 
@@ -19968,7 +20156,7 @@ Exports: `default`, `videoAnimationStyles`
 | `autoplay` | `boolean` | `true` | no | Adds autoplay to the iframe URL when the dialog opens. |
 | `playLabel` | `string` | `Play video` | no | Fallback accessible label for the thumbnail trigger. |
 | `className` | `string` | — | no | Thumbnail trigger class override. |
-| `classNames` | `{ trigger, thumbnail, playWrapper, playButton, dialog, overlay, panel, title, close, video }` | — | no | Slot-level class overrides. |
+| `classNames` | `{ trigger, thumbnail, playWrapper, playButton, panel, title, video }` | — | no | Slot-level class overrides. |
 
 ## Variants
 
@@ -19979,7 +20167,7 @@ Exports: `default`, `videoAnimationStyles`
 ```jsx
 <Video
   animationStyle='from-center'
-  videoSrc='https://www.youtube.com/embed/qh3NGpYRG3I'
+  videoSrc='/static/media/video-player.html'
   thumbnailSrc='/static/images/og-card.jpg'
   thumbnailAlt='Video preview'
   title='Video walkthrough'
@@ -20000,16 +20188,16 @@ Video uses a native button for the thumbnail trigger, an aria-modal dialog, Esca
 
 ---
 
-# Post
+# Post lists
 
-> Post/Post · post · `@gaudi/design-system/post/Post`
+> Blocks/Blog/Post lists · post · `@gaudi/design-system/post/Post`
 
-An article summary linking to a full post.
+Blog-post sections using the same Post summaries and article data as the blog pages. Image cards, featured articles, horizontal rows, and compact archives reuse one component.
 
 ## Import
 
 ```js
-import Post from '@gaudi/design-system/post/Post';
+import Postlists from '@gaudi/design-system/post/Post';
 // also: import { … } from '@gaudi/design-system/post';
 ```
 
@@ -20020,15 +20208,26 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `frontMatter` | `Article metadata` | `{}` | no | Title, prepared href, date, subtitle and category { id, label, href }. String categories remain unlinked labels; absent hrefs never create a route. |
+| `layout` | `list \| stacked \| horizontal` | `list` | no | Post presentation. Horizontal media stacks in narrow containers. |
+| `media` | `ReactNode` | — | no | Optional image or media before the summary. |
+| `footer` | `ReactNode` | — | no | Optional byline and reading-time composition. |
+| `className` | `string` | — | no | Classes on the list item. |
 | `locale` | `string` | — | no | Date formatting locale. |
+| `titleVariant` | `string` | `index-list-title` | no | Shared Typography variant; use heading-md for a featured article. |
 | `titleAs` | `ElementType` | `h3` | no | Heading element appropriate to the surrounding list. |
+
+## Variants
+
+- `layout`: `list`, `stacked`, `horizontal`
 
 ## Usage
 
 ```jsx
 import { Post } from '@gaudi/design-system';
 
-<Post frontMatter={frontMatter} />
+<ul>
+  <Post frontMatter={frontMatter} />
+</ul>
 ```
 
 ## Accessibility
@@ -20037,13 +20236,45 @@ Use a meaningful linked title and an appropriate heading level. Content and rout
 
 ## Examples
 
-- Playground (Storybook `post-post--playground`)
+- Post metadata (Storybook `post-post--playground`)
+- Image cards (Storybook `post-post--image-cards`)
+- Featured and recent (Storybook `post-post--featured`)
+- Horizontal rows (Storybook `post-post--horizontal`)
+- Compact list (Storybook `post-post--compact`)
+
+## Related
+
+`mdx-image`
+
+## README
+
+A semantic list entry for the blog. Storybook's **Blocks → Blog → Post lists** shows image cards, featured and recent articles, horizontal rows, and a compact archive using the same component and article data as the blog pages.
+
+```jsx
+import Post from '@gaudi/design-system/post/Post';
+import { PostReadingTime } from '@gaudi/design-system/post/PostHeader';
+
+<ul>
+  <Post
+    frontMatter={article}
+    layout='stacked'
+    media={<img src='/cover.jpg' alt='' />}
+    footer={<PostReadingTime readingTime='8 min read' />}
+  />
+</ul>
+```
+
+`frontMatter` contains the supplied `title`, `href`, `date`, `subtitle`, `draft`, and `category` (`{ label, href }` or an unlinked string). `locale` controls date formatting; `titleAs` defaults to `h3`; `titleVariant` defaults to `index-list-title` and accepts a shared Typography variant. Applications prepare routes and content. `Post` does not infer a destination or estimate reading time.
+
+`layout` defaults to `list`, preserving the existing text index. `stacked` puts optional media above the summary. `horizontal` puts media beside the text when the list item is at least 36rem wide and stacks it below that width. `media` and `footer` accept composed content; `className` and standard list-item props pass to the outer `li`.
+
+Place entries inside a list. Use a heading level appropriate to the surrounding section and keep the title link descriptive. Cover artwork that repeats the title's purpose can use empty alt text; meaningful illustrations need a useful description. Keep unrelated buttons and category links outside the title link. Layouts in the examples use shared styles and do not duplicate post metadata rendering.
 
 ---
 
 # PostHeader
 
-> Post/PostHeader · post · `@gaudi/design-system/post/PostHeader`
+> Blocks/Blog/PostHeader · post · `@gaudi/design-system/post/PostHeader`
 
 Article title, metadata, timestamps and supporting header controls.
 
@@ -20062,6 +20293,8 @@ Exports: `PostDate`, `PostReadingTime`, `PostTimestamps`, `default`
 | --- | --- | --- | --- | --- |
 | `frontMatter / siteMetadata` | `object` | `{}` | no | Article id, title, category and tags as { id, label, href }, prepared seriesPosts, and site locale. String category/tag labels remain unlinked. |
 | `titleLevel` | `number` | `1` | no | Article heading level. |
+| `titleVariant` | `keyof typographyVariants` | `post-title` | no | Shared Typography style for the title, independent of titleLevel. Blog page and article titles use title-md; featured articles use heading-md. |
+| `subtitleVariant` | `keyof typographyVariants` | `post-subtitle` | no | Shared Typography style for the subtitle. Blog compositions use paragraph-md. |
 | `tocControl` | `ReactNode` | — | no | Optional table-of-contents control. |
 | `classNames` | `Record<string, string>` | `{}` | no | Header slot classes. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -20083,11 +20316,15 @@ Preserve one clear article heading and machine-readable dates.
 - Playground (Storybook `post-postheader--playground`)
 - Prepared share and source actions (Storybook `post-postheader--sharing-actions`)
 
+## Related
+
+`blocks-blog-article`
+
 ---
 
 # PostNavigation
 
-> Post/PostNavigation · post · `@gaudi/design-system/post/PostNavigation`
+> Blocks/Blog/PostNavigation · post · `@gaudi/design-system/post/PostNavigation`
 
 Previous and next article links at the end of a post.
 
@@ -20128,7 +20365,7 @@ Links name their destinations. Do not render empty links when one adjacent artic
 
 # PostSeriesBox
 
-> Post/PostSeriesBox · post · `@gaudi/design-system/post/PostSeriesBox`
+> Blocks/Blog/PostSeriesBox · post · `@gaudi/design-system/post/PostSeriesBox`
 
 List the articles in a series and identify the current entry.
 
@@ -20170,9 +20407,9 @@ Identify the current article and use descriptive links for other entries.
 
 # TableOfContents
 
-> Post/TableOfContents · post · `@gaudi/design-system/post/TableOfContents`
+> Blocks/Blog/TableOfContents · post · `@gaudi/design-system/post/TableOfContents`
 
-Tracks article headings and indexes diagrams and tables. Pass contentRef when several articles share the same page.
+Responsive article navigation with active sections, expandable heading branches, and an optional diagram and table index. Reuses Scrollspy, Collapsible, Link and the shared expansion hook.
 
 ## Import
 
@@ -20187,39 +20424,71 @@ Exports: `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `toc` | `Array<{ id, url, value, depth, children }>` | `[]` | no | Heading IDs and labels from the article. |
+| `toc` | `Array<{ id, url?, value, depth?, children? }>` | `[]` | no | Prepared heading IDs and labels. Nest children to describe the hierarchy; top-level count controls initial expansion regardless of heading depth. |
 | `contentRef` | `RefObject<HTMLElement>` | — | no | Article to index. Defaults to the first article on the page. |
-| `className` | `string` | — | no | Layout and responsive visibility classes. |
+| `targetRef` | `RefObject<HTMLElement>` | — | no | Document or nested scroll viewport used by shared Scrollspy. Omit for document scrolling. |
+| `offset` | `number` | `24` | no | Space above the selected heading for sticky navigation or decorative edges. |
+| `smooth` | `boolean` | `true` | no | Smooth section navigation; respects reduced motion. |
+| `indexVisuals` | `boolean` | `true` | no | Index captioned diagrams and tables in the article. Image and video figures are excluded. |
+| `className` | `string` | — | no | Root layout classes. Sticky placement and mobile disclosure belong to the surrounding layout. |
+| `aria-label` | `string` | `Table of contents` | no | Accessible navigation name when several contents lists share a page. |
 
 ## Usage
 
 ```jsx
-import { TableOfContents } from '@gaudi/design-system';
+import TableOfContents from '@gaudi/design-system/post/TableOfContents';
 
-<TableOfContents toc={toc} />
+<TableOfContents toc={toc} contentRef={articleRef} targetRef={readingViewportRef} offset={24} />
 ```
 
 ## Accessibility
 
-Names the article navigation and preserves normal anchor behavior; the active heading is marked without stealing focus.
+Uses real links and marks the active heading with aria-current. Branch toggles have descriptive names and aria-expanded. Modified link clicks remain native; section navigation respects reduced motion and does not steal focus. Hidden branches keep their targets indexed and expand when a descendant becomes active.
 
 ## Examples
 
 - Playground (Storybook `post-tableofcontents--playground`)
 - Four or fewer sections (Storybook `post-tableofcontents--compact-toc`)
 
+## Related
+
+`core-scrollspy`, `core-link`, `blocks-blog-article`, `mdx-image`
+
+## README
+
+Use this block for article headings, nested sections, and optional captioned diagrams and tables. It shares Scrollspy tracking and navigation, Link behavior, Collapsible controls, ScrollArea containment, and the expansion hook with the rest of Gaudi.
+
+```jsx
+import TableOfContents from '@gaudi/design-system/post/TableOfContents';
+
+<TableOfContents
+  toc={toc}
+  contentRef={articleRef}
+  targetRef={readingViewportRef}
+  offset={24}
+/>
+```
+
+Prepare entries as `{ id, value, url?, depth?, children? }`. Nest `children` to describe expandable branches; flat lists still use `depth` for indentation. Four or fewer top-level entries expand initially, regardless of their heading depth. Larger lists follow the active branch; readers can toggle every branch independently. Closed branches retain their tracking targets and reveal an active descendant.
+
+Omit `targetRef` for document scrolling. Pass the article's actual viewport ref for bounded reading layouts; use the same ref for ReadingIndicator and other Scrollspy navigation. `offset` accounts for sticky headers or decorative edges. `smooth` defaults to true and respects reduced motion. Scrollspy owns scroll listeners and active-section tracking; this block does not create separate heading observers.
+
+`contentRef` scopes visual indexing to one article. Captioned diagrams and tables receive stable anchors; photo, video, and code figures are excluded. Set `indexVisuals={false}` to show only headings. Long labels wrap, and a shared ScrollArea contains longer lists.
+
+The block is visible at every screen width. The surrounding ArticleContentLayout owns sticky placement and the mobile contents disclosure. Use `aria-label` to name navigation when several lists share a page. Real links preserve modified clicks; active links use `aria-current="location"`, and branch toggles expose `aria-expanded` without moving focus.
+
 ---
 
-# ArticleContentLayout
+# Article
 
-> Layout/ArticleContentLayout · layout · `@gaudi/design-system/layout/ArticleContentLayout`
+> Blocks/Blog/Article · layout · `@gaudi/design-system/layout/ArticleContentLayout`
 
-Responsive article prose with an optional contents rail and controlled or uncontrolled aside visibility. The Blog article example composes a full reading page with journal navigation, smooth scrolling, reading progress, section navigation, expandable images, and video. Use its ScrollArea viewport as the main blog content host during migration and share that ref with ReadingIndicator and Scrollspy.
+A complete blog article with Gaudi journal navigation, PostHeader metadata, reading progress, TableOfContents section navigation, expandable images, a gallery, and captioned video. The main Blog article is joined by a centered Focused essay, a Technical tutorial with nested navigation and code, a wider Photo essay with a gallery, and a Series article with PostSeriesBox navigation across three parts. Each workflow reuses the same scroll boundary, header, media controls, and layout component. Contents-enabled examples use the shared TableOfContents block for links, active sections, and nested branch controls.
 
 ## Import
 
 ```js
-import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';
+import Article from '@gaudi/design-system/layout/ArticleContentLayout';
 // also: import { … } from '@gaudi/design-system/layout';
 ```
 
@@ -20247,9 +20516,11 @@ Exports: `default`
 
 ```jsx
 import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';
+import TableOfContents from '@gaudi/design-system/post/TableOfContents';
+import PostHeader from '@gaudi/design-system/post/PostHeader';
 
-<ArticleContentLayout aside={tableOfContents} collapsibleAside>
-  <h1>{article.title}</h1>
+<ArticleContentLayout aside={<TableOfContents toc={toc} contentRef={articleRef} targetRef={readingViewportRef} />} collapsibleAside>
+  <PostHeader frontMatter={article} titleVariant='title-md' subtitleVariant='paragraph-md' />
   {articleContent}
 </ArticleContentLayout>
 ```
@@ -20258,27 +20529,35 @@ import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayo
 
 The aside toggle is a named button with aria-expanded. Supply a labelled nav or aside and keep heading order in the article body. The Blog article demo's optional Blur edges treatment is decorative, does not intercept input, and clears for keyboard focus, reduced motion, and forced colors. Its scroll destinations and sticky contents remain outside the blur bands.
 
+## Notes
+
+- Article is the Storybook composition name. The supported layout component remains ArticleContentLayout, with its public import and props unchanged.
+- The Blog article preview's contents control selects visible, none, collapsible, or collapsed navigation. Its smooth control changes wheel scrolling; keyboard, touch, and reduced-motion reading remain native. The other stories demonstrate distinct reading workflows; table-of-contents visibility remains a control in the main Blog article example.
+
 ## Examples
 
-- ArticleContentLayout (Storybook `layout-components--article-content`)
 - Blog article (Storybook `layout-article-content-layout--blog-article`)
+- Series article (Storybook `layout-article-content-layout--series-article`)
+- Focused essay (Storybook `layout-article-content-layout--focused-essay`)
+- Technical tutorial (Storybook `layout-article-content-layout--technical-tutorial`)
+- Photo essay (Storybook `layout-article-content-layout--photo-essay`)
 
 ## Related
 
-`core-scrollarea`, `core-readingindicator`, `core-scrollspy`
+`blocks-blog-postheader`, `blocks-blog-tableofcontents`, `blocks-blog-postseriesbox`
 
 ---
 
-# Footer
+# Footers
 
-> Layout/Footer · layout · `@gaudi/design-system/layout/Footer`
+> Blocks/Marketing/Footers · layout · `@gaudi/design-system/layout/Footer`
 
 Site footer with host-supplied navigation, social links, copyright, and optional newsletter form.
 
 ## Import
 
 ```js
-import Footer from '@gaudi/design-system/layout/Footer';
+import Footers from '@gaudi/design-system/layout/Footer';
 // also: import { … } from '@gaudi/design-system/layout';
 ```
 
@@ -20288,16 +20567,18 @@ Exports: `default`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `variant` | `standard \| editorial` | `standard` | no | Newsletter layout or brand-led layout. |
+| `variant` | `standard \| editorial \| centered \| compact` | `standard` | no | Link columns with a newsletter, blog branding, centered navigation, or compact inline navigation. |
 | `sections` | `Array<{ title, links: Array<{ href, label }> }>` | `[]` | no | Navigation groups from the host. |
 | `socialLinks` | `Array<{ kind, href }>` | `[]` | no | Social destinations; missing URLs are omitted. |
 | `copyrightName` | `string \| { name?, author? }` | — | no | Host-owned attribution. |
-| `brandTitle / brandDescription` | `string` | — | no | Editorial brand heading and description. |
+| `brandTitle` | `ReactNode` | — | no | Host-supplied name or brand component. |
+| `brandDescription` | `string` | — | no | Short description beneath the brand. |
+| `className` | `string` | — | no | Additional classes on the footer landmark. |
 | `newsletterProps` | `NewsletterForm props` | — | no | Explicit endpoint and subscription copy. |
 
 ## Variants
 
-- `variant`: `standard`, `editorial`
+- `variant`: `standard`, `editorial`, `centered`, `compact`
 
 ## Usage
 
@@ -20313,11 +20594,108 @@ Retains the footer landmark and uniquely named navigation regions. Supply descri
 
 ## Examples
 
-- Footer (Storybook `layout-components--footer-layout`)
+- Blog with link columns (Storybook `layout-footer--blog`)
+- With newsletter (Storybook `layout-footer--newsletter`)
+- Centered (Storybook `layout-footer--centered`)
+- Compact inline (Storybook `layout-footer--compact`)
+- Newsletter unavailable (Storybook `layout-components--footer-layout`)
+- Newsletter error (Storybook `layout-footer--submission-error`)
 
 ## Related
 
-`blocks-navigation`
+`core-link`, `blocks-navigation`
+
+## README
+
+One footer owner for blog and marketing pages. Import from `@gaudi/design-system/layout/Footer`.
+
+- `standard` places navigation beside the shared `NewsletterForm`.
+- `editorial` places a brand and social links beside grouped navigation.
+- `centered` centers the brand, a flat list of links, social links, and copyright.
+- `compact` puts the brand, flat navigation, and social links in a row when the container permits.
+
+Supply `sections` as `{ title, links: [{ href, label }] }[]`, `socialLinks` as `{ kind, href }[]`, and `copyrightName` as a name or author object. Content and destinations belong to the host. Empty navigation and social groups are omitted. The simple variants flatten the supplied navigation groups.
+
+`brandTitle` accepts a React node, including `GaudiBrand`; `brandDescription` supplies the supporting text. `className` and native footer attributes pass through to the landmark. Each instance generates a unique accessible heading.
+
+`newsletterProps` goes to `NewsletterForm`. An endpoint is required to enable subscriptions; the examples use local sample responses and never subscribe an address. Custom form classes merge with the footer defaults.
+
+The footer responds to its container, so it can be used in page layouts and inset regions. The host owns the outer width and horizontal gutters. Keep each page's footer outside its main landmark.
+
+---
+
+# Newsletter
+
+> Blocks/Marketing/Newsletter · layout · `@gaudi/design-system/layout/NewsletterForm`
+
+Newsletter sections built from one email subscription form, with an explicit host endpoint and local pending, success, and error feedback.
+
+## Import
+
+```js
+import Newsletter from '@gaudi/design-system/layout/NewsletterForm';
+// also: import { … } from '@gaudi/design-system/layout';
+```
+
+Exports: `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `endpoint` | `string` | — | no | Host endpoint that receives a POST; absent endpoints disable signup. |
+| `title` | `ReactNode` | `Subscribe to the newsletter` | no | Visible form heading. Pass null to omit it. |
+| `description` | `ReactNode` | `Get new articles and resources in your inbox.` | no | Supporting copy. Pass null to omit it. |
+| `headingAs` | `string` | `h3` | no | Heading level in the host page. |
+| `titleVariant` | `string` | — | no | Shared Typography variant; omitted preserves the compact form heading. |
+| `children` | `ReactNode` | — | no | Supporting content below the form and feedback, such as a privacy note. |
+| `className` | `string` | — | no | Root layout classes. |
+| `classNames` | `{ root?, header?, body?, title?, description?, form?, input?, action?, button?, message? }` | `{}` | no | Part-specific classes. |
+
+## Usage
+
+```jsx
+import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';
+
+<NewsletterForm title='Monthly field notes' endpoint='/api/newsletter' />
+```
+
+## Accessibility
+
+Uses EmailInput with single-address pattern validation and the default smooth caret. Names the email input, preserves the submitted address on failure, disables duplicate submissions, and announces feedback beside the field.
+
+## Examples
+
+- Form and availability (Storybook `layout-components--newsletter`)
+- Centered (Storybook `layout-newsletter-form--playground`)
+- Split (Storybook `layout-newsletter-form--split`)
+- Image panel (Storybook `layout-newsletter-form--image-panel`)
+- Compact (Storybook `layout-newsletter-form--compact`)
+- Submission error (Storybook `layout-newsletter-form--submission-error`)
+
+## README
+
+One subscription form for footer embeds and **Blocks → Marketing → Newsletter** sections. The public import remains `@gaudi/design-system/layout/NewsletterForm`.
+
+```jsx
+import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';
+
+<NewsletterForm
+  endpoint='/api/newsletter'
+  title='Notes worth sharing.'
+  description='New writing and useful resources from our journal.'
+  headingAs='h2'
+  titleVariant='heading-xl'
+>
+  <p>Unsubscribe whenever you like.</p>
+</NewsletterForm>
+```
+
+The host endpoint receives a POST with `{ email }`. A successful HTTP response without an `error` value confirms the subscription. Failed requests preserve the address for retry; pending and successful forms prevent duplicate submission. Endpoint changes and unmounts abort pending work. Without an endpoint, signup is disabled and an unavailable message is shown.
+
+`title` and `description` accept content or `null`. `headingAs` defaults to `h3`; `titleVariant` optionally selects a shared Typography variant. Omit it to retain the compact heading used by existing embeds. `children` follows submission feedback. `classNames` accepts `root`, `header`, `body`, `title`, `description`, `form`, `input`, `action`, `button`, and `message`.
+
+The EmailInput owns single-address validation and caret behavior. Feedback uses an alert for errors and a status for success. All examples share this implementation; section layout styles and local sample endpoints stay in the story fixtures. The response control switches between success, error, and unavailable and resets the example. Demo addresses are never sent to a subscription service.
 
 ---
 
@@ -20372,148 +20750,6 @@ Keep the skip target and the single main landmark. Supply accessible navigation 
 
 ---
 
-# LayoutWrapper
-
-> Layout/LayoutWrapper · layout · `@gaudi/design-system/layout/LayoutWrapper`
-
-Client-safe page shell composed from navigation, one main landmark, and Footer.
-
-## Import
-
-```js
-import LayoutWrapper from '@gaudi/design-system/layout/LayoutWrapper';
-// also: import { … } from '@gaudi/design-system/layout';
-```
-
-Exports: `default`
-
-## Props
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `children` | `ReactNode` | — | no | Page content placed in main. |
-| `footerProps` | `Footer props` | — | no | Host-owned footer content and newsletter configuration. |
-
-## Usage
-
-```jsx
-import LayoutWrapper from '@gaudi/design-system/layout/LayoutWrapper';
-
-<LayoutWrapper footerProps={footerProps}>
-  <h1>Latest articles</h1>
-  {postList}
-</LayoutWrapper>
-```
-
-## Accessibility
-
-Provides a single main landmark. Do not nest this shell inside another main element or use it alongside LayoutContainer.
-
-## Examples
-
-- LayoutWrapper (Storybook `layout-components--page-shell`)
-- Main Page (Storybook `layout-examples--main-page`)
-- Blog Main Page (Storybook `layout-examples--blog-main-page`)
-- Category Page With Posts And Pagination (Storybook `layout-examples--category-page-with-posts-and-pagination`)
-- Categories Page (Storybook `layout-examples--categories-page`)
-- Tags Page (Storybook `layout-examples--tags-page`)
-- Projects Page (Storybook `layout-examples--projects-page`)
-- Publications Page (Storybook `layout-examples--publications-page`)
-- About Me Page (Storybook `layout-examples--about-me-page`)
-
-## Related
-
-`layout-footer`, `layout-layoutcontainer`
-
----
-
-# NewsletterForm
-
-> Layout/NewsletterForm · layout · `@gaudi/design-system/layout/NewsletterForm`
-
-Email subscription form with an explicit host endpoint and local pending, success, and error feedback.
-
-## Import
-
-```js
-import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';
-// also: import { … } from '@gaudi/design-system/layout';
-```
-
-Exports: `default`
-
-## Props
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `endpoint` | `string` | — | no | Host endpoint that receives a POST; absent endpoints disable signup. |
-| `title` | `string` | `Subscribe to the newsletter` | no | Visible form heading. |
-| `className` | `string` | — | no | Root layout classes. |
-| `classNames` | `{ root?, title?, description?, form?, input?, action?, button?, message? }` | `{}` | no | Part-specific classes. |
-
-## Usage
-
-```jsx
-import NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';
-
-<NewsletterForm title='Monthly field notes' endpoint='/api/newsletter' />
-```
-
-## Accessibility
-
-Uses EmailInput with single-address pattern validation and the default smooth caret. Names the email input, preserves the submitted address on failure, disables duplicate submissions, and announces feedback beside the field.
-
-## Examples
-
-- NewsletterForm (Storybook `layout-components--newsletter`)
-
----
-
-# Search
-
-> Layout/Search · layout · `@gaudi/design-system/layout/Search`
-
-Controlled article filter with a clear action that returns focus to the search field.
-
-## Import
-
-```js
-import Search from '@gaudi/design-system/layout/Search';
-// also: import { … } from '@gaudi/design-system/layout';
-```
-
-Exports: `default`
-
-## Props
-
-| Name | Type | Default | Required | Description |
-| --- | --- | --- | --- | --- |
-| `label` | `string` | `Filter articles` | no | Accessible label and placeholder. |
-| `value` | `string` | — | no | Controlled query from the host. |
-| `setSearchValue` | `(query: string) => void` | — | no | Notifies the host for typing and clearing. |
-| `resultsId` | `string` | — | no | ID referenced by aria-controls. |
-
-## Usage
-
-```jsx
-import Search from '@gaudi/design-system/layout/Search';
-
-<>
-<Search label='Filter articles' value={query} setSearchValue={setQuery} resultsId='article-results' />
-<div id='article-results'>{filteredArticles}</div>
-</>
-```
-
-## Accessibility
-
-Supply a meaningful label and the result region ID. Filtering belongs to the host; clearing the query preserves keyboard focus.
-
-## Examples
-
-- Search (Storybook `layout-components--article-search`)
-
----
-
 # Blocks & patterns
 
 # Capture console · icon rail, capture queue tabs and expandable run feeds
@@ -20530,7 +20766,7 @@ npx shadcn@latest add @gaudi/app-shell-crawler-control
 npx shadcn@latest add ./public/r/app-shell-crawler-control.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `RegistryIcon`, `Separator`, `Sidebar`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupButton`, `InputGroupInput`, `Link`, `RegistryIcon`, `Separator`, `Sidebar`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20548,7 +20784,7 @@ npx shadcn@latest add @gaudi/app-shell-digest-inbox
 npx shadcn@latest add ./public/r/app-shell-digest-inbox.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Calendar`, `CheckboxRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Calendar`, `CheckboxRoot`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Item`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20602,7 +20838,7 @@ npx shadcn@latest add @gaudi/app-shell-newsletter-reader
 npx shadcn@latest add ./public/r/app-shell-newsletter-reader.json
 ```
 
-Uses: `AppShellFrame`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DialogClosePrimitive`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmailInput`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Field`, `FieldInput`, `FieldLabel`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroupAction`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `Textarea`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
+Uses: `AppShellFrame`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DialogClosePrimitive`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmailInput`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Field`, `FieldInput`, `FieldLabel`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Item`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroupAction`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `Textarea`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20656,7 +20892,7 @@ npx shadcn@latest add @gaudi/app-shell-reading-desk
 npx shadcn@latest add ./public/r/app-shell-reading-desk.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `useHotkey`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `useHotkey`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20674,7 +20910,7 @@ npx shadcn@latest add @gaudi/app-shell-research-assistant
 npx shadcn@latest add ./public/r/app-shell-research-assistant.json
 ```
 
-Uses: `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageParts`, `ChatModelSelect`, `ChatPromptComposer`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmptyState`, `GaudiBrand`, `GaudiLogo`, `InputGroupButton`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `useSidebar`
+Uses: `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageParts`, `ChatModelSelect`, `ChatPromptComposer`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `EmptyState`, `GaudiBrand`, `GaudiLogo`, `InputGroupButton`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarGroupContent`, `SidebarGroupLabel`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20692,7 +20928,7 @@ npx shadcn@latest add @gaudi/app-shell-research-projects
 npx shadcn@latest add ./public/r/app-shell-research-projects.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `ProgressRing`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useHotkey`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `Kbd`, `Link`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `ProgressRing`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarGroup`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useHotkey`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20710,7 +20946,7 @@ npx shadcn@latest add @gaudi/app-shell-source-network
 npx shadcn@latest add ./public/r/app-shell-source-network.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Kbd`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `Tree`, `TreeItem`, `TreeItemLabel`, `useAppShellFrame`, `useHotkey`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `GaudiLogo`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Kbd`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `Tree`, `TreeItem`, `TreeItemLabel`, `useAppShellFrame`, `useHotkey`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`, `@headless-tree/core@1.6.3`, `@headless-tree/react@1.6.3`
 
@@ -20728,7 +20964,7 @@ npx shadcn@latest add @gaudi/app-shell-study-chat
 npx shadcn@latest add ./public/r/app-shell-study-chat.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `ChatModelSelect`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarResizeHandle`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellHeader`, `AppShellNav`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `ChatModelSelect`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `CommandShortcut`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubContent`, `DropdownMenuSubTrigger`, `DropdownMenuTrigger`, `GaudiBrand`, `Link`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarMenu`, `SidebarMenuButton`, `SidebarMenuItem`, `SidebarProvider`, `SidebarResizeHandle`, `SidebarSeparator`, `SidebarTrigger`, `SkeletonRoot`, `Tabs`, `TabsContent`, `TabsList`, `TabsTrigger`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20746,7 +20982,7 @@ npx shadcn@latest add @gaudi/app-shell-topbar-collections
 npx shadcn@latest add ./public/r/app-shell-topbar-collections.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiBrand`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiBrand`, `Link`, `ProgressRoot`, `RegistryIcon`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -20764,7 +21000,7 @@ npx shadcn@latest add @gaudi/app-shell-topbar-journal
 npx shadcn@latest add ./public/r/app-shell-topbar-journal.json
 ```
 
-Uses: `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`
+Uses: `AppShellBody`, `AppShellFrame`, `AppShellNav`, `AppShellNotifications`, `AppShellPanel`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Command`, `CommandDialog`, `CommandEmpty`, `CommandGroup`, `CommandInput`, `CommandItem`, `CommandList`, `DropdownMenuCheckboxItemPrimitive`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRadioGroup`, `DropdownMenuRadioItem`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuShortcut`, `DropdownMenuTrigger`, `GaudiLogo`, `Link`, `ProgressRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `SheetTrigger`, `Sidebar`, `SidebarContent`, `SidebarFooter`, `SidebarHeader`, `SidebarProvider`, `SidebarTrigger`, `SkeletonRoot`, `TooltipContent`, `TooltipRoot`, `TooltipTrigger`, `useAppShellFrame`, `useSidebar`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21142,7 +21378,7 @@ npx shadcn@latest add @gaudi/forms-hosted-checkout
 npx shadcn@latest add ./public/r/forms-hosted-checkout.json
 ```
 
-Uses: `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSeparator`, `FieldSet`, `FormErrorSummary`, `Input`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `useFormValidation`, `validators`
+Uses: `Badge`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSeparator`, `FieldSet`, `FormErrorSummary`, `Input`, `Link`, `NumberField`, `NumberFieldDecrement`, `NumberFieldGroup`, `NumberFieldIncrement`, `NumberFieldInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `useFormValidation`, `validators`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21286,7 +21522,7 @@ npx shadcn@latest add @gaudi/forms-team-invite
 npx shadcn@latest add ./public/r/forms-team-invite.json
 ```
 
-Uses: `Alert`, `AlertDescription`, `AlertTitle`, `Badge`, `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Tree`, `TreeItem`, `TreeItemLabel`, `cn`, `useFormValidation`, `validators`
+Uses: `Alert`, `AlertDescription`, `AlertTitle`, `Badge`, `Button`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FormErrorSummary`, `Input`, `InputGroup`, `InputGroupInput`, `RegistryIcon`, `SelectContent`, `SelectItem`, `SelectRoot`, `SelectTrigger`, `SelectValue`, `SwitchRoot`, `Tree`, `TreeItem`, `TreeItemLabel`, `useFormValidation`, `validators`
 
 npm dependencies: `@gaudi/design-system`, `@headless-tree/core@1.6.3`, `@headless-tree/react@1.6.3`
 
@@ -21376,7 +21612,7 @@ npx shadcn@latest add @gaudi/scheduling-month-overview
 npx shadcn@latest add ./public/r/scheduling-month-overview.json
 ```
 
-Uses: `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`
+Uses: `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `ScheduleCalendar`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `dayKey`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21484,7 +21720,7 @@ npx shadcn@latest add @gaudi/screens-centred-card
 npx shadcn@latest add ./public/r/screens-centred-card.json
 ```
 
-Uses: `AuthForm`, `CardContent`, `CardRoot`, `CheckboxRoot`, `GaudiBrand`, `Label`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`
+Uses: `AuthForm`, `CardContent`, `CardRoot`, `CheckboxRoot`, `GaudiBrand`, `Label`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21556,7 +21792,7 @@ npx shadcn@latest add @gaudi/screens-free-trial
 npx shadcn@latest add ./public/r/screens-free-trial.json
 ```
 
-Uses: `AuthForm`, `Badge`, `CheckboxRoot`, `Label`, `RegistryIcon`, `Screen`
+Uses: `AuthForm`, `Badge`, `CheckboxRoot`, `Label`, `Link`, `RegistryIcon`, `Screen`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21772,7 +22008,7 @@ npx shadcn@latest add @gaudi/screens-sign-in-methods
 npx shadcn@latest add ./public/r/screens-sign-in-methods.json
 ```
 
-Uses: `AuthForm`, `Button`, `Dropbox`, `GaudiBrand`, `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`, `Label`, `Loom`, `RegistryIcon`, `Screen`, `Stripe`, `Supabase`
+Uses: `AuthForm`, `Button`, `Dropbox`, `GaudiBrand`, `InputOTP`, `InputOTPGroup`, `InputOTPSeparator`, `InputOTPSlot`, `Label`, `Link`, `Loom`, `RegistryIcon`, `Screen`, `Stripe`, `Supabase`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21790,7 +22026,7 @@ npx shadcn@latest add @gaudi/screens-split-imagery
 npx shadcn@latest add ./public/r/screens-split-imagery.json
 ```
 
-Uses: `AuthForm`, `Borealis`, `GaudiBrand`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`
+Uses: `AuthForm`, `Borealis`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ToggleGroupItem`, `ToggleGroupRoot`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -21808,7 +22044,7 @@ npx shadcn@latest add @gaudi/screens-split-testimonials
 npx shadcn@latest add ./public/r/screens-split-testimonials.json
 ```
 
-Uses: `AuthForm`, `GaudiBrand`, `RegistryIcon`, `Screen`, `ScreenTestimonial`
+Uses: `AuthForm`, `GaudiBrand`, `Link`, `RegistryIcon`, `Screen`, `ScreenTestimonial`
 
 npm dependencies: `@gaudi/design-system`
 
@@ -22078,7 +22314,7 @@ npx shadcn@latest add @gaudi/stat-card-revenue
 npx shadcn@latest add ./public/r/stat-card-revenue.json
 ```
 
-Uses: `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`
+Uses: `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `StatCard`
 
 npm dependencies: `@gaudi/design-system`
 

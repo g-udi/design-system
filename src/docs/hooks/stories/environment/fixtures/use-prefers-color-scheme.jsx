@@ -1,6 +1,6 @@
-import Card from '../../../../../components/core/Card';
+import Card from '@gaudi/design-system/core/Card';
 import { Readout, Value } from '../../fixtures/HookReadouts.jsx';
-import { usePrefersColorScheme } from '../../../../../hooks/environment/use-prefers-color-scheme.js';
+import { usePrefersColorScheme } from '@gaudi/design-system/hooks/environment/use-prefers-color-scheme';
 
 function SystemScheme() {
   const scheme = usePrefersColorScheme();

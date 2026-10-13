@@ -104,6 +104,9 @@ export function createChartFormatter(locale, options) {
   return format;
 }
 
+/** A ratio as a percentage rounded to `digits` decimals: formatShare(0.1234, 1) → '12.3%'. */
+export const formatShare = (ratio, digits = 0) => `${Math.round(ratio * 10 ** (digits + 2)) / 10 ** digits}%`;
+
 /**
  * Resolve a `formatValue` prop: a function wins, an Intl options object builds a formatter,
  * otherwise the locale's default number format.

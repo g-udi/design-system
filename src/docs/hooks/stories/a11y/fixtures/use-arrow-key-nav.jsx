@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Button from '../../../../../components/core/Button';
-import Icon from '../../../../../components/core/Icon';
+import Button from '@gaudi/design-system/core/Button';
+import Icon from '@gaudi/design-system/core/Icon';
 import { Readout } from '../../fixtures/HookReadouts.jsx';
-import { useArrowKeyNav } from '../../../../../hooks/a11y/use-arrow-key-nav.js';
+import { useArrowKeyNav } from '@gaudi/design-system/hooks/a11y/use-arrow-key-nav';
 
 const tools = [ [ 'Bold', 'Bold' ], [ 'Italic', 'Italic' ], [ 'Underline', 'Underline' ], [ 'Link', 'Link' ] ];
 

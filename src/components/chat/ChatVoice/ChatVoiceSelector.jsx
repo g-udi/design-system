@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
+import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
 import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
 import { default as Input } from '../../core/Input/index.js';
@@ -57,7 +58,7 @@ function ChatVoiceSelector({
   const [value, setValue] = useControllableState({ value: valueProp, defaultValue: defaultValue ?? voices[0]?.id, onChange: (next) => onValueChange?.(next, voices.find((voice) => voice.id === next)) });
   const [ query, setQuery ] = useState('');
   const [ preview, setPreview ] = useState({ id: null, status: 'idle' });
-  const [ notice, setNotice ] = useState('');
+  const { announce } = useLiveAnnouncer();
   const audioRef = useRef(null);
   const abortRef = useRef(null);
   const name = useId();
@@ -99,7 +100,6 @@ function ChatVoiceSelector({
     stopPreview();
     const controller = typeof AbortController !== 'undefined' ? new AbortController() : { abort() {} };
     abortRef.current = controller;
-    setNotice('');
     setPreview({ id: voice.id, status: 'loading' });
     const done = () => {
       if (abortRef.current !== controller) return;
@@ -119,7 +119,7 @@ function ChatVoiceSelector({
         audio.onerror = () => {
           if (abortRef.current !== controller) return;
           done();
-          setNotice(labels.previewFailed);
+          announce(labels.previewFailed);
         };
         await audio.play();
         if (abortRef.current === controller) setPreview({ id: voice.id, status: 'playing' });
@@ -132,7 +132,7 @@ function ChatVoiceSelector({
     } catch {
       if (abortRef.current !== controller) return;
       done();
-      setNotice(labels.previewFailed);
+      announce(labels.previewFailed);
     }
   };
 
@@ -204,7 +204,6 @@ function ChatVoiceSelector({
         </div>
       )) : <p className='ds-part-voice-selector-empty'>{labels.empty}</p>}
       </RadioGroup>
-      <span role='status' aria-live='polite' className='sr-only'>{notice}</span>
     </fieldset>
   );
 }

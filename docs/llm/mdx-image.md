@@ -38,7 +38,7 @@ Exports: `default`
   alt='Lavender gradient artwork'
   caption='A study in lavender and light.'
   width={420}
-  height={260}
+  height={236}
 />
 ```
 
