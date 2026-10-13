@@ -4319,7 +4319,7 @@
         {
           "name": "dashboard-operations-capacity",
           "title": "Operations · Capacity and exceptions",
-          "description": "Operations · Capacity and exceptions",
+          "description": "Capacity planning for an operations team. A GaugeChart shows overall utilisation against planned hours, a StackedBarList splits capacity by team, and the work queue combines a FilterBar with Tabs that swap between modules and open exceptions. Choose it when the question is 'can we take on more work?'.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-operations-capacity.jsx",
           "sha256": "90dd9ed7aafe67c4243bdd302d3cb251aadb0904d9592735c2657983bb3b0068",
           "storyId": "blocks-dashboard--operations-capacity"
@@ -4327,7 +4327,7 @@
         {
           "name": "dashboard-delivery-timesheet",
           "title": "Project · Delivery timesheet",
-          "description": "Project · Delivery timesheet",
+          "description": "A project page built around time, not charts. A Breadcrumb and Avatar group frame the project, Tabs move between views, StatCards summarise logged hours, utilisation and overtime, and a weekly worklog table steps backwards and forwards one week at a time.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-delivery-timesheet.jsx",
           "sha256": "74e85c959fd0f4bffe49c396e4cf51dbedb24ee69d14324b753d2d4d465a27cf",
           "storyId": "blocks-dashboard--delivery-timesheet"
@@ -4335,7 +4335,7 @@
         {
           "name": "dashboard-agent-analytics",
           "title": "AI agents · Conversation analytics",
-          "description": "AI agents · Conversation analytics",
+          "description": "A product-analytics view for an AI assistant. Tabs switch the main ComposedChart between conversations and model cost, a ranked list pairs each agent's ChatAgentMark with a Progress bar, and a DonutChart shows where conversations start. Use it when the subject is a set of agents rather than revenue or traffic.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-agent-analytics.jsx",
           "sha256": "316b0d969d7677169a1b6c52937ba3a0df9a372aaa7fa39eadb9051cbb39d6ee",
           "storyId": "blocks-dashboard--agent-analytics"
@@ -4343,7 +4343,7 @@
         {
           "name": "dashboard-edge-security",
           "title": "Security · Edge telemetry",
-          "description": "Security · Edge telemetry",
+          "description": "A dense operations console for live telemetry. A region ToggleGroup filters threats by vector (BarChart), a SankeyChart traces network flow, Progress bars show cluster load, and the active-threats list lets an operator pause and resume a mitigation rule without leaving the page.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-edge-security.jsx",
           "sha256": "182927d1237536107c2f33492b3e2594daa041da0e83c444d3c59be98b15aaad",
           "storyId": "blocks-dashboard--edge-security"
@@ -4351,7 +4351,7 @@
         {
           "name": "dashboard-field-coverage",
           "title": "Field teams · Coverage",
-          "description": "Field teams · Coverage",
+          "description": "Built for teams in the field. StatCards report sites covered and staff on shift, a crews table uses Avatars for people, an action queue lets a manager approve hours inline, and a ComposedChart checks supply against forecast. It favours actions over analysis.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-field-coverage.jsx",
           "sha256": "97d2180ab477a3e8514573c90e20e2cb0f63aec4fd74e168edac5653dbc13923",
           "storyId": "blocks-dashboard--field-coverage"
@@ -4359,7 +4359,7 @@
         {
           "name": "dashboard-commerce-revenue",
           "title": "Commerce · Revenue",
-          "description": "Commerce · Revenue",
+          "description": "The classic revenue dashboard: StatCards with Sparklines, an AreaChart by product line that switches period with a segmented control, a BarChart channel mix, and an order queue in a DataTable whose row menu opens a Dialog. It is the most complete starting point for shop and SaaS metrics.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-commerce-revenue.jsx",
           "sha256": "794fb86e503d61ce16b521e96b2ea1d944fc01302e719528335279ddd4cd1e85",
           "storyId": "blocks-dashboard--commerce-revenue"
@@ -4367,7 +4367,7 @@
         {
           "name": "dashboard-creator-payouts",
           "title": "Creators · Payouts",
-          "description": "Creators · Payouts",
+          "description": "A money-out view for creators rather than a metrics overview. A claimable balance leads, a ComposedChart compares receipts with the reserve buffer, Switch rows set automatic payout sweeps, and a DataTable ledger records every movement. Claiming a balance updates the page in place.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-creator-payouts.jsx",
           "sha256": "71156efdb90fa4bc306afcf39c176d1b85ad8c80dd843d859461b6ab0319ead8",
           "storyId": "blocks-dashboard--creator-payouts"
@@ -4375,7 +4375,7 @@
         {
           "name": "dashboard-newsletter-analytics",
           "title": "Content · Newsletter analytics",
-          "description": "Content · Newsletter analytics",
+          "description": "An editorial analytics page for a newsletter or blog. Subscriber growth (AreaChart), a FunnelChart for the last issue, a HeatmapChart of when readers open, a ChatActivityHistory feed of recent events and an issues table; a switch compares against the previous period. It is the reading-focused counterpart to the commerce dashboard.",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-newsletter-analytics.jsx",
           "sha256": "54ca9c043d3de149b39977a0ae9ae5d4f2b47a2d263977aa1bbaa0d76bb3b108",
           "storyId": "blocks-dashboard--newsletter-analytics"
