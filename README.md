@@ -359,24 +359,24 @@ command = "npx"
 args = ["-y", "@gaudi/design-system", "mcp"]
 ```
 
-OpenCode (`opencode.json`): `{ "mcp": { "gaudi-ds": { "type": "local", "command": ["npx", "-y", "@gaudi/design-system", "mcp"] } } }`. For any client, replace `npx -y @gaudi/design-system` with `node /path/to/design-system/bin/gaudi-ds.mjs` until the package is published. `get_block` returns block source when `public/r` exists (a repository checkout); otherwise it returns the install command.
+OpenCode (`opencode.json`): `{ "mcp": { "gaudi-ds": { "type": "local", "command": ["npx", "-y", "@gaudi/design-system", "mcp"] } } }`. For any client, `node /path/to/design-system/bin/gaudi-ds.mjs` runs the same server from a repository checkout in place of `npx -y @gaudi/design-system`. `get_block` returns block source when `public/r` exists (a repository checkout); otherwise it returns the install command.
 
 ### Registry (blocks & patterns)
 
 `pnpm registry:build` emits a shadcn-compatible registry for the curated examples in `coverage.json`: page-level blocks (`registry:block`: app shells, sidebars, screens, dashboards, forms, scheduling, stat cards, chat) and component patterns (`registry:example`). Each item's file is the owner fixture rewritten by the Storybook `publicSource` helper, so it imports components from `@gaudi/design-system` (declared as a dependency) instead of copying them. `registry.json` is generated; do not edit it by hand, and do not use `shadcn build` (it would copy the fixtures' relative imports).
 
-Consumers add the namespace to their `components.json` (the base URL is a placeholder until hosting is chosen):
+The registry is served from https://design.assaf.website/r. Consumers add the namespace to their `components.json`:
 
 ```json
-{ "registries": { "@gaudi": "https://<registry-host>/r/{name}.json" } }
+{ "registries": { "@gaudi": "https://design.assaf.website/r/{name}.json" } }
 ```
 
 ```sh
-npx shadcn@latest add @gaudi/screens-account-settings              # once hosted
-npx shadcn@latest add /path/to/design-system/public/r/screens-account-settings.json   # local file today
+npx shadcn@latest add @gaudi/screens-account-settings
+npx shadcn@latest add https://design.assaf.website/r/screens-account-settings.json
 ```
 
-Until the package is on npm, install it from GitHub first (`pnpm add github:ahmadassaf/design-system`), or build the registry with `GAUDI_PACKAGE_SPEC=github:ahmadassaf/design-system pnpm registry:build` so items declare that spec. Some items reference demo assets (`/avatars/…`, `static/images/…`) listed in their `docs`/`meta.assets`; supply your own. Copied compositions keep the [third-party notice](#third-party-notices).
+Install the package from GitHub first (`pnpm add github:ahmadassaf/design-system`), or build the registry with `GAUDI_PACKAGE_SPEC=github:ahmadassaf/design-system pnpm registry:build` so items declare that spec. Some items reference demo assets (`/avatars/…`, `static/images/…`) listed in their `docs`/`meta.assets`; supply your own. Copied compositions keep the [third-party notice](#third-party-notices).
 
 ## Development
 

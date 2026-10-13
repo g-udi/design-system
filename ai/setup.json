@@ -5,7 +5,7 @@
   "install": {
     "github": "pnpm add github:ahmadassaf/design-system",
     "npm": "pnpm add @gaudi/design-system",
-    "note": "Until the package is published to npm, install from GitHub; the import name is always @gaudi/design-system."
+    "note": "Install from GitHub; the import name is always @gaudi/design-system."
   },
   "peerDependencies": {
     "@xyflow/react": "12.12.0",
