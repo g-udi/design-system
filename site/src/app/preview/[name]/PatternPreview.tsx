@@ -3,6 +3,7 @@
 import { Component, useEffect, useState, useSyncExternalStore, type ComponentType, type ReactNode } from 'react';
 import { DirectionProvider } from '@gaudi/design-system/core/Direction';
 import { patternLoaders } from '@/generated/pattern-loaders';
+import { observeFrameHeight } from '@/lib/frameHeight';
 
 class PreviewBoundary extends Component<{ children: ReactNode }, { error: Error | null }> {
   state = { error: null as Error | null };
@@ -55,11 +56,8 @@ export function PatternPreview({ name, block, title }: { name: string; block: bo
     if (window.parent === window) return undefined;
     const root = document.getElementById('gaudi-preview-root');
     if (!root) return undefined;
-    const post = () => window.parent.postMessage({ type: 'gaudi-preview-size', name, height: root.getBoundingClientRect().height }, '*');
-    const observer = new ResizeObserver(post);
-    observer.observe(root);
-    post();
-    return () => observer.disconnect();
+    return observeFrameHeight(document, root, () => root.getBoundingClientRect().height,
+      (height) => window.parent.postMessage({ type: 'gaudi-preview-size', name, height }, '*'));
   }, [name]);
 
   const Pattern = loaded?.name === name ? loaded.Pattern : undefined;

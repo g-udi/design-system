@@ -114,7 +114,8 @@ const config = {
         ...viteConfig.server,
         watch: {
           ...viteConfig.server?.watch,
-          ignored: [viteConfig.server?.watch?.ignored, '**/.storybook/verification/**'].flat().filter(Boolean)
+          // The docs site (with its .next cache and bundled Storybook build) churns constantly and is not a Storybook source.
+          ignored: [viteConfig.server?.watch?.ignored, '**/.storybook/verification/**', '**/site/**'].flat().filter(Boolean)
         }
       },
       'build': {

@@ -78,7 +78,6 @@ The site deploys to https://design.gaudi.site from the design-system repository 
 
 ## Credits
 
-- Site layout inspired by [beUI](https://beui.dev) (for example its [project folder block page](https://beui.dev/components/blocks/project-folder)).
 - [Fumadocs](https://fumadocs.dev) (MIT) for content routing, search and the table of contents; [Next.js](https://nextjs.org) (MIT); [Tailwind CSS](https://tailwindcss.com) (MIT).
 - Theme import credits: [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) and [shadcn/ui](https://ui.shadcn.com/themes).
 - Everything the design system builds on is listed in its README: [Credits & acknowledgements](https://github.com/g-udi/design-system#credits--acknowledgements).

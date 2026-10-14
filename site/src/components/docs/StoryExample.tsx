@@ -6,6 +6,7 @@ import Icon from '@gaudi/design-system/core/Icon';
 import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import { useTheme } from '@gaudi/design-system/themes';
 import { siteConfig, storybookStoryUrl } from '../../../site.config';
+import { observeFrameHeight } from '@/lib/frameHeight';
 import { VIEWPORT_WIDTH, type Viewport } from './PreviewFrame';
 
 const viewportOptions = [
@@ -31,22 +32,20 @@ export function StoryExample({ id, title }: { id: string; title: string }) {
   useEffect(() => {
     const element = frame.current;
     if (!element) return undefined;
-    let observer: ResizeObserver | undefined;
+    let stop: (() => void) | undefined;
     const measure = () => {
       try {
-        const body = element.contentDocument?.body;
-        if (!body) return;
-        const update = () => setHeight(Math.min(Math.max(Math.ceil(body.scrollHeight), 200), 1400));
-        update();
-        observer?.disconnect();
-        observer = new ResizeObserver(update);
-        observer.observe(body);
+        const doc = element.contentDocument;
+        if (!doc?.body) return;
+        stop?.();
+        stop = observeFrameHeight(doc, doc.body, () => doc.body.scrollHeight,
+          (next) => setHeight(Math.min(Math.max(next, 200), 1400)));
       } catch {
         // A cross-origin Storybook (the dev server) keeps the default height.
       }
     };
     element.addEventListener('load', measure);
-    return () => { element.removeEventListener('load', measure); observer?.disconnect(); };
+    return () => { element.removeEventListener('load', measure); stop?.(); };
   }, [src]);
 
   return (

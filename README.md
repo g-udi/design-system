@@ -607,23 +607,40 @@ react-icons bundles third-party icon sets under their own licences. Gaudi's regi
 | Storybook loading dots (`.storybook/public/static/icons/loading.svg`) | Gaudi original (redrawn; the earlier file had no traceable source) | This repository |
 | Storybook UI fonts (Nunito Sans) and KaTeX fonts | Bundled by `storybook` and `katex` | Their packages' licences |
 
+The Map stories bundle simplified [borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne) from NYC Department of City Planning and [street centerlines](https://data.cityofnewyork.us/City-Government/Centerline/inkn-q76z) from NYC Office of Technology and Innovation. Sources, transformations, and NYC Open Data terms are recorded in [.storybook/public/static/maps/provenance.json](.storybook/public/static/maps/provenance.json).
+
 #### Development tooling
 
 These tools build, test and document Gaudi. They are not distributed, except that some pattern fixtures import the starred packages: [Storybook](https://storybook.js.org): `storybook`, `@storybook/nextjs-vite` and the a11y, docs, themes and vitest addons (MIT), [Vitest](https://vitest.dev) with `vitest` and `@vitest/browser-playwright` (MIT), [Playwright](https://playwright.dev) (`playwright`, Apache-2.0), [ESLint](https://eslint.org): `eslint`, `@eslint/js`, `eslint-plugin-react`, `eslint-plugin-react-hooks` and `globals` (MIT), [esbuild](https://esbuild.github.io) (`esbuild`, MIT), [sharp](https://sharp.pixelplumbing.com) (`sharp`, Apache-2.0, official brand asset generation), `@tailwindcss/vite` (MIT), `styled-jsx` (MIT), `react-hook-form`\* and `@hookform/resolvers`\* (MIT), `little-date`\* (MIT), `lodash-es`\* (MIT) and `embla-carousel-autoplay`\* (MIT).
 
-#### Inspirations and references
+#### Design systems worth bookmarking
 
-Unless noted, no code was copied from these projects. Inspirations need no licence notice, but we credit them because Gaudi builds on their ideas.
+Gaudi's code is its own: nothing from these sites is copied unless it is listed under [Adapted and vendored code](#adapted-and-vendored-code). They are worth browsing for ideas, patterns and craft.
 
-- [Skiper UI Progressive Blur](https://skiper-ui.com/v1/skiper41): the optional blurred viewport edges in the Blog article demo. Gaudi's composition uses its own scroll and resize hooks, with clear boundaries, keyboard focus, and reduced-motion fallbacks.
-- [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) and [shadcn/ui themes](https://ui.shadcn.com/themes) inspired Theme Studio, and Gaudi accepts their themes as-is. The theme contract follows the [shadcn/ui](https://ui.shadcn.com) CSS-variable convention.
-- [reui](https://reui.io): Gaudi's 492 pattern examples (listed in [coverage.json](src/docs/catalogue/coverage.json)) and its app-shell layouts are inspired by reui's examples and [application-shell blocks](https://reui.io/blocks/application/app-shell); they are Gaudi compositions with Gaudi names, content and data ([App Shell README](src/components/blocks/AppShell/README.md)). The [agent skills](https://reui.io/docs/agent-skills), [MCP](https://reui.io/docs/mcp), [registry](https://reui.io/docs/registry) and [llms.txt](https://reui.io/llms.txt) setup is inspired by reui too. [THIRD_PARTY_LICENSES](THIRD_PARTY_LICENSES) keeps reui's MIT notice for any derived portions.
-- The [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io).
-- [AI SDK Elements](https://github.com/vercel/ai-elements) ([Apache-2.0](https://github.com/vercel/ai-elements/blob/main/LICENSE)): the API shape and part names of the chat composer, reasoning, tool-approval, checkpoint, sources and [web-preview](src/components/core/WebPreview/README.md) parts. A comparison with its source on 5 October 2026 found no copied code except the reasoning disclosure behaviour listed under [Adapted and vendored code](#adapted-and-vendored-code); the other implementations are Gaudi's own.
-- [shadcn.io Color Picker](https://www.shadcn.io/components/color-picker): reference for ColorPicker's canvas, hue/alpha controls, format selector, and eyedropper layout; implemented with Gaudi primitives.
-- [shadcn.io hooks](https://www.shadcn.io/hooks#categories): catalogue reference for the hook coverage expansion. Runtime additions are original Gaudi implementations; existing equivalent APIs and their mappings are documented in the hooks README and Storybook overview.
-- [AI SDK Elements Persona](https://elements.ai-sdk.dev/components/persona): the ChatPersona state names. The orb renderers themselves are listed under [Voice orbs](#voice-orbs).
-- [React Bits](https://reactbits.dev) by [David Haz](https://github.com/DavidHDev) ([MIT + Commons Clause](https://github.com/DavidHDev/react-bits/blob/main/LICENSE.md)): visual inspiration for the Animations text and background effects. Every effect is an independent Gaudi implementation with its own structure, constants and props; no React Bits code, assets or ported components are included. A side-by-side comparison with the React Bits source on 6 October 2026 found no copied code; the one effect whose option set mirrored React Bits (now [GlyphInspector](src/components/animations/GlyphInspector/README.md)) was rewritten with its own API. Each effect's README links the React Bits component that inspired it. The general components that share a React Bits name (Carousel, Stepper) are standard UI patterns with unrelated implementations.
-- [Aceternity UI Aurora Background](https://ui.aceternity.com/components/aurora-background) ([Aceternity licence](https://ui.aceternity.com/licence)): the original page-backdrop concept for [Borealis](src/components/animations/Borealis/README.md). Borealis now uses independently authored light curtains and a Soft Aurora ribbon inspired by React Bits, while preserving its page-layout API. No Aceternity UI code is included.
+**Components and blocks**
 
-The Map stories bundle simplified [borough boundaries](https://data.cityofnewyork.us/City-Government/Borough-Boundaries/gthc-hcne) from NYC Department of City Planning and [street centerlines](https://data.cityofnewyork.us/City-Government/Centerline/inkn-q76z) from NYC Office of Technology and Innovation. Sources, transformations, and NYC Open Data terms are recorded in [.storybook/public/static/maps/provenance.json](.storybook/public/static/maps/provenance.json). The fleet composition is inspired by the [Cargorix live-map example](https://shadcn-nextjs-cargorix-app-template.vercel.app/live-map/TRK-208); vehicles and journeys are fictional.
+- [shadcn/ui](https://ui.shadcn.com): the open-code component model and CSS-variable theme convention Gaudi's themes follow.
+- [reui](https://reui.io): components, application blocks and agent tooling (skills, MCP, registry, llms.txt) for shadcn/ui.
+- [Aceternity UI](https://ui.aceternity.com): 200+ copy-paste components, blocks and landing templates built with Tailwind CSS and Motion.
+- [Arc UI](https://uiarc.dev): animated components and blocks for shadcn and Next.js, with an MCP server for agents.
+- [beUI](https://beui.dev): free, open-source animated components for React and Next.js.
+- [shadcn.io](https://www.shadcn.io): community components, blocks and [hooks](https://www.shadcn.io/hooks).
+- [AI SDK Elements](https://elements.ai-sdk.dev): chat and agent interface parts for the AI SDK.
+
+**Motion and effects**
+
+- [React Bits](https://reactbits.dev): animated text effects, backgrounds and hero sections. Each Gaudi animation README links the effect that inspired it.
+- [Skiper UI](https://skiper-ui.com): animated components, scroll progress and media interactions.
+
+**Themes**
+
+- [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) and [shadcn/ui themes](https://ui.shadcn.com/themes): theme editors whose output Gaudi's Theme Studio and `importTheme` accept as-is.
+
+**Finding more**
+
+- [Shoogle](https://shoogle.dev): a search engine for shadcn components, blocks and templates across registries.
+- [registry.directory](https://registry.directory): a directory of shadcn/ui registries.
+
+**Standards**
+
+- The [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io), which shape Gaudi's AI tooling.
