@@ -29,8 +29,8 @@ export function PreviewFrame({ name, title, viewport, dir, block }: { name: stri
   }, [dir]);
 
   return (
-    <div className='site-preview-stage overflow-x-auto' data-viewport={viewport}>
-      <div className='mx-auto transition-[width] duration-200' style={{ width: width ? `${width}px` : '100%', maxWidth: width ? 'none' : '100%' }}>
+    <div className='site-preview-stage overflow-x-auto' data-viewport={viewport} role='region' aria-label={`${title} preview viewport`} tabIndex={0}>
+      <div className='mx-auto transition-[width] duration-200 motion-reduce:transition-none' style={{ width: width ? `${width}px` : '100%', maxWidth: width ? 'none' : '100%' }}>
         <iframe
           ref={frame}
           src={`${basePath}/preview/${name}#dir=${dir}`}

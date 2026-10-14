@@ -6,7 +6,7 @@
     flex-direction: column;
     width: 100%;
     min-width: 0;
-    height: var(--ds-app-shell-frame-height, 48rem);
+    height: var(--ds-app-shell-frame-height, 56rem);
     overflow: hidden;
     /* Layout containment makes the frame the containing block for fixed descendants (the rail, the phone sheet). */
     contain: layout paint;
@@ -19,8 +19,11 @@
   .ds-app-shell-frame[data-surface='default'] {
     background: var(--ds-color-surface);
   }
-  @media (max-width: 639px) {
-    .ds-app-shell-frame {
+  .ds-app-shell-frame[data-compact='true'] {
+    height: var(--ds-app-shell-frame-height-compact, var(--ds-app-shell-frame-height, 40rem));
+  }
+  @media (max-width: 767px) {
+    .ds-app-shell-frame:not([data-compact]) {
       height: var(--ds-app-shell-frame-height-compact, var(--ds-app-shell-frame-height, 40rem));
     }
   }
@@ -242,6 +245,16 @@
   .ds-app-mobile-nav {
     display: none;
   }
+  .ds-app-navigation-sheet > [data-slot='sheet-header'] {
+    flex-shrink: 0;
+  }
+  .ds-app-navigation-scroll {
+    min-height: 0;
+    flex: 1;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 0 calc(var(--ds-space-scale, 1) * 0.75rem) max(calc(var(--ds-space-scale, 1) * 1rem), env(safe-area-inset-bottom));
+  }
   .ds-app-content {
     min-width: 0;
     padding: calc(var(--ds-space-scale, 1) * 1.5rem);
@@ -339,7 +352,7 @@
   }
 
   .ds-part-sidebar-group-action {
-    @apply text-ui-sidebar-foreground ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground absolute top-3.5 end-3 w-5 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4;
+    @apply text-ui-sidebar-foreground ring-ui-sidebar-ring hover:bg-ui-sidebar-accent hover:text-ui-sidebar-accent-foreground absolute top-3 end-2.5 w-6 rounded-md p-0 focus-visible:ring-2 [&>svg]:size-4;
   }
 
   .ds-part-sidebar-menu-button {

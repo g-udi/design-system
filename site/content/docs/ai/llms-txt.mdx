@@ -7,7 +7,7 @@ description: A package summary, setup and an index of every docs page as Markdow
 
 - [/llms.txt](/llms.txt): the index.
 - [/llms-full.txt](/llms-full.txt): every page concatenated (API tables, usage, accessibility and notes; example code stays on each page's own Markdown).
-- `/docs/<page>.md`: any page as Markdown, for example [/docs.md](/docs.md). Requests for a docs URL with `Accept: text/markdown` get the same Markdown.
+- `/md/<page>.md`: any page as Markdown, for example [the introduction](/md/index.md). These files also work on static hosting. Server deployments additionally support `/docs/<page>.md` and requests for a docs URL with `Accept: text/markdown`.
 
 Every page also has **Copy Markdown** and **Open in ChatGPT / Claude** actions. Links are absolute once `NEXT_PUBLIC_SITE_URL` is set for the docs host.
 

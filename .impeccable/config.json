@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-09-30T15:54:08.469Z",
         "reason": "Avatar tones use the Gaudi artwork (og-card) gradient shades by owner request"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "site/src/app/global.css"
+        ],
+        "createdAt": "2026-10-14T09:14:03.101Z",
+        "reason": "Agent review: the only match is the existing semantic blockquote border at line 186, unchanged by the responsive audit. It identifies quoted prose using Gaudi tokens rather than decorating a card; preserve the incumbent quotation styling."
       }
     ]
   }

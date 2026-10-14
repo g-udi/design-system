@@ -245,7 +245,7 @@ function Workspace({ view, onView }) {
   const current = views.find((entry) => entry.id === view);
   return (
     <Tabs value={view} onValueChange={onView} className='min-h-0 flex-1 gap-0'>
-      <div role='toolbar' aria-label='Notebook view' className='border-ui-border bg-ui-background sticky top-12 z-[1] flex min-h-12 items-center gap-2 border-b px-4'>
+      <div role='toolbar' aria-label='Notebook view' className='border-ui-border bg-ui-background sticky top-12 z-[1] flex min-h-12 flex-wrap items-center gap-2 border-b px-4 py-2'>
         <InputGroup className='hidden w-52 @5xl:flex'>
           <InputGroupAddon>
             <RegistryIcon lucide='Search' aria-hidden='true' />

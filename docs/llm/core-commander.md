@@ -105,7 +105,7 @@ Each destination or collection entry supplies a stable `id` (`slug` is a fallbac
 
 ### Composition
 
-Commander is built on the Command parts it exports: `Command`, `CommandInput`, `CommandList`, `CommandGroup`, `CommandItem`, `CommandEmpty`, `CommandSeparator`, `CommandShortcut`, `CommandFooter` and `CommandDialog`. Use them for inline palettes or your own command dialog; `CommandInput` renders its children at the end of the search row.
+Commander is built on the Command parts it exports: `Command`, `CommandInput`, `CommandList`, `CommandGroup`, `CommandItem`, `CommandEmpty`, `CommandSeparator`, `CommandShortcut`, `CommandFooter` and `CommandDialog`. Use them for inline palettes or your own command dialog; `CommandInput` renders its children at the end of the search row. Pass a button as `CommandDialog`'s `trigger` to connect opening, expanded state, and focus restoration to the same control, including when the dialog opens through a keyboard shortcut.
 
 ### Accessibility
 

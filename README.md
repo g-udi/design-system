@@ -278,7 +278,7 @@ import { getThemeScript, ThemeProvider, useTheme } from '@gaudi/design-system/th
 // const { theme, setTheme, mode, setMode } = useTheme();
 ```
 
-**Bring any [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or [shadcn/ui](https://ui.shadcn.com/themes) theme.** The contract follows the shadcn CSS-variable convention, so themes made in those tools import as-is (`gaudi-ds theme import`, the `import_theme` MCP tool or Theme Studio). We would rather point you to them than reinvent them; Theme Studio is inspired by all three.
+**Bring any [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or [shadcn/ui](https://ui.shadcn.com/themes) theme.** The contract follows the shadcn CSS-variable convention, so themes made in those tools import as-is (`gaudi-ds theme import`, the `import_theme` MCP tool or Theme Studio). We would rather point you to them than reinvent them.
 
 Apps that keep `next-themes` for light/dark pass `enableMode={false}` to `ThemeProvider` and `getThemeScript`. Load fonts with `next/font` or `@fontsource`; Gaudi never downloads them.
 
@@ -299,7 +299,7 @@ Gaudi ships machine-readable docs, an agent skill, a local MCP server and a copy
 | CLI / MCP | `bin/gaudi-ds.mjs`, `cli/` | yes |
 | Registry | `registry.json`, `public/r/<name>.json` | no (about 5 MB; repo only until hosted) |
 
-This setup is inspired by [reui](https://reui.io): its [agent skills](https://reui.io/docs/agent-skills), [MCP server](https://reui.io/docs/mcp), [registry](https://reui.io/docs/registry) and [llms.txt](https://reui.io/llms.txt). It also builds on the [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io) with its official [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk). See [credits](#credits--acknowledgements).
+This setup follows the [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io) with its official [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk). See [credits](#credits--acknowledgements).
 
 Regenerate after changing components, docs, stories or tokens. `pnpm catalogue:sync` now also runs `pnpm ai:build`; the registry is separate:
 
@@ -485,7 +485,7 @@ Gaudi is built on open-source work. The notices below cover code adapted into th
 
 ### Component parts and patterns
 
-Some compound component parts and [SignaturePad](src/components/core/SignaturePad/README.md) include portions derived from [ReUI](https://reui.io) by [Keenthemes](https://keenthemes.com), under the following license. Gaudi's pattern examples and app-shell layouts are its own compositions, inspired by [reui](https://reui.io); the notice also covers any portions derived from its free examples.
+Some compound component parts and [SignaturePad](src/components/core/SignaturePad/README.md) include portions derived from [ReUI](https://reui.io) by [Keenthemes](https://keenthemes.com), under the following license. The notice also covers any portions derived from its free examples.
 
 MIT License
 

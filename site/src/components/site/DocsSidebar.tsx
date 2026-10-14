@@ -6,6 +6,8 @@ import { useEffect, useRef } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import Icon from '@gaudi/design-system/core/Icon';
 import { useSessionStorage } from '@gaudi/design-system/hooks/data/use-session-storage';
+import { useMediaQuery } from '@gaudi/design-system/hooks/environment/use-media-query';
+import { useIsomorphicLayoutEffect } from '@gaudi/design-system/hooks/state/use-isomorphic-layout-effect';
 import type { Folder, Item, Node, Root } from 'fumadocs-core/page-tree';
 import {
   SidebarGroup,
@@ -18,6 +20,8 @@ import {
 } from '@gaudi/design-system/blocks/AppShell';
 
 const normalize = (url: string) => url.replace(/\/$/, '') || '/';
+// The route remounts the shell; keep each navigation surface where the reader left it.
+const scrollPositions = { rail: 0, drawer: 0 };
 
 // Guide folders share one section; every other top-level folder is a library section.
 const GUIDE_FOLDERS = ['/docs/getting-started', '/docs/foundations', '/docs/theming', '/docs/ai'];
@@ -74,7 +78,7 @@ function Entries({ section, current }: { section: Section; current: string }) {
   return (
     <SidebarMenu className='gap-px'>
       {section.entries.map((entry, index) => entry.kind === 'heading'
-        ? <li key={`h-${index}`} role='presentation' className='px-3 pt-4 pb-1.5 text-xs font-medium text-text-subtle first:pt-1'>{entry.name}</li>
+        ? <li key={`h-${index}`} className='px-3 pt-4 pb-1.5 text-xs font-medium text-text-subtle first:pt-1'>{entry.name}</li>
         : (
           <SidebarMenuItem key={entry.url}>
             <SidebarMenuButton asChild isActive={normalize(entry.url) === current}
@@ -100,7 +104,7 @@ function CollapsibleSection({ section, current, open, onOpenChange }: { section:
           </CollapsibleTrigger>
         </SidebarGroupLabel>
         <CollapsibleContent>
-          <SidebarGroupContent className='ms-3 w-auto border-s border-border ps-1.5 pt-0.5 pb-2'>
+          <SidebarGroupContent className='ms-3 w-auto ps-1.5 pt-0.5 pb-2'>
             <Entries section={section} current={current} />
           </SidebarGroupContent>
         </CollapsibleContent>
@@ -112,6 +116,7 @@ function CollapsibleSection({ section, current, open, onOpenChange }: { section:
 /** The docs navigation: every page in one list under Intro, Guides and library headings, using Gaudi's sidebar parts. */
 export function DocsSidebar({ tree }: { tree: Root }) {
   const current = normalize(usePathname() || '/');
+  const compact = useMediaQuery('(max-width: 1023px)');
   const sections = buildSections(tree);
   const [intro, ...collapsible] = sections;
   // Only the section holding the current page starts open; choices persist for the session.
@@ -119,12 +124,20 @@ export function DocsSidebar({ tree }: { tree: Root }) {
   const activeId = collapsible.find((section) => containsPage(section, current))?.id;
   const list = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    // Navigating into a section reopens it even if it was closed earlier.
-    if (activeId && overrides[activeId] === false) setOverrides({ ...overrides, [activeId]: true });
-    list.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'nearest' });
-  }, [current]); // eslint-disable-line react-hooks/exhaustive-deps
+    // Keep visited sections open, so changing pages does not collapse earlier rows.
+    if (activeId) setOverrides((previous: Record<string, boolean>) => previous[activeId] === true ? previous : { ...previous, [activeId]: true });
+  }, [activeId, setOverrides]);
+  useIsomorphicLayoutEffect(() => {
+    const scroller = list.current?.closest<HTMLElement>('.ds-app-rail, .ds-app-navigation-scroll');
+    if (!scroller?.clientHeight) return;
+    const surface = scroller.classList.contains('ds-app-rail') ? 'rail' : 'drawer';
+    scroller.scrollTop = scrollPositions[surface];
+    const remember = () => { scrollPositions[surface] = scroller.scrollTop; };
+    scroller.addEventListener('scroll', remember, { passive: true });
+    return () => scroller.removeEventListener('scroll', remember);
+  }, [compact]);
   return (
-    <SidebarProvider className='block min-h-0'>
+    <SidebarProvider className='site-sidebar block min-h-0'>
       <div ref={list} className='flex flex-col gap-1'>
         <SidebarGroup className='p-0 pb-2'>
           <SidebarGroupContent><Entries section={intro} current={current} /></SidebarGroupContent>

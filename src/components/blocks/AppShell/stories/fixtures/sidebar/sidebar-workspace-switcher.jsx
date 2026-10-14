@@ -443,14 +443,6 @@ export function Pattern() {
           </SidebarContent>
 
           <SidebarFooter>
-            {/*
-        `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
-        to undo Separator's `data-horizontal:w-full`, but a variant
-        selector outranks a plain utility, so the rule stays full width and
-        the primitive's own `mx-2` then pushes it 8px past the panel's
-        right edge while leaving a 16px gap on the left. Zeroing the margin
-        lines it up with the footer's own padding.
-      */}
             <SidebarSeparator className='mx-0' />
             <AccountMenu />
           </SidebarFooter>

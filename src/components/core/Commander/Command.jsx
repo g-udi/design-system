@@ -10,7 +10,8 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogTitle
+  DialogTitle,
+  DialogTrigger
 } from '../Dialog/DialogPrimitives.jsx';
 import { InputGroup, InputGroupAddon } from '../Input/InputGroup.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
@@ -28,6 +29,7 @@ function Command({ className, ...props }) {
   );
 }
 function CommandDialog({
+  trigger,
   title = 'Command Palette',
   description = 'Search for a command to run...',
   children,
@@ -38,6 +40,7 @@ function CommandDialog({
 }) {
   return (
     <Dialog {...props}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogHeader className='sr-only'>
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>{description}</DialogDescription>

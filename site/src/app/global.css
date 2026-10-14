@@ -31,28 +31,9 @@
     cursor: pointer;
   }
 
-  /* No element renders a browser outline or utility focus ring in any interaction state.
-     Rings are removed through their Tailwind variables so elevation shadows on dialogs, menus and cards stay. */
-  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
-    --tw-inset-ring-shadow: 0 0 #0000 !important;
-    --tw-ring-offset-shadow: 0 0 #0000 !important;
-    --tw-ring-shadow: 0 0 #0000 !important;
-    outline: none !important;
-  }
-
-  :where(
-    [aria-current='page'],
-    [aria-pressed='true'],
-    [aria-selected='true'],
-    [data-active='true'],
-    [data-selected='true'],
-    [data-state='active'],
-    [data-state='on']
-  ) {
-    --tw-inset-ring-shadow: 0 0 #0000 !important;
-    --tw-ring-offset-shadow: 0 0 #0000 !important;
-    --tw-ring-shadow: 0 0 #0000 !important;
-    outline: none !important;
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 3px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -107,6 +88,7 @@
     padding-block: 0.5rem;
   }
   .site-docs .ds-app-content { padding: 2rem 2.5rem 4rem; }
+  .site-docs .ds-app-mobile-nav { line-height: 0; }
   .site-docs .ds-app-body[data-aside='true'] .ds-app-aside { display: none; }
   @media (min-width: 1280px) {
     .site-docs .ds-app-body[data-aside='true'] { grid-template-columns: minmax(0, 1fr) 15rem; }
@@ -126,6 +108,47 @@
     .site-docs .ds-app-content { padding: 1.25rem 1rem 3rem; }
   }
 
+
+  .site-mobile-toc {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--ds-color-border);
+    color: var(--ds-color-text-muted);
+    font-size: 0.875rem;
+  }
+  .site-mobile-toc > summary {
+    display: flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+  }
+  .site-mobile-toc > summary::-webkit-details-marker { display: none; }
+  .site-mobile-toc[open] > summary svg { transform: rotate(180deg); }
+  .site-mobile-toc > nav { max-height: 50dvh; overflow-y: auto; overscroll-behavior: contain; padding-bottom: 1rem; }
+  .site-mobile-toc > nav > p { display: none; }
+  .site-mobile-toc .site-toc-link { display: flex; align-items: center; min-height: 2.75rem; }
+  .site-mobile-links ul { flex-direction: column; align-items: stretch; }
+  .site-mobile-links .site-nav-link { width: 100%; min-height: 2.75rem; }
+  .site-navigation-sheet > [data-slot='sheet-header'] { flex-shrink: 0; }
+  .site-navigation-sheet [data-slot='sheet-close'],
+  .ds-app-navigation-sheet [data-slot='sheet-close'] { min-width: 2.75rem; min-height: 2.75rem; }
+  @media (min-width: 1280px) {
+    .site-mobile-toc { display: none; }
+  }
+  @media (max-width: 1023px), (pointer: coarse) {
+    .site-sidebar :is([data-slot='sidebar-menu-button'], [data-slot='sidebar-group-label']),
+    .ds-app-navigation-sheet .site-nav-link { min-height: 2.75rem; height: auto; }
+  }
+  @media (max-width: 767px), (pointer: coarse) {
+    .site-example-toolbar :is(button, a) { min-width: 2.75rem; min-height: 2.75rem; }
+    .site-example-toolbar { row-gap: 0.5rem; }
+  }
+  @media (max-width: 359px) {
+    .site-header .site-brand > span,
+    .site-docs .ds-app-header .site-brand > span { display: none; }
+  }
+
   .site-toc-link {
     display: block;
     padding-block: 0.25rem;
@@ -141,7 +164,7 @@
   .site-toc-link[data-active='true'] { color: var(--ds-color-accent); border-inline-start-color: var(--ds-color-accent); }
 
   /* Docs prose: Gaudi's .prose, widened for documentation and with tables and lists. */
-  .site-prose.prose { max-width: 52rem; font-size: 0.9375rem; }
+  .site-prose.prose { overflow-wrap: anywhere; max-width: 52rem; font-size: 0.9375rem; }
   .site-prose[data-full='true'].prose { max-width: none; }
   .site-prose.prose :where(h2) { scroll-margin-top: 4.5rem; font-size: 1.375rem; margin-top: 2.5em; padding-bottom: 0.35em; border-bottom: 1px solid var(--ds-color-border); }
   .site-prose.prose :where(h3) { scroll-margin-top: 4.5rem; font-size: 1.0625rem; font-weight: 600; margin-top: 2em; margin-bottom: 0.75em; }
@@ -154,8 +177,11 @@
     border-radius: var(--ds-radius-sm);
     background: var(--ds-color-surface-muted);
     font-family: var(--ds-font-mono, ui-monospace, monospace);
-    font-size: 0.85em;
+    font-size: 0.9em;
+    line-height: inherit;
     overflow-wrap: anywhere;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
   .site-prose.prose :where(blockquote) {
     margin-block: 1.25em;
@@ -193,5 +219,16 @@
     background-color: var(--ds-color-surface-muted);
     background-image: radial-gradient(var(--ds-color-border) 1px, transparent 1px);
     background-size: 16px 16px;
+  }
+}
+
+/* Header touch targets must win over the primitives' size utilities. */
+@layer utilities {
+  @media (max-width: 767px), (pointer: coarse) {
+    .site-header-actions :is(button, a),
+    .site-menu-trigger,
+    .site-docs .ds-app-mobile-nav button { min-width: 2.75rem; min-height: 2.75rem; }
+    .site-header-row, .site-docs .ds-app-header { gap: 0.5rem; padding-inline: 0.5rem; }
+    .site-header-actions { gap: 0; }
   }
 }

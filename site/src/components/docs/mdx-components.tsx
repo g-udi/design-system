@@ -3,7 +3,7 @@ import type { ComponentProps } from 'react';
 import type { MDXComponents } from 'mdx/types';
 import CodeFence from '@gaudi/design-system/mdx/Code';
 import Callout from '@gaudi/design-system/mdx/Callout';
-import { ComponentHeader, Example, Install, Playground, PropsTable, Related, SectionIndex, Usage } from './catalogue-blocks';
+import { ComponentHeader, ComponentLinks, Example, Install, Playground, PropsTable, Related, SectionIndex, Usage } from './catalogue-blocks';
 import { StoryExample } from './StoryExample';
 import { Cards, Card, ColorTokens, IconGallery, MotionTokens, PresetGallery, RadiusAndDensity, StorybookCard, TypeScale } from './foundations';
 
@@ -19,6 +19,7 @@ export const mdxComponents: MDXComponents = {
   Cards,
   Card,
   ComponentHeader,
+  ComponentLinks,
   Install,
   Usage,
   Example,

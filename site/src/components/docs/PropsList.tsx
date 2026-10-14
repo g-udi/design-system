@@ -35,8 +35,8 @@ export function PropsList({ rows, label, testId }: { rows: PropRow[]; label: str
               <Collapsible open={isOpen} onOpenChange={(next: boolean) => toggle(index, next)}>
                 <CollapsibleTrigger className='group flex w-full min-w-0 items-center gap-x-3 px-3 py-2.5 text-start hover:bg-surface-muted focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-(--ds-color-focus)'>
                   <span className='flex min-w-0 flex-1 flex-col gap-0.5 sm:flex-row sm:items-baseline sm:gap-3'>
-                    <span className='flex shrink-0 items-baseline gap-1.5'>
-                      <code className='font-mono text-sm font-medium text-text'>{row.name}</code>
+                    <span className='flex min-w-0 flex-wrap items-baseline gap-1.5'>
+                      <code className='font-mono text-sm font-medium text-text [overflow-wrap:anywhere]'>{row.name}</code>
                       {row.required ? <span className='text-xs font-medium text-danger'>required</span> : null}
                       {rowKind(row) ? <span className='text-xs text-text-subtle'>{rowKind(row)}</span> : null}
                     </span>
@@ -49,11 +49,11 @@ export function PropsList({ rows, label, testId }: { rows: PropRow[]; label: str
                     {row.description ? <p className='text-text'>{row.description}</p> : null}
                     <dl className='grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 text-xs'>
                       <dt className='text-text-subtle'>Type</dt>
-                      <dd><code className='font-mono break-words text-text-muted'>{row.type}</code></dd>
+                      <dd className='min-w-0'><code className='font-mono text-text-muted [overflow-wrap:anywhere]'>{row.type}</code></dd>
                       {row.default !== undefined ? (
                         <>
                           <dt className='text-text-subtle'>Default</dt>
-                          <dd>{hasDefault ? <code className='font-mono break-words text-text-muted'>{row.default}</code> : <span className='text-text-muted'>—</span>}</dd>
+                          <dd className='min-w-0'>{hasDefault ? <code className='font-mono text-text-muted [overflow-wrap:anywhere]'>{row.default}</code> : <span className='text-text-muted'>—</span>}</dd>
                         </>
                       ) : null}
                     </dl>

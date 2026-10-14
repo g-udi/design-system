@@ -17,6 +17,9 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
   DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import {
@@ -26,6 +29,7 @@ import {
   InputGroupInput
 } from '@gaudi/design-system/core/Input';
 import { Separator } from '@gaudi/design-system/core/Separator';
+import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import { Sidebar, SidebarProvider, SidebarTrigger, useSidebar } from '@gaudi/design-system/blocks/AppShell';
@@ -271,58 +275,56 @@ function QuotaBars({ filled, total = 7 }) {
   );
 }
 
-function EventFeed({ events, compact }) {
+function EventFeed({ events }) {
   return (
     <ol
       aria-label='Run events'
-      className='relative grid gap-3 ps-3.5 before:absolute before:inset-y-1 before:start-0.75 before:w-px before:bg-ui-border'
+      className='relative grid grid-cols-1 gap-3 ps-3.5 before:absolute before:inset-y-1 before:start-0.75 before:w-px before:bg-ui-border'
     >
       {events.map((event) => (
-        <li key={event.time} className='relative flex min-h-4 items-center gap-2 text-xs'>
-          <span aria-hidden='true' className='bg-text-muted/40 absolute -start-3.25 size-1.5 rounded-full' />
-          <time className='text-text-muted w-8 shrink-0 tabular-nums'>{event.time}</time>
-          <span aria-hidden='true' className='text-text-muted/60'>
-            •
-          </span>
-          <span className='flex min-w-0 items-center gap-1'>
-            <span className={compact ? 'whitespace-normal' : 'truncate'}>{event.label}</span>
-            {event.icon ? <RegistryIcon lucide={event.icon} aria-hidden='true' className='text-text-muted size-3.5 shrink-0' /> : null}
+        <li key={event.time} className='relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 text-sm leading-5'>
+          <span aria-hidden='true' className='bg-text-muted/40 absolute top-1.5 -start-3.25 size-1.5 rounded-full' />
+          <time className='text-text-muted text-xs leading-5 tabular-nums'>{event.time}</time>
+          <div className='flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1'>
+            <span>{event.label}</span>
             {event.crew ? <CrewBadge id={event.crew} /> : null}
-          </span>
-          <span className='ms-auto flex shrink-0 items-center'>
-            {event.units ? <span className='text-text-muted text-[10px] leading-none'>{event.units}</span> : null}
-            {event.delay ? (
-              <Badge variant='warning-light' size='xs'>
-                {event.delay}
-              </Badge>
-            ) : null}
-            {event.shelf ? (
-              <Badge variant='outline' size='sm' className='gap-1 font-medium'>
-                <RegistryIcon lucide='Library' aria-hidden='true' />
-                <span className={compact ? 'sr-only' : undefined}>Shelf</span> {event.shelf}
-              </Badge>
-            ) : null}
-            {event.bars ? <QuotaBars filled={event.bars} /> : null}
-          </span>
+            {event.units || event.delay || event.shelf || event.bars ? <span className='flex shrink-0 items-center'>
+              {event.units ? <span className='text-text-muted text-xs'>{event.units}</span> : null}
+              {event.delay ? (
+                <Badge variant='warning-light' size='xs'>
+                  {event.delay}
+                </Badge>
+              ) : null}
+              {event.shelf ? (
+                <Badge variant='outline' size='sm' className='gap-1 font-medium'>
+                  <RegistryIcon lucide='Library' aria-hidden='true' />
+                  Shelf {event.shelf}
+                </Badge>
+              ) : null}
+              {event.bars ? <QuotaBars filled={event.bars} /> : null}
+            </span> : null}
+          </div>
         </li>
       ))}
     </ol>
   );
 }
 
-function RunRow({ run, expanded, onToggle, compact }) {
+function RunRow({ run, expanded, onToggle }) {
   const tone = status[run.status];
   const detailId = `run-detail-${run.id}`;
   return (
     <li className='border-b border-dashed border-ui-border py-2.5 first:pt-0 last:border-b-0 last:pb-0'>
-      <div className='flex items-center gap-1.5'>
+      <div className='flex items-start gap-2'>
         <SourceAvatar id={run.id} />
-        <span className='truncate text-xs font-medium'>{run.name}</span>
-        <Badge variant={tone.variant} size='xs' className='gap-0.5'>
-          {tone.icon ? <RegistryIcon lucide={tone.icon} aria-hidden='true' /> : null}
-          <span className={tone.icon ? '@max-[15rem]/capture:sr-only' : undefined}>{tone.label}</span>
-        </Badge>
-        <Button asChild variant='outline' size='icon-xs' className='ms-auto'>
+        <div className='flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1'>
+          <span className='text-sm font-medium leading-6'>{run.name}</span>
+          <Badge variant={tone.variant} size='xs' className='gap-0.5'>
+            {tone.icon ? <RegistryIcon lucide={tone.icon} aria-hidden='true' /> : null}
+            {tone.label}
+          </Badge>
+        </div>
+        <Button asChild variant='outline' size='icon-xs'>
           <a
             href={`#source-${run.id}`}
             aria-label={run.open === 'log' ? `Open ${run.name} log` : `Open ${run.name} source`}
@@ -347,31 +349,25 @@ function RunRow({ run, expanded, onToggle, compact }) {
         </Button>
       </div>
       {expanded ? (
-        <div id={detailId} className='grid gap-3 pt-2.5'>
-          <dl className='flex flex-wrap items-center gap-x-1.5 gap-y-1 text-xs font-medium'>
+        <div id={detailId} className='grid grid-cols-1 gap-4 pt-4'>
+          <dl className='grid grid-cols-3 gap-3'>
             {[
-              ['Time left', 'Clock', run.eta],
-              ['Pages', 'FileText', run.pages],
-              ['Quota', 'Gauge', run.quota]
-            ].map(([label, icon, value]) => (
-              <div key={label} className='flex items-center gap-1 after:ms-1 after:h-3 after:w-px after:bg-ui-border'>
-                <dt className='text-text-muted'>
-                  <RegistryIcon lucide={icon} aria-label={label} className='size-3.5' />
-                </dt>
-                <dd className='tabular-nums'>{value}</dd>
+              ['Time left', run.eta],
+              ['Pages', run.pages],
+              ['Quota', run.quota]
+            ].map(([label, value]) => (
+              <div key={label} className='flex min-w-0 flex-col gap-1'>
+                <dt className='text-text-muted text-xs'>{label}</dt>
+                <dd className='text-sm font-medium tabular-nums'>{value}</dd>
               </div>
             ))}
-            <div className='flex min-w-0 items-center gap-1.5'>
-              <dt className='text-text-muted'>
-                <RegistryIcon lucide='Settings2' aria-label='State' className='size-3.5' />
-              </dt>
-              <dd className='flex min-w-0 items-center gap-1'>
-                <span className={compact ? 'sr-only' : 'truncate'}>{run.state}</span>
-                {run.crew ? <CrewBadge id={run.crew} /> : null}
-              </dd>
-            </div>
           </dl>
-          <EventFeed events={run.events} compact={compact} />
+          <div className='flex min-w-0 flex-wrap items-center gap-2 text-sm'>
+            <RegistryIcon lucide='Settings2' aria-label='State' className='text-text-muted size-3.5' />
+            <span>{run.state}</span>
+            {run.crew ? <CrewBadge id={run.crew} /> : null}
+          </div>
+          <EventFeed events={run.events} />
           <Button asChild variant='outline' size='xs' className='w-full'>
             <a href={`#log-${run.id}`} aria-label={`Open ${run.name} run log`} onClick={noop}>
               <RegistryIcon lucide='SquareActivity' aria-hidden='true' />
@@ -411,8 +407,8 @@ function CaptureQueue({ query }) {
     return sort === 'name' ? [...list].sort((a, b) => a.name.localeCompare(b.name)) : list;
   }, [query, sort]);
   return (
-    <div className='flex min-h-0 flex-1 flex-col rounded-(--ds-radius-card) border border-ui-border bg-surface-muted/60'>
-      <div className='flex items-center gap-2 px-4 py-2'>
+    <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-(--ds-radius-card) border border-ui-border bg-surface-muted/60'>
+      <div className='flex shrink-0 items-center gap-2 px-4 py-2'>
         <h3 className='min-w-0 flex-1 truncate text-sm font-medium'>Capture Queue</h3>
         <Button asChild variant='outline' size={compact ? 'icon-sm' : 'sm'}>
           <a href='#add-source' aria-label={compact ? 'Add source' : undefined} onClick={noop}>
@@ -435,71 +431,77 @@ function CaptureQueue({ query }) {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className='bg-surface -mx-px flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain rounded-(--ds-radius-card) border border-ui-border px-4 pt-4 pb-3'>
-        <RunTicks />
-        <StatStrip compact={compact} />
-        <div>
-          <QueueSection
-            id='scheduled'
-            title='Scheduled'
-            count={24}
-            open={open.scheduled}
-            onOpenChange={toggle('scheduled')}
-            compact={compact}
-          >
-            <ul className='grid gap-2.5'>
-              {scheduled.map((run) => (
-                <li key={run.id} className='flex items-center gap-1.5 text-xs'>
-                  <SourceAvatar id={run.id} />
-                  <span className='truncate font-medium'>{run.name}</span>
-                  <Badge variant='outline' size='xs' className='text-[10px]'>
-                    Queued
-                  </Badge>
-                  <span className='text-text-muted ms-auto flex shrink-0 items-center gap-2 tabular-nums'>
-                    {run.time}
-                    <span aria-hidden='true'>•</span>
-                    {run.shelf}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </QueueSection>
-          <QueueSection
-            id='active'
-            title='Active Runs'
-            count={visible.length}
-            open={open.active}
-            onOpenChange={toggle('active')}
-            compact={compact}
-          >
-            {visible.length ? (
-              <ul>
-                {visible.map((run) => (
-                  <RunRow
-                    key={run.id}
-                    run={run}
-                    compact={compact}
-                    expanded={expanded === run.id}
-                    onToggle={() => setExpanded((current) => (current === run.id ? null : run.id))}
-                  />
+      <ScrollArea
+        type='auto'
+        aria-label='Capture queue runs'
+        className='min-h-0 flex-1 border-y border-ui-border bg-surface [&>[data-slot=scroll-area-viewport]>div]:!block'
+        scrollbarClassName={{ thumb: 'bg-text-muted/60' }}
+      >
+        <div className='flex min-w-0 flex-col gap-4 p-4'>
+          <RunTicks />
+          <StatStrip compact={compact} />
+          <div>
+            <QueueSection
+              id='scheduled'
+              title='Scheduled'
+              count={24}
+              open={open.scheduled}
+              onOpenChange={toggle('scheduled')}
+              compact={compact}
+            >
+              <ul className='grid gap-2.5'>
+                {scheduled.map((run) => (
+                  <li key={run.id} className='flex items-center gap-1.5 text-xs'>
+                    <SourceAvatar id={run.id} />
+                    <span className='truncate font-medium'>{run.name}</span>
+                    <Badge variant='outline' size='xs' className='text-[10px]'>
+                      Queued
+                    </Badge>
+                    <span className='text-text-muted ms-auto flex shrink-0 items-center gap-2 tabular-nums'>
+                      {run.time}
+                      <span aria-hidden='true'>•</span>
+                      {run.shelf}
+                    </span>
+                  </li>
                 ))}
               </ul>
-            ) : (
-              <div role='status' className='grid gap-1 py-4 text-center'>
-                <p className='text-sm font-medium'>No Runs Match</p>
-                <p className='text-text-muted text-xs'>Clear the search to see every active run.</p>
-              </div>
-            )}
-          </QueueSection>
-          <QueueSection id='paused' title='Paused' count={7} open={open.paused} onOpenChange={toggle('paused')} compact={compact}>
-            <p className='text-text-muted text-xs'>Paused sources resume at their next scheduled window.</p>
-          </QueueSection>
-          <QueueSection id='failed' title='Blocked' count={2} open={open.failed} onOpenChange={toggle('failed')} compact={compact}>
-            <p className='text-text-muted text-xs'>Blocked sources wait for a curator to update their capture rules.</p>
-          </QueueSection>
+            </QueueSection>
+            <QueueSection
+              id='active'
+              title='Active Runs'
+              count={visible.length}
+              open={open.active}
+              onOpenChange={toggle('active')}
+              compact={compact}
+            >
+              {visible.length ? (
+                <ul>
+                  {visible.map((run) => (
+                    <RunRow
+                      key={run.id}
+                      run={run}
+                      expanded={expanded === run.id}
+                      onToggle={() => setExpanded((current) => (current === run.id ? null : run.id))}
+                    />
+                  ))}
+                </ul>
+              ) : (
+                <div role='status' className='grid gap-1 py-4 text-center'>
+                  <p className='text-sm font-medium'>No Runs Match</p>
+                  <p className='text-text-muted text-xs'>Clear the search to see every active run.</p>
+                </div>
+              )}
+            </QueueSection>
+            <QueueSection id='paused' title='Paused' count={7} open={open.paused} onOpenChange={toggle('paused')} compact={compact}>
+              <p className='text-text-muted text-xs'>Paused sources resume at their next scheduled window.</p>
+            </QueueSection>
+            <QueueSection id='failed' title='Blocked' count={2} open={open.failed} onOpenChange={toggle('failed')} compact={compact}>
+              <p className='text-text-muted text-xs'>Blocked sources wait for a curator to update their capture rules.</p>
+            </QueueSection>
+          </div>
         </div>
-      </div>
-      <div className='flex items-center gap-2 px-4 py-2.5'>
+      </ScrollArea>
+      <div className='flex shrink-0 items-center gap-2 px-4 py-2.5'>
         <Button asChild variant='solid' tone='neutral' size='sm' className='flex-1'>
           <a href='#review' aria-label='Review all captures' onClick={noop}>
             <RegistryIcon lucide='ClipboardList' aria-hidden='true' />
@@ -658,8 +660,31 @@ function ProfileMenu() {
 }
 
 function Rail({ section, onSection }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const help = (
+    <>
+      <DropdownMenuItem>
+        Documentation
+        <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
+      </DropdownMenuItem>
+      <DropdownMenuItem>
+        Keyboard Shortcuts
+        <DropdownMenuShortcut>⌘/</DropdownMenuShortcut>
+      </DropdownMenuItem>
+      <DropdownMenuSeparator />
+      <DropdownMenuItem>Contact Support</DropdownMenuItem>
+    </>
+  );
+  const settings = (
+    <>
+      <DropdownMenuLabel>Workspace</DropdownMenuLabel>
+      <DropdownMenuItem>Capture Defaults</DropdownMenuItem>
+      <DropdownMenuItem>Selector Profiles</DropdownMenuItem>
+      <DropdownMenuItem>API Tokens</DropdownMenuItem>
+    </>
+  );
   return (
-    <div className='flex w-13 shrink-0 flex-col items-center gap-3 py-3'>
+    <div className={`flex shrink-0 items-center gap-2 ${isMobile ? 'border-b border-ui-border px-3 py-2' : 'w-13 flex-col gap-3 py-3'}`}>
       <Link
         variant='bare'
         href='#home'
@@ -669,7 +694,33 @@ function Rail({ section, onSection }) {
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
       </Link>
-      <nav aria-label='Sections' className='flex flex-1 flex-col items-center gap-2'>
+      {isMobile ? (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='ghost' size='sm' className='me-auto' aria-label='Capture sections'>
+              Sections <RegistryIcon lucide='ChevronDown' aria-hidden='true' />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align='start'>
+            <DropdownMenuRadioGroup value={section} onValueChange={onSection}>
+              {[...sections, ...tools].map((item) => (
+                <DropdownMenuRadioItem key={item.id} value={item.id}>
+                  <RegistryIcon lucide={item.icon} aria-hidden='true' />{item.label}
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+            <DropdownMenuSeparator />
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>Help and support</DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>{help}</DropdownMenuSubContent>
+            </DropdownMenuSub>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>Workspace settings</DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>{settings}</DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : <nav aria-label='Sections' className='flex flex-1 flex-col items-center gap-2'>
         {sections.map((item) => (
           <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
         ))}
@@ -677,28 +728,13 @@ function Rail({ section, onSection }) {
         {tools.map((item) => (
           <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
         ))}
-      </nav>
-      <div className='flex flex-col items-center gap-2'>
-        <RailMenu label='Help and support' icon='CircleHelp'>
-          <DropdownMenuItem>
-            Documentation
-            <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            Keyboard Shortcuts
-            <DropdownMenuShortcut>⌘/</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>Contact Support</DropdownMenuItem>
-        </RailMenu>
-        <RailMenu label='Workspace settings' icon='Settings'>
-          <DropdownMenuLabel>Workspace</DropdownMenuLabel>
-          <DropdownMenuItem>Capture Defaults</DropdownMenuItem>
-          <DropdownMenuItem>Selector Profiles</DropdownMenuItem>
-          <DropdownMenuItem>API Tokens</DropdownMenuItem>
-        </RailMenu>
-        <ProfileMenu />
-      </div>
+      </nav>}
+      {!isMobile ? <div className='flex flex-col items-center gap-2'>
+        <RailMenu label='Help and support' icon='CircleHelp'>{help}</RailMenu>
+        <RailMenu label='Workspace settings' icon='Settings'>{settings}</RailMenu>
+      </div> : null}
+      <ProfileMenu />
+      {isMobile ? <Button variant='ghost' size='icon-sm' aria-label='Close capture navigation' onClick={() => setOpenMobile(false)}><RegistryIcon lucide='X' aria-hidden='true' /></Button> : null}
     </div>
   );
 }
@@ -708,7 +744,7 @@ const tabTrigger =
 
 function CapturePanel({ query }) {
   return (
-    <div className='@container/capture flex min-w-0 flex-1 flex-col gap-3 py-3 pe-3'>
+    <div className='@container/capture flex min-h-0 min-w-0 flex-1 flex-col gap-3 py-3 pe-3 in-data-[compact=true]:ps-3'>
       <h2 className='flex h-8 items-center px-4 text-base font-medium'>Capture Control</h2>
       <Tabs defaultValue='queue' className='min-h-0 flex-1 gap-3'>
         <TabsList
@@ -853,16 +889,16 @@ export function Pattern() {
   const [section, setSection] = useState('crawlers');
   const [query, setQuery] = useState('');
   return (
-    <AppShellFrame surface='default' compactBelow={720}>
+    <AppShellFrame surface='default' compactBelow={960} height='66rem' style={{ '--ds-app-shell-frame-height-compact': '40rem' }}>
       {/* The rail and the capture panel are one sidebar: docked beside the page, one sheet in a narrow frame. */}
-      <SidebarProvider shortcut={false} style={{ '--sidebar-width': '27.25rem' }}>
+      <SidebarProvider shortcut={false} style={{ '--sidebar-width': '30rem' }}>
         <Sidebar
           mobileWidth='24rem'
           mobileClassName='max-w-[calc(100%-1rem)]'
           mobileTitle='Capture Control'
           mobileDescription='Sections and the capture queue.'
         >
-          <div className='bg-surface flex h-full min-h-0'>
+          <div className='bg-surface flex h-full min-h-0 in-data-[compact=true]:flex-col'>
             <Rail section={section} onSection={setSection} />
             <CapturePanel query={query} />
           </div>

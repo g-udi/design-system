@@ -1,10 +1,14 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import Icon from '@gaudi/design-system/core/Icon';
+import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@gaudi/design-system/core/DropdownMenu';
+import { useMediaQuery } from '@gaudi/design-system/hooks';
+import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@gaudi/design-system/core/Sheet';
 import {
   NavigationMenuContent,
   NavigationMenuItemPrimitive as NavigationMenuItem,
@@ -22,12 +26,8 @@ import { ModeMenu, PresetMenu } from './ThemeControls';
 
 export function Brand() {
   return (
-    <Link href='/' className='inline-flex items-center gap-2 font-semibold text-text no-underline' data-plain>
-      {/* Dark tile on light themes, white tile on dark ones. */}
-      <Image src='/brand/gaudi-icon-dark.svg' alt='' aria-hidden width={28} height={28} priority className='size-7 dark:hidden' />
-      <Image src='/brand/gaudi-icon-light.svg' alt='' aria-hidden width={28} height={28} priority className='hidden size-7 dark:block' />
-      <span className='whitespace-nowrap'>{siteConfig.name}</span>
-      <span className='sr-only'>{siteConfig.product} home</span>
+    <Link href='/' className='inline-flex shrink-0 items-center font-semibold text-text no-underline' aria-label={`${siteConfig.product} home`} data-plain>
+      <GaudiBrand className='site-brand' logoClassName='size-7' />
     </Link>
   );
 }
@@ -47,6 +47,36 @@ export function TopNavLinks({ className = '' }: { className?: string }) {
         ))}
       </ul>
     </nav>
+  );
+}
+
+/** Compact section switcher for the documentation rail and phone drawer. */
+export function TopNavDropdown() {
+  const pathname = usePathname() || '/';
+  const desktop = useMediaQuery('(min-width: 1280px)');
+  const current = topNav.find((item) => isActive(pathname, item)) || topNav[0];
+  if (desktop) return null;
+  return (
+    <div className='mb-5 xl:hidden'>
+      <DropdownMenuRoot>
+        <DropdownMenuTrigger asChild>
+          <Button variant='outline' tone='neutral' className='min-h-[2.75rem] w-full justify-between' aria-label={`Section: ${current.label}`}>
+            {current.label}
+            <Icon name='ChevronsUpDown' decorative size='sm' />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent aria-label='Site sections' align='start' sideOffset={6} collisionPadding={12} className='z-[calc(var(--ds-z-overlay)+10)]'>
+          {topNav.map((item) => (
+            <DropdownMenuItem key={item.href} asChild className='min-h-[2.75rem] justify-between gap-3'>
+              <Link href={item.href} aria-current={isActive(pathname, item) ? 'page' : undefined}>
+                {item.label}
+                {isActive(pathname, item) ? <Icon name='Check' decorative size='sm' /> : null}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenuRoot>
+    </div>
   );
 }
 
@@ -111,7 +141,7 @@ export function TopNavMenu({ className = '' }: { className?: string }) {
 /** Search, Ask AI (when a server is available), colour mode, theme preset and GitHub. */
 export function HeaderActions() {
   return (
-    <div className='ms-auto flex shrink-0 items-center gap-1'>
+    <div className='site-header-actions ms-auto flex shrink-0 items-center gap-1'>
       <SearchDialog />
       <PresetMenu />
       <ModeMenu />
@@ -123,16 +153,51 @@ export function HeaderActions() {
   );
 }
 
+function MobileNav() {
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1280px)');
+    const closeOnDesktop = () => { if (desktop.matches) setOpen(false); };
+    desktop.addEventListener('change', closeOnDesktop);
+    return () => desktop.removeEventListener('change', closeOnDesktop);
+  }, []);
+  return (
+    <div className='flex xl:hidden'>
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild>
+          <Button variant='ghost' tone='neutral' size='icon-sm' aria-label='Open site navigation' className='site-menu-trigger'>
+            <Icon name='Menu' decorative size='sm' />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side='left' className='site-navigation-sheet' aria-describedby={undefined} onCloseAutoFocus={(event: Event) => {
+          if (window.matchMedia('(min-width: 1280px)').matches) {
+            event.preventDefault();
+            document.querySelector<HTMLAnchorElement>('.site-header a[href="/"]')?.focus();
+          }
+        }}>
+          <SheetHeader><SheetTitle>Explore Gaudi</SheetTitle></SheetHeader>
+          <div className='min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 pb-6' onClick={(event) => {
+            if ((event.target as HTMLElement).closest('a')) setOpen(false);
+          }}>
+            <TopNavLinks className='site-mobile-links' />
+          </div>
+        </SheetContent>
+      </Sheet>
+    </div>
+  );
+}
+
 /** Stand-alone header for the home and themes pages. Docs pages use the AppShell header. */
 export function SiteHeader() {
   return (
     <header className='site-header'>
-      <div className='mx-auto flex h-14 max-w-[90rem] items-center gap-3 px-4 sm:px-6'>
+      <a href='#main' className='ds-skip-link'>Skip to content</a>
+      <div className='site-header-row mx-auto flex min-h-14 max-w-[90rem] items-center gap-3 px-4 sm:px-6'>
+        <MobileNav />
         <Brand />
-        <TopNavMenu className='ms-4 hidden lg:flex' />
+        <TopNavMenu className='ms-4 hidden xl:flex' />
         <HeaderActions />
       </div>
-      <TopNavLinks className='overflow-x-auto border-t border-border px-2 py-1 lg:hidden' />
     </header>
   );
 }

@@ -51,21 +51,23 @@ export function SearchDialog() {
 
   return (
     <>
-      <Button
-        variant='outline'
-        tone='neutral'
-        size='sm'
-        onClick={() => setOpen(true)}
-        aria-keyshortcuts={ariaKeyShortcuts}
-        aria-label='Search documentation'
-        data-testid='search-trigger'
-        className='justify-start text-text-muted md:w-56'
-      >
-        <Icon name='Search' decorative size='sm' />
-        <span className='me-auto hidden md:inline'>Search…</span>
-        <Kbd keys={kbdKeys} size='xs' className='hidden md:inline-flex' />
-      </Button>
-      <CommandDialog open={open} onOpenChange={setOpen} title='Search documentation' description='Search every page, heading and paragraph.'>
+      <CommandDialog open={open} onOpenChange={setOpen} title='Search documentation' description='Search every page, heading and paragraph.' trigger={
+        <Button
+          variant='ghost'
+          tone='neutral'
+          size='sm'
+          aria-keyshortcuts={ariaKeyShortcuts}
+          aria-label='Search documentation'
+          data-testid='search-trigger'
+          className='group min-h-9 justify-start gap-0 p-0 text-sm text-text-muted hover:bg-transparent md:w-56'
+        >
+          <span className='flex h-8 w-full items-center gap-1.5 rounded-(--ds-radius-control) border border-border px-2 group-hover:bg-surface-muted'>
+            <Icon name='Search' decorative size='sm' />
+            <span className='me-auto hidden md:inline'>Search…</span>
+            <Kbd keys={kbdKeys} size='xs' variant='flat' />
+          </span>
+        </Button>
+      }>
         <Command shouldFilter={false} label='Search documentation'>
           <CommandInput value={search} onValueChange={setSearch} placeholder={askEnabled ? 'Search the docs or ask a question…' : 'Search components, blocks, hooks, themes…'} aria-label='Search query' />
           <CommandList>

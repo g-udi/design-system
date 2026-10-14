@@ -293,15 +293,6 @@ export function Pattern() {
 
           <SidebarContent role='navigation' aria-label='Projects'>
             <PinnedProjects />
-            {/*
-        `mx-0` is a fix, not a preference. SidebarSeparator ships `w-auto`
-        to undo Separator's `data-horizontal:w-full`, but a variant
-        selector outranks a plain utility, so the rule stays full width and
-        the primitive's own `mx-2` then pushes it 8px past the panel's
-        right edge. In this scrolling content that is 16px of horizontal
-        scroll on the whole nav; in the footer it is a rule that misses the
-        left gutter and overhangs the right.
-      */}
             <SidebarSeparator className='mx-0' />
             <ProjectList
               projects={visible}

@@ -3576,7 +3576,7 @@
           "title": "Workspace switcher",
           "description": "Workspace switcher",
           "file": "src/components/blocks/AppShell/stories/fixtures/sidebar/sidebar-workspace-switcher.jsx",
-          "sha256": "058a5dc38ef4e1db84c14180cde8870d32b577d5209c043b3a7e5feb71a184f0",
+          "sha256": "1c17dac2eca51394328537db2f08a431faa113da425926f8ebfe312a1cdc0edf",
           "storyId": "blocks-application-appshell--sidebar-workspace-switcher"
         },
         {
@@ -3608,7 +3608,7 @@
           "title": "Search, loading and no-result states",
           "description": "Search, loading and no-result states",
           "file": "src/components/blocks/AppShell/stories/fixtures/sidebar/sidebar-filter-states.jsx",
-          "sha256": "6201c571ee8ce78a47764b4ac0c58af2a1a1a30d1707514be6840dd3bc9e5a58",
+          "sha256": "d2e55ba7c3a2e07c7dbba6e7ae5f0c446e7df18da2f7d80d0abcf7916af8528e",
           "storyId": "blocks-application-appshell--sidebar-filter-states"
         }
       ]
@@ -4414,7 +4414,7 @@
           "title": "Dual sidebar · digest inbox, reading-plan panel and an author directory",
           "description": "Dual sidebar · digest inbox, reading-plan panel and an author directory",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-digest-inbox.jsx",
-          "sha256": "6b7aea795c9280935ed6d4fe4e29ecd0c186fd8968b2d5bf2209806c3944e18b",
+          "sha256": "7ee911425e6eada451959e885b3d7255736605242e356747e2708f83ee0a03bf",
           "storyId": "blocks-application-appshell--digest-inbox"
         },
         {
@@ -4430,7 +4430,7 @@
           "title": "Mini icon rail · research notebooks with per-section pages and view tabs",
           "description": "Mini icon rail · research notebooks with per-section pages and view tabs",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-notebook-tabs.jsx",
-          "sha256": "7d06980a9b34d96916b8cc1f8c6efdae13025e8980de064d0cb614dfa79c44a9",
+          "sha256": "8d314b1f0da535cdf87e34c6ab04ed86384f25ae7a6d11d5882955d943bb656e",
           "storyId": "blocks-application-appshell--notebook-tabs"
         },
         {
@@ -4446,7 +4446,7 @@
           "title": "Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail",
           "description": "Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-newsletter-reader.jsx",
-          "sha256": "bf32011eff0c351b57ff282195a877b824ca82999d05d074a66e7840e54c82ad",
+          "sha256": "52023ea63ad141067508f310ac771049e1acd965cebfe213ae6477e1c456a65c",
           "storyId": "blocks-application-appshell--newsletter-reader"
         },
         {
@@ -4462,7 +4462,7 @@
           "title": "Library top bar · circle and collection switchers, grouped routes and an apps grid",
           "description": "Library top bar · circle and collection switchers, grouped routes and an apps grid",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-topbar-collections.jsx",
-          "sha256": "4640943a88f080180a115deb2c8b0d115f428b6b0e038d7e6b40a646c32cb6ab",
+          "sha256": "6d1de00d718605c7957498e3352566735bd64e180d30b2d9fca873070718ac2b",
           "storyId": "blocks-application-appshell--topbar-collections"
         },
         {
@@ -4478,7 +4478,7 @@
           "title": "Capture console · icon rail, capture queue tabs and expandable run feeds",
           "description": "Capture console · icon rail, capture queue tabs and expandable run feeds",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-crawler-control.jsx",
-          "sha256": "b4080be8258eeb917332ae3d8a3ab21f6f84f6528cdd3002dd160b706c2ecdd9",
+          "sha256": "5f6e007106b55614e4cbc6ee77c9c107d1febb1a70360ebdc5edd4da878277ca",
           "storyId": "blocks-application-appshell--crawler-control"
         },
         {

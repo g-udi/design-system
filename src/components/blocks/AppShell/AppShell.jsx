@@ -65,7 +65,7 @@ export default function AppShell({
                   <Icon name='Menu' decorative size='sm' />
                 </Button>
               </SheetTrigger>
-              <SheetContent side='left' aria-describedby={undefined} container={frame?.container ?? undefined} onCloseAutoFocus={(event) => {
+              <SheetContent className='ds-app-navigation-sheet' side='left' aria-describedby={undefined} container={frame?.container ?? undefined} onCloseAutoFocus={(event) => {
                 event.preventDefault();
                 const panel = shell.current?.querySelector(topbar ? '.ds-app-topnav' : '.ds-app-rail');
                 const target = menuTrigger.current?.getClientRects().length ? menuTrigger.current : getFocusableElements(panel)[0] || panel;
@@ -75,7 +75,7 @@ export default function AppShell({
                   <SheetTitle>{navigationLabel}</SheetTitle>
                 </SheetHeader>
                 <div
-                  className='px-3'
+                  className='ds-app-navigation-scroll'
                   onClick={(event) => {
                     if (event.target.closest('a')) setOpen(false);
                   }}

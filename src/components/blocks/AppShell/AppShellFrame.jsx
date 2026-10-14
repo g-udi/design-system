@@ -5,7 +5,7 @@ import { useElementSize } from '../../../hooks/layout/use-element-size.js';
 import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
 
 /** Frame widths below this many pixels use the phone layout: the sidebar becomes a sheet. */
-const FRAME_COMPACT_BELOW = 640;
+const FRAME_COMPACT_BELOW = 768;
 
 const AppShellFrameContext = React.createContext(null);
 
@@ -20,7 +20,7 @@ function useAppShellFrame() {
 
 /**
  * Presents a shell as an app window inside any container: a bordered frame on the shared card radius
- * with a fixed height (`height`, 48rem by default and 40rem on phones), clipped overflow and internal
+ * with a fixed height (`height`, 56rem by default and 40rem in compact layouts), clipped overflow and internal
  * scrolling. Fixed-position overlays that belong to the shell (the phone sidebar sheet) stay inside it,
  * and the shell switches to its phone layout when the frame, not the viewport, is narrower than
  * `compactBelow`. `surface='muted'` (default) suits inset panels; `surface='default'` suits floating
@@ -49,7 +49,7 @@ function AppShellFrame({
         aria-label={label}
         data-slot='app-shell-frame'
         data-surface={surface}
-        data-compact={compact ? 'true' : undefined}
+        data-compact={compact === undefined ? undefined : String(compact)}
         className={cn('ds-app-shell-frame', className)}
         style={height ? { '--ds-app-shell-frame-height': typeof height === 'number' ? `${height}px` : height, ...style } : style}
         {...props}

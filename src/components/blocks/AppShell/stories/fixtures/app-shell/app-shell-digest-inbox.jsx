@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -764,14 +764,9 @@ function DigestInboxShell() {
   const [section, setSection] = useState('mail');
   const [folder, setFolder] = useState('inbox');
   const [messages, setMessages] = useState(initialMessages);
-  const [contextOpen, setContextOpen] = useState(false);
-  // The reading plan starts open once the window is wide enough to keep the message readable.
-  const decided = useRef(false);
-  useEffect(() => {
-    if (decided.current || !frame?.width) return;
-    decided.current = true;
-    setContextOpen(frame.width >= 1200);
-  }, [frame?.width]);
+  const [contextOverride, setContextOpen] = useState(null);
+  // Follow the available space until the reader explicitly opens or closes the plan.
+  const contextOpen = contextOverride ?? (frame?.width >= 1344);
   return (
     <SidebarProvider shortcut={false} style={{ '--sidebar-width': '18rem' }}>
       <Sidebar collapsible='icon'>
@@ -803,12 +798,12 @@ function DigestInboxShell() {
                 contextOpen ? 'w-70 border-s shadow-lg @5xl:shadow-none' : 'w-0'
               }`}
             >
-              <div className='flex w-70 shrink-0 flex-col'>
+              <div className='flex w-full min-w-0 flex-col'>
                 <div className='border-ui-border flex h-12 shrink-0 items-center border-b ps-3 pe-2'>
                   <h2 className='text-sm font-semibold'>Reading plan</h2>
                   <IconAction label='Close reading plan' icon='X' onClick={() => setContextOpen(false)} className='ms-auto' />
                 </div>
-                <CalendarContext idPrefix='digest-inbox-context' cellSize='2.25rem' />
+                <CalendarContext idPrefix='digest-inbox-context' cellSize='clamp(1.75rem, 5cqw, 2.25rem)' />
               </div>
             </aside>
           ) : null}

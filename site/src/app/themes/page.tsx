@@ -36,7 +36,7 @@ export default function ThemesPage() {
             The contract follows the <a className='text-accent underline' href='https://ui.shadcn.com/themes' target='_blank' rel='noreferrer'>shadcn/ui</a> CSS-variable convention, so themes from{' '}
             <a className='text-accent underline' href='https://www.styleglide.ai/themes' target='_blank' rel='noreferrer'>StyleGlide</a>,{' '}
             <a className='text-accent underline' href='https://tweakcn.com' target='_blank' rel='noreferrer'>tweakcn</a> and the{' '}
-            <a className='text-accent underline' href='https://ui.shadcn.com/themes' target='_blank' rel='noreferrer'>shadcn/ui theme editor</a> import as-is. Theme Studio is inspired by all three; design your themes there.
+            <a className='text-accent underline' href='https://ui.shadcn.com/themes' target='_blank' rel='noreferrer'>shadcn/ui theme editor</a> import as-is, so you can design in any of them.
           </p>
         </section>
       </main>

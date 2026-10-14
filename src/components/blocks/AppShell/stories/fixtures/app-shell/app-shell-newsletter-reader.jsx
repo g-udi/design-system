@@ -426,7 +426,7 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
       </div>
       <div className='min-h-0 flex-1 overflow-y-auto'>
         {mails.length ? (
-          <ul className='grid gap-0.5 px-2 pb-2'>
+          <ul className='grid grid-cols-1 gap-0.5 px-2 pb-2'>
             {mails.map((mail) => (
               <li key={mail.id}>
                 <Item asChild size='sm' className='hover:bg-ui-accent aria-[current=true]:bg-ui-accent focus-visible:ring-ui-ring min-w-0 flex-nowrap items-start gap-3 rounded-(--ds-radius-control) px-2 py-2.5 text-start outline-hidden focus-visible:ring-2'>
@@ -439,7 +439,7 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
                       <AvatarImage src={mail.photo} alt='' className='rounded-full' />
                       <AvatarFallback className='rounded-full'>{mail.from.slice(0, 1)}</AvatarFallback>
                     </Avatar>
-                    <span className='grid min-w-0 flex-1 gap-0.5'>
+                    <span className='grid min-w-0 flex-1 grid-cols-1 gap-0.5'>
                       <span className='flex items-center gap-2'>
                         <span className={`min-w-0 flex-1 truncate text-sm ${mail.unread ? 'font-semibold' : 'font-medium'}`}>{mail.from}</span>
                         {mail.unread ? (
@@ -511,7 +511,7 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
       aria-label='Reading pane'
       className={`bg-ui-background @container/reading min-h-0 min-w-0 flex-1 flex-col rounded-(--ds-radius-card) border ${hidden ? 'hidden @[40rem]/mail:flex' : 'flex'}`}
     >
-      <div className='flex items-center gap-0.5 p-2'>
+      <div className='flex flex-wrap items-center gap-0.5 p-2'>
         <Button variant='ghost' size='icon-sm' aria-label='Back to messages' className='@[40rem]/mail:hidden' onClick={onBack}>
           <RegistryIcon lucide='ArrowLeft' aria-hidden='true' />
         </Button>
@@ -525,9 +525,9 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
           onClick={() => onUpdate({ unread: !mail.unread })}
         />
         <div className='ms-auto flex items-center gap-0.5'>
-          <Button variant='outline' size='xs' disabled={none} className='me-1'>
+          <Button variant='outline' size='xs' disabled={none} className='me-1' aria-label='Save to notebook'>
             <RegistryIcon lucide='Book' aria-hidden='true' />
-            Save to notebook
+            <span>Save<span className='hidden @sm/reading:inline'> to notebook</span></span>
           </Button>
           <ToolbarButton label='Add a note' icon='SquarePen' disabled={none} className='hidden @2xl/reading:inline-flex' />
           <ToolbarButton label='Read later' icon='Bookmark' pressed={Boolean(mail?.flagged)} disabled={none} onClick={() => onUpdate({ flagged: !mail.flagged })} className='hidden @lg/reading:inline-flex' />

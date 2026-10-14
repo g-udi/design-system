@@ -163,4 +163,4 @@ MCP tools: `list_themes`, `get_theme`, `import_theme` (returns theme JSON and th
 
 ## Credits
 
-Gaudi does not reinvent theme authoring. The theme contract follows the [shadcn/ui](https://ui.shadcn.com/themes) CSS-variable convention (`--background`, `--primary`, `--chart-1`, …), so any theme made in [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or the [shadcn/ui theme editor](https://ui.shadcn.com/themes) can be imported as-is; we encourage designing themes there. Theme Studio is inspired by those tools. No code was copied from them; their names are used only to describe compatibility.
+Gaudi does not reinvent theme authoring. The theme contract follows the [shadcn/ui](https://ui.shadcn.com/themes) CSS-variable convention (`--background`, `--primary`, `--chart-1`, …), so any theme made in [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or the [shadcn/ui theme editor](https://ui.shadcn.com/themes) can be imported as-is; we encourage designing themes there. Their names are used only to describe compatibility.

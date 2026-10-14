@@ -2,7 +2,7 @@
 
 ## Patterns
 
-The app-shell examples (`Blocks/App Shell`) are Gaudi compositions for knowledge, reading, research and finance workspaces: a library rail, a reading desk, research projects, a digest inbox, a publishing console, notebook tabs, a research assistant, a newsletter reader, study chat, two top-bar layouts (collections and journal), crawler control, a source network and a finance dashboard. The knowledge-work layouts were inspired by [reui](https://reui.io)'s [app-shell blocks](https://reui.io/blocks/application/app-shell); the names, content, data and structure are Gaudi's. Every example follows these conventions so parallel work stays consistent.
+The app-shell examples (`Blocks/App Shell`) are Gaudi compositions for knowledge, reading, research and finance workspaces: a library rail, a reading desk, research projects, a digest inbox, a publishing console, notebook tabs, a research assistant, a newsletter reader, study chat, two top-bar layouts (collections and journal), crawler control, a source network and a finance dashboard. Every example follows these conventions so parallel work stays consistent.
 
 **Files and names**
 
@@ -94,7 +94,7 @@ import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 
 ## Frame
 
-`AppShellFrame` draws a bordered window on `--ds-radius-card` with clipped overflow and a fixed height (`height`, 48rem by default and 40rem below 640px; the CSS variables `--ds-app-shell-frame-height` and `--ds-app-shell-frame-height-compact` also set it). Content scrolls inside: `AppShellPanel` (and the simple `AppShell` workspace) scroll on their own, and the sidebar is positioned against the frame instead of the viewport. The frame measures itself, and sidebar parts switch to the phone layout when the frame, not the viewport, is narrower than `compactBelow` (640px). The phone sheet portals into the frame, so it opens inside the window. Menus, tooltips and dialogs still portal to the page.
+`AppShellFrame` draws a bordered window on `--ds-radius-card` with clipped overflow and a fixed height (`height`, 56rem by default and 40rem in compact layouts; the CSS variables `--ds-app-shell-frame-height` and `--ds-app-shell-frame-height-compact` also set it). Content scrolls inside: `AppShellPanel` (and the simple `AppShell` workspace) scroll on their own, and the sidebar is positioned against the frame instead of the viewport. The frame measures itself, and sidebar parts switch to the phone layout when the frame, not the viewport, is narrower than `compactBelow` (768px). The phone sheet portals into the frame, so it opens inside the window. Menus, tooltips and dialogs still portal to the page.
 
 ## API
 
@@ -107,7 +107,7 @@ import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 | `children`                                | ReactNode                  | Page content inside the shell main landmark.                                               |
 | `navigationLabel / menuLabel / skipLabel` | string                     | Localized accessible labels.                                                               |
 | `className`                               | string                     | Root composition; the desktop rail begins at 1024px.                                       |
-| `AppShellFrame.height / compactBelow`     | string or number / number  | Window height (48rem; 40rem on phones) and the frame width for the phone layout (640).     |
+| `AppShellFrame.height / compactBelow`     | string or number / number  | Window height (56rem; 40rem when compact) and the frame width for the phone layout (768).     |
 | `AppShellFrame.surface / label`           | `muted` / `default`; string | The window surface, and an optional region name.                                          |
 | `AppShellPanel.inset`                     | boolean                    | A bordered panel set into the frame (default), or flush beside a floating sidebar.         |
 | `AppShellHeader.bordered`                 | boolean                    | A rule under the sticky panel header.                                                      |

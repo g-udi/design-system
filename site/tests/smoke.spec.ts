@@ -3,11 +3,12 @@ import { expect, test } from '@playwright/test';
 test('home page renders the hero, quick start and catalogue links', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1, name: 'Gaudi Design System' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Quick start' })).toBeVisible();
+  await expect(page.getByRole('tablist', { name: 'Quick start' })).toBeVisible();
   const primary = page.getByRole('navigation', { name: 'Primary' }).first();
-  for (const label of ['Docs', 'Components', 'Blocks', 'Charts', 'Hooks', 'Themes']) {
-    await expect(primary.getByRole('link', { name: label, exact: true })).toBeVisible();
+  for (const label of ['Docs', 'Components', 'Blocks', 'Library']) {
+    await expect(primary.getByRole('button', { name: label, exact: true })).toBeVisible();
   }
+  await expect(primary.getByRole('link', { name: 'Themes', exact: true })).toBeVisible();
 });
 
 test('a component page shows a live preview, code tab and API table', async ({ page }) => {
@@ -23,6 +24,27 @@ test('a component page shows a live preview, code tab and API table', async ({ p
   await example.getByRole('tab', { name: 'Code' }).click();
   await expect(example.getByText("@gaudi/design-system/core/Accordion").first()).toBeVisible();
   await expect(page.getByTestId('props-table')).toBeVisible();
+});
+
+test('guided setup loads its bundled QR image inside nested documentation previews', async ({ page }) => {
+  await page.goto('/docs/components/accordion/');
+  const preview = page.frameLocator('iframe[title="Guided setup preview"]');
+  const qr = preview.getByRole('img', { name: 'QR code for the Gaudi setup guide' });
+  await expect(qr).toBeVisible();
+  await expect.poll(() => qr.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBe(true);
+  expect(await qr.evaluate((image: HTMLImageElement) => new URL(image.currentSrc).pathname)).toMatch(/\/static\/images\/setup-guide\.svg$/);
+  for (const width of [320, 375, 390, 639, 640, 767, 768, 1023, 1024, 1279, 1280, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await expect(qr).toBeVisible();
+    expect(await qr.evaluate((image: HTMLImageElement) => {
+      const box = image.getBoundingClientRect();
+      return image.naturalWidth > 0 && box.width === 96 && box.height === 96
+        && box.left >= 0 && box.right <= document.documentElement.clientWidth;
+    }), `QR image fits at ${width}px`).toBe(true);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1);
+  }
+  await preview.getByRole('button', { name: 'Mark guide as read' }).click();
+  await expect(preview.getByRole('textbox', { name: 'Display name' })).toBeFocused();
 });
 
 test('theme preset and colour mode switch and persist', async ({ page }) => {
@@ -42,8 +64,20 @@ test('theme preset and colour mode switch and persist', async ({ page }) => {
 
 test('search finds component pages from the static index', async ({ page }) => {
   await page.goto('/docs');
-  await page.getByTestId('search-trigger').first().click();
-  await page.getByRole('combobox', { name: 'Search query' }).fill('accordion');
+  const trigger = page.getByTestId('search-trigger');
+  const input = page.getByRole('combobox', { name: 'Search query' });
+  await trigger.click();
+  await expect(input).toBeFocused();
+  await input.press('Escape');
+  await expect(trigger).toBeFocused();
+  const shortcutLabel = await trigger.getByRole('img').getAttribute('aria-label');
+  expect(shortcutLabel).toMatch(/^(Command|Control) plus K$/);
+  await trigger.press(shortcutLabel?.startsWith('Command') ? 'Meta+k' : 'Control+k');
+  await expect(input).toBeFocused();
+  await input.press('Escape');
+  await expect(trigger).toBeFocused();
+  await trigger.click();
+  await input.fill('accordion');
   const result = page.getByTestId('search-result').first();
   await expect(result).toBeVisible();
   await result.click();

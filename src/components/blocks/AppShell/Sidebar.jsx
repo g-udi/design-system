@@ -494,7 +494,7 @@ function SidebarSeparator({ className, ...props }) {
     <Separator
       data-slot='sidebar-separator'
       data-sidebar='separator'
-      className={cn('ds-part-sidebar-separator w-auto', className)}
+      className={cn('ds-part-sidebar-separator data-horizontal:w-auto', className)}
       {...props}
     />
   );

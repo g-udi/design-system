@@ -33,6 +33,7 @@ const write = (file, content) => {
   writeFileSync(target, content);
 };
 const GITHUB = 'https://github.com/g-udi/design-system';
+const assetBasePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const blob = (file) => `${GITHUB}/blob/main/${file.replace(/^\.?\//, '')}`;
 
 // Brand hygiene: the site never names the organisation some DS notes mention. Drop any sentence
@@ -145,7 +146,11 @@ for (const { owner, examples } of Object.values(coverage.categories)) {
     };
     sources[example.name] = source;
     // Hoist the client directive (some fixtures place an import above it).
-    const body = `'use client';\n${source.replace(/^\s*['"]use client['"];?\s*$/gm, '')}`;
+    // Storybook fixtures also run below nested /preview/<name>/ routes here. Resolve the
+    // bundled demo folders from the site's public root, including subpath deployments.
+    const previewSource = source.replace(/(['"`])(?:\.\/|\/)?(avatars|static|flags)\//g,
+      (_, quote, folder) => `${quote}${assetBasePath}/${folder}/`);
+    const body = `'use client';\n${previewSource.replace(/^\s*['"]use client['"];?\s*$/gm, '')}`;
     write(`src/generated/patterns/${example.name}.jsx`, body);
   }
 }
@@ -294,7 +299,9 @@ for (const page of pages) {
     '',
     `<ComponentHeader id=${attr(c.id)} />`,
     '',
-    ...(rest && rest !== lead ? [escapeMdx(rest), ''] : [])
+    ...(rest && rest !== lead ? [escapeMdx(rest), ''] : []),
+    `<ComponentLinks id=${attr(c.id)} />`,
+    ''
   ];
   if (c.kind !== 'hook') lines.push('## Installation', '', `<Install id=${attr(c.id)} />`, '');
   if (c.usage) lines.push('## Usage', '', `<Usage id=${attr(c.id)} />`, '');

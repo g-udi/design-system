@@ -341,7 +341,7 @@ function AccountMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon-sm' aria-label='Open account menu' className='p-0'>
+        <Button variant='ghost' size='icon-sm' aria-label='Open account menu' className='min-h-[1.5rem] min-w-[1.5rem] p-0'>
           <Avatar className='size-6'>
             <AvatarImage src={account.photo} alt='' />
             <AvatarFallback>NH</AvatarFallback>
@@ -434,7 +434,7 @@ function NewItemMenu() {
 function TopBar({ team, project, onTeam, onProject }) {
   const { isMobile } = useSidebar();
   return (
-    <header className='@container flex h-13 shrink-0 items-center gap-3 border-b border-ui-border px-4 @lg:px-6'>
+    <header className='@container flex min-h-13 shrink-0 flex-wrap items-center gap-3 border-b border-ui-border px-4 py-2 @lg:px-6'>
       {isMobile ? <SidebarTrigger className='-ms-1' /> : null}
       <Logo />
       {isMobile ? null : (

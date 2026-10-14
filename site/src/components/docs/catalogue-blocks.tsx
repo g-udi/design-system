@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CodeBlock, CodeBlockCopyButton, CodeBlockGroup } from '@gaudi/design-system/core/CodeBlock';
+import { CodeBlock, CodeBlockCopyButton, CodeBlockGroup, codeChromeClassName } from '@gaudi/design-system/core/CodeBlock';
 import sources from '@/generated/sources.json';
 import { catalogue, componentsInSection, getComponent, getPattern, type ComponentEntry } from '@/lib/catalogue';
 import { siteConfig, storybookStoryUrl } from '../../../site.config';
@@ -24,15 +24,22 @@ export function ComponentHeader({ id }: { id: string }) {
       <Badge>{category?.label}</Badge>
       {entry.group && entry.group !== category?.label ? <Badge>{entry.group}</Badge> : null}
       <code className='rounded-(--ds-radius-sm) bg-surface-muted px-2 py-0.5 text-xs'>{entry.import.leaf || entry.import.path}</code>
-      <span className='ms-auto flex flex-wrap gap-3 text-sm'>
-        {entry.storybook ? <a className='text-accent underline underline-offset-2' href={storybookStoryUrl(entry.storybook)} target='_blank' rel='noreferrer'>View in Storybook</a> : null}
-        <a className='text-accent underline underline-offset-2' href={`${siteConfig.github}/tree/main/${entry.source}`} target='_blank' rel='noreferrer'>Source</a>
-      </span>
     </div>
   );
 }
 
-const pm = (command: (tool: string) => string) => ['pnpm', 'npm', 'yarn', 'bun'].map((tool) => ({ title: tool, language: 'bash', code: command(tool) }));
+export function ComponentLinks({ id }: { id: string }) {
+  const entry = getComponent(id);
+  if (!entry) return null;
+  return (
+    <div className='not-prose my-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm' data-testid='component-links'>
+      {entry.storybook ? <a className='inline-flex min-h-11 items-center text-accent underline underline-offset-2' href={storybookStoryUrl(entry.storybook)} target='_blank' rel='noreferrer'>View in Storybook</a> : null}
+      <a className='inline-flex min-h-11 items-center text-accent underline underline-offset-2' href={`${siteConfig.github}/tree/main/${entry.source}`} target='_blank' rel='noreferrer'>Source</a>
+    </div>
+  );
+}
+
+const pm = (command: (tool: string) => string) => ['pnpm', 'npm', 'yarn', 'bun'].map((tool) => ({ title: tool, language: 'bash', code: command(tool), defaultWrap: true }));
 const addCommand = (tool: string, spec: string) => ({ pnpm: `pnpm add ${spec}`, npm: `npm install ${spec}`, yarn: `yarn add ${spec}`, bun: `bun add ${spec}` })[tool];
 
 const importLine = (entry: ComponentEntry) => {
@@ -49,18 +56,23 @@ export function Install({ id }: { id: string }) {
   const peers = entry.category === 'charts' ? ' recharts' : entry.id === 'core-flow' ? ' @xyflow/react' : '';
   const first = entry.patterns[0];
   return (
-    <div className='not-prose my-4 flex flex-col gap-3'>
+    <div className='not-prose my-4 flex min-w-0 flex-col gap-6' data-testid='installation'>
       <CodeBlockGroup label='Install with' items={pm((tool) => addCommand(tool, `${siteConfig.installSpec}${peers}`) || '')} />
-      <p className='text-sm text-text-muted'>
-        Import from <code>{siteConfig.packageName}</code>. Load <code>@gaudi/design-system/global.css</code> once and add <code>transpilePackages: [&apos;@gaudi/design-system&apos;]</code> in Next.js.
-      </p>
-      <CodeBlock code={importLine(entry)} language='jsx'>
-        <CodeBlockCopyButton />
-      </CodeBlock>
-      {first ? (
-        <p className='text-sm text-text-muted'>
-          Copy an example into your project with the shadcn CLI: <code>{registryInstall(first)}</code>.
+      <div className='flex min-w-0 flex-col gap-3'>
+        <p className='m-0 text-base leading-relaxed text-text-muted'>
+          Import from <code>{siteConfig.packageName}</code>. Load <code>@gaudi/design-system/global.css</code> once and add <code>transpilePackages: [&apos;@gaudi/design-system&apos;]</code> in Next.js.
         </p>
+        <CodeBlock code={importLine(entry)} language='jsx' defaultWrap className={codeChromeClassName}>
+          <CodeBlockCopyButton />
+        </CodeBlock>
+      </div>
+      {first ? (
+        <div className='flex min-w-0 flex-col gap-3'>
+          <p className='m-0 text-base leading-relaxed text-text-muted'>Copy an example into your project with the shadcn CLI:</p>
+          <CodeBlock code={registryInstall(first)} language='bash' defaultWrap className={codeChromeClassName}>
+            <CodeBlockCopyButton />
+          </CodeBlock>
+        </div>
       ) : null}
     </div>
   );
@@ -85,6 +97,7 @@ export function Example({ name }: { name: string }) {
       title={pattern.title}
       source={sourceOf(name)}
       block={pattern.block}
+      expandable={pattern.owner === 'blocks/AppShell'}
       storybookUrl={storybookStoryUrl(pattern.storyId)}
       install={registryInstall(name)}
       file={`${name}.jsx`}
