@@ -50,7 +50,7 @@ export const BlogArticle = {
       await expect(blurSwitch).toBeChecked();
       const readingPosition = viewport.scrollTop;
       await userEvent.click(blurSwitch);
-      await expect(canvasElement.querySelector('.gaudi-blog-blur')).toBeNull();
+      await expect(canvasElement.querySelector('[data-slot="scroll-edge"]')).toBeNull();
       await expect(viewport.scrollTop).toBe(readingPosition);
       await userEvent.click(blurSwitch);
       blurSwitch.blur();
@@ -58,8 +58,8 @@ export const BlogArticle = {
       await expect(blurSwitch).toBeDisabled();
       await expect(blurSwitch).not.toBeChecked();
     }
-    const topBlur = canvasElement.querySelector('.gaudi-blog-blur[data-edge="top"]');
-    const bottomBlur = canvasElement.querySelector('.gaudi-blog-blur[data-edge="bottom"]');
+    const topBlur = canvasElement.querySelector('[data-slot="scroll-edge"][data-edge="top"]');
+    const bottomBlur = canvasElement.querySelector('[data-slot="scroll-edge"][data-edge="bottom"]');
     if (blurEnabled) {
       await waitFor(() => expect(bottomBlur.style.opacity).toBe('1'));
       await expect(topBlur.style.opacity).toBe('0');
@@ -195,7 +195,7 @@ export const FocusedEssay = {
     await expect(canvas.getByRole('heading', { level: 1, name: 'The value of a quiet page' })).toBeVisible();
     await expect(canvas.queryByRole('navigation', { name: 'Article contents' })).not.toBeInTheDocument();
     await expect(canvas.getByText('A page can do less and still give the reader more.')).toBeVisible();
-    await expect(canvasElement.querySelector('.gaudi-blog-blur')).toBeNull();
+    await expect(canvasElement.querySelector('[data-slot="scroll-edge"]')).toBeNull();
     await userEvent.click(canvas.getByRole('link', { name: 'Back to the beginning' }));
     await waitFor(() => expect(canvas.getByRole('region', { name: 'Blog post content' }).scrollTop).toBeLessThan(80));
   }

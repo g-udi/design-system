@@ -5815,7 +5815,7 @@ import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `ScrollArea`, `ScrollBar`
+Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`
 
 ## Props
 
@@ -5823,6 +5823,10 @@ Exports: `ScrollArea`, `ScrollBar`
 | --- | --- | --- | --- | --- |
 | `type` | `auto \| always \| scroll \| hover` | `hover` | no | Scrollbar visibility behavior. |
 | `smooth` | `boolean` | `false` | no | Enhances vertical mouse-wheel scrolling with Lenis. Touch, keyboard, focus, links and reduced motion retain native behavior. The engine loads only when requested and pauses when the area or page is hidden. |
+| `fadeEdges` | `boolean` | `false` | no | Blurs the top and bottom edges while more content continues past them. Decorative: hidden during keyboard focus, for reduced motion and in forced colours. |
+| `ScrollEdges.targetRef` | `Ref<HTMLElement>` | `page` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `offsetTop` | `number` | `0` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `range` | `number` | `80` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
 | `viewportRef` | `Ref<HTMLElement>` | — | no | Ref to the actual scrolling viewport. Share with ReadingIndicator.targetRef, a heading observer or native scrollTo calls. The ordinary ref still points to the outer root. |
 | `scrollbarClassName` | `{ track?: string, thumb?: string }` | — | no | Classes for the built-in vertical scrollbar track and thumb, using Gaudi tokens. |
 | `ScrollBar.orientation` | `horizontal \| vertical` | `vertical` | no | Axis of an additional scrollbar. Smooth wheel motion applies to the vertical viewport; horizontal regions remain native. |
@@ -5848,7 +5852,7 @@ Give the viewport a useful accessible name using aria-label or aria-labelledby. 
 
 ## Notes
 
-- Blog migration decision: use ScrollArea with smooth enabled as the main area hosting blog post content. Keep one article viewport, and pass its viewportRef to reading progress and heading navigation. Adapt the consuming layout, table of contents and route scroll restoration during that migration; this component does not migrate the blog shell itself.
+- A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses ScrollEdges without targetRef for the same blurred edges. Use a bounded ScrollArea when the reading area is the only scroller, as in the Article examples.
 - Smooth scrolling is an enhancement to the existing ScrollArea owner, not a second global page scroller. Bound the height, including min-h-0 when using a flex layout. Avoid stacking a second document-wide smoothing engine around it.
 - Native fragment links, keyboard scrolling, focus, text selection and touch retain browser behavior. Pointer and keyboard intent interrupt any pending wheel inertia. Code, tables and other nested scroll regions scroll natively.
 - Theme the track and thumb through scrollbarClassName. Keep enough contrast and an adequate hit area. Use ScrollBar with orientation="horizontal" for content that deliberately overflows horizontally.
@@ -5866,7 +5870,7 @@ Curated patterns:
 
 ## Related
 
-`core-pointer`, `mdx-code`, `core-readingindicator`
+`blocks-blog-article`, `core-pointer`, `mdx-code`, `core-readingindicator`
 
 ## README
 
@@ -5900,9 +5904,18 @@ export function ArticleReader({ children }) {
 
 Touch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.
 
-### Blog migration decision
+### Faded edges
 
-Use **`ScrollArea smooth` as the main area hosting blog post content** when migrating the blog. Compose the existing post/MDX content inside one article viewport. Keep app navigation in the surrounding layout. Use `viewportRef` for `ReadingIndicator.targetRef`, and adapt the consuming table of contents, heading observers, fragment navigation and route scroll restoration to that viewport during migration. The blog shell has not been migrated as part of adding this capability.
+`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header.
+
+```jsx
+import { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
+
+<ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>
+<ScrollEdges offsetTop={64} />
+```
+
+The edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.
 
 The `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.
 
@@ -6417,7 +6430,7 @@ Drawing has no keyboard equivalent. The Draw or Type example composes existing T
 
 > Core/Skeleton · core · `@gaudi/design-system/core/Skeleton`
 
-Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes. Shimmer is the text counterpart: a highlight that sweeps across a label such as Thinking… while work is in progress.
+Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes. Shimmer is the text counterpart: a highlight that sweeps across a label such as Thinking… while work is in progress. SkeletonMorph grows placeholders into the loaded content block by block instead of swapping them.
 
 ## Import
 
@@ -6426,33 +6439,45 @@ import Skeleton from '@gaudi/design-system/core/Skeleton';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `Shimmer`, `SkeletonRoot`, `default`
+Exports: `Shimmer`, `SkeletonMorph`, `SkeletonMorphBlock`, `SkeletonRoot`, `default`
 
 ## Props
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `className` | `string` | — | no | Defines shape, width, height, radius, and layout placement. |
+| `as` | `ElementType` | `div` | no | Element to render; use 'span' inside text such as a paragraph or link. |
 | `Shimmer.children` | `ReactNode` | — | no | Text that shimmers while work is in progress, such as Thinking… or Searching the web…; it stays real, readable text. |
 | `Shimmer.active` | `boolean` | `true` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
 | `duration` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
 | `spread` | `number` | `2` | no | Run or rest the sweep, seconds per sweep, and band width in pixels per character. |
 | `Shimmer.as` | `ElementType` | `span` | no | Element to render, such as p or h3. |
+| `SkeletonMorph.loading` | `boolean` | — | no | Shows placeholders while true; when it turns false each block resizes into its content in document order. |
+| `SkeletonMorph.label` | `string` | — | no | Status message announced while loading, such as Loading profile. |
+| `SkeletonMorph.as` | `ElementType` | `div` | no | Element or component for the region, such as CardContent. |
+| `SkeletonMorphBlock.width / height` | `number \| string` | — | no | Placeholder size; numbers are pixels. Ignored once loaded, when the block takes its content size. |
+| `SkeletonMorphBlock.lines` | `number` | — | no | Text placeholder: that many lines at the content line height, the last one shorter. |
+| `lineHeight` | `number \| string` | `20` | no | Text placeholder: that many lines at the content line height, the last one shorter. |
+| `SkeletonMorphBlock.shape` | `'circle'` | — | no | Round placeholder and clip for avatars. |
 
 ## Usage
 
 ```jsx
-import { Shimmer, Skeleton } from '@gaudi/design-system';
+import { Shimmer, Skeleton, SkeletonMorph, SkeletonMorphBlock } from '@gaudi/design-system';
 
 <>
 <Skeleton className='h-4 w-40' />
 <p role='status'><Shimmer>Searching the web…</Shimmer></p>
+<SkeletonMorph loading={!user} label='Loading profile'>
+  <SkeletonMorphBlock shape='circle' width={48} height={48}><Avatar /></SkeletonMorphBlock>
+  <SkeletonMorphBlock lines={2}><p>{user?.bio}</p></SkeletonMorphBlock>
+</SkeletonMorph>
 </>
 ```
 
 ## Accessibility
 
-Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement. Shimmer keeps its words as real text; put it in a status region when the change should be announced. Both hold still for reduced motion.
+Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement. Shimmer keeps its words as real text; put it in a status region when the change should be announced. Both hold still for reduced motion. SkeletonMorph marks its region aria-busy and announces its label in a status message while loading; placeholders stay hidden, content renders only once loaded, and reduced motion swaps without animating.
 
 ## Examples
 
@@ -6466,6 +6491,7 @@ Curated patterns:
 - Dashboard stats and table — registry item `@gaudi/skeleton-dashboard` (uses `CardContent`, `CardHeader`, `CardRoot`, `SkeletonRoot`)
 - Form — registry item `@gaudi/skeleton-form` (uses `SkeletonRoot`)
 - Media card — registry item `@gaudi/skeleton-media-card` (uses `CardContent`, `CardFooter`, `CardHeader`, `CardRoot`, `SkeletonRoot`)
+- Skeleton morph — registry item `@gaudi/skeleton-morph` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `CardAction`, `CardContent`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `SkeletonMorph`, `SkeletonMorphBlock`)
 - Profile page — registry item `@gaudi/skeleton-profile` (uses `CardContent`, `CardHeader`, `CardRoot`, `Separator`, `SkeletonRoot`)
 
 ## README
@@ -6483,6 +6509,7 @@ import { Skeleton } from '@gaudi/design-system';
 ```
 
 - Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.
+- Inside text, such as a paragraph or a link, render it as a span: `<Skeleton as='span' className='inline-block h-4 w-24' />`.
 - Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.
 - Use a skeleton when the layout is known; use `Loader` for short waits or when the shape is unknown.
 
@@ -6500,6 +6527,27 @@ import { Shimmer } from '@gaudi/design-system';
 - `duration` is one sweep in seconds (default 2); `spread` is the band width in pixels per character (default 2); `active={false}` rests it as plain text.
 - The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.
 - The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.
+
+### Skeleton morph
+
+`SkeletonMorph` grows its placeholders into the loaded content instead of swapping them: when `loading` turns false, each `SkeletonMorphBlock` resizes from its placeholder to its content as the content fades in, one block after another in document order.
+
+```jsx
+import { SkeletonMorph, SkeletonMorphBlock } from '@gaudi/design-system';
+
+<SkeletonMorph loading={!user} label='Loading profile' className='flex items-start gap-3'>
+  <SkeletonMorphBlock shape='circle' width={48} height={48}>
+    <Avatar>…</Avatar>
+  </SkeletonMorphBlock>
+  <SkeletonMorphBlock width={140} lines={1}><p className='leading-5'>{user?.name}</p></SkeletonMorphBlock>
+  <SkeletonMorphBlock lines={3}><p className='leading-5'>{user?.bio}</p></SkeletonMorphBlock>
+</SkeletonMorph>
+```
+
+- Size each placeholder like its content: `width`/`height` for a block (numbers are pixels), or `lines` with the content's `lineHeight` (default 20) for text. `shape='circle'` is for avatars.
+- Block children render only once loaded, but the JSX is still evaluated while loading, so read optional data (`user?.name`).
+- The region is `aria-busy` while loading and announces `label` in a status message; `as` renders it as another element or component, such as `CardContent`. Placeholders stay hidden from assistive tech, and focus is not moved.
+- Reduced motion swaps without animating. Use it for cards, short lists and dashboards whose layout is known in advance; keep plain `Skeleton` rows for long tables, where animating layout is costly, and `Loader` for waits longer than a few seconds.
 
 ---
 
@@ -9221,6 +9269,7 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `label / value` | `ReactNode` | — | no | Metric name and its prepared value. |
+| `valueMotion` | `none \| reel` | `none` | no | reel spins a text or number value into each new figure on ReelText reels; other values render unchanged. |
 | `delta` | `string \| number` | — | no | Change in your formatting, including its sign and zero. |
 | `deltaDirection` | `up \| down \| flat` | — | no | Explicit arrow and semantic colour; the host decides what the change means. |
 | `deltaTone` | `semantic tone` | `neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
@@ -9237,6 +9286,7 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 
 ## Variants
 
+- `valueMotion`: `none`, `reel`
 - `deltaDirection`: `up`, `down`, `flat`
 - `tone`: `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `discovery`, `attention`
 - `variant`: `default`, `tinted`, `inverse`
@@ -9267,6 +9317,7 @@ Curated patterns:
 - Balance — registry item `@gaudi/stat-card-balance` (uses `Button`, `RegistryIcon`, `StatCard`, `StatMeter`)
 - Breakdowns — registry item `@gaudi/stat-card-breakdowns` (uses `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatMeter`)
 - Hero metrics — registry item `@gaudi/stat-card-hero` (uses `Button`, `CardContent`, `CardFooter`, `CardRoot`, `RegistryIcon`, `StatDelta`)
+- Interval switch — registry item `@gaudi/stat-card-interval-reel` (uses `StatCard`, `ToggleGroup`)
 - KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 - Leads with a range — registry item `@gaudi/stat-card-lead-range` (uses `ProgressRoot`, `StatCard`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Quota and progress — registry item `@gaudi/stat-card-quota` (uses `Badge`, `ProgressRoot`, `RegistryIcon`, `StatCard`)
@@ -9276,7 +9327,7 @@ Curated patterns:
 
 ## Related
 
-`core-card`, `core-icon`
+`core-card`, `animations-text-reeltext`, `core-icon`
 
 ## README
 
@@ -9292,6 +9343,8 @@ import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 `StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.
 
 `StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.
+
+`valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.
 
 `StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.
 
@@ -13098,6 +13151,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
+- Activity rings — registry item `@gaudi/radial-chart-activity-rings` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`, `usePrefersReducedMotion`)
 - Labelled scores — registry item `@gaudi/radial-chart-labelled-scores` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`)
 
 ## Related
@@ -18754,6 +18808,70 @@ Visual idea inspired by [Rotating Text](https://reactbits.dev/text-animations/ro
 
 ---
 
+# ReelText
+
+> Animations/Text/ReelText · animations · `@gaudi/design-system/animations/ReelText`
+
+A formatted value whose digits spin into place on slot-machine reels, landing left to right.
+
+## Import
+
+```js
+import ReelText from '@gaudi/design-system/animations/ReelText';
+// also: import { … } from '@gaudi/design-system/animations';
+```
+
+Exports: `ReelText`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `value` | `string \| number` | `""` | no | The value to show, already formatted. Digits become reels; every other character stays fixed. |
+| `duration` | `number` | `900` | no | Milliseconds the first reel takes to land, clamped to 0–4000. |
+| `stagger` | `number` | `70` | no | Milliseconds between consecutive reels landing, left to right, clamped to 0–400. |
+| `paused` | `boolean` | `false` | no | Swap values without motion. System reduced motion, hidden tabs and offscreen containers do the same. |
+| `className / style / ref` | `DOM props` | — | no | Applied to the outer span. Typography is inherited. |
+
+## Usage
+
+```jsx
+import { ReelText } from '@gaudi/design-system/animations/ReelText';
+
+<ReelText value="$31,904" />
+```
+
+## Accessibility
+
+The root is one image named with the whole value; the reels are hidden, so the value is read once and never digit by digit. Reduced motion swaps values instantly.
+
+## Notes
+
+- Motion inspired by [Slot text](https://uiarc.dev/components/slot-text) from Arc. Independently implemented for Gaudi; no Arc code or assets are included.
+
+## Examples
+
+- Playground (Storybook `animations-text-reeltext--playground`)
+- Changing value (Storybook `animations-text-reeltext--changing-value`)
+
+## README
+
+A formatted value whose digits spin into place on slot-machine reels. Use it for figures that change in place, such as a metric switching period; it is how `StatCard` animates its value with `valueMotion='reel'`.
+
+```jsx
+import { ReelText } from '@gaudi/design-system/animations/ReelText';
+
+<ReelText value='$31,904' />
+```
+
+Pass the value already formatted. Each digit is a 0–9 reel that rolls to its digit with a fast start and a soft landing (`--ds-motion-ease-out`); reels land left to right, `stagger` milliseconds apart, the first after `duration`. Separators, currency signs and letters stay fixed, and characters are matched from the end, so `999` → `1,000` spins only digits. The first paint rolls up from zero.
+
+The root is one image with the whole value as its accessible name; the reels are hidden from assistive technology. Reduced motion, `paused`, hidden tabs and offscreen containers swap the value without motion.
+
+Motion inspired by Arc's Slot text.
+
+---
+
 # Typewriter
 
 > Animations/Text/Typewriter · animations · `@gaudi/design-system/animations/Typewriter`
@@ -22243,6 +22361,24 @@ npx shadcn@latest add ./public/r/stat-card-hero.json
 ```
 
 Uses: `Button`, `CardContent`, `CardFooter`, `CardRoot`, `RegistryIcon`, `StatDelta`
+
+npm dependencies: `@gaudi/design-system`
+
+# Interval switch
+
+> Registry item `@gaudi/stat-card-interval-reel` · stat-card · builds on `blocks/StatCard`
+
+Interval switch. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.
+
+## Install
+
+```sh
+npx shadcn@latest add @gaudi/stat-card-interval-reel
+# local file, before hosting:
+npx shadcn@latest add ./public/r/stat-card-interval-reel.json
+```
+
+Uses: `StatCard`, `ToggleGroup`
 
 npm dependencies: `@gaudi/design-system`
 

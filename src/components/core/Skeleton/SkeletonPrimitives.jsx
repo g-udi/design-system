@@ -1,7 +1,8 @@
 import { cn } from '../../../utilities/cn/index.js';
-function Skeleton({ className, ...props }) {
+// `as='span'` keeps a placeholder valid inside text, such as a paragraph or a link.
+function Skeleton({ as: Component = 'div', className, ...props }) {
   return (
-    <div
+    <Component
       data-slot='skeleton'
       className={cn('ds-part-skeleton animate-pulse', className)}
       {...props}

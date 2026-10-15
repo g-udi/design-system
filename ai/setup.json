@@ -70,6 +70,6 @@
   },
   "imports": {
     "rule": "Prefer owner leaf entries (e.g. @gaudi/design-system/core/Button) in route code; root and category entries are valid. Only package.json exports are public; never import src/ paths.",
-    "entries": 283
+    "entries": 284
   }
 }

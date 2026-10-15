@@ -19,16 +19,16 @@ export default async function DocsPage(props: { params: Promise<{ slug?: string[
   const origin = pageOrigin(page);
   const { previous, next } = findNeighbour(source.pageTree, page.url);
   return (
-    <DocsShell tree={source.pageTree} aside={full ? undefined : <Toc items={page.data.toc} />}>
-      {/* One child: a server-rendered array would reach the client shell as an unkeyed list. */}
+    <DocsShell tree={source.pageTree} aside={full ? undefined : <Toc key='toc' items={page.data.toc} />}>
+      {/* Server fragments cross the client boundary as arrays, so their slots need stable keys. */}
       <>
-      <article className='site-prose prose' data-full={full ? 'true' : undefined}>
+      <article key='article' className='site-prose prose' data-full={full ? 'true' : undefined}>
         <h1 className='mb-2 [overflow-wrap:anywhere]'>{page.data.title}</h1>
         {page.data.description ? <p className='mt-0 text-lg text-text-muted'>{page.data.description}</p> : null}
         <PageActions markdownUrl={markdownPath(page.url)} sourceUrl={origin.sourceUrl} />
         <MDX components={mdxComponents} />
       </article>
-      <PageFooter previous={previous} next={next} lastModified={origin.lastModified} editUrl={origin.editUrl} />
+      <PageFooter key='footer' previous={previous} next={next} lastModified={origin.lastModified} editUrl={origin.editUrl} />
       </>
     </DocsShell>
   );

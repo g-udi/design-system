@@ -9661,6 +9661,32 @@
       ]
     },
     {
+      "name": "radial-chart-activity-rings",
+      "type": "registry:example",
+      "title": "Activity rings",
+      "description": "Activity rings. Charts/RadialChart pattern composed from @gaudi/design-system/charts/RadialChart and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "radial-chart",
+        "charts"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "charts/RadialChart",
+        "import": "@gaudi/design-system/charts/RadialChart",
+        "storyId": "charts-radialchart--activity-rings",
+        "source": "src/components/charts/RadialChart/stories/fixtures/radial-chart/radial-chart-activity-rings.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/radial-chart-activity-rings.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "radial-chart-labelled-scores",
       "type": "registry:example",
       "title": "Labelled scores",
@@ -11747,6 +11773,35 @@
       ]
     },
     {
+      "name": "skeleton-morph",
+      "type": "registry:example",
+      "title": "Skeleton morph",
+      "description": "Skeleton morph. Core/Feedback & States/Skeleton pattern composed from @gaudi/design-system/core/Skeleton and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "skeleton",
+        "core"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-23.svg.",
+      "meta": {
+        "owner": "core/Skeleton",
+        "import": "@gaudi/design-system/core/Skeleton",
+        "storyId": "core-skeleton--morph",
+        "source": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-morph.jsx",
+        "assets": [
+          "/avatars/person-23.svg"
+        ]
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/skeleton-morph.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "skeleton-profile",
       "type": "registry:example",
       "title": "Profile page",
@@ -12115,6 +12170,32 @@
       "files": [
         {
           "path": "registry/gaudi/blocks/stat-card-hero.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "stat-card-interval-reel",
+      "type": "registry:block",
+      "title": "Interval switch",
+      "description": "Interval switch. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "stat-card",
+        "blocks"
+      ],
+      "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "blocks/StatCard",
+        "import": "@gaudi/design-system/blocks/StatCard",
+        "storyId": "blocks-stat-cards--interval-reel",
+        "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-interval-reel.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/blocks/stat-card-interval-reel.jsx",
           "type": "registry:component"
         }
       ]

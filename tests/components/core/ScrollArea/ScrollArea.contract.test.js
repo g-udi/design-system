@@ -24,3 +24,14 @@ test('smooth ScrollArea preserves server content, region naming and scrollbar cu
   assert.doesNotMatch(html, /aria-label="Scrollable content"|smooth="|viewportRef=|scrollbarClassName=/);
   assert.equal(html, renderToStaticMarkup(createElement(publicAPI.ScrollArea, props, article)));
 });
+
+test('ScrollEdges renders two decorative edges, fixed to the page when no target is given', () => {
+  const page = renderToStaticMarkup(createElement(publicAPI.ScrollEdges, { offsetTop: 64 }));
+  assert.equal(page.match(/data-slot="scroll-edge"/g).length, 2);
+  assert.match(page, /aria-hidden="true" data-slot="scroll-edge" data-edge="top" data-page=""[^>]*style="opacity:0;top:64px"/);
+  assert.match(page, /data-edge="bottom" data-page=""[^>]*style="opacity:0"/);
+  const area = renderToStaticMarkup(createElement(publicAPI.ScrollArea, { fadeEdges: true, 'aria-label': 'Article' }, 'Body'));
+  assert.equal(area.match(/data-slot="scroll-edge"/g).length, 2);
+  assert.doesNotMatch(area, /data-page/);
+  assert.doesNotMatch(renderToStaticMarkup(createElement(publicAPI.ScrollArea, { 'aria-label': 'Article' }, 'Body')), /scroll-edge/);
+});

@@ -6,6 +6,7 @@ import { useMergedRefs } from '../../../hooks/state/use-merged-refs.js';
 import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { usePageVisibility } from '../../../hooks/environment/use-page-visibility.js';
 import { useInView } from '../../../hooks/layout/use-in-view.js';
+import { ScrollEdges } from './ScrollEdges.jsx';
 
 // Keep the optional engine and its subscriptions out of ordinary ScrollAreas.
 function SmoothScrolling({ viewportRef }) {
@@ -51,7 +52,7 @@ function SmoothScrolling({ viewportRef }) {
   return null;
 }
 
-function ScrollArea({ className, children, smooth = false, viewportRef, scrollbarClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props }) {
+function ScrollArea({ className, children, smooth = false, fadeEdges = false, viewportRef, scrollbarClassName, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, ...props }) {
   const localViewport = useRef(null);
   const mergedViewportRef = useMergedRefs(localViewport, viewportRef);
   return (
@@ -74,6 +75,7 @@ function ScrollArea({ className, children, smooth = false, viewportRef, scrollba
       <ScrollBar className={scrollbarClassName?.track} thumbClassName={scrollbarClassName?.thumb} />
       <ScrollAreaPrimitive.Corner />
       {smooth && <SmoothScrolling viewportRef={localViewport} />}
+      {fadeEdges && <ScrollEdges targetRef={localViewport} />}
     </ScrollAreaPrimitive.Root>
   );
 }

@@ -81,8 +81,10 @@ export const Playground = {
     if (window.matchMedia('(min-width: 1024px)').matches) await expect(contents).toBeVisible();
     else await expect(contents).not.toBeVisible();
     if (entry.readingTime) {
+      // Reading time shows at every width; the contents control leads it in the same row on wide screens.
       const readingTime = canvas.getByText(entry.readingTime.text);
-      await expect(contents.parentElement.contains(readingTime)).toBe(true);
+      await expect(readingTime).toBeVisible();
+      await expect(contents.closest('div').contains(readingTime)).toBe(true);
       await expect(contents.compareDocumentPosition(readingTime) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     }
     if (entry.seriesPosts?.length) {

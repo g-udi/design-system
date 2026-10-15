@@ -11,7 +11,7 @@ import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `ScrollArea`, `ScrollBar`
+Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`
 
 ## Props
 
@@ -19,6 +19,10 @@ Exports: `ScrollArea`, `ScrollBar`
 | --- | --- | --- | --- | --- |
 | `type` | `auto \| always \| scroll \| hover` | `hover` | no | Scrollbar visibility behavior. |
 | `smooth` | `boolean` | `false` | no | Enhances vertical mouse-wheel scrolling with Lenis. Touch, keyboard, focus, links and reduced motion retain native behavior. The engine loads only when requested and pauses when the area or page is hidden. |
+| `fadeEdges` | `boolean` | `false` | no | Blurs the top and bottom edges while more content continues past them. Decorative: hidden during keyboard focus, for reduced motion and in forced colours. |
+| `ScrollEdges.targetRef` | `Ref<HTMLElement>` | `page` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `offsetTop` | `number` | `0` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `range` | `number` | `80` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
 | `viewportRef` | `Ref<HTMLElement>` | — | no | Ref to the actual scrolling viewport. Share with ReadingIndicator.targetRef, a heading observer or native scrollTo calls. The ordinary ref still points to the outer root. |
 | `scrollbarClassName` | `{ track?: string, thumb?: string }` | — | no | Classes for the built-in vertical scrollbar track and thumb, using Gaudi tokens. |
 | `ScrollBar.orientation` | `horizontal \| vertical` | `vertical` | no | Axis of an additional scrollbar. Smooth wheel motion applies to the vertical viewport; horizontal regions remain native. |
@@ -44,7 +48,7 @@ Give the viewport a useful accessible name using aria-label or aria-labelledby. 
 
 ## Notes
 
-- Blog migration decision: use ScrollArea with smooth enabled as the main area hosting blog post content. Keep one article viewport, and pass its viewportRef to reading progress and heading navigation. Adapt the consuming layout, table of contents and route scroll restoration during that migration; this component does not migrate the blog shell itself.
+- A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses ScrollEdges without targetRef for the same blurred edges. Use a bounded ScrollArea when the reading area is the only scroller, as in the Article examples.
 - Smooth scrolling is an enhancement to the existing ScrollArea owner, not a second global page scroller. Bound the height, including min-h-0 when using a flex layout. Avoid stacking a second document-wide smoothing engine around it.
 - Native fragment links, keyboard scrolling, focus, text selection and touch retain browser behavior. Pointer and keyboard intent interrupt any pending wheel inertia. Code, tables and other nested scroll regions scroll natively.
 - Theme the track and thumb through scrollbarClassName. Keep enough contrast and an adequate hit area. Use ScrollBar with orientation="horizontal" for content that deliberately overflows horizontally.
@@ -62,7 +66,7 @@ Curated patterns:
 
 ## Related
 
-`core-pointer`, `mdx-code`, `core-readingindicator`
+`blocks-blog-article`, `core-pointer`, `mdx-code`, `core-readingindicator`
 
 ## README
 
@@ -96,8 +100,17 @@ export function ArticleReader({ children }) {
 
 Touch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.
 
-### Blog migration decision
+### Faded edges
 
-Use **`ScrollArea smooth` as the main area hosting blog post content** when migrating the blog. Compose the existing post/MDX content inside one article viewport. Keep app navigation in the surrounding layout. Use `viewportRef` for `ReadingIndicator.targetRef`, and adapt the consuming table of contents, heading observers, fragment navigation and route scroll restoration to that viewport during migration. The blog shell has not been migrated as part of adding this capability.
+`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header.
+
+```jsx
+import { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
+
+<ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>
+<ScrollEdges offsetTop={64} />
+```
+
+The edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.
 
 The `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.

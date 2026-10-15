@@ -69,3 +69,13 @@ test('PostSeriesBox identifies zero IDs without marking an absent selection curr
   const absent = await renderComponent(path, { series });
   assert.match(absent, /aria-valuenow="0"/);
 });
+
+test('PostHeader shows the reading time with or without a contents control', async () => {
+  const path = new URL('../../../../src/components/post/PostHeader/index.js', import.meta.url);
+  const frontMatter = { title: 'Linked data quality', readingTime: { text: '36 min read' } };
+  assert.match(await renderComponent(path, { frontMatter }), />36 min read</);
+  const withControl = await renderComponent(path, { frontMatter, tocControl: 'Show contents' });
+  assert.match(withControl, /<span class="hidden lg:contents">Show contents<\/span>/);
+  assert.match(withControl, />36 min read</);
+  assert.doesNotMatch(await renderComponent(path, { frontMatter: { title: 'Untimed' } }), /min read/);
+});

@@ -3,6 +3,7 @@ import { CardAction, CardContent, CardFooter, CardHeader, CardRoot, CardTitle } 
 import { Badge } from '../../core/Pill/Badge.jsx';
 import { IconTile } from '../../core/Icon/IconTile.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
+import { ReelText } from '../../animations/ReelText/ReelText.jsx';
 
 export const statTones = ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'];
 
@@ -103,8 +104,9 @@ export function StatMeter({ segments = [], label, showLegend = true, formatValue
  * A metric card on the Core Card: label, value and delta, with an optional icon tile,
  * action (usually a menu), description, footer and extra content such as a meter.
  * `variant` is `default`, `tinted` (a colour block in `tone`) or `inverse` (dark).
+ * `valueMotion='reel'` spins a text or number value into each new figure on ReelText reels.
  */
-export default function StatCard({ label, value, delta, deltaDirection, deltaTone = 'neutral', icon, tone = 'neutral', variant = 'default', action, description, footer, children, className }) {
+export default function StatCard({ label, value, valueMotion = 'none', delta, deltaDirection, deltaTone = 'neutral', icon, tone = 'neutral', variant = 'default', action, description, footer, children, className }) {
   return (
     <CardRoot
       data-slot='stat-card'
@@ -120,7 +122,7 @@ export default function StatCard({ label, value, delta, deltaDirection, deltaTon
       </CardHeader>
       <CardContent className='grid grid-cols-1 gap-2 px-4'>
         <div className='flex flex-wrap items-baseline gap-2'>
-          <span data-slot='stat-value' className='text-2xl font-semibold tracking-tight tabular-nums'>{value}</span>
+          <span data-slot='stat-value' className='text-2xl font-semibold tracking-tight tabular-nums'>{valueMotion === 'reel' && (typeof value === 'string' || typeof value === 'number') ? <ReelText value={value} /> : value}</span>
           {delta !== undefined && delta !== null ? <StatDelta value={delta} direction={deltaDirection} tone={deltaTone} /> : null}
         </div>
         {description ? <p className='text-text-muted text-sm'>{description}</p> : null}

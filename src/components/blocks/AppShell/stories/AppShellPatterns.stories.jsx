@@ -588,7 +588,7 @@ export const CrawlerControl = {
     await userEvent.click(nav.getByRole('button', { name: 'Expand Essays feed detail' }));
     await expect(nav.getByRole('button', { name: 'Collapse Essays feed detail' })).toHaveAttribute('aria-expanded', 'true');
     await expect(nav.getByRole('button', { name: 'Expand City archive detail' })).toHaveAttribute('aria-expanded', 'false');
-    await expect(nav.getByText('Summarizing')).toBeInTheDocument();
+    await expect(nav.getByText('9/9 pages')).toBeInTheDocument();
     await userEvent.click(nav.getByRole('button', { name: 'Expand scheduled' }));
     await expect(await nav.findByText(/Shelf D/)).toBeVisible();
     await userEvent.click(nav.getByRole('button', { name: 'Sort runs' }));

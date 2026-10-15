@@ -1,4 +1,4 @@
-import { useEffect, useId, useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import ArticleContentLayout from '@gaudi/design-system/layout/ArticleContentLayout';
 import Link from '@gaudi/design-system/core/Link';
 import Switch from '@gaudi/design-system/core/Switch';
@@ -13,8 +13,6 @@ import Quote from '@gaudi/design-system/mdx/Quote';
 import Callout from '@gaudi/design-system/mdx/Callout';
 import { CodeBlock, CodeBlockHeader, CodeBlockTitle, CodeBlockCopyButton } from '@gaudi/design-system/core/CodeBlock';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
-import { useElementSize } from '@gaudi/design-system/hooks/layout/use-element-size';
-import { useScrollPosition } from '@gaudi/design-system/hooks/layout/use-scroll-position';
 import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 import styles from './BlogArticleDemo.css?raw';
 
@@ -23,25 +21,6 @@ const studies = [
   { id: 'peach', src: '/static/images/art/1.svg', alt: 'Peach and pink color study', caption: 'Peach bloom', width: 1200, height: 900 },
   { id: 'aqua', src: '/static/images/art/2.svg', alt: 'Aqua and blue color study', caption: 'Cool light', width: 1200, height: 900 }
 ];
-
-// The small overlays update independently of the article and its media.
-// Visual reference: https://skiper-ui.com/v1/skiper41 (Progressive Blur).
-function BlogScrollBlur({ targetRef }) {
-  const position = useScrollPosition({ targetRef });
-  const [measureViewport, viewportSize] = useElementSize();
-  const [measureContent, contentSize] = useElementSize();
-  useEffect(() => {
-    measureViewport(targetRef.current);
-    measureContent(targetRef.current?.firstElementChild);
-    return () => { measureViewport(null); measureContent(null); };
-  }, [targetRef, measureViewport, measureContent]);
-  const remaining = Math.max(0, contentSize.height - viewportSize.height - position);
-  const strength = distance => distance < 1 ? 0 : Math.min(1, distance / 80);
-  return <>
-    <div aria-hidden='true' className='gaudi-blog-blur' data-edge='top' style={{ opacity: strength(position) }} />
-    <div aria-hidden='true' className='gaudi-blog-blur' data-edge='bottom' style={{ opacity: strength(remaining) }} />
-  </>;
-}
 
 function ArticleReadingFrame({ frontMatter, sections: sectionTitles, children, variant = 'standard', smooth = true, contents = 'visible', defaultProgressiveBlur = true }) {
   const viewport = useRef(null);
@@ -79,7 +58,7 @@ function ArticleReadingFrame({ frontMatter, sections: sectionTitles, children, v
 
     {/* Every navigator and reading indicator shares the same article viewport. */}
     <div className='gaudi-blog-reading' data-progressive-blur={blurEnabled}>
-      <ScrollArea smooth={smooth} viewportRef={viewport} type='auto' aria-label='Blog post content' className='gaudi-blog-scroll'>
+      <ScrollArea smooth={smooth} fadeEdges={blurEnabled} viewportRef={viewport} type='auto' aria-label='Blog post content' className='gaudi-blog-scroll'>
         <article ref={articleRef} className='gaudi-blog-article' aria-label={title}>
           <header className='gaudi-blog-title' id={`${id}-title`} tabIndex={-1}>
             <PostHeader frontMatter={frontMatter} titleVariant='title-md' subtitleVariant='paragraph-md' classNames={{ series: 'mt-6' }} siteMetadata={{ locale: 'en-GB' }} />
@@ -107,7 +86,6 @@ function ArticleReadingFrame({ frontMatter, sections: sectionTitles, children, v
           </ArticleContentLayout>
         </article>
       </ScrollArea>
-      {blurEnabled && <BlogScrollBlur targetRef={viewport} />}
     </div>
   </div>;
 }

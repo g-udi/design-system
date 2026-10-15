@@ -79,7 +79,6 @@ const runs = [
     eta: '12m',
     pages: '184',
     quota: '88%',
-    state: 'Summarizing',
     events: [
       { time: '15:02', label: 'Pages fetched', icon: 'Download', units: '9/9 pages' },
       { time: '15:09', label: 'Filed to shelf', icon: 'Library', shelf: 'A' }
@@ -93,8 +92,6 @@ const runs = [
     eta: '24m',
     pages: '1.2k',
     quota: '76%',
-    state: 'Deduplicating',
-    crew: 'omar',
     events: [
       { time: '15:05', label: 'Pages fetched', icon: 'Download', units: '18/18 pages' },
       { time: '15:13', label: 'Rate limit hit', icon: 'Clock', delay: '+6 min' },
@@ -111,7 +108,6 @@ const runs = [
     eta: '18m',
     pages: '96',
     quota: '81%',
-    state: 'Extracting',
     events: [
       { time: '14:58', label: 'Pages fetched', icon: 'Download', units: '12/12 pages' },
       { time: '15:11', label: 'Filed to shelf', icon: 'Library', shelf: 'J' }
@@ -125,8 +121,6 @@ const runs = [
     eta: '41m',
     pages: '22',
     quota: '34%',
-    state: 'Stalled',
-    crew: 'omar',
     events: [
       { time: '14:44', label: 'Rate limit hit', icon: 'Clock', delay: '+14 min' },
       { time: '15:01', label: 'Quota dropped', icon: 'Gauge', bars: 2 }
@@ -140,7 +134,6 @@ const runs = [
     eta: '9m',
     pages: '58',
     quota: '93%',
-    state: 'Fetching',
     events: [{ time: '15:16', label: 'Fetching pages', icon: 'Download', units: '4/11 pages' }]
   }
 ];
@@ -362,11 +355,6 @@ function RunRow({ run, expanded, onToggle }) {
               </div>
             ))}
           </dl>
-          <div className='flex min-w-0 flex-wrap items-center gap-2 text-sm'>
-            <RegistryIcon lucide='Settings2' aria-label='State' className='text-text-muted size-3.5' />
-            <span>{run.state}</span>
-            {run.crew ? <CrewBadge id={run.crew} /> : null}
-          </div>
           <EventFeed events={run.events} />
           <Button asChild variant='outline' size='xs' className='w-full'>
             <a href={`#log-${run.id}`} aria-label={`Open ${run.name} run log`} onClick={noop}>

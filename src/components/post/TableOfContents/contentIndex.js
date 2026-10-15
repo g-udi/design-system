@@ -29,7 +29,11 @@ const getTableLabel = (table, index) => {
   return normalizeVisualLabel(caption || headers, `Table ${index + 1}`);
 };
 
-export const collectVisuals = (content) => {
+/**
+ * Captioned diagrams and tables in reading order, each with a stable fragment id. `assign: false`
+ * computes the ids without writing them, for content that may still be hydrating.
+ */
+export const collectVisuals = (content, { assign = true } = {}) => {
   const article = content || document.querySelector('main article') || document.querySelector('article');
 
   if (!article) return [];
@@ -65,11 +69,12 @@ export const collectVisuals = (content) => {
         id = `${baseId}-${suffix}`;
       }
 
-      visual.element.id = id;
+      if (assign) visual.element.id = id;
       claimedIds.add(id);
     }
 
     return {
+      'element': visual.element,
       id,
       'kind': visual.kind,
       'label': visual.label,
@@ -78,3 +83,9 @@ export const collectVisuals = (content) => {
   });
 };
 
+/** Writes each visual's computed id onto its element when it has none yet. */
+export const assignVisualIds = (visuals) => {
+  visuals.forEach(({ element, id }) => {
+    if (element?.isConnected && !element.id) element.id = id;
+  });
+};

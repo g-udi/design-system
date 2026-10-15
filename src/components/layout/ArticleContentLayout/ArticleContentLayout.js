@@ -66,7 +66,8 @@ const ArticleContentLayout = ({
           </div>
         </div>
         {showAsideRail && reserveAsideRail ? (
-          <div data-slot='article-aside-rail' className='order-1 border-b border-border py-3 lg:order-none lg:col-span-3 lg:border-b-0 lg:pt-8'>
+          // On wide screens the rail stays beside the prose while it scrolls; a long contents list scrolls within it.
+          <div data-slot='article-aside-rail' className='order-1 border-b border-border py-3 lg:sticky lg:top-6 lg:order-none lg:col-span-3 lg:max-h-[calc(100dvh-3rem)] lg:self-start lg:overflow-y-auto lg:overscroll-contain lg:border-b-0 lg:pt-8'>
             {showAsideToggle ? (
               <Button
                 variant='subtle'

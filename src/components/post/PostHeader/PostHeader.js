@@ -71,10 +71,11 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
       </Typography>
     </div>
 
-    {tocControl ? (
+    {/* Reading time shows whenever the post has one; an optional contents control leads on wide screens. */}
+    {tocControl || frontMatter.readingTime?.text ? (
       <PostTimestamps
-        action={ tocControl }
-        className={ cn('mt-4 hidden lg:flex', classNames.timestamps) }
+        action={ tocControl ? <span className='hidden lg:contents'>{tocControl}</span> : null }
+        className={ cn('mt-4', classNames.timestamps) }
         readingTime={ frontMatter.readingTime?.text }
       />
     ) : null}

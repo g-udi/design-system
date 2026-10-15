@@ -712,6 +712,7 @@
       "RadioGroupRoot",
       "Rating",
       "ReadingIndicator",
+      "ReelText",
       "ResizableHandle",
       "ResizablePanel",
       "ResizablePanelGroup",
@@ -785,6 +786,8 @@
       "SignaturePadUndo",
       "SiteConfigProvider",
       "Skeleton",
+      "SkeletonMorph",
+      "SkeletonMorphBlock",
       "SkeletonRoot",
       "Slider",
       "Sortable",
@@ -2600,6 +2603,8 @@
       "SignaturePadSave",
       "SignaturePadUndo",
       "Skeleton",
+      "SkeletonMorph",
+      "SkeletonMorphBlock",
       "SkeletonRoot",
       "Slider",
       "Sortable",
@@ -4160,7 +4165,8 @@
     ],
     "@gaudi/design-system/core/ScrollArea": [
       "ScrollArea",
-      "ScrollBar"
+      "ScrollBar",
+      "ScrollEdges"
     ],
     "@gaudi/design-system/core/Scrollspy": [
       "Scrollspy"
@@ -4235,6 +4241,8 @@
     ],
     "@gaudi/design-system/core/Skeleton": [
       "Shimmer",
+      "SkeletonMorph",
+      "SkeletonMorphBlock",
       "SkeletonRoot",
       "default"
     ],
@@ -4999,6 +5007,7 @@
       "PhraseCycle",
       "PixelBlast",
       "Plasma",
+      "ReelText",
       "ShapeWaves",
       "SideRays",
       "Typewriter",
@@ -5024,6 +5033,10 @@
     ],
     "@gaudi/design-system/animations/PhraseCycle": [
       "PhraseCycle",
+      "default"
+    ],
+    "@gaudi/design-system/animations/ReelText": [
+      "ReelText",
       "default"
     ],
     "@gaudi/design-system/animations/WarpText": [

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-card-interval-reel",
+  "type": "registry:block",
+  "title": "Interval switch",
+  "description": "Interval switch. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "stat-card",
+    "blocks"
+  ],
+  "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+  "meta": {
+    "owner": "blocks/StatCard",
+    "import": "@gaudi/design-system/blocks/StatCard",
+    "storyId": "blocks-stat-cards--interval-reel",
+    "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-interval-reel.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/blocks/stat-card-interval-reel.jsx",
+      "type": "registry:component",
+      "content": "import { useState } from 'react';\nimport { StatCard } from '@gaudi/design-system/blocks/StatCard';\nimport ToggleGroup from '@gaudi/design-system/core/ToggleGroup';\n\nconst periods = [\n  { value: 'today', label: 'Today', revenue: '$4,558', delta: '3.1%', direction: 'up', tone: 'success', comparison: 'vs yesterday' },\n  { value: 'week', label: 'Week', revenue: '$31,904', delta: '12.4%', direction: 'up', tone: 'success', comparison: 'vs last week' },\n  { value: 'month', label: 'Month', revenue: '$127,616', delta: '2.2%', direction: 'down', tone: 'danger', comparison: 'vs last month' },\n  { value: 'year', label: 'Year', revenue: '$1,531,392', delta: '18.6%', direction: 'up', tone: 'success', comparison: 'vs last year' }\n];\n\nexport function Pattern() {\n  const [period, setPeriod] = useState('week');\n  const current = periods.find((entry) => entry.value === period) ?? periods[1];\n  return (\n    <StatCard\n      className='w-full max-w-sm'\n      label='Revenue'\n      value={current.revenue}\n      valueMotion='reel'\n      delta={current.delta} deltaDirection={current.direction} deltaTone={current.tone}\n      description={current.comparison}\n    >\n      <ToggleGroup\n        type='single'\n        label='Revenue period'\n        value={period}\n        onValueChange={(value) => value && setPeriod(value)}\n        options={periods.map(({ value, label }) => ({ value, label }))}\n      />\n    </StatCard>\n  );\n}\n"
+    }
+  ]
+}

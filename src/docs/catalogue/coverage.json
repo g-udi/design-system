@@ -2964,6 +2964,14 @@
           "file": "src/components/charts/RadialChart/stories/fixtures/radial-chart/radial-chart-labelled-scores.jsx",
           "sha256": "294a3e748b33f61960df3d44295293b26ac6eea832f27dda6aab0b0792708233",
           "storyId": "charts-radialchart--labelled-scores"
+        },
+        {
+          "name": "radial-chart-activity-rings",
+          "title": "Activity rings",
+          "description": "Activity rings",
+          "file": "src/components/charts/RadialChart/stories/fixtures/radial-chart/radial-chart-activity-rings.jsx",
+          "sha256": "78082abcdf9a1d425f4ed84f4273eab612e3a387a9bc76e4f9053c2e7764d70b",
+          "storyId": "charts-radialchart--activity-rings"
         }
       ]
     },
@@ -3663,6 +3671,14 @@
           "file": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-chat.jsx",
           "sha256": "1feda676640123437bafe4684e8d826b04d9fdd2dd0125841b196080387e1502",
           "storyId": "core-skeleton--chat"
+        },
+        {
+          "name": "skeleton-morph",
+          "title": "Skeleton morph",
+          "description": "Skeleton morph",
+          "file": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-morph.jsx",
+          "sha256": "c24ff6aa5e83c45b5b8567e8c0b2445bc846ca7db75334e387b81de39a516bc7",
+          "storyId": "core-skeleton--morph"
         }
       ]
     },
@@ -3906,6 +3922,14 @@
           "file": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-hero.jsx",
           "sha256": "0fb8b8a1c5072cb98ea831621da03213ad7300f642dee7340d949f0f2b982e04",
           "storyId": "blocks-stat-cards--hero"
+        },
+        {
+          "name": "stat-card-interval-reel",
+          "title": "Interval switch",
+          "description": "Interval switch",
+          "file": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-interval-reel.jsx",
+          "sha256": "549ae386c330bf410eb18e688c9686834d9fb7bbdde46dcbc945f3d41c1da6ba",
+          "storyId": "blocks-stat-cards--interval-reel"
         }
       ]
     },

@@ -114,8 +114,18 @@ const config = {
         ...viteConfig.server,
         watch: {
           ...viteConfig.server?.watch,
-          // The docs site (with its .next cache and bundled Storybook build) churns constantly and is not a Storybook source.
-          ignored: [viteConfig.server?.watch?.ignored, '**/.storybook/verification/**', '**/site/**'].flat().filter(Boolean)
+          // The docs site and the generated AI/registry outputs rewrite hundreds of files at a time and are
+          // not Storybook sources; watching them grew the dev server's memory until it crashed.
+          ignored: [
+            viteConfig.server?.watch?.ignored,
+            '**/.storybook/verification/**',
+            '**/site/**',
+            '**/public/r/**',
+            '**/ai/**',
+            '**/docs/llm/**',
+            '**/llms*.txt',
+            '**/registry.json'
+          ].flat().filter(Boolean)
         }
       },
       'build': {

@@ -61,3 +61,14 @@ export const TeamPerformance = {
 };
 export const Support = { name: 'Support metrics', ...pattern('support', 'Icon tiles with a status badge per metric; response time and escalations read rising as bad.') };
 export const Hero = { name: 'Hero metrics', ...pattern('hero', 'Large metrics with a one-line summary and a dark action bar.') };
+export const IntervalReel = {
+  name: 'Interval switch',
+  ...pattern('interval-reel', 'A period switch flips revenue between today, week, month and year; valueMotion reel spins the digits into each figure.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('img', { name: '$31,904' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('radio', { name: 'Year' }));
+    await waitFor(() => expect(canvas.getByRole('img', { name: '$1,531,392' })).toBeVisible());
+    await expect(canvas.getByText('vs last year')).toBeVisible();
+  }
+};

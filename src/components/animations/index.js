@@ -3,6 +3,7 @@ export { Typewriter } from './Typewriter/index.js';
 export { CipherReveal } from './CipherReveal/index.js';
 export { WordSpotlight } from './WordSpotlight/index.js';
 export { PhraseCycle } from './PhraseCycle/index.js';
+export { ReelText } from './ReelText/index.js';
 export { WarpText } from './WarpText/index.js';
 export { MicroSlats } from './MicroSlats/index.js';
 export { PatternWaves } from './PatternWaves/index.js';

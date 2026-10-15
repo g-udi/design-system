@@ -94,7 +94,7 @@ export { ScrollArea, ScrollBar } from './ScrollArea/index.js';
 export { Scrollspy } from './Scrollspy/index.js';
 export { Separator } from './Separator/index.js';
 export { SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayProperties } from './SchemaDisplay/index.js';
-export { SkeletonRoot, Shimmer } from './Skeleton/index.js';
+export { SkeletonRoot, Shimmer, SkeletonMorph, SkeletonMorphBlock } from './Skeleton/index.js';
 export { Slider } from './Slider/index.js';
 export { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from './Sortable/index.js';
 export { LoaderRoot, loaderVariants } from './Loader/index.js';

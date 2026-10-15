@@ -272,6 +272,7 @@
     "./animations/CipherReveal": "./src/components/animations/CipherReveal/index.js",
     "./animations/WordSpotlight": "./src/components/animations/WordSpotlight/index.js",
     "./animations/PhraseCycle": "./src/components/animations/PhraseCycle/index.js",
+    "./animations/ReelText": "./src/components/animations/ReelText/index.js",
     "./animations/WarpText": "./src/components/animations/WarpText/index.js",
     "./animations/MicroSlats": "./src/components/animations/MicroSlats/index.js",
     "./animations/PatternWaves": "./src/components/animations/PatternWaves/index.js",

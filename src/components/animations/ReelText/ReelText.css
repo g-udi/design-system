@@ -1,0 +1,5 @@
+.gaudi-reel-text { display: inline-flex; font-variant-numeric: tabular-nums; vertical-align: bottom; }
+.gaudi-reel-text__reel { display: inline-block; position: relative; height: 1lh; overflow: hidden; }
+.gaudi-reel-text__strip { display: flex; flex-direction: column; transform: translateY(calc(var(--reel-digit, 0) * -10%)); }
+.gaudi-reel-text[data-animated="true"] .gaudi-reel-text__strip { transition: transform var(--reel-duration, 900ms) var(--ds-motion-ease-out); transition-delay: calc(var(--reel-order, 0) * var(--reel-stagger, 70ms)); }
+@media (prefers-reduced-motion: reduce) { .gaudi-reel-text__strip { transition: none !important; } }

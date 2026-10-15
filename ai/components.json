@@ -37,7 +37,7 @@
       "key": "animations",
       "label": "Animations",
       "description": "Text and background effects with scoped rendering, reduced motion and visibility-aware playback.",
-      "count": 28
+      "count": 29
     },
     {
       "key": "mdx",
@@ -15772,7 +15772,8 @@
         "line": "import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';",
         "exports": [
           "ScrollArea",
-          "ScrollBar"
+          "ScrollBar",
+          "ScrollEdges"
         ]
       },
       "description": "Contained scrolling with themed scrollbars and optional smooth wheel motion for article reading.",
@@ -15796,6 +15797,47 @@
           "default": "false",
           "required": false,
           "description": "Enhances vertical mouse-wheel scrolling with Lenis. Touch, keyboard, focus, links and reduced motion retain native behavior. The engine loads only when requested and pauses when the area or page is hidden."
+        },
+        {
+          "name": "fadeEdges",
+          "names": [
+            "fadeEdges"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Blurs the top and bottom edges while more content continues past them. Decorative: hidden during keyboard focus, for reduced motion and in forced colours."
+        },
+        {
+          "name": "ScrollEdges.targetRef",
+          "names": [
+            "targetRef"
+          ],
+          "part": "ScrollEdges",
+          "type": "Ref<HTMLElement>",
+          "default": "page",
+          "required": false,
+          "description": "The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength."
+        },
+        {
+          "name": "offsetTop",
+          "names": [
+            "offsetTop"
+          ],
+          "type": "number",
+          "default": "0",
+          "required": false,
+          "description": "The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength."
+        },
+        {
+          "name": "range",
+          "names": [
+            "range"
+          ],
+          "type": "number",
+          "default": "80",
+          "required": false,
+          "description": "The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength."
         },
         {
           "name": "viewportRef",
@@ -15870,7 +15912,7 @@
       },
       "accessibility": "Give the viewport a useful accessible name using aria-label or aria-labelledby. Constrain the area dimensions and retain keyboard access. Reduced motion skips the smooth engine entirely; native scrolling remains available before hydration or if the enhancement cannot load. Nested scrollable content keeps its own wheel behavior.",
       "notes": [
-        "Blog migration decision: use ScrollArea with smooth enabled as the main area hosting blog post content. Keep one article viewport, and pass its viewportRef to reading progress and heading navigation. Adapt the consuming layout, table of contents and route scroll restoration during that migration; this component does not migrate the blog shell itself.",
+        "A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses ScrollEdges without targetRef for the same blurred edges. Use a bounded ScrollArea when the reading area is the only scroller, as in the Article examples.",
         "Smooth scrolling is an enhancement to the existing ScrollArea owner, not a second global page scroller. Bound the height, including min-h-0 when using a flex layout. Avoid stacking a second document-wide smoothing engine around it.",
         "Native fragment links, keyboard scrolling, focus, text selection and touch retain browser behavior. Pointer and keyboard intent interrupt any pending wheel inertia. Code, tables and other nested scroll regions scroll natively.",
         "Theme the track and thumb through scrollbarClassName. Keep enough contrast and an adequate hit area. Use ScrollBar with orientation=\"horizontal\" for content that deliberately overflows horizontally.",
@@ -15921,8 +15963,9 @@
       "storybook": "core-scrollarea--docs",
       "docs": "docs/llm/core-scrollarea.md",
       "source": "src/components/core/ScrollArea/",
-      "readme": "# ScrollArea\n\nA keyboard-accessible Radix scroll viewport with themed scrollbars. Enable `smooth` for eased vertical mouse-wheel scrolling through the locally installed Lenis engine.\n\n```jsx\n'use client';\n\nimport { useRef } from 'react';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';\n\nexport function ArticleReader({ children }) {\n  const viewport = useRef(null);\n  return (\n    <div className='relative min-h-0'>\n      <ScrollArea smooth viewportRef={viewport} className='h-[calc(100dvh-4rem)]' aria-label='Blog post content'>\n        <article className='mx-auto max-w-prose px-5 py-8'>{children}</article>\n      </ScrollArea>\n      <ReadingIndicator targetRef={viewport} position='absolute' />\n    </div>\n  );\n}\n```\n\n- `smooth` defaults to `false`. `true` adds wheel interpolation, with native scrolling available before hydration and if the enhancement cannot load. It applies to vertical wheel movement, not CSS scroll snapping or a document-wide smooth-scroll engine.\n- `viewportRef` receives the actual scrolling element; `ref` receives the outer root. Use native `scrollTo`, or share the viewport with reading progress and heading observers.\n- `type` controls scrollbar visibility: `hover` (default), `auto`, `always`, or `scroll`.\n- `scrollbarClassName={{ track, thumb }}` styles the built-in vertical scrollbar. For example, `{ thumb: 'bg-accent/60' }` uses the active accent. `ScrollBar` also accepts `thumbClassName` and `orientation='horizontal'`.\n- Give the region an `aria-label` or `aria-labelledby`. Set a bounded height, and use `min-h-0` on flex parents so the content scrolls inside the area.\n\nTouch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.\n\n## Blog migration decision\n\nUse **`ScrollArea smooth` as the main area hosting blog post content** when migrating the blog. Compose the existing post/MDX content inside one article viewport. Keep app navigation in the surrounding layout. Use `viewportRef` for `ReadingIndicator.targetRef`, and adapt the consuming table of contents, heading observers, fragment navigation and route scroll restoration to that viewport during migration. The blog shell has not been migrated as part of adding this capability.\n\nThe `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.",
+      "readme": "# ScrollArea\n\nA keyboard-accessible Radix scroll viewport with themed scrollbars. Enable `smooth` for eased vertical mouse-wheel scrolling through the locally installed Lenis engine.\n\n```jsx\n'use client';\n\nimport { useRef } from 'react';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';\n\nexport function ArticleReader({ children }) {\n  const viewport = useRef(null);\n  return (\n    <div className='relative min-h-0'>\n      <ScrollArea smooth viewportRef={viewport} className='h-[calc(100dvh-4rem)]' aria-label='Blog post content'>\n        <article className='mx-auto max-w-prose px-5 py-8'>{children}</article>\n      </ScrollArea>\n      <ReadingIndicator targetRef={viewport} position='absolute' />\n    </div>\n  );\n}\n```\n\n- `smooth` defaults to `false`. `true` adds wheel interpolation, with native scrolling available before hydration and if the enhancement cannot load. It applies to vertical wheel movement, not CSS scroll snapping or a document-wide smooth-scroll engine.\n- `viewportRef` receives the actual scrolling element; `ref` receives the outer root. Use native `scrollTo`, or share the viewport with reading progress and heading observers.\n- `type` controls scrollbar visibility: `hover` (default), `auto`, `always`, or `scroll`.\n- `scrollbarClassName={{ track, thumb }}` styles the built-in vertical scrollbar. For example, `{ thumb: 'bg-accent/60' }` uses the active accent. `ScrollBar` also accepts `thumbClassName` and `orientation='horizontal'`.\n- Give the region an `aria-label` or `aria-labelledby`. Set a bounded height, and use `min-h-0` on flex parents so the content scrolls inside the area.\n\nTouch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.\n\n## Faded edges\n\n`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header.\n\n```jsx\nimport { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';\n\n<ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>\n<ScrollEdges offsetTop={64} />\n```\n\nThe edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.\n\nThe `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.",
       "related": [
+        "blocks-blog-article",
         "core-pointer",
         "mdx-code",
         "core-readingindicator"
@@ -17620,11 +17663,13 @@
         "line": "import Skeleton from '@gaudi/design-system/core/Skeleton';",
         "exports": [
           "Shimmer",
+          "SkeletonMorph",
+          "SkeletonMorphBlock",
           "SkeletonRoot",
           "default"
         ]
       },
-      "description": "Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes. Shimmer is the text counterpart: a highlight that sweeps across a label such as Thinking… while work is in progress.",
+      "description": "Skeleton renders non-semantic loading placeholders on the theme border token, so blocks read clearly in light and dark themes. Shimmer is the text counterpart: a highlight that sweeps across a label such as Thinking… while work is in progress. SkeletonMorph grows placeholders into the loaded content block by block instead of swapping them.",
       "props": [
         {
           "name": "className",
@@ -17635,6 +17680,16 @@
           "default": null,
           "required": false,
           "description": "Defines shape, width, height, radius, and layout placement."
+        },
+        {
+          "name": "as",
+          "names": [
+            "as"
+          ],
+          "type": "ElementType",
+          "default": "div",
+          "required": false,
+          "description": "Element to render; use 'span' inside text such as a paragraph or link."
         },
         {
           "name": "Shimmer.children",
@@ -17688,11 +17743,88 @@
           "default": "span",
           "required": false,
           "description": "Element to render, such as p or h3."
+        },
+        {
+          "name": "SkeletonMorph.loading",
+          "names": [
+            "loading"
+          ],
+          "part": "SkeletonMorph",
+          "type": "boolean",
+          "default": null,
+          "required": false,
+          "description": "Shows placeholders while true; when it turns false each block resizes into its content in document order."
+        },
+        {
+          "name": "SkeletonMorph.label",
+          "names": [
+            "label"
+          ],
+          "part": "SkeletonMorph",
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Status message announced while loading, such as Loading profile."
+        },
+        {
+          "name": "SkeletonMorph.as",
+          "names": [
+            "as"
+          ],
+          "part": "SkeletonMorph",
+          "type": "ElementType",
+          "default": "div",
+          "required": false,
+          "description": "Element or component for the region, such as CardContent."
+        },
+        {
+          "name": "SkeletonMorphBlock.width / height",
+          "names": [
+            "width",
+            "height"
+          ],
+          "part": "SkeletonMorphBlock",
+          "type": "number | string",
+          "default": null,
+          "required": false,
+          "description": "Placeholder size; numbers are pixels. Ignored once loaded, when the block takes its content size."
+        },
+        {
+          "name": "SkeletonMorphBlock.lines",
+          "names": [
+            "lines"
+          ],
+          "part": "SkeletonMorphBlock",
+          "type": "number",
+          "default": null,
+          "required": false,
+          "description": "Text placeholder: that many lines at the content line height, the last one shorter."
+        },
+        {
+          "name": "lineHeight",
+          "names": [
+            "lineHeight"
+          ],
+          "type": "number | string",
+          "default": "20",
+          "required": false,
+          "description": "Text placeholder: that many lines at the content line height, the last one shorter."
+        },
+        {
+          "name": "SkeletonMorphBlock.shape",
+          "names": [
+            "shape"
+          ],
+          "part": "SkeletonMorphBlock",
+          "type": "'circle'",
+          "default": null,
+          "required": false,
+          "description": "Round placeholder and clip for avatars."
         }
       ],
       "variants": {},
-      "accessibility": "Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement. Shimmer keeps its words as real text; put it in a status region when the change should be announced. Both hold still for reduced motion.",
-      "usage": "import { Shimmer, Skeleton } from '@gaudi/design-system';\n\n<>\n<Skeleton className='h-4 w-40' />\n<p role='status'><Shimmer>Searching the web…</Shimmer></p>\n</>",
+      "accessibility": "Skeleton is aria-hidden and should be paired with loading text or a labelled busy region when content loading needs announcement. Shimmer keeps its words as real text; put it in a status region when the change should be announced. Both hold still for reduced motion. SkeletonMorph marks its region aria-busy and announces its label in a status message while loading; placeholders stay hidden, content renders only once loaded, and reduced motion swaps without animating.",
+      "usage": "import { Shimmer, Skeleton, SkeletonMorph, SkeletonMorphBlock } from '@gaudi/design-system';\n\n<>\n<Skeleton className='h-4 w-40' />\n<p role='status'><Shimmer>Searching the web…</Shimmer></p>\n<SkeletonMorph loading={!user} label='Loading profile'>\n  <SkeletonMorphBlock shape='circle' width={48} height={48}><Avatar /></SkeletonMorphBlock>\n  <SkeletonMorphBlock lines={2}><p>{user?.bio}</p></SkeletonMorphBlock>\n</SkeletonMorph>\n</>",
       "examples": {
         "stories": [
           {
@@ -17761,6 +17893,27 @@
             ]
           },
           {
+            "name": "skeleton-morph",
+            "title": "Skeleton morph",
+            "registry": "skeleton-morph",
+            "storyId": "core-skeleton--morph",
+            "imports": [
+              "AvatarFallback",
+              "AvatarImage",
+              "AvatarRoot",
+              "Badge",
+              "Button",
+              "CardAction",
+              "CardContent",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
+              "RegistryIcon",
+              "SkeletonMorph",
+              "SkeletonMorphBlock"
+            ]
+          },
+          {
             "name": "skeleton-profile",
             "title": "Profile page",
             "registry": "skeleton-profile",
@@ -17778,7 +17931,7 @@
       "storybook": "core-skeleton--docs",
       "docs": "docs/llm/core-skeleton.md",
       "source": "src/components/core/Skeleton/",
-      "readme": "# Skeleton\n\nA skeleton is a grey placeholder in the shape of content that is still loading, so the layout does not jump when it arrives.\n\n```jsx\nimport { Skeleton } from '@gaudi/design-system';\n\n<section aria-label='Latest article' aria-busy='true' className='grid gap-3'>\n  <span role='status' className='sr-only'>Loading the latest article</span>\n  <Skeleton className='aspect-video w-full' />\n  <Skeleton className='h-4 w-2/3' />\n</section>\n```\n\n- Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.\n- Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.\n- Use a skeleton when the layout is known; use `Loader` for short waits or when the shape is unknown.\n\n## Shimmer\n\n`Shimmer` is the text counterpart: a highlight sweeps across a label while work is in progress, such as \"Thinking…\" in a chat reply or \"Searching the web…\" in an agent step.\n\n```jsx\nimport { Shimmer } from '@gaudi/design-system';\n\n<p role='status'><Shimmer>Searching the web…</Shimmer></p>\n<Shimmer as='h3' duration={3} spread={3}>Drafting the summary</Shimmer>\n```\n\n- `duration` is one sweep in seconds (default 2); `spread` is the band width in pixels per character (default 2); `active={false}` rests it as plain text.\n- The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.\n- The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.",
+      "readme": "# Skeleton\n\nA skeleton is a grey placeholder in the shape of content that is still loading, so the layout does not jump when it arrives.\n\n```jsx\nimport { Skeleton } from '@gaudi/design-system';\n\n<section aria-label='Latest article' aria-busy='true' className='grid gap-3'>\n  <span role='status' className='sr-only'>Loading the latest article</span>\n  <Skeleton className='aspect-video w-full' />\n  <Skeleton className='h-4 w-2/3' />\n</section>\n```\n\n- Shape each block with `className` (height, width, `rounded-full` for avatars) to match the content it stands in for.\n- Inside text, such as a paragraph or a link, render it as a span: `<Skeleton as='span' className='inline-block h-4 w-24' />`.\n- Skeletons are hidden from assistive tech. Mark the region `aria-busy` and add a status message that names what is loading.\n- Use a skeleton when the layout is known; use `Loader` for short waits or when the shape is unknown.\n\n## Shimmer\n\n`Shimmer` is the text counterpart: a highlight sweeps across a label while work is in progress, such as \"Thinking…\" in a chat reply or \"Searching the web…\" in an agent step.\n\n```jsx\nimport { Shimmer } from '@gaudi/design-system';\n\n<p role='status'><Shimmer>Searching the web…</Shimmer></p>\n<Shimmer as='h3' duration={3} spread={3}>Drafting the summary</Shimmer>\n```\n\n- `duration` is one sweep in seconds (default 2); `spread` is the band width in pixels per character (default 2); `active={false}` rests it as plain text.\n- The words stay real text, so they are read, selectable and translated. Put the label in a status region when the change should be announced.\n- The sweep is the `shimmer` utility on the text tokens; it holds still for reduced motion and in forced-colour modes.\n\n## Skeleton morph\n\n`SkeletonMorph` grows its placeholders into the loaded content instead of swapping them: when `loading` turns false, each `SkeletonMorphBlock` resizes from its placeholder to its content as the content fades in, one block after another in document order.\n\n```jsx\nimport { SkeletonMorph, SkeletonMorphBlock } from '@gaudi/design-system';\n\n<SkeletonMorph loading={!user} label='Loading profile' className='flex items-start gap-3'>\n  <SkeletonMorphBlock shape='circle' width={48} height={48}>\n    <Avatar>…</Avatar>\n  </SkeletonMorphBlock>\n  <SkeletonMorphBlock width={140} lines={1}><p className='leading-5'>{user?.name}</p></SkeletonMorphBlock>\n  <SkeletonMorphBlock lines={3}><p className='leading-5'>{user?.bio}</p></SkeletonMorphBlock>\n</SkeletonMorph>\n```\n\n- Size each placeholder like its content: `width`/`height` for a block (numbers are pixels), or `lines` with the content's `lineHeight` (default 20) for text. `shape='circle'` is for avatars.\n- Block children render only once loaded, but the JSX is still evaluated while loading, so read optional data (`user?.name`).\n- The region is `aria-busy` while loading and announces `label` in a status message; `as` renders it as another element or component, such as `CardContent`. Placeholders stay hidden from assistive tech, and focus is not moved.\n- Reduced motion swaps without animating. Use it for cards, short lists and dashboards whose layout is known in advance; keep plain `Skeleton` rows for long tables, where animating layout is costly, and `Loader` for waits longer than a few seconds.",
       "related": []
     },
     {
@@ -25401,6 +25554,16 @@
           "description": "Metric name and its prepared value."
         },
         {
+          "name": "valueMotion",
+          "names": [
+            "valueMotion"
+          ],
+          "type": "none | reel",
+          "default": "none",
+          "required": false,
+          "description": "reel spins a text or number value into each new figure on ReelText reels; other values render unchanged."
+        },
+        {
           "name": "delta",
           "names": [
             "delta"
@@ -25535,6 +25698,10 @@
         }
       ],
       "variants": {
+        "valueMotion": [
+          "none",
+          "reel"
+        ],
         "deltaDirection": [
           "up",
           "down",
@@ -25615,6 +25782,16 @@
               "CardRoot",
               "RegistryIcon",
               "StatDelta"
+            ]
+          },
+          {
+            "name": "stat-card-interval-reel",
+            "title": "Interval switch",
+            "registry": "stat-card-interval-reel",
+            "storyId": "blocks-stat-cards--interval-reel",
+            "imports": [
+              "StatCard",
+              "ToggleGroup"
             ]
           },
           {
@@ -25707,9 +25884,10 @@
       "storybook": "blocks-stat-cards--docs",
       "docs": "docs/llm/blocks-stat-cards.md",
       "source": "src/components/blocks/StatCard/",
-      "readme": "# StatCard\n\nMetric cards compose Core Card, Badge and IconTile. Applications supply the formatted values and their meaning.\n\n```jsx\nimport { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';\n\n<StatCard label='Failed runs' value='12' delta='−0.5%' deltaDirection='down' deltaTone='success' />\n<StatDelta value='+0.00%' direction='flat' tone='neutral' />\n```\n\n`StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.\n\n`StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.\n\n`StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.",
+      "readme": "# StatCard\n\nMetric cards compose Core Card, Badge and IconTile. Applications supply the formatted values and their meaning.\n\n```jsx\nimport { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';\n\n<StatCard label='Failed runs' value='12' delta='−0.5%' deltaDirection='down' deltaTone='success' />\n<StatDelta value='+0.00%' direction='flat' tone='neutral' />\n```\n\n`StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.\n\n`StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.\n\n`valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.\n\n`StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.",
       "related": [
         "core-card",
+        "animations-text-reeltext",
         "core-icon"
       ]
     },
@@ -33942,6 +34120,23 @@
           }
         ],
         "patterns": [
+          {
+            "name": "radial-chart-activity-rings",
+            "title": "Activity rings",
+            "registry": "radial-chart-activity-rings",
+            "storyId": "charts-radialchart--activity-rings",
+            "imports": [
+              "CardContent",
+              "CardDescription",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
+              "RegistryIcon",
+              "ToggleGroupItem",
+              "ToggleGroupRoot",
+              "usePrefersReducedMotion"
+            ]
+          },
           {
             "name": "radial-chart-labelled-scores",
             "title": "Labelled scores",
@@ -43722,6 +43917,105 @@
       "related": [
         "core-direction"
       ]
+    },
+    {
+      "id": "animations-text-reeltext",
+      "name": "ReelText",
+      "kind": "component",
+      "title": "Animations/Text/ReelText",
+      "category": "animations",
+      "owner": "animations/ReelText",
+      "import": {
+        "path": "@gaudi/design-system/animations/ReelText",
+        "category": "@gaudi/design-system/animations",
+        "root": true,
+        "mainExport": "ReelText",
+        "kind": "named",
+        "line": "import { ReelText } from '@gaudi/design-system/animations/ReelText';",
+        "exports": [
+          "ReelText",
+          "default"
+        ]
+      },
+      "description": "A formatted value whose digits spin into place on slot-machine reels, landing left to right.",
+      "props": [
+        {
+          "name": "value",
+          "names": [
+            "value"
+          ],
+          "type": "string | number",
+          "default": "\"\"",
+          "required": false,
+          "description": "The value to show, already formatted. Digits become reels; every other character stays fixed."
+        },
+        {
+          "name": "duration",
+          "names": [
+            "duration"
+          ],
+          "type": "number",
+          "default": "900",
+          "required": false,
+          "description": "Milliseconds the first reel takes to land, clamped to 0–4000."
+        },
+        {
+          "name": "stagger",
+          "names": [
+            "stagger"
+          ],
+          "type": "number",
+          "default": "70",
+          "required": false,
+          "description": "Milliseconds between consecutive reels landing, left to right, clamped to 0–400."
+        },
+        {
+          "name": "paused",
+          "names": [
+            "paused"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Swap values without motion. System reduced motion, hidden tabs and offscreen containers do the same."
+        },
+        {
+          "name": "className / style / ref",
+          "names": [
+            "className",
+            "style",
+            "ref"
+          ],
+          "type": "DOM props",
+          "default": null,
+          "required": false,
+          "description": "Applied to the outer span. Typography is inherited."
+        }
+      ],
+      "variants": {},
+      "accessibility": "The root is one image named with the whole value; the reels are hidden, so the value is read once and never digit by digit. Reduced motion swaps values instantly.",
+      "notes": [
+        "Motion inspired by [Slot text](https://uiarc.dev/components/slot-text) from Arc. Independently implemented for Gaudi; no Arc code or assets are included."
+      ],
+      "usage": "import { ReelText } from '@gaudi/design-system/animations/ReelText';\n\n<ReelText value=\"$31,904\" />",
+      "examples": {
+        "stories": [
+          {
+            "name": "Playground",
+            "id": "animations-text-reeltext--playground"
+          },
+          {
+            "name": "Changing value",
+            "id": "animations-text-reeltext--changing-value"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "animations-text-reeltext--docs",
+      "docs": "docs/llm/animations-text-reeltext.md",
+      "source": "src/components/animations/ReelText/",
+      "readme": "# ReelText\n\nA formatted value whose digits spin into place on slot-machine reels. Use it for figures that change in place, such as a metric switching period; it is how `StatCard` animates its value with `valueMotion='reel'`.\n\n```jsx\nimport { ReelText } from '@gaudi/design-system/animations/ReelText';\n\n<ReelText value='$31,904' />\n```\n\nPass the value already formatted. Each digit is a 0–9 reel that rolls to its digit with a fast start and a soft landing (`--ds-motion-ease-out`); reels land left to right, `stagger` milliseconds apart, the first after `duration`. Separators, currency signs and letters stay fixed, and characters are matched from the end, so `999` → `1,000` spins only digits. The first paint rolls up from zero.\n\nThe root is one image with the whole value as its accessible name; the reels are hidden from assistive technology. Reduced motion, `paused`, hidden tabs and offscreen containers swap the value without motion.\n\nMotion inspired by Arc's Slot text.",
+      "related": []
     },
     {
       "id": "animations-text-typewriter",

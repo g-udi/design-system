@@ -9,6 +9,30 @@
     overflow: hidden;
   }
 
+  /* Blurred edges where content continues (ScrollEdges, ScrollArea fadeEdges). Only the edge strips
+     are composited; the content and its controls stay sharp. */
+  .ds-part-scroll-edge {
+    position: absolute;
+    z-index: 2;
+    inset-inline: 0;
+    height: min(96px, 12%);
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 150ms;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    mask-image: linear-gradient(var(--ds-scroll-edge-direction), black, transparent);
+    -webkit-mask-image: linear-gradient(var(--ds-scroll-edge-direction), black, transparent);
+  }
+  .ds-part-scroll-edge[data-edge='top'] { top: 0; --ds-scroll-edge-direction: to bottom; }
+  .ds-part-scroll-edge[data-edge='bottom'] { bottom: 0; --ds-scroll-edge-direction: to top; }
+  .ds-part-scroll-edge[data-page] { position: fixed; z-index: 10; height: min(96px, 12vh); }
+  /* Keyboard focus is never obscured by a decorative edge. */
+  :root:has(:focus-visible) .ds-part-scroll-edge { opacity: 0 !important; }
+  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    .ds-part-scroll-edge { display: none; }
+  }
+
   .ds-part-scroll-area-thumb {
     @apply rounded-control;
     max-width: 100%;

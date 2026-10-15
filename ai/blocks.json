@@ -15959,6 +15959,43 @@
       }
     },
     {
+      "name": "radial-chart-activity-rings",
+      "type": "registry:example",
+      "title": "Activity rings",
+      "family": "radial-chart",
+      "owner": "charts/RadialChart",
+      "ownerImport": "@gaudi/design-system/charts/RadialChart",
+      "storyId": "charts-radialchart--activity-rings",
+      "storyTitle": "Charts/RadialChart",
+      "sourceFile": "src/components/charts/RadialChart/stories/fixtures/radial-chart/radial-chart-activity-rings.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/ToggleGroup",
+        "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "CardContent",
+        "CardDescription",
+        "CardHeader",
+        "CardRoot",
+        "CardTitle",
+        "RegistryIcon",
+        "ToggleGroupItem",
+        "ToggleGroupRoot",
+        "usePrefersReducedMotion"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Activity rings. Charts/RadialChart pattern composed from @gaudi/design-system/charts/RadialChart and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/radial-chart-activity-rings",
+        "local": "npx shadcn@latest add ./public/r/radial-chart-activity-rings.json"
+      }
+    },
+    {
       "name": "radial-chart-labelled-scores",
       "type": "registry:example",
       "title": "Labelled scores",
@@ -19297,6 +19334,51 @@
       }
     },
     {
+      "name": "skeleton-morph",
+      "type": "registry:example",
+      "title": "Skeleton morph",
+      "family": "skeleton",
+      "owner": "core/Skeleton",
+      "ownerImport": "@gaudi/design-system/core/Skeleton",
+      "storyId": "core-skeleton--morph",
+      "storyTitle": "Core/Feedback & States/Skeleton",
+      "sourceFile": "src/components/core/Skeleton/stories/fixtures/skeleton/skeleton-morph.jsx",
+      "assets": [
+        "/avatars/person-23.svg"
+      ],
+      "packageImports": [
+        "@gaudi/design-system/core/Avatar",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
+        "Badge",
+        "Button",
+        "CardAction",
+        "CardContent",
+        "CardHeader",
+        "CardRoot",
+        "CardTitle",
+        "RegistryIcon",
+        "SkeletonMorph",
+        "SkeletonMorphBlock"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Skeleton morph. Core/Feedback & States/Skeleton pattern composed from @gaudi/design-system/core/Skeleton and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/skeleton-morph",
+        "local": "npx shadcn@latest add ./public/r/skeleton-morph.json"
+      }
+    },
+    {
       "name": "skeleton-profile",
       "type": "registry:example",
       "title": "Profile page",
@@ -19771,6 +19853,34 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/stat-card-hero",
         "local": "npx shadcn@latest add ./public/r/stat-card-hero.json"
+      }
+    },
+    {
+      "name": "stat-card-interval-reel",
+      "type": "registry:block",
+      "title": "Interval switch",
+      "family": "stat-card",
+      "owner": "blocks/StatCard",
+      "ownerImport": "@gaudi/design-system/blocks/StatCard",
+      "storyId": "blocks-stat-cards--interval-reel",
+      "storyTitle": "Blocks/Stat Cards",
+      "sourceFile": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-interval-reel.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/blocks/StatCard",
+        "@gaudi/design-system/core/ToggleGroup"
+      ],
+      "uses": [
+        "StatCard",
+        "ToggleGroup"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Interval switch. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/stat-card-interval-reel",
+        "local": "npx shadcn@latest add ./public/r/stat-card-interval-reel.json"
       }
     },
     {

@@ -61,6 +61,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
+- Activity rings — registry item `@gaudi/radial-chart-activity-rings` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`, `usePrefersReducedMotion`)
 - Labelled scores — registry item `@gaudi/radial-chart-labelled-scores` (uses `CardContent`, `CardDescription`, `CardHeader`, `CardRoot`, `CardTitle`, `ChartContainer`, `ChartLegend`, `ChartLegendContent`, `ChartTooltip`, `ChartTooltipContent`)
 
 ## Related

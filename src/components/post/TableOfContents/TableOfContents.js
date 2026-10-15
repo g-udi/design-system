@@ -10,7 +10,7 @@ import { ScrollArea } from '../../core/ScrollArea';
 import Typography from '../../../foundations/Typography';
 import { useCollapsibleSections } from '../../../hooks/layout/use-collapsible-sections.js';
 import { cn } from '../../../utilities/cn';
-import { collectVisuals } from './contentIndex.js';
+import { assignVisualIds, collectVisuals } from './contentIndex.js';
 import styles from './TableOfContents.module.css';
 
 const flatten = entries => entries.flatMap(entry => [entry, ...flatten(entry.children || [])]);
@@ -57,6 +57,7 @@ function HeadingList({ headings, activeId, expansion }) {
 export default function TableOfContents({ className, contentRef, targetRef, toc = emptyToc, offset = 24, smooth = true, indexVisuals = true, ...props }) {
   const [activeId, setActiveId] = useState('');
   const [visuals, setVisuals] = useState([]);
+  const [visualsOpen, setVisualsOpen] = useState(false);
   const branches = useMemo(() => flatten(toc).filter(heading => heading.children?.length), [toc]);
   const branchIds = useMemo(() => branches.map(heading => heading.id), [branches]);
   const expandAll = toc.length <= 4;
@@ -67,9 +68,17 @@ export default function TableOfContents({ className, contentRef, targetRef, toc 
     setExpanded(expandAll ? branchIds : branches.filter(heading => containsHeading(heading, activeId)).map(heading => heading.id));
   }, [activeId, branchIds, branches, expandAll, setExpanded]);
 
+  // Visual ids are written only when they are needed: a diagram that loads as its own chunk may still
+  // be hydrating when this mounts, and an id written into unhydrated markup makes hydration disagree.
   useEffect(() => {
-    setVisuals(indexVisuals && (!contentRef || contentRef.current) ? collectVisuals(contentRef?.current) : []);
+    const found = indexVisuals && (!contentRef || contentRef.current) ? collectVisuals(contentRef?.current, { assign: false }) : [];
+    const target = window.location.hash.slice(1);
+    assignVisualIds(found.filter(visual => visual.id === target));
+    setVisuals(found);
   }, [contentRef, indexVisuals, toc]);
+  useEffect(() => {
+    if (visualsOpen) assignVisualIds(visuals);
+  }, [visuals, visualsOpen]);
 
   const diagrams = visuals.filter(visual => visual.kind === 'diagram').length;
   const tables = visuals.length - diagrams;
@@ -80,7 +89,7 @@ export default function TableOfContents({ className, contentRef, targetRef, toc 
     <Scrollspy targetRef={targetRef} offset={offset} smooth={smooth} onUpdate={setActiveId}>
       <HeadingList headings={toc} activeId={activeId} expansion={expansion} />
     </Scrollspy>
-    {visuals.length > 0 && <Collapsible className={styles.visualIndex}>
+    {visuals.length > 0 && <Collapsible open={visualsOpen} onOpenChange={setVisualsOpen} className={styles.visualIndex}>
       <CollapsibleTrigger asChild>
         <Button variant='ghost' tone='neutral' size='sm' className={styles.visualIndexHeader}>
           <span className={styles.visualIndexTitle}>Diagrams &amp; tables</span>

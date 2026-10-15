@@ -18,6 +18,7 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `label / value` | `ReactNode` | — | no | Metric name and its prepared value. |
+| `valueMotion` | `none \| reel` | `none` | no | reel spins a text or number value into each new figure on ReelText reels; other values render unchanged. |
 | `delta` | `string \| number` | — | no | Change in your formatting, including its sign and zero. |
 | `deltaDirection` | `up \| down \| flat` | — | no | Explicit arrow and semantic colour; the host decides what the change means. |
 | `deltaTone` | `semantic tone` | `neutral` | no | Explicit arrow and semantic colour; the host decides what the change means. |
@@ -34,6 +35,7 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 
 ## Variants
 
+- `valueMotion`: `none`, `reel`
 - `deltaDirection`: `up`, `down`, `flat`
 - `tone`: `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `discovery`, `attention`
 - `variant`: `default`, `tinted`, `inverse`
@@ -64,6 +66,7 @@ Curated patterns:
 - Balance — registry item `@gaudi/stat-card-balance` (uses `Button`, `RegistryIcon`, `StatCard`, `StatMeter`)
 - Breakdowns — registry item `@gaudi/stat-card-breakdowns` (uses `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatMeter`)
 - Hero metrics — registry item `@gaudi/stat-card-hero` (uses `Button`, `CardContent`, `CardFooter`, `CardRoot`, `RegistryIcon`, `StatDelta`)
+- Interval switch — registry item `@gaudi/stat-card-interval-reel` (uses `StatCard`, `ToggleGroup`)
 - KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
 - Leads with a range — registry item `@gaudi/stat-card-lead-range` (uses `ProgressRoot`, `StatCard`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Quota and progress — registry item `@gaudi/stat-card-quota` (uses `Badge`, `ProgressRoot`, `RegistryIcon`, `StatCard`)
@@ -73,7 +76,7 @@ Curated patterns:
 
 ## Related
 
-`core-card`, `core-icon`
+`core-card`, `animations-text-reeltext`, `core-icon`
 
 ## README
 
@@ -89,5 +92,7 @@ import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 `StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.
 
 `StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.
+
+`valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.
 
 `StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.

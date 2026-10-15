@@ -15,7 +15,18 @@ import { useAskAiEnabled } from './ask-ai-context';
 // The conversation (chat components, markdown rendering) loads on first use.
 const AskAiPanel = dynamic(() => import('./AskAiPanel').then((module) => module.AskAiPanel), { ssr: false });
 
-const plain = (value: unknown) => String(value ?? '').replace(/<\/?[^>]+>/g, '').replace(/[*_`]/g, '');
+// The index holds raw Markdown per paragraph: show tables, links and emphasis as readable text.
+const plain = (value: unknown) => {
+  let text = String(value ?? '')
+    .replace(/<\/?[^>]+>/g, '')
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/^\s*(#+|>)\s*/, '')
+    .replace(/[*_`]/g, '');
+  if (text.trimStart().startsWith('|')) {
+    text = text.split('|').map((cell) => cell.trim()).filter((cell) => cell && !/^:?-{3,}:?$/.test(cell)).join(' · ');
+  }
+  return text.replace(/\s+/g, ' ').trim();
+};
 const KIND_ICON: Record<string, string> = { page: 'FileText', heading: 'Hash', text: 'AlignLeft' };
 
 // Shown before anything is typed.
@@ -42,7 +53,7 @@ export function SearchDialog() {
   useHotkey('mod+i', () => askEnabled && openAsk(), { enableInInputs: true });
   const { search, setSearch, query } = useDocsSearch({ type: 'static', from: `${basePath}/api/search` });
   const { ariaKeyShortcuts, kbdKeys } = useHotkey('mod+k', () => setOpen((value: boolean) => !value), { enableInInputs: true });
-  const results = query.data && query.data !== 'empty' ? query.data.slice(0, 40) : [];
+  const results = query.data && query.data !== 'empty' ? query.data.filter((result) => plain(result.content)).slice(0, 40) : [];
 
   const go = (url: string) => {
     setOpen(false);

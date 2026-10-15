@@ -716,6 +716,38 @@
       ],
       "importPath": "./src/components/animations/Plasma/stories/Plasma.stories.jsx"
     },
+    "animations-text-reeltext--playground": {
+      "id": "animations-text-reeltext--playground",
+      "title": "Animations/Text/ReelText",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/animations/ReelText/stories/ReelText.stories.jsx"
+    },
+    "animations-text-reeltext--docs": {
+      "id": "animations-text-reeltext--docs",
+      "title": "Animations/Text/ReelText",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/animations/ReelText/stories/ReelText.stories.jsx"
+    },
+    "animations-text-reeltext--changing-value": {
+      "id": "animations-text-reeltext--changing-value",
+      "title": "Animations/Text/ReelText",
+      "name": "Changing value",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/animations/ReelText/stories/ReelText.stories.jsx"
+    },
     "animations-backgrounds-shape-waves--playground": {
       "id": "animations-backgrounds-shape-waves--playground",
       "title": "Animations/Backgrounds/ShapeWaves",
@@ -7708,6 +7740,17 @@
       ],
       "importPath": "./src/components/blocks/StatCard/stories/StatCardPatterns.stories.jsx"
     },
+    "blocks-stat-cards--interval-reel": {
+      "id": "blocks-stat-cards--interval-reel",
+      "title": "Blocks/Stat Cards",
+      "name": "Interval switch",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/StatCard/stories/StatCardPatterns.stories.jsx"
+    },
     "blocks-application-wizard--plan-upgrade": {
       "id": "blocks-application-wizard--plan-upgrade",
       "title": "Blocks/Wizard",
@@ -7931,6 +7974,16 @@
       "id": "charts-radialchart--labelled-scores",
       "title": "Charts/RadialChart",
       "name": "Labelled scores",
+      "type": "story",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/charts/RadialChart/stories/RadialChartPatterns.stories.jsx"
+    },
+    "charts-radialchart--activity-rings": {
+      "id": "charts-radialchart--activity-rings",
+      "title": "Charts/RadialChart",
+      "name": "Activity rings",
       "type": "story",
       "tags": [
         "autodocs"
@@ -11566,6 +11619,17 @@
       "type": "story",
       "tags": [
         "autodocs"
+      ],
+      "importPath": "./src/components/core/Skeleton/stories/SkeletonPatterns.stories.jsx"
+    },
+    "core-skeleton--morph": {
+      "id": "core-skeleton--morph",
+      "title": "Core/Feedback & States/Skeleton",
+      "name": "Skeleton morph",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Skeleton/stories/SkeletonPatterns.stories.jsx"
     },

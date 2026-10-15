@@ -219,8 +219,8 @@ function LinkPreviewCompact({ preview, className, ...props }) {
 function LinkPreviewSkeleton({ variant = 'inline', orientation = 'vertical', className }) {
   if (variant === 'inline') return (
     <span data-slot='link-preview-skeleton' className={ cn('inline-flex items-start gap-1', className) } aria-hidden='true'>
-      <Skeleton className='inline-block size-4 shrink-0' />
-      <Skeleton className='inline-block h-4 w-32' />
+      <Skeleton as='span' className='inline-block size-4 shrink-0' />
+      <Skeleton as='span' className='inline-block h-4 w-32' />
     </span>
   );
 

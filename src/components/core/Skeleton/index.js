@@ -4,3 +4,4 @@ export * from './Skeleton';
 // Composition exports
 export { Skeleton as SkeletonRoot } from './SkeletonPrimitives.jsx';
 export { Shimmer } from './Shimmer.jsx';
+export { SkeletonMorph, SkeletonMorphBlock } from './SkeletonMorph.jsx';
