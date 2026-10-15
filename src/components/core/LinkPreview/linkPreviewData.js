@@ -262,7 +262,8 @@ export const formatLinkDuration = (value) => {
   return h ? `${h}:${pad(m)}:${pad(s)}` : `${m}:${pad(s)}`;
 };
 
-const siteFromHost = (host) => (host ? host.charAt(0).toUpperCase() + host.slice(1) : '');
+// Hosts read as written (en.wikipedia.org, w3.org); capitalising one gives "En.wikipedia.org".
+const siteFromHost = (host) => (host ? host.replace(/^www\./, '') : '');
 
 const socialHandleFromUrl = (parsed) => {
   const [ handle, segment ] = parsed?.pathname.split('/').filter(Boolean) || [];
