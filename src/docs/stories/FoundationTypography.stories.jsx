@@ -8,16 +8,17 @@ import { Page, Table, Td, Th } from '../components/StoryDocs';
 
 const groups = [
   { 'label': 'Blog Posts', 'variants': [ 'post-title', 'post-subtitle', 'post-meta', 'prose-lead', 'paragraph-lg', 'paragraph-md' ] },
-  { 'label': 'Headings', 'variants': [ 'heading-xl', 'heading-lg', 'heading-md', 'heading-sm' ] },
+  { 'label': 'Headings', 'variants': [ 'heading-xl', 'heading-lg', 'heading-md', 'heading-sm', 'heading-xs' ] },
   { 'label': 'Display', 'variants': [ 'display-xl', 'display-lg', 'title-xl', 'title-lg', 'title-md' ] },
-  { 'label': 'People & Cards', 'variants': [ 'author-name', 'author-role', 'card-title', 'card-subtitle', 'metadata', 'error-title' ] },
-  { 'label': 'Supporting Text', 'variants': [ 'paragraph-sm', 'subtitle-xl', 'subtitle-lg', 'subtitle-md' ] }
+  { 'label': 'People & Cards', 'variants': [ 'author-name', 'author-role', 'card-title', 'card-subtitle', 'metadata', 'caption', 'error-title' ] },
+  { 'label': 'Supporting Text', 'variants': [ 'paragraph-base', 'paragraph-sm', 'subtitle-xl', 'subtitle-lg', 'subtitle-md' ] }
 ];
 
 const sampleText = {
   'author-name': 'Ahmad Assaf',
   'author-role': 'AI, data, and knowledge graph engineering',
   'card-subtitle': 'Compact supporting text for cards and previews.',
+  'caption': 'Updated 2 days ago',
   'card-title': 'Design-system notes',
   'display-lg': 'Editorial systems need rhythm.',
   'display-xl': 'Read, build, reuse.',
@@ -25,8 +26,10 @@ const sampleText = {
   'heading-lg': 'Section heading',
   'heading-md': 'Subsection heading',
   'heading-sm': 'Small heading',
+  'heading-xs': 'Card heading',
   'heading-xl': 'Readable hierarchy for long-form writing',
   'metadata': 'Engineering / 8 min read',
+  'paragraph-base': 'Base body copy for summaries and home-page introductions: one step quieter than the reading rhythm.',
   'paragraph-lg': 'Large body copy works for introductions and article summaries without becoming a marketing headline.',
   'paragraph-md': 'Default body text is tuned for blog posts: comfortable line-height, restrained measure, and predictable color in light and dark themes.',
   'paragraph-sm': 'Small supporting text for captions, descriptions, and metadata-adjacent copy.',

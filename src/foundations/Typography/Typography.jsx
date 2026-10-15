@@ -9,6 +9,10 @@ export const typographyVariants = {
     'className': 'text-xl leading-8 text-text-muted md:text-2xl md:leading-9',
     'element': 'p'
   },
+  'caption': {
+    'className': 'text-[11px] font-medium leading-4 tabular-nums text-text-muted',
+    'element': 'span'
+  },
   'card-subtitle': {
     'className': 'text-lg font-medium text-text-muted',
     'element': 'p'
@@ -65,12 +69,20 @@ export const typographyVariants = {
     'className': 'text-4xl font-bold leading-[1.12] text-text text-balance sm:text-5xl',
     'element': 'h2'
   },
+  'heading-xs': {
+    'className': 'text-sm font-semibold leading-5 text-text md:text-base md:leading-6',
+    'element': 'h5'
+  },
   'list-title': {
     'className': 'text-xl font-semibold leading-tight text-text md:text-2xl',
     'element': 'h3'
   },
   'metadata': {
     'className': 'text-xs font-medium tabular-nums text-text-muted',
+    'element': 'p'
+  },
+  'paragraph-base': {
+    'className': 'text-base leading-7 text-text-muted',
     'element': 'p'
   },
   'paragraph-lg': {
