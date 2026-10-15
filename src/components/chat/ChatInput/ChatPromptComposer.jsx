@@ -23,22 +23,7 @@ import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupTextarea } fro
 import { Popover, PopoverAnchor, PopoverContent } from '../../core/Popover/PopoverPrimitives.jsx';
 import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
 import { getAvatarInitials } from '../../core/Avatar/avatarModel.js';
-
-/*
- * The trigger is the token right before the caret: `@` anywhere after a space starts a mention, and `/`
- * at the very start of the message starts a command. Choosing an item replaces the token with its
- * insertion text, so the message stays plain text the host can parse or send as is.
- */
-const TRIGGER = /(^|\s)(@)([\w.-]*)$|^(\/)([\w-]*)$/;
-
-function findTrigger(text, caret) {
-  const before = text.slice(0, caret);
-  const match = before.match(TRIGGER);
-  if (!match) return null;
-  const symbol = match[2] || match[4];
-  const query = match[3] ?? match[5] ?? '';
-  return { symbol, query, start: caret - query.length - 1, end: caret };
-}
+import { findPromptTrigger as findTrigger } from './promptTriggerModel.js';
 
 const insertionOf = (item, symbol) => item.insertionText || `${symbol}${item.name.replace(/\s+/g, '')}`;
 
@@ -493,4 +478,4 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
   );
 }
 
-export { ChatPromptComposer, ChatPromptQueue, findTrigger as findPromptTrigger };
+export { ChatPromptComposer, ChatPromptQueue };

@@ -5,7 +5,8 @@ import {
   useGanttSelector,
   useGanttViewConfig
 } from '../Gantt.jsx';
-import { useGanttGestures, wasRecentDrag } from './GanttDnd.jsx';
+import { useGanttGestures } from './GanttDnd.jsx';
+import { wasRecentDrag } from '../ganttGestures.js';
 import {
   flattenResources,
   getBaselineVariance,
@@ -26,9 +27,7 @@ import {
   TooltipTrigger
 } from '../../Tooltip/TooltipPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-import { EVENT_CALENDAR_COLORS } from '../../EventCalendar/components/EventCalendarEvent.jsx';
 // Bars offer the same colour set as EventCalendar events.
-const GANTT_COLORS = EVENT_CALENDAR_COLORS;
 const GanttBarContext = createContext(null);
 function useGanttBarContext() {
   const ctx = useContext(GanttBarContext);
@@ -328,4 +327,4 @@ function GanttBar({
     </GanttBarContext.Provider>
   );
 }
-export { GANTT_COLORS, GanttBar, useGanttBarContext };
+export { GanttBar, useGanttBarContext };

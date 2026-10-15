@@ -16,9 +16,7 @@ import {
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRenderedRow,
-  DataGridTableViewport,
-  getDataGridTableMergedHeaderGroups,
-  hasDataGridTableRightPinnedColumns
+  DataGridTableViewport
 } from './DataGridTable.jsx';
 import { useDataGridStructureLabels } from './DataGridTreeRows.jsx';
 import { flexRender, Subscribe } from '@tanstack/react-table';
@@ -26,6 +24,8 @@ import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { Checkbox } from '../../Checkbox/CheckboxPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { dataGridSectionToneClasses as sectionTones } from '../dataGridStructureModel.js';
+import { getDataGridTableMergedHeaderGroups, hasDataGridTableRightPinnedColumns } from '../dataGridTableModel.js';
 
 function renderHeaderCell(header, resizable) {
   return (
@@ -53,20 +53,6 @@ export function DataGridTableHeadRows() {
     </DataGridTableHeadRow>
   ));
 }
-
-/* Literal class strings so Tailwind sees every tone. */
-// Dark subtle tones are deep, so the wash halves there to stay a tint.
-const sectionTones = {
-  neutral: { band: 'bg-ui-muted/40', mark: 'bg-ui-muted-foreground/60' },
-  accent: { band: 'bg-accent-subtle dark:bg-accent-subtle/50', mark: 'bg-accent' },
-  info: { band: 'bg-info-subtle dark:bg-info-subtle/50', mark: 'bg-info' },
-  success: { band: 'bg-success-subtle dark:bg-success-subtle/50', mark: 'bg-success' },
-  warning: { band: 'bg-warning-subtle dark:bg-warning-subtle/50', mark: 'bg-warning' },
-  danger: { band: 'bg-danger-subtle dark:bg-danger-subtle/50', mark: 'bg-danger' },
-  attention: { band: 'bg-attention-subtle dark:bg-attention-subtle/50', mark: 'bg-attention' },
-  discovery: { band: 'bg-discovery-subtle dark:bg-discovery-subtle/50', mark: 'bg-discovery' }
-};
-export const dataGridSectionTones = Object.keys(sectionTones);
 
 const DataGridSectionContext = createContext(null);
 /** The section a component renders in, or `null` outside banded sections. */

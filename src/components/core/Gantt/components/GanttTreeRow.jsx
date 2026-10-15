@@ -1,6 +1,7 @@
 'use client';
 import { memo } from 'react';
-import { DEFAULT_ROW_ALIGN, useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { DEFAULT_ROW_ALIGN } from '../ganttConfig.js';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { Checkbox } from '../../Checkbox/CheckboxPrimitives.jsx';

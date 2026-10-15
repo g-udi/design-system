@@ -1,9 +1,7 @@
 'use client';
 
 import { useMediaQuery } from './use-media-query.js';
-
-/** The phone breakpoint in pixels: widths below it count as mobile. Matches Tailwind's `md`. */
-export const MOBILE_BREAKPOINT = 768;
+import { MOBILE_BREAKPOINT } from './mobile-model.js';
 
 /**
  * True below the 768px phone breakpoint. False during server rendering and hydration, then the

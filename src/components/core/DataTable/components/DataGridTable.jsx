@@ -2,14 +2,9 @@
 import { useDataGrid } from '../DataGrid.jsx';
 import { flexRender } from '@tanstack/react-table';
 import {
-  getPinningStyles,
-  getDataGridTreeIndentStyle,
-  getDataGridTableRowSections,
-  getDataGridTableResolvedRows,
   getDataGridTableMergedHeaderGroups,
   hasDataGridTableRightPinnedColumns
 } from '../dataGridTableModel.js';
-import { getDataGridScrollAreaViewport } from '../dataGridTableDom.js';
 import {
   DataGridTableFillHeadCell,
   DataGridTableFillBodyCell,
@@ -37,7 +32,6 @@ import {
   DataGridTableBodyRowExpandded,
   DataGridTableBodyRowCell,
   DataGridTableGroupedCell,
-  renderDataGridCellContent,
   DataGridTableRenderedRow,
   MemoizedDataGridTableBodyRows
 } from './DataGridTableRows.jsx';
@@ -167,13 +161,5 @@ export {
   DataGridTableRowSelect,
   DataGridTableRowSelectAll,
   DataGridTableRowSpacer,
-  DataGridTableViewport,
-  getDataGridScrollAreaViewport,
-  getDataGridTableMergedHeaderGroups,
-  getPinningStyles,
-  getDataGridTableResolvedRows,
-  getDataGridTableRowSections,
-  getDataGridTreeIndentStyle,
-  hasDataGridTableRightPinnedColumns,
-  renderDataGridCellContent
+  DataGridTableViewport
 };

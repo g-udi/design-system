@@ -1,6 +1,5 @@
 'use client';
-import { getColumnHeaderLabel, useDataGrid } from '../DataGrid.jsx';
-import { getDataGridTableRowSections } from './DataGridTable.jsx';
+import { useDataGrid } from '../DataGrid.jsx';
 import { useDataGridViewLabels } from '../dataGridViewLabels.jsx';
 import { flexRender, Subscribe } from '@tanstack/react-table';
 import { cn } from '../../../../utilities/cn/index.js';
@@ -16,55 +15,9 @@ import {
   ToggleGroupItem
 } from '../../ToggleGroup/ToggleGroupPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-// Control columns the card renders itself (selection) or has no use for.
-const DATA_GRID_CARD_SKIPPED_IDS = new Set(['select', 'expand', 'drag', 'pin']);
-/**
- * Sorts a row's visible cells into card slots. A column picks its slot with
- * `meta.card`: `title`, `subtitle`, `media`, `badge`, `actions`, `field` or
- * `false`. Without one, the first data column is the title, a display column
- * named `actions` holds the row menu, other display columns are skipped, and
- * every remaining data column becomes a labelled field.
- */
-export function getDataGridCardSlots(row) {
-  const slots = {
-    title: null,
-    subtitle: null,
-    media: null,
-    badges: [],
-    actions: [],
-    fields: []
-  };
-  const cells = [
-    ...row.getStartVisibleCells(),
-    ...row.getCenterVisibleCells(),
-    ...row.getEndVisibleCells()
-  ];
-  for (const cell of cells) {
-    const { column } = cell;
-    const role = column.columnDef.meta?.card;
-    if (role === false) continue;
-    const isData = typeof column.accessorFn === 'function';
-    const resolved =
-      role ??
-      (DATA_GRID_CARD_SKIPPED_IDS.has(column.id)
-        ? null
-        : !isData
-          ? column.id === 'actions'
-            ? 'actions'
-            : null
-          : slots.title
-            ? 'field'
-            : 'title');
-    if (!resolved) continue;
-    if (resolved === 'title' && !slots.title) slots.title = cell;
-    else if (resolved === 'subtitle' && !slots.subtitle) slots.subtitle = cell;
-    else if (resolved === 'media' && !slots.media) slots.media = cell;
-    else if (resolved === 'badge') slots.badges.push(cell);
-    else if (resolved === 'actions') slots.actions.push(cell);
-    else slots.fields.push(cell);
-  }
-  return slots;
-}
+import { getColumnHeaderLabel } from '../dataGridModel.js';
+import { getDataGridCardSlots } from '../dataGridViewModel.js';
+import { getDataGridTableRowSections } from '../dataGridTableModel.js';
 function renderCell(cell) {
   return flexRender(cell.column.columnDef.cell, cell.getContext());
 }

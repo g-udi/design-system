@@ -1,12 +1,9 @@
 'use client';
 import { useEffect, useId, useRef, useState } from 'react';
 import {
-  getColumnHeaderLabel,
-  toDataGridDomId,
   useDataGrid
 } from '../DataGrid.jsx';
 import {
-  readDataGridState,
   useDataGridStoreVersion,
   useDataGridViewLabels
 } from '../dataGridViewLabels.jsx';
@@ -25,37 +22,8 @@ import {
   ToggleGroupItem
 } from '../../ToggleGroup/ToggleGroupPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-/**
- * The full leaf order the grid renders: the `columnOrder` state first, then
- * every leaf it does not name, which is where TanStack places them too.
- */
-export function getDataGridColumnOrder(table) {
-  const leafIds = table.getAllLeafColumns().map((column) => column.id);
-  const ordered = (readDataGridState(table, 'columnOrder') ?? []).filter(
-    (id) => leafIds.includes(id)
-  );
-  return [...ordered, ...leafIds.filter((id) => !ordered.includes(id))];
-}
-/**
- * Moves a column one step among `movableIds` (the columns a list shows), so a
- * hidden control column such as row selection never swallows a keypress.
- * Returns the new order, or `null` when the column is already at that end.
- */
-export function moveDataGridColumn(table, columnId, delta, movableIds) {
-  const order = getDataGridColumnOrder(table);
-  const visibleOrder = order.filter(
-    (id) => !movableIds || movableIds.includes(id)
-  );
-  const from = visibleOrder.indexOf(columnId);
-  const to = from + delta;
-  if (from < 0 || to < 0 || to >= visibleOrder.length) return null;
-  const target = visibleOrder[to];
-  const next = order.filter((id) => id !== columnId);
-  const targetIndex = next.indexOf(target);
-  next.splice(delta > 0 ? targetIndex + 1 : targetIndex, 0, columnId);
-  table.setColumnOrder(next);
-  return next;
-}
+import { getColumnHeaderLabel, toDataGridDomId } from '../dataGridModel.js';
+import { getDataGridColumnOrder, moveDataGridColumn } from '../dataGridViewModel.js';
 function DataGridViewOptionsSection({ title, children, className, action }) {
   const headingId = useId();
   return (

@@ -1,1 +1,2 @@
-export { default, CodeFence, CodeGroup, readFence } from './Code';
+export { default, CodeFence, CodeGroup } from './Code';
+export { readFence } from './readFence.js';

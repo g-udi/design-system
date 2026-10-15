@@ -14,18 +14,12 @@ import {
   CascaderNav
 } from '../../Cascader/components/CascaderNav.jsx';
 import { CascaderVirtualItems } from '../../Cascader/components/CascaderVirtual.jsx';
-import {
-  filterControlSizes,
-  filterReadOnlyProps,
-  useFilterActions,
-  useFilterFocusStore,
-  useFilterState
-} from '../FiltersContext.jsx';
+import { useFilterActions, useFilterFocusStore, useFilterState } from '../FiltersContext.jsx';
+import { filterControlSizes, filterReadOnlyProps } from '../filterStores.js';
 import {
   FILTER_FIELD_PICKER_CLASS,
   getFilterField,
-  getFilterFieldCount,
-  joinFilterPath,
+  toCascaderNodes,
   splitFilterPath
 } from '../filterModel.jsx';
 import { getDefaultFilterOperator } from '../filterOperators.jsx';
@@ -37,25 +31,6 @@ import {
   PopoverTrigger
 } from '../../Popover/PopoverPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-function toCascaderNodes(fields, parentPath = []) {
-  return fields.map((field) => {
-    const path = [...parentPath, field.id];
-    const node = {
-      value: joinFilterPath(path),
-      label: field.label,
-      icon: field.icon,
-      description: field.description,
-      keywords: field.keywords,
-      disabled: field.disabled,
-      data: field
-    };
-    if (field.fields?.length) {
-      node.children = toCascaderNodes(field.fields, path);
-      node.count = getFilterFieldCount(field);
-    }
-    return node;
-  });
-}
 export function FilterFieldPicker({
   path,
   onPathChange,
@@ -229,4 +204,3 @@ export function FiltersBuilder({ trigger, className }) {
     </Popover>
   );
 }
-export { toCascaderNodes };

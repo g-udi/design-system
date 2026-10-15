@@ -5,30 +5,7 @@ import { useDataGridViewLabels } from '../dataGridViewLabels.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Badge } from '../../Pill/Badge.jsx';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../Tabs/Tabs.jsx';
-export const DATA_GRID_STATUS_ALL = 'all';
-/**
- * Exact-match filter for a status column. `dataGridFeatures` registers no
- * filter-function names, so a column filtered by status tabs takes this
- * function as its `filterFn`; an empty filter value matches every row.
- */
-export function dataGridEqualsFilter(row, columnId, filterValue) {
-  if (filterValue === void 0 || filterValue === null || filterValue === '')
-    return true;
-  return row.getValue(columnId) === filterValue;
-}
-dataGridEqualsFilter.autoRemove = (value) =>
-  value === void 0 || value === null || value === '';
-/**
- * Per-status counts from the column's faceted values. Facets apply every
- * other filter but not the column's own, so each tab says how many rows
- * choosing it would show.
- */
-export function getDataGridStatusCounts(column, options) {
-  const facets = column.getFacetedUniqueValues();
-  const counts = { [DATA_GRID_STATUS_ALL]: column.getFacetedRowModel().rows.length };
-  for (const option of options) counts[option.value] = facets.get(option.value) ?? 0;
-  return counts;
-}
+import { DATA_GRID_STATUS_ALL, getDataGridStatusCounts } from '../dataGridViewModel.js';
 /**
  * Status tabs over a grid: an "All" tab plus one per status, each with a live
  * count. Given `columnId`, a tab filters that column and counts come from its

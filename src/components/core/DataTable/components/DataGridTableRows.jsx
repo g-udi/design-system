@@ -18,9 +18,9 @@ import {
 } from './DataGridTableStructure.jsx';
 import {
   DataGridTableBodyRowCell,
-  DataGridTableGroupedCell,
-  renderDataGridCellContent
+  DataGridTableGroupedCell
 } from './DataGridTableCells.jsx';
+import { renderDataGridCellContent } from '../dataGridCellContent.js';
 function DataGridTableBodyRow({
   children,
   row,
@@ -270,4 +270,4 @@ const MemoizedDataGridTableBodyRows = memo(
     !!next.table.state.columnResizing.isResizingColumn ||
     next.table._isSelectingCells === true
 );
-export { DataGridTableBodyRow, DataGridTableBodyRowExpandded, DataGridTableBodyRowCell, DataGridTableGroupedCell, renderDataGridCellContent, DataGridTableRenderedRow, MemoizedDataGridTableBodyRows };
+export { DataGridTableBodyRow, DataGridTableBodyRowExpandded, DataGridTableBodyRowCell, DataGridTableGroupedCell, DataGridTableRenderedRow, MemoizedDataGridTableBodyRows };

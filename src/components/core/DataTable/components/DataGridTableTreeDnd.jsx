@@ -22,14 +22,11 @@ import {
   DataGridTableFoot,
   DataGridTableHead,
   DataGridTableRowSpacer,
-  DataGridTableViewport,
-  renderDataGridCellContent
+  DataGridTableViewport
 } from './DataGridTable.jsx';
 import { DataGridTableHeadRows } from './DataGridTableSections.jsx';
-import { handleDataGridRowMoveKey } from './DataGridRowMove.jsx';
 import {
   DataGridTableLazyStatusRow,
-  getDataGridRowLabel,
   useDataGridStructureLabels
 } from './DataGridTreeRows.jsx';
 import {
@@ -48,6 +45,8 @@ import { createPortal } from 'react-dom';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { getDataGridRowLabel, handleDataGridRowMoveKey } from '../dataGridStructureModel.js';
+import { renderDataGridCellContent } from '../dataGridCellContent.js';
 
 const TreeDndRowContext = createContext(null);
 

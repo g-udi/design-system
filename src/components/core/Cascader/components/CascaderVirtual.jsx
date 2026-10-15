@@ -9,9 +9,9 @@ import {
 } from '../CascaderContext.jsx';
 import {
   CascaderItem,
-  CascaderItems,
-  getCascaderMoreProps
+  CascaderItems
 } from './CascaderItem.jsx';
+import { getCascaderMoreProps } from '../cascaderModel.jsx';
 import { defaultRangeExtractor, useVirtualizer } from '@tanstack/react-virtual';
 export function useCascaderVirtualizer({
   count,

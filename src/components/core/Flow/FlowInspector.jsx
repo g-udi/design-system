@@ -9,13 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs/index.js';
 import { cn } from '../../../utilities/cn/index.js';
 import { FlowStatus } from './FlowNode.jsx';
 import { useElementSize } from '../../../hooks/layout/use-element-size.js';
-
-export const DEFAULT_FLOW_INSPECTOR_LABELS = {
-  close: 'Close',
-  cancel: 'Cancel',
-  save: 'Save task',
-  tabs: 'Sections'
-};
+import { DEFAULT_FLOW_INSPECTOR_LABELS } from './flowModel.js';
 
 const calloutVariants = { info: 'info', success: 'success', warning: 'warning', danger: 'destructive', destructive: 'destructive' };
 

@@ -14,6 +14,7 @@ import {
   signaturePadToDataURL,
   signaturePadToBlob,
   serializeSignaturePad,
+  signaturePadLabels,
 } from './signaturePadModel.js';
 
 const API_KEYS = [
@@ -35,20 +36,6 @@ const API_KEYS = [
 ];
 
 const HISTORY_LIMIT = 100;
-const signaturePadLabels = {
-  area: 'Signature pad',
-  role: 'signature pad',
-  placeholder: 'Sign here',
-  empty: 'No signature entered',
-  filled: 'Signature entered',
-  readOnly: 'Read only',
-  instructions:
-    'Draw with a mouse, touch, or pen. Use Control or Command Z to undo and Shift Z to redo.',
-  clear: 'Clear signature',
-  undo: 'Undo',
-  redo: 'Redo',
-  save: 'Save signature',
-};
 
 function SignaturePad({
   value,
@@ -246,4 +233,4 @@ function SignaturePad({
   );
 }
 
-export { SignaturePad, signaturePadLabels };
+export { SignaturePad };

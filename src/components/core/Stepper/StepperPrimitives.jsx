@@ -11,7 +11,7 @@ import {
   useState
 } from 'react';
 import { Slot } from 'radix-ui';
-import { getNextIndex } from '../../../hooks/a11y/use-arrow-key-nav.js';
+import { getNextIndex } from '../../../hooks/a11y/arrow-key-nav-model.js';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 import { cn } from '../../../utilities/cn/index.js';

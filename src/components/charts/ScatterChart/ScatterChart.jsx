@@ -3,7 +3,8 @@
 import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { ChartGrid, ChartReferenceLine, ChartXAxis, ChartYAxis, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { ChartGrid, ChartReferenceLine, ChartXAxis, ChartYAxis } from '../ChartFrame/ChartMarks.jsx';
+import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
 import { Cell, RechartsScatterChart, RechartsTooltip, ResponsiveContainer, Scatter, ZAxis, chartColors } from '../ChartFrame/chartRuntime.js';
 import { defaultMargins } from '../ChartFrame/ChartSeries.jsx';
 import { normalizeRecords, chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';

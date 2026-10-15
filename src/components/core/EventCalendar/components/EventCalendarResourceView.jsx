@@ -10,16 +10,15 @@ import {
   useEventCalendarViewConfig,
   useEventCalendarViewSettings
 } from '../EventCalendar.jsx';
-import {
-  useEventCalendarGestures,
-  wasRecentChipPress,
-  wasRecentDrag
-} from './EventCalendarDnd.jsx';
+import { useEventCalendarGestures } from './EventCalendarDnd.jsx';
+import { wasRecentChipPress, wasRecentDrag } from '../eventCalendarGestures.js';
+import { EventCalendarEvent } from './EventCalendarEvent.jsx';
 import {
   EVENT_CALENDAR_GHOST,
   EVENT_CALENDAR_SLOT_DRAFT,
-  EventCalendarEvent
-} from './EventCalendarEvent.jsx';
+  EVENT_TRACK_WIDTH,
+  minuteBlockStyle
+} from '../eventCalendarStyles.js';
 import {
   flattenResources,
   getDayKey,
@@ -31,10 +30,8 @@ import {
   zonedStartOfDay
 } from '../eventCalendarModel.jsx';
 import {
-  EVENT_TRACK_WIDTH,
   EventCalendarNowIndicator,
-  EventCalendarTimeGutter,
-  minuteBlockStyle
+  EventCalendarTimeGutter
 } from './EventCalendarTimeGrid.jsx';
 import { addDays, addMinutes } from 'date-fns';
 import { Slot } from 'radix-ui';

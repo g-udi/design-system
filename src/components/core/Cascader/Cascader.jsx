@@ -8,12 +8,12 @@ import {
   CascaderHighlightContext,
   CascaderRenderContext,
   CascaderStateContext,
-  createCascaderHighlightStore,
   useCascaderActions,
   useCascaderHighlight,
   useCascaderRender,
   useCascaderState
 } from './CascaderContext.jsx';
+import { createCascaderHighlightStore } from './cascaderHighlightStore.js';
 import { resolveCascaderLabels } from './cascaderLabels.jsx';
 import {
   buildCascaderIndex,
@@ -757,7 +757,6 @@ export {
   CascaderStatus
 };
 export {
-  createCascaderHighlightStore,
   useCascaderActions,
   useCascaderHighlight,
   useCascaderRender,

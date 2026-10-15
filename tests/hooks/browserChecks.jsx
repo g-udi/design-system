@@ -7,7 +7,7 @@ import { useDocumentTitle } from '../../src/hooks/environment/use-document-title
 import { useIsMounted } from '../../src/hooks/environment/use-is-mounted.js';
 import { useUnmount } from '../../src/hooks/state/use-unmount.js';
 import { useReadLocalStorage } from '../../src/hooks/data/use-read-local-storage.js';
-import { localStorageStore } from '../../src/hooks/data/use-local-storage.js';
+import { localStorageStore } from '../../src/hooks/data/storage-model.js';
 import { useScript } from '../../src/hooks/environment/use-script.js';
 import { useMousePosition } from '../../src/hooks/interaction/use-mouse-position.js';
 import { useMap } from '../../src/hooks/data/use-map.js';

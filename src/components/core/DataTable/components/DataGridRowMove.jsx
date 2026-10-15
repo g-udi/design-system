@@ -5,8 +5,6 @@
  one handler serves the menu, the keyboard and the pointer. */
 import { useDataGrid } from '../DataGrid.jsx';
 import {
-  getDataGridRowSiblings,
-  getDataGridSiblingMove,
   useDataGridStructureLabels
 } from './DataGridTreeRows.jsx';
 import {
@@ -14,6 +12,7 @@ import {
   DropdownMenuShortcut
 } from '../../DropdownMenu/DropdownMenuPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { getDataGridRowSiblings, getDataGridSiblingMove } from '../dataGridStructureModel.js';
 
 /**
  * Move up, Move down, Move to top and Move to bottom for one row, for a row
@@ -48,18 +47,4 @@ export function DataGridTableRowMoveItems({ row, onRowMove, steps = true, shortc
       {shortcuts ? <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut> : null}
     </DropdownMenuItem>
   ));
-}
-
-/* Alt+Arrow and Alt+Home/End on a row's drag handle: the keyboard twin of the
- move items. Returns true when the key was handled. */
-export function handleDataGridRowMoveKey(event, row, report) {
-  if (!report || !event.altKey || !['ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return false;
-  const siblings = getDataGridRowSiblings(row);
-  const at = siblings.findIndex((sibling) => sibling.id === row.id);
-  const index =
-    event.key === 'Home' ? 0 : event.key === 'End' ? siblings.length - 1 : at + (event.key === 'ArrowUp' ? -1 : 1);
-  event.preventDefault();
-  if (index < 0 || index >= siblings.length || index === at) return true;
-  report(getDataGridSiblingMove(row, index));
-  return { index, count: siblings.length };
 }

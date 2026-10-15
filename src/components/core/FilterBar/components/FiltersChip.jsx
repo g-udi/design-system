@@ -1,9 +1,6 @@
 'use client';
 import * as React from 'react';
 import {
-  filterControlSizes,
-  filterReadOnlyProps,
-  isFilterLocked,
   useFilterActions,
   useFilterChipAutoOpen,
   useFilterChipFocused,
@@ -12,6 +9,7 @@ import {
   useFilterRender,
   useFilterReorderable
 } from '../FiltersContext.jsx';
+import { filterControlSizes, filterReadOnlyProps, isFilterLocked } from '../filterStores.js';
 import {
   FilterMenu,
   useFilterOptions,

@@ -17,8 +17,7 @@ import {
   TooltipTrigger
 } from '../../Tooltip/TooltipPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-import { getColumnHeaderLabel, useDataGrid } from '../DataGrid.jsx';
-import { invertDataGridCellsChange } from './DataGridCellSelection.jsx';
+import { useDataGrid } from '../DataGrid.jsx';
 import { DataGridCellInlineEditor } from './DataGridCellEditors.jsx';
 import {
   applyDataGridCellsChange,
@@ -29,6 +28,8 @@ import {
   setDataGridDefValue,
   validateDataGridCellValue
 } from '../cellEditing.js';
+import { getColumnHeaderLabel } from '../dataGridModel.js';
+import { invertDataGridCellsChange } from '../dataGridSelectionModel.js';
 
 // Copy for the editing parts. Override any key through DataGrid's
 // `i18n.labels`, next to the grid's own labels.

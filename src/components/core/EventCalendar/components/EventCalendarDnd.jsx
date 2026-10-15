@@ -10,35 +10,12 @@ import {
   zonedStartOfDay
 } from '../eventCalendarModel.jsx';
 import { addDays, addMinutes, differenceInCalendarDays } from 'date-fns';
-import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
-const EVENT_CALENDAR_ACTIVATION = {
-  ...POINTER_DRAG_ACTIVATION,
-  createDistancePx: 4,
-  autoScrollEdgePx: 48,
-  autoScrollMaxStepPx: 15
-};
-let lastGestureEndedAt = 0;
-function wasRecentDrag() {
-  return endedRecently(lastGestureEndedAt);
-}
-let lastChipPressAt = 0;
-function markChipPress() {
-  lastChipPressAt = performance.now();
-  window.addEventListener(
-    'pointerup',
-    () => {
-      lastChipPressAt = performance.now();
-    },
-    { once: true, capture: true }
-  );
-}
-function wasRecentChipPress() {
-  return performance.now() - lastChipPressAt < 300;
-}
-const activeGestureCancels = new Set();
-function cancelActiveEventCalendarGestures() {
-  for (const cancel of [...activeGestureCancels]) cancel();
-}
+import { snapToPixel } from '../../shared/pointerDrag.js';
+import {
+  activeGestureCancels,
+  EVENT_CALENDAR_ACTIVATION,
+  markEventCalendarGestureEnd
+} from '../eventCalendarGestures.js';
 function collectSurface(origin, fallbackRoot) {
   const root =
     origin.closest('[data-slot=event-calendar-time-grid]') ??
@@ -153,7 +130,7 @@ function beginBlockedGesture(instance, startEvent, segment, gesture) {
     if (activated) {
       document.body.style.cursor = originalCursor;
       document.body.classList.remove('ec-drag-blocked');
-      lastGestureEndedAt = performance.now();
+      markEventCalendarGestureEnd();
     }
   };
   const onRelease = (e) => {
@@ -559,7 +536,7 @@ function beginGesture(config) {
   const cancel = () => {
     cleanup();
     if (active) {
-      lastGestureEndedAt = performance.now();
+      markEventCalendarGestureEnd();
       internals.setDrag(null);
       internals.setSlotDraft(null);
     }
@@ -592,7 +569,7 @@ function beginGesture(config) {
     if (e.pointerId !== pointerId) return;
     cleanup();
     if (!active) return;
-    lastGestureEndedAt = performance.now();
+    markEventCalendarGestureEnd();
     const state = instance.getState();
     if (kind === 'create') {
       const draft = state.slotDraft;
@@ -750,10 +727,5 @@ function useEventCalendarGestures() {
   return { beginMove, beginResize, beginCreate, canDrag, canResize };
 }
 export {
-  EVENT_CALENDAR_ACTIVATION,
-  cancelActiveEventCalendarGestures,
-  markChipPress,
-  useEventCalendarGestures,
-  wasRecentChipPress,
-  wasRecentDrag
+  useEventCalendarGestures
 };

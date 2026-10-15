@@ -65,7 +65,7 @@ test('wildcards, uppercase extensions and repeated references are handled consis
 });
 
 test('file sizes remain readable for fractional bytes and invalid sizes', async () => {
-  const { formatBytes } = await loadComponent(new URL('../../../../src/components/core/FileUpload/use-file-upload.js', import.meta.url));
+  const { formatBytes } = await loadComponent(new URL('../../../../src/components/core/FileUpload/fileSelection.js', import.meta.url));
   assert.equal(formatBytes(0.5), '0.5Bytes');
   assert.equal(formatBytes(-1), '0 Bytes');
   assert.equal(formatBytes(Infinity), '0 Bytes');

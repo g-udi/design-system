@@ -1,8 +1,7 @@
 'use client';
 
 import { useMediaQuery } from '../environment/use-media-query.js';
-
-export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+import { REDUCED_MOTION_QUERY } from './reduced-motion-model.js';
 
 /**
  * True when the reader asked the operating system to reduce motion. Skip autoplay, parallax,

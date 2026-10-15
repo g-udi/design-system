@@ -12,7 +12,7 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../core/Accordion';
 import { cn } from '../../../utilities/cn';
-import { articleAccordion } from '../Details/Details';
+import { articleAccordion } from '../Details/articleAccordion.js';
 
 const headingTags = { 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
 

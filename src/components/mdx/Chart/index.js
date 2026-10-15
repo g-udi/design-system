@@ -1,1 +1,2 @@
-export { default, Chart, CHART_TYPES } from './Chart';
+export { default, Chart } from './Chart';
+export { CHART_TYPES } from './chartTypes.js';

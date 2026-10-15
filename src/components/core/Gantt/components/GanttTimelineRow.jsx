@@ -1,8 +1,10 @@
 'use client';
 import { memo, useState } from 'react';
-import { resolveScheduleMode, useGantt, useGanttSelector, useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { useGantt, useGanttSelector, useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { resolveScheduleMode } from '../ganttConfig.js';
 import { GanttBar } from './GanttBar.jsx';
-import { useGanttGestures, wasRecentDrag } from './GanttDnd.jsx';
+import { useGanttGestures } from './GanttDnd.jsx';
+import { wasRecentDrag } from '../ganttGestures.js';
 import { toZoned } from '../ganttModel.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
 import {

@@ -8,20 +8,7 @@ import { FieldOrb } from './orbs/field-orb.jsx';
 import { IridescentFlow } from './orbs/iridescent-flow.jsx';
 import { MercuryOrb } from './orbs/mercury-orb.jsx';
 import { WaveformRing } from './orbs/waveform-ring.jsx';
-
-const DEFAULT_LABELS = {
-  idle: 'Ready',
-  connecting: 'Connecting',
-  listening: 'Listening',
-  thinking: 'Thinking',
-  speaking: 'Speaking',
-  asleep: 'Asleep',
-  error: 'Voice unavailable'
-};
-
-const personaStates = Object.keys(DEFAULT_LABELS);
-const personaVariants = [ 'iridescent', 'mercury', 'waveform', 'activity', 'circle', 'bars', 'cloud', 'radial' ];
-const personaSizes = { xs: 32, sm: 48, md: 96, lg: 168, xl: 240 };
+import { personaLabels as DEFAULT_LABELS, personaSizes, personaStates, personaVariants } from './personaModel.js';
 
 const renderers = { iridescent: IridescentFlow, mercury: MercuryOrb, waveform: WaveformRing, activity: ActivityOrb, circle: CircleOrb, bars: BarsOrb, cloud: FieldOrb, radial: FieldOrb };
 
@@ -95,4 +82,4 @@ function ChatPersona({
   );
 }
 
-export { ChatPersona, personaStates, personaVariants, personaSizes };
+export { ChatPersona };

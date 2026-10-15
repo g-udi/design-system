@@ -1,8 +1,7 @@
 'use client';
 
-import { createStorageStore, useStorageState } from './storage-state.js';
-
-export const localStorageStore = createStorageStore(() => (typeof window === 'undefined' ? null : window.localStorage));
+import { useStorageState } from './storage-state.js';
+import { localStorageStore } from './storage-model.js';
 
 /**
  * useState that persists to `localStorage` as JSON: reading preferences, dismissed notices, draft

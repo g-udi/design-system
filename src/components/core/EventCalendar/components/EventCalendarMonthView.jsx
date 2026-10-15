@@ -18,16 +18,13 @@ import {
   useEventCalendarViewSettings,
   useEventCalendarWeek
 } from '../EventCalendar.jsx';
-import {
-  useEventCalendarGestures,
-  wasRecentChipPress,
-  wasRecentDrag
-} from './EventCalendarDnd.jsx';
+import { useEventCalendarGestures } from './EventCalendarDnd.jsx';
+import { wasRecentChipPress, wasRecentDrag } from '../eventCalendarGestures.js';
+import { EventCalendarEvent } from './EventCalendarEvent.jsx';
 import {
   EVENT_CALENDAR_GHOST,
-  EVENT_CALENDAR_SLOT_DRAFT,
-  EventCalendarEvent
-} from './EventCalendarEvent.jsx';
+  EVENT_CALENDAR_SLOT_DRAFT
+} from '../eventCalendarStyles.js';
 import {
   getDayKey,
   getRangeKey,

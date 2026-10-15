@@ -6,8 +6,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../support/renderComponent.js';
 import { observeIconActivity } from '../../src/icons/animated/observeIconActivity.js';
 
-const { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } = await loadComponent(new URL('../../src/icons/AnimatedIcon.jsx', import.meta.url));
-const { iconRegistry } = await loadComponent(new URL('../../src/icons/index.jsx', import.meta.url));
+const { AnimatedIcon } = await loadComponent(new URL('../../src/icons/AnimatedIcon.jsx', import.meta.url));
+const { animatedIconRegistry, animatedIconMetadata, iconRegistry } = await loadComponent(new URL('../../src/icons/index.jsx', import.meta.url));
 
 test('animated counterparts preserve Gaudi names and their original glyph family', () => {
   for (const [name, Glyph] of Object.entries(iconRegistry)) {

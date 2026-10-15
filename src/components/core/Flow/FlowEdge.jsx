@@ -5,6 +5,7 @@ import { BaseEdge, EdgeLabelRenderer, getBezierPath, getSmoothStepPath, getStrai
 import { default as Button } from '../Button/index.js';
 import { default as Icon } from '../Icon/index.js';
 import { cn } from '../../../utilities/cn/index.js';
+import { FLOW_EDGE_VARIANTS } from './flowModel.js';
 
 const paths = {
   smoothstep: (props) => getSmoothStepPath({ ...props, borderRadius: 8 }),
@@ -12,9 +13,6 @@ const paths = {
   bezier: getBezierPath,
   straight: getStraightPath
 };
-
-/** Line styles an edge can draw. Any of them can also flow (`animated`). */
-export const FLOW_EDGE_VARIANTS = ['solid', 'dashed', 'dotted'];
 
 /** Run states colour a connection: running flows in the accent, failures turn danger, and so on. */
 const statusTones = { running: 'accent', failed: 'danger', waiting: 'warning', blocked: 'attention', success: 'success', done: 'success' };

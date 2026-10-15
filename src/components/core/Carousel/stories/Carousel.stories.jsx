@@ -2,7 +2,8 @@ import { expect, screen, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
-import Carousel, { carouselVariants } from '../Carousel';
+import Carousel from '../Carousel';
+import { carouselVariants } from '../carouselVariants.js';
 import { checkCarouselUpdates } from '../../../../../tests/components/core/Carousel/checkCarouselUpdates.jsx';
 import { aurora, ember, iris, lagoon, rose, sky } from '../../../../docs/fixtures/site/artwork';
 

@@ -25,8 +25,7 @@ import {
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
-  DataGridTableViewport,
-  renderDataGridCellContent
+  DataGridTableViewport
 } from './DataGridTable.jsx';
 import {
   closestCenter,
@@ -47,6 +46,7 @@ import { CSS } from '@dnd-kit/utilities';
 import { flexRender } from '@tanstack/react-table';
 import { default as Button } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { renderDataGridCellContent } from '../dataGridCellContent.js';
 function DataGridTableDndHeader({ header }) {
   const { i18n, props } = useDataGrid();
   const { column } = header;

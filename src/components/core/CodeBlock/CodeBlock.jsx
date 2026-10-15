@@ -2,8 +2,6 @@
 import { useCallback, useContext, useDeferredValue, useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
   highlightCode,
-  markdownCodeProps,
-  markdownFences,
   resolveCodeBlockLanguage,
   toPlainLines
 } from './CodeBlockHighlight.jsx';
@@ -475,11 +473,6 @@ function CodeBlockContent({ className }) {
   }, [surface.builtInSurfaceRendered]);
   return <CodeBlockSurface {...surface} scroll={false} className={className} />;
 }
-export { markdownCodeProps, markdownFences };
-export {
-  ansiToLines,
-  parseUnifiedDiff
-} from './CodeBlockHighlight.jsx';
 export {
   CodeBlock,
   CodeBlockCopyButton,

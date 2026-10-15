@@ -83,3 +83,20 @@ export function countWebPreviewLogs(logs = []) {
     return counts;
   }, { 'error': 0, 'info': 0, 'log': 0, 'total': 0, 'warn': 0 });
 }
+
+// Default copy; hosts merge their own over it through `labels`.
+export const defaultWebPreviewLabels = Object.freeze({
+  'address': 'Address',
+  'back': 'Go back',
+  'blocked': 'This page can’t be shown here',
+  'body': 'Page preview',
+  'blockedHint': 'The site doesn’t allow embedding. Open it in a new tab instead.',
+  'console': 'Console',
+  'consoleEmpty': 'No console output yet.',
+  'devices': 'Preview width',
+  'forward': 'Go forward',
+  'invalid': 'Enter a web address such as example.com',
+  'loading': 'Loading preview',
+  'open': 'Open in new tab',
+  'reload': 'Reload preview'
+});

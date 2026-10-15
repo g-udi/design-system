@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { loadComponent } from '../../../support/renderComponent.js';
 
-const load = () => loadComponent(new URL('../../../../src/components/blocks/Forms/Forms.jsx', import.meta.url));
+const load = () => loadComponent(new URL('../../../../src/components/blocks/Forms/index.js', import.meta.url));
 
 test('Forms validators return a message only when the value fails', async () => {
   const { validators } = await load();

@@ -4,13 +4,7 @@ import { useControllableState } from '../../../hooks/state/use-controllable-stat
 import { cn } from '../../../utilities/cn/index.js';
 import Button from '../../core/Button/index.js';
 import { Slider } from '../../core/Slider/Slider.jsx';
-
-const DEFAULT_LEVELS = [
-  { value: 'low', label: 'Low', description: 'Quick answers for small edits' },
-  { value: 'medium', label: 'Medium', description: 'Balanced for most writing and research' },
-  { value: 'high', label: 'High', description: 'Thinks longer before it answers' },
-  { value: 'max', label: 'Max', description: 'Deep work; slower and uses more of your plan' }
-];
+import { chatEffortLevels as DEFAULT_LEVELS } from './chatEffortModel.js';
 
 /**
  * How hard the assistant should think: a stepped slider over named levels. `levels` are
@@ -91,4 +85,4 @@ function ChatEffortSlider({
   );
 }
 
-export { ChatEffortSlider, DEFAULT_LEVELS as chatEffortLevels };
+export { ChatEffortSlider };

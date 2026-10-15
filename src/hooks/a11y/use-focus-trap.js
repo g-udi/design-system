@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { getFocusableElements, isAvailableFocusTarget } from '../shared/dom.js';
+import { getTrapTarget } from './focus-trap-model.js';
 
 // Active traps, innermost last. Nested traps hand Tab to the one that contains focus.
 const activeTraps = [];
@@ -12,17 +13,6 @@ const FLOATING_FOCUS_SELECTOR = '[data-radix-popper-content-wrapper], [role="dia
 function focusedTrap() {
   const containing = activeTraps.filter((trap) => trap.current?.contains(document.activeElement));
   return containing.find((trap) => !containing.some((other) => other !== trap && other.current && trap.current?.contains(other.current)));
-}
-
-/** The element Tab should move to from `active` inside `elements`, wrapping at both ends (or null to let the browser move). */
-export function getTrapTarget(elements, active, shiftKey) {
-  if (!elements.length) return null;
-  const first = elements[0];
-  const last = elements[elements.length - 1];
-  if (!elements.includes(active)) return shiftKey ? last : first;
-  if (shiftKey && active === first) return last;
-  if (!shiftKey && active === last) return first;
-  return null;
 }
 
 /**

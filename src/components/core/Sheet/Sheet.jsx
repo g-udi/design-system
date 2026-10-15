@@ -3,6 +3,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { Dialog as SheetPrimitive } from 'radix-ui';
 import { default as Button } from '../Button/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
+import { sheetOverlays } from './sheetOverlays.js';
 function Sheet({ ...props }) {
   return <SheetPrimitive.Root data-slot='sheet' {...props} />;
 }
@@ -34,8 +35,6 @@ const sizeClass = {
   lg: 'sm:data-[side=left]:max-w-lg sm:data-[side=right]:max-w-lg',
   xl: 'sm:data-[side=left]:max-w-2xl sm:data-[side=right]:max-w-2xl'
 };
-// The overlay's scrim is Dialog's overlay token (Sheet.css); `blur` also softens the page behind it.
-const sheetOverlays = { dim: '', blur: 'backdrop-blur-sm' };
 // An inset sheet floats off the edge with its own rounded border.
 const insetClass =
   'rounded-xl border data-[side=right]:inset-y-2 data-[side=right]:right-2 data-[side=right]:h-auto data-[side=left]:inset-y-2 data-[side=left]:left-2 data-[side=left]:h-auto data-[side=top]:inset-x-2 data-[side=top]:top-2 data-[side=bottom]:inset-x-2 data-[side=bottom]:bottom-2';
@@ -121,7 +120,6 @@ function SheetDescription({ className, ...props }) {
   );
 }
 export {
-  sheetOverlays,
   Sheet,
   SheetTrigger,
   SheetClose,

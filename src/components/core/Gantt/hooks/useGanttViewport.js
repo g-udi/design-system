@@ -4,7 +4,8 @@ import { useIsomorphicLayoutEffect } from '../../../../hooks/state/use-isomorphi
 import { observeResize } from '../../../../utilities/observeResize.js';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useGanttSelector } from '../Gantt.jsx';
-import { cancelActiveGanttGestures, registerGanttGestureCancel, markGestureEnd, useGanttGestureTeardown } from '../components/GanttDnd.jsx';
+import { useGanttGestureTeardown } from '../components/GanttDnd.jsx';
+import { cancelActiveGanttGestures, markGestureEnd, registerGanttGestureCancel } from '../ganttGestures.js';
 import { toZoned } from '../ganttModel.jsx';
 import { format } from 'date-fns';
 import { trackPoint, getPaneViewport, getScrollStart, setScrollStart } from '../ganttViewModel.js';

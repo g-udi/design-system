@@ -10,35 +10,10 @@ import { default as Icon } from '../Icon/index.js';
 import { ToggleGroup, ToggleGroupItem } from '../ToggleGroup/ToggleGroupPrimitives.jsx';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../Tooltip/TooltipPrimitives.jsx';
 import { cn } from '../../../utilities/cn/index.js';
-import { FlowEdge } from './FlowEdge.jsx';
 import { describeFlow } from './flowLayout.js';
-import { FLOW_STATUSES, FlowNode, FlowPillNode, FlowTaskNode, FlowTileNode } from './FlowNode.jsx';
-
-/** Every string Flow and its controls render, plus React Flow's own announcements. */
-export const DEFAULT_FLOW_LABELS = {
-  zoomIn: 'Zoom in',
-  zoomOut: 'Zoom out',
-  fitView: 'Fit to view',
-  fitSelection: 'Fit selection',
-  autoLayout: 'Auto layout',
-  selectTool: 'Select',
-  handTool: 'Pan',
-  tools: 'Canvas tool',
-  zoomLevel: (percent) => `Zoom ${percent}%`,
-  issues: (count) => (count ? `${count} ${count === 1 ? 'issue' : 'issues'}` : 'No issues'),
-  controls: 'Canvas controls',
-  minimap: 'Mini map',
-  summaryTitle: 'Steps in this flow',
-  summaryCount: (nodes, edges) => `${nodes} ${nodes === 1 ? 'step' : 'steps'} and ${edges} ${edges === 1 ? 'connection' : 'connections'}.`,
-  leadsTo: 'leads to',
-  ends: 'ends here',
-  nodeDescription: 'Press Enter or Space to select, then use the arrow keys to move it. Press Delete to remove a selected step.',
-  activateDescription: 'Press Enter to open its details. Press Space to select, then use the arrow keys to move it.',
-  edgeDescription: 'Press Enter or Space to select this connection. Press Delete to remove it.'
-};
-
-export const flowNodeTypes = { step: FlowNode, pill: FlowPillNode, tile: FlowTileNode, task: FlowTaskNode };
-export const flowEdgeTypes = { flow: FlowEdge };
+import { DEFAULT_FLOW_LABELS } from './flowModel.js';
+import { flowEdgeTypes, flowNodeTypes } from './flowTypes.js';
+import { FLOW_STATUSES } from './flowModel.js';
 
 const backgrounds = { dots: BackgroundVariant.Dots, lines: BackgroundVariant.Lines, cross: BackgroundVariant.Cross };
 

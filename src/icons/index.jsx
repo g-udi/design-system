@@ -930,4 +930,6 @@ const Icon = ({
 export default Icon;
 
 export { RegistryIcon } from './RegistryIcon.jsx';
-export { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } from './AnimatedIcon.jsx';
+export { AnimatedIcon } from './AnimatedIcon.jsx';
+export { animatedIconRegistry } from './animated/registry.js';
+export { animatedIconMetadata } from './animated/metadata.js';

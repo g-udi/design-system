@@ -1,66 +1,18 @@
 'use client';
 import * as React from 'react';
-import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
-export const FILTER_DND_ACTIVATION = {
-  ...POINTER_DRAG_ACTIVATION,
-  autoScrollEdgePx: 40,
-  autoScrollMaxStepPx: 12,
-  /** A seed only: `createCarry` measures the real grab offset before paint. */
-  carryPointerOffsetPx: 12
-};
-export const FILTER_ROW_SELECTOR = '[data-slot="filter-row"]';
-export const FILTER_DROP_ZONE_SELECTOR = '[data-drop-parent]';
-export const FILTER_GROUP_SELECTOR = '[data-slot="filter-group"]';
-function contains(box, x, y, grow = 0) {
-  return (
-    x >= box.left &&
-    x <= box.right &&
-    y >= box.top - grow &&
-    y <= box.bottom + grow
-  );
-}
-export const FILTER_ROW_SEAM_PX = 6;
-export function resolveFilterDrop(
-  zones,
-  rows,
-  x,
-  y,
-  seam = FILTER_ROW_SEAM_PX
-) {
-  let zone = null;
-  for (const candidate of zones) {
-    if (!contains(candidate, x, y)) continue;
-    if (!zone || candidate.depth > zone.depth) zone = candidate;
-  }
-  if (zone) return { target: zone, edge: null };
-  let row = null;
-  for (const candidate of rows) {
-    if (!contains(candidate, x, y, seam)) continue;
-    if (!row || candidate.depth > row.depth) row = candidate;
-  }
-  if (!row) return null;
-  const after = y > row.top + (row.bottom - row.top) / 2;
-  return {
-    target: { ...row, index: row.index + (after ? 1 : 0) },
-    edge: after ? 'after' : 'before'
-  };
-}
-export function isFilterDropNoop(resolution, origin, copy) {
-  if (!resolution || !origin || copy) return false;
-  if (resolution.target.parentId !== origin.parentId) return false;
-  return (
-    resolution.target.index === origin.index ||
-    resolution.target.index === origin.index + 1
-  );
-}
-const activeCancels = /* @__PURE__ */ new Set();
-export function cancelActiveFilterDrags() {
-  for (const cancel of [...activeCancels]) cancel();
-}
-let lastDragEndedAt = 0;
-export function wasRecentFilterDrag() {
-  return endedRecently(lastDragEndedAt);
-}
+import { snapToPixel } from '../../shared/pointerDrag.js';
+import {
+  activeCancels,
+  cancelActiveFilterDrags,
+  FILTER_DND_ACTIVATION,
+  FILTER_DROP_ZONE_SELECTOR,
+  FILTER_GROUP_SELECTOR,
+  FILTER_ROW_SELECTOR,
+  isFilterDropNoop,
+  markFilterDragEnded,
+  resolveFilterDrop,
+  wasRecentFilterDrag
+} from './filterDragModel.js';
 function suppressTrailingClick(event) {
   window.removeEventListener('click', suppressTrailingClick, true);
   if (!wasRecentFilterDrag()) return;
@@ -324,7 +276,7 @@ function startDrag(event, nodeId, options) {
     document.body.style.userSelect = '';
   };
   const cancel = () => {
-    if (active) lastDragEndedAt = performance.now();
+    if (active) markFilterDragEnded();
     cleanup();
   };
   const onWindowBlur = () => cancel();
@@ -363,7 +315,7 @@ function startDrag(event, nodeId, options) {
     const wasCopy = copy;
     cleanup();
     if (!active) return;
-    lastDragEndedAt = performance.now();
+    markFilterDragEnded();
     window.addEventListener('click', suppressTrailingClick, true);
     if (!landed) return;
     options.onDrop(nodeId, {

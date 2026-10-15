@@ -9,7 +9,8 @@ import {
   getCascaderCount,
   getCascaderMoreParent,
   getCascaderPath,
-  isCascaderMoreNode
+  isCascaderMoreNode,
+  getCascaderMoreProps
 } from '../cascaderModel.jsx';
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import { mergeProps } from '@base-ui/react/merge-props';
@@ -17,21 +18,14 @@ import { useRender } from '@base-ui/react/use-render';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Loader } from '../../Loader/LoaderPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-const ROW_INSET_CLASS = '[--cascader-row-inset:6px]';
-const ROW_FLUSH_CLASS =
-  'ps-[var(--cascader-row-inset,8px)]! pe-[var(--cascader-row-inset,8px)]!';
+import { ROW_FLUSH_CLASS, ROW_INSET_CLASS, ROW_SHELL_CLASS, ROW_TEXT_CLASS } from '../cascaderStyles.js';
 const ROW_GUTTER_CLASS =
   'ps-[var(--cascader-row-inset,8px)]! pe-[calc(var(--cascader-row-inset,8px)*2_+_16px)]!';
 const INDICATOR_CLASS =
   'pointer-events-none absolute flex items-center justify-center size-4 end-[var(--cascader-row-inset,8px)]! rtl:right-auto!';
-const ROW_THEME_CLASS =
-  "data-highlighted:bg-ui-accent data-highlighted:text-ui-accent-foreground not-data-[variant=destructive]:data-highlighted:**:text-ui-accent-foreground [&_svg:not([class*='size-'])]:size-4 min-h-8 rounded-md py-1.5";
 const ROW_GAP_CLASS = 'gap-2';
-const ROW_TEXT_CLASS = 'text-sm';
-const ROW_SHELL_CLASS = `${ROW_THEME_CLASS} relative flex w-full cursor-default items-center outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 ${ROW_INSET_CLASS}`;
 const ROW_CLASS = `${ROW_SHELL_CLASS} ${ROW_GAP_CLASS} ${ROW_TEXT_CLASS}`;
 const CASCADER_ACTION_INSET_CLASS = `${ROW_INSET_CLASS} ${ROW_FLUSH_CLASS}`;
-export const CASCADER_ACTION_CLASS = `${ROW_SHELL_CLASS} ${ROW_TEXT_CLASS} ${ROW_FLUSH_CLASS} hover:bg-ui-accent hover:text-ui-accent-foreground focus-visible:bg-ui-accent focus-visible:text-ui-accent-foreground cursor-pointer gap-2 transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-50`;
 const AFFORDANCE_BOX_CLASS =
   'flex size-5 shrink-0 items-center justify-center rounded-sm';
 const AFFORDANCE_HOVER_CLASS =
@@ -633,25 +627,6 @@ function CascaderItemPath({ node }) {
       ))}
     </span>
   );
-}
-export function getCascaderMoreProps(node, loadStates) {
-  const parent = getCascaderMoreParent(node);
-  if (parent == null) {
-    const own = loadStates.get(node.value);
-    return {
-      loading: false,
-      error: false,
-      childrenLoading: !!own?.loading,
-      childrenError: !!own?.error
-    };
-  }
-  const state = loadStates.get(parent);
-  return {
-    loading: !!state?.loading,
-    error: !!state?.error,
-    childrenLoading: false,
-    childrenError: false
-  };
 }
 function CascaderItems({ children }) {
   const { mode, isBranch, isSelectable, isSelected, isIndeterminate } =

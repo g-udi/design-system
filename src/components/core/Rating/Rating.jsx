@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { getNextIndex } from '../../../hooks/a11y/use-arrow-key-nav.js';
+import { getNextIndex } from '../../../hooks/a11y/arrow-key-nav-model.js';
 import { cva } from 'class-variance-authority';
 import { cn } from '../../../utilities/cn/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';

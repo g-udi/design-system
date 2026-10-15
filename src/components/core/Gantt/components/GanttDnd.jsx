@@ -1,10 +1,8 @@
 'use client';
 import { useCallback, useEffect } from 'react';
-import {
-  resolveScheduleMode,
-  useGantt,
-  useGanttViewConfig
-} from '../Gantt.jsx';
+import { useGantt, useGanttViewConfig } from '../Gantt.jsx';
+import { resolveScheduleMode } from '../ganttConfig.js';
+import { cancelActiveGanttGestures, GANTT_ACTIVATION, markGestureEnd, registerGanttGestureCancel } from '../ganttGestures.js';
 import {
   findResource,
   snapMinutes,
@@ -12,30 +10,11 @@ import {
   zonedStartOfDay
 } from '../ganttModel.jsx';
 import { addDays, differenceInCalendarDays } from 'date-fns';
-import { endedRecently, POINTER_DRAG_ACTIVATION, snapToPixel } from '../../shared/pointerDrag.js';
-const GANTT_ACTIVATION = {
-  ...POINTER_DRAG_ACTIVATION,
-  createDistancePx: 4
-};
+import { snapToPixel } from '../../shared/pointerDrag.js';
 function surfaceMinutesAt(tl, x) {
   const clamped = Math.min(Math.max(x, tl.rect.left), tl.rect.right);
   const traveled = tl.isRtl ? tl.rect.right - clamped : clamped - tl.rect.left;
   return (traveled / tl.rect.width) * ((tl.rangeEnd - tl.rangeStart) / 6e4);
-}
-let lastGestureEndedAt = 0;
-function wasRecentDrag() {
-  return endedRecently(lastGestureEndedAt);
-}
-function markGestureEnd() {
-  lastGestureEndedAt = performance.now();
-}
-const activeGestureCancels = new Set();
-function registerGanttGestureCancel(cancel) {
-  activeGestureCancels.add(cancel);
-  return () => activeGestureCancels.delete(cancel);
-}
-function cancelActiveGanttGestures() {
-  for (const cancel of [...activeGestureCancels]) cancel();
 }
 function useGanttGestureTeardown() {
   useEffect(() => cancelActiveGanttGestures, []);
@@ -545,10 +524,11 @@ function beginGesture(config) {
     if (!autoScrollRaf) autoScrollRaf = requestAnimationFrame(autoScrollTick);
   };
   let finished = false;
+  let unregisterCancel;
   const cleanup = () => {
     if (finished) return;
     finished = true;
-    activeGestureCancels.delete(cancel);
+    unregisterCancel?.();
     if (autoScrollRaf) cancelAnimationFrame(autoScrollRaf);
     try {
       origin.releasePointerCapture(pointerId);
@@ -570,7 +550,7 @@ function beginGesture(config) {
   const cancel = () => {
     cleanup();
     if (active) {
-      lastGestureEndedAt = performance.now();
+      markGestureEnd();
       internals.setDrag(null);
       internals.setSlotDraft(null);
     }
@@ -603,7 +583,7 @@ function beginGesture(config) {
     if (e.pointerId !== pointerId) return;
     cleanup();
     if (!active) return;
-    lastGestureEndedAt = performance.now();
+    markGestureEnd();
     const state = instance.getState();
     if (kind === 'create') {
       const draft = state.slotDraft;
@@ -655,7 +635,7 @@ function beginGesture(config) {
   window.addEventListener('pointercancel', onCancel);
   window.addEventListener('blur', onWindowBlur);
   window.addEventListener('keydown', onKeyDown, true);
-  activeGestureCancels.add(cancel);
+  unregisterCancel = registerGanttGestureCancel(cancel);
   try {
     origin.setPointerCapture(pointerId);
   } catch {
@@ -742,11 +722,6 @@ function useGanttGestures() {
   return { beginMove, beginResize, beginCreate, canDrag, canResize };
 }
 export {
-  cancelActiveGanttGestures,
-  registerGanttGestureCancel,
-  GANTT_ACTIVATION,
-  markGestureEnd,
   useGanttGestures,
-  useGanttGestureTeardown,
-  wasRecentDrag
+  useGanttGestureTeardown
 };

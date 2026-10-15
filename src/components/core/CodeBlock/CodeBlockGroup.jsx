@@ -2,9 +2,7 @@
 import { cn } from '../../../utilities/cn/index.js';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../Tabs/index.js';
 import { CodeBlock, CodeBlockCopyButton } from './CodeBlock.jsx';
-
-/** The article code chrome: dark in both site themes, drawn from the --ds-color-code-* tokens. */
-export const codeChromeClassName = 'dark text-text border-(--ds-color-code-chrome-border) bg-(--ds-color-code-block-bg)';
+import { codeChromeClassName } from './codeChrome.js';
 
 /**
  * Tabbed code: one tab per item on the code chrome, each a copyable CodeBlock.

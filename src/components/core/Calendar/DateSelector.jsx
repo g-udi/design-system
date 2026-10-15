@@ -299,7 +299,5 @@ export function DateSelector({
     </DateSelectorContext.Provider>
   );
 }
-export { DEFAULT_DATE_SELECTOR_I18N } from './dateSelectorLabels.js';
 export { useDateSelectorContext } from './DateSelectorContext.jsx';
-export { formatDateValue } from './dateSelectorModel.js';
 export { useDateSelector } from './hooks/useDateSelector.js';

@@ -1,7 +1,7 @@
 'use client';
 
-import { matchesMediaQuery, subscribeMediaQuery } from '../../../../hooks/environment/use-media-query.js';
-import { REDUCED_MOTION_QUERY } from '../../../../hooks/a11y/use-prefers-reduced-motion.js';
+import { matchesMediaQuery, subscribeMediaQuery } from '../../../../hooks/environment/media-query-model.js';
+import { REDUCED_MOTION_QUERY } from '../../../../hooks/a11y/reduced-motion-model.js';
 
 export const prefersReducedMotion = () => matchesMediaQuery(REDUCED_MOTION_QUERY);
 export const subscribeReducedMotion = (notify) => subscribeMediaQuery(REDUCED_MOTION_QUERY, notify);

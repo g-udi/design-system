@@ -5,29 +5,28 @@ import { FiltersAdvanced } from './components/FiltersAdvanced.jsx';
 import { FiltersBuilder } from './components/FiltersBuilder.jsx';
 import { FilterChip } from './components/FiltersChip.jsx';
 import {
-  createFilterFocusStore,
-  createFilterResolutionStore,
-  createFilterRowStateStore,
   FilterActionsContext,
-  filterControlSizes,
   FilterFocusContext,
-  filterReadOnlyProps,
   FilterRenderContext,
   FilterRowStateProvider,
   FilterStateContext,
-  isFilterLocked,
   useFilterActions,
   useFilterFocusStore,
   useFilterState
 } from './FiltersContext.jsx';
 import {
+  createFilterFocusStore,
+  createFilterResolutionStore,
+  createFilterRowStateStore,
+  filterControlSizes,
+  filterReadOnlyProps,
+  isFilterLocked
+} from './filterStores.js';
+import {
   filterDraftReducer,
   isFilterDraftCommittable
 } from './filterDraft.jsx';
-import {
-  DEFAULT_FILTER_EDITORS,
-  resolveFilterEditor
-} from './components/FiltersEditors.jsx';
+import { DEFAULT_FILTER_EDITORS, resolveFilterEditor } from './filterEditors.js';
 import { resolveFilterLabels } from './filterLabels.jsx';
 import {
   buildFilterIndex,
@@ -812,24 +811,6 @@ export function FiltersRow({ trigger, showClear, className }) {
   );
 }
 export {
-  collectFilterIssues,
-  copyFilterNodeTo,
-  createFilterGroup,
-  createFilterQuery,
-  createFilterRule,
-  countFilterRules,
-  flattenFilterConditions,
-  flattenFilterRules,
-  isFilterQueryEmpty,
-  isFilterRuleComplete,
-  moveFilterNodeTo,
-  pruneFilterQuery,
-  unwrapFilterGroup,
-  wrapFilterNodeInGroup
-} from './filterQuery.jsx';
-export {
-  filterReadOnlyProps,
-  isFilterLocked,
   useFilterActions,
   useFilterState,
   useFilterFocus,
@@ -856,13 +837,7 @@ export {
   FiltersBuilder,
   FilterFieldPicker
 } from './components/FiltersBuilder.jsx';
-export { DEFAULT_FILTER_LABELS } from './filterLabels.jsx';
 export {
-  DEFAULT_FILTER_OPERATORS,
-  DEFAULT_FILTER_OPERATOR_LABELS
-} from './filterOperators.jsx';
-export {
-  DEFAULT_FILTER_EDITORS,
   useFilterOptions,
   useFilterValueResolution
 } from './components/FiltersEditors.jsx';

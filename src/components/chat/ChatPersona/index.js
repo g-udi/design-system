@@ -1,1 +1,2 @@
-export { ChatPersona as default, ChatPersona, personaStates, personaVariants, personaSizes } from './ChatPersona.jsx';
+export { ChatPersona as default, ChatPersona } from './ChatPersona.jsx';
+export { personaStates, personaVariants, personaSizes } from './personaModel.js';

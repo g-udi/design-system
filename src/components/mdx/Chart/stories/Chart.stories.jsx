@@ -4,7 +4,8 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../docs/comp
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
-import { CHART_TYPES, Chart } from '../Chart';
+import { Chart } from '../Chart';
+import { CHART_TYPES } from '../chartTypes.js';
 
 const docs = getComponentDocs('MDX/Chart');
 // Monthly readers by acquisition channel: three series on one scale, so every type reads well.

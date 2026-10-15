@@ -8,12 +8,12 @@ import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { ChatMessageStatus } from '../shared/message-status.jsx';
 import { ChatMessageData } from './ChatMessageTool.jsx';
+import { approvalStates } from './toolApprovalModel.js';
 
 /*
  * Tool approval: a confirmation for a tool call that needs consent. States follow the request: requested → approved (running) → executed, or requested → denied.
  */
 
-const approvalStates = Object.freeze(['requested', 'approved', 'denied', 'executed']);
 const statusFor = { requested: 'awaiting', approved: 'running', denied: 'denied', executed: 'done' };
 
 const defaultLabels = {
@@ -123,4 +123,4 @@ function ChatMessageToolApproval({ name, description, input, state, defaultState
   );
 }
 
-export { ChatMessageToolApproval, approvalStates };
+export { ChatMessageToolApproval };

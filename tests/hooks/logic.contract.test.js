@@ -1,20 +1,20 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getNextIndex } from '../../src/hooks/a11y/use-arrow-key-nav.js';
-import { getTrapTarget } from '../../src/hooks/a11y/use-focus-trap.js';
-import { announce } from '../../src/hooks/a11y/use-live-announcer.js';
-import { createStorageStore } from '../../src/hooks/data/storage-state.js';
-import { selectionState, toggleInSet } from '../../src/hooks/data/use-selection.js';
-import { matchesMediaQuery, subscribeMediaQuery } from '../../src/hooks/environment/use-media-query.js';
-import { writeToClipboard } from '../../src/hooks/interaction/use-copy-to-clipboard.js';
-import { matchHotkey, parseHotkey, toAriaKeyShortcuts, toKbdKeys } from '../../src/hooks/interaction/use-hotkey.js';
-import { isOutside } from '../../src/hooks/interaction/use-on-click-outside.js';
-import { lockScroll } from '../../src/hooks/interaction/use-scroll-lock.js';
+import { getNextIndex } from '../../src/hooks/a11y/arrow-key-nav-model.js';
+import { getTrapTarget } from '../../src/hooks/a11y/focus-trap-model.js';
+import { announce } from '../../src/hooks/a11y/live-announcer-model.js';
+import { createStorageStore } from '../../src/hooks/data/storage-model.js';
+import { selectionState, toggleInSet } from '../../src/hooks/data/selection-model.js';
+import { matchesMediaQuery, subscribeMediaQuery } from '../../src/hooks/environment/media-query-model.js';
+import { writeToClipboard } from '../../src/hooks/interaction/clipboard-model.js';
+import { matchHotkey, parseHotkey, toAriaKeyShortcuts, toKbdKeys } from '../../src/hooks/interaction/hotkey-model.js';
+import { isOutside } from '../../src/hooks/interaction/click-outside-model.js';
+import { lockScroll } from '../../src/hooks/interaction/scroll-lock-model.js';
 import { areAllSectionsExpanded, collapsibleSectionsReducer, createCollapsibleSectionsState } from '../../src/hooks/layout/collapsible-sections-model.js';
-import { createDebouncer } from '../../src/hooks/state/use-debounce-callback.js';
-import { assignRef, mergeRefs } from '../../src/hooks/state/use-merged-refs.js';
-import { clampStep } from '../../src/hooks/state/use-step.js';
-import { createThrottler } from '../../src/hooks/state/use-throttle-callback.js';
+import { createDebouncer } from '../../src/hooks/state/debounce-model.js';
+import { assignRef, mergeRefs } from '../../src/hooks/state/merged-refs-model.js';
+import { clampStep } from '../../src/hooks/state/step-model.js';
+import { createThrottler } from '../../src/hooks/state/throttle-model.js';
 
 // MARK: A11y
 

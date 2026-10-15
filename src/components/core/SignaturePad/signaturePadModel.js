@@ -218,3 +218,19 @@ export {
   signaturePadToBlob,
   serializeSignaturePad,
 };
+
+// Default accessible labels; hosts override any subset through `labels`.
+export const signaturePadLabels = {
+  area: 'Signature pad',
+  role: 'signature pad',
+  placeholder: 'Sign here',
+  empty: 'No signature entered',
+  filled: 'Signature entered',
+  readOnly: 'Read only',
+  instructions:
+    'Draw with a mouse, touch, or pen. Use Control or Command Z to undo and Shift Z to redo.',
+  clear: 'Clear signature',
+  undo: 'Undo',
+  redo: 'Redo',
+  save: 'Save signature',
+};

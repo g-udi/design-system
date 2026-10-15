@@ -1,6 +1,6 @@
 'use client';
 import { memo, useId, useMemo } from 'react';
-import { getColumnHeaderLabel, useDataGrid } from '../DataGrid.jsx';
+import { useDataGrid } from '../DataGrid.jsx';
 import { Subscribe } from '@tanstack/react-table';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
@@ -20,7 +20,8 @@ import {
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 import { DataGridColumnStatsMenuItems } from './DataGridColumnStats.jsx';
 import { useDataGridViewLabels } from '../dataGridViewLabels.jsx';
-import { getDataGridColumnOrder, moveDataGridColumn } from './DataGridViewOptions.jsx';
+import { getColumnHeaderLabel } from '../dataGridModel.js';
+import { getDataGridColumnOrder, moveDataGridColumn } from '../dataGridViewModel.js';
 function DataGridColumnHeaderInner({
   column,
   title,

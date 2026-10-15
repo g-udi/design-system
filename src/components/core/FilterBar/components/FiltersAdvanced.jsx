@@ -9,10 +9,7 @@ import {
   useFilterRuleDisplay
 } from './FiltersChip.jsx';
 import {
-  filterControlSizes,
-  filterReadOnlyProps,
   FilterReorderProvider,
-  isFilterLocked,
   useFilterActions,
   useFilterChipAutoOpen,
   useFilterChipFocused,
@@ -25,10 +22,9 @@ import {
   useFilterSegmentFocus,
   useFilterState
 } from '../FiltersContext.jsx';
-import {
-  FILTER_ROW_SELECTOR,
-  useFilterRowDrag
-} from './FiltersDnd.jsx';
+import { filterControlSizes, filterReadOnlyProps, isFilterLocked } from '../filterStores.js';
+import { useFilterRowDrag } from './FiltersDnd.jsx';
+import { FILTER_ROW_SELECTOR } from './filterDragModel.js';
 import { filterIssueLabel } from '../filterLabels.jsx';
 import {
   FILTER_FIELD_PICKER_CLASS,

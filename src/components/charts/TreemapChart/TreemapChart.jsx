@@ -3,36 +3,12 @@
 import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
 import { RechartsTooltip, RechartsTreemap, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { extent, formatShare, isChartNumber } from '../ChartFrame/chartScale.js';
-import { heatmapStep } from '../HeatmapChart/HeatmapChart.jsx';
+import { heatmapStep } from '../HeatmapChart/heatmapModel.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
-
-/** Flatten a one- or two-level tree into indexed leaves, keeping each leaf's group. */
-export function treemapLeaves(data, { nameKey = 'name', valueKey = 'value' } = {}) {
-  const leaves = [];
-  const tree = data.map((record, groupIndex) => {
-    const item = record && typeof record === 'object' ? record : { [valueKey]: Number.NaN };
-    if (Array.isArray(item.children)) {
-      return {
-        ...item,
-        'children': item.children.map((child) => {
-          const leaf = { ...(child && typeof child === 'object' ? child : { [valueKey]: Number.NaN }), '__chartIndex': leaves.length, '__group': item[nameKey], '__groupIndex': groupIndex };
-          leaves.push(leaf);
-
-          return leaf;
-        })
-      };
-    }
-    const leaf = { ...item, '__chartIndex': leaves.length, '__group': null, '__groupIndex': groupIndex };
-    leaves.push(leaf);
-
-    return leaf;
-  });
-
-  return { 'leaves': leaves.map((leaf) => ({ ...leaf, 'value': leaf[valueKey] })), tree };
-}
+import { treemapLeaves } from './treemapModel.js';
 
 function TreemapPlot({ colorBy, colors, leaves, nameKey, tree, valueKey }) {
   const frame = useChartFrame();

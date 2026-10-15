@@ -2,7 +2,8 @@ import { expect, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
-import Terminal, { terminalVariants } from '../Terminal';
+import Terminal from '../Terminal';
+import { terminalVariants } from '../terminalVariants.js';
 
 const docs = getComponentDocs('Core/Terminal');
 const options = (name) => Object.keys(terminalVariants.variants[name]);

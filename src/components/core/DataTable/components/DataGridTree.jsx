@@ -10,8 +10,6 @@ import {
   DataGridTableFootRowCell
 } from './DataGridTable.jsx';
 import {
-  getDataGridTreeTotal,
-  renderDataGridRollup,
   useDataGridStructureLabels
 } from './DataGridTreeRows.jsx';
 import { Subscribe } from '@tanstack/react-table';
@@ -28,59 +26,10 @@ import {
   DropdownMenuTrigger
 } from '../../DropdownMenu/DropdownMenuPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { getDataGridTreeTotal, renderDataGridRollup, getDataGridTreeSelectionState, toggleDataGridTreeRowSelected, canSelectDataGridRow as canSelect, applyDataGridTreeSelection } from '../dataGridStructureModel.js';
 
 /* --- Cascading selection -------------------------------------------------- */
 
-const canSelect = (row) => row.getCanSelect?.() !== false;
-/**
- * A tree row's checkbox state, derived from its descendants: `true` when every
- * selectable descendant is selected, `'indeterminate'` when some are, and the
- * row's own selection for leaves (including lazy parents not loaded yet).
- */
-export function getDataGridTreeSelectionState(row, selection = row.table.atoms.rowSelection?.get() ?? {}) {
-  const children = row.subRows?.filter(canSelect) ?? [];
-  if (!children.length) return !!selection[row.id];
-  let all = true;
-  let some = false;
-  for (const child of children) {
-    const state = getDataGridTreeSelectionState(child, selection);
-    if (state === true) some = true;
-    else if (state === 'indeterminate') {
-      some = true;
-      all = false;
-    } else all = false;
-    if (some && !all) break;
-  }
-  return all ? true : some ? 'indeterminate' : false;
-}
-/* Selects or clears a row with all of its descendants, then settles every
- ancestor: a parent is selected exactly when all of its children are. */
-function applyTreeSelection(next, row, value) {
-  const visit = (current) => {
-    if (canSelect(current)) {
-      if (value) next[current.id] = true;
-      else delete next[current.id];
-    }
-    current.subRows?.forEach(visit);
-  };
-  visit(row);
-  let parent = row.getParentRow?.();
-  while (parent) {
-    const children = parent.subRows.filter(canSelect);
-    if (canSelect(parent)) {
-      if (children.length && children.every((child) => next[child.id])) next[parent.id] = true;
-      else delete next[parent.id];
-    }
-    parent = parent.getParentRow?.();
-  }
-}
-export function toggleDataGridTreeRowSelected(row, value) {
-  row.table.setRowSelection((old) => {
-    const next = { ...old };
-    applyTreeSelection(next, row, value ?? getDataGridTreeSelectionState(row) !== true);
-    return next;
-  });
-}
 /**
  * The checkbox for a tree row. Checking a parent checks every descendant;
  * the parent reads checked when all of them are, and mixed when some are.
@@ -131,7 +80,7 @@ export function DataGridTableTreeRowSelectAll() {
             onCheckedChange={(value) =>
               table.setRowSelection((old) => {
                 const next = { ...old };
-                for (const row of roots) applyTreeSelection(next, row, value === true);
+                for (const row of roots) applyDataGridTreeSelection(next, row, value === true);
                 return next;
               })
             }

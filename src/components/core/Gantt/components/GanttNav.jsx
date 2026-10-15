@@ -7,6 +7,7 @@ import {
   useGanttViewConfig
 } from '../Gantt.jsx';
 import { toZoned } from '../ganttModel.jsx';
+import { GANTT_SCALES } from '../ganttConfig.js';
 import { format } from 'date-fns';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
@@ -33,7 +34,6 @@ import {
 } from '../../Tooltip/TooltipPrimitives.jsx';
 import { getNavButtonProps, ScheduleNavButton } from '../../shared/ScheduleNav.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-const GANTT_SCALES = ['day', 'week', 'month', 'quarter', 'year'];
 function useNavButtonProps() {
   return getNavButtonProps(useGanttViewConfig());
 }
@@ -282,7 +282,6 @@ function GanttNav({ className, asChild = false, children, ...props }) {
   );
 }
 export {
-  GANTT_SCALES,
   GanttDatePicker,
   GanttNav,
   GanttNavNext,

@@ -1,12 +1,7 @@
 'use client';
 
 import { useEventListener } from './use-event-listener.js';
-
-/** True when `target` lies outside every ref'd node. Detached targets (removed mid-click) count as inside. */
-export function isOutside(refs, target) {
-  if (!target || (typeof target.isConnected === 'boolean' && !target.isConnected)) return false;
-  return refs.every((ref) => !ref?.current || !ref.current.contains(target));
-}
+import { isOutside } from './click-outside-model.js';
 
 /**
  * Calls `handler` when a pointer press lands outside the referenced element(s): pass a ref or an

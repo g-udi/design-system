@@ -2,7 +2,7 @@
 
 import { clamp } from '../../../utilities/clamp.js';
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { chartTones } from '../ChartFrame/ChartMarks.jsx';
+import { chartTones } from '../ChartFrame/chartTokens.js';
 import { isChartNumber, resolveFormatter } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
 

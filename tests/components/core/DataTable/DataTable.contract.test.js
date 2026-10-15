@@ -33,7 +33,7 @@ test('DataTable exposes the DataGrid editing API from its public entry', async (
 });
 
 
-const { getDataGridRollupRows, moveDataGridRow } = await loadComponent(new URL('../../../../src/components/core/DataTable/components/DataGridTreeRows.jsx', import.meta.url));
+const { getDataGridRollupRows, moveDataGridRow } = await loadComponent(new URL('../../../../src/components/core/DataTable/dataGridStructureModel.js', import.meta.url));
 const tree = () => [
   { id: 'docs', children: [{ id: 'a' }, { id: 'b' }] },
   { id: 'media', children: [{ id: 'c' }] },

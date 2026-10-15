@@ -1,8 +1,5 @@
 'use client';
 import {
-  dataGridCellSelectionCellClasses,
-  getDataGridCellSelectionCellAttrs,
-  toDataGridDomId,
   useDataGrid
 } from '../DataGrid.jsx';
 import { flexRender, Subscribe } from '@tanstack/react-table';
@@ -10,16 +7,14 @@ import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 import { DataGridCellErrorIndicator, DataGridRowEditCell } from './DataGridEditing.jsx';
-import { getDataGridCellIsRollup, renderDataGridRollupCell } from './DataGridTreeRows.jsx';
 import {
   getPinningStyles,
   getDataGridTableOrderedVisibleColumns,
   getDataGridTreeIndentStyle,
-  hasDataGridTableRightPinnedColumns,
-  findDataGridColumnDef,
-  formatDataGridAggregate
+  hasDataGridTableRightPinnedColumns
 } from '../dataGridTableModel.js';
 import { isDataGridCellInteractiveTarget } from '../dataGridTableDom.js';
+import { getDataGridCellSelectionCellAttrs, dataGridCellSelectionCellClasses, toDataGridDomId } from '../dataGridModel.js';
 function DataGridTableBodyRowCell({
   children,
   cell,
@@ -269,28 +264,4 @@ function DataGridTableGroupedCell({ cell }) {
     </span>
   );
 }
-/* One renderer for the three grouping cell modes: the grouped column's band
- cell, aggregated values (a column's `aggregatedCell`, or its formatted
- aggregate), and empty placeholders for leaf values under a group. */
-function renderDataGridCellContent(cell) {
-  if (cell.getIsGrouped?.()) return <DataGridTableGroupedCell cell={cell} />;
-  if (cell.getIsAggregated?.()) {
-    // The table's built-in aggregatedCell only stringifies the value; columns
-    // that do not render their own get grouping separators instead.
-    if (!findDataGridColumnDef(cell.row.table?.options.columns, cell.column.id)?.aggregatedCell) {
-      return (
-        <span className='font-medium tabular-nums'>
-          {formatDataGridAggregate(cell.getValue())}
-        </span>
-      );
-    }
-    return flexRender(cell.column.columnDef.aggregatedCell, cell.getContext());
-  }
-  // A group band has no record of its own: columns without an aggregate stay
-  // empty there rather than echoing the first record in the group.
-  if (cell.getIsPlaceholder?.() || cell.row.getIsGrouped?.()) return null;
-  // Tree parents in `meta.rollup` columns show their descendants' aggregate.
-  if (getDataGridCellIsRollup(cell)) return renderDataGridRollupCell(cell);
-  return flexRender(cell.column.columnDef.cell, cell.getContext());
-}
-export { DataGridTableBodyRowCell, DataGridTableGroupedCell, renderDataGridCellContent };
+export { DataGridTableBodyRowCell, DataGridTableGroupedCell };

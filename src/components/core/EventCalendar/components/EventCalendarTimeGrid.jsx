@@ -12,16 +12,15 @@ import {
   useEventCalendarViewContext,
   useEventCalendarViewSettings
 } from '../EventCalendar.jsx';
-import {
-  useEventCalendarGestures,
-  wasRecentChipPress,
-  wasRecentDrag
-} from './EventCalendarDnd.jsx';
+import { useEventCalendarGestures } from './EventCalendarDnd.jsx';
+import { wasRecentChipPress, wasRecentDrag } from '../eventCalendarGestures.js';
+import { EventCalendarEvent } from './EventCalendarEvent.jsx';
 import {
   EVENT_CALENDAR_GHOST,
   EVENT_CALENDAR_SLOT_DRAFT,
-  EventCalendarEvent
-} from './EventCalendarEvent.jsx';
+  EVENT_TRACK_WIDTH,
+  minuteBlockStyle
+} from '../eventCalendarStyles.js';
 import {
   getDayKey,
   getDayTotalMinutes,
@@ -668,15 +667,6 @@ function EventCalendarTimeGutter({ days, slots, startHour, interval }) {
     </div>
   );
 }
-const EVENT_TRACK_WIDTH = '(100% - var(--ec-event-gutter, 0.75rem))';
-function minuteBlockStyle(startMin, endMin, boundsStartMin) {
-  const top = (startMin - boundsStartMin) / 60;
-  const height = Math.max((endMin - startMin) / 60, 0.25);
-  return {
-    top: `calc(var(--ec-hour-height) * ${top})`,
-    height: `calc(var(--ec-hour-height) * ${height})`
-  };
-}
 function EventCalendarDayColumn({ day, startHour, endHour, interval }) {
   const settings = useEventCalendarSettings();
   const viewConfig = useEventCalendarViewConfig();
@@ -1043,13 +1033,11 @@ function EventCalendarDaysView(props) {
   return <EventCalendarTimeGrid view='days' {...props} />;
 }
 export {
-  EVENT_TRACK_WIDTH,
   EventCalendarDayView,
   EventCalendarDaysView,
   EventCalendarNowIndicator,
   EventCalendarTimeGrid,
   EventCalendarTimeGutter,
   EventCalendarWeekView,
-  minuteBlockStyle,
   useNow
 };

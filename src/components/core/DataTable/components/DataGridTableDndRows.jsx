@@ -13,8 +13,7 @@ import {
 } from 'react';
 import { useDataGrid } from '../DataGrid.jsx';
 import { DataGridTableBodySkeleton } from './DataGridTableStructure.jsx';
-import { handleDataGridRowMoveKey } from './DataGridRowMove.jsx';
-import { getDataGridRowLabel, useDataGridStructureLabels } from './DataGridTreeRows.jsx';
+import { useDataGridStructureLabels } from './DataGridTreeRows.jsx';
 import {
   DataGridTableBase,
   DataGridTableBody,
@@ -30,8 +29,7 @@ import {
   DataGridTableHeadRowCell,
   DataGridTableHeadRowCellResize,
   DataGridTableRowSpacer,
-  DataGridTableViewport,
-  renderDataGridCellContent
+  DataGridTableViewport
 } from './DataGridTable.jsx';
 import {
   closestCenter,
@@ -55,6 +53,8 @@ import { createPortal } from 'react-dom';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { getDataGridRowLabel, handleDataGridRowMoveKey } from '../dataGridStructureModel.js';
+import { renderDataGridCellContent } from '../dataGridCellContent.js';
 const SortableRowContext = createContext(null);
 function DataGridTableDndRowHandle({ className, disabled, disabledLabel }) {
   const { i18n, props } = useDataGrid();

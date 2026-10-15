@@ -8,11 +8,11 @@
  dependency only runs one way. */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDataGrid } from '../DataGrid.jsx';
-import { flexRender } from '@tanstack/react-table';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { Skeleton } from '../../Skeleton/SkeletonPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { getDataGridRowLabel, moveDataGridRow } from '../dataGridStructureModel.js';
 
 /* Copy for the structural parts. Hosts override any of these through the
  grid's `i18n.labels`, exactly like the built-in labels. */
@@ -51,18 +51,6 @@ export function useDataGridStructureLabels() {
     () => ({ ...DATA_GRID_STRUCTURE_LABELS, ...i18n.labels }),
     [i18n.labels]
   );
-}
-
-/* A short, human name for a row in announcements and status rows: the
- host's `getRowLabel`, else the first visible column's string value. */
-export function getDataGridRowLabel(row, getRowLabel) {
-  if (!row) return '';
-  if (getRowLabel) return String(getRowLabel(row) ?? row.id);
-  for (const cell of row.getVisibleCells()) {
-    const value = cell.getValue();
-    if (typeof value === 'string' && value) return value;
-  }
-  return String(row.id);
 }
 
 function isExpandedIn(expanded, id) {
@@ -279,168 +267,6 @@ export function DataGridTableLazyStatusRow({ row, indent = 20, getRowLabel }) {
       {fill ? <td aria-hidden='true' className='p-0' /> : null}
     </tr>
   );
-}
-
-/* The rows a tree rollup aggregates: the deepest loaded rows under `rows`.
- A branch whose children have not loaded counts as one leaf with its own
- value, so a server-provided folder total still rolls up. */
-export function getDataGridRollupRows(rows) {
-  const frontier = [];
-  const visit = (list) => {
-    for (const row of list) {
-      if (row.subRows?.length) visit(row.subRows);
-      else frontier.push(row);
-    }
-  };
-  visit(rows);
-  return frontier;
-}
-function resolveColumn(table, column) {
-  return typeof column === 'string' ? table.getColumn(column) : column;
-}
-/** A row's rollup: the column's `aggregationFn` over every loaded descendant. */
-export function getDataGridRollupValue(row, column) {
-  const resolved = resolveColumn(row.table, column);
-  if (!resolved || !row.subRows?.length) return row.getValue(resolved?.id ?? column);
-  return resolved.getAggregationValue({ rows: getDataGridRollupRows(row.subRows), maxDepth: 0 });
-}
-/** The grand total of a tree column: every filtered leaf, at any depth, once. */
-export function getDataGridTreeTotal(table, column) {
-  const resolved = resolveColumn(table, column);
-  if (!resolved) return undefined;
-  const rows = table.getPreGroupedRowModel?.().rows ?? table.getCoreRowModel().rows;
-  return resolved.getAggregationValue({ rows: getDataGridRollupRows(rows), maxDepth: 0 });
-}
-export const formatDataGridRollup = (value) =>
-  typeof value === 'number'
-    ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
-    : value instanceof Date
-      ? value.toLocaleDateString()
-      : Array.isArray(value)
-        ? value.map(formatDataGridRollup).join(' – ')
-        : value ?? '';
-/* Renders a rollup value with the column's `meta.rollupCell`, or formatted. */
-export function renderDataGridRollup({ column, row, table, value, scope }) {
-  const rollupCell = column.columnDef.meta?.rollupCell;
-  if (rollupCell) return flexRender(rollupCell, { column, row, table, value, scope });
-  return <span className='tabular-nums'>{formatDataGridRollup(value)}</span>;
-}
-/* Whether a body cell shows a rollup instead of the row's own value: tree
- parents (not grouping bands) in columns with `meta.rollup`. */
-export function getDataGridCellIsRollup(cell) {
-  return (
-    !!cell.column.columnDef.meta?.rollup &&
-    cell.row.subRows?.length > 0 &&
-    !cell.row.getIsGrouped?.()
-  );
-}
-export function renderDataGridRollupCell(cell) {
-  return (
-    <span data-slot='data-grid-rollup' className='font-medium'>
-      {renderDataGridRollup({
-        column: cell.column,
-        row: cell.row,
-        table: cell.row.table,
-        value: getDataGridRollupValue(cell.row, cell.column),
-        scope: 'row'
-      })}
-    </span>
-  );
-}
-
-/* --- Moving rows --------------------------------------------------------- */
-
-/* The siblings a row can be moved among, in display order. */
-export function getDataGridRowSiblings(row) {
-  const parent = row.getParentRow?.();
-  if (parent) return parent.subRows;
-  const rows = row.table.getRowModel().rows.filter((candidate) => candidate.depth === row.depth);
-  return rows.length ? rows : [row];
-}
-/* A move report for placing `row` at `index` among its own siblings. */
-export function getDataGridSiblingMove(row, index) {
-  const siblings = getDataGridRowSiblings(row);
-  const others = siblings.filter((sibling) => sibling.id !== row.id);
-  const clamped = Math.max(0, Math.min(index, others.length));
-  const target = others[clamped] ?? others[others.length - 1];
-  return {
-    id: row.id,
-    parentId: row.getParentRow?.()?.id ?? null,
-    index: clamped,
-    targetId: target?.id ?? null,
-    position: others[clamped] ? 'before' : 'after'
-  };
-}
-
-/**
- * Applies a move reported by `onRowMove` — `{ id, parentId, index, targetId,
- * position }` — and returns new data. Pass `childrenKey` for nested data: the
- * row leaves its old parent and lands at `index` among `parentId`'s children
- * (`null` for the top level). Without it the data is a flat list and the row
- * is placed before or after `targetId` (or at `index` when there is none), so
- * the same report works for flat, grouped and sectioned grids.
- */
-export function moveDataGridRow(data, move, { getRowId = (row) => row.id, childrenKey } = {}) {
-  if (!move || move.id == null) return data;
-  const sameId = (row) => String(getRowId(row)) === String(move.id);
-  if (!childrenKey) {
-    const item = data.find(sameId);
-    if (!item) return data;
-    const rest = data.filter((row) => !sameId(row));
-    let index = Math.max(0, Math.min(move.index ?? rest.length, rest.length));
-    if (move.targetId != null && move.position !== 'inside') {
-      const targetIndex = rest.findIndex((row) => String(getRowId(row)) === String(move.targetId));
-      if (targetIndex !== -1) index = move.position === 'after' ? targetIndex + 1 : targetIndex;
-    }
-    rest.splice(index, 0, item);
-    return rest;
-  }
-  let moved;
-  const remove = (rows) => {
-    let changed = false;
-    const next = [];
-    for (const row of rows) {
-      if (sameId(row)) {
-        moved = row;
-        changed = true;
-        continue;
-      }
-      const children = row[childrenKey];
-      if (Array.isArray(children)) {
-        const nextChildren = remove(children);
-        if (nextChildren !== children) {
-          changed = true;
-          next.push({ ...row, [childrenKey]: nextChildren });
-          continue;
-        }
-      }
-      next.push(row);
-    }
-    return changed ? next : rows;
-  };
-  const without = remove(data);
-  if (!moved) return data;
-  const insertAt = (rows) => {
-    const next = rows.slice();
-    next.splice(Math.max(0, Math.min(move.index ?? next.length, next.length)), 0, moved);
-    return next;
-  };
-  if (move.parentId == null) return insertAt(without);
-  let placed = false;
-  const insert = (rows) =>
-    rows.map((row) => {
-      if (placed) return row;
-      if (String(getRowId(row)) === String(move.parentId)) {
-        placed = true;
-        return { ...row, [childrenKey]: insertAt(row[childrenKey] ?? []) };
-      }
-      const children = row[childrenKey];
-      if (!Array.isArray(children)) return row;
-      const nextChildren = insert(children);
-      return nextChildren === children ? row : { ...row, [childrenKey]: nextChildren };
-    });
-  const result = insert(without);
-  return placed ? result : data;
 }
 
 /**

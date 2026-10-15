@@ -1,11 +1,8 @@
 'use client';
 import { useControllableState } from '../../../../hooks/state/use-controllable-state.js';
-import { localStorageStore } from '../../../../hooks/data/use-local-storage.js';
+import { localStorageStore } from '../../../../hooks/data/storage-model.js';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
-import { getDataGridColumnOrder } from './DataGridViewOptions.jsx';
 import {
-  readDataGridState,
-  resolveDataGridViewLabels,
   useDataGridStoreVersion
 } from '../dataGridViewLabels.jsx';
 import { cn } from '../../../../utilities/cn/index.js';
@@ -18,79 +15,8 @@ import {
   PopoverTrigger
 } from '../../Popover/PopoverPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
+import { resolveDataGridViewLabels, getDataGridLayout, applyDataGridLayout, isSameDataGridLayout, normalizeDataGridPinning as normalizePinning, canonicalDataGridLayout as canonicalLayout } from '../dataGridViewModel.js';
 const LAYOUT_STORAGE_VERSION = 1;
-function normalizePinning(pinning) {
-  const value = pinning ?? {};
-  return Object.fromEntries(
-    Object.keys(value)
-      .sort()
-      .map((side) => [side, [...(value[side] ?? [])]])
-  );
-}
-/**
- * Snapshots what a person changes about a grid's shape: column order (the full
- * resolved order), sizing, visibility and pinning, plus any `extra` view state
- * such as density. Data, sorting and filters are not part of a layout.
- */
-export function getDataGridLayout(table, extra = {}) {
-  return {
-    columnOrder: getDataGridColumnOrder(table),
-    columnSizing: { ...(readDataGridState(table, 'columnSizing') ?? {}) },
-    columnVisibility: {
-      ...(readDataGridState(table, 'columnVisibility') ?? {})
-    },
-    columnPinning: normalizePinning(readDataGridState(table, 'columnPinning')),
-    ...extra
-  };
-}
-/** Applies every slice a layout carries; slices it omits keep their state. */
-export function applyDataGridLayout(table, layout) {
-  if (!layout) return;
-  if (layout.columnOrder) table.setColumnOrder([...layout.columnOrder]);
-  if (layout.columnSizing) table.setColumnSizing({ ...layout.columnSizing });
-  if (layout.columnVisibility)
-    table.setColumnVisibility({ ...layout.columnVisibility });
-  if (layout.columnPinning)
-    table.setColumnPinning(normalizePinning(layout.columnPinning));
-}
-function canonicalLayout(layout, columnIds) {
-  if (!layout) return '';
-  const known = (id) => !columnIds || columnIds.includes(id);
-  const visibility = Object.entries(layout.columnVisibility ?? {})
-    .filter(([id, visible]) => visible === false && known(id))
-    .map(([id]) => id)
-    .sort();
-  const sizing = Object.entries(layout.columnSizing ?? {})
-    .filter(([id]) => known(id))
-    .sort(([a], [b]) => a.localeCompare(b));
-  const pinning = Object.entries(normalizePinning(layout.columnPinning)).map(
-    ([side, ids]) => [side, ids.filter(known)]
-  );
-  const rest = Object.entries(layout)
-    .filter(
-      ([key]) =>
-        !['columnOrder', 'columnSizing', 'columnVisibility', 'columnPinning'].includes(key)
-    )
-    .sort(([a], [b]) => a.localeCompare(b));
-  // A partial order means "these first"; the grid appends the rest in leaf order.
-  const order = (layout.columnOrder ?? []).filter(known);
-  if (columnIds) order.push(...columnIds.filter((id) => !order.includes(id)));
-  return JSON.stringify([
-    order,
-    visibility,
-    sizing,
-    pinning.filter(([, ids]) => ids.length),
-    rest
-  ]);
-}
-/**
- * Two layouts match when they would render the same grid: a column shown by
- * default equals one explicitly set visible, and slices for columns the grid
- * no longer has are ignored.
- */
-export function isSameDataGridLayout(a, b, columnIds) {
-  return canonicalLayout(a, columnIds) === canonicalLayout(b, columnIds);
-}
 function readStoredLayouts(storageKey) {
   if (!storageKey) return null;
   try {

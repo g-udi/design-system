@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useRef } from 'react';
-import { resolveScheduleMode, useGanttSelector } from '../Gantt.jsx';
+import { useGanttSelector } from '../Gantt.jsx';
+import { resolveScheduleMode } from '../ganttConfig.js';
 import { getBaselineVariance, getLaneKey, packTimedSegments, resolveEventBaseline } from '../ganttModel.jsx';
 import { lowestFreeLane, laneBlockRem } from '../ganttViewModel.js';
 function useGanttRows({

@@ -1,7 +1,6 @@
 export {
   SignaturePad as default,
   SignaturePad,
-  signaturePadLabels,
 } from './SignaturePad.jsx';
 export { SignaturePadArea } from './SignaturePadArea.jsx';
 export {
@@ -24,4 +23,5 @@ export {
   signaturePadToSVG,
   signaturePadToDataURL,
   signaturePadToBlob,
+  signaturePadLabels,
 } from './signaturePadModel.js';

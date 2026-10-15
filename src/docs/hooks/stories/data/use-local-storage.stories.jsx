@@ -1,6 +1,6 @@
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { example, hookMeta } from '../../HookDocs.jsx';
-import { localStorageStore } from '../../../../hooks/data/use-local-storage.js';
+import { localStorageStore } from '../../../../hooks/data/storage-model.js';
 import { ReaderPreferences, NoticeA, NoticeB, ProjectPreferences } from './fixtures/use-local-storage.jsx';
 import exampleCode from './fixtures/use-local-storage.jsx?raw';
 import { hookExampleSource } from '../../hookExampleSource.js';

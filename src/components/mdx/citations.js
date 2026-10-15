@@ -7,7 +7,7 @@
  * global tracker stands down while the richer popover handler is mounted.
  */
 
-import { localStorageStore } from '../../hooks/data/use-local-storage.js';
+import { localStorageStore } from '../../hooks/data/storage-model.js';
 
 /**
  * Parses a JSON array attribute value, returning [] for anything invalid

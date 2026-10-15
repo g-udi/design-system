@@ -22,11 +22,10 @@ import {
   toZoned,
   zonedStartOfDay
 } from './eventCalendarModel.jsx';
+import { ALL_VIEWS, BASE_VIEWS, DEFAULT_VIEW_CONFIG } from './eventCalendarConfig.js';
 import { addDays } from 'date-fns';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../utilities/cn/index.js';
-const BASE_VIEWS = ['month', 'week', 'day', 'days', 'agenda'];
-const ALL_VIEWS = [...BASE_VIEWS, 'resource'];
 const DEFAULT_INTERACTIONS = {
   drag: true,
   resize: true,
@@ -849,26 +848,6 @@ function useEventCalendarSettings() {
   return instance.settings;
 }
 const EventCalendarViewContext = createContext(null);
-const DEFAULT_VIEW_CONFIG = {
-  scrollToHour: 7,
-  nowIndicator: true,
-  interval: 60,
-  maxEventsPerCell: 'auto',
-  showWeekNumbers: false,
-  enableShortcuts: true,
-  shortcutsScope: 'focus-within',
-  scrollMode: 'contained',
-  stickyNav: false,
-  showDayAddButton: false,
-  scrollbars: 'custom',
-  navButtonVariant: 'ghost',
-  navButtonSize: 'sm',
-  dayCountPresets: [5],
-  eventTooltip: false,
-  compactEventMinutes: 45,
-  morePopoverAlign: 'start',
-  nowIndicatorInterval: 3e4
-};
 const EventCalendarViewConfigContext = createContext(DEFAULT_VIEW_CONFIG);
 function useEventCalendarViewConfig() {
   return useContext(EventCalendarViewConfigContext);
@@ -1029,9 +1008,6 @@ function EventCalendar({
   );
 }
 export {
-  ALL_VIEWS,
-  BASE_VIEWS,
-  DEFAULT_VIEW_CONFIG,
   EventCalendar,
   EventCalendarContext,
   EventCalendarViewConfigContext,

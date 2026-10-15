@@ -5,7 +5,8 @@ import { useControllableState } from '../../../hooks/state/use-controllable-stat
 import { useIsomorphicLayoutEffect } from '../../../hooks/state/use-isomorphic-layout-effect.js';
 
 import { ChartFrame, activeOpacity, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { ChartSeriesLegend, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { ChartSeriesLegend } from '../ChartFrame/ChartMarks.jsx';
+import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
 import { Cell, Pie, RechartsPieChart, RechartsTooltip, ResponsiveContainer, getChartColor, usePlotArea } from '../ChartFrame/chartRuntime.js';
 import { formatShare, groupSmallSlices, isChartNumber } from '../ChartFrame/chartScale.js';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';

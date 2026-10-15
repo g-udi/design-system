@@ -265,3 +265,23 @@ export function findFilterSchemaIssues(fields, resolveOperators) {
   walk(fields, []);
   return { duplicatePaths, emptyIds, emptyBranches, unknownDefaultOperators };
 }
+/** Maps filter fields onto Cascader nodes for the field picker. */
+export function toCascaderNodes(fields, parentPath = []) {
+  return fields.map((field) => {
+    const path = [...parentPath, field.id];
+    const node = {
+      value: joinFilterPath(path),
+      label: field.label,
+      icon: field.icon,
+      description: field.description,
+      keywords: field.keywords,
+      disabled: field.disabled,
+      data: field
+    };
+    if (field.fields?.length) {
+      node.children = toCascaderNodes(field.fields, path);
+      node.count = getFilterFieldCount(field);
+    }
+    return node;
+  });
+}

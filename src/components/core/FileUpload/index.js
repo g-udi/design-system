@@ -1,4 +1,5 @@
 export { default } from './FileUpload';
 
 // Composition exports
-export { useFileUpload, formatBytes } from './use-file-upload.js';
+export { useFileUpload } from './use-file-upload.js';
+export { formatBytes } from './fileSelection.js';

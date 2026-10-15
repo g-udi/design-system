@@ -1,12 +1,11 @@
 'use client';
-import { writeToClipboard } from '../../../../hooks/interaction/use-copy-to-clipboard.js';
+import { writeToClipboard } from '../../../../hooks/interaction/clipboard-model.js';
 import { useEffect, useRef, useState } from 'react';
 import { useDataGrid } from '../DataGrid.jsx';
 import { isDataGridToggleControl, isDataGridValueEqual } from '../cellEditing.js';
 import {
   serializeDataGridClipboardText,
   parseDataGridClipboardText,
-  tileDataGridClipboardBlock,
   renderDataGridClipboardHtml
 } from '../dataGridClipboard.js';
 import {
@@ -19,7 +18,6 @@ import {
   getDataGridActiveRegionGrid,
   buildDataGridClearDetails,
   buildDataGridPasteDetails,
-  invertDataGridCellsChange,
   selectDataGridRegion
 } from '../dataGridSelectionModel.js';
 import { startDataGridFillSession } from '../dataGridFillSession.js';
@@ -1082,15 +1080,4 @@ function DataGridCellSelection({ apiRef, clipboard = true, keyboard = true }) {
     </>
   );
 }
-export {
-  DataGridCellSelection,
-  DataGridSelectionBar,
-  buildDataGridClearDetails,
-  buildDataGridPasteDetails,
-  getDataGridActiveRegionGrid,
-  getDataGridVisibleSelectedCellCount,
-  invertDataGridCellsChange,
-  parseDataGridClipboardText,
-  serializeDataGridClipboardText,
-  tileDataGridClipboardBlock
-};
+export { DataGridCellSelection, DataGridSelectionBar };

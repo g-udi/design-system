@@ -5,9 +5,9 @@ import {
   useCascaderState
 } from '../CascaderContext.jsx';
 import {
-  CascaderItem,
-  getCascaderMoreProps
+  CascaderItem
 } from './CascaderItem.jsx';
+import { getCascaderMoreProps } from '../cascaderModel.jsx';
 import { CASCADER_LIST_HEIGHT_CLASS, CASCADER_LIST_PAD_CLASS, CASCADER_ROWS_CLASS, CASCADER_SCROLL_CLASS } from "../cascaderStyles.js";
 import { CASCADER_ROOT_KEY, warnCascaderOnce } from "../cascaderModel.jsx";
 import { Combobox as ComboboxPrimitive } from '@base-ui/react';

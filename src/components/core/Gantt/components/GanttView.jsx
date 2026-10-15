@@ -3,7 +3,8 @@ import { useControllableState } from '../../../../hooks/state/use-controllable-s
 import { useInterval } from '../../../../hooks/state/use-interval.js';
 import { useEventListener } from '../../../../hooks/interaction/use-event-listener.js';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { resolveTimelineLines, useGantt, useGanttSelector, useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { useGantt, useGanttSelector, useGanttSettings, useGanttViewConfig } from '../Gantt.jsx';
+import { resolveTimelineLines } from '../ganttConfig.js';
 import { getDayKey, getRangeKey } from '../ganttModel.jsx';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';

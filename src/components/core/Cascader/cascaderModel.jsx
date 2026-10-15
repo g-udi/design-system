@@ -476,3 +476,22 @@ export function findCascaderDataIssues(items, getParent) {
   }
   return { duplicates: Array.from(duplicates), cycles };
 }
+export function getCascaderMoreProps(node, loadStates) {
+  const parent = getCascaderMoreParent(node);
+  if (parent == null) {
+    const own = loadStates.get(node.value);
+    return {
+      loading: false,
+      error: false,
+      childrenLoading: !!own?.loading,
+      childrenError: !!own?.error
+    };
+  }
+  const state = loadStates.get(parent);
+  return {
+    loading: !!state?.loading,
+    error: !!state?.error,
+    childrenLoading: false,
+    childrenError: false
+  };
+}

@@ -28,28 +28,13 @@ import {
   countWebPreviewLogs,
   createWebPreviewHistory,
   DEFAULT_WEB_PREVIEW_SANDBOX,
+  defaultWebPreviewLabels,
   formatWebPreviewUrl,
   normalizeWebPreviewUrl,
   pushWebPreviewHistory,
   stepWebPreviewHistory,
   webPreviewDevices
 } from './webPreviewModel.js';
-
-export const defaultWebPreviewLabels = Object.freeze({
-  'address': 'Address',
-  'back': 'Go back',
-  'blocked': 'This page can’t be shown here',
-  'body': 'Page preview',
-  'blockedHint': 'The site doesn’t allow embedding. Open it in a new tab instead.',
-  'console': 'Console',
-  'consoleEmpty': 'No console output yet.',
-  'devices': 'Preview width',
-  'forward': 'Go forward',
-  'invalid': 'Enter a web address such as example.com',
-  'loading': 'Loading preview',
-  'open': 'Open in new tab',
-  'reload': 'Reload preview'
-});
 
 const WebPreviewContext = createContext(null);
 

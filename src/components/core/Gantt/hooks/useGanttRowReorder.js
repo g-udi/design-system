@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useRef, useState } from 'react';
-import { cancelActiveGanttGestures, registerGanttGestureCancel } from '../components/GanttDnd.jsx';
+import { cancelActiveGanttGestures, registerGanttGestureCancel } from '../ganttGestures.js';
 import { reorderResources } from '../ganttModel.jsx';
 function useGanttRowReorder({
   settings,

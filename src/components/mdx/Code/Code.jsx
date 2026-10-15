@@ -11,24 +11,9 @@
 
 import { Children, isValidElement } from 'react';
 
-import { CodeBlock, CodeBlockCopyButton, CodeBlockGroup, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle, codeChromeClassName, markdownCodeProps } from '../../core/CodeBlock';
+import { CodeBlock, CodeBlockCopyButton, CodeBlockGroup, CodeBlockHeader, CodeBlockLanguage, CodeBlockTitle, codeChromeClassName } from '../../core/CodeBlock';
+import { readFence } from './readFence.js';
 import { cn } from '../../../utilities/cn';
-
-/** Reads code, language and the remarkCode attributes from MDX `pre` props. */
-export function readFence(props) {
-  const { code, language } = markdownCodeProps(props);
-  const meta = Children.toArray(props.children).find(isValidElement)?.props ?? {};
-  const startLine = Number(meta['data-start-line'] ?? 1);
-  return {
-    code: code.replace(/\n$/, ''),
-    language,
-    title: meta['data-title'],
-    highlightedLines: meta['data-highlight'],
-    showLineNumbers: 'data-line-numbers' in meta,
-    startLine: Number.isFinite(startLine) ? startLine : 1,
-    highlightedWords: meta['data-words'] ? JSON.parse(meta['data-words']) : undefined
-  };
-}
 
 /** MDX `pre`: a fenced block with its title, language and copy button on the code chrome. */
 export function CodeFence({ className, ...props }) {

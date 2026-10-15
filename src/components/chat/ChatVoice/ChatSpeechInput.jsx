@@ -5,21 +5,9 @@ import { default as Button } from '../../core/Button/index.js';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { useLatestRef } from '../../../hooks/shared/use-latest-ref.js';
 import { useLiveAnnouncer } from '../../../hooks/a11y/use-live-announcer.js';
-import { classifyMediaError, getSpeechRecognition, openMicrophone, stopStream, useAudioLevel, voiceSupport } from './voiceMedia.js';
-
-const DEFAULT_LABELS = {
-  start: 'Start voice input',
-  stop: 'Stop voice input',
-  processing: 'Transcribing',
-  listening: 'Listening',
-  stopped: 'Voice input stopped',
-  unsupported: 'Voice input is not available in this browser.',
-  denied: 'Microphone access is blocked. Allow it in your browser’s site settings, then try again.',
-  'no-device': 'No microphone was found. Connect one and try again.',
-  failed: 'Voice input stopped unexpectedly. Try again.'
-};
-
-const speechInputStates = [ 'idle', 'listening', 'processing' ];
+import { useAudioLevel } from './voiceMedia.js';
+import { classifyMediaError, getSpeechRecognition, openMicrophone, stopStream, voiceSupport } from './voiceMediaModel.js';
+import { speechInputLabels as DEFAULT_LABELS } from './voiceLabels.js';
 
 const noop = () => () => {};
 // Capabilities are read after hydration, so server and first client render agree (disabled).
@@ -290,4 +278,4 @@ function ChatSpeechInput({
   );
 }
 
-export { ChatSpeechInput, speechInputStates, DEFAULT_LABELS as speechInputLabels };
+export { ChatSpeechInput };

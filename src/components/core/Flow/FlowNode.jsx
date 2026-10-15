@@ -15,18 +15,7 @@ import { default as Icon } from '../Icon/index.js';
 import { IconTile } from '../Icon/IconTile.jsx';
 import { Badge } from '../Pill/Badge.jsx';
 import { cn } from '../../../utilities/cn/index.js';
-
-/** Run states a node can show. Each maps to a Badge variant and a registry icon. */
-export const FLOW_STATUSES = {
-  idle: { label: 'Idle', badge: 'secondary', icon: 'CircleDashed' },
-  queued: { label: 'Queued', badge: 'outline', icon: 'Clock' },
-  running: { label: 'Running', badge: 'info-light', icon: 'RefreshCw' },
-  success: { label: 'Passed', badge: 'success-light', icon: 'CircleCheck' },
-  failed: { label: 'Failed', badge: 'destructive-light', icon: 'CircleX' },
-  waiting: { label: 'Waiting', badge: 'warning-light', icon: 'Hourglass' },
-  blocked: { label: 'Blocked', badge: 'attention-light', icon: 'Lock' },
-  skipped: { label: 'Skipped', badge: 'secondary', icon: 'Minus' }
-};
+import { FLOW_STATUSES } from './flowModel.js';
 
 /** Icon tile tints, matching the semantic tones used across Gaudi. */
 const toneText = {

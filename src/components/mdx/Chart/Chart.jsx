@@ -49,9 +49,6 @@ const chartTypes = {
   'waterfall': WaterfallChart
 };
 
-/** Every chart type the MDX switch accepts. */
-export const CHART_TYPES = Object.keys(chartTypes);
-
 /** One component for every chart in MDX: `type` picks the chart, the other props go to it. */
 export const Chart = ({ type = 'bar', ...props }) => {
   const Component = chartTypes[type] || BarChart;

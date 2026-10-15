@@ -2,27 +2,7 @@
 
 // Consumer-owned site data, with safe defaults for isolated components.
 import { createContext, useContext, useMemo } from 'react';
-
-export const defaultSiteConfig = {
-  'metadata': {
-    'author': { 'name': '' },
-    'description': '',
-    'email': '',
-    'locale': 'en-US',
-    'theme': 'system',
-    'title': ''
-  },
-  'navigation': {
-    'categoriesMetadata': {},
-    'links': []
-  },
-  // App-owned link preview settings. Gaudi loads nothing by default: without an
-  // `endpoint` LinkPreview fetches nothing, and without `resolveImage` it derives no images.
-  'preview': {
-    'endpoint': null,
-    'resolveImage': null
-  }
-};
+import { defaultSiteConfig } from './siteConfigDefaults.js';
 
 const SiteConfigContext = createContext(defaultSiteConfig);
 

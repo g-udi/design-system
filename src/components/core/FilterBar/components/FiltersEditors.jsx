@@ -19,10 +19,8 @@ import {
   CascaderInput,
   CascaderNav
 } from '../../Cascader/components/CascaderNav.jsx';
-import {
-  FilterActionsContext,
-  filterControlSizes
-} from '../FiltersContext.jsx';
+import { FilterActionsContext } from '../FiltersContext.jsx';
+import { filterControlSizes } from '../filterStores.js';
 import {
   applyFilterExclusiveSelection,
   filterFilterOptions,
@@ -842,28 +840,4 @@ export function FilterBooleanEditor({
       />
     </EditorPanel>
   );
-}
-export const DEFAULT_FILTER_EDITORS = {
-  text: FilterTextEditor,
-  number: FilterNumberEditor,
-  range: FilterRangeEditor,
-  select: FilterSelectEditor,
-  multiselect: FilterMultiSelectEditor,
-  boolean: FilterBooleanEditor
-};
-export function resolveFilterEditor(field, operator, editors) {
-  if (typeof field.editor === 'function') {
-    return field.editor;
-  }
-  if (typeof field.editor === 'string') {
-    const named = editors[field.editor];
-    if (named) return named;
-  }
-  const arity = operator?.arity ?? 'one';
-  if (arity === 'none') return void 0;
-  if (arity === 'range') return editors.range;
-  if (arity === 'many') {
-    if (field.options || field.loadOptions) return editors.multiselect;
-  }
-  return editors[field.type ?? 'text'] ?? editors.text;
 }

@@ -41,3 +41,12 @@ export function selectFiles(
   }
   return { files: !multiple && !files.length ? current : files, rejected };
 }
+
+/** A compact, locale-neutral file size such as `1.5MB`; invalid sizes read as `0 Bytes`. */
+export const formatBytes = (bytes, decimals = 2) => {
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const i = Math.min(sizes.length - 1, Math.max(0, Math.floor(Math.log(bytes) / Math.log(k))));
+  return Number.parseFloat((bytes / k ** i).toFixed(Math.max(0, decimals))) + sizes[i];
+};

@@ -14,7 +14,8 @@ import { Button, useDisclosure } from '@gaudi/design-system';
 src/hooks/
   index.js                 barrel for the ./hooks entry (re-exported from the package root)
   a11y/ data/ environment/ interaction/ layout/ state/
-    use-x.js               one hook per file, kebab-case file, camelCase export
+    use-x.js               one hook per file, kebab-case file, camelCase export ('use client')
+    x-model.js             the hook's server-safe pure core, when it exports one
   shared/                  internal helpers (DOM guards, latest-value ref); not exported
 
 src/docs/hooks/
@@ -40,7 +41,7 @@ tests/hooks/
 | Layout | useCollapsibleSections, useElementSize, useInView, useScrollPosition |
 | State | useControllableState, useDisclosure, usePrevious, useEventCallback, useMergedRefs, useIsomorphicLayoutEffect, useDebounceValue, useDebounceCallback, useThrottleCallback, useInterval, useTimeout, useStep, useSliderInput, useBoolean, useCounter, useCountdown, useUnmount |
 
-Some hooks also export their pure core for non-React code: `announce`, `getNextIndex`, `matchesMediaQuery`, `subscribeMediaQuery`, `writeToClipboard`, `parseHotkey`, `matchHotkey`, `toAriaKeyShortcuts`, `toKbdKeys`, `lockScroll`, `collapsibleSectionsReducer`, `createDebouncer`, `createThrottler`, `mergeRefs`, `clampStep`, `toggleInSet` and `selectionState`.
+Some hooks also export their pure core for non-React code: `announce`, `getNextIndex`, `getTrapTarget`, `matchesMediaQuery`, `subscribeMediaQuery`, `MOBILE_BREAKPOINT`, `REDUCED_MOTION_QUERY`, `writeToClipboard`, `parseHotkey`, `matchHotkey`, `isApplePlatform`, `toAriaKeyShortcuts`, `toKbdKeys`, `isOutside`, `lockScroll`, `localStorageStore`, `sessionStorageStore`, `collapsibleSectionsReducer`, `createDebouncer`, `createThrottler`, `assignRef`, `mergeRefs`, `clampStep`, `toggleInSet` and `selectionState`. These live in `x-model.js` siblings without `'use client'`, so server components can import them from `@gaudi/design-system/hooks` (or the root) as real values. Hook files export only hooks: every export of a client module becomes a client reference on the server.
 
 ## Rules
 

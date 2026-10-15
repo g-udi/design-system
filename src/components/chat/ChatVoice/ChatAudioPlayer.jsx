@@ -4,18 +4,9 @@ import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
 import { Slider } from '../../core/Slider/Slider.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
-import { formatAudioTime } from './voiceMedia.js';
+import { formatAudioTime } from './voiceMediaModel.js';
 import { normalizeDownloadHref } from '../../../utilities/href.js';
-
-const DEFAULT_LABELS = {
-  play: 'Play',
-  pause: 'Pause',
-  seek: 'Seek',
-  speed: 'Playback speed',
-  download: 'Download',
-  error: 'This audio could not be played.',
-  of: 'of'
-};
+import { audioPlayerLabels as DEFAULT_LABELS } from './voiceLabels.js';
 
 /**
  * A compact player for voice messages and text-to-speech replies. Play and pause, a scrubbable
@@ -206,4 +197,4 @@ function ChatAudioPlayer({
   );
 }
 
-export { ChatAudioPlayer, DEFAULT_LABELS as audioPlayerLabels };
+export { ChatAudioPlayer };

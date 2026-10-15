@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 
 import { ChartFrame, activeOpacity, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
 import { Cell, PolarAngleAxis, RadialBar, RechartsRadialBarChart, RechartsTooltip, ResponsiveContainer, chartColors, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';
 import { createChartFormatter, resolveFormatter } from '../ChartFrame/chartScale.js';

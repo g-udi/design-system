@@ -3,7 +3,8 @@ import { createComponentDocsPage, getComponentDocs } from '../../../../docs/comp
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
-import Video, { videoAnimationStyles } from '../Video';
+import Video from '../Video';
+import { videoAnimationStyles } from '../videoAnimationStyles.js';
 import { aurora } from '../../../../docs/fixtures/site/artwork';
 
 const docs = getComponentDocs('MDX/Video');

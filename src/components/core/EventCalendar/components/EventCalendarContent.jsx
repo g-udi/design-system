@@ -3,24 +3,9 @@ import {
   useEventCalendarSelector,
   useEventCalendarViewConfig
 } from '../EventCalendar.jsx';
-import { EventCalendarAgendaView } from './EventCalendarAgendaView.jsx';
-import { EventCalendarMonthView } from './EventCalendarMonthView.jsx';
-import { EventCalendarResourceView } from './EventCalendarResourceView.jsx';
-import {
-  EventCalendarDaysView,
-  EventCalendarDayView,
-  EventCalendarWeekView
-} from './EventCalendarTimeGrid.jsx';
+import { DEFAULT_VIEW_COMPONENTS } from './eventCalendarViews.js';
 import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
-const DEFAULT_VIEW_COMPONENTS = {
-  month: EventCalendarMonthView,
-  week: EventCalendarWeekView,
-  day: EventCalendarDayView,
-  days: EventCalendarDaysView,
-  agenda: EventCalendarAgendaView,
-  resource: EventCalendarResourceView
-};
 function EventCalendarContent({
   className,
   asChild = false,
@@ -55,4 +40,4 @@ function EventCalendarContent({
     </Comp>
   );
 }
-export { DEFAULT_VIEW_COMPONENTS, EventCalendarContent };
+export { EventCalendarContent };

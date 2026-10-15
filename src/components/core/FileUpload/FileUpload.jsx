@@ -6,7 +6,7 @@ import Icon from '../Icon';
 import Progress from '../Progress';
 import { cn } from '../../../utilities/cn';
 import { selectFiles } from './fileSelection';
-import { formatBytes } from './use-file-upload';
+import { formatBytes } from './fileSelection.js';
 
 const REJECTION_TEXT = {
   type: 'file type is not supported.',

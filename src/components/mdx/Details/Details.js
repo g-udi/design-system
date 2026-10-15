@@ -13,13 +13,7 @@
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../../core/Accordion';
 import { cn } from '../../../utilities/cn';
-
-/** Reading-scale classes shared by the article accordions (Details and Faq). */
-export const articleAccordion = {
-  'content': 'text-base leading-7',
-  'root': 'rounded-none border-y border-border',
-  'trigger': 'min-h-11 text-base leading-7'
-};
+import { articleAccordion } from './articleAccordion.js';
 
 const Details = ({ title, children, headingLevel = 2, className, ...rest }) => (
   <Accordion variant='flush' className={ cn('my-8', articleAccordion.root) } headingLevel={ headingLevel } indicator='plus-minus'>

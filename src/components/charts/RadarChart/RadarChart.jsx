@@ -3,7 +3,9 @@
 import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
-import { ChartSeriesLegend, chartAxisTick, createRowsTooltip } from '../ChartFrame/ChartMarks.jsx';
+import { ChartSeriesLegend } from '../ChartFrame/ChartMarks.jsx';
+import { chartAxisTick } from '../ChartFrame/chartTokens.js';
+import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
 import { PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RechartsRadarChart, RechartsTooltip, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { categoryPoints, getSeries } from '../ChartFrame/ChartSeries.jsx';
 import { chartStatus, normalizeRecords, splitFrameProps } from '../ChartFrame/chartData.js';

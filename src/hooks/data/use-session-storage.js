@@ -1,8 +1,7 @@
 'use client';
 
-import { createStorageStore, useStorageState } from './storage-state.js';
-
-export const sessionStorageStore = createStorageStore(() => (typeof window === 'undefined' ? null : window.sessionStorage));
+import { useStorageState } from './storage-state.js';
+import { sessionStorageStore } from './storage-model.js';
 
 /**
  * useState that persists to `sessionStorage` as JSON: a wizard's progress, a half-filled form or a

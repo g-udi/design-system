@@ -9,7 +9,7 @@ const { csvEscape, getTableExportRows, tableToCsv, toCsv } = await import('../..
 const grouping = await loadComponent(new URL('../../../../src/components/core/DataTable/stories/fixtures/data-grid/data-grid-grouping.jsx', import.meta.url));
 const exporting = await loadComponent(new URL('../../../../src/components/core/DataTable/stories/fixtures/data-grid/data-grid-csv-export.jsx', import.meta.url));
 const tableUrl = new URL('../../../../src/components/core/DataTable/DataTable.jsx', import.meta.url);
-const { dataGridFeatures } = await loadComponent(new URL('../../../../src/components/core/DataTable/DataGrid.jsx', import.meta.url));
+const { dataGridFeatures } = await loadComponent(new URL('../../../../src/components/core/DataTable/dataGridFeatures.js', import.meta.url));
 
 test('CSV escapes delimiters, quotes and line breaks, and neutralises formula-like text', () => {
   const csv = toCsv(

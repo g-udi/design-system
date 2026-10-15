@@ -5,22 +5,9 @@ import { default as Button } from '../../core/Button/index.js';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../core/Select/SelectPrimitives.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
-import { classifyMediaError, openMicrophone, stopStream, useAudioInputs, useAudioLevel } from './voiceMedia.js';
-
-const DEFAULT_LABELS = {
-  label: 'Microphone',
-  placeholder: 'Choose a microphone',
-  allow: 'Allow microphone',
-  prompt: 'Allow access to list your microphones by name.',
-  denied: 'Microphone access is blocked. Allow it in your browser’s site settings, then try again.',
-  unsupported: 'This browser cannot list microphones.',
-  empty: 'No microphone found. Connect one, then refresh.',
-  refresh: 'Refresh microphones',
-  test: 'Test microphone',
-  stopTest: 'Stop test',
-  level: 'Input level',
-  retry: 'Try again'
-};
+import { useAudioInputs, useAudioLevel } from './voiceMedia.js';
+import { classifyMediaError, openMicrophone, stopStream } from './voiceMediaModel.js';
+import { micSelectorLabels as DEFAULT_LABELS } from './voiceLabels.js';
 
 /**
  * Picks the input device for voice input. Device names appear once the reader allows the
@@ -150,4 +137,4 @@ function ChatMicSelector({
   );
 }
 
-export { ChatMicSelector, DEFAULT_LABELS as micSelectorLabels };
+export { ChatMicSelector };

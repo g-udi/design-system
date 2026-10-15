@@ -7,7 +7,7 @@ const {
   resolveDataGridCellEdit,
   validateDataGridCellValue
 } = await loadComponent(new URL('../../../../src/components/core/DataTable/cellEditing.js', import.meta.url));
-const { invertDataGridCellsChange } = await loadComponent(new URL('../../../../src/components/core/DataTable/components/DataGridCellSelection.jsx', import.meta.url));
+const { invertDataGridCellsChange } = await loadComponent(new URL('../../../../src/components/core/DataTable/dataGridSelectionModel.js', import.meta.url));
 
 test('built-in editors parse and format clipboard text', () => {
   const number = resolveDataGridCellEdit({ control: 'number' });

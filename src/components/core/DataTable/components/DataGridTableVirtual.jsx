@@ -16,17 +16,14 @@ import {
   DataGridTableHeadRowCellResize,
   DataGridTableRenderedRow,
   DataGridTableRowSpacer,
-  DataGridTableViewport,
-  getDataGridScrollAreaViewport,
-  getDataGridTableMergedHeaderGroups,
-  getDataGridTableRowSections,
-  getPinningStyles,
-  hasDataGridTableRightPinnedColumns
+  DataGridTableViewport
 } from './DataGridTable.jsx';
 import { flexRender } from '@tanstack/react-table';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { cn } from '../../../../utilities/cn/index.js';
 import { Loader } from '../../Loader/LoaderPrimitives.jsx';
+import { getDataGridScrollAreaViewport } from '../dataGridTableDom.js';
+import { getDataGridTableMergedHeaderGroups, getDataGridTableRowSections, getPinningStyles, hasDataGridTableRightPinnedColumns } from '../dataGridTableModel.js';
 function isSameDataGridTableColumnScrollRequest(previous, next) {
   return (
     previous?.align === next.align &&

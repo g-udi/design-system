@@ -1,5 +1,5 @@
 'use client';
-import { getColumnHeaderLabel, useDataGrid } from '../DataGrid.jsx';
+import { useDataGrid } from '../DataGrid.jsx';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -8,6 +8,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger
 } from '../../DropdownMenu/DropdownMenuPrimitives.jsx';
+import { getColumnHeaderLabel } from '../dataGridModel.js';
 function DataGridColumnVisibility({ table, trigger }) {
   const { i18n } = useDataGrid();
   return (

@@ -1,2 +1,3 @@
 export { WaterfallChart as default } from './WaterfallChart.jsx';
-export { WaterfallChart, waterfallSteps } from './WaterfallChart.jsx';
+export { WaterfallChart } from './WaterfallChart.jsx';
+export { waterfallSteps } from './waterfallModel.js';

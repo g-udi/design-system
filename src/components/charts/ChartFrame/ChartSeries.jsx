@@ -18,9 +18,9 @@ import {
   ChartSeriesLegend,
   ChartXAxis,
   ChartYAxis,
-  createRowsTooltip,
   useRechartsActive
 } from './ChartMarks.jsx';
+import { createRowsTooltip } from './chartTooltip.jsx';
 import {
   Area,
   Bar,

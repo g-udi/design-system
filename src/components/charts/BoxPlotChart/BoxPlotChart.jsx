@@ -4,24 +4,12 @@ import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { useMeasuredWidth } from '../ChartFrame/chartMeasure.js';
-import { ChartValueGrid, chartAxisTick } from '../ChartFrame/ChartMarks.jsx';
+import { ChartValueGrid } from '../ChartFrame/ChartMarks.jsx';
+import { chartAxisTick } from '../ChartFrame/chartTokens.js';
 import { getChartColor, RechartsText } from '../ChartFrame/chartRuntime.js';
-import { boxStats, isChartNumber, niceTicks, scaleLinear } from '../ChartFrame/chartScale.js';
+import { niceTicks, scaleLinear } from '../ChartFrame/chartScale.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
-
-const STAT_KEYS = [ 'min', 'q1', 'median', 'q3', 'max' ];
-
-/** Each group's five-number summary, from raw `values` or precomputed fields. */
-export function boxGroups(data, { labelKey = 'label', valuesKey = 'values' } = {}) {
-  return data.map((item) => {
-    if (!item || typeof item !== 'object') return { label: '', stats: null };
-    const stats = Array.isArray(item[valuesKey])
-      ? boxStats(item[valuesKey])
-      : STAT_KEYS.every((key) => isChartNumber(item[key])) ? { 'count': item.count, 'outliers': item.outliers || [], ...Object.fromEntries(STAT_KEYS.map((key) => [ key, item[key] ])) } : null;
-
-    return { 'label': String(item[labelKey]), stats };
-  });
-}
+import { boxGroups } from './boxPlotModel.js';
 
 function BoxPlotPlot({ color, colors, groups, height, unit }) {
   const frame = useChartFrame();

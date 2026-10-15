@@ -8,25 +8,7 @@ import { default as Input } from '../../core/Input/index.js';
 import { RadioGroup, RadioGroupItem } from '../../core/RadioGroup/RadioGroupPrimitives.jsx';
 import { Badge } from '../../core/Pill/Badge.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
-
-const DEFAULT_LABELS = {
-  label: 'Voice',
-  search: 'Search voices',
-  empty: 'No voice matches that search.',
-  play: 'Play a sample of',
-  stop: 'Stop the sample of',
-  loading: 'Loading the sample of',
-  previewFailed: 'The sample could not play.'
-};
-
-const GENDER = { female: 'Female', male: 'Male', neutral: 'Neutral', 'non-binary': 'Non-binary' };
-
-const voiceTags = (voice) => [
-  voice.gender ? GENDER[voice.gender] ?? voice.gender : null,
-  voice.accent,
-  voice.age,
-  ...(Array.isArray(voice.style) ? voice.style : voice.style ? [ voice.style ] : [])
-].filter(Boolean);
+import { voiceSelectorLabels as DEFAULT_LABELS, voiceTags } from './voiceLabels.js';
 
 const matches = (voice, query) => {
   if (!query) return true;
@@ -208,4 +190,4 @@ function ChatVoiceSelector({
   );
 }
 
-export { ChatVoiceSelector, voiceTags, DEFAULT_LABELS as voiceSelectorLabels };
+export { ChatVoiceSelector };

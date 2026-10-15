@@ -50,5 +50,3 @@ export const AnimatedIcon = forwardRef(function AnimatedIcon({
     </svg>
   );
 });
-
-export { animatedIconRegistry, animatedIconMetadata } from './animated/registry';

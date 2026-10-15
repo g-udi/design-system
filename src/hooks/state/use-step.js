@@ -2,12 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useControllableState } from './use-controllable-state.js';
-
-/** Clamp a requested step into `0 … count - 1` (0 when there are no steps). */
-export function clampStep(step, count) {
-  if (!count || !Number.isFinite(step)) return 0;
-  return Math.max(0, Math.min(Math.trunc(step), count - 1));
-}
+import { clampStep } from './step-model.js';
 
 /**
  * The current step of a wizard, onboarding flow or multi-page form. Steps are zero-based. Works

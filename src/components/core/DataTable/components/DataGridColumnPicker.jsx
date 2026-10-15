@@ -1,6 +1,5 @@
 'use client';
 import { useState } from 'react';
-import { resolveDataGridViewLabels } from '../dataGridViewLabels.jsx';
 import { default as Button } from '../../Button/index.js';
 import {
   Cascader,
@@ -17,63 +16,7 @@ import {
   CascaderNav
 } from '../../Cascader/components/CascaderNav.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-/**
- * A catalogue of columns a person can add at runtime, grouped for a Cascader.
- * Entries are `{ id, label, icon?, description?, keywords?, children? }`;
- * leaves also carry `column`, a TanStack column definition (its `id` defaults
- * to the entry id). The registry only describes columns: the host keeps the
- * list of added ids in state and builds its `columns` from it.
- */
-export function createDataGridColumnRegistry(entries) {
-  const leaves = new Map();
-  const toNodes = (list, path = []) =>
-    list.map((entry) => {
-      const node = {
-        value: entry.id,
-        label: entry.label,
-        icon: entry.icon,
-        description: entry.description,
-        keywords: entry.keywords
-      };
-      if (entry.children?.length) {
-        node.children = toNodes(entry.children, [...path, entry.label]);
-      } else {
-        leaves.set(entry.id, {
-          ...entry,
-          path: [...path, entry.label],
-          column: {
-            header: entry.label,
-            ...entry.column,
-            id: entry.column?.id ?? entry.id,
-            meta: { headerTitle: entry.label, ...entry.column?.meta }
-          }
-        });
-      }
-      return node;
-    });
-  const items = toNodes(entries);
-  return {
-    items,
-    has: (id) => leaves.has(id),
-    get: (id) => leaves.get(id) ?? null,
-    getColumn: (id) => leaves.get(id)?.column ?? null,
-    getColumns: (ids) =>
-      ids.map((id) => leaves.get(id)?.column).filter(Boolean),
-    /** Cascader items with already-added columns disabled. */
-    itemsExcept(activeIds) {
-      const active = new Set(activeIds);
-      const mark = (nodes) =>
-        nodes.map((node) =>
-          node.children
-            ? { ...node, children: mark(node.children) }
-            : active.has(node.value)
-              ? { ...node, disabled: true }
-              : node
-        );
-      return mark(items);
-    }
-  };
-}
+import { resolveDataGridViewLabels } from '../dataGridViewModel.js';
 /**
  * "Add column": a searchable Cascader over a column registry. Columns already
  * in the grid (`value`) are disabled; picking a leaf calls `onAdd(id, column)`

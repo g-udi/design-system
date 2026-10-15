@@ -3,7 +3,7 @@ import Button from '../../components/core/Button';
 import Input from '../../components/core/Input';
 import { NativeSelect } from '../../components/core/Select';
 import { CheckboxRoot } from '../../components/core/Checkbox';
-import { writeToClipboard } from '../../hooks/interaction/use-copy-to-clipboard.js';
+import { writeToClipboard } from '../../hooks/interaction/clipboard-model.js';
 import { Pagination, PaginationNext, PaginationPrevious } from '../../components/core/Pagination';
 import Icon, { AnimatedIcon, animatedIconMetadata } from '../../icons';
 import { cn } from '../../utilities/cn';

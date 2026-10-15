@@ -1,15 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { selectFiles } from './fileSelection.js';
-import { mergeRefs } from '../../../hooks/state/use-merged-refs.js';
-
-export const formatBytes = (bytes, decimals = 2) => {
-  if (!Number.isFinite(bytes) || bytes <= 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  const i = Math.min(sizes.length - 1, Math.max(0, Math.floor(Math.log(bytes) / Math.log(k))));
-  return Number.parseFloat((bytes / k ** i).toFixed(Math.max(0, decimals))) + sizes[i];
-};
+import { formatBytes, selectFiles } from './fileSelection.js';
+import { mergeRefs } from '../../../hooks/state/merged-refs-model.js';
 
 const isLocalFile = (file) => typeof File !== 'undefined' && file instanceof File;
 const revokePreview = (entry) => {
