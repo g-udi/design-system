@@ -277,7 +277,7 @@ export const SearchTrigger = {
   parameters: {
     docs: {
       description: { story: 'The header search entry is exported as `MenuSearch` for custom headers: a named button with the ⌘K hint that calls `setOpen(true)`. Pair it with Commander, which returns focus to the entry on close. The status line counts each request.' },
-      ...code("import { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nexport function SearchExample() {\n  const [open, setOpen] = useState(false);\n  return <><MenuSearch setOpen={setOpen} /><Commander open={open} setOpen={setOpen} navigation={[{ id: 'posts', title: 'Posts', href: '/posts' }]} /></>;\n}")
+      ...code("import { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nexport function SearchExample() {\n  const [open, setOpen] = useState(false);\n  return <><MenuSearch setOpen={setOpen} /><Commander open={open} setOpen={setOpen} /></>;\n}")
     }
   },
   render: (args) => <SearchPlacements {...args} />,

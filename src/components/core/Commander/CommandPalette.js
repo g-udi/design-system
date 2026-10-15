@@ -105,7 +105,7 @@ const CommandPalette = ({ children, footer, isOpen, onChangeOpen, onChangeSearch
         <Command key={ page } shouldFilter={ false } loop label='Search commands' className='ds-command-launcher-panel h-auto w-full max-w-[44rem]'>
           <CommandInput
             ref={ inputRef }
-            placeholder='Search posts, projects and pages…'
+            placeholder='Search posts, projects, publications and tags…'
             spellCheck={ false }
             value={ search }
             onValueChange={ onChangeSearch }

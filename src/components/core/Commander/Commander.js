@@ -177,7 +177,6 @@ const SocialPage = ({ items = [], page, search, setPage }) => {
 };
 
 const CommandLauncher = ({
-  navigation = [],
   open,
   posts = [],
   projects = [],
@@ -215,11 +214,6 @@ const CommandLauncher = ({
 
   const rootItems = useMemo(() => filterItems([
     {
-      'heading': 'Pages',
-      'id': 'pages',
-      'items': prepareCommandCollection(navigation, 'navigation').map((item) => ({ 'cmdIcon': 'FileText', ...item }))
-    },
-    {
       'heading': 'Browse',
       'id': 'commander',
       'items': [
@@ -243,7 +237,7 @@ const CommandLauncher = ({
     { 'heading': 'Thoughts', 'hidden': true, 'id': 'thoughts_fullTextSearch', 'items': collections.thoughts, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Publications', 'hidden': true, 'id': 'publications_fullTextSearch', 'items': collections.publications, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Tags', 'hidden': true, 'id': 'tags_fullTextSearch', 'items': collections.tags, 'options': { 'filterOnListHeading': true } }
-  ], page === 'root' ? search : ''), [ collections, navigation, page, search, setTheme, socialItems, dark ]); // eslint-disable-line react-hooks/exhaustive-deps
+  ], page === 'root' ? search : ''), [ collections, page, search, setTheme, socialItems, dark ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Full-text lists only show while searching, and a list whose heading is the whole query steps aside for its page entry.
   const visibleRootItems = rootItems.filter((list) => (search || !list.hidden) && search.toLowerCase() !== list.heading.toLowerCase());

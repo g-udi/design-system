@@ -1,6 +1,6 @@
 # Commander
 
-The site-wide command launcher: navigation, full-text search across posts, projects, thoughts, publications and tags, contact links and a theme switch. Open it from a visible trigger such as `MenuSearch`, or with ⌘K / Ctrl+K.
+The site-wide command launcher: full-text search across posts, projects, thoughts, publications and tags, contact links and a theme switch. Open it from a visible trigger such as `MenuSearch`, or with ⌘K / Ctrl+K.
 
 ## Usage
 
@@ -9,11 +9,10 @@ import { useState } from 'react';
 import { Commander, MenuSearch } from '@gaudi/design-system';
 
 const [open, setOpen] = useState(false);
-const navigation = [{ id: 'library', title: 'Library', href: '/library' }];
 const posts = [{ id: 'release', title: 'Release notes', href: '/articles/release-notes' }];
 
 <MenuSearch setOpen={setOpen} />
-<Commander open={open} setOpen={setOpen} navigation={navigation} posts={posts} />
+<Commander open={open} setOpen={setOpen} posts={posts} />
 ```
 
 ## API
@@ -21,12 +20,11 @@ const posts = [{ id: 'release', title: 'Release notes', href: '/articles/release
 | Prop                                            | Type                     | Contract                                                              |
 | ----------------------------------------------- | ------------------------ | --------------------------------------------------------------------- |
 | `open / setOpen`                                | boolean / function       | Controlled visibility; ⌘K / Ctrl+K toggles it through `setOpen`.      |
-| `navigation`                                   | Array                    | Prepared destinations; defaults to an empty list.                    |
 | `posts / projects / thoughts / publications / tags` | Array                | Each non-empty collection adds a page and full-text results.          |
 | `social`                                        | Array                    | Contact entries; defaults to the links in the site metadata.          |
 | `restoreFocusRef`                               | Ref                      | Where focus returns when the element that opened the launcher is gone. |
 
-Each destination or collection entry supplies a stable `id` (`slug` is a fallback), a `title`, and an explicit `href` or `onClick`. `disabled` prevents selection and `closeOnSelect={false}` keeps the launcher open for an action. Prepared titles, categories, subtitles, IDs and destinations are preserved, including empty and zero values. Collection names group entries; they do not construct routes. Home, Blog and About links must be supplied through `navigation` when the application uses those destinations.
+Each destination or collection entry supplies a stable `id` (`slug` is a fallback), a `title`, and an explicit `href` or `onClick`. `disabled` prevents selection and `closeOnSelect={false}` keeps the launcher open for an action. Prepared titles, categories, subtitles, IDs and destinations are preserved, including empty and zero values. Collection names group entries; they do not construct routes.
 
 ## Composition
 

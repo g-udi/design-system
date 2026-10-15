@@ -22,7 +22,7 @@ test('the site header composes core NavigationMenu with a two-block Blog panel a
   assert.doesNotMatch(source, /`\/blog\//);
   assert.match(source, /href=\{ category.href \}/);
   assert.match(source, /href=\{ post.href \}/);
-  assert.match(source, /navigation=\{navigation.links.map/);
+  assert.doesNotMatch(source, /<CommandLauncher[^>]*navigation=/s);
   assert.match(source, /\{logo \?\? <BrandMark \/>\}/);
   assert.doesNotMatch(source, /from '@\//);
 });

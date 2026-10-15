@@ -147,7 +147,6 @@ const Menu = ({
           />
         ) : null}
         <CommandLauncher
-          navigation={navigation.links.map((link) => ({ ...link, id: link.id ?? link.href, title: link.title, href: link.href }))}
           tags={ menuTags }
           projects={ projects }
           posts={ posts }

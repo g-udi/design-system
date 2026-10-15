@@ -12,11 +12,6 @@ import Commander from '../Commander';
 const docs = getComponentDocs('Core/Commander');
 const blockedPostAction = fn();
 const collections = {
-  navigation: [
-    { id: 'home', title: 'Home', href: '/', cmdIcon: 'HomeIcon' },
-    { id: 'blog', title: 'Blog', href: '/blog', cmdIcon: 'BookOpenIcon' },
-    { id: 'about', title: 'About me', href: '/about', cmdIcon: 'FingerPrintIcon' }
-  ],
   posts: [
     { category: 'data_platform', id: 'knowledge-entry', href: '/articles/knowledge-graphs', slug: 'knowledge-graphs', title: 'An Introduction to Knowledge Graphs' },
     { category: 'engineering', href: '/articles/design-systems-editorial-rhythm', slug: 'design-systems-editorial-rhythm', title: 'Design systems keep editorial rhythm predictable' },
@@ -81,7 +76,6 @@ export default {
   component: Commander,
   tags: ['autodocs'],
   argTypes: docsArgTypes(docs, {
-    navigation: 'object',
     posts: 'object',
     projects: 'object',
     publications: 'object',

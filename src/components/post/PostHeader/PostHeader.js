@@ -68,7 +68,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
     </div>
 
     <div className={ cn('mt-4 text-left', classNames.body) }>
-      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant={ titleVariant } className={ cn('text-balance', classNames.title) }>
+      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant={ titleVariant } className={ cn('text-pretty', classNames.title) }>
         {frontMatter.title}
       </Typography>
       {frontMatter.subtitle ? (
