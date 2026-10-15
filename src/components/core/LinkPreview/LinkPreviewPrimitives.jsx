@@ -116,7 +116,7 @@ function LinkPreviewTags({ tags = [], limit = 5 }) {
   return (
     <div data-slot='link-preview-tags' className='flex flex-wrap gap-2'>
       {tags.slice(0, limit).map((tag) => (
-        <Pill key={ tag } tone='gray' variant='soft' size='xs' radius='md' className='normal-case tracking-normal'>{tag}</Pill>
+        <Pill key={ tag } tone='gray' variant='soft' size='xs' radius='md' className='my-1 mr-1 normal-case tracking-normal'>{tag}</Pill>
       ))}
       {tags.length > limit ? <span className='self-center text-xs text-text-muted'>+{tags.length - limit} more</span> : null}
     </div>
@@ -152,13 +152,13 @@ function LinkPreviewBody({ preview, orientation = 'vertical', linked = false, he
       <div className={ cn('flex min-w-0 flex-1 flex-col gap-2 p-4', preview.kind === 'wikipedia' && 'bg-surface-muted') }>
         {preview.internal ? (
           // App links lead with their category; the site is the reader's own.
-          preview.label && preview.label !== 'Post' ? <Pill tone='blue' variant='soft' size='xs' radius='md' className='self-start'>{preview.label}</Pill> : null
+          preview.label && preview.label !== 'Post' ? <Pill tone='blue' variant='soft' size='xs' radius='md' className='my-1 mr-1 self-start'>{preview.label}</Pill> : null
         ) : (
           <div className='flex min-w-0 items-center gap-2 text-xs text-text-muted'>
             <LinkPreviewFavicon src={ preview.preferIcon ? null : preview.favicon } icon={ preview.icon } />
             <span className='min-w-0 truncate font-medium'>{preview.site}</span>
             {preview.label && preview.kind !== 'website' ? (
-              <Pill tone='gray' variant='soft' size='xs' radius='md' className='ml-auto shrink-0'>{preview.label}</Pill>
+              <Pill tone='gray' variant='soft' size='xs' radius='md' className='my-1 mr-1 ml-auto shrink-0'>{preview.label}</Pill>
             ) : null}
           </div>
         )}
@@ -210,7 +210,7 @@ function LinkPreviewCompact({ preview, className, ...props }) {
         </ItemTitle>
         {detail ? <ItemDescription className='truncate text-xs'>{detail}</ItemDescription> : null}
       </ItemContent>
-      {preview.label && preview.kind !== 'website' ? <Pill tone='gray' variant='soft' size='xs' radius='md' className='shrink-0 max-sm:hidden'>{preview.label}</Pill> : null}
+      {preview.label && preview.kind !== 'website' ? <Pill tone='gray' variant='soft' size='xs' radius='md' className='my-1 mr-1 shrink-0 max-sm:hidden'>{preview.label}</Pill> : null}
     </Item>
   );
 }

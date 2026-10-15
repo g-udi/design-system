@@ -39,7 +39,7 @@ const columns = [
     key: 'status',
     header: 'Status',
     render: (row) => (
-      <Pill tone={statusTone[row.status]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />} className='my-0 mr-0'>
+      <Pill tone={statusTone[row.status]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />}>
         {row.status}
       </Pill>
     )

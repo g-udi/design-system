@@ -8,6 +8,11 @@ test('Pill renders a labelled badge element', async () => {
   assert.match(html, />Live</);
 });
 
+test('Pill carries no outer margin, so layouts own the spacing between pills', async () => {
+  const { pillVariants } = await loadComponent(new URL('../../../../src/components/core/Pill/Pill.jsx', import.meta.url));
+  for (const size of [ 'xs', 'sm', 'md', 'lg' ]) assert.doesNotMatch(pillVariants({ size }), /(?:^|\s)-?m[trblxy]?-/);
+});
+
 test('Badge exposes discovery and attention variants alongside info and success', async () => {
   const { badgeVariants } = await loadComponent(new URL('../../../../src/components/core/Pill/Badge.jsx', import.meta.url));
   const classes = (name) => badgeVariants({ variant: name });

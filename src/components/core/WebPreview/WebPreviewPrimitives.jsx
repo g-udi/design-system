@@ -442,8 +442,8 @@ function WebPreviewConsole({ logs = [], defaultOpen = false, open, onOpenChange,
           <Icon name='Terminal' size='xs' decorative />
           <span>{labels.console}</span>
           <span>({counts.total})</span>
-          {counts.error ? <Pill tone='red' variant='soft' size='xs' radius='md'>{counts.error} {counts.error === 1 ? 'error' : 'errors'}</Pill> : null}
-          {counts.warn ? <Pill tone='amber' variant='soft' size='xs' radius='md'>{counts.warn} {counts.warn === 1 ? 'warning' : 'warnings'}</Pill> : null}
+          {counts.error ? <Pill tone='red' variant='soft' size='xs' radius='md' className='my-1 mr-1'>{counts.error} {counts.error === 1 ? 'error' : 'errors'}</Pill> : null}
+          {counts.warn ? <Pill tone='amber' variant='soft' size='xs' radius='md' className='my-1 mr-1'>{counts.warn} {counts.warn === 1 ? 'warning' : 'warnings'}</Pill> : null}
           <Icon name='ChevronDown' size='xs' decorative className='ml-auto transition-transform group-data-[state=open]/console:rotate-180 motion-reduce:transition-none' />
         </button>
       </CollapsibleTrigger>

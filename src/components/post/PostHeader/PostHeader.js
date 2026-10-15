@@ -64,7 +64,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
           {item}
         </span>
       ))}
-      {frontMatter.draft && <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>}
+      {frontMatter.draft && <Pill tone='amber' variant='soft' size='xs'>Draft</Pill>}
     </div>
 
     <div className={ cn('mt-4 text-left', classNames.body) }>
@@ -85,7 +85,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
           <ul aria-label='Tags' className={ cn('m-0 flex min-w-0 flex-1 list-none flex-wrap gap-2 p-0', classNames.tags) }>
             {frontMatter.tags.map((tag) => (
               <li key={ typeof tag === 'string' ? tag : tag.id ?? tag.href ?? tag.label }>
-                <Pill href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='outline' size='sm' radius='md' className={ cn('my-0 mr-0 font-normal sm:text-sm', classNames.tag) }>
+                <Pill href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='outline' size='sm' radius='md' className={ cn('font-normal sm:text-sm', classNames.tag) }>
                   {typeof tag === 'string' ? tag : tag.label}
                 </Pill>
               </li>

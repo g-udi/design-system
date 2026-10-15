@@ -179,7 +179,7 @@ const members = [
 const memberTones = { Active: 'green', Away: 'amber', Invited: 'blue' };
 const memberColumns = [
   { key: 'person', header: 'Member', accessor: (row) => row.person.name, render: (row) => <Person person={row.person} detail={row.person.email} /> },
-  { key: 'role', header: 'Role', render: (row) => <Pill tone='gray' variant='soft' size='sm' radius='md' className='my-0 mr-0'>{row.role}</Pill> },
+  { key: 'role', header: 'Role', render: (row) => <Pill tone='gray' variant='soft' size='sm' radius='md'>{row.role}</Pill> },
   { key: 'status', header: 'Status', render: (row) => <Status value={row.status} tones={memberTones} /> },
   { key: 'lastActive', header: 'Last active', render: (row) => <span className='text-text-muted'>{row.lastActive}</span> }
 ];

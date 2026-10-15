@@ -32,7 +32,7 @@ export const sum = (rows, key) => rows.reduce((total, row) => total + row[key], 
 
 export function Status({ value, tones = statusTones }) {
   return (
-    <Pill tone={tones[value]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />} className='my-0 mr-0'>
+    <Pill tone={tones[value]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />}>
       {value}
     </Pill>
   );

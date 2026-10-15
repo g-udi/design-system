@@ -26,7 +26,7 @@ const toneClasses = (tone, variant) => {
 const variantNames = [ 'ghost', 'outline', 'soft', 'solid', 'subtle' ];
 
 export const pillVariants = createVariants({
-  'base': 'my-1 mr-1 select-none gap-1 transition-colors duration-200',
+  'base': 'select-none gap-1 transition-colors duration-200',
   'compoundVariants': toneNames.flatMap((tone) => variantNames.map((variant) => ({ 'className': toneClasses(tone, variant), tone, variant }))),
   'defaultVariants': {
     'radius': 'sm',

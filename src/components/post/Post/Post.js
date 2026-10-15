@@ -44,7 +44,7 @@ const Post = ({ frontMatter = {}, locale, titleAs = 'h3', titleVariant = 'index-
             {category && (
               <>
                 <MetaSeparator />
-                <Pill href={ category.href } tone='blue' variant='subtle' size='xs' radius='md' className='my-0 mr-0 normal-case tracking-normal'>
+                <Pill href={ category.href } tone='blue' variant='subtle' size='xs' radius='md' className='normal-case tracking-normal'>
                   {category.label}
                 </Pill>
               </>
@@ -53,7 +53,7 @@ const Post = ({ frontMatter = {}, locale, titleAs = 'h3', titleVariant = 'index-
             {frontMatter.draft && (
               <>
                 <MetaSeparator />
-                <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>
+                <Pill tone='amber' variant='soft' size='xs'>Draft</Pill>
               </>
             )}
           </div>

@@ -74,8 +74,8 @@ export const Playground = {
             <span className='text-sm font-medium text-foreground'>{request.title}</span>
             <span className='text-xs text-text-muted'>{request.meta}</span>
           </span>
-          {/* Pills carry their own my-1 mr-1, so the row adds only a little horizontal space. */}
-          <span className='flex flex-wrap items-center gap-x-1'>
+          {/* Pills carry no outer margin; the row owns their spacing. */}
+          <span className='flex flex-wrap items-center gap-2 py-1'>
             {request.title === featured ? <Pill {...style} tone={tone} pulse={pulse}>{children}</Pill> : null}
             {request.tags.map((tag) => <Pill key={tag.children} {...style} {...tag} />)}
           </span>
