@@ -102,10 +102,10 @@ const CommandPalette = ({ children, footer, isOpen, onChangeOpen, onChangeSearch
         } }
       >
         {/* A fresh Command per page selects its first item, as the root does. */}
-        <Command key={ page } shouldFilter={ false } loop label='Search commands' className='ds-command-launcher-panel h-auto w-full max-w-[46rem]'>
+        <Command key={ page } shouldFilter={ false } loop label='Search commands' className='ds-command-launcher-panel h-auto w-full max-w-[36rem]'>
           <CommandInput
             ref={ inputRef }
-            placeholder='Search'
+            placeholder='Search posts, projects and pages…'
             spellCheck={ false }
             value={ search }
             onValueChange={ onChangeSearch }

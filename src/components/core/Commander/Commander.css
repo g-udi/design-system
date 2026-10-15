@@ -45,7 +45,7 @@
   }
 
   .ds-part-command-footer {
-    @apply flex min-h-9 items-center gap-3.5 border-t border-border bg-surface-muted px-3 py-2 text-xs leading-none text-text-muted;
+    @apply flex min-h-8 items-center gap-3 border-t border-border px-3 py-1.5 text-[11px] leading-none text-text-subtle;
   }
 
   .ds-part-command-shortcut {
@@ -109,15 +109,16 @@
   }
 
   /* Commander: the launcher shell (overlay, placement, entrance motion) around the Command parts. */
+  /* Spotlight-style: the panel sits in the upper part of the screen rather than its centre. */
   .ds-command-launcher {
-    align-items: center;
+    align-items: flex-start;
     animation: ds-command-overlay-in var(--ds-motion-duration-overlay) var(--ds-motion-ease-out) both;
     background: var(--ds-color-launcher-overlay-bg);
     display: flex;
     inset: 0;
     justify-content: center;
     overflow-y: auto;
-    padding: calc(var(--ds-space-scale, 1) * 1rem);
+    padding: 12vh calc(var(--ds-space-scale, 1) * 1rem) calc(var(--ds-space-scale, 1) * 1rem);
     position: fixed;
     z-index: var(--ds-z-overlay);
   }

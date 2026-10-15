@@ -27,7 +27,7 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  * @param {Object} props - Component props
  * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, readingTime.text and seriesPosts
  * @param {Object} [props.siteMetadata={}] - Site configuration; `locale` formats the date
- * @param {React.ReactNode} [props.tocControl] - Contents toggle shown before the reading time on wide screens
+ * @param {React.ReactNode} [props.tocControl] - Control at the right end of the tags row, such as a contents sidebar toggle
  * @param {1|2|3|4|5|6} [props.titleLevel=1] - Semantic heading level for the post title
  * @param {string} [props.titleVariant='post-title'] - Shared Typography variant for the title, independent of its heading level
  * @param {string} [props.subtitleVariant='post-subtitle'] - Shared Typography variant for the subtitle
@@ -40,60 +40,64 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  */
 const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, titleVariant = 'post-title', subtitleVariant = 'post-subtitle', tocControl }) => {
   const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
-  return (
-  <div className={ cn('w-full pt-6', className, classNames.root) }>
+  const date = frontMatter.updated || frontMatter.date;
+  const readingTime = frontMatter.readingTime?.text;
+  // One quiet meta line: category · date · reading time, each separated only where both sides exist.
+  const meta = [
+    category ? (
+      <Link key='category' href={ category.href } variant='muted' className={ cn('inline-flex items-center gap-2 text-sm font-medium', classNames.category) }>
+        <span aria-hidden='true' className='size-2 shrink-0 rounded-full bg-success' />
+        {category.label}
+      </Link>
+    ) : null,
+    isValidPostDate(date) ? <PostDate key='date' date={ date } locale={ siteMetadata.locale } className='text-sm text-current' /> : null,
+    readingTime ? <PostReadingTime key='reading' readingTime={ readingTime } className='text-sm text-current' /> : null
+  ].filter(Boolean);
 
-    <div className={ cn('mb-2 flex flex-wrap items-center gap-3', classNames.meta) }>
-      {category && (
-        <Link
-          href={ category.href }
-          variant='muted'
-          className={ cn('flex w-fit items-center gap-2 text-xs font-normal sm:text-sm', classNames.category) }
-        >
-          <span aria-hidden='true' className='size-2 shrink-0 rounded-full bg-success' />
-          {category.label}
-        </Link>
-      )}
-      {isValidPostDate(frontMatter.updated || frontMatter.date) ? (
-        <span className='inline-flex items-center gap-3 whitespace-nowrap'>
-          {category ? <MetaSeparator /> : null}
-          <PostDate date={ frontMatter.updated || frontMatter.date } locale={ siteMetadata.locale } />
+  return (
+  <div className={ cn('w-full pt-6 pb-2', className, classNames.root) }>
+
+    <div className={ cn('flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-text-muted', classNames.meta, classNames.timestamps) }>
+      {meta.map((item, index) => (
+        <span key={ item.key } className='inline-flex items-center gap-3 whitespace-nowrap'>
+          {index > 0 ? <MetaSeparator /> : null}
+          {item}
         </span>
-      ) : null}
+      ))}
       {frontMatter.draft && <Pill tone='amber' variant='soft' size='xs' className='my-0 mr-0'>Draft</Pill>}
     </div>
-    <div className={ cn('text-left', classNames.body) }>
-      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant={ titleVariant } className={ cn('pb-3', classNames.title) }>
+
+    <div className={ cn('mt-4 text-left', classNames.body) }>
+      <Typography as={ titleElements[titleLevel] || titleElements[1] } variant={ titleVariant } className={ cn('text-balance', classNames.title) }>
         {frontMatter.title}
       </Typography>
-      <Typography as='p' variant={ subtitleVariant } className={ classNames.subtitle }>
-        {frontMatter.subtitle}
-      </Typography>
+      {frontMatter.subtitle ? (
+        <Typography as='p' variant={ subtitleVariant } className={ cn('mt-3 max-w-3xl text-pretty text-text-muted', classNames.subtitle) }>
+          {frontMatter.subtitle}
+        </Typography>
+      ) : null}
     </div>
 
-    {/* Reading time shows whenever the post has one; an optional contents control leads on wide screens. */}
-    {tocControl || frontMatter.readingTime?.text ? (
-      <PostTimestamps
-        action={ tocControl ? <span className='hidden lg:contents'>{tocControl}</span> : null }
-        className={ cn('mt-4', classNames.timestamps) }
-        readingTime={ frontMatter.readingTime?.text }
-      />
-    ) : null}
-
-    {frontMatter.tags?.length ? (
-      <div className={ cn('my-5 flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between', classNames.actions) }>
-        <div className={ cn('flex flex-wrap gap-2', classNames.tags) }>
-          {frontMatter.tags.map((tag) => (
-            <Pill key={ typeof tag === 'string' ? tag : tag.id ?? tag.href ?? tag.label } href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='soft' size='sm' radius='md' className={ cn('my-0 mr-0 sm:text-sm', classNames.tag) }>
-              {typeof tag === 'string' ? tag : tag.label}
-            </Pill>
-          ))}
-        </div>
+    {/* Tags on the left; an optional contents control at the right end, above the contents sidebar. */}
+    {frontMatter.tags?.length || tocControl ? (
+      <div className={ cn('mt-6 flex items-start gap-3', classNames.actions) }>
+        {frontMatter.tags?.length ? (
+          <ul aria-label='Tags' className={ cn('m-0 flex min-w-0 flex-1 list-none flex-wrap gap-2 p-0', classNames.tags) }>
+            {frontMatter.tags.map((tag) => (
+              <li key={ typeof tag === 'string' ? tag : tag.id ?? tag.href ?? tag.label }>
+                <Pill href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='outline' size='sm' radius='md' className={ cn('my-0 mr-0 font-normal sm:text-sm', classNames.tag) }>
+                  {typeof tag === 'string' ? tag : tag.label}
+                </Pill>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+        {tocControl ? <span className='ml-auto inline-flex shrink-0 items-center'>{tocControl}</span> : null}
       </div>
     ) : null}
 
     {frontMatter.seriesPosts && (
-      <PostSeriesBox series={ frontMatter.seriesPosts } currentId={ frontMatter.id } className={ classNames.series } />
+      <PostSeriesBox series={ frontMatter.seriesPosts } currentId={ frontMatter.id } className={ cn('mt-6', classNames.series) } />
     )}
 
   </div>

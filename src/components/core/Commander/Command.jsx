@@ -196,17 +196,17 @@ function CommandFooter({ className, ...props }) {
     >
       <span className='flex items-center gap-1.5'>
         <span className='inline-flex items-center gap-1'>
-          <Kbd keys='up' size='sm' />
-          <Kbd keys='down' size='sm' />
+          <Kbd keys='up' size='xs' />
+          <Kbd keys='down' size='xs' />
         </span>
         Navigate
       </span>
       <span className='hidden items-center gap-1.5 sm:flex'>
-        <Kbd keys='enter' size='sm' />
+        <Kbd keys='enter' size='xs' />
         Select
       </span>
       <span className='ms-auto flex items-center gap-1.5'>
-        <Kbd keys='escape' size='sm' />
+        <Kbd keys='escape' size='xs' />
         Close
       </span>
     </div>

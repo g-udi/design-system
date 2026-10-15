@@ -57,11 +57,21 @@ const itemConfig = {
 const metaClass = 'truncate text-xs text-(--ds-color-launcher-heading)';
 
 // Row content inside a Command item: an optional icon, the title, and type-specific metadata inline or underneath.
-const CmdItem = ({ category, children, count, icon, inlineMetadata = false, subtitle, title, type = 'navigation' }) => {
+const CmdItem = ({ browse = false, category, children, count, icon, inlineMetadata = false, subtitle, title, type = 'navigation' }) => {
   const config = itemConfig[type] || itemConfig.navigation;
   const resolvedSubtitle = subtitle ?? (type === 'post' ? category : null) ?? (type === 'tag' && count != null ? `${count} ${count === 1 ? 'post' : 'posts'}` : null);
   const showSubtitle = config.showSubtitle && resolvedSubtitle != null && resolvedSubtitle !== '';
   const label = <div className='truncate font-medium'>{title ?? children}</div>;
+
+  // Browse entries open a sub-list: show how many items it holds and a chevron.
+  if (browse) return (
+    <>
+      {icon ? <Icon name={ icon } decorative size='sm' /> : null}
+      <div className='min-w-0 flex-1'>{label}</div>
+      {count != null ? <span className={ `${metaClass} ml-auto tabular-nums` }>{count}</span> : null}
+      <Icon name='ChevronRight' decorative size='xs' />
+    </>
+  );
 
   return (
     <>
@@ -195,38 +205,38 @@ const CommandLauncher = ({
     };
   }, [ posts, projects, publications, tags, thoughts ]);
 
+  const openPage = (id) => () => {
+    setPage(id); setSearch('');
+  };
+  // A collection becomes a Browse entry only when the consumer supplied it.
+  const browseEntry = (key, label, cmdIcon, id = key) => (collections[key].length
+    ? [{ 'browse': true, 'children': label, 'closeOnSelect': false, cmdIcon, 'count': collections[key].length, id, 'onClick': openPage(key) }]
+    : []);
+  const dark = theme === 'dark' || resolvedTheme === 'dark';
+
   const rootItems = useMemo(() => filterItems([
     {
-      'heading': 'Explore content',
+      'heading': 'Pages',
+      'id': 'pages',
+      'items': prepareCommandCollection(navigation, 'navigation').map((item) => ({ 'cmdIcon': 'FileText', ...item }))
+    },
+    {
+      'heading': 'Browse',
       'id': 'commander',
-      /* Collection entries only appear when the consumer actually supplied that collection. */
       'items': [
-        ...prepareCommandCollection(navigation, 'navigation'),
-        ...(collections.projects.length ? [{ 'children': 'Projects', 'closeOnSelect': false, 'cmdIcon': 'RectangleGroupIcon', 'id': 'projects', 'onClick': () => {
-          setPage('projects'); setSearch('');
-        } }] : []),
-        ...(collections.posts.length ? [{ 'children': 'Posts', 'closeOnSelect': false, 'cmdIcon': 'RectangleStackIcon', 'id': 'posts_list', 'onClick': () => {
-          setPage('posts'); setSearch('');
-        } }] : []),
-        ...(collections.thoughts.length ? [{ 'children': 'Thoughts', 'closeOnSelect': false, 'cmdIcon': 'LightBulbIcon', 'id': 'thoughts', 'onClick': () => {
-          setPage('thoughts'); setSearch('');
-        } }] : []),
-        ...(collections.publications.length ? [{ 'children': 'Publications', 'closeOnSelect': false, 'cmdIcon': 'NewspaperIcon', 'id': 'publications', 'onClick': () => {
-          setPage('publications'); setSearch('');
-        } }] : []),
-        ...(collections.tags.length ? [{ 'children': 'Tags', 'closeOnSelect': false, 'cmdIcon': 'TagIcon', 'id': 'tags', 'onClick': () => {
-          setPage('tags'); setSearch('');
-        } }] : [])
+        ...browseEntry('posts', 'Posts', 'RectangleStackIcon', 'posts_list'),
+        ...browseEntry('projects', 'Projects', 'RectangleGroupIcon'),
+        ...browseEntry('thoughts', 'Thoughts', 'LightBulbIcon'),
+        ...browseEntry('publications', 'Publications', 'NewspaperIcon'),
+        ...browseEntry('tags', 'Tags', 'TagIcon')
       ]
     },
     {
       'heading': 'Other',
       'id': 'other',
       'items': [
-        ...(socialItems.length ? [{ 'children': 'Reach out', 'closeOnSelect': false, 'cmdIcon': 'IdentificationIcon', 'id': 'reach_out', 'onClick': () => {
-          setPage('contact'); setSearch('');
-        } }] : []),
-        { 'children': 'Switch theme', 'closeOnSelect': false, 'cmdIcon': 'ArrowRightOnRectangleIcon', 'id': 'switch_theme', 'onClick': () => setTheme(theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark') }
+        ...(socialItems.length ? [{ 'children': 'Reach out', 'closeOnSelect': false, 'cmdIcon': 'IdentificationIcon', 'id': 'reach_out', 'onClick': openPage('contact') }] : []),
+        { 'children': 'Switch theme', 'closeOnSelect': false, 'cmdIcon': dark ? 'Sun' : 'Moon', 'id': 'switch_theme', 'onClick': () => setTheme(dark ? 'light' : 'dark') }
       ]
     },
     { 'heading': 'Posts', 'hidden': true, 'id': 'posts_fullTextSearch', 'items': collections.posts, 'options': { 'filterOnListHeading': true } },
@@ -234,7 +244,7 @@ const CommandLauncher = ({
     { 'heading': 'Thoughts', 'hidden': true, 'id': 'thoughts_fullTextSearch', 'items': collections.thoughts, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Publications', 'hidden': true, 'id': 'publications_fullTextSearch', 'items': collections.publications, 'options': { 'filterOnListHeading': true } },
     { 'heading': 'Tags', 'hidden': true, 'id': 'tags_fullTextSearch', 'items': collections.tags, 'options': { 'filterOnListHeading': true } }
-  ], page === 'root' ? search : ''), [ collections, navigation, page, resolvedTheme, search, setTheme, socialItems, theme ]);
+  ], page === 'root' ? search : ''), [ collections, navigation, page, search, setTheme, socialItems, dark ]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Full-text lists only show while searching, and a list whose heading is the whole query steps aside for its page entry.
   const visibleRootItems = rootItems.filter((list) => (search || !list.hidden) && search.toLowerCase() !== list.heading.toLowerCase());
@@ -257,9 +267,9 @@ const CommandLauncher = ({
       <CommandPalette.Page id='root'>
         {visibleRootItems.length ? visibleRootItems.map((list) => (
           <CommandPalette.List key={ list.id } heading={ list.heading }>
-            {list.items.map(({ category, children, cmdIcon, count, id, subtitle, title, type, ...rest }) => (
+            {list.items.map(({ browse, category, children, cmdIcon, count, id, subtitle, title, type, ...rest }) => (
               <CommandPalette.ListItem key={ `${list.id}-${id}` } value={ `${list.id}:${id}` } { ...commandItemProps(rest) }>
-                <CmdItem title={ title } subtitle={ subtitle } category={ category } count={ count } type={ type || 'navigation' } icon={ cmdIcon }>
+                <CmdItem browse={ browse } title={ title } subtitle={ subtitle } category={ category } count={ count } type={ type || 'navigation' } icon={ cmdIcon }>
                   {children}
                 </CmdItem>
               </CommandPalette.ListItem>

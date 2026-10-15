@@ -75,7 +75,7 @@ test('PostHeader shows the reading time with or without a contents control', asy
   const frontMatter = { title: 'Linked data quality', readingTime: { text: '36 min read' } };
   assert.match(await renderComponent(path, { frontMatter }), />36 min read</);
   const withControl = await renderComponent(path, { frontMatter, tocControl: 'Show contents' });
-  assert.match(withControl, /<span class="hidden lg:contents">Show contents<\/span>/);
+  assert.match(withControl, />36 min read<\/span>.*Show contents/s);
   assert.match(withControl, />36 min read</);
   assert.doesNotMatch(await renderComponent(path, { frontMatter: { title: 'Untimed' } }), /min read/);
 });

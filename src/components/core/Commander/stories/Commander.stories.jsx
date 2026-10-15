@@ -50,7 +50,7 @@ const openLauncher = async (canvasElement, trigger = 'Search content') => {
   await userEvent.click(within(canvasElement).getByRole('button', { name: trigger }));
   const dialog = await body().findByRole('dialog');
   const palette = within(dialog);
-  await palette.findByText('Explore content');
+  await palette.findByText('Browse');
   return { dialog, palette };
 };
 const command = (palette, label) =>
@@ -174,7 +174,7 @@ export const CollectionPages = {
     await auditState(context, 'open');
     const back = async () => {
       await userEvent.keyboard('{Escape}');
-      await expect(await palette.findByText('Explore content')).toBeInTheDocument();
+      await expect(await palette.findByText('Browse')).toBeInTheDocument();
     };
 
     await userEvent.click(command(palette, 'Posts'));

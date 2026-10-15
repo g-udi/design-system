@@ -29,7 +29,7 @@ import { usePreviewData, usePreviewImageResolver } from './usePreviewData.js';
 // Plain inline flow, so long link text wraps with the surrounding prose.
 const inlineClass = 'inline';
 // Icons in running text are sized in em and sit on the baseline, so they track the prose size.
-const inlineIconClass = '!m-0 !mr-[0.3em] inline-block !size-[1em] align-[-0.15em]';
+const inlineIconClass = '!m-0 !ml-[0.2em] !mr-[0.3em] inline-block !size-[1em] align-[-0.15em]';
 
 // Brand marks appended after the link when the site has no favicon.
 const platformIcons = {
