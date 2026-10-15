@@ -17,12 +17,12 @@ export default {
   id: 'animations-backgrounds-pixel-blast',
   component: PixelBlast,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { paused: 'boolean', speed: 'number', intensity: 'number', scale: 'number', colors: 'object', background: 'color', interactive: 'boolean', height: 'number' }),
+  argTypes: docsArgTypes(docs, { paused: 'boolean', speed: 'number', intensity: 'number', scale: 'number', colors: 'object', background: 'color', transparent: 'boolean', mask: ['none', 'bottom', 'edges', 'text'], interactive: 'boolean', height: 'number' }),
   parameters: { docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => Playground }) } }
 };
 
 export const Playground = {
-  args: { paused: false, speed: 1, intensity: 1, scale: 1, interactive: true, height: 500 },
+  args: { paused: false, speed: 1, intensity: 1, scale: 1, transparent: false, mask: 'none', interactive: true, height: 500 },
   render: PixelBlastPlayground,
   parameters: { docs: { source: playgroundSource('PixelBlastPlayground', { imports }) } },
   play: async (context) => {

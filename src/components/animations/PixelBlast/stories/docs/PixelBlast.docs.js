@@ -39,6 +39,18 @@ export default {
         "Base CSS color beneath the effect. Follows the current theme by default."
       ],
       [
+        "transparent",
+        "boolean",
+        "false",
+        "Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`."
+      ],
+      [
+        "mask",
+        "'bottom' | 'edges' | 'text' | 'none' | string",
+        "none",
+        "Canvas fade: `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text (follows writing direction). Any other string is a CSS mask-image; its layers intersect."
+      ],
+      [
         "interactive",
         "boolean",
         "true",

@@ -6,6 +6,9 @@ Separate square pixels form drifting dithered patterns; clicks send circular wav
 import { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';
 
 <PixelBlast height={360} paused />
+
+// A full-bleed header layer: no fill, faint behind the intro, faded top and bottom.
+<PixelBlast height='100%' transparent mask='text' />
 ```
 
 - `paused` (boolean, default false): Freeze the current frame. Reduced motion, hidden tabs and offscreen surfaces also stop motion.
@@ -14,6 +17,8 @@ import { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';
 - `scale` (number, default 1): Scale changes the square size and spacing in CSS pixels, independent of device pixel ratio. Clamped to 0.25–4.
 - `colors` (string[], default Gaudi chart colors 1–3): Up to three CSS colors, including CSS variables. Omitted colors use the current Gaudi palette.
 - `background` (string, default var(--ds-color-surface)): Base CSS color beneath the effect. Follows the current theme by default.
+- `transparent` (boolean, default false): Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`.
+- `mask` ('bottom' | 'edges' | 'text' | 'none' | string, default none): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image`; its layers intersect.
 - `interactive` (boolean, default true): Create an outward-decaying ripple at each click or tap. No interaction is needed to use the content.
 - `height` (number | string, default 360): Surface height in pixels or a CSS length. Numeric values are clamped to 1–4096.
 - `children` (ReactNode, default —): Optional content rendered above the decorative canvas. Keep text and controls on a contrasting surface.

@@ -25,3 +25,14 @@ test('Borealis fixed-height opt-in leaves its page layout default intact', () =>
   assert.match(page, /min-h-dvh/);
   assert.doesNotMatch(page, /min-height:0/);
 });
+
+test('Borealis passes transparent and mask to its decoration, and a mask replaces the edge fade', () => {
+  const faded = renderToStaticMarkup(createElement(Borealis, { height: 560 }));
+  assert.match(faded, /data-fade="true"/);
+  const band = renderToStaticMarkup(createElement(Borealis, { height: 560, transparent: true, mask: 'text' }));
+  assert.match(band, /data-fade="false"/);
+  assert.match(band, /class="ds-background borealis"[^>]*data-mask="text"[^>]*data-transparent=""[^>]*style="[^"]*background:transparent/);
+  const bare = renderToStaticMarkup(createElement(Borealis, { mask: 'none' }));
+  assert.match(bare, /data-fade="false"/);
+  assert.doesNotMatch(bare, /data-mask/);
+});

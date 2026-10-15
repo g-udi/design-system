@@ -22,3 +22,26 @@ test('PixelBlast keeps its decoration separate from accessible, deterministic co
   assert.match(html, /<button type="button">Readable &lt;content&gt;<\/button>/);
   assert.doesNotMatch(html, /<div[^>]*aria-hidden="true"|aria-live|NaN|Infinity/);
 });
+
+test('PixelBlast can drop its fill and fade its canvas with a preset or a custom mask', async () => {
+  const { PixelBlast } = await loadComponent(new URL('../../../../src/components/animations/PixelBlast/index.js', import.meta.url));
+  const render = (props) => renderToStaticMarkup(createElement(PixelBlast, { paused: true, ...props }));
+  const filled = render();
+  assert.match(filled, /background:var\(--ds-color-surface\)/);
+  assert.doesNotMatch(filled, /data-mask|data-transparent|mask-image/);
+  const header = render({ transparent: true, mask: 'text' });
+  assert.match(header, /data-mask="text"/);
+  assert.match(header, /data-transparent=""/);
+  assert.match(header, /background:transparent/);
+  assert.equal(render({ mask: 'none' }), filled);
+  const custom = render({ mask: 'linear-gradient(to right, transparent, black), linear-gradient(to bottom, black, transparent)' });
+  assert.match(custom, /data-mask="custom"/);
+  assert.match(custom, /<canvas[^>]*style="mask-image:linear-gradient\(to right, transparent, black\), linear-gradient\(to bottom, black, transparent\);mask-composite:intersect/);
+});
+
+test('the named canvas fades are defined in the background stylesheet and follow writing direction', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const css = await readFile(new URL('../../../../src/components/animations/Backgrounds.css', import.meta.url), 'utf8');
+  for (const preset of [ 'bottom', 'edges', 'text' ]) assert.match(css, new RegExp(`\\[data-mask='${preset}'\\] > \\.ds-background__canvas \\{\\s*(?:mask-composite: intersect;\\s*)?mask-image`));
+  assert.match(css, /\[data-mask='text'\]:dir\(rtl\)/);
+});

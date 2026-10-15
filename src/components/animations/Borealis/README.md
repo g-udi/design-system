@@ -6,6 +6,9 @@ Theme-aware Aurora light curtains, with a Soft Aurora variant that forms a narro
 import Borealis from '@gaudi/design-system/animations/Borealis';
 
 <Borealis variant="soft" height={500}>{content}</Borealis>
+
+// A band across the top of a page: no fill, faint behind the text column, faded top and bottom.
+<Borealis height={560} transparent mask="text" />
 ```
 
 Existing root, layout barrel and `@gaudi/design-system/layout/Borealis` imports remain supported. Direct children and the ref stay on the outer page wrapper. Without a height, the wrapper grows with content and fills at least the viewport; the decoration is capped at 48rem.
@@ -22,6 +25,8 @@ Existing root, layout barrel and `@gaudi/design-system/layout/Borealis` imports 
 - `scale` (number, default `1`): Spatial scale of the effect, clamped to 0.25–4.
 - `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors. Omitted colors inherit the current Gaudi palette.
 - `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.
+- `transparent` (boolean, default `false`): Drop the decoration's background fill so masked or faded areas reveal the page behind. The light itself still blends towards `background`.
+- `mask` (`'bottom'` | `'edges'` | `'text'` | `'none'` | string, default `fadeEdges`): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image` whose layers intersect. Replaces the `fadeEdges` fade when set; `none` removes both.
 - `height` (number | string, default `content / viewport`): Optional fixed height in pixels or CSS length. Without it, the existing page wrapper grows with content and fills at least the viewport; decoration is capped at 48rem.
 - `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.
 - `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.

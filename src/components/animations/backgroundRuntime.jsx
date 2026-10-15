@@ -13,11 +13,21 @@ const defaultColors = ['var(--ds-color-chart-1)', 'var(--ds-color-chart-2)', 'va
 /** A CSS height for a background: numbers are bounded pixels, other values pass through. */
 export const backgroundHeight = height => typeof height === 'number' ? bounded(height, 360, 1, 4096) : height;
 
+// Named canvas fades live in Backgrounds.css (so they can follow writing direction); any other string is a CSS mask-image.
+const maskPresets = new Set(['bottom', 'edges', 'text']);
+
+/** Canvas mask props: a preset name for the stylesheet, or an inline mask-image whose layers intersect. */
+export const backgroundMask = mask => {
+  if (!mask || mask === 'none' || typeof mask !== 'string') return { preset: undefined, style: undefined };
+  if (maskPresets.has(mask)) return { preset: mask, style: undefined };
+  return { preset: 'custom', style: { maskImage: mask, maskComposite: 'intersect', maskRepeat: 'no-repeat', maskSize: '100% 100%' } };
+};
+
 /** Shared canvas lifecycle; each owner supplies an independently authored fragment shader. */
 export function BackgroundSurface({
   effect, fragment, paused = false, speed = 1, intensity = 1, scale = 1,
   colors, background = 'var(--ds-color-surface)', interactive = false,
-  height = 360, className, style, children, ref: forwardedRef,
+  height = 360, transparent = false, mask, className, style, children, ref: forwardedRef,
   onPointerMove, onPointerEnter, onPointerLeave, onPointerDown, onPointerUp, onPointerCancel,
   uniforms = {}, canvasStyle, createSimulation, ...props
 }) {
@@ -232,9 +242,12 @@ export function BackgroundSurface({
   };
 
   const animated = renderer === 'webgl' && active && options.current.speed > 0;
+  const canvasMask = backgroundMask(mask);
+  // `transparent` drops only the container fill: the canvas still blends towards `background`, and masked areas reveal the page.
   return <div {...props} ref={ref} className={cn('ds-background', className)}
     data-slot={effect} data-effect={effect} data-renderer={renderer} data-animated={String(animated)}
-    style={{ height: backgroundHeight(height), background, ...style }}
+    data-mask={canvasMask.preset} data-transparent={transparent ? '' : undefined}
+    style={{ height: backgroundHeight(height), background: transparent ? 'transparent' : background, ...style }}
     onPointerMove={event => {
       onPointerMove?.(event);
       movePointer(event);
@@ -244,7 +257,7 @@ export function BackgroundSurface({
     onPointerUp={event => { onPointerUp?.(event); input.current.release(); }}
     onPointerCancel={event => { onPointerCancel?.(event); input.current.leave(); }}
     onPointerLeave={event => { onPointerLeave?.(event); input.current.leave(); }}>
-    <canvas ref={canvasRef} className='ds-background__canvas' style={canvasStyle} aria-hidden='true' />
+    <canvas ref={canvasRef} className='ds-background__canvas' style={canvasMask.style || canvasStyle ? { ...canvasMask.style, ...canvasStyle } : undefined} aria-hidden='true' />
     {children == null ? null : <div className='ds-background__content'>{children}</div>}
   </div>;
 }

@@ -13,7 +13,7 @@ const docs = getComponentDocs('Animations/Backgrounds/Aurora');
 const imports = backgroundDemoSource(source, new URL('./fixtures/BorealisExamples.jsx', import.meta.url));
 export default {
   title: 'Animations/Backgrounds/Aurora', id: 'layout-borealis', component: Borealis, tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { variant: ['aurora', 'soft'], amplitude: 'number', blend: 'number', fadeEdges: 'boolean', paused: 'boolean', speed: 'number', intensity: 'number', scale: 'number', colors: 'object', background: 'text', height: 'number' }),
+  argTypes: docsArgTypes(docs, { variant: ['aurora', 'soft'], amplitude: 'number', blend: 'number', fadeEdges: 'boolean', paused: 'boolean', speed: 'number', intensity: 'number', scale: 'number', colors: 'object', background: 'text', transparent: 'boolean', mask: ['bottom', 'edges', 'text', 'none'], height: 'number' }),
   parameters: { docs: { description: { component: docs.description }, page: createComponentDocsPage(docs, { primaryStory: () => BorealisSurface }) } }
 };
 export const BorealisSurface = {

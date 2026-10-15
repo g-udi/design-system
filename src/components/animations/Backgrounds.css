@@ -25,6 +25,28 @@
     visibility: hidden;
   }
 
+  /* Canvas fades: `bottom` melts into the page below; `edges` fades in at the top and out at the bottom; `text` also stays faint behind leading-edge text. */
+  .ds-background[data-mask='bottom'] > .ds-background__canvas {
+    mask-image: linear-gradient(to bottom, black 55%, transparent);
+  }
+
+  .ds-background[data-mask='edges'] > .ds-background__canvas {
+    mask-image: linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
+  }
+
+  .ds-background[data-mask='text'] > .ds-background__canvas {
+    mask-composite: intersect;
+    mask-image:
+      linear-gradient(to right, rgb(0 0 0 / 18%), rgb(0 0 0 / 28%) 45%, black 80%),
+      linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
+  }
+
+  .ds-background[data-mask='text']:dir(rtl) > .ds-background__canvas {
+    mask-image:
+      linear-gradient(to left, rgb(0 0 0 / 18%), rgb(0 0 0 / 28%) 45%, black 80%),
+      linear-gradient(to bottom, transparent, black 14%, black 70%, transparent);
+  }
+
   .ds-background__content {
     position: relative;
     z-index: 1;
