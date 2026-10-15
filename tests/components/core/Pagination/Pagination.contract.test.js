@@ -22,3 +22,19 @@ test('PaginationStatus forwards its compact size through the shared Button API',
   assert.match(html, /min-h-7/);
   assert.match(html, /aria-label="Page shortcuts: 2 of 8"/);
 });
+
+test('POSTS_PER_PAGE lives outside the client module so server components read a number', async () => {
+  const { readFileSync } = await import('node:fs');
+  const source = readFileSync(new URL('../../../../src/components/core/Pagination/constants.js', import.meta.url), 'utf8');
+  assert.doesNotMatch(source, /['"]use client['"]/);
+  const { POSTS_PER_PAGE } = await import('../../../../src/components/core/Pagination/constants.js');
+  assert.equal(POSTS_PER_PAGE, 7);
+  assert.match(readFileSync(new URL('../../../../src/components/core/Pagination/index.js', import.meta.url), 'utf8'), /POSTS_PER_PAGE \} from '\.\/constants\.js'/);
+});
+
+test('PaginationBar builds page links from serialisable string props', async () => {
+  const url = new URL('../../../../src/components/core/Pagination/Pagination.jsx', import.meta.url);
+  const html = await renderComponent(url, { currentPage: 2, totalPages: 3, hrefTemplate: '/blog/tags/ai/page/{page}', firstPageHref: '/blog/tags/ai' });
+  assert.match(html, /href="\/blog\/tags\/ai"/);
+  assert.match(html, /href="\/blog\/tags\/ai\/page\/3"/);
+});

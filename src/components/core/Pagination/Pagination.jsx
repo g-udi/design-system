@@ -14,8 +14,6 @@ import {
   PaginationPrevious as PaginationPreviousPart
 } from './PaginationPrimitives.jsx';
 
-export const POSTS_PER_PAGE = 7;
-
 // The convenience API is the composition parts with a labelled landmark and bordered Previous / Next actions.
 export const Pagination = ({ label = 'Pagination', ...props }) => <PaginationPart aria-label={ label } { ...props } />;
 
@@ -80,8 +78,15 @@ export const PaginationStatus = ({ className, size = 'md', currentPage = 1, getH
   );
 };
 
+/*
+ * Server components cannot pass functions to this client module, so page links can also be plain
+ * strings: `hrefTemplate` with a `{page}` placeholder, and `firstPageHref` for page 1.
+ */
+const templateHref = (hrefTemplate, firstPageHref) => (page) => (page === 1 && firstPageHref ? firstPageHref : hrefTemplate.replace('{page}', String(page)));
+
 // Previous, the "n of total" status and Next under a list: the blog's archive pager.
-export const PaginationBar = ({ currentPage = 1, getHref = (page) => `?page=${page}`, label = 'Pagination', onPageChange, totalPages = 1, previousLabel = 'Previous', nextLabel = 'Next', ofLabel = 'of', shortcutsLabel = 'Page shortcuts' }) => {
+export const PaginationBar = ({ currentPage = 1, firstPageHref, getHref: getHrefProp, hrefTemplate, label = 'Pagination', onPageChange, totalPages = 1, previousLabel = 'Previous', nextLabel = 'Next', ofLabel = 'of', shortcutsLabel = 'Page shortcuts' }) => {
+  const getHref = getHrefProp ?? (hrefTemplate ? templateHref(hrefTemplate, firstPageHref) : (page) => `?page=${page}`);
   const pageAction = (page) => ({
     href: getHref(page),
     onClick: onPageChange ? () => onPageChange(page) : undefined
