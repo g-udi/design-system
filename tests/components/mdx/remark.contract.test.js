@@ -65,3 +65,42 @@ test('MDX fences preserve a zero-based starting line through the Core renderer',
     'data-title': 'legacy.js', 'data-custom': 'kept', 'data-highlight': '1'
   });
 });
+
+const quote = (...children) => ({ type: 'blockquote', children });
+const attributes = (node) => Object.fromEntries(node.attributes.map(({ name, value }) => [ name, value ]));
+
+test('GitHub alert blockquotes become titled Callouts in the matching tone', async () => {
+  const { remarkAlerts } = await import('../../../src/components/mdx/remark.js');
+  const kinds = { NOTE: [ 'info', 'Note' ], TIP: [ 'info', 'Tip' ], IMPORTANT: [ 'info', 'Important' ], WARNING: [ 'warning', 'Warning' ], CAUTION: [ 'error', 'Caution' ] };
+  for (const [ kind, [ type, title ] ] of Object.entries(kinds)) {
+    const tree = { type: 'root', children: [ quote(text(`[!${kind}]\nKeep backups before you upgrade.`), text('A second paragraph.')) ] };
+    remarkAlerts()(tree);
+    const [ callout ] = tree.children;
+    assert.equal(callout.type, 'mdxJsxFlowElement');
+    assert.equal(callout.name, 'Callout');
+    assert.deepEqual(attributes(callout), { type, title });
+    assert.deepEqual(callout.children.map((child) => child.children[0].value), [ 'Keep backups before you upgrade.', 'A second paragraph.' ]);
+  }
+});
+
+test('alert markers are case-insensitive, may stand alone, and leave ordinary or nested quotes intact', async () => {
+  const { remarkAlerts } = await import('../../../src/components/mdx/remark.js');
+  const alone = { type: 'root', children: [ quote(text('[!warning]'), text('Body on its own line.')) ] };
+  remarkAlerts()(alone);
+  assert.deepEqual(attributes(alone.children[0]), { type: 'warning', title: 'Warning' });
+  assert.deepEqual(alone.children[0].children.map((child) => child.children[0].value), [ 'Body on its own line.' ]);
+
+  const plain = quote(text('Just a quote mentioning [!NOTE] later.'));
+  const nested = { type: 'root', children: [ plain, { type: 'listItem', children: [ quote(text('[!TIP]\nNested tip.')) ] } ] };
+  remarkAlerts()(nested);
+  assert.equal(nested.children[0], plain);
+  assert.equal(nested.children[1].children[0].name, 'Callout');
+});
+
+test('a converted alert renders through the Gaudi Callout as a labelled note', async () => {
+  const { default: Callout } = await loadComponent(new URL('../../../src/components/mdx/Callout/Callout.js', import.meta.url));
+  const html = renderToStaticMarkup(createElement(Callout, { type: 'warning', title: 'Warning' }, createElement('p', null, 'Keep backups.')));
+  assert.match(html, /role="note"/);
+  assert.match(html, /data-slot="alert-title"[^>]*>Warning</);
+  assert.match(html, /<p>Keep backups.<\/p>/);
+});

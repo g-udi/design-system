@@ -14,6 +14,7 @@
  *
  * @param {Object} props - Component props
  * @param {('info'|'warning'|'error')} props.type - The callout type that determines styling (default: 'info')
+ * @param {React.ReactNode} [props.title] - Optional label above the body, such as "Note" or "Warning"
  * @param {React.ReactNode} props.children - The content to display within the callout
  * @returns {JSX.Element} A div containing the styled callout
  *
@@ -36,13 +37,14 @@
  * </Callout>
  */
 import { cn } from '../../../utilities/cn';
-import { Alert, AlertDescription } from '../../core/Banner';
+import { Alert, AlertDescription, AlertTitle } from '../../core/Banner';
 
 const variants = { error: 'destructive', info: 'info', warning: 'warning' };
 
-const Callout = ({ children, className, classNames = {}, type = 'info' }) => {
+const Callout = ({ children, className, classNames = {}, title, type = 'info' }) => {
   return (
     <Alert role='note' variant={ variants[type] || variants.info } className={ cn('mb-6', className, classNames.root) }>
+      {title ? <AlertTitle className={ cn('text-sm font-semibold text-text', classNames.title) }>{title}</AlertTitle> : null}
       <AlertDescription className={ cn('block text-base text-text [&>p]:m-0 [&>p:not(:last-child)]:mb-2', classNames.body) }>
         {children}
       </AlertDescription>

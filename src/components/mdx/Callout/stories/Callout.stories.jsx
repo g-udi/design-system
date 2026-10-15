@@ -15,7 +15,7 @@ export default {
   id: 'mdx-callout',
   component: Callout,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { type: Object.keys(tokenByType), children: 'text' }),
+  argTypes: docsArgTypes(docs, { type: Object.keys(tokenByType), title: 'text', children: 'text' }),
   parameters: {
     docs: {
       description: { component: docs.description },
@@ -26,7 +26,7 @@ export default {
 };
 
 export const Playground = {
-  args: { type: 'warning', children: 'MDX runtime components now come from @gaudi/design-system/mdx/runtime. Update the import before you upgrade.' },
+  args: { type: 'warning', title: 'Warning', children: 'MDX runtime components now come from @gaudi/design-system/mdx/runtime. Update the import before you upgrade.' },
   parameters: {
     docs: {
       description: { story: 'A migration guide: an info tip followed by a note driven by the controls. Switch `type` to see the warning and error tones next to the tip.' },

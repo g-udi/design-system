@@ -1,5 +1,5 @@
 /**
- * Remark plugin for Gaudi code in MDX
+ * Remark plugins for Gaudi MDX: `remarkCode` for fenced code, `remarkAlerts` for GitHub alerts
  *
  * @description Prepares fenced code for the Gaudi `CodeFence` (`pre`) and `CodeGroup`
  * MDX components, so articles render code through CodeBlock instead of build-time HTML.
@@ -14,8 +14,8 @@
  *
  * @example
  * // contentlayer.config.js
- * import { remarkCode } from '@gaudi/design-system/mdx/remark';
- * remarkPlugins: [remarkGfm, remarkCode]
+ * import { remarkAlerts, remarkCode } from '@gaudi/design-system/mdx/remark';
+ * remarkPlugins: [remarkGfm, remarkCode, remarkAlerts]
  */
 
 const textOf = (node) => node.value ?? (node.children || []).map(textOf).join('');
@@ -78,6 +78,58 @@ function transform(parent) {
 
 export function remarkCode() {
   return (tree) => transform(tree);
+}
+
+// GitHub alert markers and the Callout each becomes; GitHub's five kinds share Callout's three tones.
+const alertKinds = {
+  'CAUTION': { title: 'Caution', type: 'error' },
+  'IMPORTANT': { title: 'Important', type: 'info' },
+  'NOTE': { title: 'Note', type: 'info' },
+  'TIP': { title: 'Tip', type: 'info' },
+  'WARNING': { title: 'Warning', type: 'warning' }
+};
+const alertMarker = /^\[!(CAUTION|IMPORTANT|NOTE|TIP|WARNING)\][ \t]*(?:\r?\n|$)/i;
+
+/** Converts a `> [!KIND]` blockquote into a Callout JSX node, or returns null for ordinary quotes. */
+function alertCallout(node) {
+  const [ paragraph ] = node.children || [];
+  const [ first ] = paragraph?.type === 'paragraph' ? paragraph.children : [];
+  const match = first?.type === 'text' && first.value.match(alertMarker);
+  if (!match) return null;
+  const { title, type } = alertKinds[match[1].toUpperCase()];
+  first.value = first.value.slice(match[0].length);
+  // The marker sits on its own line: drop the text node (and a following hard break) it leaves empty.
+  if (!first.value) paragraph.children.shift();
+  if (paragraph.children[0]?.type === 'break') paragraph.children.shift();
+  const children = paragraph.children.length ? node.children : node.children.slice(1);
+  return {
+    type: 'mdxJsxFlowElement',
+    name: 'Callout',
+    attributes: [ { type: 'mdxJsxAttribute', name: 'type', value: type }, { type: 'mdxJsxAttribute', name: 'title', value: title } ],
+    children,
+    position: node.position
+  };
+}
+
+function transformAlerts(parent) {
+  (parent.children || []).forEach((node, index) => {
+    const callout = node.type === 'blockquote' ? alertCallout(node) : null;
+    if (callout) parent.children[index] = callout;
+    transformAlerts(callout || node);
+  });
+}
+
+/**
+ * Turns GitHub alert blockquotes into Gaudi `Callout` elements, so articles keep the familiar syntax:
+ *
+ *   > [!NOTE]
+ *   > Useful context.
+ *
+ * NOTE, TIP and IMPORTANT render as `info`, WARNING as `warning` and CAUTION as `error`; each keeps
+ * its kind as the Callout title. Map `Callout` in the MDX components. Ordinary quotes are untouched.
+ */
+export function remarkAlerts() {
+  return (tree) => transformAlerts(tree);
 }
 
 export default remarkCode;
