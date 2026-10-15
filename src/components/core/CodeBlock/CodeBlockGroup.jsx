@@ -13,13 +13,14 @@ export function CodeBlockGroup({ items, label = 'Code examples', showLineNumbers
   const tabs = items.map((item, index) => ({ ...item, value: String(index), tab: item.title || item.language || `Example ${index + 1}` }));
   return (
     <Tabs defaultValue='0' data-slot='code-block-group' className={cn('gap-0 overflow-hidden rounded-lg border', codeChromeClassName, className)}>
+      {/* Compact file tabs in the code chrome, matching a single block's header: sans labels, outlined when active. */}
       <TabsList
         aria-label={label}
-        tone='accent'
-        className='w-full justify-start overflow-x-auto border-b border-(--ds-color-code-chrome-border) bg-(--ds-color-code-chrome-bg) px-2 font-mono'
+        variant='outline'
+        className='w-full justify-start overflow-x-auto border-b border-(--ds-color-code-chrome-border) bg-(--ds-color-code-chrome-bg) px-2 py-1.5'
       >
         {tabs.map(({ value, tab }) => (
-          <TabsTrigger key={value} value={value}>
+          <TabsTrigger key={value} value={value} className='h-7 px-2.5 text-xs font-medium'>
             {tab}
           </TabsTrigger>
         ))}
