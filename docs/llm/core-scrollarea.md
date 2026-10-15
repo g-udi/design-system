@@ -11,7 +11,7 @@ import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`
+Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`, `SmoothScroll`
 
 ## Props
 
@@ -23,6 +23,8 @@ Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`
 | `ScrollEdges.targetRef` | `Ref<HTMLElement>` | `page` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
 | `offsetTop` | `number` | `0` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
 | `range` | `number` | `80` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `edges` | `both \| top \| bottom` | `both` | no | The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength. |
+| `SmoothScroll.targetRef` | `Ref<HTMLElement>` | `page` | no | Eased wheel scrolling for any scroll boundary; omit targetRef to smooth the page. ScrollArea smooth uses it for its own viewport. |
 | `viewportRef` | `Ref<HTMLElement>` | — | no | Ref to the actual scrolling viewport. Share with ReadingIndicator.targetRef, a heading observer or native scrollTo calls. The ordinary ref still points to the outer root. |
 | `scrollbarClassName` | `{ track?: string, thumb?: string }` | — | no | Classes for the built-in vertical scrollbar track and thumb, using Gaudi tokens. |
 | `ScrollBar.orientation` | `horizontal \| vertical` | `vertical` | no | Axis of an additional scrollbar. Smooth wheel motion applies to the vertical viewport; horizontal regions remain native. |
@@ -33,6 +35,7 @@ Exports: `ScrollArea`, `ScrollBar`, `ScrollEdges`
 ## Variants
 
 - `type`: `auto`, `always`, `scroll`, `hover`
+- `edges`: `both`, `top`, `bottom`
 
 ## Usage
 
@@ -102,7 +105,7 @@ Touch, keyboard scrolling, native fragment links, focus, selection, and scrollba
 
 ### Faded edges
 
-`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header.
+`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header, and `edges='bottom'` (or `'top'`) to blur only one edge.
 
 ```jsx
 import { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
@@ -110,6 +113,8 @@ import { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';
 <ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>
 <ScrollEdges offsetTop={64} />
 ```
+
+`SmoothScroll` is the same eased wheel scrolling for the page: render `<SmoothScroll />` once on a reading page that scrolls as a whole. Pair it with `ScrollEdges` for the full reading feel; keyboard, focus, touch and links stay native, and reduced motion turns it off.
 
 The edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.
 

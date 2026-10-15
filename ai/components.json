@@ -15773,7 +15773,8 @@
         "exports": [
           "ScrollArea",
           "ScrollBar",
-          "ScrollEdges"
+          "ScrollEdges",
+          "SmoothScroll"
         ]
       },
       "description": "Contained scrolling with themed scrollbars and optional smooth wheel motion for article reading.",
@@ -15838,6 +15839,27 @@
           "default": "80",
           "required": false,
           "description": "The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength."
+        },
+        {
+          "name": "edges",
+          "names": [
+            "edges"
+          ],
+          "type": "both | top | bottom",
+          "default": "both",
+          "required": false,
+          "description": "The same edges for any scroll boundary: an element, or the page when targetRef is omitted. offsetTop keeps the page top edge below a sticky header; range is the distance in pixels at which an edge reaches full strength."
+        },
+        {
+          "name": "SmoothScroll.targetRef",
+          "names": [
+            "targetRef"
+          ],
+          "part": "SmoothScroll",
+          "type": "Ref<HTMLElement>",
+          "default": "page",
+          "required": false,
+          "description": "Eased wheel scrolling for any scroll boundary; omit targetRef to smooth the page. ScrollArea smooth uses it for its own viewport."
         },
         {
           "name": "viewportRef",
@@ -15908,6 +15930,11 @@
           "always",
           "scroll",
           "hover"
+        ],
+        "edges": [
+          "both",
+          "top",
+          "bottom"
         ]
       },
       "accessibility": "Give the viewport a useful accessible name using aria-label or aria-labelledby. Constrain the area dimensions and retain keyboard access. Reduced motion skips the smooth engine entirely; native scrolling remains available before hydration or if the enhancement cannot load. Nested scrollable content keeps its own wheel behavior.",
@@ -15963,7 +15990,7 @@
       "storybook": "core-scrollarea--docs",
       "docs": "docs/llm/core-scrollarea.md",
       "source": "src/components/core/ScrollArea/",
-      "readme": "# ScrollArea\n\nA keyboard-accessible Radix scroll viewport with themed scrollbars. Enable `smooth` for eased vertical mouse-wheel scrolling through the locally installed Lenis engine.\n\n```jsx\n'use client';\n\nimport { useRef } from 'react';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';\n\nexport function ArticleReader({ children }) {\n  const viewport = useRef(null);\n  return (\n    <div className='relative min-h-0'>\n      <ScrollArea smooth viewportRef={viewport} className='h-[calc(100dvh-4rem)]' aria-label='Blog post content'>\n        <article className='mx-auto max-w-prose px-5 py-8'>{children}</article>\n      </ScrollArea>\n      <ReadingIndicator targetRef={viewport} position='absolute' />\n    </div>\n  );\n}\n```\n\n- `smooth` defaults to `false`. `true` adds wheel interpolation, with native scrolling available before hydration and if the enhancement cannot load. It applies to vertical wheel movement, not CSS scroll snapping or a document-wide smooth-scroll engine.\n- `viewportRef` receives the actual scrolling element; `ref` receives the outer root. Use native `scrollTo`, or share the viewport with reading progress and heading observers.\n- `type` controls scrollbar visibility: `hover` (default), `auto`, `always`, or `scroll`.\n- `scrollbarClassName={{ track, thumb }}` styles the built-in vertical scrollbar. For example, `{ thumb: 'bg-accent/60' }` uses the active accent. `ScrollBar` also accepts `thumbClassName` and `orientation='horizontal'`.\n- Give the region an `aria-label` or `aria-labelledby`. Set a bounded height, and use `min-h-0` on flex parents so the content scrolls inside the area.\n\nTouch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.\n\n## Faded edges\n\n`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header.\n\n```jsx\nimport { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';\n\n<ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>\n<ScrollEdges offsetTop={64} />\n```\n\nThe edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.\n\nThe `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.",
+      "readme": "# ScrollArea\n\nA keyboard-accessible Radix scroll viewport with themed scrollbars. Enable `smooth` for eased vertical mouse-wheel scrolling through the locally installed Lenis engine.\n\n```jsx\n'use client';\n\nimport { useRef } from 'react';\nimport { ScrollArea } from '@gaudi/design-system/core/ScrollArea';\nimport { ReadingIndicator } from '@gaudi/design-system/core/ReadingIndicator';\n\nexport function ArticleReader({ children }) {\n  const viewport = useRef(null);\n  return (\n    <div className='relative min-h-0'>\n      <ScrollArea smooth viewportRef={viewport} className='h-[calc(100dvh-4rem)]' aria-label='Blog post content'>\n        <article className='mx-auto max-w-prose px-5 py-8'>{children}</article>\n      </ScrollArea>\n      <ReadingIndicator targetRef={viewport} position='absolute' />\n    </div>\n  );\n}\n```\n\n- `smooth` defaults to `false`. `true` adds wheel interpolation, with native scrolling available before hydration and if the enhancement cannot load. It applies to vertical wheel movement, not CSS scroll snapping or a document-wide smooth-scroll engine.\n- `viewportRef` receives the actual scrolling element; `ref` receives the outer root. Use native `scrollTo`, or share the viewport with reading progress and heading observers.\n- `type` controls scrollbar visibility: `hover` (default), `auto`, `always`, or `scroll`.\n- `scrollbarClassName={{ track, thumb }}` styles the built-in vertical scrollbar. For example, `{ thumb: 'bg-accent/60' }` uses the active accent. `ScrollBar` also accepts `thumbClassName` and `orientation='horizontal'`.\n- Give the region an `aria-label` or `aria-labelledby`. Set a bounded height, and use `min-h-0` on flex parents so the content scrolls inside the area.\n\nTouch, keyboard scrolling, native fragment links, focus, selection, and scrollbar dragging retain their browser behavior. Nested scroll regions keep their own wheel interaction. Pointer, keyboard and focus intent interrupt wheel inertia. Reduced motion skips Lenis entirely; changing the preference takes effect without a reload. The engine is destroyed while the area is offscreen or the page is hidden, and on unmount, releasing its listeners, observers and animation frame.\n\n## Faded edges\n\n`fadeEdges` blurs the top and bottom of the viewport while more content continues past them. `ScrollEdges` is the same effect for any scroll boundary: pass `targetRef`, or omit it for the page, with `offsetTop` to keep the top edge below a sticky header, and `edges='bottom'` (or `'top'`) to blur only one edge.\n\n```jsx\nimport { ScrollArea, ScrollEdges } from '@gaudi/design-system/core/ScrollArea';\n\n<ScrollArea smooth fadeEdges className='h-[32rem]' aria-label='Blog post content'>{article}</ScrollArea>\n<ScrollEdges offsetTop={64} />\n```\n\n`SmoothScroll` is the same eased wheel scrolling for the page: render `<SmoothScroll />` once on a reading page that scrolls as a whole. Pair it with `ScrollEdges` for the full reading feel; keyboard, focus, touch and links stay native, and reduced motion turns it off.\n\nThe edges are decorative: they never take pointer events, disappear while anything has keyboard focus, and are hidden for reduced motion and in forced colours. A page that scrolls as a whole, such as a blog post between a site header and footer, keeps native page scrolling and uses `ScrollEdges` without `targetRef`; use a bounded `ScrollArea` when the reading area is the only scroller.\n\nThe `Smooth blog reading` story demonstrates the intended composition, heading links, a contained reading list, custom thumb styling, and reading progress. [Shadix UI Smooth Scroll Area](https://shadix-ui.vercel.app/docs/components/smooth-scroll-area) informed the behavior; Gaudi uses its existing Radix primitive and [Lenis](https://github.com/darkroomengineering/lenis) rather than copied registry source.",
       "related": [
         "blocks-blog-article",
         "core-pointer",

@@ -4166,7 +4166,8 @@
     "@gaudi/design-system/core/ScrollArea": [
       "ScrollArea",
       "ScrollBar",
-      "ScrollEdges"
+      "ScrollEdges",
+      "SmoothScroll"
     ],
     "@gaudi/design-system/core/Scrollspy": [
       "Scrollspy"

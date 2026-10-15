@@ -8,26 +8,29 @@ import { usePageVisibility } from '../../../hooks/environment/use-page-visibilit
 import { useInView } from '../../../hooks/layout/use-in-view.js';
 import { ScrollEdges } from './ScrollEdges.jsx';
 
-// Keep the optional engine and its subscriptions out of ordinary ScrollAreas.
-function SmoothScrolling({ viewportRef }) {
+/**
+ * Eased mouse-wheel scrolling through Lenis for the element in `targetRef` (a ScrollArea viewport), or
+ * for the page when it is omitted. Keyboard, focus, selection, touch and links stay native; reduced
+ * motion, a hidden page or an offscreen area turn it off. The engine loads only when used.
+ */
+function SmoothScroll({ targetRef }) {
   const reducedMotion = usePrefersReducedMotion();
   const visible = usePageVisibility();
   const [observe, inView] = useInView({ initialInView: true });
-  useEffect(() => { observe(viewportRef.current); }, [observe, viewportRef]);
+  useEffect(() => { if (targetRef) observe(targetRef.current); }, [observe, targetRef]);
   useEffect(() => {
-    const viewport = viewportRef.current;
-    if (!viewport || reducedMotion || !visible || !inView) return;
+    const viewport = targetRef ? targetRef.current : null;
+    if ((targetRef && !viewport) || reducedMotion || !visible || !inView) return;
     let cancelled = false;
     let engine;
     // Native keyboard, focus, selection and scrollbar gestures take over immediately.
     const interrupt = () => engine?.scrollTo(engine.actualScroll, { immediate: true });
-    const root = viewport.parentElement;
+    const root = viewport ? viewport.parentElement : document;
     import('lenis').then(({ default: Lenis }) => {
       if (cancelled) return;
       engine = new Lenis({
-        wrapper: viewport,
-        // Radix owns this stable measurement wrapper around the supplied children.
-        content: viewport.firstElementChild,
+        // Without a target Lenis drives the window; Radix owns the stable wrapper inside a viewport.
+        ...(viewport ? { wrapper: viewport, content: viewport.firstElementChild } : {}),
         autoRaf: true,
         smoothWheel: true,
         syncTouch: false,
@@ -39,7 +42,7 @@ function SmoothScrolling({ viewportRef }) {
       root.addEventListener('keydown', interrupt, true);
       root.addEventListener('focusin', interrupt, true);
     }).catch(() => {
-      // The native viewport remains usable if the optional enhancement cannot load.
+      // Native scrolling remains usable if the optional enhancement cannot load.
     });
     return () => {
       cancelled = true;
@@ -48,7 +51,7 @@ function SmoothScrolling({ viewportRef }) {
       root.removeEventListener('focusin', interrupt, true);
       engine?.destroy();
     };
-  }, [inView, reducedMotion, viewportRef, visible]);
+  }, [inView, reducedMotion, targetRef, visible]);
   return null;
 }
 
@@ -74,7 +77,7 @@ function ScrollArea({ className, children, smooth = false, fadeEdges = false, vi
       </ScrollAreaPrimitive.Viewport>
       <ScrollBar className={scrollbarClassName?.track} thumbClassName={scrollbarClassName?.thumb} />
       <ScrollAreaPrimitive.Corner />
-      {smooth && <SmoothScrolling viewportRef={localViewport} />}
+      {smooth && <SmoothScroll targetRef={localViewport} />}
       {fadeEdges && <ScrollEdges targetRef={localViewport} />}
     </ScrollAreaPrimitive.Root>
   );
@@ -98,4 +101,4 @@ function ScrollBar({ className, thumbClassName, orientation = 'vertical', ...pro
     </ScrollAreaPrimitive.ScrollAreaScrollbar>
   );
 }
-export { ScrollArea, ScrollBar };
+export { ScrollArea, ScrollBar, SmoothScroll };

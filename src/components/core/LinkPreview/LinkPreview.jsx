@@ -28,7 +28,8 @@ import { usePreviewData, usePreviewImageResolver } from './usePreviewData.js';
 
 // Plain inline flow, so long link text wraps with the surrounding prose.
 const inlineClass = 'inline';
-const inlineIconClass = 'm-0 mr-1 inline-block align-text-top';
+// Icons in running text are sized in em and sit on the baseline, so they track the prose size.
+const inlineIconClass = '!m-0 !mr-[0.3em] inline-block !size-[1em] align-[-0.15em]';
 
 // Brand marks appended after the link when the site has no favicon.
 const platformIcons = {
@@ -142,13 +143,13 @@ const LinkPreview = memo(function LinkPreview({
       <LinkPreviewFavicon
         src={ favicon }
         icon={ preview.preferIcon ? 'Medium' : 'LinkIcon' }
-        className='!m-0 !mr-1 inline-block align-text-top'
+        className={ inlineIconClass }
         iconClassName={ preview.preferIcon ? 'text-text' : 'text-accent' }
       />
       <Link tone='accent' href={ url } aria-label={ `${linkTitle}${preview.siteName ? ` - ${preview.siteName}` : ''}` }>
         {linkTitle}
       </Link>
-      {platform ? <Icon name={ platform.name } size='xs' decorative className={ cn('ml-1 inline-block align-text-top', platform.className) } /> : null}
+      {platform ? <Icon name={ platform.name } size='xs' decorative className={ cn('ml-[0.3em] inline-block !size-[0.85em] align-[-0.1em]', platform.className) } /> : null}
       {preview.duration ? <span className='ml-1 text-xs whitespace-nowrap text-text-muted'>{preview.duration}</span> : null}
       {!isInternal && preview.readingTime ? <span className='ml-1 text-xs whitespace-nowrap text-text-muted'>· {preview.readingTime}</span> : null}
     </span>

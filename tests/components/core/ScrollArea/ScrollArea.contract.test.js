@@ -35,3 +35,15 @@ test('ScrollEdges renders two decorative edges, fixed to the page when no target
   assert.doesNotMatch(area, /data-page/);
   assert.doesNotMatch(renderToStaticMarkup(createElement(publicAPI.ScrollArea, { 'aria-label': 'Article' }, 'Body')), /scroll-edge/);
 });
+
+test('SmoothScroll is exported and renders nothing on the server', () => {
+  assert.equal(typeof publicAPI.SmoothScroll, 'function');
+  assert.equal(renderToStaticMarkup(createElement(publicAPI.SmoothScroll)), '');
+});
+
+test('ScrollEdges can blur a single edge', () => {
+  const bottom = renderToStaticMarkup(createElement(publicAPI.ScrollEdges, { edges: 'bottom' }));
+  assert.equal(bottom.match(/data-slot="scroll-edge"/g).length, 1);
+  assert.match(bottom, /data-edge="bottom"/);
+  assert.doesNotMatch(bottom, /data-edge="top"/);
+});

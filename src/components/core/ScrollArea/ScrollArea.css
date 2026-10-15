@@ -1,4 +1,9 @@
 @layer components {
+  /* Page smoothing (SmoothScroll without a target): Lenis interpolates wheel input on the root. */
+  html.lenis {
+    scroll-behavior: auto;
+  }
+
   .ds-part-scroll-area-viewport.lenis {
     /* Lenis controls wheel interpolation; native keyboard and anchors stay immediate. */
     scroll-behavior: auto;
@@ -19,10 +24,10 @@
     pointer-events: none;
     user-select: none;
     transition: opacity 150ms;
+    /* Standard properties only: the CSS build adds prefixes, and a hand-written -webkit- twin can
+       replace the standard one during minification, leaving a declaration Chrome ignores. */
     backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     mask-image: linear-gradient(var(--ds-scroll-edge-direction), black, transparent);
-    -webkit-mask-image: linear-gradient(var(--ds-scroll-edge-direction), black, transparent);
   }
   .ds-part-scroll-edge[data-edge='top'] { top: 0; --ds-scroll-edge-direction: to bottom; }
   .ds-part-scroll-edge[data-edge='bottom'] { bottom: 0; --ds-scroll-edge-direction: to top; }
