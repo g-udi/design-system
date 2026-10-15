@@ -7,8 +7,9 @@
     @apply border-transparent;
   }
 
+  /* Outlined items read as cards, so they sit on the surface like an outline Card. */
   .ds-part-item-variant-outline {
-    @apply border-ui-border;
+    @apply border-ui-border bg-surface;
   }
 
   .ds-part-item-variant-muted {
