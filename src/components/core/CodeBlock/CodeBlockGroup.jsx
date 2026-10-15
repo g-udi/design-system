@@ -14,20 +14,16 @@ export function CodeBlockGroup({ items, label = 'Code examples', showLineNumbers
   return (
     <Tabs defaultValue='0' data-slot='code-block-group' className={cn('gap-0 overflow-hidden rounded-lg border', codeChromeClassName, className)}>
       {/*
-       * Editor tabs: the active file tab, marked by an accent top edge, opens into the code below it. The bar's
-       * bottom rule is an inset shadow so the active tab paints over it; a border would sit on top.
+       * The divider is an inset shadow at the bar's foot and the bar has no bottom padding, so the active
+       * underline lands exactly on the divider above the code instead of floating over it.
        */}
       <TabsList
         aria-label={label}
-        variant='type'
-        className='w-full items-end justify-start gap-0.5 overflow-x-auto bg-(--ds-color-code-chrome-bg) px-2 pt-2 pb-0 shadow-[inset_0_-1px_0_var(--ds-color-code-chrome-border)]'
+        tone='accent'
+        className='w-full justify-start overflow-x-auto bg-(--ds-color-code-chrome-bg) px-2 pt-1 pb-0 font-mono shadow-[inset_0_-1px_0_var(--ds-color-code-chrome-border)]'
       >
         {tabs.map(({ value, tab }) => (
-          <TabsTrigger
-            key={value}
-            value={value}
-            className='h-8 rounded-b-none rounded-t-md border border-b-0 border-transparent px-3 text-xs font-medium text-(--ds-color-code-tab-text) hover:text-(--ds-color-code-tab-text-hover) data-[state=active]:border-(--ds-color-code-chrome-border) data-[state=active]:bg-(--ds-color-code-block-bg) data-[state=active]:text-text data-[state=active]:shadow-[inset_0_2px_0_var(--ds-color-accent)]'
-          >
+          <TabsTrigger key={value} value={value} className='h-10'>
             {tab}
           </TabsTrigger>
         ))}
