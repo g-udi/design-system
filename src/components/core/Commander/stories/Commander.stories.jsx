@@ -120,8 +120,8 @@ export const Playground = {
       if (args[key]?.length) await expect(command(palette, label)).toBeTruthy();
     }
 
-    await expect(palette.getByText('Navigate')).toBeInTheDocument();
-    await expect(palette.getByText('Select')).toBeInTheDocument();
+    // The launcher has no hint footer; the keyboard behaviour below is the contract.
+    await expect(palette.querySelector('[data-slot=command-footer]')).toBeNull();
     await userEvent.keyboard('{End}');
     await expect(items().at(-1)).toHaveAttribute('aria-selected', 'true');
     await userEvent.keyboard('{Home}');

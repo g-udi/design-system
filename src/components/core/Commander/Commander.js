@@ -7,7 +7,6 @@ import Icon from '../Icon';
 import { useSiteConfig } from '../../../context';
 import { useHotkey } from '../../../hooks/interaction/use-hotkey.js';
 import CommandPalette, { filterItems } from './CommandPalette';
-import { CommandFooter } from './Command.jsx';
 import { commandItemProps, prepareCommandCollection } from './commanderItems.js';
 
 const allowedExternalProtocols = new Set([ 'http:', 'https:', 'mailto:' ]);
@@ -256,7 +255,6 @@ const CommandLauncher = ({
 
   return (
     <CommandPalette
-      footer={ <CommandFooter /> }
       isOpen={ open }
       onChangeOpen={ setOpen }
       onChangeSearch={ setSearch }
