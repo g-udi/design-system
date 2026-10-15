@@ -13,23 +13,28 @@
   a {
     cursor: pointer;
   }
-  /* Pointer interaction stays quiet; every keyboard target keeps a visible fallback. */
-  :where(*):focus:not(:focus-visible) {
-    outline: none;
+  /* No element may render browser or utility focus rings in any interaction state. */
+  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    box-shadow: none !important;
+    outline: none !important;
   }
 
-  :where(a, button, input, textarea, select, summary, [contenteditable], [tabindex]):focus-visible {
-    outline: 2px solid var(--ds-color-accent);
-    outline-offset: 2px;
-  }
-
-  /*
-   * Text fields match :focus-visible after a click too. FieldInput marks pointer focus with
-   * data-focus-source="pointer" (cleared on blur), so a click shows the caret without a second
-   * ring while keyboard focus keeps the outline.
-   */
-  :where(input, textarea, select)[data-focus-source='pointer']:focus-visible {
-    outline: none;
+  :where(
+    [aria-current='page'],
+    [aria-pressed='true'],
+    [aria-selected='true'],
+    [data-active='true'],
+    [data-selected='true'],
+    [data-state='active'],
+    [data-state='on']
+  ):not(:focus-visible) {
+    --tw-inset-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    outline: none !important;
   }
 }
 

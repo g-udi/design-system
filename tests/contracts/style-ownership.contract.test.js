@@ -44,9 +44,8 @@ test('runtime modules cannot import stories, docs, or test scaffolding', () => {
   }
 });
 
-test('shared focus defaults preserve a visible keyboard indicator', () => {
+test('shared focus defaults render no focus rings in any interaction state', () => {
   const base = readFileSync(path.join(source, 'foundations/base.css'), 'utf8');
-  assert.match(base, /:focus-visible\s*\{\s*outline:\s*2px solid var\(--ds-color-accent\)/);
-  assert.match(base, /:focus:not\(:focus-visible\)/);
-  assert.doesNotMatch(base, /outline:\s*(?:none|0)\s*!important/);
+  assert.match(base, /:where\(\*\):where\(:focus, :focus-visible, :focus-within, :active\)\s*\{[^}]*outline:\s*none !important/);
+  assert.match(base, /--tw-ring-shadow:\s*0 0 #0000 !important/);
 });

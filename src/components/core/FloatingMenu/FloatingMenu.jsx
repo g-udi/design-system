@@ -6,8 +6,9 @@
  * @description A compact, inverted pill of destinations that floats over the top of the page once the
  * reader has scrolled away from the header. By default it appears when the reader scrolls back up past
  * `threshold` and hides on the way down; `revealOn='scroll'` keeps it visible past the threshold. It is
- * always a labelled navigation landmark in the tab order: focusing a link reveals it, so keyboard users
- * can reach it wherever they are on the page.
+ * always a labelled navigation landmark in the tab order: keyboard focus reveals it, so keyboard users
+ * can reach it wherever they are on the page. Pointer focus does not, so a clicked link or Back to top
+ * never pins it open.
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -97,6 +98,11 @@ const FloatingMenu = ({
     target.scrollTo({ 'behavior': reduceMotion ? 'auto' : 'smooth', 'top': 0 });
   };
 
+  // Only keyboard focus holds the pill open; a click leaves focus behind without :focus-visible.
+  const handleFocus = (event) => {
+    if (event.target.matches?.(':focus-visible')) setFocused(true);
+  };
+
   const handleBlur = (event) => {
     if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
   };
@@ -113,7 +119,7 @@ const FloatingMenu = ({
         aria-label={ label }
         data-state={ visible ? 'visible' : 'hidden' }
         onBlur={ handleBlur }
-        onFocus={ () => setFocused(true) }
+        onFocus={ handleFocus }
         className={ cn(
           'flex h-fit min-w-0 max-w-full items-center gap-1 rounded-control bg-text p-1 text-surface shadow-[var(--ds-shadow-floating)] transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none',
           visible ? 'pointer-events-auto translate-y-0 opacity-100' : '-translate-y-[calc(100%+1rem)] opacity-0',
