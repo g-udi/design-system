@@ -137,7 +137,7 @@ export const WithCallToAction = {
     revealOn: 'scroll',
     backToTop: false
   },
-  render: (args) => <ScrollPage {...args} actions={<Button href='/subscribe' size='sm' className='h-10 rounded-control bg-surface px-3 text-text hover:bg-surface/90'>Subscribe</Button>} />,
+  render: (args) => <ScrollPage {...args} actions={<Button href='/subscribe' size='sm' className='h-8 rounded-control bg-surface px-3 text-text hover:bg-surface/90'>Subscribe</Button>} />,
   parameters: {
     docs: {
       description: { story: '`actions` adds controls after the links, such as a Subscribe call to action; `backToTop={false}` drops the Back to top button. Keep actions short so the pill fits on a phone.' },

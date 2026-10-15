@@ -85,5 +85,6 @@
 @import './components/core/Map/Map.css';
 
 @import './components/blocks/Hero/Hero.css';
+@import './components/blocks/Navigation/ThemeSwitch.css';
 
 @import './components/post/Post/Post.css';

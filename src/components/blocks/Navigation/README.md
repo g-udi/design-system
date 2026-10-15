@@ -37,3 +37,7 @@ Below 1024px, a modal menu contains expandable sections and its own scroll regio
 `Blocks/Navigation → Scroll-merging header` follows [Skiper 57](https://skiper-ui.com/v1/skiper57): a project breadcrumb row scrolls away while the section tabs move alongside the brand in one compact sticky header. It composes `ScrollArea`, `Tabs`, and `Breadcrumb` with `useScrollPosition`, `useElementSize`, and `usePrefersReducedMotion`. A single tab list retains selection and keyboard focus through the merge; narrow layouts scroll the tabs within the header. The measured row height keeps alignment correct at each spacing density.
 
 The scroll demonstration is contained within its own workspace in Docs. Arrow keys, Home, and End navigate the local sample sections; `onSectionChange(value)` reports selection. The brand button returns the workspace to the top. Reduced motion uses the compact header throughout. Copyable source includes the styles and local sample data.
+
+## Theme switch animation
+
+The theme switch animates the change with a view transition. Set `data-theme-transition` on `<html>` to choose the style: `fade` (default crossfade), `circle` (the new theme grows from the toggle), `wipe` (sweeps down from the top), `blur` (a soft blurred crossfade) or `none`. Reduced motion and browsers without view transitions switch instantly.

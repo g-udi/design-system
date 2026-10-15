@@ -121,7 +121,7 @@ const FloatingMenu = ({
         ) }
       >
         {items.length ? (
-          <ul className='m-0 flex min-w-0 list-none items-center gap-1 overflow-x-auto p-0 [scrollbar-width:none] sm:gap-2'>
+          <ul className='m-0 flex min-w-0 list-none items-center gap-0.5 overflow-x-auto p-0 [scrollbar-width:none]'>
             {items.map((item) => {
               const current = item.active ?? item.href === activeHref;
 
@@ -131,7 +131,7 @@ const FloatingMenu = ({
                     href={ item.href }
                     variant='bare'
                     aria-current={ current ? 'page' : undefined }
-                    className='flex min-h-10 items-center rounded-control px-2.5 text-xs font-medium text-surface/80 hover:bg-surface/10 hover:text-surface aria-[current=page]:bg-surface/15 aria-[current=page]:text-surface sm:px-3 sm:text-sm'
+                    className='flex min-h-8 items-center rounded-control px-2.5 text-[13px] font-medium text-surface/75 hover:bg-surface/10 hover:text-surface aria-[current=page]:bg-surface/15 aria-[current=page]:text-surface'
                   >
                     {item.title}
                   </Link>
@@ -148,10 +148,9 @@ const FloatingMenu = ({
             size='sm'
             onClick={ scrollToTop }
             aria-label='Back to top'
-            className='h-10 shrink-0 gap-1.5 rounded-control border border-surface/30 px-2.5 text-surface hover:bg-surface/10 hover:text-surface'
+            className='size-8 shrink-0 rounded-control p-0 text-surface/75 hover:bg-surface/10 hover:text-surface'
           >
-            <Icon name='ArrowUpCircle' size='sm' decorative />
-            <span className='hidden md:inline'>Back to top</span>
+            <Icon name='ArrowUp' size='sm' decorative />
           </Button>
         ) : null}
       </nav>

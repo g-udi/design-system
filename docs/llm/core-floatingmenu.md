@@ -44,7 +44,7 @@ import { FloatingMenu } from '@gaudi/design-system';
 
 ## Accessibility
 
-A labelled navigation landmark that stays in the tab order while hidden; focusing it reveals it. The current link has aria-current="page". Reduced motion removes the slide and makes Back to top jump. On phones the links scroll inside the pill and Back to top collapses to its icon, so the page never overflows.
+A labelled navigation landmark that stays in the tab order while hidden; focusing it reveals it. The current link has aria-current="page". Reduced motion removes the slide and makes Back to top jump. Back to top is an icon button named Back to top. On phones the links scroll inside the pill, so the page never overflows.
 
 ## Examples
 

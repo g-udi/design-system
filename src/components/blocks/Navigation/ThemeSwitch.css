@@ -1,0 +1,53 @@
+/*
+ * Theme change animations for ThemeSwitch. ThemeSwitch adds .ds-theme-transition to <html> for the
+ * length of the view transition; `data-theme-transition` on <html> picks the style (fade by default).
+ */
+@layer components {
+  html.ds-theme-transition::view-transition-old(root),
+  html.ds-theme-transition::view-transition-new(root) {
+    animation-duration: 420ms;
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+    mix-blend-mode: normal;
+  }
+
+  /* Reveals: the old theme stays still underneath while the new one is revealed over it. */
+  html.ds-theme-transition:is([data-theme-transition='circle'], [data-theme-transition='wipe'])::view-transition-old(root) {
+    animation: none;
+  }
+
+  html.ds-theme-transition[data-theme-transition='circle']::view-transition-new(root) {
+    animation-name: ds-theme-circle;
+    animation-duration: 560ms;
+  }
+
+  html.ds-theme-transition[data-theme-transition='wipe']::view-transition-new(root) {
+    animation-name: ds-theme-wipe;
+    animation-duration: 520ms;
+  }
+
+  html.ds-theme-transition[data-theme-transition='blur']::view-transition-old(root) {
+    animation-name: ds-theme-blur-out;
+  }
+
+  html.ds-theme-transition[data-theme-transition='blur']::view-transition-new(root) {
+    animation-name: ds-theme-blur-in;
+  }
+}
+
+@keyframes ds-theme-circle {
+  from { clip-path: circle(0 at var(--ds-theme-x, 50%) var(--ds-theme-y, 0)); }
+  to { clip-path: circle(var(--ds-theme-radius, 150%) at var(--ds-theme-x, 50%) var(--ds-theme-y, 0)); }
+}
+
+@keyframes ds-theme-wipe {
+  from { clip-path: inset(0 0 100% 0); }
+  to { clip-path: inset(0); }
+}
+
+@keyframes ds-theme-blur-out {
+  to { filter: blur(8px); opacity: 0; }
+}
+
+@keyframes ds-theme-blur-in {
+  from { filter: blur(8px); opacity: 0; }
+}
