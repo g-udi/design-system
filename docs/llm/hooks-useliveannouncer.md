@@ -10,7 +10,7 @@ Announces short messages ("Saved", "3 results", "Copied") through shared visuall
 import { useLiveAnnouncer } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `announce`, `useLiveAnnouncer`
+Exports: `useLiveAnnouncer`
 
 ## Parameters
 

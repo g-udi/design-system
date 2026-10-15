@@ -1980,7 +1980,7 @@ layout, column and export changes are announced through status regions.
 
 ### Implementation ownership
 
-`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.
+`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. Constants and helpers live in server-safe modules (`dataGridModel.js`, `dataGridStructureModel.js`, `dataGridViewModel.js`, `dataGridColumnStats.js`, `dataGridCellContent.js` and the selection, clipboard and table models) and `index.js` re-exports them from there, never through a `'use client'` file, so server components receive values rather than client references. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.
 
 ---
 
@@ -4834,7 +4834,7 @@ import { PaginationBar } from '@gaudi/design-system';
 <PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />
 ```
 
-`PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.
+`PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. From a server component, where functions can't cross into this client module, pass strings instead of `getHref`: `hrefTemplate='/blog/page/{page}'` and `firstPageHref='/blog'`. `POSTS_PER_PAGE` (7) is safe to import on the server. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.
 
 The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.
 
@@ -14079,7 +14079,7 @@ Moves focus between items with the arrow keys, Home and End while the group stay
 import { useArrowKeyNav } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `getNextIndex`, `useArrowKeyNav`
+Exports: `useArrowKeyNav`
 
 ## Parameters
 
@@ -14146,7 +14146,7 @@ While active, Tab and Shift+Tab wrap inside the container. On activation it focu
 import { useFocusTrap } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `getTrapTarget`, `useFocusTrap`
+Exports: `useFocusTrap`
 
 ## Parameters
 
@@ -14205,7 +14205,7 @@ Announces short messages ("Saved", "3 results", "Copied") through shared visuall
 import { useLiveAnnouncer } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `announce`, `useLiveAnnouncer`
+Exports: `useLiveAnnouncer`
 
 ## Parameters
 
@@ -14260,7 +14260,7 @@ True when the operating system reduce-motion setting is on, updated live. Built 
 import { usePrefersReducedMotion } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `REDUCED_MOTION_QUERY`, `usePrefersReducedMotion`
+Exports: `usePrefersReducedMotion`
 
 ## Parameters
 
@@ -14315,7 +14315,7 @@ Stores a JSON value under a key. The server render and hydration use the initial
 import { useLocalStorage } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `localStorageStore`, `useLocalStorage`
+Exports: `useLocalStorage`
 
 ## Parameters
 
@@ -14479,7 +14479,7 @@ Tracks selected ids for lists, tables and bulk actions. Uncontrolled from initia
 import { useSelection } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `selectionState`, `toggleInSet`, `useSelection`
+Exports: `useSelection`
 
 ## Parameters
 
@@ -14538,7 +14538,7 @@ The same API as useLocalStorage over sessionStorage: survives a reload, not a ne
 import { useSessionStorage } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `sessionStorageStore`, `useSessionStorage`
+Exports: `useSessionStorage`
 
 ## Parameters
 
@@ -14687,7 +14687,7 @@ The breakpoint the AppShell sidebar and DateSelector use to switch to their phon
 import { useIsMobile } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `MOBILE_BREAKPOINT`, `useIsMobile`
+Exports: `useIsMobile`
 
 ## Returns
 
@@ -14781,7 +14781,7 @@ Returns whether a media query matches and follows changes. Returns the fallback 
 import { useMediaQuery } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `matchesMediaQuery`, `subscribeMediaQuery`, `useMediaQuery`
+Exports: `useMediaQuery`
 
 ## Parameters
 
@@ -15116,7 +15116,7 @@ Writes text with the Clipboard API and falls back to a hidden textarea (restorin
 import { useCopyToClipboard } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `useCopyToClipboard`, `writeToClipboard`
+Exports: `useCopyToClipboard`
 
 ## Parameters
 
@@ -15229,7 +15229,7 @@ Runs a callback for a combination such as 'mod+k' (Command+K on macOS, Control+K
 import { useHotkey } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `isApplePlatform`, `matchHotkey`, `parseHotkey`, `toAriaKeyShortcuts`, `toKbdKeys`, `useHotkey`
+Exports: `useHotkey`
 
 ## Parameters
 
@@ -15398,7 +15398,7 @@ Listens for pointerdown on the document and calls the handler when the target is
 import { useOnClickOutside } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `isOutside`, `useOnClickOutside`
+Exports: `useOnClickOutside`
 
 ## Parameters
 
@@ -15453,7 +15453,7 @@ Sets overflow hidden on the body while locked and pads it by the scrollbar width
 import { useScrollLock } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `lockScroll`, `useScrollLock`
+Exports: `useScrollLock`
 
 ## Parameters
 
@@ -15942,7 +15942,7 @@ Runs the latest callback once, delay ms after the last call, with the latest arg
 import { useDebounceCallback } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `createDebouncer`, `useDebounceCallback`
+Exports: `useDebounceCallback`
 
 ## Parameters
 
@@ -16259,7 +16259,7 @@ One stable callback ref that forwards the node to every ref passed, object or ca
 import { useMergedRefs } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `assignRef`, `mergeRefs`, `useMergedRefs`
+Exports: `useMergedRefs`
 
 ## Parameters
 
@@ -16413,7 +16413,7 @@ The current step with next, previous, goTo and reset, clamped to the step count,
 import { useStep } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `clampStep`, `useStep`
+Exports: `useStep`
 
 ## Parameters
 
@@ -16469,7 +16469,7 @@ Keeps scroll, pointer and resize handlers responsive without running on every ev
 import { useThrottleCallback } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `createThrottler`, `useThrottleCallback`
+Exports: `useThrottleCallback`
 
 ## Parameters
 
@@ -16721,6 +16721,8 @@ Exports: `default`
 | `scale` | `number` | `1` | no | Spatial scale of the effect, clamped to 0.25–4. |
 | `colors` | `string[]` | `Gaudi theme tokens` | no | Up to three CSS colors. Omitted colors inherit the current Gaudi palette. |
 | `background` | `string` | `var(--ds-color-surface)` | no | CSS color behind the effect and its static fallback. |
+| `transparent` | `boolean` | `false` | no | Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`. |
+| `mask` | `'bottom' \| 'edges' \| 'text' \| 'none' \| string` | `fadeEdges` | no | Canvas fade: `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text (follows writing direction). Any other string is a CSS mask-image; its layers intersect. Replaces the `fadeEdges` fade when set; `none` removes both. |
 | `height` | `number \| string` | `content / viewport` | no | Optional fixed height in pixels or CSS length. Without it, the existing page wrapper grows with content and fills at least the viewport; decoration is capped at 48rem. |
 | `children` | `ReactNode` | — | no | Optional semantic content layered above the decorative canvas. |
 | `className / style / ref / DOM props` | `DOM props` | — | no | Forwarded to the outer container. |
@@ -16760,6 +16762,9 @@ Theme-aware Aurora light curtains, with a Soft Aurora variant that forms a narro
 import Borealis from '@gaudi/design-system/animations/Borealis';
 
 <Borealis variant="soft" height={500}>{content}</Borealis>
+
+// A band across the top of a page: no fill, faint behind the text column, faded top and bottom.
+<Borealis height={560} transparent mask="text" />
 ```
 
 Existing root, layout barrel and `@gaudi/design-system/layout/Borealis` imports remain supported. Direct children and the ref stay on the outer page wrapper. Without a height, the wrapper grows with content and fills at least the viewport; the decoration is capped at 48rem.
@@ -16776,6 +16781,8 @@ Existing root, layout barrel and `@gaudi/design-system/layout/Borealis` imports 
 - `scale` (number, default `1`): Spatial scale of the effect, clamped to 0.25–4.
 - `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors. Omitted colors inherit the current Gaudi palette.
 - `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.
+- `transparent` (boolean, default `false`): Drop the decoration's background fill so masked or faded areas reveal the page behind. The light itself still blends towards `background`.
+- `mask` (`'bottom'` | `'edges'` | `'text'` | `'none'` | string, default `fadeEdges`): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image` whose layers intersect. Replaces the `fadeEdges` fade when set; `none` removes both.
 - `height` (number | string, default `content / viewport`): Optional fixed height in pixels or CSS length. Without it, the existing page wrapper grows with content and fills at least the viewport; decoration is capped at 48rem.
 - `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.
 - `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.
@@ -18145,6 +18152,8 @@ Exports: `PixelBlast`, `default`
 | `scale` | `number` | `1` | no | Scale changes the square size and spacing in CSS pixels, independent of device pixel ratio. Clamped to 0.25–4. |
 | `colors` | `string[]` | `Gaudi chart colors 1–3` | no | Up to three CSS colors, including CSS variables. Omitted colors use the current Gaudi palette. |
 | `background` | `string` | `var(--ds-color-surface)` | no | Base CSS color beneath the effect. Follows the current theme by default. |
+| `transparent` | `boolean` | `false` | no | Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`. |
+| `mask` | `'bottom' \| 'edges' \| 'text' \| 'none' \| string` | `none` | no | Canvas fade: `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text (follows writing direction). Any other string is a CSS mask-image; its layers intersect. |
 | `interactive` | `boolean` | `true` | no | Create an outward-decaying ripple at each click or tap. No interaction is needed to use the content. |
 | `height` | `number \| string` | `360` | no | Surface height in pixels or a CSS length. Numeric values are clamped to 1–4096. |
 | `children` | `ReactNode` | — | no | Optional content rendered above the decorative canvas. Keep text and controls on a contrasting surface. |
@@ -18180,6 +18189,9 @@ Separate square pixels form drifting dithered patterns; clicks send circular wav
 import { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';
 
 <PixelBlast height={360} paused />
+
+// A full-bleed header layer: no fill, faint behind the intro, faded top and bottom.
+<PixelBlast height='100%' transparent mask='text' />
 ```
 
 - `paused` (boolean, default false): Freeze the current frame. Reduced motion, hidden tabs and offscreen surfaces also stop motion.
@@ -18188,6 +18200,8 @@ import { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';
 - `scale` (number, default 1): Scale changes the square size and spacing in CSS pixels, independent of device pixel ratio. Clamped to 0.25–4.
 - `colors` (string[], default Gaudi chart colors 1–3): Up to three CSS colors, including CSS variables. Omitted colors use the current Gaudi palette.
 - `background` (string, default var(--ds-color-surface)): Base CSS color beneath the effect. Follows the current theme by default.
+- `transparent` (boolean, default false): Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`.
+- `mask` ('bottom' | 'edges' | 'text' | 'none' | string, default none): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image`; its layers intersect.
 - `interactive` (boolean, default true): Create an outward-decaying ripple at each click or tap. No interaction is needed to use the content.
 - `height` (number | string, default 360): Surface height in pixels or a CSS length. Numeric values are clamped to 1–4096.
 - `children` (ReactNode, default —): Optional content rendered above the decorative canvas. Keep text and controls on a contrasting surface.
@@ -19176,6 +19190,7 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `type` | `info \| warning \| error` | `info` | no | Semantic message tone. |
+| `title` | `ReactNode` | — | no | Optional label above the body, such as Note or Warning. remarkAlerts sets it from GitHub alert markers. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 | `classNames` | `Record<string, string>` | `{}` | no | Slot class overrides. |
@@ -19187,7 +19202,7 @@ Exports: `default`
 ## Usage
 
 ```jsx
-<Callout type='info'>
+<Callout type='info' title='Note'>
   Useful article context that readers should notice before continuing.
 </Callout>
 ```
@@ -20315,6 +20330,96 @@ Video uses a native button for the thumbnail trigger, an aria-modal dialog, Esca
 
 ---
 
+# OgCard
+
+> Blocks/Blog/OgCard · post · `@gaudi/design-system/post/OgCard`
+
+Open Graph image template for next/og ImageResponse: category, title, subtitle, site name and an optional logo on a neutral light or dark card, built only from inline styles.
+
+## Import
+
+```js
+import OgCard from '@gaudi/design-system/post/OgCard';
+// also: import { … } from '@gaudi/design-system/post';
+```
+
+Exports: `OgCard`, `default`, `ogImageSize`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `title` | `string` | — | no | The page or post title; long titles step down in size. |
+| `subtitle` | `string` | — | no | Supporting line below the title. |
+| `category` | `string` | — | no | Short uppercase label above the title. |
+| `siteName` | `string` | — | no | Site name or URL along the bottom edge. |
+| `logo` | `ReactNode` | — | no | Mark in the top corner, 120px square: an inline svg (fill='currentColor' follows the theme) or an img with a data URL. No remote URLs. |
+| `theme` | `light \| dark` | `light` | no | Neutral palette. |
+| `width / height` | `number` | `1200 / 630` | no | Image size; ogImageSize exports the defaults for ImageResponse. |
+
+## Variants
+
+- `theme`: `light`, `dark`
+
+## Usage
+
+```jsx
+// app/api/og/route.js
+import { ImageResponse } from 'next/og';
+import { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';
+
+export function GET() {
+  return new ImageResponse(
+    <OgCard title='Notes on local-first software' subtitle='What syncing taught me.' category='Engineering' siteName='example.com' />,
+    ogImageSize
+  );
+}
+```
+
+## Accessibility
+
+The card becomes an image, so the page's og:image:alt (or the alt of an img that shows it) must repeat the title. Both palettes keep AA contrast for every text role.
+
+## Examples
+
+- Playground (Storybook `post-og-card--playground`)
+
+## Related
+
+`mdx-image`
+
+## README
+
+A social preview (Open Graph) image template for [`next/og`](https://nextjs.org/docs/app/api-reference/functions/image-response) `ImageResponse` and other Satori renderers.
+
+```jsx
+// app/api/og/route.js
+import { ImageResponse } from 'next/og';
+import { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';
+
+export function GET(request) {
+  const title = request.nextUrl.searchParams.get('title') || 'Example';
+
+  return new ImageResponse(
+    <OgCard title={ title } subtitle='What syncing taught me.' category='Engineering' siteName='example.com' logo={ <Logo /> } />,
+    ogImageSize // { width: 1200, height: 630 }; add `fonts` here to use your own faces
+  );
+}
+```
+
+### Contract
+
+- `title` (string): long titles step down in size. `subtitle`, `category`, `siteName` (string) are optional.
+- `logo` (ReactNode): a 120px mark in the top corner. Use an inline `<svg>` (`fill='currentColor'` follows the theme) or an `<img>` with a data URL.
+- `theme` (`'light'` | `'dark'`, default `'light'`): neutral palettes with AA contrast; the bottom rule is the only accent.
+- `width`, `height` (number, default 1200 × 630). `ogImageSize` exports the defaults.
+
+### Boundaries
+
+The module is server-safe: no `'use client'`, hooks, Tailwind classes, DOM-only components or network requests. Every element uses inline styles and flex layout, as Satori requires. Fonts come from the renderer: load them in the route and pass `fonts` to `ImageResponse`; Gaudi never fetches them. Give the page an `og:image:alt` that repeats the title.
+
+---
+
 # Post lists
 
 > Blocks/Blog/Post lists · post · `@gaudi/design-system/post/Post`
@@ -20823,6 +20928,159 @@ The host endpoint receives a POST with `{ email }`. A successful HTTP response w
 `title` and `description` accept content or `null`. `headingAs` defaults to `h3`; `titleVariant` optionally selects a shared Typography variant. Omit it to retain the compact heading used by existing embeds. `children` follows submission feedback. `classNames` accepts `root`, `header`, `body`, `title`, `description`, `form`, `input`, `action`, `button`, and `message`.
 
 The EmailInput owns single-address validation and caret behavior. Feedback uses an alert for errors and a status for success. All examples share this implementation; section layout styles and local sample endpoints stay in the story fixtures. The response control switches between success, error, and unavailable and resets the example. Demo addresses are never sent to a subscription service.
+
+---
+
+# Page Chrome
+
+> Blocks/Page Chrome · layout · `@gaudi/design-system/layout/PageChrome`
+
+Per-page switches for LayoutContainer's site chrome: render it in a page to hide the layout background or the page scroll edges while that page is shown.
+
+## Import
+
+```js
+import PageChrome from '@gaudi/design-system/layout/PageChrome';
+// also: import { … } from '@gaudi/design-system/layout';
+```
+
+Exports: `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `background` | `boolean` | `true` | no | Show LayoutContainer's background on this page: the background slot, or the default Borealis. false hides it. |
+| `scrollEdges` | `boolean` | `true` | no | Show the page-level ScrollEdges (those without a targetRef). false hides them; scroll areas keep theirs. |
+
+## Usage
+
+```jsx
+import PageChrome from '@gaudi/design-system/layout/PageChrome';
+
+// app/about/page.js: the page draws its own header background.
+export default function AboutPage() {
+  return (
+    <>
+      <PageChrome background={ false } />
+      <AboutHeader />
+    </>
+  );
+}
+```
+
+## Accessibility
+
+Renders only a hidden, aria-hidden marker and affects decorative layers only: the background and scroll edges are aria-hidden, so no content, landmark or focus order changes.
+
+## Examples
+
+- Playground (Storybook `layout-page-chrome--playground`)
+
+## Related
+
+`layout-layoutcontainer`
+
+## README
+
+Turns off parts of [LayoutContainer](../LayoutContainer/LayoutContainer.js)'s site chrome for the page that renders it.
+
+```jsx
+import PageChrome from '@gaudi/design-system/layout/PageChrome';
+
+// An About page with its own header background.
+<PageChrome background={ false } />
+
+// An article that reads sharp to the bottom of the window.
+<PageChrome scrollEdges={ false } />
+```
+
+- `background` (boolean, default `true`): `false` hides the layout background: the `background` slot, or the default Borealis. Backgrounds the page renders itself are unaffected.
+- `scrollEdges` (boolean, default `true`): `false` hides the page-level [ScrollEdges](../../core/ScrollArea/README.md) (those without a `targetRef`); scroll areas keep their own edges.
+
+PageChrome renders a hidden marker that `PageChrome.css` (part of `@gaudi/design-system/styles.css`) matches with `:has()`. It needs no client JavaScript, works in server components, and the server HTML is already correct, so the chrome never flashes in. Unmounting the marker, for example on client navigation to another page, restores the chrome.
+
+---
+
+# Page Header
+
+> Blocks/Page Header · layout · `@gaudi/design-system/layout/PageHeader`
+
+Page or section introduction: optional eyebrow, a title (h1 by default), description and actions, with optional sticky and divider modes.
+
+## Import
+
+```js
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
+// also: import { … } from '@gaudi/design-system/layout';
+```
+
+Exports: `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `title` | `ReactNode` | — | no | The heading text. |
+| `titleAs` | `ElementType` | `h1` | no | Heading element; use h2 for sections within a page. |
+| `titleVariant` | `Typography variant` | `title-md` | no | Typography style of the title, such as display-lg or heading-lg. |
+| `titleId` | `string` | — | no | ID for the heading, so a section or list can reference it with aria-labelledby. |
+| `eyebrow` | `ReactNode` | — | no | Short label above the title. |
+| `description` | `ReactNode` | — | no | Supporting text below the title. |
+| `actions` | `ReactNode` | — | no | Controls or meta beside the title, such as a count, filter or button; wraps below on narrow screens. |
+| `sticky` | `boolean` | `false` | no | Pin to the top on the page background with a bottom border while the content below scrolls. |
+| `divider` | `boolean` | `false` | no | Bottom border separating the header from the content below, without pinning. |
+| `children` | `ReactNode` | — | no | Extra content below the description, such as filters. |
+| `className` | `string` | — | no | Additional classes on the header element. |
+| `classNames` | `{ root, eyebrow, title, description, actions }` | `{}` | no | Slot class overrides. |
+
+## Usage
+
+```jsx
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
+
+<PageHeader eyebrow='Archive' title='Projects' description='Things I have built and maintain.' divider />
+```
+
+## Accessibility
+
+Renders a header element with one heading at the level you choose; keep a single h1 per page and use titleAs='h2' for section headers. Give a sticky header a titleId and point the region it labels at it with aria-labelledby. Actions keep their own accessible names.
+
+## Examples
+
+- Playground (Storybook `layout-page-header--playground`)
+- Sticky list heading (Storybook `layout-page-header--sticky-list-heading`)
+
+## README
+
+The introduction at the top of a page or section: an optional eyebrow, a title, a description and an actions slot. Server-safe, so it renders in server components.
+
+```jsx
+import PageHeader from '@gaudi/design-system/layout/PageHeader';
+
+<PageHeader eyebrow='Archive' title='Projects' description='Things I have built and maintain.' divider />
+
+// A list heading that stays visible while the list scrolls.
+<section aria-labelledby='all-posts'>
+  <PageHeader sticky titleAs='h2' titleVariant='heading-lg' titleId='all-posts' title='All posts' actions={ <span>42 posts</span> } />
+  {list}
+</section>
+```
+
+### Contract
+
+- `title` (ReactNode): the heading text. `titleAs` (default `h1`) sets the element and `titleVariant` (default `title-md`) the Typography style.
+- `titleId` (string): an ID on the heading for `aria-labelledby`.
+- `eyebrow`, `description` (ReactNode): optional label above and supporting text below the title.
+- `actions` (ReactNode): controls or meta beside the title; they wrap below it on narrow screens.
+- `divider` (boolean, default `false`): a bottom border in the `border` token.
+- `sticky` (boolean, default `false`): `sticky top-0` on the `background` token with the same border, for headers that stay visible while the content below scrolls.
+- `children`: extra content below the description, such as filters.
+- `className`, `classNames` (`root`, `eyebrow`, `title`, `description`, `actions`): style overrides.
+
+### Accessibility
+
+Keep one `h1` per page and use `titleAs='h2'` for section headers. A sticky header covers content scrolled beneath it, so keep it compact; label the region it introduces with `aria-labelledby` pointing at `titleId`.
 
 ---
 

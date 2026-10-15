@@ -6,6 +6,8 @@ const layoutApis = [
   [ 'ArticleContentLayout', 'Article body with an optional, controlled or uncontrolled aside.', 'aside, children, collapsibleAside, asideOpen, defaultAsideOpen, padding', 'Keep the aside toggle named and expose aria-expanded.' ],
   [ 'Borealis', 'Theme-aware decorative page background.', 'children, className, fadeEdges', 'Decoration is aria-hidden and motion reduces with the user preference.' ],
   [ 'Footer', 'Responsive footer navigation, newsletter, social links, and copyright.', 'sections, socialLinks, newsletterProps, variant, brandTitle, brandDescription, copyrightName', 'Retain the footer landmark, named navigation, and visible subscription feedback.' ],
+  [ 'PageHeader', 'Page or section introduction with eyebrow, title, description and actions; optional sticky and divider modes.', 'title, titleAs, titleVariant, titleId, eyebrow, description, actions, sticky, divider', 'One h1 per page; label a sticky section with aria-labelledby pointing at titleId.' ],
+  [ 'PageChrome', 'Per-page switch that hides the LayoutContainer background or page scroll edges, server-rendered without a flash.', 'background, scrollEdges', 'Affects decorative layers only; renders a hidden marker.' ],
   [ 'NewsletterForm', 'Subscription form with an explicit host endpoint, validation, pending, success, and failure feedback.', 'endpoint, title, className, classNames', 'Preserve the entered address on failure and announce the result beside the field.' ],
   [ 'LayoutContainer', 'Async server root shell with theme, navigation, JSON-LD, analytics, and skip link.', 'children, footerProps, jsonLd, menuProps, metadata, navigation', 'Import directly from its server entry and preserve the skip link and main landmark.' ]
 ];
@@ -15,11 +17,14 @@ const compositionRules = [
   'Keep exactly one main landmark. LayoutContainer already provides it.',
   'Use ArticleContentLayout for prose and a table-of-contents rail; do not rebuild responsive aside behavior per article.',
   'Pass navigation, footer, and newsletter data through documented props instead of importing application fixtures into package components.',
+  'Switch layout chrome off per page with PageChrome instead of global :has() overrides in the app.',
   'Treat Borealis as decoration. Content must remain readable and complete when gradients or motion are unavailable.'
 ];
 
 const stateRows = [
   [ 'ArticleContentLayout', 'Aside open / closed', 'Controlled and uncontrolled modes keep the toggle label and aria-expanded synchronized.' ],
+  [ 'PageHeader', 'Page or section introduction with eyebrow, title, description and actions; optional sticky and divider modes.', 'title, titleAs, titleVariant, titleId, eyebrow, description, actions, sticky, divider', 'One h1 per page; label a sticky section with aria-labelledby pointing at titleId.' ],
+  [ 'PageChrome', 'Per-page switch that hides the LayoutContainer background or page scroll edges, server-rendered without a flash.', 'background, scrollEdges', 'Affects decorative layers only; renders a hidden marker.' ],
   [ 'NewsletterForm', 'Idle / submitting / success / error', 'Disable duplicate submission, preserve correction context, and return a specific retryable message.' ],
   [ 'Footer', 'Sparse configuration', 'Empty sections are omitted without leaving blank navigation columns.' ],
   [ 'LayoutContainer', 'Missing theme or invalid JSON-LD', 'Use the host-supplied metadata.theme or system theme, and omit unsafe or unserializable structured data.' ]

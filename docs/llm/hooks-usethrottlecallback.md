@@ -10,7 +10,7 @@ Keeps scroll, pointer and resize handlers responsive without running on every ev
 import { useThrottleCallback } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `createThrottler`, `useThrottleCallback`
+Exports: `useThrottleCallback`
 
 ## Parameters
 

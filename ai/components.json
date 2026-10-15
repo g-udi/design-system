@@ -49,13 +49,13 @@
       "key": "post",
       "label": "Post",
       "description": "Blog post page parts: header, navigation, series box and table of contents.",
-      "count": 5
+      "count": 6
     },
     {
       "key": "layout",
       "label": "Layout",
       "description": "Site layout: containers, wrappers, footer, search and newsletter.",
-      "count": 4
+      "count": 6
     }
   ],
   "components": [
@@ -6111,7 +6111,7 @@
       "storybook": "core-datatable--docs",
       "docs": "docs/llm/core-datatable.md",
       "source": "src/components/core/DataTable/",
-      "readme": "# DataTable\n\nA table for client collections up to a few thousand rows: search with a live count, single or multi-column sorting,\nrow selection, column visibility, paging or load-more, grouped and expandable rows, row actions, pinned rows and\ncolumns, sticky headers, automatic virtualization, CSV export, a totals footer, and loading, refreshing, empty and error\nstates. The convenience table and DataGrid share TanStack Table v9 and the same feature registry. It composes the DS Button, Input, Checkbox, DropdownMenu, Skeleton, Loader and\nEmptyState.\n\n```jsx\nimport DataTable from '@gaudi/design-system/core/DataTable';\n\n<DataTable\n  caption='Article library'\n  columns={[{ key: 'title', header: 'Article' }, { key: 'words', header: 'Words', align: 'right' }]}\n  rows={articles}\n  searchable\n  sortable\n  selectable\n  pagination\n  pageSize={10}\n  density='compact'\n/>\n```\n\n- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`start` or `end`; `left` and `right` are aliases that mirror in RTL), `footer`,\n  `exportValue(value, row)` and `export: false`, and `sortable`, `searchable` or `hideable` set to `false` to opt out.\n- Text follows the surrounding reading direction by default. Set `align` to `left`, `center`, or `right` for an explicit physical alignment.\n- State is controlled or uncontrolled: `sorting` / `defaultSorting` / `onSortingChange`, `selection` /\n  `defaultSelection` / `onSelectionChange`, `expanded` / `defaultExpanded` / `onExpandedChange` (row IDs) and\n  `rowPinning` / `defaultRowPinning` / `onRowPinningChange` (`{ top, bottom }`). A controlled host can refuse a change by\n  not applying it, or replace it with something else.\n- `multiSort` adds Shift-click sorting by more than one column; headers show their sort order.\n- `pinnableRows` adds Pin to top, Pin to bottom and Unpin to each row menu. Pinned rows stay in view through sorting,\n  search and pages, and stick under the header while the region scrolls; they stop sticking when the bands would\n  crowd out the scrolling rows.\n- `getRowActions` opens one menu from the overflow button, a right-click, Shift+F10 or the Menu key, and returns focus to\n  where it was. `canActivateRow(row)` leaves some rows inert while `onRowClick` activates the rest.\n- `maxHeight` scrolls rows inside the region with a sticky header. `stickyHeader='page'` keeps the header under page\n  chrome (`stickyOffset`) while the page scrolls; in that mode the table fits its container, and a table too wide\n  for it falls back to scrolling sideways in place.\n- `virtualize='auto'` (the default) renders only the rows in view above `virtualThreshold` rows (100) and gives the\n  region a 32rem height unless `maxHeight` is set. Grouped and paged tables are not virtualized.\n- `onLoadMore`, `hasMore` and `loadingMore` add a Load more action; `loadMoreOnScroll` asks for the next batch as the last\n  row comes into view.\n- `exportable` (or `{ filename, scope, label, delimiter, onExport }`) adds Export CSV: visible columns, the current\n  search and sort, and only the selected rows when there is a selection. Formula-like text is neutralised so spreadsheets\n  show it as text.\n- Filtering predicates, remote fetching and persistence stay in the host; pair it with `FilterBar` for facets.\n\n## Shared table appearance\n\nThe primitive Table, DataTable, DataGrid and article Table use the same header typography and semantic colours. Labels preserve supplied casing. Density changes padding and header height, not typography or colour.\n\n`DataTable` uses `headerVariant='muted'` by default; choose `'plain'` for a surface-coloured header. DataGrid uses the same default through `tableLayout.headerBackground=true`; setting it to `false` selects the plain treatment. Its `dense` flag maps to the shared compact density. Both treatments keep an opaque background for sticky headers.\n\n## DataGrid parts\n\nUse the `DataGrid` parts (`DataGrid`, `DataGridContainer`, `DataGridTable`, `DataGridPagination`, …) for resizable,\ndraggable, virtualised, editable or server-driven grids.\n\n- **Grouping and aggregation.** `dataGridFeatures` registers grouping and aggregation. Set `grouping` state (or turn on\n  `tableLayout.columnsGroupable` for a \"Group by this column\" header action) and give columns an `aggregationFn`:\n  `sum`, `count`, `mean`, `min`, `max`, `extent`, `median`, `unique`, `uniqueCount`, `first`, `last`, or a custom\n  `constructAggregationFn({ aggregate })`. Group bands collapse, count their records and render aggregates with the\n  column's `aggregatedCell` (or a formatted value). `column.getAggregationValue()` returns grand totals for a footer.\n- **Narrow containers.** DataTable and DataGrid release fixed column positioning when pinned columns would use at least three quarters of the scroll viewport. The host’s pinning state and column order stay intact; pinning resumes when the container grows.\n- **Editing.** With `tableLayout.cellSelection`, a column edits through `meta.cellEdit`:\n  - `control`: `text`, `textarea`, `number`, `select`, `combobox`, `date`, `checkbox` or `switch`. Enter, F2, typing or a\n    double-click opens the editor over the cell (the Gaudi Select, Combobox, Calendar); checkbox and switch cells flip with\n    Enter, Space or a click and render with `DataGridCellToggle`. `options` (`[{ value, label }]`, strings or\n    `(row) => options`) feed select and combobox; `step`, `min` and `max` the number editor (ArrowUp/Down steps, Shift\n    by ten); dates are stored as `yyyy-MM-dd` and shown with `displayFormat` (`MMM d, yyyy`).\n  - Each built-in control brings a `parse(raw, row)` and `format(value, row)` pair, so paste, fill and clipboard copy\n    read the same values the editors write. A column's own `parse`, `format`, `clearValue` or `setValue(row, value)`\n    wins.\n  - `required`, `min`, `max` and `validate(value, row)` (a message string, `false`, or nothing when valid) mark a cell\n    invalid. The grid shows the error inline through `getCellError(row, columnId)`: the cell sets `aria-invalid`,\n    points `aria-describedby` at its message, tints red and shows a tooltip while hovered or focused.\n- **Undo and redo.** `useDataGridHistory({ onApply, limit })` records each `onCellsChange` batch (an edit, paste, fill,\n  clear or cut) as one step and replays its inverse through `invertDataGridCellsChange`; `record({ undo, redo, source })`\n  adds custom steps. Pass `gridProps` (`onCellsChange`, `onUndo`, `onRedo`) to `DataGrid` for Mod+Z, Shift+Mod+Z and\n  Ctrl+Y, and `DataGridHistoryControls history={…}` adds toolbar buttons with their shortcuts.\n- **Pending changes.** `useDataGridEditing({ data, columns, getRowId, onSave, onReject })` keeps a working copy of\n  `data`: give the table `editing.rows` and spread `editing.gridProps` onto `DataGrid` for dirty, new and invalid\n  status, inline errors and history. `insertRow`, `duplicateRow(rowId, copy)` and `removeRows(ids)` are undoable;\n  `pending`, `pendingCount`, `errors` and `firstError` describe the state, `save()` calls `onSave({ rows, updated,\n  added, removed })` (return `false` or throw to keep the changes) and `discard()` reverts everything. Text that cannot\n  be parsed stays visible as a cell error instead of a toast. `DataGridSaveBar editing={…} apiRef={…}` shows the count,\n  the cells that need attention (Show focuses the first) and Discard and Save; Save is blocked while errors exist. It\n  floats at the bottom like `DataGridSelectionBar`; to show both, wrap them in one sticky row and pass\n  `className='static mx-0'` to each.\n- **Per-row edit mode.** `useDataGridRowEditing({ columns, onSave, onCancel })` turns one row at a time into a draft:\n  spread its `gridProps` onto `DataGrid` and render `DataGridRowEditActions row={row} label={name}` in an actions column.\n  Editable cells of the draft render `DataGridCellInlineEditor`; Enter saves, Escape cancels, other rows stay\n  read-only (spreadsheet edits pause too), and messages appear once a field is touched or after a save attempt.\n  `start(row, { isNew: true })` opens a new row; `onCancel({ rowId, isNew })` lets the host remove it again.\n- **Labels.** The editing parts read `undo`, `redo`, `unsavedChanges(count)`, `invalidCells(count)`, `showInvalidCell`,\n  `saveBlocked`, `save`, `saving`, `discard`, `editRow(name)`, `saveRow` and `cancelRowEdit` from `i18n.labels`.\n- **Lazy children.** `useDataGridLazyRows({ data, expanded, getRowHasChildren, loadChildren, onChildrenLoad })`\n  loads a parent's children the first time it opens. Spread its `tableOptions` into `useTable` and pass the hook to\n  `<DataGrid lazyRows={lazy}>`: the table shows a skeleton row under a pending parent and an error row with Retry when\n  the promise rejects. Results are cached (`invalidate(id)` drops one); `onChildrenLoad` merges them into host data,\n  which always wins over the cache. Mark the tree column with `meta.treeColumn` so status rows line up with it.\n- **Tree drag and drop.** `DataGridTableTreeDnd` is a body whose rows drop before, after or into another row\n  (`canDropInside(row)`, default: rows that can expand), drawn with the Tree's drop line. A row never drops into\n  itself or its descendants, a closed folder opens after a short hover, and reordering pauses while the grid is sorted.\n  `DataGridTableTreeDndHandle` is the grip; Enter or Space on it starts a keyboard move (arrow keys choose the place,\n  Enter drops, Escape cancels), announced through a status region.\n- **Row moves.** Drag and drop, the keyboard and `DataGridTableRowMoveItems` (Move up, Move down, Move to top, Move to\n  bottom for a row menu) all report through `<DataGrid onRowMove>` with `{ id, parentId, index, targetId, position }`.\n  `moveDataGridRow(data, move, { childrenKey })` applies a move to nested or flat data. Alt+Arrow and Alt+Home/End on\n  either drag handle move the focused row among its siblings. `useDataGridRowOrder(rows)` keeps a flat manual order with\n  `moveRow`, `handleDragEnd`, `reset` and `isReordered`. Pass an `emptyMessage` node for the DnD body's empty state.\n- **Tree selection.** `DataGridTableTreeRowSelect` and `DataGridTableTreeRowSelectAll` cascade: checking a parent\n  checks every descendant, a parent reads checked when all of its children are and mixed when some are, and children\n  that load under a checked parent arrive checked. `DataGridSelectionBar` counts every selected row at any depth.\n- **Rollups.** Give a column `meta.rollup: true` and an `aggregationFn`: tree parents show the aggregate of their\n  deepest loaded descendants (an unloaded parent keeps its own value), formatted by `meta.rollupCell({ value, row,\n  scope })`. `DataGridTableTreeTotals` adds a grand-total footer row; `getDataGridRollupValue` and\n  `getDataGridTreeTotal` return the numbers. `DataGridTreeExpand` offers Expand all, Collapse all and Expand to level N\n  (pass `levels` when deeper levels have not loaded yet).\n- **Banded sections.** `DataGridTableSections` renders a grouped grid as one section per group: a tinted band with the\n  title, a count, a collapse toggle, `selectable` select-all for the section and an optional `onSectionAdd` action,\n  followed by its own column headers. Sort, selection and columns stay shared, sections scroll sideways together, and\n  `sections={[{ value, label, tone, description }]}` orders the bands and keeps empty ones visible. Tones are\n  `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `attention` and `discovery`. Hide the grouped column\n  (`columnVisibility`) and set `groupedColumnMode: false`; `DataGridTableSectionSelectAll` and `useDataGridSection()`\n  work inside a section's headers and cells.\n- **Export.** `DataGridExport` saves the grid's visible columns, filters, sort and selection as CSV; `meta.exportValue`\n  formats a cell and `meta.export: false` skips control columns. `toCsv`, `tableToCsv` and `downloadCsv` are exported for\n  custom flows.\n\n### View controls\n\n```jsx\nimport {\n  DataGrid, DataGridCardView, DataGridColumnPicker, DataGridLayouts, DataGridStatusTabs, DataGridTable,\n  DataGridViewOptions, DataGridViewToggle, createDataGridColumnRegistry, dataGridEqualsFilter, useDataGridLayouts\n} from '@gaudi/design-system/core/DataTable';\n\nconst layouts = useDataGridLayouts({ table, density, onDensityChange: setDensity, storageKey: 'deals-layouts' });\n\n<DataGrid table={table} recordCount={rows.length} tableLayout={{ dense: density === 'compact', headerSticky, rowsPinnable: true }}>\n  <DataGridColumnPicker registry={registry} value={addedIds} onAdd={(id) => setAddedIds((ids) => [...ids, id])} />\n  <DataGridLayouts layouts={layouts} />\n  <DataGridViewOptions density={density} onDensityChange={setDensity} headerSticky={headerSticky}\n    onHeaderStickyChange={setHeaderSticky} onReset={layouts.resetLayout} />\n  <DataGridViewToggle value={view} onValueChange={setView} />\n  <DataGridStatusTabs columnId='stage' options={stages}>\n    {view === 'table' ? <DataGridTable /> : <DataGridCardView aria-label='Deals' />}\n  </DataGridStatusTabs>\n</DataGrid>\n```\n\n- **View settings.** `DataGridViewOptions` is one popover for density (`density` / `onDensityChange`, `comfortable` or\n  `compact`), the sticky header (`headerSticky` / `onHeaderStickyChange`), extra `toggles` (`{ id, label, checked,\n  onCheckedChange, description? }`) and the column list: a checkbox per hideable column plus Move up and Move down\n  (or Alt+Arrow keys), with pinned columns held in place. `onReset` adds Reset layout. Pass `children` to compose\n  `DataGridViewOptionsSection`, `DataGridViewOptionsDensity`, `DataGridViewOptionsSwitch` and\n  `DataGridViewOptionsColumns` yourself. `getDataGridColumnOrder(table)` and `moveDataGridColumn(table, id, delta)` are\n  the ordering helpers.\n- **Table or cards.** `DataGridCardView` renders the same row model as the table (sorting, filters, pagination, pinned\n  rows first) as a responsive card grid (`minCardWidth`, default `16rem`), and selection is shared. Columns choose\n  their card slot with `meta.card`: `title`, `subtitle`, `media`, `badge`, `actions`, `field` or `false`\n  (`meta.cardLabel` renames a field). `renderCard({ row, slots, table, isSelected })` replaces the default card.\n  `DataGridViewToggle` switches `'table'` and `'cards'`.\n- **Saved layouts.** `useDataGridLayouts({ table, density?, onDensityChange?, defaultLayout?, layouts?,\n  defaultLayouts?, onLayoutsChange?, storageKey? })` snapshots column order, sizing, visibility and pinning (and\n  density when `onDensityChange` is given) into named layouts `{ id, name, layout }`. Saved layouts are controlled or\n  uncontrolled; `storageKey` also keeps them and the current layout in localStorage, restored after hydration. It\n  returns `layouts`, `activeLayout`, `isDefault`, `saveLayout(name)`, `applyLayout(id)`, `deleteLayout(id)` and\n  `resetLayout()` (back to `defaultLayout`, else the table's initial state). `DataGridLayouts` is the menu for it;\n  `getDataGridLayout`, `applyDataGridLayout` and `isSameDataGridLayout` work on any table.\n- **Column stats.** A header with `stats` (or a column with `meta.stats`) adds a labelled Column stats group to its menu:\n  count, distinct and empty values, and min, max, average and sum for numbers (min and max for dates), over the\n  filtered rows. Each stat is a menu item that copies its value; `DataGridColumnStats` renders the same figures as a\n  definition list outside menus. Pass an array\n  (`['min', 'max', 'avg']`) to pick stats and `meta.statsFormat(value, id)` to format them. `getDataGridColumnStats`\n  reads the column's own `getAggregationValue` first, so a server-backed aggregation supplies its values.\n- **Add columns.** `createDataGridColumnRegistry(entries)` groups addable columns (`{ id, label, icon?, keywords?,\n  children?, column }`) for `DataGridColumnPicker`, a searchable Cascader that disables columns already shown. The host\n  keeps the added ids and builds `columns` with `registry.getColumns(ids)`.\n- **Heat cells.** `DataGridHeatmapCell` colours a number with the HeatmapChart scale and chart tokens (`heatmap`, or\n  `diverging` around `midpoint`), against its column's visible range or a given `domain`;\n  `getDataGridHeatmapColor` returns the fill and ink for custom cells. For trend cells, lazy-load\n  `Sparkline` from `@gaudi/design-system/charts` so the chart runtime stays out of the table's bundle.\n- **Status tabs.** `DataGridStatusTabs` puts an All tab and one tab per status, each with a live count, above the grid,\n  which renders as the tab panel. With `columnId` a tab filters that column (give it `filterFn: dataGridEqualsFilter`)\n  and counts come from its facets, which ignore the column's own filter; otherwise pass `value`, `onValueChange` and\n  `counts`.\n- **Virtualized selection.** Under `DataGridTableVirtual` with `onFetchMore` and `manualPagination`, Select all takes\n  every loaded row and reads as partial when the next page arrives. For \"every matching record\", keep a flag in the\n  host and derive the selection from it, as the Shipment exceptions example does; bulk actions then target the query,\n  not only loaded rows.\n\nEvery string is in `DATA_GRID_VIEW_LABELS` and translates through the grid's `i18n.labels`. The view popovers are\nlabelled dialogs that return focus to their trigger; column moves keep focus on the moved row and are announced, and\nlayout, column and export changes are announced through status regions.\n\n## Implementation ownership\n\n`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.",
+      "readme": "# DataTable\n\nA table for client collections up to a few thousand rows: search with a live count, single or multi-column sorting,\nrow selection, column visibility, paging or load-more, grouped and expandable rows, row actions, pinned rows and\ncolumns, sticky headers, automatic virtualization, CSV export, a totals footer, and loading, refreshing, empty and error\nstates. The convenience table and DataGrid share TanStack Table v9 and the same feature registry. It composes the DS Button, Input, Checkbox, DropdownMenu, Skeleton, Loader and\nEmptyState.\n\n```jsx\nimport DataTable from '@gaudi/design-system/core/DataTable';\n\n<DataTable\n  caption='Article library'\n  columns={[{ key: 'title', header: 'Article' }, { key: 'words', header: 'Words', align: 'right' }]}\n  rows={articles}\n  searchable\n  sortable\n  selectable\n  pagination\n  pageSize={10}\n  density='compact'\n/>\n```\n\n- Columns take `key`, `header`, `render`, `accessor`, `align`, `width`, `sticky` (`start` or `end`; `left` and `right` are aliases that mirror in RTL), `footer`,\n  `exportValue(value, row)` and `export: false`, and `sortable`, `searchable` or `hideable` set to `false` to opt out.\n- Text follows the surrounding reading direction by default. Set `align` to `left`, `center`, or `right` for an explicit physical alignment.\n- State is controlled or uncontrolled: `sorting` / `defaultSorting` / `onSortingChange`, `selection` /\n  `defaultSelection` / `onSelectionChange`, `expanded` / `defaultExpanded` / `onExpandedChange` (row IDs) and\n  `rowPinning` / `defaultRowPinning` / `onRowPinningChange` (`{ top, bottom }`). A controlled host can refuse a change by\n  not applying it, or replace it with something else.\n- `multiSort` adds Shift-click sorting by more than one column; headers show their sort order.\n- `pinnableRows` adds Pin to top, Pin to bottom and Unpin to each row menu. Pinned rows stay in view through sorting,\n  search and pages, and stick under the header while the region scrolls; they stop sticking when the bands would\n  crowd out the scrolling rows.\n- `getRowActions` opens one menu from the overflow button, a right-click, Shift+F10 or the Menu key, and returns focus to\n  where it was. `canActivateRow(row)` leaves some rows inert while `onRowClick` activates the rest.\n- `maxHeight` scrolls rows inside the region with a sticky header. `stickyHeader='page'` keeps the header under page\n  chrome (`stickyOffset`) while the page scrolls; in that mode the table fits its container, and a table too wide\n  for it falls back to scrolling sideways in place.\n- `virtualize='auto'` (the default) renders only the rows in view above `virtualThreshold` rows (100) and gives the\n  region a 32rem height unless `maxHeight` is set. Grouped and paged tables are not virtualized.\n- `onLoadMore`, `hasMore` and `loadingMore` add a Load more action; `loadMoreOnScroll` asks for the next batch as the last\n  row comes into view.\n- `exportable` (or `{ filename, scope, label, delimiter, onExport }`) adds Export CSV: visible columns, the current\n  search and sort, and only the selected rows when there is a selection. Formula-like text is neutralised so spreadsheets\n  show it as text.\n- Filtering predicates, remote fetching and persistence stay in the host; pair it with `FilterBar` for facets.\n\n## Shared table appearance\n\nThe primitive Table, DataTable, DataGrid and article Table use the same header typography and semantic colours. Labels preserve supplied casing. Density changes padding and header height, not typography or colour.\n\n`DataTable` uses `headerVariant='muted'` by default; choose `'plain'` for a surface-coloured header. DataGrid uses the same default through `tableLayout.headerBackground=true`; setting it to `false` selects the plain treatment. Its `dense` flag maps to the shared compact density. Both treatments keep an opaque background for sticky headers.\n\n## DataGrid parts\n\nUse the `DataGrid` parts (`DataGrid`, `DataGridContainer`, `DataGridTable`, `DataGridPagination`, …) for resizable,\ndraggable, virtualised, editable or server-driven grids.\n\n- **Grouping and aggregation.** `dataGridFeatures` registers grouping and aggregation. Set `grouping` state (or turn on\n  `tableLayout.columnsGroupable` for a \"Group by this column\" header action) and give columns an `aggregationFn`:\n  `sum`, `count`, `mean`, `min`, `max`, `extent`, `median`, `unique`, `uniqueCount`, `first`, `last`, or a custom\n  `constructAggregationFn({ aggregate })`. Group bands collapse, count their records and render aggregates with the\n  column's `aggregatedCell` (or a formatted value). `column.getAggregationValue()` returns grand totals for a footer.\n- **Narrow containers.** DataTable and DataGrid release fixed column positioning when pinned columns would use at least three quarters of the scroll viewport. The host’s pinning state and column order stay intact; pinning resumes when the container grows.\n- **Editing.** With `tableLayout.cellSelection`, a column edits through `meta.cellEdit`:\n  - `control`: `text`, `textarea`, `number`, `select`, `combobox`, `date`, `checkbox` or `switch`. Enter, F2, typing or a\n    double-click opens the editor over the cell (the Gaudi Select, Combobox, Calendar); checkbox and switch cells flip with\n    Enter, Space or a click and render with `DataGridCellToggle`. `options` (`[{ value, label }]`, strings or\n    `(row) => options`) feed select and combobox; `step`, `min` and `max` the number editor (ArrowUp/Down steps, Shift\n    by ten); dates are stored as `yyyy-MM-dd` and shown with `displayFormat` (`MMM d, yyyy`).\n  - Each built-in control brings a `parse(raw, row)` and `format(value, row)` pair, so paste, fill and clipboard copy\n    read the same values the editors write. A column's own `parse`, `format`, `clearValue` or `setValue(row, value)`\n    wins.\n  - `required`, `min`, `max` and `validate(value, row)` (a message string, `false`, or nothing when valid) mark a cell\n    invalid. The grid shows the error inline through `getCellError(row, columnId)`: the cell sets `aria-invalid`,\n    points `aria-describedby` at its message, tints red and shows a tooltip while hovered or focused.\n- **Undo and redo.** `useDataGridHistory({ onApply, limit })` records each `onCellsChange` batch (an edit, paste, fill,\n  clear or cut) as one step and replays its inverse through `invertDataGridCellsChange`; `record({ undo, redo, source })`\n  adds custom steps. Pass `gridProps` (`onCellsChange`, `onUndo`, `onRedo`) to `DataGrid` for Mod+Z, Shift+Mod+Z and\n  Ctrl+Y, and `DataGridHistoryControls history={…}` adds toolbar buttons with their shortcuts.\n- **Pending changes.** `useDataGridEditing({ data, columns, getRowId, onSave, onReject })` keeps a working copy of\n  `data`: give the table `editing.rows` and spread `editing.gridProps` onto `DataGrid` for dirty, new and invalid\n  status, inline errors and history. `insertRow`, `duplicateRow(rowId, copy)` and `removeRows(ids)` are undoable;\n  `pending`, `pendingCount`, `errors` and `firstError` describe the state, `save()` calls `onSave({ rows, updated,\n  added, removed })` (return `false` or throw to keep the changes) and `discard()` reverts everything. Text that cannot\n  be parsed stays visible as a cell error instead of a toast. `DataGridSaveBar editing={…} apiRef={…}` shows the count,\n  the cells that need attention (Show focuses the first) and Discard and Save; Save is blocked while errors exist. It\n  floats at the bottom like `DataGridSelectionBar`; to show both, wrap them in one sticky row and pass\n  `className='static mx-0'` to each.\n- **Per-row edit mode.** `useDataGridRowEditing({ columns, onSave, onCancel })` turns one row at a time into a draft:\n  spread its `gridProps` onto `DataGrid` and render `DataGridRowEditActions row={row} label={name}` in an actions column.\n  Editable cells of the draft render `DataGridCellInlineEditor`; Enter saves, Escape cancels, other rows stay\n  read-only (spreadsheet edits pause too), and messages appear once a field is touched or after a save attempt.\n  `start(row, { isNew: true })` opens a new row; `onCancel({ rowId, isNew })` lets the host remove it again.\n- **Labels.** The editing parts read `undo`, `redo`, `unsavedChanges(count)`, `invalidCells(count)`, `showInvalidCell`,\n  `saveBlocked`, `save`, `saving`, `discard`, `editRow(name)`, `saveRow` and `cancelRowEdit` from `i18n.labels`.\n- **Lazy children.** `useDataGridLazyRows({ data, expanded, getRowHasChildren, loadChildren, onChildrenLoad })`\n  loads a parent's children the first time it opens. Spread its `tableOptions` into `useTable` and pass the hook to\n  `<DataGrid lazyRows={lazy}>`: the table shows a skeleton row under a pending parent and an error row with Retry when\n  the promise rejects. Results are cached (`invalidate(id)` drops one); `onChildrenLoad` merges them into host data,\n  which always wins over the cache. Mark the tree column with `meta.treeColumn` so status rows line up with it.\n- **Tree drag and drop.** `DataGridTableTreeDnd` is a body whose rows drop before, after or into another row\n  (`canDropInside(row)`, default: rows that can expand), drawn with the Tree's drop line. A row never drops into\n  itself or its descendants, a closed folder opens after a short hover, and reordering pauses while the grid is sorted.\n  `DataGridTableTreeDndHandle` is the grip; Enter or Space on it starts a keyboard move (arrow keys choose the place,\n  Enter drops, Escape cancels), announced through a status region.\n- **Row moves.** Drag and drop, the keyboard and `DataGridTableRowMoveItems` (Move up, Move down, Move to top, Move to\n  bottom for a row menu) all report through `<DataGrid onRowMove>` with `{ id, parentId, index, targetId, position }`.\n  `moveDataGridRow(data, move, { childrenKey })` applies a move to nested or flat data. Alt+Arrow and Alt+Home/End on\n  either drag handle move the focused row among its siblings. `useDataGridRowOrder(rows)` keeps a flat manual order with\n  `moveRow`, `handleDragEnd`, `reset` and `isReordered`. Pass an `emptyMessage` node for the DnD body's empty state.\n- **Tree selection.** `DataGridTableTreeRowSelect` and `DataGridTableTreeRowSelectAll` cascade: checking a parent\n  checks every descendant, a parent reads checked when all of its children are and mixed when some are, and children\n  that load under a checked parent arrive checked. `DataGridSelectionBar` counts every selected row at any depth.\n- **Rollups.** Give a column `meta.rollup: true` and an `aggregationFn`: tree parents show the aggregate of their\n  deepest loaded descendants (an unloaded parent keeps its own value), formatted by `meta.rollupCell({ value, row,\n  scope })`. `DataGridTableTreeTotals` adds a grand-total footer row; `getDataGridRollupValue` and\n  `getDataGridTreeTotal` return the numbers. `DataGridTreeExpand` offers Expand all, Collapse all and Expand to level N\n  (pass `levels` when deeper levels have not loaded yet).\n- **Banded sections.** `DataGridTableSections` renders a grouped grid as one section per group: a tinted band with the\n  title, a count, a collapse toggle, `selectable` select-all for the section and an optional `onSectionAdd` action,\n  followed by its own column headers. Sort, selection and columns stay shared, sections scroll sideways together, and\n  `sections={[{ value, label, tone, description }]}` orders the bands and keeps empty ones visible. Tones are\n  `neutral`, `accent`, `info`, `success`, `warning`, `danger`, `attention` and `discovery`. Hide the grouped column\n  (`columnVisibility`) and set `groupedColumnMode: false`; `DataGridTableSectionSelectAll` and `useDataGridSection()`\n  work inside a section's headers and cells.\n- **Export.** `DataGridExport` saves the grid's visible columns, filters, sort and selection as CSV; `meta.exportValue`\n  formats a cell and `meta.export: false` skips control columns. `toCsv`, `tableToCsv` and `downloadCsv` are exported for\n  custom flows.\n\n### View controls\n\n```jsx\nimport {\n  DataGrid, DataGridCardView, DataGridColumnPicker, DataGridLayouts, DataGridStatusTabs, DataGridTable,\n  DataGridViewOptions, DataGridViewToggle, createDataGridColumnRegistry, dataGridEqualsFilter, useDataGridLayouts\n} from '@gaudi/design-system/core/DataTable';\n\nconst layouts = useDataGridLayouts({ table, density, onDensityChange: setDensity, storageKey: 'deals-layouts' });\n\n<DataGrid table={table} recordCount={rows.length} tableLayout={{ dense: density === 'compact', headerSticky, rowsPinnable: true }}>\n  <DataGridColumnPicker registry={registry} value={addedIds} onAdd={(id) => setAddedIds((ids) => [...ids, id])} />\n  <DataGridLayouts layouts={layouts} />\n  <DataGridViewOptions density={density} onDensityChange={setDensity} headerSticky={headerSticky}\n    onHeaderStickyChange={setHeaderSticky} onReset={layouts.resetLayout} />\n  <DataGridViewToggle value={view} onValueChange={setView} />\n  <DataGridStatusTabs columnId='stage' options={stages}>\n    {view === 'table' ? <DataGridTable /> : <DataGridCardView aria-label='Deals' />}\n  </DataGridStatusTabs>\n</DataGrid>\n```\n\n- **View settings.** `DataGridViewOptions` is one popover for density (`density` / `onDensityChange`, `comfortable` or\n  `compact`), the sticky header (`headerSticky` / `onHeaderStickyChange`), extra `toggles` (`{ id, label, checked,\n  onCheckedChange, description? }`) and the column list: a checkbox per hideable column plus Move up and Move down\n  (or Alt+Arrow keys), with pinned columns held in place. `onReset` adds Reset layout. Pass `children` to compose\n  `DataGridViewOptionsSection`, `DataGridViewOptionsDensity`, `DataGridViewOptionsSwitch` and\n  `DataGridViewOptionsColumns` yourself. `getDataGridColumnOrder(table)` and `moveDataGridColumn(table, id, delta)` are\n  the ordering helpers.\n- **Table or cards.** `DataGridCardView` renders the same row model as the table (sorting, filters, pagination, pinned\n  rows first) as a responsive card grid (`minCardWidth`, default `16rem`), and selection is shared. Columns choose\n  their card slot with `meta.card`: `title`, `subtitle`, `media`, `badge`, `actions`, `field` or `false`\n  (`meta.cardLabel` renames a field). `renderCard({ row, slots, table, isSelected })` replaces the default card.\n  `DataGridViewToggle` switches `'table'` and `'cards'`.\n- **Saved layouts.** `useDataGridLayouts({ table, density?, onDensityChange?, defaultLayout?, layouts?,\n  defaultLayouts?, onLayoutsChange?, storageKey? })` snapshots column order, sizing, visibility and pinning (and\n  density when `onDensityChange` is given) into named layouts `{ id, name, layout }`. Saved layouts are controlled or\n  uncontrolled; `storageKey` also keeps them and the current layout in localStorage, restored after hydration. It\n  returns `layouts`, `activeLayout`, `isDefault`, `saveLayout(name)`, `applyLayout(id)`, `deleteLayout(id)` and\n  `resetLayout()` (back to `defaultLayout`, else the table's initial state). `DataGridLayouts` is the menu for it;\n  `getDataGridLayout`, `applyDataGridLayout` and `isSameDataGridLayout` work on any table.\n- **Column stats.** A header with `stats` (or a column with `meta.stats`) adds a labelled Column stats group to its menu:\n  count, distinct and empty values, and min, max, average and sum for numbers (min and max for dates), over the\n  filtered rows. Each stat is a menu item that copies its value; `DataGridColumnStats` renders the same figures as a\n  definition list outside menus. Pass an array\n  (`['min', 'max', 'avg']`) to pick stats and `meta.statsFormat(value, id)` to format them. `getDataGridColumnStats`\n  reads the column's own `getAggregationValue` first, so a server-backed aggregation supplies its values.\n- **Add columns.** `createDataGridColumnRegistry(entries)` groups addable columns (`{ id, label, icon?, keywords?,\n  children?, column }`) for `DataGridColumnPicker`, a searchable Cascader that disables columns already shown. The host\n  keeps the added ids and builds `columns` with `registry.getColumns(ids)`.\n- **Heat cells.** `DataGridHeatmapCell` colours a number with the HeatmapChart scale and chart tokens (`heatmap`, or\n  `diverging` around `midpoint`), against its column's visible range or a given `domain`;\n  `getDataGridHeatmapColor` returns the fill and ink for custom cells. For trend cells, lazy-load\n  `Sparkline` from `@gaudi/design-system/charts` so the chart runtime stays out of the table's bundle.\n- **Status tabs.** `DataGridStatusTabs` puts an All tab and one tab per status, each with a live count, above the grid,\n  which renders as the tab panel. With `columnId` a tab filters that column (give it `filterFn: dataGridEqualsFilter`)\n  and counts come from its facets, which ignore the column's own filter; otherwise pass `value`, `onValueChange` and\n  `counts`.\n- **Virtualized selection.** Under `DataGridTableVirtual` with `onFetchMore` and `manualPagination`, Select all takes\n  every loaded row and reads as partial when the next page arrives. For \"every matching record\", keep a flag in the\n  host and derive the selection from it, as the Shipment exceptions example does; bulk actions then target the query,\n  not only loaded rows.\n\nEvery string is in `DATA_GRID_VIEW_LABELS` and translates through the grid's `i18n.labels`. The view popovers are\nlabelled dialogs that return focus to their trigger; column moves keep focus on the moved row and are announced, and\nlayout, column and export changes are announced through status regions.\n\n## Implementation ownership\n\n`dataGridFeatures.js` owns engine registration for both APIs. Clipboard serialization and selection models stay separate from DOM fill sessions and editor overlays. Table headers, rows, controls, resizing and framing live in `components/`; public exports remain in `index.js`. Constants and helpers live in server-safe modules (`dataGridModel.js`, `dataGridStructureModel.js`, `dataGridViewModel.js`, `dataGridColumnStats.js`, `dataGridCellContent.js` and the selection, clipboard and table models) and `index.js` re-exports them from there, never through a `'use client'` file, so server components receive values rather than client references. The convenience API retains `sortingFn` column callbacks and adapts them to the shared engine.",
       "related": [
         "core-filterbar",
         "core-skeleton"
@@ -13633,7 +13633,7 @@
       "storybook": "core-pagination--docs",
       "docs": "docs/llm/core-pagination.md",
       "source": "src/components/core/Pagination/",
-      "readme": "# Pagination\n\nMoves between pages of a long list. Use `PaginationBar` under a post archive or search results; compose the parts for numbered, compact or table-footer pagers.\n\n```jsx\nimport { PaginationBar } from '@gaudi/design-system';\n\n<PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />\n```\n\n`PaginationBar` shows Previous, an \"n of total\" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.\n\nThe parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current=\"page\"`.",
+      "readme": "# Pagination\n\nMoves between pages of a long list. Use `PaginationBar` under a post archive or search results; compose the parts for numbered, compact or table-footer pagers.\n\n```jsx\nimport { PaginationBar } from '@gaudi/design-system';\n\n<PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />\n```\n\n`PaginationBar` shows Previous, an \"n of total\" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. From a server component, where functions can't cross into this client module, pass strings instead of `getHref`: `hrefTemplate='/blog/page/{page}'` and `firstPageHref='/blog'`. `POSTS_PER_PAGE` (7) is safe to import on the server. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.\n\nThe parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current=\"page\"`.",
       "related": [
         "core-item",
         "core-link"
@@ -36098,7 +36098,6 @@
         "root": true,
         "mainExport": "useArrowKeyNav",
         "exports": [
-          "getNextIndex",
           "useArrowKeyNav"
         ]
       },
@@ -36243,7 +36242,6 @@
         "root": true,
         "mainExport": "useFocusTrap",
         "exports": [
-          "getTrapTarget",
           "useFocusTrap"
         ]
       },
@@ -36352,7 +36350,6 @@
         "root": true,
         "mainExport": "useLiveAnnouncer",
         "exports": [
-          "announce",
           "useLiveAnnouncer"
         ]
       },
@@ -36422,7 +36419,6 @@
         "root": true,
         "mainExport": "usePrefersReducedMotion",
         "exports": [
-          "REDUCED_MOTION_QUERY",
           "usePrefersReducedMotion"
         ]
       },
@@ -36489,7 +36485,6 @@
         "root": true,
         "mainExport": "useLocalStorage",
         "exports": [
-          "localStorageStore",
           "useLocalStorage"
         ]
       },
@@ -36767,8 +36762,6 @@
         "root": true,
         "mainExport": "useSelection",
         "exports": [
-          "selectionState",
-          "toggleInSet",
           "useSelection"
         ]
       },
@@ -36876,7 +36869,6 @@
         "root": true,
         "mainExport": "useSessionStorage",
         "exports": [
-          "sessionStorageStore",
           "useSessionStorage"
         ]
       },
@@ -37098,7 +37090,6 @@
         "root": true,
         "mainExport": "useIsMobile",
         "exports": [
-          "MOBILE_BREAKPOINT",
           "useIsMobile"
         ]
       },
@@ -37204,8 +37195,6 @@
         "root": true,
         "mainExport": "useMediaQuery",
         "exports": [
-          "matchesMediaQuery",
-          "subscribeMediaQuery",
           "useMediaQuery"
         ]
       },
@@ -37642,8 +37631,7 @@
         "root": true,
         "mainExport": "useCopyToClipboard",
         "exports": [
-          "useCopyToClipboard",
-          "writeToClipboard"
+          "useCopyToClipboard"
         ]
       },
       "description": "Writes text with the Clipboard API and falls back to a hidden textarea (restoring focus and selection) where the API is blocked. isCopied resets after the timeout. Merges two earlier implementations: copyToClipboard and copy are the same function.",
@@ -37832,11 +37820,6 @@
         "root": true,
         "mainExport": "useHotkey",
         "exports": [
-          "isApplePlatform",
-          "matchHotkey",
-          "parseHotkey",
-          "toAriaKeyShortcuts",
-          "toKbdKeys",
           "useHotkey"
         ]
       },
@@ -38117,7 +38100,6 @@
         "root": true,
         "mainExport": "useOnClickOutside",
         "exports": [
-          "isOutside",
           "useOnClickOutside"
         ]
       },
@@ -38206,7 +38188,6 @@
         "root": true,
         "mainExport": "useScrollLock",
         "exports": [
-          "lockScroll",
           "useScrollLock"
         ]
       },
@@ -38976,7 +38957,6 @@
         "root": true,
         "mainExport": "useDebounceCallback",
         "exports": [
-          "createDebouncer",
           "useDebounceCallback"
         ]
       },
@@ -39416,8 +39396,6 @@
         "root": true,
         "mainExport": "useMergedRefs",
         "exports": [
-          "assignRef",
-          "mergeRefs",
           "useMergedRefs"
         ]
       },
@@ -39643,7 +39621,6 @@
         "root": true,
         "mainExport": "useStep",
         "exports": [
-          "clampStep",
           "useStep"
         ]
       },
@@ -39738,7 +39715,6 @@
         "root": true,
         "mainExport": "useThrottleCallback",
         "exports": [
-          "createThrottler",
           "useThrottleCallback"
         ]
       },
@@ -40211,6 +40187,26 @@
           "description": "CSS color behind the effect and its static fallback."
         },
         {
+          "name": "transparent",
+          "names": [
+            "transparent"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`."
+        },
+        {
+          "name": "mask",
+          "names": [
+            "mask"
+          ],
+          "type": "'bottom' | 'edges' | 'text' | 'none' | string",
+          "default": "fadeEdges",
+          "required": false,
+          "description": "Canvas fade: `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text (follows writing direction). Any other string is a CSS mask-image; its layers intersect. Replaces the `fadeEdges` fade when set; `none` removes both."
+        },
+        {
           "name": "height",
           "names": [
             "height"
@@ -40273,7 +40269,7 @@
       "storybook": "layout-borealis--docs",
       "docs": "docs/llm/animations-backgrounds-aurora.md",
       "source": "src/components/animations/Borealis/",
-      "readme": "# Aurora (Borealis)\n\nTheme-aware Aurora light curtains, with a Soft Aurora variant that forms a narrow glowing ribbon.\n\n```jsx\nimport Borealis from '@gaudi/design-system/animations/Borealis';\n\n<Borealis variant=\"soft\" height={500}>{content}</Borealis>\n```\n\nExisting root, layout barrel and `@gaudi/design-system/layout/Borealis` imports remain supported. Direct children and the ref stay on the outer page wrapper. Without a height, the wrapper grows with content and fills at least the viewport; the decoration is capped at 48rem.\n\n## Contract\n\n- `variant` (\"aurora\" | \"soft\", default `aurora`): Top-lit curtains or a soft horizontal ribbon. Unknown values fall back to aurora.\n- `amplitude` (number, default `1`): Height variation of the light, clamped to 0–2.\n- `blend` (number, default `0.5`): Softness of the glow, clamped to 0–1.\n- `fadeEdges` (boolean, default `true`): Fade the decorative layer into the page at its lower edge.\n- `paused` (boolean, default `false`): Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation.\n- `speed` (number, default `1`): Animation speed multiplier, clamped to 0–5. Zero holds a static frame.\n- `intensity` (number, default `1`): Effect strength, clamped to 0–2. Zero reveals the background color.\n- `scale` (number, default `1`): Spatial scale of the effect, clamped to 0.25–4.\n- `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors. Omitted colors inherit the current Gaudi palette.\n- `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.\n- `height` (number | string, default `content / viewport`): Optional fixed height in pixels or CSS length. Without it, the existing page wrapper grows with content and fills at least the viewport; decoration is capped at 48rem.\n- `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.\n- `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.\n\n## Accessibility\n\nThe canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.\n\n## Visual references\n\nInspired by [React Bits Aurora](https://reactbits.dev/backgrounds/aurora) and [Soft Aurora](https://reactbits.dev/backgrounds/soft-aurora) (MIT + Commons Clause). Independently authored for Gaudi; no upstream source, shaders or assets are included.",
+      "readme": "# Aurora (Borealis)\n\nTheme-aware Aurora light curtains, with a Soft Aurora variant that forms a narrow glowing ribbon.\n\n```jsx\nimport Borealis from '@gaudi/design-system/animations/Borealis';\n\n<Borealis variant=\"soft\" height={500}>{content}</Borealis>\n\n// A band across the top of a page: no fill, faint behind the text column, faded top and bottom.\n<Borealis height={560} transparent mask=\"text\" />\n```\n\nExisting root, layout barrel and `@gaudi/design-system/layout/Borealis` imports remain supported. Direct children and the ref stay on the outer page wrapper. Without a height, the wrapper grows with content and fills at least the viewport; the decoration is capped at 48rem.\n\n## Contract\n\n- `variant` (\"aurora\" | \"soft\", default `aurora`): Top-lit curtains or a soft horizontal ribbon. Unknown values fall back to aurora.\n- `amplitude` (number, default `1`): Height variation of the light, clamped to 0–2.\n- `blend` (number, default `0.5`): Softness of the glow, clamped to 0–1.\n- `fadeEdges` (boolean, default `true`): Fade the decorative layer into the page at its lower edge.\n- `paused` (boolean, default `false`): Freeze the current frame. Reduced motion, offscreen containers and hidden tabs also stop animation.\n- `speed` (number, default `1`): Animation speed multiplier, clamped to 0–5. Zero holds a static frame.\n- `intensity` (number, default `1`): Effect strength, clamped to 0–2. Zero reveals the background color.\n- `scale` (number, default `1`): Spatial scale of the effect, clamped to 0.25–4.\n- `colors` (string[], default `Gaudi theme tokens`): Up to three CSS colors. Omitted colors inherit the current Gaudi palette.\n- `background` (string, default `var(--ds-color-surface)`): CSS color behind the effect and its static fallback.\n- `transparent` (boolean, default `false`): Drop the decoration's background fill so masked or faded areas reveal the page behind. The light itself still blends towards `background`.\n- `mask` (`'bottom'` | `'edges'` | `'text'` | `'none'` | string, default `fadeEdges`): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image` whose layers intersect. Replaces the `fadeEdges` fade when set; `none` removes both.\n- `height` (number | string, default `content / viewport`): Optional fixed height in pixels or CSS length. Without it, the existing page wrapper grows with content and fills at least the viewport; decoration is capped at 48rem.\n- `children` (ReactNode, default `—`): Optional semantic content layered above the decorative canvas.\n- `className / style / ref / DOM props` (DOM props, default `—`): Forwarded to the outer container.\n\n## Accessibility\n\nThe canvas is decorative and hidden from assistive technology. Keep important content in children and provide a pause control for continuous animation. Reduced motion renders a static frame; unsupported WebGL retains the styled container and content.\n\n## Visual references\n\nInspired by [React Bits Aurora](https://reactbits.dev/backgrounds/aurora) and [Soft Aurora](https://reactbits.dev/backgrounds/soft-aurora) (MIT + Commons Clause). Independently authored for Gaudi; no upstream source, shaders or assets are included.",
       "related": []
     },
     {
@@ -42763,6 +42759,26 @@
           "description": "Base CSS color beneath the effect. Follows the current theme by default."
         },
         {
+          "name": "transparent",
+          "names": [
+            "transparent"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`."
+        },
+        {
+          "name": "mask",
+          "names": [
+            "mask"
+          ],
+          "type": "'bottom' | 'edges' | 'text' | 'none' | string",
+          "default": "none",
+          "required": false,
+          "description": "Canvas fade: `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text (follows writing direction). Any other string is a CSS mask-image; its layers intersect."
+        },
+        {
           "name": "interactive",
           "names": [
             "interactive"
@@ -42825,7 +42841,7 @@
       "storybook": "animations-backgrounds-pixel-blast--docs",
       "docs": "docs/llm/animations-backgrounds-pixelblast.md",
       "source": "src/components/animations/PixelBlast/",
-      "readme": "# PixelBlast\n\nSeparate square pixels form drifting dithered patterns; clicks send circular waves through the field.\n\n```jsx\nimport { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';\n\n<PixelBlast height={360} paused />\n```\n\n- `paused` (boolean, default false): Freeze the current frame. Reduced motion, hidden tabs and offscreen surfaces also stop motion.\n- `speed` (number, default 1): Motion multiplier, clamped to 0–5. Zero keeps the current frame still.\n- `intensity` (number, default 1): Strength of the effect, clamped to 0–2. Zero shows only the background color.\n- `scale` (number, default 1): Scale changes the square size and spacing in CSS pixels, independent of device pixel ratio. Clamped to 0.25–4.\n- `colors` (string[], default Gaudi chart colors 1–3): Up to three CSS colors, including CSS variables. Omitted colors use the current Gaudi palette.\n- `background` (string, default var(--ds-color-surface)): Base CSS color beneath the effect. Follows the current theme by default.\n- `interactive` (boolean, default true): Create an outward-decaying ripple at each click or tap. No interaction is needed to use the content.\n- `height` (number | string, default 360): Surface height in pixels or a CSS length. Numeric values are clamped to 1–4096.\n- `children` (ReactNode, default —): Optional content rendered above the decorative canvas. Keep text and controls on a contrasting surface.\n- `className / style / ref` (DOM props, default —): Applied to the outer div along with other DOM props and pointer handlers.\n\nThe canvas is decorative and hidden from assistive technology; children remain accessible. Reduced motion shows a still frame, and unavailable graphics use a static color fallback. Provide a visible pause control when motion continues beside meaningful content. Keep text contrast independent of the moving artwork.\n\nSquares keep the same size as density changes. A click creates an outward-moving wave that fades; paused and reduced-motion surfaces do not respond.\n\nVisual idea inspired by [Pixel Blast](https://reactbits.dev/backgrounds/pixel-blast) from [React Bits](https://reactbits.dev) (MIT + Commons Clause). Independently implemented for Gaudi; no React Bits code or assets are included.",
+      "readme": "# PixelBlast\n\nSeparate square pixels form drifting dithered patterns; clicks send circular waves through the field.\n\n```jsx\nimport { PixelBlast } from '@gaudi/design-system/animations/PixelBlast';\n\n<PixelBlast height={360} paused />\n\n// A full-bleed header layer: no fill, faint behind the intro, faded top and bottom.\n<PixelBlast height='100%' transparent mask='text' />\n```\n\n- `paused` (boolean, default false): Freeze the current frame. Reduced motion, hidden tabs and offscreen surfaces also stop motion.\n- `speed` (number, default 1): Motion multiplier, clamped to 0–5. Zero keeps the current frame still.\n- `intensity` (number, default 1): Strength of the effect, clamped to 0–2. Zero shows only the background color.\n- `scale` (number, default 1): Scale changes the square size and spacing in CSS pixels, independent of device pixel ratio. Clamped to 0.25–4.\n- `colors` (string[], default Gaudi chart colors 1–3): Up to three CSS colors, including CSS variables. Omitted colors use the current Gaudi palette.\n- `background` (string, default var(--ds-color-surface)): Base CSS color beneath the effect. Follows the current theme by default.\n- `transparent` (boolean, default false): Drop the container's background fill so masked or faded areas reveal the page behind. The effect itself still blends towards `background`.\n- `mask` ('bottom' | 'edges' | 'text' | 'none' | string, default none): Canvas fade. `bottom` melts into the page below, `edges` fades in at the top and out at the bottom, `text` also stays faint behind leading-edge text and follows writing direction. Any other string is a CSS `mask-image`; its layers intersect.\n- `interactive` (boolean, default true): Create an outward-decaying ripple at each click or tap. No interaction is needed to use the content.\n- `height` (number | string, default 360): Surface height in pixels or a CSS length. Numeric values are clamped to 1–4096.\n- `children` (ReactNode, default —): Optional content rendered above the decorative canvas. Keep text and controls on a contrasting surface.\n- `className / style / ref` (DOM props, default —): Applied to the outer div along with other DOM props and pointer handlers.\n\nThe canvas is decorative and hidden from assistive technology; children remain accessible. Reduced motion shows a still frame, and unavailable graphics use a static color fallback. Provide a visible pause control when motion continues beside meaningful content. Keep text contrast independent of the moving artwork.\n\nSquares keep the same size as density changes. A click creates an outward-moving wave that fades; paused and reduced-motion surfaces do not respond.\n\nVisual idea inspired by [Pixel Blast](https://reactbits.dev/backgrounds/pixel-blast) from [React Bits](https://reactbits.dev) (MIT + Commons Clause). Independently implemented for Gaudi; no React Bits code or assets are included.",
       "related": []
     },
     {
@@ -44519,6 +44535,16 @@
           "description": "Semantic message tone."
         },
         {
+          "name": "title",
+          "names": [
+            "title"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Optional label above the body, such as Note or Warning. remarkAlerts sets it from GitHub alert markers."
+        },
+        {
           "name": "children",
           "names": [
             "children"
@@ -44557,7 +44583,7 @@
         ]
       },
       "accessibility": "Text carries the meaning; color and icons support it.",
-      "usage": "<Callout type='info'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
+      "usage": "<Callout type='info' title='Note'>\n  Useful article context that readers should notice before continuing.\n</Callout>",
       "examples": {
         "stories": [
           {
@@ -46629,6 +46655,125 @@
       ]
     },
     {
+      "id": "blocks-blog-ogcard",
+      "name": "OgCard",
+      "kind": "component",
+      "title": "Blocks/Blog/OgCard",
+      "category": "post",
+      "owner": "post/OgCard",
+      "import": {
+        "path": "@gaudi/design-system/post/OgCard",
+        "category": "@gaudi/design-system/post",
+        "root": true,
+        "mainExport": "OgCard",
+        "kind": "named",
+        "line": "import { OgCard } from '@gaudi/design-system/post/OgCard';",
+        "exports": [
+          "OgCard",
+          "default",
+          "ogImageSize"
+        ]
+      },
+      "description": "Open Graph image template for next/og ImageResponse: category, title, subtitle, site name and an optional logo on a neutral light or dark card, built only from inline styles.",
+      "props": [
+        {
+          "name": "title",
+          "names": [
+            "title"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "The page or post title; long titles step down in size."
+        },
+        {
+          "name": "subtitle",
+          "names": [
+            "subtitle"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Supporting line below the title."
+        },
+        {
+          "name": "category",
+          "names": [
+            "category"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Short uppercase label above the title."
+        },
+        {
+          "name": "siteName",
+          "names": [
+            "siteName"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Site name or URL along the bottom edge."
+        },
+        {
+          "name": "logo",
+          "names": [
+            "logo"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Mark in the top corner, 120px square: an inline svg (fill='currentColor' follows the theme) or an img with a data URL. No remote URLs."
+        },
+        {
+          "name": "theme",
+          "names": [
+            "theme"
+          ],
+          "type": "light | dark",
+          "default": "light",
+          "required": false,
+          "description": "Neutral palette."
+        },
+        {
+          "name": "width / height",
+          "names": [
+            "width",
+            "height"
+          ],
+          "type": "number",
+          "default": "1200 / 630",
+          "required": false,
+          "description": "Image size; ogImageSize exports the defaults for ImageResponse."
+        }
+      ],
+      "variants": {
+        "theme": [
+          "light",
+          "dark"
+        ]
+      },
+      "accessibility": "The card becomes an image, so the page's og:image:alt (or the alt of an img that shows it) must repeat the title. Both palettes keep AA contrast for every text role.",
+      "usage": "// app/api/og/route.js\nimport { ImageResponse } from 'next/og';\nimport { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';\n\nexport function GET() {\n  return new ImageResponse(\n    <OgCard title='Notes on local-first software' subtitle='What syncing taught me.' category='Engineering' siteName='example.com' />,\n    ogImageSize\n  );\n}",
+      "examples": {
+        "stories": [
+          {
+            "name": "Playground",
+            "id": "post-og-card--playground"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "post-og-card--docs",
+      "docs": "docs/llm/blocks-blog-ogcard.md",
+      "source": "src/components/post/OgCard/",
+      "readme": "# OgCard\n\nA social preview (Open Graph) image template for [`next/og`](https://nextjs.org/docs/app/api-reference/functions/image-response) `ImageResponse` and other Satori renderers.\n\n```jsx\n// app/api/og/route.js\nimport { ImageResponse } from 'next/og';\nimport { OgCard, ogImageSize } from '@gaudi/design-system/post/OgCard';\n\nexport function GET(request) {\n  const title = request.nextUrl.searchParams.get('title') || 'Example';\n\n  return new ImageResponse(\n    <OgCard title={ title } subtitle='What syncing taught me.' category='Engineering' siteName='example.com' logo={ <Logo /> } />,\n    ogImageSize // { width: 1200, height: 630 }; add `fonts` here to use your own faces\n  );\n}\n```\n\n## Contract\n\n- `title` (string): long titles step down in size. `subtitle`, `category`, `siteName` (string) are optional.\n- `logo` (ReactNode): a 120px mark in the top corner. Use an inline `<svg>` (`fill='currentColor'` follows the theme) or an `<img>` with a data URL.\n- `theme` (`'light'` | `'dark'`, default `'light'`): neutral palettes with AA contrast; the bottom rule is the only accent.\n- `width`, `height` (number, default 1200 × 630). `ogImageSize` exports the defaults.\n\n## Boundaries\n\nThe module is server-safe: no `'use client'`, hooks, Tailwind classes, DOM-only components or network requests. Every element uses inline styles and flex layout, as Satori requires. Fonts come from the renderer: load them in the route and pass `fonts` to `ImageResponse`; Gaudi never fetches them. Give the page an `og:image:alt` that repeats the title.",
+      "related": [
+        "mdx-image"
+      ]
+    },
+    {
       "id": "blocks-blog-post-lists",
       "name": "Post lists",
       "kind": "component",
@@ -47614,6 +47759,230 @@
       "docs": "docs/llm/blocks-marketing-newsletter.md",
       "source": "src/components/layout/NewsletterForm/",
       "readme": "# NewsletterForm\n\nOne subscription form for footer embeds and **Blocks → Marketing → Newsletter** sections. The public import remains `@gaudi/design-system/layout/NewsletterForm`.\n\n```jsx\nimport NewsletterForm from '@gaudi/design-system/layout/NewsletterForm';\n\n<NewsletterForm\n  endpoint='/api/newsletter'\n  title='Notes worth sharing.'\n  description='New writing and useful resources from our journal.'\n  headingAs='h2'\n  titleVariant='heading-xl'\n>\n  <p>Unsubscribe whenever you like.</p>\n</NewsletterForm>\n```\n\nThe host endpoint receives a POST with `{ email }`. A successful HTTP response without an `error` value confirms the subscription. Failed requests preserve the address for retry; pending and successful forms prevent duplicate submission. Endpoint changes and unmounts abort pending work. Without an endpoint, signup is disabled and an unavailable message is shown.\n\n`title` and `description` accept content or `null`. `headingAs` defaults to `h3`; `titleVariant` optionally selects a shared Typography variant. Omit it to retain the compact heading used by existing embeds. `children` follows submission feedback. `classNames` accepts `root`, `header`, `body`, `title`, `description`, `form`, `input`, `action`, `button`, and `message`.\n\nThe EmailInput owns single-address validation and caret behavior. Feedback uses an alert for errors and a status for success. All examples share this implementation; section layout styles and local sample endpoints stay in the story fixtures. The response control switches between success, error, and unavailable and resets the example. Demo addresses are never sent to a subscription service.",
+      "related": []
+    },
+    {
+      "id": "blocks-page-chrome",
+      "name": "Page Chrome",
+      "kind": "component",
+      "title": "Blocks/Page Chrome",
+      "category": "layout",
+      "owner": "layout/PageChrome",
+      "import": {
+        "path": "@gaudi/design-system/layout/PageChrome",
+        "category": "@gaudi/design-system/layout",
+        "root": true,
+        "mainExport": "PageChrome",
+        "kind": "default",
+        "line": "import PageChrome from '@gaudi/design-system/layout/PageChrome';",
+        "exports": [
+          "default"
+        ]
+      },
+      "description": "Per-page switches for LayoutContainer's site chrome: render it in a page to hide the layout background or the page scroll edges while that page is shown.",
+      "props": [
+        {
+          "name": "background",
+          "names": [
+            "background"
+          ],
+          "type": "boolean",
+          "default": "true",
+          "required": false,
+          "description": "Show LayoutContainer's background on this page: the background slot, or the default Borealis. false hides it."
+        },
+        {
+          "name": "scrollEdges",
+          "names": [
+            "scrollEdges"
+          ],
+          "type": "boolean",
+          "default": "true",
+          "required": false,
+          "description": "Show the page-level ScrollEdges (those without a targetRef). false hides them; scroll areas keep theirs."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Renders only a hidden, aria-hidden marker and affects decorative layers only: the background and scroll edges are aria-hidden, so no content, landmark or focus order changes.",
+      "usage": "import PageChrome from '@gaudi/design-system/layout/PageChrome';\n\n// app/about/page.js: the page draws its own header background.\nexport default function AboutPage() {\n  return (\n    <>\n      <PageChrome background={ false } />\n      <AboutHeader />\n    </>\n  );\n}",
+      "examples": {
+        "stories": [
+          {
+            "name": "Playground",
+            "id": "layout-page-chrome--playground"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "layout-page-chrome--docs",
+      "docs": "docs/llm/blocks-page-chrome.md",
+      "source": "src/components/layout/PageChrome/",
+      "readme": "# PageChrome\n\nTurns off parts of [LayoutContainer](../LayoutContainer/LayoutContainer.js)'s site chrome for the page that renders it.\n\n```jsx\nimport PageChrome from '@gaudi/design-system/layout/PageChrome';\n\n// An About page with its own header background.\n<PageChrome background={ false } />\n\n// An article that reads sharp to the bottom of the window.\n<PageChrome scrollEdges={ false } />\n```\n\n- `background` (boolean, default `true`): `false` hides the layout background: the `background` slot, or the default Borealis. Backgrounds the page renders itself are unaffected.\n- `scrollEdges` (boolean, default `true`): `false` hides the page-level [ScrollEdges](../../core/ScrollArea/README.md) (those without a `targetRef`); scroll areas keep their own edges.\n\nPageChrome renders a hidden marker that `PageChrome.css` (part of `@gaudi/design-system/styles.css`) matches with `:has()`. It needs no client JavaScript, works in server components, and the server HTML is already correct, so the chrome never flashes in. Unmounting the marker, for example on client navigation to another page, restores the chrome.",
+      "related": [
+        "layout-layoutcontainer"
+      ]
+    },
+    {
+      "id": "blocks-page-header",
+      "name": "Page Header",
+      "kind": "component",
+      "title": "Blocks/Page Header",
+      "category": "layout",
+      "owner": "layout/PageHeader",
+      "import": {
+        "path": "@gaudi/design-system/layout/PageHeader",
+        "category": "@gaudi/design-system/layout",
+        "root": true,
+        "mainExport": "PageHeader",
+        "kind": "default",
+        "line": "import PageHeader from '@gaudi/design-system/layout/PageHeader';",
+        "exports": [
+          "default"
+        ]
+      },
+      "description": "Page or section introduction: optional eyebrow, a title (h1 by default), description and actions, with optional sticky and divider modes.",
+      "props": [
+        {
+          "name": "title",
+          "names": [
+            "title"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "The heading text."
+        },
+        {
+          "name": "titleAs",
+          "names": [
+            "titleAs"
+          ],
+          "type": "ElementType",
+          "default": "h1",
+          "required": false,
+          "description": "Heading element; use h2 for sections within a page."
+        },
+        {
+          "name": "titleVariant",
+          "names": [
+            "titleVariant"
+          ],
+          "type": "Typography variant",
+          "default": "title-md",
+          "required": false,
+          "description": "Typography style of the title, such as display-lg or heading-lg."
+        },
+        {
+          "name": "titleId",
+          "names": [
+            "titleId"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "ID for the heading, so a section or list can reference it with aria-labelledby."
+        },
+        {
+          "name": "eyebrow",
+          "names": [
+            "eyebrow"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Short label above the title."
+        },
+        {
+          "name": "description",
+          "names": [
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Supporting text below the title."
+        },
+        {
+          "name": "actions",
+          "names": [
+            "actions"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Controls or meta beside the title, such as a count, filter or button; wraps below on narrow screens."
+        },
+        {
+          "name": "sticky",
+          "names": [
+            "sticky"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Pin to the top on the page background with a bottom border while the content below scrolls."
+        },
+        {
+          "name": "divider",
+          "names": [
+            "divider"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Bottom border separating the header from the content below, without pinning."
+        },
+        {
+          "name": "children",
+          "names": [
+            "children"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Extra content below the description, such as filters."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional classes on the header element."
+        },
+        {
+          "name": "classNames",
+          "names": [
+            "classNames"
+          ],
+          "type": "{ root, eyebrow, title, description, actions }",
+          "default": "{}",
+          "required": false,
+          "description": "Slot class overrides."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Renders a header element with one heading at the level you choose; keep a single h1 per page and use titleAs='h2' for section headers. Give a sticky header a titleId and point the region it labels at it with aria-labelledby. Actions keep their own accessible names.",
+      "usage": "import PageHeader from '@gaudi/design-system/layout/PageHeader';\n\n<PageHeader eyebrow='Archive' title='Projects' description='Things I have built and maintain.' divider />",
+      "examples": {
+        "stories": [
+          {
+            "name": "Playground",
+            "id": "layout-page-header--playground"
+          },
+          {
+            "name": "Sticky list heading",
+            "id": "layout-page-header--sticky-list-heading"
+          }
+        ],
+        "patterns": []
+      },
+      "storybook": "layout-page-header--docs",
+      "docs": "docs/llm/blocks-page-header.md",
+      "source": "src/components/layout/PageHeader/",
+      "readme": "# PageHeader\n\nThe introduction at the top of a page or section: an optional eyebrow, a title, a description and an actions slot. Server-safe, so it renders in server components.\n\n```jsx\nimport PageHeader from '@gaudi/design-system/layout/PageHeader';\n\n<PageHeader eyebrow='Archive' title='Projects' description='Things I have built and maintain.' divider />\n\n// A list heading that stays visible while the list scrolls.\n<section aria-labelledby='all-posts'>\n  <PageHeader sticky titleAs='h2' titleVariant='heading-lg' titleId='all-posts' title='All posts' actions={ <span>42 posts</span> } />\n  {list}\n</section>\n```\n\n## Contract\n\n- `title` (ReactNode): the heading text. `titleAs` (default `h1`) sets the element and `titleVariant` (default `title-md`) the Typography style.\n- `titleId` (string): an ID on the heading for `aria-labelledby`.\n- `eyebrow`, `description` (ReactNode): optional label above and supporting text below the title.\n- `actions` (ReactNode): controls or meta beside the title; they wrap below it on narrow screens.\n- `divider` (boolean, default `false`): a bottom border in the `border` token.\n- `sticky` (boolean, default `false`): `sticky top-0` on the `background` token with the same border, for headers that stay visible while the content below scrolls.\n- `children`: extra content below the description, such as filters.\n- `className`, `classNames` (`root`, `eyebrow`, `title`, `description`, `actions`): style overrides.\n\n## Accessibility\n\nKeep one `h1` per page and use `titleAs='h2'` for section headers. A sticky header covers content scrolled beneath it, so keep it compact; label the region it introduces with `aria-labelledby` pointing at `titleId`.",
       "related": []
     },
     {

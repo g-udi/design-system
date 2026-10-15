@@ -10,7 +10,7 @@ While active, Tab and Shift+Tab wrap inside the container. On activation it focu
 import { useFocusTrap } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `getTrapTarget`, `useFocusTrap`
+Exports: `useFocusTrap`
 
 ## Parameters
 

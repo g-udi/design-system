@@ -10,7 +10,7 @@ Returns whether a media query matches and follows changes. Returns the fallback 
 import { useMediaQuery } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `matchesMediaQuery`, `subscribeMediaQuery`, `useMediaQuery`
+Exports: `useMediaQuery`
 
 ## Parameters
 

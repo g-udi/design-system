@@ -10,7 +10,7 @@ Tracks selected ids for lists, tables and bulk actions. Uncontrolled from initia
 import { useSelection } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `selectionState`, `toggleInSet`, `useSelection`
+Exports: `useSelection`
 
 ## Parameters
 

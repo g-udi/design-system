@@ -10,7 +10,7 @@ Sets overflow hidden on the body while locked and pads it by the scrollbar width
 import { useScrollLock } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `lockScroll`, `useScrollLock`
+Exports: `useScrollLock`
 
 ## Parameters
 

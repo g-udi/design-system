@@ -161,31 +161,34 @@ import docs158 from '../../components/layout/ArticleContentLayout/stories/docs/A
 import docs159 from '../../components/layout/Footer/stories/docs/Footer.docs.js';
 import docs160 from '../../components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js';
 import docs161 from '../../components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js';
-import docs162 from '../../components/mdx/Aside/stories/docs/Aside.docs.js';
-import docs163 from '../../components/mdx/Callout/stories/docs/Callout.docs.js';
-import docs164 from '../../components/mdx/Chart/stories/docs/Chart.docs.js';
-import docs165 from '../../components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js';
-import docs166 from '../../components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js';
-import docs167 from '../../components/mdx/Code/stories/docs/Code.docs.js';
-import docs168 from '../../components/mdx/Details/stories/docs/Details.docs.js';
-import docs169 from '../../components/mdx/Faq/stories/docs/Faq.docs.js';
-import docs170 from '../../components/mdx/FileTree/stories/docs/FileTree.docs.js';
-import docs171 from '../../components/mdx/Footnote/stories/docs/Footnote.docs.js';
-import docs172 from '../../components/mdx/Highlight/stories/docs/Highlight.docs.js';
-import docs173 from '../../components/mdx/Image/stories/docs/Image.docs.js';
-import docs174 from '../../components/mdx/ImageModal/stories/docs/ImageModal.docs.js';
-import docs175 from '../../components/mdx/LatexText/stories/docs/LatexText.docs.js';
-import docs176 from '../../components/mdx/Mermaid/stories/docs/Mermaid.docs.js';
-import docs177 from '../../components/mdx/Preview/stories/docs/Preview.docs.js';
-import docs178 from '../../components/mdx/Quote/stories/docs/Quote.docs.js';
-import docs179 from '../../components/mdx/Table/stories/docs/Table.docs.js';
-import docs180 from '../../components/mdx/Tooltip/stories/docs/Tooltip.docs.js';
-import docs181 from '../../components/mdx/Video/stories/docs/Video.docs.js';
-import docs182 from '../../components/post/Post/stories/docs/Post.docs.js';
-import docs183 from '../../components/post/PostHeader/stories/docs/PostHeader.docs.js';
-import docs184 from '../../components/post/PostNavigation/stories/docs/PostNavigation.docs.js';
-import docs185 from '../../components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js';
-import docs186 from '../../components/post/TableOfContents/stories/docs/TableOfContents.docs.js';
+import docs162 from '../../components/layout/PageChrome/stories/docs/PageChrome.docs.js';
+import docs163 from '../../components/layout/PageHeader/stories/docs/PageHeader.docs.js';
+import docs164 from '../../components/mdx/Aside/stories/docs/Aside.docs.js';
+import docs165 from '../../components/mdx/Callout/stories/docs/Callout.docs.js';
+import docs166 from '../../components/mdx/Chart/stories/docs/Chart.docs.js';
+import docs167 from '../../components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js';
+import docs168 from '../../components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js';
+import docs169 from '../../components/mdx/Code/stories/docs/Code.docs.js';
+import docs170 from '../../components/mdx/Details/stories/docs/Details.docs.js';
+import docs171 from '../../components/mdx/Faq/stories/docs/Faq.docs.js';
+import docs172 from '../../components/mdx/FileTree/stories/docs/FileTree.docs.js';
+import docs173 from '../../components/mdx/Footnote/stories/docs/Footnote.docs.js';
+import docs174 from '../../components/mdx/Highlight/stories/docs/Highlight.docs.js';
+import docs175 from '../../components/mdx/Image/stories/docs/Image.docs.js';
+import docs176 from '../../components/mdx/ImageModal/stories/docs/ImageModal.docs.js';
+import docs177 from '../../components/mdx/LatexText/stories/docs/LatexText.docs.js';
+import docs178 from '../../components/mdx/Mermaid/stories/docs/Mermaid.docs.js';
+import docs179 from '../../components/mdx/Preview/stories/docs/Preview.docs.js';
+import docs180 from '../../components/mdx/Quote/stories/docs/Quote.docs.js';
+import docs181 from '../../components/mdx/Table/stories/docs/Table.docs.js';
+import docs182 from '../../components/mdx/Tooltip/stories/docs/Tooltip.docs.js';
+import docs183 from '../../components/mdx/Video/stories/docs/Video.docs.js';
+import docs184 from '../../components/post/OgCard/stories/docs/OgCard.docs.js';
+import docs185 from '../../components/post/Post/stories/docs/Post.docs.js';
+import docs186 from '../../components/post/PostHeader/stories/docs/PostHeader.docs.js';
+import docs187 from '../../components/post/PostNavigation/stories/docs/PostNavigation.docs.js';
+import docs188 from '../../components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js';
+import docs189 from '../../components/post/TableOfContents/stories/docs/TableOfContents.docs.js';
 
 export const ownerDocumentationModules = {
   'src/components/animations/AeroShards/stories/docs/AeroShards.docs.js': docs0,
@@ -350,31 +353,34 @@ export const ownerDocumentationModules = {
   'src/components/layout/Footer/stories/docs/Footer.docs.js': docs159,
   'src/components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js': docs160,
   'src/components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js': docs161,
-  'src/components/mdx/Aside/stories/docs/Aside.docs.js': docs162,
-  'src/components/mdx/Callout/stories/docs/Callout.docs.js': docs163,
-  'src/components/mdx/Chart/stories/docs/Chart.docs.js': docs164,
-  'src/components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js': docs165,
-  'src/components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js': docs166,
-  'src/components/mdx/Code/stories/docs/Code.docs.js': docs167,
-  'src/components/mdx/Details/stories/docs/Details.docs.js': docs168,
-  'src/components/mdx/Faq/stories/docs/Faq.docs.js': docs169,
-  'src/components/mdx/FileTree/stories/docs/FileTree.docs.js': docs170,
-  'src/components/mdx/Footnote/stories/docs/Footnote.docs.js': docs171,
-  'src/components/mdx/Highlight/stories/docs/Highlight.docs.js': docs172,
-  'src/components/mdx/Image/stories/docs/Image.docs.js': docs173,
-  'src/components/mdx/ImageModal/stories/docs/ImageModal.docs.js': docs174,
-  'src/components/mdx/LatexText/stories/docs/LatexText.docs.js': docs175,
-  'src/components/mdx/Mermaid/stories/docs/Mermaid.docs.js': docs176,
-  'src/components/mdx/Preview/stories/docs/Preview.docs.js': docs177,
-  'src/components/mdx/Quote/stories/docs/Quote.docs.js': docs178,
-  'src/components/mdx/Table/stories/docs/Table.docs.js': docs179,
-  'src/components/mdx/Tooltip/stories/docs/Tooltip.docs.js': docs180,
-  'src/components/mdx/Video/stories/docs/Video.docs.js': docs181,
-  'src/components/post/Post/stories/docs/Post.docs.js': docs182,
-  'src/components/post/PostHeader/stories/docs/PostHeader.docs.js': docs183,
-  'src/components/post/PostNavigation/stories/docs/PostNavigation.docs.js': docs184,
-  'src/components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js': docs185,
-  'src/components/post/TableOfContents/stories/docs/TableOfContents.docs.js': docs186
+  'src/components/layout/PageChrome/stories/docs/PageChrome.docs.js': docs162,
+  'src/components/layout/PageHeader/stories/docs/PageHeader.docs.js': docs163,
+  'src/components/mdx/Aside/stories/docs/Aside.docs.js': docs164,
+  'src/components/mdx/Callout/stories/docs/Callout.docs.js': docs165,
+  'src/components/mdx/Chart/stories/docs/Chart.docs.js': docs166,
+  'src/components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js': docs167,
+  'src/components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js': docs168,
+  'src/components/mdx/Code/stories/docs/Code.docs.js': docs169,
+  'src/components/mdx/Details/stories/docs/Details.docs.js': docs170,
+  'src/components/mdx/Faq/stories/docs/Faq.docs.js': docs171,
+  'src/components/mdx/FileTree/stories/docs/FileTree.docs.js': docs172,
+  'src/components/mdx/Footnote/stories/docs/Footnote.docs.js': docs173,
+  'src/components/mdx/Highlight/stories/docs/Highlight.docs.js': docs174,
+  'src/components/mdx/Image/stories/docs/Image.docs.js': docs175,
+  'src/components/mdx/ImageModal/stories/docs/ImageModal.docs.js': docs176,
+  'src/components/mdx/LatexText/stories/docs/LatexText.docs.js': docs177,
+  'src/components/mdx/Mermaid/stories/docs/Mermaid.docs.js': docs178,
+  'src/components/mdx/Preview/stories/docs/Preview.docs.js': docs179,
+  'src/components/mdx/Quote/stories/docs/Quote.docs.js': docs180,
+  'src/components/mdx/Table/stories/docs/Table.docs.js': docs181,
+  'src/components/mdx/Tooltip/stories/docs/Tooltip.docs.js': docs182,
+  'src/components/mdx/Video/stories/docs/Video.docs.js': docs183,
+  'src/components/post/OgCard/stories/docs/OgCard.docs.js': docs184,
+  'src/components/post/Post/stories/docs/Post.docs.js': docs185,
+  'src/components/post/PostHeader/stories/docs/PostHeader.docs.js': docs186,
+  'src/components/post/PostNavigation/stories/docs/PostNavigation.docs.js': docs187,
+  'src/components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js': docs188,
+  'src/components/post/TableOfContents/stories/docs/TableOfContents.docs.js': docs189
 };
 
 export const ownerDocumentation = Object.assign({}, ...Object.values(ownerDocumentationModules));

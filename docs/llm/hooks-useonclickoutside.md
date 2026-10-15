@@ -10,7 +10,7 @@ Listens for pointerdown on the document and calls the handler when the target is
 import { useOnClickOutside } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `isOutside`, `useOnClickOutside`
+Exports: `useOnClickOutside`
 
 ## Parameters
 

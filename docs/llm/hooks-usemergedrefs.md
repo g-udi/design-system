@@ -10,7 +10,7 @@ One stable callback ref that forwards the node to every ref passed, object or ca
 import { useMergedRefs } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `assignRef`, `mergeRefs`, `useMergedRefs`
+Exports: `useMergedRefs`
 
 ## Parameters
 

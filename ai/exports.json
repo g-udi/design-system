@@ -644,7 +644,10 @@
       "NumberFieldIncrement",
       "NumberFieldInput",
       "NumberFieldScrubArea",
+      "OgCard",
       "POSTS_PER_PAGE",
+      "PageChrome",
+      "PageHeader",
       "Pagination",
       "PaginationBar",
       "PaginationContent",
@@ -877,6 +880,7 @@
       "applyTheme",
       "approvalStates",
       "areAllSectionsExpanded",
+      "assignRef",
       "avatarVariants",
       "badgeVariants",
       "badgeVariantsPrimitive",
@@ -1052,6 +1056,7 @@
       "getTableExportRows",
       "getThemePreset",
       "getThemeScript",
+      "getTrapTarget",
       "getViewDateRange",
       "getYouTubeVideoId",
       "handleDataGridRowMoveKey",
@@ -1082,6 +1087,7 @@
       "isFilterRule",
       "isFilterRuleComplete",
       "isFilterTime",
+      "isOutside",
       "isSameDataGridLayout",
       "joinFilterPath",
       "kbdVariants",
@@ -1090,6 +1096,7 @@
       "linkVariants",
       "listThemes",
       "loaderVariants",
+      "localStorageStore",
       "lockScroll",
       "markChipPress",
       "markGestureEnd",
@@ -1121,6 +1128,7 @@
       "normalizeProgress",
       "normalizeWebPreviewUrl",
       "occurrenceIntersects",
+      "ogImageSize",
       "omit",
       "operatorTakesValue",
       "packTimedSegments",
@@ -1173,6 +1181,7 @@
       "selectionState",
       "serializeDataGridClipboardText",
       "serializeSignaturePad",
+      "sessionStorageStore",
       "setFilterCombinator",
       "shadows",
       "signaturePadLabels",
@@ -4371,19 +4380,24 @@
       "REDUCED_MOTION_QUERY",
       "announce",
       "areAllSectionsExpanded",
+      "assignRef",
       "clampStep",
       "collapsibleSectionsReducer",
       "createCollapsibleSectionsState",
       "createDebouncer",
       "createThrottler",
       "getNextIndex",
+      "getTrapTarget",
       "isApplePlatform",
+      "isOutside",
+      "localStorageStore",
       "lockScroll",
       "matchHotkey",
       "matchesMediaQuery",
       "mergeRefs",
       "parseHotkey",
       "selectionState",
+      "sessionStorageStore",
       "subscribeMediaQuery",
       "toAriaKeyShortcuts",
       "toKbdKeys",
@@ -4439,44 +4453,33 @@
       "writeToClipboard"
     ],
     "@gaudi/design-system/hooks/a11y/use-arrow-key-nav": [
-      "getNextIndex",
       "useArrowKeyNav"
     ],
     "@gaudi/design-system/hooks/a11y/use-focus-trap": [
-      "getTrapTarget",
       "useFocusTrap"
     ],
     "@gaudi/design-system/hooks/a11y/use-live-announcer": [
-      "announce",
       "useLiveAnnouncer"
     ],
     "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion": [
-      "REDUCED_MOTION_QUERY",
       "usePrefersReducedMotion"
     ],
     "@gaudi/design-system/hooks/data/use-local-storage": [
-      "localStorageStore",
       "useLocalStorage"
     ],
     "@gaudi/design-system/hooks/data/use-selection": [
-      "selectionState",
-      "toggleInSet",
       "useSelection"
     ],
     "@gaudi/design-system/hooks/data/use-session-storage": [
-      "sessionStorageStore",
       "useSessionStorage"
     ],
     "@gaudi/design-system/hooks/environment/use-is-client": [
       "useIsClient"
     ],
     "@gaudi/design-system/hooks/environment/use-media-query": [
-      "matchesMediaQuery",
-      "subscribeMediaQuery",
       "useMediaQuery"
     ],
     "@gaudi/design-system/hooks/environment/use-mobile": [
-      "MOBILE_BREAKPOINT",
       "useIsMobile"
     ],
     "@gaudi/design-system/hooks/environment/use-online-status": [
@@ -4489,29 +4492,21 @@
       "usePrefersColorScheme"
     ],
     "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard": [
-      "useCopyToClipboard",
-      "writeToClipboard"
+      "useCopyToClipboard"
     ],
     "@gaudi/design-system/hooks/interaction/use-event-listener": [
       "useEventListener"
     ],
     "@gaudi/design-system/hooks/interaction/use-hotkey": [
-      "isApplePlatform",
-      "matchHotkey",
-      "parseHotkey",
-      "toAriaKeyShortcuts",
-      "toKbdKeys",
       "useHotkey"
     ],
     "@gaudi/design-system/hooks/interaction/use-hover": [
       "useHover"
     ],
     "@gaudi/design-system/hooks/interaction/use-on-click-outside": [
-      "isOutside",
       "useOnClickOutside"
     ],
     "@gaudi/design-system/hooks/interaction/use-scroll-lock": [
-      "lockScroll",
       "useScrollLock"
     ],
     "@gaudi/design-system/hooks/layout/collapsible-sections-model": [
@@ -4535,7 +4530,6 @@
       "useControllableState"
     ],
     "@gaudi/design-system/hooks/state/use-debounce-callback": [
-      "createDebouncer",
       "useDebounceCallback"
     ],
     "@gaudi/design-system/hooks/state/use-debounce-value": [
@@ -4554,8 +4548,6 @@
       "useIsomorphicLayoutEffect"
     ],
     "@gaudi/design-system/hooks/state/use-merged-refs": [
-      "assignRef",
-      "mergeRefs",
       "useMergedRefs"
     ],
     "@gaudi/design-system/hooks/state/use-previous": [
@@ -4565,11 +4557,9 @@
       "useSliderInput"
     ],
     "@gaudi/design-system/hooks/state/use-step": [
-      "clampStep",
       "useStep"
     ],
     "@gaudi/design-system/hooks/state/use-throttle-callback": [
-      "createThrottler",
       "useThrottleCallback"
     ],
     "@gaudi/design-system/hooks/state/use-timeout": [
@@ -4588,9 +4578,7 @@
       "iconSizes"
     ],
     "@gaudi/design-system/icons/AnimatedIcon": [
-      "AnimatedIcon",
-      "animatedIconMetadata",
-      "animatedIconRegistry"
+      "AnimatedIcon"
     ],
     "@gaudi/design-system/icons/brands/anthropicBlack": [
       "AnthropicBlack"
@@ -4653,7 +4641,9 @@
       "ArticleContentLayout",
       "Borealis",
       "Footer",
-      "NewsletterForm"
+      "NewsletterForm",
+      "PageChrome",
+      "PageHeader"
     ],
     "@gaudi/design-system/layout/ArticleContentLayout": [
       "default"
@@ -4668,6 +4658,12 @@
       "default"
     ],
     "@gaudi/design-system/layout/NewsletterForm": [
+      "default"
+    ],
+    "@gaudi/design-system/layout/PageChrome": [
+      "default"
+    ],
+    "@gaudi/design-system/layout/PageHeader": [
       "default"
     ],
     "@gaudi/design-system/mdx": [
@@ -4796,6 +4792,7 @@
     "@gaudi/design-system/mdx/remark": [
       "default",
       "fenceMeta",
+      "remarkAlerts",
       "remarkCode"
     ],
     "@gaudi/design-system/mdx/runtime": [
@@ -4826,11 +4823,18 @@
       "videoAnimationStyles"
     ],
     "@gaudi/design-system/post": [
+      "OgCard",
       "Post",
       "PostHeader",
       "PostNavigation",
       "PostSeriesBox",
-      "TableOfContents"
+      "TableOfContents",
+      "ogImageSize"
+    ],
+    "@gaudi/design-system/post/OgCard": [
+      "OgCard",
+      "default",
+      "ogImageSize"
     ],
     "@gaudi/design-system/post/Post": [
       "default"

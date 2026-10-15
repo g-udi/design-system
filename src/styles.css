@@ -64,6 +64,7 @@
 @import './components/core/Tooltip/Tooltip.css';
 @import './components/animations/Borealis/Borealis.css';
 @import './components/animations/Backgrounds.css';
+@import './components/layout/PageChrome/PageChrome.css';
 @import './components/mdx/Table/Table.css';
 /* Prose keeps its established priority for article content, including embedded components. */
 @import './foundations/Typography/Typography.css';

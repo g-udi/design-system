@@ -10,7 +10,7 @@ Moves focus between items with the arrow keys, Home and End while the group stay
 import { useArrowKeyNav } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `getNextIndex`, `useArrowKeyNav`
+Exports: `useArrowKeyNav`
 
 ## Parameters
 

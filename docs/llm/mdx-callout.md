@@ -18,6 +18,7 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `type` | `info \| warning \| error` | `info` | no | Semantic message tone. |
+| `title` | `ReactNode` | — | no | Optional label above the body, such as Note or Warning. remarkAlerts sets it from GitHub alert markers. |
 | `children` | `ReactNode` | — | no | Content composed from the exported parts. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 | `classNames` | `Record<string, string>` | `{}` | no | Slot class overrides. |
@@ -29,7 +30,7 @@ Exports: `default`
 ## Usage
 
 ```jsx
-<Callout type='info'>
+<Callout type='info' title='Note'>
   Useful article context that readers should notice before continuing.
 </Callout>
 ```

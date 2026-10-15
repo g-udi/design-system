@@ -10,7 +10,7 @@ Runs the latest callback once, delay ms after the last call, with the latest arg
 import { useDebounceCallback } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `createDebouncer`, `useDebounceCallback`
+Exports: `useDebounceCallback`
 
 ## Parameters
 

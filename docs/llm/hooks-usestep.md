@@ -10,7 +10,7 @@ The current step with next, previous, goTo and reset, clamped to the step count,
 import { useStep } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `clampStep`, `useStep`
+Exports: `useStep`
 
 ## Parameters
 

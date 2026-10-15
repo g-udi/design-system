@@ -10,7 +10,7 @@ The breakpoint the AppShell sidebar and DateSelector use to switch to their phon
 import { useIsMobile } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `MOBILE_BREAKPOINT`, `useIsMobile`
+Exports: `useIsMobile`
 
 ## Returns
 

@@ -44,7 +44,7 @@ const serializeJsonLd = (jsonLd) => {
  * @param {Object} [props.metadata] - Site metadata (author, title, locale, theme, …)
  * @param {Object} [props.navigation] - Navigation data (links, categoriesMetadata)
  * @param {Object} [props.preview] - Link preview settings forwarded to SiteConfigProvider ({ endpoint, resolveImage })
- * @param {React.ReactNode} [props.background] - Decorative full-width layer at the top of the page that scrolls with it and sets its own height, such as an animated band; replaces the default Borealis
+ * @param {React.ReactNode} [props.background] - Decorative full-width layer at the top of the page that scrolls with it and sets its own height, such as an animated band; replaces the default Borealis. A page can switch it off with `<PageChrome background={ false } />`
  *
  * @returns {Promise<JSX.Element>} The rendered layout container component
  *
@@ -76,7 +76,7 @@ export default async function LayoutContainer({ analytics = null, background, ch
   );
 
   return (
-    <div className='bg-background text-foreground antialiased'>
+    <div data-slot='layout-container' className='bg-background text-foreground antialiased'>
 
       <a className='ds-skip-link' href='#main-content'>Skip to content</a>
 

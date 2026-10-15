@@ -286,6 +286,7 @@ Blog post page parts: header, navigation, series box and table of contents.
 
 | Component | Import | Purpose |
 | --- | --- | --- |
+| OgCard | `@gaudi/design-system/post/OgCard` | Open Graph image template for next/og ImageResponse: category, title, subtitle, site name and an optional logo on a neutral light or dark card, built only from inline styles. |
 | Post lists | `@gaudi/design-system/post/Post` | Blog-post sections using the same Post summaries and article data as the blog pages. |
 | PostHeader | `@gaudi/design-system/post/PostHeader` | Article title, metadata, timestamps and supporting header controls. |
 | PostNavigation | `@gaudi/design-system/post/PostNavigation` | Previous and next article links at the end of a post. |
@@ -301,6 +302,8 @@ Site layout: containers, wrappers, footer, search and newsletter.
 | Article | `@gaudi/design-system/layout/ArticleContentLayout` | A complete blog article with Gaudi journal navigation, PostHeader metadata, reading progress, TableOfContents section navigation, expandable images, a gallery, and captioned video. |
 | Footers | `@gaudi/design-system/layout/Footer` | Site footer with host-supplied navigation, social links, copyright, and optional newsletter form. |
 | Newsletter | `@gaudi/design-system/layout/NewsletterForm` | Newsletter sections built from one email subscription form, with an explicit host endpoint and local pending, success, and error feedback. |
+| Page Chrome | `@gaudi/design-system/layout/PageChrome` | Per-page switches for LayoutContainer's site chrome: render it in a page to hide the layout background or the page scroll edges while that page is shown. |
+| Page Header | `@gaudi/design-system/layout/PageHeader` | Page or section introduction: optional eyebrow, a title (h1 by default), description and actions, with optional sticky and divider modes. |
 | LayoutContainer | `@gaudi/design-system/layout/LayoutContainer` | Async server layout that composes theme context, navigation, a skip link, article content, footer, and host-provided structured data. |
 
 ## Blocks

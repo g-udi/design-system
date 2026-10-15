@@ -10,7 +10,7 @@ Stores a JSON value under a key. The server render and hydration use the initial
 import { useLocalStorage } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `localStorageStore`, `useLocalStorage`
+Exports: `useLocalStorage`
 
 ## Parameters
 

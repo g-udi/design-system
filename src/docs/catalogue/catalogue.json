@@ -6163,6 +6163,59 @@
       ],
       "importPath": "./src/components/layout/NewsletterForm/stories/NewsletterForm.stories.jsx"
     },
+    "layout-page-chrome--playground": {
+      "id": "layout-page-chrome--playground",
+      "title": "Blocks/Page Chrome",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/layout/PageChrome/stories/PageChrome.stories.jsx"
+    },
+    "layout-page-chrome--docs": {
+      "id": "layout-page-chrome--docs",
+      "title": "Blocks/Page Chrome",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/PageChrome/stories/PageChrome.stories.jsx"
+    },
+    "layout-page-header--playground": {
+      "id": "layout-page-header--playground",
+      "title": "Blocks/Page Header",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/layout/PageHeader/stories/PageHeader.stories.jsx"
+    },
+    "layout-page-header--docs": {
+      "id": "layout-page-header--docs",
+      "title": "Blocks/Page Header",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/layout/PageHeader/stories/PageHeader.stories.jsx"
+    },
+    "layout-page-header--sticky-list-heading": {
+      "id": "layout-page-header--sticky-list-heading",
+      "title": "Blocks/Page Header",
+      "name": "Sticky list heading",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/layout/PageHeader/stories/PageHeader.stories.jsx"
+    },
     "mdx-aside--playground": {
       "id": "mdx-aside--playground",
       "title": "MDX/Aside",
@@ -6648,6 +6701,27 @@
         "autodocs"
       ],
       "importPath": "./src/components/mdx/Video/stories/Video.stories.jsx"
+    },
+    "post-og-card--playground": {
+      "id": "post-og-card--playground",
+      "title": "Blocks/Blog/OgCard",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/post/OgCard/stories/OgCard.stories.jsx"
+    },
+    "post-og-card--docs": {
+      "id": "post-og-card--docs",
+      "title": "Blocks/Blog/OgCard",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/post/OgCard/stories/OgCard.stories.jsx"
     },
     "post-post--playground": {
       "id": "post-post--playground",

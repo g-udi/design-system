@@ -10,7 +10,7 @@ True when the operating system reduce-motion setting is on, updated live. Built 
 import { usePrefersReducedMotion } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `REDUCED_MOTION_QUERY`, `usePrefersReducedMotion`
+Exports: `usePrefersReducedMotion`
 
 ## Parameters
 

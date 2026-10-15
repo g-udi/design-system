@@ -1,0 +1,14 @@
+/*
+ * PageChrome markers switch off LayoutContainer chrome for the page that renders them. The rules
+ * live in CSS so the server HTML is already correct. Only the layout's own background is matched:
+ * the `background` slot, or the default Borealis wrapping the page; backgrounds inside the page stay.
+ */
+[data-slot='layout-container']:has([data-slot='page-chrome'][data-background='off']) > [data-slot='layout-background'],
+[data-slot='layout-container']:has([data-slot='page-chrome'][data-background='off']) > div > [data-slot='borealis'] {
+  display: none;
+}
+
+/* Page scroll edges are fixed to the window and may sit outside the layout container. */
+:root:has([data-slot='page-chrome'][data-scroll-edges='off']) [data-slot='scroll-edge'][data-page] {
+  display: none;
+}

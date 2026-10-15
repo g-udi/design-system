@@ -10,7 +10,7 @@ The same API as useLocalStorage over sessionStorage: survives a reload, not a ne
 import { useSessionStorage } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `sessionStorageStore`, `useSessionStorage`
+Exports: `useSessionStorage`
 
 ## Parameters
 

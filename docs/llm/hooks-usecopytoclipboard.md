@@ -10,7 +10,7 @@ Writes text with the Clipboard API and falls back to a hidden textarea (restorin
 import { useCopyToClipboard } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `useCopyToClipboard`, `writeToClipboard`
+Exports: `useCopyToClipboard`
 
 ## Parameters
 

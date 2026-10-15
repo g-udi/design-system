@@ -287,6 +287,7 @@ Article primitives for MDX content and the compiled MDX runtime.
 
 Blog post page parts: header, navigation, series box and table of contents.
 
+- [OgCard](docs/llm/blocks-blog-ogcard.md): Open Graph image template for next/og ImageResponse: category, title, subtitle, site name and an optional logo on a neutral light or dark card, built only from inline styles.
 - [Post lists](docs/llm/blocks-blog-post-lists.md): Blog-post sections using the same Post summaries and article data as the blog pages.
 - [PostHeader](docs/llm/blocks-blog-postheader.md): Article title, metadata, timestamps and supporting header controls.
 - [PostNavigation](docs/llm/blocks-blog-postnavigation.md): Previous and next article links at the end of a post.
@@ -300,6 +301,8 @@ Site layout: containers, wrappers, footer, search and newsletter.
 - [Article](docs/llm/blocks-blog-article.md): A complete blog article with Gaudi journal navigation, PostHeader metadata, reading progress, TableOfContents section navigation, expandable images, a gallery, and captioned video.
 - [Footers](docs/llm/blocks-marketing-footers.md): Site footer with host-supplied navigation, social links, copyright, and optional newsletter form.
 - [Newsletter](docs/llm/blocks-marketing-newsletter.md): Newsletter sections built from one email subscription form, with an explicit host endpoint and local pending, success, and error feedback.
+- [Page Chrome](docs/llm/blocks-page-chrome.md): Per-page switches for LayoutContainer's site chrome: render it in a page to hide the layout background or the page scroll edges while that page is shown.
+- [Page Header](docs/llm/blocks-page-header.md): Page or section introduction: optional eyebrow, a title (h1 by default), description and actions, with optional sticky and divider modes.
 - [LayoutContainer](docs/llm/layout-layoutcontainer.md): Async server layout that composes theme context, navigation, a skip link, article content, footer, and host-provided structured data.
 
 ## Blocks & patterns

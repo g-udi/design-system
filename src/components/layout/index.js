@@ -8,3 +8,5 @@ export { default as ArticleContentLayout } from './ArticleContentLayout';
 export { default as Borealis } from '../animations/Borealis/index.js';
 export { default as Footer } from './Footer';
 export { default as NewsletterForm } from './NewsletterForm';
+export { default as PageChrome } from './PageChrome';
+export { default as PageHeader } from './PageHeader';

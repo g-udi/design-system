@@ -10,7 +10,7 @@ Runs a callback for a combination such as 'mod+k' (Command+K on macOS, Control+K
 import { useHotkey } from '@gaudi/design-system/hooks';
 ```
 
-Exports: `isApplePlatform`, `matchHotkey`, `parseHotkey`, `toAriaKeyShortcuts`, `toKbdKeys`, `useHotkey`
+Exports: `useHotkey`
 
 ## Parameters
 
