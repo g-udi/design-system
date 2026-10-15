@@ -47647,6 +47647,16 @@
           "description": "Page content inside the main landmark."
         },
         {
+          "name": "background",
+          "names": [
+            "background"
+          ],
+          "type": "ReactNode",
+          "default": "Borealis",
+          "required": false,
+          "description": "Decorative full-width layer at the top of the page that scrolls with it and sets its own height (for example 100dvh for the whole window), such as an animated band; replaces the default Borealis."
+        },
+        {
           "name": "metadata / navigation / preview",
           "names": [
             "metadata",

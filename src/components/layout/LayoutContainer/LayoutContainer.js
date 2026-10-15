@@ -44,6 +44,7 @@ const serializeJsonLd = (jsonLd) => {
  * @param {Object} [props.metadata] - Site metadata (author, title, locale, theme, …)
  * @param {Object} [props.navigation] - Navigation data (links, categoriesMetadata)
  * @param {Object} [props.preview] - Link preview settings forwarded to SiteConfigProvider ({ endpoint, resolveImage })
+ * @param {React.ReactNode} [props.background] - Decorative full-width layer at the top of the page that scrolls with it and sets its own height, such as an animated band; replaces the default Borealis
  *
  * @returns {Promise<JSX.Element>} The rendered layout container component
  *
@@ -52,33 +53,44 @@ const serializeJsonLd = (jsonLd) => {
  *   <HomePage />
  * </LayoutContainer>
  */
-export default async function LayoutContainer({ analytics = null, children, footerProps, jsonLd, menuProps, metadata = {}, navigation, preview }) {
+export default async function LayoutContainer({ analytics = null, background, children, footerProps, jsonLd, menuProps, metadata = {}, navigation, preview }) {
   const theme = metadata.theme || 'system';
   const jsonLdMarkup = serializeJsonLd(await resolveJsonLd(jsonLd));
+
+  const page = (
+      <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem disableTransitionOnChange>
+        {analytics}
+
+        <SiteConfigProvider metadata={ metadata } navigation={ navigation } preview={ preview }>
+          <div className='relative w-full sm:w-[95%] xl:w-[90%] isolate xl:max-w-6xl px-4 sm:px-8 dark:z-10'>
+            <div className='flex min-h-dvh flex-col'>
+              <FloatingMenu/>
+              <Menu { ...menuProps } />
+              {jsonLdMarkup ? <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': jsonLdMarkup }} key='jsonld'/> : null}
+              <main id='main-content' className='mb-4 mt-4 flex-1 lg:mt-6'>{children}</main>
+              <Footer { ...footerProps } />
+            </div>
+          </div>
+        </SiteConfigProvider>
+      </ThemeProvider>
+  );
 
   return (
     <div className='bg-background text-foreground antialiased'>
 
       <a className='ds-skip-link' href='#main-content'>Skip to content</a>
 
-      {/* Keep even subtle reading text legible at the animation's brightest point. */}
-      <Borealis intensity={0.02}>
-        <ThemeProvider attribute='class' defaultTheme={ theme } enableSystem disableTransitionOnChange>
-          {analytics}
-
-          <SiteConfigProvider metadata={ metadata } navigation={ navigation } preview={ preview }>
-            <div className='relative w-full sm:w-[95%] xl:w-[90%] isolate xl:max-w-6xl px-4 sm:px-8 dark:z-10'>
-              <div className='flex min-h-dvh flex-col'>
-                <FloatingMenu/>
-                <Menu { ...menuProps } />
-                {jsonLdMarkup ? <script type='application/ld+json' dangerouslySetInnerHTML={{ '__html': jsonLdMarkup }} key='jsonld'/> : null}
-                <main id='main-content' className='mb-4 mt-4 flex-1 lg:mt-6'>{children}</main>
-                <Footer { ...footerProps } />
-              </div>
-            </div>
-          </SiteConfigProvider>
-        </ThemeProvider>
-      </Borealis>
+      {background ? (
+        <>
+          {/* A full-width layer at the top of the page that scrolls with it; it sets its own height. Positioned before the content so the content paints above it. */}
+          <div aria-hidden='true' data-slot='layout-background' className='absolute inset-x-0 top-0'>{background}</div>
+          {/* The same centred column Borealis provides. */}
+          <div className='relative isolate flex min-h-dvh flex-col items-center'>{page}</div>
+        </>
+      ) : (
+        // Keep even subtle reading text legible at the animation's brightest point.
+        <Borealis intensity={0.02}>{page}</Borealis>
+      )}
 
     </div>
   );

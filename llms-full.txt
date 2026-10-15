@@ -20846,6 +20846,7 @@ Exports: `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `children` | `ReactNode` | — | no | Page content inside the main landmark. |
+| `background` | `ReactNode` | `Borealis` | no | Decorative full-width layer at the top of the page that scrolls with it and sets its own height (for example 100dvh for the whole window), such as an animated band; replaces the default Borealis. |
 | `metadata / navigation / preview` | `SiteConfigProvider values` | `{} / — / —` | no | Host site, theme, navigation, and link-preview configuration. |
 | `menuProps / footerProps` | `object` | — | no | Navigation and footer presentation props. |
 | `jsonLd` | `object \| (() => object \| Promise<object>)` | — | no | Prepared JSON-LD or an async resolver; invalid values are omitted. |
