@@ -85,7 +85,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
           <ul aria-label='Tags' className={ cn('m-0 flex min-w-0 flex-1 list-none flex-wrap gap-2 p-0', classNames.tags) }>
             {frontMatter.tags.map((tag) => (
               <li key={ typeof tag === 'string' ? tag : tag.id ?? tag.href ?? tag.label }>
-                <Pill href={ typeof tag === 'string' ? undefined : tag.href } tone='gray' variant='outline' size='sm' radius='md' className={ cn('font-normal sm:text-sm', classNames.tag) }>
+                <Pill href={ typeof tag === 'string' ? undefined : tag.href } tone='blue' variant='soft' size='xs' radius='full' className={ cn('px-2.5 py-1 font-medium', classNames.tag) }>
                   {typeof tag === 'string' ? tag : tag.label}
                 </Pill>
               </li>
