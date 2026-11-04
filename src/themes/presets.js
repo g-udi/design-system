@@ -76,6 +76,42 @@ export const ANCHOR_DECLARATIONS = [
     "var(--ds-color-surface)"
   ],
   [
+    "--ds-color-launcher-bg",
+    "var(--ds-color-surface-raised)"
+  ],
+  [
+    "--ds-color-launcher-border",
+    "var(--ds-color-border)"
+  ],
+  [
+    "--ds-color-launcher-heading",
+    "var(--ds-color-text-subtle)"
+  ],
+  [
+    "--ds-color-launcher-input-text",
+    "var(--ds-color-text)"
+  ],
+  [
+    "--ds-color-launcher-item-selected-bg",
+    "color-mix(in oklab, var(--ds-color-accent) 10%, transparent)"
+  ],
+  [
+    "--ds-color-launcher-item-text",
+    "var(--ds-color-text-muted)"
+  ],
+  [
+    "--ds-color-launcher-placeholder",
+    "var(--ds-color-text-subtle)"
+  ],
+  [
+    "--ds-color-launcher-scrollbar-thumb",
+    "var(--ds-color-border)"
+  ],
+  [
+    "--ds-color-launcher-text",
+    "var(--ds-color-text)"
+  ],
+  [
     "--ds-radius-card",
     "var(--ds-radius)"
   ],

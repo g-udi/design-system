@@ -2485,6 +2485,48 @@
       ],
       "importPath": "./src/components/chat/ChatActivityIndicator/stories/ChatActivityIndicator.stories.jsx"
     },
+    "chat-messagelist--agent-checkpoints": {
+      "id": "chat-messagelist--agent-checkpoints",
+      "title": "Chat/ChatAgentCheckpoints",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatAgentCheckpoints/stories/ChatAgentCheckpoints.stories.jsx"
+    },
+    "chat-chatagentcheckpoints--docs": {
+      "id": "chat-chatagentcheckpoints--docs",
+      "title": "Chat/ChatAgentCheckpoints",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatAgentCheckpoints/stories/ChatAgentCheckpoints.stories.jsx"
+    },
+    "chat-chatdelegation--agent-findings": {
+      "id": "chat-chatdelegation--agent-findings",
+      "title": "Chat/ChatAgentFindings",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatAgentFindings/stories/ChatAgentFindings.stories.jsx"
+    },
+    "chat-chatagentfindings--docs": {
+      "id": "chat-chatagentfindings--docs",
+      "title": "Chat/ChatAgentFindings",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatAgentFindings/stories/ChatAgentFindings.stories.jsx"
+    },
     "chat-agentmark--playground": {
       "id": "chat-agentmark--playground",
       "title": "Chat/ChatAgentMark",
@@ -2548,6 +2590,27 @@
       ],
       "importPath": "./src/components/chat/ChatAgentMark/stories/ChatAgentMark.stories.jsx"
     },
+    "chat-chatdelegation--agent-queue": {
+      "id": "chat-chatdelegation--agent-queue",
+      "title": "Chat/ChatAgentQueue",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatAgentQueue/stories/ChatAgentQueue.stories.jsx"
+    },
+    "chat-chatagentqueue--docs": {
+      "id": "chat-chatagentqueue--docs",
+      "title": "Chat/ChatAgentQueue",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatAgentQueue/stories/ChatAgentQueue.stories.jsx"
+    },
     "chat-bubble--playground": {
       "id": "chat-bubble--playground",
       "title": "Chat/ChatBubble",
@@ -2568,6 +2631,27 @@
         "autodocs"
       ],
       "importPath": "./src/components/chat/ChatBubble/stories/ChatBubble.stories.jsx"
+    },
+    "chat-chatinput--context-window": {
+      "id": "chat-chatinput--context-window",
+      "title": "Chat/ChatContextWindow",
+      "name": "Playground",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatContextWindow/stories/ChatContextWindow.stories.jsx"
+    },
+    "chat-chatcontextwindow--docs": {
+      "id": "chat-chatcontextwindow--docs",
+      "title": "Chat/ChatContextWindow",
+      "name": "Docs",
+      "type": "docs",
+      "tags": [
+        "autodocs"
+      ],
+      "importPath": "./src/components/chat/ChatContextWindow/stories/ChatContextWindow.stories.jsx"
     },
     "chat-chatdelegation--playground": {
       "id": "chat-chatdelegation--playground",
@@ -3032,6 +3116,17 @@
       "id": "chat-chatreasoning--thinking-then-answer",
       "title": "Chat/ChatReasoning",
       "name": "Thinking, then the answer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatReasoning/stories/ChatReasoning.stories.jsx"
+    },
+    "chat-chatreasoning--mini-thinking": {
+      "id": "chat-chatreasoning--mini-thinking",
+      "title": "Chat/ChatReasoning",
+      "name": "Mini thinking",
       "type": "story",
       "tags": [
         "autodocs",
@@ -7752,6 +7847,17 @@
       ],
       "importPath": "./src/components/blocks/StatCard/stories/StatCardPatterns.stories.jsx"
     },
+    "blocks-stat-cards--usage-meter": {
+      "id": "blocks-stat-cards--usage-meter",
+      "title": "Blocks/Stat Cards",
+      "name": "Usage meter",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/blocks/StatCard/stories/StatCardPatterns.stories.jsx"
+    },
     "blocks-stat-cards--lead-range": {
       "id": "blocks-stat-cards--lead-range",
       "title": "Blocks/Stat Cards",
@@ -8130,6 +8236,17 @@
       ],
       "importPath": "./src/components/charts/TreemapChart/stories/TreemapChartPatterns.stories.jsx"
     },
+    "charts-treemapchart--context-map": {
+      "id": "charts-treemapchart--context-map",
+      "title": "Charts/TreemapChart",
+      "name": "Context map",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/charts/TreemapChart/stories/TreemapChartPatterns.stories.jsx"
+    },
     "charts-waterfallchart--revenue-bridge": {
       "id": "charts-waterfallchart--revenue-bridge",
       "title": "Charts/WaterfallChart",
@@ -8188,6 +8305,39 @@
       "id": "chat-chatdelegation--agent-handoff",
       "title": "Chat/ChatDelegation",
       "name": "Handing work to another agent",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/stories/ChatDelegationPatterns.stories.jsx"
+    },
+    "chat-chatdelegation--handoff-relay": {
+      "id": "chat-chatdelegation--handoff-relay",
+      "title": "Chat/ChatDelegation",
+      "name": "Agent handoff relay",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/stories/ChatDelegationPatterns.stories.jsx"
+    },
+    "chat-chatdelegation--agent-fleet": {
+      "id": "chat-chatdelegation--agent-fleet",
+      "title": "Chat/ChatDelegation",
+      "name": "Agent fleet",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatDelegation/stories/ChatDelegationPatterns.stories.jsx"
+    },
+    "chat-chatdelegation--conflict-radar": {
+      "id": "chat-chatdelegation--conflict-radar",
+      "title": "Chat/ChatDelegation",
+      "name": "Conflict radar",
       "type": "story",
       "tags": [
         "autodocs",
@@ -8271,6 +8421,17 @@
       ],
       "importPath": "./src/components/chat/ChatMessage/stories/MessagePatterns.stories.jsx"
     },
+    "chat-message--research-answer": {
+      "id": "chat-message--research-answer",
+      "title": "Chat/ChatMessage",
+      "name": "Research answer",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatMessage/stories/MessagePatterns.stories.jsx"
+    },
     "chat-messagelist--jump-to-latest": {
       "id": "chat-messagelist--jump-to-latest",
       "title": "Chat/ChatMessageList",
@@ -8337,10 +8498,32 @@
       ],
       "importPath": "./src/components/chat/ChatMessageList/stories/MessageListPatterns.stories.jsx"
     },
+    "chat-chatplanpanel--agent-steering": {
+      "id": "chat-chatplanpanel--agent-steering",
+      "title": "Chat/ChatPlanPanel",
+      "name": "Agent steering",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatPlanPanel/stories/ChatPlanPanelPatterns.stories.jsx"
+    },
     "chat-chatsources--research-citations": {
       "id": "chat-chatsources--research-citations",
       "title": "Chat/ChatSources",
       "name": "Research with citations",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/chat/ChatSources/stories/ChatSourcesPatterns.stories.jsx"
+    },
+    "chat-chatsources--linked-answer": {
+      "id": "chat-chatsources--linked-answer",
+      "title": "Chat/ChatSources",
+      "name": "Answer linked to evidence",
       "type": "story",
       "tags": [
         "autodocs",
@@ -10269,6 +10452,17 @@
       "id": "core-flow--payments-inspector",
       "title": "Core/Planning/Flow",
       "name": "Payments pipeline with an inspector",
+      "type": "story",
+      "tags": [
+        "autodocs",
+        "play-fn"
+      ],
+      "importPath": "./src/components/core/Flow/stories/FlowPatterns.stories.jsx"
+    },
+    "core-flow--agent-graph": {
+      "id": "core-flow--agent-graph",
+      "title": "Core/Planning/Flow",
+      "name": "Agent graph",
       "type": "story",
       "tags": [
         "autodocs",

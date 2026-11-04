@@ -149,13 +149,18 @@
       "CharacterCount",
       "ChatActivity",
       "ChatActivityIndicator",
+      "ChatAgentCheckpoints",
+      "ChatAgentFindings",
       "ChatAgentMark",
+      "ChatAgentQueue",
       "ChatAudioPlayer",
       "ChatBubble",
       "ChatBubbleContent",
       "ChatBubbleGroup",
       "ChatBubbleReactions",
+      "ChatCitedAnswer",
       "ChatContextMeter",
+      "ChatContextWindow",
       "ChatEffortSlider",
       "ChatFileExplorer",
       "ChatMessage",
@@ -1739,13 +1744,18 @@
     "@gaudi/design-system/chat": [
       "ChatActivity",
       "ChatActivityIndicator",
+      "ChatAgentCheckpoints",
+      "ChatAgentFindings",
       "ChatAgentMark",
+      "ChatAgentQueue",
       "ChatAudioPlayer",
       "ChatBubble",
       "ChatBubbleContent",
       "ChatBubbleGroup",
       "ChatBubbleReactions",
+      "ChatCitedAnswer",
       "ChatContextMeter",
+      "ChatContextWindow",
       "ChatEffortSlider",
       "ChatFileExplorer",
       "ChatMessage",
@@ -1888,6 +1898,7 @@
       "default"
     ],
     "@gaudi/design-system/chat/ChatSources": [
+      "ChatCitedAnswer",
       "ChatMessageCitation",
       "ChatMessageSource",
       "ChatMessageSources",
@@ -5142,6 +5153,22 @@
     ],
     "@gaudi/design-system/blocks/Hero": [
       "Hero",
+      "default"
+    ],
+    "@gaudi/design-system/chat/ChatAgentFindings": [
+      "ChatAgentFindings",
+      "default"
+    ],
+    "@gaudi/design-system/chat/ChatAgentCheckpoints": [
+      "ChatAgentCheckpoints",
+      "default"
+    ],
+    "@gaudi/design-system/chat/ChatAgentQueue": [
+      "ChatAgentQueue",
+      "default"
+    ],
+    "@gaudi/design-system/chat/ChatContextWindow": [
+      "ChatContextWindow",
       "default"
     ]
   }

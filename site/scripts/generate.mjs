@@ -14,6 +14,7 @@
 //   content/docs/ai/reference.md        the README "AI & agents" section
 //   public/{avatars,static,flags}       demo assets referenced by the fixtures
 //   src/generated/llms.txt              the DS llms.txt (its intro heads the site's /llms.txt route)
+import { agentPanels, agentPatterns } from './agent-patterns.mjs';
 import { cpSync, existsSync, mkdirSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -336,7 +337,7 @@ for (const [dir, sectionPages] of Object.entries(Object.groupBy(pages, (page) =>
   const keys = [...new Set(sectionPages.map((page) => page.component.category))];
   const groups = Object.groupBy(sectionPages, (page) => page.group || '');
   const order = Object.keys(groups).sort((a, b) => (a === 'Basics' ? -1 : b === 'Basics' ? 1 : 0));
-  const entries = []; // index.mdx becomes the folder's own page (shown as "Overview")
+  const entries = dir === 'chat' ? ['agent-patterns', '---Components---'] : []; // index.mdx becomes the folder's own page (shown as "Overview")
   for (const group of order) {
     if (group) entries.push(`---${group}---`);
     entries.push(...groups[group].sort((a, b) => a.component.name.localeCompare(b.component.name)).map((page) => page.slug));
@@ -355,6 +356,32 @@ for (const [dir, sectionPages] of Object.entries(Object.groupBy(pages, (page) =>
 }
 
 // ---------------------------------------------------------------------------------------------
+// Agent discovery is curated separately from runtime ownership. Reuse existing native previews.
+write('content/docs/chat/agent-patterns/meta.json', `${JSON.stringify({ title: 'Agent patterns', pages: agentPatterns.map(item => item.slug) }, null, 2)}\n`);
+write('content/docs/chat/agent-patterns/index.mdx', [
+  '---', 'title: Agent patterns',
+  'description: Reusable panels and complete workflows for agent interfaces.', '---', '',
+  '## Reusable panels', '',
+  'Import these components when you need a panel inside your own application. Supply your data and callbacks; each panel handles presentation and inspection.', '',
+  ...agentPanels.map(item => `- [${item.title}](${item.href}) — ${item.description}`), '',
+  '## Complete workflows', '',
+  'These copyable compositions combine Gaudi components with illustrative application state. Each entry includes a live example and source.', '',
+  ...agentPatterns.map(item => `- [${item.title}](/docs/chat/agent-patterns/${item.slug}) — ${item.description}`), '',
+  'The examples use local simulations. Connect scheduling, persistence, billing, restoration and compaction to your application.', ''
+].join('\n'));
+for (const item of agentPatterns) {
+  const pattern = patterns[item.name];
+  if (!pattern) throw new Error(`Agent pattern is missing: ${item.name}`);
+  const owner = pages.find(page => page.component.owner === pattern.owner);
+  if (!owner) throw new Error(`Agent pattern owner is missing: ${pattern.owner}`);
+  write(`content/docs/chat/agent-patterns/${item.slug}.mdx`, [
+    '---', `title: ${yaml(item.title)}`, `description: ${yaml(item.description)}`, 'full: true', '---', '',
+    `[All agent patterns](/docs/chat/agent-patterns) · [${owner.component.name} API](/docs/${owner.section.dir}/${owner.slug})`, '',
+    '## Example', '', `<Example name=${attr(item.name)} />`, '',
+    'This example uses prepared local data. Its source includes the application state so you can connect the workflow to your own services.', ''
+  ].join('\n'));
+}
+
 // Guides rendered from DS markdown (links rewritten to the repository on GitHub).
 const rewriteLinks = (markdown, base) => markdown.replace(/\]\((?!https?:|#|mailto:)([^)]+)\)/g, (_, target) => {
   const resolved = path.posix.normalize(path.posix.join(base, target));

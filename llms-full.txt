@@ -1629,7 +1629,7 @@ Commander is built on the Command parts it exports: `Command`, `CommandInput`, `
 
 The search field is a combobox that controls a listbox. Arrow keys, Home and End move the selection, Enter runs it, and Escape leaves a sub-page before it closes the launcher. Focus returns to the trigger on close.
 
-Inline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette.
+Inline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette, with one continuous background across the search field, results, and keyboard footer in every theme.
 
 ---
 
@@ -3030,6 +3030,7 @@ The canvas is a labelled region described by a step count, followed by a visuall
 
 Curated patterns:
 
+- Agent graph — registry item `@gaudi/flow-agent-graph` (uses `Button`, `ChatAgentMark`, `ChatMessageToolApproval`, `Flow`, `FlowInspector`, `FlowStatus`, `Toggle`, `useElementSize`)
 - Agent tree with test run — registry item `@gaudi/flow-agent-tree` (uses `Button`, `ButtonGroup`, `ClaudeAiIcon`, `Field`, `FieldError`, `FieldInput`, `FieldLabel`, `Flow`, `FlowPanel`, `FlowProvider`, `FlowStatus`, `Redis`, `RegistryIcon`, `Slack`, `Stripe`, `Supabase`, `ToastProvider`, `Toggle`, `layoutFlow`, `toast`, `useCopyToClipboard`, `useFlowHistory`, `useReactFlow`)
 - Automation workflow editor — registry item `@gaudi/flow-automation-editor` (uses `Alert`, `AlertAction`, `AlertDescription`, `AlertTitle`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `ButtonGroup`, `ContextMenu`, `ContextMenuContent`, `ContextMenuItem`, `ContextMenuSeparator`, `ContextMenuShortcut`, `ContextMenuTrigger`, `DialogConfirmationAction`, `DialogConfirmationCancel`, `DialogConfirmationContent`, `DialogConfirmationDescription`, `DialogConfirmationFooter`, `DialogConfirmationHeader`, `DialogConfirmationRoot`, `DialogConfirmationTitle`, `Field`, `FieldInput`, `FieldLabel`, `Flow`, `FlowPanel`, `FlowProvider`, `FlowStatus`, `KbdGroup`, `KbdRoot`, `RegistryIcon`, `Sheet`, `SheetContent`, `SheetDescription`, `SheetHeader`, `SheetTitle`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `addEdge`, `unreachableNodes`, `useElementSize`, `useFlowHistory`, `useMergedRefs`, `useReactFlow`)
 - Growth impact map — registry item `@gaudi/flow-impact-map` (uses `Badge`, `Button`, `Field`, `FieldDescription`, `FieldError`, `FieldInput`, `FieldLabel`, `Flow`, `FlowPanel`, `FlowProvider`, `FlowStatus`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `RegistryIcon`, `ToastProvider`, `ToggleGroupItem`, `ToggleGroupRoot`, `createsCycle`, `hasEdge`, `layoutFlow`, `toast`, `useFlowHistory`)
@@ -3075,6 +3076,14 @@ Install the `@xyflow/react` peer dependency. Its structural CSS is imported by t
 The canvas is a labelled region described by a step count, followed by a visually hidden list of each step, its status and where it leads. Nodes and edges are focusable: Enter or Space selects, the arrow keys move a selected node with a live announcement, and Delete removes it. Zoom controls, node menus and connector buttons are labelled; connection handles are pointer targets, so the node name and the step list carry their meaning. Every string, including React Flow's keyboard instructions, comes from `labels`.
 
 React Flow has no keyboard way to draw a connection between two handles, so offer a menu action or inspector field for linking, as the impact map example does. Dragging should never be the only way to change the graph.
+
+### Agent graph example
+
+**Agent graph** is a monitoring composition alongside the editable Agent tree. It reuses Flow tile nodes, animated edges and FlowInspector with ChatAgentMark and ChatMessageToolApproval. Three agents, three tools and a person form a network; repeated calls increase a connection's stroke width, while a running request uses Flow's existing directional animation. Reduced motion and the Animate calls toggle stop that motion. Calls are fictional snapshots advanced with Next update, not a live backend.
+
+The example computes positions from its container: below 680px it uses a taller, two-column network at readable text size. It keeps the whole small network visible without pan or zoom. Selecting a member shows its recent incoming and outgoing calls in the shared inspector, which becomes a sheet below 768px. Enter opens a focused node; Escape closes the inspector and restores node focus. Attention buttons provide direct access to failed calls and pending approvals. Status labels and Flow's accessible graph summary carry the same information without relying on motion or colour.
+
+Approve or deny publishing and retry search in the inspector; the next update settles pending calls. Clear network exposes an empty state and Reset restores the initial demo. The displayed costs are prepared per-member values, summed once. Applications own execution, permissions, cost calculation, time windows and persistence. This example introduces no new public graph component or protocol.
 
 ---
 
@@ -4237,7 +4246,7 @@ Exports: `Loader`, `LoaderRoot`, `default`, `loaderVariants`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `variant` | `arc \| dual-arc \| bar \| beat \| bounce \| circle-dots \| clip \| puff \| three-dots \| triangle \| two-dots` | `arc` | no | Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured. |
+| `variant` | `arc \| dual-arc \| bar \| beat \| bounce \| circle-dots \| rays \| clip \| puff \| three-dots \| triangle \| two-dots` | `arc` | no | Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured. |
 | `size` | `xs \| sm \| md \| lg` | `md` | no | 12, 16, 20, or 32px tall. The bar is three times as wide; other variants are square. Shapes keep these dimensions across spacing presets. |
 | `label` | `string` | `Loading` | no | Accessible status label describing the operation. A visible label belongs beside the indicator. |
 | `LoaderRoot` | `component` | `currentColor, sm` | no | Composition primitive with the same variants and sizing. Inherits text color and accepts aria-label rather than label. Loader adds the accent color and md default. |
@@ -4246,7 +4255,7 @@ Exports: `Loader`, `LoaderRoot`, `default`, `loaderVariants`
 
 ## Variants
 
-- `variant`: `arc`, `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `clip`, `puff`, `three-dots`, `triangle`, `two-dots`
+- `variant`: `arc`, `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `rays`, `clip`, `puff`, `three-dots`, `triangle`, `two-dots`
 - `size`: `xs`, `sm`, `md`, `lg`
 
 ## Usage
@@ -4285,7 +4294,7 @@ Curated patterns:
 
 ## README
 
-A named loading status with eleven CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.
+A named loading status with twelve CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.
 
 ```jsx
 import { Loader } from '@gaudi/design-system/core/Loader';
@@ -4293,7 +4302,7 @@ import { Loader } from '@gaudi/design-system/core/Loader';
 <Loader variant='three-dots' size='md' label='Loading articles' />
 ```
 
-- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.
+- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `rays`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.
 - `size`: `xs` 12px, `sm` 16px, `md` 20px (default), or `lg` 32px. The bar is three times as wide as it is tall. Other variants are square. Intrinsic dimensions stay fixed across density presets.
 - `label`: accessible status label, default `Loading`. Describe the active operation and provide visible status text where useful.
 - `className`: use `text-current` to inherit surrounding color or a semantic tone such as `text-text-muted`. Explicit size utilities can override dimensions; preserve the bar's 3:1 ratio.
@@ -9286,6 +9295,7 @@ Exports: `StatCard`, `StatDelta`, `StatIcon`, `StatMeter`, `default`, `statTones
 | `action` | `ReactNode` | — | no | Header slot, usually a menu, range switch or status badge. |
 | `description / footer` | `ReactNode` | — | no | Comparison line and footer text. |
 | `StatMeter.segments` | `Array<{ label, value, tone }>` | `[]` | no | Segmented bar with a legend of values and shares. |
+| `StatMeter.max` | `number` | `sum of segments` | no | Optional capacity leaves unused track; category shares still describe used capacity. |
 | `StatDelta.value` | `string \| number` | — | no | Standalone change badge with explicit presentation and unchanged value. |
 | `direction` | `up \| down \| flat` | — | no | Standalone change badge with explicit presentation and unchanged value. |
 | `tone` | `semantic tone` | `neutral` | no | Standalone change badge with explicit presentation and unchanged value. |
@@ -9331,6 +9341,7 @@ Curated patterns:
 - Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `StatCard`)
 - Support metrics — registry item `@gaudi/stat-card-support` (uses `Badge`, `StatCard`)
 - Team performance — registry item `@gaudi/stat-card-team-performance` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `StatCard`, `StatDelta`)
+- Usage meter — registry item `@gaudi/stat-card-usage-meter` (uses `Badge`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `ProgressRoot`, `Sparkline`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 
 ## Related
 
@@ -9354,6 +9365,10 @@ import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 `valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.
 
 `StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.
+
+`StatMeter.max` optionally sets capacity: the unused portion stays on the neutral track, while legend percentages remain shares of used capacity. If omitted, the segments fill the track. A capacity smaller than the segment total draws a full bar.
+
+The Usage meter pattern composes Card, StatMeter, Progress, Sparkline and shared controls for AI credits, daily usage and plan limits. Its period data, thresholds, reset copy and demo top-up policy live in the fixture; applications own billing and supply their own prepared values. No new billing component or service integration is introduced.
 
 ---
 
@@ -9563,8 +9578,8 @@ Exports: `ChatActivityIndicator`, `activityStates`, `default`
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
 | `state` | `idle \| thinking \| streaming \| tool \| done \| error` | `idle` | no | Current activity. |
-| `variant` | `inline \| badge` | `inline` | no | Inline mark or corner badge. |
-| `showLabel` | `boolean` | `false` | no | Visible label beside the mark. |
+| `variant` | `inline \| badge \| compact` | `inline` | no | Inline mark, corner badge, or neutral thinking chip with a ray spinner and shimmering label. |
+| `showLabel` | `boolean` | `compact: true; otherwise false` | no | Visible label beside the mark. Compact label changes enter gently; reduced motion switches instantly. |
 | `labels` | `object` | — | no | Copy per state, and hiding. |
 | `decorative` | `boolean` | — | no | Copy per state, and hiding. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
@@ -9572,7 +9587,7 @@ Exports: `ChatActivityIndicator`, `activityStates`, `default`
 ## Variants
 
 - `state`: `idle`, `thinking`, `streaming`, `tool`, `done`, `error`
-- `variant`: `inline`, `badge`
+- `variant`: `inline`, `badge`, `compact`
 
 ## Usage
 
@@ -9582,6 +9597,7 @@ import { ChatActivityIndicator } from '@gaudi/design-system/chat';
 <>
 <ChatActivityIndicator state='thinking' showLabel />
 <ChatActivityIndicator state='done' variant='badge' />
+<ChatActivityIndicator state='thinking' variant='compact' />
 </>
 ```
 
@@ -9591,8 +9607,10 @@ A polite status; motion slows to a fade for reduced motion.
 
 ## Examples
 
-- Playground (Storybook `chat-activityindicator--playground`)
-- A reply from thinking to done (Storybook `chat-activityindicator--reply-lifecycle`)
+Curated patterns:
+
+- Playground — registry item `@gaudi/activity-indicator-playground` (uses `ChatActivityIndicator`)
+- A reply from thinking to done — registry item `@gaudi/activity-indicator-reply-lifecycle` (uses `Button`, `ChatActivityIndicator`)
 
 ## README
 
@@ -9605,6 +9623,7 @@ import { ChatActivityIndicator } from '@gaudi/design-system/chat';
 
 <ChatActivityIndicator state='thinking' showLabel />
 <ChatActivityIndicator state='done' variant='badge' />
+<ChatActivityIndicator state='thinking' variant='compact' labels={{ thinking: 'Reading sources' }} />
 ```
 
 ### API
@@ -9612,13 +9631,207 @@ import { ChatActivityIndicator } from '@gaudi/design-system/chat';
 | Prop / part | Contract |
 | --- | --- |
 | `state` | idle, thinking, streaming, tool, done or error (`activityStates`). |
-| `variant` | inline, or badge for the corner of a mark or avatar. |
-| `showLabel` / `labels` | A visible label, and copy per state. |
+| `variant` | inline, badge for the corner of a mark or avatar, or compact for a neutral thinking chip. |
+| `showLabel` / `labels` | Visible by default for compact; hidden by default otherwise. Supply copy per state through labels. |
 | `decorative` | Hides it when nearby text names the state. |
+
+The compact variant reuses Core Loader’s eight-ray spinner and Skeleton’s Shimmer. Labels enter gently when they change; done and error show static icons. Long labels wrap within the available width. The host owns phase progression and completion; no timers or invented activity run inside the component. See the Mini thinking example under ChatReasoning for a prepared reply.
 
 ### Accessibility
 
-A polite status region, so each change is announced once. With reduced motion the dots fade slowly instead of moving; the state never depends on motion or colour alone.
+A polite status region, so each change is announced once. With reduced motion the dots fade slowly instead of moving; the state never depends on motion or colour alone. Compact stops its spinner, shimmer and label travel entirely under reduced motion. Its icon is decorative so the live region announces each label only once.
+
+---
+
+# ChatAgentCheckpoints
+
+> Chat/ChatAgentCheckpoints · chat · `@gaudi/design-system/chat/ChatAgentCheckpoints`
+
+Inspect saved attempts and checkpoints, and request a switch or restore without changing workspace state.
+
+## Import
+
+```js
+import ChatAgentCheckpoints from '@gaudi/design-system/chat/ChatAgentCheckpoints';
+// also: import { … } from '@gaudi/design-system/chat';
+```
+
+Exports: `ChatAgentCheckpoints`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `attempts` | `Attempt[]` | `[]` | no | Ordered { id, label, origin?, disabled?, checkpoints: Checkpoint[] }. Each checkpoint accepts { id, title, detail?, time?, meta?, icon?, statusLabel?, tone?, running?, restoreDisabled? }. IDs are stable, globally unique for checkpoints. Running selects the activity indicator; restoreDisabled independently controls restore availability. |
+| `currentAttemptId / currentId` | `string \| number` | — | no | Controlled current attempt and checkpoint. IDs may be zero. |
+| `activeIds` | `Array<string \| number>` | `[]` | no | Prepared checkpoint IDs to emphasize as the active path. The component does not traverse or modify a run graph. |
+| `onSelectAttempt / onRestore` | `(id) => void` | — | no | Requests to switch an attempt or restore a checkpoint. Omit either callback to hide its action. |
+| `readOnly` | `boolean` | `false` | no | Disable switching and restore requests while keeping history readable. |
+| `summary / emptyState / footer` | `ReactNode` | — | no | Prepared summary, empty-state content and footer actions/status. |
+| `title / description` | `ReactNode` | — | no | Panel heading and supporting text. |
+| `className` | `string` | — | no | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+## Usage
+
+```jsx
+import { ChatAgentCheckpoints } from '@gaudi/design-system/chat/ChatAgentCheckpoints';
+
+<ChatAgentCheckpoints
+  attempts={[{ id: 'first', label: 'Attempt 1', checkpoints: [{ id: 'saved', title: 'Prepared changes', statusLabel: 'Saved' }] }]}
+  currentAttemptId='first' currentId='saved' activeIds={['saved']}
+/>
+```
+
+## Accessibility
+
+Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.
+
+## Examples
+
+Curated patterns:
+
+- Agent checkpoints — registry item `@gaudi/message-scroller-agent-checkpoints` (uses `Button`, `ChatAgentCheckpoints`, `RegistryIcon`, `ToggleGroupItem`, `ToggleGroupRoot`)
+
+## README
+
+Inspect saved attempts and checkpoints, and request a switch or restore without changing workspace state.
+
+### Usage
+
+```jsx
+import { ChatAgentCheckpoints } from '@gaudi/design-system/chat/ChatAgentCheckpoints';
+
+<ChatAgentCheckpoints
+  attempts={[{ id: 'first', label: 'Attempt 1', checkpoints: [{ id: 'saved', title: 'Prepared changes', statusLabel: 'Saved' }] }]}
+  currentAttemptId='first' currentId='saved' activeIds={['saved']}
+/>
+```
+
+### API
+
+| Prop | Contract |
+| --- | --- |
+| `attempts` | Ordered { id, label, origin?, disabled?, checkpoints: Checkpoint[] }. IDs are stable, globally unique for checkpoints. |
+| `currentAttemptId / currentId` | Controlled current attempt and checkpoint. IDs may be zero. |
+| `activeIds` | Prepared checkpoint IDs to emphasize as the active path. The component does not traverse or modify a run graph. |
+| `onSelectAttempt / onRestore` | `(attemptId) => void` requests an attempt switch; `(checkpointId) => void` requests a restore. Omit either callback to hide its action. |
+| `readOnly` | Disable switching and restore requests while keeping history readable. |
+| `summary / emptyState / footer` | Prepared summary, empty-state content and footer actions/status. |
+| `title / description` | Panel heading and supporting text. |
+| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+Checkpoints accept `{ id, title, detail?, time?, meta?, icon?, statusLabel?, tone?, running?, restoreDisabled? }`. `running` selects the shared activity indicator. The application supplies availability through `restoreDisabled`; running status alone does not decide restore policy.
+
+### Ownership and accessibility
+
+Gaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.
+
+The panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.
+
+### Example
+
+The [copyable demo](stories/fixtures/agent-checkpoints/message-scroller-agent-checkpoints.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.
+
+Interaction inspiration: [AffectUI](https://www.affectui.com/components/agent-checkpoints). Implemented independently using Gaudi primitives.
+
+---
+
+# ChatAgentFindings
+
+> Chat/ChatAgentFindings · chat · `@gaudi/design-system/chat/ChatAgentFindings`
+
+Filter prepared findings by agent and severity, inspect evidence and request review changes.
+
+## Import
+
+```js
+import ChatAgentFindings from '@gaudi/design-system/chat/ChatAgentFindings';
+// also: import { … } from '@gaudi/design-system/chat';
+```
+
+Exports: `ChatAgentFindings`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `agents` | `Agent[]` | `[]` | no | Prepared rows: { id, name, icon?, detail?, value?, max?, statusLabel?, tone? }. Progress appears only with a finite nonnegative value and finite positive max; zero progress is preserved. Progress values and status text come from the host. |
+| `findings` | `Finding[]` | `[]` | no | Ordered findings: { id, agent, severity, title, location?, time?, evidence?, recommendation? }. Agent and severity refer to supplied IDs; no severity is inferred. |
+| `severities` | `Severity[]` | `[]` | no | Filter options: { id, label, tone? }. IDs are case-sensitive; __all is reserved for the all-severities option. |
+| `reviewedIds` | `string[]` | `[]` | no | Controlled list of reviewed finding IDs. |
+| `onReviewedChange` | `(id, reviewed) => void` | — | no | Request a review change. Omit for display-only review state; persistence belongs to the host. |
+| `readOnly` | `boolean` | `false` | no | Disable review actions while leaving filtering and evidence inspection available. |
+| `summary / emptyState / footer` | `ReactNode` | — | no | Prepared progress summary, empty content and footer controls/status. Filters and evidence disclosure are local UI state. |
+| `title / description` | `ReactNode` | — | no | Panel heading and supporting text. |
+| `className` | `string` | — | no | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+## Usage
+
+```jsx
+import { ChatAgentFindings } from '@gaudi/design-system/chat/ChatAgentFindings';
+
+<ChatAgentFindings
+  agents={[{ id: 'reviewer', name: 'Reviewer', statusLabel: 'Done' }]}
+  severities={[{ id: 'warning', label: 'Warning', tone: 'warning-light' }]}
+  findings={[{ id: 'retry', agent: 'reviewer', severity: 'warning', title: 'Retry creates a duplicate', evidence: 'The same request created two records.' }]}
+/>
+```
+
+## Accessibility
+
+Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.
+
+## Examples
+
+Curated patterns:
+
+- Agent findings — registry item `@gaudi/chat-delegation-agent-findings` (uses `Button`, `ChatAgentFindings`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `ToggleGroupItem`, `ToggleGroupRoot`)
+
+## Related
+
+`core-progress`
+
+## README
+
+Filter prepared findings by agent and severity, inspect evidence and request review changes.
+
+### Usage
+
+```jsx
+import { ChatAgentFindings } from '@gaudi/design-system/chat/ChatAgentFindings';
+
+<ChatAgentFindings
+  agents={[{ id: 'reviewer', name: 'Reviewer', statusLabel: 'Done' }]}
+  severities={[{ id: 'warning', label: 'Warning', tone: 'warning-light' }]}
+  findings={[{ id: 'retry', agent: 'reviewer', severity: 'warning', title: 'Retry creates a duplicate', evidence: 'The same request created two records.' }]}
+/>
+```
+
+### API
+
+| Prop | Contract |
+| --- | --- |
+| `agents` | Prepared rows: { id, name, icon?, detail?, value?, max?, statusLabel?, tone? }. Progress appears only with a finite nonnegative `value` and finite positive `max`; zero progress is preserved. Progress values and status text come from the host. |
+| `findings` | Ordered findings: { id, agent, severity, title, location?, time?, evidence?, recommendation? }. Agent and severity refer to supplied IDs; no severity is inferred. |
+| `severities` | Filter options: { id, label, tone? }. IDs are case-sensitive; __all is reserved for the all-severities option. |
+| `reviewedIds` | Controlled list of reviewed finding IDs. |
+| `onReviewedChange` | `(findingId, reviewed) => void` requests a review change. Omit for display-only review state; persistence belongs to the host. |
+| `readOnly` | Disable review actions while leaving filtering and evidence inspection available. |
+| `summary / emptyState / footer` | Prepared progress summary, empty content and footer controls/status. Filters and evidence disclosure are local UI state. |
+| `title / description` | Panel heading and supporting text. |
+| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+### Ownership and accessibility
+
+Gaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.
+
+The panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.
+
+### Example
+
+The [copyable demo](stories/fixtures/agent-findings/chat-delegation-agent-findings.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.
+
+Interaction inspiration: [AffectUI](https://www.affectui.com/components/agent-findings). Implemented independently using Gaudi primitives.
 
 ---
 
@@ -9723,6 +9936,103 @@ The mark is `role="img"` with the agent’s name unless `decorative`. Its badge 
 
 ---
 
+# ChatAgentQueue
+
+> Chat/ChatAgentQueue · chat · `@gaudi/design-system/chat/ChatAgentQueue`
+
+Inspect waiting work, worker assignments and recent results, and request host-defined job actions.
+
+## Import
+
+```js
+import ChatAgentQueue from '@gaudi/design-system/chat/ChatAgentQueue';
+// also: import { … } from '@gaudi/design-system/chat';
+```
+
+Exports: `ChatAgentQueue`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `waiting / recent` | `Job[]` | `[]` | no | Prepared ordered jobs: { id, name, icon?, kind?, meta?, detail?, description?, error?, progress?, priority?, actions?: { id, label, disabled? }[] }. No sorting, truncation or action policy is inferred. |
+| `workers` | `Worker[]` | `[]` | no | Prepared { id, name, icon?, statusLabel?, tone?, description?, job?: Job }. The host assigns jobs to workers. |
+| `summary` | `Array<{ id, label, value }>` | — | no | Prepared summary cells; zero and supplied formatting are preserved. |
+| `onJobAction` | `(jobId, actionId) => void` | — | no | Requested job action. Only supplied actions render; no callback means no mutation controls. |
+| `onInspectJob` | `(jobId) => void` | — | no | Called when opening a job, for example to pause a demo. |
+| `actionFocusRef` | `React.RefObject` | — | no | Focus destination after a job action may remove its trigger. Defaults to the panel. |
+| `toolbar / notice / children / footer` | `ReactNode` | — | no | Host controls, status, optional chart/content and footer. Charts remain optional composition; no chart dependency is imported. |
+| `workersDescription / resultsDescription` | `ReactNode` | — | no | Prepared explanations below worker and result groups. |
+| `title / description` | `ReactNode` | — | no | Panel heading and supporting text. |
+| `className` | `string` | — | no | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+## Usage
+
+```jsx
+import { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';
+
+<ChatAgentQueue
+  waiting={[{ id: 'review', name: 'Review the draft', kind: 'Review task', meta: 'Waiting' }]}
+  workers={[{ id: 'editor', name: 'Editor', statusLabel: 'Idle' }]}
+/>
+```
+
+## Accessibility
+
+Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.
+
+## Examples
+
+Curated patterns:
+
+- Agent queue — registry item `@gaudi/chat-delegation-agent-queue` (uses `AreaChart`, `Badge`, `Button`, `ChatAgentQueue`, `RegistryIcon`)
+
+## README
+
+Inspect waiting work, worker assignments and recent results, and request host-defined job actions.
+
+### Usage
+
+```jsx
+import { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';
+
+<ChatAgentQueue
+  waiting={[{ id: 'review', name: 'Review the draft', kind: 'Review task', meta: 'Waiting' }]}
+  workers={[{ id: 'editor', name: 'Editor', statusLabel: 'Idle' }]}
+/>
+```
+
+### API
+
+| Prop | Contract |
+| --- | --- |
+| `waiting / recent` | Prepared ordered jobs: { id, name, icon?, kind?, meta?, detail?, description?, error?, progress?, priority?, actions?: { id, label, disabled? }[] }. No sorting, truncation or action policy is inferred. |
+| `workers` | Prepared { id, name, icon?, statusLabel?, tone?, description?, job?: Job }. The host assigns jobs to workers. |
+| `summary` | Prepared summary cells; zero and supplied formatting are preserved. |
+| `onJobAction` | `(jobId, actionId) => void` requests a job action. Only supplied actions render; no callback means no mutation controls. |
+| `onInspectJob` | `(jobId) => void` runs when opening a job, for example to pause a demo. |
+| `actionFocusRef` | Focus destination after a job action may remove its trigger. Defaults to the panel. |
+| `toolbar / notice / children / footer` | Host controls, status, optional chart/content and footer. Charts remain optional composition; no chart dependency is imported. |
+| `workersDescription / resultsDescription` | Prepared explanations below worker and result groups. |
+| `title / description` | Panel heading and supporting text. |
+| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+Opening a job calls `onInspectJob`. Escape or Close returns focus to its trigger. Activating a supplied action closes the disclosure and focuses `actionFocusRef` or the panel, so a removed job does not strand focus. Job actions must be authorized and applied by the host; the panel never changes queue order, creates retries, assigns workers, or trims history.
+
+### Ownership and accessibility
+
+Gaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.
+
+The panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.
+
+### Example
+
+The [copyable demo](stories/fixtures/agent-queue/chat-delegation-agent-queue.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.
+
+Interaction inspiration: [AffectUI](https://www.affectui.com/components/agent-queue). Implemented independently using Gaudi primitives.
+
+---
+
 # ChatBubble
 
 > Chat/ChatBubble · chat · `@gaudi/design-system/chat/ChatBubble`
@@ -9810,6 +10120,105 @@ Label reactions with `role="img"` and an `aria-label` such as "3 party popper re
 
 ---
 
+# ChatContextWindow
+
+> Chat/ChatContextWindow · chat · `@gaudi/design-system/chat/ChatContextWindow`
+
+Inspect prepared context capacity, highlight categories and request file removal alongside host-owned compaction controls.
+
+## Import
+
+```js
+import ChatContextWindow from '@gaudi/design-system/chat/ChatContextWindow';
+// also: import { … } from '@gaudi/design-system/chat';
+```
+
+Exports: `ChatContextWindow`, `default`
+
+## Props
+
+| Name | Type | Default | Required | Description |
+| --- | --- | --- | --- | --- |
+| `usedTokens / maxTokens` | `number` | `0` | no | Prepared totals. Zero capacity displays 0% and an empty decorative cell map; totals are not inferred from files. |
+| `parts` | `ContextPart[]` | `[]` | no | Ordered { id, label, tokens, color?, detail?, busy?, files?: { id, name, tokens, disabled? }[], actions?: ReactNode }. Color accepts a Gaudi token value. Busy animates only that part, respecting reduced motion. |
+| `onRemoveFile` | `(fileId, partId) => void` | — | no | Request removal. Omit to hide remove controls. Returns focus to that category disclosure; no file is deleted. |
+| `disabled` | `boolean` | `false` | no | Disable file removal while retaining category inspection. Host-provided action slots manage their own disabled state. |
+| `tone` | `accent \| warning \| danger` | `accent` | no | Host-supplied capacity tone; the component does not choose thresholds. |
+| `formatTokens / formatPercentage` | `(number) => string` | `Intl.NumberFormat / one decimal` | no | Format counts and percentages. Percentage formatter returns the number without the percent sign. |
+| `hint / footer` | `ReactNode` | — | no | Default category guidance and host-owned status/actions. Hover, focus and persistent category selection are local UI state. |
+| `title / description` | `ReactNode` | — | no | Panel heading and supporting text. |
+| `className` | `string` | — | no | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+## Variants
+
+- `tone`: `accent`, `warning`, `danger`
+
+## Usage
+
+```jsx
+import { ChatContextWindow } from '@gaudi/design-system/chat/ChatContextWindow';
+
+<ChatContextWindow
+  usedTokens={1200} maxTokens={8000}
+  parts={[{ id: 'instructions', label: 'Instructions', tokens: 1200, color: 'var(--ds-color-chart-1)', detail: 'Prepared system instructions.' }]}
+/>
+```
+
+## Accessibility
+
+Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.
+
+## Examples
+
+Curated patterns:
+
+- Context window — registry item `@gaudi/prompt-composer-context-window` (uses `Button`, `ChatContextMeter`, `ChatContextWindow`, `ChatPromptComposer`, `Checkbox`)
+
+## README
+
+Inspect prepared context capacity, highlight categories and request file removal alongside host-owned compaction controls.
+
+### Usage
+
+```jsx
+import { ChatContextWindow } from '@gaudi/design-system/chat/ChatContextWindow';
+
+<ChatContextWindow
+  usedTokens={1200} maxTokens={8000}
+  parts={[{ id: 'instructions', label: 'Instructions', tokens: 1200, color: 'var(--ds-color-chart-1)', detail: 'Prepared system instructions.' }]}
+/>
+```
+
+### API
+
+| Prop | Contract |
+| --- | --- |
+| `usedTokens / maxTokens` | Prepared totals. Zero capacity displays 0% and an empty decorative cell map; totals are not inferred from files. |
+| `parts` | Ordered { id, label, tokens, color?, detail?, busy?, files?: { id, name, tokens, disabled? }[], actions?: ReactNode }. Color accepts a Gaudi token value. Busy animates only that part, respecting reduced motion. |
+| `onRemoveFile` | `(fileId, partId) => void` requests removal. Omit to hide remove controls. Returns focus to that category disclosure; no file is deleted. |
+| `disabled` | Disable file removal while retaining category inspection. Host-provided action slots manage their own disabled state. |
+| `tone` | Host-supplied capacity tone; the component does not choose thresholds. |
+| `formatTokens / formatPercentage` | Format counts and percentages. Percentage formatter returns the number without the percent sign. |
+| `hint / footer` | Default category guidance and host-owned status/actions. Hover, focus and persistent category selection are local UI state. |
+| `title / description` | Panel heading and supporting text. |
+| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |
+
+The 100 cells are a decorative approximation of capacity; the exact accessible counts remain in the category list. File categories disclose their own prepared files. Keyboard focus and pointer hover temporarily highlight a category; toggle activation keeps a selection. File removal returns focus to that category trigger. `ChatContextMeter` remains available from `ChatInput` for the compact composer trigger; pass the same prepared totals to both components.
+
+### Ownership and accessibility
+
+Gaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.
+
+The panel fills its container and wraps controls on narrow screens. File lists expand within their category disclosure; the consuming layout owns any height limit or scrolling region. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.
+
+### Example
+
+The [copyable demo](stories/fixtures/context-window/prompt-composer-context-window.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.
+
+Interaction inspiration: [AffectUI](https://www.affectui.com/components/context-window). Implemented independently using Gaudi primitives.
+
+---
+
 # ChatDelegation
 
 > Chat/ChatDelegation · chat · `@gaudi/design-system/chat/ChatDelegation`
@@ -9859,7 +10268,10 @@ The status is named in text, not colour alone.
 
 Curated patterns:
 
+- Agent fleet — registry item `@gaudi/chat-delegation-agent-fleet` (uses `AccordionContent`, `AccordionItem`, `AccordionRoot`, `AccordionTrigger`, `Badge`, `Button`, `ChatAgentMark`, `ChatMessageToolApproval`, `ChatPlan`, `DialogContent`, `DialogDescription`, `DialogFooter`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `ProgressRoot`, `Tree`, `TreeItem`, `TreeItemLabel`)
 - Handing work to another agent — registry item `@gaudi/chat-delegation-agent-handoff` (uses `Button`, `ChatAgentMark`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`, `RegistryIcon`)
+- Conflict radar — registry item `@gaudi/chat-delegation-conflict-radar` (uses `Badge`, `Button`, `ChatAgentMark`, `DataTable`, `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyTitle`, `RadioGroup`, `RegistryIcon`)
+- Agent handoff relay — registry item `@gaudi/chat-delegation-handoff-relay` (uses `Badge`, `Button`, `ChatAgentMark`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `RegistryIcon`)
 
 ## README
 
@@ -9887,6 +10299,40 @@ import { ChatMessageDelegation, ChatMessageTool } from '@gaudi/design-system/cha
 ### Accessibility
 
 The card names the agent and its status in text; the status does not rely on colour.
+
+### Agent handoff relay example
+
+The **Agent handoff relay** example follows one fictional article through Researcher, Writer and Reviewer. It composes ChatAgentMark with Core Button, Badge and Collapsible. The two transfers show what reached the next agent and identify a safety note omitted from the Writer’s handoff. The example opens with Reviewer waiting for that note. Expand or collapse transfers, restore the note, then finish the review. Reset replays the sequence from an empty handoff history; a simulated disconnect preserves context and provides retry.
+
+The relay uses three columns in containers at least 56rem wide and stacks in reading order below that width. Status labels and the missing-item explanation remain visible without hover. Enter and Space operate disclosures and actions, and a polite status announces progress and recovery. Restoring context keeps its action mounted so keyboard focus is preserved.
+
+All data and workflow decisions belong to the example. Applications provide transfers, missing-item reasons, restoration callbacks and execution policy. This adds no public handoff component or agent service. The simpler **Handing work to another agent** example remains available for one delegation and its tool calls.
+
+### Agent findings example
+
+This panel now belongs to [ChatAgentFindings](../ChatAgentFindings/README.md), with a public import and its own examples. ChatDelegation keeps its existing API.
+
+### Agent queue example
+
+This panel now belongs to [ChatAgentQueue](../ChatAgentQueue/README.md), with a public import and its own examples. ChatDelegation keeps its existing API.
+
+### Agent fleet example
+
+The **Agent fleet** example composes Core Accordion, Tree, Dialog, Progress, Badge and Button with ChatAgentMark, ChatPlan and ChatMessageToolApproval. One lead's branch is open at a time. Wide containers place the tree beside the leads; containers narrower than 52rem place it beneath the selected lead. Every lead can be folded. Nested teams expand in the shared keyboard tree; leaf agents open task details in a dialog.
+
+Approving or denying access, retrying or dismissing a failure, finishing the run and resetting all update local fictional data. The demo sums each agent's own cost once; branch totals include the lead and all descendants. Applications supply real costs, execution state, permissions, task data and persistence. This is a copyable workflow composition, not another public agent component.
+
+Use the accordion's arrow keys and Home/End to move between leads, and Enter/Space to toggle. The tree supports arrow navigation and Enter/Space to open a leaf's tasks. Escape closes task details and returns focus to the originating agent. Updates use a polite announcement; statuses have text labels, and empty and completed states retain useful controls.
+
+### Conflict radar example
+
+**Conflict radar** composes Core DataTable, RadioGroup, Button, Badge and EmptyState with ChatAgentMark. A file-by-agent matrix shows prepared edit ranges and distinguishes overlaps from independent edits, including two agents touching separate ranges of one file. Bars locate a range within its file; text names each range and state. Select an overlapping file in the table or the comparison controls, then choose one agent’s approach. The explanation names what that choice preserves and omits; it does not imply an automatic combination of changes.
+
+Two local updates finish the agents. Merge demo changes remains disabled until both conflicts have choices and all three agents have finished. Disconnecting Delivery retains edits and choices but blocks merging; Retry connection restores the prior progress. Clear choice reopens a conflict and returns focus to its first approach. A completed merge retains the comparison and disables resolution changes. Empty snapshot and Reset demo exercise the empty and initial states, restoring focus to the surviving Reset control.
+
+The matrix keeps a readable minimum width of 44rem and scrolls inside DataTable’s labelled keyboard-accessible region on narrow containers. Full file paths and agent names remain available. Comparison controls wrap below the matrix; radio groups use the shared arrow-key behavior. A polite status announces selections, recovery and simulated completion. The example caps at 64rem and follows the shared spacing presets and light/dark tokens.
+
+All file paths, branches, edits, overlap flags, resolution policy and progress are fictional fixture data. Applications own conflict detection, permissions, live update invalidation, Git operations and persistence. This example adds no public conflict engine or service integration and never reads or changes a repository.
 
 ---
 
@@ -10391,6 +10837,10 @@ Storybook’s **Assistant composer** example provides independent left/right con
 
 The **Mixed attachments: compact media pills** story shows image, PDF, audio, video and link attachments, removal, reset and submission. `onSubmit` receives the same attachment objects in its second argument; `onRemoveAttachment(id)` keeps the tray controlled by the host.
 
+#### Queued messages
+
+`ChatPromptQueue` adapts to its own container width. Below 26rem, row actions sit beneath the message; at 26rem and above, they sit alongside it. Message text wraps within the available space. Edit, send-now and remove controls appear only when their callbacks are supplied; a read-only queue has no empty action group.
+
 ### API
 
 | Prop / part | Contract |
@@ -10409,7 +10859,7 @@ The **Mixed attachments: compact media pills** story shows image, PDF, audio, vi
 
 #### Context data ownership
 
-The meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message.
+The meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message. The meter isolates its formatted percentage, token summary and model label so mixed-direction text retains its order in RTL interfaces.
 
 The previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` props and exported `estimateChatCost`, `chatModels` and `chatModelProviders` are removed. Move model/provider metadata and any billing calculation into the application. The Assistant composer story retains an illustrative catalogue and billing calculation in `stories/fixtures`.
 
@@ -10418,6 +10868,10 @@ The previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` pr
 The prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.
 
 The model trigger names the current model. Searchable pickers and pickers with footer content use a dialog; searchable ones include a labelled search combobox. Without search, focus starts in the model list: arrow keys move and Enter selects, while Tab reaches the footer controls. Escape closes and returns focus to the trigger. Simple pickers without search or a footer retain menu keyboard behavior; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.
+
+### Context window example
+
+This panel now belongs to [ChatContextWindow](../ChatContextWindow/README.md), with a public import and its own examples. ChatInput keeps its existing API.
 
 ---
 
@@ -10475,6 +10929,7 @@ Curated patterns:
 - Error, retry and suggestions — registry item `@gaudi/chat-error-retry-suggestions` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`)
 - Delivered files and data — registry item `@gaudi/chat-file-delivered-files` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
 - Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`, `usePrefersReducedMotion`)
+- Research answer — registry item `@gaudi/message-research-answer` (uses `Button`, `ChatAgentMark`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageMarkdown`, `Item`, `ItemContent`, `ItemDescription`, `ItemTitle`, `LoaderRoot`, `Popover`, `PopoverContent`, `PopoverTrigger`, `RegistryIcon`, `usePrefersReducedMotion`)
 - Team conversation — registry item `@gaudi/message-team-conversation` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFooter`, `ChatMessageGroup`, `ChatMessageHeader`, `RegistryIcon`)
 
 ## Related
@@ -10498,6 +10953,10 @@ import { ChatBubble, ChatBubbleContent, ChatMessage, ChatMessageAvatar, ChatMess
   </ChatMessageContent>
 </ChatMessage>
 ```
+
+### Composed answers
+
+The Research answer story composes `ChatMessageMarkdown`, citation previews, Core `Popover` source records, and `ChatMessageFeedback` within the message content. It opens with a complete answer; regenerate demonstrates streaming, and follow-up controls select prepared answers. Its incident records are fictional and local. Applications supply their own sources, generation, and persistence.
 
 ### API
 
@@ -10645,6 +11104,8 @@ Add `ChatMessageFeedback` under a finished reply for copy, rating and regenerate
 
 #### Delivered files
 
+Consecutive file parts share a row of consistently sized attachments. The row wraps as its container narrows; text and other parts between files keep their original position in the reply.
+
 File parts reuse Core `AttachmentMedia`: supply `mediaType` (or `fileType`) for the MIME type, `previewUrl` for an explicit image or poster thumbnail, and `kind: 'link'` for a link icon. Without a preview, the shared media renderer chooses the file-type icon; failed thumbnails fall back to that icon. The file name remains visible beside the decorative media.
 
 `onFileAction(action, part)` receives the original part for preview and host-managed download actions. An explicit `href` provides the download link instead. The host owns file retrieval and preview dialogs. When adapting upload metadata, preserve its MIME type before setting the part discriminator:
@@ -10660,13 +11121,7 @@ See **Chat / ChatMessage / Mixed attachments** for images, audio, video, documen
 
 #### Checkpoints
 
-A checkpoint sits between turns, outside `ChatMessageParts`, so the host decides where restore points fall and what restoring undoes.
-
-```jsx
-import { ChatMessageCheckpoint } from '@gaudi/design-system/chat';
-
-<ChatMessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />
-```
+This panel now belongs to [ChatAgentCheckpoints](../ChatAgentCheckpoints/README.md), with a public import and its own examples. ChatMessageList keeps its existing API.
 
 #### Markdown
 
@@ -10837,7 +11292,8 @@ Exports: `ChatPlan`, `default`
 | --- | --- | --- | --- | --- |
 | `title` | `string` | `Plan` | no | Header. |
 | `defaultOpen` | `boolean` | `true` | no | Initial disclosure. |
-| `steps` | `Array<{ id, title, status, description?, owner?, todos? }>` | `[]` | no | Plan steps with the shared statuses. |
+| `steps` | `Array<{ id, title, status, description?, owner?, todos?, notes? }>` | `[]` | no | Plan steps with the shared statuses; notes are prepared { id, text, label? } entries. |
+| `labels` | `object` | — | no | Progress and status copy, owner and current-step labels, and notes list name. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage
@@ -10853,12 +11309,20 @@ import { ChatPlan } from '@gaudi/design-system/chat';
 
 ## Accessibility
 
-The header reads the count of finished steps.
+The header reads the count of finished steps. Steps and notes form named lists; the first running step, or first awaiting step when none is running, exposes aria-current="step".
 
 ## Examples
 
 - Playground (Storybook `chat-chatplanpanel--playground`)
 - Plan in progress (Storybook `chat-chatplanpanel--plan-in-progress`)
+
+Curated patterns:
+
+- Agent steering — registry item `@gaudi/plan-agent-steering` (uses `Badge`, `Button`, `ChatAgentMark`, `ChatPlan`, `ChatPromptQueue`, `RegistryIcon`, `Textarea`)
+
+## Related
+
+`core-progress`
 
 ## README
 
@@ -10879,13 +11343,22 @@ import { ChatPlan } from '@gaudi/design-system/chat';
 
 | Prop / part | Contract |
 | --- | --- |
-| `steps` | `{ id, title, status, description?, owner?, todos? }` with the shared statuses. |
+| `steps` | `{ id, title, status, description?, owner?, todos?, notes? }` with the shared statuses. |
+| `steps[].notes` | Prepared `{ id, text, label? }` notes attached to that step; stable IDs identify notes and labels describe their provenance. |
 | `title` / `defaultOpen` | Header and initial disclosure. |
-| `labels` | Copy for the count and statuses. |
+| `labels` | `progress(done, total)` formats the count; `status` supplies status copy, `owner` and `now` label the owner and current step, and `notes` names each step’s note list. |
 
 ### Accessibility
 
-The header is a disclosure that reads the count ("2 of 4 done"); the progress bar has a label and value text.
+The header is a disclosure that reads the count ("2 of 4 done"); the progress bar has a label and value text. Steps form a named list, the first running step (or first awaiting step when none is running) exposes `aria-current="step"`, and notes form a nested list named by `labels.notes` (default: “Step notes”). The progress count is directionally isolated for mixed-direction text.
+
+### Agent steering example
+
+The **Agent steering** example composes ChatPlan, ChatPromptQueue, ChatAgentMark, Textarea, Button and Badge. Queue an instruction for the next step, edit or remove a queued note, or apply it immediately to the active step. Notes retain their IDs when moved from the queue into the plan, with a prepared label recording when they were applied. Earlier instructions stay visible after the run finishes.
+
+Enter queues, Ctrl/Cmd+Enter applies immediately, Shift+Enter inserts a newline, and Escape clears the draft. These shortcuts ignore IME composition. Pause prevents advancing and applying immediately while still allowing queued edits. At the final step there is no next-step queue; apply or clear a draft before finishing. Focus returns to the composer when a queued action removes its button. Reset restores the fictional starting state.
+
+The example uses a fluid single column up to 42rem; action groups wrap on small containers. Updates are announced politely. The example owns its local state and scheduling rules; applications decide when notes are acknowledged, what a step does and how to persist a run. ChatPlan only displays supplied notes and does not orchestrate an agent or infer instruction labels.
 
 ---
 
@@ -10955,10 +11428,13 @@ The trail and each detailed step are disclosure buttons with aria-expanded; step
 
 ## Examples
 
-- Playground (Storybook `chat-chatreasoning--playground`)
-- Thinking, then the answer (Storybook `chat-chatreasoning--thinking-then-answer`)
-- Agent run (Storybook `chat-chatreasoning--agent-run`)
-- AI message with steps (Storybook `chat-chatreasoning--ai-message-with-steps`)
+Curated patterns:
+
+- Agent run — registry item `@gaudi/reasoning-agent-run` (uses `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageCheckpoint`, `ChatMessageContent`, `ChatMessageData`, `ChatMessageHeader`, `ChatMessageMarkdown`, `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReasoningResults`, `ChatMessageReasoningStep`, `ChatMessageToolApproval`)
+- AI message with steps — registry item `@gaudi/reasoning-ai-message-with-steps` (uses `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageMarkdown`, `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReasoningResults`, `ChatMessageReasoningStep`)
+- Mini thinking — registry item `@gaudi/reasoning-mini-thinking` (uses `Button`, `ChatActivityIndicator`, `ChatMessageReasoning`)
+- Playground — registry item `@gaudi/reasoning-playground` (uses `ChatMessageReasoning`, `ChatMessageReasoningStep`)
+- Thinking, then the answer — registry item `@gaudi/reasoning-thinking-then-answer` (uses `Button`, `ChatMessageReasoning`)
 
 ## Related
 
@@ -11006,6 +11482,8 @@ import { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningRe
 ### Accessibility
 
 The trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label ("Searched the web, Done"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.
+
+For a short wait before the first answer, compose `ChatActivityIndicator` with `variant="compact"`. The Mini thinking example shows a small ray spinner and changing labels, then exposes the detailed reasoning after the prepared reply. The compact status belongs to ChatActivityIndicator; ChatReasoning continues to own the expandable explanation.
 
 ---
 
@@ -11141,7 +11619,7 @@ import ChatSources from '@gaudi/design-system/chat/ChatSources';
 // also: import { … } from '@gaudi/design-system/chat';
 ```
 
-Exports: `ChatMessageCitation`, `ChatMessageSource`, `ChatMessageSources`, `default`
+Exports: `ChatCitedAnswer`, `ChatMessageCitation`, `ChatMessageSource`, `ChatMessageSources`, `default`
 
 ## Props
 
@@ -11154,6 +11632,12 @@ Exports: `ChatMessageCitation`, `ChatMessageSource`, `ChatMessageSources`, `defa
 | `source` | `source` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
 | `sources` | `source[]` | — | no | Inline numbered pill; several sources page through a carousel in the card. |
 | `ChatMessageCitation.labels` | `{ trigger, carousel, position, previous, next }` | `English copy` | no | Names for the pill, the carousel and its controls. |
+| `ChatCitedAnswer.segments` | `segments[]` | `[]` | no | Stable segment IDs, text, sourceIds and optional paragraph breaks; sources add required IDs, prepared date and exact quote highlights. |
+| `sources` | `sources[]` | `[]` | no | Stable segment IDs, text, sourceIds and optional paragraph breaks; sources add required IDs, prepared date and exact quote highlights. |
+| `ChatCitedAnswer.openSourceId` | `string \| null` | `uncontrolled` | no | One inline source passage, controlled or uncontrolled. |
+| `defaultOpenSourceId` | `string \| null` | `null` | no | One inline source passage, controlled or uncontrolled. |
+| `onOpenSourceChange` | `callback` | — | no | One inline source passage, controlled or uncontrolled. |
+| `ChatCitedAnswer.labels` | `object` | `English copy` | no | Answer, sources, preview, close, copy, copied, copyFailed, open, hint, trigger and selected labels. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
 ## Usage
@@ -11176,6 +11660,7 @@ Citations are buttons named “Source n: title”. The card opens on hover witho
 
 ## Notes
 
+- Answer linked to evidence uses ChatCitedAnswer to connect passages to sources, with hover/focus emphasis, an inline quote disclosure, copy feedback and Escape focus return. Prepared source content and retrieval remain application-owned.
 - See Cited answer on this page for grouped citations [1, 3] beside a SchemaDisplay tool result.
 
 ## Examples
@@ -11185,6 +11670,7 @@ Citations are buttons named “Source n: title”. The card opens on hover witho
 
 Curated patterns:
 
+- Answer linked to evidence — registry item `@gaudi/chat-sources-linked-answer` (uses `ChatAgentMark`, `ChatCitedAnswer`, `ChatMessage`, `ChatMessageContent`, `ChatMessageHeader`)
 - Research with citations — registry item `@gaudi/chat-sources-research-citations` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
 
 ## Related
@@ -11221,6 +11707,29 @@ In `ChatMessageMarkdown` and `ChatMessageParts`, `[1]` cites one source and `[1,
 ### Accessibility
 
 Each citation is a button named "Source 1: title" (", and 2 more" when grouped). The card opens on hover for a mouse without taking focus, and on click, tap, Enter or Space with focus inside; Escape closes it. The carousel pages with the arrow keys, its buttons or a swipe, and announces "2 of 3". Links leave the page with clear names.
+
+### Answer linked to evidence
+
+`ChatCitedAnswer` connects a finished answer to prepared source passages. Citation buttons and source chips highlight every segment citing that source on hover or focus. Activation opens one inline source region. Existing `ChatMessageCitation` popovers remain useful for lightweight citations and grouped sources.
+
+```jsx
+import { ChatCitedAnswer } from '@gaudi/design-system/chat/ChatSources';
+
+<ChatCitedAnswer
+  segments={[{ id: 'claim', text: 'Lead with a practical example. ', sourceIds: ['notes'] }]}
+  sources={[{
+    id: 'notes', title: 'Reader notes', site: 'Editorial research', kind: 'document',
+    quote: 'Readers wanted the practical example first.', highlights: ['practical example']
+  }]}
+/>
+```
+
+- `segments`: `{ id, text, sourceIds?, paragraph? }[]` in reading order. IDs are stable; `paragraph: true` starts a new paragraph. Supplied whitespace is preserved. Unknown source IDs are skipped and repeated IDs within a segment produce one marker.
+- `sources`: existing source fields plus required unique, nonempty string `id`, optional display-ready `date`, and `highlights: string[]`. Numbers follow source order. Highlights match exact supplied quote phrases; no inference, retrieval, or confidence scoring occurs. A source without a URL has no open-source action; a source without a quote/excerpt has no quote or copy action.
+- `openSourceId`, `defaultOpenSourceId`, `onOpenSourceChange(id | null)`: controlled or uncontrolled disclosure. Controlled values remain authoritative. The host owns source mapping, extraction, links, and persistence.
+- `labels`: `answer`, `sources`, `preview`, `close`, `copy`, `copied`, `copyFailed`, `open`, `hint`, `trigger(number, title)`, and `selected(number, title, count)` override the accessible and visible copy.
+- Source chips wrap within their container and use the shared single-selection ToggleGroup keyboard navigation. Tab visits inline citations; Enter/Space toggles a source. Escape or Close returns focus to its source chip. Opening does not steal focus or scroll. Quote copying uses the shared clipboard hook and announces success or failure.
+- The example **Answer linked to evidence** uses original illustrative editorial notes, explicitly marked as a local fixture; its example.com links are placeholders. It adds claim-to-evidence inspection alongside the existing **Cited answer** schema composition.
 
 ---
 
@@ -12103,6 +12612,8 @@ Import from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartF
 The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.
 
 Colours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.
+
+In right-to-left interfaces, shared SVG axis ticks, value-grid labels and reference labels keep left-to-right direction so their text anchors stay aligned with the plot's physical coordinates. Captions, controls, readouts and data tables inherit the surrounding interface direction; number formatting still follows `locale` or `formatValue`.
 
 See [source notices](../../../../README.md#third-party-notices).
 
@@ -13903,6 +14414,7 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Curated patterns:
 
+- Context map — registry item `@gaudi/treemap-chart-context-map` (uses `Button`, `Select`, `ToggleGroupItem`, `ToggleGroupRoot`, `TreemapChart`)
 - Storage by folder — registry item `@gaudi/treemap-chart-storage-folders` (uses `ToggleGroupItem`, `ToggleGroupRoot`, `TreemapChart`)
 
 ## Related
@@ -13948,9 +14460,21 @@ Import from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/Treema
 
 The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.
 
+Tile labels use measured ellipsis when space is limited; full names and values stay in the readout and data table. SVG tile labels keep left-to-right direction so their text anchors remain inside the tile in RTL interfaces. Captions, controls, details and the data table follow the surrounding direction.
+
 Colours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.
 
 See [source notices](../../../../README.md#third-party-notices).
+
+### Context map example
+
+**Context map** composes TreemapChart with Select, ToggleGroup and Button to inspect an agent’s context window. Prepared parts include instructions, tools, project memory, files, conversation, tool results and available capacity. Tile areas represent shares of the complete window, including unused space. Colours identify categories; labels, keyboard readouts and the data table expose exact values.
+
+Choose an agent to restore its initial snapshot. Add tool result adds one prepared search result. Compact demo replaces conversation and tool results with a prepared summary, retaining files and instructions. Before and After compare the snapshots and report the freed capacity. Compaction is immediate; no background process or model request is implied. Clear context shows zero used tokens and a full available-capacity tile, returning focus to Reset demo; Reset demo restores the current agent’s initial state.
+
+Click a tile or activate it with Enter/Space to inspect its full name, token count and contents. Arrow keys traverse tiles, Escape closes details while the plot has focus, and Close details returns focus to the plot. Changing snapshots clears stale details. The full names and counts also remain available through Show data, including when a narrow tile cannot display its label. Controls wrap at narrow widths; the chart stays within its container and uses the shared light/dark chart tokens and spacing presets.
+
+This is a copyable example, not a public context-management engine. Applications own tokenization, capacity, categories, compaction policy, retained/omitted content, live updates and persistence. All names, counts and summaries are illustrative fixture data.
 
 ---
 
@@ -22753,5 +23277,23 @@ npx shadcn@latest add ./public/r/stat-card-team-performance.json
 ```
 
 Uses: `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `StatCard`, `StatDelta`
+
+npm dependencies: `@gaudi/design-system`
+
+# Usage meter
+
+> Registry item `@gaudi/stat-card-usage-meter` · stat-card · builds on `blocks/StatCard`
+
+Usage meter. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.
+
+## Install
+
+```sh
+npx shadcn@latest add @gaudi/stat-card-usage-meter
+# local file, before hosting:
+npx shadcn@latest add ./public/r/stat-card-usage-meter.json
+```
+
+Uses: `Badge`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `ProgressRoot`, `Sparkline`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`
 
 npm dependencies: `@gaudi/design-system`

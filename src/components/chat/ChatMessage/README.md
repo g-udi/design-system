@@ -16,6 +16,10 @@ import { ChatBubble, ChatBubbleContent, ChatMessage, ChatMessageAvatar, ChatMess
 </ChatMessage>
 ```
 
+## Composed answers
+
+The Research answer story composes `ChatMessageMarkdown`, citation previews, Core `Popover` source records, and `ChatMessageFeedback` within the message content. It opens with a complete answer; regenerate demonstrates streaming, and follow-up controls select prepared answers. Its incident records are fictional and local. Applications supply their own sources, generation, and persistence.
+
 ## API
 
 | Prop / part | Contract |

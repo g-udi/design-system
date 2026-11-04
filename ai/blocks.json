@@ -217,6 +217,60 @@
       }
     },
     {
+      "name": "activity-indicator-playground",
+      "type": "registry:example",
+      "title": "Playground",
+      "family": "activity-indicator",
+      "owner": "chat/ChatActivityIndicator",
+      "ownerImport": "@gaudi/design-system/chat/ChatActivityIndicator",
+      "storyId": "chat-activityindicator--playground",
+      "storyTitle": "Chat/ChatActivityIndicator",
+      "sourceFile": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-playground.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatActivityIndicator"
+      ],
+      "uses": [
+        "ChatActivityIndicator"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Playground. Chat/ChatActivityIndicator pattern composed from @gaudi/design-system/chat/ChatActivityIndicator and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/activity-indicator-playground",
+        "local": "npx shadcn@latest add ./public/r/activity-indicator-playground.json"
+      }
+    },
+    {
+      "name": "activity-indicator-reply-lifecycle",
+      "type": "registry:example",
+      "title": "A reply from thinking to done",
+      "family": "activity-indicator",
+      "owner": "chat/ChatActivityIndicator",
+      "ownerImport": "@gaudi/design-system/chat/ChatActivityIndicator",
+      "storyId": "chat-activityindicator--reply-lifecycle",
+      "storyTitle": "Chat/ChatActivityIndicator",
+      "sourceFile": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-reply-lifecycle.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatActivityIndicator",
+        "@gaudi/design-system/core/Button"
+      ],
+      "uses": [
+        "Button",
+        "ChatActivityIndicator"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "A reply from thinking to done. Chat/ChatActivityIndicator pattern composed from @gaudi/design-system/chat/ChatActivityIndicator and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/activity-indicator-reply-lifecycle",
+        "local": "npx shadcn@latest add ./public/r/activity-indicator-reply-lifecycle.json"
+      }
+    },
+    {
       "name": "alert-dismissible",
       "type": "registry:example",
       "title": "Alert: Dismissible notices",
@@ -5108,6 +5162,96 @@
       }
     },
     {
+      "name": "chat-delegation-agent-findings",
+      "type": "registry:example",
+      "title": "Agent findings",
+      "family": "agent-findings",
+      "owner": "chat/ChatAgentFindings",
+      "ownerImport": "@gaudi/design-system/chat/ChatAgentFindings",
+      "storyId": "chat-chatdelegation--agent-findings",
+      "storyTitle": "Chat/ChatAgentFindings",
+      "sourceFile": "src/components/chat/ChatAgentFindings/stories/fixtures/agent-findings/chat-delegation-agent-findings.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentFindings",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/ToggleGroup"
+      ],
+      "uses": [
+        "Button",
+        "ChatAgentFindings",
+        "Empty",
+        "EmptyDescription",
+        "EmptyHeader",
+        "EmptyTitle",
+        "ToggleGroupItem",
+        "ToggleGroupRoot"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent findings. Chat/ChatAgentFindings pattern composed from @gaudi/design-system/chat/ChatAgentFindings and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-delegation-agent-findings",
+        "local": "npx shadcn@latest add ./public/r/chat-delegation-agent-findings.json"
+      }
+    },
+    {
+      "name": "chat-delegation-agent-fleet",
+      "type": "registry:example",
+      "title": "Agent fleet",
+      "family": "chat-delegation",
+      "owner": "chat/ChatDelegation",
+      "ownerImport": "@gaudi/design-system/chat/ChatDelegation",
+      "storyId": "chat-chatdelegation--agent-fleet",
+      "storyTitle": "Chat/ChatDelegation",
+      "sourceFile": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-agent-fleet.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatPlanPanel",
+        "@gaudi/design-system/chat/ChatTool",
+        "@gaudi/design-system/core/Accordion",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Progress",
+        "@gaudi/design-system/core/Tree"
+      ],
+      "uses": [
+        "AccordionContent",
+        "AccordionItem",
+        "AccordionRoot",
+        "AccordionTrigger",
+        "Badge",
+        "Button",
+        "ChatAgentMark",
+        "ChatMessageToolApproval",
+        "ChatPlan",
+        "DialogContent",
+        "DialogDescription",
+        "DialogFooter",
+        "DialogHeader",
+        "DialogRoot",
+        "DialogTitle",
+        "ProgressRoot",
+        "Tree",
+        "TreeItem",
+        "TreeItemLabel"
+      ],
+      "dependencies": [
+        "@gaudi/design-system",
+        "@headless-tree/core@1.6.3",
+        "@headless-tree/react@1.6.3"
+      ],
+      "description": "Agent fleet. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-delegation-agent-fleet",
+        "local": "npx shadcn@latest add ./public/r/chat-delegation-agent-fleet.json"
+      }
+    },
+    {
       "name": "chat-delegation-agent-handoff",
       "type": "registry:example",
       "title": "Handing work to another agent",
@@ -5142,6 +5286,117 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/chat-delegation-agent-handoff",
         "local": "npx shadcn@latest add ./public/r/chat-delegation-agent-handoff.json"
+      }
+    },
+    {
+      "name": "chat-delegation-agent-queue",
+      "type": "registry:example",
+      "title": "Agent queue",
+      "family": "agent-queue",
+      "owner": "chat/ChatAgentQueue",
+      "ownerImport": "@gaudi/design-system/chat/ChatAgentQueue",
+      "storyId": "chat-chatdelegation--agent-queue",
+      "storyTitle": "Chat/ChatAgentQueue",
+      "sourceFile": "src/components/chat/ChatAgentQueue/stories/fixtures/agent-queue/chat-delegation-agent-queue.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/charts/AreaChart",
+        "@gaudi/design-system/chat/ChatAgentQueue",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "AreaChart",
+        "Badge",
+        "Button",
+        "ChatAgentQueue",
+        "RegistryIcon"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent queue. Chat/ChatAgentQueue pattern composed from @gaudi/design-system/chat/ChatAgentQueue and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-delegation-agent-queue",
+        "local": "npx shadcn@latest add ./public/r/chat-delegation-agent-queue.json"
+      }
+    },
+    {
+      "name": "chat-delegation-conflict-radar",
+      "type": "registry:example",
+      "title": "Conflict radar",
+      "family": "chat-delegation",
+      "owner": "chat/ChatDelegation",
+      "ownerImport": "@gaudi/design-system/chat/ChatDelegation",
+      "storyId": "chat-chatdelegation--conflict-radar",
+      "storyTitle": "Chat/ChatDelegation",
+      "sourceFile": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-conflict-radar.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/RadioGroup",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "Badge",
+        "Button",
+        "ChatAgentMark",
+        "DataTable",
+        "Empty",
+        "EmptyDescription",
+        "EmptyHeader",
+        "EmptyTitle",
+        "RadioGroup",
+        "RegistryIcon"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Conflict radar. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-delegation-conflict-radar",
+        "local": "npx shadcn@latest add ./public/r/chat-delegation-conflict-radar.json"
+      }
+    },
+    {
+      "name": "chat-delegation-handoff-relay",
+      "type": "registry:example",
+      "title": "Agent handoff relay",
+      "family": "chat-delegation",
+      "owner": "chat/ChatDelegation",
+      "ownerImport": "@gaudi/design-system/chat/ChatDelegation",
+      "storyId": "chat-chatdelegation--handoff-relay",
+      "storyTitle": "Chat/ChatDelegation",
+      "sourceFile": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-handoff-relay.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/core/Accordion",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "Badge",
+        "Button",
+        "ChatAgentMark",
+        "Collapsible",
+        "CollapsibleContent",
+        "CollapsibleTrigger",
+        "RegistryIcon"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent handoff relay. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-delegation-handoff-relay",
+        "local": "npx shadcn@latest add ./public/r/chat-delegation-handoff-relay.json"
       }
     },
     {
@@ -5289,6 +5544,38 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/chat-pull-request-review",
         "local": "npx shadcn@latest add ./public/r/chat-pull-request-review.json"
+      }
+    },
+    {
+      "name": "chat-sources-linked-answer",
+      "type": "registry:example",
+      "title": "Answer linked to evidence",
+      "family": "chat-sources",
+      "owner": "chat/ChatSources",
+      "ownerImport": "@gaudi/design-system/chat/ChatSources",
+      "storyId": "chat-chatsources--linked-answer",
+      "storyTitle": "Chat/ChatSources",
+      "sourceFile": "src/components/chat/ChatSources/stories/fixtures/chat-sources/chat-sources-linked-answer.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatMessage",
+        "@gaudi/design-system/chat/ChatSources"
+      ],
+      "uses": [
+        "ChatAgentMark",
+        "ChatCitedAnswer",
+        "ChatMessage",
+        "ChatMessageContent",
+        "ChatMessageHeader"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Answer linked to evidence. Chat/ChatSources pattern composed from @gaudi/design-system/chat/ChatSources and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/chat-sources-linked-answer",
+        "local": "npx shadcn@latest add ./public/r/chat-sources-linked-answer.json"
       }
     },
     {
@@ -10456,6 +10743,45 @@
       }
     },
     {
+      "name": "flow-agent-graph",
+      "type": "registry:example",
+      "title": "Agent graph",
+      "family": "flow",
+      "owner": "core/Flow",
+      "ownerImport": "@gaudi/design-system/core/Flow",
+      "storyId": "core-flow--agent-graph",
+      "storyTitle": "Core/Planning/Flow",
+      "sourceFile": "src/components/core/Flow/stories/fixtures/flow/flow-agent-graph.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatTool",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Flow",
+        "@gaudi/design-system/core/ToggleGroup",
+        "@gaudi/design-system/flow.css",
+        "@gaudi/design-system/hooks/layout/use-element-size"
+      ],
+      "uses": [
+        "Button",
+        "ChatAgentMark",
+        "ChatMessageToolApproval",
+        "Flow",
+        "FlowInspector",
+        "FlowStatus",
+        "Toggle",
+        "useElementSize"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent graph. Core/Planning/Flow pattern composed from @gaudi/design-system/core/Flow and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/flow-agent-graph",
+        "local": "npx shadcn@latest add ./public/r/flow-agent-graph.json"
+      }
+    },
+    {
       "name": "flow-agent-tree",
       "type": "registry:example",
       "title": "Agent tree with test run",
@@ -14564,6 +14890,89 @@
       }
     },
     {
+      "name": "message-research-answer",
+      "type": "registry:example",
+      "title": "Research answer",
+      "family": "message",
+      "owner": "chat/ChatMessage",
+      "ownerImport": "@gaudi/design-system/chat/ChatMessage",
+      "storyId": "chat-message--research-answer",
+      "storyTitle": "Chat/ChatMessage",
+      "sourceFile": "src/components/chat/ChatMessage/stories/fixtures/message/message-research-answer.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatFeedback",
+        "@gaudi/design-system/chat/ChatMessage",
+        "@gaudi/design-system/chat/ChatMessageList",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Item",
+        "@gaudi/design-system/core/Loader",
+        "@gaudi/design-system/core/Popover",
+        "@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "Button",
+        "ChatAgentMark",
+        "ChatMessage",
+        "ChatMessageContent",
+        "ChatMessageFeedback",
+        "ChatMessageMarkdown",
+        "Item",
+        "ItemContent",
+        "ItemDescription",
+        "ItemTitle",
+        "LoaderRoot",
+        "Popover",
+        "PopoverContent",
+        "PopoverTrigger",
+        "RegistryIcon",
+        "usePrefersReducedMotion"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Research answer. Chat/ChatMessage pattern composed from @gaudi/design-system/chat/ChatMessage and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/message-research-answer",
+        "local": "npx shadcn@latest add ./public/r/message-research-answer.json"
+      }
+    },
+    {
+      "name": "message-scroller-agent-checkpoints",
+      "type": "registry:example",
+      "title": "Agent checkpoints",
+      "family": "agent-checkpoints",
+      "owner": "chat/ChatAgentCheckpoints",
+      "ownerImport": "@gaudi/design-system/chat/ChatAgentCheckpoints",
+      "storyId": "chat-messagelist--agent-checkpoints",
+      "storyTitle": "Chat/ChatAgentCheckpoints",
+      "sourceFile": "src/components/chat/ChatAgentCheckpoints/stories/fixtures/agent-checkpoints/message-scroller-agent-checkpoints.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentCheckpoints",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/ToggleGroup",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "Button",
+        "ChatAgentCheckpoints",
+        "RegistryIcon",
+        "ToggleGroupItem",
+        "ToggleGroupRoot"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent checkpoints. Chat/ChatAgentCheckpoints pattern composed from @gaudi/design-system/chat/ChatAgentCheckpoints and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/message-scroller-agent-checkpoints",
+        "local": "npx shadcn@latest add ./public/r/message-scroller-agent-checkpoints.json"
+      }
+    },
+    {
       "name": "message-scroller-anchored-turn",
       "type": "registry:example",
       "title": "New turn anchored under the last answer",
@@ -15303,6 +15712,44 @@
       }
     },
     {
+      "name": "plan-agent-steering",
+      "type": "registry:example",
+      "title": "Agent steering",
+      "family": "plan",
+      "owner": "chat/ChatPlanPanel",
+      "ownerImport": "@gaudi/design-system/chat/ChatPlanPanel",
+      "storyId": "chat-chatplanpanel--agent-steering",
+      "storyTitle": "Chat/ChatPlanPanel",
+      "sourceFile": "src/components/chat/ChatPlanPanel/stories/fixtures/plan/plan-agent-steering.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatInput",
+        "@gaudi/design-system/chat/ChatPlanPanel",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Textarea",
+        "@gaudi/design-system/icons/RegistryIcon"
+      ],
+      "uses": [
+        "Badge",
+        "Button",
+        "ChatAgentMark",
+        "ChatPlan",
+        "ChatPromptQueue",
+        "RegistryIcon",
+        "Textarea"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent steering. Chat/ChatPlanPanel pattern composed from @gaudi/design-system/chat/ChatPlanPanel and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/plan-agent-steering",
+        "local": "npx shadcn@latest add ./public/r/plan-agent-steering.json"
+      }
+    },
+    {
       "name": "popover-in-dialog",
       "type": "registry:example",
       "title": "Inside a dialog",
@@ -15614,6 +16061,39 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/progress-upload-list",
         "local": "npx shadcn@latest add ./public/r/progress-upload-list.json"
+      }
+    },
+    {
+      "name": "prompt-composer-context-window",
+      "type": "registry:example",
+      "title": "Context window",
+      "family": "context-window",
+      "owner": "chat/ChatContextWindow",
+      "ownerImport": "@gaudi/design-system/chat/ChatContextWindow",
+      "storyId": "chat-chatinput--context-window",
+      "storyTitle": "Chat/ChatContextWindow",
+      "sourceFile": "src/components/chat/ChatContextWindow/stories/fixtures/context-window/prompt-composer-context-window.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatContextWindow",
+        "@gaudi/design-system/chat/ChatInput",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Checkbox"
+      ],
+      "uses": [
+        "Button",
+        "ChatContextMeter",
+        "ChatContextWindow",
+        "ChatPromptComposer",
+        "Checkbox"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Context window. Chat/ChatContextWindow pattern composed from @gaudi/design-system/chat/ChatContextWindow and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/prompt-composer-context-window",
+        "local": "npx shadcn@latest add ./public/r/prompt-composer-context-window.json"
       }
     },
     {
@@ -16366,6 +16846,175 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/rating-review-summary",
         "local": "npx shadcn@latest add ./public/r/rating-review-summary.json"
+      }
+    },
+    {
+      "name": "reasoning-agent-run",
+      "type": "registry:example",
+      "title": "Agent run",
+      "family": "reasoning",
+      "owner": "chat/ChatReasoning",
+      "ownerImport": "@gaudi/design-system/chat/ChatReasoning",
+      "storyId": "chat-chatreasoning--agent-run",
+      "storyTitle": "Chat/ChatReasoning",
+      "sourceFile": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-agent-run.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatBubble",
+        "@gaudi/design-system/chat/ChatMessage",
+        "@gaudi/design-system/chat/ChatMessageList",
+        "@gaudi/design-system/chat/ChatReasoning",
+        "@gaudi/design-system/chat/ChatTool"
+      ],
+      "uses": [
+        "ChatAgentMark",
+        "ChatBubble",
+        "ChatBubbleContent",
+        "ChatMessage",
+        "ChatMessageCheckpoint",
+        "ChatMessageContent",
+        "ChatMessageData",
+        "ChatMessageHeader",
+        "ChatMessageMarkdown",
+        "ChatMessageReasoning",
+        "ChatMessageReasoningImage",
+        "ChatMessageReasoningResults",
+        "ChatMessageReasoningStep",
+        "ChatMessageToolApproval"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Agent run. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/reasoning-agent-run",
+        "local": "npx shadcn@latest add ./public/r/reasoning-agent-run.json"
+      }
+    },
+    {
+      "name": "reasoning-ai-message-with-steps",
+      "type": "registry:example",
+      "title": "AI message with steps",
+      "family": "reasoning",
+      "owner": "chat/ChatReasoning",
+      "ownerImport": "@gaudi/design-system/chat/ChatReasoning",
+      "storyId": "chat-chatreasoning--ai-message-with-steps",
+      "storyTitle": "Chat/ChatReasoning",
+      "sourceFile": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-ai-message-with-steps.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatAgentMark",
+        "@gaudi/design-system/chat/ChatBubble",
+        "@gaudi/design-system/chat/ChatMessage",
+        "@gaudi/design-system/chat/ChatMessageList",
+        "@gaudi/design-system/chat/ChatReasoning"
+      ],
+      "uses": [
+        "ChatAgentMark",
+        "ChatBubble",
+        "ChatBubbleContent",
+        "ChatMessage",
+        "ChatMessageContent",
+        "ChatMessageHeader",
+        "ChatMessageMarkdown",
+        "ChatMessageReasoning",
+        "ChatMessageReasoningImage",
+        "ChatMessageReasoningResults",
+        "ChatMessageReasoningStep"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "AI message with steps. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/reasoning-ai-message-with-steps",
+        "local": "npx shadcn@latest add ./public/r/reasoning-ai-message-with-steps.json"
+      }
+    },
+    {
+      "name": "reasoning-mini-thinking",
+      "type": "registry:example",
+      "title": "Mini thinking",
+      "family": "reasoning",
+      "owner": "chat/ChatReasoning",
+      "ownerImport": "@gaudi/design-system/chat/ChatReasoning",
+      "storyId": "chat-chatreasoning--mini-thinking",
+      "storyTitle": "Chat/ChatReasoning",
+      "sourceFile": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-mini-thinking.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatActivityIndicator",
+        "@gaudi/design-system/chat/ChatReasoning",
+        "@gaudi/design-system/core/Button"
+      ],
+      "uses": [
+        "Button",
+        "ChatActivityIndicator",
+        "ChatMessageReasoning"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Mini thinking. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/reasoning-mini-thinking",
+        "local": "npx shadcn@latest add ./public/r/reasoning-mini-thinking.json"
+      }
+    },
+    {
+      "name": "reasoning-playground",
+      "type": "registry:example",
+      "title": "Playground",
+      "family": "reasoning",
+      "owner": "chat/ChatReasoning",
+      "ownerImport": "@gaudi/design-system/chat/ChatReasoning",
+      "storyId": "chat-chatreasoning--playground",
+      "storyTitle": "Chat/ChatReasoning",
+      "sourceFile": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-playground.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatReasoning"
+      ],
+      "uses": [
+        "ChatMessageReasoning",
+        "ChatMessageReasoningStep"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Playground. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/reasoning-playground",
+        "local": "npx shadcn@latest add ./public/r/reasoning-playground.json"
+      }
+    },
+    {
+      "name": "reasoning-thinking-then-answer",
+      "type": "registry:example",
+      "title": "Thinking, then the answer",
+      "family": "reasoning",
+      "owner": "chat/ChatReasoning",
+      "ownerImport": "@gaudi/design-system/chat/ChatReasoning",
+      "storyId": "chat-chatreasoning--thinking-then-answer",
+      "storyTitle": "Chat/ChatReasoning",
+      "sourceFile": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-thinking-then-answer.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/chat/ChatReasoning",
+        "@gaudi/design-system/core/Button"
+      ],
+      "uses": [
+        "Button",
+        "ChatMessageReasoning"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Thinking, then the answer. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/reasoning-thinking-then-answer",
+        "local": "npx shadcn@latest add ./public/r/reasoning-thinking-then-answer.json"
       }
     },
     {
@@ -20088,6 +20737,54 @@
       }
     },
     {
+      "name": "stat-card-usage-meter",
+      "type": "registry:block",
+      "title": "Usage meter",
+      "family": "stat-card",
+      "owner": "blocks/StatCard",
+      "ownerImport": "@gaudi/design-system/blocks/StatCard",
+      "storyId": "blocks-stat-cards--usage-meter",
+      "storyTitle": "Blocks/Stat Cards",
+      "sourceFile": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-usage-meter.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/blocks/StatCard",
+        "@gaudi/design-system/charts/Sparkline",
+        "@gaudi/design-system/core/Accordion",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Progress",
+        "@gaudi/design-system/core/ToggleGroup"
+      ],
+      "uses": [
+        "Badge",
+        "Button",
+        "CardContent",
+        "CardDescription",
+        "CardFooter",
+        "CardHeader",
+        "CardRoot",
+        "CardTitle",
+        "Collapsible",
+        "CollapsibleContent",
+        "CollapsibleTrigger",
+        "ProgressRoot",
+        "Sparkline",
+        "StatMeter",
+        "ToggleGroupItem",
+        "ToggleGroupRoot"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Usage meter. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/stat-card-usage-meter",
+        "local": "npx shadcn@latest add ./public/r/stat-card-usage-meter.json"
+      }
+    },
+    {
       "name": "stepper-basic",
       "type": "registry:example",
       "title": "Simple linear steps",
@@ -21802,6 +22499,39 @@
       "install": {
         "registry": "npx shadcn@latest add @gaudi/tree-permissions",
         "local": "npx shadcn@latest add ./public/r/tree-permissions.json"
+      }
+    },
+    {
+      "name": "treemap-chart-context-map",
+      "type": "registry:example",
+      "title": "Context map",
+      "family": "treemap-chart",
+      "owner": "charts/TreemapChart",
+      "ownerImport": "@gaudi/design-system/charts/TreemapChart",
+      "storyId": "charts-treemapchart--context-map",
+      "storyTitle": "Charts/TreemapChart",
+      "sourceFile": "src/components/charts/TreemapChart/stories/fixtures/treemap-chart/treemap-chart-context-map.jsx",
+      "assets": [],
+      "packageImports": [
+        "@gaudi/design-system/charts/TreemapChart",
+        "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Select",
+        "@gaudi/design-system/core/ToggleGroup"
+      ],
+      "uses": [
+        "Button",
+        "Select",
+        "ToggleGroupItem",
+        "ToggleGroupRoot",
+        "TreemapChart"
+      ],
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "description": "Context map. Charts/TreemapChart pattern composed from @gaudi/design-system/charts/TreemapChart and other public Gaudi components; the components stay package imports.",
+      "install": {
+        "registry": "npx shadcn@latest add @gaudi/treemap-chart-context-map",
+        "local": "npx shadcn@latest add ./public/r/treemap-chart-context-map.json"
       }
     },
     {

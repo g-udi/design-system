@@ -44,8 +44,9 @@ test('runtime modules cannot import stories, docs, or test scaffolding', () => {
   }
 });
 
-test('shared focus defaults render no focus rings in any interaction state', () => {
+test('keyboard focus has a visible default and pointer focus stays quiet', () => {
   const base = readFileSync(path.join(source, 'foundations/base.css'), 'utf8');
-  assert.match(base, /:where\(\*\):where\(:focus, :focus-visible, :focus-within, :active\)\s*\{[^}]*outline:\s*none !important/);
+  assert.match(base, /:where\(:focus-visible\)\s*\{[^}]*outline: 2px solid var\(--ds-color-focus\)/);
+  assert.match(base, /:where\(:focus, :active\):not\(:focus-visible\)\s*\{[^}]*outline: none !important/);
   assert.match(base, /--tw-ring-shadow:\s*0 0 #0000 !important/);
 });

@@ -17,7 +17,7 @@ const parts = [
 export function Pattern() {
   const [action, setAction] = useState('');
   return (
-    <div className='mx-auto flex w-full max-w-2xl flex-col gap-5'>
+    <div className='ds-touch-controls mx-auto flex w-full max-w-2xl flex-col gap-5'>
       <ChatMessage align='end'>
         <ChatMessageAvatar>
           <Avatar src='/avatars/person-24.svg' name='Ilse Valtonen' size='sm' shape='circle' alt='' />

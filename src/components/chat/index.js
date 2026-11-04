@@ -17,6 +17,7 @@ export { ChatMessageTool, ChatMessageData } from './ChatTool/ChatMessageTool.jsx
 export { ChatMessageToolApproval } from './ChatTool/ChatMessageToolApproval.jsx';
 export { approvalStates } from './ChatTool/toolApprovalModel.js';
 export { ChatMessageSources, ChatMessageSource, ChatMessageCitation } from './ChatSources/ChatMessageSources.jsx';
+export { ChatCitedAnswer } from './ChatSources/ChatCitedAnswer.jsx';
 export { ChatMessageDelegation } from './ChatDelegation/ChatMessageDelegation.jsx';
 export { ChatMessageFeedback } from './ChatFeedback/ChatMessageFeedback.jsx';
 export { ChatPlan } from './ChatPlanPanel/ChatPlanPanel.jsx';
@@ -35,3 +36,7 @@ export { ChatPromptAttachMenu, ChatPromptSettings, ChatPromptToggle } from './Ch
 export { formatTokenCount } from './ChatInput/chatContextModel.js';
 export { ChatSpeechInput, speechInputStates, ChatMicSelector, ChatVoiceSelector, voiceTags, ChatAudioPlayer, useAudioLevel, useAudioInputs, voiceSupport, getSpeechRecognition, formatAudioTime, computePeaks } from './ChatVoice/index.js';
 export { ChatPersona, personaStates, personaVariants, personaSizes } from './ChatPersona/index.js';
+export { ChatAgentFindings } from './ChatAgentFindings/index.js';
+export { ChatAgentCheckpoints } from './ChatAgentCheckpoints/index.js';
+export { ChatAgentQueue } from './ChatAgentQueue/index.js';
+export { ChatContextWindow } from './ChatContextWindow/index.js';

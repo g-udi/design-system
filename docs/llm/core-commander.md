@@ -109,4 +109,4 @@ Commander is built on the Command parts it exports: `Command`, `CommandInput`, `
 
 The search field is a combobox that controls a listbox. Arrow keys, Home and End move the selection, Enter runs it, and Escape leaves a sub-page before it closes the launcher. Focus returns to the trigger on close.
 
-Inline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette.
+Inline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette, with one continuous background across the search field, results, and keyboard footer in every theme.

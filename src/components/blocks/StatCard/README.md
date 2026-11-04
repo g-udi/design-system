@@ -16,3 +16,7 @@ import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 `valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.
 
 `StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.
+
+`StatMeter.max` optionally sets capacity: the unused portion stays on the neutral track, while legend percentages remain shares of used capacity. If omitted, the segments fill the track. A capacity smaller than the segment total draws a full bar.
+
+The Usage meter pattern composes Card, StatMeter, Progress, Sparkline and shared controls for AI credits, daily usage and plan limits. Its period data, thresholds, reset copy and demo top-up policy live in the fixture; applications own billing and supply their own prepared values. No new billing component or service integration is introduced.

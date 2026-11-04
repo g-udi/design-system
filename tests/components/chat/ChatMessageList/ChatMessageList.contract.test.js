@@ -95,6 +95,36 @@ test('file parts pass MIME metadata and explicit previews to shared AttachmentMe
   assert.match(preview, /data-slot="attachment-title"[^>]*>cover\.svg/);
 });
 
+test('consecutive delivered files share a group without moving files across reply content', () => {
+  const parts = [
+    { type: 'file', id: 'report', name: 'report.pdf' },
+    { type: 'file', id: 'data', name: 'subscribers.csv' },
+    { type: 'text', text: 'The source files follow.' },
+    { type: 'file', id: 'source', name: 'source.json' }
+  ];
+  const html = renderToStaticMarkup(createElement(api.ChatMessageParts, { parts }));
+  assert.equal(html.match(/data-slot="attachment-group"/g)?.length, 2);
+  assert.equal(html.match(/data-slot="attachment" /g)?.length, 3);
+  const report = html.indexOf('>report.pdf<');
+  const data = html.indexOf('>subscribers.csv<');
+  const text = html.indexOf('The source files follow.');
+  const source = html.indexOf('>source.json<');
+  assert.ok(report < data && data < text && text < source, 'Reply content keeps its original reading order');
+  assert.match(html, /role="group" aria-label="Attachments"/);
+});
+
+test('nested tool results use the same delivered-file grouping', () => {
+  const html = renderToStaticMarkup(createElement(api.ChatMessageParts, { parts: [
+    { type: 'tool', name: 'export_reports', status: 'failed', error: 'One export needs another attempt.', parts: [
+      { type: 'file', name: 'summary.pdf' },
+      { type: 'file', name: 'source.csv' }
+    ] }
+  ] }));
+  assert.equal(html.match(/data-slot="attachment-group"/g)?.length, 1);
+  assert.match(html, />summary.pdf</);
+  assert.match(html, />source.csv</);
+});
+
 test('suggestion parts render labelled buttons and omit empty lists', () => {
   const html = renderToStaticMarkup(createElement(api.ChatMessageParts, {
     parts: [{ type: 'suggestions', items: ['Write a subtitle', { id: 'links', label: 'Check links', prompt: 'Check the draft links.' }] }]

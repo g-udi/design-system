@@ -1286,5 +1286,17 @@
   },
   "src/components/blocks/AppShell/AppShellNotifications.jsx": {
     "AppShellNotifications": "AppShellNotifications"
+  },
+  "src/components/chat/ChatAgentFindings/ChatAgentFindings.jsx": {
+    "ChatAgentFindings": "ChatAgentFindings"
+  },
+  "src/components/chat/ChatAgentCheckpoints/ChatAgentCheckpoints.jsx": {
+    "ChatAgentCheckpoints": "ChatAgentCheckpoints"
+  },
+  "src/components/chat/ChatAgentQueue/ChatAgentQueue.jsx": {
+    "ChatAgentQueue": "ChatAgentQueue"
+  },
+  "src/components/chat/ChatContextWindow/ChatContextWindow.jsx": {
+    "ChatContextWindow": "ChatContextWindow"
   }
 }

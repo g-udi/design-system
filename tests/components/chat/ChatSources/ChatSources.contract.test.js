@@ -21,3 +21,30 @@ test('A citation can group several sources behind one pill', () => {
   assert.match(html, />\+2</);
   assert.equal(render(api.ChatMessageCitation, { index: 1, sources: [] }), '');
 });
+
+test('Linked answer resolves stable source IDs, ignores unknown citations and escapes prepared text', () => {
+  const sources = [{ id: 'first', title: 'Original' }, { id: 'second', title: 'Evidence <draft>' }];
+  const segments = [{ id: 'claim', text: '<script>Evidence</script>', sourceIds: ['second', 'missing', 'second'] }];
+  const html = render(api.ChatCitedAnswer, { segments, sources });
+  assert.match(html, /&lt;script&gt;Evidence&lt;\/script&gt;/);
+  assert.match(html, /Source 2: Evidence &lt;draft&gt;/);
+  assert.doesNotMatch(html, /Source 3:|missing|<script>/);
+  assert.equal((html.match(/aria-expanded="false"/g) || []).length, 1);
+  assert.equal((html.match(/aria-checked="false"/g) || []).length, 2);
+  const reordered = render(api.ChatCitedAnswer, { segments, sources: sources.toReversed() });
+  assert.match(reordered, /Source 1: Evidence &lt;draft&gt;/);
+});
+
+test('Linked answer respects controlled disclosure and explicitly supplied quote highlights', () => {
+  const sources = [{ id: 'note', title: 'Note', quote: 'Preserve <original> wording.', highlights: ['<original>'] }];
+  const segments = [{ id: 'claim', text: 'Preserve the wording.', sourceIds: ['note'] }];
+  const html = render(api.ChatCitedAnswer, { segments, sources, defaultOpenSourceId: 'note' });
+  assert.match(html, /role="region" aria-label="Source passage"/);
+  assert.match(html, /bg-accent-muted[^>]*>&lt;original&gt;<\/span>/);
+  assert.doesNotMatch(html, /href=/);
+  const closed = render(api.ChatCitedAnswer, { segments, sources, defaultOpenSourceId: 'note', openSourceId: null });
+  assert.doesNotMatch(closed, /<blockquote/);
+  const empty = render(api.ChatCitedAnswer, { segments });
+  assert.match(empty, /Preserve the wording/);
+  assert.doesNotMatch(empty, /role="group"|role="status"|aria-expanded/);
+});

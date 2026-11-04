@@ -4,8 +4,22 @@
     @apply rounded-lg bg-ui-popover text-ui-popover-foreground border border-ui-border;
   }
 
-  .ds-part-command-dialog {
-    @apply rounded-lg! gap-0 bg-(--ds-color-launcher-bg) shadow-(--ds-shadow-launcher) sm:max-w-2xl!;
+  .ds-part-dialog-content.ds-part-command-dialog {
+    @apply flex flex-col rounded-lg! gap-0 bg-(--ds-color-launcher-bg) text-(--ds-color-launcher-text) shadow-(--ds-shadow-launcher) sm:max-w-2xl!;
+    max-height: calc(100dvh - min(12vh, 6rem) - 1rem);
+  }
+
+  .ds-part-command-dialog > .ds-part-command {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .ds-part-command-dialog .ds-part-command-list {
+    min-height: 0;
+  }
+
+  .ds-part-command-dialog :is(.ds-part-command-input-wrapper, .ds-part-command-footer) {
+    flex-shrink: 0;
   }
 
   .ds-part-command-input-wrapper {
@@ -62,6 +76,10 @@
 
   :is(.ds-command-launcher, .ds-part-command-dialog) .ds-part-command-input-wrapper {
     @apply border-(--ds-color-launcher-border);
+  }
+
+  :is(.ds-command-launcher, .ds-part-command-dialog) .ds-part-command-footer {
+    @apply border-(--ds-color-launcher-border) text-(--ds-color-launcher-heading);
   }
 
   :is(.ds-command-launcher, .ds-part-command-dialog) .ds-part-command-input {

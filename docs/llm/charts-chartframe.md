@@ -113,4 +113,6 @@ The plot is one tab stop named by ariaLabel. The arrow keys walk the points, Hom
 
 Colours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.
 
+In right-to-left interfaces, shared SVG axis ticks, value-grid labels and reference labels keep left-to-right direction so their text anchors stay aligned with the plot's physical coordinates. Captions, controls, readouts and data tables inherit the surrounding interface direction; number formatting still follows `locale` or `formatValue`.
+
 See [source notices](../../../../README.md#third-party-notices).

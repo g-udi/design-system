@@ -3,7 +3,7 @@ import { cn } from '../../../utilities/cn/index.js';
 import { ChatMessageDelegation } from '../ChatDelegation/ChatMessageDelegation.jsx';
 import Button from '../../core/Button/index.js';
 import { Alert, AlertTitle, AlertDescription, AlertAction } from '../../core/Banner/Alert.jsx';
-import { Attachment, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '../../core/Attachment/Attachment.jsx';
+import { Attachment, AttachmentGroup, AttachmentMedia, AttachmentContent, AttachmentTitle, AttachmentDescription, AttachmentActions, AttachmentAction } from '../../core/Attachment/Attachment.jsx';
 import { RegistryIcon } from '../../../icons/RegistryIcon.jsx';
 import { normalizeDownloadHref } from '../../../utilities/href.js';
 import { ChatMessageSuggestions } from './ChatMessageSuggestions.jsx';
@@ -30,6 +30,27 @@ import { ChatMessageToolApproval } from '../ChatTool/ChatMessageToolApproval.jsx
  *
  * Unknown types are skipped so a host can carry its own parts alongside and render them itself.
  */
+
+function FilePart({ part, onFileAction }) {
+  const href = normalizeDownloadHref(part.href);
+  return (
+    <Attachment size='sm' className='w-72 max-w-full'>
+      <AttachmentMedia file={part} />
+      <AttachmentContent>
+        <AttachmentTitle title={part.name}>{part.name}</AttachmentTitle>
+        <AttachmentDescription>{[part.description, part.size].filter(Boolean).join(' · ')}</AttachmentDescription>
+      </AttachmentContent>
+      {onFileAction || href ? (
+        <AttachmentActions>
+          {onFileAction ? <AttachmentAction aria-label={`Preview ${part.name}`} onClick={() => onFileAction('preview', part)}><RegistryIcon lucide='Eye' /></AttachmentAction> : null}
+          <AttachmentAction aria-label={`Download ${part.name}`} asChild={Boolean(href)} onClick={href ? undefined : () => onFileAction('download', part)}>
+            {href ? <a href={href} download={part.name}><RegistryIcon lucide='Download' /></a> : <RegistryIcon lucide='Download' />}
+          </AttachmentAction>
+        </AttachmentActions>
+      ) : null}
+    </Attachment>
+  );
+}
 
 function PartList({ parts, sources, streaming, handlers, nested = false }) {
   return parts.map((part, index) => {
@@ -95,23 +116,13 @@ function PartList({ parts, sources, streaming, handlers, nested = false }) {
           </ChatMessageDelegation>
         );
       case 'file': {
-        const href = normalizeDownloadHref(part.href);
+        if (parts[index - 1]?.type === 'file') return null;
+        const files = [part];
+        for (let next = index + 1; parts[next]?.type === 'file'; next++) files.push(parts[next]);
         return (
-          <Attachment key={key} size='sm' className='max-w-sm'>
-            <AttachmentMedia file={part} />
-            <AttachmentContent>
-              <AttachmentTitle>{part.name}</AttachmentTitle>
-              <AttachmentDescription>{[part.description, part.size].filter(Boolean).join(' · ')}</AttachmentDescription>
-            </AttachmentContent>
-            {handlers.onFileAction || href ? (
-              <AttachmentActions>
-                {handlers.onFileAction ? <AttachmentAction aria-label={`Preview ${part.name}`} onClick={() => handlers.onFileAction('preview', part)}><RegistryIcon lucide='Eye' /></AttachmentAction> : null}
-                <AttachmentAction aria-label={`Download ${part.name}`} asChild={Boolean(href)} onClick={href ? undefined : () => handlers.onFileAction('download', part)}>
-                  {href ? <a href={href} download={part.name}><RegistryIcon lucide='Download' /></a> : <RegistryIcon lucide='Download' />}
-                </AttachmentAction>
-              </AttachmentActions>
-            ) : null}
-          </Attachment>
+          <AttachmentGroup key={key} role='group' aria-label='Attachments' className='flex-wrap overflow-visible py-0'>
+            {files.map((file, fileIndex) => <FilePart key={file.id ?? `file-${index + fileIndex}`} part={file} onFileAction={handlers.onFileAction} />)}
+          </AttachmentGroup>
         );
       }
       case 'data':

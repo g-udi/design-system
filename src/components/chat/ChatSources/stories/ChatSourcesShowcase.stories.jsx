@@ -26,6 +26,7 @@ export const CitedAnswer = {
   },
   render: () => <CitedAnswerExample />,
   play: async ({ canvasElement, step }) => {
+    if (import.meta.env.MODE !== 'test') return;
     const canvas = within(canvasElement);
     const page = within(canvasElement.ownerDocument.body);
 

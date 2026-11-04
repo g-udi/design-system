@@ -34,7 +34,7 @@ export const endpoint = {
 
 export function CitedAnswerExample() {
   return (
-    <div className='grid w-full max-w-2xl gap-5'>
+    <div className='ds-touch-controls grid w-full max-w-2xl gap-5'>
       <ChatMessage align='end'>
         <ChatMessageContent>
           <span className='sr-only'>You said</span>

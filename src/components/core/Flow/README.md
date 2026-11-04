@@ -33,3 +33,11 @@ Install the `@xyflow/react` peer dependency. Its structural CSS is imported by t
 The canvas is a labelled region described by a step count, followed by a visually hidden list of each step, its status and where it leads. Nodes and edges are focusable: Enter or Space selects, the arrow keys move a selected node with a live announcement, and Delete removes it. Zoom controls, node menus and connector buttons are labelled; connection handles are pointer targets, so the node name and the step list carry their meaning. Every string, including React Flow's keyboard instructions, comes from `labels`.
 
 React Flow has no keyboard way to draw a connection between two handles, so offer a menu action or inspector field for linking, as the impact map example does. Dragging should never be the only way to change the graph.
+
+## Agent graph example
+
+**Agent graph** is a monitoring composition alongside the editable Agent tree. It reuses Flow tile nodes, animated edges and FlowInspector with ChatAgentMark and ChatMessageToolApproval. Three agents, three tools and a person form a network; repeated calls increase a connection's stroke width, while a running request uses Flow's existing directional animation. Reduced motion and the Animate calls toggle stop that motion. Calls are fictional snapshots advanced with Next update, not a live backend.
+
+The example computes positions from its container: below 680px it uses a taller, two-column network at readable text size. It keeps the whole small network visible without pan or zoom. Selecting a member shows its recent incoming and outgoing calls in the shared inspector, which becomes a sheet below 768px. Enter opens a focused node; Escape closes the inspector and restores node focus. Attention buttons provide direct access to failed calls and pending approvals. Status labels and Flow's accessible graph summary carry the same information without relying on motion or colour.
+
+Approve or deny publishing and retry search in the inspector; the next update settles pending calls. Clear network exposes an empty state and Reset restores the initial demo. The displayed costs are prepared per-member values, summed once. Applications own execution, permissions, cost calculation, time windows and persistence. This example introduces no new public graph component or protocol.

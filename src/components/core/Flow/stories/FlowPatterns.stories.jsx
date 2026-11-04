@@ -123,3 +123,19 @@ export const PaymentsInspector = {
     await waitFor(() => expect(canvasElement.querySelector('.ds-flow[data-layout-animating]')).toBeNull());
   }
 };
+
+export const AgentGraph = {
+  name: 'Agent graph',
+  ...pattern('agent-graph', 'Monitor agents and the tools they call: active links move, repeated calls thicken a connection, and selecting a member opens recent calls. Approve publishing, retry a failed search, and step through local updates.'),
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    await waitFor(() => expect(canvas.getByRole('region', { name: 'Agent call network' })).toBeVisible());
+    await userEvent.click(canvas.getByRole('button', { name: 'Next update' }));
+    await expect(canvas.getByText('8 calls', { exact: true })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Clear network' }));
+    await expect(canvas.getByText('No agents connected')).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Start demo network' }));
+    await expect(canvas.getByText('7 calls', { exact: true })).toBeVisible();
+  }
+};

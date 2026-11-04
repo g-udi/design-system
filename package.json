@@ -300,7 +300,11 @@
     "./animations/Dither": "./src/components/animations/Dither/index.js",
     "./animations/FaultyTerminal": "./src/components/animations/FaultyTerminal/index.js",
     "./animations/Hyperspeed": "./src/components/animations/Hyperspeed/index.js",
-    "./blocks/Hero": "./src/components/blocks/Hero/index.js"
+    "./blocks/Hero": "./src/components/blocks/Hero/index.js",
+    "./chat/ChatAgentFindings": "./src/components/chat/ChatAgentFindings/index.js",
+    "./chat/ChatAgentCheckpoints": "./src/components/chat/ChatAgentCheckpoints/index.js",
+    "./chat/ChatAgentQueue": "./src/components/chat/ChatAgentQueue/index.js",
+    "./chat/ChatContextWindow": "./src/components/chat/ChatContextWindow/index.js"
   },
   "scripts": {
     "ai:build": "node scripts/ai/build.mjs",

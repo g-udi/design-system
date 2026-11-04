@@ -130,6 +130,8 @@ Add `ChatMessageFeedback` under a finished reply for copy, rating and regenerate
 
 #### Delivered files
 
+Consecutive file parts share a row of consistently sized attachments. The row wraps as its container narrows; text and other parts between files keep their original position in the reply.
+
 File parts reuse Core `AttachmentMedia`: supply `mediaType` (or `fileType`) for the MIME type, `previewUrl` for an explicit image or poster thumbnail, and `kind: 'link'` for a link icon. Without a preview, the shared media renderer chooses the file-type icon; failed thumbnails fall back to that icon. The file name remains visible beside the decorative media.
 
 `onFileAction(action, part)` receives the original part for preview and host-managed download actions. An explicit `href` provides the download link instead. The host owns file retrieval and preview dialogs. When adapting upload metadata, preserve its MIME type before setting the part discriminator:
@@ -145,13 +147,7 @@ See **Chat / ChatMessage / Mixed attachments** for images, audio, video, documen
 
 #### Checkpoints
 
-A checkpoint sits between turns, outside `ChatMessageParts`, so the host decides where restore points fall and what restoring undoes.
-
-```jsx
-import { ChatMessageCheckpoint } from '@gaudi/design-system/chat';
-
-<ChatMessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />
-```
+This panel now belongs to [ChatAgentCheckpoints](../ChatAgentCheckpoints/README.md), with a public import and its own examples. ChatMessageList keeps its existing API.
 
 #### Markdown
 

@@ -174,7 +174,7 @@ function ChatMessageReasoningResults({ results = [], label = 'Search results', m
   const shown = max ? results.slice(0, max) : results;
   const more = results.length - shown.length;
   return (
-    <ul data-slot='message-reasoning-results' aria-label={label} className={cn('flex flex-wrap gap-1.5', className)}>
+    <ul data-slot='message-reasoning-results' aria-label={label} className={cn('flex min-w-0 flex-wrap gap-1.5', className)}>
       {shown.map((result) => {
         const site = siteOf(result);
         const chip = 'bg-surface-muted text-text-muted inline-flex max-w-full items-center gap-1.5 rounded-(--ds-radius-control) border px-2 py-0.5 text-xs';

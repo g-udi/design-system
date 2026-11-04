@@ -63,132 +63,136 @@ import docs60 from '../../components/charts/TreemapChart/stories/docs/TreemapCha
 import docs61 from '../../components/charts/WaterfallChart/stories/docs/WaterfallChart.docs.js';
 import docs62 from '../../components/chat/ChatActivityHistory/stories/docs/ChatActivityHistory.docs.js';
 import docs63 from '../../components/chat/ChatActivityIndicator/stories/docs/ChatActivityIndicator.docs.js';
-import docs64 from '../../components/chat/ChatAgentMark/stories/docs/ChatAgentMark.docs.js';
-import docs65 from '../../components/chat/ChatBubble/stories/docs/ChatBubble.docs.js';
-import docs66 from '../../components/chat/ChatDelegation/stories/docs/ChatDelegation.docs.js';
-import docs67 from '../../components/chat/ChatEffortSlider/stories/docs/ChatEffortSlider.docs.js';
-import docs68 from '../../components/chat/ChatFeedback/stories/docs/ChatFeedback.docs.js';
-import docs69 from '../../components/chat/ChatFileExplorer/stories/docs/ChatFileExplorer.docs.js';
-import docs70 from '../../components/chat/ChatInput/stories/docs/ChatInput.docs.js';
-import docs71 from '../../components/chat/ChatMessage/stories/docs/ChatMessage.docs.js';
-import docs72 from '../../components/chat/ChatMessageList/stories/docs/ChatMessageList.docs.js';
-import docs73 from '../../components/chat/ChatPersona/stories/docs/ChatPersona.docs.js';
-import docs74 from '../../components/chat/ChatPlanPanel/stories/docs/ChatPlanPanel.docs.js';
-import docs75 from '../../components/chat/ChatReasoning/stories/docs/ChatReasoning.docs.js';
-import docs76 from '../../components/chat/ChatSessionList/stories/docs/ChatSessionList.docs.js';
-import docs77 from '../../components/chat/ChatSources/stories/docs/ChatSources.docs.js';
-import docs78 from '../../components/chat/ChatThreadNav/stories/docs/ChatThreadNav.docs.js';
-import docs79 from '../../components/chat/ChatTool/stories/docs/ChatTool.docs.js';
-import docs80 from '../../components/chat/ChatVoice/stories/docs/ChatVoice.docs.js';
-import docs81 from '../../components/chat/ChatWorkspace/stories/docs/ChatWorkspace.docs.js';
-import docs82 from '../../components/core/Accordion/stories/docs/Accordion.docs.js';
-import docs83 from '../../components/core/AspectRatio/stories/docs/AspectRatio.docs.js';
-import docs84 from '../../components/core/Attachment/stories/docs/Attachment.docs.js';
-import docs85 from '../../components/core/Avatar/stories/docs/Avatar.docs.js';
-import docs86 from '../../components/core/Banner/stories/docs/Banner.docs.js';
-import docs87 from '../../components/core/Breadcrumb/stories/docs/Breadcrumb.docs.js';
-import docs88 from '../../components/core/Button/stories/docs/Button.docs.js';
-import docs89 from '../../components/core/ButtonGroup/stories/docs/ButtonGroup.docs.js';
-import docs90 from '../../components/core/Calendar/stories/docs/Calendar.docs.js';
-import docs91 from '../../components/core/Card/stories/docs/Card.docs.js';
-import docs92 from '../../components/core/Carousel/stories/docs/Carousel.docs.js';
-import docs93 from '../../components/core/Cascader/stories/docs/Cascader.docs.js';
-import docs94 from '../../components/core/Checkbox/stories/docs/Checkbox.docs.js';
-import docs95 from '../../components/core/CodeBlock/stories/docs/CodeBlock.docs.js';
-import docs96 from '../../components/core/ColorPicker/stories/docs/color-picker.docs.js';
-import docs97 from '../../components/core/Commander/stories/docs/Commander.docs.js';
-import docs98 from '../../components/core/DataTable/stories/docs/DataTable.docs.js';
-import docs99 from '../../components/core/Dialog/stories/docs/Dialog.docs.js';
-import docs100 from '../../components/core/Direction/stories/docs/Direction.docs.js';
-import docs101 from '../../components/core/DropdownMenu/stories/docs/DropdownMenu.docs.js';
-import docs102 from '../../components/core/Embed/stories/docs/Embed.docs.js';
-import docs103 from '../../components/core/EmptyState/stories/docs/EmptyState.docs.js';
-import docs104 from '../../components/core/EventCalendar/stories/docs/EventCalendar.docs.js';
-import docs105 from '../../components/core/Field/stories/docs/Field.docs.js';
-import docs106 from '../../components/core/FileUpload/stories/docs/FileUpload.docs.js';
-import docs107 from '../../components/core/FilterBar/stories/docs/FilterBar.docs.js';
-import docs108 from '../../components/core/FloatingMenu/stories/docs/FloatingMenu.docs.js';
-import docs109 from '../../components/core/Flow/stories/docs/Flow.docs.js';
-import docs110 from '../../components/core/Gantt/stories/docs/Gantt.docs.js';
-import docs111 from '../../components/core/Icon/stories/docs/Icon.docs.js';
-import docs112 from '../../components/core/ImageGallery/stories/docs/ImageGallery.docs.js';
-import docs113 from '../../components/core/Input/stories/docs/Input.docs.js';
-import docs114 from '../../components/core/InputOtp/stories/docs/InputOtp.docs.js';
-import docs115 from '../../components/core/Item/stories/docs/Item.docs.js';
-import docs116 from '../../components/core/KanbanBoard/stories/docs/KanbanBoard.docs.js';
-import docs117 from '../../components/core/Kbd/stories/docs/Kbd.docs.js';
-import docs118 from '../../components/core/Link/stories/docs/Link.docs.js';
-import docs119 from '../../components/core/LinkPreview/stories/docs/LinkPreview.docs.js';
-import docs120 from '../../components/core/Loader/stories/docs/Loader.docs.js';
-import docs121 from '../../components/core/Map/stories/docs/Map.docs.js';
-import docs122 from '../../components/core/NavigationMenu/stories/docs/NavigationMenu.docs.js';
-import docs123 from '../../components/core/NumberField/stories/docs/NumberField.docs.js';
-import docs124 from '../../components/core/Pagination/stories/docs/Pagination.docs.js';
-import docs125 from '../../components/core/PhoneInput/stories/docs/PhoneInput.docs.js';
-import docs126 from '../../components/core/Pill/stories/docs/Pill.docs.js';
-import docs127 from '../../components/core/Pointer/stories/docs/Pointer.docs.js';
-import docs128 from '../../components/core/Popover/stories/docs/Popover.docs.js';
-import docs129 from '../../components/core/Progress/stories/docs/Progress.docs.js';
-import docs130 from '../../components/core/Questionnaire/stories/docs/Questionnaire.docs.js';
-import docs131 from '../../components/core/RadioGroup/stories/docs/RadioGroup.docs.js';
-import docs132 from '../../components/core/Rating/stories/docs/Rating.docs.js';
-import docs133 from '../../components/core/ReadingIndicator/stories/docs/ReadingIndicator.docs.js';
-import docs134 from '../../components/core/Resizable/stories/docs/Resizable.docs.js';
-import docs135 from '../../components/core/SchemaDisplay/stories/docs/SchemaDisplay.docs.js';
-import docs136 from '../../components/core/ScrollArea/stories/docs/ScrollArea.docs.js';
-import docs137 from '../../components/core/Scrollspy/stories/docs/Scrollspy.docs.js';
-import docs138 from '../../components/core/Select/stories/docs/Select.docs.js';
-import docs139 from '../../components/core/Separator/stories/docs/Separator.docs.js';
-import docs140 from '../../components/core/Sheet/stories/docs/Sheet.docs.js';
-import docs141 from '../../components/core/SignaturePad/stories/docs/SignaturePad.docs.js';
-import docs142 from '../../components/core/Skeleton/stories/docs/Skeleton.docs.js';
-import docs143 from '../../components/core/Slider/stories/docs/Slider.docs.js';
-import docs144 from '../../components/core/Sortable/stories/docs/Sortable.docs.js';
-import docs145 from '../../components/core/Stepper/stories/docs/Stepper.docs.js';
-import docs146 from '../../components/core/Switch/stories/docs/Switch.docs.js';
-import docs147 from '../../components/core/Tabs/stories/docs/Tabs.docs.js';
-import docs148 from '../../components/core/Terminal/stories/docs/Terminal.docs.js';
-import docs149 from '../../components/core/TextHighlight/stories/docs/TextHighlight.docs.js';
-import docs150 from '../../components/core/Textarea/stories/docs/Textarea.docs.js';
-import docs151 from '../../components/core/Timeline/stories/docs/Timeline.docs.js';
-import docs152 from '../../components/core/Toast/stories/docs/Toast.docs.js';
-import docs153 from '../../components/core/ToggleGroup/stories/docs/ToggleGroup.docs.js';
-import docs154 from '../../components/core/Tooltip/stories/docs/Tooltip.docs.js';
-import docs155 from '../../components/core/Tree/stories/docs/Tree.docs.js';
-import docs156 from '../../components/core/VideoPlayer/stories/docs/VideoPlayer.docs.js';
-import docs157 from '../../components/core/WebPreview/stories/docs/WebPreview.docs.js';
-import docs158 from '../../components/layout/ArticleContentLayout/stories/docs/ArticleContentLayout.docs.js';
-import docs159 from '../../components/layout/Footer/stories/docs/Footer.docs.js';
-import docs160 from '../../components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js';
-import docs161 from '../../components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js';
-import docs162 from '../../components/layout/PageChrome/stories/docs/PageChrome.docs.js';
-import docs163 from '../../components/layout/PageHeader/stories/docs/PageHeader.docs.js';
-import docs164 from '../../components/mdx/Aside/stories/docs/Aside.docs.js';
-import docs165 from '../../components/mdx/Callout/stories/docs/Callout.docs.js';
-import docs166 from '../../components/mdx/Chart/stories/docs/Chart.docs.js';
-import docs167 from '../../components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js';
-import docs168 from '../../components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js';
-import docs169 from '../../components/mdx/Code/stories/docs/Code.docs.js';
-import docs170 from '../../components/mdx/Details/stories/docs/Details.docs.js';
-import docs171 from '../../components/mdx/Faq/stories/docs/Faq.docs.js';
-import docs172 from '../../components/mdx/FileTree/stories/docs/FileTree.docs.js';
-import docs173 from '../../components/mdx/Footnote/stories/docs/Footnote.docs.js';
-import docs174 from '../../components/mdx/Highlight/stories/docs/Highlight.docs.js';
-import docs175 from '../../components/mdx/Image/stories/docs/Image.docs.js';
-import docs176 from '../../components/mdx/ImageModal/stories/docs/ImageModal.docs.js';
-import docs177 from '../../components/mdx/LatexText/stories/docs/LatexText.docs.js';
-import docs178 from '../../components/mdx/Mermaid/stories/docs/Mermaid.docs.js';
-import docs179 from '../../components/mdx/Preview/stories/docs/Preview.docs.js';
-import docs180 from '../../components/mdx/Quote/stories/docs/Quote.docs.js';
-import docs181 from '../../components/mdx/Table/stories/docs/Table.docs.js';
-import docs182 from '../../components/mdx/Tooltip/stories/docs/Tooltip.docs.js';
-import docs183 from '../../components/mdx/Video/stories/docs/Video.docs.js';
-import docs184 from '../../components/post/OgCard/stories/docs/OgCard.docs.js';
-import docs185 from '../../components/post/Post/stories/docs/Post.docs.js';
-import docs186 from '../../components/post/PostHeader/stories/docs/PostHeader.docs.js';
-import docs187 from '../../components/post/PostNavigation/stories/docs/PostNavigation.docs.js';
-import docs188 from '../../components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js';
-import docs189 from '../../components/post/TableOfContents/stories/docs/TableOfContents.docs.js';
+import docs64 from '../../components/chat/ChatAgentCheckpoints/stories/docs/ChatAgentCheckpoints.docs.js';
+import docs65 from '../../components/chat/ChatAgentFindings/stories/docs/ChatAgentFindings.docs.js';
+import docs66 from '../../components/chat/ChatAgentMark/stories/docs/ChatAgentMark.docs.js';
+import docs67 from '../../components/chat/ChatAgentQueue/stories/docs/ChatAgentQueue.docs.js';
+import docs68 from '../../components/chat/ChatBubble/stories/docs/ChatBubble.docs.js';
+import docs69 from '../../components/chat/ChatContextWindow/stories/docs/ChatContextWindow.docs.js';
+import docs70 from '../../components/chat/ChatDelegation/stories/docs/ChatDelegation.docs.js';
+import docs71 from '../../components/chat/ChatEffortSlider/stories/docs/ChatEffortSlider.docs.js';
+import docs72 from '../../components/chat/ChatFeedback/stories/docs/ChatFeedback.docs.js';
+import docs73 from '../../components/chat/ChatFileExplorer/stories/docs/ChatFileExplorer.docs.js';
+import docs74 from '../../components/chat/ChatInput/stories/docs/ChatInput.docs.js';
+import docs75 from '../../components/chat/ChatMessage/stories/docs/ChatMessage.docs.js';
+import docs76 from '../../components/chat/ChatMessageList/stories/docs/ChatMessageList.docs.js';
+import docs77 from '../../components/chat/ChatPersona/stories/docs/ChatPersona.docs.js';
+import docs78 from '../../components/chat/ChatPlanPanel/stories/docs/ChatPlanPanel.docs.js';
+import docs79 from '../../components/chat/ChatReasoning/stories/docs/ChatReasoning.docs.js';
+import docs80 from '../../components/chat/ChatSessionList/stories/docs/ChatSessionList.docs.js';
+import docs81 from '../../components/chat/ChatSources/stories/docs/ChatSources.docs.js';
+import docs82 from '../../components/chat/ChatThreadNav/stories/docs/ChatThreadNav.docs.js';
+import docs83 from '../../components/chat/ChatTool/stories/docs/ChatTool.docs.js';
+import docs84 from '../../components/chat/ChatVoice/stories/docs/ChatVoice.docs.js';
+import docs85 from '../../components/chat/ChatWorkspace/stories/docs/ChatWorkspace.docs.js';
+import docs86 from '../../components/core/Accordion/stories/docs/Accordion.docs.js';
+import docs87 from '../../components/core/AspectRatio/stories/docs/AspectRatio.docs.js';
+import docs88 from '../../components/core/Attachment/stories/docs/Attachment.docs.js';
+import docs89 from '../../components/core/Avatar/stories/docs/Avatar.docs.js';
+import docs90 from '../../components/core/Banner/stories/docs/Banner.docs.js';
+import docs91 from '../../components/core/Breadcrumb/stories/docs/Breadcrumb.docs.js';
+import docs92 from '../../components/core/Button/stories/docs/Button.docs.js';
+import docs93 from '../../components/core/ButtonGroup/stories/docs/ButtonGroup.docs.js';
+import docs94 from '../../components/core/Calendar/stories/docs/Calendar.docs.js';
+import docs95 from '../../components/core/Card/stories/docs/Card.docs.js';
+import docs96 from '../../components/core/Carousel/stories/docs/Carousel.docs.js';
+import docs97 from '../../components/core/Cascader/stories/docs/Cascader.docs.js';
+import docs98 from '../../components/core/Checkbox/stories/docs/Checkbox.docs.js';
+import docs99 from '../../components/core/CodeBlock/stories/docs/CodeBlock.docs.js';
+import docs100 from '../../components/core/ColorPicker/stories/docs/color-picker.docs.js';
+import docs101 from '../../components/core/Commander/stories/docs/Commander.docs.js';
+import docs102 from '../../components/core/DataTable/stories/docs/DataTable.docs.js';
+import docs103 from '../../components/core/Dialog/stories/docs/Dialog.docs.js';
+import docs104 from '../../components/core/Direction/stories/docs/Direction.docs.js';
+import docs105 from '../../components/core/DropdownMenu/stories/docs/DropdownMenu.docs.js';
+import docs106 from '../../components/core/Embed/stories/docs/Embed.docs.js';
+import docs107 from '../../components/core/EmptyState/stories/docs/EmptyState.docs.js';
+import docs108 from '../../components/core/EventCalendar/stories/docs/EventCalendar.docs.js';
+import docs109 from '../../components/core/Field/stories/docs/Field.docs.js';
+import docs110 from '../../components/core/FileUpload/stories/docs/FileUpload.docs.js';
+import docs111 from '../../components/core/FilterBar/stories/docs/FilterBar.docs.js';
+import docs112 from '../../components/core/FloatingMenu/stories/docs/FloatingMenu.docs.js';
+import docs113 from '../../components/core/Flow/stories/docs/Flow.docs.js';
+import docs114 from '../../components/core/Gantt/stories/docs/Gantt.docs.js';
+import docs115 from '../../components/core/Icon/stories/docs/Icon.docs.js';
+import docs116 from '../../components/core/ImageGallery/stories/docs/ImageGallery.docs.js';
+import docs117 from '../../components/core/Input/stories/docs/Input.docs.js';
+import docs118 from '../../components/core/InputOtp/stories/docs/InputOtp.docs.js';
+import docs119 from '../../components/core/Item/stories/docs/Item.docs.js';
+import docs120 from '../../components/core/KanbanBoard/stories/docs/KanbanBoard.docs.js';
+import docs121 from '../../components/core/Kbd/stories/docs/Kbd.docs.js';
+import docs122 from '../../components/core/Link/stories/docs/Link.docs.js';
+import docs123 from '../../components/core/LinkPreview/stories/docs/LinkPreview.docs.js';
+import docs124 from '../../components/core/Loader/stories/docs/Loader.docs.js';
+import docs125 from '../../components/core/Map/stories/docs/Map.docs.js';
+import docs126 from '../../components/core/NavigationMenu/stories/docs/NavigationMenu.docs.js';
+import docs127 from '../../components/core/NumberField/stories/docs/NumberField.docs.js';
+import docs128 from '../../components/core/Pagination/stories/docs/Pagination.docs.js';
+import docs129 from '../../components/core/PhoneInput/stories/docs/PhoneInput.docs.js';
+import docs130 from '../../components/core/Pill/stories/docs/Pill.docs.js';
+import docs131 from '../../components/core/Pointer/stories/docs/Pointer.docs.js';
+import docs132 from '../../components/core/Popover/stories/docs/Popover.docs.js';
+import docs133 from '../../components/core/Progress/stories/docs/Progress.docs.js';
+import docs134 from '../../components/core/Questionnaire/stories/docs/Questionnaire.docs.js';
+import docs135 from '../../components/core/RadioGroup/stories/docs/RadioGroup.docs.js';
+import docs136 from '../../components/core/Rating/stories/docs/Rating.docs.js';
+import docs137 from '../../components/core/ReadingIndicator/stories/docs/ReadingIndicator.docs.js';
+import docs138 from '../../components/core/Resizable/stories/docs/Resizable.docs.js';
+import docs139 from '../../components/core/SchemaDisplay/stories/docs/SchemaDisplay.docs.js';
+import docs140 from '../../components/core/ScrollArea/stories/docs/ScrollArea.docs.js';
+import docs141 from '../../components/core/Scrollspy/stories/docs/Scrollspy.docs.js';
+import docs142 from '../../components/core/Select/stories/docs/Select.docs.js';
+import docs143 from '../../components/core/Separator/stories/docs/Separator.docs.js';
+import docs144 from '../../components/core/Sheet/stories/docs/Sheet.docs.js';
+import docs145 from '../../components/core/SignaturePad/stories/docs/SignaturePad.docs.js';
+import docs146 from '../../components/core/Skeleton/stories/docs/Skeleton.docs.js';
+import docs147 from '../../components/core/Slider/stories/docs/Slider.docs.js';
+import docs148 from '../../components/core/Sortable/stories/docs/Sortable.docs.js';
+import docs149 from '../../components/core/Stepper/stories/docs/Stepper.docs.js';
+import docs150 from '../../components/core/Switch/stories/docs/Switch.docs.js';
+import docs151 from '../../components/core/Tabs/stories/docs/Tabs.docs.js';
+import docs152 from '../../components/core/Terminal/stories/docs/Terminal.docs.js';
+import docs153 from '../../components/core/TextHighlight/stories/docs/TextHighlight.docs.js';
+import docs154 from '../../components/core/Textarea/stories/docs/Textarea.docs.js';
+import docs155 from '../../components/core/Timeline/stories/docs/Timeline.docs.js';
+import docs156 from '../../components/core/Toast/stories/docs/Toast.docs.js';
+import docs157 from '../../components/core/ToggleGroup/stories/docs/ToggleGroup.docs.js';
+import docs158 from '../../components/core/Tooltip/stories/docs/Tooltip.docs.js';
+import docs159 from '../../components/core/Tree/stories/docs/Tree.docs.js';
+import docs160 from '../../components/core/VideoPlayer/stories/docs/VideoPlayer.docs.js';
+import docs161 from '../../components/core/WebPreview/stories/docs/WebPreview.docs.js';
+import docs162 from '../../components/layout/ArticleContentLayout/stories/docs/ArticleContentLayout.docs.js';
+import docs163 from '../../components/layout/Footer/stories/docs/Footer.docs.js';
+import docs164 from '../../components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js';
+import docs165 from '../../components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js';
+import docs166 from '../../components/layout/PageChrome/stories/docs/PageChrome.docs.js';
+import docs167 from '../../components/layout/PageHeader/stories/docs/PageHeader.docs.js';
+import docs168 from '../../components/mdx/Aside/stories/docs/Aside.docs.js';
+import docs169 from '../../components/mdx/Callout/stories/docs/Callout.docs.js';
+import docs170 from '../../components/mdx/Chart/stories/docs/Chart.docs.js';
+import docs171 from '../../components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js';
+import docs172 from '../../components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js';
+import docs173 from '../../components/mdx/Code/stories/docs/Code.docs.js';
+import docs174 from '../../components/mdx/Details/stories/docs/Details.docs.js';
+import docs175 from '../../components/mdx/Faq/stories/docs/Faq.docs.js';
+import docs176 from '../../components/mdx/FileTree/stories/docs/FileTree.docs.js';
+import docs177 from '../../components/mdx/Footnote/stories/docs/Footnote.docs.js';
+import docs178 from '../../components/mdx/Highlight/stories/docs/Highlight.docs.js';
+import docs179 from '../../components/mdx/Image/stories/docs/Image.docs.js';
+import docs180 from '../../components/mdx/ImageModal/stories/docs/ImageModal.docs.js';
+import docs181 from '../../components/mdx/LatexText/stories/docs/LatexText.docs.js';
+import docs182 from '../../components/mdx/Mermaid/stories/docs/Mermaid.docs.js';
+import docs183 from '../../components/mdx/Preview/stories/docs/Preview.docs.js';
+import docs184 from '../../components/mdx/Quote/stories/docs/Quote.docs.js';
+import docs185 from '../../components/mdx/Table/stories/docs/Table.docs.js';
+import docs186 from '../../components/mdx/Tooltip/stories/docs/Tooltip.docs.js';
+import docs187 from '../../components/mdx/Video/stories/docs/Video.docs.js';
+import docs188 from '../../components/post/OgCard/stories/docs/OgCard.docs.js';
+import docs189 from '../../components/post/Post/stories/docs/Post.docs.js';
+import docs190 from '../../components/post/PostHeader/stories/docs/PostHeader.docs.js';
+import docs191 from '../../components/post/PostNavigation/stories/docs/PostNavigation.docs.js';
+import docs192 from '../../components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js';
+import docs193 from '../../components/post/TableOfContents/stories/docs/TableOfContents.docs.js';
 
 export const ownerDocumentationModules = {
   'src/components/animations/AeroShards/stories/docs/AeroShards.docs.js': docs0,
@@ -255,132 +259,136 @@ export const ownerDocumentationModules = {
   'src/components/charts/WaterfallChart/stories/docs/WaterfallChart.docs.js': docs61,
   'src/components/chat/ChatActivityHistory/stories/docs/ChatActivityHistory.docs.js': docs62,
   'src/components/chat/ChatActivityIndicator/stories/docs/ChatActivityIndicator.docs.js': docs63,
-  'src/components/chat/ChatAgentMark/stories/docs/ChatAgentMark.docs.js': docs64,
-  'src/components/chat/ChatBubble/stories/docs/ChatBubble.docs.js': docs65,
-  'src/components/chat/ChatDelegation/stories/docs/ChatDelegation.docs.js': docs66,
-  'src/components/chat/ChatEffortSlider/stories/docs/ChatEffortSlider.docs.js': docs67,
-  'src/components/chat/ChatFeedback/stories/docs/ChatFeedback.docs.js': docs68,
-  'src/components/chat/ChatFileExplorer/stories/docs/ChatFileExplorer.docs.js': docs69,
-  'src/components/chat/ChatInput/stories/docs/ChatInput.docs.js': docs70,
-  'src/components/chat/ChatMessage/stories/docs/ChatMessage.docs.js': docs71,
-  'src/components/chat/ChatMessageList/stories/docs/ChatMessageList.docs.js': docs72,
-  'src/components/chat/ChatPersona/stories/docs/ChatPersona.docs.js': docs73,
-  'src/components/chat/ChatPlanPanel/stories/docs/ChatPlanPanel.docs.js': docs74,
-  'src/components/chat/ChatReasoning/stories/docs/ChatReasoning.docs.js': docs75,
-  'src/components/chat/ChatSessionList/stories/docs/ChatSessionList.docs.js': docs76,
-  'src/components/chat/ChatSources/stories/docs/ChatSources.docs.js': docs77,
-  'src/components/chat/ChatThreadNav/stories/docs/ChatThreadNav.docs.js': docs78,
-  'src/components/chat/ChatTool/stories/docs/ChatTool.docs.js': docs79,
-  'src/components/chat/ChatVoice/stories/docs/ChatVoice.docs.js': docs80,
-  'src/components/chat/ChatWorkspace/stories/docs/ChatWorkspace.docs.js': docs81,
-  'src/components/core/Accordion/stories/docs/Accordion.docs.js': docs82,
-  'src/components/core/AspectRatio/stories/docs/AspectRatio.docs.js': docs83,
-  'src/components/core/Attachment/stories/docs/Attachment.docs.js': docs84,
-  'src/components/core/Avatar/stories/docs/Avatar.docs.js': docs85,
-  'src/components/core/Banner/stories/docs/Banner.docs.js': docs86,
-  'src/components/core/Breadcrumb/stories/docs/Breadcrumb.docs.js': docs87,
-  'src/components/core/Button/stories/docs/Button.docs.js': docs88,
-  'src/components/core/ButtonGroup/stories/docs/ButtonGroup.docs.js': docs89,
-  'src/components/core/Calendar/stories/docs/Calendar.docs.js': docs90,
-  'src/components/core/Card/stories/docs/Card.docs.js': docs91,
-  'src/components/core/Carousel/stories/docs/Carousel.docs.js': docs92,
-  'src/components/core/Cascader/stories/docs/Cascader.docs.js': docs93,
-  'src/components/core/Checkbox/stories/docs/Checkbox.docs.js': docs94,
-  'src/components/core/CodeBlock/stories/docs/CodeBlock.docs.js': docs95,
-  'src/components/core/ColorPicker/stories/docs/color-picker.docs.js': docs96,
-  'src/components/core/Commander/stories/docs/Commander.docs.js': docs97,
-  'src/components/core/DataTable/stories/docs/DataTable.docs.js': docs98,
-  'src/components/core/Dialog/stories/docs/Dialog.docs.js': docs99,
-  'src/components/core/Direction/stories/docs/Direction.docs.js': docs100,
-  'src/components/core/DropdownMenu/stories/docs/DropdownMenu.docs.js': docs101,
-  'src/components/core/Embed/stories/docs/Embed.docs.js': docs102,
-  'src/components/core/EmptyState/stories/docs/EmptyState.docs.js': docs103,
-  'src/components/core/EventCalendar/stories/docs/EventCalendar.docs.js': docs104,
-  'src/components/core/Field/stories/docs/Field.docs.js': docs105,
-  'src/components/core/FileUpload/stories/docs/FileUpload.docs.js': docs106,
-  'src/components/core/FilterBar/stories/docs/FilterBar.docs.js': docs107,
-  'src/components/core/FloatingMenu/stories/docs/FloatingMenu.docs.js': docs108,
-  'src/components/core/Flow/stories/docs/Flow.docs.js': docs109,
-  'src/components/core/Gantt/stories/docs/Gantt.docs.js': docs110,
-  'src/components/core/Icon/stories/docs/Icon.docs.js': docs111,
-  'src/components/core/ImageGallery/stories/docs/ImageGallery.docs.js': docs112,
-  'src/components/core/Input/stories/docs/Input.docs.js': docs113,
-  'src/components/core/InputOtp/stories/docs/InputOtp.docs.js': docs114,
-  'src/components/core/Item/stories/docs/Item.docs.js': docs115,
-  'src/components/core/KanbanBoard/stories/docs/KanbanBoard.docs.js': docs116,
-  'src/components/core/Kbd/stories/docs/Kbd.docs.js': docs117,
-  'src/components/core/Link/stories/docs/Link.docs.js': docs118,
-  'src/components/core/LinkPreview/stories/docs/LinkPreview.docs.js': docs119,
-  'src/components/core/Loader/stories/docs/Loader.docs.js': docs120,
-  'src/components/core/Map/stories/docs/Map.docs.js': docs121,
-  'src/components/core/NavigationMenu/stories/docs/NavigationMenu.docs.js': docs122,
-  'src/components/core/NumberField/stories/docs/NumberField.docs.js': docs123,
-  'src/components/core/Pagination/stories/docs/Pagination.docs.js': docs124,
-  'src/components/core/PhoneInput/stories/docs/PhoneInput.docs.js': docs125,
-  'src/components/core/Pill/stories/docs/Pill.docs.js': docs126,
-  'src/components/core/Pointer/stories/docs/Pointer.docs.js': docs127,
-  'src/components/core/Popover/stories/docs/Popover.docs.js': docs128,
-  'src/components/core/Progress/stories/docs/Progress.docs.js': docs129,
-  'src/components/core/Questionnaire/stories/docs/Questionnaire.docs.js': docs130,
-  'src/components/core/RadioGroup/stories/docs/RadioGroup.docs.js': docs131,
-  'src/components/core/Rating/stories/docs/Rating.docs.js': docs132,
-  'src/components/core/ReadingIndicator/stories/docs/ReadingIndicator.docs.js': docs133,
-  'src/components/core/Resizable/stories/docs/Resizable.docs.js': docs134,
-  'src/components/core/SchemaDisplay/stories/docs/SchemaDisplay.docs.js': docs135,
-  'src/components/core/ScrollArea/stories/docs/ScrollArea.docs.js': docs136,
-  'src/components/core/Scrollspy/stories/docs/Scrollspy.docs.js': docs137,
-  'src/components/core/Select/stories/docs/Select.docs.js': docs138,
-  'src/components/core/Separator/stories/docs/Separator.docs.js': docs139,
-  'src/components/core/Sheet/stories/docs/Sheet.docs.js': docs140,
-  'src/components/core/SignaturePad/stories/docs/SignaturePad.docs.js': docs141,
-  'src/components/core/Skeleton/stories/docs/Skeleton.docs.js': docs142,
-  'src/components/core/Slider/stories/docs/Slider.docs.js': docs143,
-  'src/components/core/Sortable/stories/docs/Sortable.docs.js': docs144,
-  'src/components/core/Stepper/stories/docs/Stepper.docs.js': docs145,
-  'src/components/core/Switch/stories/docs/Switch.docs.js': docs146,
-  'src/components/core/Tabs/stories/docs/Tabs.docs.js': docs147,
-  'src/components/core/Terminal/stories/docs/Terminal.docs.js': docs148,
-  'src/components/core/TextHighlight/stories/docs/TextHighlight.docs.js': docs149,
-  'src/components/core/Textarea/stories/docs/Textarea.docs.js': docs150,
-  'src/components/core/Timeline/stories/docs/Timeline.docs.js': docs151,
-  'src/components/core/Toast/stories/docs/Toast.docs.js': docs152,
-  'src/components/core/ToggleGroup/stories/docs/ToggleGroup.docs.js': docs153,
-  'src/components/core/Tooltip/stories/docs/Tooltip.docs.js': docs154,
-  'src/components/core/Tree/stories/docs/Tree.docs.js': docs155,
-  'src/components/core/VideoPlayer/stories/docs/VideoPlayer.docs.js': docs156,
-  'src/components/core/WebPreview/stories/docs/WebPreview.docs.js': docs157,
-  'src/components/layout/ArticleContentLayout/stories/docs/ArticleContentLayout.docs.js': docs158,
-  'src/components/layout/Footer/stories/docs/Footer.docs.js': docs159,
-  'src/components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js': docs160,
-  'src/components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js': docs161,
-  'src/components/layout/PageChrome/stories/docs/PageChrome.docs.js': docs162,
-  'src/components/layout/PageHeader/stories/docs/PageHeader.docs.js': docs163,
-  'src/components/mdx/Aside/stories/docs/Aside.docs.js': docs164,
-  'src/components/mdx/Callout/stories/docs/Callout.docs.js': docs165,
-  'src/components/mdx/Chart/stories/docs/Chart.docs.js': docs166,
-  'src/components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js': docs167,
-  'src/components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js': docs168,
-  'src/components/mdx/Code/stories/docs/Code.docs.js': docs169,
-  'src/components/mdx/Details/stories/docs/Details.docs.js': docs170,
-  'src/components/mdx/Faq/stories/docs/Faq.docs.js': docs171,
-  'src/components/mdx/FileTree/stories/docs/FileTree.docs.js': docs172,
-  'src/components/mdx/Footnote/stories/docs/Footnote.docs.js': docs173,
-  'src/components/mdx/Highlight/stories/docs/Highlight.docs.js': docs174,
-  'src/components/mdx/Image/stories/docs/Image.docs.js': docs175,
-  'src/components/mdx/ImageModal/stories/docs/ImageModal.docs.js': docs176,
-  'src/components/mdx/LatexText/stories/docs/LatexText.docs.js': docs177,
-  'src/components/mdx/Mermaid/stories/docs/Mermaid.docs.js': docs178,
-  'src/components/mdx/Preview/stories/docs/Preview.docs.js': docs179,
-  'src/components/mdx/Quote/stories/docs/Quote.docs.js': docs180,
-  'src/components/mdx/Table/stories/docs/Table.docs.js': docs181,
-  'src/components/mdx/Tooltip/stories/docs/Tooltip.docs.js': docs182,
-  'src/components/mdx/Video/stories/docs/Video.docs.js': docs183,
-  'src/components/post/OgCard/stories/docs/OgCard.docs.js': docs184,
-  'src/components/post/Post/stories/docs/Post.docs.js': docs185,
-  'src/components/post/PostHeader/stories/docs/PostHeader.docs.js': docs186,
-  'src/components/post/PostNavigation/stories/docs/PostNavigation.docs.js': docs187,
-  'src/components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js': docs188,
-  'src/components/post/TableOfContents/stories/docs/TableOfContents.docs.js': docs189
+  'src/components/chat/ChatAgentCheckpoints/stories/docs/ChatAgentCheckpoints.docs.js': docs64,
+  'src/components/chat/ChatAgentFindings/stories/docs/ChatAgentFindings.docs.js': docs65,
+  'src/components/chat/ChatAgentMark/stories/docs/ChatAgentMark.docs.js': docs66,
+  'src/components/chat/ChatAgentQueue/stories/docs/ChatAgentQueue.docs.js': docs67,
+  'src/components/chat/ChatBubble/stories/docs/ChatBubble.docs.js': docs68,
+  'src/components/chat/ChatContextWindow/stories/docs/ChatContextWindow.docs.js': docs69,
+  'src/components/chat/ChatDelegation/stories/docs/ChatDelegation.docs.js': docs70,
+  'src/components/chat/ChatEffortSlider/stories/docs/ChatEffortSlider.docs.js': docs71,
+  'src/components/chat/ChatFeedback/stories/docs/ChatFeedback.docs.js': docs72,
+  'src/components/chat/ChatFileExplorer/stories/docs/ChatFileExplorer.docs.js': docs73,
+  'src/components/chat/ChatInput/stories/docs/ChatInput.docs.js': docs74,
+  'src/components/chat/ChatMessage/stories/docs/ChatMessage.docs.js': docs75,
+  'src/components/chat/ChatMessageList/stories/docs/ChatMessageList.docs.js': docs76,
+  'src/components/chat/ChatPersona/stories/docs/ChatPersona.docs.js': docs77,
+  'src/components/chat/ChatPlanPanel/stories/docs/ChatPlanPanel.docs.js': docs78,
+  'src/components/chat/ChatReasoning/stories/docs/ChatReasoning.docs.js': docs79,
+  'src/components/chat/ChatSessionList/stories/docs/ChatSessionList.docs.js': docs80,
+  'src/components/chat/ChatSources/stories/docs/ChatSources.docs.js': docs81,
+  'src/components/chat/ChatThreadNav/stories/docs/ChatThreadNav.docs.js': docs82,
+  'src/components/chat/ChatTool/stories/docs/ChatTool.docs.js': docs83,
+  'src/components/chat/ChatVoice/stories/docs/ChatVoice.docs.js': docs84,
+  'src/components/chat/ChatWorkspace/stories/docs/ChatWorkspace.docs.js': docs85,
+  'src/components/core/Accordion/stories/docs/Accordion.docs.js': docs86,
+  'src/components/core/AspectRatio/stories/docs/AspectRatio.docs.js': docs87,
+  'src/components/core/Attachment/stories/docs/Attachment.docs.js': docs88,
+  'src/components/core/Avatar/stories/docs/Avatar.docs.js': docs89,
+  'src/components/core/Banner/stories/docs/Banner.docs.js': docs90,
+  'src/components/core/Breadcrumb/stories/docs/Breadcrumb.docs.js': docs91,
+  'src/components/core/Button/stories/docs/Button.docs.js': docs92,
+  'src/components/core/ButtonGroup/stories/docs/ButtonGroup.docs.js': docs93,
+  'src/components/core/Calendar/stories/docs/Calendar.docs.js': docs94,
+  'src/components/core/Card/stories/docs/Card.docs.js': docs95,
+  'src/components/core/Carousel/stories/docs/Carousel.docs.js': docs96,
+  'src/components/core/Cascader/stories/docs/Cascader.docs.js': docs97,
+  'src/components/core/Checkbox/stories/docs/Checkbox.docs.js': docs98,
+  'src/components/core/CodeBlock/stories/docs/CodeBlock.docs.js': docs99,
+  'src/components/core/ColorPicker/stories/docs/color-picker.docs.js': docs100,
+  'src/components/core/Commander/stories/docs/Commander.docs.js': docs101,
+  'src/components/core/DataTable/stories/docs/DataTable.docs.js': docs102,
+  'src/components/core/Dialog/stories/docs/Dialog.docs.js': docs103,
+  'src/components/core/Direction/stories/docs/Direction.docs.js': docs104,
+  'src/components/core/DropdownMenu/stories/docs/DropdownMenu.docs.js': docs105,
+  'src/components/core/Embed/stories/docs/Embed.docs.js': docs106,
+  'src/components/core/EmptyState/stories/docs/EmptyState.docs.js': docs107,
+  'src/components/core/EventCalendar/stories/docs/EventCalendar.docs.js': docs108,
+  'src/components/core/Field/stories/docs/Field.docs.js': docs109,
+  'src/components/core/FileUpload/stories/docs/FileUpload.docs.js': docs110,
+  'src/components/core/FilterBar/stories/docs/FilterBar.docs.js': docs111,
+  'src/components/core/FloatingMenu/stories/docs/FloatingMenu.docs.js': docs112,
+  'src/components/core/Flow/stories/docs/Flow.docs.js': docs113,
+  'src/components/core/Gantt/stories/docs/Gantt.docs.js': docs114,
+  'src/components/core/Icon/stories/docs/Icon.docs.js': docs115,
+  'src/components/core/ImageGallery/stories/docs/ImageGallery.docs.js': docs116,
+  'src/components/core/Input/stories/docs/Input.docs.js': docs117,
+  'src/components/core/InputOtp/stories/docs/InputOtp.docs.js': docs118,
+  'src/components/core/Item/stories/docs/Item.docs.js': docs119,
+  'src/components/core/KanbanBoard/stories/docs/KanbanBoard.docs.js': docs120,
+  'src/components/core/Kbd/stories/docs/Kbd.docs.js': docs121,
+  'src/components/core/Link/stories/docs/Link.docs.js': docs122,
+  'src/components/core/LinkPreview/stories/docs/LinkPreview.docs.js': docs123,
+  'src/components/core/Loader/stories/docs/Loader.docs.js': docs124,
+  'src/components/core/Map/stories/docs/Map.docs.js': docs125,
+  'src/components/core/NavigationMenu/stories/docs/NavigationMenu.docs.js': docs126,
+  'src/components/core/NumberField/stories/docs/NumberField.docs.js': docs127,
+  'src/components/core/Pagination/stories/docs/Pagination.docs.js': docs128,
+  'src/components/core/PhoneInput/stories/docs/PhoneInput.docs.js': docs129,
+  'src/components/core/Pill/stories/docs/Pill.docs.js': docs130,
+  'src/components/core/Pointer/stories/docs/Pointer.docs.js': docs131,
+  'src/components/core/Popover/stories/docs/Popover.docs.js': docs132,
+  'src/components/core/Progress/stories/docs/Progress.docs.js': docs133,
+  'src/components/core/Questionnaire/stories/docs/Questionnaire.docs.js': docs134,
+  'src/components/core/RadioGroup/stories/docs/RadioGroup.docs.js': docs135,
+  'src/components/core/Rating/stories/docs/Rating.docs.js': docs136,
+  'src/components/core/ReadingIndicator/stories/docs/ReadingIndicator.docs.js': docs137,
+  'src/components/core/Resizable/stories/docs/Resizable.docs.js': docs138,
+  'src/components/core/SchemaDisplay/stories/docs/SchemaDisplay.docs.js': docs139,
+  'src/components/core/ScrollArea/stories/docs/ScrollArea.docs.js': docs140,
+  'src/components/core/Scrollspy/stories/docs/Scrollspy.docs.js': docs141,
+  'src/components/core/Select/stories/docs/Select.docs.js': docs142,
+  'src/components/core/Separator/stories/docs/Separator.docs.js': docs143,
+  'src/components/core/Sheet/stories/docs/Sheet.docs.js': docs144,
+  'src/components/core/SignaturePad/stories/docs/SignaturePad.docs.js': docs145,
+  'src/components/core/Skeleton/stories/docs/Skeleton.docs.js': docs146,
+  'src/components/core/Slider/stories/docs/Slider.docs.js': docs147,
+  'src/components/core/Sortable/stories/docs/Sortable.docs.js': docs148,
+  'src/components/core/Stepper/stories/docs/Stepper.docs.js': docs149,
+  'src/components/core/Switch/stories/docs/Switch.docs.js': docs150,
+  'src/components/core/Tabs/stories/docs/Tabs.docs.js': docs151,
+  'src/components/core/Terminal/stories/docs/Terminal.docs.js': docs152,
+  'src/components/core/TextHighlight/stories/docs/TextHighlight.docs.js': docs153,
+  'src/components/core/Textarea/stories/docs/Textarea.docs.js': docs154,
+  'src/components/core/Timeline/stories/docs/Timeline.docs.js': docs155,
+  'src/components/core/Toast/stories/docs/Toast.docs.js': docs156,
+  'src/components/core/ToggleGroup/stories/docs/ToggleGroup.docs.js': docs157,
+  'src/components/core/Tooltip/stories/docs/Tooltip.docs.js': docs158,
+  'src/components/core/Tree/stories/docs/Tree.docs.js': docs159,
+  'src/components/core/VideoPlayer/stories/docs/VideoPlayer.docs.js': docs160,
+  'src/components/core/WebPreview/stories/docs/WebPreview.docs.js': docs161,
+  'src/components/layout/ArticleContentLayout/stories/docs/ArticleContentLayout.docs.js': docs162,
+  'src/components/layout/Footer/stories/docs/Footer.docs.js': docs163,
+  'src/components/layout/LayoutContainer/stories/docs/LayoutContainer.docs.js': docs164,
+  'src/components/layout/NewsletterForm/stories/docs/NewsletterForm.docs.js': docs165,
+  'src/components/layout/PageChrome/stories/docs/PageChrome.docs.js': docs166,
+  'src/components/layout/PageHeader/stories/docs/PageHeader.docs.js': docs167,
+  'src/components/mdx/Aside/stories/docs/Aside.docs.js': docs168,
+  'src/components/mdx/Callout/stories/docs/Callout.docs.js': docs169,
+  'src/components/mdx/Chart/stories/docs/Chart.docs.js': docs170,
+  'src/components/mdx/CitationPopover/stories/docs/CitationPopover.docs.js': docs171,
+  'src/components/mdx/CitationTracker/stories/docs/CitationTracker.docs.js': docs172,
+  'src/components/mdx/Code/stories/docs/Code.docs.js': docs173,
+  'src/components/mdx/Details/stories/docs/Details.docs.js': docs174,
+  'src/components/mdx/Faq/stories/docs/Faq.docs.js': docs175,
+  'src/components/mdx/FileTree/stories/docs/FileTree.docs.js': docs176,
+  'src/components/mdx/Footnote/stories/docs/Footnote.docs.js': docs177,
+  'src/components/mdx/Highlight/stories/docs/Highlight.docs.js': docs178,
+  'src/components/mdx/Image/stories/docs/Image.docs.js': docs179,
+  'src/components/mdx/ImageModal/stories/docs/ImageModal.docs.js': docs180,
+  'src/components/mdx/LatexText/stories/docs/LatexText.docs.js': docs181,
+  'src/components/mdx/Mermaid/stories/docs/Mermaid.docs.js': docs182,
+  'src/components/mdx/Preview/stories/docs/Preview.docs.js': docs183,
+  'src/components/mdx/Quote/stories/docs/Quote.docs.js': docs184,
+  'src/components/mdx/Table/stories/docs/Table.docs.js': docs185,
+  'src/components/mdx/Tooltip/stories/docs/Tooltip.docs.js': docs186,
+  'src/components/mdx/Video/stories/docs/Video.docs.js': docs187,
+  'src/components/post/OgCard/stories/docs/OgCard.docs.js': docs188,
+  'src/components/post/Post/stories/docs/Post.docs.js': docs189,
+  'src/components/post/PostHeader/stories/docs/PostHeader.docs.js': docs190,
+  'src/components/post/PostNavigation/stories/docs/PostNavigation.docs.js': docs191,
+  'src/components/post/PostSeriesBox/stories/docs/PostSeriesBox.docs.js': docs192,
+  'src/components/post/TableOfContents/stories/docs/TableOfContents.docs.js': docs193
 };
 
 export const ownerDocumentation = Object.assign({}, ...Object.values(ownerDocumentationModules));

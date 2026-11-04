@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 
 import { ChartFrame, useChartFrame } from '../ChartFrame/ChartFrame.jsx';
 import { createRowsTooltip } from '../ChartFrame/chartTooltip.jsx';
-import { RechartsTooltip, RechartsTreemap, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
+import { RechartsText, RechartsTooltip, RechartsTreemap, ResponsiveContainer, getChartColor } from '../ChartFrame/chartRuntime.js';
 import { extent, formatShare, isChartNumber } from '../ChartFrame/chartScale.js';
 import { heatmapStep } from '../HeatmapChart/heatmapModel.js';
 import { chartStatus, splitFrameProps } from '../ChartFrame/chartData.js';
@@ -38,9 +38,9 @@ function TreemapPlot({ colorBy, colors, leaves, nameKey, tree, valueKey }) {
         {colorBy === 'group' ? <rect fill={ color } height={ Math.min(3, height) } width={ width - 2 } x={ x + 1 } y={ y + 1 } /> : null}
         {isActive ? <rect fill='none' height={ height - 4 } stroke='var(--ds-color-text)' strokeWidth={ 2 } width={ width - 4 } x={ x + 2 } y={ y + 2 } /> : null}
         {width > 44 && height > 22 ? (
-          <text fill={ ink } fontSize={ 12 } fontWeight={ 500 } x={ x + 8 } y={ y + 18 }>{String(node[nameKey]).slice(0, Math.max(3, Math.floor(width / 7.5)))}</text>
+          <RechartsText breakAll direction='ltr' fill={ ink } maxLines={ 1 } style={{ 'fontSize': 12, 'fontWeight': 500 }} width={ width - 16 } x={ x + 8 } y={ y + 18 }>{String(node[nameKey])}</RechartsText>
         ) : null}
-        {width > 56 && height > 40 ? <text fill={ ink } fillOpacity={ 0.8 } fontSize={ 11 } x={ x + 8 } y={ y + 33 }>{format(node.value)}</text> : null}
+        {width > 56 && height > 40 ? <RechartsText breakAll direction='ltr' fill={ ink } fillOpacity={ 0.8 } maxLines={ 1 } style={{ 'fontSize': 11 }} width={ width - 16 } x={ x + 8 } y={ y + 33 }>{format(node.value)}</RechartsText> : null}
       </g>
     );
   };

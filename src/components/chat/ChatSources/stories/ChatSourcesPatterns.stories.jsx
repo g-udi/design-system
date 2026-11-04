@@ -18,3 +18,19 @@ export const ResearchCitations = {
     await waitFor(() => expect(canvas.getByRole('link', { name: /Where readers leave an article/ })).toBeVisible());
   }
 };
+
+export const LinkedAnswer = {
+  name: 'Answer linked to evidence',
+  ...pattern('linked-answer', 'Trace each claim to its source. Hover or focus a citation to highlight related passages; open it to inspect the prepared quote, copy it, or follow the source link.'),
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    const citation = canvas.getAllByRole('button', { name: 'Source 1: What readers asked for in the September issue' })[0];
+    await userEvent.click(citation);
+    const preview = canvas.getByRole('region', { name: 'Source passage' });
+    await expect(preview).toHaveTextContent('the practical example before the background');
+    await userEvent.click(canvas.getByRole('button', { name: 'Close source' }));
+    await waitFor(() => expect(canvas.queryByRole('region', { name: 'Source passage' })).not.toBeInTheDocument());
+    await expect(canvas.getByRole('radio', { name: 'Source 1: What readers asked for in the September issue' })).toHaveFocus();
+  }
+};

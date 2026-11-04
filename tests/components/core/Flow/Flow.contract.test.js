@@ -5,7 +5,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { loadComponent } from '../../../support/renderComponent.js';
 
 const flow = await loadComponent(new URL('../../../../src/components/core/Flow/index.js', import.meta.url));
-const examples = await Promise.all(['automation-editor', 'agent-tree', 'pipeline-monitor', 'impact-map', 'payments-inspector'].map((slug) => loadComponent(new URL(`../../../../src/components/core/Flow/stories/fixtures/flow/flow-${slug}.jsx`, import.meta.url))));
+const examples = await Promise.all(['automation-editor', 'agent-tree', 'pipeline-monitor', 'impact-map', 'payments-inspector', 'agent-graph'].map((slug) => loadComponent(new URL(`../../../../src/components/core/Flow/stories/fixtures/flow/flow-${slug}.jsx`, import.meta.url))));
 
 const nodes = [
   { id: 'start', type: 'pill', position: { x: 0, y: 0 }, data: { title: 'Draft ready', target: false } },

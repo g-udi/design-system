@@ -47,7 +47,7 @@ function Portrait({ person, online }) {
 
 export function Pattern() {
   return (
-    <div className='mx-auto flex w-full max-w-sm flex-col gap-4'>
+    <div className='ds-touch-controls mx-auto flex w-full max-w-2xl flex-col gap-4'>
       {/* The gap inside a run belongs to ChatMessageGroup, the gap between runs to this column. */}
       <ChatMessageGroup>
         <ChatMessage>

@@ -106,7 +106,9 @@
   }
 
   .ds-part-dialog-footer {
-    @apply bg-ui-muted/50 -mx-3 -mb-3 rounded-b-xl border-t p-3;
+    @apply bg-ui-muted/50 rounded-b-xl border-t p-3;
+    margin-inline: calc(var(--ds-space-scale, 1) * -0.75rem);
+    margin-bottom: calc(var(--ds-space-scale, 1) * -0.75rem);
   }
 
   .ds-part-dialog-title {

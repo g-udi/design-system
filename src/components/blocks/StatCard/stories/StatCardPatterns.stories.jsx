@@ -22,6 +22,22 @@ export const KpiOverview = {
 };
 export const Revenue = { name: 'Revenue breakdown', ...pattern('revenue', 'A total with its change, an actions menu, the sources that make it up and a link to the full report.') };
 export const Quota = { name: 'Quota and progress', ...pattern('quota', 'An API quota with its billed cost and renewal date, next to sprint progress with status badges and a predicted finish.') };
+export const UsageMeter = {
+  name: 'Usage meter',
+  ...pattern('usage-meter', 'AI credits by category, daily usage and plan limits. Switch periods, inspect the chart with arrow keys, and explore standard, near-limit, reached and empty states. Top-ups change demo values only.'),
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    await expect(canvas.getByRole('meter', { name: 'AI credits used' })).toHaveAttribute('aria-valuenow', '7420');
+    await userEvent.click(canvas.getByRole('radio', { name: 'Near limit' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Running low on credits');
+    await userEvent.click(canvas.getByRole('button', { name: 'Add credits', exact: true }));
+    await userEvent.click(canvas.getByRole('button', { name: 'Add 2,000 demo credits' }));
+    await expect(canvas.getByRole('meter', { name: 'AI credits used' })).toHaveAttribute('aria-valuemax', '12000');
+    await userEvent.click(canvas.getByRole('radio', { name: 'Empty' }));
+    await expect(canvas.getByRole('meter', { name: 'AI credits used' })).toHaveAttribute('aria-valuenow', '0');
+  }
+};
 export const LeadRange = {
   name: 'Leads with a range',
   ...pattern('lead-range', 'A range switch swaps the dataset: the total, its change, progress to the goal and where the leads came from.'),

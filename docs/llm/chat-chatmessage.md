@@ -52,6 +52,7 @@ Curated patterns:
 - Error, retry and suggestions — registry item `@gaudi/chat-error-retry-suggestions` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageParts`)
 - Delivered files and data — registry item `@gaudi/chat-file-delivered-files` (uses `Avatar`, `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageHeader`, `ChatMessageParts`)
 - Assistant reply — registry item `@gaudi/message-assistant-reply` (uses `Button`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFooter`, `Item`, `ItemContent`, `ItemMedia`, `LoaderRoot`, `RegistryIcon`, `useCopyToClipboard`, `usePrefersReducedMotion`)
+- Research answer — registry item `@gaudi/message-research-answer` (uses `Button`, `ChatAgentMark`, `ChatMessage`, `ChatMessageContent`, `ChatMessageFeedback`, `ChatMessageMarkdown`, `Item`, `ItemContent`, `ItemDescription`, `ItemTitle`, `LoaderRoot`, `Popover`, `PopoverContent`, `PopoverTrigger`, `RegistryIcon`, `usePrefersReducedMotion`)
 - Team conversation — registry item `@gaudi/message-team-conversation` (uses `Attachment`, `AttachmentAction`, `AttachmentActions`, `AttachmentContent`, `AttachmentDescription`, `AttachmentMedia`, `AttachmentTitle`, `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageAvatar`, `ChatMessageContent`, `ChatMessageFooter`, `ChatMessageGroup`, `ChatMessageHeader`, `RegistryIcon`)
 
 ## Related
@@ -75,6 +76,10 @@ import { ChatBubble, ChatBubbleContent, ChatMessage, ChatMessageAvatar, ChatMess
   </ChatMessageContent>
 </ChatMessage>
 ```
+
+### Composed answers
+
+The Research answer story composes `ChatMessageMarkdown`, citation previews, Core `Popover` source records, and `ChatMessageFeedback` within the message content. It opens with a complete answer; regenerate demonstrates streaming, and follow-up controls select prepared answers. Its incident records are fictional and local. Applications supply their own sources, generation, and persistence.
 
 ### API
 

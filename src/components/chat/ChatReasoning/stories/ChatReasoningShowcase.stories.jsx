@@ -1,6 +1,7 @@
-import { AgentRunExample, StepsMessageExample } from './fixtures/ReasoningExamples.jsx';
-import ReasoningExamplesSource from './fixtures/ReasoningExamples.jsx?raw';
-import { publicSource } from '../../../../docs/components/PatternStoryHelpers.jsx';
+import { Pattern as AgentRunExample } from './fixtures/reasoning/reasoning-agent-run.jsx';
+import AgentRunSource from './fixtures/reasoning/reasoning-agent-run.jsx?raw';
+import { Pattern as StepsMessageExample } from './fixtures/reasoning/reasoning-ai-message-with-steps.jsx';
+import StepsMessageSource from './fixtures/reasoning/reasoning-ai-message-with-steps.jsx?raw';
 
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
@@ -17,10 +18,6 @@ export default {
   decorators: [(Story) => <ExampleFrame><Story /></ExampleFrame>]
 };
 
-// One step every PACE ms keeps the run readable in the docs and quick in the interaction tests.
-
-// A stand-in cover image, inline so the example never waits on the network.
-
 /** Thinks through four steps, asks before publishing, and keeps a checkpoint to roll back to. */
 
 export const AgentRun = {
@@ -31,11 +28,12 @@ export const AgentRun = {
         story:
           'A whole agent run in one reply. The reasoning trail shimmers “Thinking…” while a chain of thought searches (result chips), reads (an image thumbnail), analyses and decides, then folds into “Thought for Ns”. Publishing needs the person: ChatMessageToolApproval (Chat/ChatTool) shows what will run, with Approve, Deny and “always allow”, then approved and executed with the result. ChatMessageCheckpoint (Chat/ChatMessageList) marks restore points; restoring asks first in an alert dialog and replays the run. Accessibility: every step is a disclosure whose status is spoken after its label; after a decision focus moves to the outcome, which is a status message; the checkpoint’s restore button is described by its label and time.'
       },
-      source: { language: 'jsx', code: publicSource(ReasoningExamplesSource, new URL('./fixtures/ReasoningExamples.jsx', import.meta.url)) + '\n<AgentRunExample />' }
+      source: { language: 'jsx', code: AgentRunSource }
     }
   },
   render: () => <AgentRunExample />,
   play: async ({ canvasElement, step }) => {
+    if (import.meta.env.MODE !== 'test') return;
     const canvas = within(canvasElement);
     const page = within(canvasElement.ownerDocument.body);
 
@@ -81,11 +79,12 @@ export const AiMessageWithSteps = {
         story:
           'An assistant message that shows its work as a step list above the answer: each step has an icon for its kind, a status (done, in progress or pending), short details that open from the step, and the final answer below. The second turn is still running, so its trail shimmers and the step in progress starts open. It is ChatMessageReasoning with `variant="steps"` and detailed MessageReasoningSteps, not a separate component. Accessibility: steps are disclosure buttons; their status is spoken after the label and also shown by the icon on the right, never by colour alone.'
       },
-      source: { language: 'jsx', code: publicSource(ReasoningExamplesSource, new URL('./fixtures/ReasoningExamples.jsx', import.meta.url)) + '\n<StepsMessageExample />' }
+      source: { language: 'jsx', code: StepsMessageSource }
     }
   },
   render: () => <StepsMessageExample />,
   play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
     const canvas = within(canvasElement);
     const read = canvas.getByRole('button', { name: /Read 3 sources/ });
     await expect(read).toHaveAccessibleName(/, Done$/);

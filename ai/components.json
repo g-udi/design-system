@@ -19,7 +19,7 @@
       "key": "chat",
       "label": "Chat",
       "description": "Chat and agent interface owners (every export is Chat-prefixed).",
-      "count": 20
+      "count": 24
     },
     {
       "key": "charts",
@@ -4729,7 +4729,7 @@
       "storybook": "core-commander--docs",
       "docs": "docs/llm/core-commander.md",
       "source": "src/components/core/Commander/",
-      "readme": "# Commander\n\nThe site-wide command launcher: full-text search across posts, projects, thoughts, publications and tags, contact links and a theme switch. Open it from a visible trigger such as `MenuSearch`, or with ⌘K / Ctrl+K.\n\n## Usage\n\n```jsx\nimport { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);\nconst posts = [{ id: 'release', title: 'Release notes', href: '/articles/release-notes' }];\n\n<MenuSearch setOpen={setOpen} />\n<Commander open={open} setOpen={setOpen} posts={posts} />\n```\n\n## API\n\n| Prop                                            | Type                     | Contract                                                              |\n| ----------------------------------------------- | ------------------------ | --------------------------------------------------------------------- |\n| `open / setOpen`                                | boolean / function       | Controlled visibility; ⌘K / Ctrl+K toggles it through `setOpen`.      |\n| `posts / projects / thoughts / publications / tags` | Array                | Each non-empty collection adds a page and full-text results.          |\n| `social`                                        | Array                    | Contact entries; defaults to the links in the site metadata.          |\n| `restoreFocusRef`                               | Ref                      | Where focus returns when the element that opened the launcher is gone. |\n\nEach destination or collection entry supplies a stable `id` (`slug` is a fallback), a `title`, and an explicit `href` or `onClick`. `disabled` prevents selection and `closeOnSelect={false}` keeps the launcher open for an action. Prepared titles, categories, subtitles, IDs and destinations are preserved, including empty and zero values. Collection names group entries; they do not construct routes.\n\n## Composition\n\nCommander is built on the Command parts it exports: `Command`, `CommandInput`, `CommandList`, `CommandGroup`, `CommandItem`, `CommandEmpty`, `CommandSeparator`, `CommandShortcut`, `CommandFooter` and `CommandDialog`. Use them for inline palettes or your own command dialog; `CommandInput` renders its children at the end of the search row. Pass a button as `CommandDialog`'s `trigger` to connect opening, expanded state, and focus restoration to the same control, including when the dialog opens through a keyboard shortcut.\n\n## Accessibility\n\nThe search field is a combobox that controls a listbox. Arrow keys, Home and End move the selection, Enter runs it, and Escape leaves a sub-page before it closes the launcher. Focus returns to the trigger on close.\n\nInline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette.",
+      "readme": "# Commander\n\nThe site-wide command launcher: full-text search across posts, projects, thoughts, publications and tags, contact links and a theme switch. Open it from a visible trigger such as `MenuSearch`, or with ⌘K / Ctrl+K.\n\n## Usage\n\n```jsx\nimport { useState } from 'react';\nimport { Commander, MenuSearch } from '@gaudi/design-system';\n\nconst [open, setOpen] = useState(false);\nconst posts = [{ id: 'release', title: 'Release notes', href: '/articles/release-notes' }];\n\n<MenuSearch setOpen={setOpen} />\n<Commander open={open} setOpen={setOpen} posts={posts} />\n```\n\n## API\n\n| Prop                                            | Type                     | Contract                                                              |\n| ----------------------------------------------- | ------------------------ | --------------------------------------------------------------------- |\n| `open / setOpen`                                | boolean / function       | Controlled visibility; ⌘K / Ctrl+K toggles it through `setOpen`.      |\n| `posts / projects / thoughts / publications / tags` | Array                | Each non-empty collection adds a page and full-text results.          |\n| `social`                                        | Array                    | Contact entries; defaults to the links in the site metadata.          |\n| `restoreFocusRef`                               | Ref                      | Where focus returns when the element that opened the launcher is gone. |\n\nEach destination or collection entry supplies a stable `id` (`slug` is a fallback), a `title`, and an explicit `href` or `onClick`. `disabled` prevents selection and `closeOnSelect={false}` keeps the launcher open for an action. Prepared titles, categories, subtitles, IDs and destinations are preserved, including empty and zero values. Collection names group entries; they do not construct routes.\n\n## Composition\n\nCommander is built on the Command parts it exports: `Command`, `CommandInput`, `CommandList`, `CommandGroup`, `CommandItem`, `CommandEmpty`, `CommandSeparator`, `CommandShortcut`, `CommandFooter` and `CommandDialog`. Use them for inline palettes or your own command dialog; `CommandInput` renders its children at the end of the search row. Pass a button as `CommandDialog`'s `trigger` to connect opening, expanded state, and focus restoration to the same control, including when the dialog opens through a keyboard shortcut.\n\n## Accessibility\n\nThe search field is a combobox that controls a listbox. Arrow keys, Home and End move the selection, Enter runs it, and Escape leaves a sub-page before it closes the launcher. Focus returns to the trigger on close.\n\nInline and popover `Command` compositions use the semantic surface, text, border, and selected-item colors. A surrounding Popover or Dialog owns its outer frame. `CommandDialog` and `Commander` retain the dedicated launcher palette, with one continuous background across the search field, results, and keyboard footer in every theme.",
       "related": []
     },
     {
@@ -9444,6 +9444,22 @@
         ],
         "patterns": [
           {
+            "name": "flow-agent-graph",
+            "title": "Agent graph",
+            "registry": "flow-agent-graph",
+            "storyId": "core-flow--agent-graph",
+            "imports": [
+              "Button",
+              "ChatAgentMark",
+              "ChatMessageToolApproval",
+              "Flow",
+              "FlowInspector",
+              "FlowStatus",
+              "Toggle",
+              "useElementSize"
+            ]
+          },
+          {
             "name": "flow-agent-tree",
             "title": "Agent tree with test run",
             "registry": "flow-agent-tree",
@@ -9623,7 +9639,7 @@
       "storybook": "core-flow--docs",
       "docs": "docs/llm/core-flow.md",
       "source": "src/components/core/Flow/",
-      "readme": "# Flow\n\nA node-and-edge canvas for automation workflows, pipeline runs, agent trees and driver maps. It is built on React Flow and themed with Gaudi tokens, so cards, handles, edges, the minimap and the controls follow the theme, the radius and the space scale. Use Gantt for work over time and Timeline for a linear history.\n\nFlow is opt-in so apps that don't use it skip the canvas library: install the optional peer `pnpm add @xyflow/react`, import the stylesheet once, and import Flow from its subpath (it is not part of the root entry).\n\n```jsx\nimport '@gaudi/design-system/flow.css';\nimport { Flow, layoutFlow } from '@gaudi/design-system/core/Flow';\n\nconst edges = [{ id: 'draft-review', source: 'draft', target: 'review' }];\nconst nodes = layoutFlow([\n  { id: 'draft', type: 'pill', data: { title: 'Draft ready', icon: 'FileText', target: false } },\n  { id: 'review', type: 'step', data: { title: 'Editor review', status: 'running', meta: ['Due today'] } }\n], edges);\n\n<Flow label='Publishing pipeline' nodes={nodes} edges={edges} className='h-[32rem]' />\n```\n\n- `tile` nodes render `FlowTileNode`: a service or brand `icon` on a tile with a run badge under it, the `title` and a `meta` line (`metaTone: 'danger'` for an error). `shape: 'circle'` makes a satellite such as a connection, test or model. `task` nodes render `FlowTaskNode`: a one-line card with an inline `action` (for example Approve) and a warning ring while `waiting`.\n- `step` nodes render `FlowNode`: `data` takes `title`, `description`, `icon` (registry name or element), `tone`, `status` / `statusLabel`, `badge`, `meta` (facts such as duration or cost), `owner`, `progress`, `content`, `footer`, `actions` (a menu), `toolbar` (shown while selected), `outputs` (named branch handles) and `ports` (dashed attachment handles). `pill` nodes are compact triggers, ends and attachments.\n- `FLOW_STATUSES` maps `idle`, `queued`, `running`, `success`, `failed`, `waiting`, `blocked` and `skipped` to a Badge, an icon, a tinted ring and the minimap colour. `FlowStatus` renders the same badge outside the canvas.\n- Edges default to `FlowEdge`: `data.label`, `tone`, `status` (`running` flows in the accent, `failed` turns danger, `waiting` warning, `success` success), `variant` (`solid`, `dashed` or `dotted`), `animated` (the dots or dashes travel toward the target; a solid line carries moving dots over it), `path` (`smoothstep`, `bezier`, `step`, `straight`), `emphasis` and `onInsert`, which adds a plus button on the connector when hovered or focused. Motion stops under reduced motion and the pattern stays. Satellite links read best as `variant: 'dotted'` without `animated` or an arrow.\n- `layoutFlow(nodes, edges, { direction: 'TB' | 'LR' })` is a small layered layout for tidy trees and driver maps. Nodes marked `attachment: true` sit beside the step they link to instead of taking a rank. `topologicalOrder`, `createsCycle`, `hasEdge`, `descendants` and `unreachableNodes` cover replay order, relink validation and reachability. `useFlowHistory` gives undo and redo that treat one drag as one step.\n- `FlowPanel`, `FlowControls` and `FlowMiniMap` place toolbars, zoom controls and the overview map on the canvas. `FlowControls variant='toolbar'` lays the controls in one row with a select / pan switch (`tool`, `onToolChange`, paired with `Flow tool`), the zoom level and an issues button (`issues`, `onIssues`); `onAutoLayout` adds an Auto layout button (nodes glide into place) and `showFitSelection` a Fit selection button. Every control has a label and a tooltip.\n- `FlowInspector`, rendered inside `Flow`, is the side panel for a selected node. Open it from `Flow onNodeActivate`, which fires on a click and on Enter from a focused node, so keyboard users reach it too: a header with the node's icon, title and status, `tabs` (such as Settings and Wiring), a `callout` for its state, and Cancel / Save (disabled until `dirty`). It floats over the canvas and becomes a Sheet when the canvas is narrower than 768px; focus moves in when it opens and back to the node (`nodeId`) when it closes, and Escape closes it. Wrap the canvas and outside controls in `FlowProvider` to use `useReactFlow` beside it.\n- Every other prop goes to React Flow, such as `onConnect`, `onBeforeDelete` (confirm deletes), `snapToGrid`, `nodeOrigin` and `onNodeContextMenu`.\n\nInstall the `@xyflow/react` peer dependency. Its structural CSS is imported by the Gaudi stylesheet, so no extra import is needed.\n\n## Accessibility\n\nThe canvas is a labelled region described by a step count, followed by a visually hidden list of each step, its status and where it leads. Nodes and edges are focusable: Enter or Space selects, the arrow keys move a selected node with a live announcement, and Delete removes it. Zoom controls, node menus and connector buttons are labelled; connection handles are pointer targets, so the node name and the step list carry their meaning. Every string, including React Flow's keyboard instructions, comes from `labels`.\n\nReact Flow has no keyboard way to draw a connection between two handles, so offer a menu action or inspector field for linking, as the impact map example does. Dragging should never be the only way to change the graph.",
+      "readme": "# Flow\n\nA node-and-edge canvas for automation workflows, pipeline runs, agent trees and driver maps. It is built on React Flow and themed with Gaudi tokens, so cards, handles, edges, the minimap and the controls follow the theme, the radius and the space scale. Use Gantt for work over time and Timeline for a linear history.\n\nFlow is opt-in so apps that don't use it skip the canvas library: install the optional peer `pnpm add @xyflow/react`, import the stylesheet once, and import Flow from its subpath (it is not part of the root entry).\n\n```jsx\nimport '@gaudi/design-system/flow.css';\nimport { Flow, layoutFlow } from '@gaudi/design-system/core/Flow';\n\nconst edges = [{ id: 'draft-review', source: 'draft', target: 'review' }];\nconst nodes = layoutFlow([\n  { id: 'draft', type: 'pill', data: { title: 'Draft ready', icon: 'FileText', target: false } },\n  { id: 'review', type: 'step', data: { title: 'Editor review', status: 'running', meta: ['Due today'] } }\n], edges);\n\n<Flow label='Publishing pipeline' nodes={nodes} edges={edges} className='h-[32rem]' />\n```\n\n- `tile` nodes render `FlowTileNode`: a service or brand `icon` on a tile with a run badge under it, the `title` and a `meta` line (`metaTone: 'danger'` for an error). `shape: 'circle'` makes a satellite such as a connection, test or model. `task` nodes render `FlowTaskNode`: a one-line card with an inline `action` (for example Approve) and a warning ring while `waiting`.\n- `step` nodes render `FlowNode`: `data` takes `title`, `description`, `icon` (registry name or element), `tone`, `status` / `statusLabel`, `badge`, `meta` (facts such as duration or cost), `owner`, `progress`, `content`, `footer`, `actions` (a menu), `toolbar` (shown while selected), `outputs` (named branch handles) and `ports` (dashed attachment handles). `pill` nodes are compact triggers, ends and attachments.\n- `FLOW_STATUSES` maps `idle`, `queued`, `running`, `success`, `failed`, `waiting`, `blocked` and `skipped` to a Badge, an icon, a tinted ring and the minimap colour. `FlowStatus` renders the same badge outside the canvas.\n- Edges default to `FlowEdge`: `data.label`, `tone`, `status` (`running` flows in the accent, `failed` turns danger, `waiting` warning, `success` success), `variant` (`solid`, `dashed` or `dotted`), `animated` (the dots or dashes travel toward the target; a solid line carries moving dots over it), `path` (`smoothstep`, `bezier`, `step`, `straight`), `emphasis` and `onInsert`, which adds a plus button on the connector when hovered or focused. Motion stops under reduced motion and the pattern stays. Satellite links read best as `variant: 'dotted'` without `animated` or an arrow.\n- `layoutFlow(nodes, edges, { direction: 'TB' | 'LR' })` is a small layered layout for tidy trees and driver maps. Nodes marked `attachment: true` sit beside the step they link to instead of taking a rank. `topologicalOrder`, `createsCycle`, `hasEdge`, `descendants` and `unreachableNodes` cover replay order, relink validation and reachability. `useFlowHistory` gives undo and redo that treat one drag as one step.\n- `FlowPanel`, `FlowControls` and `FlowMiniMap` place toolbars, zoom controls and the overview map on the canvas. `FlowControls variant='toolbar'` lays the controls in one row with a select / pan switch (`tool`, `onToolChange`, paired with `Flow tool`), the zoom level and an issues button (`issues`, `onIssues`); `onAutoLayout` adds an Auto layout button (nodes glide into place) and `showFitSelection` a Fit selection button. Every control has a label and a tooltip.\n- `FlowInspector`, rendered inside `Flow`, is the side panel for a selected node. Open it from `Flow onNodeActivate`, which fires on a click and on Enter from a focused node, so keyboard users reach it too: a header with the node's icon, title and status, `tabs` (such as Settings and Wiring), a `callout` for its state, and Cancel / Save (disabled until `dirty`). It floats over the canvas and becomes a Sheet when the canvas is narrower than 768px; focus moves in when it opens and back to the node (`nodeId`) when it closes, and Escape closes it. Wrap the canvas and outside controls in `FlowProvider` to use `useReactFlow` beside it.\n- Every other prop goes to React Flow, such as `onConnect`, `onBeforeDelete` (confirm deletes), `snapToGrid`, `nodeOrigin` and `onNodeContextMenu`.\n\nInstall the `@xyflow/react` peer dependency. Its structural CSS is imported by the Gaudi stylesheet, so no extra import is needed.\n\n## Accessibility\n\nThe canvas is a labelled region described by a step count, followed by a visually hidden list of each step, its status and where it leads. Nodes and edges are focusable: Enter or Space selects, the arrow keys move a selected node with a live announcement, and Delete removes it. Zoom controls, node menus and connector buttons are labelled; connection handles are pointer targets, so the node name and the step list carry their meaning. Every string, including React Flow's keyboard instructions, comes from `labels`.\n\nReact Flow has no keyboard way to draw a connection between two handles, so offer a menu action or inspector field for linking, as the impact map example does. Dragging should never be the only way to change the graph.\n\n## Agent graph example\n\n**Agent graph** is a monitoring composition alongside the editable Agent tree. It reuses Flow tile nodes, animated edges and FlowInspector with ChatAgentMark and ChatMessageToolApproval. Three agents, three tools and a person form a network; repeated calls increase a connection's stroke width, while a running request uses Flow's existing directional animation. Reduced motion and the Animate calls toggle stop that motion. Calls are fictional snapshots advanced with Next update, not a live backend.\n\nThe example computes positions from its container: below 680px it uses a taller, two-column network at readable text size. It keeps the whole small network visible without pan or zoom. Selecting a member shows its recent incoming and outgoing calls in the shared inspector, which becomes a sheet below 768px. Enter opens a focused node; Escape closes the inspector and restores node focus. Attention buttons provide direct access to failed calls and pending approvals. Status labels and Flow's accessible graph summary carry the same information without relying on motion or colour.\n\nApprove or deny publishing and retry search in the inspector; the next update settles pending calls. Clear network exposes an empty state and Reset restores the initial demo. The displayed costs are prepared per-member values, summed once. Applications own execution, permissions, cost calculation, time windows and persistence. This example introduces no new public graph component or protocol.",
       "related": [
         "core-card",
         "core-select",
@@ -12496,7 +12512,7 @@
           "names": [
             "variant"
           ],
-          "type": "arc | dual-arc | bar | beat | bounce | circle-dots | clip | puff | three-dots | triangle | two-dots",
+          "type": "arc | dual-arc | bar | beat | bounce | circle-dots | rays | clip | puff | three-dots | triangle | two-dots",
           "default": "arc",
           "required": false,
           "description": "Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured."
@@ -12562,6 +12578,7 @@
           "beat",
           "bounce",
           "circle-dots",
+          "rays",
           "clip",
           "puff",
           "three-dots",
@@ -12647,7 +12664,7 @@
       "storybook": "core-loader--docs",
       "docs": "docs/llm/core-loader.md",
       "source": "src/components/core/Loader/",
-      "readme": "# Loader\n\nA named loading status with eleven CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.\n\n```jsx\nimport { Loader } from '@gaudi/design-system/core/Loader';\n\n<Loader variant='three-dots' size='md' label='Loading articles' />\n```\n\n- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.\n- `size`: `xs` 12px, `sm` 16px, `md` 20px (default), or `lg` 32px. The bar is three times as wide as it is tall. Other variants are square. Intrinsic dimensions stay fixed across density presets.\n- `label`: accessible status label, default `Loading`. Describe the active operation and provide visible status text where useful.\n- `className`: use `text-current` to inherit surrounding color or a semantic tone such as `text-text-muted`. Explicit size utilities can override dimensions; preserve the bar's 3:1 ratio.\n- SVG attributes and refs pass through. Set `aria-hidden='true'` when a button or containing region already announces the same state.\n\n`LoaderRoot` is the composition primitive: the same variants, `sm` default, current text color, and `aria-label` instead of `label`. `loaderVariants` exports the supported names. All three are available from the root, `core`, and `core/Loader` entries; the leaf also has a default `Loader` export.\n\nReduced motion stops rotation, travel, scaling, and hopping. The indicator uses Gaudi's slow opacity breath while keeping its status label. The SVG/CSS implementation has no timers, and server rendering is deterministic. Unmount it when work finishes; the host owns loading state, cancellation, errors, and recovery.\n\nExisting button, input, inline-status, overlay, and empty-state examples remain under Loader. Update `Spinner`, `SpinnerRoot`, and `core/Spinner` imports to `Loader`, `LoaderRoot`, and `core/Loader`. The Shadix UI reference informed the variant family; no remote animation code or assets are loaded.",
+      "readme": "# Loader\n\nA named loading status with twelve CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.\n\n```jsx\nimport { Loader } from '@gaudi/design-system/core/Loader';\n\n<Loader variant='three-dots' size='md' label='Loading articles' />\n```\n\n- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `rays`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.\n- `size`: `xs` 12px, `sm` 16px, `md` 20px (default), or `lg` 32px. The bar is three times as wide as it is tall. Other variants are square. Intrinsic dimensions stay fixed across density presets.\n- `label`: accessible status label, default `Loading`. Describe the active operation and provide visible status text where useful.\n- `className`: use `text-current` to inherit surrounding color or a semantic tone such as `text-text-muted`. Explicit size utilities can override dimensions; preserve the bar's 3:1 ratio.\n- SVG attributes and refs pass through. Set `aria-hidden='true'` when a button or containing region already announces the same state.\n\n`LoaderRoot` is the composition primitive: the same variants, `sm` default, current text color, and `aria-label` instead of `label`. `loaderVariants` exports the supported names. All three are available from the root, `core`, and `core/Loader` entries; the leaf also has a default `Loader` export.\n\nReduced motion stops rotation, travel, scaling, and hopping. The indicator uses Gaudi's slow opacity breath while keeping its status label. The SVG/CSS implementation has no timers, and server rendering is deterministic. Unmount it when work finishes; the host owns loading state, cancellation, errors, and recovery.\n\nExisting button, input, inline-status, overlay, and empty-state examples remain under Loader. Update `Spinner`, `SpinnerRoot`, and `core/Spinner` imports to `Loader`, `LoaderRoot`, and `core/Loader`. The Shadix UI reference informed the variant family; no remote animation code or assets are loaded.",
       "related": [
         "core-progress"
       ]
@@ -25683,6 +25700,17 @@
           "description": "Segmented bar with a legend of values and shares."
         },
         {
+          "name": "StatMeter.max",
+          "names": [
+            "max"
+          ],
+          "part": "StatMeter",
+          "type": "number",
+          "default": "sum of segments",
+          "required": false,
+          "description": "Optional capacity leaves unused track; category shares still describe used capacity."
+        },
+        {
           "name": "StatDelta.value",
           "names": [
             "value"
@@ -25905,13 +25933,37 @@
               "StatCard",
               "StatDelta"
             ]
+          },
+          {
+            "name": "stat-card-usage-meter",
+            "title": "Usage meter",
+            "registry": "stat-card-usage-meter",
+            "storyId": "blocks-stat-cards--usage-meter",
+            "imports": [
+              "Badge",
+              "Button",
+              "CardContent",
+              "CardDescription",
+              "CardFooter",
+              "CardHeader",
+              "CardRoot",
+              "CardTitle",
+              "Collapsible",
+              "CollapsibleContent",
+              "CollapsibleTrigger",
+              "ProgressRoot",
+              "Sparkline",
+              "StatMeter",
+              "ToggleGroupItem",
+              "ToggleGroupRoot"
+            ]
           }
         ]
       },
       "storybook": "blocks-stat-cards--docs",
       "docs": "docs/llm/blocks-stat-cards.md",
       "source": "src/components/blocks/StatCard/",
-      "readme": "# StatCard\n\nMetric cards compose Core Card, Badge and IconTile. Applications supply the formatted values and their meaning.\n\n```jsx\nimport { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';\n\n<StatCard label='Failed runs' value='12' delta='−0.5%' deltaDirection='down' deltaTone='success' />\n<StatDelta value='+0.00%' direction='flat' tone='neutral' />\n```\n\n`StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.\n\n`StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.\n\n`valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.\n\n`StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.",
+      "readme": "# StatCard\n\nMetric cards compose Core Card, Badge and IconTile. Applications supply the formatted values and their meaning.\n\n```jsx\nimport { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';\n\n<StatCard label='Failed runs' value='12' delta='−0.5%' deltaDirection='down' deltaTone='success' />\n<StatDelta value='+0.00%' direction='flat' tone='neutral' />\n```\n\n`StatDelta` preserves `value` exactly, including its sign and zero. `direction` (`up`, `down`, `flat`) is optional and controls the icon and spoken direction. `tone` defaults to `neutral`; choose `accent`, `info`, `success`, `warning`, `danger`, `discovery` or `attention` explicitly. A lower value can be favorable or unfavorable depending on the metric.\n\n`StatCard` passes `delta`, `deltaDirection` and `deltaTone` to its badge. The previous `invert` prop and automatic sign/color inference are removed; provide direction and tone explicitly when migrating. Card `tone` independently controls its optional icon and tinted background. Other slots are `label`, `value`, `icon`, `action`, `description`, `footer` and `children`; `variant` is `default`, `tinted` or `inverse`.\n\n`valueMotion='reel'` animates a text or number `value` with [ReelText](../../animations/ReelText/README.md): its digits spin into each new figure, for example when a range switch in `action` changes the period. Other values render unchanged, and reduced motion swaps the figure instantly.\n\n`StatMeter` accepts `segments` with `label`, numeric `value` and optional `tone`, plus `label` and `formatValue`. Its decorative bar has a text legend for assistive technology even when `showLegend={false}` visually hides it.\n\n`StatMeter.max` optionally sets capacity: the unused portion stays on the neutral track, while legend percentages remain shares of used capacity. If omitted, the segments fill the track. A capacity smaller than the segment total draws a full bar.\n\nThe Usage meter pattern composes Card, StatMeter, Progress, Sparkline and shared controls for AI credits, daily usage and plan limits. Its period data, thresholds, reset copy and demo top-up policy live in the fixture; applications own billing and supply their own prepared values. No new billing component or service integration is introduced.",
       "related": [
         "core-card",
         "animations-text-reeltext",
@@ -26362,10 +26414,10 @@
           "names": [
             "variant"
           ],
-          "type": "inline | badge",
+          "type": "inline | badge | compact",
           "default": "inline",
           "required": false,
-          "description": "Inline mark or corner badge."
+          "description": "Inline mark, corner badge, or neutral thinking chip with a ray spinner and shimmering label."
         },
         {
           "name": "showLabel",
@@ -26373,9 +26425,9 @@
             "showLabel"
           ],
           "type": "boolean",
-          "default": "false",
+          "default": "compact: true; otherwise false",
           "required": false,
-          "description": "Visible label beside the mark."
+          "description": "Visible label beside the mark. Compact label changes enter gently; reduced motion switches instantly."
         },
         {
           "name": "labels",
@@ -26419,29 +26471,322 @@
         ],
         "variant": [
           "inline",
-          "badge"
+          "badge",
+          "compact"
         ]
       },
       "accessibility": "A polite status; motion slows to a fade for reduced motion.",
-      "usage": "import { ChatActivityIndicator } from '@gaudi/design-system/chat';\n\n<>\n<ChatActivityIndicator state='thinking' showLabel />\n<ChatActivityIndicator state='done' variant='badge' />\n</>",
+      "usage": "import { ChatActivityIndicator } from '@gaudi/design-system/chat';\n\n<>\n<ChatActivityIndicator state='thinking' showLabel />\n<ChatActivityIndicator state='done' variant='badge' />\n<ChatActivityIndicator state='thinking' variant='compact' />\n</>",
       "examples": {
-        "stories": [
+        "stories": [],
+        "patterns": [
           {
-            "name": "Playground",
-            "id": "chat-activityindicator--playground"
+            "name": "activity-indicator-playground",
+            "title": "Playground",
+            "registry": "activity-indicator-playground",
+            "storyId": "chat-activityindicator--playground",
+            "imports": [
+              "ChatActivityIndicator"
+            ]
           },
           {
-            "name": "A reply from thinking to done",
-            "id": "chat-activityindicator--reply-lifecycle"
+            "name": "activity-indicator-reply-lifecycle",
+            "title": "A reply from thinking to done",
+            "registry": "activity-indicator-reply-lifecycle",
+            "storyId": "chat-activityindicator--reply-lifecycle",
+            "imports": [
+              "Button",
+              "ChatActivityIndicator"
+            ]
           }
-        ],
-        "patterns": []
+        ]
       },
       "storybook": "chat-activityindicator--docs",
       "docs": "docs/llm/chat-chatactivityindicator.md",
       "source": "src/components/chat/ChatActivityIndicator/",
-      "readme": "# ChatActivityIndicator\n\nWhat the assistant is doing right now: idle, thinking, streaming, tool, done or error. Busy states move; settled states hold still and show an icon.\n\n## Usage\n\n```jsx\nimport { ChatActivityIndicator } from '@gaudi/design-system/chat';\n\n<ChatActivityIndicator state='thinking' showLabel />\n<ChatActivityIndicator state='done' variant='badge' />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `state` | idle, thinking, streaming, tool, done or error (`activityStates`). |\n| `variant` | inline, or badge for the corner of a mark or avatar. |\n| `showLabel` / `labels` | A visible label, and copy per state. |\n| `decorative` | Hides it when nearby text names the state. |\n\n## Accessibility\n\nA polite status region, so each change is announced once. With reduced motion the dots fade slowly instead of moving; the state never depends on motion or colour alone.",
+      "readme": "# ChatActivityIndicator\n\nWhat the assistant is doing right now: idle, thinking, streaming, tool, done or error. Busy states move; settled states hold still and show an icon.\n\n## Usage\n\n```jsx\nimport { ChatActivityIndicator } from '@gaudi/design-system/chat';\n\n<ChatActivityIndicator state='thinking' showLabel />\n<ChatActivityIndicator state='done' variant='badge' />\n<ChatActivityIndicator state='thinking' variant='compact' labels={{ thinking: 'Reading sources' }} />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `state` | idle, thinking, streaming, tool, done or error (`activityStates`). |\n| `variant` | inline, badge for the corner of a mark or avatar, or compact for a neutral thinking chip. |\n| `showLabel` / `labels` | Visible by default for compact; hidden by default otherwise. Supply copy per state through labels. |\n| `decorative` | Hides it when nearby text names the state. |\n\nThe compact variant reuses Core Loader’s eight-ray spinner and Skeleton’s Shimmer. Labels enter gently when they change; done and error show static icons. Long labels wrap within the available width. The host owns phase progression and completion; no timers or invented activity run inside the component. See the Mini thinking example under ChatReasoning for a prepared reply.\n\n## Accessibility\n\nA polite status region, so each change is announced once. With reduced motion the dots fade slowly instead of moving; the state never depends on motion or colour alone. Compact stops its spinner, shimmer and label travel entirely under reduced motion. Its icon is decorative so the live region announces each label only once.",
       "related": []
+    },
+    {
+      "id": "chat-chatagentcheckpoints",
+      "name": "ChatAgentCheckpoints",
+      "kind": "component",
+      "title": "Chat/ChatAgentCheckpoints",
+      "category": "chat",
+      "owner": "chat/ChatAgentCheckpoints",
+      "import": {
+        "path": "@gaudi/design-system/chat/ChatAgentCheckpoints",
+        "category": "@gaudi/design-system/chat",
+        "root": true,
+        "mainExport": "ChatAgentCheckpoints",
+        "kind": "named",
+        "line": "import { ChatAgentCheckpoints } from '@gaudi/design-system/chat/ChatAgentCheckpoints';",
+        "exports": [
+          "ChatAgentCheckpoints",
+          "default"
+        ]
+      },
+      "description": "Inspect saved attempts and checkpoints, and request a switch or restore without changing workspace state.",
+      "props": [
+        {
+          "name": "attempts",
+          "names": [
+            "attempts"
+          ],
+          "type": "Attempt[]",
+          "default": "[]",
+          "required": false,
+          "description": "Ordered { id, label, origin?, disabled?, checkpoints: Checkpoint[] }. Each checkpoint accepts { id, title, detail?, time?, meta?, icon?, statusLabel?, tone?, running?, restoreDisabled? }. IDs are stable, globally unique for checkpoints. Running selects the activity indicator; restoreDisabled independently controls restore availability."
+        },
+        {
+          "name": "currentAttemptId / currentId",
+          "names": [
+            "currentAttemptId",
+            "currentId"
+          ],
+          "type": "string | number",
+          "default": null,
+          "required": false,
+          "description": "Controlled current attempt and checkpoint. IDs may be zero."
+        },
+        {
+          "name": "activeIds",
+          "names": [
+            "activeIds"
+          ],
+          "type": "Array<string | number>",
+          "default": "[]",
+          "required": false,
+          "description": "Prepared checkpoint IDs to emphasize as the active path. The component does not traverse or modify a run graph."
+        },
+        {
+          "name": "onSelectAttempt / onRestore",
+          "names": [
+            "onSelectAttempt",
+            "onRestore"
+          ],
+          "type": "(id) => void",
+          "default": null,
+          "required": false,
+          "description": "Requests to switch an attempt or restore a checkpoint. Omit either callback to hide its action."
+        },
+        {
+          "name": "readOnly",
+          "names": [
+            "readOnly"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Disable switching and restore requests while keeping history readable."
+        },
+        {
+          "name": "summary / emptyState / footer",
+          "names": [
+            "summary",
+            "emptyState",
+            "footer"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Prepared summary, empty-state content and footer actions/status."
+        },
+        {
+          "name": "title / description",
+          "names": [
+            "title",
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Panel heading and supporting text."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional root classes. Panels fill available width; the consuming layout chooses any maximum width."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.",
+      "usage": "import { ChatAgentCheckpoints } from '@gaudi/design-system/chat/ChatAgentCheckpoints';\n\n<ChatAgentCheckpoints\n  attempts={[{ id: 'first', label: 'Attempt 1', checkpoints: [{ id: 'saved', title: 'Prepared changes', statusLabel: 'Saved' }] }]}\n  currentAttemptId='first' currentId='saved' activeIds={['saved']}\n/>",
+      "examples": {
+        "stories": [],
+        "patterns": [
+          {
+            "name": "message-scroller-agent-checkpoints",
+            "title": "Agent checkpoints",
+            "registry": "message-scroller-agent-checkpoints",
+            "storyId": "chat-messagelist--agent-checkpoints",
+            "imports": [
+              "Button",
+              "ChatAgentCheckpoints",
+              "RegistryIcon",
+              "ToggleGroupItem",
+              "ToggleGroupRoot"
+            ]
+          }
+        ]
+      },
+      "storybook": "chat-chatagentcheckpoints--docs",
+      "docs": "docs/llm/chat-chatagentcheckpoints.md",
+      "source": "src/components/chat/ChatAgentCheckpoints/",
+      "readme": "# ChatAgentCheckpoints\n\nInspect saved attempts and checkpoints, and request a switch or restore without changing workspace state.\n\n## Usage\n\n```jsx\nimport { ChatAgentCheckpoints } from '@gaudi/design-system/chat/ChatAgentCheckpoints';\n\n<ChatAgentCheckpoints\n  attempts={[{ id: 'first', label: 'Attempt 1', checkpoints: [{ id: 'saved', title: 'Prepared changes', statusLabel: 'Saved' }] }]}\n  currentAttemptId='first' currentId='saved' activeIds={['saved']}\n/>\n```\n\n## API\n\n| Prop | Contract |\n| --- | --- |\n| `attempts` | Ordered { id, label, origin?, disabled?, checkpoints: Checkpoint[] }. IDs are stable, globally unique for checkpoints. |\n| `currentAttemptId / currentId` | Controlled current attempt and checkpoint. IDs may be zero. |\n| `activeIds` | Prepared checkpoint IDs to emphasize as the active path. The component does not traverse or modify a run graph. |\n| `onSelectAttempt / onRestore` | `(attemptId) => void` requests an attempt switch; `(checkpointId) => void` requests a restore. Omit either callback to hide its action. |\n| `readOnly` | Disable switching and restore requests while keeping history readable. |\n| `summary / emptyState / footer` | Prepared summary, empty-state content and footer actions/status. |\n| `title / description` | Panel heading and supporting text. |\n| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |\n\nCheckpoints accept `{ id, title, detail?, time?, meta?, icon?, statusLabel?, tone?, running?, restoreDisabled? }`. `running` selects the shared activity indicator. The application supplies availability through `restoreDisabled`; running status alone does not decide restore policy.\n\n## Ownership and accessibility\n\nGaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.\n\nThe panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.\n\n## Example\n\nThe [copyable demo](stories/fixtures/agent-checkpoints/message-scroller-agent-checkpoints.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.\n\nInteraction inspiration: [AffectUI](https://www.affectui.com/components/agent-checkpoints). Implemented independently using Gaudi primitives.",
+      "related": []
+    },
+    {
+      "id": "chat-chatagentfindings",
+      "name": "ChatAgentFindings",
+      "kind": "component",
+      "title": "Chat/ChatAgentFindings",
+      "category": "chat",
+      "owner": "chat/ChatAgentFindings",
+      "import": {
+        "path": "@gaudi/design-system/chat/ChatAgentFindings",
+        "category": "@gaudi/design-system/chat",
+        "root": true,
+        "mainExport": "ChatAgentFindings",
+        "kind": "named",
+        "line": "import { ChatAgentFindings } from '@gaudi/design-system/chat/ChatAgentFindings';",
+        "exports": [
+          "ChatAgentFindings",
+          "default"
+        ]
+      },
+      "description": "Filter prepared findings by agent and severity, inspect evidence and request review changes.",
+      "props": [
+        {
+          "name": "agents",
+          "names": [
+            "agents"
+          ],
+          "type": "Agent[]",
+          "default": "[]",
+          "required": false,
+          "description": "Prepared rows: { id, name, icon?, detail?, value?, max?, statusLabel?, tone? }. Progress appears only with a finite nonnegative value and finite positive max; zero progress is preserved. Progress values and status text come from the host."
+        },
+        {
+          "name": "findings",
+          "names": [
+            "findings"
+          ],
+          "type": "Finding[]",
+          "default": "[]",
+          "required": false,
+          "description": "Ordered findings: { id, agent, severity, title, location?, time?, evidence?, recommendation? }. Agent and severity refer to supplied IDs; no severity is inferred."
+        },
+        {
+          "name": "severities",
+          "names": [
+            "severities"
+          ],
+          "type": "Severity[]",
+          "default": "[]",
+          "required": false,
+          "description": "Filter options: { id, label, tone? }. IDs are case-sensitive; __all is reserved for the all-severities option."
+        },
+        {
+          "name": "reviewedIds",
+          "names": [
+            "reviewedIds"
+          ],
+          "type": "string[]",
+          "default": "[]",
+          "required": false,
+          "description": "Controlled list of reviewed finding IDs."
+        },
+        {
+          "name": "onReviewedChange",
+          "names": [
+            "onReviewedChange"
+          ],
+          "type": "(id, reviewed) => void",
+          "default": null,
+          "required": false,
+          "description": "Request a review change. Omit for display-only review state; persistence belongs to the host."
+        },
+        {
+          "name": "readOnly",
+          "names": [
+            "readOnly"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Disable review actions while leaving filtering and evidence inspection available."
+        },
+        {
+          "name": "summary / emptyState / footer",
+          "names": [
+            "summary",
+            "emptyState",
+            "footer"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Prepared progress summary, empty content and footer controls/status. Filters and evidence disclosure are local UI state."
+        },
+        {
+          "name": "title / description",
+          "names": [
+            "title",
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Panel heading and supporting text."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional root classes. Panels fill available width; the consuming layout chooses any maximum width."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.",
+      "usage": "import { ChatAgentFindings } from '@gaudi/design-system/chat/ChatAgentFindings';\n\n<ChatAgentFindings\n  agents={[{ id: 'reviewer', name: 'Reviewer', statusLabel: 'Done' }]}\n  severities={[{ id: 'warning', label: 'Warning', tone: 'warning-light' }]}\n  findings={[{ id: 'retry', agent: 'reviewer', severity: 'warning', title: 'Retry creates a duplicate', evidence: 'The same request created two records.' }]}\n/>",
+      "examples": {
+        "stories": [],
+        "patterns": [
+          {
+            "name": "chat-delegation-agent-findings",
+            "title": "Agent findings",
+            "registry": "chat-delegation-agent-findings",
+            "storyId": "chat-chatdelegation--agent-findings",
+            "imports": [
+              "Button",
+              "ChatAgentFindings",
+              "Empty",
+              "EmptyDescription",
+              "EmptyHeader",
+              "EmptyTitle",
+              "ToggleGroupItem",
+              "ToggleGroupRoot"
+            ]
+          }
+        ]
+      },
+      "storybook": "chat-chatagentfindings--docs",
+      "docs": "docs/llm/chat-chatagentfindings.md",
+      "source": "src/components/chat/ChatAgentFindings/",
+      "readme": "# ChatAgentFindings\n\nFilter prepared findings by agent and severity, inspect evidence and request review changes.\n\n## Usage\n\n```jsx\nimport { ChatAgentFindings } from '@gaudi/design-system/chat/ChatAgentFindings';\n\n<ChatAgentFindings\n  agents={[{ id: 'reviewer', name: 'Reviewer', statusLabel: 'Done' }]}\n  severities={[{ id: 'warning', label: 'Warning', tone: 'warning-light' }]}\n  findings={[{ id: 'retry', agent: 'reviewer', severity: 'warning', title: 'Retry creates a duplicate', evidence: 'The same request created two records.' }]}\n/>\n```\n\n## API\n\n| Prop | Contract |\n| --- | --- |\n| `agents` | Prepared rows: { id, name, icon?, detail?, value?, max?, statusLabel?, tone? }. Progress appears only with a finite nonnegative `value` and finite positive `max`; zero progress is preserved. Progress values and status text come from the host. |\n| `findings` | Ordered findings: { id, agent, severity, title, location?, time?, evidence?, recommendation? }. Agent and severity refer to supplied IDs; no severity is inferred. |\n| `severities` | Filter options: { id, label, tone? }. IDs are case-sensitive; __all is reserved for the all-severities option. |\n| `reviewedIds` | Controlled list of reviewed finding IDs. |\n| `onReviewedChange` | `(findingId, reviewed) => void` requests a review change. Omit for display-only review state; persistence belongs to the host. |\n| `readOnly` | Disable review actions while leaving filtering and evidence inspection available. |\n| `summary / emptyState / footer` | Prepared progress summary, empty content and footer controls/status. Filters and evidence disclosure are local UI state. |\n| `title / description` | Panel heading and supporting text. |\n| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |\n\n## Ownership and accessibility\n\nGaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.\n\nThe panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.\n\n## Example\n\nThe [copyable demo](stories/fixtures/agent-findings/chat-delegation-agent-findings.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.\n\nInteraction inspiration: [AffectUI](https://www.affectui.com/components/agent-findings). Implemented independently using Gaudi primitives.",
+      "related": [
+        "core-progress"
+      ]
     },
     {
       "id": "chat-chatagentmark",
@@ -26671,6 +27016,161 @@
       ]
     },
     {
+      "id": "chat-chatagentqueue",
+      "name": "ChatAgentQueue",
+      "kind": "component",
+      "title": "Chat/ChatAgentQueue",
+      "category": "chat",
+      "owner": "chat/ChatAgentQueue",
+      "import": {
+        "path": "@gaudi/design-system/chat/ChatAgentQueue",
+        "category": "@gaudi/design-system/chat",
+        "root": true,
+        "mainExport": "ChatAgentQueue",
+        "kind": "named",
+        "line": "import { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';",
+        "exports": [
+          "ChatAgentQueue",
+          "default"
+        ]
+      },
+      "description": "Inspect waiting work, worker assignments and recent results, and request host-defined job actions.",
+      "props": [
+        {
+          "name": "waiting / recent",
+          "names": [
+            "waiting",
+            "recent"
+          ],
+          "type": "Job[]",
+          "default": "[]",
+          "required": false,
+          "description": "Prepared ordered jobs: { id, name, icon?, kind?, meta?, detail?, description?, error?, progress?, priority?, actions?: { id, label, disabled? }[] }. No sorting, truncation or action policy is inferred."
+        },
+        {
+          "name": "workers",
+          "names": [
+            "workers"
+          ],
+          "type": "Worker[]",
+          "default": "[]",
+          "required": false,
+          "description": "Prepared { id, name, icon?, statusLabel?, tone?, description?, job?: Job }. The host assigns jobs to workers."
+        },
+        {
+          "name": "summary",
+          "names": [
+            "summary"
+          ],
+          "type": "Array<{ id, label, value }>",
+          "default": null,
+          "required": false,
+          "description": "Prepared summary cells; zero and supplied formatting are preserved."
+        },
+        {
+          "name": "onJobAction",
+          "names": [
+            "onJobAction"
+          ],
+          "type": "(jobId, actionId) => void",
+          "default": null,
+          "required": false,
+          "description": "Requested job action. Only supplied actions render; no callback means no mutation controls."
+        },
+        {
+          "name": "onInspectJob",
+          "names": [
+            "onInspectJob"
+          ],
+          "type": "(jobId) => void",
+          "default": null,
+          "required": false,
+          "description": "Called when opening a job, for example to pause a demo."
+        },
+        {
+          "name": "actionFocusRef",
+          "names": [
+            "actionFocusRef"
+          ],
+          "type": "React.RefObject",
+          "default": null,
+          "required": false,
+          "description": "Focus destination after a job action may remove its trigger. Defaults to the panel."
+        },
+        {
+          "name": "toolbar / notice / children / footer",
+          "names": [
+            "toolbar",
+            "notice",
+            "children",
+            "footer"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Host controls, status, optional chart/content and footer. Charts remain optional composition; no chart dependency is imported."
+        },
+        {
+          "name": "workersDescription / resultsDescription",
+          "names": [
+            "workersDescription",
+            "resultsDescription"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Prepared explanations below worker and result groups."
+        },
+        {
+          "name": "title / description",
+          "names": [
+            "title",
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Panel heading and supporting text."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional root classes. Panels fill available width; the consuming layout chooses any maximum width."
+        }
+      ],
+      "variants": {},
+      "accessibility": "Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.",
+      "usage": "import { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';\n\n<ChatAgentQueue\n  waiting={[{ id: 'review', name: 'Review the draft', kind: 'Review task', meta: 'Waiting' }]}\n  workers={[{ id: 'editor', name: 'Editor', statusLabel: 'Idle' }]}\n/>",
+      "examples": {
+        "stories": [],
+        "patterns": [
+          {
+            "name": "chat-delegation-agent-queue",
+            "title": "Agent queue",
+            "registry": "chat-delegation-agent-queue",
+            "storyId": "chat-chatdelegation--agent-queue",
+            "imports": [
+              "AreaChart",
+              "Badge",
+              "Button",
+              "ChatAgentQueue",
+              "RegistryIcon"
+            ]
+          }
+        ]
+      },
+      "storybook": "chat-chatagentqueue--docs",
+      "docs": "docs/llm/chat-chatagentqueue.md",
+      "source": "src/components/chat/ChatAgentQueue/",
+      "readme": "# ChatAgentQueue\n\nInspect waiting work, worker assignments and recent results, and request host-defined job actions.\n\n## Usage\n\n```jsx\nimport { ChatAgentQueue } from '@gaudi/design-system/chat/ChatAgentQueue';\n\n<ChatAgentQueue\n  waiting={[{ id: 'review', name: 'Review the draft', kind: 'Review task', meta: 'Waiting' }]}\n  workers={[{ id: 'editor', name: 'Editor', statusLabel: 'Idle' }]}\n/>\n```\n\n## API\n\n| Prop | Contract |\n| --- | --- |\n| `waiting / recent` | Prepared ordered jobs: { id, name, icon?, kind?, meta?, detail?, description?, error?, progress?, priority?, actions?: { id, label, disabled? }[] }. No sorting, truncation or action policy is inferred. |\n| `workers` | Prepared { id, name, icon?, statusLabel?, tone?, description?, job?: Job }. The host assigns jobs to workers. |\n| `summary` | Prepared summary cells; zero and supplied formatting are preserved. |\n| `onJobAction` | `(jobId, actionId) => void` requests a job action. Only supplied actions render; no callback means no mutation controls. |\n| `onInspectJob` | `(jobId) => void` runs when opening a job, for example to pause a demo. |\n| `actionFocusRef` | Focus destination after a job action may remove its trigger. Defaults to the panel. |\n| `toolbar / notice / children / footer` | Host controls, status, optional chart/content and footer. Charts remain optional composition; no chart dependency is imported. |\n| `workersDescription / resultsDescription` | Prepared explanations below worker and result groups. |\n| `title / description` | Panel heading and supporting text. |\n| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |\n\nOpening a job calls `onInspectJob`. Escape or Close returns focus to its trigger. Activating a supplied action closes the disclosure and focuses `actionFocusRef` or the panel, so a removed job does not strand focus. Job actions must be authorized and applied by the host; the panel never changes queue order, creates retries, assigns workers, or trims history.\n\n## Ownership and accessibility\n\nGaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.\n\nThe panel fills its container and wraps controls on narrow screens. Lists keep their own bounded scrolling. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.\n\n## Example\n\nThe [copyable demo](stories/fixtures/agent-queue/chat-delegation-agent-queue.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.\n\nInteraction inspiration: [AffectUI](https://www.affectui.com/components/agent-queue). Implemented independently using Gaudi primitives.",
+      "related": []
+    },
+    {
       "id": "chat-chatbubble",
       "name": "ChatBubble",
       "kind": "component",
@@ -26842,6 +27342,155 @@
       "related": []
     },
     {
+      "id": "chat-chatcontextwindow",
+      "name": "ChatContextWindow",
+      "kind": "component",
+      "title": "Chat/ChatContextWindow",
+      "category": "chat",
+      "owner": "chat/ChatContextWindow",
+      "import": {
+        "path": "@gaudi/design-system/chat/ChatContextWindow",
+        "category": "@gaudi/design-system/chat",
+        "root": true,
+        "mainExport": "ChatContextWindow",
+        "kind": "named",
+        "line": "import { ChatContextWindow } from '@gaudi/design-system/chat/ChatContextWindow';",
+        "exports": [
+          "ChatContextWindow",
+          "default"
+        ]
+      },
+      "description": "Inspect prepared context capacity, highlight categories and request file removal alongside host-owned compaction controls.",
+      "props": [
+        {
+          "name": "usedTokens / maxTokens",
+          "names": [
+            "usedTokens",
+            "maxTokens"
+          ],
+          "type": "number",
+          "default": "0",
+          "required": false,
+          "description": "Prepared totals. Zero capacity displays 0% and an empty decorative cell map; totals are not inferred from files."
+        },
+        {
+          "name": "parts",
+          "names": [
+            "parts"
+          ],
+          "type": "ContextPart[]",
+          "default": "[]",
+          "required": false,
+          "description": "Ordered { id, label, tokens, color?, detail?, busy?, files?: { id, name, tokens, disabled? }[], actions?: ReactNode }. Color accepts a Gaudi token value. Busy animates only that part, respecting reduced motion."
+        },
+        {
+          "name": "onRemoveFile",
+          "names": [
+            "onRemoveFile"
+          ],
+          "type": "(fileId, partId) => void",
+          "default": null,
+          "required": false,
+          "description": "Request removal. Omit to hide remove controls. Returns focus to that category disclosure; no file is deleted."
+        },
+        {
+          "name": "disabled",
+          "names": [
+            "disabled"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Disable file removal while retaining category inspection. Host-provided action slots manage their own disabled state."
+        },
+        {
+          "name": "tone",
+          "names": [
+            "tone"
+          ],
+          "type": "accent | warning | danger",
+          "default": "accent",
+          "required": false,
+          "description": "Host-supplied capacity tone; the component does not choose thresholds."
+        },
+        {
+          "name": "formatTokens / formatPercentage",
+          "names": [
+            "formatTokens",
+            "formatPercentage"
+          ],
+          "type": "(number) => string",
+          "default": "Intl.NumberFormat / one decimal",
+          "required": false,
+          "description": "Format counts and percentages. Percentage formatter returns the number without the percent sign."
+        },
+        {
+          "name": "hint / footer",
+          "names": [
+            "hint",
+            "footer"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Default category guidance and host-owned status/actions. Hover, focus and persistent category selection are local UI state."
+        },
+        {
+          "name": "title / description",
+          "names": [
+            "title",
+            "description"
+          ],
+          "type": "ReactNode",
+          "default": null,
+          "required": false,
+          "description": "Panel heading and supporting text."
+        },
+        {
+          "name": "className",
+          "names": [
+            "className"
+          ],
+          "type": "string",
+          "default": null,
+          "required": false,
+          "description": "Additional root classes. Panels fill available width; the consuming layout chooses any maximum width."
+        }
+      ],
+      "variants": {
+        "tone": [
+          "accent",
+          "warning",
+          "danger"
+        ]
+      },
+      "accessibility": "Native buttons, semantic headings and Gaudi disclosures preserve keyboard and focus behavior. Host callbacks own persistence and services.",
+      "usage": "import { ChatContextWindow } from '@gaudi/design-system/chat/ChatContextWindow';\n\n<ChatContextWindow\n  usedTokens={1200} maxTokens={8000}\n  parts={[{ id: 'instructions', label: 'Instructions', tokens: 1200, color: 'var(--ds-color-chart-1)', detail: 'Prepared system instructions.' }]}\n/>",
+      "examples": {
+        "stories": [],
+        "patterns": [
+          {
+            "name": "prompt-composer-context-window",
+            "title": "Context window",
+            "registry": "prompt-composer-context-window",
+            "storyId": "chat-chatinput--context-window",
+            "imports": [
+              "Button",
+              "ChatContextMeter",
+              "ChatContextWindow",
+              "ChatPromptComposer",
+              "Checkbox"
+            ]
+          }
+        ]
+      },
+      "storybook": "chat-chatcontextwindow--docs",
+      "docs": "docs/llm/chat-chatcontextwindow.md",
+      "source": "src/components/chat/ChatContextWindow/",
+      "readme": "# ChatContextWindow\n\nInspect prepared context capacity, highlight categories and request file removal alongside host-owned compaction controls.\n\n## Usage\n\n```jsx\nimport { ChatContextWindow } from '@gaudi/design-system/chat/ChatContextWindow';\n\n<ChatContextWindow\n  usedTokens={1200} maxTokens={8000}\n  parts={[{ id: 'instructions', label: 'Instructions', tokens: 1200, color: 'var(--ds-color-chart-1)', detail: 'Prepared system instructions.' }]}\n/>\n```\n\n## API\n\n| Prop | Contract |\n| --- | --- |\n| `usedTokens / maxTokens` | Prepared totals. Zero capacity displays 0% and an empty decorative cell map; totals are not inferred from files. |\n| `parts` | Ordered { id, label, tokens, color?, detail?, busy?, files?: { id, name, tokens, disabled? }[], actions?: ReactNode }. Color accepts a Gaudi token value. Busy animates only that part, respecting reduced motion. |\n| `onRemoveFile` | `(fileId, partId) => void` requests removal. Omit to hide remove controls. Returns focus to that category disclosure; no file is deleted. |\n| `disabled` | Disable file removal while retaining category inspection. Host-provided action slots manage their own disabled state. |\n| `tone` | Host-supplied capacity tone; the component does not choose thresholds. |\n| `formatTokens / formatPercentage` | Format counts and percentages. Percentage formatter returns the number without the percent sign. |\n| `hint / footer` | Default category guidance and host-owned status/actions. Hover, focus and persistent category selection are local UI state. |\n| `title / description` | Panel heading and supporting text. |\n| `className` | Additional root classes. Panels fill available width; the consuming layout chooses any maximum width. |\n\nThe 100 cells are a decorative approximation of capacity; the exact accessible counts remain in the category list. File categories disclose their own prepared files. Keyboard focus and pointer hover temporarily highlight a category; toggle activation keeps a selection. File removal returns focus to that category trigger. `ChatContextMeter` remains available from `ChatInput` for the compact composer trigger; pass the same prepared totals to both components.\n\n## Ownership and accessibility\n\nGaudi owns presentation, responsive layout and local inspection state. The application supplies stable IDs, ordering, labels, tones, values and callbacks. Omit mutation callbacks for display-only use. No services, timers, persistence or domain decisions run inside the component.\n\nThe panel fills its container and wraps controls on narrow screens. File lists expand within their category disclosure; the consuming layout owns any height limit or scrolling region. Headings use unique instance IDs; native controls and Gaudi disclosures provide keyboard operation.\n\n## Example\n\nThe [copyable demo](stories/fixtures/context-window/prompt-composer-context-window.jsx) retains its local simulation, failure/empty states and reset controls. Its preview URL and Storybook story ID are preserved. It composes the public component instead of containing another implementation.\n\nInteraction inspiration: [AffectUI](https://www.affectui.com/components/context-window). Implemented independently using Gaudi primitives.",
+      "related": []
+    },
+    {
       "id": "chat-chatdelegation",
       "name": "ChatDelegation",
       "kind": "component",
@@ -26932,6 +27581,33 @@
         ],
         "patterns": [
           {
+            "name": "chat-delegation-agent-fleet",
+            "title": "Agent fleet",
+            "registry": "chat-delegation-agent-fleet",
+            "storyId": "chat-chatdelegation--agent-fleet",
+            "imports": [
+              "AccordionContent",
+              "AccordionItem",
+              "AccordionRoot",
+              "AccordionTrigger",
+              "Badge",
+              "Button",
+              "ChatAgentMark",
+              "ChatMessageToolApproval",
+              "ChatPlan",
+              "DialogContent",
+              "DialogDescription",
+              "DialogFooter",
+              "DialogHeader",
+              "DialogRoot",
+              "DialogTitle",
+              "ProgressRoot",
+              "Tree",
+              "TreeItem",
+              "TreeItemLabel"
+            ]
+          },
+          {
             "name": "chat-delegation-agent-handoff",
             "title": "Handing work to another agent",
             "registry": "chat-delegation-agent-handoff",
@@ -26946,13 +27622,46 @@
               "ChatMessageParts",
               "RegistryIcon"
             ]
+          },
+          {
+            "name": "chat-delegation-conflict-radar",
+            "title": "Conflict radar",
+            "registry": "chat-delegation-conflict-radar",
+            "storyId": "chat-chatdelegation--conflict-radar",
+            "imports": [
+              "Badge",
+              "Button",
+              "ChatAgentMark",
+              "DataTable",
+              "Empty",
+              "EmptyDescription",
+              "EmptyHeader",
+              "EmptyTitle",
+              "RadioGroup",
+              "RegistryIcon"
+            ]
+          },
+          {
+            "name": "chat-delegation-handoff-relay",
+            "title": "Agent handoff relay",
+            "registry": "chat-delegation-handoff-relay",
+            "storyId": "chat-chatdelegation--handoff-relay",
+            "imports": [
+              "Badge",
+              "Button",
+              "ChatAgentMark",
+              "Collapsible",
+              "CollapsibleContent",
+              "CollapsibleTrigger",
+              "RegistryIcon"
+            ]
           }
         ]
       },
       "storybook": "chat-chatdelegation--docs",
       "docs": "docs/llm/chat-chatdelegation.md",
       "source": "src/components/chat/ChatDelegation/",
-      "readme": "# ChatDelegation\n\nWork the assistant handed to another agent: who took it, the brief, its status and that agent’s own activity.\n\n## Usage\n\n```jsx\nimport { ChatMessageDelegation, ChatMessageTool } from '@gaudi/design-system/chat';\n\n<ChatMessageDelegation agent={{ name: 'Research agent' }} status='running' instructions={brief}>\n  <ChatMessageTool name='web_search' status='done' />\n</ChatMessageDelegation>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `agent` | `{ name }` of the agent that took the work. |\n| `status` | The shared statuses. |\n| `instructions` / `error` | The brief, and an error as an alert. |\n| `children` | The agent’s own activity, usually tool calls. |\n\n## Accessibility\n\nThe card names the agent and its status in text; the status does not rely on colour.",
+      "readme": "# ChatDelegation\n\nWork the assistant handed to another agent: who took it, the brief, its status and that agent’s own activity.\n\n## Usage\n\n```jsx\nimport { ChatMessageDelegation, ChatMessageTool } from '@gaudi/design-system/chat';\n\n<ChatMessageDelegation agent={{ name: 'Research agent' }} status='running' instructions={brief}>\n  <ChatMessageTool name='web_search' status='done' />\n</ChatMessageDelegation>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `agent` | `{ name }` of the agent that took the work. |\n| `status` | The shared statuses. |\n| `instructions` / `error` | The brief, and an error as an alert. |\n| `children` | The agent’s own activity, usually tool calls. |\n\n## Accessibility\n\nThe card names the agent and its status in text; the status does not rely on colour.\n\n## Agent handoff relay example\n\nThe **Agent handoff relay** example follows one fictional article through Researcher, Writer and Reviewer. It composes ChatAgentMark with Core Button, Badge and Collapsible. The two transfers show what reached the next agent and identify a safety note omitted from the Writer’s handoff. The example opens with Reviewer waiting for that note. Expand or collapse transfers, restore the note, then finish the review. Reset replays the sequence from an empty handoff history; a simulated disconnect preserves context and provides retry.\n\nThe relay uses three columns in containers at least 56rem wide and stacks in reading order below that width. Status labels and the missing-item explanation remain visible without hover. Enter and Space operate disclosures and actions, and a polite status announces progress and recovery. Restoring context keeps its action mounted so keyboard focus is preserved.\n\nAll data and workflow decisions belong to the example. Applications provide transfers, missing-item reasons, restoration callbacks and execution policy. This adds no public handoff component or agent service. The simpler **Handing work to another agent** example remains available for one delegation and its tool calls.\n\n## Agent findings example\n\nThis panel now belongs to [ChatAgentFindings](../ChatAgentFindings/README.md), with a public import and its own examples. ChatDelegation keeps its existing API.\n\n## Agent queue example\n\nThis panel now belongs to [ChatAgentQueue](../ChatAgentQueue/README.md), with a public import and its own examples. ChatDelegation keeps its existing API.\n\n## Agent fleet example\n\nThe **Agent fleet** example composes Core Accordion, Tree, Dialog, Progress, Badge and Button with ChatAgentMark, ChatPlan and ChatMessageToolApproval. One lead's branch is open at a time. Wide containers place the tree beside the leads; containers narrower than 52rem place it beneath the selected lead. Every lead can be folded. Nested teams expand in the shared keyboard tree; leaf agents open task details in a dialog.\n\nApproving or denying access, retrying or dismissing a failure, finishing the run and resetting all update local fictional data. The demo sums each agent's own cost once; branch totals include the lead and all descendants. Applications supply real costs, execution state, permissions, task data and persistence. This is a copyable workflow composition, not another public agent component.\n\nUse the accordion's arrow keys and Home/End to move between leads, and Enter/Space to toggle. The tree supports arrow navigation and Enter/Space to open a leaf's tasks. Escape closes task details and returns focus to the originating agent. Updates use a polite announcement; statuses have text labels, and empty and completed states retain useful controls.\n\n## Conflict radar example\n\n**Conflict radar** composes Core DataTable, RadioGroup, Button, Badge and EmptyState with ChatAgentMark. A file-by-agent matrix shows prepared edit ranges and distinguishes overlaps from independent edits, including two agents touching separate ranges of one file. Bars locate a range within its file; text names each range and state. Select an overlapping file in the table or the comparison controls, then choose one agent’s approach. The explanation names what that choice preserves and omits; it does not imply an automatic combination of changes.\n\nTwo local updates finish the agents. Merge demo changes remains disabled until both conflicts have choices and all three agents have finished. Disconnecting Delivery retains edits and choices but blocks merging; Retry connection restores the prior progress. Clear choice reopens a conflict and returns focus to its first approach. A completed merge retains the comparison and disables resolution changes. Empty snapshot and Reset demo exercise the empty and initial states, restoring focus to the surviving Reset control.\n\nThe matrix keeps a readable minimum width of 44rem and scrolls inside DataTable’s labelled keyboard-accessible region on narrow containers. Full file paths and agent names remain available. Comparison controls wrap below the matrix; radio groups use the shared arrow-key behavior. A polite status announces selections, recovery and simulated completion. The example caps at 64rem and follows the shared spacing presets and light/dark tokens.\n\nAll file paths, branches, edits, overlap flags, resolution policy and progress are fictional fixture data. Applications own conflict detection, permissions, live update invalidation, Git operations and persistence. This example adds no public conflict engine or service integration and never reads or changes a repository.",
       "related": []
     },
     {
@@ -28066,7 +28775,7 @@
       "storybook": "chat-chatinput--docs",
       "docs": "docs/llm/chat-chatinput.md",
       "source": "src/components/chat/ChatInput/",
-      "readme": "# ChatInput\n\nThe composer for a chat: `ChatPromptComposer` (a multi-line prompt on the core InputGroup with mentions, commands, attachments and send or stop), `ChatPromptQueue` for messages waiting while a reply streams, and `ChatModelSelect` for the model and effort. The assistant toolbar adds `ChatPromptAttachMenu` (the `+` menu), `ChatPromptSettings` (effort and option switches), `ChatContextMeter` (prepared context usage, breakdown and cost). Applications supply model/provider catalogues and usage policy; richer sample data lives only in story fixtures.\n\n## Usage\n\n```jsx\nimport { ChatEffortSlider, ChatModelSelect, ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat';\n\n<ChatPromptQueue items={queue} onEdit={edit} onRemove={remove} onSendNow={sendNow} onMove={move} />\n<ChatPromptComposer\n  status={streaming ? 'streaming' : 'ready'}\n  mentions={people}\n  commands={commands}\n  onSubmit={(text, { queued }) => (queued ? enqueue(text) : send(text))}\n  onStop={stop}\n  leftControls={<ChatModelSelect searchable providers={providers} models={models} value={model} onValueChange={setModel}><ChatEffortSlider value={effort} onValueChange={setEffort} compact /></ChatModelSelect>}\n/>\n```\n\n### Assistant composer\n\n```jsx\nimport { ChatContextMeter, ChatModelSelect, ChatPromptAttachMenu, ChatPromptComposer, ChatPromptSettings } from '@gaudi/design-system/chat';\n\n<ChatPromptComposer\n  variant='card'\n  labels={{ placeholder: 'Ask anything...' }}\n  onSubmit={send}\n  leftControls={\n    <>\n      <ChatPromptAttachMenu onAttach={addFiles} />\n      <ChatModelSelect searchable models={models} providers={providers} value={model} onValueChange={setModel} />\n    </>\n  }\n  rightControls={\n    <>\n      <ChatPromptSettings options={[{ value: 'web', label: 'Web search', icon: 'Globe' }]} values={options} onValuesChange={setOptions} effort={effort} onEffortChange={setEffort} />\n      <ChatContextMeter usedTokens={usedTokens} maxTokens={contextLimit} breakdown={breakdown} cost={formattedCost} tone={contextTone} message={contextMessage} />\n    </>\n  }\n  voice={({ insert }) => <MicButton onTranscript={insert} />}\n/>\n```\n\n### Expanding tool icons\n\n`ChatPromptToggle` composes the shared Toggle, Tooltip and AnimatedIcon for tools such as Search or Think. Hover animates the icon and shows a tooltip without moving adjacent controls. Keyboard focus or selection expands the label; selected tools retain their label and accent. Its accessible name stays constant and `aria-pressed` reports the selection. Prefer short labels; longer labels truncate within the available width and remain available through the tooltip and accessible name. The icon respects reduced motion, and touch targets are at least 44px. Tool selection belongs to the host and does not start a search or request.\n\n```jsx\nimport { ChatPromptComposer, ChatPromptToggle } from '@gaudi/design-system/chat/ChatInput';\n\n<ChatPromptComposer\n  variant='card'\n  onSubmit={send}\n  leftControls={\n    <ChatPromptToggle icon='Globe' label='Search' pressed={search} onPressedChange={setSearch} />\n  }\n/>\n```\n\nThe `card` variant uses a muted writing area, an inset toolbar and matched control heights; it follows Gaudi's radius and spacing tokens in both themes. The attachment `+` rotates while its menu is open. The **Expanding tools** story demonstrates these interactions, inspired by [Skiper AI Input 001](https://skiper-ui.com/v1/skiper81), with an independent implementation using Gaudi primitives.\n\n### Control placement\n\n`leftControls` and `rightControls` accept any composition of the existing controls. Their child order sets the visual and keyboard order. Put `ChatPromptAttachMenu`, `ChatModelSelect`, `ChatPromptSettings`, `ChatContextMeter`, or custom buttons in either slot; both groups wrap to fit narrow containers. Left/right follow the reading direction, so they mirror in RTL.\n\nThe built-in `onAttach` button remains in the left group. For configurable attachment placement, use `ChatPromptAttachMenu` in either slot. Send, stop and the empty-prompt voice action stay together after the right controls.\n\nExisting `toolbar` and `actions` remain aliases for the left and right slots. An explicit new slot takes precedence; `null` clears that slot without rendering its legacy alias. These slots work in both `default` and `card` variants.\n\nStorybook’s **Assistant composer** example provides independent left/right controls for attachments, model, settings and context, with matching copyable source. **Split controls** and **All controls on the right** show common arrangements.\n\n### Mixed attachments\n\n`attachments` accepts `{ id, name, type?, mediaType?, fileType?, size?, kind?, previewUrl? }`. The composer reuses Core `AttachmentMedia`: audio and video get distinct icons, images use a supplied `previewUrl`, and `kind='link'` uses a globe. Without a thumbnail, or if it cannot load, the file-type icon remains. Supply image thumbnails or video posters explicitly; the component does not fetch the original media or create object URLs. The host owns those URLs and their cleanup.\n\nThe **Mixed attachments: compact media pills** story shows image, PDF, audio, video and link attachments, removal, reset and submission. `onSubmit` receives the same attachment objects in its second argument; `onRemoveAttachment(id)` keeps the tray controlled by the host.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatPromptComposer` | `@` anywhere or `/` at the start opens `mentions` or `commands`; Enter sends and Shift+Enter adds a line; `status` streaming shows Stop and reports `{ queued: true }`; `leftControls`, `rightControls`, `footer`, `attachments` and `onAttach` fill the frame. |\n| `ChatPromptComposer` `leftControls` / `rightControls` | ReactNode slots for independently arranged control groups; both wrap. New props override legacy `toolbar` / `actions`; `null` clears a slot. Built-in send/stop/voice remain after the right slot. |\n| `ChatPromptQueue` | Waiting messages `{ id, text }`: edit in place, send now, remove, or move with Alt+Arrow. |\n| `ChatPromptToggle` | `icon` is an icon registry name; `label` supplies the visible and accessible name. `pressed` / `defaultPressed` / `onPressedChange` follow the shared Toggle's controlled/uncontrolled contract; `disabled` prevents changes. Use it in either control slot. Hosts must pass their disabled/read-only policy to supplied slot controls. |\n| `ChatModelSelect` | `models` `{ value, label, description?, details?, badge?, badgeTone?, icon? }` with `value` / `onValueChange`; `icon` is a brand mark, `details` short facts under the name; `variant` / `size` style the trigger (outline in a page header), `icon={false}` drops the default sparkle; `disabled` disables the trigger; `children` add a footer such as a ChatEffortSlider; a footer uses a popover containing a model list and separate controls. |\n| `ChatModelSelect` (catalogue) | Models with a `provider` group under its name and mark (host-supplied `providers`, or the provider ID when absent); `contextWindow`, `speed` (`fast`, `balanced`, `slow`), `cost` (1 to 4) and `capabilities` (`vision`, `reasoning`, `tools`, `web`, `files`, `audio`, `code`, `image`) show under the name. `searchable` opens a command list with a search field instead of a menu. |\n| `ChatPromptComposer` `variant` / `voice` | `card` is the roomier composer with a one-line prompt that grows; `voice` (element or `({ value, setValue, insert, disabled }) => element`) holds the send slot while the prompt is empty. |\n| `ChatPromptAttachMenu` | `items` `{ value, label, icon?, description?, shortcut?, accept?, capture?, multiple?, separator? }`; items with `accept` open the file picker and call `onAttach(files, item)`, others call `onSelect(item)`. |\n| `ChatPromptSettings` | `effort` / `onEffortChange` (a ChatEffortSlider, `effortLevels` for your own steps) and switches for `options` with `values` / `defaultValues` / `onValuesChange(values, changed)`; `children` add controls. |\n| `ChatContextMeter` | `usedTokens`, `maxTokens`, optional `modelLabel`; prepared `breakdown` rows `{ id, label, value, detail? }`; prepared `cost` and `costLabel`; explicit `tone` (`accent`, `warning`, `danger`) and `message`. `formatTokens` defaults to exported `formatTokenCount`; `formatPercentage` formats the derived percentage. |\n| `findPromptTrigger(text, caret)` | The mention or command being typed at the caret, or null. |\n\n### Context data ownership\n\nThe meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message.\n\nThe previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` props and exported `estimateChatCost`, `chatModels` and `chatModelProviders` are removed. Move model/provider metadata and any billing calculation into the application. The Assistant composer story retains an illustrative catalogue and billing calculation in `stories/fixtures`.\n\n## Accessibility\n\nThe prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.\n\nThe model trigger names the current model. Searchable pickers and pickers with footer content use a dialog; searchable ones include a labelled search combobox. Without search, focus starts in the model list: arrow keys move and Enter selects, while Tab reaches the footer controls. Escape closes and returns focus to the trigger. Simple pickers without search or a footer retain menu keyboard behavior; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.",
+      "readme": "# ChatInput\n\nThe composer for a chat: `ChatPromptComposer` (a multi-line prompt on the core InputGroup with mentions, commands, attachments and send or stop), `ChatPromptQueue` for messages waiting while a reply streams, and `ChatModelSelect` for the model and effort. The assistant toolbar adds `ChatPromptAttachMenu` (the `+` menu), `ChatPromptSettings` (effort and option switches), `ChatContextMeter` (prepared context usage, breakdown and cost). Applications supply model/provider catalogues and usage policy; richer sample data lives only in story fixtures.\n\n## Usage\n\n```jsx\nimport { ChatEffortSlider, ChatModelSelect, ChatPromptComposer, ChatPromptQueue } from '@gaudi/design-system/chat';\n\n<ChatPromptQueue items={queue} onEdit={edit} onRemove={remove} onSendNow={sendNow} onMove={move} />\n<ChatPromptComposer\n  status={streaming ? 'streaming' : 'ready'}\n  mentions={people}\n  commands={commands}\n  onSubmit={(text, { queued }) => (queued ? enqueue(text) : send(text))}\n  onStop={stop}\n  leftControls={<ChatModelSelect searchable providers={providers} models={models} value={model} onValueChange={setModel}><ChatEffortSlider value={effort} onValueChange={setEffort} compact /></ChatModelSelect>}\n/>\n```\n\n### Assistant composer\n\n```jsx\nimport { ChatContextMeter, ChatModelSelect, ChatPromptAttachMenu, ChatPromptComposer, ChatPromptSettings } from '@gaudi/design-system/chat';\n\n<ChatPromptComposer\n  variant='card'\n  labels={{ placeholder: 'Ask anything...' }}\n  onSubmit={send}\n  leftControls={\n    <>\n      <ChatPromptAttachMenu onAttach={addFiles} />\n      <ChatModelSelect searchable models={models} providers={providers} value={model} onValueChange={setModel} />\n    </>\n  }\n  rightControls={\n    <>\n      <ChatPromptSettings options={[{ value: 'web', label: 'Web search', icon: 'Globe' }]} values={options} onValuesChange={setOptions} effort={effort} onEffortChange={setEffort} />\n      <ChatContextMeter usedTokens={usedTokens} maxTokens={contextLimit} breakdown={breakdown} cost={formattedCost} tone={contextTone} message={contextMessage} />\n    </>\n  }\n  voice={({ insert }) => <MicButton onTranscript={insert} />}\n/>\n```\n\n### Expanding tool icons\n\n`ChatPromptToggle` composes the shared Toggle, Tooltip and AnimatedIcon for tools such as Search or Think. Hover animates the icon and shows a tooltip without moving adjacent controls. Keyboard focus or selection expands the label; selected tools retain their label and accent. Its accessible name stays constant and `aria-pressed` reports the selection. Prefer short labels; longer labels truncate within the available width and remain available through the tooltip and accessible name. The icon respects reduced motion, and touch targets are at least 44px. Tool selection belongs to the host and does not start a search or request.\n\n```jsx\nimport { ChatPromptComposer, ChatPromptToggle } from '@gaudi/design-system/chat/ChatInput';\n\n<ChatPromptComposer\n  variant='card'\n  onSubmit={send}\n  leftControls={\n    <ChatPromptToggle icon='Globe' label='Search' pressed={search} onPressedChange={setSearch} />\n  }\n/>\n```\n\nThe `card` variant uses a muted writing area, an inset toolbar and matched control heights; it follows Gaudi's radius and spacing tokens in both themes. The attachment `+` rotates while its menu is open. The **Expanding tools** story demonstrates these interactions, inspired by [Skiper AI Input 001](https://skiper-ui.com/v1/skiper81), with an independent implementation using Gaudi primitives.\n\n### Control placement\n\n`leftControls` and `rightControls` accept any composition of the existing controls. Their child order sets the visual and keyboard order. Put `ChatPromptAttachMenu`, `ChatModelSelect`, `ChatPromptSettings`, `ChatContextMeter`, or custom buttons in either slot; both groups wrap to fit narrow containers. Left/right follow the reading direction, so they mirror in RTL.\n\nThe built-in `onAttach` button remains in the left group. For configurable attachment placement, use `ChatPromptAttachMenu` in either slot. Send, stop and the empty-prompt voice action stay together after the right controls.\n\nExisting `toolbar` and `actions` remain aliases for the left and right slots. An explicit new slot takes precedence; `null` clears that slot without rendering its legacy alias. These slots work in both `default` and `card` variants.\n\nStorybook’s **Assistant composer** example provides independent left/right controls for attachments, model, settings and context, with matching copyable source. **Split controls** and **All controls on the right** show common arrangements.\n\n### Mixed attachments\n\n`attachments` accepts `{ id, name, type?, mediaType?, fileType?, size?, kind?, previewUrl? }`. The composer reuses Core `AttachmentMedia`: audio and video get distinct icons, images use a supplied `previewUrl`, and `kind='link'` uses a globe. Without a thumbnail, or if it cannot load, the file-type icon remains. Supply image thumbnails or video posters explicitly; the component does not fetch the original media or create object URLs. The host owns those URLs and their cleanup.\n\nThe **Mixed attachments: compact media pills** story shows image, PDF, audio, video and link attachments, removal, reset and submission. `onSubmit` receives the same attachment objects in its second argument; `onRemoveAttachment(id)` keeps the tray controlled by the host.\n\n### Queued messages\n\n`ChatPromptQueue` adapts to its own container width. Below 26rem, row actions sit beneath the message; at 26rem and above, they sit alongside it. Message text wraps within the available space. Edit, send-now and remove controls appear only when their callbacks are supplied; a read-only queue has no empty action group.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatPromptComposer` | `@` anywhere or `/` at the start opens `mentions` or `commands`; Enter sends and Shift+Enter adds a line; `status` streaming shows Stop and reports `{ queued: true }`; `leftControls`, `rightControls`, `footer`, `attachments` and `onAttach` fill the frame. |\n| `ChatPromptComposer` `leftControls` / `rightControls` | ReactNode slots for independently arranged control groups; both wrap. New props override legacy `toolbar` / `actions`; `null` clears a slot. Built-in send/stop/voice remain after the right slot. |\n| `ChatPromptQueue` | Waiting messages `{ id, text }`: edit in place, send now, remove, or move with Alt+Arrow. |\n| `ChatPromptToggle` | `icon` is an icon registry name; `label` supplies the visible and accessible name. `pressed` / `defaultPressed` / `onPressedChange` follow the shared Toggle's controlled/uncontrolled contract; `disabled` prevents changes. Use it in either control slot. Hosts must pass their disabled/read-only policy to supplied slot controls. |\n| `ChatModelSelect` | `models` `{ value, label, description?, details?, badge?, badgeTone?, icon? }` with `value` / `onValueChange`; `icon` is a brand mark, `details` short facts under the name; `variant` / `size` style the trigger (outline in a page header), `icon={false}` drops the default sparkle; `disabled` disables the trigger; `children` add a footer such as a ChatEffortSlider; a footer uses a popover containing a model list and separate controls. |\n| `ChatModelSelect` (catalogue) | Models with a `provider` group under its name and mark (host-supplied `providers`, or the provider ID when absent); `contextWindow`, `speed` (`fast`, `balanced`, `slow`), `cost` (1 to 4) and `capabilities` (`vision`, `reasoning`, `tools`, `web`, `files`, `audio`, `code`, `image`) show under the name. `searchable` opens a command list with a search field instead of a menu. |\n| `ChatPromptComposer` `variant` / `voice` | `card` is the roomier composer with a one-line prompt that grows; `voice` (element or `({ value, setValue, insert, disabled }) => element`) holds the send slot while the prompt is empty. |\n| `ChatPromptAttachMenu` | `items` `{ value, label, icon?, description?, shortcut?, accept?, capture?, multiple?, separator? }`; items with `accept` open the file picker and call `onAttach(files, item)`, others call `onSelect(item)`. |\n| `ChatPromptSettings` | `effort` / `onEffortChange` (a ChatEffortSlider, `effortLevels` for your own steps) and switches for `options` with `values` / `defaultValues` / `onValuesChange(values, changed)`; `children` add controls. |\n| `ChatContextMeter` | `usedTokens`, `maxTokens`, optional `modelLabel`; prepared `breakdown` rows `{ id, label, value, detail? }`; prepared `cost` and `costLabel`; explicit `tone` (`accent`, `warning`, `danger`) and `message`. `formatTokens` defaults to exported `formatTokenCount`; `formatPercentage` formats the derived percentage. |\n| `findPromptTrigger(text, caret)` | The mention or command being typed at the caret, or null. |\n\n### Context data ownership\n\nThe meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message. The meter isolates its formatted percentage, token summary and model label so mixed-direction text retains its order in RTL interfaces.\n\nThe previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` props and exported `estimateChatCost`, `chatModels` and `chatModelProviders` are removed. Move model/provider metadata and any billing calculation into the application. The Assistant composer story retains an illustrative catalogue and billing calculation in `stories/fixtures`.\n\n## Accessibility\n\nThe prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.\n\nThe model trigger names the current model. Searchable pickers and pickers with footer content use a dialog; searchable ones include a labelled search combobox. Without search, focus starts in the model list: arrow keys move and Enter selects, while Tab reaches the footer controls. Escape closes and returns focus to the trigger. Simple pickers without search or a footer retain menu keyboard behavior; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.\n\n## Context window example\n\nThis panel now belongs to [ChatContextWindow](../ChatContextWindow/README.md), with a public import and its own examples. ChatInput keeps its existing API.",
       "related": [
         "core-attachment"
       ]
@@ -28226,6 +28935,30 @@
             ]
           },
           {
+            "name": "message-research-answer",
+            "title": "Research answer",
+            "registry": "message-research-answer",
+            "storyId": "chat-message--research-answer",
+            "imports": [
+              "Button",
+              "ChatAgentMark",
+              "ChatMessage",
+              "ChatMessageContent",
+              "ChatMessageFeedback",
+              "ChatMessageMarkdown",
+              "Item",
+              "ItemContent",
+              "ItemDescription",
+              "ItemTitle",
+              "LoaderRoot",
+              "Popover",
+              "PopoverContent",
+              "PopoverTrigger",
+              "RegistryIcon",
+              "usePrefersReducedMotion"
+            ]
+          },
+          {
             "name": "message-team-conversation",
             "title": "Team conversation",
             "registry": "message-team-conversation",
@@ -28258,7 +28991,7 @@
       "storybook": "chat-message--docs",
       "docs": "docs/llm/chat-chatmessage.md",
       "source": "src/components/chat/ChatMessage/",
-      "readme": "# ChatMessage\n\nOne turn in a conversation: an avatar, a header with the sender and time, the content stack and a footer for status such as read or edited. A `ChatMessageGroup` runs several turns from one sender under one avatar.\n\n## Usage\n\n```jsx\nimport { ChatBubble, ChatBubbleContent, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@gaudi/design-system/chat';\n\n<ChatMessage align='end'>\n  <ChatMessageAvatar><Avatar src={me.src} name={me.name} size='sm' alt='' /></ChatMessageAvatar>\n  <ChatMessageContent>\n    <ChatBubble align='end'><ChatBubbleContent>Moving the legend under the axis.</ChatBubbleContent></ChatBubble>\n    <ChatMessageFooter>Read 10:42</ChatMessageFooter>\n  </ChatMessageContent>\n</ChatMessage>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessage` | `align` start or end; the avatar flips with it. |\n| `ChatMessageGroup` | Consecutive turns from one sender share an avatar. |\n| `ChatMessageAvatar`, `ChatMessageHeader`, `ChatMessageContent`, `ChatMessageFooter` | Avatar column, sender and time, the content stack, and status. |\n\n## Accessibility\n\nSide alone is lost when a thread is read aloud: name the sender in a header or visually hidden text, and label reactions and icon-only actions.",
+      "readme": "# ChatMessage\n\nOne turn in a conversation: an avatar, a header with the sender and time, the content stack and a footer for status such as read or edited. A `ChatMessageGroup` runs several turns from one sender under one avatar.\n\n## Usage\n\n```jsx\nimport { ChatBubble, ChatBubbleContent, ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@gaudi/design-system/chat';\n\n<ChatMessage align='end'>\n  <ChatMessageAvatar><Avatar src={me.src} name={me.name} size='sm' alt='' /></ChatMessageAvatar>\n  <ChatMessageContent>\n    <ChatBubble align='end'><ChatBubbleContent>Moving the legend under the axis.</ChatBubbleContent></ChatBubble>\n    <ChatMessageFooter>Read 10:42</ChatMessageFooter>\n  </ChatMessageContent>\n</ChatMessage>\n```\n\n## Composed answers\n\nThe Research answer story composes `ChatMessageMarkdown`, citation previews, Core `Popover` source records, and `ChatMessageFeedback` within the message content. It opens with a complete answer; regenerate demonstrates streaming, and follow-up controls select prepared answers. Its incident records are fictional and local. Applications supply their own sources, generation, and persistence.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessage` | `align` start or end; the avatar flips with it. |\n| `ChatMessageGroup` | Consecutive turns from one sender share an avatar. |\n| `ChatMessageAvatar`, `ChatMessageHeader`, `ChatMessageContent`, `ChatMessageFooter` | Avatar column, sender and time, the content stack, and status. |\n\n## Accessibility\n\nSide alone is lost when a thread is read aloud: name the sender in a header or visually hidden text, and label reactions and icon-only actions.",
       "related": [
         "core-avatar"
       ]
@@ -28629,7 +29362,7 @@
       "storybook": "chat-messagelist--docs",
       "docs": "docs/llm/chat-chatmessagelist.md",
       "source": "src/components/chat/ChatMessageList/",
-      "readme": "# ChatMessageList\n\nThe conversation itself: `ChatMessageScroller` keeps a long thread anchored while new turns arrive, and `ChatMessageParts` renders each assistant turn from its parts (text, reasoning, tools, sources, files, data, errors and suggestions).\n\n## Usage\n\n```jsx\nimport { ChatMessageParts, ChatMessageScroller, ChatMessageScrollerContent, ChatMessageScrollerItem, ChatMessageScrollerProvider, ChatMessageScrollerViewport } from '@gaudi/design-system/chat';\n\n<ChatMessageScrollerProvider autoScroll>\n  <ChatMessageScroller>\n    <ChatMessageScrollerViewport aria-label='Conversation'>\n      <ChatMessageScrollerContent>\n        {turns.map((turn) => (\n          <ChatMessageScrollerItem key={turn.id} scrollAnchor={turn.role === 'user'}>\n            <ChatMessageParts parts={turn.parts} streaming={turn.streaming} />\n          </ChatMessageScrollerItem>\n        ))}\n      </ChatMessageScrollerContent>\n    </ChatMessageScrollerViewport>\n  </ChatMessageScroller>\n</ChatMessageScrollerProvider>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessageScroller*` | Scroll container with anchoring, auto-scroll to the live edge, load-earlier without a jump, and `ChatMessageScrollerButton` to jump to the latest. |\n| `ChatMessageScrollerItem.scrollAnchor` | Lifts a sent message near the top while a slice of the previous turn stays visible. |\n| `ChatMessageParts.parts` | The parts of one assistant turn; unknown types are skipped so the host can render its own. |\n| `ChatMessageParts.streaming` | Marks the turn as arriving: `aria-busy`, a live code fence and an open thinking trail. |\n| `ChatMessageMarkdown` | Runtime markdown for reply text, with code through CodeBlock. |\n| `ChatMessageCheckpoint` | A restore point between turns: `label`, `time` (string or Date), `onRestore` (confirmed in an alert dialog unless `confirm={false}`) and `restored`. |\n\n## Parts model\n\nAn assistant turn is a list of parts, shaped like common AI SDK message parts but with no dependency on any SDK. `ChatMessageParts` renders them in order:\n\n| Part | Renders as |\n| --- | --- |\n| `{ type: 'text', text }` | `ChatMessageMarkdown` |\n| `{ type: 'reasoning', text?, steps?, duration? }` | `ChatMessageReasoning`: open while thinking, folds away a second after the answer starts unless the reader toggled it. Steps with a `label` (and `icon`, `description`, `text`, `results`, `images`) read as a chain of thought |\n| `{ type: 'tool', name, status, input?, output?, error?, parts? }` | `ChatMessageTool`: statuses pending, running, done, failed or cancelled; input and output in `ChatMessageData` (a list or table, with a JSON view); nested calls as `parts`; a failed call opens with its error and a retry |\n| `{ type: 'approval', name, description?, input?, state?, allowAlways?, output? }` | `ChatMessageToolApproval`: a tool waiting on the person; `onToolApproval(part, { approved, always })` answers it |\n| `{ type: 'delegation', agent, status, instructions?, parts? }` | `ChatMessageDelegation`: work handed to another agent |\n| `{ type: 'source', title, url?, kind?, site?, excerpt? }` | Gathered into one `ChatMessageSources` list; the text cites them as `[1]`, `[2]`… (or `[1, 3]` for several behind one pill) through `ChatMessageCitation` |\n| `{ type: 'file', name, mediaType?, fileType?, previewUrl?, kind?, size?, description?, href? }`, `{ type: 'data', label?, value }` | Core `Attachment` with shared file media, and `ChatMessageData` |\n| `{ type: 'error', title?, text? }`, `{ type: 'suggestions', items }` | Core `Alert` with retry, and labelled Core Button follow-ups (`onSuggestion(prompt, item)`) |\n\nAdd `ChatMessageFeedback` under a finished reply for copy, rating and regenerate.\n\n### Delivered files\n\nFile parts reuse Core `AttachmentMedia`: supply `mediaType` (or `fileType`) for the MIME type, `previewUrl` for an explicit image or poster thumbnail, and `kind: 'link'` for a link icon. Without a preview, the shared media renderer chooses the file-type icon; failed thumbnails fall back to that icon. The file name remains visible beside the decorative media.\n\n`onFileAction(action, part)` receives the original part for preview and host-managed download actions. An explicit `href` provides the download link instead. The host owns file retrieval and preview dialogs. When adapting upload metadata, preserve its MIME type before setting the part discriminator:\n\n```jsx\n<ChatMessageParts\n  parts={files.map((file) => ({ ...file, type: 'file', mediaType: file.type }))}\n  onFileAction={(action, file) => handleFileAction(action, file)}\n/>\n```\n\nSee **Chat / ChatMessage / Mixed attachments** for images, audio, video, documents, code, spreadsheets and links in a delivered reply.\n\n### Checkpoints\n\nA checkpoint sits between turns, outside `ChatMessageParts`, so the host decides where restore points fall and what restoring undoes.\n\n```jsx\nimport { ChatMessageCheckpoint } from '@gaudi/design-system/chat';\n\n<ChatMessageCheckpoint label='Before rewriting the intro' time={checkpoint.createdAt} onRestore={() => restore(checkpoint.id)} />\n```\n\n### Markdown\n\nReplies arrive as plain markdown, a few tokens at a time, so `ChatMessageMarkdown` renders them at runtime instead of compiling them like MDX articles. It adds no markdown dependency:\n\n- Code fences go through the CodeBlock `markdownFences` helper and `CodeBlock`; an unclosed fence keeps streaming.\n- The text between fences uses a small grammar: headings (shifted below the conversation heading), paragraphs, ordered, unordered and task lists, quotes, rules, pipe tables, bold, italic, strikethrough, inline code, links, bare URLs and numbered citations.\n- Links render through the core `Link`.\n- Unfinished markup while streaming stays as typed until its closing marker arrives.\n\nRaw HTML is never interpreted.\n\n```jsx\nimport { ChatMessage, ChatMessageContent, ChatMessageFeedback, ChatMessageParts } from '@gaudi/design-system/chat';\n\n<ChatMessage>\n  <ChatMessageContent>\n    <ChatMessageParts parts={turn.parts} streaming={turn.streaming} onRetry={retry} onToolRetry={retryTool} />\n    {turn.streaming ? null : <ChatMessageFeedback copyText={turn.text} onRegenerate={regenerate} />}\n  </ChatMessageContent>\n</ChatMessage>\n```\n\n## Accessibility\n\nThe thread scrolls inside a labelled region and never moves the page. While a reply streams, ChatMessageParts marks it `aria-busy`; announce the start and the end once in a polite status, never every token. A checkpoint is a group named by its label and time; its restore button is described by them, and the confirmation is an alert dialog that returns focus to the button.\n\nFollow-up suggestions belong to `ChatMessageParts` as `{ type: 'suggestions', items }`, where items are strings or `{ id, label, prompt?, icon? }`. The renderer is private. Welcome prompts use Core Button directly alongside ChatPersona, EmptyState and ChatPromptComposer; see **Blocks / Chat / Welcome**. `ChatMessageSuggestions` is no longer a standalone package export.",
+      "readme": "# ChatMessageList\n\nThe conversation itself: `ChatMessageScroller` keeps a long thread anchored while new turns arrive, and `ChatMessageParts` renders each assistant turn from its parts (text, reasoning, tools, sources, files, data, errors and suggestions).\n\n## Usage\n\n```jsx\nimport { ChatMessageParts, ChatMessageScroller, ChatMessageScrollerContent, ChatMessageScrollerItem, ChatMessageScrollerProvider, ChatMessageScrollerViewport } from '@gaudi/design-system/chat';\n\n<ChatMessageScrollerProvider autoScroll>\n  <ChatMessageScroller>\n    <ChatMessageScrollerViewport aria-label='Conversation'>\n      <ChatMessageScrollerContent>\n        {turns.map((turn) => (\n          <ChatMessageScrollerItem key={turn.id} scrollAnchor={turn.role === 'user'}>\n            <ChatMessageParts parts={turn.parts} streaming={turn.streaming} />\n          </ChatMessageScrollerItem>\n        ))}\n      </ChatMessageScrollerContent>\n    </ChatMessageScrollerViewport>\n  </ChatMessageScroller>\n</ChatMessageScrollerProvider>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessageScroller*` | Scroll container with anchoring, auto-scroll to the live edge, load-earlier without a jump, and `ChatMessageScrollerButton` to jump to the latest. |\n| `ChatMessageScrollerItem.scrollAnchor` | Lifts a sent message near the top while a slice of the previous turn stays visible. |\n| `ChatMessageParts.parts` | The parts of one assistant turn; unknown types are skipped so the host can render its own. |\n| `ChatMessageParts.streaming` | Marks the turn as arriving: `aria-busy`, a live code fence and an open thinking trail. |\n| `ChatMessageMarkdown` | Runtime markdown for reply text, with code through CodeBlock. |\n| `ChatMessageCheckpoint` | A restore point between turns: `label`, `time` (string or Date), `onRestore` (confirmed in an alert dialog unless `confirm={false}`) and `restored`. |\n\n## Parts model\n\nAn assistant turn is a list of parts, shaped like common AI SDK message parts but with no dependency on any SDK. `ChatMessageParts` renders them in order:\n\n| Part | Renders as |\n| --- | --- |\n| `{ type: 'text', text }` | `ChatMessageMarkdown` |\n| `{ type: 'reasoning', text?, steps?, duration? }` | `ChatMessageReasoning`: open while thinking, folds away a second after the answer starts unless the reader toggled it. Steps with a `label` (and `icon`, `description`, `text`, `results`, `images`) read as a chain of thought |\n| `{ type: 'tool', name, status, input?, output?, error?, parts? }` | `ChatMessageTool`: statuses pending, running, done, failed or cancelled; input and output in `ChatMessageData` (a list or table, with a JSON view); nested calls as `parts`; a failed call opens with its error and a retry |\n| `{ type: 'approval', name, description?, input?, state?, allowAlways?, output? }` | `ChatMessageToolApproval`: a tool waiting on the person; `onToolApproval(part, { approved, always })` answers it |\n| `{ type: 'delegation', agent, status, instructions?, parts? }` | `ChatMessageDelegation`: work handed to another agent |\n| `{ type: 'source', title, url?, kind?, site?, excerpt? }` | Gathered into one `ChatMessageSources` list; the text cites them as `[1]`, `[2]`… (or `[1, 3]` for several behind one pill) through `ChatMessageCitation` |\n| `{ type: 'file', name, mediaType?, fileType?, previewUrl?, kind?, size?, description?, href? }`, `{ type: 'data', label?, value }` | Core `Attachment` with shared file media, and `ChatMessageData` |\n| `{ type: 'error', title?, text? }`, `{ type: 'suggestions', items }` | Core `Alert` with retry, and labelled Core Button follow-ups (`onSuggestion(prompt, item)`) |\n\nAdd `ChatMessageFeedback` under a finished reply for copy, rating and regenerate.\n\n### Delivered files\n\nConsecutive file parts share a row of consistently sized attachments. The row wraps as its container narrows; text and other parts between files keep their original position in the reply.\n\nFile parts reuse Core `AttachmentMedia`: supply `mediaType` (or `fileType`) for the MIME type, `previewUrl` for an explicit image or poster thumbnail, and `kind: 'link'` for a link icon. Without a preview, the shared media renderer chooses the file-type icon; failed thumbnails fall back to that icon. The file name remains visible beside the decorative media.\n\n`onFileAction(action, part)` receives the original part for preview and host-managed download actions. An explicit `href` provides the download link instead. The host owns file retrieval and preview dialogs. When adapting upload metadata, preserve its MIME type before setting the part discriminator:\n\n```jsx\n<ChatMessageParts\n  parts={files.map((file) => ({ ...file, type: 'file', mediaType: file.type }))}\n  onFileAction={(action, file) => handleFileAction(action, file)}\n/>\n```\n\nSee **Chat / ChatMessage / Mixed attachments** for images, audio, video, documents, code, spreadsheets and links in a delivered reply.\n\n### Checkpoints\n\nThis panel now belongs to [ChatAgentCheckpoints](../ChatAgentCheckpoints/README.md), with a public import and its own examples. ChatMessageList keeps its existing API.\n\n### Markdown\n\nReplies arrive as plain markdown, a few tokens at a time, so `ChatMessageMarkdown` renders them at runtime instead of compiling them like MDX articles. It adds no markdown dependency:\n\n- Code fences go through the CodeBlock `markdownFences` helper and `CodeBlock`; an unclosed fence keeps streaming.\n- The text between fences uses a small grammar: headings (shifted below the conversation heading), paragraphs, ordered, unordered and task lists, quotes, rules, pipe tables, bold, italic, strikethrough, inline code, links, bare URLs and numbered citations.\n- Links render through the core `Link`.\n- Unfinished markup while streaming stays as typed until its closing marker arrives.\n\nRaw HTML is never interpreted.\n\n```jsx\nimport { ChatMessage, ChatMessageContent, ChatMessageFeedback, ChatMessageParts } from '@gaudi/design-system/chat';\n\n<ChatMessage>\n  <ChatMessageContent>\n    <ChatMessageParts parts={turn.parts} streaming={turn.streaming} onRetry={retry} onToolRetry={retryTool} />\n    {turn.streaming ? null : <ChatMessageFeedback copyText={turn.text} onRegenerate={regenerate} />}\n  </ChatMessageContent>\n</ChatMessage>\n```\n\n## Accessibility\n\nThe thread scrolls inside a labelled region and never moves the page. While a reply streams, ChatMessageParts marks it `aria-busy`; announce the start and the end once in a polite status, never every token. A checkpoint is a group named by its label and time; its restore button is described by them, and the confirmation is an alert dialog that returns focus to the button.\n\nFollow-up suggestions belong to `ChatMessageParts` as `{ type: 'suggestions', items }`, where items are strings or `{ id, label, prompt?, icon? }`. The renderer is private. Welcome prompts use Core Button directly alongside ChatPersona, EmptyState and ChatPromptComposer; see **Blocks / Chat / Welcome**. `ChatMessageSuggestions` is no longer a standalone package export.",
       "related": [
         "blocks-chat",
         "chat-chatreasoning",
@@ -28900,10 +29633,20 @@
           "names": [
             "steps"
           ],
-          "type": "Array<{ id, title, status, description?, owner?, todos? }>",
+          "type": "Array<{ id, title, status, description?, owner?, todos?, notes? }>",
           "default": "[]",
           "required": false,
-          "description": "Plan steps with the shared statuses."
+          "description": "Plan steps with the shared statuses; notes are prepared { id, text, label? } entries."
+        },
+        {
+          "name": "labels",
+          "names": [
+            "labels"
+          ],
+          "type": "object",
+          "default": null,
+          "required": false,
+          "description": "Progress and status copy, owner and current-step labels, and notes list name."
         },
         {
           "name": "className",
@@ -28917,7 +29660,7 @@
         }
       ],
       "variants": {},
-      "accessibility": "The header reads the count of finished steps.",
+      "accessibility": "The header reads the count of finished steps. Steps and notes form named lists; the first running step, or first awaiting step when none is running, exposes aria-current=\"step\".",
       "usage": "import { ChatPlan } from '@gaudi/design-system/chat';\n\n<ChatPlan title='Plan' steps={[\n  { id: 'read', title: 'Read the draft', status: 'done' },\n  { id: 'draft', title: 'Draft the opening', status: 'running' }\n]} />",
       "examples": {
         "stories": [
@@ -28930,13 +29673,31 @@
             "id": "chat-chatplanpanel--plan-in-progress"
           }
         ],
-        "patterns": []
+        "patterns": [
+          {
+            "name": "plan-agent-steering",
+            "title": "Agent steering",
+            "registry": "plan-agent-steering",
+            "storyId": "chat-chatplanpanel--agent-steering",
+            "imports": [
+              "Badge",
+              "Button",
+              "ChatAgentMark",
+              "ChatPlan",
+              "ChatPromptQueue",
+              "RegistryIcon",
+              "Textarea"
+            ]
+          }
+        ]
       },
       "storybook": "chat-chatplanpanel--docs",
       "docs": "docs/llm/chat-chatplanpanel.md",
       "source": "src/components/chat/ChatPlanPanel/",
-      "readme": "# ChatPlanPanel\n\nThe assistant’s plan for the current request: steps with status, owners and todos, a count of finished steps and a progress bar. It collapses to that summary.\n\n## Usage\n\n```jsx\nimport { ChatPlan } from '@gaudi/design-system/chat';\n\n<ChatPlan title='Plan' steps={[\n  { id: 'read', title: 'Read the draft', status: 'done' },\n  { id: 'draft', title: 'Draft the opening', status: 'running' }\n]} />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `steps` | `{ id, title, status, description?, owner?, todos? }` with the shared statuses. |\n| `title` / `defaultOpen` | Header and initial disclosure. |\n| `labels` | Copy for the count and statuses. |\n\n## Accessibility\n\nThe header is a disclosure that reads the count (\"2 of 4 done\"); the progress bar has a label and value text.",
-      "related": []
+      "readme": "# ChatPlanPanel\n\nThe assistant’s plan for the current request: steps with status, owners and todos, a count of finished steps and a progress bar. It collapses to that summary.\n\n## Usage\n\n```jsx\nimport { ChatPlan } from '@gaudi/design-system/chat';\n\n<ChatPlan title='Plan' steps={[\n  { id: 'read', title: 'Read the draft', status: 'done' },\n  { id: 'draft', title: 'Draft the opening', status: 'running' }\n]} />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `steps` | `{ id, title, status, description?, owner?, todos?, notes? }` with the shared statuses. |\n| `steps[].notes` | Prepared `{ id, text, label? }` notes attached to that step; stable IDs identify notes and labels describe their provenance. |\n| `title` / `defaultOpen` | Header and initial disclosure. |\n| `labels` | `progress(done, total)` formats the count; `status` supplies status copy, `owner` and `now` label the owner and current step, and `notes` names each step’s note list. |\n\n## Accessibility\n\nThe header is a disclosure that reads the count (\"2 of 4 done\"); the progress bar has a label and value text. Steps form a named list, the first running step (or first awaiting step when none is running) exposes `aria-current=\"step\"`, and notes form a nested list named by `labels.notes` (default: “Step notes”). The progress count is directionally isolated for mixed-direction text.\n\n## Agent steering example\n\nThe **Agent steering** example composes ChatPlan, ChatPromptQueue, ChatAgentMark, Textarea, Button and Badge. Queue an instruction for the next step, edit or remove a queued note, or apply it immediately to the active step. Notes retain their IDs when moved from the queue into the plan, with a prepared label recording when they were applied. Earlier instructions stay visible after the run finishes.\n\nEnter queues, Ctrl/Cmd+Enter applies immediately, Shift+Enter inserts a newline, and Escape clears the draft. These shortcuts ignore IME composition. Pause prevents advancing and applying immediately while still allowing queued edits. At the final step there is no next-step queue; apply or clear a draft before finishing. Focus returns to the composer when a queued action removes its button. Reset restores the fictional starting state.\n\nThe example uses a fluid single column up to 42rem; action groups wrap on small containers. Updates are announced politely. The example owns its local state and scheduling rules; applications decide when notes are acknowledged, what a step does and how to persist a run. ChatPlan only displays supplied notes and does not orchestrate an agent or infer instruction labels.",
+      "related": [
+        "core-progress"
+      ]
     },
     {
       "id": "chat-chatreasoning",
@@ -29170,30 +29931,86 @@
       ],
       "usage": "import { ChatMessageReasoning, ChatMessageReasoningResults, ChatMessageReasoningStep } from '@gaudi/design-system/chat';\n\n<ChatMessageReasoning streaming={thinking} variant='steps'>\n  <ChatMessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>\n    <ChatMessageReasoningResults results={results} />\n  </ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='running' icon='BookOpen' label='Reading the sources' />\n</ChatMessageReasoning>",
       "examples": {
-        "stories": [
+        "stories": [],
+        "patterns": [
           {
-            "name": "Playground",
-            "id": "chat-chatreasoning--playground"
+            "name": "reasoning-agent-run",
+            "title": "Agent run",
+            "registry": "reasoning-agent-run",
+            "storyId": "chat-chatreasoning--agent-run",
+            "imports": [
+              "ChatAgentMark",
+              "ChatBubble",
+              "ChatBubbleContent",
+              "ChatMessage",
+              "ChatMessageCheckpoint",
+              "ChatMessageContent",
+              "ChatMessageData",
+              "ChatMessageHeader",
+              "ChatMessageMarkdown",
+              "ChatMessageReasoning",
+              "ChatMessageReasoningImage",
+              "ChatMessageReasoningResults",
+              "ChatMessageReasoningStep",
+              "ChatMessageToolApproval"
+            ]
           },
           {
-            "name": "Thinking, then the answer",
-            "id": "chat-chatreasoning--thinking-then-answer"
+            "name": "reasoning-ai-message-with-steps",
+            "title": "AI message with steps",
+            "registry": "reasoning-ai-message-with-steps",
+            "storyId": "chat-chatreasoning--ai-message-with-steps",
+            "imports": [
+              "ChatAgentMark",
+              "ChatBubble",
+              "ChatBubbleContent",
+              "ChatMessage",
+              "ChatMessageContent",
+              "ChatMessageHeader",
+              "ChatMessageMarkdown",
+              "ChatMessageReasoning",
+              "ChatMessageReasoningImage",
+              "ChatMessageReasoningResults",
+              "ChatMessageReasoningStep"
+            ]
           },
           {
-            "name": "Agent run",
-            "id": "chat-chatreasoning--agent-run"
+            "name": "reasoning-mini-thinking",
+            "title": "Mini thinking",
+            "registry": "reasoning-mini-thinking",
+            "storyId": "chat-chatreasoning--mini-thinking",
+            "imports": [
+              "Button",
+              "ChatActivityIndicator",
+              "ChatMessageReasoning"
+            ]
           },
           {
-            "name": "AI message with steps",
-            "id": "chat-chatreasoning--ai-message-with-steps"
+            "name": "reasoning-playground",
+            "title": "Playground",
+            "registry": "reasoning-playground",
+            "storyId": "chat-chatreasoning--playground",
+            "imports": [
+              "ChatMessageReasoning",
+              "ChatMessageReasoningStep"
+            ]
+          },
+          {
+            "name": "reasoning-thinking-then-answer",
+            "title": "Thinking, then the answer",
+            "registry": "reasoning-thinking-then-answer",
+            "storyId": "chat-chatreasoning--thinking-then-answer",
+            "imports": [
+              "Button",
+              "ChatMessageReasoning"
+            ]
           }
-        ],
-        "patterns": []
+        ]
       },
       "storybook": "chat-chatreasoning--docs",
       "docs": "docs/llm/chat-chatreasoning.md",
       "source": "src/components/chat/ChatReasoning/",
-      "readme": "# ChatReasoning\n\nThe thinking trail before an answer. While the model thinks, the label shimmers \"Thinking…\" and the trail stays open; a second after the answer starts it folds into \"Thought for 6s\", unless the reader opened or closed it. With detailed steps it becomes a chain of thought: search, read, analyse and decide, each with a status, details, search results and image thumbnails.\n\n## Usage\n\n```jsx\nimport { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningResults, ChatMessageReasoningStep } from '@gaudi/design-system/chat';\n\n<ChatMessageReasoning streaming={thinking}>\n  <ChatMessageReasoningStep status='done'>Read the draft</ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='running'>Suggest a tighter opening</ChatMessageReasoningStep>\n</ChatMessageReasoning>\n\n<ChatMessageReasoning streaming={thinking} variant='steps'>\n  <ChatMessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>\n    <ChatMessageReasoningResults results={results} />\n  </ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='running' icon='Image' label='Comparing cover images'>\n    <ChatMessageReasoningImage src={cover} alt='The current cover: a train window at dusk' caption='Current cover' />\n  </ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='pending' icon='Lightbulb' label='Recommend a headline' />\n</ChatMessageReasoning>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `streaming` | Opens the trail with a shimmering \"Thinking…\" label; it opens again whenever thinking restarts. |\n| `duration` | Seconds spent; measured from the start to the end of `streaming` when omitted. |\n| `open` / `defaultOpen` / `onOpenChange` | Disclosure state; the reader's choice wins over the automatic fold. |\n| `variant` | `trail` (a quoted trail) or `steps` (detailed steps draw their own rail). |\n| `thinkingLabel` / `label` / `autoCloseDelay` | The streaming label, a fixed label, and the fold delay in ms (default 1000). |\n| `ChatMessageReasoningStep` | `status` from the shared vocabulary. Children alone make a plain step; `label` makes a detailed one with `icon`, `description`, `meta` and children as details that open from the label (the running step starts open). |\n| `ChatMessageReasoningResults` | `results` as link chips with favicons; `max` shows the first few and \"+n more\". |\n| `ChatMessageReasoningImage` | `src`, `alt` and `caption` for an image the step looked at. |\n| `useReasoningDisclosure` | The same open-then-fold behaviour for a custom trigger. |\n\n## Accessibility\n\nThe trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label (\"Searched the web, Done\"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.",
+      "readme": "# ChatReasoning\n\nThe thinking trail before an answer. While the model thinks, the label shimmers \"Thinking…\" and the trail stays open; a second after the answer starts it folds into \"Thought for 6s\", unless the reader opened or closed it. With detailed steps it becomes a chain of thought: search, read, analyse and decide, each with a status, details, search results and image thumbnails.\n\n## Usage\n\n```jsx\nimport { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningResults, ChatMessageReasoningStep } from '@gaudi/design-system/chat';\n\n<ChatMessageReasoning streaming={thinking}>\n  <ChatMessageReasoningStep status='done'>Read the draft</ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='running'>Suggest a tighter opening</ChatMessageReasoningStep>\n</ChatMessageReasoning>\n\n<ChatMessageReasoning streaming={thinking} variant='steps'>\n  <ChatMessageReasoningStep status='done' icon='Search' label='Searched the web' meta='4 results'>\n    <ChatMessageReasoningResults results={results} />\n  </ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='running' icon='Image' label='Comparing cover images'>\n    <ChatMessageReasoningImage src={cover} alt='The current cover: a train window at dusk' caption='Current cover' />\n  </ChatMessageReasoningStep>\n  <ChatMessageReasoningStep status='pending' icon='Lightbulb' label='Recommend a headline' />\n</ChatMessageReasoning>\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `streaming` | Opens the trail with a shimmering \"Thinking…\" label; it opens again whenever thinking restarts. |\n| `duration` | Seconds spent; measured from the start to the end of `streaming` when omitted. |\n| `open` / `defaultOpen` / `onOpenChange` | Disclosure state; the reader's choice wins over the automatic fold. |\n| `variant` | `trail` (a quoted trail) or `steps` (detailed steps draw their own rail). |\n| `thinkingLabel` / `label` / `autoCloseDelay` | The streaming label, a fixed label, and the fold delay in ms (default 1000). |\n| `ChatMessageReasoningStep` | `status` from the shared vocabulary. Children alone make a plain step; `label` makes a detailed one with `icon`, `description`, `meta` and children as details that open from the label (the running step starts open). |\n| `ChatMessageReasoningResults` | `results` as link chips with favicons; `max` shows the first few and \"+n more\". |\n| `ChatMessageReasoningImage` | `src`, `alt` and `caption` for an image the step looked at. |\n| `useReasoningDisclosure` | The same open-then-fold behaviour for a custom trigger. |\n\n## Accessibility\n\nThe trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label (\"Searched the web, Done\"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.\n\nFor a short wait before the first answer, compose `ChatActivityIndicator` with `variant=\"compact\"`. The Mini thinking example shows a small ray spinner and changing labels, then exposes the detailed reasoning after the prepared reply. The compact status belongs to ChatActivityIndicator; ChatReasoning continues to own the expandable explanation.",
       "related": [
         "blocks-chat",
         "chat-chattool",
@@ -29319,6 +30136,7 @@
         "kind": "default",
         "line": "import ChatSources from '@gaudi/design-system/chat/ChatSources';",
         "exports": [
+          "ChatCitedAnswer",
           "ChatMessageCitation",
           "ChatMessageSource",
           "ChatMessageSources",
@@ -29400,6 +30218,69 @@
           "description": "Names for the pill, the carousel and its controls."
         },
         {
+          "name": "ChatCitedAnswer.segments",
+          "names": [
+            "segments"
+          ],
+          "part": "ChatCitedAnswer",
+          "type": "segments[]",
+          "default": "[]",
+          "required": false,
+          "description": "Stable segment IDs, text, sourceIds and optional paragraph breaks; sources add required IDs, prepared date and exact quote highlights."
+        },
+        {
+          "name": "sources",
+          "names": [
+            "sources"
+          ],
+          "type": "sources[]",
+          "default": "[]",
+          "required": false,
+          "description": "Stable segment IDs, text, sourceIds and optional paragraph breaks; sources add required IDs, prepared date and exact quote highlights."
+        },
+        {
+          "name": "ChatCitedAnswer.openSourceId",
+          "names": [
+            "openSourceId"
+          ],
+          "part": "ChatCitedAnswer",
+          "type": "string | null",
+          "default": "uncontrolled",
+          "required": false,
+          "description": "One inline source passage, controlled or uncontrolled."
+        },
+        {
+          "name": "defaultOpenSourceId",
+          "names": [
+            "defaultOpenSourceId"
+          ],
+          "type": "string | null",
+          "default": "null",
+          "required": false,
+          "description": "One inline source passage, controlled or uncontrolled."
+        },
+        {
+          "name": "onOpenSourceChange",
+          "names": [
+            "onOpenSourceChange"
+          ],
+          "type": "callback",
+          "default": null,
+          "required": false,
+          "description": "One inline source passage, controlled or uncontrolled."
+        },
+        {
+          "name": "ChatCitedAnswer.labels",
+          "names": [
+            "labels"
+          ],
+          "part": "ChatCitedAnswer",
+          "type": "object",
+          "default": "English copy",
+          "required": false,
+          "description": "Answer, sources, preview, close, copy, copied, copyFailed, open, hint, trigger and selected labels."
+        },
+        {
           "name": "className",
           "names": [
             "className"
@@ -29413,6 +30294,7 @@
       "variants": {},
       "accessibility": "Citations are buttons named “Source n: title”. The card opens on hover without taking focus, and on click, tap, Enter or Space with focus inside; arrow keys and buttons page the carousel and the position is announced.",
       "notes": [
+        "Answer linked to evidence uses ChatCitedAnswer to connect passages to sources, with hover/focus emphasis, an inline quote disclosure, copy feedback and Escape focus return. Prepared source content and retrieval remain application-owned.",
         "See Cited answer on this page for grouped citations [1, 3] beside a SchemaDisplay tool result."
       ],
       "usage": "import { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\n<>\n<p>\n  Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts\n  <ChatMessageCitation index={2} sources={[sources[1], sources[2]]} />.\n</p>\n<ChatMessageSources sources={sources} />\n</>",
@@ -29428,6 +30310,19 @@
           }
         ],
         "patterns": [
+          {
+            "name": "chat-sources-linked-answer",
+            "title": "Answer linked to evidence",
+            "registry": "chat-sources-linked-answer",
+            "storyId": "chat-chatsources--linked-answer",
+            "imports": [
+              "ChatAgentMark",
+              "ChatCitedAnswer",
+              "ChatMessage",
+              "ChatMessageContent",
+              "ChatMessageHeader"
+            ]
+          },
           {
             "name": "chat-sources-research-citations",
             "title": "Research with citations",
@@ -29451,7 +30346,7 @@
       "storybook": "chat-chatsources--docs",
       "docs": "docs/llm/chat-chatsources.md",
       "source": "src/components/chat/ChatSources/",
-      "readme": "# ChatSources\n\nWhere an answer came from: numbered inline citations that open a card with the source, and the list of sources under the reply with the same numbers. One citation can group several sources; its card pages through them in a carousel.\n\n## Usage\n\n```jsx\nimport { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\n<p>\n  Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts\n  <ChatMessageCitation index={2} sources={[sources[1], sources[2]]} />.\n</p>\n<ChatMessageSources sources={sources} />\n```\n\nIn `ChatMessageMarkdown` and `ChatMessageParts`, `[1]` cites one source and `[1, 3]` groups several behind one pill.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessageSources.sources` | `{ title, url?, kind?, site?, excerpt?, quote?, icon? }`; collapsed to a count by default. |\n| `ChatMessageCitation` | `index` with `source`, or `sources` for several; the pill reads \"2 +1\" and the card has a carousel. |\n| `ChatMessageCitation.labels` | `trigger`, `carousel`, `position`, `previous` and `next` copy. |\n| `ChatMessageSource` | One row of the list. |\n\n## Accessibility\n\nEach citation is a button named \"Source 1: title\" (\", and 2 more\" when grouped). The card opens on hover for a mouse without taking focus, and on click, tap, Enter or Space with focus inside; Escape closes it. The carousel pages with the arrow keys, its buttons or a swipe, and announces \"2 of 3\". Links leave the page with clear names.",
+      "readme": "# ChatSources\n\nWhere an answer came from: numbered inline citations that open a card with the source, and the list of sources under the reply with the same numbers. One citation can group several sources; its card pages through them in a carousel.\n\n## Usage\n\n```jsx\nimport { ChatMessageCitation, ChatMessageSources } from '@gaudi/design-system/chat';\n\n<p>\n  Readers leave early <ChatMessageCitation index={1} source={sources[0]} /> on long posts\n  <ChatMessageCitation index={2} sources={[sources[1], sources[2]]} />.\n</p>\n<ChatMessageSources sources={sources} />\n```\n\nIn `ChatMessageMarkdown` and `ChatMessageParts`, `[1]` cites one source and `[1, 3]` groups several behind one pill.\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `ChatMessageSources.sources` | `{ title, url?, kind?, site?, excerpt?, quote?, icon? }`; collapsed to a count by default. |\n| `ChatMessageCitation` | `index` with `source`, or `sources` for several; the pill reads \"2 +1\" and the card has a carousel. |\n| `ChatMessageCitation.labels` | `trigger`, `carousel`, `position`, `previous` and `next` copy. |\n| `ChatMessageSource` | One row of the list. |\n\n## Accessibility\n\nEach citation is a button named \"Source 1: title\" (\", and 2 more\" when grouped). The card opens on hover for a mouse without taking focus, and on click, tap, Enter or Space with focus inside; Escape closes it. The carousel pages with the arrow keys, its buttons or a swipe, and announces \"2 of 3\". Links leave the page with clear names.\n\n## Answer linked to evidence\n\n`ChatCitedAnswer` connects a finished answer to prepared source passages. Citation buttons and source chips highlight every segment citing that source on hover or focus. Activation opens one inline source region. Existing `ChatMessageCitation` popovers remain useful for lightweight citations and grouped sources.\n\n```jsx\nimport { ChatCitedAnswer } from '@gaudi/design-system/chat/ChatSources';\n\n<ChatCitedAnswer\n  segments={[{ id: 'claim', text: 'Lead with a practical example. ', sourceIds: ['notes'] }]}\n  sources={[{\n    id: 'notes', title: 'Reader notes', site: 'Editorial research', kind: 'document',\n    quote: 'Readers wanted the practical example first.', highlights: ['practical example']\n  }]}\n/>\n```\n\n- `segments`: `{ id, text, sourceIds?, paragraph? }[]` in reading order. IDs are stable; `paragraph: true` starts a new paragraph. Supplied whitespace is preserved. Unknown source IDs are skipped and repeated IDs within a segment produce one marker.\n- `sources`: existing source fields plus required unique, nonempty string `id`, optional display-ready `date`, and `highlights: string[]`. Numbers follow source order. Highlights match exact supplied quote phrases; no inference, retrieval, or confidence scoring occurs. A source without a URL has no open-source action; a source without a quote/excerpt has no quote or copy action.\n- `openSourceId`, `defaultOpenSourceId`, `onOpenSourceChange(id | null)`: controlled or uncontrolled disclosure. Controlled values remain authoritative. The host owns source mapping, extraction, links, and persistence.\n- `labels`: `answer`, `sources`, `preview`, `close`, `copy`, `copied`, `copyFailed`, `open`, `hint`, `trigger(number, title)`, and `selected(number, title, count)` override the accessible and visible copy.\n- Source chips wrap within their container and use the shared single-selection ToggleGroup keyboard navigation. Tab visits inline citations; Enter/Space toggles a source. Escape or Close returns focus to its source chip. Opening does not steal focus or scroll. Quote copying uses the shared clipboard hook and announces success or failure.\n- The example **Answer linked to evidence** uses original illustrative editorial notes, explicitly marked as a local fixture; its example.com links are placeholders. It adds claim-to-evidence inspection alongside the existing **Cited answer** schema composition.",
       "related": [
         "core-schemadisplay"
       ]
@@ -31524,7 +32419,7 @@
       "storybook": "charts-chartframe--docs",
       "docs": "docs/llm/charts-chartframe.md",
       "source": "src/components/charts/ChartFrame/",
-      "readme": "# ChartFrame\n\nThe frame every chart renders in: a captioned figure with one keyboard stop and a readout, loading, empty, invalid and error states, locale-aware numbers and a data table built from points. Use it around a custom visual, with the Recharts composition parts and Gaudi primitives.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-chartframe--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { ChartFrame, useChartFrame } from '@gaudi/design-system/charts';\n\n<ChartFrame title='Writing goals' ariaLabel='Progress towards writing goals' points={points} showData='toggle'>\n  <GoalBars />\n</ChartFrame>\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartFrame`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `points` | Array<{ label, values: Array<{ name, value, display?, color? }> }> | [] | What the keyboard walks and the table lists. |\n| `status` | ready \\| loading \\| empty \\| invalid \\| error | ready | The frame state; charts derive it from their data. |\n| `columns` | number | — | Row length for Up and Down on grid-shaped visuals. |\n| `children` | ReactNode | — | Content composed from the exported parts. |\n| `useChartFrame()` | hook | — | activeIndex, setActive and format for drawn elements; mark them with data-chart-index. |\n| `ChartContainer / ChartGrid / ChartXAxis / ChartYAxis / ChartReferenceLine / ChartAnnotations / createRowsTooltip` | parts | — | Style bespoke Recharts charts with chart tokens. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nSee [source notices](../../../../README.md#third-party-notices).",
+      "readme": "# ChartFrame\n\nThe frame every chart renders in: a captioned figure with one keyboard stop and a readout, loading, empty, invalid and error states, locale-aware numbers and a data table built from points. Use it around a custom visual, with the Recharts composition parts and Gaudi primitives.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-chartframe--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { ChartFrame, useChartFrame } from '@gaudi/design-system/charts';\n\n<ChartFrame title='Writing goals' ariaLabel='Progress towards writing goals' points={points} showData='toggle'>\n  <GoalBars />\n</ChartFrame>\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/ChartFrame`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `points` | Array<{ label, values: Array<{ name, value, display?, color? }> }> | [] | What the keyboard walks and the table lists. |\n| `status` | ready \\| loading \\| empty \\| invalid \\| error | ready | The frame state; charts derive it from their data. |\n| `columns` | number | — | Row length for Up and Down on grid-shaped visuals. |\n| `children` | ReactNode | — | Content composed from the exported parts. |\n| `useChartFrame()` | hook | — | activeIndex, setActive and format for drawn elements; mark them with data-chart-index. |\n| `ChartContainer / ChartGrid / ChartXAxis / ChartYAxis / ChartReferenceLine / ChartAnnotations / createRowsTooltip` | parts | — | Style bespoke Recharts charts with chart tokens. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nIn right-to-left interfaces, shared SVG axis ticks, value-grid labels and reference labels keep left-to-right direction so their text anchors stay aligned with the plot's physical coordinates. Captions, controls, readouts and data tables inherit the surrounding interface direction; number formatting still follows `locale` or `formatValue`.\n\nSee [source notices](../../../../README.md#third-party-notices).",
       "related": []
     },
     {
@@ -35825,6 +36720,19 @@
         ],
         "patterns": [
           {
+            "name": "treemap-chart-context-map",
+            "title": "Context map",
+            "registry": "treemap-chart-context-map",
+            "storyId": "charts-treemapchart--context-map",
+            "imports": [
+              "Button",
+              "Select",
+              "ToggleGroupItem",
+              "ToggleGroupRoot",
+              "TreemapChart"
+            ]
+          },
+          {
             "name": "treemap-chart-storage-folders",
             "title": "Storage by folder",
             "registry": "treemap-chart-storage-folders",
@@ -35840,7 +36748,7 @@
       "storybook": "charts-treemapchart--docs",
       "docs": "docs/llm/charts-treemapchart.md",
       "source": "src/components/charts/TreemapChart/",
-      "readme": "# TreemapChart\n\nNested rectangles sized by value, tinted by group or shaded on the heat ramp.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-treemapchart--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { TreemapChart } from '@gaudi/design-system/charts';\n\n<TreemapChart ariaLabel='Hours read by section' data={[{ name: 'Essays', children: [{ name: 'Engineering', value: 1240 }] }]} />\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/TreemapChart`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `data` | Array<{ name, value } \\| { name, children }> | [] | One or two levels. |\n| `nameKey / valueKey` | string | name / value | Field names. |\n| `colorBy` | group \\| value | group | Tint by top-level group or shade by value. |\n| `colors` | string[] | categorical palette | Override the series colours with chart tokens. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nSee [source notices](../../../../README.md#third-party-notices).",
+      "readme": "# TreemapChart\n\nNested rectangles sized by value, tinted by group or shaded on the heat ramp.\n\n[Open the docs](http://localhost:6007/?path=/docs/charts-treemapchart--docs) for the Playground and detailed examples, each with its complete JSX.\n\n## Usage\n\n```jsx\nimport { TreemapChart } from '@gaudi/design-system/charts';\n\n<TreemapChart ariaLabel='Hours read by section' data={[{ name: 'Essays', children: [{ name: 'Engineering', value: 1240 }] }]} />\n```\n\nImport from `@gaudi/design-system/charts` or `@gaudi/design-system/charts/TreemapChart`. Charts are not exported from the root entry, so pages without a chart never load Recharts. In an article, render the same chart through MDX/Chart.\n\n## API\n\n| Prop | Type | Default | Contract |\n| --- | --- | --- | --- |\n| `data` | Array<{ name, value } \\| { name, children }> | [] | One or two levels. |\n| `nameKey / valueKey` | string | name / value | Field names. |\n| `colorBy` | group \\| value | group | Tint by top-level group or shade by value. |\n| `colors` | string[] | categorical palette | Override the series colours with chart tokens. |\n| `title / description` | ReactNode | — | Figure caption above the plot. |\n| `ariaLabel` | string | title or Chart | Accessible name of the plot, the single keyboard stop. |\n| `height` | number | type-specific | Plot height in pixels. |\n| `state` | loading \\| error \\| empty \\| invalid | from data | Force a state; empty and invalid are otherwise detected from the data. |\n| `labels` | Partial<DEFAULT_CHART_LABELS> | English copy | Copy for states, the keyboard hint, the data table and its toggle. |\n| `locale / formatValue` | string / Intl.NumberFormatOptions \\| (value) => string | runtime / number | Number format for axes, tooltips, the readout and the table. |\n| `showData` | hidden \\| toggle \\| visible | hidden | Data table visibility; hidden keeps it available to assistive technology. |\n| `onActivate / onActiveChange` | (point, index) => void / (index \\| null) => void | — | Click, Enter or Space on a point; the active point changed. |\n| `toolbar / framed` | ReactNode / boolean | — / true | Controls beside the caption; the figure border and padding. |\n| `className` | string | — | Additional classes on the outer element. |\n\n## Accessibility\n\nThe plot is one tab stop named by ariaLabel. The arrow keys walk the points, Home and End jump to the ends, Enter or Space activates and Escape clears; the active point is drawn and read out politely. Every value is mirrored in a data table, and the SVG is hidden from assistive technology.\n\nTile labels use measured ellipsis when space is limited; full names and values stay in the readout and data table. SVG tile labels keep left-to-right direction so their text anchors remain inside the tile in RTL interfaces. Captions, controls, details and the data table follow the surrounding direction.\n\nColours come from the chart palette tokens (`--ds-color-chart-1` … `-8`, the sequential, diverging and heatmap ramps and the chart neutrals), with light and dark values checked by the token tests.\n\nSee [source notices](../../../../README.md#third-party-notices).\n\n## Context map example\n\n**Context map** composes TreemapChart with Select, ToggleGroup and Button to inspect an agent’s context window. Prepared parts include instructions, tools, project memory, files, conversation, tool results and available capacity. Tile areas represent shares of the complete window, including unused space. Colours identify categories; labels, keyboard readouts and the data table expose exact values.\n\nChoose an agent to restore its initial snapshot. Add tool result adds one prepared search result. Compact demo replaces conversation and tool results with a prepared summary, retaining files and instructions. Before and After compare the snapshots and report the freed capacity. Compaction is immediate; no background process or model request is implied. Clear context shows zero used tokens and a full available-capacity tile, returning focus to Reset demo; Reset demo restores the current agent’s initial state.\n\nClick a tile or activate it with Enter/Space to inspect its full name, token count and contents. Arrow keys traverse tiles, Escape closes details while the plot has focus, and Close details returns focus to the plot. Changing snapshots clears stale details. The full names and counts also remain available through Show data, including when a narrow tile cannot display its label. Controls wrap at narrow widths; the chart stays within its container and uses the shared light/dark chart tokens and spacing presets.\n\nThis is a copyable example, not a public context-management engine. Applications own tokenization, capacity, categories, compaction policy, retained/omitted content, live updates and persistence. All names, counts and summaries are illustrative fixture data.",
       "related": [
         "core-field"
       ]

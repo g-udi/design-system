@@ -170,16 +170,16 @@
     --ds-color-sidebar-border: var(--ds-color-border);
 
     /* Command launcher */
-    --ds-color-launcher-bg: #ffffff;
-    --ds-color-launcher-border: rgb(229, 231, 235);
-    --ds-color-launcher-heading: rgb(107, 114, 128);
-    --ds-color-launcher-input-text: rgba(17, 24, 39, 0.95);
-    --ds-color-launcher-item-selected-bg: rgba(37, 99, 235, 0.08);
-    --ds-color-launcher-item-text: #374151;
-    --ds-color-launcher-overlay-bg: rgba(17, 24, 39, 0.34);
-    --ds-color-launcher-placeholder: rgba(107, 114, 128, 0.75);
-    --ds-color-launcher-scrollbar-thumb: rgba(156, 163, 175, 0.35);
-    --ds-color-launcher-text: #111827;
+    --ds-color-launcher-bg: var(--ds-color-surface-raised);
+    --ds-color-launcher-border: var(--ds-color-border);
+    --ds-color-launcher-heading: var(--ds-color-text-subtle);
+    --ds-color-launcher-input-text: var(--ds-color-text);
+    --ds-color-launcher-item-selected-bg: color-mix(in oklab, var(--ds-color-accent) 10%, transparent);
+    --ds-color-launcher-item-text: var(--ds-color-text-muted);
+    --ds-color-launcher-overlay-bg: rgba(0, 0, 0, 0.34);
+    --ds-color-launcher-placeholder: var(--ds-color-text-subtle);
+    --ds-color-launcher-scrollbar-thumb: var(--ds-color-border);
+    --ds-color-launcher-text: var(--ds-color-text);
     --ds-shadow-launcher: 0 28px 64px -24px rgba(15, 23, 42, 0.42), 0 10px 28px -18px rgba(15, 23, 42, 0.24);
 
     /* Z-index scale */
@@ -398,15 +398,15 @@
     --ds-color-sidebar-border: var(--ds-color-border);
 
     /* Command launcher */
-    --ds-color-launcher-bg: #111827;
-    --ds-color-launcher-border: rgb(55, 65, 81);
-    --ds-color-launcher-heading: rgb(156, 163, 175);
-    --ds-color-launcher-input-text: rgb(243, 244, 246);
-    --ds-color-launcher-item-selected-bg: rgba(59, 130, 246, 0.16);
-    --ds-color-launcher-item-text: rgb(243, 244, 246);
-    --ds-color-launcher-placeholder: rgba(156, 163, 175, 0.85);
-    --ds-color-launcher-scrollbar-thumb: rgba(75, 85, 99, 0.7);
-    --ds-color-launcher-text: rgb(243, 244, 246);
+    --ds-color-launcher-bg: var(--ds-color-surface-raised);
+    --ds-color-launcher-border: var(--ds-color-border);
+    --ds-color-launcher-heading: var(--ds-color-text-subtle);
+    --ds-color-launcher-input-text: var(--ds-color-text);
+    --ds-color-launcher-item-selected-bg: color-mix(in oklab, var(--ds-color-accent) 10%, transparent);
+    --ds-color-launcher-item-text: var(--ds-color-text-muted);
+    --ds-color-launcher-placeholder: var(--ds-color-text-subtle);
+    --ds-color-launcher-scrollbar-thumb: var(--ds-color-border);
+    --ds-color-launcher-text: var(--ds-color-text);
     --ds-shadow-launcher: 0 28px 64px -24px rgba(0, 0, 0, 0.82), 0 10px 28px -18px rgba(0, 0, 0, 0.72);
   }
 }

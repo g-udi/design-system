@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "activity-indicator-reply-lifecycle",
+  "type": "registry:example",
+  "title": "A reply from thinking to done",
+  "description": "A reply from thinking to done. Chat/ChatActivityIndicator pattern composed from @gaudi/design-system/chat/ChatActivityIndicator and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "activity-indicator",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+  "meta": {
+    "owner": "chat/ChatActivityIndicator",
+    "import": "@gaudi/design-system/chat/ChatActivityIndicator",
+    "storyId": "chat-activityindicator--reply-lifecycle",
+    "source": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-reply-lifecycle.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/activity-indicator-reply-lifecycle.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport Button from '@gaudi/design-system/core/Button';\nimport { ChatActivityIndicator } from '@gaudi/design-system/chat/ChatActivityIndicator';\n\nconst run = ['thinking', 'tool', 'streaming', 'done'];\n\n/** A reply's life cycle, announced as it changes. */\nexport function Pattern() {\n  const [step, setStep] = useState(0);\n  useEffect(() => {\n    if (step >= run.length - 1) return undefined;\n    const timer = setTimeout(() => setStep((value) => value + 1), 1100);\n    return () => clearTimeout(timer);\n  }, [step]);\n  return (\n    <div className='ds-touch-controls grid w-full max-w-sm gap-3'>\n      <div className='flex flex-wrap items-center justify-between gap-3 rounded-(--ds-radius-card) border px-3 py-2 text-sm'>\n        <span className='font-medium'>Gaudi</span>\n        <ChatActivityIndicator state={run[step]} variant='compact' labels={{ tool: 'Checking reading stats' }} />\n      </div>\n      <Button variant='subtle' size='xs' className='justify-self-start' onClick={() => setStep(0)}>Replay</Button>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

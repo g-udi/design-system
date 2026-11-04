@@ -3,7 +3,7 @@ import { p, className, definition } from '../../../../../docs/components/referen
 export default {
   'Core/Loader': {
     ...definition('An accessible loading indicator with arcs, dots, expanding rings, and an indeterminate bar. Loader replaces the former Spinner component and story.', [
-      p('variant', 'arc | dual-arc | bar | beat | bounce | circle-dots | clip | puff | three-dots | triangle | two-dots', 'arc', 'Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured.'),
+      p('variant', 'arc | dual-arc | bar | beat | bounce | circle-dots | rays | clip | puff | three-dots | triangle | two-dots', 'arc', 'Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured.'),
       p('size', 'xs | sm | md | lg', 'md', '12, 16, 20, or 32px tall. The bar is three times as wide; other variants are square. Shapes keep these dimensions across spacing presets.'),
       p('label', 'string', 'Loading', 'Accessible status label describing the operation. A visible label belongs beside the indicator.'),
       p('LoaderRoot', 'component', 'currentColor, sm', 'Composition primitive with the same variants and sizing. Inherits text color and accepts aria-label rather than label. Loader adds the accent color and md default.'),

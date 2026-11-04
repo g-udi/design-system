@@ -189,6 +189,58 @@
       ]
     },
     {
+      "name": "activity-indicator-playground",
+      "type": "registry:example",
+      "title": "Playground",
+      "description": "Playground. Chat/ChatActivityIndicator pattern composed from @gaudi/design-system/chat/ChatActivityIndicator and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "activity-indicator",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatActivityIndicator",
+        "import": "@gaudi/design-system/chat/ChatActivityIndicator",
+        "storyId": "chat-activityindicator--playground",
+        "source": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-playground.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/activity-indicator-playground.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "activity-indicator-reply-lifecycle",
+      "type": "registry:example",
+      "title": "A reply from thinking to done",
+      "description": "A reply from thinking to done. Chat/ChatActivityIndicator pattern composed from @gaudi/design-system/chat/ChatActivityIndicator and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "activity-indicator",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatActivityIndicator",
+        "import": "@gaudi/design-system/chat/ChatActivityIndicator",
+        "storyId": "chat-activityindicator--reply-lifecycle",
+        "source": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-reply-lifecycle.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/activity-indicator-reply-lifecycle.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "alert-dismissible",
       "type": "registry:example",
       "title": "Alert: Dismissible notices",
@@ -3181,6 +3233,60 @@
       ]
     },
     {
+      "name": "chat-delegation-agent-findings",
+      "type": "registry:example",
+      "title": "Agent findings",
+      "description": "Agent findings. Chat/ChatAgentFindings pattern composed from @gaudi/design-system/chat/ChatAgentFindings and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "agent-findings",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatAgentFindings",
+        "import": "@gaudi/design-system/chat/ChatAgentFindings",
+        "storyId": "chat-chatdelegation--agent-findings",
+        "source": "src/components/chat/ChatAgentFindings/stories/fixtures/agent-findings/chat-delegation-agent-findings.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-delegation-agent-findings.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-delegation-agent-fleet",
+      "type": "registry:example",
+      "title": "Agent fleet",
+      "description": "Agent fleet. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system",
+        "@headless-tree/core@1.6.3",
+        "@headless-tree/react@1.6.3"
+      ],
+      "categories": [
+        "chat-delegation",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatDelegation",
+        "import": "@gaudi/design-system/chat/ChatDelegation",
+        "storyId": "chat-chatdelegation--agent-fleet",
+        "source": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-agent-fleet.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-delegation-agent-fleet.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "chat-delegation-agent-handoff",
       "type": "registry:example",
       "title": "Handing work to another agent",
@@ -3202,6 +3308,84 @@
       "files": [
         {
           "path": "registry/gaudi/examples/chat-delegation-agent-handoff.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-delegation-agent-queue",
+      "type": "registry:example",
+      "title": "Agent queue",
+      "description": "Agent queue. Chat/ChatAgentQueue pattern composed from @gaudi/design-system/chat/ChatAgentQueue and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "agent-queue",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatAgentQueue",
+        "import": "@gaudi/design-system/chat/ChatAgentQueue",
+        "storyId": "chat-chatdelegation--agent-queue",
+        "source": "src/components/chat/ChatAgentQueue/stories/fixtures/agent-queue/chat-delegation-agent-queue.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-delegation-agent-queue.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-delegation-conflict-radar",
+      "type": "registry:example",
+      "title": "Conflict radar",
+      "description": "Conflict radar. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "chat-delegation",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatDelegation",
+        "import": "@gaudi/design-system/chat/ChatDelegation",
+        "storyId": "chat-chatdelegation--conflict-radar",
+        "source": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-conflict-radar.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-delegation-conflict-radar.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-delegation-handoff-relay",
+      "type": "registry:example",
+      "title": "Agent handoff relay",
+      "description": "Agent handoff relay. Chat/ChatDelegation pattern composed from @gaudi/design-system/chat/ChatDelegation and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "chat-delegation",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatDelegation",
+        "import": "@gaudi/design-system/chat/ChatDelegation",
+        "storyId": "chat-chatdelegation--handoff-relay",
+        "source": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-handoff-relay.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-delegation-handoff-relay.jsx",
           "type": "registry:component"
         }
       ]
@@ -3290,6 +3474,32 @@
       "files": [
         {
           "path": "registry/gaudi/blocks/chat-pull-request-review.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "chat-sources-linked-answer",
+      "type": "registry:example",
+      "title": "Answer linked to evidence",
+      "description": "Answer linked to evidence. Chat/ChatSources pattern composed from @gaudi/design-system/chat/ChatSources and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "chat-sources",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatSources",
+        "import": "@gaudi/design-system/chat/ChatSources",
+        "storyId": "chat-chatsources--linked-answer",
+        "source": "src/components/chat/ChatSources/stories/fixtures/chat-sources/chat-sources-linked-answer.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/chat-sources-linked-answer.jsx",
           "type": "registry:component"
         }
       ]
@@ -6439,6 +6649,32 @@
       ]
     },
     {
+      "name": "flow-agent-graph",
+      "type": "registry:example",
+      "title": "Agent graph",
+      "description": "Agent graph. Core/Planning/Flow pattern composed from @gaudi/design-system/core/Flow and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "flow",
+        "core"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "core/Flow",
+        "import": "@gaudi/design-system/core/Flow",
+        "storyId": "core-flow--agent-graph",
+        "source": "src/components/core/Flow/stories/fixtures/flow/flow-agent-graph.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/flow-agent-graph.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "flow-agent-tree",
       "type": "registry:example",
       "title": "Agent tree with test run",
@@ -8743,6 +8979,58 @@
       ]
     },
     {
+      "name": "message-research-answer",
+      "type": "registry:example",
+      "title": "Research answer",
+      "description": "Research answer. Chat/ChatMessage pattern composed from @gaudi/design-system/chat/ChatMessage and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "message",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatMessage",
+        "import": "@gaudi/design-system/chat/ChatMessage",
+        "storyId": "chat-message--research-answer",
+        "source": "src/components/chat/ChatMessage/stories/fixtures/message/message-research-answer.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/message-research-answer.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "message-scroller-agent-checkpoints",
+      "type": "registry:example",
+      "title": "Agent checkpoints",
+      "description": "Agent checkpoints. Chat/ChatAgentCheckpoints pattern composed from @gaudi/design-system/chat/ChatAgentCheckpoints and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "agent-checkpoints",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatAgentCheckpoints",
+        "import": "@gaudi/design-system/chat/ChatAgentCheckpoints",
+        "storyId": "chat-messagelist--agent-checkpoints",
+        "source": "src/components/chat/ChatAgentCheckpoints/stories/fixtures/agent-checkpoints/message-scroller-agent-checkpoints.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/message-scroller-agent-checkpoints.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "message-scroller-anchored-turn",
       "type": "registry:example",
       "title": "New turn anchored under the last answer",
@@ -9208,6 +9496,32 @@
       ]
     },
     {
+      "name": "plan-agent-steering",
+      "type": "registry:example",
+      "title": "Agent steering",
+      "description": "Agent steering. Chat/ChatPlanPanel pattern composed from @gaudi/design-system/chat/ChatPlanPanel and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "plan",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatPlanPanel",
+        "import": "@gaudi/design-system/chat/ChatPlanPanel",
+        "storyId": "chat-chatplanpanel--agent-steering",
+        "source": "src/components/chat/ChatPlanPanel/stories/fixtures/plan/plan-agent-steering.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/plan-agent-steering.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "popover-in-dialog",
       "type": "registry:example",
       "title": "Inside a dialog",
@@ -9441,6 +9755,32 @@
       "files": [
         {
           "path": "registry/gaudi/examples/progress-upload-list.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "prompt-composer-context-window",
+      "type": "registry:example",
+      "title": "Context window",
+      "description": "Context window. Chat/ChatContextWindow pattern composed from @gaudi/design-system/chat/ChatContextWindow and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "context-window",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatContextWindow",
+        "import": "@gaudi/design-system/chat/ChatContextWindow",
+        "storyId": "chat-chatinput--context-window",
+        "source": "src/components/chat/ChatContextWindow/stories/fixtures/context-window/prompt-composer-context-window.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/prompt-composer-context-window.jsx",
           "type": "registry:component"
         }
       ]
@@ -9973,6 +10313,136 @@
       "files": [
         {
           "path": "registry/gaudi/examples/rating-review-summary.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-agent-run",
+      "type": "registry:example",
+      "title": "Agent run",
+      "description": "Agent run. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "reasoning",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatReasoning",
+        "import": "@gaudi/design-system/chat/ChatReasoning",
+        "storyId": "chat-chatreasoning--agent-run",
+        "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-agent-run.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/reasoning-agent-run.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-ai-message-with-steps",
+      "type": "registry:example",
+      "title": "AI message with steps",
+      "description": "AI message with steps. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "reasoning",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatReasoning",
+        "import": "@gaudi/design-system/chat/ChatReasoning",
+        "storyId": "chat-chatreasoning--ai-message-with-steps",
+        "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-ai-message-with-steps.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/reasoning-ai-message-with-steps.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-mini-thinking",
+      "type": "registry:example",
+      "title": "Mini thinking",
+      "description": "Mini thinking. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "reasoning",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatReasoning",
+        "import": "@gaudi/design-system/chat/ChatReasoning",
+        "storyId": "chat-chatreasoning--mini-thinking",
+        "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-mini-thinking.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/reasoning-mini-thinking.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-playground",
+      "type": "registry:example",
+      "title": "Playground",
+      "description": "Playground. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "reasoning",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatReasoning",
+        "import": "@gaudi/design-system/chat/ChatReasoning",
+        "storyId": "chat-chatreasoning--playground",
+        "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-playground.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/reasoning-playground.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-thinking-then-answer",
+      "type": "registry:example",
+      "title": "Thinking, then the answer",
+      "description": "Thinking, then the answer. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "reasoning",
+        "chat"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "chat/ChatReasoning",
+        "import": "@gaudi/design-system/chat/ChatReasoning",
+        "storyId": "chat-chatreasoning--thinking-then-answer",
+        "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-thinking-then-answer.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/reasoning-thinking-then-answer.jsx",
           "type": "registry:component"
         }
       ]
@@ -12357,6 +12827,32 @@
       ]
     },
     {
+      "name": "stat-card-usage-meter",
+      "type": "registry:block",
+      "title": "Usage meter",
+      "description": "Usage meter. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/StatCard and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "stat-card",
+        "blocks"
+      ],
+      "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "blocks/StatCard",
+        "import": "@gaudi/design-system/blocks/StatCard",
+        "storyId": "blocks-stat-cards--usage-meter",
+        "source": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-usage-meter.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/blocks/stat-card-usage-meter.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "stepper-basic",
       "type": "registry:example",
       "title": "Simple linear steps",
@@ -13564,6 +14060,32 @@
       "files": [
         {
           "path": "registry/gaudi/examples/tree-permissions.jsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "treemap-chart-context-map",
+      "type": "registry:example",
+      "title": "Context map",
+      "description": "Context map. Charts/TreemapChart pattern composed from @gaudi/design-system/charts/TreemapChart and other public Gaudi components; the components stay package imports.",
+      "dependencies": [
+        "@gaudi/design-system"
+      ],
+      "categories": [
+        "treemap-chart",
+        "charts"
+      ],
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+      "meta": {
+        "owner": "charts/TreemapChart",
+        "import": "@gaudi/design-system/charts/TreemapChart",
+        "storyId": "charts-treemapchart--context-map",
+        "source": "src/components/charts/TreemapChart/stories/fixtures/treemap-chart/treemap-chart-context-map.jsx"
+      },
+      "files": [
+        {
+          "path": "registry/gaudi/examples/treemap-chart-context-map.jsx",
           "type": "registry:component"
         }
       ]

@@ -40,3 +40,5 @@ import { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningRe
 ## Accessibility
 
 The trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label ("Searched the web, Done"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.
+
+For a short wait before the first answer, compose `ChatActivityIndicator` with `variant="compact"`. The Mini thinking example shows a small ray spinner and changing labels, then exposes the detailed reasoning after the prepared reply. The compact status belongs to ChatActivityIndicator; ChatReasoning continues to own the expandable explanation.

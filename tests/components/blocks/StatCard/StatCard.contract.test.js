@@ -33,3 +33,14 @@ test('a visually hidden meter legend keeps its values available to assistive tec
   assert.match(html, />7<span/);
   assert.match(html, />70%<\/span>/);
 });
+
+test('meter capacity leaves unused track without changing category shares', () => {
+  const segments = [{ label: 'Chat', value: 30 }, { label: 'Search', value: 20 }];
+  const render = (max) => renderToStaticMarkup(createElement(StatMeter, { max, segments }));
+  assert.match(render(100), /style="width:50%"/);
+  assert.match(render(100), />60%<\/span>/);
+  for (const max of [undefined, 0, -1, NaN, 25]) {
+    assert.match(render(max), /style="width:100%"/);
+    assert.doesNotMatch(render(max), /NaN|Infinity/);
+  }
+});

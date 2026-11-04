@@ -47,7 +47,7 @@ function CommandDialog({
       </DialogHeader>
       <DialogContent
         className={cn(
-          'ds-part-command-dialog top-1/3 translate-y-0 overflow-hidden p-0',
+          'ds-part-command-dialog top-[min(12vh,6rem)] translate-y-0 overflow-hidden p-0',
           className
         )}
         showCloseButton={showCloseButton}

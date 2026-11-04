@@ -27,3 +27,20 @@ export const AssistantReply = {
     await expect(canvas.getByRole('button', { name: 'Copy reply' })).toBeEnabled();
   }
 };
+
+export const ResearchAnswer = {
+  name: 'Research answer',
+  ...pattern('research-answer', 'A complete, cited answer composed from ChatMessage, Markdown, source previews and feedback. Prepared sample records drive local streaming and follow-up answers; no AI service is called.'),
+  play: async ({ canvasElement }) => {
+    if (import.meta.env.MODE !== 'test') return;
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Good reply' }));
+    await expect(canvas.getByRole('button', { name: 'Good reply' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(canvas.getByRole('button', { name: 'Rollback checklist' }));
+    await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Answer ready'), { timeout: 5000 });
+    await expect(canvas.getByRole('heading', { name: 'How should we verify the rollback?' })).toBeVisible();
+    await expect(canvas.getByRole('button', { name: 'Copy answer' })).toBeEnabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Overview', exact: true }));
+    await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Answer ready'), { timeout: 5000 });
+  }
+};

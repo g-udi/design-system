@@ -1,9 +1,16 @@
 import { cn } from '../../../utilities/cn/index.js';
 
-export const loaderVariants = ['arc', 'dual-arc', 'bar', 'beat', 'bounce', 'circle-dots', 'clip', 'puff', 'three-dots', 'triangle', 'two-dots'];
+export const loaderVariants = ['arc', 'dual-arc', 'bar', 'beat', 'bounce', 'circle-dots', 'rays', 'clip', 'puff', 'three-dots', 'triangle', 'two-dots'];
 
 function LoaderShape({ variant }) {
   switch (variant) {
+    case 'rays':
+      return Array.from({ length: 8 }, (_, index) => (
+        <g key={index} transform={`rotate(${index * 45} 12 12)`}>
+          <path className='ds-loader-motion ds-loader-orbit-dot' d='M12 3v4'
+            style={{ animationDelay: `${index * 0.15 - 1.2}s` }} />
+        </g>
+      ));
     case 'dual-arc':
       return <>
         <circle className='ds-loader-motion ds-loader-rotate' cx='12' cy='12' r='10' strokeDasharray='44 19' />

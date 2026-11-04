@@ -13,6 +13,7 @@ export const ChatFileDeliveredFiles = {
   name: 'Delivered files and data',
   ...pattern('delivered-files', 'Structured values read as a list with a JSON view, and delivered files offer preview and download.'),
   play: async (context) => {
+    if (import.meta.env.MODE !== 'test') return;
     const { canvasElement } = context;
     const canvas = within(canvasElement);
     for (const file of ['september-report.pdf', 'subscribers-2026-09.csv']) {

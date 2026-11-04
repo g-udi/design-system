@@ -382,7 +382,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
     requestAnimationFrame(() => editButtons.current.get(id)?.focus());
   };
   return (
-    <section ref={queue} tabIndex={-1} data-slot='prompt-queue' aria-labelledby={headingId} className={cn('ds-part-prompt-queue bg-surface-muted grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 rounded-(--ds-radius-card) border p-2', className)} onFocusCapture={(event) => { lastQueueFocus.current = event.target; }} onBlurCapture={(event) => {
+    <section ref={queue} tabIndex={-1} data-slot='prompt-queue' aria-labelledby={headingId} className={cn('ds-part-prompt-queue @container/promptqueue bg-surface-muted grid min-w-0 grid-cols-[minmax(0,1fr)] gap-1 rounded-(--ds-radius-card) border p-2', className)} onFocusCapture={(event) => { lastQueueFocus.current = event.target; }} onBlurCapture={(event) => {
       if (event.target.isConnected && !event.currentTarget.contains(event.relatedTarget)) lastQueueFocus.current = null;
     }}>
       <div className='flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5 px-1'>
@@ -391,10 +391,10 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
       </div>
       <ol className='grid gap-1'>
         {items.map((item, index) => (
-          <li key={item.id} className='bg-surface flex min-w-0 items-start gap-2 rounded-(--ds-radius-control) border px-2 py-1.5'>
+          <li key={item.id} className='bg-surface grid min-w-0 grid-cols-[auto_minmax(0,1fr)] items-start gap-2 rounded-(--ds-radius-control) border px-2 py-1.5 @[26rem]/promptqueue:grid-cols-[auto_minmax(0,1fr)_auto]'>
             <RegistryIcon lucide='Clock' className='text-text-muted mt-1 size-3.5 shrink-0' />
             {editing === item.id ? (
-              <div className='grid min-w-0 flex-1 gap-1.5'>
+              <div className='grid min-w-0 gap-1.5 @[26rem]/promptqueue:col-span-2'>
                 <Textarea
                   aria-label={`${labels.edit} queued message ${index + 1}`}
                   value={draft}
@@ -435,7 +435,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
                   {item.text}
                   {item.attachments?.length ? <span className='text-text-muted ms-1 text-xs'>· {item.attachments.length} files</span> : null}
                 </p>
-                <div className='flex shrink-0 items-center'>
+                {(onEdit || onSendNow || onRemove) && <div className='col-start-2 flex shrink-0 items-center justify-end @[26rem]/promptqueue:col-start-auto'>
                   {onEdit ? (
                     <Button
                       ref={(node) => (node ? editButtons.current.set(item.id, node) : editButtons.current.delete(item.id))}
@@ -468,7 +468,7 @@ function ChatPromptQueue({ items = [], onEdit, onRemove, onSendNow, onMove, labe
                       <RegistryIcon lucide='Trash2' />
                     </Button>
                   ) : null}
-                </div>
+                </div>}
               </>
             )}
           </li>

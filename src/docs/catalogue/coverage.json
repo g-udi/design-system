@@ -979,6 +979,30 @@
           "file": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-agent-handoff.jsx",
           "sha256": "7bf94aee6afc2794afdfa8cbf9397a1401e7e14ba10b35db2c5bce0544687989",
           "storyId": "chat-chatdelegation--agent-handoff"
+        },
+        {
+          "name": "chat-delegation-agent-fleet",
+          "title": "Agent fleet",
+          "description": "Inspect lead agents and nested teams, approve requests and recover failed tasks.",
+          "file": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-agent-fleet.jsx",
+          "sha256": "44dee5c86d916874605e75495fa0ac6f15c0c7b1988b204b7dbe3d7b9ae7c8da",
+          "storyId": "chat-chatdelegation--agent-fleet"
+        },
+        {
+          "name": "chat-delegation-handoff-relay",
+          "title": "Agent handoff relay",
+          "description": "Follow context transfers, restore a missing safety note and recover a disconnected agent.",
+          "file": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-handoff-relay.jsx",
+          "sha256": "a67b0ba478de04804db8b7d2d2d4df53bec9a54bfd7ffd2d86181eb8f53a3fee",
+          "storyId": "chat-chatdelegation--handoff-relay"
+        },
+        {
+          "name": "chat-delegation-conflict-radar",
+          "title": "Conflict radar",
+          "description": "Inspect overlapping file edits from parallel agents and settle each conflict before a simulated merge.",
+          "file": "src/components/chat/ChatDelegation/stories/fixtures/chat-delegation/chat-delegation-conflict-radar.jsx",
+          "sha256": "a5701c9ac513a163d272be9afd6eb018321fa2b9e9923196d8735dd44d7ff5e9",
+          "storyId": "chat-chatdelegation--conflict-radar"
         }
       ]
     },
@@ -1018,6 +1042,14 @@
           "file": "src/components/chat/ChatSources/stories/fixtures/chat-sources/chat-sources-research-citations.jsx",
           "sha256": "d9c5edf370de70db0a9f0d151e6ae7eef24f7c8fcdb2b9e0dfa410bc1f007451",
           "storyId": "chat-chatsources--research-citations"
+        },
+        {
+          "name": "chat-sources-linked-answer",
+          "title": "Answer linked to evidence",
+          "description": "Inspect how each passage in a finished answer connects to its source and quoted evidence.",
+          "file": "src/components/chat/ChatSources/stories/fixtures/chat-sources/chat-sources-linked-answer.jsx",
+          "sha256": "98953e54865ba03e3a2fb1cbbaf6096feda875248bd1798b38f76126e79b7bf0",
+          "storyId": "chat-chatsources--linked-answer"
         }
       ]
     },
@@ -1913,6 +1945,14 @@
           "file": "src/components/core/Flow/stories/fixtures/flow/flow-payments-inspector.jsx",
           "sha256": "fd96ff70d65c483748c35a4aa5309289f0e31e83a206d1f7e941e9e22bf33792",
           "storyId": "core-flow--payments-inspector"
+        },
+        {
+          "name": "flow-agent-graph",
+          "title": "Agent graph",
+          "description": "Monitor agents and tool calls, inspect activity, approve publishing and retry a failed search.",
+          "file": "src/components/core/Flow/stories/fixtures/flow/flow-agent-graph.jsx",
+          "sha256": "b34c3cb6ca8995b415ede9a4f49b4195e05954735e17ca70dcc6d14ec3028312",
+          "storyId": "core-flow--agent-graph"
         }
       ]
     },
@@ -1921,136 +1961,136 @@
       "examples": [
         {
           "name": "forms-contact",
-          "title": "Contact · Message with error summary",
-          "description": "Contact · Message with error summary",
+          "title": "Contact \u00b7 Message with error summary",
+          "description": "Contact \u00b7 Message with error summary",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-contact.jsx",
           "sha256": "c500ea499a55b43b3a10e40f1c0a75e031a5716913d3e77db094f4877c72ab9a",
           "storyId": "blocks-forms--contact"
         },
         {
           "name": "forms-newsletter",
-          "title": "Newsletter · Signup and preferences",
-          "description": "Newsletter · Signup and preferences",
+          "title": "Newsletter \u00b7 Signup and preferences",
+          "description": "Newsletter \u00b7 Signup and preferences",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-newsletter.jsx",
           "sha256": "43b6edff3f16ef7487b3259fe4847b0e839f8f240e33a769b1144c10b076d39a",
           "storyId": "blocks-forms--newsletter"
         },
         {
           "name": "forms-article-feedback",
-          "title": "Feedback · Article survey",
-          "description": "Feedback · Article survey",
+          "title": "Feedback \u00b7 Article survey",
+          "description": "Feedback \u00b7 Article survey",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-article-feedback.jsx",
           "sha256": "54ed249ded28ad6c5fea69aecb97f37493205254343eb59164228d0f32b93e4d",
           "storyId": "blocks-forms--article-feedback"
         },
         {
           "name": "forms-checkout",
-          "title": "Checkout · Address and payment",
-          "description": "Checkout · Address and payment",
+          "title": "Checkout \u00b7 Address and payment",
+          "description": "Checkout \u00b7 Address and payment",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-checkout.jsx",
           "sha256": "b50130ca59a3edca2b24b58538a5cf08f6f67d89a88b4f511f4586e6aacb7cf1",
           "storyId": "blocks-forms--checkout"
         },
         {
           "name": "forms-event-registration",
-          "title": "Events · Registration with email code",
-          "description": "Events · Registration with email code",
+          "title": "Events \u00b7 Registration with email code",
+          "description": "Events \u00b7 Registration with email code",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-event-registration.jsx",
           "sha256": "904dea582c19c91805e924a780516309b763c2a3e5ad232e845b3fd39e51061c",
           "storyId": "blocks-forms--event-registration"
         },
         {
           "name": "forms-profile-card",
-          "title": "Profile · Card with completion and office hours",
-          "description": "Profile · Card with completion and office hours",
+          "title": "Profile \u00b7 Card with completion and office hours",
+          "description": "Profile \u00b7 Card with completion and office hours",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-profile-card.jsx",
           "sha256": "306d2e4b51a34c516dd8b4c968ba0572cd0b9dafca1cfa195e67e11996c74b33",
           "storyId": "blocks-forms--profile-card"
         },
         {
           "name": "forms-profile-tabs",
-          "title": "Profile · Tabs with audit rail",
-          "description": "Profile · Tabs with audit rail",
+          "title": "Profile \u00b7 Tabs with audit rail",
+          "description": "Profile \u00b7 Tabs with audit rail",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-profile-tabs.jsx",
           "sha256": "91215c723cda87b30b4604d57bf069b9f574819c32ee296c8ae75ef53e26d1e3",
           "storyId": "blocks-forms--profile-tabs"
         },
         {
           "name": "forms-sign-in-policy",
-          "title": "Security · Sign-in policy",
-          "description": "Security · Sign-in policy",
+          "title": "Security \u00b7 Sign-in policy",
+          "description": "Security \u00b7 Sign-in policy",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-sign-in-policy.jsx",
           "sha256": "ded811163f0231ae9568553fce4a2d21897df86baed579610e070ab779e00681",
           "storyId": "blocks-forms--sign-in-policy"
         },
         {
           "name": "forms-team-invite",
-          "title": "Team · Invite with permissions",
-          "description": "Team · Invite with permissions",
+          "title": "Team \u00b7 Invite with permissions",
+          "description": "Team \u00b7 Invite with permissions",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-team-invite.jsx",
           "sha256": "61b353470d340168c2a7d5924dc2fabf1b6913ad1243acac1949dfff0885818e",
           "storyId": "blocks-forms--team-invite"
         },
         {
           "name": "forms-api-key",
-          "title": "Developer · Create an API key",
-          "description": "Developer · Create an API key",
+          "title": "Developer \u00b7 Create an API key",
+          "description": "Developer \u00b7 Create an API key",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-api-key.jsx",
           "sha256": "34d3424dcd30b2f2b15181b4ba223aedc3652adad855373b21ea4391a6d8afe8",
           "storyId": "blocks-forms--api-key"
         },
         {
           "name": "forms-hosted-checkout",
-          "title": "Billing · Hosted checkout setup",
-          "description": "Billing · Hosted checkout setup",
+          "title": "Billing \u00b7 Hosted checkout setup",
+          "description": "Billing \u00b7 Hosted checkout setup",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-hosted-checkout.jsx",
           "sha256": "1621c3877cccf719a14a25ad2b33440d56a15f0dbc7fc02e47cd2ed518277ef0",
           "storyId": "blocks-forms--hosted-checkout"
         },
         {
           "name": "forms-invoice",
-          "title": "Billing · Invoice with line items",
-          "description": "Billing · Invoice with line items",
+          "title": "Billing \u00b7 Invoice with line items",
+          "description": "Billing \u00b7 Invoice with line items",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-invoice.jsx",
           "sha256": "4d36ff2a8d074337cbd960fe0931559f4dd65942396d1167762eb27030451082",
           "storyId": "blocks-forms--invoice"
         },
         {
           "name": "forms-new-product",
-          "title": "Commerce · New product",
-          "description": "Commerce · New product",
+          "title": "Commerce \u00b7 New product",
+          "description": "Commerce \u00b7 New product",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-new-product.jsx",
           "sha256": "808387201f25c24bd9659a9d68df590211ad02c2e4689e2196e5d352172619fd",
           "storyId": "blocks-forms--new-product"
         },
         {
           "name": "forms-business-verification",
-          "title": "Compliance · Business verification",
-          "description": "Compliance · Business verification",
+          "title": "Compliance \u00b7 Business verification",
+          "description": "Compliance \u00b7 Business verification",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-business-verification.jsx",
           "sha256": "7567b2de801e25b5f4191cb422a34f773077377bd03ecf61ee015ecd69a0a9ec",
           "storyId": "blocks-forms--business-verification"
         },
         {
           "name": "forms-support-ticket",
-          "title": "Support · Ticket details",
-          "description": "Support · Ticket details",
+          "title": "Support \u00b7 Ticket details",
+          "description": "Support \u00b7 Ticket details",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-support-ticket.jsx",
           "sha256": "5d075174de84249b72a192a99bef70b628dd5311c863bfc447aec2d380ffb352",
           "storyId": "blocks-forms--support-ticket"
         },
         {
           "name": "forms-customer-intake",
-          "title": "Onboarding · Customer intake",
-          "description": "Onboarding · Customer intake",
+          "title": "Onboarding \u00b7 Customer intake",
+          "description": "Onboarding \u00b7 Customer intake",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-customer-intake.jsx",
           "sha256": "47b386ec6dbcc501842e9100d94becc01983659e3c9dd3c27e3051e24f4cdb5a",
           "storyId": "blocks-forms--customer-intake"
         },
         {
           "name": "forms-app-launch",
-          "title": "Launch · New app with live summary",
-          "description": "Launch · New app with live summary",
+          "title": "Launch \u00b7 New app with live summary",
+          "description": "Launch \u00b7 New app with live summary",
           "file": "src/components/blocks/Forms/stories/fixtures/forms/forms-app-launch.jsx",
           "sha256": "ca1324a69dc692c48d4a7961b736eaa0f8a620933ed4f5735d77c164f39a1ed1",
           "storyId": "blocks-forms--app-launch"
@@ -2622,7 +2662,7 @@
           "title": "Team conversation",
           "description": "Team conversation",
           "file": "src/components/chat/ChatMessage/stories/fixtures/message/message-team-conversation.jsx",
-          "sha256": "93336c05cc8dc5042cecfc34d7b8dcf91246115ea98871b02ddd7fb037d2ed73",
+          "sha256": "bb544c6c9710001e848e24c296a0400944d1e9dcb712e6e0fdd2c9a038aab1c4",
           "storyId": "chat-message--team-conversation"
         },
         {
@@ -2632,6 +2672,14 @@
           "file": "src/components/chat/ChatMessage/stories/fixtures/message/message-assistant-reply.jsx",
           "sha256": "6d4ca6c180830dbdf24f5ef4467668b307f6897c97b73abce214c2ea0cf4065c",
           "storyId": "chat-message--assistant-reply"
+        },
+        {
+          "name": "message-research-answer",
+          "title": "Research answer",
+          "description": "A cited incident analysis with inspectable sources, streaming, feedback and follow-up answers.",
+          "file": "src/components/chat/ChatMessage/stories/fixtures/message/message-research-answer.jsx",
+          "sha256": "396f61b17688b7d1063a5f82f4c74c384d2b1405d2ee1a299133c5ec5e7da831",
+          "storyId": "chat-message--research-answer"
         }
       ]
     },
@@ -3930,6 +3978,14 @@
           "file": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-interval-reel.jsx",
           "sha256": "549ae386c330bf410eb18e688c9686834d9fb7bbdde46dcbc945f3d41c1da6ba",
           "storyId": "blocks-stat-cards--interval-reel"
+        },
+        {
+          "name": "stat-card-usage-meter",
+          "title": "Usage meter",
+          "description": "AI credits, category breakdown, daily usage and plan limits with sample top-ups and period selection.",
+          "file": "src/components/blocks/StatCard/stories/fixtures/stat-card/stat-card-usage-meter.jsx",
+          "sha256": "1ee1ff93b3c7a208056f06c46a300ea9195259b5243658b0bc8efec028a33b7e",
+          "storyId": "blocks-stat-cards--usage-meter"
         }
       ]
     },
@@ -4321,6 +4377,14 @@
           "file": "src/components/charts/TreemapChart/stories/fixtures/treemap-chart/treemap-chart-storage-folders.jsx",
           "sha256": "29828bf5f77b94311ea7d44b3de7675b0793d8498a22ccf0ed8b6ccf9d4a1624",
           "storyId": "charts-treemapchart--storage-folders"
+        },
+        {
+          "name": "treemap-chart-context-map",
+          "title": "Context map",
+          "description": "Inspect an agent\u2019s context allocation and compare prepared snapshots before and after compaction.",
+          "file": "src/components/charts/TreemapChart/stories/fixtures/treemap-chart/treemap-chart-context-map.jsx",
+          "sha256": "44e9c95bb1c74d7d116da8583053c3a4d52093ca407342cb44bcb3143ef13655",
+          "storyId": "charts-treemapchart--context-map"
         }
       ]
     },
@@ -4342,64 +4406,64 @@
       "examples": [
         {
           "name": "dashboard-operations-capacity",
-          "title": "Operations · Capacity and exceptions",
-          "description": "Operations · Capacity and exceptions",
+          "title": "Operations \u00b7 Capacity and exceptions",
+          "description": "Operations \u00b7 Capacity and exceptions",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-operations-capacity.jsx",
           "sha256": "90dd9ed7aafe67c4243bdd302d3cb251aadb0904d9592735c2657983bb3b0068",
           "storyId": "blocks-dashboard--operations-capacity"
         },
         {
           "name": "dashboard-delivery-timesheet",
-          "title": "Project · Delivery timesheet",
-          "description": "Project · Delivery timesheet",
+          "title": "Project \u00b7 Delivery timesheet",
+          "description": "Project \u00b7 Delivery timesheet",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-delivery-timesheet.jsx",
           "sha256": "74e85c959fd0f4bffe49c396e4cf51dbedb24ee69d14324b753d2d4d465a27cf",
           "storyId": "blocks-dashboard--delivery-timesheet"
         },
         {
           "name": "dashboard-agent-analytics",
-          "title": "AI agents · Conversation analytics",
-          "description": "AI agents · Conversation analytics",
+          "title": "AI agents \u00b7 Conversation analytics",
+          "description": "AI agents \u00b7 Conversation analytics",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-agent-analytics.jsx",
           "sha256": "316b0d969d7677169a1b6c52937ba3a0df9a372aaa7fa39eadb9051cbb39d6ee",
           "storyId": "blocks-dashboard--agent-analytics"
         },
         {
           "name": "dashboard-edge-security",
-          "title": "Security · Edge telemetry",
-          "description": "Security · Edge telemetry",
+          "title": "Security \u00b7 Edge telemetry",
+          "description": "Security \u00b7 Edge telemetry",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-edge-security.jsx",
           "sha256": "182927d1237536107c2f33492b3e2594daa041da0e83c444d3c59be98b15aaad",
           "storyId": "blocks-dashboard--edge-security"
         },
         {
           "name": "dashboard-field-coverage",
-          "title": "Field teams · Coverage",
-          "description": "Field teams · Coverage",
+          "title": "Field teams \u00b7 Coverage",
+          "description": "Field teams \u00b7 Coverage",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-field-coverage.jsx",
           "sha256": "97d2180ab477a3e8514573c90e20e2cb0f63aec4fd74e168edac5653dbc13923",
           "storyId": "blocks-dashboard--field-coverage"
         },
         {
           "name": "dashboard-commerce-revenue",
-          "title": "Commerce · Revenue",
-          "description": "Commerce · Revenue",
+          "title": "Commerce \u00b7 Revenue",
+          "description": "Commerce \u00b7 Revenue",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-commerce-revenue.jsx",
           "sha256": "794fb86e503d61ce16b521e96b2ea1d944fc01302e719528335279ddd4cd1e85",
           "storyId": "blocks-dashboard--commerce-revenue"
         },
         {
           "name": "dashboard-creator-payouts",
-          "title": "Creators · Payouts",
-          "description": "Creators · Payouts",
+          "title": "Creators \u00b7 Payouts",
+          "description": "Creators \u00b7 Payouts",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-creator-payouts.jsx",
           "sha256": "71156efdb90fa4bc306afcf39c176d1b85ad8c80dd843d859461b6ab0319ead8",
           "storyId": "blocks-dashboard--creator-payouts"
         },
         {
           "name": "dashboard-newsletter-analytics",
-          "title": "Content · Newsletter analytics",
-          "description": "Content · Newsletter analytics",
+          "title": "Content \u00b7 Newsletter analytics",
+          "description": "Content \u00b7 Newsletter analytics",
           "file": "src/components/blocks/Dashboard/stories/fixtures/dashboard/dashboard-newsletter-analytics.jsx",
           "sha256": "54ca9c043d3de149b39977a0ae9ae5d4f2b47a2d263977aa1bbaa0d76bb3b108",
           "storyId": "blocks-dashboard--newsletter-analytics"
@@ -4411,115 +4475,246 @@
       "examples": [
         {
           "name": "app-shell-library-rail",
-          "title": "Icon rail · library switcher, nested collections and a reader menu",
-          "description": "Icon rail · library switcher, nested collections and a reader menu",
+          "title": "Icon rail \u00b7 library switcher, nested collections and a reader menu",
+          "description": "Icon rail \u00b7 library switcher, nested collections and a reader menu",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-library-rail.jsx",
           "sha256": "ad196342eb14d326cf3f4eca571d4f4085dc5cf174c1ff42bcb73e7e0454eea0",
           "storyId": "blocks-application-appshell--library-rail"
         },
         {
           "name": "app-shell-reading-desk",
-          "title": "Floating sidebar · header ⌘K search, reading queue and shelf switcher",
-          "description": "Floating sidebar · header ⌘K search, reading queue and shelf switcher",
+          "title": "Floating sidebar \u00b7 header \u2318K search, reading queue and shelf switcher",
+          "description": "Floating sidebar \u00b7 header \u2318K search, reading queue and shelf switcher",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-reading-desk.jsx",
           "sha256": "aa3720e598ab5e62ac97e4b7063f8580ec49ae7da224aa3aed54828b35b3d4cd",
           "storyId": "blocks-application-appshell--reading-desk"
         },
         {
           "name": "app-shell-research-projects",
-          "title": "Inset sidebar · study progress rings, reading goal and a header notifications feed",
-          "description": "Inset sidebar · study progress rings, reading goal and a header notifications feed",
+          "title": "Inset sidebar \u00b7 study progress rings, reading goal and a header notifications feed",
+          "description": "Inset sidebar \u00b7 study progress rings, reading goal and a header notifications feed",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-research-projects.jsx",
           "sha256": "e4bf87fc0f94915ea64bc91d2fc6baba52f040f126a3043541ddaf4341fb4188",
           "storyId": "blocks-application-appshell--research-projects"
         },
         {
           "name": "app-shell-digest-inbox",
-          "title": "Dual sidebar · digest inbox, reading-plan panel and an author directory",
-          "description": "Dual sidebar · digest inbox, reading-plan panel and an author directory",
+          "title": "Dual sidebar \u00b7 digest inbox, reading-plan panel and an author directory",
+          "description": "Dual sidebar \u00b7 digest inbox, reading-plan panel and an author directory",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-digest-inbox.jsx",
           "sha256": "7ee911425e6eada451959e885b3d7255736605242e356747e2708f83ee0a03bf",
           "storyId": "blocks-application-appshell--digest-inbox"
         },
         {
           "name": "app-shell-publishing-console",
-          "title": "Inset icon rail · per-section navigation, site, publication and environment switchers",
-          "description": "Inset icon rail · per-section navigation, site, publication and environment switchers",
+          "title": "Inset icon rail \u00b7 per-section navigation, site, publication and environment switchers",
+          "description": "Inset icon rail \u00b7 per-section navigation, site, publication and environment switchers",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-publishing-console.jsx",
           "sha256": "cdf0f23caf002fd04ff4f78092690dfdb433beeab4b625daf5a001d674d8498d",
           "storyId": "blocks-application-appshell--publishing-console"
         },
         {
           "name": "app-shell-notebook-tabs",
-          "title": "Mini icon rail · research notebooks with per-section pages and view tabs",
-          "description": "Mini icon rail · research notebooks with per-section pages and view tabs",
+          "title": "Mini icon rail \u00b7 research notebooks with per-section pages and view tabs",
+          "description": "Mini icon rail \u00b7 research notebooks with per-section pages and view tabs",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-notebook-tabs.jsx",
           "sha256": "8d314b1f0da535cdf87e34c6ab04ed86384f25ae7a6d11d5882955d943bb656e",
           "storyId": "blocks-application-appshell--notebook-tabs"
         },
         {
           "name": "app-shell-research-assistant",
-          "title": "Floating sidebar · library research assistant with answer modes, sources and cited replies",
-          "description": "Floating sidebar · library research assistant with answer modes, sources and cited replies",
+          "title": "Floating sidebar \u00b7 library research assistant with answer modes, sources and cited replies",
+          "description": "Floating sidebar \u00b7 library research assistant with answer modes, sources and cited replies",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-research-assistant.jsx",
           "sha256": "d93e832490aafbe7651b8063679fc6d51a11996474fc4971b38acee5a3790b32",
           "storyId": "blocks-application-appshell--research-assistant"
         },
         {
           "name": "app-shell-newsletter-reader",
-          "title": "Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail",
-          "description": "Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail",
+          "title": "Newsletter reader \u00b7 library and topics sidebar, issue list, reading pane and a reading-tools rail",
+          "description": "Newsletter reader \u00b7 library and topics sidebar, issue list, reading pane and a reading-tools rail",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-newsletter-reader.jsx",
           "sha256": "52023ea63ad141067508f310ac771049e1acd965cebfe213ae6477e1c456a65c",
           "storyId": "blocks-application-appshell--newsletter-reader"
         },
         {
           "name": "app-shell-study-chat",
-          "title": "Resizable sidebar · reading-group study threads, notes tab and a header tutor picker",
-          "description": "Resizable sidebar · reading-group study threads, notes tab and a header tutor picker",
+          "title": "Resizable sidebar \u00b7 reading-group study threads, notes tab and a header tutor picker",
+          "description": "Resizable sidebar \u00b7 reading-group study threads, notes tab and a header tutor picker",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-study-chat.jsx",
           "sha256": "5bc161d26b5eee05ec702f69753927e00d14f24aa48585265ec0dc509109f2e1",
           "storyId": "blocks-application-appshell--study-chat"
         },
         {
           "name": "app-shell-topbar-collections",
-          "title": "Library top bar · circle and collection switchers, grouped routes and an apps grid",
-          "description": "Library top bar · circle and collection switchers, grouped routes and an apps grid",
+          "title": "Library top bar \u00b7 circle and collection switchers, grouped routes and an apps grid",
+          "description": "Library top bar \u00b7 circle and collection switchers, grouped routes and an apps grid",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-topbar-collections.jsx",
           "sha256": "6d1de00d718605c7957498e3352566735bd64e180d30b2d9fca873070718ac2b",
           "storyId": "blocks-application-appshell--topbar-collections"
         },
         {
           "name": "app-shell-topbar-journal",
-          "title": "Journal top bar · section pills, sidebar page search and an inset notifications sheet",
-          "description": "Journal top bar · section pills, sidebar page search and an inset notifications sheet",
+          "title": "Journal top bar \u00b7 section pills, sidebar page search and an inset notifications sheet",
+          "description": "Journal top bar \u00b7 section pills, sidebar page search and an inset notifications sheet",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-topbar-journal.jsx",
           "sha256": "ca8da72d1537737113b6e9445d0b847f45254075e96be8aca50d56834d09099e",
           "storyId": "blocks-application-appshell--topbar-journal"
         },
         {
           "name": "app-shell-crawler-control",
-          "title": "Capture console · icon rail, capture queue tabs and expandable run feeds",
-          "description": "Capture console · icon rail, capture queue tabs and expandable run feeds",
+          "title": "Capture console \u00b7 icon rail, capture queue tabs and expandable run feeds",
+          "description": "Capture console \u00b7 icon rail, capture queue tabs and expandable run feeds",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-crawler-control.jsx",
           "sha256": "5f6e007106b55614e4cbc6ee77c9c107d1febb1a70360ebdc5edd4da878277ca",
           "storyId": "blocks-application-appshell--crawler-control"
         },
         {
           "name": "app-shell-source-network",
-          "title": "Source tile rail · workspace tabs, section tiles and a status-badged source tree",
-          "description": "Source tile rail · workspace tabs, section tiles and a status-badged source tree",
+          "title": "Source tile rail \u00b7 workspace tabs, section tiles and a status-badged source tree",
+          "description": "Source tile rail \u00b7 workspace tabs, section tiles and a status-badged source tree",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-source-network.jsx",
           "sha256": "7873c26542b281561c83744b0024dd285f508ab2ad527cb6e5fdb5de1a52008e",
           "storyId": "blocks-application-appshell--source-network"
         },
         {
           "name": "app-shell-finance-dashboard",
-          "title": "Finance dashboard · grouped sidebar, search and reports",
+          "title": "Finance dashboard \u00b7 grouped sidebar, search and reports",
           "description": "A finance workspace with grouped navigation, search, revenue, visitor and product panels, customer filters and reports.",
           "file": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-finance-dashboard.jsx",
           "sha256": "23b9bb7d33f2e0b9186ee65a88837de92862cda997b24abce13a6436a6eac4f1",
           "storyId": "blocks-application-appshell--finance-dashboard"
+        }
+      ]
+    },
+    "reasoning": {
+      "owner": "chat/ChatReasoning",
+      "examples": [
+        {
+          "name": "reasoning-playground",
+          "title": "Playground",
+          "description": "Playground",
+          "file": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-playground.jsx",
+          "sha256": "b01fb2661e31fae779aed619691b7ba6cc293d697da43f01dabdf9a7f15ff583",
+          "storyId": "chat-chatreasoning--playground"
+        },
+        {
+          "name": "reasoning-thinking-then-answer",
+          "title": "Thinking, then the answer",
+          "description": "Thinking, then the answer",
+          "file": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-thinking-then-answer.jsx",
+          "sha256": "8fd222df26fac84b7c7628cc31cbc15bb378dd8dedd5831cdfd335efb94231c5",
+          "storyId": "chat-chatreasoning--thinking-then-answer"
+        },
+        {
+          "name": "reasoning-agent-run",
+          "title": "Agent run",
+          "description": "Agent run",
+          "file": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-agent-run.jsx",
+          "sha256": "40e198a09e341d48170a4112f8402422c4a1dee6be03b71a582c8372f614e9de",
+          "storyId": "chat-chatreasoning--agent-run"
+        },
+        {
+          "name": "reasoning-ai-message-with-steps",
+          "title": "AI message with steps",
+          "description": "AI message with steps",
+          "file": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-ai-message-with-steps.jsx",
+          "sha256": "0d8a42b94e8718d2dced5a8ad8479b12f37f54bb9416cf81853b4953736bb2ed",
+          "storyId": "chat-chatreasoning--ai-message-with-steps"
+        },
+        {
+          "name": "reasoning-mini-thinking",
+          "title": "Mini thinking",
+          "description": "A compact thinking indicator with changing phases, a finished reply, and optional reasoning details.",
+          "file": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-mini-thinking.jsx",
+          "sha256": "c3f3f0fe26902f94088874e03eeb1308b242575c6e516bb085195ef5ad7a4a60",
+          "storyId": "chat-chatreasoning--mini-thinking"
+        }
+      ]
+    },
+    "activity-indicator": {
+      "owner": "chat/ChatActivityIndicator",
+      "examples": [
+        {
+          "name": "activity-indicator-playground",
+          "title": "Playground",
+          "description": "Playground",
+          "file": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-playground.jsx",
+          "sha256": "abf2dd4e0cf7000e9626b094dadbbbe308567e11e0dad6465079788b758631c5",
+          "storyId": "chat-activityindicator--playground"
+        },
+        {
+          "name": "activity-indicator-reply-lifecycle",
+          "title": "A reply from thinking to done",
+          "description": "A reply from thinking to done",
+          "file": "src/components/chat/ChatActivityIndicator/stories/fixtures/activity-indicator/activity-indicator-reply-lifecycle.jsx",
+          "sha256": "300c2d6be15bc77e800f9cd363d8a550629ba5f207de79859e8737c677cd782e",
+          "storyId": "chat-activityindicator--reply-lifecycle"
+        }
+      ]
+    },
+    "plan": {
+      "owner": "chat/ChatPlanPanel",
+      "examples": [
+        {
+          "name": "plan-agent-steering",
+          "title": "Agent steering",
+          "description": "Queue or immediately apply instructions while an agent works, preserving notes on each plan step.",
+          "file": "src/components/chat/ChatPlanPanel/stories/fixtures/plan/plan-agent-steering.jsx",
+          "sha256": "48255e4861f5cbea6aca87d805c6fa7e8d2cd8d0913aa129d67422e885a91bb3",
+          "storyId": "chat-chatplanpanel--agent-steering"
+        }
+      ]
+    },
+    "agent-findings": {
+      "owner": "chat/ChatAgentFindings",
+      "examples": [
+        {
+          "name": "chat-delegation-agent-findings",
+          "title": "Agent findings",
+          "description": "Parallel agent checks with filterable findings, evidence and local review actions.",
+          "file": "src/components/chat/ChatAgentFindings/stories/fixtures/agent-findings/chat-delegation-agent-findings.jsx",
+          "sha256": "c6e99f6ec48aa4773eb6ee1fba7850179d92d9f3c2dca84b5888501c568acada",
+          "storyId": "chat-chatdelegation--agent-findings"
+        }
+      ]
+    },
+    "agent-checkpoints": {
+      "owner": "chat/ChatAgentCheckpoints",
+      "examples": [
+        {
+          "name": "message-scroller-agent-checkpoints",
+          "title": "Agent checkpoints",
+          "description": "Saved agent checkpoints with branching retries, preserved attempts and local restore controls.",
+          "file": "src/components/chat/ChatAgentCheckpoints/stories/fixtures/agent-checkpoints/message-scroller-agent-checkpoints.jsx",
+          "sha256": "46ae2d017118ffcbb9e1d8bffef109a81ad1531d360e0d41593c33cc36912170",
+          "storyId": "chat-messagelist--agent-checkpoints"
+        }
+      ]
+    },
+    "agent-queue": {
+      "owner": "chat/ChatAgentQueue",
+      "examples": [
+        {
+          "name": "chat-delegation-agent-queue",
+          "title": "Agent queue",
+          "description": "A worker queue with priorities, recovery, pause, rate limits and queue-depth history.",
+          "file": "src/components/chat/ChatAgentQueue/stories/fixtures/agent-queue/chat-delegation-agent-queue.jsx",
+          "sha256": "b6c82656901b75729c309f0186959409b95a9e85b5652578fc0011521d18f696",
+          "storyId": "chat-chatdelegation--agent-queue"
+        }
+      ]
+    },
+    "context-window": {
+      "owner": "chat/ChatContextWindow",
+      "examples": [
+        {
+          "name": "prompt-composer-context-window",
+          "title": "Context window",
+          "description": "Inspect token categories, remove files and compact prepared conversation history, with the composer meter kept in sync.",
+          "file": "src/components/chat/ChatContextWindow/stories/fixtures/context-window/prompt-composer-context-window.jsx",
+          "sha256": "ab111edec0cbfb26a8bc207b6818c57daae9eabb5205f529abb09d1f02601c08",
+          "storyId": "chat-chatinput--context-window"
         }
       ]
     }

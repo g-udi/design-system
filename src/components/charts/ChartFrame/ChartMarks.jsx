@@ -28,7 +28,7 @@ export function ChartValueGrid({ format, left, right, ticks, y }) {
   return ticks.map((tick) => (
     <g key={ tick }>
       <line stroke='var(--ds-color-chart-grid)' strokeDasharray='3 3' x1={ left } x2={ right } y1={ y(tick) } y2={ y(tick) } />
-      <text dominantBaseline='middle' fill={ chartAxisTick.fill } fontSize={ chartAxisTick.fontSize } textAnchor='end' x={ left - 8 } y={ y(tick) }>{format(tick)}</text>
+      <text direction='ltr' dominantBaseline='middle' fill={ chartAxisTick.fill } fontSize={ chartAxisTick.fontSize } textAnchor='end' x={ left - 8 } y={ y(tick) }>{format(tick)}</text>
     </g>
   ));
 }
@@ -77,7 +77,7 @@ export function ChartReferenceLabel({ fill = 'var(--ds-color-text-muted)', posit
 
   return (
     // A halo in the surface colour keeps the label readable where it crosses a line or an area.
-    <text dominantBaseline='auto' fill={ fill } fontSize={ 11 } fontWeight={ 500 } paintOrder='stroke' stroke='var(--ds-color-surface)' strokeLinejoin='round' strokeWidth={ 3 } textAnchor={ isVertical || atStart ? 'start' : 'end' } x={ tx } y={ ty + (isVertical ? 0 : height) }>
+    <text direction='ltr' dominantBaseline='auto' fill={ fill } fontSize={ 11 } fontWeight={ 500 } paintOrder='stroke' stroke='var(--ds-color-surface)' strokeLinejoin='round' strokeWidth={ 3 } textAnchor={ isVertical || atStart ? 'start' : 'end' } x={ tx } y={ ty + (isVertical ? 0 : height) }>
       {value}
     </text>
   );

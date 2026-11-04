@@ -13,8 +13,12 @@
   a {
     cursor: pointer;
   }
-  /* No element may render browser or utility focus rings in any interaction state. */
-  :where(*):where(:focus, :focus-visible, :focus-within, :active) {
+  :where(:focus-visible) {
+    outline: 2px solid var(--ds-color-focus);
+    outline-offset: 2px;
+  }
+
+  :where(:focus, :active):not(:focus-visible) {
     --tw-inset-ring-shadow: 0 0 #0000 !important;
     --tw-ring-offset-shadow: 0 0 #0000 !important;
     --tw-ring-shadow: 0 0 #0000 !important;
@@ -76,5 +80,15 @@
   body[data-scroll-locked] .ds-skip-link,
   body:has(:is([role='dialog'], [role='alertdialog'])[aria-modal='true']) .ds-skip-link {
     visibility: hidden;
+  }
+}
+
+/* Opt-in for interactive panels. Real space keeps neighbouring touch targets separate. */
+@layer utilities {
+  @media (pointer: coarse) {
+    .ds-touch-controls :is(button, a[data-slot='button']) {
+      min-width: 44px;
+      min-height: 44px;
+    }
   }
 }

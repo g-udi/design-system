@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reasoning-mini-thinking",
+  "type": "registry:example",
+  "title": "Mini thinking",
+  "description": "Mini thinking. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "reasoning",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+  "meta": {
+    "owner": "chat/ChatReasoning",
+    "import": "@gaudi/design-system/chat/ChatReasoning",
+    "storyId": "chat-chatreasoning--mini-thinking",
+    "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-mini-thinking.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/reasoning-mini-thinking.jsx",
+      "type": "registry:component",
+      "content": "'use client';\nimport { useEffect, useState } from 'react';\nimport Button from '@gaudi/design-system/core/Button';\nimport { ChatActivityIndicator } from '@gaudi/design-system/chat/ChatActivityIndicator';\nimport { ChatMessageReasoning } from '@gaudi/design-system/chat/ChatReasoning';\n\n// A prepared reply: real applications drive these labels from their stream events.\nconst phases = [\n  { state: 'thinking', label: 'Thinking' },\n  { state: 'tool', label: 'Reading the draft' },\n  { state: 'thinking', label: 'Comparing headlines' },\n  { state: 'done', label: 'Ready to reply' }\n];\n\nexport function Pattern() {\n  const [step, setStep] = useState(0);\n  const phase = phases[step];\n  const done = step === phases.length - 1;\n  useEffect(() => {\n    if (done) return undefined;\n    const timer = setTimeout(() => setStep((value) => value + 1), 2200);\n    return () => clearTimeout(timer);\n  }, [step, done]);\n\n  return (\n    <div className='ds-touch-controls mx-auto grid w-full max-w-xl gap-6 text-sm'>\n      <p className='max-w-[85%] justify-self-end rounded-(--ds-radius) bg-surface-muted px-3 py-2'>\n        Which headline works better for my post about writing offline?\n      </p>\n      <div className='grid min-h-32 min-w-0 content-start justify-items-start gap-3'>\n        <ChatActivityIndicator variant='compact' state={phase.state} labels={{ [phase.state]: phase.label }} />\n        {done ? (\n          <div className='grid min-w-0 gap-3'>\n            <p>Go with <strong>“Drafts that survive the train”</strong>. It promises a clear payoff and fits the newsletter subject line.</p>\n            <ChatMessageReasoning label='How this was checked' defaultOpen={false}>\n              Compared both headlines with the opening paragraph and checked the 60-character subject-line limit.\n            </ChatMessageReasoning>\n          </div>\n        ) : null}\n      </div>\n      <div className='flex flex-wrap items-center justify-between gap-3'>\n        <span className='text-xs text-text-muted'>Sample response</span>\n        <Button variant='subtle' size='sm' onClick={() => setStep(0)}>Replay thinking</Button>\n      </div>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

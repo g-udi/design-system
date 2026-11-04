@@ -74,15 +74,18 @@ export function StatDelta({ value, direction, tone = 'neutral', className }) {
  * A segmented bar with its legend. Segments are `{ label, value, tone }`; the bar is
  * decorative and the legend carries the numbers for every reader.
  */
-export function StatMeter({ segments = [], label, showLegend = true, formatValue = (value) => value, className }) {
+export function StatMeter({ segments = [], max, label, showLegend = true, formatValue = (value) => value, className }) {
   const total = segments.reduce((sum, segment) => sum + segment.value, 0) || 1;
+  const capacity = Number.isFinite(max) && max > 0 ? Math.max(total, max) : total;
   return (
     <figure data-slot='stat-meter' className={cn('@container grid gap-2', className)}>
       {label ? <figcaption className='text-text-muted text-xs'>{label}</figcaption> : null}
-      <div aria-hidden='true' className='bg-surface-muted flex h-2 gap-0.5 overflow-hidden rounded-full'>
-        {segments.map((segment) => (
-          <span key={segment.label} className={cn('h-full', segmentClass[segment.tone || 'neutral'])} style={{ width: `${(segment.value / total) * 100}%` }} />
-        ))}
+      <div aria-hidden='true' className='bg-surface-muted flex h-2 overflow-hidden rounded-full'>
+        <div className='flex h-full gap-0.5' style={{ width: `${(total / capacity) * 100}%` }}>
+          {segments.map((segment) => (
+            <span key={segment.label} className={cn('h-full', segmentClass[segment.tone || 'neutral'])} style={{ width: `${(segment.value / total) * 100}%` }} />
+          ))}
+        </div>
       </div>
       <dl className={cn('grid gap-x-4 gap-y-1 text-xs @[20rem]:grid-cols-2', !showLegend && 'sr-only')}>
           {segments.map((segment) => (

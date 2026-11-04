@@ -17,7 +17,7 @@ Exports: `Loader`, `LoaderRoot`, `default`, `loaderVariants`
 
 | Name | Type | Default | Required | Description |
 | --- | --- | --- | --- | --- |
-| `variant` | `arc \| dual-arc \| bar \| beat \| bounce \| circle-dots \| clip \| puff \| three-dots \| triangle \| two-dots` | `arc` | no | Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured. |
+| `variant` | `arc \| dual-arc \| bar \| beat \| bounce \| circle-dots \| rays \| clip \| puff \| three-dots \| triangle \| two-dots` | `arc` | no | Selects the motion and shape. Every variant represents an unknown wait; use Progress when completion can be measured. |
 | `size` | `xs \| sm \| md \| lg` | `md` | no | 12, 16, 20, or 32px tall. The bar is three times as wide; other variants are square. Shapes keep these dimensions across spacing presets. |
 | `label` | `string` | `Loading` | no | Accessible status label describing the operation. A visible label belongs beside the indicator. |
 | `LoaderRoot` | `component` | `currentColor, sm` | no | Composition primitive with the same variants and sizing. Inherits text color and accepts aria-label rather than label. Loader adds the accent color and md default. |
@@ -26,7 +26,7 @@ Exports: `Loader`, `LoaderRoot`, `default`, `loaderVariants`
 
 ## Variants
 
-- `variant`: `arc`, `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `clip`, `puff`, `three-dots`, `triangle`, `two-dots`
+- `variant`: `arc`, `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `rays`, `clip`, `puff`, `three-dots`, `triangle`, `two-dots`
 - `size`: `xs`, `sm`, `md`, `lg`
 
 ## Usage
@@ -65,7 +65,7 @@ Curated patterns:
 
 ## README
 
-A named loading status with eleven CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.
+A named loading status with twelve CSS animation variants. `Loader` replaces `Spinner`, and the Storybook owner is `Core/Loader`.
 
 ```jsx
 import { Loader } from '@gaudi/design-system/core/Loader';
@@ -73,7 +73,7 @@ import { Loader } from '@gaudi/design-system/core/Loader';
 <Loader variant='three-dots' size='md' label='Loading articles' />
 ```
 
-- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.
+- `variant`: `arc` (default), `dual-arc`, `bar`, `beat`, `bounce`, `circle-dots`, `rays`, `clip`, `puff`, `three-dots`, `triangle`, or `two-dots`. These indicate an unknown wait; use `Progress` for measured completion.
 - `size`: `xs` 12px, `sm` 16px, `md` 20px (default), or `lg` 32px. The bar is three times as wide as it is tall. Other variants are square. Intrinsic dimensions stay fixed across density presets.
 - `label`: accessible status label, default `Loading`. Describe the active operation and provide visible status text where useful.
 - `className`: use `text-current` to inherit surrounding color or a semantic tone such as `text-text-muted`. Explicit size utilities can override dimensions; preserve the bar's 3:1 ratio.

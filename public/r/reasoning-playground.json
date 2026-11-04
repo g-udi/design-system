@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reasoning-playground",
+  "type": "registry:example",
+  "title": "Playground",
+  "description": "Playground. Chat/ChatReasoning pattern composed from @gaudi/design-system/chat/ChatReasoning and other public Gaudi components; the components stay package imports.",
+  "dependencies": [
+    "@gaudi/design-system"
+  ],
+  "categories": [
+    "reasoning",
+    "chat"
+  ],
+  "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system.",
+  "meta": {
+    "owner": "chat/ChatReasoning",
+    "import": "@gaudi/design-system/chat/ChatReasoning",
+    "storyId": "chat-chatreasoning--playground",
+    "source": "src/components/chat/ChatReasoning/stories/fixtures/reasoning/reasoning-playground.jsx"
+  },
+  "files": [
+    {
+      "path": "registry/gaudi/examples/reasoning-playground.jsx",
+      "type": "registry:component",
+      "content": "import { ChatMessageReasoning, ChatMessageReasoningStep } from '@gaudi/design-system/chat/ChatReasoning';\n\nconst steps = [\n  { text: 'Read the draft and the three reader replies', status: 'done' },\n  { text: 'Find where the argument loses the reader', status: 'done' },\n  { text: 'Suggest a tighter opening', status: 'running' }\n];\n\nexport function Pattern({ streaming = false, duration = 6, defaultOpen = true }) {\n  return (\n    <div className='ds-touch-controls w-full max-w-xl'>\n      <ChatMessageReasoning key={`${defaultOpen}`} streaming={streaming} duration={duration} defaultOpen={defaultOpen}>\n        {steps.map((step) => (\n          <ChatMessageReasoningStep key={step.text} status={streaming ? step.status : 'done'}>{step.text}</ChatMessageReasoningStep>\n        ))}\n      </ChatMessageReasoning>\n    </div>\n  );\n}\n"
+    }
+  ]
+}

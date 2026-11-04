@@ -626,6 +626,17 @@ Gaudi's code is its own: nothing from these sites is copied unless it is listed 
 - [beUI](https://beui.dev): free, open-source animated components for React and Next.js.
 - [shadcn.io](https://www.shadcn.io): community components, blocks and [hooks](https://www.shadcn.io/hooks).
 - [AI SDK Elements](https://elements.ai-sdk.dev): chat and agent interface parts for the AI SDK.
+- [AffectUI](https://www.affectui.com/): React components, screens and interaction patterns for AI products; design inspiration for Gaudi’s chat, agent and context examples, implemented independently with Gaudi primitives.
+- [AffectUI Agent Findings](https://www.affectui.com/components/agent-findings): interaction inspiration for the Agent findings example; implemented independently with Gaudi primitives.
+- The Agent fleet example takes interaction inspiration from [AffectUI Agent Fleet](https://www.affectui.com/components/agent-fleet); its implementation composes Gaudi primitives and original local demo data.
+- The Agent graph example takes interaction inspiration from [AffectUI Agent Graph](https://www.affectui.com/components/agent-graph); it uses Gaudi Flow and original fictional call data.
+- The Agent handoff relay example takes interaction inspiration from [AffectUI Agent Handoff](https://www.affectui.com/components/agent-handoff); it independently composes Gaudi primitives with fictional context transfers.
+- The Agent queue example takes interaction inspiration from [AffectUI Agent Queue](https://www.affectui.com/components/agent-queue); its worker simulation and chart compose Gaudi primitives with original fictional jobs.
+- The Agent steering example takes interaction inspiration from [AffectUI Agent Steering](https://www.affectui.com/components/agent-steering); it composes Gaudi’s plan, prompt queue and input primitives with original local run state.
+- The source-linked answer example takes interaction inspiration from [AffectUI Cited Answer](https://www.affectui.com/components/cited-answer), implemented with Gaudi primitives and original illustrative content.
+- The conflict radar example takes interaction inspiration from [AffectUI Conflict Radar](https://www.affectui.com/components/conflict-radar), composed with Gaudi primitives and original fictional edit snapshots.
+- The context map example takes interaction inspiration from [AffectUI Context Map](https://www.affectui.com/components/context-map), using Gaudi’s TreemapChart with original illustrative token snapshots.
+- The context window example takes interaction inspiration from [AffectUI Context Window](https://www.affectui.com/components/context-window), composing Gaudi’s context meter and composer with original illustrative session data.
 
 **Motion and effects**
 

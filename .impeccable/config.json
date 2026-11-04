@@ -20,6 +20,15 @@
         ],
         "createdAt": "2026-10-14T09:14:03.101Z",
         "reason": "Agent review: the only match is the existing semantic blockquote border at line 186, unchanged by the responsive audit. It identifies quoted prose using Gaudi tokens rather than decorating a card; preserve the incumbent quotation styling."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "tests/components/chat/ChatMessageList/ChatMessageList.contract.test.js"
+        ],
+        "createdAt": "2026-11-03T11:38:39.114Z",
+        "reason": "Codex: the flagged line is a regular-expression assertion verifying an actual local image src, not rendered image markup."
       }
     ]
   }

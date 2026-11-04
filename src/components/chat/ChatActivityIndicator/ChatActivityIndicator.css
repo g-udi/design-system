@@ -15,6 +15,7 @@
   .ds-part-activity-indicator[data-state='error'] { --ds-activity-color: var(--ds-color-danger); }
 
   .ds-part-activity-indicator-mark {
+    flex-shrink: 0;
     display: inline-flex;
     height: 1rem;
     align-items: center;
@@ -48,6 +49,30 @@
   .ds-part-activity-indicator-dot:nth-child(2) { animation-delay: 0.16s !important; }
   .ds-part-activity-indicator-dot:nth-child(3) { animation-delay: 0.32s !important; }
 
+  .ds-part-activity-indicator[data-variant='compact'] {
+    --ds-activity-color: currentColor;
+    max-width: 100%;
+    min-width: 0;
+    padding: calc(var(--ds-space-scale, 1) * 5px) calc(var(--ds-space-scale, 1) * 8px);
+    border: 1px solid var(--ds-color-border);
+    border-radius: var(--ds-radius);
+    background: var(--ds-color-surface);
+    color: var(--ds-color-text-muted);
+    vertical-align: middle;
+  }
+  .ds-part-activity-indicator[data-variant='compact'] .ds-part-activity-indicator-label {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .ds-part-activity-indicator-phase {
+    display: inline-block;
+    animation: ds-activity-phase-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes ds-activity-phase-in {
+    from { opacity: 0.6; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /*
    * Badge: one coloured dot ringed by the surface, for the corner of a mark or avatar. The host sets
    * --ds-activity-badge-size so the dot stays in proportion; colour carries the state and the label is
@@ -72,6 +97,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .ds-part-activity-indicator-phase,
+    .ds-part-activity-indicator[data-variant='compact'] .ds-loader[data-slot] {
+      animation: none !important;
+    }
     /* A calm, slow fade keeps "still working" readable without movement. */
     .ds-part-activity-indicator .ds-part-activity-indicator-dot,
     .ds-part-activity-indicator[data-variant='badge'] .ds-part-activity-indicator-mark {

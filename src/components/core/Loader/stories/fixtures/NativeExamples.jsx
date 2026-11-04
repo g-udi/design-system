@@ -1,5 +1,5 @@
 import Button from '@gaudi/design-system/core/Button';
-import Loader from '@gaudi/design-system/core/Loader';
+import Loader, { loaderVariants } from '@gaudi/design-system/core/Loader';
 
 const saving = 'Saving draft';
 // A publish queue: the running task follows the controls; a queued check and a busy button show smaller, quieter loaders.
@@ -32,9 +32,8 @@ export function PlaygroundDemo({ size = 'lg', label = 'Publishing article', vari
 }
 
 export function LoaderVariants() {
-  const variants = ['arc', 'dual-arc', 'bar', 'beat', 'bounce', 'circle-dots', 'clip', 'puff', 'three-dots', 'triangle', 'two-dots'];
   return <ul className='mx-auto grid w-full max-w-4xl list-none grid-cols-2 gap-x-6 gap-y-8 p-0 sm:grid-cols-4 lg:grid-cols-6'>
-    {variants.map(variant => <li key={variant} className='flex min-w-0 flex-col items-center gap-2'>
+    {loaderVariants.map(variant => <li key={variant} className='flex min-w-0 flex-col items-center gap-2'>
       <div className='grid h-14 place-items-center'><Loader variant={variant} size='lg' label={`${variant} loading example`} /></div>
       <span className='text-center text-xs text-text-muted'>{variant.replaceAll('-', ' ')}</span>
     </li>)}

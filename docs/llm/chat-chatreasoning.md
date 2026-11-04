@@ -64,10 +64,13 @@ The trail and each detailed step are disclosure buttons with aria-expanded; step
 
 ## Examples
 
-- Playground (Storybook `chat-chatreasoning--playground`)
-- Thinking, then the answer (Storybook `chat-chatreasoning--thinking-then-answer`)
-- Agent run (Storybook `chat-chatreasoning--agent-run`)
-- AI message with steps (Storybook `chat-chatreasoning--ai-message-with-steps`)
+Curated patterns:
+
+- Agent run — registry item `@gaudi/reasoning-agent-run` (uses `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageCheckpoint`, `ChatMessageContent`, `ChatMessageData`, `ChatMessageHeader`, `ChatMessageMarkdown`, `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReasoningResults`, `ChatMessageReasoningStep`, `ChatMessageToolApproval`)
+- AI message with steps — registry item `@gaudi/reasoning-ai-message-with-steps` (uses `ChatAgentMark`, `ChatBubble`, `ChatBubbleContent`, `ChatMessage`, `ChatMessageContent`, `ChatMessageHeader`, `ChatMessageMarkdown`, `ChatMessageReasoning`, `ChatMessageReasoningImage`, `ChatMessageReasoningResults`, `ChatMessageReasoningStep`)
+- Mini thinking — registry item `@gaudi/reasoning-mini-thinking` (uses `Button`, `ChatActivityIndicator`, `ChatMessageReasoning`)
+- Playground — registry item `@gaudi/reasoning-playground` (uses `ChatMessageReasoning`, `ChatMessageReasoningStep`)
+- Thinking, then the answer — registry item `@gaudi/reasoning-thinking-then-answer` (uses `Button`, `ChatMessageReasoning`)
 
 ## Related
 
@@ -115,3 +118,5 @@ import { ChatMessageReasoning, ChatMessageReasoningImage, ChatMessageReasoningRe
 ### Accessibility
 
 The trail and every detailed step are disclosure buttons with `aria-expanded`. A step's status is spoken after its label ("Searched the web, Done"), never left to colour or the icon. The shimmer is real text and holds still for readers who reduce motion. Give thumbnails an `alt` that says what the model looked at.
+
+For a short wait before the first answer, compose `ChatActivityIndicator` with `variant="compact"`. The Mini thinking example shows a small ray spinner and changing labels, then exposes the detailed reasoning after the prepared reply. The compact status belongs to ChatActivityIndicator; ChatReasoning continues to own the expandable explanation.

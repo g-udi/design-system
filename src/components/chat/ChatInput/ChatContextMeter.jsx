@@ -55,7 +55,7 @@ function ChatContextMeter({
           className={cn('ds-part-chat-context-meter gap-1.5 tabular-nums', TEXT_TONES[tone], className)}
         >
           <ProgressRing value={ratio * 100} size='xs' tone={tone} label={labels.trigger} aria-hidden='true' role={undefined} />
-          {showValue ? <span className='hidden sm:inline'>{percentText}</span> : null}
+          {showValue ? <bdi className='hidden sm:inline'>{percentText}</bdi> : null}
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -68,10 +68,10 @@ function ChatContextMeter({
         <div className='grid gap-2'>
           <div className='flex items-baseline justify-between gap-3'>
             <span className='font-medium'>{labels.title}</span>
-            <span className={cn('tabular-nums', TEXT_TONES[tone] === 'text-text-muted' ? 'text-text' : TEXT_TONES[tone])}>{percentText}</span>
+            <span className={cn('tabular-nums', TEXT_TONES[tone] === 'text-text-muted' ? 'text-text' : TEXT_TONES[tone])}><bdi>{percentText}</bdi></span>
           </div>
           <Progress value={ratio * 100} aria-label={labels.title} aria-valuetext={`${percentText}, ${summary}`} className={cn('h-1.5', BAR_TONES[tone])} />
-          <span className='text-text-muted text-xs tabular-nums'>{summary}{modelLabel != null ? <> · {modelLabel}</> : null}</span>
+          <span className='text-text-muted text-xs tabular-nums'><bdi>{summary}</bdi>{modelLabel != null ? <> · <bdi>{modelLabel}</bdi></> : null}</span>
           {message != null ? <p className={cn('text-xs', TEXT_TONES[tone])}>{message}</p> : null}
         </div>
         {breakdown.length ? (

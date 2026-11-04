@@ -1,7 +1,8 @@
 // Server-safe chart tick and tone tokens.
 
 /** Supporting-text size and muted ink for axis ticks. */
-export const chartAxisTick = { 'fill': 'var(--ds-color-text-muted)', 'fontSize': 12 };
+// SVG anchors follow physical chart coordinates, even inside an RTL interface.
+export const chartAxisTick = { 'fill': 'var(--ds-color-text-muted)', 'fontSize': 12, 'direction': 'ltr' };
 
 /** Reference, annotation and status tones mapped to chart tokens. */
 export const chartTones = {

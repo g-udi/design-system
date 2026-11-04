@@ -77,6 +77,10 @@ Storybook’s **Assistant composer** example provides independent left/right con
 
 The **Mixed attachments: compact media pills** story shows image, PDF, audio, video and link attachments, removal, reset and submission. `onSubmit` receives the same attachment objects in its second argument; `onRemoveAttachment(id)` keeps the tray controlled by the host.
 
+### Queued messages
+
+`ChatPromptQueue` adapts to its own container width. Below 26rem, row actions sit beneath the message; at 26rem and above, they sit alongside it. Message text wraps within the available space. Edit, send-now and remove controls appear only when their callbacks are supplied; a read-only queue has no empty action group.
+
 ## API
 
 | Prop / part | Contract |
@@ -95,7 +99,7 @@ The **Mixed attachments: compact media pills** story shows image, PDF, audio, vi
 
 ### Context data ownership
 
-The meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message.
+The meter only derives its percentage from `usedTokens` and `maxTokens`. It does not combine protocol token categories, calculate prices, choose warning thresholds or predict how a host handles a full context window. Supply formatted breakdown values and cost text unchanged, including zero. The host sets tone and any explanatory message. The meter isolates its formatted percentage, token summary and model label so mixed-direction text retains its order in RTL interfaces.
 
 The previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` props and exported `estimateChatCost`, `chatModels` and `chatModelProviders` are removed. Move model/provider metadata and any billing calculation into the application. The Assistant composer story retains an illustrative catalogue and billing calculation in `stories/fixtures`.
 
@@ -104,3 +108,7 @@ The previous `usage`, `model`, `pricing`, `currency`, `warnAt` and `dangerAt` pr
 The prompt is a labelled combobox; suggestions are a listbox with the active option announced. Icon buttons (attach, send, stop, add to queue) have names, and every queue action names the message it acts on.
 
 The model trigger names the current model. Searchable pickers and pickers with footer content use a dialog; searchable ones include a labelled search combobox. Without search, focus starts in the model list: arrow keys move and Enter selects, while Tab reaches the footer controls. Escape closes and returns focus to the trigger. Simple pickers without search or a footer retain menu keyboard behavior; options are grouped under provider headings, the current model is `aria-checked`, and capability icons and the cost scale have text alternatives. The options trigger lists the options that are on, and each switch is named. The context meter is a button named with the share used and the token counts; it opens the breakdown on press (not hover), so it works with touch and the keyboard, and the warning text appears in the breakdown as well as in colour. The `voice` slot only swaps while the prompt is empty, so focus stays in the prompt while typing.
+
+## Context window example
+
+This panel now belongs to [ChatContextWindow](../ChatContextWindow/README.md), with a public import and its own examples. ChatInput keeps its existing API.
