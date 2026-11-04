@@ -37,6 +37,8 @@ import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';
 | `article` | Medium, Substack, dev.to, or any payload with an author or published time | Author, date, reading time. |
 | `website` | Everything else | Title, description, image, site name. |
 
+While metadata loads, the inline variant renders the plain link straight away (`data-state="loading"`, `aria-busy`) rather than a skeleton, so server output, feed readers, crawlers and screen readers always get the link text and href. `card` and `compact` keep their skeleton for layout and add a visually hidden link.
+
 Titles drop noisy suffixes (` - MDN Web Docs`, ` - YouTube`, ` · GitHub`…) and cap at 60 characters. Failures with status 400, 404 or 410 are `unavailable` and render a red link named "(link may be unavailable)"; other failures and missing endpoints render an ordinary link. Gaudi derives no images of its own; see [Images](#images).
 
 ## Data

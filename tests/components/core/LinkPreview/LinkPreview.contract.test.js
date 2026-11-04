@@ -142,6 +142,15 @@ test('every variant renders on the server from static data, and failures stay pl
   const unconfigured = renderToStaticMarkup(createElement(Component, { 'title': 'Docs', 'url': 'https://example.com' }));
   assert.match(unconfigured, /data-slot="link-preview-fallback"/);
   assert.doesNotMatch(unconfigured, /link-preview-skeleton|aria-busy/);
+  // Endpoint configured, nothing fetched yet (the server render): the inline link is still a link.
+  const loading = renderToStaticMarkup(createElement(Component, { 'endpoint': '/api/preview', 'title': 'Docs', 'url': 'https://example.com' }));
+  assert.match(loading, /href="https:\/\/example.com"/);
+  assert.match(loading, />Docs</);
+  assert.match(loading, /aria-busy="true"/);
+  assert.doesNotMatch(loading, /link-preview-skeleton/);
+  const loadingCard = renderToStaticMarkup(createElement(Component, { 'endpoint': '/api/preview', 'title': 'Docs', 'url': 'https://example.com', 'variant': 'card' }));
+  assert.match(loadingCard, /link-preview-skeleton/);
+  assert.match(loadingCard, /sr-only[^>]*href="https:\/\/example.com"|href="https:\/\/example.com"[^>]*sr-only/);
 });
 
 test('the MDX Preview stays a drop-in adapter over the core owner', () => {
