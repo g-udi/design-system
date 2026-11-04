@@ -9,6 +9,7 @@ export const codeBlockLanguages = {
   go: () => import('shiki/langs/go.mjs'),
   graphql: () => import('shiki/langs/graphql.mjs'),
   html: () => import('shiki/langs/html.mjs'),
+  ini: () => import('shiki/langs/ini.mjs'),
   java: () => import('shiki/langs/java.mjs'),
   javascript: () => import('shiki/langs/javascript.mjs'),
   json: () => import('shiki/langs/json.mjs'),
@@ -21,12 +22,16 @@ export const codeBlockLanguages = {
   rust: () => import('shiki/langs/rust.mjs'),
   scss: () => import('shiki/langs/scss.mjs'),
   shell: () => import('shiki/langs/shellscript.mjs'),
+  sparql: () => import('shiki/langs/sparql.mjs'),
   sql: () => import('shiki/langs/sql.mjs'),
   swift: () => import('shiki/langs/swift.mjs'),
   toml: () => import('shiki/langs/toml.mjs'),
   tsx: () => import('shiki/langs/tsx.mjs'),
+  turtle: () => import('shiki/langs/turtle.mjs'),
   typescript: () => import('shiki/langs/typescript.mjs'),
+  vim: () => import('shiki/langs/vim.mjs'),
   vue: () => import('shiki/langs/vue.mjs'),
+  xml: () => import('shiki/langs/xml.mjs'),
   yaml: () => import('shiki/langs/yaml.mjs')
 };
 const LANGUAGE_ALIASES = {
@@ -39,12 +44,18 @@ const LANGUAGE_ALIASES = {
   jsonc: 'json',
   md: 'markdown',
   mdx: 'markdown',
+  n3: 'turtle',
   py: 'python',
   rb: 'ruby',
+  rq: 'sparql',
   rs: 'rust',
   sh: 'shell',
   shellscript: 'shell',
+  // TriG is Turtle plus graph blocks; shiki has no TriG grammar and Turtle's tokenises it cleanly.
+  trig: 'turtle',
   ts: 'typescript',
+  ttl: 'turtle',
+  viml: 'vim',
   yml: 'yaml',
   zsh: 'shell'
 };

@@ -38,13 +38,19 @@ const platformIcons = {
   'video': { 'className': 'text-danger', 'name': 'Youtube' }
 };
 
-/** The plain link every variant falls back to: no enrichment, still reachable. */
-function LinkPreviewFallback({ preview, url, label, className }) {
+/**
+ * The plain link every variant falls back to: no enrichment, still reachable.
+ * With `busy` it is also the loading state of the inline variant, so the server
+ * render (and anything that never runs the fetch: crawlers, feed readers,
+ * reader mode, screen readers before hydration) always contains the link text
+ * and href instead of an empty skeleton.
+ */
+function LinkPreviewFallback({ preview, url, label, className, busy = false }) {
   const unavailable = Boolean(preview?.unavailable);
   const text = label || url;
 
   return (
-    <span data-slot='link-preview-fallback' className={ cn(inlineClass, className) }>
+    <span data-slot='link-preview-fallback' data-state={ busy ? 'loading' : undefined } aria-busy={ busy ? 'true' : undefined } className={ cn(inlineClass, className) }>
       <Icon
         name={ unavailable ? 'LinkSlashIcon' : preview?.icon === 'Medium' ? 'Medium' : 'LinkIcon' }
         size='sm'
@@ -117,7 +123,18 @@ const LinkPreview = memo(function LinkPreview({
 
   if (!url) return <span className='text-text-muted'>No URL provided</span>;
 
-  if (loading) return <LinkPreviewSkeleton variant={ variant } orientation={ orientation } className={ className } />;
+  // Loading: inline links stay readable, reachable links; card and compact keep
+  // their skeleton for layout but still carry a visually hidden link.
+  if (loading) {
+    if (variant === 'inline') return <LinkPreviewFallback url={ url } label={ title || url } className={ className } busy />;
+
+    return (
+      <>
+        <LinkPreviewSkeleton variant={ variant } orientation={ orientation } className={ className } />
+        <Link href={ url } tone='accent' className='sr-only'>{title || url}</Link>
+      </>
+    );
+  }
 
   if (fallback && (error || data?.error || data?.status === 404)) return <>{fallback}</>;
 

@@ -53,10 +53,13 @@ const ArticleContentLayout = ({
   const standaloneAside = !showAsideRail && showAside ? aside : null;
 
   return (
-    <div className={ cn('pb-8', className) }>
+    <div className={ className }>
       <div
+        // No divide-y here: the children are visually reordered below lg, so Tailwind's
+        // "border on every child but the last" would land under the prose instead of
+        // between the rail and the prose. The rail draws its own bottom border.
         className={ cn(
-          'flex flex-col divide-y divide-border lg:grid lg:gap-x-6 lg:divide-y-0', reserveAsideRail ? 'lg:grid-cols-9' : 'lg:grid-cols-1'
+          'flex flex-col lg:grid lg:gap-x-6', reserveAsideRail ? 'lg:grid-cols-9' : 'lg:grid-cols-1'
         ) }
         style={{ 'gridTemplateRows': 'auto 1fr' }}
       >
