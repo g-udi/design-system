@@ -7,6 +7,8 @@ description: Build React UI with the Gaudi design system (@gaudi/design-system).
 
 Gaudi (`@gaudi/design-system`) is a React 19 design system shipped as JSX source with Tailwind CSS v4. It owns presentation, tokens, semantics, keyboard/focus behaviour and local interaction state. Your application owns data, routing, permissions, persistence, network calls and translations.
 
+Use local Gaudi components and project examples for ordinary component requests. Consult a publisher skill, catalog or external MCP only when the user asks for that publisher’s guidance or explicitly requests external inspiration. The local component guide is available in `references/component-design.md` or through `get_agent_skill({topic: "component-design"})`.
+
 ## Workflow: Find → Read → Import → Compose → Validate
 
 1. **Find the owner.** Search before writing markup. With the MCP server use `search` (or `list_components`, `list_blocks`). Without it, read `node_modules/@gaudi/design-system/llms.txt` (the index) or `references/catalogue.md`. Prefer an existing block (`list_blocks`) as the starting point for whole pages.

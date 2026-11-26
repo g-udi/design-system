@@ -317,6 +317,8 @@ pnpm test:ai             # search/validate unit tests, skill installer, MCP stdi
 
 ### Agent skill
 
+Ask your agent to design a component. It starts with Gaudi’s components and examples. Open choices use those local examples and primitives. Ask the agent for external inspiration or name a publisher you want it to consult to look up an outside example. [Component design skill](https://design.gaudi.site/docs/ai/skill) · [Credits and bookmarks](https://design.gaudi.site/docs/credits#useful-resources)
+
 ```sh
 npx @gaudi/design-system skills install --agent claude   # default
 npx @gaudi/design-system skills install --agent all --dir ../my-app

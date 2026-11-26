@@ -41,6 +41,7 @@ test('skills install writes each agent location and is idempotent', () => {
     assert.deepEqual([...new Set(first.map((result) => result.file))].sort(), [
       '.claude/skills/gaudi-design-system/SKILL.md',
       '.claude/skills/gaudi-design-system/references/catalogue.md',
+      '.claude/skills/gaudi-design-system/references/component-design.md',
       '.cursor/rules/gaudi-design-system.mdc',
       '.github/instructions/gaudi-design-system.instructions.md',
       '.windsurf/rules/gaudi-design-system.md',
@@ -50,6 +51,15 @@ test('skills install writes each agent location and is idempotent', () => {
     assert.ok(installSkill({ agent: 'all', dir: project }).every((result) => result.status === 'unchanged'));
     const agents = readFileSync(path.join(project, 'AGENTS.md'), 'utf8');
     assert.equal(agents.match(/gaudi-design-system:start/g).length, 1);
+    const discovery = readFileSync(path.join(project, '.claude/skills/gaudi-design-system/references/component-design.md'), 'utf8').trim();
+    assert.match(discovery, /only when the user asks for that publisher’s guidance or explicitly requests external inspiration/);
+    assert.doesNotMatch(discovery, /automatically consult/);
+    assert.match(discovery, /If so, use only installed component APIs, local files and examples/);
+    assert.match(discovery, /For a missing tool or empty search, continue with the publisher’s component page/);
+    const inlined = discovery.replace(/^# /, '## Reference: ');
+    for (const file of ['AGENTS.md', '.cursor/rules/gaudi-design-system.mdc', '.windsurf/rules/gaudi-design-system.md', '.github/instructions/gaudi-design-system.instructions.md']) {
+      assert.ok(readFileSync(path.join(project, file), 'utf8').includes(inlined), `Missing component design workflow in ${file}`);
+    }
     assert.throws(() => installSkill({ agent: 'emacs', dir: project }), /Unknown agent/);
   } finally {
     rmSync(project, { recursive: true, force: true });

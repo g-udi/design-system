@@ -21,7 +21,13 @@ test('the stdio MCP server lists its tools and answers calls', async () => {
     assert.match(await text('get_install_command', { name: 'screens-account-settings' }), /shadcn@latest add @gaudi\/screens-account-settings/);
     assert.match(await text('get_install_command', { name: 'Button' }), /import Button from '@gaudi\/design-system\/core\/Button'/);
     assert.equal(JSON.parse(await text('validate_usage', { code: "import { Nope } from '@gaudi/design-system';" })).valid, false);
-    assert.match(await text('get_agent_skill'), /name: gaudi-design-system/);
+    const overview = await text('get_agent_skill');
+    assert.match(overview, /name: gaudi-design-system/);
+    assert.equal(await text('get_agent_skill', { topic: 'overview' }), overview);
+    const discovery = await text('get_agent_skill', { topic: 'component-design' });
+    assert.match(discovery, /only when the user asks for that publisher’s guidance/);
+    const build = await client.getPrompt({ name: 'build', arguments: { task: 'Design a sortable list' } });
+    assert.match(build.messages[0].content.text, /Only when the user requests a publisher lookup or external inspiration, call get_agent_skill/);
     assert.equal(JSON.parse(await text('get_tokens', { kind: 'spacing' })).scales.default, 1);
     assert.ok(JSON.parse(await text('list_themes')).themes.some((theme) => theme.id === 'gaudi'));
     assert.equal(JSON.parse(await text('get_theme', { id: 'folio' })).contrast.pass, true);

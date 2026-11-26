@@ -50,5 +50,8 @@ export function readBlockItem(metadata, name) {
   return existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : null;
 }
 
-export const readSkill = (root = packageRoot) => readFileSync(path.join(root, 'skills/gaudi-design-system/SKILL.md'), 'utf8');
+export function readSkill(root = packageRoot, topic = 'overview') {
+  const file = topic === 'component-design' ? 'references/component-design.md' : 'SKILL.md';
+  return readFileSync(path.join(root, 'skills/gaudi-design-system', file), 'utf8');
+}
 export const packageManifest = () => read('package.json');
