@@ -131,3 +131,20 @@ test('The root supports disabling all items and forwarding consumer attributes',
   assert.match(html, /aria-label="Account settings"/);
   assert.match(html, /data-variant="framed"/);
 });
+
+test('built-in indicators retain their icon, sizing and decorative semantics', () => {
+  for (const [indicator, glyphs] of [
+    ['chevron', ['chevron-down']],
+    ['arrow', ['chevron-right']],
+    ['plus-minus', ['plus', 'minus']]
+  ]) {
+    const html = renderToStaticMarkup(h(AccordionGroup, { items: [items[1]], indicator }));
+    const icons = html.match(/<svg[^>]*>/g) ?? [];
+    assert.equal(icons.length, glyphs.length);
+    for (const [index, glyph] of glyphs.entries()) {
+      assert.match(icons[index], new RegExp(`lucide-${glyph}\\b`));
+      assert.match(icons[index], /aria-hidden="true"/);
+      assert.match(icons[index], /size-4/);
+    }
+  }
+});

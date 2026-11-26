@@ -4,7 +4,7 @@
   "generatedBy": "pnpm ai:build",
   "registry": {
     "namespace": "@gaudi",
-    "url": "<base-url>/r/{name}.json",
+    "url": "https://design.gaudi.site/r/{name}.json",
     "local": "public/r/{name}.json"
   },
   "blocks": [
@@ -20212,6 +20212,7 @@
         "Sortable",
         "SortableItem",
         "SortableItemHandle",
+        "SortableItemPosition",
         "cn"
       ],
       "dependencies": [
@@ -20247,6 +20248,7 @@
         "Sortable",
         "SortableItem",
         "SortableItemHandle",
+        "SortableItemPosition",
         "ToastProvider",
         "toast"
       ],
@@ -20272,7 +20274,6 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Field",
-        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Sortable",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/Toast",
@@ -20280,12 +20281,12 @@
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
-        "Badge",
         "Label",
         "RegistryIcon",
         "Sortable",
         "SortableItem",
         "SortableItemHandle",
+        "SortableItemPosition",
         "SwitchRoot",
         "ToastProvider",
         "toast",
@@ -20330,6 +20331,7 @@
         "Sortable",
         "SortableItem",
         "SortableItemHandle",
+        "SortableItemPosition",
         "SwitchRoot",
         "ToastProvider",
         "toast"

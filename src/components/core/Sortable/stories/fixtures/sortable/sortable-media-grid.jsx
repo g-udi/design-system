@@ -11,13 +11,13 @@ import {
 import {
   Sortable,
   SortableItem,
-  SortableItemHandle
+  SortableItemHandle,
+  SortableItemPosition
 } from '@gaudi/design-system/core/Sortable';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
-// A media library on the grid strategy. The featured tile spans two cells, and
-// each handle appears on hover so the thumbnails stay clean.
+// The featured image spans two columns in the media library.
 const defaultImages = [
   { id: '1', src: '/static/images/art/0.svg', name: 'hero-banner.jpg', dimensions: '1920×1080', size: '2.4 MB', featured: true },
   { id: '2', src: '/static/images/art/1.svg', name: 'product-shot.png', dimensions: '800×600', size: '1.8 MB' },
@@ -35,7 +35,7 @@ export function Pattern() {
       <Frame spacing='xs'>
         <FrameHeader>
           <FrameTitle>Media library</FrameTitle>
-          <FrameDescription>Drag to set the display order</FrameDescription>
+          <FrameDescription>Drag a handle or choose a position to change the display order</FrameDescription>
         </FrameHeader>
         <FramePanel className='p-2!'>
           <Sortable
@@ -43,17 +43,17 @@ export function Pattern() {
             onValueChange={setImages}
             getItemValue={(item) => item.id}
             strategy='grid'
-            className='grid grid-cols-3 gap-2'
+            className='grid grid-cols-2 gap-2 sm:grid-cols-3'
           >
             {images.map((image) => (
               <SortableItem key={image.id} value={image.id} className={cn(image.featured && 'col-span-2 row-span-2')}>
-                <figure className='group relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>
+                <figure className='relative grid h-full content-start gap-1.5 rounded-lg border border-ui-border bg-ui-background p-1.5'>
                   <img
                     src={image.src}
                     alt={image.name}
                     className={cn('w-full rounded-md object-cover', image.featured ? 'h-44' : 'h-16')}
                   />
-                  <SortableItemHandle className='absolute top-2.5 end-2.5 rounded-md bg-ui-background/90 p-0.5 text-ui-muted-foreground opacity-0 transition-opacity group-hover:opacity-100 hover:text-ui-foreground focus-visible:opacity-100'>
+                  <SortableItemHandle aria-label={`Drag ${image.name}`} className='absolute top-2.5 end-2.5 bg-ui-background/95 text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon lucide='GripVerticalIcon' className='size-3.5' />
                   </SortableItemHandle>
                   <figcaption className='min-w-0 px-0.5'>
@@ -61,8 +61,9 @@ export function Pattern() {
                       <span className='truncate'>{image.name}</span>
                       {image.featured && <Badge variant='warning-light' size='xs'>Featured</Badge>}
                     </p>
-                    <p className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} · {image.size}</p>
+                    <p dir='ltr' className='truncate text-xs text-ui-muted-foreground'>{image.dimensions} · {image.size}</p>
                   </figcaption>
+                  <SortableItemPosition aria-label={`Position of ${image.name}`} />
                 </figure>
               </SortableItem>
             ))}

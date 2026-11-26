@@ -121,9 +121,15 @@ export const TeamInvite = {
     await expect(canvas.queryByText('Publish and unpublish')).not.toBeInTheDocument();
   }
 };
+const apiKeyPattern = pattern('api-key', 'Create a scoped API key: name checked against existing keys, environment, read or write access per resource, expiry and an optional IP allowlist. The new secret is shown once with reveal, copy and ready-made environment snippets per stack; existing keys can be rotated or revoked.');
+
 export const ApiKey = {
   name: 'Developer · Create an API key',
-  ...pattern('api-key', 'Create a scoped API key: name checked against existing keys, environment, read or write access per resource, expiry and an optional IP allowlist. The new secret is shown once with reveal, copy and ready-made environment snippets per stack; existing keys can be rotated or revoked.'),
+  ...apiKeyPattern,
+  parameters: {
+    ...apiKeyPattern.parameters,
+    visualAudit: { wideElements: { 'code.truncate': 'The secret field fills the space next to its Reveal and Copy actions for variable-length keys.' } }
+  },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.type(canvas.getByLabelText('Key name'), 'Website build');

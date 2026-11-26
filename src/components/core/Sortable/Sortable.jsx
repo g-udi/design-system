@@ -44,7 +44,8 @@ const SortableItemContext = createContext({
   isDragging: false,
   disabled: false
 });
-const IsOverlayContext = createContext(false);
+const OverlayPositionContext = createContext(null);
+const MoveContext = createContext(null);
 const STRATEGY_MAP = {
   horizontal: horizontalListSortingStrategy,
   grid: rectSortingStrategy,
@@ -81,35 +82,32 @@ function Sortable({
     },
     [onDragStart]
   );
+  const move = useCallback(
+    (activeIndex, overIndex, event) => {
+      if (activeIndex < 0 || overIndex < 0 || overIndex >= value.length || activeIndex === overIndex) return;
+      if (onMove) {
+        onMove({ event, activeIndex, overIndex });
+        return;
+      }
+      const next = arrayMove(value, activeIndex, overIndex);
+      onValueChange(next);
+      onValueCommit?.(next, { event, activeIndex, overIndex, previousValue: value });
+    },
+    [value, onValueChange, onValueCommit, onMove]
+  );
   const handleDragEnd = useCallback(
     (event) => {
-      const { active, over } = event;
       setActiveId(null);
       onDragEnd?.(event);
-      if (!over) return;
-      const activeIndex = value.findIndex(
-        (item) => getItemValue(item) === active.id
-      );
-      const overIndex = value.findIndex(
-        (item) => getItemValue(item) === over.id
-      );
-      if (activeIndex === -1 || overIndex === -1) return;
-      if (activeIndex !== overIndex) {
-        if (onMove) {
-          onMove({ event, activeIndex, overIndex });
-        } else {
-          const newValue = arrayMove(value, activeIndex, overIndex);
-          onValueChange(newValue);
-          onValueCommit?.(newValue, {
-            event,
-            activeIndex,
-            overIndex,
-            previousValue: value
-          });
-        }
+      if (event.over) {
+        move(
+          value.findIndex((item) => getItemValue(item) === event.active.id),
+          value.findIndex((item) => getItemValue(item) === event.over.id),
+          event
+        );
       }
     },
-    [value, getItemValue, onValueChange, onMove, onDragEnd, onValueCommit]
+    [value, getItemValue, move, onDragEnd]
   );
   const handleDragCancel = useCallback(
     (event) => {
@@ -174,14 +172,16 @@ function Sortable({
         items={itemIds}
         strategy={STRATEGY_MAP[strategy] ?? verticalListSortingStrategy}
       >
-        <Comp
-          data-slot='sortable'
-          data-dragging={activeId !== null}
-          className={cn(activeId !== null && 'cursor-grabbing!', className)}
-          {...props}
-        >
-          {children}
-        </Comp>
+        <MoveContext.Provider value={move}>
+          <Comp
+            data-slot='sortable'
+            data-dragging={activeId !== null}
+            className={cn(activeId !== null && 'cursor-grabbing!', className)}
+            {...props}
+          >
+            {children}
+          </Comp>
+        </MoveContext.Provider>
       </SortableContext>
       {mounted &&
         createPortal(
@@ -191,9 +191,9 @@ function Sortable({
             {...overlayProps}
             className={cn('z-50', activeId !== null && 'cursor-grabbing', overlayClassName)}
           >
-            <IsOverlayContext.Provider value={true}>
+            <OverlayPositionContext.Provider value={{ id: activeId, index: itemIds.indexOf(activeId), count: itemIds.length }}>
               {overlayContent}
-            </IsOverlayContext.Provider>
+            </OverlayPositionContext.Provider>
           </DragOverlay>,
           document.body
         )}
@@ -209,9 +209,11 @@ function SortableItem({
   children,
   ...props
 }) {
-  const isOverlay = useContext(IsOverlayContext);
+  const overlay = useContext(OverlayPositionContext);
   const {
     setNodeRef,
+    index,
+    items,
     transform,
     transition,
     attributes,
@@ -219,14 +221,18 @@ function SortableItem({
     isDragging: isSortableDragging
   } = useSortable({
     id: value,
-    disabled: disabled || isOverlay,
+    disabled: disabled || Boolean(overlay),
     animateLayoutChanges
   });
-  if (isOverlay) {
+  if (overlay) {
     const Comp2 = asChild ? Slot.Root : 'div';
     return (
       <SortableItemContext.Provider
-        value={{ listeners: void 0, isDragging: true, disabled: false }}
+        value={{
+          isDragging: true,
+          index: overlay.id === value ? overlay.index : index,
+          count: overlay.id === value ? overlay.count : items.length
+        }}
       >
         <Comp2
           data-slot='sortable-item'
@@ -253,6 +259,8 @@ function SortableItem({
       value={{
         listeners,
         attributes,
+        index,
+        count: items.length,
         isDragging: isSortableDragging,
         disabled
       }}
@@ -294,6 +302,7 @@ function SortableItemHandle({
       data-disabled={disabled}
       {...listeners}
       className={cn(
+        'inline-flex min-h-8 min-w-8 shrink-0 items-center justify-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent pointer-coarse:min-h-11 pointer-coarse:min-w-11',
         disabled
           ? 'cursor-not-allowed opacity-50'
           : cursor && (isDragging ? 'cursor-grabbing!' : 'cursor-grab!'),
@@ -306,6 +315,39 @@ function SortableItemHandle({
   );
 }
 /**
+ * A native, single-pointer alternative to dragging. The current position stays
+ * visible when the picker closes, including when a pending save reverts a move.
+ */
+function SortableItemPosition({ className, onChange, ...props }) {
+  const move = useContext(MoveContext);
+  const item = useContext(SortableItemContext);
+  const lifted = useContext(OverlayPositionContext);
+  const { index, count } = item.index == null && lifted ? lifted : item;
+  if (index == null) return null;
+  const unavailable = Boolean(lifted) || !move || item.disabled || count < 2;
+  return (
+    <select
+      aria-label='Change position'
+      {...props}
+      aria-disabled={unavailable || undefined}
+      disabled={Boolean(lifted) || props.disabled}
+      data-slot='sortable-item-position'
+      className={cn('min-h-8 w-12 max-w-full shrink-0 rounded-md border border-ui-border bg-ui-background px-1 text-xs text-ui-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent pointer-coarse:min-h-11', className)}
+      value=''
+      onChange={(event) => {
+        onChange?.(event);
+        if (!event.defaultPrevented && !unavailable && event.target.value) {
+          move(index, index + Number(event.target.value), event);
+        }
+      }}
+    >
+      <option value=''>{index + 1}</option>
+      <option value='-1' disabled={unavailable || index === 0}>Move earlier</option>
+      <option value='1' disabled={unavailable || index === count - 1}>Move later</option>
+    </select>
+  );
+}
+/**
  * Customises the drag overlay that Sortable always renders. Place it as a direct child of Sortable;
  * `children` is a node or `({ value }) => node` for the active item, and other props go to DragOverlay.
  * Without it, the overlay shows a copy of the active SortableItem.
@@ -313,4 +355,4 @@ function SortableItemHandle({
 function SortableOverlay() {
   return null;
 }
-export { Sortable, SortableItem, SortableItemHandle, SortableOverlay };
+export { Sortable, SortableItem, SortableItemHandle, SortableItemPosition, SortableOverlay };

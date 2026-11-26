@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Sortable, SortableItem, SortableItemHandle, SortableOverlay } from '@gaudi/design-system/core/Sortable';
+import { Sortable, SortableItem, SortableItemHandle, SortableItemPosition, SortableOverlay } from '@gaudi/design-system/core/Sortable';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import Avatar from '@gaudi/design-system/core/Avatar';
@@ -26,13 +26,13 @@ const ids = tasks.map((task) => task.id);
 const priorities = { High: 'destructive-light', Medium: 'warning-light', Low: 'info-light', Pinned: 'invert-light' };
 
 const layouts = {
-  vertical: 'grid gap-2',
+  vertical: 'grid grid-cols-1 gap-2',
   horizontal: 'flex gap-2 overflow-x-auto pb-1',
   grid: 'grid grid-cols-2 gap-2 sm:grid-cols-3'
 };
 
 const items = {
-  vertical: 'flex items-center gap-3 rounded-lg border border-ui-border bg-ui-background px-3 py-2 text-sm',
+  vertical: 'grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-x-2 gap-y-1 rounded-lg border border-ui-border bg-ui-background px-3 py-2 text-sm sm:flex sm:gap-3',
   horizontal: 'grid w-40 shrink-0 gap-2 rounded-lg border border-ui-border bg-ui-background p-3 text-sm',
   grid: 'grid gap-2 rounded-lg border border-ui-border bg-ui-background p-3 text-sm'
 };
@@ -43,6 +43,7 @@ function TaskCard({ task, strategy }) {
       <RegistryIcon lucide={task.pinned ? 'LockIcon' : 'GripVerticalIcon'} aria-hidden='true' className='size-4' />
     </SortableItemHandle>
   );
+  const position = <SortableItemPosition aria-label={`Position of ${task.title}`} />;
   const badge = <Badge variant={priorities[task.priority]} size='sm'>{task.priority}</Badge>;
   const title = (
     <span className='flex min-w-0 items-center gap-2 font-medium'>
@@ -61,8 +62,8 @@ function TaskCard({ task, strategy }) {
       <>
         {handle}
         <span className='grid min-w-0 flex-1 gap-0.5'>{title}</span>
-        {badge}
-        {meta}
+        {position}
+        <span className='col-span-2 col-start-2 flex flex-wrap items-center gap-2 sm:contents'>{badge}{meta}</span>
       </>
     );
   }
@@ -70,7 +71,7 @@ function TaskCard({ task, strategy }) {
     <>
       <span className='flex items-center justify-between'>{handle}{badge}</span>
       {title}
-      {meta}
+      <span className='flex flex-wrap items-center justify-between gap-1'>{meta}{position}</span>
     </>
   );
 }

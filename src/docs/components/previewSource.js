@@ -22,3 +22,36 @@ export const playgroundSource = (component, options) => ({
   language: 'jsx',
   transform: (_source, { args }) => previewSource(component, args, options)
 });
+
+/** Prefer sources defined by the story or its meta, including sources supplied by a factory. */
+export function setFallbackSource(story, meta, example) {
+  const authored = [story, meta].some(entry => {
+    const source = entry.parameters?.docs?.source;
+    return source?.code !== undefined || Boolean(source?.transform);
+  });
+  if (authored) return;
+  const editedProps = /(,?\s*)\.\.\.__gaudiEditedProps\b/;
+  const source = { language: 'jsx', type: 'code' };
+  if (editedProps.test(example)) {
+    source.transform = (_original, { args = {}, initialArgs = {} }) => {
+      const changes = [];
+      for (const [key, value] of Object.entries(args)) {
+        if (!Object.hasOwn(initialArgs, key) || value === initialArgs[key]) continue;
+        try {
+          // Callbacks, React slots and cyclic host objects keep their authored expression.
+          const literal = value === undefined ? 'undefined' : JSON.stringify(value, (_key, entry) => {
+            if (typeof entry === 'function' || entry?.$$typeof) throw new TypeError('Host value');
+            return entry;
+          });
+          if (literal !== undefined) changes.push(`${JSON.stringify(key)}: ${literal}`);
+        } catch { /* Only Docs controls with a portable value override the authored defaults. */ }
+      }
+      return example.replace(editedProps, (_match, separator) =>
+        changes.length ? separator + '...{ ' + changes.join(', ') + ' }' : '');
+    };
+  } else {
+    source.code = example;
+  }
+  const params = story.parameters;
+  story.parameters = { ...params, docs: { ...params?.docs, source } };
+}

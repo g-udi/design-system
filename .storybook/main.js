@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import tailwindcss from '@tailwindcss/vite';
 import { lucideIconOptimizeDeps, mermaidOptimizeDeps, rechartsOptimizeDeps } from './viteOptimizeDeps.js';
 import { sanitizeHtmlBrowserPlugin } from './sanitizeHtmlBrowserPlugin.js';
+import { storyExampleSourcePlugin } from './storyExampleSource.js';
 
 const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const lodashEsDir = resolve(rootDir, 'node_modules/lodash-es');
@@ -161,6 +162,7 @@ const config = {
         }
       },
       'plugins': [
+        storyExampleSourcePlugin(),
         ...(viteConfig.plugins || []),
         sanitizeHtmlBrowserPlugin(rootDir),
         tailwindcss()

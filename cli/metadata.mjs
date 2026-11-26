@@ -9,13 +9,15 @@ const read = (file) => JSON.parse(readFileSync(path.join(packageRoot, file), 'ut
 export function loadMetadata(root = packageRoot) {
   const load = (file) => JSON.parse(readFileSync(path.join(root, file), 'utf8'));
   const components = load('ai/components.json');
+  const { blocks, registry } = load('ai/blocks.json');
   return {
     root,
     package: components.package,
     version: components.version,
     categories: components.categories,
     components: components.components,
-    blocks: load('ai/blocks.json').blocks,
+    blocks,
+    registry,
     tokens: load('ai/tokens.json'),
     icons: load('ai/icons.json'),
     setup: load('ai/setup.json'),

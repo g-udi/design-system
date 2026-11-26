@@ -115,6 +115,7 @@ test('reasoning previews fit RTL, every spacing preset and phone touch', async (
       await page.evaluate(() => document.documentElement.style.removeProperty('--ds-space-scale'));
     }
     await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/preview/reasoning-ai-message-with-steps#dir=rtl');
     const read = page.getByRole('button', { name: /Read 3 sources/ });
     await read.tap();
     await expect(page.getByText(/Analytics for the last 90 days/)).toBeVisible();

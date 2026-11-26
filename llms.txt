@@ -324,8 +324,8 @@ Site layout: containers, wrappers, footer, search and newsletter.
 
 ## MCP & agent skills
 
-- MCP server (stdio): `claude mcp add gaudi-ds -- npx -y @gaudi/design-system mcp` (before publishing: `claude mcp add gaudi-ds -- node /path/to/design-system/bin/gaudi-ds.mjs mcp`). Tools: search, list_components, get_component, get_examples, list_blocks, get_block, get_tokens, get_install_command, validate_usage, get_agent_skill, get_project_setup, list_themes, get_theme, import_theme, export_theme.
-- Agent skill: `npx @gaudi/design-system skills install --agent claude|cursor|codex|windsurf|opencode|vscode|all [--dir <project>]`.
+- Connect the installed stdio MCP from your project with `claude mcp add gaudi-ds -- node "$PWD/node_modules/@gaudi/design-system/bin/gaudi-ds.mjs" mcp`, or use `codex mcp add` with the same arguments. From a design-system checkout, use `"$PWD/bin/gaudi-ds.mjs"`. Tools: search, list_components, get_component, get_examples, list_blocks, get_block, get_tokens, get_install_command, validate_usage, get_agent_skill, get_project_setup, list_themes, get_theme, import_theme, export_theme.
+- Install the agent skill from your project with `pnpm exec gaudi-ds skills install --agent codex`. Supported clients are Claude, Cursor, Codex, Windsurf, OpenCode and VS Code.
 
 ## Theming
 
@@ -333,7 +333,7 @@ Themes override the semantic `--ds-*` contract (surfaces, text, borders, accent,
 
 ## Registry
 
-shadcn-compatible registry for blocks and patterns (`registry.json`, built to `public/r/<name>.json` by `pnpm registry:build`). Add `"registries": { "@gaudi": "<base-url>/r/{name}.json" }` to your components.json, then `npx shadcn@latest add @gaudi/<name>`; locally: `npx shadcn@latest add ./public/r/<name>.json`.
+Gaudi hosts a shadcn-compatible registry of blocks and patterns. Add `"registries": { "@gaudi": "https://design.gaudi.site/r/{name}.json" }` to your components.json and run `npx shadcn@latest add @gaudi/<name>`. From a design-system checkout, you can also run `npx shadcn@latest add ./public/r/<name>.json`.
 
 ## Credits
 

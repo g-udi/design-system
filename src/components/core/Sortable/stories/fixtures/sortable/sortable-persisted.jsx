@@ -3,11 +3,11 @@ import { useId, useState } from 'react';
 import { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { Label } from '@gaudi/design-system/core/Field';
-import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   Sortable,
   SortableItem,
-  SortableItemHandle
+  SortableItemHandle,
+  SortableItemPosition
 } from '@gaudi/design-system/core/Sortable';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -40,7 +40,7 @@ export function Pattern() {
   return (
     <>
       <ToastProvider id={toastId} />
-    <div className='mx-auto grid w-full max-w-xl gap-3'>
+    <div className='mx-auto grid w-full max-w-xl grid-cols-1 gap-3'>
       <Label className='gap-2'><Switch checked={simulateFailure} onCheckedChange={setSimulateFailure} disabled={Boolean(pending)} />Simulate a failed save</Label>
       <Sortable
         value={items}
@@ -50,16 +50,14 @@ export function Pattern() {
         strategy='vertical'
         className='space-y-2'
       >
-        {items.map((item, index) => (
+        {items.map((item) => (
           <SortableItem key={item.id} value={item.id} disabled={Boolean(pending)}>
             <div className='bg-ui-background border-ui-border flex items-center gap-3 rounded-md border px-3 py-2'>
-              <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
+              <SortableItemHandle aria-label={`Drag ${item.title}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                 <RegistryIcon lucide='GripVerticalIcon' className='size-4' />
               </SortableItemHandle>
-              <Badge variant='outline' className='tabular-nums'>
-                {index + 1}
-              </Badge>
-              <span className='min-w-0 flex-1 truncate text-sm font-medium'>
+              <SortableItemPosition aria-label={`Position of ${item.title}`} />
+              <span dir='auto' className='min-w-0 flex-1 text-sm font-medium sm:truncate'>
                 {item.title}
               </span>
             </div>

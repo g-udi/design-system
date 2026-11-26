@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { createRoot } from 'react-dom/client';
+import { hydrateRoot } from 'react-dom/client';
 import { expect, waitFor } from 'storybook/test';
 import { ThemeProvider, useTheme, themePresets, applyTheme } from '../../src/themes/index.js';
 import { act } from '../support/reactAct.js';
@@ -17,11 +17,12 @@ export async function checkThemeProvider(canvasElement) {
   const html = document.documentElement;
   const previous = ['data-theme', 'data-audit-palette', 'class', 'style'].map(name => [name, html.getAttribute(name)]);
   const caught = [];
-  const root = createRoot(host, { onCaughtError: error => caught.push(error) });
+  let root;
   let context;
   const Probe = () => { context = useTheme(); return <p>{context.theme}</p>; };
   const stored = new Map([
-    ['audit-theme', 'broken'],
+    ['audit-theme', 'folio'],
+    ['audit-theme-mode', 'dark'],
     ['audit-theme-custom', JSON.stringify({ id: 'broken' })]
   ]);
   const storage = {
@@ -30,6 +31,31 @@ export async function checkThemeProvider(canvasElement) {
     removeItem: key => stored.delete(key)
   };
   try {
+    // Reproduce the markup rendered on the server and the choice restored by the head script.
+    host.innerHTML = '<p>gaudi</p>';
+    html.setAttribute('data-theme', 'folio');
+    html.classList.add('dark');
+    html.style.colorScheme = 'dark';
+    const changes = [];
+    const observer = new MutationObserver(records => changes.push(...records));
+    observer.observe(html, { attributes: true, attributeOldValue: true, attributeFilter: ['data-theme', 'class'] });
+    try {
+      await act(() => {
+        root = hydrateRoot(host, <ThemeProvider storage={storage} storageKey='audit-theme'><Probe /></ThemeProvider>,
+          { onCaughtError: error => caught.push(error), onRecoverableError: error => caught.push(error) });
+      });
+      changes.push(...observer.takeRecords());
+      await expect(host).toHaveTextContent('folio');
+      await expect(html).toHaveAttribute('data-theme', 'folio');
+      await expect(html).toHaveClass('dark');
+      for (const change of changes) {
+        if (change.attributeName === 'class') await expect(change.oldValue.split(/\s+/)).toContain('dark');
+        else await expect(change.oldValue).toBe('folio');
+      }
+    } finally {
+      observer.disconnect();
+    }
+    stored.set('audit-theme', 'broken');
     await act(() => root.render(<ThemeErrorBoundary>
       <ThemeProvider storage={storage} storageKey='audit-theme' enableMode={false}><Probe /></ThemeProvider>
     </ThemeErrorBoundary>));
@@ -68,7 +94,7 @@ export async function checkThemeProvider(canvasElement) {
     await act(() => root.render(<ThemeProvider storage={null} defaultMode='dark'><Probe /></ThemeProvider>));
     await expect(document.querySelector('style[data-gaudi-theme="gaudi"]')).toBeNull();
   } finally {
-    await act(() => root.unmount());
+    if (root) await act(() => root.unmount());
     host.remove();
     for (const [name, value] of previous) {
       if (value === null) html.removeAttribute(name);

@@ -71,5 +71,27 @@
   "imports": {
     "rule": "Prefer owner leaf entries (e.g. @gaudi/design-system/core/Button) in route code; root and category entries are valid. Only package.json exports are public; never import src/ paths.",
     "entries": 291
+  },
+  "componentCatalogs": {
+    "aceternity-ui": "https://ui.aceternity.com",
+    "affectui": "https://www.affectui.com/",
+    "arc-ui": "https://uiarc.dev",
+    "atlas": "https://ui.pacifio.dev/",
+    "beui": "https://beui.dev",
+    "rapidnative": "https://www.rapidnative.com/",
+    "react-bits": "https://reactbits.dev",
+    "reui": "https://reui.io",
+    "shoogle": "https://shoogle.dev",
+    "shadcn-io": "https://www.shadcn.io",
+    "shadcndesign": "https://www.shadcndesign.com/",
+    "registry-directory": "https://registry.directory",
+    "shadcnblocks": "https://www.shadcnblocks.com",
+    "shadcncraft": "https://shadcncraft.com",
+    "shadcn-ui-kit": "https://shadcnuikit.com",
+    "shadcn-studio": "https://shadcnstudio.com",
+    "skiper-ui": "https://skiper-ui.com",
+    "cult-ui": "https://www.cult-ui.com",
+    "ai-sdk-agents": "https://www.aisdkagents.com",
+    "orb-ui": "https://orb-ui.com"
   }
 }

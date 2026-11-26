@@ -7,6 +7,8 @@ import { createServer } from 'node:net';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 import { build } from 'esbuild';
 import { auditWidths } from '../tests/support/responsiveWidths.js';
 
@@ -139,6 +141,22 @@ try {
     symlinkSync(realpathSync(installed), link);
   }
   writeFileSync(path.join(scratch, 'package.json'), JSON.stringify({ private: true, type: 'module' }));
+  const bin = path.join(packed, manifest.bin['gaudi-ds']);
+  const runCli = (...args) => execFileSync(process.execPath, [bin, ...args], { cwd: scratch, encoding: 'utf8', timeout: 15000 });
+  runCli('skills', 'install', '--agent', 'claude,codex');
+  const designGuide = readFileSync(path.join(scratch, '.claude/skills/gaudi-design-system/references/component-design.md'), 'utf8');
+  assert.match(readFileSync(path.join(scratch, 'AGENTS.md'), 'utf8'), /component-design/);
+  const fallback = JSON.parse(runCli('inspiration', 'orb-ui', 'search', 'voice orb'));
+  assert.equal(fallback.source, 'catalog-fallback');
+  assert.equal(fallback.query, 'voice orb');
+  const mcp = new Client({ name: 'packed-consumer', version: '1.0.0' });
+  try {
+    await mcp.connect(new StdioClientTransport({ command: process.execPath, args: [bin, 'mcp'], cwd: scratch }));
+    const result = await mcp.callTool({ name: 'get_agent_skill', arguments: { topic: 'component-design' } });
+    assert.equal(result.content[0].text, designGuide);
+  } finally {
+    await mcp.close();
+  }
   const consumerRequire = createRequire(path.join(scratch, 'consumer.cjs'));
   const javascript = [];
   for (const [subpath, conditions] of Object.entries(manifest.exports)) {

@@ -52,8 +52,7 @@ test('skills install writes each agent location and is idempotent', () => {
     const agents = readFileSync(path.join(project, 'AGENTS.md'), 'utf8');
     assert.equal(agents.match(/gaudi-design-system:start/g).length, 1);
     const discovery = readFileSync(path.join(project, '.claude/skills/gaudi-design-system/references/component-design.md'), 'utf8').trim();
-    assert.match(discovery, /only when the user asks for that publisher’s guidance or explicitly requests external inspiration/);
-    assert.doesNotMatch(discovery, /automatically consult/);
+    assert.match(discovery, /automatically consult one relevant bookmark/);
     assert.match(discovery, /If so, use only installed component APIs, local files and examples/);
     assert.match(discovery, /For a missing tool or empty search, continue with the publisher’s component page/);
     const inlined = discovery.replace(/^# /, '## Reference: ');

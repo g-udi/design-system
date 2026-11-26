@@ -1,14 +1,17 @@
 ---
 title: Agent skill
-description: Install the Gaudi skill into your coding agent's rules or skills folder.
+description: Let your coding agent design components with Gaudi’s public APIs, examples and component inspiration.
 ---
 
-Ask your agent to “design a sortable list for a phone.” The packaged `gaudi-design-system` skill looks up Gaudi’s Sortable component and its local examples. To look outside that collection, ask for external inspiration or name a publisher you want the agent to consult, such as “look up a sortable interaction in beUI.” Browse the bookmarks on the [Credits page](/docs/credits#useful-resources).
+Ask your agent to “design a sortable list for a phone.” The packaged `gaudi-design-system` skill looks up Gaudi’s Sortable component and its local examples, then consults a relevant bookmarked publisher such as beUI for touch interactions. You can name a preferred publisher or ask it to work offline. Browse the bookmarks on the [Credits page](/docs/credits#useful-resources).
+
+## Install in a project
+
+From a project that already depends on `@gaudi/design-system`, run the command for your client.
 
 ```sh
-npx @gaudi/design-system skills install --agent claude   # default
-npx @gaudi/design-system skills install --agent all --dir ../my-app
-npx @gaudi/design-system skills list
+pnpm exec gaudi-ds skills install --agent codex
+pnpm exec gaudi-ds skills install --agent claude
 ```
 
 | Agent | Installed to |
@@ -19,4 +22,6 @@ npx @gaudi/design-system skills list
 | `windsurf` | `.windsurf/rules/gaudi-design-system.md` |
 | `vscode` | `.github/instructions/gaudi-design-system.instructions.md` |
 
-Re-running is idempotent. Before publishing, run the same commands with `node /path/to/design-system/bin/gaudi-ds.mjs` in place of `npx @gaudi/design-system`.
+Run the installer again after upgrading Gaudi to refresh the managed skill. To install from the DS checkout, use `node bin/gaudi-ds.mjs skills install --agent codex --dir ../my-app`.
+
+An agent connected to the [Gaudi MCP server](/docs/ai/mcp) can read the skill with `get_agent_skill({})` and its component workflow with `get_agent_skill({topic: "component-design"})`. The same workflow ships in the package under `skills/gaudi-design-system/references/component-design.md`.

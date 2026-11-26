@@ -27,6 +27,8 @@ Adapt incoming patterns to Gaudi's tokens, icons, public APIs, accessibility, an
 
 ## For Agents
 
+The packaged [Gaudi design-system skill](skills/gaudi-design-system/SKILL.md) handles ordinary component-design requests. [Agent installation](#agent-skill) adds it to your project, and the [local MCP server](#mcp-server) exposes the same workflow to connected clients.
+
 Read [`AGENTS.md`](./AGENTS.md) before changing the package or consuming it from an application. It contains the clean-code, KISS/DRY, ownership, Storybook, accessibility, and responsive verification rules. This README covers shared usage and development; colocated component READMEs cover owner-specific APIs. Keep documentation in those files instead of adding separate product, design, coverage, or audit guides.
 
 ## Install
@@ -289,15 +291,15 @@ Apps that keep `next-themes` for light/dark pass `enableMode={false}` to `ThemeP
 
 ## AI & agents
 
-Gaudi ships machine-readable docs, an agent skill, a local MCP server and a copy-in block registry. All of it is generated from the sources of truth (owner `stories/docs/*.docs.js`, READMEs, the story catalogue, `coverage.json`, `public-names.json`, tokens, the icon registry and `package.json` exports) so it cannot drift from the components.
+Gaudi ships machine-readable docs, a component design skill, a local MCP server and a copy-in block registry. Gaudi generates the component metadata from owner docs, READMEs, the story catalogue, coverage, public names, tokens, the icon registry and package exports.
 
 | Piece | Where | Ships in npm package |
 | --- | --- | --- |
 | Metadata | `ai/components.json`, `blocks.json`, `tokens.json`, `icons.json`, `setup.json`, `exports.json` | yes |
 | LLM docs | `llms.txt` (index), `llms-full.txt` (every page), `docs/llm/<id>.md` (one page per component/hook) | `llms*.txt` yes; `docs/llm` repo only (package excludes `docs/`) |
-| Agent skill | `skills/gaudi-design-system/SKILL.md` + generated `references/catalogue.md` | yes |
+| Agent skill | `skills/gaudi-design-system/SKILL.md` with the component-design workflow and generated catalogue in `references/` | yes |
 | CLI / MCP | `bin/gaudi-ds.mjs`, `cli/` | yes |
-| Registry | `registry.json`, `public/r/<name>.json` | no (about 5 MB; repo only until hosted) |
+| Registry | `registry.json`, `public/r/<name>.json` | no (available from the [hosted registry](https://design.gaudi.site/r/registry.json)) |
 
 This setup follows the [llms.txt proposal](https://llmstxt.org), the [shadcn registry spec](https://ui.shadcn.com/docs/registry) and the [Model Context Protocol](https://modelcontextprotocol.io) with its official [TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk). See [credits](#credits--acknowledgements).
 
@@ -313,16 +315,19 @@ pnpm test:ai             # search/validate unit tests, skill installer, MCP stdi
 
 ### llms.txt
 
-`llms.txt` follows the llms.txt convention: package summary, install/import/CSS/preset setup, then Foundations, components by category (each linking to `docs/llm/<id>.md`), Blocks & patterns, MCP & skills, and Registry. Links are repository-relative until a docs host is chosen. `llms-full.txt` concatenates every page (API table, usage, accessibility, notes, examples and the owner README).
+The package’s `llms.txt` covers installation, foundations, components by category, blocks, patterns, MCP tools, skills and the registry. Its component links point to `docs/llm/<id>.md` in the repository. `llms-full.txt` includes the API tables, usage, accessibility guidance, examples and owner READMEs. The documentation site also publishes a [hosted index](https://design.gaudi.site/llms.txt).
 
 ### Agent skill
 
-Ask your agent to design a component. It starts with Gaudi’s components and examples. Open choices use those local examples and primitives. Ask the agent for external inspiration or name a publisher you want it to consult to look up an outside example. [Component design skill](https://design.gaudi.site/docs/ai/skill) · [Credits and bookmarks](https://design.gaudi.site/docs/credits#useful-resources)
+Ask your agent to design a component. It starts with Gaudi’s components and examples. It automatically consults one relevant bookmarked publisher for an interaction, state or layout choice. It uses the public catalog if the publisher tool is unavailable and stays local when you ask to work offline. [Component design skill](https://design.gaudi.site/docs/ai/skill) · [Credits and bookmarks](https://design.gaudi.site/docs/credits#useful-resources)
+
+From a project that uses the package, run the installer for your client.
 
 ```sh
-npx @gaudi/design-system skills install --agent claude   # default
-npx @gaudi/design-system skills install --agent all --dir ../my-app
-npx @gaudi/design-system skills list
+pnpm exec gaudi-ds skills install --agent claude   # default
+pnpm exec gaudi-ds skills install --agent codex
+pnpm exec gaudi-ds skills install --agent all --dir ../my-app
+pnpm exec gaudi-ds skills list
 ```
 
 | Agent | Installed to |
@@ -333,39 +338,40 @@ npx @gaudi/design-system skills list
 | `windsurf` | `.windsurf/rules/gaudi-design-system.md` (`trigger: model_decision`) |
 | `vscode` | `.github/instructions/gaudi-design-system.instructions.md` (Copilot, `applyTo` JS/TS/MDX) |
 
-Re-running is idempotent: unchanged files are reported as such and the AGENTS.md section is replaced in place. Before publishing, run the same commands with `node /path/to/design-system/bin/gaudi-ds.mjs` in place of `npx @gaudi/design-system`.
+Re-running the installer refreshes the existing files and managed section. From the DS checkout, run `node bin/gaudi-ds.mjs skills install --agent codex --dir ../my-app`.
 
 ### MCP server
 
-A local stdio server reads the shipped `ai/` metadata (no network). Tools: `search`, `list_components`, `get_component`, `get_examples`, `list_blocks`, `get_block`, `get_tokens`, `get_install_command`, `validate_usage`, `get_agent_skill`, `get_project_setup`; prompt: `build`.
+A local stdio server reads the shipped metadata and skill files. Start with its `build` prompt or call `get_agent_skill({topic: "component-design"})` for the component workflow. For publisher examples, the agent uses its connected tools or runs `gaudi-ds inspiration` on demand. [MCP tools](https://design.gaudi.site/docs/ai/mcp)
+
+Register the server from a project with Gaudi installed. Run the command for your client.
 
 ```sh
-claude mcp add gaudi-ds -- npx -y @gaudi/design-system mcp
-# before publishing (local checkout):
-claude mcp add gaudi-ds -- node "/path/to/design-system/bin/gaudi-ds.mjs" mcp
+codex mcp add gaudi-ds -- node "$PWD/node_modules/@gaudi/design-system/bin/gaudi-ds.mjs" mcp
+claude mcp add gaudi-ds -- node "$PWD/node_modules/@gaudi/design-system/bin/gaudi-ds.mjs" mcp
 ```
 
-Cursor (`.cursor/mcp.json`) and Windsurf (`~/.codeium/windsurf/mcp_config.json`):
+For JSON and TOML client configurations, use the absolute path to the installed `bin/gaudi-ds.mjs` or to the same file in the DS checkout. For example, Cursor (`.cursor/mcp.json`) and Windsurf (`~/.codeium/windsurf/mcp_config.json`) use the following entry.
 
 ```json
-{ "mcpServers": { "gaudi-ds": { "command": "npx", "args": ["-y", "@gaudi/design-system", "mcp"] } } }
+{ "mcpServers": { "gaudi-ds": { "command": "node", "args": ["/path/to/design-system/bin/gaudi-ds.mjs", "mcp"] } } }
 ```
 
 VS Code (`.vscode/mcp.json`):
 
 ```json
-{ "servers": { "gaudi-ds": { "type": "stdio", "command": "npx", "args": ["-y", "@gaudi/design-system", "mcp"] } } }
+{ "servers": { "gaudi-ds": { "type": "stdio", "command": "node", "args": ["/path/to/design-system/bin/gaudi-ds.mjs", "mcp"] } } }
 ```
 
 Codex (`~/.codex/config.toml`):
 
 ```toml
 [mcp_servers.gaudi-ds]
-command = "npx"
-args = ["-y", "@gaudi/design-system", "mcp"]
+command = "node"
+args = ["/path/to/design-system/bin/gaudi-ds.mjs", "mcp"]
 ```
 
-OpenCode (`opencode.json`): `{ "mcp": { "gaudi-ds": { "type": "local", "command": ["npx", "-y", "@gaudi/design-system", "mcp"] } } }`. For any client, `node /path/to/design-system/bin/gaudi-ds.mjs` runs the same server from a repository checkout in place of `npx -y @gaudi/design-system`. `get_block` returns block source when `public/r` exists (a repository checkout); otherwise it returns the install command.
+OpenCode (`opencode.json`) uses `{ "mcp": { "gaudi-ds": { "type": "local", "command": ["node", "/path/to/design-system/bin/gaudi-ds.mjs", "mcp"] } } }`. The `get_block` tool returns block source when `public/r` exists in the checkout, or the registry install command in a packaged project.
 
 ### Registry (blocks & patterns)
 

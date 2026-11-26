@@ -50,6 +50,7 @@ export function ThemeProvider({
   const [ themeId, setThemeState ] = useState(defaultTheme);
   const [ mode, setModeState ] = useState(defaultMode);
   const [ custom, setCustom ] = useState(null);
+  const [ preferencesReady, setPreferencesReady ] = useState(false);
   const systemMode = usePrefersColorScheme();
   const resolvedMode = resolveMode(mode, systemMode === 'dark');
 
@@ -60,6 +61,7 @@ export function ThemeProvider({
       setThemeState(storage?.getItem(keys.theme) || defaultTheme);
       const storedMode = storage?.getItem(keys.mode);
       setModeState(THEME_MODES.includes(storedMode) ? storedMode : defaultMode);
+      setPreferencesReady(true);
     };
     sync();
     if (typeof window === 'undefined') return undefined;
@@ -73,7 +75,8 @@ export function ThemeProvider({
   const theme = active?.id ?? defaultTheme;
 
   useEffect(() => {
-    if (typeof document === 'undefined') return undefined;
+    // Keep the pre-paint preset and its stylesheet until the stored selection is ready.
+    if (!preferencesReady || typeof document === 'undefined') return undefined;
     document.documentElement.setAttribute(attribute, theme);
     if (!active || (active.id === DEFAULT_THEME_ID && attribute === THEME_ATTRIBUTE && darkClass === DARK_CLASS)) {
       // A pre-paint stylesheet may use selectors from a previous provider configuration.
@@ -84,14 +87,14 @@ export function ThemeProvider({
     const { css, remove } = applyTheme(active, { nonce, attribute, darkClass });
     storage?.setItem(keys.css, css);
     return remove;
-  }, [ active, attribute, darkClass, keys, nonce, storage, theme ]);
+  }, [ active, attribute, darkClass, keys, nonce, preferencesReady, storage, theme ]);
 
   useEffect(() => {
-    if (!enableMode || typeof document === 'undefined') return;
+    if (!preferencesReady || !enableMode || typeof document === 'undefined') return;
     const root = document.documentElement;
     root.classList.toggle(darkClass, resolvedMode === 'dark');
     root.style.colorScheme = resolvedMode;
-  }, [ darkClass, enableMode, resolvedMode ]);
+  }, [ darkClass, enableMode, preferencesReady, resolvedMode ]);
 
   const setTheme = useCallback((id) => {
     setThemeState(id);

@@ -61,6 +61,9 @@ const DURATIONS = [
   { value: 90, label: '1.5 hours' },
   { value: 120, label: '2 hours' }
 ];
+// Keep the editable sample week and Agenda's starting date together.
+const sampleDate = new Date(2026, 10, 23, 12);
+
 function buildEvents(anchor) {
   const week = startOfWeek(startOfDay(anchor), { weekStartsOn: 0 });
   const at = (dayOffset, hour) => setHours(addDays(week, dayOffset), hour);
@@ -110,7 +113,8 @@ function buildEvents(anchor) {
   ];
 }
 export function Pattern() {
-  const events = useMemo(() => buildEvents(new Date()), []);
+  const events = useMemo(() => buildEvents(sampleDate), []);
+  const [calendarDate, setCalendarDate] = useState(sampleDate);
   const apiRef = useRef(null);
   const counter = useRef(0);
   const openerRef = useRef(null);
@@ -181,6 +185,8 @@ export function Pattern() {
       <Card className='w-full py-0'>
         <CardContent className='p-0'>
           <EventCalendar
+            date={calendarDate}
+            onDateChange={setCalendarDate}
             defaultEvents={events}
             defaultView='month'
             apiRef={apiRef}
@@ -199,7 +205,7 @@ export function Pattern() {
                 <Button
                   ref={addButtonRef}
                   size='sm'
-                  onClick={(event) => seedCreate(new Date(), event.currentTarget)}
+                  onClick={(event) => seedCreate(calendarDate, event.currentTarget)}
                 >
                   <RegistryIcon
                     lucide='PlusIcon'

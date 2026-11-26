@@ -2,7 +2,11 @@
 
 import { createContext, useContext, useId } from 'react';
 import * as Primitive from '@radix-ui/react-accordion';
-import Icon from '../Icon';
+import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down.js';
+import ChevronRight from 'lucide-react/dist/esm/icons/chevron-right.js';
+import Minus from 'lucide-react/dist/esm/icons/minus.js';
+import Plus from 'lucide-react/dist/esm/icons/plus.js';
+import { resolveIconStyle } from '../../../icons/iconStyle.js';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { cn } from '../../../utilities/cn';
 
@@ -134,24 +138,16 @@ export function AccordionTrigger({
     indicator === undefined ? root.indicator : indicator;
   const position = indicatorPosition ?? root.indicatorPosition;
   const Heading = `h${Math.min(6, Math.max(2, headingLevel ?? item.headingLevel ?? root.headingLevel ?? 3))}`;
+  const Chevron = resolvedIndicator === 'arrow' ? ChevronRight : ChevronDown;
   const indicatorNode =
     typeof resolvedIndicator === 'function' ? (
       resolvedIndicator({ isOpen })
     ) : resolvedIndicator === 'chevron' || resolvedIndicator === 'arrow' ? (
-      <Icon
-        name={resolvedIndicator === 'arrow' ? 'ChevronRight' : 'ChevronDown'}
-        decorative
-        size='sm'
-      />
+      <Chevron aria-hidden='true' {...resolveIconStyle({ size: 'sm' })} />
     ) : resolvedIndicator === 'plus-minus' ? (
       <>
-        <Icon name='Plus' decorative size='sm' className='ds-accordion-plus' />
-        <Icon
-          name='Minus'
-          decorative
-          size='sm'
-          className='ds-accordion-minus'
-        />
+        <Plus aria-hidden='true' {...resolveIconStyle({ size: 'sm', className: 'ds-accordion-plus' })} />
+        <Minus aria-hidden='true' {...resolveIconStyle({ size: 'sm', className: 'ds-accordion-minus' })} />
       </>
     ) : (
       resolvedIndicator

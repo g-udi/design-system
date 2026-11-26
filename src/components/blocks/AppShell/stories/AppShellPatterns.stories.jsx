@@ -580,9 +580,19 @@ export const CrawlerControl = {
     await closeNavigation(canvasElement);
     await userEvent.clear(main.getByRole('searchbox', { name: 'Search sources' }));
     nav = await openNavigation(canvasElement);
-    await expect(nav.getByRole('button', { name: 'Crawlers' })).toHaveAttribute('aria-current', 'page');
-    await userEvent.click(nav.getByRole('button', { name: 'Sources' }));
-    await expect(nav.getByRole('button', { name: 'Sources' })).toHaveAttribute('aria-current', 'page');
+    const sections = nav.queryByRole('button', { name: 'Capture sections' });
+    if (sections) {
+      await userEvent.click(sections);
+      await expect(await body.findByRole('menuitemradio', { name: 'Crawlers' })).toHaveAttribute('aria-checked', 'true');
+      await userEvent.click(body.getByRole('menuitemradio', { name: 'Sources' }));
+      await userEvent.click(sections);
+      await expect(await body.findByRole('menuitemradio', { name: 'Sources' })).toHaveAttribute('aria-checked', 'true');
+      await userEvent.keyboard('{Escape}');
+    } else {
+      await expect(nav.getByRole('button', { name: 'Crawlers' })).toHaveAttribute('aria-current', 'page');
+      await userEvent.click(nav.getByRole('button', { name: 'Sources' }));
+      await expect(nav.getByRole('button', { name: 'Sources' })).toHaveAttribute('aria-current', 'page');
+    }
     // One run feed is open at a time.
     await expect(nav.getByRole('button', { name: 'Collapse City archive detail' })).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(nav.getByRole('button', { name: 'Expand Essays feed detail' }));

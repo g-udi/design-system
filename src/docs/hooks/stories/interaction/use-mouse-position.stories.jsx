@@ -16,7 +16,10 @@ export default {
 };
 
 export const Playground = {
-  parameters: example('A working example using Gaudi controls and the documented hook contract.', exampleSource),
+  parameters: {
+    ...example('A working example using Gaudi controls and the documented hook contract.', exampleSource),
+    visualAudit: { wideElements: { '[aria-label="Pointer tracking area"]': 'The pointer needs the whole tracking area to demonstrate local coordinates.' } }
+  },
   render: () => <PointerReadout />,
   play: async ({ canvasElement }) => {
     await verifyPointerCoalescing();

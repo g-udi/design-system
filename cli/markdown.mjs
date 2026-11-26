@@ -57,7 +57,7 @@ export function componentMarkdown(component, { packageName = '@gaudi/design-syst
 export function blockMarkdown(block) {
   return [
     `# ${block.title}`, '', `> Registry item \`@gaudi/${block.name}\` · ${block.family} · builds on \`${block.owner}\``, '', block.description, '',
-    '## Install', '', '```sh', block.install.registry, '# local file, before hosting:', block.install.local, '```', '',
+    '## Install', '', '```sh', block.install.registry, '# From a design-system checkout', block.install.local, '```', '',
     `Uses: ${block.uses.map((name) => `\`${name}\``).join(', ')}`,
     block.dependencies.length ? `\nnpm dependencies: ${block.dependencies.map((name) => `\`${name}\``).join(', ')}` : ''
   ].join('\n').trim() + '\n';

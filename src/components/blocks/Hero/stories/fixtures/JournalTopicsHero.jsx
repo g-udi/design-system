@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Hero } from '@gaudi/design-system/blocks/Hero';
 import Button from '@gaudi/design-system/core/Button';
 import Link from '@gaudi/design-system/core/Link';
@@ -17,6 +17,8 @@ const topics = [
 
 /** A journal hero: choosing a topic rewrites the introduction and changes the swell of the particle sea. */
 export function JournalTopicsHero() {
+  const topicsId = useId();
+  const topicsHref = `#${topicsId}`;
   const [topicId, setTopicId] = useState('motion');
   const [paused, setPaused] = useState(false);
   const topic = topics.find(entry => entry.id === topicId);
@@ -25,21 +27,21 @@ export function JournalTopicsHero() {
       colors={['var(--ds-color-warning)', 'color-mix(in srgb, var(--ds-color-warning) 45%, var(--ds-color-text))', 'var(--ds-color-text)']}>
       <header className='mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-5 sm:px-12'>
         <GaudiBrand />
-        <Link href='#journal-topics' target='_self' className='text-sm'>All writing</Link>
+        <Link href={topicsHref} target='_self' className='text-sm'>All writing</Link>
       </header>
       <Hero layout='split' className='bg-transparent' eyebrow={`${topic.count} essays`}
         title={<>Writing about <span className='text-warning'>{topic.label.toLowerCase()}.</span></>}
         description={topic.summary}
         actions={<>
-          <Button href='#journal-topics' target='_self' size='lg'>Read the latest</Button>
-          <Link href='#journal-topics' target='_self' className='inline-flex items-center gap-2 py-2 text-sm'>Follow {topic.label} <Icon name='ArrowRight' className='size-4' /></Link>
+          <Button href={topicsHref} target='_self' size='lg'>Read the latest</Button>
+          <Link href={topicsHref} target='_self' className='inline-flex items-center gap-2 py-2 text-sm'>Follow {topic.label} <Icon name='ArrowRight' className='size-4' /></Link>
         </>}
       >
         <Button variant='ghost' size='sm' className='-ms-3' onClick={() => setPaused(value => !value)}>{paused ? 'Play animation' : 'Pause animation'}</Button>
       </Hero>
       <div className='mx-auto max-w-7xl px-6 pt-16 pb-10 sm:px-12 sm:pt-28'>
         {/* One topic is always selected: ignore the empty value when the active item is pressed again. */}
-        <ToggleGroupRoot id='journal-topics' type='single' spacing={0} value={topicId} onValueChange={value => value && setTopicId(value)}
+        <ToggleGroupRoot id={topicsId} type='single' spacing={0} value={topicId} onValueChange={value => value && setTopicId(value)}
           aria-label='Journal topics' className='grid w-full grid-cols-2 gap-2 sm:grid-cols-4'>
           {topics.map(entry => <ToggleGroupItem key={entry.id} value={entry.id} variant='default'
             className='h-auto flex-col items-start gap-1 px-3 py-3 text-left text-text-muted data-[state=on]:bg-transparent data-[state=on]:text-text'>

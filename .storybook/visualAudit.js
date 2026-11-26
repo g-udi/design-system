@@ -15,8 +15,10 @@ function isBordered(element) {
 const clipsX = (element) => ['hidden', 'clip', 'auto', 'scroll'].includes(getComputedStyle(element).overflowX);
 
 export function collectVisualLayout({ canvasElement, parameters }) {
-  // Stories whose containers span the width by design declare it: parameters.visualAudit.wide = 'reason'.
+  // wideElements maps individual selectors to the reason the component needs its full width.
+  // Older stories use wide to declare a full-width layout for the entire example.
   const allowWide = Boolean(parameters?.visualAudit?.wide);
+  const wideElements = Object.keys(parameters?.visualAudit?.wideElements || {});
   const root = canvasElement;
   const visible = [...root.querySelectorAll('*')].filter((element) => {
     if (element.closest('[hidden],[aria-hidden="true"],[inert],.sr-only') || !element.checkVisibility({ opacityProperty: true, visibilityProperty: true })) return false;
@@ -38,7 +40,7 @@ export function collectVisualLayout({ canvasElement, parameters }) {
   }
 
   for (const element of visible) {
-    if (allowWide || !isBordered(element)) continue;
+    if (allowWide || !isBordered(element) || wideElements.some(selector => element.matches(selector))) continue;
     const frame = element.getBoundingClientRect();
     if (frame.width < 420) continue;
     let left = Infinity;
@@ -50,7 +52,21 @@ export function collectVisualLayout({ canvasElement, parameters }) {
       left = Math.min(left, box.left);
       right = Math.max(right, box.right);
     }
-    if (right > left && right - left < frame.width * 0.5) {
+    // This check concerns a container around child elements. Bordered text-only
+    // elements are controls or content, and have no child layout to measure.
+    if (right <= left) continue;
+    // Include direct text (for example, code beside a screen-reader label).
+    const textRange = document.createRange();
+    for (const node of element.childNodes) {
+      if (node.nodeType !== Node.TEXT_NODE || !node.textContent.trim()) continue;
+      textRange.selectNodeContents(node);
+      const box = textRange.getBoundingClientRect();
+      if (box.width) {
+        left = Math.min(left, box.left);
+        right = Math.max(right, box.right);
+      }
+    }
+    if (right - left < frame.width * 0.5) {
       failures.add(`${label(element)} is ${Math.round(frame.width)}px wide around ${Math.round(right - left)}px of content`);
     }
   }

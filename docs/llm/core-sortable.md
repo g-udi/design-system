@@ -11,7 +11,7 @@ import { Sortable } from '@gaudi/design-system/core/Sortable';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableOverlay`
+Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SortableOverlay`
 
 ## Props
 
@@ -56,23 +56,24 @@ Keep a keyboard-operable handle and announce moves. The application owns saving 
 
 Curated patterns:
 
-- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`)
-- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `ToastProvider`, `toast`)
-- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Badge`, `Label`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SwitchRoot`, `ToastProvider`, `toast`, `useTimeout`)
-- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SwitchRoot`, `ToastProvider`, `toast`)
+- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `cn`)
+- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `ToastProvider`, `toast`)
+- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Label`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`, `useTimeout`)
+- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`)
 
 ## README
 
-Drag-and-drop reordering for lists, lanes, and grids, with keyboard support. Use it when the order of items matters to the reader, such as a checklist or a gallery cover.
+Drag-and-drop reordering for lists, lanes, and grids, with keyboard and tap controls. Use it when the order of items matters to the reader, such as a checklist or a gallery cover.
 
 ```jsx
-import { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system';
+import { Sortable, SortableItem, SortableItemHandle, SortableItemPosition } from '@gaudi/design-system';
 
 <Sortable value={tasks} onValueChange={setTasks} getItemValue={(task) => task.id}>
   {tasks.map((task) => (
     <SortableItem key={task.id} value={task.id}>
       <SortableItemHandle aria-label={`Reorder ${task.title}`}>⋮⋮</SortableItemHandle>
       {task.title}
+      <SortableItemPosition aria-label={`Position of ${task.title}`} />
     </SortableItem>
   ))}
 </Sortable>
@@ -80,5 +81,7 @@ import { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system
 
 - `strategy`: `vertical` (default), `horizontal`, or `grid`.
 - `onValueCommit` fires once per completed move, which is where you persist the new order.
-- `disabled` on an item pins it in place. `SortableOverlay` customises the lifted copy shown while dragging.
+- `disabled` prevents an item from starting a drag or moving through its position picker. `SortableOverlay` customises the lifted copy shown while dragging.
 - Handles are buttons: Space picks up an item, arrow keys move it, Space drops it, and Escape cancels.
+
+Pair the drag handle with `SortableItemPosition` for pointer users who cannot drag. The native picker shows the current position and can move the item one place earlier or later. Give it a label that identifies the item. Both interactions follow the same `onMove`, `onValueChange` and `onValueCommit` rules. The event in the callback is the originating drag or select event.

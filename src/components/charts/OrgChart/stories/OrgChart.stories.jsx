@@ -37,9 +37,13 @@ export const Playground = {
   }
 };
 
+const viewportLayout = {
+  wideElements: { '[data-slot="org-chart"]': 'The scrollable chart viewport keeps its width as branches collapse or the tree becomes empty.' }
+};
+
 export const DepartmentOverview = {
   name: 'Collapsed departments',
-  parameters: { docs: { source: { code: `${imports}\n\n<OrgChart data={organization} defaultCollapsedIds={['alex', 'casey']} />` } } },
+  parameters: { visualAudit: viewportLayout, docs: { source: { code: `${imports}\n\n<OrgChart data={organization} defaultCollapsedIds={['alex', 'casey']} />` } } },
   render: () => <OrgChart data={organization} defaultCollapsedIds={['alex', 'casey']} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -51,7 +55,7 @@ export const DepartmentOverview = {
 };
 
 export const Empty = {
-  parameters: { docs: { source: { code: "import { OrgChart } from '@gaudi/design-system/charts/OrgChart';\n\n<OrgChart data={null} />" } } },
+  parameters: { visualAudit: viewportLayout, docs: { source: { code: "import { OrgChart } from '@gaudi/design-system/charts/OrgChart';\n\n<OrgChart data={null} />" } } },
   render: () => <OrgChart data={null} />,
   play: async ({ canvasElement }) => { await expect(within(canvasElement).getByText('No people to display')).toBeVisible(); }
 };

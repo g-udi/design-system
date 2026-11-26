@@ -205,7 +205,7 @@ export const TechnicalTutorial = {
   name: 'Technical tutorial',
   args: { smooth: true },
   argTypes: { smooth: BlogArticle.argTypes.smooth },
-  parameters: { controlAudit: { interaction: ['smooth'] }, docs: {
+  parameters: { visualAudit: { wideElements: { '[data-slot="code-block"]': 'Code samples follow the article column width.' } }, controlAudit: { interaction: ['smooth'] }, docs: {
     description: { story: 'A practical tutorial with nested section navigation, code examples, copy actions, and informational and warning callouts. The collapsible contents rail follows the reader on wide screens and moves above the content on phones.' },
     source: playgroundSource('TechnicalTutorialDemo', { imports: articleSource })
   } },

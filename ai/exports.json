@@ -801,6 +801,7 @@
       "Sortable",
       "SortableItem",
       "SortableItemHandle",
+      "SortableItemPosition",
       "SortableOverlay",
       "StatCard",
       "StatDelta",
@@ -2630,6 +2631,7 @@
       "Sortable",
       "SortableItem",
       "SortableItemHandle",
+      "SortableItemPosition",
       "SortableOverlay",
       "Stepper",
       "StepperContent",
@@ -4274,6 +4276,7 @@
       "Sortable",
       "SortableItem",
       "SortableItemHandle",
+      "SortableItemPosition",
       "SortableOverlay"
     ],
     "@gaudi/design-system/core/Loader": [

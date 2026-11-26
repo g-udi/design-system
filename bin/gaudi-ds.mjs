@@ -3,6 +3,7 @@
 //   gaudi-ds mcp                                   start the MCP server on stdio
 //   gaudi-ds skills install [--agent <name>] [--dir <project>]
 //   gaudi-ds skills list
+//   gaudi-ds inspiration <provider> search|item <term>
 //   gaudi-ds theme list|import|export|check|generate
 import { parseArgs } from 'node:util';
 import { themeUsage } from '../cli/themes.mjs';
@@ -12,6 +13,8 @@ const usage = `Usage:
   gaudi-ds skills install [--agent <agent>] [--dir <project>]
                                                      agent: claude (default), cursor, codex, windsurf, opencode, vscode, all
   gaudi-ds skills list                               Show where each agent's skill is installed
+  gaudi-ds inspiration <provider> search|item <term>  Look up a public component or its catalog (JSON)
+                                                     provider: a Credits bookmark, e.g. affectui, arc-ui, beui, cult-ui, orb-ui, reui, skiper-ui
 ${themeUsage}
   gaudi-ds help`;
 
@@ -32,6 +35,15 @@ if (command === 'mcp') {
 } else if (command === 'skills' && subcommand === 'list') {
   const { AGENTS } = await import('../cli/skills.mjs');
   for (const [name, { label, target }] of Object.entries(AGENTS)) console.log(`${name.padEnd(9)} ${label.padEnd(26)} ${target}`);
+} else if (command === 'inspiration') {
+  const { lookupInspiration } = await import('../cli/inspiration.mjs');
+  const [action, ...terms] = rest;
+  try {
+    console.log(JSON.stringify(await lookupInspiration(subcommand, action, terms.join(' ')), null, 2));
+  } catch (error) {
+    console.error(error.message);
+    process.exitCode = 1;
+  }
 } else if (command === 'theme') {
   const { runThemeCommand } = await import('../cli/themes.mjs');
   try {

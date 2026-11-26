@@ -10,23 +10,23 @@ const pattern = patternStories(
 
 export default { title: 'Core/Layout & Containers/Sortable', id: 'core-sortable', tags: ['autodocs'], ...catalogueMeta('sortable') };
 
-export const RowControls = { name: 'List with row controls', ...pattern('row-controls', 'Rows reorder by their handle while the switch in each row stays clickable; the first row becomes the cover.'), play: catalogueInteractions['sortable-row-controls'] };
+export const RowControls = { name: 'List with row controls', ...pattern('row-controls', 'Drag a row or use its position picker to choose the cover. Each visibility switch operates independently.'), play: catalogueInteractions['sortable-row-controls'] };
 export const MediaGrid = {
   name: 'Media grid',
-  ...pattern('media-grid', 'The grid strategy with a featured tile spanning two cells and handles that appear on hover.'),
+  ...pattern('media-grid', 'A featured tile spans two cells. Each image has a visible drag handle and a position picker.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const items = () => [...canvasElement.querySelectorAll('[data-slot="sortable"] > [data-slot="sortable-item"]')];
     const before = items().map(item => item.dataset.value);
     const images = new Map(items().map(item => [item.dataset.value, item.querySelector('img').getAttribute('src')]));
-    const handle = canvas.getAllByRole('button', { name: 'Reorder item' })[1];
+    const handle = canvas.getByRole('button', { name: 'Drag product-shot.png' });
     handle.focus();
     await userEvent.keyboard(' {ArrowDown} ');
     await waitFor(() => expect(items().map(item => item.dataset.value)).not.toEqual(before));
     for (const item of items()) await expect(item.querySelector('img')).toHaveAttribute('src', images.get(item.dataset.value));
     // Cancelling a keyboard drag must preserve the committed order.
     const committed = items().map(item => item.dataset.value);
-    canvas.getAllByRole('button', { name: 'Reorder item' })[0].focus();
+    canvas.getByRole('button', { name: 'Drag hero-banner.jpg' }).focus();
     await userEvent.keyboard(' {ArrowRight}{Escape}');
     await waitFor(() => expect(canvasElement.querySelector('[data-slot="sortable"]')).toHaveAttribute('data-dragging', 'false'));
     await expect(items().map(item => item.dataset.value)).toEqual(committed);
@@ -41,11 +41,11 @@ export const Nested = {
     const values = root => [...root.querySelectorAll(':scope > [data-slot="sortable-item"]')].map(item => item.dataset.value);
     const colors = parent.querySelector('[data-value="1"]');
     const child = colors.querySelector('[data-slot="sortable"]');
-    within(child).getAllByRole('button', { name: 'Reorder item' })[0].focus();
+    within(child).getByRole('button', { name: 'Drag White' }).focus();
     await userEvent.keyboard(' {ArrowDown} ');
     await waitFor(() => expect(values(child)).toEqual(['1-2', '1-1', '1-3', '1-4']));
     await expect(values(parent)).toEqual(['1', '2', '3']);
-    within(colors).getAllByRole('button', { name: 'Reorder item' })[0].focus();
+    within(colors).getByRole('button', { name: 'Drag group Colors' }).focus();
     await userEvent.keyboard(' {ArrowDown} ');
     await waitFor(() => expect(values(parent)).toEqual(['2', '1', '3']));
     await expect(values(child)).toEqual(['1-2', '1-1', '1-3', '1-4']);
@@ -65,7 +65,7 @@ export const Persisted = { name: 'Persisted order', ...pattern('persisted', 'Per
   for (const fail of [false, true]) {
     if (fail) await userEvent.click(canvas.getByRole('switch', {name: 'Simulate a failed save'}));
     const before = [...canvasElement.querySelectorAll('[data-slot="sortable-item"]')].map((item) => item.dataset.value);
-    canvas.getAllByRole('button', {name: 'Reorder item'})[0].focus();
+    canvas.getAllByRole('button', {name: /^Drag /})[0].focus();
     await userEvent.keyboard(' {ArrowDown} ');
     await waitFor(() => expect(body.getByText('Saving order...')).toBeVisible());
     await expect(canvas.getByRole('switch', {name: 'Simulate a failed save'})).toBeDisabled();

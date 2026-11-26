@@ -208,6 +208,115 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
     await preview.scrollIntoViewIfNeeded();
     await locator.hover();
   };
+  const controlRow = property => controls.locator('tbody tr').filter({ has: page.getByText(property, { exact: true }) });
+
+  if (id === 'layout-page-chrome--docs' && name === 'scrollEdges') {
+    assert.equal(await preview.locator('[data-slot="page-chrome"]').getAttribute('data-scroll-edges'), 'off');
+    const display = await preview.evaluate(element => {
+      const edge = document.createElement('div');
+      edge.dataset.slot = 'scroll-edge';
+      edge.dataset.page = '';
+      element.append(edge);
+      try { return getComputedStyle(edge).display; }
+      finally { edge.remove(); }
+    });
+    assert.equal(display, 'none');
+    return { outcome: 'The page marker hides a page-level scroll edge through the public stylesheet', display };
+  }
+  if (id === 'layout-article-content-layout--docs' && name === 'smooth') {
+    const viewport = preview.getByRole('region', { name: 'Blog post content' });
+    assert.equal(await viewport.evaluate(element => element.classList.contains('lenis')), value);
+    for (const enabled of [!value, value]) {
+      await updateControl(row, arg, enabled);
+      await page.waitForFunction(({ id, enabled }) => document.getElementById(id).querySelector('[data-slot="scroll-area-viewport"]').classList.contains('lenis') === enabled, { id: previewId, enabled });
+    }
+    return { outcome: 'The article attaches and releases its smooth scrolling engine when the control changes' };
+  }
+  if (id === 'post-tableofcontents--docs' && ['offset', 'smooth'].includes(name)) {
+    const destination = await preview.evaluate(element => {
+      const viewport = element.querySelector('[aria-label="Article reading viewport"]');
+      const link = [...element.querySelectorAll('aside a[data-scrollspy-anchor]')].filter(anchor => anchor.getBoundingClientRect().height).at(-1);
+      const target = document.getElementById(link.hash.slice(1));
+      const sectionTop = target.getBoundingClientRect().top - viewport.getBoundingClientRect().top + viewport.scrollTop - viewport.clientTop;
+      const nativeScroll = viewport.scrollTo;
+      let requested;
+      viewport.scrollTo = function (options) { requested = options; return nativeScroll.call(this, options); };
+      try { link.click(); } finally { delete viewport.scrollTo; }
+      return { sectionTop, requested };
+    });
+    assert.ok(destination.requested);
+    if (name === 'smooth') assert.equal(destination.requested.behavior, value ? 'smooth' : 'auto');
+    if (name === 'offset') assert.ok(Math.abs(destination.sectionTop - destination.requested.top - value) < 1);
+    return { outcome: 'A visible contents link scrolls its article to the selected offset and behavior', ...destination };
+  }
+  if (id === 'layout-newsletter-form--docs' && name === 'response' && value === 'error') {
+    const email = preview.getByRole('textbox', { name: 'Email address' }).first();
+    await email.fill('reader@example.com');
+    await preview.getByRole('button', { name: 'Sign up', exact: true }).first().click();
+    await preview.getByText('We could not subscribe you. Please try again.', { exact: true }).first().waitFor();
+    assert.equal(await email.inputValue(), 'reader@example.com');
+    return { outcome: 'A failed sample subscription shows the error and keeps the address available for retry' };
+  }
+  if (id === 'animations-text-cipherreveal--docs' && name === 'characterSet') {
+    const cipher = preview.locator('[data-slot="cipher-reveal"]');
+    // A character absent from the original alphabet must appear while the text is scrambled.
+    const additions = [...value].filter(character => !initial.includes(character));
+    await preview.getByRole('button', { name: 'Replay' }).click();
+    await cipher.scrollIntoViewIfNeeded();
+    await page.waitForFunction(({ id, additions }) => [...document.getElementById(id).querySelectorAll('.gaudi-cipher-reveal__cipher')].some(glyph => additions.includes(glyph.textContent)), { id: previewId, additions });
+    return { outcome: 'A replay uses the added characters in the rendered scramble', additions };
+  }
+  if (id === 'animations-text-glyphinspector--docs' && name === 'radius') {
+    await updateControl(controlRow('reveal'), { control: 'select' }, 'area');
+    await updateControl(controlRow('paused'), { control: 'boolean' }, true);
+    const letters = preview.locator('.gaudi-glyph-inspector__letter');
+    const reveal = () => letters.evaluateAll(nodes => nodes.map(node => node.style.getPropertyValue('--inspector-reveal')));
+    const changed = await reveal();
+    await updateControl(row, arg, initial);
+    const original = await reveal();
+    assert.notDeepEqual(changed, original);
+    await updateControl(row, arg, value);
+    return { outcome: 'Changing the radius changes the neighboring glyphs’ reveal amounts in area mode', original, changed };
+  }
+  if (id === 'animations-text-reeltext--docs' && ['duration', 'stagger'].includes(name)) {
+    const strips = preview.locator('.gaudi-reel-text__strip');
+    const timings = await strips.evaluateAll(elements => elements.map(element => {
+      const style = getComputedStyle(element);
+      return { duration: parseFloat(style.transitionDuration) * 1000, delay: parseFloat(style.transitionDelay) * 1000, order: Number(style.getPropertyValue('--reel-order')) };
+    }));
+    assert.ok(timings.length > 1);
+    for (const strip of timings) {
+      if (name === 'duration') assert.ok(Math.abs(strip.duration - value) < 1);
+      else assert.ok(Math.abs(strip.delay - strip.order * value) < 1);
+    }
+    return { outcome: 'The digit strips use the selected transition duration or stagger', timings };
+  }
+  if (id === 'animations-typewriterwriter--docs' && ['eraseDelay', 'holdDelay'].includes(name)) {
+    await updateControl(controlRow('texts'), { control: 'object' }, ['Audit', 'Next']);
+    await updateControl(controlRow('typeDelay'), { control: 'number' }, 30);
+    await updateControl(controlRow(name === 'holdDelay' ? 'eraseDelay' : 'holdDelay'), { control: 'number' }, name === 'holdDelay' ? 30 : 150);
+    await preview.getByRole('button', { name: 'Replay' }).click();
+    const stamps = await preview.evaluate(element => new Promise((resolve, reject) => {
+      const selector = '.gaudi-typewriter__value';
+      const observed = {};
+      const observer = new MutationObserver(() => {
+        const node = element.querySelector(selector);
+        const text = [...node.childNodes].filter(child => child.nodeType === Node.TEXT_NODE).map(child => child.textContent).join('');
+        if (text === 'Audit') observed.full = performance.now();
+        if (observed.full && text === 'Audi') observed.first = performance.now();
+        if (observed.first && text === 'Aud') {
+          clearTimeout(timer);
+          observer.disconnect();
+          resolve({ holdAndFirstErase: observed.first - observed.full, nextErase: performance.now() - observed.first });
+        }
+      });
+      const timer = setTimeout(() => { observer.disconnect(); reject(Error('The typewriter did not complete its hold and erase sequence')); }, 8000);
+      observer.observe(element, { childList: true, characterData: true, subtree: true });
+    }));
+    const elapsed = name === 'holdDelay' ? stamps.holdAndFirstErase - 30 : stamps.nextErase;
+    assert.ok(elapsed >= value - 15 && elapsed < value + 350, 'The visible typewriter phase must follow the selected delay');
+    return { outcome: 'Measured the full-text hold and consecutive glyph removals in the running preview', value, ...stamps };
+  }
   if (id === 'animations-backgrounds-liquid-ether--docs' && ['speed', 'interactive'].includes(name)) {
     const evidencePath = resolve('.storybook/verification/2026-10-12/full-ds/matrix-full/reports/liquid-ether-independent-controls-light.json');
     const evidence = JSON.parse(await readFile(evidencePath, 'utf8'));
@@ -358,6 +467,16 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
       return { outcome: 'Smooth mode installs the shared wheel engine, moves the viewport, and removes it when disabled', moved };
     }
     const scrollbar = preview.locator('[data-slot="scroll-area-scrollbar"]').first();
+    if (value === 'hover' || value === 'scroll') {
+      await page.mouse.move(0, 0);
+      await scrollbar.waitFor({ state: 'hidden' });
+      await viewport.hover();
+      if (value === 'scroll') await page.mouse.wheel(0, 140);
+      await scrollbar.waitFor({ state: 'visible' });
+      await page.mouse.move(0, 0);
+      await scrollbar.waitFor({ state: 'hidden' });
+      return { outcome: 'The scrollbar reveals on the selected input and hides again when idle', input: value };
+    }
     await scrollbar.waitFor({ state: 'visible' });
     const originalHeight = await viewport.evaluate(el => el.style.height);
     await viewport.evaluate(el => { el.style.height = `${el.scrollHeight + 10}px`; });
@@ -400,9 +519,10 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
     await preview.getByRole('button', { name: 'Play video', exact: true }).click();
     const dialog = page.getByRole('dialog');
     await dialog.waitFor({ state: 'visible' });
-    const motion = await dialog.locator('[data-open]').evaluateAll(elements => elements.map(el => ({ className: el.className, animation: getComputedStyle(el).animationName })));
+    const panel = page.locator('[data-video-dialog="true"]');
+    const motion = await panel.evaluate(element => ({ classes: [...element.classList], animation: getComputedStyle(element).animationName }));
     const expected = { fade: 'opacity-0', 'from-bottom': 'translate-y-8', 'from-left': '-translate-x-8', 'from-right': 'translate-x-8', 'from-top': '-translate-y-8', 'left-in-right-out': '-translate-x-8', 'top-in-bottom-out': '-translate-y-8' }[value];
-    assert.ok(motion.some(el => el.className.includes(expected)), 'The opened video panel uses its selected motion variant');
+    assert.ok(motion.classes.includes(expected), 'The opened video panel uses its selected motion variant');
     await page.keyboard.press('Escape');
     await dialog.waitFor({ state: 'hidden' });
     return { outcome: 'Opening the video applies the selected entrance/exit animation', motion };
@@ -502,9 +622,8 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
     return { outcome: name === 'trigger' ? 'Hover starts the resting cipher and it resolves completely' : name === 'direction' ? 'The center resolves before the outer characters' : 'The edited duration runs the scramble and reaches the readable final phrase', progression };
   }
   if (id === 'animations-typewriterwriter--docs' && name === 'repeat') {
-    const owned = property => controls.locator('tbody tr').filter({ has: page.getByText(property, { exact: true }) });
-    await updateControl(owned('texts'), { control: 'object' }, ['A', 'B']);
-    for (const [property, delay] of [['typeDelay', 16], ['eraseDelay', 16], ['holdDelay', 100]]) await updateControl(owned(property), { control: 'number' }, delay);
+    await updateControl(controlRow('texts'), { control: 'object' }, ['A', 'B']);
+    for (const [property, delay] of [['typeDelay', 16], ['eraseDelay', 16], ['holdDelay', 100]]) await updateControl(controlRow(property), { control: 'number' }, delay);
     await preview.scrollIntoViewIfNeeded();
     const read = () => preview.locator('.gaudi-typewriter__value').evaluate(el => [...el.childNodes].filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent).join(''));
     await page.waitForFunction(id => {
@@ -573,13 +692,23 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
     return evidence;
   }
   if (id === 'chat-agentmark--docs' && ['motif', 'hue'].includes(name) && initial === 'auto') {
-    const mark = preview.locator('[data-slot="agent-mark"]').first();
-    const explicit = await mark.getAttribute(`data-agent-${name}`);
+    const attribute = `data-agent-${name}`;
+    const waitForExplicit = () => page.waitForFunction(({ previewId, attribute, value }) =>
+      document.getElementById(previewId).querySelector('[data-slot="agent-mark"]')?.getAttribute(attribute) === value,
+    { previewId, attribute, value });
+    await waitForExplicit();
+    const explicit = value;
     await updateControl(row, arg, initial);
-    const automatic = await mark.getAttribute(`data-agent-${name}`);
-    assert.equal(explicit, value);
-    assert.equal(automatic, value);
+    await page.waitForFunction(({ storyId, name, initial }) =>
+      window.__STORYBOOK_PREVIEW__.storyStoreValue.args.get(storyId)[name] === initial,
+    { storyId: previewId.slice(7, -15), name, initial });
+    const automatic = await preview.evaluate(async (element, attribute) => {
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      return element.querySelector('[data-slot="agent-mark"]').getAttribute(attribute);
+    }, attribute);
     await updateControl(row, arg, value);
+    await waitForExplicit();
+    if (automatic !== value) return { outcome: 'The selected appearance overrides the seeded automatic appearance', automatic, explicit };
     return { kind: 'equivalent-preview', rationale: 'The automatic seed already resolves to the explicitly selected appearance', initial, value, resolvedAutomatic: automatic };
   }
   if ((id.startsWith('charts-') || id === 'mdx-chart--docs') && name === 'locale') {
@@ -654,9 +783,13 @@ async function verifyInteractiveControl({ page, preview, row, arg, name, value, 
     const owner = overlayOwners[id];
     const capture = async () => {
       const trigger = preview.getByRole('button', { name: owner.trigger, exact: true });
-      const popupId = await trigger.getAttribute('aria-controls');
+      // Allow room on every side when testing requested placement, away from collision boundaries.
+      await trigger.evaluate(element => element.scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' }));
       if (await trigger.getAttribute('aria-expanded') !== 'true') await trigger.click();
-      const popup = popupId ? page.locator(`[id=${JSON.stringify(popupId)}]`) : page.getByRole(owner.role);
+      const popupId = await trigger.getAttribute('aria-controls');
+      const popup = id === 'core-navigationmenu--docs'
+        ? page.locator('[data-slot="navigation-menu-content"][data-state="open"]').first()
+        : popupId ? page.locator(`[id=${JSON.stringify(popupId)}]`) : page.getByRole(owner.role);
       await popup.waitFor({ state: 'visible' });
       if (id === 'core-commander--docs') await popup.getByRole('combobox', { name: 'Search commands' }).fill('audit');
       await page.waitForTimeout(240);
@@ -959,12 +1092,13 @@ async function inspectDocs(page) {
       if (!panelId) throw new Error('Source toggle has no associated code panel');
       if (!expanded) await toggle.click();
       await page.waitForFunction(id => document.getElementById(id)?.querySelector('pre')?.textContent.trim().length > 0, panelId);
-      const code = await page.evaluate(id => document.getElementById(id).querySelector('pre').textContent, panelId);
-      result.characters = code.length;
       await page.evaluate(() => { window.__gaudiCopiedSource = null; });
       await toggle.locator('xpath=following-sibling::button[1]').click();
       await page.waitForFunction(() => typeof window.__gaudiCopiedSource === 'string' && window.__gaudiCopiedSource.length > 0);
       const copied = await page.evaluate(() => window.__gaudiCopiedSource);
+      // Mounting a deferred example can switch CSF source to JSX. Compare the display at copy time.
+      const code = await page.evaluate(id => document.getElementById(id).querySelector('pre').textContent, panelId);
+      result.characters = code.length;
       result.copyPayloadMatches = copied.trim() === code.trim();
       if (!result.copyPayloadMatches) {
         // Storybook's generated self-closing TableOfContents source is dedented for display.

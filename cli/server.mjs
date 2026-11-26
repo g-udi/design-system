@@ -22,7 +22,7 @@ function notFound(metadata, name) {
 
 export function createServer(metadata = loadMetadata()) {
   const server = new McpServer({ name: 'gaudi-ds', version: metadata.version }, {
-    instructions: `Gaudi Design System (${metadata.package}). Find components with search/list_components, read the real API with get_component before writing code, import from the exact public entry it reports, compose with semantic tokens (get_tokens), and check the result with validate_usage. Offline and local-only requests use installed files and Gaudi owners only. Use local Gaudi owners for component design. Only when the user requests a publisher lookup or external inspiration, read get_agent_skill with topic "component-design" for publisher access. Never invent props. Copy-in blocks come from list_blocks/get_block.`
+    instructions: `Gaudi Design System (${metadata.package}). Find components with search/list_components, read the real API with get_component before writing code, import from the exact public entry it reports, compose with semantic tokens (get_tokens), and check the result with validate_usage. Offline and local-only requests use installed files and Gaudi owners only. For other component design requests, first find the local owner, then read get_agent_skill with topic "component-design" and automatically consult one relevant bookmark. Never invent props. Copy-in blocks come from list_blocks/get_block.`
   });
   const categoryKeys = metadata.categories.map((category) => category.key);
 
@@ -101,7 +101,10 @@ export function createServer(metadata = loadMetadata()) {
     if (!block) return notFound(metadata, name);
     const item = readBlockItem(metadata, block.name);
     const source = item?.files?.map((file) => `// ${file.path}\n${file.content}`).join('\n\n');
-    return text(`${blockMarkdown(block)}\n${source ? `## Source\n\n\`\`\`jsx\n${source}\n\`\`\`\n` : '_Source is in the registry item (public/r). Run `pnpm registry:build` in the design-system repository, or install it with the command above once the registry is hosted._\n'}`);
+    const sourceSection = source
+      ? `## Source\n\n\`\`\`jsx\n${source}\n\`\`\`\n`
+      : `[View the registry item and its source](${metadata.registry.url.replace('{name}', block.name)}).\n`;
+    return text(`${blockMarkdown(block)}\n${sourceSection}`);
   });
 
   server.registerTool('get_tokens', {
@@ -124,7 +127,7 @@ export function createServer(metadata = loadMetadata()) {
     annotations: { readOnlyHint: true }
   }, async ({ name }) => {
     const block = findBlock(metadata, name);
-    if (block) return text({ kind: block.type, name: block.name, ...block.install, dependencies: block.dependencies, registriesConfig: { registries: { '@gaudi': '<base-url>/r/{name}.json' } } });
+    if (block) return text({ kind: block.type, name: block.name, ...block.install, dependencies: block.dependencies, registriesConfig: { registries: { [metadata.registry.namespace]: metadata.registry.url } } });
     const { match } = findComponent(metadata, name);
     if (match) {
       return text({
@@ -148,7 +151,7 @@ export function createServer(metadata = loadMetadata()) {
 
   server.registerTool('get_agent_skill', {
     title: 'Get agent skill',
-    description: 'Read the Gaudi design-system skill. Use the component-design topic for local component selection and explicitly requested publisher lookups.',
+    description: 'Read the Gaudi design-system skill. Use the component-design topic for local component selection, automatic bookmark inspiration and catalog fallback.',
     inputSchema: { topic: z.enum(['overview', 'component-design']).optional().describe('Omit for the full skill entry point, or select component-design for its component discovery guide.') },
     annotations: { readOnlyHint: true }
   }, async ({ topic }) => text(readSkill(metadata.root, topic)));
@@ -211,7 +214,7 @@ export function createServer(metadata = loadMetadata()) {
       role: 'user',
       content: {
         type: 'text',
-        text: `Build this with ${metadata.package}: ${task}\n\n1. For offline or local-only requests, use only installed APIs, local files and Gaudi examples. Skip publisher lookups and network requests. Search Gaudi for reusable owners and blocks. Compose local primitives for gaps. Only when the user requests a publisher lookup or external inspiration, call get_agent_skill with topic "component-design" and inspect a matching example.\n2. get_component for every component you will use; use only documented props and variant values.\n3. Import from the exact public entries reported (leaf entries such as ${metadata.package}/core/Button).\n4. Compose with semantic token utilities (get_tokens), logical properties (ms/me/ps/pe/start/end), gap-*, visible labels and accessible names; take user-facing strings from props so they can be translated.\n5. Run validate_usage on the final code and fix every error and warning.`
+        text: `Build this with ${metadata.package}: ${task}\n\n1. For offline or local-only requests, use only installed APIs, local files and Gaudi examples. Skip publisher lookups and network requests. Otherwise, search Gaudi for reusable owners and blocks first, then call get_agent_skill with topic "component-design" and automatically consult one relevant bookmark. If its tools are unavailable, use its public catalog.\n2. get_component for every component you will use; use only documented props and variant values.\n3. Import from the exact public entries reported (leaf entries such as ${metadata.package}/core/Button).\n4. Compose with semantic token utilities (get_tokens), logical properties (ms/me/ps/pe/start/end), gap-*, visible labels and accessible names; take user-facing strings from props so they can be translated.\n5. Run validate_usage on the final code and fix every error and warning.`
       }
     }]
   }));

@@ -81,6 +81,11 @@ export const JournalTopics = {
     const heading = canvas.getByRole('heading', { level: 1 });
     await expect(heading).toHaveTextContent('Writing about motion.');
     const accessibility = canvas.getByRole('radio', { name: /Accessibility/u });
+    for (const name of ['All writing', 'Read the latest', 'Follow Motion']) {
+      const link = canvas.getByRole('link', { name });
+      const target = canvasElement.ownerDocument.getElementById(link.hash.slice(1));
+      await expect(target).toContainElement(accessibility);
+    }
     await userEvent.click(accessibility);
     await expect(accessibility).toHaveAttribute('aria-checked', 'true');
     await expect(heading).toHaveTextContent('Writing about accessibility.');

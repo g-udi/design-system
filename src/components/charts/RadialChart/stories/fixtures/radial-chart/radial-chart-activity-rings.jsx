@@ -148,15 +148,12 @@ export function Pattern() {
               const value = day.values[goal.id];
               const met = value >= goal.goal;
               return (
-                <div key={goal.id} className='grid grid-cols-[auto_1fr_auto] items-center gap-x-3'>
-                  <span className='h-9 w-0.5 rounded-full' style={{ backgroundColor: goal.color }} aria-hidden='true' />
-                  <div>
-                    <dt className='text-sm font-medium'>{goal.label}</dt>
-                    <dd className='m-0 text-sm tabular-nums text-muted-foreground'>
-                      {number.format(value)} / {number.format(goal.goal)} {goal.unit}
-                    </dd>
-                  </div>
-                  <dd className='m-0 flex items-center gap-2 text-sm tabular-nums text-muted-foreground'>
+                <div key={goal.id} className='grid grid-cols-[1fr_auto] items-center gap-x-3 border-s-2 ps-3' style={{ borderInlineStartColor: goal.color }}>
+                  <dt className='text-sm font-medium'>{goal.label}</dt>
+                  <dd className='col-start-1 row-start-2 m-0 text-sm tabular-nums text-muted-foreground'>
+                    {number.format(value)} / {number.format(goal.goal)} {goal.unit}
+                  </dd>
+                  <dd className='col-start-2 row-span-2 row-start-1 m-0 flex items-center gap-2 text-sm tabular-nums text-muted-foreground'>
                     {met && <RegistryIcon lucide='CircleCheckIcon' aria-label='Goal met' className='size-4 text-[var(--ds-color-success)]' />}
                     {percent.format(value / goal.goal)}
                   </dd>

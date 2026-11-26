@@ -71,6 +71,19 @@ export const Playground = {
     await expect(diagram).toHaveAttribute('tabindex', '0');
     const svg = diagram.querySelector('svg');
     await expect(parseFloat(svg.style.minWidth)).toBeCloseTo(svg.viewBox.baseVal.width, 2);
+    // A queued ancestor mutation may reach a figure after its subtree leaves the document.
+    const content = diagram.parentElement;
+    const marker = document.createComment('diagram position');
+    content.replaceWith(marker);
+    try {
+      const parent = marker.parentElement;
+      parent.toggleAttribute('data-diagram-detach-test');
+      parent.toggleAttribute('data-diagram-detach-test');
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      await expect(content.querySelector('.mermaid-diagram svg')).toBe(svg);
+    } finally {
+      marker.replaceWith(content);
+    }
     // Every node label in the chart source is drawn.
     for (const [, label] of args.chart.matchAll(/[[{(]+([^\]})]+)[\]})]+/g)) await expect(diagram).toHaveTextContent(label);
     const canvas = within(canvasElement);
@@ -119,6 +132,7 @@ export const Playground = {
 export const InvalidDiagram = {
   args: { chart: 'not-a-diagram: A --> B' },
   parameters: {
+    visualAudit: { wideElements: { '[data-slot="code-block"]': 'The error example keeps the source panel aligned with the alert.' } },
     docs: {
       description: { story: 'Invalid source uses Gaudi’s Alert and CodeBlock so the failure stays readable within the article.' },
       source: playgroundSource('Mermaid', { imports: "import { Mermaid } from '@gaudi/design-system/mdx';" })

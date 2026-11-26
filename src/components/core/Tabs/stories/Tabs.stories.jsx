@@ -6,9 +6,10 @@ import { ArticleTabs, panels } from './fixtures/NativeExamples.jsx';
 import exampleCode from './fixtures/NativeExamples.jsx?raw';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-import Tabs, { TabsContent, TabsList, TabsTrigger, tabsVariants } from '../Tabs';
+import Tabs, { TabsContent, TabsList, TabsTrigger } from '../index.js';
 
 const docs = getComponentDocs('Core/Tabs');
+const tabsVariants = ['underline', 'outline', 'type'];
 const tab = (canvas, index) => canvas.getByRole('tab', { name: new RegExp(`^${panels[index].label}`) });
 const exampleSource = publicSource(exampleCode, new URL('./fixtures/NativeExamples.jsx', import.meta.url));
 
@@ -16,7 +17,7 @@ export default {
   title: 'Core/Tabs', id: 'core-tabs',
   component: Tabs,
   tags: ['autodocs'],
-  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: ['underline', 'outline', 'type'], tone: ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'] }),
+  argTypes: docsArgTypes(docs, { defaultValue: panels.filter((panel) => !panel.disabled).map((panel) => panel.value), orientation: ['horizontal', 'vertical'], variant: tabsVariants, tone: ['neutral', 'accent', 'info', 'success', 'warning', 'danger', 'discovery', 'attention'] }),
   parameters: {
     docs: {
       description: { component: docs.description },

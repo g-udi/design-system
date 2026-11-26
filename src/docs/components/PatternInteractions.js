@@ -77,7 +77,7 @@ export const catalogueInteractions = {
   },
   'sortable-row-controls': async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const handle = canvas.getAllByRole('button', { name: 'Reorder item' })[0];
+    const handle = canvas.getByRole('button', { name: 'Drag Product photo' });
     handle.focus();
     await userEvent.keyboard(' {ArrowDown} ');
     await waitFor(() => {

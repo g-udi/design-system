@@ -72,6 +72,8 @@ const Mermaid = ({ chart, className, description = 'Diagram', id }) => {
     if (!host) return undefined;
     // Mermaid bakes colors into SVG styles, so CSS theme changes need a fresh render.
     const updateTheme = () => {
+      // A queued observer callback can outlive the loading, diagram or error element.
+      if (!host.isConnected) return;
       const next = readDiagramTheme(host);
       setTheme((current) => Object.keys(next).every((key) => current?.[key] === next[key]) ? current : next);
     };

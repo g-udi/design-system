@@ -11,7 +11,8 @@ import {
 import {
   Sortable,
   SortableItem,
-  SortableItemHandle
+  SortableItemHandle,
+  SortableItemPosition
 } from '@gaudi/design-system/core/Sortable';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
@@ -53,7 +54,7 @@ export function Pattern() {
       <Frame spacing='xs'>
         <FrameHeader>
           <FrameTitle>Product media</FrameTitle>
-          <FrameDescription>{shown} of {items.length} shown on the listing, top first.</FrameDescription>
+          <FrameDescription dir='auto'>{shown} of {items.length} shown on the listing, top first.</FrameDescription>
         </FrameHeader>
         <Sortable
           value={items}
@@ -66,22 +67,23 @@ export function Pattern() {
             <SortableItem key={item.id} value={item.id}>
               <FramePanel className='p-0!'>
                 <div className='flex items-center gap-2 px-2 py-1.5'>
-                  <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground'>
+                  <SortableItemHandle aria-label={`Drag ${item.title}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon lucide='GripVerticalIcon' className='size-4' />
                   </SortableItemHandle>
-                  <span className='flex size-8 shrink-0 items-center justify-center rounded-md bg-ui-muted text-ui-muted-foreground'>
+                  <span className='hidden size-8 shrink-0 items-center justify-center rounded-md sm:flex bg-ui-muted text-ui-muted-foreground'>
                     <RegistryIcon lucide={types[item.type].icon} className='size-4' />
                   </span>
                   <div className='min-w-0 flex-1'>
-                    <p className='truncate text-sm font-medium'>
+                    <p dir='auto' className='text-sm font-medium sm:truncate'>
                       {item.title}
                       {index === 0 && (
                         <Badge variant='primary-light' size='xs' className='ms-1.5 align-middle'>Cover</Badge>
                       )}
                     </p>
-                    <p className='truncate text-xs text-ui-muted-foreground'>{item.description} · {item.size}</p>
+                    <p dir='auto' className='text-xs text-ui-muted-foreground sm:truncate'>{item.description} · {item.size}</p>
                   </div>
                   <Badge variant={types[item.type].variant} size='sm' className='hidden sm:inline-flex'>{item.type}</Badge>
+                  <SortableItemPosition aria-label={`Position of ${item.title}`} />
                   <Switch aria-label={`Show ${item.title}`} checked={item.visible} onCheckedChange={() => toggle(item.id)} />
                 </div>
               </FramePanel>

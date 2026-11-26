@@ -3,7 +3,8 @@ import { useId, useState } from 'react';
 import {
   Sortable,
   SortableItem,
-  SortableItemHandle
+  SortableItemHandle,
+  SortableItemPosition
 } from '@gaudi/design-system/core/Sortable';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 import {
@@ -83,13 +84,14 @@ export function Pattern() {
               <CardContent className='p-0'>
                 {/* Group Header */}
                 <div className='mb-2 flex items-center gap-2'>
-                  <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
+                  <SortableItemHandle aria-label={`Drag group ${group.name}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon
                       lucide='GripVerticalIcon'
                       className='size-4'
                     />
                   </SortableItemHandle>
-                  <h3 className='text-sm font-semibold'>{group.name}</h3>
+                  <h3 className='min-w-0 flex-1 text-sm font-semibold'>{group.name}</h3>
+                  <SortableItemPosition aria-label={`Position of group ${group.name}`} />
                 </div>
 
                 {/* Option Values - Child Level */}
@@ -105,13 +107,14 @@ export function Pattern() {
                   {group.values.map((value) => (
                     <SortableItem key={value.id} value={value.id}>
                       <div className='border-ui-border rounded-md flex items-center gap-2 border p-1.5'>
-                        <SortableItemHandle className='text-ui-muted-foreground hover:text-ui-foreground cursor-grab'>
+                        <SortableItemHandle aria-label={`Drag ${value.value}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                           <RegistryIcon
                             lucide='GripVerticalIcon'
                             className='size-4'
                           />
                         </SortableItemHandle>
-                        <span className='flex-1 text-sm'>{value.value}</span>
+                        <span className='min-w-0 flex-1 text-sm'>{value.value}</span>
+                        <SortableItemPosition aria-label={`Position of ${value.value}`} />
                       </div>
                     </SortableItem>
                   ))}

@@ -1,13 +1,15 @@
 ---
 name: gaudi-design-system
-description: Build React UI with the Gaudi design system (@gaudi/design-system). Use whenever a project depends on @gaudi/design-system, or when asked to build or change pages, forms, dialogs, tables, dashboards, app shells, chat interfaces, charts or blog/MDX layouts with Gaudi components, tokens or blocks. Covers finding the right component, reading its real API, exact public imports, composing with tokens, accessibility, RTL and i18n, and validating usage.
+description: Design or build React components and interfaces with the Gaudi design system (@gaudi/design-system). Use for Gaudi pages, forms, dialogs, tables, dashboards, app shells, chat, charts and blog/MDX layouts. Find Gaudi owners and examples, consult relevant bookmarked examples for design inspiration, and use documented imports, props, tokens and accessibility guidance.
 ---
 
 # Building UI with Gaudi
 
 Gaudi (`@gaudi/design-system`) is a React 19 design system shipped as JSX source with Tailwind CSS v4. It owns presentation, tokens, semantics, keyboard/focus behaviour and local interaction state. Your application owns data, routing, permissions, persistence, network calls and translations.
 
-Use local Gaudi components and project examples for ordinary component requests. Consult a publisher skill, catalog or external MCP only when the user asks for that publisher’s guidance or explicitly requests external inspiration. The local component guide is available in `references/component-design.md` or through `get_agent_skill({topic: "component-design"})`.
+First check whether the user or project requires offline or local-only work. If so, use only installed component APIs, local files and examples. Skip every publisher tool, command, network request and catalog fallback URL. End with the local result.
+
+Otherwise, complete the local owner and API lookup first. Inspect existing usages and search Gaudi’s components, hooks, patterns and blocks. A request to find an existing component ends there. For component design or redesign, then automatically consult one relevant bookmark for a concrete interaction, state or layout choice. Use its available skill or MCP and fall back to its public catalog. Follow **Component design** in `references/component-design.md`, in the reference included below for single-file clients, or through `get_agent_skill({topic: "component-design"})`.
 
 ## Workflow: Find → Read → Import → Compose → Validate
 
@@ -114,7 +116,7 @@ Use local Gaudi components and project examples for ordinary component requests.
 | Chat or agent UI | `ChatShell` (`blocks/Chat`) composing `ChatMessage`, `ChatPromptComposer`, `ChatMessageScroller` and `ChatMessageParts` |
 | Charts | owners in `@gaudi/design-system/charts` (`LineChart`, `BarChart`, `AreaChart`, `DonutChart`, …) inside `ChartFrame` behaviour; never from the root entry; needs `recharts` |
 | Node graphs | `Flow` (needs `@xyflow/react` and `@gaudi/design-system/flow.css`) |
-| Blog article page | `LayoutWrapper` / `ArticleContentLayout`, `PostHeader`, `TableOfContents`, MDX primitives from `@gaudi/design-system/mdx` |
+| Blog article page | `ArticleContentLayout` with `PostHeader`, `TableOfContents` and MDX primitives from `@gaudi/design-system/mdx` |
 
 When two rows look similar, read both with `get_component` and follow their `decisionRules` and `notes`.
 
@@ -133,7 +135,7 @@ When two rows look similar, read both with `get_component` and follow their `dec
 - Use logical utilities so layouts mirror: `ms-*`/`me-*`, `ps-*`/`pe-*`, `start-*`/`end-*`, `text-start`/`text-end`, `border-s`/`border-e`, `rounded-s`/`rounded-e`. Avoid `ml-*`, `mr-*`, `pl-*`, `pr-*`, `left-*`, `right-*`, `text-left`, `text-right`.
 - Set `dir` on the document (or wrap a subtree in `DirectionProvider`) for right-to-left languages; Gaudi's keyboard navigation and placement follow it.
 - Keep focus visible and meaningful: dialogs and sheets return focus to their trigger; do not steal focus on load; respect reduced motion (Gaudi motion already does).
-- Use semantic elements and Gaudi's landmarks; one `main` per page (`LayoutWrapper` provides it).
+- Keep one `main` landmark per page. For a blog article, place `ArticleContentLayout` inside the page’s existing main landmark or supply a `main` in the application layout.
 
 ## Validate before finishing
 

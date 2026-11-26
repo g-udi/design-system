@@ -11,6 +11,7 @@ import { exists, json, loadEntryExports, loadHookCatalogue, loadIconNames, loadO
 const check = process.argv.includes('--check');
 const manifest = packageJson();
 const PKG = manifest.name;
+const registryUrl = 'https://design.gaudi.site/r/{name}.json';
 
 export const categories = [
   ['core', 'Core', 'Controls, inputs, overlays, data display, feedback and navigation primitives.'],
@@ -326,12 +327,12 @@ function llmsIndex({ components, blocks, tokens }) {
   }
   lines.push('',
     '## MCP & agent skills', '',
-    '- MCP server (stdio): `claude mcp add gaudi-ds -- npx -y @gaudi/design-system mcp` (before publishing: `claude mcp add gaudi-ds -- node /path/to/design-system/bin/gaudi-ds.mjs mcp`). Tools: search, list_components, get_component, get_examples, list_blocks, get_block, get_tokens, get_install_command, validate_usage, get_agent_skill, get_project_setup, list_themes, get_theme, import_theme, export_theme.',
-    '- Agent skill: `npx @gaudi/design-system skills install --agent claude|cursor|codex|windsurf|opencode|vscode|all [--dir <project>]`.', '',
+    '- Connect the installed stdio MCP from your project with `claude mcp add gaudi-ds -- node "$PWD/node_modules/@gaudi/design-system/bin/gaudi-ds.mjs" mcp`, or use `codex mcp add` with the same arguments. From a design-system checkout, use `"$PWD/bin/gaudi-ds.mjs"`. Tools: search, list_components, get_component, get_examples, list_blocks, get_block, get_tokens, get_install_command, validate_usage, get_agent_skill, get_project_setup, list_themes, get_theme, import_theme, export_theme.',
+    '- Install the agent skill from your project with `pnpm exec gaudi-ds skills install --agent codex`. Supported clients are Claude, Cursor, Codex, Windsurf, OpenCode and VS Code.', '',
     '## Theming', '',
     `Themes override the semantic \`--ds-*\` contract (surfaces, text, borders, accent, focus, status, charts, sidebar; shadows per mode; fonts, radius, density) for light and dark: [THEMING.md](src/tokens/THEMING.md), [schema](themes/theme.schema.json). Presets: ${themePresetIds().map((id) => `\`${id}\``).join(', ')} ([themes/presets](themes/presets)). Apply with \`data-theme="<id>"\` on <html> plus \`${PKG}/themes.css\`, or \`ThemeProvider\`/\`useTheme\`/\`getThemeScript\`/\`applyTheme\` from \`${PKG}/themes\`. Bring any [StyleGlide](https://www.styleglide.ai/themes), [tweakcn](https://tweakcn.com) or [shadcn/ui](https://ui.shadcn.com/themes) theme: the contract follows the shadcn CSS-variable convention, so their CSS imports as-is with \`gaudi-ds theme import <file|url>\` (or the import_theme MCP tool). Export with \`gaudi-ds theme export <id> --format css|shadcn|registry|json\`; presets are also registry items (\`theme-<id>\`). Storybook: the Theming guide (\`theming-overview--default\`, THEMING.md with live swatches and previews), the Theme Studio guide and the Theme preset toolbar.`, '',
     '## Registry', '',
-    'shadcn-compatible registry for blocks and patterns (`registry.json`, built to `public/r/<name>.json` by `pnpm registry:build`). Add `"registries": { "@gaudi": "<base-url>/r/{name}.json" }` to your components.json, then `npx shadcn@latest add @gaudi/<name>`; locally: `npx shadcn@latest add ./public/r/<name>.json`.', '',
+    'Gaudi hosts a shadcn-compatible registry of blocks and patterns. Add `"registries": { "@gaudi": "' + registryUrl + '" }` to your components.json and run `npx shadcn@latest add @gaudi/<name>`. From a design-system checkout, you can also run `npx shadcn@latest add ./public/r/<name>.json`.', '',
     '## Credits', '',
     'This file follows the [llms.txt proposal](https://llmstxt.org). The registry follows the [shadcn registry spec](https://ui.shadcn.com/docs/registry); the server uses the [Model Context Protocol](https://modelcontextprotocol.io) and its official TypeScript SDK (`@modelcontextprotocol/sdk`, MIT). Third-party notices: README.md#third-party-notices.', '');
   return lines.join('\n');
@@ -367,6 +368,37 @@ function skillCatalogue({ components, blocks }) {
 const outputs = new Map();
 const emit = (file, content) => outputs.set(file, content);
 
+// Ship the same bookmarks through the skill installer and its MCP response.
+// Credits owns the links. The workflow around this section remains hand-authored.
+function syncSkillBookmarks() {
+  const file = 'skills/gaudi-design-system/references/component-design.md';
+  const guide = readText(file);
+  const credits = readText('site/content/docs/credits.mdx');
+  const resources = credits.split(/^## Useful resources\s*$/m)[1]?.split(/^## /m)[0];
+  const orb = credits.match(/^- \[orb-ui\].+$/m)?.[0];
+  if (!resources || !orb) throw new Error('Expected Useful resources and orb-ui on the Credits page.');
+  const libraries = [...resources.matchAll(/^- \[.+$/gm)].map(([line]) => line);
+  if (!libraries.length) throw new Error('Expected component bookmarks under Useful resources.');
+  const bookmarks = [...libraries, orb];
+  const catalogs = {};
+  const links = bookmarks.map((line) => {
+    const match = line.match(/^- \[([^\]]+)\]\((https:\/\/[^)]+)\)/);
+    if (!match) throw new Error(`Expected a publisher link at the start of the Credits entry: ${line}`);
+    const id = match[1].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    if (Object.hasOwn(catalogs, id)) throw new Error(`Duplicate publisher identifier: ${id}`);
+    catalogs[id] = match[2];
+    const url = new URL(match[2]);
+    url.hostname = url.hostname.replace(/^www\./, '');
+    return url.href.replace(/\/$/, '');
+  });
+  if (new Set(links).size !== links.length) throw new Error('A publisher link appears twice in the Credits bookmarks.');
+  const section = /(<!-- BEGIN bookmarks from Credits -->\n)[\s\S]*?(<!-- END bookmarks from Credits -->)/;
+  if (!section.test(guide)) throw new Error(`Missing Credits bookmark section in ${file}.`);
+  emit(file, guide.replace(section, (_, start, end) => start + bookmarks.join('\n') + '\n' + end));
+  return catalogs;
+}
+
+const componentCatalogs = syncSkillBookmarks();
 const entryExports = await loadEntryExports(manifest);
 const patterns = await derivePatterns();
 const components = await buildComponents(entryExports, patterns);
@@ -375,10 +407,10 @@ const tokens = buildTokens(readJson('src/tokens/tokens.json'));
 const meta = { package: PKG, version: manifest.version, generatedBy: 'pnpm ai:build' };
 
 emit('ai/components.json', json({ ...meta, categories: categories.map(([key, label, description]) => ({ key, label, description, count: components.filter((component) => component.category === key).length })), components }));
-emit('ai/blocks.json', json({ ...meta, registry: { namespace: '@gaudi', url: '<base-url>/r/{name}.json', local: 'public/r/{name}.json' }, blocks }));
+emit('ai/blocks.json', json({ ...meta, registry: { namespace: '@gaudi', url: registryUrl, local: 'public/r/{name}.json' }, blocks }));
 emit('ai/tokens.json', json({ ...meta, ...tokens }));
 emit('ai/icons.json', json({ ...meta, ...buildIcons(entryExports) }));
-emit('ai/setup.json', json({ ...meta, ...buildSetup() }));
+emit('ai/setup.json', json({ ...meta, ...buildSetup(), componentCatalogs }));
 emit('ai/exports.json', json({ ...meta, entries: Object.fromEntries(Object.keys(manifest.exports).map((subpath) => [`${PKG}${subpath === '.' ? '' : subpath.slice(1)}`, entryExports[subpath]?.exports || []])) }));
 for (const component of components) emit(component.docs, componentMarkdown(component, { packageName: PKG }));
 emit('skills/gaudi-design-system/references/catalogue.md', skillCatalogue({ components, blocks }));

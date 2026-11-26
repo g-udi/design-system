@@ -4186,6 +4186,8 @@ import { LinkPreview, SiteConfigProvider } from '@gaudi/design-system';
 | `article` | Medium, Substack, dev.to, or any payload with an author or published time | Author, date, reading time. |
 | `website` | Everything else | Title, description, image, site name. |
 
+While metadata loads, the inline variant renders the plain link straight away (`data-state="loading"`, `aria-busy`) rather than a skeleton, so server output, feed readers, crawlers and screen readers always get the link text and href. `card` and `compact` keep their skeleton for layout and add a visually hidden link.
+
 Titles drop noisy suffixes (` - MDN Web Docs`, ` - YouTube`, ` · GitHub`…) and cap at 60 characters. Failures with status 400, 404 or 410 are `unavailable` and render a red link named "(link may be unavailable)"; other failures and missing endpoints render an ordinary link. Gaudi derives no images of its own; see [Images](#images).
 
 ### Data
@@ -6651,7 +6653,7 @@ import { Sortable } from '@gaudi/design-system/core/Sortable';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableOverlay`
+Exports: `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SortableOverlay`
 
 ## Props
 
@@ -6696,23 +6698,24 @@ Keep a keyboard-operable handle and announce moves. The application owns saving 
 
 Curated patterns:
 
-- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`)
-- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `ToastProvider`, `toast`)
-- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Badge`, `Label`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SwitchRoot`, `ToastProvider`, `toast`, `useTimeout`)
-- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SwitchRoot`, `ToastProvider`, `toast`)
+- Media grid — registry item `@gaudi/sortable-media-grid` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `cn`)
+- Nested lists — registry item `@gaudi/sortable-nested` (uses `CardContent`, `CardRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `ToastProvider`, `toast`)
+- Persisted order — registry item `@gaudi/sortable-persisted` (uses `Label`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`, `useTimeout`)
+- List with row controls — registry item `@gaudi/sortable-row-controls` (uses `Badge`, `Frame`, `FrameDescription`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `SortableItemPosition`, `SwitchRoot`, `ToastProvider`, `toast`)
 
 ## README
 
-Drag-and-drop reordering for lists, lanes, and grids, with keyboard support. Use it when the order of items matters to the reader, such as a checklist or a gallery cover.
+Drag-and-drop reordering for lists, lanes, and grids, with keyboard and tap controls. Use it when the order of items matters to the reader, such as a checklist or a gallery cover.
 
 ```jsx
-import { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system';
+import { Sortable, SortableItem, SortableItemHandle, SortableItemPosition } from '@gaudi/design-system';
 
 <Sortable value={tasks} onValueChange={setTasks} getItemValue={(task) => task.id}>
   {tasks.map((task) => (
     <SortableItem key={task.id} value={task.id}>
       <SortableItemHandle aria-label={`Reorder ${task.title}`}>⋮⋮</SortableItemHandle>
       {task.title}
+      <SortableItemPosition aria-label={`Position of ${task.title}`} />
     </SortableItem>
   ))}
 </Sortable>
@@ -6720,8 +6723,10 @@ import { Sortable, SortableItem, SortableItemHandle } from '@gaudi/design-system
 
 - `strategy`: `vertical` (default), `horizontal`, or `grid`.
 - `onValueCommit` fires once per completed move, which is where you persist the new order.
-- `disabled` on an item pins it in place. `SortableOverlay` customises the lifted copy shown while dragging.
+- `disabled` prevents an item from starting a drag or moving through its position picker. `SortableOverlay` customises the lifted copy shown while dragging.
 - Handles are buttons: Space picks up an item, arrow keys move it, Space drops it, and Escape cancels.
+
+Pair the drag handle with `SortableItemPosition` for pointer users who cannot drag. The native picker shows the current position and can move the item one place earlier or later. Give it a label that identifies the item. Both interactions follow the same `onMove`, `onValueChange` and `onValueCommit` rules. The event in the callback is the originating drag or select event.
 
 ---
 
@@ -21670,7 +21675,7 @@ Capture console · icon rail, capture queue tabs and expandable run feeds. Block
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-crawler-control
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-crawler-control.json
 ```
 
@@ -21688,7 +21693,7 @@ Dual sidebar · digest inbox, reading-plan panel and an author directory. Blocks
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-digest-inbox
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-digest-inbox.json
 ```
 
@@ -21706,7 +21711,7 @@ Finance dashboard · grouped sidebar, search and reports. Blocks/App Shell patte
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-finance-dashboard
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-finance-dashboard.json
 ```
 
@@ -21724,7 +21729,7 @@ Icon rail · library switcher, nested collections and a reader menu. Blocks/App 
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-library-rail
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-library-rail.json
 ```
 
@@ -21742,7 +21747,7 @@ Newsletter reader · library and topics sidebar, issue list, reading pane and a 
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-newsletter-reader
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-newsletter-reader.json
 ```
 
@@ -21760,7 +21765,7 @@ Mini icon rail · research notebooks with per-section pages and view tabs. Block
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-notebook-tabs
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-notebook-tabs.json
 ```
 
@@ -21778,7 +21783,7 @@ Inset icon rail · per-section navigation, site, publication and environment swi
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-publishing-console
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-publishing-console.json
 ```
 
@@ -21796,7 +21801,7 @@ Floating sidebar · header ⌘K search, reading queue and shelf switcher. Blocks
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-reading-desk
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-reading-desk.json
 ```
 
@@ -21814,7 +21819,7 @@ Floating sidebar · library research assistant with answer modes, sources and ci
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-research-assistant
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-research-assistant.json
 ```
 
@@ -21832,7 +21837,7 @@ Inset sidebar · study progress rings, reading goal and a header notifications f
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-research-projects
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-research-projects.json
 ```
 
@@ -21850,7 +21855,7 @@ Source tile rail · workspace tabs, section tiles and a status-badged source tre
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-source-network
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-source-network.json
 ```
 
@@ -21868,7 +21873,7 @@ Resizable sidebar · reading-group study threads, notes tab and a header tutor p
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-study-chat
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-study-chat.json
 ```
 
@@ -21886,7 +21891,7 @@ Library top bar · circle and collection switchers, grouped routes and an apps g
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-topbar-collections
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-topbar-collections.json
 ```
 
@@ -21904,7 +21909,7 @@ Journal top bar · section pills, sidebar page search and an inset notifications
 
 ```sh
 npx shadcn@latest add @gaudi/app-shell-topbar-journal
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/app-shell-topbar-journal.json
 ```
 
@@ -21922,7 +21927,7 @@ Agent at work: Plan and activity. Blocks/Chat pattern composed from @gaudi/desig
 
 ```sh
 npx shadcn@latest add @gaudi/chat-agent-activity
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/chat-agent-activity.json
 ```
 
@@ -21940,7 +21945,7 @@ Full page: Reviewing a pull request. Blocks/Chat pattern composed from @gaudi/de
 
 ```sh
 npx shadcn@latest add @gaudi/chat-pull-request-review
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/chat-pull-request-review.json
 ```
 
@@ -21958,7 +21963,7 @@ New chat: Welcome and suggestions. Blocks/Chat pattern composed from @gaudi/desi
 
 ```sh
 npx shadcn@latest add @gaudi/chat-welcome-suggestions
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/chat-welcome-suggestions.json
 ```
 
@@ -21976,7 +21981,7 @@ Sidebar: Writing assistant beside the editor. Blocks/Chat pattern composed from 
 
 ```sh
 npx shadcn@latest add @gaudi/chat-writing-assistant
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/chat-writing-assistant.json
 ```
 
@@ -21994,7 +21999,7 @@ AI agents · Conversation analytics. Blocks/Dashboard pattern composed from @gau
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-agent-analytics
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-agent-analytics.json
 ```
 
@@ -22012,7 +22017,7 @@ Commerce · Revenue. Blocks/Dashboard pattern composed from @gaudi/design-system
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-commerce-revenue
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-commerce-revenue.json
 ```
 
@@ -22030,7 +22035,7 @@ Creators · Payouts. Blocks/Dashboard pattern composed from @gaudi/design-system
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-creator-payouts
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-creator-payouts.json
 ```
 
@@ -22048,7 +22053,7 @@ Project · Delivery timesheet. Blocks/Dashboard pattern composed from @gaudi/des
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-delivery-timesheet
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-delivery-timesheet.json
 ```
 
@@ -22066,7 +22071,7 @@ Security · Edge telemetry. Blocks/Dashboard pattern composed from @gaudi/design
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-edge-security
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-edge-security.json
 ```
 
@@ -22084,7 +22089,7 @@ Field teams · Coverage. Blocks/Dashboard pattern composed from @gaudi/design-sy
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-field-coverage
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-field-coverage.json
 ```
 
@@ -22102,7 +22107,7 @@ Content · Newsletter analytics. Blocks/Dashboard pattern composed from @gaudi/d
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-newsletter-analytics
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-newsletter-analytics.json
 ```
 
@@ -22120,7 +22125,7 @@ Operations · Capacity and exceptions. Blocks/Dashboard pattern composed from @g
 
 ```sh
 npx shadcn@latest add @gaudi/dashboard-operations-capacity
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/dashboard-operations-capacity.json
 ```
 
@@ -22138,7 +22143,7 @@ Developer · Create an API key. Blocks/Forms pattern composed from @gaudi/design
 
 ```sh
 npx shadcn@latest add @gaudi/forms-api-key
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-api-key.json
 ```
 
@@ -22156,7 +22161,7 @@ Launch · New app with live summary. Blocks/Forms pattern composed from @gaudi/d
 
 ```sh
 npx shadcn@latest add @gaudi/forms-app-launch
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-app-launch.json
 ```
 
@@ -22174,7 +22179,7 @@ Feedback · Article survey. Blocks/Forms pattern composed from @gaudi/design-sys
 
 ```sh
 npx shadcn@latest add @gaudi/forms-article-feedback
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-article-feedback.json
 ```
 
@@ -22192,7 +22197,7 @@ Compliance · Business verification. Blocks/Forms pattern composed from @gaudi/d
 
 ```sh
 npx shadcn@latest add @gaudi/forms-business-verification
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-business-verification.json
 ```
 
@@ -22210,7 +22215,7 @@ Checkout · Address and payment. Blocks/Forms pattern composed from @gaudi/desig
 
 ```sh
 npx shadcn@latest add @gaudi/forms-checkout
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-checkout.json
 ```
 
@@ -22228,7 +22233,7 @@ Contact · Message with error summary. Blocks/Forms pattern composed from @gaudi
 
 ```sh
 npx shadcn@latest add @gaudi/forms-contact
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-contact.json
 ```
 
@@ -22246,7 +22251,7 @@ Onboarding · Customer intake. Blocks/Forms pattern composed from @gaudi/design-
 
 ```sh
 npx shadcn@latest add @gaudi/forms-customer-intake
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-customer-intake.json
 ```
 
@@ -22264,7 +22269,7 @@ Events · Registration with email code. Blocks/Forms pattern composed from @gaud
 
 ```sh
 npx shadcn@latest add @gaudi/forms-event-registration
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-event-registration.json
 ```
 
@@ -22282,7 +22287,7 @@ Billing · Hosted checkout setup. Blocks/Forms pattern composed from @gaudi/desi
 
 ```sh
 npx shadcn@latest add @gaudi/forms-hosted-checkout
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-hosted-checkout.json
 ```
 
@@ -22300,7 +22305,7 @@ Billing · Invoice with line items. Blocks/Forms pattern composed from @gaudi/de
 
 ```sh
 npx shadcn@latest add @gaudi/forms-invoice
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-invoice.json
 ```
 
@@ -22318,7 +22323,7 @@ Commerce · New product. Blocks/Forms pattern composed from @gaudi/design-system
 
 ```sh
 npx shadcn@latest add @gaudi/forms-new-product
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-new-product.json
 ```
 
@@ -22336,7 +22341,7 @@ Newsletter · Signup and preferences. Blocks/Forms pattern composed from @gaudi/
 
 ```sh
 npx shadcn@latest add @gaudi/forms-newsletter
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-newsletter.json
 ```
 
@@ -22354,7 +22359,7 @@ Profile · Card with completion and office hours. Blocks/Forms pattern composed 
 
 ```sh
 npx shadcn@latest add @gaudi/forms-profile-card
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-profile-card.json
 ```
 
@@ -22372,7 +22377,7 @@ Profile · Tabs with audit rail. Blocks/Forms pattern composed from @gaudi/desig
 
 ```sh
 npx shadcn@latest add @gaudi/forms-profile-tabs
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-profile-tabs.json
 ```
 
@@ -22390,7 +22395,7 @@ Security · Sign-in policy. Blocks/Forms pattern composed from @gaudi/design-sys
 
 ```sh
 npx shadcn@latest add @gaudi/forms-sign-in-policy
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-sign-in-policy.json
 ```
 
@@ -22408,7 +22413,7 @@ Support · Ticket details. Blocks/Forms pattern composed from @gaudi/design-syst
 
 ```sh
 npx shadcn@latest add @gaudi/forms-support-ticket
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-support-ticket.json
 ```
 
@@ -22426,7 +22431,7 @@ Team · Invite with permissions. Blocks/Forms pattern composed from @gaudi/desig
 
 ```sh
 npx shadcn@latest add @gaudi/forms-team-invite
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/forms-team-invite.json
 ```
 
@@ -22444,7 +22449,7 @@ Book a meeting. Blocks/Scheduling pattern composed from @gaudi/design-system/blo
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-book-meeting
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-book-meeting.json
 ```
 
@@ -22462,7 +22467,7 @@ Create a schedule. Blocks/Scheduling pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-create-schedule
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-create-schedule.json
 ```
 
@@ -22480,7 +22485,7 @@ Date and time popover. Blocks/Scheduling pattern composed from @gaudi/design-sys
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-date-time-popover
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-date-time-popover.json
 ```
 
@@ -22498,7 +22503,7 @@ Day agenda. Blocks/Scheduling pattern composed from @gaudi/design-system/blocks/
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-day-agenda
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-day-agenda.json
 ```
 
@@ -22516,7 +22521,7 @@ Month at a glance. Blocks/Scheduling pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-month-overview
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-month-overview.json
 ```
 
@@ -22534,7 +22539,7 @@ Plan a meeting. Blocks/Scheduling pattern composed from @gaudi/design-system/blo
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-plan-meeting
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-plan-meeting.json
 ```
 
@@ -22552,7 +22557,7 @@ Webinar details and RSVP. Blocks/Scheduling pattern composed from @gaudi/design-
 
 ```sh
 npx shadcn@latest add @gaudi/scheduling-webinar-rsvp
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/scheduling-webinar-rsvp.json
 ```
 
@@ -22570,7 +22575,7 @@ Account settings. Blocks/Profile pattern composed from @gaudi/design-system/bloc
 
 ```sh
 npx shadcn@latest add @gaudi/screens-account-settings
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-account-settings.json
 ```
 
@@ -22588,7 +22593,7 @@ Add a product. Blocks/Wizard pattern composed from @gaudi/design-system/blocks/S
 
 ```sh
 npx shadcn@latest add @gaudi/screens-add-product
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-add-product.json
 ```
 
@@ -22606,7 +22611,7 @@ Billing. Blocks/Profile pattern composed from @gaudi/design-system/blocks/Screen
 
 ```sh
 npx shadcn@latest add @gaudi/screens-billing
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-billing.json
 ```
 
@@ -22624,7 +22629,7 @@ Centred card. Blocks/Auth pattern composed from @gaudi/design-system/blocks/Scre
 
 ```sh
 npx shadcn@latest add @gaudi/screens-centred-card
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-centred-card.json
 ```
 
@@ -22642,7 +22647,7 @@ Connect a coding agent. Blocks/Onboarding pattern composed from @gaudi/design-sy
 
 ```sh
 npx shadcn@latest add @gaudi/screens-coding-agent
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-coding-agent.json
 ```
 
@@ -22660,7 +22665,7 @@ Developer. Blocks/Settings pattern composed from @gaudi/design-system/blocks/Scr
 
 ```sh
 npx shadcn@latest add @gaudi/screens-developer
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-developer.json
 ```
 
@@ -22678,7 +22683,7 @@ Tour in a dialog. Blocks/Onboarding pattern composed from @gaudi/design-system/b
 
 ```sh
 npx shadcn@latest add @gaudi/screens-dialog-tour
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-dialog-tour.json
 ```
 
@@ -22696,7 +22701,7 @@ Free trial sign-up. Blocks/Auth pattern composed from @gaudi/design-system/block
 
 ```sh
 npx shadcn@latest add @gaudi/screens-free-trial
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-free-trial.json
 ```
 
@@ -22714,7 +22719,7 @@ Inbox and meeting capture. Blocks/Profile pattern composed from @gaudi/design-sy
 
 ```sh
 npx shadcn@latest add @gaudi/screens-inbox-capture
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-inbox-capture.json
 ```
 
@@ -22732,7 +22737,7 @@ Integrations. Blocks/Settings pattern composed from @gaudi/design-system/blocks/
 
 ```sh
 npx shadcn@latest add @gaudi/screens-integrations
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-integrations.json
 ```
 
@@ -22750,7 +22755,7 @@ Magic link with logos. Blocks/Auth pattern composed from @gaudi/design-system/bl
 
 ```sh
 npx shadcn@latest add @gaudi/screens-magic-link
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-magic-link.json
 ```
 
@@ -22768,7 +22773,7 @@ Create a publication. Blocks/Onboarding pattern composed from @gaudi/design-syst
 
 ```sh
 npx shadcn@latest add @gaudi/screens-new-publication
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-new-publication.json
 ```
 
@@ -22786,7 +22791,7 @@ Notifications. Blocks/Settings pattern composed from @gaudi/design-system/blocks
 
 ```sh
 npx shadcn@latest add @gaudi/screens-notifications
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-notifications.json
 ```
 
@@ -22804,7 +22809,7 @@ Organisation tabs. Blocks/Profile pattern composed from @gaudi/design-system/blo
 
 ```sh
 npx shadcn@latest add @gaudi/screens-organisation-tabs
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-organisation-tabs.json
 ```
 
@@ -22822,7 +22827,7 @@ Plan upgrade. Blocks/Wizard pattern composed from @gaudi/design-system/blocks/Sc
 
 ```sh
 npx shadcn@latest add @gaudi/screens-plan-upgrade
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-plan-upgrade.json
 ```
 
@@ -22840,7 +22845,7 @@ Preferences. Blocks/Settings pattern composed from @gaudi/design-system/blocks/S
 
 ```sh
 npx shadcn@latest add @gaudi/screens-preferences
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-preferences.json
 ```
 
@@ -22858,7 +22863,7 @@ Referral rewards. Blocks/Profile pattern composed from @gaudi/design-system/bloc
 
 ```sh
 npx shadcn@latest add @gaudi/screens-referral-rewards
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-referral-rewards.json
 ```
 
@@ -22876,7 +22881,7 @@ Send an invoice. Blocks/Wizard pattern composed from @gaudi/design-system/blocks
 
 ```sh
 npx shadcn@latest add @gaudi/screens-send-invoice
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-send-invoice.json
 ```
 
@@ -22894,7 +22899,7 @@ Send money. Blocks/Wizard pattern composed from @gaudi/design-system/blocks/Scre
 
 ```sh
 npx shadcn@latest add @gaudi/screens-send-money
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-send-money.json
 ```
 
@@ -22912,7 +22917,7 @@ Choose a sign-in method. Blocks/Auth pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/screens-sign-in-methods
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-sign-in-methods.json
 ```
 
@@ -22930,7 +22935,7 @@ Split with imagery. Blocks/Auth pattern composed from @gaudi/design-system/block
 
 ```sh
 npx shadcn@latest add @gaudi/screens-split-imagery
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-split-imagery.json
 ```
 
@@ -22948,7 +22953,7 @@ Split with testimonials. Blocks/Auth pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/screens-split-testimonials
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-split-testimonials.json
 ```
 
@@ -22966,7 +22971,7 @@ Invite your team. Blocks/Wizard pattern composed from @gaudi/design-system/block
 
 ```sh
 npx shadcn@latest add @gaudi/screens-team-invite
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-team-invite.json
 ```
 
@@ -22984,7 +22989,7 @@ Vendor onboarding. Blocks/Wizard pattern composed from @gaudi/design-system/bloc
 
 ```sh
 npx shadcn@latest add @gaudi/screens-vendor-onboarding
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-vendor-onboarding.json
 ```
 
@@ -23002,7 +23007,7 @@ Workspace setup. Blocks/Onboarding pattern composed from @gaudi/design-system/bl
 
 ```sh
 npx shadcn@latest add @gaudi/screens-workspace-setup
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/screens-workspace-setup.json
 ```
 
@@ -23020,7 +23025,7 @@ Documentation sub-menus. Blocks/App Shell pattern composed from @gaudi/design-sy
 
 ```sh
 npx shadcn@latest add @gaudi/sidebar-docs-submenus
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/sidebar-docs-submenus.json
 ```
 
@@ -23038,7 +23043,7 @@ Search, loading and no-result states. Blocks/App Shell pattern composed from @ga
 
 ```sh
 npx shadcn@latest add @gaudi/sidebar-filter-states
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/sidebar-filter-states.json
 ```
 
@@ -23056,7 +23061,7 @@ Collapsible icon rail. Blocks/App Shell pattern composed from @gaudi/design-syst
 
 ```sh
 npx shadcn@latest add @gaudi/sidebar-icon-rail
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/sidebar-icon-rail.json
 ```
 
@@ -23074,7 +23079,7 @@ Details panel on the right. Blocks/App Shell pattern composed from @gaudi/design
 
 ```sh
 npx shadcn@latest add @gaudi/sidebar-inspector
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/sidebar-inspector.json
 ```
 
@@ -23092,7 +23097,7 @@ Workspace switcher. Blocks/App Shell pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/sidebar-workspace-switcher
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/sidebar-workspace-switcher.json
 ```
 
@@ -23110,7 +23115,7 @@ Balance. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/Sta
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-balance
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-balance.json
 ```
 
@@ -23128,7 +23133,7 @@ Breakdowns. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks/
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-breakdowns
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-breakdowns.json
 ```
 
@@ -23146,7 +23151,7 @@ Hero metrics. Blocks/Stat Cards pattern composed from @gaudi/design-system/block
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-hero
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-hero.json
 ```
 
@@ -23164,7 +23169,7 @@ Interval switch. Blocks/Stat Cards pattern composed from @gaudi/design-system/bl
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-interval-reel
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-interval-reel.json
 ```
 
@@ -23182,7 +23187,7 @@ KPI overview. Blocks/Stat Cards pattern composed from @gaudi/design-system/block
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-kpi-overview
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-kpi-overview.json
 ```
 
@@ -23200,7 +23205,7 @@ Leads with a range. Blocks/Stat Cards pattern composed from @gaudi/design-system
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-lead-range
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-lead-range.json
 ```
 
@@ -23218,7 +23223,7 @@ Quota and progress. Blocks/Stat Cards pattern composed from @gaudi/design-system
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-quota
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-quota.json
 ```
 
@@ -23236,7 +23241,7 @@ Revenue breakdown. Blocks/Stat Cards pattern composed from @gaudi/design-system/
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-revenue
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-revenue.json
 ```
 
@@ -23254,7 +23259,7 @@ Support metrics. Blocks/Stat Cards pattern composed from @gaudi/design-system/bl
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-support
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-support.json
 ```
 
@@ -23272,7 +23277,7 @@ Team performance. Blocks/Stat Cards pattern composed from @gaudi/design-system/b
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-team-performance
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-team-performance.json
 ```
 
@@ -23290,7 +23295,7 @@ Usage meter. Blocks/Stat Cards pattern composed from @gaudi/design-system/blocks
 
 ```sh
 npx shadcn@latest add @gaudi/stat-card-usage-meter
-# local file, before hosting:
+# From a design-system checkout
 npx shadcn@latest add ./public/r/stat-card-usage-meter.json
 ```
 
