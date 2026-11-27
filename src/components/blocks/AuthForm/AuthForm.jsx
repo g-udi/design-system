@@ -2,7 +2,7 @@
 
 import { useId, useRef, useState } from 'react';
 import { useIsMounted } from '../../../hooks/environment/use-is-mounted.js';
-import Field, { FieldLabel, FieldDescription } from '../../core/Field';
+import Field, { FieldLabel, FieldDescription, FieldSeparator } from '../../core/Field';
 import Input, { EmailInput } from '../../core/Input';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '../../core/Input/InputGroup.jsx';
 import Button from '../../core/Button';
@@ -118,11 +118,7 @@ export default function AuthForm({
               ))}
             </div>
             {dividerLabel ? (
-              <div data-slot='auth-divider' className='text-text-muted flex items-center gap-3 text-xs'>
-                <span aria-hidden='true' className='bg-border h-px flex-1' />
-                {dividerLabel}
-                <span aria-hidden='true' className='bg-border h-px flex-1' />
-              </div>
+              <FieldSeparator data-slot='auth-divider' className='my-0 text-xs'>{dividerLabel}</FieldSeparator>
             ) : null}
           </>
         ) : null}

@@ -1,6 +1,7 @@
 import { useEffect, useId } from 'react';
 import { useTimeout } from '@gaudi/design-system/hooks/state/use-timeout';
 import Button from '@gaudi/design-system/core/Button';
+import { Item, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
 import ToastProvider, { toast } from '@gaudi/design-system/core/Toast';
 export const saved = { title: 'Draft saved', description: 'Your latest changes are ready for review.' };
 
@@ -30,7 +31,6 @@ useTimeout(showStack, 0);
 useEffect(() => () => { for (const kind of ['saved', 'export', 'publish']) toast.dismiss(`${toasterId}-${kind}`); }, [toasterId]);
 return { toasterId, stack };
 }
-const skeleton = ['w-2/3', 'w-full', 'w-5/6', 'w-full', 'w-1/2'];
 
 export function PlaygroundDemo({ position = 'bottom-right', expand = true, closeButton = true, ...props } = {}) {
   const args = { position, expand, closeButton, ...props };
@@ -44,9 +44,20 @@ export function PlaygroundDemo({ position = 'bottom-right', expand = true, close
         <Button size='sm' variant='outline' tone='neutral' onClick={stack.export}>Export</Button>
         <Button size='sm' onClick={stack.publish}>Publish</Button>
       </div>
-      <div className='grid gap-3 p-3' aria-hidden='true'>
-        {skeleton.map((width, index) => <div key={index} className={`h-2.5 rounded-full bg-surface-muted ${width}`} />)}
-      </div>
+      <ItemGroup aria-label='Report outline'>
+        <Item size='sm'>
+          <ItemContent>
+            <ItemTitle>Readership</ItemTitle>
+            <ItemDescription>The field notes series drew the most returning readers this quarter.</ItemDescription>
+          </ItemContent>
+        </Item>
+        <Item size='sm'>
+          <ItemContent>
+            <ItemTitle>Next issue</ItemTitle>
+            <ItemDescription>Feature the archive interviews in the summer newsletter.</ItemDescription>
+          </ItemContent>
+        </Item>
+      </ItemGroup>
       <ToastProvider id={toasterId} {...args} />
     </div>
   );

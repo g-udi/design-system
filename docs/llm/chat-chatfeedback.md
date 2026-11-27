@@ -22,6 +22,7 @@ Exports: `ChatMessageFeedback`, `default`
 | `copyText` | `string` | — | no | What copy writes. |
 | `rating` | `'up' \| 'down' \| null` | — | no | Controlled rating. |
 | `onRatingChange` | `function` | — | no | Controlled rating. |
+| `ratingDisabled` | `boolean` | `false` | no | Disables both rating buttons. |
 | `onCopy / onRegenerate` | `function` | — | no | Host callbacks. |
 | `className` | `string` | — | no | Additional classes on the outer element. |
 
@@ -64,6 +65,7 @@ import { ChatMessageFeedback } from '@gaudi/design-system/chat';
 | --- | --- |
 | `copyText` | What the copy action writes. |
 | `rating` / `defaultRating` / `onRatingChange` | 'up', 'down' or null. |
+| `ratingDisabled` | Disables both rating buttons while a reply is being generated. |
 | `onCopy` / `onRegenerate` | Host callbacks; `onCopy` runs only after copying succeeds. Regenerate shows only when provided. |
 | `labels` | Copy for every label and confirmation, including `copyFailed` when the clipboard is unavailable. |
 

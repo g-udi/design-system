@@ -1,4 +1,5 @@
 'use client';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Label } from '@gaudi/design-system/core/Field';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
@@ -200,7 +201,7 @@ function FinanceShell() {
         <AppShellPanel ref={panel} inset={false}>
           <AppShellHeader bordered>
             <SidebarTrigger />
-            <span aria-hidden='true' className='bg-ui-border mx-1 h-4 w-px shrink-0' />
+            <Separator orientation='vertical' className='mx-1 h-4 data-vertical:self-center' />
             <DialogTrigger asChild><Button ref={searchButton} variant='ghost' className='text-text-muted min-w-0 flex-1 justify-start font-normal' aria-label='Search finance workspace' aria-keyshortcuts={shortcut.ariaKeyShortcuts}><RegistryIcon lucide='Search' aria-hidden='true' /><span className='truncate'>Type to search…</span><span className='ms-auto hidden @sm:inline-flex'><Kbd keys={shortcut.kbdKeys} /></span></Button></DialogTrigger>
           </AppShellHeader>
           <AppShellBody className='gap-4'>

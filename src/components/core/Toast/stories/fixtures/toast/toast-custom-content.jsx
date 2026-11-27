@@ -9,6 +9,7 @@ import {
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Label } from '@gaudi/design-system/core/Field';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Separator } from '@gaudi/design-system/core/Separator';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';
@@ -47,9 +48,9 @@ function Body({ title, meta, children }) {
   );
 }
 const StatusIcon = ({ icon, className }) => (
-  <span className={`flex size-6 shrink-0 items-center justify-center rounded-full ${className}`}>
-    <RegistryIcon lucide={icon} className='size-3.5' aria-hidden='true' />
-  </span>
+  <IconTile variant='solid' size='xs' aria-hidden='true' className={`rounded-full ${className}`}>
+    <RegistryIcon lucide={icon} />
+  </IconTile>
 );
 const done = (message, toasterId) => () => toast.success(message, { toasterId });
 const templates = [

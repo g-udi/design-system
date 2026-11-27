@@ -8,6 +8,7 @@ import {
   FieldTitle
 } from '@gaudi/design-system/core/Field';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const features = [
   {
@@ -64,9 +65,9 @@ export function Pattern() {
           <Field orientation='horizontal'>
             <FieldContent>
               <FieldTitle className='flex items-start gap-2'>
-                <div className='bg-surface border-border flex shrink-0 items-center justify-center rounded-md border p-1.5 shadow-xs shadow-black/5'>
+                <IconTile size='sm' aria-hidden='true' className='shadow-xs shadow-black/5'>
                   {feature.icon}
-                </div>
+                </IconTile>
                 <div className='flex flex-col items-start gap-0.5'>
                   <span className='text-sm font-semibold'>{feature.title}</span>
                   <span className='text-text-muted text-xs'>

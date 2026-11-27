@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { cn } from '@gaudi/design-system/utilities/cn';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { LoaderRoot } from '@gaudi/design-system/core/Loader';
 import {
   CardRoot as Card,
   CardContent,
@@ -187,11 +188,9 @@ function ProjectList({ projects, loading, query, onRefresh, selected, onSelect }
     <SidebarGroup>
       <SidebarGroupLabel>All projects</SidebarGroupLabel>
       <SidebarGroupAction type='button' onClick={onRefresh}>
-        <RegistryIcon
-          lucide='LoaderCircleIcon'
-          className={cn('size-4', loading && 'animate-spin')}
-          aria-hidden='true'
-        />
+        {loading
+          ? <LoaderRoot size='sm' aria-hidden='true' />
+          : <RegistryIcon lucide='RefreshCwIcon' className='size-4' aria-hidden='true' />}
         <span className='sr-only'>Refresh projects</span>
       </SidebarGroupAction>
       <SidebarGroupContent>
@@ -215,10 +214,7 @@ function ProjectList({ projects, loading, query, onRefresh, selected, onSelect }
               ))}
         </SidebarMenu>
         {!loading && projects.length === 0 ? (
-          <p className='text-ui-sidebar-foreground px-2 py-6 text-center text-xs'>
-            No projects match{' '}
-            <span className='text-ui-sidebar-foreground'>{query}</span>.
-          </p>
+          <EmptyState compact role='status' title={`No projects match ${query}.`} />
         ) : null}
       </SidebarGroupContent>
     </SidebarGroup>
@@ -242,10 +238,11 @@ function ProjectOverview({ project }) {
           </CardHeader>
           <CardContent>
             <div className='flex flex-col gap-2.5'>
-              {(project.id === 'checkout' ? RUNS : []).map((run) => (
+              {project.id === 'checkout' ? RUNS.map((run) => (
                 <RunRow key={run.id} run={run} />
-              ))}
-              {project.id !== 'checkout' && <p className='text-text-muted text-sm'>No recent runs for {project.name}. {project.open ?? 0} open issues.</p>}
+              )) : (
+                <EmptyState compact title={`No recent runs for ${project.name}.`} description={`${project.open ?? 0} open issues.`} />
+              )}
             </div>
           </CardContent>
         </Card>

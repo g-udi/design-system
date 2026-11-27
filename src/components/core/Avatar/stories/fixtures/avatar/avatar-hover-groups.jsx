@@ -1,4 +1,4 @@
-import Avatar from '@gaudi/design-system/core/Avatar';
+import Avatar, { AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import {
   TooltipRoot as Tooltip,
   TooltipContent,
@@ -30,17 +30,17 @@ export function Pattern() {
     <TooltipProvider>
       <div className='mx-auto grid w-fit grid-cols-[auto_1fr] items-center gap-x-4 gap-y-3'>
         <span className='text-xs text-text-muted'>Lift</span>
-        <div className='flex -space-x-2 py-1'>
+        <AvatarGroup className='py-1'>
           {people.map((person) => (
             <Person key={person.name} person={person} className='hover:z-1 hover:shadow-md motion-safe:hover:-translate-y-1' />
           ))}
-        </div>
+        </AvatarGroup>
         <span className='text-xs text-text-muted'>Spaced</span>
-        <div className='flex items-center gap-2 py-1'>
+        <AvatarGroup className='items-center gap-2 space-x-0 py-1'>
           {people.map((person) => (
             <Person key={person.name} person={person} className='origin-center motion-safe:hover:scale-110' />
           ))}
-        </div>
+        </AvatarGroup>
       </div>
     </TooltipProvider>
   );

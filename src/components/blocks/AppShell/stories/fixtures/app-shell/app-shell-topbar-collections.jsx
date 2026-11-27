@@ -1,4 +1,5 @@
 'use client';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -431,7 +432,7 @@ function TopBar({ team, project, collections, onTeam, onProject, onPage, onApp, 
       <Logo onHome={() => onPage('collections')} />
       {isMobile ? null : (
         <>
-          <span aria-hidden='true' className='h-3.5 w-px shrink-0 bg-ui-border' />
+          <Separator orientation='vertical' className='h-3.5 data-vertical:self-center' />
           <Breadcrumb className='min-w-0'>
             <BreadcrumbList className='flex-nowrap gap-1'>
               <BreadcrumbItem>

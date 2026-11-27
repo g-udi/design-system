@@ -46,3 +46,16 @@ test('hover groups expose complete person identities before portraits load', asy
     assert.equal((html.match(new RegExp(`role="img" aria-label="${name}"`, 'g')) || []).length, 2);
   }
 });
+
+test('AvatarGroup supports inline compound children and data with overflow inside a button', async () => {
+  const source = new URL('../../../../src/components/core/Avatar/AvatarGroup.jsx', import.meta.url);
+  const { default: AvatarGroup } = await loadComponent(source);
+  const group = (props) => renderToStaticMarkup(createElement('button', null, createElement(AvatarGroup, props)));
+  assert.match(group({ children: 'A' }), /<button><div data-slot="avatar-group"/);
+  assert.match(group({ as: 'span', children: 'A' }), /<button><span data-slot="avatar-group"/);
+  const people = [{ id: 'a', name: 'Amy' }, { id: 'b', name: 'Bo' }];
+  const inline = group({ as: 'span', label: 'Editors', avatars: people, max: 1 });
+  assert.doesNotMatch(inline, /<div\b/);
+  assert.match(inline, /<span data-slot="avatar-group-count"[^>]*>\+1<\/span>/);
+  assert.match(inline, /aria-label="Editors"/);
+});

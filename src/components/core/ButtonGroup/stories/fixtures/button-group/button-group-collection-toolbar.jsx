@@ -8,9 +8,12 @@ import {
   DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
+import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import Card from '@gaudi/design-system/core/Card';
 import Input from '@gaudi/design-system/core/Input';
 import { Label } from '@gaudi/design-system/core/Field';
@@ -84,12 +87,11 @@ export function Pattern() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align='start' className='min-w-40'>
             <DropdownMenuLabel>Sort by</DropdownMenuLabel>
-            {['Newest', 'Oldest', 'Recently updated'].map((item) => (
-              <DropdownMenuItem key={item} onClick={() => setSort(item)}>
-                {item}
-                {item === sort ? <RegistryIcon aria-hidden='true' lucide='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}
-              </DropdownMenuItem>
-            ))}
+            <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
+              {['Newest', 'Oldest', 'Recently updated'].map((item) => (
+                <DropdownMenuRadioItem key={item} value={item}>{item}</DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
         <ButtonGroup aria-label='Filter and export'>
@@ -102,12 +104,11 @@ export function Pattern() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align='start'>
               <DropdownMenuLabel>Item type</DropdownMenuLabel>
-              {['All', 'Project', 'Domain', 'Team'].map((type) => (
-                <DropdownMenuItem key={type} onSelect={() => setFilter(type)}>
-                  {type}
-                  {filter === type ? <RegistryIcon aria-hidden='true' lucide='CheckIcon' /> : null}
-                </DropdownMenuItem>
-              ))}
+              <DropdownMenuRadioGroup value={filter} onValueChange={setFilter}>
+                {['All', 'Project', 'Domain', 'Team'].map((type) => (
+                  <DropdownMenuRadioItem key={type} value={type}>{type}</DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
           <ButtonGroupSeparator />
@@ -147,21 +148,14 @@ export function Pattern() {
             </DropdownMenuContent>
           </DropdownMenu>
         </ButtonGroup>
-        <ButtonGroup aria-label='View'>
-          {views.map(([label, icon, id]) => (
-            <Button
-              key={id}
-              variant='outline'
-              size='icon'
-              aria-label={label}
-              aria-pressed={view === id}
-              className={cn(view === id && 'bg-surface-muted')}
-              onClick={() => setView(id)}
-            >
-              <RegistryIcon aria-hidden='true' lucide={icon} />
-            </Button>
-          ))}
-        </ButtonGroup>
+        <ToggleGroup
+          label='View'
+          value={view}
+          onValueChange={(next) => next && setView(next)}
+          options={views.map(([label, icon, value]) => ({
+            value, ariaLabel: label, label: <RegistryIcon aria-hidden='true' lucide={icon} />
+          }))}
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button>

@@ -16,6 +16,7 @@ import { ChatMessageFeedback } from '@gaudi/design-system/chat';
 | --- | --- |
 | `copyText` | What the copy action writes. |
 | `rating` / `defaultRating` / `onRatingChange` | 'up', 'down' or null. |
+| `ratingDisabled` | Disables both rating buttons while a reply is being generated. |
 | `onCopy` / `onRegenerate` | Host callbacks; `onCopy` runs only after copying succeeds. Regenerate shows only when provided. |
 | `labels` | Copy for every label and confirmation, including `copyFailed` when the clipboard is unavailable. |
 

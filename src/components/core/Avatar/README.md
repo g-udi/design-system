@@ -38,6 +38,8 @@ Indicators support `success`, `warning`, `danger`, `neutral` and `primary`, and 
 
 ## Groups
 
+`AvatarGroup` renders a `div` by default. Use `as='span'` for noninteractive avatars inside a button or link. Its stack and overflow count then use inline elements too.
+
 `AvatarGroup` continues to accept compound children. Pass `avatars` for data-driven composition: each entry contains a unique stable `id` plus Avatar props. `max` defaults to four; positive fractions round down to at least one, and zero/negative/non-finite values show all. Empty lists have no overflow count. Supply surrounding empty-state copy where appropriate.
 
 `size`, `shape` and `label` apply to the group. `renderAvatar(avatar, person)` and `renderOverflow(count, overflow)` wrap the supplied elements with existing buttons, tooltips or dialogs. `formatOverflow(count)` supplies translated overflow text. Large groups scroll within their own bounds. Compound APIs remain available as `AvatarRoot`, `AvatarImage`, `AvatarFallback`, `AvatarBadge` and `AvatarGroupCount` from this owner and the package root.

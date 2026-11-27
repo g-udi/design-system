@@ -14,7 +14,6 @@ import {
   PaginationNextPrimitive as PaginationNext,
   PaginationPreviousPrimitive as PaginationPrevious
 } from '@gaudi/design-system/core/Pagination';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const total = 10;
 const styles = {
   Default: { link: '' },
@@ -33,19 +32,6 @@ const styles = {
     link: 'data-[active=true]:border-transparent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground'
   }
 };
-function Arrow({ direction, className, ...props }) {
-  const next = direction === 'next';
-  return (
-    <PaginationLink
-      {...props}
-      size='icon'
-      aria-label={next ? 'Go to next page' : 'Go to previous page'}
-      className={className}
-    >
-      <RegistryIcon lucide={next ? 'ChevronRightIcon' : 'ChevronLeftIcon'} className='ds-part-rtl-flip size-4' />
-    </PaginationLink>
-  );
-}
 function Pages({ name, style }) {
   const [current, setCurrent] = useState(2);
   const pages = getPageShortcuts(current, total);
@@ -56,7 +42,7 @@ function Pages({ name, style }) {
     <Pagination aria-label={`${name} pagination`} className='justify-start'>
       <PaginationContent className={style.content ?? 'gap-1'}>
         <PaginationItem>
-          {style.icons ? <Arrow {...previous} direction='previous' className={edge} /> : <PaginationPrevious {...previous} className={edge} />}
+          <PaginationPrevious {...previous} iconOnly={style.icons} className={edge} />
         </PaginationItem>
         {pages.map((page) => (
           <PaginationItem key={page} className={typeof page === 'number' ? undefined : style.item}>
@@ -70,7 +56,7 @@ function Pages({ name, style }) {
           </PaginationItem>
         ))}
         <PaginationItem>
-          {style.icons ? <Arrow {...next} direction='next' className={style.content ? 'rounded-none border-0' : edge} /> : <PaginationNext {...next} className={edge} />}
+          <PaginationNext {...next} iconOnly={style.icons} className={style.content ? 'rounded-none border-0' : edge} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

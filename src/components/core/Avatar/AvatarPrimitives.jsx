@@ -51,9 +51,9 @@ function AvatarBadge({ className, ...props }) {
     />
   );
 }
-function AvatarGroup({ className, ...props }) {
+function AvatarGroup({ as: Container = 'div', className, ...props }) {
   return (
-    <div
+    <Container
       data-slot='avatar-group'
       className={cn(
         'ds-part-avatar-group group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-ui-background',
@@ -63,9 +63,9 @@ function AvatarGroup({ className, ...props }) {
     />
   );
 }
-function AvatarGroupCount({ className, ...props }) {
+function AvatarGroupCount({ as: Container = 'div', className, ...props }) {
   return (
-    <div
+    <Container
       data-slot='avatar-group-count'
       role={props['aria-label'] ? 'img' : undefined}
       className={cn(

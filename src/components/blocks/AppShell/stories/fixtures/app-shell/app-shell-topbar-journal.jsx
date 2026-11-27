@@ -1,4 +1,5 @@
 'use client';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 import { useMemo, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -434,7 +435,7 @@ function TopBar({ section, onSection, onPage, onWrite, options, onOptions }) {
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
       </Link>
-      <span aria-hidden='true' className='hidden h-3.5 w-px shrink-0 bg-ui-border @4xl:block' />
+      <Separator orientation='vertical' className='hidden h-3.5 @4xl:block data-vertical:self-center' />
       <div className='hidden min-w-0 @4xl:block'>
         <SectionPills section={section} onSection={onSection} />
       </div>

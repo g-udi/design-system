@@ -8,11 +8,8 @@ import {
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ButtonGroup } from '@gaudi/design-system/core/ButtonGroup';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuTrigger
+import DropdownMenu, {
+  DropdownMenuItem, DropdownMenuRadioGroup, DropdownMenuRadioItem
 } from '@gaudi/design-system/core/DropdownMenu';
 import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { FieldInput as Input } from '@gaudi/design-system/core/Field';
@@ -50,15 +47,12 @@ const environments = [
   { value: 'development', label: 'Development', icon: 'TerminalIcon' }
 ];
 const ranges = { recent: ['Last hour', 'Last 6 hours', 'Last 24 hours'], extended: ['Last 7 days', 'Last 30 days'] };
-function Menu({ label, icon, items, onSelect, children }) {
+function RecordScopeMenu({ value, onValueChange, trigger }) {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        {children || <Button variant='outline' size='icon' aria-label={label}><RegistryIcon aria-hidden='true' lucide={icon} /></Button>}
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-40'>
-        {items.map((item) => <DropdownMenuItem key={item} onSelect={() => onSelect(item)}>{item}</DropdownMenuItem>)}
-      </DropdownMenuContent>
+    <DropdownMenu trigger={trigger}>
+      <DropdownMenuRadioGroup value={value} onValueChange={onValueChange}>
+        {records.map((scope) => <DropdownMenuRadioItem key={scope} value={scope}>{scope}</DropdownMenuRadioItem>)}
+      </DropdownMenuRadioGroup>
     </DropdownMenu>
   );
 }
@@ -124,23 +118,29 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
       <Row label='Menus around an input'>
         <ButtonGroup className='w-full'>
-          <Menu items={records} onSelect={setScope}>
+          <RecordScopeMenu value={scope} onValueChange={setScope} trigger={
             <Button variant='outline'>
               <RegistryIcon aria-hidden='true' lucide='ListFilterIcon' />
               {scope}
               <RegistryIcon aria-hidden='true' lucide='ChevronDownIcon' className='opacity-60' />
             </Button>
-          </Menu>
+          } />
           <Input ref={filterRef} aria-label='Filter records' placeholder='Filter records...' value={filter} onChange={(event) => setFilter(event.target.value)} />
           <Button variant='outline' size='icon' aria-label='Clear filter' onClick={() => { setFilter(''); filterRef.current?.focus(); }}><RegistryIcon aria-hidden='true' lucide='XIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup className='min-w-0 flex-1'>
           <SearchInput label='Search records...' value={filter} onChange={setFilter} />
-          <Menu label='Record options' icon='EllipsisVerticalIcon' items={records} onSelect={setScope} />
+          <RecordScopeMenu value={scope} onValueChange={setScope} trigger={
+            <Button variant='outline' size='icon' aria-label='Record options'><RegistryIcon aria-hidden='true' lucide='EllipsisVerticalIcon' /></Button>
+          } />
         </ButtonGroup>
         <ButtonGroup className='min-w-0 flex-1'>
           <SearchInput icon='FileIcon' label='File name...' value={fileName} onChange={setFileName} />
-          <Menu label='Create' icon='PlusIcon' items={['New file', 'New folder', 'New workspace']} onSelect={create} />
+          <DropdownMenu trigger={<Button variant='outline' size='icon' aria-label='Create'><RegistryIcon aria-hidden='true' lucide='PlusIcon' /></Button>}>
+            {['New file', 'New folder', 'New workspace'].map((item) => (
+              <DropdownMenuItem key={item} onSelect={() => create(item)}>{item}</DropdownMenuItem>
+            ))}
+          </DropdownMenu>
         </ButtonGroup>
         <ul className='w-full list-none p-0 text-sm' aria-label='Matching records'>{visible.map((entry, index) => <li key={entry.name + index}>{entry.name}</li>)}</ul>
         {!visible.length && <p className='text-xs text-text-muted'>No matching records</p>}

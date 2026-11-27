@@ -32,6 +32,7 @@ import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import { ButtonGroup } from '../../ButtonGroup/ButtonGroup.jsx';
 import { FieldInput as Input } from '../../Field/index.js';
+import { Separator } from '../../Separator/index.js';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
 const IDLE = {
   items: [],
@@ -549,11 +550,9 @@ export function FilterMenu({
     (node, itemState) => (
       <>
         {node.data?.divider ? (
-          <span
-            data-slot='filter-menu-divider'
-            aria-hidden='true'
-            className='bg-ui-border absolute inset-x-[calc(var(--cascader-list-pad,4px)*-1)] -top-1 h-px'
-          />
+          <Separator asChild className='absolute inset-x-[calc(var(--cascader-list-pad,4px)*-1)] -top-1 data-horizontal:w-auto'>
+            <span data-slot='filter-menu-divider' />
+          </Separator>
         ) : null}
 
         {node.icon ? (

@@ -994,10 +994,10 @@
           ],
           "part": "AvatarGroup",
           "subcomponent": true,
-          "type": "avatars, max, size, shape, label, renderAvatar, renderOverflow",
+          "type": "avatars, max, size, shape, label, as, renderAvatar, renderOverflow",
           "default": null,
           "required": false,
-          "description": "Accepts data-driven identities or existing compound children."
+          "description": "Accepts data-driven identities or compound children. Set as=\"span\" for an inline stack inside a button or link."
         }
       ],
       "variants": {
@@ -1137,6 +1137,7 @@
             "storyId": "core-avatar--hover-groups",
             "imports": [
               "Avatar",
+              "AvatarGroup",
               "TooltipContent",
               "TooltipProvider",
               "TooltipRoot",
@@ -1212,7 +1213,7 @@
       "storybook": "core-avatar--docs",
       "docs": "docs/llm/core-avatar.md",
       "source": "src/components/core/Avatar/",
-      "readme": "# Avatar\n\nA person, workspace or source shown as a photo, initials or an icon, with an optional presence badge. `Avatar` and `AvatarGroup` are built on the `AvatarRoot`, `AvatarImage`, `AvatarFallback` and `AvatarBadge` parts.\n\nImage examples use Gaudi's own illustrated avatars bundled with Storybook (`/avatars/person-20.svg`, generated deterministically from a seed) with fictional demo identities, so examples never load images from the network. The same avatars appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/public/avatars/README.md).\n\n```jsx\nimport { Avatar, AvatarGroup } from '@gaudi/design-system';\n\n<Avatar\n  name='Mei Castellanos'\n  src={person.photoUrl}\n  shape='circle'\n  indicator={{ label: 'Online', tone: 'success' }}\n/>\n\n<AvatarGroup avatars={people} max={3} size='md' label='Review team' />\n```\n\n| Prop | Contract |\n| --- | --- |\n| `src` | Remote, local or data image URL. Pending, missing and failed images show fallback content; changing the source resets loading. |\n| `name` / `label` | Name generates Unicode-aware initials from the first and last words; a single word uses up to two characters. The 16px `2xs` size shows only the first initial so it stays legible at the `text-xs` step. Label preserves explicitly supplied initials. |\n| `alt` | Overrides the accessible identity; `alt=''` makes the avatar decorative beside visible text. |\n| `fallback` | Custom text or noninteractive artwork; `true` renders the guest silhouette. Empty names show `?`. |\n| `size` | `2xs`, `xs`, `sm`, `md`, `lg`, `xl`: 16, 20, 32, 40, 56 and 80px. Existing sizes retain their dimensions. |\n| `shape` | `square` (default), `circle`, `tile`. Image and fallback inherit the same shape. |\n| `surface` | `solid` (default, selected tone), `tinted`, `plain` or `bare`. Plain/bare default to `contain`; solid/tinted use `cover`. |\n| `tone` | Existing gray, neutral, blue, teal, green, amber, yellow, red, rose and indigo colors. |\n| `fit` / `grayscale` | Image crop (`cover` or `contain`) and optional grayscale treatment. |\n| `indicator` | `{ label, tone?, icon?, position?, className? }`. Label is required; status is always supplied by the application. |\n| `children` | Additional noninteractive `AvatarBadge` content. Provide its meaning in the root `aria-label`. |\n| `onLoadingStatusChange` | Receives `loading`, `loaded` or `error` for host-owned feedback. |\n| `imageProps`, `imageClassName`, `fallbackClassName` | Native image attributes and per-layer appearance. Identity alt text is owned by the root. |\n| `ref`, native attributes | Forwarded to the root span. Wrap Avatar in Button, Tooltip or DropdownMenu for interaction. |\n\nIndicators support `success`, `warning`, `danger`, `neutral` and `primary`, and `top-start`, `top-end`, `bottom-start`, `bottom-end` positions. Logical positions follow reading direction. Presence remains separate from loading or failure. The face retains its rounded crop while badges remain outside its bounds.\n\n## Groups\n\n`AvatarGroup` continues to accept compound children. Pass `avatars` for data-driven composition: each entry contains a unique stable `id` plus Avatar props. `max` defaults to four; positive fractions round down to at least one, and zero/negative/non-finite values show all. Empty lists have no overflow count. Supply surrounding empty-state copy where appropriate.\n\n`size`, `shape` and `label` apply to the group. `renderAvatar(avatar, person)` and `renderOverflow(count, overflow)` wrap the supplied elements with existing buttons, tooltips or dialogs. `formatOverflow(count)` supplies translated overflow text. Large groups scroll within their own bounds. Compound APIs remain available as `AvatarRoot`, `AvatarImage`, `AvatarFallback`, `AvatarBadge` and `AvatarGroupCount` from this owner and the package root.",
+      "readme": "# Avatar\n\nA person, workspace or source shown as a photo, initials or an icon, with an optional presence badge. `Avatar` and `AvatarGroup` are built on the `AvatarRoot`, `AvatarImage`, `AvatarFallback` and `AvatarBadge` parts.\n\nImage examples use Gaudi's own illustrated avatars bundled with Storybook (`/avatars/person-20.svg`, generated deterministically from a seed) with fictional demo identities, so examples never load images from the network. The same avatars appear in sizes, account menus, presence badges, reviewer rosters and other component examples. Initials, color surfaces, workspace marks and broken-image states remain explicit fallback demonstrations. These URLs are fixture data; applications supply their own `src`. See the [portrait reference](../../../../.storybook/public/avatars/README.md).\n\n```jsx\nimport { Avatar, AvatarGroup } from '@gaudi/design-system';\n\n<Avatar\n  name='Mei Castellanos'\n  src={person.photoUrl}\n  shape='circle'\n  indicator={{ label: 'Online', tone: 'success' }}\n/>\n\n<AvatarGroup avatars={people} max={3} size='md' label='Review team' />\n```\n\n| Prop | Contract |\n| --- | --- |\n| `src` | Remote, local or data image URL. Pending, missing and failed images show fallback content; changing the source resets loading. |\n| `name` / `label` | Name generates Unicode-aware initials from the first and last words; a single word uses up to two characters. The 16px `2xs` size shows only the first initial so it stays legible at the `text-xs` step. Label preserves explicitly supplied initials. |\n| `alt` | Overrides the accessible identity; `alt=''` makes the avatar decorative beside visible text. |\n| `fallback` | Custom text or noninteractive artwork; `true` renders the guest silhouette. Empty names show `?`. |\n| `size` | `2xs`, `xs`, `sm`, `md`, `lg`, `xl`: 16, 20, 32, 40, 56 and 80px. Existing sizes retain their dimensions. |\n| `shape` | `square` (default), `circle`, `tile`. Image and fallback inherit the same shape. |\n| `surface` | `solid` (default, selected tone), `tinted`, `plain` or `bare`. Plain/bare default to `contain`; solid/tinted use `cover`. |\n| `tone` | Existing gray, neutral, blue, teal, green, amber, yellow, red, rose and indigo colors. |\n| `fit` / `grayscale` | Image crop (`cover` or `contain`) and optional grayscale treatment. |\n| `indicator` | `{ label, tone?, icon?, position?, className? }`. Label is required; status is always supplied by the application. |\n| `children` | Additional noninteractive `AvatarBadge` content. Provide its meaning in the root `aria-label`. |\n| `onLoadingStatusChange` | Receives `loading`, `loaded` or `error` for host-owned feedback. |\n| `imageProps`, `imageClassName`, `fallbackClassName` | Native image attributes and per-layer appearance. Identity alt text is owned by the root. |\n| `ref`, native attributes | Forwarded to the root span. Wrap Avatar in Button, Tooltip or DropdownMenu for interaction. |\n\nIndicators support `success`, `warning`, `danger`, `neutral` and `primary`, and `top-start`, `top-end`, `bottom-start`, `bottom-end` positions. Logical positions follow reading direction. Presence remains separate from loading or failure. The face retains its rounded crop while badges remain outside its bounds.\n\n## Groups\n\n`AvatarGroup` renders a `div` by default. Use `as='span'` for noninteractive avatars inside a button or link. Its stack and overflow count then use inline elements too.\n\n`AvatarGroup` continues to accept compound children. Pass `avatars` for data-driven composition: each entry contains a unique stable `id` plus Avatar props. `max` defaults to four; positive fractions round down to at least one, and zero/negative/non-finite values show all. Empty lists have no overflow count. Supply surrounding empty-state copy where appropriate.\n\n`size`, `shape` and `label` apply to the group. `renderAvatar(avatar, person)` and `renderOverflow(count, overflow)` wrap the supplied elements with existing buttons, tooltips or dialogs. `formatOverflow(count)` supplies translated overflow text. Large groups scroll within their own bounds. Compound APIs remain available as `AvatarRoot`, `AvatarImage`, `AvatarFallback`, `AvatarBadge` and `AvatarGroupCount` from this owner and the package root.",
       "related": [
         "blocks-profile",
         "core-button",
@@ -2044,12 +2045,15 @@
               "DropdownMenuGroup",
               "DropdownMenuItemPrimitive",
               "DropdownMenuLabelPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
               "Input",
               "Label",
               "RegistryIcon",
+              "ToggleGroup",
               "cn",
               "downloadCsv",
               "toCsv"
@@ -2094,6 +2098,8 @@
               "DropdownMenuGroup",
               "DropdownMenuItemPrimitive",
               "DropdownMenuLabelPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
@@ -2114,10 +2120,10 @@
               "AvatarRoot",
               "Button",
               "ButtonGroup",
-              "DropdownMenuContent",
-              "DropdownMenuItemPrimitive",
-              "DropdownMenuRoot",
-              "DropdownMenuTrigger",
+              "DropdownMenu",
+              "DropdownMenuItem",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "FieldInput",
               "InputGroup",
               "InputGroupAddon",
@@ -2147,16 +2153,18 @@
               "ButtonGroupSeparator",
               "ButtonGroupText",
               "DropdownMenuContent",
-              "DropdownMenuItemPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
               "RegistryIcon",
               "StatusDot",
+              "ToggleGroupItem",
+              "ToggleGroupRoot",
               "TooltipContent",
               "TooltipProvider",
               "TooltipRoot",
-              "TooltipTrigger",
-              "cn"
+              "TooltipTrigger"
             ]
           },
           {
@@ -2173,6 +2181,8 @@
               "DropdownMenuGroup",
               "DropdownMenuItemPrimitive",
               "DropdownMenuLabelPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuSeparatorPrimitive",
               "DropdownMenuTrigger",
@@ -2190,11 +2200,16 @@
               "ButtonGroup",
               "ButtonGroupText",
               "DropdownMenuContent",
-              "DropdownMenuGroup",
-              "DropdownMenuItemPrimitive",
               "DropdownMenuLabelPrimitive",
+              "DropdownMenuRadioGroup",
+              "DropdownMenuRadioItem",
               "DropdownMenuRoot",
               "DropdownMenuTrigger",
+              "Pagination",
+              "PaginationLink",
+              "PaginationNext",
+              "PaginationPrevious",
+              "PaginationStatus",
               "RegistryIcon"
             ]
           },
@@ -2217,6 +2232,7 @@
               "DropdownMenuTrigger",
               "FieldInput",
               "RegistryIcon",
+              "ToggleGroup",
               "toCsv",
               "useCopyToClipboard",
               "useFileUpload"
@@ -3748,6 +3764,7 @@
               "CascaderValue",
               "IconTile",
               "RegistryIcon",
+              "Separator",
               "cn"
             ]
           },
@@ -6951,7 +6968,8 @@
               "DialogRoot",
               "DialogTitle",
               "DialogTrigger",
-              "RegistryIcon"
+              "RegistryIcon",
+              "ToggleGroup"
             ]
           },
           {
@@ -7746,7 +7764,9 @@
             "storyId": "core-eventcalendar--all-views",
             "imports": [
               "AvatarFallback",
+              "AvatarGroup",
               "AvatarRoot",
+              "Badge",
               "Button",
               "CardContent",
               "CardRoot",
@@ -8417,6 +8437,12 @@
               "AlertDescription",
               "AlertTitle",
               "Button",
+              "Empty",
+              "EmptyContent",
+              "EmptyDescription",
+              "EmptyHeader",
+              "EmptyTitle",
+              "IconTile",
               "Loader",
               "ProgressRing",
               "RegistryIcon",
@@ -8484,6 +8510,7 @@
               "DialogHeader",
               "DialogRoot",
               "DialogTitle",
+              "IconTile",
               "ProgressRoot",
               "RegistryIcon",
               "Sortable",
@@ -13530,7 +13557,7 @@
           "getPageShortcuts"
         ]
       },
-      "description": "Pagination renders blog-style previous/status/next navigation. Hovering or focusing the center status reveals direct page shortcuts.",
+      "description": "Pagination renders blog-style previous/status/next navigation. Activating the center status opens direct page shortcuts.",
       "props": [
         {
           "name": "currentPage",
@@ -13636,6 +13663,16 @@
           "description": "Marks a page link as current."
         },
         {
+          "name": "iconOnly",
+          "names": [
+            "iconOnly"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Shows just the directional icon on PaginationPrevious and PaginationNext while keeping the accessible label."
+        },
+        {
           "name": "className",
           "names": [
             "className"
@@ -13676,6 +13713,8 @@
               "PaginationEllipsisPrimitive",
               "PaginationItemPrimitive",
               "PaginationLinkPrimitive",
+              "PaginationNextPrimitive",
+              "PaginationPreviousPrimitive",
               "PaginationRoot",
               "RegistryIcon",
               "getPageShortcuts"
@@ -13696,7 +13735,6 @@
               "PaginationNextPrimitive",
               "PaginationPreviousPrimitive",
               "PaginationRoot",
-              "RegistryIcon",
               "getPageShortcuts"
             ]
           },
@@ -13708,11 +13746,9 @@
             "imports": [
               "PaginationContentPrimitive",
               "PaginationItemPrimitive",
-              "PaginationLinkPrimitive",
               "PaginationNextPrimitive",
               "PaginationPreviousPrimitive",
-              "PaginationRoot",
-              "RegistryIcon"
+              "PaginationRoot"
             ]
           },
           {
@@ -13726,6 +13762,8 @@
               "PaginationContentPrimitive",
               "PaginationItemPrimitive",
               "PaginationLinkPrimitive",
+              "PaginationNextPrimitive",
+              "PaginationPreviousPrimitive",
               "PaginationRoot",
               "RegistryIcon"
             ]
@@ -13735,7 +13773,7 @@
       "storybook": "core-pagination--docs",
       "docs": "docs/llm/core-pagination.md",
       "source": "src/components/core/Pagination/",
-      "readme": "# Pagination\n\nMoves between pages of a long list. Use `PaginationBar` under a post archive or search results; compose the parts for numbered, compact or table-footer pagers.\n\n```jsx\nimport { PaginationBar } from '@gaudi/design-system';\n\n<PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />\n```\n\n`PaginationBar` shows Previous, an \"n of total\" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. From a server component, where functions can't cross into this client module, pass strings instead of `getHref`: `hrefTemplate='/blog/page/{page}'` and `firstPageHref='/blog'`. `POSTS_PER_PAGE` (7) is safe to import on the server. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.\n\nThe parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current=\"page\"`.\n\nFor a custom numbered layout, `getPageShortcuts(currentPage, totalPages)` returns page numbers and keyed ellipses used by the package pager.",
+      "readme": "# Pagination\n\nMoves between pages of a long list. Use `PaginationBar` under a post archive or search results; compose the parts for numbered, compact or table-footer pagers.\n\n```jsx\nimport { PaginationBar } from '@gaudi/design-system';\n\n<PaginationBar currentPage={3} totalPages={8} getHref={(page) => `/blog/page/${page}`} />\n```\n\n`PaginationBar` shows Previous, an \"n of total\" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. From a server component, where functions can't cross into this client module, pass strings instead of `getHref`: `hrefTemplate='/blog/page/{page}'` and `firstPageHref='/blog'`. `POSTS_PER_PAGE` (7) is safe to import on the server. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.\n\nThe parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current=\"page\"`.\n\nFor a custom numbered layout, `getPageShortcuts(currentPage, totalPages)` returns page numbers and keyed ellipses used by the package pager.\n\nUse `iconOnly` on `PaginationPrevious` and `PaginationNext` for compact arrow controls. They keep their accessible labels and mirror their arrows in right-to-left layouts.",
       "related": [
         "core-item",
         "core-link"
@@ -18883,6 +18921,7 @@
               "FieldLabelPrimitive",
               "FieldRoot",
               "FieldTitle",
+              "IconTile",
               "RegistryIcon",
               "SwitchRoot"
             ]
@@ -20008,6 +20047,7 @@
               "AvatarImage",
               "AvatarRoot",
               "Button",
+              "IconTile",
               "Label",
               "RegistryIcon",
               "Separator",
@@ -21496,6 +21536,7 @@
               "NativeSelectOption",
               "ProgressRoot",
               "RegistryIcon",
+              "Separator",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -21559,6 +21600,7 @@
               "Label",
               "RegistryIcon",
               "Select",
+              "Separator",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -21903,6 +21945,7 @@
               "ItemTitle",
               "Link",
               "RegistryIcon",
+              "Separator",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -22180,6 +22223,7 @@
               "Link",
               "ProgressRoot",
               "RegistryIcon",
+              "Separator",
               "Sidebar",
               "SidebarContent",
               "SidebarFooter",
@@ -22240,6 +22284,7 @@
               "Link",
               "ProgressRoot",
               "RegistryIcon",
+              "Separator",
               "Sheet",
               "SheetContent",
               "SheetDescription",
@@ -22306,10 +22351,12 @@
               "CardHeader",
               "CardRoot",
               "CardTitle",
+              "EmptyState",
               "InputGroup",
               "InputGroupAddon",
               "InputGroupButton",
               "InputGroupInput",
+              "LoaderRoot",
               "RegistryIcon",
               "Sidebar",
               "SidebarContent",
@@ -22328,7 +22375,6 @@
               "SidebarProvider",
               "SidebarSeparator",
               "SidebarTrigger",
-              "cn",
               "useSidebar"
             ]
           },
@@ -27857,7 +27903,9 @@
               "EmptyHeader",
               "EmptyTitle",
               "RadioGroup",
-              "RegistryIcon"
+              "RegistryIcon",
+              "ToggleGroupItem",
+              "ToggleGroupRoot"
             ]
           },
           {
@@ -28089,6 +28137,16 @@
           "description": "Controlled rating."
         },
         {
+          "name": "ratingDisabled",
+          "names": [
+            "ratingDisabled"
+          ],
+          "type": "boolean",
+          "default": "false",
+          "required": false,
+          "description": "Disables both rating buttons."
+        },
+        {
           "name": "onCopy / onRegenerate",
           "names": [
             "onCopy",
@@ -28135,7 +28193,7 @@
       "storybook": "chat-chatfeedback--docs",
       "docs": "docs/llm/chat-chatfeedback.md",
       "source": "src/components/chat/ChatFeedback/",
-      "readme": "# ChatFeedback\n\nActions under a finished reply: copy, rate up or down, and regenerate.\n\n## Usage\n\n```jsx\nimport { ChatMessageFeedback } from '@gaudi/design-system/chat';\n\n<ChatMessageFeedback copyText={reply.text} rating={rating} onRatingChange={setRating} onRegenerate={regenerate} />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `copyText` | What the copy action writes. |\n| `rating` / `defaultRating` / `onRatingChange` | 'up', 'down' or null. |\n| `onCopy` / `onRegenerate` | Host callbacks; `onCopy` runs only after copying succeeds. Regenerate shows only when provided. |\n| `labels` | Copy for every label and confirmation, including `copyFailed` when the clipboard is unavailable. |\n\n## Accessibility\n\nA labelled group of icon buttons with tooltips; ratings are pressed buttons, and each action confirms in a visually hidden status.",
+      "readme": "# ChatFeedback\n\nActions under a finished reply: copy, rate up or down, and regenerate.\n\n## Usage\n\n```jsx\nimport { ChatMessageFeedback } from '@gaudi/design-system/chat';\n\n<ChatMessageFeedback copyText={reply.text} rating={rating} onRatingChange={setRating} onRegenerate={regenerate} />\n```\n\n## API\n\n| Prop / part | Contract |\n| --- | --- |\n| `copyText` | What the copy action writes. |\n| `rating` / `defaultRating` / `onRatingChange` | 'up', 'down' or null. |\n| `ratingDisabled` | Disables both rating buttons while a reply is being generated. |\n| `onCopy` / `onRegenerate` | Host callbacks; `onCopy` runs only after copying succeeds. Regenerate shows only when provided. |\n| `labels` | Copy for every label and confirmation, including `copyFailed` when the clipboard is unavailable. |\n\n## Accessibility\n\nA labelled group of icon buttons with tooltips; ratings are pressed buttons, and each action confirms in a visually hidden status.",
       "related": []
     },
     {
@@ -29138,18 +29196,16 @@
             "registry": "message-assistant-reply",
             "storyId": "chat-message--assistant-reply",
             "imports": [
-              "Button",
               "ChatBubble",
               "ChatBubbleContent",
               "ChatMessage",
               "ChatMessageContent",
+              "ChatMessageFeedback",
               "ChatMessageFooter",
               "Item",
               "ItemContent",
               "ItemMedia",
               "LoaderRoot",
-              "RegistryIcon",
-              "useCopyToClipboard",
               "usePrefersReducedMotion"
             ]
           },

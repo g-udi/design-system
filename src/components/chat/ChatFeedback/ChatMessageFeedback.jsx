@@ -24,10 +24,10 @@ function IconAction({ label, icon, pressed, onClick, disabled, className }) {
  * Copy, rate and regenerate a reply. `copyText` is what the copy action writes; `rating` is 'up', 'down'
  * or null (controlled with onRatingChange). The shared live announcer confirms each action.
  */
-function ChatMessageFeedback({ copyText, rating: ratingProp, defaultRating = null, onRatingChange, onCopy, onRegenerate, labels = {}, className, children }) {
+function ChatMessageFeedback({ copyText, rating: ratingProp, defaultRating = null, onRatingChange, ratingDisabled = false, onCopy, onRegenerate, labels = {}, className, children }) {
   const [rating, setRating] = useControllableState({ value: ratingProp, defaultValue: defaultRating, onChange: onRatingChange });
   const { announce } = useLiveAnnouncer();
-  const { copy, isCopied: copied } = useCopyToClipboard({
+  const { copy, isCopied: copied, reset: resetCopy } = useCopyToClipboard({
     timeout: 1600,
     onCopy: (text) => {
       onCopy?.(text);
@@ -44,9 +44,9 @@ function ChatMessageFeedback({ copyText, rating: ratingProp, defaultRating = nul
     <TooltipProvider delayDuration={300}>
     <div data-slot='message-feedback' role='group' aria-label={labels.group || 'Reply actions'} className={cn('ds-part-message-feedback text-text-muted flex items-center gap-0.5', className)}>
       <IconAction label={copied ? labels.copied || 'Copied' : labels.copy || 'Copy'} icon={copied ? 'Check' : 'Copy'} onClick={() => copy(copyText)} disabled={!copyText} />
-      <IconAction label={labels.up || 'Good reply'} icon='ThumbsUp' pressed={rating === 'up'} onClick={() => rate('up')} />
-      <IconAction label={labels.down || 'Bad reply'} icon='ThumbsDown' pressed={rating === 'down'} onClick={() => rate('down')} />
-      {onRegenerate ? <IconAction label={labels.regenerate || 'Regenerate'} icon='RefreshCw' onClick={onRegenerate} /> : null}
+      <IconAction label={labels.up || 'Good reply'} icon='ThumbsUp' pressed={rating === 'up'} disabled={ratingDisabled} onClick={() => rate('up')} />
+      <IconAction label={labels.down || 'Bad reply'} icon='ThumbsDown' pressed={rating === 'down'} disabled={ratingDisabled} onClick={() => rate('down')} />
+      {onRegenerate ? <IconAction label={labels.regenerate || 'Regenerate'} icon='RefreshCw' onClick={(event) => { resetCopy(); onRegenerate(event); }} /> : null}
       {children}
     </div>
     </TooltipProvider>

@@ -50,7 +50,7 @@ Switch exposes role switch, aria-checked, disabled state, and a visible label wh
 
 Curated patterns:
 
-- Card grid with descriptions — registry item `@gaudi/switch-card-grid` (uses `FieldContent`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`, `RegistryIcon`, `SwitchRoot`)
+- Card grid with descriptions — registry item `@gaudi/switch-card-grid` (uses `FieldContent`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`, `IconTile`, `RegistryIcon`, `SwitchRoot`)
 - Colours and destructive settings — registry item `@gaudi/switch-colours-destructive` (uses `FieldContent`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`, `Label`, `SwitchRoot`)
 - Labels and states — registry item `@gaudi/switch-labels-states` (uses `BadgeRoot`, `Label`, `RegistryIcon`, `SwitchRoot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Settings panel — registry item `@gaudi/switch-settings-panel` (uses `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `Label`, `RegistryIcon`, `Separator`, `SwitchRoot`)

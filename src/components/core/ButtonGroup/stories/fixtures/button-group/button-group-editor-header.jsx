@@ -18,6 +18,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
@@ -81,24 +83,21 @@ export function Pattern() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='start' className='w-48'>
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>Switch branch</DropdownMenuLabel>
+              <DropdownMenuLabel>Switch branch</DropdownMenuLabel>
+              <DropdownMenuRadioGroup
+                value={current}
+                onValueChange={(branch) => {
+                  setCurrent(branch);
+                  setPanel('');
+                }}
+              >
                 {Object.keys(documents).map((branch) => (
-                  <DropdownMenuItem
-                    key={branch}
-                    onSelect={() => {
-                      setCurrent(branch);
-                      setPanel('');
-                    }}
-                  >
+                  <DropdownMenuRadioItem key={branch} value={branch}>
                     <RegistryIcon aria-hidden='true' lucide='GitBranchIcon' />
                     {branch}
-                    {branch === current ? (
-                      <RegistryIcon aria-hidden='true' lucide='CheckIcon' className='ml-auto size-3.5 text-accent' />
-                    ) : null}
-                  </DropdownMenuItem>
+                  </DropdownMenuRadioItem>
                 ))}
-              </DropdownMenuGroup>
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
           <ButtonGroupText className='gap-1.5 border border-border px-2.5 text-xs text-text-muted'>

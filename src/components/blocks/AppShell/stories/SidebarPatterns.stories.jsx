@@ -192,8 +192,12 @@ export const SidebarFilterStates = {
     await userEvent.click(current.getByRole('button', { name: 'Refresh projects' }));
     const list = canvasElement.querySelector('[aria-busy]');
     await expect(list).toHaveAttribute('aria-busy', 'true');
+    await expect(current.getByRole('button', { name: 'Refresh projects' }).querySelector('[data-slot="loader"]')).toBeInTheDocument();
     await expect(current.queryByRole('link', { name: 'Mobile client' })).not.toBeInTheDocument();
     await waitFor(() => expect(list).toHaveAttribute('aria-busy', 'false'), { timeout: 2000 });
-    await expect(current.getByRole('link', { name: 'Mobile client' })).toBeVisible();
+    await userEvent.click(current.getByRole('link', { name: 'Mobile client' }));
+    const overview = within(canvasElement);
+    await expect(overview.getByText('No recent runs for Mobile client.')).toBeVisible();
+    await expect(overview.getByText('6 open issues.')).toBeVisible();
   },
 };

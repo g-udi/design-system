@@ -2,6 +2,8 @@
 import Loader from '@gaudi/design-system/core/Loader';
 import { useEffect, useState } from 'react';
 import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from '@gaudi/design-system/core/EmptyState';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { ProgressRing } from '@gaudi/design-system/core/Progress';
 import {
   Alert,
@@ -138,32 +140,26 @@ export function Pattern({
             </div>
           </>
         ) : (
-          /* Empty State */
-          <div
-            className='flex min-h-48 w-full flex-col items-center justify-center gap-4 p-6 text-center'
-          >
-            <div className='bg-ui-primary/10 rounded-full p-4'>
-              <RegistryIcon
-                lucide='CloudUploadIcon'
-                className='text-ui-primary size-8'
-              />
-            </div>
-
-            <div className='space-y-2'>
-              <h3 className='text-lg font-semibold'>Add a cover image</h3>
-              <p className='text-ui-muted-foreground text-sm'>
+          <Empty className='min-h-48 gap-4 p-6'>
+            <EmptyHeader>
+              <IconTile variant='muted' size='xl' aria-hidden='true' className='mb-2 size-16 rounded-full bg-ui-primary/10 text-ui-primary'>
+                <RegistryIcon lucide='CloudUploadIcon' className='size-8' />
+              </IconTile>
+              <EmptyTitle as='h3' className='text-lg font-semibold'>Add a cover image</EmptyTitle>
+              <EmptyDescription>
                 Drag and drop an image here, or click to browse
-              </p>
+              </EmptyDescription>
               <p className='text-ui-muted-foreground text-xs'>
                 Recommended size: 1200x514px • Max size: {formatBytes(maxSize)}
               </p>
-            </div>
-
-            <Button onClick={openFileDialog} variant='outline' size='sm'>
-              <RegistryIcon lucide='ImageIcon' />
-              Browse Files
-            </Button>
-          </div>
+            </EmptyHeader>
+            <EmptyContent>
+              <Button onClick={openFileDialog} variant='outline' size='sm'>
+                <RegistryIcon lucide='ImageIcon' />
+                Browse Files
+              </Button>
+            </EmptyContent>
+          </Empty>
         )}
       </div>
 

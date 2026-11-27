@@ -8,11 +8,12 @@ import {
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
+import { Pagination, PaginationLink, PaginationNext, PaginationPrevious, PaginationStatus } from '@gaudi/design-system/core/Pagination';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const stages = ['Lead', 'Qualified', 'Proposal', 'Negotiation', 'Closed won'];
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -60,42 +61,36 @@ export function Pattern() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-44'>
-              <DropdownMenuGroup>
-                <DropdownMenuLabel>Jump to stage</DropdownMenuLabel>
-                {stages.map((item, index) => (
-                  <DropdownMenuItem key={item} onClick={() => setStage(index)}>
-                    {item}
-                    {index === stage ? <RegistryIcon aria-hidden='true' lucide='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}
-                  </DropdownMenuItem>
+              <DropdownMenuLabel>Jump to stage</DropdownMenuLabel>
+              <DropdownMenuRadioGroup aria-label='Jump to stage' value={stages[stage]} onValueChange={(value) => setStage(stages.indexOf(value))}>
+                {stages.map((item) => (
+                  <DropdownMenuRadioItem key={item} value={item}>{item}</DropdownMenuRadioItem>
                 ))}
-              </DropdownMenuGroup>
+              </DropdownMenuRadioGroup>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button variant='outline' size='icon' aria-label='Next stage' disabled={stage === stages.length - 1} onClick={() => setStage(stage + 1)}><RegistryIcon aria-hidden='true' lucide='ChevronRightIcon' /></Button>
         </ButtonGroup>
       </Row>
       <Row label='Pagination'>
-        <ButtonGroup aria-label='Pagination'>
-          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 1} onClick={() => setPage(page - 1)}><RegistryIcon aria-hidden='true' lucide='ArrowLeftIcon' /><span className='max-sm:sr-only'>Previous</span></Button>
-          {[1, 2, 3, 4, 5].map((n) => (
-            <Button
-              key={n}
-              size='icon-xs'
-              variant={n === page ? 'default' : 'outline'}
-              aria-current={n === page ? 'page' : undefined}
-              className='text-xs tabular-nums'
-              onClick={() => setPage(n)}
-            >
-              {n}
-            </Button>
-          ))}
-          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 5} onClick={() => setPage(page + 1)}><span className='max-sm:sr-only'>Next</span><RegistryIcon aria-hidden='true' lucide='ArrowRightIcon' /></Button>
-        </ButtonGroup>
-        <ButtonGroup aria-label='Compact pagination'>
-          <Button variant='outline' size='icon-sm' aria-label='Previous page' disabled={page === 1} onClick={() => setPage(page - 1)}><RegistryIcon aria-hidden='true' lucide='ChevronLeftIcon' /></Button>
-          <ButtonGroupText className='border border-border px-2.5 text-xs text-text-muted tabular-nums'>Page {page} of 5</ButtonGroupText>
-          <Button variant='outline' size='icon-sm' aria-label='Next page' disabled={page === 5} onClick={() => setPage(page + 1)}><RegistryIcon aria-hidden='true' lucide='ChevronRightIcon' /></Button>
-        </ButtonGroup>
+        <Pagination label='Numbered pagination' className='mx-0 w-fit'>
+          <ButtonGroup aria-label='Pages'>
+            <PaginationPrevious size='xs' disabled={page === 1} onClick={() => setPage(page - 1)} />
+            {[1, 2, 3, 4, 5].map((number) => (
+              <PaginationLink key={number} isActive={number === page} size='icon-xs' variant={number === page ? 'default' : 'outline'} className='text-xs tabular-nums' onClick={() => setPage(number)}>
+                {number}
+              </PaginationLink>
+            ))}
+            <PaginationNext size='xs' disabled={page === 5} onClick={() => setPage(page + 1)} />
+          </ButtonGroup>
+        </Pagination>
+        <Pagination label='Compact pagination' className='mx-0 w-fit'>
+          <ButtonGroup aria-label='Page controls'>
+            <PaginationPrevious iconOnly label='Previous page' size='icon-sm' disabled={page === 1} onClick={() => setPage(page - 1)} />
+            <PaginationStatus currentPage={page} totalPages={5} onPageChange={setPage} size='sm' />
+            <PaginationNext iconOnly label='Next page' size='icon-sm' disabled={page === 5} onClick={() => setPage(page + 1)} />
+          </ButtonGroup>
+        </Pagination>
       </Row>
     </div>
   );

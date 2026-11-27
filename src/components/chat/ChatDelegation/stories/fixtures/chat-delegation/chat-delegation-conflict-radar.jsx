@@ -1,4 +1,5 @@
 'use client';
+import { ToggleGroupRoot, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { useId, useRef, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -98,12 +99,19 @@ export function Pattern() {
         </div>
         <section ref={comparison} id={compareId} aria-label='Conflict comparison' className='grid min-w-0 gap-4 border-t border-border pt-4'>
           <div className='flex flex-wrap items-center justify-between gap-2'><h3 className='m-0 text-base font-semibold'>Choose an approach</h3><span className='text-xs text-text-muted'><bdi>{conflicts.length - unsettled} of {conflicts.length} settled</bdi></span></div>
-          <div role='group' aria-label='Conflicting files' className='flex flex-wrap gap-2'>
-            {conflicts.map(file => <Button key={file.id} size='sm' variant={selectedId === file.id ? 'secondary' : 'outline'} aria-pressed={selectedId === file.id} aria-controls={compareId} onClick={() => inspect(file)}><RegistryIcon lucide={resolutions[file.id] ? 'Check' : 'GitMerge'} />{file.path.split('/').at(-1)}</Button>)}
-          </div>
+          <ToggleGroupRoot type='single' aria-label='Conflicting files' value={selectedId} variant='outline' size='sm' spacing={2} className='max-w-full flex-wrap' onValueChange={(id) => {
+            const file = conflicts.find((item) => item.id === id);
+            if (file) inspect(file);
+          }}>
+            {conflicts.map(file => (
+              <ToggleGroupItem key={file.id} value={file.id} aria-controls={compareId}>
+                <RegistryIcon lucide={resolutions[file.id] ? 'Check' : 'GitMerge'} />{file.path.split('/').at(-1)}
+              </ToggleGroupItem>
+            ))}
+          </ToggleGroupRoot>
           <div className='grid gap-1'><p dir='ltr' className='m-0 text-sm font-medium wrap-anywhere'>{selected.path}</p><p className='m-0 text-sm text-text-muted'><bdi>{selected.overlap}</bdi> · {selected.reason}</p></div>
           <RadioGroup label={`Approaches for ${selected.path}`} value={resolutions[selected.id] || ''} onValueChange={choose} disabled={merged} options={selected.edits.map(edit => ({value:edit.agent,label:agents.find(agent => agent.id === edit.agent).name,description:<span className='grid gap-1'><span>{edit.approach}</span><span>{edit.tradeoff}</span></span>}))} />
-          <div className='flex flex-wrap items-center justify-between gap-2'><p className='m-0 text-xs text-text-muted'>A choice keeps one approach for this file. It does not combine both changes.</p><Button size='sm' variant='ghost' disabled={merged || !resolutions[selected.id]} onClick={() => {setResolutions(previous => {const next = {...previous}; delete next[selected.id]; return next;});setNotice(`Choice cleared for ${selected.path}.`);comparison.current?.querySelector('[role="radio"]')?.focus();}}>Clear choice</Button></div>
+          <div className='flex flex-wrap items-center justify-between gap-2'><p className='m-0 text-xs text-text-muted'>A choice keeps one approach for this file. It does not combine both changes.</p><Button size='sm' variant='ghost' disabled={merged || !resolutions[selected.id]} onClick={() => {setResolutions(previous => {const next = {...previous}; delete next[selected.id]; return next;});setNotice(`Choice cleared for ${selected.path}.`);comparison.current?.querySelector('[data-slot="radio-group-item"]')?.focus();}}>Clear choice</Button></div>
         </section>
         <div className='grid gap-2 border-t border-border pt-4'>
           <div className='flex flex-wrap items-center justify-between gap-3'><p id={`${titleId}-merge`} className='m-0 text-sm text-text-muted'>{mergeReason}</p><Button aria-describedby={`${titleId}-merge`} disabled={!canMerge} onClick={() => {setMerged(true);setNotice('Demo merged: six files with your two chosen approaches. No repository was changed.');}}><RegistryIcon lucide='GitMerge' />{merged ? 'Demo merged' : 'Merge demo changes'}</Button></div>

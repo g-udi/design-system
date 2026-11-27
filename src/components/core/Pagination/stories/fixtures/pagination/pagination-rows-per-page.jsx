@@ -8,7 +8,9 @@ import {
   PaginationRoot as Pagination,
   PaginationContentPrimitive as PaginationContent,
   PaginationItemPrimitive as PaginationItem,
-  PaginationLinkPrimitive as PaginationLink
+  PaginationLinkPrimitive as PaginationLink,
+  PaginationNextPrimitive as PaginationNext,
+  PaginationPreviousPrimitive as PaginationPrevious
 } from '@gaudi/design-system/core/Pagination';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 export function Pattern() {
@@ -40,20 +42,12 @@ export function Pattern() {
           </span>
           <div className='flex gap-1'>
             <PaginationLink disabled={page === 1} onClick={() => setPage(1) } size='icon' aria-label='Go to first page'>
-              <RegistryIcon lucide='ChevronFirstIcon' className='size-4' />
+              <RegistryIcon lucide='ChevronFirstIcon' className='ds-part-rtl-flip size-4' />
             </PaginationLink>
-            <PaginationLink
-              disabled={page === 1} onClick={() => setPage(page - 1) }
-              size='icon'
-              aria-label='Go to previous page'
-            >
-              <RegistryIcon lucide='ChevronLeftIcon' className='size-4' />
-            </PaginationLink>
-            <PaginationLink disabled={page === total} onClick={() => setPage(page + 1) } size='icon' aria-label='Go to next page'>
-              <RegistryIcon lucide='ChevronRightIcon' className='size-4' />
-            </PaginationLink>
+            <PaginationPrevious iconOnly disabled={page === 1} onClick={() => setPage(page - 1)} />
+            <PaginationNext iconOnly disabled={page === total} onClick={() => setPage(page + 1)} />
             <PaginationLink disabled={page === total} onClick={() => setPage(total) } size='icon' aria-label='Go to last page'>
-              <RegistryIcon lucide='ChevronLastIcon' className='size-4' />
+              <RegistryIcon lucide='ChevronLastIcon' className='ds-part-rtl-flip size-4' />
             </PaginationLink>
           </div>
         </PaginationItem>

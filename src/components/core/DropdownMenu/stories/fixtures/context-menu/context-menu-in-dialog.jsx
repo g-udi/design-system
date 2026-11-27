@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   ContextMenu,
@@ -84,7 +85,13 @@ export function Pattern() {
               </ContextMenuGroup>
             </ContextMenuContent>
           </ContextMenu>
-          {files.length > 0 && <div className='flex flex-wrap gap-2' aria-label='Files'>{files.map(name => <Button key={name} variant='outline' size='sm' aria-pressed={current === name} onClick={() => setSelected(name)}>{name}</Button>)}</div>}
+          {files.length > 0 && (
+            <ToggleGroup
+              label='Files' size='sm' spacing={2} value={current}
+              options={files.map((name) => ({ value: name, label: name }))}
+              onValueChange={(name) => name && setSelected(name)}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </div>

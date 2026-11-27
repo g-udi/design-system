@@ -4,7 +4,7 @@
 .scroll [data-slot='scroll-area-viewport'] > div { display: block !important; }
 .list { display: grid; gap: calc(var(--ds-space-scale, 1) * 2px); padding: 0; margin: 0; list-style: none; }
 .list > li { padding-inline-start: calc(var(--ds-space-scale, 1) * var(--toc-depth, 0) * 16px); }
-.row { display: flex; align-items: start; gap: calc(var(--ds-space-scale, 1) * 4px); }
+.row { display: flex; align-items: flex-start; gap: calc(var(--ds-space-scale, 1) * 4px); }
 .link {
   display: flex;
   flex: 1;
@@ -27,7 +27,7 @@
 .chevron { transition: transform 160ms var(--ds-motion-ease-out); }
 :is(.branchTrigger, .visualIndexHeader)[data-state='open'] .chevron { transform: rotate(90deg); }
 .visualIndex { border-top: 1px solid var(--ds-color-border); margin-top: 16px; padding-top: calc(var(--ds-space-scale, 1) * 12px); }
-.visualIndexHeader { width: 100%; justify-content: start; gap: calc(var(--ds-space-scale, 1) * 8px); white-space: normal; text-align: start; }
+.visualIndexHeader { width: 100%; justify-content: flex-start; gap: calc(var(--ds-space-scale, 1) * 8px); white-space: normal; text-align: start; }
 .visualIndexTitle { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; }
 .visualIndexCount { color: var(--ds-color-text-muted); font-size: 12px; font-weight: 400; }
 .visualBody[data-state='closed'] { display: none; }

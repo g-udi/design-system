@@ -72,7 +72,7 @@ export const ContextMenuInDialog = {
     try {
       await openContextSubmenu(document, 'More options', 'Duplicate file');
       await userEvent.click(await body.findByRole('menuitem', { name: 'Duplicate file' }));
-      await expect(within(dialog).getByRole('button', { name: 'Reading notes.md (1)' })).toHaveAttribute('aria-pressed', 'true');
+      await expect(within(dialog).getByRole('radio', { name: 'Reading notes.md (1)' })).toHaveAttribute('aria-checked', 'true');
       if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
         const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
         await auditStoryLayout({

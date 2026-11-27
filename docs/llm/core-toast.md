@@ -54,7 +54,7 @@ Curated patterns:
 
 - Actions — registry item `@gaudi/toast-actions` (uses `Button`, `ToastProvider`, `toast`)
 - Progress and async work — registry item `@gaudi/toast-async-progress` (uses `Button`, `ProgressRoot`, `RegistryIcon`, `ToastProvider`, `toast`, `useInterval`, `useTimeout`)
-- Custom content — registry item `@gaudi/toast-custom-content` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Button`, `Label`, `RegistryIcon`, `Separator`, `StatusDot`, `SwitchRoot`, `ToastProvider`, `toast`)
+- Custom content — registry item `@gaudi/toast-custom-content` (uses `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Button`, `IconTile`, `Label`, `RegistryIcon`, `Separator`, `StatusDot`, `SwitchRoot`, `ToastProvider`, `toast`)
 - Types and options — registry item `@gaudi/toast-types-options` (uses `Button`, `Label`, `NativeSelect`, `NativeSelectOption`, `RegistryIcon`, `SwitchRoot`, `ToastProvider`, `ToggleGroupItem`, `ToggleGroupRoot`, `toast`)
 
 ## README

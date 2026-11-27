@@ -10,7 +10,8 @@ import {
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import {
@@ -19,7 +20,7 @@ import {
   TooltipProvider,
   TooltipTrigger
 } from '@gaudi/design-system/core/Tooltip';
-import { cn } from '@gaudi/design-system/utilities/cn';
+import { ToggleGroupRoot, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const views = [['List view', 'ListIcon'], ['Grid view', 'LayoutGridIcon'], ['Table view', 'TableIcon']];
 const intervals = [['1m', 'ClockIcon'], ['5m', 'ClockIcon'], ['1H', 'ClockIcon'], ['1D', 'CalendarIcon'], ['1W', 'CalendarDaysIcon'], ['Auto', 'SparklesIcon']];
@@ -36,23 +37,6 @@ const environments = [
   { id: 'Staging', icon: 'TestTube2Icon', tip: 'Private copy of the live site' },
   { id: 'Production', icon: 'GlobeIcon', tip: 'Public site, visible to every reader' }
 ];
-const active = 'bg-surface-muted';
-// One pressed button per group; the pressed state is announced and tinted.
-function Segment({ selected, onSelect, id, size, label, children, className, ...props }) {
-  return (
-    <Button
-      variant='outline'
-      size={size}
-      aria-label={label}
-      aria-pressed={selected === id}
-      className={cn('shrink-0', selected === id && active, className)}
-      onClick={() => onSelect(id)}
-      {...props}
-    >
-      {children}
-    </Button>
-  );
-}
 function Row({ label, children }) {
   return (
     <div className='flex flex-col gap-1.5'>
@@ -66,30 +50,32 @@ export function Pattern() {
   const [interval, setInterval] = useState('1H');
   const [mode, setMode] = useState('Review');
   const [limit, setLimit] = useState(limits[1]);
-  const [stance, setStance] = useState(null);
+  const [stance, setStance] = useState('');
   const [model, setModel] = useState('sage');
   const [env, setEnv] = useState('Production');
-  const [score, setScore] = useState(8);
+  const [score, setScore] = useState('8');
   return (
     <TooltipProvider>
       <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
         <Row label='View and interval'>
-          <ButtonGroup aria-label='View'>
+          <ToggleGroupRoot type='single' aria-label='View' value={view} onValueChange={(next) => next && setView(next)} variant='outline' spacing={0}>
             {views.map(([id, icon]) => (
-              <Segment key={id} id={id} label={id} size='icon' selected={view} onSelect={setView}><RegistryIcon aria-hidden='true' lucide={icon} /></Segment>
+              <ToggleGroupItem key={id} value={id} aria-label={id}><RegistryIcon aria-hidden='true' lucide={icon} /></ToggleGroupItem>
             ))}
-          </ButtonGroup>
-          <ButtonGroup aria-label='Interval' className='max-w-full overflow-x-auto'>
+          </ToggleGroupRoot>
+          <ToggleGroupRoot type='single' aria-label='Interval' value={interval} onValueChange={(next) => next && setInterval(next)} variant='outline' size='sm' spacing={0} className='max-w-full overflow-x-auto'>
             {intervals.map(([id, icon]) => (
-              <Segment key={id} id={id} size='sm' className='tabular-nums' selected={interval} onSelect={setInterval}><RegistryIcon aria-hidden='true' lucide={icon} />{id}</Segment>
+              <ToggleGroupItem key={id} value={id} className='tabular-nums'><RegistryIcon aria-hidden='true' lucide={icon} />{id}</ToggleGroupItem>
             ))}
-          </ButtonGroup>
+          </ToggleGroupRoot>
         </Row>
         <Row label='Mode with a menu'>
-          <ButtonGroup aria-label='Agent mode' className='max-w-full overflow-x-auto'>
-            {modes.map(([id, icon]) => (
-              <Segment key={id} id={id} size='sm' selected={mode} onSelect={setMode}><RegistryIcon aria-hidden='true' lucide={icon} className='size-3.5 opacity-60' />{id}</Segment>
-            ))}
+          <ButtonGroup className='max-w-full overflow-x-auto'>
+            <ToggleGroupRoot type='single' aria-label='Agent mode' value={mode} onValueChange={(next) => next && setMode(next)} variant='outline' size='sm' spacing={0}>
+              {modes.map(([id, icon]) => (
+                <ToggleGroupItem key={id} value={id}><RegistryIcon aria-hidden='true' lucide={icon} className='size-3.5 opacity-60' />{id}</ToggleGroupItem>
+              ))}
+            </ToggleGroupRoot>
             <ButtonGroupSeparator />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -99,43 +85,44 @@ export function Pattern() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-32'>
-                {limits.map((item) => <DropdownMenuItem key={item} onClick={() => setLimit(item)}>{item}</DropdownMenuItem>)}
+                <DropdownMenuRadioGroup value={limit} onValueChange={setLimit}>
+                  {limits.map((item) => <DropdownMenuRadioItem key={item} value={item}>{item}</DropdownMenuRadioItem>)}
+                </DropdownMenuRadioGroup>
               </DropdownMenuContent>
             </DropdownMenu>
           </ButtonGroup>
-          <ButtonGroup aria-label='Position'>
+          <ToggleGroupRoot type='single' aria-label='Position' value={stance} onValueChange={setStance} variant='outline' size='sm' spacing={0}>
             {stances.map(([id, icon]) => (
-              <Button key={id} size='sm' variant={stance === id ? 'default' : 'outline'} aria-pressed={stance === id} onClick={() => setStance(stance === id ? null : id)}>
-                <RegistryIcon aria-hidden='true' lucide={icon} />
-                {id}
-              </Button>
+              <ToggleGroupItem key={id} value={id}><RegistryIcon aria-hidden='true' lucide={icon} />{id}</ToggleGroupItem>
             ))}
-          </ButtonGroup>
+          </ToggleGroupRoot>
         </Row>
         <Row label='With tooltips, badges and status'>
-          <ButtonGroup aria-label='Model' className='max-w-full overflow-x-auto'>
+          <ToggleGroupRoot type='single' aria-label='Model' value={model} onValueChange={(next) => next && setModel(next)} variant='outline' size='sm' spacing={0} className='max-w-full overflow-x-auto'>
             {models.map(({ id, icon, badge, tone, tip }) => (
               <Tooltip key={id}>
-                <TooltipTrigger asChild>
-                  <Segment id={id} size='sm' selected={model} onSelect={setModel}>
+                <ToggleGroupItem value={id} asChild>
+                  <TooltipTrigger>
                     <RegistryIcon aria-hidden='true' lucide={icon} />
                     {id}
                     <Badge variant={tone} size='xs'>{badge}</Badge>
-                  </Segment>
-                </TooltipTrigger>
+                  </TooltipTrigger>
+                </ToggleGroupItem>
                 <TooltipContent>{tip}</TooltipContent>
               </Tooltip>
             ))}
-          </ButtonGroup>
-          <ButtonGroup aria-label='Environment' className='max-w-full overflow-x-auto'>
-            {environments.map(({ id, icon, tip }) => (
-              <Tooltip key={id}>
-                <TooltipTrigger asChild>
-                  <Segment id={id} size='sm' selected={env} onSelect={setEnv}><RegistryIcon aria-hidden='true' lucide={icon} />{id}</Segment>
-                </TooltipTrigger>
-                <TooltipContent>{tip}</TooltipContent>
-              </Tooltip>
-            ))}
+          </ToggleGroupRoot>
+          <ButtonGroup className='max-w-full overflow-x-auto'>
+            <ToggleGroupRoot type='single' aria-label='Environment' value={env} onValueChange={(next) => next && setEnv(next)} variant='outline' size='sm' spacing={0}>
+              {environments.map(({ id, icon, tip }) => (
+                <Tooltip key={id}>
+                  <ToggleGroupItem value={id} asChild>
+                    <TooltipTrigger><RegistryIcon aria-hidden='true' lucide={icon} />{id}</TooltipTrigger>
+                  </ToggleGroupItem>
+                  <TooltipContent>{tip}</TooltipContent>
+                </Tooltip>
+              ))}
+            </ToggleGroupRoot>
             {env === 'Production' ? (
               <ButtonGroupText className='gap-1.5 border border-border px-2.5 text-xs text-text-muted'>
                 <StatusDot className='bg-success' />
@@ -146,20 +133,11 @@ export function Pattern() {
         </Row>
         <Row label='How useful was this article?'>
           <div className='flex max-w-full flex-col gap-1.5'>
-            <ButtonGroup aria-label='Score' className='max-w-full overflow-x-auto'>
-              {Array.from({ length: 10 }, (_, index) => index + 1).map((n) => (
-                <Button
-                  key={n}
-                  size='icon-sm'
-                  variant={score === n ? 'default' : 'outline'}
-                  aria-pressed={score === n}
-                  className='text-xs tabular-nums'
-                  onClick={() => setScore(n)}
-                >
-                  {n}
-                </Button>
+            <ToggleGroupRoot type='single' aria-label='Score' value={score} onValueChange={(next) => next && setScore(next)} variant='outline' size='sm' spacing={0} className='max-w-full overflow-x-auto'>
+              {Array.from({ length: 10 }, (_, i) => String(i + 1)).map((n) => (
+                <ToggleGroupItem key={n} value={n} className='tabular-nums'>{n}</ToggleGroupItem>
               ))}
-            </ButtonGroup>
+            </ToggleGroupRoot>
             <div className='flex justify-between text-xs text-text-muted'>
               <span>Not useful</span>
               <span>Very useful</span>

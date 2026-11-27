@@ -10,6 +10,8 @@ import {
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
@@ -96,7 +98,18 @@ export function Pattern() {
         <ButtonGroup aria-label='Transfer plan' className='**:data-[slot=button]:border-x-0'>
           <Button asChild size='sm'><a href={'data:text/plain;charset=utf-8,' + encodeURIComponent(schedule)} download='transfer-plan.txt'><RegistryIcon aria-hidden='true' lucide='DownloadIcon' />Export plan</a></Button>
           <ButtonGroupSeparator className='bg-ui-primary-foreground/35' />
-          <Menu size='icon-sm' label='Choose planned day' items={[['Wednesday'], ['Thursday'], ['Friday']]} onSelect={setDay} />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button size='icon-sm' aria-label='Choose planned day'><RegistryIcon aria-hidden='true' lucide='ChevronDownIcon' /></Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align='end'>
+              <DropdownMenuRadioGroup value={day} onValueChange={setDay}>
+                {['Wednesday', 'Thursday', 'Friday'].map((value) => (
+                  <DropdownMenuRadioItem key={value} value={value}>{value}</DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </ButtonGroup>
         <p className='w-full text-sm' aria-live='polite'>{day} · {transfer}</p>
       </Row>

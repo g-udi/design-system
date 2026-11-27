@@ -1,12 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
-import { default as Button } from '@gaudi/design-system/core/Button';
+import { ChatMessageFeedback } from '@gaudi/design-system/chat/ChatFeedback';
 import { Item, ItemContent, ItemMedia } from '@gaudi/design-system/core/Item';
 import { ChatMessage, ChatMessageContent, ChatMessageFooter } from '@gaudi/design-system/chat/ChatMessage';
 import { LoaderRoot as Loader } from '@gaudi/design-system/core/Loader';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import { usePrefersReducedMotion } from '@gaudi/design-system/hooks/a11y/use-prefers-reduced-motion';
 
 // One assistant row moves from thinking, to typing, to settled; once settled
@@ -24,7 +22,6 @@ export function Pattern() {
   const [draftIndex, setDraftIndex] = useState(0);
   const [revealed, setRevealed] = useState(0);
   const [vote, setVote] = useState(null);
-  const { copy, isCopied: copied, reset: resetCopy } = useCopyToClipboard({ timeout: 1600 });
   const answer = DRAFTS[draftIndex];
   useEffect(() => {
     if (revealed >= answer.length) return;
@@ -43,7 +40,6 @@ export function Pattern() {
     setDraftIndex((index) => (index + 1) % DRAFTS.length);
     setRevealed(0);
     setVote(null);
-    resetCopy();
   };
   return (
     <div className='mx-auto flex w-full max-w-2xl flex-col gap-4'>
@@ -85,44 +81,16 @@ export function Pattern() {
               )}
             </ChatBubbleContent>
           </ChatBubble>
-          {/*
-           * The footer stays mounted so Regenerate keeps focus after its own click.
-           * Copy is a one-shot with no aria-pressed; a pressed rating swaps variant.
-           */}
           <ChatMessageFooter className='gap-0.5'>
             <span className='pe-1 tabular-nums'>14:45</span>
-            <Button
-              type='button'
-              variant='ghost'
-              size='icon-xs'
-              disabled={!done}
-              aria-label={copied ? 'Reply copied' : 'Copy reply'}
-              title={copied ? 'Copied' : 'Copy'}
-              onClick={() => void copy(answer)}
-            >
-              <RegistryIcon lucide={copied ? 'CheckIcon' : 'CopyIcon'} aria-hidden='true' />
-            </Button>
-            <Button type='button' variant='ghost' size='icon-xs' aria-label='Regenerate reply' title='Regenerate' onClick={regenerate}>
-              <RegistryIcon lucide='RefreshCwIcon' aria-hidden='true' />
-            </Button>
-            {[
-              ['up', 'Good reply', 'ThumbsUpIcon'],
-              ['down', 'Bad reply', 'ThumbsDownIcon']
-            ].map(([value, label, icon]) => (
-              <Button
-                key={value}
-                type='button'
-                variant={vote === value ? 'secondary' : 'ghost'}
-                size='icon-xs'
-                disabled={!done}
-                aria-label={label}
-                title={label}
-                aria-pressed={vote === value}
-                onClick={() => setVote(vote === value ? null : value)}
-              >
-                <RegistryIcon lucide={icon} aria-hidden='true' />
-              </Button>
-            ))}
+            <ChatMessageFeedback
+              copyText={done ? answer : ''}
+              rating={vote}
+              onRatingChange={setVote}
+              ratingDisabled={!done}
+              onRegenerate={regenerate}
+              labels={{ copy: 'Copy reply', copied: 'Reply copied', regenerate: 'Regenerate reply' }}
+            />
           </ChatMessageFooter>
         </ChatMessageContent>
       </ChatMessage>

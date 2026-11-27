@@ -14,10 +14,10 @@ export const Toolbars = {
   ...pattern('toolbars', 'Labelled, icon-only and badged actions at three sizes, with a disabled member, separators and an overflow menu.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('button', { name: 'Folder' })).toBeDisabled();
-    await expect(canvas.getByRole('group', { name: 'Library' })).toHaveAttribute('data-slot', 'button-group');
+    await expect(canvas.getByRole('radio', { name: 'Folder' })).toBeDisabled();
+    await expect(canvas.getByRole('radiogroup', { name: 'Library' })).toHaveAttribute('data-slot', 'toggle-group');
     const body = within(canvasElement.ownerDocument.body);
-    await userEvent.click(canvas.getByRole('button', { name: 'Trash' }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'Trash' }));
     await expect(canvas.getByRole('region', { name: 'Library report' })).toHaveTextContent('Old sketch');
     await userEvent.click(canvas.getByRole('button', { name: 'More options' }));
     const csv = await body.findByRole('menuitem', { name: 'Export CSV' });
@@ -25,7 +25,7 @@ export const Toolbars = {
     await expect(decodeURIComponent(csv.getAttribute('href'))).toContain('Old sketch');
     await expect(decodeURIComponent(csv.getAttribute('href'))).not.toContain('Release notes');
     await userEvent.keyboard('{Escape}');
-    await userEvent.click(canvas.getByRole('button', { name: 'Files' }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'Files' }));
     await userEvent.upload(canvas.getByLabelText('Choose library files'), new File(['New document'], 'outline.md', { type: 'text/markdown' }));
     await expect(canvas.getByRole('region', { name: 'Library report' })).toHaveTextContent('outline.md');
   }
@@ -50,20 +50,23 @@ export const SplitButtons = {
 };
 export const Segmented = {
   name: 'Segmented choices',
-  ...pattern('segmented', 'Single-choice groups with a pressed state: views, intervals, modes with a menu, badges, tooltips, a live status and a score scale.'),
+  ...pattern('segmented', 'Single-choice toggle groups for views, intervals, modes with a menu, badges, tooltips, a live status and a score scale.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    const grid = canvas.getByRole('button', { name: 'Grid view' });
-    await userEvent.click(grid);
-    await expect(grid).toHaveAttribute('aria-pressed', 'true');
-    await expect(canvas.getByRole('button', { name: 'List view' })).toHaveAttribute('aria-pressed', 'false');
-    const hour = canvas.getByRole('button', { name: '1H' });
-    const day = canvas.getByRole('button', { name: '1D' });
-    await expect(hour).toHaveClass('tabular-nums', 'bg-surface-muted');
+    const list = canvas.getByRole('radio', { name: 'List view' });
+    const grid = canvas.getByRole('radio', { name: 'Grid view' });
+    list.focus();
+    await userEvent.keyboard('{ArrowRight}');
+    await waitFor(() => expect(grid).toHaveFocus());
+    await userEvent.keyboard('{Enter}');
+    await expect(grid).toBeChecked();
+    await expect(list).not.toBeChecked();
+    const hour = canvas.getByRole('radio', { name: '1H' });
+    const day = canvas.getByRole('radio', { name: '1D' });
+    await expect(hour).toBeChecked();
     await userEvent.click(day);
-    await expect(day).toHaveAttribute('aria-pressed', 'true');
-    await expect(day).toHaveClass('tabular-nums', 'bg-surface-muted');
-    await expect(hour).not.toHaveClass('bg-surface-muted');
+    await expect(day).toBeChecked();
+    await expect(hour).not.toBeChecked();
   }
 };
 export const InputsSelects = {
@@ -87,7 +90,7 @@ export const InputsSelects = {
     const menu = canvas.getByRole('button', { name: 'Record options' });
     menu.focus();
     await userEvent.keyboard('{Enter}');
-    await expect(await body.findByRole('menuitem', { name: 'Archived' })).toBeVisible();
+    await expect(await body.findByRole('menuitemradio', { name: 'Archived' })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(menu).toHaveFocus());
     await userEvent.type(canvas.getByRole('textbox', { name: 'File name...' }), 'Brief.md');
@@ -107,12 +110,23 @@ export const SteppersPagination = {
   ...pattern('steppers-pagination', 'Volume, zoom and stage steppers, and pagination with the current page.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+    const body = within(canvasElement.ownerDocument.body);
     await userEvent.click(canvas.getByRole('button', { name: 'Increase Volume' }));
     await userEvent.click(canvas.getByRole('button', { name: '55%' }));
     await expect(canvas.getByRole('button', { name: 'Muted' })).toBeVisible();
-    await userEvent.click(canvas.getByRole('button', { name: 'Next page' }));
-    await expect(canvas.getByText('Page 4 of 5')).toBeVisible();
-    await expect(canvas.getByRole('button', { name: '4' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(canvas.getByRole('button', { name: 'Proposal' }));
+    await expect(await body.findByRole('menuitemradio', { name: 'Proposal' })).toBeChecked();
+    await userEvent.click(body.getByRole('menuitemradio', { name: 'Closed won' }));
+    await expect(canvas.getByRole('button', { name: 'Next stage' })).toBeDisabled();
+    const numbered = within(canvas.getByRole('navigation', { name: 'Numbered pagination' }));
+    const compact = within(canvas.getByRole('navigation', { name: 'Compact pagination' }));
+    await userEvent.click(compact.getByRole('button', { name: 'Next page' }));
+    await expect(numbered.getByRole('button', { name: '4' })).toHaveAttribute('aria-current', 'page');
+    await userEvent.click(compact.getByRole('button', { name: 'Page shortcuts: 4 of 5' }));
+    const shortcuts = within(await body.findByRole('list', { name: 'Page shortcuts' }));
+    await userEvent.click(shortcuts.getByRole('button', { name: '1' }));
+    await expect(compact.getByRole('button', { name: 'Previous page' })).toBeDisabled();
+    await expect(numbered.getByRole('button', { name: '1' })).toHaveAttribute('aria-current', 'page');
   }
 };
 export const CountsLabels = { name: 'Counts and labels', ...pattern('counts-labels', 'A count, badge or file size beside its action.') };
@@ -123,13 +137,15 @@ export const CollectionToolbar = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await userEvent.click(canvas.getByRole('button', { name: 'Sort: Newest' }));
-    await userEvent.click(await body.findByRole('menuitem', { name: 'Oldest' }));
+    await expect(await body.findByRole('menuitemradio', { name: 'Newest' })).toBeChecked();
+    await userEvent.click(body.getByRole('menuitemradio', { name: 'Oldest' }));
     await expect(canvas.getByRole('button', { name: 'Sort: Oldest' })).toHaveFocus();
-    await userEvent.click(canvas.getByRole('button', { name: 'List view' }));
-    await expect(canvas.getByRole('button', { name: 'List view' })).toHaveAttribute('aria-pressed', 'true');
-    await expect(canvas.getByRole('button', { name: 'Grid view' })).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(canvas.getByRole('radio', { name: 'List view' }));
+    await expect(canvas.getByRole('radio', { name: 'List view' })).toBeChecked();
+    await expect(canvas.getByRole('radio', { name: 'Grid view' })).not.toBeChecked();
     await userEvent.click(canvas.getByRole('button', { name: 'Filter' }));
-    await userEvent.click(await body.findByRole('menuitem', { name: 'Domain' }));
+    await expect(await body.findByRole('menuitemradio', { name: 'All' })).toBeChecked();
+    await userEvent.click(body.getByRole('menuitemradio', { name: 'Domain' }));
     const items = within(canvas.getByRole('list', { name: 'Collection items' }));
     await expect(items.getAllByRole('listitem')).toHaveLength(1);
     await expect(items.getByText('read.gaudi.dev')).toBeVisible();
@@ -156,7 +172,7 @@ export const EditorHeader = {
     const branch = canvas.getByRole('button', { name: 'main' });
     branch.focus();
     await userEvent.keyboard('{Enter}');
-    await userEvent.click(await body.findByRole('menuitem', { name: 'develop' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'develop' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Preview' }));
     await expect(canvas.getByRole('article')).toHaveTextContent('Editor shortcuts');
     const publish = canvas.getByRole('button', { name: 'Publish', exact: true });

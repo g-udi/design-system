@@ -5,6 +5,7 @@ import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { toCsv } from '@gaudi/design-system/core/DataTable';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 import { Badge } from '@gaudi/design-system/core/Pill';
+import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   ButtonGroup,
@@ -56,7 +57,7 @@ function Row({ label, children }) {
 export function Pattern() {
   const [files, setFiles] = useState(initialFiles);
   const [trash, setTrash] = useState(false);
-  const [collection, setCollection] = useState(null);
+  const [collection, setCollection] = useState('');
   const [title, setTitle] = useState('Library dashboard');
   const [editing, setEditing] = useState(false);
   const [showKinds, setShowKinds] = useState(true);
@@ -67,7 +68,7 @@ export function Pattern() {
     onFilesAdded: (entries) => {
       setFiles((current) => [...current, ...entries.map(({ file }) => ({ name: file.name, kind: 'Docs', trashed: false }))]);
       setTrash(false);
-      setCollection(null);
+      setCollection('');
     }
   });
   const report = useRef(null);
@@ -78,18 +79,33 @@ export function Pattern() {
   return (
     <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
       <Row label='Labelled, one disabled'>
-        <ButtonGroup aria-label='Library'>
-          <Button variant='outline' size='sm' aria-pressed={!trash} onClick={() => { setTrash(false); setCollection(null); }}><RegistryIcon aria-hidden='true' lucide='FileIcon' />Files</Button>
-          <Button variant='outline' size='sm' disabled><RegistryIcon aria-hidden='true' lucide='FolderIcon' />Folder</Button>
-          <Button variant='outline' size='sm' aria-pressed={trash} onClick={() => { setTrash(true); setCollection(null); }}><RegistryIcon aria-hidden='true' lucide='TrashIcon' />Trash</Button>
-        </ButtonGroup>
+        <ToggleGroup
+          label='Library'
+          size='sm'
+          value={trash ? 'Trash' : 'Files'}
+          onValueChange={(value) => {
+            if (value) setTrash(value === 'Trash');
+            setCollection('');
+          }}
+          options={[
+            { value: 'Files', label: <><RegistryIcon aria-hidden='true' lucide='FileIcon' />Files</> },
+            { value: 'Folder', disabled: true, label: <><RegistryIcon aria-hidden='true' lucide='FolderIcon' />Folder</> },
+            { value: 'Trash', label: <><RegistryIcon aria-hidden='true' lucide='TrashIcon' />Trash</> }
+          ]}
+        />
       </Row>
       <Row label='Icon only'>
-        <ButtonGroup aria-label='Text alignment'>
-          {[['left', 'AlignLeftIcon'], ['center', 'AlignCenterIcon'], ['right', 'AlignRightIcon']].map(([name, icon]) => (
-            <Button key={name} variant='outline' size='icon-sm' aria-label={'Align ' + name} aria-pressed={align === name} onClick={() => setAlign(name)}><RegistryIcon aria-hidden='true' lucide={icon} /></Button>
-          ))}
-        </ButtonGroup>
+        <ToggleGroup
+          label='Text alignment'
+          size='sm'
+          value={align}
+          onValueChange={(value) => value && setAlign(value)}
+          options={[['left', 'AlignLeftIcon'], ['center', 'AlignCenterIcon'], ['right', 'AlignRightIcon']].map(([value, icon]) => ({
+            value,
+            ariaLabel: 'Align ' + value,
+            label: <RegistryIcon aria-hidden='true' lucide={icon} />
+          }))}
+        />
       </Row>
       <Row label='Icons and a badge'>
         <ButtonGroup aria-label='Document'>
@@ -100,11 +116,13 @@ export function Pattern() {
         <input {...getInputProps({ 'aria-label': 'Choose library files' })} hidden />
       </Row>
       <Row label='Separators'>
-        <ButtonGroup aria-label='Media library' className='**:data-[slot=button]:border-0'>
-          {['Docs', 'Projects', 'Media'].map((name) => (
-            <Button key={name} size='sm' aria-pressed={collection === name} onClick={() => setCollection(collection === name ? null : name)}>{name}</Button>
-          ))}
-        </ButtonGroup>
+        <ToggleGroup
+          label='Media library'
+          size='sm'
+          value={collection}
+          options={['Docs', 'Projects', 'Media'].map((value) => ({ value, label: value }))}
+          onValueChange={setCollection}
+        />
         <ButtonGroup aria-label='Dashboard actions'>
           <Button variant='outline' size='sm' aria-pressed={share} onClick={() => setShare(!share)}><RegistryIcon aria-hidden='true' lucide='Share2Icon' />Share</Button>
           <ButtonGroupSeparator />

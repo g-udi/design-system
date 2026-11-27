@@ -11,7 +11,9 @@ import {
   PaginationContentPrimitive as PaginationContent,
   PaginationEllipsisPrimitive as PaginationEllipsis,
   PaginationItemPrimitive as PaginationItem,
-  PaginationLinkPrimitive as PaginationLink
+  PaginationLinkPrimitive as PaginationLink,
+  PaginationNextPrimitive as PaginationNext,
+  PaginationPreviousPrimitive as PaginationPrevious
 } from '@gaudi/design-system/core/Pagination';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { NumberField, NumberFieldGroup, NumberFieldInput } from '@gaudi/design-system/core/NumberField';
@@ -30,11 +32,11 @@ export function Pattern() {
       <Pagination aria-label='Numbered pages with page input'>
         <PaginationContent className='w-full justify-between gap-3'>
           <PaginationItem className='flex items-center gap-1'>
-            <IconLink icon='ChevronLeftIcon' label='Go to previous page' {...step(page, Math.max(1, page - 1), setPage)} />
+            <PaginationPrevious iconOnly {...step(page, Math.max(1, page - 1), setPage)} />
             {getPageShortcuts(page, 10).map(value => typeof value === 'number'
               ? <PaginationLink key={value} isActive={value === page} onClick={() => setPage(value)}>{value}</PaginationLink>
               : <PaginationEllipsis key={value} />)}
-            <IconLink icon='ChevronRightIcon' label='Go to next page' {...step(page, Math.min(10, page + 1), setPage)} />
+            <PaginationNext iconOnly {...step(page, Math.min(10, page + 1), setPage)} />
           </PaginationItem>
           <PaginationItem className='flex items-center gap-2'>
             <span className='text-sm whitespace-nowrap text-text-muted'>Go to page</span>
@@ -49,7 +51,7 @@ export function Pattern() {
       <Pagination aria-label='First, last and page select' className='justify-start'>
         <PaginationContent className='gap-1'>
           <PaginationItem><IconLink icon='ChevronFirstIcon' label='Go to first page' {...step(selected, 1, setSelected)} /></PaginationItem>
-          <PaginationItem><IconLink icon='ChevronLeftIcon' label='Go to previous page' {...step(selected, Math.max(1, selected - 1), setSelected)} /></PaginationItem>
+          <PaginationItem><PaginationPrevious iconOnly {...step(selected, Math.max(1, selected - 1), setSelected)} /></PaginationItem>
           <PaginationItem>
             <NativeSelect aria-label='Page' className='w-26' value={String(selected)} onChange={event => setSelected(Number(event.target.value))}>
               {pageNumbers.map((page) => (
@@ -57,7 +59,7 @@ export function Pattern() {
               ))}
             </NativeSelect>
           </PaginationItem>
-          <PaginationItem><IconLink icon='ChevronRightIcon' label='Go to next page' {...step(selected, Math.min(10, selected + 1), setSelected)} /></PaginationItem>
+          <PaginationItem><PaginationNext iconOnly {...step(selected, Math.min(10, selected + 1), setSelected)} /></PaginationItem>
           <PaginationItem><IconLink icon='ChevronLastIcon' label='Go to last page' {...step(selected, 10, setSelected)} /></PaginationItem>
         </PaginationContent>
       </Pagination>

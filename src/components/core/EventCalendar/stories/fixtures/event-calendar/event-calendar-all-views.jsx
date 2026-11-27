@@ -1,5 +1,5 @@
 'use client';
-import { StatusDot } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useRef, useState } from 'react';
 import { EventCalendar } from '@gaudi/design-system/core/EventCalendar';
 import { EventCalendarContent } from '@gaudi/design-system/core/EventCalendar';
@@ -18,7 +18,8 @@ import {
 import { de, es, fr, ja } from 'date-fns/locale';
 import {
   AvatarRoot as Avatar,
-  AvatarFallback
+  AvatarFallback,
+  AvatarGroup
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -127,18 +128,18 @@ function renderEventContent({ occurrence }) {
   if (event.id === 'design-review') {
     return (
       <>
-        <span className='flex shrink-0 -space-x-1'>
-          <Avatar className='ring-ui-background size-4 ring-1'>
+        <AvatarGroup as='span' className='shrink-0 -space-x-1 *:data-[slot=avatar]:ring-1'>
+          <Avatar className='size-4'>
             <AvatarFallback className='bg-violet-500 text-xs font-semibold text-white'>
               M
             </AvatarFallback>
           </Avatar>
-          <Avatar className='ring-ui-background size-4 ring-1'>
+          <Avatar className='size-4'>
             <AvatarFallback className='bg-sky-500 text-xs font-semibold text-white'>
               A
             </AvatarFallback>
           </Avatar>
-        </span>
+        </AvatarGroup>
         <span className='truncate font-medium'>{event.title}</span>
       </>
     );
@@ -148,9 +149,9 @@ function renderEventContent({ occurrence }) {
       <span className='flex w-full min-w-0 items-center gap-1.5'>
         <StatusDot className='-me-0.5 bg-(--ec-event-color)' />
         <span className='truncate font-medium'>{event.title}</span>
-        <span className='ms-auto shrink-0 rounded bg-(--ec-event-color)/25 px-1 text-xs font-semibold'>
+        <Badge size='xs' variant='secondary' className='ms-auto bg-(--ec-event-color)/25 font-semibold text-inherit'>
           {differenceInMinutes(occurrence.end, occurrence.start)}m
-        </span>
+        </Badge>
       </span>
     );
   }

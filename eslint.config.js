@@ -12,6 +12,32 @@ import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 
+const useIconTile = {
+  meta: { type: 'problem', schema: [], messages: { framed: 'Use the public Gaudi IconTile for a framed icon in an example.' } },
+  create(context) {
+    return {
+      'JSXElement > JSXOpeningElement[name.name=/^(span|div)$/]'(element) {
+        const children = element.parent.children.filter(child =>
+          child.type !== 'JSXText' ? child.expression?.type !== 'JSXEmptyExpression' : child.value.trim()
+        );
+        if (children.length !== 1) return;
+        const child = children[0];
+        const glyph = child.openingElement?.name;
+        const isIcon = glyph?.type === 'JSXIdentifier' && glyph.name.endsWith('Icon');
+        if (!isIcon && child.expression?.property?.name !== 'icon') return;
+        const attribute = element.attributes.find(attr => attr.name?.name === 'className');
+        if (!attribute?.value) return;
+        // Frames also use arbitrary sizes, padding, and tones supplied through cn() or interpolation.
+        const classes = context.sourceCode.getText(attribute.value);
+        if (/\brounded\b/.test(classes) && /\b(?:size-|p-)/.test(classes) &&
+            /\b(?:bg-|border|items-center|place-items-center)/.test(classes)) {
+          context.report({ node: element, messageId: 'framed' });
+        }
+      }
+    };
+  }
+};
+
 export default [
   {
     ignores: [
@@ -58,19 +84,25 @@ export default [
   },
   {
     files: [ 'src/**/stories/fixtures/**/*.{js,jsx}' ],
+    plugins: { gaudi: { rules: { 'use-icon-tile': useIconTile } } },
     rules: {
+      'gaudi/use-icon-tile': 'error',
       'no-restricted-syntax': [
         'error',
         {
-          selector: "JSXElement:has(> JSXOpeningElement[name.name=/^(span|div)$/] > JSXAttribute[name.name='className'] > Literal[value=/(?=.*size-[0-9])(?=.*rounded)(?=.*(?:bg-|border))(?=.*(?:items-center|place-items-center))/]):has(> JSXElement > JSXOpeningElement[name.name=/^(Icon|RegistryIcon)$/])",
-          message: 'Use the public Gaudi IconTile for a framed icon in an example.'
+          selector: "JSXOpeningElement[name.name='RegistryIcon']:has(JSXAttribute[name.name='lucide'] > Literal[value=/^Loader(2|Circle)?(Icon)?$/]) > JSXAttribute[name.name='className'] Literal[value=/animate-spin/]",
+          message: 'Use the public Gaudi Loader for a spinning loading indicator.'
+        },
+        {
+          selector: "JSXOpeningElement[selfClosing=true][name.name=/^(span|div)$/] > JSXAttribute[name.name='className'] > Literal[value=/^(?=.*(?:w|h)-px)(?=.*bg-(?:ui-)?border)(?!.*(?:absolute|fixed))/]",
+          message: 'Use the public Gaudi Separator for a divider between content or controls.'
         },
         {
           selector: "JSXOpeningElement[name.name='progress']",
           message: 'Use the public Gaudi Progress component in examples.'
         },
         {
-          selector: "JSXOpeningElement[name.name=/^[a-z]/] > JSXAttribute[name.name='role'] > Literal[value=/^(progressbar|switch|tablist)$/]",
+          selector: "JSXOpeningElement[name.name=/^[a-z]/] > JSXAttribute[name.name='role'] > Literal[value=/^(progressbar|meter|switch|tablist)$/]",
           message: 'Compose this example with Gaudi Progress, Switch or TabsList so its behavior matches the shared owner.'
         }
       ]

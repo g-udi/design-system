@@ -14,6 +14,7 @@ import { cn } from '@gaudi/design-system/utilities/cn';
 import { toast } from '@gaudi/design-system/core/Toast';
 import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { default as Button } from '@gaudi/design-system/core/Button';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import {
   CardRoot as Card,
   CardContent
@@ -215,9 +216,9 @@ export function Pattern({
       >
         <CardContent className='text-center'>
           <input {...getInputProps({ 'aria-label': 'Choose gallery images' })} className='sr-only' />
-          <div className='border-ui-border mx-auto mb-3 flex size-[32px] items-center justify-center rounded-full border'>
-            <RegistryIcon lucide='CloudUploadIcon' className='size-4' />
-          </div>
+          <IconTile size='sm' aria-hidden='true' className='mx-auto mb-3 flex rounded-full'>
+            <RegistryIcon lucide='CloudUploadIcon' />
+          </IconTile>
           <h3 className='text-ui-foreground mb-0.5 text-sm font-medium'>
             Choose a file or drag & drop here.
           </h3>
@@ -236,12 +237,9 @@ export function Pattern({
           {images.map((imageFile) => (
             <Card key={imageFile.id} className='rounded-md shadow-none'>
               <CardContent className='flex items-center gap-2 p-2.5'>
-                <div className='border-ui-border flex size-[32px] shrink-0 items-center justify-center rounded-md border'>
-                  <RegistryIcon
-                    lucide='ImageIcon'
-                    className='text-ui-muted-foreground size-4'
-                  />
-                </div>
+                <IconTile size='sm' aria-hidden='true' className='text-ui-muted-foreground'>
+                  <RegistryIcon lucide='ImageIcon' />
+                </IconTile>
                 <div className='flex min-w-0 w-full flex-col gap-1.5'>
                   <div className='flex w-full items-center justify-between gap-2'>
                     <div className='flex min-w-0 flex-wrap items-center gap-2.5'>

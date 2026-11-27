@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import {
   Cascader,
   CascaderContent,
@@ -426,10 +427,9 @@ export function Pattern() {
               {/* A background, not a colour: the row's highlight rule repaints
          text and leaves this alone, so the two halves stay two halves
          under the pointer. */}
-              <span
-                aria-hidden='true'
-                className='bg-ui-border h-2.5 w-px shrink-0'
-              />
+              <Separator asChild orientation='vertical' className='h-2.5 data-vertical:self-center'>
+                <span />
+              </Separator>
               <span className='truncate tabular-nums'>{node.description}</span>
             </span>
           </>

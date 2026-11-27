@@ -1,4 +1,5 @@
 'use client';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
@@ -254,7 +255,7 @@ function ChatHeader({ model, onModelChange, canSave, saved, onSave }) {
       {isMobile || state === 'collapsed' ? (
         <>
           <SidebarTrigger className='-ms-1' />
-          <span aria-hidden='true' className='bg-ui-border h-5 w-px' />
+          <Separator orientation='vertical' className='h-5 data-vertical:self-center' />
         </>
       ) : null}
       <ChatModelSelect

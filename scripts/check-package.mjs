@@ -98,14 +98,15 @@ async function checkConsumer(directory, css) {
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `Consumer overflows at ${width}px in ${theme}`);
       }
     }
-    await page.getByRole('button', { name: 'Submit native form' }).click();
-    await expect(page.getByText('Native form received')).toBeVisible();
     await page.getByRole('button', { name: 'Show geographic map' }).click();
     const map = page.getByRole('region', { name: 'Packed geographic map', exact: true });
     try { await expect(map).toHaveAttribute('data-map-status', 'ready', { timeout: 30_000 }); }
     catch (error) { error.message += `\nBrowser errors: ${JSON.stringify(errors)}`; throw error; }
     await map.getByRole('button', { name: 'Packed location' }).click();
     await expect(map.getByRole('button', { name: 'Packed location' })).toHaveAttribute('aria-pressed', 'true');
+    // Submitting the native form navigates away from the hydrated controls.
+    await page.getByRole('button', { name: 'Submit native form' }).click();
+    await expect(page.getByText('Native form received')).toBeVisible();
     assert.deepEqual(errors, [], 'The packed consumer emitted runtime or hydration errors');
     console.log(`Production consumer verified: server components, root and leaf imports, hydration, server slots, native form, Dialog Escape/focus, sanitized KaTeX/MathML geometry, Mermaid styles/HTML labels, and blocked encoded URLs; light/dark at ${auditWidths.join(', ')}px.`);
   } finally {

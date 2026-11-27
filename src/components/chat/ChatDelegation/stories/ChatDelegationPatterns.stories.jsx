@@ -58,7 +58,7 @@ export const ConflictRadar = {
     if (import.meta.env.MODE !== 'test') return;
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('radio', { name: 'Security', exact: true }));
-    await userEvent.click(canvas.getByRole('button', { name: 'mail.ts', exact: true }));
+    await userEvent.click(canvas.getByRole('radio', { name: 'mail.ts', exact: true }));
     await userEvent.click(canvas.getByRole('radio', { name: 'Retries', exact: true }));
     await expect(canvas.getByRole('button', { name: 'Merge demo changes' })).toBeDisabled();
     await userEvent.click(canvas.getByRole('button', { name: 'Next update' }));

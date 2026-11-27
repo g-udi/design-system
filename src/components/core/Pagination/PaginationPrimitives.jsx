@@ -45,29 +45,29 @@ function PaginationLink({ className, disabled = false, href, isActive, onClick, 
   );
 }
 
-function PaginationPrevious({ className, text = 'Previous', ...props }) {
+function PaginationPrevious({ className, text = 'Previous', iconOnly = false, ...props }) {
   return (
     <PaginationLink
       aria-label='Go to previous page'
-      size='default'
-      className={cn('ds-part-pagination-previous group/pagination-arrow', className)}
+      size={iconOnly ? 'icon' : 'default'}
+      className={cn('group/pagination-arrow', !iconOnly && 'ds-part-pagination-previous', className)}
       {...props}
     >
       <RegistryIcon lucide='ChevronLeftIcon' className='transition-transform group-hover/pagination-arrow:-translate-x-0.5 motion-reduce:transition-none rtl:-scale-x-100' />
-      <span className='hidden sm:block'>{text}</span>
+      {!iconOnly && <span className='hidden sm:block'>{text}</span>}
     </PaginationLink>
   );
 }
 
-function PaginationNext({ className, text = 'Next', ...props }) {
+function PaginationNext({ className, text = 'Next', iconOnly = false, ...props }) {
   return (
     <PaginationLink
       aria-label='Go to next page'
-      size='default'
-      className={cn('ds-part-pagination-next group/pagination-arrow', className)}
+      size={iconOnly ? 'icon' : 'default'}
+      className={cn('group/pagination-arrow', !iconOnly && 'ds-part-pagination-next', className)}
       {...props}
     >
-      <span className='hidden sm:block'>{text}</span>
+      {!iconOnly && <span className='hidden sm:block'>{text}</span>}
       <RegistryIcon lucide='ChevronRightIcon' className='transition-transform group-hover/pagination-arrow:translate-x-0.5 motion-reduce:transition-none rtl:-scale-x-100' />
     </PaginationLink>
   );

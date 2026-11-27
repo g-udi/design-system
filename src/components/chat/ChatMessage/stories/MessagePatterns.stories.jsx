@@ -22,9 +22,17 @@ export const AssistantReply = {
       await expect(getComputedStyle(pending).opacity).toBe('1');
       await expect(getComputedStyle(pending).animationName).toBe('none');
       await expect(canvas.getByRole('button', { name: 'Copy reply' })).toBeDisabled();
+      await expect(canvas.getByRole('button', { name: 'Good reply' })).toBeDisabled();
+      await expect(canvas.getByRole('button', { name: 'Bad reply' })).toBeDisabled();
+      await expect(canvas.getByRole('button', { name: 'Regenerate reply' })).toHaveFocus();
     }
     await waitFor(() => expect(canvas.getByRole('status')).toHaveTextContent('Reply ready'), { timeout: 5000 });
     await expect(canvas.getByRole('button', { name: 'Copy reply' })).toBeEnabled();
+    const up = canvas.getByRole('button', { name: 'Good reply' });
+    await userEvent.click(up);
+    await expect(up).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(up);
+    await expect(up).toHaveAttribute('aria-pressed', 'false');
   }
 };
 

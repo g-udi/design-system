@@ -174,9 +174,9 @@ function WorkspaceSwitcher({ workspace, onChange }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='sm' aria-label={`Notebook: ${workspace.name}`} className='min-w-0 gap-2 px-1.5'>
-          <span aria-hidden='true' className={`grid size-6 shrink-0 place-items-center rounded-(--ds-radius-control) ${workspace.tone}`}>
-            <RegistryIcon lucide={workspace.icon} className='size-3.5' />
-          </span>
+          <IconTile size='xs' variant='solid' radius='full' aria-hidden='true' className={workspace.tone}>
+            <RegistryIcon lucide={workspace.icon} />
+          </IconTile>
           <span className='truncate font-medium'>{workspace.name}</span>
           <RegistryIcon lucide='ChevronsUpDown' aria-hidden='true' className='opacity-60' />
         </Button>
@@ -186,9 +186,9 @@ function WorkspaceSwitcher({ workspace, onChange }) {
         <DropdownMenuRadioGroup value={workspace.id} onValueChange={(id) => onChange(workspaces.find((entry) => entry.id === id))}>
           {workspaces.map((entry) => (
             <DropdownMenuRadioItem key={entry.id} value={entry.id} className='gap-2'>
-              <span aria-hidden='true' className={`grid size-6 shrink-0 place-items-center rounded-(--ds-radius-control) ${entry.tone}`}>
-                <RegistryIcon lucide={entry.icon} className='size-3.5' />
-              </span>
+              <IconTile size='xs' variant='solid' radius='full' aria-hidden='true' className={entry.tone}>
+                <RegistryIcon lucide={entry.icon} />
+              </IconTile>
               <span className='grid leading-tight'>
                 {entry.name}
                 <span className='text-text-muted text-xs'>{entry.sources} sources</span>

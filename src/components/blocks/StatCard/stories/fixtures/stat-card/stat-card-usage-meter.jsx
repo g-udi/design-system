@@ -65,7 +65,9 @@ export function Pattern() {
               <Badge variant={tone} size='sm'>{percent}% used</Badge>
             </div>
             <div>
-              <span className='sr-only' role='meter' aria-label='AI credits used' aria-valuemin={0} aria-valuemax={total} aria-valuenow={used} aria-valuetext={`${format(used)} of ${format(total)} credits`} />
+              <div className='sr-only'>
+                <ProgressRoot role='meter' aria-label='AI credits used' max={total} value={used} aria-valuetext={`${format(used)} of ${format(total)} credits`} />
+              </div>
               <StatMeter segments={segments} max={total} formatValue={format} />
             </div>
           </div>

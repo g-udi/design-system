@@ -10,6 +10,7 @@ import { Slot } from 'radix-ui';
 import { cn } from '../../../../utilities/cn/index.js';
 import { default as Button } from '../../Button/index.js';
 import Loader from '../../Loader/index.js';
+import { Separator } from '../../Separator/index.js';
 import { ScrollArea, ScrollBar } from '../../ScrollArea/ScrollArea.jsx';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../../Tooltip/TooltipPrimitives.jsx';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
@@ -810,7 +811,7 @@ function GanttView({
             />
           </div>
         ) : (
-          <div aria-hidden className='bg-ui-border w-px shrink-0' />
+          <Separator orientation='vertical' />
         )}
         {/* Timeline pane */}
         <div

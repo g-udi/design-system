@@ -23,6 +23,17 @@ test('PaginationStatus forwards its compact size through the shared Button API',
   assert.match(html, /aria-label="Page shortcuts: 2 of 8"/);
 });
 
+test('icon-only pagination keeps localized accessible names and directional icons', async () => {
+  const { PaginationPrevious, PaginationNext } = await loadComponent(new URL('../../../../src/components/core/Pagination/Pagination.jsx', import.meta.url));
+  for (const [direction, label] of [[PaginationPrevious, 'Zurück'], [PaginationNext, 'Weiter']]) {
+    const markup = renderToStaticMarkup(createElement(direction, { iconOnly: true, label, onClick() {} }));
+    assert.match(markup, new RegExp(`aria-label="${label}"`));
+    assert.doesNotMatch(markup, new RegExp(`>${label}<`));
+    assert.match(markup, /rtl:-scale-x-100/);
+    assert.match(renderToStaticMarkup(createElement(direction, { label })), new RegExp(`>${label}<`));
+  }
+});
+
 test('POSTS_PER_PAGE lives outside the client module so server components read a number', async () => {
   const { readFileSync } = await import('node:fs');
   const source = readFileSync(new URL('../../../../src/components/core/Pagination/constants.js', import.meta.url), 'utf8');

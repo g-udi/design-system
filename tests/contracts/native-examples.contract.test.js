@@ -16,6 +16,23 @@ const { publicSource } = await loadComponent(new URL('src/docs/components/Patter
 const { webPreviewExampleSource } = await loadComponent(new URL('src/components/core/WebPreview/stories/exampleSource.js', root));
 const eslint = new ESLint({ cwd: fileURLToPath(root) });
 
+test('fixture lint recognizes framed icons, dividers and spinners in their copyable forms', async () => {
+  const jsx = [
+    "<div className='border flex size-[32px] items-center rounded-full'><RegistryIcon /></div>",
+    "<span className={`grid size-6 place-items-center rounded-full ${tone}`}><RegistryIcon /></span>",
+    "<div className='rounded-md border p-1.5'>{feature.icon}</div>",
+    "<span aria-hidden='true' className='h-4 w-px bg-ui-border' />",
+    "<RegistryIcon lucide='LoaderCircleIcon' className={cn('size-4', busy && 'animate-spin')} />",
+    "<div className='rounded-md border p-1.5'>{feature.icon}<span>Summary</span></div>",
+    "<span className='absolute inset-y-0 w-px bg-ui-border' />"
+  ];
+  const [result] = await eslint.lintText(`export const example = <>\n${jsx.join('\n')}\n</>;`, {
+    filePath: fileURLToPath(new URL('src/components/core/Icon/stories/fixtures/Sample.jsx', root))
+  });
+  const ownership = result.messages.filter(message => ['gaudi/use-icon-tile', 'no-restricted-syntax'].includes(message.ruleId));
+  assert.deepEqual(ownership.map(message => message.line), [2, 3, 4, 5, 6]);
+});
+
 test('copied native compositions include their data, valid hooks, callbacks and public imports', async () => {
   for (const owner of owners) {
     const origin = new URL(`src/components/core/${owner}/stories/fixtures/NativeExamples.jsx`, root);

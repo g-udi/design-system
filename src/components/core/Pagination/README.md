@@ -13,3 +13,5 @@ import { PaginationBar } from '@gaudi/design-system';
 The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.
 
 For a custom numbered layout, `getPageShortcuts(currentPage, totalPages)` returns page numbers and keyed ellipses used by the package pager.
+
+Use `iconOnly` on `PaginationPrevious` and `PaginationNext` for compact arrow controls. They keep their accessible labels and mirror their arrows in right-to-left layouts.

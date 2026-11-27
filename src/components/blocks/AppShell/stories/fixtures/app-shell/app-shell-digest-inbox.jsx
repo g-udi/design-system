@@ -1,4 +1,5 @@
 'use client';
+import { Separator } from '@gaudi/design-system/core/Separator';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Field, FieldInput, FieldLabel, Label } from '@gaudi/design-system/core/Field';
 import { createContext, useContext, useState } from 'react';
@@ -687,7 +688,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
               </DropdownMenu>
             </div>
           ) : null}
-          <span aria-hidden='true' className='bg-ui-border mx-1 h-4 w-px' />
+          <Separator orientation='vertical' className='mx-1 h-4 data-vertical:self-center' />
           <IconAction
             label={contextOpen ? 'Hide reading plan' : 'Show reading plan'}
             icon='PanelRightOpen'

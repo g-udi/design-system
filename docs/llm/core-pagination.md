@@ -2,7 +2,7 @@
 
 > Core/Pagination · core · `@gaudi/design-system/core/Pagination`
 
-Pagination renders blog-style previous/status/next navigation. Hovering or focusing the center status reveals direct page shortcuts.
+Pagination renders blog-style previous/status/next navigation. Activating the center status opens direct page shortcuts.
 
 ## Import
 
@@ -27,6 +27,7 @@ Exports: `POSTS_PER_PAGE`, `Pagination`, `PaginationBar`, `PaginationContent`, `
 | `href` | `string` | `#` | no | Link destination for previous/next/link slots. |
 | `disabled` | `boolean` | `false` | no | Disables previous/next or numbered controls. |
 | `isActive` | `boolean` | `false` | no | Marks a page link as current. |
+| `iconOnly` | `boolean` | `false` | no | Shows just the directional icon on PaginationPrevious and PaginationNext while keeping the accessible label. |
 | `className` | `string` | — | no | Class override on each slot. |
 
 ## Usage
@@ -48,10 +49,10 @@ Pagination renders a nav landmark, disabled button states for unavailable direct
 
 Curated patterns:
 
-- Jump to a page — registry item `@gaudi/pagination-jump-to-page` (uses `NativeSelect`, `NativeSelectOption`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationRoot`, `RegistryIcon`, `getPageShortcuts`)
-- Numbered page styles — registry item `@gaudi/pagination-numbered` (uses `CardContent`, `CardRoot`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`, `getPageShortcuts`)
-- Previous and next with page info — registry item `@gaudi/pagination-previous-next` (uses `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`)
-- Rows per page and range — registry item `@gaudi/pagination-rows-per-page` (uses `NativeSelect`, `NativeSelectOption`, `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationRoot`, `RegistryIcon`)
+- Jump to a page — registry item `@gaudi/pagination-jump-to-page` (uses `NativeSelect`, `NativeSelectOption`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`, `getPageShortcuts`)
+- Numbered page styles — registry item `@gaudi/pagination-numbered` (uses `CardContent`, `CardRoot`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `getPageShortcuts`)
+- Previous and next with page info — registry item `@gaudi/pagination-previous-next` (uses `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`)
+- Rows per page and range — registry item `@gaudi/pagination-rows-per-page` (uses `NativeSelect`, `NativeSelectOption`, `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`)
 
 ## Related
 
@@ -72,3 +73,5 @@ import { PaginationBar } from '@gaudi/design-system';
 The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.
 
 For a custom numbered layout, `getPageShortcuts(currentPage, totalPages)` returns page numbers and keyed ellipses used by the package pager.
+
+Use `iconOnly` on `PaginationPrevious` and `PaginationNext` for compact arrow controls. They keep their accessible labels and mirror their arrows in right-to-left layouts.

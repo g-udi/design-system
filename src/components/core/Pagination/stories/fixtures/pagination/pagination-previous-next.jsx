@@ -4,27 +4,13 @@ import {
   PaginationRoot as Pagination,
   PaginationContentPrimitive as PaginationContent,
   PaginationItemPrimitive as PaginationItem,
-  PaginationLinkPrimitive as PaginationLink,
   PaginationNextPrimitive as PaginationNext,
   PaginationPreviousPrimitive as PaginationPrevious
 } from '@gaudi/design-system/core/Pagination';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const PageInfo = ({ page }) => (
   <span className='text-xs text-text-muted'>
     Page <span className='font-medium text-text'>{page}</span> of <span className='font-medium text-text'>10</span>
   </span>
-);
-const IconLink = ({ icon, label, ...props }) => (
-  <PaginationLink {...props} size='icon' aria-label={label}>
-    <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' />
-  </PaginationLink>
-);
-const TextLink = ({ icon, children, trailing, ...props }) => (
-  <PaginationLink {...props} size='default' className='gap-2'>
-    {trailing ? null : <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' />}
-    {children}
-    {trailing ? <RegistryIcon lucide={icon} className='ds-part-rtl-flip size-4' /> : null}
-  </PaginationLink>
 );
 function Pager({ name }) {
   const [page, setPage] = useState(1);
@@ -32,9 +18,9 @@ function Pager({ name }) {
   const next = { disabled: page === 10, onClick: () => setPage(page + 1) };
   const rows = {
   'Info centred': [
-    <IconLink {...previous} key='p' icon='ChevronLeftIcon' label='Go to previous page' />,
+    <PaginationPrevious {...previous} key='p' iconOnly />,
     <PageInfo key='i' page={page} />,
-    <IconLink {...next} key='n' icon='ChevronRightIcon' label='Go to next page' />
+    <PaginationNext {...next} key='n' iconOnly />
   ],
   'Info leading': [
     <PageInfo key='i' page={page} />,
@@ -44,8 +30,8 @@ function Pager({ name }) {
     </span>
   ],
   'Arrows only': [
-    <TextLink {...previous} key='p' icon='ArrowLeftIcon'>Previous</TextLink>,
-    <TextLink {...next} key='n' icon='ArrowRightIcon' trailing>Next</TextLink>
+    <PaginationPrevious {...previous} key='p' iconOnly aria-label='Previous' />,
+    <PaginationNext {...next} key='n' iconOnly aria-label='Next' />
   ]
 };
   return <Pagination aria-label={`${name} pagination`}><PaginationContent className='w-full justify-between'>
