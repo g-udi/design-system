@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { planStoryBatches, reconcileStoryBatch, reconcileStoryRun } from '../../scripts/test-storybook.mjs';
+import { planStoryBatches, storyShard, reconcileStoryBatch, reconcileStoryRun } from '../../scripts/test-storybook.mjs';
 
 test('finite browser groups preserve every catalogue story and keep modules intact', async () => {
   const catalogue = JSON.parse(await readFile('src/docs/catalogue/catalogue.json', 'utf8'));
@@ -54,4 +54,12 @@ test('full run requires all batches and every story once in each theme', () => {
   assert.equal(check(runs.map(run => run.theme === 'dark' ? { ...run, batch: 1 } : run)), false);
   assert.equal(check(runs.map(run => run.theme === 'dark' ? { ...run, completedIds: ['a'] } : run)), false);
   assert.equal(check(runs.map(run => run.theme === 'dark' ? { ...run, successful: false } : run)), false);
+});
+
+test('CI shards partition every intact batch and reject invalid or empty selections', () => {
+  const batches = Array.from({ length: 27 }, (_, index) => index);
+  const shards = Array.from({ length: 8 }, (_, index) => storyShard(batches, `${index + 1}/8`));
+  assert.deepEqual(shards.flat().sort((a, b) => a - b), batches);
+  assert.equal(storyShard(batches), batches);
+  for (const invalid of ['', '0/8', '9/8', '1/28', '1.5/8']) assert.throws(() => storyShard(batches, invalid));
 });

@@ -32,6 +32,16 @@ export function planStoryBatches(entries) {
   return batches;
 }
 
+// CI distributes whole batches. Without a shard the local command runs the entire catalogue.
+export function storyShard(batches, specification) {
+  if (specification === undefined) return batches;
+  const match = /^([1-9]\d*)\/([1-9]\d*)$/.exec(specification);
+  if (!match) throw new Error('Expected GAUDI_STORY_SHARD in the form index/count.');
+  const [, index, count] = match.map(Number);
+  if (index > count || count > batches.length) throw new Error('Invalid Storybook shard.');
+  return batches.filter((_, offset) => offset % count === index - 1);
+}
+
 export function reconcileStoryBatch(expectedIds, events, exitCode) {
   const tests = events.filter(event => event.event === 'test-result');
   const ends = events.filter(event => event.event === 'run-end');
@@ -85,13 +95,14 @@ async function fingerprint() {
 async function run() {
   if (process.argv.length !== 2) throw new Error('Usage: pnpm test-storybook:run (all catalogue stories, both themes; no filters or retries)');
   const catalogue = JSON.parse(await readFile('src/docs/catalogue/catalogue.json', 'utf8'));
-  const batches = planStoryBatches(catalogue.entries);
+  const shard = process.env.GAUDI_STORY_SHARD;
+  const batches = storyShard(planStoryBatches(catalogue.entries), shard);
   const ids = batches.flatMap(batch => batch.ids);
   const startedAt = new Date().toISOString();
   const mode = process.env.VITE_GAUDI_AUDIT === '1' ? 'responsive' : process.env.VITE_GAUDI_VISUAL === '1' ? 'visual' : 'standard';
   const directory = resolve(process.env.GAUDI_STORYBOOK_REPORT_DIR || `.storybook/verification/${startedAt.slice(0, 10)}/storybook-${mode}-${startedAt.replace(/[:.]/g, '-')}`);
   await mkdir(directory, { recursive: true });
-  const manifest = { startedAt, mode, expectedIds: ids, themes: ['light', 'dark'], batches, sourceHash: await fingerprint(), runs: [] };
+  const manifest = { startedAt, mode, shard, expectedIds: ids, themes: ['light', 'dark'], batches, sourceHash: await fingerprint(), runs: [] };
   await writeFile(resolve(directory, 'manifest.json'), JSON.stringify(manifest, null, 2));
   let child;
   let interrupted = false;
@@ -127,6 +138,10 @@ async function run() {
         const result = { theme, batch: index + 1, exitCode, ...reconcileStoryBatch(batch.ids, events, exitCode) };
         manifest.runs.push(result);
         await writeFile(resolve(directory, 'progress.json'), JSON.stringify(manifest, null, 2));
+        if (!result.successful) {
+          console.error(`Failed stories: ${JSON.stringify(result.nonpassing)}. Missing: ${JSON.stringify(result.missing)}.`);
+          console.error((await readFile(resolve(directory, `${prefix}.log`), 'utf8')).split('\n').slice(-120).join('\n'));
+        }
         console.log(`${prefix}: ${result.completedIds.length}/${result.expected} completed; success=${result.successful}`);
       }
       if (interrupted) break;
@@ -141,7 +156,7 @@ async function run() {
   manifest.successful = !interrupted && !manifest.sourceChanged && manifest.coverage.every(theme => theme.successful);
   manifest.completedAt = new Date().toISOString();
   await writeFile(resolve(directory, 'summary.json'), JSON.stringify(manifest, null, 2));
-  console.log(`Storybook full catalogue: ${manifest.successful ? 'passed' : 'failed'}. Evidence: ${directory}`);
+  console.log(`Storybook ${shard ? `shard ${shard}` : 'full catalogue'}: ${manifest.successful ? 'passed' : 'failed'}. Evidence: ${directory}`);
   if (!manifest.successful) process.exitCode = 1;
 }
 

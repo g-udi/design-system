@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  validate:
+  package:
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -42,16 +42,53 @@ jobs:
       - name: Validate the packed package in a production consumer
         run: pnpm test:consumer
 
-      - name: Run interactions, accessibility, and responsive checks in both themes
+  storybook:
+    name: Storybook ${{ matrix.mode }} ${{ matrix.shard }}/8
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        mode: [responsive, visual]
+        shard: [1, 2, 3, 4, 5, 6, 7, 8]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install chromium --with-deps
+      - name: Run every assigned story in light and dark
         env:
-          VITE_GAUDI_AUDIT: '1'
-          VITE_GAUDI_AUDIT_THEMES: both
+          GAUDI_STORY_SHARD: ${{ matrix.shard }}/8
+          GAUDI_STORYBOOK_REPORT_DIR: ${{ runner.temp }}/storybook-report
+          VITE_GAUDI_AUDIT: ${{ matrix.mode == 'responsive' && '1' || '0' }}
+          VITE_GAUDI_VISUAL: ${{ matrix.mode == 'visual' && '1' || '0' }}
         run: pnpm test-storybook:run
+      - name: Save story results and diagnostics
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: storybook-${{ matrix.mode }}-${{ matrix.shard }}
+          path: ${{ runner.temp }}/storybook-report
+          if-no-files-found: error
+          retention-days: 3
 
-      - name: Check container layouts
-        env:
-          VITE_GAUDI_VISUAL: '1'
-        run: pnpm test-storybook:run
-
+  validate:
+    needs: [package, storybook]
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Require the package and every Storybook shard to pass
+        if: needs.package.result != 'success' || needs.storybook.result != 'success'
+        run: exit 1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: corepack enable pnpm
+      - run: pnpm install --frozen-lockfile
       - name: Build Storybook
         run: pnpm build-storybook
