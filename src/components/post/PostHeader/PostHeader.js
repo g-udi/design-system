@@ -19,13 +19,15 @@ const titleElements = { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
 
 const isValidPostDate = (date) => date && !Number.isNaN(new Date(date).getTime());
 
+const utcCalendarDay = (date) => isValidPostDate(date) ? new Date(date).toISOString().slice(0, 10) : '';
+
 const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle'>·</span>;
 
 /**
  * Renders the blog post header: category, date, draft badge, title, subtitle, reading time, tags, and series.
  *
  * @param {Object} props - Component props
- * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, readingTime.text and seriesPosts
+ * @param {Object} [props.frontMatter={}] - Post metadata with id, prepared category/tags { id, label, href }, date, optional updatedAt, readingTime.text and seriesPosts
  * @param {Object} [props.siteMetadata={}] - Site configuration; `locale` formats the date
  * @param {React.ReactNode} [props.tocControl] - Control at the right end of the tags row, such as a contents sidebar toggle
  * @param {1|2|3|4|5|6} [props.titleLevel=1] - Semantic heading level for the post title
@@ -40,9 +42,12 @@ const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle
  */
 const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata = {}, titleLevel = 1, titleVariant = 'post-title', subtitleVariant = 'post-subtitle', tocControl }) => {
   const category = typeof frontMatter.category === 'string' ? { label: frontMatter.category } : frontMatter.category;
-  const date = frontMatter.updated || frontMatter.date;
+  const publicationDay = utcCalendarDay(frontMatter.date);
+  const revisionDay = utcCalendarDay(frontMatter.updatedAt);
+  const showUpdated = publicationDay && revisionDay > publicationDay;
+  const date = revisionDay ? frontMatter.updatedAt : frontMatter.updated || frontMatter.date;
   const readingTime = frontMatter.readingTime?.text;
-  // One quiet meta line: category · date · reading time, each separated only where both sides exist.
+  // The revision pill labels its date; a plain date keeps the separator after the category.
   const meta = [
     category ? (
       <Link key='category' href={ category.href } variant='muted' className={ cn('inline-flex items-center gap-2 text-sm font-medium', classNames.category) }>
@@ -50,7 +55,12 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
         {category.label}
       </Link>
     ) : null,
-    isValidPostDate(date) ? <PostDate key='date' date={ date } locale={ siteMetadata.locale } className='text-sm text-current' /> : null,
+    isValidPostDate(date) ? (
+      <span key='date' className={ showUpdated ? 'inline-flex items-baseline gap-1.5' : undefined }>
+        {showUpdated ? <Pill tone='blue' variant='soft' size='xs' className='rounded-full text-sm leading-5'>Updated at</Pill> : null}
+        <PostDate date={ date } locale={ siteMetadata.locale } className='text-sm text-current' />
+      </span>
+    ) : null,
     readingTime ? <PostReadingTime key='reading' readingTime={ readingTime } className='text-sm text-current' /> : null
   ].filter(Boolean);
 
@@ -60,7 +70,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
     <div className={ cn('flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-text-muted', classNames.meta, classNames.timestamps) }>
       {meta.map((item, index) => (
         <span key={ item.key } className='inline-flex items-center gap-3 whitespace-nowrap'>
-          {index > 0 ? <MetaSeparator /> : null}
+          {index > 0 && !(showUpdated && item.key === 'date') ? <MetaSeparator /> : null}
           {item}
         </span>
       ))}

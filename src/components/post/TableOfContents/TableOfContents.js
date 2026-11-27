@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Button from '../../core/Button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion';
 import Icon from '../../core/Icon';
@@ -8,6 +8,7 @@ import Link from '../../core/Link';
 import { Scrollspy } from '../../core/Scrollspy';
 import { ScrollArea } from '../../core/ScrollArea';
 import Typography from '../../../foundations/Typography';
+import { usePrefersReducedMotion } from '../../../hooks/a11y/use-prefers-reduced-motion.js';
 import { useCollapsibleSections } from '../../../hooks/layout/use-collapsible-sections.js';
 import { cn } from '../../../utilities/cn';
 import { assignVisualIds, collectVisuals } from './contentIndex.js';
@@ -58,6 +59,8 @@ export default function TableOfContents({ className, contentRef, targetRef, toc 
   const [activeId, setActiveId] = useState('');
   const [visuals, setVisuals] = useState([]);
   const [visualsOpen, setVisualsOpen] = useState(false);
+  const contentsViewportRef = useRef(null);
+  const reducedMotion = usePrefersReducedMotion();
   const branches = useMemo(() => flatten(toc).filter(heading => heading.children?.length), [toc]);
   const branchIds = useMemo(() => branches.map(heading => heading.id), [branches]);
   const expandAll = toc.length <= 4;
@@ -77,15 +80,18 @@ export default function TableOfContents({ className, contentRef, targetRef, toc 
     setVisuals(found);
   }, [contentRef, indexVisuals, toc]);
   useEffect(() => {
-    if (visualsOpen) assignVisualIds(visuals);
-  }, [visuals, visualsOpen]);
+    if (!visualsOpen) return;
+    assignVisualIds(visuals);
+    const viewport = contentsViewportRef.current;
+    viewport?.scrollTo({ top: viewport.scrollHeight, behavior: smooth && !reducedMotion ? 'smooth' : 'auto' });
+  }, [visuals, visualsOpen, smooth, reducedMotion]);
 
   const diagrams = visuals.filter(visual => visual.kind === 'diagram').length;
   const tables = visuals.length - diagrams;
   if (!toc.length && !visuals.length) return null;
   return <nav aria-label='Table of contents' data-slot='table-of-contents' className={cn(styles.root, className)} {...props}>
     <Typography as='p' variant='metadata' className={styles.label}>On this page</Typography>
-    <ScrollArea type='auto' className={styles.scroll} aria-label='Contents links'>
+    <ScrollArea type='auto' viewportRef={contentsViewportRef} className={styles.scroll} aria-label='Contents links'>
     <Scrollspy targetRef={targetRef} offset={offset} smooth={smooth} onUpdate={setActiveId}>
       <HeadingList headings={toc} activeId={activeId} expansion={expansion} />
     </Scrollspy>

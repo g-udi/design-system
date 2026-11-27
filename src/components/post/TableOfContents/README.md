@@ -17,6 +17,6 @@ Prepare entries as `{ id, value, url?, depth?, children? }`. Nest `children` to 
 
 Omit `targetRef` for document scrolling. Pass the article's actual viewport ref for bounded reading layouts; use the same ref for ReadingIndicator and other Scrollspy navigation. `offset` accounts for sticky headers or decorative edges. `smooth` defaults to true and respects reduced motion. Scrollspy owns scroll listeners and active-section tracking; this block does not create separate heading observers.
 
-`contentRef` scopes visual indexing to one article. Captioned diagrams and tables receive stable anchors; photo, video, and code figures are excluded. Set `indexVisuals={false}` to show only headings. Long labels wrap, and a shared ScrollArea contains longer lists.
+`contentRef` scopes visual indexing to one article. Captioned diagrams and tables receive stable anchors; photo, video, and code figures are excluded. Set `indexVisuals={false}` to show only headings. Long labels wrap, and a shared ScrollArea contains longer lists. Opening the visual index scrolls this contents viewport to reveal its entries without moving the article or keyboard focus; the motion respects `smooth` and reduced-motion preferences.
 
 The block is visible at every screen width. The surrounding ArticleContentLayout owns sticky placement and the mobile contents disclosure. Use `aria-label` to name navigation when several lists share a page. Real links preserve modified clicks; active links use `aria-current="location"`, and branch toggles expose `aria-expanded` without moving focus.

@@ -79,3 +79,26 @@ test('PostHeader shows the reading time with or without a contents control', asy
   assert.match(withControl, />36 min read</);
   assert.doesNotMatch(await renderComponent(path, { frontMatter: { title: 'Untimed' } }), /min read/);
 });
+
+test('PostHeader labels the date only for a revision after the publication day', async () => {
+  const path = new URL('../../../../src/components/post/PostHeader/index.js', import.meta.url);
+  const post = { title: 'Knowledge graphs', category: 'Data', date: '2021-02-22' };
+  for (const updatedAt of [undefined, post.date, '2021-02-22T17:00:00Z', '2021-02-21']) {
+    const html = await renderComponent(path, { frontMatter: { ...post, updatedAt } });
+    assert.ok(html.includes(`<time dateTime="${updatedAt || post.date}"`));
+    assert.doesNotMatch(html, /Updated at/);
+  }
+  const undated = await renderComponent(path, { frontMatter: { updatedAt: '2026-11-18' } });
+  assert.match(undated, /<time dateTime="2026-11-18"/);
+  assert.doesNotMatch(undated, /Updated at/);
+  const invalid = await renderComponent(path, { frontMatter: { ...post, updatedAt: 'invalid' } });
+  assert.doesNotMatch(invalid, /Updated at/);
+  assert.match(invalid, /<time dateTime="2021-02-22"/);
+  const legacy = await renderComponent(path, { frontMatter: { ...post, updated: '2024-11-29' } });
+  assert.match(legacy, /<time dateTime="2024-11-29"/);
+  assert.doesNotMatch(legacy, /Updated at/);
+  assert.match(legacy, />·<\/span>/);
+  const revised = await renderComponent(path, { frontMatter: { ...post, updated: '2024-11-29', updatedAt: '2026-11-18' } });
+  assert.doesNotMatch(revised, />·<\/span>/);
+  assert.match(revised, /data-variant="soft"[^>]*><span>Updated at<\/span><\/span><time dateTime="2026-11-18"/);
+});

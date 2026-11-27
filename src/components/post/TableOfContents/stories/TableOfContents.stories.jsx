@@ -12,6 +12,7 @@ import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelper
 import TableOfContents from '../index';
 import { checkContentIndex } from '../../../../../tests/components/post/TableOfContents/checkContentIndex.js';
 import { checkHeadingHierarchy } from '../../../../../tests/components/post/TableOfContents/checkHeadingHierarchy.js';
+import { checkVisualIndexScroll } from '../../../../../tests/components/post/TableOfContents/checkVisualIndexScroll.js';
 
 const docs = getComponentDocs('Blocks/Blog/TableOfContents');
 
@@ -50,8 +51,7 @@ export const Playground = {
     for (const entry of args.toc) await expect(aside).toHaveTextContent(entry.value);
     const canvas = within(canvasElement);
     if (args.indexVisuals) {
-      const index = await canvas.findByRole('button', { name: /Diagrams & tables/u });
-      await userEvent.click(index);
+      await checkVisualIndexScroll(canvasElement);
       await expect(aside.querySelector('a[href="#visual-diagram-token-relationship-map"]')).toBeVisible();
       await expect(aside.querySelector('a[href="#visual-table-semantic-token-inventory"]')).toBeVisible();
       await expect(aside).toHaveTextContent('1 diagram · 1 table');
