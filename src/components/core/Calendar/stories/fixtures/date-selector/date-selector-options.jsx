@@ -55,7 +55,7 @@ export function Pattern() {
           {summary || 'Nothing selected yet.'}
         </p>
         {summary && (
-          <CodeBlock label='Selected date value' language='json' highlight={false} code={JSON.stringify(
+          <CodeBlock className='w-fit max-w-full' label='Selected date value' language='json' highlight={false} code={JSON.stringify(
               value,
               (key, val) =>
                 key && /date$/i.test(key) && val ? format(new Date(val), 'MM/dd/yyyy') : val,

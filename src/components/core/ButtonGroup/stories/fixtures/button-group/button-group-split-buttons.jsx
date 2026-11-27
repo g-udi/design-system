@@ -79,7 +79,7 @@ export function Pattern() {
           <ButtonGroupSeparator className='bg-ui-primary-foreground/35' />
           <Menu label='More review options' items={[['Request changes', 'MessageSquareIcon'], ['Reject', 'XIcon', true]]} onSelect={(action) => setReview(action === 'Reject' ? 'Rejected' : 'Changes requested')} />
         </ButtonGroup>
-        <p className='w-full text-sm' aria-live='polite'>{saved} <MetaSeparator /> {review}</p>
+        <p className='w-full text-sm' role='status' aria-label='Document review'>{saved} <MetaSeparator /> {review}</p>
       </Row>
       <Row label='Outline'>
         <ButtonGroup aria-label='Create'>
@@ -112,7 +112,7 @@ export function Pattern() {
             </DropdownMenuContent>
           </DropdownMenu>
         </ButtonGroup>
-        <p className='w-full text-sm' aria-live='polite'>{day} <MetaSeparator /> {transfer}</p>
+        <p className='w-full text-sm' role='status' aria-label='Transfer status'>{day} <MetaSeparator /> {transfer}</p>
       </Row>
     </div>
   );

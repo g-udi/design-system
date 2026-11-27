@@ -41,7 +41,9 @@ export const SplitButtons = {
     await userEvent.type(title, 'Editorial brief');
     await userEvent.click(canvas.getByRole('button', { name: 'More save options' }));
     await userEvent.click(await body.findByRole('menuitem', { name: 'Save for review' }));
-    await expect(canvas.getByText('Editorial brief · Awaiting review')).toBeVisible();
+    const review = canvas.getByRole('status', { name: 'Document review' });
+    await expect(review).toBeVisible();
+    await expect(review).toHaveTextContent('Editorial brief · Awaiting review');
     await userEvent.click(canvas.getByRole('button', { name: 'Hold', exact: true }));
     const plan = canvas.getByRole('link', { name: 'Export plan' });
     await expect(plan).toHaveAttribute('download', 'transfer-plan.txt');

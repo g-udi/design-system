@@ -70,7 +70,7 @@ export const SidebarWorkspaceSwitcher = {
     await auditSidebarState(context, 'workspace-picker', async (current) => {
       const trigger = current.getByRole('button', { name: 'Personal, Free plan' });
       if (trigger.getAttribute('aria-expanded') !== 'true') await userEvent.click(trigger);
-      await expect(await body.findByRole('menuitemradio', { name: 'Personal', checked: false })).toBeVisible();
+      await expect(await body.findByRole('menuitemradio', { name: 'Personal', checked: true })).toBeVisible();
     });
   },
 };

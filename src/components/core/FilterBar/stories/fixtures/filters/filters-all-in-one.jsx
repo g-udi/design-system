@@ -555,9 +555,7 @@ export function Pattern() {
           Reset
         </Button>
       </div>
-
-
-      <CodeBlock label='Filter query' code={JSON.stringify(query, null, 2)} language='json' highlight={false} maxLines={12} />
+      <CodeBlock className='w-fit max-w-full' label='Filter query' code={JSON.stringify(query, null, 2)} language='json' highlight={false} maxLines={12} />
     </div>
   );
 }
