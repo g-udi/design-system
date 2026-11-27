@@ -54,6 +54,7 @@ export function SearchDialog() {
   const openAsk = (question?: string) => { setOpen(false); setAsk({ open: true, question, loaded: true }); };
   useHotkey('mod+i', () => askEnabled && openAsk(), { enableInInputs: true });
   const { search, setSearch, query } = useDocsSearch({ client: docsSearchClient }, [searchAttempt]);
+  const canAskQuestion = askEnabled && Boolean(search.trim());
   const { ariaKeyShortcuts, kbdKeys } = useHotkey('mod+k', () => setOpen((value: boolean) => !value), { enableInInputs: true });
   const results = query.data && query.data !== 'empty' ? query.data.filter((result) => plain(result.content)).slice(0, 40) : [];
 
@@ -85,7 +86,7 @@ export function SearchDialog() {
         <Command shouldFilter={false} label='Search documentation'>
           <CommandInput value={search} onValueChange={setSearch} placeholder={askEnabled ? 'Search the docs or ask a question…' : 'Search components, blocks, hooks, themes…'} aria-label='Search query' />
           <CommandList>
-            {askEnabled && search.trim() ? (
+            {canAskQuestion ? (
               <CommandGroup heading='Ask AI'>
                 <CommandItem value='ask-ai' onSelect={() => openAsk(search.trim())} data-testid='search-ask-ai'>
                   <Icon name='Sparkles' decorative size='sm' />
@@ -136,7 +137,9 @@ export function SearchDialog() {
           </CommandList>
           <p role='status' className='max-h-32 overflow-y-auto px-3 py-6 text-center text-sm wrap-anywhere text-text-muted empty:py-0'>
             {search && query.isLoading ? 'Searching…' : null}
-            {search && !query.isLoading && !query.error && results.length === 0 ? `No results for “${search}”.` : null}
+            {search && !query.isLoading && !query.error && results.length === 0 ? (
+              <>No results for “{search}”.{canAskQuestion && ' Press Enter to ask AI.'}</>
+            ) : null}
           </p>
         </Command>
       </CommandDialog>

@@ -69,11 +69,14 @@ test('search reports zero documentation matches and keeps keyboard actions avail
   const hasAskAi = await dialog.getByRole('group', { name: 'Ask AI' }).count() > 0;
   const noMatch = 'ThisMatchDoesNotExist';
   await input.fill(noMatch);
-  await expect(dialog.getByRole('status')).toHaveText(`No results for “${noMatch}”.`);
+  const emptyMessage = `No results for “${noMatch}”.`;
+  await expect(dialog.getByRole('status')).toHaveText(hasAskAi ? `${emptyMessage} Press Enter to ask AI.` : emptyMessage);
   await expect(dialog.getByTestId('search-result')).toHaveCount(0);
   if (hasAskAi) {
+    const askOption = dialog.getByRole('option', { name: `Ask AI: ${noMatch}` });
+    await expect(askOption).toHaveAttribute('aria-selected', 'true');
     await input.press('ArrowDown');
-    await expect(dialog.getByRole('option', { name: `Ask AI: ${noMatch}` })).toHaveAttribute('aria-selected', 'true');
+    await expect(askOption).toHaveAttribute('aria-selected', 'true');
   }
   await input.fill('Timeline');
   await expect(dialog.getByTestId('search-result').first()).toContainText('Timeline');
