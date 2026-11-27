@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import Icon from '@gaudi/design-system/core/Icon';
 import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
+import { useIsClient } from '@gaudi/design-system/hooks/environment/use-is-client';
 import { basePath } from '@/lib/nav';
 
 export type Viewport = 'desktop' | 'tablet' | 'mobile';
@@ -15,7 +16,8 @@ const widths = [
 ];
 
 export function PreviewWidthControl({ title, value, onChange }: { title: string; value: Viewport; onChange: (next: Viewport) => void }) {
-  return <ToggleGroup type='single' size='sm' label={`${title} preview width`} value={value} options={widths} onValueChange={(next: string) => next && onChange(next as Viewport)} />;
+  const interactive = useIsClient();
+  return <ToggleGroup type='single' size='sm' disabled={!interactive} label={`${title} preview width`} value={value} options={widths} onValueChange={(next: string) => next && onChange(next as Viewport)} />;
 }
 
 export function PreviewViewport({ title, viewport, children }: { title: string; viewport: Viewport; children: ReactNode }) {

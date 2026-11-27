@@ -59,6 +59,32 @@ async function expectUnifiedPalette(page: Page) {
   expect(snapshot.popupOverflow).toBeLessThanOrEqual(1);
 }
 
+test('search reports zero documentation matches and keeps keyboard actions available', async ({ page }) => {
+  await page.goto('/docs', { waitUntil: 'domcontentloaded' });
+  const trigger = page.getByTestId('search-trigger');
+  await trigger.click();
+  const dialog = page.getByRole('dialog', { name: 'Search documentation' });
+  const input = dialog.getByRole('combobox', { name: 'Search query' });
+  await expect(input).toBeFocused();
+  const hasAskAi = await dialog.getByRole('group', { name: 'Ask AI' }).count() > 0;
+  const noMatch = 'ThisMatchDoesNotExist';
+  await input.fill(noMatch);
+  await expect(dialog.getByRole('status')).toHaveText(`No results for “${noMatch}”.`);
+  await expect(dialog.getByTestId('search-result')).toHaveCount(0);
+  if (hasAskAi) {
+    await input.press('ArrowDown');
+    await expect(dialog.getByRole('option', { name: `Ask AI: ${noMatch}` })).toHaveAttribute('aria-selected', 'true');
+  }
+  await input.fill('Timeline');
+  await expect(dialog.getByTestId('search-result').first()).toContainText('Timeline');
+  await expect(dialog.getByRole('status')).toBeEmpty();
+  await input.fill('');
+  await expect(dialog.getByRole('group', { name: 'Popular pages' })).toBeVisible();
+  await expect(dialog.getByRole('status')).toBeEmpty();
+  await input.press('Escape');
+  await expect(trigger).toBeFocused();
+});
+
 for (const theme of themeIds) {
   for (const mode of ['light', 'dark']) {
     test(`search uses one readable surface: ${theme} ${mode}`, async ({ page }, testInfo) => {

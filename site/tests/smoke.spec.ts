@@ -63,7 +63,7 @@ test('guided setup loads its bundled QR image inside nested documentation previe
   await expect(preview.getByRole('textbox', { name: 'Display name' })).toBeFocused();
 });
 
-test('the artwork preview opens and downloads the rendered image', async ({ page }) => {
+test('the artwork preview opens and downloads the rendered image', async ({ page }, testInfo) => {
   const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
   await page.goto(`${basePath}/preview/popover-rich/`);
   await page.getByRole('button', { name: 'Preview', exact: true }).click();
@@ -71,11 +71,17 @@ test('the artwork preview opens and downloads the rendered image', async ({ page
   await expect.poll(() => image.evaluate((element: HTMLImageElement) => element.naturalWidth)).toBeGreaterThan(0);
   const artwork = `${basePath}/static/images/art/0.svg`;
   await expect(page.getByRole('link', { name: 'Open artwork' })).toHaveAttribute('href', artwork);
+  const save = page.getByRole('link', { name: 'Save artwork' });
+  await expect(save).toHaveAttribute('href', `${basePath}/static/images/art/portfolio-artwork.svg`);
   const transfer = page.waitForEvent('download');
-  await page.getByRole('link', { name: 'Save artwork' }).click();
+  await save.click();
   const file = await transfer;
   expect(file.suggestedFilename()).toBe('portfolio-artwork.svg');
-  expect(await readFile((await file.path())!, 'utf8')).toContain('<svg');
+  const displayed = await page.request.get(artwork);
+  expect(displayed.ok()).toBe(true);
+  const saved = testInfo.outputPath('portfolio-artwork.svg');
+  await file.saveAs(saved);
+  expect(await readFile(saved)).toEqual(await displayed.body());
 });
 
 test('notification settings keep all digest days on screen and the matrix scrolls locally', async ({ page }) => {

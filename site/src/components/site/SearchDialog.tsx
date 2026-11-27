@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useDocsSearch } from 'fumadocs-core/search/client';
 import Button from '@gaudi/design-system/core/Button';
-import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@gaudi/design-system/core/Commander';
+import { Command, CommandDialog, CommandGroup, CommandInput, CommandItem, CommandList } from '@gaudi/design-system/core/Commander';
 import Icon from '@gaudi/design-system/core/Icon';
 import Kbd from '@gaudi/design-system/core/Kbd';
-import { useHotkey } from '@gaudi/design-system/hooks';
+import { useHotkey, useIsClient } from '@gaudi/design-system/hooks';
 import { docsSearchClient } from '@/lib/docs-search-client';
 import { useAskAiEnabled } from './ask-ai-context';
 
@@ -46,6 +46,7 @@ const POPULAR_PAGES = [
  */
 export function SearchDialog() {
   const router = useRouter();
+  const interactive = useIsClient();
   const askEnabled = useAskAiEnabled();
   const [open, setOpen] = useState(false);
   const [searchAttempt, setSearchAttempt] = useState(0);
@@ -68,6 +69,7 @@ export function SearchDialog() {
           variant='ghost'
           tone='neutral'
           size='sm'
+          disabled={!interactive}
           aria-keyshortcuts={ariaKeyShortcuts}
           aria-label='Search documentation'
           data-testid='search-trigger'
@@ -91,13 +93,11 @@ export function SearchDialog() {
                 </CommandItem>
               </CommandGroup>
             ) : null}
-            {search && query.isLoading ? <p role='status' className='px-3 py-6 text-center text-sm text-text-muted'>Searching…</p> : null}
             {search && !query.isLoading && query.error ? (
               <CommandGroup heading='Search unavailable'>
                 <CommandItem value='retry-search' onSelect={() => setSearchAttempt((attempt) => attempt + 1)}>Retry search</CommandItem>
               </CommandGroup>
             ) : null}
-            {search && !query.isLoading && !query.error && results.length === 0 ? <CommandEmpty>No results for “{search}”.</CommandEmpty> : null}
             {!search && askEnabled ? (
               <CommandGroup heading='Ask AI'>
                 {STARTER_QUESTIONS.map((question) => (
@@ -134,6 +134,10 @@ export function SearchDialog() {
               </CommandGroup>
             ) : null}
           </CommandList>
+          <p role='status' className='max-h-32 overflow-y-auto px-3 py-6 text-center text-sm wrap-anywhere text-text-muted empty:py-0'>
+            {search && query.isLoading ? 'Searching…' : null}
+            {search && !query.isLoading && !query.error && results.length === 0 ? `No results for “${search}”.` : null}
+          </p>
         </Command>
       </CommandDialog>
       {ask.loaded ? <AskAiPanel open={ask.open} question={ask.question} onOpenChange={(value: boolean) => setAsk((state) => ({ ...state, open: value }))} /> : null}

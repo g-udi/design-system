@@ -7,6 +7,7 @@ import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from 
 import Dialog from '@gaudi/design-system/core/Dialog';
 import Icon from '@gaudi/design-system/core/Icon';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
+import { useIsClient } from '@gaudi/design-system/hooks/environment/use-is-client';
 import { PreviewFrame, PreviewWidthControl, type Viewport } from './PreviewFrame';
 
 export interface ExampleViewProps {
@@ -22,6 +23,7 @@ export interface ExampleViewProps {
 
 /** One pattern: Preview / Code tabs, a responsive frame, RTL, copyable public-import source. */
 export function ExampleView({ name, title, source, block, expandable = false, storybookUrl, install, file }: ExampleViewProps) {
+  const interactive = useIsClient();
   const [viewport, setViewport] = useState<Viewport>('desktop');
   const [dir, setDir] = useState<'ltr' | 'rtl'>('ltr');
   const [expanded, setExpanded] = useState(false);
@@ -33,6 +35,7 @@ export function ExampleView({ name, title, source, block, expandable = false, st
         tone='neutral'
         size='sm'
         aria-pressed={dir === 'rtl'}
+        disabled={!interactive}
         onClick={() => setDir(dir === 'rtl' ? 'ltr' : 'rtl')}
         title='Preview right-to-left'
       >
@@ -45,8 +48,8 @@ export function ExampleView({ name, title, source, block, expandable = false, st
       <Tabs defaultValue='preview'>
         <div className='site-example-toolbar flex flex-wrap items-center gap-2 border-b border-border px-2 py-1.5'>
           <TabsList aria-label={`${title} views`} className='me-auto'>
-            <TabsTrigger value='preview'>Preview</TabsTrigger>
-            <TabsTrigger value='code'>Code</TabsTrigger>
+            <TabsTrigger value='preview' disabled={!interactive}>Preview</TabsTrigger>
+            <TabsTrigger value='code' disabled={!interactive}>Code</TabsTrigger>
           </TabsList>
           {controls}
           <Button
@@ -78,7 +81,7 @@ export function ExampleView({ name, title, source, block, expandable = false, st
               open={expanded}
               onOpenChange={setExpanded}
               trigger={
-                <Button variant='outline' tone='neutral' size='sm'>
+                <Button variant='outline' tone='neutral' size='sm' disabled={!interactive}>
                   <Icon name='Maximize2' decorative size='sm' />
                   Expand preview
                 </Button>

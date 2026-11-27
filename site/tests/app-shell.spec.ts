@@ -2,6 +2,44 @@ import { expect, test } from '@playwright/test';
 
 const widths = [320, 390, 767, 768, 801, 802, 993, 994, 1023, 1024, 1279, 1280, 1440, 1920];
 
+test('example controls wait for hydration while preview links remain available', async ({ page }) => {
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+  let releaseScripts!: () => void;
+  const scripts = new Promise<void>(resolve => { releaseScripts = resolve; });
+  await page.route('**/_next/static/**/*.js*', async route => {
+    await scripts;
+    await route.continue();
+  });
+  const example = page.locator('[data-example="app-shell-crawler-control"]');
+  const expand = example.getByRole('button', { name: 'Expand preview' });
+  const controls = [
+    expand,
+    example.getByRole('button', { name: 'RTL' }),
+    example.getByRole('tab', { name: 'Preview' }),
+    example.getByRole('tab', { name: 'Code' }),
+    example.getByRole('radio', { name: 'Mobile (375px)' })
+  ];
+  try {
+    await page.goto(`${basePath}/docs/blocks/app-shell/`, { waitUntil: 'commit' });
+    for (const control of controls) await expect(control).toBeDisabled();
+    const previewLink = example.getByRole('link', { name: /in a new tab/ });
+    const href = await previewLink.getAttribute('href');
+    expect(href?.replace(/\/$/, '')).toBe(`${basePath}/preview/app-shell-crawler-control`);
+    await expect(previewLink).toBeEnabled();
+    const storyLink = example.getByRole('link', { name: /in Storybook/ });
+    await expect(storyLink).toHaveAttribute('href', /\?path=\/story\/blocks-application-appshell--crawler-control$/);
+    await expect(storyLink).toBeEnabled();
+  } finally {
+    releaseScripts();
+  }
+  for (const control of controls) await expect(control).toBeEnabled();
+  await expand.click();
+  const dialog = page.getByRole('dialog');
+  await expect(dialog).toBeVisible();
+  await dialog.getByRole('button', { name: 'Close preview' }).click();
+  await expect(expand).toBeFocused();
+});
+
 for (const width of widths) {
   test(`app shells expand without losing responsive controls at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 950 });

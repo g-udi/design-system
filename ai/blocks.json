@@ -16152,7 +16152,8 @@
       "sourceFile": "src/components/core/Popover/stories/fixtures/popover/popover-rich.jsx",
       "assets": [
         "/avatars/person-44.svg",
-        "/static/images/art/0.svg"
+        "/static/images/art/0.svg",
+        "/static/images/art/portfolio-artwork.svg"
       ],
       "packageImports": [
         "@gaudi/design-system/core/Accordion",

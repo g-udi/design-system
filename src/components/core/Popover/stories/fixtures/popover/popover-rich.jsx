@@ -117,7 +117,7 @@ function MediaPopover() {
             </p>
           </div>
           <div className='grid grid-cols-2 gap-2'>
-            <Button size='sm' href='/static/images/art/0.svg' download='portfolio-artwork.svg'>Save artwork</Button>
+            <Button size='sm' href='/static/images/art/portfolio-artwork.svg' download='portfolio-artwork.svg'>Save artwork</Button>
             <Button href='/static/images/art/0.svg' target='_blank' rel='noreferrer' size='sm' variant='outline'>
               Open artwork
               <RegistryIcon lucide='ExternalLinkIcon' aria-hidden='true' />
