@@ -36,4 +36,19 @@ export async function checkBackgroundDemo(context) {
   await expect(effect).toHaveAttribute('data-animated', 'false');
   await userEvent.click(canvas.getByRole('button', { name: 'Resume animation' }));
   await expect(canvas.getByRole('button', { name: 'Pause animation' })).toBeVisible();
+  if (import.meta.env.MODE === 'test') {
+    const { commands } = await import('vitest/browser');
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const wasReduced = motion.matches;
+    try {
+      if (!wasReduced) await commands.emulateStoryMedia({ reducedMotion: 'reduce' });
+      await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'false'));
+      await expect(content).toBeVisible();
+    } finally {
+      if (!wasReduced) {
+        await commands.emulateStoryMedia({ reducedMotion: null });
+        if (motion.matches) await commands.emulateStoryMedia({ reducedMotion: 'no-preference' });
+      }
+    }
+  }
 }

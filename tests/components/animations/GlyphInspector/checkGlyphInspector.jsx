@@ -93,23 +93,6 @@ export async function checkGlyphInspector(canvasElement) {
     await render({ reveal: 'area', radius: 400, particles: 0, autoplay: true });
     await waitFor(() => expect(sandbox.querySelectorAll('.gaudi-glyph-inspector__particle')).toHaveLength(0));
     expect([...sandbox.querySelectorAll('.gaudi-glyph-inspector__letter')].filter(el => Number(el.style.getPropertyValue('--inspector-reveal')) > 0)).toHaveLength(4);
-    const { commands } = await import('vitest/browser');
-    await commands.recordStoryAudit({ id: 'glyph-inspector-independent-controls', theme: 'light', checks: [
-      { control: 'text', evidence: 'visible glyph content and layout changed, including empty and long values' },
-      { control: 'autoplay', evidence: 'frame cycles while enabled, disappears while idle with autoplay disabled' },
-      { control: 'draggable', evidence: 'pointer drag moves enabled glyph within constraints; disabled glyph stays at origin' },
-      { control: 'readout', evidence: 'readout removed independently' },
-      { control: 'guides', evidence: 'guide SVG removed independently' },
-      { control: 'interval', evidence: 'long interval holds current glyph; 200ms advances it' },
-      { control: 'outline', evidence: 'all three computed stroke dash patterns checked' },
-      { control: 'particles', evidence: '4 and 0 particle counts checked' },
-      { control: 'tempo', evidence: 'particle animation duration halves at tempo 2' },
-      { control: 'reveal', evidence: 'none hides all fills; area reveals neighbours' },
-      { control: 'radius', evidence: 'changing only radius changes per-glyph reveal amount' },
-      { control: 'accent', evidence: 'computed inspector foreground changes to requested colour' },
-      { control: 'activeIndex', evidence: 'existing Paused story helper checks requested character and out-of-range fallback to first glyph' },
-      { control: 'paused', evidence: 'paused frame remains visible without animation; existing paused-index helper covers bounds' }
-    ] });
     await render({ text: '', reveal: 'area' });
     expect(sandbox.querySelector('[data-slot="glyph-inspector-frame"]')).not.toBeInTheDocument();
     await render({ text: 'A', paused: true });
@@ -140,4 +123,21 @@ export async function checkGlyphInspector(canvasElement) {
     await act(() => root.unmount());
     sandbox.remove();
   }
+  const { commands } = await import('vitest/browser');
+  await commands.recordStoryAudit({ id: 'glyph-inspector-independent-controls', theme: document.documentElement.classList.contains('dark') ? 'dark' : 'light', checks: [
+    { control: 'text', evidence: 'visible glyph content and layout changed, including empty and long values' },
+    { control: 'autoplay', evidence: 'frame cycles while enabled, disappears while idle with autoplay disabled' },
+    { control: 'draggable', evidence: 'pointer drag moves enabled glyph within constraints; disabled glyph stays at origin' },
+    { control: 'readout', evidence: 'readout removed independently' },
+    { control: 'guides', evidence: 'guide SVG removed independently' },
+    { control: 'interval', evidence: 'long interval holds current glyph; 200ms advances it' },
+    { control: 'outline', evidence: 'all three computed stroke dash patterns checked' },
+    { control: 'particles', evidence: '4 and 0 particle counts checked' },
+    { control: 'tempo', evidence: 'particle animation duration halves at tempo 2' },
+    { control: 'reveal', evidence: 'none hides all fills; area reveals neighbours' },
+    { control: 'radius', evidence: 'changing only radius changes per-glyph reveal amount' },
+    { control: 'accent', evidence: 'computed inspector foreground changes to requested colour' },
+    { control: 'activeIndex', evidence: 'existing Paused story helper checks requested character and out-of-range fallback to first glyph' },
+    { control: 'paused', evidence: 'paused frame remains visible without animation; existing paused-index helper covers bounds' }
+  ] });
 }

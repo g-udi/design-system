@@ -2,7 +2,7 @@ import { StrictMode, useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { expect, waitFor } from 'storybook/test';
 import { act } from '../../support/reactAct.js';
-import * as animations from '../../../src/components/animations/index.js';
+import { CipherReveal, GlyphInspector, PhraseCycle, ReelText, Typewriter, WarpText, WordSpotlight } from '../../../src/components/animations/index.js';
 
 // Browser promises (fonts, observers, renderers) can update state immediately after commit.
 function ActMicrotaskProbe() {
@@ -40,18 +40,18 @@ export async function checkAnimationBehavior(canvasElement) {
       console.error = originalError;
     }
 
-    await render(animations.Typewriter, { texts: ['ABC'], typeDelay: 16, eraseDelay: 16, holdDelay: 100, repeat: false });
+    await render(Typewriter, { texts: ['ABC'], typeDelay: 16, eraseDelay: 16, holdDelay: 100, repeat: false });
     await waitFor(() => expect(sandbox.querySelector('.gaudi-typewriter__value').textContent).toBe('ABC|'));
-    await render(animations.Typewriter, { texts: ['New'], typeDelay: 16, repeat: false });
+    await render(Typewriter, { texts: ['New'], typeDelay: 16, repeat: false });
     await waitFor(() => expect(sandbox.querySelector('.gaudi-typewriter__value').textContent).toBe('New|'));
 
-    await render(animations.CipherReveal, { text: 'Ready', duration: 100 });
+    await render(CipherReveal, { text: 'Ready', duration: 100 });
     await waitFor(() => expect(sandbox.querySelector('[data-slot]').dataset.animated).toBe('false'));
     expect(sandbox.querySelector('[aria-hidden]').textContent).toBe('Ready');
 
-    await render(animations.PhraseCycle, { texts: ['First', 'Next'], interval: 700 });
+    await render(PhraseCycle, { texts: ['First', 'Next'], interval: 700 });
     await waitFor(() => expect(sandbox.querySelector('.gaudi-phrase-cycle__value').textContent).toBe('Next'), { timeout: 2500 });
-    await render(animations.PhraseCycle, { texts: ['Only'], interval: 700 });
+    await render(PhraseCycle, { texts: ['Only'], interval: 700 });
     expect(sandbox.querySelector('.gaudi-phrase-cycle__value').textContent).toBe('Only');
 
     Object.defineProperty(document, 'visibilityState', { configurable: true, value: 'hidden' });
@@ -63,11 +63,12 @@ export async function checkAnimationBehavior(canvasElement) {
 
     const media = { matches: true, addEventListener() {}, removeEventListener() {} };
     window.matchMedia = query => query === '(prefers-reduced-motion: reduce)' ? media : originalMatchMedia.call(window, query);
-    for (const [name, Component] of Object.entries(animations)) {
+    // Background owners check reduced motion on their own mounted surfaces.
+    for (const [name, Component] of Object.entries({ CipherReveal, GlyphInspector, PhraseCycle, ReelText, Typewriter, WarpText, WordSpotlight })) {
       await render(Component, { text: 'Readable', texts: ['Readable'] });
       await waitFor(() => expect(sandbox.querySelector('[data-animated]')?.dataset.animated, `${name} honors reduced motion`).toBe('false'));
     }
-    await render(animations.Typewriter, { texts: ['Readable'] });
+    await render(Typewriter, { texts: ['Readable'] });
     expect(sandbox.querySelector('.gaudi-typewriter__value').textContent).toBe('Readable|');
   } finally {
     window.matchMedia = originalMatchMedia;

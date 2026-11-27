@@ -21,10 +21,6 @@ export const Playground = {
   render: GlyphInspectorPlayground,
   parameters: { docs: { source: playgroundSource('GlyphInspectorPlayground', { imports }) } },
   play: async ({ canvasElement, args }) => {
-    if (!args.paused && args.autoplay && args.reveal === "letter") {
-      await checkAnimationBehavior(canvasElement);
-      await checkGlyphInspector(canvasElement);
-    }
     const canvas = within(canvasElement);
     const effect = canvasElement.querySelector('[data-slot="glyph-inspector"]');
     await expect(effect).toBeVisible();
@@ -32,6 +28,10 @@ export const Playground = {
     await userEvent.click(canvas.getByRole('button', { name: 'Pause animation' }));
     await waitFor(() => expect(effect).toHaveAttribute('data-animated', 'false'));
     await expect(effect.querySelector('[data-slot="glyph-inspector-frame"]')).toBeVisible();
+    if (args.autoplay && args.reveal === "letter") {
+      await checkAnimationBehavior(canvasElement);
+      await checkGlyphInspector(canvasElement);
+    }
     await userEvent.click(canvas.getByRole('button', { name: 'Resume animation' }));
     await userEvent.click(canvas.getByRole('button', { name: 'Replay' }));
     await expect(canvasElement.querySelector('[data-slot="glyph-inspector"]')).toBeVisible();
