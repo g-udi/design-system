@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { createRoot } from 'react-dom/client';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
@@ -5,7 +6,6 @@ import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
 import { RegistryIcon } from '../../../../icons/RegistryIcon.jsx';
-import { cn } from '../../../../utilities/cn';
 import Stepper from '../Stepper';
 import { Stepper as StepperRoot, StepperIndicator, StepperItem, StepperNav, StepperTitle, StepperTrigger } from '../StepperPrimitives.jsx';
 
@@ -93,9 +93,9 @@ export const Playground = {
       <div className='grid gap-3'>
         <Stepper steps={flowSteps(activeStep)} activeStep={activeStep} label='Publishing progress' />
         <div className='flex items-center gap-3 rounded-lg border border-border px-3 py-2' data-testid='step-status'>
-          <span className={cn('grid size-8 shrink-0 place-items-center rounded-md', activeStep >= flow.length ? 'bg-success-subtle text-success' : 'bg-accent-subtle text-accent')}>
+          <IconTile aria-hidden='true' size='sm' variant='muted' className={activeStep >= flow.length ? 'bg-success-subtle text-success' : 'bg-accent-subtle text-accent'}>
             <RegistryIcon lucide={status.icon} className='size-4' />
-          </span>
+          </IconTile>
           <div className='min-w-0'>
             <p className='text-sm font-medium'>{status.title}</p>
             <p className='text-xs text-text-muted'>{status.detail}</p>

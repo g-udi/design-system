@@ -1,6 +1,8 @@
 'use client';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import Input from '@gaudi/design-system/core/Input';
+import { Label } from '@gaudi/design-system/core/Field';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -51,7 +53,7 @@ import {
   SidebarSeparator,
   SidebarTrigger
 } from '@gaudi/design-system/blocks/AppShell';
-import { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';
+import { AppShellFrame, useSidebar } from '@gaudi/design-system/blocks/AppShell';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const WORKSPACES = [
   {
@@ -120,19 +122,19 @@ const PROJECTS = [
 ];
 const DEPLOYMENTS = [
   {
-    id: 'd-4821',
+    id: 'd-4821', project: 'edge-cache',
     title: 'Shorten the image cache lifetime',
     branch: 'main',
     time: '12m ago'
   },
   {
-    id: 'd-4820',
+    id: 'd-4820', project: 'checkout',
     title: 'Split the archive page by year',
     branch: 'release/2.8',
     time: '1h ago'
   },
   {
-    id: 'd-4819',
+    id: 'd-4819', project: 'design-system',
     title: 'Serve feeds from the edge cache',
     branch: 'feat/edge',
     time: '3h ago',
@@ -151,7 +153,8 @@ const STATS = [
   { id: 'prs', label: 'Open PRs', value: '7' }
 ];
 
-function WorkspaceSwitcher({ workspace, onSelect }) {
+function WorkspaceSwitcher({ workspace, workspaces, onSelect, onNew }) {
+  const { setOpenMobile } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -165,7 +168,7 @@ function WorkspaceSwitcher({ workspace, onSelect }) {
               <span className='hidden group-data-[collapsible=icon]:block'>{workspace.id === 'personal' ? <Avatar size='sm'><AvatarImage src={workspace.avatar} alt='' /><AvatarFallback>{workspace.initials}</AvatarFallback></Avatar> : <GaudiLogo aria-hidden='true' className='size-8' />}</span>
               <span className='grid min-w-0 flex-1 gap-1 text-left leading-tight group-data-[collapsible=icon]:hidden'>
                 <span className='flex items-center gap-2 text-sm font-medium'>
-                  {workspace.id === 'personal' ? workspace.name : <><GaudiBrand className='text-sm' />{workspace.id === 'gaudi-workspace' && <span>Workspace</span>}</>}
+                  {!['gaudi-workspace', 'acme'].includes(workspace.id) ? workspace.name : <><GaudiBrand className='text-sm' />{workspace.id === 'gaudi-workspace' && <span>Workspace</span>}</>}
                 </span>
                 <span className='text-ui-sidebar-foreground truncate text-xs'>
                   {workspace.plan} plan
@@ -181,9 +184,9 @@ function WorkspaceSwitcher({ workspace, onSelect }) {
           <DropdownMenuContent side='bottom' align='start'>
             <DropdownMenuGroup>
               <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
-              {WORKSPACES.map((item) => (
+              {workspaces.map((item) => (
                 <DropdownMenuItem key={item.id} onClick={() => onSelect(item)}>
-                  {item.id === 'personal' ? <><Avatar size='sm'><AvatarImage src={item.avatar} alt='' /><AvatarFallback>{item.initials}</AvatarFallback></Avatar><span>{item.name}</span></> : <><GaudiBrand className='text-sm' />{item.id === 'gaudi-workspace' && <span>Workspace</span>}</>}
+                  {!['gaudi-workspace', 'acme'].includes(item.id) ? <><Avatar size='sm'><AvatarImage src={item.avatar} alt='' /><AvatarFallback>{item.initials}</AvatarFallback></Avatar><span>{item.name}</span></> : <><GaudiBrand className='text-sm' />{item.id === 'gaudi-workspace' && <span>Workspace</span>}</>}
                   {item.id === workspace.id ? (
                     <RegistryIcon
                       lucide='CheckIcon'
@@ -196,7 +199,7 @@ function WorkspaceSwitcher({ workspace, onSelect }) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => { onNew(); setOpenMobile(false); }}>
                 <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
                 New workspace
               </DropdownMenuItem>
@@ -207,7 +210,8 @@ function WorkspaceSwitcher({ workspace, onSelect }) {
     </SidebarMenu>
   );
 }
-function WorkspaceNav() {
+function WorkspaceNav({ page, onPage }) {
+  const { setOpenMobile } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Workspace</SidebarGroupLabel>
@@ -215,8 +219,8 @@ function WorkspaceNav() {
         <SidebarMenu>
           {NAV.map((item) => (
             <SidebarMenuItem key={item.id}>
-              <SidebarMenuButton asChild isActive={item.isActive}>
-                <a href='#'>
+              <SidebarMenuButton asChild isActive={page === item.id}>
+                <a href={`#${item.id}`} aria-current={page === item.id ? 'page' : undefined} onClick={(event) => { event.preventDefault(); onPage(item.id); setOpenMobile(false); }}>
                   {item.icon}
                   <span>{item.label}</span>
                 </a>
@@ -231,47 +235,78 @@ function WorkspaceNav() {
     </SidebarGroup>
   );
 }
-function ProjectNav() {
+function ProjectNav({ projects, setProjects, page, onPage }) {
+  const { setOpenMobile } = useSidebar();
+  const [editing, setEditing] = useState(null);
+  const [name, setName] = useState('');
+  const addButton = useRef(null);
+  const edit = (project) => {
+    setEditing(project.id);
+    setName(project.name);
+  };
+  const finish = () => {
+    setEditing(null);
+    requestAnimationFrame(() => addButton.current?.focus());
+  };
+  const save = (event) => {
+    event.preventDefault();
+    if (!name.trim()) return;
+    if (editing === 'new') setProjects([...projects, { id: crypto.randomUUID(), name: name.trim() }]);
+    else setProjects(projects.map((entry) => (entry.id === editing ? { ...entry, name: name.trim() } : entry)));
+    finish();
+  };
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
-      <SidebarGroupAction type='button'>
+      <SidebarGroupAction ref={addButton} type='button' onClick={() => edit({ id: 'new', name: '' })}>
         <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
         <span className='sr-only'>New project</span>
       </SidebarGroupAction>
       <SidebarGroupContent>
         <SidebarMenu>
-          {PROJECTS.map((project) => (
+          {projects.map((project) => (
             <SidebarMenuItem key={project.id}>
-              <SidebarMenuButton asChild>
-                <a href='#'>
+              <SidebarMenuButton asChild isActive={page === project.id}>
+                <a
+                  href={`#${project.id}`}
+                  aria-current={page === project.id ? 'page' : undefined}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onPage(project.id);
+                    setOpenMobile(false);
+                  }}
+                >
                   <RegistryIcon lucide='FolderIcon' aria-hidden='true' />
                   <span>{project.name}</span>
                 </a>
               </SidebarMenuButton>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <SidebarMenuAction
-                    showOnHover
-                    aria-label={`Actions for ${project.name}`}
-                  >
-                    <RegistryIcon
-                      lucide='MoreHorizontalIcon'
-                      aria-hidden='true'
-                    />
+                  <SidebarMenuAction showOnHover aria-label={`Actions for ${project.name}`}>
+                    <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
                   </SidebarMenuAction>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent side='right' align='start'>
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>Rename</DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => edit(project)}>Rename</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() =>
+                        setProjects([...projects, { id: crypto.randomUUID(), name: `${project.name} (copy)` }])
+                      }
+                    >
                       <RegistryIcon lucide='CopyIcon' aria-hidden='true' />
                       Duplicate
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem
+                      onSelect={() => {
+                        setProjects(projects.filter((entry) => entry.id !== project.id));
+                        if (page === project.id) onPage('deployments');
+                        finish();
+                      }}
+                    >
                       <RegistryIcon lucide='ArchiveIcon' aria-hidden='true' />
                       Archive
                     </DropdownMenuItem>
@@ -281,11 +316,29 @@ function ProjectNav() {
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
+        {editing ? (
+          <form className='grid gap-2 px-2 py-2' onSubmit={save}>
+            <Label>
+              Project name
+              <Input value={name} onChange={(event) => setName(event.target.value)} />
+            </Label>
+            <div className='flex gap-2'>
+              <Button type='submit' size='sm' disabled={!name.trim()}>
+                Save project
+              </Button>
+              <Button size='sm' type='button' variant='ghost' onClick={finish}>
+                Cancel
+              </Button>
+            </div>
+          </form>
+        ) : null}
       </SidebarGroupContent>
     </SidebarGroup>
   );
 }
-function AccountMenu() {
+function AccountMenu({ onPage }) {
+  const { setOpenMobile } = useSidebar();
+  const select = (id) => { onPage(id); setOpenMobile(false); };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -320,22 +373,22 @@ function AccountMenu() {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => select('profile')}>
                 <RegistryIcon lucide='UserIcon' aria-hidden='true' />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => select('billing')}>
                 <RegistryIcon lucide='CreditCardIcon' aria-hidden='true' />
                 Billing
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => select('notifications')}>
                 <RegistryIcon lucide='BellIcon' aria-hidden='true' />
                 Notifications
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => select('sign-out')}>
                 <RegistryIcon lucide='LogOutIcon' aria-hidden='true' />
                 Sign out
                 <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
@@ -376,7 +429,21 @@ function DeploymentRow({ deployment }) {
     </div>
   );
 }
-function Workbench({ workspaceName }) {
+function Workbench({ workspace, page, onPage, projects, onCreateWorkspace, members, onInvite }) {
+  const [value, setValue] = useState('');
+  const workspaceName = workspace.name;
+  const project = projects.find((entry) => entry.id === page);
+  const label =
+    project?.name ??
+    NAV.find((entry) => entry.id === page)?.label ??
+    {
+      profile: 'Profile',
+      billing: 'Billing',
+      notifications: 'Notifications',
+      'sign-out': 'Session',
+      invite: 'Workspace members',
+      'new-workspace': 'New workspace'
+    }[page];
   return (
     <SidebarInset className='min-w-0 overflow-hidden'>
       <header className='flex h-12 shrink-0 items-center gap-2 border-b px-4'>
@@ -384,71 +451,158 @@ function Workbench({ workspaceName }) {
         <Breadcrumb className='min-w-0 flex-1'>
           <BreadcrumbList className='flex-nowrap'>
             <BreadcrumbItem className='min-w-0'>
-              <BreadcrumbLink href='#' className='truncate'>
+              <BreadcrumbLink
+                href='#overview'
+                className='truncate'
+                onClick={(event) => {
+                  event.preventDefault();
+                  onPage('overview');
+                }}
+              >
                 {workspaceName}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Deployments</BreadcrumbPage>
+              <BreadcrumbPage>{label}</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <Button variant='outline' size='sm' className='ml-auto shrink-0 whitespace-nowrap'>
+        <Button
+          variant='outline'
+          size='sm'
+          onClick={() => {
+            setValue('');
+            onPage('invite');
+          }}
+          className='ml-auto shrink-0 whitespace-nowrap'
+        >
           Invite
         </Button>
       </header>
 
       <div className='flex-1 overflow-auto p-4'>
-        <div className='grid gap-3 sm:grid-cols-3'>
-          {STATS.map((stat) => (
-            <Card key={stat.id} size='sm'>
-              <CardHeader>
-                <CardDescription>{stat.label}</CardDescription>
-                <CardTitle>{stat.value}</CardTitle>
-              </CardHeader>
-            </Card>
-          ))}
-        </div>
-
-        <Card size='sm' className='mt-3'>
-          <CardHeader>
-            <CardTitle>Recent deployments</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className='flex flex-col gap-2.5'>
-              {DEPLOYMENTS.map((deployment) => (
-                <DeploymentRow key={deployment.id} deployment={deployment} />
+        {page === 'new-workspace' || page === 'invite' ? (
+          <form
+            className='grid justify-items-start gap-3'
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (!value.trim()) return;
+              if (page === 'new-workspace') onCreateWorkspace(value.trim());
+              else onInvite(value.trim());
+              setValue('');
+            }}
+          >
+            <Label>
+              {page === 'new-workspace' ? 'Workspace name' : 'Member name'}
+              <Input value={value} onChange={(event) => setValue(event.target.value)} />
+            </Label>
+            <Button size='sm' type='submit' disabled={!value.trim()}>
+              {page === 'new-workspace' ? 'Create workspace' : 'Add member locally'}
+            </Button>
+            {page === 'invite' ? (
+              <ul aria-label='Workspace members'>
+                {members.map((name) => (
+                  <li key={name}>{name}</li>
+                ))}
+              </ul>
+            ) : null}
+          </form>
+        ) : null}
+        {['deployments', 'overview', 'analytics'].includes(page) ? (
+          <>
+            <div className='grid gap-3 sm:grid-cols-3'>
+              {STATS.map((stat) => (
+                <Card key={stat.id} size='sm'>
+                  <CardHeader>
+                    <CardDescription>{stat.label}</CardDescription>
+                    <CardTitle>{stat.value}</CardTitle>
+                  </CardHeader>
+                </Card>
               ))}
             </div>
-          </CardContent>
-        </Card>
+          </>
+        ) : null}
+        {page === 'deployments' || page === 'logs' || project ? (
+          <Card size='sm' className='mt-3'>
+            <CardHeader>
+              <CardTitle>
+                {project
+                  ? `${project.name} deployments`
+                  : page === 'logs'
+                    ? 'Deployment log'
+                    : 'Recent deployments'}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className='flex flex-col gap-2.5'>
+                {(project ? DEPLOYMENTS.filter((item) => item.project === project.id) : DEPLOYMENTS).map(
+                  (deployment) => (
+                    <DeploymentRow key={deployment.id} deployment={deployment} />
+                  )
+                )}
+              </div>
+              {project && !DEPLOYMENTS.some((item) => item.project === project.id) ? (
+                <p className='text-sm text-text-muted'>No deployments for this project yet.</p>
+              ) : null}
+            </CardContent>
+          </Card>
+        ) : null}
+        {page === 'storage' ? <p>Local projects in this workspace: {projects.length}.</p> : null}
+        {['inbox', 'notifications'].includes(page) ? <p>No new workspace messages.</p> : null}
+        {page === 'profile' ? <p>Nadira Rahimi · nadira@example.com</p> : null}
+        {page === 'billing' ? (
+          <p>
+            {workspace.name} is on the {workspace.plan} plan.
+          </p>
+        ) : null}
+        {page === 'sign-out' ? <p>This local preview has no signed-in account.</p> : null}
       </div>
     </SidebarInset>
   );
 }
 export function Pattern() {
   const [workspace, setWorkspace] = useState(WORKSPACES[0]);
+  const [workspaces, setWorkspaces] = useState(WORKSPACES);
+  const [byWorkspace, setByWorkspace] = useState(() =>
+    Object.fromEntries(WORKSPACES.map((entry) => [entry.id, PROJECTS]))
+  );
+  const [memberLists, setMemberLists] = useState({});
+  const [page, setPage] = useState('deployments');
+  const projects = byWorkspace[workspace.id] ?? [];
+  const members = memberLists[workspace.id] ?? ['Nadira Rahimi'];
+  const select = (entry) => {
+    setWorkspace(entry);
+    setPage('deployments');
+  };
+  const newWorkspace = (name) => {
+    const entry = { id: crypto.randomUUID(), name, initials: name[0], plan: 'Free' };
+    setWorkspaces((items) => [...items, entry]);
+    select(entry);
+  };
+  const invite = (name) => {
+    if (!members.includes(name)) setMemberLists((items) => ({ ...items, [workspace.id]: [...members, name] }));
+  };
   return (
     <AppShellFrame>
       <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
         <Sidebar variant='inset' className='absolute h-full'>
           <SidebarHeader>
-            <WorkspaceSwitcher workspace={workspace} onSelect={setWorkspace} />
+            <WorkspaceSwitcher workspace={workspace} workspaces={workspaces} onSelect={select} onNew={() => setPage('new-workspace')} />
           </SidebarHeader>
 
           <SidebarContent role='navigation' aria-label='Workspace'>
-            <WorkspaceNav />
-            <ProjectNav />
+            <WorkspaceNav page={page} onPage={setPage} />
+            <ProjectNav key={workspace.id} page={page} onPage={setPage} projects={projects} setProjects={(next) => setByWorkspace((items) => ({ ...items, [workspace.id]: next }))} />
           </SidebarContent>
 
           <SidebarFooter>
             <SidebarSeparator className='mx-0' />
-            <AccountMenu />
+            <AccountMenu onPage={setPage} />
           </SidebarFooter>
         </Sidebar>
 
-        <Workbench workspaceName={workspace.name} />
+        <Workbench key={`${workspace.id}-${page}`} workspace={workspace} page={page} onPage={setPage} projects={projects} onCreateWorkspace={newWorkspace} members={members} onInvite={invite} />
       </SidebarProvider>
     </AppShellFrame>
   );

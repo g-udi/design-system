@@ -1,8 +1,4 @@
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import {
   BreadcrumbRoot as Breadcrumb,
   BreadcrumbItemPrimitive as BreadcrumbItem,
@@ -14,12 +10,14 @@ import {
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const Item = ({ children, current }) => (
+const Item = ({ children, current, href }) => (
   <BreadcrumbItem>
     {current ? (
       <BreadcrumbPage className='flex items-center gap-1.5'>{children}</BreadcrumbPage>
     ) : (
-      <BreadcrumbLink href='#' className='flex items-center gap-1.5'>{children}</BreadcrumbLink>
+      <BreadcrumbLink href={href} className='flex items-center gap-1.5'>
+        {children}
+      </BreadcrumbLink>
     )}
   </BreadcrumbItem>
 );
@@ -28,9 +26,18 @@ const rows = [
   {
     label: 'Icons',
     items: [
-      <Item key='a'><Glyph name='HouseIcon' />Home</Item>,
-      <Item key='b'><Glyph name='LayoutDashboardIcon' />Components</Item>,
-      <Item key='c' current><Glyph name='SettingsIcon' />Settings</Item>
+      <Item key='a' href='https://design.gaudi.site'>
+        <Glyph name='HouseIcon' />
+        Home
+      </Item>,
+      <Item key='b' href='https://design.gaudi.site/docs/components'>
+        <Glyph name='LayoutDashboardIcon' />
+        Components
+      </Item>,
+      <Item key='c' current>
+        <Glyph name='SettingsIcon' />
+        Settings
+      </Item>
     ]
   },
   {
@@ -38,44 +45,57 @@ const rows = [
     items: [
       <BreadcrumbItem key='a'>
         <BreadcrumbLink asChild>
-          <Button size='icon-sm' variant='outline' aria-label='Home'>
-            <Glyph name='HouseIcon' />
+          <Button asChild size='icon-sm' variant='outline'>
+            <a href='https://design.gaudi.site' aria-label='Home'>
+              <Glyph name='HouseIcon' />
+            </a>
           </Button>
         </BreadcrumbLink>
       </BreadcrumbItem>,
-      <Item key='b'>Help Center</Item>,
-      <Item key='c' current>Getting started</Item>
+      <Item key='b' href='https://design.gaudi.site/docs'>
+        Documentation
+      </Item>,
+      <Item key='c' current>
+        Getting started
+      </Item>
     ]
   },
   {
     label: 'Count badge',
     items: [
-      <Item key='a'>
-        Inbox
-        <Badge variant='destructive-outline' size='sm' className='rounded-control'>3</Badge>
+      <Item key='a' href='https://github.com/g-udi/design-system/issues'>
+        Issues
+        <Badge variant='destructive-outline' size='sm' className='rounded-control'>
+          3
+        </Badge>
       </Item>,
-      <Item key='b'>Labels</Item>,
-      <Item key='c' current>Important</Item>
+      <Item key='b' href='https://github.com/g-udi/design-system/labels'>
+        Labels
+      </Item>,
+      <Item key='c' current>
+        Important
+      </Item>
     ]
   },
   {
     label: 'Avatars',
     items: [
-      <Item key='a'>
+      <Item key='a' href='https://github.com/g-udi'>
         <Avatar className='size-5 rounded-sm'>
           <AvatarImage src='static/images/art/4.svg' alt='' />
           <AvatarFallback>AC</AvatarFallback>
         </Avatar>
         Gaudi
       </Item>,
-      <Item key='b'>
+      <Item key='b' href='https://github.com/g-udi/design-system'>
         <Avatar className='size-5'>
-          <AvatarImage src='/avatars/person-41.svg' alt='' />
-          <AvatarFallback>AJ</AvatarFallback>
+          <AvatarFallback>DS</AvatarFallback>
         </Avatar>
-        @alexjohnson
+        Design system
       </Item>,
-      <Item key='c' current>Projects</Item>
+      <Item key='c' current>
+        Projects
+      </Item>
     ]
   }
 ];
@@ -87,7 +107,9 @@ export function Pattern() {
           <span className='text-xs text-text-muted'>{label}</span>
           <Breadcrumb aria-label={`${label} breadcrumb`}>
             <BreadcrumbList>
-              {items.flatMap((item, index) => (index ? [<BreadcrumbSeparator key={`s${index}`} />, item] : [item]))}
+              {items.flatMap((item, index) =>
+                index ? [<BreadcrumbSeparator key={`s${index}`} />, item] : [item]
+              )}
             </BreadcrumbList>
           </Breadcrumb>
         </div>

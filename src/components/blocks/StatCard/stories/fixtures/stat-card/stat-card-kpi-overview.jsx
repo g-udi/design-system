@@ -1,4 +1,6 @@
 'use client';
+import { downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
+import Dialog from '@gaudi/design-system/core/Dialog';
 import { useState } from 'react';
 import { StatCard, StatDelta } from '@gaudi/design-system/blocks/StatCard';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -8,34 +10,92 @@ import {
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
-import {
-  ToggleGroupRoot as ToggleGroup,
-  ToggleGroupItem
-} from '@gaudi/design-system/core/ToggleGroup';
+import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { cn } from '@gaudi/design-system/utilities/cn';
 
 const metrics = [
-  { label: 'Revenue', value: '$48,290', delta: '12.4%', deltaDirection: 'up', deltaTone: 'success', previous: '$42,960', icon: 'DollarSignIcon', tone: 'success' },
-  { label: 'Subscribers', value: '1,284', delta: '8.1%', deltaDirection: 'up', deltaTone: 'success', previous: '1,188', icon: 'UsersIcon', tone: 'info' },
-  { label: 'Orders', value: '326', delta: '-3.2%', deltaDirection: 'down', deltaTone: 'danger', previous: '337', icon: 'ShoppingCartIcon', tone: 'warning' },
-  { label: 'Churn', value: '2.1%', delta: '-0.4%', deltaDirection: 'down', deltaTone: 'success', previous: '2.5%', icon: 'ActivityIcon', tone: 'discovery' }
+  {
+    label: 'Revenue',
+    value: '$48,290',
+    delta: '12.4%',
+    deltaDirection: 'up',
+    deltaTone: 'success',
+    previous: '$42,960',
+    icon: 'DollarSignIcon',
+    tone: 'success'
+  },
+  {
+    label: 'Subscribers',
+    value: '1,284',
+    delta: '8.1%',
+    deltaDirection: 'up',
+    deltaTone: 'success',
+    previous: '1,188',
+    icon: 'UsersIcon',
+    tone: 'info'
+  },
+  {
+    label: 'Orders',
+    value: '326',
+    delta: '-3.2%',
+    deltaDirection: 'down',
+    deltaTone: 'danger',
+    previous: '337',
+    icon: 'ShoppingCartIcon',
+    tone: 'warning'
+  },
+  {
+    label: 'Churn',
+    value: '2.1%',
+    delta: '-0.4%',
+    deltaDirection: 'down',
+    deltaTone: 'success',
+    previous: '2.5%',
+    icon: 'ActivityIcon',
+    tone: 'discovery'
+  }
 ];
 
-function MetricMenu({ label }) {
+function MetricMenu({ metric }) {
+  const { label, value, previous, delta } = metric;
+  const [showReport, setShowReport] = useState(false);
+  const fields = ['label', 'value', 'previous', 'delta'].map((key) => ({ header: key, value: (row) => row[key] }));
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon-xs' aria-label={`${label} actions`}>
-          <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        <DropdownMenuItem>View report</DropdownMenuItem>
-        <DropdownMenuItem>Set a goal</DropdownMenuItem>
-        <DropdownMenuItem>Export CSV</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant='ghost' size='icon-xs' aria-label={`${label} actions`}>
+            <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align='end'>
+          <DropdownMenuItem onSelect={() => setShowReport(true)}>View report</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => downloadCsv(toCsv([metric], fields), label.toLowerCase() + '.csv')}>
+            Export CSV
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <Dialog
+        open={showReport}
+        onOpenChange={setShowReport}
+        title={`${label} report`}
+        description='September compared with August'
+      >
+        <dl className='grid gap-2'>
+          {[
+            ['September', value],
+            ['August', previous],
+            ['Change', delta]
+          ].map(([period, amount]) => (
+            <div key={period} className='flex justify-between'>
+              <dt>{period}</dt>
+              <dd>{amount}</dd>
+            </div>
+          ))}
+        </dl>
+      </Dialog>
+    </>
   );
 }
 
@@ -61,7 +121,10 @@ export function Pattern() {
         /* One bordered panel divided into cells, for dense dashboards. */
         <dl className='bg-surface grid overflow-hidden rounded-lg border sm:grid-cols-2 lg:grid-cols-4'>
           {metrics.map((metric) => (
-            <div key={metric.label} className='grid gap-1 border-b p-4 last:border-b-0 sm:odd:border-e lg:border-e lg:border-b-0 lg:last:border-e-0'>
+            <div
+              key={metric.label}
+              className='grid gap-1 border-b p-4 last:border-b-0 sm:odd:border-e lg:border-e lg:border-b-0 lg:last:border-e-0'
+            >
               <dt className='text-text-muted text-sm'>{metric.label}</dt>
               <dd className='flex items-baseline gap-2'>
                 <span className='text-2xl font-semibold tabular-nums'>{metric.value}</span>
@@ -77,11 +140,13 @@ export function Pattern() {
               key={metric.label}
               label={metric.label}
               value={metric.value}
-              delta={metric.delta} deltaDirection={metric.deltaDirection} deltaTone={metric.deltaTone}
+              delta={metric.delta}
+              deltaDirection={metric.deltaDirection}
+              deltaTone={metric.deltaTone}
               icon={metric.icon}
               tone={metric.tone}
               variant={layout === 'tinted' ? 'tinted' : 'default'}
-              action={<MetricMenu label={metric.label} />}
+              action={<MetricMenu metric={metric} />}
               description={`vs ${metric.previous} last month`}
               footer={layout === 'cards' ? 'Sep 1 – Sep 30, 2026' : undefined}
               className={cn(layout === 'tinted' && 'shadow-none')}

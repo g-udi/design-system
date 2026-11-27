@@ -2,7 +2,7 @@
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import Link from '@gaudi/design-system/core/Link';
 import {
@@ -11,13 +11,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { InputGroupButton } from '@gaudi/design-system/core/Input';
@@ -39,7 +33,7 @@ import {
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellFrame, AppShellHeader, AppShellPanel } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import { Item, ItemContent, ItemDescription, ItemTitle } from '@gaudi/design-system/core/Item';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { ChatModelSelect } from '@gaudi/design-system/chat/ChatInput';
 import { ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
@@ -77,7 +71,27 @@ const prompts = [
 ];
 const user = { name: 'Amira Haddad', status: 'Reader · 3 notebooks', photo: '/avatars/person-20.svg' };
 
-function Brand() {
+const extracts = {
+  'spaced-repetition': ['Memory notebook', 'Compare the tested intervals, the time to the final test and what the participants had to recall. A shorter first interval can improve early recall without improving retention a month later.'],
+  'attention-notes': ['Attention reading group', 'The group marked the passage on self-attention. Sketch how each token draws information from the other positions before comparing it with recurrence.'],
+  'stoicism-highlights': ['Stoicism highlights', 'The highlighted passages distinguish what a reader can judge or choose from events outside their control. Compare one passage from each author.'],
+  'printing-press': ['History of print notebook', 'Start with movable type in East Asia, then compare Gutenberg’s Mainz workshop with the spread of print shops in fifteenth-century Europe.'],
+  'shallows-claims': ['The Shallows reading notes', 'The reading group marked an argument about interruptions and sustained attention. Compare the author’s examples with the evidence cited in the chapter.'],
+  'urban-gardens': ['Field notes on gardens', 'The shared beds near the library have a watering rota and a seed exchange. Compare how each changes the work volunteers do.'],
+  'lit-review': ['Research methods notebook', 'Group the papers by the question they answer, then compare settings, methods and limitations before drawing a conclusion.']
+};
+const history = Object.fromEntries([...pinnedSeed, ...recentSeed].map(item => [item.id, [
+  { id: 'question', role: 'user', text: item.label },
+  { id: 'answer', role: 'assistant', text: extracts[item.id][1], source: item.id }
+]]));
+const readingLists = {
+  'saved-articles': ['attention-notes', 'printing-press', 'shallows-claims', 'spaced-repetition'],
+  highlights: ['stoicism-highlights', 'urban-gardens'],
+  'saved-searches': ['lit-review', 'printing-press']
+};
+
+function Brand({ onNew }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <div className='flex items-center gap-2 group-data-[collapsible=icon]:flex-col'>
       <Link
@@ -85,7 +99,7 @@ function Brand() {
         href='#new-chat'
         aria-label='Gaudi Research'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) px-1 py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:px-0'
-        onClick={(event) => event.preventDefault()}
+        onClick={event => { event.preventDefault(); onNew(); if (isMobile) setOpenMobile(false); }}
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Research</span></span>
@@ -180,7 +194,7 @@ function PinnedThreads({ items, value, onValueChange }) {
                     <span className='truncate font-medium'>{item.label}</span>
                     <span className='text-text-muted flex items-center gap-1.5 text-xs font-normal'>
                       <Badge variant='outline' size='xs' className='font-normal'>{item.model}</Badge>
-                      <span aria-hidden='true' className='bg-text-muted/60 size-1 rounded-full' />
+                      <span aria-hidden='true'>·</span>
                       {item.count} {item.count === 1 ? 'turn' : 'turns'}
                     </span>
                   </span>
@@ -194,9 +208,9 @@ function PinnedThreads({ items, value, onValueChange }) {
   );
 }
 
-function UserMenu({ onNewChat }) {
-  const { isMobile } = useSidebar();
-  const [theme, setTheme] = useState('system');
+function UserMenu({ onNewChat, onLibrary }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const act = action => { action(); if (isMobile) setOpenMobile(false); };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -208,7 +222,7 @@ function UserMenu({ onNewChat }) {
                   <AvatarImage src={user.photo} alt='' className='rounded-full' />
                   <AvatarFallback className='rounded-full'>AH</AvatarFallback>
                 </Avatar>
-                <span aria-hidden='true' className='bg-success ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2.5 rounded-full ring-2' />
+                <StatusDot className='absolute -end-0.5 -bottom-0.5 size-2.5 bg-success ring-2 ring-ui-sidebar' />
               </span>
               <span className='grid min-w-0 leading-tight'>
                 <span className='truncate font-semibold'>{user.name}</span>
@@ -223,44 +237,9 @@ function UserMenu({ onNewChat }) {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem onSelect={onNewChat}>
-                <RegistryIcon lucide='Plus' aria-hidden='true' />
-                New question
-                <DropdownMenuShortcut>⌘N</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Library' aria-hidden='true' />
-                Open library
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Quote' aria-hidden='true' />
-                Citation style
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Keyboard' aria-hidden='true' />
-                Keyboard shortcuts
-              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => act(onNewChat)}><RegistryIcon lucide='Plus' aria-hidden='true' />New question</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => act(onLibrary)}><RegistryIcon lucide='Library' aria-hidden='true' />Open library</DropdownMenuItem>
             </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <RegistryIcon lucide='Palette' aria-hidden='true' />
-                Theme
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                  <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -268,7 +247,7 @@ function UserMenu({ onNewChat }) {
   );
 }
 
-function ChatHeader({ model, onModelChange }) {
+function ChatHeader({ model, onModelChange, canSave, saved, onSave }) {
   const { isMobile, state } = useSidebar();
   return (
     <AppShellHeader>
@@ -287,16 +266,16 @@ function ChatHeader({ model, onModelChange }) {
         size='sm'
         contentClassName='w-72'
       />
-      <Button variant='ghost' size='sm' className='ms-auto'>
+      <Button variant='ghost' size='sm' className='ms-auto' disabled={!canSave} aria-pressed={saved} onClick={onSave}>
         <RegistryIcon lucide='Book' aria-hidden='true' />
-        Save to notebook
+        {saved ? 'Saved to notebook' : 'Save to notebook'}
       </Button>
     </AppShellHeader>
   );
 }
 
 function Composer({ model, draft, onDraftChange, onSend }) {
-  const [search, setSearch] = useState(false);
+  const [files, setFiles] = useState([]);
   const current = models.find((entry) => entry.value === model);
   return (
     <div className='bg-ui-background sticky bottom-0 z-1 px-4 pt-2 pb-3'>
@@ -304,7 +283,11 @@ function Composer({ model, draft, onDraftChange, onSend }) {
         className='mx-auto w-full max-w-2xl [&_[data-slot=prompt-composer-footer]]:text-center'
         value={draft}
         onValueChange={onDraftChange}
-        onSubmit={onSend}
+        onSubmit={(text, details) => { onSend(text, details.attachments); setFiles([]); }}
+        attachments={files}
+        accept='application/pdf'
+        onAttach={picked => setFiles(list => [...list, ...picked.map(file => ({ id: crypto.randomUUID(), name: file.name, size: file.size }))])}
+        onRemoveAttachment={id => setFiles(list => list.filter(entry => entry.id !== id))}
         labels={{ message: 'Ask your library', placeholder: 'Ask about anything you have saved…', send: 'Ask' }}
         toolbar={
           <>
@@ -315,41 +298,26 @@ function Composer({ model, draft, onDraftChange, onSend }) {
                 </InputGroupButton>
               </DropdownMenuTrigger>
               <DropdownMenuContent side='top' align='start' className='w-44'>
-                <DropdownMenuItem>
-                  <RegistryIcon lucide='Upload' aria-hidden='true' />
-                  Attach a PDF
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <RegistryIcon lucide='Bookmark' aria-hidden='true' />
-                  Cite a bookmark
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <RegistryIcon lucide='FileText' aria-hidden='true' />
-                  Quote a note
-                </DropdownMenuItem>
+                {Object.entries(extracts).map(([key, [label]]) => (
+                  <DropdownMenuItem key={key} onSelect={() => onDraftChange([draft, label].filter(Boolean).join(' '))}>{label}</DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
-            <InputGroupButton size='sm' aria-pressed={search} aria-label='Only cited answers' className='aria-pressed:bg-ui-accent aria-pressed:text-accent' onClick={() => setSearch((on) => !on)}>
-              <RegistryIcon lucide='Quote' />
-              Cite
-            </InputGroupButton>
           </>
         }
         actions={
           <>
             <span className='text-text-muted hidden px-1 font-mono text-xs @md:inline'>{current?.label}</span>
-            <InputGroupButton size='icon-sm' aria-label='Dictate a question'>
-              <RegistryIcon lucide='Mic' />
-            </InputGroupButton>
+
           </>
         }
-        footer='Answers quote your sources. Open them before you rely on a claim.'
+        footer='Answers use passages from the example library.'
       />
     </div>
   );
 }
 
-function Thread({ turns, model }) {
+function Thread({ turns, model, onSource }) {
   const current = models.find((entry) => entry.value === model);
   return (
     <section aria-label='Conversation' className='mx-auto grid w-full max-w-2xl gap-6 px-4 py-6'>
@@ -371,6 +339,7 @@ function Thread({ turns, model }) {
             <ChatMessageContent>
               <span className='sr-only'>{current?.label}:</span>
               <ChatMessageParts parts={[{ type: 'text', text: turn.text }]} />
+              {turn.source && <Button size='sm' variant='link' onClick={() => onSource(turn.source)}>{extracts[turn.source][0]}</Button>}
             </ChatMessageContent>
           </ChatMessage>
         )
@@ -379,60 +348,61 @@ function Thread({ turns, model }) {
   );
 }
 
-const replyTo = (model) => `Answered in **${model}** mode: I found 4 relevant passages. Here is a short synthesis with the sources linked; ask me to go deeper on any of them.`;
+const sourceFor = text => {
+  const query = text.toLowerCase();
+  const topics = [['memory|recall|repetition', 'spaced-repetition'], ['attention|transformer', 'attention-notes'], ['stoic|highlight', 'stoicism-highlights'], ['print', 'printing-press'], ['shallows', 'shallows-claims'], ['garden', 'urban-gardens'], ['research|draft|literature|compare', 'lit-review']];
+  return topics.find(([keywords, id]) => new RegExp(keywords).test(query) || query.includes(extracts[id][0].toLowerCase()))?.[1];
+};
 
 export function Pattern() {
   const [model, setModel] = useState('library');
   const [thread, setThread] = useState(null);
-  const [pinned, setPinned] = useState(pinnedSeed);
+  const [pinned, setPinned] = useState(pinnedSeed.map(entry => ({ ...entry, count: history[entry.id].length })));
   const [recent, setRecent] = useState(recentSeed);
   const [draft, setDraft] = useState('');
-  const [turns, setTurns] = useState([]);
+  const [threads, setThreads] = useState(history);
+  const [saved, setSaved] = useState([]);
+  const [sourceId, setSourceId] = useState(null);
+  const turns = threads[thread] ?? [];
   const modelLabel = models.find((entry) => entry.value === model)?.label;
-  const newChat = () => {
-    setThread(null);
-    setTurns([]);
-    setDraft('');
-  };
-  const openThread = (id) => {
-    setThread(id);
-    setTurns([]);
-  };
-  const send = (text) => {
-    if (!text) return;
-    const stamp = turns.length;
-    setThread(null);
-    setTurns((list) => [
-      ...list,
-      { id: `user-${stamp}`, role: 'user', text },
-      { id: `assistant-${stamp}`, role: 'assistant', text: replyTo(modelLabel) }
-    ]);
-    setDraft('');
+  const openThread = id => { setThread(id); setDraft(''); setSourceId(null); };
+  const newChat = () => openThread(null);
+  const toggleSaved = id => setSaved(list => list.includes(id) ? list.filter(key => key !== id) : [...list, id]);
+  const entries = [...pinned, ...recent];
+  const collection = sources.find(item => item.id === thread);
+  const collectionItems = thread === 'notebooks' ? saved : readingLists[thread] || [];
+  const send = (text, attachments) => {
+    if (!text && !attachments.length) return;
+    const id = turns.length ? thread : crypto.randomUUID();
+    const question = [text, ...attachments.map(file => file.name)].filter(Boolean).join(' · ');
+    const source = sourceFor(question);
+    const response = source ? extracts[source][1] : 'No matching passage in this example library. Try a saved source from the composer.';
+    const stamp = crypto.randomUUID();
+    if (!turns.length) setRecent(list => [{ id, label: text || question, icon: 'MessageSquare' }, ...list]);
+    setThreads(list => ({ ...list, [id]: [...(list[id] || []), { id: 'user-' + stamp, role: 'user', text: question }, { id: 'answer-' + stamp, role: 'assistant', text: response, source }] }));
+    openThread(id);
   };
   const pin = (item) => {
     setRecent((list) => list.filter((entry) => entry.id !== item.id));
-    setPinned((list) => [...list, { ...item, model: modelLabel, count: 1 }]);
+    setPinned((list) => [...list, { ...item, model: modelLabel, count: threads[item.id]?.length || 0 }]);
   };
   const recentActions = (item) => (
     <>
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
-      <DropdownMenuItem>
+      <DropdownMenuItem onSelect={() => toggleSaved(item.id)}>
         <RegistryIcon lucide='Book' aria-hidden='true' />
-        Save to notebook
+        {saved.includes(item.id) ? 'Remove from notebook' : 'Save to notebook'}
       </DropdownMenuItem>
       <DropdownMenuItem onSelect={() => pin(item)}>
         <RegistryIcon lucide='Pin' aria-hidden='true' />
         Pin question
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Copy' aria-hidden='true' />
-        Copy Link
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
         variant='destructive'
         onSelect={() => {
           setRecent((list) => list.filter((entry) => entry.id !== item.id));
+          setSaved(list => list.filter(id => id !== item.id));
           if (thread === item.id) newChat();
         }}
       >
@@ -447,29 +417,35 @@ export function Pattern() {
       <SidebarProvider shortcut={false}>
         <Sidebar variant='floating' collapsible='icon'>
           <SidebarHeader>
-            <Brand />
+            <Brand onNew={newChat} />
             <NewChatButton onClick={newChat} />
           </SidebarHeader>
           <SidebarContent role='navigation' aria-label='Research'>
             <ModelGrid model={model} onChange={setModel} />
             <PinnedThreads items={pinned} value={thread} onValueChange={openThread} />
-            <AppShellNav label='Sources' items={sources} value={thread} onValueChange={openThread} />
+            <AppShellNav label='Sources' items={sources.map(item => ({ ...item, badge: { label: item.id === 'notebooks' ? saved.length : readingLists[item.id].length, variant: 'plain' } }))} value={thread} onValueChange={openThread} />
             <AppShellNav label='Recent questions' hideOnRail items={recent} value={thread} onValueChange={openThread} actions={recentActions} />
           </SidebarContent>
           <SidebarFooter>
-            <UserMenu onNewChat={newChat} />
+            <UserMenu onNewChat={newChat} onLibrary={() => openThread('saved-articles')} />
           </SidebarFooter>
         </Sidebar>
         <AppShellPanel inset={false} className='m-2 ms-0 rounded-(--ds-radius-card) border in-data-[compact=true]:m-0 in-data-[compact=true]:rounded-none in-data-[compact=true]:border-0'>
-          <ChatHeader model={model} onModelChange={setModel} />
+          <ChatHeader model={model} onModelChange={setModel} canSave={Boolean(turns.length)} saved={saved.includes(thread)} onSave={() => toggleSaved(thread)} />
           <div className='flex flex-1 flex-col'>
-            {thread ? (
-              <div className='flex flex-1 flex-col px-4 pt-4'>
-                <h2 className='sr-only'>{[...pinned, ...recent, ...sources].find((entry) => entry.id === thread)?.label}</h2>
-                <div aria-hidden='true' className='flex min-h-0 flex-1 flex-col gap-4 p-4'><Skeleton className='ms-auto h-10 w-1/2' /><Skeleton className='h-24 w-3/4' /><Skeleton className='ms-auto h-10 w-1/3' /><Skeleton className='h-40 w-full' /></div>
-              </div>
+            {sourceId ? (
+              <section className='mx-auto grid w-full max-w-2xl gap-3 p-5'><Button size='sm' variant='link' className='w-fit px-0' onClick={() => setSourceId(null)}>Back</Button>
+                <h2 className='text-xl font-semibold'>{extracts[sourceId][0]}</h2><blockquote className='border-ui-border border-s-2 ps-4'>{extracts[sourceId][1]}</blockquote>
+              </section>
+            ) : collection ? (
+              <section className='mx-auto grid w-full max-w-2xl gap-3 p-5'><h2 className='text-xl font-semibold'>{collection.label}</h2>
+                {collectionItems.length ? <ul className='grid gap-2'>{collectionItems.map(id => <li key={id}><Item asChild variant='outline'><button type='button' className='w-full text-start'
+                  onClick={() => thread === 'notebooks' ? openThread(id) : setSourceId(id)}><ItemContent><ItemTitle>{thread === 'notebooks' ? entries.find(entry => entry.id === id)?.label : extracts[id][0]}</ItemTitle>
+                    <ItemDescription>{thread === 'notebooks' ? threads[id]?.[1]?.text : extracts[id][1]}</ItemDescription></ItemContent></button></Item></li>)}</ul> :
+                  <EmptyState compact title='No saved answers' description='Save an answer from a research question to find it here.' />}
+              </section>
             ) : turns.length ? (
-              <Thread turns={turns} model={model} />
+              <Thread turns={turns} model={model} onSource={setSourceId} />
             ) : (
               <EmptyState
                 className='max-w-2xl pt-12'
@@ -492,7 +468,7 @@ export function Pattern() {
               />
             )}
           </div>
-          <Composer model={model} draft={draft} onDraftChange={setDraft} onSend={send} />
+          <Composer key={thread || 'new'} model={model} draft={draft} onDraftChange={setDraft} onSend={send} />
         </AppShellPanel>
       </SidebarProvider>
     </AppShellFrame>

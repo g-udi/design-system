@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 import { createContext, useContext } from 'react';
 import { cn } from '../../../utilities/cn';
 import { Calendar, CalendarDayButton } from '../../core/Calendar/Calendar.jsx';
@@ -32,7 +33,7 @@ function MarkerDayButton({ children, day, modifiers, ...props }) {
       {tones.length ? (
         <span data-slot='schedule-markers' className='flex h-1 gap-0.5'>
           {tones.slice(0, 3).map((tone, index) => (
-            <span key={index} aria-hidden='true' className={cn('size-1 rounded-full', modifiers.selected ? 'bg-current' : dotClass[tone] || dotClass.neutral)} />
+            <StatusDot key={index} className={cn('size-1', modifiers.selected ? 'bg-current' : dotClass[tone] || dotClass.neutral)} />
           ))}
           <span className='sr-only'>, {markerLabel(tones)}</span>
         </span>

@@ -119,26 +119,38 @@ export const linkPreviewExamples = {
 
 export const linkPreviewKindNames = Object.keys(linkPreviewExamples);
 
-const page = (title, body) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title><style>
+const page = (title, body) => `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<base href="about:srcdoc"><title>${title}</title><style>
   :root { color-scheme: light; font-family: ui-sans-serif, system-ui, sans-serif; }
   body { margin: 0; color: #1c1917; background: #fafaf9; }
-  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid #e7e5e4; background: #fff; }
-  header strong { font-size: 15px; }
-  nav { display: flex; gap: 16px; font-size: 14px; }
-  nav a { color: #57534e; text-decoration: none; }
-  main { max-width: 880px; margin: 0 auto; padding: 48px 24px; }
-  h1 { font-size: clamp(28px, 6vw, 44px); line-height: 1.1; margin: 0 0 16px; }
-  p { color: #57534e; line-height: 1.6; max-width: 60ch; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 32px; }
-  .card { padding: 20px; border: 1px solid #e7e5e4; border-radius: 4px; background: #fff; }
-  .card b { display: block; font-size: 22px; margin-bottom: 4px; }
-  button { margin-top: 24px; padding: 10px 18px; border: 0; border-radius: 4px; background: #0f766e; color: #fff; font-size: 15px; }
-</style></head><body><header><strong>Reading Digest</strong><nav><a href="#">Issues</a><a href="#">Pricing</a><a href="#">Sign in</a></nav></header><main>${body}</main></body></html>`;
+  header { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid #e7e5e4; }
+  main { max-width: 64ch; margin: 0 auto; padding: 32px 24px; }
+  h1 { font: 600 clamp(28px, 6vw, 44px)/1.1 Georgia, serif; margin: 0 0 16px; }
+  p, li { color: #57534e; line-height: 1.6; }
+  nav ul { padding-inline-start: 20px; }
+  a { color: #0f625b; }
+  section { margin-block: 24px; }
+  h2 { font: 600 22px/1.2 Georgia, serif; }
+</style></head><body><header><strong>Reading Digest</strong><span>Sunday edition</span></header><main>${body}</main></body></html>`;
+
+export const issueHtml = `<h1>A reading list for design engineers</h1>
+<p>This week’s issue follows a keyboard shortcut and a screen-reader announcement from prototype to release.</p>
+<nav aria-label="In this issue"><ul>
+  <li><a href="#shortcuts">Keyboard shortcuts across platforms</a></li>
+  <li><a href="#announcements">Announcing a completed task</a></li>
+</ul></nav>
+<section id="shortcuts"><h2>Keyboard shortcuts across platforms</h2>
+  <p>Use the platform modifier in the hint. Keep a visible button beside the field so readers can run the same action with a pointer.</p>
+</section>
+<section id="announcements"><h2>Announcing a completed task</h2>
+  <p>Keep the status region in the document before the action starts. Update its text after completion so the reader hears the result without losing focus.</p>
+</section>`;
 
 /** Generated pages keyed by address, as an assistant would return them. */
 export const generatedPages = {
-  'https://preview.gaudi.dev/': page('Reading Digest', '<h1>One calm email of the week’s best writing.</h1><p>Hand-picked essays on design systems, data and engineering, every Sunday morning. No tracking, no noise.</p><button>Subscribe free</button><div class="grid"><div class="card"><b>12k</b>readers</div><div class="card"><b>5 min</b>a week</div><div class="card"><b>186</b>issues so far</div></div>'),
-  'https://preview.gaudi.dev/pricing': page('Pricing · Reading Digest', '<h1>Pricing</h1><p>The digest is free. Supporters fund the archive and get the annotated edition.</p><div class="grid"><div class="card"><b>Free</b>The Sunday digest</div><div class="card"><b>$4/mo</b>Annotated edition and full archive</div></div>')
+  'https://preview.gaudi.dev/': page('Reading Digest', issueHtml),
+  'https://preview.gaudi.dev/pricing': page('Pricing · Reading Digest', '<h1>Pricing</h1><p>Every reader gets the Sunday issue. Supporters also receive the editor’s notes.</p><section><h2>Free</h2><p>The weekly reading list and links to the original sources.</p></section><section><h2>Supporter · $4 a month</h2><p>The annotated edition and full archive of previous issues.</p></section>')
 };
 
 /** srcDoc resolver for WebPreview: generated HTML for known addresses, a not-found page otherwise. */

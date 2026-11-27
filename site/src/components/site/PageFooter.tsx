@@ -1,3 +1,4 @@
+import { cardVariants } from '@gaudi/design-system/core/Card';
 import Link from 'next/link';
 import type { Item } from 'fumadocs-core/page-tree';
 import Button from '@gaudi/design-system/core/Button';
@@ -8,7 +9,7 @@ const formatDate = (iso: string) => new Intl.DateTimeFormat('en-GB', { dateStyle
 function NeighbourCard({ item, direction }: { item: Item; direction: 'previous' | 'next' }) {
   const next = direction === 'next';
   return (
-    <Link href={item.url} className={`site-card ${next ? 'sm:col-start-2 sm:items-end sm:text-end' : ''}`} data-plain rel={next ? 'next' : 'prev'}>
+    <Link href={item.url} className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: `site-card ${next ? 'sm:col-start-2 sm:items-end sm:text-end' : ''}` })} data-plain rel={next ? 'next' : 'prev'}>
       <span className='inline-flex items-center gap-1 text-xs text-text-muted'>
         {next ? null : <Icon name='ArrowLeft' decorative size='xs' className='rtl:-scale-x-100' />}
         {next ? 'Next' : 'Previous'}

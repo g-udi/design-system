@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useId, useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
@@ -45,10 +46,10 @@ const statuses = [
 ];
 
 const priorities = [
-  { id: 'none', label: 'No priority', bars: 0 },
-  { id: 'low', label: 'Low', bars: 1 },
-  { id: 'medium', label: 'Medium', bars: 2 },
-  { id: 'high', label: 'High', bars: 3 },
+  { id: 'none', label: 'No priority', icon: 'MoreHorizontal' },
+  { id: 'low', label: 'Low', icon: 'ArrowDown' },
+  { id: 'medium', label: 'Medium', icon: 'Minus' },
+  { id: 'high', label: 'High', icon: 'ArrowUp' },
   { id: 'urgent', label: 'Urgent', urgent: true }
 ];
 
@@ -92,24 +93,6 @@ function Glyph({ icon, className }) {
   return <RegistryIcon lucide={icon} className={cn('size-4 shrink-0', className)} />;
 }
 
-function PriorityBars({ bars }) {
-  return (
-    <svg aria-hidden='true' viewBox='0 0 16 16' className='size-4 shrink-0'>
-      {[0, 1, 2].map((bar) => (
-        <rect
-          key={bar}
-          x={3 + bar * 4}
-          y={9 - bar * 3}
-          width='2.5'
-          height={4 + bar * 3}
-          rx='1'
-          fill='currentColor'
-          opacity={bar < bars ? 1 : 0.28}
-        />
-      ))}
-    </svg>
-  );
-}
 
 function PriorityLabel({ priority }) {
   if (priority.urgent) {
@@ -122,7 +105,7 @@ function PriorityLabel({ priority }) {
   }
   return (
     <Row>
-      {priority.bars ? <PriorityBars bars={priority.bars} /> : <Glyph icon='MoreHorizontalIcon' className='text-text-muted' />}
+      <Glyph icon={priority.icon} className='text-text-muted' />
       <span className='truncate'>{priority.label}</span>
     </Row>
   );
@@ -163,10 +146,6 @@ function PersonRow({ person }) {
   );
 }
 
-function LabelDot({ label }) {
-  return <span aria-hidden='true' className={cn('size-2.5 shrink-0 rounded-full', label.dot)} />;
-}
-
 function MembersSummary({ members }) {
   if (!members.length) {
     return (
@@ -205,7 +184,7 @@ function LabelsSummary({ selected }) {
   if (selected.length === 1) {
     return (
       <Row>
-        <LabelDot label={selected[0]} />
+        <StatusDot className={cn('size-2.5', selected[0].dot)} />
         <span className='truncate'>{selected[0].label}</span>
       </Row>
     );
@@ -214,7 +193,7 @@ function LabelsSummary({ selected }) {
     <Row className='gap-1'>
       <span className='sr-only'>Selected labels: {selected.map((l) => l.label).join(', ')}</span>
       {selected.slice(0, 3).map((label) => (
-        <LabelDot key={label.id} label={label} />
+        <StatusDot key={label.id} className={cn('size-2.5', label.dot)} />
       ))}
       <span className='text-text-muted ml-1 text-xs tabular-nums'>{selected.length} labels</span>
     </Row>
@@ -404,7 +383,7 @@ export function Pattern() {
         {labels.map((label) => (
           <ComboboxItem key={label.id} value={label}>
             <Row>
-              <LabelDot label={label} />
+              <StatusDot className={cn('size-2.5', label.dot)} />
               {label.label}
             </Row>
           </ComboboxItem>

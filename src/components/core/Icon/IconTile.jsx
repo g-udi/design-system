@@ -12,6 +12,7 @@ const iconTileVariants = cva(
       variant: {
         /** Plain bordered surface. The quiet default for list rows and toolbars. */
         outline: 'border border-ui-border bg-ui-background dark:bg-ui-input/32',
+        muted: 'bg-ui-muted text-ui-muted-foreground',
         /** Raised muted fill with a background-colored ring. Reads as a physical chip. */
         elevated:
           'border-2 border-ui-background bg-ui-muted text-ui-accent-foreground shadow-[var(--ds-shadow-card)] dark:border',

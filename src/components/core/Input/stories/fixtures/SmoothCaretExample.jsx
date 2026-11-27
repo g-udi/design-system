@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react';
 import { InputConfigProvider } from '@gaudi/design-system/context';
-import { Field, FieldLabel, FieldDescription, FieldError } from '@gaudi/design-system/core/Field';
+import { Label, Field, FieldLabel, FieldDescription, FieldError } from '@gaudi/design-system/core/Field';
 import Switch from '@gaudi/design-system/core/Switch';
 import Button from '@gaudi/design-system/core/Button';
 import Textarea from '@gaudi/design-system/core/Textarea';
@@ -17,7 +17,7 @@ export function SmoothCaretExample() {
     <InputConfigProvider caretMode={smooth ? 'smooth' : 'native'}>
       <div className='grid w-full max-w-xl gap-5'>
         <div className='flex items-center justify-between gap-4'>
-          <label htmlFor={switchId} className='text-sm font-medium'>Smooth caret</label>
+          <Label htmlFor={switchId} className='text-sm font-medium'>Smooth caret</Label>
           <Switch id={switchId} checked={smooth} onCheckedChange={setSmooth} />
         </div>
         <Field>

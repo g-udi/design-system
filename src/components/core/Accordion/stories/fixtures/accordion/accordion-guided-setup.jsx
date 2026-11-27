@@ -1,3 +1,5 @@
+import Link from '@gaudi/design-system/core/Link';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useId, useState } from 'react';
 import { AccordionGroup } from '@gaudi/design-system/core/Accordion';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -52,14 +54,12 @@ export function Pattern() {
                 <div className='flex flex-wrap items-start gap-3'>
                   <p className='min-w-0 flex-[1_1_180px]'>
                     Scan to read the package guide on another device, or{' '}
-                    <a
-                      className='text-accent underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2'
+                    <Link
+                      tone='accent'
                       href='https://github.com/g-udi/design-system'
-                      target='_blank'
-                      rel='noreferrer'
                     >
                       open the setup guide
-                    </a>
+                    </Link>
                     .
                   </p>
                   <img
@@ -96,7 +96,7 @@ export function Pattern() {
                   setSaved(true);
                 }}
               >
-                <label htmlFor={nameId}>Display name</label>
+                <Label htmlFor={nameId}>Display name</Label>
                 <Input
                   id={nameId}
                   required

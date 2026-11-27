@@ -58,8 +58,8 @@ Curated patterns:
 - Inside a dialog — registry item `@gaudi/popover-in-dialog` (uses `Button`, `DialogContent`, `DialogDescription`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `HoverCard`, `HoverCardContent`, `HoverCardTrigger`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`)
 - Paged content — registry item `@gaudi/popover-paged` (uses `Badge`, `Button`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTriggerPrimitive`, `RegistryIcon`)
 - Sides and alignment — registry item `@gaudi/popover-placement` (uses `Button`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`)
-- Rich content — registry item `@gaudi/popover-rich` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Link`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`)
-- Settings form — registry item `@gaudi/popover-settings-form` (uses `Button`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Slider`, `SwitchRoot`)
+- Rich content — registry item `@gaudi/popover-rich` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `PopoverContentPrimitive`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`)
+- Settings form — registry item `@gaudi/popover-settings-form` (uses `Button`, `FieldGroup`, `FieldInput`, `FieldLabelPrimitive`, `FieldRoot`, `Label`, `PopoverContentPrimitive`, `PopoverDescription`, `PopoverHeader`, `PopoverPrimitive`, `PopoverTitle`, `PopoverTriggerPrimitive`, `RegistryIcon`, `Slider`, `SwitchRoot`)
 
 ## README
 

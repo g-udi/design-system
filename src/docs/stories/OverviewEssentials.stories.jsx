@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import Icon from '../../components/core/Icon';
 import Pill from '../../components/core/Pill';
 import Typography from '../../foundations/Typography';
@@ -10,14 +11,14 @@ export default {
   parameters: { layout: 'fullscreen' }
 };
 
-const reference = (id, label) => <a className='gaudi-guide-reference' href={`./?path=/story/${id}`} target='_top'>{label}</a>;
+const reference = (id, label) => <Link variant='bare' className='gaudi-guide-reference' href={`./?path=/story/${id}`} target='_top'>{label}</Link>;
 
 export const Essentials = {
   name: 'Essentials',
   render: () => (
     <Page compact title='Essentials' intro='The shared foundations for a consistent interface. Start here, then use each component’s documented variants and states.'>
       <nav aria-label='On this page' className='gaudi-guide-anchors'>
-        <a href='#colors-and-theme'>Colors & theme</a><a href='#typography'>Typography</a><a href='#icons'>Icons</a><a href='#states'>States</a><a href='#accessibility'>Accessibility</a>
+        <Link variant='bare' href='#colors-and-theme'>Colors & theme</Link><Link variant='bare' href='#typography'>Typography</Link><Link variant='bare' href='#icons'>Icons</Link><Link variant='bare' href='#states'>States</Link><Link variant='bare' href='#accessibility'>Accessibility</Link>
       </nav>
       <Section id='colors-and-theme' title='Colors & theme' description='Use semantic tokens for surfaces, text, borders, and actions. Keep light and dark themes aligned with the same roles.'>
         <div className='gaudi-essential-swatches'>

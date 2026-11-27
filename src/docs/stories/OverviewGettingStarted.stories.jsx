@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import packageJson from '../../../package.json';
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
 
@@ -27,7 +28,7 @@ export const Default = {
             [ '3', 'Verify the boundary', 'Keep product data and policy in the application, then run the documented checks.' ]
           ].map(([ number, title, description ]) => (
             <li key={ number } className='flex gap-3 px-1 py-4 md:px-5 md:first:pl-0'>
-              <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-control bg-blue-50 text-xs font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300'>{number}</span>
+              <IconTile size='xs' radius='full' variant='solid' className='size-7 bg-accent-subtle text-xs font-bold text-accent'>{number}</IconTile>
               <span>
                 <strong className='block text-sm text-gray-950 dark:text-white'>{title}</strong>
                 <span className='mt-1 block text-xs leading-5 text-gray-600 dark:text-gray-300'>{description}</span>

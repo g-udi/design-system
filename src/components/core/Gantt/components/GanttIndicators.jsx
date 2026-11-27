@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../Pill/StatusDot.jsx';
 import { useNow } from '../../../../hooks/shared/use-now.js';
 import { useGanttSelector, useGanttViewConfig } from '../Gantt.jsx';
 import { resolveEventBaseline } from '../ganttModel.jsx';
@@ -21,10 +22,9 @@ function GanttNowDot({ rangeStartMs, rangeEndMs }) {
   if (ms < rangeStartMs || ms >= rangeEndMs) return null;
   const fraction = (ms - rangeStartMs) / (rangeEndMs - rangeStartMs);
   return (
-    <span
-      aria-hidden
+    <StatusDot
       data-slot='gantt-now-dot'
-      className='bg-ui-destructive absolute -bottom-0.75 z-10 size-1.5 -translate-x-1/2 rounded-full rtl:translate-x-1/2'
+      className='bg-ui-destructive absolute -bottom-0.75 z-10 size-1.5 -translate-x-1/2 rtl:translate-x-1/2'
       style={{ insetInlineStart: `${fraction * 100}%` }}
     />
   );

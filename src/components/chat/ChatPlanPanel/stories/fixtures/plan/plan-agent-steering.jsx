@@ -1,4 +1,5 @@
 'use client';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useId, useRef, useState } from 'react';
 import { ChatPlan } from '@gaudi/design-system/chat/ChatPlanPanel';
 import { ChatPromptQueue } from '@gaudi/design-system/chat/ChatInput';
@@ -72,7 +73,7 @@ export function Pattern() {
     <ChatPlan title='Revision plan' steps={steps} />
     <ChatPromptQueue items={run.queue} labels={{ title: 'Next-step notes', hint: run.paused ? 'Waiting until the run resumes.' : 'Picked up when the next step starts.', sendNow: 'Apply now' }} onEdit={(id, text) => setRun(current => ({ ...current, queue: current.queue.map(note => note.id === id ? { ...note, text } : note), notice: 'Queued note updated.' }))} onRemove={id => { setRun(current => ({ ...current, queue: current.queue.filter(note => note.id !== id), notice: 'Note removed from the queue.' })); focusInput(); }} onSendNow={run.paused || done ? undefined : applyQueued} />
     <form className='grid min-w-0 gap-2' onSubmit={event => { event.preventDefault(); submit(); }}>
-      <label htmlFor={fieldId} className='text-sm font-medium'>{done ? 'Run complete' : 'Steer the agent'}</label>
+      <Label htmlFor={fieldId} className='text-sm font-medium'>{done ? 'Run complete' : 'Steer the agent'}</Label>
       <Textarea ref={inputRef} id={fieldId} value={draft} disabled={done} rows={3} maxLength={1000} aria-describedby={hintId} placeholder={done ? 'Start another run to add instructions.' : finalStep ? 'Add an instruction for this final step…' : 'What should the agent do differently?'} className='min-h-24 w-full min-w-0' onChange={event => setDraft(event.target.value)} onKeyDown={event => {
         if (event.nativeEvent.isComposing || event.keyCode === 229) return;
         if (event.key === 'Escape') { event.preventDefault(); setDraft(''); }

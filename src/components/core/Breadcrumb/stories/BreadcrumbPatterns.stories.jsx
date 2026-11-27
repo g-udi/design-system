@@ -16,9 +16,11 @@ export const CollapsedPath = {
   ...pattern('collapsed-path', 'Middle levels fold into an ellipsis that opens a menu of the hidden pages.'),
   play: async ({ canvasElement }) => {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Toggle menu' }));
-    await expect(await within(document.body).findByRole('menuitem', { name: 'Documentation' })).toBeVisible();
+    const docs = await within(document.body).findByRole('menuitem', { name: 'Documentation' });
+    await expect(docs).toBeVisible();
+    await expect(docs).toHaveAttribute('href', 'https://design.gaudi.site/docs');
     await userEvent.keyboard('{Escape}');
   }
 };
 export const ContainedButtons = { name: 'Contained and button styles', ...pattern('contained-buttons', 'A trail inside a card, inside a frame, and built from ghost buttons.') };
-export const WorkspacePath = { name: 'Workspace, user and document', ...pattern('workspace-path', 'A rich header trail with avatars, secondary lines and a file glyph.') };
+export const WorkspacePath = { name: 'Workspace, repository and document', ...pattern('workspace-path', 'A rich header trail with avatars, secondary lines and a file glyph.') };

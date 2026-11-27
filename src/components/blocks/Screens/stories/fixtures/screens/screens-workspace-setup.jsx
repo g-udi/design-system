@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Field, FieldDescription, FieldError, FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { default as RadioGroup } from '@gaudi/design-system/core/RadioGroup';
@@ -46,7 +46,7 @@ function Preview({ name, role, workspace, picked }) {
   return (
     <section aria-label='Workspace preview' className='bg-surface-muted grid gap-3 rounded-lg border p-3 text-sm'>
       <div className='flex items-center gap-2'>
-        <span className='bg-accent text-accent-foreground grid size-7 place-items-center rounded-md text-xs font-semibold'>{(workspace || 'W')[0].toUpperCase()}</span>
+        <Avatar aria-hidden='true' shape='square' size='sm' name={workspace || 'Workspace'} label={(workspace || 'W')[0].toUpperCase()} />
         <span className='grid min-w-0'>
           <span className='truncate font-medium'>{workspace || 'Your workspace'}</span>
           <span className='text-text-muted truncate text-xs'>{slugify(workspace) || 'workspace'}.gaudi.app</span>
@@ -55,7 +55,7 @@ function Preview({ name, role, workspace, picked }) {
       <ul className='bg-surface grid divide-y rounded-md border'>
         {['Welcome to your inbox', 'Draft: Spring issue', 'Review: Field notes'].map((subject, index) => (
           <li key={subject} className='flex items-center gap-2 px-2.5 py-2'>
-            <span aria-hidden='true' className={index ? 'bg-border size-1.5 rounded-full' : 'bg-accent size-1.5 rounded-full'} />
+            <StatusDot className={index ? 'bg-border size-1.5' : 'bg-accent size-1.5'} />
             <span className='min-w-0 flex-1 truncate text-xs'>{subject}</span>
           </li>
         ))}

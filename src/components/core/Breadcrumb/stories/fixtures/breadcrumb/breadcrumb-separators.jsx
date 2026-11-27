@@ -19,13 +19,13 @@ function Trail({ label, separator }) {
     <Breadcrumb aria-label={`${label} breadcrumb`}>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+          <BreadcrumbLink href='https://design.gaudi.site'>Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className='flex items-center'>{separator}</BreadcrumbSeparator>
         <BreadcrumbItem>
           {/* asChild hands the styling to a router link such as next/link. */}
           <BreadcrumbLink asChild>
-            <a href='#'>Components</a>
+            <a href='https://design.gaudi.site/docs/components'>Components</a>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className='flex items-center'>{separator}</BreadcrumbSeparator>

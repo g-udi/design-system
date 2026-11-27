@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useEffect, useState } from 'react';
 import {
   formatBytes,
@@ -187,19 +188,12 @@ export function Pattern({
         <input {...getInputProps()} className='sr-only' />
 
         <div className='flex flex-col items-center gap-3'>
-          <div
-            className={cn(
-              'bg-ui-muted flex size-12 items-center justify-center rounded-control transition-colors',
-              isDragging
-                ? 'border-ui-primary bg-ui-primary/10'
-                : 'border-ui-muted-foreground/25'
-            )}
-          >
+          <IconTile aria-hidden='true' size='lg' variant='muted' className={isDragging ? 'bg-ui-primary/10 text-ui-primary' : undefined}>
             <RegistryIcon
               lucide='UploadIcon'
               className='text-ui-muted-foreground size-5'
             />
-          </div>
+          </IconTile>
 
           <div className='space-y-1'>
             <p className='text-sm font-medium'>

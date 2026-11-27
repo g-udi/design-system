@@ -35,8 +35,32 @@ export const ItemKinds = {
   }
 };
 export const Placement = { name: 'Side and alignment', ...pattern('placement') };
-export const AccountCreate = { name: 'Account and create menus', ...pattern('account-create', 'An app header: a create menu beside the account menu with a theme switch, presence status submenu, counts and sign out.') };
-export const Switchers = { name: 'Workspace and model switchers', ...pattern('switchers', 'The trigger shows the current choice; the menu marks it with a check.') };
+export const AccountCreate = {
+  name: 'Account and create menus',
+  ...pattern('account-create', 'Create a named record, choose appearance and presence, or end and resume the demo account.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = body(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'New' }));
+    await userEvent.click(await page.findByRole('menuitem', { name: 'New invoice' }));
+    const form = within(await page.findByRole('dialog', { name: 'New invoice' }));
+    await userEvent.type(form.getByRole('textbox', { name: 'Name' }), 'Autumn books');
+    await userEvent.click(form.getByRole('button', { name: 'Create' }));
+    await expect(canvas.getByRole('list', { name: 'Created records' })).toHaveTextContent('invoice · Autumn books');
+  }
+};
+export const Switchers = {
+  name: 'Workspace and model switchers',
+  ...pattern('switchers', 'Both switchers use the shared radio menu to expose the selected workspace or model.'),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const page = body(canvasElement);
+    await userEvent.click(canvas.getByRole('button', { name: 'Workspace: Harbor Labs' }));
+    await expect(await page.findByRole('menuitemradio', { name: /Harbor Labs/ })).toHaveAttribute('aria-checked', 'true');
+    await userEvent.click(page.getByRole('menuitemradio', { name: /Gaudi Studio/ }));
+    await expect(canvas.getByRole('button', { name: 'Workspace: Gaudi Studio' })).toBeVisible();
+  }
+};
 export const Notifications = {
   name: 'Notifications',
   ...pattern('notifications'),

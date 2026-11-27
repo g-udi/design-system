@@ -5,6 +5,7 @@ import Button from '@gaudi/design-system/core/Button';
 import { ButtonGroup } from '@gaudi/design-system/core/ButtonGroup';
 import DropdownMenu, { DropdownMenuItem, DropdownMenuSeparator } from '@gaudi/design-system/core/DropdownMenu';
 import Icon from '@gaudi/design-system/core/Icon';
+import { writeToClipboard } from '@gaudi/design-system/hooks';
 import { basePath } from '@/lib/nav';
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || '').replace(/\/$/, '');
@@ -21,10 +22,10 @@ async function copyFrom(url: string) {
   if (typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write) {
     try {
       await navigator.clipboard.write([new ClipboardItem({ 'text/plain': text.then((value) => new Blob([value], { type: 'text/plain' })) })]);
-      return;
-    } catch { /* fall back to writeText */ }
+      return true;
+    } catch { /* The shared text writer also supports embedded and local HTTP contexts. */ }
   }
-  await navigator.clipboard.writeText(await text);
+  return writeToClipboard(await text);
 }
 
 /** Copy Markdown, plus a menu to view it, open it in an assistant or view the page source. */
@@ -32,8 +33,7 @@ export function PageActions({ markdownUrl, sourceUrl }: { markdownUrl: string; s
   const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle');
   const copy = async () => {
     try {
-      await copyFrom(`${basePath}${markdownUrl}`);
-      setState('copied');
+      setState(await copyFrom(`${basePath}${markdownUrl}`) ? 'copied' : 'failed');
     } catch {
       setState('failed');
     }

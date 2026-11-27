@@ -1,3 +1,4 @@
+import { StatusDot } from '../Pill/StatusDot.jsx';
 import { cn } from '../../../utilities/cn';
 import {
   Timeline as TimelineRoot,
@@ -28,7 +29,7 @@ export default function Timeline({
               <TimelineHeader className='flex flex-wrap items-baseline justify-between gap-x-3 gap-y-0.5 pt-0.5'>
                 <TimelineSeparator className='bg-border group-data-[orientation=vertical]/timeline:-start-6 group-data-[orientation=vertical]/timeline:h-[calc(100%-2rem)] group-data-[orientation=vertical]/timeline:translate-y-7' />
                 <TimelineIndicator className='flex size-6 items-center justify-center border-0 bg-surface text-text-muted group-data-[orientation=vertical]/timeline:-start-6'>
-                  {item.icon || <span className='size-2 rounded-full bg-accent' />}
+                  {item.icon || <StatusDot className='size-2 bg-accent' />}
                 </TimelineIndicator>
                 <TimelineTitle asChild className='text-text'>
                   <span>{item.title}</span>

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -81,7 +81,7 @@ function TicketCard({ item, paused, isOverlay }) {
       <div className='flex items-center gap-2 text-xs text-text-muted'>
         <span className='tabular-nums'>{item.id}</span>
         <Badge variant={badge} size='sm' className='ms-auto gap-1'>
-          <span className={cn('size-1.5 rounded-full', dot)} aria-hidden='true' />
+          <StatusDot className={dot} />
           {item.priority}
         </Badge>
       </div>

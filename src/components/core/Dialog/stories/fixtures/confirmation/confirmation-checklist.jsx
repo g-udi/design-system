@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   DialogConfirmationRoot as DialogConfirmation,
@@ -75,9 +76,9 @@ export function Pattern() {
               className='border-border flex items-center justify-between rounded-md border border-dashed px-3 py-2'
             >
               <div className='flex items-center gap-2.5'>
-                <div className='bg-surface border-border flex size-7 items-center justify-center rounded-md border shadow-xs'>
+                <IconTile aria-hidden='true' size='xs'>
                   {item.icon}
-                </div>
+                </IconTile>
                 <div className='flex flex-col gap-0.5'>
                   <span className='text-sm font-medium'>{item.title}</span>
                   <span className='text-text-muted text-xs'>

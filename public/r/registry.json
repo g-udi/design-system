@@ -386,16 +386,14 @@
         "app-shell",
         "blocks"
       ],
-      "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-23.svg, /avatars/person-41.svg, /avatars/person-50.svg.",
+      "docs": "Copy-in block built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-23.svg.",
       "meta": {
         "owner": "blocks/AppShell",
         "import": "@gaudi/design-system/blocks/AppShell",
         "storyId": "blocks-application-appshell--crawler-control",
         "source": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-crawler-control.jsx",
         "assets": [
-          "/avatars/person-23.svg",
-          "/avatars/person-41.svg",
-          "/avatars/person-50.svg"
+          "/avatars/person-23.svg"
         ]
       },
       "files": [
@@ -1703,14 +1701,13 @@
         "breadcrumb",
         "core"
       ],
-      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg, static/images/art/4.svg.",
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/art/4.svg.",
       "meta": {
         "owner": "core/Breadcrumb",
         "import": "@gaudi/design-system/core/Breadcrumb",
         "storyId": "core-breadcrumb--icons-avatars",
         "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-icons-avatars.jsx",
         "assets": [
-          "/avatars/person-41.svg",
           "static/images/art/4.svg"
         ]
       },
@@ -1759,14 +1756,13 @@
         "breadcrumb",
         "core"
       ],
-      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-41.svg, static/images/art/4.svg.",
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): static/images/art/4.svg.",
       "meta": {
         "owner": "core/Breadcrumb",
         "import": "@gaudi/design-system/core/Breadcrumb",
         "storyId": "core-breadcrumb--workspace-path",
         "source": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-workspace-path.jsx",
         "assets": [
-          "/avatars/person-41.svg",
           "static/images/art/4.svg"
         ]
       },
@@ -4278,8 +4274,7 @@
       "title": "Input options",
       "description": "Input options. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
       "dependencies": [
-        "@gaudi/design-system",
-        "@base-ui/react@1.5.0"
+        "@gaudi/design-system"
       ],
       "categories": [
         "combobox",
@@ -6457,8 +6452,7 @@
       "title": "Image gallery with sorting",
       "description": "Image gallery with sorting. Core/Advanced Inputs/FileUpload pattern composed from @gaudi/design-system/core/FileUpload and other public Gaudi components; the components stay package imports.",
       "dependencies": [
-        "@gaudi/design-system",
-        "sonner@2.0.7"
+        "@gaudi/design-system"
       ],
       "categories": [
         "file-upload",
@@ -9611,7 +9605,7 @@
         "popover",
         "core"
       ],
-      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-44.svg, static/images/art/0.svg.",
+      "docs": "Copy-in pattern built on @gaudi/design-system; the components stay package imports. Load '@gaudi/design-system/global.css' once and add transpilePackages: ['@gaudi/design-system'] in Next.js. Until the package is on npm, install it from GitHub first: pnpm add github:g-udi/design-system. Demo assets referenced (supply your own or copy them into public/): /avatars/person-44.svg, /static/images/art/0.svg.",
       "meta": {
         "owner": "core/Popover",
         "import": "@gaudi/design-system/core/Popover",
@@ -9619,7 +9613,7 @@
         "source": "src/components/core/Popover/stories/fixtures/popover/popover-rich.jsx",
         "assets": [
           "/avatars/person-44.svg",
-          "static/images/art/0.svg"
+          "/static/images/art/0.svg"
         ]
       },
       "files": [

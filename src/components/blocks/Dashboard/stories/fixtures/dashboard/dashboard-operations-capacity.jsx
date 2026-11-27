@@ -5,7 +5,7 @@ import { StatCard } from '@gaudi/design-system/blocks/StatCard';
 import { Sparkline } from '@gaudi/design-system/charts/Sparkline';
 import { StackedBarList } from '@gaudi/design-system/charts/StackedBarList';
 import { GaugeChart } from '@gaudi/design-system/charts/GaugeChart';
-import { default as DataTable } from '@gaudi/design-system/core/DataTable';
+import { default as DataTable, downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
 import { default as FilterBar } from '@gaudi/design-system/core/FilterBar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -43,6 +43,8 @@ const modules = [
   { id: 'analytics', name: 'Analytics', owner: 'Data', health: 'Healthy', uptime: '99.9%', latency: [210, 205, 220, 215, 208, 212, 209] }
 ];
 
+const exportFields = ['id', 'title', 'severity', 'team', 'owner', 'age', 'status'].map((key) => ({ header: key, value: (row) => row[key] }));
+
 export function Pattern() {
   const [rows, setRows] = useState(initialExceptions);
   const [query, setQuery] = useState('');
@@ -64,7 +66,15 @@ export function Pattern() {
           <p className='text-text-muted text-xs'>Gaudi · Operations</p>
           <h2 className='text-xl font-semibold'>Capacity and exceptions</h2>
         </div>
-        <Button variant='outline' tone='neutral' size='sm'><RegistryIcon lucide='DownloadIcon' aria-hidden='true' />Export report</Button>
+        <Button
+          variant='outline'
+          tone='neutral'
+          size='sm'
+          onClick={() => downloadCsv(toCsv(visible, exportFields), 'capacity-exceptions.csv')}
+        >
+          <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
+          Export report
+        </Button>
       </header>
       <DashboardToolbar today={today} defaultPeriod='7d' />
       <DashboardGrid label='Operations overview'>

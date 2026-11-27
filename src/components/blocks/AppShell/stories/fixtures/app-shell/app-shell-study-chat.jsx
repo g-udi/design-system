@@ -17,16 +17,12 @@ import {
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
@@ -47,8 +43,15 @@ import {
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellBody, AppShellFrame, AppShellHeader, AppShellPanel } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
-import { ChatModelSelect } from '@gaudi/design-system/chat/ChatInput';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
+import { ChatMessage, ChatMessageContent, ChatMessageGroup, ChatMessageHeader } from '@gaudi/design-system/chat/ChatMessage';
+import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import Input from '@gaudi/design-system/core/Input';
+import { Label } from '@gaudi/design-system/core/Field';
+import { Item, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
+import { ChatModelSelect, ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 // Study tutors: each answers the same thread in a different way.
@@ -92,7 +95,54 @@ const organizations = [
 ];
 const user = { name: 'Maya Lindqvist', plan: 'Student', photo: '/avatars/person-22.svg' };
 
-function Brand({ onSearch }) {
+const discussions = {
+  middlemarch: ['Why does Dorothea want to marry Casaubon?', 'At first she sees his research as a way into an intellectual life. Compare her hopes in chapter 3 with the way he describes their future in his letter.'],
+  'cog-psych': ['What makes retrieval practice different from rereading?', 'Retrieval asks you to reconstruct an idea from memory. Try explaining yesterday’s experiment before looking at your notes.'],
+  geb: ['How does the book connect a picture with a proof?', 'Look for a rule that refers back to the system it belongs to. Which part of the drawing crosses between levels?'],
+  odyssey: ['How do the translations introduce Odysseus?', 'Read the first four lines aloud. Note which words describe him and which tell you what happened to him.'],
+  systems: ['Where should our reading group start?', 'Begin with feedback loops. Bring one example in which the result of an action changes what happens next.'],
+  stoics: ['What did we mean by control in the seminar?', 'Separate your judgment about an event from the event itself. Then test the distinction against the example in your notes.'],
+  revolution: ['Which event should I place first on the timeline?', 'Start with the opening of the Estates-General in May 1789. What changed between that meeting and the Tennis Court Oath?'],
+  sapiens: ['How should we assess the chapter’s central claim?', 'Write down the claim, its evidence and a possible counterexample. Which of the three does the chapter leave least clear?']
+};
+const studyNotes = {
+  'themes-md': ['Ambition and obligation', 'Dorothea imagines a life of useful work. Keep a note of the promises she makes to herself before the marriage.'],
+  'memory-cards': ['Memory prompts', 'Define retrieval practice from memory. Then name a case where recognition would give a different result.'],
+  translations: ['Opening lines', 'Compare the first description of Odysseus, the voice of the invocation and the ordering of the journey.'],
+  timeline: ['1789 in three dates', '5 May · Estates-General opens. 20 June · Tennis Court Oath. 14 July · Storming of the Bastille.'],
+  guide: ['Before the next meeting', 'Choose one passage, write down a question and bring a quotation that supports your reading.'],
+  'whats-new': ['Notes alongside threads', 'Open the Notes tab to revisit chapter notes, revision cards and reading timelines.'],
+  help: ['Using the study space', 'Open a thread to discuss a text. Use its pin action to keep it at the top of your sidebar.'],
+  plan: ['Thursday reading session', 'Finish chapters 1–10 of Middlemarch. Gather two passages and one question for the group.'],
+  flashcards: ['Retrieval practice', 'Without looking at your notes, describe one difference between recall and recognition.'],
+  groups: ['Reading groups', 'Your groups are Thursday book club, Psych 201 cohort and Philosophy circle. Switch between them from your account menu.']
+};
+
+function Discussion({ thread, messages, model, onSend, guard }) {
+  const starter = discussions[thread?.id];
+  const history = [...(starter ? [{ who: 'You', text: starter[0] }, { who: 'Socratic tutor', text: starter[1] }] : []), ...messages];
+  return (
+    <section aria-label='Study discussion' className='mx-auto grid w-full min-w-0 max-w-2xl content-start gap-6 p-4 @md:p-6'>
+      {history.length ? (
+        <ChatMessageGroup aria-label='Thread messages' className='gap-5'>
+          {history.map(({ who, text }, index) => (
+            <ChatMessage key={index} align={who === 'You' ? 'end' : 'start'} aria-label={who}>
+              <ChatMessageContent className='gap-1.5'>
+                <ChatMessageHeader className={who === 'You' ? 'justify-end' : undefined}><strong className='text-xs text-text-muted'>{who}</strong></ChatMessageHeader>
+                <ChatBubble variant={who === 'You' ? 'muted' : 'ghost'} align={who === 'You' ? 'end' : 'start'}><ChatBubbleContent>{text}</ChatBubbleContent></ChatBubble>
+              </ChatMessageContent>
+            </ChatMessage>
+          ))}
+        </ChatMessageGroup>
+      ) : <EmptyState compact title='Start a study thread' description='Ask a question about your reading or bring a passage to discuss.' />}
+      {!guard && thread?.id === 'middlemarch' && <aside className='border-ui-border border-s-2 ps-3 text-sm'><strong>Later chapters</strong><p>Revisit Dorothea’s choice after Casaubon’s will. How does the codicil change what she can do?</p></aside>}
+      <ChatPromptComposer key={thread?.id ?? 'new'} onSubmit={onSend} labels={{ message: 'Study message', placeholder: 'Add to the discussion…', send: 'Send message' }}
+        footer={<span className='text-xs text-text-muted'>Studying with {model}</span>} />
+    </section>
+  );
+}
+
+function Brand({ onSearch, onNewChat }) {
   const { state, isMobile, setOpenMobile } = useSidebar();
   if (state === 'collapsed' && !isMobile) {
     // On the rail the header is the expand control; the trigger keeps its tooltip and shortcut hint.
@@ -104,7 +154,7 @@ function Brand({ onSearch }) {
         variant='bare'
         href='#new-chat'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring'
-        onClick={(event) => event.preventDefault()}
+        onClick={(event) => { event.preventDefault(); onNewChat(); if (isMobile) setOpenMobile(false); }}
       >
         <GaudiBrand className='text-sm' />
         <span className='truncate'>Study</span>
@@ -174,10 +224,9 @@ function Count({ children, label }) {
   );
 }
 
-function AccountMenu() {
-  const { isMobile } = useSidebar();
-  const [organization, setOrganization] = useState('thursday');
-  const [theme, setTheme] = useState('system');
+function AccountMenu({ onSelect, organization, setOrganization }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const go = id => { onSelect(id); if (isMobile) setOpenMobile(false); };
   const current = organizations.find((entry) => entry.id === organization);
   return (
     <SidebarMenu>
@@ -197,7 +246,7 @@ function AccountMenu() {
               <span className='grid min-w-0 leading-tight'>
                 <span className='truncate font-medium'>{user.name}</span>
                 <span className='text-text-muted flex items-center gap-1 text-xs'>
-                  <span aria-hidden='true' className={`size-2 rounded-full ${current.tone}`} />
+                  <StatusDot className={`size-2 ${current.tone}`} />
                   {current.name}
                   <span aria-hidden='true'>·</span>
                   {user.plan}
@@ -211,50 +260,14 @@ function AccountMenu() {
             <DropdownMenuRadioGroup value={organization} onValueChange={setOrganization}>
               {organizations.map((entry) => (
                 <DropdownMenuRadioItem key={entry.id} value={entry.id} className='gap-2'>
-                  <span aria-hidden='true' className={`size-2 rounded-full ${entry.tone}`} />
+                  <StatusDot className={`size-2 ${entry.tone}`} />
                   {entry.name}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Plus' aria-hidden='true' />
-              Start a group
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuLabel>Account</DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='User' aria-hidden='true' />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Target' aria-hidden='true' />
-                Study goals
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Settings' aria-hidden='true' />
-                Preferences
-              </DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <RegistryIcon lucide='Palette' aria-hidden='true' />
-                  Theme
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                    <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => go('groups')}>View reading groups</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => go('plan')}>Study plan</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -262,9 +275,9 @@ function AccountMenu() {
   );
 }
 
-function ChatHeader({ title, model, onModelChange, onSearch, onNewChat }) {
+function ChatHeader({ title, model, onModelChange, onSearch, onNewChat, thread, onAction, guard, setGuard }) {
   const { isMobile } = useSidebar();
-  const [memory, setMemory] = useState(true);
+  const [tutorsOpen, setTutorsOpen] = useState(false);
   return (
     <>
       {isMobile ? (
@@ -283,32 +296,32 @@ function ChatHeader({ title, model, onModelChange, onSearch, onNewChat }) {
           </Button>
         </div>
       ) : null}
-      <AppShellHeader>
-        <h2 className='min-w-0 flex-1 truncate text-sm font-medium'>{title}</h2>
-        <Tooltip>
+      <AppShellHeader className='h-auto min-h-12 py-1.5'>
+        <h2 className='min-w-0 flex-1 break-words text-sm leading-tight font-medium'>{title}</h2>
+        {thread?.id === 'middlemarch' && <Tooltip>
           <TooltipTrigger asChild>
             <Button
               variant='ghost'
               size='icon-sm'
               aria-label='Spoiler guard'
-              aria-pressed={memory}
-              className='aria-pressed:bg-ui-accent hidden @md:inline-flex'
-              onClick={() => setMemory((on) => !on)}
+              aria-pressed={guard}
+              className='aria-pressed:bg-ui-accent'
+              onClick={() => setGuard((on) => !on)}
             >
-              <RegistryIcon lucide={memory ? 'EyeOff' : 'Eye'} aria-hidden='true' />
+              <RegistryIcon lucide={guard ? 'EyeOff' : 'Eye'} aria-hidden='true' />
             </Button>
           </TooltipTrigger>
-          <TooltipContent side='bottom'>{memory ? 'Hiding chapters you have not read' : 'Showing the whole book'}</TooltipContent>
-        </Tooltip>
-        <ChatModelSelect models={models} value={model} onValueChange={onModelChange} label='Tutor' icon={false} variant='outline' size='sm' align='end' contentClassName='w-72'>
+          <TooltipContent side='bottom'>{guard ? 'Hiding chapters you have not read' : 'Showing the whole book'}</TooltipContent>
+        </Tooltip>}
+        <ChatModelSelect open={tutorsOpen} onOpenChange={setTutorsOpen} models={models} value={model} onValueChange={onModelChange} label='Tutor' icon={false} variant='outline' size='sm' align='end' contentClassName='w-72'>
           <div className='text-text-muted flex items-center justify-between text-xs'>
             <span>Switching keeps this thread</span>
-            <Link href='#compare' className='underline underline-offset-2' onClick={(event) => event.preventDefault()}>
+            <Link href='#compare' className='underline underline-offset-2' onClick={(event) => { event.preventDefault(); setTutorsOpen(false); onAction('compare'); }}>
               Compare tutors
             </Link>
           </div>
         </ChatModelSelect>
-        <DropdownMenu>
+        {thread ? (<DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant='ghost' size='icon-sm' aria-label='Thread options'>
               <RegistryIcon lucide='EllipsisVertical' aria-hidden='true' />
@@ -316,25 +329,25 @@ function ChatHeader({ title, model, onModelChange, onSearch, onNewChat }) {
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end' className='w-48'>
             <DropdownMenuLabel>This thread</DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => onAction('share')}>
               <RegistryIcon lucide='Share2' aria-hidden='true' />
               Share with group
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => onAction('cards')}>
               <RegistryIcon lucide='Layers' aria-hidden='true' />
               Make flashcards
             </DropdownMenuItem>
-            <DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => onAction('rename')}>
               <RegistryIcon lucide='Pencil' aria-hidden='true' />
               Rename
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem variant='destructive'>
+            <DropdownMenuItem variant='destructive' onSelect={() => onAction('delete')}>
               <RegistryIcon lucide='Trash2' aria-hidden='true' />
               Delete thread
             </DropdownMenuItem>
           </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenu>) : null}
       </AppShellHeader>
     </>
   );
@@ -370,14 +383,35 @@ function SearchPalette({ open, onOpenChange, chats, onSelect }) {
 
 export function Pattern() {
   const [chats, setChats] = useState(chatsSeed);
+  const [messages, setMessages] = useState({});
+  const [action, setAction] = useState(null);
+  const [newName, setNewName] = useState('');
+  const [cards, setCards] = useState([]);
+  const [guard, setGuard] = useState(true);
+  const [shared, setShared] = useState([]);
+  const [organization, setOrganization] = useState('thursday');
+  const group = organizations.find(item => item.id === organization);
   const [chat, setChat] = useState('middlemarch');
   const [tab, setTab] = useState('chats');
   const [model, setModel] = useState('socratic');
   const [searchOpen, setSearchOpen] = useState(false);
   const pinned = chats.filter((entry) => entry.pinned);
   const recent = chats.filter((entry) => !entry.pinned);
-  const destinations = [...chats, ...artifacts, ...links];
+  const destinations = [...chats, ...artifacts, ...links, ...shortcuts];
   const current = destinations.find((entry) => entry.id === chat);
+  const thread = chats.find(entry => entry.id === chat);
+  const note = studyNotes[chat];
+  const startAction = (kind, item = thread) => { setNewName(item?.label ?? ''); setAction({ kind, item }); };
+  const send = (text) => {
+    const id = thread?.id ?? crypto.randomUUID();
+    if (!thread) setChats(list => [{ id, label: text.slice(0, 60), time: 'Now' }, ...list]);
+    setMessages(list => ({ ...list, [id]: [...(list[id] ?? []), { who: 'You', text }] }));
+    setChat(id);
+  };
+  const remove = (id) => {
+    setChats(list => list.filter(entry => entry.id !== id));
+    if (chat === id) setChat(null);
+  };
   const togglePin = (item) => setChats((list) => list.map((entry) => (entry.id === item.id ? { ...entry, pinned: !entry.pinned } : entry)));
   const select = (id) => {
     if (id === 'new-chat') return setChat(null);
@@ -391,25 +425,12 @@ export function Pattern() {
         <RegistryIcon lucide={item.pinned ? 'PinOff' : 'Pin'} aria-hidden='true' />
         {item.pinned ? 'Unpin' : 'Pin to top'}
       </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Pencil' aria-hidden='true' />
-        Rename
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Share2' aria-hidden='true' />
-        Share with group
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Archive' aria-hidden='true' />
-        Archive
-      </DropdownMenuItem>
+      <DropdownMenuItem onSelect={() => startAction('rename', item)}>Rename</DropdownMenuItem>
+      <DropdownMenuItem onSelect={() => startAction('share', item)}>Share with group</DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
         variant='destructive'
-        onSelect={() => {
-          setChats((list) => list.filter((entry) => entry.id !== item.id));
-          if (chat === item.id) setChat(null);
-        }}
+        onSelect={() => startAction('delete', item)}
       >
         <RegistryIcon lucide='Trash2' aria-hidden='true' />
         Delete
@@ -424,7 +445,7 @@ export function Pattern() {
           {/* The tabs span the header and the list, so each tab controls a real panel. */}
           <Tabs value={tab} onValueChange={setTab} className='min-h-0 flex-1 gap-0'>
             <SidebarHeader>
-              <Brand onSearch={() => setSearchOpen(true)} />
+              <Brand onNewChat={() => select('new-chat')} onSearch={() => setSearchOpen(true)} />
               <TabsList variant='outline' className='grid w-full grid-cols-2 group-data-[collapsible=icon]:hidden'>
                 <TabsTrigger value='chats'>Threads</TabsTrigger>
                 <TabsTrigger value='artifacts'>Notes</TabsTrigger>
@@ -465,23 +486,40 @@ export function Pattern() {
             </SidebarContent>
           </Tabs>
           <SidebarFooter>
-            <AccountMenu />
+            <AccountMenu onSelect={select} organization={organization} setOrganization={setOrganization} />
           </SidebarFooter>
           <SidebarResizeHandle min={224} max={384} />
         </Sidebar>
         <AppShellPanel inset={false}>
-          <ChatHeader
+          <ChatHeader guard={guard} setGuard={setGuard}
             title={current?.label ?? 'New thread'}
             model={model}
             onModelChange={setModel}
             onSearch={() => setSearchOpen(true)}
             onNewChat={() => setChat(null)}
+            thread={thread}
+            onAction={startAction}
           />
           <AppShellBody>
-            <div key={chat ?? 'new'} aria-hidden='true' className='flex min-h-0 flex-1 flex-col gap-4 p-4'><Skeleton className='ms-auto h-10 w-1/2' /><Skeleton className='h-24 w-3/4' /><Skeleton className='ms-auto h-10 w-1/3' /><Skeleton className='h-40 w-full' /></div>
+            {note ? (
+              <section className='mx-auto grid w-full max-w-2xl content-start gap-4 p-4 @md:p-6'>
+                <h3 className='text-xl font-semibold'>{note[0]}</h3>
+                <p className='text-sm leading-relaxed text-text-muted'>{note[1]}</p>
+                {chat === 'flashcards' && cards.map(card => <Badge key={card} variant='outline'>{card}</Badge>)}
+              </section>
+            ) : <Discussion guard={guard} thread={thread} messages={messages[chat] ?? []} model={models.find(entry => entry.value === model).label} onSend={send} />}
           </AppShellBody>
         </AppShellPanel>
       </SidebarProvider>
+      {action && (
+        <Dialog open onOpenChange={open => { if (!open) setAction(null); }} title={{ compare: 'Compare tutors', rename: 'Rename thread', share: 'Share with group', cards: 'Practice card', delete: 'Delete thread?' }[action.kind]}>
+          {action.kind === 'compare' ? <ItemGroup>{models.map(tutor => <Item key={tutor.value} size='sm'><ItemContent><ItemTitle>{tutor.label}</ItemTitle><ItemDescription>{tutor.details.join(' · ')}</ItemDescription></ItemContent></Item>)}</ItemGroup> : null}
+          {action.kind === 'rename' ? <form className='grid gap-3' onSubmit={event => { event.preventDefault(); if (!newName.trim()) return; setChats(list => list.map(entry => entry.id === action.item.id ? { ...entry, label: newName.trim() } : entry)); setAction(null); }}><Label htmlFor='study-thread-name'>Thread name</Label><Input id='study-thread-name' value={newName} onChange={event => setNewName(event.target.value)} required /><Button type='submit' disabled={!newName.trim()}>Save name</Button></form> : null}
+          {action.kind === 'share' ? <div className='grid gap-3'><p>Share “{action.item.label}” with {group.name}.</p><Button disabled={shared.includes(organization + '/' + action.item.id)} onClick={() => setShared(list => [...list, organization + '/' + action.item.id])}>{shared.includes(organization + '/' + action.item.id) ? 'Shared with group' : 'Share thread'}</Button></div> : null}
+          {action.kind === 'cards' ? <div className='grid gap-3'><p>{discussions[action.item.id]?.[0] ?? action.item.label}</p><Button disabled={cards.includes(action.item.label)} onClick={() => setCards(list => [...list, action.item.label])}>{cards.includes(action.item.label) ? 'Added to flashcards' : 'Add to flashcards'}</Button></div> : null}
+          {action.kind === 'delete' ? <div className='grid gap-3'><p>Remove “{action.item.label}” from this study space?</p><Button tone='danger' onClick={() => { remove(action.item.id); setAction(null); }}>Delete thread</Button></div> : null}
+        </Dialog>
+      )}
       <SearchPalette open={searchOpen} onOpenChange={setSearchOpen} chats={chats} onSelect={select} />
     </AppShellFrame>
   );

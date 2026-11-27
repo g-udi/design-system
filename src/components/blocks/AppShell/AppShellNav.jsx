@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { cn } from '../../../utilities/cn/index.js';
 import { Avatar, AvatarFallback, AvatarImage } from '../../core/Avatar/AvatarPrimitives.jsx';
+import { StatusDot } from '../../core/Pill/Pill.jsx';
 import { Badge } from '../../core/Pill/Badge.jsx';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '../../core/Accordion/Collapsible.jsx';
 import {
@@ -60,17 +61,16 @@ function Leading({ item }) {
           <AvatarFallback className='rounded-full'>{item.label.slice(0, 1)}</AvatarFallback>
         </Avatar>
         {item.presence ? (
-          <span className={cn('ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2 rounded-full ring-2', DOT_TONES[item.presence] || item.presence)} />
+          <StatusDot className={cn('ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2 ring-2', DOT_TONES[item.presence] || item.presence)} />
         ) : null}
       </span>
     );
   }
   if (item.dot) {
     return (
-      <span
-        aria-hidden='true'
+      <StatusDot
         data-slot='app-shell-nav-dot'
-        className={cn('ms-1.5 me-1 size-1.5 shrink-0 rounded-full', DOT_TONES[item.dot] || item.dot)}
+        className={cn('ms-1.5 me-1', DOT_TONES[item.dot] || item.dot)}
       />
     );
   }
@@ -101,7 +101,7 @@ function Indicator({ item }) {
   if (!item.indicator) return null;
   return (
     <SidebarMenuBadge>
-      <span aria-hidden='true' className={cn('size-1.5 rounded-full', DOT_TONES[item.indicator] || item.indicator)} />
+      <StatusDot className={DOT_TONES[item.indicator] || item.indicator} />
     </SidebarMenuBadge>
   );
 }
@@ -152,7 +152,7 @@ function QuickAction({ item, quickAction, hasMenu }) {
       showOnHover
       aria-label={action.label}
       data-slot='app-shell-nav-quick-action'
-      className={hasMenu ? 'end-7' : undefined}
+      data-before-menu={hasMenu || undefined}
       onClick={action.onSelect}
     >
       <RegistryIcon lucide={action.icon} aria-hidden='true' />
@@ -164,7 +164,7 @@ function LeafItem({ item, value, onValueChange, size, actions, actionsLabel, qui
   const current = item.id === value;
   const hasQuick = Boolean(quickAction?.(item));
   return (
-    <SidebarMenuItem>
+    <SidebarMenuItem data-row-actions={hasQuick && actions ? 'two' : (actions || hasQuick) ? 'one' : undefined}>
       <SidebarMenuButton asChild size={size} isActive={current} tooltip={item.label} className={cn(hasQuick && actions ? 'pe-14 md:pe-8 md:group-focus-within/menu-item:pe-14 md:group-hover/menu-item:pe-14' : hasBadge(item) && 'pe-9', itemClassName)}>
         <a
           href={item.href ?? `#${item.id}`}

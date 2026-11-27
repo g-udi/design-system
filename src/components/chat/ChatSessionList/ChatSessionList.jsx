@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 import { useId, useRef, useState } from 'react';
 import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
@@ -108,7 +109,7 @@ function ChatSessionList({ sessions = [], activeId, onSelect, onRename, onDelete
                         className='focus-visible:ring-accent grid min-w-0 flex-1 rounded-(--ds-radius-control) px-2 py-1.5 text-start focus-visible:ring-2 focus-visible:outline-none'
                       >
                         <span className={cn('flex min-w-0 items-center gap-1.5 text-sm', current && 'font-medium')}>
-                          {session.live ? <span className='bg-success size-1.5 shrink-0 rounded-full' aria-hidden='true' /> : null}
+                          {session.live ? <StatusDot className='bg-success size-1.5' /> : null}
                           <span className='truncate'>{session.title}</span>
                           {session.live ? <span className='sr-only'>({labels.live})</span> : null}
                         </span>

@@ -139,7 +139,7 @@ export function Pattern() {
                     .join('')}
                 </AvatarFallback>
               </Avatar>
-              <Link href='#'>{row.original.name}</Link>
+              <span className='font-medium'>{row.original.name}</span>
             </div>
           );
         },

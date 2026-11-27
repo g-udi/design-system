@@ -1,3 +1,5 @@
+import Link from '@gaudi/design-system/core/Link';
+import { Label } from '@gaudi/design-system/core/Field';
 import { expect, userEvent, within } from 'storybook/test';
 import { useEffect, useId, useMemo, useState } from 'react';
 import fallbackIndex from '../catalogue/catalogue.json';
@@ -28,6 +30,7 @@ function Catalogue() {
     return () => controller.abort();
   }, []);
   const owners = useMemo(() => catalogueFromIndex(index), [index]);
+  const areas = [...new Set(owners.map(item => item.category))].sort();
   const matches = useMemo(() => filterCatalogue(owners, {query, category, owner}), [owners, query, category, owner]);
   const examples = matches.flatMap(item => item.examples.map(example => ({...example, owner:item.name, category:item.category})));
   const items = mode === 'components' ? matches : examples;
@@ -37,8 +40,14 @@ function Catalogue() {
   return (
     <Page compact title='Component Catalogue' intro='Find a component or use case across Gaudi. Open the documentation or explore working examples, from application controls to publishing and MDX.'>
       <div className='gaudi-catalogue-controls'>
-        <label>Find a component or use case<Input value={query} onChange={event=>{setQuery(event.target.value);resetResults();}} placeholder='Search avatars, dialogs, forms…' /></label>
-        <label htmlFor={areaId}>Area<NativeSelect id={areaId} className='w-full' value={category} onChange={event=>{setCategory(event.target.value);setOwner('');resetResults();}}><option value='all'>All areas</option>{['Core','Blocks','Chat','Charts','Hooks','MDX','Post','Layout'].map(value=><option key={value}>{value}</option>)}</NativeSelect></label>
+        <Label className='grid items-start'>Find a component or use case<Input value={query} onChange={event=>{setQuery(event.target.value);resetResults();}} placeholder='Search avatars, dialogs, forms…' /></Label>
+        <Label className='grid items-start' htmlFor={areaId}>
+          Area
+          <NativeSelect id={areaId} className='w-full' value={category} onChange={event=>{setCategory(event.target.value);setOwner('');resetResults();}}>
+            <option value='all'>All areas</option>
+            {areas.map(area => <option key={area}>{area}</option>)}
+          </NativeSelect>
+        </Label>
       </div>
       <div className='gaudi-catalogue-view'>
         <ToggleGroupRoot type='single' variant='outline' aria-label='Catalogue view' value={mode} onValueChange={value => {
@@ -56,11 +65,11 @@ function Catalogue() {
       {items.length ? <ul className={`gaudi-catalogue-results gaudi-catalogue-results--${mode}`} aria-label={mode==='components'?'Components':'Examples'}>
         {items.slice(0,limit).map(item=> mode==='components' ? (
           <li key={item.key}>
-            <div><a target='_top' href={storyURL(item.docs || item.examples[0].id)}>{item.name}</a><span>{item.category}</span></div>
+            <div><Link variant='bare' target='_top' href={storyURL(item.docs || item.examples[0].id)}>{item.name}</Link><span>{item.category}</span></div>
             <Button variant='subtle' size='sm' className='shrink-0' onClick={()=>showExamples(item.key)} aria-label={`Explore ${item.name} examples`}>{item.examples.length} {item.examples.length === 1 ? 'example' : 'examples'}</Button>
           </li>
         ) : (
-          <li key={item.id}><div><a target='_top' href={storyURL(item.id)}>{item.name}</a><span>{item.owner} · {item.category}</span></div></li>
+          <li key={item.id}><div><Link variant='bare' target='_top' href={storyURL(item.id)}>{item.name}</Link><span>{item.owner} · {item.category}</span></div></li>
         ))}
       </ul> : <p className='gaudi-guide-note'>No matches. Try another search or choose All areas.</p>}
       {items.length > limit && <Button variant='outline' className='self-start' onClick={()=>setLimit(value=>value+PAGE_SIZE)}>Show more {mode}</Button>}
@@ -93,6 +102,10 @@ export const Browse = {
     await expect(canvas.getByRole('link',{name:'Footnote',exact:true})).toHaveAttribute('href','./?path=/docs/mdx-footnote--docs');
     await userEvent.type(search,'no-matching-component');
     await expect(canvas.getByText('No matches. Try another search or choose All areas.')).toBeVisible();
+    await userEvent.clear(search);
+    await userEvent.selectOptions(canvas.getByLabelText('Area'), 'Animations');
+    await userEvent.type(search, 'CipherReveal');
+    await expect(canvas.getByRole('link', { name: 'CipherReveal', exact: true })).toHaveAttribute('href', './?path=/docs/animations-text-cipherreveal--docs');
     await userEvent.clear(search);
     await userEvent.selectOptions(canvas.getByLabelText('Area'),'all');
   }

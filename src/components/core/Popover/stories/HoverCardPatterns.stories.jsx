@@ -15,11 +15,12 @@ export default {
     const triggers = [...canvasElement.querySelectorAll('[data-slot="hover-card-trigger"]')];
     for (const [index, trigger] of triggers.entries()) {
       trigger.focus();
-      await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="hover-card-content"]')).toBeVisible());
+      await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="hover-card-content"]')).toBeVisible(), { timeout: 5000 });
       await auditOverlayState(context, `open-${index + 1}`);
       await userEvent.keyboard('{Escape}');
       trigger.blur();
-      await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="hover-card-content"]')).not.toBeInTheDocument());
+      // Radix retains the closed content until its exit animation finishes.
+      await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="hover-card-content"]')).not.toBeInTheDocument(), { timeout: 5000 });
     }
   }
 };

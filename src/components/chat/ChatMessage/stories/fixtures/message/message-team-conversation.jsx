@@ -1,3 +1,4 @@
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import {
   Attachment,
   AttachmentAction,
@@ -22,10 +23,6 @@ import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 // carry identity, footers carry status, and files stack with the bubble.
 const MICHAEL = { name: 'Rafe Okonkwo', initials: 'RO', src: '/avatars/person-31.svg' };
 const SARAH = { name: 'Sabine Okafor', initials: 'SO', src: '/avatars/person-20.svg' };
-
-function Dot() {
-  return <span aria-hidden='true' className='bg-ui-muted-foreground/40 size-1 shrink-0 rounded-full' />;
-}
 
 function Portrait({ person, online }) {
   return (
@@ -57,7 +54,7 @@ export function Pattern() {
             {/* A header built from several nodes supplies its own gap. */}
             <ChatMessageHeader className='gap-1.5'>
               {MICHAEL.name}
-              <Dot />
+              <MetaSeparator />
               <span className='tabular-nums'>14:06</span>
             </ChatMessageHeader>
             <ChatBubble variant='muted'>
@@ -116,7 +113,7 @@ export function Pattern() {
         <ChatMessageContent>
           <ChatMessageHeader className='gap-1.5'>
             {MICHAEL.name}
-            <Dot />
+            <MetaSeparator />
             <span className='tabular-nums'>14:12</span>
           </ChatMessageHeader>
           <ChatBubble variant='muted'>
@@ -124,7 +121,7 @@ export function Pattern() {
           </ChatBubble>
           <ChatMessageFooter className='gap-1.5'>
             <span>Edited</span>
-            <Dot />
+            <MetaSeparator />
             <span className='tabular-nums'>14:13</span>
           </ChatMessageFooter>
         </ChatMessageContent>

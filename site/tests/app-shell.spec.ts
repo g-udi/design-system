@@ -109,9 +109,10 @@ test('shell headers and sidebars fit at every spacing preset', async ({ page }) 
 });
 
 test('capture queue keeps its lower sections above the footer and exposes overflow', async ({ page }) => {
+  const preview = `${process.env.NEXT_PUBLIC_BASE_PATH || ''}/preview/app-shell-crawler-control/`;
   for (const width of [320, 390, 590, 639, 640, 767, 768, 993, 994, 995, 1024, 1280, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1120 });
-    await page.goto('/preview/app-shell-crawler-control');
+    await page.goto(preview);
     await expect(page.locator('[data-ready="true"]')).toBeVisible();
     const frame = page.locator('[data-slot="app-shell-frame"]');
     await expect(frame).toHaveAttribute('data-compact', /true|false/);
@@ -121,7 +122,7 @@ test('capture queue keeps its lower sections above the footer and exposes overfl
       await page.locator('[data-slot="sidebar"][data-mobile="true"]').evaluate(async el => Promise.all(el.getAnimations().map(a => a.finished.catch(() => {}))));
     }
     const queue = page.getByRole('region', { name: 'Capture queue runs', exact: true });
-    const footer = page.getByRole('link', { name: 'Review all captures' }).locator('..');
+    const footer = page.getByRole('button', { name: 'Review all captures' }).locator('..');
     const bodyBox = (await queue.boundingBox())!;
     const footerBox = (await footer.boundingBox())!;
     expect(bodyBox.y + bodyBox.height).toBeLessThanOrEqual(footerBox.y + 1);

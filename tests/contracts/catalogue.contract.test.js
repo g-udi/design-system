@@ -11,6 +11,11 @@ const owners = catalogueFromIndex(index);
 
 test('the flat catalogue preserves every curated example and original component families', () => {
   const ids = new Set(owners.flatMap(owner => owner.examples.map(example => example.id)));
+  for (const entry of Object.values(index.entries)) {
+    if (entry.type === 'story' && isSidebarEntry(entry) && !isNavigationPage(entry)) {
+      assert.ok(ids.has(entry.id), `Missing discoverable story: ${entry.id}`);
+    }
+  }
   for (const family of Object.values(coverage.categories)) {
     for (const example of family.examples) assert.ok(ids.has(example.storyId), `Missing ${example.storyId}`);
   }

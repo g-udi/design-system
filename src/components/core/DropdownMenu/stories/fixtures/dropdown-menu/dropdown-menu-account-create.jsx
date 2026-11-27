@@ -1,6 +1,10 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { usePrefersColorScheme } from '@gaudi/design-system/hooks/environment/use-prefers-color-scheme';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import { Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
+
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
   AvatarRoot as Avatar,
@@ -15,18 +19,14 @@ import {
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
+  DropdownMenuRadioGroup, DropdownMenuRadioItem,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { Separator } from '@gaudi/design-system/core/Separator';
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger
-} from '@gaudi/design-system/core/Tabs';
+
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const user = {
   name: 'Anouk Varga',
@@ -66,9 +66,15 @@ function UserAvatar({ className }) {
 export function Pattern() {
   const [status, setStatus] = useState('available');
   const [theme, setTheme] = useState('light');
+  const [create, setCreate] = useState(null);
+  const [records, setRecords] = useState([]);
+  const [signedIn, setSignedIn] = useState(true);
+  const system = usePrefersColorScheme();
+  const surface = theme === 'system' ? system : theme;
+  if (!signedIn) return <Button variant='outline' onClick={() => setSignedIn(true)}>Return to demo account</Button>;
   const activeStatus = statuses.find((s) => s.value === status) || statuses[0];
   return (
-    <div className='flex items-center justify-center gap-2'>
+    <div className={cn(surface, 'flex flex-wrap items-center justify-center gap-2')}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button size='sm'>
@@ -76,33 +82,28 @@ export function Pattern() {
             New
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align='end' className='w-44' sideOffset={8}>
+        <DropdownMenuContent align='end' className={cn(surface, 'w-44')} sideOffset={8}>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Create</DropdownMenuLabel>
             {createItems.map((item) => (
-              <DropdownMenuItem key={item.label}>
+              <DropdownMenuItem key={item.label} onSelect={() => setCreate(item.label)}>
                 <RegistryIcon lucide={item.icon} aria-hidden='true' />
                 {item.label}
               </DropdownMenuItem>
             ))}
           </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <RegistryIcon lucide='UploadIcon' aria-hidden='true' />
-            Import data
-          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <Separator orientation='vertical' className='my-auto h-4' />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant='outline' size='sm' className='w-44'>
+          <Button variant='outline' size='sm' className={cn(surface, 'w-44')}>
             <UserAvatar className='size-5' />
             <span className='truncate text-sm font-medium'>{user.name}</span>
             <RegistryIcon lucide='ChevronsUpDownIcon' className='ml-auto opacity-60' aria-hidden='true' />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-60' align='end' sideOffset={8}>
+        <DropdownMenuContent className={cn(surface, 'w-60')} align='end' sideOffset={8}>
           <DropdownMenuLabel className='flex items-center gap-2 py-1.5'>
             <UserAvatar className='size-8' />
             <span className='flex min-w-0 flex-col'>
@@ -111,67 +112,39 @@ export function Pattern() {
             </span>
           </DropdownMenuLabel>
           <div className='px-1 pb-2'>
-            <Tabs value={theme} onValueChange={setTheme}>
-              <TabsList className='w-full'>
-                {themes.map((item) => (
-                  <TabsTrigger key={item.value} value={item.value} aria-label={item.label} className='h-6 flex-1'>
-                    <RegistryIcon lucide={item.icon} className='size-4' aria-hidden='true' />
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>Appearance</DropdownMenuSubTrigger>
+              <DropdownMenuSubContent className={surface}>
+                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+                  {themes.map(item => <DropdownMenuRadioItem key={item.value} value={item.value}><RegistryIcon lucide={item.icon} aria-hidden='true' />{item.label}</DropdownMenuRadioItem>)}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
           </div>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
-              <span className={cn('size-2 rounded-full', activeStatus.color)} aria-hidden='true' />
+              <StatusDot className={cn('size-2', activeStatus.color)} />
               {activeStatus.label}
             </DropdownMenuSubTrigger>
-            <DropdownMenuSubContent className='w-40'>
-              {statuses.map((s) => (
-                <DropdownMenuItem key={s.value} onSelect={() => setStatus(s.value)}>
-                  <span className={cn('size-2 rounded-full', s.color)} aria-hidden='true' />
-                  {s.label}
-                  {status === s.value && (
-                    <RegistryIcon lucide='CheckIcon' className='text-text-muted ml-auto size-4' aria-hidden='true' />
-                  )}
-                </DropdownMenuItem>
-              ))}
+            <DropdownMenuSubContent className={cn(surface, 'w-40')}>
+              <DropdownMenuRadioGroup value={status} onValueChange={setStatus}>
+                {statuses.map(item => <DropdownMenuRadioItem key={item.value} value={item.value}><StatusDot className={item.color} />{item.label}</DropdownMenuRadioItem>)}
+              </DropdownMenuRadioGroup>
             </DropdownMenuSubContent>
           </DropdownMenuSub>
           <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            {counts.map((item) => (
-              <DropdownMenuItem key={item.label}>
-                <RegistryIcon lucide={item.icon} aria-hidden='true' />
-                {item.label}
-                <Badge variant='secondary' size='sm' className='ml-auto rounded-control px-1.5'>
-                  {item.count}
-                </Badge>
-              </DropdownMenuItem>
-            ))}
-            <DropdownMenuItem>
-              <RegistryIcon lucide='UserIcon' aria-hidden='true' />
-              Profile
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />
-              Settings
-              <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LifeBuoyIcon' aria-hidden='true' />
-              Help center
-            </DropdownMenuItem>
-          </DropdownMenuGroup>
+          {counts.map(item => <DropdownMenuLabel key={item.label} className='flex items-center gap-2 font-normal'><RegistryIcon lucide={item.icon} aria-hidden='true' />{item.label}<Badge variant='secondary' className='ms-auto'>{item.count}</Badge></DropdownMenuLabel>)}
           <DropdownMenuSeparator />
-          <DropdownMenuItem variant='destructive'>
-            <RegistryIcon lucide='LogOutIcon' aria-hidden='true' />
-            Sign out
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <DropdownMenuItem variant='destructive' onSelect={() => setSignedIn(false)}><RegistryIcon lucide='LogOutIcon' aria-hidden='true' />Sign out</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {records.length > 0 && <ul aria-label='Created records' className='w-full text-center text-sm'>{records.map(record => <li key={record.id}>{record.type} · {record.name}</li>)}</ul>}
+      {create && <Dialog open onOpenChange={open => { if (!open) setCreate(null); }} title={create} description='Create a record for this workspace.'>
+        <form className='grid gap-3' onSubmit={event => { event.preventDefault(); const name = String(new FormData(event.currentTarget).get('name')).trim(); if (!name) return;
+          setRecords(list => [...list, { id: crypto.randomUUID(), type: create.slice(4), name }]); setCreate(null); }}>
+          <Field><FieldLabel htmlFor='menu-record-name'>Name</FieldLabel><FieldInput id='menu-record-name' name='name' required /></Field><Button type='submit' className='w-fit'>Create</Button>
+        </form>
+      </Dialog>}
     </div>
   );
 }

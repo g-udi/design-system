@@ -22,7 +22,6 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import {
@@ -46,7 +45,13 @@ import {
 import { AppShellBody, AppShellFrame, AppShellPanel, useAppShellFrame } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNotifications } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
+import { CardRoot, CardContent } from '@gaudi/design-system/core/Card';
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { Label } from '@gaudi/design-system/core/Field';
+import Input from '@gaudi/design-system/core/Input';
+import Textarea from '@gaudi/design-system/core/Textarea';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -169,7 +174,68 @@ const notifications = [
     time: '8 hours ago'
   }
 ];
-const noop = (event) => event.preventDefault();
+const sectionPage = { today: 'today-s-page', entries: 'all-entries', prompts: 'prompt-library', reviews: 'weekly-review', archive: 'archive' };
+const journalPrompts = [
+  ['What did you notice on the way home?', 'Look for something you usually pass without seeing.'],
+  ['Which conversation stayed with you?', 'Record one sentence and what it changed.'],
+  ['What would you like to remember?', 'Describe the moment in enough detail to find it again.']
+];
+const initialEntries = [
+  { id: 'river', title: 'Walking to work', date: 'October 8', body: 'Fog softened the river this morning. I took the long way past the footbridge and watched the first cyclists cross.', theme: 'City walks' },
+  { id: 'maps', title: 'A map in the margins', date: 'October 6', body: 'At the library I found a street name pencilled in the margin of an old guide. It led me back to the market where we first met.', theme: 'Reading notes' }
+];
+const referencePages = {
+  themes: [['City walks', 'Observations gathered on foot.'], ['Reading notes', 'Passages and questions from the library.']],
+  templates: [['Field note', 'Place, observation, question.'], ['Reading note', 'Text, passage, response.']],
+  'mood-log': [['October 8 · Curious', 'A different route broke the usual routine.'], ['October 6 · Reflective', 'An afternoon with old city maps.']],
+  quotes: [['From the notebook', 'It is easier to notice an ordinary street when I walk it in the other direction.']],
+  'tags-labels': [['City walks', 'Walking routes and places.'], ['Reading notes', 'Books, maps and marginalia.']],
+  privacy: [['Personal journal', 'Entries you write in this example stay in this browser session.']],
+  'sync-backup': [['Local session', 'Export a copy of the entries below to keep a record.']]
+};
+
+function JournalPane({ page, entries, draft, setDraft, onWrite, onSave, onArchive, options, setOptions }) {
+  const route = routes.find(item => item.id === page);
+  const title = route?.label ?? 'Archive';
+  const writing = page === 'today-s-page';
+  const list = entries.filter(entry => page === 'archive' ? entry.archived : !entry.archived);
+  const prompts = page === 'prompt-library' ? journalPrompts : referencePages[page];
+  const wordCount = draft.body.trim().split(/\s+/).filter(Boolean).length;
+  return (
+    <section className='mx-auto grid w-full max-w-2xl content-start gap-5'>
+      <header className='grid gap-1'>
+        <p className='text-xs text-text-muted'>{account.name} · Personal journal</p>
+        <h1 className='text-2xl font-semibold tracking-tight'>{title}</h1>
+      </header>
+      {writing ? <form className='grid gap-3' onSubmit={event => { event.preventDefault(); if (draft.title.trim() && draft.body.trim()) onSave(); }}>
+        <Label htmlFor='journal-title'>Entry title</Label><Input id='journal-title' value={draft.title} onChange={event => setDraft({ ...draft, title: event.target.value })} required />
+        <Label htmlFor='journal-body'>Journal entry</Label><Textarea id='journal-body' className='min-h-32' placeholder='Write a few lines…' value={draft.body} onChange={event => setDraft({ ...draft, body: event.target.value })} required />
+        <div className='flex items-center justify-between gap-3'>
+          {options.wordCount ? <span className='text-xs text-text-muted'>{wordCount} {wordCount === 1 ? 'word' : 'words'}</span> : null}
+          <Button size='sm' type='submit' disabled={!draft.title.trim() || !draft.body.trim()}>Save entry</Button>
+        </div>
+      </form> : null}
+      {['all-entries','archive'].includes(page) ? (list.length ? <ItemGroup aria-label={title}>{list.map(entry => (
+        <Item key={entry.id} size='sm' className='px-0'>
+          <ItemContent className='min-w-0'><ItemTitle>{entry.title}</ItemTitle><ItemDescription>{entry.body}</ItemDescription><p className='text-xs text-text-muted'>{entry.date} · {entry.theme}</p></ItemContent>
+          <ItemActions><Button size='xs' variant='outline' onClick={() => onWrite(entry)}>Edit</Button><Button size='xs' variant='ghost' onClick={() => onArchive(entry.id)}>{entry.archived ? 'Restore' : 'Archive'}</Button></ItemActions>
+        </Item>))}</ItemGroup> : <EmptyState compact title='No archived entries' description='Archive a saved entry to find it here.' />) : null}
+      {page === 'drafts' ? <Item size='sm' variant='outline'><ItemContent><ItemTitle>{draft.title || 'Untitled entry'}</ItemTitle><ItemDescription>{draft.body || 'Your next draft is ready to write.'}</ItemDescription></ItemContent><Button size='sm' variant='outline' onClick={() => onWrite(draft)}>Continue writing</Button></Item> : null}
+      {page === 'weekly-review' ? <div className='grid gap-4'><p className='text-sm'>{entries.length} saved entries this week. Revisit a passage before writing your review.</p>
+        <ItemGroup>{entries.slice(0,3).map(entry => <Item key={entry.id} size='sm'><ItemContent><ItemTitle>{entry.title}</ItemTitle><ItemDescription>{entry.body}</ItemDescription></ItemContent></Item>)}</ItemGroup>
+        <Button size='sm' className='justify-self-start' onClick={() => onWrite({ title: 'Weekly review', body: 'This week I noticed ', theme: 'Review' })}>Write a review</Button>
+      </div> : null}
+      {prompts ? <ItemGroup aria-label={title}>{prompts.map(([label, body]) => <Item key={label} size='sm' className='px-0'><ItemContent><ItemTitle>{label}</ItemTitle><ItemDescription>{body}</ItemDescription></ItemContent>
+        {['templates','prompt-library'].includes(page) ? <Button size='xs' variant='outline' onClick={() => onWrite({ title: label, body: '', theme: page === 'templates' ? label : 'Prompt' })}>{page === 'templates' ? 'Use template' : 'Write from prompt'}</Button> : null}
+      </Item>)}</ItemGroup> : null}
+      {page === 'sync-backup' ? <Button asChild size='sm' variant='outline' className='justify-self-start'><a href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(entries, null, 2))}`} download='journal-entries.json'>Export entries</a></Button> : null}
+      {page === 'reminders' || page === 'writing-preferences' ? <Item size='sm' variant='outline'>
+        <ItemContent><ItemTitle>{page === 'reminders' ? 'Evening reminder' : 'Editor word count'}</ItemTitle><ItemDescription>{page === 'reminders' ? 'Keep an evening writing reminder in this journal.' : 'Show a word count below your draft.'}</ItemDescription></ItemContent>
+        <Button size='sm' variant='outline' aria-pressed={page === 'reminders' ? options.reminder : options.wordCount} onClick={() => { const key = page === 'reminders' ? 'reminder' : 'wordCount'; setOptions({ ...options, [key]: !options[key] }); }}>{(page === 'reminders' ? options.reminder : options.wordCount) ? 'On' : 'Off'}</Button>
+      </Item> : null}
+    </section>
+  );
+}
 // The current route is a raised row: the muted fill with a hairline.
 const raised = 'data-active:ring-1 data-active:ring-ui-sidebar-border';
 
@@ -260,75 +326,17 @@ function SectionsSheet({ section, onSection }) {
   );
 }
 
-function SettingsMenu() {
-  const [toggles, setToggles] = useState({ reminder: true, wordCount: true, typewriter: false });
-  const set = (key) => (value) => setToggles((state) => ({ ...state, [key]: value }));
+function SettingsMenu({ options, onOptions, onPage }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <ToolButton label='Open settings'>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-        </ToolButton>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-60'>
-        <DropdownMenuLabel>Settings</DropdownMenuLabel>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='BookText' aria-hidden='true' />
-          Journal Settings
-          <DropdownMenuShortcut>⌘,</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='ClipboardList' aria-hidden='true' />
-          Entry Templates
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Bell' aria-hidden='true' />
-          Reminder Times
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuLabel>Editor</DropdownMenuLabel>
-        <DropdownMenuCheckboxItem checked={toggles.reminder} onCheckedChange={set('reminder')}>
-          Evening Reminder
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={toggles.wordCount} onCheckedChange={set('wordCount')}>
-          Show Word Count
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={toggles.typewriter} onCheckedChange={set('typewriter')}>
-          Typewriter Scrolling
-        </DropdownMenuCheckboxItem>
+      <DropdownMenuTrigger asChild><ToolButton label='Open settings'><RegistryIcon lucide='Settings' aria-hidden='true' /></ToolButton></DropdownMenuTrigger>
+      <DropdownMenuContent align='end'>
+        <DropdownMenuLabel>Editor settings</DropdownMenuLabel>
+        <DropdownMenuItem onSelect={() => onPage('templates')}>Entry templates</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('reminders')}>Reminder settings</DropdownMenuItem>
+        <DropdownMenuCheckboxItem checked={options.wordCount} onCheckedChange={checked => onOptions({ ...options, wordCount: checked })}>Show word count</DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-}
-
-function ThemeRow() {
-  const [theme, setTheme] = useState('system');
-  return (
-    <div role='group' aria-label='Theme' className='flex items-center gap-2 px-2 py-1 text-sm'>
-      <RegistryIcon lucide='Palette' aria-hidden='true' className='text-text-muted size-4' />
-      <span aria-hidden='true'>Theme</span>
-      <span className='bg-surface-muted ms-auto flex items-center gap-0.5 rounded-(--ds-radius-control) p-0.5'>
-        {[
-          ['light', 'Sun', 'Light theme'],
-          ['dark', 'Moon', 'Dark theme'],
-          ['system', 'Monitor', 'System theme']
-        ].map(([value, icon, label]) => (
-          <DropdownMenuItem
-            key={value}
-            role='menuitemradio'
-            aria-checked={theme === value}
-            aria-label={label}
-            onSelect={(event) => {
-              event.preventDefault();
-              setTheme(value);
-            }}
-            className={`size-6 justify-center p-0 ${theme === value ? 'bg-surface shadow-xs' : ''}`}
-          >
-            <RegistryIcon lucide={icon} aria-hidden='true' className='size-3.5' />
-          </DropdownMenuItem>
-        ))}
-      </span>
-    </div>
   );
 }
 
@@ -347,7 +355,7 @@ function AccountHeader() {
   );
 }
 
-function StatusMenu() {
+function StatusMenu({ onPage }) {
   const [status, setStatus] = useState('none');
   const current = statuses.find((entry) => entry.id === status);
   return (
@@ -368,39 +376,20 @@ function StatusMenu() {
         <DropdownMenuRadioGroup value={status} onValueChange={setStatus}>
           {statuses.map((entry) => (
             <DropdownMenuRadioItem key={entry.id} value={entry.id} className='gap-2'>
-              <span aria-hidden='true' className={`size-2 shrink-0 rounded-full ${entry.dot}`} />
+              <StatusDot className={`size-2 ${entry.id === 'none' ? 'bg-transparent' : ''} ${entry.dot}`} />
               {entry.label}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuLabel>Account</DropdownMenuLabel>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='User' aria-hidden='true' />
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='CalendarClock' aria-hidden='true' />
-          Writing Schedule
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-          Preferences
-        </DropdownMenuItem>
-        <ThemeRow />
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('reminders')}>Writing schedule</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('writing-preferences')}>Writing preferences</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function NewEntryMenu() {
+function NewEntryMenu({ onPage, onWrite }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -411,15 +400,15 @@ function NewEntryMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-48'>
         <DropdownMenuLabel>Start From</DropdownMenuLabel>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onWrite({ title: '', body: '', theme: 'Journal' })}>
           <RegistryIcon lucide='PenSquare' aria-hidden='true' />
           Blank Page
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('prompt-library')}>
           <RegistryIcon lucide='Lightbulb' aria-hidden='true' />
           Today's Prompt
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('templates')}>
           <RegistryIcon lucide='ClipboardList' aria-hidden='true' />
           A Template
         </DropdownMenuItem>
@@ -428,7 +417,7 @@ function NewEntryMenu() {
   );
 }
 
-function TopBar({ section, onSection }) {
+function TopBar({ section, onSection, onPage, onWrite, options, onOptions }) {
   const { isMobile } = useSidebar();
   return (
     <header className='@container flex h-13 shrink-0 items-center gap-2 border-b border-ui-border px-4 @lg:px-6'>
@@ -440,7 +429,7 @@ function TopBar({ section, onSection }) {
         variant='bare'
         href='#home'
         aria-label='Gaudi Journal home'
-        onClick={noop}
+        onClick={event => { event.preventDefault(); onPage('today-s-page'); }}
         className='bg-surface hidden size-6 @xs:grid shrink-0 place-items-center rounded-(--ds-radius-control) border border-ui-border outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
@@ -451,11 +440,11 @@ function TopBar({ section, onSection }) {
       </div>
       <div role='toolbar' aria-label='Workspace actions' className='ms-auto flex shrink-0 items-center gap-1'>
         <span className='me-1.5'>
-          <NewEntryMenu />
+          <NewEntryMenu onPage={onPage} onWrite={onWrite} />
         </span>
         <AppShellNotifications inset defaultItems={notifications} triggerClassName='text-text-muted' />
-        <SettingsMenu />
-        <StatusMenu />
+        <SettingsMenu options={options} onOptions={onOptions} onPage={onPage} />
+        <StatusMenu onPage={onPage} />
       </div>
     </header>
   );
@@ -489,15 +478,14 @@ function JournalSearch({ onSelect }) {
   );
 }
 
-function WordGoalCard() {
-  const words = 640;
+function WordGoalCard({ words }) {
   const goal = 750;
   return (
-    <div className='bg-surface-muted/60 rounded-(--ds-radius-card) border border-ui-border p-3'>
+    <CardRoot variant='muted' padding='none'><CardContent className='p-3'>
       <p className='text-xs font-medium'>Today's words</p>
       <p className='text-text-muted text-[11px]'>{words} of {goal}</p>
       <Progress value={words} max={goal} aria-label="Today's word goal" className='bg-ui-muted mt-2 h-1.5 rounded-full' />
-    </div>
+    </CardContent></CardRoot>
   );
 }
 
@@ -547,12 +535,22 @@ function RouteSearch({ open, onOpenChange, onSelect }) {
 
 export function Pattern() {
   const [page, setPage] = useState('today-s-page');
-  const [section, setSection] = useState('today');
+  const [entries, setEntries] = useState(initialEntries);
+  const [draft, setDraft] = useState({ title: 'Morning at the library', body: 'The reading room was still quiet when I arrived. On the desk, someone had left a folded map of the river.', theme: 'City walks' });
+  const [options, setOptions] = useState({ wordCount: true, reminder: true });
+  const section = Object.keys(sectionPage).find(key => sectionPage[key] === page) ?? (page === 'templates' ? 'prompts' : 'entries');
+  const write = entry => { setDraft(entry); setPage('today-s-page'); };
+  const save = () => {
+    const item = { ...draft, id: draft.id ?? crypto.randomUUID(), date: draft.date ?? 'Today', theme: draft.theme ?? 'Journal' };
+    setEntries(list => [item, ...list.filter(entry => entry.id !== item.id)]);
+    setDraft(item); setPage('all-entries');
+  };
+  const words = 640 + entries.filter(entry => entry.date === 'Today').reduce((total, entry) => total + entry.body.trim().split(/\s+/).filter(Boolean).length, 0);
   const current = routes.find((item) => item.id === page);
   return (
     <AppShellFrame surface='default'>
       <SidebarProvider shortcut={false} className='flex-col' style={{ '--sidebar-width': '13rem' }}>
-        <TopBar section={section} onSection={setSection} />
+        <TopBar section={section} onSection={id => setPage(sectionPage[id])} onPage={setPage} onWrite={write} options={options} onOptions={setOptions} />
         <div className='relative flex min-h-0 flex-1'>
           <Sidebar mobileTitle='Journal Navigation' mobileDescription='Journal pages and settings.'>
             <SidebarHeader className='px-2 pt-3 pb-0'>
@@ -571,12 +569,13 @@ export function Pattern() {
               ))}
             </SidebarContent>
             <SidebarFooter className='p-3'>
-              <WordGoalCard />
+              <WordGoalCard words={words} />
             </SidebarFooter>
           </Sidebar>
           <AppShellPanel inset={false} aria-label={current?.label}>
             <AppShellBody className='px-4 py-4 @lg:px-6 @lg:py-6'>
-              <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+              <JournalPane page={page} entries={entries} draft={draft} setDraft={setDraft} onWrite={write} onSave={save} options={options} setOptions={setOptions}
+                onArchive={id => setEntries(list => list.map(entry => entry.id === id ? { ...entry, archived: !entry.archived } : entry))} />
             </AppShellBody>
           </AppShellPanel>
         </div>

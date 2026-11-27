@@ -1,7 +1,7 @@
 'use client';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
-import { Alert, AlertAction, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
+import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CodeBlockGroup } from '@gaudi/design-system/core/CodeBlock';
@@ -132,10 +132,6 @@ export function Pattern() {
       <section aria-labelledby='hooks-title' className='grid gap-4 rounded-xl border p-5'>
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <h2 id='hooks-title' className='text-lg font-semibold'>Webhook endpoints</h2>
-          <Button size='sm' variant='outline'>
-            <RegistryIcon lucide='PlusIcon' />
-            Add endpoint
-          </Button>
         </div>
         <ul className='grid gap-3'>
           {endpoints.map((endpoint) => (
@@ -153,10 +149,7 @@ export function Pattern() {
                 <Alert variant='warning'>
                   <RegistryIcon lucide='CircleAlertIcon' />
                   <AlertTitle>{endpoint.failing} deliveries failed in the last hour</AlertTitle>
-                  <AlertDescription>The endpoint answered 502. We retry for 3 days before disabling it.</AlertDescription>
-                  <AlertAction>
-                    <Button size='xs' variant='outline'>Retry now</Button>
-                  </AlertAction>
+                  <AlertDescription>The endpoint returned HTTP 502. Check its server logs for the failed requests.</AlertDescription>
                 </Alert>
               ) : null}
             </li>

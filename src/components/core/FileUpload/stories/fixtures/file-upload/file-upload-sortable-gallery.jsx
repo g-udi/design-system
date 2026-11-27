@@ -11,7 +11,7 @@ import {
   SortableItemHandle
 } from '@gaudi/design-system/core/Sortable';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import { toast } from 'sonner';
+import { toast } from '@gaudi/design-system/core/Toast';
 import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {

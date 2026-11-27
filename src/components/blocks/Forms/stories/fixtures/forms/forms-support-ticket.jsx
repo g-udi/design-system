@@ -1,4 +1,5 @@
 'use client';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -124,7 +125,7 @@ export function Pattern() {
                 setTag('');
               }}
             >
-              <label htmlFor='ticket-new-tag' className='sr-only'>New tag</label>
+              <Label htmlFor='ticket-new-tag' className='sr-only'>New tag</Label>
               <Input id='ticket-new-tag' value={tag} onChange={(event) => setTag(event.target.value)} placeholder='Add tag' className='w-28' inputClassName='h-7 min-h-7 text-xs' />
             </form>
           </div>

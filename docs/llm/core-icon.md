@@ -61,10 +61,10 @@ Decorative icons are hidden from assistive technology. Informative or icon-only 
 Curated patterns:
 
 - In an empty state and list row — registry item `@gaudi/icon-stack-in-context` (uses `Button`, `Empty`, `EmptyContent`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `IconStack`, `Item`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
-- Sizes, colors and badge — registry item `@gaudi/icon-stack-sizes-badge` (uses `IconStack`, `RegistryIcon`)
+- Sizes, colors and badge — registry item `@gaudi/icon-stack-sizes-badge` (uses `IconStack`, `IconTile`, `RegistryIcon`)
 - In a card, list row and empty state — registry item `@gaudi/icon-tile-in-context` (uses `Empty`, `EmptyDescription`, `EmptyHeader`, `EmptyMedia`, `EmptyTitle`, `Frame`, `FramePanel`, `IconTile`, `Item`, `ItemActions`, `ItemContent`, `ItemDescription`, `ItemMedia`, `ItemTitle`, `RegistryIcon`)
 - Tones — registry item `@gaudi/icon-tile-tones` (uses `IconTile`, `RegistryIcon`)
-- Variants, sizes and shapes — registry item `@gaudi/icon-tile-variants` (uses `IconTile`, `RegistryIcon`)
+- Variants, sizes and shapes — registry item `@gaudi/icon-tile-variants` (uses `IconTile`, `RegistryIcon`, `StatusDot`)
 
 ## README
 
@@ -79,7 +79,7 @@ import { AnimatedIcon, Icon, IconStack, IconTile } from '@gaudi/design-system';
 <AnimatedIcon name='Bell' active={hovered} size='md' color='primary' />
 ```
 
-- `IconTile` frames an icon as media in lists, cards and empty states (`outline`, `elevated`, `soft`, `solid`, `frame`;
+- `IconTile` frames an icon as media in lists, cards and empty states (`outline`, `muted`, `elevated`, `soft`, `solid`, `frame`;
   sizes `xs` to `xl`; `radius='full'` for circles). Retint it with text and background tokens.
 - `IconStack` draws a layered stack of cards behind an icon for empty and onboarding states.
 - `AnimatedIcon` moves only while the host sets `active`, and rests for reduced motion, offscreen placement and hidden documents.

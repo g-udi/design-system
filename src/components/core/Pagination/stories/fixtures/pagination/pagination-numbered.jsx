@@ -1,8 +1,11 @@
+'use client';
+import { useState } from 'react';
 import {
   CardRoot as Card,
   CardContent
 } from '@gaudi/design-system/core/Card';
 import {
+  getPageShortcuts,
   PaginationRoot as Pagination,
   PaginationContentPrimitive as PaginationContent,
   PaginationEllipsisPrimitive as PaginationEllipsis,
@@ -12,8 +15,7 @@ import {
   PaginationPreviousPrimitive as PaginationPrevious
 } from '@gaudi/design-system/core/Pagination';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const pages = [1, 2, 3, null, 10];
-const current = 2;
+const total = 10;
 const styles = {
   Default: { link: '' },
   'Icon arrows': { link: '', icons: true },
@@ -31,11 +33,11 @@ const styles = {
     link: 'data-[active=true]:border-transparent data-[active=true]:bg-accent data-[active=true]:text-accent-foreground'
   }
 };
-function Arrow({ direction, className }) {
+function Arrow({ direction, className, ...props }) {
   const next = direction === 'next';
   return (
     <PaginationLink
-      href='#'
+      {...props}
       size='icon'
       aria-label={next ? 'Go to next page' : 'Go to previous page'}
       className={className}
@@ -45,17 +47,21 @@ function Arrow({ direction, className }) {
   );
 }
 function Pages({ name, style }) {
+  const [current, setCurrent] = useState(2);
+  const pages = getPageShortcuts(current, total);
+  const previous = { disabled: current === 1, onClick: () => setCurrent(current - 1) };
+  const next = { disabled: current === total, onClick: () => setCurrent(current + 1) };
   const edge = style.link.includes('rounded-full') ? 'rounded-full' : style.content ? 'rounded-none border-0 border-e border-border' : '';
   const nav = (
     <Pagination aria-label={`${name} pagination`} className='justify-start'>
       <PaginationContent className={style.content ?? 'gap-1'}>
         <PaginationItem>
-          {style.icons ? <Arrow direction='previous' className={edge} /> : <PaginationPrevious href='#' className={edge} />}
+          {style.icons ? <Arrow {...previous} direction='previous' className={edge} /> : <PaginationPrevious {...previous} className={edge} />}
         </PaginationItem>
-        {pages.map((page, index) => (
-          <PaginationItem key={page ?? `gap-${index}`} className={page ? undefined : style.item}>
-            {page ? (
-              <PaginationLink href='#' isActive={page === current} className={style.link}>
+        {pages.map((page) => (
+          <PaginationItem key={page} className={typeof page === 'number' ? undefined : style.item}>
+            {typeof page === 'number' ? (
+              <PaginationLink onClick={() => setCurrent(page)} isActive={page === current} className={style.link}>
                 {page}
               </PaginationLink>
             ) : (
@@ -64,7 +70,7 @@ function Pages({ name, style }) {
           </PaginationItem>
         ))}
         <PaginationItem>
-          {style.icons ? <Arrow direction='next' className={style.content ? 'rounded-none border-0' : edge} /> : <PaginationNext href='#' className={edge} />}
+          {style.icons ? <Arrow {...next} direction='next' className={style.content ? 'rounded-none border-0' : edge} /> : <PaginationNext {...next} className={edge} />}
         </PaginationItem>
       </PaginationContent>
     </Pagination>

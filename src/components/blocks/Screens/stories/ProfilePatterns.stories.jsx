@@ -19,6 +19,13 @@ export const AccountSettings = {
     await expect(canvas.getByRole('button', { name: 'Team' })).toHaveAttribute('aria-current', 'page');
     await userEvent.click(canvas.getByRole('button', { name: 'Profile' }));
     await waitFor(() => expect(canvas.getByRole('textbox', { name: 'Full name' })).toHaveValue('Maya Lopez'));
+    const name = canvas.getByRole('textbox', { name: 'Full name' });
+    await userEvent.clear(name);
+    await userEvent.type(name, 'Maya Chen');
+    await userEvent.click(canvas.getByRole('button', { name: 'Save changes' }));
+    await userEvent.type(name, ' (draft)');
+    await userEvent.click(canvas.getByRole('button', { name: 'Cancel' }));
+    await expect(name).toHaveValue('Maya Chen');
   }
 };
 export const OrganisationTabs = {
@@ -34,6 +41,9 @@ export const OrganisationTabs = {
     await userEvent.click(canvas.getByRole('tab', { name: 'Members' }));
     await expect(canvas.getByRole('columnheader', { name: 'Member' })).toBeVisible();
     await expect(canvas.getByRole('region', { name: 'Organisation members' })).toHaveAttribute('tabindex', '0');
+    const member = canvas.getByRole('combobox', { name: 'Role for Priyanka Nairn' });
+    await userEvent.selectOptions(member, 'Viewer');
+    await expect(member).toHaveValue('Viewer');
   }
 };
 export const Billing = { name: 'Billing', ...pattern('billing', 'The current plan with its renewal, three usage meters and the invoice history with statuses and downloads.') };

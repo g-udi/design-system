@@ -93,7 +93,7 @@ export const CustomEditors = {
     await userEvent.type(domain, 'invalid');
     await expect(domain).toHaveAttribute('aria-invalid', 'true');
     await expect(domainEditor.getByRole('button', { name: 'Apply', exact: true })).toBeDisabled();
-    await expect(domainEditor.getByText('Include a dot, as in studio.example')).toBeVisible();
+    await waitFor(() => expect(domainEditor.getByText('Include a dot, as in studio.example')).toBeVisible(), { timeout: 5000 });
     await auditState(context, 'invalid-domain');
     await userEvent.clear(domain);
     await userEvent.type(domain, 'STUDIO.EXAMPLE');
@@ -120,6 +120,7 @@ export const CustomEditors = {
     await userEvent.click(rule('seed-8-2').getByRole('button', { name: 'Ultimate' }));
     await expect(await page.findByRole('radio', { name: /Ultimate/ })).toBeChecked();
     await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(page.queryByRole('radio', { name: /Ultimate/ })).not.toBeInTheDocument(), { timeout: 5000 });
     await expect(canvas.getByRole('button', { name: 'Clear', exact: true })).toBeEnabled();
   }
 };

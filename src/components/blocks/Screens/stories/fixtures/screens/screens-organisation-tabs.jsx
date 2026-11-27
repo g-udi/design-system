@@ -1,4 +1,5 @@
 'use client';
+import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell } from '@gaudi/design-system/mdx/Table';
 import { useState } from 'react';
 import {
@@ -7,8 +8,10 @@ import {
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { default as Button } from '@gaudi/design-system/core/Button';
+
 import {
+  FieldLegend,
+  FieldSet,
   FieldRoot as Field,
   FieldDescriptionPrimitive as FieldDescription,
   FieldLabelPrimitive as FieldLabel
@@ -26,7 +29,7 @@ import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
 } from '@gaudi/design-system/core/ToggleGroup';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+
 
 const members = [
   ['Maya Lopez', 'person-23', 'Owner', 'Active'],
@@ -72,8 +75,8 @@ function Permissions() {
       </ToggleGroup>
       <div className='grid gap-4 sm:grid-cols-2'>
         {permissionGroups.map((group) => (
-          <fieldset key={group.label} className='grid gap-2 rounded-lg border p-3'>
-            <legend className='px-1 text-xs font-medium text-text-muted'>{group.label}</legend>
+          <FieldSet key={group.label} className='grid gap-2 rounded-lg border p-3'>
+            <FieldLegend className='px-1 text-xs font-medium text-text-muted'>{group.label}</FieldLegend>
             {group.items.map((item) => {
               const id = `perm-${item.replace(/\s+/g, '-').toLowerCase()}`;
               return (
@@ -83,7 +86,7 @@ function Permissions() {
                 </div>
               );
             })}
-          </fieldset>
+          </FieldSet>
         ))}
       </div>
     </div>
@@ -91,6 +94,7 @@ function Permissions() {
 }
 
 export function Pattern() {
+  const [roster, setRoster] = useState(members);
   return (
     <Tabs defaultValue='members' className='bg-surface w-full max-w-3xl rounded-xl border p-5'>
       <div className='grid gap-1'>
@@ -121,11 +125,10 @@ export function Pattern() {
               <TableHead scope='col' >Member</TableHead>
               <TableHead scope='col' >Role</TableHead>
               <TableHead scope='col' >Status</TableHead>
-              <TableHead scope='col' ><span className='sr-only'>Actions</span></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {members.map(([name, portrait, role, status]) => (
+            {roster.map(([name, portrait, role, status]) => (
               <TableRow key={name} >
                 <TableCell>
                   <span className='flex items-center gap-2'>
@@ -136,13 +139,29 @@ export function Pattern() {
                     {name}
                   </span>
                 </TableCell>
-                <TableCell>{role}</TableCell>
-                <TableCell><Badge size='sm' variant={status === 'Active' ? 'success-light' : 'warning-light'}>{status}</Badge></TableCell>
-                <TableCell className='text-end'>
-                  <Button size='xs' variant='ghost' aria-label={`Manage ${name}`}>
-                    <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />
-                  </Button>
+                <TableCell>
+                  {role === 'Owner' ? (
+                    role
+                  ) : (
+                    <NativeSelect
+                      className='min-w-24 [&_select]:w-full'
+                      aria-label={`Role for ${name}`}
+                      value={role}
+                      onChange={(event) =>
+                        setRoster((rows) =>
+                          rows.map((row) => (row[0] === name ? [row[0], row[1], event.target.value, row[3]] : row))
+                        )
+                      }
+                    >
+                      {['Admin', 'Editor', 'Viewer'].map((choice) => (
+                        <NativeSelectOption key={choice} value={choice}>
+                          {choice}
+                        </NativeSelectOption>
+                      ))}
+                    </NativeSelect>
+                  )}
                 </TableCell>
+                <TableCell><Badge size='sm' variant={status === 'Active' ? 'success-light' : 'warning-light'}>{status}</Badge></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -158,8 +177,7 @@ export function Pattern() {
               <span className='font-medium'>{name}</span>
               <span className='text-text-muted text-xs'>{purpose}</span>
             </span>
-            {connected ? <Badge size='sm' variant='success-light'>Connected</Badge> : null}
-            <Button size='sm' variant={connected ? 'outline' : 'default'}>{connected ? 'Configure' : 'Connect'}</Button>
+            <Badge size='sm' variant={connected ? 'success-light' : 'outline'}>{connected ? 'Connected' : 'Not connected'}</Badge>
           </div>
         ))}
       </TabsContent>

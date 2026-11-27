@@ -110,6 +110,7 @@
       "CardTitle",
       "Carousel",
       "CarouselContent",
+      "CarouselIndicator",
       "CarouselItem",
       "CarouselNext",
       "CarouselPrevious",
@@ -623,6 +624,7 @@
       "MenubarSubContent",
       "MenubarSubTrigger",
       "MenubarTrigger",
+      "MetaSeparator",
       "MicroSlats",
       "NativeSelect",
       "NativeSelectOptGroup",
@@ -807,6 +809,7 @@
       "StatDelta",
       "StatIcon",
       "StatMeter",
+      "StatusDot",
       "Stepper",
       "StepperContent",
       "StepperDescription",
@@ -1052,6 +1055,7 @@
       "getLaneKey",
       "getLinkHost",
       "getNextIndex",
+      "getPageShortcuts",
       "getPinningStyles",
       "getPreviewImageUrl",
       "getRangeKey",
@@ -2072,6 +2076,7 @@
       "CardTitle",
       "Carousel",
       "CarouselContent",
+      "CarouselIndicator",
       "CarouselItem",
       "CarouselNext",
       "CarouselPrevious",
@@ -2498,6 +2503,7 @@
       "MenubarSubContent",
       "MenubarSubTrigger",
       "MenubarTrigger",
+      "MetaSeparator",
       "NativeSelect",
       "NativeSelectOptGroup",
       "NativeSelectOption",
@@ -2633,6 +2639,7 @@
       "SortableItemHandle",
       "SortableItemPosition",
       "SortableOverlay",
+      "StatusDot",
       "Stepper",
       "StepperContent",
       "StepperDescription",
@@ -2837,6 +2844,7 @@
       "getGanttDateRange",
       "getLaneKey",
       "getLinkHost",
+      "getPageShortcuts",
       "getPinningStyles",
       "getPreviewImageUrl",
       "getRangeKey",
@@ -3178,6 +3186,7 @@
     ],
     "@gaudi/design-system/core/Carousel": [
       "CarouselContent",
+      "CarouselIndicator",
       "CarouselItem",
       "CarouselNext",
       "CarouselPrevious",
@@ -4101,7 +4110,8 @@
       "PaginationPreviousPrimitive",
       "PaginationRoot",
       "PaginationStatus",
-      "default"
+      "default",
+      "getPageShortcuts"
     ],
     "@gaudi/design-system/core/PhoneInput": [
       "PhoneInput"
@@ -4109,6 +4119,7 @@
     "@gaudi/design-system/core/Pill": [
       "Badge",
       "BadgeRoot",
+      "StatusDot",
       "badgeVariants",
       "badgeVariantsPrimitive",
       "default",
@@ -4246,6 +4257,7 @@
       "useComboboxAnchor"
     ],
     "@gaudi/design-system/core/Separator": [
+      "MetaSeparator",
       "Separator"
     ],
     "@gaudi/design-system/core/Sheet": [
@@ -4312,6 +4324,7 @@
       "default"
     ],
     "@gaudi/design-system/core/Terminal": [
+      "TerminalWindowControls",
       "default",
       "terminalBodyVariants",
       "terminalLineVariants",

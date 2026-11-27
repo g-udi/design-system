@@ -18,7 +18,6 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandShortcut
 } from '@gaudi/design-system/core/Commander';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -52,7 +51,10 @@ import {
   AppShellPanel
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import Accordion from '@gaudi/design-system/core/Accordion';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 
@@ -98,6 +100,21 @@ const pages = [...reading, ...links].flatMap((item) =>
   item.items ? item.items.map((child) => ({ ...child, section: item.label })) : [item]
 );
 const user = { handle: '@leila', initial: 'L', photo: '/avatars/person-14.svg' };
+const shelfNotes = {
+  personal: [
+    { value: 'walking', title: 'Walking', description: 'Henry David Thoreau', content: 'Revisit the afternoon walk. How does Thoreau choose a direction when he leaves the village?' },
+    { value: 'room', title: 'A Room of One’s Own', description: 'Virginia Woolf', content: 'Compare the two libraries in the opening chapter. Who can enter each one?' },
+    { value: 'map', title: 'A Map of the City', description: 'Field notes', content: 'Match the names in the old street index to the present-day map.' }
+  ],
+  'book-club': [
+    { value: 'persuasion', title: 'Persuasion', description: 'Jane Austen', content: 'Bring one scene where Anne changes her mind before she speaks.' },
+    { value: 'middlemarch', title: 'Middlemarch', description: 'George Eliot', content: 'Trace the first meeting between Dorothea and Lydgate. What does each notice?' }
+  ],
+  lab: [
+    { value: 'as-we-may-think', title: 'As We May Think', description: 'Vannevar Bush', content: 'Sketch one associative trail a researcher might save and share.' },
+    { value: 'mind', title: 'Augmenting Human Intellect', description: 'Douglas Engelbart', content: 'Compare the proposed annotation workflow with the way this group shares notes.' }
+  ]
+};
 // Raised rows on the floating card: the current page sits on the plain surface with a hairline.
 const raised =
   'data-active:bg-ui-background data-active:shadow-xs data-active:ring-1 data-active:ring-ui-sidebar-border';
@@ -110,7 +127,8 @@ function ShelfTile({ shelf, className = 'size-5' }) {
   );
 }
 
-function Brand() {
+function Brand({ onGo }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <div className='flex items-center gap-2 group-data-[collapsible=icon]:flex-col'>
       <Link
@@ -118,7 +136,7 @@ function Brand() {
         href='#today'
         aria-label='Gaudi Reader'
         className='flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) px-1 py-1 text-sm font-semibold outline-hidden focus-visible:ring-2 focus-visible:ring-ui-sidebar-ring group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:px-0'
-        onClick={(event) => event.preventDefault()}
+        onClick={event => { event.preventDefault(); onGo('today'); if (isMobile) setOpenMobile(false); }}
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Reader</span></span>
@@ -147,8 +165,8 @@ function SearchButton({ onOpen, shortcut }) {
   );
 }
 
-function ShelfSwitcher({ shelf, onChange }) {
-  const { isMobile } = useSidebar();
+function ShelfSwitcher({ shelf, onChange, onPreferences }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -173,19 +191,7 @@ function ShelfSwitcher({ shelf, onChange }) {
               ))}
             </DropdownMenuRadioGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Plus' aria-hidden='true' />
-              New Shelf
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Settings' aria-hidden='true' />
-              Reading Preferences
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => { onPreferences(); if (isMobile) setOpenMobile(false); }}><RegistryIcon lucide='Settings' aria-hidden='true' />Reading preferences</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -193,7 +199,7 @@ function ShelfSwitcher({ shelf, onChange }) {
   );
 }
 
-function PageHeader({ shelf, page, search }) {
+function PageHeader({ shelf, page, search, onGo }) {
   const { isMobile } = useSidebar();
   return (
     <AppShellHeader>
@@ -201,7 +207,7 @@ function PageHeader({ shelf, page, search }) {
       <Breadcrumb className='min-w-0'>
         <BreadcrumbList className='flex-nowrap'>
           <BreadcrumbItem className='min-w-0'>
-            <BreadcrumbLink href='#shelf' className='flex items-center gap-1.5' onClick={(event) => event.preventDefault()}>
+            <BreadcrumbLink href='#today' className='flex items-center gap-1.5' onClick={event => { event.preventDefault(); onGo('today'); }}>
               <ShelfTile shelf={shelf} />
               {/* Narrow frames keep the marks and speak the names. */}
               <span className={isMobile ? 'sr-only' : 'truncate'}>{shelf.name}</span>
@@ -209,7 +215,7 @@ function PageHeader({ shelf, page, search }) {
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem className='min-w-0'>
-            <BreadcrumbLink href='#profile' className='flex items-center gap-1.5' onClick={(event) => event.preventDefault()}>
+            <BreadcrumbLink href='#profile' className='flex items-center gap-1.5' onClick={event => { event.preventDefault(); onGo('profile'); }}>
               <Avatar className='size-5'>
                 <AvatarImage src={user.photo} alt='' />
                 <AvatarFallback>{user.initial}</AvatarFallback>
@@ -228,8 +234,29 @@ function PageHeader({ shelf, page, search }) {
   );
 }
 
+const types = { walking: 'articles', room: 'long-reads', map: 'articles', persuasion: 'long-reads', middlemarch: 'long-reads', 'as-we-may-think': 'papers', mind: 'papers' };
+function ShelfPage({ shelf, page, spacious, setSpacious }) {
+  const notes = shelfNotes[shelf.id];
+  const headings = { today: 'Reading notes', articles: 'Article queue', papers: 'Research papers', 'long-reads': 'Long-form reading', 'by-book': 'Highlights by book', 'by-topic': 'Reading themes', flashcards: 'Revision prompts', summaries: 'Shelf summaries', digest: 'Shelf digest' };
+  if (page === 'archive') return <EmptyState compact title='Nothing archived' description='This shelf has no archived readings.' />;
+  if (page === 'guide') return <section className='mx-auto grid max-w-xl gap-3 p-4'><h2 className='text-lg font-semibold'>Using a reading shelf</h2><p>Open a title to revisit its reading prompt. The queue groups papers, articles and longer works.</p></section>;
+  if (page === 'profile') return <section className='grid gap-2 p-4'><h2 className='text-lg font-semibold'>Reader profile</h2><p>{user.handle} · Member of {shelf.name}</p></section>;
+  if (page === 'settings') return <section className='grid max-w-sm gap-3 p-4'><h2 className='text-lg font-semibold'>Reading preferences</h2><Field><FieldLabel htmlFor='roomy-reading'>Roomier reading notes</FieldLabel><Switch id='roomy-reading' checked={spacious} onCheckedChange={setSpacious} /></Field></section>;
+  if (page === 'share') return <section className='grid max-w-sm gap-3 p-4'><h2 className='text-lg font-semibold'>Export this shelf</h2><p className='text-sm'>Share the titles and notes from {shelf.name}.</p><Button asChild className='w-fit'><a download={shelf.id + '-reading.txt'} href={'data:text/plain;charset=utf-8,' + encodeURIComponent(notes.map(item => [item.title, item.description, item.content].join('\n')).join('\n\n'))}>Download reading list</a></Button></section>;
+  let items = notes;
+  if (['articles', 'papers', 'long-reads'].includes(page)) items = notes.filter(item => types[item.value] === page);
+  if (page === 'flashcards') items = notes.map(item => ({ ...item, title: item.content, description: undefined, content: item.title + ' · ' + item.description }));
+  if (page === 'by-topic') items = notes.map(item => ({ ...item, title: types[item.value] === 'long-reads' ? 'Literature · ' + item.title : 'Research · ' + item.title }));
+  if (page === 'digest') items = notes.slice(0, 1);
+  return <section className={'mx-auto grid w-full max-w-xl p-4 ' + (spacious ? 'gap-6 leading-loose' : 'gap-3')} aria-label='Shelf notes'>
+    <h2 className='text-lg font-semibold'>{headings[page] || 'Reading notes'}</h2>
+    {items.length ? <Accordion key={shelf.id + page} items={items} /> : <EmptyState compact title='This queue is empty' description={'No readings of this kind on ' + shelf.name + '.'} />}
+  </section>;
+}
+
 export function Pattern() {
   const [page, setPage] = useState('today');
+  const [spacious, setSpacious] = useState(false);
   const [shelf, setShelf] = useState(shelves[0]);
   const [searchOpen, setSearchOpen] = useState(false);
   // ⌘K on macOS, Ctrl+K elsewhere, from anywhere on the page.
@@ -244,7 +271,7 @@ export function Pattern() {
       <SidebarProvider>
         <Sidebar variant='floating' collapsible='icon'>
           <SidebarHeader>
-            <Brand />
+            <Brand onGo={go} />
           </SidebarHeader>
           <SidebarContent role='navigation' aria-label='Reader'>
             <AppShellNav label='Reading' items={reading} value={page} onValueChange={setPage} itemClassName={raised} />
@@ -252,18 +279,17 @@ export function Pattern() {
           </SidebarContent>
           <SidebarFooter>
             <SidebarSeparator className='mx-0' />
-            <ShelfSwitcher shelf={shelf} onChange={setShelf} />
+            <ShelfSwitcher shelf={shelf} onChange={setShelf} onPreferences={() => go('settings')} />
           </SidebarFooter>
         </Sidebar>
         <AppShellPanel inset={false}>
           <PageHeader
             shelf={shelf}
-            page={current?.label ?? 'Today'}
+            page={current?.label ?? 'Profile'} onGo={go}
             search={<SearchButton onOpen={() => setSearchOpen(true)} shortcut={shortcut} />}
           />
           <AppShellBody>
-            {/* A centred reading column: title, byline and paragraphs. */}
-            <div aria-hidden='true' className='mx-auto grid w-full max-w-xl gap-3 p-6'><Skeleton className='h-8 w-3/4' /><Skeleton className='h-4 w-1/3' /><Skeleton className='mt-3 h-40' /><Skeleton className='h-4' /><Skeleton className='h-4' /><Skeleton className='h-4 w-5/6' /></div>
+            <ShelfPage shelf={shelf} page={page} spacious={spacious} setSpacious={setSpacious} />
           </AppShellBody>
         </AppShellPanel>
       </SidebarProvider>
@@ -289,7 +315,6 @@ export function Pattern() {
               <CommandItem onSelect={() => go('settings')}>
                 <RegistryIcon lucide='Settings' aria-hidden='true' />
                 Open settings
-                <CommandShortcut>⌘,</CommandShortcut>
               </CommandItem>
             </CommandGroup>
           </CommandList>

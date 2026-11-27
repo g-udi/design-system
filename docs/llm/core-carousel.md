@@ -11,7 +11,7 @@ import Carousel from '@gaudi/design-system/core/Carousel';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `carouselCardVariants`, `carouselSlideVariants`, `carouselVariants`, `default`, `useCarousel`
+Exports: `CarouselContent`, `CarouselIndicator`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `carouselCardVariants`, `carouselSlideVariants`, `carouselVariants`, `default`, `useCarousel`
 
 ## Props
 
@@ -58,9 +58,9 @@ Carousel exposes a labelled carousel region, native previous/next buttons, aria-
 Curated patterns:
 
 - Autoplay — registry item `@gaudi/carousel-autoplay` (uses `Button`, `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `usePrefersReducedMotion`)
-- Content overlays with dots — registry item `@gaudi/carousel-content-overlays` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `cn`)
+- Content overlays with dots — registry item `@gaudi/carousel-content-overlays` (uses `CardRoot`, `CarouselContent`, `CarouselIndicator`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`)
 - Layout options — registry item `@gaudi/carousel-layouts` (uses `CardRoot`, `CarouselContent`, `CarouselItem`, `CarouselNext`, `CarouselPrevious`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
-- Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
+- Thumbnail navigation — registry item `@gaudi/carousel-thumbnails` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `Label`, `SwitchRoot`, `cn`)
 
 ## README
 
@@ -84,4 +84,4 @@ import { Carousel } from '@gaudi/design-system';
 
 ### Parts
 
-`Carousel` is built on the `CarouselRoot`, `CarouselContent`, `CarouselItem`, `CarouselPrevious`, and `CarouselNext` parts. Compose them directly for custom layouts such as thumbnails, multiple slides per view, vertical carousels, or autoplay (pass Embla `opts` and `plugins` to `CarouselRoot`). `useCarousel` exposes the Embla API inside the root.
+`Carousel` is built on the `CarouselRoot`, `CarouselContent`, `CarouselItem`, `CarouselPrevious`, `CarouselNext`, and `CarouselIndicator` parts. An indicator takes its zero-based slide `index` and an `active` boolean, and navigates its containing carousel when selected. Compose them directly for custom layouts such as thumbnails, multiple slides per view, vertical carousels, or autoplay (pass Embla `opts` and `plugins` to `CarouselRoot`). `useCarousel` exposes the Embla API inside the root.

@@ -61,10 +61,10 @@ Button renders native buttons for actions and links for navigation. Disabled lin
 Curated patterns:
 
 - Async loading and success — registry item `@gaudi/button-async-success` (uses `Button`, `LoaderRoot`, `RegistryIcon`)
-- Avatar and two-line content — registry item `@gaudi/button-avatar-two-line` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`)
+- Avatar and two-line content — registry item `@gaudi/button-avatar-two-line` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `IconTile`, `RegistryIcon`)
 - Copy with feedback — registry item `@gaudi/button-copy-feedback` (uses `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useCopyToClipboard`)
-- Counts, badges and shortcuts — registry item `@gaudi/button-counts-shortcuts` (uses `Badge`, `Button`, `KbdGroup`, `KbdRoot`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Icons, loading and links — registry item `@gaudi/button-icons-loading` (uses `Button`, `LoaderRoot`, `RegistryIcon`)
+- Counts, badges and shortcuts — registry item `@gaudi/button-counts-shortcuts` (uses `Badge`, `Button`, `Dialog`, `Input`, `Kbd`, `Label`, `RegistryIcon`, `StatusDot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useHotkey`)
+- Icons, loading and links — registry item `@gaudi/button-icons-loading` (uses `Button`, `Dialog`, `FieldLabel`, `LoaderRoot`, `RegistryIcon`, `SwitchRoot`)
 - Social sign-in — registry item `@gaudi/button-social-sign-in` (uses `Button`, `RegistryIcon`)
 - Toggling icon and label — registry item `@gaudi/button-toggling-label` (uses `Button`, `RegistryIcon`, `cn`)
 

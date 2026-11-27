@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from '@gaudi/design-system/core/CodeBlock';
 import Dialog from '@gaudi/design-system/core/Dialog';
 import Icon from '@gaudi/design-system/core/Icon';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
-import ToggleGroup from '@gaudi/design-system/core/ToggleGroup';
-import { basePath } from '@/lib/nav';
-import { PreviewFrame, type Viewport } from './PreviewFrame';
+import { PreviewFrame, PreviewWidthControl, type Viewport } from './PreviewFrame';
 
 export interface ExampleViewProps {
   name: string;
@@ -21,12 +20,6 @@ export interface ExampleViewProps {
   file: string;
 }
 
-const viewportOptions = [
-  { value: 'desktop', label: <><Icon name='Laptop' decorative size='sm' /><span className='sr-only'>Desktop</span></> },
-  { value: 'tablet', label: <><Icon name='Tablet' decorative size='sm' /><span className='sr-only'>Tablet (768px)</span></> },
-  { value: 'mobile', label: <><Icon name='Smartphone' decorative size='sm' /><span className='sr-only'>Mobile (375px)</span></> }
-];
-
 /** One pattern: Preview / Code tabs, a responsive frame, RTL, copyable public-import source. */
 export function ExampleView({ name, title, source, block, expandable = false, storybookUrl, install, file }: ExampleViewProps) {
   const [viewport, setViewport] = useState<Viewport>('desktop');
@@ -34,14 +27,7 @@ export function ExampleView({ name, title, source, block, expandable = false, st
   const [expanded, setExpanded] = useState(false);
   const controls = (
     <div className='flex flex-wrap items-center gap-1'>
-      <ToggleGroup
-        type='single'
-        size='sm'
-        label={`${title} preview width`}
-        value={viewport}
-        onValueChange={(value: string) => value && setViewport(value as Viewport)}
-        options={viewportOptions}
-      />
+      <PreviewWidthControl title={title} value={viewport} onChange={setViewport} />
       <Button
         variant={dir === 'rtl' ? 'soft' : 'ghost'}
         tone='neutral'
@@ -55,7 +41,7 @@ export function ExampleView({ name, title, source, block, expandable = false, st
     </div>
   );
   return (
-    <div className='not-prose my-4 overflow-hidden rounded-(--ds-radius-card) border border-border bg-background' data-example={name} data-testid='example'>
+    <CardRoot variant='outline' padding='none' className='not-prose my-4' data-example={name} data-testid='example'>
       <Tabs defaultValue='preview'>
         <div className='site-example-toolbar flex flex-wrap items-center gap-2 border-b border-border px-2 py-1.5'>
           <TabsList aria-label={`${title} views`} className='me-auto'>
@@ -63,10 +49,26 @@ export function ExampleView({ name, title, source, block, expandable = false, st
             <TabsTrigger value='code'>Code</TabsTrigger>
           </TabsList>
           {controls}
-          <Button href={`${basePath}/preview/${name}`} target='_blank' rel='noreferrer' variant='ghost' tone='neutral' size='icon-sm' aria-label={`Open ${title} in a new tab`}>
+          <Button
+            href={`/preview/${name}`}
+            target='_blank'
+            rel='noreferrer'
+            variant='ghost'
+            tone='neutral'
+            size='icon-sm'
+            aria-label={`Open ${title} in a new tab`}
+          >
             <Icon name='ExternalLink' decorative size='sm' />
           </Button>
-          <Button href={storybookUrl} target='_blank' rel='noreferrer' variant='ghost' tone='neutral' size='sm' aria-label={`View ${title} in Storybook`}>
+          <Button
+            href={storybookUrl}
+            target='_blank'
+            rel='noreferrer'
+            variant='ghost'
+            tone='neutral'
+            size='sm'
+            aria-label={`View ${title} in Storybook`}
+          >
             Storybook
           </Button>
           {expandable ? (
@@ -75,13 +77,21 @@ export function ExampleView({ name, title, source, block, expandable = false, st
               title={`${title} expanded preview`}
               open={expanded}
               onOpenChange={setExpanded}
-              trigger={<Button variant='outline' tone='neutral' size='sm'><Icon name='Maximize2' decorative size='sm' />Expand preview</Button>}
+              trigger={
+                <Button variant='outline' tone='neutral' size='sm'>
+                  <Icon name='Maximize2' decorative size='sm' />
+                  Expand preview
+                </Button>
+              }
               className='fixed inset-0 z-[100] flex flex-col bg-background text-text'
             >
               <div className='flex shrink-0 flex-wrap items-center gap-2 border-b border-border px-3 py-2'>
                 <p className='me-auto min-w-0 basis-full text-sm font-medium sm:basis-auto sm:flex-1'>{title}</p>
                 {controls}
-                <Button variant='outline' tone='neutral' size='sm' onClick={() => setExpanded(false)}><Icon name='Minimize2' decorative size='sm' />Close preview</Button>
+                <Button variant='outline' tone='neutral' size='sm' onClick={() => setExpanded(false)}>
+                  <Icon name='Minimize2' decorative size='sm' />
+                  Close preview
+                </Button>
               </div>
               <div className='min-h-0 flex-1 overflow-auto'>
                 <PreviewFrame name={name} title={title} viewport={viewport} dir={dir} block={block} />
@@ -109,6 +119,6 @@ export function ExampleView({ name, title, source, block, expandable = false, st
           </div>
         </TabsContent>
       </Tabs>
-    </div>
+    </CardRoot>
   );
 }

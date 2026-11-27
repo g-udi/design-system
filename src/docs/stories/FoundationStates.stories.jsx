@@ -1,5 +1,6 @@
 import { expect, within } from 'storybook/test';
 
+import EmptyState from '@gaudi/design-system/core/EmptyState';
 import Banner from '../../components/core/Banner';
 import Button from '../../components/core/Button';
 import { Field, FieldError, FieldInput, FieldLabel } from '../../components/core/Field';
@@ -73,13 +74,16 @@ export const Default = {
             </div>
           </div>
 
-          <div role='status' aria-label='No saved articles' className='rounded-lg border border-border bg-surface p-5'>
-            <h3 className='text-base font-semibold text-text'>No saved articles</h3>
-            <p className='mt-2 text-sm leading-6 text-text-muted'>Save an article from its reading view and it will appear here.</p>
-            <Button asChild className='mt-4' size='sm' variant='outline'>
-              <a href='./?path=/story/post-overview--default'>Browse article components</a>
-            </Button>
-          </div>
+          <EmptyState
+            role='status'
+            aria-label='No saved articles'
+            title='No saved articles'
+            titleAs='h3'
+            description='Save an article from its reading view and it will appear here.'
+            actions={<Button href='./?path=/story/post-overview--default' size='sm' variant='outline'>Browse article components</Button>}
+            compact
+            className='border border-border bg-surface'
+          />
 
           <div className='rounded-lg border border-border bg-surface p-5'>
             <Field>

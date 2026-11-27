@@ -11,7 +11,7 @@ import Pill from '@gaudi/design-system/core/Pill';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `Badge`, `BadgeRoot`, `badgeVariants`, `badgeVariantsPrimitive`, `default`, `pillSizes`, `pillTones`, `pillVariants`
+Exports: `Badge`, `BadgeRoot`, `StatusDot`, `badgeVariants`, `badgeVariantsPrimitive`, `default`, `pillSizes`, `pillTones`, `pillVariants`
 
 ## When to use
 
@@ -60,8 +60,8 @@ Pill includes visible text so status or category meaning is not color-only.
 
 Curated patterns:
 
-- Icons, dots, avatars and images — registry item `@gaudi/badge-icons-avatars` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`)
-- Removable filters and links — registry item `@gaudi/badge-removable-filters` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `RegistryIcon`)
+- Icons, dots, avatars and images — registry item `@gaudi/badge-icons-avatars` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `RegistryIcon`, `StatusDot`)
+- Removable filters and links — registry item `@gaudi/badge-removable-filters` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `Dialog`, `RegistryIcon`)
 - Sizes, counts and labels — registry item `@gaudi/badge-sizes-counts` (uses `Badge`)
 - Variants — registry item `@gaudi/badge-variants` (uses `Badge`)
 
@@ -88,4 +88,5 @@ import { Badge, Pill } from '@gaudi/design-system';
   `discovery`, `attention`, `focus`, `invert`, each with `-light` and `-outline` treatments (`primary-light`/`primary-outline` too).
   Use `discovery` for suggested or generated labels (for example tags proposed by an assistant) and `attention` for records
   that need a person to look (staged, unreviewed). They read from the `--ds-color-discovery*` and `--ds-color-attention*` tokens.
+- `StatusDot` marks a compact status and inherits the surrounding color. Add `pulse` for a live status. The pulse respects reduced motion. Supply `label` when the dot appears without a text equivalent.
 - `BadgeRoot` and `badgeVariantsPrimitive` are kept as aliases of `Badge` and `badgeVariants`.

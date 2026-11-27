@@ -1,5 +1,5 @@
 import WebPreview from '@gaudi/design-system/core/WebPreview';
-import { generatedPage, linkPreviewExamples, generatedLogs } from '../../../../../docs/fixtures/site/link-previews';
+import { generatedPage, issueHtml, linkPreviewExamples, generatedLogs } from '../../../../../docs/fixtures/site/link-previews';
 import { ChatMessage, ChatMessageContent, ChatMessageAvatar, ChatMessageHeader, ChatMessageFooter } from '@gaudi/design-system/chat/ChatMessage';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { ChatAgentMark } from '@gaudi/design-system/chat/ChatAgentMark';
@@ -8,15 +8,6 @@ import { useState } from 'react';
 import Switch from '@gaudi/design-system/core/Switch';
 
 const home = 'https://preview.gaudi.dev/';
-
-const generatedHtml = `<header>
-  <strong>Reading Digest</strong>
-  <nav><a href="/issues">Issues</a><a href="/pricing">Pricing</a></nav>
-</header>
-<main>
-  <h1>One calm email of the week’s best writing.</h1>
-  <button>Subscribe free</button>
-</main>`;
 
 export const exampleDefaults = { defaultDevice: 'desktop', defaultConsoleOpen: true, embeddable: true };
 
@@ -46,7 +37,7 @@ export const AiMessageWithWebPreviewDemo = () => (
           <ChatMessageHeader className='gap-2 text-xs text-text-muted'><span className='font-semibold text-text'>Gaudi</span><time dateTime='2026-10-02T09:14'>09:14</time></ChatMessageHeader>
           <ChatBubble variant='ghost'><ChatBubbleContent>Here’s the digest site. The home page leads with the subscribe button; the pricing page lists the free and supporter plans. One request fails because the subscriber API doesn’t exist yet.</ChatBubbleContent></ChatBubble>
           <WebPreview defaultUrl={home} srcDoc={generatedPage} logs={generatedLogs} title='Generated Reading Digest site' className='h-[28rem]' />
-          <Embed code={generatedHtml} language='html' filename='index.html' codeProps={{ maxLines: 6 }} />
+          <Embed code={issueHtml} language='html' filename='index.html' codeProps={{ maxLines: 6 }} />
           <Embed url={linkPreviewExamples.docs.url} previewData={linkPreviewExamples.docs.previewData} variant='compact' />
           <ChatMessageFooter className='text-xs text-text-muted'>Generated in 14s</ChatMessageFooter>
         </ChatMessageContent>

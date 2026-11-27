@@ -19,7 +19,7 @@ test('FileUpload preserves its server-rendered public contract', async () => {
   assert.match(html, /disabled=""/);
 });
 
-import { selectFiles } from '../../../../src/components/core/FileUpload/fileSelection.js';
+import { nativeFileAccept, selectFiles } from '../../../../src/components/core/FileUpload/fileSelection.js';
 const file = (name, type, size = 10) => ({ name, type, size });
 test('selection retains existing files and explains type, size and count failures', () => {
   const current = file('notes.md', 'text/markdown');
@@ -70,4 +70,15 @@ test('file sizes remain readable for fractional bytes and invalid sizes', async 
   assert.equal(formatBytes(-1), '0 Bytes');
   assert.equal(formatBytes(Infinity), '0 Bytes');
   assert.equal(formatBytes(1024), '1KB');
+});
+
+test('native file pickers leave unrestricted files selectable and preserve specific filters', async () => {
+  assert.equal(nativeFileAccept(), undefined);
+  assert.equal(nativeFileAccept('*'), undefined);
+  assert.equal(nativeFileAccept('image/*,.PDF'), 'image/*,.pdf');
+  const html = await renderComponent(
+    new URL('../../../../src/components/core/FileUpload/FileUpload.jsx', import.meta.url),
+    { label: 'Choose files', accept: '*' }
+  );
+  assert.doesNotMatch(html, /accept=/);
 });

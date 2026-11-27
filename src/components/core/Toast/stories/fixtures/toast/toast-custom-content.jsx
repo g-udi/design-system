@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useId, useState } from 'react';
 import {
   AvatarRoot as Avatar,
@@ -98,7 +99,7 @@ const templates = [
     render: ({ toastId, toasterId }) => (
       <div className='flex w-full flex-col gap-2'>
         <div className='flex items-center gap-2'>
-          <span className='bg-success size-2 rounded-full' />
+          <StatusDot className='bg-success size-2' />
           <p className='ds-label flex-1 text-current'>Deployment successful</p>
           <span className='text-xs opacity-60'>42s</span>
         </div>

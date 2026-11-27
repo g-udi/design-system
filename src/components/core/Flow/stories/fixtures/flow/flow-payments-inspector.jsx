@@ -11,7 +11,7 @@ import {
   useReactFlow
 } from '@gaudi/design-system/core/Flow';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { default as Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
+import { Label, default as Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
@@ -218,10 +218,10 @@ function PaymentsPipeline() {
           <ToggleGroupItem value='dashed'>Dashed</ToggleGroupItem>
           <ToggleGroupItem value='dotted'>Dotted</ToggleGroupItem>
         </ToggleGroup>
-        <label className='flex items-center gap-2 text-sm'>
+        <Label className='flex items-center gap-2 text-sm'>
           <Switch checked={animate} onCheckedChange={setAnimate} aria-label='Animate connections' />
           Animate
-        </label>
+        </Label>
       </div>
       <Flow
         label='Payments to MRR pipeline'

@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Item } from '@gaudi/design-system/core/Item';
 import {
@@ -19,16 +19,12 @@ import {
   DropdownMenuContent,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@gaudi/design-system/core/EmptyState';
+import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
+import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
 import { Field, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@gaudi/design-system/core/Input';
 import { default as Textarea } from '@gaudi/design-system/core/Textarea';
@@ -67,20 +63,19 @@ const people = [
   { id: 'dm-leo', label: 'Leo Okafor', suffix: '(You)', avatar: me.photo, presence: 'success' },
   { id: 'dm-ines', label: 'Inès Moreau', avatar: '/avatars/person-17.svg' },
   { id: 'dm-tomas', label: 'Tomás Rivera', avatar: '/avatars/person-47.svg' },
-  { id: 'dm-invite', label: 'Invite a reader', icon: 'UserPlus' }
+  { id: 'dm-invite', label: 'Share with a reader', icon: 'Share2' }
 ];
 const links = [
   { id: 'subscriptions', label: 'Subscriptions', icon: 'Podcast' },
   { id: 'settings', label: 'Reading settings', icon: 'SlidersHorizontal' },
-  { id: 'feedback', label: 'Feedback', icon: 'MessageSquare' }
+  { id: 'notebook', label: 'Notebook', icon: 'Book' }
 ];
 const categories = ['Essays', 'Digests', 'Research', 'Craft', 'Culture', 'Podcast notes'];
 const shortcuts = [
   { id: 'highlights', label: 'Highlights', icon: 'PenTool' },
   { id: 'notebook', label: 'Notebook', icon: 'Book' },
   { id: 'stats', label: 'Reading stats', icon: 'ChartLine' },
-  { id: 'listen', label: 'Listen', icon: 'Headphones' },
-  { id: 'focus', label: 'Focus mode', icon: 'Eye' }
+
 ];
 const mailSeed = [
   {
@@ -184,9 +179,12 @@ const mailSeed = [
   }
 ];
 
-function AccountMenu() {
-  const { isMobile } = useSidebar();
-  const [theme, setTheme] = useState('system');
+function AccountMenu({ onNavigate }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const navigate = value => {
+    if (isMobile) setOpenMobile(false);
+    onNavigate(value);
+  };
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -210,33 +208,8 @@ function AccountMenu() {
               <span className='text-text-muted text-xs'>{me.email}</span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Podcast' aria-hidden='true' />
-              Manage subscriptions
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Download' aria-hidden='true' />
-              Import OPML
-            </DropdownMenuItem>
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <RegistryIcon lucide='Palette' aria-hidden='true' />
-                Theme
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                  <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => navigate('subscriptions')}><RegistryIcon lucide='Podcast' aria-hidden='true' />Manage subscriptions</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => navigate('settings')}><RegistryIcon lucide='SlidersHorizontal' aria-hidden='true' />Reading settings</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -264,10 +237,10 @@ function NewMailButton({ onClick }) {
   );
 }
 
-function ComposeDialog({ open, onOpenChange, onSend }) {
-  const [to, setTo] = useState('');
-  const [subject, setSubject] = useState('');
-  const [body, setBody] = useState('');
+function ComposeDialog({ open, onOpenChange, onSend, issue, recipient }) {
+  const [to, setTo] = useState(recipient || '');
+  const [subject, setSubject] = useState(issue?.subject || '');
+  const [body, setBody] = useState(issue?.note || '');
   const reset = () => {
     setTo('');
     setSubject('');
@@ -309,10 +282,7 @@ function ComposeDialog({ open, onOpenChange, onSend }) {
           </Field>
         </form>
         <DialogFooter className='flex-row items-center sm:justify-between'>
-          <Button variant='outline' size='sm'>
-            <RegistryIcon lucide='PenTool' aria-hidden='true' />
-            Add highlights
-          </Button>
+          {issue?.highlight && <Button variant='outline' size='sm' onClick={() => setBody(text => [text, issue.highlight].filter(Boolean).join('\n\n'))}>Add highlight</Button>}
           <div className='ms-auto flex gap-2'>
             <DialogClose asChild>
               <Button variant='ghost' size='sm'>Discard</Button>
@@ -383,7 +353,7 @@ function MailEmpty({ title, description, children }) {
   );
 }
 
-function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, filters, onFilters, onClear, hidden }) {
+function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, filters, onFilters, onClear, onReadAll, hidden }) {
   return (
     <section
       aria-label={`${folderLabel} messages`}
@@ -420,7 +390,7 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant='ghost' size='icon-sm' aria-label='Mark all as read' className='shrink-0'>
+        <Button variant='ghost' size='icon-sm' aria-label='Mark all as read' disabled={!mails.some(issue => issue.unread)} onClick={onReadAll} className='shrink-0'>
           <RegistryIcon lucide='CheckCheck' aria-hidden='true' />
         </Button>
       </div>
@@ -443,9 +413,7 @@ function MessageList({ mails, folderLabel, selected, onSelect, query, onQuery, f
                       <span className='flex items-center gap-2'>
                         <span className={`min-w-0 flex-1 truncate text-sm ${mail.unread ? 'font-semibold' : 'font-medium'}`}>{mail.from}</span>
                         {mail.unread ? (
-                          <span className='bg-info size-2 shrink-0 rounded-full'>
-                            <span className='sr-only'>Unread</span>
-                          </span>
+                          <StatusDot label='Unread' className='size-2 bg-info' />
                         ) : null}
                         <span className='text-text-muted shrink-0 text-xs'>{mail.time}</span>
                       </span>
@@ -504,7 +472,7 @@ function ToolbarButton({ label, icon, pressed, tone, disabled, onClick, classNam
   );
 }
 
-function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelete, onCompose }) {
+function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelete, onCompose, onEdit, largeText, topics, onTopic }) {
   const none = !mail;
   return (
     <section
@@ -525,14 +493,13 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
           onClick={() => onUpdate({ unread: !mail.unread })}
         />
         <div className='ms-auto flex items-center gap-0.5'>
-          <Button variant='outline' size='xs' disabled={none} className='me-1' aria-label='Save to notebook'>
+          <Button variant='outline' size='xs' disabled={none} className='me-1' aria-label={mail?.saved ? 'Remove from notebook' : 'Save to notebook'} aria-pressed={Boolean(mail?.saved)} onClick={() => onUpdate({ saved: !mail.saved })}>
             <RegistryIcon lucide='Book' aria-hidden='true' />
-            <span>Save<span className='hidden @sm/reading:inline'> to notebook</span></span>
+            <span>{mail?.saved ? 'Saved' : 'Save'}<span className='hidden @sm/reading:inline'> to notebook</span></span>
           </Button>
-          <ToolbarButton label='Add a note' icon='SquarePen' disabled={none} className='hidden @2xl/reading:inline-flex' />
+          <ToolbarButton label='Add a note' icon='SquarePen' disabled={none} onClick={() => onEdit('note')} className='hidden @2xl/reading:inline-flex' />
           <ToolbarButton label='Read later' icon='Bookmark' pressed={Boolean(mail?.flagged)} disabled={none} onClick={() => onUpdate({ flagged: !mail.flagged })} className='hidden @lg/reading:inline-flex' />
           <ToolbarButton label='Star issue' icon='Star' pressed={Boolean(mail?.starred)} disabled={none} onClick={() => onUpdate({ starred: !mail.starred })} />
-          <ToolbarButton label='Copy link' icon='Link' disabled={none} className='hidden @2xl/reading:inline-flex' />
           <ToolbarButton label='Archive issue' icon='Archive' disabled={none} onClick={onDelete} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -541,23 +508,11 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='end' className='w-48'>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='ExternalLink' aria-hidden='true' />
-                Open original
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Headphones' aria-hidden='true' />
-                Listen
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Download' aria-hidden='true' />
-                Save as PDF
-              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => onEdit('note')}>Edit reading note</DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => onUpdate({ flagged: !mail.flagged })}>{mail?.flagged ? 'Remove from Read later' : 'Read later'}</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem variant='destructive'>
-                <RegistryIcon lucide='BellOff' aria-hidden='true' />
-                Unsubscribe
-              </DropdownMenuItem>
+              <DropdownMenuLabel>File under topic</DropdownMenuLabel>
+              {topics.map(topic => <DropdownMenuCheckboxItem key={topic.id} checked={mail?.tags.includes(topic.label)} onCheckedChange={checked => onTopic(topic.label, checked)}>{topic.label}</DropdownMenuCheckboxItem>)}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -579,13 +534,15 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
               </div>
               <span className='text-text-muted hidden shrink-0 text-xs @md/reading:inline'>{mail.date}</span>
             </div>
-            <div className='grid gap-3 text-sm leading-6'>
+            <div className={largeText ? 'grid gap-3 text-lg leading-8' : 'grid gap-3 text-sm leading-6'}>
               {mail.body.map((paragraph, index) => (
                 <p key={index}>{paragraph}</p>
               ))}
             </div>
+            {mail.highlight && <blockquote className='border-ui-border border-s-2 ps-3 text-sm'>{mail.highlight}</blockquote>}
+            {mail.note && <section><h3 className='text-sm font-semibold'>My note</h3><p className='mt-1 text-sm'>{mail.note}</p></section>}
             <div className='flex flex-wrap gap-2 border-t pt-4'>
-              <Button variant='outline' size='sm'>
+              <Button variant='outline' size='sm' onClick={() => onEdit('highlight')}>
                 <RegistryIcon lucide='PenTool' aria-hidden='true' />
                 Highlight
               </Button>
@@ -597,16 +554,7 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
           </article>
         ) : (
           <div className='flex h-full items-center justify-center'>
-            <MailEmpty title='Pick something to read' description='Choose an issue to open it here'>
-              <Button variant='outline' size='xs'>
-                <RegistryIcon lucide='Sparkles' aria-hidden='true' />
-                Summarise unread
-              </Button>
-              <Button variant='outline' size='xs'>
-                <RegistryIcon lucide='Podcast' aria-hidden='true' />
-                Add a feed
-              </Button>
-            </MailEmpty>
+            <MailEmpty title='Pick something to read' description='Choose an issue to open it here' />
           </div>
         )}
       </div>
@@ -615,30 +563,56 @@ function ReadingPane({ mail, hidden, position, onBack, onStep, onUpdate, onDelet
 }
 
 /** Reading tools on the far edge, as icon buttons with tooltips; wide frames only. */
-function AppRail() {
+function AppRail({ onNavigate }) {
   return (
     <nav aria-label='Reading tools' className='hidden shrink-0 flex-col items-center gap-2 py-1 @[60rem]/mail:flex'>
       {shortcuts.map((item) => (
         <Tooltip key={item.id}>
           <TooltipTrigger asChild>
-            <Button variant='outline' size='icon-sm' aria-label={item.label} className='bg-ui-background'>
+            <Button variant='outline' size='icon-sm' aria-label={item.label} className='bg-ui-background' onClick={() => onNavigate(item.id)}>
               <RegistryIcon lucide={item.icon} aria-hidden='true' />
             </Button>
           </TooltipTrigger>
           <TooltipContent side='left'>{item.label}</TooltipContent>
         </Tooltip>
       ))}
-      <span aria-hidden='true' className='bg-ui-border my-0.5 h-px w-5' />
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant='outline' size='icon-sm' aria-label='Add a tool' className='bg-ui-background'>
-            <RegistryIcon lucide='Plus' aria-hidden='true' />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent side='left'>Add a tool</TooltipContent>
-      </Tooltip>
     </nav>
   );
+}
+
+const readerEmails = { 'dm-leo': me.email, 'dm-ines': 'ines@example.com', 'dm-tomas': 'tomas@example.com' };
+
+function ReaderTools({ view, mails, subscriptions, setSubscriptions, largeText, setLargeText, onOpen }) {
+  const title = [...links, ...shortcuts].find(item => item.id === view)?.label;
+  const saved = mails.filter(mail => view === 'highlights' ? mail.highlight : mail.saved || mail.note);
+  return <section className='bg-ui-background min-w-0 flex-1 overflow-auto rounded-(--ds-radius-card) border p-4'>
+    <header className='mb-4 flex items-center gap-2'><SidebarTrigger /><h1 className='text-lg font-semibold'>{title}</h1></header>
+    {view === 'settings' && <Field className='max-w-sm'><FieldLabel htmlFor='reader-large-text'>Larger issue text</FieldLabel><Switch id='reader-large-text' checked={largeText} onCheckedChange={setLargeText} /></Field>}
+    {view === 'subscriptions' && <ul className='grid max-w-lg gap-2'>{mailSeed.map(issue => <li key={issue.id}>
+      <Item variant='outline' className='flex flex-wrap items-center justify-between'><span className='text-sm'>{issue.from}</span><Button size='sm' variant='outline' aria-pressed={subscriptions.includes(issue.from)}
+        onClick={() => setSubscriptions(list => list.includes(issue.from) ? list.filter(from => from !== issue.from) : [...list, issue.from])}>{subscriptions.includes(issue.from) ? 'Subscribed' : 'Subscribe'}</Button></Item>
+    </li>)}</ul>}
+    {view === 'stats' && <dl className='grid max-w-sm gap-2'>{[['Read issues', mails.filter(m => m.folder !== 'sent' && !m.unread).length], ['Saved to notebook', mails.filter(m => m.saved || m.note).length], ['Highlights', mails.filter(m => m.highlight).length]].map(([label, count]) => <Item key={label} variant='outline' className='justify-between'><dt>{label}</dt><dd className='font-semibold'>{count}</dd></Item>)}</dl>}
+    {['notebook', 'highlights'].includes(view) && (saved.length ? <ul className='grid max-w-2xl gap-2'>{saved.map(issue => <li key={issue.id}>
+      <Item asChild variant='outline'><button type='button' className='grid w-full gap-1 text-start' onClick={() => onOpen(issue)}>
+        <span className='font-medium'>{issue.subject}</span><span className='text-text-muted text-sm'>{view === 'highlights' ? issue.highlight : issue.note || issue.preview}</span>
+      </button></Item>
+    </li>)}</ul> : <MailEmpty title={view === 'highlights' ? 'No highlights yet' : 'Your notebook is empty'} description='Open an issue to save a passage or a reading note.' />)}
+  </section>;
+}
+
+function AnnotationDialog({ mode, mail, onSave, onClose }) {
+  const title = mode === 'highlight' ? 'Highlight a passage' : 'Edit reading note';
+  return <Dialog open onOpenChange={open => { if (!open) onClose(); }}><DialogContent className='sm:max-w-md'>
+    <DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{mail.subject}</DialogDescription></DialogHeader>
+    <form className='grid gap-3' onSubmit={event => { event.preventDefault(); onSave(String(new FormData(event.currentTarget).get('value')).trim()); }}>
+      <Field><FieldLabel htmlFor='reader-annotation'>{mode === 'highlight' ? 'Passage' : 'Note'}</FieldLabel>
+        {mode === 'highlight' ? <NativeSelect name='value' id='reader-annotation' defaultValue={mail.highlight || mail.body[0]}>{mail.body.map((text, index) => <NativeSelectOption key={index} value={text}>{text}</NativeSelectOption>)}</NativeSelect> :
+          <Textarea name='value' id='reader-annotation' required defaultValue={mail.note || ''} />}
+      </Field>
+      <DialogFooter><Button type='button' variant='outline' onClick={onClose}>Cancel</Button><Button type='submit'>Save</Button></DialogFooter>
+    </form>
+  </DialogContent></Dialog>;
 }
 
 export function Pattern() {
@@ -650,13 +624,28 @@ export function Pattern() {
   const [filters, setFilters] = useState([]);
   const [composeOpen, setComposeOpen] = useState(false);
   const [labelOpen, setLabelOpen] = useState(false);
-  const unread = mails.filter((mail) => mail.folder === 'inbox' && mail.unread).length;
-  const folderItems = folders.map((item) => (item.id === 'inbox' ? { ...item, badge: unread ? { label: unread, variant: 'plain' } : undefined } : item));
+  const [annotation, setAnnotation] = useState(null);
+  const [subscriptions, setSubscriptions] = useState(mailSeed.map(issue => issue.from));
+  const [largeText, setLargeText] = useState(false);
+  const [sharedIssue, setSharedIssue] = useState(null);
+  const [recipient, setRecipient] = useState('');
+  const subscribed = mail => subscriptions.includes(mail.from);
+  const includesIssue = (mail, id) => {
+    if (id === 'inbox') return mail.folder === 'inbox' && subscribed(mail) && (mail.unread || mail.id === selected);
+    if (id === 'all-issues') return mail.folder === 'inbox';
+    if (id === 'later') return mail.flagged && mail.folder !== 'trash';
+    if (readerEmails[id]) return mail.folder === 'sent' && (id === 'dm-leo' || mail.email === readerEmails[id]);
+    if (id === 'trash' || id === 'sent') return mail.folder === id;
+    return mail.folder !== 'trash' && mail.tags.includes(labels.find(item => item.id === id)?.label);
+  };
+  const withCount = item => ({ ...item, badge: { label: mails.filter(mail => includesIssue(mail, item.id)).length, variant: 'plain' } });
+  const unread = mails.filter((mail) => mail.folder === 'inbox' && mail.unread && subscribed(mail)).length;
+  const folderItems = folders.map((item) => (item.id === 'inbox' ? { ...item, badge: unread ? { label: unread, variant: 'plain' } : undefined } : withCount(item)));
   const folderLabel = [...folders, ...labels, ...people, ...links].find((item) => item.id === folder)?.label ?? 'Unread';
   const needle = query.trim().toLowerCase();
   const visible = mails.filter(
     (mail) =>
-      mail.folder === folder &&
+      includesIssue(mail, folder) &&
       (!filters.length || filters.includes(mail.category)) &&
       (!needle || `${mail.from} ${mail.subject} ${mail.preview}`.toLowerCase().includes(needle))
   );
@@ -667,7 +656,10 @@ export function Pattern() {
     setSelected(id);
     setMails((list) => list.map((entry) => (entry.id === id ? { ...entry, unread: false } : entry)));
   };
+  const share = (issue = null, email = '') => { setSharedIssue(issue); setRecipient(email); setComposeOpen(true); };
   const goFolder = (id) => {
+    if (id === 'dm-invite') { share(); return; }
+    setQuery(''); setFilters([]);
     setFolder(id);
     setSelected(null);
   };
@@ -677,14 +669,14 @@ export function Pattern() {
       <SidebarProvider shortcut={false}>
         <Sidebar collapsible='icon'>
           <SidebarHeader>
-            <AccountMenu />
-            <NewMailButton onClick={() => setComposeOpen(true)} />
+            <AccountMenu onNavigate={goFolder} />
+            <NewMailButton onClick={() => share()} />
           </SidebarHeader>
           <SidebarContent role='navigation' aria-label='Reading'>
             <AppShellNav label='Library' items={folderItems} value={folder} onValueChange={goFolder} />
             <AppShellNav
               label='Topics'
-              items={labels}
+              items={labels.map(withCount)}
               value={folder}
               onValueChange={goFolder}
               action={
@@ -699,7 +691,10 @@ export function Pattern() {
           <SidebarFooter className='p-0' />
         </Sidebar>
         <AppShellPanel inset={false} className='@container/mail flex-row gap-2 overflow-hidden border-s-0 bg-transparent p-2 in-data-[compact=true]:p-1'>
-          <MessageList
+          {['subscriptions', 'settings', 'notebook', 'highlights', 'stats'].includes(folder) ?
+            <ReaderTools view={folder} mails={mails} subscriptions={subscriptions} setSubscriptions={setSubscriptions} largeText={largeText} setLargeText={setLargeText}
+              onOpen={issue => { goFolder(issue.folder === 'inbox' && !issue.unread ? 'all-issues' : issue.folder); open(issue.id); }} /> :
+            <><MessageList
             mails={visible}
             folderLabel={folderLabel}
             selected={mail?.id}
@@ -712,6 +707,7 @@ export function Pattern() {
               setQuery('');
               setFilters([]);
             }}
+            onReadAll={() => setMails(list => list.map(entry => visible.some(issue => issue.id === entry.id) ? { ...entry, unread: false } : entry))}
             hidden={Boolean(mail)}
           />
           <ReadingPane
@@ -725,12 +721,16 @@ export function Pattern() {
               setMails((list) => list.map((entry) => (entry.id === selected ? { ...entry, folder: 'trash' } : entry)));
               setSelected(null);
             }}
-            onCompose={() => setComposeOpen(true)}
+            onCompose={() => share(mail, readerEmails[folder] || '')}
+            onEdit={setAnnotation} largeText={largeText} topics={labels.filter(topic => topic.id !== 'trash')}
+            onTopic={(label, checked) => update({ tags: checked ? [...new Set([...mail.tags, label])] : mail.tags.filter(tag => tag !== label) })}
           />
-          <AppRail />
+            </>}
+          <AppRail onNavigate={goFolder} />
         </AppShellPanel>
       </SidebarProvider>
-      <ComposeDialog
+      {annotation && mail && <AnnotationDialog mode={annotation} mail={mail} onClose={() => setAnnotation(null)} onSave={value => { update({ [annotation]: value }); setAnnotation(null); }} />}
+      {composeOpen && <ComposeDialog issue={sharedIssue} recipient={recipient}
         open={composeOpen}
         onOpenChange={setComposeOpen}
         onSend={({ to, subject, body }) => {
@@ -753,12 +753,12 @@ export function Pattern() {
           ]);
           setComposeOpen(false);
         }}
-      />
+      />}
       <LabelDialog
         open={labelOpen}
         onOpenChange={setLabelOpen}
         onCreate={(name) => {
-          setLabels((list) => [...list, { id: `topic-${name.toLowerCase().replace(/\W+/g, '-')}`, label: name, icon: 'Hash' }]);
+          setLabels(list => list.some(item => item.label.toLowerCase() === name.toLowerCase()) ? list : [...list, { id: crypto.randomUUID(), label: name, icon: 'Hash' }]);
           setLabelOpen(false);
         }}
       />

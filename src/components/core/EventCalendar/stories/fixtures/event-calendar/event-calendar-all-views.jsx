@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useRef, useState } from 'react';
 import { EventCalendar } from '@gaudi/design-system/core/EventCalendar';
 import { EventCalendarContent } from '@gaudi/design-system/core/EventCalendar';
@@ -145,10 +146,7 @@ function renderEventContent({ occurrence }) {
   if (event.id === 'client-call') {
     return (
       <span className='flex w-full min-w-0 items-center gap-1.5'>
-        <span
-          aria-hidden
-          className='-me-0.5 size-1.5 shrink-0 rounded-full bg-(--ec-event-color)'
-        />
+        <StatusDot className='-me-0.5 bg-(--ec-event-color)' />
         <span className='truncate font-medium'>{event.title}</span>
         <span className='ms-auto shrink-0 rounded bg-(--ec-event-color)/25 px-1 text-xs font-semibold'>
           {differenceInMinutes(occurrence.end, occurrence.start)}m

@@ -77,6 +77,16 @@ export const ProfileCard = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await expect(canvas.getByText(/Profile 50% complete/)).toBeVisible();
+    const remove = canvas.getByRole('button', { name: 'Remove', exact: true });
+    await userEvent.click(remove);
+    await expect(remove).toBeDisabled();
+    await userEvent.click(canvas.getByRole('button', { name: 'Discard' }));
+    await expect(remove).toBeEnabled();
+    const photo = new File([Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aXyYAAAAASUVORK5CYII='), (byte) => byte.charCodeAt(0))], 'profile.png', { type: 'image/png' });
+    await userEvent.upload(canvas.getByLabelText('Choose a profile photo'), photo);
+    await waitFor(() => expect(canvas.getByRole('button', { name: 'Save profile' })).toBeEnabled());
+    await userEvent.click(canvas.getByRole('button', { name: 'Save profile' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('All changes saved');
     await userEvent.type(canvas.getByLabelText('Headline'), 'Writing about local-first software');
     await waitFor(() => expect(canvas.getByText(/Profile 67% complete/)).toBeVisible());
     await expect(canvas.getByRole('button', { name: 'Save profile' })).toBeEnabled();
@@ -119,6 +129,16 @@ export const TeamInvite = {
     await userEvent.type(canvas.getByRole('searchbox', { name: 'Permissions' }), 'billing');
     await waitFor(() => expect(canvas.getByText('Change plan and payment method')).toBeVisible());
     await expect(canvas.queryByText('Publish and unpublish')).not.toBeInTheDocument();
+    const billing = canvas.getByRole('checkbox', { name: 'Billing' });
+    const billingRow = billing.closest('[role="treeitem"]');
+    const billingLabel = canvas.getByText('Billing', { exact: true });
+    await userEvent.click(billingLabel);
+    await expect(billing).toBeChecked();
+    await expect(canvas.getByRole('checkbox', { name: 'View invoices' })).toBeChecked();
+    await expect(billingRow).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(billing);
+    await expect(billing).not.toBeChecked();
+    await expect(billingRow).toHaveAttribute('aria-expanded', 'true');
   }
 };
 const apiKeyPattern = pattern('api-key', 'Create a scoped API key: name checked against existing keys, environment, read or write access per resource, expiry and an optional IP allowlist. The new secret is shown once with reveal, copy and ready-made environment snippets per stack; existing keys can be rotated or revoked.');

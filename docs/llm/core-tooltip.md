@@ -47,9 +47,9 @@ Tooltips open on focus and hover, dismiss with Escape and do not replace the con
 Curated patterns:
 
 - Disabled button — registry item `@gaudi/tooltip-disabled-button` (uses `Button`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- People — registry item `@gaudi/tooltip-people` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- People — registry item `@gaudi/tooltip-people` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarImage`, `AvatarRoot`, `Badge`, `Button`, `StatusDot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Sides — registry item `@gaudi/tooltip-sides` (uses `Button`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
-- Status and metadata — registry item `@gaudi/tooltip-status-metadata` (uses `Badge`, `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- Status and metadata — registry item `@gaudi/tooltip-status-metadata` (uses `Badge`, `Button`, `RegistryIcon`, `StatusDot`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 
 ## Related
 

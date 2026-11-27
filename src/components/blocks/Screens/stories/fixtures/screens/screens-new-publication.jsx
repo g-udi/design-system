@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useEffect, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CarouselContent, CarouselItem, CarouselRoot } from '@gaudi/design-system/core/Carousel';
@@ -19,7 +20,7 @@ const steps = [
   { id: 'template', label: 'Template', description: 'Starting layout' },
   { id: 'look', label: 'Look', description: 'Colour and type' },
   { id: 'audience', label: 'Audience', description: 'Newsletter and comments' },
-  { id: 'launch', label: 'Launch', description: 'Go live' }
+  { id: 'launch', label: 'Review', description: 'Create local publication' }
 ];
 // One screenshot per step; the rail scrolls to the step being answered.
 const shots = [
@@ -72,6 +73,24 @@ export function Pattern() {
   const [comments, setComments] = useState(false);
   const [checked, setChecked] = useState(false);
   const [round, setRound] = useState(0);
+  const [publication, setPublication] = useState(null);
+  const [writing, setWriting] = useState(false);
+  const [post, setPost] = useState('');
+  const [firstPost, setFirstPost] = useState('');
+  const restart = () => {
+    setPublication(null);
+    setSite('');
+    setGoal(['essays']);
+    setTemplate('journal');
+    setColor('accent');
+    setNewsletter(true);
+    setComments(false);
+    setChecked(false);
+    setWriting(false);
+    setPost('');
+    setFirstPost('');
+    setRound((value) => value + 1);
+  };
   return (
     <div className='w-full max-w-5xl rounded-xl border p-5'>
       <Wizard
@@ -87,17 +106,39 @@ export function Pattern() {
           if (!ok) setChecked(true);
           return ok;
         }}
-        onComplete={() => new Promise((resolve) => setTimeout(resolve, 500))}
-        completeLabel='Launch publication'
+        onComplete={() => setPublication({ name: site.trim(), goal, template, color, newsletter, comments })}
+        completeLabel='Create local publication'
         completion={
           <EmptyState
+            titleAs='h2'
             icon={<RegistryIcon lucide='SparklesIcon' />}
-            title={`${site} is live`}
-            description='Share the address, or write your first post while the theme settles in.'
+            title={`${publication?.name} is ready`}
+            description={firstPost ? `First draft: ${firstPost}` : 'Write a first draft in this local publication.'}
             actions={
               <>
-                <Button>Write a post</Button>
-                <Button variant='outline' onClick={() => setRound((value) => value + 1)}>Start over</Button>
+                {writing ? (
+                  <form
+                    className='grid gap-2'
+                    onSubmit={(event) => {
+                      event.preventDefault();
+                      if (post.trim()) {
+                        setFirstPost(post.trim());
+                        setWriting(false);
+                      }
+                    }}
+                  >
+                    <Label>
+                      Post title
+                      <Input value={post} onChange={(event) => setPost(event.target.value)} />
+                    </Label>
+                    <Button type='submit' disabled={!post.trim()}>
+                      Save local draft
+                    </Button>
+                  </form>
+                ) : (
+                  <Button onClick={() => setWriting(true)}>{firstPost ? 'Edit draft' : 'Write a post'}</Button>
+                )}
+                <Button variant='outline' onClick={restart}>Start over</Button>
               </>
             }
           />
@@ -127,7 +168,7 @@ export function Pattern() {
               <ToggleGroup aria-labelledby='color-label' type='single' variant='outline' spacing={2} value={color} onValueChange={(next) => setColor(next || color)}>
                 {[['accent', 'bg-accent', 'Blue'], ['success', 'bg-success', 'Green'], ['discovery', 'bg-discovery', 'Purple'], ['warning', 'bg-warning', 'Amber']].map(([value, swatch, label]) => (
                   <ToggleGroupItem key={value} value={value} className='gap-2'>
-                    <span aria-hidden='true' className={cn('size-3 rounded-full', swatch)} />
+                    <StatusDot className={cn('size-3', swatch)} />
                     {label}
                   </ToggleGroupItem>
                 ))}

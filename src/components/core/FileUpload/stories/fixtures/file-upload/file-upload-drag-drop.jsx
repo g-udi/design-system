@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import {
   formatBytes,
   useFileUpload
@@ -88,15 +89,12 @@ export function Pattern({
                     title={`${fileItem.file.name} (${formatBytes(fileItem.file.size)})`}
                   />
                 ) : (
-                  <div
-                    className='bg-ui-muted flex size-12 items-center justify-center rounded-lg border'
-                    title={`${fileItem.file.name} (${formatBytes(fileItem.file.size)})`}
-                  >
+                  <IconTile aria-hidden='true' size='lg' className='bg-ui-muted' title={`${fileItem.file.name} (${formatBytes(fileItem.file.size)})`}>
                     <RegistryIcon
                       lucide='FileIcon'
                       className='text-ui-muted-foreground size-5'
                     />
-                  </div>
+                  </IconTile>
                 )}
 
                 {/* Remove Button */}

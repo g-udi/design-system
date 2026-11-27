@@ -21,6 +21,9 @@ export const RemovableFilters = {
     await expect(canvas.queryByText('Design')).not.toBeInTheDocument();
     await userEvent.click(canvas.getByRole('button', { name: 'Reset' }));
     await expect(canvas.getByText('Design')).toBeVisible();
-    await expect(canvas.getByRole('link', { name: 'View all tags' })).toHaveAttribute('href', '#');
+    await userEvent.click(canvas.getByRole('button', { name: 'View all tags' }));
+    const dialog = await within(canvasElement.ownerDocument.body).findByRole('dialog', { name: 'All tags' });
+    await expect(within(dialog).getByRole('button', { name: 'Design' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.keyboard('{Escape}');
   }
 };

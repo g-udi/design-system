@@ -10,14 +10,14 @@ function Switch({ className, size = 'default', ...props }) {
       aria-labelledby={props['aria-label'] ? undefined : labelId}
       data-size={size}
       className={cn(
-        'ds-part-switch peer group/switch relative inline-flex items-center transition-colors outline-none after:absolute after:inset-x-0 after:-inset-y-2 data-disabled:cursor-not-allowed data-disabled:opacity-50',
+        'ds-part-switch peer group/switch relative inline-flex items-center transition-colors outline-none data-disabled:cursor-not-allowed data-disabled:opacity-50',
         className
       )}
       {...props}
     >
       <SwitchPrimitive.Thumb
         data-slot='switch-thumb'
-        className='ds-part-switch-thumb pointer-events-none block ring-0 transition-transform'
+        className='ds-part-switch-thumb pointer-events-none block ring-0 duration-150 motion-reduce:duration-0'
       />
     </SwitchPrimitive.Root>
   );

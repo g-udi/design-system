@@ -2,6 +2,9 @@
 
 import { Component, useEffect, useState, useSyncExternalStore, type ComponentType, type ReactNode } from 'react';
 import { DirectionProvider } from '@gaudi/design-system/core/Direction';
+import { Alert, AlertAction, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
+import Button from '@gaudi/design-system/core/Button';
+import Skeleton from '@gaudi/design-system/core/Skeleton';
 import { patternLoaders } from '@/generated/pattern-loaders';
 import { observeFrameHeight } from '@/lib/frameHeight';
 
@@ -15,7 +18,15 @@ class PreviewBoundary extends Component<{ children: ReactNode }, { error: Error 
 }
 
 function PreviewError({ message }: { message: string }) {
-  return <p role='alert' className='m-4 rounded-(--ds-radius-card) border border-danger-border bg-danger-subtle p-4 text-sm'>This preview failed to render: {message}</p>;
+  return (
+    <Alert variant='destructive'>
+      <AlertTitle>Preview couldn’t load</AlertTitle>
+      <AlertDescription>{message}</AlertDescription>
+      <AlertAction>
+        <Button variant='outline' size='sm' onClick={() => window.location.reload()}>Reload preview</Button>
+      </AlertAction>
+    </Alert>
+  );
 }
 
 // Direction comes from the frame URL (#dir=rtl) or a message from the docs page toolbar.
@@ -60,17 +71,17 @@ export function PatternPreview({ name, block, title }: { name: string; block: bo
       (height) => window.parent.postMessage({ type: 'gaudi-preview-size', name, height }, '*'));
   }, [name]);
 
-  const Pattern = loaded?.name === name ? loaded.Pattern : undefined;
+  const current = loaded?.name === name ? loaded : null;
+  const Pattern = current?.Pattern;
   return (
     <DirectionProvider dir={dir}>
       <div id='gaudi-preview-root' dir={dir} data-pattern={name} data-ready={Pattern ? 'true' : undefined} className={block ? 'p-3 sm:p-4' : 'flex min-h-40 items-start justify-center p-4 sm:p-8'}>
         <h1 className='sr-only'>{title}</h1>
         <div className='w-full min-w-0'>
-          {loaded?.error ? <PreviewError message={loaded.error} /> : null}
-          {Pattern ? (
-            <PreviewBoundary><Pattern /></PreviewBoundary>
-          ) : loaded?.error ? null : (
-            <div className='h-32 animate-pulse rounded-(--ds-radius-card) bg-surface-muted' role='status' aria-label='Loading preview' />
+          {current?.error ? <PreviewError message={current.error} /> : Pattern ? (
+            <PreviewBoundary key={name}><Pattern /></PreviewBoundary>
+          ) : (
+            <div role='status' aria-label='Loading preview'><Skeleton className='h-32 w-full' /></div>
           )}
         </div>
       </div>

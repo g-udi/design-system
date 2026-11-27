@@ -14,11 +14,12 @@ test('Switch renders the composition part with a label that targets it', async (
   assert.match(html, /<label[^>]*for="setting"[^>]*>Email notifications</);
 });
 
-test('Switch animates colours only and mirrors its thumb in right-to-left text', async () => {
+test('Switch keeps the track transition scoped and moves the thumb toward the inline end', async () => {
   const { readFile } = await import('node:fs/promises');
   const source = await readFile(new URL('../../../../src/components/core/Switch/SwitchPrimitives.jsx', import.meta.url), 'utf8');
   const css = await readFile(new URL('../../../../src/components/core/Switch/Switch.css', import.meta.url), 'utf8');
   assert.doesNotMatch(source, /transition-all/);
-  assert.match(css, /\.ds-part-switch:dir\(rtl\)\s*{\s*--ds-switch-direction: -1;/);
+  assert.match(css, /inset-inline-start: 0;/);
+  assert.match(css, /inset-inline-start: calc\(100% - var\(--ds-switch-thumb-size\)\);/);
   assert.match(css, /focus-visible:ring-ui-primary/);
 });

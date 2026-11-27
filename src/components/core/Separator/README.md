@@ -11,3 +11,5 @@ import { Separator } from '@gaudi/design-system';
 
 - Separators are decorative by default and hidden from assistive technology. Set `decorative={false}` when the rule marks a real change of section, so it is announced as a separator.
 - Vertical separators stretch to the height of their flex row; give them a height to keep them shorter.
+
+Use `MetaSeparator` between inline metadata such as an author and a timestamp. It renders a middot hidden from assistive technology.

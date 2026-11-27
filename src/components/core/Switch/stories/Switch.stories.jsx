@@ -1,3 +1,5 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
@@ -25,11 +27,11 @@ function SettingRow({ setting, size, defaultChecked, disabled, onCheckedChange }
   const id = `switch-${setting.id}`;
   return (
     <li className='flex items-center gap-3 px-3 py-2.5'>
-      <span className='grid size-8 shrink-0 place-items-center rounded-md bg-surface-muted text-text-muted' aria-hidden='true'>
+      <IconTile aria-hidden='true' size='sm' variant='muted'>
         <RegistryIcon lucide={setting.icon} className='size-4' />
-      </span>
+      </IconTile>
       <div className='min-w-0 flex-1'>
-        <label htmlFor={id} className='block text-sm font-medium'>{setting.title}</label>
+        <Label htmlFor={id} className='block text-sm font-medium'>{setting.title}</Label>
         <p className='flex items-center gap-1 text-xs text-text-muted'>
           {disabled && setting === featured ? <><RegistryIcon lucide='Lock' className='size-3.5 shrink-0' />{lockedNote}</> : setting.description}
         </p>
@@ -60,9 +62,9 @@ export const Playground = {
     docs: {
       description: { story: 'A notification settings list. The email row follows the controls; push, digest and SMS stay off, on and locked. `size` scales every switch, and `disabled` locks the email row and says why.' },
       source: playgroundSource('Switch', {
-        imports: "import { Switch } from '@gaudi/design-system';",
+        imports: "import { Switch } from '@gaudi/design-system';\nimport { Label } from '@gaudi/design-system/core/Field';",
         attributes: ["id='email-notifications'"],
-        before: "<div className='flex items-center gap-3'>\n  <div className='flex-1'>\n    <label htmlFor='email-notifications'>Email notifications</label>\n    <p>Replies, mentions and review requests.</p>\n  </div>\n",
+        before: "<div className='flex items-center gap-3'>\n  <div className='flex-1'>\n    <Label htmlFor='email-notifications'>Email notifications</Label>\n    <p>Replies, mentions and review requests.</p>\n  </div>\n",
         after: '\n</div>'
       })
     }

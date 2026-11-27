@@ -12,7 +12,7 @@ export default { title: 'Core/Select', id: 'core-select', tags: ['autodocs'], ..
 
 export const FormStates = { name: 'Form fields and states', ...pattern('form-states', 'Label and description, a disabled option, the small trigger, a long list aligned to the selected item, and invalid and disabled fields.') };
 export const RichOptions = { name: 'Rich option content', ...pattern('rich-options', 'Icons, status dots, avatars under a group label, badges behind a trigger prefix, flags and font previews.') };
-export const Grouped = { name: 'Grouped options', ...pattern('grouped', 'Labelled groups split by separators, each option with a muted offset.') };
+export const Grouped = { name: 'Select a time zone by region', ...pattern('grouped', 'Labelled groups split by separators, each option with a muted offset.') };
 export const Descriptions = { name: 'Options with descriptions', ...pattern('descriptions', 'Options with a second line: one trigger hides the description to stay on one line, the other grows to show both.') };
 export const Clearable = {
   name: 'Clearable select',

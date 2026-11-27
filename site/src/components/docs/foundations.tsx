@@ -1,3 +1,6 @@
+import { CardRoot, cardVariants } from '@gaudi/design-system/core/Card';
+import Table, { TableHead, TableHeaderCell, TableBody, TableRow, TableCell } from '@gaudi/design-system/mdx/Table';
+import Icon from '@gaudi/design-system/core/Icon';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { catalogue } from '@/lib/catalogue';
@@ -13,13 +16,13 @@ export function Card({ title, href, children }: { title: string; href: string; c
   const external = /^https?:/.test(href);
   const body = (
     <>
-      <span className='font-medium'>{title}{external ? ' ↗' : ''}</span>
+      <span className='inline-flex items-center gap-1 font-medium'>{title}{external ? <Icon name='ExternalLink' decorative size='xs' /> : null}</span>
       {children ? <span className='text-sm text-text-muted'>{children}</span> : null}
     </>
   );
   return external
-    ? <a className='site-card' href={href} target='_blank' rel='noreferrer'>{body}</a>
-    : <Link className='site-card' href={href}>{body}</Link>;
+    ? <a className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card' })} href={href} target='_blank' rel='noreferrer'>{body}</a>
+    : <Link className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card' })} href={href}>{body}</Link>;
 }
 
 const FAMILIES = ['accent', 'success', 'warning', 'danger', 'info', 'discovery', 'attention'];
@@ -79,22 +82,22 @@ export function TypeScale() {
   const { fontFamily, lineHeight } = catalogue.tokens.typography;
   return (
     <div className='not-prose my-6 flex flex-col gap-4' data-docs-example>
-      <div className='flex flex-col gap-3 rounded-(--ds-radius-card) border border-border p-4'>
+      <CardRoot variant='outline' padding='lg' className='flex flex-col gap-3'>
         <p className='text-4xl font-extrabold leading-tight'>Display heading</p>
         <p className='text-2xl font-bold'>Section heading</p>
         <p className='text-lg font-semibold'>Sub-section heading</p>
         <p className='text-base'>Body copy uses the sans stack at 1rem with a {lineHeight.body} line height; long-form prose uses {lineHeight.prose}.</p>
         <p className='text-sm text-text-muted'>Supporting text and descriptions use the muted text token.</p>
         <p className='font-mono text-sm'>const mono = &apos;JetBrains Mono&apos;;</p>
-      </div>
-      <table>
-        <thead><tr><th>Family</th><th>Stack</th></tr></thead>
-        <tbody>
+      </CardRoot>
+      <Table>
+        <TableHead><TableRow><TableHeaderCell scope='col'>Family</TableHeaderCell><TableHeaderCell scope='col'>Stack</TableHeaderCell></TableRow></TableHead>
+        <TableBody>
           {Object.entries(fontFamily).map(([name, stack]) => (
-            <tr key={name}><td><code>{name}</code></td><td><code>{stack.join(', ')}</code></td></tr>
+            <TableRow key={name}><TableCell><code>{name}</code></TableCell><TableCell><code>{stack.join(', ')}</code></TableCell></TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }
@@ -102,13 +105,13 @@ export function TypeScale() {
 export function MotionTokens() {
   const { duration, ease } = catalogue.tokens.motion;
   return (
-    <table>
-      <thead><tr><th>Token</th><th>Value</th></tr></thead>
-      <tbody>
-        {Object.entries(duration).map(([name, value]) => <tr key={name}><td><code>duration.{name}</code></td><td><code>{value}</code></td></tr>)}
-        {Object.entries(ease).map(([name, value]) => <tr key={name}><td><code>ease.{name}</code></td><td><code>{value}</code></td></tr>)}
-      </tbody>
-    </table>
+    <Table>
+      <TableHead><TableRow><TableHeaderCell scope='col'>Token</TableHeaderCell><TableHeaderCell scope='col'>Value</TableHeaderCell></TableRow></TableHead>
+      <TableBody>
+        {Object.entries(duration).map(([name, value]) => <TableRow key={name}><TableCell><code>duration.{name}</code></TableCell><TableCell><code>{value}</code></TableCell></TableRow>)}
+        {Object.entries(ease).map(([name, value]) => <TableRow key={name}><TableCell><code>ease.{name}</code></TableCell><TableCell><code>{value}</code></TableCell></TableRow>)}
+      </TableBody>
+    </Table>
   );
 }
 
@@ -116,7 +119,7 @@ export function RadiusAndDensity() {
   const { spacing, radius } = catalogue.tokens;
   return (
     <div className='not-prose my-6 grid gap-4 md:grid-cols-2' data-docs-example>
-      <div className='rounded-(--ds-radius-card) border border-border p-4'>
+      <CardRoot variant='outline' padding='lg'>
         <p className='font-medium'>Corner radius</p>
         <p className='mt-1 text-sm text-text-muted'>{radius.usage}</p>
         <div className='mt-3 flex gap-3'>
@@ -124,8 +127,8 @@ export function RadiusAndDensity() {
             <span key={value} className='grid size-14 place-items-center border border-border bg-surface-muted text-xs' style={{ borderRadius: value }}>{value}</span>
           ))}
         </div>
-      </div>
-      <div className='rounded-(--ds-radius-card) border border-border p-4'>
+      </CardRoot>
+      <CardRoot variant='outline' padding='lg'>
         <p className='font-medium'>Density (<code>{spacing.variable}</code>)</p>
         <p className='mt-1 text-sm text-text-muted'>{spacing.usage}</p>
         <ul className='mt-3 flex flex-wrap gap-2 text-xs'>
@@ -133,7 +136,7 @@ export function RadiusAndDensity() {
             <li key={name} className='rounded-(--ds-radius-sm) border border-border px-2 py-1'><code>{name}</code> {value}</li>
           ))}
         </ul>
-      </div>
+      </CardRoot>
     </div>
   );
 }

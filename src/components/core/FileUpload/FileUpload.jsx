@@ -5,7 +5,7 @@ import Button from '../Button';
 import Icon from '../Icon';
 import Progress from '../Progress';
 import { cn } from '../../../utilities/cn';
-import { selectFiles } from './fileSelection';
+import { nativeFileAccept, selectFiles } from './fileSelection';
 import { formatBytes } from './fileSelection.js';
 
 const REJECTION_TEXT = {
@@ -84,7 +84,7 @@ export default function FileUpload({
           id={id}
           className='sr-only'
           tabIndex={-1}
-          accept={accept}
+          accept={nativeFileAccept(accept)}
           multiple={multiple}
           disabled={disabled}
           aria-labelledby={`${id}-label`}

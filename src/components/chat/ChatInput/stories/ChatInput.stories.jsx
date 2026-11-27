@@ -287,7 +287,7 @@ export const AssistantComposer = {
     await step('Open the options and turn on tools', async () => {
       await userEvent.click(canvas.getByRole('button', { name: 'Options, Web search on' }));
       const dialog = await page.findByRole('dialog', { name: 'Options' });
-      await expect(within(dialog).getByRole('slider', { name: 'Effort' })).toBeVisible();
+      await waitFor(() => expect(within(dialog).getByRole('slider', { name: 'Effort' })).toBeVisible(), { timeout: 5000 });
       await userEvent.click(within(dialog).getByRole('switch', { name: 'Use connected tools' }));
       await expect(within(dialog).getByRole('switch', { name: 'Use connected tools' })).toBeChecked();
       await userEvent.keyboard('{Escape}');
@@ -324,6 +324,8 @@ export const AssistantComposer = {
       const badge = await page.findByText('Recommended');
       await waitFor(() => expect(badge).toBeVisible());
       await expect(badge).toHaveAttribute('data-slot', 'badge');
+      await userEvent.keyboard('{Escape}');
+      await waitFor(() => expect(page.queryByRole('combobox', { name: 'Search models' })).not.toBeInTheDocument(), { timeout: 5000 });
     });
   }
 };

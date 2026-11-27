@@ -105,6 +105,11 @@ export const Playground = {
   ),
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
+    for (const name of ['Zoom in', 'Zoom out']) {
+      const { width, height } = canvas.getByRole('button', { name }).getBoundingClientRect();
+      await expect(width).toBeGreaterThanOrEqual(24);
+      await expect(height).toBeGreaterThanOrEqual(24);
+    }
     await checkGestureUnmount(canvasElement);
     await checkGanttUpdates(canvasElement);
     await expect(await canvas.findAllByText('Wireframes')).not.toHaveLength(0);

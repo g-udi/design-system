@@ -51,6 +51,15 @@ export const Rich = {
     for (const name of ['Dorian Chua', 'Preview']) {
       await userEvent.click(canvas.getByRole('button', { name }));
       await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="popover-content"]')).toBeVisible());
+      if (name === 'Preview') {
+        await expect(body.getByRole('link', { name: 'Open artwork' })).toHaveAttribute('href', '/static/images/art/0.svg');
+        await expect(body.getByRole('link', { name: 'Save artwork' })).toHaveAttribute('download', 'portfolio-artwork.svg');
+      } else {
+        const follow = body.getByRole('button', { name: 'Follow', exact: true });
+        await userEvent.click(follow);
+        await expect(follow).toHaveAttribute('aria-pressed', 'true');
+        await expect(body.getByText('1,201')).toBeVisible();
+      }
       await auditOverlayState(context, name === 'Preview' ? 'media' : 'profile');
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(canvasElement.ownerDocument.querySelector('[data-slot="popover-content"]')).not.toBeInTheDocument());
@@ -61,7 +70,10 @@ export const Rich = {
     const dialog = await body.findByRole('dialog', { name: 'Notifications' });
     await waitFor(() => expect(dialog).toHaveFocus());
     await userEvent.tab();
-    await expect(within(dialog).getByRole('link', { name: 'View all' })).toHaveFocus();
+    const earlier = within(dialog).getByRole('button', { name: 'Earlier notifications' });
+    await expect(earlier).toHaveFocus();
+    await userEvent.keyboard('{Enter}');
+    await expect(within(dialog).getByText('Tuesday: build #420 completed')).toBeVisible();
     await auditOverlayState(context, 'notifications');
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(notifications).toHaveFocus());
@@ -73,6 +85,8 @@ export const Rich = {
     await auditOverlayState(context, 'feature');
     await userEvent.keyboard('{Enter}');
     await expect(within(preview).getByRole('button', { name: 'Preview enabled' })).toBeDisabled();
+    await userEvent.click(within(preview).getByRole('button', { name: 'Preview details' }));
+    await expect(within(preview).getByText(/breaks down visits by source/)).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(analytics).toHaveFocus());
     await userEvent.click(notifications);

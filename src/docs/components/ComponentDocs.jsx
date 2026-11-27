@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { Canvas, DocsContext, DocsStory, PureArgsTable, Story, Subtitle, Title, useOf } from '@storybook/addon-docs/blocks';
 import { MDXProvider } from '@storybook/addon-docs/mdx-react-shim';
 import { useContext, useEffect, useId, useState } from 'react';
@@ -140,7 +141,7 @@ const PreviewControls = ({ of, hasReference, referenceTitle, include }) => {
       <h3>Preview controls</h3>
       <p>
         Change these values to update the example above.
-        {hasReference ? <> See <a href={`#${toSectionId(referenceTitle)}`}>the full props reference</a> for types, defaults, and descriptions.</> : null}
+        {hasReference ? <> See <Link variant='bare' href={`#${toSectionId(referenceTitle)}`}>the full props reference</Link> for types, defaults, and descriptions.</> : null}
       </p>
       <div className='ds-docs-controls-table rounded-lg border border-border bg-surface'>
         <PureArgsTable

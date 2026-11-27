@@ -1,3 +1,5 @@
+import { StatusDot } from './StatusDot.jsx';
+export { StatusDot };
 import Link from '../Link';
 
 import { cn } from '../../../utilities/cn';
@@ -60,13 +62,8 @@ export const pillVariants = createVariants({
 export const pillTones = toneNames;
 export const pillSizes = Object.keys(pillVariants.variants.size);
 
-// The live dot takes the pill's text colour, so it stays visible on every variant.
-const PulseDot = () => (
-  <span className='relative flex size-1.5' aria-hidden='true'>
-    <span className='absolute inline-flex size-full animate-ping rounded-full bg-current opacity-75' />
-    <span className='relative inline-flex size-1.5 rounded-full bg-current' />
-  </span>
-);
+/** A status marker. Supply a label when the dot carries meaning by itself. */
+
 
 /** A compact status, category, or tag label on the Badge element, with named tones and an optional link. */
 const Pill = ({
@@ -82,7 +79,7 @@ const Pill = ({
 }) => {
   const content = (
     <>
-      {pulse ? <PulseDot /> : null}
+      {pulse ? <StatusDot pulse /> : null}
       {icon ? <span aria-hidden='true'>{icon}</span> : null}
       <span>{children}</span>
     </>

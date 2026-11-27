@@ -1,3 +1,4 @@
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import {
   Attachment,
   AttachmentAction,
@@ -41,10 +42,7 @@ export function Pattern() {
             <AttachmentTitle>{report.name}</AttachmentTitle>
             <AttachmentDescription>
               Markdown
-              <span
-                aria-hidden='true'
-                className='bg-ui-muted-foreground/40 mx-1.5 inline-block size-1 rounded-full align-middle'
-              />
+              <MetaSeparator className='mx-1.5' />
               Local sample
             </AttachmentDescription>
           </AttachmentContent>
@@ -80,10 +78,7 @@ export function Pattern() {
             <AttachmentTitle>refund-queue.csv</AttachmentTitle>
             <AttachmentDescription>
               CSV
-              <span
-                aria-hidden='true'
-                className='bg-ui-muted-foreground/40 mx-1.5 inline-block size-1 rounded-full align-middle'
-              />
+              <MetaSeparator className='mx-1.5' />
               96 KB
             </AttachmentDescription>
           </AttachmentContent>
@@ -94,10 +89,7 @@ export function Pattern() {
             <AttachmentTitle>webhook-replays.json</AttachmentTitle>
             <AttachmentDescription>
               JSON
-              <span
-                aria-hidden='true'
-                className='bg-ui-muted-foreground/40 mx-1.5 inline-block size-1 rounded-full align-middle'
-              />
+              <MetaSeparator className='mx-1.5' />
               41 KB
             </AttachmentDescription>
           </AttachmentContent>

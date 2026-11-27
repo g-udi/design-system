@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
-import Icon from '@gaudi/design-system/core/Icon';
+import Icon, { IconTile } from '@gaudi/design-system/core/Icon';
 import { DropdownMenuRoot, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from '@gaudi/design-system/core/DropdownMenu';
 import { useMediaQuery } from '@gaudi/design-system/hooks';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
@@ -89,9 +89,9 @@ function MenuPanel({ section }: { section: MenuSection }) {
             <li key={link.href}>
               <NavigationMenuLink asChild>
                 <Link href={link.href} className='flex flex-row items-start gap-3 rounded-(--ds-radius-control) p-2 no-underline'>
-                  <span aria-hidden='true' className='grid size-8 shrink-0 place-items-center rounded-(--ds-radius-control) border border-border bg-surface text-text-muted'>
+                  <IconTile aria-hidden='true' size='sm' radius='full' className='text-text-muted'>
                     <Icon name={link.icon} decorative size='sm' />
-                  </span>
+                  </IconTile>
                   <span className='flex min-w-0 flex-col gap-0.5'>
                     <span className='text-sm font-medium text-text'>{link.title}</span>
                     <span className='line-clamp-2 text-xs leading-snug text-text-muted'>{link.description}</span>

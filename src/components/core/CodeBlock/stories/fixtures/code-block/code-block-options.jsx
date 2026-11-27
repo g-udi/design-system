@@ -1,4 +1,5 @@
 'use client';
+import { TerminalWindowControls } from '@gaudi/design-system/core/Terminal';
 import { useState } from 'react';
 import {
   CodeBlock,
@@ -119,14 +120,7 @@ export function Pattern() {
           {options.header ? (
             <CodeBlockHeader>
               {dark && (
-                <span
-                  aria-hidden='true'
-                  className='flex shrink-0 items-center gap-1.5'
-                >
-                  <span className='size-2.5 rounded-full bg-[#ff5f57]' />
-                  <span className='size-2.5 rounded-full bg-[#febc2e]' />
-                  <span className='size-2.5 rounded-full bg-[#28c840]' />
-                </span>
+                <TerminalWindowControls className='shrink-0 gap-1.5 [&>span]:size-2.5' />
               )}
               <CodeBlockTitle>use-totals.ts</CodeBlockTitle>
               <CodeBlockLanguage />

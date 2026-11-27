@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 
-const widths = [320, 375, 390, 639, 640, 767, 768, 1023, 1024, 1279, 1280, 1440, 1920];
+const widths = [320, 375, 390, 639, 640, 641, 767, 768, 769, 1023, 1024, 1025, 1279, 1280, 1281, 1440, 1535, 1536, 1537, 1920];
 
 async function expectContained(page: Page) {
   const bounds = await page.evaluate(() => ({
@@ -219,9 +219,11 @@ test('mobile contents links jump to sections without leaving the disclosure open
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/docs/components/accordion');
   const toc = page.locator('.site-mobile-toc');
-  await toc.locator('summary').click();
+  const trigger = toc.getByRole('button', { name: 'On this page' });
+  await trigger.click();
+  await expect(trigger).toHaveAttribute('aria-expanded', 'true');
   await toc.getByRole('link', { name: 'API', exact: true }).click();
-  await expect(toc).not.toHaveAttribute('open', '');
+  await expect(trigger).toHaveAttribute('aria-expanded', 'false');
   await expect(page).toHaveURL(/#api$/);
   await expect(page.locator('#api')).toBeInViewport();
 });

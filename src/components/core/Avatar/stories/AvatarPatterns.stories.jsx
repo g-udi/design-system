@@ -56,7 +56,11 @@ export const AccountMenu = {
     const body = within(canvasElement.ownerDocument.body);
     const trigger = within(canvasElement).getByRole('button', { name: /Quentin Hale/ });
     await userEvent.click(trigger);
-    await expect(await body.findByRole('menuitem', { name: 'Profile' })).toBeVisible();
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Profile' }));
+    await expect(await body.findByRole('dialog', { name: 'Profile' })).toBeVisible();
+    await userEvent.keyboard('{Escape}');
+    await userEvent.click(trigger);
+    await expect(await body.findByRole('menuitem', { name: 'Teams' })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(body.queryByRole('menu')).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();

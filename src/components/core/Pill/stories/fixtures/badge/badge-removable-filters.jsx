@@ -1,11 +1,8 @@
 'use client';
+import Dialog from '@gaudi/design-system/core/Dialog';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const initial = [
@@ -42,9 +39,38 @@ export function Pattern() {
           Reset
         </Button>
       ) : null}
-      <Badge variant='primary-outline' size='lg' asChild>
-        <a href='#'>View all tags</a>
-      </Badge>
+      <Dialog
+        title='All tags'
+        description='Choose the tags to include in the filter.'
+        trigger={
+          <Button variant='link' size='xs'>
+            View all tags
+          </Button>
+        }
+      >
+        <div className='flex flex-wrap gap-2'>
+          {initial.map((tag) => {
+            const active = filters.some((entry) => entry.id === tag.id);
+            return (
+              <Button
+                key={tag.id}
+                variant='outline'
+                size='sm'
+                aria-pressed={active}
+                onClick={() =>
+                  setFilters((current) =>
+                    current.some((entry) => entry.id === tag.id)
+                      ? current.filter((entry) => entry.id !== tag.id)
+                      : [...current, tag]
+                  )
+                }
+              >
+                {tag.label}
+              </Button>
+            );
+          })}
+        </div>
+      </Dialog>
     </div>
   );
 }

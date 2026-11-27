@@ -62,8 +62,8 @@ A named Avatar exposes one image label, including host-provided presence. Use al
 
 Curated patterns:
 
-- Account dropdown menu — registry item `@gaudi/avatar-account-menu` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `RegistryIcon`)
-- Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`)
+- Account dropdown menu — registry item `@gaudi/avatar-account-menu` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `Dialog`, `DropdownMenuContent`, `DropdownMenuGroup`, `DropdownMenuItemPrimitive`, `DropdownMenuLabelPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Field`, `FieldInput`, `FieldLabel`, `RegistryIcon`)
+- Rings and activity — registry item `@gaudi/avatar-activity-rings` (uses `AvatarBadge`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `LoaderRoot`)
 - Empty state — registry item `@gaudi/avatar-empty-state` (uses `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `RegistryIcon`)
 - Groups — registry item `@gaudi/avatar-groups` (uses `AvatarBadge`, `AvatarFallback`, `AvatarGroup`, `AvatarGroupCount`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Hover groups with tooltips — registry item `@gaudi/avatar-hover-groups` (uses `Avatar`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)

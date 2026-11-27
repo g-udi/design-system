@@ -31,12 +31,17 @@ export default {
 // The main example: the other app-shell compositions follow in AppShellPatterns.stories.jsx.
 export const LibraryRail = {
   name: 'Icon rail · library switcher, nested collections and a reader menu',
-  ...pattern('library-rail', 'A reading library in an app window with a collapsible icon rail: a library switcher, Library pages with an Inbox count and nested Collections and Notes sections, a collapsible Sources group whose sync states are spoken beside status dots and whose row menus sync or unsubscribe a feed, footer links and a reader menu. The header holds the breadcrumbs and a Capture action. The sidebar icon before the breadcrumbs folds it to icons with tooltips (nested sections open beside the rail); in a narrow frame the sidebar opens as a sheet inside the window. Skeleton blocks stand in for the reading view.'),
+  ...pattern('library-rail', 'A reading library in an app window with a collapsible icon rail: a library switcher, Library pages with an Inbox count and nested Collections and Notes sections, a collapsible Sources group whose sync states are spoken beside status dots and whose row menus open or unsubscribe from a feed, footer links and a reader menu. The header holds the breadcrumbs and a Capture action. The sidebar icon before the breadcrumbs folds it to icons with tooltips (nested sections open beside the rail); in a narrow frame the sidebar opens as a sheet inside the window. The reading shelf opens cited excerpts, saves entries for later and captures notes in the active library’s inbox.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
+    const shelf = within(main.getByRole('region', { name: 'Library entries' }));
+    await expect(shelf.getByRole('heading', { name: 'Reading shelf' })).toBeVisible();
+    await userEvent.click(shelf.getByRole('button', { name: 'Save for later' }));
+    await expect(shelf.getByRole('button', { name: 'Remove from saved' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(shelf.getByRole('button', { name: 'Remove from saved' }));
     let nav = await openNavigation(canvasElement);
     await expect(nav.getByRole('link', { name: 'Home' })).toHaveAttribute('aria-current', 'page');
     // Collections remembers its last view while Home is the current page.

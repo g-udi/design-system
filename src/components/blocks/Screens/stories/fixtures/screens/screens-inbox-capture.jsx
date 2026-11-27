@@ -1,8 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { default as Button } from '@gaudi/design-system/core/Button';
+
 import {
+  FieldLegend,
+  FieldSet,
   FieldRoot as Field,
   FieldContent,
   FieldDescriptionPrimitive as FieldDescription,
@@ -62,10 +64,6 @@ export function Pattern() {
             <h2 id='inbox-title' className='text-lg font-semibold'>Outreach inbox</h2>
             <p className='text-text-muted text-sm'>Mailboxes that send your sequences.</p>
           </div>
-          <Button size='sm' variant='outline'>
-            <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
-            Connect
-          </Button>
         </div>
         <ul className='grid gap-2'>
           {mailboxes.map(([address, detail, state, variant]) => (
@@ -100,8 +98,8 @@ export function Pattern() {
           </h2>
           <p className='text-text-muted text-sm'>Record calls and turn them into notes.</p>
         </div>
-        <fieldset className='@container grid gap-2'>
-          <legend className='mb-2 text-sm font-medium'>Recording</legend>
+        <FieldSet className='@container grid gap-2'>
+          <FieldLegend className='mb-2 text-sm font-medium'>Recording</FieldLegend>
           <RadioGroup defaultValue='ask' className='gap-2 @md:grid-cols-3'>
             {recordingModes.map(([value, label, description]) => (
               <Label key={value} htmlFor={`mode-${value}`} className='flex cursor-pointer items-start gap-3 rounded-lg border p-3 font-normal has-data-[state=checked]:border-accent has-data-[state=checked]:bg-accent-subtle'>
@@ -113,7 +111,7 @@ export function Pattern() {
               </Label>
             ))}
           </RadioGroup>
-        </fieldset>
+        </FieldSet>
         <FieldSeparator />
         <Toggle id='consent' label='Announce the recording' description='Post a consent message when the bot joins.' checked={consent} onCheckedChange={setConsent} />
         {consent ? (
@@ -130,8 +128,8 @@ export function Pattern() {
             <NativeSelectOption value='interview'>Candidate interview</NativeSelectOption>
           </NativeSelect>
         </Field>
-        <fieldset className='grid gap-2'>
-          <legend className='mb-2 text-sm font-medium'>After each meeting</legend>
+        <FieldSet className='grid gap-2'>
+          <FieldLegend className='mb-2 text-sm font-medium'>After each meeting</FieldLegend>
           <div className='grid gap-2 sm:grid-cols-2'>
             {outputs.map(([id, label, on]) => (
               <div key={id} className='flex items-center justify-between gap-3 rounded-lg border px-3 py-2'>
@@ -140,7 +138,7 @@ export function Pattern() {
               </div>
             ))}
           </div>
-        </fieldset>
+        </FieldSet>
       </section>
     </div>
   );

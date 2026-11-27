@@ -1,5 +1,6 @@
 'use client';
 import { useCallback, useEffect, useState } from 'react';
+import Button from '@gaudi/design-system/core/Button';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import {
   CarouselRoot as Carousel,
@@ -15,20 +16,21 @@ function Thumbnails({ setApi, selected, onSelect, overlay }) {
       <CarouselContent className='-ml-2'>
         {slides.map((src, index) => (
           <CarouselItem key={src + index} className={cn('pl-2', overlay ? 'basis-1/6' : 'basis-1/5')}>
-            <button
-              type='button'
+            <Button
+              variant='ghost'
+              size='icon'
               onClick={() => onSelect(index)}
               aria-label={`Show slide ${index + 1}`}
               aria-current={index === selected ? 'true' : undefined}
               className={cn(
-                'relative block aspect-square w-full cursor-pointer overflow-hidden rounded-md border-2 transition-opacity',
+                'relative block aspect-square h-auto w-full overflow-hidden rounded-md border-2 p-0 transition-opacity',
                 index === selected
                   ? overlay ? 'border-white' : 'border-accent'
                   : cn('opacity-50 hover:opacity-80', overlay ? 'border-white/40' : 'border-transparent')
               )}
             >
               <img src={src} alt='' width={200} height={200} className='h-full w-full object-cover' />
-            </button>
+            </Button>
           </CarouselItem>
         ))}
       </CarouselContent>

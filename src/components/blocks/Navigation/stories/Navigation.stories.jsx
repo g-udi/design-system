@@ -1,3 +1,5 @@
+import { navigationMenuA11y } from '../../../../docs/components/navigationMenuA11y';
+import Avatar from '@gaudi/design-system/core/Avatar';
 import { useEffect, useRef, useState } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
@@ -44,8 +46,7 @@ export default {
   argTypes: docsArgTypes(docs, { categories: 'object', posts: 'object' }),
   args: { categories, posts, blogLink: { href: '/blog', title: 'Blog' } },
   parameters: {
-    // An open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
-    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } },
+    a11y: navigationMenuA11y,
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -129,7 +130,7 @@ export const BlogRoute = {
 
 const CustomLogo = () => (
   <span className='flex items-center gap-2'>
-    <span aria-hidden='true' className='flex size-10 items-center justify-center rounded-control bg-accent text-sm font-bold text-surface'>FN</span>
+    <Avatar aria-hidden='true' shape='square' size='sm' name='Field notes' label='FN' />
     <span className='hidden text-sm font-semibold sm:inline'>Field notes</span>
   </span>
 );

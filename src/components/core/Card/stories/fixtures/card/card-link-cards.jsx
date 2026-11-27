@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import Link from '@gaudi/design-system/core/Link';
 import {
   CardRoot as Card,
@@ -12,9 +13,9 @@ export function Pattern() {
     <div className='mx-auto grid w-full max-w-2xl gap-3 sm:grid-cols-2'>
       <Card>
         <CardContent className='flex flex-col gap-3'>
-          <div className='flex size-9 items-center justify-center rounded-md bg-ui-primary text-ui-primary-foreground [&_svg]:size-4'>
+          <IconTile aria-hidden='true' size='sm' variant='solid'>
             <RegistryIcon lucide='ShoppingBagIcon' aria-hidden='true' />
-          </div>
+          </IconTile>
           <Link href='/orders' className='text-sm leading-tight font-medium text-text hover:text-ui-primary'>
             Recent orders overview
           </Link>

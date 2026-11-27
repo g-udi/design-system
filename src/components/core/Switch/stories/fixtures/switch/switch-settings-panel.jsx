@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useId } from 'react';
 import {
   Frame,
@@ -27,14 +28,14 @@ export function Pattern() {
         {settings.map((setting, index) => (
           <div key={setting.id}>
             {index > 0 && <Separator />}
-            <label htmlFor={`${id}-sw-${setting.id}`} className='flex cursor-pointer items-center gap-3 px-3 py-2.5'>
+            <Label htmlFor={`${id}-sw-${setting.id}`} className='flex cursor-pointer items-center gap-3 px-3 py-2.5'>
               <RegistryIcon lucide={setting.icon} aria-hidden='true' className='size-4 shrink-0 text-text-muted' />
               <span className='flex min-w-0 flex-1 flex-col gap-0.5'>
                 <span className='text-sm font-medium'>{setting.title}</span>
                 <span className='text-xs text-text-muted'>{setting.description}</span>
               </span>
               <Switch id={`${id}-sw-${setting.id}`} size='sm' defaultChecked={setting.checked} />
-            </label>
+            </Label>
           </div>
         ))}
       </FramePanel>

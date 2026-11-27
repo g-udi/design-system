@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
   CardContent,
@@ -31,7 +30,7 @@ import {
   SidebarMenuSkeleton,
   SidebarProvider,
   SidebarSeparator,
-  SidebarTrigger
+  SidebarTrigger, useSidebar
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -96,7 +95,8 @@ const RUNS = [
   { id: 'r-309', label: 'Index rebuild', time: '06:55' },
   { id: 'r-308', label: 'Locale export', time: '06:02' }
 ];
-function PinnedProjects() {
+function PinnedProjects({ selected, onSelect }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Pinned</SidebarGroupLabel>
@@ -104,8 +104,8 @@ function PinnedProjects() {
         <SidebarMenu>
           {PINNED.map((project) => (
             <SidebarMenuItem key={project.id}>
-              <SidebarMenuButton asChild>
-                <a href='#'>
+              <SidebarMenuButton asChild isActive={selected.id === project.id}>
+                <a href={'#' + project.id} aria-current={selected.id === project.id ? 'page' : undefined} onClick={event => { event.preventDefault(); onSelect(project); if (isMobile) setOpenMobile(false); }}>
                   <RegistryIcon lucide='BookmarkIcon' aria-hidden='true' />
                   <span>{project.name}</span>
                 </a>
@@ -181,7 +181,8 @@ function ProjectFilter({ query, onChange }) {
     </form>
   );
 }
-function ProjectList({ projects, loading, query, onRefresh }) {
+function ProjectList({ projects, loading, query, onRefresh, selected, onSelect }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>All projects</SidebarGroupLabel>
@@ -203,8 +204,8 @@ function ProjectList({ projects, loading, query, onRefresh }) {
               ))
             : projects.map((project) => (
                 <SidebarMenuItem key={project.id}>
-                  <SidebarMenuButton asChild>
-                    <a href='#'>
+                  <SidebarMenuButton asChild isActive={selected.id === project.id}>
+                    <a href={'#' + project.id} aria-current={selected.id === project.id ? 'page' : undefined} onClick={event => { event.preventDefault(); onSelect(project); if (isMobile) setOpenMobile(false); }}>
                       {project.icon}
                       <span>{project.name}</span>
                     </a>
@@ -223,12 +224,12 @@ function ProjectList({ projects, loading, query, onRefresh }) {
     </SidebarGroup>
   );
 }
-function ProjectOverview() {
+function ProjectOverview({ project }) {
   return (
     <SidebarInset className='min-w-0 overflow-hidden'>
       <header className='flex h-12 shrink-0 items-center gap-2 border-b px-4'>
         <SidebarTrigger className='-ms-1' />
-        <h2 className='truncate text-sm font-medium'>Checkout API</h2>
+        <h2 className='truncate text-sm font-medium'>{project.name}</h2>
         <span className='text-ui-muted-foreground ml-auto shrink-0 text-xs'>
           Updated 4m ago
         </span>
@@ -241,9 +242,10 @@ function ProjectOverview() {
           </CardHeader>
           <CardContent>
             <div className='flex flex-col gap-2.5'>
-              {RUNS.map((run) => (
+              {(project.id === 'checkout' ? RUNS : []).map((run) => (
                 <RunRow key={run.id} run={run} />
               ))}
+              {project.id !== 'checkout' && <p className='text-text-muted text-sm'>No recent runs for {project.name}. {project.open ?? 0} open issues.</p>}
             </div>
           </CardContent>
         </Card>
@@ -253,6 +255,8 @@ function ProjectOverview() {
 }
 export function Pattern() {
   const [query, setQuery] = useState('');
+  const [selected, setSelected] = useState(PROJECTS[0]);
+  const choose = project => setSelected(PROJECTS.find(item => item.id === project.id) ?? project);
   const [loading, setLoading] = useState(false);
   const timer = useRef(null);
   useEffect(() => {
@@ -292,10 +296,10 @@ export function Pattern() {
           </SidebarHeader>
 
           <SidebarContent role='navigation' aria-label='Projects'>
-            <PinnedProjects />
+            <PinnedProjects selected={selected} onSelect={choose} />
             <SidebarSeparator className='mx-0' />
             <ProjectList
-              projects={visible}
+              projects={visible} selected={selected} onSelect={choose}
               loading={loading}
               query={query}
               onRefresh={startRefresh}
@@ -307,13 +311,11 @@ export function Pattern() {
             <p className='text-ui-sidebar-foreground px-2 text-xs'>
               Free plan, 8 of 10 projects
             </p>
-            <Button variant='outline' size='sm' className='w-full'>
-              Upgrade plan
-            </Button>
+
           </SidebarFooter>
         </Sidebar>
 
-        <ProjectOverview />
+        <ProjectOverview project={selected} />
       </SidebarProvider>
     </AppShellFrame>
   );

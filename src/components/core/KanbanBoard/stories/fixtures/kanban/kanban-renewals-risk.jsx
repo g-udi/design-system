@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -86,7 +86,7 @@ function AccountCard({ item, isOverlay }) {
         {item.logo}
         <span className='min-w-0 flex-1 truncate font-medium text-text'>{item.name}</span>
         <Badge variant={risk.badge} size='sm' className='gap-1'>
-          <span className={cn('size-1.5 rounded-full', risk.dot)} aria-hidden='true' />
+          <StatusDot className={risk.dot} />
           {item.risk}
         </Badge>
       </div>
@@ -123,7 +123,7 @@ function StageColumn({ value, items, isOverlay }) {
   return (
     <KanbanColumn value={value} className='gap-2'>
       <div className='flex items-center gap-2 px-1'>
-        <span className={cn('size-2 rounded-full', stage.dot)} aria-hidden='true' />
+        <StatusDot className={cn('size-2', stage.dot)} />
         <h3 className='text-sm font-medium text-text'>{stage.title}</h3>
         <KanbanColumnCount count={items.length} />
         <span className='ms-auto text-xs text-text-muted tabular-nums'>

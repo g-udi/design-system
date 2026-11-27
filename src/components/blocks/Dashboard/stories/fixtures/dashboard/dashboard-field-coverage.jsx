@@ -8,7 +8,7 @@ import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import { default as Avatar } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+
 
 const crews = [
   { id: 'north', crew: 'North Loop', lead: 'Ana Ruiz', avatar: 'person-20', region: 'Lisbon', sites: 18, covered: 17, shift: 'Day' },
@@ -50,7 +50,6 @@ export function Pattern() {
           <p className='text-text-muted text-xs'>Gaudi · Field teams</p>
           <h2 className='text-xl font-semibold'>Coverage this week</h2>
         </div>
-        <Button size='sm'><RegistryIcon lucide='PlusIcon' aria-hidden='true' />Schedule a shift</Button>
       </header>
       <DashboardGrid label='Field coverage'>
         <StatCard label='Sites covered' value={`${covered} of ${sites}`} delta='-3' deltaDirection='down' deltaTone='danger' description={`${Math.round((covered / sites) * 100)}% coverage`} className={dashboardSpan(4, 2)} />

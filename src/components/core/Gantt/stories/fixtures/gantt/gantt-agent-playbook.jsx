@@ -5,7 +5,7 @@ import { Gantt } from '@gaudi/design-system/core/Gantt';
 import { GanttNav, GanttToolbar } from '@gaudi/design-system/core/Gantt';
 import { GanttView } from '@gaudi/design-system/core/Gantt';
 import { checkDependencies, getCriticalPath } from '@gaudi/design-system/core/Gantt';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
 import { Label } from '@gaudi/design-system/core/Field';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
@@ -169,7 +169,7 @@ export function Pattern() {
                 <ul aria-label='Step status' className='text-text-muted flex flex-wrap items-center gap-3 text-xs'>
                   {Object.entries(STATUS).map(([label, { color }]) => (
                     <li key={label} className='flex items-center gap-1.5'>
-                      <span aria-hidden='true' className='size-2 rounded-full' style={{ background: color }} />
+                      <StatusDot className='size-2' style={{ background: color }} />
                       {label}
                     </li>
                   ))}

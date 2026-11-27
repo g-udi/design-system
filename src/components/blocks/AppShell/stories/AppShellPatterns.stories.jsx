@@ -19,6 +19,7 @@ export const ReadingDesk = {
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
     // The search button sits in the page header, outside the navigation.
+    await expect(main.getByRole('button', { name: /Walking/ })).toHaveAttribute('aria-expanded', 'true');
     await userEvent.click(canvas.getByRole('button', { name: 'Search' }));
     const dialog = await body.findByRole('dialog', { name: 'Search' });
     await userEvent.type(within(dialog).getByRole('combobox'), 'long');
@@ -57,15 +58,24 @@ export const ReadingDesk = {
 
 export const ResearchProjects = {
   name: 'Inset sidebar · study progress rings, reading goal and a header notifications feed',
-  ...pattern('research-projects', 'A research workspace with an inset sidebar: the brand and collapse trigger, a ⌘K search palette (while focus is inside the window), Research pages with nested Questions and Collaborators sections, collapsible Active Studies whose progress rings are spoken with each name and whose row menus archive a study, a weekly reading-goal meter, and a lab and account menu. The notifications bell sits at the end of the page header and opens a multi-type feed (mentions, sign-off requests with Approve and Review, shared transcripts, assigned reading, joins, reading-group events, goals) with unread dots and Mark all as read. The sidebar folds to an icon rail with tooltips and side menus; in a narrow frame it opens as a sheet inside the window.'),
+  ...pattern('research-projects', 'A research workspace with an inset sidebar: the brand and collapse trigger, a ⌘K search palette (while focus is inside the window), Research pages with nested Questions and Collaborators sections, collapsible Active Studies whose progress rings are spoken with each name and whose row menus archive a study, a weekly reading-goal meter, and a lab switcher. The notifications bell sits at the end of the page header and opens a multi-type feed (mentions, sign-off requests with Approve and Review, shared transcripts, assigned reading, joins, reading-group events, goals) with unread dots and Mark all as read. The sidebar folds to an icon rail with tooltips and side menus; in a narrow frame it opens as a sheet inside the window.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
+    const studies = within(main.getByRole('region', { name: 'Research workspace' }));
+    await userEvent.click(studies.getByRole('button', { name: 'Open study: Memory & Sleep' }));
+    await expect(studies.getByRole('progressbar', { name: 'Study completion' })).toHaveAttribute('aria-valuenow', '72');
+    await expect(studies.getByText('Does a later bedtime change next-day recall?')).toBeVisible();
+    await userEvent.click(studies.getByRole('button', { name: 'Back to studies' }));
+    await expect(studies.getByRole('heading', { name: 'Active studies' })).toBeVisible();
     // The bell sits in the page header, outside the navigation.
     await userEvent.click(canvas.getByRole('button', { name: 'Notifications, 5 unread' }));
     const feed = await body.findByRole('dialog', { name: 'Notifications' });
+    const transcript = within(feed).getByRole('link', { name: 'Download interviews-batch-3.txt' });
+    await expect(transcript).toHaveAttribute('download', 'interviews-batch-3.txt');
+    await expect(decodeURIComponent(transcript.getAttribute('href'))).toContain('Participant: I followed the hand-drawn map');
     await userEvent.click(within(feed).getByRole('button', { name: 'Approve' }));
     await expect(within(feed).getByText('Approved')).toBeVisible();
     const markRead = within(feed).getByRole('button', { name: 'Mark all as read' });
@@ -79,7 +89,7 @@ export const ResearchProjects = {
     await waitFor(() => expect(body.queryByRole('dialog', { name: 'Notifications' })).not.toBeInTheDocument());
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Notifications' })).toHaveFocus());
     let nav = await openNavigation(canvasElement);
-    await expect(nav.getByRole('link', { name: 'Overview' })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: 'Projects' })).toHaveAttribute('aria-current', 'page');
     // Each study ring is spoken with its name.
     await expect(nav.getByRole('link', { name: /Memory & Sleep.*72% complete/ })).toBeVisible();
     await userEvent.click(nav.getByRole('button', { name: 'Actions for Grant Proposal' }));
@@ -128,6 +138,12 @@ export const DigestInbox = {
     await expect(main.getByRole('heading', { name: 'Replication, one decade on' })).toBeVisible();
     // In a narrow panel the list steps aside for the issue, so look it up hidden or not.
     await expect(main.getByRole('button', { name: /Slow Science Weekly: Replication, one decade on$/, hidden: true })).toBeInTheDocument();
+    const issue = within(main.getByRole('region', { name: 'Issue' }));
+    await userEvent.click(issue.getByRole('button', { name: 'Save a highlight' }));
+    const highlight = within(await body.findByRole('dialog', { name: 'Save a highlight' }));
+    await userEvent.type(highlight.getByRole('textbox', { name: 'Passage' }), 'Three labs repeated the studies.');
+    await userEvent.click(highlight.getByRole('button', { name: 'Save' }));
+    await expect(await issue.findByText('Three labs repeated the studies.')).toBeVisible();
     const actions = within(main.getByRole('toolbar', { name: 'Issue actions' }));
     await userEvent.click(actions.getByRole('button', { name: 'Save issue' }));
     await expect(actions.getByRole('button', { name: 'Remove from saved' })).toHaveAttribute('aria-pressed', 'true');
@@ -139,6 +155,11 @@ export const DigestInbox = {
     if (toggle.getAttribute('aria-pressed') !== 'true') await userEvent.click(toggle);
     const context = main.getByRole('complementary', { name: 'Reading plan' });
     await waitFor(() => expect(context).toHaveAttribute('data-state', 'open'));
+    await userEvent.click(within(context).getByRole('button', { name: 'Plan a session' }));
+    const session = within(await body.findByRole('dialog', { name: 'Plan a reading session' }));
+    await userEvent.type(session.getByRole('textbox', { name: 'Title' }), 'Read the replication notes');
+    await userEvent.click(session.getByRole('button', { name: 'Save' }));
+    await expect(await within(context).findByRole('button', { name: /Read the replication notes/ })).toBeVisible();
     await userEvent.click(within(context).getByRole('button', { name: 'Close reading plan' }));
     await waitFor(() => expect(context).toHaveAttribute('data-state', 'closed'));
     // The dark rail switches the sidebar panel and the page.
@@ -171,11 +192,18 @@ export const DigestInbox = {
 
 export const PublishingConsole = {
   name: 'Inset icon rail · per-section navigation, site, publication and environment switchers',
-  ...pattern('publishing-console', 'A publishing console for a notes and essays site: an icon rail of sections, each with its own secondary navigation inside the inset panel (Writing and Library with counts and a monthly writing goal for Content; Releases, Distribution and a live-readers card for Publishing; and so on). The header switches site, publication and Draft, Preview or Live environment from breadcrumb menus, centres a ⌘K search over every page, and holds a Write menu, a link to the live site and a notifications sheet with comments, broken-link checks and suggested edits to approve. The trigger folds the secondary navigation away so only the rail remains; in a narrow frame the rail and the section navigation open together as a sheet.'),
+  ...pattern('publishing-console', 'A publishing console for a notes and essays site: an icon rail of sections, each with its own secondary navigation inside the inset panel (Writing and Library with counts and a monthly writing goal for Content; Releases, Distribution and a live-readers card for Publishing; and so on). The header switches site, publication and Draft, Preview or Live environment from breadcrumb menus, centres a ⌘K search over every page, and holds a Write menu, a shortcut to published articles and a notifications sheet with comments, broken-link checks and suggested edits to approve. The trigger folds the secondary navigation away so only the rail remains; in a narrow frame the rail and the section navigation open together as a sheet.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
+    const desk = within(canvas.getByRole('region', { name: 'Editorial desk' }));
+    await userEvent.click(desk.getByRole('button', { name: 'Edit The map in the endpapers' }));
+    const title = desk.getByRole('textbox', { name: 'Article title' });
+    await userEvent.clear(title);
+    await userEvent.type(title, 'An annotated map');
+    await userEvent.click(desk.getByRole('button', { name: 'Save article' }));
+    await expect(desk.getByRole('button', { name: 'Edit An annotated map' })).toBeVisible();
     const docked = Boolean(desktopSidebar(canvasElement));
     let rail = await openNavigation(canvasElement);
     await expect(rail.getByRole('button', { name: 'Content' })).toHaveAttribute('aria-current', 'page');
@@ -203,8 +231,8 @@ export const PublishingConsole = {
     // The notifications sheet opens inside the window.
     await userEvent.click(canvas.getByRole('button', { name: 'Notifications' }));
     const sheet = within(await canvas.findByRole('dialog', { name: 'Notifications' }));
-    await userEvent.click(sheet.getByRole('button', { name: 'Fix links' }));
-    await expect(sheet.getByText('Links fixed')).toBeVisible();
+    await userEvent.click(sheet.getByRole('button', { name: 'Flag for review' }));
+    await expect(sheet.getByText('Flagged for review')).toBeVisible();
     await userEvent.click(sheet.getByRole('button', { name: 'Close notifications' }));
     await waitFor(() => expect(canvas.queryByRole('dialog', { name: 'Notifications' })).not.toBeInTheDocument());
     // Search reaches pages in every section.
@@ -239,11 +267,20 @@ export const NotebookTabs = {
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
+    const notebook = within(main.getByRole('region', { name: 'Notebook entries' }));
+    await expect(notebook.getByRole('heading', { name: 'Memory & Learning' })).toBeVisible();
+    await userEvent.click(main.getByRole('button', { name: 'New note' }));
+    await userEvent.type(notebook.getByRole('textbox', { name: 'Note title' }), 'Cue order in trial two');
+    await userEvent.click(notebook.getByRole('button', { name: 'Save note' }));
+    await expect(notebook.getByRole('button', { name: /Cue order in trial two/ })).toBeVisible();
     let nav = await openNavigation(canvasElement);
     await expect(nav.getByRole('button', { name: 'Research' })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('link', { name: 'Notes' })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('button', { name: 'Collections' })).toHaveAttribute('aria-expanded', 'true');
-    await expect(nav.getByRole('button', { name: 'Create collection' })).toBeInTheDocument();
+    await userEvent.click(nav.getByRole('button', { name: 'Create collection' }));
+    await userEvent.type(nav.getByRole('textbox', { name: 'New collection name' }), 'Recall studies');
+    await userEvent.click(nav.getByRole('button', { name: 'Create', exact: true }));
+    await expect(nav.getByRole('link', { name: 'Recall studies' })).toHaveAttribute('aria-current', 'page');
     await userEvent.click(nav.getByRole('button', { name: 'Notebook: Memory & Learning' }));
     await userEvent.click(await body.findByRole('menuitemradio', { name: /Urban Reading/ }));
     await waitFor(() => expect(nav.getByRole('button', { name: 'Notebook: Urban Reading' })).toBeVisible());
@@ -265,6 +302,8 @@ export const NotebookTabs = {
       await waitFor(() => expect(main.getByRole('button', { name: 'View: Board' })).toBeVisible());
     }
     await expect(main.getByRole('tabpanel', { name: 'Board' })).toBeVisible();
+    const reviewBoard = within(main.getByRole('region', { name: 'Notebook review board' }));
+    await expect(reviewBoard.getByText('A station with three names')).toBeVisible();
     await userEvent.click(main.getByRole('button', { name: 'View options' }));
     const tags = await body.findByRole('menuitemcheckbox', { name: 'Tags' });
     await expect(tags).toHaveAttribute('aria-checked', 'false');
@@ -299,7 +338,7 @@ async function navigation(canvasElement) {
 
 export const ResearchAssistant = {
   name: 'Floating sidebar · library research assistant with answer modes, sources and cited replies',
-  ...pattern('research-assistant', 'A research assistant over your own library on a floating sidebar that collapses to icons: New question, an Answer from picker (Library, Library + web, Deep read) kept in step with the header Mode picker, a pinned notes card, Sources with counts, recent questions with row menus (save, pin, delete) and a reader menu. A new question opens on a welcome canvas whose starter prompts fill the composer (attach a PDF, cite a bookmark or quote a note); asking adds the question and a cited reply, and opening a past question shows its loading skeleton. The header saves the answer to a notebook. In a narrow frame the sidebar opens as a sheet inside the window.'),
+  ...pattern('research-assistant', 'A research assistant over your own library on a floating sidebar that collapses to icons: New question, an Answer from picker (Library, Library + web, Deep read) kept in step with the header Mode picker, a pinned notes card, Sources with counts, recent questions with row menus (save, pin, delete) and a reader menu. A new question opens on a welcome canvas whose starter prompts fill the composer (attach a PDF or select a saved source); asking adds the question and a cited reply, and opening a past question restores its conversation and source. The header saves the answer to a notebook. In a narrow frame the sidebar opens as a sheet inside the window.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
@@ -322,6 +361,12 @@ export const ResearchAssistant = {
     await userEvent.click(nav.getByRole('link', { name: /Compare spaced repetition studies/ }));
     nav = await navigation(canvasElement);
     await expect(nav.getByRole('link', { name: /Compare spaced repetition studies/ })).toHaveAttribute('aria-current', 'page');
+    await closeMobileNavigation(canvasElement);
+    const prior = within(main.getByRole('region', { name: 'Conversation' }));
+    await expect(prior.getByText(/Compare the tested intervals/)).toBeVisible();
+    await userEvent.click(main.getByRole('button', { name: 'Save to notebook' }));
+    await expect(main.getByRole('button', { name: 'Saved to notebook' })).toHaveAttribute('aria-pressed', 'true');
+    nav = await navigation(canvasElement);
     // A new question: a starter prompt fills the composer and asking adds the turn.
     await userEvent.click(nav.getByRole('button', { name: 'New question' }));
     await userEvent.click(await main.findByRole('button', { name: /Build a reading plan on memory/ }));
@@ -330,7 +375,7 @@ export const ResearchAssistant = {
     await userEvent.click(main.getByRole('button', { name: 'Ask' }));
     const thread = within(await main.findByRole('region', { name: 'Conversation' }));
     await expect(thread.getByText('Build a reading plan on memory')).toBeVisible();
-    await expect(prompt).toHaveValue('');
+    await expect(main.getByRole('combobox', { name: 'Ask your library' })).toHaveValue('');
     const sidebar = dockedSidebar(canvasElement);
     if (sidebar) {
       await userEvent.click(within(sidebar).getByRole('button', { name: 'Toggle Sidebar' }));
@@ -345,7 +390,7 @@ export const ResearchAssistant = {
 
 export const NewsletterReader = {
   name: 'Newsletter reader · library and topics sidebar, issue list, reading pane and a reading-tools rail',
-  ...pattern('newsletter-reader', 'A reader for subscribed newsletters in a mail-client layout: a reader menu (subscriptions, OPML import), Share a read (a dialog that sends an issue with a note), Library views with counts, Topics with a new-topic dialog, a reading circle with presence and footer links, in a sidebar that collapses to icons from the list header. The issue list searches and filters by kind (an empty state offers to clear filters); choosing an issue opens it in the reading pane with previous and next, reading time, read, read-later, star and archive actions and a Save to notebook button, and a rail of reading tools sits on the far edge of wide frames. In a narrow frame the list and the reading pane take turns and the sidebar opens as a sheet inside the window.'),
+  ...pattern('newsletter-reader', 'A reader for subscribed newsletters in a mail-client layout: a reader menu for subscriptions and text size, Share a read (a dialog that sends an issue with a note), Library views with counts, Topics with a new-topic dialog, a reading circle with presence and footer links, in a sidebar that collapses to icons from the list header. The issue list searches and filters by kind (an empty state offers to clear filters); choosing an issue opens it in the reading pane with previous and next, reading time, read, read-later, star and archive actions and a Save to notebook button, and a rail of reading tools sits on the far edge of wide frames. In a narrow frame the list and the reading pane take turns and the sidebar opens as a sheet inside the window.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
@@ -364,6 +409,14 @@ export const NewsletterReader = {
     await userEvent.click(list.getByRole('button', { name: /Why we write in the margins/ }));
     const pane = within(main.getByRole('region', { name: 'Reading pane' }));
     await expect(await pane.findByRole('heading', { name: 'Why we write in the margins' })).toBeVisible();
+    await userEvent.click(pane.getByRole('button', { name: 'Save to notebook' }));
+    await expect(pane.getByRole('button', { name: 'Remove from notebook' })).toHaveAttribute('aria-pressed', 'true');
+    await userEvent.click(pane.getByRole('button', { name: 'Highlight' }));
+    const highlight = within(await body.findByRole('dialog', { name: 'Highlight a passage' }));
+    const passage = highlight.getByRole('combobox', { name: 'Passage' });
+    await userEvent.selectOptions(passage, passage.options[1]);
+    await userEvent.click(highlight.getByRole('button', { name: 'Save' }));
+    await expect(pane.getByRole('blockquote')).toHaveTextContent('Medieval readers');
     await userEvent.click(pane.getByRole('button', { name: 'Star issue' }));
     await expect(pane.getByRole('button', { name: 'Star issue' })).toHaveAttribute('aria-pressed', 'true');
     await userEvent.click(pane.getByRole('button', { name: 'Archive issue' }));
@@ -394,13 +447,21 @@ export const NewsletterReader = {
 
 export const StudyChat = {
   name: 'Resizable sidebar · reading-group study threads, notes tab and a header tutor picker',
-  ...pattern('study-chat', 'A study workspace for reading groups whose thread sidebar resizes from its edge (drag, or the arrow keys on the handle) and collapses to an icon rail where Pinned and Recent open as menus. Threads and Notes tabs, shortcuts with flashcard and group counts, collapsible Pinned and Recent groups with pin and row menus, a thread search palette, and an account menu that switches reading groups. The header carries the thread title, a spoiler guard, a tutor picker with each tutor\'s style, and thread options (share with group, make flashcards); the discussion shows its loading skeleton. In a narrow frame an app bar opens the sidebar as a sheet inside the window.'),
+  ...pattern('study-chat', 'A study workspace for reading groups whose thread sidebar resizes from its edge (drag, or the arrow keys on the handle) and collapses to an icon rail where Pinned and Recent open as menus. Threads and Notes tabs, shortcuts with flashcard and group counts, collapsible Pinned and Recent groups with pin and row menus, a thread search palette, and an account menu that switches reading groups. The header carries the thread title, a spoiler guard, a tutor picker with each tutor\'s style, and thread options (share with group, make flashcards); the conversation uses Gaudi messages and a working composer. In a narrow frame an app bar opens the sidebar as a sheet inside the window.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
     await expect(main.getByRole('heading', { name: 'Book club: Middlemarch, chapters 1–10' })).toBeVisible();
+    await expect(main.getByText('Why does Dorothea want to marry Casaubon?')).toBeVisible();
+    await userEvent.click(main.getByRole('button', { name: 'Spoiler guard' }));
+    await expect(main.getByText('Later chapters')).toBeVisible();
+    await userEvent.click(main.getByRole('button', { name: 'Spoiler guard' }));
+    await expect(main.queryByText('Later chapters')).not.toBeInTheDocument();
+    await userEvent.type(main.getByRole('combobox', { name: 'Study message' }), 'What does the letter reveal?');
+    await userEvent.click(main.getByRole('button', { name: 'Send message' }));
+    await expect(main.getByText('What does the letter reveal?')).toBeVisible();
     await userEvent.click(main.getByRole('button', { name: 'Tutor: Socratic tutor' }));
     await userEvent.click(await body.findByRole('option', { name: /Summariser/ }));
     await waitFor(() => expect(main.getByRole('button', { name: 'Tutor: Summariser' })).toBeVisible());
@@ -415,6 +476,13 @@ export const StudyChat = {
     await waitFor(() => expect(modelTrigger).toHaveFocus());
     // Pin a recent thread with its hover action; the Pinned count follows.
     let nav = await navigation(canvasElement);
+    const pin = nav.getByRole('button', { name: 'Pin Compare two Odyssey translations' });
+    const menu = within(pin.closest('li')).getByRole('button', { name: /actions|options/i });
+    const hitSize = window.matchMedia('(pointer: coarse)').matches ? 44 : 24;
+    const pinBounds = pin.getBoundingClientRect();
+    const menuBounds = menu.getBoundingClientRect();
+    await expect(Math.min(pinBounds.width, pinBounds.height, menuBounds.width, menuBounds.height)).toBeGreaterThanOrEqual(hitSize);
+    await expect(pinBounds.right <= menuBounds.left || menuBounds.right <= pinBounds.left).toBe(true);
     await userEvent.click(nav.getByRole('button', { name: 'Pin Compare two Odyssey translations' }));
     await waitFor(() => expect(nav.getByRole('button', { name: 'Unpin Compare two Odyssey translations' })).toBeInTheDocument());
     await expect(nav.getByRole('button', { name: /Pinned\s*3/ })).toBeVisible();
@@ -489,6 +557,12 @@ export const TopbarCollections = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
+    const main = within(canvas.getByRole('main'));
+    await expect(main.getByRole('heading', { name: 'Collections' })).toBeVisible();
+    await userEvent.click(main.getByRole('button', { name: 'Open The Image of the City' }));
+    const reading = await body.findByRole('dialog', { name: 'The Image of the City' });
+    await userEvent.click(within(reading).getByRole('button', { name: 'Mark as finished' }));
+    await waitFor(() => expect(reading).not.toBeInTheDocument());
     // The apps menu is a grid of nine launchers plus Browse All Apps.
     await userEvent.click(canvas.getByRole('button', { name: 'Apps' }));
     const apps = await body.findByRole('menu');
@@ -508,7 +582,7 @@ export const TopbarCollections = {
     await userEvent.click(nav.getByRole('link', { name: 'Highlights' }));
     nav = await openNavigation(canvasElement);
     await expect(nav.getByRole('link', { name: 'Highlights' })).toHaveAttribute('aria-current', 'page');
-    await expect(nav.getByRole('progressbar', { name: 'October reading goal' })).toHaveAttribute('aria-valuenow', '12');
+    await expect(nav.getByRole('progressbar', { name: 'October reading goal' })).toHaveAttribute('aria-valuenow', '13');
     // The circle switcher sits in the top bar, or at the top of the phone sheet.
     const switchers = desktopSidebar(canvasElement) ? canvas : nav;
     await userEvent.click(switchers.getByRole('button', { name: 'Switch circle' }));
@@ -525,6 +599,9 @@ export const TopbarJournal = {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
+    const journal = within(canvas.getByRole('main'));
+    await expect(journal.getByRole('heading', { name: "Today's Page" })).toBeVisible();
+    await expect(journal.getByRole('textbox', { name: 'Entry title' })).toHaveValue('Morning at the library');
     // Section pills, or the sections sheet that replaces them in a narrow frame.
     const pills = canvas.queryByRole('navigation', { name: 'Journal sections' });
     if (pills && pills.checkVisibility()) {
@@ -536,6 +613,7 @@ export const TopbarJournal = {
       await userEvent.click(within(sections).getByRole('button', { name: 'Prompts' }));
       await expect(await canvas.findByRole('button', { name: 'Journal sections: Prompts' })).toBeVisible();
     }
+    await expect(journal.getByRole('heading', { name: 'Prompt Library' })).toBeVisible();
     // The inset notifications sheet resolves a share request in place.
     await userEvent.click(canvas.getByRole('button', { name: /^Notifications/ }));
     const sheet = await body.findByRole('dialog', { name: /Notifications/ });
@@ -549,7 +627,7 @@ export const TopbarJournal = {
     await expect(await canvas.findByRole('button', { name: 'Account and status for Sami Okafor: Away' })).toBeVisible();
     // The sidebar search filters pages and counts the matches.
     let nav = await openNavigation(canvasElement);
-    await expect(nav.getByRole('link', { name: "Today's Page" })).toHaveAttribute('aria-current', 'page');
+    await expect(nav.getByRole('link', { name: 'Prompt Library' })).toHaveAttribute('aria-current', 'page');
     await expect(nav.getByRole('progressbar', { name: "Today's word goal" })).toHaveAttribute('aria-valuenow', '640');
     await userEvent.click(nav.getByRole('button', { name: 'Search journal pages' }));
     const palette = await body.findByRole('dialog', { name: 'Search Journal' });
@@ -566,13 +644,24 @@ export const TopbarJournal = {
 
 export const CrawlerControl = {
   name: 'Capture console · icon rail, capture queue tabs and expandable run feeds',
-  ...pattern('crawler-control', 'A web-capture console for a reading library: an icon rail with section tooltips, help, settings and curator profile menus beside a Digest, Queue, Shelves and Issues panel. Queue shows the run distribution, capture stats and collapsible Scheduled, Active, Paused and Blocked lists; each active source expands (one at a time) into its pages, quota and timestamped run feed. The header search filters active sources and has a scope menu, followed by preferences, Ask Library and a primary Capture URL action; a sort menu orders the runs. In a narrow frame the rail and panel open together as one sheet and the labels fold to icons.'),
+  ...pattern('crawler-control', 'A web-capture console for a reading library: an icon rail with section tooltips, help, settings and curator profile menus beside a Digest, Queue, Shelves and Issues panel. The overview shows capture stats and a searchable table with expandable run timelines. Queue groups scheduled, active, paused and blocked runs; a source expands into its page count, quota and timeline. The header search filters active sources and has a scope menu, followed by preferences, Ask Library and a primary Capture URL action; a sort menu orders the runs. In a narrow frame the rail and panel open together as one sheet and the labels fold to icons.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const body = within(canvasElement.ownerDocument.body);
     await expectFramed(canvasElement);
     const main = within(canvas.getByRole('main'));
+    const overview = within(main.getByRole('table', { name: 'Capture runs' }));
+    await userEvent.click(overview.getByRole('button', { name: 'Details for City archive' }));
+    const archiveEvents = main.getByRole('list', { name: 'City archive run events' });
+    await expect(within(archiveEvents).getByText('Run delayed by 6 minutes')).toBeVisible();
+    await userEvent.click(overview.getByRole('button', { name: 'Details for City archive' }));
     // The header search filters the active queue.
+    await userEvent.click(main.getByRole('button', { name: 'Search scope: All Sources' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'Throttled' }));
+    await expect(overview.getByText('City archive')).toBeVisible();
+    await expect(overview.queryByText('Essays feed')).not.toBeInTheDocument();
+    await userEvent.click(main.getByRole('button', { name: 'Search scope: Throttled' }));
+    await userEvent.click(await body.findByRole('menuitemradio', { name: 'All Sources' }));
     await userEvent.type(main.getByRole('searchbox', { name: 'Search sources' }), 'design');
     let nav = await openNavigation(canvasElement);
     await expect(nav.getByRole('button', { name: 'Expand Design blogs detail' })).toBeVisible();
@@ -595,6 +684,12 @@ export const CrawlerControl = {
     }
     // One run feed is open at a time.
     await expect(nav.getByRole('button', { name: 'Collapse City archive detail' })).toHaveAttribute('aria-expanded', 'true');
+    const feed = nav.getByRole('list', { name: 'Run events' });
+    await expect(feed).toHaveAttribute('data-slot', 'timeline');
+    await expect(within(feed).getAllByRole('listitem')).toHaveLength(5);
+    await expect(within(feed).getByText('15:13')).toHaveAttribute('datetime', '15:13');
+    await expect(within(feed).getByText('Run delayed by 6 minutes')).toBeVisible();
+    await expect(within(feed).getByText('3 of 7 remaining')).toBeVisible();
     await userEvent.click(nav.getByRole('button', { name: 'Expand Essays feed detail' }));
     await expect(nav.getByRole('button', { name: 'Collapse Essays feed detail' })).toHaveAttribute('aria-expanded', 'true');
     await expect(nav.getByRole('button', { name: 'Expand City archive detail' })).toHaveAttribute('aria-expanded', 'false');
@@ -660,5 +755,7 @@ export const SourceNetwork = {
     const mod = /mac|iphone|ipad/i.test(navigator.userAgentData?.platform || navigator.platform || '') ? 'Meta' : 'Control';
     await userEvent.keyboard(`{${mod}>}f{/${mod}}`);
     await expect(main.getByRole('searchbox', { name: 'Search the workspace' })).toHaveFocus();
+    await userEvent.type(main.getByRole('searchbox', { name: 'Search the workspace' }), 'evening');
+    await expect(within(main.getByRole('table', { name: 'Readers by group' })).getByText('Evening Circle')).toBeVisible();
   }
 };

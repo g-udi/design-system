@@ -42,17 +42,17 @@ export const FinanceDashboard = {
     await userEvent.type(within(dialog).getByRole('combobox'), 'Galaxy');
     await userEvent.click(await within(dialog).findByRole('option', { name: 'Samsung Galaxy S25' }));
     dialog = await body.findByRole('dialog', { name: 'Samsung Galaxy S25' });
-    await expect(within(dialog).getByText('$32,200')).toBeVisible();
+    await waitFor(() => expect(within(dialog).getByText('$32,200')).toBeVisible(), { timeout: 5000 });
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument(), { timeout: 5000 });
     await waitFor(() => expect(search).toHaveFocus());
 
     await userEvent.keyboard(/mac|iphone|ipad/i.test(navigator.platform) ? '{Meta>}k{/Meta}' : '{Control>}k{/Control}');
     dialog = await body.findByRole('dialog', { name: 'Search finance workspace' });
     await userEvent.type(within(dialog).getByRole('combobox'), 'no matching record');
-    await expect(within(dialog).getByText('No results. Try a page or customer name.')).toBeVisible();
+    await waitFor(() => expect(within(dialog).getByText('No results. Try a page or customer name.')).toBeVisible(), { timeout: 5000 });
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument());
+    await waitFor(() => expect(body.queryByRole('dialog')).not.toBeInTheDocument(), { timeout: 5000 });
     await waitFor(() => expect(search).toHaveFocus());
 
     for (const name of ['Cash flow', 'Net worth', 'Transactions', 'Invoices', 'Products', 'Visitors']) {

@@ -43,8 +43,8 @@ Checkbox exposes role checkbox, aria-checked, disabled state, and a visible labe
 
 Curated patterns:
 
-- Corner-check cards — registry item `@gaudi/checkbox-corner-cards` (uses `CheckboxRoot`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`, `RegistryIcon`)
-- Groups — registry item `@gaudi/checkbox-groups` (uses `CheckboxRoot`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RegistryIcon`, `Separator`)
+- Corner-check cards — registry item `@gaudi/checkbox-corner-cards` (uses `CheckboxRoot`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`, `IconTile`, `RegistryIcon`)
+- Groups — registry item `@gaudi/checkbox-groups` (uses `CheckboxRoot`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `Label`, `RegistryIcon`, `Separator`)
 - Label extras and styles — registry item `@gaudi/checkbox-label-extras` (uses `BadgeRoot`, `CheckboxRoot`, `FieldLabelPrimitive`, `FieldRoot`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Nested group — registry item `@gaudi/checkbox-nested-group` (uses `CheckboxRoot`, `FieldLabelPrimitive`, `FieldRoot`)
 - Row cards — registry item `@gaudi/checkbox-row-cards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `CheckboxRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldGroup`, `FieldLabelPrimitive`, `FieldRoot`, `FieldTitle`)

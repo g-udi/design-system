@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import {
   Frame,
   FrameHeader,
@@ -33,12 +34,12 @@ function List({ title, defaultValue, items, trailing }) {
           {items.map((item, index) => (
             <div key={item.value}>
               {index > 0 && <Separator />}
-              <label htmlFor={`${title}-${item.value}`} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>
+              <Label htmlFor={`${title}-${item.value}`} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>
                 {!trailing && <RadioGroupItem value={item.value} id={`${title}-${item.value}`} />}
                 {item.icon && <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4 text-text-muted' />}
                 <span className='flex-1'>{item.label}</span>
                 {trailing && <RadioGroupItem value={item.value} id={`${title}-${item.value}`} />}
-              </label>
+              </Label>
             </div>
           ))}
         </RadioGroup>

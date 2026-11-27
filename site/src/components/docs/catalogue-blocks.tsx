@@ -1,4 +1,6 @@
-import Link from 'next/link';
+import { cardVariants } from '@gaudi/design-system/core/Card';
+import Link from '@gaudi/design-system/core/Link';
+import { Badge } from '@gaudi/design-system/core/Pill';
 import { CodeBlock, CodeBlockCopyButton, CodeBlockGroup, codeChromeClassName } from '@gaudi/design-system/core/CodeBlock';
 import sources from '@/generated/sources.json';
 import { catalogue, componentsInSection, getComponent, getPattern, type ComponentEntry } from '@/lib/catalogue';
@@ -11,18 +13,14 @@ import { PropsList } from './PropsList';
 const sourceOf = (name: string) => (sources as Record<string, string>)[name] || '';
 const registryInstall = (name: string) => `npx shadcn@latest add ${siteConfig.registryUrl.replace(/\/$/, '')}/r/${name}.json`;
 
-function Badge({ children }: { children: React.ReactNode }) {
-  return <span className='inline-flex items-center rounded-(--ds-radius-pill) border border-border bg-surface-muted px-2 py-0.5 text-xs font-medium text-text-muted'>{children}</span>;
-}
-
 export function ComponentHeader({ id }: { id: string }) {
   const entry = getComponent(id);
   if (!entry) return null;
   const category = catalogue.categories.find((item) => item.key === entry.category);
   return (
     <div className='not-prose my-4 flex flex-wrap items-center gap-2' data-testid='component-header'>
-      <Badge>{category?.label}</Badge>
-      {entry.group && entry.group !== category?.label ? <Badge>{entry.group}</Badge> : null}
+      {category ? <Badge variant='secondary' size='sm'>{category.label}</Badge> : null}
+      {entry.group && entry.group !== category?.label ? <Badge variant='secondary' size='sm'>{entry.group}</Badge> : null}
       <code className='rounded-(--ds-radius-sm) bg-surface-muted px-2 py-0.5 text-xs'>{entry.import.leaf || entry.import.path}</code>
     </div>
   );
@@ -31,10 +29,13 @@ export function ComponentHeader({ id }: { id: string }) {
 export function ComponentLinks({ id }: { id: string }) {
   const entry = getComponent(id);
   if (!entry) return null;
+  const hasExamples = entry.patterns.length > 0 || entry.stories.some((story) => !story.id.endsWith('--docs'));
+  const linkClass = 'inline-flex min-h-11 items-center underline underline-offset-2';
   return (
     <div className='not-prose my-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm' data-testid='component-links'>
-      {entry.storybook ? <a className='inline-flex min-h-11 items-center text-accent underline underline-offset-2' href={storybookStoryUrl(entry.storybook)} target='_blank' rel='noreferrer'>View in Storybook</a> : null}
-      <a className='inline-flex min-h-11 items-center text-accent underline underline-offset-2' href={`${siteConfig.github}/tree/main/${entry.source}`} target='_blank' rel='noreferrer'>Source</a>
+      {hasExamples ? <Link className={linkClass} tone='accent' href='#examples'>View examples</Link> : null}
+      {entry.storybook ? <Link className={linkClass} tone='accent' href={storybookStoryUrl(entry.storybook)} target='_blank' rel='noopener noreferrer'>View in Storybook</Link> : null}
+      <Link className={linkClass} tone='accent' href={`${siteConfig.github}/tree/main/${entry.source}`}>Source</Link>
     </div>
   );
 }
@@ -130,7 +131,7 @@ export function Playground({ id }: { id: string }) {
 
 function ComponentCard({ entry }: { entry: ComponentEntry }) {
   return (
-    <Link href={entry.url} className='site-card' data-plain>
+    <Link href={entry.url} variant='bare' className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card' })} data-plain>
       <span className='font-medium'>{entry.name}</span>
       <span className='line-clamp-2 text-sm text-text-muted'>{entry.summary || entry.description}</span>
       {entry.patterns.length ? <span className='mt-auto pt-1 text-xs text-text-subtle'>{entry.patterns.length} example{entry.patterns.length === 1 ? '' : 's'}</span> : null}

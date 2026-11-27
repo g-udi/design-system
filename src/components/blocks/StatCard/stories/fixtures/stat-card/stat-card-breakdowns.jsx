@@ -1,36 +1,11 @@
 import { StatCard, StatMeter } from '@gaudi/design-system/blocks/StatCard';
-import { default as Button } from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuTrigger
-} from '@gaudi/design-system/core/DropdownMenu';
-import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const renewals = [
   ['Northwind', 'Team', 'in 3 days'],
   ['Litware', 'Business', 'in 5 days'],
   ['Fabrikam', 'Team', 'in 9 days']
 ];
-
-function Menu({ label, items }) {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon-xs' aria-label={`${label} actions`}>
-          <RegistryIcon lucide='MoreHorizontalIcon' aria-hidden='true' />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end'>
-        {items.map((item) => (
-          <DropdownMenuItem key={item}>{item}</DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
-}
 
 // Three breakdowns that share one segmented meter: plan mix, compliance and adoption.
 export function Pattern() {
@@ -65,7 +40,6 @@ export function Pattern() {
         tone='success'
         value='94%'
         description='188 of 200 controls passing'
-        action={<Menu label='Compliance' items={['Run checks now', 'View failing controls', 'Export evidence']} />}
         footer='Last scan 12 minutes ago'
       >
         <StatMeter
@@ -83,7 +57,6 @@ export function Pattern() {
         value='61%'
         delta='9%' deltaDirection='up' deltaTone='success'
         description='of active workspaces use at least one'
-        action={<Menu label='Adoption' items={['Open cohort', 'Compare releases']} />}
       >
         <StatMeter
           formatValue={(value) => `${value}`}

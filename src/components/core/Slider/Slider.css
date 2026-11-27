@@ -12,6 +12,19 @@
   }
 
   .ds-part-slider-thumb {
-    @apply border-ui-ring ring-ui-ring/50 relative size-3 rounded-full border bg-white transition-[color,box-shadow] after:absolute after:inset-x-0 after:-inset-y-2 hover:ring-3 focus-visible:ring-ui-primary focus-visible:ring-3 focus-visible:outline-hidden active:ring-3;
+    @apply relative size-6 rounded-full outline-none;
+  }
+
+  .ds-part-slider-thumb::before {
+    content: '';
+    @apply pointer-events-none absolute inset-1.5 rounded-full border border-ui-ring bg-white ring-ui-ring/50 transition-shadow;
+  }
+
+  .ds-part-slider-thumb:is(:hover, :active, :focus-visible)::before {
+    @apply ring-3;
+  }
+
+  .ds-part-slider-thumb:focus-visible::before {
+    @apply ring-ui-primary;
   }
 }

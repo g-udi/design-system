@@ -11,7 +11,7 @@ import Terminal from '@gaudi/design-system/core/Terminal';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `default`, `terminalBodyVariants`, `terminalLineVariants`, `terminalVariants`
+Exports: `TerminalWindowControls`, `default`, `terminalBodyVariants`, `terminalLineVariants`, `terminalVariants`
 
 ## Props
 

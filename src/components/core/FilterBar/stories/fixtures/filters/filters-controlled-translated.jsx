@@ -7,13 +7,8 @@ import {
   createFilterRule
 } from '@gaudi/design-system/core/FilterBar';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import Avatar, { AvatarGroup } from '@gaudi/design-system/core/Avatar';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   ToggleGroupRoot as ToggleGroup,
   ToggleGroupItem
@@ -250,31 +245,12 @@ const TEAM = [
   { value: 'tim', label: 'Tim Berners-Lee', img: 'person-29' },
   { value: 'margaret', label: 'Elspeth Varley', img: 'person-05' }
 ];
-function Dot({ className }) {
-  return <span className={cn('size-2 shrink-0 rounded-full', className)} />;
-}
-function Person({ img, name }) {
-  return (
-    <Avatar className='size-5'>
-      <AvatarImage
-        src={`/avatars/${img}.svg`}
-        alt={name}
-      />
-      <AvatarFallback>
-        {name
-          .split(' ')
-          .map((part) => part[0])
-          .join('')}
-      </AvatarFallback>
-    </Avatar>
-  );
-}
 function StackedDots({ options, empty }) {
   if (options.length === 0) return <>{empty}</>;
   if (options.length === 1) {
     return (
       <span className='flex items-center gap-1.5'>
-        <Dot className={TONES[options[0].value] ?? 'bg-ui-muted-foreground'} />
+        <StatusDot className={cn('size-2', TONES[options[0].value] ?? 'bg-ui-muted-foreground')} />
         {options[0].label}
       </span>
     );
@@ -283,10 +259,10 @@ function StackedDots({ options, empty }) {
     <span className='flex items-center gap-1.5'>
       <span className='flex items-center'>
         {options.slice(0, 4).map((option) => (
-          <span
+          <StatusDot
             key={option.value}
             className={cn(
-              'ring-ui-background -ml-1 size-2.5 rounded-full ring-2 first:ml-0',
+              'ring-ui-background -ml-1 size-2.5 ring-2 first:ml-0',
               TONES[option.value] ?? 'bg-ui-muted-foreground'
             )}
           />
@@ -300,7 +276,7 @@ function StackedDots({ options, empty }) {
 }
 function Face({ option }) {
   const entry = TEAM.find((candidate) => candidate.value === option.value);
-  return <Person img={entry?.img ?? 'person-26'} name={option.label} />;
+  return <Avatar size='xs' surface='tinted' name={option.label} src={`/avatars/${entry?.img ?? 'person-26'}.svg`} />;
 }
 function StackedPeople({ options, empty }) {
   if (options.length === 0) return <>{empty}</>;
@@ -346,7 +322,7 @@ function buildFields(locale, doneUnavailable) {
         value,
         label: OPTION_LABELS[locale][value],
         disabled: value === 'done' && doneUnavailable,
-        icon: <Dot className={TONES[value]} />
+        icon: <StatusDot className={cn('size-2', TONES[value])} />
       })),
       // Five options, so the search box is more chrome than the rows under it.
       searchable: false,
@@ -362,7 +338,7 @@ function buildFields(locale, doneUnavailable) {
       options: PRIORITIES.map((value) => ({
         value,
         label: OPTION_LABELS[locale][value],
-        icon: <Dot className={TONES[value]} />
+        icon: <StatusDot className={cn('size-2', TONES[value])} />
       })),
       searchable: false,
       renderValue: ({ options }) => (
@@ -381,7 +357,7 @@ function buildFields(locale, doneUnavailable) {
       options: TEAM.map((person) => ({
         value: person.value,
         label: person.label,
-        icon: <Person img={person.img} name={person.label} />
+        icon: <Avatar size='xs' surface='tinted' name={person.label} src={`/avatars/${person.img}.svg`} />
       })),
       // A list of PEOPLE carries no semantic order, unlike Priority above.
       sortSelected: 'label',

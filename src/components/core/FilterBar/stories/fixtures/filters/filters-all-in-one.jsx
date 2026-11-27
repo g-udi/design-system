@@ -6,18 +6,10 @@ import {
   createFilterRule
 } from '@gaudi/design-system/core/FilterBar';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import Avatar, { AvatarGroup } from '@gaudi/design-system/core/Avatar';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-function Dot({ className }) {
-  return <span className={cn('size-2 shrink-0 rounded-full', className)} />;
-}
 function Star({ className }) {
   return (
     <RegistryIcon
@@ -26,29 +18,14 @@ function Star({ className }) {
     />
   );
 }
-function Person({ img, name }) {
-  return (
-    <Avatar className='size-5'>
-      <AvatarImage
-        src={`/avatars/${img}.svg`}
-        alt={name}
-      />
-      <AvatarFallback>
-        {name
-          .split(' ')
-          .map((part) => part[0])
-          .join('')}
-      </AvatarFallback>
-    </Avatar>
-  );
-}
 function Unassigned() {
   return (
-    <Avatar className='size-5'>
-      <AvatarFallback className='text-ui-muted-foreground [&_svg]:size-3'>
-        <RegistryIcon lucide='UserMinusIcon' />
-      </AvatarFallback>
-    </Avatar>
+    <Avatar
+      size='xs'
+      surface='tinted'
+      alt=''
+      fallback={<RegistryIcon lucide='UserMinusIcon' className='size-3 text-ui-muted-foreground' />}
+    />
   );
 }
 const STATUSES = [
@@ -251,7 +228,7 @@ function StackedDots({ options }) {
     const only = STATUSES.find((entry) => entry.value === options[0].value);
     return (
       <span className='flex items-center gap-1.5'>
-        <Dot className={only?.dot ?? 'bg-ui-muted-foreground'} />
+        <StatusDot className={cn('size-2', only?.dot ?? 'bg-ui-muted-foreground')} />
         {options[0].label}
       </span>
     );
@@ -264,10 +241,10 @@ function StackedDots({ options }) {
             (candidate) => candidate.value === option.value
           );
           return (
-            <span
+            <StatusDot
               key={option.value}
               className={cn(
-                'ring-ui-background -ml-1 size-2.5 rounded-full ring-2 first:ml-0',
+                'ring-ui-background -ml-1 size-2.5 ring-2 first:ml-0',
                 entry?.dot ?? 'bg-ui-muted-foreground'
               )}
             />
@@ -333,7 +310,7 @@ function StackedStars({ options }) {
 }
 function Face({ option }) {
   const entry = TEAM.find((candidate) => candidate.value === option.value);
-  return entry ? <Person img={entry.img} name={entry.label} /> : <Unassigned />;
+  return entry ? <Avatar size='xs' surface='tinted' name={entry.label} src={`/avatars/${entry.img}.svg`} /> : <Unassigned />;
 }
 function StackedPeople({ options }) {
   if (options.length === 0) return <>anyone</>;
@@ -377,7 +354,7 @@ const fields = [
     options: STATUSES.map((entry) => ({
       value: entry.value,
       label: entry.label,
-      icon: <Dot className={entry.dot} />
+      icon: <StatusDot className={cn('size-2', entry.dot)} />
     })),
     // The one field here that turns its search box off, so the treatment is
     // visible next to the two that keep theirs. The input is still rendered,
@@ -437,7 +414,7 @@ const fields = [
         label: person.label,
         // Each row carries the person's group beneath the name.
         description: ROLES[index % ROLES.length],
-        icon: <Person img={person.img} name={person.label} />
+        icon: <Avatar size='xs' surface='tinted' name={person.label} src={`/avatars/${person.img}.svg`} />
       })),
       // "Nobody" is a real filter, not the absence of one, and `exclusive` is
       // what makes it behave like one: it clears the other picks, they clear

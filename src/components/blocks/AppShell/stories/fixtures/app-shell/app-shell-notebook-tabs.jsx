@@ -1,42 +1,14 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
-import { AvatarRoot as Avatar, AvatarBadge, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import {
-  BreadcrumbRoot as Breadcrumb,
-  BreadcrumbItemPrimitive as BreadcrumbItem,
-  BreadcrumbLinkPrimitive as BreadcrumbLink,
-  BreadcrumbListPrimitive as BreadcrumbList,
-  BreadcrumbPagePrimitive as BreadcrumbPage,
-  BreadcrumbSeparatorPrimitive as BreadcrumbSeparator
-} from '@gaudi/design-system/core/Breadcrumb';
+import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { BreadcrumbRoot as Breadcrumb, BreadcrumbItemPrimitive as BreadcrumbItem, BreadcrumbListPrimitive as BreadcrumbList, BreadcrumbPagePrimitive as BreadcrumbPage, BreadcrumbSeparatorPrimitive as BreadcrumbSeparator } from '@gaudi/design-system/core/Breadcrumb';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuCheckboxItemPrimitive as DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger
-} from '@gaudi/design-system/core/DropdownMenu';
+import { DropdownMenuRoot as DropdownMenu, DropdownMenuCheckboxItemPrimitive as DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuLabelPrimitive as DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@gaudi/design-system/core/Input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroupAction,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarSeparator,
-  SidebarTrigger,
-  useSidebar
-} from '@gaudi/design-system/blocks/AppShell';
+import { Sidebar, SidebarContent, SidebarGroupAction, SidebarHeader, SidebarProvider, SidebarSeparator, SidebarTrigger, useSidebar } from '@gaudi/design-system/blocks/AppShell';
 import {
   AppShellBody,
   AppShellFrame,
@@ -44,7 +16,12 @@ import {
   AppShellPanel
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import Accordion from '@gaudi/design-system/core/Accordion';
+import Card from '@gaudi/design-system/core/Card';
+import KanbanBoard from '@gaudi/design-system/core/KanbanBoard';
+import Timeline from '@gaudi/design-system/core/Timeline';
+import { Label } from '@gaudi/design-system/core/Field';
+import Input from '@gaudi/design-system/core/Input';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const me = { name: 'Idris Kane', role: 'Research notebooks', photo: '/avatars/person-43.svg' };
@@ -73,11 +50,6 @@ const sections = [
     { id: 'contributors', label: 'Contributors', icon: 'Users' }, { id: 'reviewers', label: 'Reviewers', icon: 'UserCheck' }, { id: 'office-hours', label: 'Office hours', icon: 'Calendar' }
   ] }
 ];
-const apps = [
-  { id: 'reader', label: 'Reader', icon: 'BookOpen' },
-  { id: 'flashcards', label: 'Flashcards', icon: 'Layers' },
-  { id: 'app-settings', label: 'Settings', icon: 'Settings' }
-];
 const workspaceLinks = [
   { id: 'spaced-repetition', label: 'Spaced repetition', icon: 'Repeat' },
   { id: 'forgetting-curves', label: 'Forgetting curves', icon: 'TrendingDown' },
@@ -96,6 +68,84 @@ const views = [
   { id: 'dashboard', label: 'Canvas', icon: 'Waypoints' }
 ];
 
+const reviewStages = [
+  { id: 'inbox', label: 'To review' },
+  { id: 'checked', label: 'Reviewed' }
+];
+const notebookEntries = [
+  {
+    id: 'spacing',
+    pages: ['spaced-repetition', 'forgetting-curves', 'cogsci-club', 'claims', 'citations'],
+    notebook: 'memory',
+    title: 'Spacing the second practice session',
+    detail: 'Repeat the word list after two days and compare recall with the same-day group.',
+    author: 'Idris Kane',
+    tag: 'Recall',
+    day: 18,
+    cited: 4,
+    columnId: 'inbox'
+  },
+  {
+    id: 'diary',
+    pages: ['sleep-memory', 'literature-map', 'questions', 'sources', 'open-questions', 'citations'],
+    notebook: 'memory',
+    title: 'What the sleep diaries leave out',
+    detail: 'Add a separate field for naps before comparing the evening recall scores.',
+    author: 'Nadia Karim',
+    tag: 'Methods',
+    day: 14,
+    cited: 7,
+    columnId: 'checked'
+  },
+  {
+    id: 'stations',
+    pages: ['literature-map', 'sources', 'tables', 'citations'],
+    notebook: 'urban',
+    title: 'A station with three names',
+    detail: 'Match the old station labels on the map to the names residents use in interviews.',
+    author: 'Idris Kane',
+    tag: 'Maps',
+    day: 16,
+    cited: 2,
+    columnId: 'inbox'
+  },
+  {
+    id: 'walks',
+    pages: ['questions', 'open-questions', 'commonplace'],
+    notebook: 'urban',
+    title: 'Walking interviews along the canal',
+    detail: 'Participants describe the bridge by its paint colour even after the repaint.',
+    author: 'Leila Haddad',
+    tag: 'Interviews',
+    day: 12,
+    cited: 5,
+    columnId: 'checked'
+  },
+  {
+    id: 'methods',
+    pages: ['thesis-writers', 'sources', 'claims', 'citations'],
+    notebook: 'thesis',
+    title: 'Testing the coding guide',
+    detail: 'Have two readers independently code the first transcript before comparing labels.',
+    author: 'Idris Kane',
+    tag: 'Methods',
+    day: 11,
+    cited: 3,
+    columnId: 'inbox'
+  },
+  {
+    id: 'dough',
+    pages: ['sources', 'tables', 'claims'],
+    notebook: 'kitchen',
+    title: 'A cooler proof for the second loaf',
+    detail: 'Keep hydration fixed and compare the crumb after two proofing temperatures.',
+    author: 'Idris Kane',
+    tag: 'Trials',
+    day: 15,
+    cited: 1,
+    columnId: 'inbox'
+  }
+];
 function RailButton({ item, current, onSelect, solid }) {
   const { isMobile } = useSidebar();
   const button = (
@@ -146,73 +196,31 @@ function WorkspaceSwitcher({ workspace, onChange }) {
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem className='items-start'>
-          <RegistryIcon lucide='Plus' aria-hidden='true' className='mt-0.5' />
-          <span className='grid'>
-            New notebook
-            <span className='text-text-muted text-xs'>Start from a question or a source.</span>
-          </span>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function GroupAction({ label }) {
+function GroupAction({ label, onClick }) {
   return (
-    <SidebarGroupAction aria-label={label}>
+    <SidebarGroupAction aria-label={label} onClick={onClick}>
       <RegistryIcon lucide='Plus' aria-hidden='true' />
     </SidebarGroupAction>
   );
 }
 
-function ProfileMenu() {
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' aria-label={`Account: ${me.name}`}>
-          <Avatar className='size-7'>
-            <AvatarImage src={me.photo} alt='' />
-            <AvatarFallback>IK</AvatarFallback>
-            <AvatarBadge className='bg-success ring-ui-background' />
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-56'>
-        <DropdownMenuLabel className='grid font-normal leading-tight'>
-          <span className='font-medium'>{me.name}</span>
-          <span className='text-text-muted text-xs'>{me.role}</span>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='User' aria-hidden='true' />
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-          Reading preferences
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+function ReaderAvatar() {
+  return <Avatar className='size-7' title={me.name}><AvatarImage src={me.photo} alt={me.name} /><AvatarFallback>IK</AvatarFallback></Avatar>;
 }
 
-function PageHeader({ page, notebook }) {
+function PageHeader({ page, notebook, onNewNote }) {
   return (
     <AppShellHeader bordered className='gap-2'>
       <SidebarTrigger className='-ms-1' />
       <Breadcrumb className='min-w-0'>
         <BreadcrumbList className='flex-nowrap'>
           <BreadcrumbItem className='hidden @md:inline-flex'>
-            <BreadcrumbLink href='#notebooks' onClick={(event) => event.preventDefault()}>{notebook}</BreadcrumbLink>
+            {notebook}
           </BreadcrumbItem>
           <BreadcrumbSeparator className='hidden @md:block' />
           <BreadcrumbItem className='min-w-0'>
@@ -221,36 +229,80 @@ function PageHeader({ page, notebook }) {
         </BreadcrumbList>
       </Breadcrumb>
       <div className='ms-auto flex shrink-0 items-center gap-1.5'>
-        <Button variant='ghost' size='sm' className='hidden @2xl:inline-flex'>
-          <RegistryIcon lucide='Share2' aria-hidden='true' />
-          Share
-        </Button>
-        <Button variant='outline' size='sm' className='hidden @2xl:inline-flex'>
-          <RegistryIcon lucide='Download' aria-hidden='true' />
-          Export
-        </Button>
-        <Button size='sm' aria-label='New note' className='px-2 @lg:px-2.5'>
+        <Button size='sm' onClick={onNewNote} aria-label='New note' className='px-2 @lg:px-2.5'>
           <RegistryIcon lucide='Plus' aria-hidden='true' />
           <span className='hidden @lg:inline'>New note</span>
         </Button>
-        <ProfileMenu />
+        <ReaderAvatar />
       </div>
     </AppShellHeader>
   );
 }
 
-function Workspace({ view, onView }) {
+function Workspace({ view, onView, notebook, page, bucket, creating, onCreated }) {
   const [sort, setSort] = useState('updated');
   const [fields, setFields] = useState({ author: true, reviewed: true, tags: false });
+  const [entries, setEntries] = useState(notebookEntries);
+  const [query, setQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [pendingOnly, setPendingOnly] = useState(false);
+  const [title, setTitle] = useState('');
+  const visible = entries.filter(
+    (entry) =>
+      entry.notebook === notebook.id &&
+      (!bucket || entry.pages?.includes(bucket) || (bucket === 'queue' && entry.columnId === 'inbox')) &&
+      (!pendingOnly || entry.columnId === 'inbox') &&
+      `${entry.title} ${entry.detail}`.toLowerCase().includes(query.trim().toLowerCase())
+  );
+  if (sort === 'created') visible.reverse();
+  else if (sort === 'cited') visible.sort((a, b) => b.cited - a.cited);
+  else visible.sort((a, b) => b.day - a.day);
+  const metadata = (entry) =>
+    [
+      fields.author && entry.author,
+      fields.reviewed && (entry.columnId === 'checked' ? 'Reviewed' : 'To review'),
+      fields.tags && entry.tag
+    ]
+      .filter(Boolean)
+      .join(' · ');
+  const addNote = (event) => {
+    event.preventDefault();
+    if (!title.trim()) return;
+    setEntries((items) => [
+      {
+        id: crypto.randomUUID(),
+        notebook: notebook.id,
+        pages: bucket ? [bucket] : [],
+        title: title.trim(),
+        detail: 'New notebook entry.',
+        tag: 'Note',
+        day: 21,
+        cited: 0,
+        columnId: 'inbox',
+        author: me.name
+      },
+      ...items
+    ]);
+    setTitle('');
+    setQuery('');
+    onCreated();
+  };
   const current = views.find((entry) => entry.id === view);
   return (
     <Tabs value={view} onValueChange={onView} className='min-h-0 flex-1 gap-0'>
       <div role='toolbar' aria-label='Notebook view' className='border-ui-border bg-ui-background sticky top-12 z-[1] flex min-h-12 flex-wrap items-center gap-2 border-b px-4 py-2'>
-        <InputGroup className='hidden w-52 @5xl:flex'>
+        <InputGroup
+          className={searchOpen ? 'order-last w-full @5xl:order-none @5xl:w-52' : 'hidden w-52 @5xl:flex'}
+        >
           <InputGroupAddon>
             <RegistryIcon lucide='Search' aria-hidden='true' />
           </InputGroupAddon>
-          <InputGroupInput aria-label='Search this notebook' placeholder='Search notes and sources' />
+          <InputGroupInput
+            aria-label='Search this notebook'
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder='Search notes and sources'
+          />
         </InputGroup>
         <TabsList variant='underline' aria-label='Views' className='hidden self-stretch @2xl:flex'>
           {views.map((entry) => (
@@ -314,18 +366,109 @@ function Workspace({ view, onView }) {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant='outline' size='sm' aria-label='Filter' className='hidden @lg:inline-flex'>
+          <Button
+            variant='outline'
+            size='sm'
+            aria-label='Only notes to review'
+            aria-pressed={pendingOnly}
+            onClick={() => setPendingOnly(!pendingOnly)}
+            className='hidden @lg:inline-flex'
+          >
             <RegistryIcon lucide='Filter' aria-hidden='true' />
             <span className='hidden @xl:inline'>Filter</span>
           </Button>
-          <Button variant='soft' size='icon-sm' aria-label='Search notebook' className='@5xl:hidden'>
+          <Button
+            variant='soft'
+            size='icon-sm'
+            aria-label='Search notebook'
+            aria-expanded={searchOpen}
+            onClick={() => setSearchOpen(!searchOpen)}
+            className='@5xl:hidden'
+          >
             <RegistryIcon lucide='Search' aria-hidden='true' />
           </Button>
         </div>
       </div>
       <TabsContent value={view} className='@container'>
         <AppShellBody className='pt-4'>
-          <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+          <section
+            className='mx-auto grid w-full min-w-0 max-w-3xl grid-cols-1 gap-4 px-4 pb-4'
+            aria-label='Notebook entries'
+          >
+            <header className='grid gap-1'>
+              <h2 className='text-lg font-semibold'>{notebook.name}</h2>
+              <p className='text-sm text-text-muted'>
+                {page} · {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
+              </p>
+            </header>
+            {creating ? (
+              <form onSubmit={addNote} className='grid gap-2'>
+                <Label>
+                  Note title
+                  <Input value={title} onChange={(event) => setTitle(event.target.value)} autoFocus />
+                </Label>
+                <div className='flex gap-2'>
+                  <Button type='submit' size='sm' disabled={!title.trim()}>
+                    Save note
+                  </Button>
+                  <Button variant='ghost' size='sm' onClick={onCreated}>
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            ) : null}
+            {!visible.length ? <p className='text-sm text-text-muted'>No notes match these filters.</p> : null}
+            {visible.length > 0 && view === 'list' ? (
+              <Accordion
+                key={notebook.id}
+                items={visible.map((entry) => ({
+                  value: entry.id,
+                  title: entry.title,
+                  description: metadata(entry),
+                  content: entry.detail
+                }))}
+              />
+            ) : null}
+            {view === 'kanban' ? (
+              <KanbanBoard
+                label='Notebook review board'
+                columns={reviewStages}
+                items={visible}
+                renderItem={(entry) => (
+                  <div className='grid gap-1'>
+                    <strong>{entry.title}</strong>
+                    <p className='text-sm text-text-muted'>{metadata(entry)}</p>
+                  </div>
+                )}
+                onMove={(id, columnId) =>
+                  setEntries((items) => items.map((entry) => (entry.id === id ? { ...entry, columnId } : entry)))
+                }
+              />
+            ) : null}
+            {view === 'calendar' ? (
+              <Timeline
+                label='Notebook timeline'
+                items={[...visible]
+                  .sort((a, b) => a.day - b.day)
+                  .map((entry) => ({
+                    id: entry.id,
+                    title: entry.title,
+                    description: entry.detail,
+                    time: `Nov ${entry.day}`,
+                    dateTime: `2026-11-${entry.day}`
+                  }))}
+              />
+            ) : null}
+            {view === 'dashboard' ? (
+              <div className='grid gap-3 @lg:grid-cols-2'>
+                {visible.map((entry) => (
+                  <Card key={entry.id} variant='outline' padding='sm' title={entry.title} subtitle={metadata(entry)}>
+                    <p className='text-sm'>{entry.detail}</p>
+                  </Card>
+                ))}
+              </div>
+            ) : null}
+          </section>
         </AppShellBody>
       </TabsContent>
     </Tabs>
@@ -337,12 +480,37 @@ function NotebookShell() {
   const [sectionId, setSectionId] = useState('research');
   const [page, setPage] = useState('notes');
   const [view, setView] = useState('list');
+  const [creating, setCreating] = useState(false);
+  const [folders, setFolders] = useState([]);
+  const [kind, setKind] = useState(null);
+  const [folderName, setFolderName] = useState('');
+  const custom = folders.filter((folder) => folder.notebook === workspace.id);
+  const createFolder = (event) => {
+    event.preventDefault();
+    if (!folderName.trim()) return;
+    const folder = {
+      id: crypto.randomUUID(),
+      notebook: workspace.id,
+      label: folderName.trim(),
+      kind,
+      icon: kind === 'collection' ? 'Folder' : 'Users'
+    };
+    setFolders((list) => [...list, folder]);
+    setPage(folder.id);
+    setFolderName('');
+    setKind(null);
+  };
   const section = sections.find((entry) => entry.id === sectionId);
   const chooseSection = (id) => {
     setSectionId(id);
     setPage(sections.find((entry) => entry.id === id).pages[0].id);
   };
-  const label = [...sections.flatMap((entry) => entry.pages), ...workspaceLinks, ...communities].find((entry) => entry.id === page)?.label;
+  const label = [
+    ...sections.flatMap((entry) => entry.pages),
+    ...workspaceLinks,
+    ...communities,
+    ...custom
+  ].find((entry) => entry.id === page)?.label;
   return (
     <SidebarProvider shortcut={false} style={{ '--sidebar-width': '18rem', '--sidebar-width-icon': '3.5rem' }}>
       <Sidebar collapsible='icon'>
@@ -350,54 +518,86 @@ function NotebookShell() {
           <MiniRail section={section} onSection={chooseSection} />
           <div className='bg-ui-background flex min-w-0 flex-1 flex-col group-data-[collapsible=icon]:hidden'>
             <SidebarHeader className='border-ui-border h-12 flex-row items-center justify-between border-b px-3 py-0'>
-              <WorkspaceSwitcher workspace={workspace} onChange={setWorkspace} />
+              <WorkspaceSwitcher workspace={workspace} onChange={(next) => { setWorkspace(next); setPage('notes'); setKind(null); }} />
             </SidebarHeader>
             <SidebarContent role='navigation' aria-label={`${section.label} pages`} className='gap-0'>
               <AppShellNav items={section.pages} value={page} onValueChange={setPage} />
               <SidebarSeparator className='mx-3' />
-              <AppShellNav label='Collections' collapsible items={workspaceLinks} value={page} onValueChange={setPage} action={<GroupAction label='Create collection' />} />
+              <AppShellNav
+                label='Collections'
+                collapsible
+                items={[...workspaceLinks, ...custom.filter((folder) => folder.kind === 'collection')]}
+                value={page}
+                onValueChange={setPage}
+                action={
+                  <GroupAction
+                    label='Create collection'
+                    onClick={() => {
+                      setKind('collection');
+                      setFolderName('');
+                    }}
+                  />
+                }
+              />
               <SidebarSeparator className='mx-3' />
               <AppShellNav
                 label='Reading groups'
                 collapsible
-                items={[...communities, { id: 'join-group', label: 'Find a reading group', icon: 'Search' }]}
+                items={[...communities, ...custom.filter((folder) => folder.kind === 'reading group')]}
                 value={page}
                 onValueChange={setPage}
-                action={<GroupAction label='Create reading group' />}
+                action={<GroupAction label='Create reading group' onClick={() => { setKind('reading group'); setFolderName(''); }} />}
               />
+              {kind ? (
+                <form onSubmit={createFolder} className='grid gap-2 px-3 py-2'>
+                  <Label>
+                    New {kind} name
+                    <Input value={folderName} onChange={(event) => setFolderName(event.target.value)} autoFocus />
+                  </Label>
+                  <div className='flex gap-2'>
+                    <Button size='sm' type='submit' disabled={!folderName.trim()}>
+                      Create
+                    </Button>
+                    <Button size='sm' variant='ghost' type='button' onClick={() => setKind(null)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              ) : null}
             </SidebarContent>
           </div>
         </div>
       </Sidebar>
       <AppShellPanel inset={false}>
-        <PageHeader page={label ?? 'Notes'} notebook={workspace.name} />
-        <Workspace view={view} onView={setView} />
+        <PageHeader page={label ?? 'Notes'} notebook={workspace.name} onNewNote={() => setCreating(true)} />
+        <Workspace
+          bucket={['overview', 'notes'].includes(page) ? null : page}
+          view={view}
+          onView={setView}
+          notebook={workspace}
+          page={label ?? 'Notes'}
+          creating={creating}
+          onCreated={() => setCreating(false)}
+        />
       </AppShellPanel>
     </SidebarProvider>
   );
 }
 
-/** The mini rail: notebook sections above, companion apps below. */
+/** The mini rail switches notebook sections. */
 function MiniRail({ section, onSection }) {
   return (
     <div className='bg-ui-sidebar border-ui-border flex w-14 shrink-0 flex-col items-center border-e'>
       <div className='border-ui-border flex h-12 w-full shrink-0 items-center justify-center border-b'>
-        <span aria-hidden='true' className='bg-ui-foreground text-ui-background grid size-8 place-items-center rounded-(--ds-radius-control)'>
+        <IconTile size='sm' variant='solid' aria-hidden='true' className='bg-ui-foreground text-ui-background'>
           <RegistryIcon lucide='Brain' className='size-4' />
-        </span>
+        </IconTile>
       </div>
       <nav aria-label='Sections' className='flex flex-col items-center gap-1 py-2'>
         {sections.map((entry) => (
           <RailButton key={entry.id} item={entry} current={entry.id === section.id} onSelect={onSection} solid />
         ))}
       </nav>
-      <SidebarMenu aria-label='Apps' className='mt-auto w-auto items-center gap-1 py-2'>
-        {apps.map((entry) => (
-          <SidebarMenuItem key={entry.id}>
-            <RailButton item={entry} />
-          </SidebarMenuItem>
-        ))}
-      </SidebarMenu>
     </div>
   );
 }

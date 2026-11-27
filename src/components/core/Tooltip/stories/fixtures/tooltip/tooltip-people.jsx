@@ -1,5 +1,5 @@
 import Button from '@gaudi/design-system/core/Button';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
   AvatarGroup,
@@ -47,7 +47,7 @@ export function Pattern() {
                 </div>
                 <span className='opacity-80'>{person.email}</span>
                 <span className='flex items-center gap-1.5 opacity-80'>
-                  <span className={`block size-1.5 shrink-0 rounded-full ${person.online ? 'bg-success' : 'bg-text-muted'}`} />
+                  <StatusDot className={`block ${person.online ? 'bg-success' : 'bg-text-muted'}`} />
                   {person.online ? 'Online now' : 'Away'}
                 </span>
               </div>

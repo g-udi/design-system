@@ -1,3 +1,4 @@
+import { AccordionGroup } from '@gaudi/design-system/core/Accordion';
 import { CopyButton as Copyable } from '../components/CopyButton';
 
 import Typography, { typographyVariants } from '../../foundations/Typography';
@@ -161,20 +162,21 @@ export const Default = {
 
       <section className='space-y-4'>
         <Typography as='h2' variant='heading-lg'>Variant Catalog</Typography>
-        <div className='space-y-3'>
-          {groups.map((group) => (
-            <details key={ group.label } className='overflow-hidden rounded-md border bg-surface border-border' open>
-              <summary className='cursor-pointer px-4 py-3 text-sm font-semibold text-text marker:text-gray-500'>
-                <span className='ms-2'>{group.label}</span>
-              </summary>
-              <div data-docs-example className='divide-y divide-gray-200 dark:divide-gray-700'>
-                {group.variants.filter((variant) => typographyVariants[variant]).map((variant) => (
-                  <VariantPreview key={ variant } variant={ variant } />
+        <AccordionGroup
+          type='multiple'
+          defaultValue={groups.map(group => group.label)}
+          items={groups.map(group => ({
+            value: group.label,
+            title: group.label,
+            content: (
+              <div data-docs-example className='divide-y divide-border'>
+                {group.variants.filter(variant => typographyVariants[variant]).map(variant => (
+                  <VariantPreview key={variant} variant={variant} />
                 ))}
               </div>
-            </details>
-          ))}
-        </div>
+            )
+          }))}
+        />
       </section>
 
       <section className='space-y-6 rounded-md border bg-surface p-6 border-border'>

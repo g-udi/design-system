@@ -145,6 +145,9 @@ export const Playground = {
   play: async ({ args, canvasElement }) => {
     if (args.state !== 'ready') return;
     await checkChangingChartData(canvasElement);
+    const progress = within(canvasElement).getByRole('progressbar', { name: 'Words' });
+    await expect(progress).toHaveAttribute('aria-valuetext', '75%');
+    await expect(within(canvasElement).getByText('Words', { selector: 'span' })).toBeVisible();
     await focusPlot(canvasElement, 'Progress towards writing goals');
     const format = createChartFormatter(args.locale);
     await waitFor(() => expect(readout(canvasElement)).toHaveTextContent(`Words: Done ${format(18000)}, Target ${format(24000)}, Progress 75%`));

@@ -199,8 +199,35 @@ function CarouselNext({
     </Button>
   );
 }
+function CarouselIndicator({ index, active, className, onClick, ...props }) {
+  const { api } = useCarousel();
+  return (
+    <Button
+      variant='ghost'
+      size='icon-lg'
+      data-slot='carousel-indicator'
+      aria-label={`Go to slide ${index + 1}`}
+      aria-current={active ? 'true' : undefined}
+      className={cn('group/indicator size-11 rounded-control touch-manipulation', className)}
+      onClick={(event) => {
+        onClick?.(event);
+        if (!event.defaultPrevented) api?.scrollTo(index);
+      }}
+      {...props}
+    >
+      <span
+        aria-hidden='true'
+        className={cn(
+          'h-2.5 rounded-control transition-all motion-reduce:transition-none',
+          active ? 'w-7 bg-accent' : 'w-2.5 bg-border group-hover/indicator:bg-text-subtle'
+        )}
+      />
+    </Button>
+  );
+}
 export {
   Carousel,
+  CarouselIndicator,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,

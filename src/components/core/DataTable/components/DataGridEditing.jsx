@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../Pill/StatusDot.jsx';
 // Editing workflows on top of the grid's change pipeline (`onCellsChange`):
 // undo and redo, pending changes with Save and Discard, per-cell validation,
 // and per-row edit mode. The hooks own state in the host; the components read
@@ -656,7 +657,7 @@ export function DataGridSaveBar({ editing, apiRef, label, className, children })
       className={cn(dataGridFloatingBarClasses, className)}
     >
       <span aria-live='polite' className='text-ui-foreground flex items-center gap-2 text-sm font-medium'>
-        <span aria-hidden='true' className='bg-warning size-2 shrink-0 rounded-full' />
+        <StatusDot className='bg-warning size-2' />
         {label ? label(editing.pendingCount) : labels.unsavedChanges(editing.pendingCount)}
       </span>
       {editing.errorCount ? (

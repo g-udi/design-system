@@ -1,4 +1,5 @@
 'use client';
+import { MetaSeparator } from '@gaudi/design-system/core/Separator';
 import { useState } from 'react';
 import {
   Attachment,
@@ -93,10 +94,7 @@ export function Pattern() {
         {selected ? (
           <>
             {selected.name}
-            <span
-              aria-hidden='true'
-              className='bg-ui-muted-foreground/40 mx-1.5 inline-block size-1 rounded-full align-middle'
-            />
+            <MetaSeparator className='mx-1.5' />
             {selected.dimensions}
           </>
         ) : (

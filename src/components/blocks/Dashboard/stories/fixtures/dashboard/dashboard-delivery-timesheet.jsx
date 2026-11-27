@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { addDays, format } from 'date-fns';
 import { DashboardGrid, DashboardPanel, dashboardSpan } from '@gaudi/design-system/blocks/Dashboard';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
-import { default as BreadcrumbTrail } from '@gaudi/design-system/core/Breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@gaudi/design-system/core/Breadcrumb';
 import { AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { default as Avatar } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -54,7 +54,17 @@ export function Pattern() {
   return (
     <div className='grid w-full gap-4'>
       <header className='grid gap-3'>
-        <BreadcrumbTrail items={[{ label: 'Gaudi', href: '#workspace' }, { label: 'Projects', href: '#projects' }, { label: 'Reader app 2.0' }]} />
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>Gaudi</BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>Projects</BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Reader app 2.0</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <div className='grid gap-1'>
             <h2 className='flex items-center gap-2 text-xl font-semibold'>Reader app 2.0 <Badge variant='success-light'>On track</Badge></h2>
@@ -62,7 +72,6 @@ export function Pattern() {
           </div>
           <div className='flex items-center gap-3'>
             <AvatarGroup avatars={people.map((person) => ({ id: person.id, src: person.avatar, name: person.name }))} max={4} label='Project collaborators' />
-            <Button variant='outline' tone='neutral' size='sm'><RegistryIcon lucide='PlusIcon' aria-hidden='true' />Invite</Button>
           </div>
         </div>
       </header>

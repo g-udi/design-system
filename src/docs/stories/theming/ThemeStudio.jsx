@@ -1,3 +1,4 @@
+import { FieldLegend, FieldSet, Label } from '@gaudi/design-system/core/Field';
 import { useMemo, useState } from 'react';
 import Banner from '../../../components/core/Banner';
 import Button from '../../../components/core/Button';
@@ -124,11 +125,11 @@ export function ThemeStudio() {
           <div className='grid gap-6 xl:grid-cols-[22rem_minmax(0,1fr)]'>
             <div className='flex flex-col gap-5'>
               <div>
-                <label htmlFor='studio-name' className='block text-sm font-medium text-text'>Theme name</label>
+                <Label htmlFor='studio-name' className='block text-sm font-medium text-text'>Theme name</Label>
                 <Input id='studio-name' className='mt-1' value={ name } onChange={ (event) => setName(event.target.value) } />
               </div>
-              <fieldset className='flex flex-col gap-2'>
-                <legend className='text-sm font-medium text-text'>Generate</legend>
+              <FieldSet className='flex flex-col gap-2'>
+                <FieldLegend className='text-sm font-medium text-text'>Generate</FieldLegend>
                 <div className='grid grid-cols-2 gap-2'>
                   <Input aria-label='Brand colour' value={ brand } invalid={ !parseColor(brand) } onChange={ (event) => setBrand(event.target.value) } />
                   <Input aria-label='Second colour (optional)' placeholder='Second colour' value={ secondary } onChange={ (event) => setSecondary(event.target.value) } />
@@ -138,17 +139,18 @@ export function ThemeStudio() {
                   <Button size='sm' variant='outline' onClick={ randomise }>Randomise</Button>
                 </div>
                 <p className='text-xs text-text-subtle'>Deterministic and offline: seed {seed}. Every generated pair passes WCAG AA.</p>
-              </fieldset>
-              <fieldset className='flex flex-col gap-3'>
-                <legend className='text-sm font-medium text-text'>Colours ({mode})</legend>
+              </FieldSet>
+              <FieldSet className='flex flex-col gap-3'>
+                <FieldLegend className='text-sm font-medium text-text'>Colours ({mode})</FieldLegend>
                 {COLOR_GROUPS.map((group) => (
                   <div key={ group.id }>
                     <p className='mb-1 text-xs font-medium uppercase tracking-wide text-text-subtle'>{group.label}</p>
                     <div className='flex flex-wrap gap-1.5'>
                       {group.tokens.map((key) => (
-                        <button
+                        <Button
                           key={ key }
-                          type='button'
+                          variant='outline'
+                          size='icon-sm'
                           aria-pressed={ token === key }
                           aria-label={ `${key}: ${draft[mode][key]}` }
                           title={ TOKEN_DESCRIPTIONS[key] }
@@ -162,10 +164,10 @@ export function ThemeStudio() {
                 ))}
                 <OklchField key={ `${mode}-${token}` } label={ `${token} (${mode})` } value={ draft[mode][token] } onChange={ setColor } />
                 <p className='text-xs text-text-subtle'>{TOKEN_DESCRIPTIONS[token]}</p>
-              </fieldset>
-              <fieldset className='flex flex-col gap-3'>
-                <legend className='text-sm font-medium text-text'>Typography and shape</legend>
-                <label htmlFor='studio-fonts' className='text-sm text-text-muted'>Font pairing</label>
+              </FieldSet>
+              <FieldSet className='flex flex-col gap-3'>
+                <FieldLegend className='text-sm font-medium text-text'>Typography and shape</FieldLegend>
+                <Label htmlFor='studio-fonts' className='text-sm text-text-muted'>Font pairing</Label>
                 <NativeSelect id='studio-fonts' className='w-full' value={ fontPairFor(draft.fonts) } onChange={ (event) => setFonts(event.target.value) }>
                   {fontPairFor(draft.fonts) === 'custom' ? <NativeSelectOption value='custom'>Theme fonts</NativeSelectOption> : null}
                   {FONT_PAIRS.map((pair) => <NativeSelectOption key={ pair.id } value={ pair.id }>{pair.label}</NativeSelectOption>)}
@@ -182,7 +184,7 @@ export function ThemeStudio() {
                   <Slider aria-labelledby='studio-density' min={ 0.75 } max={ 1.5 } step={ 0.125 } value={ [ draft.spacing ?? 1 ] } getValueText={ (value) => `${value}×` } onValueChange={ ([ value ]) => setDraft((current) => ({ ...current, spacing: value })) } />
                   <span className='text-end font-mono text-xs text-text-muted'>{draft.spacing ?? 1}×</span>
                 </div>
-              </fieldset>
+              </FieldSet>
             </div>
             <div className='flex min-w-0 flex-col gap-4'>
               <ThemePreview theme={ draft } mode={ mode } />

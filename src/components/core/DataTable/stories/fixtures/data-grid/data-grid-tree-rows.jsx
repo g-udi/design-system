@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import Link from '@gaudi/design-system/core/Link';
 import {
   DataGrid,
   DataGridContainer,
@@ -402,7 +401,7 @@ export function Pattern() {
                         .join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <Link href='#'>{item.name}</Link>
+                  <span className='font-medium'>{item.name}</span>
                 </>
               ) : (
                 <span className='text-ui-foreground font-medium'>

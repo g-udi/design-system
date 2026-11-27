@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import {
   FieldRoot as Field,
@@ -20,17 +21,7 @@ const tags = [
 ];
 const corner = 'absolute top-2.5 right-2.5 size-5 rounded-full';
 
-const MastercardIcon = (props) => (
-  <svg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg' {...props}>
-    <circle cx='7' cy='12' r='7' fill='#EB001B' />
-    <circle cx='17' cy='12' r='7' fill='#F79E1B' />
-    <path d='M12 17.5C13.5 16.2 14.5 14.2 14.5 12C14.5 9.8 13.5 7.8 12 6.5C10.5 7.8 9.5 9.8 9.5 12C9.5 14.2 10.5 16.2 12 17.5Z' fill='#FF5F00' />
-  </svg>
-);
 
-function Tile({ children }) {
-  return <span className='flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-surface'>{children}</span>;
-}
 
 export function Pattern() {
   return (
@@ -42,9 +33,9 @@ export function Pattern() {
             <Field orientation='horizontal'>
               <Checkbox defaultChecked={item.checked} className={corner} />
               <FieldTitle className='flex flex-col items-start gap-2 pe-6'>
-                <Tile>
+                <IconTile size='sm'>
                   <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4' />
-                </Tile>
+                </IconTile>
                 <span className='flex flex-col items-start gap-0.5'>
                   <span className='text-sm font-semibold'>{item.title}</span>
                   <span className='text-xs font-normal text-text-muted'>{item.description}</span>
@@ -59,9 +50,9 @@ export function Pattern() {
         <Field orientation='horizontal'>
           <Checkbox id='cb-mastercard' defaultChecked className={corner} />
           <FieldTitle className='flex items-center gap-2'>
-            <Tile>
-              <MastercardIcon className='size-5' />
-            </Tile>
+            <IconTile size='sm'>
+              <RegistryIcon lucide='CreditCard' aria-hidden='true' />
+            </IconTile>
             <span className='flex flex-col items-start gap-0.5'>
               <span className='text-sm font-medium'>Mastercard ending in 8888</span>
               <span className='text-xs font-normal text-text-muted'>Expires 09/28</span>

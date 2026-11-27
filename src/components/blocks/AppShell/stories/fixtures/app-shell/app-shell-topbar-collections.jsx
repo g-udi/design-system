@@ -20,7 +20,6 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
@@ -36,7 +35,14 @@ import {
 import { AppShellBody, AppShellFrame, AppShellPanel } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNotifications } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import Input from '@gaudi/design-system/core/Input';
+import Textarea from '@gaudi/design-system/core/Textarea';
+import { Label } from '@gaudi/design-system/core/Field';
+import { Badge } from '@gaudi/design-system/core/Pill';
+import { CardRoot, CardContent } from '@gaudi/design-system/core/Card';
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -175,17 +181,97 @@ const notifications = [
   }
 ];
 const pages = groups.flatMap((group) => group.items);
-const noop = (event) => event.preventDefault();
+const shelves = {
+  'Urban History': [
+    ['The Death and Life of Great American Cities', 'Jane Jacobs', 'How do short blocks change a neighborhood?', 'Short blocks give walkers more chances to cross paths.'],
+    ['The Commissioners’ Plan of 1811', 'New York City archives', 'Which streets break the grid?', 'Compare the straight avenues with the older paths of Lower Manhattan.'],
+    ['The Image of the City', 'Kevin Lynch', 'How do people remember a route?', 'Sketch the paths, edges and landmarks from your last walk.']
+  ],
+  'Climate Reading': [
+    ['Silent Spring', 'Rachel Carson', 'Where does the first chapter locate risk?', 'Look for the connections between farms, streams and kitchens.'],
+    ['The Sea Around Us', 'Rachel Carson', 'What does the shoreline preserve?', 'Compare the timescales of tides and sediment.']
+  ],
+  'Design Theory': [
+    ['The Design of Everyday Things', 'Don Norman', 'What makes an action discoverable?', 'Watch what a first-time visitor tries before reading the instructions.'],
+    ['The Timeless Way of Building', 'Christopher Alexander', 'Where does a pattern recur?', 'Bring one example of a place that works well for its users.']
+  ]
+};
+const members = {
+  'Reading Circle': ['Noor Haddad', 'Isaura Stenberg', 'Leo Grant'],
+  'Thesis Group': ['Noor Haddad', 'Ottilie Nakamura'],
+  'Field Notes Club': ['Noor Haddad', 'Nora Quinn', 'Theo Grant']
+};
+const appRoutes = { Notes: 'annotations', Reader: 'reading-list', Graph: 'citations', Feeds: 'imports', Ask: 'questions', People: 'members' };
+
+function LibraryPage({ page, project, team, entries, active, onActive, onCreate, onPage, saved, onSave, options }) {
+  const books = [...(shelves[project] ?? []), ...entries.filter(item => item.kind === 'link').map(item => [item.title, item.value, '', ''])];
+  const content = books.find(([title]) => title === active);
+  const heading = pages.find(item => item.id === page)?.label ?? 'Library apps';
+  const descriptions = {
+    collections: 'Books, plans and notes collected for the circle.', overview: 'The latest reading in your collection.',
+    'reading-list': 'Mark the texts you want to return to.', highlights: 'Passages to bring to the next discussion.',
+    authors: 'Writers and collections behind these readings.', archive: 'Finished readings from this collection.',
+    questions: 'Discussion questions from the reading group.', sources: 'Original works in this collection.',
+    annotations: 'Notes saved by the circle.', citations: 'References for the reading group.',
+    members: 'People in this reading circle.', imports: 'Links added to this collection.', tags: 'Subjects used in this collection.',
+    activity: 'Recent changes in this collection.', apps: 'Choose a workspace tool.'
+  };
+  const bookRows = books.map(([title, author, question, highlight]) => ({
+    title: page === 'highlights' ? highlight : page === 'questions' ? question : page === 'authors' ? author : title,
+    detail: ['highlights','questions','authors'].includes(page) ? title : author,
+    book: title
+  })).filter(row => row.title);
+  const items = {
+    'reading-list': bookRows.filter(row => !saved.includes(row.book)), archive: bookRows.filter(row => saved.includes(row.book)),
+    annotations: entries.filter(item => item.kind === 'note').map(item => ({ title: item.title, detail: item.value })),
+    imports: entries.filter(item => item.kind === 'link').map(item => ({ title: item.title, detail: item.value })),
+    members: (members[team] ?? []).map(name => ({ title: name, detail: name === account.name ? 'Circle coordinator' : 'Member' })),
+    tags: [{ title: project, detail: `${books.length} readings` }],
+    activity: entries.map(item => ({ title: item.title, detail: item.kind === 'note' ? 'Note added' : 'Link saved' })).reverse(),
+    apps: Object.entries(appRoutes).map(([name, route]) => ({ title: name, detail: descriptions[route], route }))
+  }[page] ?? bookRows;
+  return (
+    <section className='mx-auto grid w-full max-w-3xl content-start gap-5'>
+      <header className='grid gap-1'>
+        <p className='text-xs font-medium text-text-muted'>{team} · {project}</p>
+        <h1 className='text-2xl font-semibold tracking-tight'>{heading}</h1>
+        <p className='text-sm text-text-muted'>{descriptions[page]}</p>
+      </header>
+      {items.length ? <ItemGroup aria-label={heading}>
+        {items.map((row, index) => <Item key={`${row.title}-${index}`} size='sm' className='px-0'>
+          <ItemContent className='min-w-0'><ItemTitle className='line-clamp-none'>{row.title}</ItemTitle>
+            {row.detail && <ItemDescription>{/^https?:\/\//i.test(row.detail) ? <Link href={row.detail}>{row.detail}</Link> : row.detail}</ItemDescription>}
+          </ItemContent>
+          {row.book ? <ItemActions><Button size='xs' variant='outline' aria-label={`Open ${row.book}`} onClick={() => onActive(row.book)}>Open</Button></ItemActions> : null}
+          {row.route ? <Button variant='outline' size='xs' onClick={() => onPage(row.route)}>Open {row.title}</Button> : null}
+        </Item>)}
+      </ItemGroup> : <EmptyState compact title={{ archive: 'No finished readings', annotations: 'No shared notes yet', imports: 'No imported links yet', activity: 'No changes yet', 'reading-list': 'All readings finished' }[page] ?? 'No readings yet'}
+        description={page === 'archive' ? 'Open a reading and mark it finished to archive it.' : 'Add a link or a note to this collection.'}
+        actions={<Button size='sm' variant='outline' onClick={() => page === 'archive' ? onPage('reading-list') : onCreate(page === 'annotations' ? 'note' : 'link')}>{page === 'archive' ? 'Open reading list' : page === 'annotations' ? 'Add a note' : 'Save a link'}</Button>} />}
+      {page === 'citations' && books.length ? <Button asChild size='sm' variant='outline' className='justify-self-start'>
+        <a download='reading-references.txt' href={`data:text/plain;charset=utf-8,${encodeURIComponent(books.map(([name, author]) => `${author}. ${name}.`).join('\n'))}`}>Export references</a>
+      </Button> : null}
+      {content ? <Dialog open onOpenChange={open => { if (!open) onActive(null); }} title={content[0]} description={content[1]}>
+        <div className='grid gap-4'>
+          {/^https?:\/\//i.test(content[1]) && <Link href={content[1]}>Open saved link</Link>}
+          {options.summaries && content[3] ? <p>{content[3]}</p> : null}
+          {content[2] ? <div><Badge variant='secondary'>Discussion question</Badge><p className='mt-2'>{content[2]}</p></div> : null}
+          <Button onClick={() => { onSave(content[0]); onActive(null); }}>{saved.includes(content[0]) ? 'Return to reading list' : 'Mark as finished'}</Button>
+        </div>
+      </Dialog> : null}
+    </section>
+  );
+}
 // Route rows sit indented under their group heading; the current page is a raised muted row.
 const indented =
   'h-7 ps-6 text-xs text-ui-sidebar-foreground/75 data-active:text-ui-sidebar-foreground data-active:ring-1 data-active:ring-ui-sidebar-border';
 
-function Logo() {
+function Logo({ onHome }) {
   return (
     <Link
       variant='bare'
       href='#home'
-      onClick={noop}
+      onClick={event => { event.preventDefault(); onHome(); }}
       className='flex shrink-0 items-center gap-2 rounded-(--ds-radius-control) outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
     >
       <GaudiBrand className='text-sm' />
@@ -238,7 +324,7 @@ function ToolButton({ label, children, ...props }) {
   );
 }
 
-function AppsMenu() {
+function AppsMenu({ onApp }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -252,6 +338,7 @@ function AppsMenu() {
           {apps.map((app) => (
             <DropdownMenuItem
               key={app.label}
+              onSelect={() => onApp(app.label)}
               className='bg-surface-muted/60 text-text-muted flex h-15 flex-col justify-center gap-1.5 rounded-(--ds-radius-card) border border-ui-border p-1 text-[11px]'
             >
               <RegistryIcon lucide={app.icon} aria-hidden='true' className='size-4' />
@@ -260,84 +347,25 @@ function AppsMenu() {
           ))}
         </DropdownMenuGroup>
         <DropdownMenuSeparator className='-mx-2 my-2' />
-        <DropdownMenuItem className='justify-center font-medium'>Browse All Apps</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onApp('Browse')} className='justify-center font-medium'>Browse All Apps</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function SettingsMenu() {
-  const [toggles, setToggles] = useState({ summaries: true, digest: true, focus: false });
-  const set = (key) => (value) => setToggles((state) => ({ ...state, [key]: value }));
+function SettingsMenu({ options, onOptions }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <ToolButton label='Open settings'>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-        </ToolButton>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align='end' className='w-60'>
-        <DropdownMenuLabel>Settings</DropdownMenuLabel>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Library' aria-hidden='true' />
-          Library Settings
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Tags' aria-hidden='true' />
-          Tagging Rules
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Bell' aria-hidden='true' />
-          Digest Schedule
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuLabel>Reading</DropdownMenuLabel>
-        <DropdownMenuCheckboxItem checked={toggles.summaries} onCheckedChange={set('summaries')}>
-          Auto-Summaries
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={toggles.digest} onCheckedChange={set('digest')}>
-          Weekly Digest
-        </DropdownMenuCheckboxItem>
-        <DropdownMenuCheckboxItem checked={toggles.focus} onCheckedChange={set('focus')}>
-          Focus Mode
-        </DropdownMenuCheckboxItem>
+      <DropdownMenuTrigger asChild><ToolButton label='Open settings'><RegistryIcon lucide='Settings' aria-hidden='true' /></ToolButton></DropdownMenuTrigger>
+      <DropdownMenuContent align='end'>
+        <DropdownMenuLabel>Reading settings</DropdownMenuLabel>
+        <DropdownMenuCheckboxItem checked={options.summaries} onCheckedChange={checked => onOptions({ ...options, summaries: checked })}>Show reading summaries</DropdownMenuCheckboxItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function ThemeRow() {
-  const [theme, setTheme] = useState('system');
-  return (
-    <div role='group' aria-label='Theme' className='flex items-center gap-2 px-2 py-1 text-sm'>
-      <RegistryIcon lucide='Palette' aria-hidden='true' className='text-text-muted size-4' />
-      <span aria-hidden='true'>Theme</span>
-      <span className='bg-surface-muted ms-auto flex items-center gap-0.5 rounded-(--ds-radius-control) p-0.5'>
-        {[
-          ['light', 'Sun', 'Light theme'],
-          ['dark', 'Moon', 'Dark theme'],
-          ['system', 'Monitor', 'System theme']
-        ].map(([value, icon, label]) => (
-          <DropdownMenuItem
-            key={value}
-            role='menuitemradio'
-            aria-checked={theme === value}
-            aria-label={label}
-            onSelect={(event) => {
-              event.preventDefault();
-              setTheme(value);
-            }}
-            className={`size-6 justify-center p-0 ${theme === value ? 'bg-surface shadow-xs' : ''}`}
-          >
-            <RegistryIcon lucide={icon} aria-hidden='true' className='size-3.5' />
-          </DropdownMenuItem>
-        ))}
-      </span>
-    </div>
-  );
-}
-
-function AccountMenu() {
+function AccountMenu({ onPage }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -360,50 +388,14 @@ function AccountMenu() {
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='User' aria-hidden='true' />
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Lock' aria-hidden='true' />
-            Sign-In Security
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Users' aria-hidden='true' />
-            Manage Accounts
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Settings' aria-hidden='true' />
-            Preferences
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='BookOpen' aria-hidden='true' />
-            Documentation
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='LifeBuoy' aria-hidden='true' />
-            Help & Support
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <ThemeRow />
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('members')}>Circle members</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onPage('activity')}>Library activity</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function NewItemMenu() {
+function NewItemMenu({ onCreate }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -414,15 +406,15 @@ function NewItemMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end' className='w-48'>
         <DropdownMenuLabel>Add to Library</DropdownMenuLabel>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onCreate('link')}>
           <RegistryIcon lucide='Link' aria-hidden='true' />
           Save a Link
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onCreate('note')}>
           <RegistryIcon lucide='PenSquare' aria-hidden='true' />
           New Note
         </DropdownMenuItem>
-        <DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onCreate('collection')}>
           <RegistryIcon lucide='FolderPlus' aria-hidden='true' />
           New Collection
         </DropdownMenuItem>
@@ -431,12 +423,12 @@ function NewItemMenu() {
   );
 }
 
-function TopBar({ team, project, onTeam, onProject }) {
+function TopBar({ team, project, collections, onTeam, onProject, onPage, onApp, onCreate, options, onOptions }) {
   const { isMobile } = useSidebar();
   return (
     <header className='@container flex min-h-13 shrink-0 flex-wrap items-center gap-3 border-b border-ui-border px-4 py-2 @lg:px-6'>
       {isMobile ? <SidebarTrigger className='-ms-1' /> : null}
-      <Logo />
+      <Logo onHome={() => onPage('collections')} />
       {isMobile ? null : (
         <>
           <span aria-hidden='true' className='h-3.5 w-px shrink-0 bg-ui-border' />
@@ -447,7 +439,7 @@ function TopBar({ team, project, onTeam, onProject }) {
               </BreadcrumbItem>
               <BreadcrumbSeparator>/</BreadcrumbSeparator>
               <BreadcrumbItem>
-                <Switcher label='Collection' value={project} options={projects} onChange={onProject} />
+                <Switcher label='Collection' value={project} options={collections} onChange={onProject} />
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -456,42 +448,41 @@ function TopBar({ team, project, onTeam, onProject }) {
       <div role='toolbar' aria-label='Workspace actions' className='ms-auto flex shrink-0 items-center gap-1'>
         {/* The primary action leads; account sits last after the utilities. */}
         <span className='me-1.5'>
-          <NewItemMenu />
+          <NewItemMenu onCreate={onCreate} />
         </span>
         <AppShellNotifications defaultItems={notifications} triggerClassName='text-text-muted' />
-        <AppsMenu />
-        <SettingsMenu />
-        <AccountMenu />
+        <AppsMenu onApp={onApp} />
+        <SettingsMenu options={options} onOptions={onOptions} />
+        <AccountMenu onPage={onPage} />
       </div>
     </header>
   );
 }
 
-function ReadingGoalCard() {
-  const read = 12;
+function ReadingGoalCard({ onPage, read }) {
   const goal = 20;
   return (
-    <div className='bg-surface rounded-(--ds-radius-card) border border-ui-border p-3 shadow-xs'>
+    <CardRoot padding='none'><CardContent className='p-3'>
       <div className='flex items-center gap-2'>
         <RegistryIcon lucide='BookmarkCheck' aria-hidden='true' className='text-text-muted size-4' />
         <p className='text-sm font-medium'>October reading</p>
       </div>
       <p className='text-text-muted mt-1 text-xs'>{read} of {goal} articles finished</p>
       <Progress value={read} max={goal} aria-label='October reading goal' className='bg-ui-muted mt-2 h-1.5 rounded-full' />
-      <Button variant='outline' size='xs' className='mt-3 w-full'>
+      <Button variant='outline' size='xs' className='mt-3 w-full' onClick={() => onPage('reading-list')}>
         Open reading list
       </Button>
-    </div>
+    </CardContent></CardRoot>
   );
 }
 
-function SheetSwitchers({ team, project, onTeam, onProject }) {
+function SheetSwitchers({ team, project, collections, onTeam, onProject }) {
   const { isMobile } = useSidebar();
   if (!isMobile) return null;
   return (
     <SidebarHeader className='gap-1 px-4 pt-4'>
       <Switcher block label='Circle' value={team} options={teams} onChange={onTeam} />
-      <Switcher block label='Collection' value={project} options={projects} onChange={onProject} />
+      <Switcher block label='Collection' value={project} options={collections} onChange={onProject} />
     </SidebarHeader>
   );
 }
@@ -500,15 +491,48 @@ export function Pattern() {
   const [page, setPage] = useState('collections');
   const [team, setTeam] = useState(teams[0]);
   const [project, setProject] = useState(projects[0]);
-  const current = pages.find((entry) => entry.id === page);
+  const [collectionsByTeam, setCollections] = useState({});
+  const [library, setLibrary] = useState({});
+  const [finished, setFinished] = useState({});
+  const [active, setActive] = useState(null);
+  const [create, setCreate] = useState(null);
+  const [name, setName] = useState('');
+  const [value, setValue] = useState('');
+  const [options, setOptions] = useState({ summaries: true });
+  const collections = collectionsByTeam[team] ?? projects;
+  const scope = JSON.stringify([team, project]);
+  const entries = library[scope] ?? [];
+  const saved = finished[scope] ?? [];
+  const current = pages.find(entry => entry.id === page);
+  const onPage = id => { setPage(id); setActive(null); };
+  const onTeam = next => { setTeam(next); setProject((collectionsByTeam[next] ?? projects)[0]); setActive(null); };
+  const onCreate = kind => { setName(''); setValue(''); setCreate(kind); };
+  const onApp = app => {
+    if (app === 'Exports') { onPage('citations'); return; }
+    if (app === 'Clipper' || app === 'Journal') onCreate(app === 'Clipper' ? 'link' : 'note');
+    else onPage(appRoutes[app] ?? 'apps');
+  };
+  const submit = event => {
+    event.preventDefault();
+    const title = name.trim();
+    if (!title) return;
+    if (create === 'collection') {
+      setCollections(all => ({ ...all, [team]: [...new Set([...collections, title])] }));
+      setProject(title); onPage('collections');
+    } else {
+      setLibrary(all => ({ ...all, [scope]: [...(all[scope] ?? []), { kind: create, title, value: value.trim() }] }));
+      onPage(create === 'link' ? 'imports' : 'annotations');
+    }
+    setCreate(null);
+  };
   return (
     <AppShellFrame>
       {/* The top bar spans the window; the sidebar and page share the row below it. */}
       <SidebarProvider shortcut={false} className='flex-col'>
-        <TopBar team={team} project={project} onTeam={setTeam} onProject={setProject} />
+        <TopBar team={team} project={project} collections={collections} onTeam={onTeam} onProject={setProject} onPage={onPage} onApp={onApp} onCreate={onCreate} options={options} onOptions={setOptions} />
         <div className='relative flex min-h-0 flex-1'>
           <Sidebar>
-            <SheetSwitchers team={team} project={project} onTeam={setTeam} onProject={setProject} />
+            <SheetSwitchers team={team} project={project} collections={collections} onTeam={onTeam} onProject={setProject} />
             <SidebarContent role='navigation' aria-label='Library routes' className='gap-1 px-4 py-4'>
               {groups.map((group) => (
                 <AppShellNav
@@ -519,18 +543,27 @@ export function Pattern() {
                   className='p-0'
                   items={group.items}
                   value={page}
-                  onValueChange={setPage}
+                  onValueChange={onPage}
                   itemClassName={indented}
                 />
               ))}
             </SidebarContent>
             <SidebarFooter className='p-4 pt-2'>
-              <ReadingGoalCard />
+              <ReadingGoalCard onPage={onPage} read={12 + Object.values(finished).reduce((n, titles) => n + titles.length, 0)} />
             </SidebarFooter>
           </Sidebar>
           <AppShellPanel inset={false} aria-label={current?.label}>
             <AppShellBody className='px-4 py-4 @lg:px-6 @lg:py-6'>
-              <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+              <LibraryPage page={page} project={project} team={team} entries={entries} active={active} onActive={setActive} onCreate={onCreate} onPage={onPage} saved={saved} options={options}
+                onSave={title => setFinished(all => ({ ...all, [scope]: saved.includes(title) ? saved.filter(item => item !== title) : [...saved, title] }))} />
+              {create ? <Dialog open onOpenChange={open => { if (!open) setCreate(null); }} title={{ link: 'Save a link', note: 'New note', collection: 'New collection' }[create]}>
+                <form onSubmit={submit} className='grid gap-3'>
+                  <Label htmlFor='library-title'>Title</Label><Input id='library-title' autoFocus value={name} onChange={event => setName(event.target.value)} required />
+                  {create === 'link' ? <><Label htmlFor='library-url'>URL</Label><Input id='library-url' type='url' value={value} onChange={event => setValue(event.target.value)} required /></> : null}
+                  {create === 'note' ? <><Label htmlFor='library-note'>Note</Label><Textarea id='library-note' value={value} onChange={event => setValue(event.target.value)} required /></> : null}
+                  <Button type='submit'>Save {create}</Button>
+                </form>
+              </Dialog> : null}
             </AppShellBody>
           </AppShellPanel>
         </div>

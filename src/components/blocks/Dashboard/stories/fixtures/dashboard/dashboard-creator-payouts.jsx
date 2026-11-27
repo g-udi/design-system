@@ -1,8 +1,9 @@
 'use client';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { DashboardGrid, DashboardPanel } from '@gaudi/design-system/blocks/Dashboard';
 import { ComposedChart } from '@gaudi/design-system/charts/ComposedChart';
-import { default as DataTable } from '@gaudi/design-system/core/DataTable';
+import { default as DataTable, downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
 import { default as Progress, ProgressRing } from '@gaudi/design-system/core/Progress';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -35,6 +36,8 @@ const ledger = [
 ];
 const typeTone = { Receipt: 'success-light', Payout: 'info-light', Refund: 'warning-light', Fee: 'secondary' };
 
+const exportFields = ['id', 'date', 'description', 'type', 'amount'].map((key) => ({ header: key, value: (row) => row[key] }));
+
 export function Pattern() {
   const [claimable, setClaimable] = useState(3214.6);
   const [pending, setPending] = useState(0);
@@ -61,7 +64,14 @@ export function Pattern() {
             </div>
           </div>
           <div className='flex flex-wrap gap-2'>
-            <Button variant='outline' tone='neutral'><RegistryIcon lucide='DownloadIcon' aria-hidden='true' />Statement</Button>
+            <Button
+              variant='outline'
+              tone='neutral'
+              onClick={() => downloadCsv(toCsv(ledger, exportFields), 'creator-statement.csv')}
+            >
+              <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
+              Statement
+            </Button>
             <Button onClick={claim} disabled={!claimable}><RegistryIcon lucide='WalletIcon' aria-hidden='true' />{claimable ? `Claim ${money(claimable)}` : 'Claimed'}</Button>
           </div>
         </section>
@@ -85,10 +95,17 @@ export function Pattern() {
                     <p className='text-sm font-medium'>{lane.name}</p>
                     <p className='text-text-muted text-xs'>{lane.detail}</p>
                   </div>
-                  <label className='text-text-muted flex items-center gap-2 text-xs'>
-                    <Switch size='sm' checked={lane.auto} onCheckedChange={(auto) => setLanes((current) => current.map((entry) => (entry.id === lane.id ? { ...entry, auto } : entry)))} aria-label={`Automatic sweep to ${lane.name}`} />
+                  <Label className='text-text-muted flex items-center gap-2 text-xs'>
+                    <Switch
+                      size='sm'
+                      checked={lane.auto}
+                      onCheckedChange={(auto) =>
+                        setLanes((current) => current.map((entry) => (entry.id === lane.id ? { ...entry, auto } : entry)))
+                      }
+                      aria-label={`Automatic sweep to ${lane.name}`}
+                    />
                     Auto
-                  </label>
+                  </Label>
                 </div>
                 <Progress label={`${lane.share}% of each payout`} value={lane.share} tone={lane.auto ? 'accent' : 'neutral'} />
               </li>

@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { Children, Fragment } from 'react';
 import { Markdown } from '@storybook/addon-docs/blocks';
 import Button from '../../../components/core/Button';
@@ -138,9 +139,9 @@ export function PresetGallery() {
               <Pill size='sm' tone='amber'>Review</Pill>
               <Pill size='sm' tone='red'>Blocked</Pill>
             </div>
-            <a className='mt-auto text-sm text-accent underline underline-offset-4' href={ `./?path=/story/${THEME_STUDIO_ID}` } target='_top'>
+            <Link variant='bare' className='mt-auto text-sm text-accent underline underline-offset-4' href={ `./?path=/story/${THEME_STUDIO_ID}` } target='_top'>
               Customise {theme.name} in Theme Studio
-            </a>
+            </Link>
           </article>
         </li>
       ))}

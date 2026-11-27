@@ -93,7 +93,7 @@ export const DateTimePopover = {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: 'Schedule send' }));
     const body = within(document.body);
-    await expect(await body.findByRole('radio', { name: '10:00' })).toBeVisible();
+    await waitFor(() => expect(body.getByRole('radio', { name: '10:00' })).toBeVisible());
     await userEvent.click(body.getByRole('radio', { name: '10:00' }));
     await expect(body.getByRole('button', { name: 'Schedule for Thu 15 Oct, 10:00' })).toBeEnabled();
     await userEvent.click(body.getByRole('button', { name: /Next Monday/ }));

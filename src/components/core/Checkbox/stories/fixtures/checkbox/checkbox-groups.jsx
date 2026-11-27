@@ -6,6 +6,7 @@ import {
 } from '@gaudi/design-system/core/Card';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import {
+  Label,
   FieldRoot as Field,
   FieldLabelPrimitive as FieldLabel,
   FieldLegend,
@@ -49,11 +50,11 @@ export function Pattern() {
           {channels.map((item, index) => (
             <div key={item.id}>
               {index > 0 && <Separator />}
-              <label htmlFor={item.id} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>
+              <Label htmlFor={item.id} className='flex cursor-pointer items-center gap-2 px-3 py-2.5 text-sm font-medium'>
                 <RegistryIcon lucide={item.icon} aria-hidden='true' className='size-4 text-text-muted' />
                 <span className='flex-1'>{item.label}</span>
                 <Checkbox id={item.id} defaultChecked={item.checked} />
-              </label>
+              </Label>
             </div>
           ))}
         </FramePanel>

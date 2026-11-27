@@ -52,8 +52,10 @@
       "packageImports": [
         "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress"
       ],
@@ -62,6 +64,8 @@
         "Button",
         "Icon",
         "Input",
+        "Label",
+        "Link",
         "Pill",
         "Progress"
       ],
@@ -457,23 +461,26 @@
       "storyTitle": "Blocks/App Shell",
       "sourceFile": "src/components/blocks/AppShell/stories/fixtures/app-shell/app-shell-crawler-control.jsx",
       "assets": [
-        "/avatars/person-23.svg",
-        "/avatars/person-41.svg",
-        "/avatars/person-50.svg"
+        "/avatars/person-23.svg"
       ],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
-        "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/ScrollArea",
         "@gaudi/design-system/core/Separator",
-        "@gaudi/design-system/core/Skeleton",
         "@gaudi/design-system/core/Tabs",
+        "@gaudi/design-system/core/Timeline",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
@@ -491,37 +498,42 @@
         "Collapsible",
         "CollapsibleContent",
         "CollapsibleTrigger",
+        "DataTable",
+        "Dialog",
         "DropdownMenuCheckboxItemPrimitive",
         "DropdownMenuContent",
-        "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
         "DropdownMenuRadioGroup",
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuSub",
         "DropdownMenuSubContent",
         "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
+        "EmptyState",
         "GaudiLogo",
+        "IconTile",
+        "Input",
         "InputGroup",
         "InputGroupAddon",
         "InputGroupButton",
         "InputGroupInput",
-        "Link",
+        "Label",
         "RegistryIcon",
         "ScrollArea",
         "Separator",
         "Sidebar",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatCard",
+        "StatMeter",
         "Tabs",
         "TabsContent",
         "TabsList",
         "TabsTrigger",
+        "Timeline",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -554,13 +566,18 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Calendar",
         "@gaudi/design-system/core/Checkbox",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Select",
         "@gaudi/design-system/core/Tabs",
+        "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
@@ -581,6 +598,12 @@
         "Collapsible",
         "CollapsibleContent",
         "CollapsibleTrigger",
+        "DialogContent",
+        "DialogDescription",
+        "DialogFooter",
+        "DialogHeader",
+        "DialogRoot",
+        "DialogTitle",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
@@ -588,12 +611,22 @@
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuTrigger",
+        "Empty",
+        "EmptyDescription",
+        "EmptyHeader",
+        "EmptyTitle",
+        "Field",
+        "FieldInput",
+        "FieldLabel",
+        "IconTile",
         "InputGroup",
         "InputGroupAddon",
         "InputGroupInput",
         "Item",
+        "Label",
+        "NativeSelect",
+        "NativeSelectOption",
         "ProgressRoot",
         "RegistryIcon",
         "Sidebar",
@@ -602,11 +635,12 @@
         "SidebarHeader",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
         "Tabs",
         "TabsContent",
         "TabsList",
         "TabsTrigger",
+        "Textarea",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -644,6 +678,8 @@
         "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Select",
@@ -685,7 +721,9 @@
         "EmptyState",
         "GaudiBrand",
         "GaudiLogo",
+        "IconTile",
         "Kbd",
+        "Label",
         "RegistryIcon",
         "Select",
         "Sidebar",
@@ -720,14 +758,17 @@
       ],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/DropdownMenu",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
+        "Accordion",
         "AppShellBody",
         "AppShellFrame",
         "AppShellHeader",
@@ -744,18 +785,15 @@
         "BreadcrumbSeparatorPrimitive",
         "Button",
         "DropdownMenuContent",
-        "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
         "DropdownMenuRadioGroup",
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
+        "Input",
+        "Label",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
@@ -766,7 +804,6 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
         "useSidebar"
       ],
       "dependencies": [
@@ -810,6 +847,8 @@
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Select",
+        "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -834,14 +873,8 @@
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
-        "DropdownMenuRadioGroup",
-        "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
         "EmailInput",
         "Empty",
@@ -857,6 +890,8 @@
         "InputGroupAddon",
         "InputGroupInput",
         "Item",
+        "NativeSelect",
+        "NativeSelectOption",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
@@ -868,6 +903,8 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarTrigger",
+        "StatusDot",
+        "SwitchRoot",
         "Textarea",
         "TooltipContent",
         "TooltipRoot",
@@ -898,61 +935,65 @@
       ],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/KanbanBoard",
         "@gaudi/design-system/core/Tabs",
+        "@gaudi/design-system/core/Timeline",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
+        "Accordion",
         "AppShellBody",
         "AppShellFrame",
         "AppShellHeader",
         "AppShellNav",
         "AppShellPanel",
-        "AvatarBadge",
         "AvatarFallback",
         "AvatarImage",
         "AvatarRoot",
         "BreadcrumbItemPrimitive",
-        "BreadcrumbLinkPrimitive",
         "BreadcrumbListPrimitive",
         "BreadcrumbPagePrimitive",
         "BreadcrumbRoot",
         "BreadcrumbSeparatorPrimitive",
         "Button",
+        "Card",
         "DropdownMenuCheckboxItemPrimitive",
         "DropdownMenuContent",
-        "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
         "DropdownMenuRadioGroup",
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
-        "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuTrigger",
+        "IconTile",
+        "Input",
         "InputGroup",
         "InputGroupAddon",
         "InputGroupInput",
+        "KanbanBoard",
+        "Label",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
         "SidebarGroupAction",
         "SidebarHeader",
-        "SidebarMenu",
-        "SidebarMenuItem",
         "SidebarProvider",
         "SidebarSeparator",
         "SidebarTrigger",
-        "SkeletonRoot",
         "Tabs",
         "TabsContent",
         "TabsList",
         "TabsTrigger",
+        "Timeline",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -985,11 +1026,15 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Commander",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
+        "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/Sheet",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/hooks/interaction/use-hotkey",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -1024,9 +1069,17 @@
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuTrigger",
+        "IconTile",
+        "Input",
+        "Item",
+        "ItemActions",
+        "ItemContent",
+        "ItemDescription",
+        "ItemGroup",
+        "ItemTitle",
         "Kbd",
+        "Label",
         "ProgressRoot",
         "RegistryIcon",
         "Sheet",
@@ -1043,7 +1096,8 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
+        "Textarea",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -1075,19 +1129,23 @@
       ],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Commander",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Link",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/hooks/interaction/use-hotkey",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
       ],
       "uses": [
+        "Accordion",
         "AppShellBody",
         "AppShellFrame",
         "AppShellHeader",
@@ -1110,7 +1168,6 @@
         "CommandInput",
         "CommandItem",
         "CommandList",
-        "CommandShortcut",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRadioGroup",
@@ -1118,6 +1175,9 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "EmptyState",
+        "Field",
+        "FieldLabel",
         "GaudiBrand",
         "GaudiLogo",
         "Kbd",
@@ -1133,7 +1193,7 @@
         "SidebarProvider",
         "SidebarSeparator",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "SwitchRoot",
         "useHotkey",
         "useSidebar"
       ],
@@ -1170,9 +1230,9 @@
         "@gaudi/design-system/core/DropdownMenu",
         "@gaudi/design-system/core/EmptyState",
         "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
-        "@gaudi/design-system/core/Skeleton",
         "@gaudi/design-system/core/ToggleGroup",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
@@ -1199,19 +1259,17 @@
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
-        "DropdownMenuRadioGroup",
-        "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
         "EmptyState",
         "GaudiBrand",
         "GaudiLogo",
         "InputGroupButton",
+        "Item",
+        "ItemContent",
+        "ItemDescription",
+        "ItemTitle",
         "Link",
         "RegistryIcon",
         "Sidebar",
@@ -1226,7 +1284,7 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
         "ToggleGroupItem",
         "ToggleGroupRoot",
         "useSidebar"
@@ -1253,17 +1311,18 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/core/Attachment",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Commander",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Popover",
         "@gaudi/design-system/core/Progress",
-        "@gaudi/design-system/core/Skeleton",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/hooks/interaction/use-hotkey",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -1275,6 +1334,11 @@
         "AppShellHeader",
         "AppShellNav",
         "AppShellPanel",
+        "Attachment",
+        "AttachmentAction",
+        "AttachmentDescription",
+        "AttachmentMedia",
+        "AttachmentTitle",
         "AvatarFallback",
         "AvatarGroup",
         "AvatarGroupCount",
@@ -1296,25 +1360,27 @@
         "CommandItem",
         "CommandList",
         "DropdownMenuContent",
-        "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
         "DropdownMenuRadioGroup",
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
         "GaudiBrand",
         "GaudiLogo",
+        "Item",
+        "ItemActions",
+        "ItemContent",
+        "ItemDescription",
+        "ItemGroup",
+        "ItemTitle",
         "Kbd",
         "Link",
         "PopoverContentPrimitive",
         "PopoverPrimitive",
         "PopoverTriggerPrimitive",
+        "Progress",
         "ProgressRing",
         "ProgressRoot",
         "RegistryIcon",
@@ -1328,7 +1394,7 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -1362,12 +1428,14 @@
         "@gaudi/design-system/blocks/AppShell",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
-        "@gaudi/design-system/core/Skeleton",
         "@gaudi/design-system/core/Tabs",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/core/Tree",
@@ -1385,18 +1453,20 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "DataTable",
+        "DialogContent",
+        "DialogDescription",
+        "DialogFooter",
+        "DialogHeader",
+        "DialogRoot",
+        "DialogTitle",
         "DropdownMenuContent",
-        "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
-        "DropdownMenuRadioGroup",
-        "DropdownMenuRadioItem",
         "DropdownMenuRoot",
-        "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
+        "Field",
+        "FieldInput",
+        "FieldLabel",
         "GaudiBrand",
         "GaudiLogo",
         "InputGroup",
@@ -1410,7 +1480,7 @@
         "SidebarFooter",
         "SidebarHeader",
         "SidebarProvider",
-        "SkeletonRoot",
+        "StatusDot",
         "Tabs",
         "TabsContent",
         "TabsList",
@@ -1451,13 +1521,20 @@
       ],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
+        "@gaudi/design-system/chat/ChatBubble",
         "@gaudi/design-system/chat/ChatInput",
+        "@gaudi/design-system/chat/ChatMessage",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Commander",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Link",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Tabs",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -1472,8 +1549,16 @@
         "AvatarFallback",
         "AvatarImage",
         "AvatarRoot",
+        "Badge",
         "Button",
+        "ChatBubble",
+        "ChatBubbleContent",
+        "ChatMessage",
+        "ChatMessageContent",
+        "ChatMessageGroup",
+        "ChatMessageHeader",
         "ChatModelSelect",
+        "ChatPromptComposer",
         "Command",
         "CommandDialog",
         "CommandEmpty",
@@ -1482,8 +1567,8 @@
         "CommandItem",
         "CommandList",
         "CommandShortcut",
+        "Dialog",
         "DropdownMenuContent",
-        "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
         "DropdownMenuRadioGroup",
@@ -1491,11 +1576,16 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuShortcut",
-        "DropdownMenuSub",
-        "DropdownMenuSubContent",
-        "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
+        "EmptyState",
         "GaudiBrand",
+        "Input",
+        "Item",
+        "ItemContent",
+        "ItemDescription",
+        "ItemGroup",
+        "ItemTitle",
+        "Label",
         "Link",
         "RegistryIcon",
         "Sidebar",
@@ -1509,7 +1599,7 @@
         "SidebarResizeHandle",
         "SidebarSeparator",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
         "Tabs",
         "TabsContent",
         "TabsList",
@@ -1551,10 +1641,17 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Link",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
@@ -1568,11 +1665,15 @@
         "AvatarFallback",
         "AvatarImage",
         "AvatarRoot",
+        "Badge",
         "BreadcrumbItemPrimitive",
         "BreadcrumbListPrimitive",
         "BreadcrumbRoot",
         "BreadcrumbSeparatorPrimitive",
         "Button",
+        "CardContent",
+        "CardRoot",
+        "Dialog",
         "DropdownMenuCheckboxItemPrimitive",
         "DropdownMenuContent",
         "DropdownMenuGroup",
@@ -1582,9 +1683,17 @@
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuTrigger",
+        "EmptyState",
         "GaudiBrand",
+        "Input",
+        "Item",
+        "ItemActions",
+        "ItemContent",
+        "ItemDescription",
+        "ItemGroup",
+        "ItemTitle",
+        "Label",
         "Link",
         "ProgressRoot",
         "RegistryIcon",
@@ -1594,7 +1703,7 @@
         "SidebarHeader",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "Textarea",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -1628,12 +1737,18 @@
         "@gaudi/design-system/blocks/AppShell",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/Commander",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/EmptyState",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Item",
         "@gaudi/design-system/core/Link",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/Sheet",
-        "@gaudi/design-system/core/Skeleton",
+        "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/core/Tooltip",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
@@ -1649,6 +1764,8 @@
         "AvatarImage",
         "AvatarRoot",
         "Button",
+        "CardContent",
+        "CardRoot",
         "Command",
         "CommandDialog",
         "CommandEmpty",
@@ -1664,9 +1781,17 @@
         "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuTrigger",
+        "EmptyState",
         "GaudiLogo",
+        "Input",
+        "Item",
+        "ItemActions",
+        "ItemContent",
+        "ItemDescription",
+        "ItemGroup",
+        "ItemTitle",
+        "Label",
         "Link",
         "ProgressRoot",
         "RegistryIcon",
@@ -1682,7 +1807,8 @@
         "SidebarHeader",
         "SidebarProvider",
         "SidebarTrigger",
-        "SkeletonRoot",
+        "StatusDot",
+        "Textarea",
         "TooltipContent",
         "TooltipRoot",
         "TooltipTrigger",
@@ -1807,6 +1933,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Attachment",
+        "@gaudi/design-system/core/Separator",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -1818,6 +1945,7 @@
         "AttachmentGroup",
         "AttachmentMedia",
         "AttachmentTitle",
+        "MetaSeparator",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -1928,7 +2056,8 @@
         "static/images/art/7.svg"
       ],
       "packageImports": [
-        "@gaudi/design-system/core/Attachment"
+        "@gaudi/design-system/core/Attachment",
+        "@gaudi/design-system/core/Separator"
       ],
       "uses": [
         "Attachment",
@@ -1936,7 +2065,8 @@
         "AttachmentGroup",
         "AttachmentMedia",
         "AttachmentTitle",
-        "AttachmentTrigger"
+        "AttachmentTrigger",
+        "MetaSeparator"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -2177,7 +2307,9 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -2185,6 +2317,7 @@
         "AvatarImage",
         "AvatarRoot",
         "Button",
+        "Dialog",
         "DropdownMenuContent",
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
@@ -2192,6 +2325,9 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "Field",
+        "FieldInput",
+        "FieldLabel",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -2224,6 +2360,7 @@
         "@gaudi/design-system/core/Loader"
       ],
       "uses": [
+        "AvatarBadge",
         "AvatarFallback",
         "AvatarImage",
         "AvatarRoot",
@@ -2549,7 +2686,8 @@
         "AvatarImage",
         "AvatarRoot",
         "Badge",
-        "RegistryIcon"
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -2576,6 +2714,7 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
@@ -2585,6 +2724,7 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "Dialog",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -2853,7 +2993,6 @@
       "storyTitle": "Core/Navigation/Breadcrumb",
       "sourceFile": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-icons-avatars.jsx",
       "assets": [
-        "/avatars/person-41.svg",
         "static/images/art/4.svg"
       ],
       "packageImports": [
@@ -2930,13 +3069,13 @@
       "storyTitle": "Core/Navigation/Breadcrumb",
       "sourceFile": "src/components/core/Breadcrumb/stories/fixtures/breadcrumb/breadcrumb-workspace-path.jsx",
       "assets": [
-        "/avatars/person-41.svg",
         "static/images/art/4.svg"
       ],
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Breadcrumb",
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -2951,6 +3090,7 @@
         "BreadcrumbSeparatorPrimitive",
         "Frame",
         "FramePanel",
+        "IconTile",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -3008,6 +3148,7 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -3015,6 +3156,7 @@
         "AvatarImage",
         "AvatarRoot",
         "Button",
+        "IconTile",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -3074,21 +3216,29 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Tooltip",
+        "@gaudi/design-system/hooks",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Badge",
         "Button",
-        "KbdGroup",
-        "KbdRoot",
+        "Dialog",
+        "Input",
+        "Kbd",
+        "Label",
         "RegistryIcon",
+        "StatusDot",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",
-        "TooltipTrigger"
+        "TooltipTrigger",
+        "useHotkey"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3113,7 +3263,11 @@
       "packageImports": [
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
+        "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -3121,6 +3275,7 @@
         "Button",
         "ButtonGroup",
         "ButtonGroupSeparator",
+        "Card",
         "DropdownMenuContent",
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
@@ -3128,8 +3283,12 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "Input",
+        "Label",
         "RegistryIcon",
-        "cn"
+        "cn",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3154,8 +3313,10 @@
       "packageImports": [
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/hooks",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -3163,12 +3324,14 @@
         "Button",
         "ButtonGroup",
         "ButtonGroupText",
+        "Dialog",
+        "DropdownMenuCheckboxItemPrimitive",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRoot",
-        "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
-        "RegistryIcon"
+        "RegistryIcon",
+        "writeToClipboard"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3198,7 +3361,11 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
+        "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -3210,6 +3377,7 @@
         "ButtonGroup",
         "ButtonGroupSeparator",
         "ButtonGroupText",
+        "Card",
         "DropdownMenuContent",
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
@@ -3217,7 +3385,10 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
-        "RegistryIcon"
+        "Input",
+        "Label",
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3249,11 +3420,11 @@
         "@gaudi/design-system/core/ButtonGroup",
         "@gaudi/design-system/core/DropdownMenu",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/FileUpload",
         "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Select",
-        "@gaudi/design-system/core/Tooltip",
-        "@gaudi/design-system/icons/RegistryIcon",
-        "@gaudi/design-system/utilities/cn"
+        "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "AvatarFallback",
@@ -3278,11 +3449,8 @@
         "SelectSeparator",
         "SelectTrigger",
         "SelectValue",
-        "TooltipContent",
-        "TooltipProvider",
-        "TooltipRoot",
-        "TooltipTrigger",
-        "cn"
+        "StatusDot",
+        "useFileUpload"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3324,6 +3492,7 @@
         "DropdownMenuRoot",
         "DropdownMenuTrigger",
         "RegistryIcon",
+        "StatusDot",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",
@@ -3354,6 +3523,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -3368,6 +3538,7 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "FieldInput",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -3431,8 +3602,12 @@
       "packageImports": [
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
+        "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/FileUpload",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -3440,13 +3615,18 @@
         "Button",
         "ButtonGroup",
         "ButtonGroupSeparator",
+        "ButtonGroupText",
         "DropdownMenuContent",
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
-        "RegistryIcon"
+        "FieldInput",
+        "RegistryIcon",
+        "toCsv",
+        "useCopyToClipboard",
+        "useFileUpload"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3471,14 +3651,18 @@
       "packageImports": [
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/ButtonGroup",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
         "Button",
         "ButtonGroup",
+        "FieldInput",
         "RegistryIcon",
-        "cn"
+        "cn",
+        "useCopyToClipboard"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -3502,13 +3686,19 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Loader",
+        "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Button",
+        "Dialog",
+        "FieldLabel",
         "LoaderRoot",
-        "RegistryIcon"
+        "RegistryIcon",
+        "SwitchRoot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -4024,12 +4214,14 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Link",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "CardContent",
         "CardRoot",
+        "IconTile",
         "Link",
         "RegistryIcon"
       ],
@@ -4291,17 +4483,16 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Card",
-        "@gaudi/design-system/core/Carousel",
-        "@gaudi/design-system/utilities/cn"
+        "@gaudi/design-system/core/Carousel"
       ],
       "uses": [
         "CardRoot",
         "CarouselContent",
+        "CarouselIndicator",
         "CarouselItem",
         "CarouselNext",
         "CarouselPrevious",
-        "CarouselRoot",
-        "cn"
+        "CarouselRoot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -4362,12 +4553,14 @@
       "sourceFile": "src/components/core/Carousel/stories/fixtures/carousel/carousel-thumbnails.jsx",
       "assets": [],
       "packageImports": [
+        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Carousel",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
+        "Button",
         "CarouselContent",
         "CarouselItem",
         "CarouselRoot",
@@ -4472,7 +4665,8 @@
         "CascaderPanel",
         "CascaderStatus",
         "CascaderTrigger",
-        "CascaderValue"
+        "CascaderValue",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -5096,17 +5290,19 @@
         "@gaudi/design-system/chat/ChatBubble",
         "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Button",
-        "@gaudi/design-system/core/Link",
+        "@gaudi/design-system/core/CodeBlock",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Button",
         "ChatBubble",
         "ChatBubbleContent",
+        "CodeBlock",
         "Collapsible",
         "CollapsibleContent",
         "CollapsibleTrigger",
-        "Link",
+        "Dialog",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -5766,6 +5962,7 @@
       "packageImports": [
         "@gaudi/design-system/core/Checkbox",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -5774,6 +5971,7 @@
         "FieldLabelPrimitive",
         "FieldRoot",
         "FieldTitle",
+        "IconTile",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -5813,6 +6011,7 @@
         "FrameHeader",
         "FramePanel",
         "FrameTitle",
+        "Label",
         "RegistryIcon",
         "Separator"
       ],
@@ -6173,6 +6372,7 @@
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/ScrollArea",
         "@gaudi/design-system/core/Switch",
+        "@gaudi/design-system/core/Terminal",
         "@gaudi/design-system/core/ToggleGroup",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -6187,6 +6387,7 @@
         "ScrollArea",
         "ScrollBar",
         "SwitchRoot",
+        "TerminalWindowControls",
         "ToggleGroupItem",
         "ToggleGroupRoot",
         "cn"
@@ -6772,6 +6973,7 @@
         "ComboboxInput",
         "ComboboxItem",
         "ComboboxList",
+        "ComboboxTrigger",
         "FieldErrorPrimitive",
         "FieldLabelPrimitive",
         "FieldRoot",
@@ -6779,8 +6981,7 @@
         "RegistryIcon"
       ],
       "dependencies": [
-        "@gaudi/design-system",
-        "@base-ui/react@1.5.0"
+        "@gaudi/design-system"
       ],
       "description": "Input options. Core/Select pattern composed from @gaudi/design-system/core/Select and other public Gaudi components; the components stay package imports.",
       "install": {
@@ -6909,6 +7110,7 @@
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Item",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Select",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
@@ -6947,6 +7149,7 @@
         "ItemMedia",
         "ItemTitle",
         "RegistryIcon",
+        "StatusDot",
         "cn"
       ],
       "dependencies": [
@@ -7093,6 +7296,7 @@
       "packageImports": [
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Dialog",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
@@ -7108,6 +7312,7 @@
         "DialogConfirmationRoot",
         "DialogConfirmationTitle",
         "DialogConfirmationTrigger",
+        "IconTile",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -7145,6 +7350,7 @@
         "DialogConfirmationContent",
         "DialogConfirmationDescription",
         "DialogConfirmationFooter",
+        "DialogConfirmationMedia",
         "DialogConfirmationRoot",
         "DialogConfirmationTitle",
         "DialogConfirmationTrigger",
@@ -7511,6 +7717,7 @@
         "@gaudi/design-system/charts/ComposedChart",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/Switch",
@@ -7523,10 +7730,13 @@
         "DashboardGrid",
         "DashboardPanel",
         "DataTable",
+        "Label",
         "Progress",
         "ProgressRing",
         "RegistryIcon",
-        "SwitchRoot"
+        "SwitchRoot",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -7570,7 +7780,11 @@
         "Avatar",
         "AvatarGroup",
         "Badge",
-        "BreadcrumbTrail",
+        "Breadcrumb",
+        "BreadcrumbItem",
+        "BreadcrumbList",
+        "BreadcrumbPage",
+        "BreadcrumbSeparator",
         "Button",
         "DashboardGrid",
         "DashboardPanel",
@@ -7667,8 +7881,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/Pill",
-        "@gaudi/design-system/core/Progress",
-        "@gaudi/design-system/icons/RegistryIcon"
+        "@gaudi/design-system/core/Progress"
       ],
       "uses": [
         "Avatar",
@@ -7679,7 +7892,6 @@
         "DashboardPanel",
         "DataTable",
         "ProgressRoot",
-        "RegistryIcon",
         "StatCard",
         "StatMeter",
         "dashboardSpan"
@@ -7777,7 +7989,9 @@
         "TabsContent",
         "TabsList",
         "TabsTrigger",
-        "dashboardSpan"
+        "dashboardSpan",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -8680,7 +8894,9 @@
         "DataGridTreeExpand",
         "RegistryIcon",
         "dataGridFeatures",
+        "downloadCsv",
         "moveDataGridRow",
+        "toCsv",
         "useDataGridLazyRows"
       ],
       "dependencies": [
@@ -8887,6 +9103,7 @@
       ],
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
+        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/Pill"
@@ -8896,6 +9113,7 @@
         "AvatarImage",
         "AvatarRoot",
         "Badge",
+        "Button",
         "CardRoot",
         "DataGrid",
         "DataGridColumnHeader",
@@ -8942,7 +9160,6 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/DataTable",
-        "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill"
       ],
       "uses": [
@@ -8958,7 +9175,6 @@
         "DataGridScrollArea",
         "DataGridTable",
         "DataGridTableRowExpand",
-        "Link",
         "dataGridFeatures"
       ],
       "dependencies": [
@@ -9394,10 +9610,12 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Separator",
-        "@gaudi/design-system/core/Tabs",
+        "@gaudi/design-system/hooks/environment/use-prefers-color-scheme",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -9407,23 +9625,27 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "Dialog",
         "DropdownMenuContent",
         "DropdownMenuGroup",
         "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
+        "DropdownMenuRadioGroup",
+        "DropdownMenuRadioItem",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
-        "DropdownMenuShortcut",
         "DropdownMenuSub",
         "DropdownMenuSubContent",
         "DropdownMenuSubTrigger",
         "DropdownMenuTrigger",
+        "Field",
+        "FieldInput",
+        "FieldLabel",
         "RegistryIcon",
         "Separator",
-        "Tabs",
-        "TabsList",
-        "TabsTrigger",
-        "cn"
+        "StatusDot",
+        "cn",
+        "usePrefersColorScheme"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -9514,7 +9736,8 @@
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
         "Link",
-        "RegistryIcon"
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -9590,10 +9813,10 @@
         "ClaudeAiIcon",
         "DropdownMenuContent",
         "DropdownMenuGroup",
-        "DropdownMenuItemPrimitive",
         "DropdownMenuLabelPrimitive",
+        "DropdownMenuRadioGroup",
+        "DropdownMenuRadioItem",
         "DropdownMenuRoot",
-        "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
         "Gemini",
         "Openai",
@@ -9786,6 +10009,7 @@
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/EventCalendar",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Popover",
         "@gaudi/design-system/core/Select",
         "@gaudi/design-system/core/Switch",
@@ -9812,6 +10036,7 @@
         "SelectRoot",
         "SelectTrigger",
         "SelectValue",
+        "StatusDot",
         "SwitchRoot",
         "Tabs",
         "TabsContent",
@@ -9843,6 +10068,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/EventCalendar",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -9853,7 +10079,8 @@
         "EventCalendarContent",
         "EventCalendarNav",
         "EventCalendarToolbar",
-        "RegistryIcon"
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system",
@@ -9928,6 +10155,7 @@
         "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/EventCalendar",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/RadioGroup",
         "@gaudi/design-system/core/Select",
         "@gaudi/design-system/core/Switch",
@@ -9959,6 +10187,7 @@
         "SelectRoot",
         "SelectTrigger",
         "SelectValue",
+        "StatusDot",
         "SwitchRoot"
       ],
       "dependencies": [
@@ -9986,6 +10215,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/EventCalendar",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -9996,7 +10226,8 @@
         "EventCalendarContent",
         "EventCalendarNav",
         "EventCalendarToolbar",
-        "RegistryIcon"
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system",
@@ -10235,6 +10466,7 @@
       "sourceFile": "src/components/core/FileUpload/stories/fixtures/file-upload/file-upload-avatar.jsx",
       "assets": [],
       "packageImports": [
+        "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Banner",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/FileUpload",
@@ -10245,6 +10477,9 @@
         "Alert",
         "AlertDescription",
         "AlertTitle",
+        "AvatarFallback",
+        "AvatarImage",
+        "AvatarRoot",
         "Button",
         "RegistryIcon",
         "cn",
@@ -10277,6 +10512,7 @@
         "@gaudi/design-system/core/Banner",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/FileUpload",
+        "@gaudi/design-system/core/Loader",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
@@ -10286,6 +10522,7 @@
         "AlertDescription",
         "AlertTitle",
         "Button",
+        "Loader",
         "ProgressRing",
         "RegistryIcon",
         "cn",
@@ -10316,6 +10553,7 @@
         "@gaudi/design-system/core/Banner",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/FileUpload",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -10324,6 +10562,7 @@
         "AlertDescription",
         "AlertTitle",
         "Button",
+        "IconTile",
         "RegistryIcon",
         "cn",
         "formatBytes",
@@ -10354,6 +10593,7 @@
         "@gaudi/design-system/core/Banner",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/FileUpload",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -10367,6 +10607,7 @@
         "AttachmentMedia",
         "Badge",
         "Button",
+        "IconTile",
         "ProgressRing",
         "RegistryIcon",
         "TableBodyPrimitive",
@@ -10413,6 +10654,7 @@
         "@gaudi/design-system/core/FileUpload",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/Sortable",
+        "@gaudi/design-system/core/Toast",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
@@ -10434,11 +10676,11 @@
         "SortableItemHandle",
         "cn",
         "formatBytes",
+        "toast",
         "useFileUpload"
       ],
       "dependencies": [
-        "@gaudi/design-system",
-        "sonner@2.0.7"
+        "@gaudi/design-system"
       ],
       "description": "Image gallery with sorting. Core/Advanced Inputs/FileUpload pattern composed from @gaudi/design-system/core/FileUpload and other public Gaudi components; the components stay package imports.",
       "install": {
@@ -10466,14 +10708,13 @@
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
-        "AvatarFallback",
+        "Avatar",
         "AvatarGroup",
-        "AvatarImage",
-        "AvatarRoot",
         "Badge",
         "Button",
         "Filters",
         "RegistryIcon",
+        "StatusDot",
         "cn",
         "createFilterQuery",
         "createFilterRule"
@@ -10508,13 +10749,12 @@
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
-        "AvatarFallback",
+        "Avatar",
         "AvatarGroup",
-        "AvatarImage",
-        "AvatarRoot",
         "Badge",
         "Filters",
         "RegistryIcon",
+        "StatusDot",
         "Switch",
         "ToggleGroupItem",
         "ToggleGroupRoot",
@@ -10617,19 +10857,19 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/FilterBar",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
-        "AvatarFallback",
+        "Avatar",
         "AvatarGroup",
-        "AvatarImage",
-        "AvatarRoot",
         "Button",
         "CardContent",
         "CardRoot",
         "Filters",
         "RegistryIcon",
+        "StatusDot",
         "cn",
         "countFilterRules",
         "createFilterGroup",
@@ -10725,6 +10965,7 @@
         "DataGridTableFootRowCell",
         "Filters",
         "RegistryIcon",
+        "StatusDot",
         "cn",
         "createFilterGroup",
         "createFilterQuery",
@@ -10815,6 +11056,8 @@
         "FieldError",
         "FieldInput",
         "FieldLabel",
+        "FieldLegend",
+        "FieldSet",
         "Flow",
         "FlowPanel",
         "FlowProvider",
@@ -11024,6 +11267,7 @@
         "FlowControls",
         "FlowInspector",
         "FlowProvider",
+        "Label",
         "Redis",
         "RegistryIcon",
         "SelectContent",
@@ -11834,6 +12078,7 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Checkbox",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/RadioGroup",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -11849,6 +12094,8 @@
         "FieldLegend",
         "FieldRoot",
         "FieldSet",
+        "IconTile",
+        "Label",
         "RadioGroup",
         "RegistryIcon",
         "useFormValidation",
@@ -11883,6 +12130,7 @@
         "@gaudi/design-system/core/Calendar",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/FileUpload",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Popover",
@@ -11921,6 +12169,7 @@
         "SelectTrigger",
         "SelectValue",
         "Textarea",
+        "useFileUpload",
         "useFormValidation",
         "validators"
       ],
@@ -11973,6 +12222,7 @@
         "FieldLabelPrimitive",
         "FieldRoot",
         "Input",
+        "Label",
         "RegistryIcon",
         "SelectContent",
         "SelectItem",
@@ -12089,6 +12339,7 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Select",
@@ -12107,6 +12358,7 @@
         "DropdownMenuTrigger",
         "EditableField",
         "Input",
+        "Label",
         "RegistryIcon",
         "SelectContent",
         "SelectItem",
@@ -12248,6 +12500,7 @@
         "GanttView",
         "Label",
         "RegistryIcon",
+        "StatusDot",
         "SwitchRoot",
         "checkDependencies",
         "getCriticalPath"
@@ -12335,11 +12588,14 @@
         "FieldErrorPrimitive",
         "FieldGroup",
         "FieldLabelPrimitive",
+        "FieldLegend",
         "FieldRoot",
+        "FieldSet",
         "Gantt",
         "GanttNav",
         "GanttToolbar",
         "GanttView",
+        "Label",
         "ProgressRoot",
         "RegistryIcon",
         "SelectContent",
@@ -12352,7 +12608,8 @@
         "SheetDescription",
         "SheetFooter",
         "SheetHeader",
-        "SheetTitle"
+        "SheetTitle",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system",
@@ -12494,6 +12751,7 @@
         "@gaudi/design-system/core/DropdownMenu",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Gantt",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/Select",
@@ -12533,6 +12791,7 @@
         "GanttNav",
         "GanttToolbar",
         "GanttView",
+        "IconTile",
         "ProgressRoot",
         "RegistryIcon",
         "SelectContent",
@@ -12912,6 +13171,7 @@
       ],
       "uses": [
         "IconStack",
+        "IconTile",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -13008,11 +13268,13 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Icon",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "IconTile",
-        "RegistryIcon"
+        "RegistryIcon",
+        "StatusDot"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -13433,6 +13695,7 @@
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Link",
+        "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -13441,6 +13704,7 @@
         "FieldRoot",
         "Input",
         "Link",
+        "ProgressRoot",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -13999,6 +14263,7 @@
         "Rating",
         "RegistryIcon",
         "Slack",
+        "StatusDot",
         "Stripe",
         "Supabase",
         "ToggleGroupItem",
@@ -14060,6 +14325,7 @@
         "KanbanOverlay",
         "ProgressRing",
         "RegistryIcon",
+        "StatusDot",
         "ToggleGroupItem",
         "ToggleGroupRoot",
         "cn"
@@ -14117,6 +14383,7 @@
         "KanbanOverlay",
         "ProgressRing",
         "RegistryIcon",
+        "StatusDot",
         "cn",
         "useCopyToClipboard"
       ],
@@ -14175,6 +14442,7 @@
         "Label",
         "ProgressRoot",
         "RegistryIcon",
+        "StatusDot",
         "SwitchRoot",
         "ToggleGroupItem",
         "ToggleGroupRoot",
@@ -14278,6 +14546,7 @@
         "Label",
         "ProgressRoot",
         "RegistryIcon",
+        "StatusDot",
         "SwitchRoot",
         "cn"
       ],
@@ -14345,6 +14614,7 @@
         "PopoverTriggerPrimitive",
         "ProgressRoot",
         "RegistryIcon",
+        "StatusDot",
         "cn"
       ],
       "dependencies": [
@@ -14405,6 +14675,7 @@
         "Redis",
         "RegistryIcon",
         "Slack",
+        "StatusDot",
         "Stripe",
         "Supabase",
         "Zoom",
@@ -14454,6 +14725,7 @@
         "Label",
         "ProgressRoot",
         "RegistryIcon",
+        "StatusDot",
         "SwitchRoot",
         "cn"
       ],
@@ -14501,6 +14773,7 @@
         "KanbanItemHandle",
         "KanbanOverlay",
         "RegistryIcon",
+        "StatusDot",
         "cn"
       ],
       "dependencies": [
@@ -14528,6 +14801,7 @@
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Kbd",
         "@gaudi/design-system/core/Tooltip",
+        "@gaudi/design-system/hooks/interaction/use-hotkey",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -14535,13 +14809,13 @@
         "InputGroup",
         "InputGroupAddon",
         "InputGroupInput",
-        "KbdGroup",
-        "KbdRoot",
+        "Kbd",
         "RegistryIcon",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",
-        "TooltipTrigger"
+        "TooltipTrigger",
+        "useHotkey"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -14610,6 +14884,7 @@
         "FieldRoot",
         "Label",
         "RegistryIcon",
+        "StatusDot",
         "Textarea",
         "TooltipContent",
         "TooltipProvider",
@@ -15325,6 +15600,7 @@
         "@gaudi/design-system/chat/ChatMessage",
         "@gaudi/design-system/core/Attachment",
         "@gaudi/design-system/core/Avatar",
+        "@gaudi/design-system/core/Separator",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -15347,6 +15623,7 @@
         "ChatMessageFooter",
         "ChatMessageGroup",
         "ChatMessageHeader",
+        "MetaSeparator",
         "RegistryIcon"
       ],
       "dependencies": [
@@ -15568,7 +15845,8 @@
         "PaginationItemPrimitive",
         "PaginationLinkPrimitive",
         "PaginationRoot",
-        "RegistryIcon"
+        "RegistryIcon",
+        "getPageShortcuts"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -15605,7 +15883,8 @@
         "PaginationNextPrimitive",
         "PaginationPreviousPrimitive",
         "PaginationRoot",
-        "RegistryIcon"
+        "RegistryIcon",
+        "getPageShortcuts"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -15727,6 +16006,7 @@
         "@gaudi/design-system/chat/ChatInput",
         "@gaudi/design-system/chat/ChatPlanPanel",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -15737,6 +16017,7 @@
         "ChatAgentMark",
         "ChatPlan",
         "ChatPromptQueue",
+        "Label",
         "RegistryIcon",
         "Textarea"
       ],
@@ -15871,12 +16152,12 @@
       "sourceFile": "src/components/core/Popover/stories/fixtures/popover/popover-rich.jsx",
       "assets": [
         "/avatars/person-44.svg",
-        "static/images/art/0.svg"
+        "/static/images/art/0.svg"
       ],
       "packageImports": [
+        "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
-        "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Popover",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -15887,7 +16168,9 @@
         "AvatarRoot",
         "Badge",
         "Button",
-        "Link",
+        "Collapsible",
+        "CollapsibleContent",
+        "CollapsibleTrigger",
         "PopoverContentPrimitive",
         "PopoverPrimitive",
         "PopoverTitle",
@@ -15928,6 +16211,7 @@
         "FieldInput",
         "FieldLabelPrimitive",
         "FieldRoot",
+        "Label",
         "PopoverContentPrimitive",
         "PopoverDescription",
         "PopoverHeader",
@@ -16078,14 +16362,17 @@
         "@gaudi/design-system/chat/ChatContextWindow",
         "@gaudi/design-system/chat/ChatInput",
         "@gaudi/design-system/core/Button",
-        "@gaudi/design-system/core/Checkbox"
+        "@gaudi/design-system/core/Checkbox",
+        "@gaudi/design-system/core/Field"
       ],
       "uses": [
         "Button",
         "ChatContextMeter",
         "ChatContextWindow",
         "ChatPromptComposer",
-        "Checkbox"
+        "Checkbox",
+        "FieldLegend",
+        "FieldSet"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -16500,7 +16787,7 @@
         "ChartLegend",
         "ChartLegendContent",
         "ChartTooltip",
-        "ChartTooltipContent"
+        "createRowsTooltip"
       ],
       "dependencies": [
         "@gaudi/design-system",
@@ -16525,6 +16812,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/RadioGroup",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
@@ -16534,6 +16822,7 @@
         "FieldRoot",
         "FieldSet",
         "FieldTitle",
+        "IconTile",
         "RadioGroupItem",
         "RadioGroupRoot",
         "RegistryIcon"
@@ -16595,6 +16884,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/RadioGroup",
         "@gaudi/design-system/core/Separator",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -16604,6 +16894,7 @@
         "FrameHeader",
         "FramePanel",
         "FrameTitle",
+        "Label",
         "RadioGroupItem",
         "RadioGroupRoot",
         "RegistryIcon",
@@ -17321,6 +17612,7 @@
       "packageImports": [
         "@gaudi/design-system/blocks/Scheduling",
         "@gaudi/design-system/core/Avatar",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/core/ToggleGroup",
         "@gaudi/design-system/utilities/cn"
@@ -17332,6 +17624,7 @@
         "AvatarRoot",
         "ProgressRoot",
         "ScheduleCalendar",
+        "StatusDot",
         "ToggleGroupItem",
         "ToggleGroupRoot",
         "cn",
@@ -17566,6 +17859,7 @@
       "packageImports": [
         "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -17583,7 +17877,9 @@
         "TableHeadPrimitive",
         "TableHeader",
         "TableRoot",
-        "TableRowPrimitive"
+        "TableRowPrimitive",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -17725,7 +18021,6 @@
       ],
       "uses": [
         "Alert",
-        "AlertAction",
         "AlertDescription",
         "AlertTitle",
         "Badge",
@@ -17815,6 +18110,7 @@
         "@gaudi/design-system/blocks/Screens",
         "@gaudi/design-system/core/Checkbox",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Link",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -17823,6 +18119,7 @@
         "AuthForm",
         "Badge",
         "CheckboxRoot",
+        "IconTile",
         "Label",
         "Link",
         "RegistryIcon",
@@ -17849,7 +18146,6 @@
       "sourceFile": "src/components/blocks/Screens/stories/fixtures/screens/screens-inbox-capture.jsx",
       "assets": [],
       "packageImports": [
-        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/RadioGroup",
@@ -17860,13 +18156,14 @@
       ],
       "uses": [
         "Badge",
-        "Button",
         "FieldContent",
         "FieldDescriptionPrimitive",
         "FieldGroup",
         "FieldLabelPrimitive",
+        "FieldLegend",
         "FieldRoot",
         "FieldSeparator",
+        "FieldSet",
         "Label",
         "NativeSelect",
         "NativeSelectOption",
@@ -17898,6 +18195,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/ToggleGroup",
@@ -17916,6 +18214,7 @@
         "Discord",
         "Dropbox",
         "GoogleDrive",
+        "IconTile",
         "Loom",
         "Slack",
         "Stripe",
@@ -18012,6 +18311,7 @@
         "@gaudi/design-system/core/EmptyState",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/RadioGroup",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/ToggleGroup",
@@ -18031,6 +18331,7 @@
         "Label",
         "RadioGroup",
         "RegistryIcon",
+        "StatusDot",
         "SwitchRoot",
         "ToggleGroupItem",
         "ToggleGroupRoot",
@@ -18118,14 +18419,13 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
-        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Select",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/Tabs",
         "@gaudi/design-system/core/ToggleGroup",
-        "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/mdx/Table"
       ],
       "uses": [
@@ -18133,13 +18433,15 @@
         "AvatarImage",
         "AvatarRoot",
         "Badge",
-        "Button",
         "FieldDescriptionPrimitive",
         "FieldLabelPrimitive",
+        "FieldLegend",
         "FieldRoot",
+        "FieldSet",
         "Input",
         "Label",
-        "RegistryIcon",
+        "NativeSelect",
+        "NativeSelectOption",
         "SwitchRoot",
         "TableBodyPrimitive",
         "TableCellPrimitive",
@@ -18222,7 +18524,6 @@
       "packageImports": [
         "@gaudi/design-system/core/Accordion",
         "@gaudi/design-system/core/Avatar",
-        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Select",
@@ -18236,7 +18537,6 @@
         "AvatarImage",
         "AvatarRoot",
         "Badge",
-        "Button",
         "Collapsible",
         "CollapsibleContent",
         "CollapsibleTrigger",
@@ -18272,12 +18572,12 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Progress",
         "@gaudi/design-system/hooks/interaction/use-copy-to-clipboard",
-        "@gaudi/design-system/icons/RegistryIcon",
-        "@gaudi/design-system/utilities/cn"
+        "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "AvatarFallback",
@@ -18285,13 +18585,13 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "IconTile",
         "InputGroup",
         "InputGroupAddon",
         "InputGroupButton",
         "InputGroupInput",
         "ProgressRoot",
         "RegistryIcon",
-        "cn",
         "useCopyToClipboard"
       ],
       "dependencies": [
@@ -18669,6 +18969,7 @@
         "RadioGroup",
         "RegistryIcon",
         "Slack",
+        "StatusDot",
         "Textarea",
         "ToggleGroupItem",
         "ToggleGroupRoot",
@@ -19003,6 +19304,7 @@
         "SelectRoot",
         "SelectTrigger",
         "SelectValue",
+        "StatusDot",
         "cn"
       ],
       "dependencies": [
@@ -19387,6 +19689,7 @@
       "sourceFile": "src/components/core/Sheet/stories/fixtures/sheet/sheet-notifications.jsx",
       "assets": [],
       "packageImports": [
+        "@gaudi/design-system/core/Attachment",
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Pill",
@@ -19395,6 +19698,10 @@
         "@gaudi/design-system/utilities/cn"
       ],
       "uses": [
+        "Attachment",
+        "AttachmentDescription",
+        "AttachmentMedia",
+        "AttachmentTitle",
         "AvatarFallback",
         "AvatarImage",
         "AvatarRoot",
@@ -19407,6 +19714,7 @@
         "SheetHeader",
         "SheetTitle",
         "SheetTrigger",
+        "StatusDot",
         "cn"
       ],
       "dependencies": [
@@ -19541,6 +19849,7 @@
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
         "@gaudi/design-system/core/Accordion",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi",
         "@gaudi/design-system/utilities/cn"
@@ -19552,6 +19861,7 @@
         "CollapsibleContent",
         "CollapsibleTrigger",
         "GaudiBrand",
+        "Label",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
@@ -19569,7 +19879,8 @@
         "SidebarMenuSubItem",
         "SidebarProvider",
         "SidebarTrigger",
-        "cn"
+        "cn",
+        "useSidebar"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -19593,7 +19904,6 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/blocks/AppShell",
-        "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/Input",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -19601,7 +19911,6 @@
       ],
       "uses": [
         "AppShellFrame",
-        "Button",
         "CardContent",
         "CardHeader",
         "CardRoot",
@@ -19628,7 +19937,8 @@
         "SidebarProvider",
         "SidebarSeparator",
         "SidebarTrigger",
-        "cn"
+        "cn",
+        "useSidebar"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -19684,7 +19994,8 @@
         "SidebarProvider",
         "SidebarRail",
         "SidebarTrigger",
-        "TooltipProvider"
+        "TooltipProvider",
+        "useSidebar"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -19715,7 +20026,9 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Pill",
+        "@gaudi/design-system/core/Textarea",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -19731,10 +20044,11 @@
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "Field",
+        "FieldLabel",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
-        "SidebarFooter",
         "SidebarGroup",
         "SidebarGroupAction",
         "SidebarGroupContent",
@@ -19747,7 +20061,8 @@
         "SidebarMenuButton",
         "SidebarMenuItem",
         "SidebarProvider",
-        "SidebarTrigger"
+        "SidebarTrigger",
+        "Textarea"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -19780,6 +20095,8 @@
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Input",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/icons/brands/gaudi"
       ],
@@ -19810,6 +20127,8 @@
         "DropdownMenuTrigger",
         "GaudiBrand",
         "GaudiLogo",
+        "Input",
+        "Label",
         "RegistryIcon",
         "Sidebar",
         "SidebarContent",
@@ -19827,7 +20146,8 @@
         "SidebarMenuItem",
         "SidebarProvider",
         "SidebarSeparator",
-        "SidebarTrigger"
+        "SidebarTrigger",
+        "useSidebar"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -20314,6 +20634,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Sortable",
         "@gaudi/design-system/core/Switch",
@@ -20327,6 +20648,7 @@
         "FrameHeader",
         "FramePanel",
         "FrameTitle",
+        "IconTile",
         "RegistryIcon",
         "Sortable",
         "SortableItem",
@@ -20417,10 +20739,12 @@
       "packageImports": [
         "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Button",
+        "Dialog",
         "RegistryIcon",
         "StatCard",
         "StatMeter"
@@ -20447,19 +20771,10 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/blocks/StatCard",
-        "@gaudi/design-system/core/Button",
-        "@gaudi/design-system/core/DropdownMenu",
-        "@gaudi/design-system/core/Pill",
-        "@gaudi/design-system/icons/RegistryIcon"
+        "@gaudi/design-system/core/Pill"
       ],
       "uses": [
         "Badge",
-        "Button",
-        "DropdownMenuContent",
-        "DropdownMenuItemPrimitive",
-        "DropdownMenuRoot",
-        "DropdownMenuTrigger",
-        "RegistryIcon",
         "StatCard",
         "StatMeter"
       ],
@@ -20487,6 +20802,7 @@
         "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
@@ -20494,6 +20810,7 @@
         "CardContent",
         "CardFooter",
         "CardRoot",
+        "Dialog",
         "RegistryIcon",
         "StatDelta"
       ],
@@ -20548,6 +20865,8 @@
       "packageImports": [
         "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
         "@gaudi/design-system/core/ToggleGroup",
         "@gaudi/design-system/icons/RegistryIcon",
@@ -20555,6 +20874,7 @@
       ],
       "uses": [
         "Button",
+        "Dialog",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRoot",
@@ -20564,7 +20884,9 @@
         "StatDelta",
         "ToggleGroupItem",
         "ToggleGroupRoot",
-        "cn"
+        "cn",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -20653,20 +20975,24 @@
       "packageImports": [
         "@gaudi/design-system/blocks/StatCard",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/DataTable",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
-        "@gaudi/design-system/core/Link",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Button",
+        "Dialog",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRoot",
-        "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
-        "Link",
         "RegistryIcon",
-        "StatCard"
+        "StatCard",
+        "StatusDot",
+        "downloadCsv",
+        "toCsv"
       ],
       "dependencies": [
         "@gaudi/design-system"
@@ -20922,12 +21248,14 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Loader",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Stepper",
         "@gaudi/design-system/icons/RegistryIcon"
       ],
       "uses": [
         "Loader",
         "RegistryIcon",
+        "StatusDot",
         "StepperContent",
         "StepperIndicator",
         "StepperItem",
@@ -21149,6 +21477,7 @@
       "assets": [],
       "packageImports": [
         "@gaudi/design-system/core/Card",
+        "@gaudi/design-system/core/Field",
         "@gaudi/design-system/core/Separator",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/icons/RegistryIcon"
@@ -21158,6 +21487,7 @@
         "FrameHeader",
         "FramePanel",
         "FrameTitle",
+        "Label",
         "RegistryIcon",
         "Separator",
         "SwitchRoot"
@@ -21343,7 +21673,9 @@
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
+        "@gaudi/design-system/core/Dialog",
         "@gaudi/design-system/core/DropdownMenu",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/mdx/Table"
@@ -21354,11 +21686,13 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "Dialog",
         "DropdownMenuContent",
         "DropdownMenuItemPrimitive",
         "DropdownMenuRoot",
         "DropdownMenuSeparatorPrimitive",
         "DropdownMenuTrigger",
+        "IconTile",
         "RegistryIcon",
         "TableBodyPrimitive",
         "TableCellPrimitive",
@@ -21398,6 +21732,7 @@
       ],
       "packageImports": [
         "@gaudi/design-system/core/Avatar",
+        "@gaudi/design-system/core/Icon",
         "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/icons/RegistryIcon",
         "@gaudi/design-system/mdx/Table"
@@ -21409,6 +21744,7 @@
         "AvatarImage",
         "AvatarRoot",
         "Badge",
+        "IconTile",
         "RegistryIcon",
         "TableBodyPrimitive",
         "TableCellPrimitive",
@@ -22003,6 +22339,7 @@
         "@gaudi/design-system/core/Avatar",
         "@gaudi/design-system/core/Button",
         "@gaudi/design-system/core/Field",
+        "@gaudi/design-system/core/Pill",
         "@gaudi/design-system/core/Separator",
         "@gaudi/design-system/core/Switch",
         "@gaudi/design-system/core/Toast",
@@ -22017,6 +22354,7 @@
         "Label",
         "RegistryIcon",
         "Separator",
+        "StatusDot",
         "SwitchRoot",
         "ToastProvider",
         "toast"
@@ -22309,6 +22647,7 @@
         "AvatarRoot",
         "Badge",
         "Button",
+        "StatusDot",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",
@@ -22375,6 +22714,7 @@
         "Badge",
         "Button",
         "RegistryIcon",
+        "StatusDot",
         "TooltipContent",
         "TooltipProvider",
         "TooltipRoot",

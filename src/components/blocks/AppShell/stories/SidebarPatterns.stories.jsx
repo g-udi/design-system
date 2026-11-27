@@ -48,6 +48,19 @@ export const SidebarWorkspaceSwitcher = {
     await expect(await body.findByRole('menuitem', { name: 'Rename' })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(rowAction).toHaveFocus());
+    await userEvent.click(rowAction);
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Duplicate' }));
+    const copy = navigation.getByRole('button', { name: 'Actions for Checkout API (copy)' });
+    await userEvent.click(copy);
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Rename' }));
+    const name = navigation.getByRole('textbox', { name: 'Project name' });
+    await userEvent.clear(name);
+    await userEvent.type(name, 'Checkout sandbox');
+    await userEvent.click(navigation.getByRole('button', { name: 'Save project' }));
+    await userEvent.click(navigation.getByRole('button', { name: 'Actions for Checkout sandbox' }));
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Archive' }));
+    await expect(navigation.queryByRole('link', { name: 'Checkout sandbox' })).not.toBeInTheDocument();
+    await expect(navigation.getByRole('link', { name: 'Checkout API' })).toBeVisible();
     const account = navigation.getByRole('button', { name: /Nadira Rahimi/ });
     account.focus();
     await userEvent.keyboard('{Enter}');
@@ -65,6 +78,9 @@ export const SidebarIconRail = {
   name: 'Collapsible icon rail',
   ...pattern('icon-rail', 'Labels give way to tooltips at 3rem, with a rail and a trigger to drive it.'),
   play: async ({ canvasElement }) => {
+    const nav = await openNavigation(canvasElement);
+    await userEvent.click(nav.getByRole('link', { name: 'Monitoring' }));
+    await expect(within(canvasElement).getByRole('heading', { name: 'Monitoring' })).toBeVisible();
     if (import.meta.env.VITE_GAUDI_AUDIT !== '1') return;
     const { page } = await import('vitest/browser');
     const canvas = within(canvasElement);
@@ -113,6 +129,11 @@ export const SidebarDocsSubmenus = {
       await expect(trigger).toHaveAttribute('aria-expanded', 'false');
       await expect(canvas.getByRole('heading', { name: 'Sidebar anatomy' })).toBeVisible();
     }
+    if (trigger) await userEvent.click(trigger);
+    const routes = trigger ? within(await body.findByRole('dialog', { name: 'Documentation navigation' })) : await openNavigation(canvasElement);
+    await userEvent.type(routes.getByRole('textbox', { name: 'Search the documentation' }), 'virtual');
+    await userEvent.click(routes.getByRole('link', { name: 'Virtualisation' }));
+    await expect(canvas.getByRole('heading', { name: 'Virtualisation' })).toBeVisible();
   }
 };
 export const SidebarInspector = {
@@ -137,6 +158,9 @@ export const SidebarInspector = {
     await expect(body.getByRole('menuitem', { name: 'Remove' })).toBeVisible();
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(action).toHaveFocus());
+    await userEvent.click(action);
+    await userEvent.click(await body.findByRole('menuitem', { name: 'Make owner' }));
+    await expect(within(action.closest('li')).getByText('Owner')).toBeVisible();
     await auditSidebarState(context, 'assignee-actions', async (current) => {
       const currentAction = current.getByRole('button', { name: 'Actions for Teo Kalnins' });
       if (currentAction.getAttribute('aria-expanded') !== 'true') await userEvent.click(currentAction);

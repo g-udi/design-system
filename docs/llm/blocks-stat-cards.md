@@ -64,14 +64,14 @@ Change badges announce their direction (Up, Down, Unchanged) and never rely on c
 
 Curated patterns:
 
-- Balance — registry item `@gaudi/stat-card-balance` (uses `Button`, `RegistryIcon`, `StatCard`, `StatMeter`)
-- Breakdowns — registry item `@gaudi/stat-card-breakdowns` (uses `Badge`, `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatMeter`)
-- Hero metrics — registry item `@gaudi/stat-card-hero` (uses `Button`, `CardContent`, `CardFooter`, `CardRoot`, `RegistryIcon`, `StatDelta`)
+- Balance — registry item `@gaudi/stat-card-balance` (uses `Button`, `Dialog`, `RegistryIcon`, `StatCard`, `StatMeter`)
+- Breakdowns — registry item `@gaudi/stat-card-breakdowns` (uses `Badge`, `StatCard`, `StatMeter`)
+- Hero metrics — registry item `@gaudi/stat-card-hero` (uses `Button`, `CardContent`, `CardFooter`, `CardRoot`, `Dialog`, `RegistryIcon`, `StatDelta`)
 - Interval switch — registry item `@gaudi/stat-card-interval-reel` (uses `StatCard`, `ToggleGroup`)
-- KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`)
+- KPI overview — registry item `@gaudi/stat-card-kpi-overview` (uses `Button`, `Dialog`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatDelta`, `ToggleGroupItem`, `ToggleGroupRoot`, `cn`, `downloadCsv`, `toCsv`)
 - Leads with a range — registry item `@gaudi/stat-card-lead-range` (uses `ProgressRoot`, `StatCard`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)
 - Quota and progress — registry item `@gaudi/stat-card-quota` (uses `Badge`, `ProgressRoot`, `RegistryIcon`, `StatCard`)
-- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuSeparatorPrimitive`, `DropdownMenuTrigger`, `Link`, `RegistryIcon`, `StatCard`)
+- Revenue breakdown — registry item `@gaudi/stat-card-revenue` (uses `Button`, `Dialog`, `DropdownMenuContent`, `DropdownMenuItemPrimitive`, `DropdownMenuRoot`, `DropdownMenuTrigger`, `RegistryIcon`, `StatCard`, `StatusDot`, `downloadCsv`, `toCsv`)
 - Support metrics — registry item `@gaudi/stat-card-support` (uses `Badge`, `StatCard`)
 - Team performance — registry item `@gaudi/stat-card-team-performance` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `ProgressRoot`, `StatCard`, `StatDelta`)
 - Usage meter — registry item `@gaudi/stat-card-usage-meter` (uses `Badge`, `Button`, `CardContent`, `CardDescription`, `CardFooter`, `CardHeader`, `CardRoot`, `CardTitle`, `Collapsible`, `CollapsibleContent`, `CollapsibleTrigger`, `ProgressRoot`, `Sparkline`, `StatMeter`, `ToggleGroupItem`, `ToggleGroupRoot`)

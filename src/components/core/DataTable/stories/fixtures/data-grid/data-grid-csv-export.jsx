@@ -148,10 +148,8 @@ export function Pattern() {
                 </Button>
               }
             />
-            {/* Preview the file inline here; a real app lets the button save it. */}
             <DataGridExport filename='subscribers.csv' onExport={(csv) => {
                 setPreview(csv);
-                return false;
               }}>
               {selected ? `Export ${selected} selected` : 'Export CSV'}
             </DataGridExport>

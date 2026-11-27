@@ -1,8 +1,9 @@
 'use client';
+import { Attachment, AttachmentMedia, AttachmentTitle, AttachmentDescription, AttachmentAction } from '@gaudi/design-system/core/Attachment';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   BreadcrumbRoot as Breadcrumb,
   BreadcrumbItemPrimitive as BreadcrumbItem,
@@ -22,25 +23,10 @@ import {
   CommandItem,
   CommandList
 } from '@gaudi/design-system/core/Commander';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger
-} from '@gaudi/design-system/core/DropdownMenu';
+import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuLabelPrimitive as DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparatorPrimitive as DropdownMenuSeparator, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import { default as Kbd } from '@gaudi/design-system/core/Kbd';
 import { PopoverPrimitive as Popover, PopoverContentPrimitive as PopoverContent, PopoverTriggerPrimitive as PopoverTrigger } from '@gaudi/design-system/core/Popover';
-import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
-import { ProgressRing } from '@gaudi/design-system/core/Progress';
+import Progress, { ProgressRoot, ProgressRing } from '@gaudi/design-system/core/Progress';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import {
   Sidebar,
@@ -63,7 +49,7 @@ import {
   useAppShellFrame
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 
@@ -106,33 +92,88 @@ const ring = (value, tone) => (
   </span>
 );
 const initialProjects = [
-  { id: 'memory-sleep', label: 'Memory & Sleep', leading: ring(72, 'info'), status: '72% complete' },
-  { id: 'literature-review', label: 'Literature Review', leading: ring(35, 'discovery'), status: '35% complete' },
-  { id: 'field-interviews', label: 'Field Interviews', leading: ring(100, 'success'), status: 'complete' },
-  { id: 'survey-analysis', label: 'Survey Analysis', leading: ring(18, 'warning'), status: '18% complete' },
-  { id: 'grant-proposal', label: 'Grant Proposal', leading: ring(64, 'attention'), status: '64% complete' }
+  {
+    id: 'memory-sleep',
+    lead: 'Nadia Karim',
+    next: 'Compare delayed recall after the two sleep conditions.',
+    source: 'Sleep diary, cohort A',
+    question: 'Does a later bedtime change next-day recall?',
+    questionState: 'investigating',
+    label: 'Memory & Sleep',
+    leading: ring(72, 'info'),
+    status: '72% complete'
+  },
+  {
+    id: 'literature-review',
+    lead: 'Theo Martin',
+    next: 'Reconcile the inclusion criteria in the review protocol.',
+    source: 'Screening log, revision 3',
+    question: 'Which studies report the comparison condition?',
+    questionState: 'open',
+    label: 'Literature Review',
+    leading: ring(35, 'discovery'),
+    status: '35% complete'
+  },
+  {
+    id: 'field-interviews',
+    lead: 'Omar Aziz',
+    next: 'Index the interview transcripts by theme and consent status.',
+    source: 'Interview transcripts, batch 3',
+    question: 'Which route changes did participants mention?',
+    questionState: 'answered',
+    label: 'Field Interviews',
+    leading: ring(100, 'success'),
+    status: 'complete'
+  },
+  {
+    id: 'survey-analysis',
+    lead: 'Ines Silva',
+    next: 'Check the response distribution before coding free text.',
+    source: 'Pilot questionnaire',
+    question: 'Do the two recruitment channels reach different age groups?',
+    questionState: 'investigating',
+    label: 'Survey Analysis',
+    leading: ring(18, 'warning'),
+    status: '18% complete'
+  },
+  {
+    id: 'grant-proposal',
+    lead: 'Yusuf Ali',
+    next: 'Collect cost estimates for the proposed second study.',
+    source: 'Pilot budget',
+    question: 'What would a second recruitment wave cost?',
+    questionState: 'open',
+    label: 'Grant Proposal',
+    leading: ring(64, 'attention'),
+    status: '64% complete'
+  }
 ];
 const pages = research.flatMap((item) => (item.items ? item.items.map((child) => ({ ...child, section: item.label })) : [item]));
+
+const transcript =
+  'Interview transcripts, batch 3\n\nField interviews, participant 03 (illustrative excerpt)\nInterviewer: How did you find the reading room?\nParticipant: I followed the hand-drawn map by the entrance.\n';
+const bibliography =
+  '@misc{cognition-notes,\n  title = {Memory and Sleep: Pilot Study Notes},\n  author = {Cognition Lab},\n  year = {2026},\n  note = {Illustrative research notebook}\n}\n';
 
 const initialNotifications = [
   { id: 'mention', kind: 'mention', unread: true, photo: portrait('person-23'), title: '@nadia mentioned you in Memory & Sleep notes', body: '“Can you check this citation?”', time: '2m ago' },
   { id: 'approval', kind: 'approval', unread: true, icon: 'CircleCheck', tone: 'text-warning', title: 'Sign-off requested', body: 'The Literature Review draft needs your sign-off before it is shared with the lab.', time: '5m ago', meta: ['Priority', 'High'] },
-  { id: 'file', kind: 'file', unread: true, photo: portrait('person-41'), title: '@omar shared Interview transcripts', file: 'interviews-batch-3.pdf', size: '2 MB', time: '15m ago' },
+  { id: 'file', kind: 'file', unread: true, photo: portrait('person-41'), title: '@omar shared Interview transcripts', file: 'interviews-batch-3.txt', text: transcript, time: '15m ago' },
   { id: 'task', kind: 'task', unread: true, icon: 'Bookmark', tone: 'text-info', title: 'Reading assigned to you', body: 'Annotate chapter 4 of the sleep-spindles review.', time: '30m ago', meta: ['Due', 'Tomorrow'] },
   { id: 'joined', kind: 'joined', unread: true, icon: 'Users', tone: 'text-success', title: '4 people joined Cognition Lab', body: 'Nadia, Theo, Ines and Yusuf just joined the lab workspace.', time: '45m ago', people: ['person-20', 'person-44', 'person-07'] },
   { id: 'event', kind: 'event', icon: 'Calendar', tone: 'text-discovery', title: 'Reading group reminder', body: 'Discussion of this week’s paper with the lab.', time: '3h ago', when: ['Mar 3, 2026', '10:00 to 11:00 AM'] },
   { id: 'milestone', kind: 'milestone', icon: 'Award', tone: 'text-success', title: 'Weekly reading goal reached', body: '12 of 12 papers read this week.', time: '4h ago', meta: ['Goal', '12 papers'] },
-  { id: 'export', kind: 'plain', icon: 'Download', tone: 'text-text-muted', title: 'Bibliography export ready', body: 'Your BibTeX export of 214 references is ready to download.', time: 'Yesterday' },
+  { id: 'export', kind: 'plain', icon: 'Download', tone: 'text-text-muted', title: 'Bibliography export ready', body: 'One sample reference is ready to download.', file: 'cognition-notes.bib', text: bibliography, time: 'Yesterday' },
   { id: 'sign-in', kind: 'plain', icon: 'ShieldAlert', tone: 'text-attention', title: 'New sign-in detected', body: 'We noticed a new login from macOS, Chrome.', time: 'Yesterday' }
 ];
 
 function Meta({ items }) {
   if (!items) return null;
   return (
-    <span className='border-ui-border inline-flex items-center overflow-hidden rounded-(--ds-radius-control) border text-xs'>
-      <span className='bg-ui-muted text-text-muted px-1.5 py-0.5'>{items[0]}</span>
-      <span className='px-1.5 py-0.5 font-medium'>{items[1]}</span>
-    </span>
+    <Badge variant='outline' className='gap-1.5 font-normal'>
+      <span className='text-text-muted'>{items[0]}</span>
+      <span className='font-medium'>{items[1]}</span>
+    </Badge>
   );
 }
 
@@ -169,14 +210,20 @@ function NotificationItem({ item, onResolve }) {
           )
         ) : null}
         {item.file ? (
-          <span className='border-ui-border flex w-fit items-center gap-1.5 rounded-(--ds-radius-control) border ps-2 text-xs'>
-            <RegistryIcon lucide='Paperclip' aria-hidden='true' className='size-3.5' />
-            <span className='font-medium'>{item.file}</span>
-            <span className='text-text-muted'>({item.size})</span>
-            <Button size='icon-xs' variant='ghost' aria-label={`Download ${item.file}`}>
-              <RegistryIcon lucide='Download' aria-hidden='true' />
-            </Button>
-          </span>
+          <Attachment size='xs' className='w-fit'>
+            <AttachmentMedia file={{name: item.file}} />
+            <AttachmentTitle>{item.file}</AttachmentTitle>
+            <AttachmentDescription>{new Blob([item.text]).size} B</AttachmentDescription>
+            <AttachmentAction asChild>
+              <a
+                href={`data:text/plain;charset=utf-8,${encodeURIComponent(item.text)}`}
+                download={item.file}
+                aria-label={`Download ${item.file}`}
+              >
+                <RegistryIcon lucide='Download' aria-hidden='true' />
+              </a>
+            </AttachmentAction>
+          </Attachment>
         ) : null}
         {item.people ? (
           <AvatarGroup>
@@ -196,19 +243,28 @@ function NotificationItem({ item, onResolve }) {
               <span className='font-medium'>{item.when[0]}</span>
               <span className='text-text-muted'>{item.when[1]}</span>
             </Badge>
-            <Button size='xs'>Join</Button>
-            <Button size='xs' variant='outline'>Decline</Button>
+            {item.resolved ? (
+              <Badge variant='outline'>{item.resolved}</Badge>
+            ) : (
+              <Button size='xs' variant='outline' onClick={() => onResolve(item.id, 'Bookmarked')}>
+                Bookmark event
+              </Button>
+            )}
           </div>
         ) : null}
         {item.kind === 'milestone' ? (
-          <Progress value={100} aria-label='Weekly reading goal' className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success' />
+          <ProgressRoot
+            value={100}
+            aria-label='Weekly reading goal'
+            className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success'
+          />
         ) : null}
         <div className='text-text-muted flex flex-wrap items-center gap-2 text-xs'>
           <span>{item.time}</span>
           <Meta items={item.meta} />
         </div>
       </div>
-      {item.unread ? <span aria-hidden='true' className='bg-ui-foreground absolute top-4 end-4 size-1.5 rounded-full' /> : null}
+      {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-4' /> : null}
     </li>
   );
 }
@@ -225,7 +281,7 @@ function NotificationsPopover() {
           <PopoverTrigger asChild>
             <Button variant='ghost' size='icon-sm' aria-label={unread ? `Notifications, ${unread} unread` : 'Notifications'} className='relative'>
               <RegistryIcon lucide='Bell' aria-hidden='true' />
-              {unread ? <span aria-hidden='true' className='bg-ui-foreground absolute top-1 end-1.5 size-1.5 rounded-full' /> : null}
+              {unread ? <StatusDot className='bg-ui-foreground absolute top-1 end-1.5' /> : null}
             </Button>
           </PopoverTrigger>
         </TooltipTrigger>
@@ -265,17 +321,12 @@ function NotificationsPopover() {
             <NotificationItem key={item.id} item={item} onResolve={resolve} />
           ))}
         </ul>
-        <div className='border-ui-border border-t p-1'>
-          <Button variant='ghost' size='sm' className='w-full'>
-            View all notifications
-          </Button>
-        </div>
       </PopoverContent>
     </Popover>
   );
 }
 
-function Brand() {
+function Brand({ onHome }) {
   return (
     <div className='flex items-center gap-1 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-2'>
       <Link
@@ -283,7 +334,7 @@ function Brand() {
         href='#overview'
         aria-label='Gaudi Research'
         className='focus-visible:ring-ui-sidebar-ring flex min-w-0 flex-1 items-center gap-2 rounded-(--ds-radius-control) p-1 text-sm font-semibold outline-hidden focus-visible:ring-2 group-data-[collapsible=icon]:flex-none group-data-[collapsible=icon]:p-0'
-        onClick={(event) => event.preventDefault()}
+        onClick={(event) => { event.preventDefault(); onHome(); }}
       >
         <GaudiLogo aria-hidden='true' className='hidden size-7 group-data-[collapsible=icon]:block' />
         <span className='flex min-w-0 items-center gap-2 group-data-[collapsible=icon]:hidden'><GaudiBrand className='text-sm' /><span className='truncate'>Research</span></span>
@@ -324,7 +375,11 @@ function ReadingGoal() {
         </h2>
         <div className='bg-ui-background border-ui-border -m-px grid gap-2 rounded-(--ds-radius-card) border p-2.5'>
           <p className='text-text-muted text-xs leading-snug'>9 of 11 papers read; the goal resets on Monday.</p>
-          <Progress value={82} aria-label='Reading goal progress' className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success' />
+          <ProgressRoot
+            value={82}
+            aria-label='Reading goal progress'
+            className='bg-ui-muted h-1.5 rounded-full [&>[data-slot=progress-indicator]]:bg-success'
+          />
           <div className='flex justify-between text-xs'>
             <span><b className='font-semibold'>82%</b> <span className='text-text-muted'>Read</span></span>
             <span><b className='font-semibold'>18%</b> <span className='text-text-muted'>Left</span></span>
@@ -345,7 +400,6 @@ function LabTile({ lab, className = 'size-6' }) {
 
 function LabMenu({ lab, onChange }) {
   const { isMobile } = useSidebar();
-  const [theme, setTheme] = useState('system');
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -370,46 +424,6 @@ function LabMenu({ lab, onChange }) {
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Plus' aria-hidden='true' />
-              New Lab
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel className='text-text-muted text-xs font-normal'>Account</DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='User' aria-hidden='true' />
-                Profile
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Target' aria-hidden='true' />
-                Reading Goals
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Settings' aria-hidden='true' />
-                Preferences
-              </DropdownMenuItem>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  <RegistryIcon lucide='Palette' aria-hidden='true' />
-                  Theme
-                </DropdownMenuSubTrigger>
-                <DropdownMenuSubContent>
-                  <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                    <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuSubContent>
-              </DropdownMenuSub>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -455,7 +469,7 @@ function PageHeader({ page, onNavigate }) {
 }
 
 /** ⌘K / Ctrl+K opens the palette while the reader works inside this window. */
-function SearchPalette({ open, onOpenChange, onSelect, children }) {
+function SearchPalette({ open, onOpenChange, onSelect, projects, children }) {
   const frame = useAppShellFrame();
   const shortcut = useHotkey('mod+k', () => onOpenChange(!open), { enableInInputs: true, target: frame?.container ?? null });
   return (
@@ -467,7 +481,7 @@ function SearchPalette({ open, onOpenChange, onSelect, children }) {
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             <CommandGroup heading='Pages'>
-              {pages.map((entry) => (
+              {[...pages, ...projects].map((entry) => (
                 <CommandItem key={entry.id} value={`${entry.section ?? ''} ${entry.label}`} onSelect={() => onSelect(entry.id)}>
                   <RegistryIcon lucide={entry.icon || 'CornerDownRight'} aria-hidden='true' />
                   {entry.section ? <span className='text-text-muted'>{entry.section} /</span> : null}
@@ -485,9 +499,20 @@ function SearchPalette({ open, onOpenChange, onSelect, children }) {
 export function Pattern() {
   const [page, setPage] = useState('dashboard');
   const [lab, setLab] = useState(labs[0]);
-  const [projects, setProjects] = useState(initialProjects);
+  const [projectsByLab, setProjectsByLab] = useState({
+    cognition: initialProjects,
+    urban: initialProjects.filter((entry) => ['field-interviews', 'survey-analysis'].includes(entry.id)),
+    independent: initialProjects.filter((entry) => entry.id === 'literature-review')
+  });
+  const projects = projectsByLab[lab.id];
+  const setProjects = (update) => setProjectsByLab((byLab) => ({ ...byLab, [lab.id]: update(byLab[lab.id]) }));
   const [searchOpen, setSearchOpen] = useState(false);
   const label = [...pages, ...projects].find((entry) => entry.id === page)?.label ?? 'Overview';
+  const currentProject = projects.find((entry) => entry.id === page);
+  const questions = ['open', 'investigating', 'answered'].includes(page);
+  const people = ['members', 'reviewers', 'access'].includes(page);
+  const sourceView = ['my-reading', 'citations'].includes(page);
+  const visibleProjects = questions ? projects.filter((entry) => entry.questionState === page) : projects;
   const projectActions = (item) => (
     <>
       <DropdownMenuLabel className='text-text-muted text-xs font-normal'>Actions</DropdownMenuLabel>
@@ -495,20 +520,35 @@ export function Pattern() {
         <RegistryIcon lucide='ExternalLink' aria-hidden='true' />
         Open Study
       </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='UserPlus' aria-hidden='true' />
-        Invite Collaborator
+      <DropdownMenuItem asChild>
+        <a
+          download={`${item.id}.bib`}
+          href={
+            'data:text/plain;charset=utf-8,' +
+            encodeURIComponent(
+              `@misc{${item.id},\n  title = {${item.label}},\n  author = {${item.lead}}\n}\n`
+            )
+          }
+        >
+          <RegistryIcon lucide='Quote' aria-hidden='true' />
+          Export study citation
+        </a>
       </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Quote' aria-hidden='true' />
-        Export Citations
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Copy' aria-hidden='true' />
-        Duplicate
+      <DropdownMenuItem onSelect={() => {
+        const copy = { ...item, id: crypto.randomUUID(), label: `${item.label} (copy)` };
+        setProjects((list) => [...list, copy]);
+        setPage(copy.id);
+      }}>
+        <RegistryIcon lucide='Copy' aria-hidden='true' />Duplicate
       </DropdownMenuItem>
       <DropdownMenuSeparator />
-      <DropdownMenuItem variant='destructive' onSelect={() => setProjects((list) => list.filter((entry) => entry.id !== item.id))}>
+      <DropdownMenuItem
+        variant='destructive'
+        onSelect={() => {
+          setProjects((list) => list.filter((entry) => entry.id !== item.id));
+          if (page === item.id) setPage('dashboard');
+        }}
+      >
         <RegistryIcon lucide='Archive' aria-hidden='true' />
         Archive
       </DropdownMenuItem>
@@ -517,7 +557,7 @@ export function Pattern() {
   return (
     <AppShellFrame>
       <SidebarProvider shortcut={false}>
-        <SearchPalette
+        <SearchPalette projects={projects}
           open={searchOpen}
           onOpenChange={setSearchOpen}
           onSelect={(id) => {
@@ -528,7 +568,7 @@ export function Pattern() {
           {(shortcut) => (
             <Sidebar collapsible='icon'>
               <SidebarHeader>
-                <Brand />
+                <Brand onHome={() => setPage('dashboard')} />
                 <SearchButton onOpen={() => setSearchOpen(true)} shortcut={shortcut} />
               </SidebarHeader>
               <SidebarContent role='navigation' aria-label='Research'>
@@ -547,7 +587,7 @@ export function Pattern() {
                 </div>
               </SidebarContent>
               <SidebarFooter>
-                <LabMenu lab={lab} onChange={setLab} />
+                <LabMenu lab={lab} onChange={(next) => { setLab(next); setPage('dashboard'); }} />
               </SidebarFooter>
             </Sidebar>
           )}
@@ -555,7 +595,61 @@ export function Pattern() {
         <AppShellPanel>
           <PageHeader page={label} onNavigate={setPage} />
           <AppShellBody>
-            <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-2'><Skeleton className='h-32' /><Skeleton className='h-32' /><Skeleton className='h-56 sm:col-span-2' /></div>
+            <section className='mx-auto grid w-full max-w-2xl gap-4 p-4' aria-label='Research workspace'>
+              <header className='grid gap-1'>
+                <h2 className='text-lg font-semibold'>
+                  {currentProject?.label ??
+                    (questions
+                      ? 'Research questions'
+                      : people
+                        ? 'Study contacts'
+                        : sourceView
+                          ? 'Study sources'
+                          : 'Active studies')}
+                </h2>
+                <p className='text-sm text-text-muted'>
+                  {lab.name} · {currentProject ? currentProject.lead : `${visibleProjects.length} studies`}
+                </p>
+              </header>
+              {currentProject ? (
+                <div className='grid gap-3'>
+                  <Progress
+                    label='Study completion'
+                    value={parseInt(currentProject.status, 10) || 100}
+                    valueText={currentProject.status}
+                  />
+                  <h3 className='font-medium'>{currentProject.question}</h3>
+                  <p className='text-sm'>{currentProject.next}</p>
+                  <p className='text-sm text-text-muted'>Source: {currentProject.source}</p>
+                  <Button size='sm' variant='outline' className='justify-self-start' onClick={() => setPage('projects')}>
+                    Back to studies
+                  </Button>
+                </div>
+              ) : (
+                <ItemGroup aria-label='Study directory'>
+                  {visibleProjects.map((entry) => (
+                    <Item key={entry.id} size='sm' className='flex-nowrap border-b last:border-b-0'>
+                      <ItemContent>
+                        <ItemTitle>
+                          {questions ? entry.question : people ? entry.lead : sourceView ? entry.source : entry.label}
+                        </ItemTitle>
+                        <ItemDescription>{questions || people || sourceView ? entry.label : entry.next}</ItemDescription>
+                      </ItemContent>
+                      <ItemActions>
+                        <Button
+                          size='sm'
+                          variant='outline'
+                          aria-label={`Open study: ${entry.label}`}
+                          onClick={() => setPage(entry.id)}
+                        >
+                          Open
+                        </Button>
+                      </ItemActions>
+                    </Item>
+                  ))}
+                </ItemGroup>
+              )}
+            </section>
           </AppShellBody>
         </AppShellPanel>
       </SidebarProvider>

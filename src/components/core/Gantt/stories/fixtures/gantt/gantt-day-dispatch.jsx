@@ -5,11 +5,11 @@ import { Gantt } from '@gaudi/design-system/core/Gantt';
 import { GanttNav, GanttToolbar } from '@gaudi/design-system/core/Gantt';
 import { GanttView } from '@gaudi/design-system/core/Gantt';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
-import { FieldRoot as Field, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
+import { FieldLegend, FieldSet, Label, FieldRoot as Field, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
 import {
@@ -207,7 +207,7 @@ export function Pattern() {
                 <ul aria-label='Job status' className='text-text-muted flex flex-wrap items-center gap-3 text-xs'>
                   {Object.entries(STATUS).map(([label, { color }]) => (
                     <li key={label} className='flex items-center gap-1.5'>
-                      <span aria-hidden='true' className='size-2 rounded-full' style={{ background: color }} />
+                      <StatusDot className='size-2' style={{ background: color }} />
                       {label}
                     </li>
                   ))}
@@ -287,22 +287,22 @@ export function Pattern() {
                       </SelectContent>
                     </Select>
                   </Field>
-                  <fieldset className='grid gap-2'>
-                    <legend className='mb-1 text-sm font-medium'>Close-out checklist</legend>
+                  <FieldSet className='grid gap-2'>
+                    <FieldLegend className='mb-1 text-sm font-medium'>Close-out checklist</FieldLegend>
                     {[
                       ['parts', 'Parts logged'],
                       ['photos', 'Before and after photos'],
                       ['signature', 'Customer signature']
                     ].map(([key, label]) => (
-                      <label key={key} className='flex items-center gap-2 text-sm'>
+                      <Label key={key} className='flex items-center gap-2 text-sm'>
                         <Checkbox
                           checked={draft.checklist[key]}
                           onCheckedChange={(checked) => setDraft({ ...draft, checklist: { ...draft.checklist, [key]: checked === true } })}
                         />
                         {label}
-                      </label>
+                      </Label>
                     ))}
-                  </fieldset>
+                  </FieldSet>
                 </FieldGroup>
               </div>
               <SheetFooter>

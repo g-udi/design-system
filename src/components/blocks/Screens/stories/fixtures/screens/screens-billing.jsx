@@ -1,4 +1,5 @@
 import { TableRoot as Table, TableHeader, TableBodyPrimitive as TableBody, TableRowPrimitive as TableRow, TableHeadPrimitive as TableHead, TableCellPrimitive as TableCell, TableCaption } from '@gaudi/design-system/mdx/Table';
+import { downloadCsv, toCsv } from '@gaudi/design-system/core/DataTable';
 import { StatCard } from '@gaudi/design-system/blocks/StatCard';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -30,10 +31,6 @@ export function Pattern() {
           </h2>
           <p className='text-text-muted text-sm'>€48 per month · renews November 1, 2026 · Visa ending 4242</p>
         </div>
-        <div className='flex gap-2'>
-          <Button variant='outline'>Cancel plan</Button>
-          <Button>Upgrade</Button>
-        </div>
       </header>
       <div className='grid gap-3 sm:grid-cols-3'>
         {usage.map((item) => (
@@ -64,7 +61,20 @@ export function Pattern() {
               <TableCell className='tabular-nums'>{amount}</TableCell>
               <TableCell><Badge size='sm' variant={status[state]}>{state}</Badge></TableCell>
               <TableCell className='text-end'>
-                <Button size='xs' variant='ghost' aria-label={`Download ${number}`}>
+                <Button
+                  size='xs'
+                  variant='ghost'
+                  aria-label={`Download ${number}`}
+                  onClick={() =>
+                    downloadCsv(
+                      toCsv(
+                        [{ number, date, amount, state }],
+                        ['number', 'date', 'amount', 'state'].map((key) => ({ header: key, value: (row) => row[key] }))
+                      ),
+                      `${number}.csv`
+                    )
+                  }
+                >
                   <RegistryIcon lucide='DownloadIcon' aria-hidden='true' />
                 </Button>
               </TableCell>

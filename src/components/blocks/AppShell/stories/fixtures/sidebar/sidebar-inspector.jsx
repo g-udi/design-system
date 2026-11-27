@@ -1,4 +1,7 @@
 'use client';
+import { useState } from 'react';
+import { Field, FieldLabel } from '@gaudi/design-system/core/Field';
+import Textarea from '@gaudi/design-system/core/Textarea';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
@@ -17,7 +20,6 @@ import {
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupAction,
   SidebarGroupContent,
@@ -103,17 +105,17 @@ const ACTIVITY = [
     icon: <RegistryIcon lucide='UserPlusIcon' aria-hidden='true' />
   }
 ];
-function AssigneeRow({ assignee }) {
+function AssigneeRow({ assignee, owner, onOwner, onRemove }) {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild>
-        <a href='#'>
+        <div>
           <Avatar size='sm'>
             <AvatarImage src={assignee.avatar} alt='' />
             <AvatarFallback>{assignee.initials}</AvatarFallback>
           </Avatar>
-          <span>{assignee.name}</span>
-        </a>
+          <span>{assignee.name}</span>{owner && <Badge size='xs'>Owner</Badge>}
+        </div>
       </SidebarMenuButton>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -126,19 +128,18 @@ function AssigneeRow({ assignee }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent side='left' align='start'>
           <DropdownMenuGroup>
-            <DropdownMenuItem>Make owner</DropdownMenuItem>
-            <DropdownMenuItem>Notify</DropdownMenuItem>
+            <DropdownMenuItem onSelect={onOwner} disabled={owner}>Make owner</DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem variant='destructive'>Remove</DropdownMenuItem>
+            <DropdownMenuItem variant='destructive' onSelect={onRemove}>Remove</DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
     </SidebarMenuItem>
   );
 }
-function Inspector() {
+function Inspector({ assignees, owner, setOwner, setAssignees }) {
   return (
     <Sidebar
       side='right'
@@ -158,14 +159,14 @@ function Inspector() {
       <SidebarContent role='complementary' aria-label='Issue details'>
         <SidebarGroup>
           <SidebarGroupLabel>Assignees</SidebarGroupLabel>
-          <SidebarGroupAction type='button'>
+          {assignees.length < ASSIGNEES.length && <DropdownMenu><DropdownMenuTrigger asChild><SidebarGroupAction type='button'>
             <RegistryIcon lucide='UserPlusIcon' aria-hidden='true' />
             <span className='sr-only'>Add assignee</span>
-          </SidebarGroupAction>
+          </SidebarGroupAction></DropdownMenuTrigger><DropdownMenuContent>{ASSIGNEES.filter(person => !assignees.includes(person.id)).map(person => <DropdownMenuItem key={person.id} onSelect={() => setAssignees(list => [...list, person.id])}>{person.name}</DropdownMenuItem>)}</DropdownMenuContent></DropdownMenu>}
           <SidebarGroupContent>
             <SidebarMenu>
-              {ASSIGNEES.map((assignee) => (
-                <AssigneeRow key={assignee.id} assignee={assignee} />
+              {ASSIGNEES.filter(person => assignees.includes(person.id)).map((assignee) => (
+                <AssigneeRow key={assignee.id} assignee={assignee} owner={owner === assignee.id} onOwner={() => setOwner(assignee.id)} onRemove={() => { setAssignees(list => list.filter(id => id !== assignee.id)); if (owner === assignee.id) setOwner(null); }} />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -178,10 +179,10 @@ function Inspector() {
               {LINKED.map((entry) => (
                 <SidebarMenuItem key={entry.id}>
                   <SidebarMenuButton asChild>
-                    <a href='#'>
+                    <div>
                       {entry.icon}
                       <span>{entry.label}</span>
-                    </a>
+                    </div>
                   </SidebarMenuButton>
                   <SidebarMenuBadge>{entry.count}</SidebarMenuBadge>
                 </SidebarMenuItem>
@@ -197,7 +198,7 @@ function Inspector() {
               {ACTIVITY.map((entry) => (
                 <SidebarMenuItem key={entry.id}>
                   <SidebarMenuButton asChild>
-                    <a href='#'>
+                    <div>
                       {entry.icon}
                       <span className='min-w-0 flex-1 truncate'>
                         {entry.label}
@@ -205,7 +206,7 @@ function Inspector() {
                       <span className='text-ui-sidebar-foreground shrink-0 text-xs'>
                         {entry.time}
                       </span>
-                    </a>
+                    </div>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -214,24 +215,21 @@ function Inspector() {
         </SidebarGroup>
       </SidebarContent>
 
-      <SidebarFooter>
-        <Button variant='outline' size='sm' className='w-full'>
-          Open in board
-        </Button>
-      </SidebarFooter>
+
     </Sidebar>
   );
 }
 function IssueView() {
+  const [watching, setWatching] = useState(false);
+  const [writing, setWriting] = useState(false);
+  const [comments, setComments] = useState([]);
   return (
     <SidebarInset className='min-w-0 overflow-hidden'>
       <header className='flex h-12 shrink-0 items-center gap-2 border-b px-4'>
         <span className='text-ui-muted-foreground shrink-0 text-xs font-medium tabular-nums'>
           ENG-2481
         </span>
-        <Button variant='outline' size='sm' className='ml-auto'>
-          Share
-        </Button>
+        <span className='ms-auto' />
         <SidebarTrigger />
       </header>
 
@@ -250,29 +248,31 @@ function IssueView() {
         </p>
 
         <div className='mt-4 flex flex-wrap gap-2'>
-          <Button variant='ghost' size='sm'>
+          <Button variant='ghost' size='sm' aria-expanded={writing} onClick={() => setWriting(value => !value)}>
             <RegistryIcon lucide='MessageSquareIcon' aria-hidden='true' />
             Comment
           </Button>
-          <Button variant='ghost' size='sm'>
-            <RegistryIcon lucide='PaperclipIcon' aria-hidden='true' />
-            Attach
-          </Button>
-          <Button variant='ghost' size='sm'>
+          <Button variant='ghost' size='sm' aria-pressed={watching} onClick={() => setWatching(value => !value)}>
             <RegistryIcon lucide='EyeIcon' aria-hidden='true' />
-            Watch
+            {watching ? 'Watching' : 'Watch'}
           </Button>
         </div>
+        {writing && <form className='mt-3 grid max-w-lg gap-2' onSubmit={event => { event.preventDefault(); const text = String(new FormData(event.currentTarget).get('comment')).trim(); if (text) { setComments(list => [...list, text]); setWriting(false); } }}>
+          <Field><FieldLabel htmlFor='inspector-comment'>Comment</FieldLabel><Textarea name='comment' id='inspector-comment' required /></Field><Button className='w-fit' size='sm' type='submit'>Post comment</Button>
+        </form>}
+        {comments.length > 0 && <ul aria-label='Comments' className='mt-4 grid gap-2 text-sm'>{comments.map((comment, i) => <li key={i}>{comment}</li>)}</ul>}
       </div>
     </SidebarInset>
   );
 }
 export function Pattern() {
+  const [assignees, setAssignees] = useState(ASSIGNEES.map(person => person.id));
+  const [owner, setOwner] = useState(null);
   return (
     <AppShellFrame>
       <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
         <IssueView />
-        <Inspector />
+        <Inspector assignees={assignees} setAssignees={setAssignees} owner={owner} setOwner={setOwner} />
       </SidebarProvider>
     </AppShellFrame>
   );

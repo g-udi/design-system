@@ -5,6 +5,7 @@ import {
   DialogConfirmationContent,
   DialogConfirmationDescription,
   DialogConfirmationFooter,
+  DialogConfirmationMedia,
   DialogConfirmationTitle,
   DialogConfirmationTrigger
 } from '@gaudi/design-system/core/Dialog';
@@ -20,9 +21,9 @@ export function Pattern() {
       </DialogConfirmationTrigger>
       <DialogConfirmationContent className='gap-0 overflow-hidden p-0 sm:max-w-md'>
         <div className='flex items-start gap-3 p-4'>
-          <div className='flex size-9 shrink-0 items-center justify-center rounded-full bg-warning-muted text-warning'>
-            <RegistryIcon lucide='TriangleAlertIcon' className='size-4' />
-          </div>
+          <DialogConfirmationMedia className='size-9 shrink-0 rounded-full bg-warning-muted text-warning'>
+            <RegistryIcon lucide='TriangleAlertIcon' aria-hidden='true' className='size-4' />
+          </DialogConfirmationMedia>
           <div className='flex flex-col justify-center gap-1'>
             <DialogConfirmationTitle className='text-sm font-semibold'>
               Unsaved changes

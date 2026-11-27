@@ -90,7 +90,7 @@ export const Playground = {
     await expect(getComputedStyle(element).textTransform).toBe('none');
     await expect(element).toHaveClass(...pillVariants({ radius, size, tone, variant }).split(' '));
     await expect(element).toHaveAttribute('data-slot', 'badge');
-    await expect(Boolean(element.querySelector('.animate-ping'))).toBe(args.pulse);
+    await expect(Boolean(element.querySelector('[data-slot="status-dot"][data-pulse]'))).toBe(args.pulse);
     const link = within(canvasElement).getByRole('link', { name: '#tokens' });
     await expect(link).toHaveAttribute('href', '/blog/tags/tokens');
     await expect(link).toHaveClass(radii[args.radius]);

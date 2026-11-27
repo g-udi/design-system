@@ -1,6 +1,6 @@
 import { CopyButton } from '../components/CopyButton';
 
-import Pill from '../../components/core/Pill';
+import Pill, { StatusDot } from '@gaudi/design-system/core/Pill';
 import Typography from '../../foundations/Typography';
 
 import { CodeBlock, InlineCode, InlineText, Page } from '../components/StoryDocs';
@@ -15,19 +15,23 @@ const statuses = [
   { 'color': 'gray', 'description': 'Inactive, archived, unavailable, or neutral.', 'label': 'Inactive', 'tone': 'bg-gray-400' }
 ];
 
-const StatusDot = ({ label, tone }) => (
+const StatusLabel = ({ label, tone }) => (
   <span className='inline-flex items-center gap-2 text-sm font-medium text-text'>
-    <span className={ `h-2.5 w-2.5 rounded-full ${tone}` } aria-hidden='true' />
+    <StatusDot className={ `size-2.5 ${tone}` } />
     <span>{label}</span>
   </span>
 );
 
-const statusDotSnippet = (status) => `<span className='inline-flex items-center gap-2 text-sm font-medium'>
-  <span className='h-2.5 w-2.5 rounded-full ${status.tone}' aria-hidden='true' />
+const statusDotSnippet = (status) => `import { StatusDot } from '@gaudi/design-system/core/Pill';
+
+<span className='inline-flex items-center gap-2 text-sm font-medium'>
+  <StatusDot className='size-2.5 ${status.tone}' />
   <span>${status.label}</span>
 </span>`;
 
-const pillSnippet = (status) => `<Pill tone='${status.color}' size='sm'>${status.label}</Pill>`;
+const pillSnippet = (status) => `import Pill from '@gaudi/design-system/core/Pill';
+
+<Pill tone='${status.color}' size='sm'>${status.label}</Pill>`;
 
 const StatusRow = ({ status }) => {
   const dotSnippet = statusDotSnippet(status);
@@ -36,7 +40,7 @@ const StatusRow = ({ status }) => {
   return (
     <div className='group grid grid-cols-1 gap-3 border-b px-4 py-4 text-sm last:border-b-0 sm:grid-cols-[minmax(0,160px)_minmax(0,160px)_1fr] sm:gap-4 border-border'>
       <div className='relative flex items-center justify-between gap-3 sm:block'>
-        <StatusDot label={ status.label } tone={ status.tone } />
+        <StatusLabel label={ status.label } tone={ status.tone } />
         <div className='hidden gap-1 sm:absolute sm:-right-1 sm:top-1/2 sm:flex sm:-translate-y-1/2 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100 sm:group-focus-within:opacity-100'>
           <CopyButton label={ `${status.label} dot JSX` } value={ dotSnippet }>Dot</CopyButton>
         </div>
@@ -77,19 +81,17 @@ export const Default = {
       </section>
 
       <section className='grid gap-4 lg:grid-cols-2'>
-        <CodeBlock code={ `// Dot + text
-<span className='inline-flex items-center gap-2 text-sm font-medium'>
-  <span className='h-2.5 w-2.5 rounded-full bg-green-500' aria-hidden='true' />
-  <span>Published</span>
-</span>` } />
+        <CodeBlock code={statusDotSnippet(statuses[0])} />
         <CodeBlock code={ `// Package pill
 import { Pill } from '@gaudi/design-system';
 
-<Pill tone='green' size='sm'>Published</Pill>
-<Pill tone='amber' size='sm'>Review</Pill>
-<Pill tone='teal' size='sm'>Syncing</Pill>
-<Pill tone='red' size='sm'>Blocked</Pill>
-<Pill tone='green' variant='soft' size='sm' pulse>Live</Pill>` } />
+<>
+  <Pill tone='green' size='sm'>Published</Pill>
+  <Pill tone='amber' size='sm'>Review</Pill>
+  <Pill tone='teal' size='sm'>Syncing</Pill>
+  <Pill tone='red' size='sm'>Blocked</Pill>
+  <Pill tone='green' variant='soft' size='sm' pulse>Live</Pill>
+</>` } />
       </section>
 
       <section className='rounded-lg border border-border bg-surface p-4'>
@@ -103,9 +105,13 @@ import { Pill } from '@gaudi/design-system';
           <Pill tone='amber' variant='soft' size='sm' pulse>Needs review</Pill>
         </div>
         <div className='mt-4'>
-          <CodeBlock code={ `<Pill tone='green' variant='soft' size='sm' pulse>Live</Pill>
-<Pill tone='teal' variant='soft' size='sm' pulse>Syncing</Pill>
-<Pill tone='amber' variant='soft' size='sm' pulse>Needs review</Pill>` } />
+          <CodeBlock code={ `import Pill from '@gaudi/design-system/core/Pill';
+
+<>
+  <Pill tone='green' variant='soft' size='sm' pulse>Live</Pill>
+  <Pill tone='teal' variant='soft' size='sm' pulse>Syncing</Pill>
+  <Pill tone='amber' variant='soft' size='sm' pulse>Needs review</Pill>
+</>` } />
         </div>
       </section>
 
@@ -127,8 +133,7 @@ import { Pill } from '@gaudi/design-system';
       <section className='rounded-lg border border-border bg-surface p-4'>
         <Typography as='h2' variant='heading-md'>Implementation Alignment</Typography>
         <p className='mt-3 text-sm leading-6 text-text-muted'>
-          Indicators are intentionally small: visible text plus an approved Gaudi palette color. The reusable pill is
-          <InlineCode>Pill</InlineCode> from the package; dots are lightweight status patterns for docs, tables, and metadata.
+          Use <InlineCode>StatusDot</InlineCode> beside status text in compact rows and <InlineCode>Pill</InlineCode> for a labelled status.
           Pulsing state uses <InlineCode>{ '<Pill pulse>' }</InlineCode> so status motion stays inside the component API.
         </p>
       </section>

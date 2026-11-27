@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import { CheckboxRoot } from '@gaudi/design-system/core/Checkbox';
@@ -26,10 +27,10 @@ function BulkArchive() {
   return (
     <div className='grid gap-3'>
       <div className='flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2'>
-        <label className='flex items-center gap-2 text-sm font-medium'>
+        <Label className='flex items-center gap-2 text-sm font-medium'>
           <CheckboxRoot checked={allState} onCheckedChange={() => toggleAll(ids)} disabled={!ids.length} />
           Select all posts
-        </label>
+        </Label>
         <div className='flex items-center gap-2'>
           <Readout>{count} selected</Readout>
           <Button size='sm' tone='danger' variant='soft' disabled={!count} onClick={archive}>Archive</Button>
@@ -38,10 +39,10 @@ function BulkArchive() {
       <ul className='grid gap-2'>
         {posts.map((post) => (
           <li key={post.id}>
-            <label className='flex items-center gap-2 text-sm'>
+            <Label className='flex items-center gap-2 text-sm'>
               <CheckboxRoot checked={isSelected(post.id)} onCheckedChange={() => toggleSelection(post.id)} />
               {post.title}
-            </label>
+            </Label>
           </li>
         ))}
       </ul>

@@ -1,8 +1,9 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
-import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldLabelPrimitive as FieldLabel, FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
+import { Label, FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldLabelPrimitive as FieldLabel, FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
 
 import { default as RadioGroup } from '@gaudi/design-system/core/RadioGroup';
 import { useFormValidation, validators } from '@gaudi/design-system/blocks/Forms';
@@ -36,9 +37,9 @@ export function Pattern() {
     <div className='mx-auto grid w-full max-w-xl gap-4'>
       <section aria-labelledby='newsletter-title' className='bg-surface-muted grid gap-4 rounded-lg border p-5 sm:p-6'>
         <div className='flex items-start gap-3'>
-          <span className='bg-accent-subtle text-accent grid size-9 shrink-0 place-items-center rounded-md'>
+          <IconTile aria-hidden='true' size='sm' variant='muted' className='bg-accent-subtle text-accent'>
             <RegistryIcon lucide='MailIcon' aria-hidden='true' />
-          </span>
+          </IconTile>
           <div className='grid gap-1'>
             <h2 id='newsletter-title' className='text-lg font-semibold'>The weekly letter</h2>
             <p className='text-text-muted text-sm'>New essays and the best links I read, every Sunday. 4,200 readers, no tracking, one-click unsubscribe.</p>
@@ -88,7 +89,7 @@ export function Pattern() {
       </section>
       <form aria-label='Subscribe below a post' onSubmit={(event) => event.preventDefault()} className='flex flex-col items-stretch gap-2 border-t pt-4 sm:flex-row sm:items-center'>
         <p className='text-sm font-medium sm:flex-1'>Enjoyed this post? Get the next one by email.</p>
-        <label htmlFor='newsletter-inline-email' className='sr-only'>Email address</label>
+        <Label htmlFor='newsletter-inline-email' className='sr-only'>Email address</Label>
         <EmailInput id='newsletter-inline-email'  autoComplete='email' placeholder='you@example.com' className='sm:w-56' />
         <Button type='submit' variant='outline' tone='neutral'>Subscribe</Button>
       </form>

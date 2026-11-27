@@ -5,6 +5,7 @@ import {
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
@@ -15,7 +16,6 @@ import {
 } from '@gaudi/design-system/core/Input';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-import { cn } from '@gaudi/design-system/utilities/cn';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
 
 const link = 'https://gaudi.app/r/maya-lopez';
@@ -101,9 +101,9 @@ export function Pattern() {
             const reached = referred >= tier.count;
             return (
               <li key={tier.count} className='flex items-center gap-3'>
-                <span className={cn('flex size-8 shrink-0 items-center justify-center rounded-full [&_svg]:size-4', reached ? 'bg-success-subtle text-success' : 'bg-surface-muted text-text-muted')}>
+                <IconTile variant='solid' size='sm' radius='full' className={reached ? 'bg-success-subtle text-success' : 'bg-surface-muted text-text-muted'}>
                   <RegistryIcon lucide={reached ? 'CheckIcon' : tier.icon} aria-hidden='true' />
-                </span>
+                </IconTile>
                 <span className='grid text-sm'>
                   <span className='font-medium'>{tier.reward}</span>
                   <span className='text-text-muted text-xs'>{tier.count} referrals{reached ? ' · unlocked' : ''}</span>

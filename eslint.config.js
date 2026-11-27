@@ -57,6 +57,26 @@ export default [
     }
   },
   {
+    files: [ 'src/**/stories/fixtures/**/*.{js,jsx}' ],
+    rules: {
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: "JSXElement:has(> JSXOpeningElement[name.name=/^(span|div)$/] > JSXAttribute[name.name='className'] > Literal[value=/(?=.*size-[0-9])(?=.*rounded)(?=.*(?:bg-|border))(?=.*(?:items-center|place-items-center))/]):has(> JSXElement > JSXOpeningElement[name.name=/^(Icon|RegistryIcon)$/])",
+          message: 'Use the public Gaudi IconTile for a framed icon in an example.'
+        },
+        {
+          selector: "JSXOpeningElement[name.name='progress']",
+          message: 'Use the public Gaudi Progress component in examples.'
+        },
+        {
+          selector: "JSXOpeningElement[name.name=/^[a-z]/] > JSXAttribute[name.name='role'] > Literal[value=/^(progressbar|switch|tablist)$/]",
+          message: 'Compose this example with Gaudi Progress, Switch or TabsList so its behavior matches the shared owner.'
+        }
+      ]
+    }
+  },
+  {
     files: [ '**/*.cjs' ],
     languageOptions: {
       sourceType: 'commonjs'

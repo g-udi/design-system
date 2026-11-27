@@ -4,6 +4,10 @@
 /** Declarations aliasing contract tokens, re-declared inside themed scopes. */
 export const ANCHOR_DECLARATIONS = [
   [
+    "--ds-color-control-border",
+    "var(--ds-color-text-subtle)"
+  ],
+  [
     "--ds-color-mermaid-alt-section-bg",
     "var(--ds-color-surface)"
   ],

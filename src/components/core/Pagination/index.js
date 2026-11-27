@@ -1,5 +1,6 @@
 export { default } from './Pagination';
 export * from './Pagination';
+export { getPageShortcuts } from './getPageShortcuts.js';
 export { POSTS_PER_PAGE } from './constants.js';
 
 // Composition exports

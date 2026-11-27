@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -113,7 +113,7 @@ function WorkCard({ item, view, isOverlay }) {
           <div className='flex items-center gap-2 text-xs text-text-muted'>
             <Badge variant={TAG[item.tag]} size='sm'>{item.tag}</Badge>
             <span className='inline-flex items-center gap-1.5'>
-              <span className={cn('size-1.5 rounded-full', STATE[item.state])} aria-hidden='true' />
+              <StatusDot className={STATE[item.state]} />
               {item.state}
             </span>
           </div>

@@ -54,11 +54,11 @@ The native file input remains keyboard accessible. Announce rejection reasons an
 
 Curated patterns:
 
-- Profile photo picker — registry item `@gaudi/file-upload-avatar` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Banner image for a page — registry item `@gaudi/file-upload-cover-image` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `ProgressRing`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Drag and drop — registry item `@gaudi/file-upload-drag-drop` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
-- Upload table with progress — registry item `@gaudi/file-upload-progress-table` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AttachmentMedia`, `Badge`, `Button`, `ProgressRing`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `cn`, `formatBytes`, `useFileUpload`)
-- Image gallery with sorting — registry item `@gaudi/file-upload-sortable-gallery` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CardContent`, `CardRoot`, `DialogContent`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `ProgressRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`, `formatBytes`, `useFileUpload`)
+- Profile photo picker — registry item `@gaudi/file-upload-avatar` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Button`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Banner image for a page — registry item `@gaudi/file-upload-cover-image` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `Loader`, `ProgressRing`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Drag and drop — registry item `@gaudi/file-upload-drag-drop` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `IconTile`, `RegistryIcon`, `cn`, `formatBytes`, `useFileUpload`)
+- Upload table with progress — registry item `@gaudi/file-upload-progress-table` (uses `Alert`, `AlertDescription`, `AlertTitle`, `AttachmentMedia`, `Badge`, `Button`, `IconTile`, `ProgressRing`, `RegistryIcon`, `TableBodyPrimitive`, `TableCellPrimitive`, `TableHeadPrimitive`, `TableHeader`, `TableRoot`, `TableRowPrimitive`, `cn`, `formatBytes`, `useFileUpload`)
+- Image gallery with sorting — registry item `@gaudi/file-upload-sortable-gallery` (uses `Alert`, `AlertDescription`, `AlertTitle`, `Button`, `CardContent`, `CardRoot`, `DialogContent`, `DialogHeader`, `DialogRoot`, `DialogTitle`, `ProgressRoot`, `RegistryIcon`, `Sortable`, `SortableItem`, `SortableItemHandle`, `cn`, `formatBytes`, `toast`, `useFileUpload`)
 
 ## README
 

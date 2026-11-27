@@ -1,3 +1,4 @@
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 import { cn } from '../../../utilities/cn';
 import { CardAction, CardContent, CardFooter, CardHeader, CardRoot, CardTitle } from '../../core/Card';
 import { Badge } from '../../core/Pill/Badge.jsx';
@@ -90,7 +91,7 @@ export function StatMeter({ segments = [], max, label, showLegend = true, format
       <dl className={cn('grid gap-x-4 gap-y-1 text-xs @[20rem]:grid-cols-2', !showLegend && 'sr-only')}>
           {segments.map((segment) => (
             <div key={segment.label} className='flex items-center gap-2'>
-              <span aria-hidden='true' className={cn('size-2 shrink-0 rounded-full', segmentClass[segment.tone || 'neutral'])} />
+              <StatusDot className={cn('size-2', segmentClass[segment.tone || 'neutral'])} />
               <dt className='text-text-muted min-w-0 flex-1 truncate'>{segment.label}</dt>
               <dd className='font-medium tabular-nums'>
                 {formatValue(segment.value)}

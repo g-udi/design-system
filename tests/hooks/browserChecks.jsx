@@ -1,7 +1,7 @@
 import { createElement, StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
-import { expect, waitFor } from 'storybook/test';
+import { expect, waitFor, within } from 'storybook/test';
 import { useCountdown } from '../../src/hooks/state/use-countdown.js';
 import { useDocumentTitle } from '../../src/hooks/environment/use-document-title.js';
 import { useIsMounted } from '../../src/hooks/environment/use-is-mounted.js';
@@ -12,6 +12,20 @@ import { useScript } from '../../src/hooks/environment/use-script.js';
 import { useMousePosition } from '../../src/hooks/interaction/use-mouse-position.js';
 import { useMap } from '../../src/hooks/data/use-map.js';
 import { useTimeout } from '../../src/hooks/state/use-timeout.js';
+
+/** Mount an interactive regression fixture beside the story, then leave its public canvas intact. */
+export async function withHookProbe(canvasElement, element, check) {
+  const host = canvasElement.ownerDocument.createElement('div');
+  canvasElement.append(host);
+  const root = createRoot(host);
+  try {
+    flushSync(() => root.render(element));
+    await check(within(host));
+  } finally {
+    flushSync(() => root.unmount());
+    host.remove();
+  }
+}
 
 /** Browser-only hook probes, removed before each story's accessibility/responsive audit. */
 function probe(useHook, initialOptions) {

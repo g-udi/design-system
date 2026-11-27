@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useState } from 'react';
 import { ScheduleCalendar, dayKey } from '@gaudi/design-system/blocks/Scheduling';
 import {
@@ -44,7 +45,7 @@ function Chips({ label, options, value, onValueChange }) {
     <ToggleGroup aria-label={label} type='multiple' variant='outline' size='xs' value={value} onValueChange={onValueChange} className='flex-wrap'>
       {Object.entries(options).map(([key, option]) => (
         <ToggleGroupItem key={key} value={key} className='gap-1.5'>
-          <span aria-hidden='true' className={cn('size-2 rounded-full', dot[option.tone])} />
+          <StatusDot className={cn('size-2', dot[option.tone])} />
           {option.label}
         </ToggleGroupItem>
       ))}

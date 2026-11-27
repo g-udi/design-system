@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { CopyButton } from '../components/CopyButton';
 import { expect, fireEvent, spyOn, userEvent, waitFor, within } from 'storybook/test';
 
@@ -83,7 +84,7 @@ import { Button } from '@gaudi/design-system';
   <AnimatedIcon name="RefreshCw" active={isSyncing} size="sm" decorative />
   {isSyncing ? 'Stop sync' : 'Start sync'}
 </Button>`} />
-        <p>Use the same size and color tokens as static icons. Motion stops with reduced motion, while offscreen, and in hidden tabs. <a className='text-blue-600 underline dark:text-blue-400' href='/?path=/docs/core-icon--docs'>Explore the Icon examples and API</a>.</p>
+        <p>Use the same size and color tokens as static icons. Motion stops with reduced motion, while offscreen, and in hidden tabs. <Link variant='bare' className='text-blue-600 underline dark:text-blue-400' href='/?path=/docs/core-icon--docs'>Explore the Icon examples and API</Link>.</p>
       </Section>
 
       <Section title='Official Gaudi brand' description='Use the dark G tile followed by ordinary Gaudi text in headers and demos. Use the tile alone for compact icon slots and favicons.'>

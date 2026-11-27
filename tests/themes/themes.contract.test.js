@@ -103,6 +103,24 @@ test('every preset passes WCAG AA in both modes and compiles to scoped CSS', () 
   assert.match(compileTheme(themePresets.find((theme) => theme.id === 'folio')), /:is\(h1, h2, h3, h4, h5, h6\) \{\n {2}font-family: var\(--ds-font-heading\)/);
 });
 
+test('unchecked selection outlines keep non-text contrast across preset surfaces', () => {
+  const alias = '--ds-color-control-border';
+  const anchors = new Map(extractAnchors());
+  assert.equal(anchors.get(alias), 'var(--ds-color-text-subtle)');
+  assert.match(read('src/tokens/theme.css'), /--color-ui-control-border: var\(--ds-color-control-border\)/);
+  for (const owner of ['Checkbox', 'RadioGroup']) {
+    assert.match(read(`src/components/core/${owner}/${owner}.css`), /@apply border-ui-control-border /);
+  }
+  for (const preset of themePresets) {
+    for (const mode of ['light', 'dark']) {
+      const colors = preset[mode];
+      for (const surface of ['surface', 'surface-muted', 'surface-raised']) {
+        assert.ok(contrastRatio(colors['text-subtle'], colors[surface]) >= 3, `${preset.id}/${mode}/${surface}`);
+      }
+    }
+  }
+});
+
 test('generation is deterministic, offline and contrast-safe from any seed', () => {
   assert.deepEqual(generateTheme({ brand: '#0e7490', seed: 4 }), generateTheme({ brand: '#0e7490', seed: 4 }));
   assert.deepEqual(randomTheme(7), randomTheme(7));

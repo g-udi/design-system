@@ -1,11 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { cn } from '@gaudi/design-system/utilities/cn';
 import { CardRoot as Card } from '@gaudi/design-system/core/Card';
 import {
   CarouselRoot as Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselIndicator,
   CarouselNext,
   CarouselPrevious
 } from '@gaudi/design-system/core/Carousel';
@@ -24,7 +24,11 @@ export function Pattern({ onNavigate }) {
     const onSelect = () => setCurrent(api.selectedScrollSnap());
     onSelect();
     api.on('select', onSelect);
-    return () => api.off('select', onSelect);
+    api.on('reInit', onSelect);
+    return () => {
+      api.off('select', onSelect);
+      api.off('reInit', onSelect);
+    };
   }, [api]);
   return (
     <Carousel setApi={setApi} className='mx-auto w-full max-w-md' aria-label='Photo stories'>
@@ -52,19 +56,9 @@ export function Pattern({ onNavigate }) {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <div className='flex justify-center gap-2 pt-3'>
+      <div className='flex flex-wrap justify-center gap-x-2 pt-3'>
         {slides.map((slide, index) => (
-          <button
-            key={slide.title}
-            type='button'
-            className={cn(
-              'h-2 cursor-pointer rounded-full transition-all duration-500 ease-in-out',
-              index === current ? 'w-4 bg-accent' : 'w-2 bg-text-muted/30 hover:bg-text-muted/50'
-            )}
-            onClick={() => api?.scrollTo(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            aria-current={index === current ? 'true' : undefined}
-          />
+          <CarouselIndicator key={slide.title} index={index} active={index === current} />
         ))}
       </div>
     </Carousel>

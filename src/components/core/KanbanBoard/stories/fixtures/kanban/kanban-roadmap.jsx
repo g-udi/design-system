@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -108,7 +108,7 @@ function StageColumn({ value, items, votes, onVote, isOverlay }) {
     <KanbanColumn value={value} className='gap-2 rounded-xl border border-border bg-surface-muted p-2'>
       <div className='grid gap-0.5 px-1'>
         <div className='flex items-center gap-2'>
-          <span className={cn('size-2 rounded-full', stage.dot)} aria-hidden='true' />
+          <StatusDot className={cn('size-2', stage.dot)} />
           <h3 className='text-sm font-medium text-text'>{stage.title}</h3>
           <KanbanColumnCount count={items.length} />
         </div>

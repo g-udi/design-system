@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Cascader,
   CascaderContent,
@@ -275,9 +275,8 @@ export function Pattern() {
                   className='size-6'
                   fallbackClassName='text-xs'
                 />
-                <span
-                  aria-hidden='true'
-                  className={`ring-ui-popover absolute -end-0.5 -bottom-0.5 size-2 rounded-full ring-2 ${node.data?.status === 'online' ? 'bg-success' : 'bg-ui-muted-foreground/40'}`}
+                <StatusDot
+                  className={`ring-ui-popover absolute -end-0.5 -bottom-0.5 size-2 ring-2 ${node.data?.status === 'online' ? 'bg-success' : 'bg-ui-muted-foreground/40'}`}
                 />
               </span>
               {/* No `flex-1`. The name takes the width it needs and gives it

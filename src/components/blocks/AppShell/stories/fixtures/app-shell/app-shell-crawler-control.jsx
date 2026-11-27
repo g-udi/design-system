@@ -1,40 +1,39 @@
 'use client';
 import { GaudiLogo } from '@gaudi/design-system/icons/brands/gaudi';
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useRef, useState } from 'react';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import Link from '@gaudi/design-system/core/Link';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import Input from '@gaudi/design-system/core/Input';
+import { Label } from '@gaudi/design-system/core/Field';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuCheckboxItemPrimitive as DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput
-} from '@gaudi/design-system/core/Input';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@gaudi/design-system/core/Input';
+import Timeline from '@gaudi/design-system/core/Timeline';
+import EmptyState from '@gaudi/design-system/core/EmptyState';
+import DataTable from '@gaudi/design-system/core/DataTable';
+import { StatCard, StatMeter } from '@gaudi/design-system/blocks/StatCard';
 import { Separator } from '@gaudi/design-system/core/Separator';
 import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
 import { Sidebar, SidebarProvider, SidebarTrigger, useSidebar } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellBody, AppShellFrame, AppShellHeader, AppShellPanel } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const sections = [
@@ -52,10 +51,6 @@ const tools = [
   { id: 'selectors', label: 'Selectors', icon: 'SquareDashedMousePointer' }
 ];
 const curator = { name: 'Ines Duarte', email: 'ines@gaudi.page', photo: '/avatars/person-23.svg' };
-const crew = {
-  omar: { name: 'Omar', photo: '/avatars/person-41.svg' },
-  theo: { name: 'Theo', photo: '/avatars/person-50.svg' }
-};
 // Sources have no portrait: a toned tile with the source glyph stands in.
 const sourceTiles = {
   essays: { tone: 'bg-warning/15 text-ui-warning-ink', icon: 'BookText' },
@@ -80,8 +75,8 @@ const runs = [
     pages: '184',
     quota: '88%',
     events: [
-      { time: '15:02', label: 'Pages fetched', icon: 'Download', units: '9/9 pages' },
-      { time: '15:09', label: 'Filed to shelf', icon: 'Library', shelf: 'A' }
+      { id: '15:02', time: '15:02', dateTime: '15:02', title: 'Pages fetched', description: '9/9 pages' },
+      { id: '15:09', time: '15:09', dateTime: '15:09', title: 'Pages filed', description: 'Shelf A' }
     ]
   },
   {
@@ -93,11 +88,17 @@ const runs = [
     pages: '1.2k',
     quota: '76%',
     events: [
-      { time: '15:05', label: 'Pages fetched', icon: 'Download', units: '18/18 pages' },
-      { time: '15:13', label: 'Rate limit hit', icon: 'Clock', delay: '+6 min' },
-      { time: '15:15', label: 'Filed to shelf', icon: 'Library', shelf: 'B' },
-      { time: '15:17', label: 'Selector changed by', crew: 'theo' },
-      { time: '15:18', label: 'Quota dropped', icon: 'Gauge', bars: 3 }
+      { id: '15:05', time: '15:05', dateTime: '15:05', title: 'Pages fetched', description: '18/18 pages' },
+      {
+        id: '15:13',
+        time: '15:13',
+        dateTime: '15:13',
+        title: 'Rate limit hit',
+        description: 'Run delayed by 6 minutes'
+      },
+      { id: '15:15', time: '15:15', dateTime: '15:15', title: 'Pages filed', description: 'Shelf B' },
+      { id: '15:17', time: '15:17', dateTime: '15:17', title: 'Selector updated', description: 'Changed by Theo' },
+      { id: '15:18', time: '15:18', dateTime: '15:18', title: 'Quota dropped', description: '3 of 7 remaining' }
     ]
   },
   {
@@ -109,8 +110,8 @@ const runs = [
     pages: '96',
     quota: '81%',
     events: [
-      { time: '14:58', label: 'Pages fetched', icon: 'Download', units: '12/12 pages' },
-      { time: '15:11', label: 'Filed to shelf', icon: 'Library', shelf: 'J' }
+      { id: '14:58', time: '14:58', dateTime: '14:58', title: 'Pages fetched', description: '12/12 pages' },
+      { id: '15:11', time: '15:11', dateTime: '15:11', title: 'Pages filed', description: 'Shelf J' }
     ]
   },
   {
@@ -122,8 +123,14 @@ const runs = [
     pages: '22',
     quota: '34%',
     events: [
-      { time: '14:44', label: 'Rate limit hit', icon: 'Clock', delay: '+14 min' },
-      { time: '15:01', label: 'Quota dropped', icon: 'Gauge', bars: 2 }
+      {
+        id: '14:44',
+        time: '14:44',
+        dateTime: '14:44',
+        title: 'Rate limit hit',
+        description: 'Run delayed by 14 minutes'
+      },
+      { id: '15:01', time: '15:01', dateTime: '15:01', title: 'Quota dropped', description: '2 of 7 remaining' }
     ]
   },
   {
@@ -134,7 +141,7 @@ const runs = [
     eta: '9m',
     pages: '58',
     quota: '93%',
-    events: [{ time: '15:16', label: 'Fetching pages', icon: 'Download', units: '4/11 pages' }]
+    events: [{ id: '15:16', time: '15:16', dateTime: '15:16', title: 'Fetching pages', description: '4/11 pages' }]
   }
 ];
 const scheduled = [
@@ -143,10 +150,10 @@ const scheduled = [
   { id: 'preprints', name: 'Preprints', time: '17:10', shelf: 'Shelf F' }
 ];
 const totals = [
-  { id: 'scheduled', label: 'Scheduled', count: 24, tone: 'bg-info' },
-  { id: 'active', label: 'Active', count: 5, tone: 'bg-success' },
-  { id: 'paused', label: 'Paused', count: 7, tone: 'bg-warning/60' },
-  { id: 'failed', label: 'Blocked', count: 2, tone: 'bg-ui-destructive/50' }
+  { label: 'Scheduled', value: 24, tone: 'info' },
+  { label: 'Active', value: 5, tone: 'success' },
+  { label: 'Paused', value: 7, tone: 'warning' },
+  { label: 'Blocked', value: 2, tone: 'danger' }
 ];
 const stats = [
   { label: 'Pages Today', value: '12.8k' },
@@ -154,82 +161,95 @@ const stats = [
   { label: 'Fresh', value: '92%' },
   { label: 'Sources', value: '46' }
 ];
-const scopes = ['All Sources', 'Active Only', 'Paused', 'Blocked'];
+const allSources = 'All Sources';
+const scopes = [allSources, ...Object.values(status).map((entry) => entry.label)];
+const runColumns = [
+  { key: 'name', header: 'Source' },
+  {
+    key: 'status',
+    header: 'Status',
+    render: (run) => (
+      <Badge size='xs' variant={status[run.status].variant}>
+        {status[run.status].label}
+      </Badge>
+    )
+  },
+  { key: 'eta', header: 'Time left' }
+];
 const runCount = (count) => `${count} ${count === 1 ? 'Run' : 'Runs'}`;
-const noop = (event) => event.preventDefault();
+const activity = (entries) =>
+  entries
+    .flatMap((run) =>
+      run.events.map((event) => ({
+        ...event,
+        id: `${run.id}-${event.id}`,
+        title: `${run.name} · ${event.title}`
+      }))
+    )
+    .sort((left, right) => right.time.localeCompare(left.time));
+
+const sectionDetails = {
+  overview: ['Overview', 'Capture activity across the library.'],
+  sources: ['Sources', 'Feeds and collections connected to this workspace.'],
+  crawlers: ['Capture runs', ''],
+  library: ['Library', 'Captured pages filed to your reading shelves.'],
+  topics: ['Topics', 'Subjects covered by the connected sources.'],
+  runs: ['Runs', 'Current jobs in queue order. Expand a source to inspect its events.'],
+  logs: ['Logs', 'The latest events from your capture runs.'],
+  'access-keys': ['Access Keys', 'Workspace credentials used by the capture service.'],
+  'capture-rules': ['Capture Rules', 'Rules applied to incoming pages.'],
+  selectors: ['Selectors', 'The fields extracted from each source.']
+};
+
+const referenceRows = {
+  topics: [
+    ['Urban history', 'City archive'],
+    ['Design practice', 'Design blogs'],
+    ['Research', 'Preprints']
+  ],
+  'access-keys': [
+    ['Archive reader', 'Read-only · City archive'],
+    ['Feed worker', 'Capture · Research Lab']
+  ],
+  'capture-rules': [
+    ['Rate limit', 'Respect the source retry window'],
+    ['Duplicates', 'Skip URLs already on a shelf']
+  ],
+  selectors: [
+    ['Page title', 'Heading or document title'],
+    ['Body', 'Article text'],
+    ['Published', 'Publication date']
+  ],
+  library: scheduled.map((item) => [item.shelf, item.name])
+};
+const referenceColumns = [
+  { key: 'name', header: 'Name' },
+  { key: 'detail', header: 'Details' }
+];
+const detailRows = (rows) => rows.map(([name, detail]) => ({ id: name, name, detail }));
 
 function SourceAvatar({ id }) {
   return (
     <Avatar className='size-6'>
-      <AvatarFallback className={sourceTiles[id].tone}>
-        <RegistryIcon lucide={sourceTiles[id].icon} aria-hidden='true' className='size-3.5' />
+      <AvatarFallback className={(sourceTiles[id] || sourceTiles.design).tone}>
+        <RegistryIcon
+          lucide={(sourceTiles[id] || sourceTiles.design).icon}
+          aria-hidden='true'
+          className='size-3.5'
+        />
       </AvatarFallback>
     </Avatar>
   );
 }
 
-function CrewBadge({ id }) {
-  const person = crew[id];
-  return (
-    <Badge variant='outline' size='sm' className='h-4.5 gap-1 ps-0.5 font-medium'>
-      <Avatar className='size-3.5'>
-        <AvatarImage src={person.photo} alt='' />
-        <AvatarFallback>{person.name[0]}</AvatarFallback>
-      </Avatar>
-      {person.name}
-    </Badge>
-  );
-}
-
-/** One tick per run, coloured by state: a compact distribution of the whole queue. */
-function RunTicks() {
-  const total = totals.reduce((sum, entry) => sum + entry.count, 0);
-  return (
-    <div className='grid gap-1.5'>
-      <div
-        role='img'
-        aria-label={`${total} runs: ${totals.map((entry) => `${entry.count} ${entry.label.toLowerCase()}`).join(', ')}`}
-        className='flex h-3.5 items-stretch justify-between gap-px'
-      >
-        {totals.flatMap((entry) =>
-          Array.from({ length: entry.count }, (_, index) => <span key={`${entry.id}-${index}`} className={`max-w-0.75 min-w-px flex-1 ${entry.tone}`} />)
-        )}
-      </div>
-      <ul className='flex flex-wrap gap-x-3 gap-y-1 text-xs'>
-        {totals.map((entry) => (
-          <li key={entry.id} className='text-text-muted flex items-center gap-1 font-medium'>
-            <span aria-hidden='true' className={`h-2.5 w-0.75 ${entry.tone}`} />
-            <span className='tabular-nums'>{entry.count}</span> {entry.label}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function StatStrip({ compact }) {
-  return (
-    <dl
-      className={`grid rounded-(--ds-radius-card) border border-ui-border bg-surface-muted px-1 py-1.5 ${compact ? 'grid-cols-2 gap-y-1.5' : 'grid-cols-4'}`}
-    >
-      {stats.map((stat, index) => (
-        <div
-          key={stat.label}
-          className={`flex flex-col-reverse items-center text-center ${!compact && index ? 'border-s border-ui-border' : ''}`}
-        >
-          <dt className='text-text-muted text-[10px] leading-3.5'>{stat.label}</dt>
-          <dd className='text-xs font-medium tabular-nums'>{stat.value}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
-/** A collapsible queue: title, count, View All and a chevron toggle. */
+/** A collapsible queue section with its run count. */
 function QueueSection({ id, title, count, open, onOpenChange, compact, children }) {
   return (
     <Collapsible open={open} onOpenChange={onOpenChange} asChild>
-      <section aria-labelledby={`capture-queue-${id}`} className='border-t border-ui-border py-3 first:border-t-0 first:pt-0'>
+      <section
+        aria-labelledby={`capture-queue-${id}`}
+        className={`border-t border-ui-border first:border-t-0 first:pt-0 ${compact ? 'py-3' : 'py-2 last:pb-0'}`}
+      >
         <div className='flex items-center gap-2'>
           <h3 id={`capture-queue-${id}`} className='truncate text-sm font-medium'>
             {title}
@@ -237,13 +257,13 @@ function QueueSection({ id, title, count, open, onOpenChange, compact, children 
           <Badge variant='outline' size='sm' className='font-medium'>
             {compact ? count : runCount(count)}
           </Badge>
-          <Button asChild variant='outline' size={compact ? 'icon-xs' : 'xs'} className='ms-auto'>
-            <a href={`#${id}`} aria-label={`View all ${title.toLowerCase()}`} onClick={noop}>
-              {compact ? <RegistryIcon lucide='Eye' aria-hidden='true' /> : 'View All'}
-            </a>
-          </Button>
           <CollapsibleTrigger asChild>
-            <Button variant='outline' size='icon-xs' aria-label={`${open ? 'Collapse' : 'Expand'} ${title.toLowerCase()}`}>
+            <Button
+              variant='outline'
+              size='icon-xs'
+              className='ms-auto'
+              aria-label={`${open ? 'Collapse' : 'Expand'} ${title.toLowerCase()}`}
+            >
               <RegistryIcon
                 lucide='ChevronDown'
                 aria-hidden='true'
@@ -252,157 +272,109 @@ function QueueSection({ id, title, count, open, onOpenChange, compact, children 
             </Button>
           </CollapsibleTrigger>
         </div>
-        <CollapsibleContent className='pt-3'>{children}</CollapsibleContent>
+        <CollapsibleContent className={compact ? 'pt-3' : 'pt-2'}>{children}</CollapsibleContent>
       </section>
     </Collapsible>
   );
 }
 
-function QuotaBars({ filled, total = 7 }) {
-  return (
-    <span role='img' aria-label={`Quota at ${filled} of ${total} bars`} className='flex items-center gap-0.75'>
-      {Array.from({ length: total }, (_, index) => (
-        <span key={index} className={`h-3 w-0.75 ${index < filled ? 'bg-success' : 'bg-success/30'}`} />
-      ))}
-    </span>
-  );
-}
-
-function EventFeed({ events }) {
-  return (
-    <ol
-      aria-label='Run events'
-      className='relative grid grid-cols-1 gap-3 ps-3.5 before:absolute before:inset-y-1 before:start-0.75 before:w-px before:bg-ui-border'
-    >
-      {events.map((event) => (
-        <li key={event.time} className='relative grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 text-sm leading-5'>
-          <span aria-hidden='true' className='bg-text-muted/40 absolute top-1.5 -start-3.25 size-1.5 rounded-full' />
-          <time className='text-text-muted text-xs leading-5 tabular-nums'>{event.time}</time>
-          <div className='flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1'>
-            <span>{event.label}</span>
-            {event.crew ? <CrewBadge id={event.crew} /> : null}
-            {event.units || event.delay || event.shelf || event.bars ? <span className='flex shrink-0 items-center'>
-              {event.units ? <span className='text-text-muted text-xs'>{event.units}</span> : null}
-              {event.delay ? (
-                <Badge variant='warning-light' size='xs'>
-                  {event.delay}
-                </Badge>
-              ) : null}
-              {event.shelf ? (
-                <Badge variant='outline' size='sm' className='gap-1 font-medium'>
-                  <RegistryIcon lucide='Library' aria-hidden='true' />
-                  Shelf {event.shelf}
-                </Badge>
-              ) : null}
-              {event.bars ? <QuotaBars filled={event.bars} /> : null}
-            </span> : null}
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function RunRow({ run, expanded, onToggle }) {
+function RunRow({ run, expanded, onToggle, onInspect, compact }) {
   const tone = status[run.status];
-  const detailId = `run-detail-${run.id}`;
   return (
-    <li className='border-b border-dashed border-ui-border py-2.5 first:pt-0 last:border-b-0 last:pb-0'>
-      <div className='flex items-start gap-2'>
-        <SourceAvatar id={run.id} />
-        <div className='flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1'>
-          <span className='text-sm font-medium leading-6'>{run.name}</span>
-          <Badge variant={tone.variant} size='xs' className='gap-0.5'>
-            {tone.icon ? <RegistryIcon lucide={tone.icon} aria-hidden='true' /> : null}
-            {tone.label}
-          </Badge>
-        </div>
-        <Button asChild variant='outline' size='icon-xs'>
-          <a
-            href={`#source-${run.id}`}
+    <Collapsible asChild open={expanded} onOpenChange={onToggle}>
+      <li
+        className={`border-b border-dashed border-ui-border first:pt-0 last:border-b-0 last:pb-0 ${compact ? 'py-2.5' : 'py-1.5'}`}
+      >
+        <div className='flex items-start gap-2'>
+          <SourceAvatar id={run.id} />
+          <div className='flex min-w-0 flex-1 flex-wrap items-center gap-x-2 gap-y-1'>
+            <span className='text-sm font-medium leading-6'>{run.name}</span>
+            <Badge variant={tone.variant} size='xs' className='gap-0.5'>
+              {tone.icon ? <RegistryIcon lucide={tone.icon} aria-hidden='true' /> : null}
+              {tone.label}
+            </Badge>
+          </div>
+          <Button
+            variant='outline'
+            size='icon-xs'
             aria-label={run.open === 'log' ? `Open ${run.name} log` : `Open ${run.name} source`}
-            onClick={noop}
+            onClick={() =>
+              onInspect({
+                title: run.open === 'log' ? `${run.name} log` : run.name,
+                description: `${status[run.status].label} · ${run.pages} pages · ${run.quota} quota remaining`,
+                events: run.events
+              })
+            }
           >
             <RegistryIcon lucide={run.open === 'log' ? 'SquareActivity' : 'ArrowUpRight'} aria-hidden='true' />
-          </a>
-        </Button>
-        <Button
-          variant='outline'
-          size='icon-xs'
-          aria-expanded={expanded}
-          aria-controls={expanded ? detailId : undefined}
-          aria-label={`${expanded ? 'Collapse' : 'Expand'} ${run.name} detail`}
-          onClick={onToggle}
-        >
-          <RegistryIcon
-            lucide='ChevronDown'
-            aria-hidden='true'
-            className={`transition-transform duration-200 motion-reduce:transition-none ${expanded ? 'rotate-180' : ''}`}
-          />
-        </Button>
-      </div>
-      {expanded ? (
-        <div id={detailId} className='grid grid-cols-1 gap-4 pt-4'>
-          <dl className='grid grid-cols-3 gap-3'>
-            {[
-              ['Time left', run.eta],
-              ['Pages', run.pages],
-              ['Quota', run.quota]
-            ].map(([label, value]) => (
-              <div key={label} className='flex min-w-0 flex-col gap-1'>
-                <dt className='text-text-muted text-xs'>{label}</dt>
-                <dd className='text-sm font-medium tabular-nums'>{value}</dd>
-              </div>
-            ))}
-          </dl>
-          <EventFeed events={run.events} />
-          <Button asChild variant='outline' size='xs' className='w-full'>
-            <a href={`#log-${run.id}`} aria-label={`Open ${run.name} run log`} onClick={noop}>
+          </Button>
+          <CollapsibleTrigger asChild>
+            <Button
+              variant='outline'
+              size='icon-xs'
+              aria-label={`${expanded ? 'Collapse' : 'Expand'} ${run.name} detail`}
+            >
+              <RegistryIcon
+                lucide='ChevronDown'
+                aria-hidden='true'
+                className={`transition-transform duration-200 motion-reduce:transition-none ${expanded ? 'rotate-180' : ''}`}
+              />
+            </Button>
+          </CollapsibleTrigger>
+        </div>
+        <CollapsibleContent asChild>
+          <div className={`grid grid-cols-1 ${compact ? 'gap-4 pt-4' : 'gap-3 pt-3'}`}>
+            <dl className='grid grid-cols-3 gap-3'>
+              {[
+                ['Time left', run.eta],
+                ['Pages', run.pages],
+                ['Quota', run.quota]
+              ].map(([label, value]) => (
+                <div key={label} className='flex min-w-0 flex-col gap-1'>
+                  <dt className='text-text-muted text-xs'>{label}</dt>
+                  <dd className='text-sm font-medium tabular-nums'>{value}</dd>
+                </div>
+              ))}
+            </dl>
+            <Timeline label='Run events' items={run.events} />
+            <Button
+              variant='outline'
+              size='xs'
+              className='w-full'
+              aria-label={`Open ${run.name} run log`}
+              onClick={() => onInspect({ title: `${run.name} run log`, events: run.events })}
+            >
               <RegistryIcon lucide='SquareActivity' aria-hidden='true' />
               Open Run Log
-            </a>
-          </Button>
-        </div>
-      ) : null}
-    </li>
+            </Button>
+          </div>
+        </CollapsibleContent>
+      </li>
+    </Collapsible>
   );
 }
 
-function EmptyPanel({ icon, title, children }) {
-  return (
-    <div className='flex flex-1 flex-col items-center justify-center gap-1 rounded-(--ds-radius-card) border border-ui-border px-6 text-center'>
-      <span
-        aria-hidden='true'
-        className='bg-surface-muted mb-2 grid size-8 place-items-center rounded-(--ds-radius-control) border border-ui-border'
-      >
-        <RegistryIcon lucide={icon} className='size-4' />
-      </span>
-      <h3 className='text-sm font-medium'>{title}</h3>
-      <p className='text-text-muted max-w-52 text-sm'>{children}</p>
-    </div>
-  );
-}
-
-function CaptureQueue({ query }) {
+function CaptureQueue({ matchingRuns, onInspect }) {
   const { isMobile: compact } = useSidebar();
   const [open, setOpen] = useState({ scheduled: false, active: true, paused: false, failed: false });
   const [expanded, setExpanded] = useState('archive');
   const [sort, setSort] = useState('queue');
   const toggle = (id) => (value) => setOpen((state) => ({ ...state, [id]: value }));
   const visible = useMemo(() => {
-    const term = query.trim().toLowerCase();
-    const list = runs.filter((run) => run.name.toLowerCase().includes(term));
-    return sort === 'name' ? [...list].sort((a, b) => a.name.localeCompare(b.name)) : list;
-  }, [query, sort]);
+    return sort === 'name' ? [...matchingRuns].sort((a, b) => a.name.localeCompare(b.name)) : matchingRuns;
+  }, [matchingRuns, sort]);
   return (
     <div className='flex min-h-0 flex-1 flex-col overflow-hidden rounded-(--ds-radius-card) border border-ui-border bg-surface-muted/60'>
       <div className='flex shrink-0 items-center gap-2 px-4 py-2'>
         <h3 className='min-w-0 flex-1 truncate text-sm font-medium'>Capture Queue</h3>
-        <Button asChild variant='outline' size={compact ? 'icon-sm' : 'sm'}>
-          <a href='#add-source' aria-label={compact ? 'Add source' : undefined} onClick={noop}>
-            <RegistryIcon lucide='Plus' aria-hidden='true' />
-            {compact ? null : 'Add Source'}
-          </a>
+        <Button
+          variant='outline'
+          size={compact ? 'icon-sm' : 'sm'}
+          aria-label={compact ? 'Add source' : undefined}
+          onClick={() => onInspect({ title: 'Add source', kind: 'add' })}
+        >
+          <RegistryIcon lucide='Plus' aria-hidden='true' />
+          {compact ? null : 'Add Source'}
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -425,9 +397,8 @@ function CaptureQueue({ query }) {
         className='min-h-0 flex-1 border-y border-ui-border bg-surface [&>[data-slot=scroll-area-viewport]>div]:!block'
         scrollbarClassName={{ thumb: 'bg-text-muted/60' }}
       >
-        <div className='flex min-w-0 flex-col gap-4 p-4'>
-          <RunTicks />
-          <StatStrip compact={compact} />
+        <div className={`flex min-w-0 flex-col px-4 ${compact ? 'gap-4 py-4' : 'gap-3 py-3'}`}>
+          <StatMeter label='Runs by status' segments={totals} />
           <div>
             <QueueSection
               id='scheduled'
@@ -468,39 +439,67 @@ function CaptureQueue({ query }) {
                     <RunRow
                       key={run.id}
                       run={run}
+                      compact={compact}
+                      onInspect={onInspect}
                       expanded={expanded === run.id}
                       onToggle={() => setExpanded((current) => (current === run.id ? null : run.id))}
                     />
                   ))}
                 </ul>
               ) : (
-                <div role='status' className='grid gap-1 py-4 text-center'>
-                  <p className='text-sm font-medium'>No Runs Match</p>
-                  <p className='text-text-muted text-xs'>Clear the search to see every active run.</p>
-                </div>
+                <EmptyState
+                  role='status'
+                  compact
+                  title='No matching runs'
+                  description='Change the search or scope to see more sources.'
+                />
               )}
             </QueueSection>
-            <QueueSection id='paused' title='Paused' count={7} open={open.paused} onOpenChange={toggle('paused')} compact={compact}>
+            <QueueSection
+              id='paused'
+              title='Paused'
+              count={7}
+              open={open.paused}
+              onOpenChange={toggle('paused')}
+              compact={compact}
+            >
               <p className='text-text-muted text-xs'>Paused sources resume at their next scheduled window.</p>
             </QueueSection>
-            <QueueSection id='failed' title='Blocked' count={2} open={open.failed} onOpenChange={toggle('failed')} compact={compact}>
-              <p className='text-text-muted text-xs'>Blocked sources wait for a curator to update their capture rules.</p>
+            <QueueSection
+              id='failed'
+              title='Blocked'
+              count={2}
+              open={open.failed}
+              onOpenChange={toggle('failed')}
+              compact={compact}
+            >
+              <p className='text-text-muted text-xs'>
+                Blocked sources wait for a curator to update their capture rules.
+              </p>
             </QueueSection>
           </div>
         </div>
       </ScrollArea>
       <div className='flex shrink-0 items-center gap-2 px-4 py-2.5'>
-        <Button asChild variant='solid' tone='neutral' size='sm' className='flex-1'>
-          <a href='#review' aria-label='Review all captures' onClick={noop}>
-            <RegistryIcon lucide='ClipboardList' aria-hidden='true' />
-            Review Captures
-          </a>
+        <Button
+          variant='solid'
+          tone='neutral'
+          size='sm'
+          className='flex-1'
+          aria-label='Review all captures'
+          onClick={() => onInspect({ title: 'Review captures', rows: matchingRuns })}
+        >
+          <RegistryIcon lucide='ClipboardList' aria-hidden='true' />
+          Review Captures
         </Button>
-        <Button asChild variant='outline' size={compact ? 'icon-sm' : 'sm'}>
-          <a href='#activity' aria-label={compact ? 'Activity' : undefined} onClick={noop}>
-            <RegistryIcon lucide='History' aria-hidden='true' />
-            {compact ? null : 'Activity'}
-          </a>
+        <Button
+          variant='outline'
+          size={compact ? 'icon-sm' : 'sm'}
+          aria-label={compact ? 'Activity' : undefined}
+          onClick={() => onInspect({ title: 'Capture activity', events: activity(matchingRuns) })}
+        >
+          <RegistryIcon lucide='History' aria-hidden='true' />
+          {compact ? null : 'Activity'}
         </Button>
       </div>
     </div>
@@ -535,7 +534,12 @@ function RailMenu({ label, icon, children }) {
   const { isMobile } = useSidebar();
   const trigger = (
     <DropdownMenuTrigger asChild>
-      <Button variant='ghost' size='icon-sm' aria-label={label} className='text-text-muted data-[state=open]:bg-surface-muted'>
+      <Button
+        variant='ghost'
+        size='icon-sm'
+        aria-label={label}
+        className='text-text-muted data-[state=open]:bg-surface-muted'
+      >
         <RegistryIcon lucide={icon} aria-hidden='true' />
       </Button>
     </DropdownMenuTrigger>
@@ -557,8 +561,7 @@ function RailMenu({ label, icon, children }) {
   );
 }
 
-function ProfileMenu() {
-  const [theme, setTheme] = useState('system');
+function ProfileMenu({ onInspect }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -569,119 +572,99 @@ function ProfileMenu() {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent side='right' align='end' sideOffset={8} className='w-56'>
-        <DropdownMenuLabel className='flex items-center gap-2 font-normal'>
-          <Avatar className='size-8'>
-            <AvatarImage src={curator.photo} alt='' />
-            <AvatarFallback>ID</AvatarFallback>
-          </Avatar>
-          <span className='grid min-w-0 leading-tight'>
-            <span className='truncate font-medium'>{curator.name}</span>
-            <span className='text-text-muted truncate text-xs'>{curator.email}</span>
-          </span>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='User' aria-hidden='true' />
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Lock' aria-hidden='true' />
-            Sign-In Security
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Bell' aria-hidden='true' />
-            Digest Routing
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='Settings' aria-hidden='true' />
-            Preferences
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='CalendarClock' aria-hidden='true' />
-            Curator Rota
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <RegistryIcon lucide='UserPlus' aria-hidden='true' />
-            Invite Curator
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <div role='group' aria-label='Theme' className='flex items-center gap-2 px-2 py-1 text-sm'>
-          <RegistryIcon lucide='Palette' aria-hidden='true' className='text-text-muted size-4' />
-          <span aria-hidden='true'>Theme</span>
-          <span className='bg-surface-muted ms-auto flex items-center gap-0.5 rounded-(--ds-radius-control) p-0.5'>
-            {[
-              ['light', 'Sun', 'Light theme'],
-              ['dark', 'Moon', 'Dark theme'],
-              ['system', 'Monitor', 'System theme']
-            ].map(([value, icon, label]) => (
-              <DropdownMenuItem
-                key={value}
-                role='menuitemradio'
-                aria-checked={theme === value}
-                aria-label={label}
-                onSelect={(event) => {
-                  event.preventDefault();
-                  setTheme(value);
-                }}
-                className={`size-6 justify-center p-0 ${theme === value ? 'bg-surface shadow-xs' : ''}`}
-              >
-                <RegistryIcon lucide={icon} aria-hidden='true' className='size-3.5' />
-              </DropdownMenuItem>
-            ))}
-          </span>
-        </div>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
+      <DropdownMenuContent side='right' align='end'>
+        <DropdownMenuLabel>{curator.name}</DropdownMenuLabel>
+        <DropdownMenuItem onSelect={() => onInspect({ title: 'Curator profile', description: curator.email })}>
+          Profile
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onSelect={() =>
+            onInspect({
+              title: 'Sign-In Security',
+              description:
+                'This workspace uses single sign-on. Access keys for capture workers appear under Workspace settings.'
+            })
+          }
+        >
+          Sign-In Security
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function Rail({ section, onSection }) {
+function Rail({ section, onSection, onInspect }) {
   const { isMobile, setOpenMobile } = useSidebar();
   const help = (
     <>
-      <DropdownMenuItem>
-        Documentation
-        <DropdownMenuShortcut>⌘D</DropdownMenuShortcut>
+      <DropdownMenuItem
+        onSelect={() =>
+          onInspect({
+            title: 'Capture guide',
+            description:
+              'Add a source by URL. Filter the queue by status, then expand a run to inspect its timeline.'
+          })
+        }
+      >
+        Capture guide
       </DropdownMenuItem>
-      <DropdownMenuItem>
-        Keyboard Shortcuts
-        <DropdownMenuShortcut>⌘/</DropdownMenuShortcut>
+      <DropdownMenuItem
+        onSelect={() =>
+          onInspect({
+            title: 'Keyboard navigation',
+            description:
+              'Use Tab to reach controls, arrow keys to move between tabs or menu items, and Escape to close a menu or dialog.'
+          })
+        }
+      >
+        Keyboard navigation
       </DropdownMenuItem>
-      <DropdownMenuSeparator />
-      <DropdownMenuItem>Contact Support</DropdownMenuItem>
     </>
   );
   const settings = (
     <>
       <DropdownMenuLabel>Workspace</DropdownMenuLabel>
-      <DropdownMenuItem>Capture Defaults</DropdownMenuItem>
-      <DropdownMenuItem>Selector Profiles</DropdownMenuItem>
-      <DropdownMenuItem>API Tokens</DropdownMenuItem>
+      <DropdownMenuItem
+        onSelect={() => {
+          onSection('capture-rules');
+          if (isMobile) setOpenMobile(false);
+        }}
+      >
+        Capture Defaults
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        onSelect={() => {
+          onSection('selectors');
+          if (isMobile) setOpenMobile(false);
+        }}
+      >
+        Selector Profiles
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        onSelect={() => {
+          onSection('access-keys');
+          if (isMobile) setOpenMobile(false);
+        }}
+      >
+        API Tokens
+      </DropdownMenuItem>
     </>
   );
   return (
-    <div className={`flex shrink-0 items-center gap-2 ${isMobile ? 'border-b border-ui-border px-3 py-2' : 'w-13 flex-col gap-3 py-3'}`}>
-      <Link
-        variant='bare'
-        href='#home'
+    <div
+      className={`flex shrink-0 items-center gap-2 ${isMobile ? 'border-b border-ui-border px-3 py-2' : 'w-13 flex-col gap-3 py-3'}`}
+    >
+      <Button
+        variant='outline'
+        size='icon-sm'
         aria-label='Gaudi Capture home'
-        onClick={noop}
-        className='grid size-7 place-items-center rounded-(--ds-radius-control) border border-ui-border outline-hidden focus-visible:ring-2 focus-visible:ring-ui-ring'
+        onClick={() => {
+          onSection('overview');
+          if (isMobile) setOpenMobile(false);
+        }}
       >
         <GaudiLogo aria-hidden='true' className='size-5' />
-      </Link>
+      </Button>
       {isMobile ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -693,7 +676,8 @@ function Rail({ section, onSection }) {
             <DropdownMenuRadioGroup value={section} onValueChange={onSection}>
               {[...sections, ...tools].map((item) => (
                 <DropdownMenuRadioItem key={item.id} value={item.id}>
-                  <RegistryIcon lucide={item.icon} aria-hidden='true' />{item.label}
+                  <RegistryIcon lucide={item.icon} aria-hidden='true' />
+                  {item.label}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
@@ -708,21 +692,38 @@ function Rail({ section, onSection }) {
             </DropdownMenuSub>
           </DropdownMenuContent>
         </DropdownMenu>
-      ) : <nav aria-label='Sections' className='flex flex-1 flex-col items-center gap-2'>
-        {sections.map((item) => (
-          <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
-        ))}
-        <Separator className='my-0.5 w-5' />
-        {tools.map((item) => (
-          <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
-        ))}
-      </nav>}
-      {!isMobile ? <div className='flex flex-col items-center gap-2'>
-        <RailMenu label='Help and support' icon='CircleHelp'>{help}</RailMenu>
-        <RailMenu label='Workspace settings' icon='Settings'>{settings}</RailMenu>
-      </div> : null}
-      <ProfileMenu />
-      {isMobile ? <Button variant='ghost' size='icon-sm' aria-label='Close capture navigation' onClick={() => setOpenMobile(false)}><RegistryIcon lucide='X' aria-hidden='true' /></Button> : null}
+      ) : (
+        <nav aria-label='Sections' className='flex flex-1 flex-col items-center gap-2'>
+          {sections.map((item) => (
+            <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
+          ))}
+          <Separator className='my-0.5 w-5' />
+          {tools.map((item) => (
+            <RailButton key={item.id} item={item} current={section === item.id} onSelect={onSection} />
+          ))}
+        </nav>
+      )}
+      {!isMobile ? (
+        <div className='flex flex-col items-center gap-2'>
+          <RailMenu label='Help and support' icon='CircleHelp'>
+            {help}
+          </RailMenu>
+          <RailMenu label='Workspace settings' icon='Settings'>
+            {settings}
+          </RailMenu>
+        </div>
+      ) : null}
+      <ProfileMenu onInspect={onInspect} />
+      {isMobile ? (
+        <Button
+          variant='ghost'
+          size='icon-sm'
+          aria-label='Close capture navigation'
+          onClick={() => setOpenMobile(false)}
+        >
+          <RegistryIcon lucide='X' aria-hidden='true' />
+        </Button>
+      ) : null}
     </div>
   );
 }
@@ -730,7 +731,7 @@ function Rail({ section, onSection }) {
 const tabTrigger =
   'h-6 flex-none rounded-(--ds-radius-control) px-2 text-xs data-[state=active]:border-ui-border data-[state=active]:bg-surface data-[state=active]:shadow-xs';
 
-function CapturePanel({ query }) {
+function CapturePanel({ matchingRuns, onInspect }) {
   return (
     <div className='@container/capture flex min-h-0 min-w-0 flex-1 flex-col gap-3 py-3 pe-3 in-data-[compact=true]:ps-3'>
       <h2 className='flex h-8 items-center px-4 text-base font-medium'>Capture Control</h2>
@@ -747,22 +748,34 @@ function CapturePanel({ query }) {
           ))}
         </TabsList>
         <TabsContent value='digest' className='flex min-h-0 flex-1 flex-col'>
-          <EmptyPanel icon='Sparkles' title='Digest Builds at 18:00'>
-            Today's captures are summarized into one evening digest.
-          </EmptyPanel>
+          <EmptyState
+            compact
+            titleAs='h3'
+            title='Digest Builds at 18:00'
+            description="Today's captures are summarized into one evening digest."
+            icon={<RegistryIcon lucide='Sparkles' aria-hidden='true' />}
+          />
         </TabsContent>
         <TabsContent value='queue' className='flex min-h-0 flex-1 flex-col'>
-          <CaptureQueue query={query} />
+          <CaptureQueue matchingRuns={matchingRuns} onInspect={onInspect} />
         </TabsContent>
         <TabsContent value='shelves' className='flex min-h-0 flex-1 flex-col'>
-          <EmptyPanel icon='Library' title='Shelves Up to Date'>
-            Every captured page has been filed to a shelf.
-          </EmptyPanel>
+          <EmptyState
+            compact
+            titleAs='h3'
+            title='Shelves Up to Date'
+            description='Every captured page has been filed to a shelf.'
+            icon={<RegistryIcon lucide='Library' aria-hidden='true' />}
+          />
         </TabsContent>
         <TabsContent value='issues' className='flex min-h-0 flex-1 flex-col'>
-          <EmptyPanel icon='ShieldAlert' title='Issues Shown Inline'>
-            Throttled and blocked sources are flagged on their run cards.
-          </EmptyPanel>
+          <EmptyState
+            compact
+            titleAs='h3'
+            title='Issues Shown Inline'
+            description='Throttled and blocked sources are flagged on their run cards.'
+            icon={<RegistryIcon lucide='ShieldAlert' aria-hidden='true' />}
+          />
         </TabsContent>
       </Tabs>
     </div>
@@ -778,8 +791,7 @@ function SearchBar({ query, onQuery, scope, onScope }) {
       <InputGroupInput
         type='search'
         aria-label='Search sources'
-        placeholder='Source name or URL'
-        className='@max-md:placeholder:text-transparent'
+        placeholder='Search sources'
         value={query}
         onChange={(event) => onQuery(event.target.value)}
       />
@@ -837,47 +849,162 @@ function PreferencesMenu() {
   );
 }
 
-function TopBar({ query, onQuery }) {
+function TopBar({ query, onQuery, scope, onScope, onInspect }) {
   const { isMobile } = useSidebar();
-  const [scope, setScope] = useState(scopes[0]);
   return (
     <AppShellHeader className='gap-2 px-3 @max-md:flex-wrap'>
       {isMobile ? (
         <>
           <SidebarTrigger className='-ms-1' />
-          <span
-            aria-hidden='true'
-            className='grid size-7 shrink-0 place-items-center rounded-(--ds-radius-control) border border-ui-border'
-          >
+          <IconTile size='xs' radius='full' aria-hidden='true' className='size-7'>
             <RegistryIcon lucide='Library' className='size-4' />
-          </span>
+          </IconTile>
         </>
       ) : null}
-      <SearchBar query={query} onQuery={onQuery} scope={scope} onScope={setScope} />
+      <SearchBar query={query} onQuery={onQuery} scope={scope} onScope={onScope} />
       <div className='ms-auto flex shrink-0 items-center gap-2'>
         <PreferencesMenu />
-        <Button asChild variant='outline' size='sm' className='@max-3xl:size-7 @max-3xl:p-0'>
-          <a href='#ask-library' aria-label='Ask the library' onClick={noop}>
-            <RegistryIcon lucide='Sparkles' aria-hidden='true' />
-            <span className='@max-3xl:hidden'>Ask Library</span>
-          </a>
+        <Button
+          variant='outline'
+          size='sm'
+          className='@max-3xl:size-7 @max-3xl:p-0'
+          aria-label='Ask the library'
+          onClick={() => onInspect({ title: 'Ask the library', kind: 'search' })}
+        >
+          <RegistryIcon lucide='Sparkles' aria-hidden='true' />
+          <span className='@max-3xl:hidden'>Ask Library</span>
         </Button>
-        <Button asChild variant='solid' tone='neutral' size='sm' className='@max-3xl:size-7 @max-3xl:p-0'>
-          <a href='#capture' aria-label='Capture a URL' onClick={noop}>
-            <RegistryIcon lucide='Plus' aria-hidden='true' />
-            <span className='@max-3xl:hidden'>Capture URL</span>
-          </a>
+        <Button
+          variant='solid'
+          tone='neutral'
+          size='sm'
+          className='@max-3xl:size-7 @max-3xl:p-0'
+          aria-label='Capture a URL'
+          onClick={() => onInspect({ title: 'Capture a URL', kind: 'capture' })}
+        >
+          <RegistryIcon lucide='Plus' aria-hidden='true' />
+          <span className='@max-3xl:hidden'>Capture URL</span>
         </Button>
       </div>
     </AppShellHeader>
   );
 }
 
+function CaptureDialog({ detail, entries, onAdd, onClose, openerRef }) {
+  const id = useId();
+  const [value, setValue] = useState('');
+  const adding = detail.kind === 'add' || detail.kind === 'capture';
+  const searching = detail.kind === 'search';
+  const results = searching
+    ? activity(entries).filter((entry) =>
+        `${entry.title} ${entry.description}`.toLowerCase().includes(value.trim().toLowerCase())
+      )
+    : detail.events;
+  return (
+    <Dialog
+      open
+      title={detail.title}
+      description={detail.description}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+      contentProps={{
+        onCloseAutoFocus: (event) => {
+          if (openerRef.current?.isConnected) {
+            event.preventDefault();
+            openerRef.current.focus();
+          }
+        }
+      }}
+    >
+      {adding ? (
+        <form
+          className='grid gap-3'
+          onSubmit={(event) => {
+            event.preventDefault();
+            onAdd(new URL(value));
+            onClose();
+          }}
+        >
+          <Label htmlFor={id}>Source URL</Label>
+          <Input
+            id={id}
+            type='url'
+            pattern='https?://.+'
+            required
+            placeholder='https://example.org/articles'
+            value={value}
+            onChange={(event) => setValue(event.target.value)}
+          />
+          <Button type='submit'>{detail.kind === 'add' ? 'Add to queue' : 'Queue capture'}</Button>
+        </form>
+      ) : null}
+      {searching ? (
+        <div className='mb-3 grid gap-2'>
+          <Label htmlFor={id}>Find a source or event</Label>
+          <Input id={id} type='search' value={value} onChange={(event) => setValue(event.target.value)} />
+        </div>
+      ) : null}
+      {results?.length ? <Timeline label={detail.title} items={results} /> : null}
+      {results?.length === 0 ? (
+        <EmptyState compact role='status' title='No matching events' description='Try another source or event.' />
+      ) : null}
+      {detail.rows ? (
+        <DataTable
+          caption='Captured sources'
+          columns={runColumns}
+          rows={detail.rows}
+          density='compact'
+          emptyTitle='No matching runs'
+        />
+      ) : null}
+    </Dialog>
+  );
+}
+
 export function Pattern() {
   const [section, setSection] = useState('crawlers');
   const [query, setQuery] = useState('');
+  const [scope, setScope] = useState(scopes[0]);
+  const [entries, setEntries] = useState(runs);
+  const [detail, setDetail] = useState(null);
+  const opener = useRef(null);
+  const onInspect = (next) => {
+    opener.current = document.activeElement;
+    setDetail(next);
+  };
+  const addSource = (url) => {
+    const now = new Date().toTimeString().slice(0, 5);
+    const run = {
+      id: crypto.randomUUID(),
+      name: url.host + (url.pathname === '/' ? '' : url.pathname),
+      status: 'healthy',
+      open: 'source',
+      eta: 'Queued',
+      pages: '0',
+      quota: '100%',
+      events: [{ id: 'queued', time: now, dateTime: now, title: 'Capture queued', description: url.href }]
+    };
+    setEntries((current) => [run, ...current]);
+    setSection('crawlers');
+    setQuery('');
+    setScope(allSources);
+  };
+  const matchingRuns = useMemo(
+    () =>
+      entries.filter((run) => {
+        if (scope !== allSources && status[run.status].label !== scope) return false;
+        return run.name.toLowerCase().includes(query.trim().toLowerCase());
+      }),
+    [entries, query, scope]
+  );
   return (
-    <AppShellFrame surface='default' compactBelow={960} height='66rem' style={{ '--ds-app-shell-frame-height-compact': '40rem' }}>
+    <AppShellFrame
+      surface='default'
+      compactBelow={960}
+      height='66rem'
+      style={{ '--ds-app-shell-frame-height-compact': '40rem' }}
+    >
       {/* The rail and the capture panel are one sidebar: docked beside the page, one sheet in a narrow frame. */}
       <SidebarProvider shortcut={false} style={{ '--sidebar-width': '30rem' }}>
         <Sidebar
@@ -887,16 +1014,54 @@ export function Pattern() {
           mobileDescription='Sections and the capture queue.'
         >
           <div className='bg-surface flex h-full min-h-0 in-data-[compact=true]:flex-col'>
-            <Rail section={section} onSection={setSection} />
-            <CapturePanel query={query} />
+            <Rail section={section} onSection={setSection} onInspect={onInspect} />
+            <CapturePanel matchingRuns={matchingRuns} onInspect={onInspect} />
           </div>
         </Sidebar>
         <AppShellPanel inset={false} className='border-s-0'>
-          <TopBar query={query} onQuery={setQuery} />
-          <AppShellBody className='px-3 pb-3'>
-            <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+          <TopBar query={query} onQuery={setQuery} scope={scope} onScope={setScope} onInspect={onInspect} />
+          <AppShellBody className='p-4'>
+            <h2 className='mb-3 text-lg font-semibold'>{sectionDetails[section][0]}</h2>
+            {sectionDetails[section][1] && (
+              <p className='mb-3 text-sm text-text-muted'>{sectionDetails[section][1]}</p>
+            )}
+            {referenceRows[section] ? (
+              <DataTable
+                caption={sectionDetails[section][0]}
+                columns={referenceColumns}
+                rows={detailRows(referenceRows[section])}
+                density='compact'
+              />
+            ) : section === 'logs' ? (
+              <Timeline label='Capture activity' items={activity(matchingRuns)} />
+            ) : (
+              <DataTable
+                caption='Capture runs'
+                columns={runColumns}
+                rows={matchingRuns}
+                density='compact'
+                getRowLabel={(run) => run.name}
+                emptyTitle='No matching runs'
+                emptyDescription='Change the search or scope to see more sources.'
+                renderExpanded={(run) => <Timeline label={`${run.name} run events`} items={run.events} />}
+              />
+            )}
+            <div className='mt-4 grid grid-cols-2 gap-2 @3xl:grid-cols-4'>
+              {stats.map((stat) => (
+                <StatCard key={stat.label} label={stat.label} value={stat.value} />
+              ))}
+            </div>
           </AppShellBody>
         </AppShellPanel>
+        {detail && (
+          <CaptureDialog
+            detail={detail}
+            entries={entries}
+            onAdd={addSource}
+            onClose={() => setDetail(null)}
+            openerRef={opener}
+          />
+        )}
       </SidebarProvider>
     </AppShellFrame>
   );

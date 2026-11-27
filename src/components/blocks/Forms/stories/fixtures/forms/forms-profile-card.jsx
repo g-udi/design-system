@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -7,6 +7,7 @@ import { default as Button } from '@gaudi/design-system/core/Button';
 import { Calendar } from '@gaudi/design-system/core/Calendar';
 import { CardRoot as Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@gaudi/design-system/core/Card';
 import { FieldRoot as Field, FieldContent, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel, FieldSeparator } from '@gaudi/design-system/core/Field';
+import { useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { PopoverPrimitive as Popover, PopoverContentPrimitive as PopoverContent, PopoverTriggerPrimitive as PopoverTrigger } from '@gaudi/design-system/core/Popover';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
@@ -22,7 +23,7 @@ const rules = {
   website: validators.pattern(/^https?:\/\/\S+\.\S+/, 'Enter a full link starting with https://'),
   until: (value, values) => (values.from && value && value <= values.from ? 'End after the start time.' : '')
 };
-const initialValues = { name: 'Mei Castellanos', username: 'maya', headline: '', bio: '', website: '', zone: 'Europe/London', date: new Date(2026, 9, 14), from: '10:00', until: '16:00' };
+const initialValues = { photo: '/avatars/person-20.svg', name: 'Mei Castellanos', username: 'maya', headline: '', bio: '', website: '', zone: 'Europe/London', date: new Date(2026, 9, 14), from: '10:00', until: '16:00' };
 // Fields that count toward completion; the badge updates as they fill in.
 const tracked = ['name', 'username', 'headline', 'bio', 'website', 'date'];
 
@@ -46,8 +47,20 @@ export function Pattern() {
   const [saved, setSaved] = useState(initialValues);
   const [dateOpen, setDateOpen] = useState(false);
   const { values, errors } = form;
+  const [preview, setPreview] = useState('');
+  const [{ errors: photoErrors }, { openFileDialog, getInputProps }] = useFileUpload({
+    accept: 'image/png,image/jpeg,image/webp', maxSize: 2 * 1024 * 1024,
+    onFilesAdded: ([entry]) => form.setValue('photo', entry.file)
+  });
+  useEffect(() => {
+    if (!(values.photo instanceof File)) return;
+    const url = URL.createObjectURL(values.photo);
+    setPreview(url);
+    return () => URL.revokeObjectURL(url);
+  }, [values.photo]);
+  const photo = values.photo instanceof File ? preview : values.photo;
   const complete = Math.round((tracked.filter((name) => values[name]).length / tracked.length) * 100);
-  const dirty = Object.keys(values).some((key) => String(values[key]) !== String(saved[key]));
+  const dirty = values.photo !== saved.photo || Object.keys(values).some((key) => String(values[key]) !== String(saved[key]));
 
   return (
     <Card className='mx-auto w-full max-w-3xl'>
@@ -71,11 +84,13 @@ export function Pattern() {
               </FieldContent>
               <div className='flex items-center gap-3 @md/field-group:w-full! @md/field-group:max-w-md'>
                 <Avatar className='size-12'>
-                  <AvatarImage src='/avatars/person-20.svg' alt='' />
+                  {photo && <AvatarImage src={photo} alt='' />}
                   <AvatarFallback>MC</AvatarFallback>
                 </Avatar>
-                <Button type='button' size='sm' variant='outline' tone='neutral'>Change photo</Button>
-                <Button type='button' size='sm' variant='ghost' tone='neutral'>Remove</Button>
+                <input {...getInputProps({ 'aria-label': 'Choose a profile photo' })} className='sr-only' tabIndex={-1} />
+                <Button type='button' size='sm' variant='outline' tone='neutral' onClick={openFileDialog}>Change photo</Button>
+                <Button type='button' size='sm' variant='ghost' tone='neutral' disabled={!values.photo} onClick={() => form.setValue('photo', null)}>Remove</Button>
+                {photoErrors.length > 0 && <FieldError>{photoErrors.join(' ')}</FieldError>}
               </div>
             </Field>
             <FieldSeparator />

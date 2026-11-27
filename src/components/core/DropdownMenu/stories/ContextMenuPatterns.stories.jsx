@@ -19,7 +19,7 @@ async function closeContextMenu(document) {
   await waitFor(() => expect(body.queryByRole('menu')).toBeNull());
 }
 
-async function openContextSubmenu(document, submenuName) {
+async function openContextSubmenu(document, submenuName, itemName = /Developer tools/i) {
   await closeContextMenu(document);
   const body = within(document.body);
   const target = body.getByText('Right click here');
@@ -31,7 +31,7 @@ async function openContextSubmenu(document, submenuName) {
   const submenu = await body.findByRole('menuitem', { name: submenuName });
   submenu.focus();
   await userEvent.keyboard('{ArrowRight}');
-  const item = await body.findByRole('menuitem', { name: /Developer tools/i });
+  const item = await body.findByRole('menuitem', { name: itemName });
   await expect(item).toBeVisible();
   await waitFor(() => {
     const bounds = item.getBoundingClientRect();
@@ -70,12 +70,14 @@ export const ContextMenuInDialog = {
     await userEvent.click(within(canvasElement).getByRole('button', { name: 'Open dialog' }));
     const dialog = await body.findByRole('dialog');
     try {
-      await openContextSubmenu(document, 'More options');
+      await openContextSubmenu(document, 'More options', 'Duplicate file');
+      await userEvent.click(await body.findByRole('menuitem', { name: 'Duplicate file' }));
+      await expect(within(dialog).getByRole('button', { name: 'Reading notes.md (1)' })).toHaveAttribute('aria-pressed', 'true');
       if (import.meta.env.VITE_GAUDI_AUDIT === '1') {
         const { auditStoryLayout } = await import('../../../../../.storybook/storyAudit.js');
         await auditStoryLayout({
           canvasElement, id: `${id}--open`,
-          beforeAuditWidth: () => openContextSubmenu(document, 'More options')
+          beforeAuditWidth: () => openContextSubmenu(document, 'More options', 'Duplicate file')
         });
       }
     } finally {

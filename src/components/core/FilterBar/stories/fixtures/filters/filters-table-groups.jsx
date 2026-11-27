@@ -27,7 +27,7 @@ import {
   AvatarGroup,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
@@ -39,9 +39,6 @@ import {
   CardTitle
 } from '@gaudi/design-system/core/Card';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-function Dot({ className }) {
-  return <span className={cn('size-2 shrink-0 rounded-full', className)} />;
-}
 function Person({ avatar, name }) {
   return (
     <Avatar aria-hidden='true' className='size-4.5 shrink-0'>
@@ -101,7 +98,7 @@ function StackedTones({ options, empty }) {
   if (options.length === 1) {
     return (
       <span className='flex min-w-0 items-center gap-1.5'>
-        <Dot className={tone(options[0].value)} />
+        <StatusDot className={cn('size-2', tone(options[0].value))} />
         <span className='truncate'>{options[0].label}</span>
       </span>
     );
@@ -110,10 +107,10 @@ function StackedTones({ options, empty }) {
     <span className='flex items-center gap-1.5'>
       <span className='flex items-center'>
         {options.slice(0, 4).map((option) => (
-          <span
+          <StatusDot
             key={option.value}
             className={cn(
-              'ring-ui-background -ml-1 size-2.5 rounded-full ring-2 first:ml-0',
+              'ring-ui-background -ml-1 size-2.5 ring-2 first:ml-0',
               tone(option.value)
             )}
           />
@@ -276,7 +273,7 @@ const fields = [
     options: STAGES.map((entry) => ({
       value: entry.value,
       label: entry.label,
-      icon: <Dot className={entry.tone} />
+      icon: <StatusDot className={cn('size-2', entry.tone)} />
     })),
     renderValue: ({ options }) => (
       <StackedTones options={options} empty='any stage' />
@@ -627,7 +624,7 @@ export function Pattern() {
           );
           return (
             <Badge variant='outline' className='gap-1.5'>
-              <Dot className={stage?.tone ?? 'bg-ui-muted-foreground'} />
+              <StatusDot className={cn('size-2', stage?.tone ?? 'bg-ui-muted-foreground')} />
               {stage?.label}
             </Badge>
           );

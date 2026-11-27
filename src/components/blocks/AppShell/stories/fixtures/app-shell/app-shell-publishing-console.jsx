@@ -1,7 +1,8 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   BreadcrumbRoot as Breadcrumb,
   BreadcrumbItemPrimitive as BreadcrumbItem,
@@ -18,17 +19,7 @@ import {
   CommandItem,
   CommandList
 } from '@gaudi/design-system/core/Commander';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuTrigger
-} from '@gaudi/design-system/core/DropdownMenu';
+import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuLabelPrimitive as DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparatorPrimitive as DropdownMenuSeparator, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import { default as Kbd } from '@gaudi/design-system/core/Kbd';
 import { ProgressRoot as Progress } from '@gaudi/design-system/core/Progress';
 import {
@@ -59,7 +50,10 @@ import {
   useAppShellFrame
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import { Item, ItemActions, ItemContent, ItemDescription, ItemGroup, ItemTitle } from '@gaudi/design-system/core/Item';
+import Input from '@gaudi/design-system/core/Input';
+import Textarea from '@gaudi/design-system/core/Textarea';
+import { Label } from '@gaudi/design-system/core/Field';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 
@@ -101,9 +95,51 @@ const sections = [
   ] }
 ];
 const pages = sections.flatMap((section) => section.groups.flatMap((group) => group.items.map((item) => ({ ...item, section }))));
+const initialArticles = [
+  {
+    id: 'slow',
+    site: 'field-notes',
+    publication: 'Essays',
+    title: 'On slow reading',
+    text: 'The pencil marks changed on the second reading. A passage I had underlined for its rhythm became a question about the narrator.',
+    stage: 'Published'
+  },
+  {
+    id: 'map',
+    site: 'field-notes',
+    publication: 'Essays',
+    title: 'The map in the endpapers',
+    text: 'Our library copy opens to a map drawn by its first reader. The pencil route ends at a street the city no longer names.',
+    stage: 'Draft'
+  },
+  {
+    id: 'shelf',
+    site: 'field-notes',
+    publication: 'Notes',
+    title: 'Notes from the exchange shelf',
+    text: 'Three return slips tell us where this book travelled before it arrived in the shop.',
+    stage: 'Scheduled'
+  },
+  {
+    id: 'room',
+    site: 'reading-room',
+    publication: 'Essays',
+    title: 'A table by the window',
+    text: 'Every morning the same place in the reading room fills first. We asked the regulars why.',
+    stage: 'Draft'
+  },
+  {
+    id: 'trial',
+    site: 'lab-journal',
+    publication: 'Essays',
+    title: 'The first field trial',
+    text: 'The pilot interviews changed the order of the questions in our second session.',
+    stage: 'Draft'
+  }
+];
 const initialNotifications = [
   { id: 'comment', photo: 'person-20', title: 'Lina Sato commented on “On slow reading”', body: '“The bit about rereading as revision stayed with me all week.”', time: '2 min ago', unread: true },
-  { id: 'links', icon: 'Unlink', tone: 'text-warning', title: 'Broken links found', tag: 'Live', body: '4 citations in “Letters from a lost press” point to pages that moved.', actions: ['Fix links', 'Dismiss'], time: '15 min ago', unread: true },
+  { id: 'links', icon: 'Unlink', tone: 'text-warning', title: 'Broken links found', tag: 'Live', body: '4 citations in “Letters from a lost press” point to pages that moved.', actions: ['Flag for review', 'Dismiss'], time: '15 min ago', unread: true },
   { id: 'edit', icon: 'Pencil', tone: 'text-warning', title: 'Suggested edits waiting', body: 'Tomas proposed 12 edits to “Gardens of notes” before it goes live.', actions: ['Approve', 'Review'], time: '1 hour ago', unread: true },
   { id: 'scheduled', icon: 'CalendarClock', tone: 'text-info', title: 'Newsletter scheduled', body: 'Issue 42 goes out Friday at 7:00 to 1,284 subscribers.', time: '2 hours ago', unread: true },
   { id: 'editors', icon: 'Users', tone: 'text-success', title: '3 editors joined Reading Room', body: 'Hana, Owen and Clara can now review drafts.', people: ['person-23', 'person-44', 'person-24'], time: '4 hours ago', unread: true },
@@ -147,7 +183,7 @@ function ReadersWidget() {
   return (
     <div className='border-ui-border grid gap-2 border-t p-3 text-xs'>
       <p className='flex items-center gap-1.5 font-medium'>
-        <span aria-hidden='true' className='bg-success size-1.5 rounded-full' />
+        <StatusDot className='bg-success' />
         Live readers
         <Badge variant='success-light' size='sm' className='ms-auto'>Live</Badge>
       </p>
@@ -183,46 +219,8 @@ function SectionNav({ section, page, onPage }) {
   );
 }
 
-function AccountMenu() {
-  const { isMobile } = useSidebar();
-  return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant='ghost' size='icon' aria-label={`Account: ${me.name}`}>
-          <Avatar className='size-7'>
-            <AvatarImage src={me.photo} alt='' />
-            <AvatarFallback>AO</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent side={isMobile ? 'top' : 'right'} align='end' sideOffset={8} className='w-56'>
-        <DropdownMenuLabel className='grid font-normal leading-tight'>
-          <span className='font-medium'>{me.name}</span>
-          <span className='text-text-muted text-xs'>{me.email}</span>
-        </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='User' aria-hidden='true' />
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-          Writing preferences
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Users' aria-hidden='true' />
-          Switch account
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  );
+function AccountAvatar() {
+  return <Avatar className='size-7' title={me.name}><AvatarImage src={me.photo} alt={me.name} /><AvatarFallback>AO</AvatarFallback></Avatar>;
 }
 
 /** One crumb that switches between options (site, publication, environment). */
@@ -232,7 +230,7 @@ function Switcher({ label, value, options, onChange, hideLabelOnPhone, className
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost' size='sm' aria-label={`${label}: ${current.label}`} className={`min-w-0 gap-1.5 px-2 ${className || ''}`}>
-          {current.tone ? <span aria-hidden='true' className={`size-2.5 shrink-0 rounded-full ${current.tone}`} /> : null}
+          {current.tone ? <StatusDot className={`size-2.5 ${current.tone}`} /> : null}
           <span className={`truncate ${hideLabelOnPhone ? 'sr-only @lg:not-sr-only' : ''}`}>{current.label}</span>
           <RegistryIcon lucide='ChevronsUpDown' aria-hidden='true' className='opacity-60' />
         </Button>
@@ -242,7 +240,7 @@ function Switcher({ label, value, options, onChange, hideLabelOnPhone, className
         <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
           {options.map((option) => (
             <DropdownMenuRadioItem key={option.id} value={option.id} className='gap-2'>
-              {option.tone ? <span aria-hidden='true' className={`size-3 shrink-0 rounded-full ${option.tone}`} /> : null}
+              {option.tone ? <StatusDot className={`size-3 ${option.tone}`} /> : null}
               <span className='grid leading-tight'>
                 {option.label}
                 {option.plan ? <span className='text-text-muted text-xs'>{option.plan}</span> : null}
@@ -250,23 +248,13 @@ function Switcher({ label, value, options, onChange, hideLabelOnPhone, className
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
-        {label === 'Environment' ? null : (
-          <>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='Plus' aria-hidden='true' />
-              Create {label}
-            </DropdownMenuItem>
-          </>
-        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
-function NotificationsSheet({ open, onOpenChange }) {
+function NotificationsSheet({ open, onOpenChange, items, setItems }) {
   const frame = useAppShellFrame();
-  const [items, setItems] = useState(initialNotifications);
   const unread = items.filter((item) => item.unread).length;
   const act = (id, action) => setItems((list) => list.map((item) => (item.id === id ? { ...item, done: action, unread: false } : item)));
   return (
@@ -323,20 +311,22 @@ function NotificationsSheet({ open, onOpenChange }) {
                     <Badge variant='success-light' className='w-fit'>{item.done}</Badge>
                   ) : (
                     <div className='flex gap-1.5'>
-                      <Button size='xs' onClick={() => act(item.id, item.actions[0] === 'Approve' ? 'Edits approved' : 'Links fixed')}>{item.actions[0]}</Button>
+                      <Button
+                        size='xs'
+                        onClick={() => act(item.id, item.actions[0] === 'Approve' ? 'Edits approved' : 'Flagged for review')}
+                      >
+                        {item.actions[0]}
+                      </Button>
                       <Button size='xs' variant='outline' onClick={() => act(item.id, item.actions[1] === 'Review' ? 'In review' : 'Dismissed')}>{item.actions[1]}</Button>
                     </div>
                   )
                 ) : null}
                 <span className='text-text-muted text-xs'>{item.time}</span>
               </div>
-              {item.unread ? <span aria-hidden='true' className='bg-ui-foreground absolute top-4 end-4 size-1.5 rounded-full' /> : null}
+              {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-4' /> : null}
             </li>
           ))}
         </ul>
-        <div className='border-ui-border border-t p-1'>
-          <Button variant='ghost' size='sm' className='w-full'>View all notifications</Button>
-        </div>
       </SheetContent>
     </Sheet>
   );
@@ -374,17 +364,56 @@ function PublishingShell() {
   const [environment, setEnvironment] = useState('live');
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [articles, setArticles] = useState(initialArticles);
+  const [notices, setNotices] = useState(initialNotifications);
+  const [draft, setDraft] = useState(null);
+  const editNew = (kind) => {
+    setSectionId('content');
+    setPage(kind === 'Notes' ? 'notes' : kind === 'Series' ? 'series' : 'essays');
+    setDraft({ id: crypto.randomUUID(), title: '', text: '', site, publication: kind, stage: 'Draft' });
+  };
+  const saveArticle = (event) => {
+    event.preventDefault();
+    if (!draft.title.trim()) return;
+    const article = { ...draft, title: draft.title.trim() };
+    setArticles((list) =>
+      list.some((entry) => entry.id === article.id)
+        ? list.map((entry) => (entry.id === article.id ? article : entry))
+        : [article, ...list]
+    );
+    setDraft(null);
+  };
+  const selectPage = (id) => {
+    setDraft(null);
+    setPage(id);
+  };
+  const pageName = pages.find((item) => item.id === page)?.label;
+  const kind = { essays: 'Essays', notes: 'Notes', series: 'Series', newsletter: 'Newsletter' }[page];
+  const stage = { scheduled: 'Scheduled', published: 'Published', 'release-drafts': 'Draft' }[page];
+  const visible = articles.filter(
+    (entry) => entry.site === site && (!kind || entry.publication === kind) && (!stage || entry.stage === stage)
+  );
+  const articlePage = Boolean(kind || stage || ['dashboard', 'all-releases'].includes(page));
+  const noticeKinds = {
+    'broken-links': ['links'],
+    comments: ['comment'],
+    replies: ['comment'],
+    revisions: ['edit'],
+    activity: notices.map((item) => item.id)
+  };
+  const related = site === sites[0].id ? notices.filter((item) => noticeKinds[page]?.includes(item.id)) : [];
   // ⌘K / Ctrl+K opens search while focus is inside this window.
   const shortcut = useHotkey('mod+k', () => setSearchOpen((value) => !value), { enableInInputs: true, target: frame?.container ?? null });
   const section = sections.find((entry) => entry.id === sectionId);
   const chooseSection = (id) => {
     setSectionId(id);
+    setDraft(null);
     setPage(sections.find((entry) => entry.id === id).groups[0].items[0].id);
   };
   return (
     <SidebarProvider shortcut={false} style={{ '--sidebar-width': '3.5rem', '--sidebar-width-icon': '3.5rem' }}>
       <Sidebar collapsible='icon'>
-        <InnerSidebar section={section} page={page} onPage={setPage} onSection={chooseSection} />
+        <InnerSidebar section={section} page={page} onPage={selectPage} onSection={chooseSection} />
       </Sidebar>
       <AppShellPanel>
         <AppShellHeader bordered className='gap-1 px-2'>
@@ -396,7 +425,7 @@ function PublishingShell() {
                   label='Site'
                   value={site}
                   options={sites.map((entry) => ({ ...entry, label: entry.name }))}
-                  onChange={setSite}
+                  onChange={(id) => { setSite(id); setDraft(null); }}
                   hideLabelOnPhone
                 />
               </BreadcrumbItem>
@@ -406,7 +435,7 @@ function PublishingShell() {
                   label='Publication'
                   value={publication}
                   options={publications.map((name) => ({ id: name, label: name }))}
-                  onChange={setPublication}
+                  onChange={(kind) => { setPublication(kind); setSectionId(kind === 'Newsletter' ? 'publishing' : 'content'); selectPage(kind.toLowerCase()); }}
                 />
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -440,27 +469,58 @@ function PublishingShell() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-52'>
-                <DropdownMenuItem><RegistryIcon lucide='BookOpen' aria-hidden='true' />New essay</DropdownMenuItem>
-                <DropdownMenuItem><RegistryIcon lucide='Pencil' aria-hidden='true' />New note</DropdownMenuItem>
-                <DropdownMenuItem><RegistryIcon lucide='Layers' aria-hidden='true' />New series</DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => editNew('Essays')}>
+                  <RegistryIcon lucide='BookOpen' aria-hidden='true' />
+                  New essay
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => editNew('Notes')}>
+                  <RegistryIcon lucide='Pencil' aria-hidden='true' />
+                  New note
+                </DropdownMenuItem>
+                <DropdownMenuItem onSelect={() => editNew('Series')}>
+                  <RegistryIcon lucide='Layers' aria-hidden='true' />
+                  New series
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem><RegistryIcon lucide='Upload' aria-hidden='true' />Import Markdown</DropdownMenuItem>
-                <DropdownMenuItem><RegistryIcon lucide='Download' aria-hidden='true' />Export site</DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <a
+                    download={`${site}-articles.json`}
+                    href={`data:application/json;charset=utf-8,${encodeURIComponent(
+                      JSON.stringify(
+                        articles.filter((entry) => entry.site === site),
+                        null,
+                        2
+                      )
+                    )}`}
+                  >
+                    <RegistryIcon lucide='Download' aria-hidden='true' />
+                    Export site articles
+                  </a>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button variant='ghost' size='icon-sm' aria-label='Open live site' className='hidden @2xl:inline-flex'>
+                <Button
+                  variant='ghost'
+                  size='icon-sm'
+                  aria-label='View published articles'
+                  onClick={() => {
+                    setSectionId('publishing');
+                    selectPage('published');
+                  }}
+                  className='hidden @2xl:inline-flex'
+                >
                   <RegistryIcon lucide='ExternalLink' aria-hidden='true' />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side='bottom'>Open live site</TooltipContent>
+              <TooltipContent side='bottom'>View published articles</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button variant='ghost' size='icon-sm' aria-label='Notifications' className='relative' onClick={() => setNotificationsOpen(true)}>
                   <RegistryIcon lucide='Bell' aria-hidden='true' />
-                  <span aria-hidden='true' className='bg-ui-foreground absolute top-1 end-1.5 size-1.5 rounded-full' />
+                  {notices.some((item) => item.unread) ? <StatusDot className='bg-ui-foreground absolute top-1 end-1.5' /> : null}
                 </Button>
               </TooltipTrigger>
               <TooltipContent side='bottom'>Notifications</TooltipContent>
@@ -468,9 +528,86 @@ function PublishingShell() {
           </div>
         </AppShellHeader>
         <div className='flex min-h-0 flex-1'>
-          <SecondaryAside section={section} page={page} onPage={setPage} />
+          <SecondaryAside section={section} page={page} onPage={selectPage} />
           <AppShellBody className='@container min-w-0 flex-1 overflow-y-auto pt-4'>
-            <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+            <section className='mx-auto grid w-full max-w-2xl gap-4 px-4 pb-4' aria-label='Editorial desk'>
+              <header className='grid gap-1'>
+                <h2 className='text-lg font-semibold'>
+                  {draft
+                    ? articles.some((entry) => entry.id === draft.id)
+                      ? 'Edit article'
+                      : 'New draft'
+                    : `${pageName} desk`}
+                </h2>
+                <p className='text-sm text-text-muted'>
+                  {sites.find((entry) => entry.id === site).name} ·{' '}
+                  {environments.find((entry) => entry.id === environment).label}
+                </p>
+              </header>
+              {draft ? (
+                <form className='grid gap-3' onSubmit={saveArticle}>
+                  <Label>
+                    Article title
+                    <Input value={draft.title} onChange={(event) => setDraft({ ...draft, title: event.target.value })} />
+                  </Label>
+                  <Label>
+                    Opening paragraph
+                    <Textarea
+                      rows={4}
+                      value={draft.text}
+                      onChange={(event) => setDraft({ ...draft, text: event.target.value })}
+                    />
+                  </Label>
+                  <div className='flex flex-wrap gap-2'>
+                    <Button type='submit' size='sm' disabled={!draft.title.trim()}>
+                      Save article
+                    </Button>
+                    <Button type='button' variant='ghost' size='sm' onClick={() => setDraft(null)}>
+                      Cancel
+                    </Button>
+                  </div>
+                </form>
+              ) : !articlePage ? (
+                <div className='grid gap-3 text-sm'>
+                  {related.map((notice) => (
+                    <article key={notice.id} className='grid gap-1'>
+                      <h3 className='font-medium'>{notice.title}</h3>
+                      <p>{notice.body}</p>
+                      {notice.done ? <Badge variant='secondary' className='w-fit'>{notice.done}</Badge> : null}
+                    </article>
+                  ))}
+                  {page === 'general' ? <p>Publication: {sites.find((entry) => entry.id === site).name}</p> : null}
+                  {!related.length && page !== 'general' ? (
+                    <p className='text-text-muted'>No {pageName.toLowerCase()} records for this site.</p>
+                  ) : null}
+                </div>
+              ) : (
+                <ItemGroup aria-label='Editorial articles'>
+                  {visible.map((entry) => (
+                    <Item className='border-b last:border-b-0' key={entry.id} size='sm'>
+                      <ItemContent>
+                        <ItemTitle>{entry.title}</ItemTitle>
+                        <ItemDescription>{entry.text}</ItemDescription>
+                        <Badge className='w-fit' variant={entry.stage === 'Published' ? 'success-light' : 'outline'}>
+                          {entry.stage}
+                        </Badge>
+                      </ItemContent>
+                      <ItemActions>
+                        <Button
+                          variant='outline'
+                          size='sm'
+                          aria-label={`Edit ${entry.title}`}
+                          onClick={() => setDraft(entry)}
+                        >
+                          Edit
+                        </Button>
+                      </ItemActions>
+                    </Item>
+                  ))}
+                  {!visible.length ? <p className='text-sm text-text-muted'>There are no articles in this view.</p> : null}
+                </ItemGroup>
+              )}
+            </section>
           </AppShellBody>
         </div>
       </AppShellPanel>
@@ -479,11 +616,11 @@ function PublishingShell() {
         onOpenChange={setSearchOpen}
         onSelect={(entry) => {
           setSectionId(entry.section.id);
-          setPage(entry.id);
+          selectPage(entry.id);
           setSearchOpen(false);
         }}
       />
-      <NotificationsSheet open={notificationsOpen} onOpenChange={setNotificationsOpen} />
+      <NotificationsSheet open={notificationsOpen} onOpenChange={setNotificationsOpen} items={notices} setItems={setNotices} />
     </SidebarProvider>
   );
 }
@@ -494,9 +631,9 @@ function InnerSidebar({ section, page, onPage, onSection }) {
   const rail = (
     <div className='flex h-full w-14 shrink-0 flex-col'>
       <SidebarHeader className='items-center py-3'>
-        <span aria-hidden='true' className='bg-ui-foreground text-ui-background grid size-8 place-items-center rounded-(--ds-radius-control)'>
+        <IconTile size='sm' variant='solid' aria-hidden='true' className='bg-ui-foreground text-ui-background'>
           <RegistryIcon lucide='PenTool' className='size-4' />
-        </span>
+        </IconTile>
       </SidebarHeader>
       <SidebarContent role='navigation' aria-label='Sections'>
         <SidebarMenu className='gap-1 px-2'>
@@ -506,7 +643,7 @@ function InnerSidebar({ section, page, onPage, onSection }) {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className='items-center'>
-        <AccountMenu />
+        <AccountAvatar />
       </SidebarFooter>
     </div>
   );

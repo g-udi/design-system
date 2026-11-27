@@ -1,3 +1,5 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import { Label } from '@gaudi/design-system/core/Field';
 import { useId, useState } from 'react';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
@@ -56,9 +58,9 @@ const showcase = extras.map(({ icon, badge, tone, ...extra }, index) => ({
   ...items[index],
   ...extra,
   leading: (
-    <span className='flex size-8 items-center justify-center rounded-md bg-ui-muted'>
+    <IconTile aria-hidden='true' size='sm' variant='muted'>
       <RegistryIcon lucide={icon} className='size-4' />
-    </span>
+    </IconTile>
   ),
   badge: badge && <Badge variant={tone} size='sm'>{badge}</Badge>
 }));
@@ -232,7 +234,7 @@ function RetainedFormExample() {
       <AccordionItem value='profile'>
         <AccordionTrigger description='Drafts remain when this panel closes.'>Profile draft</AccordionTrigger>
         <AccordionContent forceMount>
-          <label htmlFor={inputId}>Display name</label>
+          <Label htmlFor={inputId}>Display name</Label>
           <Input id={inputId} defaultValue='Amira' />
         </AccordionContent>
       </AccordionItem>

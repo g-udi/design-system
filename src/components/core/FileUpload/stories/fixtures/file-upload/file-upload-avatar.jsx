@@ -1,4 +1,5 @@
 'use client';
+import { AvatarRoot, AvatarImage, AvatarFallback } from '@gaudi/design-system/core/Avatar';
 import {
   formatBytes,
   useFileUpload
@@ -49,13 +50,16 @@ export function Pattern({
     <div className={cn('flex flex-col items-center gap-3', className)}>
       {/* Avatar Preview */}
       <div className='relative'>
-        <div
+        <input {...getInputProps({ 'aria-label': 'Choose avatar image' })} className='sr-only' tabIndex={-1} />
+        <Button
+          variant='ghost'
+          size='icon-lg'
+          aria-label='Choose avatar image'
+          aria-haspopup='dialog'
           className={cn(
-            'group/avatar relative size-24 cursor-pointer overflow-hidden rounded-control border border-dashed transition-colors',
-            isDragging
-              ? 'border-ui-primary bg-ui-primary/5'
-              : 'border-ui-muted-foreground/25 hover:border-ui-muted-foreground/20',
-            previewUrl && 'border-solid'
+            'size-24 overflow-hidden rounded-control border p-0',
+            !previewUrl && 'border-dashed',
+            isDragging ? 'border-ui-primary bg-ui-primary/5' : 'border-ui-muted-foreground/25'
           )}
           onDragEnter={handleDragEnter}
           onDragLeave={handleDragLeave}
@@ -63,23 +67,13 @@ export function Pattern({
           onDrop={handleDrop}
           onClick={openFileDialog}
         >
-          <input {...getInputProps()} className='sr-only' />
-
-          {previewUrl ? (
-            <img
-              src={previewUrl}
-              alt='Avatar'
-              className='h-full w-full object-cover'
-            />
-          ) : (
-            <div className='flex h-full w-full items-center justify-center'>
-              <RegistryIcon
-                lucide='UserIcon'
-                className='text-ui-muted-foreground size-6'
-              />
-            </div>
-          )}
-        </div>
+          <AvatarRoot className='size-full rounded-[inherit]'>
+            <AvatarImage src={previewUrl} alt='Avatar' />
+            <AvatarFallback>
+              <RegistryIcon lucide='User' className='size-6 text-text-muted' />
+            </AvatarFallback>
+          </AvatarRoot>
+        </Button>
 
         {/* Remove Button - only show when file is uploaded */}
         {currentFile && (

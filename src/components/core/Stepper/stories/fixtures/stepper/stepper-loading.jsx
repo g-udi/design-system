@@ -1,3 +1,4 @@
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import Loader from '@gaudi/design-system/core/Loader';
 'use client';
 import {
@@ -29,7 +30,7 @@ export function Pattern() {
           <StepperItem key={step} step={step} loading={step === 2}>
             <StepperTrigger>
               <StepperIndicator className='data-[state=active]:text-ui-primary-foreground data-[state=active]:bg-ui-primary data-[state=active]:border-ui-primary data-[state=inactive]:border-ui-muted size-5 border-2 data-[state=completed]:border-success data-[state=completed]:bg-success data-[state=completed]:text-success-foreground'>
-                <span className='bg-ui-primary-foreground hidden size-1.5 rounded-full group-data-[state=active]/step:block' />
+                <StatusDot className='bg-ui-primary-foreground hidden size-1.5 group-data-[state=active]/step:block' />
               </StepperIndicator>
             </StepperTrigger>
             {steps.length > step && (

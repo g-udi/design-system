@@ -1,4 +1,4 @@
-import { IconStack } from '@gaudi/design-system/core/Icon';
+import { IconStack, IconTile } from '@gaudi/design-system/core/Icon';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const sizes = [
   { label: 'Small', className: 'h-16 w-14', icon: 'ArchiveIcon', iconSize: 'size-3.5' },
@@ -32,9 +32,9 @@ export function Pattern() {
         ))}
         <Labelled label='Badge'>
           <IconStack aria-hidden='true' className='text-ui-primary'>
-            <span className='bg-ui-background text-ui-primary flex size-7 items-center justify-center rounded-full border shadow-xs'>
+            <IconTile size='xs' radius='full' className='size-7 text-ui-primary shadow-xs'>
               <RegistryIcon lucide='CheckIcon' className='size-3.5' />
-            </span>
+            </IconTile>
           </IconStack>
         </Labelled>
       </div>

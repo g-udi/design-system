@@ -1,6 +1,9 @@
+import { cardVariants } from '@gaudi/design-system/core/Card';
 import Link from 'next/link';
 import Button from '@gaudi/design-system/core/Button';
 import { CodeBlockGroup } from '@gaudi/design-system/core/CodeBlock';
+import Icon from '@gaudi/design-system/core/Icon';
+import Pill from '@gaudi/design-system/core/Pill';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { PresetGrid } from '@/components/docs/PresetGrid';
@@ -41,7 +44,7 @@ const audiences = [
 ];
 
 const features = [
-  { title: 'Themes', href: '/themes', body: `${catalogue.presets.length} WCAG AA presets, light/dark/system, and import from StyleGlide, tweakcn or shadcn.` },
+  { title: 'Themes', href: '/themes', body: `${catalogue.presets.length} presets with contrast-tested color pairs, light and dark modes, and imports from StyleGlide, tweakcn or shadcn.` },
   { title: 'AI & MCP', href: '/docs/ai', body: 'llms.txt, an agent skill installer and a local MCP server, generated from the same sources as the components.' },
   { title: 'Registry', href: '/docs/ai/registry', body: `${examples} copy-in patterns and blocks for the shadcn CLI that keep components as package imports.` },
   { title: 'Accessibility', href: '/docs/foundations/accessibility', body: 'Semantic elements, visible focus, keyboard support, reduced motion and named regions in every owner.' },
@@ -66,9 +69,9 @@ export default function HomePage() {
         <div className='mx-auto max-w-[90rem] px-4 pt-14 pb-8 sm:px-6 lg:pt-20'>
         <section className='grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]' aria-labelledby='hero-title'>
           <div className='flex flex-col items-start gap-6'>
-          <span className='rounded-(--ds-radius-pill) border border-border bg-surface-muted px-3 py-1 text-xs font-medium text-text-muted'>
+          <Pill radius='full' tone='neutral' variant='outline' size='md' className='max-w-full whitespace-normal'>
             v{catalogue.version} · {catalogue.components.length} documented owners · {examples} live examples
-          </span>
+          </Pill>
           <h1 id='hero-title' className='max-w-3xl text-4xl leading-tight font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl'>
             {siteConfig.product}
           </h1>
@@ -88,7 +91,7 @@ export default function HomePage() {
               { title: 'app/page.jsx', language: 'jsx', code: `import { Button } from '${siteConfig.packageName}';\nimport '${siteConfig.packageName}/global.css';\n\nexport default function Page() {\n  return <Button>Read article</Button>;\n}` }
             ]}
           />
-            <Link className='text-sm text-accent underline underline-offset-2' href='/docs/getting-started/nextjs'>Set up with Next.js →</Link>
+            <Link className='inline-flex items-center gap-1 text-sm text-accent underline underline-offset-2' href='/docs/getting-started/nextjs'>Set up with Next.js <Icon name='ArrowRight' decorative size='xs' /></Link>
           </div>
         </section>
         </div>
@@ -99,7 +102,7 @@ export default function HomePage() {
           <h2 id='audiences-title' className='text-2xl font-bold'>One system for every kind of page</h2>
           <ul className='grid gap-4 lg:grid-cols-3'>
             {audiences.map((audience) => (
-              <li key={audience.title} className='site-card gap-3 p-5'>
+              <li key={audience.title} className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card gap-3 p-5' })}>
                 <span className='text-lg font-semibold'>{audience.title}</span>
                 <span className='text-sm text-text-muted'>{audience.body}</span>
                 <span className='mt-auto flex flex-wrap gap-x-4 gap-y-1 text-sm'>
@@ -116,7 +119,7 @@ export default function HomePage() {
           <ul className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
             {features.map((feature) => (
               <li key={feature.title}>
-                <Link href={feature.href} className='site-card h-full'>
+                <Link href={feature.href} className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card h-full' })}>
                   <span className='font-semibold'>{feature.title}</span>
                   <span className='text-sm text-text-muted'>{feature.body}</span>
                 </Link>
@@ -128,7 +131,7 @@ export default function HomePage() {
         <section aria-labelledby='presets-title' className='flex flex-col gap-2'>
           <div className='flex flex-wrap items-end justify-between gap-3'>
             <h2 id='presets-title' className='text-2xl font-bold'>Eight presets, one contract</h2>
-            <Link className='text-accent underline underline-offset-2' href='/themes'>Open the themes page →</Link>
+            <Link className='inline-flex items-center gap-1 text-accent underline underline-offset-2' href='/themes'>Open the themes page <Icon name='ArrowRight' decorative size='xs' /></Link>
           </div>
           <PresetGrid compact />
         </section>
@@ -138,7 +141,7 @@ export default function HomePage() {
           <ul className='grid gap-4 sm:grid-cols-2 lg:grid-cols-3'>
             {sections.map((section) => (
               <li key={section.title}>
-                <Link href={section.href} className='site-card h-full'>
+                <Link href={section.href} className={cardVariants({ variant: 'outline', padding: 'lg', fill: false, className: 'site-card h-full' })}>
                   <span className='font-semibold'>{section.title}</span>
                   <span className='text-sm text-text-muted'>{section.meta}</span>
                 </Link>

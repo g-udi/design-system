@@ -85,9 +85,9 @@ const rows = [
       </Person>,
       <Person key='count' person={people[2]} label='online, 3 unread messages' className='size-10'>
         <AvatarBadge className='bg-success' />
-        <span aria-hidden='true' className='absolute -top-2 -right-2 flex size-5 items-center justify-center rounded-full border-2 border-ui-background bg-danger text-xs font-medium text-danger-foreground'>
+        <AvatarBadge aria-hidden='true' className='-top-2 -right-2 bottom-auto size-5 bg-danger text-xs font-medium text-danger-foreground'>
           3
-        </span>
+        </AvatarBadge>
       </Person>
     ]
   }

@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useId, useState } from 'react';
 import Input from '../../../components/core/Input';
 import { Slider } from '../../../components/core/Slider';
@@ -23,7 +24,7 @@ export function OklchField({ label, value, onChange }) {
       <div className='flex items-center gap-3'>
         <span aria-hidden='true' className='size-10 shrink-0 rounded border border-border' style={ { background: value } } />
         <div className='min-w-0 grow'>
-          <label htmlFor={ `${id}-hex` } className='block text-sm font-medium text-text'>{label}</label>
+          <Label htmlFor={ `${id}-hex` } className='block text-sm font-medium text-text'>{label}</Label>
           <Input
             id={ `${id}-hex` }
             className='mt-1'

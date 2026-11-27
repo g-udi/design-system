@@ -9,32 +9,57 @@ import {
   navigationMenuTriggerStyle
 } from '@gaudi/design-system/core/NavigationMenu';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+const docs = 'https://design.gaudi.site/docs';
 const guides = [
-  { title: 'Introduction', description: 'What Gaudi is, and how tokens, components and patterns fit together.' },
-  { title: 'Installation', description: 'Install the package, load the styles and wire up the theme.' }
+  { title: 'Introduction', path: '', description: 'How Gaudi’s tokens, components and patterns fit together.' },
+  {
+    title: 'Installation',
+    path: '/getting-started',
+    description: 'Install the package, load the styles and set up a theme.'
+  }
 ];
 const components = [
-  { title: 'Alert Dialog', description: 'Asks for a decision before the reader continues.' },
-  { title: 'Hover Card', description: 'Preview the content behind a link without leaving the page.' },
-  { title: 'Progress', description: 'Shows how far a task has come towards completion.' },
-  { title: 'Scroll Area', description: 'A styled scroll container that keeps native behaviour.' }
+  { title: 'Dialog', path: '/components/dialog', description: 'Ask for a decision or show a focused task.' },
+  { title: 'Select', path: '/components/select', description: 'Choose one or more options from a list.' },
+  { title: 'Calendar', path: '/components/calendar', description: 'Choose a date or a range of dates.' },
+  { title: 'Button', path: '/components/button', description: 'Trigger an action or navigate to another page.' }
 ];
-const statuses = [
-  { title: 'Backlog', icon: 'CircleDashedIcon' },
-  { title: 'In progress', icon: 'CircleAlertIcon' },
-  { title: 'Done', icon: 'CircleCheckIcon' }
+const foundations = [
+  { title: 'Colours', path: '/foundations/colours', icon: 'PaletteIcon' },
+  { title: 'Typography', path: '/foundations/typography', icon: 'TypeIcon' },
+  { title: 'Icons', path: '/foundations/icons', icon: 'ShapesIcon' }
 ];
-const solutions = [
-  { title: 'Individuals', description: 'Write and publish on your own.', icon: 'UserIcon' },
-  { title: 'Freelancers', description: 'For one author with a small archive.', icon: 'CircleDollarSignIcon' },
-  { title: 'Small businesses', description: 'Editors, roles and review queues.', icon: 'SparklesIcon' },
-  { title: 'Enterprises', description: 'Several publications under one roof.', icon: 'BuildingIcon' }
+const blocks = [
+  {
+    title: 'App Shell',
+    path: '/blocks/app-shell',
+    description: 'Sidebars, top bars and application windows.',
+    icon: 'LayoutTemplateIcon'
+  },
+  {
+    title: 'Dashboard',
+    path: '/blocks/dashboard',
+    description: 'Metrics, charts and recent activity.',
+    icon: 'LayoutDashboardIcon'
+  },
+  {
+    title: 'Forms',
+    path: '/blocks/forms',
+    description: 'Checkout, profile and settings forms.',
+    icon: 'FileTextIcon'
+  },
+  {
+    title: 'Scheduling',
+    path: '/blocks/scheduling',
+    description: 'Bookings, availability and time slots.',
+    icon: 'CalendarIcon'
+  }
 ];
-function Item({ title, description, icon, className }) {
+function Item({ title, description, icon, path, className }) {
   return (
     <li>
       <NavigationMenuLink asChild className={className}>
-        <a href='#'>
+        <a href={docs + path}>
           {icon ? <RegistryIcon lucide={icon} aria-hidden='true' /> : null}
           {description ? (
             <span className='flex flex-col gap-1'>
@@ -58,7 +83,9 @@ export function Pattern() {
             <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className='grid w-72 gap-1'>
-                {guides.map((item) => <Item key={item.title} {...item} className='p-2' />)}
+                {guides.map((item) => (
+                  <Item key={item.title} {...item} className='p-2' />
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
@@ -66,34 +93,40 @@ export function Pattern() {
             <NavigationMenuTrigger>Components</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className='grid w-[min(28rem,calc(100vw-2rem))] grid-cols-1 gap-1 sm:grid-cols-2'>
-                {components.map((item) => <Item key={item.title} {...item} className='p-2' />)}
+                {components.map((item) => (
+                  <Item key={item.title} {...item} className='p-2' />
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Status</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Foundations</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className='grid w-44 gap-1'>
-                {statuses.map((item) => <Item key={item.title} {...item} className='flex-row items-center gap-2' />)}
+                {foundations.map((item) => (
+                  <Item key={item.title} {...item} className='flex-row items-center gap-2' />
+                ))}
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger>Solutions</NavigationMenuTrigger>
+            <NavigationMenuTrigger>Blocks</NavigationMenuTrigger>
             <NavigationMenuContent>
               <div className='grid w-[min(28rem,calc(100vw-2rem))] gap-2'>
                 <ul className='grid grid-cols-1 gap-1 sm:grid-cols-2'>
-                  {solutions.map((item) => <Item key={item.title} {...item} className='flex-row items-start gap-2 p-2' />)}
+                  {blocks.map((item) => (
+                    <Item key={item.title} {...item} className='flex-row items-start gap-2 p-2' />
+                  ))}
                 </ul>
                 <Button className='w-full' size='sm' asChild>
-                  <a href='#'>Compare plans</a>
+                  <a href={`${docs}/blocks`}>Browse all blocks</a>
                 </Button>
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-              <a href='#'>Documentation</a>
+              <a href={docs}>Documentation</a>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

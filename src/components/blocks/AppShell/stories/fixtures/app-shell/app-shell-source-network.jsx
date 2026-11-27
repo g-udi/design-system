@@ -6,22 +6,16 @@ import { useTree } from '@headless-tree/react';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import Link from '@gaudi/design-system/core/Link';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@gaudi/design-system/core/Input';
+import { DialogRoot as Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@gaudi/design-system/core/Dialog';
+import { Field, FieldLabel, FieldInput } from '@gaudi/design-system/core/Field';
 import { default as Kbd } from '@gaudi/design-system/core/Kbd';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@gaudi/design-system/core/Tabs';
 import { TooltipRoot as Tooltip, TooltipContent, TooltipTrigger } from '@gaudi/design-system/core/Tooltip';
@@ -41,7 +35,7 @@ import {
   AppShellPanel,
   useAppShellFrame
 } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import DataTable from '@gaudi/design-system/core/DataTable';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { useHotkey } from '@gaudi/design-system/hooks/interaction/use-hotkey';
 
@@ -355,18 +349,18 @@ const workspaces = [
   }))
 }));
 const INDENT = 20;
-const noop = (event) => event.preventDefault();
 const stop = (event) => {
   event.preventDefault();
   event.stopPropagation();
 };
 
-function Logo({ compact = false }) {
+function Logo({ compact = false, onHome }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <Link
       variant='bare'
       href='#home'
-      onClick={noop}
+      onClick={event => { event.preventDefault(); onHome(); if (isMobile) setOpenMobile(false); }}
       aria-label={compact ? 'Gaudi Sources home' : undefined}
       className='flex shrink-0 items-center gap-2 rounded-(--ds-radius-control)'
     >
@@ -422,21 +416,13 @@ function SectionTiles({ workspace, section, onSection }) {
             </li>
           );
         })}
-        <li>
-          <Button
-            variant='ghost'
-            aria-label='Add section'
-            className='bg-ui-secondary/70 text-text-muted hover:text-text grid h-15 w-full place-items-center rounded-(--ds-radius-card) border border-transparent'
-          >
-            <RegistryIcon lucide='Plus' aria-hidden='true' className='size-4' />
-          </Button>
-        </li>
+
       </ul>
     </nav>
   );
 }
 
-function RowAction({ item }) {
+function RowAction({ item, onAction }) {
   const data = item.getItemData();
   if (!data.action) return null;
   if (data.action.icon) {
@@ -446,8 +432,8 @@ function RowAction({ item }) {
         size='icon-xs'
         tabIndex={-1}
         aria-label={`Add to ${data.name}`}
-        onClick={stop}
-        className='text-text-muted hover:text-text grid size-5 shrink-0 place-items-center rounded-(--ds-radius-control)'
+        onClick={event => { stop(event); onAction(item.getId(), data.action.label || 'Add'); }}
+        className='text-text-muted hover:text-text grid size-6 shrink-0 place-items-center rounded-(--ds-radius-control)'
       >
         <RegistryIcon lucide={data.action.icon} aria-hidden='true' className='size-3.5' />
       </Button>
@@ -459,7 +445,7 @@ function RowAction({ item }) {
       href={`#${item.getId()}-${data.action.label.toLowerCase()}`}
       tabIndex={-1}
       aria-label={`${data.action.label} ${data.name}`}
-      onClick={stop}
+      onClick={event => { stop(event); onAction(item.getId(), data.action.label || 'Add'); }}
       className='shrink-0 text-xs'
     >
       {data.action.label}
@@ -468,7 +454,8 @@ function RowAction({ item }) {
 }
 
 /** The status-badged source tree: Gaudi Tree rows with counts, badges, inline actions and indent guides. */
-function SourceTree({ workspace }) {
+function SourceTree({ workspace, onNode, onAction }) {
+  const [selection, setSelection] = useState([workspace.current]);
   const tree = useTree({
     rootItemId: 'root',
     indent: INDENT,
@@ -476,6 +463,12 @@ function SourceTree({ workspace }) {
       expandedItems: workspace.expanded,
       selectedItems: [workspace.current],
       focusedItem: workspace.current
+    },
+    state: { selectedItems: selection },
+    setSelectedItems: change => {
+      const next = typeof change === 'function' ? change(selection) : change;
+      setSelection(next);
+      if (next.length) onNode(next[next.length - 1]);
     },
     getItemName: (item) => item.getItemData().name,
     isItemFolder: (item) => Boolean(item.getItemData()?.children?.length),
@@ -529,7 +522,7 @@ function SourceTree({ workspace }) {
                         {data.badge.label}
                       </Badge>
                     ) : null}
-                    <RowAction item={item} />
+                    <RowAction item={item} onAction={onAction} />
                   </span>
                 </TreeItemLabel>
               </div>
@@ -543,7 +536,6 @@ function SourceTree({ workspace }) {
 
 function AccountMenu({ compact = false }) {
   const { isMobile } = useSidebar();
-  const [theme, setTheme] = useState('system');
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -578,35 +570,6 @@ function AccountMenu({ compact = false }) {
             <span className='text-text-muted truncate text-xs'>{curator.email}</span>
           </span>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='User' aria-hidden='true' />
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-          Settings
-        </DropdownMenuItem>
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>
-            <RegistryIcon lucide='Palette' aria-hidden='true' />
-            Theme
-          </DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-              <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-          <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -643,9 +606,8 @@ function CollapsedRail({ workspace, section, onSection }) {
   );
 }
 
-function NavigationBody({ tab, onTab, sectionFor, onSection }) {
+function NavigationBody({ workspace, tab, onTab, sectionFor, onSection, onHome, onNode, onAction }) {
   const { state, isMobile } = useSidebar();
-  const workspace = workspaces.find((entry) => entry.id === tab);
   if (state === 'collapsed' && !isMobile) {
     return <CollapsedRail workspace={workspace} section={sectionFor(tab)} onSection={onSection} />;
   }
@@ -653,7 +615,7 @@ function NavigationBody({ tab, onTab, sectionFor, onSection }) {
     <Tabs value={tab} onValueChange={onTab} className='flex min-h-0 flex-1 flex-col gap-0'>
       <SidebarHeader className='gap-4 px-4 pt-4 pb-0'>
         <div className='flex items-center justify-between'>
-          <Logo />
+          <Logo onHome={onHome} />
           {isMobile ? null : <RailToggle />}
         </div>
         <TabsList
@@ -675,7 +637,7 @@ function NavigationBody({ tab, onTab, sectionFor, onSection }) {
       <SidebarContent className='px-4 py-4'>
         <TabsContent value={tab} className='flex flex-col gap-6'>
           <SectionTiles workspace={workspace} section={sectionFor(tab)} onSection={onSection} />
-          <SourceTree key={workspace.id} workspace={workspace} />
+          <SourceTree key={workspace.id + Object.keys(workspace.nodes).length} workspace={workspace} onNode={onNode} onAction={onAction} />
         </TabsContent>
       </SidebarContent>
       <SidebarFooter className='px-4 pb-4'>
@@ -688,14 +650,14 @@ function NavigationBody({ tab, onTab, sectionFor, onSection }) {
 function SyncStatus() {
   return (
     <div role='status' className='bg-surface-muted/60 flex items-center gap-2 rounded-(--ds-radius-card) border border-ui-border px-3 py-2 text-xs'>
-      <span aria-hidden='true' className='bg-success size-2 shrink-0 rounded-full' />
+      <StatusDot className='size-2 bg-success' />
       <span className='min-w-0 flex-1 truncate'>All sources synced</span>
       <span className='text-text-muted shrink-0 tabular-nums'>2 min ago</span>
     </div>
   );
 }
 
-function SearchHeader() {
+function SearchHeader({ query, onQuery, onHome }) {
   const { isMobile } = useSidebar();
   const frame = useAppShellFrame();
   const input = useRef(null);
@@ -709,7 +671,7 @@ function SearchHeader() {
       {isMobile ? (
         <div className='flex w-full items-center gap-2'>
           <RailToggle />
-          <Logo />
+          <Logo onHome={onHome} />
         </div>
       ) : null}
       <InputGroup className='h-8 min-w-0 flex-1'>
@@ -722,6 +684,8 @@ function SearchHeader() {
           aria-label='Search the workspace'
           aria-keyshortcuts={shortcut.ariaKeyShortcuts}
           placeholder='Search the library'
+          value={query}
+          onChange={(event) => onQuery(event.target.value)}
         />
         <InputGroupAddon align='inline-end'>
           <Kbd keys={shortcut.kbdKeys} size='sm' />
@@ -733,13 +697,52 @@ function SearchHeader() {
   );
 }
 
+// Sections select existing groups from each workspace's tree.
+const sectionGroups = {
+  feeds: ['blogs', 'journals', 'feed-formats'], newsletters: ['newsletters'], papers: ['journals'], podcasts: ['podcasts'], archives: ['archives-libraries'], imports: ['exports'], webhooks: ['feed-formats'],
+  sessions: ['evening-circle', 'thesis-group'], badges: ['translators'], guides: ['guides-tree'], requests: ['pauses'], mentions: ['sharing'], plans: ['reading-circles'], reviews: ['thesis-group'],
+  errors: ['parse-errors', 'failed-fetches'], alerts: ['duplicates', 'failed-fetches'], releases: ['resolved'], schedules: ['sync-windows'], reports: ['retention-rules'], trends: ['live-captures'], hooks: ['sync-windows']
+};
+
 export function Pattern() {
   const [tab, setTab] = useState('sources');
+  const [query, setQuery] = useState('');
+  const [selectedNode, setSelectedNode] = useState(null);
+  const [dialog, setDialog] = useState(null);
+  const [added, setAdded] = useState({});
   const [sections, setSections] = useState({
     sources: 'overview',
     readers: 'members',
     activity: 'timeline'
   });
+  const original = workspaces.find(entry => entry.id === tab);
+  const nodes = { ...original.nodes };
+  const expanded = new Set(original.expanded);
+  for (const [path, entries] of Object.entries(added)) {
+    const [workspaceId, parent] = path.split('/');
+    if (workspaceId !== tab) continue;
+    const node = nodes[parent];
+    nodes[parent] = { ...node, count: (node.count ?? node.children?.length ?? 0) + entries.length, children: [...(node.children || []), ...entries.map(entry => entry.id)] };
+    entries.forEach(entry => { nodes[entry.id] = { name: entry.name }; });
+    expanded.add(parent);
+  }
+  const workspace = { ...original, nodes, expanded: [...expanded] };
+  const selectSection = id => { setSelectedNode(null); setQuery(''); setSections(state => ({ ...state, [tab]: id })); };
+  const changeWorkspace = id => { setTab(id); setSelectedNode(null); setQuery(''); };
+  const home = () => { changeWorkspace('sources'); setSections(state => ({ ...state, sources: 'overview' })); };
+  const selected = workspace.nodes[selectedNode];
+  const needle = query.trim().toLowerCase();
+  const selectedSection = workspace.sections.find(item => item.id === sections[tab]);
+  const keys = needle ? Object.keys(workspace.nodes).filter(id => workspace.nodes[id].name?.toLowerCase().includes(needle))
+    : selected ? (selected.children || [selectedNode]) : sectionGroups[sections[tab]] || Object.keys(workspace.nodes).filter(id => workspace.nodes[id].count !== undefined);
+  const groups = keys.filter(key => workspace.nodes[key]).map(key => {
+    const node = workspace.nodes[key];
+    return { id: key, name: node.name, count: node.count ?? node.children?.length ?? '—' };
+  });
+  const act = (id, action) => {
+    setSelectedNode(id); setQuery('');
+    if (action === 'Add') setDialog(id);
+  };
   return (
     <AppShellFrame compactBelow={860}>
       {/* The sidebar header holds its own collapse button, so ⌘B stays with the other examples. */}
@@ -751,19 +754,38 @@ export function Pattern() {
           mobileDescription='Source workspaces, sections and the source network.'
         >
           <NavigationBody
-            tab={tab}
-            onTab={setTab}
+            workspace={workspace} tab={tab}
+            onTab={changeWorkspace} onHome={home} onNode={id => { setSelectedNode(id); setQuery(''); }} onAction={act}
             sectionFor={(id) => sections[id]}
-            onSection={(id) => setSections((state) => ({ ...state, [tab]: id }))}
+            onSection={selectSection}
           />
         </Sidebar>
         <AppShellPanel aria-label='Source console'>
-          <SearchHeader />
-          <AppShellBody className='pt-4'>
-            <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+          <SearchHeader query={query} onQuery={setQuery} onHome={home} />
+          <AppShellBody className='p-4'>
+            <h2 className='mb-3 text-lg font-semibold'>{needle ? 'Search results' : selected?.name || selectedSection.label}</h2>
+            <DataTable
+              caption={`${workspace.label} by group`}
+              columns={[
+                { key: 'name', header: 'Group' },
+                { key: 'count', header: 'Items', align: 'right' }
+              ]}
+              rows={groups}
+              density='compact'
+              emptyTitle='No matching groups'
+              emptyDescription='Try another name in the workspace search.'
+            />
           </AppShellBody>
         </AppShellPanel>
       </SidebarProvider>
+      {dialog && <Dialog open onOpenChange={open => { if (!open) setDialog(null); }}><DialogContent className='sm:max-w-md'>
+        <DialogHeader><DialogTitle>Add to {workspace.nodes[dialog].name}</DialogTitle><DialogDescription>Add a named item to this group.</DialogDescription></DialogHeader>
+        <form className='grid gap-3' onSubmit={event => { event.preventDefault(); const name = String(new FormData(event.currentTarget).get('name')).trim(); if (!name) return;
+          const key = tab + '/' + dialog; setAdded(state => ({ ...state, [key]: [...(state[key] || []), { id: crypto.randomUUID(), name }] })); setDialog(null); }}>
+          <Field><FieldLabel htmlFor='network-item'>Name</FieldLabel><FieldInput id='network-item' name='name' required /></Field>
+          <DialogFooter><Button type='button' variant='outline' onClick={() => setDialog(null)}>Cancel</Button><Button type='submit'>Add item</Button></DialogFooter>
+        </form>
+      </DialogContent></Dialog>}
     </AppShellFrame>
   );
 }

@@ -1,6 +1,8 @@
 'use client';
 
 import { useMemo, useState } from 'react';
+import { Alert, AlertDescription, AlertTitle } from '@gaudi/design-system/core/Banner';
+import { Label } from '@gaudi/design-system/core/Field';
 import Button from '@gaudi/design-system/core/Button';
 import { CodeBlock, CodeBlockCopyButton, CodeBlockDownloadButton, CodeBlockHeader, CodeBlockTitle } from '@gaudi/design-system/core/CodeBlock';
 import Textarea from '@gaudi/design-system/core/Textarea';
@@ -66,17 +68,17 @@ export function ThemeLab() {
           <a className='text-accent underline' href='https://ui.shadcn.com/themes' target='_blank' rel='noreferrer'>shadcn/ui themes</a>, a shadcn registry item, or Gaudi theme JSON.
           It is mapped with <code>importTheme</code>, contrast-repaired, applied to the whole site and kept in local storage.
         </p>
-        <label htmlFor='theme-input' className='text-sm font-medium'>Theme CSS or JSON</label>
+        <Label htmlFor='theme-input'>Theme CSS or JSON</Label>
         <Textarea id='theme-input' rows={14} className='font-mono text-xs' placeholder={SAMPLE} value={input} onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setInput(event.target.value)} data-testid='theme-input' />
         <div className='flex flex-wrap gap-2'>
           <Button onClick={apply} data-testid='apply-theme'>{input ? 'Import and apply' : 'Apply the sample'}</Button>
           <Button variant='outline' tone='neutral' onClick={() => setInput(SAMPLE)}>Paste sample</Button>
         </div>
         {status ? (
-          <div role='status' className={`rounded-(--ds-radius-card) border p-3 text-sm ${status.tone === 'success' ? 'border-success-border bg-success-subtle' : 'border-danger-border bg-danger-subtle'}`}>
-            <p>{status.text}</p>
-            {status.warnings?.length ? <ul className='mt-1 list-disc ps-5 text-xs'>{status.warnings.slice(0, 5).map((warning) => <li key={warning}>{warning}</li>)}</ul> : null}
-          </div>
+          <Alert role={status.tone === 'success' ? 'status' : 'alert'} variant={status.tone === 'success' ? 'success' : 'destructive'}>
+            <AlertTitle>{status.text}</AlertTitle>
+            {status.warnings?.length ? <AlertDescription><ul className='list-disc ps-5'>{status.warnings.slice(0, 5).map((warning) => <li key={warning}>{warning}</li>)}</ul></AlertDescription> : null}
+          </Alert>
         ) : null}
       </section>
       <section aria-labelledby='export-title' className='flex min-w-0 flex-col gap-3'>

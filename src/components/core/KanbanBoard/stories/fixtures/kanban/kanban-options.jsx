@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -99,7 +99,7 @@ function TaskColumn({ value, tasks, frame, isOverlay, ...props }) {
   const column = COLUMNS[value];
   const header = (
     <div className='flex items-center gap-2'>
-      <span className={cn('size-2 shrink-0 rounded-full', column.dot)} aria-hidden='true' />
+      <StatusDot className={cn('size-2', column.dot)} />
       <FrameTitle>{column.title}</FrameTitle>
       <Badge variant='outline' size='sm'>{tasks.length}</Badge>
       <KanbanColumnHandle asChild>

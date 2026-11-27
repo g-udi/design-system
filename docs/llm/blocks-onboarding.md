@@ -42,8 +42,8 @@ Curated patterns:
 
 - Connect a coding agent — registry item `@gaudi/screens-coding-agent` (uses `Button`, `CheckboxRoot`, `ClaudeAiIcon`, `CodeBlock`, `CursorLight`, `EmailInput`, `Field`, `FieldError`, `FieldLabel`, `Gemini`, `Input`, `Label`, `Openai`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
 - Tour in a dialog — registry item `@gaudi/screens-dialog-tour` (uses `Button`, `DialogContent`, `DialogDescription`, `DialogRoot`, `DialogTitle`, `DialogTrigger`, `EmptyState`, `KbdGroup`, `KbdRoot`, `Label`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `Wizard`)
-- Create a publication — registry item `@gaudi/screens-new-publication` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `EmptyState`, `Field`, `FieldError`, `FieldLabel`, `Input`, `Label`, `RadioGroup`, `RegistryIcon`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
-- Workspace setup — registry item `@gaudi/screens-workspace-setup` (uses `AvatarFallback`, `AvatarRoot`, `Badge`, `Discord`, `Dropbox`, `Field`, `FieldDescription`, `FieldError`, `FieldLabel`, `GoogleDrive`, `Input`, `Loom`, `RadioGroup`, `RegistryIcon`, `Slack`, `Textarea`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `Zoom`)
+- Create a publication — registry item `@gaudi/screens-new-publication` (uses `Button`, `CarouselContent`, `CarouselItem`, `CarouselRoot`, `EmptyState`, `Field`, `FieldError`, `FieldLabel`, `Input`, `Label`, `RadioGroup`, `RegistryIcon`, `StatusDot`, `SwitchRoot`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `cn`)
+- Workspace setup — registry item `@gaudi/screens-workspace-setup` (uses `AvatarFallback`, `AvatarRoot`, `Badge`, `Discord`, `Dropbox`, `Field`, `FieldDescription`, `FieldError`, `FieldLabel`, `GoogleDrive`, `Input`, `Loom`, `RadioGroup`, `RegistryIcon`, `Slack`, `StatusDot`, `Textarea`, `ToggleGroupItem`, `ToggleGroupRoot`, `Wizard`, `Zoom`)
 
 ## Related
 

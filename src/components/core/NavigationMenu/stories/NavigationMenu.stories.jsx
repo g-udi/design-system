@@ -1,3 +1,4 @@
+import { navigationMenuA11y } from '../../../../docs/components/navigationMenuA11y';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
@@ -16,7 +17,13 @@ const work = [
   { label: 'Publications', icon: 'GraduationCap', meta: '24 papers', description: 'Research, papers, talks, and conference material.' },
   { label: 'Projects', icon: 'Briefcase', meta: '12 tools', description: 'Software, experiments, and reusable tools.' }
 ];
-const href = (label) => `#${label.toLowerCase().replace(' ', '-')}`;
+const articleUrl = 'https://assaf.website/blog';
+const destinations = {
+  Blog: articleUrl, About: 'https://assaf.website/about', 'All articles': articleUrl,
+  Data: `${articleUrl}/categories/data`, Engineering: `${articleUrl}/categories/engineering`,
+  'Design systems': 'https://design.gaudi.site/docs', Publications: `${articleUrl}/publications`, Projects: `${articleUrl}/projects`
+};
+const href = (label) => destinations[label];
 const panel = (items, columns = 2) => (
   <NavigationMenuPanel columns={columns}>
     {items.map(({ label, icon, ...item }) => (
@@ -52,8 +59,7 @@ export default {
     columns: [1, 2, 3]
   }),
   parameters: {
-    // An open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
-    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } },
+    a11y: navigationMenuA11y,
     docs: {
       description: { component: docs.description },
       page: createComponentDocsPage(docs, { primaryStory: () => Playground })
@@ -95,6 +101,14 @@ export const Playground = {
     await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'true'));
     await waitFor(() => expect(canvas.queryByText(categories[0].label)).toBeNull());
     await expect(await canvas.findByText(work[0].label)).toBeVisible();
+    // Exercise the trigger-to-panel focus handoff in both reading directions.
+    await userEvent.tab();
+    const firstLink = canvas.getByRole('link', { name: /^Publications/ });
+    await waitFor(() => expect(firstLink).toHaveFocus());
+    await userEvent.tab();
+    await waitFor(() => expect(canvas.getByRole('link', { name: /^Projects/ })).toHaveFocus());
+    await userEvent.tab({ shift: true });
+    await waitFor(() => expect(firstLink).toHaveFocus());
     // Escape closes and returns focus to the trigger; an outside click closes too.
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(workButton).toHaveAttribute('aria-expanded', 'false'));

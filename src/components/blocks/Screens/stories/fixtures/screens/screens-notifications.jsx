@@ -62,8 +62,8 @@ function Row({ id, label, description, children }) {
 export function Pattern() {
   const [digest, setDigest] = useState(true);
   return (
-    <div className='grid w-full max-w-3xl gap-4'>
-      <section aria-labelledby='digest-title' className='grid gap-4 rounded-xl border p-5'>
+    <div className='grid w-full max-w-3xl grid-cols-1 gap-4'>
+      <section aria-labelledby='digest-title' className='grid gap-4 rounded-xl border p-3 sm:p-5'>
         <h2 id='digest-title' className='text-lg font-semibold'>Daily digest</h2>
         <Row id='digest' label='Send a digest' description='One email with everything you missed.'>
           <Switch id='digest' checked={digest} onCheckedChange={setDigest} />
@@ -83,7 +83,7 @@ export function Pattern() {
           </div>
         ) : null}
       </section>
-      <Tabs defaultValue='email' className='grid gap-4 rounded-xl border p-5'>
+      <Tabs defaultValue='email' className='grid gap-4 rounded-xl border p-3 sm:p-5'>
         <div className='flex flex-wrap items-center justify-between gap-3'>
           <h2 className='text-lg font-semibold'>Alerts by channel</h2>
           <TabsList aria-label='Channel'>

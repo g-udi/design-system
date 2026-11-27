@@ -11,7 +11,7 @@ export default { title: 'Blocks/Settings', id: 'blocks-settings', tags: ['autodo
 
 export const Preferences = {
   name: 'Preferences',
-  ...pattern('preferences', 'Collapsible sections of select, switch and button rows with Required, Pro, Beta and Business badges, closing with the workspace admins.'),
+  ...pattern('preferences', 'Collapsible sections of select and switch rows with Required, Pro, Beta and Business badges, closing with the workspace admins.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     await userEvent.click(canvas.getByRole('button', { name: /Security/ }));

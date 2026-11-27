@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../Pill/StatusDot.jsx';
 import { createContext, useContext, useMemo } from 'react';
 import {
   useEventCalendar,
@@ -84,10 +85,9 @@ function EventCalendarEvent({
        time-grid block takes its color from the tinted surface instead, and
        in its stacked layout a dot would sit alone on the first line */}
       {!timedBlock && (
-        <span
-          aria-hidden
+        <StatusDot
           data-slot='event-calendar-event-dot'
-          className='-me-0.5 size-1.5 shrink-0 rounded-full bg-(--ec-event-color)'
+          className='-me-0.5 size-1.5 bg-(--ec-event-color)'
         />
       )}
       {occurrence.isRecurring && (
@@ -175,10 +175,9 @@ function EventCalendarEvent({
       <span className='text-ui-muted-foreground w-40 shrink-0 truncate tabular-nums'>
         {agendaTimeText}
       </span>
-      <span
-        aria-hidden
+      <StatusDot
         data-slot='event-calendar-agenda-dot'
-        className='size-2 shrink-0 rounded-full bg-(--ec-event-color)'
+        className='size-2 bg-(--ec-event-color)'
       />
       <span className='truncate text-sm'>{event.title}</span>
       {occurrence.isRecurring && (

@@ -31,7 +31,12 @@ export const ContentOverlays = {
   render: () => <CaptionedCarousel onNavigate={onNavigate} />,
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await userEvent.click(canvas.getByRole('button', { name: 'Go to slide 3' }));
+    const thirdSlide = canvas.getByRole('button', { name: 'Go to slide 3' });
+    await expect(thirdSlide).toHaveAttribute('data-slot', 'carousel-indicator');
+    await expect(thirdSlide.getBoundingClientRect().width).toBeGreaterThanOrEqual(44);
+    await expect(thirdSlide.getBoundingClientRect().height).toBeGreaterThanOrEqual(44);
+    thirdSlide.focus();
+    await userEvent.keyboard('{Enter}');
     await waitFor(() => expect(canvas.getByRole('button', { name: 'Go to slide 3' })).toHaveAttribute('aria-current', 'true'));
     onNavigate.mockClear();
     const next = canvas.getByRole('button', { name: 'Next slide' });

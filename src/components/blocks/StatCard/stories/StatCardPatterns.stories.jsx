@@ -20,7 +20,7 @@ export const KpiOverview = {
     await expect(canvas.getByRole('button', { name: 'Revenue actions' })).toBeVisible();
   }
 };
-export const Revenue = { name: 'Revenue breakdown', ...pattern('revenue', 'A total with its change, an actions menu, the sources that make it up and a link to the full report.') };
+export const Revenue = { name: 'Revenue breakdown', ...pattern('revenue', 'A total with its change, an actions menu, the sources that make it up with a downloadable breakdown and a period comparison.') };
 export const Quota = { name: 'Quota and progress', ...pattern('quota', 'An API quota with its billed cost and renewal date, next to sprint progress with status badges and a predicted finish.') };
 export const UsageMeter = {
   name: 'Usage meter',
@@ -48,7 +48,7 @@ export const LeadRange = {
   }
 };
 export const Breakdowns = { name: 'Breakdowns', ...pattern('breakdowns', 'One segmented meter for three questions: plan mix with renewals due, compliance checks and feature adoption.') };
-export const Balance = { name: 'Balance', ...pattern('balance', 'A dark balance card with a top-up action and its allocation across currencies.') };
+export const Balance = { name: 'Balance', ...pattern('balance', 'A dark balance card with an allocation dialog and a breakdown across currencies.') };
 export const TeamPerformance = {
   name: 'Team performance',
   ...pattern('team-performance', 'Progress to the quarter target, a KPI grid and the latest activity in one card.'),

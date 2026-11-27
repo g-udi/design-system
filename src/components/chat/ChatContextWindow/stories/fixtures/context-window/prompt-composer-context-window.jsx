@@ -1,4 +1,5 @@
 'use client';
+import { FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
 import { useEffect, useRef, useState } from 'react';
 import { ChatContextMeter, ChatPromptComposer } from '@gaudi/design-system/chat/ChatInput';
 import Button from '@gaudi/design-system/core/Button';
@@ -74,10 +75,10 @@ export function Pattern({ title = 'Context window' } = {}) {
         onSubmit={() => { setConversation((value) => value + 800); setNotice('Added one prepared demo turn: 800 tokens. No message was sent to a model.'); }}
       />
       <p role='status' className={`text-xs ${error ? 'text-ui-danger-ink' : 'text-text-muted'}`}>{notice}</p>
-      <fieldset className='grid gap-3 border-t pt-3'><legend className='text-xs font-medium'>Demo controls</legend>
+      <FieldSet className='grid gap-3 border-t pt-3'><FieldLegend className='text-xs font-medium'>Demo controls</FieldLegend>
         <div className='flex flex-wrap gap-2'><Button size='sm' variant='outline' disabled={busy} onClick={() => { setConversation(limit - (used - conversation)); setError(false); setNotice('Demo window filled. Free context before sending another turn.'); }}>Fill demo window</Button><Button size='sm' variant='ghost' disabled={busy} onClick={() => reset()}>Reset demo</Button></div>
         <Checkbox label='Fail the next compaction' checked={failNext} onCheckedChange={(value) => setFailNext(value === true)} disabled={busy} />
-      </fieldset>
+      </FieldSet>
       <p className='text-xs text-text-muted'>Illustrative counts and a prepared summary. Each submitted demo turn adds 800 tokens; real applications supply token counts and compaction policy. No files, services or conversations outside this demo are changed.</p>
     </section>
   );

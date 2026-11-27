@@ -13,24 +13,25 @@ import {
   ChartLegend,
   ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent
+  createRowsTooltip
 } from '@gaudi/design-system/charts/ChartFrame';
 const chartData = [
   { name: 'mobile', score: 58 },
   { name: 'desktop', score: 76 },
   { name: 'api', score: 92 }
 ];
-// Bars use gradient fills, so legend swatches read the solid series colour instead.
-const swatch = (key) => {
-  const Swatch = () => <span className='size-2 shrink-0 rounded-sm' style={{ backgroundColor: `var(--color-${key})` }} />;
-  return Swatch;
-};
 const chartConfig = {
   score: { label: 'Score' },
-  mobile: { icon: swatch('mobile'), label: 'Mobile', color: 'var(--chart-4)' },
-  desktop: { icon: swatch('desktop'), label: 'Desktop', color: 'var(--chart-2)' },
-  api: { icon: swatch('api'), label: 'API', color: 'var(--chart-1)' }
+  mobile: { label: 'Mobile', color: 'var(--chart-4)' },
+  desktop: { label: 'Desktop', color: 'var(--chart-2)' },
+  api: { label: 'API', color: 'var(--chart-1)' }
 };
+const ScoreTooltip = createRowsTooltip(({ payload }) => payload.map(({ payload: platform, value }) => ({
+  label: chartConfig[platform.name].label,
+  value: `${value}/100`,
+  color: chartConfig[platform.name].color
+})), { title: () => 'Score' });
+
 export function Pattern() {
   const uid = useId().replace(/:/g, '');
   return (
@@ -83,32 +84,7 @@ export function Pattern() {
                 <feComposite in='SourceGraphic' in2='blur' operator='over' />
               </filter>
             </defs>
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className='min-w-40 gap-2.5'
-                  nameKey='name'
-                  formatter={(value, name) => (
-                    <div className='flex w-full items-center justify-between gap-2'>
-                      <div className='flex items-center gap-1.5'>
-                        <div
-                          className='size-2.5 shrink-0 rounded-xs bg-(--color-bg)'
-                          style={{
-                            '--color-bg': `var(--color-${name})`
-                          }}
-                        />
-                        <span className='text-text-muted'>
-                          {chartConfig[name]?.label || name}
-                        </span>
-                      </div>
-                      <span className='text-text font-semibold tabular-nums'>
-                        {Number(value)}/100
-                      </span>
-                    </div>
-                  )}
-                />
-              }
-            />
+            <ChartTooltip content={ScoreTooltip} />
             <PolarAngleAxis
               type='number'
               domain={[0, 100]}
@@ -122,7 +98,7 @@ export function Pattern() {
               filter={`url(#${uid}-glow)`}
               label={{
                 position: 'insideStart',
-                fill: 'var(--ds-color-text-inverse)',
+                fill: 'var(--ds-color-accent-foreground)',
                 fontSize: 11,
                 fontWeight: 600
               }}

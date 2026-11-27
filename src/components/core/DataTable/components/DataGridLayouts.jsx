@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../Pill/StatusDot.jsx';
 import { useControllableState } from '../../../../hooks/state/use-controllable-state.js';
 import { localStorageStore } from '../../../../hooks/data/storage-model.js';
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
@@ -206,7 +207,7 @@ function DataGridLayouts({
             <RegistryIcon lucide={active ? 'BookmarkCheckIcon' : 'BookmarkIcon'} />
             <span className='max-w-28 truncate max-sm:sr-only'>{triggerLabel}</span>
             {modified ? (
-              <span aria-hidden='true' className='bg-ui-primary size-1.5 rounded-full' />
+              <StatusDot className='bg-ui-primary size-1.5' />
             ) : null}
           </Button>
         )}

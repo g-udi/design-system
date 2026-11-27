@@ -1,4 +1,4 @@
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   TooltipRoot as Tooltip,
@@ -75,7 +75,7 @@ export function Pattern() {
         <Tooltip>
           <TooltipTrigger asChild>
             <Button variant='outline' size='sm'>
-              <span className='size-2 rounded-full bg-warning' aria-hidden='true' />
+              <StatusDot className='size-2 bg-warning' />
               System status
             </Button>
           </TooltipTrigger>

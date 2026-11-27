@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import Button from '@gaudi/design-system/core/Button';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import Icon from '@gaudi/design-system/core/Icon';
 
 export interface PropRow { name: string; type: string; default?: string | null; required?: boolean; description: string; subcomponent?: boolean; passthrough?: boolean; api?: boolean }
@@ -19,7 +20,7 @@ export function PropsList({ rows, label, testId }: { rows: PropRow[]; label: str
   const toggle = (index: number, next: boolean) => setOpen((current) => (next ? [...current, index] : current.filter((entry) => entry !== index)));
 
   return (
-    <div className='not-prose my-4 overflow-hidden rounded-(--ds-radius-card) border border-border bg-background' data-testid={testId}>
+    <CardRoot variant='outline' padding='none' className='not-prose my-4' data-testid={testId}>
       <div className='flex items-center justify-between gap-2 border-b border-border bg-surface-muted px-3 py-1.5'>
         <span className='text-sm font-medium text-text-muted'>{rows.length} {label}{rows.length === 1 ? '' : 's'}</span>
         <Button variant='ghost' tone='neutral' size='sm' onClick={() => setOpen(allOpen ? [] : rows.map((_, index) => index))} aria-label={`${allOpen ? 'Collapse' : 'Expand'} all ${label}s`}>
@@ -64,6 +65,6 @@ export function PropsList({ rows, label, testId }: { rows: PropRow[]; label: str
           );
         })}
       </ul>
-    </div>
+    </CardRoot>
   );
 }

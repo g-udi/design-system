@@ -1,6 +1,7 @@
 'use client';
 'use no memo';
 import { useMemo, useState } from 'react';
+import Button from '@gaudi/design-system/core/Button';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   DataGrid,
@@ -1853,12 +1854,15 @@ export function Pattern() {
           const items = info.getValue();
           const itemCount = items.length;
           return (
-            <div
-              className='text-ui-foreground hover:text-ui-primary cursor-pointer text-sm font-medium'
-              onClick={() => info.row.getToggleExpandedHandler()()}
+            <Button
+              variant='ghost'
+              size='sm'
+              aria-expanded={info.row.getIsExpanded()}
+              aria-label={`${info.row.getIsExpanded() ? 'Hide' : 'Show'} ${itemCount} order items`}
+              onClick={() => info.row.toggleExpanded()}
             >
               {itemCount} {itemCount === 1 ? 'item' : 'items'}
-            </div>
+            </Button>
           );
         },
         enableSorting: true,

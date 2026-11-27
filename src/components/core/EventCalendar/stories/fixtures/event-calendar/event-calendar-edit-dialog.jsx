@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useRef, useState } from 'react';
 import { EventCalendar } from '@gaudi/design-system/core/EventCalendar';
 import { EventCalendarContent } from '@gaudi/design-system/core/EventCalendar';
@@ -258,7 +259,7 @@ export function Pattern() {
                   onValueChange={(color) => { if (color) setDraft({ ...draft, color }); }}
                   options={COLORS.map((color) => ({
                     value: color.value,
-                    label: <><span aria-hidden='true' className='size-2 rounded-full' style={{ backgroundColor: color.value }} />{color.label}</>
+                    label: <><StatusDot className='size-2' style={{ backgroundColor: color.value }} />{color.label}</>
                   }))}
               />
 

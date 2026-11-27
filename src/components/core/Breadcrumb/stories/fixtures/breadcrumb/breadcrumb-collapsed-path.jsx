@@ -19,7 +19,7 @@ export function Pattern() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Home</BreadcrumbLink>
+          <BreadcrumbLink href='https://design.gaudi.site'>Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -31,15 +31,21 @@ export function Pattern() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align='start'>
-              <DropdownMenuItem>Documentation</DropdownMenuItem>
-              <DropdownMenuItem>Themes</DropdownMenuItem>
-              <DropdownMenuItem>GitHub</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href='https://design.gaudi.site/docs'>Documentation</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href='https://design.gaudi.site/themes'>Themes</a>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <a href='https://github.com/g-udi/design-system'>GitHub</a>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Components</BreadcrumbLink>
+          <BreadcrumbLink href='https://design.gaudi.site/docs/components'>Components</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>

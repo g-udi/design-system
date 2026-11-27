@@ -1,5 +1,8 @@
+import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+import { Label } from '@gaudi/design-system/core/Field';
 import { CopyButton as CopyableToken } from '../components/CopyButton';
-import ChevronDown from 'lucide-react/dist/esm/icons/chevron-down.js';
+import { AccordionRoot, AccordionItem, AccordionTrigger, AccordionContent } from '@gaudi/design-system/core/Accordion';
+import Link from '@gaudi/design-system/core/Link';
 import X from 'lucide-react/dist/esm/icons/x.js';
 import { useId, useState } from 'react';
 import Button from '../../components/core/Button';
@@ -146,7 +149,7 @@ const TokenFinder = () => {
   return (
     <div className='space-y-4'>
       <div className='space-y-2'>
-        <label htmlFor={searchId} className='block text-sm font-semibold text-text'>UI job, token name, or value</label>
+        <Label htmlFor={searchId} className='block text-sm font-semibold text-text'>UI job, token name, or value</Label>
         <Input
           id={searchId}
           type='text'
@@ -218,7 +221,7 @@ const TokenFinder = () => {
                 type='button'
                 onClick={ () => setShowRawReferences(true) }
               >
-                <ChevronDown aria-hidden='true' size={ 16 } />
+                <RegistryIcon lucide='ChevronDown' aria-hidden='true' className='size-4' />
                 Show {rawMatches.length} related palette values
               </Button>
             ) : null}
@@ -242,7 +245,7 @@ const TokenFinder = () => {
                 type='button'
                 onClick={ () => setShowAll(true) }
               >
-                <ChevronDown aria-hidden='true' size={ 16 } />
+                <RegistryIcon lucide='ChevronDown' aria-hidden='true' className='size-4' />
                 Show all {availableResultCount} results
               </Button>
             ) : null}
@@ -275,20 +278,12 @@ const TokenFinder = () => {
 
 const Section = ({ children, collapsible = false, description, id, title, defaultOpen = false }) => {
   if (collapsible) return (
-    <details id={ id } open={ defaultOpen } className='ds-guide-disclosure group scroll-mt-28 border-t border-border'>
-      <summary className='flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600'>
-        <div className='space-y-2'>
-          <Typography variant='heading-lg'>{title}</Typography>
-          {description && <Typography variant='paragraph-md'><InlineText>{description}</InlineText></Typography>}
-        </div>
-        <span className='ds-guide-disclosure-action' aria-hidden='true'>
-          <span className='ds-guide-disclosure-show'>Show</span>
-          <span className='ds-guide-disclosure-hide'>Hide</span>
-          <ChevronDown size={ 16 } />
-        </span>
-      </summary>
-      <div className='pt-2'>{children}</div>
-    </details>
+    <AccordionRoot defaultValue={defaultOpen ? id : ''} variant='flush' headingLevel={2}>
+      <AccordionItem id={id} value={id} className='scroll-mt-28'>
+        <AccordionTrigger description={description}>{title}</AccordionTrigger>
+        <AccordionContent forceMount>{children}</AccordionContent>
+      </AccordionItem>
+    </AccordionRoot>
   );
 
   return (
@@ -301,6 +296,44 @@ const Section = ({ children, collapsible = false, description, id, title, defaul
     </section>
   );
 };
+
+function PaletteFamilies() {
+  const [open, setOpen] = useState([]);
+  return (
+    <>
+      <nav aria-label='Palette families' className='flex flex-wrap gap-x-4 gap-y-2 py-3 text-sm'>
+        {paletteFamilies.map((family) => (
+          <Link key={family} href={`#palette-${family}`} onClick={() => setOpen(current => current.includes(family) ? current : [...current, family])}>
+            {family}
+          </Link>
+        ))}
+      </nav>
+      <AccordionRoot type='multiple' value={open} onValueChange={setOpen}>
+        {paletteFamilies.map((family) => {
+          const shades = scaleOrder.filter(step => colors[family]?.[step]);
+          return (
+            <AccordionItem key={family} value={family} id={`palette-${family}`} className='scroll-mt-28'>
+              <AccordionTrigger>
+                <span className='flex flex-wrap items-center gap-x-3 gap-y-1'>
+                  <span className='w-16 font-mono'>{family}</span>
+                  <span className='flex min-w-20 flex-1 gap-1' aria-hidden='true'>
+                    {shades.map(step => <span key={step} className='h-4 flex-1 rounded-sm' style={{ backgroundColor: colors[family][step] }} />)}
+                  </span>
+                  <span className='text-xs text-text-muted'>{shades.length} shades</span>
+                </span>
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className='grid grid-cols-2 gap-2 sm:grid-cols-4 xl:grid-cols-8'>
+                  {shades.map(step => <Swatch key={step} name={`${family}.${step}`} value={colors[family][step]} />)}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          );
+        })}
+      </AccordionRoot>
+    </>
+  );
+}
 
 export default {
   parameters: { layout: 'fullscreen' },
@@ -317,16 +350,25 @@ export const Default = {
 
     const canvas = within(canvasElement);
     const search = canvas.getByRole('searchbox', { name: 'UI job, token name, or value' });
-    const grayFamily = canvasElement.querySelector('#palette-gray');
-    const semanticReference = canvasElement.querySelector('#semantic-tokens');
+    const semanticReference = canvas.getByRole('button', { name: 'Semantic tokens' });
+    const paletteReference = canvas.getByRole('button', { name: 'Palette reference' });
 
-    await expect(grayFamily).not.toHaveAttribute('open');
-    await expect(semanticReference).toHaveAttribute('open');
+    await expect(semanticReference).toHaveAttribute('aria-expanded', 'true');
     await expect(canvas.getByRole('button', { name: 'Copy accent.DEFAULT', exact: true })).toBeVisible();
-    await userEvent.click(semanticReference.querySelector('summary'));
-    await expect(semanticReference).not.toHaveAttribute('open');
-    await userEvent.click(semanticReference.querySelector('summary'));
-    await expect(semanticReference).toHaveAttribute('open');
+    await userEvent.click(semanticReference);
+    await expect(semanticReference).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(semanticReference);
+    await expect(semanticReference).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(paletteReference);
+    const gray = within(canvasElement.querySelector('[id="palette-gray"]')).getByRole('button', { name: /gray/ });
+    await expect(gray).toHaveAttribute('aria-expanded', 'false');
+    const grayLink = canvas.getByRole('link', { name: 'gray', exact: true });
+    await expect(grayLink).toHaveAttribute('href', '#palette-gray');
+    // A fragment in Vitest's srcdoc would otherwise navigate its entire test frame.
+    grayLink.addEventListener('click', event => event.preventDefault(), { once: true });
+    await userEvent.click(grayLink);
+    await expect(gray).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(paletteReference);
     await userEvent.click(canvas.getByRole('button', { name: 'Body text & labels' }));
     await expect(search).toHaveValue('body text');
     const textResults = within(canvasElement.querySelector('[aria-label="Token search results"]'));
@@ -409,32 +451,7 @@ export const Default = {
         title='Palette reference'
         description='Raw palette values support semantic token definitions and external visualization data. Open only the family you need, then select a token to copy its complete value.'
       >
-        <nav aria-label='Palette families' className='flex flex-wrap gap-x-4 gap-y-2 border-y border-border py-3 text-sm'>
-          {paletteFamilies.map((family) => (
-            <a key={ family } href={ `#palette-${family}` } onClick={ () => { document.getElementById(`palette-${family}`).open = true; } }>
-              {family}
-            </a>
-          ))}
-        </nav>
-        <div className='grid gap-2'>
-          {paletteFamilies.map((family) => (
-            <details key={ family } id={ `palette-${family}` } className='group scroll-mt-28 rounded-md border border-border bg-surface'>
-              <summary className='flex min-h-11 cursor-pointer list-none items-center gap-3 px-3 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'>
-                <span className='w-16 font-mono text-xs font-semibold text-text-muted'>{family}</span>
-                <span className='flex flex-1 gap-1' aria-hidden='true'>
-                  {scaleOrder.filter((step) => colors[family]?.[step]).map((step) => <span key={ step } className='h-4 flex-1 rounded-sm border border-black/5' style={{ 'backgroundColor': colors[family][step] }} />)}
-                </span>
-                <span className='text-xs text-text-muted'>8 shades</span>
-                <ChevronDown aria-hidden='true' size={ 16 } className='shrink-0 transition-transform group-open:rotate-180' />
-              </summary>
-              <div className='grid grid-cols-2 gap-2 border-t border-border p-3 sm:grid-cols-4 xl:grid-cols-8'>
-                {scaleOrder.filter((step) => colors[family]?.[step]).map((step) => (
-                  <Swatch key={ `${family}-${step}` } name={ `${family}.${step}` } value={ colors[family][step] } />
-                ))}
-              </div>
-            </details>
-          ))}
-        </div>
+        <PaletteFamilies />
       </Section>
 
       <Section

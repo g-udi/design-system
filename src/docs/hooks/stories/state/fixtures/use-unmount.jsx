@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import Button from '@gaudi/design-system/core/Button';
 import Input from '@gaudi/design-system/core/Input';
@@ -7,7 +8,7 @@ import { useUnmount } from '@gaudi/design-system/hooks/state/use-unmount';
 function DraftPreview({ onClose }) {
   const [name, setName] = useState('Untitled');
   useUnmount(() => onClose(name));
-  return <label className='grid gap-2 text-sm'>Preview title<Input value={name} onChange={(event) => setName(event.target.value)} /></label>;
+  return <Label className='grid gap-2 text-sm'>Preview title<Input value={name} onChange={(event) => setName(event.target.value)} /></Label>;
 }
 export function CleanupPreview() {
   const [visible, setVisible] = useState(true);

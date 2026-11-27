@@ -1,3 +1,4 @@
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useState } from 'react';
 import Avatar from '@gaudi/design-system/core/Avatar';
 import Button from '@gaudi/design-system/core/Button';
@@ -32,7 +33,7 @@ export const sum = (rows, key) => rows.reduce((total, row) => total + row[key], 
 
 export function Status({ value, tones = statusTones }) {
   return (
-    <Pill tone={tones[value]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />}>
+    <Pill tone={tones[value]} variant='soft' size='sm' radius='md' icon={<StatusDot className='block' />}>
       {value}
     </Pill>
   );

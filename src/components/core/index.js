@@ -16,8 +16,8 @@ export { AnimatedIcon, animatedIconRegistry, animatedIconMetadata } from './Icon
 export { default as Kbd, kbdVariants } from './Kbd';
 export { default as Link, linkTones, linkVariants } from './Link';
 export { default as NavigationMenu, NavigationMenuAside, NavigationMenuDropdown, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuPanel } from './NavigationMenu';
-export { default as Pagination, PaginationBar, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationStatus, POSTS_PER_PAGE } from './Pagination';
-export { default as Pill, pillSizes, pillTones, pillVariants } from './Pill';
+export { default as Pagination, PaginationBar, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationStatus, getPageShortcuts, POSTS_PER_PAGE } from './Pagination';
+export { default as Pill, StatusDot, pillSizes, pillTones, pillVariants } from './Pill';
 export { Pointer } from './Pointer/index.js';
 export { ReadingIndicator } from './ReadingIndicator/index.js';
 export { default as Popover, PopoverContent, PopoverRoot, PopoverTrigger } from './Popover';
@@ -55,7 +55,7 @@ export { BreadcrumbRoot, BreadcrumbListPrimitive, BreadcrumbItemPrimitive, Bread
 export { ButtonGroup, ButtonGroupSeparator, ButtonGroupText, buttonGroupVariants } from './ButtonGroup/index.js';
 export { DEFAULT_DATE_SELECTOR_I18N, useDateSelectorContext, formatDateValue, useDateSelector, DateSelector, Calendar, CalendarDayButton } from './Calendar/index.js';
 export { Frame, FramePanel, FrameHeader, FrameTitle, FrameDescription, FrameFooter, frameVariants, CardRoot, CardHeader, CardFooter, CardTitle, CardAction, CardDescription, CardContent } from './Card/index.js';
-export { CarouselRoot, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, useCarousel } from './Carousel/index.js';
+export { CarouselRoot, CarouselContent, CarouselIndicator, CarouselItem, CarouselPrevious, CarouselNext, useCarousel } from './Carousel/index.js';
 export { useCascaderLoader, useCascaderLoadState, CascaderColumnPanel, CascaderColumns, useCascaderState, useCascaderActions, useCascaderRender, createCascaderHighlightStore, useCascaderHighlight, CascaderActionsContext, CascaderHighlightContext, CascaderRenderContext, CascaderStateContext, useCascaderSubmenu, useCascaderHasActions, CascaderAction, CascaderFooter, CascaderSubmenu, CascaderSubmenuContent, CascaderSubmenuTrigger, CASCADER_LABELS, resolveCascaderLabels, resolveCascaderSearchLabel, CASCADER_ACTION_CLASS, getCascaderMoreProps, CascaderGroup, CascaderItem, CascaderItems, CascaderLabel, CascaderSeparator, CASCADER_ROOT_KEY, CASCADER_MORE_PREFIX, CASCADER_LIST_HEIGHT_CLASS, CASCADER_LIST_PAD_CLASS, CASCADER_SCROLL_CLASS, CASCADER_ROWS_CLASS, getCascaderFooterStops, getCascaderTabTarget, isCascaderRtl, createCascaderMoreNode, isCascaderMoreNode, getCascaderMoreParent, buildCascaderIndex, mergeCascaderIndex, getCascaderChildren, isCascaderBranch, getCascaderCount, isCascaderSelectable, getCascaderPath, foldCascaderText, normalizeCascaderQuery, matchesCascaderQuery, filterCascaderLevel, searchCascaderDeep, flattenCascaderTree, collapseCascaderPath, collectCascaderSubtree, applyCascadeSelection, getCascaderSelectedDescendants, getCascaderIndeterminateFrom, getCascaderIndeterminate, getCascaderCheckedValues, findAmbiguousCascaderLabels, warnCascaderOnce, resetCascaderWarnings, findCascaderDataIssues, CascaderNav, CascaderBack, CascaderBreadcrumb, CascaderInput, CascaderValue, useCascaderVirtualizer, CascaderVirtualColumn, CascaderVirtualItems, useCascader, useCascaderSelection, useCascaderAnchor, Cascader, CascaderTrigger, CascaderChip, CascaderChips, CascaderContent, CascaderPanel, CascaderList, CascaderEmpty, CascaderStatus } from './Cascader/index.js';
 export { CheckboxRoot } from './Checkbox/index.js';
 export { Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator } from './Commander/index.js';
@@ -92,7 +92,7 @@ export { Rating } from './Rating/index.js';
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from './Resizable/index.js';
 export { ScrollArea, ScrollBar } from './ScrollArea/index.js';
 export { Scrollspy } from './Scrollspy/index.js';
-export { Separator } from './Separator/index.js';
+export { MetaSeparator, Separator } from './Separator/index.js';
 export { SchemaDisplay, SchemaDisplayMethod, SchemaDisplayPath, SchemaDisplayProperties } from './SchemaDisplay/index.js';
 export { SkeletonRoot, Shimmer, SkeletonMorph, SkeletonMorphBlock } from './Skeleton/index.js';
 export { Slider } from './Slider/index.js';

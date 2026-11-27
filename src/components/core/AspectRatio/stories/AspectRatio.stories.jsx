@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { expect, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
@@ -59,9 +60,9 @@ export const Playground = {
           <img src={cover.src} alt='' className='size-full object-cover' />
           <span className='absolute top-2 left-2 rounded-md bg-surface-dark/70 px-1.5 py-0.5 text-xs font-medium text-text-inverse tabular-nums'>{labelOf(args.ratio)}</span>
           <span className='absolute right-2 bottom-2 rounded-md bg-surface-dark/70 px-1.5 py-0.5 text-xs text-text-inverse tabular-nums'>{cover.duration}</span>
-          <span className='absolute inset-0 m-auto flex size-11 items-center justify-center rounded-full bg-surface/90 text-text shadow-md'>
+          <IconTile aria-hidden='true' size='lg' className='absolute inset-0 m-auto rounded-full bg-surface/90 text-text shadow-md'>
             <RegistryIcon lucide='PlayIcon' className='size-5 fill-current' />
-          </span>
+          </IconTile>
         </AspectRatio>
         <figcaption className='flex flex-col'>
           <span className='text-sm font-medium text-ui-foreground'>{cover.title}</span>

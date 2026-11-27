@@ -49,9 +49,9 @@ Native radios provide Arrow-key navigation and form submission. Keep the legend 
 
 Curated patterns:
 
-- Corner-radio cards — registry item `@gaudi/radio-group-corner-cards` (uses `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FieldTitle`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`)
+- Corner-radio cards — registry item `@gaudi/radio-group-corner-cards` (uses `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FieldTitle`, `IconTile`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`)
 - Fieldset, descriptions and states — registry item `@gaudi/radio-group-fieldset-states` (uses `FieldContent`, `FieldDescriptionPrimitive`, `FieldErrorPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `RadioGroupItem`, `RadioGroupRoot`)
-- Framed lists — registry item `@gaudi/radio-group-framed-lists` (uses `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `Separator`)
+- Framed lists — registry item `@gaudi/radio-group-framed-lists` (uses `Frame`, `FrameHeader`, `FramePanel`, `FrameTitle`, `Label`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `Separator`)
 - Label extras and layouts — registry item `@gaudi/radio-group-label-extras` (uses `BadgeRoot`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `RadioGroupItem`, `RadioGroupRoot`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
 - Row cards — registry item `@gaudi/radio-group-row-cards` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `FieldContent`, `FieldDescriptionPrimitive`, `FieldLabelPrimitive`, `FieldLegend`, `FieldRoot`, `FieldSet`, `FieldTitle`, `RadioGroupItem`, `RadioGroupRoot`)
 

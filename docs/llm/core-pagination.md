@@ -11,7 +11,7 @@ import Pagination from '@gaudi/design-system/core/Pagination';
 // also: import { … } from '@gaudi/design-system/core';
 ```
 
-Exports: `POSTS_PER_PAGE`, `Pagination`, `PaginationBar`, `PaginationContent`, `PaginationContentPrimitive`, `PaginationEllipsis`, `PaginationEllipsisPrimitive`, `PaginationItem`, `PaginationItemPrimitive`, `PaginationLink`, `PaginationLinkPrimitive`, `PaginationNext`, `PaginationNextPrimitive`, `PaginationPrevious`, `PaginationPreviousPrimitive`, `PaginationRoot`, `PaginationStatus`, `default`
+Exports: `POSTS_PER_PAGE`, `Pagination`, `PaginationBar`, `PaginationContent`, `PaginationContentPrimitive`, `PaginationEllipsis`, `PaginationEllipsisPrimitive`, `PaginationItem`, `PaginationItemPrimitive`, `PaginationLink`, `PaginationLinkPrimitive`, `PaginationNext`, `PaginationNextPrimitive`, `PaginationPrevious`, `PaginationPreviousPrimitive`, `PaginationRoot`, `PaginationStatus`, `default`, `getPageShortcuts`
 
 ## Props
 
@@ -48,8 +48,8 @@ Pagination renders a nav landmark, disabled button states for unavailable direct
 
 Curated patterns:
 
-- Jump to a page — registry item `@gaudi/pagination-jump-to-page` (uses `NativeSelect`, `NativeSelectOption`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationRoot`, `RegistryIcon`)
-- Numbered page styles — registry item `@gaudi/pagination-numbered` (uses `CardContent`, `CardRoot`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`)
+- Jump to a page — registry item `@gaudi/pagination-jump-to-page` (uses `NativeSelect`, `NativeSelectOption`, `NumberField`, `NumberFieldGroup`, `NumberFieldInput`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationRoot`, `RegistryIcon`, `getPageShortcuts`)
+- Numbered page styles — registry item `@gaudi/pagination-numbered` (uses `CardContent`, `CardRoot`, `PaginationContentPrimitive`, `PaginationEllipsisPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`, `getPageShortcuts`)
 - Previous and next with page info — registry item `@gaudi/pagination-previous-next` (uses `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationNextPrimitive`, `PaginationPreviousPrimitive`, `PaginationRoot`, `RegistryIcon`)
 - Rows per page and range — registry item `@gaudi/pagination-rows-per-page` (uses `NativeSelect`, `NativeSelectOption`, `PaginationContentPrimitive`, `PaginationItemPrimitive`, `PaginationLinkPrimitive`, `PaginationRoot`, `RegistryIcon`)
 
@@ -70,3 +70,5 @@ import { PaginationBar } from '@gaudi/design-system';
 `PaginationBar` shows Previous, an "n of total" status and Next. Previous and Next disable at either end; clicking the status or pressing Enter or Space opens page shortcuts, with ellipses past five pages. From a server component, where functions can't cross into this client module, pass strings instead of `getHref`: `hrefTemplate='/blog/page/{page}'` and `firstPageHref='/blog'`. `POSTS_PER_PAGE` (7) is safe to import on the server. Pass `onPageChange` for client-side paging: page links become buttons and the host owns `currentPage`. `label` names the landmark; `previousLabel`, `nextLabel`, `ofLabel` and `shortcutsLabel` (also on `PaginationStatus`) translate the remaining copy, defaulting to Previous, Next, of and Page shortcuts.
 
 The parts (`Pagination`, `PaginationContent`, `PaginationItem`, `PaginationLink`, `PaginationPrevious`, `PaginationNext`, `PaginationEllipsis`) are built on `Button`: `PaginationLink` is a router-aware link with `href`, a button with `onClick`, or a disabled button with `disabled`, and `isActive` marks the current page with `aria-current="page"`.
+
+For a custom numbered layout, `getPageShortcuts(currentPage, totalPages)` returns page numbers and keyed ellipses used by the package pager.

@@ -1,3 +1,4 @@
+import { FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { expect, fn, userEvent, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
@@ -26,13 +27,13 @@ function PublishingChecklist({ onCheckedChange, ...featured }) {
     if (label === featured.label) onCheckedChange?.(checked);
   };
   return (
-    <fieldset className='mx-auto grid w-full max-w-xs gap-2'>
-      <legend className='flex w-full items-baseline justify-between gap-4 pb-1 text-sm font-semibold text-ui-foreground'>
+    <FieldSet className='mx-auto grid w-full max-w-xs gap-2'>
+      <FieldLegend className='flex w-full items-baseline justify-between gap-4 pb-1 text-sm font-semibold text-ui-foreground'>
         Before you publish
         <span className='text-xs font-normal text-ui-muted-foreground'>{doneLabel(Object.values(done).filter(Boolean).length, tasks.length)}</span>
-      </legend>
+      </FieldLegend>
       {tasks.map((task) => <Checkbox key={task.label} {...task} onCheckedChange={change(task.label)} />)}
-    </fieldset>
+    </FieldSet>
   );
 }
 

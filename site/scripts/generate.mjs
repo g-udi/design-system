@@ -149,8 +149,11 @@ for (const { owner, examples } of Object.values(coverage.categories)) {
     // Hoist the client directive (some fixtures place an import above it).
     // Storybook fixtures also run below nested /preview/<name>/ routes here. Resolve the
     // bundled demo folders from the site's public root, including subpath deployments.
-    const previewSource = source.replace(/(['"`])(?:\.\/|\/)?(avatars|static|flags)\//g,
-      (_, quote, folder) => `${quote}${assetBasePath}/${folder}/`);
+    // Gaudi Button and Link delegate internal hrefs to Next, which applies the base path itself.
+    const previewSource = source.replace(
+      /(<(?:Button|Link)\b[^<>]*?\s+href=)?(['"`])(?:\.\/|\/)?(avatars|static|flags)\//g,
+      (_, routedHref, quote, folder) => `${routedHref || ''}${quote}${routedHref ? '' : assetBasePath}/${folder}/`
+    );
     const body = `'use client';\n${previewSource.replace(/^\s*['"]use client['"];?\s*$/gm, '')}`;
     write(`src/generated/patterns/${example.name}.jsx`, body);
   }

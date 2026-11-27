@@ -1,4 +1,5 @@
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { withHookProbe } from '../../../../../tests/hooks/browserChecks.jsx';
 import { example, hookMeta } from '../../HookDocs.jsx';
 
 import { LazyComments, IntersectionFallback, LoadMore } from './fixtures/use-in-view.jsx';
@@ -19,19 +20,21 @@ export const LazySection = {
   name: 'Load a section when it is reached',
   parameters: example('The comments render once their section scrolls into view, then stop observing (`once`). Use `rootMargin` to start loading a little before it is visible.', exampleSource),
   render: () => <LazyComments />,
-  play: async ({ mount }) => {
+  play: async ({ canvasElement }) => {
     const descriptor = Object.getOwnPropertyDescriptor(window, 'IntersectionObserver');
     try {
       Object.defineProperty(window, 'IntersectionObserver', { configurable: true, value: undefined, writable: true });
-      const hidden = await mount(<IntersectionFallback initialInView={false} />);
-      await waitFor(() => expect(hidden.getByText('Outside view')).toBeVisible());
-      const visible = await mount(<IntersectionFallback initialInView />);
-      await waitFor(() => expect(visible.getByText('In view')).toBeVisible());
+      await withHookProbe(canvasElement, <IntersectionFallback initialInView={false} />, async probe => {
+        await waitFor(() => expect(probe.getByText('Outside view')).toBeVisible());
+      });
+      await withHookProbe(canvasElement, <IntersectionFallback initialInView />, async probe => {
+        await waitFor(() => expect(probe.getByText('In view')).toBeVisible());
+      });
     } finally {
       if (descriptor) Object.defineProperty(window, 'IntersectionObserver', descriptor);
       else delete window.IntersectionObserver;
-      await mount(<LazyComments />);
     }
+    await expect(within(canvasElement).getByRole('region', { name: 'Article' })).toBeVisible();
   }
 };
 

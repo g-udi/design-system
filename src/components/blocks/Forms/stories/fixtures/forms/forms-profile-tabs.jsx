@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
+import { Label, FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription, FieldErrorPrimitive as FieldError, FieldGroup, FieldLabelPrimitive as FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as Input } from '@gaudi/design-system/core/Input';
 import { SelectRoot as Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@gaudi/design-system/core/Select';
 import { SwitchRoot as Switch } from '@gaudi/design-system/core/Switch';
@@ -104,7 +104,7 @@ export function Pattern() {
           <ul aria-label='Organisations' className='divide-y rounded-lg border'>
             {organisations.map((org) => (
               <li key={org.id} className='flex flex-wrap items-center gap-3 p-4'>
-                <span className='bg-surface-muted grid size-9 place-items-center rounded-md text-sm font-semibold'>{org.name[0]}</span>
+                <Avatar aria-hidden='true' shape='square' size='sm' name={org.name} label={org.name[0]} surface='tinted' />
                 <span className='grid min-w-0 flex-1 basis-40'>
                   <span className='truncate text-sm font-medium'>{org.name}</span>
                   <span className='text-text-muted text-xs'>{org.members} members</span>
@@ -125,7 +125,7 @@ export function Pattern() {
         <TabsContent value='security' className='grid gap-4'>
           <div className='flex items-start justify-between gap-4 rounded-lg border p-4'>
             <div className='grid gap-0.5'>
-              <label htmlFor='profile-two-factor' className='text-sm font-medium'>Two-step verification</label>
+              <Label htmlFor='profile-two-factor' className='text-sm font-medium'>Two-step verification</Label>
               <p className='text-text-muted text-sm'>Ask for a code from your authenticator app when signing in.</p>
             </div>
             <Switch id='profile-two-factor' checked={twoFactor} onCheckedChange={setTwoFactor} />

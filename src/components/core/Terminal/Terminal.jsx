@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../Pill/StatusDot.jsx';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -71,11 +72,11 @@ const Cursor = ({ visible }) => (
   />
 );
 
-const WindowControls = ({ className }) => (
+export const TerminalWindowControls = ({ className }) => (
   <div className={ cn('flex items-center gap-2', className) } aria-hidden='true'>
-    <span className='size-3 rounded-full bg-danger' />
-    <span className='size-3 rounded-full bg-warning' />
-    <span className='size-3 rounded-full bg-success' />
+    <StatusDot className='size-3 bg-danger' />
+    <StatusDot className='size-3 bg-warning' />
+    <StatusDot className='size-3 bg-success' />
   </div>
 );
 
@@ -155,7 +156,7 @@ const Terminal = ({
     >
       {showHeader ? (
         <div className={ cn('flex items-center gap-3 border-b border-border px-4 py-3', classNames.header) }>
-          <WindowControls className={ classNames.controls } />
+          <TerminalWindowControls className={ classNames.controls } />
           <p className={ cn('min-w-0 truncate text-xs font-medium text-text-muted', classNames.title) }>
             {title}
           </p>

@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useRef } from 'react';
 import { EventCalendar } from '@gaudi/design-system/core/EventCalendar';
 import { EventCalendarContent } from '@gaudi/design-system/core/EventCalendar';
@@ -182,9 +183,8 @@ export function Pattern() {
           <div className='text-ui-muted-foreground flex flex-wrap items-center gap-x-4 gap-y-2 border-t px-4 py-3 text-xs'>
             {Object.keys(CATEGORY).map((key) => (
               <span key={key} className='flex items-center gap-1.5'>
-                <span
-                  aria-hidden
-                  className='size-2 rounded-full'
+                <StatusDot
+                  className='size-2'
                   style={{ backgroundColor: CATEGORY[key].color }}
                 />
                 {CATEGORY[key].label}

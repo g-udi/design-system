@@ -55,7 +55,11 @@ function Row({ id, label, description, children }) {
   );
 }
 
-function ProfilePanel() {
+const initialProfile = { name: 'Maya Lopez', email: 'maya@gaudi.dev', language: 'en-GB', timezone: 'berlin' };
+function ProfilePanel({ saved, onSave }) {
+  const [draft, setDraft] = useState(saved);
+  const set = (field, value) => setDraft((current) => ({ ...current, [field]: value }));
+  const dirty = Object.keys(saved).some((key) => saved[key] !== draft[key]);
   const [{ files }, { openFileDialog, getInputProps }] = useFileUpload({ accept: 'image/*', maxSize: 2 * 1024 * 1024 });
   const avatar = files[0]?.preview || '/avatars/person-23.svg';
   return (
@@ -79,20 +83,27 @@ function ProfilePanel() {
       <div className='grid gap-4 sm:grid-cols-2'>
         <Field>
           <FieldLabel htmlFor='shell-name'>Full name</FieldLabel>
-          <Input id='shell-name' defaultValue='Maya Lopez' />
+          <Input id='shell-name' value={draft.name} onChange={(event) => set('name', event.target.value)} />
         </Field>
         <Field>
           <FieldLabel htmlFor='shell-email'>Email</FieldLabel>
-          <EmailInput id='shell-email' defaultValue='maya@gaudi.dev' suffix={
-              <Badge variant='success-light' size='sm'>
-                <RegistryIcon lucide='CheckIcon' aria-hidden='true' className='size-3' />
-                Verified
-              </Badge>
-          } />
+          <EmailInput
+            id='shell-email'
+            value={draft.email}
+            onChange={(event) => set('email', event.target.value)}
+            suffix={
+              draft.email === initialProfile.email && (
+                <Badge variant='success-light' size='sm'>
+                  <RegistryIcon lucide='CheckIcon' aria-hidden='true' className='size-3' />
+                  Verified
+                </Badge>
+              )
+            }
+          />
         </Field>
         <Field>
           <FieldLabel htmlFor='shell-language'>Language</FieldLabel>
-          <NativeSelect id='shell-language' defaultValue='en-GB' className='w-full'>
+          <NativeSelect id='shell-language' value={draft.language} onChange={(event) => set('language', event.target.value)} className='w-full'>
             <NativeSelectOption value='en-GB'>English (UK)</NativeSelectOption>
             <NativeSelectOption value='de'>Deutsch</NativeSelectOption>
             <NativeSelectOption value='fr'>Français</NativeSelectOption>
@@ -100,7 +111,7 @@ function ProfilePanel() {
         </Field>
         <Field>
           <FieldLabel htmlFor='shell-timezone'>Time zone</FieldLabel>
-          <NativeSelect id='shell-timezone' defaultValue='berlin' className='w-full'>
+          <NativeSelect id='shell-timezone' value={draft.timezone} onChange={(event) => set('timezone', event.target.value)} className='w-full'>
             <NativeSelectOption value='london'>(GMT+0) London</NativeSelectOption>
             <NativeSelectOption value='berlin'>(GMT+1) Berlin</NativeSelectOption>
             <NativeSelectOption value='dubai'>(GMT+4) Dubai</NativeSelectOption>
@@ -108,15 +119,20 @@ function ProfilePanel() {
         </Field>
       </div>
       <div className='flex justify-end gap-2'>
-        <Button variant='outline'>Cancel</Button>
-        <Button>Save changes</Button>
+        <Button variant='outline' disabled={!dirty} onClick={() => setDraft(saved)}>Cancel</Button>
+        <Button
+          disabled={!dirty || !draft.name.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.email)}
+          onClick={() => onSave(draft)}
+        >
+          Save changes
+        </Button>
       </div>
     </FieldGroup>
   );
 }
 
 const panels = {
-  profile: { title: 'Profile', description: 'How you appear to teammates and in shared documents.', body: <ProfilePanel /> },
+  profile: { title: 'Profile', description: 'How you appear to teammates and in shared documents.', body: null },
   security: {
     title: 'Security',
     description: 'Protect your account and review where you are signed in.',
@@ -124,9 +140,6 @@ const panels = {
       <FieldGroup className='gap-4'>
         <Row id='shell-2fa' label='Two-factor authentication' description='Ask for a code from your authenticator app at sign-in.'>
           <Switch id='shell-2fa' defaultChecked />
-        </Row>
-        <Row id='shell-password' label='Password' description='Last changed 3 months ago.'>
-          <Button id='shell-password' size='sm' variant='outline'>Change</Button>
         </Row>
         <Separator />
         <ul className='grid gap-2 text-sm'>
@@ -202,7 +215,6 @@ const panels = {
           <span className='font-medium'>Team · monthly</span>
           <span className='text-text-muted text-xs'>Visa ending 4242</span>
         </span>
-        <Button size='sm' variant='outline'>Manage plan</Button>
       </div>
     )
   }
@@ -210,6 +222,7 @@ const panels = {
 
 export function Pattern() {
   const [active, setActive] = useState('profile');
+  const [profile, setProfile] = useState(initialProfile);
   const panel = panels[active];
   return (
     <div className='bg-surface grid w-full max-w-4xl overflow-hidden rounded-xl border md:grid-cols-[13rem_minmax(0,1fr)]'>
@@ -243,7 +256,7 @@ export function Pattern() {
           <h2 id='shell-panel-title' className='text-lg font-semibold'>{panel.title}</h2>
           <p className='text-text-muted text-sm'>{panel.description}</p>
         </header>
-        {panel.body}
+        {active === 'profile' ? <ProfilePanel saved={profile} onSave={setProfile} /> : panel.body}
       </section>
     </div>
   );

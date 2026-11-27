@@ -53,7 +53,7 @@ function AddToChat({ line, onAdd }) {
         onAdd(batch);
         clearSelection();
       }}
-      className='size-5'
+      className='min-h-[24px] min-w-[24px]'
     >
       <RegistryIcon lucide='PlusIcon' />
     </Button>
@@ -118,7 +118,7 @@ export function Pattern() {
                 key={line}
                 variant={highlighted === line ? 'primary-light' : 'outline'}
                 title={`${PATH}:${line}`}
-                className='gap-0.5 font-mono'
+                className='h-auto gap-0.5 font-mono'
               >
                 {/* Two actions per chip, so two real buttons: the label
        highlights the referenced line in the block above through
@@ -133,7 +133,7 @@ export function Pattern() {
                       current === line ? null : line
                     )
                   }
-                  className='h-auto p-0 font-mono hover:bg-transparent'
+                  className='min-h-[24px] p-0 font-mono hover:bg-transparent'
                 >
                   {FILE}:{line}
                 </Button>
@@ -149,7 +149,7 @@ export function Pattern() {
                       current === line ? null : current
                     );
                   }}
-                  className='size-4 hover:bg-transparent [&_svg]:size-2.5'
+                  className='min-h-[24px] min-w-[24px] hover:bg-transparent'
                 >
                   <RegistryIcon lucide='XIcon' />
                 </Button>

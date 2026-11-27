@@ -69,6 +69,7 @@
   --color-ui-destructive-foreground: var(--ds-color-danger-foreground);
   --color-ui-border: var(--ds-color-border);
   --color-ui-input: var(--ds-color-border);
+  --color-ui-control-border: var(--ds-color-control-border);
   /* Focus keeps the resting border: no coloured active borders. */
   --color-ui-ring: var(--ds-color-border);
   /* Keyboard focus halos use ui-primary (the accent), not ui-ring: at least 3:1 against surfaces and borders in both themes. */

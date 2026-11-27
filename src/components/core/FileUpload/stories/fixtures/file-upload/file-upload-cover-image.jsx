@@ -1,4 +1,5 @@
 'use client';
+import Loader from '@gaudi/design-system/core/Loader';
 import { useEffect, useState } from 'react';
 import { formatBytes, useFileUpload } from '@gaudi/design-system/core/FileUpload';
 import { ProgressRing } from '@gaudi/design-system/core/Progress';
@@ -91,11 +92,9 @@ export function Pattern({
             <div className='relative aspect-21/9 w-full'>
               {/* Loading placeholder */}
               {imageLoading && (
-                <div className='bg-ui-muted absolute inset-0 flex animate-pulse items-center justify-center'>
-                  <div className='text-ui-muted-foreground flex flex-col items-center gap-2'>
-                    <RegistryIcon lucide='ImageIcon' className='size-5' />
-                    <span className='text-sm'>Loading image...</span>
-                  </div>
+                <div className='bg-ui-muted absolute inset-0 flex items-center justify-center gap-2 text-sm text-text-muted'>
+                  <Loader label='Loading cover image' size='sm' />
+                  Loading image…
                 </div>
               )}
 

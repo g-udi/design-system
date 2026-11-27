@@ -4101,7 +4101,7 @@
     "core-datatable--export-csv": {
       "id": "core-datatable--export-csv",
       "title": "Core/Data Display/DataTable",
-      "name": "Export Csv",
+      "name": "Export filtered articles to CSV",
       "type": "story",
       "tags": [
         "autodocs",
@@ -8925,7 +8925,7 @@
     "core-breadcrumb--workspace-path": {
       "id": "core-breadcrumb--workspace-path",
       "title": "Core/Navigation/Breadcrumb",
-      "name": "Workspace, user and document",
+      "name": "Workspace, repository and document",
       "type": "story",
       "tags": [
         "autodocs"
@@ -9023,7 +9023,8 @@
       "name": "Split buttons",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/ButtonGroup/stories/ButtonGroupPatterns.stories.jsx"
     },
@@ -9087,7 +9088,8 @@
       "name": "Editor header",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/ButtonGroup/stories/ButtonGroupPatterns.stories.jsx"
     },
@@ -9862,7 +9864,7 @@
     "core-datatable--csv-export": {
       "id": "core-datatable--csv-export",
       "title": "Core/Data Display/DataTable",
-      "name": "Export to CSV",
+      "name": "Export selected subscribers and visible columns",
       "type": "story",
       "tags": [
         "autodocs",
@@ -10073,7 +10075,8 @@
       "name": "Account and create menus",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DropdownMenu/stories/DropdownMenuPatterns.stories.jsx"
     },
@@ -10083,7 +10086,8 @@
       "name": "Workspace and model switchers",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/DropdownMenu/stories/DropdownMenuPatterns.stories.jsx"
     },
@@ -10988,7 +10992,8 @@
       "name": "Shortcuts in controls",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Kbd/stories/KbdPatterns.stories.jsx"
     },
@@ -11073,7 +11078,8 @@
       "name": "Numbered page styles",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Pagination/stories/PaginationPatterns.stories.jsx"
     },
@@ -11083,7 +11089,8 @@
       "name": "Previous and next with page info",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Pagination/stories/PaginationPatterns.stories.jsx"
     },
@@ -11093,7 +11100,8 @@
       "name": "Rows per page and range",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Pagination/stories/PaginationPatterns.stories.jsx"
     },
@@ -11103,7 +11111,8 @@
       "name": "Jump to a page",
       "type": "story",
       "tags": [
-        "autodocs"
+        "autodocs",
+        "play-fn"
       ],
       "importPath": "./src/components/core/Pagination/stories/PaginationPatterns.stories.jsx"
     },
@@ -11485,7 +11494,7 @@
     "core-select--autocomplete-input-options": {
       "id": "core-select--autocomplete-input-options",
       "title": "Core/Select",
-      "name": "Input options",
+      "name": "Free-text tag autocomplete",
       "type": "story",
       "tags": [
         "autodocs",
@@ -11532,7 +11541,7 @@
     "core-select--combobox-input-options": {
       "id": "core-select--combobox-input-options",
       "title": "Core/Select",
-      "name": "Input options",
+      "name": "Framework combobox controls",
       "type": "story",
       "tags": [
         "autodocs",
@@ -11578,7 +11587,7 @@
     "core-select--combobox-grouped": {
       "id": "core-select--combobox-grouped",
       "title": "Core/Select",
-      "name": "Grouped options",
+      "name": "Search time zones by city",
       "type": "story",
       "tags": [
         "autodocs",
@@ -11657,7 +11666,7 @@
     "core-select--grouped": {
       "id": "core-select--grouped",
       "title": "Core/Select",
-      "name": "Grouped options",
+      "name": "Select a time zone by region",
       "type": "story",
       "tags": [
         "autodocs",

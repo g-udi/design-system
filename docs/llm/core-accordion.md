@@ -80,7 +80,7 @@ Radix-backed native buttons expose expanded state and labelled panels. Arrow Up/
 Curated patterns:
 
 - Disabled and highlighted — registry item `@gaudi/accordion-disabled-highlighted` (uses `AccordionGroup`, `Pill`)
-- Guided setup — registry item `@gaudi/accordion-guided-setup` (uses `AccordionGroup`, `Button`, `Icon`, `Input`, `Pill`, `Progress`)
+- Guided setup — registry item `@gaudi/accordion-guided-setup` (uses `AccordionGroup`, `Button`, `Icon`, `Input`, `Label`, `Link`, `Pill`, `Progress`)
 - Icons and badges — registry item `@gaudi/accordion-icons-badges` (uses `AccordionGroup`, `Icon`, `Pill`)
 - Inside a card — registry item `@gaudi/accordion-in-card` (uses `AccordionGroup`, `Button`, `Card`)
 - Member directory — registry item `@gaudi/accordion-member-directory` (uses `AccordionGroup`, `Avatar`, `Pill`)

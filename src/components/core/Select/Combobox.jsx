@@ -15,7 +15,7 @@ const Combobox = ComboboxPrimitive.Root;
 function ComboboxValue({ ...props }) {
   return <ComboboxPrimitive.Value data-slot='combobox-value' {...props} />;
 }
-function ComboboxTrigger({ className, children, ...props }) {
+function ComboboxTrigger({ className, children, indicator, ...props }) {
   return (
     <ComboboxPrimitive.Trigger
       data-slot='combobox-trigger'
@@ -24,10 +24,12 @@ function ComboboxTrigger({ className, children, ...props }) {
       {...props}
     >
       {children}
-      <RegistryIcon
-        lucide='ChevronDownIcon'
-        className='ds-part-combobox-trigger-icon pointer-events-none'
-      />
+      {indicator === undefined ? (
+        <RegistryIcon
+          lucide='ChevronDownIcon'
+          className='ds-part-combobox-trigger-icon pointer-events-none'
+        />
+      ) : indicator}
     </ComboboxPrimitive.Trigger>
   );
 }

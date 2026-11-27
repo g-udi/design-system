@@ -1,7 +1,10 @@
 'use client';
 
 import { Component, useEffect, useId, useMemo, useState, type ComponentType, type ReactNode } from 'react';
+import { Alert, AlertDescription } from '@gaudi/design-system/core/Banner';
+import { SkeletonRoot } from '@gaudi/design-system/core/Skeleton';
 import Button from '@gaudi/design-system/core/Button';
+import { CardRoot } from '@gaudi/design-system/core/Card';
 import { CodeBlock, CodeBlockCopyButton, CodeBlockHeader, CodeBlockTitle } from '@gaudi/design-system/core/CodeBlock';
 import { Label } from '@gaudi/design-system/core/Field';
 import Input from '@gaudi/design-system/core/Input';
@@ -53,9 +56,7 @@ class LiveBoundary extends Component<{ children: ReactNode }, { error: Error | n
   render() {
     if (this.state.error) {
       return (
-        <p role='alert' className='rounded-(--ds-radius-card) border border-danger-border bg-danger-subtle p-3 text-sm'>
-          This combination failed to render: {this.state.error.message}
-        </p>
+        <Alert variant='destructive'><AlertDescription>This combination failed to render: {this.state.error.message}</AlertDescription></Alert>
       );
     }
     return this.props.children;
@@ -175,17 +176,17 @@ export function Playground({ spec, title }: { spec: PlaygroundSpec; title: strin
   const Live = loaded && 'Live' in loaded ? loaded.Live : undefined;
 
   return (
-    <div className='not-prose my-4 overflow-hidden rounded-(--ds-radius-card) border border-border bg-background' data-testid='playground' data-playground={spec.id}>
+    <CardRoot variant='outline' padding='none' className='not-prose my-4' data-testid='playground' data-playground={spec.id}>
       <div className='site-preview-stage flex min-h-40 items-center justify-center overflow-x-auto p-6 sm:p-10' data-testid='playground-stage' aria-live='polite'>
         <div className='flex min-w-0 max-w-full justify-center' data-ready={Live ? 'true' : undefined}>
           {loaded?.error ? (
-            <p role='alert' className='text-sm text-danger'>The live preview failed to load: {loaded.error}</p>
+            <Alert variant='destructive'><AlertDescription>The live preview failed to load: {loaded.error}</AlertDescription></Alert>
           ) : Live ? (
             <LiveBoundary key={key}>
               <Live {...rest}>{children === undefined ? undefined : String(children)}</Live>
             </LiveBoundary>
           ) : (
-            <div className='h-10 w-32 animate-pulse rounded-(--ds-radius-control) bg-surface' role='status' aria-label={`Loading ${title}`} />
+            <div role='status'><span className='sr-only'>Loading {title}</span><SkeletonRoot aria-hidden='true' className='h-10 w-32' /></div>
           )}
         </div>
       </div>
@@ -214,6 +215,6 @@ export function Playground({ spec, title }: { spec: PlaygroundSpec; title: strin
           </CodeBlockHeader>
         </CodeBlock>
       </div>
-    </div>
+    </CardRoot>
   );
 }

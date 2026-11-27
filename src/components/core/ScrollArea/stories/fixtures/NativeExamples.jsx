@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { ScrollArea } from '@gaudi/design-system/core/ScrollArea';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -40,9 +41,9 @@ export function PlaygroundDemo(props) {
       <ol className='divide-y divide-ui-border text-sm'>
         {releases.map(({ version, date, kind, title }) => (
           <li key={version} className='flex gap-3 px-4 py-3'>
-            <span className='mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-md bg-ui-muted text-ui-muted-foreground'>
+            <IconTile aria-hidden='true' size='xs' variant='muted' className='mt-0.5'>
               <RegistryIcon lucide={kinds[kind].icon} aria-hidden='true' className='size-3.5' />
-            </span>
+            </IconTile>
             <div className='grid min-w-0 flex-1 gap-1'>
               <div className='flex flex-wrap items-center gap-2'>
                 <span className='font-medium tabular-nums'>{version}</span>

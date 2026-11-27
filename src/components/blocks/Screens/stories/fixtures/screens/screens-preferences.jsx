@@ -7,7 +7,6 @@ import {
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   Collapsible,
   CollapsibleContent,
@@ -44,7 +43,6 @@ const sections = [
     rows: [
       { id: 'analytics', label: 'Share usage analytics', description: 'Anonymous data that helps us improve.', control: 'switch', on: true },
       { id: 'ai', label: 'AI writing suggestions', description: 'Processed in the EU, never used for training.', badge: 'Beta', control: 'switch' },
-      { id: 'export', label: 'Export all workspace data', description: 'A zip of documents and comments, emailed to owners.', control: 'button', action: 'Request export' }
     ]
   },
   {
@@ -52,7 +50,6 @@ const sections = [
     description: 'Sign-in and session rules.',
     rows: [
       { id: 'enforce-2fa', label: 'Require two-factor sign-in', badge: 'Pro', control: 'switch', on: true },
-      { id: 'sso', label: 'SAML single sign-on', description: 'Sign in through your identity provider.', badge: 'Business', control: 'button', action: 'Configure' },
       { id: 'timeout', label: 'Sign out idle sessions after', control: 'select', options: ['30 minutes', '8 hours', '7 days', 'Never'] }
     ]
   }
@@ -61,7 +58,6 @@ const admins = ['person-23', 'person-43', 'person-14', 'person-50'];
 
 function Control({ row }) {
   if (row.control === 'switch') return <Switch id={row.id} defaultChecked={row.on} />;
-  if (row.control === 'button') return <Button id={row.id} size='sm' variant='outline'>{row.action}</Button>;
   return (
     <NativeSelect id={row.id} size='sm' className='w-40'>
       {row.options.map((option) => (
@@ -113,7 +109,6 @@ export function Pattern() {
           ))}
           <AvatarGroupCount>+2</AvatarGroupCount>
         </AvatarGroup>
-        <Button size='sm' variant='outline'>Manage</Button>
       </div>
     </div>
   );

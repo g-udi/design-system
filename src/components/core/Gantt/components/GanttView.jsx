@@ -833,7 +833,7 @@ function GanttView({
                       size='icon-xs'
                       aria-label={settings.i18n.labels.zoomIn}
                       aria-disabled={!canZoomIn || void 0}
-                      className='text-ui-muted-foreground hover:text-ui-foreground size-5! rounded-b-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:bg-transparent'
+                      className='text-ui-muted-foreground hover:text-ui-foreground min-h-[24px] min-w-[24px] rounded-b-none aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:bg-transparent'
                       onClick={() => {
                         if (!canZoomIn) return;
                         if (viewConfig.zoom === void 0) anchorZoomCenter();
@@ -860,7 +860,7 @@ function GanttView({
                       size='icon-xs'
                       aria-label={settings.i18n.labels.zoomOut}
                       aria-disabled={!canZoomOut || void 0}
-                      className='text-ui-muted-foreground hover:text-ui-foreground size-5! rounded-t-none border-t aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:bg-transparent'
+                      className='text-ui-muted-foreground hover:text-ui-foreground min-h-[24px] min-w-[24px] rounded-t-none border-t aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:hover:bg-transparent'
                       onClick={() => {
                         if (!canZoomOut) return;
                         if (viewConfig.zoom === void 0) anchorZoomCenter();

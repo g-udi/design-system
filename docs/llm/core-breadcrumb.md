@@ -52,7 +52,7 @@ Curated patterns:
 - Contained and button styles — registry item `@gaudi/breadcrumb-contained-buttons` (uses `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `CardContent`, `CardRoot`, `Frame`, `FramePanel`, `RegistryIcon`)
 - Icons, badges and avatars — registry item `@gaudi/breadcrumb-icons-avatars` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `Badge`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Button`, `RegistryIcon`)
 - Separators — registry item `@gaudi/breadcrumb-separators` (uses `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `RegistryIcon`)
-- Workspace, user and document — registry item `@gaudi/breadcrumb-workspace-path` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Frame`, `FramePanel`, `RegistryIcon`)
+- Workspace, user and document — registry item `@gaudi/breadcrumb-workspace-path` (uses `AvatarFallback`, `AvatarImage`, `AvatarRoot`, `BreadcrumbItemPrimitive`, `BreadcrumbLinkPrimitive`, `BreadcrumbListPrimitive`, `BreadcrumbPagePrimitive`, `BreadcrumbRoot`, `BreadcrumbSeparatorPrimitive`, `Frame`, `FramePanel`, `IconTile`, `RegistryIcon`)
 
 ## Related
 

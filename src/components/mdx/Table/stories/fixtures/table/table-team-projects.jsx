@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
@@ -110,13 +111,13 @@ export function Pattern() {
             <TableRow key={project.name}>
               <TableCell>
                 <div className='flex items-center gap-3'>
-                  <div className='bg-surface-muted rounded-sm flex size-8 shrink-0 items-center justify-center'>
+                  <IconTile aria-hidden='true' size='sm' variant='muted'>
                     <RegistryIcon
                       lucide='FolderIcon'
                       className='text-text-muted size-4'
                       aria-hidden='true'
                     />
-                  </div>
+                  </IconTile>
                   <div className='flex flex-col'>
                     <span className='text-sm font-medium'>{project.name}</span>
                     <span className='text-text-muted text-xs'>

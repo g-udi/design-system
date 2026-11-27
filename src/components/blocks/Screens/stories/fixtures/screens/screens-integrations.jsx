@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
@@ -55,7 +56,7 @@ export function Pattern() {
             <li key={id} className='grid content-between gap-4 rounded-xl border p-4'>
               <div className='grid gap-3'>
                 <div className='flex items-center justify-between'>
-                  <span className='flex size-9 items-center justify-center rounded-lg border'><Logo className='size-5' aria-hidden='true' /></span>
+                  <IconTile aria-hidden='true' size='sm'><Logo className='size-5' aria-hidden='true' /></IconTile>
                   <Switch size='sm' aria-label={`Enable ${name}`} checked={enabled[id]} onCheckedChange={(on) => set(id, on)} />
                 </div>
                 <span className='grid gap-1'>

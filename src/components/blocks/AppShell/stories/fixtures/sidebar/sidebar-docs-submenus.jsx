@@ -1,4 +1,5 @@
 'use client';
+import { Label } from '@gaudi/design-system/core/Field';
 import { GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useState } from 'react';
 import { cn } from '@gaudi/design-system/utilities/cn';
@@ -23,7 +24,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
   SidebarProvider,
-  SidebarTrigger
+  SidebarTrigger, useSidebar
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellFrame, AppShellHeader } from '@gaudi/design-system/blocks/AppShell';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -126,15 +127,34 @@ function Chevron({ open }) {
     />
   );
 }
-function DocsNavItem({ item, forceOpen }) {
+const docs = {
+  install: 'Install the package in your application, import its themes and mount the provider at the layout boundary.',
+  structure: 'Keep layout, navigation and route content separate. Place shared providers above the routes that need them.',
+  theming: 'Choose a theme on the root surface so controls inherit the same foreground, background and focus colors.',
+  collapsing: 'Use the sidebar trigger to switch between expanded and collapsed views. On narrow screens the panel opens as a drawer.',
+  'sub-menus': 'Nest related destinations under a disclosure. Keep its expanded state separate from the current page.',
+  columns: 'Give each column a stable key, an accessible title and a renderer that preserves the meaning of its value.',
+  'row-selection': 'Track rows by their stable identifier so selections survive sorting and filtering.',
+  virtualisation: 'Render the visible row window when the data set is large. Keep the scroll region bounded so its measurements stay predictable.',
+  operators: 'Offer comparison operators appropriate to the field type, such as contains for text or before for dates.',
+  'async-options': 'Keep the input usable while suggestions load and provide an empty state when the search returns no matches.',
+  calendar: 'The calendar supports date selection and month navigation. Provide a field label when a date is required by a form.',
+  'open-state': 'Use the provider to control the panel and its trigger together. Mobile and desktop have separate open state.',
+  widths: 'Set the sidebar width at its provider. Container breakpoints determine when the panel needs a mobile layout.',
+  'use-sidebar': 'Read the current open state and invoke the provider toggle from a descendant of SidebarProvider.',
+  tokens: 'Use sidebar surface, border, text and focus tokens so the same panel works across themes.'
+};
+function DocsNavItem({ item, forceOpen, page, onNavigate }) {
+  const { isMobile, setOpenMobile } = useSidebar();
+  const go = (event, entry) => { event.preventDefault(); onNavigate(entry); if (isMobile) setOpenMobile(false); };
   const [open, setOpen] = useState(
     () => item.children?.some((child) => child.isActive) ?? false
   );
   if (!item.children || item.children.length === 0) {
     return (
       <SidebarMenuItem>
-        <SidebarMenuButton asChild isActive={item.isActive}>
-          <a href='#'>
+        <SidebarMenuButton asChild isActive={page.id === item.id}>
+          <a href={'#' + item.id} aria-current={page.id === item.id ? 'page' : undefined} onClick={event => go(event, item)}>
             <span>{item.label}</span>
           </a>
         </SidebarMenuButton>
@@ -157,8 +177,8 @@ function DocsNavItem({ item, forceOpen }) {
         <SidebarMenuSub id={`docs-sub-${item.id}`}>
           {item.children.map((child) => (
             <SidebarMenuSubItem key={child.id}>
-              <SidebarMenuSubButton asChild isActive={child.isActive}>
-                <a href='#'>
+              <SidebarMenuSubButton asChild isActive={page.id === child.id}>
+                <a href={'#' + child.id} aria-current={page.id === child.id ? 'page' : undefined} onClick={event => go(event, child)}>
                   <span>{child.label}</span>
                 </a>
               </SidebarMenuSubButton>
@@ -169,7 +189,7 @@ function DocsNavItem({ item, forceOpen }) {
     </SidebarMenuItem>
   );
 }
-function DocsSection({ section, items, filtering }) {
+function DocsSection({ section, items, filtering, page, onNavigate }) {
   const [open, setOpen] = useState(() =>
     section.items.some(
       (item) => item.isActive || item.children?.some((child) => child.isActive)
@@ -194,7 +214,7 @@ function DocsSection({ section, items, filtering }) {
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
-                <DocsNavItem key={item.id} item={item} forceOpen={filtering} />
+                <DocsNavItem key={item.id} item={item} forceOpen={filtering} page={page} onNavigate={onNavigate} />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -205,6 +225,7 @@ function DocsSection({ section, items, filtering }) {
 }
 export function Pattern() {
   const [query, setQuery] = useState('');
+  const [page, setPage] = useState({ id: 'anatomy', label: 'Sidebar anatomy' });
   const needle = query.trim().toLowerCase();
   const visible = SECTIONS.map((section) => ({
     section,
@@ -222,9 +243,9 @@ export function Pattern() {
                 v2.8
               </span>
             </div>
-            <label htmlFor='docs-search' className='sr-only'>
+            <Label htmlFor='docs-search' className='sr-only'>
               Search the documentation
-            </label>
+            </Label>
             <SidebarInput
               id='docs-search'
               value={query}
@@ -239,7 +260,7 @@ export function Pattern() {
                 key={entry.section.id}
                 section={entry.section}
                 items={entry.items}
-                filtering={needle !== ''}
+                filtering={needle !== ''} page={page} onNavigate={setPage}
               />
             ))}
             {visible.length === 0 ? (
@@ -256,7 +277,7 @@ export function Pattern() {
             <SidebarTrigger label='Toggle documentation navigation' />
             <span className='text-sm font-medium'>Gaudi Docs</span>
           </AppShellHeader>
-          <article className='mx-auto w-full max-w-2xl px-6 py-6'>
+          {page.id !== 'anatomy' ? <article className='mx-auto w-full max-w-2xl px-6 py-6'><h1 className='text-xl font-semibold'>{page.label}</h1><p className='text-text-muted mt-2 text-sm'>{docs[page.id]}</p></article> : <article className='mx-auto w-full max-w-2xl px-6 py-6'>
             <h1 className='text-xl font-semibold tracking-tight'>
               Sidebar anatomy
             </h1>
@@ -284,7 +305,7 @@ export function Pattern() {
               </li>
               <li>Only the deepest matching link carries the current-page marker.</li>
             </ul>
-          </article>
+          </article>}
         </SidebarInset>
       </SidebarProvider>
     </AppShellFrame>

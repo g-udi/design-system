@@ -1,3 +1,4 @@
+import { FieldLegend, FieldSet } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import ToggleGroup from '../../../core/ToggleGroup/index.js';
 import { expect, fn, userEvent, waitFor, within } from 'storybook/test';
@@ -45,10 +46,10 @@ function RateAndExplain() {
       <p>{reply}</p>
       <ChatMessageFeedback copyText={reply} rating={rating} onRatingChange={setRating} />
       {rating === 'down' ? (
-        <fieldset className='grid gap-2'>
-          <legend className='text-text-muted text-xs'>What was off?</legend>
+        <FieldSet className='grid gap-2'>
+          <FieldLegend className='text-text-muted text-xs'>What was off?</FieldLegend>
           <ToggleGroup label='What was off?' size='sm' spacing={2} value={reason} onValueChange={(value) => value && setReason(value)} options={['Too long', 'Wrong tone', 'Missed the point'].map((option) => ({ value: option, label: option }))} />
-        </fieldset>
+        </FieldSet>
       ) : null}
       <p role='status' className='text-text-muted text-xs'>{reason ? `Noted: ${reason.toLowerCase()}. Gaudi will adjust the next reply.` : ''}</p>
     </div>

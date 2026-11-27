@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;
 const stages = ['Lead', 'Qualified', 'Proposal', 'Negotiation', 'Closed won'];
 const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 function Row({ label, children }) {
@@ -40,24 +39,24 @@ export function Pattern() {
     <div className='mx-auto flex w-full max-w-lg flex-col gap-3'>
       <Row label='Steppers'>
         <ButtonGroup aria-label='Volume'>
-          <Button size='icon-sm' variant='outline' aria-label='Decrease Volume' onClick={() => changeVolume(-5)}><Icon name='MinusIcon' /></Button>
+          <Button size='icon-sm' variant='outline' aria-label='Decrease Volume' onClick={() => changeVolume(-5)}><RegistryIcon aria-hidden='true' lucide='MinusIcon' /></Button>
           <Button size='sm' variant='outline' className='min-w-16 tabular-nums' onClick={() => setMuted(!muted)}>
             {muted ? 'Muted' : `${volume}%`}
           </Button>
-          <Button size='icon-sm' variant='outline' aria-label='Increase Volume' onClick={() => changeVolume(5)}><Icon name='PlusIcon' /></Button>
+          <Button size='icon-sm' variant='outline' aria-label='Increase Volume' onClick={() => changeVolume(5)}><RegistryIcon aria-hidden='true' lucide='PlusIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup aria-label='Zoom'>
-          <Button variant='outline' size='icon' aria-label='Zoom out' onClick={() => setZoom(clamp(zoom - 10, 10, 200))}><Icon name='MinusIcon' /></Button>
+          <Button variant='outline' size='icon' aria-label='Zoom out' onClick={() => setZoom(clamp(zoom - 10, 10, 200))}><RegistryIcon aria-hidden='true' lucide='MinusIcon' /></Button>
           <ButtonGroupText className='w-16 justify-center border border-border text-sm tabular-nums'>{zoom}%</ButtonGroupText>
-          <Button variant='outline' size='icon' aria-label='Zoom in' onClick={() => setZoom(clamp(zoom + 10, 10, 200))}><Icon name='PlusIcon' /></Button>
+          <Button variant='outline' size='icon' aria-label='Zoom in' onClick={() => setZoom(clamp(zoom + 10, 10, 200))}><RegistryIcon aria-hidden='true' lucide='PlusIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup aria-label='Pipeline stage'>
-          <Button variant='outline' size='icon' aria-label='Previous stage' disabled={stage === 0} onClick={() => setStage(stage - 1)}><Icon name='ChevronLeftIcon' /></Button>
+          <Button variant='outline' size='icon' aria-label='Previous stage' disabled={stage === 0} onClick={() => setStage(stage - 1)}><RegistryIcon aria-hidden='true' lucide='ChevronLeftIcon' /></Button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className='min-w-32 justify-between'>
                 <span className='truncate'>{stages[stage]}</span>
-                <Icon name='ChevronsUpDownIcon' className='size-3.5 opacity-50' />
+                <RegistryIcon aria-hidden='true' lucide='ChevronsUpDownIcon' className='size-3.5 opacity-50' />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='w-44'>
@@ -66,18 +65,18 @@ export function Pattern() {
                 {stages.map((item, index) => (
                   <DropdownMenuItem key={item} onClick={() => setStage(index)}>
                     {item}
-                    {index === stage ? <Icon name='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}
+                    {index === stage ? <RegistryIcon aria-hidden='true' lucide='CheckIcon' className='ml-auto size-3.5 text-accent' /> : null}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant='outline' size='icon' aria-label='Next stage' disabled={stage === stages.length - 1} onClick={() => setStage(stage + 1)}><Icon name='ChevronRightIcon' /></Button>
+          <Button variant='outline' size='icon' aria-label='Next stage' disabled={stage === stages.length - 1} onClick={() => setStage(stage + 1)}><RegistryIcon aria-hidden='true' lucide='ChevronRightIcon' /></Button>
         </ButtonGroup>
       </Row>
       <Row label='Pagination'>
         <ButtonGroup aria-label='Pagination'>
-          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 1} onClick={() => setPage(page - 1)}><Icon name='ArrowLeftIcon' /><span className='max-sm:sr-only'>Previous</span></Button>
+          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 1} onClick={() => setPage(page - 1)}><RegistryIcon aria-hidden='true' lucide='ArrowLeftIcon' /><span className='max-sm:sr-only'>Previous</span></Button>
           {[1, 2, 3, 4, 5].map((n) => (
             <Button
               key={n}
@@ -90,12 +89,12 @@ export function Pattern() {
               {n}
             </Button>
           ))}
-          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 5} onClick={() => setPage(page + 1)}><span className='max-sm:sr-only'>Next</span><Icon name='ArrowRightIcon' /></Button>
+          <Button variant='outline' size='xs' className='max-sm:w-6 max-sm:p-0' disabled={page === 5} onClick={() => setPage(page + 1)}><span className='max-sm:sr-only'>Next</span><RegistryIcon aria-hidden='true' lucide='ArrowRightIcon' /></Button>
         </ButtonGroup>
         <ButtonGroup aria-label='Compact pagination'>
-          <Button variant='outline' size='icon-sm' aria-label='Previous page' disabled={page === 1} onClick={() => setPage(page - 1)}><Icon name='ChevronLeftIcon' /></Button>
+          <Button variant='outline' size='icon-sm' aria-label='Previous page' disabled={page === 1} onClick={() => setPage(page - 1)}><RegistryIcon aria-hidden='true' lucide='ChevronLeftIcon' /></Button>
           <ButtonGroupText className='border border-border px-2.5 text-xs text-text-muted tabular-nums'>Page {page} of 5</ButtonGroupText>
-          <Button variant='outline' size='icon-sm' aria-label='Next page' disabled={page === 5} onClick={() => setPage(page + 1)}><Icon name='ChevronRightIcon' /></Button>
+          <Button variant='outline' size='icon-sm' aria-label='Next page' disabled={page === 5} onClick={() => setPage(page + 1)}><RegistryIcon aria-hidden='true' lucide='ChevronRightIcon' /></Button>
         </ButtonGroup>
       </Row>
     </div>

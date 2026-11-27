@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { default as AuthForm } from '@gaudi/design-system/blocks/AuthForm';
 import { Screen } from '@gaudi/design-system/blocks/Screens';
 import { Badge } from '@gaudi/design-system/core/Pill';
@@ -30,9 +31,9 @@ export function Pattern() {
           <ul className='grid gap-3 text-sm'>
             {perks.map(([perk, icon]) => (
               <li key={perk} className='flex items-center gap-3'>
-                <span className='bg-surface grid size-8 place-items-center rounded-md border'>
+                <IconTile aria-hidden='true' size='sm'>
                   <RegistryIcon lucide={icon} className='size-4' />
-                </span>
+                </IconTile>
                 {perk}
               </li>
             ))}

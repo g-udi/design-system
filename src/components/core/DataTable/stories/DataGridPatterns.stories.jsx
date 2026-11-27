@@ -327,7 +327,7 @@ export const ColumnVirtualization = {
 };
 const exportPattern = pattern('csv-export', 'Export CSV writes what the grid shows: the visible columns in display order, the current search and sort, and only the selected rows when there is a selection. Dates keep an ISO value through `meta.exportValue`, notes with quotes are escaped, and formula-like text is neutralised. This example previews the file instead of saving it.');
 export const CsvExport = {
-  name: 'Export to CSV',
+  name: 'Export selected subscribers and visible columns',
   ...exportPattern,
   parameters: { ...exportPattern.parameters, visualAudit: { wide: 'The CSV preview spans the grid it was exported from.' } },
   play: async ({ canvasElement }) => {

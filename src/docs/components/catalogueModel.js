@@ -1,10 +1,10 @@
-const categories = new Set(['Core', 'Blocks', 'Chat', 'Charts', 'Hooks', 'MDX']);
+import { isSidebarEntry } from '../../../.storybook/navigation.js';
 
 export function catalogueFromIndex(index) {
   const owners = new Map();
   for (const entry of Object.values(index.entries || {})) {
     const [category, ...parts] = entry.title.split('/');
-    if (!categories.has(category) || !parts.length || !['story', 'docs'].includes(entry.type)) continue;
+    if (!parts.length || !isSidebarEntry(entry) || !['story', 'docs'].includes(entry.type)) continue;
     const key = entry.title;
     if (!owners.has(key)) owners.set(key, { key, category, group: parts.slice(0, -1).join(' / '), name: parts.at(-1), docs: null, examples: [] });
     const owner = owners.get(key);

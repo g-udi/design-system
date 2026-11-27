@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { ChatBubble, ChatBubbleContent } from '@gaudi/design-system/chat/ChatBubble';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import Link from '@gaudi/design-system/core/Link';
+import { CodeBlock } from '@gaudi/design-system/core/CodeBlock';
+import Dialog from '@gaudi/design-system/core/Dialog';
 import {
   Collapsible,
   CollapsibleContent,
@@ -57,10 +58,9 @@ export function Pattern() {
                   <p>
                     We raised the pool to 60 and capped the worker at 8 concurrent deliveries. A backoff follows in 3.5.
                   </p>
-                  <p className='text-ui-muted-foreground'>
-                    Everything else is unchanged.{' '}
-                    <Link href='#' variant='bare' className='underline underline-offset-4'>Open the full diff</Link>
-                  </p>
+                  <Dialog title='Webhook worker changes' trigger={<Button variant='link' size='sm' className='w-fit px-0'>View the worker diff</Button>}>
+                    <CodeBlock language='diff' code={'- const pool = createPool();\n+ const pool = createPool({ max: 60 });\n- await Promise.all(deliveries.map(send));\n+ await mapWithConcurrency(deliveries, 8, send);'} />
+                  </Dialog>
                 </div>
               </CollapsibleContent>
               {/* asChild hands the trigger to a real Button, so the fold keeps keyboard activation and a focus ring. */}

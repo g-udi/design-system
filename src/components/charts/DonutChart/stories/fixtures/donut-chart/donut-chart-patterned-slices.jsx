@@ -27,18 +27,13 @@ const chartData = [
   { status: 'pending', count: 62, fill: 'var(--color-pending)' },
   { status: 'cancelled', count: 28, fill: 'var(--color-cancelled)' }
 ];
-// Legend swatches read the series colour, not the slice fill, so they stay solid under gradients and patterns.
-const swatch = (key) => {
-  const Swatch = () => <span className='size-2 shrink-0 rounded-sm' style={{ backgroundColor: `var(--color-${key})` }} />;
-  return Swatch;
-};
 const total = chartData.reduce((sum, item) => sum + item.count, 0);
 const chartConfig = {
   count: { label: 'Tasks' },
-  completed: { label: 'Completed', icon: swatch('completed'), color: 'var(--chart-1)' },
-  inProgress: { label: 'In progress', icon: swatch('inProgress'), color: 'var(--chart-2)' },
-  pending: { label: 'Pending', icon: swatch('pending'), color: 'var(--chart-3)' },
-  cancelled: { label: 'Cancelled', icon: swatch('cancelled'), color: 'var(--chart-5)' }
+  completed: { label: 'Completed', color: 'var(--chart-1)' },
+  inProgress: { label: 'In progress', color: 'var(--chart-2)' },
+  pending: { label: 'Pending', color: 'var(--chart-3)' },
+  cancelled: { label: 'Cancelled', color: 'var(--chart-5)' }
 };
 const fills = ['Solid', 'Gradient', 'Patterns'];
 // Patterns alternate so neighbouring slices differ by texture as well as colour.
@@ -113,10 +108,17 @@ export function Pattern() {
                 <feDropShadow dx='0' dy='6' stdDeviation='4' floodOpacity='0.2' />
               </filter>
             </defs>
-            <ChartTooltip content={<ChartTooltipContent nameKey='status' hideLabel />} />
+            <ChartTooltip content={(props) => (
+              <ChartTooltipContent
+                {...props}
+                nameKey='status'
+                hideLabel
+                color={chartConfig[props.payload?.[0]?.payload?.status]?.color}
+              />
+            )} />
             {legend ? <ChartLegend content={<ChartLegendContent nameKey='status' />} /> : null}
             <Pie
-                            data={chartData}
+              data={chartData}
               dataKey='count'
               nameKey='status'
               innerRadius={donut ? '58%' : 0}

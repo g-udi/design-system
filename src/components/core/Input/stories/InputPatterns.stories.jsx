@@ -22,12 +22,14 @@ export const LabelsMessages = {
 };
 export const PasswordStrength = {
   name: 'Password with strength meter',
-  ...pattern('password-strength', 'A visibility toggle, a forgot-password link, and a segmented strength meter with a requirement checklist.'),
+  ...pattern('password-strength', 'A visibility toggle, a forgot-password link, and a strength meter with a requirement checklist.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
     const input = canvas.getByLabelText('Password', { selector: 'input' });
     await userEvent.type(input, 'Gaudi2026!');
-    await expect(canvas.getByRole('progressbar', { name: 'Password strength' })).toHaveAttribute('aria-valuenow', '5');
+    const strength = canvas.getByRole('progressbar', { name: 'Password strength' });
+    await expect(strength).toHaveAttribute('data-slot', 'progress');
+    await expect(strength).toHaveAttribute('aria-valuenow', '5');
     await expect(canvas.getByText('Strong security')).toBeVisible();
     await userEvent.click(canvas.getByRole('button', { name: 'Show password' }));
     await expect(input).toHaveAttribute('type', 'text');

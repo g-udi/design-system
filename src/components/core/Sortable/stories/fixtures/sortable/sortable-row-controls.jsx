@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useId, useState } from 'react';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
@@ -70,9 +71,9 @@ export function Pattern() {
                   <SortableItemHandle aria-label={`Drag ${item.title}`} className='text-ui-muted-foreground hover:text-ui-foreground'>
                     <RegistryIcon lucide='GripVerticalIcon' className='size-4' />
                   </SortableItemHandle>
-                  <span className='hidden size-8 shrink-0 items-center justify-center rounded-md sm:flex bg-ui-muted text-ui-muted-foreground'>
+                  <IconTile aria-hidden='true' size='sm' variant='muted' className='hidden sm:inline-flex'>
                     <RegistryIcon lucide={types[item.type].icon} className='size-4' />
-                  </span>
+                  </IconTile>
                   <div className='min-w-0 flex-1'>
                     <p dir='auto' className='text-sm font-medium sm:truncate'>
                       {item.title}

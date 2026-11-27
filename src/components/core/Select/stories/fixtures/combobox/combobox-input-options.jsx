@@ -1,13 +1,13 @@
 'use client';
 import { useId, useState } from 'react';
-import { Combobox as ComboboxPrimitive } from '@base-ui/react';
 import {
   Combobox,
   ComboboxContent,
   ComboboxEmpty,
   ComboboxInput,
   ComboboxItem,
-  ComboboxList
+  ComboboxList,
+  ComboboxTrigger
 } from '@gaudi/design-system/core/Select';
 import {
   FieldRoot as Field,
@@ -61,9 +61,9 @@ function CustomTriggerCombobox() {
       inputProps={{ showTrigger: false, showClear: true }}
     >
       {!value && (
-        <ComboboxPrimitive.Trigger aria-label='Show options' data-slot='combobox-trigger'>
-          <RegistryIcon lucide='ChevronsUpDownIcon' className='text-text-muted pointer-events-none size-4' />
-        </ComboboxPrimitive.Trigger>
+        <ComboboxTrigger
+          indicator={<RegistryIcon lucide='ChevronsUpDownIcon' aria-hidden='true' className='pointer-events-none size-4 text-text-muted' />}
+        />
       )}
     </FrameworkCombobox>
   );

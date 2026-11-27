@@ -9,21 +9,7 @@ import {
   BreadcrumbPagePrimitive as BreadcrumbPage,
   BreadcrumbSeparatorPrimitive as BreadcrumbSeparator
 } from '@gaudi/design-system/core/Breadcrumb';
-import {
-  DropdownMenuRoot as DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
-  DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger
-} from '@gaudi/design-system/core/DropdownMenu';
+import { DropdownMenuRoot as DropdownMenu, DropdownMenuContent, DropdownMenuItemPrimitive as DropdownMenuItem, DropdownMenuLabelPrimitive as DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparatorPrimitive as DropdownMenuSeparator, DropdownMenuTrigger } from '@gaudi/design-system/core/DropdownMenu';
 import {
   Sidebar,
   SidebarContent,
@@ -43,7 +29,9 @@ import {
   AppShellPanel
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
+import Accordion from '@gaudi/design-system/core/Accordion';
+import Input from '@gaudi/design-system/core/Input';
+import { Label } from '@gaudi/design-system/core/Field';
 import Button from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
@@ -86,11 +74,53 @@ const initialSources = [
   { id: 'web-clipper', label: 'Web Clipper', dot: 'warning', status: 'paused' },
   { id: 'e-reader', label: 'E-reader Highlights', dot: 'danger', status: 'sync failed' }
 ];
-const links = [
-  { id: 'settings', label: 'Settings', icon: 'Settings' },
-  { id: 'share', label: 'Share Library', icon: 'Users' },
-  { id: 'guide', label: 'Reading Guide', icon: 'Compass' }
+const shelfEntries = [
+  {
+    id: 'street-atlas',
+    workspace: 'personal',
+    source: 'field-notes',
+    title: 'An atlas made on foot',
+    detail:
+      'At the corner of two streets named Mill Lane, a handwritten sign supplies the missing landmark: the old flour mill.',
+    collections: ['reading-now', 'daily-notes']
+  },
+  {
+    id: 'oral-history',
+    workspace: 'personal',
+    source: 'transcripts',
+    title: 'Listening to an oral history',
+    detail:
+      'The interviewer waits through the silence. Only then does the speaker remember the sound of the depot doors.',
+    collections: ['highlights', 'literature-notes']
+  },
+  {
+    id: 'small-archives',
+    workspace: 'personal',
+    source: 'papers',
+    title: 'Who keeps a small archive?',
+    detail:
+      'The volunteers describe their index cards as the collection’s first finding aid. Photograph the drawer labels on the next visit.',
+    collections: ['drafts']
+  },
+  {
+    id: 'margins',
+    workspace: 'circle',
+    source: 'field-notes',
+    title: 'A conversation in the margins',
+    detail: 'Compare the two readers’ notes on the final paragraph before the next book-club meeting.',
+    collections: ['reading-now', 'literature-notes']
+  },
+  {
+    id: 'recall',
+    workspace: 'thesis',
+    source: 'papers',
+    title: 'When a cue changes recall',
+    detail:
+      'The second trial used the same images with a new prompt. Keep the two recall conditions separate in the review.',
+    collections: ['reading-now', 'literature-notes']
+  }
 ];
+const links = [{ id: 'guide', label: 'Reading guide', icon: 'Compass' }];
 const user = { name: 'Leila Haddad', initials: 'LH', email: 'leila@gaudi.app', photo: '/avatars/person-20.svg' };
 
 const labelOf = (id, sources) => {
@@ -99,7 +129,7 @@ const labelOf = (id, sources) => {
     const child = item.items?.find((entry) => entry.id === id);
     if (child) return child.label;
   }
-  return 'Home';
+  return id === 'profile' ? 'Profile' : 'Home';
 };
 
 function WorkspaceTile({ workspace }) {
@@ -135,14 +165,6 @@ function WorkspaceMenu({ workspace, onChange }) {
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className='items-start'>
-              <RegistryIcon lucide='Plus' aria-hidden='true' className='mt-0.5' />
-              <span className='grid'>
-                New Library
-                <span className='text-text-muted text-xs'>Keep a separate shelf of reading and notes.</span>
-              </span>
-            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
@@ -150,9 +172,8 @@ function WorkspaceMenu({ workspace, onChange }) {
   );
 }
 
-function UserMenu() {
+function UserMenu({ onPage }) {
   const { isMobile } = useSidebar();
-  const [theme, setTheme] = useState('system');
   return (
     <SidebarMenu>
       <SidebarMenuItem>
@@ -184,53 +205,8 @@ function UserMenu() {
               </span>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='User' aria-hidden='true' />
-                Profile
-                <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Target' aria-hidden='true' />
-                Reading Goals
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Settings' aria-hidden='true' />
-                Preferences
-                <DropdownMenuShortcut>⌘,</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='LifeBuoy' aria-hidden='true' />
-                Help
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <RegistryIcon lucide='Keyboard' aria-hidden='true' />
-                Keyboard Shortcuts
-                <DropdownMenuShortcut>?</DropdownMenuShortcut>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuSub>
-              <DropdownMenuSubTrigger>
-                <RegistryIcon lucide='Palette' aria-hidden='true' />
-                Theme
-              </DropdownMenuSubTrigger>
-              <DropdownMenuSubContent>
-                <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
-                  <DropdownMenuRadioItem value='light'>Light</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='dark'>Dark</DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value='system'>System</DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuSubContent>
-            </DropdownMenuSub>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <RegistryIcon lucide='LogOut' aria-hidden='true' />
-              Sign Out
-              <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+            <DropdownMenuItem onSelect={() => onPage('profile')}>
+              <RegistryIcon lucide='User' aria-hidden='true' /> Profile
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -279,20 +255,39 @@ export function Pattern() {
   const [page, setPage] = useState('home');
   const [workspace, setWorkspace] = useState(workspaces[0]);
   const [sources, setSources] = useState(initialSources);
+  const [entries, setEntries] = useState(shelfEntries);
+  const [saved, setSaved] = useState([]);
+  const [capture, setCapture] = useState('');
+  const activeSource = sources.find((entry) => entry.id === page);
+  const shelf = entries.filter((entry) => entry.workspace === workspace.id);
+  const visible = shelf.filter((entry) => {
+    if (page === 'saved-for-later') return saved.includes(entry.id);
+    if (activeSource) return activeSource.id === entry.source;
+    if (library.some((item) => item.items?.some((child) => child.id === page)))
+      return entry.collections.includes(page);
+    return page !== 'inbox' || entry.collections.includes('inbox');
+  });
+  const addCapture = (event) => {
+    event.preventDefault();
+    if (!capture.trim()) return;
+    setEntries((list) => [
+      {
+        id: crypto.randomUUID(),
+        workspace: workspace.id,
+        title: capture.trim(),
+        detail: 'Captured in your inbox.',
+        collections: ['inbox']
+      },
+      ...list
+    ]);
+    setCapture('');
+  };
   const sourceActions = (item) => (
     <>
       <DropdownMenuLabel>Actions</DropdownMenuLabel>
       <DropdownMenuItem onSelect={() => setPage(item.id)}>
         <RegistryIcon lucide='ExternalLink' aria-hidden='true' />
         Open Source
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='Copy' aria-hidden='true' />
-        Copy Link
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <RegistryIcon lucide='RefreshCw' aria-hidden='true' />
-        Sync Now
       </DropdownMenuItem>
       <DropdownMenuSeparator />
       <DropdownMenuItem
@@ -326,13 +321,87 @@ export function Pattern() {
             <AppShellNav className='mt-auto' size='sm' items={links} value={page} onValueChange={setPage} />
           </SidebarContent>
           <SidebarFooter>
-            <UserMenu />
+            <UserMenu onPage={setPage} />
           </SidebarFooter>
         </Sidebar>
         <AppShellPanel>
           <PageHeader page={labelOf(page, sources)} onNavigate={setPage} />
           <AppShellBody>
-            <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-[2fr_1fr]'><Skeleton className='h-72' /><div className='grid gap-4'><Skeleton className='h-20' /><Skeleton className='h-20' /><Skeleton className='h-24' /></div></div>
+            {page === 'guide' || page === 'profile' ? (
+              <section className='mx-auto grid w-full max-w-2xl gap-3 p-4'>
+                <h2 className='text-lg font-semibold'>{labelOf(page, sources)}</h2>
+                {page === 'profile' ? (
+                  <div>
+                    <p>{user.name}</p>
+                    <p>{user.email}</p>
+                  </div>
+                ) : (
+                  <p>
+                    Open an entry on the reading shelf to read its excerpt or save it for later. Use Capture to add a
+                    note to the current library’s inbox.
+                  </p>
+                )}
+              </section>
+            ) : (
+            <section className='mx-auto grid w-full max-w-2xl gap-4 p-4' aria-label='Library entries'>
+              <header className='grid gap-1'>
+                <h2 className='text-lg font-semibold'>
+                  {page === 'home' ? 'Reading shelf' : `${labelOf(page, sources)} entries`}
+                </h2>
+                <p className='text-text-muted text-sm'>
+                  {workspace.name} · {visible.length} {visible.length === 1 ? 'entry' : 'entries'}
+                </p>
+              </header>
+              {page === 'inbox' ? (
+                <form onSubmit={addCapture} className='grid gap-2'>
+                  <Label>
+                    Capture a reading note
+                    <Input
+                      value={capture}
+                      onChange={(event) => setCapture(event.target.value)}
+                      placeholder='Title or quotation'
+                    />
+                  </Label>
+                  <Button size='sm' className='justify-self-start' disabled={!capture.trim()} type='submit'>
+                    Add to inbox
+                  </Button>
+                </form>
+              ) : null}
+              {visible.length ? (
+                <Accordion
+                  key={`${workspace.id}-${page}`}
+                  items={visible.map((entry) => ({
+                    value: entry.id,
+                    title: entry.title,
+                    description: initialSources.find((source) => source.id === entry.source)?.label,
+                    content: (
+                      <div className='grid justify-items-start gap-3'>
+                        <p>{entry.detail}</p>
+                        <Button
+                          size='sm'
+                          variant='outline'
+                          aria-pressed={saved.includes(entry.id)}
+                          onClick={() =>
+                            setSaved((items) =>
+                              items.includes(entry.id) ? items.filter((id) => id !== entry.id) : [...items, entry.id]
+                            )
+                          }
+                        >
+                          {saved.includes(entry.id) ? 'Remove from saved' : 'Save for later'}
+                        </Button>
+                      </div>
+                    )
+                  }))}
+                />
+              ) : (
+                <p className='text-text-muted text-sm'>
+                  {page === 'saved-for-later'
+                    ? 'Save an entry from your reading shelf to find it here.'
+                    : 'No entries in this collection yet.'}
+                </p>
+              )}
+            </section>
+            )}
           </AppShellBody>
         </AppShellPanel>
       </SidebarProvider>

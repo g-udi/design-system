@@ -1,10 +1,10 @@
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { createComponentDocsPage, getComponentDocs } from '../../../../docs/components/ComponentDocs';
 import { docsArgTypes } from '../../../../docs/components/docsContract';
 import { playgroundSource } from '../../../../docs/components/previewSource';
 import { ExampleFrame } from '../../../../docs/components/ApplicationStoryHelpers';
-import Button from '../../../core/Button';
-import Icon from '../../../core/Icon';
+import { PostHeaderContents } from './fixtures/PostHeaderContents.jsx';
+import contentsSource from './fixtures/PostHeaderContents.jsx?raw';
 import PostHeader from '../index';
 import { ArticleActions, articleActions } from './fixtures/ArticleActions.jsx';
 import actionsSource from './fixtures/ArticleActions.jsx?raw';
@@ -49,24 +49,13 @@ export const Playground = {
   args: { frontMatter, siteMetadata, titleVariant: 'post-title', subtitleVariant: 'post-subtitle' },
   parameters: {
     docs: {
-      description: { story: 'A draft article header with category, date, draft badge, tags, and its place in a series. `tocControl` adds a contents action before the reading time on wide screens. Edit `frontMatter` to drop a slot, or `siteMetadata.locale` to reformat the date.' },
-      source: playgroundSource('PostHeader', {
-        imports: "import { Button, Icon, PostHeader } from '@gaudi/design-system';",
-        attributes: ["tocControl={<Button size='xs' variant='outline' tone='neutral'><Icon name='List' decorative size='xs' />Contents</Button>}"]
+      description: { story: 'A draft article header with category, date, draft badge, tags, and its place in a series. Its Contents button reveals an outline with links to the article’s sections. Edit `frontMatter` to drop a slot, or `siteMetadata.locale` to reformat the date.' },
+      source: playgroundSource('PostHeaderContents', {
+        imports: publicSource(contentsSource, new URL('./fixtures/PostHeaderContents.jsx', import.meta.url))
       })
     }
   },
-  render: (args) => (
-    <PostHeader
-      {...args}
-      tocControl={
-        <Button size='xs' variant='outline' tone='neutral'>
-          <Icon name='List' decorative size='xs' />
-          Contents
-        </Button>
-      }
-    />
-  ),
+  render: (args) => <PostHeaderContents {...args} />,
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const entry = args.frontMatter;
@@ -86,6 +75,16 @@ export const Playground = {
       await expect(readingTime).toBeVisible();
       await expect(contents.compareDocumentPosition(readingTime) & Node.DOCUMENT_POSITION_PRECEDING).toBeTruthy();
     }
+    await userEvent.click(contents);
+    const outline = await canvas.findByRole('navigation', { name: 'Table of contents' });
+    const destination = within(outline).getByRole('link', { name: 'Review the published page' });
+    const heading = canvas.getByRole('heading', { name: 'Review the published page' });
+    await expect(destination).toHaveAttribute('href', `#${heading.id}`);
+    destination.focus();
+    await userEvent.keyboard('{Enter}');
+    await waitFor(() => expect(destination).toHaveAttribute('aria-current', 'location'));
+    await userEvent.click(contents);
+    await waitFor(() => expect(canvas.queryByRole('navigation', { name: 'Table of contents' })).not.toBeInTheDocument());
     if (entry.seriesPosts?.length) {
       const position = entry.seriesPosts.findIndex((post) => post.id === entry.id) + 1;
       const trigger = canvas.getByRole('button', { name: new RegExp(entry.seriesPosts[0].series, 'u') });

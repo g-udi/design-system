@@ -46,7 +46,10 @@ export async function checkTreeRows({ canvasElement }) {
 export async function checkSubTables({ canvasElement }) {
   const canvas = within(canvasElement);
   const toggle = (number, label) => within(rowWith(canvas, number)).getByRole('button', { name: label });
-  await userEvent.click(toggle('Anouk Varga', 'Expand order items'));
+  const count = within(rowWith(canvas, 'Anouk Varga')).getByRole('button', { name: /Show .* order items/ });
+  count.focus();
+  await userEvent.keyboard('{Enter}');
+  await expect(count).toHaveAttribute('aria-expanded', 'true');
   await expect(await canvas.findByText('Desk Tidy')).toBeVisible();
   await userEvent.click(toggle('Sabine Okafor', 'Expand order items'));
   await expect(await canvas.findByText('Rubber Brayer')).toBeVisible();

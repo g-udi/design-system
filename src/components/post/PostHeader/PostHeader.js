@@ -1,3 +1,4 @@
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 /**
  * PostHeader Component
  *
@@ -11,6 +12,7 @@ import Icon from '../../core/Icon';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
 import PostSeriesBox from '../PostSeriesBox';
+import { MetaSeparator } from '../../core/Separator/MetaSeparator.jsx';
 import Typography from '../../../foundations/Typography';
 import { cn } from '../../../utilities/cn';
 import formatDate from '../../../utilities/formatDate';
@@ -20,8 +22,6 @@ const titleElements = { 1: 'h1', 2: 'h2', 3: 'h3', 4: 'h4', 5: 'h5', 6: 'h6' };
 const isValidPostDate = (date) => date && !Number.isNaN(new Date(date).getTime());
 
 const utcCalendarDay = (date) => isValidPostDate(date) ? new Date(date).toISOString().slice(0, 10) : '';
-
-const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle'>·</span>;
 
 /**
  * Renders the blog post header: category, date, draft badge, title, subtitle, reading time, tags, and series.
@@ -51,7 +51,7 @@ const PostHeader = ({ className, classNames = {}, frontMatter = {}, siteMetadata
   const meta = [
     category ? (
       <Link key='category' href={ category.href } variant='muted' className={ cn('inline-flex items-center gap-2 text-sm font-medium', classNames.category) }>
-        <span aria-hidden='true' className='size-2 shrink-0 rounded-full bg-success' />
+        <StatusDot className='size-2 bg-success' />
         {category.label}
       </Link>
     ) : null,

@@ -1,6 +1,6 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { formatBytes, selectFiles } from './fileSelection.js';
+import { formatBytes, nativeFileAccept, selectFiles } from './fileSelection.js';
 import { mergeRefs } from '../../../hooks/state/merged-refs-model.js';
 
 const isLocalFile = (file) => typeof File !== 'undefined' && file instanceof File;
@@ -131,7 +131,7 @@ export const useFileUpload = (options = {}) => {
         props.onChange?.(event);
         if (!event.defaultPrevented) handleFileChange(event);
       },
-      accept: props.accept || accept,
+      accept: nativeFileAccept(props.accept ?? accept),
       multiple: props.multiple !== undefined ? props.multiple : multiple,
       ref: mergeRefs(inputRef, props.ref)
     }),

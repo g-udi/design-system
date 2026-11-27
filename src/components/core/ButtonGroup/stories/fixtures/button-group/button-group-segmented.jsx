@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   ButtonGroup,
@@ -21,7 +21,6 @@ import {
 } from '@gaudi/design-system/core/Tooltip';
 import { cn } from '@gaudi/design-system/utilities/cn';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const Icon = ({ name, className }) => <RegistryIcon lucide={name} aria-hidden='true' className={className} />;
 const views = [['List view', 'ListIcon'], ['Grid view', 'LayoutGridIcon'], ['Table view', 'TableIcon']];
 const intervals = [['1m', 'ClockIcon'], ['5m', 'ClockIcon'], ['1H', 'ClockIcon'], ['1D', 'CalendarIcon'], ['1W', 'CalendarDaysIcon'], ['Auto', 'SparklesIcon']];
 const modes = [['Assist', 'MessageSquareIcon'], ['Review', 'ShieldCheckIcon'], ['Auto', 'ZapIcon']];
@@ -77,26 +76,26 @@ export function Pattern() {
         <Row label='View and interval'>
           <ButtonGroup aria-label='View'>
             {views.map(([id, icon]) => (
-              <Segment key={id} id={id} label={id} size='icon' selected={view} onSelect={setView}><Icon name={icon} /></Segment>
+              <Segment key={id} id={id} label={id} size='icon' selected={view} onSelect={setView}><RegistryIcon aria-hidden='true' lucide={icon} /></Segment>
             ))}
           </ButtonGroup>
           <ButtonGroup aria-label='Interval' className='max-w-full overflow-x-auto'>
             {intervals.map(([id, icon]) => (
-              <Segment key={id} id={id} size='sm' className='tabular-nums' selected={interval} onSelect={setInterval}><Icon name={icon} />{id}</Segment>
+              <Segment key={id} id={id} size='sm' className='tabular-nums' selected={interval} onSelect={setInterval}><RegistryIcon aria-hidden='true' lucide={icon} />{id}</Segment>
             ))}
           </ButtonGroup>
         </Row>
         <Row label='Mode with a menu'>
           <ButtonGroup aria-label='Agent mode' className='max-w-full overflow-x-auto'>
             {modes.map(([id, icon]) => (
-              <Segment key={id} id={id} size='sm' selected={mode} onSelect={setMode}><Icon name={icon} className='size-3.5 opacity-60' />{id}</Segment>
+              <Segment key={id} id={id} size='sm' selected={mode} onSelect={setMode}><RegistryIcon aria-hidden='true' lucide={icon} className='size-3.5 opacity-60' />{id}</Segment>
             ))}
             <ButtonGroupSeparator />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' size='sm' className='shrink-0' aria-label={`Credit cap: ${limit}`}>
                   {limit}
-                  <Icon name='ChevronDownIcon' className='size-3 opacity-60' />
+                  <RegistryIcon aria-hidden='true' lucide='ChevronDownIcon' className='size-3 opacity-60' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-32'>
@@ -107,7 +106,7 @@ export function Pattern() {
           <ButtonGroup aria-label='Position'>
             {stances.map(([id, icon]) => (
               <Button key={id} size='sm' variant={stance === id ? 'default' : 'outline'} aria-pressed={stance === id} onClick={() => setStance(stance === id ? null : id)}>
-                <Icon name={icon} />
+                <RegistryIcon aria-hidden='true' lucide={icon} />
                 {id}
               </Button>
             ))}
@@ -119,7 +118,7 @@ export function Pattern() {
               <Tooltip key={id}>
                 <TooltipTrigger asChild>
                   <Segment id={id} size='sm' selected={model} onSelect={setModel}>
-                    <Icon name={icon} />
+                    <RegistryIcon aria-hidden='true' lucide={icon} />
                     {id}
                     <Badge variant={tone} size='xs'>{badge}</Badge>
                   </Segment>
@@ -132,14 +131,14 @@ export function Pattern() {
             {environments.map(({ id, icon, tip }) => (
               <Tooltip key={id}>
                 <TooltipTrigger asChild>
-                  <Segment id={id} size='sm' selected={env} onSelect={setEnv}><Icon name={icon} />{id}</Segment>
+                  <Segment id={id} size='sm' selected={env} onSelect={setEnv}><RegistryIcon aria-hidden='true' lucide={icon} />{id}</Segment>
                 </TooltipTrigger>
                 <TooltipContent>{tip}</TooltipContent>
               </Tooltip>
             ))}
             {env === 'Production' ? (
               <ButtonGroupText className='gap-1.5 border border-border px-2.5 text-xs text-text-muted'>
-                <span className='size-1.5 rounded-full bg-success' />
+                <StatusDot className='bg-success' />
                 Live
               </ButtonGroupText>
             ) : null}

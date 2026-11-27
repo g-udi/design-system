@@ -1,6 +1,7 @@
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { IconTile } from '@gaudi/design-system/core/Icon';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-const variants = ['outline', 'elevated', 'soft', 'solid', 'frame'];
+const variants = ['outline', 'muted', 'elevated', 'soft', 'solid', 'frame'];
 const sizes = ['xs', 'sm', 'default', 'lg', 'xl'];
 function Row({ label, align = 'items-center', children }) {
   return (
@@ -78,7 +79,7 @@ export function Pattern() {
             <IconTile variant='elevated'>
               <RegistryIcon lucide='GlobeIcon' />
             </IconTile>
-            <span className='border-ui-background bg-success absolute -end-0.5 -top-0.5 size-3 rounded-full border-2' />
+            <StatusDot className='border-ui-background bg-success absolute -end-0.5 -top-0.5 size-3 border-2' />
           </span>
         </Captioned>
       </Row>

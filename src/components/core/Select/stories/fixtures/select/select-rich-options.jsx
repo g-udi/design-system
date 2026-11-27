@@ -9,7 +9,7 @@ import {
   FieldRoot as Field,
   FieldLabelPrimitive as FieldLabel
 } from '@gaudi/design-system/core/Field';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   SelectRoot as Select,
   SelectContent,
@@ -112,7 +112,7 @@ export function Pattern() {
         items={statuses}
         render={(item) => (
           <>
-            {item.dot && <span className={cn('size-2 shrink-0 rounded-full', item.dot)} />}
+            {item.dot && <StatusDot className={cn('size-2', item.dot)} />}
             {item.label}
           </>
         )}

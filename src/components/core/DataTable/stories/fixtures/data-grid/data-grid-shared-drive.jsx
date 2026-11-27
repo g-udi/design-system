@@ -16,6 +16,7 @@ import {
   DataGridTableTreeRowSelect,
   DataGridTableTreeRowSelectAll,
   DataGridTableTreeTotals,
+  downloadCsv, toCsv,
   DataGridTreeExpand
 } from '@gaudi/design-system/core/DataTable';
 import {
@@ -294,9 +295,13 @@ export function Pattern() {
         </CardContent>
       </Card>
       <DataGridSelectionBar label={(count) => `${count} ${count === 1 ? 'item' : 'items'} selected`}>
-        <Button variant='outline' size='sm'>
+        <Button variant='outline' size='sm' onClick={() => {
+          const entries = table.getSelectedRowModel().flatRows.map((row) => row.original);
+          const fields = ['name', 'kind', 'owner'].map((key) => ({ header: key, value: (entry) => entry[key] }));
+          downloadCsv(toCsv(entries, fields), 'selected-files.csv');
+        }}>
           <RegistryIcon lucide='Download' aria-hidden='true' />
-          Download
+          Export selected list
         </Button>
         <Button variant='destructive' size='sm' onClick={removeSelected}>
           <RegistryIcon lucide='Trash2' aria-hidden='true' />

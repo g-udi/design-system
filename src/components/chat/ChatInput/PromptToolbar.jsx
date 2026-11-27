@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 import { Fragment, useId, useRef, useState } from 'react';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { cn } from '../../../utilities/cn/index.js';
@@ -165,7 +166,7 @@ function ChatPromptSettings({
           className={cn('ds-part-prompt-settings relative', className)}
         >
           <RegistryIcon lucide='SlidersHorizontal' />
-          {active.length ? <span aria-hidden='true' className='bg-accent absolute end-1 top-1 size-1.5 rounded-full' /> : null}
+          {active.length ? <StatusDot className='bg-accent absolute end-1 top-1 size-1.5' /> : null}
         </InputGroupButton>
       </PopoverTrigger>
       <PopoverContent

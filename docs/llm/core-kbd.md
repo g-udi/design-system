@@ -48,7 +48,7 @@ Keyboard shortcuts expose readable aria-label text such as Command plus K while 
 
 Curated patterns:
 
-- Shortcuts in controls — registry item `@gaudi/kbd-in-controls` (uses `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `KbdGroup`, `KbdRoot`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`)
+- Shortcuts in controls — registry item `@gaudi/kbd-in-controls` (uses `Button`, `InputGroup`, `InputGroupAddon`, `InputGroupInput`, `Kbd`, `RegistryIcon`, `TooltipContent`, `TooltipProvider`, `TooltipRoot`, `TooltipTrigger`, `useHotkey`)
 - Keys, groups and icons — registry item `@gaudi/kbd-keys-groups` (uses `KbdGroup`, `KbdRoot`, `RegistryIcon`)
 
 ## README

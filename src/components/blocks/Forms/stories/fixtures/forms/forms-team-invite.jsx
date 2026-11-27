@@ -131,6 +131,7 @@ function PermissionTree({ form, query }) {
     <Tree indent={20} tree={tree} toggleIconType='chevron' aria-label='Permissions' className='p-1'>
       {items.map((item) => {
         const id = item.getId();
+        const checkboxId = form.id(`permission-${id}`);
         const ids = leaves(id);
         const count = ids.filter((leaf) => granted.has(leaf)).length;
         const state = count === 0 ? false : count === ids.length ? true : 'indeterminate';
@@ -139,8 +140,10 @@ function PermissionTree({ form, query }) {
             <div>
               <TreeItemLabel className='not-in-data-[folder=true]:ps-5'>
                 <span className='flex min-w-0 items-center gap-2'>
-                  <Checkbox aria-label={item.getItemName()} checked={state} onCheckedChange={(on) => toggle(id, on === true)} onClick={(event) => event.stopPropagation()} className='size-3.5 shrink-0' />
-                  <span className='truncate'>{item.getItemName()}</span>
+                  <FieldLabel htmlFor={checkboxId} className='min-h-[24px] min-w-0 font-normal' onClick={(event) => event.stopPropagation()}>
+                    <Checkbox id={checkboxId} className='size-6' checked={state} onCheckedChange={(on) => toggle(id, on === true)} />
+                    <span className='truncate'>{item.getItemName()}</span>
+                  </FieldLabel>
                   {permissions[id].sensitive ? <Badge size='xs' variant='warning-light'>Sensitive</Badge> : null}
                 </span>
               </TreeItemLabel>

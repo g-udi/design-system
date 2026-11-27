@@ -11,7 +11,7 @@ import { AnimatedIcon, Icon, IconStack, IconTile } from '@gaudi/design-system';
 <AnimatedIcon name='Bell' active={hovered} size='md' color='primary' />
 ```
 
-- `IconTile` frames an icon as media in lists, cards and empty states (`outline`, `elevated`, `soft`, `solid`, `frame`;
+- `IconTile` frames an icon as media in lists, cards and empty states (`outline`, `muted`, `elevated`, `soft`, `solid`, `frame`;
   sizes `xs` to `xl`; `radius='full'` for circles). Retint it with text and background tokens.
 - `IconStack` draws a layered stack of cards behind an icon for empty and onboarding states.
 - `AnimatedIcon` moves only while the host sets `active`, and rests for reduced motion, offscreen placement and hidden documents.

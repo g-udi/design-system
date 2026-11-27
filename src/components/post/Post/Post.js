@@ -7,13 +7,12 @@
  * @version 1.1.0
  */
 
+import { MetaSeparator } from '../../core/Separator/MetaSeparator.jsx';
 import Typography from '../../../foundations/Typography';
 import formatDate from '../../../utilities/formatDate';
 import Link from '../../core/Link';
 import Pill from '../../core/Pill';
 import { cn } from '../../../utilities/cn';
-
-const MetaSeparator = () => <span aria-hidden='true' className='text-text-subtle'>·</span>;
 
 /**
  * Renders a post index entry as a list item; place it inside a `<ul>`.

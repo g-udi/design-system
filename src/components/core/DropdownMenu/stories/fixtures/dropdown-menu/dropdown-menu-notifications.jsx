@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Link from '@gaudi/design-system/core/Link';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -122,7 +122,7 @@ export function Pattern() {
                     </span>
                   </div>
                   {unreadIds.includes(notification.id) && (
-                    <span className='bg-accent mt-2 size-1.5 shrink-0 rounded-full' />
+                    <StatusDot label='Unread' className='bg-accent mt-2' />
                   )}
                 </DropdownMenuItem>
               ))}

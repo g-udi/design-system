@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import {
   AvatarRoot as Avatar,
+  AvatarBadge,
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
@@ -15,11 +16,12 @@ const people = [
 ];
 const rings = ['ring-ui-primary', 'ring-ui-destructive', 'ring-discovery', 'ring-warning'];
 
-function Photo({ person, className, imageClassName }) {
+function Photo({ person, className, imageClassName, children }) {
   return (
     <Avatar className={className}>
       <AvatarImage src={person.src} alt={person.name} className={imageClassName} />
       <AvatarFallback>{person.initials}</AvatarFallback>
+      {children}
     </Avatar>
   );
 }
@@ -53,8 +55,9 @@ const rows = [
     label: 'Activity',
     items: [
       <div key='live' className='relative'>
-        <Photo person={people[0]} className='animate-pulse ring-2 ring-success ring-offset-2 ring-offset-ui-background motion-reduce:animate-none' />
-        <span className='absolute -right-1 -bottom-1 size-3 rounded-full border-2 border-ui-background bg-success' />
+        <Photo person={people[0]} className='ring-2 ring-success ring-offset-2 ring-offset-ui-background'>
+          <AvatarBadge className='-right-1 -bottom-1 bg-success motion-safe:animate-pulse' />
+        </Photo>
       </div>,
       <div key='story' className='group/story relative flex size-8 items-center justify-center'>
         <div className='absolute -inset-1 animate-[spin_3s_linear_infinite] rounded-full bg-linear-to-tr from-yellow-400 via-fuchsia-500 to-violet-600 opacity-75 blur-xs transition-all duration-500 group-hover/story:opacity-100 motion-reduce:animate-none motion-reduce:transition-none' />

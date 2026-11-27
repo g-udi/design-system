@@ -1,9 +1,9 @@
+'use client';
+import { useState } from 'react';
+import Dialog from '@gaudi/design-system/core/Dialog';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { Badge } from '@gaudi/design-system/core/Pill';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   DropdownMenuRoot as DropdownMenu,
@@ -22,14 +22,73 @@ import {
 } from '@gaudi/design-system/mdx/Table';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const orders = [
-  { id: '#3210', customer: 'Orla Martel', email: 'orla@example.com', photo: 'person-20', item: 'Studio headphones', sku: 'AUD-2201', amount: '$1,999.00', status: 'Paid', statusVariant: 'success-light', date: 'Feb 1, 2025' },
-  { id: '#3209', customer: 'Jasper Ndiaye', email: 'jasper@example.com', photo: 'person-41', item: 'Desk lamp', sku: 'LGT-0412', amount: '$39.00', status: 'Pending', statusVariant: 'warning-light', date: 'Jan 28, 2025' },
-  { id: '#3208', customer: 'Liesel Mancini', email: 'liesel@example.com', photo: 'person-24', item: 'Mechanical keyboard', sku: 'KEY-1180', amount: '$299.00', status: 'Paid', statusVariant: 'success-light', date: 'Jan 25, 2025' },
-  { id: '#3207', customer: 'Wilhelmina Kiso', email: 'wilhelmina@example.com', photo: 'person-50', item: 'USB-C hub', sku: 'HUB-0707', amount: '$99.00', status: 'Refunded', statusVariant: 'destructive-light', date: 'Jan 22, 2025' },
-  { id: '#3206', customer: 'Sorrel Davanzo', email: 'sorrel@example.com', photo: 'person-07', item: 'Monitor arm', sku: 'ARM-3300', amount: '$2,500.00', status: 'Shipped', statusVariant: 'info-light', date: 'Jan 18, 2025' }
+  {
+    id: '#3210',
+    customer: 'Orla Martel',
+    email: 'orla@example.com',
+    photo: 'person-20',
+    item: 'Studio headphones',
+    sku: 'AUD-2201',
+    amount: '$1,999.00',
+    status: 'Paid',
+    statusVariant: 'success-light',
+    date: 'Feb 1, 2025'
+  },
+  {
+    id: '#3209',
+    customer: 'Jasper Ndiaye',
+    email: 'jasper@example.com',
+    photo: 'person-41',
+    item: 'Desk lamp',
+    sku: 'LGT-0412',
+    amount: '$39.00',
+    status: 'Pending',
+    statusVariant: 'warning-light',
+    date: 'Jan 28, 2025'
+  },
+  {
+    id: '#3208',
+    customer: 'Liesel Mancini',
+    email: 'liesel@example.com',
+    photo: 'person-24',
+    item: 'Mechanical keyboard',
+    sku: 'KEY-1180',
+    amount: '$299.00',
+    status: 'Paid',
+    statusVariant: 'success-light',
+    date: 'Jan 25, 2025'
+  },
+  {
+    id: '#3207',
+    customer: 'Wilhelmina Kiso',
+    email: 'wilhelmina@example.com',
+    photo: 'person-50',
+    item: 'USB-C hub',
+    sku: 'HUB-0707',
+    amount: '$99.00',
+    status: 'Refunded',
+    statusVariant: 'destructive-light',
+    date: 'Jan 22, 2025'
+  },
+  {
+    id: '#3206',
+    customer: 'Sorrel Davanzo',
+    email: 'sorrel@example.com',
+    photo: 'person-07',
+    item: 'Monitor arm',
+    sku: 'ARM-3300',
+    amount: '$2,500.00',
+    status: 'Shipped',
+    statusVariant: 'info-light',
+    date: 'Jan 18, 2025'
+  }
 ];
-const initials = (name) => name.split(' ').map((part) => part[0]).join('');
-function RowActions({ order }) {
+const initials = (name) =>
+  name
+    .split(' ')
+    .map((part) => part[0])
+    .join('');
+function RowActions({ order, onView, onDuplicate, onRefund }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,15 +97,19 @@ function RowActions({ order }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem>View order</DropdownMenuItem>
-        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        <DropdownMenuItem onSelect={onView}>View order</DropdownMenuItem>
+        <DropdownMenuItem onSelect={onDuplicate}>Duplicate</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant='destructive'>Refund</DropdownMenuItem>
+        <DropdownMenuItem variant='destructive' disabled={order.status !== 'Paid'} onSelect={onRefund}>
+          Refund
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 export function Pattern() {
+  const [records, setRecords] = useState(orders);
+  const [detail, setDetail] = useState(null);
   return (
     <div className='mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-border'>
       <Table>
@@ -63,7 +126,7 @@ export function Pattern() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {orders.map((order) => (
+          {records.map((order) => (
             <TableRow key={order.id}>
               <TableCell className='font-mono text-xs text-text-muted'>{order.id}</TableCell>
               <TableCell>
@@ -80,9 +143,9 @@ export function Pattern() {
               </TableCell>
               <TableCell>
                 <div className='flex items-center gap-2'>
-                  <span className='flex size-8 shrink-0 items-center justify-center rounded-sm bg-surface-muted'>
+                  <IconTile aria-hidden='true' size='sm' variant='muted'>
                     <RegistryIcon lucide='PackageIcon' className='size-4 text-text-muted' aria-hidden='true' />
-                  </span>
+                  </IconTile>
                   <div className='flex min-w-0 flex-col'>
                     <span className='truncate text-sm'>{order.item}</span>
                     <span className='font-mono text-xs text-text-muted'>{order.sku}</span>
@@ -91,18 +154,65 @@ export function Pattern() {
               </TableCell>
               <TableCell>
                 <div className='flex flex-col items-start gap-0.5'>
-                  <Badge variant={order.statusVariant} size='sm'>{order.status}</Badge>
+                  <Badge variant={order.statusVariant} size='sm'>
+                    {order.status}
+                  </Badge>
                   <span className='text-xs text-text-muted'>{order.date}</span>
                 </div>
               </TableCell>
               <TableCell className='text-right text-sm font-medium tabular-nums'>{order.amount}</TableCell>
               <TableCell>
-                <RowActions order={order} />
+                <RowActions
+                  order={order}
+                  onView={() => setDetail({ order, refund: false })}
+                  onRefund={() => setDetail({ order, refund: true })}
+                  onDuplicate={() =>
+                    setRecords((current) => {
+                      const id = '#' + (Math.max(...current.map((item) => Number(item.id.slice(1)))) + 1);
+                      return [{ ...order, id, status: 'Pending', statusVariant: 'warning-light' }, ...current];
+                    })
+                  }
+                />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+      {detail && (
+        <Dialog
+          open
+          onOpenChange={(open) => {
+            if (!open) setDetail(null);
+          }}
+          title={`${detail.refund ? 'Refund' : 'Order'} ${detail.order.id}`}
+          description={`${detail.order.customer} · ${detail.order.item} · ${detail.order.amount}`}
+          footer={
+            detail.refund ? (
+              <Button
+                variant='destructive'
+                onClick={() => {
+                  setRecords((current) =>
+                    current.map((item) =>
+                      item.id === detail.order.id
+                        ? { ...item, status: 'Refunded', statusVariant: 'outline' }
+                        : item
+                    )
+                  );
+                  setDetail(null);
+                }}
+              >
+                Confirm refund
+              </Button>
+            ) : undefined
+          }
+        >
+          <p>
+            {detail.refund
+              ? 'Refund this order in the example ledger.'
+              : `${detail.order.status} · ${detail.order.date}`}
+          </p>
+        </Dialog>
+      )}
     </div>
   );
 }

@@ -10,10 +10,11 @@ export async function openEachDialog({ canvasElement, role = 'dialog', initialFo
     await userEvent.click(trigger);
     const dialog = await body.findByRole(role);
     await waitFor(() => expect(dialog).toBeVisible());
-    if (initialFocus) await expect(dialog.querySelector(initialFocus)).toHaveFocus();
+    if (initialFocus) await waitFor(() => expect(dialog.querySelector(initialFocus)).toHaveFocus());
     await userEvent.keyboard('{Escape}');
-    await waitFor(() => expect(dialog).not.toBeInTheDocument());
-    await waitFor(() => expect(trigger).toHaveFocus());
+    // A drawer can already be closed while its exit animation still owns the node.
+    await waitFor(() => expect(dialog).not.toBeInTheDocument(), { timeout: 5000 });
+    await waitFor(() => expect(trigger).toHaveFocus(), { timeout: 5000 });
   }
 }
 

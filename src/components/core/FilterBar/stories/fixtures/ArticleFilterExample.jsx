@@ -1,3 +1,4 @@
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useState } from 'react';
 import { articles } from '../../../../../docs/fixtures/application/data.js';
 import Button from '@gaudi/design-system/core/Button';
@@ -39,7 +40,7 @@ const columns = [
     key: 'status',
     header: 'Status',
     render: (row) => (
-      <Pill tone={statusTone[row.status]} variant='soft' size='sm' radius='md' icon={<span className='block size-1.5 rounded-full bg-current' />}>
+      <Pill tone={statusTone[row.status]} variant='soft' size='sm' radius='md' icon={<StatusDot className='block' />}>
         {row.status}
       </Pill>
     )

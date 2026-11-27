@@ -50,7 +50,7 @@ Native buttons, semantic headings and Gaudi disclosures preserve keyboard and fo
 
 Curated patterns:
 
-- Context window — registry item `@gaudi/prompt-composer-context-window` (uses `Button`, `ChatContextMeter`, `ChatContextWindow`, `ChatPromptComposer`, `Checkbox`)
+- Context window — registry item `@gaudi/prompt-composer-context-window` (uses `Button`, `ChatContextMeter`, `ChatContextWindow`, `ChatPromptComposer`, `Checkbox`, `FieldLegend`, `FieldSet`)
 
 ## README
 

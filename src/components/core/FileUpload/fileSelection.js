@@ -4,6 +4,9 @@ const parseAccept = (accept = '') =>
     .map((type) => type.trim().toLowerCase())
     .filter((type) => type && type !== '*');
 
+/** Native file pickers use an absent accept attribute for unrestricted selection. */
+export const nativeFileAccept = (accept) => parseAccept(accept).join(',') || undefined;
+
 /** True when `file` matches native `accept` syntax: extensions, `type/*` wildcards or exact MIME types. */
 export function acceptsFile(file, accept) {
   const types = Array.isArray(accept) ? accept : parseAccept(accept);

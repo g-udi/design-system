@@ -1,12 +1,13 @@
 'use client';
 import { useState } from 'react';
+import { Attachment, AttachmentDescription, AttachmentMedia, AttachmentTitle } from '@gaudi/design-system/core/Attachment';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Sheet,
   SheetContent,
@@ -21,7 +22,7 @@ import { cn } from '@gaudi/design-system/utilities/cn';
 const initial = [
   { id: 1, name: 'Maya Patel', portrait: 'person-23', text: 'mentioned you in', target: 'Launch checklist', when: '2m', unread: true, quote: 'Can you confirm the welcome email copy before Friday?' },
   { id: 2, name: 'Leo Martins', portrait: 'person-41', text: 'invited you to', target: 'Q4 roadmap review', when: '18m', unread: true, invite: true },
-  { id: 3, name: 'Ana Costa', portrait: 'person-20', text: 'shared a file in', target: 'Brand assets', when: '1h', unread: true, file: 'cover-v3.png · 2.1 MB' },
+  { id: 3, name: 'Ana Costa', portrait: 'person-20', text: 'shared a file in', target: 'Brand assets', when: '1h', unread: true, file: { name: 'cover-v3.png', sizeLabel: '2.1 MB' } },
   { id: 4, name: 'Sam Lee', portrait: 'person-50', text: 'closed', target: 'Fix onboarding email typo', when: 'Yesterday', unread: false }
 ];
 
@@ -63,10 +64,11 @@ export function Pattern() {
                 </p>
                 {item.quote ? <p className='text-text-muted border-s-2 ps-2'>{item.quote}</p> : null}
                 {item.file ? (
-                  <p className='bg-surface-muted inline-flex w-fit items-center gap-2 rounded-md px-2 py-1 text-xs'>
-                    <RegistryIcon lucide='FileTextIcon' aria-hidden='true' className='size-3.5' />
-                    {item.file}
-                  </p>
+                  <Attachment size='xs' className='w-fit'>
+                    <AttachmentMedia file={item.file} />
+                    <AttachmentTitle>{item.file.name}</AttachmentTitle>
+                    <AttachmentDescription>{item.file.sizeLabel}</AttachmentDescription>
+                  </Attachment>
                 ) : null}
                 {item.invite ? (
                   <div className='flex gap-2'>
@@ -77,7 +79,7 @@ export function Pattern() {
                 {item.answer ? <p className='text-text-muted text-xs'>{item.answer}</p> : null}
                 <p className='text-text-muted text-xs'>{item.when}</p>
               </div>
-              {item.unread ? <span aria-label='Unread' className='bg-accent mt-1.5 size-2 shrink-0 rounded-full' /> : null}
+              {item.unread ? <StatusDot label='Unread' className='bg-accent mt-1.5 size-2' /> : null}
             </li>
           ))}
         </ul>

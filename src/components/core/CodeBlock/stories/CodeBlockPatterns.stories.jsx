@@ -197,8 +197,16 @@ export const ChatReferences = {
     await expect(grid).toHaveAttribute('aria-activedescendant', first.id);
     const reference = canvas.getByRole('button', { name: 'Reference line 1 in the chat' });
     reference.focus();
+    await expect(reference.getBoundingClientRect().height).toBeGreaterThanOrEqual(24);
     await userEvent.keyboard('{Enter}');
-    await expect(canvas.getByRole('button', { name: 'Highlight line 1 in the code' })).toBeVisible();
+    const highlight = canvas.getByRole('button', { name: 'Highlight line 1 in the code' });
+    const remove = canvas.getByRole('button', { name: 'Remove the reference to line 1' });
+    await expect(highlight).toBeVisible();
+    for (const action of [highlight, remove]) {
+      const { width, height } = action.getBoundingClientRect();
+      await expect(width).toBeGreaterThanOrEqual(24);
+      await expect(height).toBeGreaterThanOrEqual(24);
+    }
     await expect(first).toHaveAttribute('aria-selected', 'false');
     await userEvent.click(canvas.getByRole('button', { name: 'Ask AI' }));
     await expect(canvas.getByRole('status', { name: 'Prepared question' })).toHaveTextContent('Prepared a question about use-mobile.ts, lines 1, in this demo.');

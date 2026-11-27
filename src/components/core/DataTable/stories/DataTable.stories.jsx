@@ -604,6 +604,7 @@ function ExportableLibrary() {
 }
 
 export const ExportCsv = {
+  name: 'Export filtered articles to CSV',
   parameters: {
     docs: {
       description: {

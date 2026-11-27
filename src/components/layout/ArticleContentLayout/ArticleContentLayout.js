@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 
 import Button from '../../core/Button';
 import { useControllableState } from '../../../hooks/state/use-controllable-state';
@@ -81,7 +82,7 @@ const ArticleContentLayout = ({
                 className='gap-2 rounded-sm py-1 text-xs font-medium'
                 onClick={ () => setIsAsideOpen(!isAsideOpen) }
               >
-                <span className={ cn('size-1.5 rounded-full transition-colors', isAsideOpen ? 'bg-accent' : 'bg-border') } />
+                <StatusDot className={ cn('size-1.5 transition-colors', isAsideOpen ? 'bg-accent' : 'bg-border') } />
                 <span>{isAsideOpen ? 'Hide contents' : 'Show contents'}</span>
               </Button>
             ) : null}

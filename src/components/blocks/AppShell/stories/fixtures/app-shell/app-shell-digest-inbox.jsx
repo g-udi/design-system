@@ -1,8 +1,14 @@
 'use client';
-import { useState } from 'react';
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import { Field, FieldInput, FieldLabel, Label } from '@gaudi/design-system/core/Field';
+import { createContext, useContext, useState } from 'react';
+import { DialogRoot as Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@gaudi/design-system/core/Dialog';
+import { Empty, EmptyHeader, EmptyTitle, EmptyDescription } from '@gaudi/design-system/core/EmptyState';
+import { NativeSelect, NativeSelectOption } from '@gaudi/design-system/core/Select';
+import Textarea from '@gaudi/design-system/core/Textarea';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@gaudi/design-system/core/Avatar';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { Item } from '@gaudi/design-system/core/Item';
 import { Calendar } from '@gaudi/design-system/core/Calendar';
@@ -15,7 +21,6 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@gaudi/design-system/core/Input';
@@ -39,7 +44,6 @@ import {
   useAppShellFrame
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellNav } from '@gaudi/design-system/blocks/AppShell';
-import { SkeletonRoot as Skeleton } from '@gaudi/design-system/core/Skeleton';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 
 const portrait = (path) => `/avatars/${path}.svg`;
@@ -47,7 +51,8 @@ const me = { name: 'Noor Haddad', email: 'noor@gaudi.dev', photo: portrait('pers
 // One fixed day keeps server and client markup identical.
 const TODAY = new Date(2026, 5, 10);
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-const busyDays = [7, 9, 10, 14, 16, 21, 23].map((day) => new Date(2026, 5, day));
+const DigestContext = createContext(null);
+const dateKey = (date) => [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-');
 
 const sections = [
   { id: 'mail', label: 'Digests', icon: 'NewspaperIcon', unread: true },
@@ -87,9 +92,9 @@ const calendars = [
   { account: 'Study group', items: [{ id: 'family', label: 'Seminars', tone: 'bg-warning' }, { id: 'birthdays', label: 'Author talks', tone: 'bg-attention' }] }
 ];
 const upNext = [
-  { id: 'morning', title: 'Morning pages · marginalia issue', time: '7:30 AM to 8:00 AM', tone: 'bg-info', people: [] },
-  { id: 'papers', title: 'Paper hour · retrieval and memory', time: '12:30 PM to 1:30 PM', tone: 'bg-success', people: ['person-41'] },
-  { id: 'seminar', title: 'Study group · Invisible Cities ch. 3', time: '6:00 PM to 7:00 PM', tone: 'bg-warning', people: ['person-20', 'person-24', 'person-50'] }
+  { id: 'morning', plan: 'work', day: '2026-06-10', title: 'Morning pages · marginalia issue', time: '7:30 AM to 8:00 AM', tone: 'bg-info', people: [] },
+  { id: 'papers', plan: 'personal', day: '2026-06-10', title: 'Paper hour · retrieval and memory', time: '12:30 PM to 1:30 PM', tone: 'bg-success', people: ['person-41'] },
+  { id: 'seminar', plan: 'family', day: '2026-06-12', title: 'Study group · Invisible Cities ch. 3', time: '6:00 PM to 7:00 PM', tone: 'bg-warning', people: ['person-20', 'person-24', 'person-50'] }
 ];
 const contacts = [
   { team: 'Essayists', people: [
@@ -137,11 +142,11 @@ function PanelHeading({ title, count, children }) {
   );
 }
 
-function IconAction({ label, icon, onClick, pressed, className }) {
+function IconAction({ label, icon, onClick, pressed, disabled, className }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant='ghost' size='icon-sm' aria-label={label} aria-pressed={pressed} onClick={onClick} className={className}>
+        <Button variant='ghost' size='icon-sm' aria-label={label} aria-pressed={pressed} disabled={disabled} onClick={onClick} className={className}>
           <RegistryIcon lucide={icon} aria-hidden='true' />
         </Button>
       </TooltipTrigger>
@@ -161,8 +166,8 @@ function SectionLabel({ children, count }) {
 
 /** Mini calendar, reading plans, the next sessions and quick actions: the Reading plan panel and the digest context panel. */
 function CalendarContext({ idPrefix, cellSize }) {
-  const [selected, setSelected] = useState(TODAY);
-  const [visible, setVisible] = useState(['work', 'personal', 'meetings', 'family']);
+  const { selected, setSelected, plans, sessions, visible, setVisible, openDialog } = useContext(DigestContext);
+  const listed = sessions.filter(event => visible.includes(event.plan) && event.day >= dateKey(selected)).sort((a, b) => a.day.localeCompare(b.day));
   const toggle = (id, on) => setVisible((list) => (on ? [...list, id] : list.filter((entry) => entry !== id)));
   return (
     <div className='flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain'>
@@ -171,8 +176,9 @@ function CalendarContext({ idPrefix, cellSize }) {
           mode='single'
           selected={selected}
           onSelect={(day) => day && setSelected(day)}
-          defaultMonth={TODAY}
-          modifiers={{ busy: busyDays }}
+          month={new Date(selected.getFullYear(), selected.getMonth(), 1)}
+          onMonthChange={setSelected}
+          modifiers={{ busy: sessions.filter(event => visible.includes(event.plan)).map(event => new Date(event.day + 'T12:00:00')) }}
           modifiersClassNames={{
             busy: 'relative after:pointer-events-none after:absolute after:top-1 after:start-1/2 after:size-1 after:-translate-x-1/2 after:rounded-full after:bg-current after:opacity-60'
           }}
@@ -183,7 +189,7 @@ function CalendarContext({ idPrefix, cellSize }) {
       <section aria-labelledby={`${idPrefix}-calendars`} className='border-ui-sidebar-border border-b pb-2'>
         <SectionLabel><span id={`${idPrefix}-calendars`}>Reading plans</span></SectionLabel>
         <div className='px-1.5'>
-          {calendars.map((group, index) => (
+          {plans.map((group, index) => (
             <Collapsible key={group.account} defaultOpen={index === 0}>
               <CollapsibleTrigger asChild>
                 <Button variant='ghost' size='sm' className='group/account w-full justify-start gap-1.5 px-1.5 font-medium'>
@@ -198,9 +204,9 @@ function CalendarContext({ idPrefix, cellSize }) {
                     const id = `${idPrefix}-${item.id}`;
                     return (
                       <li key={item.id} className='flex h-8 items-center gap-2'>
-                        <span aria-hidden='true' className={`size-2 shrink-0 rounded-full ${item.tone}`} />
+                        <StatusDot className={item.tone} />
                         <Checkbox id={id} checked={visible.includes(item.id)} onCheckedChange={(on) => toggle(item.id, on === true)} />
-                        <label htmlFor={id} className='flex-1 truncate text-sm font-medium'>{item.label}</label>
+                        <Label htmlFor={id} className='flex-1 truncate text-sm font-medium'>{item.label}</Label>
                       </li>
                     );
                   })}
@@ -208,23 +214,23 @@ function CalendarContext({ idPrefix, cellSize }) {
               </CollapsibleContent>
             </Collapsible>
           ))}
-          <Button variant='ghost' size='sm' className='text-text-muted w-full justify-start px-1.5'>
+          <Button variant='ghost' size='sm' className='text-text-muted w-full justify-start px-1.5' onClick={() => openDialog('plan')}>
             <RegistryIcon lucide='Plus' aria-hidden='true' />
             Add plan
           </Button>
         </div>
       </section>
       <section aria-labelledby={`${idPrefix}-next`} className='border-ui-sidebar-border border-b pb-2'>
-        <SectionLabel count={upNext.length}><span id={`${idPrefix}-next`}>Next sessions</span></SectionLabel>
+        <SectionLabel count={listed.length}><span id={`${idPrefix}-next`}>Next sessions</span></SectionLabel>
         <ul className='grid gap-0.5 px-1.5'>
-          {upNext.map((event) => (
+          {listed.map((event) => (
             <li key={event.id}>
               <Item asChild size='sm' className='hover:bg-ui-sidebar-accent focus-visible:ring-ui-sidebar-ring flex-nowrap items-stretch gap-2.5 rounded-(--ds-radius-control) px-1.5 py-1.5 text-start outline-hidden focus-visible:ring-2'>
-                <button type='button'>
+                <button type='button' onClick={() => openDialog('sessionDetail', event)}>
                   <span aria-hidden='true' className={`w-1 shrink-0 rounded-full ${event.tone}`} />
                   <span className='grid min-w-0 flex-1'>
                     <span className='truncate text-sm font-medium'>{event.title}</span>
-                    <span className='text-text-muted text-xs'>{event.time}</span>
+                    <span className='text-text-muted text-xs'>{event.day} · {event.time}</span>
                   </span>
                   <Portraits people={event.people} />
                 </button>
@@ -234,14 +240,14 @@ function CalendarContext({ idPrefix, cellSize }) {
         </ul>
       </section>
       <div className='grid gap-1.5 p-3'>
-        <Button size='sm'>
+        <Button size='sm' onClick={() => openDialog('session')}>
           <RegistryIcon lucide='Plus' aria-hidden='true' />
           Plan a session
         </Button>
-        <Button size='sm' variant='outline'>
-          <RegistryIcon lucide='Share2' aria-hidden='true' />
-          Share reading list
-        </Button>
+        <Button asChild size='sm' variant='outline'><a download='reading-plan.txt' href={'data:text/plain;charset=utf-8,' + encodeURIComponent(listed.map(e => [e.day, e.time, e.title].join(' · ')).join('\n'))}>
+          <RegistryIcon lucide='Download' aria-hidden='true' />
+          Download reading plan
+        </a></Button>
       </div>
       <div className='border-ui-sidebar-border text-text-muted mt-auto flex items-center gap-2 border-t px-3 py-2.5 text-xs'>
         <RegistryIcon lucide='Globe' aria-hidden='true' className='size-4' />
@@ -260,9 +266,7 @@ function SectionRail({ section, onSection }) {
   return (
     <div className='dark bg-surface text-text border-ui-border flex w-12 shrink-0 flex-col items-center gap-1 border-e py-2'>
       <SidebarHeader className='items-center gap-2 p-0'>
-        <span aria-hidden='true' className='bg-ui-foreground text-ui-background grid size-8 place-items-center rounded-(--ds-radius-control)'>
-          <RegistryIcon lucide='BookOpen' className='size-4' />
-        </span>
+        <IconTile size='sm' variant='solid' aria-hidden='true' className='bg-ui-foreground text-ui-background'><RegistryIcon lucide='BookOpen' className='size-4' /></IconTile>
         <SidebarTrigger />
       </SidebarHeader>
       <nav aria-label='Apps' className='contents'>
@@ -283,7 +287,7 @@ function SectionRail({ section, onSection }) {
               }}
             >
               <RegistryIcon lucide={entry.icon} aria-hidden='true' />
-              {entry.unread ? <span aria-hidden='true' className='bg-text absolute top-1.5 end-1.5 size-1.5 rounded-full' /> : null}
+              {entry.unread ? <StatusDot className='bg-text absolute top-1.5 end-1.5' /> : null}
             </Button>
           );
           // The phone sheet shows the panel beside the rail, so names need no tooltip there.
@@ -319,31 +323,19 @@ function AccountMenu() {
           <span className='font-medium'>{me.name}</span>
           <span className='text-text-muted text-xs'>{me.email}</span>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='User' aria-hidden='true' />
-          Profile
-          <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <RegistryIcon lucide='Settings' aria-hidden='true' />
-          Reading preferences
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <RegistryIcon lucide='LogOut' aria-hidden='true' />
-          Sign Out
-        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
 }
 
 function MailPanel({ folder, onFolder }) {
+  const { messages } = useContext(DigestContext);
+  const items = folders.map(item => ({ ...item, badge: ['inbox', 'drafts'].includes(item.id)
+    ? { label: messages.filter(message => message.folder === item.id && (item.id === 'drafts' || message.unread)).length, variant: 'secondary' }
+    : undefined }));
   return (
     <>
       <PanelHeading title='Digests'>
-        <IconAction label='Subscribe to a publication' icon='Plus' />
       </PanelHeading>
       <div className='border-ui-sidebar-border grid gap-1.5 border-b px-3 py-2.5 text-xs'>
         <div className='flex justify-between'>
@@ -353,7 +345,7 @@ function MailPanel({ folder, onFolder }) {
         <Progress value={63} aria-label='Weekly reading goal' className='bg-ui-muted h-1.5 rounded-full' />
       </div>
       <SidebarContent role='navigation' aria-label='Digest folders' className='gap-0'>
-        <AppShellNav label='Library' items={folders} value={folder} onValueChange={onFolder} />
+        <AppShellNav label='Library' items={items} value={folder} onValueChange={onFolder} />
         <AppShellNav label='Topics' collapsible items={mailLabels} value={folder} onValueChange={onFolder} />
       </SidebarContent>
       <SidebarFooter className='border-ui-sidebar-border text-text-muted border-t text-xs'>
@@ -367,13 +359,13 @@ function MailPanel({ folder, onFolder }) {
 }
 
 function ContactsPanel() {
+  const { messages, openIssue } = useContext(DigestContext);
   const [query, setQuery] = useState('');
   const match = (person) => `${person.name} ${person.role}`.toLowerCase().includes(query.toLowerCase());
   const total = contacts.flatMap((group) => group.people);
   return (
     <>
       <PanelHeading title='Authors'>
-        <IconAction label='Follow an author' icon='UserPlus' />
       </PanelHeading>
       <div className='p-2'>
         <InputGroup>
@@ -391,26 +383,27 @@ function ContactsPanel() {
             <section key={group.team} aria-label={group.team}>
               <SectionLabel>{group.team}</SectionLabel>
               <ul>
-                {people.map((person) => (
+                {people.map((person) => {
+                  const latest = messages.find(message => !['trash', 'spam'].includes(message.folder) && person.role.includes(message.from));
+                  return (
                   <li key={person.name} className='hover:bg-ui-sidebar-accent flex items-center gap-2.5 rounded-(--ds-radius-control) px-1.5 py-1.5'>
                     <span className='relative shrink-0'>
                       <Avatar className='size-8'>
                         <AvatarImage src={portrait(person.photo)} alt='' />
                         <AvatarFallback>{person.name[0]}</AvatarFallback>
                       </Avatar>
-                      <span
-                        role='img'
-                        aria-label={person.online ? 'published today' : 'no new issue'}
-                        className={`ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2.5 rounded-full ring-2 ${person.online ? 'bg-success' : 'bg-text-muted'}`}
+                      <StatusDot
+                        label={person.online ? 'published today' : 'no new issue'}
+                        className={`ring-ui-sidebar absolute -end-0.5 -bottom-0.5 size-2.5 ring-2 ${person.online ? 'bg-success' : 'bg-text-muted'}`}
                       />
                     </span>
                     <span className='grid min-w-0 flex-1 leading-tight'>
                       <span className='truncate text-sm font-medium'>{person.name}</span>
                       <span className='text-text-muted truncate text-xs'>{person.role}</span>
                     </span>
-                    <IconAction label={`Open ${person.name}’s latest issue`} icon='BookOpen' />
+                    {latest && <IconAction label={`Open ${person.name}’s latest issue`} icon='BookOpen' onClick={() => openIssue(latest)} />}
                   </li>
-                ))}
+                ); })}
               </ul>
             </section>
           );
@@ -419,7 +412,7 @@ function ContactsPanel() {
       <div className='border-ui-sidebar-border text-text-muted flex items-center justify-between border-t px-3 py-2 text-xs'>
         <span>{total.length} authors you follow</span>
         <span className='flex items-center gap-1.5'>
-          <span aria-hidden='true' className='bg-success size-1.5 rounded-full' />
+          <StatusDot className='bg-success' />
           {total.filter((person) => person.online).length} published today
         </span>
       </div>
@@ -428,7 +421,7 @@ function ContactsPanel() {
 }
 
 function NotificationsPanel() {
-  const [items, setItems] = useState(initialInvites);
+  const { items, setItems } = useContext(DigestContext);
   const unread = items.filter((item) => item.unread).length;
   const respond = (id, answer) => setItems((list) => list.map((item) => (item.id === id ? { ...item, answer, unread: false } : item)));
   return (
@@ -472,7 +465,7 @@ function NotificationsPanel() {
               ) : null}
               <span className='text-text-muted text-xs'>{item.time}</span>
             </div>
-            {item.unread ? <span aria-hidden='true' className='bg-ui-foreground absolute top-4 end-3 size-1.5 rounded-full' /> : null}
+            {item.unread ? <StatusDot className='bg-ui-foreground absolute top-4 end-3' /> : null}
           </li>
         ))}
       </ul>
@@ -481,39 +474,38 @@ function NotificationsPanel() {
 }
 
 function SectionPanel({ section, folder, onFolder }) {
+  const { openDialog } = useContext(DigestContext);
   if (section === 'mail') return <MailPanel folder={folder} onFolder={onFolder} />;
   if (section === 'contacts') return <ContactsPanel />;
   if (section === 'notifications') return <NotificationsPanel />;
   return (
     <>
       <PanelHeading title='Reading plan'>
-        <IconAction label='Add reading plan' icon='Plus' />
+        <IconAction label='Add reading plan' icon='Plus' onClick={() => openDialog('plan')} />
       </PanelHeading>
       <CalendarContext idPrefix='digest-inbox-panel' cellSize='1.875rem' />
     </>
   );
 }
 
-function MessageRow({ message, selected, onSelect }) {
+function MessageRow({ message, selected, onSelect, onSave, onPlan }) {
   return (
     <li className={`border-ui-border relative border-b ${selected ? 'bg-ui-muted' : ''}`}>
-      <button
-        type='button'
+      <Button
+        variant='ghost'
         aria-current={selected ? 'true' : undefined}
         onClick={() => onSelect(message.id)}
-        className='focus-visible:ring-ui-ring absolute inset-0 outline-hidden focus-visible:ring-2 focus-visible:ring-inset'
+        className='absolute inset-0 h-full w-full rounded-none p-0 focus-visible:ring-inset'
       >
         <span className='sr-only'>
           {message.from}: {message.subject}
           {message.unread ? ', unread' : ''}
         </span>
-      </button>
+      </Button>
       <div className='pointer-events-none flex gap-3 py-3 ps-6 pe-3'>
-        {message.unread ? <span aria-hidden='true' className='bg-ui-foreground absolute top-5 start-2.5 size-1.5 rounded-full' /> : null}
+        {message.unread ? <StatusDot className='bg-ui-foreground absolute top-5 start-2.5' /> : null}
         {message.icon ? (
-          <span aria-hidden='true' className={`grid size-8 shrink-0 place-items-center rounded-(--ds-radius-control) ${message.tile || 'bg-ui-muted'}`}>
-            <RegistryIcon lucide={message.icon} className='size-4' />
-          </span>
+          <IconTile size='sm' variant='solid' aria-hidden='true' className={message.tile || 'bg-ui-muted'}><RegistryIcon lucide={message.icon} className='size-4' /></IconTile>
         ) : (
           <Avatar className='size-8'>
             <AvatarImage src={message.photo} alt='' />
@@ -547,8 +539,8 @@ function MessageRow({ message, selected, onSelect }) {
       </div>
       {message.actions ? (
         <div className='relative flex gap-1.5 ps-17 pe-3 pb-3'>
-          <Button size='xs'>{message.actions[0]}</Button>
-          <Button size='xs' variant='outline'>{message.actions[1]}</Button>
+          <Button size='xs' aria-pressed={Boolean(message.starred)} onClick={onSave}>{message.starred ? 'Saved to library' : message.actions[0]}</Button>
+          <Button size='xs' variant='outline' onClick={onPlan}>{message.actions[1]}</Button>
         </div>
       ) : null}
     </li>
@@ -558,11 +550,17 @@ function MessageRow({ message, selected, onSelect }) {
 function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
   const { isMobile } = useSidebar();
   const [tab, setTab] = useState('all');
-  const [selectedId, setSelectedId] = useState('m1');
-  const [reading, setReading] = useState(false);
-  const inFolder = messages.filter((message) => (folder === 'starred' ? message.starred : message.folder === folder));
-  const list = inFolder.filter((message) => (tab === 'unread' ? message.unread : tab === 'starred' ? message.starred : tab === 'files' ? message.file : true));
-  const selected = messages.find((message) => message.id === selectedId) ?? inFolder[0];
+  const { selectedId, setSelectedId, reading, setReading, openDialog } = useContext(DigestContext);
+  const [search, setSearch] = useState('');
+  const [sort, setSort] = useState('newest');
+  const inFolder = messages.filter((message) => (folder === 'starred' ? message.starred && !['trash', 'spam'].includes(message.folder)
+    : folder.startsWith('label-') ? message.folder === 'inbox' && 'label-' + message.label?.toLowerCase() === folder : message.folder === folder));
+  const matches = inFolder.filter(message => [message.subject, message.from, message.preview].join(' ').toLowerCase().includes(search.trim().toLowerCase()));
+  const list = matches.filter((message) => (tab === 'unread' ? message.unread : tab === 'starred' ? message.starred : tab === 'files' ? message.file : true));
+  if (sort === 'oldest') list.reverse();
+  if (sort === 'sender') list.sort((a, b) => a.from.localeCompare(b.from));
+  if (sort === 'length') list.sort((a, b) => a.minutes - b.minutes);
+  const selected = inFolder.find((message) => message.id === selectedId) ?? list[0];
   const index = list.findIndex((message) => message.id === selected?.id);
   const folderLabel = [...folders, ...mailLabels].find((entry) => entry.id === folder)?.label ?? 'Latest issues';
   const unread = inFolder.filter((message) => message.unread).length;
@@ -589,7 +587,6 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
           <h2 className='text-sm font-semibold'>{folderLabel}</h2>
           {unread ? <Badge variant='outline' size='sm' className='rounded-full'>{unread}</Badge> : null}
           <div className='ms-auto flex items-center gap-0.5'>
-            <IconAction label='Fetch new issues' icon='RefreshCw' />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant='ghost' size='icon-sm' aria-label='Sort and filter'>
@@ -598,7 +595,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align='end' className='w-52'>
                 <DropdownMenuLabel className='text-text-muted text-xs font-normal'>Sort by</DropdownMenuLabel>
-                <DropdownMenuRadioGroup defaultValue='newest'>
+                <DropdownMenuRadioGroup value={sort} onValueChange={setSort}>
                   <DropdownMenuRadioItem value='newest'>Date (newest first)</DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value='oldest'>Date (oldest first)</DropdownMenuRadioItem>
                   <DropdownMenuRadioItem value='sender'>Publication</DropdownMenuRadioItem>
@@ -611,7 +608,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-            <IconAction label='New note' icon='SquarePen' />
+            <IconAction label='New note' icon='SquarePen' onClick={() => openDialog('note')} />
           </div>
         </div>
         <div className='px-3 pb-2'>
@@ -619,7 +616,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
             <InputGroupAddon>
               <RegistryIcon lucide='Search' aria-hidden='true' />
             </InputGroupAddon>
-            <InputGroupInput aria-label='Search digests' placeholder='Search issues, authors, highlights...' />
+            <InputGroupInput aria-label='Search digests' value={search} onChange={event => setSearch(event.target.value)} placeholder='Search issues, authors, highlights...' />
           </InputGroup>
         </div>
         <Tabs value={tab} onValueChange={setTab} className='min-h-0 flex-1 gap-0'>
@@ -633,7 +630,9 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
             {list.length ? (
               <ul>
                 {list.map((message) => (
-                  <MessageRow key={message.id} message={message} selected={message.id === selected?.id} onSelect={select} />
+                  <MessageRow key={message.id} message={message} selected={message.id === selected?.id} onSelect={select}
+                    onSave={() => setMessages(all => all.map(entry => entry.id === message.id ? { ...entry, starred: !entry.starred } : entry))}
+                    onPlan={() => openDialog('session', message)} />
                 ))}
               </ul>
             ) : (
@@ -647,13 +646,13 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
           {isMobile ? <SidebarTrigger /> : null}
           <IconAction label='Back to issues' icon='ArrowLeft' onClick={() => setReading(false)} className='@2xl:hidden' />
           <span className='hidden @lg:contents'>
-            <IconAction label='Previous issue' icon='ChevronLeft' onClick={() => list[index - 1] && select(list[index - 1].id)} />
-            <IconAction label='Next issue' icon='ChevronRight' onClick={() => list[index + 1] && select(list[index + 1].id)} />
+            <IconAction label='Previous issue' icon='ChevronLeft' disabled={index < 1} onClick={() => list[index - 1] && select(list[index - 1].id)} />
+            <IconAction label='Next issue' icon='ChevronRight' disabled={index < 0 || index >= list.length - 1} onClick={() => list[index + 1] && select(list[index + 1].id)} />
           </span>
-          <h2 className='min-w-0 flex-1 truncate ps-1 text-sm font-semibold'>{selected?.subject ?? 'No issue selected'}</h2>
+          <span className='min-w-0 flex-1 truncate ps-1 text-sm font-semibold'>{selected?.from ?? 'Issue'}</span>
           {selected ? (
             <div role='toolbar' aria-label='Issue actions' className='flex shrink-0 items-center gap-0.5'>
-              <Button variant='soft' size='sm' className='hidden @3xl:inline-flex'>
+              <Button variant='soft' size='sm' className='hidden @3xl:inline-flex' onClick={() => openDialog('highlight', selected)}>
                 <RegistryIcon lucide='Quote' aria-hidden='true' />
                 Highlights
               </Button>
@@ -665,7 +664,7 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
                 className={selected.starred ? 'text-info [&_svg]:fill-current' : ''}
               />
               <span className='hidden @lg:contents'>
-                <IconAction label='Add to reading plan' icon='CalendarClock' />
+                <IconAction label='Add to reading plan' icon='CalendarClock' onClick={() => openDialog('session', selected)} />
               </span>
               <IconAction label='Delete issue' icon='Trash2' onClick={remove} />
               <DropdownMenu>
@@ -677,18 +676,13 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
                 <DropdownMenuContent align='end' className='w-52'>
                   <DropdownMenuItem onSelect={() => update({ unread: true })}>
                     Mark as unread
-                    <DropdownMenuShortcut>U</DropdownMenuShortcut>
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Mute this publication</DropdownMenuItem>
-                  <DropdownMenuItem>
-                    Read later
-                    <DropdownMenuShortcut>L</DropdownMenuShortcut>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => openDialog('session', selected)}>Plan a reading session</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => openDialog('highlight', selected)}>Edit highlight</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem onSelect={() => update({ folder: 'archive' })}>Mark as finished</DropdownMenuItem>
-                  <DropdownMenuItem>Add topic</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem variant='destructive' onSelect={() => update({ folder: 'spam' })}>Unsubscribe</DropdownMenuItem>
+                  <DropdownMenuItem variant='destructive' onSelect={() => update({ folder: 'spam' })}>Mute issue</DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>
@@ -702,7 +696,16 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
           />
         </AppShellHeader>
         <AppShellBody className='@container min-h-0 flex-1 overflow-y-auto pt-4'>
-          <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
+          {selected ? (
+            <article className='mx-auto grid w-full max-w-2xl gap-4 px-4 pb-6 @md:px-8'>
+              <p className='text-text-muted text-sm'>{selected.from} · {selected.time}</p>
+              <h3 className='font-display text-2xl font-semibold text-balance'>{selected.subject}</h3>
+              <p className='text-base leading-relaxed'>{selected.preview.replace(/…$/, '.')}</p>
+              {selected.label && <Badge className='w-fit' variant={LABEL_TONES[selected.label]}>{selected.label}</Badge>}
+              {selected.highlight && <blockquote className='border-ui-border border-s-2 ps-4 text-sm'>{selected.highlight}</blockquote>}
+              <Button className='w-fit' variant='outline' size='sm' onClick={() => openDialog('highlight', selected)}>{selected.highlight ? 'Edit saved highlight' : 'Save a highlight'}</Button>
+            </article>
+          ) : <Empty><EmptyHeader><EmptyTitle>No issue selected</EmptyTitle><EmptyDescription>Open an issue from the list to read it.</EmptyDescription></EmptyHeader></Empty>}
         </AppShellBody>
       </section>
     </div>
@@ -711,52 +714,66 @@ function MailView({ messages, setMessages, folder, contextOpen, onContext }) {
 
 function CalendarView({ section }) {
   const { isMobile } = useSidebar();
-  const [month, setMonth] = useState(TODAY.getMonth());
-  const [view, setView] = useState('week');
-  const title = { calendar: 'Reading plan', contacts: 'Authors', notifications: 'Activity' }[section];
-  return (
-    <>
-      <AppShellHeader bordered>
-        {isMobile ? <SidebarTrigger className='-ms-1' /> : null}
-        <h2 className='truncate text-base font-semibold'>
-          <span className='sr-only'>{title}: </span>
-          {MONTHS[month]} 2026
-        </h2>
-        <span aria-hidden='true' className='hidden -space-x-1 @md:flex'>
-          {['bg-info', 'bg-success', 'bg-discovery', 'bg-warning'].map((tone) => (
-            <span key={tone} className={`ring-ui-background size-2.5 rounded-full ring-2 ${tone}`} />
-          ))}
-        </span>
-        <div className='ms-auto flex items-center gap-1'>
-          <IconAction label='Previous month' icon='ChevronLeft' onClick={() => setMonth((value) => Math.max(0, value - 1))} />
-          <IconAction label='Next month' icon='ChevronRight' onClick={() => setMonth((value) => Math.min(11, value + 1))} />
-          <Button variant='outline' size='sm' className='hidden @md:inline-flex' onClick={() => setMonth(TODAY.getMonth())}>Today</Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' size='sm' aria-label={`View: ${view}`} className='capitalize'>
-                {view}
-                <RegistryIcon lucide='ChevronDown' aria-hidden='true' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              <DropdownMenuRadioGroup value={view} onValueChange={setView}>
-                <DropdownMenuRadioItem value='day'>Day</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='week'>Week</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value='month'>Month</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Button size='sm' className='hidden @xl:inline-flex'>
-            <RegistryIcon lucide='Plus' aria-hidden='true' />
-            Plan a session
-          </Button>
-        </div>
-      </AppShellHeader>
-      <AppShellBody className='pt-4'>
-        <div aria-hidden='true' className='grid gap-4 p-4 sm:grid-cols-3'><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-24' /><Skeleton className='h-64 sm:col-span-3' /></div>
-      </AppShellBody>
-    </>
-  );
+  const { selected, setSelected, sessions, visible, openDialog } = useContext(DigestContext);
+  const month = selected.getMonth();
+  const year = selected.getFullYear();
+  const inMonth = sessions.filter(event => event.day.startsWith(dateKey(selected).slice(0, 7)) && visible.includes(event.plan)).sort((a, b) => a.day.localeCompare(b.day));
+  if (section !== 'calendar') return <>
+    <AppShellHeader bordered>{isMobile && <SidebarTrigger />}<h1 className='font-semibold'>{section === 'contacts' ? 'Author directory' : 'Reading activity'}</h1></AppShellHeader>
+    <AppShellBody>{section === 'contacts' ? <ContactsPanel /> : <NotificationsPanel />}</AppShellBody>
+  </>;
+  return <>
+    <AppShellHeader bordered>
+      {isMobile && <SidebarTrigger />}
+      <h2 className='min-w-0 flex-1 truncate font-semibold'><span className='sr-only'>Reading plan: </span>{MONTHS[month]} {year}</h2>
+      <IconAction label='Previous month' icon='ChevronLeft' onClick={() => setSelected(new Date(year, month - 1, 1))} />
+      <IconAction label='Next month' icon='ChevronRight' onClick={() => setSelected(new Date(year, month + 1, 1))} />
+      <Button size='sm' variant='outline' onClick={() => setSelected(TODAY)}>Today</Button>
+    </AppShellHeader>
+    <AppShellBody className='min-h-0 overflow-y-auto'>
+      <section className='mx-auto grid w-full max-w-2xl gap-4 p-4 @md:p-6'>
+        <div className='flex flex-wrap items-center justify-between gap-2'><h3 className='text-xl font-semibold'>Scheduled reading</h3><Button size='sm' onClick={() => openDialog('session')}>Plan a session</Button></div>
+        {inMonth.length ? <ul className='grid gap-2'>{inMonth.map(event => <li key={event.id}>
+          <Item asChild variant='outline'><button type='button' className='w-full text-start' onClick={() => openDialog('sessionDetail', event)}>
+            <span className='grid gap-1'><span className='text-text-muted text-xs'>{event.day} · {event.time}</span><span className='text-sm font-medium'>{event.title}</span></span>
+          </button></Item>
+        </li>)}</ul> : <Empty><EmptyHeader><EmptyTitle>No sessions this month</EmptyTitle><EmptyDescription>Choose a date to plan your next read.</EmptyDescription></EmptyHeader></Empty>}
+      </section>
+    </AppShellBody>
+  </>;
+}
+
+const dialogs = {
+  plan: ['Add reading plan', 'Give related sessions a name.'],
+  session: ['Plan a reading session', 'Choose a date for this reading.'],
+  sessionDetail: ['Reading session', 'Your scheduled reading.'],
+  note: ['New note', 'Save a note in My notes.'],
+  highlight: ['Save a highlight', 'Keep a passage with its issue.']
+};
+
+function DigestDialog({ dialog, close, save, selected, plans }) {
+  if (!dialog) return null;
+  const { type, entry } = dialog;
+  const [title, description] = dialogs[type];
+  return <Dialog open onOpenChange={open => { if (!open) close(); }}>
+    <DialogContent className='sm:max-w-md'>
+      <DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>{description}</DialogDescription></DialogHeader>
+      {type === 'sessionDetail' ? <div className='grid gap-2'><strong>{entry.title}</strong><p>{entry.day} · {entry.time}</p></div> :
+        <form className='grid gap-3' onSubmit={event => { event.preventDefault(); save(new FormData(event.currentTarget)); }}>
+          <Field><FieldLabel htmlFor='digest-title'>{type === 'highlight' ? 'Passage' : 'Title'}</FieldLabel>
+            {type === 'highlight' ? <Textarea id='digest-title' name='title' required defaultValue={entry?.highlight || ''} /> :
+              <FieldInput id='digest-title' name='title' required defaultValue={entry?.subject || ''} />}
+          </Field>
+          {type === 'session' && <>
+            <Field><FieldLabel htmlFor='digest-date'>Date</FieldLabel><FieldInput id='digest-date' name='day' type='date' required defaultValue={dateKey(selected)} /></Field>
+            <Field><FieldLabel htmlFor='digest-time'>Start time</FieldLabel><FieldInput id='digest-time' name='time' type='time' defaultValue='09:00' required /></Field>
+            <Field><FieldLabel htmlFor='digest-plan'>Reading plan</FieldLabel><NativeSelect name='plan' id='digest-plan'>{plans.flatMap(group => group.items).map(plan => <NativeSelectOption key={plan.id} value={plan.id}>{plan.label}</NativeSelectOption>)}</NativeSelect></Field>
+          </>}
+          {type === 'note' && <Field><FieldLabel htmlFor='digest-note'>Note</FieldLabel><Textarea id='digest-note' name='note' required /></Field>}
+          <DialogFooter><Button variant='outline' onClick={close} type='button'>Cancel</Button><Button type='submit'>Save</Button></DialogFooter>
+        </form>}
+    </DialogContent>
+  </Dialog>;
 }
 
 function DigestInboxShell() {
@@ -765,9 +782,47 @@ function DigestInboxShell() {
   const [folder, setFolder] = useState('inbox');
   const [messages, setMessages] = useState(initialMessages);
   const [contextOverride, setContextOpen] = useState(null);
+  const [selected, setSelected] = useState(TODAY);
+  const [sessions, setSessions] = useState(upNext);
+  const [plans, setPlans] = useState(calendars);
+  const [visible, setVisible] = useState(['work', 'personal', 'meetings', 'family']);
+  const [items, setItems] = useState(initialInvites);
+  const [selectedId, setSelectedId] = useState('m1');
+  const [reading, setReading] = useState(false);
+  const [dialog, setDialog] = useState(null);
+  const openDialog = (type, entry) => setDialog({ type, entry });
+  const openIssue = issue => {
+    setSection('mail');
+    setFolder(issue.folder);
+    setSelectedId(issue.id);
+    setReading(true);
+    setMessages(list => list.map(item => item.id === issue.id ? { ...item, unread: false } : item));
+  };
+  const save = data => {
+    const title = String(data.get('title')).trim();
+    if (!title) return;
+    const id = crypto.randomUUID();
+    if (dialog.type === 'session') {
+      const plan = String(data.get('plan'));
+      const day = String(data.get('day'));
+      setSessions(list => [...list, { id, plan, day, title, time: String(data.get('time')), tone: plans.flatMap(group => group.items).find(item => item.id === plan).tone, people: [] }]);
+      setVisible(list => list.includes(plan) ? list : [...list, plan]);
+      setSelected(new Date(day + 'T12:00:00'));
+    } else if (dialog.type === 'plan') {
+      setPlans(list => list.map((group, i) => i ? group : { ...group, items: [...group.items, { id, label: title, tone: 'bg-info' }] }));
+      setVisible(list => [...list, id]);
+    } else if (dialog.type === 'note') {
+      setMessages(list => [{ id, folder: 'drafts', from: me.name, photo: me.photo, time: 'Now', minutes: 1, subject: title, preview: String(data.get('note')) }, ...list]);
+      setFolder('drafts'); setSelectedId(id); setReading(true);
+    } else {
+      setMessages(list => list.map(item => item.id === dialog.entry.id ? { ...item, highlight: title } : item));
+    }
+    setDialog(null);
+  };
   // Follow the available space until the reader explicitly opens or closes the plan.
   const contextOpen = contextOverride ?? (frame?.width >= 1344);
   return (
+    <DigestContext.Provider value={{ selected, setSelected, sessions, plans, visible, setVisible, messages, items, setItems, openDialog, openIssue, selectedId, setSelectedId, reading, setReading }}>
     <SidebarProvider shortcut={false} style={{ '--sidebar-width': '18rem' }}>
       <Sidebar collapsible='icon'>
         <div className='flex h-full min-h-0'>
@@ -776,7 +831,7 @@ function DigestInboxShell() {
             <SidebarHeader className='sr-only'>
               <h2>{sections.find((entry) => entry.id === section).label}</h2>
             </SidebarHeader>
-            <SectionPanel section={section} folder={folder} onFolder={setFolder} />
+            <SectionPanel section={section} folder={folder} onFolder={value => { setFolder(value); setSelectedId(null); setReading(false); }} />
           </div>
         </div>
       </Sidebar>
@@ -810,6 +865,8 @@ function DigestInboxShell() {
         </div>
       </AppShellPanel>
     </SidebarProvider>
+    <DigestDialog dialog={dialog} close={() => setDialog(null)} save={save} selected={selected} plans={plans} />
+    </DigestContext.Provider>
   );
 }
 

@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '@gaudi/design-system/core/Pill';
 import { useMemo, useState } from 'react';
 import { Filters } from '@gaudi/design-system/core/FilterBar';
 import {
@@ -9,37 +10,13 @@ import {
   isFilterRule
 } from '@gaudi/design-system/core/FilterBar';
 import { cn } from '@gaudi/design-system/utilities/cn';
-import {
-  AvatarRoot as Avatar,
-  AvatarFallback,
-  AvatarGroup,
-  AvatarImage
-} from '@gaudi/design-system/core/Avatar';
+import Avatar, { AvatarGroup } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import {
   CardRoot as Card,
   CardContent
 } from '@gaudi/design-system/core/Card';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
-function Dot({ className }) {
-  return <span className={cn('size-2 shrink-0 rounded-full', className)} />;
-}
-function Person({ img, name }) {
-  return (
-    <Avatar className='size-5'>
-      <AvatarImage
-        src={`/avatars/${img}.svg`}
-        alt={name}
-      />
-      <AvatarFallback>
-        {name
-          .split(' ')
-          .map((part) => part[0])
-          .join('')}
-      </AvatarFallback>
-    </Avatar>
-  );
-}
 const STATUSES = [
   { value: 'todo', label: 'To do', dot: 'bg-text-muted' },
   { value: 'in-progress', label: 'In progress', dot: 'bg-warning' },
@@ -75,7 +52,7 @@ function StackedDots({ options, palette, empty }) {
   if (options.length === 1) {
     return (
       <span className='flex min-w-0 items-center gap-1.5'>
-        <Dot className={swatch(options[0].value)} />
+        <StatusDot className={cn('size-2', swatch(options[0].value))} />
         <span className='truncate'>{options[0].label}</span>
       </span>
     );
@@ -84,10 +61,10 @@ function StackedDots({ options, palette, empty }) {
     <span className='flex items-center gap-1.5'>
       <span className='flex items-center'>
         {options.slice(0, 4).map((option) => (
-          <span
+          <StatusDot
             key={option.value}
             className={cn(
-              'ring-ui-background -ml-1 size-2.5 rounded-full ring-2 first:ml-0',
+              'ring-ui-background -ml-1 size-2.5 ring-2 first:ml-0',
               swatch(option.value)
             )}
           />
@@ -107,10 +84,12 @@ function StackedPeople({ options }) {
         {options.slice(0, 3).map((option) => {
           const person = TEAM.find((entry) => entry.value === option.value);
           return (
-            <Person
+            <Avatar
               key={option.value}
-              img={person?.img ?? 'person-26'}
+              size='xs'
+              surface='tinted'
               name={option.label}
+              src={`/avatars/${person?.img ?? 'person-26'}.svg`}
             />
           );
         })}
@@ -141,7 +120,7 @@ const fields = [
     options: STATUSES.map((entry) => ({
       value: entry.value,
       label: entry.label,
-      icon: <Dot className={entry.dot} />
+      icon: <StatusDot className={cn('size-2', entry.dot)} />
     })),
     column: 'state',
     renderValue: ({ options }) => (
@@ -173,7 +152,7 @@ const fields = [
     options: PRIORITIES.map((entry) => ({
       value: entry.value,
       label: entry.label,
-      icon: <Dot className={entry.tone} />
+      icon: <StatusDot className={cn('size-2', entry.tone)} />
     })),
     column: 'priority',
     renderValue: ({ options }) => (
@@ -198,7 +177,7 @@ const fields = [
     options: TEAM.map((person) => ({
       value: person.value,
       label: person.label,
-      icon: <Person img={person.img} name={person.label} />
+      icon: <Avatar size='xs' surface='tinted' name={person.label} src={`/avatars/${person.img}.svg`} />
     })),
     column: 'assignee_ids',
     // A list of PEOPLE carries no semantic order, unlike the two ramps above.

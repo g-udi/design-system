@@ -5,7 +5,7 @@ import {
   AvatarImage
 } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import Link from '@gaudi/design-system/core/Link';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@gaudi/design-system/core/Accordion';
 import { Badge } from '@gaudi/design-system/core/Pill';
 import {
   PopoverPrimitive as Popover,
@@ -16,6 +16,7 @@ import {
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 const portrait = '/avatars/person-44.svg';
 function ProfilePopover() {
+  const [following, setFollowing] = useState(false);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -34,8 +35,8 @@ function ProfilePopover() {
               <AvatarImage src={portrait} alt='Dorian Chua' />
               <AvatarFallback>DC</AvatarFallback>
             </Avatar>
-            <Button size='sm' variant='outline'>
-              Follow
+            <Button size='sm' variant='outline' aria-pressed={following} onClick={() => setFollowing(!following)}>
+              {following ? 'Following' : 'Follow'}
             </Button>
           </div>
           <div>
@@ -45,7 +46,7 @@ function ProfilePopover() {
           <p>Product designer specializing in design systems.</p>
           <div className='flex items-center gap-3'>
             <span>
-              <span className='font-semibold tabular-nums'>1.2k</span>{' '}
+              <span className='font-semibold tabular-nums'>{following ? '1,201' : '1,200'}</span>{' '}
               <span className='text-text-muted'>Followers</span>
             </span>
             <span>
@@ -78,12 +79,14 @@ function FeaturePopover() {
           <p className='text-text-muted'>
             Detailed insights, custom reports, and real-time dashboards.
           </p>
-          <div className='grid grid-cols-2 gap-2'>
-            <Button size='sm' onClick={() => setEnabled(true)} disabled={enabled}>{enabled ? 'Preview enabled' : 'Try Pro preview'}</Button>
-            <Button size='sm' variant='outline'>
-              Learn more
-            </Button>
-          </div>
+          <Collapsible>
+            <div className='grid grid-cols-2 gap-2'>
+              <Button size='sm' onClick={() => setEnabled(true)} disabled={enabled}>{enabled ? 'Preview enabled' : 'Try Pro preview'}</Button>
+              <CollapsibleTrigger asChild><Button size='sm' variant='outline'>Preview details</Button></CollapsibleTrigger>
+            </div>
+            <CollapsibleContent className='mt-2 text-sm'>The sample report breaks down visits by source over the last seven days.</CollapsibleContent>
+          </Collapsible>
+          {enabled && <dl className='grid grid-cols-2 gap-1' aria-label='Sample traffic report'><dt>Direct visits</dt><dd>240</dd><dt>Referral visits</dt><dd>180</dd></dl>}
         </div>
       </PopoverContent>
     </Popover>
@@ -100,7 +103,7 @@ function MediaPopover() {
       </PopoverTrigger>
       <PopoverContent className='w-72 gap-0 overflow-hidden p-0' align='end'>
         <img
-          src='static/images/art/0.svg'
+          src='/static/images/art/0.svg'
           alt='Portfolio template preview'
           width={288}
           height={162}
@@ -114,9 +117,9 @@ function MediaPopover() {
             </p>
           </div>
           <div className='grid grid-cols-2 gap-2'>
-            <Button size='sm'>Install</Button>
-            <Button size='sm' variant='outline'>
-              Demo
+            <Button size='sm' href='/static/images/art/0.svg' download='portfolio-artwork.svg'>Save artwork</Button>
+            <Button href='/static/images/art/0.svg' target='_blank' rel='noreferrer' size='sm' variant='outline'>
+              Open artwork
               <RegistryIcon lucide='ExternalLinkIcon' aria-hidden='true' />
             </Button>
           </div>
@@ -135,15 +138,27 @@ function NotificationsPopover() {
           <Badge variant='destructive' size='xs'>3 new</Badge>
         </Button>
       </PopoverTrigger>
-      <PopoverContent aria-label='Notifications' className='w-64'>
+      <PopoverContent
+        aria-label='Notifications'
+        className='w-64'
+        onOpenAutoFocus={(event) => {
+          event.preventDefault();
+          event.currentTarget.focus();
+        }}
+      >
         <PopoverTitle>Notifications</PopoverTitle>
         <ul className='m-0 grid list-disc gap-1 ps-4 text-text-muted'>
           {['Sarah commented on your PR', 'Build #421 completed', 'A new team member joined'].map((item) => <li key={item}>{item}</li>)}
         </ul>
-        <Link href='#notifications' className='inline-flex items-center gap-1'>
-          View all
-          <RegistryIcon lucide='ArrowRightIcon' className='size-3.5' aria-hidden='true' />
-        </Link>
+        <Collapsible>
+          <CollapsibleTrigger asChild><Button size='sm' variant='link' className='px-0'>Earlier notifications</Button></CollapsibleTrigger>
+          <CollapsibleContent>
+            <ul className='list-disc ps-4 text-text-muted'>
+              <li>Yesterday: your review was approved</li>
+              <li>Tuesday: build #420 completed</li>
+            </ul>
+          </CollapsibleContent>
+        </Collapsible>
       </PopoverContent>
     </Popover>
   );

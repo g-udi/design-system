@@ -21,4 +21,5 @@ import { Badge, Pill } from '@gaudi/design-system';
   `discovery`, `attention`, `focus`, `invert`, each with `-light` and `-outline` treatments (`primary-light`/`primary-outline` too).
   Use `discovery` for suggested or generated labels (for example tags proposed by an assistant) and `attention` for records
   that need a person to look (staged, unreviewed). They read from the `--ds-color-discovery*` and `--ds-color-attention*` tokens.
+- `StatusDot` marks a compact status and inherits the surrounding color. Add `pulse` for a live status. The pulse respects reduced motion. Supply `label` when the dot appears without a text equivalent.
 - `BadgeRoot` and `badgeVariantsPrimitive` are kept as aliases of `Badge` and `badgeVariants`.

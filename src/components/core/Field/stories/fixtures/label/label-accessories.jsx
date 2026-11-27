@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import { CheckboxRoot as Checkbox } from '@gaudi/design-system/core/Checkbox';
 import { FieldRoot as Field, FieldDescriptionPrimitive as FieldDescription } from '@gaudi/design-system/core/Field';
 import { FieldInput as Input } from '@gaudi/design-system/core/Field';
@@ -63,10 +63,7 @@ export function Pattern() {
         <Field>
           <Label htmlFor='label-status' className='gap-1.5'>
             Server status
-            <span className='relative flex size-2' aria-hidden='true'>
-              <span className='absolute inline-flex size-full animate-ping rounded-full bg-success opacity-75' />
-              <span className='relative inline-flex size-2 rounded-full bg-success' />
-            </span>
+            <StatusDot pulse className='size-2 bg-success' />
           </Label>
           <Input id='label-status' defaultValue='Online' disabled />
         </Field>

@@ -47,6 +47,11 @@ export const ShowMore = {
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByRole('heading', { name: 'Why the webhooks dropped' })).toBeVisible();
     await expect(trigger).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.click(canvas.getByRole('button', { name: 'View the worker diff' }));
+    const body = within(canvasElement.ownerDocument.body);
+    const diff = await body.findByRole('dialog', { name: 'Webhook worker changes' });
+    await expect(diff).toHaveTextContent('mapWithConcurrency');
+    await userEvent.keyboard('{Escape}');
     await userEvent.click(canvas.getByRole('button', { name: 'Show less' }));
     await waitFor(() => expect(canvas.queryByRole('heading', { name: 'Why the webhooks dropped' })).not.toBeInTheDocument());
     await expect(trigger).toHaveFocus();
@@ -57,13 +62,17 @@ export const QuickReplies = {
   ...pattern('quick-replies', 'Tinted bubbles that are real buttons and a link, plus an action row after the pick.'),
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    await expect(canvas.getByRole('link', { name: 'Open the bounced delivery log' })).toHaveAttribute('href', '#');
+    const log = canvas.getByRole('link', { name: 'Download the bounced delivery log' });
+    await expect(log).toHaveAttribute('download', 'bounced-deliveries.csv');
+    await expect(decodeURIComponent(log.getAttribute('href'))).toContain('41,Bounced,Archive link unavailable');
     const choice = canvas.getByRole('button', { name: 'Hold them until I fix the links' });
     choice.focus();
     await userEvent.keyboard('{Enter}');
     await expect(canvas.getByText('Held. Neither issue goes out until you confirm the links.', { exact: false })).toBeVisible();
     await expect(canvas.queryByRole('button', { name: 'Resend both issues now' })).not.toBeInTheDocument();
-    await expect(canvas.getByRole('button', { name: 'Check links' })).toBeVisible();
-    await expect(canvas.getByRole('button', { name: 'Notify the owner' })).toBeVisible();
+    await userEvent.click(canvas.getByRole('button', { name: 'Review link checks' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Issue 42 passed its link check.');
+    await userEvent.click(canvas.getByRole('button', { name: 'Draft owner note' }));
+    await expect(canvas.getByRole('status')).toHaveTextContent('Draft to the newsletter owner');
   }
 };

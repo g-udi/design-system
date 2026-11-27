@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useEffect, useId, useRef, useState } from 'react';
 import Button from '../../components/core/Button';
 import Input from '../../components/core/Input';
@@ -61,14 +62,14 @@ export function AnimatedIconsGallery() {
       <p className={descriptionClasses}>{names.length} animated icons. Hover or focus to preview; click or press Enter to copy usage. Animation follows your reduced-motion preference.</p>
       <div className='flex flex-wrap items-end gap-4'>
         <div className='min-w-0 flex-1 basis-64 space-y-2'>
-          <label className={labelClasses} htmlFor={searchId}>Search animated icons</label>
+          <Label className={labelClasses} htmlFor={searchId}>Search animated icons</Label>
           <Input id={searchId} type='search' value={query} className='bg-surface'
             inputClassName='text-sm' placeholder='Search by name, e.g. Bell or Arrow Up'
             prefix={<Icon name='Search' decorative size='sm' />}
             onChange={(event) => { setQuery(event.target.value); setPage(0); }} />
         </div>
         <div className='grid gap-2'>
-          <label htmlFor={styleId} className={labelClasses}>Animation style</label>
+          <Label htmlFor={styleId} className={labelClasses}>Animation style</Label>
           <NativeSelect id={styleId}
             value={source} onChange={(event) => { setSource(event.target.value); setPage(0); }}>
             <option value='all'>All styles</option>
@@ -76,10 +77,10 @@ export function AnimatedIconsGallery() {
             <option value='gaudi-draw'>Gaudi draw</option>
           </NativeSelect>
         </div>
-        <label className='flex min-h-8 cursor-pointer items-center gap-2 text-sm'>
+        <Label className='flex min-h-8 cursor-pointer items-center gap-2 text-sm'>
           <CheckboxRoot checked={animate} onCheckedChange={setAnimate} />
           Animate previews
-        </label>
+        </Label>
       </div>
       <div className='flex flex-wrap justify-between gap-2'>
         <p role='status' aria-label='Animated icon results' className={descriptionClasses}>

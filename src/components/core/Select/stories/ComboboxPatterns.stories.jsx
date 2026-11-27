@@ -23,7 +23,7 @@ const pickWithKeyboard = async (context) => {
 };
 
 export const ComboboxInputOptions = {
-  name: 'Input options',
+  name: 'Framework combobox controls',
   ...pattern('input-options', 'One field per input option: auto highlight, clear button, icon addon, custom trigger icon, disabled and invalid.'),
   play: pickWithKeyboard
 };
@@ -47,7 +47,7 @@ export const ComboboxPropertyPickers = {
 };
 export const ComboboxMultipleChips = { name: 'Multiple selection with chips', ...pattern('multiple-chips', 'Removable and fixed chips, plus disabled and invalid states.') };
 export const ComboboxMemberTags = { name: 'Member tags', ...pattern('member-tags', 'Avatar chips in a boxed field and in a borderless one.') };
-export const ComboboxGrouped = { name: 'Grouped options', ...pattern('grouped', 'Labelled groups with separators in a list long enough to scroll.') };
+export const ComboboxGrouped = { name: 'Search time zones by city', ...pattern('grouped', 'Labelled groups with separators in a list long enough to scroll.') };
 export const ComboboxDatePresets = {
   name: 'Date presets with a custom picker',
   ...pattern('date-presets', 'Relative due-date presets, plus a Custom date option that opens a calendar.'),

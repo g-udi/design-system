@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import {
   AvatarRoot as Avatar,
@@ -21,7 +22,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarRail,
-  SidebarTrigger
+  SidebarTrigger, useSidebar
 } from '@gaudi/design-system/blocks/AppShell';
 import { AppShellFrame } from '@gaudi/design-system/blocks/AppShell';
 import { TooltipProvider } from '@gaudi/design-system/core/Tooltip';
@@ -103,7 +104,18 @@ const MONITORS = [
     )
   }
 ];
-function RailNav() {
+const details = {
+  overview: 'The production workspace runs the checkout API, webhook delivery and background jobs.',
+  inbox: 'A webhook delivery exceeded its latency target. Check the delivery monitor to inspect the current response time.',
+  deployments: 'Every deploy runs against the edge network first. Review its health before starting the next deployment.',
+  monitoring: 'Current availability, webhook latency and pending background jobs.',
+  analytics: 'Webhook response time and queued jobs are the current reporting period’s service indicators.',
+  audit: 'Recent production changes are recorded below.',
+  settings: 'Production workspace · Nadira Rahimi, owner.',
+  account: 'Nadira Rahimi owns the production workspace.'
+};
+function RailNav({ page, onNavigate }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -113,10 +125,10 @@ function RailNav() {
             <SidebarMenuItem key={item.id}>
               <SidebarMenuButton
                 asChild
-                isActive={item.isActive}
+                isActive={page === item.id}
                 tooltip={item.label}
               >
-                <a href='#'>
+                <a href={'#' + item.id} aria-current={page === item.id ? 'page' : undefined} onClick={event => { event.preventDefault(); onNavigate(item.id); if (isMobile) setOpenMobile(false); }}>
                   {item.icon}
                   <span>{item.label}</span>
                 </a>
@@ -132,12 +144,13 @@ function RailNav() {
   );
 }
 
-function BrandButton() {
+function BrandButton({ onNavigate }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton asChild size='lg' tooltip='Gaudi Workspace'>
-          <a href='#' aria-label='Gaudi Workspace'>
+          <a href='#overview' onClick={event => { event.preventDefault(); onNavigate('overview'); if (isMobile) setOpenMobile(false); }} aria-label='Gaudi Workspace'>
             <GaudiLogo aria-hidden='true' className='hidden size-8 group-data-[collapsible=icon]:block' />
             <span className='grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden'>
               <span className='flex items-center gap-2 text-sm font-medium'><GaudiBrand className='text-sm' /><span>Workspace</span></span>
@@ -151,12 +164,13 @@ function BrandButton() {
     </SidebarMenu>
   );
 }
-function AccountButton() {
+function AccountButton({ onNavigate }) {
+  const { isMobile, setOpenMobile } = useSidebar();
   return (
     <SidebarMenu>
       <SidebarMenuItem>
         <SidebarMenuButton asChild size='lg' tooltip='Nadira Rahimi'>
-          <a href='#'>
+          <a href='#account' onClick={event => { event.preventDefault(); onNavigate('account'); if (isMobile) setOpenMobile(false); }}>
             <Avatar>
               <AvatarImage src='/avatars/person-41.svg' alt='' />
               <AvatarFallback>NR</AvatarFallback>
@@ -174,21 +188,23 @@ function AccountButton() {
   );
 }
 export function Pattern() {
+  const [page, setPage] = useState('deployments');
+  const [releases, setReleases] = useState(['Release 1 · Production']);
   return (
     <AppShellFrame>
       <TooltipProvider>
         <SidebarProvider className='relative h-full min-h-0 w-full overflow-hidden'>
           <Sidebar collapsible='icon' className='absolute h-full'>
             <SidebarHeader>
-              <BrandButton />
+              <BrandButton onNavigate={setPage} />
             </SidebarHeader>
 
             <SidebarContent role='navigation' aria-label='Primary'>
-              <RailNav />
+              <RailNav page={page} onNavigate={setPage} />
             </SidebarContent>
 
             <SidebarFooter>
-              <AccountButton />
+              <AccountButton onNavigate={setPage} />
             </SidebarFooter>
 
             {/*
@@ -203,20 +219,19 @@ export function Pattern() {
           <SidebarInset className='min-w-0 overflow-hidden'>
             <header className='flex h-12 shrink-0 items-center gap-2 border-b px-3'>
               <SidebarTrigger />
-              <h2 className='truncate text-sm font-medium'>Deployments</h2>
-              <Button variant='outline' size='sm' className='ml-auto'>
-                New deploy
-              </Button>
+              <h2 className='truncate text-sm font-medium'>{NAV.find(item => item.id === page)?.label || 'Account'}</h2>
+              {page === 'deployments' && <Button variant='outline' size='sm' className='ml-auto' onClick={() => setReleases(list => [`Release ${list.length + 1} · Preview`, ...list])}>
+                New preview deploy
+              </Button>}
             </header>
 
             <div className='min-w-0 flex-1 overflow-auto p-4'>
               <p className='text-ui-muted-foreground max-w-prose text-sm'>
-                Every deploy runs against the edge network first. Collapse the
-                rail with the panel button or the strip on its edge, and the
-                labels give way to tooltips.
+                {details[page]}
               </p>
 
-              <dl className='mt-4 flex flex-col gap-3'>
+              {['deployments', 'audit'].includes(page) && <ul aria-label='Deployments' className='mt-3 grid gap-2 text-sm'>{releases.map(release => <li key={release}>{release}</li>)}</ul>}
+              {['overview', 'monitoring', 'analytics', 'deployments'].includes(page) && <dl className='mt-4 flex flex-col gap-3'>
                 {MONITORS.map((monitor) => (
                   <div
                     key={monitor.id}
@@ -229,7 +244,7 @@ export function Pattern() {
                     <dd className='shrink-0 tabular-nums'>{monitor.value}</dd>
                   </div>
                 ))}
-              </dl>
+              </dl>}
             </div>
           </SidebarInset>
         </SidebarProvider>

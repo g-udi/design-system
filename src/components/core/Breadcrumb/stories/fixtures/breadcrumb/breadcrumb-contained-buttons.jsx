@@ -7,32 +7,26 @@ import {
   BreadcrumbSeparatorPrimitive as BreadcrumbSeparator
 } from '@gaudi/design-system/core/Breadcrumb';
 import { default as Button } from '@gaudi/design-system/core/Button';
-import {
-  CardRoot as Card,
-  CardContent
-} from '@gaudi/design-system/core/Card';
-import {
-  Frame,
-  FramePanel
-} from '@gaudi/design-system/core/Card';
+import { CardRoot as Card, CardContent } from '@gaudi/design-system/core/Card';
+import { Frame, FramePanel } from '@gaudi/design-system/core/Card';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
 function Trail() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href='#' className='flex items-center gap-1.5'>
+          <BreadcrumbLink href='https://design.gaudi.site' className='flex items-center gap-1.5'>
             <RegistryIcon lucide='HouseIcon' className='size-4' aria-hidden='true' />
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbLink href='#'>Products</BreadcrumbLink>
+          <BreadcrumbLink href='https://design.gaudi.site/docs/components'>Components</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <BreadcrumbPage className='font-semibold'>Checkout</BreadcrumbPage>
+          <BreadcrumbPage className='font-semibold'>Breadcrumb</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
@@ -40,22 +34,26 @@ function Trail() {
 }
 function ButtonTrail() {
   return (
-    <Breadcrumb aria-label='Workspace breadcrumb'>
+    <Breadcrumb aria-label='Block breadcrumb'>
       <BreadcrumbList className='gap-1'>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Button variant='ghost' size='sm' className='text-text-muted hover:text-text'>
-              <RegistryIcon lucide='HouseIcon' />
-              Home
+            <Button asChild variant='ghost' size='sm' className='text-text-muted hover:text-text'>
+              <a href='https://design.gaudi.site'>
+                <RegistryIcon lucide='HouseIcon' />
+                Home
+              </a>
             </Button>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Button variant='ghost' size='sm' className='text-text-muted hover:text-text'>
-              <RegistryIcon lucide='LayoutGridIcon' />
-              Workspace
+            <Button asChild variant='ghost' size='sm' className='text-text-muted hover:text-text'>
+              <a href='https://design.gaudi.site/docs/blocks'>
+                <RegistryIcon lucide='LayoutGridIcon' />
+                Blocks
+              </a>
             </Button>
           </BreadcrumbLink>
         </BreadcrumbItem>
@@ -63,8 +61,8 @@ function ButtonTrail() {
         <BreadcrumbItem>
           <BreadcrumbPage>
             <span className='inline-flex h-7 items-center gap-1.5 rounded-control bg-surface-muted px-2.5 text-sm font-medium text-text'>
-              <RegistryIcon lucide='SettingsIcon' className='size-4' aria-hidden='true' />
-              Settings
+              <RegistryIcon lucide='LayoutTemplateIcon' className='size-4' aria-hidden='true' />
+              App Shell
             </span>
           </BreadcrumbPage>
         </BreadcrumbItem>

@@ -4,6 +4,7 @@ import {
   FieldRoot as Field,
   FieldLabelPrimitive as FieldLabel
 } from '@gaudi/design-system/core/Field';
+import { ProgressRoot } from '@gaudi/design-system/core/Progress';
 import Input from '@gaudi/design-system/core/Input';
 import Button from '@gaudi/design-system/core/Button';
 import Link from '@gaudi/design-system/core/Link';
@@ -18,10 +19,10 @@ const requirements = [
 ];
 // Score 0 to 5: bar colour, summary and hint icon.
 const level = (score) => {
-  if (score === 0) return { bar: 'bg-border', text: 'Enter a password', tone: 'text-text-muted', icon: 'InfoIcon' };
-  if (score <= 2) return { bar: 'bg-danger', text: 'Weak security', tone: 'text-danger', icon: 'AlertTriangleIcon' };
-  if (score <= 4) return { bar: 'bg-warning', text: 'Medium security', tone: 'text-warning', icon: 'AlertTriangleIcon' };
-  return { bar: 'bg-success', text: 'Strong security', tone: 'text-success', icon: 'CircleCheckIcon' };
+  if (score === 0) return { bar: '*:data-[slot=progress-indicator]:bg-border', text: 'Enter a password', tone: 'text-text-muted', icon: 'InfoIcon' };
+  if (score <= 2) return { bar: '*:data-[slot=progress-indicator]:bg-danger', text: 'Weak security', tone: 'text-danger', icon: 'AlertTriangleIcon' };
+  if (score <= 4) return { bar: '*:data-[slot=progress-indicator]:bg-warning', text: 'Medium security', tone: 'text-warning', icon: 'AlertTriangleIcon' };
+  return { bar: '*:data-[slot=progress-indicator]:bg-success', text: 'Strong security', tone: 'text-success', icon: 'CircleCheckIcon' };
 };
 
 export function Pattern() {
@@ -57,18 +58,13 @@ export function Pattern() {
             }
           />
       </Field>
-      <div
-        role='progressbar'
+      <ProgressRoot
         aria-label='Password strength'
-        aria-valuemin={0}
-        aria-valuemax={requirements.length}
-        aria-valuenow={score}
-        className='flex gap-1'
-      >
-        {requirements.map((req, i) => (
-          <div key={req.text} className={`h-1 flex-1 rounded-full transition-colors duration-500 ${i < score ? bar : 'bg-border'}`} />
-        ))}
-      </div>
+        value={score}
+        max={requirements.length}
+        getValueLabel={() => `${score} of ${requirements.length} requirements met`}
+        className={`h-1.5 ${bar}`}
+      />
       <div className='flex items-center justify-between gap-2'>
         <p id={`${id}-summary`} className={`flex items-center gap-1.5 text-sm font-medium ${tone}`}>
           <RegistryIcon lucide={icon} className='size-3.5 shrink-0' aria-hidden='true' />

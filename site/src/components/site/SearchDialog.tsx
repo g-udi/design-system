@@ -9,7 +9,7 @@ import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, Comma
 import Icon from '@gaudi/design-system/core/Icon';
 import Kbd from '@gaudi/design-system/core/Kbd';
 import { useHotkey } from '@gaudi/design-system/hooks';
-import { basePath } from '@/lib/nav';
+import { docsSearchClient } from '@/lib/docs-search-client';
 import { useAskAiEnabled } from './ask-ai-context';
 
 // The conversation (chat components, markdown rendering) loads on first use.
@@ -48,10 +48,11 @@ export function SearchDialog() {
   const router = useRouter();
   const askEnabled = useAskAiEnabled();
   const [open, setOpen] = useState(false);
+  const [searchAttempt, setSearchAttempt] = useState(0);
   const [ask, setAsk] = useState<{ open: boolean; question?: string; loaded: boolean }>({ open: false, loaded: false });
   const openAsk = (question?: string) => { setOpen(false); setAsk({ open: true, question, loaded: true }); };
   useHotkey('mod+i', () => askEnabled && openAsk(), { enableInInputs: true });
-  const { search, setSearch, query } = useDocsSearch({ type: 'static', from: `${basePath}/api/search` });
+  const { search, setSearch, query } = useDocsSearch({ client: docsSearchClient }, [searchAttempt]);
   const { ariaKeyShortcuts, kbdKeys } = useHotkey('mod+k', () => setOpen((value: boolean) => !value), { enableInInputs: true });
   const results = query.data && query.data !== 'empty' ? query.data.filter((result) => plain(result.content)).slice(0, 40) : [];
 
@@ -91,7 +92,12 @@ export function SearchDialog() {
               </CommandGroup>
             ) : null}
             {search && query.isLoading ? <p role='status' className='px-3 py-6 text-center text-sm text-text-muted'>Searching…</p> : null}
-            {search && !query.isLoading && results.length === 0 ? <CommandEmpty>No results for “{search}”.</CommandEmpty> : null}
+            {search && !query.isLoading && query.error ? (
+              <CommandGroup heading='Search unavailable'>
+                <CommandItem value='retry-search' onSelect={() => setSearchAttempt((attempt) => attempt + 1)}>Retry search</CommandItem>
+              </CommandGroup>
+            ) : null}
+            {search && !query.isLoading && !query.error && results.length === 0 ? <CommandEmpty>No results for “{search}”.</CommandEmpty> : null}
             {!search && askEnabled ? (
               <CommandGroup heading='Ask AI'>
                 {STARTER_QUESTIONS.map((question) => (

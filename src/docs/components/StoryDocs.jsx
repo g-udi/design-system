@@ -1,9 +1,12 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import Link from '@gaudi/design-system/core/Link';
 import { Children, cloneElement, isValidElement } from 'react';
 import ArrowRight from 'lucide-react/dist/esm/icons/arrow-right.js';
 import ArrowUp from 'lucide-react/dist/esm/icons/arrow-up.js';
 
 import Button from '../../components/core/Button';
-import Card from '../../components/core/Card';
+import Card, { CardRoot, cardVariants } from '@gaudi/design-system/core/Card';
+import StatCard from '@gaudi/design-system/blocks/StatCard';
 import { Badge as StatusBadge } from '../../components/core/Pill';
 import { TableRoot, TableHeadPrimitive, TableCellPrimitive } from '../../components/mdx/Table';
 import Typography from '../../foundations/Typography';
@@ -79,13 +82,13 @@ export const Page = ({ children, compact = false, intro, title }) => (
       </header>
       {children}
       <footer className='flex justify-end border-t border-border pt-4'>
-        <a
+        <Link variant='bare'
           href='#page-top'
           className='group inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-text-muted underline-offset-4 hover:text-accent hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent'
         >
           Back to top
           <ArrowUp aria-hidden='true' size={ 16 } className='transition-transform group-hover:-translate-y-0.5' />
-        </a>
+        </Link>
       </footer>
     </div>
   </div>
@@ -107,35 +110,30 @@ export const CodeBlock = ({ code, language = 'jsx' }) => (
   </div>
 );
 
-export const Stat = ({ label, value }) => (
-  <div className='rounded-lg border border-border bg-surface p-4 text-center'>
-    <div className='text-2xl font-bold text-accent'>{value}</div>
-    <div className='mt-1 text-xs text-text-muted'>{label}</div>
-  </div>
-);
+export const Stat = StatCard;
 
 export const PrincipleCard = ({ description, number, title }) => (
-  <div className='space-y-3 rounded-lg border border-border bg-surface p-5'>
+  <CardRoot variant='outline' padding='lg'>
     <div className='flex items-center gap-3'>
-      <span className='flex h-7 w-7 shrink-0 items-center justify-center rounded-control bg-accent/10 text-xs font-bold text-accent'>{number}</span>
+      <IconTile size='xs' radius='full' variant='solid' className='size-7 bg-accent-subtle text-xs font-bold text-accent'>{number}</IconTile>
       <h3 className='text-sm font-bold text-text'>{title}</h3>
     </div>
     <p className='text-xs leading-6 text-text-muted'><InlineText>{description}</InlineText></p>
-  </div>
+  </CardRoot>
 );
 
 export const QuickLink = ({ description, storyId, title }) => (
-  <a
+  <Link variant='bare'
     href={ `./?path=/${storyId.endsWith('--docs') ? 'docs' : 'story'}/${storyId}` }
     target='_top'
-    className='group block h-full rounded-lg border border-border bg-surface p-4 text-left transition-colors hover:border-accent hover:no-underline'
+    className={cardVariants({ variant: 'outline', padding: 'lg', className: 'group block text-start hover:border-accent' })}
   >
     <div className='mb-1 flex items-center justify-between gap-3'>
       <p className='text-sm font-semibold text-text'>{title}</p>
       <ArrowRight aria-hidden='true' size={ 16 } className='shrink-0 text-accent transition-transform group-hover:translate-x-0.5' />
     </div>
     <p className='text-xs leading-5 text-text-muted'><InlineText>{description}</InlineText></p>
-  </a>
+  </Link>
 );
 
 const badgeTones = { blue: 'primary-light', gray: 'secondary', green: 'success-light', red: 'destructive-light', yellow: 'warning-light' };

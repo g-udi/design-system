@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -34,7 +34,7 @@ import { cn } from '@gaudi/design-system/utilities/cn';
 const face = (portrait) => `/avatars/${portrait}.svg`;
 // fill-current lets single-colour marks follow the text colour in dark mode.
 const logo = (Mark) => <Mark className='size-4 fill-current text-text' aria-hidden='true' />;
-const dot = (tone) => <span className={cn('size-2.5 rounded-full', tone)} aria-hidden='true' />;
+const dot = (tone) => <StatusDot className={cn('size-2.5', tone)} />;
 const RISK = { Low: ['success-light', 'bg-success'], Medium: ['warning-light', 'bg-warning'], High: ['destructive-light', 'bg-danger'], Critical: ['destructive', 'bg-danger'] };
 
 const BOARDS = {

@@ -1,3 +1,4 @@
+import { navigationMenuA11y } from '../../../../docs/components/navigationMenuA11y';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { catalogueMeta, patternStories } from '../../../../docs/components/PatternStoryHelpers.jsx';
 import { auditOverlayState } from '../../Popover/stories/auditOverlayState.js';
@@ -18,9 +19,9 @@ export const SiteHeader = {
     const canvas = within(canvasElement);
     const panels = [
       ['Getting started', /Introduction/],
-      ['Components', /Hover Card/],
-      ['Status', 'Backlog'],
-      ['Solutions', 'Compare plans']
+      ['Components', /Calendar/],
+      ['Foundations', 'Colours'],
+      ['Blocks', 'Browse all blocks']
     ];
     for (const [index, [name, linkName]] of panels.entries()) {
       const trigger = canvas.getByRole('button', { name });
@@ -29,6 +30,9 @@ export const SiteHeader = {
       await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'true'));
       await userEvent.keyboard('{ArrowDown}');
       await waitFor(() => expect(canvas.getByRole('link', { name: linkName })).toBeVisible());
+      for (const link of canvas.getAllByRole('link')) {
+        await expect(link.getAttribute('href')).toMatch(/^https:\/\/design\.gaudi\.site\/docs(?:\/|$)/);
+      }
       await auditOverlayState(context, `open-${index + 1}`);
       await userEvent.keyboard('{Escape}');
       await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
@@ -44,8 +48,7 @@ export const BlogRecentPosts = {
   ...blogPattern,
   parameters: {
     ...blogPattern.parameters,
-    // The open panel adds an aria-hidden focus proxy after its trigger that hands Tab focus into the panel.
-    a11y: { config: { rules: [{ id: 'aria-hidden-focus', selector: '[aria-hidden="true"]:not([style*="clip"])' }] } }
+    a11y: navigationMenuA11y
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -58,7 +61,7 @@ export const BlogRecentPosts = {
     await waitFor(() => expect(category).toBeVisible());
     const recent = canvas.getByRole('group', { name: 'Recent posts' });
     await expect(within(recent).getAllByRole('link')).toHaveLength(4);
-    await expect(within(recent).getByRole('link', { name: 'See all' })).toHaveAttribute('href', '#blog');
+    await expect(within(recent).getByRole('link', { name: 'See all' })).toHaveAttribute('href', 'https://assaf.website/blog');
     await userEvent.keyboard('{Escape}');
     await waitFor(() => expect(blog).toHaveAttribute('aria-expanded', 'false'));
     // Leave the panel open so the two blocks stay visible.

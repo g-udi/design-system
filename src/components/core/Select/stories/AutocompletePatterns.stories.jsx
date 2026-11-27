@@ -12,7 +12,7 @@ const pattern = patternStories(
 export default { title: 'Core/Select', id: 'core-select', tags: ['autodocs'], ...catalogueMeta('autocomplete'), play: auditSelectMenus };
 
 export const AutocompleteInputOptions = {
-  name: 'Input options',
+  name: 'Free-text tag autocomplete',
   ...pattern('input-options', 'One field per input option: auto highlight, clear and trigger buttons, disabled, and the small and large sizes.'),
   play: async (context) => {
     for (const input of context.canvasElement.querySelectorAll('[data-slot="autocomplete-input"]')) {

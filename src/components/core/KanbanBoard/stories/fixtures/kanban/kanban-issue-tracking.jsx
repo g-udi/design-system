@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { useCopyToClipboard } from '@gaudi/design-system/hooks/interaction/use-copy-to-clipboard';
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   Kanban,
   KanbanBoardPrimitive as KanbanBoard,
@@ -79,7 +79,7 @@ function IssueCard({ item, isOverlay }) {
         <span className='tabular-nums'>{item.id}</span>
         <span>{item.priority}</span>
         <span className='ms-auto inline-flex items-center gap-1.5 text-text'>
-          <span className={cn('size-1.5 rounded-full', status.dot)} aria-hidden='true' />
+          <StatusDot className={status.dot} />
           {status.label}
         </span>
       </div>

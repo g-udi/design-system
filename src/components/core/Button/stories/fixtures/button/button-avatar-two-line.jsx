@@ -1,3 +1,4 @@
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { AvatarRoot as Avatar, AvatarFallback, AvatarImage } from '@gaudi/design-system/core/Avatar';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -30,9 +31,9 @@ export function Pattern() {
       <div className='grid gap-2 sm:grid-cols-2'>
         {methods.map(({ icon, title, description }) => (
           <Button key={title} variant='outline' tone='neutral' className='group/method h-auto justify-start gap-3 whitespace-normal px-3 py-2 text-left'>
-            <span className='flex size-8 shrink-0 items-center justify-center rounded-md bg-surface-muted text-text-muted group-hover/method:bg-surface'>
+            <IconTile aria-hidden='true' size='sm' variant='muted' className='group-hover/method:bg-surface'>
               <RegistryIcon lucide={icon} aria-hidden='true' />
-            </span>
+            </IconTile>
             <span className='flex flex-col gap-0.5'>
               <span>{title}</span>
               <span className='text-xs font-normal text-text-muted'>{description}</span>

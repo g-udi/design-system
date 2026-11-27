@@ -7,6 +7,7 @@ import {
   CardContent
 } from '@gaudi/design-system/core/Card';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
+const deliveryLog = 'Issue,Delivery,Link check\n41,Bounced,Archive link unavailable\n42,Bounced,Passed';
 const options = [
   {
     id: 'retry',
@@ -18,10 +19,12 @@ const options = [
     label: 'Hold them until I fix the links',
     reply: 'Held. Neither issue goes out until you confirm the links.'
   },
-  { id: 'log', label: 'Open the bounced delivery log', href: '#' }
+  { id: 'log', label: 'Download the bounced delivery log', href: `data:text/csv;charset=utf-8,${encodeURIComponent(deliveryLog)}` }
 ];
 export function Pattern() {
   const [picked, setPicked] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [drafted, setDrafted] = useState(false);
   const chosen = options.find((option) => option.id === picked);
   return (
     <Card className='w-full max-w-sm'>
@@ -46,10 +49,14 @@ export function Pattern() {
        the link option still on offer would give the reader a row
        of choices they have already made. */}
                 <div className='mt-3 flex flex-wrap gap-2'>
-                  <Button size='sm'>Check links</Button>
-                  <Button variant='outline' size='sm'>
-                    Notify the owner
+                  <Button size='sm' onClick={() => setChecked(true)} disabled={checked}>{checked ? 'Checks shown' : 'Review link checks'}</Button>
+                  <Button variant='outline' size='sm' onClick={() => setDrafted(true)} disabled={drafted}>
+                    {drafted ? 'Note drafted' : 'Draft owner note'}
                   </Button>
+                </div>
+                <div role='status' className='mt-2 space-y-1 text-xs'>
+                  {checked && <p>Issue 41 has an unavailable archive link. Issue 42 passed its link check.</p>}
+                  {drafted && <p>Draft to the newsletter owner: issues 41 and 42 bounced. Please review the delivery log before the next send.</p>}
                 </div>
               </ChatBubbleContent>
             </ChatBubble>
@@ -59,14 +66,11 @@ export function Pattern() {
             {options.map((option) =>
               option.href ? (
                 <ChatBubble key={option.id} variant='tinted' align='end'>
-                  {/* This option is an anchor and not a button, because it
-         leaves the thread instead of answering it. asChild keeps
-         that difference in the DOM, so middle click still works. */}
                   <ChatBubbleContent asChild>
-                    <a href={option.href}>
+                    <a href={option.href} download='bounced-deliveries.csv'>
                       {option.label}
                       <RegistryIcon
-                        lucide='ArrowUpRightIcon'
+                        lucide='DownloadIcon'
                         aria-hidden='true'
                         className='ms-1 inline size-4 align-text-bottom'
                       />

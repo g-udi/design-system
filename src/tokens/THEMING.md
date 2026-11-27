@@ -39,6 +39,8 @@ Per mode (`light`, `dark`): 58 colours + 6 shadows. Shared: 4 font families, rad
 
 Every preset passes these WCAG AA pairs in both modes (`checkContrast`, `gaudi-ds theme check`): 4.5:1 for `text`/`text-muted`/`text-subtle` on the surfaces, `text` on `accent-subtle`/`accent-muted`/status `-muted`, `surface` on `text`, `accent-foreground` on `accent`/`accent-dark`, `accent` on surfaces, `focus-foreground` on `focus`, each status on the surface and its `-subtle`, each `-foreground` on its status, and the sidebar pairs; 3:1 for `focus` and `chart-1…8` on the surface. Borders are decorative and not checked. The `contrast` preset goes further, with 7:1 body text.
 
+Unchecked checkboxes and radio buttons use `--ds-color-control-border`, derived from `text-subtle`. This keeps their outlines visible against each theme’s surfaces while ordinary panel borders retain the `border` color.
+
 `checkContrast(theme)` returns `{ pass, checked, failures, results }` (each result: `mode`, `fg`, `bg`, `min`, `ratio`, `pass`). The auto-fix, `repairContrast(theme)` (also `importTheme(input, { repair: true })` and `gaudi-ds theme import --fix`), nudges failing pairs by the smallest lightness change (tints first, then foregrounds); `generateTheme` and `randomTheme` run it on their output.
 
 ## Presets

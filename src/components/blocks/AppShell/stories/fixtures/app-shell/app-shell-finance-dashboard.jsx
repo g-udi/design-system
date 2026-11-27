@@ -1,4 +1,6 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
+import { Label } from '@gaudi/design-system/core/Field';
 import { GaudiLogo, GaudiBrand } from '@gaudi/design-system/icons/brands/gaudi';
 import { useId, useRef, useState } from 'react';
 import {
@@ -106,7 +108,7 @@ function FinanceOverview({ page, onReport }) {
               { label: 'Total income', value: income, icon: 'Wallet' },
               { label: 'Total expense', value: expenses, icon: 'CreditCard' }
             ].map(metric => <div key={metric.label} className='relative ps-12'>
-              <dt className='text-sm'><span className='bg-ui-accent text-ui-accent-foreground absolute start-0 top-0 grid size-9 place-items-center rounded-full'><RegistryIcon lucide={metric.icon} className='size-4' aria-hidden='true' /></span>{metric.label}</dt>
+              <dt className='text-sm'><IconTile size='sm' variant='solid' aria-hidden='true' className='bg-ui-accent text-ui-accent-foreground absolute start-0 top-0 rounded-full'><RegistryIcon lucide={metric.icon} className='size-4' aria-hidden='true' /></IconTile>{metric.label}</dt>
               <dd className='text-text-muted mt-0.5 text-sm tabular-nums'>{money(metric.value)}</dd>
             </div>)}
           </dl>
@@ -135,7 +137,7 @@ function ProductsPanel({ onProduct, fullWidth = false }) {
   return <DashboardPanel title='Top products by sales' span={fullWidth ? 12 : 6} spanMd={fullWidth ? 6 : 3} className='shadow-none'>
     <ul className='grid gap-2'>
       {products.map(product => <li key={product.id}><Button variant='ghost' className='h-auto w-full justify-start gap-3 whitespace-normal px-0 py-2 text-start' onClick={() => onProduct(product)}>
-        <span className='bg-ui-accent text-ui-accent-foreground grid size-9 shrink-0 place-items-center rounded-full'><RegistryIcon lucide={product.icon} className='size-4' aria-hidden='true' /></span>
+        <IconTile size='sm' variant='solid' aria-hidden='true' className='bg-ui-accent text-ui-accent-foreground rounded-full'><RegistryIcon lucide={product.icon} className='size-4' aria-hidden='true' /></IconTile>
         <span className='min-w-0 flex-1'><span className='block text-sm font-medium'>{product.name}</span><span className='text-text-muted mt-0.5 block text-xs font-normal'>{product.category}</span></span>
         <span className='shrink-0 text-xs tabular-nums'>{money(product.sales)}</span>
       </Button></li>)}
@@ -151,8 +153,8 @@ function CustomersPanel({ onCustomer }) {
   const reset = () => { setRole('all'); setPlan('all'); };
   return <DashboardPanel title='Customers' description='Manage account access and billing' className='shadow-none' contentClassName='px-0'>
     <div className='mb-4 grid gap-3 px-3 @lg:grid-cols-2'>
-      <div><label htmlFor={`${id}-role`} className='mb-1.5 block text-xs'>Select role</label><Select id={`${id}-role`} className='max-w-none' value={role} onValueChange={setRole} options={['all', 'Maintainer', 'Admin', 'Editor', 'Viewer'].map(value => ({ value, label: value === 'all' ? 'All roles' : value }))} /></div>
-      <div><label htmlFor={`${id}-plan`} className='mb-1.5 block text-xs'>Select plan</label><Select id={`${id}-plan`} className='max-w-none' value={plan} onValueChange={setPlan} options={['all', 'Enterprise', 'Team', 'Starter'].map(value => ({ value, label: value === 'all' ? 'All plans' : value }))} /></div>
+      <div><Label htmlFor={`${id}-role`} className='mb-1.5 block text-xs'>Select role</Label><Select id={`${id}-role`} className='max-w-none' value={role} onValueChange={setRole} options={['all', 'Maintainer', 'Admin', 'Editor', 'Viewer'].map(value => ({ value, label: value === 'all' ? 'All roles' : value }))} /></div>
+      <div><Label htmlFor={`${id}-plan`} className='mb-1.5 block text-xs'>Select plan</Label><Select id={`${id}-plan`} className='max-w-none' value={plan} onValueChange={setPlan} options={['all', 'Enterprise', 'Team', 'Starter'].map(value => ({ value, label: value === 'all' ? 'All plans' : value }))} /></div>
     </div>
     {visible.length ? <DataTable caption='Customer accounts' className='rounded-none border-x-0 shadow-none' rows={visible} sortable selectable getRowLabel={customer => customer.name} headerVariant='plain' density='compact' columns={[
       { key: 'name', header: 'User', render: customer => <span className='flex items-center gap-2'><AvatarRoot className='size-8'><AvatarImage src={`/avatars/${customer.photo}.svg`} alt='' /><AvatarFallback>{customer.name.slice(0, 1)}</AvatarFallback></AvatarRoot><span><span className='block font-medium'>{customer.name}</span><span className='text-text-muted block text-xs'>{customer.email}</span></span></span> },

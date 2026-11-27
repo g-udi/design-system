@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 
 /**
  * PostSeriesBox Component
@@ -79,7 +80,7 @@ const PostSeriesBox = ({ className, classNames = {}, series, currentId }) => {
 
           return (
             <li key={ post.id } className='flex items-baseline gap-2 text-xs sm:gap-3 sm:text-sm'>
-              <span aria-hidden='true' className={ cn('size-2 shrink-0 self-center rounded-full', markerClasses[state]) } />
+              <StatusDot className={ cn('size-2 self-center', markerClasses[state]) } />
               {post.order != null && <span className='w-4 shrink-0 text-xs text-text-muted'>{post.order}.</span>}
               {isCurrent ? (
                 <span aria-current='step' className='min-w-0 font-medium text-text'>{post.title}</span>

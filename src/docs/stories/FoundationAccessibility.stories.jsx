@@ -1,16 +1,11 @@
+import Card from '@gaudi/design-system/core/Card';
+import Kbd from '@gaudi/design-system/core/Kbd';
 import { Badge, CheckList, CodeBlock, InlineCode, Page, Section, Stat, Table, Td, Th } from '../components/StoryDocs';
 
-const Key = ({ children }) => (
-  <kbd className='inline-flex rounded border bg-surface-muted px-1.5 py-0.5 font-mono text-xs font-medium text-text shadow-sm border-border'>
-    {children}
-  </kbd>
-);
-
 const InfoCard = ({ children, title }) => (
-  <div className='rounded-lg border border-border bg-surface p-4'>
-    <h3 className='mb-2 text-sm font-semibold text-text'>{title}</h3>
+  <Card variant='outline' padding='lg' title={title} classNames={{ title: 'mb-2 text-sm font-semibold' }}>
     <div className='text-xs leading-6 text-text-muted'>{children}</div>
-  </div>
+  </Card>
 );
 
 const RuleRow = ({ description, note = '', rule, status = 'enforced' }) => (
@@ -63,11 +58,11 @@ export const Default = {
         <Table>
           <thead><tr><Th>Key</Th><Th>Behavior</Th><Th>Components</Th></tr></thead>
           <tbody>
-            <tr><Td><Key>Tab / Shift+Tab</Key></Td><Td>Move focus between interactive elements.</Td><Td>All components.</Td></tr>
-            <tr><Td><Key>Enter / Space</Key></Td><Td>Activate buttons, toggles, and links.</Td><Td>Button, Link, Search, ImageModal.</Td></tr>
-            <tr><Td><Key>Arrow Keys</Key></Td><Td>Navigate within composite widgets that implement managed focus.</Td><Td>Command palette, carousel, select, code tabs.</Td></tr>
-            <tr><Td><Key>Escape</Key></Td><Td>Close temporary overlays and return focus when the surface owns focus.</Td><Td>Command palette, ImageModal, Video, the site header phone sheet, dropdowns.</Td></tr>
-            <tr><Td><Key>Home / End</Key></Td><Td>Jump to first or last option where the widget owns a listbox, menu, or tablist pattern.</Td><Td>Command palette, select, code tabs.</Td></tr>
+            <tr><Td><Kbd size='sm'>Tab / Shift+Tab</Kbd></Td><Td>Move focus between interactive elements.</Td><Td>All components.</Td></tr>
+            <tr><Td><Kbd size='sm'>Enter / Space</Kbd></Td><Td>Activate buttons, toggles, and links.</Td><Td>Button, Link, Search, ImageModal.</Td></tr>
+            <tr><Td><Kbd size='sm'>Arrow Keys</Kbd></Td><Td>Navigate within composite widgets that implement managed focus.</Td><Td>Command palette, carousel, select, code tabs.</Td></tr>
+            <tr><Td><Kbd size='sm'>Escape</Kbd></Td><Td>Close temporary overlays and return focus when the surface owns focus.</Td><Td>Command palette, ImageModal, Video, the site header phone sheet, dropdowns.</Td></tr>
+            <tr><Td><Kbd size='sm'>Home / End</Kbd></Td><Td>Jump to first or last option where the widget owns a listbox, menu, or tablist pattern.</Td><Td>Command palette, select, code tabs.</Td></tr>
           </tbody>
         </Table>
       </Section>

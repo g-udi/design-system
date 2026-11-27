@@ -1,4 +1,4 @@
-import { Badge } from '@gaudi/design-system/core/Pill';
+import { Badge, StatusDot } from '@gaudi/design-system/core/Pill';
 import {
   AvatarRoot as Avatar,
   AvatarFallback,
@@ -13,11 +13,11 @@ export function Pattern() {
         Verified
       </Badge>
       <Badge variant='info-light'>
-        <span aria-hidden='true' className='size-1.5 rounded-full bg-current' />
+        <StatusDot />
         In progress
       </Badge>
       <Badge variant='success-light'>
-        <span aria-hidden='true' className='size-1.5 rounded-full bg-current' />
+        <StatusDot />
         Online
       </Badge>
       <Badge variant='outline'>

@@ -14,9 +14,8 @@ import {
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuItemPrimitive as DropdownMenuItem,
   DropdownMenuLabelPrimitive as DropdownMenuLabel,
-  DropdownMenuSeparatorPrimitive as DropdownMenuSeparator,
+  DropdownMenuRadioGroup, DropdownMenuRadioItem,
   DropdownMenuTrigger
 } from '@gaudi/design-system/core/DropdownMenu';
 import { RegistryIcon } from '@gaudi/design-system/icons/RegistryIcon';
@@ -30,7 +29,6 @@ const models = [
   { id: 'claude', label: 'Claude 4.6 Opus', logo: <ClaudeAiIcon /> },
   { id: 'gemini', label: 'Gemini 3.1 Pro', logo: <Gemini /> }
 ];
-const Check = () => <RegistryIcon lucide='CheckIcon' className='text-accent ml-auto size-4' aria-hidden='true' />;
 function ModelLogo({ model }) {
   if (!model.logoDark) return <span aria-hidden='true'>{model.logo}</span>;
   return (
@@ -67,27 +65,17 @@ export function Pattern() {
         <DropdownMenuContent className='w-56' align='start' sideOffset={8}>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Workspaces</DropdownMenuLabel>
+            <DropdownMenuRadioGroup value={workspaceId} onValueChange={setWorkspaceId}>
             {workspaces.map((item) => (
-              <DropdownMenuItem key={item.id} onSelect={() => setWorkspaceId(item.id)}>
+              <DropdownMenuRadioItem key={item.id} value={item.id}>
                 <WorkspaceImage workspace={item} className='size-6 rounded-md' />
                 <span className='flex min-w-0 flex-col'>
                   <span className='truncate text-sm font-medium'>{item.name}</span>
                   <span className='text-text-muted text-xs'>{item.plan}</span>
                 </span>
-                {item.id === workspaceId && <Check />}
-              </DropdownMenuItem>
+              </DropdownMenuRadioItem>
             ))}
-          </DropdownMenuGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
-              Create workspace
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <RegistryIcon lucide='SettingsIcon' aria-hidden='true' />
-              Manage workspaces
-            </DropdownMenuItem>
+            </DropdownMenuRadioGroup>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -102,13 +90,14 @@ export function Pattern() {
         <DropdownMenuContent align='start' className='w-52'>
           <DropdownMenuGroup>
             <DropdownMenuLabel>Model</DropdownMenuLabel>
+            <DropdownMenuRadioGroup value={modelId} onValueChange={setModelId}>
             {models.map((item) => (
-              <DropdownMenuItem key={item.id} onSelect={() => setModelId(item.id)}>
+              <DropdownMenuRadioItem key={item.id} value={item.id}>
                 <ModelLogo model={item} />
                 {item.label}
-                {item.id === modelId && <Check />}
-              </DropdownMenuItem>
+              </DropdownMenuRadioItem>
             ))}
+            </DropdownMenuRadioGroup>
           </DropdownMenuGroup>
         </DropdownMenuContent>
       </DropdownMenu>

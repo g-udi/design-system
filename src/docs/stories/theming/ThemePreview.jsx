@@ -1,3 +1,4 @@
+import Link from '@gaudi/design-system/core/Link';
 import { useEffect } from 'react';
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from '../../../components/blocks/AppShell';
 import Banner from '../../../components/core/Banner';
@@ -64,7 +65,7 @@ export function ThemePreview({ theme, mode }) {
         <div className='flex min-w-0 flex-col gap-4'>
           <div>
             <h3 className='text-2xl font-semibold text-text'>Quarterly review</h3>
-            <p className='text-text-muted'>Body copy in the theme&apos;s sans stack, with <a className='text-accent underline' href='#preview'>an inline link</a> and <code className='font-mono text-sm'>monospace</code>.</p>
+            <p className='text-text-muted'>Body copy in the theme&apos;s sans stack, with <Link variant='bare' className='text-accent underline' href='#preview'>an inline link</Link> and <code className='font-mono text-sm'>monospace</code>.</p>
             <p className='text-sm text-text-subtle'>Subtle caption text.</p>
           </div>
           <div className='flex flex-wrap gap-2'>

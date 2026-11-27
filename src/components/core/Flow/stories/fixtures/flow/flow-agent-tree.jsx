@@ -12,7 +12,7 @@ import {
 } from '@gaudi/design-system/core/Flow';
 import { default as Button } from '@gaudi/design-system/core/Button';
 import { ButtonGroup } from '@gaudi/design-system/core/ButtonGroup';
-import { default as Field, FieldError, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
+import { FieldLegend, FieldSet, default as Field, FieldError, FieldInput, FieldLabel } from '@gaudi/design-system/core/Field';
 import { default as ToastProvider, toast } from '@gaudi/design-system/core/Toast';
 import { Toggle } from '@gaudi/design-system/core/ToggleGroup';
 import { ClaudeAiIcon } from '@gaudi/design-system/icons/brands/claudeAiIcon';
@@ -244,8 +244,8 @@ function AgentEditor() {
               <FieldInput value={selected.data.title} onFocus={() => commit()} onChange={(event) => updateData(selected.id, { title: event.target.value })} />
             </Field>
             {selected.data.branches && (
-              <fieldset className='grid gap-2'>
-                <legend className='mb-1 text-sm font-medium'>Branches</legend>
+              <FieldSet className='grid gap-2'>
+                <FieldLegend className='mb-1 text-sm font-medium'>Branches</FieldLegend>
                 {selected.data.branches.map((branch, index) => (
                   <Field key={branch.id}>
                     <FieldLabel className='sr-only'>{`Branch ${index + 1} name`}</FieldLabel>
@@ -257,7 +257,7 @@ function AgentEditor() {
                   <RegistryIcon lucide='PlusIcon' aria-hidden='true' />
                   Add branch
                 </Button>
-              </fieldset>
+              </FieldSet>
             )}
           </>
         )}

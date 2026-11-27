@@ -1,8 +1,9 @@
-import { ChartFrame, useChartFrame, getChartColor, ChartContainer, ChartGrid, ChartXAxis, ChartYAxis, ChartReferenceLine, ChartDataTable, createChartFormatter } from '@gaudi/design-system/charts/ChartFrame';
+import { ChartFrame, useChartFrame, ChartContainer, ChartGrid, ChartXAxis, ChartYAxis, ChartReferenceLine, ChartDataTable, createChartFormatter } from '@gaudi/design-system/charts/ChartFrame';
 import { BarChart as RechartsBarChart, Bar } from 'recharts';
 import { useState } from 'react';
 import { BarChart } from '@gaudi/design-system/charts/BarChart';
 import { ToggleGroupRoot as ToggleGroup, ToggleGroupItem } from '@gaudi/design-system/core/ToggleGroup';
+import Progress from '@gaudi/design-system/core/Progress';
 
 export const goals = [
   { label: 'Words', done: 18000, target: 24000 },
@@ -16,19 +17,13 @@ export function GoalBars() {
   const frame = useChartFrame();
 
   return (
-    <svg aria-hidden='true' className='h-full w-full' viewBox='0 0 300 120' preserveAspectRatio='none'>
-      {goals.map((goal, index) => {
-        const y = 12 + index * 36;
-        const active = frame?.activeIndex === index;
-
-        return (
-          <g key={goal.label} data-chart-index={index}>
-            <rect x='0' y={y} width='300' height='20' rx='4' fill='var(--ds-color-chart-track)' />
-            <rect x='0' y={y} width={300 * (goal.done / goal.target)} height='20' rx='4' fill={getChartColor(undefined, index)} fillOpacity={frame?.activeIndex == null || active ? 1 : 0.45} />
-          </g>
-        );
-      })}
-    </svg>
+    <div className='grid h-full content-evenly'>
+      {goals.map((goal, index) => (
+        <div key={goal.label} data-chart-index={index} className={frame?.activeIndex === index ? 'bg-surface-muted' : undefined}>
+          <Progress label={goal.label} value={goal.done} max={goal.target} valueText={`${Math.round(goal.done / goal.target * 100)}%`} />
+        </div>
+      ))}
+    </div>
   );
 }
 

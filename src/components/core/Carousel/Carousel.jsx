@@ -8,7 +8,7 @@ import Icon from '../Icon';
 import Link from '../Link';
 import { cn } from '../../../utilities/cn';
 import { carouselCardVariants, carouselSlideVariants, carouselVariants } from './carouselVariants.js';
-import { Carousel as CarouselRoot, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './CarouselPrimitives.jsx';
+import { Carousel as CarouselRoot, CarouselContent, CarouselIndicator, CarouselItem, CarouselNext, CarouselPrevious } from './CarouselPrimitives.jsx';
 
 const focusRing = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-text-subtle focus-visible:ring-offset-2 focus-visible:ring-offset-surface';
 const overlayText = 'text-text-inverse drop-shadow-md';
@@ -184,24 +184,14 @@ const Carousel = ({
         ))}
       </CarouselContent>
 
-      <div className={ cn('mt-4 flex items-center justify-center gap-1 sm:gap-2', classNames.indicators) }>
+      <div className={ cn('mt-4 flex flex-wrap items-center justify-center gap-x-1 sm:gap-x-2', classNames.indicators) }>
         {items.map((item, index) => (
-          <button
+          <CarouselIndicator
             key={ getItemKey(item, index) }
-            aria-label={ `Go to slide ${index + 1}` }
-            aria-current={ index === current ? 'true' : undefined }
-            className={ cn('group/indicator inline-flex size-11 items-center justify-center rounded-control', focusRing, classNames.indicator) }
-            type='button'
-            onClick={ () => api?.scrollTo(index) }
-          >
-            <span
-              aria-hidden='true'
-              className={ cn(
-                'h-2.5 rounded-control transition-all motion-reduce:transition-none',
-                index === current ? 'w-7 bg-accent' : 'w-2.5 bg-border group-hover/indicator:bg-text-subtle'
-              ) }
-            />
-          </button>
+            index={ index }
+            active={ index === current }
+            className={ classNames.indicator }
+          />
         ))}
       </div>
 

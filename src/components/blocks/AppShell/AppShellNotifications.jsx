@@ -1,4 +1,5 @@
 'use client';
+import { StatusDot } from '../../core/Pill/StatusDot.jsx';
 import { useControllableState } from '../../../hooks/state/use-controllable-state.js';
 import { cn } from '../../../utilities/cn/index.js';
 import { default as Button } from '../../core/Button/index.js';
@@ -207,7 +208,7 @@ function AppShellNotifications({
                 className={cn('relative', triggerClassName)}
               >
                 <RegistryIcon lucide='Bell' aria-hidden='true' />
-                {unread ? <span aria-hidden='true' className='bg-ui-destructive absolute top-1.5 right-1.5 size-1.5 rounded-full' /> : null}
+                {unread ? <StatusDot className='bg-ui-destructive absolute top-1.5 right-1.5 size-1.5' /> : null}
               </Button>
             </SheetTrigger>
           </TooltipTrigger>

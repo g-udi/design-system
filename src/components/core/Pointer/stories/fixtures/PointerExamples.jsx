@@ -1,3 +1,4 @@
+import { Label } from '@gaudi/design-system/core/Field';
 import { useState } from 'react';
 import { Pointer } from '@gaudi/design-system/core/Pointer';
 import Button from '@gaudi/design-system/core/Button';
@@ -63,7 +64,7 @@ export function NativeControls() {
   return (
     <Pointer className='grid min-h-80 content-center gap-5 rounded-lg border border-border bg-surface-muted p-6'>
       <h3 className='text-lg font-semibold text-text'>Native where it matters</h3>
-      <label className='grid max-w-md gap-2 text-sm text-text'>Collection name<Input placeholder='Type a name' /></label>
+      <Label className='grid max-w-md gap-2 text-sm text-text'>Collection name<Input placeholder='Type a name' /></Label>
       <p className='max-w-md text-sm text-text-muted' data-pointer-native>Select and copy this text with the native cursor. Touch, keyboard use, and reduced motion keep their normal behavior.</p>
       <Button variant='outline' disabled className='justify-self-start'>Unavailable action</Button>
     </Pointer>

@@ -1,4 +1,5 @@
 'use client';
+import { IconTile } from '@gaudi/design-system/core/Icon';
 import { useCallback, useId, useMemo, useRef, useState } from 'react';
 import { addDays, format, isWeekend, startOfDay, startOfWeek } from 'date-fns';
 import { Gantt } from '@gaudi/design-system/core/Gantt';
@@ -252,9 +253,9 @@ export function Pattern() {
                       <AvatarFallback>{person.name.split(' ').map((part) => part[0]).join('')}</AvatarFallback>
                     </Avatar>
                   ) : (
-                    <span className='bg-surface-muted grid size-6 shrink-0 place-items-center rounded-sm'>
+                    <IconTile aria-hidden='true' size='xs' variant='muted'>
                       <RegistryIcon lucide='BuildingIcon' className='size-3.5' aria-hidden='true' />
-                    </span>
+                    </IconTile>
                   )}
                   <span className='flex min-w-0 flex-col leading-tight'>
                     <span className='truncate'>{resource.title}</span>
